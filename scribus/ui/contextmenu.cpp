@@ -81,7 +81,7 @@ void ContextMenu::createMenuItems_Selection()
 	bool itemsAreSameType = m_Sel.itemsAreSameType();
 	//Find our doc from first item in selection if we have an item
 	PageItem *currItem = m_Sel.itemAt(0);
-	assert(m_doc != nullptr && currItem != nullptr);
+	assert(m_doc!=nullptr && currItem!=nullptr);
 	
 	QMenu *menuConvertTo = new QMenu(this);
 	QMenu *menuEditContent = new QMenu(this);
@@ -94,6 +94,8 @@ void ContextMenu::createMenuItems_Selection()
 	QMenu *menuLocking = new QMenu(this);
 	QMenu *menuSendTo = new QMenu(this);
 	QMenu *menuScrapbook = new QMenu(this);
+	QMenu *menuEdit = new QMenu(this);
+	QMenu *menuImage = new QMenu(this);
 //	QMenu *menuWeld = new QMenu(this);
 
 	//<-- Add Info
@@ -150,12 +152,48 @@ void ContextMenu::createMenuItems_Selection()
 	}
 	//-->
 
-	//<-- Add undo
-	UndoManager * const undoManager(UndoManager::instance());
-	if (undoManager->hasUndoActions())
-		addAction(m_ScMW->scrActions["editUndoAction"]);
-	if (undoManager->hasRedoActions())
-		addAction(m_ScMW->scrActions["editRedoAction"]);
+	//<-- Add Contents Actions
+	//This part only for text frames
+	if (m_actionList.contains("fileImportText"))
+	{
+		addSeparator();
+		menuEditContent->addAction(m_ScMW->scrActions["fileImportText"]);
+		menuEditContent->addAction(m_ScMW->scrActions["fileImportAppendText"]);
+		menuEditContent->addAction(m_ScMW->scrActions["toolsEditWithStoryEditor"]);
+		menuEditContent->addAction(m_ScMW->scrActions["insertSampleText"]);
+		menuEditContent->addSeparator();
+	}
+	else //enable this for, eg, text on a path
+		if (m_actionList.contains("toolsEditWithStoryEditor"))
+		{
+			addSeparator();
+			menuEditContent->addAction(m_ScMW->scrActions["toolsEditWithStoryEditor"]);
+		}
+	if (m_actionList.contains("fileImportImage"))
+		menuEditContent->addAction(m_ScMW->scrActions["fileImportImage"]);
+	if (selectedItemCount == 1 && currItem->isImageFrame())
+	{
+		if (QApplication::clipboard()->mimeData()->hasImage())
+			menuEditContent->addAction(m_ScMW->scrActions["editPasteImageFromClipboard"]);
+	}
+	if (itemsAreSameType)
+	{
+		if (m_actionList.contains("editCopyContents"))
+			menuEditContent->addAction(m_ScMW->scrActions["editCopyContents"]);
+		if (m_actionList.contains("editPasteContents"))
+			menuEditContent->addAction(m_ScMW->scrActions["editPasteContents"]);
+		if (currItem->isImageFrame() && m_actionList.contains("editPasteContentsAbs"))
+			menuEditContent->addAction(m_ScMW->scrActions["editPasteContentsAbs"]);
+	}
+	if (m_actionList.contains("editClearContents"))
+		menuEditContent->addAction(m_ScMW->scrActions["editClearContents"]);
+	if (m_actionList.contains("editTruncateContents"))
+		menuEditContent->addAction(m_ScMW->scrActions["editTruncateContents"]);
+	if (menuEditContent->actions().count()>0)
+	{
+		QAction *act = addMenu(menuEditContent);
+		act->setText( tr("Content"));
+	}
 	//-->
 
 	//<-- Item specific actions
@@ -205,32 +243,14 @@ void ContextMenu::createMenuItems_Selection()
 			addSeparator();
 			addAction(m_ScMW->scrActions["itemUpdateMarks"]);
 		}
-		if (m_actionList.contains("fileImportText"))
-		{
-			addSeparator();
-			addAction(m_ScMW->scrActions["fileImportText"]);
-			addAction(m_ScMW->scrActions["fileImportAppendText"]);
-			addAction(m_ScMW->scrActions["toolsEditWithStoryEditor"]);
-			addAction(m_ScMW->scrActions["insertSampleText"]);
-		}
-		else //enable this for, eg, text on a path
-			if (m_actionList.contains("toolsEditWithStoryEditor"))
-			{
-				addSeparator();
-				addAction(m_ScMW->scrActions["toolsEditWithStoryEditor"]);
-			}
+
+
+
+
+
 		addSeparator();
-		if (m_actionList.contains("fileImportImage"))
-			addAction(m_ScMW->scrActions["fileImportImage"]);
-		if (selectedItemCount == 1 && currItem->isImageFrame())
-		{
-			if (QApplication::clipboard()->mimeData()->hasImage())
-				addAction(m_ScMW->scrActions["editPasteImageFromClipboard"]);
-		}
-		if (m_actionList.contains("itemAdjustFrameToImage"))
-			addAction(m_ScMW->scrActions["itemAdjustFrameToImage"]);
-		if (m_actionList.contains("itemAdjustImageToFrame"))
-			addAction(m_ScMW->scrActions["itemAdjustImageToFrame"]);
+
+
 
 		if (m_actionList.contains("tableInsertRows"))
 			addAction(m_ScMW->scrActions["tableInsertRows"]);
@@ -258,17 +278,7 @@ void ContextMenu::createMenuItems_Selection()
 			addAction(m_ScMW->scrActions["tableAdjustTableToFrame"]);
 		if (m_actionList.contains("itemAdjustFrameHeightToText"))
 			addAction(m_ScMW->scrActions["itemAdjustFrameHeightToText"]);
-		if (m_actionList.contains("itemExtendedImageProperties"))
-			addAction(m_ScMW->scrActions["itemExtendedImageProperties"]);
-		if (m_actionList.contains("itemAdjustFrameToImage"))
-		{
-			if (currItem->imageIsAvailable)
-				addAction(m_ScMW->scrActions["itemToggleInlineImage"]);
-		}
-		if (m_actionList.contains("itemImageInfo"))
-			addAction(m_ScMW->scrActions["itemImageInfo"]);
-		if (m_actionList.contains("itemUpdateImage"))
-			addAction(m_ScMW->scrActions["itemUpdateImage"]);
+
 		
 		if (m_actionList.contains("itemPreviewLow"))
 		{
@@ -289,13 +299,28 @@ void ContextMenu::createMenuItems_Selection()
 		}
 		
 		if (m_actionList.contains("styleImageEffects"))
-			addAction(m_ScMW->scrActions["styleImageEffects"]);
+			menuImage->addAction(m_ScMW->scrActions["styleImageEffects"]);
 		if (m_actionList.contains("editEditWithImageEditor"))
-			addAction(m_ScMW->scrActions["editEditWithImageEditor"]);
+			menuImage->addAction(m_ScMW->scrActions["editEditWithImageEditor"]);
 		if (selectedItemCount == 1 && currItem->isImageFrame())
 		{
 			if (currItem->imageIsAvailable)
 			{
+				if (m_actionList.contains("itemExtendedImageProperties"))
+					menuImage->addAction(m_ScMW->scrActions["itemExtendedImageProperties"]);
+				if (m_actionList.contains("itemAdjustFrameToImage"))
+				{
+					if (currItem->imageIsAvailable)
+						menuImage->addAction(m_ScMW->scrActions["itemToggleInlineImage"]);
+				}
+				if (m_actionList.contains("itemImageInfo"))
+					menuImage->addAction(m_ScMW->scrActions["itemImageInfo"]);
+				if (m_actionList.contains("itemUpdateImage"))
+					menuImage->addAction(m_ScMW->scrActions["itemUpdateImage"]);
+				if (m_actionList.contains("itemAdjustFrameToImage"))
+					menuImage->addAction(m_ScMW->scrActions["itemAdjustFrameToImage"]);
+				if (m_actionList.contains("itemAdjustImageToFrame"))
+					menuImage->addAction(m_ScMW->scrActions["itemAdjustImageToFrame"]);
 				m_ScMW->scrActions["itemAdjustFrameToImage"]->setEnabled(true);
 				m_ScMW->scrActions["itemAdjustImageToFrame"]->setEnabled(true);
 				if (currItem->pixm.imgInfo.valid)
@@ -308,6 +333,13 @@ void ContextMenu::createMenuItems_Selection()
 					m_ScMW->scrActions["styleImageEffects"]->setEnabled(true);
 					m_ScMW->scrActions["editEditWithImageEditor"]->setEnabled(true);
 				}
+
+
+				if (menuImage->actions().count()>0)
+				{
+					QAction *act = addMenu(menuImage);
+					act->setText( tr("Image"));
+				}
 			}
 		}
 		
@@ -319,44 +351,22 @@ void ContextMenu::createMenuItems_Selection()
 	}
 	//-->
 
-	//<-- Item Attributes
-	if (selectedItemCount == 1)
-	{
-		addSeparator();
-		addAction(m_ScMW->scrActions["itemAttributes"]);
-	}
-	//-->
 
-	//<-- Item PDF Options
-	if (currItem->itemType() == PageItem::TextFrame)
-	{
-		QAction *act = addMenu(menuPDF);
-		act->setText( tr("&PDF Options"));
-		menuPDF->addAction(m_ScMW->scrActions["itemPDFIsAnnotation"]);
-		if (!m_doc->masterPageMode())
-			menuPDF->addAction(m_ScMW->scrActions["itemPDFIsBookmark"]);
-		if (selectedItemCount == 1)
-		{
-			menuPDF->addSeparator();
-			if (m_actionList.contains("itemPDFAnnotationProps"))
-				menuPDF->addAction(m_ScMW->scrActions["itemPDFAnnotationProps"]);
-			if (m_actionList.contains("itemPDFFieldProps"))
-				menuPDF->addAction(m_ScMW->scrActions["itemPDFFieldProps"]);
-		}
-	}
-	//-->
 
-	//<-- Item Locking
+
 	addSeparator();
-	//-->
+
 	
 	if (selectedItemCount > 0)
 	{
+		//<-- Item Locking
 		menuLocking->addAction(m_ScMW->scrActions["itemLock"]);
 		menuLocking->addAction(m_ScMW->scrActions["itemLockSize"]);
 		QAction *actL = addMenu(menuLocking);
 		actL->setText( tr("Locking"));
+		//-->
 
+		//<-- Send To
 		QAction *actST = addMenu(menuSendTo);
 		actST->setText( tr("Send to"));
 		QAction *actScr = menuSendTo->addMenu(menuScrapbook);
@@ -378,14 +388,14 @@ void ContextMenu::createMenuItems_Selection()
 			QMap<int,int> layerMap;
 			for (ScLayers::iterator it = m_doc->Layers.begin(); it != m_doc->Layers.end(); ++it)
 				layerMap.insert((*it).Level, (*it).ID);
-			int i = layerMap.count() - 1;
-			while (i >= 0)
+			int i=layerMap.count()-1;
+			while (i>=0)
 			{
 				if (m_doc->layerLocked(layerMap[i]))
 					m_ScMW->scrLayersActions[QString::number(layerMap[i])]->setEnabled(false);
 				else
 					m_ScMW->scrLayersActions[QString::number(layerMap[i])]->setEnabled(true);
-				QPixmap pm(20, 15);
+				QPixmap pm(20,15);
 				pm.fill(m_doc->layerMarker(layerMap[i]));
 				m_ScMW->scrLayersActions[QString::number(layerMap[i])]->setIcon(pm);
 				menuLayer->addAction(m_ScMW->scrLayersActions[QString::number(layerMap[i--])]);
@@ -395,6 +405,8 @@ void ContextMenu::createMenuItems_Selection()
 		}
 		//-->
 	}
+
+
 	//<-- Add Groups Items
 	if (selectedItemCount > 1)
 	{
@@ -411,7 +423,7 @@ void ContextMenu::createMenuItems_Selection()
 	}
 	//-->
 
-	//<-- Add Level Item
+	//<-- Add Level Items
 	if (!currItem->locked())
 	{
 		menuLevel->addAction(m_ScMW->scrActions["itemRaise"]);
@@ -448,18 +460,44 @@ void ContextMenu::createMenuItems_Selection()
 		}
 	}
 	//-->
-	
-	//<-- Add Copy/Paste Actions
+	//<-- Item Attributes
+	if (selectedItemCount == 1)
+	{
+		addSeparator();
+		addAction(m_ScMW->scrActions["itemAttributes"]);
+	}
+	//-->
+
+	//<-- Item PDF Options
+	if (currItem->itemType() == PageItem::TextFrame)
+	{
+		QAction *act = addMenu(menuPDF);
+		act->setText( tr("&PDF Options"));
+		menuPDF->addAction(m_ScMW->scrActions["itemPDFIsAnnotation"]);
+		if (!m_doc->masterPageMode())
+			menuPDF->addAction(m_ScMW->scrActions["itemPDFIsBookmark"]);
+		if (selectedItemCount == 1)
+		{
+			menuPDF->addSeparator();
+			if (m_actionList.contains("itemPDFAnnotationProps"))
+				menuPDF->addAction(m_ScMW->scrActions["itemPDFAnnotationProps"]);
+			if (m_actionList.contains("itemPDFFieldProps"))
+				menuPDF->addAction(m_ScMW->scrActions["itemPDFFieldProps"]);
+		}
+	}
+	//-->
+	//<<-- Edit Menu
 	addSeparator();
+	//<-- Add Copy/Paste Actions
 	if (!currItem->locked() && !(currItem->isSingleSel))
-		addAction(m_ScMW->scrActions["editCut"]);
+		menuEdit->addAction(m_ScMW->scrActions["editCut"]);
 	if (!(currItem->isSingleSel))
-		addAction(m_ScMW->scrActions["editCopy"]);
+		menuEdit->addAction(m_ScMW->scrActions["editCopy"]);
 	if (((m_doc->appMode == modeEdit && currItem->itemType() == PageItem::TextFrame) || (m_doc->appMode == modeEditTable && currItem->itemType() == PageItem::Table)) &&
 		(ScMimeData::clipboardHasScribusText() || ScMimeData::clipboardHasScribusElem() || ScMimeData::clipboardHasPlainText()))
-		addAction(m_ScMW->scrActions["editPaste"]);
+		menuEdit->addAction(m_ScMW->scrActions["editPaste"]);
 	if (!currItem->locked() && (m_doc->appMode != modeEdit)  && (m_doc->appMode != modeEditTable) && (!(currItem->isSingleSel)))
-		addAction(m_ScMW->scrActions["itemDelete"]);
+		menuEdit->addAction(m_ScMW->scrActions["itemDelete"]);
 
 //<<#14678
 	if ((ScMimeData::clipboardHasScribusElem() || ScMimeData::clipboardHasScribusFragment()) &&
@@ -468,33 +506,22 @@ void ContextMenu::createMenuItems_Selection()
 		FPoint fp = m_doc->view()->m_canvas->globalToCanvas(QCursor::pos());
 		m_doc->view()->dragX = fp.x();
 		m_doc->view()->dragY = fp.y();
-		addAction( tr("&Paste Here") , m_doc->view(), SLOT(PasteToPage()));
+		menuEdit->addAction( tr("&Paste Here") , m_doc->view(), SLOT(PasteToPage()));
 	}
 //>>#14678
 
 
 
 	//-->
-	
-	//<-- Add Contents Actions
-	if (itemsAreSameType)
-	{
-		if (m_actionList.contains("editCopyContents"))
-			menuEditContent->addAction(m_ScMW->scrActions["editCopyContents"]);
-		if (m_actionList.contains("editPasteContents"))
-			menuEditContent->addAction(m_ScMW->scrActions["editPasteContents"]);
-		if (currItem->isImageFrame() && m_actionList.contains("editPasteContentsAbs"))
-			menuEditContent->addAction(m_ScMW->scrActions["editPasteContentsAbs"]);
-	}
-	if (m_actionList.contains("editClearContents"))
-		menuEditContent->addAction(m_ScMW->scrActions["editClearContents"]);
-	if (m_actionList.contains("editTruncateContents"))
-		menuEditContent->addAction(m_ScMW->scrActions["editTruncateContents"]);
-	if (menuEditContent->actions().count()>0)
-	{
-		QAction *act = addMenu(menuEditContent);
-		act->setText( tr("Content"));
-	}
+	//<-- Add undo
+	UndoManager * const undoManager(UndoManager::instance());
+	if (undoManager->hasUndoActions())
+		menuEdit->addAction(m_ScMW->scrActions["editUndoAction"]);
+	if (undoManager->hasRedoActions())
+		menuEdit->addAction(m_ScMW->scrActions["editRedoAction"]);
+	QAction *actEdit = addMenu(menuEdit);
+	actEdit->setText( tr("Edit"));
+	//-->
 	//-->
 	
 	//<-- Add Welding Menu
@@ -530,7 +557,7 @@ void ContextMenu::createMenuItems_NoSelection(double mx, double my)
 	if (selectedItemCount != 0)
 		return;
 	bool layerLocked = m_doc->layerLocked(m_doc->activeLayer());
-
+	
 	if (!layerLocked && (ScMimeData::clipboardHasScribusElem() || ScMimeData::clipboardHasScribusFragment()))
 	{
 		m_doc->view()->dragX = mx;

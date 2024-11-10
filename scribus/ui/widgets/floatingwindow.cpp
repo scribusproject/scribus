@@ -10,16 +10,10 @@
 
 
 FloatingWindow::FloatingWindow(QWidget *child, QWidget *reference, QWidget *parent)
-	: QWidget(parent),
+	: QWidget{parent, /*Qt::Window | */Qt::Tool | Qt::FramelessWindowHint /*| Qt::WindowStaysOnTopHint*/}, // Qt::Tool | Qt::FramelessWindowHint
 	  m_child(child),
 	  m_reference(reference)
 {
-#if defined(Q_OS_WINDOWS)
-	setWindowFlags(Qt::Popup);
-	//setWindowFlags(Qt::Tool | Qt::FramelessWindowHint | windowFlags());
-#else
-	setWindowFlags(Qt::Tool | Qt::FramelessWindowHint | windowFlags());
-#endif
 
 	if (m_child == nullptr)
 		m_child = new QWidget();
@@ -29,7 +23,7 @@ FloatingWindow::FloatingWindow(QWidget *child, QWidget *reference, QWidget *pare
 
 	buttonClose = new QToolButton();
 	buttonClose->setToolButtonStyle(Qt::ToolButtonIconOnly);
-	buttonClose->setFixedSize(16, 16);
+	buttonClose->setFixedSize(16,16);
 	buttonClose->setAutoRaise(true);
 
 	QHBoxLayout *layoutHeader = new QHBoxLayout;
@@ -69,8 +63,9 @@ void FloatingWindow::iconSetChange()
 bool FloatingWindow::eventFilter(QObject *obj, QEvent *event)
 {
 	QWidget *wdg = dynamic_cast<QWidget*>(obj);
+
 	if (!wdg)
-		return QWidget::eventFilter(obj, event);
+		return QObject::eventFilter(obj, event);
 
 	if (wdg == m_handle)
 	{
@@ -78,13 +73,13 @@ bool FloatingWindow::eventFilter(QObject *obj, QEvent *event)
 		{
 		case QEvent::MouseButtonPress:
 		{
-			QMouseEvent *mEvent = (QMouseEvent*) event;
+			QMouseEvent *mEvent = (QMouseEvent*)event;
 			m_mousePos = mEvent->pos();
 		}
 			break;
 		case QEvent::MouseMove:
 		{
-			QMouseEvent *mEvent = (QMouseEvent*) event;
+			QMouseEvent *mEvent = (QMouseEvent*)event;
 			if (mEvent->buttons() & Qt::LeftButton)
 				this->move(mapToParent(mEvent->pos() - m_mousePos));
 		}
@@ -94,7 +89,7 @@ bool FloatingWindow::eventFilter(QObject *obj, QEvent *event)
 		}
 	}
 
-	return QWidget::eventFilter(obj, event);
+	return QObject::eventFilter(obj, event);
 }
 
 void FloatingWindow::keyPressEvent(QKeyEvent *event)
@@ -106,8 +101,6 @@ void FloatingWindow::keyPressEvent(QKeyEvent *event)
 void FloatingWindow::hideEvent(QHideEvent *event)
 {
 	emit closed();
-
-	QWidget::hideEvent(event);
 }
 
 QSize FloatingWindow::screenSize() const

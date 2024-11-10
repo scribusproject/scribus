@@ -1550,7 +1550,6 @@ public slots:
 	void itemSelection_SetFillGradient(const VGradient& newGradient, Selection* customSelection = nullptr);
 	void itemSelection_SetFillGradientExtend(VGradient::VGradientRepeatMethod repeatMethod, Selection* customSelection = nullptr);
 	void itemSelection_SetFillGradientName(const QString& gradientName, Selection* customSelection = nullptr);
-	void itemSelection_SetFillRule(bool evenOdd, Selection* customSelection = nullptr);
 	void itemSelection_SetMaskGradient(const VGradient& newGradient, Selection* customSelection = nullptr);
 	void itemSelection_SetMaskGradientName(const QString& gradientName, Selection* customSelection = nullptr);
 	void itemSelection_SetOverprint(bool overprint, Selection* customSelection = nullptr);

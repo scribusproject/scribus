@@ -1347,7 +1347,7 @@ bool PrefsManager::writePref(const QString& filePath)
 	QString st = "<SCRIBUSRC></SCRIBUSRC>";
 	docu.setContent(st);
 	QDomElement elem = docu.documentElement();
-	elem.setAttribute("VERSION", "1.7.0");
+	elem.setAttribute("VERSION", "1.5.0");
 
 	QDomElement dcUI = docu.createElement("UI");
 	dcUI.setAttribute("ShowStartupDialog", static_cast<int>(appPrefs.uiPrefs.showStartupDialog));
@@ -1980,14 +1980,14 @@ bool PrefsManager::readPref(const QString& filePath)
 	if (elem.tagName() != "SCRIBUSRC")
 		return false;
 	//Ignore scribus*.rc files prior to 1.5.0 due to changes
-	bool prefs170FileFound = false;
+	bool prefs150FileFound = false;
 	if (elem.hasAttribute("VERSION"))
 	{
-		if (elem.attribute("VERSION") == "1.7.0")
-			prefs170FileFound = true;
+		if (elem.attribute("VERSION") == "1.5.0")
+			prefs150FileFound = true;
 	}
-	m_firstTimeIgnoreOldPrefs = !prefs170FileFound;
-	if (!prefs170FileFound)
+	m_firstTimeIgnoreOldPrefs = !prefs150FileFound;
+	if (!prefs150FileFound)
 		return false;
 
 	appPrefs.colorPrefs.DColors.clear();
