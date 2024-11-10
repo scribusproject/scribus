@@ -1096,7 +1096,7 @@ void PrefsManager::setLatexCommands(const QMap<QString, QString>& commands)
 	appPrefs.extToolPrefs.latexCommands = commands;
 }
 
-bool PrefsManager::renderFrameConfigured()
+bool PrefsManager::renderFrameConfigured() const
 {
 	if (appPrefs.extToolPrefs.latexConfigs.isEmpty())
 		return false;
@@ -1691,7 +1691,7 @@ bool PrefsManager::writePref(const QString& filePath)
 	dcPreflightVerifier.setAttribute("ShowNonPrintingLayerErrors", appPrefs.verifierPrefs.showNonPrintingLayerErrors);
 	elem.appendChild(dcPreflightVerifier);
 
-	CheckerPrefsList::Iterator itcpend = appPrefs.verifierPrefs.checkerPrefsList.end();
+	auto itcpend = appPrefs.verifierPrefs.checkerPrefsList.end();
 	for (auto itcp = appPrefs.verifierPrefs.checkerPrefsList.begin(); itcp != itcpend; ++itcp)
 	{
 		QDomElement dcVerifierProfile = docu.createElement("VerifierProfile");
