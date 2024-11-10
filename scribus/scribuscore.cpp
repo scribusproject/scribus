@@ -234,7 +234,6 @@ void ScribusCore::initSplash(bool showSplash)
 
 	QScreen* primaryScreeen = QApplication::primaryScreen();
 	double pixelRatio = primaryScreeen ? primaryScreeen->devicePixelRatio() : 1.0;
-	//QPixmap pix = IconManager::instance().loadPixmap("scribus_splash.png", true);
 	QPixmap pix = IconManager::instance().splashScreen();
 	if (pixelRatio != 1.0)
 	{
