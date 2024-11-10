@@ -374,6 +374,14 @@ bool ODTIm::parseStyleSheets(const QString& designMap)
 	if (!m_zip->read(designMap, xmlData))
 		return false;
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+	QDomDocument::ParseResult parseResult = designMapDom.setContent(xmlData, QDomDocument::ParseOption::Default);
+	if (!parseResult)
+	{
+		qDebug() << "Error loading File" << parseResult.errorMessage << "at Line" << parseResult.errorLine << "Column" << parseResult.errorColumn;
+		return false;
+	}
+#else
 	QString errorMsg;
 	int errorLine = 0;
 	int errorColumn = 0;
@@ -382,6 +390,7 @@ bool ODTIm::parseStyleSheets(const QString& designMap)
 		qDebug() << "Error loading File" << errorMsg << "at Line" << errorLine << "Column" << errorColumn;
 		return false;
 	}
+#endif
 	return parseStyleSheetsXML(designMapDom);
 }
 
@@ -1445,7 +1454,7 @@ QString ODTIm::constructFontName(const QString& fontBaseName, const QString& fon
 					return fontName;
 				}
 			}
-			int reInd = slist.indexOf("Regular");
+			qsizetype reInd = slist.indexOf("Regular");
 			if (reInd < 0)
 				fontName = it.current().family() + " " + slist[0];
 			else
