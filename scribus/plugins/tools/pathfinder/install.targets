@@ -14,12 +14,7 @@
 	<Target Name="Install_plugins_pathfinder">
 		<Copy  
 			SourceFiles="@(FilesToInstall_plugins_pathfinder)"  
-			DestinationFiles="@(FilesToInstall_plugins_pathfinder-&gt;'$(OutDir)\share\icons\1_5_0\%(Filename)%(Extension)')"
-			SkipUnchangedFiles="true"
-		/>
-		<Copy  
-			SourceFiles="@(FilesToInstall_plugins_pathfinder)"  
-			DestinationFiles="@(FilesToInstall_plugins_pathfinder-&gt;'$(OutDir)\share\icons\1_5_1\%(Filename)%(Extension)')"
+			DestinationFiles="@(FilesToInstall_plugins_pathfinder-&gt;'$(OutDir)\share\icons\1_7_0\%(Filename)%(Extension)')"
 			SkipUnchangedFiles="true"
 		/>
 	</Target>
