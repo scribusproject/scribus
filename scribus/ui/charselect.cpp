@@ -289,7 +289,7 @@ void CharSelect::loadUserContent(const QString& f)
 		line = stream.readLine();
 		if (line.left(1) == "#")
 			continue; // don't mess with a comment
-		int a = line.indexOf(" ");
+		qsizetype a = line.indexOf(" ");
 		QString si = line.left(a);
 		si.toInt(&ok, 10);
 		if (ok)
