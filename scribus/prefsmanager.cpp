@@ -296,7 +296,7 @@ void PrefsManager::initDefaults()
 	appPrefs.itemToolPrefs.imageAspectRatio = true;
 	appPrefs.itemToolPrefs.imageLowResType = 1;
 	appPrefs.itemToolPrefs.imageUseEmbeddedPath = false;
-//	appPrefs.PSize = 40;
+
 	appPrefs.printerPrefs.ClipMargin = false;
 	appPrefs.printerPrefs.GCRMode = false;
 	appPrefs.scrapbookPrefs.RecentScrapbooks.clear();
