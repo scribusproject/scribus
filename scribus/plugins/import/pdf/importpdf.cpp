@@ -82,7 +82,7 @@ QImage PdfPlug::readThumbnail(const QString& fName)
 	std::unique_ptr<GlobalParams> globalParamsPtr(new GlobalParams());
 	globalParams = globalParamsPtr.get();
 #endif
-	globalParams->setErrQuiet(gTrue);
+	globalParams->setErrQuiet(true);
 
 	QString pdfFile = QDir::toNativeSeparators(fName);
 	QByteArray encodedFileName = os_is_win() ? pdfFile.toUtf8() : QFile::encodeName(pdfFile);
@@ -105,11 +105,11 @@ QImage PdfPlug::readThumbnail(const QString& fName)
 	bgColor[0] = 255;
 	bgColor[1] = 255;
 	bgColor[2] = 255;
-	SplashOutputDev dev(splashModeXBGR8, 4, gFalse, bgColor, gTrue);
-	dev.setVectorAntialias(gTrue);
-	dev.setFreeTypeHinting(gTrue, gFalse);
+	SplashOutputDev dev(splashModeXBGR8, 4, false, bgColor, true);
+	dev.setVectorAntialias(true);
+	dev.setFreeTypeHinting(true, false);
 	dev.startDoc(&pdfDoc);
-	pdfDoc.displayPage(&dev, 1, hDPI, vDPI, 0, gTrue, gFalse, gFalse);
+	pdfDoc.displayPage(&dev, 1, hDPI, vDPI, 0, true, false, false);
 	SplashBitmap *bitmap = dev.getBitmap();
 	int bw = bitmap->getWidth();
 	int bh = bitmap->getHeight();
@@ -337,7 +337,7 @@ bool PdfPlug::convert(const QString& fn)
 	std::unique_ptr<GlobalParams> globalParamsPtr(new GlobalParams());
 	globalParams = globalParamsPtr.get();
 #endif
-	globalParams->setErrQuiet(gTrue);
+	globalParams->setErrQuiet(true);
 
 	QList<OptionalContentGroup*> ocgGroups;
 	QByteArray encodedFileName = os_is_win() ? fn.toUtf8() : QFile::encodeName(fn);
@@ -393,9 +393,9 @@ bool PdfPlug::convert(const QString& fn)
 			double vDPI = 72.0;
 			int firstPage = 1;
 			int lastPage = pdfDoc->getNumPages();
-			GBool useMediaBox = gTrue;
-			GBool crop = gTrue;
-			GBool printing = gFalse;
+			bool useMediaBox = true;
+			bool crop = true;
+			bool printing = false;
 			const PDFRectangle *mediaBox = pdfDoc->getPage(1)->getMediaBox();
 			QRectF mediaRect = QRectF(QPointF(mediaBox->x1, mediaBox->y1), QPointF(mediaBox->x2, mediaBox->y2)).normalized();
 			bool boxesAreDifferent = false;
@@ -434,9 +434,9 @@ bool PdfPlug::convert(const QString& fn)
 				// When displaying	pages slices, we should always set useMediaBox to true
 				// in order to use MediaBox (x, y) as coordinate system
 				if (contentRect != Media_Box)
-					useMediaBox = gFalse;
+					useMediaBox = false;
 				if (cropped)
-					useMediaBox = gTrue;
+					useMediaBox = true;
 				qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 				if (m_progressDialog)
 					m_progressDialog->show();
@@ -474,7 +474,7 @@ bool PdfPlug::convert(const QString& fn)
 							Object orderItem = order->get(i);
 							if (orderItem.isDict())
 							{
-								POPPLER_CONST_075 Object POPPLER_REF ref = order->getNF(i);
+								const Object& ref = order->getNF(i);
 								if (ref.isRef())
 								{
 									OptionalContentGroup *oc = ocg->findOcgByRef(ref.getRef());
@@ -488,7 +488,6 @@ bool PdfPlug::convert(const QString& fn)
 							}
 							else
 							{
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 69, 0)
 								const auto& ocgs = ocg->getOCGs ();
 								for (const auto& ocg : ocgs)
 								{
@@ -500,25 +499,11 @@ bool PdfPlug::convert(const QString& fn)
 										ocgNames.append(ocgName);
 									}
 								}
-#else
-								GooList *ocgs = ocg->getOCGs ();
-								for (int i = 0; i < ocgs->getLength (); ++i)
-								{
-									OptionalContentGroup *oc = (OptionalContentGroup *)ocgs->get(i);
-									QString ocgName = UnicodeParsedString(oc->getName());
-									if (!ocgNames.contains(ocgName))
-									{
-										ocgGroups.prepend(oc);
-										ocgNames.append(ocgName);
-									}
-								}
-#endif
 							}
 						}
 					}
 					else
 					{
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 69, 0)
 						const auto& ocgs = ocg->getOCGs ();
 						for (const auto& ocg : ocgs)
 						{
@@ -530,19 +515,6 @@ bool PdfPlug::convert(const QString& fn)
 								ocgNames.append(ocgName);
 							}
 						}
-#else
-						GooList *ocgs = ocg->getOCGs ();
-						for (int i = 0; i < ocgs->getLength (); ++i)
-						{
-							OptionalContentGroup *oc = (OptionalContentGroup *)ocgs->get(i);
-							QString ocgName = UnicodeParsedString(oc->getName());
-							if (!ocgNames.contains(ocgName))
-							{
-								ocgGroups.prepend(oc);
-								ocgNames.append(ocgName);
-							}
-						}
-#endif
 					}
 				}
 
@@ -891,11 +863,11 @@ QImage PdfPlug::readPreview(int pgNum, int width, int height, int box)
 	bgColor[0] = 255;
 	bgColor[1] = 255;
 	bgColor[2] = 255;
-	SplashOutputDev *dev = new SplashOutputDev(splashModeXBGR8, 4, gFalse, bgColor, gTrue);
-	dev->setVectorAntialias(gTrue);
-	dev->setFreeTypeHinting(gTrue, gFalse);
+	SplashOutputDev *dev = new SplashOutputDev(splashModeXBGR8, 4, false, bgColor, true);
+	dev->setVectorAntialias(true);
+	dev->setFreeTypeHinting(true, false);
 	dev->startDoc(m_pdfDoc);
-	m_pdfDoc->displayPage(dev, pgNum, hDPI, vDPI, 0, gTrue, gFalse, gFalse);
+	m_pdfDoc->displayPage(dev, pgNum, hDPI, vDPI, 0, true, false, false);
 	SplashBitmap *bitmap = dev->getBitmap();
 	int bw = bitmap->getWidth();
 	int bh = bitmap->getHeight();
@@ -954,23 +926,23 @@ QRectF PdfPlug::getCBox(int box, int pgNum)
 	return cRect;
 }
 
-QString PdfPlug::UnicodeParsedString(POPPLER_CONST GooString *s1)
+QString PdfPlug::UnicodeParsedString(const GooString *s1)
 {
 	if ( !s1 || s1->getLength() == 0 )
 		return QString();
-	GBool isUnicode;
+	bool isUnicode;
 	int i;
 	Unicode u;
 	QString result;
 	if ((s1->getChar(0) & 0xff) == 0xfe && (s1->getLength() > 1 && (s1->getChar(1) & 0xff) == 0xff))
 	{
-		isUnicode = gTrue;
+		isUnicode = true;
 		i = 2;
 		result.reserve((s1->getLength() - 2) / 2);
 	}
 	else
 	{
-		isUnicode = gFalse;
+		isUnicode = false;
 		i = 0;
 		result.reserve(s1->getLength());
 	}
@@ -998,19 +970,19 @@ QString PdfPlug::UnicodeParsedString(const std::string& s1)
 {
 	if (s1.length() == 0)
 		return QString();
-	GBool isUnicode;
+	bool isUnicode;
 	size_t i;
 	Unicode u;
 	QString result;
 	if ((s1.at(0) & 0xff) == 0xfe && (s1.length() > 1 && (s1.at(1) & 0xff) == 0xff))
 	{
-		isUnicode = gTrue;
+		isUnicode = true;
 		i = 2;
 		result.reserve((s1.length() - 2) / 2);
 	}
 	else
 	{
-		isUnicode = gFalse;
+		isUnicode = false;
 		i = 0;
 		result.reserve(s1.length());
 	}

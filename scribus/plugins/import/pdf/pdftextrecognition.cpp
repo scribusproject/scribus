@@ -681,10 +681,10 @@ void PdfTextOutputDev::updateFont(GfxState* state)
 * NOTE: Override these for now and do nothing so they don't get picked up and rendered as vectors by the base class,
 	though in the long run we may actually want that unless they can be implemented in a similar way to the text import getChar in which case overloading the makes perfect sense.
 */
-GBool PdfTextOutputDev::beginType3Char(GfxState* state, double x, double y, double dx, double dy, CharCode code, POPPLER_CONST_082 Unicode* u, int uLen)
+bool PdfTextOutputDev::beginType3Char(GfxState* state, double x, double y, double dx, double dy, CharCode code, POPPLER_CONST_082 Unicode* u, int uLen)
 {
 	//stub
-	return gTrue;
+	return true;
 }
 void  PdfTextOutputDev::endType3Char(GfxState* state)
 {
