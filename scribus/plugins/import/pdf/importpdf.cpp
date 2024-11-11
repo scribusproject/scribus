@@ -65,13 +65,8 @@ QImage PdfPlug::readThumbnail(const QString& fName)
 
 	QString pdfFile = QDir::toNativeSeparators(fName);
 	QByteArray encodedFileName = os_is_win() ? pdfFile.toUtf8() : QFile::encodeName(pdfFile);
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(22, 3, 0)
 	auto fname = std::make_unique<GooString>(encodedFileName.data());
 	PDFDoc pdfDoc{ std::move(fname) };
-#else
-	auto fname = new GooString(encodedFileName.data());
-	PDFDoc pdfDoc{fname, nullptr, nullptr, nullptr};
-#endif
 	if (!pdfDoc.isOk() || pdfDoc.getErrorCode() == errEncrypted)
 		return QImage();
 
@@ -314,13 +309,8 @@ bool PdfPlug::convert(const QString& fn)
 
 	QList<OptionalContentGroup*> ocgGroups;
 	QByteArray encodedFileName = os_is_win() ? fn.toUtf8() : QFile::encodeName(fn);
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(22, 3, 0)
 	auto fname = std::make_unique<GooString>(encodedFileName.data());
 	auto pdfDoc = std::make_unique<PDFDoc>(std::move(fname));
-#else
-	auto fname = new GooString(encodedFileName.data());
-	auto pdfDoc = std::make_unique<PDFDoc>(fname, nullptr, nullptr, nullptr);
-#endif
 	if (pdfDoc)
 	{
 		if (pdfDoc->getErrorCode() == errEncrypted)
@@ -334,15 +324,9 @@ bool PdfPlug::convert(const QString& fn)
 			QString text = QInputDialog::getText(mw, tr("Open PDF-File"), tr("Password"), QLineEdit::Normal, "", &ok);
 			if (ok && !text.isEmpty())
 			{
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(22, 3, 0)
 				auto fname = std::make_unique<GooString>(encodedFileName.data());
 				std::optional<GooString> userPW(std::in_place, text.toLocal8Bit().data());
 				pdfDoc.reset(new PDFDoc(std::move(fname), userPW, userPW, nullptr));
-#else
-				auto fname = new GooString(encodedFileName.data());
-				auto userPW = new GooString(text.toLocal8Bit().data());
-				pdfDoc.reset(new PDFDoc(fname, userPW, userPW, nullptr));
-#endif
 				qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
 			}
 			if ((!pdfDoc) || (pdfDoc->getErrorCode() != errNone))

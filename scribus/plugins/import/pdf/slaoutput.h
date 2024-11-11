@@ -88,9 +88,9 @@ class LinkImportData: public LinkAction
 {
 public:
 	// Build a LinkImportData from an action dictionary.
-	LinkImportData(Object *actionObj);
+	explicit LinkImportData(Object *actionObj);
 	// Destructor.
-	virtual ~LinkImportData();
+	~LinkImportData() override;
 
 	// Was the LinkImportData created successfully?
 	bool isOk() const override { return fileName != nullptr; }
@@ -109,8 +109,7 @@ private:
 class SlaOutFontFileID: public SplashFontFileID
 {
 public:
-	SlaOutFontFileID(const Ref *rA) { r = *rA; }
-	~SlaOutFontFileID() {}
+	explicit SlaOutFontFileID(const Ref *rA) { r = *rA; }
 
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(24, 11, 0)
 	bool matches(const SplashFontFileID& id) const override
@@ -133,9 +132,9 @@ class AnoOutputDev : public OutputDev
 {
 public:
 	AnoOutputDev(ScribusDoc* doc, QStringList *importedColors);
-	virtual ~AnoOutputDev();
+	~AnoOutputDev() override;
 
-	bool isOk() { return true; }
+	bool isOk() const { return true; }
 	bool upsideDown() override { return true; }
 	bool useDrawChar() override { return false; }
 	bool interpretType3Chars() override { return false; }
@@ -158,8 +157,8 @@ public:
 
 private:
 	QString getColor(GfxColorSpace *color_space, const GfxColor *color, int *shade);
-	ScribusDoc* m_doc;
-	QStringList *m_importedColors;
+	ScribusDoc* m_doc { nullptr };
+	QStringList *m_importedColors { nullptr };
 };
 
 
@@ -168,7 +167,7 @@ class SlaOutputDev : public OutputDev
 {
 public:
 	SlaOutputDev(ScribusDoc* doc, QList<PageItem*> *Elements, QStringList *importedColors, int flags);
-	virtual ~SlaOutputDev();
+	~SlaOutputDev() override;
 
 	LinkAction* SC_getAction(AnnotWidget *ano);
 	std::unique_ptr<LinkAction> SC_getAdditionalAction(const char *key, AnnotWidget *ano);
@@ -180,7 +179,7 @@ public:
 	void handleActions(PageItem* ite, AnnotWidget *ano);
 	void startDoc(PDFDoc *doc, XRef *xrefA, Catalog *catA);
 
-	bool isOk() { return true; }
+	bool isOk() const { return true; }
 	bool upsideDown() override { return true; }
 	bool useDrawChar() override { return true; }
 	bool interpretType3Chars() override { return true; }
@@ -257,7 +256,7 @@ public:
 				   bool interpolate,
 				   Stream *maskStr,
 				   int maskWidth, int maskHeight,
-				   bool maskInvert, bool maskInterpolate) override; // { qDebug() << "Draw Masked Image"; }
+				   bool maskInvert, bool maskInterpolate) override;
 
 	//----- transparency groups and soft masks
 	void beginTransparencyGroup(GfxState *state, const double *bbox, GfxColorSpace * /*blendingColorSpace*/, bool /*isolated*/, bool /*knockout*/, bool /*forSoftMask*/) override;

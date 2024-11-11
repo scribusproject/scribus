@@ -169,13 +169,8 @@ void AnoOutputDev::drawString(GfxState *state, const GooString *s)
 	int shade = 100;
 	currColorText = getColor(state->getFillColorSpace(), state->getFillColor(), &shade);
 	fontSize = state->getFontSize();
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(22, 4, 0)
 	if (state->getFont() && state->getFont()->getName())
 		fontName = new GooString(state->getFont()->getName().value());
-#else
-	if (state->getFont())
-		fontName = state->getFont()->getName()->copy();
-#endif
 	itemText = s->copy();
 }
 
@@ -355,30 +350,25 @@ std::unique_ptr<LinkAction> SlaOutputDev::SC_getAdditionalAction(const char *key
 bool SlaOutputDev::annotations_callback(Annot *annota, void *user_data)
 {
 	auto *dev = (SlaOutputDev*) user_data;
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(22, 4, 0)
-	const PDFRectangle& annotRect = annota->getRect();
-	const PDFRectangle* box = &annotRect;
-#else
-	PDFRectangle *box = annota->getRect();
-#endif
-	double xCoor = dev->m_doc->currentPage()->xOffset() + box->x1 - dev->cropOffsetX;
-	double yCoor = dev->m_doc->currentPage()->yOffset() + dev->m_doc->currentPage()->height() - box->y2 + dev->cropOffsetY;
-	double width = box->x2 - box->x1;
-	double height = box->y2 - box->y1;
+	const PDFRectangle& box = annota->getRect();
+	double xCoor = dev->m_doc->currentPage()->xOffset() + box.x1 - dev->cropOffsetX;
+	double yCoor = dev->m_doc->currentPage()->yOffset() + dev->m_doc->currentPage()->height() - box.y2 + dev->cropOffsetY;
+	double width = box.x2 - box.x1;
+	double height = box.y2 - box.y1;
 	if (dev->rotate == 90)
 	{
-		xCoor = dev->m_doc->currentPage()->xOffset() - dev->cropOffsetX + box->y2;
-		yCoor = dev->m_doc->currentPage()->yOffset() + dev->cropOffsetY + box->x1;
+		xCoor = dev->m_doc->currentPage()->xOffset() - dev->cropOffsetX + box.y2;
+		yCoor = dev->m_doc->currentPage()->yOffset() + dev->cropOffsetY + box.x1;
 	}
 	else if (dev->rotate == 180)
 	{
-		xCoor = dev->m_doc->currentPage()->xOffset() - dev->cropOffsetX + dev->m_doc->currentPage()->width() - box->x1;
-		yCoor = dev->m_doc->currentPage()->yOffset() + dev->cropOffsetY + box->y2;
+		xCoor = dev->m_doc->currentPage()->xOffset() - dev->cropOffsetX + dev->m_doc->currentPage()->width() - box.x1;
+		yCoor = dev->m_doc->currentPage()->yOffset() + dev->cropOffsetY + box.y2;
 	}
 	else if (dev->rotate == 270)
 	{
-		xCoor = dev->m_doc->currentPage()->xOffset() - dev->cropOffsetX + dev->m_doc->currentPage()->width() - box->y2;
-		yCoor = dev->m_doc->currentPage()->yOffset() + dev->cropOffsetY + dev->m_doc->currentPage()->height() - box->x1;
+		xCoor = dev->m_doc->currentPage()->xOffset() - dev->cropOffsetX + dev->m_doc->currentPage()->width() - box.y2;
+		yCoor = dev->m_doc->currentPage()->yOffset() + dev->cropOffsetY + dev->m_doc->currentPage()->height() - box.x1;
 	}
 	bool retVal = true;
 	if (annota->getType() == Annot::typeText)
@@ -681,12 +671,8 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 			if (apa || !achar)
 			{
 				auto *annotOutDev = new AnoOutputDev(m_doc, m_importedColors);
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(22, 4, 0)
 				const PDFRectangle& annotaRect = annota->getRect();
 				auto* gfx = new Gfx(m_pdfDoc, annotOutDev, m_pdfDoc->getPage(m_actPage)->getResourceDict(), &annotaRect, nullptr);
-#else
-				auto* gfx = new Gfx(m_pdfDoc, annotOutDev, m_pdfDoc->getPage(m_actPage)->getResourceDict(), annota->getRect(), nullptr);
-#endif
 				ano->draw(gfx, false);
 				if (!bgFound)
 					m_graphicStack.top().fillColor = annotOutDev->currColorFill;
@@ -2931,17 +2917,10 @@ void SlaOutputDev::markPoint(const char *name, Dict *properties)
 
 void SlaOutputDev::updateFont(GfxState *state)
 {
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(22, 4, 0)
 	std::optional<GfxFontLoc> fontLoc;
 	std::string fileName;
 	std::unique_ptr<FoFiTrueType> ff;
 	std::optional<std::vector<unsigned char>> tmpBuf;
-#else
-	std::optional<GfxFontLoc> fontLoc;
-	const GooString * fileName = nullptr;
-	std::unique_ptr<FoFiTrueType> ff;
-	char* tmpBuf = nullptr;
-#endif
 	GfxFontType fontType;
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(24, 11, 0)
 	std::unique_ptr<SlaOutFontFileID> id;
@@ -2951,9 +2930,6 @@ void SlaOutputDev::updateFont(GfxState *state)
 	SplashFontFile *fontFile;
 	SplashFontSrc *fontsrc = nullptr;
 	Object refObj, strObj;
-#if POPPLER_ENCODED_VERSION < POPPLER_VERSION_ENCODE(22, 4, 0)
-	int tmpBufLen = 0;
-#endif
 	int *codeToGID = nullptr;
 	const double *textMat = nullptr;
 	double m11, m12, m21, m22, fontSize;
@@ -2964,11 +2940,7 @@ void SlaOutputDev::updateFont(GfxState *state)
 
 	m_font = nullptr;
 
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(22, 4, 0)
 	GfxFont* gfxFont = state->getFont().get();
-#else
-	GfxFont* gfxFont = state->getFont();
-#endif
 	if (!gfxFont)
 		goto err1;
 
@@ -2999,40 +2971,23 @@ void SlaOutputDev::updateFont(GfxState *state)
 		if (fontLoc->locType == gfxFontLocEmbedded)
 		{
 			// if there is an embedded font, read it to memory
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(22, 4, 0)
 			tmpBuf = gfxFont->readEmbFontFile(m_xref ? m_xref : m_pdfDoc->getXRef());
 			if (! tmpBuf)
 				goto err2;
-#else
-			tmpBuf = gfxFont->readEmbFontFile(m_xref, &tmpBufLen);
-			if (!tmpBuf)
-				goto err2;
-#endif
 
 			// external font
 		}
 		else
 		{ // gfxFontLocExternal
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(22, 4, 0)
 			fileName = fontLoc->path;
-#else
-			fileName = fontLoc->pathAsGooString();
-#endif
 			fontType = fontLoc->fontType;
 		}
 
 		fontsrc = new SplashFontSrc;
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(22, 4, 0)
 		if (!fileName.empty())
 			fontsrc->setFile(fileName);
 		else
 			fontsrc->setBuf(std::move(tmpBuf.value()));
-#else
-		if (fileName)
-			fontsrc->setFile(fileName, false);
-		else
-			fontsrc->setBuf(tmpBuf, tmpBufLen, true);
-#endif
 
 		// load the font file
 		switch (fontType) {
@@ -3088,16 +3043,11 @@ void SlaOutputDev::updateFont(GfxState *state)
 				ff = FoFiTrueType::load(fileName.c_str(), fontLoc->fontNum);
 			else
 				ff = FoFiTrueType::make(fontsrc->buf.data(), fontsrc->buf.size(), fontLoc->fontNum);
-#elif POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(22, 4, 0)
+#else
 			if (!fileName.empty())
 				ff = FoFiTrueType::load(fileName.c_str());
 			else
 				ff = FoFiTrueType::make(fontsrc->buf.data(), fontsrc->buf.size());
-#else
-			if (fileName)
-				ff = FoFiTrueType::load(fileName->c_str());
-			else
-				ff = FoFiTrueType::make(tmpBuf, tmpBufLen);
 #endif
 			if (ff)
 			{
@@ -3188,16 +3138,11 @@ void SlaOutputDev::updateFont(GfxState *state)
 					ff = FoFiTrueType::load(fileName.c_str(), fontLoc->fontNum);
 				else
 					ff = FoFiTrueType::make(fontsrc->buf.data(), fontsrc->buf.size(), fontLoc->fontNum);
-#elif POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(22, 4, 0)
+#else
 				if (!fileName.empty())
 					ff = FoFiTrueType::load(fileName.c_str());
 				else
 					ff = FoFiTrueType::make(fontsrc->buf.data(), fontsrc->buf.size());
-#else
-				if (fileName)
-					ff = FoFiTrueType::load(fileName->c_str());
-				else
-					ff = FoFiTrueType::make(tmpBuf, tmpBufLen);
 #endif
 				if (! ff)
 					goto err2;
@@ -3356,15 +3301,9 @@ void SlaOutputDev::drawChar(GfxState* state, double x, double y, double dx, doub
 bool SlaOutputDev::beginType3Char(GfxState *state, double x, double y, double dx, double dy, CharCode code, const Unicode *u, int uLen)
 {
 //	qDebug() << "beginType3Char";
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(22, 4, 0)
 	GfxFont *gfxFont;
 	if (!(gfxFont = state->getFont().get()))
 		return true;
-#else
-	GfxFont* gfxFont;
-	if (!(gfxFont = state->getFont()))
-		return true;
-#endif
 	if (gfxFont->getType() != fontType3)
 		return true;
 	F3Entry f3e;
