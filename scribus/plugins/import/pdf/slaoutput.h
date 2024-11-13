@@ -42,8 +42,6 @@ for which a new license (GPL+exception) is in place.
 #include <poppler/Form.h>
 #include <poppler/Page.h>
 #include <poppler/Catalog.h>
-#include <poppler/CharCodeToUnicode.h>
-#include <poppler/FontEncodingTables.h>
 #include <poppler/splash/SplashFontFileID.h>
 #include <poppler/splash/SplashFontFile.h>
 #include <poppler/splash/SplashFontEngine.h>

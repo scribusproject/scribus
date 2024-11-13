@@ -16,7 +16,6 @@ for which a new license (GPL+exception) is in place.
 #include "slaoutput.h"
 
 #include <poppler/GfxState.h>
-#include <poppler/CharCodeToUnicode.h>
 
 /* PDF TextBox Framework */
 /*
@@ -143,7 +142,7 @@ class PdfTextOutputDev : public SlaOutputDev
 {
 public:
 	PdfTextOutputDev(ScribusDoc* doc, QList<PageItem*>* Elements, QStringList* importedColors, int flags);
-	virtual ~PdfTextOutputDev();
+	~PdfTextOutputDev() override;
 
 	void updateFont(GfxState* state) override;
 
