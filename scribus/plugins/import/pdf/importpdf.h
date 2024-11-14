@@ -24,8 +24,8 @@ for which a new license (GPL+exception) is in place.
 
 #include "fpointarray.h"
 #include "importpdfconfig.h"
-#include "pluginapi.h"
 #include "pageitem.h"
+#include "pluginapi.h"
 #include "sccolor.h"
 
 class QColor;

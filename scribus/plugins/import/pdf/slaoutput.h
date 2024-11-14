@@ -30,25 +30,25 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "vgradient.h"
 
-#include <poppler/Object.h>
-#include <poppler/OutputDev.h>
-#include <poppler/Gfx.h>
-#include <poppler/GfxState.h>
-#include <poppler/Stream.h>
-#include <poppler/GfxFont.h>
-#include <poppler/Link.h>
-#include <poppler/PDFDoc.h>
+#include <poppler/Catalog.h>
 #include <poppler/Error.h>
 #include <poppler/Form.h>
+#include <poppler/Gfx.h>
+#include <poppler/GfxFont.h>
+#include <poppler/GfxState.h>
+#include <poppler/Link.h>
+#include <poppler/Object.h>
+#include <poppler/OutputDev.h>
 #include <poppler/Page.h>
-#include <poppler/Catalog.h>
-#include <poppler/splash/SplashFontFileID.h>
-#include <poppler/splash/SplashFontFile.h>
-#include <poppler/splash/SplashFontEngine.h>
+#include <poppler/PDFDoc.h>
+#include <poppler/Stream.h>
 #include <poppler/splash/SplashFont.h>
+#include <poppler/splash/SplashFontEngine.h>
+#include <poppler/splash/SplashFontFile.h>
+#include <poppler/splash/SplashFontFileID.h>
+#include <poppler/splash/SplashGlyphBitmap.h>
 #include <poppler/splash/SplashMath.h>
 #include <poppler/splash/SplashPath.h>
-#include <poppler/splash/SplashGlyphBitmap.h>
 
 //------------------------------------------------------------------------
 // LinkSubmitForm
