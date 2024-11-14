@@ -2592,7 +2592,7 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 	memset(mbuffer, 0, maskWidth * maskHeight);
 	for (int y = 0; y < maskHeight; y++)
 	{
-		mdest = (unsigned char *)(mbuffer + y * maskWidth);
+		mdest = mbuffer + y * maskWidth;
 		unsigned char * pix = mskStr->getLine();
 		maskColorMap->getGrayLine(pix, mdest, maskWidth);
 	}
@@ -2669,7 +2669,7 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 	memset(mbuffer, 0, maskWidth * maskHeight);
 	for (int y = 0; y < maskHeight; y++)
 	{
-		mdest = (unsigned char *)(mbuffer + y * maskWidth);
+		mdest = mbuffer + y * maskWidth;
 		unsigned char * pix = mskStr->getLine();
 		for (int x = 0; x < maskWidth; x++)
 		{
