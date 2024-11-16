@@ -1738,7 +1738,6 @@
     <lrelease Include="..\..\..\resources\translations\scribus.oc.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.pl_PL.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.pms.ts" />
-    <lrelease Include="..\..\..\resources\translations\scribus.pt.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.pt_BR.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.pt_PT.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.ro.ts" />
