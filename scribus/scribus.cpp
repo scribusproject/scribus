@@ -1071,6 +1071,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("itemAttachTextToPath", "ItemPathOps");
 	scrMenuMgr->addMenuItemString("itemDetachTextFromPath", "ItemPathOps");
 
+
 	scrActions["itemPrintingEnabled"]->setEnabled(false);
 	scrMenuMgr->setMenuEnabled("ItemConvertTo", false);
 
@@ -1102,6 +1103,8 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("typeEffectSubscript", "TextFeatures");
 	scrMenuMgr->addMenuItemString("typeEffectOutline", "TextFeatures");
 	scrMenuMgr->addMenuItemString("typeEffectShadow", "TextFeatures");
+
+	scrMenuMgr->addMenuItemString("itemAttributes", "Item");
 
 	//Insert menu
 	scrMenuMgr->createMenu("Insert", ActionManager::defaultMenuNameEntryTranslated("Insert"));
