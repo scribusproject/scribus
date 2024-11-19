@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "qmap.h"
 #include "qpointer.h"
+#include "scriptpaths.h"
 
 class ScrAction;
 class ScribusMainWindow;
@@ -34,10 +35,13 @@ public:
 	/** @brief String representation of line of code to be passed to the Python interactive interpreter */
 	QString inValue;
 
+	ScriptPaths scriptPaths;
+
 public slots:
 	void runScriptDialog();
 	void StdScript(const QString& baseFilename);
 	void RecentScript(const QString& fn);
+	void runScriptFile(const QString& path);
 	void slotRunScriptFile(const QString& fileName, bool inMainInterpreter = false);
 	void slotRunScriptFile(const QString& fileName, QStringList arguments, bool inMainInterpreter = false);
 	void slotRunPythonScript(); // needed for running python script from CLI
@@ -57,6 +61,7 @@ public slots:
 	void runStartupScript();
 	void languageChange();
 
+	// Preferences
 	const QString & startupScript() const;
 	bool extensionsEnabled() const;
 	void setStartupScript(const QString& newScript);

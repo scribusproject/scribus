@@ -220,6 +220,28 @@ void MenuManager::addMenuItemStringsToRememberedMenu(const QString &menuName, co
 			addMenuItemStringsToMenu(menuName, rememberedMenus.value(menuName), menuActions);
 }
 
+void MenuManager::hideRemberedMenu(const QString& menuName)
+{
+	if (!rememberedMenus.contains(menuName))
+		return;
+	if (rememberedMenus.value(menuName) == nullptr)
+		return;
+
+	auto menu = rememberedMenus.value(menuName);
+	menu->menuAction()->setVisible(false);
+}
+
+void MenuManager::showRemberedMenu(const QString& menuName)
+{
+	if (!rememberedMenus.contains(menuName))
+		return;
+	if (rememberedMenus.value(menuName) == nullptr)
+		return;
+
+	auto menu = rememberedMenus.value(menuName);
+	menu->menuAction()->setVisible(true);
+}
+
 void MenuManager::clearMenuStrings(const QString &menuName)
 {
 	QMenu* menu = rememberedMenus.value(menuName, nullptr);

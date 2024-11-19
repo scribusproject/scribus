@@ -37,6 +37,7 @@ set(SCRIPTER_PLUGIN_SOURCES
 	pyesstring.cpp
 	runscriptdialog.cpp
 	scriptercore.cpp
+	scriptpaths.cpp
 	scriptplugin.cpp
 	svgimport.cpp
 )

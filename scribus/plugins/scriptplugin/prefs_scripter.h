@@ -28,6 +28,11 @@ class Prefs_Scripter : public Prefs_Pane, Ui::Prefs_Scripter
 		//! \brief Apply changes to prefs. Auto connected.
 		void apply() override;
 
+		void selectPath(QListWidgetItem *c);
+		void addPath();
+		void changePath();
+		void removePath();
+
 	protected:
 		void setupSyntaxColors();
 		QColor textColor;
@@ -37,6 +42,9 @@ class Prefs_Scripter : public Prefs_Pane, Ui::Prefs_Scripter
 		QColor signColor;
 		QColor stringColor;
 		QColor numberColor;
+
+		QString latestPath;
+		bool pathsChanged = false;
 
 	protected slots:
 		/*! \brief All requests for color change are handled here.

@@ -67,6 +67,9 @@ class SCRIBUS_API MenuManager : public QObject
 		void addMenuItemStringAfter(const QString &s, const QString &after, const QString &parent);
 		void addMenuItemStringsToMenu(const QString &menuName, QMenu *menuToAddTo, const QMap<QString, QPointer<ScrAction> > &menuActions);
 		void addMenuItemStringsToRememberedMenu(const QString &menuName, const QMap<QString, QPointer<ScrAction> > &menuActions);
+		void hideRemberedMenu(const QString& menuName);
+		void showRemberedMenu(const QString& menuName);
+
 		void addMenuItemStringsToMenuBar(const QString &menuName, const QMap<QString, QPointer<ScrAction> > &menuActions);
 		void clearMenuStrings(const QString &menuName);
 		void dumpMenuStrings();

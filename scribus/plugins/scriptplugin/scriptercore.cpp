@@ -70,6 +70,8 @@ ScripterCore::ScripterCore(QWidget* parent)
 
 	QObject::connect(ScQApp, SIGNAL(appStarted()) , this, SLOT(runStartupScript()) );
 	QObject::connect(ScQApp, SIGNAL(appStarted()) , this, SLOT(slotRunPythonScript()) );
+
+	QObject::connect(&scriptPaths, &ScriptPaths::runScriptFile, this, &ScripterCore::runScriptFile);
 }
 
 ScripterCore::~ScripterCore()
@@ -82,6 +84,7 @@ void ScripterCore::addToMainWindowMenu(ScribusMainWindow *mw)
 {
 	m_menuMgr = mw->scrMenuMgr;
 	m_menuMgr->createMenu("Scripter", QObject::tr("&Script"));
+	scriptPaths.attachToMenu(m_menuMgr);
 	m_menuMgr->createMenu("ScribusScripts", QObject::tr("&Scribus Scripts"), "Scripter");
 	m_menuMgr->addMenuItemString("ScribusScripts", "Scripter");
 	m_menuMgr->addMenuItemString("scripterExecuteScript", "Scripter");
@@ -98,6 +101,7 @@ void ScripterCore::addToMainWindowMenu(ScribusMainWindow *mw)
 	m_menuMgr->addMenuItemStringsToMenuBar("Scripter", m_scripterActions);
 	m_recentScripts = m_savedRecentScripts;
 	rebuildRecentScriptsMenu();
+	scriptPaths.buildMenu();
 }
 
 void ScripterCore::enableMainWindowMenu()
@@ -175,6 +179,15 @@ void ScripterCore::finishScriptRun()
 	//CB Really only need (want?) this for new docs, but we need it after a call to ScMW doFileNew.
 	//We don't want it in cmddoc calls as itll interact with the GUI before a script may be finished.
 	mainWin->HaveNewDoc();
+}
+
+/**
+ * setup the environment for running the script, run the script and clean up the environment
+ */
+void ScripterCore::runScriptFile(const QString& path)
+{
+	slotRunScriptFile(path);
+	finishScriptRun();
 }
 
 void ScripterCore::runScriptDialog()

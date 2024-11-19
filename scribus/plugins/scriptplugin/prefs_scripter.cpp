@@ -36,6 +36,7 @@ Prefs_Scripter::Prefs_Scripter(QWidget* parent)
 	// The startup script box should be disabled  if ext scripts are off
 	startupScriptEdit->setEnabled(extensionScriptsChk->isChecked());
 	startupScriptEdit->setText(scripterCore->startupScript());
+	scriptPathsListWidget->addItems(scripterCore->scriptPaths.get());
 	// signals and slots connections
 	connect(extensionScriptsChk, SIGNAL(toggled(bool)), startupScriptEdit, SLOT(setEnabled(bool)));
 	// colors
@@ -48,6 +49,15 @@ Prefs_Scripter::Prefs_Scripter(QWidget* parent)
 	connect(numberButton, SIGNAL(clicked()), this, SLOT(setColor()));
 	connect(extensionScriptsChk, SIGNAL(toggled(bool)), startupScriptChangeButton, SLOT(setEnabled(bool)));
 	connect(startupScriptChangeButton, SIGNAL(clicked()), this, SLOT(changeStartupScript()));
+
+	changePathButton->setEnabled(false);
+	removePathButton->setEnabled(false);
+	connect(scriptPathsListWidget, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(selectPath(QListWidgetItem*)));
+	connect(addPathButton, SIGNAL(clicked()), this, SLOT(addPath()));
+	connect(changePathButton, SIGNAL(clicked()), this, SLOT(changePath()));
+	connect(removePathButton, SIGNAL(clicked()), this, SLOT(removePath()));
+
+
 }
 
 Prefs_Scripter::~Prefs_Scripter() = default;
@@ -80,6 +90,17 @@ void Prefs_Scripter::apply()
 		prefs->set("syntaxnumber", numberColor.name());
 		prefs->set("syntaxstring", stringColor.name());
 		prefs->set("syntaxtext", textColor.name());
+
+		if (pathsChanged)
+		{
+			scripterCore->scriptPaths.clear();
+			for (int i = 0; i < scriptPathsListWidget->count(); i++) {
+				scripterCore->scriptPaths.append(scriptPathsListWidget->item(i)->text());
+			}
+			scripterCore->scriptPaths.buildMenu();
+		}
+
+		scripterCore->scriptPaths.saveToPrefs();
 
 		emit prefsChanged();
 	}
@@ -161,3 +182,74 @@ void Prefs_Scripter::changeStartupScript()
 		startupScriptEdit->setText(s);
 }
 
+void Prefs_Scripter::selectPath(QListWidgetItem *c)
+{
+	changePathButton->setEnabled(true);
+	removePathButton->setEnabled(true);
+}
+
+void Prefs_Scripter::addPath()
+{
+	QString s = QFileDialog::getExistingDirectory(this, tr("Choose a Directory"), latestPath);
+	if (s.isEmpty())
+		return;
+
+	if (s.endsWith("/"))
+	{
+		s.chop(1);
+	}
+	s = QDir::toNativeSeparators(s);
+	if (scriptPathsListWidget->findItems(s, Qt::MatchExactly).count() != 0)
+		return;
+
+	scriptPathsListWidget->addItem(s);
+
+	scriptPathsListWidget->setCurrentRow(scriptPathsListWidget->count() - 1);
+	changePathButton->setEnabled(true);
+	removePathButton->setEnabled(true);
+	latestPath = s;
+	pathsChanged = true;
+}
+
+void Prefs_Scripter::changePath()
+{
+	QString s = QFileDialog::getExistingDirectory(this, tr("Choose a Directory"), latestPath);
+	if (s.isEmpty())
+		return;
+
+	if (s.endsWith("/"))
+	{
+		s.chop(1);
+	}
+	s = QDir::toNativeSeparators(s);
+	// if the new path is already in the list, just remove the old path
+	if (scriptPathsListWidget->findItems(s, Qt::MatchExactly).count() != 0)
+	{
+		removePath();
+		return;
+	}
+
+	scriptPathsListWidget->currentItem()->setText(s);
+
+	latestPath = s;
+	pathsChanged = true;
+}
+
+void Prefs_Scripter::removePath()
+{
+	const int i = scriptPathsListWidget->currentRow();
+	if (scriptPathsListWidget->count() == 1)
+	{
+		scriptPathsListWidget->clear();
+	}
+	else
+	{
+		delete scriptPathsListWidget->takeItem(i);
+	}
+	if (scriptPathsListWidget->count() == 0)
+	{
+		changePathButton->setEnabled(false);
+		removePathButton->setEnabled(false);
+	}
+	pathsChanged = true;
+}
