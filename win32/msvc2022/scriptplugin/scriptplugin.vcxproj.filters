@@ -93,6 +93,9 @@
     <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\scriptercore.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\scriptpaths.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\scriptplugin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -196,6 +199,9 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\plugins\scriptplugin\scriptercore.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\plugins\scriptplugin\scriptpaths.h">
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\plugins\scriptplugin\scriptplugin.h">
