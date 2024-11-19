@@ -1048,6 +1048,8 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("typeEffectOutline", "TextFeatures");
 	scrMenuMgr->addMenuItemString("typeEffectShadow", "TextFeatures");
 
+	scrMenuMgr->addMenuItemString("itemAttributes", "Item");
+
 	//Insert menu
 	scrMenuMgr->createMenu("Insert", ActionManager::defaultMenuNameEntryTranslated("Insert"));
 	scrMenuMgr->addMenuItemString("insertFrame", "Insert");
