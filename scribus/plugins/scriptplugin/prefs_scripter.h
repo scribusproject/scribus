@@ -44,7 +44,7 @@ class Prefs_Scripter : public Prefs_Pane, Ui::Prefs_Scripter
 		QColor numberColor;
 
 		QString latestPath;
-		bool pathsChanged = false;
+		bool pathsChanged {false};
 
 	protected slots:
 		/*! \brief All requests for color change are handled here.

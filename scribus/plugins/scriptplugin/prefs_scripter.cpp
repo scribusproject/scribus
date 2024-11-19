@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include <memory>
 #include <QColorDialog>
 #include <QFileDialog>
+#include <QListWidgetItem>
 #include <QPalette>
 
 #include "prefs_scripter.h"
@@ -94,9 +95,9 @@ void Prefs_Scripter::apply()
 		if (pathsChanged)
 		{
 			scripterCore->scriptPaths.clear();
-			for (int i = 0; i < scriptPathsListWidget->count(); i++) {
+			for (int i = 0; i < scriptPathsListWidget->count(); i++)
 				scripterCore->scriptPaths.append(scriptPathsListWidget->item(i)->text());
-			}
+
 			scripterCore->scriptPaths.buildMenu();
 		}
 
@@ -195,9 +196,8 @@ void Prefs_Scripter::addPath()
 		return;
 
 	if (s.endsWith("/"))
-	{
 		s.chop(1);
-	}
+
 	s = QDir::toNativeSeparators(s);
 	if (scriptPathsListWidget->findItems(s, Qt::MatchExactly).count() != 0)
 		return;
@@ -218,9 +218,8 @@ void Prefs_Scripter::changePath()
 		return;
 
 	if (s.endsWith("/"))
-	{
 		s.chop(1);
-	}
+
 	s = QDir::toNativeSeparators(s);
 	// if the new path is already in the list, just remove the old path
 	if (scriptPathsListWidget->findItems(s, Qt::MatchExactly).count() != 0)
@@ -239,13 +238,10 @@ void Prefs_Scripter::removePath()
 {
 	const int i = scriptPathsListWidget->currentRow();
 	if (scriptPathsListWidget->count() == 1)
-	{
 		scriptPathsListWidget->clear();
-	}
 	else
-	{
 		delete scriptPathsListWidget->takeItem(i);
-	}
+
 	if (scriptPathsListWidget->count() == 0)
 	{
 		changePathButton->setEnabled(false);

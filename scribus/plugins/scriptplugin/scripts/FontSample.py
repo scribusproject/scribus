@@ -116,8 +116,8 @@ import pickle
 
 
 showPreviewPanel = 1 # change to 0 to permanently hide the preview
-TEMP_PATH = os.path.join(os.path.expanduser('~'), '.scribus')
-CONFIG_PATH = os.path.join(os.path.expanduser('~'), '.scribus/fontsampler')
+TEMP_PATH = os.path.join(os.path.expanduser('~'), '.config/scribus')
+CONFIG_PATH = os.path.join(os.path.expanduser('~'), '.config/scribus/fontsampler')
 
 
 try:

@@ -11429,7 +11429,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 	if (selectedItemCount > Um::ItemsInvolvedLimit)
 		tooltip = Um::ItemsInvolved2 + "\n";
 	itemSelection->delaySignalsOn();
-	for (int de = 0; de < selectedItemCount; ++de)
+	for (int i = 0; i < selectedItemCount; ++i)
 	{
 		currItem = itemSelection->itemAt(offs);
 		if (((currItem->isSingleSel) && (!Items->contains(currItem))) || (currItem->locked()))
@@ -11485,9 +11485,9 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 														  Um::Delete, tooltip, Um::IDelete);
 	
 	selectedItemCount = delItems.count();
-	for (int de = 0; de < selectedItemCount; ++de)
+	for (int i = 0; i < selectedItemCount; ++i)
 	{
-		currItem = delItems.at(selectedItemCount - (de + 1));
+		currItem = delItems.at(selectedItemCount - (i + 1));
 		itemList = groupOfItem(Items, currItem);
 		if (itemList == nullptr)
 			continue;
@@ -11543,7 +11543,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 			is->setItem(delItems);
 			is->set("DELETE_ITEM");
 			is->set("ITEMID", itemList->indexOf(currItem));
-			is->set("ID", selectedItemCount - (de + 1));
+			is->set("ID", selectedItemCount - (i + 1));
 			m_undoManager->action(Pages->at(0), is, currItem->getUPixmap());
 		}
 		itemList->removeAll(currItem);
