@@ -445,11 +445,11 @@
           </property>
           <item>
            <widget class="QComboBox" name="renderIntent">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
+            <property name="maximumSize">
+             <size>
+              <width>300</width>
+              <height>16777215</height>
+             </size>
             </property>
             <property name="toolTip">
              <string>Rendering intent for the image</string>
@@ -485,11 +485,11 @@
           </property>
           <item>
            <widget class="QComboBox" name="inputProfiles">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
+            <property name="maximumSize">
+             <size>
+              <width>300</width>
+              <height>16777215</height>
+             </size>
             </property>
             <property name="toolTip">
              <string>Source profile of the image</string>
