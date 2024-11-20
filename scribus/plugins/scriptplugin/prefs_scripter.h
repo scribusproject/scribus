@@ -8,6 +8,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef PREFS_SCRIPTER_H
 #define PREFS_SCRIPTER_H
 
+#include <QListWidgetItem>
+
 #include "ui_prefs_scripterbase.h"
 #include "ui/prefs_pane.h"
 #include "pconsole.h"

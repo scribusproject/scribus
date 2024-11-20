@@ -47,26 +47,22 @@ for which a new license (GPL+exception) is in place.
 #include "ui/widgets/pagesizelist.h"
 
 
-NewDocDialog::NewDocDialog(QWidget* parent, const QStringList& recentDocs, bool startUp, const QString& lang) : QDialog(parent),
+NewDocDialog::NewDocDialog(QWidget* parent, const QStringList& recentDocs, bool startUp, const QString& lang) : ScDialog(parent, "NewDocumentWindow"),
 	prefsManager(PrefsManager::instance()),
 	m_onStartup(startUp)
 {
 	setupUi(this);
 
-	windowFitInScreen();
-
-	setObjectName(QString::fromLocal8Bit("NewDocumentWindow"));
-	setModal(true);
-
 	IconManager &iconManager = IconManager::instance();
 
+	setModal(true);
+	setWindowTitle( tr( "New Document" ) );
+
+	m_labelVisibity = !prefsManager.appPrefs.uiPrefs.hideLabels;
 	m_unitIndex = prefsManager.appPrefs.docSetupPrefs.docUnitIndex;
 	m_unitRatio = unitGetRatioFromIndex(m_unitIndex);
 	m_unitSuffix = unitGetSuffixFromIndex(m_unitIndex);
 	m_orientation = prefsManager.appPrefs.docSetupPrefs.pageOrientation;
-
-	setWindowTitle( tr( "New Document" ) );
-	setWindowIcon(iconManager.loadIcon("AppIcon.png"));
 
 	buttonVertical->setIcon(iconManager.loadIcon("page-orientation-vertical"));
 	buttonHorizontal->setIcon(iconManager.loadIcon("page-orientation-horizontal"));
@@ -191,6 +187,9 @@ void NewDocDialog::createNewDocPage()
 	pageCountSpinBox->setMaximum( 10000 );
 	pageCountSpinBox->setMinimum( 1 );
 
+	IconManager &iconManager = IconManager::instance();
+	pageCountLabel->setPixmap(iconManager.loadPixmap("panel-page"));
+
 	pageLayouts->updateSchemeSelector(prefsManager.appPrefs.pageSets, prefsManager.appPrefs.pageSets[pagePositioning].FirstPage);
 
 	setDocLayout(pagePositioning);
@@ -234,12 +233,16 @@ void NewDocDialog::createNewDocPage()
 	sectionTextFrame->setCanSaveState(true);
 	sectionTextFrame->restorePreferences();
 
-	// We have to calculate the width of the properties panel manually,
-	// because QSizePolicy::Minimum doesn't work as expected
+	labelColumns->setLabelVisibility(m_labelVisibity);
+	labelGap->setLabelVisibility(m_labelVisibity);
+	pageCountLabel->setLabelVisibility(m_labelVisibity);
+	orientationLabel->setLabelVisibility(m_labelVisibity);
+	pageLayouts->toggleLabelVisibility(m_labelVisibity);
+
+	// We have to install an event filter to resize the scroll container width based on the content width.
+	// The content width can change after we calculated the initial ui layout.
+	scrollAreaWidgetContents->installEventFilter(this);
 	scrollAreaWidgetContents->adjustSize();
-	//scrollAreaWidgetContents->setFixedWidth(scrollAreaWidgetContents->width());
-	scrollArea->setWidgetResizable(true);
-	scrollArea->setFixedWidth(scrollAreaWidgetContents->width() + qApp->style()->pixelMetric(QStyle::PM_ScrollBarExtent));
 
 }
 
@@ -330,6 +333,7 @@ void NewDocDialog::setWidth(double)
 		QSignalBlocker sigFormats(listPageFormats);
 		listPageFormats->setOrientation(m_orientation);
 	}
+
 }
 
 void NewDocDialog::setHeight(double)
@@ -384,25 +388,15 @@ void NewDocDialog::changeSortMode(int ic)
 	listPageFormats->setSortMode(static_cast<PageSizeList::SortMode>(comboSortSizes->currentData().toInt()));
 }
 
-void NewDocDialog::windowFitInScreen()
+bool NewDocDialog::eventFilter(QObject *object, QEvent *event)
 {
-	QScreen* activeScreen = nullptr;
-	QWidget* widget = this;
-
-	while (widget)
+	if (object->objectName() == "scrollAreaWidgetContents" && event->type() == QEvent::Resize)
 	{
-		activeScreen = widget->screen();
-		if (activeScreen != nullptr)
-			break;
-		widget = widget->parentWidget();
+		int currentWidth = scrollArea->minimumWidth();
+		scrollArea->setMinimumWidth(qMax(scrollAreaWidgetContents->sizeHint().width() + qApp->style()->pixelMetric(QStyle::PM_ScrollBarExtent), currentWidth));
+		return true;
 	}
-
-	if (activeScreen)
-	{
-		int w = qMin(width(), activeScreen->availableSize().width());
-		int h = qMin(height(), activeScreen->availableSize().height());
-		resize(w, h);
-	}
+	return false;
 }
 
 void NewDocDialog::handleAutoFrame()
@@ -439,6 +433,8 @@ void NewDocDialog::setUnit(int newUnitIndex)
 	bleedGroup->setPageWidth(m_pageWidth);
 	connect(widthSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setWidth(double)));
 	connect(heightSpinBox, SIGNAL(valueChanged(double)), this, SLOT(setHeight(double)));
+
+
 }
 
 void NewDocDialog::ExitOK()
@@ -523,6 +519,7 @@ void NewDocDialog::setPageSize(const QString &size)
 
 	marginGroup->setPageSize(size);
 	bleedGroup->setPageSize(size);
+
 }
 
 void NewDocDialog::setSize(const QString& gr)

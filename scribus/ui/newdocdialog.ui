@@ -41,7 +41,7 @@
       <attribute name="title">
        <string>New Document</string>
       </attribute>
-      <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="1,0">
+      <layout class="QHBoxLayout" name="horizontalLayout_7">
        <property name="spacing">
         <number>4</number>
        </property>
@@ -95,6 +95,12 @@
        </item>
        <item>
         <widget class="QScrollArea" name="scrollArea">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="frameShape">
           <enum>QFrame::Shape::NoFrame</enum>
          </property>
@@ -104,18 +110,7 @@
          <property name="widgetResizable">
           <bool>true</bool>
          </property>
-         <property name="alignment">
-          <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
-         </property>
          <widget class="QWidget" name="scrollAreaWidgetContents">
-          <property name="geometry">
-           <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>320</width>
-            <height>626</height>
-           </rect>
-          </property>
           <layout class="QVBoxLayout" name="verticalLayout_7">
            <property name="spacing">
             <number>0</number>
@@ -191,69 +186,12 @@
                 <number>8</number>
                </property>
                <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_10">
-                 <item>
-                  <widget class="FormWidget" name="labelPageWidth">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="label" stdset="0">
-                    <string>Width</string>
-                   </property>
-                   <layout class="QHBoxLayout" name="horizontalLayout_9">
-                    <property name="leftMargin">
-                     <number>0</number>
-                    </property>
-                    <property name="topMargin">
-                     <number>0</number>
-                    </property>
-                    <property name="rightMargin">
-                     <number>0</number>
-                    </property>
-                    <property name="bottomMargin">
-                     <number>0</number>
-                    </property>
-                    <item>
-                     <widget class="ScrSpinBox" name="widthSpinBox"/>
-                    </item>
-                   </layout>
-                  </widget>
+                <layout class="QGridLayout" name="gridLayout">
+                 <item row="0" column="3">
+                  <widget class="QComboBox" name="unitOfMeasureComboBox"/>
                  </item>
-                 <item>
-                  <widget class="FormWidget" name="labelPageHeight">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="label" stdset="0">
-                    <string>Height</string>
-                   </property>
-                   <layout class="QHBoxLayout" name="horizontalLayout_11">
-                    <property name="leftMargin">
-                     <number>0</number>
-                    </property>
-                    <property name="topMargin">
-                     <number>0</number>
-                    </property>
-                    <property name="rightMargin">
-                     <number>0</number>
-                    </property>
-                    <property name="bottomMargin">
-                     <number>0</number>
-                    </property>
-                    <item>
-                     <widget class="ScrSpinBox" name="heightSpinBox"/>
-                    </item>
-                   </layout>
-                  </widget>
-                 </item>
-                 <item>
-                  <spacer name="horizontalSpacer_5">
+                 <item row="0" column="4">
+                  <spacer name="horizontalSpacer_8">
                    <property name="orientation">
                     <enum>Qt::Orientation::Horizontal</enum>
                    </property>
@@ -265,12 +203,60 @@
                    </property>
                   </spacer>
                  </item>
+                 <item row="0" column="2">
+                  <spacer name="horizontalSpacer_5">
+                   <property name="orientation">
+                    <enum>Qt::Orientation::Horizontal</enum>
+                   </property>
+                   <property name="sizeType">
+                    <enum>QSizePolicy::Policy::Fixed</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>16</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item row="1" column="1">
+                  <widget class="ScrSpinBox" name="heightSpinBox"/>
+                 </item>
+                 <item row="0" column="1">
+                  <widget class="ScrSpinBox" name="widthSpinBox"/>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QLabel" name="label_2">
+                   <property name="text">
+                    <string>&amp;H:</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+                   </property>
+                   <property name="buddy">
+                    <cstring>heightSpinBox</cstring>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="0">
+                  <widget class="QLabel" name="label">
+                   <property name="text">
+                    <string>&amp;W:</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+                   </property>
+                   <property name="buddy">
+                    <cstring>widthSpinBox</cstring>
+                   </property>
+                  </widget>
+                 </item>
                 </layout>
                </item>
                <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_13" stretch="0,0,0,1">
+                <layout class="QHBoxLayout" name="horizontalLayout_12" stretch="0,0,0,0,0,1">
                  <item>
-                  <widget class="FormWidget" name="formWidget_2">
+                  <widget class="FormWidget" name="pageCountLabel">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
                      <horstretch>0</horstretch>
@@ -278,9 +264,9 @@
                     </sizepolicy>
                    </property>
                    <property name="label" stdset="0">
-                    <string>Unit</string>
+                    <string>Pages</string>
                    </property>
-                   <layout class="QHBoxLayout" name="horizontalLayout_14">
+                   <layout class="QHBoxLayout" name="horizontalLayout_2">
                     <property name="leftMargin">
                      <number>0</number>
                     </property>
@@ -294,13 +280,13 @@
                      <number>0</number>
                     </property>
                     <item>
-                     <widget class="QComboBox" name="unitOfMeasureComboBox"/>
+                     <widget class="QSpinBox" name="pageCountSpinBox"/>
                     </item>
                    </layout>
                   </widget>
                  </item>
                  <item>
-                  <spacer name="horizontalSpacer_2">
+                  <spacer name="horizontalSpacer_10">
                    <property name="orientation">
                     <enum>Qt::Orientation::Horizontal</enum>
                    </property>
@@ -316,7 +302,7 @@
                   </spacer>
                  </item>
                  <item>
-                  <widget class="FormWidget" name="formWidget">
+                  <widget class="FormWidget" name="orientationLabel">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
                      <horstretch>0</horstretch>
@@ -385,7 +371,7 @@
                      </widget>
                     </item>
                     <item>
-                     <spacer name="horizontalSpacer_8">
+                     <spacer name="horizontalSpacer_9">
                       <property name="orientation">
                        <enum>Qt::Orientation::Horizontal</enum>
                       </property>
@@ -396,53 +382,6 @@
                        </size>
                       </property>
                      </spacer>
-                    </item>
-                   </layout>
-                  </widget>
-                 </item>
-                 <item>
-                  <spacer name="horizontalSpacer_9">
-                   <property name="orientation">
-                    <enum>Qt::Orientation::Horizontal</enum>
-                   </property>
-                   <property name="sizeHint" stdset="0">
-                    <size>
-                     <width>0</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                  </spacer>
-                 </item>
-                </layout>
-               </item>
-               <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_12" stretch="0,0,0,1">
-                 <item>
-                  <widget class="FormWidget" name="pageCountLabel">
-                   <property name="sizePolicy">
-                    <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-                     <horstretch>0</horstretch>
-                     <verstretch>0</verstretch>
-                    </sizepolicy>
-                   </property>
-                   <property name="label" stdset="0">
-                    <string>Pages</string>
-                   </property>
-                   <layout class="QHBoxLayout" name="horizontalLayout_2">
-                    <property name="leftMargin">
-                     <number>0</number>
-                    </property>
-                    <property name="topMargin">
-                     <number>0</number>
-                    </property>
-                    <property name="rightMargin">
-                     <number>0</number>
-                    </property>
-                    <property name="bottomMargin">
-                     <number>0</number>
-                    </property>
-                    <item>
-                     <widget class="QSpinBox" name="pageCountSpinBox"/>
                     </item>
                    </layout>
                   </widget>
@@ -464,7 +403,14 @@
                   </spacer>
                  </item>
                  <item>
-                  <widget class="PageLayouts" name="pageLayouts" native="true"/>
+                  <widget class="PageLayouts" name="pageLayouts" native="true">
+                   <property name="minimumSize">
+                    <size>
+                     <width>24</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                  </widget>
                  </item>
                  <item>
                   <spacer name="horizontalSpacer_6">
@@ -851,8 +797,11 @@
  </customwidgets>
  <tabstops>
   <tabstop>tabWidget</tabstop>
+  <tabstop>comboSortSizes</tabstop>
+  <tabstop>listPageFormats</tabstop>
   <tabstop>scrollArea</tabstop>
   <tabstop>widthSpinBox</tabstop>
+  <tabstop>unitOfMeasureComboBox</tabstop>
   <tabstop>heightSpinBox</tabstop>
   <tabstop>pageCountSpinBox</tabstop>
   <tabstop>buttonVertical</tabstop>
@@ -860,6 +809,7 @@
   <tabstop>autoTextFrame</tabstop>
   <tabstop>numberOfCols</tabstop>
   <tabstop>Distance</tabstop>
+  <tabstop>startDocSetup</tabstop>
   <tabstop>startUpDialog</tabstop>
   <tabstop>recentDocListBox</tabstop>
  </tabstops>

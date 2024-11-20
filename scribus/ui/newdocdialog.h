@@ -29,6 +29,7 @@ class QListWidgetItem;
 class QPushButton;
 class QSpinBox;
 
+#include "scdialog.h"
 #include "scribusapi.h"
 #include "scribusstructs.h"
 #include "ui/customfdialog.h"
@@ -40,7 +41,7 @@ class NewMarginWidget;
 class PrefsManager;
 class ScrSpinBox;
 
-class SCRIBUS_API NewDocDialog : public QDialog, public Ui::newDocDialog
+class SCRIBUS_API NewDocDialog : public ScDialog, public Ui::newDocDialog
 {
 	Q_OBJECT
 
@@ -137,8 +138,9 @@ protected:
 	double m_bleedTop { 0.0 };
 	double m_bleedLeft { 0.0 };
 	double m_bleedRight { 0.0 };
+	bool m_labelVisibity {true};
 
-	void windowFitInScreen();
+	bool eventFilter(QObject *object, QEvent *event);
 };
 
 #endif // NEWDOC_H
