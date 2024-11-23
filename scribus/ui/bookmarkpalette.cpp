@@ -28,10 +28,10 @@ for which a new license (GPL+exception) is in place.
 BookPalette::BookPalette(QWidget* parent) : DockPanelBase( "Books", "panel-bookmarks", parent )
 {
 	setObjectName(QString::fromLocal8Bit("Books"));
-	setContentsMargins(3, 3, 3, 3);
 	setMinimumSize( QSize(220, 240) );
 	setSizePolicy( QSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum));
 	BView = new BookmarkView(this);
+	BView->setFrameStyle(QFrame::NoFrame);
 	setWidget( BView );
 	languageChange();
 }
