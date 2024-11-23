@@ -24,9 +24,12 @@ PropertiesPalette_Attributes::PropertiesPalette_Attributes(QWidget *parent) :
 	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 	connect(ScQApp, SIGNAL(labelVisibilityChanged(bool)), this, SLOT(toggleLabelVisibility(bool)));
 
-
 	connect(nameEdit , SIGNAL(Leaved()) , this, SLOT(handleNewName()));
 	connect(noPrint  , SIGNAL(clicked()), this, SLOT(handlePrint()));
+	connect(buttonPDFBookmark  , SIGNAL(clicked()), this, SLOT(handlePDFBookmark()));
+	connect(buttonPDFAnnotation  , SIGNAL(clicked()), this, SLOT(handlePDFAnnotation()));
+	connect(buttonPDFAnnotationSettings  , SIGNAL(clicked()), this, SLOT(handlePDFAnnotationSettings()));
+
 
 }
 
@@ -102,8 +105,10 @@ void PropertiesPalette_Attributes::setCurrentItem(PageItem *item)
 	if (!m_doc)
 		setDoc(item->doc());
 
-	disconnect(nameEdit, SIGNAL(Leaved()), this, SLOT(handleNewName()));
-	disconnect(noPrint, SIGNAL(clicked()), this, SLOT(handlePrint()));
+	QSignalBlocker sigName(nameEdit);
+	QSignalBlocker sigPrint(noPrint);
+	QSignalBlocker sigPDFBookmark(buttonPDFBookmark);
+	QSignalBlocker sigPDFAnnotation(buttonPDFAnnotation);
 
 	m_haveItem = false;
 	m_item = item;
@@ -111,8 +116,9 @@ void PropertiesPalette_Attributes::setCurrentItem(PageItem *item)
 	nameEdit->setText(m_item->itemName());
 	noPrint->setChecked(!item->printEnabled());
 
-	connect(nameEdit, SIGNAL(Leaved()), this, SLOT(handleNewName()));
-	connect(noPrint , SIGNAL(clicked()), this, SLOT(handlePrint()), Qt::UniqueConnection);
+	buttonPDFBookmark->setChecked(m_item->isPDFBookmark());
+	buttonPDFAnnotation->setChecked(m_item->isAnnotation());
+	buttonPDFAnnotationSettings->setEnabled(buttonPDFAnnotation->isChecked());
 
 	m_haveItem = true;
 
@@ -152,21 +158,16 @@ void PropertiesPalette_Attributes::handleSelectionChanged()
 
 void PropertiesPalette_Attributes::toggleLabelVisibility(bool visibility)
 {
-	formWidget->setLabelVisibility(visibility);
+	labelName->setLabelVisibility(visibility);
 	labelExport->setLabelVisibility(visibility);
+	labelPDFOptions->setLabelVisibility(visibility);
 }
-
-void PropertiesPalette_Attributes::showPrintingEnabled(bool isPrintingEnabled)
-{
-	noPrint->setChecked(!isPrintingEnabled);
-}
-
 
 void PropertiesPalette_Attributes::handlePrint()
 {
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	m_ScMW->scrActions["itemPrintingEnabled"]->toggle();
+	m_doc->itemSelection_TogglePrintEnabled();
 }
 
 void PropertiesPalette_Attributes::handleNewName()
@@ -216,6 +217,27 @@ void PropertiesPalette_Attributes::handleNewName()
 	}
 }
 
+void PropertiesPalette_Attributes::handlePDFBookmark()
+{
+	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+	m_doc->itemSelection_ToggleBookMark();
+}
+
+void PropertiesPalette_Attributes::handlePDFAnnotation()
+{
+	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+	m_doc->itemSelection_ToggleAnnotation();
+}
+
+void PropertiesPalette_Attributes::handlePDFAnnotationSettings()
+{
+	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+	m_ScMW->ModifyAnnot();
+}
+
 void PropertiesPalette_Attributes::changeEvent(QEvent *e)
 {
 	if (e->type() == QEvent::LanguageChange)
@@ -230,10 +252,15 @@ void PropertiesPalette_Attributes::iconSetChange()
 {
 	IconManager& im = IconManager::instance();
 
-	QIcon a2;
-	a2.addPixmap(im.loadPixmap("NoPrint.png"), QIcon::Normal, QIcon::On);
-	a2.addPixmap(im.loadPixmap("16/document-print.png"), QIcon::Normal, QIcon::Off);
-	noPrint->setIcon(a2);
+	QIcon icoPrint;
+	icoPrint.addPixmap(im.loadPixmap("NoPrint.png"), QIcon::Normal, QIcon::On);
+	icoPrint.addPixmap(im.loadPixmap("16/document-print.png"), QIcon::Normal, QIcon::Off);
+	noPrint->setIcon(icoPrint);
+
+	labelName->setPixmap(im.loadPixmap("name"));
+	buttonPDFBookmark->setIcon(im.loadPixmap("pdf-bookmark"));
+	buttonPDFAnnotation->setIcon(im.loadPixmap("16/pdf-annotations.png"));
+	buttonPDFAnnotationSettings->setIcon(im.loadIcon("settings"));
 
 }
 

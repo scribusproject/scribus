@@ -435,7 +435,8 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon id="16/annot3d.png" file="16/pdf-annotation-3d.svg" />
 		<icon id="22/annot3d.png" file="16/pdf-annotation-3d.svg" />
 		<icon id="goto16.png" file="16/pdf-annotation-link.svg" />
-		<icon id="goto.png" file="16/pdf-annotation-link.svg" />		
+		<icon id="goto.png" file="16/pdf-annotation-link.svg" />
+		<icon id="pdf-bookmark" file="16/panel-bookmarks.svg" />
 	
 		<!-- Picture Browser -->
 		<icon id="doc.png" file="16/file-new.svg" />

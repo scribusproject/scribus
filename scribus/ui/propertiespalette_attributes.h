@@ -36,13 +36,14 @@ public slots:
 	void languageChange();
 	void toggleLabelVisibility(bool visibility);
 
-	void showPrintingEnabled(bool isPrintingEnabled);
-
 	void handleSelectionChanged();
 
 private slots:
 	void handlePrint();
 	void handleNewName();
+	void handlePDFBookmark();
+	void handlePDFAnnotation();
+	void handlePDFAnnotationSettings();
 
 protected:
 	bool m_haveDoc {false};
