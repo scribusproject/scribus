@@ -561,6 +561,7 @@ set(SCRIBUS_SOURCES
 	ui/widgets/color_button.cpp
 	ui/widgets/combo_blendmode.cpp
 	ui/widgets/combo_linestyle.cpp
+	ui/widgets/dropdown_button.cpp
 	ui/widgets/floatingwindow.cpp
 	ui/widgets/form_widget.cpp
 	ui/widgets/gradientlistbox.cpp

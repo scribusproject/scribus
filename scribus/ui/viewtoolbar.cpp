@@ -24,9 +24,11 @@ for which a new license (GPL+exception) is in place.
 #include "viewtoolbar.h"
 
 #include <QFont>
+#include <QToolButton>
 
+#include "iconmanager.h"
 #include "scraction.h"
-
+#include "scribusapp.h"
 #include "scribusdoc.h"
 #include "scribuscore.h"
 
@@ -36,36 +38,40 @@ ViewToolBar::ViewToolBar(ScribusMainWindow* parent) : ScToolBar( tr("View Tools"
 	int posi = fo.pointSize() - (ScCore->isWinGUI() ? 1 : 2);
 	fo.setPointSize(posi);
 
-	previewQualitySwitcher = new QComboBox( this );
+	previewQualitySwitcher = new DropdownButton( this );
 	previewQualitySwitcher->setFocusPolicy(Qt::NoFocus);
-	previewQualitySwitcher->setFont(fo);
+//	previewQualitySwitcher->setFont(fo);
 
-	visualMenu = new QComboBox( this );
+	visualMenu = new DropdownButton( this );
 	visualMenu->setFocusPolicy(Qt::NoFocus);
-	visualMenu->setFont(fo);
 	visualMenu->setEnabled(false);
-	visualMenu->setSizeAdjustPolicy(QComboBox::AdjustToContents);
 
 	inPreview = visualMenu->isEnabled();
 
 	addWidget(previewQualitySwitcher);
+	addAction(parent->scrActions["viewToggleWhiteSpaceMode"]);
 	addAction(parent->scrActions["viewToggleCMS"]);
+	addSeparator();
 	addAction(parent->scrActions["viewPreviewMode"]);
 	addAction(parent->scrActions["viewEditInPreview"]);
-	addAction(parent->scrActions["viewToggleWhiteSpaceMode"]);
 	addWidget(visualMenu);
+	addSeparator();
+	addAction(parent->scrActions["viewSnapToGrid"]);
+	addAction(parent->scrActions["viewSnapToGuides"]);
+	addAction(parent->scrActions["viewSnapToElements"]);
 
 	languageChange();
+
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(languageChange()));
 }
 
 void ViewToolBar::setDoc(ScribusDoc* doc)
 {
-	visualMenu->blockSignals(true);
+	QSignalBlocker sigColorVision(visualMenu);
 	visualMenu->setCurrentIndex(doc->previewVisual);
-	visualMenu->blockSignals(false);
-	previewQualitySwitcher->blockSignals(true);
+
+	QSignalBlocker sigImageRes(previewQualitySwitcher);
 	previewQualitySwitcher->setCurrentIndex(doc->previewQuality());
-	previewQualitySwitcher->blockSignals(false);
 }
 
 void ViewToolBar::setViewPreviewMode(bool b)
@@ -76,29 +82,24 @@ void ViewToolBar::setViewPreviewMode(bool b)
 
 void ViewToolBar::languageChange()
 {
-	visualMenu->blockSignals(true);
-	int iVM = visualMenu->currentIndex();
+	IconManager &im = IconManager::instance();
+
+	QSignalBlocker sigColorVision(visualMenu);
 	visualMenu->clear();
-	visualMenu->addItem(CommonStrings::trVisionNormal);
-	visualMenu->addItem(CommonStrings::trVisionProtanopia);
-	visualMenu->addItem(CommonStrings::trVisionDeuteranopia);
-	visualMenu->addItem(CommonStrings::trVisionTritanopia);
-	visualMenu->addItem(CommonStrings::trVisionFullColorBlind);
-	visualMenu->setCurrentIndex(iVM);
-	visualMenu->blockSignals(false);
-
-	previewQualitySwitcher->blockSignals(true);
-	int iPQM = previewQualitySwitcher->currentIndex();
-	previewQualitySwitcher->clear();
-	previewQualitySwitcher->addItem(tr("High"));
-	previewQualitySwitcher->addItem(tr("Normal"));
-	previewQualitySwitcher->addItem(tr("Low"));
-	previewQualitySwitcher->setCurrentIndex(iPQM);
-	previewQualitySwitcher->blockSignals(false);
-
-	previewQualitySwitcher->setToolTip( tr("Select the image preview quality"));
-	previewQualitySwitcher->setStatusTip( tr("Select image preview quality"));
+	visualMenu->addAction(im.loadIcon("color-vision-normal", iconSize()), CommonStrings::trVisionNormal);
+	visualMenu->addAction(im.loadIcon("color-vision-protanopia", iconSize()), CommonStrings::trVisionProtanopia);
+	visualMenu->addAction(im.loadIcon("color-vision-deuteranopia", iconSize()), CommonStrings::trVisionDeuteranopia);
+	visualMenu->addAction(im.loadIcon("color-vision-tritanopia", iconSize()), CommonStrings::trVisionTritanopia);
+	visualMenu->addAction(im.loadIcon("color-vision-colorblind", iconSize()), CommonStrings::trVisionFullColorBlind);
 	visualMenu->setToolTip( tr("Select the visual appearance of the display. You can choose between normal and several color blindness forms."));
 	visualMenu->setStatusTip( tr("Select display visual appearance"));
+
+	QSignalBlocker sigImageRes(previewQualitySwitcher);
+	previewQualitySwitcher->clear();
+	previewQualitySwitcher->addAction(im.loadIcon("image-resolution-high", iconSize()), tr("High"));
+	previewQualitySwitcher->addAction(im.loadIcon("image-resolution-normal", iconSize()), tr("Normal"));
+	previewQualitySwitcher->addAction(im.loadIcon("image-resolution-low", iconSize()), tr("Low"));
+	previewQualitySwitcher->setToolTip( tr("Select the image preview quality"));
+	previewQualitySwitcher->setStatusTip( tr("Select image preview quality"));
 
 }

@@ -708,11 +708,11 @@ void ActionManager::initViewMenuActions()
 	name = "viewRulerMode";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name = "viewSnapToGrid";
-	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+	scrActions->insert(name, new ScrAction("snap-grid", "snap-grid", "", defaultKey(name), mainWindow));
 	name = "viewSnapToGuides";
-	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+	scrActions->insert(name, new ScrAction("snap-guides", "snap-guides", "", defaultKey(name), mainWindow));
 	name = "viewSnapToElements";
-	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+	scrActions->insert(name, new ScrAction("snap-items", "snap-items", "", defaultKey(name), mainWindow));
 	name = "viewShowContextMenu";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name = "showMouseCoordinates";

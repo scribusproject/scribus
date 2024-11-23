@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "ui/sctoolbar.h"
+#include "ui/widgets/dropdown_button.h"
 
 class ScribusDoc;
 class ScribusMainWindow;
@@ -34,8 +35,9 @@ public:
 	ViewToolBar(ScribusMainWindow* parent);
 	~ViewToolBar() {};
 
-	QComboBox *previewQualitySwitcher { nullptr };
-	QComboBox *visualMenu { nullptr };
+	//QComboBox *previewQualitySwitcher { nullptr };
+	DropdownButton *previewQualitySwitcher { nullptr };
+	DropdownButton *visualMenu { nullptr };
 
 	void setDoc(ScribusDoc *doc);
 	void setViewPreviewMode(bool);
@@ -44,6 +46,7 @@ public slots:
 	void languageChange();
 
 protected:
+
 	bool inPreview { false };
 };
 

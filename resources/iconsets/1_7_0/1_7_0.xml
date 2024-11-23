@@ -138,23 +138,31 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon id="u_group.png" file="16/object-group.svg" /><!-- Outliner -->
 		<icon id="u_undo16.png" file="16/action-undo.svg" /><!-- Barcode -->
 		<icon id="ungroup.png" file="16/object-ungroup.svg" />
+		<icon id="add" file="16/action-add.svg" />
 		<icon id="collapse" file="16/action-chevron-right.svg" />
 		<icon id="context-menu" file="16/action-menu.svg" />
+		<icon id="delete" file="16/action-delete.svg" />
 		<icon id="delete-selected" file="16/action-delete-selected.svg" />
 		<icon id="erase-shadow-off" file="16/action-shadow-erase-off.svg" />
 		<icon id="erase-shadow-on" file="16/action-shadow-erase-on.svg" />
 		<icon id="expand" file="16/action-chevron-down.svg" />
+		<icon id="image-resolution-high" file="16/image-resolution-high.svg" />
+		<icon id="image-resolution-low" file="16/image-resolution-low.svg" />
+		<icon id="image-resolution-normal" file="16/image-resolution-normal.svg" />
 		<icon id="inherit-opacity-off" file="16/action-inherit-opacity-off.svg" />
 		<icon id="inherit-opacity-on" file="16/action-inherit-opacity-on.svg" />
+		<icon id="name" file="16/object-name.svg" />
+		<icon id="remove" file="16/action-remove.svg" />
 		<icon id="reset" file="16/action-reload.svg" />
 		<icon id="reset-style-changes" file="16/action-reload.svg" /> <!-- 16/action-revert-changes.svg -->
 		<icon id="scale-height" file="16/action-scale-height.svg" />
 		<icon id="scale-width" file="16/action-scale-width.svg" />
+		<icon id="settings" file="16/properties-external-tools.svg" />
+		<icon id="snap-items" file="16/action-snap-items.svg" />
+		<icon id="snap-grid" file="16/action-snap-grid.svg" />
+		<icon id="snap-guides" file="16/action-snap-guides.svg" />
 		<icon id="swap" file="16/action-swap.svg" />
 		<icon id="toggle-object-coordination" file="16/object-xycoordination.svg" />
-		<icon id="context-menu" file="16/action-menu.svg" />
-		<icon id="scale-width" file="16/action-scale-width.svg" />
-		<icon id="scale-height" file="16/action-scale-height.svg" />
 		<icon id="whitespace-review-mode" file="16/action-whitespace-review.svg" />
 			
 		<!-- Alerts -->
@@ -230,6 +238,11 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon id="colorpicker-hatch" file="16/colorpicker-hatch.svg" />
 		<icon id="colorpicker-pattern" file="16/colorpicker-pattern.svg" />
 		<icon id="colorpicker-solid" file="16/colorpicker-solid.svg" />
+		<icon id="color-vision-colorblind" file="16/color-vision-colorblind.svg" />
+		<icon id="color-vision-deuteranopia" file="16/color-vision-deuteranopia.svg" />
+		<icon id="color-vision-normal" file="16/color-vision-normal.svg" />
+		<icon id="color-vision-protanopia" file="16/color-vision-protanopia.svg" />
+		<icon id="color-vision-tritanopia" file="16/color-vision-tritanopia.svg" />
 		<icon id="mask" file="16/color-mask.svg" />
 		<icon id="text-color" file="16/text.svg" />
 		<icon id="text-background-color" file="16/paragraph-align-horizontal-center.svg" />
