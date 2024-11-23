@@ -2608,6 +2608,9 @@
     <ClCompile Include="..\..\..\scribus\ui\widgets\combo_linestyle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\widgets\dropdown_button.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\widgets\floatingwindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -4470,6 +4473,9 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\widgets\color_button.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\widgets\dropdown_button.h">
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\widgets\floatingwindow.h">

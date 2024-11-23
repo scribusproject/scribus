@@ -679,6 +679,7 @@
     <ClInclude Include="..\..\..\scribus\ui\widgets\combo_blendmode.h" />
     <moc Include="..\..\..\scribus\ui\widgets\form_widget.h" />
     <ClInclude Include="..\..\..\scribus\ui\widgets\combo_linestyle.h" />
+    <moc Include="..\..\..\scribus\ui\widgets\dropdown_button.h" />
     <moc Include="..\..\..\scribus\ui\widgets\floatingwindow.h" />
     <moc Include="..\..\..\scribus\ui\widgets\gradientlistbox.h" />
     <moc Include="..\..\..\scribus\ui\widgets\pagelayout.h" />
@@ -1486,6 +1487,7 @@
     <ClCompile Include="..\..\..\scribus\ui\widgets\color_button.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\widgets\combo_blendmode.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\widgets\combo_linestyle.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\widgets\dropdown_button.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\widgets\floatingwindow.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\widgets\form_widget.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\widgets\gradientlistbox.cpp" />
