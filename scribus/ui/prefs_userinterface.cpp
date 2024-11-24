@@ -72,8 +72,8 @@ void Prefs_UserInterface::languageChange()
 	//showSplashCheckBox->setToolTip( "<qt>" + tr( "" ) + "</qt>");
 	//showStartupDialogCheckBox->setToolTip( "<qt>" + tr( "" ) + "</qt>");
 	storyEditorUseSmartSelectionCheckBox->setToolTip( "<qt>" + tr( "The default behavior when double-clicking on a word is to select the word and the first following space. Smart selection will select only the word, without the following space." ) + "</qt>");
-	hideLabels->setToolTip("<qt>" + tr( "Hides informational labels on palettes." ) + "</qt>");
-	hideLabelsOfInactiveTabs->setToolTip("<qt>" + tr( "Hides labels of inactive palette tabs." ) + "</qt>");
+	showLabels->setToolTip("<qt>" + tr( "Shows informational labels on palettes." ) + "</qt>");
+	showLabelsOfInactiveTabs->setToolTip("<qt>" + tr( "Shows labels of inactive palette tabs." ) + "</qt>");
 }
 
 void Prefs_UserInterface::restoreDefaults(struct ApplicationPrefs *prefsData)
@@ -105,8 +105,8 @@ void Prefs_UserInterface::restoreDefaults(struct ApplicationPrefs *prefsData)
 	useTabsForDocumentsCheckBox->setChecked(prefsData->uiPrefs.useTabs);
 	showSplashCheckBox->setChecked(prefsData->uiPrefs.showSplashOnStartup);
 	useSmallWidgetsCheckBox->setChecked(prefsData->uiPrefs.useSmallWidgets);
-	hideLabels->setChecked(prefsData->uiPrefs.hideLabels);
-	hideLabelsOfInactiveTabs->setChecked(prefsData->uiPrefs.hideLabelsOfInactiveTabs);
+	showLabels->setChecked(prefsData->uiPrefs.showLabels);
+	showLabelsOfInactiveTabs->setChecked(prefsData->uiPrefs.showLabelsOfInactiveTabs);
 
 	storyEditorUseSmartSelectionCheckBox->setChecked(prefsData->storyEditorPrefs.smartTextSelection);
 	seFont.fromString(prefsData->storyEditorPrefs.guiFont);
@@ -128,8 +128,8 @@ void Prefs_UserInterface::saveGuiToPrefs(struct ApplicationPrefs *prefsData) con
 	prefsData->uiPrefs.useTabs = useTabsForDocumentsCheckBox->isChecked();
 	prefsData->uiPrefs.showSplashOnStartup = showSplashCheckBox->isChecked();
 	prefsData->uiPrefs.useSmallWidgets = useSmallWidgetsCheckBox->isChecked();
-	prefsData->uiPrefs.hideLabels = hideLabels->isChecked();
-	prefsData->uiPrefs.hideLabelsOfInactiveTabs = hideLabelsOfInactiveTabs->isChecked();
+	prefsData->uiPrefs.showLabels = showLabels->isChecked();
+	prefsData->uiPrefs.showLabelsOfInactiveTabs = showLabelsOfInactiveTabs->isChecked();
 
 	prefsData->storyEditorPrefs.guiFont = seFont.toString();
 	prefsData->storyEditorPrefs.smartTextSelection = storyEditorUseSmartSelectionCheckBox->isChecked();

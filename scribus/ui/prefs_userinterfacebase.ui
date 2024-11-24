@@ -128,16 +128,16 @@
           <widget class="QSpinBox" name="recentDocumentsSpinBox"/>
          </item>
          <item row="3" column="1">
-          <widget class="QCheckBox" name="hideLabels">
+          <widget class="QCheckBox" name="showLabels">
            <property name="text">
-            <string>Hide Informational Labels</string>
+            <string>Show Informational Labels</string>
            </property>
           </widget>
          </item>
          <item row="4" column="1">
-          <widget class="QCheckBox" name="hideLabelsOfInactiveTabs">
+          <widget class="QCheckBox" name="showLabelsOfInactiveTabs">
            <property name="text">
-            <string>Hide Labels of Inactive Palette Tabs</string>
+            <string>Show Labels of Inactive Palette Tabs</string>
            </property>
           </widget>
          </item>
@@ -451,7 +451,8 @@
   <tabstop>themeComboBox</tabstop>
   <tabstop>iconSetComboBox</tabstop>
   <tabstop>useSmallWidgetsCheckBox</tabstop>
-  <tabstop>hideLabels</tabstop>
+  <tabstop>showLabels</tabstop>
+  <tabstop>showLabelsOfInactiveTabs</tabstop>
   <tabstop>useTabsForDocumentsCheckBox</tabstop>
   <tabstop>recentDocumentsSpinBox</tabstop>
   <tabstop>languageComboBox</tabstop>

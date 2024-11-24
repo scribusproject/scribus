@@ -302,7 +302,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	CDockManager::setConfigFlag(CDockManager::DockAreaHideDisabledButtons, true);
 	CDockManager::setConfigFlag(CDockManager::FocusHighlighting, true);
 	CDockManager::setConfigFlag(CDockManager::DisableTabTextEliding, true);
-	CDockManager::setConfigFlag(CDockManager::ShowTabTextOnlyForActiveTab, m_prefsManager.appPrefs.uiPrefs.hideLabelsOfInactiveTabs);
+	CDockManager::setConfigFlag(CDockManager::ShowTabTextOnlyForActiveTab, !m_prefsManager.appPrefs.uiPrefs.showLabelsOfInactiveTabs);
 
 	// Documentation: https://github.com/githubuser0xFFFF/Qt-Advanced-Docking-System/blob/master/doc/user-guide.md#auto-hide-configuration-flags
 	CDockManager::setAutoHideConfigFlags(CDockManager::DefaultAutoHideConfig);
@@ -453,7 +453,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	}
 	appModeHelper->setStartupActionsEnabled(false);
 
-	ScQApp->changeLabelVisibility(!m_prefsManager.appPrefs.uiPrefs.hideLabels);
+	ScQApp->changeLabelVisibility(m_prefsManager.appPrefs.uiPrefs.showLabels);
 
 	setStyleSheet();
 
@@ -6524,7 +6524,7 @@ void ScribusMainWindow::slotPrefsOrg()
 	if (oldPrefs.uiPrefs.iconSet != newIconSet || oldPrefs.uiPrefs.style != newUIStyle)
 		ScQApp->changeIconSet(newIconSet);
 
-	ScQApp->changeLabelVisibility(!m_prefsManager.appPrefs.uiPrefs.hideLabels);
+	ScQApp->changeLabelVisibility(m_prefsManager.appPrefs.uiPrefs.showLabels);
 
 	int newUIFontSize = m_prefsManager.guiFontSize();
 	if (oldPrefs.uiPrefs.applicationFontSize != newUIFontSize)
