@@ -30,6 +30,7 @@ for which a new license (GPL+exception) is in place.
 class QMouseEvent;
 class QPaintEvent;
 
+class PageItem;
 class PrefsManager;
 class RulerGesture;
 class ScribusDoc;
@@ -73,6 +74,7 @@ private:
 	double m_cor {0.0};
 	double m_iter {0.0};
 	double m_iter2 {0.0};
+	double m_iter3 {0.0};
 	double m_offset {0.0};
 	int m_oldMark {0};
 	int m_whereToDraw {0};

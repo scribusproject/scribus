@@ -595,6 +595,11 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon id="paragraph-style-edit" file="16/action-edit.svg" />
 		<icon id="paragraph-style-new" file="16/action-add.svg" />
 		<icon id="paragraph-widow" file="16/paragraph-widow.svg" />
+		<icon id="tabulator-center" file="16/tabulator-center.svg" />
+		<icon id="tabulator-comma" file="16/tabulator-comma.svg" />
+		<icon id="tabulator-dot" file="16/tabulator-dot.svg" />
+		<icon id="tabulator-left" file="16/tabulator-left.svg" />
+		<icon id="tabulator-right" file="16/tabulator-right.svg" />
 		<icon id="text-on-path-distance" file="16/text-on-path-distance.svg" />
 		<icon id="text-on-path-flip" file="16/object-flip-vertical.svg" />
 		<icon id="text-on-path-offset" file="16/text-on-path-offset.svg" />

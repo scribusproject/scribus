@@ -66,6 +66,15 @@ public:
 		AutomaticHyphenation = 2
 	};
 
+	enum TabType
+	{
+		LeftTab = 0,
+		RightTab = 1,
+		DotTab = 2,
+		CommaTab = 3,
+		CenterTab = 4
+	};
+
 	struct TabRecord
 	{
 		qreal tabPosition {0.0};

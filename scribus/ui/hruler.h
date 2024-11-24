@@ -75,7 +75,12 @@ public:
 	void   shift(double pos); // using canvas coord
 	void   shiftRel(double dist); // using canvas coord
 	double offset() const { return m_offset; }
-	
+
+	static int rulerHeight();
+
+protected:
+	void changeEvent(QEvent *e) override;
+
 private:
 	int findRulerHandle(QPoint mp, int grabRadius);
 	
@@ -83,19 +88,21 @@ private:
 	void mousePressEvent(QMouseEvent *m) override;
 	void mouseReleaseEvent(QMouseEvent *) override;
 	void mouseMoveEvent(QMouseEvent *m) override;
+	void mouseDoubleClickEvent( QMouseEvent * m ) override;
 	void enterEvent(QEnterEvent *m) override;
 	void leaveEvent(QEvent *m) override;
 
 	void drawMarks(QPainter& p) const;
 	void drawTextMarks(double pos, double endPos, QPainter& p) const;
 	void drawMarker(QPainter& p) const;
-	void drawNumber(const QString& num, int startx, int starty, QPainter & p) const;
+	void drawNumber(const QString& num, int startx, QPainter & p) const;
 	void updateTabList();
 
 	PageItem* m_currItem {nullptr};
 	QList<ParagraphStyle::TabRecord> m_tabValues;
 	ScribusDoc *m_doc {nullptr};
 	ScribusView *m_view {nullptr};
+	QMenu *m_contextMenu {nullptr};
 	bool m_drawMark {false};
 	bool m_mousePressed {false};
 	bool m_reverse {false};
@@ -128,6 +135,11 @@ public slots: // Public slots
 	\param where where to draw */
 	void draw(int where);
 	void unitChange();
+	void languageChange();
+
+private slots:
+	void contextMenuRequested(QPoint mouse);
+	void tabTypeChanged(QAction *action);
 
 signals:
 	void DocChanged(bool);

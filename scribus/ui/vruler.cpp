@@ -39,6 +39,17 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "units.h"
+#include "util_gui.h"
+
+#ifdef Q_OS_MACOS
+constexpr int topline = 1;
+#else
+constexpr int topline = 3;
+#endif
+constexpr int bottomline = 24;
+constexpr int scaleS = bottomline - 4;
+constexpr int scaleM = bottomline - 8;
+constexpr int scaleL = bottomline - 12;
 
 Vruler::Vruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa),
 	m_doc(doc),
@@ -97,20 +108,21 @@ void Vruler::paintEvent(QPaintEvent *e)
 	p.setBrush(textColor);
 	p.setPen(textColor);
 	p.setFont(font());
-	
+	p.fillRect(rect(), palette.color((QPalette::Base)));
+
 	double cc = height() / sc;
 	double firstMark = ceil(m_offset / m_iter) * m_iter - m_offset;
 	while (firstMark < cc)
 	{
-		p.drawLine(13, qRound(firstMark * sc), 16, qRound(firstMark * sc));
+		p.drawLine(scaleS, qRound(firstMark * sc), bottomline, qRound(firstMark * sc));
 		firstMark += m_iter;
 	}
 	firstMark = ceil(m_offset / m_iter2) * m_iter2 - m_offset;
 	int markC = static_cast<int>(ceil(m_offset / m_iter2));
 	while (firstMark < cc)
 	{
-		p.drawLine(8, qRound(firstMark * sc), 16, qRound(firstMark * sc));
 		int textY = qRound(firstMark * sc) + 10;
+		int scaleOffset = scaleL;
 		switch (m_doc->unitIndex())
 		{
 			case SC_MM:
@@ -142,20 +154,41 @@ void Vruler::paintEvent(QPaintEvent *e)
 				tx = QString::number(markC * m_iter2);
 				break;
 		}
+		p.drawLine(scaleOffset, qRound(firstMark * sc), bottomline, qRound(firstMark * sc));
 		drawNumber(tx, textY, &p);
 		firstMark += m_iter2;
 		markC++;
+	}
+
+	if (m_doc->unitIndex() != SC_C || m_doc->unitIndex() != SC_P)
+	{
+		double tickStep = m_iter2 / 2.0;
+		firstMark = ceil(m_offset / tickStep) * tickStep - m_offset;
+		int markM = static_cast<int>(ceil(m_offset / tickStep));
+		while (firstMark < cc)
+		{
+			p.drawLine(scaleM, qRound(firstMark * sc), bottomline, qRound(firstMark * sc));
+			firstMark += tickStep;
+			markM++;
+		}
 	}
 	p.restore();
 	if (m_drawMark)
 	{
 		// draw slim marker
+		const QColor& markerColor = blendColor(isDarkColor(this->palette().color(QPalette::Base)), QColor(255, 117, 102), QColor(255, 71, 51));
 		QPolygon cr;
+		cr.setPoints(3,  5, m_whereToDraw, 0, m_whereToDraw + 2, 0, m_whereToDraw - 2);
+
+	//	p.resetTransform();
 		p.translate(0, -m_view->contentsY());
-		p.setPen(Qt::red);
-		p.setBrush(Qt::red);
-		cr.setPoints(5,  5, m_whereToDraw, 16, m_whereToDraw, 5, m_whereToDraw, 0, m_whereToDraw + 2, 0, m_whereToDraw - 2);
+		p.setPen(markerColor);
+		p.drawLine(0, m_whereToDraw, bottomline, m_whereToDraw);
+		p.setRenderHints(QPainter::Antialiasing, true);
+		p.setPen(Qt::NoPen);
+		p.setBrush(markerColor);
 		p.drawPolygon(cr);
+		p.setRenderHints(QPainter::Antialiasing, false);
 	}
 	p.end();
 }
@@ -163,10 +196,12 @@ void Vruler::paintEvent(QPaintEvent *e)
 void Vruler::drawNumber(const QString& num, int starty, QPainter *p) const
 {
 	int textY = starty;
+	int fs = font().pointSize() + 2;
+
 	for (int i = 0; i < num.length(); ++i)
 	{
-		p->drawText(1, textY, num.mid(i, 1));
-		textY += 8;
+		p->drawText(scaleM - fs, textY, num.mid(i, 1));
+		textY += fs;
 	}
 }
 
@@ -181,7 +216,7 @@ void Vruler::draw(int where)
 	int currentCoor = where - m_view->contentsY();
 	m_whereToDraw = where;
 	m_drawMark = true;
-	repaint(0, m_oldMark - 3, 17, 6);
+	repaint(0, m_oldMark - 4, bottomline, 8);
 //	m_drawMark = false;
 	m_oldMark = currentCoor;
 }
@@ -201,24 +236,24 @@ void Vruler::unitChange()
 			if (sc < 0.3)
 			{
 				m_iter = unitRulerGetIter1FromIndex(docUnitIndex) * 3;
-	  			m_iter2 = unitRulerGetIter2FromIndex(docUnitIndex) * 3;
+				m_iter2 = unitRulerGetIter2FromIndex(docUnitIndex) * 3;
 			}
 			else if (sc < 0.2)
 			{
 				m_iter = unitRulerGetIter1FromIndex(docUnitIndex) * 2;
-	  			m_iter2 = unitRulerGetIter2FromIndex(docUnitIndex) * 2;
+				m_iter2 = unitRulerGetIter2FromIndex(docUnitIndex) * 2;
 			}
 			else
 			{
 				m_iter = unitRulerGetIter1FromIndex(docUnitIndex) / m_cor;
-	  			m_iter2 = unitRulerGetIter2FromIndex(docUnitIndex) / m_cor;
+				m_iter2 = unitRulerGetIter2FromIndex(docUnitIndex) / m_cor;
 	  		}
 			break;
 		case SC_MM:
 			if (sc > 1)
 				m_cor = 10;
 			m_iter = unitRulerGetIter1FromIndex(docUnitIndex) / m_cor;
-  			m_iter2 = unitRulerGetIter2FromIndex(docUnitIndex) / m_cor;
+			m_iter2 = unitRulerGetIter2FromIndex(docUnitIndex) / m_cor;
 			break;
 		case SC_IN:
 			m_iter = unitRulerGetIter1FromIndex(docUnitIndex);
@@ -228,18 +263,21 @@ void Vruler::unitChange()
 				m_cor = 2;
 				m_iter /= m_cor;
 				m_iter2 /= m_cor;
+				m_iter3 /= m_cor;
 			}
 			if (sc > 4)
 			{
 				m_cor = 4;
 				m_iter /= m_cor;
 				m_iter2 /= m_cor;
+				m_iter3 /= m_cor;
 			}
 			if (sc < 0.25)
 			{
 				m_cor = 0.5;
 				m_iter = 72.0*16.0;
 				m_iter2 = 72.0*2.0;
+				m_iter3 = 72.0*8.0;
 			}
 			break;
 		case SC_P:
@@ -284,7 +322,7 @@ void Vruler::unitChange()
 			else
 			{
 				m_iter = unitRulerGetIter1FromIndex(docUnitIndex) / m_cor;
-	  			m_iter2 = unitRulerGetIter2FromIndex(docUnitIndex) / m_cor;
+				m_iter2 = unitRulerGetIter2FromIndex(docUnitIndex) / m_cor;
 	  		}
 			break;
 		case SC_C:
@@ -322,7 +360,7 @@ void Vruler::unitChange()
 			if (sc > 4)
 				m_cor = 10;
 			m_iter = unitRulerGetIter1FromIndex(0) / m_cor;
-	 		m_iter2 = unitRulerGetIter2FromIndex(0) / m_cor;
+			m_iter2 = unitRulerGetIter2FromIndex(0) / m_cor;
 			break;
 	}
 }

@@ -115,6 +115,8 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	undoManager(UndoManager::instance()),
 	m_ScMW(mw)
 {
+	m_vhRulerHW = Hruler::rulerHeight();
+
 	setObjectName("s");
 	QPalette p = palette();
 	p.setBrush(QPalette::Window, PrefsManager::instance().appPrefs.displayPrefs.scratchColor);

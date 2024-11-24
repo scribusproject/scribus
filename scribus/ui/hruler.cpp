@@ -35,10 +35,14 @@ for which a new license (GPL+exception) is in place.
 
 #include "canvasgesture_rulermove.h"
 #include "hruler.h"
+#include "scribus.h"
+#include "scribusapp.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
+#include "tabmanager.h"
 #include "units.h"
+#include "util_gui.h"
 
 #include "iconmanager.h"
 
@@ -47,20 +51,31 @@ constexpr int topline = 1;
 #else
 constexpr int topline = 3;
 #endif
-constexpr int bottomline = 15;
+constexpr int bottomline = 24;
 constexpr int rulerheight = (bottomline - topline);
-constexpr int midline = (topline + rulerheight / 2);
-constexpr int tabline = 7;
+constexpr int midline = bottomline / 2;
+constexpr int tabline = bottomline - 10;
+constexpr int scaleS = bottomline - 4;
+constexpr int scaleM = bottomline - 8;
+constexpr int scaleL = bottomline - 12;
+constexpr int textline = scaleL;
 
 Hruler::Hruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa),
 	m_doc(doc),
 	m_view(pa)
 {
-	setBackgroundRole(QPalette::Window);
+	//setBackgroundRole(QPalette::Window);
 	//setAutoFillBackground(true);
 	setMouseTracking(true);
+	m_contextMenu = new QMenu();
 	rulerGesture = new RulerGesture(m_view, RulerGesture::HORIZONTAL);
 	unitChange();
+	languageChange();
+	setContextMenuPolicy(Qt::CustomContextMenu);
+
+	connect(this, SIGNAL(customContextMenuRequested(QPoint)), SLOT(contextMenuRequested(QPoint)));
+	connect(m_contextMenu, SIGNAL(triggered(QAction*)), SLOT(tabTypeChanged(QAction*)));
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(languageChange())); // replace languageChange() if there are other icons than in context menu.
 }
 
 double Hruler::textBase() const
@@ -99,6 +114,10 @@ void Hruler::shiftRel(double dist)
 	m_offset += dist;
 }
 
+int Hruler::rulerHeight()
+{
+	return bottomline;
+}
 
 int Hruler::findRulerHandle(QPoint mp, int grabRadius)
 {
@@ -187,7 +206,7 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 			const QString& textTabFillChar = m_doc->itemToolPrefs().textTabFillChar;
 			ParagraphStyle::TabRecord tb;
 			tb.tabPosition = tabPos;
-			tb.tabType = 0;
+			tb.tabType = ParagraphStyle::LeftTab;
 			tb.tabFillChar = !textTabFillChar.isEmpty() ? textTabFillChar[0] : QChar();
 			m_tabValues.prepend(tb);
 			m_currTab = 0;
@@ -249,12 +268,6 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 					emit DocChanged(false);
 					break;
 				case rc_tab:
-					if (m->button() == Qt::RightButton)
-					{
-						m_tabValues[m_currTab].tabType += 1;
-						if (m_tabValues[m_currTab].tabType > 4)
-							m_tabValues[m_currTab].tabType = 0;
-					}
 					paraStyle.setTabValues(m_tabValues);
 					mustApplyStyle = true;
 					emit DocChanged(false);
@@ -447,6 +460,39 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 	}
 }
 
+void Hruler::mouseDoubleClickEvent(QMouseEvent* m)
+{
+	QWidget::mouseDoubleClickEvent( m );
+
+	if (!m_doc || !m_currItem || m_doc->isLoading())
+		return;
+
+	m_rulerCode = findRulerHandle(m->pos(), m_doc->guidesPrefs().grabRadius);
+
+	if ( m->button() == Qt::LeftButton && m_textEditMode && m_rulerCode == rc_tab)
+	{
+		m_mousePressed = false;
+		m_rulerCode = rc_none;
+
+		PageItem_TextFrame *tItem = m_currItem->asTextFrame();
+		if (tItem == nullptr)
+			return;
+
+		const ParagraphStyle& style(m_doc->appMode == modeEdit ? tItem->currentStyle() : tItem->itemText.defaultStyle());
+		TabManager *dia = new TabManager(this, m_doc->unitIndex(), style.tabValues(), tItem->columnWidth());
+		if (dia->exec())
+		{
+			ParagraphStyle paraStyle;
+			paraStyle.setTabValues(dia->tabList());
+			Selection tempSelection(this, false);
+			tempSelection.addItem(m_currItem);
+			m_doc->itemSelection_ApplyParagraphStyle(paraStyle, &tempSelection);
+			emit DocChanged(false);
+		}
+		delete dia;
+	}
+}
+
 void Hruler::paintEvent(QPaintEvent *e)
 {
 	if (m_doc->isLoading())
@@ -456,23 +502,28 @@ void Hruler::paintEvent(QPaintEvent *e)
 	QFont ff = font();
 	ff.setPointSize(6);
 	setFont(ff);
+
+	const QPalette& palette = this->palette();
+	const QColor& backgroundColor = palette.color(QPalette::Base);
+
 	QPainter p;
 	p.begin(this);
 	p.setClipRect(e->rect());
 	p.setFont(font());
-	
+	p.fillRect(rect(), backgroundColor);
+
 	drawMarks(p);
 
 	if (m_textEditMode)
 	{
-		int rectX1 = textPosToLocal(m_distLeft);
-		int rectX2 = textPosToLocal(m_itemEndPos - m_itemPos - m_distRight);
-		const QPalette& palette = this->palette();
+		const QColor& markerColor = blendColor(isDarkColor(backgroundColor), QColor(117, 182, 240), QColor(51, 132, 204));
+		const QColor& marginColor = markerColor;
+		QColor columnColor = markerColor;
+		columnColor.setAlphaF(0.2);
 		const QColor& textColor = palette.color(QPalette::Text);
-		p.fillRect(QRect(QPoint(rectX1, 1), QPoint(rectX2, 15)), palette.window());
-		p.drawLine(rectX1, 16, rectX2, 16);
+
 		p.save();
-		p.setRenderHints(QPainter::Antialiasing, true);
+
 		if (m_reverse)
 		{
 			p.translate( textPosToLocal(0), 0);
@@ -485,37 +536,45 @@ void Hruler::paintEvent(QPaintEvent *e)
 			double colWidth = (textWidth() - m_colGap * (m_cols - 1.0)) / m_cols;
 			double pos = (colWidth + m_colGap) * currCol;
 			double endPos = pos + colWidth;
+
+			p.fillRect(QRect(QPoint(textPosToLocal(pos), 0), QPoint(textPosToLocal(endPos), bottomline)), backgroundColor);
+			p.fillRect(QRect(QPoint(textPosToLocal(pos), 0), QPoint(textPosToLocal(endPos), bottomline)), columnColor);
+
 			drawTextMarks(pos, endPos, p);
 			
-			p.setPen(QPen(Qt::blue, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+			// start braket
+			p.setPen(QPen(marginColor, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 			int xPos = textPosToLocal(pos);
-			p.drawLine(xPos, topline, xPos, bottomline);
-			if (currCol == 0)
-			{
-				p.drawLine(xPos, 15, (xPos + 4), 15);
-				p.drawLine(xPos, topline, (xPos + 4), topline);
-			}
+			p.drawLine(xPos, 0, xPos, bottomline);
+			p.drawLine(xPos, 0, (xPos + 8), 0);
 			
-			p.setPen(QPen(Qt::blue, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-			
+			// First Indent
 			xPos = textPosToLocal(pos + m_firstIndent + m_leftMargin);
-			QPolygon cr;
-			cr.setPoints(3, xPos, midline, xPos + 3, topline, xPos - 3, topline);
-			p.drawPolygon(cr);
+			p.setPen(QPen(textColor, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+			p.drawLine(xPos, tabline - 2, xPos, bottomline);
+			p.setPen(Qt::NoPen);
+			p.setRenderHints(QPainter::Antialiasing, true);
+			p.drawRect(QRect(xPos, tabline - 8, 8, 6));
 
+			// Left Margin
 			xPos = textPosToLocal(pos + m_leftMargin);
 			QPolygon cr2;
-			cr2.setPoints(3, xPos, midline, xPos + 3, bottomline, xPos - 3, bottomline);
+			cr2.setPoints(3, xPos, tabline, xPos + 8, tabline, xPos, bottomline);
 			p.drawPolygon(cr2);
 			
+			// Right Margin
 			xPos = textPosToLocal(pos + m_rightMargin);
 			QPolygon cr3;
-			cr3.setPoints(3, xPos, topline, xPos, bottomline, xPos - 3, midline);
+			cr3.setPoints(3, xPos - 8, tabline, xPos, tabline, xPos, bottomline);
 			p.drawPolygon(cr3);
 
+			p.setRenderHints(QPainter::Antialiasing, false);
+
+			// Tabulator
 			if (!m_tabValues.isEmpty())
 			{
-				p.setPen(QPen(textColor, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+				int pWidth = 1;
+				p.setPen(QPen(textColor, pWidth * 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 				for (int yg = 0; yg < m_tabValues.count(); ++yg)
 				{
 					xPos = textPosToLocal(pos + m_tabValues[yg].tabPosition);
@@ -523,47 +582,47 @@ void Hruler::paintEvent(QPaintEvent *e)
 						continue;
 					switch (m_tabValues[yg].tabType)
 					{
-						case 0:
+						case ParagraphStyle::LeftTab:
 							if (m_reverse)
 							{
 								p.save();
 								p.translate(pos + m_tabValues[yg].tabPosition, 0);
 								p.scale(-1, 1);
-								p.drawLine(0, tabline, 0, bottomline);
-								p.drawLine(0, bottomline, 8, bottomline);
+								p.drawLine(0, tabline, 0, bottomline - pWidth);
+								p.drawLine(0, bottomline - pWidth, 8, bottomline - pWidth);
 								p.restore();
 							}
 							else
 							{
-								p.drawLine(xPos, tabline, xPos, bottomline);
-								p.drawLine(xPos, bottomline, xPos + 8, bottomline);
+								p.drawLine(xPos, tabline, xPos, bottomline - pWidth);
+								p.drawLine(xPos, bottomline - pWidth, xPos + 8, bottomline - pWidth);
 							}
 							break;
-						case 1:
+						case ParagraphStyle::RightTab:
 							if (m_reverse)
 							{
 								p.save();
 								p.translate(pos + m_tabValues[yg].tabPosition, 0);
 								p.scale(-1, 1);
-								p.drawLine(0, tabline, 0, bottomline);
-								p.drawLine(0, bottomline, -8, bottomline);
+								p.drawLine(0, tabline, 0, bottomline - pWidth);
+								p.drawLine(0, bottomline - pWidth, -8, bottomline - pWidth);
 								p.restore();
 							}
 							else
 							{
-								p.drawLine(xPos, tabline, xPos, bottomline);
-								p.drawLine(xPos, bottomline, xPos - 8, bottomline);
+								p.drawLine(xPos, tabline, xPos, bottomline - pWidth);
+								p.drawLine(xPos, bottomline - pWidth, xPos - 8, bottomline - pWidth);
 							}
 							break;
-						case 2:
-						case 3:
-							p.drawLine(xPos, tabline, xPos, bottomline);
-							p.drawLine(xPos - 4, bottomline, xPos + 4, bottomline);
-							p.drawLine(xPos + 3, bottomline - 3, xPos + 2, bottomline - 3);
+						case ParagraphStyle::CommaTab:
+						case ParagraphStyle::DotTab:
+							p.drawLine(xPos, tabline, xPos, bottomline - pWidth);
+							p.drawLine(xPos - 4, bottomline - pWidth, xPos + 4, bottomline - pWidth);
+							p.drawLine(xPos + 3, bottomline - 3 - pWidth, xPos + 2, bottomline - 3 - pWidth);
 							break;
-						case 4:
-							p.drawLine(xPos, tabline, xPos, bottomline);
-							p.drawLine(xPos - 4, bottomline, xPos + 4, bottomline);
+						case ParagraphStyle::CenterTab:
+							p.drawLine(xPos, tabline, xPos, bottomline - pWidth);
+							p.drawLine(xPos - 4, bottomline - pWidth, xPos + 4, bottomline - pWidth);
 							break;
 						default:
 							break;
@@ -571,14 +630,12 @@ void Hruler::paintEvent(QPaintEvent *e)
 				}
 			}
 			
-			p.setPen(QPen(Qt::blue, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+			// end braket
+			p.setPen(QPen(marginColor, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 			xPos = textPosToLocal(endPos);
-			p.drawLine(xPos, topline, xPos, bottomline);
-			if (currCol == m_cols - 1)
-			{
-				p.drawLine(xPos, bottomline, xPos - 4 , bottomline);
-				p.drawLine(xPos, topline, xPos - 4, topline);
-			}
+			p.drawLine(xPos, 0, xPos, bottomline - 1);
+			p.drawLine(xPos, 0, xPos - 8, 0);
+
 		}
 		p.restore();
 	}
@@ -593,13 +650,20 @@ void Hruler::paintEvent(QPaintEvent *e)
 void Hruler::drawMarker(QPainter& p) const
 {
 	// draw slim marker
+	const QColor& markerColor = blendColor(isDarkColor(palette().color(QPalette::Base)), QColor(255, 117, 102), QColor(255, 71, 51));
 	QPolygon cr;
+	cr.setPoints(3, m_whereToDraw, 5, m_whereToDraw + 2, 0, m_whereToDraw - 2, 0);
+
 	p.resetTransform();
 	p.translate(-m_view->contentsX(), 0);
-	p.setPen(Qt::red);
-	p.setBrush(Qt::red);
-	cr.setPoints(5,  m_whereToDraw, 5, m_whereToDraw, 16, m_whereToDraw, 5, m_whereToDraw + 2, 0, m_whereToDraw - 2, 0);
+	p.setPen(markerColor);
+	p.drawLine(m_whereToDraw, 0, m_whereToDraw, bottomline);
+	p.setRenderHints(QPainter::Antialiasing, true);
+	p.setPen(Qt::NoPen);
+	p.setBrush(markerColor);
 	p.drawPolygon(cr);
+	p.setRenderHints(QPainter::Antialiasing, false);
+
 }
 
 
@@ -615,7 +679,7 @@ void Hruler::drawMarks(QPainter& p) const
 	double firstMark = ceil(m_offset / m_iter) * m_iter - m_offset;
 	while (firstMark < cc)
 	{
-		p.drawLine(qRound(firstMark * sc), 13, qRound(firstMark * sc), 16);
+		p.drawLine(qRound(firstMark * sc), scaleS, qRound(firstMark * sc), bottomline);
 		firstMark += m_iter;
 	}
 	firstMark = ceil(m_offset / m_iter2) * m_iter2 - m_offset;
@@ -625,7 +689,6 @@ void Hruler::drawMarks(QPainter& p) const
 	double xl, frac;
 	while (firstMark < cc)
 	{
-		p.drawLine(qRound(firstMark * sc), topline + 5, qRound(firstMark * sc), 16);
 		switch (m_doc->unitIndex())
 		{
 			case SC_MM:
@@ -655,28 +718,41 @@ void Hruler::drawMarks(QPainter& p) const
 				tx = QString::number(markC * m_iter2);
 				break;
 		}
-		drawNumber(tx, qRound(firstMark * sc) + 2, 9, p);
-		//p.drawText(qRound(firstMark * sc) + 2, 9, tx);
+		p.drawLine(qRound(firstMark * sc), scaleL, qRound(firstMark * sc), bottomline);
+		drawNumber(tx, qRound(firstMark * sc) + 2, p);
 		firstMark += m_iter2;
 		markC++;
+	}
+
+	if (m_doc->unitIndex() == SC_C || m_doc->unitIndex() == SC_P)
+		return;
+
+	double tickStep = m_iter2 / 2.0;
+	firstMark = ceil(m_offset / tickStep) * tickStep - m_offset;
+	int markM = static_cast<int>(ceil(m_offset / tickStep));
+	while (firstMark < cc)
+	{
+		p.drawLine(qRound(firstMark * sc), scaleM, qRound(firstMark * sc), bottomline);
+		firstMark += tickStep;
+		markM++;
 	}
 }	
 
 void Hruler::drawTextMarks(double pos, double endPos, QPainter& p) const
 {
 	double xl;
-	
-	p.setPen(QPen(Qt::blue, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-	p.setBrush(Qt::blue);
+	QColor color = blendColor(isDarkColor(palette().color(QPalette::Base)), QColor(117, 182, 240), QColor(51, 132, 204));
+	p.setPen(QPen(color, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+
 	for (xl = pos; xl < endPos; xl += m_iter)
 	{
 		int xli = textPosToLocal(xl);
-		p.drawLine(xli, 10, xli, 16);
+		p.drawLine(xli, scaleS, xli, bottomline);
 	}
 	for (xl = pos; xl < endPos; xl += m_iter2)
 	{
 		int xli = textPosToLocal(xl);
-		p.drawLine(xli, topline, xli, 16);
+		p.drawLine(xli, scaleL, xli, bottomline);
 		switch (m_doc->unitIndex())
 		{
 			case SC_IN:
@@ -697,11 +773,11 @@ void Hruler::drawTextMarks(double pos, double endPos, QPainter& p) const
 						p.save();
 						p.translate(xli - 2.0, 0);
 						p.scale(-1, 1);
-						drawNumber(tx, 0, 17, p);
+						drawNumber(tx, 0, p);
 						p.restore();
 					}
 					else
-						drawNumber(tx, xli + 2, 9, p);
+						drawNumber(tx, xli + 2, p);
 					break;
 				}
 			case SC_P:
@@ -710,11 +786,11 @@ void Hruler::drawTextMarks(double pos, double endPos, QPainter& p) const
 					p.save();
 					p.translate(xli - 2.0, 0);
 					p.scale(-1, 1);
-					drawNumber(QString::number((xl - pos) / m_iter / m_cor), 0, 17, p);
+					drawNumber(QString::number((xl - pos) / m_iter / m_cor), 0, p);
 					p.restore();
 				}
 				else
-					drawNumber(QString::number((xl - pos) / m_iter / m_cor), xli + 2, 9, p);
+					drawNumber(QString::number((xl - pos) / m_iter / m_cor), xli + 2, p);
 				break;
 			case SC_CM:
 				if (m_reverse)
@@ -722,11 +798,11 @@ void Hruler::drawTextMarks(double pos, double endPos, QPainter& p) const
 					p.save();
 					p.translate(xli - 2.0, 0);
 					p.scale(-1, 1);
-					drawNumber(QString::number((xl - pos) / m_iter / 10 / m_cor), 0, 9, p);
+					drawNumber(QString::number((xl - pos) / m_iter / 10 / m_cor), 0, p);
 					p.restore();
 				}
 				else
-					drawNumber(QString::number((xl - pos) / m_iter / 10 / m_cor), xli + 2, 9, p);
+					drawNumber(QString::number((xl - pos) / m_iter / 10 / m_cor), xli + 2, p);
 				break;
 			case SC_C:
 				if (m_reverse)
@@ -734,11 +810,11 @@ void Hruler::drawTextMarks(double pos, double endPos, QPainter& p) const
 					p.save();
 					p.translate(xli - 2.0, 0);
 					p.scale(-1, 1);
-					drawNumber(QString::number((xl - pos) / m_iter  / m_cor), 0, 9, p);
+					drawNumber(QString::number((xl - pos) / m_iter  / m_cor), 0, p);
 					p.restore();
 				}
 				else
-					drawNumber(QString::number((xl - pos) / m_iter  / m_cor), xli + 2, 9, p);
+					drawNumber(QString::number((xl - pos) / m_iter  / m_cor), xli + 2, p);
 				break;
 			default:
 				if (m_reverse)
@@ -746,19 +822,28 @@ void Hruler::drawTextMarks(double pos, double endPos, QPainter& p) const
 					p.save();
 					p.translate(xli - 2.0, 0);
 					p.scale(-1, 1);
-					drawNumber(QString::number((xl - pos) / m_iter * 10 / m_cor), 0, 9, p);
+					drawNumber(QString::number((xl - pos) / m_iter * 10 / m_cor), 0, p);
 					p.restore();
 				}
 				else
-					drawNumber(QString::number((xl - pos) / m_iter * 10 / m_cor), xli + 2, 9, p);
+					drawNumber(QString::number((xl - pos) / m_iter * 10 / m_cor), xli + 2, p);
 				break;
 		}
 	}
+
+	if (m_doc->unitIndex() == SC_C || m_doc->unitIndex() == SC_P)
+		return;
+
+	for (xl = pos; xl < endPos; xl += (m_iter2 / 2.0))
+	{
+		int xli = textPosToLocal(xl);
+		p.drawLine(xli, scaleM, xli, bottomline);
+	}
 }
 
-void Hruler::drawNumber(const QString& txt, int x, int y0, QPainter & p) const
+void Hruler::drawNumber(const QString& txt, int x, QPainter & p) const
 {
-	const int y = y0 - 3 + topline;
+	const int y = textline;
 	p.drawText(x,y,txt);
 }
 
@@ -773,7 +858,7 @@ void Hruler::draw(int where)
 	int currentCoor = where - m_view->contentsX();
 	m_whereToDraw = where;
 	m_drawMark = true;
-	repaint(m_oldMark - 3, 0, 7, 17);
+	repaint(m_oldMark - 4, 0, 8, bottomline);
 	//	m_drawMark = false;
 	m_oldMark = currentCoor;
 }
@@ -979,4 +1064,50 @@ void Hruler::unitChange()
 			m_iter2 = unitRulerGetIter2FromIndex(0) / m_cor;
 			break;
 	}
+}
+
+void Hruler::changeEvent(QEvent *e)
+{
+	if (e->type() == QEvent::LanguageChange)
+	{
+		languageChange();
+		return;
+	}
+	QWidget::changeEvent(e);
+}
+
+void Hruler::languageChange()
+{
+	IconManager &im = IconManager::instance();
+
+	QSignalBlocker sigMenu(m_contextMenu);
+	m_contextMenu->clear();
+	m_contextMenu->addAction(im.loadIcon("tabulator-left"), tr("Left"))->setData(ParagraphStyle::LeftTab);
+	m_contextMenu->addAction(im.loadIcon("tabulator-center"), tr("Center"))->setData(ParagraphStyle::CenterTab);
+	m_contextMenu->addAction(im.loadIcon("tabulator-comma"), tr("Comma"))->setData(ParagraphStyle::CommaTab);
+	m_contextMenu->addAction(im.loadIcon("tabulator-dot"), tr("Dot"))->setData(ParagraphStyle::DotTab);
+	m_contextMenu->addAction(im.loadIcon("tabulator-right"), tr("Right"))->setData(ParagraphStyle::RightTab);
+}
+
+void Hruler::contextMenuRequested(QPoint mouse)
+{
+	if (m_textEditMode && m_rulerCode == rc_tab)
+	{
+		m_mousePressed = false;
+		m_contextMenu->popup(this->mapToGlobal(mouse));
+	}
+}
+
+void Hruler::tabTypeChanged(QAction *action)
+{
+	m_tabValues[m_currTab].tabType = action->data().toInt();
+	ParagraphStyle paraStyle;
+	paraStyle.setTabValues(m_tabValues);
+
+	emit DocChanged(false);
+
+	Selection tempSelection(this, false);
+	tempSelection.addItem(m_currItem);
+	m_doc->itemSelection_ApplyParagraphStyle(paraStyle, &tempSelection);
+
 }
