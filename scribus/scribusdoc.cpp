@@ -1253,6 +1253,26 @@ void ScribusDoc::replaceNamedResources(ResourceCollection& newNames)
 		else
 			m_docCellStyles[i].replaceNamedResources(newNames);
 	}
+	// Replace in ToC
+	for (int i = 0; i < tocSetups().count(); ++i)
+	{
+		// Replace ToC style of included style
+		for (int j = 0; j < tocSetups()[i].entryData.count(); ++j)
+		{
+			QString styleToFind = tocSetups()[i].entryData[j].styleToFind;
+			if (newNames.styles().contains(styleToFind))
+				tocSetups()[i].entryData[j].styleToFind = newNames.styles().value(styleToFind);
+
+			QString styleForText = tocSetups()[i].entryData[j].styleForText;
+
+			if (styleForText.isEmpty())
+				continue;
+
+			if (newNames.styles().contains(styleForText))
+				tocSetups()[i].entryData[j].styleForText = newNames.styles().value(styleForText);
+
+		}
+	}
 
 	QHash<QString,ScPattern>::Iterator it = docPatterns.begin();
 	while (it != docPatterns.end())

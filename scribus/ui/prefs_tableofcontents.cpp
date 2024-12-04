@@ -633,11 +633,10 @@ void Prefs_TableOfContents::styleListWidgetClicked()
 	QSignalBlocker sigBlocker1(tocEntryStyleComboBox);
 	QSignalBlocker sigBlocker2(tocEntryNumberPlacementComboBox);
 	QSignalBlocker sigBlocker3(tocEntryRemoveLineBreaksCheckBox);
-	int i = tocEntryStyleComboBox->findText(localToCSetupVector[numSelected].entryData[curr].styleForText);
-	if (i >= 0)
-		tocEntryStyleComboBox->setCurrentIndex(i);
-	else
-		qDebug() << "Style for TOC Entry not found";
+
+	int i = qMax(tocEntryStyleComboBox->findText(localToCSetupVector[numSelected].entryData[curr].styleForText), 0);
+	tocEntryStyleComboBox->setCurrentIndex(i);
+
 	if (localToCSetupVector[numSelected].entryData[curr].pageLocation == NotShown)
 		setCurrentComboItem(tocEntryNumberPlacementComboBox, trStrPNNotShown);
 	else if (localToCSetupVector[numSelected].entryData[curr].pageLocation == Beginning)
@@ -659,6 +658,7 @@ void Prefs_TableOfContents::tocEntryParagraphStyleSelected(const QString &style)
 	int curr = styleListWidget->currentRow();
 	if (curr < 0)
 		return;
+
 	localToCSetupVector[numSelected].entryData[curr].styleForText = style;
 }
 
