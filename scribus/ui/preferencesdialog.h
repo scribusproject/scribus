@@ -12,8 +12,9 @@ for which a new license (GPL+exception) is in place.
 #include <QMap>
 #include <QStackedWidget>
 
-#include "scribusapi.h"
 #include "prefsstructs.h"
+#include "scribusapi.h"
+#include "ui/scdialog.h"
 #include "ui_preferencesdialogbase.h"
 
 #include "ui/prefs_colormanagement.h"
@@ -52,7 +53,7 @@ class ScribusDoc;
 
 /*! \brief The Scribus Preferences Dialog
 */
-class SCRIBUS_API PreferencesDialog : public QDialog, Ui::PreferencesDialog
+class SCRIBUS_API PreferencesDialog : public ScDialog, Ui::PreferencesDialog
 {
 	Q_OBJECT
 

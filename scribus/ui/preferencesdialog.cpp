@@ -23,11 +23,10 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 
 PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsData, ScribusDoc* doc)
-	: QDialog(parent),
+	: ScDialog(parent, QString::fromLocal8Bit("PreferencesDialog")),
 	m_Doc(doc)
 {
 	setupUi(this);
-	setObjectName(QString::fromLocal8Bit("PreferencesDialog"));
 	preferencesTypeList->clear();
 	while (prefsStackWidget->currentWidget() != nullptr)
 		prefsStackWidget->removeWidget(prefsStackWidget->currentWidget());
