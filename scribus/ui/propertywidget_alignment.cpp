@@ -147,10 +147,8 @@ void PropertyWidget_Alignment::setCurrentItem(PageItem *item)
 
 void PropertyWidget_Alignment::connectSignals()
 {
-	connect(tabsButton    , SIGNAL(clicked())           , this, SLOT(handleTabs()), Qt::UniqueConnection);
 	connect(flopWidget->flopGroup, SIGNAL(idClicked(int)), this, SLOT(handleFirstLinePolicy(int)));
 	connect(opticalMarginsWidget, SIGNAL(opticalMarginChanged()), this, SLOT(handleOpticalMargins()) );
-//	connect(opticalMarginsWidget->resetButton, SIGNAL(clicked()), this, SLOT(resetOpticalMargins()) );
 	connect(textAlignment , SIGNAL(State(int))   , this, SLOT(handleAlignment(int)));
 	connect(textVerticalAlignment, SIGNAL(State(int)), this, SLOT(handleVAlignment(int)));
 	connect(textDirection , SIGNAL(State(int))   , this, SLOT(handleDirection(int)));
@@ -158,10 +156,8 @@ void PropertyWidget_Alignment::connectSignals()
 
 void PropertyWidget_Alignment::disconnectSignals()
 {
-	disconnect(tabsButton    , SIGNAL(clicked())           , this, SLOT(handleTabs()));
 	disconnect(flopWidget->flopGroup, SIGNAL(idClicked(int)), this, SLOT(handleFirstLinePolicy(int)));
 	disconnect(opticalMarginsWidget, SIGNAL(opticalMarginChanged()), this, SLOT(handleOpticalMargins()) );
-//	disconnect(opticalMarginsWidget->resetButton, SIGNAL(clicked()), this, SLOT(resetOpticalMargins()) );
 	disconnect(textAlignment , SIGNAL(State(int))   , this, SLOT(handleAlignment(int)));
 	disconnect(textVerticalAlignment, SIGNAL(State(int)), this, SLOT(handleVAlignment(int)));
 	disconnect(textDirection , SIGNAL(State(int))   , this, SLOT(handleDirection(int)));
@@ -187,7 +183,6 @@ void PropertyWidget_Alignment::configureWidgets()
 		textVerticalAlignment->setEnabled(!m_item->isPathText());
 		flopWidget->setEnabled(!m_item->isPathText());
 		opticalMarginsWidget->setEnabled(!m_item->isPathText());
-		tabsButton->setEnabled(!m_item->isPathText());
 	}
 	setEnabled(enabled);
 }
@@ -284,37 +279,6 @@ void PropertyWidget_Alignment::showDirection(int e)
 	textDirection->setEnabled(true);
 	textDirection->setStyle(e);
 	m_haveItem = tmp;
-}
-
-void PropertyWidget_Alignment::handleTabs()
-{
-	if (!m_doc || !m_item)
-		return;
-
-	PageItem_TextFrame *tItem = m_item->asTextFrame();
-	if (tItem == nullptr)
-		return;
-	const ParagraphStyle& style(m_doc->appMode == modeEdit ? tItem->currentStyle() : tItem->itemText.defaultStyle());
-	TabManager *dia = new TabManager(this, m_doc->unitIndex(), style.tabValues(), tItem->columnWidth());
-	if (dia->exec())
-	{
-		if (m_doc->appMode != modeEdit)
-		{
-			ParagraphStyle newStyle(m_item->itemText.defaultStyle());
-			newStyle.setTabValues(dia->tabList());
-			Selection tempSelection(this, false);
-			tempSelection.addItem(m_item, true);
-			m_doc->itemSelection_ApplyParagraphStyle(newStyle, &tempSelection);
-		}
-		else
-		{
-			ParagraphStyle newStyle;
-			newStyle.setTabValues(dia->tabList());
-			m_doc->itemSelection_ApplyParagraphStyle(newStyle);
-		}
-		m_item->update();
-	}
-	delete dia;
 }
 
 void PropertyWidget_Alignment::handleAlignment(int a)

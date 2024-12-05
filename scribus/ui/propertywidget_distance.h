@@ -42,6 +42,8 @@ public slots:
 	void setMainWindow(ScribusMainWindow *mw);
 	void setDoc(ScribusDoc *d);
 
+	void updateStyle(const ParagraphStyle &newCurrent);
+
 	void handleAppModeChanged(int oldMode, int mode);
 	void handleSelectionChanged();
 	void handleUpdateRequest(int);
@@ -60,6 +62,7 @@ private slots:
 	void handleGapSwitch();
 	void handleTabs();
 	void handleTextDistances();
+	void handleIndents();
 };
 
 #endif

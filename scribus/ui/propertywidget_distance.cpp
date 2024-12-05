@@ -37,6 +37,15 @@ PropertyWidget_Distance::PropertyWidget_Distance(QWidget* parent) : QFrame(paren
 	distanceWidget->setup(distances, 0, m_unitIndex, NewMarginWidget::DistanceWidgetFlags);
 	distanceWidget->toggleLabelVisibility(false);
 
+	firstLineIndentSpin->setValues(-3000, 4000, 3, 0);
+	leftIndentSpin->setValues(0, 4000, 3, 0);
+	rightIndentSpin->setValues(0, 4000, 3, 0);
+
+	gapBeforeSpin->setValues(0, 300, 2, 0);
+	gapBeforeSpin->setSuffix(unitGetSuffixFromIndex(0));
+	gapAfterSpin->setValues(0, 300, 2, 0);
+	gapAfterSpin->setSuffix(unitGetSuffixFromIndex(0));
+
 	iconSetChange();
 	languageChange();
 
@@ -83,6 +92,18 @@ void PropertyWidget_Distance::setDoc(ScribusDoc *d)
 
 	connect(m_doc->m_Selection, SIGNAL(selectionChanged()), this, SLOT(handleSelectionChanged()));
 	connect(m_doc             , SIGNAL(docChanged())      , this, SLOT(handleSelectionChanged()));
+}
+
+void PropertyWidget_Distance::updateStyle(const ParagraphStyle &newCurrent)
+{
+	if (!m_item)
+		return;
+
+	firstLineIndentSpin->setValue(newCurrent.firstIndent() * m_unitRatio);
+	leftIndentSpin->setValue(newCurrent.leftMargin() * m_unitRatio);
+	rightIndentSpin->setValue(newCurrent.rightMargin() * m_unitRatio);
+	gapBeforeSpin->setValue(newCurrent.gapBefore());
+	gapAfterSpin->setValue(newCurrent.gapAfter());
 }
 
 void PropertyWidget_Distance::setCurrentItem(PageItem *item)
@@ -144,6 +165,8 @@ void PropertyWidget_Distance::setCurrentItem(PageItem *item)
 	columnGapLabel->setVisible(columns->value() != 1);
 	columnGapSizeLabel->setVisible(columns->value() != 1);
 
+	updateStyle(parStyle);
+
 	connectSignals();
 }
 
@@ -153,6 +176,13 @@ void PropertyWidget_Distance::connectSignals()
 	connect(columnGap     , SIGNAL(valueChanged(double)), this, SLOT(handleColumnGap()), Qt::UniqueConnection);
 	connect(columnGapCombo, SIGNAL(activated(int))      , this, SLOT(handleGapSwitch()), Qt::UniqueConnection);
 	connect(distanceWidget, SIGNAL(valuesChanged(MarginStruct)), this, SLOT(handleTextDistances()), Qt::UniqueConnection);
+	connect(tabsButton    , SIGNAL(clicked())           , this, SLOT(handleTabs()), Qt::UniqueConnection);
+	connect(firstLineIndentSpin, SIGNAL(valueChanged(double)), this, SLOT(handleIndents()), Qt::UniqueConnection);
+	connect(rightIndentSpin, SIGNAL(valueChanged(double)), this, SLOT(handleIndents()), Qt::UniqueConnection);
+	connect(leftIndentSpin, SIGNAL(valueChanged(double)), this, SLOT(handleIndents()), Qt::UniqueConnection);
+	connect(gapAfterSpin, SIGNAL(valueChanged(double)), this, SLOT(handleIndents()), Qt::UniqueConnection);
+	connect(gapBeforeSpin, SIGNAL(valueChanged(double)), this, SLOT(handleIndents()), Qt::UniqueConnection);
+
 }
 
 void PropertyWidget_Distance::disconnectSignals()
@@ -161,6 +191,12 @@ void PropertyWidget_Distance::disconnectSignals()
 	disconnect(columnGap     , SIGNAL(valueChanged(double)), this, SLOT(handleColumnGap()));
 	disconnect(columnGapCombo, SIGNAL(activated(int))      , this, SLOT(handleGapSwitch()));
 	disconnect(distanceWidget, SIGNAL(valuesChanged(MarginStruct)), this, SLOT(handleTextDistances()));
+	disconnect(tabsButton    , SIGNAL(clicked())           , this, SLOT(handleTabs()));
+	disconnect(firstLineIndentSpin, SIGNAL(valueChanged(double)), this, SLOT(handleIndents()));
+	disconnect(rightIndentSpin, SIGNAL(valueChanged(double)), this, SLOT(handleIndents()));
+	disconnect(leftIndentSpin, SIGNAL(valueChanged(double)), this, SLOT(handleIndents()));
+	disconnect(gapAfterSpin, SIGNAL(valueChanged(double)), this, SLOT(handleIndents()));
+	disconnect(gapBeforeSpin, SIGNAL(valueChanged(double)), this, SLOT(handleIndents()));
 }
 
 void PropertyWidget_Distance::configureWidgets()
@@ -214,6 +250,11 @@ void PropertyWidget_Distance::iconSetChange()
 	IconManager &im = IconManager::instance();
 
 	columnsLabel->setPixmap(im.loadPixmap("paragraph-columns"));
+	firstLineIndentLabel->setPixmap(im.loadPixmap("paragraph-indent-firstline"));
+	leftIndentLabel->setPixmap(im.loadPixmap("paragraph-indent-left"));
+	rightIndentLabel->setPixmap(im.loadPixmap("paragraph-indent-right"));
+	gapBeforeLabel->setPixmap(im.loadPixmap("paragraph-space-above") );
+	gapAfterLabel->setPixmap(im.loadPixmap("paragraph-space-below") );
 }
 
 void PropertyWidget_Distance::showColumns(int r, double g)
@@ -372,6 +413,41 @@ void PropertyWidget_Distance::handleTextDistances()
 	m_doc->regionsChanged()->update(QRect());
 }
 
+void PropertyWidget_Distance::handleIndents()
+{
+	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
+		return;
+
+
+	PageItem_TextFrame *tItem = m_item->asTextFrame();
+	if (tItem == nullptr)
+		return;
+
+	if (m_doc->appMode != modeEdit)
+	{
+		ParagraphStyle newStyle(m_item->itemText.defaultStyle());
+		newStyle.setFirstIndent(firstLineIndentSpin->value() / m_unitRatio);
+		newStyle.setLeftMargin(leftIndentSpin->value() / m_unitRatio);
+		newStyle.setRightMargin(rightIndentSpin->value() / m_unitRatio);
+		newStyle.setGapBefore(gapBeforeSpin->value());
+		newStyle.setGapAfter(gapAfterSpin->value());
+		Selection tempSelection(this, false);
+		tempSelection.addItem(m_item, true);
+		m_doc->itemSelection_ApplyParagraphStyle(newStyle, &tempSelection);
+	}
+	else
+	{
+		ParagraphStyle newStyle;
+		newStyle.setFirstIndent(firstLineIndentSpin->value() / m_unitRatio);
+		newStyle.setLeftMargin(leftIndentSpin->value() / m_unitRatio);
+		newStyle.setRightMargin(rightIndentSpin->value() / m_unitRatio);
+		newStyle.setGapBefore(gapBeforeSpin->value());
+		newStyle.setGapAfter(gapAfterSpin->value());
+		m_doc->itemSelection_ApplyParagraphStyle(newStyle);
+	}
+	m_item->update();
+}
+
 void PropertyWidget_Distance::changeEvent(QEvent *e)
 {
 	if (e->type() == QEvent::LanguageChange)
@@ -397,7 +473,19 @@ void PropertyWidget_Distance::languageChange()
 	QString suffix = (m_doc) ? unitGetSuffixFromIndex(m_doc->unitIndex()) : ptSuffix;
 
 	columnGap->setSuffix(suffix);
+	firstLineIndentSpin->setSuffix(suffix);
+	leftIndentSpin->setSuffix(suffix);
+	rightIndentSpin->setSuffix(suffix);
 
+	firstLineIndentSpin->setToolTip(tr("Indentation for first line of the paragraph"));
+	leftIndentSpin->setToolTip(tr("Indentation from the left for the whole paragraph"));
+	rightIndentSpin->setToolTip(tr("Indentation from the right for the whole paragraph"));
+	firstLineIndentLabel->setToolTip(firstLineIndentSpin->toolTip());
+	leftIndentLabel->setToolTip(leftIndentSpin->toolTip());
+	rightIndentLabel->setToolTip(rightIndentSpin->toolTip());
+	tabsButton->setToolTip(tr("Edit tab settings of text frame..."));
+	gapBeforeLabel->setToolTip(tr("Space above a paragraph"));
+	gapAfterLabel->setToolTip(tr("Space below a paragraph"));
 }
 
 void PropertyWidget_Distance::unitChange()
@@ -407,12 +495,18 @@ void PropertyWidget_Distance::unitChange()
 
 	QSignalBlocker columnGapBlocker(columnGap);
 	QSignalBlocker distancesBlocker(distanceWidget);
+	QSignalBlocker numberFirstLineIndentBlocker(firstLineIndentSpin);
+	QSignalBlocker numberLeftIndentBlocker(leftIndentSpin);
+	QSignalBlocker numberRightIndentBlocker(rightIndentSpin);
 
 	m_unitRatio = m_doc->unitRatio();
 	m_unitIndex = m_doc->unitIndex();
 
 	columnGap->setNewUnit(m_unitIndex);
 	distanceWidget->setNewUnit(m_unitIndex);
+	firstLineIndentSpin->setNewUnit(m_unitIndex);
+	leftIndentSpin->setNewUnit(m_unitIndex);
+	rightIndentSpin->setNewUnit(m_unitIndex);
 }
 
 void PropertyWidget_Distance::localeChange()
@@ -420,6 +514,11 @@ void PropertyWidget_Distance::localeChange()
 	const QLocale& l(LocaleManager::instance().userPreferredLocale());
 	columnGap->setLocale(l);
 	distanceWidget->setLocale(l);
+	firstLineIndentSpin->setLocale(l);
+	leftIndentSpin->setLocale(l);
+	rightIndentSpin->setLocale(l);
+	gapAfterSpin->setLocale(l);
+	gapBeforeSpin->setLocale(l);
 }
 
 void PropertyWidget_Distance::toggleLabelVisibility(bool v)
@@ -427,4 +526,9 @@ void PropertyWidget_Distance::toggleLabelVisibility(bool v)
 	columnGapSizeLabel->setLabelVisibility(v);
 	columnGapLabel->setLabelVisibility(v);
 	columnsLabel->setLabelVisibility(v);
+	firstLineIndentLabel->setLabelVisibility(v);
+	leftIndentLabel->setLabelVisibility(v);
+	rightIndentLabel->setLabelVisibility(v);
+	gapBeforeLabel->setLabelVisibility(v);
+	gapAfterLabel->setLabelVisibility(v);
 }

@@ -59,11 +59,8 @@ public slots:
 
 private slots:
 
-	void handleTabs();
 	void handleFirstLinePolicy(int);
 	void handleOpticalMargins();
-//	void resetOpticalMargins();
-
 	void handleAlignment(int a);
 	void handleVAlignment(int a);
 	void handleDirection(int d);

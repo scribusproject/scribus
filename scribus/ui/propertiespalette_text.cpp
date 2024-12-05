@@ -56,13 +56,13 @@ PropertiesPalette_Text::PropertiesPalette_Text( QWidget* parent) : QWidget(paren
 	scText->restorePreferences();
 
 	alignmentWidgets = new PropertyWidget_Alignment(this);
-	scAlignment = new SectionContainer(tr("Alignment && Tabs"), "SectionTPAlignment", true, true);
+	scAlignment = new SectionContainer(tr("Alignment"), "SectionTPAlignment", true, true);
 	scAlignment->setCanSaveState(true);
 	scAlignment->setWidget(alignmentWidgets);
 	scAlignment->restorePreferences();
 
 	distanceWidgets = new PropertyWidget_Distance(this);
-	scDistance = new SectionContainer(tr("Columns && Margins"), "SectionTPColumnsMargins", true, false);
+	scDistance = new SectionContainer(tr("Columns && Indents"), "SectionTPColumnsMargins", true, false);
 	scDistance->setCanSaveState(true);
 	scDistance->setWidget(distanceWidgets);
 	scDistance->restorePreferences();
@@ -391,6 +391,7 @@ void PropertiesPalette_Text::updateParagraphStyle(const ParagraphStyle& newCurre
 	textWidgets->updateStyle(newCurrent);
 	styleWidgets->updateStyle(newCurrent);
 	alignmentWidgets->updateStyle(newCurrent);
+	distanceWidgets->updateStyle(newCurrent);
 }
 
 void PropertiesPalette_Text::updateTextStyles()
@@ -422,8 +423,8 @@ void PropertiesPalette_Text::changeEvent(QEvent *e)
 void PropertiesPalette_Text::languageChange()
 {
 	scAdvanced->setText(tr("Typography"));
-	scAlignment->setText(tr("Alignment && Tabs"));
-	scDistance->setText(tr("Columns && Margins"));
+	scAlignment->setText(tr("Alignment"));
+	scDistance->setText(tr("Columns && Indents"));
 	scFontFeatures->setText(tr("OpenType Features"));
 	scHyphenation->setText(tr("Hyphenation && Language"));
 	scOrphans->setText(tr("Orphans && Widows"));

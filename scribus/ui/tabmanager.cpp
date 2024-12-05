@@ -20,7 +20,7 @@ for which a new license (GPL+exception) is in place.
 TabManager::TabManager( QWidget* parent, int dEin, const QList<ParagraphStyle::TabRecord>& inTab, double) : QDialog( parent )
 {
 	setModal(true);
-	setWindowTitle( tr( "Manage Tabulators" ) );
+    setWindowTitle( tr( "Manage Tabs" ) );
 	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
 	m_docUnitRatio = unitGetRatioFromIndex(dEin);
 	m_tabList = inTab;
