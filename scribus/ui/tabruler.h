@@ -76,6 +76,7 @@ protected:
 	void mousePressEvent(QMouseEvent *m) override;
 	void mouseReleaseEvent(QMouseEvent *) override;
 	void mouseMoveEvent(QMouseEvent *m) override;
+	void wheelEvent(QWheelEvent *m) override;
 	void leaveEvent(QEvent*) override;
 	
 private:

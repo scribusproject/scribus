@@ -23,6 +23,9 @@ for which a new license (GPL+exception) is in place.
 #include <QToolButton>
 #include <QToolTip>
 #include <QVariant>
+#ifdef Q_OS_MACOS
+#include <QFontDatabase>
+#endif
 
 #include "commonstrings.h"
 #include "iconmanager.h"
@@ -31,6 +34,15 @@ for which a new license (GPL+exception) is in place.
 #include "scrspinbox.h"
 #include "units.h"
 #include "util.h"
+#include "util_gui.h"
+
+constexpr int bottomline = 24;
+constexpr int midline = bottomline / 2;
+constexpr int tabline = bottomline - 10;
+constexpr int scaleS = bottomline - 4;
+constexpr int scaleM = bottomline - 8;
+constexpr int scaleL = bottomline - 12;
+constexpr int textline = scaleL;
 
 RulerT::RulerT(QWidget *pa, int unit, const QList<ParagraphStyle::TabRecord>& tabs, bool ind, double wid) : QWidget(pa),
 	tabValues(tabs),
@@ -74,31 +86,50 @@ void RulerT::paintEvent(QPaintEvent *)
 {
 	double xl;
 
+	QFont ff = font();
+#ifdef Q_OS_MACOS
+	ff.setPointSize(QFontDatabase::systemFont(QFontDatabase::SmallestReadableFont).pointSize());
+#else
+	ff.setPointSize(QFont().pointSize() * .75);
+#endif
+	setFont(ff);
+
 	const QPalette& palette = this->palette();
 	const QColor& textColor = palette.color(QPalette::Text);
+	const QColor& selectedColor = blendColor(isDarkColor(palette.color(QPalette::Base)), QColor(255, 117, 102), QColor(255, 71, 51));
+	const QColor& backgroundColor = palette.color(QPalette::Base);
 
 	QPainter p;
 	p.begin(this);
-	p.drawLine(0, 24, width(), 24);
+	p.fillRect(rect(), backgroundColor);
+	p.drawLine(0, bottomline, width(), bottomline );
 	p.translate(-offset, 0);
 	p.setBrush(textColor);
 	p.setFont(font());
 	p.setPen(QPen(textColor, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+
 	for (xl = 0; xl < width() + offset; xl += m_iter)
 	{
 		if (xl < offset)
 			continue;
-		p.drawLine(qRound(xl), 18, qRound(xl), 24);
+		p.drawLine(qRound(xl), scaleS, qRound(xl), bottomline);
+	}
+
+	for (xl = 0; xl < width() + (m_iter2 / 2) + offset; xl += (m_iter2 / 2))
+	{
+		if (xl < offset)
+			continue;
+		p.drawLine(qRound(xl), scaleM, qRound(xl), bottomline);
 	}
 
 	for (xl = 0; xl < width() + (m_iter2 / 2) + offset; xl += m_iter2)
 	{
-		if (xl < offset)
+		if (xl < offset - 20) // -20px buffer to draw number that start outside the clipping rect
 			continue;
-		p.drawLine(qRound(xl), 11, qRound(xl), 24);
+		p.drawLine(qRound(xl), scaleL, qRound(xl), bottomline);
 		switch (unitIndex)
 		{
-			case 2:
+			case SC_IN:
 			{
 				QString tx;
 				int num1 = static_cast<int>(xl / m_iter2);
@@ -111,14 +142,17 @@ void RulerT::paintEvent(QPaintEvent *)
 					tx += QChar(0xBD);
 				if ((frac > 0.74) && (frac < 0.76))
 					tx += QChar(0xBE);
-				p.drawText(qRound(xl + 2), 17, tx);
+				p.drawText(qRound(xl + 2), textline, tx);
 				break;
 			}
-			case 3:
-				p.drawText(qRound(xl + 2), 17, QString::number(xl / m_iter));
+			case SC_P:
+				p.drawText(qRound(xl + 2), textline, QString::number(xl / m_iter));
+				break;
+			case SC_CM:
+				p.drawText(qRound(xl + 2), textline, QString::number(xl / m_iter / 10));
 				break;
 			default:
-				p.drawText(qRound(xl + 2), 17, QString::number(xl / m_iter * 10));
+				p.drawText(qRound(xl + 2), textline, QString::number(xl / m_iter * 10));
 				break;
 		}
 	}
@@ -126,28 +160,28 @@ void RulerT::paintEvent(QPaintEvent *)
 	for (int i = 0; i < tabValues.count(); i++)
 	{
 		if (i == actTab)
-			p.setPen(QPen(Qt::red, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+			p.setPen(QPen(selectedColor, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 		else
 			p.setPen(QPen(textColor, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 		switch (tabValues[i].tabType)
 		{
-			case 0:
-				p.drawLine(qRound(tabValues[i].tabPosition), 15, qRound(tabValues[i].tabPosition), 23);
-				p.drawLine(qRound(tabValues[i].tabPosition), 23, qRound(tabValues[i].tabPosition + 8), 23);
+			case ParagraphStyle::LeftTab:
+				p.drawLine(qRound(tabValues[i].tabPosition), tabline, qRound(tabValues[i].tabPosition), bottomline - 1);
+				p.drawLine(qRound(tabValues[i].tabPosition), bottomline - 1, qRound(tabValues[i].tabPosition + 8), bottomline - 1);
 				break;
-			case 1:
-				p.drawLine(qRound(tabValues[i].tabPosition), 15, qRound(tabValues[i].tabPosition), 23);
-				p.drawLine(qRound(tabValues[i].tabPosition), 23, qRound(tabValues[i].tabPosition - 8), 23);
+			case ParagraphStyle::RightTab:
+				p.drawLine(qRound(tabValues[i].tabPosition), tabline, qRound(tabValues[i].tabPosition), bottomline - 1);
+				p.drawLine(qRound(tabValues[i].tabPosition), bottomline - 1, qRound(tabValues[i].tabPosition - 8), bottomline - 1);
 				break;
-			case 2:
-			case 3:
-				p.drawLine(qRound(tabValues[i].tabPosition), 15, qRound(tabValues[i].tabPosition), 23);
-				p.drawLine(qRound(tabValues[i].tabPosition - 4), 23, qRound(tabValues[i].tabPosition + 4), 23);
-				p.drawLine(qRound(tabValues[i].tabPosition + 3), 20, qRound(tabValues[i].tabPosition + 2), 20);
+			case ParagraphStyle::CommaTab:
+			case ParagraphStyle::DotTab:
+				p.drawLine(qRound(tabValues[i].tabPosition), tabline, qRound(tabValues[i].tabPosition), bottomline - 1);
+				p.drawLine(qRound(tabValues[i].tabPosition - 4), bottomline - 1, qRound(tabValues[i].tabPosition + 4), bottomline - 1);
+				p.drawLine(qRound(tabValues[i].tabPosition + 3), bottomline - 3, qRound(tabValues[i].tabPosition + 2), bottomline - 3);
 				break;
-			case 4:
-				p.drawLine(qRound(tabValues[i].tabPosition), 15, qRound(tabValues[i].tabPosition), 23);
-				p.drawLine(qRound(tabValues[i].tabPosition - 4), 23, qRound(tabValues[i].tabPosition + 4), 23);
+			case ParagraphStyle::CenterTab:
+				p.drawLine(qRound(tabValues[i].tabPosition), tabline, qRound(tabValues[i].tabPosition), bottomline - 1);
+				p.drawLine(qRound(tabValues[i].tabPosition - 4), bottomline - 1, qRound(tabValues[i].tabPosition + 4), bottomline - 1);
 				break;
 			default:
 				break;
@@ -156,13 +190,16 @@ void RulerT::paintEvent(QPaintEvent *)
 
 	if (haveInd)
 	{
-		p.setPen(QPen(Qt::blue, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-		p.setBrush(Qt::blue);
-		QPolygon cr;
-		cr.setPoints(3, qRound(firstLine + leftIndent), 12, qRound(firstLine + leftIndent - 4), 0, qRound(firstLine + leftIndent + 4), 0);
-		p.drawPolygon(cr);
+		// First Indent
+		p.setPen(QPen(textColor, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+		p.drawLine(qRound(firstLine + leftIndent), tabline - 2, qRound(firstLine + leftIndent), bottomline);
+		p.setPen(Qt::NoPen);
+		p.setRenderHints(QPainter::Antialiasing, true);
+		p.drawRect(QRect(qRound(firstLine + leftIndent), tabline - 8, 8, 6));
+
+		// Left Margin
 		QPolygon cr2;
-		cr2.setPoints(3, qRound(leftIndent), 12, qRound(leftIndent + 4), 24, qRound(leftIndent - 4), 24);
+		cr2.setPoints(3, qRound(leftIndent), tabline, qRound(leftIndent + 8), tabline, qRound(leftIndent), bottomline);
 		p.drawPolygon(cr2);
 	}
 	p.end();
@@ -313,13 +350,13 @@ void RulerT::mouseMoveEvent(QMouseEvent *m)
 		setCursor(IconManager::instance().loadCursor("tab.png", 3));
 		if (haveInd)
 		{
-			fpo = QRect(static_cast<int>(firstLine + leftIndent - offset) - 4, 0, 8, 12);
+			fpo = QRect(static_cast<int>(firstLine + leftIndent - offset) - 4, 0, 8, midline);
 			if (fpo.contains(m->pos()))
 			{
 				setCursor(QCursor(Qt::SizeHorCursor));
 				return;
 			}
-			fpo = QRect(static_cast<int>(leftIndent - offset) - 4, 12, 8, 12);
+			fpo = QRect(static_cast<int>(leftIndent - offset) - 4, midline, 8, midline);
 			if (fpo.contains(m->pos()))
 			{
 				setCursor(QCursor(Qt::SizeHorCursor));
@@ -328,7 +365,7 @@ void RulerT::mouseMoveEvent(QMouseEvent *m)
 		}
 		for (qsizetype i = 0; i < tabValues.count(); ++i)
 		{
-			fpo = QRect(static_cast<int>(tabValues[i].tabPosition-offset) - 3, 15, 8, 8);
+			fpo = QRect(static_cast<int>(tabValues[i].tabPosition-offset) - 3, tabline, 8, 8);
 			if (fpo.contains(m->pos()))
 			{
 				setCursor(QCursor(Qt::SizeHorCursor));
@@ -338,6 +375,19 @@ void RulerT::mouseMoveEvent(QMouseEvent *m)
 	}
 	if (mousePressed && ((mPosY > height()) || (mPosY < 0) || (mPosX < 0) || (mPosX > width())))
 		QApplication::changeOverrideCursor(IconManager::instance().loadCursor("DelPoint.png", 1, 1));
+}
+
+void RulerT::wheelEvent(QWheelEvent* m)
+{
+	QPoint numPixels = m->pixelDelta();
+
+	if (numPixels.y() > 0 || numPixels.x() > 0)
+		decreaseOffset();
+
+	if (numPixels.y() < 0 || numPixels.x() < 0)
+		increaseOffset();
+
+	m->accept();
 }
 
 void RulerT::leaveEvent(QEvent*)
@@ -657,14 +707,15 @@ void Tabruler::iconSetChange()
 
 void Tabruler::languageChange()
 {
+	IconManager &im = IconManager::instance();
 	int  oldTypeComboIndex = typeCombo->currentIndex();
 	bool typeComboBlocked = typeCombo->blockSignals(true);
 	typeCombo->clear();
-	typeCombo->addItem( tr( "Left" ) );
-	typeCombo->addItem( tr( "Right" ) );
-	typeCombo->addItem( tr( "Period" ) );
-	typeCombo->addItem( tr( "Comma" ) );
-	typeCombo->addItem( tr( "Center" ) );
+	typeCombo->addItem(im.loadIcon("tabulator-left"), tr( "Left" ), ParagraphStyle::LeftTab );
+	typeCombo->addItem(im.loadIcon("tabulator-center"), tr( "Center" ), ParagraphStyle::CenterTab );
+	typeCombo->addItem(im.loadIcon("tabulator-comma"), tr( "Comma" ), ParagraphStyle::CommaTab );
+	typeCombo->addItem(im.loadIcon("tabulator-dot"), tr( "Period" ), ParagraphStyle::DotTab );
+	typeCombo->addItem(im.loadIcon("tabulator-right"), tr( "Right" ), ParagraphStyle::RightTab );
 	typeCombo->setCurrentIndex(oldTypeComboIndex);
 	typeCombo->blockSignals(typeComboBlocked);
 
@@ -867,7 +918,7 @@ void Tabruler::setTabFillChar(QChar t)
 
 void Tabruler::setTabType(int t)
 {
-	typeCombo->setCurrentIndex(t);
+	typeCombo->setCurrentIndex(typeCombo->findData(t));
 	emit tabrulerChanged();
 	emit tabsChanged();
 }
@@ -875,7 +926,7 @@ void Tabruler::setTabType(int t)
 void Tabruler::setType()
 {
 	typeCombo->blockSignals(true);
-	ruler->changeTab(typeCombo->currentIndex());
+	ruler->changeTab(typeCombo->currentData().toInt());
 	typeCombo->blockSignals(false);
 	emit tabrulerChanged();
 	emit tabsChanged();
