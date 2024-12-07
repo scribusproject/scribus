@@ -72,7 +72,6 @@ for which a new license (GPL+exception) is in place.
 #define ARG_UPGRADECHECK "--upgradecheck"
 #define ARG_TESTS "--tests"
 #define ARG_PYTHONSCRIPT "--python-script"
-#define ARG_INDIGO_UI "--indigo-ui"
 #define CMD_OPTIONS_END "--"
 
 #define ARG_VERSION_SHORT "-v"
@@ -89,7 +88,6 @@ for which a new license (GPL+exception) is in place.
 #define ARG_UPGRADECHECK_SHORT "-u"
 #define ARG_TESTS_SHORT "-T"
 #define ARG_PYTHONSCRIPT_SHORT "-py"
-#define ARG_INDIGO_UI_SHORT "-iu"
 
 // Qt wants -display not --display or -d
 #define ARG_DISPLAY_QT "-display"
@@ -602,7 +600,6 @@ void ScribusQApp::showUsage()
 	printArgLine(ts, ARG_VERSION_SHORT, ARG_VERSION, tr("Output version information and exit") );
 	printArgLine(ts, ARG_PYTHONSCRIPT_SHORT, qPrintable(QString("%1 <%2> [%3] ").arg(ARG_PYTHONSCRIPT, tr("script"), tr("arguments ..."))), tr("Run script in Python [with optional arguments]. This option must be last option used") );
 	printArgLine(ts, ARG_NOGUI_SHORT, ARG_NOGUI, tr("Do not start GUI") );
-	printArgLine(ts, ARG_INDIGO_UI_SHORT, ARG_INDIGO_UI, tr("Open the Indigo UI Scribus test interface") );
 	ts << (QString("     %1").arg(CMD_OPTIONS_END,-39)) << tr("Explicit end of command line options"); Qt::endl(ts);
  	
 	
