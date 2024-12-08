@@ -737,7 +737,11 @@ void PropertiesPalette_Fill::languageChange()
 {
 	retranslateUi(this);
 
-	comboBlendmode->setToolTip( tr("Blendmode of fill"));
+	comboBlendmode->setToolTip(tr("Blendmode of fill"));
+	evenOdd->setToolTip(tr("Any path self-intersections or subpaths create holes in the fill (fill-rule: evenodd)"));
+	nonZero->setToolTip(tr("Fill is solid unless a subpath is counterdirectional (fill-rule: nonzero)"));
+	buttonFillColor->setPersistentToolTip(tr( "Color of fill"));
+	buttonFillMask->setPersistentToolTip(tr( "Mask of fill"));
 }
 
 void PropertiesPalette_Fill::unitChange()

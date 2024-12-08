@@ -56,7 +56,11 @@
          <number>0</number>
         </property>
         <item>
-         <widget class="QComboBox" name="pathTextType"/>
+         <widget class="QComboBox" name="pathTextType">
+          <property name="toolTip">
+           <string>Text render style type</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -100,6 +104,9 @@
         </item>
         <item>
          <widget class="QToolButton" name="flippedPathText">
+          <property name="toolTip">
+           <string>Flip text</string>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -153,8 +160,11 @@
         </property>
         <item>
          <widget class="QCheckBox" name="showCurveCheckBox">
+          <property name="toolTip">
+           <string>Show reference path</string>
+          </property>
           <property name="text">
-           <string>Show Curve</string>
+           <string>Show Path</string>
           </property>
          </widget>
         </item>
@@ -206,7 +216,11 @@
          <number>0</number>
         </property>
         <item>
-         <widget class="ScrSpinBox" name="startOffset"/>
+         <widget class="ScrSpinBox" name="startOffset">
+          <property name="toolTip">
+           <string>Text spacing on the left or right side (depending on the text alignment)</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -236,7 +250,11 @@
          <number>0</number>
         </property>
         <item>
-         <widget class="ScrSpinBox" name="distFromCurve"/>
+         <widget class="ScrSpinBox" name="distFromCurve">
+          <property name="toolTip">
+           <string>Text distance from the reference path</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -268,7 +286,7 @@
   <customwidget>
    <class>ScrSpinBox</class>
    <extends>QDoubleSpinBox</extends>
-   <header location="global">ui/scrspinbox.h</header>
+   <header>ui/scrspinbox.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

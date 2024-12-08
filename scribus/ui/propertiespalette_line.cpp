@@ -920,6 +920,8 @@ void PropertiesPalette_Line::languageChange()
 	buttonMarkerEnd->setToolTip( tr("Marker style for end of line"));
 	buttonSwapMarker->setToolTip( tr("Swap start and end markers"));
 	comboBlendmode->setToolTip( tr("Blendmode of line"));
+	buttonLineColor->setPersistentToolTip(tr( "Color of line"));
+	buttonLineMask->setPersistentToolTip(tr( "Mask of line"));
 }
 
 void PropertiesPalette_Line::unitChange()

@@ -68,7 +68,11 @@
             <number>4</number>
            </property>
            <item>
-            <widget class="PageSizeSelector" name="pageSizeSelector" native="true"/>
+            <widget class="PageSizeSelector" name="pageSizeSelector" native="true">
+             <property name="toolTip">
+              <string>Page preset categories</string>
+             </property>
+            </widget>
            </item>
            <item>
             <spacer name="horizontalSpacer_4">
@@ -84,7 +88,11 @@
             </spacer>
            </item>
            <item>
-            <widget class="QComboBox" name="comboSortSizes"/>
+            <widget class="QComboBox" name="comboSortSizes">
+             <property name="toolTip">
+              <string>Sort page list</string>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -111,6 +119,14 @@
           <bool>true</bool>
          </property>
          <widget class="QWidget" name="scrollAreaWidgetContents">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>-53</y>
+            <width>320</width>
+            <height>588</height>
+           </rect>
+          </property>
           <layout class="QVBoxLayout" name="verticalLayout_7">
            <property name="spacing">
             <number>0</number>
@@ -757,7 +773,7 @@
   <customwidget>
    <class>ScrSpinBox</class>
    <extends>QDoubleSpinBox</extends>
-   <header location="global">ui/scrspinbox.h</header>
+   <header>ui/scrspinbox.h</header>
   </customwidget>
   <customwidget>
    <class>NewMarginWidget</class>

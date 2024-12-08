@@ -43,7 +43,7 @@
         </sizepolicy>
        </property>
        <property name="label" stdset="0">
-        <string>Blend Mode</string>
+        <string>Blendmode</string>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <property name="spacing">
@@ -62,7 +62,11 @@
          <number>0</number>
         </property>
         <item>
-         <widget class="QComboBox" name="blendMode"/>
+         <widget class="QComboBox" name="blendMode">
+          <property name="toolTip">
+           <string>Blendmode of selected layer</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -111,7 +115,11 @@
          <number>0</number>
         </property>
         <item>
-         <widget class="ScrSpinBox" name="opacitySpinBox"/>
+         <widget class="ScrSpinBox" name="opacitySpinBox">
+          <property name="toolTip">
+           <string>Opacity of selected layer</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>

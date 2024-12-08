@@ -52,7 +52,7 @@
       <enum>QTabWidget::TabShape::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <property name="elideMode">
       <enum>Qt::TextElideMode::ElideRight</enum>
@@ -1621,6 +1621,11 @@
    <header>ui/scrspinbox.h</header>
   </customwidget>
   <customwidget>
+   <class>LineCombo</class>
+   <extends>QComboBox</extends>
+   <header>ui/linecombo.h</header>
+  </customwidget>
+  <customwidget>
    <class>LinkButton</class>
    <extends>QToolButton</extends>
    <header>ui/linkbutton.h</header>
@@ -1639,11 +1644,6 @@
    <class>ArrowChooser</class>
    <extends>QComboBox</extends>
    <header>ui/arrowchooser.h</header>
-  </customwidget>
-  <customwidget>
-   <class>LineCombo</class>
-   <extends>QComboBox</extends>
-   <header>ui/linecombo.h</header>
   </customwidget>
   <customwidget>
    <class>PolygonWidget</class>
@@ -1721,7 +1721,6 @@
  <resources/>
  <connections/>
  <buttongroups>
-  <buttongroup name="scalingButtonGroup"/>
   <buttongroup name="previewButtonGroup"/>
  </buttongroups>
 </ui>

@@ -328,8 +328,15 @@ void PropertiesPalette_Shadow::languageChange()
 	labelBlendmode->setText(tr( "Blendmode"));
 	labelErase->setText(tr( "Erase Fill"));
 
-	buttonEraseShadow->setToolTip(tr( "Content covers Drop Shadow"));
-	buttonInheritOpacity->setToolTip(tr( "Inherit Object Transparency"));
+	buttonEraseShadow->setToolTip(tr( "Content covers drop shadow"));
+	buttonInheritOpacity->setToolTip(tr( "Inherit object transparency"));
+	numberXOffset->setToolTip(tr( "Horizontal offset of the drop shadow"));
+	numberYOffset->setToolTip(tr( "Vertical offset of the drop shadow"));
+	numberBlurRadius->setToolTip(tr( "Blur radius of the drop shadow"));
+	numberOpacity->setToolTip(tr( "Opacity of the drop shadow"));
+	comboboxBlendMode->setToolTip(tr( "Blendmode of the drop shadow"));
+	switchHasShadow->setToolTip(tr( "If checked, the drop shadow is activated"));
+	buttonColor->setPersistentToolTip(tr( "Color of drop shadow"));
 }
 
 void PropertiesPalette_Shadow::iconSetChange()

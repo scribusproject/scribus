@@ -117,6 +117,9 @@
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
+                <property name="toolTip">
+                 <string>Rotation of the image</string>
+                </property>
                </widget>
               </item>
              </layout>
@@ -163,6 +166,9 @@
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
+                </property>
+                <property name="toolTip">
+                 <string>Page number of PDF file</string>
                 </property>
                 <property name="specialValueText">
                  <string>Auto</string>
@@ -621,6 +627,9 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="toolTip">
+            <string>Open Image Effects dialog</string>
+           </property>
            <property name="text">
             <string>Image Effects</string>
            </property>
@@ -734,7 +743,7 @@
   <customwidget>
    <class>ScrSpinBox</class>
    <extends>QDoubleSpinBox</extends>
-   <header location="global">ui/scrspinbox.h</header>
+   <header>ui/scrspinbox.h</header>
   </customwidget>
   <customwidget>
    <class>LinkButton</class>
