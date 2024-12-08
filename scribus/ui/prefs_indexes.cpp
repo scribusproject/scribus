@@ -5,6 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <QLabel>
 #include <QSignalBlocker>
 
 #include "commonstrings.h"
@@ -186,6 +187,12 @@ void Prefs_Indexes::updateStyleComboBoxes()
 	styleLevel1ComboBox->addItems(stylesList);
 	styleLevel2ComboBox->addItems(stylesList);
 	styleLevel3ComboBox->addItems(stylesList);
+	//TODO: Indexing doesn't support multiple styles for differnet layers yet
+	styleLevel2Label->setVisible(false);
+	styleLevel3Label->setVisible(false);
+	styleLevel2ComboBox->setVisible(false);
+	styleLevel3ComboBox->setVisible(false);
+
 }
 
 void Prefs_Indexes::updateIndexListBox()

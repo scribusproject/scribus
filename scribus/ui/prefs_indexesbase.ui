@@ -243,7 +243,7 @@
              <item>
               <layout class="QGridLayout" name="gridLayout">
                <item row="0" column="0">
-                <widget class="QLabel" name="label_3">
+                <widget class="QLabel" name="styleHeadingLabel">
                  <property name="text">
                   <string>Heading:</string>
                  </property>
@@ -253,7 +253,7 @@
                 <widget class="QComboBox" name="styleHeadingComboBox"/>
                </item>
                <item row="1" column="0">
-                <widget class="QLabel" name="label_4">
+                <widget class="QLabel" name="styleSeparatorsLabel">
                  <property name="text">
                   <string>Separators:</string>
                  </property>
@@ -263,7 +263,7 @@
                 <widget class="QComboBox" name="styleSeparatorComboBox"/>
                </item>
                <item row="2" column="0">
-                <widget class="QLabel" name="label_5">
+                <widget class="QLabel" name="styleLevel1Label">
                  <property name="text">
                   <string>Level 1:</string>
                  </property>
@@ -273,7 +273,7 @@
                 <widget class="QComboBox" name="styleLevel1ComboBox"/>
                </item>
                <item row="3" column="0">
-                <widget class="QLabel" name="label_6">
+                <widget class="QLabel" name="styleLevel2Label">
                  <property name="text">
                   <string>Level 2:</string>
                  </property>
@@ -283,7 +283,7 @@
                 <widget class="QComboBox" name="styleLevel2ComboBox"/>
                </item>
                <item row="4" column="0">
-                <widget class="QLabel" name="label_7">
+                <widget class="QLabel" name="styleLevel3Label">
                  <property name="text">
                   <string>Level 3:</string>
                  </property>
