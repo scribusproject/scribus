@@ -79,9 +79,7 @@ MovePages::MovePages( QWidget* parent, int currentPage, int maxPages, bool movin
 	mvWhereData->addItem( tr("After Page"));
 	mvWhereData->addItem( tr("At End"));
 	if (move)
-	{
 		mvWhereData->addItem( tr("Swap with Page"));
-	}
 	mvWhereData->setCurrentIndex(2);
 	mvWherePageData = new ScrSpinBox( this );
 	mvWherePageData->setMinimum(1);

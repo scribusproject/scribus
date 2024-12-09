@@ -828,7 +828,7 @@ void UndoManager::languageChange()
 	UndoManager::Copy               = tr("Copy");
 	UndoManager::CopyPage           = tr("Copy page");
 	UndoManager::MovePage           = tr("Move page");
-	UndoManager::SwapPage           = tr("Swap page");
+	UndoManager::SwapPage           = tr("Swap pages");
 	UndoManager::ImportPage         = tr("Import page");
 	UndoManager::ToOutlines         = tr("Convert to outlines");
 	UndoManager::LinkTextFrame      = tr("Link text frame");

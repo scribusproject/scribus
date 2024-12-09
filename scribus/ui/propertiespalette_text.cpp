@@ -62,7 +62,7 @@ PropertiesPalette_Text::PropertiesPalette_Text( QWidget* parent) : QWidget(paren
 	scAlignment->restorePreferences();
 
 	distanceWidgets = new PropertyWidget_Distance(this);
-	scDistance = new SectionContainer(tr("Columns && Indents"), "SectionTPColumnsMargins", true, false);
+	scDistance = new SectionContainer(tr("Columns && Indentation"), "SectionTPColumnsMargins", true, false);
 	scDistance->setCanSaveState(true);
 	scDistance->setWidget(distanceWidgets);
 	scDistance->restorePreferences();
