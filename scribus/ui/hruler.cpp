@@ -29,7 +29,6 @@ for which a new license (GPL+exception) is in place.
 #include <QPaintEvent>
 #include <QPainter>
 #include <QPixmap>
-#include <QPixmap>
 #include <QPolygon>
 #include <QRect>
 
@@ -343,7 +342,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 			colEnd   = textPosToLocal((colWidth + m_colGap) * (m_currCol - 1.0) + colWidth);
 		}
 		QPointF mousePos = m->position();
-		if ((m_mousePressed) && (mousePos.y() < height()) && (mousePos.y() > 0) && (mousePos.x() > colStart - m_doc->guidesPrefs().grabRadius) && (mousePos.x() < colEnd + m_doc->guidesPrefs().grabRadius))
+		if (m_mousePressed && (mousePos.y() < height()) && (mousePos.y() > 0) && (mousePos.x() > colStart - m_doc->guidesPrefs().grabRadius) && (mousePos.x() < colEnd + m_doc->guidesPrefs().grabRadius))
 		{
 			QApplication::changeOverrideCursor(QCursor(Qt::SizeHorCursor));
 			double toplimit = textWidth() + m_distRight - (m_colGap * (m_cols - 1.0)) - 1.0;
@@ -519,7 +518,7 @@ void Hruler::paintEvent(QPaintEvent *e)
 		const QColor& markerColor = blendColor(isDarkColor(backgroundColor), QColor(117, 182, 240), QColor(51, 132, 204));
 		const QColor& marginColor = markerColor;
 		QColor columnColor = markerColor;
-		columnColor.setAlphaF(0.2);
+		columnColor.setAlphaF(0.2f);
 		const QColor& textColor = palette.color(QPalette::Text);
 
 		p.save();
@@ -1109,5 +1108,4 @@ void Hruler::tabTypeChanged(QAction *action)
 	Selection tempSelection(this, false);
 	tempSelection.addItem(m_currItem);
 	m_doc->itemSelection_ApplyParagraphStyle(paraStyle, &tempSelection);
-
 }

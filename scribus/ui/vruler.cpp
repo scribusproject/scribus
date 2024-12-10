@@ -108,7 +108,7 @@ void Vruler::paintEvent(QPaintEvent *e)
 	p.setBrush(textColor);
 	p.setPen(textColor);
 	p.setFont(font());
-	p.fillRect(rect(), palette.color((QPalette::Base)));
+	p.fillRect(rect(), palette.color(QPalette::Base));
 
 	double cc = height() / sc;
 	double firstMark = ceil(m_offset / m_iter) * m_iter - m_offset;
