@@ -41,6 +41,7 @@ for which a new license (GPL+exception) is in place.
 #include "marks.h"
 #include "notesstyles.h"
 #include "numeration.h"
+#include "opticalmarginlookup.h"
 #include "pageitem.h"
 #include "pageitem_group.h"
 #include "pageitem_noteframe.h"
@@ -901,43 +902,33 @@ struct LineControl {
 
 
 	//defined but not used
-	///// calculate how much the first char should stick out to the left
-	//double opticalLeftMargin(const StoryText& itemText)
-	//{
-	//	int b = line.firstChar;
-	//	while (b < line.lastChar && (itemText.flags(b) & ScLayout_SuppressSpace))
-	//		   ++b;
-	//
-	//	double chs = itemText.charStyle(b).fontSize() * (itemText.charStyle(b).scaleH() / 1000.0);
-	//	QChar chr = itemText.text(b);
-	//	double leftCorr = itemText.charStyle(b).font().realCharWidth(chr, chs / 10.0);
-	//	if (QString("'´`").indexOf(chr) >= 0
-	//		|| chr == QChar(0x2018) // quote 6
-	//		|| chr == QChar(0x2019) // quote 9
-	//		|| chr == QChar(0x201a) // lower quote 9
-	//		|| chr == QChar(0x201b) // upper reversed 9 6
-	//		|| chr == QChar(0x2039) // single guillemet <
-	//		|| chr == QChar(0x203a) // single guillemet >
-	//		)
-	//		leftCorr *= -0.7;
-	//	else if (QString("\"").indexOf(chr) >= 0
-	//			 || chr == QChar(0x00ab) // guillemet <<
-	//			 || chr == QChar(0x00bb) // guillemet >>
-	//			 || chr == QChar(0x201c) // quote 66
-	//			 || chr == QChar(0x201d) // quote 99
-	//			 || chr == QChar(0x201e) // lower quote 99
-	//			 || chr == QChar(0x201f) // upper reversed 99
-	//			 )
-	//		leftCorr *= -0.5;
-	//	else {
-	//		leftCorr = itemText.charStyle(b).font().charWidth(QChar(' '), chs / 10.0, chr);
-	//		leftCorr -= itemText.charStyle(b).font().charWidth(QChar(' '), chs / 10.0);
-	////				double leftCorr2 = itemText.charStyle(a).font().charWidth(QChar('K'), chs / 10.0, chr);
-	////				leftCorr2 -= itemText.charStyle(a).font().charWidth(QChar('K'), chs / 10.0);
-	////				leftCorr = qMin(leftCorr, leftCorr2);
-	//	}
-	//	return leftCorr;
-	//}
+	/// calculate how much the first char should stick out to the left
+	double opticalLeftMargin(const StoryText& itemText)
+	{
+		int b = 0;
+		while (b < lineData.lastCluster && (itemText.flags(b) & ScLayout_SuppressSpace))
+			   ++b;
+
+		if (b < lineData.lastCluster)
+		{
+			const CharStyle& style = glyphs[b].style();
+			const ParagraphStyle& pStyle = itemText.paragraphStyle(lineData.lastCluster);
+			const ScFace& font = style.font();
+			double chs = style.fontSize() * (style.scaleH() / 1000.0);
+			QChar chr = itemText.text(glyphs[b].firstChar());
+			double leftCorr = 0;
+
+			OpticalMarginSet set = doc->opticalMarginSets().value(pStyle.opticalMarginSetId());
+			OpticalMarginRule rule = OpticalMarginLookup::instance().offset(chr, set);
+			if ( rule.Unit == SC_PERCENT)
+				leftCorr = font.glyphBBox(font.char2CMap(chr.unicode()), chs / 10.0).width * rule.Left;
+			else
+				leftCorr = rule.Left;
+
+			return leftCorr;
+		}
+		return 0.0;
+	}
 
 	/// calculate how much the last char should stick out to the right
 	double opticalRightMargin(const StoryText& itemText)
@@ -951,46 +942,20 @@ struct LineControl {
 		if (b >= 0)
 		{
 			const CharStyle& style = glyphs[b].style();
+			const ParagraphStyle& pStyle = itemText.paragraphStyle(lineData.lastCluster);
 			const ScFace& font = style.font();
 			double chs = style.fontSize() * (style.scaleH() / 1000.0);
-			QChar chr = itemText.text(glyphs[b].lastChar());
-			double rightCorr;
-			if (glyphs[b].hasFlag(ScLayout_SoftHyphenVisible))
-				rightCorr = font.hyphenWidth(style, chs / 10.0);
+			bool softHypen = glyphs[b].hasFlag(ScLayout_SoftHyphenVisible);
+			QChar chr = softHypen ? QChar(style.hyphenChar()) : itemText.text(glyphs[b].lastChar());
+			double rightCorr = 0;
+
+			OpticalMarginSet set = doc->opticalMarginSets().value(pStyle.opticalMarginSetId());
+			OpticalMarginRule rule = OpticalMarginLookup::instance().offset(chr, set);
+			if (rule.Unit == SC_PERCENT)
+				rightCorr = softHypen ? font.hyphenWidth(style, chs / 10.0) * rule.Right : font.glyphBBox(font.char2CMap(chr.unicode()), chs / 10.0).width * rule.Right;
 			else
-				rightCorr = font.glyphBBox(font.char2CMap(chr.unicode()), chs / 10.0).width;
-			if (glyphs[b].hasFlag(ScLayout_SoftHyphenVisible)
-				|| QString("-,.`´'~").indexOf(chr) >= 0
-				|| chr == QChar(0x2010)
-				|| chr == QChar(0x2018)
-				|| chr == QChar(0x2019)
-				|| chr == QChar(0x201a)
-				|| chr == QChar(0x201b)
-				|| chr == QChar(0x2039)
-				|| chr == QChar(0x203a)
-				|| chr == QChar(0x2032) // PRIME
-				)
-				rightCorr *= 0.7;
-			else if (QString(";:\"").indexOf(chr) >= 0
-					 || chr == QChar(0x00ab)
-					 || chr == QChar(0x00bb)
-					 || chr == QChar(0x201c)
-					 || chr == QChar(0x201d)
-					 || chr == QChar(0x201e)
-					 || chr == QChar(0x201f)
-					 || chr == QChar(0x2013) // EN DASH
-					 || chr == QChar(0x2033) // double prime
-					 )
-				rightCorr *= 0.5;
-			else {
-#if 0
-				// FIXME HOST: is the kerning with "." a really reliable way to check this?
-				rightCorr = chStyle.font().realCharWidth(chr, chs / 10.0);
-				rightCorr -= chStyle.font().charWidth(chr, chs / 10.0, QChar('.'));
-#else
-				rightCorr = 0;
-#endif
-			}
+				rightCorr = rule.Right;
+
 			return rightCorr;
 		}
 		return 0.0;
@@ -2438,6 +2403,11 @@ void PageItem_TextFrame::layout()
 					{
 						if (opticalMargins & ParagraphStyle::OM_RightHangingPunct)
 							current.lineData.width += current.opticalRightMargin(itemText);
+						if (opticalMargins & ParagraphStyle::OM_LeftHangingPunct)
+						{
+							current.lineData.width += current.opticalLeftMargin(itemText);
+							current.lineData.x -= current.opticalLeftMargin(itemText);
+						}
 
 						OFs = 0;
 						if (style.alignment() == ParagraphStyle::RightAligned)
@@ -2467,6 +2437,9 @@ void PageItem_TextFrame::layout()
 						{
 							if (opticalMargins & ParagraphStyle::OM_RightHangingPunct)
 								current.lineData.naturalWidth += current.opticalRightMargin(itemText);
+							if (opticalMargins & ParagraphStyle::OM_LeftHangingPunct)
+								current.lineData.naturalWidth += current.opticalLeftMargin(itemText);
+
 							double optiWidth = current.colRight - style.rightMargin() - style.lineSpacing() / 2.0 - current.lineData.x;
 							if (current.lineData.naturalWidth > optiWidth)
 								current.lineData.width = qMax(current.lineData.width - current.maxShrink, optiWidth);
@@ -2553,6 +2526,11 @@ void PageItem_TextFrame::layout()
 						// Justification
 						if (opticalMargins & ParagraphStyle::OM_RightHangingPunct)
 							current.lineData.width += current.opticalRightMargin(itemText);
+						if (opticalMargins & ParagraphStyle::OM_LeftHangingPunct)
+						{
+							current.lineData.width += current.opticalLeftMargin(itemText);
+							current.lineData.x -= current.opticalLeftMargin(itemText);
+						}
 						// #12565: Right alignment of hyphens
 						// The additional character width has already been taken into account
 						// above via the line break position, so it's not necessary to increase
@@ -2579,6 +2557,9 @@ void PageItem_TextFrame::layout()
 						{
 							if (opticalMargins & ParagraphStyle::OM_RightHangingPunct)
 								current.lineData.naturalWidth += current.opticalRightMargin(itemText);
+							if (opticalMargins & ParagraphStyle::OM_LeftHangingPunct)
+								current.lineData.naturalWidth += current.opticalLeftMargin(itemText);
+
 							current.indentLine(style, OFs);
 						}
 						current.xPos = current.lineData.x + current.lineData.width;
@@ -2841,6 +2822,11 @@ void PageItem_TextFrame::layout()
 
 			if (opticalMargins & ParagraphStyle::OM_RightHangingPunct)
 				current.lineData.width += current.opticalRightMargin(itemText);
+			if (opticalMargins & ParagraphStyle::OM_LeftHangingPunct)
+			{
+				current.lineData.width += current.opticalLeftMargin(itemText);
+				current.lineData.x -= current.opticalLeftMargin(itemText);
+			}
 
 			OFs = 0;
 			if (style.alignment() == ParagraphStyle::RightAligned)
@@ -2869,6 +2855,9 @@ void PageItem_TextFrame::layout()
 			{
 				if (opticalMargins & ParagraphStyle::OM_RightHangingPunct)
 					current.lineData.naturalWidth += current.opticalRightMargin(itemText);
+				if (opticalMargins & ParagraphStyle::OM_LeftHangingPunct)
+					current.lineData.naturalWidth -= current.opticalLeftMargin(itemText);
+
 				current.indentLine(style, OFs);
 			}
 			if (current.glyphs[0].hasFlag(ScLayout_DropCap))

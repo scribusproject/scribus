@@ -18,6 +18,7 @@
 
 #include "style.h"
 #include "charstyle.h"
+#include "opticalmarginlookup.h"
 #include "styles/stylecontextproxy.h"
 
 

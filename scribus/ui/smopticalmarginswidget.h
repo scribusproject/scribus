@@ -20,12 +20,16 @@ public:
 	void setOpticalMargins(int o);
 	void setOpticalMargins(int o, int ps, bool isParentValue);
 
+	void setOpticalMarginSetId(const QString& o);
+	void setOpticalMarginSetId(const QString& o, const QString& ps, bool isParentValue);
+
 	bool useParentValue();
 
 private:
 	bool m_hasParent = false;
 	bool m_useParentStyle = false;
 	int m_pStyle = -1;
+	QString m_pSetId;
 
 private slots:
 	void styleChanged();

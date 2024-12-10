@@ -473,6 +473,9 @@ void StyleManager::slotImport()
 		QStringList neededColors;
 		neededColors.clear();
 
+		QStringList neededOpticalMarginSets;
+		neededOpticalMarginSets.clear();
+
 		foreach (const QString& aStyle, dia2->paragraphStyles())
 		{
 			ParagraphStyle& sty(tmpParaStyles[tmpParaStyles.find(aStyle)]);
@@ -493,6 +496,9 @@ void StyleManager::slotImport()
 				neededColors.append(sty.charStyle().strokeColor());
 			if ((!m_doc->PageColors.contains(sty.charStyle().fillColor())) && (!neededColors.contains(sty.charStyle().fillColor())))
 				neededColors.append(sty.charStyle().fillColor());
+
+			if ((!m_doc->opticalMarginSets().contains(sty.opticalMarginSetId())) && (!neededOpticalMarginSets.contains(sty.opticalMarginSetId())))
+				neededOpticalMarginSets.append(sty.opticalMarginSetId());
 		}
 
 		foreach (const QString& aStyle, dia2->characterStyles())
@@ -553,6 +559,11 @@ void StyleManager::slotImport()
 						m_doc->PageColors.insert(itc.key(), itc.value());
 				}
 			}
+		}
+
+		if (!neededOpticalMarginSets.isEmpty())
+		{
+			// TODO: Load missing optical margin sets from doc
 		}
 	}
 	delete dia2;

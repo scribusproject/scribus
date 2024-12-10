@@ -44,7 +44,7 @@ void PropertyWidget_Alignment::updateStyle(const ParagraphStyle &newCurrent)
 
 	m_haveItem = tmp;
 
-	showOpticalMargins(newCurrent.opticalMargins());
+	showOpticalMargins(newCurrent.opticalMargins(), newCurrent.opticalMarginSetId());
 }
 
 void PropertyWidget_Alignment::setMainWindow(ScribusMainWindow* mw)
@@ -249,13 +249,15 @@ void PropertyWidget_Alignment::showFirstLinePolicy(FirstLineOffsetPolicy f)
 		flopWidget->flopBaselineGrid->setChecked(true);
 }
 
-void PropertyWidget_Alignment::showOpticalMargins(int e)
+void PropertyWidget_Alignment::showOpticalMargins(int e, const QString &setId)
 {
 	if (!m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	bool tmp = m_haveItem;
 	m_haveItem = false;
 	opticalMarginsWidget->setOpticalMargin(e);
+	opticalMarginsWidget->setOpticalMarginSets(m_doc->opticalMarginSets());
+	opticalMarginsWidget->setOpticalMarginSetId(setId);
 	m_haveItem = tmp;
 }
 
@@ -353,8 +355,6 @@ void PropertyWidget_Alignment::handleOpticalMargins()
 	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 
-	int omt(opticalMarginsWidget->opticalMargin());
-
 	PageItem *item = m_item;
 	if (m_doc->appMode == modeEditTable)
 		item = m_item->asTable()->activeCell().textFrame();
@@ -362,24 +362,9 @@ void PropertyWidget_Alignment::handleOpticalMargins()
 	{
 		Selection tempSelection(this, false);
 		tempSelection.addItem(item, true);
-		m_doc->itemSelection_SetOpticalMargins(omt, &tempSelection);
+		m_doc->itemSelection_SetOpticalMargins(opticalMarginsWidget->opticalMargin(), opticalMarginsWidget->opticalMarginSetId(), &tempSelection);
 	}
 }
-
-// void PropertyWidget_Alignment::resetOpticalMargins()
-// {
-// 	// if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
-// 	// 	return;
-// 	// PageItem *item = m_item;
-// 	// if (m_doc->appMode == modeEditTable)
-// 	// 	item = m_item->asTable()->activeCell().textFrame();
-// 	// if (item != nullptr)
-// 	// {
-// 	// 	Selection tempSelection(this, false);
-// 	// 	tempSelection.addItem(item, true);
-// 	// 	m_doc->itemSelection_resetOpticalMargins(&tempSelection);
-// 	// }
-// }
 
 void PropertyWidget_Alignment::changeEvent(QEvent *e)
 {

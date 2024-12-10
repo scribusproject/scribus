@@ -7,16 +7,22 @@ for which a new license (GPL+exception) is in place.
 
 #include "prefs_typography.h"
 #include "prefsstructs.h"
+#include "scribus.h"
 #include "scribusdoc.h"
+#include "stylemanager.h"
+#include "ui/smtextstyles.h"
 
-Prefs_Typography::Prefs_Typography(QWidget* parent, ScribusDoc* /*doc*/)
-	: Prefs_Pane(parent)
+Prefs_Typography::Prefs_Typography(QWidget* parent, ScribusDoc* doc)
+	: Prefs_Pane(parent),
+	  m_Doc(doc)
 {
 	setupUi(this);
 	languageChange();
 
 	m_caption = tr("Typography");
 	m_icon = "16/draw-text.png";
+
+	connect(opticalMarginsEditor, &OpticalMarginEditor::setDeleted, this, &Prefs_Typography::updateParagraphStyles);
 }
 
 Prefs_Typography::~Prefs_Typography() = default;
@@ -41,6 +47,21 @@ void Prefs_Typography::languageChange()
 	automaticLineSpacingSpinBox->setToolTip( tr( "Percentage increase over the font size for the line spacing" ) );
 }
 
+void Prefs_Typography::updateParagraphStyles(QString removedID, QString newID)
+{
+	if (!m_Doc)
+		return;
+
+	ResourceCollection res;
+	m_Doc->getNamedResources(res);
+	res.mapOpticalMarginSet(removedID, newID);
+	m_Doc->replaceNamedResources(res);
+
+	// We also need to update the Style Manager to load the updated paragraph styles.
+	// updateColorList() does what we want.
+	m_Doc->scMW()->styleMgr()->updateColorList();
+}
+
 void Prefs_Typography::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
 	subscriptDisplacementSpinBox->setValue(prefsData->typoPrefs.valueSubScript);
@@ -53,6 +74,7 @@ void Prefs_Typography::restoreDefaults(struct ApplicationPrefs *prefsData)
 	strikeoutLineWidthSpinBox->setValue(prefsData->typoPrefs.valueStrikeThruWidth / 10.0);
 	smallcapsScalingSpinBox->setValue(prefsData->typoPrefs.valueSmallCaps);
 	automaticLineSpacingSpinBox->setValue(prefsData->typoPrefs.autoLineSpacing);
+	opticalMarginsEditor->setOpticalMarginSets(prefsData->typoPrefs.opticalMarginSets);
 }
 
 void Prefs_Typography::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
@@ -67,5 +89,6 @@ void Prefs_Typography::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 	prefsData->typoPrefs.valueStrikeThruWidth = strikeoutLineWidthSpinBox->value() * 10.0;
 	prefsData->typoPrefs.valueSmallCaps = smallcapsScalingSpinBox->value();
 	prefsData->typoPrefs.autoLineSpacing = automaticLineSpacingSpinBox->value();
+	prefsData->typoPrefs.opticalMarginSets = opticalMarginsEditor->opticalMarginSets();
 }
 

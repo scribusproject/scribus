@@ -22,6 +22,8 @@ OpticalMarginsWidget::OpticalMarginsWidget(QWidget* parent) : FormWidget(parent)
 	parentButton = new QToolButton();
 	parentButton->hide(); // only used for style manager
 
+	setsCombo = new QComboBox();
+
 	QHBoxLayout* mainLayout = new QHBoxLayout();
 	mainLayout->setSpacing(4);
 	mainLayout->setContentsMargins(0, 0, 0, 0);
@@ -29,6 +31,7 @@ OpticalMarginsWidget::OpticalMarginsWidget(QWidget* parent) : FormWidget(parent)
 	mainLayout->addWidget(leftButton);
 	mainLayout->addWidget(rightButton);
 	mainLayout->addSpacerItem(new QSpacerItem(4, 0, QSizePolicy::Fixed));
+	mainLayout->addWidget(setsCombo);
 	mainLayout->addWidget(parentButton);
 	mainLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding));
 
@@ -40,9 +43,10 @@ OpticalMarginsWidget::OpticalMarginsWidget(QWidget* parent) : FormWidget(parent)
 	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 	connect(rightButton, SIGNAL(clicked()), this, SIGNAL(opticalMarginChanged()));
 	connect(leftButton, SIGNAL(clicked()), this, SIGNAL(opticalMarginChanged()));
+	connect(setsCombo, SIGNAL(currentIndexChanged(int)), this, SIGNAL(opticalMarginChanged()));
 }
 
-int OpticalMarginsWidget::opticalMargin()
+int OpticalMarginsWidget::opticalMargin() const
 {
 	bool left = leftButton->isChecked();
 	bool right = rightButton->isChecked();
@@ -86,6 +90,26 @@ void OpticalMarginsWidget::setOpticalMargin(int omt)
 	blockSignals(blocked);
 }
 
+void OpticalMarginsWidget::setOpticalMarginSets(const OpticalMarginSets& sets)
+{
+	m_sets = sets;
+}
+
+void OpticalMarginsWidget::setOpticalMarginSetId(const QString& id)
+{	
+	if (m_sets.size() <= 0)
+		return;
+
+	m_setId = m_sets.contains(id) ? id : m_sets.firstKey();
+
+	updateSetSelector();
+}
+
+QString OpticalMarginsWidget::opticalMarginSetId() const
+{
+	return setsCombo->currentData().toString();
+}
+
 void OpticalMarginsWidget::iconSetChange()
 {
 	IconManager &im = IconManager::instance();
@@ -103,9 +127,25 @@ void OpticalMarginsWidget::changeEvent(QEvent *e)
 	QWidget::changeEvent(e);
 }
 
+void OpticalMarginsWidget::updateSetSelector()
+{
+	if (m_sets.size() <= 0)
+		return;
+
+	QSignalBlocker blockSets(setsCombo);
+	setsCombo->setVisible( m_sets.size() > 1 ? true : false );
+	setsCombo->clear();
+
+	for (auto [id, set] : m_sets.asKeyValueRange())
+		setsCombo->addItem(set.name, id);
+
+	int index = setsCombo->findData(m_setId);
+	setsCombo->setCurrentIndex(index);
+}
+
 void OpticalMarginsWidget::languageChange()
 {
-	setText(tr("Optical &Margins"));
+	setText( tr("Optical &Margins") );
 
 	leftButton->setToolTip( tr("Optical character offset on left side"));
 	rightButton->setToolTip( tr("Optical character offset on right side"));

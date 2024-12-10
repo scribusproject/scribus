@@ -60,6 +60,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_color.h"
 #include "util_file.h"
 #include "util_ghostscript.h"
+#include "util_text.h"
 
 #include "ui/missing.h"
 #include "ui/modetoolbar.h"
@@ -223,6 +224,7 @@ void PrefsManager::initDefaults()
 	appPrefs.typoPrefs.valueUnderlineWidth = -1;
 	appPrefs.typoPrefs.valueStrikeThruPos = -1;
 	appPrefs.typoPrefs.valueStrikeThruWidth = -1;
+	appPrefs.typoPrefs.opticalMarginSets = OpticalMarginLookup::instance().defaultSets();
 	appPrefs.guidesPrefs.valueBaselineGrid = 14.4;
 	appPrefs.guidesPrefs.offsetBaselineGrid = 0.0;
 	appPrefs.displayPrefs.showToolTips = true;
@@ -1920,6 +1922,34 @@ bool PrefsManager::writePref(const QString& filePath)
 	experimentalElem.setAttribute("NotesEnabled", appPrefs.experimentalFeaturePrefs.notesEnabled);
 	elem.appendChild(experimentalElem);
 
+	QDomElement opticalMarginSets = docu.createElement("OpticalMarginSets");
+	OpticalMarginSets &oms = appPrefs.typoPrefs.opticalMarginSets;
+	for (const auto &set : oms)
+	{
+		QDomElement setItem = docu.createElement("Set");
+		setItem.setAttribute("Id", set.id);
+		setItem.setAttribute("Type", set.type);
+		setItem.setAttribute("Name", set.name);
+
+		QDomElement rulesItem = docu.createElement("Rules");
+		setItem.appendChild(rulesItem);
+
+		OpticalMarginRules rules = OpticalMarginLookup::instance().mergeCharsToRules(set.rules);
+
+		for (auto &rule : rules)
+		{
+			QDomElement ruleItem = docu.createElement("Rule");
+			ruleItem.setAttribute("Left", rule.Left);
+			ruleItem.setAttribute("Right", rule.Right);
+			ruleItem.setAttribute("Unit", rule.Unit);
+			ruleItem.setAttribute("Characters", stringToUnicode(rule.Chars));
+			rulesItem.appendChild(ruleItem);
+		}
+
+		opticalMarginSets.appendChild(setItem);
+	}
+	elem.appendChild(opticalMarginSets);
+
 	// write file
 	bool result = false;
 	QFile f(filePath);
@@ -2766,6 +2796,63 @@ bool PrefsManager::readPref(const QString& filePath)
 		if (dc.tagName() == "ExperimentalFeatures")
 		{
 			appPrefs.experimentalFeaturePrefs.notesEnabled = static_cast<bool>(dc.attribute("NotesEnabled", "0").toInt());
+		}
+
+		// optical margin sets
+		if (dc.tagName() == "OpticalMarginSets")
+		{
+			OpticalMarginSets sets;
+			OpticalMarginSet set;
+
+			QDomNodeList setNodes = dc.elementsByTagName("Set");
+
+			for (int i = 0; i < setNodes.count(); i++)
+			{
+				QDomNode setNode = setNodes.at(i);
+				if (!setNode.isElement())
+					continue;
+
+				QDomElement setElement = setNode.toElement();
+				set.id = setElement.attribute("Id");
+				set.type = setElement.attribute("Type");
+				set.name = setElement.attribute("Name");
+
+				QDomNodeList childrenList = setElement.childNodes();
+				for (int i = 0; i < childrenList.count(); i++)
+				{
+					QDomNode child = childrenList.at(i);
+					if (!child.isElement())
+						continue;
+
+					QDomElement childElement = child.toElement();
+					if (childElement.tagName() != "Rules")
+						continue;
+
+					OpticalMarginRules rules;
+
+					QDomNodeList ruleList = childElement.elementsByTagName("Rule");
+					for (int i = 0; i < ruleList.count(); i++)
+					{
+						QDomNode rule = ruleList.at(i);
+						if (!rule.isElement())
+							continue;
+
+						QDomElement ruleElement = rule.toElement();
+						OpticalMarginRule omr(unicodeToString(ruleElement.attribute("Characters")),
+											  ruleElement.attribute("Left").toDouble(),
+											  ruleElement.attribute("Right").toDouble(),
+											  ruleElement.attribute("Unit").toInt());
+
+						rules.append(omr);
+					}
+
+					set.rules = OpticalMarginLookup::instance().splitRulesToChars(rules);
+				}
+
+				sets.insert(set.id, set);
+			}
+
+			appPrefs.typoPrefs.opticalMarginSets = sets;
 		}
 
 		domNode = domNode.nextSibling();

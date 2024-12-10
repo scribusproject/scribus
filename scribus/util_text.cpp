@@ -94,3 +94,29 @@ QString saxedText(StoryText* story)
 	return QString(xml.c_str());
 }
 
+
+QString stringToUnicode(const QString &text)
+{
+	QString out;
+
+	for (auto c : text)
+		out += QString("U+%1,").arg(c.unicode(), 4, 16, QChar('0')).toUpper();
+
+	return out.mid(0, out.length() -1);
+
+}
+
+QString unicodeToString(const QString &text)
+{
+	QString out;
+	for (const auto &str : text.split(",", Qt::SkipEmptyParts))
+	{
+		QString tmp(str);
+		tmp.remove("U+");
+
+		bool ok;
+		out += QChar(tmp.toInt(&ok, 16));
+	}
+
+	return out;
+}

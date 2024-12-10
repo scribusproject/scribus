@@ -1974,6 +1974,11 @@ bool Scribus170Format::loadFile(const QString & fileName, const FileFormat & /* 
 			if (!success) break;
 			m_Doc->setUsesMarksAndNotes(true);
 		}
+		else if (tagName == QLatin1String("OpticalMarginSets"))
+		{
+			success = readOpticalMarginSets(m_Doc, reader);
+			if (!success) break;
+		}
 		else
 		{
 			reader.skipCurrentElement();
@@ -3166,6 +3171,10 @@ void Scribus170Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 	if (attrs.hasAttribute(OpticalMargins))
 		newStyle.setOpticalMargins(attrs.valueAsInt(OpticalMargins));
 
+	static const QString OpticalMarginSetId("OpticalMarginSetId");
+	if (attrs.hasAttribute(OpticalMarginSetId))
+		newStyle.setOpticalMarginSetId(attrs.valueAsString(OpticalMarginSetId));
+
 	static const QString HyphenConsecutiveLines("HyphenConsecutiveLines");
 	if (attrs.hasAttribute(HyphenConsecutiveLines))
 		newStyle.setHyphenConsecutiveLines(attrs.valueAsInt(HyphenConsecutiveLines));
@@ -3971,6 +3980,51 @@ bool Scribus170Format::readMarks(ScribusDoc* doc, ScXmlStreamReader& reader)
 			}
 		}
 	}
+	return !reader.hasError();
+}
+
+bool Scribus170Format::readOpticalMarginSets(ScribusDoc *doc, ScXmlStreamReader &reader) const
+{
+	QString tagName(reader.nameAsString());
+	OpticalMarginSets sets;
+	OpticalMarginSet set;
+	QMap<QString, QString> names;
+	OpticalMarginRules rules;
+
+	while (!reader.atEnd() && !reader.hasError())
+	{
+		reader.readNext();
+		if (reader.isEndElement() && reader.name() == tagName)
+			break;
+
+		if (reader.isStartElement() && reader.name() == QLatin1String("Set"))
+		{
+			ScXmlStreamAttributes attrs = reader.scAttributes();
+			set.id = attrs.valueAsString("Id");
+			set.type = attrs.valueAsString("Type");
+			set.name = attrs.valueAsString("Name");
+		}
+
+		if (reader.isStartElement() && reader.name() == QLatin1String("Rule"))
+		{
+			ScXmlStreamAttributes attrs = reader.scAttributes();
+			OpticalMarginRule rule(unicodeToString(attrs.valueAsString("Characters")), attrs.valueAsDouble("Left"), attrs.valueAsDouble("Right"), attrs.valueAsInt("Unit"));
+			rules.append(rule);
+		}
+
+		if (reader.isEndElement() && reader.name() == QLatin1String("Rules"))
+		{
+			set.rules = OpticalMarginLookup::instance().splitRulesToChars(rules);
+			rules.clear();
+		}
+
+		if (reader.isEndElement() && reader.name() == QLatin1String("Set"))
+			sets.insert(set.id, set);
+	}
+
+	doc->typographicPrefs().opticalMarginSets = sets;
+	m_Doc->setOpticalMarginSets(sets);
+
 	return !reader.hasError();
 }
 
@@ -5553,6 +5607,8 @@ PageItem* Scribus170Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 		pstyle.setMaxGlyphExtension(attrs.valueAsDouble("MaxGlyphExtend"));
 	if (attrs.hasAttribute("OpticalMargins"))
 		pstyle.setOpticalMargins(attrs.valueAsInt("OpticalMargins"));
+	if (attrs.hasAttribute("OpticalMarginSetId"))
+		pstyle.setOpticalMarginSetId(attrs.valueAsString("OpticalMarginSetId"));
 	if (attrs.hasAttribute("HyphenationMode"))
 		pstyle.setHyphenationMode(attrs.valueAsInt("HyphenationMode"));
 	if (attrs.hasAttribute("leftMargin"))

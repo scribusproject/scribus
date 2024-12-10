@@ -230,6 +230,7 @@ QString SMParagraphStyle::newStyle()
 	ParagraphStyle p;
 	p.setDefaultStyle(false);
 	p.setName(s);
+	p.setOpticalMarginSetId(m_doc->opticalMarginSets().firstKey());
 	p.charStyle().setLanguage(m_doc->language());
 	m_tmpStyles.create(p);
 	return s;
@@ -508,14 +509,11 @@ void SMParagraphStyle::setupConnections()
 
 	connect(m_pwidget, SIGNAL(useParentParaEffects()), this, SLOT(slotParentParaEffects()));
 	connect(m_pwidget->peCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotPargraphEffects(int)));
-//	connect(m_pwidget->dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap(bool)));
 	connect(m_pwidget->dropCapLines, SIGNAL(valueChanged(int)), this, SLOT(slotDropCapLines(int)));
 	connect(m_pwidget->parEffectOffset, SIGNAL(valueChanged(double)), this, SLOT(slotParEffectOffset()));
 	connect(m_pwidget->parEffectIndentBox, SIGNAL(toggled(bool)), this, SLOT(slotParEffectIndent(bool)));
 	connect(m_pwidget->parEffectCharStyleCombo, SIGNAL(activated(int)), this, SLOT(slotParEffectCharStyle(int)));
-//	connect(m_pwidget->bulletBox, SIGNAL(toggled(bool)), this, SLOT(slotBullet(bool)));
 	connect(m_pwidget->bulletStrEdit, SIGNAL(editTextChanged(QString)), this, SLOT(slotBulletStr(QString)));
-//	connect(m_pwidget->numBox, SIGNAL(toggled(bool)), this, SLOT(slotNumeration(bool)));
 	connect(m_pwidget->numComboBox, SIGNAL(textActivated(QString)), this, SLOT(slotNumName(QString)));
 	connect(m_pwidget->numLevelSpin, SIGNAL(valueChanged(int)), this, SLOT(slotNumLevel(int)));
 	connect(m_pwidget->numFormatCombo, SIGNAL(activated(int)), this, SLOT(slotNumFormat(int)));
@@ -553,10 +551,6 @@ void SMParagraphStyle::setupConnections()
 	connect(m_pwidget->cpage->effects_->UnderlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
 	connect(m_pwidget->cpage->effects_->StrikeVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
 	connect(m_pwidget->cpage->effects_->StrikeVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
-	// connect(m_pwidget->cpage->fillColor_, SIGNAL(currentTextChanged(QString)), this, SLOT(slotFillColor()));
-	// connect(m_pwidget->cpage->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
-	// connect(m_pwidget->cpage->strokeColor_, SIGNAL(currentTextChanged(QString)), this, SLOT(slotStrokeColor()));
-	// connect(m_pwidget->cpage->strokeShade_, SIGNAL(clicked()), this, SLOT(slotStrokeShade()));
 	connect(m_pwidget->cpage->language_, SIGNAL(activated(int)), this, SLOT(slotLanguage()));
 	connect(m_pwidget->cpage->fontSize_, SIGNAL(valueChanged(double)), this, SLOT(slotFontSize()));
 	connect(m_pwidget->cpage->fontHScale_, SIGNAL(valueChanged(double)), this, SLOT(slotScaleH()));
@@ -565,8 +559,6 @@ void SMParagraphStyle::setupConnections()
 	connect(m_pwidget->cpage->widthSpaceSpin, SIGNAL(valueChanged(double)), this, SLOT(slotWordTracking()));
 	connect(m_pwidget->cpage->baselineOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotBaselineOffset()));
 	connect(m_pwidget->cpage->parentCombo, SIGNAL(currentTextChanged(QString)), this, SLOT(slotCharParentChanged(QString)));
-	// connect(m_pwidget->cpage->backColor_, SIGNAL(currentTextChanged(QString)), this, SLOT(slotBackColor()));
-	// connect(m_pwidget->cpage->backShade_, SIGNAL(clicked()), this, SLOT(slotBackShade()));
 
 	connect(m_pwidget->cpage->textColor->colorButton, SIGNAL(colorChanged()), this, SLOT(slotFillColor()));
 	connect(m_pwidget->cpage->textColor->parentButton, SIGNAL(clicked()), this, SLOT(slotFillColor()));
@@ -612,14 +604,11 @@ void SMParagraphStyle::removeConnections()
 
 	disconnect(m_pwidget, SIGNAL(useParentParaEffects()), this, SLOT(slotParentParaEffects()));
 	disconnect(m_pwidget->peCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotPargraphEffects(int)));
-//	disconnect(m_pwidget->dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap(bool)));
 	disconnect(m_pwidget->dropCapLines, SIGNAL(valueChanged(int)), this, SLOT(slotDropCapLines(int)));
 	disconnect(m_pwidget->parEffectOffset, SIGNAL(valueChanged(double)), this, SLOT(slotParEffectOffset()));
 	disconnect(m_pwidget->parEffectIndentBox, SIGNAL(toggled(bool)), this, SLOT(slotParEffectIndent(bool)));
 	disconnect(m_pwidget->parEffectCharStyleCombo, SIGNAL(activated(int)), this, SLOT(slotParEffectCharStyle(int)));
-//	disconnect(m_pwidget->bulletBox, SIGNAL(toggled(bool)), this, SLOT(slotBullet(bool)));
 	disconnect(m_pwidget->bulletStrEdit, SIGNAL(editTextChanged(QString)), this, SLOT(slotBulletStr(QString)));
-//	disconnect(m_pwidget->numBox, SIGNAL(toggled(bool)), this, SLOT(slotNumeration(bool)));
 	disconnect(m_pwidget->numComboBox, SIGNAL(textActivated(QString)), this, SLOT(slotNumName(QString)));
 	disconnect(m_pwidget->numFormatCombo, SIGNAL(activated(int)), this, SLOT(slotNumFormat(int)));
 	disconnect(m_pwidget->numLevelSpin, SIGNAL(valueChanged(int)), this, SLOT(slotNumLevel(int)));
@@ -655,10 +644,6 @@ void SMParagraphStyle::removeConnections()
 	disconnect(m_pwidget->cpage->effects_->UnderlineVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
 	disconnect(m_pwidget->cpage->effects_->StrikeVal->LPos, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
 	disconnect(m_pwidget->cpage->effects_->StrikeVal->LWidth, SIGNAL(valueChanged(double)), this, SLOT(slotEffectProperties()));
-	// disconnect(m_pwidget->cpage->fillColor_, SIGNAL(currentTextChanged(QString)), this, SLOT(slotFillColor()));
-	// disconnect(m_pwidget->cpage->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
-	// disconnect(m_pwidget->cpage->strokeColor_, SIGNAL(currentTextChanged(QString)), this, SLOT(slotStrokeColor()));
-	// disconnect(m_pwidget->cpage->strokeShade_, SIGNAL(clicked()), this, SLOT(slotStrokeShade()));
 	disconnect(m_pwidget->cpage->language_, SIGNAL(activated(int)), this, SLOT(slotLanguage()));
 	disconnect(m_pwidget->cpage->fontSize_, SIGNAL(valueChanged(double)), this, SLOT(slotFontSize()));
 	disconnect(m_pwidget->cpage->fontHScale_, SIGNAL(valueChanged(double)), this, SLOT(slotScaleH()));
@@ -667,8 +652,6 @@ void SMParagraphStyle::removeConnections()
 	disconnect(m_pwidget->cpage->widthSpaceSpin, SIGNAL(valueChanged(double)), this, SLOT(slotWordTracking()));
 	disconnect(m_pwidget->cpage->baselineOffset_, SIGNAL(valueChanged(double)), this, SLOT(slotBaselineOffset()));
 	disconnect(m_pwidget->cpage->parentCombo, SIGNAL(currentTextChanged(QString)), this, SLOT(slotCharParentChanged(QString)));
-	// disconnect(m_pwidget->cpage->backColor_, SIGNAL(currentTextChanged(QString)), this, SLOT(slotBackColor()));
-	// disconnect(m_pwidget->cpage->backShade_, SIGNAL(clicked()), this, SLOT(slotBackShade()));
 
 	disconnect(m_pwidget->cpage->textColor->colorButton, SIGNAL(colorChanged()), this, SLOT(slotFillColor()));
 	disconnect(m_pwidget->cpage->textColor->parentButton, SIGNAL(clicked()), this, SLOT(slotFillColor()));
@@ -795,22 +778,24 @@ void SMParagraphStyle::slotOpticalMarginSelector()
 {
 	ParagraphStyle::OpticalMarginType omt( static_cast<ParagraphStyle::OpticalMarginType>(m_pwidget->optMarginWidget->opticalMargin()));
 	if (m_pwidget->optMarginWidget->useParentValue())
+	{
 		for (int i = 0; i < m_selection.count(); ++i)
+		{
 			m_selection[i]->resetOpticalMargins();
+			m_selection[i]->resetOpticalMarginSetId();
+		}
+	}
 	else
+	{
 		for (int i = 0; i < m_selection.count(); ++i)
+		{
+			m_selection[i]->setOpticalMarginSetId(m_pwidget->optMarginWidget->opticalMarginSetId());
 			m_selection[i]->setOpticalMargins(omt);
+		}
+	}
 
 	slotSelectionDirty();
 
-}
-
-void SMParagraphStyle::slotParentOpticalMargin()
-{
-	for (int i = 0; i < m_selection.count(); ++i)
-		m_selection[i]->resetOpticalMargins();
-
-	slotSelectionDirty();
 }
 
 void SMParagraphStyle::slotMinSpace()

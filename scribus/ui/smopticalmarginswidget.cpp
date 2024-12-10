@@ -54,12 +54,50 @@ void SMOpticalMarginsWidget::setOpticalMargins(int o, int ps, bool isParentValue
 	connect(parentButton, SIGNAL(pressed()), this, SLOT(pbPressed()));
 }
 
+void SMOpticalMarginsWidget::setOpticalMarginSetId(const QString& o)
+{
+	disconnect(parentButton, SIGNAL(pressed()), this, SLOT(pbPressed()));
+	disconnect(this, SIGNAL(opticalMarginChanged()), this, SLOT(styleChanged()));
+
+	m_hasParent = false;
+	parentButton->hide();
+	m_pSetId.clear();
+
+	OpticalMarginsWidget::setOpticalMarginSetId(o);
+
+	connect(this, SIGNAL(opticalMarginChanged()), this, SLOT(styleChanged()));
+	connect(parentButton, SIGNAL(pressed()), this, SLOT(pbPressed()));
+}
+
+void SMOpticalMarginsWidget::setOpticalMarginSetId(const QString& o, const QString& ps, bool isParentValue)
+{
+	disconnect(parentButton, SIGNAL(pressed()), this, SLOT(pbPressed()));
+	disconnect(this, SIGNAL(opticalMarginChanged()), this, SLOT(styleChanged()));
+
+	if (!ps.isEmpty())
+	{
+		m_hasParent = true;
+		parentButton->setVisible(!isParentValue);
+		m_pSetId = ps;
+	}
+	else
+		m_hasParent = false;
+
+	OpticalMarginsWidget::setOpticalMarginSetId(o);
+
+	connect(this, SIGNAL(opticalMarginChanged()), this, SLOT(styleChanged()));
+	connect(parentButton, SIGNAL(pressed()), this, SLOT(pbPressed()));
+}
+
 bool SMOpticalMarginsWidget::useParentValue()
 {
 	bool ret = m_useParentStyle;
 	m_useParentStyle = false;
 	if (ret)
+	{
 		setOpticalMargins(m_pStyle, m_pStyle, true);
+		setOpticalMarginSetId(m_pSetId, m_pSetId, true);
+	}
 
 	return ret;
 }

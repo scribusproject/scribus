@@ -30,4 +30,7 @@ StoryText SCRIBUS_API desaxeString(ScribusDoc* doc, const QString& saxedString);
 //returns string with saxed story
 QString SCRIBUS_API saxedText(StoryText* story);
 
+QString SCRIBUS_API stringToUnicode(const QString &text);
+QString SCRIBUS_API unicodeToString(const QString &text);
+
 #endif

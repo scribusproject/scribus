@@ -20,6 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include <QHash>
 
 #include "documentinformation.h"
+#include "opticalmarginlookup.h"
 #include "pagestructs.h"
 #include "pdfoptions.h"
 #include "scfonts.h"
@@ -80,6 +81,7 @@ struct TypoPrefs
 	int valueUnderlineWidth; //! Underline width
 	int valueStrikeThruPos; //! Strike-through displacement
 	int valueStrikeThruWidth; //! Strike-through line width
+	OpticalMarginSets opticalMarginSets; //! OpticalMargin Group List
 
 	inline bool operator==(const TypoPrefs &other) const
 	{

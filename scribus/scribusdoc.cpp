@@ -1227,7 +1227,7 @@ void ScribusDoc::replaceNamedResources(ResourceCollection& newNames)
 	// replace names in styles...
 	for (int i = m_docParagraphStyles.count() - 1; i >= 0; --i)
 	{
-		if (newNames.styles().contains(m_docParagraphStyles[i].name()))
+		if (newNames.styles().contains(m_docParagraphStyles[i].name()) && !m_docParagraphStyles[i].isDefaultStyle())
 			m_docParagraphStyles.remove(i);
 		else
 			m_docParagraphStyles[i].replaceNamedResources(newNames);
@@ -1334,7 +1334,7 @@ void ScribusDoc::replaceNamedResources(ResourceCollection& newNames)
 	}
 	if (!isLoading() && !(newNames.colors().isEmpty() && newNames.fonts().isEmpty() && newNames.patterns().isEmpty() 
 			&& newNames.styles().isEmpty() && newNames.charStyles().isEmpty() && newNames.lineStyles().isEmpty()
-			&& newNames.tableStyles().isEmpty() && newNames.cellStyles().isEmpty()))
+			&& newNames.tableStyles().isEmpty() && newNames.cellStyles().isEmpty() && newNames.opticalMarginSets().isEmpty()))
 		changed();
 }
 
@@ -9066,10 +9066,11 @@ void ScribusDoc::itemSelection_SetEffects(int s, Selection* customSelection)
 	itemSelection_ApplyCharStyle(newStyle, customSelection, "EFFECTS");
 }
 
-void ScribusDoc::itemSelection_SetOpticalMargins(int i, Selection* customSelection)
+void ScribusDoc::itemSelection_SetOpticalMargins(int i, const QString& id, Selection* customSelection)
 {
 	ParagraphStyle newStyle;
-	newStyle.setOpticalMargins(i);
+	newStyle.setOpticalMarginSetId(id);
+	newStyle.setOpticalMargins(i);	
 	itemSelection_ApplyParagraphStyle(newStyle, customSelection);
 }
 

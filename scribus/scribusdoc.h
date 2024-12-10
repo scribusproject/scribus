@@ -49,6 +49,7 @@ for which a new license (GPL+exception) is in place.
 #include "nodeeditcontext.h"
 #include "notesstyles.h"
 #include "observable.h"
+#include "opticalmarginlookup.h"
 #include "pageitem.h"
 #include "pageitem_group.h"
 #include "pageitem_latexframe.h"
@@ -225,6 +226,9 @@ public:
 
 	int marginPreset() const { return m_docPrefsData.docSetupPrefs.marginPreset; }
 	void setMarginPreset(int mp) { m_docPrefsData.docSetupPrefs.marginPreset = mp; }
+
+	const OpticalMarginSets& opticalMarginSets() const { return m_docPrefsData.typoPrefs.opticalMarginSets; }
+	void setOpticalMarginSets(const OpticalMarginSets& sets) { m_docPrefsData.typoPrefs.opticalMarginSets = sets; }
 
 	TypoPrefs& typographicPrefs() { return m_docPrefsData.typoPrefs; }
 	GuidesPrefs& guidesPrefs() { return m_docPrefsData.guidesPrefs; }
@@ -1156,7 +1160,7 @@ public:
 	void itemSelection_SetUnderline(int pos, int wid, Selection* customSelection = nullptr);
 	void itemSelection_SetStrikethru(int pos, int wid, Selection* customSelection = nullptr);
 	void itemSelection_SetEffects(int s, Selection* customSelection = nullptr);
-	void itemSelection_SetOpticalMargins(int i, Selection* customSelection = nullptr);
+	void itemSelection_SetOpticalMargins(int i, const QString& id, Selection* customSelection = nullptr);
 	void itemSelection_SetColorProfile(const QString& profileName, Selection* customSelection = nullptr);
 	void itemSelection_SetRenderIntent(int intentIndex, Selection* customSelection = nullptr);
 	void itemSelection_SetCompressionMethod(int cmIndex, Selection* customSelection = nullptr);

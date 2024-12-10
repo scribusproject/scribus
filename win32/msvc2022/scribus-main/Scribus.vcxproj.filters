@@ -1312,6 +1312,9 @@
     <ClCompile Include="..\..\..\scribus\observable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\opticalmarginlookup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\scribus\pageitem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -2125,6 +2128,9 @@
     <ClCompile Include="..\..\..\scribus\ui\numformatcombo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\opticalmargineditor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\opticalmarginswidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -2896,6 +2902,9 @@
     <uic Include="..\..\..\scribus\ui\notesstyleseditor.ui">
       <Filter>Form Files</Filter>
     </uic>
+    <uic Include="..\..\..\scribus\ui\opticalmargineditor.ui">
+      <Filter>Form Files</Filter>
+    </uic>
     <uic Include="..\..\..\scribus\ui\osgeditor.ui">
       <Filter>Form Files</Filter>
     </uic>
@@ -3506,6 +3515,9 @@
     <moc Include="..\..\..\scribus\observable.h">
       <Filter>Header Files</Filter>
     </moc>
+    <moc Include="..\..\..\scribus\opticalmarginlookup.h">
+      <Filter>Header Files</Filter>
+    </moc>
     <moc Include="..\..\..\scribus\pageitem.h">
       <Filter>Header Files</Filter>
     </moc>
@@ -4002,6 +4014,9 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\numformatcombo.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\opticalmargineditor.h">
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\opticalmarginswidget.h">

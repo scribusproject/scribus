@@ -224,6 +224,8 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 	//fillNumerationsCombo();
 	//fillNumRestartCombo();
 
+	optMarginWidget->setOpticalMarginSets(m_Doc->opticalMarginSets());
+
 	if (m_hasParent)
 	{
 		lineSpacingMode->setCurrentItem(pstyle->lineSpacingMode(), pstyle->isInhLineSpacingMode());
@@ -231,7 +233,8 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 		
 //		optMarginCombo->setCurrentItemByData( pstyle->opticalMargins(),  pstyle->isInhOpticalMargins() );
 //		optMarginCombo->setParentItem(optMarginCombo->getItemIndexForData( parent->opticalMargins()));
-		optMarginWidget->setOpticalMargins(pstyle->opticalMargins(), parent->opticalMargins(), pstyle->isInhOpticalMargins());
+		optMarginWidget->setOpticalMargins(pstyle->opticalMargins(), parent->opticalMargins(), pstyle->isInhOpticalMargins());		
+		optMarginWidget->setOpticalMarginSetId(pstyle->opticalMarginSetId(), parent->opticalMarginSetId(), pstyle->isInhOpticalMarginSetId());
 		
 		minSpaceSpin->setValue(pstyle->minWordTracking() * 100.0,  pstyle->isInhMinWordTracking());
 		minSpaceSpin->setParentValue(parent->minWordTracking());
@@ -351,6 +354,7 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 		spaceBelow->setValue(pstyle->gapAfter());
 //		optMarginCombo->setCurrentItemByData( pstyle->opticalMargins() );
 		optMarginWidget->setOpticalMargins(pstyle->opticalMargins());
+		optMarginWidget->setOpticalMarginSetId(pstyle->opticalMarginSetId());
 		minSpaceSpin->setValue(pstyle->minWordTracking() * 100.0);
 		minGlyphExtSpin->setValue(pstyle->minGlyphExtension() * 100.0);
 		maxGlyphExtSpin->setValue(pstyle->maxGlyphExtension() * 100.0);
@@ -659,6 +663,8 @@ void SMPStyleWidget::showOpticalMargin(const QList< ParagraphStyle * > & pstyles
 //	}
 //	optMarginCombo->setCurrentItemByData(o);
 	optMarginWidget->setOpticalMargins(pstyles[0]->opticalMargins());
+	optMarginWidget->setOpticalMarginSets(m_Doc->opticalMarginSets());
+	optMarginWidget->setOpticalMarginSetId(pstyles[0]->opticalMarginSetId());
 }
 
 void SMPStyleWidget::showMinSpace(const QList< ParagraphStyle * > & pstyles)

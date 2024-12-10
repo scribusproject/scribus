@@ -97,7 +97,6 @@ private slots:
 	void slotDirection();
 	void slotOpticalMargin(int i);
 	void slotOpticalMarginSelector();
-	void slotParentOpticalMargin();
 	void slotMinSpace();
 	void slotMinGlyphExt();
 	void slotMaxGlyphExt();

@@ -25,8 +25,15 @@ class SCRIBUS_API Prefs_Typography : public Prefs_Pane, Ui::Prefs_Typography
 		void restoreDefaults(struct ApplicationPrefs *prefsData) override;
 		void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const override;
 
+	protected:
+		ScribusDoc* m_Doc {nullptr};
+
 	public slots:
 		void languageChange();
+
+	private slots:
+		void updateParagraphStyles(QString removedID, QString newID);
+
 };
 
 #endif // PREFS_TYPOGRAPHY_H

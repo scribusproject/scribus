@@ -219,10 +219,14 @@ void ParagraphStyle::getNamedResources(ResourceCollection& lists) const
 	if (backgroundColorName != CommonStrings::None)
 		lists.collectColor(backgroundColorName);
 
+	const QString& opticalMarginSet = opticalMarginSetId();
+	if (!opticalMarginSet.isEmpty())
+		lists.collectOpticalMarginSet(opticalMarginSet);
+
 	QString parEffectStyle = peCharStyleName();
 	if (parEffectStyle.length() > 0)
 	{
-		const CharStyle *peCharStyle = dynamic_cast<const CharStyle*>(m_cstyleContext.resolve(parEffectStyle));
+		const CharStyle* peCharStyle = dynamic_cast<const CharStyle*>(m_cstyleContext.resolve(parEffectStyle));
 		if (peCharStyle)
 			peCharStyle->getNamedResources(lists);
 		lists.collectCharStyle(parEffectStyle);
@@ -242,6 +246,9 @@ void ParagraphStyle::replaceNamedResources(ResourceCollection& newNames)
 
 	if (!inh_BackgroundColor && (it = newNames.colors().find(backgroundColor())) != newNames.colors().end())
 		setBackgroundColor(it.value());
+
+	if (!inh_OpticalMarginSetId && (it = newNames.opticalMarginSets().find(opticalMarginSetId())) != newNames.opticalMarginSets().end())
+		setOpticalMarginSetId(it.value());
 
 	if ((it = (newNames.charStyles().find(peCharStyleName()))) != newNames.charStyles().end())
 		setPeCharStyleName(it.value());
@@ -357,7 +364,6 @@ Tablist parse<Tablist>(const Xml_string& str)
 {
 	return Tablist();
 }
-
 
 using namespace desaxe;
 

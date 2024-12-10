@@ -45,8 +45,8 @@ for which a new license (GPL+exception) is in place.
 #include "ui/missing.h"
 #include "units.h"
 #include "util.h"
-
 #include "util_color.h"
+#include "util_text.h"
 
 QString Scribus170Format::saveElements(double xp, double yp, double wp, double hp, Selection* selection, QByteArray &prevData)
 {
@@ -540,6 +540,7 @@ bool Scribus170Format::saveFile(const QString & fileName, const FileFormat & /* 
 	writeTOC(docu);
 	writeMarks(docu);
 	writeNotesStyles(docu);
+	writeOpticalMarginSets(docu);
 	writeNotesFrames(docu);
 	writeNotes(docu);
 	writePageSets(docu);
@@ -882,6 +883,8 @@ void Scribus170Format::putPStyle(ScXmlStreamWriter & docu, const ParagraphStyle 
 		docu.writeAttribute("NumerationHigher", static_cast<int>(style.numHigher()));
 	if ( ! style.isInhOpticalMargins())
 		docu.writeAttribute("OpticalMargins", style.opticalMargins());
+	if ( ! style.isInhOpticalMarginSetId())
+		docu.writeAttribute("OpticalMarginSetId", style.opticalMarginSetId());
 	if ( ! style.isInhHyphenConsecutiveLines())
 		docu.writeAttribute("HyphenConsecutiveLines", style.hyphenConsecutiveLines());
 	if ( ! style.isInhHyphenationMode())
@@ -1529,6 +1532,40 @@ void Scribus170Format::writeMarks(ScXmlStreamWriter & docu)
 		}
 	}
 	docu.writeEndElement();
+}
+
+void Scribus170Format::writeOpticalMarginSets(ScXmlStreamWriter & docu)
+{
+	docu.writeStartElement("OpticalMarginSets");
+
+	OpticalMarginSets sets = m_Doc->typographicPrefs().opticalMarginSets;
+
+	for (const auto &set : sets)
+	{
+		docu.writeStartElement("Set");
+		docu.writeAttribute("Id", set.id);
+		docu.writeAttribute("Type", set.type);
+		docu.writeAttribute("Name", set.name);
+
+		docu.writeStartElement("Rules");
+
+		OpticalMarginRules rules = OpticalMarginLookup::instance().mergeCharsToRules(set.rules);
+
+		for (const auto &rule : rules)
+		{
+			docu.writeEmptyElement("Rule");
+			docu.writeAttribute("Left", rule.Left);
+			docu.writeAttribute("Right", rule.Right);
+			docu.writeAttribute("Unit", rule.Unit);
+			docu.writeAttribute("Characters", stringToUnicode(rule.Chars));
+		}
+
+		docu.writeEndElement(); // Rules
+		docu.writeEndElement(); // Set
+
+	}
+
+	docu.writeEndElement(); // OpticalMarginSets
 }
 
 void Scribus170Format::writeNotesStyles(ScXmlStreamWriter & docu)

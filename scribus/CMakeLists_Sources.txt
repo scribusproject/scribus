@@ -114,6 +114,7 @@ set(SCRIBUS_SOURCES
 	nfttemplate.cpp
 	nodeeditcontext.cpp
 	notesstyles.cpp
+	opticalmarginlookup.cpp
 	pageitem.cpp
 	pageitem_arc.cpp
 	pageitem_group.cpp
@@ -381,6 +382,7 @@ set(SCRIBUS_SOURCES
 	ui/nodeeditpalette.cpp
 	ui/notesstyleseditor.cpp
 	ui/numformatcombo.cpp
+	ui/opticalmargineditor.cpp
 	ui/opticalmarginswidget.cpp
 	ui/outlinepalette.cpp
 	ui/outputpreview_pdf.cpp

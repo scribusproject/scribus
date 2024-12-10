@@ -162,6 +162,7 @@ class PLUGIN_API Scribus170Format : public LoadSavePlugin
 		bool readNotesStyles(ScribusDoc* doc, ScXmlStreamReader& reader) const;
 		bool readNotesFrames(ScXmlStreamReader &reader);
 		bool readMarks(ScribusDoc* doc, ScXmlStreamReader& reader);
+		bool readOpticalMarginSets(ScribusDoc* doc, ScXmlStreamReader& reader) const;
 
 		//lists of items and marks with names only, which need update to pointers
 		QMap<Mark*, int> markeredItemsMap;
@@ -213,6 +214,7 @@ class PLUGIN_API Scribus170Format : public LoadSavePlugin
 		void writeIndexes(ScXmlStreamWriter& docu);
 		void writeTOC(ScXmlStreamWriter& docu);
 		void writeMarks(ScXmlStreamWriter & docu);
+		void writeOpticalMarginSets(ScXmlStreamWriter & docu);
 		void writeNotesStyles(ScXmlStreamWriter & docu);
 		void writeNotesStyles(ScXmlStreamWriter & docu, const QStringList& styleSelection);
 		void writeNotesFrames(ScXmlStreamWriter & docu);

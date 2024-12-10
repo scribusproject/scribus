@@ -53,7 +53,7 @@ public slots:
 	void toggleLabelVisibility(bool v);
 
 	void showFirstLinePolicy(FirstLineOffsetPolicy f);
-	void showOpticalMargins(int e);
+	void showOpticalMargins(int e, const QString &setId);
 	void showAlignment(int e);
 	void showDirection(int e);
 

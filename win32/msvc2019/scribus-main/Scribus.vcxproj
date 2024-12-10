@@ -342,6 +342,7 @@
     <moc Include="..\..\..\scribus\manager\widget_manager.h" />
     <moc Include="..\..\..\scribus\models\gradientlistmodel.h" />
     <ClInclude Include="..\..\..\scribus\nodeeditcontext.h" />
+    <moc Include="..\..\..\scribus\opticalmarginlookup.h" />
     <ClInclude Include="..\..\..\scribus\pageitemiterator.h" />
     <ClInclude Include="..\..\..\scribus\palettes\cxfcolor.h" />
     <ClInclude Include="..\..\..\scribus\palettes\cxfcolorspecification.h" />
@@ -653,6 +654,7 @@
     <moc Include="..\..\..\scribus\ui\prefs_indexes.h" />
     <moc Include="..\..\..\scribus\ui\imageclippingpaths.h" />
     <moc Include="..\..\..\scribus\ui\imagelayers.h" />
+    <moc Include="..\..\..\scribus\ui\opticalmargineditor.h" />
     <ClInclude Include="..\..\..\scribus\ui\propertywidgetbase.h" />
     <moc Include="..\..\..\scribus\pslib.h" />
     <moc Include="..\..\..\scribus\ui\query.h" />
@@ -935,6 +937,7 @@
     <ClCompile Include="..\..\..\scribus\marks.cpp" />
     <ClCompile Include="..\..\..\scribus\models\gradientlistmodel.cpp" />
     <ClCompile Include="..\..\..\scribus\nodeeditcontext.cpp" />
+    <ClCompile Include="..\..\..\scribus\opticalmarginlookup.cpp" />
     <ClCompile Include="..\..\..\scribus\pageitemiterator.cpp" />
     <ClCompile Include="..\..\..\scribus\palettes\cxfcolor.cpp" />
     <ClCompile Include="..\..\..\scribus\palettes\cxfcolorspecification.cpp" />
@@ -1269,6 +1272,7 @@
     <ClCompile Include="..\..\..\scribus\numeration.cpp" />
     <ClCompile Include="..\..\..\scribus\observable.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\numformatcombo.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\opticalmargineditor.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\opticalmarginswidget.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\outlinepalette.cpp" />
     <ClCompile Include="..\..\..\scribus\pageitem.cpp" />
@@ -1702,6 +1706,7 @@
     <uic Include="..\..\..\scribus\ui\nftdialog.ui" />
     <uic Include="..\..\..\scribus\ui\nftwidget.ui" />
     <uic Include="..\..\..\scribus\ui\notesstyleseditor.ui" />
+    <uic Include="..\..\..\scribus\ui\opticalmargineditor.ui" />
     <uic Include="..\..\..\scribus\ui\osgeditor.ui" />
     <uic Include="..\..\..\scribus\ui\outputpreviewbase.ui" />
     <uic Include="..\..\..\scribus\ui\outputpreview_pdf.ui" />

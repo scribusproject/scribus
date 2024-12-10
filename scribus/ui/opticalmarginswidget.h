@@ -7,7 +7,9 @@ for which a new license (GPL+exception) is in place.
 #ifndef OPTICALMARGINSWIDGET_H
 #define OPTICALMARGINSWIDGET_H
 
+#include <QComboBox>
 #include <QToolButton>
+#include "opticalmarginlookup.h"
 #include "ui/widgets/form_widget.h"
 
 class ParagraphStyle;
@@ -20,21 +22,29 @@ class OpticalMarginsWidget : public FormWidget
 
 public:
 	OpticalMarginsWidget(QWidget* parent);
-	~OpticalMarginsWidget() {};
 
-	QToolButton *leftButton = {nullptr};
-	QToolButton *rightButton = {nullptr};
-	QToolButton *parentButton = {nullptr};
+	QToolButton *leftButton { nullptr };
+	QToolButton *rightButton { nullptr };
+	QToolButton *parentButton { nullptr };
+	QComboBox *setsCombo { nullptr };
 
-	int opticalMargin();
+	int opticalMargin() const;
 	void setOpticalMargin(int omt);
 
-protected:
+	void setOpticalMarginSets(const OpticalMarginSets& sets);
+	const OpticalMarginSets& opticalMarginSets() const { return m_sets; };
 
+	void setOpticalMarginSetId(const QString& id);
+	QString opticalMarginSetId() const;
+
+protected:
 	void changeEvent(QEvent *e) override;
+	void updateSetSelector();
+
+	OpticalMarginSets m_sets;
+	QString m_setId;
 
 public slots:
-
 	void iconSetChange();
 	void languageChange();
 
