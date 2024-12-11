@@ -20423,7 +20423,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="554"/>
         <source>Optical Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>光学マージン</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="232"/>

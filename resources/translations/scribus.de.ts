@@ -20484,7 +20484,7 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="554"/>
         <source>Optical Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Optischer Randausgleich</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="232"/>

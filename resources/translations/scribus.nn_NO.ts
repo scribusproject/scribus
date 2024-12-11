@@ -20466,7 +20466,7 @@ utsjånad på dokumentet blir tatt vare på.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="554"/>
         <source>Optical Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Optiske margar</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="232"/>

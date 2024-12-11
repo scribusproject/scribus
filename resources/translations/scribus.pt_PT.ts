@@ -20467,7 +20467,7 @@ Se definir como Postscript nível 1 ou 2 pode originar ficheiros enormes</transl
     <message>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="554"/>
         <source>Optical Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Margens óticas</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="232"/>

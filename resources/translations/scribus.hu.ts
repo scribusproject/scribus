@@ -20456,7 +20456,7 @@ Az 1. és 2. PostScript szint nagy méretű fájlokat eredményez.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="554"/>
         <source>Optical Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Optikai margók</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="232"/>

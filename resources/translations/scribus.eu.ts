@@ -20481,7 +20481,7 @@ PostScript 1. edo 2. maila ezartzen bada, fitxategi handiak sortu daitezke.</tra
     <message>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="554"/>
         <source>Optical Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Marjina optikoak</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="232"/>

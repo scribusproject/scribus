@@ -904,7 +904,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1723"/>
         <source>Edit Text with Story Editor...</source>
-        <translation>Tekst bewerken met Story Editor...</translation>
+        <translation>Tekst bewerken met Story-editor…</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1724"/>
@@ -3492,7 +3492,7 @@ De naam is gereserveerd voor transparantkleur</translation>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="213"/>
         <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
-        <translation>Hiermee wordt van deze kleur een steunkleur gemaakt. Voor elke steunkleur wordt een separatie gemaakt bij het maken van platen of films. Steunkleuren worden meestal gebruikt als een kleur exact moet worden weergegeven en niet kan worden samengesteld met cmyk kleuren. Metallic en fluoriserende inkten zijn specifieke voorbeelden welke niet met cmyk inkten kunnen worden aangemaakt.</translation>
+        <translation>Hiermee wordt van deze kleur een steunkleur gemaakt. Voor elke steunkleur wordt een scheiding gemaakt bij het maken van platen of films. Steunkleuren worden meestal gebruikt als een kleur exact moet worden weergegeven en niet kan worden samengesteld met cmyk-kleuren. Metallic en fluoriserende inkten zijn specifieke voorbeelden welke niet met cmyk-inkten kunnen worden aangemaakt.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="99"/>
@@ -9827,7 +9827,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/insertaframe.cpp" line="127"/>
         <source>&lt;b&gt;Insert a text frame&lt;/b&gt;&lt;br/&gt;A text frame allows you to enter any text in a defined position with the formatting you choose. You may select a text file on the Options tab if you want to immediately import a document into the frame. Scribus supports a wide variety of importable formats from plain text to OpenOffice.org.&lt;br/&gt;Your text may be edited and formatted on the page directly or in the Story Editor.</source>
-        <translation>&lt;b&gt;Voeg een tekstkader in&lt;/b&gt;&lt;br/&gt;Met een tekstkader kunt u elke tekst op een gedefinieerde positie invoeren met de opmaak die u kiest. U kunt een tekstbestand selecteren op het tabblad Opties als u onmiddellijk een document in het kader wilt importeren. Scribus ondersteunt een breed scala aan importeerbare formaten, van platte tekst tot OpenOffice.org. &lt;br/&gt;Tekst kan rechtstreeks op de pagina worden bewerkt en opgemaakt of in de Story Editor.</translation>
+        <translation>&lt;b&gt;Voeg een tekstkader in&lt;/b&gt;&lt;br/&gt;Met een tekstkader kunt u elke tekst op een gedefinieerde positie invoeren met de opmaak die u kiest. U kunt een tekstbestand selecteren op het tabblad Opties als u onmiddellijk een document in het kader wilt importeren. Scribus ondersteunt een breed scala aan importeerbare formaten, van platte tekst tot OpenOffice.org. &lt;br/&gt;Tekst kan rechtstreeks op de pagina worden bewerkt en opgemaakt of in de Story-editor.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.cpp" line="131"/>
@@ -14359,22 +14359,22 @@ Het resultaat is een combinatie van &quot;snijden&quot; en &quot;uitsluiting&quo
     <message>
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="205"/>
         <source>Import text as vectors</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekst importeren als vectoren</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="221"/>
         <source>Text will look exactly like in the PDF, but can&apos;t be edited or selected as text anymore.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekst ziet er precies zo uit als in de PDF, maar kan niet meer als tekst worden bewerkt of geselecteerd.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="231"/>
         <source>Import text as text</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekst importeren als tekst</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="238"/>
         <source>Text will be imported in text frames and will be editable, but it might have different sizes, spacing, and fonts.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekst wordt geïmporteerd in tekstkaders en kan worden bewerkt, maar kan andere grootte, spatiëring en lettertypen bevatten.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.cpp" line="51"/>
@@ -19453,7 +19453,7 @@ Wilt u deze gebruiken?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1253"/>
         <source>PDF/X Output Intent</source>
-        <translation>PDF/X-uitvoerintentie</translation>
+        <translation>PDF/X-uitvoerinstelling</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="85"/>
@@ -20469,7 +20469,7 @@ Wilt u deze gebruiken?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="554"/>
         <source>Optical Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Optische marges</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="232"/>
@@ -20942,7 +20942,7 @@ Wilt u deze gebruiken?</translation>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="283"/>
         <source>Print Separations</source>
-        <translation>Druk separaties</translation>
+        <translation>Gescheiden afdrukken</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="292"/>
@@ -21666,7 +21666,7 @@ een bereik van pagina&apos;s of een enkel paginanummer</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="437"/>
         <source>Rendering Intent</source>
-        <translation>Weergaveopzet</translation>
+        <translation>Weergave-instelling</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="477"/>
@@ -24146,7 +24146,7 @@ Controleer het pad en de bestandsnaam.</translation>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="131"/>
         <source>&amp;Unshade</source>
-        <translation>&amp;Tevoorschijn halen</translation>
+        <translation>&amp;Tint verminderen</translation>
     </message>
 </context>
 <context>
@@ -30403,7 +30403,7 @@ Mogelijk is daarom het beeld niet correct.</translation>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="111"/>
         <source>Unshade</source>
-        <translation>Tevoorschijn halen</translation>
+        <translation>Tint verminderen</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="112"/>
@@ -32471,12 +32471,12 @@ Let op: dit vergroot bestandsgrootte!</translation>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="414"/>
         <source>Text for Button Down</source>
-        <translation>Tekst voor ingedrukte knop</translation>
+        <translation>Tekst voor Knop ingedrukt</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="424"/>
         <source>Text for Roll Over</source>
-        <translation>Tekst voor muis-over</translation>
+        <translation>Tekst voor Muis-over</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="439"/>
@@ -33581,7 +33581,7 @@ Let op: dit vergroot bestandsgrootte!</translation>
     <message>
         <location filename="../../scribus/scplugin.cpp" line="54"/>
         <source>Load/Save/Import/Export</source>
-        <translation>Laden/Opslaan/import/Export</translation>
+        <translation>Laden/Opslaan/importeren/Exporteren</translation>
     </message>
     <message>
         <location filename="../../scribus/scplugin.cpp" line="60"/>
@@ -33795,7 +33795,7 @@ Als u het in deze versie opslaat, zal het niet langer leesbaar zijn voor oudere 
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="11474"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
-        <translation>Dit item %1 wordt momenteel bijgewerkt met de Story Editor. Wissen wordt geannuleerd</translation>
+        <translation>Dit item %1 wordt momenteel bijgewerkt met de Story-editor. Wissen wordt geannuleerd</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="12258"/>
@@ -33975,7 +33975,7 @@ Verticale tussenruimte: %4</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3254"/>
         <source>Import done</source>
-        <translation>Import voltooid</translation>
+        <translation>Importeren voltooid</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3258"/>
@@ -34076,7 +34076,7 @@ Verticale tussenruimte: %4</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="4454"/>
         <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
-        <translation>Dit item %1 wordt momenteel bijgewerkt met de Story Editor. Knippen wordt geannuleerd</translation>
+        <translation>Dit item %1 wordt momenteel bijgewerkt met de Story-editor. Knippen wordt geannuleerd</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="5065"/>
@@ -34467,12 +34467,12 @@ Gebruik de preproductie-controle om deze te corrigeren</translation>
     <message>
         <location filename="../../scribus/scribus.cpp" line="8624"/>
         <source>Zoom out by the stepping value in Tools preferences</source>
-        <translation>Zoom uit met de stapwaarde ingesteld bij Voorkeuren - Gereedschap</translation>
+        <translation>Uitzoomen met de stapwaarde ingesteld bij Voorkeuren - Gereedschap</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="8625"/>
         <source>Zoom in by the stepping value in Tools preferences</source>
-        <translation>Zoom in met de stapwaarde ingesteld bij Voorkeuren - Gereedschap</translation>
+        <translation>Inzoomen met de stapwaarde ingesteld bij Voorkeuren - Gereedschap</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="8626"/>
@@ -34572,7 +34572,7 @@ Gebruik de preproductie-controle om deze te corrigeren</translation>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="597"/>
         <source>Use path for user given preferences location</source>
-        <translation>Pad voor de door de gebruiker gegeven voorkeurenlocatie</translation>
+        <translation>Pad gebruiken voor locatie gebruikersvoorkeuren</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="600"/>
@@ -34747,7 +34747,7 @@ Gebruik de preproductie-controle om deze te corrigeren</translation>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="3061"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
-        <translation>Dit item %1 wordt momenteel bijgewerkt met de Story Editor. De omzetting naar krommen wordt voor dit item overgeslagen</translation>
+        <translation>Dit item %1 wordt momenteel bijgewerkt met de Story-editor. De omzetting naar krommen wordt voor dit item overgeslagen</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusview.cpp" line="1963"/>
@@ -34829,7 +34829,7 @@ Gebruik de preproductie-controle om deze te corrigeren</translation>
     <message>
         <location filename="../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="80"/>
         <source>Run script in &amp;console</source>
-        <translation>Sript in &amp;console uitvoeren</translation>
+        <translation>Script in &amp;console uitvoeren</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="83"/>
@@ -34952,7 +34952,7 @@ Gebruik de preproductie-controle om deze te corrigeren</translation>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="590"/>
         <source>Could not find script: %1.</source>
-        <translation>Kan script niet vinden: %1.</translation>
+        <translation>Script niet aangetroffen: %1.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="624"/>
@@ -35478,7 +35478,7 @@ Gebruik de preproductie-controle om deze te corrigeren</translation>
     <message>
         <location filename="../../scribus/plugins/tools/smoothpath/smoothpath.cpp" line="108"/>
         <source>Converts a Polyline made of straight Lines to a smoothed Bezier Curve.</source>
-        <translation>Verandert een polygoonlijn gemaakt van rechte stukken in een vloeiende bézierkromme.</translation>
+        <translation>Zet een polygoonlijn gemaakt van rechte stukken om in een vloeiende bézierkromme.</translation>
     </message>
 </context>
 <context>
@@ -35868,7 +35868,7 @@ Gebruik de preproductie-controle om deze te corrigeren</translation>
     <message>
         <location filename="../../scribus/ui/stylemanager.cpp" line="99"/>
         <source>Apply all changes and exit edit mode</source>
-        <translation>Alle wijzigingen toepassen en bewerkmodus verlaten</translation>
+        <translation>Alle wijzigingen toepassen en bewerkingsmodus verlaten</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/stylemanager.cpp" line="106"/>
@@ -36095,7 +36095,7 @@ Gebruik de preproductie-controle om deze te corrigeren</translation>
     <message>
         <location filename="../../scribus/plugins/tools/subdivide/subdivide.cpp" line="69"/>
         <source>Subdivide a path by inserting new Nodes.</source>
-        <translation>Pad met nieuwe knooppunten onderverdelen.</translation>
+        <translation>Pad onderverdelen met nieuwe knooppunten.</translation>
     </message>
 </context>
 <context>
@@ -36352,7 +36352,7 @@ Gebruik de preproductie-controle om deze te corrigeren</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1483"/>
         <source>PDF/X Output Intent</source>
-        <translation>PDF/X Output intentie</translation>
+        <translation>PDF/X-uitvoerinstelling</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="284"/>
@@ -36741,7 +36741,7 @@ Gebruik de preproductie-controle om deze te corrigeren</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="206"/>
         <source>Determines the PDF compatibility.&lt;br/&gt;&lt;b&gt;PDF 1.3&lt;/b&gt;, which is the earliest supported version, gives the widest compatibility with printers&apos; RIPS.&lt;br/&gt;&lt;b&gt;PDF 1.4&lt;/b&gt;, which is the default version, supports features such as transparency and 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; is for blind exchange with colors strictly specified in CMYK or spot colors.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; is an extension of PDF/X-3 to support transparency and layering.</source>
-        <translation>Bepaalt de PDF compatibiliteit.&lt;br/&gt;&lt;b&gt;PDF 1.3&lt;/b&gt;, de vroegste ondersteunde versie, geeft de breedste compatibiliteit met printers&apos; RIPS.&lt;br/&gt;&lt;b&gt;PDF 1.4&lt;/b&gt;, de standaard versie, ondersteunt functies zoals transparantie en 128 bit encryptie.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is nodig als u in de PDF objecten in verschillende lagen wil behouden.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; is voor blinde uitwisseling met kleuren die strikt zijn gespecificeerd in CMYK of steunkleuren.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is voor PDF export als u kleur-beheerde RGB voor commercieel afdrukken wil en is te selecteren als u kleurenbeheer heeft geactiveerd. Gebruik op advies van uw drukker of in sommige gevallen bij afdrukken op een 4-kleuren digitale laserprinter.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; is een extensie van PDF/X-3 en ondersteunt transparantie en lagen.</translation>
+        <translation>Bepaalt de compatibiliteit van de PDF.&lt;br/&gt;&lt;b&gt;PDF 1.3&lt;/b&gt;, de oudste ondersteunde versie, geeft de breedste compatibiliteit met printer-RIPS.&lt;br/&gt;&lt;b&gt;PDF 1.4&lt;/b&gt;, de standaardversie, ondersteunt functies zoals transparantie en 128 bit-encryptie.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is nodig als PDF-objecten in verschillende lagen moeten worden behouden.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; is bedoeld voor probleemloze uitwisseling van kleuren die strikt zijn gespecificeerd in CMYK- of steunkleuren.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is voor het exporteren van de PDF in kleur-beheerde RGB voor commercieel afdrukken. Deze optie is beschikbaar als kleurenbeheer is geactiveerd. Gebruik deze optie op advies van uw drukker of in bijzondere situaties bij afdrukken op een 4-kleuren digitale laserprinter.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; is een uitbreiding op PDF/X-3 met ondersteuning voor transparantie en lagen.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="259"/>
@@ -36821,7 +36821,7 @@ Gebruik de preproductie-controle om deze te corrigeren</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1090"/>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation>Steunkleuren naar proceskleuren omzetten</translation>
+        <translation>Steunkleuren omzetten naar proceskleuren</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="322"/>
@@ -36841,7 +36841,7 @@ Gebruik de preproductie-controle om deze te corrigeren</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="268"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation>Maakt het mogelijk steunkleuren om te zetten naar mengkleuren. Tenzij u van plan bent om steunkleuren af te drukken bij een commerciële printer, is dit waarschijnlijk het beste ingeschakeld.</translation>
+        <translation>Maakt het mogelijk steunkleuren om te zetten naar mengkleuren. Laat deze optie ingeschakeld, tenzij u van plan bent om steunkleuren af te drukken bij een commerciële printer.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="240"/>
@@ -36891,7 +36891,7 @@ Gebruik de preproductie-controle om deze te corrigeren</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="250"/>
         <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
-        <translation>Schakel de beveiligingsfuncties in uw geëxporteerde PDF in. Als u PDF 1.3 hebt geselecteerd, wordt de PDF beschermd door 40-bits codering. Bij PDF 1.4 wordt de PDF beschermd door 128-bits codering. Disclaimer: PDF-codering is niet zo betrouwbaar als GPG- of PGP-codering en heeft enkele beperkingen.</translation>
+        <translation>Beveiligingsfuncties inschakelen in de geëxporteerde PDF. Als u PDF 1.3 hebt geselecteerd, wordt de PDF beschermd door 40-bits codering. Bij PDF 1.4 wordt de PDF beschermd door 128-bits codering. Disclaimer: PDF-codering is niet zo betrouwbaar als GPG- of PGP-codering en heeft enkele beperkingen.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="770"/>
@@ -37024,7 +37024,7 @@ als PDF document wordt geopend:</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1361"/>
         <source>Color Bars</source>
-        <translation>Kleurenbalk</translation>
+        <translation>Kleurenbalken</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1417"/>
@@ -37159,7 +37159,7 @@ als PDF document wordt geopend:</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="217"/>
         <source>Limits the resolution of your bitmap images to the selected DPI. Images with a lower resolution will be left untouched. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
-        <translation>Beperkt de resolutie van uw bitmapafbeeldingen tot de geselecteerde DPI. Afbeeldingen met een lagere resolutie blijven onaangeroerd. Als u deze optie niet aangevinkt laat, worden ze op hun oorspronkelijke resolutie weergegeven. Als u deze optie activeert, wordt het geheugengebruik verhoogd en zal de export meer tijd in beslag nemen.</translation>
+        <translation>Beperkt de resolutie van uw bitmapafbeeldingen tot de geselecteerde DPI. Afbeeldingen met een lagere resolutie blijven onaangetast. Als u deze optie niet aangevinkt laat, worden ze op hun oorspronkelijke resolutie weergegeven. Als u deze optie activeert, wordt het geheugengebruik verhoogd en zal de export meer tijd in beslag nemen.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="271"/>
@@ -37205,7 +37205,7 @@ als PDF document wordt geopend:</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1295"/>
         <source>Do not use embedded color profiles</source>
-        <translation>Gebruik geen ingesloten kleurprofielen</translation>
+        <translation>Ingesloten kleurprofielen niet gebruiken</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="753"/>
@@ -37249,7 +37249,7 @@ als PDF document wordt geopend:</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="260"/>
         <source>Embed PDF &amp;&amp; EPS files (EXPERIMENTAL)</source>
-        <translation>PDF- &amp;&amp; EPS-bestanden Insluiten (EXPERIMENTEEL)</translation>
+        <translation>PDF- &amp;&amp; EPS-bestanden insluiten (EXPERIMENTEEL)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1228"/>
@@ -37330,7 +37330,7 @@ als PDF document wordt geopend:</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="223"/>
         <source>Embed only subset fonts with glyphs used in the document into the PDF.</source>
-        <translation>Sluit alleen deelverzamelingen van lettertypen met tekens die in het document worden gebruikt in de PDF.</translation>
+        <translation>Alleen een deelverzameling met tekens die in het document worden gebruikt insluiten de PDF.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="260"/>
@@ -37340,7 +37340,7 @@ als PDF document wordt geopend:</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="199"/>
         <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number</source>
-        <translation>Voeg een door komma&apos;s gescheiden lijst met tokens in waar een token * kan zijn voor alle pagina&apos;s, 1-5 voor een reeks pagina&apos;s of een enkel paginanummer</translation>
+        <translation>Een door komma&apos;s gescheiden lijst met tokens invoegen waar een token * kan zijn voor alle pagina&apos;s, 1-5 voor een paginabereik of een enkel paginanummer</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="209"/>
@@ -37355,7 +37355,7 @@ als PDF document wordt geopend:</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="218"/>
         <source>DPI (Dots Per Inch) for image export</source>
-        <translation>DPI (Dots Per Inch) voor export afbeelding</translation>
+        <translation>DPI (Dots Per Inch) voor exporteren van afbeelding</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="252"/>
@@ -37689,7 +37689,7 @@ als PDF document wordt geopend:</translation>
     <message>
         <location filename="../../scribus/third_party/zip/unzip.cpp" line="1196"/>
         <source>zlib library error.</source>
-        <translation>zlib bibliotheekfout.</translation>
+        <translation>fout met zlib-bibliotheek.</translation>
     </message>
     <message>
         <location filename="../../scribus/third_party/zip/unzip.cpp" line="1197"/>
@@ -37739,7 +37739,7 @@ als PDF document wordt geopend:</translation>
     <message>
         <location filename="../../scribus/third_party/zip/unzip.cpp" line="1206"/>
         <source>Unable to create a directory.</source>
-        <translation>Kon map niet aanmaken.</translation>
+        <translation>Map niet kunnen aanmaken.</translation>
     </message>
     <message>
         <location filename="../../scribus/third_party/zip/unzip.cpp" line="1207"/>
@@ -38003,17 +38003,17 @@ tot %2</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="636"/>
         <source>Set fill color transparency</source>
-        <translation>Transparantie vulkleur instellen</translation>
+        <translation>Transparantie van vulkleur instellen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="637"/>
         <source>Set line color transparency</source>
-        <translation>Transparantie lijnkleur instellen</translation>
+        <translation>Transparantie van lijnkleur instellen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="638"/>
         <source>Set line style</source>
-        <translation>Lijnstijl instellen</translation>
+        <translation>Stijl van lijn instellen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="639"/>
@@ -38164,7 +38164,7 @@ tot %2</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="732"/>
         <source>Import SVG image</source>
-        <translation>SVG-bestand importeren</translation>
+        <translation>SVG-afbeelding importeren</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="734"/>
@@ -38174,12 +38174,12 @@ tot %2</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="721"/>
         <source>Import EPS image</source>
-        <translation>EPS-bestand importeren</translation>
+        <translation>EPS-afbeelding importeren</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="746"/>
         <source>Scratch space</source>
-        <translation>Plakboek</translation>
+        <translation>Kladblok</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="747"/>
@@ -38219,12 +38219,12 @@ tot %2</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="757"/>
         <source>Set image scaling</source>
-        <translation>Afbeeldingschaal instellen</translation>
+        <translation>Schaal van afbeelding instellen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="758"/>
         <source>Frame size</source>
-        <translation>Kaderafmetingen</translation>
+        <translation>Kadergrootte</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="762"/>
@@ -38320,7 +38320,7 @@ tot %2</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="802"/>
         <source>Change name of the layer</source>
-        <translation>Laagnaam wijzigen</translation>
+        <translation>Naam van de laag wijzigen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="809"/>
@@ -38365,7 +38365,7 @@ tot %2</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="597"/>
         <source>Change Image Scale</source>
-        <translation>Afbeeldingsschaal wijzigen</translation>
+        <translation>Schaal van afbeelding wijzigen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="598"/>
@@ -38536,22 +38536,22 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="803"/>
         <source>Enable text flow around for lower layers</source>
-        <translation>Tekstomloop rond lagere lagen activeren</translation>
+        <translation>Tekstverloop rond lagere lagen inschakelen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="804"/>
         <source>Disable text flow around for lower layers</source>
-        <translation>Tekstomloop rond lagere lagen deactiveren</translation>
+        <translation>Tekstverloop rond lagere lagen uitschakelen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="805"/>
         <source>Set layer blend mode</source>
-        <translation>Mengmodus voor lagen instellen</translation>
+        <translation>Mengmodus van laag instellen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="806"/>
         <source>Set layer opacity</source>
-        <translation>Dekking van de laag instellen</translation>
+        <translation>Dekking van laag instellen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="807"/>
@@ -38661,17 +38661,17 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="614"/>
         <source>Set fill rule</source>
-        <translation>Regel opstellen</translation>
+        <translation>Vulregel opstellen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="622"/>
         <source>Change image resolution</source>
-        <translation>Afbeeldingsresolutie wijzigen</translation>
+        <translation>Resolutie van afbeelding wijzigen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="625"/>
         <source>Set mask gradient type</source>
-        <translation>Maskerverlooptype instellen</translation>
+        <translation>Verlooptype van masker instellen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="635"/>
@@ -38686,97 +38686,97 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="651"/>
         <source>Set cell fill color</source>
-        <translation>Celvulkleur instellen</translation>
+        <translation>Vulkleur van cel instellen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="652"/>
         <source>Set cell fill shade</source>
-        <translation>Tint celvulkleur instellen</translation>
+        <translation>Vulkleurtint van cel instellen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="653"/>
         <source>Set cell style</source>
-        <translation>Celstijl instellen</translation>
+        <translation>Stijl van cel instellen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="654"/>
         <source>Set table fill color</source>
-        <translation>Tabelvulkleur instellen</translation>
+        <translation>Vulkleur van tabel instellen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="655"/>
         <source>Reset table fill color</source>
-        <translation>Tabelvulkleur herstellen</translation>
+        <translation>Vulkleur van tabel herstellen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="656"/>
         <source>Set table fill shade</source>
-        <translation>Tint tabelvulkeur instellen</translation>
+        <translation>Vulkeurtint van tabel instellen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="657"/>
         <source>Reset table fill shade</source>
-        <translation>Tint tabelvulkleur herstellen</translation>
+        <translation>Vulkleurtint van tabel herstellen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="658"/>
         <source>Set table borders</source>
-        <translation>Tabelranden instellen</translation>
+        <translation>Randen van tabel instellen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="659"/>
         <source>Set table left border</source>
-        <translation>Linker-tabelrand instellen</translation>
+        <translation>Linkerrand van tabel instellen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="660"/>
         <source>Reset table left border</source>
-        <translation>Linker-tabelrand herstellen</translation>
+        <translation>Linkerrand van tabel herstellen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="661"/>
         <source>Set table right border</source>
-        <translation>Rechter-tabelrand instellen</translation>
+        <translation>Rechterrand van tabel instellen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="662"/>
         <source>Reset table right border</source>
-        <translation>Rechter-tabelrand herstellen</translation>
+        <translation>Rechterrand van tabel herstellen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="663"/>
         <source>Set table bottom border</source>
-        <translation>Onder-tabelrand instellen</translation>
+        <translation>Onderrand van tabel instellen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="664"/>
         <source>Reset table bottom border</source>
-        <translation>Onder-tabelrand herstellen</translation>
+        <translation>Onderrand van tabel herstellen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="665"/>
         <source>Set table top border</source>
-        <translation>Boven-tabelrand instellen</translation>
+        <translation>Bovenrand van tabel instellen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="666"/>
         <source>Reset table top border</source>
-        <translation>Boven-tabelrand herstellen</translation>
+        <translation>Bovenrand van tabel herstellen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="667"/>
         <source>Set table style</source>
-        <translation>Tabelstijl instellen</translation>
+        <translation>Stijl van tabel instellen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="668"/>
         <source>Set height of table row</source>
-        <translation>Tabelrijhoogte instellen</translation>
+        <translation>Hoogte van tabelrij instellen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="669"/>
         <source>Set width of table column</source>
-        <translation>Tabelkolombreedte instellen</translation>
+        <translation>Breedte van tabelkolom instellen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="672"/>
@@ -38791,7 +38791,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="677"/>
         <source>Change fill gradient type</source>
-        <translation>Vullingsverlooptype wijzigen</translation>
+        <translation>Type vullingsverloop wijzigen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="678"/>
@@ -39760,12 +39760,12 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/third_party/zip/zip.cpp" line="1608"/>
         <source>zlib library error.</source>
-        <translation>zlib bibliotheekfout.</translation>
+        <translation>fout met zlib-bibliotheek.</translation>
     </message>
     <message>
         <location filename="../../scribus/third_party/zip/zip.cpp" line="1609"/>
         <source>Unable to create or open file.</source>
-        <translation>Kon het bestand niet aanmaken of openen.</translation>
+        <translation>Bestand niet kunnen aanmaken of openen.</translation>
     </message>
     <message>
         <location filename="../../scribus/third_party/zip/zip.cpp" line="1610"/>
