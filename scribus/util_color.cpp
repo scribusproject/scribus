@@ -133,9 +133,14 @@ QImage ProofImage(QImage *Image, ScribusDoc* doc)
 QColor SetColor(ScribusDoc *currentDoc, const QString& color, int shad)
 {
 	if (color == CommonStrings::None)
-		return {0, 0, 0, 0};
-	const ScColor& col = currentDoc->PageColors[color];
-	return ScColorEngine::getShadeColorProof(col, currentDoc, shad);
+		return { 0, 0, 0, 0 };
+	auto colorIt = currentDoc->PageColors.constFind(color);
+	if (colorIt != currentDoc->PageColors.constEnd())
+	{
+		const ScColor& col = colorIt.value();
+		return ScColorEngine::getShadeColorProof(col, currentDoc, shad);
+	}
+	return { 153, 102, 51, 0 }; // The infamous brown color
 }
 
 /**
