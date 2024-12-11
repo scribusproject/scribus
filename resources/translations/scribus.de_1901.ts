@@ -7658,12 +7658,12 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>FileLoader</name>
     <message>
-        <location filename="../../scribus/fileloader.cpp" line="463"/>
+        <location filename="../../scribus/fileloader.cpp" line="456"/>
         <source>Some fonts used by this document have been substituted:</source>
         <translation>Einige Schriften in diesem Dokument wurden ersetzt:</translation>
     </message>
     <message>
-        <location filename="../../scribus/fileloader.cpp" line="466"/>
+        <location filename="../../scribus/fileloader.cpp" line="459"/>
         <source> was replaced by: </source>
         <translation> wurde ersetzt durch: </translation>
     </message>
@@ -12556,12 +12556,12 @@ If no handle is selected all handles will be reset.</source>
 <context>
     <name>OODPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="425"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="423"/>
         <source>This document does not seem to be an OpenOffice Draw file.</source>
         <translation>Diese Datei scheint keine OpenOffice.org-Zeichnung zu sein.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="646"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="639"/>
         <source>Group%1</source>
         <translation>Gruppe%1</translation>
     </message>
@@ -14336,30 +14336,27 @@ Wird oft dazu verwendet, um ein Objekt über mehrere Seiten zu verteilen.</trans
 <context>
     <name>PagesPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="166"/>
-        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="625"/>
+        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="206"/>
         <source>Importing: %1</source>
         <translation>Importiere: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="169"/>
-        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="627"/>
+        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="208"/>
         <source>Analyzing File:</source>
         <translation>Analysieren der Datei:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="387"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
 Document Liberation Project https://www.documentliberation.org</source>
-        <translation>Analyse fehlgeschlagen!
+        <translation type="vanished">Analyse fehlgeschlagen!
 
 Bitte senden Sie (wenn möglich) einen Fehlerbericht an das
 Document Liberation Project https://www.documentliberation.org</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="810"/>
+        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="391"/>
         <source>Generating Items</source>
         <translation>Objekte werden erstellt</translation>
     </message>
@@ -16580,8 +16577,8 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>PrefsManager</name>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2451"/>
-        <location filename="../../scribus/prefsmanager.cpp" line="2461"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2452"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2462"/>
         <source>PostScript</source>
         <translation>PostScript</translation>
     </message>
@@ -16618,34 +16615,34 @@ Möchten Sie diese in der neuen Scribus-Version verwenden?</translation>
         <translation>Konnte die XML-Datei &quot;%1&quot; nicht öffnen: %2 in Zeile %3, Spalte %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2867"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2868"/>
         <source>Error Writing Preferences</source>
         <translation>Fehler beim Speichern der Einstellungen</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2869"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2870"/>
         <source>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</source>
         <comment>scribus app error</comment>
         <translation>Scribus konnte die Einstellungen nicht speichern &lt;br&gt;%1&lt;br&gt;. Bitte überprüfen Sie die Zugriffsrechte für die Datei und das Verzeichnis sowie den verfügbaren Speicherplatz.</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2884"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2885"/>
         <source>Error Loading Preferences</source>
         <translation>Fehler beim Laden der Einstellungen</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2886"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2887"/>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
         <translation>Scribus konnte die Einstellungen nicht laden: &lt;br&gt;%1&lt;br&gt; Es werden die Standardeinstellungen geladen.</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2452"/>
-        <location filename="../../scribus/prefsmanager.cpp" line="2461"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2453"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2462"/>
         <source>Postscript</source>
         <translation>PostScript</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2569"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2570"/>
         <source>No valid renderframe config found. Using defaults!</source>
         <translation>Keine gültige Konfigurationsdatei gefunden. Es werden die Standardwerte verwendet!</translation>
     </message>
@@ -20610,7 +20607,7 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="36"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/prefs_scripterbase.ui" line="36"/>
-        <location filename="../../scribus/plugins/scriptplugin/prefs_scripter.cpp" line="28"/>
+        <location filename="../../scribus/plugins/scriptplugin/prefs_scripter.cpp" line="29"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/prefs_scripter.cpp" line="28"/>
         <source>Scripter</source>
         <translation>Scripter</translation>
@@ -24349,27 +24346,27 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <translation>Script-Konsole</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="133"/>
+        <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="134"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/pconsole.cpp" line="133"/>
         <source>Output of your script</source>
         <translation>Ausgabe des Scripts</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="143"/>
+        <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="144"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/pconsole.cpp" line="143"/>
         <source>Another script is already running...</source>
         <translation>Es wird bereits ein anderes Script ausgeführt...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="144"/>
-        <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="159"/>
+        <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="145"/>
+        <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="160"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/pconsole.cpp" line="144"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/pconsole.cpp" line="159"/>
         <source>Please let it finish its task...</source>
         <translation>Bitte lassen Sie es seine Aufgabe erfüllen...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="158"/>
+        <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="159"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/pconsole.cpp" line="158"/>
         <source>
 &gt;&gt;&gt; Another script is already running...</source>
@@ -24377,19 +24374,19 @@ Document Liberation Project https://www.documentliberation.org</translation>
 &gt;&gt;&gt; Es wird bereits ein anderes Script ausgeführt...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="235"/>
+        <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="236"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/pconsole.cpp" line="235"/>
         <source>Save the Python Commands in File</source>
         <translation>Python-Befehle in Datei schreiben</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="252"/>
+        <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="253"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/pconsole.cpp" line="252"/>
         <source>Text Files (*.txt)</source>
         <translation>Text-Dateien (*.txt)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="250"/>
+        <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="251"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/pconsole.cpp" line="250"/>
         <source>Save Current Output</source>
         <translation>Aktuelle Ausgabe speichern</translation>
@@ -24407,13 +24404,13 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <translation>In &amp;Konsole ausführen</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="59"/>
+        <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="60"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/pconsole.cpp" line="59"/>
         <source>Scribus Python Console</source>
         <translation>Scribus Python-Konsole</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="61"/>
+        <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="62"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/pconsole.cpp" line="61"/>
         <source>This is a standard Python console with some 
 known limitations. Please consult the Scribus 
@@ -24423,41 +24420,41 @@ bekannten Einschränkungen. Bitte lesen Sie die
 Scribus-Scripter-Dokumentation für nähere Informationen. </translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="132"/>
+        <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="133"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/pconsole.cpp" line="132"/>
         <source>Write your commands here. A selection is processed as script.</source>
         <translation>Schreiben Sie Ihre Befehle hier. Markierte Befehle werden als Script ausgeführt.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="193"/>
+        <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="194"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/pconsole.cpp" line="193"/>
         <source>Open Python Script File</source>
         <translation>Python-Script öffnen</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="195"/>
-        <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="237"/>
+        <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="196"/>
+        <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="238"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/pconsole.cpp" line="195"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/pconsole.cpp" line="237"/>
         <source>Python Scripts (*.py *.PY)</source>
         <translation>Python Scripts (*.py *.PY)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="33"/>
-        <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="129"/>
+        <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="34"/>
+        <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="130"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/pconsole.cpp" line="33"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/pconsole.cpp" line="129"/>
         <source>Col: %1 Row: %2/%3</source>
         <translation>Spalte: %1 Zeile: %2/%3</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="44"/>
+        <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="45"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/pconsole.cpp" line="44"/>
         <source>Ctrl+O</source>
         <translation>Strg+O</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="45"/>
+        <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="46"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/pconsole.cpp" line="45"/>
         <source>Ctrl+S</source>
         <translation>Strg+S</translation>
@@ -25288,7 +25285,7 @@ Datei wurde nicht gefunden.
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="87"/>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="594"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="593"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptercore.cpp" line="87"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptercore.cpp" line="594"/>
         <source>&amp;Scribus Scripts</source>
@@ -25296,7 +25293,7 @@ Datei wurde nicht gefunden.
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="52"/>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="589"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="588"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptercore.cpp" line="52"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptercore.cpp" line="589"/>
         <source>&amp;Execute Script...</source>
@@ -25304,7 +25301,7 @@ Datei wurde nicht gefunden.
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="90"/>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="595"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="594"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptercore.cpp" line="90"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptercore.cpp" line="595"/>
         <source>&amp;Recent Scripts</source>
@@ -25312,7 +25309,7 @@ Datei wurde nicht gefunden.
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="53"/>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="590"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="589"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptercore.cpp" line="53"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptercore.cpp" line="590"/>
         <source>Show &amp;Console</source>
@@ -25331,7 +25328,7 @@ Datei wurde nicht gefunden.
         <translation>Text importieren</translation>
     </message>
     <message>
-        <location filename="../../scribus/fileloader.cpp" line="83"/>
+        <location filename="../../scribus/fileloader.cpp" line="76"/>
         <location filename="../../scribus/gtgettext.cpp" line="173"/>
         <location filename="../../scribus/scgtplugin.cpp" line="57"/>
         <location filename="../../scribus/util_formats.cpp" line="271"/>
@@ -28047,23 +28044,23 @@ Externe Links
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="54"/>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="591"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="590"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptercore.cpp" line="54"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptercore.cpp" line="591"/>
         <source>&amp;About Script...</source>
         <translation>Ü&amp;ber das Script...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="561"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="560"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptercore.cpp" line="561"/>
         <source>About Script</source>
         <translation>Über das Script</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="41"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="67"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="92"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="116"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="38"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="64"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="89"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="113"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdcolor.cpp" line="41"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdcolor.cpp" line="67"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdcolor.cpp" line="92"/>
@@ -28073,11 +28070,11 @@ Externe Links
         <translation>Keine Farbbezeichnung angegeben.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="146"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="181"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="220"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="255"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="293"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="143"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="178"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="217"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="252"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="290"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdcolor.cpp" line="146"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdcolor.cpp" line="181"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdcolor.cpp" line="220"/>
@@ -28088,11 +28085,11 @@ Externe Links
         <translation>Umbenennen einer Farbe ohne Bezeichnung fehlgeschlagen.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="336"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="371"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="422"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="457"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="507"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="333"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="368"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="419"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="454"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="504"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdcolor.cpp" line="336"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdcolor.cpp" line="371"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdcolor.cpp" line="422"/>
@@ -28103,56 +28100,56 @@ Externe Links
         <translation>Kann keine Farbe ohne Bezeichnung erstellen.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="557"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="554"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdcolor.cpp" line="557"/>
         <source>Cannot delete a color with an empty name.</source>
         <comment>python error</comment>
         <translation>Kann keine Farbe ohne Bezeichnung löschen.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="604"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="601"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdcolor.cpp" line="602"/>
         <source>Cannot replace a color with an empty name.</source>
         <comment>python error</comment>
         <translation>Kann keine Farbe ohne Bezeichnung ersetzen.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmddoc.cpp" line="198"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmddoc.cpp" line="236"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmddoc.cpp" line="197"/>
         <source>Failed to open document: %1</source>
         <comment>python error</comment>
         <translation>Die Datei %1 konnte nicht geöffnet werden</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmddoc.cpp" line="299"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmddoc.cpp" line="337"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmddoc.cpp" line="298"/>
         <source>Unit out of range. Use one of the scribus.UNIT_* constants.</source>
         <comment>python error</comment>
         <translation>Einheit außerhalb des Bereichs. Benutzen Sie eine der UNIT_*-Konstanten.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmddoc.cpp" line="454"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmddoc.cpp" line="529"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmddoc.cpp" line="453"/>
         <source>Page number out of range: &apos;%1&apos;.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmddoc.cpp" line="473"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmddoc.cpp" line="548"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmddoc.cpp" line="472"/>
         <source>Master page does not exist: &apos;%1&apos;</source>
         <comment>python error</comment>
         <translation>Musterseite exisitiert nicht: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmddoc.cpp" line="478"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmddoc.cpp" line="553"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmddoc.cpp" line="477"/>
         <source>Page number out of range: %1.</source>
         <comment>python error</comment>
         <translation>Seitennummer außerhalb des Bereichs: %1.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmddoc.cpp" line="484"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmddoc.cpp" line="559"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmddoc.cpp" line="483"/>
         <source>Failed to apply masterpage &apos;%1&apos; on page: %2</source>
         <comment>python error</comment>
@@ -28324,21 +28321,21 @@ Externe Links
         <translation>OpenOffice.org Writer-Dokumente</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="351"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="350"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdgetprop.cpp" line="350"/>
         <source>page number is invalid.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="361"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="360"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdgetprop.cpp" line="360"/>
         <source>layer name is invalid.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="445"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="444"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdgetprop.cpp" line="444"/>
         <source>Page item must be an ImageFrame</source>
         <comment>python error</comment>
@@ -28417,8 +28414,8 @@ Externe Links
         <translation>&apos;allTypes&apos; kann nicht verändert werden (Read-Only)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/objimageexport.cpp" line="168"/>
-        <location filename="../../scribus/plugins/scriptplugin/objimageexport.cpp" line="201"/>
+        <location filename="../../scribus/plugins/scriptplugin/objimageexport.cpp" line="170"/>
+        <location filename="../../scribus/plugins/scriptplugin/objimageexport.cpp" line="204"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/objimageexport.cpp" line="165"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/objimageexport.cpp" line="196"/>
         <source>Failed to export image</source>
@@ -28426,13 +28423,13 @@ Externe Links
         <translation>Beim Export des Bildes sind Fehler aufgetreten</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="49"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="75"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="100"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="124"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="615"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="638"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="664"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="46"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="72"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="97"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="121"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="612"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="635"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="661"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdcolor.cpp" line="49"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdcolor.cpp" line="75"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdcolor.cpp" line="100"/>
@@ -28445,12 +28442,12 @@ Externe Links
         <translation>Farbe nicht gefunden.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="154"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="193"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="228"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="266"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="304"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="574"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="151"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="190"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="225"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="263"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="301"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="571"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdcolor.cpp" line="154"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdcolor.cpp" line="193"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdcolor.cpp" line="228"/>
@@ -28462,12 +28459,12 @@ Externe Links
         <translation>Die Farbe ist im Dokument nicht vorhanden.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="164"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="203"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="238"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="276"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="314"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="585"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="161"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="200"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="235"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="273"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="311"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="582"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdcolor.cpp" line="164"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdcolor.cpp" line="203"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdcolor.cpp" line="238"/>
@@ -29070,27 +29067,27 @@ Externe Links
         <translation>Die Schrift %1 kann nicht gelesen werden und wird nicht eingebettet</translation>
     </message>
     <message>
-        <location filename="../../scribus/scfonts.cpp" line="699"/>
+        <location filename="../../scribus/scfonts.cpp" line="702"/>
         <source>Failed to load font %1 - font type unknown</source>
         <translation>Fehler beim Laden der Schrift %1 - Typ unbekannt</translation>
     </message>
     <message>
-        <location filename="../../scribus/scfonts.cpp" line="896"/>
+        <location filename="../../scribus/scfonts.cpp" line="899"/>
         <source>Font %1 loaded from %2(%3)</source>
         <translation>Schrift %1 geladen von %2(%3)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scfonts.cpp" line="912"/>
+        <location filename="../../scribus/scfonts.cpp" line="915"/>
         <source>Font %1(%2) is duplicate of %3</source>
         <translation>Die Schrift %1(%2) ist ein Duplikat von %3</translation>
     </message>
     <message>
-        <location filename="../../scribus/scfonts.cpp" line="1040"/>
+        <location filename="../../scribus/scfonts.cpp" line="1043"/>
         <source>Loading font %1 (found using fontconfig)</source>
         <translation>Schrift %1 wird geladen (erkannt von fontconfig)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scfonts.cpp" line="1046"/>
+        <location filename="../../scribus/scfonts.cpp" line="1049"/>
         <source>Failed to load a font - freetype2 couldn&apos;t find the font file</source>
         <translation>Fehler beim Laden einer Schrift - FreeType2 konnte die Datei nicht finden</translation>
     </message>
@@ -29150,7 +29147,7 @@ Externe Links
         <translation>Zentimeter (cm)</translation>
     </message>
     <message>
-        <location filename="../../scribus/util.cpp" line="432"/>
+        <location filename="../../scribus/util.cpp" line="421"/>
         <source>File exists</source>
         <translation>Datei existiert bereits</translation>
     </message>
@@ -29165,13 +29162,13 @@ Externe Links
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="2019"/>
-        <location filename="../../scribus/scribus.cpp" line="2264"/>
+        <location filename="../../scribus/scribus.cpp" line="2021"/>
+        <location filename="../../scribus/scribus.cpp" line="2266"/>
         <source>Document Template: </source>
         <translation>Dokumentvorlagen:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmddoc.cpp" line="244"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmddoc.cpp" line="282"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmddoc.cpp" line="243"/>
         <source>Failed to save document.</source>
         <comment>python error</comment>
@@ -29364,11 +29361,11 @@ Externe Links
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="55"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="94"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="113"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="166"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="210"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="234"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="92"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="110"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="162"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="205"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="229"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdpage.cpp" line="44"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdpage.cpp" line="83"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdpage.cpp" line="102"/>
@@ -29380,8 +29377,8 @@ Externe Links
         <translation>Seitenzahl ist außerhalb des gültigen Bereichs.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="311"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="363"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="305"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="355"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdpage.cpp" line="300"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdpage.cpp" line="352"/>
         <source>argument is not list: must be list of float values.</source>
@@ -29389,47 +29386,47 @@ Externe Links
         <translation>argument is not list: must be list of float values.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="322"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="315"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdpage.cpp" line="311"/>
         <source>argument contains non-numeric values: must be list of float values.</source>
         <comment>python error</comment>
         <translation>argument contains non-numeric values: must be list of float values.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="374"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="365"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdpage.cpp" line="363"/>
         <source>argument contains no-numeric values: must be list of float values.</source>
         <comment>python error</comment>
         <translation>argument contains no-numeric values: must be list of float values.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="472"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="521"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="463"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="512"/>
         <source>refer_to=0|1|2.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="481"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="472"/>
         <source>setColumnGuides() with refer_to=2 needs a selection.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="530"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="521"/>
         <source>setRowGuides() with refer_to=2 needs a selection.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="632"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="623"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdpage.cpp" line="451"/>
         <source>second argument is not tuple: must be tuple of integer values.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="644"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="635"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdpage.cpp" line="463"/>
         <source>second argument contains non-numeric values: must be list of integer values.</source>
         <comment>python error</comment>
@@ -29479,14 +29476,14 @@ Externe Links
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="86"/>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="593"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="592"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptercore.cpp" line="86"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptercore.cpp" line="593"/>
         <source>&amp;Script</source>
         <translation>Sc&amp;ript</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="1005"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="1011"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptplugin.cpp" line="945"/>
         <source>Scribus Python interface module
 
@@ -29569,7 +29566,7 @@ is not exhaustive due to exceptions from called functions.
         <translation>Der Dateiname darf nicht leer sein.</translation>
     </message>
     <message>
-        <location filename="../../scribus/util.cpp" line="597"/>
+        <location filename="../../scribus/util.cpp" line="586"/>
         <source>page</source>
         <comment>page export</comment>
         <translation>Seite</translation>
@@ -29640,88 +29637,88 @@ is not exhaustive due to exceptions from called functions.
         <translation>Scribus ist wegen der Ausnahme %1 abgestürzt</translation>
     </message>
     <message>
-        <location filename="../../scribus/scfonts.cpp" line="672"/>
+        <location filename="../../scribus/scfonts.cpp" line="675"/>
         <source>Creating Font Cache</source>
         <translation>Fontcache wird erstellt</translation>
     </message>
     <message>
-        <location filename="../../scribus/scfonts.cpp" line="680"/>
+        <location filename="../../scribus/scfonts.cpp" line="683"/>
         <source>Font is broken: &quot;%1&quot;</source>
         <translation>Font ist beschädigt: &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scfonts.cpp" line="682"/>
+        <location filename="../../scribus/scfonts.cpp" line="685"/>
         <source>Font %1 is broken, discarding it. Error message: &quot;%2&quot;</source>
         <translation>Font %1 ist beschädigt und wird verworfen. Fehlermeldung: &quot;%2&quot;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scfonts.cpp" line="687"/>
+        <location filename="../../scribus/scfonts.cpp" line="690"/>
         <source>Failed to load font: font family unspecified</source>
         <translation>Font konnte nicht geladen werden - Schriftfamilie ist nicht definiert</translation>
     </message>
     <message>
-        <location filename="../../scribus/scfonts.cpp" line="689"/>
+        <location filename="../../scribus/scfonts.cpp" line="692"/>
         <source>Failed to load font %1 - font family unspecified</source>
         <translation>Font %1 konnte nicht geladen werden - Schriftfamilie ist nicht definiert</translation>
     </message>
     <message>
-        <location filename="../../scribus/scfonts.cpp" line="697"/>
+        <location filename="../../scribus/scfonts.cpp" line="700"/>
         <source>Failed to load font: font type unknown</source>
         <translation>Font konnte nicht geladen werden: unbekannter Dateityp</translation>
     </message>
     <message>
-        <location filename="../../scribus/scfonts.cpp" line="708"/>
+        <location filename="../../scribus/scfonts.cpp" line="711"/>
         <source>Failed to load font: font is not scalable</source>
         <translation>Font konnte nicht geladen werden: Font ist nicht skalierbar</translation>
     </message>
     <message>
-        <location filename="../../scribus/scfonts.cpp" line="710"/>
+        <location filename="../../scribus/scfonts.cpp" line="713"/>
         <source>Failed to load font %1 - font is not scalable</source>
         <translation>Font %1 konnte nicht geladen werden: Font ist nicht skalierbar</translation>
     </message>
     <message>
-        <location filename="../../scribus/scfonts.cpp" line="720"/>
+        <location filename="../../scribus/scfonts.cpp" line="723"/>
         <source>New Font found, checking...</source>
         <translation>Neue Schrift gefunden, Überprüfung läuft...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scfonts.cpp" line="728"/>
-        <location filename="../../scribus/scfonts.cpp" line="772"/>
+        <location filename="../../scribus/scfonts.cpp" line="731"/>
+        <location filename="../../scribus/scfonts.cpp" line="775"/>
         <source>Font %1 has broken glyph %2 (charcode U+%3). Error message: &quot;%4&quot;</source>
         <translation>Font %1 enthält die fehlerhafte Glyphe %2 (Charcode U+%3). Fehlermeldung: &quot;%4&quot;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scfonts.cpp" line="764"/>
+        <location filename="../../scribus/scfonts.cpp" line="767"/>
         <source>Modified Font found, checking...</source>
         <translation>Geänderte Schrift gefunden, Überprüfung läuft...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scfonts.cpp" line="1227"/>
+        <location filename="../../scribus/scfonts.cpp" line="1230"/>
         <source>Reading Font Cache</source>
         <translation>Fontcache wird gelesen</translation>
     </message>
     <message>
-        <location filename="../../scribus/scfonts.cpp" line="1286"/>
+        <location filename="../../scribus/scfonts.cpp" line="1289"/>
         <source>Writing updated Font Cache</source>
         <translation>Aktualisierter Fontcache wird geschrieben</translation>
     </message>
     <message>
-        <location filename="../../scribus/scfonts.cpp" line="1302"/>
+        <location filename="../../scribus/scfonts.cpp" line="1305"/>
         <source>Searching for Fonts</source>
         <translation>Suche nach Schriften läuft</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3995"/>
+        <location filename="../../scribus/scribus.cpp" line="3997"/>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
         <translation>Die Änderungen am Dokument wurden nicht gesichert, und Sie möchten zur gespeicherten Version zurückkehren. Wollen Sie das wirklich?</translation>
     </message>
     <message>
-        <location filename="../../scribus/util.cpp" line="433"/>
+        <location filename="../../scribus/util.cpp" line="422"/>
         <source>A file named &apos;%1&apos; already exists.&lt;br/&gt;Do you want to replace it with the file you are saving?</source>
         <translation>Eine Datei mit dem Namen &apos;%1&apos; ist schon vorhanden.&lt;br/&gt;Wollen Sie diese Datei mit dem aktuellen Dokument ersetzen?</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmddoc.cpp" line="51"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmddoc.cpp" line="50"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmddoc.cpp" line="50"/>
         <source>firstPageOrder is bigger than allowed.</source>
         <comment>python error</comment>
@@ -29743,7 +29740,7 @@ is not exhaustive due to exceptions from called functions.
         <translation>Datei drucken</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3172"/>
+        <location filename="../../scribus/scribus.cpp" line="3174"/>
         <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
         <translation>&lt;p&gt;Sie versuchen, mehr Seiten zu importieren, als im Rest des Dokuments vorhanden sind.&lt;/p&gt;Wählen Sie eine der folgenden Optionen:&lt;ul&gt;&lt;li&gt;Fehlende Seiten&lt;b&gt;erzeugen&lt;/b&gt; &lt;/li&gt;&lt;li&gt;Seiten bis zur letzten Seite&lt;b&gt;importieren&lt;/b&gt;&lt;/li&gt;&lt;li&gt;&lt;b&gt;Abbrechen&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
@@ -29792,7 +29789,7 @@ is not exhaustive due to exceptions from called functions.
         <translation>Japanisch</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="156"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="152"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdpage.cpp" line="145"/>
         <source>Given master page name does not match any existing.</source>
         <comment>python error</comment>
@@ -30592,8 +30589,8 @@ Therefore the image may be not correct</source>
         <translation>Drucke ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="632"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="654"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="629"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdcolor.cpp" line="651"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdcolor.cpp" line="642"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdcolor.cpp" line="664"/>
         <source>Color name cannot be an empty string.</source>
@@ -34953,7 +34950,7 @@ Drehung: %4</translation>
         <translation>Bibliothek wird geladen</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3338"/>
+        <location filename="../../scribus/scribus.cpp" line="3340"/>
         <source>Fatal Error</source>
         <translation>Fataler Fehler</translation>
     </message>
@@ -34964,7 +34961,7 @@ Drehung: %4</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="874"/>
-        <location filename="../../scribus/scribus.cpp" line="3177"/>
+        <location filename="../../scribus/scribus.cpp" line="3179"/>
         <source>&amp;Import</source>
         <translation>&amp;Importieren</translation>
     </message>
@@ -34989,19 +34986,19 @@ Drehung: %4</translation>
         <translation>Auf andere &amp;Ebene verschieben</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="2047"/>
-        <location filename="../../scribus/scribus.cpp" line="2088"/>
-        <location filename="../../scribus/scribus.cpp" line="3653"/>
-        <location filename="../../scribus/scribus.cpp" line="4100"/>
-        <location filename="../../scribus/scribus.cpp" line="4174"/>
-        <location filename="../../scribus/scribus.cpp" line="4334"/>
-        <location filename="../../scribus/scribus.cpp" line="6559"/>
-        <location filename="../../scribus/scribus.cpp" line="8594"/>
+        <location filename="../../scribus/scribus.cpp" line="2049"/>
+        <location filename="../../scribus/scribus.cpp" line="2090"/>
+        <location filename="../../scribus/scribus.cpp" line="3655"/>
+        <location filename="../../scribus/scribus.cpp" line="4102"/>
+        <location filename="../../scribus/scribus.cpp" line="4176"/>
+        <location filename="../../scribus/scribus.cpp" line="4336"/>
+        <location filename="../../scribus/scribus.cpp" line="6561"/>
+        <location filename="../../scribus/scribus.cpp" line="8596"/>
         <source>Ready</source>
         <translation>Fertig</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1482"/>
+        <location filename="../../scribus/scribus.cpp" line="1484"/>
         <source>Unknown</source>
         <translation>Unbekannt</translation>
     </message>
@@ -35027,223 +35024,223 @@ Drehung: %4</translation>
         <translation>Textfunktionen</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1119"/>
+        <location filename="../../scribus/scribus.cpp" line="1121"/>
         <source>S&amp;paces &amp;&amp; Breaks</source>
         <translation>Leer&amp;zeichen &amp;&amp; Umbrüche</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1187"/>
+        <location filename="../../scribus/scribus.cpp" line="1189"/>
         <source>Measurement</source>
         <translation>Abmessung</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1528"/>
+        <location filename="../../scribus/scribus.cpp" line="1530"/>
         <source>%1 selected</source>
         <translation>%1 ausgewählt</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1533"/>
+        <location filename="../../scribus/scribus.cpp" line="1535"/>
         <source>%1 Objects selected, Selection Size = %2 x %3</source>
         <translation>%1 Objekte ausgewählt, Größe der Auswahl = %2 x %3</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3003"/>
-        <location filename="../../scribus/scribus.cpp" line="3118"/>
-        <location filename="../../scribus/scribus.cpp" line="3744"/>
+        <location filename="../../scribus/scribus.cpp" line="3005"/>
+        <location filename="../../scribus/scribus.cpp" line="3120"/>
+        <location filename="../../scribus/scribus.cpp" line="3746"/>
         <source>Open</source>
         <translation>Öffnen</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3139"/>
+        <location filename="../../scribus/scribus.cpp" line="3141"/>
         <source>Importing Pages...</source>
         <translation>Seiten werden importiert...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3170"/>
+        <location filename="../../scribus/scribus.cpp" line="3172"/>
         <source>Import Page(s)</source>
         <translation>Seiten importieren</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3176"/>
+        <location filename="../../scribus/scribus.cpp" line="3178"/>
         <source>C&amp;reate</source>
         <translation>Er&amp;stellen</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3216"/>
+        <location filename="../../scribus/scribus.cpp" line="3218"/>
         <source>Import done</source>
         <translation>Import erfolgreich abgeschlossen</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3220"/>
+        <location filename="../../scribus/scribus.cpp" line="3222"/>
         <source>Found nothing to import</source>
         <translation>Nichts zum Importieren gefunden</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3293"/>
+        <location filename="../../scribus/scribus.cpp" line="3295"/>
         <source>File does not exist on the specified path :
 %1</source>
         <translation>Datei existiert nicht im angegebenen Pfad:
 %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3324"/>
+        <location filename="../../scribus/scribus.cpp" line="3326"/>
         <source>This document is already open. It will be set as the active document.</source>
         <translation>Dieses Dokument ist bereist geöffnet. Es wird zum aktuellen Dokument.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3339"/>
+        <location filename="../../scribus/scribus.cpp" line="3341"/>
         <source>File %1 is not in an acceptable format</source>
         <translation>Das Format der Datei %1 kann nicht verwendet werden</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3380"/>
+        <location filename="../../scribus/scribus.cpp" line="3382"/>
         <source>Loading...</source>
         <translation>Lade...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5107"/>
+        <location filename="../../scribus/scribus.cpp" line="5109"/>
         <source>Text Files (*.txt);;All Files (*)</source>
         <translation>Textdateien (*.txt);;Alle Dateien (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5107"/>
+        <location filename="../../scribus/scribus.cpp" line="5109"/>
         <source>Save as</source>
         <translation>Speichern unter</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6178"/>
+        <location filename="../../scribus/scribus.cpp" line="6180"/>
         <source>&amp;Language:</source>
         <translation>&amp;Sprache:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6178"/>
+        <location filename="../../scribus/scribus.cpp" line="6180"/>
         <source>Language</source>
         <translation>Sprache</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7537"/>
+        <location filename="../../scribus/scribus.cpp" line="7539"/>
         <source>Editing Inline Item</source>
         <translation>Inline-Objekt bearbeiten</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8440"/>
+        <location filename="../../scribus/scribus.cpp" line="8442"/>
         <source>The program %1 is missing or failed to open</source>
         <translation>Das Programm %1 fehlt oder konnte nicht gestartet werden</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8584"/>
+        <location filename="../../scribus/scribus.cpp" line="8586"/>
         <source>Current zoom level</source>
         <translation>Aktuelle Vergrößerungsstufe</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8585"/>
+        <location filename="../../scribus/scribus.cpp" line="8587"/>
         <source>Zoom to 100%</source>
         <translation>Auf 100% vergrößern</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8586"/>
+        <location filename="../../scribus/scribus.cpp" line="8588"/>
         <source>Zoom out by the stepping value in Tools preferences</source>
         <translation>In den Intervallen, die in den Voreinstellungen festgelegt sind, verkleinern</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8587"/>
+        <location filename="../../scribus/scribus.cpp" line="8589"/>
         <source>Zoom in by the stepping value in Tools preferences</source>
         <translation>In den Intervallen, die in den Voreinstellungen festgelegt sind, vergrößern</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8588"/>
+        <location filename="../../scribus/scribus.cpp" line="8590"/>
         <source>Select the current layer</source>
         <translation>Aktuelle Ebene auswählen</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8589"/>
+        <location filename="../../scribus/scribus.cpp" line="8591"/>
         <source>Select the current unit</source>
         <translation>Aktuelle Einheit auswählen</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9491"/>
+        <location filename="../../scribus/scribus.cpp" line="9493"/>
         <source>Insert new </source>
         <translation>Neu einfügen </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9518"/>
-        <location filename="../../scribus/scribus.cpp" line="9747"/>
+        <location filename="../../scribus/scribus.cpp" line="9520"/>
+        <location filename="../../scribus/scribus.cpp" line="9749"/>
         <source>Anchor mark</source>
         <translation>Ankermarke</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9526"/>
-        <location filename="../../scribus/scribus.cpp" line="9760"/>
+        <location filename="../../scribus/scribus.cpp" line="9528"/>
+        <location filename="../../scribus/scribus.cpp" line="9762"/>
         <source>Mark with &lt;%1&gt; variable text</source>
         <translation>Marke mit &lt;%1&gt; Textvariable</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9534"/>
-        <location filename="../../scribus/scribus.cpp" line="9799"/>
+        <location filename="../../scribus/scribus.cpp" line="9536"/>
+        <location filename="../../scribus/scribus.cpp" line="9801"/>
         <source>Mark to %1 item</source>
         <translation>Marke zu Objekt %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9544"/>
-        <location filename="../../scribus/scribus.cpp" line="9820"/>
+        <location filename="../../scribus/scribus.cpp" line="9546"/>
+        <location filename="../../scribus/scribus.cpp" line="9822"/>
         <source>Mark to %1 mark</source>
         <translation>Marke zu Marke %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9727"/>
+        <location filename="../../scribus/scribus.cpp" line="9729"/>
         <source>Edit %1</source>
         <translation>Bearbeite %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3545"/>
+        <location filename="../../scribus/scribus.cpp" line="3547"/>
         <source> was replaced by: </source>
         <translation> wurde ersetzt durch: </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3575"/>
+        <location filename="../../scribus/scribus.cpp" line="3577"/>
         <source>(converted)</source>
         <translation>(konvertiert)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4030"/>
-        <location filename="../../scribus/scribus.cpp" line="4095"/>
-        <location filename="../../scribus/scribus.cpp" line="7034"/>
-        <location filename="../../scribus/scribus.cpp" line="7192"/>
-        <location filename="../../scribus/scribus.cpp" line="7206"/>
+        <location filename="../../scribus/scribus.cpp" line="4032"/>
+        <location filename="../../scribus/scribus.cpp" line="4097"/>
+        <location filename="../../scribus/scribus.cpp" line="7036"/>
+        <location filename="../../scribus/scribus.cpp" line="7194"/>
+        <location filename="../../scribus/scribus.cpp" line="7208"/>
         <source>Cannot write the file: 
 %1</source>
         <translation>Die Datei %1 kann nicht geschrieben werden</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4080"/>
-        <location filename="../../scribus/scribus.cpp" line="7023"/>
+        <location filename="../../scribus/scribus.cpp" line="4082"/>
+        <location filename="../../scribus/scribus.cpp" line="7025"/>
         <source>Save As</source>
         <translation>Speichern unter</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4109"/>
+        <location filename="../../scribus/scribus.cpp" line="4111"/>
         <source>Saving...</source>
         <translation>Speichere...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4237"/>
-        <location filename="../../scribus/scribus.cpp" line="6703"/>
-        <location filename="../../scribus/scribus.cpp" line="6780"/>
-        <location filename="../../scribus/scribus.cpp" line="6852"/>
+        <location filename="../../scribus/scribus.cpp" line="4239"/>
+        <location filename="../../scribus/scribus.cpp" line="6705"/>
+        <location filename="../../scribus/scribus.cpp" line="6782"/>
+        <location filename="../../scribus/scribus.cpp" line="6854"/>
         <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
         <translation>Scribus hat einige Fehler festgestellt. Sie sollten die Druckvorstufenüberprüfung verwenden, um sie zu korrigieren</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4272"/>
+        <location filename="../../scribus/scribus.cpp" line="4274"/>
         <source>Printing...</source>
         <translation>Drucke...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1201"/>
-        <location filename="../../scribus/scribus.cpp" line="2116"/>
-        <location filename="../../scribus/scribus.cpp" line="4276"/>
-        <location filename="../../scribus/scribus.cpp" line="7003"/>
-        <location filename="../../scribus/scribus.cpp" line="8329"/>
+        <location filename="../../scribus/scribus.cpp" line="1203"/>
+        <location filename="../../scribus/scribus.cpp" line="2118"/>
+        <location filename="../../scribus/scribus.cpp" line="4278"/>
+        <location filename="../../scribus/scribus.cpp" line="7005"/>
+        <location filename="../../scribus/scribus.cpp" line="8331"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
@@ -35298,68 +35295,68 @@ Drehung: %4</translation>
         <translation>Koppeln</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1175"/>
+        <location filename="../../scribus/scribus.cpp" line="1177"/>
         <source>Zoom</source>
         <translation>Vergrößerung</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1184"/>
+        <location filename="../../scribus/scribus.cpp" line="1186"/>
         <source>Preview</source>
         <translation>Vorschau</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1192"/>
+        <location filename="../../scribus/scribus.cpp" line="1194"/>
         <source>Text Frames</source>
         <translation>Textrahmen</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1198"/>
+        <location filename="../../scribus/scribus.cpp" line="1200"/>
         <source>Image Frames</source>
         <translation>Bildrahmen</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1207"/>
+        <location filename="../../scribus/scribus.cpp" line="1209"/>
         <source>Grids and Guides</source>
         <translation>Raster und Hilfslinien</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4322"/>
+        <location filename="../../scribus/scribus.cpp" line="4324"/>
         <source>Printing failed!</source>
         <translation>Drucken fehlgeschlagen!</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4412"/>
+        <location filename="../../scribus/scribus.cpp" line="4414"/>
         <source>Cannot Cut In-Use Item</source>
         <translation>Objekte in Benutzung können nicht ausgeschnitten werden</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4412"/>
+        <location filename="../../scribus/scribus.cpp" line="4414"/>
         <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
         <translation>Das Objekt %1 wird gerade im Story Editor bearbeitet, deswegen kann es nicht ausgeschnitten werden</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5022"/>
+        <location filename="../../scribus/scribus.cpp" line="5024"/>
         <source>About Qt</source>
         <translation>Über Qt</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5053"/>
+        <location filename="../../scribus/scribus.cpp" line="5055"/>
         <source>Scribus Manual</source>
         <translation>Scribus-Handbuch</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6165"/>
+        <location filename="../../scribus/scribus.cpp" line="6167"/>
         <source>&amp;Size:</source>
         <translation>&amp;Größe:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1528"/>
-        <location filename="../../scribus/scribus.cpp" line="6165"/>
+        <location filename="../../scribus/scribus.cpp" line="1530"/>
+        <location filename="../../scribus/scribus.cpp" line="6167"/>
         <source>Size</source>
         <translation>Größe</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6970"/>
+        <location filename="../../scribus/scribus.cpp" line="6972"/>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
         <translation>Scribus hat Fehler entdeckt.
@@ -35367,7 +35364,7 @@ Bitte verwenden Sie die Druckvorstufenüberprüfung, um
 diese zu finden und zu korrigieren.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7065"/>
+        <location filename="../../scribus/scribus.cpp" line="7067"/>
         <source>Detected some errors.
 Consider using the Preflight Verifier to correct them</source>
         <translation>Scribus hat Fehler entdeckt.
@@ -35375,17 +35372,17 @@ Bitte verwenden Sie die Druckvorstufenüberprüfung, um
 diese zu finden und zu korrigieren</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7188"/>
+        <location filename="../../scribus/scribus.cpp" line="7190"/>
         <source>-Page%1</source>
         <translation>-Seite %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7729"/>
+        <location filename="../../scribus/scribus.cpp" line="7731"/>
         <source>Some objects are locked.</source>
         <translation>Einige Objekte sind gesperrt.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7725"/>
+        <location filename="../../scribus/scribus.cpp" line="7727"/>
         <source>&amp;Lock All</source>
         <translation>Alle &amp;sperren</translation>
     </message>
@@ -35401,72 +35398,72 @@ diese zu finden und zu korrigieren</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1028"/>
-        <location filename="../../scribus/scribus.cpp" line="1148"/>
+        <location filename="../../scribus/scribus.cpp" line="1150"/>
         <source>Marks</source>
         <translation>Marken</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1356"/>
+        <location filename="../../scribus/scribus.cpp" line="1358"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1397"/>
-        <location filename="../../scribus/scribus.cpp" line="8590"/>
+        <location filename="../../scribus/scribus.cpp" line="1399"/>
+        <location filename="../../scribus/scribus.cpp" line="8592"/>
         <source>X:</source>
         <translation>X:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1399"/>
-        <location filename="../../scribus/scribus.cpp" line="8591"/>
+        <location filename="../../scribus/scribus.cpp" line="1401"/>
+        <location filename="../../scribus/scribus.cpp" line="8593"/>
         <source>Y:</source>
         <translation>Y:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3340"/>
+        <location filename="../../scribus/scribus.cpp" line="3342"/>
         <source>The file may be damaged or may have been produced in a later version of Scribus.</source>
         <translation>Die Datei könnte beschädigt oder mit einer späteren Scribus-Version erstellt worden sein.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3935"/>
+        <location filename="../../scribus/scribus.cpp" line="3937"/>
         <source>Filename and Path for Image</source>
         <translation>Dateiname und Pfad des Bildes</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3935"/>
+        <location filename="../../scribus/scribus.cpp" line="3937"/>
         <source>All Files (*)</source>
         <translation>Alle Dateien (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6545"/>
+        <location filename="../../scribus/scribus.cpp" line="6547"/>
         <source>An error occurred while opening monitor profile.
 Former monitor profile will be used.</source>
         <translation>Beim Öffnen des Monitorprofils ist ein Fehler aufgetreten.
 Statt dessen wird das vorherige verwendet.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7220"/>
+        <location filename="../../scribus/scribus.cpp" line="7222"/>
         <source>Locate your PDF viewer</source>
         <translation>Legen Sie Ihren PDF-Betrachter fest</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7486"/>
+        <location filename="../../scribus/scribus.cpp" line="7488"/>
         <source>Editing Symbol: %1</source>
         <translation>Bearbeite Symbol: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7726"/>
+        <location filename="../../scribus/scribus.cpp" line="7728"/>
         <source>&amp;Unlock All</source>
         <translation>Alle &amp;entsperren</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6744"/>
+        <location filename="../../scribus/scribus.cpp" line="6746"/>
         <source>Ghostscript is missing : PostScript Print Preview is not available</source>
         <translation>Ghostscript fehlt: Die PostScript-Druckvorschau ist nicht verfügbar</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3854"/>
-        <location filename="../../scribus/scribus.cpp" line="8791"/>
+        <location filename="../../scribus/scribus.cpp" line="3856"/>
+        <location filename="../../scribus/scribus.cpp" line="8793"/>
         <source>Do you really want to replace your existing image?</source>
         <translation>Wollen Sie das vorhandene Bild wirklich ersetzen?</translation>
     </message>
@@ -35476,17 +35473,17 @@ Statt dessen wird das vorherige verwendet.</translation>
         <translation>Inhalt</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1072"/>
+        <location filename="../../scribus/scribus.cpp" line="1074"/>
         <source>&amp;Character</source>
         <translation>&amp;Zeichen</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1093"/>
+        <location filename="../../scribus/scribus.cpp" line="1095"/>
         <source>&amp;Quote</source>
         <translation>&amp;Anführungszeichen</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1135"/>
+        <location filename="../../scribus/scribus.cpp" line="1137"/>
         <source>Liga&amp;ture</source>
         <translation>Liga&amp;turen</translation>
     </message>
@@ -35496,22 +35493,22 @@ Statt dessen wird das vorherige verwendet.</translation>
         <translation>Zuletzt verwendete Einfügen</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4078"/>
+        <location filename="../../scribus/scribus.cpp" line="4080"/>
         <source>Documents (*.sla *.sla.gz);;All Files (*)</source>
         <translation>Dokumente (*.sla *.sla.gz);;Alle Dateien (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3766"/>
+        <location filename="../../scribus/scribus.cpp" line="3768"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Wollen Sie wirklich den gesamten Text entfernen?</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3542"/>
+        <location filename="../../scribus/scribus.cpp" line="3544"/>
         <source>Some color profiles used by this document are not installed:</source>
         <translation>Einige Farbprofile, die in diesem Dokument verwendet werden, sind nicht installiert:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7023"/>
+        <location filename="../../scribus/scribus.cpp" line="7025"/>
         <source>%1;;All Files (*)</source>
         <translation>%1;;Alle Dateien (*)</translation>
     </message>
@@ -35521,42 +35518,42 @@ Statt dessen wird das vorherige verwendet.</translation>
         <translation>Wende benutzerdefinierte Kürzel an</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4028"/>
-        <location filename="../../scribus/scribus.cpp" line="4093"/>
+        <location filename="../../scribus/scribus.cpp" line="4030"/>
+        <location filename="../../scribus/scribus.cpp" line="4095"/>
         <source>Your document was saved to a temporary file and could not be moved: 
 %1</source>
         <translation>Ihr Dokument wurde in einer temporären Datei gespeichert und kann nicht verschoben werden:
 %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4385"/>
+        <location filename="../../scribus/scribus.cpp" line="4387"/>
         <source>Print engine initialization failed</source>
         <translation>Initialisierung des Druckers ist fehlgeschlagen</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6581"/>
+        <location filename="../../scribus/scribus.cpp" line="6583"/>
         <source>Updating Images</source>
         <translation>Aktualisiere Bilder</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="2976"/>
+        <location filename="../../scribus/scribus.cpp" line="2978"/>
         <source>All Supported Formats</source>
         <translation>Alle unterstützten Formate</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9068"/>
-        <location filename="../../scribus/scribus.cpp" line="9147"/>
+        <location filename="../../scribus/scribus.cpp" line="9070"/>
+        <location filename="../../scribus/scribus.cpp" line="9149"/>
         <source>&amp;Name:</source>
         <translation>&amp;Name:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9068"/>
-        <location filename="../../scribus/scribus.cpp" line="9147"/>
+        <location filename="../../scribus/scribus.cpp" line="9070"/>
+        <location filename="../../scribus/scribus.cpp" line="9149"/>
         <source>New Entry</source>
         <translation>Neuer Eintrag</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3324"/>
+        <location filename="../../scribus/scribus.cpp" line="3326"/>
         <source>Document is already opened</source>
         <translation>Das Dokument ist bereits geöffnet</translation>
     </message>
@@ -35964,9 +35961,9 @@ umgewandelt werden</translation>
 <context>
     <name>ScripterCore</name>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="355"/>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="452"/>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="616"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="354"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="451"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="615"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptercore.cpp" line="355"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptercore.cpp" line="452"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptercore.cpp" line="616"/>
@@ -35974,67 +35971,67 @@ umgewandelt werden</translation>
         <translation>Fehler bei der Ausführung eines Scripts</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="357"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="356"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptercore.cpp" line="357"/>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
         <translation>Falls das Script ein offizelles Scribus-Script ist, melden Sie den Fehler bitte auf &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="359"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="358"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptercore.cpp" line="359"/>
         <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
         <translation>Diese Meldung befindet sich auch in Ihrer Zwischenablage. Benutzen Sie Strg+V, um sie in den Bugtracker zu kopieren.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="538"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="537"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptercore.cpp" line="538"/>
         <source>Examine Script</source>
         <translation>Script untersuchen</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="453"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="452"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptercore.cpp" line="453"/>
         <source>There was an internal error while trying the command you entered. Details were printed to stderr. </source>
         <translation>Ihr Befehl konnte auf Grund eines internen Fehlers nicht ausgeführt werden. Weitere Hinweise finden Sie auf stderr. </translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="582"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="581"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptercore.cpp" line="582"/>
         <source>Startup Script error</source>
         <translation>Fehler im Start-Script</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="583"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="582"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptercore.cpp" line="583"/>
         <source>Could not find script: %1.</source>
         <translation>Script %1 wurde nicht gefunden.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="617"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="616"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptercore.cpp" line="617"/>
         <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
         <translation>Konnte das Python-Plug-In nicht einrichten. Weitere Hinweise finden Sie auf stderr. </translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="551"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="550"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptercore.cpp" line="551"/>
         <source>Documentation for:</source>
         <translation>Handbuch für:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="556"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="555"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptercore.cpp" line="556"/>
         <source>Script</source>
         <translation>Script</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="556"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="555"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptercore.cpp" line="556"/>
         <source> doesn&apos;t contain any docstring!</source>
         <translation> enthält keinen docstring!</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="538"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="537"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptercore.cpp" line="538"/>
         <source>Python Scripts (*.py *.PY);;All Files (*)</source>
         <translation>Python Scripts (*.py *.PY);;Alle Dateien (*)</translation>
