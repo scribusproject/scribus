@@ -634,7 +634,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1597"/>
         <source>&amp;Attributes...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;ttribute…</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1599"/>

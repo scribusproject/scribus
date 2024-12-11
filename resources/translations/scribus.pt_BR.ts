@@ -33223,7 +33223,7 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="291"/>
         <source>Show/Hide Toolbar Redaction</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar/ocultar barra de ferramentas de redação</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="292"/>
@@ -33238,7 +33238,7 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="294"/>
         <source>Show/Hide Toolbar Typewriter</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar/ocultar barra de ferramentas de máquina de escrever</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="295"/>
@@ -33268,7 +33268,7 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="300"/>
         <source>Show/Hide Model Tree</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar/ocultar árvore modelo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="301"/>
@@ -33860,7 +33860,7 @@ Vertical gap: %4</source>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="18592"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
-        <translation type="unfinished"></translation>
+        <translation>O estilo de notas %1 tem documento como intervalo e fornece o mesmo estilo de numeração do conjunto %2</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="11370"/>
@@ -34167,7 +34167,7 @@ Recomenda-se o uso do verificador pré-publicação para corrigí-los</translati
     <message>
         <location filename="../../scribus/scribus.cpp" line="385"/>
         <source>Applying User Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplicar atalhos do utilizador</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="6629"/>
@@ -34217,7 +34217,7 @@ Recomenda-se o uso do verificador pré-publicação para corrigí-los</translati
     <message>
         <location filename="../../scribus/scribus.cpp" line="3378"/>
         <source>The file may be damaged or may have been produced in a later version of Scribus.</source>
-        <translation type="unfinished"></translation>
+        <translation>O ficheiro está danificado ou pode ter sido criado numa versão mais recente do Scribus.</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="7509"/>
@@ -34242,7 +34242,7 @@ Recomenda-se o uso do verificador pré-publicação para corrigí-los</translati
     <message>
         <location filename="../../scribus/scribus.cpp" line="670"/>
         <source>All Supported Formats (%1);;%2All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Todos os formatos suportados (%1);;%2Todos os ficheiros (*)</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1084"/>
@@ -34420,7 +34420,7 @@ Recomenda-se o uso do verificador pré-publicação para corrigí-los</translati
     <message>
         <location filename="../../scribus/scribus.cpp" line="7560"/>
         <source>Editing Inline Item</source>
-        <translation type="unfinished"></translation>
+        <translation>A editar item dentro de linha</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="8474"/>
@@ -34440,12 +34440,12 @@ Recomenda-se o uso do verificador pré-publicação para corrigí-los</translati
     <message>
         <location filename="../../scribus/scribus.cpp" line="8624"/>
         <source>Zoom out by the stepping value in Tools preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Diminuir pelo valor do incremento nas preferências das ferramentas</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="8625"/>
         <source>Zoom in by the stepping value in Tools preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Ampliar pelo valor do incremento das preferências das ferramentas</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="8626"/>
@@ -34610,17 +34610,17 @@ Recomenda-se o uso do verificador pré-publicação para corrigí-los</translati
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="284"/>
         <source>Invalid argument: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Argumento não válido: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="611"/>
         <source>Run unit tests and exit</source>
-        <translation type="unfinished"></translation>
+        <translation>Executar testes da unidade e sair</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="602"/>
         <source>Do not start GUI</source>
-        <translation type="unfinished"></translation>
+        <translation>Não iniciar a interface de utilizador</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="598"/>
@@ -34797,7 +34797,7 @@ Recomenda-se o uso do verificador pré-publicação para corrigí-los</translati
     <message>
         <location filename="../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="75"/>
         <source>Ctrl+R</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+R</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="80"/>
@@ -34812,7 +34812,7 @@ Recomenda-se o uso do verificador pré-publicação para corrigí-los</translati
     <message>
         <location filename="../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="88"/>
         <source>Python</source>
-        <translation type="unfinished"></translation>
+        <translation>Python</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="91"/>
@@ -34832,7 +34832,7 @@ Recomenda-se o uso do verificador pré-publicação para corrigí-los</translati
     <message>
         <location filename="../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="104"/>
         <source>Clear The Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Limpar a consola</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="109"/>
@@ -34847,7 +34847,7 @@ Recomenda-se o uso do verificador pré-publicação para corrigí-los</translati
     <message>
         <location filename="../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="115"/>
         <source>Ctrl+A</source>
-        <translation type="unfinished"></translation>
+        <translation>Ctrl+C</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="120"/>
@@ -34963,7 +34963,7 @@ Recomenda-se o uso do verificador pré-publicação para corrigí-los</translati
     <message>
         <location filename="../../scribus/plugins/scripter/scripterimpl.cpp" line="308"/>
         <source>Please enter a Python command:</source>
-        <translation type="unfinished"></translation>
+        <translation>Por favor, introduza um comando Python:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scripter/scripterimpl.cpp" line="331"/>
@@ -35137,12 +35137,12 @@ Recomenda-se o uso do verificador pré-publicação para corrigí-los</translati
     <message>
         <location filename="../../scribus/ui/search.cpp" line="317"/>
         <source>Replace the searched for formatting with the replacement values</source>
-        <translation type="unfinished"></translation>
+        <translation>Substituir a formatação pesquisada pelos valores de substituição</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/search.cpp" line="318"/>
         <source>Replace all found instances</source>
-        <translation type="unfinished"></translation>
+        <translation>Substituir todas as instâncias encontradas</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/search.cpp" line="319"/>
@@ -35251,7 +35251,7 @@ Recomenda-se o uso do verificador pré-publicação para corrigí-los</translati
     <message>
         <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="615"/>
         <source>Close current Tab</source>
-        <translation type="unfinished"></translation>
+        <translation>Fechar aba atual</translation>
     </message>
 </context>
 <context>

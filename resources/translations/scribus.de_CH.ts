@@ -10758,7 +10758,7 @@ und wandelt deren Vektor-Daten in Scribus-Objekte um.</translation>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="21"/>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="34"/>
         <source>Edit variable text</source>
-        <translation type="unfinished"></translation>
+        <translation>Textvariable bearbeiten</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="18"/>
@@ -10792,7 +10792,7 @@ und wandelt deren Vektor-Daten in Scribus-Objekte um.</translation>
     <message>
         <location filename="../../scribus/ui/markvariabletext.ui" line="51"/>
         <source>Text to insert:</source>
-        <translation type="unfinished"></translation>
+        <translation>Einzufügender Text:</translation>
     </message>
 </context>
 <context>
@@ -10800,7 +10800,7 @@ und wandelt deren Vektor-Daten in Scribus-Objekte um.</translation>
     <message>
         <location filename="../../scribus/ui/marksmanager.ui" line="53"/>
         <source>Update All Marks</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle Textmarken aktualisieren</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marksmanager.ui" line="64"/>
@@ -10825,12 +10825,12 @@ und wandelt deren Vektor-Daten in Scribus-Objekte um.</translation>
     <message>
         <location filename="../../scribus/ui/marksmanager.cpp" line="106"/>
         <source>Marks to Items</source>
-        <translation type="unfinished"></translation>
+        <translation>Textmarken zu Einträgen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marksmanager.cpp" line="107"/>
         <source>Marks to Anchors</source>
-        <translation type="unfinished"></translation>
+        <translation>Textmarken zu Ankern</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marksmanager.cpp" line="108"/>
@@ -26195,7 +26195,7 @@ Externe Links
     <message>
         <location filename="../../scribus/langmgr.cpp" line="182"/>
         <source>Cajun French</source>
-        <translation type="unfinished"></translation>
+        <translation>Cajun-Französisch</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="183"/>
@@ -33883,7 +33883,7 @@ Vertikaler Abstand: %4</translation>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="18592"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Notizstil %1 hat Dokument als Bereich und bietet den selben Aufzählungsstil wie Satz %2</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="11370"/>
@@ -34639,7 +34639,7 @@ diese zu finden und zu korrigieren</translation>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="611"/>
         <source>Run unit tests and exit</source>
-        <translation type="unfinished"></translation>
+        <translation>Unit-Test ausführen und beenden</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="602"/>
@@ -35261,7 +35261,7 @@ umgewandelt werden</translation>
     <message>
         <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="430"/>
         <source>Photoshop Custom Shape (*.csh *.CSH)</source>
-        <translation type="unfinished"></translation>
+        <translation>Photoshop Custom Shape (*.csh *.CSH)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="613"/>
