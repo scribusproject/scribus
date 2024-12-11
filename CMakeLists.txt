@@ -13,6 +13,10 @@ cmake_minimum_required(VERSION 3.16.0 FATAL_ERROR)
 #keep just in case this changes
 
 cmake_policy(SET CMP0048 NEW)
+if (POLICY CMP0177)
+	cmake_policy(SET CMP0177 NEW)
+endif()
+
 message(STATUS "CMake Version: ${CMAKE_VERSION}")
 if (WANT_PCH)
 	if(${CMAKE_VERSION} VERSION_LESS "3.16.0")
