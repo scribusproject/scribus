@@ -276,12 +276,18 @@ void PageGrid::setRowHeight(int height)
 
 void PageGrid::setFontSize(int size)
 {
+	if (m_fontSize == size)
+		return;
+
 	m_fontSize = size;
 	update();
 }
 
 void PageGrid::setSelectionColor(QColor color)
 {
+	if (m_colorSelection == color)
+		return;
+
 	m_colorSelection = color;
 	update();
 }
@@ -873,7 +879,7 @@ void PageGrid::paintEvent(QPaintEvent *event)
 	if (!selectedPageRect.isEmpty())
 	{
 		QColor colorSelection = (this->isEnabled()) ? m_colorSelection : disabledColor(m_colorSelection);
-		painter.setPen( QPen(colorSelection, 2) );
+		painter.setPen( QPen(colorSelection, 1) );
 		painter.setBrush(Qt::NoBrush);
 		painter.drawRect(selectedPageRect);
 	}

@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/widgets/pagelayout.h"
 #include "pagepalette_pages.h"
 #include "pagepalette_widgets.h"
+#include "prefsmanager.h"
 #include "qobjectdefs.h"
 #include "scpage.h"
 #include "scribusapp.h"
@@ -444,6 +445,11 @@ void PagePalette_Pages::setView(ScribusView *view)
 		return;
 
 	currView = view;
+
+	if (currView == nullptr)
+		return;
+
+	pageViewWidget->pageGrid()->setSelectionColor(PrefsManager::instance().appPrefs.displayPrefs.pageBorderColor);
 
 //	if (currView)
 //		connect(currView->m_doc, SIGNAL(pagePreviewChanged()), this, SLOT(updatePagePreview()));
