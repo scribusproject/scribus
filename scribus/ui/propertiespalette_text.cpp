@@ -424,7 +424,7 @@ void PropertiesPalette_Text::languageChange()
 {
 	scAdvanced->setText(tr("Typography"));
 	scAlignment->setText(tr("Alignment"));
-	scDistance->setText(tr("Columns && Indents"));
+	scDistance->setText(tr("Columns && Indentation"));
 	scFontFeatures->setText(tr("OpenType Features"));
 	scHyphenation->setText(tr("Hyphenation && Language"));
 	scOrphans->setText(tr("Orphans && Widows"));

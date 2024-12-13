@@ -2,6 +2,10 @@ Scribus - 1.7.0 (Released 2024-xx-xx)
 =========================================
 https://bugs.scribus.net/changelog_page.php?version_id=117
 
+0012265: [User Interface]  Optical margins setting too verbose and unintuitive (nitramr)
+0016113: [Properties Palette]  "Optical margins" is invalid for Chinese punctuation. (nitramr)
+0010539: [Typography]  Optical margins, protrusion into the left margin doesn't work (nitramr)
+0016410: [User Interface]  Note in PDF import dialogue is unreadable and probably needs a correction (cbradney)
 0014085: [Properties Palette]  Properties palette is confusing under Windows 10 (nitramr)
 0013833: [User Interface]  Picture properties in properties palette not scaled (nitramr)
 0016217: [Internal]  [PATCH] introduce an enum for the tab types (ale)
