@@ -7,6 +7,7 @@
 #include <QHelpEvent>
 #include <QMenu>
 #include <QPainter>
+#include <QPalette>
 #include <QPersistentModelIndex>
 #include <QPixmap>
 #include <QSignalBlocker>
@@ -18,6 +19,7 @@
 #include "scribusapp.h"
 #include "scribusdoc.h"
 #include "scpainter.h"
+#include "util_gui.h"
 
 
 class SCRIBUS_API GradientWideItemDelegate : public ScListBoxPixmap<48, 16>
@@ -33,32 +35,43 @@ public:
 
 void GradientWideItemDelegate::redraw(const QVariant& data) const
 {
-	int w = 48;
-	int h = 16;
+	const int w = 48;
+	const int h = 16;
 
-	QPixmap* pPixmap = ScListBoxPixmap<48, 16>::pmap.data();
-	pPixmap->fill(Qt::transparent);
+	QPalette palette;
+	QPixmap* pixmap = ScListBoxPixmap<w, h>::pmap.data();
+	pixmap->fill(palette.base().color());
+
 
 	if (data.canConvert<GradientPixmapValue>())
 	{
 		GradientPixmapValue item(data.value<GradientPixmapValue>());
-		QImage pixm(w, h, QImage::Format_ARGB32_Premultiplied);
 
-		ScPainter *p = new ScPainter(&pixm, w, h);
-		p->setPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-		p->setFillMode(ScPainter::Gradient);
-		p->fill_gradient = item.m_gradient;
-		p->setGradient(VGradient::linear, FPoint(0,h/2), FPoint(w, h/2), FPoint(0,0), 1, 0);
-		p->drawRect(0, 0, w, h);
-		p->end();
-		delete p;
+		QImage image(w, h, QImage::Format_ARGB32_Premultiplied);
 
-		QPainter pb(pPixmap);
-		QBrush b(QColor(205,205,205), IconManager::instance().loadPixmap("testfill.png"));
-		pb.fillRect(0, 0, w, h, b);
-		pb.drawImage(QRect(0, 0, w, h), pixm);
+		// Draw Background
+		QPainter pb(&image);
+		renderCheckerPattern(&pb, image.rect());
 		pb.end();
+
+		// Draw Gradient
+		ScPainter *pg = new ScPainter(&image, image.width(), image.height());
+		pg->setPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+		pg->setFillMode(ScPainter::Gradient);
+		pg->fill_gradient = item.m_gradient;
+		pg->setGradient(VGradient::linear, FPoint(0, 0), FPoint(image.width(), 0), FPoint(0, 0), 1.0, 0.0);
+		pg->drawRect(0, 0, image.width(), image.height());
+		pg->end();
+		delete pg;
+
+		QPainter painter(pixmap);
+		painter.drawImage(0, 0, image);
+		painter.setPen(QPen(ScQApp->palette().color(QPalette::Mid), 1));
+		painter.drawRect(image.rect().adjusted(0, 0, -1, -1));
+		painter.end();
 	}
+
+
 }
 
 QString GradientWideItemDelegate::text(const QVariant& data) const

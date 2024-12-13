@@ -35,7 +35,7 @@ void drawColorBox(QPainter *painter, QRect rect, QColor color, bool isEnabled)
 {
 	painter->save();
 	painter->setBrush(color);
-	painter->setPen(QPen(ScQApp->palette().color(isEnabled ? QPalette::Active : QPalette::Disabled, QPalette::WindowText), 1));
+	painter->setPen(QPen(ScQApp->palette().color(isEnabled ? QPalette::Active : QPalette::Disabled, QPalette::Mid), 1));
 	painter->drawRect(rect.adjusted(0, 0, -1, -1));
 	painter->restore();
 }

@@ -437,10 +437,10 @@ void ColorPickerGradient::updateGradientTypeFromSelector()
 	case Gradient_4Colors:
 		gradType = VGradient::fourcolor;
 		break;
+	case Gradient_Conical:
 	case Gradient_Mesh:
 		gradType = VGradient::mesh;
 		break;
-	case Gradient_Conical:
 	case Gradient_PatchMesh:
 		gradType = VGradient::freemesh;
 		break;
