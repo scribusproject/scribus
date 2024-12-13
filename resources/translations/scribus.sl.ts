@@ -2532,6 +2532,10 @@
         <source>Align Text Forced Justified</source>
         <translation>Poravnaj besedilo obojestransko na silo</translation>
     </message>
+    <message>
+        <source>&amp;Horizontal</source>
+        <translation type="vanished">&amp;Vodoravno</translation>
+    </message>
 </context>
 <context>
     <name>Annota</name>
@@ -6683,6 +6687,10 @@ Za več podrobnosti si oglejte razdelek Urejanje barv (Edit Colors) v dokumentac
         <source>Right to left paragraph</source>
         <translation>Odstavek z desne proti levi</translation>
     </message>
+    <message>
+        <source>&amp;Direction</source>
+        <translation type="vanished">&amp;Smer</translation>
+    </message>
 </context>
 <context>
     <name>DocIm</name>
@@ -7739,6 +7747,14 @@ Projekt reševanja dokumentov (Document Liberation Project) https://www.document
 <context>
     <name>FontComboH</name>
     <message>
+        <source>Family</source>
+        <translation type="vanished">Družina</translation>
+    </message>
+    <message>
+        <source>Style</source>
+        <translation type="vanished">Slog</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/fontcombo.cpp" line="161"/>
         <source>Family:</source>
         <translation type="unfinished"></translation>
@@ -8669,6 +8685,29 @@ Projekt reševanja dokumentov (Document Liberation Project) https://www.document
         <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="107"/>
         <source>D&amp;elete All</source>
         <translation>Izbriš&amp;i vse</translation>
+    </message>
+</context>
+<context>
+    <name>Hruler</name>
+    <message>
+        <source>Left</source>
+        <translation type="vanished">Levo</translation>
+    </message>
+    <message>
+        <source>Center</source>
+        <translation type="vanished">Sredinsko</translation>
+    </message>
+    <message>
+        <source>Comma</source>
+        <translation type="vanished">Vejica</translation>
+    </message>
+    <message>
+        <source>Dot</source>
+        <translation type="vanished">Pika</translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation type="vanished">Desno</translation>
     </message>
 </context>
 <context>
@@ -12064,6 +12103,14 @@ If no handle is selected all handles will be reset.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Vertical orientation of the document&apos;s pages</source>
+        <translation type="vanished">Pokončna postavitev listov dokumenta</translation>
+    </message>
+    <message>
+        <source>Horizontal orientation of the document&apos;s pages</source>
+        <translation type="vanished">Ležeča postavitev listov dokumenta</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="158"/>
         <source>Width of the document&apos;s pages, editable if you have chosen a custom page size</source>
         <translation>Širina strani v dokumentu; nastavljivo, če ste izbrali velikost po meri</translation>
@@ -12099,6 +12146,22 @@ If no handle is selected all handles will be reset.</source>
         <translation>Razdalja med samodejno ustvarjenimi stolpci</translation>
     </message>
     <message>
+        <source>Name Asc</source>
+        <translation type="vanished">Ime rast.</translation>
+    </message>
+    <message>
+        <source>Name Desc</source>
+        <translation type="vanished">Ime pad.</translation>
+    </message>
+    <message>
+        <source>Size Asc</source>
+        <translation type="vanished">Velikost rast.</translation>
+    </message>
+    <message>
+        <source>Size Desc</source>
+        <translation type="vanished">Velikost pad.</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="340"/>
         <source>Show Document Settings After Creation</source>
         <translation>Pokaži nastavitve dokumenta po izdelavi</translation>
@@ -12126,6 +12189,18 @@ If no handle is selected all handles will be reset.</source>
 </context>
 <context>
     <name>NewMarginWidget</name>
+    <message>
+        <source>Preset:</source>
+        <translation type="vanished">Prednastavitev:</translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation type="vanished">Levo</translation>
+    </message>
+    <message>
+        <source>Top</source>
+        <translation type="vanished">Zgoraj</translation>
+    </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="37"/>
         <source>Bottom:</source>
@@ -12155,6 +12230,14 @@ If no handle is selected all handles will be reset.</source>
         <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="134"/>
         <source>Printer Margins...</source>
         <translation>Robovi tiskanja ...</translation>
+    </message>
+    <message>
+        <source>Bottom</source>
+        <translation type="vanished">Spodaj</translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation type="vanished">Desno</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="71"/>
@@ -12187,9 +12270,37 @@ If no handle is selected all handles will be reset.</source>
         <translation>Poskrbite, da imajo vsi napušči enako vrednost</translation>
     </message>
     <message>
+        <source>Distance from the top</source>
+        <translation type="vanished">Odmik od vrha</translation>
+    </message>
+    <message>
+        <source>Distance from the bottom</source>
+        <translation type="vanished">Odmik od dna</translation>
+    </message>
+    <message>
+        <source>Distance from the left</source>
+        <translation type="vanished">Odmik z leve</translation>
+    </message>
+    <message>
+        <source>Distance from the right</source>
+        <translation type="vanished">Odmik z desne</translation>
+    </message>
+    <message>
+        <source>Ensure all distances have the same value</source>
+        <translation type="vanished">Naj bodo vsi odmiki enaki</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="85"/>
         <source>Import the margins for the selected page size from the available printers</source>
         <translation>Uvozi robove za posamezne velikosti strani iz razpoložljivih tiskalnikov</translation>
+    </message>
+    <message>
+        <source>Inside</source>
+        <translation type="vanished">Znotraj</translation>
+    </message>
+    <message>
+        <source>Outside</source>
+        <translation type="vanished">Zunaj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="79"/>
@@ -15075,6 +15186,22 @@ Rezultat je združek &quot;Preseka&quot; in &quot;Izvzetja&quot;</translation>
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="222"/>
         <source>Note: importing text as text may significantly alter PDF visual aspect</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import text as vectors</source>
+        <translation type="vanished">Uvozi besedilo vektorsko</translation>
+    </message>
+    <message>
+        <source>Text will look exactly like in the PDF, but can&apos;t be edited or selected as text anymore.</source>
+        <translation type="vanished">Besedilo bo natančno takšno kot v PDFju, vendar ga ne bo več mogoče izbrati ali urejati kot besedilo.</translation>
+    </message>
+    <message>
+        <source>Import text as text</source>
+        <translation type="vanished">Uvozi besedilo kot tekst</translation>
+    </message>
+    <message>
+        <source>Text will be imported in text frames and will be editable, but it might have different sizes, spacing, and fonts.</source>
+        <translation type="vanished">Besedilo so bo uvozilo v besedilne okvirje in ga bo mogoče urejati, lahko pa bo drugačne velikosti, pisave ali z drugačnimi odmiki.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.cpp" line="51"/>
@@ -18698,6 +18825,10 @@ Ali ga želite uporabiti?</translation>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="670"/>
         <source>Baseline Grid</source>
         <translation>Mreža osnovnice</translation>
+    </message>
+    <message>
+        <source>Auto-Fit</source>
+        <translation type="vanished">Samoprileganje</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="832"/>

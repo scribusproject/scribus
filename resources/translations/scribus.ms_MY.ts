@@ -52,9 +52,17 @@
         <translation>&amp;Atas Talian</translation>
     </message>
     <message>
+        <source>&amp;License</source>
+        <translation type="vanished">&amp;Lesen</translation>
+    </message>
+    <message>
+        <source>Unable to open license file. Please check your install directory or the Scribus website for licencing information.</source>
+        <translation type="vanished">Gagal membuka fail lesen. Sila periksa direktori pemasangan anda atau tapak sesawang Scribus untuk maklumat pelesenan.</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/about.cpp" line="209"/>
         <source>&amp;Build Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Maklumat &amp;Binaan</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="225"/>
@@ -69,12 +77,12 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="253"/>
         <source>Mac OS&amp;#174; X Port:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mac OS&amp;#174; X Port:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="263"/>
         <source>Contributions from, and Previous Developers:</source>
-        <translation type="unfinished"></translation>
+        <translation>Sumbangan daripada, mantan Pembangun:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="265"/>
@@ -89,7 +97,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="279"/>
         <source>AppImage for Linux:</source>
-        <translation type="unfinished"></translation>
+        <translation>AppImage untuk Linux:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="294"/>
@@ -119,37 +127,37 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="657"/>
         <source>SVN Revision: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Revisi SVN: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="665"/>
         <source>Scribus Version %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus Versi %1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="668"/>
         <source>Build ID: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>ID Binaan: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="675"/>
         <source>Built: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Binaan: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="678"/>
         <source>Companion Programs:</source>
-        <translation type="unfinished"></translation>
+        <translation>Program Rakan:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="681"/>
         <source>Ghostscript: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ghostscript: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="684"/>
         <source>Libraries:</source>
-        <translation type="unfinished"></translation>
+        <translation>Pustaka:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="689"/>
@@ -157,24 +165,40 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>boost: %1</source>
+        <translation type="vanished">boost: %1</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/about.cpp" line="687"/>
         <source>cairo: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>cairo: %1</translation>
+    </message>
+    <message>
+        <source>fontconfig: %1</source>
+        <translation type="vanished">fontconfig: %1</translation>
+    </message>
+    <message>
+        <source>harfbuzz: %1</source>
+        <translation type="vanished">harfbuzz: %1</translation>
+    </message>
+    <message>
+        <source>hunspell: %1 (detected at build time)</source>
+        <translation type="vanished">hunspell: %1 (dikesan pada masa binaan)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="691"/>
         <source>littlecms: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>littlecms: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="697"/>
         <source>podofo: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>podofo: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="703"/>
         <source>poppler: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>poppler: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="296"/>
@@ -204,7 +228,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="321"/>
         <source>Forums</source>
-        <translation type="unfinished"></translation>
+        <translation>Forum</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="648"/>
@@ -234,12 +258,12 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="177"/>
         <source>&amp;Updates</source>
-        <translation>&amp;Kemaskini</translation>
+        <translation>&amp;Kemas kini</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="233"/>
         <source>Check for updates to Scribus. No data from your machine will be transferred off it.</source>
-        <translation>Periksa kemaskini Scribus. Tiada data dari komputer anda akan dipindahkan.</translation>
+        <translation>Periksa kemas kini Scribus. Tiada data dari komputer anda akan dipindahkan.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="255"/>
@@ -269,7 +293,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="139"/>
         <source>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;%1 %2&lt;/b&gt;&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p align=&quot;center&quot;&gt;&lt;b&gt;%1 %2&lt;/b&gt;&lt;/p&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="267"/>
@@ -284,14 +308,14 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="281"/>
         <source>Refactoring text layout code, the new boxes model &amp; CTL text layout, Oman House of Open Source Technology team:</source>
-        <translation type="unfinished"></translation>
+        <translation>Memfaktor semula kod bentangan teks, model kekotak &amp; bentangan teks CTL baharu,  Pasukan Teknologi Sumber Terbuka Oman House:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="412"/>
         <location filename="../../scribus/ui/about.cpp" line="568"/>
         <location filename="../../scribus/ui/about.cpp" line="633"/>
         <source>Unable to open %1 file. Please check your install directory or the Scribus website for %1 information.</source>
-        <translation type="unfinished"></translation>
+        <translation>Gagal membuka fail %1. Sila periksa direktori pemasangan atau tapak sesawang Scribus untuk maklumat %1.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="259"/>
@@ -352,7 +376,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1572"/>
         <source>&amp;Tabulators...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Tabulator...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1497"/>
@@ -484,12 +508,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1517"/>
         <source>PDF...</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1518"/>
         <source>PostScript...</source>
-        <translation type="unfinished"></translation>
+        <translation>PostScript...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1551"/>

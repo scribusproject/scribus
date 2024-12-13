@@ -77,7 +77,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="253"/>
         <source>Mac OS&amp;#174; X Port:</source>
-        <translation>MacOS&amp;#174; X Port:</translation>
+        <translation>MacOS&amp;#174; X-portering:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="263"/>
@@ -248,7 +248,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="257"/>
         <source>Windows&amp;#174; Port:</source>
-        <translation>Windows&amp;#174; Port:</translation>
+        <translation>Windows&amp;#174;-portering:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="275"/>
@@ -268,7 +268,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="255"/>
         <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
-        <translation>OS/2&amp;#174;/eComStation&amp;#8482; Port:</translation>
+        <translation>OS/2&amp;#174;/eComStation&amp;#8482;-portering:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="273"/>
@@ -320,7 +320,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="259"/>
         <source>Haiku Port:</source>
-        <translation>Haikuport:</translation>
+        <translation>Haiku-portering:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="277"/>
@@ -779,6 +779,10 @@
         <translation>&amp;200%</translation>
     </message>
     <message>
+        <source>Toggle White Space Review Mode</source>
+        <translation type="vanished">Witruimte-controlemodus wisselen</translation>
+    </message>
+    <message>
         <location filename="../../scribus/actionmanager.cpp" line="1672"/>
         <source>Show &amp;Margins</source>
         <translation>&amp;Marges weergeven</translation>
@@ -968,6 +972,10 @@
         <location filename="../../scribus/actionmanager.cpp" line="1766"/>
         <source>Toolti&amp;ps</source>
         <translation>Hul&amp;pballonnen</translation>
+    </message>
+    <message>
+        <source>Toggle white space review mode</source>
+        <translation type="vanished">Witruimte-controlemodus wisselen</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1847"/>
@@ -2531,6 +2539,10 @@
         <location filename="../../scribus/ui/alignselect.cpp" line="125"/>
         <source>Align Text Forced Justified</source>
         <translation>Tekst geforceerd uitvullen</translation>
+    </message>
+    <message>
+        <source>&amp;Horizontal</source>
+        <translation type="vanished">&amp;Horizontaal</translation>
     </message>
 </context>
 <context>
@@ -6683,6 +6695,10 @@ Lees het gedeelte Kleuren bewerken van de documentatie voor meer details.</trans
         <source>Right to left paragraph</source>
         <translation>Rechts naar links alinea</translation>
     </message>
+    <message>
+        <source>&amp;Direction</source>
+        <translation type="vanished">&amp;Richting</translation>
+    </message>
 </context>
 <context>
     <name>DocIm</name>
@@ -7739,6 +7755,14 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>FontComboH</name>
     <message>
+        <source>Family</source>
+        <translation type="vanished">Familie</translation>
+    </message>
+    <message>
+        <source>Style</source>
+        <translation type="vanished">Stijl</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/fontcombo.cpp" line="161"/>
         <source>Family:</source>
         <translation type="unfinished"></translation>
@@ -8669,6 +8693,29 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="107"/>
         <source>D&amp;elete All</source>
         <translation>All&amp;es verwijderen</translation>
+    </message>
+</context>
+<context>
+    <name>Hruler</name>
+    <message>
+        <source>Left</source>
+        <translation type="vanished">Links</translation>
+    </message>
+    <message>
+        <source>Center</source>
+        <translation type="vanished">Midden</translation>
+    </message>
+    <message>
+        <source>Comma</source>
+        <translation type="vanished">Komma</translation>
+    </message>
+    <message>
+        <source>Dot</source>
+        <translation type="vanished">Punt</translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation type="vanished">Rechts</translation>
     </message>
 </context>
 <context>
@@ -11975,7 +12022,7 @@ Als er geen ankerpunt geselecteerd is, zullen alle ankerpunten worden teruggezet
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="140"/>
         <source>Do not show this dialog again</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Dit dialoogvenster niet meer tonen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="156"/>
@@ -12063,6 +12110,14 @@ Als er geen ankerpunt geselecteerd is, zullen alle ankerpunten worden teruggezet
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Vertical orientation of the document&apos;s pages</source>
+        <translation type="vanished">Verticale oriëntatie van de pagina&apos;s van dit document</translation>
+    </message>
+    <message>
+        <source>Horizontal orientation of the document&apos;s pages</source>
+        <translation type="vanished">Horizontale oriëntatie van de pagina&apos;s van dit document</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="158"/>
         <source>Width of the document&apos;s pages, editable if you have chosen a custom page size</source>
         <translation>Breedte van de pagina&apos;s van het document. Deze is bewerkbaar als een aangepast paginaformaat is geselecteerd.</translation>
@@ -12098,6 +12153,22 @@ Als er geen ankerpunt geselecteerd is, zullen alle ankerpunten worden teruggezet
         <translation>Afstand tussen de automatisch aangemaakte kolommen</translation>
     </message>
     <message>
+        <source>Name Asc</source>
+        <translation type="vanished">Naam opl.</translation>
+    </message>
+    <message>
+        <source>Name Desc</source>
+        <translation type="vanished">Naam afl.</translation>
+    </message>
+    <message>
+        <source>Size Asc</source>
+        <translation type="vanished">Grootte opl.</translation>
+    </message>
+    <message>
+        <source>Size Desc</source>
+        <translation type="vanished">Grootte afl.</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="340"/>
         <source>Show Document Settings After Creation</source>
         <translation>Documentinstellingen weergeven na aanmaak</translation>
@@ -12125,6 +12196,18 @@ Als er geen ankerpunt geselecteerd is, zullen alle ankerpunten worden teruggezet
 </context>
 <context>
     <name>NewMarginWidget</name>
+    <message>
+        <source>Preset:</source>
+        <translation type="vanished">Voorinstelling:</translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation type="vanished">Links</translation>
+    </message>
+    <message>
+        <source>Top</source>
+        <translation type="vanished">Boven</translation>
+    </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="37"/>
         <source>Bottom:</source>
@@ -12154,6 +12237,14 @@ Als er geen ankerpunt geselecteerd is, zullen alle ankerpunten worden teruggezet
         <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="134"/>
         <source>Printer Margins...</source>
         <translation>Printermarges...</translation>
+    </message>
+    <message>
+        <source>Bottom</source>
+        <translation type="vanished">Onder</translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation type="vanished">Rechts</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="71"/>
@@ -12186,9 +12277,37 @@ Als er geen ankerpunt geselecteerd is, zullen alle ankerpunten worden teruggezet
         <translation>Zorg ervoor dat alle aflopen dezelfde waarde hebben</translation>
     </message>
     <message>
+        <source>Distance from the top</source>
+        <translation type="vanished">Afstand vanaf bovenkant</translation>
+    </message>
+    <message>
+        <source>Distance from the bottom</source>
+        <translation type="vanished">Afstand vanaf onderkant</translation>
+    </message>
+    <message>
+        <source>Distance from the left</source>
+        <translation type="vanished">Afstand vanaf linkerkant</translation>
+    </message>
+    <message>
+        <source>Distance from the right</source>
+        <translation type="vanished">Afstand vanaf rechterkant</translation>
+    </message>
+    <message>
+        <source>Ensure all distances have the same value</source>
+        <translation type="vanished">Zorg ervoor dat alle afstanden dezelfde waarde hebben</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="85"/>
         <source>Import the margins for the selected page size from the available printers</source>
         <translation>Importeer de marges voor de geselecteerde paginagrootte van de beschikbare printers</translation>
+    </message>
+    <message>
+        <source>Inside</source>
+        <translation type="vanished">Binnen</translation>
+    </message>
+    <message>
+        <source>Outside</source>
+        <translation type="vanished">Buiten</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="79"/>
@@ -14742,7 +14861,7 @@ Het resultaat is een combinatie van &quot;snijden&quot; en &quot;uitsluiting&quo
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="453"/>
         <source>Stroke:</source>
-        <translation>Lijn:</translation>
+        <translation>Streek:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="479"/>
@@ -14799,7 +14918,7 @@ Het resultaat is een combinatie van &quot;snijden&quot; en &quot;uitsluiting&quo
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="469"/>
         <source>Stroke Color</source>
-        <translation>Lijnkleur</translation>
+        <translation>Streekkleur</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="489"/>
@@ -14869,7 +14988,7 @@ Het resultaat is een combinatie van &quot;snijden&quot; en &quot;uitsluiting&quo
         <location filename="../../scribus/plugins/tools/pathstroker/pathstroker.cpp" line="80"/>
         <location filename="../../scribus/plugins/tools/pathstroker/pathstroker.cpp" line="109"/>
         <source>Create Path from Stroke</source>
-        <translation>Maak pad van lijn</translation>
+        <translation>Maak pad van streek</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathstroker/pathstroker.cpp" line="84"/>
@@ -14879,7 +14998,7 @@ Het resultaat is een combinatie van &quot;snijden&quot; en &quot;uitsluiting&quo
     <message>
         <location filename="../../scribus/plugins/tools/pathstroker/pathstroker.cpp" line="110"/>
         <source>Converts the stroke of a Path to a filled Path.</source>
-        <translation>Zet een lijn van een pad om naar een gevuld pad.</translation>
+        <translation>Zet een streek van een pad om naar een gevuld pad.</translation>
     </message>
 </context>
 <context>
@@ -15074,6 +15193,22 @@ Het resultaat is een combinatie van &quot;snijden&quot; en &quot;uitsluiting&quo
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="222"/>
         <source>Note: importing text as text may significantly alter PDF visual aspect</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import text as vectors</source>
+        <translation type="vanished">Tekst importeren als vectoren</translation>
+    </message>
+    <message>
+        <source>Text will look exactly like in the PDF, but can&apos;t be edited or selected as text anymore.</source>
+        <translation type="vanished">Tekst ziet er precies zo uit als in de PDF, maar kan niet meer als tekst worden bewerkt of geselecteerd.</translation>
+    </message>
+    <message>
+        <source>Import text as text</source>
+        <translation type="vanished">Tekst importeren als tekst</translation>
+    </message>
+    <message>
+        <source>Text will be imported in text frames and will be editable, but it might have different sizes, spacing, and fonts.</source>
+        <translation type="vanished">Tekst wordt geïmporteerd in tekstkaders en kan worden bewerkt, maar kan andere grootte, spatiëring en lettertypen bevatten.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.cpp" line="51"/>
@@ -18621,7 +18756,7 @@ Wilt u deze gebruiken?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="315"/>
         <source>Stroke:</source>
-        <translation>Lijn:</translation>
+        <translation>Streek:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="568"/>
@@ -18697,6 +18832,10 @@ Wilt u deze gebruiken?</translation>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="670"/>
         <source>Baseline Grid</source>
         <translation>Basislijnraster</translation>
+    </message>
+    <message>
+        <source>Auto-Fit</source>
+        <translation type="vanished">Autom. passend</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="832"/>
@@ -20193,6 +20332,18 @@ Wilt u deze gebruiken?</translation>
         <source>Active Sizes</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Preferred Sizes</source>
+        <translation type="vanished">Voorkeursmaten</translation>
+    </message>
+    <message>
+        <source>Page Format</source>
+        <translation type="vanished">Paginagrootte</translation>
+    </message>
+    <message>
+        <source>Dimension</source>
+        <translation type="vanished">Afmeting</translation>
+    </message>
 </context>
 <context>
     <name>Prefs_Paths</name>
@@ -20729,6 +20880,22 @@ Bij PostScript Level 1 of 2 kan dit leiden tot enorme bestanden.</translation>
         <translation>Scripter</translation>
     </message>
     <message>
+        <source>Own Scripts</source>
+        <translation type="vanished">Eigen scripts</translation>
+    </message>
+    <message>
+        <source>C&amp;hange</source>
+        <translation type="vanished">&amp;Wijzigen</translation>
+    </message>
+    <message>
+        <source>A&amp;dd</source>
+        <translation type="vanished">Toe&amp;voegen</translation>
+    </message>
+    <message>
+        <source>&amp;Remove</source>
+        <translation type="vanished">Ve&amp;rwijderen</translation>
+    </message>
+    <message>
         <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="86"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/prefs_scripterbase.ui" line="86"/>
         <source>Extensions</source>
@@ -20805,6 +20972,10 @@ Bij PostScript Level 1 of 2 kan dit leiden tot enorme bestanden.</translation>
         <location filename="../../scribus/plugins/scriptplugin_py2x/prefs_scripter.cpp" line="160"/>
         <source>Locate Startup Script</source>
         <translation>Lokaliseer opstartscript</translation>
+    </message>
+    <message>
+        <source>Choose a Directory</source>
+        <translation type="vanished">Kies een map</translation>
     </message>
 </context>
 <context>
@@ -21157,6 +21328,10 @@ Bij PostScript Level 1 of 2 kan dit leiden tot enorme bestanden.</translation>
         <translation>Doorhalen</translation>
     </message>
     <message>
+        <source>Optical Margins</source>
+        <translation type="vanished">Optische marges</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="226"/>
         <source>Small Caps</source>
         <translation>Kleinkapitalen</translation>
@@ -21235,6 +21410,14 @@ Bij PostScript Level 1 of 2 kan dit leiden tot enorme bestanden.</translation>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="66"/>
         <source>Appearance</source>
         <translation>Uiterlijk</translation>
+    </message>
+    <message>
+        <source>Show Informational Labels</source>
+        <translation type="vanished">Informatieve labels weergeven</translation>
+    </message>
+    <message>
+        <source>Show Labels of Inactive Palette Tabs</source>
+        <translation type="vanished">Labels van inactieve palet-tabs weergeven</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="175"/>
@@ -21376,6 +21559,14 @@ Bij PostScript Level 1 of 2 kan dit leiden tot enorme bestanden.</translation>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="70"/>
         <source>Time before resize or move starts allows for a slight delay between when you click and the operation happens to avoid unintended moves. This can be helpful when dealing with mouse sensitivity settings or accessibility issues related to ergonomic mice, touch pads or moveability of the wrists and hands.</source>
         <translation>Tijd voordat het formaat wordt gewijzigd of het verplaatsen begint, zorgt voor een kleine vertraging tussen wanneer u klikt en de bewerking onbedoelde bewegingen voorkomt. Dit kan handig zijn bij het omgaan met muisgevoeligheidsinstellingen of toegankelijkheidsproblemen met betrekking tot ergonomische muizen, touchpads of beweeglijkheid van pols en hand.</translation>
+    </message>
+    <message>
+        <source>Shows informational labels on palettes.</source>
+        <translation type="vanished">Geeft informatieve labels weer op paletten.</translation>
+    </message>
+    <message>
+        <source>Shows labels of inactive palette tabs.</source>
+        <translation type="vanished">Heeft informatieve labels weer op palet-tabs.</translation>
     </message>
     <message>
         <source></source>
@@ -22215,6 +22406,10 @@ een bereik van pagina&apos;s of een enkel paginanummer</translation>
         <source> pt</source>
         <translation>pt</translation>
     </message>
+    <message>
+        <source> dpi</source>
+        <translation type="vanished">dpi</translation>
+    </message>
 </context>
 <context>
     <name>PropertiesPalette_ImageBase</name>
@@ -22389,9 +22584,69 @@ een bereik van pagina&apos;s of een enkel paginanummer</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Dimensions</source>
+        <translation type="vanished">Afmetingen</translation>
+    </message>
+    <message>
+        <source>Y:</source>
+        <translation type="vanished">Y:</translation>
+    </message>
+    <message>
+        <source>&amp;Rotation</source>
+        <translation type="vanished">&amp;Rotatie</translation>
+    </message>
+    <message>
+        <source>Rotation of the image</source>
+        <translation type="vanished">Rotatie van de afbeelding</translation>
+    </message>
+    <message>
+        <source>&amp;Page Number</source>
+        <translation type="vanished">&amp;Paginanummer</translation>
+    </message>
+    <message>
+        <source>Page number of PDF file</source>
+        <translation type="vanished">Paginanummer van PDF-bestand</translation>
+    </message>
+    <message>
+        <source>X:</source>
+        <translation type="vanished">X:</translation>
+    </message>
+    <message>
+        <source>Auto-Fit</source>
+        <translation type="vanished">Autom. passend</translation>
+    </message>
+    <message>
+        <source>Image &amp;Scale</source>
+        <translation type="vanished">Afbeelding &amp; Schaal</translation>
+    </message>
+    <message>
+        <source>Rendering Intent</source>
+        <translation type="vanished">Weergave-instelling</translation>
+    </message>
+    <message>
+        <source>Input Profile</source>
+        <translation type="vanished">Invoerprofiel</translation>
+    </message>
+    <message>
+        <source>Effects</source>
+        <translation type="vanished">Effecten</translation>
+    </message>
+    <message>
+        <source>Open Image Effects dialog</source>
+        <translation type="vanished">Dialoogvenster Afbeeldingseffecten openen</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="430"/>
         <source>Image Effects</source>
         <translation>Afbeeldingseffecten</translation>
+    </message>
+    <message>
+        <source>Layers</source>
+        <translation type="vanished">Lagen</translation>
+    </message>
+    <message>
+        <source>Clipping Paths</source>
+        <translation type="vanished">Paden bijsnijden</translation>
     </message>
 </context>
 <context>
@@ -22621,6 +22876,14 @@ een bereik van pagina&apos;s of een enkel paginanummer</translation>
         <source>Blendmode of line</source>
         <translation type="vanished">Mengmodus van lijn</translation>
     </message>
+    <message>
+        <source>Color of line</source>
+        <translation type="vanished">Kleur van lijn</translation>
+    </message>
+    <message>
+        <source>Mask of line</source>
+        <translation type="vanished">Masker van lijn</translation>
+    </message>
 </context>
 <context>
     <name>PropertiesPalette_LineBase</name>
@@ -22697,6 +22960,14 @@ een bereik van pagina&apos;s of een enkel paginanummer</translation>
     <message>
         <source>Marker</source>
         <translation type="vanished">Markering</translation>
+    </message>
+    <message>
+        <source>Edit current selected line style</source>
+        <translation type="vanished">Huidige geselecteerde lijnstijl bewerken</translation>
+    </message>
+    <message>
+        <source>Add new line style</source>
+        <translation type="vanished">Nieuwe lijnstijl toevoegen</translation>
     </message>
     <message>
         <source>Blendmode</source>
@@ -22868,6 +23139,42 @@ Transparency</source>
     <message>
         <source>Erase Fill</source>
         <translation type="vanished">Vulling wissen</translation>
+    </message>
+    <message>
+        <source>Content covers drop shadow</source>
+        <translation type="vanished">Inhoud bedekt slagschaduw</translation>
+    </message>
+    <message>
+        <source>Inherit object transparency</source>
+        <translation type="vanished">Objecttransparantie overnemen</translation>
+    </message>
+    <message>
+        <source>Horizontal offset of the drop shadow</source>
+        <translation type="vanished">Horizontale verschuiving van de slagschaduw</translation>
+    </message>
+    <message>
+        <source>Vertical offset of the drop shadow</source>
+        <translation type="vanished">Objecttransparantie overnemen</translation>
+    </message>
+    <message>
+        <source>Blur radius of the drop shadow</source>
+        <translation type="vanished">Objecttransparantie overnemen</translation>
+    </message>
+    <message>
+        <source>Opacity of the drop shadow</source>
+        <translation type="vanished">Objecttransparantie overnemen</translation>
+    </message>
+    <message>
+        <source>Blendmode of the drop shadow</source>
+        <translation type="vanished">Objecttransparantie overnemen</translation>
+    </message>
+    <message>
+        <source>If checked, the drop shadow is activated</source>
+        <translation type="vanished">Als deze optie is ingeschakeld, wordt de slagschaduw geactiveerd</translation>
+    </message>
+    <message>
+        <source>Color of drop shadow</source>
+        <translation type="vanished">Kleur van de slagschaduw</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="303"/>
@@ -23184,6 +23491,50 @@ Transparency</source>
 <context>
     <name>PropertiesPalette_Text</name>
     <message>
+        <source>Styles</source>
+        <translation type="vanished">Stijlen</translation>
+    </message>
+    <message>
+        <source>Font</source>
+        <translation type="vanished">Lettertype</translation>
+    </message>
+    <message>
+        <source>Alignment</source>
+        <translation type="vanished">Uitlijning</translation>
+    </message>
+    <message>
+        <source>Columns &amp;&amp; Indents</source>
+        <translation type="vanished">Kolommen &amp;&amp; Inspringingen</translation>
+    </message>
+    <message>
+        <source>Typography</source>
+        <translation type="vanished">Typografie</translation>
+    </message>
+    <message>
+        <source>Columns &amp;&amp; Indentation</source>
+        <translation type="vanished">Kolommen &amp;&amp; Inspringing</translation>
+    </message>
+    <message>
+        <source>Lists &amp;&amp; Drop Caps</source>
+        <translation type="vanished">Lijsten &amp;&amp; Initiaalletters</translation>
+    </message>
+    <message>
+        <source>Hyphenation &amp;&amp; Language</source>
+        <translation type="vanished">Woordafbreking &amp;&amp; Taal</translation>
+    </message>
+    <message>
+        <source>Orphans &amp;&amp; Widows</source>
+        <translation type="vanished">Wezen &amp;&amp; Weduwen</translation>
+    </message>
+    <message>
+        <source>OpenType Features</source>
+        <translation type="vanished">OpenType kenmerken</translation>
+    </message>
+    <message>
+        <source>Text on Path</source>
+        <translation type="vanished">Tekst op pad</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="63"/>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="755"/>
         <source>Color &amp;&amp; Effects</source>
@@ -23217,7 +23568,7 @@ Transparency</source>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="79"/>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="761"/>
         <source>Optical Margins</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Optische marges</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="83"/>
@@ -23251,7 +23602,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="493"/>
         <source>Baseline</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Basislijn</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="720"/>
@@ -23300,7 +23651,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="210"/>
         <source>Text Language</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Teksttaal</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="252"/>
@@ -23638,14 +23989,34 @@ Transparency</source>
         <translation> %</translation>
     </message>
     <message>
+        <source>Normal</source>
+        <translation type="vanished">Normaal</translation>
+    </message>
+    <message>
+        <source>Minimum</source>
+        <translation type="vanished">Minimaal</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="98"/>
         <source>Manual Tracking</source>
         <translation>Handmatige tracking</translation>
     </message>
     <message>
+        <source>Maximum</source>
+        <translation type="vanished">Maximaal</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="130"/>
         <source>Scaling width of characters</source>
         <translation>Schaalbreedte van tekens</translation>
+    </message>
+    <message>
+        <source>Glyph:</source>
+        <translation type="vanished">Leesteken:</translation>
+    </message>
+    <message>
+        <source>Space:</source>
+        <translation type="vanished">Spatie:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="162"/>
@@ -23704,7 +24075,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="426"/>
         <source>Top</source>
-        <translation type="unfinished">Bovenkant</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="427"/>
@@ -23714,7 +24085,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="428"/>
         <source>Bottom</source>
-        <translation type="unfinished">Onderkant</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="434"/>
@@ -23732,6 +24103,30 @@ Transparency</source>
         <translation>pt</translation>
     </message>
     <message>
+        <source>Indentation for first line of the paragraph</source>
+        <translation type="vanished">Inspringing voor de eerste regel van de alinea</translation>
+    </message>
+    <message>
+        <source>Indentation from the left for the whole paragraph</source>
+        <translation type="vanished">Inspringing vanaf links voor de hele alinea</translation>
+    </message>
+    <message>
+        <source>Indentation from the right for the whole paragraph</source>
+        <translation type="vanished">Inspringing vanaf rechts voor de hele alinea</translation>
+    </message>
+    <message>
+        <source>Edit tab settings of text frame...</source>
+        <translation type="vanished">Tabinstellingen van tekstkader bewerken...</translation>
+    </message>
+    <message>
+        <source>Space above a paragraph</source>
+        <translation type="vanished">Ruimte boven een alinea</translation>
+    </message>
+    <message>
+        <source>Space below a paragraph</source>
+        <translation type="vanished">Ruimte onder een alinea</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="335"/>
         <source>Distance between columns</source>
         <translation>Afstand tussen kolommen</translation>
@@ -23745,6 +24140,10 @@ Transparency</source>
 <context>
     <name>PropertyWidget_DistanceBase</name>
     <message>
+        <source>Col&amp;umns</source>
+        <translation type="vanished">K&amp;olommen</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="32"/>
         <source>Vertical Alignment:</source>
         <translation type="unfinished"></translation>
@@ -23752,7 +24151,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="40"/>
         <source>Top</source>
-        <translation type="unfinished">Bovenkant</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="45"/>
@@ -23762,7 +24161,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="50"/>
         <source>Bottom</source>
-        <translation type="unfinished">Onderkant</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="58"/>
@@ -23832,7 +24231,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="164"/>
         <source>Edit tab settings of text frame...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tabinstellingen van tekstkader bewerken...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="167"/>
@@ -23840,9 +24239,17 @@ Transparency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Size</source>
+        <translation type="vanished">Grootte</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="95"/>
         <source>Distance between columns</source>
         <translation>Afstand tussen kolommen</translation>
+    </message>
+    <message>
+        <source>T&amp;abs</source>
+        <translation type="vanished">T&amp;abs</translation>
     </message>
 </context>
 <context>
@@ -24212,6 +24619,66 @@ Transparency</source>
         <translation type="unfinished">Doorgehaalde nul</translation>
     </message>
     <message>
+        <source>Contextual:</source>
+        <translation type="vanished">Contextueel:</translation>
+    </message>
+    <message>
+        <source>Historical:</source>
+        <translation type="vanished">Historisch:</translation>
+    </message>
+    <message>
+        <source>Slashed Zero:</source>
+        <translation type="vanished">Doorgehaalde nul:</translation>
+    </message>
+    <message>
+        <source>Capitals:</source>
+        <translation type="vanished">Hoofdletters:</translation>
+    </message>
+    <message>
+        <source>Width:</source>
+        <translation type="vanished">Breedte:</translation>
+    </message>
+    <message>
+        <source>Numerals</source>
+        <translation type="vanished">Cijfers</translation>
+    </message>
+    <message>
+        <source>Discretionary:</source>
+        <translation type="vanished">Discretionair:</translation>
+    </message>
+    <message>
+        <source>Position:</source>
+        <translation type="vanished">Positie:</translation>
+    </message>
+    <message>
+        <source>Capitals &amp; Position</source>
+        <translation type="vanished">Hoofdletters &amp;&amp; Positie</translation>
+    </message>
+    <message>
+        <source>All Small Caps (c2sc + smcp)</source>
+        <translation type="vanished">Alles in Kleinkapitaal (c2sc + smcp)</translation>
+    </message>
+    <message>
+        <source>All Petite Caps (c2pc + pcap)</source>
+        <translation type="vanished">Alles in Petite hoofdletters (c2pc + pcap)</translation>
+    </message>
+    <message>
+        <source>Style:</source>
+        <translation type="vanished">Stijl:</translation>
+    </message>
+    <message>
+        <source>Fractions:</source>
+        <translation type="vanished">Breuken:</translation>
+    </message>
+    <message>
+        <source>Common:</source>
+        <translation type="vanished">Algemeen:</translation>
+    </message>
+    <message>
+        <source>Ligatures</source>
+        <translation type="vanished">Ligaturen</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="483"/>
         <source>Stylistic sets</source>
         <translation>Stilistische sets</translation>
@@ -24318,11 +24785,58 @@ Transparency</source>
     </message>
 </context>
 <context>
+    <name>PropertyWidget_Hyphenation</name>
+    <message>
+        <source> characters</source>
+        <translation type="vanished">leestekens</translation>
+    </message>
+</context>
+<context>
     <name>PropertyWidget_HyphenationBase</name>
+    <message>
+        <source>Language</source>
+        <translation type="vanished">Taal</translation>
+    </message>
+    <message>
+        <source>Text Language</source>
+        <translation type="vanished">Teksttaal</translation>
+    </message>
+    <message>
+        <source>Smallest Word</source>
+        <translation type="vanished">Kleinste woord</translation>
+    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="44"/>
         <source>Length of the smallest word to be hyphenated</source>
         <translation>Lengte van het kleinste woord dat mag worden afgebroken</translation>
+    </message>
+    <message>
+        <source> characters</source>
+        <translation type="vanished">leestekens</translation>
+    </message>
+    <message>
+        <source>Character</source>
+        <translation type="vanished">Teken</translation>
+    </message>
+    <message>
+        <source>Consecutive</source>
+        <translation type="vanished">Opeenvolgend</translation>
+    </message>
+    <message>
+        <source>Hyphenate text</source>
+        <translation type="vanished">Tekst afbreken</translation>
+    </message>
+    <message>
+        <source>Hyphenate</source>
+        <translation type="vanished">Afbreken</translation>
+    </message>
+    <message>
+        <source>Dehyphenate text</source>
+        <translation type="vanished">Afbreking ongedaan maken</translation>
+    </message>
+    <message>
+        <source>Dehyphenate</source>
+        <translation type="vanished">Woordafbreking opheffen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="37"/>
@@ -24471,14 +24985,26 @@ De waarde 0 betekent onbeperkt afbrekingen.</translation>
         <translation>Regels:</translation>
     </message>
     <message>
+        <source>Drop Cap Lines</source>
+        <translation type="vanished">Initiaalletter regels</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="129"/>
         <source>Bullet Char(s):</source>
         <translation>Opsommingstekens</translation>
     </message>
     <message>
+        <source>Paragraph Effects characters offset</source>
+        <translation type="vanished">Verschuiving van Alinea-effecten</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="145"/>
         <source>Enhanced Character Table to choose bullet characters</source>
         <translation>Verbeterde tekentabel voor keuze opsommingstekens</translation>
+    </message>
+    <message>
+        <source>Style:</source>
+        <translation type="vanished">Stijl:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="35"/>
@@ -24579,6 +25105,18 @@ De waarde 0 betekent onbeperkt afbrekingen.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Type</source>
+        <translation type="vanished">Type</translation>
+    </message>
+    <message>
+        <source>Start Offset</source>
+        <translation type="vanished">Startverschuiving</translation>
+    </message>
+    <message>
+        <source>Distance</source>
+        <translation type="vanished">Afstand</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/propertywidget_pathtext.cpp" line="231"/>
         <source>Show Curve</source>
         <translation>Kromme weergeven</translation>
@@ -24606,6 +25144,46 @@ De waarde 0 betekent onbeperkt afbrekingen.</translation>
 </context>
 <context>
     <name>PropertyWidget_PathTextBase</name>
+    <message>
+        <source>Type</source>
+        <translation type="vanished">Type</translation>
+    </message>
+    <message>
+        <source>Text render style type</source>
+        <translation type="vanished">Tekstweergavestijl</translation>
+    </message>
+    <message>
+        <source>Flip</source>
+        <translation type="vanished">Omdraaien</translation>
+    </message>
+    <message>
+        <source>Flip text</source>
+        <translation type="vanished">Tekst omdraaien</translation>
+    </message>
+    <message>
+        <source>Show reference path</source>
+        <translation type="vanished">Referentiepad weergeven</translation>
+    </message>
+    <message>
+        <source>Show Path</source>
+        <translation type="vanished">Pad weergeven</translation>
+    </message>
+    <message>
+        <source>Offset</source>
+        <translation type="vanished">Verschuiving</translation>
+    </message>
+    <message>
+        <source>Text spacing on the left or right side (depending on the text alignment)</source>
+        <translation type="vanished">Tekstafstand aan de linker- of rechterkant (afhankelijk van de tekstuitlijning)</translation>
+    </message>
+    <message>
+        <source>Distance</source>
+        <translation type="vanished">Afstand</translation>
+    </message>
+    <message>
+        <source>Text distance from the reference path</source>
+        <translation type="vanished">Tekstafstand tot het referentiepad</translation>
+    </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="32"/>
         <source>Type:</source>
@@ -24652,12 +25230,12 @@ De waarde 0 betekent onbeperkt afbrekingen.</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="159"/>
         <source>Saturation of color of text stroke</source>
-        <translation type="unfinished">Verzadiging van kleur van tekstlijnen</translation>
+        <translation type="unfinished">Verzadiging van kleur van tekststreken</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="201"/>
         <source>Background color of selected text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Achtergrondkleur van geselecteerde tekst</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="227"/>
@@ -30126,6 +30704,170 @@ aangeroepen functies.
         <translation>Folio</translation>
     </message>
     <message>
+        <source>Preferred</source>
+        <translation type="vanished">Voorkeur</translation>
+    </message>
+    <message>
+        <source>Books</source>
+        <translation type="vanished">Boeken</translation>
+    </message>
+    <message>
+        <source>Canadian</source>
+        <translation type="vanished">Canadees</translation>
+    </message>
+    <message>
+        <source>Colombian</source>
+        <translation type="vanished">Colombiaans</translation>
+    </message>
+    <message>
+        <source>Imperial</source>
+        <translation type="vanished">Brits</translation>
+    </message>
+    <message>
+        <source>ISO A Paper</source>
+        <translation type="vanished">ISO A Papier</translation>
+    </message>
+    <message>
+        <source>ISO B Paper</source>
+        <translation type="vanished">ISO B Papier</translation>
+    </message>
+    <message>
+        <source>ISO C Envelope</source>
+        <translation type="vanished">ISO C Envelop</translation>
+    </message>
+    <message>
+        <source>International Envelopes</source>
+        <translation type="vanished">Internationale enveloppen</translation>
+    </message>
+    <message>
+        <source>Newspapers</source>
+        <translation type="vanished">Krantformaten</translation>
+    </message>
+    <message>
+        <source>Others</source>
+        <translation type="vanished">Overige</translation>
+    </message>
+    <message>
+        <source>Transitional</source>
+        <translation type="vanished">Transitioneel</translation>
+    </message>
+    <message>
+        <source>US Paper</source>
+        <translation type="vanished">US Paper</translation>
+    </message>
+    <message>
+        <source>US Press</source>
+        <translation type="vanished">US Press</translation>
+    </message>
+    <message>
+        <source>US Envelopes</source>
+        <translation type="vanished">US Envelopes</translation>
+    </message>
+    <message>
+        <source>Folio</source>
+        <translation type="vanished">Folio</translation>
+    </message>
+    <message>
+        <source>4to (Quarto)</source>
+        <translation type="vanished">4to (Quarto)</translation>
+    </message>
+    <message>
+        <source>8vo (Imperial Octavo)</source>
+        <translation type="vanished">8vo (Imperial Octavo)</translation>
+    </message>
+    <message>
+        <source>8vo (Super Octavo)</source>
+        <translation type="vanished">8vo (Super Octavo)</translation>
+    </message>
+    <message>
+        <source>8vo (Royal Octavo)</source>
+        <translation type="vanished">8vo (Royal Octavo)</translation>
+    </message>
+    <message>
+        <source>8vo (Medium Octavo)</source>
+        <translation type="vanished">8vo (Medium Octavo)</translation>
+    </message>
+    <message>
+        <source>8vo (Octavo)</source>
+        <translation type="vanished">8vo (Octavo)</translation>
+    </message>
+    <message>
+        <source>8vo (Crown Octavo)</source>
+        <translation type="vanished">8vo (Crown Octavo)</translation>
+    </message>
+    <message>
+        <source>12mo (Duodecimo)</source>
+        <translation type="vanished">12mo (Duodecimo)</translation>
+    </message>
+    <message>
+        <source>16mo (Sextodecimo)</source>
+        <translation type="vanished">16mo (Sextodecimo)</translation>
+    </message>
+    <message>
+        <source>18mo (Octodecimo)</source>
+        <translation type="vanished">18mo (Octodecimo)</translation>
+    </message>
+    <message>
+        <source>32mo (Tricesimo Secondo)</source>
+        <translation type="vanished">32mo (Tricesimo Secondo)</translation>
+    </message>
+    <message>
+        <source>48mo (Quadragesimo Octavo)</source>
+        <translation type="vanished">48mo (Quadragesimo Octavo)</translation>
+    </message>
+    <message>
+        <source>64mo (Sexagesimo Quarto)</source>
+        <translation type="vanished">64mo (Sexagesimo Quarto)</translation>
+    </message>
+    <message>
+        <source>A Format</source>
+        <translation type="vanished">A Formaat</translation>
+    </message>
+    <message>
+        <source>B Format</source>
+        <translation type="vanished">B Formaat</translation>
+    </message>
+    <message>
+        <source>C Format</source>
+        <translation type="vanished">C Formaat</translation>
+    </message>
+    <message>
+        <source>Europe</source>
+        <translation type="vanished">Europa</translation>
+    </message>
+    <message>
+        <source>ISO 7810 ID-1</source>
+        <translation type="vanished">ISO 7810 ID-1</translation>
+    </message>
+    <message>
+        <source>US/Canada</source>
+        <translation type="vanished">VS/Canada</translation>
+    </message>
+    <message>
+        <source>China</source>
+        <translation type="vanished">China</translation>
+    </message>
+    <message>
+        <source>Scandinavia</source>
+        <translation type="vanished">Scandinavië</translation>
+    </message>
+    <message>
+        <source>Japan</source>
+        <translation type="vanished">Japan</translation>
+    </message>
+    <message>
+        <source>Hungary</source>
+        <translation type="vanished">Hongarije</translation>
+    </message>
+    <message>
+        <source>Iran</source>
+        <translation type="vanished">Iran</translation>
+    </message>
+    <message>
+        <source>ISO 216</source>
+        <translation type="vanished">ISO 216</translation>
+    </message>
+    <message>
         <location filename="../../scribus/pagesize.cpp" line="188"/>
         <source>4A0</source>
         <translation type="unfinished"></translation>
@@ -30309,6 +31051,130 @@ aangeroepen functies.
         <location filename="../../scribus/pagesize.cpp" line="417"/>
         <source>27x39 (Arch E3)</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>AU/NZ Broadsheet</source>
+        <translation type="vanished">AU/NZ Broadsheet</translation>
+    </message>
+    <message>
+        <source>Berliner Broadsheet</source>
+        <translation type="vanished">Berliner Broadsheet</translation>
+    </message>
+    <message>
+        <source>Ciner</source>
+        <translation type="vanished">Ciner</translation>
+    </message>
+    <message>
+        <source>New York Times</source>
+        <translation type="vanished">New York Times</translation>
+    </message>
+    <message>
+        <source>Nordisch Broadsheet</source>
+        <translation type="vanished">Nordisch Broadsheet</translation>
+    </message>
+    <message>
+        <source>Rhenish Broadsheet</source>
+        <translation type="vanished">Rhenish Broadsheet</translation>
+    </message>
+    <message>
+        <source>SA Broadsheet</source>
+        <translation type="vanished">SA Broadsheet</translation>
+    </message>
+    <message>
+        <source>Swiss Broadsheet</source>
+        <translation type="vanished">Swiss Broadsheet</translation>
+    </message>
+    <message>
+        <source>UK Broadsheet</source>
+        <translation type="vanished">UK Broadsheet</translation>
+    </message>
+    <message>
+        <source>US Broadsheet</source>
+        <translation type="vanished">US Broadsheet</translation>
+    </message>
+    <message>
+        <source>Wall Street Journal</source>
+        <translation type="vanished">Wall Street Journal</translation>
+    </message>
+    <message>
+        <source>Berliner Tabloid</source>
+        <translation type="vanished">Berliner Tabloid</translation>
+    </message>
+    <message>
+        <source>Canadian Tabloid</source>
+        <translation type="vanished">Canadian Tabloid</translation>
+    </message>
+    <message>
+        <source>Canadian Tall Tabloid</source>
+        <translation type="vanished">Canadian Tall Tabloid</translation>
+    </message>
+    <message>
+        <source>Nordisch Tabloid</source>
+        <translation type="vanished">Nordisch Tabloid</translation>
+    </message>
+    <message>
+        <source>Norwegian Tabloid</source>
+        <translation type="vanished">Norwegian Tabloid</translation>
+    </message>
+    <message>
+        <source>Rhenish Tabloid</source>
+        <translation type="vanished">Rhenish Tabloid</translation>
+    </message>
+    <message>
+        <source>UK Tabloid</source>
+        <translation type="vanished">UK Tabloid</translation>
+    </message>
+    <message>
+        <source>Compact</source>
+        <translation type="vanished">Compact</translation>
+    </message>
+    <message>
+        <source>Blu-Ray Cover (5 mm)</source>
+        <translation type="vanished">Blu-Ray Cover (5 mm)</translation>
+    </message>
+    <message>
+        <source>Blu-Ray Cover (12 mm)</source>
+        <translation type="vanished">Blu-Ray Cover (12 mm)</translation>
+    </message>
+    <message>
+        <source>Blu-Ray Cover (14 mm)</source>
+        <translation type="vanished">Blu-Ray Cover (14 mm)</translation>
+    </message>
+    <message>
+        <source>Blu-Ray Cover (24 mm)</source>
+        <translation type="vanished">Blu-Ray Cover (24 mm)</translation>
+    </message>
+    <message>
+        <source>Cassette Cover (J-Card)</source>
+        <translation type="vanished">Cassette Cover (J-Card)</translation>
+    </message>
+    <message>
+        <source>Cassette Cover (U-Card)</source>
+        <translation type="vanished">Cassette Cover (U-Card)</translation>
+    </message>
+    <message>
+        <source>Compact Disc (Front)</source>
+        <translation type="vanished">Compact Disc (Front)</translation>
+    </message>
+    <message>
+        <source>Compact Disc (Back)</source>
+        <translation type="vanished">Compact Disc (Back)</translation>
+    </message>
+    <message>
+        <source>Compact Disc (Front Double)</source>
+        <translation type="vanished">Compact Disc (Front Double)</translation>
+    </message>
+    <message>
+        <source>Vinyl LP</source>
+        <translation type="vanished">Vinyl LP</translation>
+    </message>
+    <message>
+        <source>DVD Cover Normal</source>
+        <translation type="vanished">DVD Cover Normal</translation>
+    </message>
+    <message>
+        <source>DVD Cover Slim</source>
+        <translation type="vanished">DVD Cover Slim</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_tiff.cpp" line="291"/>
@@ -30602,7 +31468,7 @@ aangeroepen functies.
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdstyle.cpp" line="247"/>
         <source>Specified stroke color is not available in document.</source>
         <comment>python error</comment>
-        <translation>De opgegeven lijnkleur is niet beschikbaar in document.</translation>
+        <translation>De opgegeven streekkleur is niet beschikbaar in document.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="398"/>
@@ -32426,6 +33292,22 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <translation>Taal</translation>
     </message>
     <message>
+        <source>Character</source>
+        <translation type="vanished">Teken</translation>
+    </message>
+    <message>
+        <source>The character used for automatic hyphen. Can be empty.</source>
+        <translation type="vanished">Het teken dat wordt gebruikt als automatisch afbrekingsteken. Kan leeg zijn.</translation>
+    </message>
+    <message>
+        <source>Font</source>
+        <translation type="vanished">Lettertype</translation>
+    </message>
+    <message>
+        <source>Size</source>
+        <translation type="vanished">Grootte</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="49"/>
         <source>Based On:</source>
         <translation>Gebaseerd op:</translation>
@@ -32492,12 +33374,12 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="556"/>
         <source>Stroke Color</source>
-        <translation type="unfinished">Lijnkleur</translation>
+        <translation type="unfinished">Streekkleur</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="585"/>
         <source>Stroke Shade</source>
-        <translation type="unfinished">Lijntint</translation>
+        <translation type="unfinished">Streektint</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="634"/>
@@ -32530,9 +33412,53 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Typography</source>
+        <translation type="vanished">Typografie</translation>
+    </message>
+    <message>
+        <source>Offset to baseline of characters</source>
+        <translation type="vanished">Verschuiving van tekens t.o.v. basislijn</translation>
+    </message>
+    <message>
+        <source>Scaling width of characters</source>
+        <translation type="vanished">Schaalbreedte van tekens</translation>
+    </message>
+    <message>
+        <source>Scaling height of characters</source>
+        <translation type="vanished">Schaalhoogte van tekens</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="vanished">Normaal</translation>
+    </message>
+    <message>
+        <source>Space:</source>
+        <translation type="vanished">Spatie:</translation>
+    </message>
+    <message>
+        <source>Hyphenation &amp;&amp; Language</source>
+        <translation type="vanished">Woordafbreking &amp;&amp; Taal</translation>
+    </message>
+    <message>
+        <source>Text Language</source>
+        <translation type="vanished">Teksttaal</translation>
+    </message>
+    <message>
+        <source>Smallest Word</source>
+        <translation type="vanished">Kleinste woord</translation>
+    </message>
+    <message>
+        <source>Length of the smallest word to be hyphenated</source>
+        <translation type="vanished">Lengte van het kleinste woord dat mag worden afgebroken</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="740"/>
         <source> characters</source>
         <translation>leestekens</translation>
+    </message>
+    <message>
+        <source>OpenType Features</source>
+        <translation type="vanished">OpenType kenmerken</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="68"/>
@@ -32543,6 +33469,30 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="123"/>
         <source>Font Size</source>
         <translation>Lettergrootte</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation type="vanished">Kleur</translation>
+    </message>
+    <message>
+        <source>Background</source>
+        <translation type="vanished">Achtergrond</translation>
+    </message>
+    <message>
+        <source>Stroke</source>
+        <translation type="vanished">Streek</translation>
+    </message>
+    <message>
+        <source>Text color of selected text</source>
+        <translation type="vanished">Kleur van de geselecteerde tekst</translation>
+    </message>
+    <message>
+        <source>Background color of selected text</source>
+        <translation type="vanished">Achtergrondkleur van geselecteerde tekst</translation>
+    </message>
+    <message>
+        <source>Stroke color of selected text</source>
+        <translation type="vanished">Streekkleur van de geselecteerde tekst</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.cpp" line="308"/>
@@ -32879,6 +33829,58 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <translation>Eigenschappen</translation>
     </message>
     <message>
+        <source>Tabs &amp;&amp; Indentation</source>
+        <translation type="vanished">Tabs &amp;&amp; Inspringing</translation>
+    </message>
+    <message>
+        <source>Lists &amp;&amp; Drop Caps</source>
+        <translation type="vanished">Lijsten &amp;&amp; Initiaalletters</translation>
+    </message>
+    <message>
+        <source>Character for bulleted list</source>
+        <translation type="vanished">Opsommingsteken</translation>
+    </message>
+    <message>
+        <source>Style:</source>
+        <translation type="vanished">Stijl:</translation>
+    </message>
+    <message>
+        <source>Start:</source>
+        <translation type="vanished">Start:</translation>
+    </message>
+    <message>
+        <source>List number prefix</source>
+        <translation type="vanished">Voorvoegsel van lijstnummer</translation>
+    </message>
+    <message>
+        <source>List number suffix</source>
+        <translation type="vanished">Achtervoegsel van lijstnummer</translation>
+    </message>
+    <message>
+        <source>Hierarchy level of list numbering</source>
+        <translation type="vanished">Hiërarchieniveau van lijstnummering</translation>
+    </message>
+    <message>
+        <source>List numbering style</source>
+        <translation type="vanished">Stijl voor lijstnummering</translation>
+    </message>
+    <message>
+        <source>Starting number of the list count</source>
+        <translation type="vanished">Startnummer van de lijsttelling</translation>
+    </message>
+    <message>
+        <source>New Set:</source>
+        <translation type="vanished">Nieuwe verzameling:</translation>
+    </message>
+    <message>
+        <source>Distance</source>
+        <translation type="vanished">Afstand</translation>
+    </message>
+    <message>
+        <source>Style</source>
+        <translation type="vanished">Stijl</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1145"/>
         <source>Choose Character Style or leave blank to use default Paragraph Style</source>
         <translation>Kies tekenstijl of laat leeg voor gebruik van standaard alineastijl</translation>
@@ -32912,6 +33914,52 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="45"/>
         <source>Parent Style</source>
         <translation>Bovenliggende stijl</translation>
+    </message>
+    <message>
+        <source>Hyphenation</source>
+        <translation type="vanished">Woordafbreking</translation>
+    </message>
+    <message>
+        <source>Maximum number of Hyphenations following each other.
+A value of 0 means unlimited hyphenations.</source>
+        <translation type="vanished">Maximaal aantal afbrekingen die elkaar mogen opvolgen.
+De waarde 0 betekent onbeperkt afbreken.</translation>
+    </message>
+    <message>
+        <source>Typography</source>
+        <translation type="vanished">Typografie</translation>
+    </message>
+    <message>
+        <source>Minimum</source>
+        <translation type="vanished">Minimaal</translation>
+    </message>
+    <message>
+        <source>Minimal width of spaces between words</source>
+        <translation type="vanished">Minimale spatiebreedte tussen woorden</translation>
+    </message>
+    <message>
+        <source>Maximum</source>
+        <translation type="vanished">Maximaal</translation>
+    </message>
+    <message>
+        <source>Maximal extension of glyphs for justification</source>
+        <translation type="vanished">Maximale uitzetting tussen woorden bij uitvullen</translation>
+    </message>
+    <message>
+        <source>Space:</source>
+        <translation type="vanished">Spatie:</translation>
+    </message>
+    <message>
+        <source>Minimal shrinkage of glyphs for justification</source>
+        <translation type="vanished">Minimale inkrimping tussen woorden bij uitvullen</translation>
+    </message>
+    <message>
+        <source>Glyph:</source>
+        <translation type="vanished">Leesteken:</translation>
+    </message>
+    <message>
+        <source>Alignment &amp;&amp; Distances</source>
+        <translation type="vanished">Uitlijning &amp;&amp; Afstanden</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="519"/>
@@ -32994,6 +34042,22 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <translation>Beginkapitaal lijnen</translation>
     </message>
     <message>
+        <source>Background</source>
+        <translation type="vanished">Achtergrond</translation>
+    </message>
+    <message>
+        <source>Fixed</source>
+        <translation type="vanished">Gefixeerd</translation>
+    </message>
+    <message>
+        <source>Automatic</source>
+        <translation type="vanished">Automatisch</translation>
+    </message>
+    <message>
+        <source>Baseline</source>
+        <translation type="vanished">Basislijn</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="44"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="125"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="244"/>
@@ -33036,6 +34100,14 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="549"/>
         <source>Shade</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Background color of selected text</source>
+        <translation type="vanished">Achtergrondkleur van geselecteerde tekst</translation>
+    </message>
+    <message>
+        <source>No Paragraph Effects</source>
+        <translation type="vanished">Geen alinea-effecten</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="29"/>
@@ -33092,7 +34164,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="211"/>
         <source>Optical Margins</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Optische marges</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="221"/>
@@ -33178,6 +34250,10 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="381"/>
         <source>Ensure that last lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
         <translation>Zorg ervoor dat de laatste regels van een alinea niet loskomen van de rest (bekend als weduwe/wees-controle)</translation>
+    </message>
+    <message>
+        <source>Orphans &amp;&amp; Widows</source>
+        <translation type="vanished">Wezen &amp;&amp; weduwen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="409"/>
@@ -33508,17 +34584,17 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="1258"/>
         <source>Color of text stroke</source>
-        <translation>Kleur van de tekstlijnen</translation>
+        <translation>Kleur van de tekststreken</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="1259"/>
         <source>Saturation of color of text stroke</source>
-        <translation>Verzadiging van kleur van tekstlijnen</translation>
+        <translation>Verzadiging van kleur van tekststreken</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="1209"/>
         <source>Stroke Color Settings</source>
-        <translation>Lijnkleur-instellingen</translation>
+        <translation>Streekkleur-instellingen</translation>
     </message>
 </context>
 <context>
@@ -36569,13 +37645,13 @@ Gebruik de preproductie-controle om deze te corrigeren</translation>
         <location filename="../../scribus/ui/search.cpp" line="94"/>
         <location filename="../../scribus/ui/search.cpp" line="192"/>
         <source>Stroke Color</source>
-        <translation>Lijnkleur</translation>
+        <translation>Streekkleur</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/search.cpp" line="97"/>
         <location filename="../../scribus/ui/search.cpp" line="195"/>
         <source>Stroke Shade</source>
-        <translation>Lijntint</translation>
+        <translation>Streektint</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/search.cpp" line="115"/>
@@ -37560,6 +38636,10 @@ Gebruik de preproductie-controle om deze te corrigeren</translation>
         <translation type="unfinished">Kleinkapitalen</translation>
     </message>
     <message>
+        <source>Fake Small Caps</source>
+        <translation type="vanished">Kleinkapitalen nabootsen</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/styleselect.cpp" line="324"/>
         <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
         <translation>Doorhalen. Houdt de knop een moment ingedrukt om de lijndikte en verplaatsing in te stellen.</translation>
@@ -37567,7 +38647,7 @@ Gebruik de preproductie-controle om deze te corrigeren</translation>
     <message>
         <location filename="../../scribus/ui/styleselect.cpp" line="325"/>
         <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
-        <translation>Contourtekst. Houdt de knop een moment ingedrukt om de lijndikte in te stellen.</translation>
+        <translation>Contourtekst. Houdt de knop een moment ingedrukt om de dikte van de contour in te stellen.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/styleselect.cpp" line="326"/>
@@ -37708,6 +38788,10 @@ Gebruik de preproductie-controle om deze te corrigeren</translation>
 </context>
 <context>
     <name>TabManager</name>
+    <message>
+        <source>Manage Tabs</source>
+        <translation type="vanished">Tabs beheren</translation>
+    </message>
     <message>
         <location filename="../../scribus/ui/tabmanager.cpp" line="23"/>
         <source>Manage Tabulators</source>
@@ -40665,6 +41749,10 @@ X: %4, Y: %5</translation>
         <translation>Tekststijl verwijderen</translation>
     </message>
     <message>
+        <source>Swap pages</source>
+        <translation type="vanished">Pagina&apos;s verwisselen</translation>
+    </message>
+    <message>
         <location filename="../../scribus/undomanager.cpp" line="833"/>
         <source>Import page</source>
         <translation>Pagina importeren</translation>
@@ -41678,7 +42766,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="850"/>
         <source>Stroke</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Streek</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="876"/>
@@ -41859,6 +42947,93 @@ kies een andere.</translation>
         <location filename="../../scribus/plugins/picbrowser/imagedialog.ui" line="99"/>
         <source>Set zoom to 100%</source>
         <translation>Zoom 100%</translation>
+    </message>
+</context>
+<context>
+    <name>newDocDialog</name>
+    <message>
+        <source>Dialog</source>
+        <translation type="vanished">Dialoogvenster</translation>
+    </message>
+    <message>
+        <source>New Document</source>
+        <translation type="vanished">Nieuw document</translation>
+    </message>
+    <message>
+        <source>Page preset categories</source>
+        <translation type="vanished">Vooraf ingestelde paginacategorieën</translation>
+    </message>
+    <message>
+        <source>Sort page list</source>
+        <translation type="vanished">Paginalijst sorteren</translation>
+    </message>
+    <message>
+        <source>Preview</source>
+        <translation type="vanished">Voorbeeld</translation>
+    </message>
+    <message>
+        <source>Document</source>
+        <translation type="vanished">Document</translation>
+    </message>
+    <message>
+        <source>&amp;H:</source>
+        <translation type="vanished">&amp;H:</translation>
+    </message>
+    <message>
+        <source>&amp;W:</source>
+        <translation type="vanished">&amp;B:</translation>
+    </message>
+    <message>
+        <source>Pages</source>
+        <translation type="vanished">Pagina&apos;s</translation>
+    </message>
+    <message>
+        <source>Orientation</source>
+        <translation type="vanished">Oriëntatie</translation>
+    </message>
+    <message>
+        <source>Margins</source>
+        <translation type="vanished">Marges</translation>
+    </message>
+    <message>
+        <source>Bleeds</source>
+        <translation type="vanished">Aflopen</translation>
+    </message>
+    <message>
+        <source>Text Frame</source>
+        <translation type="vanished">Tekstkader</translation>
+    </message>
+    <message>
+        <source>&amp;Automatic Text Frame</source>
+        <translation type="vanished">&amp;Automatisch tekstkader</translation>
+    </message>
+    <message>
+        <source>Columns</source>
+        <translation type="vanished">Kolommen</translation>
+    </message>
+    <message>
+        <source>Gap</source>
+        <translation type="vanished">Tussenruimte</translation>
+    </message>
+    <message>
+        <source>Show Document Settings After Creation</source>
+        <translation type="vanished">Documentinstellingen weergeven na aanmaak</translation>
+    </message>
+    <message>
+        <source>New from Template</source>
+        <translation type="vanished">Nieuw van sjabloon</translation>
+    </message>
+    <message>
+        <source>Open Existing Document</source>
+        <translation type="vanished">Bestaand document openen</translation>
+    </message>
+    <message>
+        <source>Open Recent Document</source>
+        <translation type="vanished">Recent document openen</translation>
+    </message>
+    <message>
+        <source>Do not show this dialog again</source>
+        <translation type="vanished">Dit dialoogvenster niet meer tonen</translation>
     </message>
 </context>
 <context>
