@@ -21962,7 +21962,7 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="337"/>
         <source>Blendmode of the drop shadow</source>
-        <translation type="unfinished"></translation>
+        <translation>Überblendungsmodus des Schlagschattens</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="338"/>
@@ -22250,11 +22250,6 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
         <translation>Ausrichtung</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="427"/>
-        <source>Columns &amp;&amp; Indents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="71"/>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="425"/>
         <source>Typography</source>
@@ -22262,6 +22257,7 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="65"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="427"/>
         <source>Columns &amp;&amp; Indentation</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24538,7 +24534,7 @@ Externe Links
     <message>
         <location filename="../../scribus/langmgr.cpp" line="273"/>
         <source>Gondi Southern</source>
-        <translation type="unfinished"></translation>
+        <translation>Gondi</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="280"/>

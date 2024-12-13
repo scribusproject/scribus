@@ -22195,11 +22195,6 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
         <translation>Tasaus</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="427"/>
-        <source>Columns &amp;&amp; Indents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="71"/>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="425"/>
         <source>Typography</source>
@@ -22207,6 +22202,7 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="65"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="427"/>
         <source>Columns &amp;&amp; Indentation</source>
         <translation type="unfinished"></translation>
     </message>
@@ -37271,7 +37267,7 @@ yhteydessä suoritettava JavaScript:</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="260"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
-        <translation type="unfinished">Tätä asetusta tulisi käyttää ainoastaan, jos paino vaatii sitä ja he ovat antaneet sinulle tarkat arvot asetuksille. Muuten PDF-tiedosto ei välttämättä tulostu oikein eikä ole yhdenmukainen kaikilla järjestelmillä.</translation>
+        <translation>Tätä asetusta tulisi käyttää ainoastaan, jos paino vaatii sitä ja he ovat antaneet sinulle tarkat arvot asetuksille. Muuten PDF-tiedosto ei välttämättä tulostu oikein eikä ole yhdenmukainen kaikilla järjestelmillä.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="199"/>
@@ -38231,7 +38227,7 @@ to %2</source>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="796"/>
         <source>Raise layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Nosta tasoa</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="798"/>

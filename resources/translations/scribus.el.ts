@@ -619,7 +619,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1592"/>
         <source>Raise to &amp;Top</source>
-        <translation type="unfinished"></translation>
+        <translation>Ανύψωση στην &amp;κορυφή</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1593"/>
@@ -629,7 +629,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1594"/>
         <source>&amp;Raise</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ανύψωση</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1597"/>
@@ -22159,11 +22159,6 @@ a range of pages or a single page number</source>
         <translation>Σ&amp;τοίχιση</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="427"/>
-        <source>Columns &amp;&amp; Indents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="71"/>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="425"/>
         <source>Typography</source>
@@ -22171,6 +22166,7 @@ a range of pages or a single page number</source>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="65"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="427"/>
         <source>Columns &amp;&amp; Indentation</source>
         <translation type="unfinished"></translation>
     </message>
@@ -37196,7 +37192,7 @@ when PDF document is opened:</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="260"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
-        <translation type="unfinished">Αυτή είναι μια ρύθμιση για προχωρημένους η οποία δεν είναι ενεργοποιημένη προκαθορισμένα. Θα πρέπει να ενεργοποιηθεί μόνο αν απαιτείται ρητά από το μοντέλο εκτυπωτή σας και έχετε διαθέσιμες τις ακριβείς λεπτομέρειες γι&apos; αυτό. Σε άλλη περίπτωση, το εξαγόμενο PDF μπορεί να μην εκτυπωθεί σωστά ενώ μπορεί να μην είναι πραγματικά συμβατό μεταξύ διαφορετικών συστημάτων.</translation>
+        <translation>Αυτή είναι μια ρύθμιση για προχωρημένους η οποία δεν είναι ενεργοποιημένη προκαθορισμένα. Θα πρέπει να ενεργοποιηθεί μόνο αν απαιτείται ρητά από το μοντέλο εκτυπωτή σας και έχετε διαθέσιμες τις ακριβείς λεπτομέρειες γι&apos; αυτό. Σε άλλη περίπτωση, το εξαγόμενο PDF μπορεί να μην εκτυπωθεί σωστά ενώ μπορεί να μην είναι πραγματικά συμβατό μεταξύ διαφορετικών συστημάτων.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="199"/>
@@ -38152,7 +38148,7 @@ to %2</source>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="796"/>
         <source>Raise layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Ανύψωση στρώματος</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="798"/>

@@ -14587,7 +14587,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/picsearchoptions.ui" line="71"/>
         <source>Change...</source>
-        <translation type="unfinished"></translation>
+        <translation>Ndërro...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearchoptions.ui" line="80"/>
@@ -16840,7 +16840,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="657"/>
         <source>Change...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ndërro...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="669"/>
@@ -17156,7 +17156,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="575"/>
         <source>Change...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ndërro...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="588"/>
@@ -19463,7 +19463,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pathsbase.ui" line="147"/>
         <source>C&amp;hange...</source>
-        <translation type="unfinished">Kë&amp;mbe…</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pathsbase.ui" line="150"/>
@@ -19992,7 +19992,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="182"/>
         <source>Change...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ndërro...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="213"/>
@@ -20828,7 +20828,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="102"/>
         <source>C&amp;hange...</source>
-        <translation type="unfinished">Kë&amp;mbe…</translation>
+        <translation>Kë&amp;mbe...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="117"/>
@@ -22168,11 +22168,6 @@ a range of pages or a single page number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="427"/>
-        <source>Columns &amp;&amp; Indents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="71"/>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="425"/>
         <source>Typography</source>
@@ -22180,6 +22175,7 @@ a range of pages or a single page number</source>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="65"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="427"/>
         <source>Columns &amp;&amp; Indentation</source>
         <translation type="unfinished"></translation>
     </message>
@@ -32613,7 +32609,7 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1115"/>
         <source>Change...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ndërro...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1153"/>
@@ -35568,7 +35564,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2058"/>
         <source>&amp;Display Font...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Shfaq Gërma...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="1837"/>

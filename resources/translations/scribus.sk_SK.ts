@@ -6445,7 +6445,7 @@ Pozrite si sekciu Úprava farieb v dokumentácií, kde je viac informácií.</tr
         <location filename="../../scribus/ui/curvewidget.cpp" line="424"/>
         <location filename="../../scribus/ui/curvewidget.cpp" line="460"/>
         <source>Curve Files (*.scu *.SCU);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Súbory kriviek (*.scu *.SCU);;Všetky súbory (*)</translation>
     </message>
 </context>
 <context>
@@ -22189,11 +22189,6 @@ a range of pages or a single page number</source>
         <translation>Zarovnanie</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="427"/>
-        <source>Columns &amp;&amp; Indents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="71"/>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="425"/>
         <source>Typography</source>
@@ -22201,6 +22196,7 @@ a range of pages or a single page number</source>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="65"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="427"/>
         <source>Columns &amp;&amp; Indentation</source>
         <translation type="unfinished"></translation>
     </message>
@@ -37251,7 +37247,7 @@ pri otvorení PDF dokumentu:</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="260"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
-        <translation type="unfinished">Toto je pokročilé nastavenie, ktoré nie je štandardne povolené. Malo by byť povolené len v tom prípade pokiaľ je špeciálne vyžadované tlačiarňou a máte k dispozícií presné detaily. Inak vytvoríte PDF, ktoré sa nebude dať správne vytlačiť a nebude skutočne prenosné medzi systémami.</translation>
+        <translation>Toto je pokročilé nastavenie, ktoré nie je štandardne povolené. Malo by byť povolené len v tom prípade pokiaľ je špeciálne vyžadované tlačiarňou a máte k dispozícií presné detaily. Inak vytvoríte PDF, ktoré sa nebude dať správne vytlačiť a nebude skutočne prenosné medzi systémami.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="199"/>
@@ -38211,7 +38207,7 @@ do %2</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="796"/>
         <source>Raise layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Zvýšiť vrstvu</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="798"/>

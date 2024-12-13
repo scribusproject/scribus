@@ -22230,9 +22230,8 @@ več strani ali samo številka posamezne strani</translation>
         <translation>Poravnava</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="427"/>
         <source>Columns &amp;&amp; Indents</source>
-        <translation>Stolpci in zamiki</translation>
+        <translation type="vanished">Stolpci in zamiki</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="71"/>
@@ -22242,6 +22241,7 @@ več strani ali samo številka posamezne strani</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="65"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="427"/>
         <source>Columns &amp;&amp; Indentation</source>
         <translation>Stolpci in zamiki</translation>
     </message>

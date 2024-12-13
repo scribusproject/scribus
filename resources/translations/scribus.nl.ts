@@ -269,17 +269,17 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="144"/>
         <source>Scribus Version</source>
-        <translation>Scribus versie</translation>
+        <translation>Scribus-versie</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="186"/>
         <source>Check for Updates</source>
-        <translation>Controleer op updates</translation>
+        <translation>Controleren op updates</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="321"/>
         <source>Developer Blog</source>
-        <translation>Ontwikkelaarsweblog</translation>
+        <translation>Ontwikkelaarsblog</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="144"/>
@@ -17365,12 +17365,12 @@ Wilt u deze gebruiken?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="111"/>
         <source>C&amp;hange...</source>
-        <translation>W&amp;ijzigen...</translation>
+        <translation>&amp;Wijzigen...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="118"/>
         <source>A&amp;dd...</source>
-        <translation>&amp;Toevoegen...</translation>
+        <translation>Toe&amp;voegen...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="125"/>
@@ -19521,7 +19521,7 @@ Wilt u deze gebruiken?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pathsbase.ui" line="147"/>
         <source>C&amp;hange...</source>
-        <translation>W&amp;ijzigen...</translation>
+        <translation>&amp;Wijzigen...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pathsbase.ui" line="150"/>
@@ -20021,7 +20021,7 @@ Wilt u deze gebruiken?</translation>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="106"/>
         <source>C&amp;hange</source>
-        <translation>W&amp;ijzigen</translation>
+        <translation>&amp;Wijzigen</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="113"/>
@@ -20887,7 +20887,7 @@ Wilt u deze gebruiken?</translation>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="102"/>
         <source>C&amp;hange...</source>
-        <translation>W&amp;ijzigen...</translation>
+        <translation>&amp;Wijzigen...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="117"/>
@@ -21805,12 +21805,12 @@ een bereik van pagina&apos;s of een enkel paginanummer</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="923"/>
         <source>Color of line</source>
-        <translation>Kleur van de lijn</translation>
+        <translation>Kleur van lijn</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="924"/>
         <source>Mask of line</source>
-        <translation>Masker van de lijn</translation>
+        <translation>Masker van lijn</translation>
     </message>
 </context>
 <context>
@@ -22229,9 +22229,8 @@ een bereik van pagina&apos;s of een enkel paginanummer</translation>
         <translation>Uitlijning</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="427"/>
         <source>Columns &amp;&amp; Indents</source>
-        <translation>Kolommen &amp;&amp; Inspringingen</translation>
+        <translation type="vanished">Kolommen &amp;&amp; Inspringingen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="71"/>
@@ -22241,6 +22240,7 @@ een bereik van pagina&apos;s of een enkel paginanummer</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="65"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="427"/>
         <source>Columns &amp;&amp; Indentation</source>
         <translation>Kolommen &amp;&amp; Inspringing</translation>
     </message>
@@ -29433,7 +29433,7 @@ Mogelijk is daarom het beeld niet correct.</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdsetprop.cpp" line="112"/>
         <source>Opacity out of bounds, must be 0 &lt;= transparency &lt;= 1.</source>
         <comment>python error</comment>
-        <translation>De dekking buiten bereik, moet zijn 0 &lt;= transparantie &lt;= 1.</translation>
+        <translation>De dekking buiten bereik, moet zijn 0 &lt;= x &lt;= 1.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1233"/>
@@ -36052,7 +36052,7 @@ Gebruik de preproductie-controle om deze te corrigeren</translation>
     <message>
         <location filename="../../scribus/ui/styleselect.cpp" line="267"/>
         <source>Fake Small Caps</source>
-        <translation>Kleinkapitalen nabootsen</translation>
+        <translation>Valse Kleinkapitalen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/styleselect.cpp" line="270"/>

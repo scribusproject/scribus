@@ -619,7 +619,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1592"/>
         <source>Raise to &amp;Top</source>
-        <translation type="unfinished"></translation>
+        <translation>उपरिभागं प्रति उत्थापय</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1593"/>
@@ -629,7 +629,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1594"/>
         <source>&amp;Raise</source>
-        <translation type="unfinished"></translation>
+        <translation>उत्थापय</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1597"/>
@@ -22159,11 +22159,6 @@ a range of pages or a single page number</source>
         <translation>पङ्क्तीकरणम्</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="427"/>
-        <source>Columns &amp;&amp; Indents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="71"/>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="425"/>
         <source>Typography</source>
@@ -22171,6 +22166,7 @@ a range of pages or a single page number</source>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="65"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="427"/>
         <source>Columns &amp;&amp; Indentation</source>
         <translation type="unfinished"></translation>
     </message>
@@ -37197,7 +37193,7 @@ when PDF document is opened:</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="260"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
-        <translation type="unfinished">एतदेकं प्रौढनिर्धारणं यत् मूलभूततया न प्रकारितम्। यदा तव मुद्रकेण विशिष्टतया प्रार्थितम्, तथा, आवश्यकाः तथ्यनिर्देशाः च दत्ताः, तदैव एतत् प्रकारितव्यम्। अन्यथा, तव निर्यातं PDF समीचीनतया न मुद्रयेत्, सिस्टम्स् उपरि च न वाह्यम्।</translation>
+        <translation>एतदेकं प्रौढनिर्धारणं यत् मूलभूततया न प्रकारितम्। यदा तव मुद्रकेण विशिष्टतया प्रार्थितम्, तथा, आवश्यकाः तथ्यनिर्देशाः च दत्ताः, तदैव एतत् प्रकारितव्यम्। अन्यथा, तव निर्यातं PDF समीचीनतया न मुद्रयेत्, सिस्टम्स् उपरि च न वाह्यम्।</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="199"/>
@@ -38153,7 +38149,7 @@ to %2</source>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="796"/>
         <source>Raise layer</source>
-        <translation type="unfinished"></translation>
+        <translation>संस्तरम् उत्थापय</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="798"/>

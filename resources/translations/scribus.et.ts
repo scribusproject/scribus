@@ -619,7 +619,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1592"/>
         <source>Raise to &amp;Top</source>
-        <translation type="unfinished"></translation>
+        <translation>Too &amp;kõige ette</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1593"/>
@@ -629,7 +629,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1594"/>
         <source>&amp;Raise</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Too ettepoole</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1597"/>
@@ -6445,7 +6445,7 @@ Täpsemalt kõneleb sellest dokumentatsiooni värvide muutmise osa.</translation
         <location filename="../../scribus/ui/curvewidget.cpp" line="424"/>
         <location filename="../../scribus/ui/curvewidget.cpp" line="460"/>
         <source>Curve Files (*.scu *.SCU);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kõverafailid (*.scu *.SCU);;Kõik failid (*)</translation>
     </message>
 </context>
 <context>
@@ -22199,11 +22199,6 @@ a range of pages or a single page number</source>
         <translation>Joondus</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="427"/>
-        <source>Columns &amp;&amp; Indents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="71"/>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="425"/>
         <source>Typography</source>
@@ -22211,6 +22206,7 @@ a range of pages or a single page number</source>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="65"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="427"/>
         <source>Columns &amp;&amp; Indentation</source>
         <translation type="unfinished"></translation>
     </message>
@@ -37291,7 +37287,7 @@ käivitatav JavaScript:</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="260"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
-        <translation type="unfinished">See on täppisseadistus, mis ei ole vaikimisi sisse lülitatud. See tuleks sisse lülitada ainult siis, kui trükikoda seda konkreetselt nõuab ja sul on olemas kõik üksikasjad. Vastasel juhtul ei pruugi eksporditud PDF-i trükkimine korralikult välja tulla ning see ei pruugi olla päris porditav erinevates süsteemides.</translation>
+        <translation>See on täppisseadistus, mis ei ole vaikimisi sisse lülitatud. See tuleks sisse lülitada ainult siis, kui trükikoda seda konkreetselt nõuab ja sul on olemas kõik üksikasjad. Vastasel juhtul ei pruugi eksporditud PDF-i trükkimine korralikult välja tulla ning see ei pruugi olla päris porditav erinevates süsteemides.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="199"/>
@@ -38251,7 +38247,7 @@ to %2</source>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="796"/>
         <source>Raise layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Kihi toomine ettepoole</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="798"/>

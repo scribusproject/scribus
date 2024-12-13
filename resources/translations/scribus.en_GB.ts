@@ -22228,9 +22228,8 @@ a range of pages or a single page number</translation>
         <translation>Alignment</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="427"/>
         <source>Columns &amp;&amp; Indents</source>
-        <translation>Columns &amp;&amp; Indents</translation>
+        <translation type="vanished">Columns &amp;&amp; Indents</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="71"/>
@@ -22240,6 +22239,7 @@ a range of pages or a single page number</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="65"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="427"/>
         <source>Columns &amp;&amp; Indentation</source>
         <translation>Columns &amp;&amp; Indentation</translation>
     </message>

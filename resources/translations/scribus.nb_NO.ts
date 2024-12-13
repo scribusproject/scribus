@@ -6447,7 +6447,7 @@ Se avsnittet om redigering av farger i dokumentasjonen for ytterligere detaljer.
         <location filename="../../scribus/ui/curvewidget.cpp" line="424"/>
         <location filename="../../scribus/ui/curvewidget.cpp" line="460"/>
         <source>Curve Files (*.scu *.SCU);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kurvefiler (*.scu *.SCU);;Alle filer (*)</translation>
     </message>
 </context>
 <context>
@@ -22199,11 +22199,6 @@ a range of pages or a single page number</source>
         <translation>Justering</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="427"/>
-        <source>Columns &amp;&amp; Indents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="71"/>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="425"/>
         <source>Typography</source>
@@ -22211,6 +22206,7 @@ a range of pages or a single page number</source>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="65"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="427"/>
         <source>Columns &amp;&amp; Indentation</source>
         <translation type="unfinished"></translation>
     </message>
@@ -37257,7 +37253,7 @@ når dokumentet åpnes:</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="260"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
-        <translation type="unfinished">Dette er en avansert innstilling som ikke er tilgjengelig som standard. Du bør bare bruke dette hvis trykkeriet ber spesielt om det og du vet nøyaktig hvilke innstillinger du trenger. Hvis du gjør det feil kan det hende pdf-fila ikke kan skrives ut på rett vis, eller at den ikke blir overførbar mellom ulike operativsystemer.</translation>
+        <translation>Dette er en avansert innstilling som ikke er tilgjengelig som standard. Du bør bare bruke dette hvis trykkeriet ber spesielt om det og du vet nøyaktig hvilke innstillinger du trenger. Hvis du gjør det feil kan det hende pdf-fila ikke kan skrives ut på rett vis, eller at den ikke blir overførbar mellom ulike operativsystemer.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="199"/>
@@ -38217,7 +38213,7 @@ til %2</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="796"/>
         <source>Raise layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Hev lag</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="798"/>

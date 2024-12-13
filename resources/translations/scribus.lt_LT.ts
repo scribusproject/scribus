@@ -619,7 +619,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1592"/>
         <source>Raise to &amp;Top</source>
-        <translation type="unfinished"></translation>
+        <translation>Į patį &amp;viršų</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1593"/>
@@ -629,7 +629,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1594"/>
         <source>&amp;Raise</source>
-        <translation type="unfinished"></translation>
+        <translation>Vienu au&amp;kščiau</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1597"/>
@@ -22202,11 +22202,6 @@ a range of pages or a single page number</source>
         <translation>Lygiuotė</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="427"/>
-        <source>Columns &amp;&amp; Indents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="71"/>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="425"/>
         <source>Typography</source>
@@ -22214,6 +22209,7 @@ a range of pages or a single page number</source>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="65"/>
+        <location filename="../../scribus/ui/propertiespalette_text.cpp" line="427"/>
         <source>Columns &amp;&amp; Indentation</source>
         <translation type="unfinished"></translation>
     </message>
@@ -37294,7 +37290,7 @@ atvėrus PDF dokumentą:</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="260"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
-        <translation type="unfinished">Tai papildomos nuostatos, neleidžiamos numatytuoju atveju. Jas verta leisti tik jei tai yra būtina spausdintuvui ir turite aiškius ir konkrečius nurodymus. Priešingu atveju gali būti keblumų norint spausdinti ar panaudoti kitose programose sukurtą PDF dokumentą.</translation>
+        <translation>Tai papildomos nuostatos, neleidžiamos numatytuoju atveju. Jas verta leisti tik jei tai yra būtina spausdintuvui ir turite aiškius ir konkrečius nurodymus. Priešingu atveju gali būti keblumų norint spausdinti ar panaudoti kitose programose sukurtą PDF dokumentą.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="199"/>
@@ -38254,7 +38250,7 @@ iki %2</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="796"/>
         <source>Raise layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Pakelti aukščiau sluoksnį</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="798"/>
