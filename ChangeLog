@@ -2,6 +2,7 @@ Scribus - 1.7.0 (Released 2024-xx-xx)
 =========================================
 https://bugs.scribus.net/changelog_page.php?version_id=117
 
+0017334: [Scripter]  Add API endpoint setTracking and getTracking (cbradney)
 0017335: [User Interface]  A "last" cosmetic wish: update the progress mark and the page selected highlighting (nitramr)
 0017337: [User Interface]  Render issues of gradients in color picker (nitramr)
 0017338: [General]  Small fixes for 1.7.0svn (nitramr)

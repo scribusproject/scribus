@@ -9070,7 +9070,7 @@ void ScribusDoc::itemSelection_SetOpticalMargins(int i, const QString& id, Selec
 {
 	ParagraphStyle newStyle;
 	newStyle.setOpticalMarginSetId(id);
-	newStyle.setOpticalMargins(i);	
+	newStyle.setOpticalMargins(i);
 	itemSelection_ApplyParagraphStyle(newStyle, customSelection);
 }
 

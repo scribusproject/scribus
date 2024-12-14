@@ -956,7 +956,7 @@ PyObject *scribus_settracking(PyObject* /* self */, PyObject* args)
 	tmpSelection.addItem(item);
 	if (item->HasSel)
 		doc->appMode = modeEdit;
-	doc->itemSelection_SetTracking(kern*10.0, &tmpSelection);
+	doc->itemSelection_SetTracking(kern * 10.0, &tmpSelection);
 	doc->appMode = oldAppMode;
 
 	Py_RETURN_NONE;
@@ -986,10 +986,7 @@ PyObject *scribus_setwordtracking(PyObject* /* self */, PyObject* args)
 	tmpSelection.addItem(item);
 	if (item->HasSel)
 		doc->appMode = modeEdit;
-	doc->itemSelection_SetWordTracking(kern/100.0, &tmpSelection);
-	// ParagraphStyle newStyle;
-	// newStyle.charStyle().setWordTracking(kern / 100.0);
-	// doc->itemSelection_ApplyParagraphStyle(newStyle, &tmpSelection);
+	doc->itemSelection_SetWordTracking(kern / 100.0, &tmpSelection);
 	doc->appMode = oldAppMode;
 
 	Py_RETURN_NONE;
