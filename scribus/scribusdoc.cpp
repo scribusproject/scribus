@@ -9074,11 +9074,18 @@ void ScribusDoc::itemSelection_SetOpticalMargins(int i, const QString& id, Selec
 	itemSelection_ApplyParagraphStyle(newStyle, customSelection);
 }
 
-void ScribusDoc::itemSelection_SetTracking(int kern, Selection* customSelection)
+void ScribusDoc::itemSelection_SetTracking(double kern, Selection* customSelection)
 {
 	CharStyle newStyle;
 	newStyle.setTracking(kern);
 	itemSelection_ApplyCharStyle(newStyle, customSelection, "TRACKING");
+}
+
+void ScribusDoc::itemSelection_SetWordTracking(double kern, Selection* customSelection)
+{
+	ParagraphStyle newStyle;
+	newStyle.charStyle().setWordTracking(kern);
+	itemSelection_ApplyParagraphStyle(newStyle, customSelection);
 }
 
 void ScribusDoc::itemSelection_SetLineSpacingMode(int m, Selection* customSelection)
