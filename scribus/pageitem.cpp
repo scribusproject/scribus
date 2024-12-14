@@ -1020,11 +1020,11 @@ bool PageItem::frameOverflows() const
 	// Fix #6991 : "Text overflow" warning when there is a text underflow in fact
 	/*return NextBox == nullptr && itemText.length() > static_cast<int>(MaxChars);*/
 	return ( m_nextBox == nullptr )
-		   && ( firstChar < itemText.length() )
-		   // Fix #7766 : scribus.textOverflows() returns 0 if there is no place for the overflow mark
-		   /*&& ( firstChar < MaxChars )*/
-		   && ( firstChar <= m_maxChars )
-		   && ( itemText.length() > m_maxChars );
+			&& ( firstChar < itemText.length() )
+			// Fix #7766 : scribus.textOverflows() returns 0 if there is no place for the overflow mark
+			/*&& ( firstChar < MaxChars )*/
+			&& ( firstChar <= m_maxChars )
+			&& ( itemText.length() > m_maxChars );
 }
 
 int PageItem::frameOverflowCount() const
@@ -1036,8 +1036,9 @@ int PageItem::frameOverflowCount() const
 
 int PageItem::frameOverflowBlankCount() const
 {
+	static QRegularExpression re("\\s+");
 	if (frameOverflows())
-		return itemText.plainText().right(itemText.length() - m_maxChars).count(QRegularExpression("\\s+"));
+		return itemText.plainText().right(itemText.length() - m_maxChars).count(re);
 	return 0;
 }
 

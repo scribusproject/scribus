@@ -767,7 +767,7 @@ QString HelpBrowser::historyFile() const
 
 void HelpBrowser::displayNoHelp()
 {
-	QString noHelpMsg = tr("<h2><p>Sorry, no manual is installed!</p><p>Please see:</p><ul><li>https://docs.scribus.net for updated documentation</li><li>http://www.scribus.net for downloads</li></ul></h2>",
+	QString noHelpMsg = tr("<h2><p>Sorry, no manual is installed!</p><p>Please see:</p><ul><li>https://docs.scribus.net for updated documentation</li><li>https://www.scribus.net for downloads</li></ul></h2>",
 						   "HTML message for no documentation available to show");
 
 	textBrowser->setHtml(noHelpMsg);

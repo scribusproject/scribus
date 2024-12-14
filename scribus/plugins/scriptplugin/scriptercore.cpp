@@ -362,7 +362,7 @@ void ScripterCore::slotRunScriptFile(const QString& fileName, QStringList argume
 				ScMessageBox::warning(ScCore->primaryMainWindow(),
 									tr("Script error"),
 									"<qt><p>"
-									+ tr("If you are running an official script report it at <a href=\"http://bugs.scribus.net\">bugs.scribus.net</a> please.")
+									+ tr("If you are running an official script report it at <a href=\"https://bugs.scribus.net\">bugs.scribus.net</a> please.")
 									+ "</p><pre>" + errorMsg.toHtmlEscaped() + "</pre><p>"
 									+ tr("This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.")
 									+ "</p></qt>");

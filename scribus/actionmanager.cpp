@@ -2569,7 +2569,7 @@ void ActionManager::languageChangeActions()
 	QString langpref(ScCore->getGuiLanguage().left(2));
 	if (langpref == "de" || langpref == "fr" || langpref == "po" || langpref == "pt" || langpref == "ru")
 		language = langpref.toUpper();
-	(*scrActions)["helpOnlineTutorial1"]->setActionQString("http://wiki.scribus.net/index.php/tutorial"+language);
+	(*scrActions)["helpOnlineTutorial1"]->setActionQString("https://wiki.scribus.net/index.php/tutorial"+language);
 }
 
 QKeySequence ActionManager::defaultKey(const QString& actionName)

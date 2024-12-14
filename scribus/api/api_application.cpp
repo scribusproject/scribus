@@ -49,7 +49,7 @@ namespace ScribusAPI {
 
 	int getVersionMajor()
 	{
-		QRegularExpression version_regex(QStringLiteral("(\\d+)\\.(\\d+)\\.(\\d+)(.*)"));
+		static QRegularExpression version_regex(QStringLiteral("(\\d+)\\.(\\d+)\\.(\\d+)(.*)"));
 		QRegularExpressionMatch match = version_regex.match(getVersion());
 		if (!match.hasMatch())
 			return -1;
@@ -58,7 +58,7 @@ namespace ScribusAPI {
 
 	int getVersionMinor()
 	{
-		QRegularExpression version_regex(QStringLiteral("(\\d+)\\.(\\d+)\\.(\\d+)(.*)"));
+		static QRegularExpression version_regex(QStringLiteral("(\\d+)\\.(\\d+)\\.(\\d+)(.*)"));
 		QRegularExpressionMatch match = version_regex.match(getVersion());
 		if (!match.hasMatch())
 			return -1;
@@ -67,7 +67,7 @@ namespace ScribusAPI {
 
 	int getVersionPatch()
 	{
-		QRegularExpression version_regex(QStringLiteral("(\\d+)\\.(\\d+)\\.(\\d+)(.*)"));
+		static QRegularExpression version_regex(QStringLiteral("(\\d+)\\.(\\d+)\\.(\\d+)(.*)"));
 		QRegularExpressionMatch match = version_regex.match(getVersion());
 		if (!match.hasMatch())
 			return -1;
@@ -76,7 +76,7 @@ namespace ScribusAPI {
 
 	QString getVersionSuffix()
 	{
-		QRegularExpression version_regex(QStringLiteral("(\\d+)\\.(\\d+)\\.(\\d+)(.*)"));
+		static QRegularExpression version_regex(QStringLiteral("(\\d+)\\.(\\d+)\\.(\\d+)(.*)"));
 		QRegularExpressionMatch match = version_regex.match(getVersion());
 		if (!match.hasMatch())
 			return QString();
