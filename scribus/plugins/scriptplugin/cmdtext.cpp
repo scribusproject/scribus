@@ -177,7 +177,7 @@ PyObject *scribus_gettracking(PyObject* /* self */, PyObject* args)
 		}
 		return nullptr;
 	}
-	return PyLong_FromLong(item->currentCharStyle().tracking());
+	return PyLong_FromLong(item->currentCharStyle().tracking()/10.0);
 }
 
 PyObject *scribus_getwordtracking(PyObject* /* self */, PyObject* args)
