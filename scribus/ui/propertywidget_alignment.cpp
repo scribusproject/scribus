@@ -334,20 +334,28 @@ void PropertyWidget_Alignment::handleFirstLinePolicy(int radioFlop)
 {
 	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	if (radioFlop == FlopWidget::RealHeightID)
-		m_item->setFirstLineOffset(FLOPRealGlyphHeight);
-	else if (radioFlop == FlopWidget::FontAscentID)
-		m_item->setFirstLineOffset(FLOPFontAscent);
-	else if (radioFlop == FlopWidget::LineSpacingID)
-		m_item->setFirstLineOffset(FLOPLineSpacing);
-	else if (radioFlop == FlopWidget::BaselineGridID)
-		m_item->setFirstLineOffset(FLOPBaselineGrid);
-	m_item->update();
+
+	PageItem *textItem = m_item;
 	if (m_doc->appMode == modeEditTable)
-		m_item->parentTable()->update();
-	else
-		m_item->update();
-	m_doc->regionsChanged()->update(QRect());
+		textItem = m_item->asTable()->activeCell().textFrame();
+
+	if (textItem != nullptr)
+	{
+		if (radioFlop == FlopWidget::RealHeightID)
+			textItem->setFirstLineOffset(FLOPRealGlyphHeight);
+		else if (radioFlop == FlopWidget::FontAscentID)
+			textItem->setFirstLineOffset(FLOPFontAscent);
+		else if (radioFlop == FlopWidget::LineSpacingID)
+			textItem->setFirstLineOffset(FLOPLineSpacing);
+		else if (radioFlop == FlopWidget::BaselineGridID)
+			textItem->setFirstLineOffset(FLOPBaselineGrid);
+		textItem->update();
+
+		if (m_doc->appMode == modeEditTable)
+			m_item->asTable()->update();
+
+		m_doc->regionsChanged()->update(QRect());
+	}
 }
 
 void PropertyWidget_Alignment::handleOpticalMargins()
