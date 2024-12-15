@@ -2173,12 +2173,18 @@ bool PrefsManager::readPref(const QString& filePath)
 			}
 			appPrefs.guidesPrefs.gridType = dc.attribute("GridType", "0").toInt();
 			appPrefs.guidesPrefs.gridShown = static_cast<bool>(dc.attribute("ShowGrid", "0").toInt());
-			if (dc.hasAttribute("GuideC"))
-				appPrefs.guidesPrefs.guideColor = QColor(dc.attribute("GuideC"));
-			if (dc.hasAttribute("GuideZ"))
+			if (dc.hasAttribute("GuideC")) // legacy < 1.7.x
+				appPrefs.guidesPrefs.guideColor = QColor(dc.attribute("GuideC", "#000080"));
+			if (dc.hasAttribute("GuidesColor"))
+				appPrefs.guidesPrefs.guideColor = QColor(dc.attribute("GuidesColor", "#000080"));
+			if (dc.hasAttribute("GuideZ")) // legacy
+				appPrefs.guidesPrefs.guideRad = ScCLocale::toDoubleC(dc.attribute("GuideZ"), 10.0);
+			if (dc.hasAttribute("ObjectToGuideSnapRadius"))
 				appPrefs.guidesPrefs.guideRad = ScCLocale::toDoubleC(dc.attribute("ObjectToGuideSnapRadius"), 10.0);
-			if (dc.hasAttribute("BaseC"))
-				appPrefs.guidesPrefs.baselineGridColor = QColor(dc.attribute("BaselineGridColor"));
+			if (dc.hasAttribute("BaseC")) // legacy < 1.7.x
+				appPrefs.guidesPrefs.baselineGridColor = QColor(dc.attribute("BaseC", "#c0c0c0"));
+			if (dc.hasAttribute("BaselineGridColor"))
+				appPrefs.guidesPrefs.baselineGridColor = QColor(dc.attribute("BaselineGridColor", "#c0c0c0"));
 			appPrefs.guidesPrefs.marginColor = QColor(dc.attribute("MarginColor", "#0000ff"));
 			appPrefs.guidesPrefs.valueBaselineGrid   = ScCLocale::toDoubleC(dc.attribute("BaselineGridDistance"), 12.0);
 			appPrefs.guidesPrefs.offsetBaselineGrid  = ScCLocale::toDoubleC(dc.attribute("BaselineGridOffset"), 0.0);

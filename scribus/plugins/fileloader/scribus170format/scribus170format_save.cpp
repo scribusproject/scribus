@@ -497,8 +497,8 @@ bool Scribus170Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("constrain", m_Doc->opToolPrefs().constrain);
 	docu.writeAttribute("MINORC",m_Doc->guidesPrefs().minorGridColor.name());
 	docu.writeAttribute("MAJORC",m_Doc->guidesPrefs().majorGridColor.name());
-	docu.writeAttribute("GuideC", m_Doc->guidesPrefs().guideColor.name());
-	docu.writeAttribute("BaseC", m_Doc->guidesPrefs().baselineGridColor.name());
+	docu.writeAttribute("GuidesColor", m_Doc->guidesPrefs().guideColor.name());
+	docu.writeAttribute("BaselineGridColor", m_Doc->guidesPrefs().baselineGridColor.name());
 	QString renderStack;
 	int renderStackCount = m_Doc->guidesPrefs().renderStackOrder.count();
 	for (int r = 0; r < renderStackCount; r++)

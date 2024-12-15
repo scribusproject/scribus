@@ -2579,10 +2579,14 @@ void Scribus170Format::readGuideSettings(ScribusDoc* doc, const ScXmlStreamAttri
 		doc->guidesPrefs().minorGridColor = QColor(attrs.valueAsString("MINORC"));
 	if (attrs.hasAttribute("MAJORC"))
 		doc->guidesPrefs().majorGridColor = QColor(attrs.valueAsString("MAJORC"));
-	if (attrs.hasAttribute("GuideC"))
+	if (attrs.hasAttribute("GuideC")) //legacy < 1.7.x
 		doc->guidesPrefs().guideColor = QColor(attrs.valueAsString("GuideC"));
-	if (attrs.hasAttribute("BaseC"))
+	if (attrs.hasAttribute("GuidesColor"))
+		doc->guidesPrefs().guideColor = QColor(attrs.valueAsString("GuidesColor"));
+	if (attrs.hasAttribute("BaseC")) //legacy < 1.7.x
 		doc->guidesPrefs().baselineGridColor  = QColor(attrs.valueAsString("BaseC"));
+	if (attrs.hasAttribute("BaselineGridColor"))
+		doc->guidesPrefs().baselineGridColor  = QColor(attrs.valueAsString("BaselineGridColor"));
 	if (attrs.hasAttribute("BACKG"))
 	{
 		doc->guidesPrefs().renderStackOrder.clear();
