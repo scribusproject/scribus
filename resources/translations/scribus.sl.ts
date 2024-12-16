@@ -16960,7 +16960,7 @@ Ali jih želite uporabiti v novi različici Scribusa? {1.3.5 ?}</translation>
     <message>
         <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="285"/>
         <source>Document Rendering Intents</source>
-        <translation>Nameni upodobitve dokumenta</translation>
+        <translation>Izrisni načini za dokument</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="304"/>
@@ -19465,7 +19465,7 @@ Ali ga želite uporabiti?</translation>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="808"/>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="882"/>
         <source>Rendering Intent:</source>
-        <translation>Namen upodobitve:</translation>
+        <translation>Izrisni način:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="842"/>
@@ -19826,7 +19826,7 @@ Ali ga želite uporabiti?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="93"/>
         <source>Rendering intent for solid colors</source>
-        <translation>Namen upodobitve polnih barv</translation>
+        <translation>Izrisni način za polne barve</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="94"/>
@@ -19846,7 +19846,7 @@ Ali ga želite uporabiti?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="97"/>
         <source>Rendering intent for images</source>
-        <translation>Namen izrisa slik</translation>
+        <translation>Izrisni način za slike</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="98"/>
@@ -20324,6 +20324,18 @@ Ali ga želite uporabiti?</translation>
         <location filename="../../scribus/ui/prefs_pagesizesbase.ui" line="122"/>
         <source>Active Sizes</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preferred Sizes</source>
+        <translation type="vanished">Prednostne velikosti</translation>
+    </message>
+    <message>
+        <source>Page Format</source>
+        <translation type="vanished">Velikost lista</translation>
+    </message>
+    <message>
+        <source>Dimension</source>
+        <translation type="vanished">Mera</translation>
     </message>
 </context>
 <context>
@@ -20861,6 +20873,22 @@ Ali ga želite uporabiti?</translation>
         <translation>Skripterka</translation>
     </message>
     <message>
+        <source>Own Scripts</source>
+        <translation type="vanished">Lastni skripti</translation>
+    </message>
+    <message>
+        <source>C&amp;hange</source>
+        <translation type="vanished">&amp;Spremeni ...</translation>
+    </message>
+    <message>
+        <source>A&amp;dd</source>
+        <translation type="vanished">&amp;Dodaj</translation>
+    </message>
+    <message>
+        <source>&amp;Remove</source>
+        <translation type="vanished">&amp;Odstrani</translation>
+    </message>
+    <message>
         <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="86"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/prefs_scripterbase.ui" line="86"/>
         <source>Extensions</source>
@@ -20937,6 +20965,10 @@ Ali ga želite uporabiti?</translation>
         <location filename="../../scribus/plugins/scriptplugin_py2x/prefs_scripter.cpp" line="160"/>
         <source>Locate Startup Script</source>
         <translation>Poišči začetni skript</translation>
+    </message>
+    <message>
+        <source>Choose a Directory</source>
+        <translation type="vanished">Izberite mapo</translation>
     </message>
 </context>
 <context>
@@ -21289,6 +21321,10 @@ Ali ga želite uporabiti?</translation>
         <translation>Prečrtano</translation>
     </message>
     <message>
+        <source>Optical Margins</source>
+        <translation type="vanished">Videzna izravnava</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="226"/>
         <source>Small Caps</source>
         <translation>Pomanjšane velike črke</translation>
@@ -21367,6 +21403,14 @@ Ali ga želite uporabiti?</translation>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="66"/>
         <source>Appearance</source>
         <translation>Videz</translation>
+    </message>
+    <message>
+        <source>Show Informational Labels</source>
+        <translation type="vanished">Prikaži poučne označbe</translation>
+    </message>
+    <message>
+        <source>Show Labels of Inactive Palette Tabs</source>
+        <translation type="vanished">Prikaži opise nedejavnih paletnih zavihkov</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="175"/>
@@ -21508,6 +21552,14 @@ Ali ga želite uporabiti?</translation>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="70"/>
         <source>Time before resize or move starts allows for a slight delay between when you click and the operation happens to avoid unintended moves. This can be helpful when dealing with mouse sensitivity settings or accessibility issues related to ergonomic mice, touch pads or moveability of the wrists and hands.</source>
         <translation>Časovni zamik med klikom in začetkom prevelikostenja ali premikanja, da se izogne nehotenim dejanjem. To je lahko koristno, ko imate opravka z nastavitvami občutljivosti miške ali vprašanji dostopnosti, vezane na ergonomsko miško, sledilne ploščice oz. gibljivost zapestja in rok.</translation>
+    </message>
+    <message>
+        <source>Shows informational labels on palettes.</source>
+        <translation type="vanished">Prikaži opise v paletah.</translation>
+    </message>
+    <message>
+        <source>Shows labels of inactive palette tabs.</source>
+        <translation type="vanished">Prikaže opise nedejavnih paletnih zavihkov.</translation>
     </message>
     <message>
         <source></source>
@@ -22347,6 +22399,10 @@ več strani ali samo številka posamezne strani</translation>
         <source> pt</source>
         <translation> točk</translation>
     </message>
+    <message>
+        <source> dpi</source>
+        <translation type="vanished"> dpi</translation>
+    </message>
 </context>
 <context>
     <name>PropertiesPalette_ImageBase</name>
@@ -22398,7 +22454,7 @@ več strani ali samo številka posamezne strani</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="345"/>
         <source>Rendering intent for the image</source>
-        <translation>Namen izrisa slike</translation>
+        <translation>Izrisni način za sliko</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="291"/>
@@ -22488,7 +22544,7 @@ več strani ali samo številka posamezne strani</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="332"/>
         <source>Rendering Intent:</source>
-        <translation type="unfinished">Namen upodobitve:</translation>
+        <translation type="unfinished">Izrisni način:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="355"/>
@@ -22519,6 +22575,50 @@ več strani ali samo številka posamezne strani</translation>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="443"/>
         <source>Extended Properties</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dimensions</source>
+        <translation type="vanished">Mere</translation>
+    </message>
+    <message>
+        <source>Y:</source>
+        <translation type="vanished">Y:</translation>
+    </message>
+    <message>
+        <source>&amp;Rotation</source>
+        <translation type="vanished">Za&amp;suk</translation>
+    </message>
+    <message>
+        <source>Rotation of the image</source>
+        <translation type="vanished">Zasuk slike</translation>
+    </message>
+    <message>
+        <source>&amp;Page Number</source>
+        <translation type="vanished">&amp;Številka strani</translation>
+    </message>
+    <message>
+        <source>Page number of PDF file</source>
+        <translation type="vanished">Številka strani datoteke PDF</translation>
+    </message>
+    <message>
+        <source>X:</source>
+        <translation type="vanished">X:</translation>
+    </message>
+    <message>
+        <source>Auto-Fit</source>
+        <translation type="vanished">Samoprileganje</translation>
+    </message>
+    <message>
+        <source>Image &amp;Scale</source>
+        <translation type="vanished">Prevelikostenje &amp;slike</translation>
+    </message>
+    <message>
+        <source>Rendering Intent</source>
+        <translation type="vanished">Izrisni način</translation>
+    </message>
+    <message>
+        <source>Effects</source>
+        <translation type="vanished">Učinki</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="430"/>
@@ -23349,7 +23449,7 @@ Transparency</source>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="79"/>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="761"/>
         <source>Optical Margins</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Videzna izravnava</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="83"/>
@@ -31555,7 +31655,7 @@ Zato je lahko podoba napačna</translation>
         <translation>&lt;p&gt;Uvoziti skušate več strani, kot jih je v tem dokumentu trenutno na voljo od dejavne strani dalje.&lt;/p&gt;Izberite eno izmed naslednjih možnosti:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Ustvari&lt;/b&gt;manjkajoče strani&lt;/li&gt;&lt;li&gt;&lt;b&gt;Uvozi&lt;/b&gt;kolikor gre do zadnje strani&lt;/li&gt;&lt;li&gt;&lt;b&gt;Prekliči&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18319"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18348"/>
         <source>Unacceptable settings for note style</source>
         <translation>Nesprejemljive nastavitve opombnega sloga</translation>
     </message>
@@ -33224,7 +33324,7 @@ Projekt osvobajanja dokumentov (Document Liberation Project) https://www.documen
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="211"/>
         <source>Optical Margins</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Videzna izravnava</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="221"/>
@@ -35390,7 +35490,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <location filename="../../scribus/scribusdoc.cpp" line="213"/>
         <location filename="../../scribus/scribusdoc.cpp" line="219"/>
         <location filename="../../scribus/scribusdoc.cpp" line="249"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16781"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16810"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
@@ -35410,17 +35510,17 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <translation>Predmet %1 uporablja urejevalnik zgodbe. Brisanje je bilo preklicano</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12093"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12122"/>
         <source>Some objects are locked.</source>
         <translation>Nekateri predmeti so zaklenjeni.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12089"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12118"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Odkleni vse</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12090"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12119"/>
         <source>&amp;Skip locked objects</source>
         <translation>&amp;Preskoči zaklenjene predmete</translation>
     </message>
@@ -35431,7 +35531,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="963"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16463"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16492"/>
         <source>Adjusting Colors</source>
         <translation>Prilagajanje barv</translation>
     </message>
@@ -35446,7 +35546,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <translation>Odstrani neposredno oblikovanje znaka</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13752"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13781"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -35457,7 +35557,7 @@ Navpični zamik: %3
 Sukanje: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13785"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13814"/>
         <source>Number of rows: %1
 Number of columns: %2
 Horizontal gap: %3
@@ -35468,9 +35568,9 @@ Vodoravni razmik: %3
 Navpični razmik: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="15150"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15205"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15367"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15179"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15234"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15396"/>
         <source>Group%1</source>
         <translation>Skupina%1</translation>
     </message>
@@ -35481,23 +35581,23 @@ Navpični razmik: %4</translation>
         <translation>Uvoženo </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13907"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13936"/>
         <source>Copied %1 item(s) on %2 page(s)</source>
         <translation>Kopiranih %1 predmetov na %2 straneh</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16797"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16826"/>
         <source>File %1 autosaved</source>
         <translation>Datoteka %1 samodejno shranjena</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17948"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17985"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17977"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18014"/>
         <source>No Style</source>
         <translation>Brez sloga</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18313"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18342"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>%1 slog zapisa ima dokument kot obseg in ponuja enak slog oštevilčenja, kot skupek %2</translation>
     </message>
@@ -38399,7 +38499,7 @@ Uporabite Predpregled, da jih odpravite</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="263"/>
         <source>Rendering intent for solid colors</source>
-        <translation>Namen upodobitve polnih barv</translation>
+        <translation>Izrisni način za polne barve</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="264"/>
@@ -38419,7 +38519,7 @@ Uporabite Predpregled, da jih odpravite</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="267"/>
         <source>Rendering intent for images</source>
-        <translation>Namen upodobitve slik</translation>
+        <translation>Izrisni način za slike</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="283"/>
@@ -38893,7 +38993,7 @@ ob odprtju dokumenta PDF:</translation>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1228"/>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1288"/>
         <source>Rendering Intent:</source>
-        <translation>Namen upodobitve:</translation>
+        <translation>Izrisni način:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="137"/>

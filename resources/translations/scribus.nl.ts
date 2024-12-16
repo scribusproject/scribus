@@ -32289,7 +32289,7 @@ Mogelijk is daarom het beeld niet correct.</translation>
         <translation>&lt;p&gt;U probeert meer pagina&apos;s te importeren dan er beschikbaar zijn in het huidige document, tellende vanaf de actieve pagina.&lt;/p&gt;Kies uit het volgende:&lt;ul&gt;&lt;li&gt;ontbrekende pagina&apos;s &lt;b&gt;aanmaken&lt;/b&gt;&lt;/li&gt;&lt;li&gt;pagina&apos;s t/m de laatste &lt;b&gt;importeren&lt;/b&gt;&lt;/li&gt;&lt;li&gt;&lt;b&gt;Annuleren&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18319"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18348"/>
         <source>Unacceptable settings for note style</source>
         <translation>Notitiestijl bevat ongeldige instellingen </translation>
     </message>
@@ -36334,7 +36334,7 @@ Als u het in deze versie opslaat, zal het niet langer leesbaar zijn voor oudere 
         <location filename="../../scribus/scribusdoc.cpp" line="213"/>
         <location filename="../../scribus/scribusdoc.cpp" line="219"/>
         <location filename="../../scribus/scribusdoc.cpp" line="249"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16781"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16810"/>
         <source>Document</source>
         <translation>Document</translation>
     </message>
@@ -36354,17 +36354,17 @@ Als u het in deze versie opslaat, zal het niet langer leesbaar zijn voor oudere 
         <translation>Dit item %1 wordt momenteel bijgewerkt met de Story Editor. Wissen wordt geannuleerd</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12093"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12122"/>
         <source>Some objects are locked.</source>
         <translation>Sommige objecten zijn vergrendeld.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12089"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12118"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Alle ontgrendelen</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12090"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12119"/>
         <source>&amp;Skip locked objects</source>
         <translation>Vergrendelde objecten over&amp;slaan</translation>
     </message>
@@ -36375,7 +36375,7 @@ Als u het in deze versie opslaat, zal het niet langer leesbaar zijn voor oudere 
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="963"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16463"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16492"/>
         <source>Adjusting Colors</source>
         <translation>Kleuren aanpassen</translation>
     </message>
@@ -36390,7 +36390,7 @@ Als u het in deze versie opslaat, zal het niet langer leesbaar zijn voor oudere 
         <translation>Directe lettertype-opmaak verwijderen</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13752"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13781"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -36401,7 +36401,7 @@ Verticale verschuiving: %3
 Rotatie: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13785"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13814"/>
         <source>Number of rows: %1
 Number of columns: %2
 Horizontal gap: %3
@@ -36412,9 +36412,9 @@ Horizontale tussenruimte: %3
 Verticale tussenruimte: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="15150"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15205"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15367"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15179"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15234"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15396"/>
         <source>Group%1</source>
         <translation>Groep%1</translation>
     </message>
@@ -36425,23 +36425,23 @@ Verticale tussenruimte: %4</translation>
         <translation>Geïmporteerd</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13907"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13936"/>
         <source>Copied %1 item(s) on %2 page(s)</source>
         <translation>%1 Item(s) gekopieerd naar %2 pagina(&apos;s)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16797"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16826"/>
         <source>File %1 autosaved</source>
         <translation>Bestand %1 autom. opgeslagen</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17948"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17985"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17977"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18014"/>
         <source>No Style</source>
         <translation>Geen stijl</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18313"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18342"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>%1 notitiestijl heeft document als bereik en biedt dezelfde nummeringsstijl als set %2</translation>
     </message>

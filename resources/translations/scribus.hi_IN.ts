@@ -30877,7 +30877,7 @@ Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18319"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18348"/>
         <source>Unacceptable settings for note style</source>
         <translation type="unfinished"></translation>
     </message>
@@ -34670,7 +34670,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <location filename="../../scribus/scribusdoc.cpp" line="213"/>
         <location filename="../../scribus/scribusdoc.cpp" line="219"/>
         <location filename="../../scribus/scribusdoc.cpp" line="249"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16781"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16810"/>
         <source>Document</source>
         <translation type="unfinished"></translation>
     </message>
@@ -34690,17 +34690,17 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12093"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12122"/>
         <source>Some objects are locked.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12089"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12118"/>
         <source>&amp;Unlock All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12090"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12119"/>
         <source>&amp;Skip locked objects</source>
         <translation type="unfinished"></translation>
     </message>
@@ -34711,7 +34711,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="963"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16463"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16492"/>
         <source>Adjusting Colors</source>
         <translation type="unfinished"></translation>
     </message>
@@ -34726,7 +34726,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13752"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13781"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -34734,7 +34734,7 @@ Rotation: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13785"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13814"/>
         <source>Number of rows: %1
 Number of columns: %2
 Horizontal gap: %3
@@ -34742,9 +34742,9 @@ Vertical gap: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="15150"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15205"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15367"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15179"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15234"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15396"/>
         <source>Group%1</source>
         <translation>समूह : %1</translation>
     </message>
@@ -34755,23 +34755,23 @@ Vertical gap: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13907"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13936"/>
         <source>Copied %1 item(s) on %2 page(s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16797"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16826"/>
         <source>File %1 autosaved</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17948"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17985"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17977"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18014"/>
         <source>No Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18313"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18342"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation type="unfinished"></translation>
     </message>

@@ -2532,6 +2532,10 @@
         <source>Align Text Forced Justified</source>
         <translation>Justificação forçada do texto</translation>
     </message>
+    <message>
+        <source>&amp;Horizontal</source>
+        <translation type="vanished">&amp;Horizontal</translation>
+    </message>
 </context>
 <context>
     <name>Annota</name>
@@ -6683,6 +6687,10 @@ Veja a secção Editar de cores, da documentação, para mais informações.</tr
         <source>Right to left paragraph</source>
         <translation>Parágrafo da direita para a esquerda</translation>
     </message>
+    <message>
+        <source>&amp;Direction</source>
+        <translation type="vanished">&amp;Direção</translation>
+    </message>
 </context>
 <context>
     <name>DocIm</name>
@@ -7738,6 +7746,14 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>FontComboH</name>
     <message>
+        <source>Family</source>
+        <translation type="vanished">Família</translation>
+    </message>
+    <message>
+        <source>Style</source>
+        <translation type="vanished">Estilo</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/fontcombo.cpp" line="161"/>
         <source>Family:</source>
         <translation type="unfinished"></translation>
@@ -8668,6 +8684,29 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="107"/>
         <source>D&amp;elete All</source>
         <translation>&amp;Eliminar tudo</translation>
+    </message>
+</context>
+<context>
+    <name>Hruler</name>
+    <message>
+        <source>Left</source>
+        <translation type="vanished">Esquerda</translation>
+    </message>
+    <message>
+        <source>Center</source>
+        <translation type="vanished">Centro</translation>
+    </message>
+    <message>
+        <source>Comma</source>
+        <translation type="vanished">Vírgula</translation>
+    </message>
+    <message>
+        <source>Dot</source>
+        <translation type="vanished">Ponto</translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation type="vanished">Direita</translation>
     </message>
 </context>
 <context>
@@ -12097,6 +12136,22 @@ Se não estiver selecionada nenhuma alça, serão repostas todas as alças.</tra
         <translation>Distância entre as colunas criadas automaticamente</translation>
     </message>
     <message>
+        <source>Name Asc</source>
+        <translation type="vanished">Nome — Ascendente</translation>
+    </message>
+    <message>
+        <source>Name Desc</source>
+        <translation type="vanished">Nome — Descendente</translation>
+    </message>
+    <message>
+        <source>Size Asc</source>
+        <translation type="vanished">Tamanho — Ascendente</translation>
+    </message>
+    <message>
+        <source>Size Desc</source>
+        <translation type="vanished">Tamanho — Descendente</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="340"/>
         <source>Show Document Settings After Creation</source>
         <translation>Mostrar configurações do documento depois da sua criação</translation>
@@ -12124,6 +12179,18 @@ Se não estiver selecionada nenhuma alça, serão repostas todas as alças.</tra
 </context>
 <context>
     <name>NewMarginWidget</name>
+    <message>
+        <source>Preset:</source>
+        <translation type="vanished">Predefinição:</translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation type="vanished">Esquerda</translation>
+    </message>
+    <message>
+        <source>Top</source>
+        <translation type="vanished">Topo</translation>
+    </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="37"/>
         <source>Bottom:</source>
@@ -12153,6 +12220,14 @@ Se não estiver selecionada nenhuma alça, serão repostas todas as alças.</tra
         <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="134"/>
         <source>Printer Margins...</source>
         <translation>Margens da impressora...</translation>
+    </message>
+    <message>
+        <source>Bottom</source>
+        <translation type="vanished">Inferior</translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation type="vanished">Direita</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="71"/>
@@ -12185,9 +12260,37 @@ Se não estiver selecionada nenhuma alça, serão repostas todas as alças.</tra
         <translation>Certificar que todas as sangrias têm o mesmo valor</translation>
     </message>
     <message>
+        <source>Distance from the top</source>
+        <translation type="vanished">Distância do topo</translation>
+    </message>
+    <message>
+        <source>Distance from the bottom</source>
+        <translation type="vanished">Distância da parte inferior</translation>
+    </message>
+    <message>
+        <source>Distance from the left</source>
+        <translation type="vanished">Distância da esquerda</translation>
+    </message>
+    <message>
+        <source>Distance from the right</source>
+        <translation type="vanished">Distância da direita</translation>
+    </message>
+    <message>
+        <source>Ensure all distances have the same value</source>
+        <translation type="vanished">Garantir que todas as distâncias têm o mesmo valor</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="85"/>
         <source>Import the margins for the selected page size from the available printers</source>
         <translation>Importar as margens para o tamanho de página selecionado a partir das impressoras disponíveis</translation>
+    </message>
+    <message>
+        <source>Inside</source>
+        <translation type="vanished">Interna</translation>
+    </message>
+    <message>
+        <source>Outside</source>
+        <translation type="vanished">Exterior</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="79"/>
@@ -15072,6 +15175,14 @@ O resultado é uma combinação de &quot;interseção&quot; e &quot;exclusão&qu
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="222"/>
         <source>Note: importing text as text may significantly alter PDF visual aspect</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import text as vectors</source>
+        <translation type="vanished">Importar texto como vetores</translation>
+    </message>
+    <message>
+        <source>Import text as text</source>
+        <translation type="vanished">Importar texto como texto</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.cpp" line="51"/>
@@ -20191,6 +20302,14 @@ Quer usar isto?</translation>
         <source>Active Sizes</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Page Format</source>
+        <translation type="vanished">Formato da página</translation>
+    </message>
+    <message>
+        <source>Dimension</source>
+        <translation type="vanished">Dimensão</translation>
+    </message>
 </context>
 <context>
     <name>Prefs_Paths</name>
@@ -20727,6 +20846,10 @@ Se definir como Postscript nível 1 ou 2 pode originar ficheiros enormes</transl
         <translation>Scripter</translation>
     </message>
     <message>
+        <source>&amp;Remove</source>
+        <translation type="vanished">&amp;Remover</translation>
+    </message>
+    <message>
         <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="86"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/prefs_scripterbase.ui" line="86"/>
         <source>Extensions</source>
@@ -20803,6 +20926,10 @@ Se definir como Postscript nível 1 ou 2 pode originar ficheiros enormes</transl
         <location filename="../../scribus/plugins/scriptplugin_py2x/prefs_scripter.cpp" line="160"/>
         <source>Locate Startup Script</source>
         <translation>Localização do script de inicialização</translation>
+    </message>
+    <message>
+        <source>Choose a Directory</source>
+        <translation type="vanished">Selecionar uma pasta</translation>
     </message>
 </context>
 <context>
@@ -21155,6 +21282,10 @@ Se definir como Postscript nível 1 ou 2 pode originar ficheiros enormes</transl
         <translation>Riscado</translation>
     </message>
     <message>
+        <source>Optical Margins</source>
+        <translation type="vanished">Margens óticas</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="226"/>
         <source>Small Caps</source>
         <translation>Versaletes</translation>
@@ -21233,6 +21364,14 @@ Se definir como Postscript nível 1 ou 2 pode originar ficheiros enormes</transl
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="66"/>
         <source>Appearance</source>
         <translation>Aparência</translation>
+    </message>
+    <message>
+        <source>Show Informational Labels</source>
+        <translation type="vanished">Mostrar rótulos informativos</translation>
+    </message>
+    <message>
+        <source>Show Labels of Inactive Palette Tabs</source>
+        <translation type="vanished">Ocultar rótulos de abas em painéis inativos.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="175"/>
@@ -21374,6 +21513,14 @@ Se definir como Postscript nível 1 ou 2 pode originar ficheiros enormes</transl
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="70"/>
         <source>Time before resize or move starts allows for a slight delay between when you click and the operation happens to avoid unintended moves. This can be helpful when dealing with mouse sensitivity settings or accessibility issues related to ergonomic mice, touch pads or moveability of the wrists and hands.</source>
         <translation>Tempo até que se inicie o redimensionamento ou mover de objetos. Isto permite atrasar um pouco estas ações para evitar ações não pretendidas por acidente. Isto pode ser útil para lidar com configurações da sensibilidade do rato ou problemas de acessibilidade relacionados com ratos ergonómicos, painéis táteis ou movimentos do pulso e mão.</translation>
+    </message>
+    <message>
+        <source>Shows informational labels on palettes.</source>
+        <translation type="vanished">Mostrar rótulos informativos nos painéis.</translation>
+    </message>
+    <message>
+        <source>Shows labels of inactive palette tabs.</source>
+        <translation type="vanished">Ocultar rótulos de abas em painéis inativos.</translation>
     </message>
     <message>
         <source></source>
@@ -23182,6 +23329,14 @@ Transparency</source>
 <context>
     <name>PropertiesPalette_Text</name>
     <message>
+        <source>Hyphenation &amp;&amp; Language</source>
+        <translation type="vanished">Hifenização e &amp;Idioma</translation>
+    </message>
+    <message>
+        <source>Text on Path</source>
+        <translation type="vanished">Texto no caminho</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="63"/>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="755"/>
         <source>Color &amp;&amp; Effects</source>
@@ -23215,7 +23370,7 @@ Transparency</source>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="79"/>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="761"/>
         <source>Optical Margins</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Margens óticas</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="83"/>
@@ -23644,6 +23799,10 @@ Transparency</source>
         <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="130"/>
         <source>Scaling width of characters</source>
         <translation>Escalamento de largura dos caracteres</translation>
+    </message>
+    <message>
+        <source>Glyph:</source>
+        <translation type="vanished">Glifo:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="162"/>
@@ -31405,7 +31564,7 @@ Por isso a imagem pode não estar correta</translation>
         <translation>&lt;p&gt;Está a tentar importar mais páginas do que as disponíveis no documento atual, a contar da página ativa.&lt;/p&gt;Escolha uma das opções seguintes:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Criar&lt;/b&gt; páginas em falta&lt;/li&gt;&lt;li&gt;&lt;b&gt;Importar&lt;/b&gt; páginas até à última página&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancelar&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18319"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18348"/>
         <source>Unacceptable settings for note style</source>
         <translation>Definições não aceites no estilo da nota</translation>
     </message>
@@ -32512,6 +32671,10 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Hyphenation &amp;&amp; Language</source>
+        <translation type="vanished">Hifenização e &amp;Idioma</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="740"/>
         <source> characters</source>
         <translation>caracteres</translation>
@@ -32861,6 +33024,10 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <translation>Propriedades</translation>
     </message>
     <message>
+        <source>Tabs &amp;&amp; Indentation</source>
+        <translation type="vanished">Tabuladores e indentação</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1145"/>
         <source>Choose Character Style or leave blank to use default Paragraph Style</source>
         <translation>Escolha o estilo de caracteres ou deixe em branco para usar o estilo padrão de parágrafos</translation>
@@ -32894,6 +33061,28 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="45"/>
         <source>Parent Style</source>
         <translation>Estilo contentor</translation>
+    </message>
+    <message>
+        <source>Hyphenation</source>
+        <translation type="vanished">Hifenização</translation>
+    </message>
+    <message>
+        <source>Maximum number of Hyphenations following each other.
+A value of 0 means unlimited hyphenations.</source>
+        <translation type="vanished">Número máximo de hifenizações consecutivas.
+Um valor de 0 significa hifenizações consecutivas ilimitadas.</translation>
+    </message>
+    <message>
+        <source>Maximal extension of glyphs for justification</source>
+        <translation type="vanished">Alargamento máximo dos glifos na justificação</translation>
+    </message>
+    <message>
+        <source>Minimal shrinkage of glyphs for justification</source>
+        <translation type="vanished">Encolhimento mínimo dos glifos na justificação</translation>
+    </message>
+    <message>
+        <source>Glyph:</source>
+        <translation type="vanished">Glifo:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="519"/>
@@ -33074,7 +33263,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="211"/>
         <source>Optical Margins</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Margens óticas</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="221"/>
@@ -35240,7 +35429,7 @@ Se o guardar nesta versão, não o poderá abrir em versões mais antigas do Scr
         <location filename="../../scribus/scribusdoc.cpp" line="213"/>
         <location filename="../../scribus/scribusdoc.cpp" line="219"/>
         <location filename="../../scribus/scribusdoc.cpp" line="249"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16781"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16810"/>
         <source>Document</source>
         <translation>Documento</translation>
     </message>
@@ -35260,17 +35449,17 @@ Se o guardar nesta versão, não o poderá abrir em versões mais antigas do Scr
         <translation>O item %1 está atualmente a ser editado pelo editor de história. A operação de eliminar será cancelada</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12093"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12122"/>
         <source>Some objects are locked.</source>
         <translation>Alguns objetos estão bloqueados.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12089"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12118"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Desbloquear tudo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12090"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12119"/>
         <source>&amp;Skip locked objects</source>
         <translation>&amp;Ignorar os objetos bloqueados</translation>
     </message>
@@ -35281,7 +35470,7 @@ Se o guardar nesta versão, não o poderá abrir em versões mais antigas do Scr
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="963"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16463"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16492"/>
         <source>Adjusting Colors</source>
         <translation>A ajustar cores</translation>
     </message>
@@ -35296,7 +35485,7 @@ Se o guardar nesta versão, não o poderá abrir em versões mais antigas do Scr
         <translation>remover formatação direta de carácter</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13752"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13781"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -35307,7 +35496,7 @@ Deslocamento vertical: %3
 Rotação: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13785"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13814"/>
         <source>Number of rows: %1
 Number of columns: %2
 Horizontal gap: %3
@@ -35318,9 +35507,9 @@ Intervalo horizontal: %3
 Intervalo vertical: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="15150"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15205"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15367"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15179"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15234"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15396"/>
         <source>Group%1</source>
         <translation>Grupo%1</translation>
     </message>
@@ -35331,23 +35520,23 @@ Intervalo vertical: %4</translation>
         <translation>Importado</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13907"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13936"/>
         <source>Copied %1 item(s) on %2 page(s)</source>
         <translation>Foram copiados %1 item(s) em %2 página(s)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16797"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16826"/>
         <source>File %1 autosaved</source>
         <translation>Ficheiro %1 guardado automaticamente</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17948"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17985"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17977"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18014"/>
         <source>No Style</source>
         <translation>Sem estilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18313"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18342"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>O estilo de notas %1 tem documento como intervalo e fornece o mesmo estilo de numeração do conjunto %2</translation>
     </message>
@@ -37689,6 +37878,10 @@ Consider using the Preflight Verifier to correct them</source>
 </context>
 <context>
     <name>TabManager</name>
+    <message>
+        <source>Manage Tabs</source>
+        <translation type="vanished">Gerir abas</translation>
+    </message>
     <message>
         <location filename="../../scribus/ui/tabmanager.cpp" line="23"/>
         <source>Manage Tabulators</source>
@@ -41840,6 +42033,13 @@ Por favor, escolha outro nome.</translation>
         <location filename="../../scribus/plugins/picbrowser/imagedialog.ui" line="99"/>
         <source>Set zoom to 100%</source>
         <translation>Aplicar ampliação de 100%</translation>
+    </message>
+</context>
+<context>
+    <name>newDocDialog</name>
+    <message>
+        <source>Page preset categories</source>
+        <translation type="vanished">Categorias predefinidas de página</translation>
     </message>
 </context>
 <context>

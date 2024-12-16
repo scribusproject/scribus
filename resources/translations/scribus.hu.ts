@@ -30735,6 +30735,122 @@ lista hiányos a meghívott funkciók miatt.
         <translation type="vanished">Átmeneti</translation>
     </message>
     <message>
+        <source>US Paper</source>
+        <translation type="vanished">US papír</translation>
+    </message>
+    <message>
+        <source>US Press</source>
+        <translation type="vanished">US nyomda</translation>
+    </message>
+    <message>
+        <source>US Envelopes</source>
+        <translation type="vanished">US borítékok</translation>
+    </message>
+    <message>
+        <source>Folio</source>
+        <translation type="vanished">Fólió</translation>
+    </message>
+    <message>
+        <source>4to (Quarto)</source>
+        <translation type="vanished">4to (Quarto)</translation>
+    </message>
+    <message>
+        <source>8vo (Imperial Octavo)</source>
+        <translation type="vanished">8vo (Birodalmi octavo)</translation>
+    </message>
+    <message>
+        <source>8vo (Super Octavo)</source>
+        <translation type="vanished">8vo (Szuper octavo)</translation>
+    </message>
+    <message>
+        <source>8vo (Royal Octavo)</source>
+        <translation type="vanished">8vo (királyi octavo)</translation>
+    </message>
+    <message>
+        <source>8vo (Medium Octavo)</source>
+        <translation type="vanished">8vo (Közepes octavo)</translation>
+    </message>
+    <message>
+        <source>8vo (Octavo)</source>
+        <translation type="vanished">8vo (Octavo)</translation>
+    </message>
+    <message>
+        <source>8vo (Crown Octavo)</source>
+        <translation type="vanished">8vo (Korona octavo)</translation>
+    </message>
+    <message>
+        <source>12mo (Duodecimo)</source>
+        <translation type="vanished">12mo (Duodecimo)</translation>
+    </message>
+    <message>
+        <source>16mo (Sextodecimo)</source>
+        <translation type="vanished">16mo (Sextodecimo)</translation>
+    </message>
+    <message>
+        <source>18mo (Octodecimo)</source>
+        <translation type="vanished">18mo (Octodecimo)</translation>
+    </message>
+    <message>
+        <source>32mo (Tricesimo Secondo)</source>
+        <translation type="vanished">32mo (Tricesimo secondo)</translation>
+    </message>
+    <message>
+        <source>48mo (Quadragesimo Octavo)</source>
+        <translation type="vanished">48mo (Quadragesimo octavo)</translation>
+    </message>
+    <message>
+        <source>64mo (Sexagesimo Quarto)</source>
+        <translation type="vanished">64mo (Sexagesimo quarto)</translation>
+    </message>
+    <message>
+        <source>A Format</source>
+        <translation type="vanished">A-formátum</translation>
+    </message>
+    <message>
+        <source>B Format</source>
+        <translation type="vanished">B-formátum</translation>
+    </message>
+    <message>
+        <source>C Format</source>
+        <translation type="vanished">C-formátum</translation>
+    </message>
+    <message>
+        <source>Europe</source>
+        <translation type="vanished">Európa</translation>
+    </message>
+    <message>
+        <source>ISO 7810 ID-1</source>
+        <translation type="vanished">ISO 7810 ID-1</translation>
+    </message>
+    <message>
+        <source>US/Canada</source>
+        <translation type="vanished">US/Kanada</translation>
+    </message>
+    <message>
+        <source>China</source>
+        <translation type="vanished">Kína</translation>
+    </message>
+    <message>
+        <source>Scandinavia</source>
+        <translation type="vanished">Skandinávia</translation>
+    </message>
+    <message>
+        <source>Japan</source>
+        <translation type="vanished">Japán</translation>
+    </message>
+    <message>
+        <source>Hungary</source>
+        <translation type="vanished">Magyarország</translation>
+    </message>
+    <message>
+        <source>Iran</source>
+        <translation type="vanished">Irán</translation>
+    </message>
+    <message>
+        <source>ISO 216</source>
+        <translation type="vanished">ISO 216</translation>
+    </message>
+    <message>
         <location filename="../../scribus/pagesize.cpp" line="188"/>
         <source>4A0</source>
         <translation type="unfinished"></translation>
@@ -32031,7 +32147,7 @@ A kép valószínűleg így nem lesz helyes</translation>
         <translation>&lt;p&gt;Több oldalt próbált meg importálni, mint ahány rendelkezésre áll a dokumentumban az aktív oldaltól számítva.&lt;/p&gt;Válasszon az alábbiak közül:&lt;ul&gt;&lt;li&gt;Hiányzó oldalak &lt;b&gt;létrehozása&lt;/b&gt;&lt;/li&gt;&lt;li&gt;&lt;b&gt;Importálás&lt;/b&gt; az utolsó oldalig &lt;/li&gt;&lt;li&gt;&lt;b&gt;Mégse&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18319"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18348"/>
         <source>Unacceptable settings for note style</source>
         <translation>Nem elfogadható beállítások a jegyzetstílusok számára</translation>
     </message>
@@ -35866,7 +35982,7 @@ Ha elmenti ebben a verzióban, a régebbi Scribus-verziók már nem fogják tudn
         <location filename="../../scribus/scribusdoc.cpp" line="213"/>
         <location filename="../../scribus/scribusdoc.cpp" line="219"/>
         <location filename="../../scribus/scribusdoc.cpp" line="249"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16781"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16810"/>
         <source>Document</source>
         <translation>Dokumentum</translation>
     </message>
@@ -35886,17 +36002,17 @@ Ha elmenti ebben a verzióban, a régebbi Scribus-verziók már nem fogják tudn
         <translation>%1 elem jelenleg a szövegszerkesztőben szerkesztés alatt áll. Törlés megszakítva</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12093"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12122"/>
         <source>Some objects are locked.</source>
         <translation>Néhány objektum zárolt.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12089"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12118"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Minden zárolás feloldása</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12090"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12119"/>
         <source>&amp;Skip locked objects</source>
         <translation>Zárolt objektumok &amp;kihagyása</translation>
     </message>
@@ -35907,7 +36023,7 @@ Ha elmenti ebben a verzióban, a régebbi Scribus-verziók már nem fogják tudn
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="963"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16463"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16492"/>
         <source>Adjusting Colors</source>
         <translation>A színek módosítása</translation>
     </message>
@@ -35922,7 +36038,7 @@ Ha elmenti ebben a verzióban, a régebbi Scribus-verziók már nem fogják tudn
         <translation>Közvetlen karakterformázás eltávolítása</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13752"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13781"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -35933,7 +36049,7 @@ Függőleges eltolás: %3
 Forgatás: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13785"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13814"/>
         <source>Number of rows: %1
 Number of columns: %2
 Horizontal gap: %3
@@ -35944,9 +36060,9 @@ Vízszintes térköz: %3
 Függőleges térköz: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="15150"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15205"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15367"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15179"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15234"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15396"/>
         <source>Group%1</source>
         <translation>Csoport%1</translation>
     </message>
@@ -35957,23 +36073,23 @@ Függőleges térköz: %4</translation>
         <translation>Importált </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13907"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13936"/>
         <source>Copied %1 item(s) on %2 page(s)</source>
         <translation>%1 elem lett másolva a(z) %2 oldalra</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16797"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16826"/>
         <source>File %1 autosaved</source>
         <translation>%1 fájl automatikusan mentve</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17948"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17985"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17977"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18014"/>
         <source>No Style</source>
         <translation>Nincs stílus megadva</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18313"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18342"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>A(z) %1 jegyzetstílus tartománya az egész dokumentum és ugyanolyan számozási stílussal rendelkezik, mint a(z) %2</translation>
     </message>
