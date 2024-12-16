@@ -8156,9 +8156,14 @@ Document Liberation Project https://www.documentliberation.org</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.cpp" line="770"/>
+        <source>&lt;h2&gt;&lt;p&gt;Sorry, no manual is installed!&lt;/p&gt;&lt;p&gt;Please see:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;https://docs.scribus.net for updated documentation&lt;/li&gt;&lt;li&gt;https://www.scribus.net for downloads&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</source>
+        <comment>HTML message for no documentation available to show</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>&lt;h2&gt;&lt;p&gt;Sorry, no manual is installed!&lt;/p&gt;&lt;p&gt;Please see:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;https://docs.scribus.net for updated documentation&lt;/li&gt;&lt;li&gt;http://www.scribus.net for downloads&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</source>
         <comment>HTML message for no documentation available to show</comment>
-        <translation>&lt;h2&gt;&lt;p&gt;Pedimos desculpa, mas não existe qualquer manual instalado!&lt;/p&gt;&lt;p&gt;Por favor, aceda a:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;https://docs.scribus.net para obter documentação atualizada&lt;/li&gt;&lt;li&gt;https://www.scribus.net para descarregar ficheiros&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</translation>
+        <translation type="vanished">&lt;h2&gt;&lt;p&gt;Pedimos desculpa, mas não existe qualquer manual instalado!&lt;/p&gt;&lt;p&gt;Por favor, aceda a:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;https://docs.scribus.net para obter documentação atualizada&lt;/li&gt;&lt;li&gt;https://www.scribus.net para descarregar ficheiros&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.ui" line="77"/>
@@ -11440,7 +11445,7 @@ Se nenhuma alça estiver selecionada, todas serão restauradas.</translation>
     <message>
         <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="43"/>
         <source>Preset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Predefinição:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="132"/>
@@ -12942,17 +12947,17 @@ Favor desativar incorporação experimental PDF e PS e tentar novamente.</transl
 <context>
     <name>PageGrid</name>
     <message>
-        <location filename="../../scribus/ui/pagepalette_widgets.cpp" line="766"/>
+        <location filename="../../scribus/ui/pagepalette_widgets.cpp" line="772"/>
         <source>&amp;Small Preview</source>
         <translation>Pré-visualização &amp;pequena</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagepalette_widgets.cpp" line="770"/>
+        <location filename="../../scribus/ui/pagepalette_widgets.cpp" line="776"/>
         <source>&amp;Medium Preview</source>
         <translation>Pré-visualização &amp;média</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagepalette_widgets.cpp" line="774"/>
+        <location filename="../../scribus/ui/pagepalette_widgets.cpp" line="780"/>
         <source>&amp;Large Preview</source>
         <translation>Pré-visualização &amp;grande</translation>
     </message>
@@ -12995,8 +13000,8 @@ Favor desativar incorporação experimental PDF e PS e tentar novamente.</transl
         <translation>Símbolo</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="8036"/>
         <location filename="../../scribus/pageitem.cpp" line="8037"/>
+        <location filename="../../scribus/pageitem.cpp" line="8038"/>
         <source>Copy of</source>
         <translation>Copiar de</translation>
     </message>
@@ -13555,42 +13560,42 @@ Favor desativar incorporação experimental PDF e PS e tentar novamente.</transl
 <context>
     <name>PagePalette_Pages</name>
     <message>
-        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="93"/>
+        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="94"/>
         <source>This master page is used at least once in the document.</source>
         <translation>Esta página modelo foi usada ao menos uma vez no documento.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="97"/>
+        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="98"/>
         <source>Do you really want to delete this master page?</source>
         <translation>Você realmente deseja apagar esta página modelo?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="169"/>
+        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="170"/>
         <source>Delete Page?</source>
         <translation>Apagar a Página?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="170"/>
+        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="171"/>
         <source>Are you sure you want to delete this page?</source>
         <translation>Você tem certeza que deseja apagar esta página?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="500"/>
+        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="506"/>
         <source>Duplicate the selected page</source>
         <translation>Duplicar a página selecionada</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="501"/>
+        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="507"/>
         <source>Move the selected page</source>
         <translation>Mover a página selecionada</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="502"/>
+        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="508"/>
         <source>Add a new page</source>
         <translation>Adicionar nova página</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="503"/>
+        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="509"/>
         <source>Import pages from another document</source>
         <translation>Importar páginas de outro documento</translation>
     </message>
@@ -14357,7 +14362,7 @@ O resultado é uma combinação de &quot;Interseção&quot; e &quot;Exclusão&qu
     <message>
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="205"/>
         <source>Import text as vectors</source>
-        <translation type="unfinished"></translation>
+        <translation>Importar texto como vetores</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="221"/>
@@ -14367,7 +14372,7 @@ O resultado é uma combinação de &quot;Interseção&quot; e &quot;Exclusão&qu
     <message>
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="231"/>
         <source>Import text as text</source>
-        <translation type="unfinished"></translation>
+        <translation>Importar texto como texto</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="238"/>
@@ -20560,7 +20565,7 @@ Se definir como Postscript nível 1 ou 2 pode originar ficheiros enormes</transl
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="140"/>
         <source>Show Labels of Inactive Palette Tabs</source>
-        <translation type="unfinished"></translation>
+        <translation>Ocultar rótulos de abas em painéis inativos.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="186"/>
@@ -20706,12 +20711,12 @@ Se definir como Postscript nível 1 ou 2 pode originar ficheiros enormes</transl
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="75"/>
         <source>Shows informational labels on palettes.</source>
-        <translation type="unfinished"></translation>
+        <translation>Mostrar rótulos informativos nas paletas.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterface.cpp" line="76"/>
         <source>Shows labels of inactive palette tabs.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ocultar rótulos de abas em painéis inativos.</translation>
     </message>
     <message>
         <source></source>
@@ -21662,7 +21667,7 @@ um intervalo de páginas, ou uma única página</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="258"/>
         <source>Image &amp;Scale</source>
-        <translation type="unfinished"></translation>
+        <translation>E&amp;scala de imagem</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="437"/>
@@ -22251,7 +22256,7 @@ um intervalo de páginas, ou uma única página</translation>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="83"/>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="429"/>
         <source>Hyphenation &amp;&amp; Language</source>
-        <translation type="unfinished"></translation>
+        <translation>Hifenização e &amp;Idioma</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="89"/>
@@ -22269,7 +22274,7 @@ um intervalo de páginas, ou uma única página</translation>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="101"/>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="432"/>
         <source>Text on Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Texto no caminho</translation>
     </message>
 </context>
 <context>
@@ -22546,7 +22551,7 @@ um intervalo de páginas, ou uma única página</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="346"/>
         <source>Glyph:</source>
-        <translation type="unfinished"></translation>
+        <translation>Glifo:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="386"/>
@@ -26992,84 +26997,96 @@ External Links
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="168"/>
+        <source>Cannot get tracking of non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="195"/>
+        <source>Cannot get word tracking of non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="222"/>
         <source>Cannot get text size of non-text frame.</source>
         <comment>python error</comment>
         <translation>Não é possível obter o tamanho do texto de uma caixa que não seja de texto.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="204"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="258"/>
         <source>Cannot get vertical alignment of non-text frame.</source>
         <comment>python error</comment>
         <translation>Não é possível definir o alinhamento de texto de um quadro que não seja de texto.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="222"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="276"/>
         <source>Cannot get column count of non-text frame.</source>
         <comment>python error</comment>
         <translation>Não é possível contar as colunas de uma caixa que não seja de texto.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="258"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="312"/>
         <source>Cannot get fontfeatures of non-text frame.</source>
         <comment>python error</comment>
         <translation>Não é possível obter recursos de fonte de um quadro que não é de texto.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="283"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="302"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="321"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="343"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="337"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="356"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="375"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="397"/>
         <source>Cannot get linked frames of non-text frame.</source>
         <comment>python error</comment>
         <translation>Não é possível obter caixas ligadas de uma caixa não-texto.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="365"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="419"/>
         <source>Cannot get first line offset of non-text frame.</source>
         <comment>python error</comment>
         <translation>Não é possível obter o deslocamento da primeira linha numa caixa não-texto.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="383"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="437"/>
         <source>Cannot get line space of non-text frame.</source>
         <comment>python error</comment>
         <translation>Não é possível obter a altura da linha em uma caixa que não seja de texto.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="240"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="294"/>
         <source>Cannot get column gap of non-text frame.</source>
         <comment>python error</comment>
         <translation>Não é possível obter o espaço entre colunas de uma caixa que não seja de texto.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="401"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="455"/>
         <source>Cannot get line spacing mode of non-text frame.</source>
         <comment>python error</comment>
         <translation>Não é possível obter o modo de entrelinhamento de uma caixa não-texto.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="441"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="475"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="495"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="529"/>
         <source>Cannot get text of non-text frame.</source>
         <comment>python error</comment>
         <translation>Não é possível obter um texto de uma caixa que não seja de texto.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="511"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="565"/>
         <source>Cannot set text of non-text frame.</source>
         <comment>python error</comment>
         <translation>Não é possível configurar o texto em uma caixa que não seja de texto.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="539"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="579"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="593"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="633"/>
         <source>Cannot insert text into non-text frame.</source>
         <comment>python error</comment>
         <translation>Não é possível inserir texto numa caixa que não seja de texto.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1046"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1086"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1160"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1200"/>
         <source>Selection index out of bounds</source>
         <comment>python error</comment>
         <translation>O índice de seleção está fora do limite</translation>
@@ -27291,7 +27308,7 @@ External Links
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="102"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="802"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="856"/>
         <source>Font not found.</source>
         <comment>python error</comment>
         <translation>Fonte não encontrada.</translation>
@@ -27355,231 +27372,243 @@ External Links
         <translation>Não é possível criar uma camada sem um nome.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="548"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="602"/>
         <source>Insert index out of bounds.</source>
         <comment>python error</comment>
         <translation>Índice de inserção fora do limite.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="605"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="659"/>
         <source>Cannot layout text of a non-text frame.</source>
         <comment>python error</comment>
         <translation>Não é possível dispôr o layout de um quadro que não seja de texto.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="625"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="679"/>
         <source>Cannot layout text chain for a non-text frame.</source>
         <comment>python error</comment>
         <translation>Não é possível dispôr o layout de uma corrente de texto de um quadro que não seja de texto.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="656"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="710"/>
         <source>Alignment out of range. Use one of the scribus.ALIGN_* constants.</source>
         <comment>python error</comment>
         <translation>Alinhamento fora do limite. Use uma das constantes scribus.ALIGN_*.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="664"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="718"/>
         <source>Cannot set text alignment on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Não é possível definir o alinhamento de texto numa caixa que não seja de texto.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="691"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="745"/>
         <source>direction out of range. Use one of the scribus.DIRECTION* constants.</source>
         <comment>python error</comment>
         <translation>Direção fora do limite. Use uma das constantes scribus.DIRECTION*.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="699"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="753"/>
         <source>Cannot set text direction on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Não é possível definir a direção do texto num quadro que não é de texto.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="726"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="780"/>
         <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512.</source>
         <comment>python error</comment>
         <translation>O tamanho da fonte está fora do limite, deve ser &gt;=1 e &lt;=512.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="735"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="789"/>
         <source>Cannot set font size on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Não é possível definir o tamanho da fonte numa caixa que não seja de texto.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="767"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="821"/>
         <source>Cannot set font feature on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Não é possível definir recursos de fonte num quadro que não é de texto.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="797"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="851"/>
         <source>Cannot set font on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Não é possível definir a fonte numa caixa que não seja de texto.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="829"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="883"/>
         <source>First line offset out of bounds, Use one of the scribus.FLOP_* constants.</source>
         <comment>python error</comment>
         <translation>A primeira linha do deslocamento está fora dos limites. Use uma das constantes scribus.FLOP_*</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="837"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="891"/>
         <source>Cannot set first line offset on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Não é possível definir o deslocamento da primeira linha numa caixa não-texto.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="856"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="910"/>
         <source>Line space out of bounds, must be &gt;= 0.1.</source>
         <comment>python error</comment>
         <translation>A altura da linha está fora do limite, deve ser &gt;=0,1.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="864"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="918"/>
         <source>Cannot set line spacing on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Não é possível definir a altura das linhas numa caixa que não seja de texto.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="891"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="948"/>
+        <source>Cannot set tracking on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="978"/>
+        <source>Cannot set word tracking on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1005"/>
         <source>Line space mode invalid, must be 0, 1 or 2</source>
         <comment>python error</comment>
         <translation>Modo de espaçamento de linha inválido, deve ser 0, 1 ou 2</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="899"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1013"/>
         <source>Cannot set line spacing mode on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Não é possível definir o modo de espaçamento de linha num quadro que não é de texto.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="952"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1066"/>
         <source>Column gap out of bounds, must be positive.</source>
         <comment>python error</comment>
         <translation>O espaço entre colunas está fora do limite, deve ser positivo.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="960"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1074"/>
         <source>Cannot set column gap on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Não é possível definir o espaço entre colunas numa caixa que não seja de texto.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="978"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1092"/>
         <source>Column count out of bounds, must be &gt; 1.</source>
         <comment>python error</comment>
         <translation>A contagem das colunas está fora do limite, deve ser &gt;1.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="986"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1100"/>
         <source>Cannot set number of columns on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Não é possível definir o número de colunas numa caixa que não seja de texto.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1004"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1118"/>
         <source>Vertical alignment out of bounds, Use one of the scribus.ALIGNV_* constants.</source>
         <comment>python error</comment>
         <translation>Alinhamento fora do limite. Use uma das constantes scribus.ALIGNV_*.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1012"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1126"/>
         <source>Cannot set vertical alignment on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Não é possível definir o alinhamento vertical de um quadro que não seja de texto.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1035"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1091"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1149"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1205"/>
         <source>Cannot select text in a non-text frame</source>
         <comment>python error</comment>
         <translation>Não é possível selecionar um texto numa caixa que não seja de texto</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1040"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1154"/>
         <source>Count must be positive, 0 or -1</source>
         <comment>python error</comment>
         <translation>A contagem tem de ser positiva, 0 ou -1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1125"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1143"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1239"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1257"/>
         <source>Cannot get text selection for non-text frame.</source>
         <comment>python error</comment>
         <translation>Não é possível obter a seleção de texto numa caixa não-texto.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1162"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1276"/>
         <source>Cannot delete text from a non-text frame.</source>
         <comment>python error</comment>
         <translation>Não é possível apagar texto numa caixa que não seja de texto.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1195"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1309"/>
         <source>Cannot set text fill on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Não é possível definir o preenchimento de texto numa caixa que não seja de texto.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1215"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1329"/>
         <source>Cannot set text stroke on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Não é possível definir a borda do texto numa caixa que não seja de texto.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1311"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1425"/>
         <source>Cannot set text shade on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Não é possível definir o sombreamento do texto numa caixa que não seja de texto.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1335"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1449"/>
         <source>Can only link text frames.</source>
         <comment>python error</comment>
         <translation>Só é possível conectar quadros de texto.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1340"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1454"/>
         <source>Source frame is linked to another frame.</source>
         <comment>python error</comment>
         <translation>A caixa de origem está ligada a outra caixa.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1345"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1459"/>
         <source>Target frame is linked to by another frame.</source>
         <comment>python error</comment>
         <translation>A caixa alvo está associada a outra caixa.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1350"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1464"/>
         <source>Source and target are the same object.</source>
         <comment>python error</comment>
         <translation>A origem e o destino é o mesmo objeto.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1374"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1488"/>
         <source>Cannot unlink a non-text frame.</source>
         <comment>python error</comment>
         <translation>Não é possível separar numa caixa que não seja de texto.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1428"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1542"/>
         <source>Cannot convert a non-text frame to outlines.</source>
         <comment>python error</comment>
         <translation>Não é possível converter em contorno uma caixa que não seja de texto.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1546"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1660"/>
         <source>Can&apos;t set bookmark on a non-text frame</source>
         <comment>python error</comment>
         <translation>Não é possível definir um marcador numa caixa que não seja de texto</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1575"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1689"/>
         <source>Can&apos;t get info from a non-text frame</source>
         <comment>python error</comment>
         <translation>Não é possível obter informações duma caixa que não seja de texto</translation>
@@ -27992,13 +28021,13 @@ External Links
         <translation>Estilo de linha não encontrado.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1380"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1494"/>
         <source>Object is not a linked text frame, can&apos;t unlink.</source>
         <comment>python error</comment>
         <translation>O objeto não é numa caixa de texto ligada, logo, não é possível desligar.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1454"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1568"/>
         <source>Only text frames can be checked for overflowing</source>
         <comment>python error</comment>
         <translation>O excesso de texto só pode ser verificado em quadros de texto</translation>
@@ -28045,7 +28074,7 @@ External Links
         <translation>Sobre o script</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="1008"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="1012"/>
         <source>Scribus Python interface module
 
 This module is the Python interface for Scribus. It provides functions
@@ -29039,7 +29068,7 @@ fornecidos na documentação da função.
         <translation>Este arquivo não é reconhecido como um documento PDB. Por favor, reporte isto como um erro caso tenha a certeza que se trata de um arquivo válido.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="186"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="240"/>
         <source>Cannot get number of lines of non-text frame.</source>
         <comment>python error</comment>
         <translation>Não é possível definir o número de colunas em uma caixa que não seja de texto.</translation>
@@ -29278,13 +29307,13 @@ fornecidos na documentação da função.
         <translation>A cor especificada não está disponível no documento.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1503"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1617"/>
         <source>Can only hyphenate text frame</source>
         <comment>python error</comment>
         <translation>Só é possível hifenizar quadros de texto.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1526"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1640"/>
         <source>Can only dehyphenate text frame</source>
         <comment>python error</comment>
         <translation>Só é possível desifenizar quadros de texto.</translation>
@@ -29347,19 +29376,19 @@ fornecidos na documentação da função.
         <translation>CaminhoAoLongoDeCaminho</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="419"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="473"/>
         <source>Cannot get text distances of non-text frame.</source>
         <comment>python error</comment>
         <translation>Não é possível obter distâncias de texto em quadro que não seja de texto.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="926"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1040"/>
         <source>Text distances out of bounds, must be positive.</source>
         <comment>python error</comment>
         <translation>As distâncias do texto estão fora do intervalo adequado, elas devem ser positivas.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="934"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1048"/>
         <source>Cannot set text distances on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Não é possível definir distâncias de texto num quadro que não é de texto.</translation>
@@ -29432,15 +29461,15 @@ A imagem portanto pode não estar correta</translation>
         <translation>A opacidade está fora do intervalo adequado, ela deve ser &gt;=0 e &lt;=1.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1233"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1269"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1347"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1383"/>
         <source>Character scaling out of bounds, must be &gt;= 10</source>
         <comment>python error</comment>
         <translation>A escala dos caracteres está fora do intervalo adequado, ela deve ser &gt;=10.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1241"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1277"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1355"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1391"/>
         <source>Cannot set character scaling on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Não é possível definir o escalonamento de caracteres num quadro que não é de texto.</translation>
@@ -29999,7 +30028,7 @@ A imagem portanto pode não estar correta</translation>
         <translation>&lt;p&gt;Você está tentando importar mais páginas do que estão disponíveis no documento atual contando a partir da página selecionada.&lt;/p&gt;Escolha uma das opções a seguir:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Criar&lt;/b&gt; as páginas que faltam&lt;/li&gt;&lt;li&gt;&lt;b&gt;Importar&lt;/b&gt; as páginas que vão até a última página&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancelar&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18598"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18634"/>
         <source>Unacceptable settings for note style</source>
         <translation>Configurações inaceitáveis para estilo de notas</translation>
     </message>
@@ -31034,7 +31063,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="507"/>
         <source>Hyphenation &amp;&amp; Language</source>
-        <translation type="unfinished"></translation>
+        <translation>Hifenização e &amp;Idioma</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="557"/>
@@ -31428,7 +31457,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="942"/>
         <source>Tabs &amp;&amp; Indentation</source>
-        <translation type="unfinished"></translation>
+        <translation>Tabuladores e indentação</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1003"/>
@@ -31566,7 +31595,7 @@ Um valor 0 significa hifenizações ilimitadas.</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="491"/>
         <source>Glyph:</source>
-        <translation type="unfinished"></translation>
+        <translation>Glifo:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="520"/>
@@ -33774,7 +33803,7 @@ Se você salvá-lo com esta versão do Scribus, o arquivo não será lido por ve
         <location filename="../../scribus/scribusdoc.cpp" line="200"/>
         <location filename="../../scribus/scribusdoc.cpp" line="206"/>
         <location filename="../../scribus/scribusdoc.cpp" line="236"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17044"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17080"/>
         <source>Document</source>
         <translation>Documento</translation>
     </message>
@@ -33784,27 +33813,27 @@ Se você salvá-lo com esta versão do Scribus, o arquivo não será lido por ve
         <translation>Fundo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11474"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11481"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>Não é possível apagar um item em uso</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11474"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11481"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>O item %1 está atualmente a ser editado pelo Editor de História. A operação de apagar será cancelada</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12258"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12294"/>
         <source>Some objects are locked.</source>
         <translation>Alguns objetos estão bloqueados.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12254"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12290"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Desbloquear todos</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12255"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12291"/>
         <source>&amp;Skip locked objects</source>
         <translation>&amp;Pular os objetos bloqueados</translation>
     </message>
@@ -33815,22 +33844,22 @@ Se você salvá-lo com esta versão do Scribus, o arquivo não será lido por ve
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="950"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16724"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16760"/>
         <source>Adjusting Colors</source>
         <translation>Ajustando as cores</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9249"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9256"/>
         <source>remove direct paragraph formatting</source>
         <translation>remover formatação direta de parágrafo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9722"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9729"/>
         <source>remove direct char formatting</source>
         <translation>remover formatação direta de caracteres</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13923"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13959"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -33840,7 +33869,7 @@ Deslocamento horizontal: %2
 Deslocamento vertical: %3</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13956"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13992"/>
         <source>Number of rows: %1
 Number of columns: %2
 Horizontal gap: %3
@@ -33851,9 +33880,9 @@ Intervalo horizontal: %3
 Intervalo vertical: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="15403"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15458"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15620"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15439"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15494"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15656"/>
         <source>Group%1</source>
         <translation>Agrupar%1</translation>
     </message>
@@ -33864,28 +33893,28 @@ Intervalo vertical: %4</translation>
         <translation>Importado</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="14079"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14115"/>
         <source>Copied %1 item(s) on %2 page(s)</source>
         <translation>Foram copiados %1 item(s) em %2 página(s)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17060"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17096"/>
         <source>File %1 autosaved</source>
         <translation>Arquivo %1 salvo automaticamente</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18227"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="18264"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18263"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18300"/>
         <source>No Style</source>
         <translation>Sem estilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18592"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18628"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>O estilo de notas %1 tem documento como intervalo e fornece o mesmo estilo de numeração do conjunto %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11370"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11377"/>
         <source>Do you really want to clear the content of all selected frames?</source>
         <translation>Você realmente deseja apagar o conteúdo de todos os quadros selecionados?</translation>
     </message>
@@ -34720,17 +34749,17 @@ Recomenda-se o uso do verificador pré-publicação para corrigí-los</translati
         <translation>Cancelar</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10999"/>
+        <location filename="../../scribus/pageitem.cpp" line="11000"/>
         <source>Print: </source>
         <translation>Imprimir: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="11001"/>
+        <location filename="../../scribus/pageitem.cpp" line="11002"/>
         <source>Enabled</source>
         <translation>Ativado</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="11003"/>
+        <location filename="../../scribus/pageitem.cpp" line="11004"/>
         <source>Disabled</source>
         <translation>Desativado</translation>
     </message>
@@ -34920,9 +34949,8 @@ Recomenda-se o uso do verificador pré-publicação para corrigí-los</translati
         <translation>Erro de script</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="365"/>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation>Se você está a executar um script oficial, por favor, reporte-o em &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
+        <translation type="vanished">Se você está a executar um script oficial, por favor, reporte-o em &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="367"/>
@@ -34938,6 +34966,11 @@ Recomenda-se o uso do verificador pré-publicação para corrigí-los</translati
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="459"/>
         <source>There was an internal error while trying the command you entered. Details were printed to stderr. </source>
         <translation>Ocorreu um erro interno enquanto tentava o comando que inseriu. Detalhes foram impressos no stderr. </translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="365"/>
+        <source>If you are running an official script report it at &lt;a href=&quot;https://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="589"/>
@@ -40165,7 +40198,7 @@ por favor, escolha outro.</translation>
     <message>
         <location filename="../../scribus/ui/newdocdialog.ui" line="73"/>
         <source>Page preset categories</source>
-        <translation type="unfinished"></translation>
+        <translation>Categorias predefinidas de página</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newdocdialog.ui" line="93"/>

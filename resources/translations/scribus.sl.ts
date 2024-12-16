@@ -8158,9 +8158,14 @@ Projekt reševanja dokumentov (Document Liberation Project) https://www.document
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.cpp" line="770"/>
+        <source>&lt;h2&gt;&lt;p&gt;Sorry, no manual is installed!&lt;/p&gt;&lt;p&gt;Please see:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;https://docs.scribus.net for updated documentation&lt;/li&gt;&lt;li&gt;https://www.scribus.net for downloads&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</source>
+        <comment>HTML message for no documentation available to show</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>&lt;h2&gt;&lt;p&gt;Sorry, no manual is installed!&lt;/p&gt;&lt;p&gt;Please see:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;https://docs.scribus.net for updated documentation&lt;/li&gt;&lt;li&gt;http://www.scribus.net for downloads&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</source>
         <comment>HTML message for no documentation available to show</comment>
-        <translation>&lt;h2&gt;&lt;p&gt;Žal priročnik ni nameščen!&lt;/p&gt;&lt;p&gt;Oglejte si:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;https://docs.scribus.net za posodobljeno dokumentacijo&lt;/li&gt;&lt;li&gt;http://www.scribus.net za prenose&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</translation>
+        <translation type="vanished">&lt;h2&gt;&lt;p&gt;Žal priročnik ni nameščen!&lt;/p&gt;&lt;p&gt;Oglejte si:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;https://docs.scribus.net za posodobljeno dokumentacijo&lt;/li&gt;&lt;li&gt;http://www.scribus.net za prenose&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.ui" line="77"/>
@@ -11443,7 +11448,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="43"/>
         <source>Preset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Prednastavljeno:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="132"/>
@@ -12945,17 +12950,17 @@ Onemogočite delovno različico PDF in PS vdelave ter poskusite ponovno.</transl
 <context>
     <name>PageGrid</name>
     <message>
-        <location filename="../../scribus/ui/pagepalette_widgets.cpp" line="766"/>
+        <location filename="../../scribus/ui/pagepalette_widgets.cpp" line="772"/>
         <source>&amp;Small Preview</source>
         <translation>&amp;Majhen predogled</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagepalette_widgets.cpp" line="770"/>
+        <location filename="../../scribus/ui/pagepalette_widgets.cpp" line="776"/>
         <source>&amp;Medium Preview</source>
         <translation>&amp;Srednji predogled</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagepalette_widgets.cpp" line="774"/>
+        <location filename="../../scribus/ui/pagepalette_widgets.cpp" line="780"/>
         <source>&amp;Large Preview</source>
         <translation>&amp;Velik predogled</translation>
     </message>
@@ -12998,8 +13003,8 @@ Onemogočite delovno različico PDF in PS vdelave ter poskusite ponovno.</transl
         <translation>Simbol</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="8036"/>
         <location filename="../../scribus/pageitem.cpp" line="8037"/>
+        <location filename="../../scribus/pageitem.cpp" line="8038"/>
         <source>Copy of</source>
         <translation>Kopija</translation>
     </message>
@@ -13558,42 +13563,42 @@ Onemogočite delovno različico PDF in PS vdelave ter poskusite ponovno.</transl
 <context>
     <name>PagePalette_Pages</name>
     <message>
-        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="93"/>
+        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="94"/>
         <source>This master page is used at least once in the document.</source>
         <translation>Ta glavna stran je v dokumentu uporabljena najmanj enkrat.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="97"/>
+        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="98"/>
         <source>Do you really want to delete this master page?</source>
         <translation>Resnično želite izbrisati to glavno stran?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="169"/>
+        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="170"/>
         <source>Delete Page?</source>
         <translation>Želite izbrisati stran?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="170"/>
+        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="171"/>
         <source>Are you sure you want to delete this page?</source>
         <translation>Resnično želite izbrisati to stran?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="500"/>
+        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="506"/>
         <source>Duplicate the selected page</source>
         <translation>Podvoji izbrano stran</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="501"/>
+        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="507"/>
         <source>Move the selected page</source>
         <translation>Premakni izbrano stran</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="502"/>
+        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="508"/>
         <source>Add a new page</source>
         <translation>Dodaj novo stran</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="503"/>
+        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="509"/>
         <source>Import pages from another document</source>
         <translation>Uvozi strani iz drugega dokumenta</translation>
     </message>
@@ -16129,7 +16134,7 @@ Ali jih želite uporabiti v novi različici Scribusa?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="285"/>
         <source>Document Rendering Intents</source>
-        <translation>Nameni upodobitve dokumenta</translation>
+        <translation>Izrisni načini za dokument</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="304"/>
@@ -18620,7 +18625,7 @@ Ali ga želite uporabiti?</translation>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="808"/>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="882"/>
         <source>Rendering Intent:</source>
-        <translation>Namen upodobitve:</translation>
+        <translation>Izrisni način:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="842"/>
@@ -18981,7 +18986,7 @@ Ali ga želite uporabiti?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="93"/>
         <source>Rendering intent for solid colors</source>
-        <translation>Namen upodobitve polnih barv</translation>
+        <translation>Izrisni način za polne barve</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="94"/>
@@ -19001,7 +19006,7 @@ Ali ga želite uporabiti?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="97"/>
         <source>Rendering intent for images</source>
-        <translation>Namen izrisa slik</translation>
+        <translation>Izrisni način za slike</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="98"/>
@@ -21587,7 +21592,7 @@ več strani ali samo številka posamezne strani</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="461"/>
         <source>Rendering intent for the image</source>
-        <translation>Namen izrisa slike</translation>
+        <translation>Izrisni način za sliko</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="412"/>
@@ -21632,7 +21637,7 @@ več strani ali samo številka posamezne strani</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="97"/>
         <source>&amp;Rotation</source>
-        <translation>&amp;Sukanje</translation>
+        <translation>Za&amp;suk</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="121"/>
@@ -21667,7 +21672,7 @@ več strani ali samo številka posamezne strani</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="437"/>
         <source>Rendering Intent</source>
-        <translation>Namen izrisa</translation>
+        <translation>Izrisni način</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="477"/>
@@ -22230,10 +22235,6 @@ več strani ali samo številka posamezne strani</translation>
         <translation>Poravnava</translation>
     </message>
     <message>
-        <source>Columns &amp;&amp; Indents</source>
-        <translation type="vanished">Stolpci in zamiki</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="71"/>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="425"/>
         <source>Typography</source>
@@ -22429,7 +22430,7 @@ več strani ali samo številka posamezne strani</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="453"/>
         <source>&amp;Rotation</source>
-        <translation>&amp;Sukanje</translation>
+        <translation>Za&amp;suk</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="515"/>
@@ -26997,84 +26998,96 @@ Zunanje povezave
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="168"/>
+        <source>Cannot get tracking of non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="195"/>
+        <source>Cannot get word tracking of non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="222"/>
         <source>Cannot get text size of non-text frame.</source>
         <comment>python error</comment>
         <translation>Velikosti napisa ni mogoče pridobiti iz nebesedilnega okvirja.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="204"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="258"/>
         <source>Cannot get vertical alignment of non-text frame.</source>
         <comment>python error</comment>
         <translation>Navpične poravnave ni mogoče pridobiti iz nebesedilnega okvirja.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="222"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="276"/>
         <source>Cannot get column count of non-text frame.</source>
         <comment>python error</comment>
         <translation>Stolpcev ni mogoče prešteti pri nebesedilnem okvirju.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="258"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="312"/>
         <source>Cannot get fontfeatures of non-text frame.</source>
         <comment>python error</comment>
         <translation>Značilnosti pisave ni mogoče pridobiti iz nebesedilnega okvirja.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="283"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="302"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="321"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="343"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="337"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="356"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="375"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="397"/>
         <source>Cannot get linked frames of non-text frame.</source>
         <comment>python error</comment>
         <translation>Povezanih okvirjev ni mogoče pridobiti iz nebesedilnega okvirja.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="365"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="419"/>
         <source>Cannot get first line offset of non-text frame.</source>
         <comment>python error</comment>
         <translation>Zamika prve vrste ni mogoče pridobiti iz nebesedilnega okvirja.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="383"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="437"/>
         <source>Cannot get line space of non-text frame.</source>
         <comment>python error</comment>
         <translation>Razmika vrstic ni mogoče pridobiti iz nebesedilnega okvirja.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="240"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="294"/>
         <source>Cannot get column gap of non-text frame.</source>
         <comment>python error</comment>
         <translation>Razmika stolpcev ni mogoče pridobiti iz nebesedilnega okvirja.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="401"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="455"/>
         <source>Cannot get line spacing mode of non-text frame.</source>
         <comment>python error</comment>
         <translation>Iz nebesedilnega okvirja ni mogoče pridobiti načina razmika vrstic.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="441"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="475"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="495"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="529"/>
         <source>Cannot get text of non-text frame.</source>
         <comment>python error</comment>
         <translation>Besedila ni mogoče pridobiti iz nebesedilnega okvirja.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="511"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="565"/>
         <source>Cannot set text of non-text frame.</source>
         <comment>python error</comment>
         <translation>Besedila ni mogoče nastaviti pri nebesedilnem okvirju.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="539"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="579"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="593"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="633"/>
         <source>Cannot insert text into non-text frame.</source>
         <comment>python error</comment>
         <translation>Besedila okvirja ni mogoče vstaviti v nebesedilni okvir.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1046"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1086"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1160"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1200"/>
         <source>Selection index out of bounds</source>
         <comment>python error</comment>
         <translation>Števnik izbire je izven meja</translation>
@@ -27296,7 +27309,7 @@ Zunanje povezave
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="102"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="802"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="856"/>
         <source>Font not found.</source>
         <comment>python error</comment>
         <translation>Pisave ni mogoče najti.</translation>
@@ -27360,231 +27373,243 @@ Zunanje povezave
         <translation>Plasti brez imena ni mogoče ustvariti.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="548"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="602"/>
         <source>Insert index out of bounds.</source>
         <comment>python error</comment>
         <translation>Kazalo vstavljanja je izven meja.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="605"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="659"/>
         <source>Cannot layout text of a non-text frame.</source>
         <comment>python error</comment>
         <translation>Besedila ni mogoče staviti v nebesedilnem okvirju.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="625"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="679"/>
         <source>Cannot layout text chain for a non-text frame.</source>
         <comment>python error</comment>
         <translation>Verige besedil ni mogoče staviti pri nebesedilnih okvirjih.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="656"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="710"/>
         <source>Alignment out of range. Use one of the scribus.ALIGN_* constants.</source>
         <comment>python error</comment>
         <translation>Poravnava je izven dovoljenega obsega. Uporabite eno od Scribusovih nespremenljivk ALIGN_*.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="664"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="718"/>
         <source>Cannot set text alignment on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Nebesedilnemu okviru ni mogoče nastaviti poravnave besedila.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="691"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="745"/>
         <source>direction out of range. Use one of the scribus.DIRECTION* constants.</source>
         <comment>python error</comment>
         <translation>smer izven dovoljenega obsega. Uporabite eno od Scribusovih nespremenljivk DIRECTION*.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="699"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="753"/>
         <source>Cannot set text direction on a non-text frame.</source>
         <comment>python error</comment>
         <translation>V nebesedilnem okviru ni mogoče nastaviti usmeritev besedila.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="726"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="780"/>
         <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512.</source>
         <comment>python error</comment>
         <translation>Velikost pisave je izven meja - biti mora 1 &lt;= velikost &lt;= 512.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="735"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="789"/>
         <source>Cannot set font size on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Nebesedilnemu okviru ni mogoče nastaviti velikosti pisave .</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="767"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="821"/>
         <source>Cannot set font feature on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Nebesedilnemu okviru ni mogoče nastaviti značilnosti pisave.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="797"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="851"/>
         <source>Cannot set font on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Nebesedilnemu okviru ni mogoče določiti pisave.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="829"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="883"/>
         <source>First line offset out of bounds, Use one of the scribus.FLOP_* constants.</source>
         <comment>python error</comment>
         <translation>Zamik prve vrste je izven dopustnih meja. Uporabite eno izmed Scribusovih nespremenljivk FLOP_*.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="837"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="891"/>
         <source>Cannot set first line offset on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Nebesedilnemu okviru ni mogoče določiti zamika prve vrstice.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="856"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="910"/>
         <source>Line space out of bounds, must be &gt;= 0.1.</source>
         <comment>python error</comment>
         <translation>Razmik med vrsticami je izven dosega, biti mora &gt;= 0.1.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="864"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="918"/>
         <source>Cannot set line spacing on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Nebesedilnemu okviru ni mogoče nastaviti razmika vrstic.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="891"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="948"/>
+        <source>Cannot set tracking on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="978"/>
+        <source>Cannot set word tracking on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1005"/>
         <source>Line space mode invalid, must be 0, 1 or 2</source>
         <comment>python error</comment>
         <translation>Neveljaven način razmika med vrsticami; biti mora 0, 1 ali 2</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="899"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1013"/>
         <source>Cannot set line spacing mode on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Nebesedilnemu okviru ni mogoče nastaviti načina razmika vrstic.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="952"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1066"/>
         <source>Column gap out of bounds, must be positive.</source>
         <comment>python error</comment>
         <translation>Razmik med stolpci je izven meja, mora biti pozitiven.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="960"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1074"/>
         <source>Cannot set column gap on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Nebesedilnemu okviru ni mogoče nastaviti razmika med stolpci.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="978"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1092"/>
         <source>Column count out of bounds, must be &gt; 1.</source>
         <comment>python error</comment>
         <translation>Število stolpcev je izven meja, biti mora &gt;1.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="986"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1100"/>
         <source>Cannot set number of columns on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Nebesedilnemu okviru ni mogoče nastaviti števila stolpcev.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1004"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1118"/>
         <source>Vertical alignment out of bounds, Use one of the scribus.ALIGNV_* constants.</source>
         <comment>python error</comment>
         <translation>Navpična poravnava je izven meja, uporabi eno izmed Scribusovih nespremenljivk ALIGNV_*.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1012"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1126"/>
         <source>Cannot set vertical alignment on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Nebesedilnemu okviru ni mogoče nastaviti navpične poravnave.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1035"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1091"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1149"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1205"/>
         <source>Cannot select text in a non-text frame</source>
         <comment>python error</comment>
         <translation>V nebesedilnem okviru ni mogoče izbrati besedila</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1040"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1154"/>
         <source>Count must be positive, 0 or -1</source>
         <comment>python error</comment>
         <translation>Število mora biti pozitivno, 0 ali -1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1125"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1143"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1239"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1257"/>
         <source>Cannot get text selection for non-text frame.</source>
         <comment>python error</comment>
         <translation>Besedila ni mogoče označiti v nebesedilnem okvirju.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1162"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1276"/>
         <source>Cannot delete text from a non-text frame.</source>
         <comment>python error</comment>
         <translation>V nebesedilnem okvirju ni mogoče izbrisati besedila.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1195"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1309"/>
         <source>Cannot set text fill on a non-text frame.</source>
         <comment>python error</comment>
         <translation>V nebesedilnem okviru ni mogoče nastaviti polnila besedila.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1215"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1329"/>
         <source>Cannot set text stroke on a non-text frame.</source>
         <comment>python error</comment>
         <translation>V nebesedilnem okviru ni mogoče nastaviti poteze besedila.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1311"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1425"/>
         <source>Cannot set text shade on a non-text frame.</source>
         <comment>python error</comment>
         <translation>V nebesedilnem okviru ni mogoče nastaviti senčenja besedila.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1335"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1449"/>
         <source>Can only link text frames.</source>
         <comment>python error</comment>
         <translation>Le besedilne okvire je mogoče povezovati.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1340"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1454"/>
         <source>Source frame is linked to another frame.</source>
         <comment>python error</comment>
         <translation>Izvorni okvir je že povezan na drug okvir.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1345"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1459"/>
         <source>Target frame is linked to by another frame.</source>
         <comment>python error</comment>
         <translation>Na ciljni okvir je že povezan drug okvir.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1350"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1464"/>
         <source>Source and target are the same object.</source>
         <comment>python error</comment>
         <translation>Izvor in cilj sta en in isti predmet.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1374"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1488"/>
         <source>Cannot unlink a non-text frame.</source>
         <comment>python error</comment>
         <translation>Nebesedilnega okvira ni mogoče razvezati.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1428"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1542"/>
         <source>Cannot convert a non-text frame to outlines.</source>
         <comment>python error</comment>
         <translation>Nebesedilnega okvira ni mogoče pretvoriti v krivulje.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1546"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1660"/>
         <source>Can&apos;t set bookmark on a non-text frame</source>
         <comment>python error</comment>
         <translation>Nebesedilnemu okviru ni mogoče nastaviti zaznamka</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1575"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1689"/>
         <source>Can&apos;t get info from a non-text frame</source>
         <comment>python error</comment>
         <translation>Podatkov iz nebesedilnega okvirja ni mogoče pridobiti</translation>
@@ -27997,13 +28022,13 @@ Zunanje povezave
         <translation>Sloga črte ni mogoče najti.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1380"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1494"/>
         <source>Object is not a linked text frame, can&apos;t unlink.</source>
         <comment>python error</comment>
         <translation>Predmet ni povezan besedilni okvir, ni mogoče razvezati.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1454"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1568"/>
         <source>Only text frames can be checked for overflowing</source>
         <comment>python error</comment>
         <translation>Samo v besedilnih okvirih lahko označite za prelivanje besedila</translation>
@@ -28050,7 +28075,7 @@ Zunanje povezave
         <translation>O skriptih</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="1008"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="1012"/>
         <source>Scribus Python interface module
 
 This module is the Python interface for Scribus. It provides functions
@@ -29044,7 +29069,7 @@ ni povsem izčrpen zaradi izjem klicanih funkcij.
         <translation>Te datoteke ni mogoče prepoznati kot dokument PDB. Sporočite tega hrošča, če ste prepričani vanj.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="186"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="240"/>
         <source>Cannot get number of lines of non-text frame.</source>
         <comment>python error</comment>
         <translation>Nebesedilnemu okviru ni mogoče nastaviti števila vrstic.</translation>
@@ -29283,13 +29308,13 @@ ni povsem izčrpen zaradi izjem klicanih funkcij.
         <translation>Določena barva ni na voljo v dokumentu.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1503"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1617"/>
         <source>Can only hyphenate text frame</source>
         <comment>python error</comment>
         <translation>Deljenje besed je podprto le v besedilnem okviru</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1526"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1640"/>
         <source>Can only dehyphenate text frame</source>
         <comment>python error</comment>
         <translation>Preklic deljenja besed je podprt le v besedilnem okviru</translation>
@@ -29352,19 +29377,19 @@ ni povsem izčrpen zaradi izjem klicanih funkcij.
         <translation>Pot vzdolž poti</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="419"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="473"/>
         <source>Cannot get text distances of non-text frame.</source>
         <comment>python error</comment>
         <translation>Razdalje besedila ni mogoče pridobiti iz nebesedilnega okvirja.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="926"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1040"/>
         <source>Text distances out of bounds, must be positive.</source>
         <comment>python error</comment>
         <translation>Razdalje besedila so izven meja, biti morajo pozitivne.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="934"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1048"/>
         <source>Cannot set text distances on a non-text frame.</source>
         <comment>python error</comment>
         <translation>V nebesedilnem okviru ni mogoče nastaviti razmikov besedila.</translation>
@@ -29437,15 +29462,15 @@ Zato je lahko podoba napačna</translation>
         <translation>Prekrivnost je izven meja, biti mora 0 &lt;= prozornost &lt;= 1.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1233"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1269"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1347"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1383"/>
         <source>Character scaling out of bounds, must be &gt;= 10</source>
         <comment>python error</comment>
         <translation>Povečava znakov je izven meja, biti mora &gt;=10</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1241"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1277"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1355"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1391"/>
         <source>Cannot set character scaling on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Velikosti znakov ni mogoče določiti nebesedilnemu okvirju.</translation>
@@ -30004,7 +30029,7 @@ Zato je lahko podoba napačna</translation>
         <translation>&lt;p&gt;Uvoziti skušate več strani, kot jih je v tem dokumentu trenutno na voljo od dejavne strani dalje.&lt;/p&gt;Izberite eno izmed naslednjih možnosti:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Ustvari&lt;/b&gt;manjkajoče strani&lt;/li&gt;&lt;li&gt;&lt;b&gt;Uvozi&lt;/b&gt;kolikor gre do zadnje strani&lt;/li&gt;&lt;li&gt;&lt;b&gt;Prekliči&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18598"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18634"/>
         <source>Unacceptable settings for note style</source>
         <translation>Nesprejemljive nastavitve opombnega sloga</translation>
     </message>
@@ -33779,7 +33804,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <location filename="../../scribus/scribusdoc.cpp" line="200"/>
         <location filename="../../scribus/scribusdoc.cpp" line="206"/>
         <location filename="../../scribus/scribusdoc.cpp" line="236"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17044"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17080"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
@@ -33789,27 +33814,27 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <translation>Ozadje</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11474"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11481"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>Ne morete izbrisati predmetov v uporabi</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11474"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11481"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>Predmet %1 uporablja urejevalnik zgodbe. Brisanje je bilo preklicano</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12258"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12294"/>
         <source>Some objects are locked.</source>
         <translation>Nekateri predmeti so zaklenjeni.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12254"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12290"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Odkleni vse</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12255"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12291"/>
         <source>&amp;Skip locked objects</source>
         <translation>&amp;Preskoči zaklenjene predmete</translation>
     </message>
@@ -33820,22 +33845,22 @@ If you save it in this version, it will no longer be readable by older Scribus v
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="950"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16724"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16760"/>
         <source>Adjusting Colors</source>
         <translation>Prilagajanje barv</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9249"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9256"/>
         <source>remove direct paragraph formatting</source>
         <translation>Odstrani neposredno oblikovanje odstavka</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9722"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9729"/>
         <source>remove direct char formatting</source>
         <translation>Odstrani neposredno oblikovanje znaka</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13923"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13959"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -33846,7 +33871,7 @@ Navpični zamik: %3
 Sukanje: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13956"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13992"/>
         <source>Number of rows: %1
 Number of columns: %2
 Horizontal gap: %3
@@ -33857,9 +33882,9 @@ Vodoravni razmik: %3
 Navpični razmik: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="15403"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15458"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15620"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15439"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15494"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15656"/>
         <source>Group%1</source>
         <translation>Skupina%1</translation>
     </message>
@@ -33870,28 +33895,28 @@ Navpični razmik: %4</translation>
         <translation>Uvoženo </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="14079"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14115"/>
         <source>Copied %1 item(s) on %2 page(s)</source>
         <translation>Kopiranih %1 predmetov na %2 straneh</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17060"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17096"/>
         <source>File %1 autosaved</source>
         <translation>Datoteka %1 samodejno shranjena</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18227"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="18264"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18263"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18300"/>
         <source>No Style</source>
         <translation>Brez sloga</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18592"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18628"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>%1 slog zapisa ima dokument kot obseg in ponuja enak slog oštevilčenja, kot skupek %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11370"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11377"/>
         <source>Do you really want to clear the content of all selected frames?</source>
         <translation>Ali res želite počistiti vsebino vseh izbranih okvirjev?</translation>
     </message>
@@ -34726,17 +34751,17 @@ Uporabite Predpregled, da jih odpravite</translation>
         <translation>Prekliči</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10999"/>
+        <location filename="../../scribus/pageitem.cpp" line="11000"/>
         <source>Print: </source>
         <translation>Natisni: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="11001"/>
+        <location filename="../../scribus/pageitem.cpp" line="11002"/>
         <source>Enabled</source>
         <translation>Vključeno</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="11003"/>
+        <location filename="../../scribus/pageitem.cpp" line="11004"/>
         <source>Disabled</source>
         <translation>Izključeno</translation>
     </message>
@@ -34926,9 +34951,8 @@ Uporabite Predpregled, da jih odpravite</translation>
         <translation>Napaka skripta</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="365"/>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation>Če ste zagnali uradni skipt, sporočite napako na &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
+        <translation type="vanished">Če ste zagnali uradni skipt, sporočite napako na &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="367"/>
@@ -34944,6 +34968,11 @@ Uporabite Predpregled, da jih odpravite</translation>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="459"/>
         <source>There was an internal error while trying the command you entered. Details were printed to stderr. </source>
         <translation>Pripetila se je notranja napaka pri preverjanju vnesenega ukaza. Podrobnosti so izpisane na izhod standardne napake (stderr). </translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="365"/>
+        <source>If you are running an official script report it at &lt;a href=&quot;https://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="589"/>
@@ -36763,7 +36792,7 @@ Uporabite Predpregled, da jih odpravite</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="263"/>
         <source>Rendering intent for solid colors</source>
-        <translation>Namen upodobitve polnih barv</translation>
+        <translation>Izrisni način za polne barve</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="264"/>
@@ -36783,7 +36812,7 @@ Uporabite Predpregled, da jih odpravite</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="267"/>
         <source>Rendering intent for images</source>
-        <translation>Namen upodobitve slik</translation>
+        <translation>Izrisni način slik</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="283"/>
@@ -37257,7 +37286,7 @@ ob odprtju dokumenta PDF:</translation>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1228"/>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1288"/>
         <source>Rendering Intent:</source>
-        <translation>Namen upodobitve:</translation>
+        <translation>Izrisni način:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="137"/>
