@@ -1730,7 +1730,7 @@ void CanvasMode::setStyle()
 	Text Control Characters = prefsData->displayPrefs.controlCharColor; // brown
 	*/
 
-	m_color["frame-selection"]	= QColor(230, 71, 51);//PrefsManager::instance().appPrefs.displayPrefs.frameColor;
+	m_color["frame-selection"]	= PrefsManager::instance().appPrefs.displayPrefs.frameColor;
 	m_color["frame-group"]		= PrefsManager::instance().appPrefs.displayPrefs.frameGroupColor;
 	m_color["frame"]			= PrefsManager::instance().appPrefs.displayPrefs.frameNormColor;
 	m_color["frame-move"]		= Qt::gray;

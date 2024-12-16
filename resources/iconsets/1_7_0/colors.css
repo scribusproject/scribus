@@ -5,27 +5,27 @@
 
 /* Green */
 .onDark .success {
-    fill: #88CC7A;
+    fill: #00B90D;
 }
 
 /* Orange */
 .onDark .warning {
-    fill: #EDB45F;
+    fill: #FFB91C;
 }
 
 /* Red */
 .onDark .error {
-    fill: #FF7566;
+    fill: #FF6953;
 }
 
 /* Blue */
 .onDark.info {
-    fill: #75B6F0;
+    fill: #39A3F9;
 }
 
 /* Purple */
 .onDark .note {
-    fill: #B0A3F5;
+    fill: #C37CFF;
 }
 
 .onDark .gradient-shade {
@@ -34,27 +34,27 @@
 
 /* Green */
 .success {
-    fill: #49A537;
+    fill: #009200;
 }
 
 /* Orange */
 .warning {
-    fill: #D6922B;
+    fill: #EE9800;
 }
 
 /* Red */
 .error {
-    fill: #E55545;
+    fill: #E93725;
 }
 
 /* Blue */
 .info {
-    fill: #3384CC;
+    fill: #007BF1;
 }
 
 /* Purple */
 .note {
-    fill: #7666CC;
+    fill: #A64AFD;
 }
 
 .gradient-shade {
