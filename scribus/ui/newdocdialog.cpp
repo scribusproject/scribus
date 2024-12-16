@@ -58,7 +58,7 @@ NewDocDialog::NewDocDialog(QWidget* parent, const QStringList& recentDocs, bool 
 	setModal(true);
 	setWindowTitle( tr( "New Document" ) );
 
-	m_labelVisibity = !prefsManager.appPrefs.uiPrefs.showLabels;
+	m_labelVisibity = prefsManager.appPrefs.uiPrefs.showLabels;
 	m_unitIndex = prefsManager.appPrefs.docSetupPrefs.docUnitIndex;
 	m_unitRatio = unitGetRatioFromIndex(m_unitIndex);
 	m_unitSuffix = unitGetSuffixFromIndex(m_unitIndex);
