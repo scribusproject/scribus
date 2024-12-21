@@ -16493,8 +16493,8 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>PrefsManager</name>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2453"/>
-        <location filename="../../scribus/prefsmanager.cpp" line="2462"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2459"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2468"/>
         <source>Postscript</source>
         <translation>पोस्ट्स्क्रिप्ट्</translation>
     </message>
@@ -16504,8 +16504,8 @@ Document Liberation Project https://www.documentliberation.org</source>
         <translation>पुरातनस्क्रैबस् निर्धारणानि स्थानान्तरं कुरु?</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2452"/>
-        <location filename="../../scribus/prefsmanager.cpp" line="2462"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2458"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2468"/>
         <source>PostScript</source>
         <translation>पोस्ट्स्क्रिप्ट्</translation>
     </message>
@@ -16536,28 +16536,28 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation>&quot;%1&quot; तः एच्छिकानां XML पठनं निष्फलम् : %2 %3 पङ्क्तौ, %4 स्तम्भे</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2868"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2874"/>
         <source>Error Writing Preferences</source>
         <translation>ऐच्छिकानां लेखने दोषः</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2870"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2876"/>
         <source>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</source>
         <comment>scribus app error</comment>
         <translation>स्क्रैबस् स्वस्य ऐच्छिकाः सञ्चयितुं न शक्नोति :&lt;br&gt;%1&lt;br&gt;फैल्कोशयोः अनुमतीः तथा उपलब्धं डिस्क् अन्तरं च कृपया परीक्षस्व।</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2885"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2891"/>
         <source>Error Loading Preferences</source>
         <translation>ऐच्छिकानां लोड्करणे दोषः</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2887"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2893"/>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
         <translation>स्क्रैबस् स्वस्य ऐच्छिकाः लोड्कर्तुं न शक्नोति :&lt;br&gt;%1&lt;br&gt;मूलभूतनिर्धारणानि लोड्कृतानि भविष्यन्ति।</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2570"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2576"/>
         <source>No valid renderframe config found. Using defaults!</source>
         <translation type="unfinished"></translation>
     </message>

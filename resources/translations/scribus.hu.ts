@@ -8159,7 +8159,7 @@ Wesselényinél mázol Quitóban</translation>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="114"/>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="306"/>
         <source>Start:</source>
-        <translation type="unfinished">Vonalkezdet:</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="131"/>
@@ -12011,7 +12011,7 @@ Ha egy sincs kijelölve, az összes alaphelyzetbe lesz állítva.</translation>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="140"/>
         <source>Do not show this dialog again</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ne jelenjen meg ez az ablak többé</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="156"/>
@@ -16807,8 +16807,8 @@ Document Liberation Project számára: https://www.documentliberation.org</trans
 <context>
     <name>PrefsManager</name>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2453"/>
-        <location filename="../../scribus/prefsmanager.cpp" line="2462"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2459"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2468"/>
         <source>Postscript</source>
         <translation>Postscript</translation>
     </message>
@@ -16823,8 +16823,8 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation type="vanished">A Scribus 1.3.5 verziójú beállító fájlt talált. Szeretné ezt használni az új Scribus verzióban? (1.6.0 ?}</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2452"/>
-        <location filename="../../scribus/prefsmanager.cpp" line="2462"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2458"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2468"/>
         <source>PostScript</source>
         <translation>PostScript</translation>
     </message>
@@ -16855,28 +16855,28 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation>%1 beállító-XML betöltése sikertelen: %3. sor, %4. oszlopánál: %2 </translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2868"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2874"/>
         <source>Error Writing Preferences</source>
         <translation>Hiba a beállítások mentésénél</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2870"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2876"/>
         <source>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</source>
         <comment>scribus app error</comment>
         <translation>Scribus nem tudta menteni a beállításait: &lt;br&gt;%1&lt;br&gt; Kérem ellenőrizze a fájl és mappa engedélyeket, valamint a szabad lemezterületet.</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2885"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2891"/>
         <source>Error Loading Preferences</source>
         <translation>Hiba a beállítások betöltésénél</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2887"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2893"/>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
         <translation>A Scribus nem tudja betölteni a beállításokat:&lt;br&gt;%1&lt;br&gt; Az alapértelmezett beállításokat tölti be.</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2570"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2576"/>
         <source>No valid renderframe config found. Using defaults!</source>
         <translation>Érvényes beágyazó keret beállítás nem található. Az alapértelmezés kerül alkalmazásra!</translation>
     </message>
@@ -23586,7 +23586,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="493"/>
         <source>Baseline</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alapvonal</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="720"/>
@@ -25219,7 +25219,7 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="201"/>
         <source>Background color of selected text</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">A kijelölt szöveg háttérszíne</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="227"/>
@@ -30736,15 +30736,15 @@ lista hiányos a meghívott funkciók miatt.
     </message>
     <message>
         <source>US Paper</source>
-        <translation type="vanished">US papír</translation>
+        <translation type="vanished">Amerikai papír</translation>
     </message>
     <message>
         <source>US Press</source>
-        <translation type="vanished">US nyomda</translation>
+        <translation type="vanished">Amerikai nyomda</translation>
     </message>
     <message>
         <source>US Envelopes</source>
-        <translation type="vanished">US borítékok</translation>
+        <translation type="vanished">Amerikai borítékok</translation>
     </message>
     <message>
         <source>Folio</source>
@@ -30764,7 +30764,7 @@ lista hiányos a meghívott funkciók miatt.
     </message>
     <message>
         <source>8vo (Royal Octavo)</source>
-        <translation type="vanished">8vo (királyi octavo)</translation>
+        <translation type="vanished">8vo (Királyi octavo)</translation>
     </message>
     <message>
         <source>8vo (Medium Octavo)</source>
@@ -30824,7 +30824,7 @@ lista hiányos a meghívott funkciók miatt.
     </message>
     <message>
         <source>US/Canada</source>
-        <translation type="vanished">US/Kanada</translation>
+        <translation type="vanished">Amerika/Kanada</translation>
     </message>
     <message>
         <source>China</source>
@@ -31034,6 +31034,130 @@ lista hiányos a meghívott funkciók miatt.
         <location filename="../../scribus/pagesize.cpp" line="417"/>
         <source>27x39 (Arch E3)</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>AU/NZ Broadsheet</source>
+        <translation type="vanished">Ausztrál/Új zélandi nagyalakú újság</translation>
+    </message>
+    <message>
+        <source>Berliner Broadsheet</source>
+        <translation type="vanished">Berlini nagyalakú újság</translation>
+    </message>
+    <message>
+        <source>Ciner</source>
+        <translation type="vanished">Ciner</translation>
+    </message>
+    <message>
+        <source>New York Times</source>
+        <translation type="vanished">New York Times</translation>
+    </message>
+    <message>
+        <source>Nordisch Broadsheet</source>
+        <translation type="vanished">Skandináv nagyalakú újság</translation>
+    </message>
+    <message>
+        <source>Rhenish Broadsheet</source>
+        <translation type="vanished">Rajnai nagyalakú újság</translation>
+    </message>
+    <message>
+        <source>SA Broadsheet</source>
+        <translation type="vanished"> Szaúd-arábiai nagyalakú újság</translation>
+    </message>
+    <message>
+        <source>Swiss Broadsheet</source>
+        <translation type="vanished">Svájci nagyalakú újság</translation>
+    </message>
+    <message>
+        <source>UK Broadsheet</source>
+        <translation type="vanished">Brit nagyalakú újság</translation>
+    </message>
+    <message>
+        <source>US Broadsheet</source>
+        <translation type="vanished">Amerikai nagyalakú újság</translation>
+    </message>
+    <message>
+        <source>Wall Street Journal</source>
+        <translation type="vanished">Wall Street Journal</translation>
+    </message>
+    <message>
+        <source>Berliner Tabloid</source>
+        <translation type="vanished">Berlini kisalakú újság</translation>
+    </message>
+    <message>
+        <source>Canadian Tabloid</source>
+        <translation type="vanished">Kanadai kisalakú újság</translation>
+    </message>
+    <message>
+        <source>Canadian Tall Tabloid</source>
+        <translation type="vanished">Kanadai magas kisalakú újság</translation>
+    </message>
+    <message>
+        <source>Nordisch Tabloid</source>
+        <translation type="vanished">Skandináv kisalakú újság</translation>
+    </message>
+    <message>
+        <source>Norwegian Tabloid</source>
+        <translation type="vanished">Norvég kisalakú újság</translation>
+    </message>
+    <message>
+        <source>Rhenish Tabloid</source>
+        <translation type="vanished">Rajnai kisalakú újság</translation>
+    </message>
+    <message>
+        <source>UK Tabloid</source>
+        <translation type="vanished">Brit kisalakú újság</translation>
+    </message>
+    <message>
+        <source>Compact</source>
+        <translation type="vanished">Kompakt</translation>
+    </message>
+    <message>
+        <source>Blu-Ray Cover (5 mm)</source>
+        <translation type="vanished">Blu-Ray borító (5 mm)</translation>
+    </message>
+    <message>
+        <source>Blu-Ray Cover (12 mm)</source>
+        <translation type="vanished">Blu-Ray borító (12 mm)</translation>
+    </message>
+    <message>
+        <source>Blu-Ray Cover (14 mm)</source>
+        <translation type="vanished">Blu-Ray borító (14 mm)</translation>
+    </message>
+    <message>
+        <source>Blu-Ray Cover (24 mm)</source>
+        <translation type="vanished">Blu-Ray Cover (24 mm)</translation>
+    </message>
+    <message>
+        <source>Cassette Cover (J-Card)</source>
+        <translation type="vanished">Kazetta borító (J-kártya)</translation>
+    </message>
+    <message>
+        <source>Cassette Cover (U-Card)</source>
+        <translation type="vanished">Kazetta borító (U-kártya)</translation>
+    </message>
+    <message>
+        <source>Compact Disc (Front)</source>
+        <translation type="vanished">Kompaktlemez (borító)</translation>
+    </message>
+    <message>
+        <source>Compact Disc (Back)</source>
+        <translation type="vanished">Kompaktlemez (hátlap)</translation>
+    </message>
+    <message>
+        <source>Compact Disc (Front Double)</source>
+        <translation type="vanished">Kompaktlemez (dupla borítő)</translation>
+    </message>
+    <message>
+        <source>Vinyl LP</source>
+        <translation type="vanished">Vinyl hanglemez</translation>
+    </message>
+    <message>
+        <source>DVD Cover Normal</source>
+        <translation type="vanished">Normál DVD borító</translation>
+    </message>
+    <message>
+        <source>DVD Cover Slim</source>
+        <translation type="vanished">Vékony DVD borító</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_tiff.cpp" line="291"/>
@@ -33150,6 +33274,22 @@ Document Liberation Project számára: https://www.documentliberation.org</trans
         <translation>Nyelv</translation>
     </message>
     <message>
+        <source>Character</source>
+        <translation type="vanished">Karakter</translation>
+    </message>
+    <message>
+        <source>The character used for automatic hyphen. Can be empty.</source>
+        <translation type="vanished">Az automatikus elválasztáshoz használt karakter. Lehet üres is.</translation>
+    </message>
+    <message>
+        <source>Font</source>
+        <translation type="vanished">Betűkészlet</translation>
+    </message>
+    <message>
+        <source>Size</source>
+        <translation type="vanished">Méret</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="49"/>
         <source>Based On:</source>
         <translation>Ezen alapul:</translation>
@@ -33254,9 +33394,53 @@ Document Liberation Project számára: https://www.documentliberation.org</trans
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Typography</source>
+        <translation type="vanished">Tipográfia</translation>
+    </message>
+    <message>
+        <source>Offset to baseline of characters</source>
+        <translation type="vanished">Karakterek alapvonalának eltolása</translation>
+    </message>
+    <message>
+        <source>Scaling width of characters</source>
+        <translation type="vanished">Karakterek szélességének méretezése</translation>
+    </message>
+    <message>
+        <source>Scaling height of characters</source>
+        <translation type="vanished">Karakterek magasságának méretezése</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="vanished">Normál</translation>
+    </message>
+    <message>
+        <source>Space:</source>
+        <translation type="vanished">Távolság:</translation>
+    </message>
+    <message>
+        <source>Hyphenation &amp;&amp; Language</source>
+        <translation type="vanished">Elválasztás és nyelv</translation>
+    </message>
+    <message>
+        <source>Text Language</source>
+        <translation type="vanished">Szöveg nyelve</translation>
+    </message>
+    <message>
+        <source>Smallest Word</source>
+        <translation type="vanished">Legrövidebb szó</translation>
+    </message>
+    <message>
+        <source>Length of the smallest word to be hyphenated</source>
+        <translation type="vanished">A legrövidebb, már nem elválasztható szó hossza</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="740"/>
         <source> characters</source>
         <translation>karakter</translation>
+    </message>
+    <message>
+        <source>OpenType Features</source>
+        <translation type="vanished">OpenType képességek</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="68"/>
@@ -33267,6 +33451,30 @@ Document Liberation Project számára: https://www.documentliberation.org</trans
         <location filename="../../scribus/ui/smcstylewidget.ui" line="123"/>
         <source>Font Size</source>
         <translation>Betűméret</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation type="vanished">Szín</translation>
+    </message>
+    <message>
+        <source>Background</source>
+        <translation type="vanished">Háttér</translation>
+    </message>
+    <message>
+        <source>Stroke</source>
+        <translation type="vanished">Körvonal</translation>
+    </message>
+    <message>
+        <source>Text color of selected text</source>
+        <translation type="vanished">A kijelölt szöveg színe</translation>
+    </message>
+    <message>
+        <source>Background color of selected text</source>
+        <translation type="vanished">A kijelölt szöveg háttérszíne</translation>
+    </message>
+    <message>
+        <source>Stroke color of selected text</source>
+        <translation type="vanished">A kijelölt szöveg körvonalszíne</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.cpp" line="308"/>
@@ -33603,6 +33811,58 @@ Document Liberation Project számára: https://www.documentliberation.org</trans
         <translation>Tulajdonságok</translation>
     </message>
     <message>
+        <source>Tabs &amp;&amp; Indentation</source>
+        <translation type="vanished">Tabulátorok és behúzás</translation>
+    </message>
+    <message>
+        <source>Lists &amp;&amp; Drop Caps</source>
+        <translation type="vanished">Listák és iniciálék</translation>
+    </message>
+    <message>
+        <source>Character for bulleted list</source>
+        <translation type="vanished">Felsorolások karaktere</translation>
+    </message>
+    <message>
+        <source>Style:</source>
+        <translation type="vanished">Stílus:</translation>
+    </message>
+    <message>
+        <source>Start:</source>
+        <translation type="vanished">Kezdés:</translation>
+    </message>
+    <message>
+        <source>List number prefix</source>
+        <translation type="vanished">Számozás előtagja</translation>
+    </message>
+    <message>
+        <source>List number suffix</source>
+        <translation type="vanished">Számozás utótagja</translation>
+    </message>
+    <message>
+        <source>Hierarchy level of list numbering</source>
+        <translation type="vanished">Számozás hierarchiaszintje</translation>
+    </message>
+    <message>
+        <source>List numbering style</source>
+        <translation type="vanished">Számozási stílus</translation>
+    </message>
+    <message>
+        <source>Starting number of the list count</source>
+        <translation type="vanished">Számozás kezdőszáma</translation>
+    </message>
+    <message>
+        <source>New Set:</source>
+        <translation type="vanished">Új készlet:</translation>
+    </message>
+    <message>
+        <source>Distance</source>
+        <translation type="vanished">Távolság</translation>
+    </message>
+    <message>
+        <source>Style</source>
+        <translation type="vanished">Stílus</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1145"/>
         <source>Choose Character Style or leave blank to use default Paragraph Style</source>
         <translation>Üresen hagyva az alapértelmezett stílus lesz alkalmazva, egyébként pedig a kijelölt</translation>
@@ -33636,6 +33896,52 @@ Document Liberation Project számára: https://www.documentliberation.org</trans
         <location filename="../../scribus/ui/smpstylewidget.ui" line="45"/>
         <source>Parent Style</source>
         <translation>Szülő stílus</translation>
+    </message>
+    <message>
+        <source>Hyphenation</source>
+        <translation type="vanished">Elválasztás</translation>
+    </message>
+    <message>
+        <source>Maximum number of Hyphenations following each other.
+A value of 0 means unlimited hyphenations.</source>
+        <translation type="vanished">Egymást követő elválasztások maximális száma.
+0 érték esetén nincs elválasztási korlát.</translation>
+    </message>
+    <message>
+        <source>Typography</source>
+        <translation type="vanished">Tipográfia</translation>
+    </message>
+    <message>
+        <source>Minimum</source>
+        <translation type="vanished">Minimum</translation>
+    </message>
+    <message>
+        <source>Minimal width of spaces between words</source>
+        <translation type="vanished">Minimális szélességű térköz a szavak között</translation>
+    </message>
+    <message>
+        <source>Maximum</source>
+        <translation type="vanished">Maximum</translation>
+    </message>
+    <message>
+        <source>Maximal extension of glyphs for justification</source>
+        <translation type="vanished">Betűkészletjelek maximális ritkítása sorkizáráskor</translation>
+    </message>
+    <message>
+        <source>Space:</source>
+        <translation type="vanished">Távolság:</translation>
+    </message>
+    <message>
+        <source>Minimal shrinkage of glyphs for justification</source>
+        <translation type="vanished">A betűkészletjelek minimális sűrítése sorkizáráskor</translation>
+    </message>
+    <message>
+        <source>Glyph:</source>
+        <translation type="vanished">Betűkészletjel</translation>
+    </message>
+    <message>
+        <source>Alignment &amp;&amp; Distances</source>
+        <translation type="vanished">Igazítás és távolságok</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="519"/>
@@ -33718,6 +34024,22 @@ Document Liberation Project számára: https://www.documentliberation.org</trans
         <translation>Iniciálé sorai</translation>
     </message>
     <message>
+        <source>Background</source>
+        <translation type="vanished">Háttér</translation>
+    </message>
+    <message>
+        <source>Fixed</source>
+        <translation type="vanished">Rögzített</translation>
+    </message>
+    <message>
+        <source>Automatic</source>
+        <translation type="vanished">Automatikus</translation>
+    </message>
+    <message>
+        <source>Baseline</source>
+        <translation type="vanished">Alapvonal</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="44"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="125"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="244"/>
@@ -33760,6 +34082,14 @@ Document Liberation Project számára: https://www.documentliberation.org</trans
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="549"/>
         <source>Shade</source>
         <translation type="unfinished">Árnyalat</translation>
+    </message>
+    <message>
+        <source>Background color of selected text</source>
+        <translation type="vanished">A kijelölt szöveg háttérszíne</translation>
+    </message>
+    <message>
+        <source>No Paragraph Effects</source>
+        <translation type="vanished">Nincsenek bekezdéseffektusok</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="29"/>
@@ -33902,6 +34232,10 @@ Document Liberation Project számára: https://www.documentliberation.org</trans
         <location filename="../../scribus/ui/smpstylewidget.ui" line="381"/>
         <source>Ensure that last lines of a paragraph won&apos;t end up separated from the rest (known as widow/orphan control)</source>
         <translation>Biztosítja, hogy a bekezdés utolsó sorai ne különüljenek el a többitől (l.: árva- és fattyúsorok beállítása)</translation>
+    </message>
+    <message>
+        <source>Orphans &amp;&amp; Widows</source>
+        <translation type="vanished">Árva- és fattyúsorok</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="409"/>
@@ -38282,6 +38616,10 @@ Az elővizsgáló segíthet a hibák megtalálásában.</translation>
         <translation type="unfinished">Kiskapitális</translation>
     </message>
     <message>
+        <source>Fake Small Caps</source>
+        <translation type="vanished">Ál kiskapitális</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/styleselect.cpp" line="324"/>
         <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
         <translation>Áthúzott. Pillanatnyi megnyomásával elérhető az eltolás és a vonalvastagság beállítása.</translation>
@@ -38429,6 +38767,10 @@ Az elővizsgáló segíthet a hibák megtalálásában.</translation>
 </context>
 <context>
     <name>TabManager</name>
+    <message>
+        <source>Manage Tabs</source>
+        <translation type="vanished">Tabulátorok kezelése</translation>
+    </message>
     <message>
         <location filename="../../scribus/ui/tabmanager.cpp" line="23"/>
         <source>Manage Tabulators</source>
@@ -41385,6 +41727,10 @@ X: %4, Y: %5</translation>
         <translation>Szövegstílus törlése</translation>
     </message>
     <message>
+        <source>Swap pages</source>
+        <translation type="vanished">Oldalak cseréje</translation>
+    </message>
+    <message>
         <location filename="../../scribus/undomanager.cpp" line="833"/>
         <source>Import page</source>
         <translation>Oldal importálása</translation>
@@ -42399,7 +42745,7 @@ Document Liberation Project számára: https://www.documentliberation.org</trans
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="850"/>
         <source>Stroke</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Körvonal</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="876"/>
@@ -42579,6 +42925,93 @@ please choose another one.</source>
         <location filename="../../scribus/plugins/picbrowser/imagedialog.ui" line="99"/>
         <source>Set zoom to 100%</source>
         <translation>Nagyítás 100%-ra</translation>
+    </message>
+</context>
+<context>
+    <name>newDocDialog</name>
+    <message>
+        <source>Dialog</source>
+        <translation type="vanished">Párbeszédablak</translation>
+    </message>
+    <message>
+        <source>New Document</source>
+        <translation type="vanished">Új dokumentum</translation>
+    </message>
+    <message>
+        <source>Page preset categories</source>
+        <translation type="vanished">Előre beállított oldalkategóriák</translation>
+    </message>
+    <message>
+        <source>Sort page list</source>
+        <translation type="vanished">Oldallista rendezése</translation>
+    </message>
+    <message>
+        <source>Preview</source>
+        <translation type="vanished">Előnézet</translation>
+    </message>
+    <message>
+        <source>Document</source>
+        <translation type="vanished">Dokumentum</translation>
+    </message>
+    <message>
+        <source>&amp;H:</source>
+        <translation type="vanished">&amp;M:</translation>
+    </message>
+    <message>
+        <source>&amp;W:</source>
+        <translation type="vanished">&amp;Sz:</translation>
+    </message>
+    <message>
+        <source>Pages</source>
+        <translation type="vanished">Oldal</translation>
+    </message>
+    <message>
+        <source>Orientation</source>
+        <translation type="vanished">Tájolás</translation>
+    </message>
+    <message>
+        <source>Margins</source>
+        <translation type="vanished">Margók</translation>
+    </message>
+    <message>
+        <source>Bleeds</source>
+        <translation type="vanished">Kifutók</translation>
+    </message>
+    <message>
+        <source>Text Frame</source>
+        <translation type="vanished">Szövegkeret</translation>
+    </message>
+    <message>
+        <source>&amp;Automatic Text Frame</source>
+        <translation type="vanished">A&amp;utomatikus szövegkeret</translation>
+    </message>
+    <message>
+        <source>Columns</source>
+        <translation type="vanished">Hasábok</translation>
+    </message>
+    <message>
+        <source>Gap</source>
+        <translation type="vanished">Hasábköz</translation>
+    </message>
+    <message>
+        <source>Show Document Settings After Creation</source>
+        <translation type="vanished">Folytatás a dokumentum beállításaival</translation>
+    </message>
+    <message>
+        <source>New from Template</source>
+        <translation type="vanished">Új, sablonból</translation>
+    </message>
+    <message>
+        <source>Open Existing Document</source>
+        <translation type="vanished">Létező megnyitása</translation>
+    </message>
+    <message>
+        <source>Open Recent Document</source>
+        <translation type="vanished">Legutóbbi dokumentum megnyitása</translation>
+    </message>
+    <message>
+        <source>Do not show this dialog again</source>
+        <translation type="vanished">Ne jelenjen meg ez az ablak többé</translation>
     </message>
 </context>
 <context>
