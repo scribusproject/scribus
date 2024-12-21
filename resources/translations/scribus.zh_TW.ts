@@ -15992,8 +15992,8 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>PrefsManager</name>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2458"/>
-        <location filename="../../scribus/prefsmanager.cpp" line="2467"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2464"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2473"/>
         <source>Postscript</source>
         <translation>Postscript</translation>
     </message>
@@ -16010,8 +16010,8 @@ Do you want to migrate them to the new Scribus version?</source>
 是否要将其迁移到新Scribus版本中? {1.6.0 ?}</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2457"/>
-        <location filename="../../scribus/prefsmanager.cpp" line="2467"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2463"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2473"/>
         <source>PostScript</source>
         <translation>PostScript</translation>
     </message>
@@ -16037,28 +16037,28 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation>无法从 &quot;%1&quot;: %2 的第 %3 行第 %4 列读取 prefs XML</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2947"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2953"/>
         <source>Error Writing Preferences</source>
         <translation>寫入偏好設定錯誤</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2949"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2955"/>
         <source>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</source>
         <comment>scribus app error</comment>
         <translation>Scribus 無法儲存其偏好設定:&lt;br&gt;%1&lt;br&gt;請檢查檔案和目錄的權限和可用的磁碟空間。</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2964"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2970"/>
         <source>Error Loading Preferences</source>
         <translation>載入設定時出錯</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2966"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2972"/>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
         <translation>Scribus 無法載入偏好設定: &lt;br&gt;%1&lt;br&gt; 將載入預設設置。</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2575"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2581"/>
         <source>No valid renderframe config found. Using defaults!</source>
         <translation>未找到有效的渲染框架配置，使用默认值！</translation>
     </message>

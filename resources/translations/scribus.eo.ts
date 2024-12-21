@@ -15992,8 +15992,8 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>PrefsManager</name>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2458"/>
-        <location filename="../../scribus/prefsmanager.cpp" line="2467"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2464"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2473"/>
         <source>Postscript</source>
         <translation>Postskripto</translation>
     </message>
@@ -16010,8 +16010,8 @@ Do you want to migrate them to the new Scribus version?</source>
 Ĉu oni volas migrigi ilin al la nova versio de Scribus? {1.6.0 ?}</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2457"/>
-        <location filename="../../scribus/prefsmanager.cpp" line="2467"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2463"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2473"/>
         <source>PostScript</source>
         <translation>Postskripto</translation>
     </message>
@@ -16037,28 +16037,28 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation>Malsukcesis legi XML-prefs-dosieron &quot;%1&quot;: %2 ĉe linio %3, kol %4 </translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2947"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2953"/>
         <source>Error Writing Preferences</source>
         <translation>Eraro dum agordkonservo</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2949"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2955"/>
         <source>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</source>
         <comment>scribus app error</comment>
         <translation>Scribus ne povis konservi siajn agordojn:&lt;br&gt;%1&lt;br&gt;Bonvolu kontroli la dosier- kaj dosierujpermesojn kaj la disponeblan diskspacon.</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2964"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2970"/>
         <source>Error Loading Preferences</source>
         <translation>Eraro dum ŝargado de agordoj</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2966"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2972"/>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
         <translation>Scribus ne povis ŝargi siajn agordojn:&lt;br&gt;%1&lt;br&gt;Estos ŝargita la defaŭlta agordaro.</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2575"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2581"/>
         <source>No valid renderframe config found. Using defaults!</source>
         <translation>Trovita neniu agordo por bildiga kadro. Uzas defaŭltan!</translation>
     </message>

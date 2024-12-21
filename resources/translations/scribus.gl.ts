@@ -15971,8 +15971,8 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>PrefsManager</name>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2458"/>
-        <location filename="../../scribus/prefsmanager.cpp" line="2467"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2464"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2473"/>
         <source>Postscript</source>
         <translation>Postscript</translation>
     </message>
@@ -15988,8 +15988,8 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2457"/>
-        <location filename="../../scribus/prefsmanager.cpp" line="2467"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2463"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2473"/>
         <source>PostScript</source>
         <translation>PostScript</translation>
     </message>
@@ -16015,28 +16015,28 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation>Non foi posíbel ler as preferencias XML de «%1»: %2 na liña %3, columna %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2947"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2953"/>
         <source>Error Writing Preferences</source>
         <translation>Houbo un erro ao escribir as preferencias</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2949"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2955"/>
         <source>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</source>
         <comment>scribus app error</comment>
         <translation>Scribus non puido salvar as súas preferencias:&lt;br&gt;%1&lt;br&gt;Comprobe os permisos do ficheiro e do directorio e o espazo dispoñíbel no disco.</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2964"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2970"/>
         <source>Error Loading Preferences</source>
         <translation>Houbo un erro ao cargar as preferencias</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2966"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2972"/>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
         <translation>Scribus non puido cargar as súas preferencias:&lt;br&gt;%1&lt;br&gt;Cargarase a configuración por omisión.</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2575"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2581"/>
         <source>No valid renderframe config found. Using defaults!</source>
         <translation>Non foi posíbel atopar a configuración da moldura de renderizado. Emprégase o predefinido!</translation>
     </message>

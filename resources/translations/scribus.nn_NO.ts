@@ -15984,8 +15984,8 @@ positiv verdi vil gjera han konveks (utbulande)</translation>
 <context>
     <name>PrefsManager</name>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2458"/>
-        <location filename="../../scribus/prefsmanager.cpp" line="2467"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2464"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2473"/>
         <source>Postscript</source>
         <translation>PostScript</translation>
     </message>
@@ -16001,8 +16001,8 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2457"/>
-        <location filename="../../scribus/prefsmanager.cpp" line="2467"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2463"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2473"/>
         <source>PostScript</source>
         <translation>PostScript</translation>
     </message>
@@ -16028,28 +16028,28 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation>Klarte ikkje å lesa XML-oppsettsfila «%1»: %2 på linje %3, kolonne %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2947"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2953"/>
         <source>Error Writing Preferences</source>
         <translation>Klarte ikkje å lagra innstillingane</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2949"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2955"/>
         <source>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</source>
         <comment>scribus app error</comment>
         <translation>Scribus klarte ikkje å lagra innstillingane:&lt;br&gt;%1&lt;br&gt; Sjekk fila, tilgangen til mappa og om du har nok diskplass.</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2964"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2970"/>
         <source>Error Loading Preferences</source>
         <translation>Klarte ikkje å lasta inn innstillingane</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2966"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2972"/>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
         <translation>Scribus klarte ikkje å lasta inn innstillingane:&lt;br&gt;%1&lt;br&gt; Bruker difor standardoppsett.</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2575"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2581"/>
         <source>No valid renderframe config found. Using defaults!</source>
         <translation>Fann ingen gyldig oppsettsfil for å handsama ramma. Bruker difor standardinnstillingane!</translation>
     </message>
