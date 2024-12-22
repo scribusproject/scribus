@@ -1466,9 +1466,9 @@ void PageItem_TextFrame::layout()
 			{
 				// unless at begin of par (eeks)
 				if ( (current.isEmpty) && (SpecialChars::isBreakingSpace(itemText.text(a)))
-					 && (a > 0 && ! SpecialChars::isBreak(itemText.text(a - 1)))
-					 && ! (a > 0 && SpecialChars::isBreakingSpace(itemText.text(a - 1))
-						   && (!glyphClusters[i - 1].hasFlag(ScLayout_SuppressSpace))))
+				     && (a > 0 && ! SpecialChars::isBreak(itemText.text(a - 1)))
+				     && ! (a > 0 && SpecialChars::isBreakingSpace(itemText.text(a - 1))
+				           && (i == 0 || !glyphClusters[i - 1].hasFlag(ScLayout_SuppressSpace))))
 				{
 					current.glyphs[currentIndex].setFlag(ScLayout_SuppressSpace);
 					continue;
