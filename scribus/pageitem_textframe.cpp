@@ -655,11 +655,21 @@ struct LineControl {
 		lineData.ascent = lineData.descent = 0;
 		if (glyphs.isEmpty())
 			return;
-		const CharStyle& cStyle(glyphs.at(0).style());
-		double scaleV = cStyle.scaleV() / 1000.0;
-		double offset = (cStyle.fontSize() / 10) * (cStyle.baselineOffset() / 1000.0);
-		lineData.ascent = cStyle.font().ascent(cStyle.fontSize() / 10.00) * scaleV + offset;
-		lineData.descent = cStyle.font().descent(cStyle.fontSize() / 10.00) * scaleV - offset;
+
+		// #17286 seek for largest glyph in line
+		for (int i = 0; i < glyphs.count(); i++)
+		{
+			const CharStyle& cStyle(glyphs.at(i).style());
+			double scaleV = cStyle.scaleV() / 1000.0;
+			double offset = (cStyle.fontSize() / 10) * (cStyle.baselineOffset() / 1000.0);
+			double tmpAscent = cStyle.font().ascent(cStyle.fontSize() / 10.00) * scaleV + offset;
+
+			if (lineData.ascent < tmpAscent)
+			{
+				lineData.ascent = tmpAscent;
+				lineData.descent = cStyle.font().descent(cStyle.fontSize() / 10.00) * scaleV;
+			}
+		}
 	}
 
 // yPos should not be changed when all line is already calculated - at new y position there can be overflow!!!
