@@ -161,7 +161,7 @@ void GuideManager::setupGui()
 	bool enable = currentPage->guides.horizontalAutoGap() > 0.0;
 	horizontalAutoGapCheck->setChecked(enable);
 	horizontalAutoGapSpin->setEnabled(enable);
-	horizontalAutoGapSpin->setValue(pts2value(currentPage->guides.horizontalAutoGap(), docUnitIndex));
+	horizontalAutoGapSpin->setValue(currentPage->guides.horizontalAutoGap(), SC_PT);
 	horizontalAutoCountSpin->setValue(currentPage->guides.horizontalAutoCount());
 	if (horizontalAutoCountSpin->value()==0)
 	{
@@ -176,7 +176,7 @@ void GuideManager::setupGui()
 	enable = currentPage->guides.verticalAutoGap() > 0.0;
 	verticalAutoGapCheck->setChecked(enable);
 	verticalAutoGapSpin->setEnabled(enable);
-	verticalAutoGapSpin->setValue(pts2value(currentPage->guides.verticalAutoGap(), docUnitIndex));
+	verticalAutoGapSpin->setValue(currentPage->guides.verticalAutoGap(), SC_PT);
 	verticalAutoCountSpin->setValue(currentPage->guides.verticalAutoCount());
 	if (verticalAutoCountSpin->value()==0)
 	{
@@ -538,11 +538,6 @@ Guides GuideManager::getAutoVerticals(const ScPage * page) const
 {
 	GuideManagerCore guides;
 
-	// Handle case where page to store values from does not belong
-	// to current doc, eg. when switching between documents
-	const ScribusDoc* doc = page->doc();
-	int unitIndex = doc->unitIndex();
-
 	double gapValue = 0.0;
 	if (horizontalAutoGapCheck->isChecked())
 		gapValue = horizontalAutoGapSpin->getValue(SC_PT);
@@ -563,11 +558,6 @@ Guides GuideManager::getAutoVerticals(const ScPage * page) const
 Guides GuideManager::getAutoHorizontals(const ScPage * page) const
 {
 	GuideManagerCore guides;
-
-	// Handle case where page to store values from does not belong
-	// to current doc, eg. when switching between documents
-	const ScribusDoc* doc = page->doc();
-	int unitIndex = doc->unitIndex();
 
 	double gapValue = 0.0;
 	if (horizontalAutoGapCheck->isChecked())

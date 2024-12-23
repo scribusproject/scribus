@@ -85,7 +85,7 @@ void OpticalMarginEditor::addRow(const QString &s, double left, double right, in
 	}
 	else
 	{
-		spinL->setValue(pts2value(left, unit));
+		spinL->setValue(left, SC_PT);
 	}
 	connect(spinL, SIGNAL(valueChanged(double)), this, SLOT(updateMarginRules()));
 
@@ -100,7 +100,7 @@ void OpticalMarginEditor::addRow(const QString &s, double left, double right, in
 	}
 	else
 	{
-		spinR->setValue(pts2value(right, unit));
+		spinR->setValue(right, SC_PT);
 	}
 	connect(spinR, SIGNAL(valueChanged(double)), this, SLOT(updateMarginRules()));
 
@@ -348,10 +348,10 @@ void OpticalMarginEditor::updateMarginRules()
 	for (int i = 0; i < tableWidget->rowCount(); i++)
 	{
 		ScrSpinBox *spinL = qobject_cast<ScrSpinBox *>(tableWidget->cellWidget(i, 0));
-		double left = (spinL->unitIndex() == SC_PERCENT) ? spinL->value() / 100.0 : value2pts(spinL->value(), spinL->unitIndex());
+		double left = (spinL->unitIndex() == SC_PERCENT) ? spinL->value() / 100.0 : spinL->getValue(SC_PT);
 
 		ScrSpinBox *spinR = qobject_cast<ScrSpinBox *>(tableWidget->cellWidget(i, 1));
-		double right = (spinR->unitIndex() == SC_PERCENT) ? spinR->value() / 100.0 : value2pts(spinR->value(), spinR->unitIndex());
+		double right = (spinR->unitIndex() == SC_PERCENT) ? spinR->value() / 100.0 : spinR->getValue(SC_PT);
 
 		QComboBox *combo = qobject_cast<QComboBox *>(tableWidget->cellWidget(i, 2));
 		int unit = combo->currentData().toInt();

@@ -50,6 +50,7 @@ class SCRIBUS_API ScrSpinBox : public QDoubleSpinBox
 		void getValues(double *min, double *max, int *deci, double *val) const;
 		void setValue(int val);
 		void setValue(double val);
+		void setValue(double val, int unitIndex);
 		void setValues(double min, double max, int deci, double val);
 	
 	protected:

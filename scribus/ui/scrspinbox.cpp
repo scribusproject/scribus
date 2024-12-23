@@ -66,6 +66,13 @@ void ScrSpinBox::setValue(double val)
 	QDoubleSpinBox::setValue(val);
 }
 
+void ScrSpinBox::setValue(double val, int unitIndex)
+{
+	double val1 = val / unitGetRatioFromIndex(unitIndex);
+	double val2 = val1 * unitGetRatioFromIndex(m_unitIndex);
+	QDoubleSpinBox::setValue(val2);
+}
+
 void ScrSpinBox::showValue(double val)
 {
 	bool sigBlocked = this->blockSignals(true);
