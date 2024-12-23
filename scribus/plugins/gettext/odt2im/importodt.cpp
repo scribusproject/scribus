@@ -493,6 +493,7 @@ void ODTIm::parseStyles(const QDomElement &sp, const QString& type)
 					currStyle.textStrikeThrough = AttributeValue(spe.attribute("style:text-line-through-style", ""));
 					currStyle.textShadow = AttributeValue(spe.attribute("fo:text-shadow", ""));
 					currStyle.fontVariant = AttributeValue(spe.attribute("fo:font-variant", ""));
+					currStyle.language = AttributeValue(spe.attribute("fo:language", ""));
 				}
 			}
 			if (spd.attribute("style:family") == "paragraph")
