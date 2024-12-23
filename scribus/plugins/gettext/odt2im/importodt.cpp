@@ -1016,6 +1016,7 @@ void ODTIm::applyCharacterStyle(CharStyle &tmpCStyle, const ObjStyleODT &oStyle)
 	tmpCStyle.setFillColor(oStyle.CurrColorText);
 	tmpCStyle.setBackColor(oStyle.CurrColorBText);
 	StyleFlag styleEffects = tmpCStyle.effects();
+	tmpCStyle.setLanguage(oStyle.language);
 	if ((oStyle.textPos.startsWith("super")) || (oStyle.textPos.startsWith("sub")))
 	{
 		if (oStyle.textPos.startsWith("super"))
@@ -1172,6 +1173,8 @@ void ODTIm::resolveStyle(ObjStyleODT &tmpOStyle, const QString& styleName)
 			actStyle.breakAfter = AttributeValue(currStyle.breakAfter.value);
 		if (currStyle.breakBefore.valid)
 			actStyle.breakBefore = AttributeValue(currStyle.breakBefore.value);
+		if (currStyle.language.valid)
+            		actStyle.language = AttributeValue(currStyle.language.value);
 	}
 
 	if (actStyle.textBackgroundColor.valid)
@@ -1358,6 +1361,8 @@ void ODTIm::resolveStyle(ObjStyleODT &tmpOStyle, const QString& styleName)
 		tmpOStyle.breakAfter = actStyle.breakAfter.value;
 	if (actStyle.breakBefore.valid)
 		tmpOStyle.breakBefore = actStyle.breakBefore.value;
+	if (actStyle.language.valid)
+        	tmpOStyle.language = actStyle.language.value;
 }
 
 double ODTIm::parseUnit(const QString &unit)
