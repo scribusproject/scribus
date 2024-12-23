@@ -120,7 +120,7 @@ void GuideManager::setDoc(ScribusDoc* doc)
 	if (m_Doc)
 	{
 		int oldUnitIndex = docUnitIndex;
-		if (oldUnitIndex != docUnitIndex)
+		if (oldUnitIndex != m_Doc->unitIndex())
 			unitChange();
 	}
 
@@ -213,14 +213,9 @@ void GuideManager::storePageValues(ScPage *page) const
 	if (!page || !m_Doc)
 		return;
 
-	// Handle case where page to store values from does not belong
-	// to current doc, eg. when switching between documents
-	const ScribusDoc* doc = page->doc();
-	int unitIndex   = doc->unitIndex();
-
 	double gapValue = 0.0;
 	if (horizontalAutoGapCheck->isChecked())
-		gapValue = value2pts(horizontalAutoGapSpin->value(), unitIndex);
+		gapValue = horizontalAutoGapSpin->getValue(SC_PT);
 	page->guides.setHorizontalAutoGap(gapValue);
 	page->guides.setHorizontalAutoCount(static_cast<int>(horizontalAutoCountSpin->value()));
 	page->guides.setHorizontalAutoRefer(horizontalRefer());
@@ -228,7 +223,7 @@ void GuideManager::storePageValues(ScPage *page) const
 
 	gapValue = 0.0;
 	if (verticalAutoGapCheck->isChecked())
-		gapValue = value2pts(verticalAutoGapSpin->value(), unitIndex);
+		gapValue = verticalAutoGapSpin->getValue(SC_PT);
 	page->guides.setVerticalAutoGap(gapValue);
 	page->guides.setVerticalAutoCount(static_cast<int>(verticalAutoCountSpin->value()));
 	page->guides.setVerticalAutoRefer(verticalRefer());
