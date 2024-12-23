@@ -168,7 +168,7 @@ void GuideManager::setupGui()
 	bool enable = currentPage->guides.horizontalAutoGap() > 0.0;
 	horizontalAutoGapCheck->setChecked(enable);
 	horizontalAutoGapSpin->setEnabled(enable);
-	horizontalAutoGapSpin->setValue(pts2value(currentPage->guides.horizontalAutoGap(), docUnitIndex));
+	horizontalAutoGapSpin->setValue(currentPage->guides.horizontalAutoGap(), SC_PT);
 	horizontalAutoCountSpin->setValue(currentPage->guides.horizontalAutoCount());
 	if (horizontalAutoCountSpin->value()==0)
 	{
@@ -183,7 +183,7 @@ void GuideManager::setupGui()
 	enable = currentPage->guides.verticalAutoGap() > 0.0;
 	verticalAutoGapCheck->setChecked(enable);
 	verticalAutoGapSpin->setEnabled(enable);
-	verticalAutoGapSpin->setValue(pts2value(currentPage->guides.verticalAutoGap(), docUnitIndex));
+	verticalAutoGapSpin->setValue(currentPage->guides.verticalAutoGap(), SC_PT);
 	verticalAutoCountSpin->setValue(currentPage->guides.verticalAutoCount());
 	if (verticalAutoCountSpin->value()==0)
 	{

@@ -508,14 +508,14 @@ void NodePalette::doReduce()
 {
 	if (m_doc == nullptr)
 		return;
-	m_view->TransformPoly(8, 1, value2pts(scaleDistance->value(),m_doc->unitIndex()));
+	m_view->TransformPoly(8, 1, scaleDistance->getValue(SC_PT));
 }
 
 void NodePalette::doEnlarge()
 {
 	if (m_doc == nullptr)
 		return;
-	m_view->TransformPoly(9, 1, value2pts(scaleDistance->value(),m_doc->unitIndex()));
+	m_view->TransformPoly(9, 1, scaleDistance->getValue(SC_PT));
 }
 
 void NodePalette::ShearR()
