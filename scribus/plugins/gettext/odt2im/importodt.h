@@ -63,6 +63,7 @@ public:
 	QList<ParagraphStyle::TabRecord> tabStops;
 	QString breakBefore {"auto"};
 	QString breakAfter {"auto"};
+	QString language;
 };
 
 class ODTIm
@@ -110,6 +111,7 @@ private:
 		AttributeValue tabTypes;
 		AttributeValue breakBefore;
 		AttributeValue breakAfter;
+		AttributeValue language;
 	};
 
 	bool parseContent(const QString& fileName, bool textOnly);
