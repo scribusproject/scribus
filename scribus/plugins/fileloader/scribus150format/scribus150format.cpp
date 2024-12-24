@@ -5365,14 +5365,14 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 	currItem->setGroupClipping(attrs.valueAsBool("groupClips", true));
 	currItem->FrameType = attrs.valueAsInt("FRTYPE", 0);
 	int startArrowIndex = attrs.valueAsInt("startArrowIndex", 0);
-	if ((startArrowIndex < 0) || (startArrowIndex > static_cast<int>(doc->arrowStyles().size())))
+	if ((startArrowIndex < 0) || (startArrowIndex > doc->arrowStyles().size()))
 	{
 		qDebug() << QString("scribus150format: invalid arrow index: %").arg(startArrowIndex);
 		startArrowIndex = 0;
 	}
 	currItem->setStartArrowIndex(startArrowIndex);
 	int endArrowIndex = attrs.valueAsInt("endArrowIndex", 0);
-	if ((endArrowIndex < 0) || (endArrowIndex > static_cast<int>(doc->arrowStyles().size())))
+	if ((endArrowIndex < 0) || (endArrowIndex > doc->arrowStyles().size()))
 	{
 		qDebug() << QString("scribus150format: invalid arrow index: %").arg(endArrowIndex);
 		endArrowIndex = 0;
