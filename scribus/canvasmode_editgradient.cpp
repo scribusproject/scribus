@@ -546,7 +546,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 				currItem->GrStartY -= np.y();
 				currItem->GrFocalX -= np.x();
 				currItem->GrFocalY -= np.y();
-				if ((currItem->gradientType() == 7) || (currItem->gradientType() == 13))
+				if ((currItem->gradientType() == Gradient_Radial) || (currItem->gradientType() == Gradient_Conical))
 				{
 					double radEnd = distance(currItem->GrEndX - currItem->GrStartX, currItem->GrEndY - currItem->GrStartY);
 					double radFoc = distance(currItem->GrFocalX - currItem->GrStartX, currItem->GrFocalY - currItem->GrStartY);

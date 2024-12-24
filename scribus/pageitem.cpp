@@ -6165,7 +6165,7 @@ void PageItem::restoreFillGradient(SimpleState *state, bool isUndo)
 		fill_gradient = is->getOldState();
 	else
 		fill_gradient = is->getNewState();
-	if (gradientType() == 13)
+	if (gradientType() == Gradient_Conical)
 		createConicalMesh();
 	update();
 }
