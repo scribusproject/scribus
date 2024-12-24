@@ -356,7 +356,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 				currItem->GrStrokeStartY -= np.y();
 				currItem->GrStrokeFocalX -= np.x();
 				currItem->GrStrokeFocalY -= np.y();
-				if (currItem->strokeGradientType() == 7)
+				if (currItem->strokeGradientType() == Gradient_Radial)
 				{
 					double radEnd = distance(currItem->GrStrokeEndX - currItem->GrStrokeStartX, currItem->GrStrokeEndY - currItem->GrStrokeStartY);
 					double radFoc = distance(currItem->GrStrokeFocalX - currItem->GrStrokeStartX, currItem->GrStrokeFocalY - currItem->GrStrokeStartY);
@@ -395,7 +395,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 				QPointF shRe = m.map(shR - np);
 				currItem->GrStrokeFocalX = shRe.x();
 				currItem->GrStrokeFocalY = shRe.y();
-				if (currItem->strokeGradientType() == 7)
+				if (currItem->strokeGradientType() == Gradient_Radial)
 				{
 					double radEnd = distance(currItem->GrStrokeEndX - currItem->GrStrokeStartX, currItem->GrStrokeEndY - currItem->GrStrokeStartY);
 					double radFoc = distance(currItem->GrStrokeFocalX - currItem->GrStrokeStartX, currItem->GrStrokeFocalY - currItem->GrStrokeStartY);
@@ -431,7 +431,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 			{
 				currItem->GrStrokeEndX -= np.x();
 				currItem->GrStrokeEndY -= np.y();
-				if (currItem->strokeGradientType() == 7)
+				if (currItem->strokeGradientType() == Gradient_Radial)
 				{
 					double radEnd = distance(currItem->GrStrokeEndX - currItem->GrStrokeStartX, currItem->GrStrokeEndY - currItem->GrStrokeStartY);
 					double radFoc = distance(currItem->GrStrokeFocalX - currItem->GrStrokeStartX, currItem->GrStrokeFocalY - currItem->GrStrokeStartY);
