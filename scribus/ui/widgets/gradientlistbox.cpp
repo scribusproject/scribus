@@ -42,7 +42,6 @@ void GradientWideItemDelegate::redraw(const QVariant& data) const
 	QPixmap* pixmap = ScListBoxPixmap<w, h>::pmap.data();
 	pixmap->fill(palette.base().color());
 
-
 	if (data.canConvert<GradientPixmapValue>())
 	{
 		GradientPixmapValue item(data.value<GradientPixmapValue>());
@@ -66,12 +65,10 @@ void GradientWideItemDelegate::redraw(const QVariant& data) const
 
 		QPainter painter(pixmap);
 		painter.drawImage(0, 0, image);
-		painter.setPen(QPen(ScQApp->palette().color(QPalette::Mid), 1));
+		painter.setPen(QPen(ScribusQApp::palette().color(QPalette::Mid), 1));
 		painter.drawRect(image.rect().adjusted(0, 0, -1, -1));
 		painter.end();
 	}
-
-
 }
 
 QString GradientWideItemDelegate::text(const QVariant& data) const

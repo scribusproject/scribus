@@ -587,8 +587,7 @@ bool Scribus150Format::loadElements(const QString& data, const QString& fileDir,
 
 		if (itemNext.count() != 0)
 		{
-			QMap<int,int>::Iterator lc;
-			for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
+			for (auto lc = itemNext.begin(); lc != itemNext.end(); ++lc)
 			{
 				if (lc.value() >= 0)
 				{
@@ -696,8 +695,7 @@ bool Scribus150Format::loadElements(const QString& data, const QString& fileDir,
 		// reestablish textframe links
 		if (itemNext.count() != 0)
 		{
-			QMap<int,int>::Iterator lc;
-			for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
+			for (auto lc = itemNext.begin(); lc != itemNext.end(); ++lc)
 			{
 				if (lc.value() >= 0)
 				{
@@ -1313,8 +1311,7 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 		}
 		if (itemNext.count() != 0)
 		{
-			QMap<int,int>::Iterator lc;
-			for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
+			for (auto lc = itemNext.begin(); lc != itemNext.end(); ++lc)
 			{
 				if (lc.value() >= 0)
 				{
@@ -1418,8 +1415,7 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 		// reestablish textframe links
 		if (itemNext.count() != 0)
 		{
-			QMap<int,int>::Iterator lc;
-			for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
+			for (auto lc = itemNext.begin(); lc != itemNext.end(); ++lc)
 			{
 				if (lc.value() >= 0)
 				{
@@ -1439,8 +1435,7 @@ bool Scribus150Format::loadPalette(const QString & fileName)
 		}
 		if (itemNextM.count() != 0)
 		{
-			QMap<int,int>::Iterator lc;
-			for (lc = itemNextM.begin(); lc != itemNextM.end(); ++lc)
+			for (auto lc = itemNextM.begin(); lc != itemNextM.end(); ++lc)
 			{
 				if (lc.value() >= 0)
 				{
@@ -1985,8 +1980,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 		return false;
 	}
 
-	QMap<int, ScribusDoc::BookMa>::Iterator it;
-	for (it = bookmarks.begin(); it != bookmarks.end(); ++it)
+	for (auto it = bookmarks.begin(); it != bookmarks.end(); ++it)
 	{
 		int elem = it.key();
 		PageItem* item = LinkID.value(elem, (PageItem*) nullptr);
@@ -2039,8 +2033,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 		}
 		if (itemNext.count() != 0)
 		{
-			QMap<int,int>::Iterator lc;
-			for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
+			for (auto lc = itemNext.begin(); lc != itemNext.end(); ++lc)
 			{
 				if (lc.value() >= 0)
 				{
@@ -2143,8 +2136,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 		}
 		if (itemNext.count() != 0)
 		{
-			QMap<int,int>::Iterator lc;
-			for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
+			for (auto lc = itemNext.begin(); lc != itemNext.end(); ++lc)
 			{
 				if (lc.value() >= 0)
 				{
@@ -2164,8 +2156,7 @@ bool Scribus150Format::loadFile(const QString & fileName, const FileFormat & /* 
 		}
 		if (itemNextM.count() != 0)
 		{
-			QMap<int,int>::Iterator lc;
-			for (lc = itemNextM.begin(); lc != itemNextM.end(); ++lc)
+			for (auto lc = itemNextM.begin(); lc != itemNextM.end(); ++lc)
 			{
 				if (lc.value() >= 0)
 				{
@@ -6824,8 +6815,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 		return false;
 	}
 
-	QMap<int, ScribusDoc::BookMa>::Iterator it;
-	for (it = bookmarks.begin(); it != bookmarks.end(); ++it)
+	for (auto it = bookmarks.begin(); it != bookmarks.end(); ++it)
 	{
 		int elem = it.key();
 		PageItem* item = LinkID.value(elem, (PageItem*) nullptr);
@@ -6877,8 +6867,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 		}
 		if (itemNext.count() != 0)
 		{
-			QMap<int,int>::Iterator lc;
-			for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
+			for (auto lc = itemNext.begin(); lc != itemNext.end(); ++lc)
 			{
 				if (lc.value() >= 0)
 				{
@@ -6936,8 +6925,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 		// reestablish textframe links
 		if (itemNext.count() != 0 && !Mpage)
 		{
-			QMap<int,int>::Iterator lc;
-			for (lc = itemNext.begin(); lc != itemNext.end(); ++lc)
+			for (auto lc = itemNext.begin(); lc != itemNext.end(); ++lc)
 			{
 				if (itemRemap[lc.value()] >= 0)
 				{
@@ -6957,8 +6945,7 @@ bool Scribus150Format::loadPage(const QString & fileName, int pageNumber, bool M
 		}
 		else if (itemNextM.count() != 0 && Mpage)
 		{
-			QMap<int,int>::Iterator lc;
-			for (lc = itemNextM.begin(); lc != itemNextM.end(); ++lc)
+			for (auto lc = itemNextM.begin(); lc != itemNextM.end(); ++lc)
 			{
 				if (itemRemapM[lc.value()] >= 0)
 				{
@@ -7400,9 +7387,8 @@ void Scribus150Format::updateNames2Ptr() //after document load - items pointers 
 {
 	if (!markeredItemsMap.isEmpty())
 	{
-		QMap<Mark*, int>::Iterator markIt;
 		QMap<Mark*, int>::Iterator end = markeredItemsMap.end();
-		for (markIt = markeredItemsMap.begin(); markIt != end; ++markIt)
+		for (auto markIt = markeredItemsMap.begin(); markIt != end; ++markIt)
 		{
 			Mark* mrk = markIt.key();
 			int ItemID = markIt.value();
@@ -7498,9 +7484,8 @@ void Scribus150Format::updateNames2Ptr() //after document load - items pointers 
 	if (!notesMasterMarks.isEmpty())
 	{
 		assert(!m_Doc->marksList().isEmpty() && !m_Doc->notesList().isEmpty());
-		QMap<QString, TextNote*>::Iterator it;
 		QMap<QString, TextNote*>::Iterator end = notesMasterMarks.end();
-		for (it = notesMasterMarks.begin(); it != end; ++it)
+		for (auto it = notesMasterMarks.begin(); it != end; ++it)
 		{
 			TextNote* note = it.value();
 			assert(note != nullptr);
