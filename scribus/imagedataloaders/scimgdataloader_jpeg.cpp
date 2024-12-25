@@ -120,15 +120,16 @@ bool ScImgDataLoader_JPEG::preloadAlphaChannel(const QString& fn, int /*page*/, 
 
 bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res, bool thumbnail)
 {
-//	bool isCMYK = false;
-	bool fromPS = false;
-	float xres = 72.0, yres = 72.0;
 	if (!QFile::exists(fn))
 		return false;
+
+	bool fromPS = false;
+	float xres = 72.0;
+	float yres = 72.0;
 	ExifData ExifInf;
 	struct jpeg_decompress_struct cinfo;
-	struct my_error_mgr         jerr;
-	FILE     *infile = nullptr;
+	struct my_error_mgr jerr;
+	FILE *infile = nullptr;
 	cinfo.err = jpeg_std_error (&jerr.pub);
 	jerr.pub.error_exit = my_error_exit;
 
@@ -150,11 +151,17 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 	if ((infile = fopen (fn.toLocal8Bit(), "rb")) == nullptr)
 		return false;
 #endif
+
 	jpeg_stdio_src(&cinfo, infile);
 	jpeg_save_markers(&cinfo, ICC_MARKER, 0xFFFF);
 	jpeg_save_markers(&cinfo, PHOTOSHOP_MARKER, 0xFFFF);
 	jpeg_read_header(&cinfo, true);
+	// #17333: Some jpeg files present themselves as CMYK, but they are in fact YCCK encoded
+	// That case is not correctly handled by standard libjpeg, so workaround it
+	if ((cinfo.jpeg_color_space == JCS_CMYK) && (cinfo.saw_Adobe_marker) && (cinfo.Adobe_transform == 2))
+		cinfo.jpeg_color_space = JCS_YCCK;
 	jpeg_start_decompress(&cinfo);
+
 	bool exi = ExifInf.scan(fn);
 	if (exi && ExifInf.exifDataValid)
 	{
