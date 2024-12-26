@@ -174,6 +174,7 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 		const_cast<char*>("fillshade"),
 		const_cast<char*>("strokecolor"),
 		const_cast<char*>("strokeshade"),
+		const_cast<char*>("bgcolor"),
 		const_cast<char*>("baselineoffset"),
 		const_cast<char*>("shadowxoffset"),
 		const_cast<char*>("shadowyoffset"),
@@ -202,6 +203,7 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 	PyESString font;
 	PyESString features;
 	PyESString fillColor;
+	PyESString bgColor;
 	PyESString fontFeatures;
 	PyESString strokeColor;
 	PyESString language;
@@ -214,9 +216,9 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 	double strikethruOffset = dbl_min, strikethruWidth = dbl_min;
 	double tracking = dbl_min;
 	
-	if (!PyArg_ParseTupleAndKeywords(args, keywords, "es|esdesesdesddddddddddddeses", keywordargs,
+	if (!PyArg_ParseTupleAndKeywords(args, keywords, "es|esdesesdesdsdddddddddddeses", keywordargs,
 									"utf-8", name.ptr(), "utf-8", font.ptr(), &fontSize, "utf-8", features.ptr(),
-									"utf-8", fillColor.ptr(), &fillShade, "utf-8", strokeColor.ptr(), &strokeShade, &baselineOffset, &shadowXOffset,
+									"utf-8", fillColor.ptr(), &fillShade, "utf-8", strokeColor.ptr(), &strokeShade, bgColor.ptr(), &baselineOffset, &shadowXOffset,
 									&shadowYOffset, &outlineWidth, &underlineOffset, &underlineWidth, &strikethruOffset, &strikethruWidth,
 									&scaleH, &scaleV, &tracking, "utf-8", language.ptr(), "utf-8", fontFeatures.ptr()))
 		return nullptr;
@@ -240,6 +242,7 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 	const ColorList& docColors = currentDoc->PageColors;
 	QString qFillColor(fillColor.c_str());
 	QString qStrokeColor(strokeColor.defaulted("Black"));
+	QString qBgColor(bgColor.c_str());
 	if (!qFillColor.isEmpty())
 	{
 		if ((qFillColor != CommonStrings::None) && (!docColors.contains(qFillColor)))
@@ -253,6 +256,14 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 		if ((qStrokeColor != CommonStrings::None) && (!docColors.contains(qStrokeColor)))
 		{
 			PyErr_SetString(PyExc_ValueError, QObject::tr("Specified stroke color is not available in document.", "python error").toLocal8Bit().constData());
+			return nullptr;
+		}
+	}
+	if (!qBgColor.isEmpty())
+	{
+		if ((qBgColor != CommonStrings::None) && (!docColors.contains(qBgColor)))
+		{
+			PyErr_SetString(PyExc_ValueError, QObject::tr("Specified background color is not available in document.", "python error").toLocal8Bit().constData());
 			return nullptr;
 		}
 	}
@@ -277,6 +288,8 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 		tmpCharStyle.setFeatures(featuresList);
 	if (!qFillColor.isEmpty())
 		tmpCharStyle.setFillColor(qFillColor);
+	if (!qBgColor.isEmpty())
+		tmpCharStyle.setBackColor(qBgColor);
 	if (fillShade >= 0)
 		tmpCharStyle.setFillShade(fillShade * 100);
 	if (!qStrokeColor.isEmpty())

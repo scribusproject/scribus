@@ -75,6 +75,7 @@ fontsize [optional] -> font size to set (double)\n\n\
 -> smallcaps\n\n\
 \"fillcolor\" [optional], \"fillshade\" [optional] -> specify fill options\n\n\
 \"strokecolor\" [optional], \"strokeshade\" [optional] -> specify stroke options\n\n\
+\"bgcolor\" [optional] -> specify background color\n\n\
 baselineoffset [optional] -> offset of the baseline\n\n\
 shadowxoffset [optional], shadowyoffset [optional] -> offset of the shadow if used\n\n\
 outlinewidth [optional] -> width of the outline if used\n\n\
