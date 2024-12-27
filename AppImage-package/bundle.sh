@@ -36,7 +36,7 @@ cp ./appdir/usr/share/icons/hicolor/256x256/apps/scribus.png ./appdir/
 sed -i -e 's|^Icon=.*|Icon=scribus|g' ./appdir/usr/share/applications/scribus.desktop
 
 ########################################################################
-# Bundle everyhting
+# Bundle everything
 # to allow the AppImage to run on older systems as well
 ########################################################################
 

@@ -64,7 +64,7 @@ protected:
 	QSortFilterProxyModel * m_proxyModel { nullptr };
 
 	/*! \brief Create a pixmap sample with font preview.
-	With GUI oprions. */
+	With GUI options. */
 	void paintSample();
 
 	/*! \brief Check if is there any item in list to prevent crashes.

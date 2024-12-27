@@ -13,10 +13,10 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 #include <QList>
 
+#include "notesstyles.h"
 #include "scribusapi.h"
 
 class Mark;
-class NotesStyle;
 class ScribusDoc;
 
 class SCRIBUS_API TextNote : public QObject

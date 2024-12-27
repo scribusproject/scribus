@@ -35,10 +35,10 @@ Currently the class TextShaper is the only class which actually shapes text. It 
 
 
 level 4: layout
-The input is a sequence of ShapedText objects and a text context. The text context determines the page area where the text shall be placed and other state information like current page number, current chapter, counters, and override styles for teh current frame (nyi)
+The input is a sequence of ShapedText objects and a text context. The text context determines the page area where the text shall be placed and other state information like current page number, current chapter, counters, and override styles for the current frame (nyi)
 The output is a tree of boxes, which is encapsulated in the class TextLayout. TextLayout provides methods for mapping screen coordinates to text positions and vice versa, line navigation and other tasks which require the visual layout.
 A textlayout is usually linked to a page item and caches all information needed for rendering text.
-Box classes are GroupBoxes for lines and blocks, GlyphBoxes for runs of glyphs and ObjetBoxes for inline frames.
+Box classes are GroupBoxes for lines and blocks, GlyphBoxes for runs of glyphs and ObjectBoxes for inline frames.
 
 
 Advanced caching

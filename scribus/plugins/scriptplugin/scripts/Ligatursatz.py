@@ -22257,8 +22257,8 @@ zzug4
                 u"ẞ"
                 # U+017F LATIN SMALL LETTER LONG S
                 u"ſ"
-                # combing chararacters
-                # (normalization support, canonical decompositon)
+                # combining characters
+                # (normalization support, canonical decomposition)
                 u"\u030C\u0302\u0308\u0301\u0300\u030A\u0303\u0327")
 
 

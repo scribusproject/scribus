@@ -608,7 +608,7 @@ struct  Store : public MakeAction<Store_body<Type>, const Xml_string& >
  *  the digester's storage, the topmost object is also stored there. Then the 
  *  trigger "WithinIdRef" is set during begin() and the processing continues 
  *  normally. When end() is called, the topmost object is replaced by the
- *  stored one (this will be a no-op if there wasnt an entry in storage before)
+ *  stored one (this will be a no-op if there wasn't an entry in storage before)
  */
 template<class Obj_Type>
 class IdRef_body : public Action_body

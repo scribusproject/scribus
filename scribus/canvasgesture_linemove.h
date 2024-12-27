@@ -45,7 +45,7 @@ class PageItem_Line;
  
   When the parent mode becomes active again, it can retrieve the new line with endPoint().
  
-  If the constructur with a pageitem is used, the gesture will change the item directly.
+  If the constructor with a pageitem is used, the gesture will change the item directly.
  */
 class SCRIBUS_API LineMove : public CanvasGesture
 {

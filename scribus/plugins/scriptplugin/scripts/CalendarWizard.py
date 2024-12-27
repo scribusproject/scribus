@@ -600,7 +600,7 @@ class TkCalendar(Frame):
         self.realLangChange(lang=self.langListbox.get(ix[0]))
 
     def realLangChange(self, lang='English'):
-        """ Real widget setup. Ot takes values from localization dictionary.
+        """ Real widget setup. It takes values from localization dictionary.
         [0] = months, [1] Days """
         self.key = lang
         self.monthListbox.delete(0, END)

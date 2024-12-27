@@ -361,14 +361,14 @@ PyObject* scribus_setproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 
 	// Did we know how to convert the value argument to the right type?
 	bool matched = false;
-	// Did the set call succceed?
+	// Did the set call succeed?
 	bool success = false;
 
 	// Check the C++ type of the property, and try to convert the passed
 	// PyObject to something sensible looking for it.
 	// FIXME: handle enums/sets
 	// NUMERIC TYPES
-	// These are unfortuately a TOTAL PITA because of the multitude of
+	// These are unfortunately a TOTAL PITA because of the multitude of
 	// C and Python numeric types. TODO This needs to be broken out into a subroutine.
 	if (propertyType == "bool")
 	{

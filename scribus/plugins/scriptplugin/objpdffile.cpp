@@ -744,7 +744,7 @@ static PyMemberDef PDFfile_members[] = {
 	{ "binding", T_INT, offsetof(PDFfile, binding), 0, "Choose binding.\n\t0 - Left binding\n\t1 - Right binding" },
 	{ "presentation", T_INT, offsetof(PDFfile, presentation), 0, "Enable Presentation Effects.Bool value" },
 	{ "article", T_INT, offsetof(PDFfile, article), 0, "Save Linked Text Frames as PDF Articles\n\tBool value" },
-	{ "encrypt", T_INT, offsetof(PDFfile, encrypt), 0, "Use Encription. Bool value" },
+	{ "encrypt", T_INT, offsetof(PDFfile, encrypt), 0, "Use Encryption. Bool value" },
 	{ "uselpi", T_INT, offsetof(PDFfile, uselpi), 0, "Use Custom Rendering Settings. Bool value" },
 	{ "usespot", T_INT, offsetof(PDFfile, usespot), 0, "Use Spot Colors. Bool value" },
 	{ "domulti", T_INT, offsetof(PDFfile, domulti), 0, "Produce a PDF File for every Page. Bool value" },

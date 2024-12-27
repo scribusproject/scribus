@@ -85,7 +85,7 @@ class PythonConsole : public QMainWindow, public Ui::PythonConsole
 
 };
 
-/*! \brief Store colors for syntax highligter.
+/*! \brief Store colors for syntax highlighter.
 It provides defaults, loading and storing preferences.
 \author Petr Vanek <petr@yarpen.cz> */
 class SyntaxColors

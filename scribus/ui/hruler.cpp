@@ -541,7 +541,7 @@ void Hruler::paintEvent(QPaintEvent *e)
 
 			drawTextMarks(pos, endPos, p);
 			
-			// start braket
+			// start bracket
 			p.setPen(QPen(marginColor, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 			int xPos = textPosToLocal(pos);
 			p.drawLine(xPos, 0, xPos, bottomline);
@@ -629,7 +629,7 @@ void Hruler::paintEvent(QPaintEvent *e)
 				}
 			}
 			
-			// end braket
+			// end bracket
 			p.setPen(QPen(marginColor, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 			xPos = textPosToLocal(endPos);
 			p.drawLine(xPos, 0, xPos, bottomline - 1);

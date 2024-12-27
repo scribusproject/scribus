@@ -113,7 +113,7 @@ class SCRIBUS_API MultiProgressDialog : public QDialog, Ui::MultiProgressDialog
 		 */
 		bool setProgress(const QString& barName, int progress);
 		/**
-		 * Set the prgress and total steps for a user defined progress bar
+		 * Set the progress and total steps for a user defined progress bar
 		 * @param barName 
 		 * @param progress 
 		 * @param totalSteps 

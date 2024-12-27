@@ -199,7 +199,7 @@ bool FileLoader::loadPage(ScribusDoc* currDoc, int PageToLoad, bool Mpage, const
  \date
  \brief Loads the file "FileName" as a Scribus document
  \param currDoc the current document
- \retval bool true when loading is succsessful, false otherwise
+ \retval bool true when loading is successful, false otherwise
  */
 bool FileLoader::loadFile(ScribusDoc* currDoc)
 {

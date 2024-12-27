@@ -187,7 +187,7 @@ void Prefs_Indexes::updateStyleComboBoxes()
 	styleLevel1ComboBox->addItems(stylesList);
 	styleLevel2ComboBox->addItems(stylesList);
 	styleLevel3ComboBox->addItems(stylesList);
-	//TODO: Indexing doesn't support multiple styles for differnet layers yet
+	//TODO: Indexing doesn't support multiple styles for different layers yet
 	styleLevel2Label->setVisible(false);
 	styleLevel3Label->setVisible(false);
 	styleLevel2ComboBox->setVisible(false);

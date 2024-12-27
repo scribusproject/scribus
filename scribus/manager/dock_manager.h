@@ -72,7 +72,7 @@ public:
 	 */
 	void toggleDocksVisibility();
 	/**
-	 * @brief Retruns true if all docks are temporary hidden.
+	 * @brief Returns true if all docks are temporary hidden.
 	 * @return
 	 */
 	bool hasTemporaryHiddenDocks();

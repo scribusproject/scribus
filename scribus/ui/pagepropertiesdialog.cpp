@@ -40,7 +40,7 @@ PagePropertiesDialog::PagePropertiesDialog( QWidget* parent, ScribusDoc* doc )
 	
 	PageSize ps(doc->currentPage()->size());
 
-	// try to find coresponding page size by dimensions
+	// try to find corresponding page size by dimensions
 	if (ps.name() == CommonStrings::customPageSize)
 	{
 		PageSizeInfoMap pages = ps.sizesByDimensions(QSize(doc->currentPage()->width(), doc->currentPage()->height()));

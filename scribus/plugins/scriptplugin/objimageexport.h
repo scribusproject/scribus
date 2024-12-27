@@ -31,7 +31,7 @@ i.saveAs('/home/subik/test.png')");
 PyDoc_STRVAR(imgexp_alltypes__doc__, "Available image types. Read only list of strings.");
 PyDoc_STRVAR(imgexp_dpi__doc__, "This value will be used for export as DPI. Read/write integer.");
 PyDoc_STRVAR(imgexp_filename__doc__, "Filename of the image. With or without path. Read/write string.");
-PyDoc_STRVAR(imgexp_quality__doc__, "Quality/compression: minimum 1 (poor), maximum 100 (qaulity). Read/write integer.");
+PyDoc_STRVAR(imgexp_quality__doc__, "Quality/compression: minimum 1 (poor), maximum 100 (quality). Read/write integer.");
 PyDoc_STRVAR(imgexp_scale__doc__, "This is the scaling of the image. 100 = 100% etc. Read/write integer.");
 PyDoc_STRVAR(imgexp_transparentBkgnd__doc__, "Enable or disable transparent background.");
 PyDoc_STRVAR(imgexp_type__doc__, "Bitmap type. See allTypes list for more info. Read/write string.");

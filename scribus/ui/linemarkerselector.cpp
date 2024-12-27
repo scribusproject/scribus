@@ -34,7 +34,7 @@ LineMarkerSelector::LineMarkerSelector(QWidget *parent) :
 
 void LineMarkerSelector::rebuildList(const QList<ArrowDesc> *arrowStyles)
 {
-	// ArrowStyles definied in: void PrefsManager::initArrowStyles()
+	// ArrowStyles defined in: void PrefsManager::initArrowStyles()
 	int index = marker() == -1 ? 0 : marker();
 
 	listMarker->clear();

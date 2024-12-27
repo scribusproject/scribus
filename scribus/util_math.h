@@ -54,7 +54,7 @@ inline double SCRIBUS_API manhattanDistance(const QPointF& p1, const QPointF& p2
 /*! \brief Constrains an angle of rotation to 45 degree intervals
    Will make code simpler and reduce interval or provide as a parameter
    \param angle angle Angle in degrees
-   \param constrain contrain value in degrees
+   \param constrain constrain value in degrees
    \retval double Constrained angle
  */
 double SCRIBUS_API constrainAngle(double angle, double constrain);

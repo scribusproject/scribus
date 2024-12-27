@@ -173,7 +173,7 @@ int setBestEncoding(FT_Face face)
 FPointArray traceGlyph(FT_Face face, ScFace::gid_type glyphIndex, int chs, qreal *x, qreal *y, bool *err)
 {
 	bool error = false;
-	//AV: not threadsave, but tracechar is only used in ReadMetrics() and fontSample()
+	//AV: not threadsafe, but tracechar is only used in ReadMetrics() and fontSample()
 	static FPointArray pts;
 	pts.resize(0);
 	FPointArray pts2;

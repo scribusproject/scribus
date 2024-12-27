@@ -227,7 +227,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 
 	QScopedPointer<PageSize> ps(new PageSize(m_doc->pageSize()));
 
-	// try to find coresponding page size by dimensions
+	// try to find corresponding page size by dimensions
 	if (ps->name() == CommonStrings::customPageSize)
 	{
 		PageSizeInfoMap pages = ps->sizesByDimensions(QSize(m_doc->pageWidth(), m_doc->pageHeight()));

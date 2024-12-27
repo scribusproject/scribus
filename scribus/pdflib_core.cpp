@@ -4301,7 +4301,7 @@ QByteArray PDFLibCore::PDF_PutSoftShadow(PageItem* ite)
 
 /**
  * Fill this.output with the QByteArray representation of the item.
- * Checks if the item can be represented in the chosen PDF version, based on some of its caracteristics
+ * Checks if the item can be represented in the chosen PDF version, based on some of its characteristics
  * and delegates the work to PDF_Image, PDF_GradientFillStroke, PDF_PatternFillStroke and so on for
  * filling this.output.
  * Returns false if the content can't be represented in the chosen PDF version,

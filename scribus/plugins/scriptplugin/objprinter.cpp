@@ -42,7 +42,7 @@ struct Printer
 	PyObject *file;  // string - name of file to print into (eg. output.ps)
 	PyObject *cmd; // string - if "" use standard command else use this as command (eg. "kprinter", "xpp" ...)
 	PyObject *pages; // list of integers - pages to be printed
-	int copies; // numer of printed copies
+	int copies; // number of printed copies
 	PyObject *separation; // string - No; All; Cyan; Magenta; Yellow; Black
 	int color; // bool - do we print in color=1 or greyscale=0
 	int useICC; // bool - do we use ICC Profiles 0 = No 1 = Yes

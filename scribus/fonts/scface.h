@@ -260,7 +260,7 @@ public:
 	/// check if this is a replacement font
 	bool isReplacement()   const { return !m_replacedName.isEmpty(); }
 
-	/// makes a repalcement font for font "name" using this fonts data
+	/// makes a replacement font for font "name" using this fonts data
 	ScFace mkReplacementFor(const QString& name, const QString& doc) {
 		ScFace result(m_m);
 		result.m_replacedName = name;

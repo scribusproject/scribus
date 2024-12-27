@@ -76,7 +76,7 @@ bool ImportIdmlImpl::run(const QString & target, ScribusDoc* doc)
 	/* Implement Progress Dialog Later */
 	
 	/**
-	Here, first we parse the idml document, in the order designmap.xml,preferences.xml, fonts.xml, styles.xml, gradiant.xml, all the stories will be transformed into Story Objects, and finally all the master spreads and spreads.
+	Here, first we parse the idml document, in the order designmap.xml,preferences.xml, fonts.xml, styles.xml, gradient.xml, all the stories will be transformed into Story Objects, and finally all the master spreads and spreads.
 	We set the document page width, height etc from preferences.xml, styles are defined and added into the list.
 	
 	QMap are maintained with QString, Object for each item which is referred later in the document using the self attribute. This includes all styles, stories etc.
@@ -695,7 +695,7 @@ void ImportIdmlImpl::addTextFrame(ScribusDoc* doc, QDomNode node)
 			StrokeColor = CommonStrings::None;
 		ItemLayer = elem.attribute("ItemLayer","");
 		itemTransform =  applyTransform(elem.attribute("ItemTranform",""));
-		/* Try to add gradiant feature */
+		/* Try to add gradient feature */
 	}
 	//Reading the properties
 	QList<PathPoint> pathPoints;

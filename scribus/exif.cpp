@@ -572,7 +572,7 @@ void ExifData::ProcessExifDir ( unsigned char * DirStart, unsigned char * Offset
 
 			case TAG_FNUMBER:
 				// Simplest way of expressing aperture, so I trust it the most.
-				// (overwrite previously computd value if there is one)
+				// (overwrite previously computed value if there is one)
 				ExifData::ApertureFNumber = ( float ) ConvertAnyFormat ( ValuePtr, Format );
 				break;
 
@@ -594,14 +594,14 @@ void ExifData::ProcessExifDir ( unsigned char * DirStart, unsigned char * Offset
 				break;
 
 			case TAG_SUBJECT_DISTANCE:
-				// Inidcates the distacne the autofocus camera is focused to.
+				// Indicates the distance the autofocus camera is focused to.
 				// Tends to be less accurate as distance increases.
 				ExifData::Distance = ( float ) ConvertAnyFormat ( ValuePtr, Format );
 				break;
 
 			case TAG_EXPOSURETIME:
 				// Simplest way of expressing exposure time, so I trust it most.
-				// (overwrite previously computd value if there is one)
+				// (overwrite previously computed value if there is one)
 				ExifData::ExposureTime = ( float ) ConvertAnyFormat ( ValuePtr, Format );
 				break;
 

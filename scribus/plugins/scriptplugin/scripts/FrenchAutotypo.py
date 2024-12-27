@@ -3,7 +3,7 @@
 # File: fr_autotypo².py Version : 1.1.3 - 2023 10 18
 # Fixes typewriter, single and double quotes along with their leading and following spaces 
 # + fixes double spaces everywhere 
-# + applies french typography (since default langage is french)
+# + applies french typography (since default language is french)
 #
 # © 2020.06 Creation of autotypo by JLuc 
 # following © 2013 autoquote2 enhancements by JLuc 
@@ -19,26 +19,26 @@
 
 # INPUTS
 # - choose a text frame, launch script
-# - it defaults to french but altering the script enables to choose other language or painfull interactive mode
+# - it defaults to french but altering the script enables to choose other language or painful interactive mode
 # - default space to add for typography is thin nonbreakable space. 
 # - existing spaces should be replaced
 # - multiple spaces should be merged into single space
 # FEATURES
 # - replaces " with « and » as required
 # - warns when « and » dont match or for other such issues
-# - adds choosen spaces after « and before »
+# - adds chosen spaces after « and before »
 # - applies some heuristics (some would call that AI) to best deal with ' and "
 # - replace multiple following spaces with just one
-# - when langages is french, does more typography job :
-# - - replaces or adds the choosen space before ! ? ; : and …
-# - - doesnt mess urls = doesnt change http://scribus.net
-# - - only adds one choosen space before a set of double spaces as !!!?!
+# - when language is french, does more typographical actions:
+# - - replaces or adds the chosen space before ! ? ; : and …
+# - - doesn't mess urls = doesn't change http://scribus.net
+# - - only adds one chosen space before a set of double spaces as !!!?!
 # - provides a just-go-ahead-dont-ask-for-options mode for geeks : juste change do_ask value to False in script
 # LIMITS
 # - recognizes urls with "p:/" or "ww." patterns (=> possible false positive)
-# - same choosen space for « » ; ! ; : …
+# - same chosen space for « » ; ! ; : …
 # - space is added or replaced with absolutely no local-font awareness
-# - only manages selected frame and doesnt follow links accross linked text frames <-- PR wanted
+# - only manages selected frame and doesn't follow links across linked text frames <-- PR wanted
 
 import scribus
 
@@ -75,7 +75,7 @@ if scribus.haveDoc() <= 0:
     sys.exit(2)
 
 #
-# First choice for langage
+# First choice for language
 #
 if do_ask:
     lang = scribus.valueDialog("Language", 'Choose language or country\nChoisissez la langue du texte ou le pays :\n  af, be, ch, cs, de, de-g, en, es, et, fi, fr,\n  hu, is, lt, mk, nl, pl, ru, se, sk, sl, sq and uk', 'fr')

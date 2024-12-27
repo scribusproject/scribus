@@ -151,7 +151,7 @@ public:
 #include "paragraphstyle.attrdefs.cxx"
 #undef ATTRDEF
 	
-	/** isInherited: returns true if the attriute is inherited */
+	/** isInherited: returns true if the attribute is inherited */
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	bool isInh##attr_NAME() const { return inh_##attr_NAME; }
 #include "paragraphstyle.attrdefs.cxx"

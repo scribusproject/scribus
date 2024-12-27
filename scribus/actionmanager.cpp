@@ -1629,7 +1629,7 @@ void ActionManager::languageChange()
 	(*scrActions)["itemSplitPolygons"]->setTexts( tr("Split &Polygons"));
 	(*scrActions)["itemConvertToBezierCurve"]->setTexts( tr("&Bezier Curve"));
 	(*scrActions)["itemConvertToImageFrame"]->setTexts( tr("&Image Frame"));
-	(*scrActions)["itemConvertToOutlines"]->setTexts( tr("&Outlines", "Convert to oulines"));
+	(*scrActions)["itemConvertToOutlines"]->setTexts( tr("&Outlines", "Convert to outlines"));
 	(*scrActions)["itemConvertToPolygon"]->setTexts( tr("&Polygon"));
 	(*scrActions)["itemConvertToTextFrame"]->setTexts( tr("&Text Frame"));
 	(*scrActions)["itemConvertToSymbolFrame"]->setTexts( tr("&Symbol"));

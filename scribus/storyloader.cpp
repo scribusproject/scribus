@@ -89,7 +89,7 @@ int StoryLoader::testData(const QByteArray& storyData) const
  \date
  \brief Loads the file "FileName" as a Scribus document
  \param currDoc the current document
- \retval bool true when loading is succsessful, false otherwise
+ \retval bool true when loading is successful, false otherwise
  */
 bool StoryLoader::loadStory(const QByteArray& storyData, ScribusDoc& doc, StoryText &story, PageItem* item)
 {

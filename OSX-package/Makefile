@@ -1,6 +1,6 @@
 # currently a handpicked list of libraries Scribus depends on
 DEPLIBRARIES=zlib.pkg jpeg.pkg tiff.pkg lcms.pkg freetype.pkg cairo.pkg
-# these wil be optional packages later
+# these will be optional packages later
 ADDITIONAL=ghostscript.mpkg antiword.pkg aspell.pkg
 # this MUST be the installed path of the Scribus.app bundle
 SCRIBUSAPP=/usr/local/Applications/Scribus135.app

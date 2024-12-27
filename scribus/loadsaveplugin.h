@@ -236,7 +236,7 @@ class SCRIBUS_API FileFormat
 		//
 		// Data members
 		//
-		// An integer ID code used to idenfify formats. Should be unique
+		// An integer ID code used to identify formats. Should be unique
 		// across all FileFormat structures except where they implement
 		// support for the same file format, eg sla 1.2.x, sla 1.3.x and
 		// "new format" SLA should all have equal IDs (with different

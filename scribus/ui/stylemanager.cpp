@@ -207,7 +207,7 @@ void StyleManager::editStyleByName(int rcType, const QString &name)
 
 	// nitramr:
 	// We need a better way to find rcType than by ID of top level items. If the order of the root style changes it will break.
-	// It is better to store an unchangable identifier in StyleViewItem::data(int column, int role).
+	// It is better to store an unchangeable identifier in StyleViewItem::data(int column, int role).
 	// https://doc.qt.io/qt-6/qtreewidgetitem.html#data
 
 	QTreeWidgetItemIterator it(styleView);
@@ -682,7 +682,7 @@ void StyleManager::slotScrap()
 
 void StyleManager::slotNew()
 {
-//#5334: Don't open into edit mdoe until user has selected a style type
+//#5334: Don't open into edit mode until user has selected a style type
 // 	if (!m_isEditMode)
 // 		slotOk(); // switch to edit mode for a new style
 

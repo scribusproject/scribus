@@ -139,7 +139,7 @@ private:
 	The RGB<->LMS transforms are computed from the human cone
 	photo-pigment absorption spectra and the monitor phosphor
 	emission spectra. These parameters are fairly constant for most
-	humans and most montiors (at least for modern CRTs). However,
+	humans and most monitors (at least for modern CRTs). However,
 	gamma will vary quite a bit, as it is a property of the monitor
 	(eg. amplifier gain), the video card, and even the
 	software. Further, users can adjust their gammas (either via
@@ -147,7 +147,7 @@ private:
 	following are the gamma estimates that we have used in the
 	Vischeck code. Many colorblind users have viewed our simulations
 	and told us that they "work" (simulated and original images are
-	indistinguishabled).
+	indistinguishable).
 	*/
 	void init();
 

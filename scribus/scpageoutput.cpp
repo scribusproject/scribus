@@ -516,7 +516,7 @@ void ScPageOutput::drawPattern(PageItem* item, ScPainterExBase* painter, const Q
 	const ScPattern& pattern = m_doc->docPatterns[item->pattern()];
 	const ScPatternTransform& patternTrans = item->patternTransform();
 
-	// Compute pattern tansformation matrix and its inverse for converting pattern coordinates
+	// Compute pattern transformation matrix and its inverse for converting pattern coordinates
 	// to pageitem coordinates 
 	QTransform matrix;
 	matrix.translate(patternTrans.offsetX, patternTrans.offsetY);

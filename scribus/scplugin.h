@@ -446,7 +446,7 @@ class SCRIBUS_API ScActionPlugin : public ScPlugin
  *
  * Such plug-ins have an init method and a cleanup method; they have
  * no "run" method as such. It is up to the plugin to determine how
- * best to interfact with the user.
+ * best to interact with the user.
  */
 class SCRIBUS_API ScPersistentPlugin : public ScPlugin
 {

@@ -167,7 +167,7 @@ public:
 
 	GradientList& operator= (const GradientList& list);
 
-	/** \brief Get the document the list is related , return in cpp due to scribusdoc class delcaration */
+	/** \brief Get the document the list is related , return in cpp due to scribusdoc class declaration */
 	ScribusDoc* document() const;
 
 	/** \brief Assign the doc to which the list belong to.*/

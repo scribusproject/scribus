@@ -152,7 +152,7 @@ public:
 	UndoTransaction beginTransaction(const TransactionSettings& settings);
 	
 	/**
-	 * @brief Cancels the current transaction and deletes groupped <code>UndoState</code>s.
+	 * @brief Cancels the current transaction and deletes grouped <code>UndoState</code>s.
 	 * @brief Nothing from canceled transaction will be sent to the undo gui widgets.
 	 */
 	//void cancelTransaction();

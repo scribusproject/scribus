@@ -47,7 +47,7 @@ void ScriptPaths::buildMenu()
 
 	for (const auto& scriptInfo: scriptsList)
 	{
-		// TODO: strippedName sould be unique for the whole menu (repo index + script name?)... we could use the full path...
+		// TODO: strippedName should be unique for the whole menu (repo index + script name?)... we could use the full path...
 		auto scriptName = scriptInfo.name;
 		scriptName.replace('_', ' ');
 		scriptName = scriptName.first(1).toUpper() + scriptName.mid(1);

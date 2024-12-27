@@ -26,7 +26,7 @@ struct QString_to_python_unicode
     convert(QString const& s)
     {
         //FIXME: Done with Python/C API, needs Boost::Python-ifying
-        //FIXME: UCS-4 case can probably be done a lot more effciently.
+        //FIXME: UCS-4 case can probably be done a lot more efficiently.
 #if defined(Py_UNICODE_WIDE)
         //qDebug("Py_UNICODE_WIDE");
         int unichars = s.length();

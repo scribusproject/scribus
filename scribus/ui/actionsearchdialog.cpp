@@ -99,7 +99,7 @@ void ActionSearchDialog::moveSelectionDown()
 
 /**
  * Fill the list with all actions that match the filter.
- * If the filter contains multiple words, acceppts all actions that
+ * If the filter contains multiple words, accepts all actions that
  * contain all the words
  */
 void ActionSearchDialog::updateList()

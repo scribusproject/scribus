@@ -43,7 +43,7 @@ class QEvent;
    done initially.
 
  trNone = tr("None") was removed because it's problematic in
-   East European langiages.
+   East European languages.
 */
 class SCRIBUS_API CommonStrings : public QObject
 {
