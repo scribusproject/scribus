@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QApplication>
 #include <QByteArray>
+#include <QDebug>
 #include <QScopedPointer>
 
 #include "scribusdoc.h"
@@ -493,6 +494,7 @@ void ODTIm::parseStyles(const QDomElement &sp, const QString& type)
 					currStyle.textStrikeThrough = AttributeValue(spe.attribute("style:text-line-through-style", ""));
 					currStyle.textShadow = AttributeValue(spe.attribute("fo:text-shadow", ""));
 					currStyle.fontVariant = AttributeValue(spe.attribute("fo:font-variant", ""));
+					currStyle.language = AttributeValue(spe.attribute("fo:language", ""));
 				}
 			}
 			if (spd.attribute("style:family") == "paragraph")
@@ -573,6 +575,7 @@ void ODTIm::parseStyles(const QDomElement &sp, const QString& type)
 					currStyle.textStrikeThrough = AttributeValue(spe.attribute("style:text-line-through-style", ""));
 					currStyle.textShadow = AttributeValue(spe.attribute("fo:text-shadow", ""));
 					currStyle.fontVariant = AttributeValue(spe.attribute("fo:font-variant", ""));
+					currStyle.language = AttributeValue(spe.attribute("fo:language", ""));
 				}
 			}
 			currStyle.displayName = AttributeValue(spd.attribute("style:display-name", ""));
@@ -1013,6 +1016,7 @@ void ODTIm::applyCharacterStyle(CharStyle &tmpCStyle, const ObjStyleODT &oStyle)
 	tmpCStyle.setFontSize(oStyle.fontSize * 10);
 	tmpCStyle.setFillColor(oStyle.CurrColorText);
 	tmpCStyle.setBackColor(oStyle.CurrColorBText);
+	tmpCStyle.setLanguage(oStyle.language);
 	StyleFlag styleEffects = tmpCStyle.effects();
 	if ((oStyle.textPos.startsWith("super")) || (oStyle.textPos.startsWith("sub")))
 	{
@@ -1170,6 +1174,8 @@ void ODTIm::resolveStyle(ObjStyleODT &tmpOStyle, const QString& styleName)
 			actStyle.breakAfter = AttributeValue(currStyle.breakAfter.value);
 		if (currStyle.breakBefore.valid)
 			actStyle.breakBefore = AttributeValue(currStyle.breakBefore.value);
+		if (currStyle.language.valid)
+			actStyle.language = AttributeValue(currStyle.language.value);
 	}
 
 	if (actStyle.textBackgroundColor.valid)
@@ -1356,6 +1362,8 @@ void ODTIm::resolveStyle(ObjStyleODT &tmpOStyle, const QString& styleName)
 		tmpOStyle.breakAfter = actStyle.breakAfter.value;
 	if (actStyle.breakBefore.valid)
 		tmpOStyle.breakBefore = actStyle.breakBefore.value;
+	if (actStyle.language.valid)
+		tmpOStyle.language = actStyle.language.value;
 }
 
 double ODTIm::parseUnit(const QString &unit)
