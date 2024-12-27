@@ -5020,7 +5020,14 @@ bool Scribus150Format::readItemText(StoryText& story, const ScXmlStreamAttribute
 
 	if (attrs.hasAttribute(QLatin1String("Unicode")))
 	{
-		tmp2 = QChar(attrs.valueAsInt("Unicode"));
+		int uniValue = attrs.valueAsInt("Unicode");
+		if (uniValue >= 0 && uniValue <= 0xFFFF)
+			tmp2 = QChar(uniValue);
+		else
+		{
+			qDebug() << "scribus150format: invalid Unicode character detected:" << uniValue;
+			return false;
+		}
 	}
 	else
 	{
