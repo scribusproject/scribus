@@ -2362,7 +2362,7 @@ bool Scribus134Format::readItemText(PageItem *obj, ScXmlStreamAttributes& attrs,
 		else
 		{
 			qDebug() << "scribus150format: invalid Unicode character detected:" << uniValue;
-			return false;
+			return true;
 		}
 	}
 	else

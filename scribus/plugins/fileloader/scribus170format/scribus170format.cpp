@@ -5175,7 +5175,7 @@ bool Scribus170Format::readItemText(StoryText& story, const ScXmlStreamAttribute
 		else
 		{
 			qDebug() << "scribus170format: invalid Unicode character detected:" << uniValue;
-			return false;
+			return true;
 		}
 	}
 	else
