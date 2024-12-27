@@ -2,10 +2,11 @@ Scribus - 1.6.3 (Released 2024-xx-xx)
 =========================================
 https://bugs.scribus.net/changelog_page.php?version_id=124
 
-0014579: [Story Editor / Text Frames]  Characters with unicode code 65536+ (0x10000+) (cbradney)
-0010166: [Usability]  Styles: Enter key in Name field opens New button drop-down menu (cbradney)
 0002064: [Import / Export]  Importing of cmyk tiffs with 16bit depth does not work
 0017333: [Color Management]  The CMYK image shows all wrong when added into Image Frame (jghali)
+0010166: [Usability]  Styles: Enter key in Name field opens New button drop-down menu (cbradney)
+0017354: [Styles]  [odt2im] ' fo:language' attribute of imported styles is not kept (cbradney)
+0014579: [Story Editor / Text Frames]  Characters with unicode code 65536+ (0x10000+) (cbradney)
 0017286: [Story Editor / Text Frames]  Text selection highlight has render issues (nitramr)
 0017347: [General]  Scribus crashes when saving document afer minor changes in a text block (jghali)
 0017350: [Canvas]  Auto guide grid messed up when changing document measurement unit (jghali)
