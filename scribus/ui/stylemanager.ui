@@ -139,6 +139,9 @@
             <property name="shortcut">
              <string>Alt+N</string>
             </property>
+            <property name="autoDefault">
+             <bool>false</bool>
+            </property>
            </widget>
           </item>
           <item row="0" column="1">
@@ -170,6 +173,9 @@
             <property name="shortcut">
              <string>Alt+C</string>
             </property>
+            <property name="autoDefault">
+             <bool>false</bool>
+            </property>
            </widget>
           </item>
           <item row="1" column="0">
@@ -186,6 +192,9 @@
             <property name="shortcut">
              <string>Alt+I</string>
             </property>
+            <property name="autoDefault">
+             <bool>false</bool>
+            </property>
            </widget>
           </item>
           <item row="1" column="1">
@@ -201,6 +210,9 @@
             </property>
             <property name="shortcut">
              <string>Alt+D</string>
+            </property>
+            <property name="autoDefault">
+             <bool>false</bool>
             </property>
            </widget>
           </item>
@@ -345,6 +357,9 @@
          <property name="shortcut">
           <string>Alt+D</string>
          </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
         </widget>
        </item>
        <item>
@@ -367,6 +382,9 @@
          <property name="shortcut">
           <string>Alt+A</string>
          </property>
+         <property name="autoDefault">
+          <bool>false</bool>
+         </property>
         </widget>
        </item>
        <item>
@@ -388,6 +406,9 @@
          </property>
          <property name="shortcut">
           <string>Alt+R</string>
+         </property>
+         <property name="autoDefault">
+          <bool>false</bool>
          </property>
         </widget>
        </item>
