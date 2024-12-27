@@ -61,6 +61,7 @@ public:
 	QList<ParagraphStyle::TabRecord> tabStops;
 	QString breakBefore {"auto"};
 	QString breakAfter {"auto"};
+	QString language;
 };
 
 class ODTIm
@@ -103,6 +104,7 @@ private:
 		AttributeValue tabTypes;
 		AttributeValue breakBefore;
 		AttributeValue breakAfter;
+		AttributeValue language;
 	};
 	bool parseRawDocReference(const QString& designMap);
 	bool parseRawDocReferenceXML(const QDomDocument &designMapDom);
