@@ -724,6 +724,7 @@ void PropertiesPalette_Image::iconSetChange()
 
 	xscaleLabel->setPixmap(im.loadPixmap("scale-width"));
 	yscaleLabel->setPixmap(im.loadPixmap("scale-height"));
+	imageRotationLabel->setPixmap(im.loadPixmap("object-rotation"));
 }
 
 void PropertiesPalette_Image::languageChange()

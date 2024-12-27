@@ -152,6 +152,7 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon id="inherit-opacity-off" file="16/action-inherit-opacity-off.svg" />
 		<icon id="inherit-opacity-on" file="16/action-inherit-opacity-on.svg" />
 		<icon id="name" file="16/object-name.svg" />
+		<icon id="object-rotation" file="16/object-rotation.svg" />
 		<icon id="remove" file="16/action-remove.svg" />
 		<icon id="reset" file="16/action-reload.svg" />
 		<icon id="reset-style-changes" file="16/action-reload.svg" /> <!-- 16/action-revert-changes.svg -->

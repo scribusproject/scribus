@@ -577,7 +577,6 @@ void PropertiesPalette_XYZ::toggleLabelVisibility(bool visibility)
 	labelLock->setLabelVisibility(visibility);
 	labelGroup->setLabelVisibility(visibility);
 	labelLevel->setLabelVisibility(visibility);
-	formWidget->setLabelVisibility(visibility);
 }
 
 void PropertiesPalette_XYZ::showXY(double x, double y)
@@ -1437,6 +1436,7 @@ void PropertiesPalette_XYZ::iconSetChange()
 	rotateCW->setIcon(im.loadIcon("rotate_cw.png"));
 
 	buttonLineBasePoint->setIcon(im.loadIcon("toggle-object-coordination"));
+	labelRotation->setPixmap(im.loadPixmap("object-rotation"));
 	
 	QIcon a;
 	a.addPixmap(im.loadPixmap("16/lock.png"), QIcon::Normal, QIcon::On);

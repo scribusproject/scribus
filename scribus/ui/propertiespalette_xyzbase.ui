@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>358</width>
-    <height>207</height>
+    <width>386</width>
+    <height>209</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -35,145 +35,44 @@
    <property name="verticalSpacing">
     <number>8</number>
    </property>
-   <item row="4" column="0">
-    <widget class="FormWidget" name="formWidget">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="label" stdset="0">
-      <string/>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>8</pointsize>
-      </font>
-     </property>
-     <property name="preserveLabelSpace">
-      <bool>true</bool>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_3">
-      <property name="leftMargin">
-       <number>0</number>
-      </property>
-      <property name="topMargin">
-       <number>0</number>
-      </property>
-      <property name="rightMargin">
-       <number>0</number>
-      </property>
-      <property name="bottomMargin">
-       <number>0</number>
-      </property>
-      <item>
-       <widget class="QLabel" name="labelZ">
-        <property name="text">
-         <string>Z:</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="2" column="2">
-    <spacer name="horizontalSpacer_4">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeType">
-      <enum>QSizePolicy::Fixed</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
+   <item row="2" column="3">
+    <widget class="ScrSpinBox" name="widthSpin">
+     <property name="minimumSize">
       <size>
-       <width>8</width>
+       <width>120</width>
        <height>0</height>
       </size>
      </property>
-    </spacer>
+     <property name="toolTip">
+      <string>Width of current selection</string>
+     </property>
+    </widget>
    </item>
-   <item row="3" column="3">
+   <item row="3" column="2">
     <widget class="QLabel" name="heightLabel">
      <property name="text">
       <string>&amp;H:</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
      </property>
      <property name="buddy">
       <cstring>heightSpin</cstring>
      </property>
     </widget>
    </item>
-   <item row="2" column="5" rowspan="2">
-    <layout class="QVBoxLayout" name="verticalLayout_2">
-     <property name="spacing">
-      <number>4</number>
+   <item row="6" column="3">
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Orientation::Vertical</enum>
      </property>
-     <item>
-      <widget class="LinkButton" name="keepFrameWHRatioButton">
-       <property name="toolTip">
-        <string>Keep the aspect ratio</string>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QToolButton" name="buttonLineBasePoint">
-       <property name="text">
-        <string/>
-       </property>
-       <property name="checkable">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item row="3" column="0">
-    <widget class="QLabel" name="yposLabel">
-     <property name="text">
-      <string>&amp;Y:</string>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>0</height>
+      </size>
      </property>
-     <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-     </property>
-     <property name="buddy">
-      <cstring>yposSpin</cstring>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="3">
-    <widget class="QLabel" name="widthLabel">
-     <property name="text">
-      <string>&amp;W:</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-     </property>
-     <property name="buddy">
-      <cstring>widthSpin</cstring>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="0">
-    <widget class="QLabel" name="xposLabel">
-     <property name="text">
-      <string>&amp;X:</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-     </property>
-     <property name="buddy">
-      <cstring>xposSpin</cstring>
-     </property>
-    </widget>
+    </spacer>
    </item>
    <item row="3" column="1">
     <widget class="ScrSpinBox" name="yposSpin">
@@ -185,19 +84,6 @@
      </property>
      <property name="toolTip">
       <string>Vertical position of current basepoint</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="4">
-    <widget class="ScrSpinBox" name="widthSpin">
-     <property name="minimumSize">
-      <size>
-       <width>120</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="toolTip">
-      <string>Width of current selection</string>
      </property>
     </widget>
    </item>
@@ -237,9 +123,6 @@
         <font>
          <pointsize>8</pointsize>
         </font>
-       </property>
-       <property name="space">
-        <number>2</number>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_11">
         <property name="spacing">
@@ -283,9 +166,6 @@
         <font>
          <pointsize>8</pointsize>
         </font>
-       </property>
-       <property name="space">
-        <number>2</number>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_12">
         <property name="spacing">
@@ -333,9 +213,6 @@
          <pointsize>8</pointsize>
         </font>
        </property>
-       <property name="space">
-        <number>2</number>
-       </property>
        <layout class="QHBoxLayout" name="horizontalLayout_17">
         <property name="spacing">
          <number>4</number>
@@ -372,7 +249,7 @@
      <item>
       <spacer name="horizontalSpacer_3">
        <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+        <enum>Qt::Orientation::Horizontal</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
@@ -383,6 +260,75 @@
       </spacer>
      </item>
     </layout>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="yposLabel">
+     <property name="text">
+      <string>&amp;Y:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+     <property name="buddy">
+      <cstring>yposSpin</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="xposLabel">
+     <property name="text">
+      <string>&amp;X:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+     <property name="buddy">
+      <cstring>xposSpin</cstring>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="3">
+    <widget class="ScrSpinBox" name="heightSpin">
+     <property name="minimumSize">
+      <size>
+       <width>120</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="toolTip">
+      <string>Height of current selection</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="4" rowspan="2">
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <property name="spacing">
+      <number>0</number>
+     </property>
+     <item>
+      <widget class="LinkButton" name="keepFrameWHRatioButton">
+       <property name="toolTip">
+        <string>Keep the aspect ratio</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="2" column="2">
+    <widget class="QLabel" name="widthLabel">
+     <property name="text">
+      <string>&amp;W:</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+     <property name="buddy">
+      <cstring>widthSpin</cstring>
+     </property>
+    </widget>
    </item>
    <item row="2" column="1">
     <widget class="ScrSpinBox" name="xposSpin">
@@ -403,10 +349,26 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="6">
+   <item row="6" column="0">
+    <spacer name="horizontalSpacer_5">
+     <property name="orientation">
+      <enum>Qt::Orientation::Horizontal</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Policy::Fixed</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>24</width>
+       <height>0</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="3" column="6">
     <spacer name="horizontalSpacer_2">
      <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+      <enum>Qt::Orientation::Horizontal</enum>
      </property>
      <property name="sizeHint" stdset="0">
       <size>
@@ -416,37 +378,37 @@
      </property>
     </spacer>
    </item>
-   <item row="3" column="4">
-    <widget class="ScrSpinBox" name="heightSpin">
-     <property name="minimumSize">
-      <size>
-       <width>120</width>
-       <height>0</height>
-      </size>
+   <item row="2" column="5">
+    <widget class="QToolButton" name="buttonLineBasePoint">
+     <property name="text">
+      <string/>
      </property>
-     <property name="toolTip">
-      <string>Height of current selection</string>
+     <property name="checkable">
+      <bool>true</bool>
      </property>
     </widget>
    </item>
-   <item row="6" column="3">
-    <spacer name="verticalSpacer">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>0</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="4" column="1" colspan="5">
+   <item row="4" column="0" colspan="6">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <property name="spacing">
-      <number>16</number>
+      <number>4</number>
      </property>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Policy::Fixed</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>8</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
      <item>
       <widget class="FormWidget" name="labelRotation">
        <property name="label" stdset="0">
@@ -456,9 +418,6 @@
         <font>
          <pointsize>8</pointsize>
         </font>
-       </property>
-       <property name="space">
-        <number>2</number>
        </property>
        <layout class="QHBoxLayout" name="horizontalLayout_6">
         <property name="spacing">
@@ -510,6 +469,22 @@
       </widget>
      </item>
      <item>
+      <spacer name="horizontalSpacer_7">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Policy::Fixed</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>16</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
       <widget class="FormWidget" name="labelLevel">
        <property name="label" stdset="0">
         <string>Level</string>
@@ -518,9 +493,6 @@
         <font>
          <pointsize>8</pointsize>
         </font>
-       </property>
-       <property name="space">
-        <number>2</number>
        </property>
        <property name="labelVisibility">
         <bool>true</bool>
@@ -570,6 +542,16 @@
          </widget>
         </item>
         <item>
+         <widget class="QLabel" name="labelZ">
+          <property name="text">
+           <string>Z:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QLabel" name="levelLabel">
           <property name="minimumSize">
            <size>
@@ -591,7 +573,7 @@
      <item>
       <spacer name="horizontalSpacer_6">
        <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+        <enum>Qt::Orientation::Horizontal</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
@@ -603,17 +585,17 @@
      </item>
     </layout>
    </item>
-   <item row="6" column="0">
-    <spacer name="horizontalSpacer_5">
+   <item row="6" column="2">
+    <spacer name="horizontalSpacer_8">
      <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+      <enum>Qt::Orientation::Horizontal</enum>
      </property>
      <property name="sizeType">
-      <enum>QSizePolicy::Fixed</enum>
+      <enum>QSizePolicy::Policy::Fixed</enum>
      </property>
      <property name="sizeHint" stdset="0">
       <size>
-       <width>24</width>
+       <width>32</width>
        <height>0</height>
       </size>
      </property>
@@ -650,8 +632,6 @@
   <tabstop>yposSpin</tabstop>
   <tabstop>widthSpin</tabstop>
   <tabstop>heightSpin</tabstop>
-  <tabstop>keepFrameWHRatioButton</tabstop>
-  <tabstop>buttonLineBasePoint</tabstop>
   <tabstop>rotationSpin</tabstop>
   <tabstop>rotateCCW</tabstop>
   <tabstop>rotateCW</tabstop>
