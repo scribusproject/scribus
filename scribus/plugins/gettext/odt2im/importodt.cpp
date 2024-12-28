@@ -574,7 +574,7 @@ void ODTIm::parseStyles(const QDomElement &sp, const QString& type)
 								parentName = pStyle.displayName.value;
 						}
 					}
-					if (m_prefixName)
+					if (m_prefixName && (parentName != CommonStrings::DefaultParagraphStyle))
 						newStyle.setParent(m_item->itemName() + "_" + parentName);
 					else
 						newStyle.setParent(parentName);
@@ -679,6 +679,27 @@ void ODTIm::parseTextSpan(const QDomElement &elem, PageItem* item, const Paragra
 	if (textStyleName.length() > 0)
 	{
 		resolveStyle(odtStyle, textStyleName);
+		if (m_Styles.contains(textStyleName))
+		{
+			DrawStyle currStyle = m_Styles[textStyleName];
+			if (currStyle.styleOrigin.value == "styles")
+			{
+				QString charStyleName;
+				if (m_prefixName)
+				{
+					charStyleName = m_item->itemName() + "_" + textStyleName;
+					if (currStyle.displayName.valid)
+						charStyleName = m_item->itemName() + "_" + currStyle.displayName.value;
+				}
+				else
+				{
+					charStyleName = textStyleName;
+					if (currStyle.displayName.valid)
+						charStyleName = currStyle.displayName.value;
+				}
+				cStyle.setParent(charStyleName);
+			}
+		}
 		m_textStylesStack.push(textStyleName);
 	}
 	
