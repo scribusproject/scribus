@@ -204,7 +204,7 @@ void PropertyWidget_Distance::configureWidgets()
 	bool enabled = false;
 	if (m_item && m_doc)
 	{
-		PageItem_TextFrame *textItem = m_item->asTextFrame();
+		const PageItem_TextFrame *textItem = m_item->asTextFrame();
 		if (m_doc->appMode == modeEditTable)
 			textItem = m_item->asTable()->activeCell().textFrame();
 
@@ -349,7 +349,8 @@ void PropertyWidget_Distance::handleGapSwitch()
 {
 	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	PageItem *textItem = m_item;
+
+	const PageItem *textItem = m_item;
 	if (m_doc->appMode == modeEditTable)
 		textItem = m_item->asTable()->activeCell().textFrame();
 	if (textItem != nullptr)
@@ -418,8 +419,7 @@ void PropertyWidget_Distance::handleIndents()
 	if (!m_doc || !m_item || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 
-
-	PageItem_TextFrame *tItem = m_item->asTextFrame();
+	const PageItem_TextFrame *tItem = m_item->asTextFrame();
 	if (tItem == nullptr)
 		return;
 

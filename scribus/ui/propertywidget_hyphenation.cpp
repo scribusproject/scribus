@@ -256,7 +256,7 @@ void PropertyWidget_Hyphenation::configureWidgets()
 	{
 		if (m_item->isTextFrame() || m_item->isPathText() || m_item->isTable())
 		{
-			PageItem_TextFrame *textItem = m_item->asTextFrame();
+			const PageItem_TextFrame *textItem = m_item->asTextFrame();
 			if (m_doc->appMode == modeEditTable)
 				textItem = m_item->asTable()->activeCell().textFrame();
 			if (textItem)

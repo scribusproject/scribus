@@ -364,7 +364,7 @@ Mode ColorPicker::mode() const
 	return m_mode;
 }
 
-bool ColorPicker::gradientEditPropertiesEnabled()
+bool ColorPicker::gradientEditPropertiesEnabled() const
 {
 	return gradientEdit->gradientEditPropertiesEnabled() && gradientEdit->isVisible();
 }
@@ -374,7 +374,7 @@ void ColorPicker::setGradientEditPropertiesEnabled(bool enabled)
 	gradientEdit->setGradientEditPropertiesEnabled(enabled);
 }
 
-GradientEdit ColorPicker::gradientEditMode()
+GradientEdit ColorPicker::gradientEditMode() const
 {
 	return gradientEdit->gradientEditMode();
 }

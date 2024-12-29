@@ -55,9 +55,9 @@ public:
 
 	Mode mode() const;
 
-	bool gradientEditPropertiesEnabled();
+	bool gradientEditPropertiesEnabled() const;
 	void setGradientEditPropertiesEnabled(bool enabled);
-	GradientEdit gradientEditMode();
+	GradientEdit gradientEditMode() const;
 
 	int type() const;
 

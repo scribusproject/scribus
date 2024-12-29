@@ -361,7 +361,7 @@ void PropertiesPalette_XYZ::setCurrentItem(PageItem *item)
 
 	doGroup->setEnabled(false);
 	doUnGroup->setEnabled(false);
-	if ((m_doc->m_Selection->count() > 1) && (haveSameParent))
+	if ((m_doc->m_Selection->count() > 1) && haveSameParent)
 		doGroup->setEnabled(true);
 	if (m_doc->m_Selection->count() == 1)
 		doUnGroup->setEnabled(m_item->isGroup());
@@ -766,7 +766,7 @@ void PropertiesPalette_XYZ::handleNewX()
 	}
 	else
 	{
-		if ((m_item->asLine()) && (m_lineMode))
+		if ((m_item->asLine()) && m_lineMode)
 		{
 			QPointF endPoint = m_item->asLine()->endPoint();
 			double r = atan2(endPoint.y() - m_item->yPos(), endPoint.x() - x) * (180.0 / M_PI);
@@ -865,7 +865,7 @@ void PropertiesPalette_XYZ::handleNewY()
 	}
 	else
 	{
-		if ((m_item->asLine()) && (m_lineMode))
+		if ((m_item->asLine()) && m_lineMode)
 		{
 			QPointF endPoint = m_item->asLine()->endPoint();
 			double r = atan2(endPoint.y() - y, endPoint.x() - m_item->xPos()) * (180.0 / M_PI);
@@ -1385,7 +1385,7 @@ void PropertiesPalette_XYZ::installSniffer(ScrSpinBox *spinBox)
 	}
 }
 
-bool PropertiesPalette_XYZ::userActionOn()
+bool PropertiesPalette_XYZ::userActionOn() const
 {
 	return m_userActionOn;
 }
@@ -1467,7 +1467,7 @@ void PropertiesPalette_XYZ::updateSpinBoxConstants()
 {
 	if (!m_haveDoc)
 		return;
-	if (m_doc->m_Selection->count()==0)
+	if (m_doc->m_Selection->isEmpty())
 		return;
 	widthSpin->setConstants(&m_doc->constants());
 	heightSpin->setConstants(&m_doc->constants());

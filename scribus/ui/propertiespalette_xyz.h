@@ -30,7 +30,7 @@ public:
 	~PropertiesPalette_XYZ() {};
 	
 	/** @brief Returns true if there is a user action going on at the moment of call. */
-	bool userActionOn(); // not yet implemented!!! This is needed badly.
+	bool userActionOn() const; // not yet implemented!!! This is needed badly.
                          // When user releases the mouse button or arrow key, changes must be checked
                          // and if in ScribusView a groupTransaction has been started it must be also
                          // committed

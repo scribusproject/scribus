@@ -359,6 +359,6 @@ void PropertiesPalette_Shadow::updateSpinBoxConstants()
 {
 	if (!m_haveDoc)
 		return;
-	if (m_doc->m_Selection->count() == 0)
+	if (m_doc->m_Selection->isEmpty())
 		return;
 }

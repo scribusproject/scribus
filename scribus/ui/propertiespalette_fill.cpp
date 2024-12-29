@@ -485,7 +485,7 @@ void PropertiesPalette_Fill::handleFillColorVector()
 	default:
 		if (m_item->gradientType() == Gradient_Conical && UndoManager::undoEnabled())
 		{
-			SimpleState *ss= new SimpleState("Refresh");
+			auto *ss = new SimpleState("Refresh");
 			ss->set("UNDO_UPDATE_CONICAL");
 			undoManager->action(m_item,ss);
 		}
@@ -499,7 +499,7 @@ void PropertiesPalette_Fill::handleFillColorVector()
 		if (m_item->gradientType() == Gradient_Conical && UndoManager::undoEnabled())
 		{
 			m_item->createConicalMesh();
-			SimpleState *ss= new SimpleState("Refresh");
+			auto *ss = new SimpleState("Refresh");
 			ss->set("REDO_UPDATE_CONICAL");
 			undoManager->action(m_item,ss);
 		}

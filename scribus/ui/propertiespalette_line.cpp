@@ -529,7 +529,7 @@ void PropertiesPalette_Line::handleLineWidth()
 			if (m_item->lineWidth() > HAIRLINE)
 			{
 				dashEditor->setDashValues(m_item->dashes(), m_item->lineWidth(), m_item->dashOffset());
-				dashEditor->setEnabled((m_item->lineWidth() > HAIRLINE));
+				dashEditor->setEnabled(m_item->lineWidth() > HAIRLINE);
 			}
 			else
 				dashEditor->setEnabled(false);
@@ -903,7 +903,7 @@ void PropertiesPalette_Line::languageChange()
 	comboLineStyle->languageChange();
 
 	QString ptSuffix = tr(" pt");
-	QString suffix = (m_doc) ? unitGetSuffixFromIndex(m_doc->unitIndex()) : ptSuffix;
+	QString suffix = m_doc ? unitGetSuffixFromIndex(m_doc->unitIndex()) : ptSuffix;
 
 	lineWidth->setSuffix(suffix);
 	lineWidth->setSpecialValueText( tr("Hairline"));
