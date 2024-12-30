@@ -13989,32 +13989,32 @@ relación</translation>
 <context>
     <name>PageItem_TextFrame</name>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4998"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5008"/>
         <source>Linked Text</source>
         <translation>Texto ligado</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="5000"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5010"/>
         <source>Text Frame</source>
         <translation>Moldura de texto</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="5004"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5014"/>
         <source>Paragraphs: </source>
         <translation>Parágrafos:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="5012"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5022"/>
         <source>Lines: </source>
         <translation>Liñas: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="5018"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5028"/>
         <source>Words: </source>
         <translation>Palabras:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="5026"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5036"/>
         <source>Chars: </source>
         <translation>Caracteres:</translation>
     </message>
@@ -25055,8 +25055,8 @@ Comprobe a ruta e o nome do ficheiro.</translation>
         <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="1279"/>
         <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="630"/>
         <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="1082"/>
-        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="1557"/>
-        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="2210"/>
+        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="1552"/>
+        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="2201"/>
         <source>Background</source>
         <translation>Fondo</translation>
     </message>
@@ -29932,9 +29932,9 @@ debido a excepcións das funcións chamadas.</translation>
         <translation>Bretón</translation>
     </message>
     <message>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpeg.cpp" line="223"/>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpeg.cpp" line="267"/>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpeg.cpp" line="351"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpeg.cpp" line="230"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpeg.cpp" line="274"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpeg.cpp" line="358"/>
         <source>%1 may be corrupted : missing or wrong resolution tags</source>
         <translation>%1 pode que se corrompese: faltan, ou están mal, as etiquetas de resolución</translation>
     </message>
@@ -31230,7 +31230,7 @@ Polo tanto, a imaxe podería non ser correcta</translation>
         <translation>Documento DOCX</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/gettext/odt2im/importodt.cpp" line="31"/>
+        <location filename="../../scribus/plugins/gettext/odt2im/importodt.cpp" line="32"/>
         <source>ODT Document</source>
         <translation>Documento ODT</translation>
     </message>
@@ -34633,7 +34633,7 @@ Se o garda nesta versión xa non o poderán ler as versións de Scribus máis an
 <context>
     <name>Scribus134Format</name>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3943"/>
+        <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3950"/>
         <source>Copy #%1 of </source>
         <translation>Copia nº %1 de </translation>
     </message>
@@ -34710,7 +34710,7 @@ Se o garda nesta versión xa non o poderán ler as versións máis antigas do Sc
         <translation type="unfinished">Permite que o Scribus lea ficheiros formatados para Scribus 1.3.4 e posteriores. {1.5.0 ?}</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="7293"/>
+        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="7287"/>
         <source>Copy #%1 of </source>
         <translation>Copia nº%1 de </translation>
     </message>
@@ -36812,19 +36812,19 @@ Considere utilizar o Comprobador pré-voo para corrixilos</translation>
 <context>
     <name>StyleManager</name>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="286"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="298"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="119"/>
         <source>Name:</source>
         <translation>Nome:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="433"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="451"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="120"/>
         <source>&amp;Reset</source>
         <translation>Desface&amp;r</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="411"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="426"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="121"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="924"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="1082"/>
@@ -36833,7 +36833,7 @@ Considere utilizar o Comprobador pré-voo para corrixilos</translation>
         <translation>&amp;Aplicar</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="389"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="401"/>
         <source>&lt;&lt; &amp;Done</source>
         <translation>&lt;&lt; &amp;Feito</translation>
     </message>
@@ -36844,19 +36844,19 @@ Considere utilizar o Comprobador pré-voo para corrixilos</translation>
         <translation>&amp;Novo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="187"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="193"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="126"/>
         <source>&amp;Import</source>
         <translation>&amp;Importar</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="171"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="174"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="127"/>
         <source>&amp;Clone</source>
         <translation>&amp;Clonar</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="203"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="212"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="128"/>
         <source>&amp;Delete</source>
         <translation>&amp;Eliminar</translation>
@@ -36986,33 +36986,33 @@ Considere utilizar o Comprobador pré-voo para corrixilos</translation>
         <translation>Alt+N</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="174"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="177"/>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="190"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="196"/>
         <source>Alt+I</source>
         <translation>Alt+I</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="206"/>
-        <location filename="../../scribus/ui/stylemanager.ui" line="392"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="215"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="404"/>
         <source>Alt+D</source>
         <translation>Alt+D</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="317"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="329"/>
         <source>Please select a unique name for the style</source>
         <translation>Escolla un nome único para este estilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="414"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="429"/>
         <source>Alt+A</source>
         <translation>Alt+A</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="436"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="454"/>
         <source>Alt+R</source>
         <translation>Alt+R</translation>
     </message>
@@ -37023,7 +37023,7 @@ Considere utilizar o Comprobador pré-voo para corrixilos</translation>
         <translation>Xestor de estilos</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="168"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="171"/>
         <source>Clone copies the style to make similar styles easily</source>
         <translation>Clonar copia o estilo para facer estilos semellantes facilmente</translation>
     </message>

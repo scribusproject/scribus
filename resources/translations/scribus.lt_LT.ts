@@ -13981,32 +13981,32 @@ Please disable experimental PDF and PS embedding and try again.</source>
 <context>
     <name>PageItem_TextFrame</name>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4998"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5008"/>
         <source>Linked Text</source>
         <translation>Susaistytas tekstas</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="5000"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5010"/>
         <source>Text Frame</source>
         <translation>Teksto rėmelis</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="5004"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5014"/>
         <source>Paragraphs: </source>
         <translation>Pastraipų:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="5012"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5022"/>
         <source>Lines: </source>
         <translation>Linijų:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="5018"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5028"/>
         <source>Words: </source>
         <translation>Žodžių:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="5026"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5036"/>
         <source>Chars: </source>
         <translation>Ženklų: </translation>
     </message>
@@ -25035,8 +25035,8 @@ Patikrinkite, ar teisingai nurodyta jo laikymo vieta ir pavadinimas.</translatio
         <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="1279"/>
         <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="630"/>
         <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="1082"/>
-        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="1557"/>
-        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="2210"/>
+        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="1552"/>
+        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="2201"/>
         <source>Background</source>
         <translation>Fonas</translation>
     </message>
@@ -29914,9 +29914,9 @@ Išsamiau apie kiekvienos funkcijos galimas išimtis rasite jų aprašuose
         <translation>Bretonų</translation>
     </message>
     <message>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpeg.cpp" line="223"/>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpeg.cpp" line="267"/>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpeg.cpp" line="351"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpeg.cpp" line="230"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpeg.cpp" line="274"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpeg.cpp" line="358"/>
         <source>%1 may be corrupted : missing or wrong resolution tags</source>
         <translation>%1 gali būti pažeistas: sugadintos arba neteisingos raiškos žymelės</translation>
     </message>
@@ -31213,7 +31213,7 @@ Todėl vaizdas gali būti nekorektiškas</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/gettext/odt2im/importodt.cpp" line="31"/>
+        <location filename="../../scribus/plugins/gettext/odt2im/importodt.cpp" line="32"/>
         <source>ODT Document</source>
         <translation type="unfinished"></translation>
     </message>
@@ -34615,7 +34615,7 @@ Jei įrašysite šia „Scribus“ versija, tai nebegalėsite atverti senesnėmi
 <context>
     <name>Scribus134Format</name>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3943"/>
+        <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3950"/>
         <source>Copy #%1 of </source>
         <translation>%1-oji kopija iš </translation>
     </message>
@@ -34692,7 +34692,7 @@ Jei įrašysite šia „Scribus“ versija, tai nebegalėsite atverti senesnėmi
         <translation type="unfinished">Leisti „Scribus“ skaityti „Scribus 1.3.4“ ir vėlesnių versijų dokumentus. {1.5.0 ?}</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="7293"/>
+        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="7287"/>
         <source>Copy #%1 of </source>
         <translation>%1-oji kopija iš </translation>
     </message>
@@ -36795,19 +36795,19 @@ Priešspauspaustuvinis tikrintuvas padės jas ištaisyti</translation>
 <context>
     <name>StyleManager</name>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="286"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="298"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="119"/>
         <source>Name:</source>
         <translation>Pavadinimas:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="433"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="451"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="120"/>
         <source>&amp;Reset</source>
         <translation>&amp;Atstatyti</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="411"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="426"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="121"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="924"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="1082"/>
@@ -36816,7 +36816,7 @@ Priešspauspaustuvinis tikrintuvas padės jas ištaisyti</translation>
         <translation>&amp;Pritaikyti</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="389"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="401"/>
         <source>&lt;&lt; &amp;Done</source>
         <translation>&lt;&lt; &amp;Atlikta</translation>
     </message>
@@ -36827,19 +36827,19 @@ Priešspauspaustuvinis tikrintuvas padės jas ištaisyti</translation>
         <translation>&amp;Naujas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="187"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="193"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="126"/>
         <source>&amp;Import</source>
         <translation>&amp;Importuoti</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="171"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="174"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="127"/>
         <source>&amp;Clone</source>
         <translation>&amp;Kurti kopiją</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="203"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="212"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="128"/>
         <source>&amp;Delete</source>
         <translation>P&amp;ašalinti</translation>
@@ -36969,33 +36969,33 @@ Priešspauspaustuvinis tikrintuvas padės jas ištaisyti</translation>
         <translation>Alt+N</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="174"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="177"/>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="190"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="196"/>
         <source>Alt+I</source>
         <translation>Alt+I</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="206"/>
-        <location filename="../../scribus/ui/stylemanager.ui" line="392"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="215"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="404"/>
         <source>Alt+D</source>
         <translation>Alt+V</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="317"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="329"/>
         <source>Please select a unique name for the style</source>
         <translation>Prašome parinkti nesutampantį su kitais stiliaus pavadinimą</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="414"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="429"/>
         <source>Alt+A</source>
         <translation>Alt+I</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="436"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="454"/>
         <source>Alt+R</source>
         <translation>Alt+R</translation>
     </message>
@@ -37006,7 +37006,7 @@ Priešspauspaustuvinis tikrintuvas padės jas ištaisyti</translation>
         <translation>Stilių tvarkytuvė</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="168"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="171"/>
         <source>Clone copies the style to make similar styles easily</source>
         <translation type="unfinished"></translation>
     </message>
