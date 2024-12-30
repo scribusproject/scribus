@@ -694,6 +694,12 @@
         <translation>&amp;Afbeeldingskader</translation>
     </message>
     <message>
+        <location filename="../../scribus/actionmanager.cpp" line="1632"/>
+        <source>&amp;Outlines</source>
+        <comment>Convert to outlines</comment>
+        <translation type="unfinished">C&amp;ontouren</translation>
+    </message>
+    <message>
         <location filename="../../scribus/actionmanager.cpp" line="1633"/>
         <location filename="../../scribus/actionmanager.cpp" line="1735"/>
         <source>&amp;Polygon</source>
@@ -1254,10 +1260,9 @@
         <translation>C&amp;ontour</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1632"/>
         <source>&amp;Outlines</source>
         <comment>Convert to oulines</comment>
-        <translation>C&amp;ontouren</translation>
+        <translation type="vanished">C&amp;ontouren</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1533"/>
@@ -13447,32 +13452,32 @@ Schakel experimentele insluiting van PDF en EPS uit en probeer het opnieuw.</tra
 <context>
     <name>PageItem_TextFrame</name>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4985"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="4995"/>
         <source>Linked Text</source>
         <translation>Gekoppelde tekst</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4987"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="4997"/>
         <source>Text Frame</source>
         <translation>Tekstkader</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4991"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5001"/>
         <source>Paragraphs: </source>
         <translation>Alinea&apos;s:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4999"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5009"/>
         <source>Lines: </source>
         <translation>Regels: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="5005"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5015"/>
         <source>Words: </source>
         <translation>Woorden:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="5013"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5023"/>
         <source>Chars: </source>
         <translation>Tekens:</translation>
     </message>
@@ -21450,93 +21455,93 @@ een bereik van pagina&apos;s of een enkel paginanummer</translation>
     <name>PropertiesPalette_Image</name>
     <message>
         <location filename="../../scribus/ui/propertiespalette_image.cpp" line="40"/>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="733"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="734"/>
         <source>Auto</source>
         <translation>Autom.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="738"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="739"/>
         <source>Perceptual</source>
         <translation>Perceptueel</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="739"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="740"/>
         <source>Relative Colorimetric</source>
         <translation>Relatief colorimetrisch</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="740"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="741"/>
         <source>Saturation</source>
         <translation>Verzadiging</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="741"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="742"/>
         <source>Absolute Colorimetric</source>
         <translation>Absoluut colorimetrisch</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="747"/>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="757"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="748"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="758"/>
         <source>Global</source>
         <translation>Globaal</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="748"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="749"/>
         <source>Automatic</source>
         <translation>Automatisch</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="749"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="750"/>
         <source>Lossy - JPEG</source>
         <translation>Lossy - JPEG</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="750"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="751"/>
         <source>Lossless - Zip</source>
         <translation>Lossles - Zip</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="751"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="752"/>
         <source>None</source>
         <translation>Geen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="758"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="759"/>
         <source>Maximum</source>
         <translation>Maximaal</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="759"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="760"/>
         <source>High</source>
         <translation>Hoog</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="760"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="761"/>
         <source>Medium</source>
         <translation>Gemiddeld</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="761"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="762"/>
         <source>Low</source>
         <translation>Laag</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="762"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="763"/>
         <source>Minimum</source>
         <translation>Minimaal</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="765"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="766"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="769"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="770"/>
         <source> pt</source>
         <translation>pt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="774"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="775"/>
         <source> dpi</source>
         <translation>dpi</translation>
     </message>
@@ -21544,82 +21549,82 @@ een bereik van pagina&apos;s of een enkel paginanummer</translation>
 <context>
     <name>PropertiesPalette_ImageBase</name>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="78"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="65"/>
         <source>Horizontal offset of image within frame</source>
         <translation>Horizontale verschuiving van afbeelding binnen kader</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="65"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="88"/>
         <source>Vertical offset of image within frame</source>
         <translation>Verticale verschuiving van afbeelding binnen kader</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="174"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="216"/>
         <source>Auto</source>
         <translation>Autom.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="354"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="370"/>
         <source>Resize the image horizontally</source>
         <translation>De afbeelding horizontaal schalen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="298"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="314"/>
         <source>Resize the image vertically</source>
         <translation>De afbeelding verticaal schalen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="330"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="346"/>
         <source>Keep the X and Y scaling the same</source>
         <translation>X- en Y-schaal gelijk houden</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="367"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="383"/>
         <source>Effective horizontal DPI of the image after scaling</source>
         <translation>Effectieve horizontale DPI van de afbeelding na het schalen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="321"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="337"/>
         <source>Effective vertical DPI of the image after scaling</source>
         <translation>Effectieve verticale DPI van de afbeelding na het schalen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="501"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="517"/>
         <source>Source profile of the image</source>
         <translation>Bronprofiel van de afbeelding</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="461"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="477"/>
         <source>Rendering intent for the image</source>
         <translation>Weergave-instelling voor de afbeelding</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="412"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="428"/>
         <source>Color Management</source>
         <translation>Kleurbeheer</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="528"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="544"/>
         <source>PDF Compression</source>
         <translation>PDF-compressie</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="535"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="551"/>
         <source>Method:</source>
         <translation>Methode:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="551"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="567"/>
         <source>Compression method used in PDF export for the image</source>
         <translation>Compressiemethode gebruikt in PDF-export voor de afbeelding</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="571"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="587"/>
         <source>Quality:</source>
         <translation>Kwaliteit:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="564"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="580"/>
         <source>Compression quality used in PDF export for the image</source>
         <translation>Compressiekwaliteit gebruikt in PDF-export voor de afbeelding</translation>
     </message>
@@ -21629,77 +21634,77 @@ een bereik van pagina&apos;s of een enkel paginanummer</translation>
         <translation>Afmetingen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="85"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="72"/>
         <source>Y:</source>
         <translation>Y:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="97"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="139"/>
         <source>&amp;Rotation</source>
         <translation>&amp;Rotatie</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="121"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="163"/>
         <source>Rotation of the image</source>
         <translation>Rotatie van de afbeelding</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="147"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="189"/>
         <source>&amp;Page Number</source>
         <translation>&amp;Paginanummer</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="171"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="213"/>
         <source>Page number of PDF file</source>
         <translation>Paginanummer van het PDF-bestand</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="199"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="95"/>
         <source>X:</source>
         <translation>X:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="240"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="256"/>
         <source>Auto-Fit</source>
         <translation>Autom. passend</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="258"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="274"/>
         <source>Image &amp;Scale</source>
         <translation>Afbeelding &amp; Schaal</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="437"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="453"/>
         <source>Rendering Intent</source>
         <translation>Weergave-instelling</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="477"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="493"/>
         <source>Input Profile</source>
         <translation>Invoerprofiel</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="598"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="614"/>
         <source>Effects</source>
         <translation>Effecten</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="631"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="647"/>
         <source>Open Image Effects dialog</source>
         <translation>Dialoogvenster Afbeeldingseffecten openen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="634"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="650"/>
         <source>Image Effects</source>
         <translation>Afbeeldingseffecten</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="660"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="676"/>
         <source>Layers</source>
         <translation>Lagen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="681"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="697"/>
         <source>Clipping Paths</source>
         <translation>Paden bijsnijden</translation>
     </message>
@@ -22352,152 +22357,152 @@ een bereik van pagina&apos;s of een enkel paginanummer</translation>
 <context>
     <name>PropertiesPalette_XYZBase</name>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="402"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="348"/>
         <source>Horizontal position of current basepoint</source>
         <translation>Horizontale positie van het huidige basispunt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="187"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="86"/>
         <source>Vertical position of current basepoint</source>
         <translation>Verticale positie van het huidige basispunt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="502"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="461"/>
         <source>Rotate the selection clockwise by 90º</source>
         <translation>Selectie 90º met de klok mee draaien</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="200"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="47"/>
         <source>Width of current selection</source>
         <translation>Breedte van huidige selectie</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="428"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="299"/>
         <source>Height of current selection</source>
         <translation>Hoogte van huidige selectie</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="482"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="441"/>
         <source>Rotation of object at current basepoint</source>
         <translation>Rotatie van object op huidig basispunt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="492"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="451"/>
         <source>Rotate the selection anti-clockwise by 90º</source>
         <translation>Selectie 90º tegen de klok in draaien</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="120"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="311"/>
         <source>Keep the aspect ratio</source>
         <translation>Beeldverhouding behouden</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="168"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="280"/>
         <source>&amp;X:</source>
         <translation>&amp;X:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="142"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="267"/>
         <source>&amp;Y:</source>
         <translation>&amp;Y:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="102"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="54"/>
         <source>&amp;H:</source>
         <translation>&amp;H:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="155"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="323"/>
         <source>&amp;W:</source>
         <translation>&amp;W:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="234"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="120"/>
         <source>Flip</source>
         <translation>Omdraaien</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="280"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="163"/>
         <source>Lock</source>
         <translation>Vergrendelen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="329"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="209"/>
         <source>Group</source>
         <translation>Groeperen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="453"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="415"/>
         <source>&amp;Rotation</source>
         <translation>&amp;Rotatie</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="515"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="490"/>
         <source>Level</source>
         <translation>Niveau</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="554"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="526"/>
         <source>Move one level up</source>
         <translation>Een niveau hoger</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="561"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="533"/>
         <source>Move one level down</source>
         <translation>Een niveau lager</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="73"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="547"/>
         <source>Z:</source>
         <translation>Z:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="547"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="519"/>
         <source>Move to front</source>
         <translation>Naar voorgrond</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="568"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="540"/>
         <source>Move to back</source>
         <translation>Naar achtergrond</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="581"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="563"/>
         <source>Indicates the level the object is on, 1 means the object is at the bottom</source>
         <translation>Geeft het niveau aan waarop het object zich bevindt, 1 betekent dat het object onderaan staat</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="584"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="566"/>
         <source>0</source>
         <translation>0</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="358"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="235"/>
         <source>Group the selected objects</source>
         <translation>Geselecteerde objecten groeperen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="365"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="242"/>
         <source>Ungroup the selected group</source>
         <translation>Geselecteerde groep losmaken</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="263"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="146"/>
         <source>Flip horizontally</source>
         <translation>Horizontaal omdraaien</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="270"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="153"/>
         <source>Flip vertically</source>
         <translation>Verticaal omdraaien</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="309"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="189"/>
         <source>Lock or unlock the object</source>
         <translation>Object vergrendelen of ontgrendelen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="316"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="196"/>
         <source>Lock or unlock the size of the object</source>
         <translation>Grootte van het object vergrendelen of ontgrendelen</translation>
     </message>
@@ -22631,12 +22636,12 @@ een bereik van pagina&apos;s of een enkel paginanummer</translation>
         <translation>Ruimte onder een alinea</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="359"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="360"/>
         <source>Distance between columns</source>
         <translation>Afstand tussen kolommen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="359"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="360"/>
         <source>Column width</source>
         <translation>Kolombreedte</translation>
     </message>
@@ -24161,8 +24166,8 @@ Controleer het pad en de bestandsnaam.</translation>
         <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="1289"/>
         <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="630"/>
         <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="1096"/>
-        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="1557"/>
-        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="2212"/>
+        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="1552"/>
+        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="2203"/>
         <source>Background</source>
         <translation>Achtergrond</translation>
     </message>
@@ -29079,9 +29084,9 @@ aangeroepen functies.
         <translation>Bretons</translation>
     </message>
     <message>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpeg.cpp" line="223"/>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpeg.cpp" line="267"/>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpeg.cpp" line="351"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpeg.cpp" line="230"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpeg.cpp" line="274"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpeg.cpp" line="358"/>
         <source>%1 may be corrupted : missing or wrong resolution tags</source>
         <translation>%1 kan beschadigd zijn: ontbrekende of verkeerde resolutie labels</translation>
     </message>
@@ -29277,31 +29282,37 @@ aangeroepen functies.
         <translation>ongeldige tabpositie gespecificeerd.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="226"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="228"/>
         <source>Cannot have an empty char style name.</source>
         <comment>python error</comment>
         <translation>Letterstijl moet een naam hebben.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="235"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="237"/>
         <source>Specified font is not available.</source>
         <comment>python error</comment>
         <translation>Gespecificeerd lettertype is niet beschikbaar.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="247"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="250"/>
         <source>Specified fill color is not available in document.</source>
         <comment>python error</comment>
         <translation>De gespecificeerde vulkleur is niet beschikbaar in document.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="255"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="258"/>
         <source>Specified stroke color is not available in document.</source>
         <comment>python error</comment>
         <translation>De opgegeven streekkleur is niet beschikbaar in het document.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="398"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="266"/>
+        <source>Specified background color is not available in document.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="411"/>
         <source>Specified color is not available in document.</source>
         <comment>python error</comment>
         <translation>Gespecificeerde kleur is niet beschikbaar in document.</translation>
@@ -30273,7 +30284,7 @@ Mogelijk is daarom het beeld niet correct.</translation>
         <translation>DOCX-document</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/gettext/odt2im/importodt.cpp" line="31"/>
+        <location filename="../../scribus/plugins/gettext/odt2im/importodt.cpp" line="32"/>
         <source>ODT Document</source>
         <translation>ODT-document</translation>
     </message>
@@ -33661,7 +33672,7 @@ Als u het bestand opslaat in deze versie, zal het niet langer leesbaar zijn in o
 <context>
     <name>Scribus134Format</name>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3946"/>
+        <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3953"/>
         <source>Copy #%1 of </source>
         <translation>Kopie #%1 van</translation>
     </message>
@@ -33739,7 +33750,7 @@ Als u het in deze versie opslaat, zal het niet langer leesbaar zijn voor oudere 
         <translation>Stelt Scribus in staat om bestanden van versie 1.5.x-1.6.x te lezen.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="7298"/>
+        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="7292"/>
         <source>Copy #%1 of </source>
         <translation>Kopie #%1 van</translation>
     </message>
@@ -35835,19 +35846,19 @@ Gebruik de preproductie-controle om deze te corrigeren</translation>
 <context>
     <name>StyleManager</name>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="244"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="256"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="115"/>
         <source>Name:</source>
         <translation>Naam:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="387"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="405"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="116"/>
         <source>&amp;Reset</source>
         <translation>He&amp;rstellen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="365"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="380"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="117"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="1019"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="1189"/>
@@ -35856,7 +35867,7 @@ Gebruik de preproductie-controle om deze te corrigeren</translation>
         <translation>Toep&amp;assen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="343"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="355"/>
         <source>&lt;&lt; &amp;Done</source>
         <translation>&lt;&lt; &amp;Gereed</translation>
     </message>
@@ -35867,19 +35878,19 @@ Gebruik de preproductie-controle om deze te corrigeren</translation>
         <translation>&amp;Nieuw</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="184"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="190"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="122"/>
         <source>&amp;Import</source>
         <translation>&amp;Importeren</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="168"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="171"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="123"/>
         <source>&amp;Clone</source>
         <translation>&amp;Klonen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="200"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="209"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="124"/>
         <source>&amp;Delete</source>
         <translation>Verwij&amp;deren</translation>
@@ -36009,33 +36020,33 @@ Gebruik de preproductie-controle om deze te corrigeren</translation>
         <translation>Alt+N</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="171"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="174"/>
         <source>Alt+C</source>
         <translation>Alt+K</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="187"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="193"/>
         <source>Alt+I</source>
         <translation>Alt+I</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="203"/>
-        <location filename="../../scribus/ui/stylemanager.ui" line="346"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="212"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="358"/>
         <source>Alt+D</source>
         <translation>Alt+D</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="274"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="286"/>
         <source>Please select a unique name for the style</source>
         <translation>Selecteer een unieke naam voor de stijl</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="368"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="383"/>
         <source>Alt+A</source>
         <translation>Alt+A</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="390"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="408"/>
         <source>Alt+R</source>
         <translation>Alt+R</translation>
     </message>
@@ -36046,7 +36057,7 @@ Gebruik de preproductie-controle om deze te corrigeren</translation>
         <translation>Stijl beheren</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="165"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="168"/>
         <source>Clone copies the style to make similar styles easily</source>
         <translation>Klonen kopieert de stijl om eenvoudig vergelijkbare stijlen aan te maken</translation>
     </message>

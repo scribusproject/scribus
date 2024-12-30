@@ -694,6 +694,12 @@
         <translation>&amp;Irudi-markoa</translation>
     </message>
     <message>
+        <location filename="../../scribus/actionmanager.cpp" line="1632"/>
+        <source>&amp;Outlines</source>
+        <comment>Convert to outlines</comment>
+        <translation type="unfinished">&amp;Eskema</translation>
+    </message>
+    <message>
         <location filename="../../scribus/actionmanager.cpp" line="1633"/>
         <location filename="../../scribus/actionmanager.cpp" line="1735"/>
         <source>&amp;Polygon</source>
@@ -1254,10 +1260,9 @@
         <translation>&amp;Eskema</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1632"/>
         <source>&amp;Outlines</source>
         <comment>Convert to oulines</comment>
-        <translation>&amp;Eskema</translation>
+        <translation type="vanished">&amp;Eskema</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1533"/>
@@ -13455,32 +13460,32 @@ Desgaitu PDF eta PS kapsulatze esperimentala eta saiatu berriro.</translation>
 <context>
     <name>PageItem_TextFrame</name>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4985"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="4995"/>
         <source>Linked Text</source>
         <translation>Estekatutako testua</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4987"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="4997"/>
         <source>Text Frame</source>
         <translation>Testu-markoa</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4991"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5001"/>
         <source>Paragraphs: </source>
         <translation>Paragrafoak: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4999"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5009"/>
         <source>Lines: </source>
         <translation>Lerroak:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="5005"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5015"/>
         <source>Words: </source>
         <translation>Hitzak: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="5013"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5023"/>
         <source>Chars: </source>
         <translation>Karak.: </translation>
     </message>
@@ -21465,93 +21470,93 @@ berriagoa behar da.</translation>
     <name>PropertiesPalette_Image</name>
     <message>
         <location filename="../../scribus/ui/propertiespalette_image.cpp" line="40"/>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="733"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="734"/>
         <source>Auto</source>
         <translation>Automatikoa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="738"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="739"/>
         <source>Perceptual</source>
         <translation>Pertzepziokoa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="739"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="740"/>
         <source>Relative Colorimetric</source>
         <translation>Koloremetria erlatiboa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="740"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="741"/>
         <source>Saturation</source>
         <translation>Saturazioa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="741"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="742"/>
         <source>Absolute Colorimetric</source>
         <translation>Koloremetria absolutua</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="747"/>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="757"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="748"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="758"/>
         <source>Global</source>
         <translation>Globala</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="748"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="749"/>
         <source>Automatic</source>
         <translation>Automatikoa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="749"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="750"/>
         <source>Lossy - JPEG</source>
         <translation>Galerarekin - JPEG</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="750"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="751"/>
         <source>Lossless - Zip</source>
         <translation>Galerarik gabea - Zip</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="751"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="752"/>
         <source>None</source>
         <translation>Bat ere ez</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="758"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="759"/>
         <source>Maximum</source>
         <translation>Maximoa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="759"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="760"/>
         <source>High</source>
         <translation>Altua</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="760"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="761"/>
         <source>Medium</source>
         <translation>Tartekoa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="761"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="762"/>
         <source>Low</source>
         <translation>Baxua</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="762"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="763"/>
         <source>Minimum</source>
         <translation>Minimoa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="765"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="766"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="769"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="770"/>
         <source> pt</source>
         <translation> pt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="774"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="775"/>
         <source> dpi</source>
         <translation> dpi</translation>
     </message>
@@ -21559,82 +21564,82 @@ berriagoa behar da.</translation>
 <context>
     <name>PropertiesPalette_ImageBase</name>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="78"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="65"/>
         <source>Horizontal offset of image within frame</source>
         <translation>Irudiaren desplazamendu horizontala markoan</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="65"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="88"/>
         <source>Vertical offset of image within frame</source>
         <translation>Irudiaren desplazamendu bertikala markoan</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="174"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="216"/>
         <source>Auto</source>
         <translation>Automatikoa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="354"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="370"/>
         <source>Resize the image horizontally</source>
         <translation>Aldatu irudiaren tamaina horizontalki</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="298"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="314"/>
         <source>Resize the image vertically</source>
         <translation>Aldatu irudiaren tamaina bertikalki</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="330"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="346"/>
         <source>Keep the X and Y scaling the same</source>
         <translation>Mantendu X eta Y, berdin eskalatuz</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="367"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="383"/>
         <source>Effective horizontal DPI of the image after scaling</source>
         <translation>Irudiaren DPI horizontal efektiboa eskalatzearen ondoren</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="321"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="337"/>
         <source>Effective vertical DPI of the image after scaling</source>
         <translation>Irudiaren DPI bertikal efektiboa eskalatzearen ondoren</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="501"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="517"/>
         <source>Source profile of the image</source>
         <translation>Irudiaren profilaren iturburua</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="461"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="477"/>
         <source>Rendering intent for the image</source>
         <translation>Irudia errendatzearen saiakera</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="412"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="428"/>
         <source>Color Management</source>
         <translation>Kolore-kudeaketa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="528"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="544"/>
         <source>PDF Compression</source>
         <translation>PDF konpresioa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="535"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="551"/>
         <source>Method:</source>
         <translation>Metodoa:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="551"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="567"/>
         <source>Compression method used in PDF export for the image</source>
         <translation>Irudiaren PDF esportazioan erabilitako konpresio-metodoa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="571"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="587"/>
         <source>Quality:</source>
         <translation>Kalitatea:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="564"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="580"/>
         <source>Compression quality used in PDF export for the image</source>
         <translation>Irudiaren PDF esportazioan erabilitako konpresio-kalitatea</translation>
     </message>
@@ -21644,77 +21649,77 @@ berriagoa behar da.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="85"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="72"/>
         <source>Y:</source>
         <translation>Y:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="97"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="139"/>
         <source>&amp;Rotation</source>
         <translation>&amp;Biraketa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="121"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="163"/>
         <source>Rotation of the image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="147"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="189"/>
         <source>&amp;Page Number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="171"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="213"/>
         <source>Page number of PDF file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="199"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="95"/>
         <source>X:</source>
         <translation>X:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="240"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="256"/>
         <source>Auto-Fit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="258"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="274"/>
         <source>Image &amp;Scale</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="437"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="453"/>
         <source>Rendering Intent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="477"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="493"/>
         <source>Input Profile</source>
         <translation>Sarrerako profila</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="598"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="614"/>
         <source>Effects</source>
         <translation>Efektuak</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="631"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="647"/>
         <source>Open Image Effects dialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="634"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="650"/>
         <source>Image Effects</source>
         <translation>Irudien efektuak</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="660"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="676"/>
         <source>Layers</source>
         <translation>Geruzak</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="681"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="697"/>
         <source>Clipping Paths</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22367,152 +22372,152 @@ berriagoa behar da.</translation>
 <context>
     <name>PropertiesPalette_XYZBase</name>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="402"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="348"/>
         <source>Horizontal position of current basepoint</source>
         <translation>Uneko oinarri-puntuaren posizio horizontala</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="187"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="86"/>
         <source>Vertical position of current basepoint</source>
         <translation>Uneko oinarri-puntuaren posizio bertikala</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="502"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="461"/>
         <source>Rotate the selection clockwise by 90º</source>
         <translation>Biratu hautapena 90º erlojuen orratzen noranzkoan</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="200"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="47"/>
         <source>Width of current selection</source>
         <translation>Uneko hautapenaren zabalera</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="428"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="299"/>
         <source>Height of current selection</source>
         <translation>Uneko hautapenaren altuera</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="482"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="441"/>
         <source>Rotation of object at current basepoint</source>
         <translation>Objektuaren biraketa uneko oinarri-puntuan</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="492"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="451"/>
         <source>Rotate the selection anti-clockwise by 90º</source>
         <translation>Biratu hautapena 90º erlojuen orratzen noranzkoaren aurka</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="120"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="311"/>
         <source>Keep the aspect ratio</source>
         <translation>Mantendu itxuraren erlazioa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="168"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="280"/>
         <source>&amp;X:</source>
         <translation>&amp;X:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="142"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="267"/>
         <source>&amp;Y:</source>
         <translation>&amp;Y:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="102"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="54"/>
         <source>&amp;H:</source>
         <translation>&amp;H:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="155"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="323"/>
         <source>&amp;W:</source>
         <translation>&amp;W:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="234"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="120"/>
         <source>Flip</source>
         <translation>Irauli</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="280"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="163"/>
         <source>Lock</source>
         <translation>Blokeatu</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="329"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="209"/>
         <source>Group</source>
         <translation>Elkartu</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="453"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="415"/>
         <source>&amp;Rotation</source>
         <translation>&amp;Biraketa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="515"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="490"/>
         <source>Level</source>
         <translation>Maila</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="554"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="526"/>
         <source>Move one level up</source>
         <translation>Eraman maila bat gora</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="561"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="533"/>
         <source>Move one level down</source>
         <translation>Eraman maila bat behera</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="73"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="547"/>
         <source>Z:</source>
         <translation>Z:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="547"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="519"/>
         <source>Move to front</source>
         <translation>Eraman goraino</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="568"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="540"/>
         <source>Move to back</source>
         <translation>Eraman beheraino</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="581"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="563"/>
         <source>Indicates the level the object is on, 1 means the object is at the bottom</source>
         <translation>Objektua zein mailan dagoen adierazten du, 1 zenbakiak objektua behealdean dagoela esan nahi du</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="584"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="566"/>
         <source>0</source>
         <translation>0</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="358"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="235"/>
         <source>Group the selected objects</source>
         <translation>Elkartu hautatutako objektuak</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="365"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="242"/>
         <source>Ungroup the selected group</source>
         <translation>Banandu hautatutako taldea</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="263"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="146"/>
         <source>Flip horizontally</source>
         <translation>Irauli horizontalki</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="270"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="153"/>
         <source>Flip vertically</source>
         <translation>Irauli bertikalki</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="309"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="189"/>
         <source>Lock or unlock the object</source>
         <translation>Blokeatu edo desblokeatu objektua</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="316"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="196"/>
         <source>Lock or unlock the size of the object</source>
         <translation>Blokeatu edo desblokeatu objektuaren tamaina</translation>
     </message>
@@ -22646,12 +22651,12 @@ berriagoa behar da.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="359"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="360"/>
         <source>Distance between columns</source>
         <translation>Zutabe arteko distantzia</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="359"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="360"/>
         <source>Column width</source>
         <translation>Zutabe-zabalera</translation>
     </message>
@@ -24176,8 +24181,8 @@ Egiaztatu bide-izena eta fitxategi-izena.</translation>
         <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="1289"/>
         <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="630"/>
         <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="1096"/>
-        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="1557"/>
-        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="2212"/>
+        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="1552"/>
+        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="2203"/>
         <source>Background</source>
         <translation>Atzeko planoa</translation>
     </message>
@@ -29094,9 +29099,9 @@ Jarraitzea nahi duzu?</translation>
         <translation>Bretoiera</translation>
     </message>
     <message>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpeg.cpp" line="223"/>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpeg.cpp" line="267"/>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpeg.cpp" line="351"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpeg.cpp" line="230"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpeg.cpp" line="274"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpeg.cpp" line="358"/>
         <source>%1 may be corrupted : missing or wrong resolution tags</source>
         <translation>%1 hondatuta egon daiteke : bereizmen-etiketak falta dira edo okerrak dira</translation>
     </message>
@@ -29292,31 +29297,37 @@ Jarraitzea nahi duzu?</translation>
         <translation>Tabuladore-posizio baliogabea adierazi da.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="226"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="228"/>
         <source>Cannot have an empty char style name.</source>
         <comment>python error</comment>
         <translation>Ezin da eduki izenik gabeko karaktere-estilorik.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="235"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="237"/>
         <source>Specified font is not available.</source>
         <comment>python error</comment>
         <translation>Zehaztutako letra-tipoa ez dago erabilgarri.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="247"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="250"/>
         <source>Specified fill color is not available in document.</source>
         <comment>python error</comment>
         <translation>Zehaztutako betegarri-kolorea ez dago erabilgarri dokumentuan.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="255"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="258"/>
         <source>Specified stroke color is not available in document.</source>
         <comment>python error</comment>
         <translation>Zehaztutako trazu-kolorea ez dago erabilgarri dokumentuan.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="398"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="266"/>
+        <source>Specified background color is not available in document.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="411"/>
         <source>Specified color is not available in document.</source>
         <comment>python error</comment>
         <translation>Zehaztutako kolorea ez dago erabilgarri dokumentuan.</translation>
@@ -30288,7 +30299,7 @@ Baliteke irudia zuzena ez izatea</translation>
         <translation>DOCX dokumentua</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/gettext/odt2im/importodt.cpp" line="31"/>
+        <location filename="../../scribus/plugins/gettext/odt2im/importodt.cpp" line="32"/>
         <source>ODT Document</source>
         <translation>ODT dokumentua</translation>
     </message>
@@ -33676,7 +33687,7 @@ Bertsio honetan gordetzen baduzu, Scribus bertsio zaharrek ezin izango dute irak
 <context>
     <name>Scribus134Format</name>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3946"/>
+        <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3953"/>
         <source>Copy #%1 of </source>
         <translation>%1. kopia / </translation>
     </message>
@@ -33754,7 +33765,7 @@ Bertsio honetan gordetzen baduzu, Scribus bertsio zaharrek ezin izango dute irak
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="7298"/>
+        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="7292"/>
         <source>Copy #%1 of </source>
         <translation>%1. kopia / </translation>
     </message>
@@ -35853,19 +35864,19 @@ helbidera bidaliko bazenu.</translation>
 <context>
     <name>StyleManager</name>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="244"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="256"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="115"/>
         <source>Name:</source>
         <translation>Izena:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="387"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="405"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="116"/>
         <source>&amp;Reset</source>
         <translation>&amp;Berrezarri</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="365"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="380"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="117"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="1019"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="1189"/>
@@ -35874,7 +35885,7 @@ helbidera bidaliko bazenu.</translation>
         <translation>&amp;Aplikatu</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="343"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="355"/>
         <source>&lt;&lt; &amp;Done</source>
         <translation>&lt;&lt; &amp;Egina</translation>
     </message>
@@ -35885,19 +35896,19 @@ helbidera bidaliko bazenu.</translation>
         <translation>&amp;Berria</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="184"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="190"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="122"/>
         <source>&amp;Import</source>
         <translation>&amp;Inportatu</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="168"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="171"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="123"/>
         <source>&amp;Clone</source>
         <translation>&amp;Klonatu</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="200"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="209"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="124"/>
         <source>&amp;Delete</source>
         <translation>&amp;Ezabatu</translation>
@@ -36027,33 +36038,33 @@ helbidera bidaliko bazenu.</translation>
         <translation>Alt+N</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="171"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="174"/>
         <source>Alt+C</source>
         <translation>Alt+C</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="187"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="193"/>
         <source>Alt+I</source>
         <translation>Alt+I</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="203"/>
-        <location filename="../../scribus/ui/stylemanager.ui" line="346"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="212"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="358"/>
         <source>Alt+D</source>
         <translation>Alt+D</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="274"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="286"/>
         <source>Please select a unique name for the style</source>
         <translation>Hautatu izen bakarra estilorako</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="368"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="383"/>
         <source>Alt+A</source>
         <translation>Alt+A</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="390"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="408"/>
         <source>Alt+R</source>
         <translation>Alt+R</translation>
     </message>
@@ -36064,7 +36075,7 @@ helbidera bidaliko bazenu.</translation>
         <translation>Estilo-kudeatzailea</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="165"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="168"/>
         <source>Clone copies the style to make similar styles easily</source>
         <translation>Klonatzeak estiloa kopiatzen du antzeko estiloak sortzea errazteko</translation>
     </message>
