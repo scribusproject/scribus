@@ -12,9 +12,18 @@
 cmake_minimum_required(VERSION 3.16.0 FATAL_ERROR)
 #keep just in case this changes
 
+#The project() command manages VERSION variables.
 cmake_policy(SET CMP0048 NEW)
+
+#Path normalisation
 if (POLICY CMP0177)
 	cmake_policy(SET CMP0177 NEW)
+endif()
+
+#Enable de-duplication of link libraries
+if (POLICY CMP0179)
+	cmake_policy(SET CMP0156 NEW)
+	cmake_policy(SET CMP0179 NEW)
 endif()
 
 message(STATUS "CMake Version: ${CMAKE_VERSION}")
