@@ -9,14 +9,14 @@ for which a new license (GPL+exception) is in place.
 
 #include <QDialog>
 #include <QList>
-class QHBoxLayout;
-class QGridLayout;
-class QVBoxLayout;
-class QGroupBox;
-class QLineEdit;
-class QToolButton;
 class QCheckBox;
+class QGridLayout;
+class QGroupBox;
+class QHBoxLayout;
+class QLineEdit;
 class QPushButton;
+class QToolButton;
+class QVBoxLayout;
 
 #include "scribusapi.h"
 #include "scribusstructs.h"

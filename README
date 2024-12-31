@@ -7,7 +7,7 @@ Also note that the 1.7.x series is not an officially stable version. Instead, al
 
 ==General==
 
-Qt 6: As of version 1.7.x, Scribus is built using version 6 of the Qt toolkit. Scribus 1.7.0 or higher requires at least Qt 6.2.
+Qt 6: As of version 1.7.x, Scribus is built using version 6 of the Qt toolkit. Scribus 1.7.0 or higher requires at least Qt 6.4.
 
 
 

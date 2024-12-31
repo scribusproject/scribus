@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
+
 #include "scconfig.h"
 #include "pdfexportdialog.h"
 
