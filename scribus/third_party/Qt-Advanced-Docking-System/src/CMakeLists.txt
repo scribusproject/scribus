@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.16)
 project(QtAdvancedDockingSystem LANGUAGES CXX VERSION ${VERSION_SHORT})
 if (${QT_VERSION_MAJOR})
   message(STATUS "Forced to use Qt version ${QT_VERSION_MAJOR}")

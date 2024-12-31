@@ -2,7 +2,7 @@
 set(ADS_VERSION "4.3.0")
 ###>> Scribus
 
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.16)
 
 if (POLICY CMP0091)
   cmake_policy(SET CMP0091 NEW)
