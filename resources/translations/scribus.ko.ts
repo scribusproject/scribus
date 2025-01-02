@@ -12737,75 +12737,75 @@ If no handle is selected all handles will be reset.</source>
 <context>
     <name>PDFExportDialog</name>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="60"/>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="183"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="61"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="184"/>
         <source>Save as PDF</source>
         <translation>PDF로 저장</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="66"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="67"/>
         <source>O&amp;utput to File:</source>
         <translation>파일로 저장(&amp;U):</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="100"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="101"/>
         <source>Cha&amp;nge...</source>
         <translation>변경(&amp;N)...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="103"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="104"/>
         <source>Output one file for eac&amp;h page</source>
         <translation>페이지당 한 개 파일로 출력(&amp;H)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="106"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="107"/>
         <source>Open PDF after Export</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="118"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="119"/>
         <source>&amp;Save</source>
         <translation>저장(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="243"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="244"/>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>PDF 파일 (*.pdf);;전체 파일 (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="130"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="131"/>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</source>
         <translation>문서에서  각각 명명된 PDF파일을 개별적으로 내보낼 수 있습니다. 페이지번호를 자동으로 더합니다. 이것은 상업적 출판에서 PDF 생성에 가장 유용합니다.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="184"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="185"/>
         <source>%1 does not exists and will be created, continue?</source>
         <translation>%1이 없습니다. 생성됩니다, 계속할까요?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="203"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="204"/>
         <source>Cannot create directory: 
 %1</source>
         <translation>폴더를 생성할 수 없습니다:
 %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="243"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="244"/>
         <source>Save As</source>
         <translation>다른 이름으로 저장</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="131"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="132"/>
         <source>Open the exported PDF with the PDF viewer as set in External Tools preferences, when not exporting to a multi-file export destination</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="132"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="133"/>
         <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="172"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="173"/>
         <source>The range of pages to export is invalid.
 Please check it and try again.</source>
         <translation type="unfinished"></translation>

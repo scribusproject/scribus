@@ -12746,75 +12746,75 @@ Si no hay ninguno elegido, se aplica a todos.</translation>
 <context>
     <name>PDFExportDialog</name>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="60"/>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="183"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="61"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="184"/>
         <source>Save as PDF</source>
         <translation>Guardar como PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="66"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="67"/>
         <source>O&amp;utput to File:</source>
         <translation>&amp;Archivo de salida:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="100"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="101"/>
         <source>Cha&amp;nge...</source>
         <translation>Ca&amp;mbiar...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="103"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="104"/>
         <source>Output one file for eac&amp;h page</source>
         <translation>Exportar un arc&amp;hivo por cada página</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="106"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="107"/>
         <source>Open PDF after Export</source>
         <translation>Abrir PDF tras exportar</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="118"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="119"/>
         <source>&amp;Save</source>
         <translation>Guardar</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="243"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="244"/>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>Archivos PDF (*.pdf);;Todos los archivos (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="130"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="131"/>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</source>
         <translation>Esto permite exportar un archivo PDF individual por cada página del documento. Los números de página se añaden automáticamente. Esto es principalmente útil para imposición de PDF para impresiones comerciales.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="184"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="185"/>
         <source>%1 does not exists and will be created, continue?</source>
         <translation>%1 no existe y será creado, ¿continuar?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="203"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="204"/>
         <source>Cannot create directory: 
 %1</source>
         <translation>No se puede crear directorio: 
 %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="243"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="244"/>
         <source>Save As</source>
         <translation>Guardar como</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="131"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="132"/>
         <source>Open the exported PDF with the PDF viewer as set in External Tools preferences, when not exporting to a multi-file export destination</source>
         <translation>Abrir el PDF exportado con el visor que se indica en las Preferencias de herramientas externas, cuando no se exporta a un destino multiarchivo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="132"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="133"/>
         <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab</source>
         <translation>El botón de guardado estará deshabilitado si intenta esportar a PDF/X y el hilo de información se pierde de la etiqueta PDF/X</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="172"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="173"/>
         <source>The range of pages to export is invalid.
 Please check it and try again.</source>
         <translation>El grupo de páginas a exportar no es válido.
