@@ -122,19 +122,13 @@ LinkImportData::LinkImportData(Object *actionObj)
 		return;
 
 	Object obj3 = getFileSpecNameForPlatform(&obj1);
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 01, 0)
 	if (!obj3.isNull())
 		fileName = obj3.getString()->copy();
-}
-
-LinkImportData::~LinkImportData()
-{
-	delete fileName;
-}
-
-AnoOutputDev::~AnoOutputDev()
-{
-	delete fontName;
-	delete itemText;
+#else
+	if (!obj3.isNull())
+		fileName.reset(obj3.getString()->copy());
+#endif
 }
 
 AnoOutputDev::AnoOutputDev(ScribusDoc* doc, QStringList *importedColors)
@@ -170,8 +164,12 @@ void AnoOutputDev::drawString(GfxState *state, const GooString *s)
 	currColorText = getColor(state->getFillColorSpace(), state->getFillColor(), &shade);
 	fontSize = state->getFontSize();
 	if (state->getFont() && state->getFont()->getName())
-		fontName = new GooString(state->getFont()->getName().value());
+		fontName.reset(new GooString(state->getFont()->getName().value()));
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 01, 0)
 	itemText = s->copy();
+#else
+	itemText.reset(s->copy());
+#endif
 }
 
 QString AnoOutputDev::getColor(GfxColorSpace *color_space, const GfxColor *color, int *shade)
@@ -680,8 +678,8 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 					m_graphicStack.top().strokeColor = annotOutDev->currColorStroke;
 				currTextColor = annotOutDev->currColorText;
 				fontSize = annotOutDev->fontSize;
-				fontName = UnicodeParsedString(annotOutDev->fontName);
-				itemText = UnicodeParsedString(annotOutDev->itemText);
+				fontName = UnicodeParsedString(annotOutDev->fontName.get());
+				itemText = UnicodeParsedString(annotOutDev->itemText.get());
 				delete gfx;
 				delete annotOutDev;
 			}

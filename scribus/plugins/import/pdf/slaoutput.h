@@ -60,16 +60,16 @@ class LinkSubmitForm: public LinkAction
 {
 public:
 	// Build a LinkImportData from an action dictionary.
-	LinkSubmitForm(Object *actionObj);
+	explicit LinkSubmitForm(Object *actionObj);
 	// Destructor.
-	virtual ~LinkSubmitForm();
+	~LinkSubmitForm() override;
 
 	// Was the LinkImportData created successfully?
 	bool isOk() const override { return m_url != nullptr; }
 	// Accessors.
 	LinkActionKind getKind() const override { return actionUnknown; }
 	GooString *getUrl() { return m_url; }
-	int getFlags() { return m_flags; }
+	int getFlags() const { return m_flags; }
 
 private:
 	GooString *m_url {nullptr};		// URL
@@ -87,17 +87,15 @@ class LinkImportData: public LinkAction
 public:
 	// Build a LinkImportData from an action dictionary.
 	explicit LinkImportData(Object *actionObj);
-	// Destructor.
-	~LinkImportData() override;
 
 	// Was the LinkImportData created successfully?
 	bool isOk() const override { return fileName != nullptr; }
 	// Accessors.
 	LinkActionKind getKind() const override { return actionUnknown; }
-	GooString *getFileName() { return fileName; }
+	GooString* getFileName() { return fileName.get(); }
 
 private:
-	GooString *fileName {nullptr};		// file name
+	std::unique_ptr<GooString> fileName;		// file name
 };
 
 //------------------------------------------------------------------------
@@ -130,7 +128,6 @@ class AnoOutputDev : public OutputDev
 {
 public:
 	AnoOutputDev(ScribusDoc* doc, QStringList *importedColors);
-	~AnoOutputDev() override;
 
 	bool isOk() const { return true; }
 	bool upsideDown() override { return true; }
@@ -150,8 +147,8 @@ public:
 	QString currColorFill;
 	QString currColorStroke;
 	double  fontSize {12};
-	GooString *fontName {nullptr};
-	GooString *itemText {nullptr};
+	std::unique_ptr<GooString> fontName;
+	std::unique_ptr<GooString> itemText;
 
 private:
 	QString getColor(GfxColorSpace *color_space, const GfxColor *color, int *shade);
