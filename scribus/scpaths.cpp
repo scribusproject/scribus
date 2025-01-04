@@ -57,6 +57,26 @@ ScPaths::ScPaths()
 // as preprocessor macros and set by autoconf.
 #if !defined(Q_OS_MACOS) && !defined(_WIN32) && defined(WANT_RELOCATABLE)
 	QString appPath = qApp->applicationDirPath();
+
+	// Sometime, for eg when running scribus as an appimage, the applicationDirPath returned 
+	// by Qt may be incorrect and correspond to the directory where is stored ld-linux-*.so.
+	// In this case, try to deduce appPath from argv[0], but only if argv[0] is absolute
+	QString testIconDir = appPath + "/../" + QString(ICONDIR);
+	if (!QDir(testIconDir).exists())
+	{
+		QStringList args = QApplication::arguments();
+		if (!args.isEmpty())
+		{
+			QFileInfo appInfo(args[0]);
+			if (appInfo.isExecutable() && appInfo.isAbsolute())
+			{
+				testIconDir = appInfo.absolutePath() + "/../" + QString(ICONDIR);
+				if (QDir(testIconDir).exists())
+					appPath = appInfo.absolutePath();
+			}
+		}
+	}
+
 	m_docDir = appPath + "/../" + QString(DOCDIR);
 	m_iconDir = appPath + "/../" + QString(ICONDIR);
 	m_libDir = appPath + "/../" + QString(LIBDIR);
