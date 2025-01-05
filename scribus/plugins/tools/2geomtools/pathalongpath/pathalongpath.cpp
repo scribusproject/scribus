@@ -54,30 +54,14 @@ void pathalongpath_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-PathAlongPathPlugin::PathAlongPathPlugin() :
-	patternItem(nullptr),
-	pathItem(nullptr),
-	originalRot(0.0),
-	originalXPos(0.0),
-	originalYPos(0.0),
-	m_doc(nullptr),
-	firstUpdate(false),
-	m_scaling(0.0),
-	nbCopies(0),
-	pattWidth(0.0),
-	m_offsetX(0.0),
-	m_offsetY(0.0),
-	m_gapval(0.0),
-	m_rotate(0),
-	selOffs(0),
-	selCount(0)
+PathAlongPathPlugin::PathAlongPathPlugin()
 {
 	// Set action info in languageChange, so we only have to do
 	// it in one place.
 	languageChange();
 }
 
-PathAlongPathPlugin::~PathAlongPathPlugin() {};
+PathAlongPathPlugin::~PathAlongPathPlugin() = default;
 
 void PathAlongPathPlugin::languageChange()
 {
@@ -136,27 +120,27 @@ void PathAlongPathPlugin::deleteAboutData(const AboutData* about) const
 bool PathAlongPathPlugin::handleSelection(ScribusDoc* doc, int SelectedType)
 {
 	bool ret = ScActionPlugin::handleSelection(doc, SelectedType);
-	if (!ret)
+	if (ret)
+		return true;
+
+	if (doc->m_Selection->count() == 2)
 	{
-		if (doc->m_Selection->count() == 2)
+		const PageItem *currItem = doc->m_Selection->itemAt(0);
+		if (currItem->isGroup())
 		{
-			PageItem *currItem = doc->m_Selection->itemAt(0);
-			if (currItem->isGroup())
-			{
-				currItem = doc->m_Selection->itemAt(1);
-				ret = currItem->itemType() == PageItem::PolyLine;
-			}
+			currItem = doc->m_Selection->itemAt(1);
+			ret = currItem->itemType() == PageItem::PolyLine;
+		}
+		else
+		{
+			if (currItem->itemType() != PageItem::PolyLine)
+				ret = false;
 			else
 			{
-				if (currItem->itemType() != PageItem::PolyLine)
-					ret = false;
-				else
+				currItem = doc->m_Selection->itemAt(1);
+				if (currItem->isGroup())
 				{
-					currItem = doc->m_Selection->itemAt(1);
-					if (currItem->isGroup())
-					{
-						ret = true;
-					}
+					ret = true;
 				}
 			}
 		}
@@ -289,7 +273,7 @@ bool PathAlongPathPlugin::run(ScribusDoc* doc, const QString&)
 
 void PathAlongPathPlugin::updateEffectG(int effectType, double offset, double offsetY, double gap, int rotate)
 {
-	qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+	QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
 	for (int bx = 0; bx < patternItemG.count(); ++bx)
 	{
 		PageItem* bxi = patternItemG[bx];
@@ -313,7 +297,7 @@ void PathAlongPathPlugin::updateEffectG(int effectType, double offset, double of
 	{
 		Geom::Piecewise<Geom::D2<Geom::SBasis> > originaldpwd2 = FPointArray2Piecewise(effectPath, false);
 		Geom::Piecewise<Geom::D2<Geom::SBasis> > patternpwd2;
-		PageItem* bxi = patternItemG[0];
+		const PageItem* bxi = patternItemG[0];
 		double originX = originalXPosG[0];
 		double originY = originalYPosG[0];
 		if (bxi->itemType() == PageItem::PolyLine)
@@ -325,7 +309,6 @@ void PathAlongPathPlugin::updateEffectG(int effectType, double offset, double of
 		{
 			PageItem* bxi = patternItemG[bx];
 			FPointArray pathP = originalPathG[bx].copy();
-			FPoint tp(getMinClipF(&pathP));
 			double deltaX = originalXPosG[bx] - originX;
 			double deltaY = originalYPosG[bx] - originY;
 			QTransform mm;
@@ -358,7 +341,7 @@ void PathAlongPathPlugin::updateEffectG(int effectType, double offset, double of
 			bxi->ContourLine = bxi->PoLine.copy();
 		}
 	}
-	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	if (firstUpdate)
 		m_doc->view()->DrawNew();
 	else
@@ -366,7 +349,7 @@ void PathAlongPathPlugin::updateEffectG(int effectType, double offset, double of
 		double gx, gy, gh, gw;
 		m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 		QRectF oldR(pathItem->getBoundingRect());
-		QRectF newR = QRectF(gx, gy, gw, gh);
+		QRectF newR(gx, gy, gw, gh);
 		m_doc->regionsChanged()->update(newR.united(oldR));
 	}
 	if (effectType != -1)
@@ -415,7 +398,7 @@ void PathAlongPathPlugin::updateEffect(int effectType, double offset, double off
 		firstUpdate = false;
 }
 
-void PathAlongPathPlugin::setUpEffect(Geom::Piecewise<Geom::D2<Geom::SBasis> > &pwd2_in, Geom::Piecewise<Geom::D2<Geom::SBasis> > &pattern, int effect, double offset, double offsetY, double gap, int rotate)
+void PathAlongPathPlugin::setUpEffect(const Geom::Piecewise<Geom::D2<Geom::SBasis> > &pwd2_in, const Geom::Piecewise<Geom::D2<Geom::SBasis> > &pattern, int effect, double offset, double offsetY, double gap, int rotate)
 {
 	m_offsetX = offset;
 	m_offsetY = offsetY;
@@ -434,8 +417,8 @@ void PathAlongPathPlugin::setUpEffect(Geom::Piecewise<Geom::D2<Geom::SBasis> > &
 		patternd2 = make_cuts_independant(rot90(rot90(rot90(pattern))));
 	else
 		patternd2 = make_cuts_independant(pattern);
-	Piecewise<SBasis> x = Piecewise<SBasis>(patternd2[0]);
-	Piecewise<SBasis> y = Piecewise<SBasis>(patternd2[1]);
+	Piecewise<SBasis> x(patternd2[0]);
+	Piecewise<SBasis> y(patternd2[1]);
 	pattBnds = bounds_exact(x);
 	x -= pattBnds.min();
 	pattBndsY = bounds_exact(y);
@@ -466,7 +449,7 @@ void PathAlongPathPlugin::setUpEffect(Geom::Piecewise<Geom::D2<Geom::SBasis> > &
 	pattWidth = pattBnds.extent() * m_scaling;
 }
 
-FPointArray PathAlongPathPlugin::doEffect_pwd2(Geom::Piecewise<Geom::D2<Geom::SBasis> > &pattern)
+FPointArray PathAlongPathPlugin::doEffect_pwd2(const Geom::Piecewise<Geom::D2<Geom::SBasis> > &pattern) const
 {
 	double offs = m_offsetX;
 	D2<Piecewise<SBasis> > patternd2;
@@ -478,8 +461,8 @@ FPointArray PathAlongPathPlugin::doEffect_pwd2(Geom::Piecewise<Geom::D2<Geom::SB
 		patternd2 = make_cuts_independant(rot90(rot90(rot90(pattern))));
 	else
 		patternd2 = make_cuts_independant(pattern);
-	Piecewise<SBasis> x = Piecewise<SBasis>(patternd2[0]);
-	Piecewise<SBasis> y = Piecewise<SBasis>(patternd2[1]);
+	Piecewise<SBasis> x(patternd2[0]);
+	Piecewise<SBasis> y(patternd2[1]);
 	x -= pattBnds.min();
 	y -= (pattBndsY.max()+pattBndsY.min()) / 2.0;
 	y -= m_offsetY;
