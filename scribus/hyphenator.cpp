@@ -63,33 +63,29 @@ bool Hyphenator::loadDict(const QString& name)
 	if (LanguageManager::instance()->getHyphFilename(name).isEmpty())
 		return false;
 		
-	if (m_language != name)
+	if (m_language == name)
+		return (m_codec != nullptr && m_hdict != nullptr);
+
+	m_language = name;
+	QFile file(LanguageManager::instance()->getHyphFilename(m_language));
+
+	if (m_hdict != nullptr)
+		hnj_hyphen_free(m_hdict);
+	m_hdict = nullptr;
+
+	if (!file.open(QIODevice::ReadOnly))
+		return false;
+
+	m_codec = QTextCodec::codecForName(file.readLine());
+	if (!m_codec)
 	{
-		m_language = name;
-
-		QFile file(LanguageManager::instance()->getHyphFilename(m_language));
-		
-		if (m_hdict != nullptr)
-			hnj_hyphen_free(m_hdict);
-
-		if (file.open(QIODevice::ReadOnly))
-		{
-			m_codec = QTextCodec::codecForName(file.readLine());
-			if (!m_codec)
-			{
-				qDebug()<<"Unable to load lines from Hyphenator file";
-				file.close();
-				return false;
-			}
-			m_hdict = hnj_hyphen_load(file.fileName().toLocal8Bit().data());
-			file.close();
-			return true;
-		}
-		m_hdict = nullptr;
+		qDebug()<<"Unable to load lines from Hyphenator file";
+		file.close();
 		return false;
 	}
-
-	return (m_codec != nullptr && m_hdict != nullptr);
+	m_hdict = hnj_hyphen_load(file.fileName().toLocal8Bit().data());
+	file.close();
+	return true;
 }
 
 void Hyphenator::slotNewSettings(bool Autom, bool ACheck)
