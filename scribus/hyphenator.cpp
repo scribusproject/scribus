@@ -75,6 +75,12 @@ bool Hyphenator::loadDict(const QString& name)
 		if (file.open(QIODevice::ReadOnly))
 		{
 			m_codec = QTextCodec::codecForName(file.readLine());
+			if (!m_codec)
+			{
+				qDebug()<<"Unable to load lines from Hyphenator file";
+				file.close();
+				return false;
+			}
 			m_hdict = hnj_hyphen_load(file.fileName().toLocal8Bit().data());
 			file.close();
 			return true;
