@@ -59,7 +59,8 @@ class PLUGIN_API PathAlongPathPlugin : public ScActionPlugin
 	public:
 		// Standard plugin implementation
 		PathAlongPathPlugin();
-		virtual ~PathAlongPathPlugin();
+		~PathAlongPathPlugin() override;
+
 		bool run(ScribusDoc* doc, const QString& target = QString()) override;
 		QString fullTrName() const override;
 		const AboutData* getAboutData() const override;
@@ -67,31 +68,33 @@ class PLUGIN_API PathAlongPathPlugin : public ScActionPlugin
 		void languageChange() override;
 		void addToMainWindowMenu(ScribusMainWindow *) override {};
 		bool handleSelection(ScribusDoc* doc, int SelectedType) override;
+
 	private:
-		void setUpEffect(Geom::Piecewise<Geom::D2<Geom::SBasis> > &pwd2_in, Geom::Piecewise<Geom::D2<Geom::SBasis> > &pattern, int effect, double offset, double offsetY, double gap, int rotate);
-		FPointArray doEffect_pwd2 (Geom::Piecewise<Geom::D2<Geom::SBasis> > & pattern);
-		PageItem *patternItem;
-		PageItem *pathItem;
+		void setUpEffect(const Geom::Piecewise<Geom::D2<Geom::SBasis> > &pwd2_in, const Geom::Piecewise<Geom::D2<Geom::SBasis> > &pattern, int effect, double offset, double offsetY, double gap, int rotate);
+		FPointArray doEffect_pwd2 (const Geom::Piecewise<Geom::D2<Geom::SBasis> > & pattern) const;
+
+		PageItem *patternItem { nullptr };
+		PageItem *pathItem { nullptr };
 		FPointArray originalPath;
 		FPointArray effectPath;
-		double originalRot;
-		double originalXPos;
-		double originalYPos;
-		ScribusDoc* m_doc;
-		bool firstUpdate;
+		double originalRot { 0.0 };
+		double originalXPos { 0.0 };
+		double originalYPos { 0.0 };
+		ScribusDoc* m_doc { nullptr };
+		bool firstUpdate { false };
 		Geom::Piecewise<Geom::D2<Geom::SBasis> > uskeleton;
 		Geom::Piecewise<Geom::D2<Geom::SBasis> > n;
-		double m_scaling;
-		int nbCopies;
-		double pattWidth;
-		double m_offsetX;
-		double m_offsetY;
-		double m_gapval;
-		int m_rotate;
+		double m_scaling { 0.0 };
+		int nbCopies { 0 };
+		double pattWidth { 0.0 };
+		double m_offsetX { 0.0 };
+		double m_offsetY { 0.0 };
+		double m_gapval { 0.0 };
+		int m_rotate { 0 };
 		Geom::Interval pattBnds;
 		Geom::Interval pattBndsY;
-		int selOffs;
-		int selCount;
+		int selOffs { 0 };
+		int selCount { 0 };
 		QList<FPointArray> originalPathG;
 		QList<double> originalRotG;
 		QList<double> originalXPosG;
@@ -103,6 +106,7 @@ class PLUGIN_API PathAlongPathPlugin : public ScActionPlugin
 		QList<double> originalWidth;
 		QList<double> originalHeight;
 		QList<PageItem *> patternItemG;
+
 	private slots:
 		void updateEffectG(int effectType, double offset, double offsetY, double gap, int rotate);
 		void updateEffect(int effectType, double offset, double offsetY, double gap, int rotate);
