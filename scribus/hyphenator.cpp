@@ -70,7 +70,7 @@ bool Hyphenator::loadDict(const QString& name)
 		
 		if (m_hdict != nullptr)
 			hnj_hyphen_free(m_hdict);
-
+		m_hdict = nullptr;
 		if (file.open(QIODevice::ReadOnly))
 		{
 			m_codec = QTextCodec::codecForName(file.readLine());
@@ -84,7 +84,6 @@ bool Hyphenator::loadDict(const QString& name)
 			file.close();
 			return true;
 		}
-		m_hdict = nullptr;
 		return false;
 	}
 
