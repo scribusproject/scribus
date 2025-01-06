@@ -95,7 +95,7 @@ BEGIN
             VALUE "FileDescription", "Scribus 1.7.0.svn"
             VALUE "FileVersion", "1.7.0"
             VALUE "InternalName", "Scribus 1.7.0.svn"
-            VALUE "LegalCopyright", "Copyright (C) 2001-2024 by The Scribus Team"
+            VALUE "LegalCopyright", "Copyright (C) 2001-2025 by The Scribus Team"
             VALUE "OriginalFilename", "Scribus.exe"
             VALUE "ProductName", "Scribus - Open Source Desktop Publishing"
             VALUE "ProductVersion", "1.7.0"
