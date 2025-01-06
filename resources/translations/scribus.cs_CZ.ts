@@ -52,6 +52,14 @@
         <translation>&amp;Online</translation>
     </message>
     <message>
+        <source>&amp;License</source>
+        <translation type="vanished">&amp;Licence</translation>
+    </message>
+    <message>
+        <source>Unable to open license file. Please check your install directory or the Scribus website for licencing information.</source>
+        <translation type="vanished">Nelze otevřít licenční soubor. Informace o licencích naleznete v instalačním adresáři nebo na webu Scribus.</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/about.cpp" line="209"/>
         <source>&amp;Build Information</source>
         <translation>&amp;Informace o sestavení</translation>
@@ -69,7 +77,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="253"/>
         <source>Mac OS&amp;#174; X Port:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mac OS&amp;#174; X Port:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="263"/>
@@ -157,9 +165,25 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>boost: %1</source>
+        <translation type="vanished">boost: %1</translation>
+    </message>
+    <message>
         <location filename="../../scribus/ui/about.cpp" line="687"/>
         <source>cairo: %1</source>
         <translation>cairo: %1</translation>
+    </message>
+    <message>
+        <source>fontconfig: %1</source>
+        <translation type="vanished">fontconfig: %1</translation>
+    </message>
+    <message>
+        <source>harfbuzz: %1</source>
+        <translation type="vanished">harfbuzz: %1</translation>
+    </message>
+    <message>
+        <source>hunspell: %1 (detected at build time)</source>
+        <translation type="vanished">hunspell: %1 (zjištěno v době sestavení)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="691"/>
@@ -204,7 +228,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="321"/>
         <source>Forums</source>
-        <translation type="unfinished"></translation>
+        <translation>Fóra</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="648"/>
