@@ -54,17 +54,17 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="193"/>
         <source>&amp;License</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Lisenssi</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="202"/>
         <source>Unable to open license file. Please check your install directory or the Scribus website for licencing information.</source>
-        <translation type="unfinished"></translation>
+        <translation>Lisenssi tiedostoa ei voi avata. Tarkista lisenssitiedot asennushakemistosta tai Scribus-verkkosivustolta.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="214"/>
         <source>&amp;Build Information</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Koontitiedot</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="229"/>
@@ -134,7 +134,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="669"/>
         <source>Scribus Version %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus versio %1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="672"/>
@@ -219,7 +219,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="325"/>
         <source>Forums</source>
-        <translation type="unfinished"></translation>
+        <translation>Foorumit</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="652"/>
