@@ -2,6 +2,7 @@ Scribus - 1.6.3 (Released 2025-01-08)
 =========================================
 https://bugs.scribus.net/changelog_page.php?version_id=124
 
+0017239: [macOS] release build of 1.6.2 contains ".svn" like it was a self-compiled version
 0014473: [Canvas]  Opacity value in Layers palette not working if only one layer (nitramr)
 0017362: [Build System]  Build error with poppler 25.01.0 (jghali)
 0017363: [General]  1.6.3svn - scribus crashes with signal 11 (probably related to hyphenator) (cbradney)
