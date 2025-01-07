@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2016 Peter Linnell  plinnell@scribus.net, The Scribus Team 2022-2024> -->
+<!-- Copyright 2016 Peter Linnell  plinnell@scribus.net, The Scribus Team 2002-2025> -->
 <component>
   <id type="desktop">scribus@TAG_VERSION@.desktop</id>
   <metadata_license>CC0-1.0</metadata_license>
@@ -33,6 +33,7 @@ separations.</p>
   <update_contact>scribus-dev@lists.scribus.net</update_contact>
   <content_rating type="oars-1.0"/>
   <releases>
+    <release version="1.6.3" date="2025-01-08" type="stable"/>
     <release version="1.6.2" date="2024-06-15" type="stable"/>
     <release version="1.6.1" date="2024-01-07" type="stable"/>
     <release version="1.6.0" date="2024-01-01" type="stable"/>

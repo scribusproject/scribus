@@ -57,7 +57,7 @@
 		</dict>
 	</array>
 	<key>CFBundleGetInfoString</key>
-	<string>Scribus (c) 2001-2024 The Scribus Team</string>
+	<string>Scribus (c) 2001-2025 The Scribus Team</string>
 	<key>CFBundleIconFile</key>
 	<string>Scribus.icns</string>
 	<key>CFBundleIdentifier</key>
@@ -67,7 +67,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.6.3.svn</string>
+	<string>1.6.3</string>
 	<key>CFBundleSignature</key>
 	<string>OSCR</string>
 	<key>NSPrincipalClass</key>
