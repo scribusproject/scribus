@@ -211,10 +211,16 @@ target_link_libraries(${EXE_NAME}
 	Qt6::Network
 	Qt6::Xml
 	Qt6::PrintSupport
-	Qt6::OpenGL
-	Qt6::OpenGLWidgets
 	Qt6::Svg
 	)
+
+if (HAVE_OSG)
+	target_link_libraries(${EXE_NAME}
+		PUBLIC
+		Qt6::OpenGL
+		Qt6::OpenGLWidgets
+		)
+endif()
 
 target_link_libraries(${EXE_NAME}
 	PUBLIC

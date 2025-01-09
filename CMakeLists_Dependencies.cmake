@@ -48,6 +48,22 @@ else()
 endif()
 #>>Poppler for PDF import
 
+#<< OpenSceneGraph for 3D PDF Annocations
+if (WANT_NOOSG)
+	message("Building without 3D Extension")
+else()
+	find_package(OSG)
+	if(OSG_FOUND)
+		message("OSG found OK")
+		set(HAVE_OSG ON)
+		find_package(OpenGL)
+		include(CheckFunctionExists)
+		CHECK_FUNCTION_EXISTS(memrchr HAVE_MEMRCHR)
+	else()
+		message("No OSG found, building without 3D Extension")
+	endif()
+endif()
+#>> OpenSceneGraph for 3D PDF Annocations
 
 #<< Qt
 set(CMAKE_PREFIX_PATH "${QT_PREFIX}/lib/cmake")
@@ -75,13 +91,15 @@ find_package(Qt6 COMPONENTS Network REQUIRED)
 include_directories(${Qt6Network_INCLUDE_DIRS})
 add_definitions(${Qt6Network_DEFINITIONS})
 
-find_package(Qt6 COMPONENTS OpenGL REQUIRED)
-include_directories(${Qt6OpenGL_INCLUDE_DIRS})
-add_definitions(${Qt6OpenGL_DEFINITIONS})
+if (HAVE_OSG)
+	find_package(Qt6 COMPONENTS OpenGL REQUIRED)
+	include_directories(${Qt6OpenGL_INCLUDE_DIRS})
+	add_definitions(${Qt6OpenGL_DEFINITIONS})
 
-find_package(Qt6 COMPONENTS OpenGLWidgets REQUIRED)
-include_directories(${Qt6OpenGLWidgets_INCLUDE_DIRS})
-add_definitions(${Qt6OpenGLWidgets_DEFINITIONS})
+	find_package(Qt6 COMPONENTS OpenGLWidgets REQUIRED)
+	include_directories(${Qt6OpenGLWidgets_INCLUDE_DIRS})
+	add_definitions(${Qt6OpenGLWidgets_DEFINITIONS})
+endif()
 
 find_package(Qt6 COMPONENTS PrintSupport REQUIRED)
 include_directories(${Qt6PrintSupport_INCLUDE_DIRS})
@@ -118,21 +136,6 @@ if (ZLIB_FOUND)
 	set(HAVE_LIBZ ON)
 endif()
 #>> ZLIB
-
-if (WANT_NOOSG)
-	message("Building without 3D Extension")
-else()
-	find_package(OSG)
-	if(OSG_FOUND)
-		message("OSG found OK")
-		set(HAVE_OSG ON)
-		find_package(OpenGL)
-		include(CheckFunctionExists)
-		CHECK_FUNCTION_EXISTS(memrchr HAVE_MEMRCHR)
-	else()
-		message("No OSG found, building without 3D Extension")
-	endif()
-endif()
 
 #<< JPEG, PNG, TIFF
 find_package(JPEG REQUIRED)
