@@ -1,7 +1,12 @@
-Scribus - 1.7.0 (Released 2024-xx-xx)
+Scribus - 1.7.0 (Released 2025-01-xx)
 =========================================
 https://bugs.scribus.net/changelog_page.php?version_id=117
 
+0017351: [General]  [Patch] Fix various typos (cbradney)
+0016017: [User Interface]  Magenta is displayed as black and grey (nitramr)
+0016061: [User Interface]  Properties Toolbar (nitramr)
+0016679: [User Interface]  Some text effect icons are too large to be visible and shoild be scaleable (nitramr)
+0015355: [Usability]  Tab labels in properties window disappear when opening one tab (nitramr)
 0014337: [User Interface]  Hi DPI (nitramr)
 0011018: [User Interface]  Add dock/undock button to palettes. (nitramr)
 0011789: [Story Editor / Text Frames]  Change fonts with arrow keys (nitramr)
@@ -150,6 +155,12 @@ Scribus - 1.6.3 (Released 2024-xx-xx)
 =========================================
 https://bugs.scribus.net/changelog_page.php?version_id=124
 
+0017239: [macOS] release build of 1.6.2 contains ".svn" like it was a self-compiled version
+0014473: [Canvas]  Opacity value in Layers palette not working if only one layer (nitramr)
+0017362: [Build System]  Build error with poppler 25.01.0 (jghali)
+0017363: [General]  1.6.3svn - scribus crashes with signal 11 (probably related to hyphenator) (cbradney)
+0017353: [Styles]  [odt2im] Used custom character styles are not effective in text frame after importing an ODT file (jghali)
+0017356: [Build System]  scribus uses a deprecated way of detecting boost (cbradney)
 0002064: [Import / Export]  Importing of cmyk tiffs with 16bit depth does not work
 0017333: [Color Management]  The CMYK image shows all wrong when added into Image Frame (jghali)
 0010166: [Usability]  Styles: Enter key in Name field opens New button drop-down menu (cbradney)
