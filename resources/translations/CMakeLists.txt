@@ -4,6 +4,7 @@ include_directories(
 
 #Install our qm files, selected from *.qm in this directory
 file( GLOB SCRIBUS_TS_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.ts )
+list(REMOVE_ITEM SCRIBUS_TS_FILES "${CMAKE_CURRENT_SOURCE_DIR}/scribus.untranslated.ts")
 #message(STATUS ${CMAKE_CURRENT_SOURCE_DIR})
 #message(STATUS ${SCRIBUS_TS_FILES})
 
