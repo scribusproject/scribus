@@ -40,12 +40,12 @@ for which a new license (GPL+exception) is in place.
 
 QString FileFormatName()
 {
-    return QObject::tr("HTML Files");
+	return QObject::tr("HTML Files");
 }
 
 QStringList FileExtensions()
 {
-    QStringList endings(QObject::tr("html"));
+	QStringList endings(QObject::tr("html"));
 	endings << QString("htm");
 	return endings;
 }
