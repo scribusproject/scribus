@@ -6,7 +6,9 @@ set(LRELEASE_EXECUTABLE ${Qt5_LRELEASE_EXECUTABLE})
 
 #Install our qm files, selected from *.qm in this directory
 file( GLOB SCRIBUS_TS_FILES ${CMAKE_CURRENT_SOURCE_DIR}/*.ts )
-message(STATUS ${CMAKE_CURRENT_SOURCE_DIR})
+list(REMOVE_ITEM SCRIBUS_TS_FILES "${CMAKE_CURRENT_SOURCE_DIR}/scribus.untranslated.ts")
+#message(STATUS ${CMAKE_CURRENT_SOURCE_DIR})
+#message(STATUS ${SCRIBUS_TS_FILES})
 
 #Bit of a hack, preprocess all the filenames to generate our language string, needed for -DWANT_GUI_LANG=en_GB;de_DE , etc
 foreach(TS_FILEPATH ${SCRIBUS_TS_FILES})
