@@ -156,6 +156,7 @@ set(SCRIBUS_SOURCES
 	rawimage.cpp
 	rc4.c
 	sampleitem.cpp
+	scclipboardprocessor.cpp
 	scclocale.cpp
 	sccolor.cpp
 	sccolorengine.cpp

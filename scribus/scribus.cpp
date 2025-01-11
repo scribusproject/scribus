@@ -131,6 +131,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "pslib.h"
 #include "resourcecollection.h"
+#include "scclipboardprocessor.h"
 #include "scgtplugin.h"
 #include "scimagecachemanager.h"
 #include "scmimedata.h"
@@ -4632,7 +4633,6 @@ void ScribusMainWindow::slotEditPaste()
 //				return;
 			currItem->deleteSelectedTextFromFrame();
 		}
-
 		if (ScMimeData::clipboardHasScribusText())
 		{
 			StoryText story(doc);
@@ -4727,6 +4727,23 @@ void ScribusMainWindow::slotEditPaste()
 			currItem->itemText.insertObject(fIndex);
 			doc->m_Selection->delaySignalsOff();
 		}
+		else if (ScMimeData::clipboardHasHTML())
+		{
+			ScClipboardProcessor scclipproc;
+			QString clipContent = QApplication::clipboard()->mimeData()->html();
+			scclipproc.setContent(clipContent, ScClipboardProcessor::ContentType::HTML);
+			scclipproc.process();
+			//TODO change undo to PASTE_HTML
+			if (UndoManager::undoEnabled())
+			{
+				auto *is = new SimpleState(Um::Paste, QString(), Um::IPaste);
+				is->set("PASTE_PLAINTEXT");
+				is->set("START", currItem->itemText.cursorPosition());
+				is->set("TEXT", scclipproc.data());
+				m_undoManager->action(currItem, is);
+			}
+			currItem->itemText.insertChars(scclipproc.data(), true);
+		}
 		else if (ScMimeData::clipboardHasKnownData())
 		{
 			bool savedAlignGrid = doc->SnapGrid;
@@ -4789,19 +4806,19 @@ void ScribusMainWindow::slotEditPaste()
 		}
 		else
 		{
-			// K.I.S.S.:
-			QString text (QApplication::clipboard()->text(QClipboard::Clipboard));
-			text.replace("\r\n", SpecialChars::PARSEP);
-			text.replace('\n', SpecialChars::PARSEP);
+			ScClipboardProcessor scclipproc;
+			QString clipContent = QApplication::clipboard()->text(QClipboard::Clipboard);
+			scclipproc.setContent(clipContent, ScClipboardProcessor::ContentType::Text);
+			scclipproc.process();
 			if (UndoManager::undoEnabled())
 			{
 				auto *is = new SimpleState(Um::Paste, QString(), Um::IPaste);
 				is->set("PASTE_PLAINTEXT");
 				is->set("START", currItem->itemText.cursorPosition());
-				is->set("TEXT", text);
+				is->set("TEXT", scclipproc.data());
 				m_undoManager->action(currItem, is);
 			}
-			currItem->itemText.insertChars(text, true);
+			currItem->itemText.insertChars(scclipproc.data(), true);
 		}
 		if (doc->appMode == modeEditTable)
 			selItem->asTable()->update();
