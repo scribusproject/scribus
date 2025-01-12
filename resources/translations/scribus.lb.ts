@@ -694,6 +694,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../../scribus/actionmanager.cpp" line="1632"/>
+        <source>&amp;Outlines</source>
+        <comment>Convert to outlines</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../../scribus/actionmanager.cpp" line="1633"/>
         <location filename="../../scribus/actionmanager.cpp" line="1735"/>
         <source>&amp;Polygon</source>
@@ -1254,7 +1260,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1632"/>
         <source>&amp;Outlines</source>
         <comment>Convert to oulines</comment>
         <translation type="unfinished"></translation>
@@ -8125,7 +8130,7 @@ Document Liberation Project https://www.documentliberation.org</source>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.cpp" line="770"/>
-        <source>&lt;h2&gt;&lt;p&gt;Sorry, no manual is installed!&lt;/p&gt;&lt;p&gt;Please see:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;https://docs.scribus.net for updated documentation&lt;/li&gt;&lt;li&gt;http://www.scribus.net for downloads&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</source>
+        <source>&lt;h2&gt;&lt;p&gt;Sorry, no manual is installed!&lt;/p&gt;&lt;p&gt;Please see:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;https://docs.scribus.net for updated documentation&lt;/li&gt;&lt;li&gt;https://www.scribus.net for downloads&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</source>
         <comment>HTML message for no documentation available to show</comment>
         <translation type="unfinished"></translation>
     </message>
@@ -12709,74 +12714,74 @@ If no handle is selected all handles will be reset.</source>
 <context>
     <name>PDFExportDialog</name>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="60"/>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="183"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="61"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="184"/>
         <source>Save as PDF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="66"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="67"/>
         <source>O&amp;utput to File:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="100"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="101"/>
         <source>Cha&amp;nge...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="103"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="104"/>
         <source>Output one file for eac&amp;h page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="106"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="107"/>
         <source>Open PDF after Export</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="118"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="119"/>
         <source>&amp;Save</source>
         <translation>&amp;Späicheren</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="243"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="244"/>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="130"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="131"/>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="184"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="185"/>
         <source>%1 does not exists and will be created, continue?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="203"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="204"/>
         <source>Cannot create directory: 
 %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="243"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="244"/>
         <source>Save As</source>
         <translation>Späicheren als</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="131"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="132"/>
         <source>Open the exported PDF with the PDF viewer as set in External Tools preferences, when not exporting to a multi-file export destination</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="132"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="133"/>
         <source>The save button will be disabled if you are trying to export PDF/X and the info string is missing from the PDF/X tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="172"/>
+        <location filename="../../scribus/ui/pdfexportdialog.cpp" line="173"/>
         <source>The range of pages to export is invalid.
 Please check it and try again.</source>
         <translation type="unfinished"></translation>
@@ -12900,17 +12905,17 @@ Please disable experimental PDF and PS embedding and try again.</source>
 <context>
     <name>PageGrid</name>
     <message>
-        <location filename="../../scribus/ui/pagepalette_widgets.cpp" line="766"/>
+        <location filename="../../scribus/ui/pagepalette_widgets.cpp" line="772"/>
         <source>&amp;Small Preview</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagepalette_widgets.cpp" line="770"/>
+        <location filename="../../scribus/ui/pagepalette_widgets.cpp" line="776"/>
         <source>&amp;Medium Preview</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagepalette_widgets.cpp" line="774"/>
+        <location filename="../../scribus/ui/pagepalette_widgets.cpp" line="780"/>
         <source>&amp;Large Preview</source>
         <translation type="unfinished"></translation>
     </message>
@@ -12953,8 +12958,8 @@ Please disable experimental PDF and PS embedding and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="8036"/>
         <location filename="../../scribus/pageitem.cpp" line="8037"/>
+        <location filename="../../scribus/pageitem.cpp" line="8038"/>
         <source>Copy of</source>
         <translation type="unfinished"></translation>
     </message>
@@ -13398,32 +13403,32 @@ Please disable experimental PDF and PS embedding and try again.</source>
 <context>
     <name>PageItem_TextFrame</name>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4985"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="4995"/>
         <source>Linked Text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4987"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="4997"/>
         <source>Text Frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4991"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5001"/>
         <source>Paragraphs: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4999"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5009"/>
         <source>Lines: </source>
         <translation>Linnen:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="5005"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5015"/>
         <source>Words: </source>
         <translation>Wierder:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="5013"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5023"/>
         <source>Chars: </source>
         <translation type="unfinished"></translation>
     </message>
@@ -13513,42 +13518,42 @@ Please disable experimental PDF and PS embedding and try again.</source>
 <context>
     <name>PagePalette_Pages</name>
     <message>
-        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="93"/>
+        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="94"/>
         <source>This master page is used at least once in the document.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="97"/>
+        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="98"/>
         <source>Do you really want to delete this master page?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="169"/>
+        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="170"/>
         <source>Delete Page?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="170"/>
+        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="171"/>
         <source>Are you sure you want to delete this page?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="500"/>
+        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="506"/>
         <source>Duplicate the selected page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="501"/>
+        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="507"/>
         <source>Move the selected page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="502"/>
+        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="508"/>
         <source>Add a new page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="503"/>
+        <location filename="../../scribus/ui/pagepalette_pages.cpp" line="509"/>
         <source>Import pages from another document</source>
         <translation type="unfinished"></translation>
     </message>
@@ -15925,8 +15930,8 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>PrefsManager</name>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2458"/>
-        <location filename="../../scribus/prefsmanager.cpp" line="2467"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2464"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2473"/>
         <source>Postscript</source>
         <translation>Postscript</translation>
     </message>
@@ -15942,8 +15947,8 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2457"/>
-        <location filename="../../scribus/prefsmanager.cpp" line="2467"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2463"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2473"/>
         <source>PostScript</source>
         <translation>PostScript</translation>
     </message>
@@ -15969,28 +15974,28 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2947"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2953"/>
         <source>Error Writing Preferences</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2949"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2955"/>
         <source>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</source>
         <comment>scribus app error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2964"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2970"/>
         <source>Error Loading Preferences</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2966"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2972"/>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2575"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2581"/>
         <source>No valid renderframe config found. Using defaults!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -21378,93 +21383,93 @@ a range of pages or a single page number</source>
     <name>PropertiesPalette_Image</name>
     <message>
         <location filename="../../scribus/ui/propertiespalette_image.cpp" line="40"/>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="733"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="734"/>
         <source>Auto</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="738"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="739"/>
         <source>Perceptual</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="739"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="740"/>
         <source>Relative Colorimetric</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="740"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="741"/>
         <source>Saturation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="741"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="742"/>
         <source>Absolute Colorimetric</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="747"/>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="757"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="748"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="758"/>
         <source>Global</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="748"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="749"/>
         <source>Automatic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="749"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="750"/>
         <source>Lossy - JPEG</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="750"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="751"/>
         <source>Lossless - Zip</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="751"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="752"/>
         <source>None</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="758"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="759"/>
         <source>Maximum</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="759"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="760"/>
         <source>High</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="760"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="761"/>
         <source>Medium</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="761"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="762"/>
         <source>Low</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="762"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="763"/>
         <source>Minimum</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="765"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="766"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="769"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="770"/>
         <source> pt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="774"/>
+        <location filename="../../scribus/ui/propertiespalette_image.cpp" line="775"/>
         <source> dpi</source>
         <translation type="unfinished"></translation>
     </message>
@@ -21472,82 +21477,82 @@ a range of pages or a single page number</source>
 <context>
     <name>PropertiesPalette_ImageBase</name>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="78"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="65"/>
         <source>Horizontal offset of image within frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="65"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="88"/>
         <source>Vertical offset of image within frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="174"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="216"/>
         <source>Auto</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="354"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="370"/>
         <source>Resize the image horizontally</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="298"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="314"/>
         <source>Resize the image vertically</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="330"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="346"/>
         <source>Keep the X and Y scaling the same</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="367"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="383"/>
         <source>Effective horizontal DPI of the image after scaling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="321"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="337"/>
         <source>Effective vertical DPI of the image after scaling</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="501"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="517"/>
         <source>Source profile of the image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="461"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="477"/>
         <source>Rendering intent for the image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="412"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="428"/>
         <source>Color Management</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="528"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="544"/>
         <source>PDF Compression</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="535"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="551"/>
         <source>Method:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="551"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="567"/>
         <source>Compression method used in PDF export for the image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="571"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="587"/>
         <source>Quality:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="564"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="580"/>
         <source>Compression quality used in PDF export for the image</source>
         <translation type="unfinished"></translation>
     </message>
@@ -21557,77 +21562,77 @@ a range of pages or a single page number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="85"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="72"/>
         <source>Y:</source>
         <translation>G:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="97"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="139"/>
         <source>&amp;Rotation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="121"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="163"/>
         <source>Rotation of the image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="147"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="189"/>
         <source>&amp;Page Number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="171"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="213"/>
         <source>Page number of PDF file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="199"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="95"/>
         <source>X:</source>
         <translation>X:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="240"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="256"/>
         <source>Auto-Fit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="258"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="274"/>
         <source>Image &amp;Scale</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="437"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="453"/>
         <source>Rendering Intent</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="477"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="493"/>
         <source>Input Profile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="598"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="614"/>
         <source>Effects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="631"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="647"/>
         <source>Open Image Effects dialog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="634"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="650"/>
         <source>Image Effects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="660"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="676"/>
         <source>Layers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="681"/>
+        <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="697"/>
         <source>Clipping Paths</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22280,152 +22285,152 @@ a range of pages or a single page number</source>
 <context>
     <name>PropertiesPalette_XYZBase</name>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="402"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="348"/>
         <source>Horizontal position of current basepoint</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="187"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="86"/>
         <source>Vertical position of current basepoint</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="502"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="461"/>
         <source>Rotate the selection clockwise by 90º</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="200"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="47"/>
         <source>Width of current selection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="428"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="299"/>
         <source>Height of current selection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="482"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="441"/>
         <source>Rotation of object at current basepoint</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="492"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="451"/>
         <source>Rotate the selection anti-clockwise by 90º</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="120"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="311"/>
         <source>Keep the aspect ratio</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="168"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="280"/>
         <source>&amp;X:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="142"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="267"/>
         <source>&amp;Y:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="102"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="54"/>
         <source>&amp;H:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="155"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="323"/>
         <source>&amp;W:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="234"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="120"/>
         <source>Flip</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="280"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="163"/>
         <source>Lock</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="329"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="209"/>
         <source>Group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="453"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="415"/>
         <source>&amp;Rotation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="515"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="490"/>
         <source>Level</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="554"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="526"/>
         <source>Move one level up</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="561"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="533"/>
         <source>Move one level down</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="73"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="547"/>
         <source>Z:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="547"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="519"/>
         <source>Move to front</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="568"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="540"/>
         <source>Move to back</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="581"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="563"/>
         <source>Indicates the level the object is on, 1 means the object is at the bottom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="584"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="566"/>
         <source>0</source>
         <translation>0</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="358"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="235"/>
         <source>Group the selected objects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="365"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="242"/>
         <source>Ungroup the selected group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="263"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="146"/>
         <source>Flip horizontally</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="270"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="153"/>
         <source>Flip vertically</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="309"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="189"/>
         <source>Lock or unlock the object</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="316"/>
+        <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="196"/>
         <source>Lock or unlock the size of the object</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22559,12 +22564,12 @@ a range of pages or a single page number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="359"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="360"/>
         <source>Distance between columns</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="359"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="360"/>
         <source>Column width</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24080,8 +24085,8 @@ Check path and filename.</source>
         <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="1289"/>
         <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="630"/>
         <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="1096"/>
-        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="1557"/>
-        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="2212"/>
+        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="1552"/>
+        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="2203"/>
         <source>Background</source>
         <translation type="unfinished"></translation>
     </message>
@@ -26914,84 +26919,96 @@ External Links
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="168"/>
-        <source>Cannot get text size of non-text frame.</source>
+        <source>Cannot get tracking of non-text frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="204"/>
-        <source>Cannot get vertical alignment of non-text frame.</source>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="195"/>
+        <source>Cannot get word tracking of non-text frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="222"/>
-        <source>Cannot get column count of non-text frame.</source>
+        <source>Cannot get text size of non-text frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="258"/>
+        <source>Cannot get vertical alignment of non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="276"/>
+        <source>Cannot get column count of non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="312"/>
         <source>Cannot get fontfeatures of non-text frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="283"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="302"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="321"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="343"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="337"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="356"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="375"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="397"/>
         <source>Cannot get linked frames of non-text frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="365"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="419"/>
         <source>Cannot get first line offset of non-text frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="383"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="437"/>
         <source>Cannot get line space of non-text frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="240"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="294"/>
         <source>Cannot get column gap of non-text frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="401"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="455"/>
         <source>Cannot get line spacing mode of non-text frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="441"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="475"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="495"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="529"/>
         <source>Cannot get text of non-text frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="511"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="565"/>
         <source>Cannot set text of non-text frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="539"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="579"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="593"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="633"/>
         <source>Cannot insert text into non-text frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1046"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1086"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1160"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1200"/>
         <source>Selection index out of bounds</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
@@ -27213,7 +27230,7 @@ External Links
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="102"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="802"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="856"/>
         <source>Font not found.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
@@ -27277,231 +27294,243 @@ External Links
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="548"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="602"/>
         <source>Insert index out of bounds.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="605"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="659"/>
         <source>Cannot layout text of a non-text frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="625"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="679"/>
         <source>Cannot layout text chain for a non-text frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="656"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="710"/>
         <source>Alignment out of range. Use one of the scribus.ALIGN_* constants.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="664"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="718"/>
         <source>Cannot set text alignment on a non-text frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="691"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="745"/>
         <source>direction out of range. Use one of the scribus.DIRECTION* constants.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="699"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="753"/>
         <source>Cannot set text direction on a non-text frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="726"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="780"/>
         <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="735"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="789"/>
         <source>Cannot set font size on a non-text frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="767"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="821"/>
         <source>Cannot set font feature on a non-text frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="797"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="851"/>
         <source>Cannot set font on a non-text frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="829"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="883"/>
         <source>First line offset out of bounds, Use one of the scribus.FLOP_* constants.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="837"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="891"/>
         <source>Cannot set first line offset on a non-text frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="856"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="910"/>
         <source>Line space out of bounds, must be &gt;= 0.1.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="864"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="918"/>
         <source>Cannot set line spacing on a non-text frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="891"/>
-        <source>Line space mode invalid, must be 0, 1 or 2</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="899"/>
-        <source>Cannot set line spacing mode on a non-text frame.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="952"/>
-        <source>Column gap out of bounds, must be positive.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="960"/>
-        <source>Cannot set column gap on a non-text frame.</source>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="948"/>
+        <source>Cannot set tracking on a non-text frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="978"/>
+        <source>Cannot set word tracking on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1005"/>
+        <source>Line space mode invalid, must be 0, 1 or 2</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1013"/>
+        <source>Cannot set line spacing mode on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1066"/>
+        <source>Column gap out of bounds, must be positive.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1074"/>
+        <source>Cannot set column gap on a non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1092"/>
         <source>Column count out of bounds, must be &gt; 1.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="986"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1100"/>
         <source>Cannot set number of columns on a non-text frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1004"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1118"/>
         <source>Vertical alignment out of bounds, Use one of the scribus.ALIGNV_* constants.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1012"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1126"/>
         <source>Cannot set vertical alignment on a non-text frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1035"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1091"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1149"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1205"/>
         <source>Cannot select text in a non-text frame</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1040"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1154"/>
         <source>Count must be positive, 0 or -1</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1125"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1143"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1239"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1257"/>
         <source>Cannot get text selection for non-text frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1162"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1276"/>
         <source>Cannot delete text from a non-text frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1195"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1309"/>
         <source>Cannot set text fill on a non-text frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1215"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1329"/>
         <source>Cannot set text stroke on a non-text frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1311"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1425"/>
         <source>Cannot set text shade on a non-text frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1335"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1449"/>
         <source>Can only link text frames.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1340"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1454"/>
         <source>Source frame is linked to another frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1345"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1459"/>
         <source>Target frame is linked to by another frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1350"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1464"/>
         <source>Source and target are the same object.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1374"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1488"/>
         <source>Cannot unlink a non-text frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1428"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1542"/>
         <source>Cannot convert a non-text frame to outlines.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1546"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1660"/>
         <source>Can&apos;t set bookmark on a non-text frame</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1575"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1689"/>
         <source>Can&apos;t get info from a non-text frame</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
@@ -27914,13 +27943,13 @@ External Links
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1380"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1494"/>
         <source>Object is not a linked text frame, can&apos;t unlink.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1454"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1568"/>
         <source>Only text frames can be checked for overflowing</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
@@ -27967,7 +27996,7 @@ External Links
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="1008"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="1012"/>
         <source>Scribus Python interface module
 
 This module is the Python interface for Scribus. It provides functions
@@ -28933,7 +28962,7 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="186"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="240"/>
         <source>Cannot get number of lines of non-text frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
@@ -28944,9 +28973,9 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpeg.cpp" line="223"/>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpeg.cpp" line="267"/>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpeg.cpp" line="351"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpeg.cpp" line="230"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpeg.cpp" line="274"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpeg.cpp" line="358"/>
         <source>%1 may be corrupted : missing or wrong resolution tags</source>
         <translation type="unfinished"></translation>
     </message>
@@ -29141,43 +29170,49 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="226"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="228"/>
         <source>Cannot have an empty char style name.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="235"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="237"/>
         <source>Specified font is not available.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="247"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="250"/>
         <source>Specified fill color is not available in document.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="255"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="258"/>
         <source>Specified stroke color is not available in document.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="398"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="266"/>
+        <source>Specified background color is not available in document.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="411"/>
         <source>Specified color is not available in document.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1503"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1617"/>
         <source>Can only hyphenate text frame</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1526"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1640"/>
         <source>Can only dehyphenate text frame</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
@@ -29239,19 +29274,19 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="419"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="473"/>
         <source>Cannot get text distances of non-text frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="926"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1040"/>
         <source>Text distances out of bounds, must be positive.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="934"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1048"/>
         <source>Cannot set text distances on a non-text frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
@@ -29321,15 +29356,15 @@ Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1233"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1269"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1347"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1383"/>
         <source>Character scaling out of bounds, must be &gt;= 10</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1241"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1277"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1355"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1391"/>
         <source>Cannot set character scaling on a non-text frame.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
@@ -29888,7 +29923,7 @@ Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18598"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18634"/>
         <source>Unacceptable settings for note style</source>
         <translation type="unfinished"></translation>
     </message>
@@ -30133,7 +30168,7 @@ Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/gettext/odt2im/importodt.cpp" line="31"/>
+        <location filename="../../scribus/plugins/gettext/odt2im/importodt.cpp" line="32"/>
         <source>ODT Document</source>
         <translation type="unfinished"></translation>
     </message>
@@ -33512,7 +33547,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
 <context>
     <name>Scribus134Format</name>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3946"/>
+        <location filename="../../scribus/plugins/fileloader/scribus134format/scribus134format.cpp" line="3953"/>
         <source>Copy #%1 of </source>
         <translation type="unfinished"></translation>
     </message>
@@ -33588,7 +33623,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="7298"/>
+        <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="7292"/>
         <source>Copy #%1 of </source>
         <translation type="unfinished"></translation>
     </message>
@@ -33652,7 +33687,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <location filename="../../scribus/scribusdoc.cpp" line="200"/>
         <location filename="../../scribus/scribusdoc.cpp" line="206"/>
         <location filename="../../scribus/scribusdoc.cpp" line="236"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17044"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17080"/>
         <source>Document</source>
         <translation type="unfinished"></translation>
     </message>
@@ -33662,27 +33697,27 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11474"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11481"/>
         <source>Cannot Delete In-Use Item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11474"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11481"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12258"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12294"/>
         <source>Some objects are locked.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12254"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12290"/>
         <source>&amp;Unlock All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12255"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12291"/>
         <source>&amp;Skip locked objects</source>
         <translation type="unfinished"></translation>
     </message>
@@ -33693,22 +33728,22 @@ If you save it in this version, it will no longer be readable by older Scribus v
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="950"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16724"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16760"/>
         <source>Adjusting Colors</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9249"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9256"/>
         <source>remove direct paragraph formatting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9722"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9729"/>
         <source>remove direct char formatting</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13923"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13959"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -33716,7 +33751,7 @@ Rotation: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13956"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13992"/>
         <source>Number of rows: %1
 Number of columns: %2
 Horizontal gap: %3
@@ -33724,9 +33759,9 @@ Vertical gap: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="15403"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15458"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15620"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15439"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15494"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15656"/>
         <source>Group%1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -33737,28 +33772,28 @@ Vertical gap: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="14079"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14115"/>
         <source>Copied %1 item(s) on %2 page(s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17060"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17096"/>
         <source>File %1 autosaved</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18227"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="18264"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18263"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18300"/>
         <source>No Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18592"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18628"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11370"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11377"/>
         <source>Do you really want to clear the content of all selected frames?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -34587,17 +34622,17 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="10999"/>
+        <location filename="../../scribus/pageitem.cpp" line="11000"/>
         <source>Print: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="11001"/>
+        <location filename="../../scribus/pageitem.cpp" line="11002"/>
         <source>Enabled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="11003"/>
+        <location filename="../../scribus/pageitem.cpp" line="11004"/>
         <source>Disabled</source>
         <translation type="unfinished"></translation>
     </message>
@@ -34787,7 +34822,6 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="365"/>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -34804,6 +34838,11 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="459"/>
         <source>There was an internal error while trying the command you entered. Details were printed to stderr. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="365"/>
+        <source>If you are running an official script report it at &lt;a href=&quot;https://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -35665,19 +35704,19 @@ Consider using the Preflight Verifier to correct them</source>
 <context>
     <name>StyleManager</name>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="244"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="256"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="115"/>
         <source>Name:</source>
         <translation>Numm:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="387"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="405"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="116"/>
         <source>&amp;Reset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="365"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="380"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="117"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="1019"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="1189"/>
@@ -35686,7 +35725,7 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="343"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="355"/>
         <source>&lt;&lt; &amp;Done</source>
         <translation type="unfinished"></translation>
     </message>
@@ -35697,19 +35736,19 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>&amp;Nei</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="184"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="190"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="122"/>
         <source>&amp;Import</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="168"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="171"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="123"/>
         <source>&amp;Clone</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="200"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="209"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="124"/>
         <source>&amp;Delete</source>
         <translation type="unfinished"></translation>
@@ -35839,33 +35878,33 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="171"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="174"/>
         <source>Alt+C</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="187"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="193"/>
         <source>Alt+I</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="203"/>
-        <location filename="../../scribus/ui/stylemanager.ui" line="346"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="212"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="358"/>
         <source>Alt+D</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="274"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="286"/>
         <source>Please select a unique name for the style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="368"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="383"/>
         <source>Alt+A</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="390"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="408"/>
         <source>Alt+R</source>
         <translation type="unfinished"></translation>
     </message>
@@ -35876,7 +35915,7 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.ui" line="165"/>
+        <location filename="../../scribus/ui/stylemanager.ui" line="168"/>
         <source>Clone copies the style to make similar styles easily</source>
         <translation type="unfinished"></translation>
     </message>
