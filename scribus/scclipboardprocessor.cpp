@@ -59,7 +59,7 @@ bool ScClipboardProcessor::processHTML()
 	// qDebug()<<qTextDoc.defaultFont().pointSizeF();
 	// qDebug()<<qTextDoc.defaultFont().style();
 
-
+	/*
 	// Create a QTextCursor to traverse the document
 	QTextCursor cursor(&qTextDoc);
 
@@ -91,6 +91,7 @@ bool ScClipboardProcessor::processHTML()
 			// qDebug() << "StrikeOut: " << charFormat.fontStrikeOut();
 		}
 	}
+	*/
 	//temporary result for 1.7.0
 	m_result = qTextDoc.toPlainText();
 	m_result.replace("\r\n", SpecialChars::PARSEP);
