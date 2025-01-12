@@ -14341,6 +14341,16 @@ Please disable experimental PDF and PS embedding and try again.</translation>
         <source>Generating Items</source>
         <translation>Generating Items</translation>
     </message>
+    <message>
+        <source>Parsing failed!
+
+Please submit your file (if possible) to the
+Document Liberation Project https://www.documentliberation.org</source>
+        <translation type="vanished">Parsing failed!
+
+Please submit your file (if possible) to the
+Document Liberation Project https://www.documentliberation.org</translation>
+    </message>
 </context>
 <context>
     <name>PathAlongPathPlugin</name>
