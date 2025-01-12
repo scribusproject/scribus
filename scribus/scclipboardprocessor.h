@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCCLIPBOARDPROCESSOR_H
 #define SCCLIPBOARDPROCESSOR_H
 
+//#define SCCLIP_DEBUG 1
 
 class ScClipboardProcessor
 {
@@ -31,10 +32,14 @@ class ScClipboardProcessor
 		bool process();
 		const QString &data();
 		void reset();
+		void dumpClipboardData();
 
 	protected:
 		bool processText();
 		bool processHTML();
+		bool processHTML_MSFT();
+		bool processHTML_Cocoa();
+		bool processHTML_Other();
 
 		QString m_content;
 		ContentType m_contentType {ContentType::Unknown};
