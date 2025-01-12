@@ -7,6 +7,8 @@
 #include <QDomDocument>
 #include <QXmlStreamReader>
 
+#include "text/specialchars.h"
+
 
 ScClipboardProcessor::ScClipboardProcessor()
 {
