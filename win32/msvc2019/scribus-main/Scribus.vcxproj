@@ -369,6 +369,7 @@
     <ClInclude Include="..\..\..\scribus\printpreviewcreator_gdi.h" />
     <ClInclude Include="..\..\..\scribus\printpreviewcreator_pdf.h" />
     <ClInclude Include="..\..\..\scribus\printpreviewcreator_ps.h" />
+    <ClInclude Include="..\..\..\scribus\scclipboardprocessor.h" />
     <ClInclude Include="..\..\..\scribus\sccolorstructs.h" />
     <ClInclude Include="..\..\..\scribus\scprintengine_pdf.h" />
     <moc Include="..\..\..\scribus\storyloader.h" />
@@ -964,6 +965,7 @@
     <ClCompile Include="..\..\..\scribus\printpreviewcreator_ps.cpp" />
     <ClCompile Include="..\..\..\scribus\qtiocompressor.cpp" />
     <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_ora.cpp" />
+    <ClCompile Include="..\..\..\scribus\scclipboardprocessor.cpp" />
     <ClCompile Include="..\..\..\scribus\sccolorstructs.cpp" />
     <ClCompile Include="..\..\..\scribus\scprintengine_pdf.cpp" />
     <ClCompile Include="..\..\..\scribus\selectionrubberband.cpp" />
