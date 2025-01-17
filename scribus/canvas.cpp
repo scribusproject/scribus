@@ -1335,7 +1335,6 @@ void Canvas::DrawMasterItems(ScPainter *painter, ScPage *page, ScLayer& layer, Q
 
 	PageItem *currItem;
 	ScPage* Mp = m_doc->MasterPages.at(m_doc->MasterNames[page->masterPageName()]);
-	int layerCount = m_doc->layerCount();
 	if (((layer.blendMode != 0) || (layer.transparency != 1.0)) && (!layer.outlineMode))
 		painter->beginLayer(layer.transparency, layer.blendMode);
 	int pageFromMasterCount = page->FromMaster.count();
@@ -1434,7 +1433,6 @@ void Canvas::DrawPageItems(ScPainter *painter, ScLayer& layer, QRect clip, bool 
 	                    qRound(clip.width() / m_viewMode.scale + 0.5), qRound(clip.height() / m_viewMode.scale + 0.5));
 
 	PageItem *currItem;
-	int layerCount = m_doc->layerCount();
 	int docCurrPageNo = m_doc->currentPageNumber();
 	if (((layer.blendMode != 0) || (layer.transparency != 1.0)) && (!layer.outlineMode))
 		painter->beginLayer(layer.transparency, layer.blendMode);
