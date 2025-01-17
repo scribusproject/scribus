@@ -159,114 +159,115 @@ bool PathAlongPathPlugin::run(ScribusDoc* doc, const QString&)
 	patternItemG.clear();
 	if (m_doc == nullptr)
 		m_doc = ScCore->primaryMainWindow()->doc;
-	if (m_doc->m_Selection->count() > 1)
+
+	if (m_doc->m_Selection->count() < 2)
+		return true;
+
+	if ((m_doc->m_Selection->itemAt(0)->isGroup()) || (m_doc->m_Selection->itemAt(1)->isGroup()))
 	{
-		if ((m_doc->m_Selection->itemAt(0)->isGroup()) || (m_doc->m_Selection->itemAt(1)->isGroup()))
+		selOffs = 0;
+		selCount = m_doc->m_Selection->count() - 1;
+		if (!m_doc->m_Selection->itemAt(0)->isGroup())
 		{
-			selOffs = 0;
-			selCount = m_doc->m_Selection->count() - 1;
-			if (!m_doc->m_Selection->itemAt(0)->isGroup())
+			pathItem = m_doc->m_Selection->itemAt(0);
+			selOffs = 1;
+		}
+		else
+			pathItem = m_doc->m_Selection->itemAt(selCount);
+		effectPath = pathItem->PoLine.copy();
+		QTransform mp;
+		mp.rotate(pathItem->rotation());
+		effectPath.map(mp);
+		PageItem* bxi = m_doc->m_Selection->itemAt(selOffs);
+		bxi->asGroupFrame()->adjustXYPosition();
+		originalPathG.append(bxi->PoLine.copy());
+		originalXPosG.append(bxi->xPos());
+		originalYPosG.append(bxi->yPos());
+		originalXPosGi.append(bxi->gXpos);
+		originalYPosGi.append(bxi->gYpos);
+		originalRotG.append(bxi->rotation());
+		originalWidth.append(bxi->width());
+		originalHeight.append(bxi->height());
+		originalWidthG.append(bxi->groupWidth);
+		originalHeightG.append(bxi->groupHeight);
+		patternItemG.append(bxi);
+		QList<PageItem*> bxiL = bxi->getAllChildren();
+		for (int bx = 0; bx < bxiL.count(); ++bx)
+		{
+			PageItem* cIte = bxiL.at(bx);
+			originalPathG.append(cIte->PoLine.copy());
+			originalXPosG.append(cIte->xPos());
+			originalYPosG.append(cIte->yPos());
+			originalWidth.append(cIte->width());
+			originalHeight.append(cIte->height());
+			originalWidthG.append(cIte->groupWidth);
+			originalHeightG.append(cIte->groupHeight);
+			originalXPosGi.append(cIte->gXpos);
+			originalYPosGi.append(cIte->gYpos);
+			originalRotG.append(cIte->rotation());
+			patternItemG.append(cIte);
+		}
+		QPainterPath tmpPath = effectPath.toQPainterPath(false);
+		PathDialog *dia = new PathDialog(m_doc->scMW(), m_doc->unitIndex(), tmpPath.length(), true);
+		connect(dia, SIGNAL(updateValues(int,double,double,double,int)), this, SLOT(updateEffectG(int,double,double,double,int)));
+		if (dia->exec())
+		{
+			updateEffectG(dia->effectType, dia->offset, dia->offsetY, dia->gap, dia->rotate);
+			m_doc->changed();
+			if (bxi->isGroup())
 			{
-				pathItem = m_doc->m_Selection->itemAt(0);
-				selOffs = 1;
-			}
-			else
-				pathItem = m_doc->m_Selection->itemAt(selCount);
-			effectPath = pathItem->PoLine.copy();
-			QTransform mp;
-			mp.rotate(pathItem->rotation());
-			effectPath.map(mp);
-			PageItem* bxi = m_doc->m_Selection->itemAt(selOffs);
-			bxi->asGroupFrame()->adjustXYPosition();
-			originalPathG.append(bxi->PoLine.copy());
-			originalXPosG.append(bxi->xPos());
-			originalYPosG.append(bxi->yPos());
-			originalXPosGi.append(bxi->gXpos);
-			originalYPosGi.append(bxi->gYpos);
-			originalRotG.append(bxi->rotation());
-			originalWidth.append(bxi->width());
-			originalHeight.append(bxi->height());
-			originalWidthG.append(bxi->groupWidth);
-			originalHeightG.append(bxi->groupHeight);
-			patternItemG.append(bxi);
-			QList<PageItem*> bxiL = bxi->getAllChildren();
-			for (int bx = 0; bx < bxiL.count(); ++bx)
-			{
-				PageItem* cIte = bxiL.at(bx);
-				originalPathG.append(cIte->PoLine.copy());
-				originalXPosG.append(cIte->xPos());
-				originalYPosG.append(cIte->yPos());
-				originalWidth.append(cIte->width());
-				originalHeight.append(cIte->height());
-				originalWidthG.append(cIte->groupWidth);
-				originalHeightG.append(cIte->groupHeight);
-				originalXPosGi.append(cIte->gXpos);
-				originalYPosGi.append(cIte->gYpos);
-				originalRotG.append(cIte->rotation());
-				patternItemG.append(cIte);
-			}
-			QPainterPath tmpPath = effectPath.toQPainterPath(false);
-			PathDialog *dia = new PathDialog(m_doc->scMW(), m_doc->unitIndex(), tmpPath.length(), true);
-			connect(dia, SIGNAL(updateValues(int,double,double,double,int)), this, SLOT(updateEffectG(int,double,double,double,int)));
-			if (dia->exec())
-			{
-				updateEffectG(dia->effectType, dia->offset, dia->offsetY, dia->gap, dia->rotate);
-				m_doc->changed();
-				if (bxi->isGroup())
-				{
-					m_doc->resizeGroupToContents(bxi);
-					bxi->SetRectFrame();
-					m_doc->view()->DrawNew();
-				}
-			}
-			else
-			{
-				updateEffectG(-1, dia->offset, dia->offsetY, dia->gap, dia->rotate);
+				m_doc->resizeGroupToContents(bxi);
+				bxi->SetRectFrame();
 				m_doc->view()->DrawNew();
 			}
-			delete dia;
 		}
 		else
 		{
-			patternItem = m_doc->m_Selection->itemAt(0);
-			pathItem = m_doc->m_Selection->itemAt(1);
-			if (pathItem->itemType() != PageItem::PolyLine)
-			{
-				patternItem = m_doc->m_Selection->itemAt(1);
-				pathItem = m_doc->m_Selection->itemAt(0);
-			}
-			effectPath = pathItem->PoLine.copy();
-			QTransform mp;
-			mp.rotate(pathItem->rotation());
-			effectPath.map(mp);
-			originalPath = patternItem->PoLine.copy();
-			originalXPos = patternItem->xPos();
-			originalYPos = patternItem->yPos();
-			originalRot = patternItem->rotation();
-			QPainterPath tmpPath = effectPath.toQPainterPath(false);
-			PathDialog *dia = new PathDialog(m_doc->scMW(), m_doc->unitIndex(), tmpPath.length(), false);
-			connect(dia, SIGNAL(updateValues(int,double,double,double,int)), this, SLOT(updateEffect(int,double,double,double,int)));
-			if (dia->exec())
-			{
-				updateEffect(dia->effectType, dia->offset, dia->offsetY, dia->gap, dia->rotate);
-				patternItem->ContourLine = patternItem->PoLine.copy();
-				m_doc->changed();
-			}
-			else
-			{
-				patternItem->PoLine = originalPath;
-				patternItem->ClipEdited = true;
-				patternItem->FrameType = 3;
-				patternItem->setXYPos(originalXPos, originalYPos);
-				patternItem->setRotation(originalRot);
-				m_doc->adjustItemSize(patternItem);
-				patternItem->OldB2 = patternItem->width();
-				patternItem->OldH2 = patternItem->height();
-				patternItem->updateClip();
-				m_doc->view()->DrawNew();
-			}
-			delete dia;
+			updateEffectG(-1, dia->offset, dia->offsetY, dia->gap, dia->rotate);
+			m_doc->view()->DrawNew();
 		}
+		delete dia;
+	}
+	else
+	{
+		patternItem = m_doc->m_Selection->itemAt(0);
+		pathItem = m_doc->m_Selection->itemAt(1);
+		if (pathItem->itemType() != PageItem::PolyLine)
+		{
+			patternItem = m_doc->m_Selection->itemAt(1);
+			pathItem = m_doc->m_Selection->itemAt(0);
+		}
+		effectPath = pathItem->PoLine.copy();
+		QTransform mp;
+		mp.rotate(pathItem->rotation());
+		effectPath.map(mp);
+		originalPath = patternItem->PoLine.copy();
+		originalXPos = patternItem->xPos();
+		originalYPos = patternItem->yPos();
+		originalRot = patternItem->rotation();
+		QPainterPath tmpPath = effectPath.toQPainterPath(false);
+		PathDialog *dia = new PathDialog(m_doc->scMW(), m_doc->unitIndex(), tmpPath.length(), false);
+		connect(dia, SIGNAL(updateValues(int,double,double,double,int)), this, SLOT(updateEffect(int,double,double,double,int)));
+		if (dia->exec())
+		{
+			updateEffect(dia->effectType, dia->offset, dia->offsetY, dia->gap, dia->rotate);
+			patternItem->ContourLine = patternItem->PoLine.copy();
+			m_doc->changed();
+		}
+		else
+		{
+			patternItem->PoLine = originalPath;
+			patternItem->ClipEdited = true;
+			patternItem->FrameType = 3;
+			patternItem->setXYPos(originalXPos, originalYPos);
+			patternItem->setRotation(originalRot);
+			m_doc->adjustItemSize(patternItem);
+			patternItem->OldB2 = patternItem->width();
+			patternItem->OldH2 = patternItem->height();
+			patternItem->updateClip();
+			m_doc->view()->DrawNew();
+		}
+		delete dia;
 	}
 	return true;
 }
