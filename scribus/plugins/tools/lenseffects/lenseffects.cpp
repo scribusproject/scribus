@@ -24,6 +24,8 @@ for which a new license (GPL+exception) is in place.
 *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.              *
 ****************************************************************************/
 
+#include <QScopedPointer>
+
 #include "lenseffects.h"
 #include "lensdialog.h"
 #include "scribuscore.h"
@@ -113,53 +115,54 @@ bool LensEffectsPlugin::run(ScribusDoc* doc, const QString&)
 	ScribusDoc* currDoc = doc;
 	if (currDoc == nullptr)
 		currDoc = ScCore->primaryMainWindow()->doc;
+	if (currDoc->m_Selection->isEmpty())
+		return true;
+
+	using LensDialogScopedPointer = QScopedPointer<LensDialog, QScopedPointerDeleteLater>;
+	LensDialogScopedPointer dia(new LensDialog(currDoc->scMW(), currDoc));
+	if (!dia->exec())
+		return true;
+
+	for (int i = 0; i < dia->origPathItem.count(); i++)
+	{
+		PageItem *currItem = dia->origPageItem[i];
+		if (currItem->itemType() == PageItem::Line)
+			continue;
+		QPainterPath path = dia->origPathItem[i]->path();
+		FPointArray points;
+		points.fromQPainterPath(path);
+		currItem->PoLine = points;
+		currItem->ClipEdited = true;
+		currItem->FrameType = 3;
+		double oW = currItem->width();
+		double oH = currItem->height();
+		currDoc->adjustItemSize(currItem, true);
+		currItem->OldB2 = currItem->width();
+		currItem->OldH2 = currItem->height();
+		if (currItem->isGroup())
+		{
+			currItem->groupWidth = currItem->groupWidth * (currItem->OldB2 / oW);
+			currItem->groupHeight = currItem->groupHeight * (currItem->OldH2 / oH);
+		}
+		currItem->updateClip();
+		if (currItem->isGroup())
+		{
+			currDoc->resizeGroupToContents(currItem);
+			currItem->SetRectFrame();
+		}
+		currItem->ContourLine = currItem->PoLine.copy();
+	}
 	if (currDoc->m_Selection->count() > 0)
 	{
-		LensDialog *dia = new LensDialog(currDoc->scMW(), currDoc);
-		if (dia->exec())
+		PageItem *m_patternItem = currDoc->m_Selection->itemAt(0);
+		if (m_patternItem->isGroup())
 		{
-			for (int a = 0; a < dia->origPathItem.count(); a++)
-			{
-				PageItem *currItem = dia->origPageItem[a];
-				if (currItem->itemType() == PageItem::Line)
-					continue;
-				QPainterPath path = dia->origPathItem[a]->path();
-				FPointArray points;
-				points.fromQPainterPath(path);
-				currItem->PoLine = points;
-				currItem->ClipEdited = true;
-				currItem->FrameType = 3;
-				double oW = currItem->width();
-				double oH = currItem->height();
-				currDoc->adjustItemSize(currItem, true);
-				currItem->OldB2 = currItem->width();
-				currItem->OldH2 = currItem->height();
-				if (currItem->isGroup())
-				{
-					currItem->groupWidth = currItem->groupWidth * (currItem->OldB2 / oW);
-					currItem->groupHeight = currItem->groupHeight * (currItem->OldH2 / oH);
-				}
-				currItem->updateClip();
-				if (currItem->isGroup())
-				{
-					currDoc->resizeGroupToContents(currItem);
-					currItem->SetRectFrame();
-				}
-				currItem->ContourLine = currItem->PoLine.copy();
-			}
-			if (currDoc->m_Selection->count() > 0)
-			{
-				PageItem *m_patternItem = currDoc->m_Selection->itemAt(0);
-				if (m_patternItem->isGroup())
-				{
-					currDoc->resizeGroupToContents(m_patternItem);
-					m_patternItem->SetRectFrame();
-				}
-			}
-			currDoc->changed();
-			currDoc->view()->DrawNew();
+			currDoc->resizeGroupToContents(m_patternItem);
+			m_patternItem->SetRectFrame();
 		}
-		delete dia;
 	}
+	currDoc->changed();
+	currDoc->view()->DrawNew();
+
 	return true;
 }
