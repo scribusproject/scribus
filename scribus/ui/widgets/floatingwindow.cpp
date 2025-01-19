@@ -9,24 +9,22 @@
 #include <QToolButton>
 
 
-FloatingWindow::FloatingWindow(QWidget *child, QWidget *reference, QWidget *parent)
-	: QWidget{parent, /*Qt::Window | */Qt::Tool | Qt::FramelessWindowHint /*| Qt::WindowStaysOnTopHint*/}, // Qt::Tool | Qt::FramelessWindowHint
-	  m_child(child),
-	  m_reference(reference)
+FloatingWindow::FloatingWindow(QWidget *child, QWidget *parent)
+	: QWidget(parent, Qt::Tool | Qt::FramelessWindowHint),
+	  m_child(child)
 {
-
 	if (m_child == nullptr)
-		m_child = new QWidget();
+		m_child = new QWidget(this);
 
-	m_handle = new QWidget();
+	m_handle = new QWidget(this);
 	m_handle->installEventFilter(this);
 
 	buttonClose = new QToolButton();
 	buttonClose->setToolButtonStyle(Qt::ToolButtonIconOnly);
-	buttonClose->setFixedSize(16,16);
+	buttonClose->setFixedSize(16, 16);
 	buttonClose->setAutoRaise(true);
 
-	QHBoxLayout *layoutHeader = new QHBoxLayout;
+	QHBoxLayout *layoutHeader = new QHBoxLayout();
 	layoutHeader->addWidget(m_handle);
 	layoutHeader->addWidget(buttonClose);
 	layoutHeader->setContentsMargins(8, 8, 8, 8);
@@ -118,7 +116,8 @@ void FloatingWindow::calculatePosition()
 {
 	updateSize();
 
-	if (m_reference == nullptr) return;
+	if (m_reference == nullptr)
+		return;
 
 	QPoint parentGlobalPos = m_reference->mapToGlobal(QPoint());
 	QPoint position = parentGlobalPos;

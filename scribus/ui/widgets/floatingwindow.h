@@ -10,7 +10,7 @@ class FloatingWindow : public QWidget
 	Q_OBJECT
 
 public:
-	explicit FloatingWindow(QWidget * child, QWidget *reference, QWidget *parent = nullptr);
+	explicit FloatingWindow(QWidget * child, QWidget *parent = nullptr);
 
 	QWidget *child();
 	QWidget *reference();
