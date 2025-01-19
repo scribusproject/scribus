@@ -16,6 +16,7 @@ to the COPYING file provided with the program.
 #include <QDebug>
 //#include "selection.h"
 
+#include "scribuscore.h"
 #include "ui/widgets/floatingwindow.h"
 #include "ui/colorpicker/colorpicker.h"
 
@@ -38,7 +39,7 @@ void WidgetManager::setup(ScribusDoc *doc)
 	m_doc = doc;
 	m_colorPicker = new ColorPicker(/*ColorPickerConfig::Default*/);
 	m_colorPicker->setDoc(m_doc);
-	m_colorPickerWindow = new FloatingWindow(m_colorPicker, new QWidget());
+	m_colorPickerWindow = new FloatingWindow(m_colorPicker, new QWidget(), ScCore->primaryMainWindow());
 	connect(m_colorPickerWindow, &FloatingWindow::closed, m_colorPicker, &ColorPicker::parentClosed);
 }
 
