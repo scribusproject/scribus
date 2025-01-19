@@ -3851,40 +3851,40 @@ Por favor, escoja otro.</translation>
 <context>
     <name>Canvas</name>
     <message>
-        <location filename="../../scribus/canvas.cpp" line="2447"/>
-        <location filename="../../scribus/canvas.cpp" line="2475"/>
+        <location filename="../../scribus/canvas.cpp" line="2445"/>
+        <location filename="../../scribus/canvas.cpp" line="2473"/>
         <source>X: %1
 Y: %2</source>
         <translation>X: %1
 Y: %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvas.cpp" line="2460"/>
+        <location filename="../../scribus/canvas.cpp" line="2458"/>
         <source>X: %1</source>
         <translation>X: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvas.cpp" line="2467"/>
+        <location filename="../../scribus/canvas.cpp" line="2465"/>
         <source>Y: %1</source>
         <translation>Y: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvas.cpp" line="2483"/>
+        <location filename="../../scribus/canvas.cpp" line="2481"/>
         <source>Length: %1
 Angle: %2</source>
         <translation>Longitud: %1
 Ángulo: %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvas.cpp" line="2485"/>
+        <location filename="../../scribus/canvas.cpp" line="2483"/>
         <source>Width: %1
 Height: %2</source>
         <translation>Ancho: %1
 Alto: %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvas.cpp" line="2497"/>
-        <location filename="../../scribus/canvas.cpp" line="2504"/>
+        <location filename="../../scribus/canvas.cpp" line="2495"/>
+        <location filename="../../scribus/canvas.cpp" line="2502"/>
         <source>Angle: %1</source>
         <translation>Ángulo: %1</translation>
     </message>
@@ -10868,22 +10868,22 @@ actual, conviritiendo los datos de vectores en objetos de Scribus.</translation>
 <context>
     <name>LensEffectsPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="68"/>
+        <location filename="../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="70"/>
         <source>Lens Effects...</source>
         <translation>Efectos de lente...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="72"/>
+        <location filename="../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="74"/>
         <source>Path Tools</source>
         <translation>Herramientas de trazado</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="96"/>
+        <location filename="../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="98"/>
         <source>Lens Effects</source>
         <translation>Efectos de lentes</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="97"/>
+        <location filename="../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="99"/>
         <source>Apply fancy lens effects</source>
         <translation>Aplicar efecto de lente de fantasía</translation>
     </message>
@@ -30150,7 +30150,7 @@ código Python esta lista no es exhaustiva debido a las excepciones de las funci
         <translation>Sólo se pueden separar sílabas en marcos de texto</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="88"/>
+        <location filename="../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="90"/>
         <source>Lens Effects</source>
         <translation>Efectos de lentes</translation>
     </message>

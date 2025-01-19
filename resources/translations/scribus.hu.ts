@@ -3851,39 +3851,39 @@ Adjon meg egy másik nevet.</translation>
 <context>
     <name>Canvas</name>
     <message>
-        <location filename="../../scribus/canvas.cpp" line="2447"/>
-        <location filename="../../scribus/canvas.cpp" line="2475"/>
+        <location filename="../../scribus/canvas.cpp" line="2445"/>
+        <location filename="../../scribus/canvas.cpp" line="2473"/>
         <source>X: %1
 Y: %2</source>
         <translation>X: %1
 Y: %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvas.cpp" line="2460"/>
+        <location filename="../../scribus/canvas.cpp" line="2458"/>
         <source>X: %1</source>
         <translation>X: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvas.cpp" line="2467"/>
+        <location filename="../../scribus/canvas.cpp" line="2465"/>
         <source>Y: %1</source>
         <translation>Y: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvas.cpp" line="2483"/>
+        <location filename="../../scribus/canvas.cpp" line="2481"/>
         <source>Length: %1
 Angle: %2</source>
         <translation>Hossz: %1
 Szög: %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvas.cpp" line="2485"/>
+        <location filename="../../scribus/canvas.cpp" line="2483"/>
         <source>Width: %1
 Height: %2</source>
         <translation>Szélesség: %1 Magasság: %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvas.cpp" line="2497"/>
-        <location filename="../../scribus/canvas.cpp" line="2504"/>
+        <location filename="../../scribus/canvas.cpp" line="2495"/>
+        <location filename="../../scribus/canvas.cpp" line="2502"/>
         <source>Angle: %1</source>
         <translation>Szög: %1</translation>
     </message>
@@ -10867,22 +10867,22 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>LensEffectsPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="68"/>
+        <location filename="../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="70"/>
         <source>Lens Effects...</source>
         <translation>Lencseeffektus...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="72"/>
+        <location filename="../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="74"/>
         <source>Path Tools</source>
         <translation>Útvonaleszközök</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="96"/>
+        <location filename="../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="98"/>
         <source>Lens Effects</source>
         <translation>Nagyító</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="97"/>
+        <location filename="../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="99"/>
         <source>Apply fancy lens effects</source>
         <translation>Különleges lencseeffektus alkalmazása</translation>
     </message>
@@ -30161,7 +30161,7 @@ lista hiányos a meghívott funkciók miatt.
         <translation>Elválasztás törlése csak szövegkeretben lehetséges</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="88"/>
+        <location filename="../../scribus/plugins/tools/lenseffects/lenseffects.cpp" line="90"/>
         <source>Lens Effects</source>
         <translation>Nagyító</translation>
     </message>
