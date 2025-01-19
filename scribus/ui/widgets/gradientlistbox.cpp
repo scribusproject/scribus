@@ -79,8 +79,8 @@ QString GradientWideItemDelegate::text(const QVariant& data) const
 }
 
 
-int GradientListBox::initialized;
-int GradientListBox::sortRule;
+int GradientListBox::initialized = 0;
+int GradientListBox::sortRule = 0;
 
 GradientListBox::GradientListBox(QWidget * parent)
 	: QListView(parent)
@@ -91,11 +91,7 @@ GradientListBox::GradientListBox(QWidget * parent)
 	QListView::setModel(new GradientListModel(this));
 	setPixmapType(GradientListBox::widePixmap);
 
-	connect(this, SIGNAL(clicked(QModelIndex)), this, SLOT(emitItemClicked(QModelIndex)));
-	connect(this, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(emitItemDoubleClicked(QModelIndex)));
-	connect(this->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)), this, SLOT(emitCurrentChanged(QModelIndex,QModelIndex)));
-	connect(this->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SIGNAL(itemSelectionChanged()));
-	connect(this, SIGNAL(contextMenuRequested()), this, SLOT(slotRightClick()));
+	connectSignals();
 }
 
 GradientListBox::GradientListBox(GradientListBox::PixmapType type, QWidget * parent)
@@ -108,20 +104,35 @@ GradientListBox::GradientListBox(GradientListBox::PixmapType type, QWidget * par
 	QListView::setModel(new GradientListModel(this));
 	setPixmapType(type);
 
-	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
-
-	connect(this, SIGNAL(clicked(QModelIndex)), this, SLOT(emitItemClicked(QModelIndex)));
-	connect(this, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(emitItemDoubleClicked(QModelIndex)));
-	connect(this->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)), this, SLOT(emitCurrentChanged(QModelIndex,QModelIndex)));
-	connect(this->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SIGNAL(itemSelectionChanged()));
-	connect(this, SIGNAL(contextMenuRequested()), this, SLOT(slotRightClick()));
+	connectSignals();
 }
 
 GradientListBox::~GradientListBox()
 {
-	if (itemDelegate())
-		delete itemDelegate();
+	disconnectSignals();
+
+	auto* pDelegate = itemDelegate();
+	if (pDelegate)
+		delete pDelegate;
 	clear();
+}
+
+void GradientListBox::connectSignals()
+{
+	connect(this, SIGNAL(clicked(QModelIndex)), this, SLOT(emitItemClicked(QModelIndex)));
+	connect(this, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(emitItemDoubleClicked(QModelIndex)));
+	connect(this->selectionModel(), SIGNAL(currentChanged(QModelIndex, QModelIndex)), this, SLOT(emitCurrentChanged(QModelIndex, QModelIndex)));
+	connect(this->selectionModel(), SIGNAL(selectionChanged(QItemSelection, QItemSelection)), this, SIGNAL(itemSelectionChanged()));
+	connect(this, SIGNAL(contextMenuRequested()), this, SLOT(slotRightClick()));
+}
+
+void GradientListBox::disconnectSignals()
+{
+	disconnect(this, SIGNAL(clicked(QModelIndex)), this, SLOT(emitItemClicked(QModelIndex)));
+	disconnect(this, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(emitItemDoubleClicked(QModelIndex)));
+	disconnect(this->selectionModel(), SIGNAL(currentChanged(QModelIndex, QModelIndex)), this, SLOT(emitCurrentChanged(QModelIndex, QModelIndex)));
+	disconnect(this->selectionModel(), SIGNAL(selectionChanged(QItemSelection, QItemSelection)), this, SIGNAL(itemSelectionChanged()));
+	disconnect(this, SIGNAL(contextMenuRequested()), this, SLOT(slotRightClick()));
 }
 
 void GradientListBox::clear()
@@ -164,11 +175,6 @@ void GradientListBox::emitItemDoubleClicked(const QModelIndex &current)
 {
 	QPersistentModelIndex persistentCurrent = current;
 	emit itemDoubleClicked(persistentCurrent.row());
-}
-
-void GradientListBox::iconSetChange()
-{
-
 }
 
 void GradientListBox::languageChange()

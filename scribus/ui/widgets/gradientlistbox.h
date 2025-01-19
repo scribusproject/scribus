@@ -108,6 +108,10 @@ class SCRIBUS_API GradientListBox : public QListView
 		/*! \brief Pointer to the color list displayed by this box */
 		GradientList* cList { nullptr };
 
+	private:
+		void connectSignals();
+		void disconnectSignals();
+
 	public slots:
 		void clear();
 
@@ -119,7 +123,6 @@ class SCRIBUS_API GradientListBox : public QListView
 		void emitItemClicked(const QModelIndex &current);
 		void emitItemDoubleClicked(const QModelIndex &current);
 
-		virtual void iconSetChange();
 		virtual void languageChange();
 
 	signals:

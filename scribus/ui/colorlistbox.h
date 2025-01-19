@@ -113,6 +113,10 @@ class SCRIBUS_API ColorListBox : public QListView
 		/*! \brief Pointer to the color list displayed by this box */
 		ColorList* cList { nullptr };
 
+	private:
+		void connectSignals();
+		void disconnectSignals();
+
 	public slots:
 		void clear();
 

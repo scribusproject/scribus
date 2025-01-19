@@ -181,20 +181,39 @@ ColorListBox::ColorListBox(ColorListBox::PixmapType type, QWidget * parent)
 	QListView::setModel(new ColorListModel(this));
 	setPixmapType(type);
 
-	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
-
-	connect(this, SIGNAL(clicked(QModelIndex)), this, SLOT(emitItemClicked(QModelIndex)));
-	connect(this, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(emitItemDoubleClicked(QModelIndex)));
-	connect(this->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)), this, SLOT(emitCurrentChanged(QModelIndex,QModelIndex)));
-	connect(this->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SIGNAL(itemSelectionChanged()));
-	connect(this, SIGNAL(contextMenuRequested()), this, SLOT(slotRightClick()));
+	connectSignals();
 }
 
 ColorListBox::~ColorListBox()
 {
-	if (itemDelegate())
-		delete itemDelegate();
+	disconnectSignals();
+
+	auto* pDelegate = itemDelegate();
+	if (pDelegate)
+		delete pDelegate;
 	clear();
+}
+
+void ColorListBox::connectSignals()
+{
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
+
+	connect(this, SIGNAL(clicked(QModelIndex)), this, SLOT(emitItemClicked(QModelIndex)));
+	connect(this, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(emitItemDoubleClicked(QModelIndex)));
+	connect(this->selectionModel(), SIGNAL(currentChanged(QModelIndex, QModelIndex)), this, SLOT(emitCurrentChanged(QModelIndex, QModelIndex)));
+	connect(this->selectionModel(), SIGNAL(selectionChanged(QItemSelection, QItemSelection)), this, SIGNAL(itemSelectionChanged()));
+	connect(this, SIGNAL(contextMenuRequested()), this, SLOT(slotRightClick()));
+}
+
+void ColorListBox::disconnectSignals()
+{
+	disconnect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
+
+	disconnect(this, SIGNAL(clicked(QModelIndex)), this, SLOT(emitItemClicked(QModelIndex)));
+	disconnect(this, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(emitItemDoubleClicked(QModelIndex)));
+	disconnect(this->selectionModel(), SIGNAL(currentChanged(QModelIndex, QModelIndex)), this, SLOT(emitCurrentChanged(QModelIndex, QModelIndex)));
+	disconnect(this->selectionModel(), SIGNAL(selectionChanged(QItemSelection, QItemSelection)), this, SIGNAL(itemSelectionChanged()));
+	disconnect(this, SIGNAL(contextMenuRequested()), this, SLOT(slotRightClick()));
 }
 
 void ColorListBox::clear()
