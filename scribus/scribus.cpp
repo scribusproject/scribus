@@ -406,10 +406,6 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 		ScCore->setSplashStatus( tr("Initializing Languages") );
 	LanguageManager::instance();
 
-	initHyphenator();
-//	QString preLang(m_prefsManager.appPrefs.hyphPrefs.Language);
-//	if (!LanguageManager::instance()->getHyphFilename( preLang ).isEmpty() )
-//		m_prefsManager.appPrefs.hyphPrefs.Language = preLang;
 	if (primaryMainWindow)
 		ScCore->setSplashStatus( tr("Reading Scrapbook") );
 	initScrapbook();
@@ -8194,84 +8190,6 @@ void ScribusMainWindow::setCurrentPage(int p)
 	doc->view()->setCanvasPos(doc->currentPage()->xOffset() - 10, doc->currentPage()->yOffset() - 10);
 	HaveNewSel();
 	doc->view()->setFocus();
-}
-
-void ScribusMainWindow::initHyphenator()
-{
-	//Build our list of hyphenation dictionaries we have in the install dir
-	//Grab the language abbreviation from it, get the full language text
-	//Insert the name as key and a new string list into the map
-//	QString hyphDirName = QDir::toNativeSeparators(ScPaths::instance().dictDir()+"/hyph/");
-//	QDir hyphDir(hyphDirName, "hyph*.dic", QDir::Name, QDir::Files | QDir::NoSymLinks);
-//IL	if ((hyphDir.exists()) && (hyphDir.count() != 0))
-//IL	{
-// 		LanguageManager langmgr;
-// 		langmgr.init(false);
-//IL		QString languageOfHyphFile;
-//IL		for (uint dc = 0; dc < hyphDir.count(); ++dc)
-//IL		{
-//IL			QFileInfo fi(hyphDir[dc]);
-//IL			QString fileLangAbbrev = fi.baseName().section('_', 1);
-//IL			InstLang.insert(fileLangAbbrev, QStringList());
-//<<hunspell
-//			languageOfHyphFile = LanguageManager::instance()->getLangFromAbbrev(fileLangAbbrev, false);
-//			InstLang.insert(languageOfHyphFile, QStringList());
-//>>hunspell
-//IL		}
-//IL	}
-
-	//For each qm file existing, load the file and find the translations of the names
-	QString transPath = ScPaths::instance().translationDir();
-	QDir transDir(transPath, "*.*", QDir::Name, QDir::Files | QDir::NoSymLinks);
-	if ((transDir.exists()) && (transDir.count() != 0))
-	{
-		for (uint i = 0; i < transDir.count(); i++)
-		{
-			QFileInfo fi(transPath + transDir[i]);
-			QString ext(fi.suffix().toLower());
-			if (ext == "qm")
-			{
- //IL   			QTranslator *trans = new QTranslator(0);
-//IL				trans->load(pfad + d2[dc]);
-
-//IL				QString translatedLang;
-//IL				for (QMap<QString, QStringList>::Iterator it = InstLang.begin(); it != InstLang.end(); ++it)
-//IL				{
-//IL					translatedLang="";
-//IL					translatedLang = trans->translate("QObject", LanguageManager::instance()->getLangFromAbbrev(it.key(), false).toLocal8Bit().data(), "");
-//IL					if (!translatedLang.isEmpty())
-//IL						it.value().append(translatedLang);
-//IL				}
-//IL				delete trans;
-			}
-		}
-	}
-	//For each hyphenation file, grab the strings and the hyphenation data.
-//	QString lang = QString(QLocale::system().name()).left(2);
-//	m_prefsManager.appPrefs.hyphPrefs.Language = "en_GB";
-//	if (!LanguageManager::instance()->getHyphFilename(lang).isEmpty() )
-//		m_prefsManager.appPrefs.hyphPrefs.Language = lang;
-
-/*
-	if ((hyphDir.exists()) && (hyphDir.count() != 0))
-	{
-		LanguageManager *langmgr(LanguageManager::instance());
-// 		langmgr.init(false);
-		QString tLang;
-		for (uint dc = 0; dc < hyphDir.count(); ++dc)
-		{
-			QFileInfo fi(hyphDir[dc]);
-			QString fileLangAbbrev = fi.baseName().section('_', 1);
-			tLang = langmgr->getLangFromAbbrev(fileLangAbbrev);
-//IL			LangTransl.insert(fileLangAbbrev, tLang);
-			langmgr->addHyphLang(fileLangAbbrev, hyphDir[dc]);
-			if (fileLangAbbrev == lang)
-				prefsManager.appPrefs.hyphPrefs.Language = fileLangAbbrev;
-		}
-		if (tLang.isEmpty())
-			prefsManager.appPrefs.hyphPrefs.Language = "en_GB";
-	}
-	*/
 }
 
 void ScribusMainWindow::ImageEffects()
