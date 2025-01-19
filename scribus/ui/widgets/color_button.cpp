@@ -618,13 +618,13 @@ void ColorButton::toggleFloatingContext()
 
 	updateColorPicker(colorPicker);
 
-	connect(colorPicker, &ColorPicker::colorChanged, this, &ColorButton::updateColor);
-	connect(colorPicker, &ColorPicker::gradientChanged, this, &ColorButton::updateGradient);
-	connect(colorPicker, &ColorPicker::gradientVectorChanged, this, &ColorButton::updateGradientVector);
-	connect(colorPicker, &ColorPicker::gradientMeshChanged, this, &ColorButton::updateGradientMesh);
-	connect(colorPicker, &ColorPicker::hatchChanged, this, &ColorButton::updateHatch);
-	connect(colorPicker, &ColorPicker::patternChanged, this, &ColorButton::updatePattern);
-	connect(colorPicker, &ColorPicker::colorListChanged, this, &ColorButton::updateFloatingContext);
+	connect(colorPicker, &ColorPicker::colorChanged, this, &ColorButton::updateColor, Qt::UniqueConnection);
+	connect(colorPicker, &ColorPicker::gradientChanged, this, &ColorButton::updateGradient, Qt::UniqueConnection);
+	connect(colorPicker, &ColorPicker::gradientVectorChanged, this, &ColorButton::updateGradientVector, Qt::UniqueConnection);
+	connect(colorPicker, &ColorPicker::gradientMeshChanged, this, &ColorButton::updateGradientMesh, Qt::UniqueConnection);
+	connect(colorPicker, &ColorPicker::hatchChanged, this, &ColorButton::updateHatch, Qt::UniqueConnection);
+	connect(colorPicker, &ColorPicker::patternChanged, this, &ColorButton::updatePattern, Qt::UniqueConnection);
+	connect(colorPicker, &ColorPicker::colorListChanged, this, &ColorButton::updateFloatingContext, Qt::UniqueConnection);
 
 	floatingWidget->show(this);
 }
