@@ -61,23 +61,22 @@ void FloatingWindow::iconSetChange()
 bool FloatingWindow::eventFilter(QObject *obj, QEvent *event)
 {
 	QWidget *wdg = dynamic_cast<QWidget*>(obj);
-
 	if (!wdg)
-		return QObject::eventFilter(obj, event);
+		return QWidget::eventFilter(obj, event);
 
-	if (wdg == m_handle)
+	if (m_handle && (m_handle == wdg))
 	{
 		switch (event->type())
 		{
 		case QEvent::MouseButtonPress:
 		{
-			QMouseEvent *mEvent = (QMouseEvent*)event;
+			QMouseEvent *mEvent = (QMouseEvent*) event;
 			m_mousePos = mEvent->pos();
 		}
 			break;
 		case QEvent::MouseMove:
 		{
-			QMouseEvent *mEvent = (QMouseEvent*)event;
+			QMouseEvent *mEvent = (QMouseEvent*) event;
 			if (mEvent->buttons() & Qt::LeftButton)
 				this->move(mapToParent(mEvent->pos() - m_mousePos));
 		}
@@ -87,7 +86,7 @@ bool FloatingWindow::eventFilter(QObject *obj, QEvent *event)
 		}
 	}
 
-	return QObject::eventFilter(obj, event);
+	return QWidget::eventFilter(obj, event);
 }
 
 void FloatingWindow::keyPressEvent(QKeyEvent *event)
@@ -99,6 +98,8 @@ void FloatingWindow::keyPressEvent(QKeyEvent *event)
 void FloatingWindow::hideEvent(QHideEvent *event)
 {
 	emit closed();
+
+	QWidget::hideEvent(event);
 }
 
 QSize FloatingWindow::screenSize() const
