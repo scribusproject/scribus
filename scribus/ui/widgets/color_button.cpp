@@ -595,10 +595,8 @@ void ColorButton::updateFloatingContext()
 	if (floatingWidget)
 	{
 		ColorPicker *colorPicker = qobject_cast<ColorPicker*>(floatingWidget->child());
-
-		if (colorPicker)
-			if (colorPicker->colorButton() == this)
-				updateColorPicker(colorPicker);
+		if (colorPicker && (colorPicker->colorButton() == this))
+			updateColorPicker(colorPicker);
 	}
 }
 
@@ -607,128 +605,114 @@ void ColorButton::unsetDoc()
 	setDoc(nullptr);
 }
 
-
 void ColorButton::toggleFloatingContext()
 {
 	WidgetManager &widgetManager = WidgetManager::instance();
 	floatingWidget = widgetManager.colorPickerWindow();
+	if (!floatingWidget)
+		return;
 
-	if (floatingWidget){
-		ColorPicker *colorPicker = qobject_cast<ColorPicker*>(floatingWidget->child());
-		if (colorPicker)
-		{
-			updateColorPicker(colorPicker);
+	ColorPicker *colorPicker = qobject_cast<ColorPicker*>(floatingWidget->child());
+	if (!colorPicker)
+		return;
 
-			connect(colorPicker, &ColorPicker::colorChanged, this, &ColorButton::updateColor);
-			connect(colorPicker, &ColorPicker::gradientChanged, this, &ColorButton::updateGradient);
-			connect(colorPicker, &ColorPicker::gradientVectorChanged, this, &ColorButton::updateGradientVector);
-			connect(colorPicker, &ColorPicker::gradientMeshChanged, this, &ColorButton::updateGradientMesh);
-			connect(colorPicker, &ColorPicker::hatchChanged, this, &ColorButton::updateHatch);
-			connect(colorPicker, &ColorPicker::patternChanged, this, &ColorButton::updatePattern);
-			connect(colorPicker, &ColorPicker::colorListChanged, this, &ColorButton::updateFloatingContext);
+	updateColorPicker(colorPicker);
 
-			floatingWidget->show(this);
-		}
-	}
+	connect(colorPicker, &ColorPicker::colorChanged, this, &ColorButton::updateColor);
+	connect(colorPicker, &ColorPicker::gradientChanged, this, &ColorButton::updateGradient);
+	connect(colorPicker, &ColorPicker::gradientVectorChanged, this, &ColorButton::updateGradientVector);
+	connect(colorPicker, &ColorPicker::gradientMeshChanged, this, &ColorButton::updateGradientMesh);
+	connect(colorPicker, &ColorPicker::hatchChanged, this, &ColorButton::updateHatch);
+	connect(colorPicker, &ColorPicker::patternChanged, this, &ColorButton::updatePattern);
+	connect(colorPicker, &ColorPicker::colorListChanged, this, &ColorButton::updateFloatingContext);
 
+	floatingWidget->show(this);
 }
 
 void ColorButton::updateColor()
 {
 	ColorPicker * colorPicker = qobject_cast<ColorPicker*>(sender());
+	if (!colorPicker || (colorPicker->colorButton() != this))
+		return;
 
-	if (colorPicker)
-		if (colorPicker->colorButton() == this)
-		{
-			setType(colorPicker->type());
-			setGeneralData(colorPicker->generalData());
-			setColorData(colorPicker->colorData());
-			m_dynamicToolTip = colorPicker->toolTipText();
-			buildToolTip();
-			updatePreview();
-			emit changed();
-			emit colorChanged();
-		}
+	setType(colorPicker->type());
+	setGeneralData(colorPicker->generalData());
+	setColorData(colorPicker->colorData());
+	m_dynamicToolTip = colorPicker->toolTipText();
+	buildToolTip();
+	updatePreview();
+	emit changed();
+	emit colorChanged();
 }
 
 void ColorButton::updateGradient()
 {
 	ColorPicker * colorPicker = qobject_cast<ColorPicker*>(sender());
+	if (!colorPicker || (colorPicker->colorButton() != this))
+		return;
 
-	if (colorPicker)
-		if (colorPicker->colorButton() == this)
-		{
-			setType(colorPicker->type());
-			setGeneralData(colorPicker->generalData());
-			setGradientData(colorPicker->gradientData());
-			m_dynamicToolTip = colorPicker->toolTipText();
-			buildToolTip();
-			updatePreview();
-			emit changed();
-			emit gradientChanged();
-		}
+	setType(colorPicker->type());
+	setGeneralData(colorPicker->generalData());
+	setGradientData(colorPicker->gradientData());
+	m_dynamicToolTip = colorPicker->toolTipText();
+	buildToolTip();
+	updatePreview();
+	emit changed();
+	emit gradientChanged();
 }
 
 void ColorButton::updateGradientVector()
 {
 	ColorPicker * colorPicker = qobject_cast<ColorPicker*>(sender());
+	if (!colorPicker || (colorPicker->colorButton() != this))
+		return;
 
-	if (colorPicker)
-		if (colorPicker->colorButton() == this)
-		{
-			setType(colorPicker->type());
-			setGradientVectorData(colorPicker->gradientVectorData());
-			emit gradientVectorChanged();
-		}
+	setType(colorPicker->type());
+	setGradientVectorData(colorPicker->gradientVectorData());
+	emit gradientVectorChanged();
 }
 
 void ColorButton::updateGradientMesh()
 {
 	ColorPicker * colorPicker = qobject_cast<ColorPicker*>(sender());
+	if (!colorPicker || (colorPicker->colorButton() != this))
+		return;
 
-	if (colorPicker)
-		if (colorPicker->colorButton() == this)
-		{
-			setType(colorPicker->type());
-			setGradientMeshData(colorPicker->gradientMeshData());
-			emit gradientMeshChanged();
-		}
+	setType(colorPicker->type());
+	setGradientMeshData(colorPicker->gradientMeshData());
+	emit gradientMeshChanged();
 }
 
 void ColorButton::updateHatch()
 {
 	ColorPicker * colorPicker = qobject_cast<ColorPicker*>(sender());
+	if (!colorPicker || (colorPicker->colorButton() != this))
+		return;
 
-	if (colorPicker)
-		if (colorPicker->colorButton() == this)
-		{
-			setType(colorPicker->type());
-			setGeneralData(colorPicker->generalData());
-			setHatchData(colorPicker->hatchData());
-			m_dynamicToolTip = colorPicker->toolTipText();
-			buildToolTip();
-			updatePreview();
-			emit changed();
-			emit hatchChanged();
-		}
+	setType(colorPicker->type());
+	setGeneralData(colorPicker->generalData());
+	setHatchData(colorPicker->hatchData());
+	m_dynamicToolTip = colorPicker->toolTipText();
+	buildToolTip();
+	updatePreview();
+	emit changed();
+	emit hatchChanged();
 }
 
 void ColorButton::updatePattern()
 {
 	ColorPicker * colorPicker = qobject_cast<ColorPicker*>(sender());
+	if (!colorPicker || (colorPicker->colorButton() != this))
+		return;
 
-	if (colorPicker)
-		if (colorPicker->colorButton() == this)
-		{
-			setType(colorPicker->type());
-			setGeneralData(colorPicker->generalData());
-			setPatternData(colorPicker->patternData());
-			m_dynamicToolTip = colorPicker->toolTipText();
-			buildToolTip();
-			updatePreview();
-			emit changed();
-			emit patternChanged();
-		}
+	setType(colorPicker->type());
+	setGeneralData(colorPicker->generalData());
+	setPatternData(colorPicker->patternData());
+	m_dynamicToolTip = colorPicker->toolTipText();
+	buildToolTip();
+	updatePreview();
+	emit changed();
+	emit patternChanged();
 }
 
 void ColorButton::updateColorPicker(ColorPicker *colorPicker)
@@ -747,7 +731,6 @@ void ColorButton::updateColorPicker(ColorPicker *colorPicker)
 	colorPicker->setHatchData( hatchData() );
 	colorPicker->setPatternData( patternData() );
 	colorPicker->updatePreview();
-
 }
 
 void ColorButton::buildToolTip()
