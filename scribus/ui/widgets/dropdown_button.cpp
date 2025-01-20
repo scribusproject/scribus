@@ -18,7 +18,7 @@ void DropdownButton::setMenu(QMenu *menu)
 {
 	//menu->setFont(font());
 	QToolButton::setMenu(menu);
-	connect(menu, &QMenu::triggered, this, &DropdownButton::indexChanged);
+	connect(menu, &QMenu::triggered, this, &DropdownButton::indexChanged, Qt::UniqueConnection);
 }
 
 void DropdownButton::clear()
@@ -31,12 +31,10 @@ QAction *DropdownButton::addAction(const QIcon &icon, const QString &text)
 {
 	if (menu())
 		return menu()->addAction(icon, text);
-	else
-	{
-		QMenu *m = new QMenu();
-		setMenu(m);
-		return m->addAction(icon, text);
-	}
+
+	QMenu *m = new QMenu();
+	setMenu(m);
+	return m->addAction(icon, text);
 }
 
 void DropdownButton::indexChanged(QAction *action)
