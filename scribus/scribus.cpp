@@ -2424,8 +2424,6 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 		zoomInToolbarButton->setEnabled(false);
 		layerMenu->disconnect();
 		layerMenu->setEnabled(false);
-		disconnect(viewToolBar->previewQualitySwitcher, SIGNAL(activated(int)), this, SLOT(changePreviewQuality(int)));
-		disconnect(viewToolBar->visualMenu, SIGNAL(activated(int)), doc->view(), SLOT(switchPreviewVisual(int)));
 		pageSelector->disconnect();
 		pageSelector->setEnabled(false);
 	}
@@ -2461,9 +2459,6 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 		scrActions["viewToggleWhiteSpaceMode"]->blockSignals(true);
 		scrActions["viewToggleWhiteSpaceMode"]->setChecked(doc->whiteSpaceModeEnabled);
 		scrActions["viewToggleWhiteSpaceMode"]->blockSignals(false);
-		viewToolBar->setDoc(doc);
-		connect(viewToolBar->previewQualitySwitcher, SIGNAL(activated(int)), this, SLOT(changePreviewQuality(int)), Qt::UniqueConnection);
-		connect(viewToolBar->visualMenu, SIGNAL(activated(int)), doc->view(), SLOT(switchPreviewVisual(int)), Qt::UniqueConnection);
 		pageSelector->setMaximum(doc->masterPageMode() ? 1 : doc->Pages->count());
 		slotSetCurrentPage(doc->currentPageNumber());
 		connect(pageSelector, SIGNAL(pageChanged(int)), this, SLOT(setCurrentPage(int)));
@@ -2530,6 +2525,7 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 	symbolPalette->setDoc(doc);
 	inlinePalette->setDoc(doc);
 	modeToolBar->setDoc(doc);
+	viewToolBar->setDoc(doc);
 	// Give plugins a chance to react on changing the current document
 	PluginManager& pluginManager(PluginManager::instance());
 	QStringList pluginNames(pluginManager.pluginNames(false));
@@ -4237,6 +4233,7 @@ bool ScribusMainWindow::DoFileClose()
 	nsEditor->setDoc(nullptr);
 	layerPalette->clearContent();
 	docCheckerPalette->buildErrorList(nullptr);
+	viewToolBar->setDoc(nullptr);
 	HaveDoc--;
 	delete doc;
 	doc = nullptr;

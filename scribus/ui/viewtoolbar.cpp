@@ -31,6 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapp.h"
 #include "scribusdoc.h"
 #include "scribuscore.h"
+#include "scribusview.h"
 
 ViewToolBar::ViewToolBar(ScribusMainWindow* parent) : ScToolBar( tr("View Tools"), "View_Tools", parent)
 {
@@ -67,11 +68,27 @@ ViewToolBar::ViewToolBar(ScribusMainWindow* parent) : ScToolBar( tr("View Tools"
 
 void ViewToolBar::setDoc(ScribusDoc* doc)
 {
+	if (m_doc)
+	{
+		disconnect(previewQualitySwitcher, SIGNAL(activated(int)), ScCore->primaryMainWindow(), SLOT(changePreviewQuality(int)));
+		disconnect(visualMenu, SIGNAL(activated(int)), m_doc->view(), SLOT(switchPreviewVisual(int)));
+	}
+
+	m_doc = doc;
+	if (!m_doc)
+		return;
+
 	QSignalBlocker sigColorVision(visualMenu);
-	visualMenu->setCurrentIndex(doc->previewVisual);
+	visualMenu->setCurrentIndex(m_doc->previewVisual);
 
 	QSignalBlocker sigImageRes(previewQualitySwitcher);
-	previewQualitySwitcher->setCurrentIndex(doc->previewQuality());
+	previewQualitySwitcher->setCurrentIndex(m_doc->previewQuality());
+
+	if (m_doc)
+	{
+		connect(previewQualitySwitcher, SIGNAL(activated(int)), ScCore->primaryMainWindow(), SLOT(changePreviewQuality(int)), Qt::UniqueConnection);
+		connect(visualMenu, SIGNAL(activated(int)), m_doc->view(), SLOT(switchPreviewVisual(int)), Qt::UniqueConnection);
+	}
 }
 
 void ViewToolBar::setViewPreviewMode(bool b)

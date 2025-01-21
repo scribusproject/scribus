@@ -46,8 +46,8 @@ public slots:
 	void languageChange();
 
 protected:
-
 	bool inPreview { false };
+	ScribusDoc* m_doc { nullptr };
 };
 
 #endif
