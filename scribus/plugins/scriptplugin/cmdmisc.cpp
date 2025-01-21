@@ -546,7 +546,7 @@ PyObject *scribus_islayerlocked(PyObject* /* self */, PyObject* args)
 	{
 		if (ScCore->primaryMainWindow()->doc->Layers[lam].Name == QString::fromUtf8(name.c_str()))
 		{
-			i = static_cast<int>(ScCore->primaryMainWindow()->doc->Layers[lam].isEditable);
+			i = static_cast<int>(!ScCore->primaryMainWindow()->doc->Layers[lam].isEditable);
 			found = true;
 			break;
 		}

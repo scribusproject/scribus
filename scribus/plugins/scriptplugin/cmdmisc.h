@@ -246,8 +246,8 @@ PyDoc_STRVAR(scribus_islayerlocked__doc__,
 QT_TR_NOOP("isLayerLocked(\"layer\") -> bool\n\
 \n\
 Returns whether the layer \"layer\" is locked or not, a value of True means\n\
-that the layer \"layer\" is editable, a value of False means that the layer\n\
-\"layer\" is locked.\n\
+that the layer \"layer\" is locked, a value of False means that the layer\n\
+\"layer\" is editable.\n\
 \n\
 May raise NotFoundError if the layer can't be found.\n\
 May raise ValueError if the layer name isn't acceptable.\n\
