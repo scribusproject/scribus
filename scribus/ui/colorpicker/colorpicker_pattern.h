@@ -2,9 +2,10 @@
 #define COLORPICKER_PATTERN_H
 
 #include <QWidget>
-#include "ui_colorpicker_pattern.h"
-#include "scribusdoc.h"
+
 #include "colorpicker_enum.h"
+#include "scribusdoc.h"
+#include "ui_colorpicker_pattern.h"
 
 class ColorPickerPattern : public QWidget, Ui::ColorPickerPattern
 {
@@ -12,7 +13,6 @@ class ColorPickerPattern : public QWidget, Ui::ColorPickerPattern
 
 public:
 	explicit ColorPickerPattern(QWidget *parent = nullptr);
-	~ColorPickerPattern(){};
 
 	void setDoc(ScribusDoc* doc);
     void setPatternList(QHash<QString, ScPattern> *docPatterns);

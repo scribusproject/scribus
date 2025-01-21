@@ -15,14 +15,14 @@ to the COPYING file provided with the program.
 #ifndef COLORPICKER_GRADIENT_PROPERTIES_H
 #define COLORPICKER_GRADIENT_PROPERTIES_H
 
-#include <QWidget>
-#include <QLayout>
-#include <QLabel>
 #include <QEvent>
-//#include "scribusapi.h"
+#include <QLabel>
+#include <QLayout>
+#include <QWidget>
+
+#include "colorpicker_enum.h"
 #include "scribusstructs.h"
 #include "ui_colorpicker_gradient_properties.h"
-#include "colorpicker_enum.h"
 #include "ui/widgets/stacked_container.h"
 
 class ColorPickerGradientProperties :  public StackedContainer, Ui::ColorPickerGradientProperties
@@ -31,7 +31,6 @@ class ColorPickerGradientProperties :  public StackedContainer, Ui::ColorPickerG
 
 public:
 	ColorPickerGradientProperties( QWidget* parent = nullptr);
-	~ColorPickerGradientProperties() {};
 
 	void selectLinear();
 	void selectRadial();

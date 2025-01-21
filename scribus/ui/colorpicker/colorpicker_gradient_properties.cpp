@@ -13,9 +13,9 @@ to the COPYING file provided with the program.
 */
 
 #include "colorpicker_gradient_properties.h"
-#include "units.h"
 #include "iconmanager.h"
 #include "scribusapp.h"
+#include "units.h"
 
 ColorPickerGradientProperties::ColorPickerGradientProperties(QWidget* parent) : StackedContainer(parent)
 {

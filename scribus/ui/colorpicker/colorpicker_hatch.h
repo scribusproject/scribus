@@ -16,7 +16,6 @@ class ColorPickerHatch : public QWidget, Ui::ColorPickerHatch
 
 public:
 	explicit ColorPickerHatch(QWidget *parent = nullptr);
-	~ColorPickerHatch() {};
 
 	Context context() const;
 	void setContext(Context config);

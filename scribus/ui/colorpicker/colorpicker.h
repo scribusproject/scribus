@@ -1,24 +1,23 @@
 #ifndef COLORPICKER_H
 #define COLORPICKER_H
 
-#include "ui_colorpicker.h"
 #include <QWidget>
+
+#include "colorpicker_enum.h"
 #include "sccolor.h"
 #include "scribusdoc.h"
-#include "colorpicker_enum.h"
+#include "ui_colorpicker.h"
 
-class UndoManager;
-class PopupMenu;
 class ColorButton;
+class PopupMenu;
+class UndoManager;
 
 class ColorPicker : public QWidget, Ui::ColorPicker
 {
 	Q_OBJECT
 
 public:
-
 	explicit ColorPicker(Context context = Context::Simple, QWidget *parent = nullptr);
-	~ColorPicker() {};
 
 	void setDoc(ScribusDoc* doc);
 

@@ -16,9 +16,10 @@ to the COPYING file provided with the program.
 #define COLORPICKER_COLOR_H
 
 #include <QWidget>
-#include "ui_colorpicker_color.h"
-#include "scribusdoc.h"
+
 #include "colorpicker_enum.h"
+#include "scribusdoc.h"
+#include "ui_colorpicker_color.h"
 
 class ColorPickerColor : public QWidget, Ui::ColorPickerColor
 {
@@ -26,7 +27,6 @@ class ColorPickerColor : public QWidget, Ui::ColorPickerColor
 
 public:
 	explicit ColorPickerColor(QWidget *parent = nullptr);
-	~ColorPickerColor() {};
 
 	const CPColorData& colorData() const { return m_color; }
     void setColorList(const ColorList& list, bool insertNone = true);

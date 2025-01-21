@@ -15,8 +15,9 @@ to the COPYING file provided with the program.
 #ifndef COLORPICKER_GRADIENT_SWATCHES_H
 #define COLORPICKER_GRADIENT_SWATCHES_H
 
-#include "ui_colorpicker_gradient_swatches.h"
 #include <QWidget>
+
+#include "ui_colorpicker_gradient_swatches.h"
 #include "vgradient.h"
 
 class ColorPickerGradientSwatches : public QWidget, Ui::ColorPickerGradientSwatches
@@ -25,7 +26,6 @@ class ColorPickerGradientSwatches : public QWidget, Ui::ColorPickerGradientSwatc
 
 public:
 	explicit ColorPickerGradientSwatches(QWidget *parent = nullptr);
-	~ColorPickerGradientSwatches() {};
 
 	void setGradients(const GradientList& list, bool insertNone = true);
 

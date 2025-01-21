@@ -28,7 +28,6 @@ class ColorPickerGradient : public QWidget, Ui::ColorPickerGradient
 
 public:
 	explicit ColorPickerGradient(QWidget *parent = nullptr);
-	~ColorPickerGradient() {};
 
 	void setDoc(ScribusDoc* doc);
 
