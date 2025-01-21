@@ -114,10 +114,8 @@ PropertiesPalette::PropertiesPalette(QWidget *parent) : DockPanelBase("Propertie
 	languageChange();
 	enablePalettes(false);
 
-
-
 	ColorPicker *colorPicker = WidgetManager::instance().colorPicker();
-	if(colorPicker)
+	if (colorPicker)
 	{
 		connect(colorPicker, SIGNAL(meshToShape()), this, SLOT(meshGradientToShape()));
 		connect(colorPicker, SIGNAL(createNewMesh()), this, SLOT(createNewMeshGradient()));
@@ -208,11 +206,16 @@ void PropertiesPalette::unsetDoc()
 		disconnect(m_doc->m_Selection, SIGNAL(selectionChanged()), this, SLOT(handleSelectionChanged()));
 		disconnect(m_doc, SIGNAL(docChanged()), this, SLOT(handleSelectionChanged()));
 	}
+
 	setEnabled(true);
 	m_haveDoc = false;
 	m_haveItem = false;
 	m_doc = nullptr;
 	m_item = nullptr;
+
+	auto* colorPicker = WidgetManager::instance().colorPicker();
+	if (colorPicker)
+		colorPicker->setDoc(nullptr);
 
 	xyzPal->unsetItem();
 	xyzPal->unsetDoc();
