@@ -2,9 +2,10 @@
 #define COLORPICKER_HATCH_H
 
 #include <QWidget>
-#include "ui_colorpicker_hatch.h"
-#include "scribusdoc.h"
+
 #include "colorpicker_enum.h"
+#include "scribusdoc.h"
+#include "ui_colorpicker_hatch.h"
 
 class ColorList;
 class ColorListBox;

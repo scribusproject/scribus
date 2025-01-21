@@ -364,7 +364,6 @@ void ColorPickerGradient::disableGradientEditProperties()
 		setGradientEditPropertiesEnabled(false);
 		handleGradientEditProperties();
 	}
-
 }
 
 void ColorPickerGradient::setDoc(ScribusDoc *doc)
@@ -386,7 +385,6 @@ void ColorPickerGradient::languageChange()
 	sectionSwatches->setText( tr("Gradient Swatches"));
 
 	retranslateUi(this);
-
 }
 
 void ColorPickerGradient::unitChange()

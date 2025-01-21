@@ -15,11 +15,12 @@ to the COPYING file provided with the program.
 #ifndef COLORPICKER_GRADIENT_H
 #define COLORPICKER_GRADIENT_H
 
-#include "ui_colorpicker_gradient.h"
-#include <QWidget>
 #include <QComboBox>
-#include "scribusdoc.h"
+#include <QWidget>
+
 #include "colorpicker_enum.h"
+#include "scribusdoc.h"
+#include "ui_colorpicker_gradient.h"
 
 class ColorPickerGradient : public QWidget, Ui::ColorPickerGradient
 {
