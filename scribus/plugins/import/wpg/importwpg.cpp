@@ -411,7 +411,7 @@ WpgPlug::WpgPlug(ScribusDoc* doc, int flags)
 
 QImage WpgPlug::readThumbnail(const QString& fName)
 {
-	QFileInfo fi = QFileInfo(fName);
+	QFileInfo fi(fName);
 	double b = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
 	double h = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
 	docWidth = b;
@@ -471,9 +471,8 @@ bool WpgPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 	importerFlags = flags;
 	cancel = false;
-	double b, h;
 	bool ret = false;
-	QFileInfo fi = QFileInfo(fNameIn);
+	QFileInfo fi(fNameIn);
 	if (!ScCore->usingGUI())
 	{
 		interactive = false;
@@ -499,8 +498,8 @@ bool WpgPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	else
 		progressDialog = nullptr;
 /* Set default Page to size defined in Preferences */
-	b = 0.0;
-	h = 0.0;
+	double b = 0.0;
+	double h = 0.0;
 	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(1);

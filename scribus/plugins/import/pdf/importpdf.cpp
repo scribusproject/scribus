@@ -127,7 +127,7 @@ bool PdfPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 		m_interactive = false;
 		showProgress = false;
 	}
-	m_baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
+	m_baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath() + "/"));
 	if (showProgress)
 	{
 		ScribusMainWindow* mw = (m_Doc == nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();

@@ -144,7 +144,7 @@ void PicStatus::fillTable()
 		for (int ii = 0; ii < allItems.count(); ii++)
 		{
 			item = allItems.at(ii);
-			QFileInfo fi = QFileInfo(item->Pfile);
+			QFileInfo fi(item->Pfile);
 			QString Iname;
 			if (item->isInlineImage)
 				Iname = tr("Embedded Image");
@@ -168,7 +168,7 @@ void PicStatus::fillTable()
 		for (int ii = 0; ii < allItems.count(); ii++)
 		{
 			item = allItems.at(ii);
-			QFileInfo fi = QFileInfo(item->Pfile);
+			QFileInfo fi(item->Pfile);
 			QString Iname;
 			if (item->isInlineImage)
 				Iname = tr("Embedded Image");
@@ -208,7 +208,7 @@ void PicStatus::sortByName()
 	{
 		QListWidgetItem *ite = imageViewArea->takeItem(i);
 		PicItem *item = (PicItem*) ite;
-		QFileInfo fi = QFileInfo(item->PageItemObject->Pfile);
+		QFileInfo fi(item->PageItemObject->Pfile);
 		sorted.insert(fi.fileName(), item);
 	}
 
@@ -304,7 +304,7 @@ void PicStatus::imageSelected(QListWidgetItem *ite)
 	displayObjekt->setText(currItem->itemName());
 	if (currItem->imageIsAvailable)
 	{
-		QFileInfo fi = QFileInfo(currItem->Pfile);
+		QFileInfo fi(currItem->Pfile);
 		QString ext = fi.suffix().toLower();
 		if (currItem->isInlineImage)
 		{
@@ -371,7 +371,7 @@ void PicStatus::imageSelected(QListWidgetItem *ite)
 		QString trNA = tr("n/a");
 		if (!currItem->Pfile.isEmpty())
 		{
-			QFileInfo fi = QFileInfo(currItem->Pfile);
+			QFileInfo fi(currItem->Pfile);
 			displayName->setText(fi.fileName());
 			displayPath->setText(QDir::toNativeSeparators(fi.path()));
 			searchButton->setEnabled(true);
@@ -483,10 +483,10 @@ void PicStatus::SearchPic()
 	if (dia2->exec() != QDialog::Accepted)
 		return;
 
-	auto source = QFileInfo(currItem->Pfile);
+	QFileInfo source(currItem->Pfile);
 
 	loadPict(currItem, dia2->getSelectedImage());
-	auto target = QFileInfo(currItem->Pfile);
+	QFileInfo target(currItem->Pfile);
 	item->setText(target.fileName());
 	item->setIcon(createImgIcon(currItem));
 	imageSelected(imageViewArea->currentItem());
@@ -499,7 +499,7 @@ void PicStatus::FileManager()
 {
 	if (currItem == nullptr)
 		return;
-	QFileInfo fi = QFileInfo(currItem->Pfile);
+	QFileInfo fi(currItem->Pfile);
 	QString path = fi.canonicalPath();
 	if (path.isEmpty())
 		return;
@@ -556,8 +556,7 @@ void PicStatus::relinkMatchingImages(const QFileInfo& source, const QFileInfo& t
 		if (brokenLink && item->PageItemObject->imageIsAvailable)
 			continue;
 
-		auto fi = QFileInfo(item->PageItemObject->Pfile);
-
+		QFileInfo fi(item->PageItemObject->Pfile);
 		if (fi.path() != source.path())
 			continue;
 		if (fi.fileName() == target.fileName())

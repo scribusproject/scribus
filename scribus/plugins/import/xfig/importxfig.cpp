@@ -49,8 +49,8 @@ XfigPlug::XfigPlug(ScribusDoc* doc, int flags)
 
 QImage XfigPlug::readThumbnail(const QString& fName)
 {
-	QFileInfo fi = QFileInfo(fName);
-	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
+	QFileInfo fi(fName);
+	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath() + "/"));
 	double w=0.0, h=0.0, x=0.0, y=0.0;
 	parseHeader(fName, x, y, w, h);
 	docX = x;
@@ -244,13 +244,13 @@ bool XfigPlug::import(const QString& fNameIn, const TransactionSettings& trSetti
 	CustColors.insert("Pink2", ScColor(255, 192, 192));
 	CustColors.insert("Pink", ScColor(255, 224, 224));
 	CustColors.insert("Gold", ScColor(255, 215, 0));
-	QFileInfo fi = QFileInfo(fNameIn);
+	QFileInfo fi(fNameIn);
 	if (!ScCore->usingGUI())
 	{
 		interactive = false;
 		showProgress = false;
 	}
-	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
+	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath() + "/"));
 	if (showProgress)
 	{
 		ScribusMainWindow* mw = (m_Doc == nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();

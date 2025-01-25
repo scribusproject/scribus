@@ -108,7 +108,7 @@ QImage XpsPlug::readThumbnail(const QString& fName)
 	if (!found)
 	{
 		QFileInfo fi(fName);
-		baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
+		baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath() + "/"));
 		docWidth = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
 		docHeight = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
 		m_Doc = new ScribusDoc();
@@ -182,14 +182,14 @@ bool XpsPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	bool ret = false;
 	firstPage = true;
 	pagecount = 1;
-	QFileInfo fi = QFileInfo(fNameIn);
+	QFileInfo fi(fNameIn);
 	m_FileName = fi.fileName();
 	if (!ScCore->usingGUI())
 	{
 		interactive = false;
 		showProgress = false;
 	}
-	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
+	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath() + "/"));
 	if (showProgress)
 	{
 		ScribusMainWindow* mw = (m_Doc == nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();

@@ -606,7 +606,7 @@ bool importColorsFromFile(const QString& fileName, ColorList &EditColors, QHash<
 		return false;
 	int oldCount = EditColors.count();
 
-	QFileInfo fi = QFileInfo(fileName);
+	QFileInfo fi(fileName);
 	QString ext = fi.suffix().toLower();
 	if (extensionIndicatesEPSorPS(ext))
 	{
@@ -614,7 +614,6 @@ bool importColorsFromFile(const QString& fileName, ColorList &EditColors, QHash<
 		psPalLoader.setupTargets(&EditColors, dialogGradients);
 		return psPalLoader.importFile(fileName, merge);
 	}
-
 
 	QStringList allFormatsV = LoadSavePlugin::getExtensionsForColors();
 	if (allFormatsV.contains(ext))

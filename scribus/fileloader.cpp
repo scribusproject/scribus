@@ -102,7 +102,7 @@ const QString FileLoader::getSaveAsFilterString()
  */
 int FileLoader::testFile()
 {
-	QFileInfo fi = QFileInfo(m_fileName);
+	QFileInfo fi(m_fileName);
 	int ret = -1;
 	if (!fi.exists())
 		ret = -1;

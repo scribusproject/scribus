@@ -1073,13 +1073,13 @@ QDomElement SVGExPlug::processImageItem(PageItem *item, const QString& trans, co
 		}
 		else
 		{
-			QFileInfo fi = QFileInfo(item->Pfile);
+			QFileInfo fi(item->Pfile);
 			QString imgFileName = m_baseDir + "/" + fi.baseName() + ".png";
-			QFileInfo im = QFileInfo(imgFileName);
+			QFileInfo im(imgFileName);
 			if (im.exists())
 				imgFileName = m_baseDir + "/" + fi.baseName() + "_copy.png";
 			img.qImage().save(imgFileName, "PNG");
-			QFileInfo fi2 = QFileInfo(imgFileName);
+			QFileInfo fi2(imgFileName);
 			ob3.setAttribute("xlink:href", fi2.baseName() + ".png");
 		}
 		ob3.setAttribute("x", FToStr(item->imageXOffset() * item->imageXScale()));

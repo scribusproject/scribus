@@ -1960,7 +1960,7 @@ bool ScImage::getAlpha(const QString& fn, int page, QByteArray& alpha, bool PDF,
 	imgInfo.clipPath.clear();
 	imgInfo.PDSpathData.clear();
 	imgInfo.layerInfo.clear();
-	QFileInfo fi = QFileInfo(fn);
+	QFileInfo fi(fn);
 	if (!fi.exists())
 		return false;
 	alpha.resize(0);

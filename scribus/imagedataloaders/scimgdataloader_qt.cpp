@@ -79,7 +79,7 @@ bool ScImgDataLoader_QT::preloadAlphaChannel(const QString& fn, int /*page*/, in
 {
 	initialize();
 	hasAlpha = false;
-	QFileInfo fi = QFileInfo(fn);
+	QFileInfo fi(fn);
 	if (!fi.exists())
 		return false;
 	QString ext = fi.suffix().toLower();

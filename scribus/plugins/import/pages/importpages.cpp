@@ -117,8 +117,8 @@ QImage PagesPlug::readThumbnail(const QString& fName)
 	}
 /*	else
 	{
-		QFileInfo fi = QFileInfo(fName);
-		baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
+		QFileInfo fi(fName);
+		baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath() + "/"));
 		docWidth = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
 		docHeight = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
 		m_Doc = new ScribusDoc();

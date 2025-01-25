@@ -91,7 +91,7 @@ void ScriptPaths::updateScriptsList()
 			for (const auto& directory: scriptDirectory.entryList())
 			{
 				{
-					auto script = QFileInfo(QDir(path).filePath(directory + "/main.py"));
+					QFileInfo script(QDir(path).filePath(directory + "/main.py"));
 					if (script.exists() || script.isFile())
 					{
 						scriptsList.append(ScriptPathsInfo(script.absoluteFilePath(), directory));
@@ -99,7 +99,7 @@ void ScriptPaths::updateScriptsList()
 					}
 				}
 				{
-					auto script = QFileInfo(QDir(path).filePath(directory + "/" + directory + ".py"));
+					QFileInfo script(QDir(path).filePath(directory + "/" + directory + ".py"));
 					if (script.exists() || script.isFile())
 					{
 						scriptsList.append(ScriptPathsInfo(script.absoluteFilePath(), directory));

@@ -43,8 +43,8 @@ CvgPlug::CvgPlug(ScribusDoc* doc, int flags)
 
 QImage CvgPlug::readThumbnail(const QString& fName)
 {
-	QFileInfo fi = QFileInfo(fName);
-	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
+	QFileInfo fi(fName);
+	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath() + "/"));
 	double b, h;
 	parseHeader(fName, b, h);
 	if (b == 0.0)
@@ -108,16 +108,15 @@ bool CvgPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 	importerFlags = flags;
 	cancel = false;
-	double b, h;
 	bool ret = false;
 	CustColors.clear();
-	QFileInfo fi = QFileInfo(fNameIn);
+	QFileInfo fi(fNameIn);
 	if (!ScCore->usingGUI())
 	{
 		interactive = false;
 		showProgress = false;
 	}
-	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
+	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath() + "/"));
 	if (showProgress)
 	{
 		ScribusMainWindow* mw = (m_Doc == nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
@@ -138,8 +137,8 @@ bool CvgPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	else
 		progressDialog = nullptr;
 /* Set default Page to size defined in Preferences */
-	b = 0.0;
-	h = 0.0;
+	double b = 0.0;
+	double h = 0.0;
 	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(1);
