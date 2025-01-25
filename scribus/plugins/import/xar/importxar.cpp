@@ -236,12 +236,12 @@ bool XarPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	double x, y, b, h;
 	bool ret = false;
 	QFileInfo fi = QFileInfo(fName);
-	if ( !ScCore->usingGUI() )
+	if (!ScCore->usingGUI())
 	{
 		interactive = false;
 		showProgress = false;
 	}
-	if ( showProgress )
+	if (showProgress)
 	{
 		ScribusMainWindow* mw = (m_Doc == nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
 		progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
@@ -3547,14 +3547,14 @@ void XarPlug::addGraphicContext()
 {
 /*	XarStyle *gc2 = m_gc.top();
 	XarStyle *gc = new XarStyle;
-	if ( m_gc.top() )
+	if (m_gc.top())
 		*gc = *( m_gc.top() );
 	m_gc.push( gc );
 	if (gc2->Elements.count() > 0)
 		gc2->Elements.removeLast(); */
 	XarStyle *gc2 = m_gc.top();
 	XarStyle *gc = new XarStyle;
-	if ( m_gc.top() )
+	if (m_gc.top())
 		*gc = *( m_gc.top() );
 	m_gc.push( gc );
 	if (gc2->Elements.count() > 0)

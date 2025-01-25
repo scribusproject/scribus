@@ -3959,7 +3959,7 @@ void SlaOutputDev::pushGroup(const QString& maskName, bool forSoftMask, bool alp
 
 QString SlaOutputDev::UnicodeParsedString(const GooString *s1) const
 {
-	if ( !s1 || s1->getLength() == 0 )
+	if (!s1 || s1->getLength() == 0)
 		return QString();
 	bool isUnicode;
 	int i;

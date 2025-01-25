@@ -198,13 +198,13 @@ bool XpsPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	pagecount = 1;
 	QFileInfo fi = QFileInfo(fNameIn);
 	m_FileName = fi.fileName();
-	if ( !ScCore->usingGUI() )
+	if (!ScCore->usingGUI())
 	{
 		interactive = false;
 		showProgress = false;
 	}
 	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
-	if ( showProgress )
+	if (showProgress)
 	{
 		ScribusMainWindow* mw = (m_Doc == nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
 		progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );

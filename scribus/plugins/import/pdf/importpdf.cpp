@@ -148,13 +148,13 @@ bool PdfPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	m_cancel = false;
 	bool ret = false;
 	QFileInfo fi(fNameIn);
-	if ( !ScCore->usingGUI() )
+	if (!ScCore->usingGUI())
 	{
 		m_interactive = false;
 		showProgress = false;
 	}
 	m_baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
-	if ( showProgress )
+	if (showProgress)
 	{
 		ScribusMainWindow* mw = (m_Doc == nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
 		m_progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
@@ -928,7 +928,7 @@ QRectF PdfPlug::getCBox(int box, int pgNum)
 
 QString PdfPlug::UnicodeParsedString(const GooString *s1)
 {
-	if ( !s1 || s1->getLength() == 0 )
+	if (!s1 || s1->getLength() == 0)
 		return QString();
 	bool isUnicode;
 	int i;

@@ -104,7 +104,7 @@ QImage IdmlPlug::readThumbnail(const QString& fName)
 {
 	QImage tmp;
 	QByteArray f;
-	if ( !QFile::exists(fName) )
+	if (!QFile::exists(fName))
 		return QImage();
 	QFileInfo fi = QFileInfo(fName);
 	QString ext = fi.suffix().toLower();

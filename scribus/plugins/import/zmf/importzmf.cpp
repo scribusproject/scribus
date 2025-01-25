@@ -130,12 +130,12 @@ bool ZmfPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	double b, h;
 	bool ret = false;
 	QFileInfo fi = QFileInfo(fName);
-	if ( !ScCore->usingGUI() )
+	if (!ScCore->usingGUI())
 	{
 		interactive = false;
 		showProgress = false;
 	}
-	if ( showProgress )
+	if (showProgress)
 	{
 		ScribusMainWindow* mw=(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
 		progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
