@@ -279,6 +279,8 @@ QString About::trAuthorTitle(const QString& title)
 		result = tr("Tango Project Icons:");
 	else if (title == "Scribus 1.5.1+ Icon Set:")
 		result = tr("Scribus 1.5.1+ Icon Set:");
+	else if (title == "Scribus 1.7.0+ Icon Set:")
+		result = tr("Scribus 1.7.0+ Icon Set:");
 	else if (title == "AppImage for Linux:")
 		result = tr("AppImage for Linux:");
 	else if (title == "Refactoring text layout code, the new boxes model & CTL text layout, Oman House of Open Source Technology team:")
