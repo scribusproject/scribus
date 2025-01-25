@@ -235,7 +235,7 @@ bool XarPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	cancel = false;
 	double x, y, b, h;
 	bool ret = false;
-	QFileInfo fi = QFileInfo(fName);
+	QFileInfo fi(fName);
 	if (!ScCore->usingGUI())
 	{
 		interactive = false;

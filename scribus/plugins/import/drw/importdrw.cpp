@@ -67,8 +67,8 @@ DrwPlug::DrwPlug(ScribusDoc* doc, int flags)
 
 QImage DrwPlug::readThumbnail(const QString& fName)
 {
-	QFileInfo fi = QFileInfo(fName);
-	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
+	QFileInfo fi(fName);
+	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath() + "/"));
 	double b = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
 	double h = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
 	docWidth = b;
@@ -140,15 +140,14 @@ bool DrwPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 	importerFlags = flags;
 	cancel = false;
-	double b, h;
 	bool ret = false;
-	QFileInfo fi = QFileInfo(fNameIn);
+	QFileInfo fi(fNameIn);
 	if (!ScCore->usingGUI())
 	{
 		interactive = false;
 		showProgress = false;
 	}
-	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
+	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath() + "/"));
 	if (showProgress)
 	{
 		ScribusMainWindow* mw = (m_Doc == nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
@@ -169,15 +168,13 @@ bool DrwPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	else
 		progressDialog = nullptr;
 /* Set default Page to size defined in Preferences */
-	b = 0.0;
-	h = 0.0;
 	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(1);
 		qApp->processEvents();
 	}
-	b = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
-	h = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
+	double b = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
+	double h = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
 	docWidth = b;
 	docHeight = h;
 	baseX = 0;

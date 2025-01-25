@@ -63,7 +63,7 @@ ZmfPlug::ZmfPlug(ScribusDoc* doc, int flags)
 
 QImage ZmfPlug::readThumbnail(QString fName)
 {
-	QFileInfo fi = QFileInfo(fName);
+	QFileInfo fi(fName);
 	double b = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
 	double h = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
 	docWidth = b;
@@ -127,9 +127,8 @@ bool ZmfPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 	importerFlags = flags;
 	cancel = false;
-	double b, h;
 	bool ret = false;
-	QFileInfo fi = QFileInfo(fName);
+	QFileInfo fi(fName);
 	if (!ScCore->usingGUI())
 	{
 		interactive = false;
@@ -155,8 +154,8 @@ bool ZmfPlug::import(QString fNameIn, const TransactionSettings& trSettings, int
 	else
 		progressDialog = nullptr;
 /* Set default Page to size defined in Preferences */
-	b = 0.0;
-	h = 0.0;
+	double b = 0.0;
+	double h = 0.0;
 	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(1);

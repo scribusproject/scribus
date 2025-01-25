@@ -66,7 +66,7 @@ PmPlug::PmPlug(ScribusDoc* doc, int flags)
 
 QImage PmPlug::readThumbnail(const QString& fName)
 {
-	QFileInfo fi = QFileInfo(fName);
+	QFileInfo fi(fName);
 	docWidth = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
 	docHeight = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
 	progressDialog = nullptr;
@@ -125,7 +125,7 @@ bool PmPlug::import(const QString& fNameIn, const TransactionSettings& trSetting
 	importerFlags = flags;
 	cancel = false;
 	bool ret = false;
-	QFileInfo fi = QFileInfo(fNameIn);
+	QFileInfo fi(fNameIn);
 	if (!ScCore->usingGUI())
 	{
 		interactive = false;

@@ -305,7 +305,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, const CheckerPrefs& checke
 					if  (((qRound(72.0 / currItem->imageXScale()) > checkerSettings.maxResolution) || (qRound(72.0 / currItem->imageYScale()) > checkerSettings.maxResolution))
 							&& (currItem->isRaster) && (checkerSettings.checkResolution))
 						itemError.insert(ImageDPITooHigh, 0);
-					QFileInfo fi = QFileInfo(currItem->Pfile);
+					QFileInfo fi(currItem->Pfile);
 					QString ext = fi.suffix().toLower();
 					if (extensionIndicatesPDF(ext) && (checkerSettings.checkRasterPDF))
 						itemError.insert(PlacedPDF, 0);
@@ -569,7 +569,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, const CheckerPrefs& checke
 					if  (((qRound(72.0 / currItem->imageXScale()) > checkerSettings.maxResolution) || (qRound(72.0 / currItem->imageYScale()) > checkerSettings.maxResolution))
 							&& (currItem->isRaster) && (checkerSettings.checkResolution))
 						itemError.insert(ImageDPITooHigh, 0);
-					QFileInfo fi = QFileInfo(currItem->Pfile);
+					QFileInfo fi(currItem->Pfile);
 					QString ext = fi.suffix().toLower();
 					if (extensionIndicatesPDF(ext) && (checkerSettings.checkRasterPDF))
 						itemError.insert(PlacedPDF, 0);

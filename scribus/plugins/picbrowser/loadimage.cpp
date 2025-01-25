@@ -81,7 +81,7 @@ void loadImagesThread::processLoadImageJob(int row, const QString& path, int siz
 		return;
 	}
 
-	QFileInfo fi = QFileInfo(path);
+	QFileInfo fi(path);
 	QString ext = fi.suffix().toLower();
 	QStringList allFormatsV = LoadSavePlugin::getExtensionsForPreview(FORMATID_FIRSTUSER);
 	if (allFormatsV.contains(ext.toUtf8()))

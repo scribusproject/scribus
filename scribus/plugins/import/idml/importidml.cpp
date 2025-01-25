@@ -106,7 +106,7 @@ QImage IdmlPlug::readThumbnail(const QString& fName)
 	QByteArray f;
 	if (!QFile::exists(fName))
 		return QImage();
-	QFileInfo fi = QFileInfo(fName);
+	QFileInfo fi(fName);
 	QString ext = fi.suffix().toLower();
 	if (ext == "idml")
 	{
@@ -160,8 +160,8 @@ QImage IdmlPlug::readThumbnail(const QString& fName)
 	if (!found)
 	{
 		progressDialog = nullptr;
-		QFileInfo fi = QFileInfo(fName);
-		baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
+		QFileInfo fi(fName);
+		baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath() + "/"));
 		docWidth = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
 		docHeight = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
 		m_Doc = new ScribusDoc();
@@ -219,7 +219,7 @@ bool IdmlPlug::readColors(const QString& fileName, ColorList & colors)
 	importedColors.clear();
 
 	QByteArray f;
-	QFileInfo fi = QFileInfo(fileName);
+	QFileInfo fi(fileName);
 	QString ext = fi.suffix().toLower();
 	if (ext == "idml")
 	{
@@ -303,13 +303,13 @@ bool IdmlPlug::import(const QString& fNameIn, const TransactionSettings& trSetti
 	firstPage = true;
 	pagecount = 1;
 	mpagecount = 0;
-	QFileInfo fi = QFileInfo(fNameIn);
+	QFileInfo fi(fNameIn);
 	if (!ScCore->usingGUI())
 	{
 		interactive = false;
 		showProgress = false;
 	}
-	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
+	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath() + "/"));
 	if (showProgress)
 	{
 		ScribusMainWindow* mw = (m_Doc == nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
@@ -534,7 +534,7 @@ bool IdmlPlug::convert(const QString& fn)
 	bool firstSpread = true;
 
 	QByteArray f;
-	QFileInfo fi = QFileInfo(fn);
+	QFileInfo fi(fn);
 	QString ext = fi.suffix().toLower();
 	if (ext == "idml")
 	{

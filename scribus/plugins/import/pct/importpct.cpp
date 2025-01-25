@@ -61,8 +61,8 @@ PctPlug::PctPlug(ScribusDoc* doc, int flags)
 
 QImage PctPlug::readThumbnail(const QString& fName)
 {
-	QFileInfo fi = QFileInfo(fName);
-	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
+	QFileInfo fi(fName);
+	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath() + "/"));
 	double b {0.0};
 	double h {0.0};
 	double x {0.0};
@@ -131,13 +131,13 @@ bool PctPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	cancel = false;
 	bool ret = false;
 	CustColors.clear();
-	QFileInfo fi = QFileInfo(fNameIn);
+	QFileInfo fi(fNameIn);
 	if (!ScCore->usingGUI())
 	{
 		interactive = false;
 		showProgress = false;
 	}
-	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
+	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath() + "/"));
 	if (showProgress)
 	{
 		ScribusMainWindow* mw = (m_Doc == nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();

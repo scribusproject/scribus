@@ -290,7 +290,7 @@ void CollectForOutput::processItem(PageItem *ite)
 	{
 		PageItem_OSGFrame *osgframe = ite->asOSGFrame();
 		QString ofName(osgframe->modelFile);
-		QFileInfo itf = QFileInfo(ofName);
+		QFileInfo itf(ofName);
 		if (!itf.exists())
 		{
 			ofName = QDir::toNativeSeparators(PrefsManager::instance().documentDir() + "/" + ofName);

@@ -1069,12 +1069,11 @@ void PropertiesPalette_XYZ::handleBasePoint(int m)
 		}
 		else
 		{
-			double b, h, r;
 			QTransform ma;
 			FPoint n;
-			b = m_item->width();
-			h = m_item->height();
-			r = m_item->rotation();
+			double b = m_item->width();
+			double h = m_item->height();
+			double r = m_item->rotation();
 			ma.translate(m_item->xPos(), m_item->yPos());
 			ma.rotate(r);
 			int bp = basePointWidget->checkedId();

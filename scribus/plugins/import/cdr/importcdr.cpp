@@ -119,7 +119,6 @@ bool CdrPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 	importerFlags = flags;
 	cancel = false;
-	double b, h;
 	bool ret = false;
 	QFileInfo fi(fNameIn);
 	if (!ScCore->usingGUI())
@@ -147,8 +146,8 @@ bool CdrPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	else
 		progressDialog = nullptr;
 /* Set default Page to size defined in Preferences */
-	b = 0.0;
-	h = 0.0;
+	double b = 0.0;
+	double h = 0.0;
 	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(1);

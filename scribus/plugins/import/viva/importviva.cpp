@@ -111,8 +111,8 @@ QImage VivaPlug::readThumbnail(const QString& fName)
 	if (!QFile::exists(fName))
 		return QImage();
 	progressDialog = nullptr;
-	QFileInfo fi = QFileInfo(fName);
-	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
+	QFileInfo fi(fName);
+	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath() + "/"));
 	docWidth = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
 	docHeight = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
 	m_Doc = new ScribusDoc();
@@ -205,13 +205,13 @@ bool VivaPlug::import(const QString& fNameIn, const TransactionSettings& trSetti
 	firstPage = true;
 	pagecount = 1;
 	mpagecount = 0;
-	QFileInfo fi = QFileInfo(fNameIn);
+	QFileInfo fi(fNameIn);
 	if (!ScCore->usingGUI())
 	{
 		interactive = false;
 		showProgress = false;
 	}
-	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
+	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath() + "/"));
 	if (showProgress)
 	{
 		ScribusMainWindow* mw = (m_Doc == nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
