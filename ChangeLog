@@ -2,6 +2,8 @@ Scribus - 1.7.0 (Released 2025-01-xx)
 =========================================
 https://bugs.scribus.net/changelog_page.php?version_id=117
 
+0017381: [User Interface]  New floating colour popups don't behave well on Windows (jghali)
+0017247: [User Interface]  Indigo UI: New Document Dialog (nitramr)
 0017351: [General]  [Patch] Fix various typos (cbradney)
 0016017: [User Interface]  Magenta is displayed as black and grey (nitramr)
 0016061: [User Interface]  Properties Toolbar (nitramr)
@@ -151,7 +153,13 @@ https://bugs.scribus.net/changelog_page.php?version_id=117
 0016861: [Build System]  Port of AdapterWidget to Qt6 (jghali)
 0016864: [Import / Export]  Scribus crashes opening sla files (cbradney)
 
-Scribus - 1.6.3 (Released 2024-xx-xx)
+Scribus - 1.6.4 (Released 2025-xx-xx)
+=========================================
+https://bugs.scribus.net/changelog_page.php?version_id=126
+0017298: [Scripter]  Add functions for getting and setting the size of the current page, and getting the bounding box of a page item (jghali)
+0017383: [Scripter]  isLayerLocked scripter function returns opposite of expected value (cbradney)
+
+Scribus - 1.6.3 (Released 2025-01-08)
 =========================================
 https://bugs.scribus.net/changelog_page.php?version_id=124
 
