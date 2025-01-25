@@ -13079,8 +13079,12 @@ Ha egy sincs kijelölve, az összes alaphelyzetbe lesz állítva.</translation>
         <translation>Oldalak vízszintes tükrözése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="73"/>
         <source>Mirror Pages(s) Vertically</source>
+        <translation type="vanished">Oldalak függőleges tükrözése</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="73"/>
+        <source>Mirror Page(s) Vertically</source>
         <translation>Oldalak függőleges tükrözése</translation>
     </message>
     <message>
@@ -13202,8 +13206,12 @@ Ha egy sincs kijelölve, az összes alaphelyzetbe lesz állítva.</translation>
         <translation>Oldalak vízszintes tükrözése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="68"/>
         <source>Mirror Pages(s) Vertically</source>
+        <translation type="vanished">Oldalak függőleges tükrözése</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="68"/>
+        <source>Mirror Page(s) Vertically</source>
         <translation>Oldalak függőleges tükrözése</translation>
     </message>
     <message>
@@ -21746,8 +21754,12 @@ Figyelem: a PDF űrlapok nem kerülnek exportálásra.</translation>
         <translation>Oldalak vízszintes tükrözése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printpreviewbase.ui" line="110"/>
         <source>Mirror Pages(s) Vertically</source>
+        <translation type="vanished">Oldalak függőleges tükrözése</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreviewbase.ui" line="110"/>
+        <source>Mirror Page(s) Vertically</source>
         <translation>Oldalak függőleges tükrözése</translation>
     </message>
     <message>

@@ -13078,8 +13078,8 @@ Se non hai ningún seleccionado, repóñense todos.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="73"/>
-        <source>Mirror Pages(s) Vertically</source>
-        <translation type="unfinished"></translation>
+        <source>Mirror Page(s) Vertically</source>
+        <translation type="unfinished">Reflectir a(s) páxina(s) verticalmente</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="80"/>
@@ -13201,8 +13201,8 @@ Se non hai ningún seleccionado, repóñense todos.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_ps.ui" line="68"/>
-        <source>Mirror Pages(s) Vertically</source>
-        <translation type="unfinished"></translation>
+        <source>Mirror Page(s) Vertically</source>
+        <translation type="unfinished">Reflectir a(s) páxina(s) verticalmente</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_ps.ui" line="75"/>
@@ -21742,8 +21742,8 @@ un intervalo de páxinaa ou un único número de páxina</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="110"/>
-        <source>Mirror Pages(s) Vertically</source>
-        <translation type="unfinished"></translation>
+        <source>Mirror Page(s) Vertically</source>
+        <translation type="unfinished">Reflectir a(s) páxina(s) verticalmente</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="117"/>

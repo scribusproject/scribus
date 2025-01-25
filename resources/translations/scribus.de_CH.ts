@@ -13093,8 +13093,12 @@ If no handle is selected all handles will be reset.</source>
         <translation>Seite(n) horizontal spiegeln</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="73"/>
         <source>Mirror Pages(s) Vertically</source>
+        <translation type="vanished">Seite(n) vertikal spiegeln</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="73"/>
+        <source>Mirror Page(s) Vertically</source>
         <translation>Seite(n) vertikal spiegeln</translation>
     </message>
     <message>
@@ -13216,8 +13220,12 @@ If no handle is selected all handles will be reset.</source>
         <translation>Seite(n) horizontal spiegeln</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="68"/>
         <source>Mirror Pages(s) Vertically</source>
+        <translation type="vanished">Seite(n) vertikal spiegeln</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="68"/>
+        <source>Mirror Page(s) Vertically</source>
         <translation>Seite(n) vertikal spiegeln</translation>
     </message>
     <message>
@@ -21772,8 +21780,12 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
         <translation>Seite(n) horizontal spiegeln</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printpreviewbase.ui" line="110"/>
         <source>Mirror Pages(s) Vertically</source>
+        <translation type="vanished">Seite(n) vertikal spiegeln</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreviewbase.ui" line="110"/>
+        <source>Mirror Page(s) Vertically</source>
         <translation>Seite(n) vertikal spiegeln</translation>
     </message>
     <message>

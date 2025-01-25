@@ -13091,8 +13091,12 @@ If no handle is selected all handles will be reset.</source>
         <translation>Vodoravno prezrcali stran(i)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="73"/>
         <source>Mirror Pages(s) Vertically</source>
+        <translation type="vanished">Navpično prezrcali stran(i)</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="73"/>
+        <source>Mirror Page(s) Vertically</source>
         <translation>Navpično prezrcali stran(i)</translation>
     </message>
     <message>
@@ -13214,8 +13218,12 @@ If no handle is selected all handles will be reset.</source>
         <translation>Vodoravno prezrcali stran(i)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="68"/>
         <source>Mirror Pages(s) Vertically</source>
+        <translation type="vanished">Navpično prezrcali stran(i)</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="68"/>
+        <source>Mirror Page(s) Vertically</source>
         <translation>Navpično prezrcali stran(i)</translation>
     </message>
     <message>
@@ -21761,8 +21769,12 @@ več strani ali samo številka posamezne strani</translation>
         <translation>Vodoravno prezrcali stran(i)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printpreviewbase.ui" line="110"/>
         <source>Mirror Pages(s) Vertically</source>
+        <translation type="vanished">Navpično prezrcali stran(i)</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreviewbase.ui" line="110"/>
+        <source>Mirror Page(s) Vertically</source>
         <translation>Navpično prezrcali stran(i)</translation>
     </message>
     <message>

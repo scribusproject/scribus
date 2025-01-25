@@ -13085,8 +13085,8 @@ An holl zornelloù a vo adderaouekaet ma ne ziuzit ket unan anezho.</translation
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="73"/>
-        <source>Mirror Pages(s) Vertically</source>
-        <translation type="unfinished"></translation>
+        <source>Mirror Page(s) Vertically</source>
+        <translation type="unfinished">Melezour a-serzh ar pajennoù</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="80"/>
@@ -13208,8 +13208,8 @@ An holl zornelloù a vo adderaouekaet ma ne ziuzit ket unan anezho.</translation
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_ps.ui" line="68"/>
-        <source>Mirror Pages(s) Vertically</source>
-        <translation type="unfinished"></translation>
+        <source>Mirror Page(s) Vertically</source>
+        <translation type="unfinished">Melezour a-serzh ar pajennoù</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_ps.ui" line="75"/>
@@ -21747,8 +21747,8 @@ Lakaat war al live 1 pe 2 a c&apos;hall krouiñ restroù ramzel</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="110"/>
-        <source>Mirror Pages(s) Vertically</source>
-        <translation type="unfinished"></translation>
+        <source>Mirror Page(s) Vertically</source>
+        <translation type="unfinished">Melezour a-serzh ar pajennoù</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="117"/>

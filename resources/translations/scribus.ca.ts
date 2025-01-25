@@ -13072,8 +13072,8 @@ Si no hi ha cap ansa seleccionada, es restabliran totes les anses.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="73"/>
-        <source>Mirror Pages(s) Vertically</source>
-        <translation type="unfinished"></translation>
+        <source>Mirror Page(s) Vertically</source>
+        <translation type="unfinished">Reflecteix les pàgines verticalment</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="80"/>
@@ -13195,8 +13195,8 @@ Si no hi ha cap ansa seleccionada, es restabliran totes les anses.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_ps.ui" line="68"/>
-        <source>Mirror Pages(s) Vertically</source>
-        <translation type="unfinished"></translation>
+        <source>Mirror Page(s) Vertically</source>
+        <translation type="unfinished">Reflecteix les pàgines verticalment</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_ps.ui" line="75"/>
@@ -21715,8 +21715,8 @@ a range of pages or a single page number</source>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="110"/>
-        <source>Mirror Pages(s) Vertically</source>
-        <translation type="unfinished"></translation>
+        <source>Mirror Page(s) Vertically</source>
+        <translation type="unfinished">Reflecteix les pàgines verticalment</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="117"/>

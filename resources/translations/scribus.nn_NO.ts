@@ -13086,9 +13086,13 @@ Dersom du ikkje har valt noko handtak blir alle handtaka stilte tilbake.</transl
         <translation>Spegelvend side(r) horisontalt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="73"/>
         <source>Mirror Pages(s) Vertically</source>
-        <translation>Spegelvend side(r) vertikalt</translation>
+        <translation type="vanished">Spegelvend side(r) vertikalt</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="73"/>
+        <source>Mirror Page(s) Vertically</source>
+        <translation type="unfinished">Spegelvend side(r) vertikalt</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="80"/>
@@ -13209,9 +13213,13 @@ Dersom du ikkje har valt noko handtak blir alle handtaka stilte tilbake.</transl
         <translation>Spegelvend side(r) horisontalt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="68"/>
         <source>Mirror Pages(s) Vertically</source>
-        <translation>Spegelvend side(r) vertikalt</translation>
+        <translation type="vanished">Spegelvend side(r) vertikalt</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="68"/>
+        <source>Mirror Page(s) Vertically</source>
+        <translation type="unfinished">Spegelvend side(r) vertikalt</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_ps.ui" line="75"/>
@@ -21749,9 +21757,13 @@ ei sidefølgje, eller eitt enkelt sidenummer</translation>
         <translation>Spegelvend side(r) horisontalt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printpreviewbase.ui" line="110"/>
         <source>Mirror Pages(s) Vertically</source>
-        <translation>Spegelvend side(r) vertikalt</translation>
+        <translation type="vanished">Spegelvend side(r) vertikalt</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreviewbase.ui" line="110"/>
+        <source>Mirror Page(s) Vertically</source>
+        <translation type="unfinished">Spegelvend side(r) vertikalt</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="117"/>

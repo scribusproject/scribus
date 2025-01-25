@@ -13081,9 +13081,13 @@ If no handle is selected all handles will be reset.</source>
         <translation>Віддзеркалити сторінку(и) горизонтально</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="73"/>
         <source>Mirror Pages(s) Vertically</source>
-        <translation>Віддзеркалити сторінки вертикально</translation>
+        <translation type="vanished">Віддзеркалити сторінки вертикально</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="73"/>
+        <source>Mirror Page(s) Vertically</source>
+        <translation type="unfinished">Віддзеркалити сторінку(и) вертикально</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="80"/>
@@ -13204,9 +13208,13 @@ If no handle is selected all handles will be reset.</source>
         <translation>Віддзеркалити сторінку(и) горизонтально</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="68"/>
         <source>Mirror Pages(s) Vertically</source>
-        <translation>Віддзеркалити сторінки вертикально</translation>
+        <translation type="vanished">Віддзеркалити сторінки вертикально</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="68"/>
+        <source>Mirror Page(s) Vertically</source>
+        <translation type="unfinished">Віддзеркалити сторінку(и) вертикально</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_ps.ui" line="75"/>
@@ -21737,9 +21745,13 @@ a range of pages or a single page number</source>
         <translation>Віддзеркалити сторінку(и) горизонтально</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printpreviewbase.ui" line="110"/>
         <source>Mirror Pages(s) Vertically</source>
-        <translation>Віддзеркалити сторінки вертикально</translation>
+        <translation type="vanished">Віддзеркалити сторінки вертикально</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreviewbase.ui" line="110"/>
+        <source>Mirror Page(s) Vertically</source>
+        <translation type="unfinished">Віддзеркалити сторінку(и) вертикально</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="117"/>

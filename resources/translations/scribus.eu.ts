@@ -13087,9 +13087,13 @@ inportatzen ditu, eta haien datu bektorialak Scribus objektu bihurtzen ditu.</tr
         <translation>Ispilatu orria(k) horizontalki</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="73"/>
         <source>Mirror Pages(s) Vertically</source>
-        <translation>Ispilatu orria(k) bertikalean</translation>
+        <translation type="vanished">Ispilatu orria(k) bertikalean</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="73"/>
+        <source>Mirror Page(s) Vertically</source>
+        <translation>Ispilatu orrialdea(k) bertikalean</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="80"/>
@@ -13211,9 +13215,13 @@ berriagoa behar da.</translation>
         <translation>Ispilatu orria(k) horizontalki</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="68"/>
         <source>Mirror Pages(s) Vertically</source>
-        <translation>Ispilatu orria(k) bertikalean</translation>
+        <translation type="vanished">Ispilatu orria(k) bertikalean</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="68"/>
+        <source>Mirror Page(s) Vertically</source>
+        <translation>Ispilatu orrialdea(k) bertikalean</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_ps.ui" line="75"/>
@@ -21753,9 +21761,13 @@ berriagoa behar da.</translation>
         <translation>Ispilatu orria(k) horizontalki</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printpreviewbase.ui" line="110"/>
         <source>Mirror Pages(s) Vertically</source>
-        <translation>Ispilatu orria(k) bertikalean</translation>
+        <translation type="vanished">Ispilatu orria(k) bertikalean</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreviewbase.ui" line="110"/>
+        <source>Mirror Page(s) Vertically</source>
+        <translation>Ispilatu orrialdea(k) bertikalean</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="117"/>

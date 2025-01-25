@@ -13091,8 +13091,12 @@ If no handle is selected all handles will be reset.</source>
         <translation>水平镜像页面</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="73"/>
         <source>Mirror Pages(s) Vertically</source>
+        <translation type="vanished">垂直镜像页面</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="73"/>
+        <source>Mirror Page(s) Vertically</source>
         <translation>垂直镜像页面</translation>
     </message>
     <message>
@@ -13214,8 +13218,12 @@ If no handle is selected all handles will be reset.</source>
         <translation>水平镜像页面</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="68"/>
         <source>Mirror Pages(s) Vertically</source>
+        <translation type="vanished">垂直镜像页面</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="68"/>
+        <source>Mirror Page(s) Vertically</source>
         <translation>垂直镜像页面</translation>
     </message>
     <message>
@@ -21761,8 +21769,12 @@ a range of pages or a single page number</source>
         <translation>水平镜像页面</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printpreviewbase.ui" line="110"/>
         <source>Mirror Pages(s) Vertically</source>
+        <translation type="vanished">垂直镜像页面</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreviewbase.ui" line="110"/>
+        <source>Mirror Page(s) Vertically</source>
         <translation>垂直镜像页面</translation>
     </message>
     <message>

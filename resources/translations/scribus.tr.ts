@@ -13077,7 +13077,7 @@ If no handle is selected all handles will be reset.</source>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="73"/>
-        <source>Mirror Pages(s) Vertically</source>
+        <source>Mirror Page(s) Vertically</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -13200,7 +13200,7 @@ If no handle is selected all handles will be reset.</source>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_ps.ui" line="68"/>
-        <source>Mirror Pages(s) Vertically</source>
+        <source>Mirror Page(s) Vertically</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -21713,7 +21713,7 @@ virgülle ayrılmış belirteçler listesi ekleyin</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="110"/>
-        <source>Mirror Pages(s) Vertically</source>
+        <source>Mirror Page(s) Vertically</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

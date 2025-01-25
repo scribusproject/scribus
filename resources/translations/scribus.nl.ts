@@ -269,7 +269,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="197"/>
         <source>Unable to open licence file. Please check your install directory or the Scribus website for licencing information.</source>
-        <translation>Kon het licentiebestand niet openen. Kijk in de installatiemap of op de Scribuswebsite voor meer informatie over de licentie.</translation>
+        <translation>Kan het licentiebestand niet openen. Kijk in de installatiemap of op de Scribuswebsite voor meer informatie over de licentie.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="267"/>
@@ -6263,7 +6263,7 @@ Lees het gedeelte Kleuren bewerken van de documentatie voor meer details.</trans
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="429"/>
         <source>Alt+C</source>
-        <translation>Alt+A</translation>
+        <translation>Alt+C</translation>
     </message>
 </context>
 <context>
@@ -7447,7 +7447,7 @@ een bereik van pagina&apos;s of een enkel paginanummer</translation>
         <location filename="../../scribus/ui/extimageprops.cpp" line="86"/>
         <location filename="../../scribus/ui/extimageprops.cpp" line="123"/>
         <source>Multiply</source>
-        <translation>Vermenigvuldig</translation>
+        <translation>Vermenigvuldigen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/extimageprops.cpp" line="66"/>
@@ -7496,24 +7496,24 @@ een bereik van pagina&apos;s of een enkel paginanummer</translation>
         <location filename="../../scribus/ui/extimageprops.cpp" line="94"/>
         <location filename="../../scribus/ui/extimageprops.cpp" line="131"/>
         <source>Color Dodge</source>
-        <translation>Kleur tegenhouden</translation>
+        <translation>Kleur verminderen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/extimageprops.cpp" line="74"/>
         <location filename="../../scribus/ui/extimageprops.cpp" line="95"/>
         <location filename="../../scribus/ui/extimageprops.cpp" line="132"/>
         <source>Color Burn</source>
-        <translation>Kleur doordrukken</translation>
+        <translation>Kleur versterken</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/extimageprops.cpp" line="112"/>
         <source>Blend Mode:</source>
-        <translation>Vermeng Mode:</translation>
+        <translation>Mengmodus:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/extimageprops.cpp" line="138"/>
         <source>Opacity:</source>
-        <translation>Doorschijnendheid:</translation>
+        <translation>Dekking:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/extimageprops.cpp" line="145"/>
@@ -7533,12 +7533,12 @@ een bereik van pagina&apos;s of een enkel paginanummer</translation>
     <message>
         <location filename="../../scribus/ui/extimageprops.cpp" line="281"/>
         <source>Don&apos;t use any Path</source>
-        <translation>Gebruik geen enkel pad</translation>
+        <translation>Geen enkel pad gebruiken</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/extimageprops.cpp" line="283"/>
         <source>Paths</source>
-        <translation>Locaties</translation>
+        <translation>Paden</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/extimageprops.cpp" line="72"/>
@@ -7550,7 +7550,7 @@ een bereik van pagina&apos;s of een enkel paginanummer</translation>
     <message>
         <location filename="../../scribus/ui/extimageprops.cpp" line="290"/>
         <source>Live Preview</source>
-        <translation>Gelijktijdig Voorbeeld</translation>
+        <translation>Voorbeeldweergave</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/extimageprops.cpp" line="75"/>
@@ -8021,7 +8021,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/gradienteditor.ui" line="96"/>
         <source>Opacity:</source>
-        <translation>Doorschijnendheid:</translation>
+        <translation>Dekking:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradienteditor.ui" line="119"/>
@@ -9370,7 +9370,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/plugins/import/pdf/importpdfplugin.cpp" line="202"/>
         <source>The Import plugin cannot handle Postscript files</source>
-        <translation>De Import-plug-in kan Postscript-bestanden niet aan</translation>
+        <translation>De Import-plug-in kan geen Postscript-bestanden verwerken</translation>
     </message>
 </context>
 <context>
@@ -10597,7 +10597,7 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../scribus/ui/layers.cpp" line="62"/>
         <location filename="../../scribus/ui/layers.cpp" line="736"/>
         <source>Opacity:</source>
-        <translation>Ondoorschijnendheid:</translation>
+        <translation>Dekking:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/layers.cpp" line="69"/>
@@ -10628,7 +10628,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/layers.cpp" line="720"/>
         <source>Multiply</source>
-        <translation>Vermenigvuldig</translation>
+        <translation>Vermenigvuldigen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/layers.cpp" line="721"/>
@@ -10658,12 +10658,12 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/layers.cpp" line="727"/>
         <source>Color Dodge</source>
-        <translation>Kleur tegenhouden</translation>
+        <translation>Kleur verminderen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/layers.cpp" line="728"/>
         <source>Color Burn</source>
-        <translation>Kleur doordrukken</translation>
+        <translation>Kleur versterken</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/layers.cpp" line="726"/>
@@ -10999,7 +10999,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="41"/>
         <source>&amp;Bottom:</source>
-        <translation>On&amp;der:</translation>
+        <translation>&amp;Onder:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="43"/>
@@ -11021,12 +11021,12 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="147"/>
         <source>Distance between the top margin guide and the edge of the page</source>
-        <translation>Afstand tussen de bovenkant van de marge en de rand van het papier</translation>
+        <translation>Afstand tussen de bovenste margehulpijn en de rand van het papier</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="148"/>
         <source>Distance between the bottom margin guide and the edge of the page</source>
-        <translation>Afstand tussen de onderkant van de marge en de rand van het papier</translation>
+        <translation>Afstand tussen de onderste margehulpijn en de rand van het papier</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="228"/>
@@ -11046,12 +11046,12 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="88"/>
         <source>Apply the margin changes to all existing pages in the document</source>
-        <translation>De geselecteerde margeinstellingen op alle bestaande pagina&apos;s van het document toepassen</translation>
+        <translation>De margeinstellingen op alle bestaande pagina&apos;s van het document toepassen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="93"/>
         <source>Printer Margins...</source>
-        <translation>Printermarges...</translation>
+        <translation>Printermarges…</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="77"/>
@@ -11061,7 +11061,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="80"/>
         <source>All Document Pages</source>
-        <translation>Alle document pagina&apos;s</translation>
+        <translation>Alle pagina&apos;s in het document</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="84"/>
@@ -11111,7 +11111,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="143"/>
         <source>Bleeds</source>
-        <translation>Afloop</translation>
+        <translation>Aflopen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="234"/>
@@ -11136,17 +11136,17 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="95"/>
         <source>Import the margins for the selected page size from the available printers</source>
-        <translation>Importeer de marges voor de geselecteerde paginagrootte van de beschikbare printers</translation>
+        <translation>Marges voor de geselecteerde paginagrootte van de beschikbare printers importeren</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="149"/>
         <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.</source>
-        <translation>Afstand tussen de linkermarge-hulplijn en de rand van de pagina. Als een dubbelzijdige of een drie- of vierluikopmaak is geselecteerd, kan deze marge worden gebruikt om de juiste bindingsmarges te bereiken.</translation>
+        <translation>Afstand tussen de linkermarge-hulplijn en de rand van de pagina. Als een dubbelzijdige of een 3- of vierluikopmaak is geselecteerd, kan deze marge worden gebruikt om de juiste bindingsmarges te bereiken.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="150"/>
         <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.</source>
-        <translation>Afstand tussen de rechtermarge-hulplijn en de rand van de pagina. Als een dubbelzijdige of een drie- of vierluikopmaak is geselecteerd, kan deze marge worden gebruikt om de juiste bindingsmarges te bereiken.</translation>
+        <translation>Afstand tussen de rechtermarge-hulplijn en de rand van de pagina. Als een dubbelzijdige of een 3- of vierluikopmaak is geselecteerd, kan deze marge worden gebruikt om de juiste bindingsmarges te bereiken.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="137"/>
@@ -11886,7 +11886,7 @@ Als er geen ankerpunt geselecteerd is, zullen alle ankerpunten worden teruggezet
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="140"/>
         <source>Do not show this dialog again</source>
-        <translation>Dit venster niet meer tonen</translation>
+        <translation>Dit dialoogvenster niet meer tonen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="156"/>
@@ -12707,7 +12707,7 @@ Als er geen ankerpunt geselecteerd is, zullen alle ankerpunten worden teruggezet
     <message>
         <location filename="../../scribus/ui/osgeditor.ui" line="349"/>
         <source>Opacity:</source>
-        <translation>Ondoorschijnendheid:</translation>
+        <translation>Dekking:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/osgeditor.ui" line="359"/>
@@ -13090,9 +13090,13 @@ Als er geen ankerpunt geselecteerd is, zullen alle ankerpunten worden teruggezet
         <translation>Pagina(&apos;s) horizontaal spiegelen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="73"/>
         <source>Mirror Pages(s) Vertically</source>
-        <translation>Pagina&apos;s(s) Verticaal Spiegelen</translation>
+        <translation type="vanished">Pagina(&apos;s) verticaal spiegelen</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="73"/>
+        <source>Mirror Page(s) Vertically</source>
+        <translation>Pagina(&apos;s) verticaal spiegelen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="80"/>
@@ -13213,9 +13217,13 @@ Als er geen ankerpunt geselecteerd is, zullen alle ankerpunten worden teruggezet
         <translation>Pagina(&apos;s) horizontaal spiegelen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="68"/>
         <source>Mirror Pages(s) Vertically</source>
-        <translation>Pagina&apos;s(s) Verticaal Spiegelen</translation>
+        <translation type="vanished">Pagina&apos;s verticaal spiegelen</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="68"/>
+        <source>Mirror Page(s) Vertically</source>
+        <translation>Pagina(&apos;s) verticaal spiegelen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_ps.ui" line="75"/>
@@ -14347,7 +14355,7 @@ Please submit your file (if possible) to the
 Document Liberation Project https://www.documentliberation.org</source>
         <translation type="vanished">Verwerking mislukt!
 
-Verstuur uw bestand (indien mogelijk) naar het
+Verstuur het bestand (indien mogelijk) naar het
 Document Liberation Project https://www.documentliberation.org</translation>
     </message>
 </context>
@@ -14524,12 +14532,12 @@ beide eindpunten moeten buiten de veelhoek liggen</translation>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="65"/>
         <source>Horizontal Offset</source>
-        <translation>Horizontale afstand</translation>
+        <translation>Horizontale verschuiving</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="75"/>
         <source>Vertical Offset</source>
-        <translation>Vertical afstand</translation>
+        <translation>Verticale verschuiving</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="116"/>
@@ -18547,7 +18555,7 @@ Wilt u deze gebruiken?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="647"/>
         <source>Offset:</source>
-        <translation>Verplaatsing:</translation>
+        <translation>Verschuiving:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="655"/>
@@ -21760,9 +21768,13 @@ een bereik van pagina&apos;s of een enkel paginanummer</translation>
         <translation>Pagina(&apos;s) horizontaal spiegelen</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printpreviewbase.ui" line="110"/>
         <source>Mirror Pages(s) Vertically</source>
-        <translation>Spiegel Pagina&apos;s(s) Verticaal</translation>
+        <translation type="vanished">Pagina&apos;s verticaal spiegelen</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreviewbase.ui" line="110"/>
+        <source>Mirror Page(s) Vertically</source>
+        <translation>Pagina(&apos;s) verticaal spiegelen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="117"/>
@@ -22051,7 +22063,7 @@ een bereik van pagina&apos;s of een enkel paginanummer</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="116"/>
         <source>Scaling</source>
-        <translation>Schalen</translation>
+        <translation>Schaling</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="159"/>
@@ -22106,7 +22118,7 @@ een bereik van pagina&apos;s of een enkel paginanummer</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="271"/>
         <source>&amp;Free Scaling</source>
-        <translation>&amp;Vrij schalen</translation>
+        <translation>&amp;Vrije schaling</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="278"/>
@@ -22186,7 +22198,7 @@ een bereik van pagina&apos;s of een enkel paginanummer</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="443"/>
         <source>Extended Properties</source>
-        <translation>Uitgebreide eigenschappe</translation>
+        <translation>Uitgebreide eigenschappen</translation>
     </message>
 </context>
 <context>
@@ -22242,24 +22254,24 @@ een bereik van pagina&apos;s of een enkel paginanummer</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="692"/>
         <source>Line &amp;Width:</source>
-        <translation>Linedi&amp;kte:</translation>
+        <translation>Lijn&amp;dikte:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="693"/>
         <source>Ed&amp;ges:</source>
-        <translation>&amp;Hoeken:</translation>
+        <translation>&amp;Randen:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="644"/>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="699"/>
         <source>Miter Join</source>
-        <translation>Verstek</translation>
+        <translation>Verstekverbinding</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="645"/>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="700"/>
         <source>Bevel Join</source>
-        <translation>Schuin</translation>
+        <translation>Schuine verbinding</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="646"/>
@@ -22271,19 +22283,19 @@ een bereik van pagina&apos;s of een enkel paginanummer</translation>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="652"/>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="707"/>
         <source>Flat Cap</source>
-        <translation>Plat</translation>
+        <translation>Recht uiteinde</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="653"/>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="708"/>
         <source>Square Cap</source>
-        <translation>Vierkant</translation>
+        <translation>Vierkant uiteinde</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="654"/>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="709"/>
         <source>Round Cap</source>
-        <translation>Ronde kapitalen</translation>
+        <translation>Rond uiteinde</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="656"/>
@@ -22329,7 +22341,7 @@ een bereik van pagina&apos;s of een enkel paginanummer</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="730"/>
         <source>Type of line end</source>
-        <translation>Type lijneinden</translation>
+        <translation>Type lijneinde</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="731"/>
@@ -22339,22 +22351,22 @@ een bereik van pagina&apos;s of een enkel paginanummer</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="732"/>
         <source>Arrow head style for start of line</source>
-        <translation>Stijl van de staart van een pijl</translation>
+        <translation>Pijlkopstijl voor begin van lijn</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="733"/>
         <source>Arrow head style for end of line</source>
-        <translation>Stijl van de punt van een pijl</translation>
+        <translation>Pijlkopstijl voor einde van lijn</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="734"/>
         <source>Arrow head scale for start of line</source>
-        <translation>Schaal van de staart van een pijl</translation>
+        <translation>Pijlkopschaal voor begin van lijn</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="735"/>
         <source>Arrow head scale for end of line</source>
-        <translation>Schaal van de punt van een pijl</translation>
+        <translation>Pijlkopschaal voor einde van lijn</translation>
     </message>
 </context>
 <context>
@@ -22372,23 +22384,23 @@ een bereik van pagina&apos;s of een enkel paginanummer</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="154"/>
         <source>Start Arrow:</source>
-        <translation>Pijlstaart:</translation>
+        <translation>Begin van pijl:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="99"/>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="129"/>
         <source>Scaling:</source>
-        <translation>Schaal:</translation>
+        <translation>Schaling:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="161"/>
         <source>End Arrow:</source>
-        <translation>Pijlpunt:</translation>
+        <translation>Einde van pijl:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="39"/>
         <source>Line &amp;Width:</source>
-        <translation>Linedi&amp;kte:</translation>
+        <translation>Lijn&amp;dikte:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="68"/>
@@ -22398,7 +22410,7 @@ een bereik van pagina&apos;s of een enkel paginanummer</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="168"/>
         <source>Ed&amp;ges:</source>
-        <translation>&amp;Hoeken:</translation>
+        <translation>&amp;Randen:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="175"/>
@@ -22412,13 +22424,13 @@ een bereik van pagina&apos;s of een enkel paginanummer</translation>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="34"/>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="280"/>
         <source>X-Offset:</source>
-        <translation>X-Offset:</translation>
+        <translation>X-verschuiving:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="40"/>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="281"/>
         <source>Y-Offset:</source>
-        <translation>Y-Offset:</translation>
+        <translation>Y-verschuiving:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="46"/>
@@ -22442,7 +22454,7 @@ een bereik van pagina&apos;s of een enkel paginanummer</translation>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="61"/>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="285"/>
         <source>Opacity:</source>
-        <translation>Ondoorschijnendheid:</translation>
+        <translation>Dekking:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="67"/>
@@ -22459,7 +22471,7 @@ een bereik van pagina&apos;s of een enkel paginanummer</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="53"/>
         <source>Black</source>
-        <translation>Sorteren</translation>
+        <translation>Zwart</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="70"/>
@@ -22481,7 +22493,7 @@ een bereik van pagina&apos;s of een enkel paginanummer</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="292"/>
         <source>Multiply</source>
-        <translation>Vermenigvuldig</translation>
+        <translation>Vermenigvuldigen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="293"/>
@@ -22516,12 +22528,12 @@ een bereik van pagina&apos;s of een enkel paginanummer</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="299"/>
         <source>Color Dodge</source>
-        <translation>Kleur tegenhouden</translation>
+        <translation>Kleur verminderen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="300"/>
         <source>Color Burn</source>
-        <translation>Kleur doordrukken</translation>
+        <translation>Kleur versterken</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="301"/>
@@ -22548,7 +22560,7 @@ een bereik van pagina&apos;s of een enkel paginanummer</translation>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="286"/>
         <source>Content covers
 Drop Shadow</source>
-        <translation>Inhoud bevat
+        <translation>Inhoud bedekt
 Slagschaduw</translation>
     </message>
     <message>
@@ -22570,12 +22582,12 @@ Transparantie</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="44"/>
         <source>X-Offset:</source>
-        <translation>X-Offset:</translation>
+        <translation>X-verschuiving:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="57"/>
         <source>Y-Offset:</source>
-        <translation>Y-Offset:</translation>
+        <translation>Y-verschuiving:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="70"/>
@@ -22590,7 +22602,7 @@ Transparantie</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="93"/>
         <source>Opacity:</source>
-        <translation>Ondoorschijnendheid:</translation>
+        <translation>Dekking:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="103"/>
@@ -22621,7 +22633,7 @@ Transparantie</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="142"/>
         <source>Multiply</source>
-        <translation>Vermenigvuldig</translation>
+        <translation>Vermenigvuldigen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="147"/>
@@ -22656,12 +22668,12 @@ Transparantie</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="177"/>
         <source>Color Dodge</source>
-        <translation>Kleur tegenhouden</translation>
+        <translation>Kleur verminderen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="182"/>
         <source>Color Burn</source>
-        <translation>Kleur doordrukken</translation>
+        <translation>Kleur versterken</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="187"/>
@@ -22744,7 +22756,7 @@ Transparantie</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="222"/>
         <source>Text Flow:</source>
-        <translation>Tekstomloop</translation>
+        <translation>Tekstverloop:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="229"/>
@@ -22782,7 +22794,7 @@ Transparantie</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="106"/>
         <source>Remove Direct Cell Formatting</source>
-        <translation>Lokale celopmaak verwijderen</translation>
+        <translation>Directe celopmaak verwijderen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="243"/>
@@ -22835,7 +22847,7 @@ Transparantie</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="73"/>
         <source>Remove Direct Table Formatting</source>
-        <translation>Lokale tabelopmaak verwijderen</translation>
+        <translation>Directe tabelopmaak verwijderen</translation>
     </message>
 </context>
 <context>
@@ -22889,7 +22901,7 @@ Transparantie</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="720"/>
         <source>remove direct paragraph formatting</source>
-        <translation>Lokale alinea-opmaak verwijderen</translation>
+        <translation>directe alinea-opmaak verwijderen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="769"/>
@@ -22947,7 +22959,7 @@ Transparantie</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="110"/>
         <source>Select the line spacing mode</source>
-        <translation>Selecteer de regelafstandsmodus</translation>
+        <translation>Selecteer de modus voor regelafstand</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="123"/>
@@ -22967,7 +22979,7 @@ Transparantie</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="259"/>
         <source>Remove Direct Paragraph Formatting</source>
-        <translation>Lokale alinea-opmaak verwijderen</translation>
+        <translation>Directe alinea-opmaak verwijderen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="301"/>
@@ -22977,7 +22989,7 @@ Transparantie</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="308"/>
         <source>Remove Direct Character Formatting</source>
-        <translation>Lokale tekenopmaak verwijderen</translation>
+        <translation>Directe tekenopmaak verwijderen</translation>
     </message>
 </context>
 <context>
@@ -23216,7 +23228,7 @@ Transparantie</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="60"/>
         <source>Offset to baseline of characters</source>
-        <translation>Verplaatsing van tekens t.o.v. basislijn</translation>
+        <translation>Verschuiving van tekens t.o.v. basislijn</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="63"/>
@@ -23415,12 +23427,12 @@ Transparantie</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="164"/>
         <source>Edit tab settings of text frame...</source>
-        <translation>Tabinstellingen van tekstkader bewerken...</translation>
+        <translation>Tabinstellingen van tekstkader bewerken…</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="167"/>
         <source>T&amp;abulators...</source>
-        <translation>T&amp;abulators...</translation>
+        <translation>T&amp;abulators…</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="40"/>
@@ -23509,7 +23521,7 @@ Transparantie</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="35"/>
         <source>Maximum Ascent</source>
-        <translation>Maximumstok</translation>
+        <translation>Maximale stok</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="45"/>
@@ -23519,7 +23531,7 @@ Transparantie</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="48"/>
         <source>Font Ascent</source>
-        <translation>Lettertypestok</translation>
+        <translation>Stok van het lettertype</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="58"/>
@@ -23602,7 +23614,7 @@ Transparantie</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="122"/>
         <source>Small Capitals</source>
-        <translation>Kleine hoofdletters</translation>
+        <translation>Kleinkapitalen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="132"/>
@@ -23612,7 +23624,7 @@ Transparantie</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="135"/>
         <source>Small Capitals from Capitals</source>
-        <translation>Kleine hoofdletters van hoofdletters</translation>
+        <translation>Kleinkapitalen van hoofdletters</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="145"/>
@@ -23627,7 +23639,7 @@ Transparantie</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="158"/>
         <source>Petite Capitals</source>
-        <translation>Petite hoofdletters</translation>
+        <translation>Petite kapitalen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="168"/>
@@ -23637,12 +23649,12 @@ Transparantie</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="171"/>
         <source>Petite Capitals from Capitals</source>
-        <translation>Petite hoofdletters van hoofdletters</translation>
+        <translation>Petite kapitalen van hoofdletters</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="181"/>
         <source>All Petite Caps</source>
-        <translation>Alles in 100% kleinkapitaal</translation>
+        <translation>Alles in Petite kapitalen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="191"/>
@@ -23942,7 +23954,7 @@ De waarde 0 betekent onbeperkt afbrekingen.</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="103"/>
         <source>Hyphenation Character:</source>
-        <translation>Afbrekingsteken:</translation>
+        <translation>Afbreekteken:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="110"/>
@@ -23995,12 +24007,12 @@ De waarde 0 betekent onbeperkt afbrekingen.</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="35"/>
         <source>Don&apos;t separate first:</source>
-        <translation>Aantal eerste regels:</translation>
+        <translation>Niet eerst scheiden:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="55"/>
         <source>Don&apos;t separate last:</source>
-        <translation>Aantal laatste regels:</translation>
+        <translation>Niet als laatste scheiden:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="62"/>
@@ -24061,7 +24073,7 @@ De waarde 0 betekent onbeperkt afbrekingen.</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="35"/>
         <source>Drop Caps</source>
-        <translation>Beginkapitaal</translation>
+        <translation>Initiaalletters</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="56"/>
@@ -24169,7 +24181,7 @@ De waarde 0 betekent onbeperkt afbrekingen.</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_pathtext.cpp" line="230"/>
         <source>Flip Text</source>
-        <translation>Spiegel tekst</translation>
+        <translation>Tekst omdraaien</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pathtext.cpp" line="231"/>
@@ -24217,7 +24229,7 @@ De waarde 0 betekent onbeperkt afbrekingen.</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="62"/>
         <source>Flip Text</source>
-        <translation>Spiegel tekst</translation>
+        <translation>Tekst omdraaien</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="69"/>
@@ -24240,12 +24252,12 @@ De waarde 0 betekent onbeperkt afbrekingen.</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="133"/>
         <source>Color of text stroke and/or drop shadow, depending which is chosen.&lt;br/&gt;If both are chosen, then they share the same color.</source>
-        <translation>Kleur van tekstcontour en/of slagschaduw, afhankelijk van welke is gekozen.&lt;br/&gt;Als beide zijn gekozen, delen ze dezelfde kleur.</translation>
+        <translation>Kleur van tekststreek en/of slagschaduw, afhankelijk van welke is gekozen.&lt;br/&gt;Als beide zijn gekozen, delen ze dezelfde kleur.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="159"/>
         <source>Saturation of color of text stroke</source>
-        <translation>Verzadiging van kleur van tekstlijnen</translation>
+        <translation>Verzadiging van kleur van tekststreek</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="201"/>
@@ -29280,7 +29292,7 @@ aangeroepen functies.
         <location filename="../../scribus/fonts/scface_ps.cpp" line="207"/>
         <location filename="../../scribus/fonts/scface_ps.cpp" line="227"/>
         <source>Font %1 cannot be read, no embedding</source>
-        <translation>Font %1 kan niet worden gelezen, wordt niet ingesloten</translation>
+        <translation>Lettertype %1 kan niet worden gelezen, wordt niet ingesloten</translation>
     </message>
     <message>
         <location filename="../../scribus/scfonts.cpp" line="702"/>
@@ -29836,42 +29848,42 @@ aangeroepen functies.
     <message>
         <location filename="../../scribus/pagesize.cpp" line="375"/>
         <source>9x12 (Arch A)</source>
-        <translation>9x12 (Boog A)</translation>
+        <translation>9x12 (Arch A)</translation>
     </message>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="381"/>
         <source>12x18 (Arch B)</source>
-        <translation>12x18 (Boog B)</translation>
+        <translation>12x18 (Arch B)</translation>
     </message>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="387"/>
         <source>18x24 (Arch C)</source>
-        <translation>18x24 (Boog C)</translation>
+        <translation>18x24 (Arch C)</translation>
     </message>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="393"/>
         <source>24x36 (Arch D)</source>
-        <translation>24x36 (Boog D)</translation>
+        <translation>24x36 (Arch D)</translation>
     </message>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="399"/>
         <source>36x48 (Arch E)</source>
-        <translation>36x48 (Boog E)</translation>
+        <translation>36x48 (Arch E)</translation>
     </message>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="405"/>
         <source>30x42 (Arch E1)</source>
-        <translation>30x42 (Boog E1)</translation>
+        <translation>30x42 (Arch E1)</translation>
     </message>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="411"/>
         <source>26x38 (Arch E2)</source>
-        <translation>26x38 (Boog E2)</translation>
+        <translation>26x38 (Arch E2)</translation>
     </message>
     <message>
         <location filename="../../scribus/pagesize.cpp" line="417"/>
         <source>27x39 (Arch E3)</source>
-        <translation>27x39 (Boog E3)</translation>
+        <translation>27x39 (Arch E3)</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_tiff.cpp" line="291"/>
@@ -32000,7 +32012,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/smcstylewidget.cpp" line="543"/>
         <location filename="../../scribus/ui/smcstylewidget.cpp" line="561"/>
         <source>Shade</source>
-        <translation>Schaduw</translation>
+        <translation>Tint</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="39"/>
@@ -32069,17 +32081,17 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="375"/>
         <source>Baseline Offset</source>
-        <translation>Basislijnafstand</translation>
+        <translation>Basislijnverschuiving</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="299"/>
         <source>Horizontal Scaling</source>
-        <translation>Horizontale schaal</translation>
+        <translation>Horizontale schaling</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="337"/>
         <source>Vertical Scaling</source>
-        <translation>Verticale schaal</translation>
+        <translation>Verticale schaling</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="478"/>
@@ -32094,12 +32106,12 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="556"/>
         <source>Stroke Color</source>
-        <translation>Lijnkleur</translation>
+        <translation>Streekkleur</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="585"/>
         <source>Stroke Shade</source>
-        <translation>Lijntint</translation>
+        <translation>Streektint</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="634"/>
@@ -32480,7 +32492,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1237"/>
         <source>Use Parent Values</source>
-        <translation>Gebruik bovenliggende waarden</translation>
+        <translation>Bovenliggende waarden gebruiken</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1263"/>
@@ -32627,12 +32639,12 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="289"/>
         <source>Use Parent Value</source>
-        <translation>Gebruik ouder waarde</translation>
+        <translation>Bovenliggende waarde gebruiken</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="276"/>
         <source>Reset to Default</source>
-        <translation>Terugdraaien naar standaard</translation>
+        <translation>Terugzetten naar standaard</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="71"/>
@@ -32954,7 +32966,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/smstyleselect.cpp" line="16"/>
         <source>P</source>
         <comment>P as in Parent</comment>
-        <translation>p</translation>
+        <translation>P</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smstyleselect.cpp" line="17"/>
@@ -35939,7 +35951,7 @@ Gebruik de preproductie-controle om deze te corrigeren</translation>
     <message>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptplugin.cpp" line="148"/>
         <source>Embedded Python scripting support for Python 2.x.</source>
-        <translation>Embedded Python scripting support for Python 3.x. {2.?}</translation>
+        <translation>Ingesloten Python-scriptondersteuning voor Python 3.x. (2.?)</translation>
     </message>
 </context>
 <context>
@@ -36286,12 +36298,12 @@ Gebruik de preproductie-controle om deze te corrigeren</translation>
     <message>
         <location filename="../../scribus/ui/styleselect.cpp" line="123"/>
         <source>X-Offset:</source>
-        <translation>X-positie:</translation>
+        <translation>X-verschuiving:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/styleselect.cpp" line="125"/>
         <source>Y-Offset:</source>
-        <translation>Y-positie:</translation>
+        <translation>Y-verschuiving:</translation>
     </message>
 </context>
 <context>
@@ -39872,7 +39884,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="680"/>
         <source>Change stroke gradient values</source>
-        <translation>Lijnverloop-waarden wijzigen</translation>
+        <translation>Streekverloop-waarden wijzigen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="681"/>
@@ -39887,7 +39899,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="683"/>
         <source>Change stroke gradient type</source>
-        <translation>Lijnverloop-type wijzigen</translation>
+        <translation>Streekverloop-type wijzigen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="684"/>
@@ -39897,7 +39909,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="685"/>
         <source>Change stroke gradient extent</source>
-        <translation>Verloopuitbreiding lijn aanpassen</translation>
+        <translation>Verloopuitbreiding streek aanpassen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="686"/>
@@ -39907,7 +39919,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="687"/>
         <source>Change stroke pattern</source>
-        <translation>Lijnpatroon aanpassen</translation>
+        <translation>Streekpatroon aanpassen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="688"/>
@@ -40102,7 +40114,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="773"/>
         <source>Change First Line Offset</source>
-        <translation>Eerste lijn offset aanpassen</translation>
+        <translation>Verschuiving eerste regel aanpassen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="774"/>
@@ -40248,17 +40260,17 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="847"/>
         <source>Drop Shadow X Offset</source>
-        <translation>Slagschaduw X-positie</translation>
+        <translation>Slagschaduw X-verschuiving</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="848"/>
         <source>Drop Shadow Y Offset</source>
-        <translation>Slagschaduw Y-positie</translation>
+        <translation>Slagschaduw Y-verschuiving</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="849"/>
         <source>Drop Shadow Opacity</source>
-        <translation>Slagschaduw transparantie</translation>
+        <translation>Slagschaduw-dekking</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="850"/>
@@ -40268,7 +40280,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="832"/>
         <source>Swap page</source>
-        <translation>Pagina&apos;s wisselen</translation>
+        <translation>Pagina&apos;s verwisselen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="842"/>
@@ -40941,7 +40953,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/colorpalette.ui" line="823"/>
         <location filename="../../scribus/ui/colorpalette.ui" line="1090"/>
         <source>Properties...</source>
-        <translation>Eigenschappen...</translation>
+        <translation>Eigenschappen…</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="173"/>
@@ -40991,22 +41003,22 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="1135"/>
         <source>Overprinting</source>
-        <translation>Overprinten</translation>
+        <translation>Overdrukken</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="1143"/>
         <source>Knockout</source>
-        <translation>Uitsparen</translation>
+        <translation>Uitsparing</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="1148"/>
         <source>Overprint</source>
-        <translation>Overprint</translation>
+        <translation>Overdrukken</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="36"/>
         <source>Fill</source>
-        <translation>Vul</translation>
+        <translation>Vulling</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="62"/>
@@ -41022,12 +41034,12 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="850"/>
         <source>Stroke</source>
-        <translation>Lijn</translation>
+        <translation>Streek</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="876"/>
         <source>Stroke Mode</source>
-        <translation>Lijnmodus</translation>
+        <translation>Streekmodus</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="168"/>
@@ -41037,7 +41049,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="188"/>
         <source>Patch Mesh</source>
-        <translation>Maas stoppen</translation>
+        <translation>Maaswerkcorrectie</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="689"/>
@@ -41998,12 +42010,12 @@ kies een andere.</translation>
     <message>
         <location filename="../../scribus/ui/transparencypalette.ui" line="37"/>
         <source>Edit Line Color Properties</source>
-        <translation>Lijnkleur bewerken</translation>
+        <translation>Lijnkleur-eigenschappen bewerken</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/transparencypalette.ui" line="50"/>
         <source>Edit Fill Color Properties</source>
-        <translation>Vulkleur bewerken</translation>
+        <translation>Vulkleur-eigenschappen bewerken</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/transparencypalette.ui" line="105"/>
@@ -42093,13 +42105,13 @@ kies een andere.</translation>
         <location filename="../../scribus/ui/transparencypalette.ui" line="189"/>
         <location filename="../../scribus/ui/transparencypalette.ui" line="567"/>
         <source>Color Dodge</source>
-        <translation>Kleur tegenhouden</translation>
+        <translation>Kleur verminderen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/transparencypalette.ui" line="194"/>
         <location filename="../../scribus/ui/transparencypalette.ui" line="572"/>
         <source>Color Burn</source>
-        <translation>Kleur doordrukken</translation>
+        <translation>Kleur versterken</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/transparencypalette.ui" line="199"/>
@@ -42169,12 +42181,12 @@ kies een andere.</translation>
     <message>
         <location filename="../../scribus/ui/transparencypalette.ui" line="464"/>
         <source>Properties...</source>
-        <translation>Eigenschappen...</translation>
+        <translation>Eigenschappen…</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/transparencypalette.ui" line="493"/>
         <source>Use inverted Pattern</source>
-        <translation>Gebruik het omgekeerde patroon</translation>
+        <translation>Omgekeerd patroon gebruiken</translation>
     </message>
 </context>
 <context>

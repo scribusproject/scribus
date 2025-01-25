@@ -13089,8 +13089,12 @@ Se não estiver selecionada nenhuma alça, serão repostas todas as alças.</tra
         <translation>Espelhar páginas horizontalmente</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="73"/>
         <source>Mirror Pages(s) Vertically</source>
+        <translation type="vanished">Espelhar páginas verticalmente</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="73"/>
+        <source>Mirror Page(s) Vertically</source>
         <translation>Espelhar páginas verticalmente</translation>
     </message>
     <message>
@@ -13212,8 +13216,12 @@ Se não estiver selecionada nenhuma alça, serão repostas todas as alças.</tra
         <translation>Espelhar páginas horizontalmente</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="68"/>
         <source>Mirror Pages(s) Vertically</source>
+        <translation type="vanished">Espelhar páginas verticalmente</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="68"/>
+        <source>Mirror Page(s) Vertically</source>
         <translation>Espelhar páginas verticalmente</translation>
     </message>
     <message>
@@ -21758,8 +21766,12 @@ uma entrada pode ser * para todas as páginas,
         <translation>Espelhar páginas horizontalmente</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printpreviewbase.ui" line="110"/>
         <source>Mirror Pages(s) Vertically</source>
+        <translation type="vanished">Espelhar páginas verticalmente</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreviewbase.ui" line="110"/>
+        <source>Mirror Page(s) Vertically</source>
         <translation>Espelhar páginas verticalmente</translation>
     </message>
     <message>

@@ -13082,9 +13082,13 @@ Se estis elektita neniu tenilo, ĉiuj teniloj estos reportitaj al komenca pozici
         <translation>Reflektu paĝo(j)n</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="73"/>
         <source>Mirror Pages(s) Vertically</source>
-        <translation>Renversu paĝo(j)n</translation>
+        <translation type="vanished">Renversu paĝo(j)n</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="73"/>
+        <source>Mirror Page(s) Vertically</source>
+        <translation type="unfinished">Renversu paĝo(j)n</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="80"/>
@@ -13205,9 +13209,13 @@ Se estis elektita neniu tenilo, ĉiuj teniloj estos reportitaj al komenca pozici
         <translation>Reflektu paĝo(j)n</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="68"/>
         <source>Mirror Pages(s) Vertically</source>
-        <translation>Renversu paĝo(j)n</translation>
+        <translation type="vanished">Renversu paĝo(j)n</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="68"/>
+        <source>Mirror Page(s) Vertically</source>
+        <translation type="unfinished">Renversu paĝo(j)n</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_ps.ui" line="75"/>
@@ -21739,9 +21747,13 @@ por paĝointervalo, aŭ unuopa paĝnumero</translation>
         <translation>Reflektu paĝo(j)n</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printpreviewbase.ui" line="110"/>
         <source>Mirror Pages(s) Vertically</source>
-        <translation>Renversu paĝo(j)n</translation>
+        <translation type="vanished">Renversu paĝo(j)n</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreviewbase.ui" line="110"/>
+        <source>Mirror Page(s) Vertically</source>
+        <translation type="unfinished">Renversu paĝo(j)n</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="117"/>

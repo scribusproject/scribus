@@ -13079,8 +13079,8 @@ Hvis ingen håndtag er markerede, så nulstilles alle håndtag.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="73"/>
-        <source>Mirror Pages(s) Vertically</source>
-        <translation type="unfinished"></translation>
+        <source>Mirror Page(s) Vertically</source>
+        <translation type="unfinished">Spejlvend side(r) vertikalt</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="80"/>
@@ -13202,8 +13202,8 @@ Hvis ingen håndtag er markerede, så nulstilles alle håndtag.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_ps.ui" line="68"/>
-        <source>Mirror Pages(s) Vertically</source>
-        <translation type="unfinished"></translation>
+        <source>Mirror Page(s) Vertically</source>
+        <translation type="unfinished">Spejlvend side(r) vertikalt</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_ps.ui" line="75"/>
@@ -21734,8 +21734,8 @@ en række sider eller et enkelt sidenummer</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="110"/>
-        <source>Mirror Pages(s) Vertically</source>
-        <translation type="unfinished"></translation>
+        <source>Mirror Page(s) Vertically</source>
+        <translation type="unfinished">Spejlvend side(r) vertikalt</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="117"/>

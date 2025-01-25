@@ -13107,9 +13107,13 @@ Se nessuna maniglia è selezionata, saranno tutte riportate alla posizione inizi
         <translation>Rifletti pagina(e)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="73"/>
         <source>Mirror Pages(s) Vertically</source>
-        <translation>Ribalta pagina(e)</translation>
+        <translation type="vanished">Ribalta pagina(e)</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="73"/>
+        <source>Mirror Page(s) Vertically</source>
+        <translation type="unfinished">Ribalta pagina(e)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="80"/>
@@ -13230,9 +13234,13 @@ Se nessuna maniglia è selezionata, saranno tutte riportate alla posizione inizi
         <translation>Rifletti pagina(e)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="68"/>
         <source>Mirror Pages(s) Vertically</source>
-        <translation>Ribalta pagina(e)</translation>
+        <translation type="vanished">Ribalta pagina(e)</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="68"/>
+        <source>Mirror Page(s) Vertically</source>
+        <translation type="unfinished">Ribalta pagina(e)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_ps.ui" line="75"/>
@@ -21765,9 +21773,13 @@ o un numero di una singola pagina</translation>
         <translation>Rifletti pagina(e)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printpreviewbase.ui" line="110"/>
         <source>Mirror Pages(s) Vertically</source>
-        <translation>Ribalta pagina(e)</translation>
+        <translation type="vanished">Ribalta pagina(e)</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreviewbase.ui" line="110"/>
+        <source>Mirror Page(s) Vertically</source>
+        <translation type="unfinished">Ribalta pagina(e)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="117"/>

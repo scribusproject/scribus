@@ -13084,9 +13084,13 @@ Tous les ancrages seront remis à zéro si aucun d’eux n’est sélectioné.</
         <translation>Miroir horizontal des pages</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="73"/>
         <source>Mirror Pages(s) Vertically</source>
-        <translation>Miroir vertical des pages</translation>
+        <translation type="vanished">Miroir vertical des pages</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="73"/>
+        <source>Mirror Page(s) Vertically</source>
+        <translation type="unfinished">Miroir vertical des pages</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="80"/>
@@ -13207,9 +13211,13 @@ Tous les ancrages seront remis à zéro si aucun d’eux n’est sélectioné.</
         <translation>Miroir horizontal des pages</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="68"/>
         <source>Mirror Pages(s) Vertically</source>
-        <translation>Miroir vertical des pages</translation>
+        <translation type="vanished">Miroir vertical des pages</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="68"/>
+        <source>Mirror Page(s) Vertically</source>
+        <translation type="unfinished">Miroir vertical des pages</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_ps.ui" line="75"/>
@@ -21744,9 +21752,13 @@ un intervalle de pages ou un seul numéro de page</translation>
         <translation>Miroir horizontal des pages</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printpreviewbase.ui" line="110"/>
         <source>Mirror Pages(s) Vertically</source>
-        <translation>Miroir vertical des pages</translation>
+        <translation type="vanished">Miroir vertical des pages</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreviewbase.ui" line="110"/>
+        <source>Mirror Page(s) Vertically</source>
+        <translation type="unfinished">Miroir vertical des pages</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="117"/>

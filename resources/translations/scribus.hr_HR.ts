@@ -13085,8 +13085,12 @@ Ako nijedna ručka nije odabrana, resetirat će se sve ručke.</translation>
         <translation>Zrcali stranice vodoravno</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="73"/>
         <source>Mirror Pages(s) Vertically</source>
+        <translation type="vanished">Zrcali stranice okomito</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/outputpreview_pdf.ui" line="73"/>
+        <source>Mirror Page(s) Vertically</source>
         <translation>Zrcali stranice okomito</translation>
     </message>
     <message>
@@ -13208,8 +13212,12 @@ Ako nijedna ručka nije odabrana, resetirat će se sve ručke.</translation>
         <translation>Zrcali stranice vodoravno</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/outputpreview_ps.ui" line="68"/>
         <source>Mirror Pages(s) Vertically</source>
+        <translation type="vanished">Zrcali stranice okomito</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/outputpreview_ps.ui" line="68"/>
+        <source>Mirror Page(s) Vertically</source>
         <translation>Zrcali stranice okomito</translation>
     </message>
     <message>
@@ -21741,8 +21749,12 @@ stranica ili jedna određena stranica</translation>
         <translation>Zrcali stranice vodoravno</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printpreviewbase.ui" line="110"/>
         <source>Mirror Pages(s) Vertically</source>
+        <translation type="vanished">Zrcali stranice okomito</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/printpreviewbase.ui" line="110"/>
+        <source>Mirror Page(s) Vertically</source>
         <translation>Zrcali stranice okomito</translation>
     </message>
     <message>

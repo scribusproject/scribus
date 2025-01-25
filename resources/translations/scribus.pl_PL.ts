@@ -13087,8 +13087,8 @@ przekształcając dane wektorowe na obiekty Scribusa.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="73"/>
-        <source>Mirror Pages(s) Vertically</source>
-        <translation type="unfinished"></translation>
+        <source>Mirror Page(s) Vertically</source>
+        <translation type="unfinished">Odbij stronę(-y) w pionie</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="80"/>
@@ -13210,8 +13210,8 @@ przekształcając dane wektorowe na obiekty Scribusa.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_ps.ui" line="68"/>
-        <source>Mirror Pages(s) Vertically</source>
-        <translation type="unfinished"></translation>
+        <source>Mirror Page(s) Vertically</source>
+        <translation type="unfinished">Odbij stronę(-y) w pionie</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_ps.ui" line="75"/>
@@ -21764,8 +21764,8 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="110"/>
-        <source>Mirror Pages(s) Vertically</source>
-        <translation type="unfinished"></translation>
+        <source>Mirror Page(s) Vertically</source>
+        <translation type="unfinished">Odbij stronę(-y) w pionie</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="117"/>
