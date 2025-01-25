@@ -696,37 +696,30 @@ PyObject *scribus_deletelayer(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	if (ScCore->primaryMainWindow()->doc->Layers.count() == 1)
+
+	auto* currentDoc = ScCore->primaryMainWindow()->doc;
+	if (currentDoc->Layers.count() == 1)
 	{
-		PyErr_SetString(ScribusException, QObject::tr("Cannot remove the last layer.","python error").toLocal8Bit().constData());
+		PyErr_SetString(ScribusException, QObject::tr("Cannot remove the last layer.", "python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	bool found = false;
-	for (int i = 0; i < ScCore->primaryMainWindow()->doc->Layers.count(); ++i)
+
+	const ScLayer* pLayer = currentDoc->Layers.layerByName(QString::fromUtf8(name.c_str()));
+	if (!pLayer)
 	{
-		if (ScCore->primaryMainWindow()->doc->Layers[i].Name == QString::fromUtf8(name.c_str()))
-		{
-			ScLayer it2 = ScCore->primaryMainWindow()->doc->Layers.at(i);
-			int num2 = it2.ID;
-			if (!num2)
-			{
-				// FIXME: WTF DOES THIS DO?
-				Py_INCREF(Py_None);
-				return Py_None;
-			}
-			ScCore->primaryMainWindow()->doc->removeLayer(num2);
-			ScCore->primaryMainWindow()->doc->Layers.removeLayerByID(num2);
-			ScCore->primaryMainWindow()->doc->setActiveLayer(0);
-			ScCore->primaryMainWindow()->changeLayer(0);
-			found = true;
-			break;
-		}
-	}
-	if (!found)
-	{
-		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error").toLocal8Bit().constData());
+		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.", "python error").toLocal8Bit().constData());
 		return nullptr;
 	}
+
+	int num2 = pLayer->ID;
+	if (!num2)
+		Py_RETURN_NONE;
+
+	currentDoc->removeLayer(num2);
+	currentDoc->Layers.removeLayerByID(num2);
+	currentDoc->setActiveLayer(0);
+	ScCore->primaryMainWindow()->changeLayer(0);
+
 	Py_RETURN_NONE;
 }
 
