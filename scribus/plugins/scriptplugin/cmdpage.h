@@ -46,7 +46,7 @@ PyObject *scribus_currentpage(PyObject * /*self*/);
  "));
  /*! get actual page */
  PyObject *scribus_currentpagenumberforsection(PyObject * /*self*/);
- 
+
 /*! docstring */
 PyDoc_STRVAR(scribus_redraw__doc__,
 QT_TR_NOOP("redrawAll()\n\
@@ -217,6 +217,25 @@ e.g. when is the doc in picas returns picas ;)
 PyObject *scribus_getpagesize(PyObject * /*self*/);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_getcurrentpagesize__doc__,
+QT_TR_NOOP("getCurrentPageSize() ->  (width, height)\n\
+\n\
+Returns a tuple with current page dimensions measured in the document's current units.\n\
+See UNIT_<type> constants and getPageMargins()\n\
+"));
+PyObject *scribus_getcurrentpagesize(PyObject * /*self*/);
+
+
+/*! docstring */
+PyDoc_STRVAR(scribus_setcurrentpagesize__doc__,
+QT_TR_NOOP("setCurrentPageSize(width, height)\n\
+\n\
+Sets the current page dimensions measured in the document's current units.\n\
+See UNIT_<type> constants and getPageMargins()\n\
+"));
+PyObject *scribus_setcurrentpagesize(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_getpagensize__doc__,
 QT_TR_NOOP("getPageNSize(nr) -> tuple\n\
 \n\
@@ -283,6 +302,7 @@ importWhere: number; used if create==1; 0 to create pages before importWherePage
 importWherePage: number; used if create==1 and importWhere==0|1; zero-based page number (of the current document) before or after which to import the pages\n\
 "));
 PyObject *scribus_importpage(PyObject */*self*/, PyObject* args);
+
 
 #endif
 

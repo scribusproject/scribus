@@ -23,7 +23,6 @@ PyObject *scribus_currentpage(PyObject* /* self */)
 	return PyLong_FromLong(static_cast<long>(ScCore->primaryMainWindow()->doc->currentPageNumber() + 1));
 }
 
-
 PyObject *scribus_currentpagenumberforsection(PyObject* /* self */)
 {
 	if (!checkHaveDocument())
@@ -188,6 +187,49 @@ PyObject *scribus_getpagesize(PyObject* /* self */)
 			PointToValue(currentDoc->pageHeight())  // * ScCore->primaryMainWindow()->doc->Scale)
 		);
 	return t;
+}
+
+PyObject *scribus_getcurrentpagesize(PyObject* /* self */)
+{
+    if (!checkHaveDocument())
+        return nullptr;
+    ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+    const ScPage* currentPage = currentDoc->currentPage();
+
+    if (currentPage == nullptr)
+        return nullptr;
+
+    PyObject *t;
+    t = Py_BuildValue(
+        "(dd)",
+        PointToValue(currentPage->width()),
+        PointToValue(currentPage->height())
+        );
+    return t;
+}
+
+PyObject *scribus_setcurrentpagesize(PyObject* /* self */, PyObject* args)
+{
+    double width, height;
+    if (!PyArg_ParseTuple(args, "dd", &width, &height))
+        return nullptr;
+    if (!checkHaveDocument())
+        return nullptr;
+
+    ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+    ScribusView* currentView = ScCore->primaryMainWindow()->view;
+    ScPage* currentPage = currentDoc->currentPage();
+
+    if (currentPage == nullptr)
+        return nullptr;
+
+    currentPage->setWidth(ValueToPoint(width));
+    currentPage->setHeight(ValueToPoint(height));
+
+    currentView->reformPagesView();
+    currentView->DrawNew();
+
+    Py_RETURN_NONE;
 }
 
 PyObject *scribus_getpagensize(PyObject* /* self */, PyObject* args)
@@ -692,7 +734,6 @@ PyObject *scribus_importpage(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
-
 /*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
 with header files structure untouched (docstrings are kept near declarations)
 PV */
@@ -702,11 +743,12 @@ void cmdpagedocwarnings()
 	s << scribus_currentpage__doc__
 	  << scribus_deletepage__doc__
 	  << scribus_getColumnGuides__doc__
+	  << scribus_getcurrentpagesize__doc__
 	  << scribus_getHguides__doc__
 	  << scribus_getpageitems__doc__
 	  << scribus_getpagemargins__doc__
-	  << scribus_getpagenmargins__doc__ 
-	  << scribus_getpagensize__doc__ 
+	  << scribus_getpagenmargins__doc__
+	  << scribus_getpagensize__doc__
 	  << scribus_getpagesize__doc__
 	  << scribus_getpagetype__doc__
 	  << scribus_getRowGuides__doc__
@@ -716,8 +758,9 @@ void cmdpagedocwarnings()
 	  << scribus_newpage__doc__
 	  << scribus_pagecount__doc__
 	  << scribus_redraw__doc__
-	  << scribus_savepageeps__doc__           
+	  << scribus_savepageeps__doc__
 	  << scribus_setColumnGuides__doc__
+	  << scribus_setcurrentpagesize__doc__
 	  << scribus_setHguides__doc__
 	  << scribus_setRowGuides__doc__
 	  << scribus_setVguides__doc__;

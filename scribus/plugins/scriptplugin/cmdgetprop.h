@@ -41,6 +41,16 @@ If \"name\" is not given the currently selected item is used.\n\
 PyObject *scribus_getfillcolor(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_getfillshade__doc__,
+QT_TR_NOOP("getFillShade([\"name\"]) -> integer\n\
+\n\
+Returns the shading value of the fill color of the object \"name\".\n\
+If \"name\" is not given the currently selected item is used.\n\
+"));
+/*! Returns fill shade of the object */
+PyObject* scribus_getfillshade(PyObject* /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_getfilltransparency__doc__,
 QT_TR_NOOP("getFillTransparency([\"name\"]) -> float\n\
 \n\
@@ -154,16 +164,6 @@ LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID\n\
 PyObject *scribus_getlinestyle(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
-PyDoc_STRVAR(scribus_getfillshade__doc__,
-QT_TR_NOOP("getFillShade([\"name\"]) -> integer\n\
-\n\
-Returns the shading value of the fill color of the object \"name\".\n\
-If \"name\" is not given the currently selected item is used.\n\
-"));
-/*! Returns fill shade of the object */
-PyObject *scribus_getfillshade(PyObject * /*self*/, PyObject* args);
-
-/*! docstring */
 PyDoc_STRVAR(scribus_getcornerradius__doc__,
 QT_TR_NOOP("getCornerRadius([\"name\"]) -> integer\n\
 \n\
@@ -250,6 +250,31 @@ is used.\n\
 "));
 /*! Returns rotation of the object */
 PyObject *scribus_getrotation(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_getboundingbox__doc__,
+QT_TR_NOOP("getBoundingBox([\"name\"]) -> (x, y, width, height)\n\
+\n\
+Returns a (x, y, width, height) tuple with the position and size of the object \"name\".\n\
+If \"name\" is not given the currently selected item is used. The size is\n\
+expressed in the current measurement unit of the document - see UNIT_<type>\n\
+for reference.\n\
+"));
+/*! Returns size of the object */
+PyObject *scribus_getboundingbox(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_getvisualboundingbox__doc__,
+QT_TR_NOOP("getVisualBoundingBox([\"name\"]) -> (x, y, width, height)\n\
+\n\
+Returns a (x, y, width, height) tuple corresponding to the visual bounding box\n\
+of the object \"name\".\n\
+If \"name\" is not given the currently selected item is used. The size is\n\
+expressed in the current measurement unit of the document - see UNIT_<type>\n\
+for reference.\n\
+"));
+/*! Returns size of the object */
+PyObject *scribus_getvisualboundingbox(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getallobjects__doc__,

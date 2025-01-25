@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 PyObject *scribus_getobjecttype(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
-	QString result = "";
+	QString result;
 
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
 		return nullptr;
@@ -77,6 +77,19 @@ PyObject *scribus_getfillcolor(PyObject* /* self */, PyObject* args)
 	if (item == nullptr)
 		return nullptr;
 	return PyUnicode_FromString(item->fillColor().toUtf8());
+}
+
+PyObject *scribus_getfillshade(PyObject* /* self */, PyObject* args)
+{
+	PyESString name;
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	if (item == nullptr)
+		return nullptr;
+	return PyLong_FromLong(static_cast<long>(item->fillShade()));
 }
 
 PyObject *scribus_getfilltransparency(PyObject* /* self */, PyObject* args)
@@ -222,19 +235,6 @@ PyObject *scribus_getlinestyle(PyObject* /* self */, PyObject* args)
 	return PyLong_FromLong(static_cast<long>(item->PLineArt));
 }
 
-PyObject *scribus_getfillshade(PyObject* /* self */, PyObject* args)
-{
-	PyESString name;
-	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
-		return nullptr;
-	if (!checkHaveDocument())
-		return nullptr;
-	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
-	if (item == nullptr)
-		return nullptr;
-	return PyLong_FromLong(static_cast<long>(item->fillShade()));
-}
-
 PyObject *scribus_getcornerradius(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
@@ -325,6 +325,46 @@ PyObject *scribus_getrotation(PyObject* /* self */, PyObject* args)
 	if (item == nullptr)
 		return nullptr;
 	return PyFloat_FromDouble(item->rotation() * -1.0);
+}
+
+PyObject *scribus_getboundingbox(PyObject* /* self */, PyObject* args)
+{
+    PyESString name;
+    if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+        return nullptr;
+    if (!checkHaveDocument())
+        return nullptr;
+    const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+    if (item == nullptr)
+        return nullptr;
+
+    return Py_BuildValue("(dddd)",
+                         docUnitXToPageX(item->BoundingX),
+                         docUnitYToPageY(item->BoundingY),
+                         PointToValue(item->BoundingW),
+                         PointToValue(item->BoundingH)
+                         );
+}
+
+PyObject *scribus_getvisualboundingbox(PyObject* /* self */, PyObject* args)
+{
+    PyESString name;
+    if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+        return nullptr;
+    if (!checkHaveDocument())
+        return nullptr;
+    const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+    if (item == nullptr)
+        return nullptr;
+
+	QRectF boundingBox = item->getVisualBoundingRect();
+
+    return Py_BuildValue("(dddd)",
+                         docUnitXToPageX(boundingBox.x()),
+                         docUnitYToPageY(boundingBox.y()),
+                         PointToValue(boundingBox.width()),
+                         PointToValue(boundingBox.height())
+                         );
 }
 
 PyObject *scribus_getallobjects(PyObject* /* self */, PyObject* args, PyObject *keywds)
@@ -469,6 +509,7 @@ void cmdgetpropdocwarnings()
 {
 	QStringList s;
 	s << scribus_getallobjects__doc__
+	  << scribus_getboundingbox__doc__
 	  << scribus_getcornerradius__doc__ 
 	  << scribus_getcustomlinestyle__doc__
 	  << scribus_getfillcolor__doc__
@@ -491,5 +532,6 @@ void cmdgetpropdocwarnings()
 	  << scribus_getobjecttype__doc__
 	  << scribus_getposition__doc__
 	  << scribus_getrotation__doc__
-	  << scribus_getsize__doc__;
+	  << scribus_getsize__doc__
+	  << scribus_getvisualboundingbox__doc__;
 }
