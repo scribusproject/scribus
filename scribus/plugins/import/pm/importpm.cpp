@@ -109,12 +109,12 @@ bool PmPlug::import(const QString& fNameIn, const TransactionSettings& trSetting
 	cancel = false;
 	bool ret = false;
 	QFileInfo fi = QFileInfo(fNameIn);
-	if ( !ScCore->usingGUI() )
+	if (!ScCore->usingGUI())
 	{
 		interactive = false;
 		showProgress = false;
 	}
-	if ( showProgress )
+	if (showProgress)
 	{
 		ScribusMainWindow* mw = (m_Doc == nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
 		progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );

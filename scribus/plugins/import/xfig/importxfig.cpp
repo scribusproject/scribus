@@ -245,13 +245,13 @@ bool XfigPlug::import(const QString& fNameIn, const TransactionSettings& trSetti
 	CustColors.insert("Pink", ScColor(255, 224, 224));
 	CustColors.insert("Gold", ScColor(255, 215, 0));
 	QFileInfo fi = QFileInfo(fNameIn);
-	if ( !ScCore->usingGUI() )
+	if (!ScCore->usingGUI())
 	{
 		interactive = false;
 		showProgress = false;
 	}
 	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
-	if ( showProgress )
+	if (showProgress)
 	{
 		ScribusMainWindow* mw = (m_Doc == nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
 		progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );

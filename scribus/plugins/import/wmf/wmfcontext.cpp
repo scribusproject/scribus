@@ -65,7 +65,7 @@ WMFContext::WMFContext()
 
 void WMFContext::save()
 {
-	if ( this->count() > 0 )
+	if (this->count() > 0)
 		push( WMFGraphicsState(top()) );
 	else
 	{
@@ -75,7 +75,7 @@ void WMFContext::save()
 
 void WMFContext::restore()
 {
-	if ( this->count() > 1 )
+	if (this->count() > 1)
 		pop();
 	else
 	{
@@ -91,7 +91,7 @@ void WMFContext::reset()
 
 WMFGraphicsState& WMFContext::current()
 {
-	if ( this->count() <= 0 )
+	if (this->count() <= 0)
 		push( WMFGraphicsState() ) ;
 	return top();
 }

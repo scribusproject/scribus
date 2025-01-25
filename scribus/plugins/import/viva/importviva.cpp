@@ -107,7 +107,7 @@ double VivaPlug::parseUnit(const QString &unit)
 QImage VivaPlug::readThumbnail(const QString& fName)
 {
 	QImage tmp;
-	if ( !QFile::exists(fName) )
+	if (!QFile::exists(fName))
 		return QImage();
 	progressDialog = nullptr;
 	QFileInfo fi = QFileInfo(fName);
@@ -205,13 +205,13 @@ bool VivaPlug::import(const QString& fNameIn, const TransactionSettings& trSetti
 	pagecount = 1;
 	mpagecount = 0;
 	QFileInfo fi = QFileInfo(fNameIn);
-	if ( !ScCore->usingGUI() )
+	if (!ScCore->usingGUI())
 	{
 		interactive = false;
 		showProgress = false;
 	}
 	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath()+"/"));
-	if ( showProgress )
+	if (showProgress)
 	{
 		ScribusMainWindow* mw = (m_Doc == nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
 		progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
