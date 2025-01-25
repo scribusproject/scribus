@@ -218,6 +218,25 @@ e.g. when is the doc in picas returns picas ;)
 PyObject *scribus_getpagesize(PyObject * /*self*/);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_getcurrentpagesize__doc__,
+QT_TR_NOOP("getCurrentPageSize() ->  (width, height)\n\
+\n\
+Returns a tuple with current page dimensions measured in the document's current units.\n\
+See UNIT_<type> constants and getPageMargins()\n\
+"));
+PyObject *scribus_getcurrentpagesize(PyObject * /*self*/);
+
+
+/*! docstring */
+PyDoc_STRVAR(scribus_setcurrentpagesize__doc__,
+QT_TR_NOOP("setCurrentPageSize(width, height)\n\
+\n\
+Sets the current page dimensions measured in the document's current units.\n\
+See UNIT_<type> constants and getPageMargins()\n\
+"));
+PyObject *scribus_setcurrentpagesize(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_getpagensize__doc__,
 QT_TR_NOOP("getPageNSize(nr) -> tuple\n\
 \n\

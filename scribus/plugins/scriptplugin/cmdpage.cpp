@@ -189,6 +189,49 @@ PyObject *scribus_getpagesize(PyObject* /* self */)
 	return t;
 }
 
+PyObject *scribus_getcurrentpagesize(PyObject* /* self */)
+{
+    if (!checkHaveDocument())
+        return nullptr;
+    ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+    const ScPage* currentPage = currentDoc->currentPage();
+
+    if (currentPage == nullptr)
+        return nullptr;
+
+    PyObject *t;
+    t = Py_BuildValue(
+        "(dd)",
+        PointToValue(currentPage->width()),
+        PointToValue(currentPage->height())
+        );
+    return t;
+}
+
+PyObject *scribus_setcurrentpagesize(PyObject* /* self */, PyObject* args)
+{
+    double width, height;
+    if (!PyArg_ParseTuple(args, "dd", &width, &height))
+        return nullptr;
+    if (!checkHaveDocument())
+        return nullptr;
+
+    ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+    ScribusView* currentView = ScCore->primaryMainWindow()->view;
+    ScPage* currentPage = currentDoc->currentPage();
+
+    if (currentPage == nullptr)
+        return nullptr;
+
+    currentPage->setWidth(ValueToPoint(width));
+    currentPage->setHeight(ValueToPoint(height));
+
+    currentView->reformPagesView();
+    currentView->DrawNew();
+
+    Py_RETURN_NONE;
+}
+
 PyObject *scribus_getpagensize(PyObject* /* self */, PyObject* args)
 {
 	int e;
