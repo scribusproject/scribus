@@ -561,6 +561,7 @@ void cmdgetpropdocwarnings()
 {
 	QStringList s;
 	s << scribus_getallobjects__doc__
+	  << scribus_getboundingbox__doc__
 	  << scribus_getcornerradius__doc__ 
 	  << scribus_getcustomlinestyle__doc__
 	  << scribus_getfillcolor__doc__
@@ -586,5 +587,6 @@ void cmdgetpropdocwarnings()
 	  << scribus_getobjecttype__doc__
 	  << scribus_getposition__doc__
 	  << scribus_getrotation__doc__
-	  << scribus_getsize__doc__;
+	  << scribus_getsize__doc__
+	  << scribus_getvisualboundingbox__doc__;
 }
