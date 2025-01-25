@@ -1,20 +1,20 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <scribus>
-  <release platform="X11" stability="stable" version="1.6.2" />
-  <release platform="OS2" stability="stable" version="1.6.2" />
-  <release platform="MacOSX" stability="stable" version="1.6.2" />
-  <release platform="Win32" stability="stable" version="1.6.2" />
-  <release platform="X11" stability="stablesvn" version="1.6.3.svn" />
-  <release platform="OS2" stability="stablesvn" version="1.6.3.svn" />
-  <release platform="MacOSX" stability="stablesvn" version="1.6.3.svn" />
-  <release platform="Win32" stability="stablesvn" version="1.6.3.svn" />
+  <release platform="X11" stability="stable" version="1.6.3" />
+  <release platform="OS2" stability="stable" version="1.6.3" />
+  <release platform="MacOSX" stability="stable" version="1.6.3" />
+  <release platform="Win32" stability="stable" version="1.6.3" />
+  <release platform="X11" stability="stablesvn" version="1.6.4.svn" />
+  <release platform="OS2" stability="stablesvn" version="1.6.4.svn" />
+  <release platform="MacOSX" stability="stablesvn" version="1.6.4.svn" />
+  <release platform="Win32" stability="stablesvn" version="1.6.4.svn" />
   <release platform="X11" stability="unstable" version="1.7.0" />
   <release platform="Win32" stability="unstable" version="1.7.0" />
   <release platform="MacOSX" stability="unstable" version="1.7.0" />
   <release platform="OS2" stability="unstable" version="1.7.0" />
-  <release platform="X11" stability="unstablesvn" version="1.7.0.svn" />
-  <release platform="Win32" stability="unstablesvn" version="1.7.0.svn" />
-  <release platform="MacOSX" stability="unstablesvn" version="1.7.0.svn" />
-  <release platform="OS2" stability="unstablesvn" version="1.7.0.svn" />
-  <message lang="en" > - Scribus 1.6.2 is the latest stable release, released 15th June 2024.<![CDATA[<br>]]> - Scribus 1.7.0.svn is the current development version. </message>
+  <release platform="X11" stability="unstablesvn" version="1.7.1.svn" />
+  <release platform="Win32" stability="unstablesvn" version="1.7.1.svn" />
+  <release platform="MacOSX" stability="unstablesvn" version="1.7.1.svn" />
+  <release platform="OS2" stability="unstablesvn" version="1.7.1.svn" />
+  <message lang="en" > - Scribus 1.6.3 is the latest stable release, released 8th January 2025.<![CDATA[<br>]]> - Scribus 1.7.0 is the current development release. </message>
 </scribus>
