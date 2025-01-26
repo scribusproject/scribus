@@ -473,7 +473,7 @@ void ShapePalette::Import()
 		qint32 x, y, w, h;
 		ds >> y >> x >> h >> w;
 		paDataLen = shpLen - 53;
-		QRect bounds = QRect(QPoint(x,y), QPoint(w, h));
+		QRect bounds(QPoint(x,y), QPoint(w, h));
 		bool first = false;
 		bool pathOpen = false;
 		FPoint firstPoint, firstControl;

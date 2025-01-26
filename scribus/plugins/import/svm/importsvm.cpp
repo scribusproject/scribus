@@ -1541,7 +1541,7 @@ void SvmPlug::handleEllipse(QDataStream &ds)
 {
 	QPointF p1 = getPoint(ds);
 	QPointF p2 = getPoint(ds);
-	QRectF box = QRectF(p1, p2);
+	QRectF box(p1, p2);
 	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX, baseY, box.width(), box.height(), 0, currentDC.CurrColorFill, CommonStrings::None);
 	PageItem* ite = m_Doc->Items->at(z);
 	QTransform mm(1.0, 0.0, 0.0, 1.0, box.x(), box.y());
@@ -1553,7 +1553,7 @@ void SvmPlug::handleRectangle(QDataStream &ds)
 {
 	QPointF p1 = getPoint(ds);
 	QPointF p2 = getPoint(ds);
-	QRectF box = QRectF(p1, p2);
+	QRectF box(p1, p2);
 	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, box.width(), box.height(), 0, currentDC.CurrColorFill, CommonStrings::None);
 	PageItem* ite = m_Doc->Items->at(z);
 	QTransform mm(1.0, 0.0, 0.0, 1.0, box.x(), box.y());
@@ -1568,10 +1568,10 @@ void SvmPlug::handleRoundRect(QDataStream &ds)
 	qint32 x1, y1;
 	ds >> x1 >> y1;
 	QPointF p3 = convertLogical2Pts(QPointF(x1, y1));
-	QRectF BoxDev = QRectF(p1, p2);
-	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, BoxDev.width(), BoxDev.height(), 0, currentDC.CurrColorFill, CommonStrings::None);
+	QRectF boxDev(p1, p2);
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, boxDev.width(), boxDev.height(), 0, currentDC.CurrColorFill, CommonStrings::None);
 	PageItem* ite = m_Doc->Items->at(z);
-	QTransform mm(1.0, 0.0, 0.0, 1.0, BoxDev.x(), BoxDev.y());
+	QTransform mm(1.0, 0.0, 0.0, 1.0, boxDev.x(), boxDev.y());
 	ite->PoLine.map(mm);
 	finishItem(ite);
 	if ((p3.x() != 0.0) || (p3.y() != 0.0))
@@ -1632,18 +1632,18 @@ void SvmPlug::handleArc(QDataStream &ds)
 {
 	QPointF p1 = getPoint(ds);
 	QPointF p2 = getPoint(ds);
-	QRectF BoxDev = QRectF(p1, p2);
+	QRectF boxDev(p1, p2);
 	QPointF st = getPoint(ds);
 	QPointF en = getPoint(ds);
-	QLineF stlin = QLineF(BoxDev.center(), st);
-	QLineF enlin = QLineF(BoxDev.center(), en);
+	QLineF stlin(boxDev.center(), st);
+	QLineF enlin(boxDev.center(), en);
 	FPointArray  pointArray;
 	QPainterPath painterPath;
-	painterPath.arcMoveTo(BoxDev, stlin.angle());
+	painterPath.arcMoveTo(boxDev, stlin.angle());
 	if (currentDC.arcDirection)
-		painterPath.arcTo(BoxDev, stlin.angle(), enlin.angle() - stlin.angle());
+		painterPath.arcTo(boxDev, stlin.angle(), enlin.angle() - stlin.angle());
 	else
-		painterPath.arcTo(BoxDev, stlin.angle(), stlin.angle() - enlin.angle());
+		painterPath.arcTo(boxDev, stlin.angle(), stlin.angle() - enlin.angle());
 	pointArray.fromQPainterPath(painterPath);
 	if (pointArray.count() != 0)
 	{
@@ -1654,7 +1654,7 @@ void SvmPlug::handleArc(QDataStream &ds)
 		}
 		else
 		{
-			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, BoxDev.width(), BoxDev.height(), currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke);
+			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, boxDev.width(), boxDev.height(), currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke);
 			PageItem* ite = m_Doc->Items->at(z);
 			ite->PoLine = pointArray.copy();
 			finishItem(ite, false);
@@ -1666,22 +1666,22 @@ void SvmPlug::handleArcTo(QDataStream &ds)
 {
 	QPointF p1 = getPoint(ds);
 	QPointF p2 = getPoint(ds);
-	QRectF BoxDev = QRectF(p1, p2);
+	QRectF boxDev(p1, p2);
 	QPointF st = getPoint(ds);
 	QPointF en = getPoint(ds);
-	QLineF stlin = QLineF(BoxDev.center(), st);
-	QLineF enlin = QLineF(BoxDev.center(), en);
+	QLineF stlin(boxDev.center(), st);
+	QLineF enlin(boxDev.center(), en);
 	if (inPath)
 	{
 		if (enlin.angleTo(stlin) > 180)
 		{
 		//	currentDC.Coords.svgMoveTo(st.x(), st.y());
-			currentDC.Coords.svgArcTo(BoxDev.width() / 2.0, BoxDev.height() / 2.0, 0, enlin.angleTo(stlin) < 180, stlin.angleTo(enlin) > 180, en.x(), en.y());
+			currentDC.Coords.svgArcTo(boxDev.width() / 2.0, boxDev.height() / 2.0, 0, enlin.angleTo(stlin) < 180, stlin.angleTo(enlin) > 180, en.x(), en.y());
 		}
 		else
 		{
 		//	currentDC.Coords.svgMoveTo(st.x(), st.y());
-			currentDC.Coords.svgArcTo(BoxDev.width() / 2.0, BoxDev.height() / 2.0, 0, enlin.angleTo(stlin) > 180, stlin.angleTo(enlin) > 180, en.x(), en.y());
+			currentDC.Coords.svgArcTo(boxDev.width() / 2.0, boxDev.height() / 2.0, 0, enlin.angleTo(stlin) > 180, stlin.angleTo(enlin) > 180, en.x(), en.y());
 		}
 		currentDC.currentPoint = en;
 	}
@@ -1692,18 +1692,18 @@ void SvmPlug::handleArcTo(QDataStream &ds)
 		double ang1 = stlin.angleTo(enlin);
 		if (currentDC.arcDirection)
 		{
-			painterPath.arcMoveTo(BoxDev, stlin.angle());
-			painterPath.arcTo(BoxDev, stlin.angle(), ang1);
+			painterPath.arcMoveTo(boxDev, stlin.angle());
+			painterPath.arcTo(boxDev, stlin.angle(), ang1);
 		}
 		else
 		{
-			painterPath.arcMoveTo(BoxDev, stlin.angle());
-			painterPath.arcTo(BoxDev, stlin.angle(), -(360 - ang1));
+			painterPath.arcMoveTo(boxDev, stlin.angle());
+			painterPath.arcTo(boxDev, stlin.angle(), -(360 - ang1));
 		}
 		pointArray.fromQPainterPath(painterPath);
 		if (pointArray.count() != 0)
 		{
-			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, BoxDev.width(), BoxDev.height(), currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke);
+			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, boxDev.width(), boxDev.height(), currentDC.LineW, CommonStrings::None, currentDC.CurrColorStroke);
 			PageItem* ite = m_Doc->Items->at(z);
 			ite->PoLine = pointArray.copy();
 			finishItem(ite, false);
@@ -1715,26 +1715,26 @@ void SvmPlug::handleChord(QDataStream &ds)
 {
 	QPointF p1 = getPoint(ds);
 	QPointF p2 = getPoint(ds);
-	QRectF BoxDev = QRectF(p1, p2);
+	QRectF boxDev(p1, p2);
 	QPointF st = getPoint(ds);
 	QPointF en = getPoint(ds);
-	QLineF stlin = QLineF(BoxDev.center(), st);
-	QLineF enlin = QLineF(BoxDev.center(), en);
+	QLineF stlin(boxDev.center(), st);
+	QLineF enlin(boxDev.center(), en);
 	FPointArray  pointArray;
 	QPainterPath painterPath;
 	QPointF firstPoint;
 	double ang1 = stlin.angleTo(enlin);
 	if (currentDC.arcDirection)
 	{
-		painterPath.arcMoveTo(BoxDev, stlin.angle());
+		painterPath.arcMoveTo(boxDev, stlin.angle());
 		firstPoint = painterPath.currentPosition();
-		painterPath.arcTo(BoxDev, stlin.angle(), ang1);
+		painterPath.arcTo(boxDev, stlin.angle(), ang1);
 	}
 	else
 	{
-		painterPath.arcMoveTo(BoxDev, stlin.angle());
+		painterPath.arcMoveTo(boxDev, stlin.angle());
 		firstPoint = painterPath.currentPosition();
-		painterPath.arcTo(BoxDev, stlin.angle(), -(360 - ang1));
+		painterPath.arcTo(boxDev, stlin.angle(), -(360 - ang1));
 	}
 	painterPath.lineTo(firstPoint);
 	pointArray.fromQPainterPath(painterPath);
@@ -1747,7 +1747,7 @@ void SvmPlug::handleChord(QDataStream &ds)
 		}
 		else
 		{
-			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, BoxDev.width(), BoxDev.height(), currentDC.LineW, currentDC.CurrColorFill, currentDC.CurrColorStroke);
+			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, boxDev.width(), boxDev.height(), currentDC.LineW, currentDC.CurrColorFill, currentDC.CurrColorStroke);
 			PageItem* ite = m_Doc->Items->at(z);
 			ite->PoLine = pointArray.copy();
 			finishItem(ite);
@@ -1759,28 +1759,28 @@ void SvmPlug::handlePie(QDataStream &ds)
 {
 	QPointF p1 = getPoint(ds);
 	QPointF p2 = getPoint(ds);
-	QRectF BoxDev = QRectF(p1, p2);
+	QRectF boxDev(p1, p2);
 	QPointF st = getPoint(ds);
 	QPointF en = getPoint(ds);
-	QLineF stlin = QLineF(BoxDev.center(), st);
-	QLineF enlin = QLineF(BoxDev.center(), en);
+	QLineF stlin(boxDev.center(), st);
+	QLineF enlin(boxDev.center(), en);
 	FPointArray  pointArray;
 	QPainterPath painterPath;
 	QPointF firstPoint;
 	double ang1 = stlin.angleTo(enlin);
 	if (currentDC.arcDirection)
 	{
-		painterPath.arcMoveTo(BoxDev, stlin.angle());
+		painterPath.arcMoveTo(boxDev, stlin.angle());
 		firstPoint = painterPath.currentPosition();
-		painterPath.arcTo(BoxDev, stlin.angle(), ang1);
+		painterPath.arcTo(boxDev, stlin.angle(), ang1);
 	}
 	else
 	{
-		painterPath.arcMoveTo(BoxDev, stlin.angle());
+		painterPath.arcMoveTo(boxDev, stlin.angle());
 		firstPoint = painterPath.currentPosition();
-		painterPath.arcTo(BoxDev, stlin.angle(), -(360 - ang1));
+		painterPath.arcTo(boxDev, stlin.angle(), -(360 - ang1));
 	}
-	painterPath.lineTo(BoxDev.center());
+	painterPath.lineTo(boxDev.center());
 	painterPath.lineTo(firstPoint);
 	pointArray.fromQPainterPath(painterPath);
 	if (pointArray.count() != 0)
@@ -1792,7 +1792,7 @@ void SvmPlug::handlePie(QDataStream &ds)
 		}
 		else
 		{
-			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, BoxDev.width(), BoxDev.height(), currentDC.LineW, currentDC.CurrColorFill, currentDC.CurrColorStroke);
+			int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, boxDev.width(), boxDev.height(), currentDC.LineW, currentDC.CurrColorFill, currentDC.CurrColorStroke);
 			PageItem* ite = m_Doc->Items->at(z);
 			ite->PoLine = pointArray.copy();
 			finishItem(ite);
@@ -2205,7 +2205,7 @@ void SvmPlug::handleGradient(QDataStream &ds)
 {
 	QPointF p1 = getPoint(ds);
 	QPointF p2 = getPoint(ds);
-	QRectF box = QRectF(p1, p2);
+	QRectF box(p1, p2);
 	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, box.width(), box.height(), 0, currentDC.CurrColorFill, CommonStrings::None);
 	PageItem* ite = m_Doc->Items->at(z);
 	QTransform mm(1.0, 0.0, 0.0, 1.0, box.x(), box.y());

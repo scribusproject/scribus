@@ -64,7 +64,7 @@ void ScTreeWidgetDelegate::paint(QPainter *painter, const QStyleOptionViewItem &
 	painter->save();
 	painter->setBrush(arrowColor);
 	painter->setPen(Qt::NoPen);
-	QRect rect = QRect(r.left() + 6, r.top() + 6, r.height() - 12, r.height() - 12);
+	QRect rect(r.left() + 6, r.top() + 6, r.height() - 12, r.height() - 12);
 	QPolygon pa(3);
 	if (m_view->isExpanded(index))
 	{
@@ -83,9 +83,9 @@ void ScTreeWidgetDelegate::paint(QPainter *painter, const QStyleOptionViewItem &
 	painter->restore();
 
 	// Draw text
-	QRect textrect = QRect(r.left() + i * 2, r.top(), r.width() - ((5 * i) / 2), r.height());
-	QString text = option.fontMetrics.elidedText(model->data(index, Qt::DisplayRole).toString(), Qt::ElideMiddle, textrect.width(), Qt::TextShowMnemonic);
-	m_view->style()->drawItemText(painter, textrect, Qt::AlignCenter | Qt::TextShowMnemonic, option.palette, (option.state & QStyle::State_Enabled), text, QPalette::Text);
+	QRect textRect(r.left() + i * 2, r.top(), r.width() - ((5 * i) / 2), r.height());
+	QString text = option.fontMetrics.elidedText(model->data(index, Qt::DisplayRole).toString(), Qt::ElideMiddle, textRect.width(), Qt::TextShowMnemonic);
+	m_view->style()->drawItemText(painter, textRect, Qt::AlignCenter | Qt::TextShowMnemonic, option.palette, (option.state & QStyle::State_Enabled), text, QPalette::Text);
 }
 
 QSize ScTreeWidgetDelegate::sizeHint(const QStyleOptionViewItem &opt, const QModelIndex &index) const

@@ -1054,7 +1054,7 @@ void XfigPlug::processArc(QDataStream &ts, const QString& data)
 	double r1 = distance(x1R - center_x, y1R - center_y);
 	double x0 = center_x - r1;
 	double y0 = center_y - r1;
-	QRectF bBox = QRectF(x0, y0, r1 * 2.0, r1 * 2.0);
+	QRectF bBox(x0, y0, r1 * 2.0, r1 * 2.0);
 	double angle1 = -xy2Deg(x1R - center_x, y1R - center_y);
 	double angle2 = -xy2Deg(x3R - center_x, y3R - center_y);
 	double sweep;

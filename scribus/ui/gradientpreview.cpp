@@ -679,7 +679,7 @@ void GradientPreview::mousePressEvent(QMouseEvent *m)
 void GradientPreview::mouseReleaseEvent(QMouseEvent *m)
 {
 	qApp->restoreOverrideCursor();
-	QRect insideRect = QRect(10, 43, width() - 20, 13);
+	QRect insideRect(10, 43, width() - 20, 13);
 	if (isEditable)
 	{
 		QRect fpo;
@@ -755,7 +755,7 @@ void GradientPreview::mouseReleaseEvent(QMouseEvent *m)
 
 void GradientPreview::mouseMoveEvent(QMouseEvent *m)
 {
-	QRect insideRect = QRect(10, 43, width() - 20, 13);
+	QRect insideRect(10, 43, width() - 20, 13);
 	if (isEditable)
 	{
 		QRect fpo;
@@ -836,7 +836,7 @@ void GradientPreview::addStop()
 	cstops = fill_gradient.colorStops();
 	for (int yg = 0; yg < static_cast<int>(StopM.count()); ++yg)
 	{
-		QRect fpo = QRect(static_cast<int>(StopM[yg]) - 4, 43, 8, 13);
+		QRect fpo(static_cast<int>(StopM[yg]) - 4, 43, 8, 13);
 		if (fpo.contains(mPos))
 		{
 			ActStop = yg;

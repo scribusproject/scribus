@@ -1394,7 +1394,7 @@ void PageItem_TextFrame::layout()
 			int a = current.glyphs[currentIndex].firstChar();
 			bool HasObject = itemText.hasObject(a);
 			PageItem* currentObject = itemText.object(a).getPageItem(m_Doc);
-			QRectF currentObjectBox = QRectF();
+			QRectF currentObjectBox;
 			if (HasObject)
 				currentObjectBox = currentObject->getVisualBoundingRect();
 
@@ -3357,7 +3357,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, const QRectF& cullingArea)
 					mm.scale(fontSize / 10.0, fontSize / 10.0);
 					chkPath = mm.map(chkPath);
 					QRectF bb = chkPath.boundingRect();
-					QRectF bi = QRectF(0.0, 0.0, m_width, m_height);
+					QRectF bi(0.0, 0.0, m_width, m_height);
 					double dx = bi.center().x() - (bb.width() / 2.0);
 					double dy = bi.center().y() - (bb.height() / 2.0);
 					p->translate(dx, dy);

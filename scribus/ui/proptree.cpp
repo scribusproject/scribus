@@ -71,7 +71,7 @@ void PropTreeItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &
 			else
 				painter->setBrush(Qt::gray);
 			painter->setPen(Qt::NoPen);
-			QRect rect = QRect(r.left()+6, r.top()+6, r.height()-12, r.height()-12);
+			QRect rect(r.left() + 6, r.top() + 6, r.height() - 12, r.height() - 12);
 			QPolygon pa(3);
 			if (item->isExpanded())
 			{
@@ -97,10 +97,10 @@ void PropTreeItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &
 			itemOpts.font.setBold(true);
 			painter->setFont(itemOpts.font);
 		}
-		QRect textrect = QRect(r.left() + i*2, r.top(), r.width() - (i * 2), r.height());
+		QRect textRect(r.left() + i*2, r.top(), r.width() - (i * 2), r.height());
 	//	QString text = itemOpts.fontMetrics.elidedText(index.model()->data(index, Qt::DisplayRole).toString(), Qt::ElideMiddle, itemOpts.rect.width(), Qt::TextShowMnemonic);
 		QString text = index.model()->data(index, Qt::DisplayRole).toString();
-		QApplication::style()->drawItemText(painter, textrect, Qt::AlignVCenter | Qt::AlignLeft | Qt::TextShowMnemonic, itemOpts.palette, (itemOpts.state & QStyle::State_Enabled), text, QPalette::Text);
+		QApplication::style()->drawItemText(painter, textRect, Qt::AlignVCenter | Qt::AlignLeft | Qt::TextShowMnemonic, itemOpts.palette, (itemOpts.state & QStyle::State_Enabled), text, QPalette::Text);
 		painter->restore();
 	}
 	else

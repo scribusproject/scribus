@@ -220,7 +220,7 @@ void PageItem_Line::getBoundingRect(double *x1, double *y1, double *x2, double *
 		*y2 = m_yPos + qMax(1.0, m_lineWidth) / 2.0;
 	}
 
-	QRectF totalRect = QRectF(QPointF(*x1, *y1), QPointF(*x2, *y2));
+	QRectF totalRect(QPointF(*x1, *y1), QPointF(*x2, *y2));
 	if (m_startArrowIndex != 0)
 	{
 		QRectF arrowRect = getStartArrowBoundingRect();
@@ -267,7 +267,7 @@ void PageItem_Line::getOldBoundingRect(double *x1, double *y1, double *x2, doubl
 		*y2 = oldYpos + qMax(1.0, m_oldLineWidth) / 2.0;
 	}
 
-	QRectF totalRect = QRectF(QPointF(*x1, *y1), QPointF(*x2, *y2));
+	QRectF totalRect(QPointF(*x1, *y1), QPointF(*x2, *y2));
 	if (m_startArrowIndex != 0)
 	{
 		QRectF arrowRect = getStartArrowOldBoundingRect();
