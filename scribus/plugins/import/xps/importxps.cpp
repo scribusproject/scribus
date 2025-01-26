@@ -1229,7 +1229,7 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, const QString& path)
 				double dx = 0.0;
 				double dy = 0.0;
 				getTransformValuesFromMatrix( obState.transform, scX, scY, rot, dx, dy);
-				QLineF transp = QLineF(0, 0, retObj->xPos() - m_Doc->currentPage()->xOffset(), retObj->yPos() - m_Doc->currentPage()->yOffset());
+				QLineF transp(0, 0, retObj->xPos() - m_Doc->currentPage()->xOffset(), retObj->yPos() - m_Doc->currentPage()->yOffset());
 				transp = obState.transform.map(transp);
 				retObj->setXYPos(transp.p2().x() + m_Doc->currentPage()->xOffset(), transp.p2().y() + m_Doc->currentPage()->yOffset());
 				if ((scX != 1.0) || (scY != 1.0))

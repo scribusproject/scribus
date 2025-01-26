@@ -3935,7 +3935,7 @@ quint32 EmfPlug::handleEMPBrush(QDataStream &ds, quint16 id, bool first, bool co
 		{
 			float m11, m12, m21, m22, dx, dy;
 			ds >> m11 >> m12 >> m21 >> m22 >> dx >> dy;
-			QLineF lin = QLineF(rect[0], rect[2]);
+			QLineF lin(rect[0], rect[2]);
 			lin = QTransform(m11, m12, m21, m22, dx, dy).map(lin);
 			sty.gradientAngle = lin.angle() + 45;
 		}

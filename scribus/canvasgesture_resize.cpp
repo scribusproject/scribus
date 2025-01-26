@@ -505,7 +505,7 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 		rotation.rotate(m_rotation);
 		rotation.translate(-normalizedBounds.x(), -normalizedBounds.y());
 //		qDebug() << "resize rotated" << m_rotation << "°" << m_bounds << rotation << ":" << point-globalBounds.topLeft() << "-->" << rotation.map(point)-globalBounds.topLeft();
-		QPointF qp = QPointF(docPoint.x(), docPoint.y());
+		QPointF qp(docPoint.x(), docPoint.y());
 		qp = rotation.inverted().map(qp);
 		docPoint = FPoint(qp.x(), qp.y());
 	}

@@ -1304,7 +1304,7 @@ PageItem* VivaPlug::parseObjectDetailsXML(const QDomElement& obNode, int baseTyp
 						else if (spo.tagName() == "uni:applyElementOpacity")
 							shadowObjTrans = (spo.text() == "true");
 					}
-					QLineF oLine = QLineF(0, 0, shadowOffset, 0);
+					QLineF oLine(0, 0, shadowOffset, 0);
 					oLine.setAngle(shadowAngle - 180.0);
 					shadowX = oLine.p2().x();
 					shadowY = oLine.p2().y();
@@ -1578,7 +1578,7 @@ PageItem* VivaPlug::parseObjectDetailsXML(const QDomElement& obNode, int baseTyp
 				item->GrControl4 = FPoint(0, item->height());
 				if (gradientAngle != 0)
 				{
-					QLineF gradientVector = QLineF(item->width() / 2.0, item->height() / 2.0, 0, 0);
+					QLineF gradientVector(item->width() / 2.0, item->height() / 2.0, 0, 0);
 					gradientVector.setLength(gradientVector.length() + 1);
 					gradientVector.setAngle(gradientVector.angle() + gradientAngle);
 					QPointF g1 = intersectBoundingRect(item, gradientVector);

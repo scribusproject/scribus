@@ -327,7 +327,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 		double newX = mousePointDoc.x(); //m->x();
 		double newY = mousePointDoc.y(); //m->y();
 		FPoint npx(m_Mxp - newX, m_Myp - newY, 0, 0, currItem->rotation(), 1, 1, true);
-		QPointF np = QPointF(npx.x(), npx.y());
+		QPointF np(npx.x(), npx.y());
 		if (m_view->editStrokeGradient == 1)
 		{
 			if (m_gradientPoint == useGradientStart)
@@ -399,7 +399,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 				m.rotate(currItem->GrStrokeSkew);
 				m.translate(radEnd * currItem->GrStrokeScale, 0);
 				QPointF shP = m.map(QPointF(0,0));
-				QPointF shR = QPointF(shP.x() -np.x(), shP.y() - np.y());
+				QPointF shR(shP.x() -np.x(), shP.y() - np.y());
 				double radNew = distance(shR.x() - currItem->GrStrokeStartX, shR.y() - currItem->GrStrokeStartY);
 				double rotNew = xy2Deg(shR.x() - currItem->GrStrokeStartX, shR.y() - currItem->GrStrokeStartY) + 90;
 				currItem->GrStrokeSkew = rotNew - rotEnd;
@@ -494,7 +494,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 				m.rotate(currItem->GrMaskSkew);
 				m.translate(radEnd * currItem->GrMaskScale, 0);
 				QPointF shP = m.map(QPointF(0,0));
-				QPointF shR = QPointF(shP.x() -np.x(), shP.y() - np.y());
+				QPointF shR(shP.x() -np.x(), shP.y() - np.y());
 				double radNew = distance(shR.x() - currItem->GrMaskStartX, shR.y() - currItem->GrMaskStartY);
 				double rotNew = xy2Deg(shR.x() - currItem->GrMaskStartX, shR.y() - currItem->GrMaskStartY) + 90;
 				currItem->GrMaskSkew = rotNew - rotEnd;
@@ -593,7 +593,7 @@ void CanvasMode_EditGradient::mouseMoveEvent(QMouseEvent *m)
 					m.rotate(currItem->GrSkew);
 				m.translate(radEnd * currItem->GrScale, 0);
 				QPointF shP = m.map(QPointF(0,0));
-				QPointF shR = QPointF(shP.x() -np.x(), shP.y() - np.y());
+				QPointF shR(shP.x() -np.x(), shP.y() - np.y());
 				double radNew = distance(shR.x() - currItem->GrStartX, shR.y() - currItem->GrStartY);
 				double rotNew = xy2Deg(shR.x() - currItem->GrStartX, shR.y() - currItem->GrStartY) + 90;
 				if (currItem->GrType != Gradient_Conical)

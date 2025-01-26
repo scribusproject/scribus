@@ -3695,18 +3695,18 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 			P5 = pPoints[4];
 			P6 = pPoints[5];
 /*
-			QPointF cpL = QPointF(item->width() * gStyle.gradientCenterX, item->height()* gStyle.gradientCenterY);
+			QPointF cpL(item->width() * gStyle.gradientCenterX, item->height()* gStyle.gradientCenterY);
 			double lineLen = sqrt(gLenW * gLenW + gLenH * gLenH) * 2.0;
-			QLineF iLineP1 = QLineF(cpL, P1);
+			QLineF iLineP1(cpL, P1);
 			iLineP1.setLength(lineLen);
 			P1 = intersectBoundingRect(item, iLineP1);
-			QLineF iLineP2 = QLineF(cpL, P2);
+			QLineF iLineP2(cpL, P2);
 			iLineP2.setLength(lineLen);
 			P2 = intersectBoundingRect(item, iLineP2);
-			QLineF iLineP3 = QLineF(cpL, P3);
+			QLineF iLineP3(cpL, P3);
 			iLineP3.setLength(lineLen);
 			P3 = intersectBoundingRect(item, iLineP3);
-			QLineF iLineP4 = QLineF(cpL, P4);
+			QLineF iLineP4(cpL, P4);
 			iLineP4.setLength(lineLen);
 			P4 = intersectBoundingRect(item, iLineP4);
 			item->setDiamondGeometry(FPoint(P1.x(), P1.y()), FPoint(P2.x(), P2.y()), FPoint(P3.x(), P3.y()), FPoint(P4.x(), P4.y()), cp);

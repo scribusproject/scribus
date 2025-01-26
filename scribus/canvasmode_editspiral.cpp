@@ -187,12 +187,12 @@ QPointF CanvasMode_EditSpiral::getSegment(double angle)
 	double segStart = 0.0;
 	double segEnd = 180;
 	bool segPart = true;
-	QPointF ret = QPointF(item->width() / 2.0, item->height() / 2.0);
+	QPointF ret(item->width() / 2.0, item->height() / 2.0);
 	if (angle < 0)
 		return ret;
 	while (true)
 	{
-		QLineF lin = QLineF(QPointF(wws, hh), QPointF(wwn, hh));
+		QLineF lin(QPointF(wws, hh), QPointF(wwn, hh));
 		if ((angle <= segEnd) && (angle >= segStart))
 		{
 			ret = lin.pointAt(0.5);
@@ -219,7 +219,7 @@ double CanvasMode_EditSpiral::computeRealAngle(double angle, bool fromDia)
 	double part = angle - (rev * 360);
 	QTransform bb;
 	bb.scale(currItem->width() / currItem->height(), 1.0);
-	QLineF inp = QLineF(QPointF(currItem->width() / 2.0, currItem->height() / 2.0), QPointF(currItem->width(), currItem->height() / 2.0));
+	QLineF inp(QPointF(currItem->width() / 2.0, currItem->height() / 2.0), QPointF(currItem->width(), currItem->height() / 2.0));
 	inp.setAngle(part);
 	if (fromDia)
 	{
@@ -296,8 +296,8 @@ void CanvasMode_EditSpiral::mouseMoveEvent(QMouseEvent *m)
 		else if (m_arcPoint == useControlEnd)
 			sPoint = getSegment(m_endAngle);
 		QPointF smPoint = itemMatrix.map(sPoint);
-		QLineF stLinA = QLineF(smPoint, QPointF(m_Mxp, m_Myp));
-		QLineF stLinM = QLineF(smPoint, QPointF(newX, newY));
+		QLineF stLinA(smPoint, QPointF(m_Mxp, m_Myp));
+		QLineF stLinM(smPoint, QPointF(newX, newY));
 		double deltaAngle = stLinM.angle() - stLinA.angle();
 		if (deltaAngle < -180)
 			deltaAngle = deltaAngle + 360;

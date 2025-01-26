@@ -162,11 +162,11 @@ void CanvasMode_EditPolygon::updateFromItem()
 	uint cx = m_polyUseFactor ? m_polyCorners * 2 : m_polyCorners;
 	double seg = 360.0 / cx;
 	double trueLength = sqrt(pow(sin(seg / 180.0 * M_PI) * (item->width() / 2.0), 2) + pow(cos(seg / 180.0 * M_PI) * (item->height() / 2.0) + (item->height()/2.0) - item->height(), 2));
-	QLineF innerLine = QLineF(m_endPoint, m_centerPoint);
+	QLineF innerLine(m_endPoint, m_centerPoint);
 	innerLine.setAngle(innerLine.angle() + 90);
 	innerLine.setLength(trueLength * m_polyCurvature);
 	m_innerCPoint = innerLine.p2();
-	QLineF outerLine = QLineF(m_startPoint, currItem->PoLine.pointQF(6));
+	QLineF outerLine(m_startPoint, currItem->PoLine.pointQF(6));
 	outerLine.setLength(outerLine.length() * m_polyOuterCurvature);
 	m_outerCPoint = outerLine.p2();
 	m_view->update();
@@ -202,11 +202,11 @@ void CanvasMode_EditPolygon::activate(bool fromGesture)
 	uint cx = m_polyUseFactor ? m_polyCorners * 2 : m_polyCorners;
 	double seg = 360.0 / cx;
 	double trueLength = sqrt(pow(sin(seg / 180.0 * M_PI) * (item->width() / 2.0), 2) + pow(cos(seg / 180.0 * M_PI) * (item->height() / 2.0) + (item->height()/2.0) - item->height(), 2));
-	QLineF innerLine = QLineF(m_endPoint, m_centerPoint);
+	QLineF innerLine(m_endPoint, m_centerPoint);
 	innerLine.setAngle(innerLine.angle() + 90);
 	innerLine.setLength(trueLength * m_polyCurvature);
 	m_innerCPoint = innerLine.p2();
-	QLineF outerLine = QLineF(m_startPoint, currItem->PoLine.pointQF(6));
+	QLineF outerLine(m_startPoint, currItem->PoLine.pointQF(6));
 	outerLine.setLength(outerLine.length() * m_polyOuterCurvature);
 	m_outerCPoint = outerLine.p2();
 	setModeCursor();
@@ -345,7 +345,7 @@ void CanvasMode_EditPolygon::mouseMoveEvent(QMouseEvent *m)
 		PageItem *currItem = m_doc->m_Selection->itemAt(0);
 		QTransform itemMatrix = currItem->getTransform();
 		QPointF cPoint = itemMatrix.map(m_centerPoint);
-		QLineF stLinA = QLineF(cPoint, QPointF(newX, newY));
+		QLineF stLinA(cPoint, QPointF(newX, newY));
 		
 		uint cx = m_polyUseFactor ? m_polyCorners * 2 : m_polyCorners;
 		double seg = 360.0 / cx;
@@ -370,15 +370,15 @@ void CanvasMode_EditPolygon::mouseMoveEvent(QMouseEvent *m)
 		if (m_polygonPoint == useControlInnerCurve)
 		{
 			QPointF ePoint = itemMatrix.map(m_endPoint);
-			QLineF stLinC = QLineF(ePoint, QPointF(newX, newY));
+			QLineF stLinC(ePoint, QPointF(newX, newY));
 			m_polyCurvature = stLinC.length() / trueLength;
 		}
 		if (m_polygonPoint == useControlOuterCurve)
 		{
 			QPointF sPoint = itemMatrix.map(m_startPoint);
 			QPointF sPoint2 = itemMatrix.map(currItem->PoLine.pointQF(6));
-			QLineF stLinCo = QLineF(sPoint, QPointF(newX, newY));
-			QLineF stLinCo2 = QLineF(sPoint, sPoint2);
+			QLineF stLinCo(sPoint, QPointF(newX, newY));
+			QLineF stLinCo2(sPoint, sPoint2);
 			m_polyOuterCurvature = stLinCo.length() / stLinCo2.length();
 		}
 		QPainterPath path = regularPolygonPath(currItem->width(), currItem->height(), m_polyCorners, m_polyUseFactor, m_polyFactor, m_polyRotation, m_polyCurvature, m_polyInnerRot, m_polyOuterCurvature);
@@ -386,11 +386,11 @@ void CanvasMode_EditPolygon::mouseMoveEvent(QMouseEvent *m)
 		ar.fromQPainterPath(path);
 		m_endPoint = ar.pointQF(2);
 		m_startPoint = ar.pointQF(0);
-		QLineF innerLine = QLineF(m_endPoint, m_centerPoint);
+		QLineF innerLine(m_endPoint, m_centerPoint);
 		innerLine.setAngle(innerLine.angle() + 90);
 		innerLine.setLength(trueLength * m_polyCurvature);
 		m_innerCPoint = innerLine.p2();
-		QLineF outerLine = QLineF(m_startPoint, ar.pointQF(6));
+		QLineF outerLine(m_startPoint, ar.pointQF(6));
 		outerLine.setLength(outerLine.length() * m_polyOuterCurvature);
 		m_outerCPoint = outerLine.p2();
 		m_VectorDialog->setValues(m_polyCorners, m_polyFactor, m_polyUseFactor, m_polyRotation, m_polyCurvature, m_polyInnerRot, m_polyOuterCurvature);
@@ -490,7 +490,7 @@ void CanvasMode_EditPolygon::mouseReleaseEvent(QMouseEvent *m)
 		double newX = mousePointDoc.x();
 		double newY = mousePointDoc.y();
 		QPointF cPoint = itemMatrix.map(m_centerPoint);
-		QLineF stLinA = QLineF(cPoint, QPointF(newX, newY));
+		QLineF stLinA(cPoint, QPointF(newX, newY));
 		uint cx = m_polyUseFactor ? m_polyCorners * 2 : m_polyCorners;
 		double seg = 360.0 / cx;
 		double trueLength = sqrt(pow(sin(seg / 180.0 * M_PI) * (currItem->width() / 2.0), 2) + pow(cos(seg / 180.0 * M_PI) * (currItem->height() / 2.0) + (currItem->height()/2.0) - currItem->height(), 2));
@@ -504,15 +504,15 @@ void CanvasMode_EditPolygon::mouseReleaseEvent(QMouseEvent *m)
 		if (m_polygonPoint == useControlInnerCurve)
 		{
 			QPointF ePoint = itemMatrix.map(m_endPoint);
-			QLineF stLinC = QLineF(ePoint, QPointF(newX, newY));
+			QLineF stLinC(ePoint, QPointF(newX, newY));
 			m_polyCurvature = stLinC.length() / trueLength;
 		}
 		if (m_polygonPoint == useControlOuterCurve)
 		{
 			QPointF sPoint = itemMatrix.map(m_startPoint);
 			QPointF sPoint2 = itemMatrix.map(currItem->PoLine.pointQF(6));
-			QLineF stLinCo = QLineF(sPoint, QPointF(newX, newY));
-			QLineF stLinCo2 = QLineF(sPoint, sPoint2);
+			QLineF stLinCo(sPoint, QPointF(newX, newY));
+			QLineF stLinCo2(sPoint, sPoint2);
 			m_polyOuterCurvature = stLinCo.length() / stLinCo2.length();
 		}
 		item->polyFactor = m_polyFactor;
