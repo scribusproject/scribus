@@ -1169,8 +1169,8 @@ void ShapePlug::svgLineTo(FPointArray *i, double x1, double y1)
 		const FPoint& b2 = i->point(i->size()-3);
 		const FPoint& b3 = i->point(i->size()-2);
 		const FPoint& b4 = i->point(i->size()-1);
-		FPoint n1 = FPoint(CurrX, CurrY);
-		FPoint n2 = FPoint(x1, y1);
+		FPoint n1(CurrX, CurrY);
+		FPoint n2(x1, y1);
 		if ((b1 == n1) && (b2 == n1) && (b3 == n2) && (b4 == n2))
 			return;
 	}
@@ -1198,10 +1198,10 @@ void ShapePlug::svgCurveToCubic(FPointArray *i, double x1, double y1, double x2,
 		const FPoint& b2 = i->point(i->size()-3);
 		const FPoint& b3 = i->point(i->size()-2);
 		const FPoint& b4 = i->point(i->size()-1);
-		FPoint n1 = FPoint(CurrX, CurrY);
-		FPoint n2 = FPoint(x1, y1);
-		FPoint n3 = FPoint(x3, y3);
-		FPoint n4 = FPoint(x2, y2);
+		FPoint n1(CurrX, CurrY);
+		FPoint n2(x1, y1);
+		FPoint n3(x3, y3);
+		FPoint n4(x2, y2);
 		if ((b1 == n1) && (b2 == n2) && (b3 == n3) && (b4 == n4))
 			return;
 	}

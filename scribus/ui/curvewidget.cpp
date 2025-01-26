@@ -130,7 +130,7 @@ void KCurve::keyPressEvent(QKeyEvent *e)
 
 void KCurve::mousePressEvent ( QMouseEvent * e )
 {
-	FPoint closest_point = FPoint();
+	FPoint closest_point;
 	double distance;
 	if (e->button() != Qt::LeftButton)
 		return;

@@ -1860,7 +1860,7 @@ void RawPainter::applyFill(PageItem* ite)
 				cx = m_style["svg:cx"]->getDouble();
 			if (m_style["svg:cy"])
 				cy = m_style["svg:cy"]->getDouble();
-			FPoint cp = FPoint(cx, cy);
+			FPoint cp(cx, cy);
 			ite->setDiamondGeometry(FPoint(0, 0), FPoint(ite->width(), 0), FPoint(ite->width(), ite->height()), FPoint(0, ite->height()), cp);
 			ite->fill_gradient.clearStops();
 			QList<VColorStop*> colorStops = m_currentGradient.colorStops();
@@ -1873,7 +1873,7 @@ void RawPainter::applyFill(PageItem* ite)
 		else if (gradMode == "center")
 		{
 			QString center = "top-left";
-			FPoint cp = FPoint(0, 0);
+			FPoint cp(0, 0);
 			if (m_style["libmspub:shade-ref-point"])
 				center = QString(m_style["libmspub:shade-ref-point"]->getStr().cstr());
 			if (center == "top-left")
@@ -1943,7 +1943,7 @@ void RawPainter::applyFill(PageItem* ite)
 				gpath = points;
 			}
 			ite->meshGradientPatches.clear();
-			FPoint center = FPoint(ite->width() / 2.0, ite->height() / 2.0);
+			FPoint center(ite->width() / 2.0, ite->height() / 2.0);
 			QList<VColorStop*> colorStops = m_currentGradient.colorStops();
 			if (colorStops.count() == 2)
 			{
@@ -3248,7 +3248,7 @@ void RawPainter::applyFill(PageItem* ite)
 				cx = m_style["svg:cx"]->getDouble();
 			if (m_style["svg:cy"])
 				cy = m_style["svg:cy"]->getDouble();
-			FPoint cp = FPoint(cx, cy);
+			FPoint cp(cx, cy);
 			ite->setDiamondGeometry(FPoint(0, 0), FPoint(ite->width(), 0), FPoint(ite->width(), ite->height()), FPoint(0, ite->height()), cp);
 			ite->fill_gradient.clearStops();
 			QList<VColorStop*> colorStops = m_currentGradient.colorStops();
@@ -3261,7 +3261,7 @@ void RawPainter::applyFill(PageItem* ite)
 		else if (gradMode == "center")
 		{
 			QString center = "top-left";
-			FPoint cp = FPoint(0, 0);
+			FPoint cp(0, 0);
 			if (m_style["libmspub:shade-ref-point"])
 				center = QString(m_style["libmspub:shade-ref-point"]->getStr().cstr());
 			if (center == "top-left")
@@ -3284,7 +3284,7 @@ void RawPainter::applyFill(PageItem* ite)
 		else if (gradMode == "shape")
 		{
 			ite->meshGradientPatches.clear();
-			FPoint center = FPoint(ite->width() / 2.0, ite->height() / 2.0);
+			FPoint center(ite->width() / 2.0, ite->height() / 2.0);
 			MeshPoint cP;
 			cP.resetTo(center);
 			cP.transparency = m_gradColor2Trans;
