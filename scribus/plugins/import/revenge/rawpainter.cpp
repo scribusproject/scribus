@@ -3662,7 +3662,7 @@ void RawPainter::applyStartArrow(PageItem* ite)
 			continue;
 
 		double r = atan2(startPoint.y() - point.y(), startPoint.x() - point.x()) * (180.0 / M_PI);
-		QPointF refP = QPointF(br.width() / 2.0, 0);
+		QPointF refP(br.width() / 2.0, 0);
 		QTransform m;
 		m.translate(br.width() / 2.0, br.height() / 2.0);
 		m.rotate(r + 90);
@@ -3715,7 +3715,7 @@ void RawPainter::applyEndArrow(PageItem* ite)
 			return;
 
 		double r = atan2(endPoint.y() - point.y(), endPoint.x() - point.x()) * (180.0 / M_PI);
-		QPointF refP = QPointF(br.width() / 2.0, 0);
+		QPointF refP(br.width() / 2.0, 0);
 		QTransform m;
 		m.translate(br.width() / 2.0, br.height() / 2.0);
 		m.rotate(r + 90);

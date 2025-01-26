@@ -1943,13 +1943,13 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 							QString rDir = itpo.attribute("RightDirection");
 							ScTextStream an(&anchor, QIODevice::ReadOnly);
 							an >> x1 >> y1;
-							QPointF aP = QPointF(x1, y1);
+							QPointF aP(x1, y1);
 							ScTextStream lr(&lDir, QIODevice::ReadOnly);
 							lr >> x2 >> y2;
-							QPointF lP = QPointF(x2, y2);
+							QPointF lP(x2, y2);
 							ScTextStream rr(&rDir, QIODevice::ReadOnly);
 							rr >> x3 >> y3;
-							QPointF rP = QPointF(x3, y3);
+							QPointF rP(x3, y3);
 
 							if (firstPoint)
 							{

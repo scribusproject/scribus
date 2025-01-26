@@ -375,7 +375,7 @@ PdfTextRegion::LineType PdfTextRegion::moveToPoint(QPointF newPoint)
 */
 PdfTextRegion::LineType PdfTextRegion::addGlyphAtPoint(QPointF newGlyphPoint, PdfGlyph newGlyph)
 {
-	QPointF movedGlyphPoint = QPointF(newGlyphPoint.x() + newGlyph.dx, newGlyphPoint.y() + newGlyph.dy);
+	QPointF movedGlyphPoint(newGlyphPoint.x() + newGlyph.dx, newGlyphPoint.y() + newGlyph.dy);
 	if (glyphs.size() == 1)
 	{
 		lineSpacing = newGlyph.dx * 3;

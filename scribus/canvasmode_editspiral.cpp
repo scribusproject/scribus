@@ -176,7 +176,7 @@ QPointF CanvasMode_EditSpiral::getSegment(double angle)
 	double segStart = 0.0;
 	double segEnd = 180;
 	bool segPart = true;
-	QPointF ret = QPointF(item->width() / 2.0, item->height() / 2.0);
+	QPointF ret(item->width() / 2.0, item->height() / 2.0);
 	if (angle < 0)
 		return ret;
 	while (true)

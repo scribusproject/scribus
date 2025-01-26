@@ -1005,10 +1005,10 @@ void CanvasMode_EditMeshPatch::snapToOtherPatch(double &x, double &y)
 		if (col != m_currItem->selectedMeshPointX)
 		{
 			meshGradientPatch patch = m_currItem->meshGradientPatches[col];
-			QPointF mp1 = QPointF(patch.TL.gridPoint.x(), patch.TL.gridPoint.y());
-			QPointF mp2 = QPointF(patch.TR.gridPoint.x(), patch.TR.gridPoint.y());
-			QPointF mp3 = QPointF(patch.BR.gridPoint.x(), patch.BR.gridPoint.y());
-			QPointF mp4 = QPointF(patch.BL.gridPoint.x(), patch.BL.gridPoint.y());
+			QPointF mp1(patch.TL.gridPoint.x(), patch.TL.gridPoint.y());
+			QPointF mp2(patch.TR.gridPoint.x(), patch.TR.gridPoint.y());
+			QPointF mp3(patch.BR.gridPoint.x(), patch.BR.gridPoint.y());
+			QPointF mp4(patch.BL.gridPoint.x(), patch.BL.gridPoint.y());
 			if (qAbs(mp1.x() - x) < radius && qAbs(mp1.y() - y) < radius)
 			{
 				x = mp1.x();

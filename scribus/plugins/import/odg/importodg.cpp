@@ -3721,7 +3721,7 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 			P5 = pPoints[4];
 			P6 = pPoints[5];
 /*
-			QPointF cpL = QPointF(item->width() * gStyle.gradientCenterX, item->height()* gStyle.gradientCenterY);
+			QPointF cpL(item->width() * gStyle.gradientCenterX, item->height()* gStyle.gradientCenterY);
 			double lineLen = sqrt(gLenW * gLenW + gLenH * gLenH) * 2.0;
 			QLineF iLineP1(cpL, P1);
 			iLineP1.setLength(lineLen);

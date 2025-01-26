@@ -2405,9 +2405,9 @@ void XarPlug::handleMultiDiamondGradient(QDataStream &ts)
 		gc->FillGradient.addStop( QColor(255, 255, 255, 0), 1.0, 0.5, 0.0, gCol2, 100 );
 	gc->FillGradientType = 10;
 	gc->GrControl5 = FPoint(bcx + baseX + m_Doc->currentPage()->xOffset(), (docHeight - bcy) + baseY + m_Doc->currentPage()->yOffset());
-	QPointF cen = QPointF(bcx + baseX + m_Doc->currentPage()->xOffset(), (docHeight - bcy) + baseY + m_Doc->currentPage()->yOffset());
-	QPointF rig = QPointF(brx + baseX + m_Doc->currentPage()->xOffset(), (docHeight - bry) + baseY + m_Doc->currentPage()->yOffset());
-	QPointF top = QPointF(btx + baseX + m_Doc->currentPage()->xOffset(), (docHeight - bty) + baseY + m_Doc->currentPage()->yOffset());
+	QPointF cen(bcx + baseX + m_Doc->currentPage()->xOffset(), (docHeight - bcy) + baseY + m_Doc->currentPage()->yOffset());
+	QPointF rig(brx + baseX + m_Doc->currentPage()->xOffset(), (docHeight - bry) + baseY + m_Doc->currentPage()->yOffset());
+	QPointF top(btx + baseX + m_Doc->currentPage()->xOffset(), (docHeight - bty) + baseY + m_Doc->currentPage()->yOffset());
 	QLineF rVec(cen, rig);
 	QLineF tVec(cen, top);
 	QLineF rNVec = tVec.translated(rVec.dx(), rVec.dy());
@@ -2474,9 +2474,9 @@ void XarPlug::handleSimpleDiamondGradient(QDataStream &ts, quint32 dataLen)
 		gc->FillGradient.addStop( QColor(255, 255, 255, 0), 1.0, 0.5, 0.0, gCol2, 100 );
 	gc->FillGradientType = 10;
 	gc->GrControl5 = FPoint(bcx + baseX + m_Doc->currentPage()->xOffset(), (docHeight - bcy) + baseY + m_Doc->currentPage()->yOffset());
-	QPointF cen = QPointF(bcx + baseX + m_Doc->currentPage()->xOffset(), (docHeight - bcy) + baseY + m_Doc->currentPage()->yOffset());
-	QPointF rig = QPointF(brx + baseX + m_Doc->currentPage()->xOffset(), (docHeight - bry) + baseY + m_Doc->currentPage()->yOffset());
-	QPointF top = QPointF(btx + baseX + m_Doc->currentPage()->xOffset(), (docHeight - bty) + baseY + m_Doc->currentPage()->yOffset());
+	QPointF cen(bcx + baseX + m_Doc->currentPage()->xOffset(), (docHeight - bcy) + baseY + m_Doc->currentPage()->yOffset());
+	QPointF rig(brx + baseX + m_Doc->currentPage()->xOffset(), (docHeight - bry) + baseY + m_Doc->currentPage()->yOffset());
+	QPointF top(btx + baseX + m_Doc->currentPage()->xOffset(), (docHeight - bty) + baseY + m_Doc->currentPage()->yOffset());
 	QLineF rVec(cen, rig);
 	QLineF tVec(cen, top);
 	QLineF rNVec = tVec.translated(rVec.dx(), rVec.dy());

@@ -3043,7 +3043,7 @@ double CgmPlug::getBinaryDistance(QDataStream &ts)
 
 QPointF CgmPlug::getBinaryCoords(QDataStream &ts, bool raw)
 {
-	QPointF ret = QPointF(0.0, 0.0);
+	QPointF ret(0.0, 0.0);
 	if (vdcType == 0)				// integer coords
 	{
 		int x = getBinaryInt(ts, vdcInt);

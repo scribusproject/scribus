@@ -1584,7 +1584,7 @@ void PctPlug::handleShortLine(QDataStream &ts)
 		currentPoint = QPoint(x * resX, y * resY);
 		return;
 	}
-	QPoint s = QPoint(x * resX, y * resY);
+	QPoint s(x * resX, y * resY);
 	if (currentPoint != s)
 	{
 		handleLineModeEnd();
@@ -1616,7 +1616,7 @@ void PctPlug::handleLine(QDataStream &ts)
 	qint16 x1, x2, y1, y2;
 	ts >> y1 >> x1;
 	ts >> y2 >> x2;
-	QPoint s = QPoint(x1 * resX, y1 * resY);
+	QPoint s(x1 * resX, y1 * resY);
 	if (currentPoint != s)
 	{
 		handleLineModeEnd();
