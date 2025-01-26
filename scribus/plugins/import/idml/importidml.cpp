@@ -2537,7 +2537,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 					}
 				}
 			}
-			QRectF br = QRectF(0, 0, item->width(), item->height());
+			QRectF br(0, 0, item->width(), item->height());
 			QTransform ma;
 			ma.rotate(-rot);
 			QRectF br2 = ma.mapRect(br);

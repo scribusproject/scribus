@@ -227,7 +227,7 @@ void CanvasMode::drawSelectionHandles(QPainter *psx, QRectF selectionRect, bool 
 	double markWidth = 4.0 / m_canvas->scale();
 	if (insideGroup)
 		markWidth /= qMax(sx, sy);
-	QRectF handleRect = QRectF(0, 0, markWidth, markWidth);
+	QRectF handleRect(0, 0, markWidth, markWidth);
 	double x = selectionRect.x();
 	double y = selectionRect.y();
 	double w = selectionRect.width();
@@ -430,7 +430,7 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 					if (currItem->isLine())
 					{
 						const double markWidth = 4.0 / m_canvas->scale();
-						QRectF handleRect = QRectF(0, 0, markWidth, markWidth);
+						QRectF handleRect(0, 0, markWidth, markWidth);
 						psx->setRenderHint(QPainter::Antialiasing);
 						psx->setBrush(Qt::white);
 						psx->setPen(m_pen["handle"]);

@@ -177,7 +177,7 @@ void DashPreview::mouseReleaseEvent(QMouseEvent *m)
 			m_currentStop = 0;
 			for (int i = 0; i < m_stops.count(); ++i)
 			{
-				QRect fpo = QRect(static_cast<int>(m_stops[i]) + 6, 16, 8, 13);
+				QRect fpo(static_cast<int>(m_stops[i]) + 6, 16, 8, 13);
 				if (fpo.contains(m->pos()))
 				{
 					m_currentStop = i;

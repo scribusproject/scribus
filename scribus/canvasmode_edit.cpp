@@ -80,7 +80,7 @@ void CanvasMode_Edit::blinkTextCursor()
 	PageItem* currItem;
 	if (m_doc->appMode == modeEdit && GetItem(&currItem))
 	{
-		QRectF brect = QRectF(0, 0, currItem->width(), currItem->height());
+		QRectF brect(0, 0, currItem->width(), currItem->height());
 		QTransform m = currItem->getTransform();
 		brect = m.mapRect(brect);
 		m_canvas->update(QRectF(m_canvas->canvasToLocal(brect.topLeft()), QSizeF(brect.width(),brect.height())*m_canvas->scale()).toRect());

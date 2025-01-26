@@ -1278,7 +1278,7 @@ void RawPainter::drawGraphicObject(const librevenge::RVNGPropertyList &propList)
 									rot = m_style["librevenge:rotate"]->getDouble();
 								QPainterPath ba;
 								ba.addRect(QRectF(x, y, w, h));
-								QRectF baR = QRectF(x, y, w, h);
+								QRectF baR(x, y, w, h);
 								if (rot != 0)
 								{
 									QTransform mm;

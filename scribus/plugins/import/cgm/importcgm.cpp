@@ -949,7 +949,7 @@ void CgmPlug::decodeClass2(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		QPointF max, min;
 		max = getBinaryCoords(ts, true);
 		min = getBinaryCoords(ts, true);
-		QRectF vd = QRectF(max, min);
+		QRectF vd(max, min);
 		vcdFlippedV = (vd.height() > 0);
 		vcdFlippedH = (vd.width() < 0);
 		vd = vd.normalized();
@@ -1083,7 +1083,7 @@ void CgmPlug::decodeClass3(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		QPointF max, min;
 		max = getBinaryCoords(ts);
 		min = getBinaryCoords(ts);
-		QRectF vd = QRectF(max, min);
+		QRectF vd(max, min);
 		vd = vd.normalized();
 		double w = convertCoords(vd.width());
 		double h = convertCoords(vd.height());
@@ -1582,10 +1582,9 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 11)
 	{
-		QPointF max, min;
-		max = getBinaryCoords(ts);
-		min = getBinaryCoords(ts);
-		QRectF vd = QRectF(max, min);
+		QPointF max = getBinaryCoords(ts);
+		QPointF min = getBinaryCoords(ts);
+		QRectF vd(max, min);
 		vd = vd.normalized();
 		double w = convertCoords(vd.width());
 		double h = convertCoords(vd.height());
