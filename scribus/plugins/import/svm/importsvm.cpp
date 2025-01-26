@@ -2335,7 +2335,7 @@ void SvmPlug::commonGradient(QDataStream &ds, PageItem* ite)
 			ite->GrEndX = ite->width() / 2.0;
 			ite->GrEndY = ite->height();
 		}
-		QLineF gradientVectorE = QLineF(ite->GrStartX, ite->GrStartY, ite->GrEndX, ite->GrEndY);
+		QLineF gradientVectorE(ite->GrStartX, ite->GrStartY, ite->GrEndX, ite->GrEndY);
 		gradientVectorE.setAngle(gradientAngle);
 		ite->GrEndX = gradientVectorE.p2().x();
 		ite->GrEndY = gradientVectorE.p2().y();
@@ -2352,13 +2352,13 @@ void SvmPlug::commonGradient(QDataStream &ds, PageItem* ite)
 			ite->fill_gradient.addStop(colS, 1.0, 0.5, 1.0, gradientStartColor, gradientStartShade);
 		FPoint cp = FPoint(ite->width() * gradientCenterX, ite->height()* gradientCenterY);
 		double gLen = qMin(ite->width(), ite->height()) / 2.0;
-		QLineF p1 = QLineF(cp.x(), cp.y(), cp.x() - gLen, cp.y() - gLen);
+		QLineF p1(cp.x(), cp.y(), cp.x() - gLen, cp.y() - gLen);
 		p1.setAngle(p1.angle() + gradientAngle);
-		QLineF p2 = QLineF(cp.x(), cp.y(), cp.x() + gLen, cp.y() - gLen);
+		QLineF p2(cp.x(), cp.y(), cp.x() + gLen, cp.y() - gLen);
 		p2.setAngle(p2.angle() + gradientAngle);
-		QLineF p3 = QLineF(cp.x(), cp.y(), cp.x() + gLen, cp.y() + gLen);
+		QLineF p3(cp.x(), cp.y(), cp.x() + gLen, cp.y() + gLen);
 		p3.setAngle(p3.angle() + gradientAngle);
-		QLineF p4 = QLineF(cp.x(), cp.y(), cp.x() - gLen, cp.y() + gLen);
+		QLineF p4(cp.x(), cp.y(), cp.x() - gLen, cp.y() + gLen);
 		p4.setAngle(p4.angle() + gradientAngle);
 		ite->setDiamondGeometry(FPoint(p1.p2().x(), p1.p2().y()), FPoint(p2.p2().x(), p2.p2().y()), FPoint(p3.p2().x(), p3.p2().y()), FPoint(p4.p2().x(), p4.p2().y()), cp);
 		ite->GrType = Gradient_Diamond;
@@ -2379,9 +2379,9 @@ void SvmPlug::commonGradient(QDataStream &ds, PageItem* ite)
 		QPointF P2 = QPointF(ite->width(), 0.0);
 		QPointF P3 = QPointF(ite->width(), ite->height());
 		QPointF P4 = QPointF(0.0, ite->height());
-		QLineF L1 = QLineF(0.0, 0.0, ite->width(), 0.0);
+		QLineF L1(0.0, 0.0, ite->width(), 0.0);
 		L1.setAngle(-45);
-		QLineF LCW = QLineF(0.0, ite->height() / 2.0, ite->width(), ite->height() / 2.0);
+		QLineF LCW(0.0, ite->height() / 2.0, ite->width(), ite->height() / 2.0);
 		QPointF P5;
 		LCW.intersects(L1, &P5);
 		QPointF P6 = QPointF(ite->width() - P5.x(), P5.y());
@@ -2399,13 +2399,13 @@ void SvmPlug::commonGradient(QDataStream &ds, PageItem* ite)
 		P4 = pPoints[3];
 		P5 = pPoints[4];
 		P6 = pPoints[5];
-		QLineF p1 = QLineF(cp.x(), cp.y(), cp.x() - gLenW, cp.y() - gLenH);
+		QLineF p1(cp.x(), cp.y(), cp.x() - gLenW, cp.y() - gLenH);
 		p1.setAngle(p1.angle() + gradientAngle);
-		QLineF p2 = QLineF(cp.x(), cp.y(), cp.x() + gLenW, cp.y() - gLenH);
+		QLineF p2(cp.x(), cp.y(), cp.x() + gLenW, cp.y() - gLenH);
 		p2.setAngle(p2.angle() + gradientAngle);
-		QLineF p3 = QLineF(cp.x(), cp.y(), cp.x() + gLenW, cp.y() + gLenH);
+		QLineF p3(cp.x(), cp.y(), cp.x() + gLenW, cp.y() + gLenH);
 		p3.setAngle(p3.angle() + gradientAngle);
-		QLineF p4 = QLineF(cp.x(), cp.y(), cp.x() - gLenW, cp.y() + gLenH);
+		QLineF p4(cp.x(), cp.y(), cp.x() - gLenW, cp.y() + gLenH);
 		p4.setAngle(p4.angle() + gradientAngle);
 		ite->setDiamondGeometry(FPoint(p1.p2().x(), p1.p2().y()), FPoint(p2.p2().x(), p2.p2().y()), FPoint(p3.p2().x(), p3.p2().y()), FPoint(p4.p2().x(), p4.p2().y()), cp);
 		ite->GrType = Gradient_Diamond;
@@ -2795,7 +2795,7 @@ quint32 SvmPlug::handleEMPBrush(QDataStream &ds, quint16 id, bool first, bool co
 				lenS += 24;
 				float m11, m12, m21, m22, dx, dy;
 				ds >> m11 >> m12 >> m21 >> m22 >> dx >> dy;
-				QLineF lin = QLineF(0, 0, 1, 0);
+				QLineF lin(0, 0, 1, 0);
 				lin = QTransform(m11, m12, m21, m22, dx, dy).map(lin);
 				sty.gradientAngle = lin.angle();
 			}
@@ -2845,7 +2845,7 @@ quint32 SvmPlug::handleEMPBrush(QDataStream &ds, quint16 id, bool first, bool co
 		{
 			float m11, m12, m21, m22, dx, dy;
 			ds >> m11 >> m12 >> m21 >> m22 >> dx >> dy;
-			QLineF lin = QLineF(0, 0, 1, 0);
+			QLineF lin(0, 0, 1, 0);
 			lin = QTransform(m11, m12, m21, m22, dx, dy).map(lin);
 			sty.gradientAngle = lin.angle() + 45;
 		}
@@ -2925,7 +2925,7 @@ quint32 SvmPlug::handleEMPBrush(QDataStream &ds, quint16 id, bool first, bool co
 		{
 			float m11, m12, m21, m22, dx, dy;
 			ds >> m11 >> m12 >> m21 >> m22 >> dx >> dy;
-			QLineF lin = QLineF(rect[0], rect[2]);
+			QLineF lin(rect[0], rect[2]);
 			lin = QTransform(m11, m12, m21, m22, dx, dy).map(lin);
 			sty.gradientAngle = lin.angle() + 45;
 		}
@@ -4469,7 +4469,7 @@ QPointF SvmPlug::convertEMFPLogical2Pts(QPointF in, quint16 unit)
 
 double SvmPlug::convertEMFPLogical2Pts(double in, quint16 unit)
 {
-	QLineF dist = QLineF(0, 0, in, 0);
+	QLineF dist(0, 0, in, 0);
 	dist = currentDC.m_WorldMapEMFP.map(dist);
 	double out = dist.length();
 	switch (unit)

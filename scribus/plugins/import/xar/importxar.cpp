@@ -2408,18 +2408,18 @@ void XarPlug::handleMultiDiamondGradient(QDataStream &ts)
 	QPointF cen = QPointF(bcx + baseX + m_Doc->currentPage()->xOffset(), (docHeight - bcy) + baseY + m_Doc->currentPage()->yOffset());
 	QPointF rig = QPointF(brx + baseX + m_Doc->currentPage()->xOffset(), (docHeight - bry) + baseY + m_Doc->currentPage()->yOffset());
 	QPointF top = QPointF(btx + baseX + m_Doc->currentPage()->xOffset(), (docHeight - bty) + baseY + m_Doc->currentPage()->yOffset());
-	QLineF rVec = QLineF(cen, rig);
-	QLineF tVec = QLineF(cen, top);
+	QLineF rVec(cen, rig);
+	QLineF tVec(cen, top);
 	QLineF rNVec = tVec.translated(rVec.dx(), rVec.dy());
 	QPointF intRT = rNVec.p2();
 	gc->GrControl2 = FPoint(intRT.x(), intRT.y());
-	QLineF vg4 = QLineF(cen, intRT);
+	QLineF vg4(cen, intRT);
 	vg4.setAngle(vg4.angle()+180);
 	gc->GrControl4 = FPoint(vg4.x2(), vg4.y2());
 	QLineF tNVec = tVec.translated(-rVec.dx(), -rVec.dy());
 	QPointF intLT = tNVec.p2();
 	gc->GrControl1 = FPoint(intLT.x(), intLT.y());
-	QLineF vg3 = QLineF(cen, intLT);
+	QLineF vg3(cen, intLT);
 	vg3.setAngle(vg3.angle()+180);
 	gc->GrControl3 = FPoint(vg3.x2(), vg3.y2());
 	if (textLines.count() > 0)
@@ -2477,18 +2477,18 @@ void XarPlug::handleSimpleDiamondGradient(QDataStream &ts, quint32 dataLen)
 	QPointF cen = QPointF(bcx + baseX + m_Doc->currentPage()->xOffset(), (docHeight - bcy) + baseY + m_Doc->currentPage()->yOffset());
 	QPointF rig = QPointF(brx + baseX + m_Doc->currentPage()->xOffset(), (docHeight - bry) + baseY + m_Doc->currentPage()->yOffset());
 	QPointF top = QPointF(btx + baseX + m_Doc->currentPage()->xOffset(), (docHeight - bty) + baseY + m_Doc->currentPage()->yOffset());
-	QLineF rVec = QLineF(cen, rig);
-	QLineF tVec = QLineF(cen, top);
+	QLineF rVec(cen, rig);
+	QLineF tVec(cen, top);
 	QLineF rNVec = tVec.translated(rVec.dx(), rVec.dy());
 	QPointF intRT = rNVec.p2();
 	gc->GrControl2 = FPoint(intRT.x(), intRT.y());
-	QLineF vg4 = QLineF(cen, intRT);
+	QLineF vg4(cen, intRT);
 	vg4.setAngle(vg4.angle()+180);
 	gc->GrControl4 = FPoint(vg4.x2(), vg4.y2());
 	QLineF tNVec = tVec.translated(-rVec.dx(), -rVec.dy());
 	QPointF intLT = tNVec.p2();
 	gc->GrControl1 = FPoint(intLT.x(), intLT.y());
-	QLineF vg3 = QLineF(cen, intLT);
+	QLineF vg3(cen, intLT);
 	vg3.setAngle(vg3.angle()+180);
 	gc->GrControl3 = FPoint(vg3.x2(), vg3.y2());
 	if (textLines.count() > 0)

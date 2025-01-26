@@ -2154,7 +2154,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 		getTransformValuesFromMatrix(finalMat, scX, scY, rot, dx, dy);
 		if ((finalMat.m11() < 0) && (finalMat.m12() == 0) && (finalMat.m21() == 0))
 		{
-			QLineF line = QLineF(0.0, 0.0, 1.0, 0.0);
+			QLineF line(0.0, 0.0, 1.0, 0.0);
 			line.setAngle(rot);
 			QTransform matrix;
 			matrix.scale(-1, 0);
@@ -2242,7 +2242,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 				item->setFillEvenOdd(false);
 				if (!fillGradient.isEmpty())
 				{
-					QLineF gradientVector = QLineF(gstX, gstY, gstX + 1, gstY);
+					QLineF gradientVector(gstX, gstY, gstX + 1, gstY);
 					gradientVector.setLength(gLen);
 					gradientVector.setAngle(gAngle);
 					gradientVector.translate(-grOffset.x(), -grOffset.y());
@@ -2253,7 +2253,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 				}
 				if (!strokeGradient.isEmpty())
 				{
-					QLineF gradientVector = QLineF(gstSX, gstSY, gstSX + 1, gstSY);
+					QLineF gradientVector(gstSX, gstSY, gstSX + 1, gstSY);
 					gradientVector.setLength(gSLen);
 					gradientVector.setAngle(gSAngle);
 					gradientVector.translate(-grOffset.x(), -grOffset.y());
@@ -2478,7 +2478,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 			item->setFillEvenOdd(false);
 			if (!fillGradient.isEmpty())
 			{
-				QLineF gradientVector = QLineF(gstX, gstY, gstX + 1, gstY);
+				QLineF gradientVector(gstX, gstY, gstX + 1, gstY);
 				gradientVector.setLength(gLen);
 				gradientVector.setAngle(gAngle);
 				gradientVector.translate(-grOffset.x(), -grOffset.y());
@@ -2489,7 +2489,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 			}
 			if (!strokeGradient.isEmpty())
 			{
-				QLineF gradientVector = QLineF(gstSX, gstSY, gstSX + 1, gstSY);
+				QLineF gradientVector(gstSX, gstSY, gstSX + 1, gstSY);
 				gradientVector.setLength(gSLen);
 				gradientVector.setAngle(gSAngle);
 				gradientVector.translate(-grOffset.x(), -grOffset.y());

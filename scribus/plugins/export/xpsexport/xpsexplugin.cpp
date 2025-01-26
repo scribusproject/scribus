@@ -646,7 +646,7 @@ void XPSExPlug::processLineItem(double xOffset, double yOffset, PageItem *item, 
 		double y1 = yOffset * conversionFactor;
 		double x2 = (item->width() + xOffset) * conversionFactor;
 		double y2 = yOffset * conversionFactor;
-		QLineF line = QLineF(x1, y1, x2, y2);
+		QLineF line(x1, y1, x2, y2);
 		line.setAngle(-item->rotation());
 		if (item->NamedLStyle.isEmpty())
 		{

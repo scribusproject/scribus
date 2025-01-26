@@ -105,7 +105,7 @@ QPainterPath regularPolygonPath(double w, double h, uint c, bool star, double fa
 			if (i % 2 != 0)
 			{
 				// outer control point
-				QLineF oline = QLineF(cornerPoints[i + 1], cornerPoints[i - 1]);
+				QLineF oline(cornerPoints[i + 1], cornerPoints[i - 1]);
 				mxc1 = oline.pointAt(factor3).x();
 				myc1 = oline.pointAt(factor3).y();
 				// inner control point
@@ -116,7 +116,7 @@ QPainterPath regularPolygonPath(double w, double h, uint c, bool star, double fa
 			else
 			{
 				// outer control point
-				QLineF oline = QLineF(cornerPoints[i], cornerPoints[i + 2]);
+				QLineF oline(cornerPoints[i], cornerPoints[i + 2]);
 				mxc1 = oline.pointAt(factor3).x();
 				myc1 = oline.pointAt(factor3).y();
 				// inner control point
@@ -126,7 +126,7 @@ QPainterPath regularPolygonPath(double w, double h, uint c, bool star, double fa
 			}
 		}
 		// outer control point
-		QLineF oline = QLineF(cornerPoints[cornerPoints.count() - 2], cornerPoints[0]);
+		QLineF oline(cornerPoints[cornerPoints.count() - 2], cornerPoints[0]);
 		mxc1 = oline.pointAt(factor3).x();
 		myc1 = oline.pointAt(factor3).y();
 		// inner control point

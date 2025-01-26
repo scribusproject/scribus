@@ -1409,8 +1409,8 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		}
 		ts >> mode;
 		int bytesRead = ts.device()->pos() - pos;
-		QLineF pr = QLineF(p, r);
-		QLineF rq = QLineF(r, q);
+		QLineF pr(p, r);
+		QLineF rq(r, q);
 		double originX = p.x();
 		double originY = p.y();
 		bool flipX = false;
@@ -1611,17 +1611,17 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		QPointF pStart = convertCoords(getBinaryCoords(ts));
 		QPointF pInter = convertCoords(getBinaryCoords(ts));
 		QPointF pEnd = convertCoords(getBinaryCoords(ts));
-		QLineF s_e = QLineF(pStart, pEnd);
+		QLineF s_e(pStart, pEnd);
 		QLineF n_s = s_e.normalVector();
 		n_s.translate(s_e.pointAt(0.5) - s_e.p1());
-		QLineF s_i = QLineF(pStart, pInter);
+		QLineF s_i(pStart, pInter);
 		QLineF n_i = s_i.normalVector();
 		n_i.translate(s_i.pointAt(0.5) - s_i.p1());
 		QPointF center;
 		if (n_s.intersects(n_i, &center) != QLineF::NoIntersection)
 		{
-			QLineF rad1 = QLineF(center, pStart);
-			QLineF rad3 = QLineF(center, pInter);
+			QLineF rad1(center, pStart);
+			QLineF rad3(center, pInter);
 			double radius = rad1.length();
 			Coords.resize(0);
 			Coords.svgInit();
@@ -1659,17 +1659,17 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		QPointF pEnd = convertCoords(getBinaryCoords(ts));
 		quint16 mode;
 		ts >> mode;
-		QLineF s_e = QLineF(pStart, pEnd);
+		QLineF s_e(pStart, pEnd);
 		QLineF n_s = s_e.normalVector();
 		n_s.translate(s_e.pointAt(0.5) - s_e.p1());
-		QLineF s_i = QLineF(pStart, pInter);
+		QLineF s_i(pStart, pInter);
 		QLineF n_i = s_i.normalVector();
 		n_i.translate(s_i.pointAt(0.5) - s_i.p1());
 		QPointF center;
 		if (n_s.intersects(n_i, &center) != QLineF::NoIntersection)
 		{
-			QLineF rad1 = QLineF(center, pStart);
-			QLineF rad3 = QLineF(center, pInter);
+			QLineF rad1(center, pStart);
+			QLineF rad3(center, pInter);
 			double radius = rad1.length();
 			Coords.resize(0);
 			Coords.svgInit();
@@ -1721,8 +1721,8 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			sx *= -1;
 			ex *= -1;
 		}
-		QLineF stv = QLineF(cx, cy, cx + sx, cy + sy);
-		QLineF env = QLineF(cx, cy, cx + ex, cy + ey);
+		QLineF stv(cx, cy, cx + sx, cy + sy);
+		QLineF env(cx, cy, cx + ex, cy + ey);
 		QPainterPath ell;
 		if (qFuzzyCompare(sx, ex) && qFuzzyCompare(sy, ey))
 		{
@@ -1778,8 +1778,8 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			sx *= -1;
 			ex *= -1;
 		}
-		QLineF stv = QLineF(cx, cy, cx + sx, cy + sy);
-		QLineF env = QLineF(cx, cy, cx + ex, cy + ey);
+		QLineF stv(cx, cy, cx + sx, cy + sy);
+		QLineF env(cx, cy, cx + ex, cy + ey);
 		QPainterPath ell;
 		if (qFuzzyCompare(sx, ex) && qFuzzyCompare(sy, ey))
 		{
@@ -1865,8 +1865,8 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		QPointF r2 = getBinaryCoords(ts);
 		double r2x = convertCoords(r2.x());
 		double r2y = convertCoords(r2.y());
-		QLineF dstX = QLineF(cx, cy, r1x, r1y);
-		QLineF dstY = QLineF(cx, cy, r2x, r2y);
+		QLineF dstX(cx, cy, r1x, r1y);
+		QLineF dstY(cx, cy, r2x, r2y);
 		double distX = dstX.length();
 		double distY = dstY.length();
 		double rotB = dstX.angle();
@@ -1884,8 +1884,8 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			sx *= -1;
 			ex *= -1;
 		}
-		QLineF stv = QLineF(cx, cy, cx + sx, cy + sy);
-		QLineF env = QLineF(cx, cy, cx + ex, cy + ey);
+		QLineF stv(cx, cy, cx + sx, cy + sy);
+		QLineF env(cx, cy, cx + ex, cy + ey);
 		QPainterPath ell;
 		ell.addEllipse(QPointF(cx, cy), distX, distY);
 		ell.translate(-cx, -cy);
@@ -1969,8 +1969,8 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		QPointF r2 = getBinaryCoords(ts);
 		double r2x = convertCoords(r2.x());
 		double r2y = convertCoords(r2.y());
-		QLineF dstX = QLineF(cx, cy, r1x, r1y);
-		QLineF dstY = QLineF(cx, cy, r2x, r2y);
+		QLineF dstX(cx, cy, r1x, r1y);
+		QLineF dstY(cx, cy, r2x, r2y);
 		double distX = dstX.length();
 		double distY = dstY.length();
 		double rotB = dstX.angle();
@@ -1989,8 +1989,8 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			sx *= -1;
 			ex *= -1;
 		}
-		QLineF stv = QLineF(cx, cy, cx + sx, cy + sy);
-		QLineF env = QLineF(cx, cy, cx + ex, cy + ey);
+		QLineF stv(cx, cy, cx + sx, cy + sy);
+		QLineF env(cx, cy, cx + ex, cy + ey);
 		QPainterPath ell;
 		ell.addEllipse(QPointF(cx, cy), distX, distY);
 		ell.translate(-cx, -cy);
@@ -2419,8 +2419,8 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		double phy = convertCoords(getBinaryDistance(ts));
 		double pwx = convertCoords(getBinaryDistance(ts));
 		double pwy = convertCoords(getBinaryDistance(ts));
-		QLineF hp = QLineF(0, 0, phx, phy);
-		QLineF wp = QLineF(0, 0, pwx, pwy);
+		QLineF hp(0, 0, phx, phy);
+		QLineF wp(0, 0, pwx, pwy);
 		patternScaleX = wp.length();
 		patternScaleY = hp.length();
 	//	qDebug() << "PATTERN SIZE" << wp.length() << hp.length();
