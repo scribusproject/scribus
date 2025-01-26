@@ -98,111 +98,116 @@
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="283"/>
+        <source>Scribus 1.7.0+ Icon Set:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/about.cpp" line="285"/>
         <source>AppImage for Linux:</source>
         <translation>Linux AppImage:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="298"/>
+        <location filename="../../scribus/ui/about.cpp" line="300"/>
         <source>Official Translations and Translators (in order of locale shortcode):</source>
         <translation>Hivatalos fordítások és fordítók (nyelvkódok szerint rendezve):</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="313"/>
+        <location filename="../../scribus/ui/about.cpp" line="315"/>
         <source>Homepage</source>
         <translation>Honlap</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="315"/>
+        <location filename="../../scribus/ui/about.cpp" line="317"/>
         <source>Online Reference</source>
         <translation>Online referencia</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="319"/>
+        <location filename="../../scribus/ui/about.cpp" line="321"/>
         <source>Bugs and Feature Requests</source>
         <translation>Hibabejelentés és új funkció kérése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="323"/>
+        <location filename="../../scribus/ui/about.cpp" line="325"/>
         <source>Mailing List</source>
         <translation>Levelezőlista</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="661"/>
+        <location filename="../../scribus/ui/about.cpp" line="663"/>
         <source>SVN Revision: %1</source>
         <translation>SVN revízió: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="669"/>
+        <location filename="../../scribus/ui/about.cpp" line="671"/>
         <source>Scribus Version %1</source>
         <translation>Scribus-verzió: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="672"/>
+        <location filename="../../scribus/ui/about.cpp" line="674"/>
         <source>Build ID: %1</source>
         <translation>Összeállítás azonosítója: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="679"/>
+        <location filename="../../scribus/ui/about.cpp" line="681"/>
         <source>Built: %1</source>
         <translation>Összeállítva: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="682"/>
+        <location filename="../../scribus/ui/about.cpp" line="684"/>
         <source>Companion Programs:</source>
         <translation>Társprogramok:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="685"/>
+        <location filename="../../scribus/ui/about.cpp" line="687"/>
         <source>Ghostscript: %1</source>
         <translation>Ghostscript: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="688"/>
+        <location filename="../../scribus/ui/about.cpp" line="690"/>
         <source>Libraries:</source>
         <translation>Könyvtárak:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="692"/>
+        <location filename="../../scribus/ui/about.cpp" line="694"/>
         <source>boost: %1</source>
         <translation>boost: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="695"/>
+        <location filename="../../scribus/ui/about.cpp" line="697"/>
         <source>cairo: %1</source>
         <translation>cairo: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="698"/>
+        <location filename="../../scribus/ui/about.cpp" line="700"/>
         <source>fontconfig: %1</source>
         <translation>fontconfig: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="701"/>
+        <location filename="../../scribus/ui/about.cpp" line="703"/>
         <source>harfbuzz: %1</source>
         <translation>harfbuzz: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="705"/>
+        <location filename="../../scribus/ui/about.cpp" line="707"/>
         <source>hunspell: %1 (detected at build time)</source>
         <translation>hunspell: %1 (összeállításkor érzékelve)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="708"/>
+        <location filename="../../scribus/ui/about.cpp" line="710"/>
         <source>littlecms: %1</source>
         <translation>littlecms: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="714"/>
+        <location filename="../../scribus/ui/about.cpp" line="716"/>
         <source>podofo: %1</source>
         <translation>podofo: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="720"/>
+        <location filename="../../scribus/ui/about.cpp" line="722"/>
         <source>poppler: %1</source>
         <translation>poppler: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="300"/>
+        <location filename="../../scribus/ui/about.cpp" line="302"/>
         <source>Previous Translation Contributors:</source>
         <translation>Korábbi fordítások közreműködői:</translation>
     </message>
@@ -212,27 +217,27 @@
         <translation>Scribus %1 névjegye</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="317"/>
+        <location filename="../../scribus/ui/about.cpp" line="319"/>
         <source>Wiki</source>
         <translation>Wiki</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="325"/>
+        <location filename="../../scribus/ui/about.cpp" line="327"/>
         <source>Forums</source>
         <translation>Fórum</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="652"/>
+        <location filename="../../scribus/ui/about.cpp" line="654"/>
         <source>%1 %2 %3</source>
         <translation>%1 %2 %3</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="657"/>
+        <location filename="../../scribus/ui/about.cpp" line="659"/>
         <source>%3-%2-%1 %4 %5</source>
         <translation>%3-%2-%1 %4 %5</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="665"/>
+        <location filename="../../scribus/ui/about.cpp" line="667"/>
         <source>No Ghostscript version available</source>
         <translation>Nem érhető el Ghostscript verzió</translation>
     </message>
@@ -277,7 +282,7 @@
         <translation>Frissítések keresése</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="321"/>
+        <location filename="../../scribus/ui/about.cpp" line="323"/>
         <source>Developer Blog</source>
         <translation>Fejlesztői blog</translation>
     </message>
@@ -297,14 +302,14 @@
         <translation>Webmesterek:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="285"/>
+        <location filename="../../scribus/ui/about.cpp" line="287"/>
         <source>Refactoring text layout code, the new boxes model &amp; CTL text layout, Oman House of Open Source Technology team:</source>
         <translation>A szövegelrendezés kódjának újraírása, az új dobozmodell létrehozása valamint a komplex szövegmegjelenítő az Oman House of Open Source Technology csapatától:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/about.cpp" line="416"/>
-        <location filename="../../scribus/ui/about.cpp" line="572"/>
-        <location filename="../../scribus/ui/about.cpp" line="637"/>
+        <location filename="../../scribus/ui/about.cpp" line="418"/>
+        <location filename="../../scribus/ui/about.cpp" line="574"/>
+        <location filename="../../scribus/ui/about.cpp" line="639"/>
         <source>Unable to open %1 file. Please check your install directory or the Scribus website for %1 information.</source>
         <translation>Nem sikerült megnyitni a fájlt: %1. %1 információkért tekintse meg a telepítési mappát vagy a Scribus weboldalát.</translation>
     </message>
@@ -4081,17 +4086,17 @@ Document Liberation Project számára: https://www.documentliberation.org</trans
 <context>
     <name>CgmPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="171"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="169"/>
         <source>Importing: %1</source>
         <translation>Importálás: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="174"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="172"/>
         <source>Analyzing File:</source>
         <translation>Fájl elemzése:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="418"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="416"/>
         <source>Generating Items</source>
         <translation>Elemek létrehozása</translation>
     </message>
@@ -6528,17 +6533,17 @@ További információk a dokumentáció Színek szerkesztése fejezetében.</tra
 <context>
     <name>CvgPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="124"/>
+        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="123"/>
         <source>Importing: %1</source>
         <translation>Importálás: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="127"/>
+        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="126"/>
         <source>Analyzing File:</source>
         <translation>Fájl elemzése:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="326"/>
+        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="325"/>
         <source>Generating Items</source>
         <translation>Elemek létrehozása</translation>
     </message>
@@ -6721,22 +6726,22 @@ További információk a dokumentáció Színek szerkesztése fejezetében.</tra
 <context>
     <name>DrwPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="1208"/>
+        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="1207"/>
         <source>Group%1</source>
         <translation>Csoport%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="142"/>
+        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="141"/>
         <source>Importing: %1</source>
         <translation>Importálás: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="145"/>
+        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="144"/>
         <source>Analyzing File:</source>
         <translation>Fájl elemzése:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="351"/>
+        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="350"/>
         <source>Generating Items</source>
         <translation>Elemek létrehozása</translation>
     </message>
@@ -7461,17 +7466,17 @@ a range of pages or a single page number</source>
 <context>
     <name>FhPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="124"/>
+        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="122"/>
         <source>Importing: %1</source>
         <translation>Importálás: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="127"/>
+        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="125"/>
         <source>Analyzing File:</source>
         <translation>Fájl elemzése:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="332"/>
+        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="330"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -27147,19 +27152,19 @@ Külső hivatkozások
         <translation>A fázis száma a megengedett értéken kívül van, 0 és a stopsCount között kell lennie.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="402"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="442"/>
         <source>page number is invalid.</source>
         <comment>python error</comment>
         <translation>az oldalszám nem érvényes.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="412"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="452"/>
         <source>layer name is invalid.</source>
         <comment>python error</comment>
         <translation>a réteg neve nem érvényes.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="496"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="536"/>
         <source>Page item must be an ImageFrame</source>
         <comment>python error</comment>
         <translation>Az oldalelem ImageFrame típus kell legyen</translation>
@@ -27339,19 +27344,19 @@ Külső hivatkozások
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="618"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="649"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="680"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="727"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="710"/>
         <source>Layer not found.</source>
         <comment>python error</comment>
         <translation>Réteg nem található.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="701"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="703"/>
         <source>Cannot remove the last layer.</source>
         <comment>python error</comment>
         <translation>Az utolsó réteg nem távolítható el.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="742"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="735"/>
         <source>Cannot create layer without a name.</source>
         <comment>python error</comment>
         <translation>Név nélkül nem hozható létre réteg.</translation>
@@ -27919,58 +27924,58 @@ Külső hivatkozások
         <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="91"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="109"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="161"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="204"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="228"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="247"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="271"/>
         <source>Page number out of range.</source>
         <comment>python error</comment>
         <translation>Oldalszám kívül esik a tartományon.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="304"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="354"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="347"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="397"/>
         <source>argument is not list: must be list of float values.</source>
         <comment>python error</comment>
         <translation>argumentum nem lista: lebegőpontos értékek listája kell legyen.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="314"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="357"/>
         <source>argument contains non-numeric values: must be list of float values.</source>
         <comment>python error</comment>
         <translation>argumentum nem numerikus értékeket tartalmaz: lebegőpontos értékek listája kell legyen.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="364"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="407"/>
         <source>argument contains no-numeric values: must be list of float values.</source>
         <comment>python error</comment>
         <translation>argumentum nem numerikus értékeket tartalmaz: lebegőpontos értékek listája kell legyen.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="462"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="511"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="505"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="554"/>
         <source>refer_to=0|1|2.</source>
         <comment>python error</comment>
         <translation>refer_to=0|1|2.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="471"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="514"/>
         <source>setColumnGuides() with refer_to=2 needs a selection.</source>
         <comment>python error</comment>
         <translation>setColumnGuides() a refer_to=2 beállításához kijelölés szükséges.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="520"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="563"/>
         <source>setRowGuides() with refer_to=2 needs a selection.</source>
         <comment>python error</comment>
         <translation>setRowGuides() a refer_to=2 beállításához kijelölés szükséges.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="622"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="665"/>
         <source>second argument is not tuple: must be tuple of integer values.</source>
         <comment>python error</comment>
         <translation>a második argumentum nem szekvencia: szekvencia érték kell legyen.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="634"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="677"/>
         <source>second argument contains non-numeric values: must be list of integer values.</source>
         <comment>python error</comment>
         <translation>a második argumentum nem numerikus értékeket tartalmaz: egészek listája kell legyen.</translation>
@@ -28059,7 +28064,7 @@ Külső hivatkozások
         <translation>Parancsfájl névjegye</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="1012"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="1016"/>
         <source>Scribus Python interface module
 
 This module is the Python interface for Scribus. It provides functions
@@ -30510,17 +30515,17 @@ Kérem, válasszon másikat.</translation>
 <context>
     <name>QxpPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="145"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="143"/>
         <source>Importing: %1</source>
         <translation>Importálás: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="148"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="146"/>
         <source>Analyzing File:</source>
         <translation>Fájl elemzése:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="360"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="358"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -35301,22 +35306,22 @@ Az elővizsgáló segíthet a hibák megtalálásában.</translation>
 <context>
     <name>ShapePlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="141"/>
+        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="139"/>
         <source>Importing: %1</source>
         <translation>Importálás: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="144"/>
+        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="142"/>
         <source>Analyzing File:</source>
         <translation>Fájl elemzése:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="349"/>
+        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="345"/>
         <source>Generating Items</source>
         <translation>Elemek létrehozása</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="630"/>
+        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="626"/>
         <source>Group%1</source>
         <translation>Csoport%1</translation>
     </message>
@@ -35460,17 +35465,17 @@ Az elővizsgáló segíthet a hibák megtalálásában.</translation>
 <context>
     <name>SmlPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsml.cpp" line="138"/>
+        <location filename="../../scribus/plugins/import/sml/importsml.cpp" line="137"/>
         <source>Importing: %1</source>
         <translation>Importálás: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsml.cpp" line="141"/>
+        <location filename="../../scribus/plugins/import/sml/importsml.cpp" line="140"/>
         <source>Analyzing File:</source>
         <translation>Fájl elemzése:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsml.cpp" line="351"/>
+        <location filename="../../scribus/plugins/import/sml/importsml.cpp" line="350"/>
         <source>Generating Items</source>
         <translation>Elemek létrehozása</translation>
     </message>
@@ -36118,17 +36123,17 @@ Az elővizsgáló segíthet a hibák megtalálásában.</translation>
 <context>
     <name>SvmPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/svm/importsvm.cpp" line="406"/>
+        <location filename="../../scribus/plugins/import/svm/importsvm.cpp" line="405"/>
         <source>Importing: %1</source>
         <translation>Importálás: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svm/importsvm.cpp" line="409"/>
+        <location filename="../../scribus/plugins/import/svm/importsvm.cpp" line="408"/>
         <source>Analyzing File:</source>
         <translation>Fájl elemzése:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svm/importsvm.cpp" line="692"/>
+        <location filename="../../scribus/plugins/import/svm/importsvm.cpp" line="691"/>
         <source>Generating Items</source>
         <translation>Elemek létrehozása</translation>
     </message>
@@ -39551,17 +39556,17 @@ Elindítsuk a rendszer alapértelmezett böngészőjét?</translation>
 <context>
     <name>VsdPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="135"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="133"/>
         <source>Importing: %1</source>
         <translation>Importálás: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="138"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="136"/>
         <source>Analyzing File:</source>
         <translation>Fájl elemzése:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="348"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="346"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -39603,12 +39608,12 @@ Document Liberation Project számára: https://www.documentliberation.org</trans
 <context>
     <name>WpgPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/wpg/importwpg.cpp" line="485"/>
+        <location filename="../../scribus/plugins/import/wpg/importwpg.cpp" line="484"/>
         <source>Importing: %1</source>
         <translation>Importálás: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/wpg/importwpg.cpp" line="488"/>
+        <location filename="../../scribus/plugins/import/wpg/importwpg.cpp" line="487"/>
         <source>Analyzing File:</source>
         <translation>Fájl elemzése:</translation>
     </message>
@@ -39634,22 +39639,22 @@ Document Liberation Project számára: https://www.documentliberation.org</trans
 <context>
     <name>XarPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="233"/>
+        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="232"/>
         <source>Importing: %1</source>
         <translation>Importálás: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="236"/>
+        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="235"/>
         <source>Analyzing File:</source>
         <translation>Fájl elemzése:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="3604"/>
+        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="3603"/>
         <source>Group%1</source>
         <translation>Csoport%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="523"/>
+        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="522"/>
         <source>Generating Items</source>
         <translation>Elemek létrehozása</translation>
     </message>
@@ -39817,17 +39822,17 @@ Document Liberation Project számára: https://www.documentliberation.org</trans
 <context>
     <name>ZmfPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="123"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="122"/>
         <source>Importing: %1</source>
         <translation>Importálás: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="126"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="125"/>
         <source>Analyzing File:</source>
         <translation>Fájl elemzése:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="332"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="331"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
