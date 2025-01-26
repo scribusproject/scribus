@@ -4023,17 +4023,17 @@ Feu clic per enllaçar-ho amb un marc de text existent o amb la creació automà
 <context>
     <name>CdrPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="133"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="132"/>
         <source>Importing: %1</source>
         <translation>Importació: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="136"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="135"/>
         <source>Analyzing File:</source>
         <translation>Anàlisi del fitxer:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="375"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="374"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -4044,17 +4044,17 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>CgmPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="185"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="183"/>
         <source>Importing: %1</source>
         <translation>Importació: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="188"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="186"/>
         <source>Analyzing File:</source>
         <translation>Anàlisi del fitxer:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="434"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="430"/>
         <source>Generating Items</source>
         <translation>Generació dels ítems</translation>
     </message>
@@ -6512,17 +6512,17 @@ Per a més detalls consulteu la secció Edició dels colors de la documentació.
 <context>
     <name>CvgPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="139"/>
+        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="138"/>
         <source>Importing: %1</source>
         <translation>Importació: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="142"/>
+        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="141"/>
         <source>Analyzing File:</source>
         <translation>Anàlisi del fitxer:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="341"/>
+        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="340"/>
         <source>Generating Items</source>
         <translation>Generació dels ítems</translation>
     </message>
@@ -6700,22 +6700,22 @@ Per a més detalls consulteu la secció Edició dels colors de la documentació.
 <context>
     <name>DrwPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="1223"/>
+        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="1220"/>
         <source>Group%1</source>
         <translation>Grup%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="155"/>
+        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="154"/>
         <source>Importing: %1</source>
         <translation>Importació: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="158"/>
+        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="157"/>
         <source>Analyzing File:</source>
         <translation>Anàlisi del fitxer:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="366"/>
+        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="363"/>
         <source>Generating Items</source>
         <translation>Generació dels ítems</translation>
     </message>
@@ -7622,17 +7622,17 @@ a range of pages or a single page number</source>
 <context>
     <name>FhPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="141"/>
+        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="139"/>
         <source>Importing: %1</source>
         <translation>Importació: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="144"/>
+        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="142"/>
         <source>Analyzing File:</source>
         <translation>Anàlisis de fitxer:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="350"/>
+        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="348"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -22997,17 +22997,17 @@ Transparència</translation>
         <translation>&amp;Amplada:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="1184"/>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="1183"/>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
         <translation>El nom &quot;%1&quot; no és únic. &lt;br/&gt;Trieu-ne un altre.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="1277"/>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="1276"/>
         <source>Properties</source>
         <translation>Propietats</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="1280"/>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="1279"/>
         <source> pt</source>
         <translation>pt</translation>
     </message>
@@ -28049,21 +28049,21 @@ Enllaços externs
         <translation>Documents d&apos;OpenOffice.org Writer</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="350"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="390"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdgetprop.cpp" line="350"/>
         <source>page number is invalid.</source>
         <comment>python error</comment>
         <translation>el número de pàgina no és vàlid.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="360"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="400"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdgetprop.cpp" line="360"/>
         <source>layer name is invalid.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="444"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="484"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdgetprop.cpp" line="444"/>
         <source>Page item must be an ImageFrame</source>
         <comment>python error</comment>
@@ -28294,7 +28294,7 @@ Enllaços externs
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="618"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="649"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="680"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="727"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="710"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmisc.cpp" line="176"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmisc.cpp" line="274"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmisc.cpp" line="305"/>
@@ -28316,14 +28316,14 @@ Enllaços externs
         <translation>Capa no trobada.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="701"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="703"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmisc.cpp" line="698"/>
         <source>Cannot remove the last layer.</source>
         <comment>python error</comment>
         <translation>No es pot suprimir l&apos;última capa.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="742"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="735"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmisc.cpp" line="739"/>
         <source>Cannot create layer without a name.</source>
         <comment>python error</comment>
@@ -28953,19 +28953,19 @@ Enllaços externs
         <translation>No es pot establir l&apos;estil en un marc que no és de text.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="72"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="71"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdpage.cpp" line="61"/>
         <source>Failed to save EPS.</source>
         <comment>python error</comment>
         <translation>No s&apos;ha pogut desar l&apos;EPS.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="55"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="92"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="110"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="162"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="205"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="229"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="54"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="91"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="109"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="161"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="247"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="271"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdpage.cpp" line="44"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdpage.cpp" line="83"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdpage.cpp" line="102"/>
@@ -28977,8 +28977,8 @@ Enllaços externs
         <translation>El nombre de la pàgina està fora de l&apos;interval.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="305"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="355"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="347"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="397"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdpage.cpp" line="300"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdpage.cpp" line="352"/>
         <source>argument is not list: must be list of float values.</source>
@@ -28986,47 +28986,47 @@ Enllaços externs
         <translation>l&apos;argument no és una llista: ha de ser una llista de floats.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="315"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="357"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdpage.cpp" line="311"/>
         <source>argument contains non-numeric values: must be list of float values.</source>
         <comment>python error</comment>
         <translation>l&apos;argument conté valors no numèrics: ha de ser una llista de floats.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="365"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="407"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdpage.cpp" line="363"/>
         <source>argument contains no-numeric values: must be list of float values.</source>
         <comment>python error</comment>
         <translation>l&apos;argument conté valors no numèrics: ha de ser una llista de floats.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="463"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="512"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="505"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="554"/>
         <source>refer_to=0|1|2.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="472"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="514"/>
         <source>setColumnGuides() with refer_to=2 needs a selection.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="521"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="563"/>
         <source>setRowGuides() with refer_to=2 needs a selection.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="623"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="665"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdpage.cpp" line="451"/>
         <source>second argument is not tuple: must be tuple of integer values.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="635"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="677"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdpage.cpp" line="463"/>
         <source>second argument contains non-numeric values: must be list of integer values.</source>
         <comment>python error</comment>
@@ -29136,7 +29136,7 @@ Enllaços externs
         <translation>Quant al script</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="1011"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="1015"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptplugin.cpp" line="945"/>
         <source>Scribus Python interface module
 
@@ -29537,7 +29537,7 @@ detallats exhaustivament per a les funcions cridades.
         <translation>japonès</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="152"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="151"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdpage.cpp" line="145"/>
         <source>Given master page name does not match any existing.</source>
         <comment>python error</comment>
@@ -31456,17 +31456,17 @@ Trieu-ne un altre.</translation>
 <context>
     <name>QxpPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="147"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="145"/>
         <source>Importing: %1</source>
         <translation>Importació: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="150"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="148"/>
         <source>Analyzing File:</source>
         <translation>Anàlisi del fitxer:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="363"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="361"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -36267,22 +36267,22 @@ Considereu l&apos;ús del verificador per a corregir-los</translation>
 <context>
     <name>ShapePlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="142"/>
+        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="140"/>
         <source>Importing: %1</source>
         <translation>Importació: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="145"/>
+        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="143"/>
         <source>Analyzing File:</source>
         <translation>Anàlisi del fitxer:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="350"/>
+        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="346"/>
         <source>Generating Items</source>
         <translation>Generació dels ítems</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="632"/>
+        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="628"/>
         <source>Group%1</source>
         <translation>Grup%1</translation>
     </message>
@@ -40546,17 +40546,17 @@ Voleu iniciar el navegador predeterminat del sistema en lloc seu?</translation>
 <context>
     <name>VsdPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="144"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="142"/>
         <source>Importing: %1</source>
         <translation>Importació: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="147"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="145"/>
         <source>Analyzing File:</source>
         <translation>Anàlisi del fitxer:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="359"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="357"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -40595,12 +40595,12 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>WpgPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/wpg/importwpg.cpp" line="499"/>
+        <location filename="../../scribus/plugins/import/wpg/importwpg.cpp" line="498"/>
         <source>Importing: %1</source>
         <translation>Importació: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/wpg/importwpg.cpp" line="502"/>
+        <location filename="../../scribus/plugins/import/wpg/importwpg.cpp" line="501"/>
         <source>Analyzing File:</source>
         <translation>Anàlisi del fitxer:</translation>
     </message>
@@ -40809,17 +40809,17 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>ZmfPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="141"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="140"/>
         <source>Importing: %1</source>
         <translation>Importació: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="144"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="143"/>
         <source>Analyzing File:</source>
         <translation>Anàlisi del fitxer:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="351"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="350"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the

@@ -4028,17 +4028,17 @@ Click to link to existing text frame or auto-create new linked text frame</sourc
 <context>
     <name>CdrPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="133"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="132"/>
         <source>Importing: %1</source>
         <translation>正在匯入: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="136"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="135"/>
         <source>Analyzing File:</source>
         <translation>分析檔案:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="375"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="374"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -4052,17 +4052,17 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>CgmPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="185"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="183"/>
         <source>Importing: %1</source>
         <translation>正在匯入: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="188"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="186"/>
         <source>Analyzing File:</source>
         <translation>分析檔案:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="434"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="430"/>
         <source>Generating Items</source>
         <translation>產生物件中</translation>
     </message>
@@ -6523,17 +6523,17 @@ See the Edit Colors section of the documentation for more details.</source>
 <context>
     <name>CvgPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="139"/>
+        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="138"/>
         <source>Importing: %1</source>
         <translation>正在匯入: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="142"/>
+        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="141"/>
         <source>Analyzing File:</source>
         <translation>分析檔案:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="341"/>
+        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="340"/>
         <source>Generating Items</source>
         <translation>產生物件中</translation>
     </message>
@@ -6711,22 +6711,22 @@ See the Edit Colors section of the documentation for more details.</source>
 <context>
     <name>DrwPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="1223"/>
+        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="1220"/>
         <source>Group%1</source>
         <translation>群組%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="155"/>
+        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="154"/>
         <source>Importing: %1</source>
         <translation>正在匯入: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="158"/>
+        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="157"/>
         <source>Analyzing File:</source>
         <translation>分析檔案:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="366"/>
+        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="363"/>
         <source>Generating Items</source>
         <translation>產生物件中</translation>
     </message>
@@ -7634,17 +7634,17 @@ a range of pages or a single page number</source>
 <context>
     <name>FhPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="141"/>
+        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="139"/>
         <source>Importing: %1</source>
         <translation>正在导入: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="144"/>
+        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="142"/>
         <source>Analyzing File:</source>
         <translation>正在分析文件:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="350"/>
+        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="348"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -23056,17 +23056,17 @@ Transparency</source>
         <translation>寬度 (&amp;W):</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="1184"/>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="1183"/>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
         <translation>名稱 &quot;%1&quot; 不是唯一的。&lt;br/&gt;請選擇另一個名稱。</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="1277"/>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="1276"/>
         <source>Properties</source>
         <translation>屬性</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="1280"/>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="1279"/>
         <source> pt</source>
         <translation> pt</translation>
     </message>
@@ -28113,21 +28113,21 @@ External Links
         <translation>OpenOffice.org Writer 檔案</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="350"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="390"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdgetprop.cpp" line="350"/>
         <source>page number is invalid.</source>
         <comment>python error</comment>
         <translation>页码无效。</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="360"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="400"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdgetprop.cpp" line="360"/>
         <source>layer name is invalid.</source>
         <comment>python error</comment>
         <translation>图层名无效。</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="444"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="484"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdgetprop.cpp" line="444"/>
         <source>Page item must be an ImageFrame</source>
         <comment>python error</comment>
@@ -28358,7 +28358,7 @@ External Links
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="618"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="649"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="680"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="727"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="710"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmisc.cpp" line="176"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmisc.cpp" line="274"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmisc.cpp" line="305"/>
@@ -28380,14 +28380,14 @@ External Links
         <translation>圖層不存在。</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="701"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="703"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmisc.cpp" line="698"/>
         <source>Cannot remove the last layer.</source>
         <comment>python error</comment>
         <translation>不能移除最後一個圖層。</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="742"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmisc.cpp" line="735"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmisc.cpp" line="739"/>
         <source>Cannot create layer without a name.</source>
         <comment>python error</comment>
@@ -29017,19 +29017,19 @@ External Links
         <translation>不能在非文字框設定樣式。</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="72"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="71"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdpage.cpp" line="61"/>
         <source>Failed to save EPS.</source>
         <comment>python error</comment>
         <translation>儲存至 EPS 失敗。</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="55"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="92"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="110"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="162"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="205"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="229"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="54"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="91"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="109"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="161"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="247"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="271"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdpage.cpp" line="44"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdpage.cpp" line="83"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdpage.cpp" line="102"/>
@@ -29041,8 +29041,8 @@ External Links
         <translation>页码超出范围。</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="305"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="355"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="347"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="397"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdpage.cpp" line="300"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdpage.cpp" line="352"/>
         <source>argument is not list: must be list of float values.</source>
@@ -29050,47 +29050,47 @@ External Links
         <translation>参数不在列表中：列表必须是浮点数值。</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="315"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="357"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdpage.cpp" line="311"/>
         <source>argument contains non-numeric values: must be list of float values.</source>
         <comment>python error</comment>
         <translation>参数包含非数字值：列表必须是浮点数值。</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="365"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="407"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdpage.cpp" line="363"/>
         <source>argument contains no-numeric values: must be list of float values.</source>
         <comment>python error</comment>
         <translation>参数包含非数字值：列表必须是浮点数值。</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="463"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="512"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="505"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="554"/>
         <source>refer_to=0|1|2.</source>
         <comment>python error</comment>
         <translation>refer_to=0|1|2.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="472"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="514"/>
         <source>setColumnGuides() with refer_to=2 needs a selection.</source>
         <comment>python error</comment>
         <translation>setColumnGuides() with refer_to=2 needs a selection.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="521"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="563"/>
         <source>setRowGuides() with refer_to=2 needs a selection.</source>
         <comment>python error</comment>
         <translation>setRowGuides() with refer_to=2 needs a selection.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="623"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="665"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdpage.cpp" line="451"/>
         <source>second argument is not tuple: must be tuple of integer values.</source>
         <comment>python error</comment>
         <translation>第二个参数不是元组：必须是整数值的元组。</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="635"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="677"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdpage.cpp" line="463"/>
         <source>second argument contains non-numeric values: must be list of integer values.</source>
         <comment>python error</comment>
@@ -29200,7 +29200,7 @@ External Links
         <translation>關於 Script</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="1011"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="1015"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptplugin.cpp" line="945"/>
         <source>Scribus Python interface module
 
@@ -29601,7 +29601,7 @@ is not exhaustive due to exceptions from called functions.
         <translation>日語</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="152"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="151"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdpage.cpp" line="145"/>
         <source>Given master page name does not match any existing.</source>
         <comment>python error</comment>
@@ -31521,17 +31521,17 @@ Please choose another.</source>
 <context>
     <name>QxpPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="147"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="145"/>
         <source>Importing: %1</source>
         <translation>正在匯入: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="150"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="148"/>
         <source>Analyzing File:</source>
         <translation>分析檔案:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="363"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="361"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -36339,22 +36339,22 @@ Consider using the Preflight Verifier to correct them</source>
 <context>
     <name>ShapePlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="142"/>
+        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="140"/>
         <source>Importing: %1</source>
         <translation>正在匯入: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="145"/>
+        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="143"/>
         <source>Analyzing File:</source>
         <translation>分析檔案:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="350"/>
+        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="346"/>
         <source>Generating Items</source>
         <translation>產生物件中</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="632"/>
+        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="628"/>
         <source>Group%1</source>
         <translation>群組%1</translation>
     </message>
@@ -40617,17 +40617,17 @@ Would you like to start the system&apos;s default browser instead?</source>
 <context>
     <name>VsdPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="144"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="142"/>
         <source>Importing: %1</source>
         <translation>正在匯入: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="147"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="145"/>
         <source>Analyzing File:</source>
         <translation>分析檔案:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="359"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="357"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -40669,12 +40669,12 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>WpgPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/wpg/importwpg.cpp" line="499"/>
+        <location filename="../../scribus/plugins/import/wpg/importwpg.cpp" line="498"/>
         <source>Importing: %1</source>
         <translation>正在匯入: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/wpg/importwpg.cpp" line="502"/>
+        <location filename="../../scribus/plugins/import/wpg/importwpg.cpp" line="501"/>
         <source>Analyzing File:</source>
         <translation>分析檔案:</translation>
     </message>
@@ -40883,17 +40883,17 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>ZmfPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="141"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="140"/>
         <source>Importing: %1</source>
         <translation>正在匯入: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="144"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="143"/>
         <source>Analyzing File:</source>
         <translation>分析檔案:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="351"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="350"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
