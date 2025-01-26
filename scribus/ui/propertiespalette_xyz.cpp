@@ -1280,7 +1280,7 @@ void PropertiesPalette_XYZ::handleBasePoint(AnchorPoint m)
 		else
 		{
 			QTransform ma;
-			FPoint n = FPoint(0.0, 0.0);
+			FPoint n(0.0, 0.0);
 			double b = m_item->width();
 			double h = m_item->height();
 			double r = m_item->rotation();

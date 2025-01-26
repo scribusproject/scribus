@@ -1326,7 +1326,7 @@ void XarPlug::endTextLine()
 							{
 								item->GrType = txDat.FillGradientType;
 								item->fill_gradient = txDat.FillGradient;
-								FPoint p = FPoint(item->xPos(), item->yPos());
+								FPoint p(item->xPos(), item->yPos());
 								item->setDiamondGeometry(txDat.GrControl1 - p, txDat.GrControl2 - p, txDat.GrControl3 - p, txDat.GrControl4 - p, txDat.GrControl5 - p);
 							}
 							if (txDat.GradMask > 0)
@@ -1433,7 +1433,7 @@ void XarPlug::endTextLine()
 					{
 						item->GrType = txDat.FillGradientType;
 						item->fill_gradient = txDat.FillGradient;
-						FPoint p = FPoint(item->xPos(), item->yPos());
+						FPoint p(item->xPos(), item->yPos());
 						item->setDiamondGeometry(txDat.GrControl1 - p, txDat.GrControl2 - p, txDat.GrControl3 - p, txDat.GrControl4 - p, txDat.GrControl5 - p);
 					}
 					if (txDat.GradMask > 0)
@@ -3684,7 +3684,7 @@ void XarPlug::popGraphicContext()
 			{
 				item->GrType = gc->FillGradientType;
 				item->fill_gradient = gc->FillGradient;
-				FPoint p = FPoint(item->xPos(), item->yPos());
+				FPoint p(item->xPos(), item->yPos());
 				item->setDiamondGeometry(gc->GrControl1 - p, gc->GrControl2 - p, gc->GrControl3 - p, gc->GrControl4 - p, gc->GrControl5 - p);
 			}
 			if (gc->GradMask > 0)

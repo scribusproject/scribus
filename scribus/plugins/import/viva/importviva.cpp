@@ -1196,7 +1196,7 @@ PageItem* VivaPlug::parseObjectDetailsXML(const QDomElement& obNode, int baseTyp
 						QDomElement eo = spo.toElement();
 						if (eo.tagName() == "vo:point")
 						{
-							FPoint pp = FPoint(parseUnit(eo.attribute("vo:x", "0")), parseUnit(eo.attribute("vo:y", "0")));
+							FPoint pp(parseUnit(eo.attribute("vo:x", "0")), parseUnit(eo.attribute("vo:y", "0")));
 							if (eo.hasAttribute("vo:control"))
 							{
 								if ((eo.attribute("vo:control") == "constraint-before") || (eo.attribute("vo:control") == "before"))
@@ -1535,7 +1535,7 @@ PageItem* VivaPlug::parseObjectDetailsXML(const QDomElement& obNode, int baseTyp
 				QString gradColor1Str = colorStops[1]->name;
 				QColor gradColor1 = colorStops[1]->color;
 				item->meshGradientPatches.clear();
-				FPoint center = FPoint(item->width() / 2.0, item->height() / 2.0);
+				FPoint center(item->width() / 2.0, item->height() / 2.0);
 				MeshPoint cP;
 				cP.resetTo(center);
 				cP.transparency = 1.0;

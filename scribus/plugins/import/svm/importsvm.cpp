@@ -1327,7 +1327,7 @@ void SvmPlug::finishItem(PageItem* ite, bool fill)
 					gpath = points;
 				}
 				ite->meshGradientPatches.clear();
-				FPoint center = FPoint(cx.x(), cx.y());
+				FPoint center(cx.x(), cx.y());
 				QList<VColorStop*> colorStops = currentDC.gradient.colorStops();
 				if (colorStops.count() == 2)
 				{
@@ -2350,7 +2350,7 @@ void SvmPlug::commonGradient(QDataStream &ds, PageItem* ite)
 		ite->fill_gradient.addStop(colS, 1.0 - (mnBorder / 100.0), 0.5, 1.0, gradientStartColor, gradientStartShade);
 		if (mnBorder != 0)
 			ite->fill_gradient.addStop(colS, 1.0, 0.5, 1.0, gradientStartColor, gradientStartShade);
-		FPoint cp = FPoint(ite->width() * gradientCenterX, ite->height()* gradientCenterY);
+		FPoint cp(ite->width() * gradientCenterX, ite->height()* gradientCenterY);
 		double gLen = qMin(ite->width(), ite->height()) / 2.0;
 		QLineF p1(cp.x(), cp.y(), cp.x() - gLen, cp.y() - gLen);
 		p1.setAngle(p1.angle() + gradientAngle);
@@ -2372,7 +2372,7 @@ void SvmPlug::commonGradient(QDataStream &ds, PageItem* ite)
 		ite->fill_gradient.addStop(colS, 1.0 - (mnBorder / 100.0), 0.5, 1.0, gradientStartColor, gradientStartShade);
 		if (mnBorder != 0)
 			ite->fill_gradient.addStop(colS, 1.0, 0.5, 1.0, gradientStartColor, gradientStartShade);
-		FPoint cp = FPoint(ite->width() * gradientCenterX, ite->height()* gradientCenterY);
+		FPoint cp(ite->width() * gradientCenterX, ite->height()* gradientCenterY);
 		double gLenW = ite->width() / 2.0;
 		double gLenH = ite->height() / 2.0;
 		QPointF P1(0.0, 0.0);
