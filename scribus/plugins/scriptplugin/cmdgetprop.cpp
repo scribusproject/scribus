@@ -329,42 +329,42 @@ PyObject *scribus_getrotation(PyObject* /* self */, PyObject* args)
 
 PyObject *scribus_getboundingbox(PyObject* /* self */, PyObject* args)
 {
-    PyESString name;
-    if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
-        return nullptr;
-    if (!checkHaveDocument())
-        return nullptr;
-    const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
-    if (item == nullptr)
-        return nullptr;
+	PyESString name;
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	if (item == nullptr)
+		return nullptr;
 
-    return Py_BuildValue("(dddd)",
-                         docUnitXToPageX(item->BoundingX),
-                         docUnitYToPageY(item->BoundingY),
-                         PointToValue(item->BoundingW),
-                         PointToValue(item->BoundingH)
-                         );
+	return Py_BuildValue("(dddd)",
+	                     docUnitXToPageX(item->BoundingX),
+	                     docUnitYToPageY(item->BoundingY),
+	                     PointToValue(item->BoundingW),
+	                     PointToValue(item->BoundingH)
+	                    );
 }
 
 PyObject *scribus_getvisualboundingbox(PyObject* /* self */, PyObject* args)
 {
-    PyESString name;
-    if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
-        return nullptr;
-    if (!checkHaveDocument())
-        return nullptr;
-    const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
-    if (item == nullptr)
-        return nullptr;
+	PyESString name;
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	if (item == nullptr)
+		return nullptr;
 
 	QRectF boundingBox = item->getVisualBoundingRect();
 
-    return Py_BuildValue("(dddd)",
-                         docUnitXToPageX(boundingBox.x()),
-                         docUnitYToPageY(boundingBox.y()),
-                         PointToValue(boundingBox.width()),
-                         PointToValue(boundingBox.height())
-                         );
+	return Py_BuildValue("(dddd)",
+	                     docUnitXToPageX(boundingBox.x()),
+	                     docUnitYToPageY(boundingBox.y()),
+	                     PointToValue(boundingBox.width()),
+	                     PointToValue(boundingBox.height())
+	                    );
 }
 
 PyObject *scribus_getallobjects(PyObject* /* self */, PyObject* args, PyObject *keywds)
