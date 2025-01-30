@@ -2552,7 +2552,7 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 		}
 	}
 
-	createImageFrame(res, state, colorMap->getNumPixelComps());
+	createImageFrame(res, state, 3);
 
 	delete[] buffer;
 	delete[] mbuffer;
