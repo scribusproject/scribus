@@ -4,7 +4,6 @@
 #include <QDomDocument>
 #include <QFile>
 #include <QString>
-#include <QTextCodec>
 
 //#include "util_text.h"
 

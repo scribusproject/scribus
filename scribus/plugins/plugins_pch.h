@@ -61,27 +61,26 @@
 # undef _POSIX_
 #endif
 
-#include <QCoreApplication>
-#include <QList>
-#include <QVariant>  // All moc generated code has this include
-#include <QObject>
-#include <QString>
-#include <QStringList>
-#include <QTextCodec>
 
 #include <QApplication>
 #include <QBitmap>
 #include <QBoxLayout>
 #include <QCheckBox>
 #include <QComboBox>
+#include <QCoreApplication>
 #include <QCursor>
 #include <QEvent>
 #include <QGridLayout>
 #include <QImage>
 #include <QLayout>
+#include <QList>
+#include <QObject>
 #include <QPainter>
 #include <QPixmap>
+#include <QString>
+#include <QStringList>
 #include <QTransform>
+#include <QVariant>
 #include <QWidget>
 
 #include <stdlib.h>

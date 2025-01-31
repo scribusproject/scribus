@@ -12,7 +12,6 @@ for which a new license (GPL+exception) is in place.
 #include <QProgressBar>
 #include <QListWidget>
 #include <QTableWidgetItem>
-#include <QTextCodec>
 #include <QTextStream>
 
 

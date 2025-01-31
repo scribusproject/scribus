@@ -10,7 +10,6 @@ for which a new license (GPL+exception) is in place.
 #include <QDir>
 #include <QDomDocument>
 #include <QNetworkRequest>
-#include <QTextCodec>
 #include <QTextStream>
 #include <QWidget>
 

@@ -9,7 +9,6 @@ for which a new license (GPL+exception) is in place.
 #include <QInputDialog>
 #include <QListWidget>
 #include <QTableWidgetItem>
-#include <QTextCodec>
 #include <QTextStream>
 
 #include "iconmanager.h"

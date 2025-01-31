@@ -28,7 +28,6 @@ for which a new license (GPL+exception) is in place.
 #include <QByteArray>
 #include "htmlreader.h"
 
-#include "scribusstructs.h"
 #include "gtmeasure.h"
 
 HTMLReader* HTMLReader::hreader = nullptr;

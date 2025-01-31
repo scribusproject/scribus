@@ -14,7 +14,6 @@ for which a new license (GPL+exception) is in place.
 #include <QFileInfo>
 #include <QString>
 #include <QStringList>
-#include <QTextCodec>
 
 class gtParagraphStyle;
 class gtWriter;

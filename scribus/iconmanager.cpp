@@ -19,7 +19,6 @@
 #include <QDomElement>
 #include <QFile>
 #include <QIcon>
-#include <QTextCodec>
 #include <QTextStream>
 #include <QDomDocument>
 #include <QApplication>

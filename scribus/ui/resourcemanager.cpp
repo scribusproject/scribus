@@ -35,7 +35,6 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 #include <QStringList>
 #include <QTableWidget>
-#include <QTextCodec>
 #include <QTextStream>
 
 #include "downloadmanager/scdlmgr.h"

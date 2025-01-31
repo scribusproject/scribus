@@ -27,18 +27,18 @@ for which a new license (GPL+exception) is in place.
 #ifndef XTGSCANNER_H
 #define XTGSCANNER_H
 
-#include "scconfig.h"
-#include "styles/charstyle.h"
-
-#include "pageitem.h"
 
 #include <QByteArray>
 #include <QHash>
 #include <QString>
 #include <QSet>
+#include <QTextCodec>
 
-class QTextCodec;
-class QTextDecoder;
+#include "scconfig.h"
+#include "styles/charstyle.h"
+
+#include "pageitem.h"
+
 
 /**
 Enum datatype for determining the Scanner mode 

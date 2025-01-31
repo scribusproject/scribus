@@ -68,7 +68,6 @@
 #include <qobject.h>
 #include <qstring.h>
 #include <qstringlist.h>
-#include <qtextcodec.h>
 
 #include <qapplication.h>
 #include <qbitmap.h>

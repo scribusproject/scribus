@@ -17,7 +17,6 @@ for which a new license (GPL+exception) is in place.
 #include <QDrag>
 #include <QFile>
 #include <QMimeData>
-#include <QTextCodec>
 #include <QDebug>
 #include "qtiocompressor.h"
 

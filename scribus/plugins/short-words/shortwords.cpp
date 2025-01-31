@@ -21,7 +21,6 @@ or documentation
 #include <QFile>
 #include <QMessageBox>
 #include <QProgressBar>
-#include <QTextCodec>
 #include <QPixmap>
 
 #include "configuration.h"

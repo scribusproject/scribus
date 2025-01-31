@@ -19,7 +19,6 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include <QMessageBox>
 #include <QProgressBar>
-#include <QTextCodec>
 #include <QTextStream>
 #include <QtAlgorithms>
 

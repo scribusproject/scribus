@@ -18,7 +18,6 @@ for which a new license (GPL+exception) is in place.
 #include <QMessageBox>
 #include <QProgressBar>
 #include <QtAlgorithms>
-#include <QTextCodec>
 #include <QTextStream>
 
 #include "scconfig.h"
