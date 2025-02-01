@@ -12,7 +12,6 @@ for which a new license (GPL+exception) is in place.
 #include <QStringList>
 #include <QApplication>
 #include <QMessageBox>
-#include <QTextCodec>
 #include <QByteArray>
 #include <QPixmap>
 #include <cstdlib>

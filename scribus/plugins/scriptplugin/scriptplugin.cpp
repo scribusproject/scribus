@@ -61,7 +61,6 @@ for which a new license (GPL+exception) is in place.
 
 #include <QApplication>
 #include <QMessageBox>
-#include <QTextCodec>
 #include <QPixmap>
 #include <QWidget>
 #include <QString>
