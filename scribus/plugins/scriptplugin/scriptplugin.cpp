@@ -21,6 +21,17 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
+#include <cstdlib>
+#include <iostream>
+
+#include <QApplication>
+#include <QByteArray>
+#include <QMessageBox>
+#include <QPixmap>
+#include <QRegExp>
+#include <QString>
+#include <QWidget>
+
 // include cmdvar.h first, as it pulls in <Python.h>
 #include "cmdannotations.h"
 #include "cmdvar.h"
@@ -60,35 +71,22 @@ for which a new license (GPL+exception) is in place.
 
 #include "api/api_application.h"
 
-#include <QApplication>
-#include <QMessageBox>
-#include <QTextCodec>
-#include <QRegExp>
-#include <QPixmap>
-#include <QWidget>
-#include <QString>
-//Added by qt3to4:
-#include <QByteArray>
-#include <cstdlib>
-#include <iostream>
-
-
 #ifdef HAVE_SCRIPTER2
 extern void scripter2_init();
 #endif
 
 // Exceptions; visible from cmdvar.h, set up in initscribus()
-PyObject* ScribusException;
-PyObject* NoDocOpenError;
-PyObject* WrongFrameTypeError;
-PyObject* NoValidObjectError;
-PyObject* NotFoundError;
-PyObject* NameExistsError;
+PyObject* ScribusException = nullptr;
+PyObject* NoDocOpenError = nullptr;
+PyObject* WrongFrameTypeError = nullptr;
+PyObject* NoValidObjectError = nullptr;
+PyObject* NotFoundError = nullptr;
+PyObject* NameExistsError = nullptr;
 
 // Other extern variables defined in cmdvar.h
-PyObject* wrappedMainWindow;
-PyObject* wrappedQApp;
-ScripterCore* scripterCore;
+PyObject* wrappedMainWindow = nullptr;
+PyObject* wrappedQApp = nullptr;
+ScripterCore* scripterCore = nullptr;
 
 
 int scriptplugin_getPluginAPIVersion()

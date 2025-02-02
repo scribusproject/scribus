@@ -6,41 +6,41 @@ for which a new license (GPL+exception) is in place.
 */
 #include "scriptercore.h"
 
-#include <QGlobalStatic>
-#include <QWidget>
-#include <QString>
-#include <QStringList>
-#include <QApplication>
-#include <QMessageBox>
-#include <QTextCodec>
-#include <QByteArray>
-#include <QPixmap>
 #include <cstdlib>
 
+#include <QApplication>
+#include <QByteArray>
+#include <QGlobalStatic>
+#include <QMessageBox>
+#include <QPixmap>
+#include <QString>
+#include <QStringList>
+#include <QWidget>
+
 #include "cmdutil.h"
-#include "runscriptdialog.h"
-#include "ui/helpbrowser.h"
-#include "ui/marksmanager.h"
-#include "ui/notesstyleseditor.h"
-#include "ui/propertiespalette.h" //TODO Move the calls to this to a signal
-#include "ui/contentpalette.h" //TODO Move the calls to this to a signal
-#include "ui/pagepalette.h" //TODO Move the calls to this to a signal
-#include "ui/layers.h" //TODO Move the calls to this to a signal
-#include "ui/outlinepalette.h" //TODO Move the calls to this to a signal
-#include "ui/scmessagebox.h"
-#include "ui/scmwmenumanager.h"
 #include "pconsole.h"
+#include "prefscontext.h"
+#include "prefsfile.h"
+#include "prefsmanager.h"
+#include "prefstable.h"
+#include "runscriptdialog.h"
+#include "scpaths.h"
 #include "scraction.h"
+#include "scribusapp.h" // need it to access ScQApp->pythonScript & ScQApp->pythonScriptArgs
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
-#include "scpaths.h"
 #include "selection.h"
-#include "prefsfile.h"
-#include "prefscontext.h"
-#include "prefstable.h"
-#include "prefsmanager.h"
-#include "scribusapp.h" // need it to access ScQApp->pythonScript & ScQApp->pythonScriptArgs
+#include "ui/contentpalette.h" //TODO Move the calls to this to a signal
+#include "ui/helpbrowser.h"
+#include "ui/layers.h" //TODO Move the calls to this to a signal
+#include "ui/marksmanager.h"
+#include "ui/notesstyleseditor.h"
+#include "ui/outlinepalette.h" //TODO Move the calls to this to a signal
+#include "ui/pagepalette.h" //TODO Move the calls to this to a signal
+#include "ui/propertiespalette.h" //TODO Move the calls to this to a signal
+#include "ui/scmessagebox.h"
+#include "ui/scmwmenumanager.h"
 
 ScripterCore::ScripterCore(QWidget* parent)
 {
