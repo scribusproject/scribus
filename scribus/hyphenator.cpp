@@ -26,9 +26,11 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 
 #include <QApplication>
-#include <QCursor>
-#include <QCheckBox>
 #include <QByteArray>
+#include <QCheckBox>
+#include <QCursor>
+#include <QTextCodec>
+
 #include <unicode/brkiter.h>
 
 #include "langmgr.h"

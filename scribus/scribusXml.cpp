@@ -21,7 +21,6 @@ for which a new license (GPL+exception) is in place.
 #include <QDir>
 #include <QFile>
 #include <QRegExp>
-#include <QTextCodec>
 #include <QTextStream>
 #include <QXmlStreamReader>
 #include <QDebug>

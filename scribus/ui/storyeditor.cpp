@@ -51,7 +51,6 @@ for which a new license (GPL+exception) is in place.
 #include <QShowEvent>
 #include <QSignalBlocker>
 #include <QTextBlock>
-#include <QTextCodec>
 #include <QTextLayout>
 #include <QToolTip>
 

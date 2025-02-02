@@ -33,7 +33,6 @@ for which a new license (GPL+exception) is in place.
 #include <QLocale>
 #include <QString>
 #include <QStringList>
-#include <QTextCodec>
 #include <QTextStream>
 #include <QTranslator>
 

@@ -28,7 +28,6 @@ for which a new license (GPL+exception) is in place.
 #define GTACTION_H
 
 #include <QColor>
-#include <QTextCodec>
 #include <QMap>
 #include <QString>
 

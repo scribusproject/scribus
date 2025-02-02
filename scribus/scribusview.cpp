@@ -46,6 +46,7 @@ for which a new license (GPL+exception) is in place.
 #include <QStack>
 #include <QStringList>
 #include <QStyleOptionRubberBand>
+#include <QTextCodec>
 #include <QWidgetAction>
 
 #include <cstdio>

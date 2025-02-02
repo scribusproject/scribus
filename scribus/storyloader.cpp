@@ -20,7 +20,6 @@ for which a new license (GPL+exception) is in place.
 #include <QProgressBar>
 #include <QRegExp>
 #include <QtAlgorithms>
-#include <QTextCodec>
 #include <QTextStream>
 
 #include "scconfig.h"

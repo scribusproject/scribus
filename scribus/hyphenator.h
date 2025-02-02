@@ -8,7 +8,6 @@ for which a new license (GPL+exception) is in place.
 #define HYPLUG_H
 
 #include <QObject>
-#include <QTextCodec>
 #include <QHash>
 #include <QSet>
 
@@ -18,6 +17,7 @@ for which a new license (GPL+exception) is in place.
 class ScribusDoc;
 class ScribusMainWindow;
 class PageItem;
+class QTextCodec;
 
 /*!
 This class is the core of the Scribus hyphenation system.

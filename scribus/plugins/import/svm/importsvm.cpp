@@ -19,7 +19,6 @@ for which a new license (GPL+exception) is in place.
 #include <QMimeData>
 #include <QRawFont>
 #include <QRegExp>
-#include <QTextCodec>
 #include <QUuid>
 #include <QDebug>
 

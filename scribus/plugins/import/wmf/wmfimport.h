@@ -20,6 +20,8 @@ for which a new license (GPL+exception) is in place.
 #include "wmfcontext.h"
 
 class QBuffer;
+class QTextCodec;
+
 class FPointArray;
 class PageItem;
 class ScribusDoc;

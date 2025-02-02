@@ -64,7 +64,6 @@ for which a new license (GPL+exception) is in place.
 #include <QScreen>
 #include <QStyleFactory>
 #include <QTableWidget>
-#include <QTextCodec>
 #include <QTranslator>
 #include <QWindow>
 #include <QWheelEvent>

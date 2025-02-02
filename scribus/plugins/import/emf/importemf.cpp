@@ -21,7 +21,6 @@ for which a new license (GPL+exception) is in place.
 #include <QRawFont>
 #include <QRegExp>
 #include <QScopedPointer>
-#include <QTextCodec>
 #include <QUuid>
 
 #include <cstdlib>
