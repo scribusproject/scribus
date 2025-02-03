@@ -13,19 +13,21 @@ for which a new license (GPL+exception) is in place.
 #include "sladocumentrtfoutput.h"
 
 #include <QApplication>
+#include <QByteArray>
 #include <QColor>
+#include <QDebug>
 #include <QImage>
 #include <QString>
 #include <QTextImageFormat>
-#include "pageitem.h"
-#include "prefsmanager.h"
+
 #include "fileloader.h"
 #include "loadsaveplugin.h"
+#include "pageitem.h"
+#include "prefsmanager.h"
 #include "scribusdoc.h"
 #include "selection.h"
 #include "ui/missing.h"
 #include "util.h"
-#include <QDebug>
 
 namespace RtfReader
 {
@@ -56,13 +58,6 @@ namespace RtfReader
 			m_codec = QTextCodec::codecForName("cp1252");		// Default ANSI codec
 		else
 			m_codec = QTextCodec::codecForLocale();
-		m_keepn = false;
-		m_isBold = false;
-		m_isItalic = false;
-	}
-
-	SlaDocumentRtfOutput::~SlaDocumentRtfOutput()
-	{
 	}
 
 	void SlaDocumentRtfOutput::setEncoding(const int enc)

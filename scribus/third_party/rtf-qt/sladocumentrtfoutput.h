@@ -13,19 +13,21 @@ for which a new license (GPL+exception) is in place.
 #ifndef SLADOCUMENTRTFOUTPUT_H
 #define SLADOCUMENTRTFOUTPUT_H
 
+#include <QHash>
+#include <QList>
+#include <QStack>
+#include <QString>
 #include <QTextCodec>
+
 #include "AbstractRtfOutput.h"
 #include "styles/charstyle.h"
 #include "styles/paragraphstyle.h"
 
-class QImage;
-class QTextImageFormat;
-class QString;
-class QColor;
-class PageItem;
-class ScribusDoc;
-class ParagraphStyle;
 class CharStyle;
+class PageItem;
+class ParagraphStyle;
+class QColor;
+class ScribusDoc;
 
 namespace RtfReader
 {
@@ -33,79 +35,80 @@ namespace RtfReader
 	{
 	public:
 		explicit SlaDocumentRtfOutput(PageItem* ite, ScribusDoc* doc, bool prefix);
-		virtual ~SlaDocumentRtfOutput();
-		virtual void startGroup();
-		virtual void endGroup();
-		virtual void setEncoding(const int enc);
-		virtual void appendText(const QByteArray &text);
-		virtual void appendUnicodeText(const QString &text);
-		virtual void insertPar();
-		virtual void insertTab();
-		virtual void insertLeftQuote();
-		virtual void insertRightQuote();
-		virtual void insertLeftDoubleQuote();
-		virtual void insertRightDoubleQuote();
-		virtual void insertEnDash();
-		virtual void insertEmDash();
-		virtual void insertEnSpace();
-		virtual void insertEmSpace();
-		virtual void insertBullet();
-		virtual void insertNewLine();
-		virtual void setFontItalic(const int value);
-		virtual void setFontBold(const int value);
-		virtual void setFontUnderline(const int value);
-		virtual void setFontWordUnderline(const int value);
-		virtual void setFontOutline(const int value);
-		virtual void setFontShadow(const int value);
-		virtual void setFontSmallCaps(const int value);
-		virtual void setFontCaps(const int value);
-		virtual void setFontStrikeOut(const int value);
-		virtual void setFontScaleH(const int value);
-		virtual void setFontOffset(const int value);
-		virtual void setFontStretch(const int value);
-		virtual void setFontStretchTw(const int value);
-		virtual void setFontPointSize(const int pointSize);
-		virtual void setFontLineSpacing(const int value);
-		virtual void setForegroundColour(const int colourIndex);
-		virtual void setHighlightColour(const int colourIndex);
-		virtual void setParagraphPatternBackgroundColour(const int colourIndex);
-		virtual void setCharacterPatternBackgroundColour(const int colourIndex);
-		virtual void setFont(const int fontIndex);
-		virtual void setDefaultFont(const int fontIndex);
-		virtual void setFontSuperscript();
-		virtual void setFontSubscript();
-		virtual void setTextDirectionLeftToRight();
-		virtual void setTextDirectionRightToLeft();
-		virtual void appendToColourTable(const QColor &colour);
-		virtual void insertFontTableEntry(FontTableEntry fontTableEntry, quint32 fontTableIndex);
-		virtual void insertStyleSheetTableEntry(quint32 stylesheetTableIndex, const ParagraphStyle& stylesheetTableEntry);
-		virtual void resolveStyleSheetParents(QHash<quint32, int> &parentSet);
-		virtual void useStyleSheetTableEntry(const int styleIndex);
-		virtual void resetParagraphFormat();
-		virtual void resetCharacterProperties();
-		virtual void setParagraphAlignmentLeft();
-		virtual void setParagraphAlignmentCentred();
-		virtual void setParagraphAlignmentJustified();
-		virtual void setParagraphAlignmentRight();
-		virtual void setFirstLineIndent(const int twips);
-		virtual void setLeftIndent(const int twips);
-		virtual void setRightIndent(const int twips);
-		virtual void createImage(const QByteArray &image, int width, int height, int type);
-		virtual void setPageHeight(const int pageHeight);
-		virtual void setPageWidth(const int pageWidth);
-		virtual void setSpaceBefore(const int twips);
-		virtual void setSpaceAfter(const int twips);
-		virtual void keepWithNext();
-		virtual void setDropCapsLines(const int value);
-		virtual void setDropCaps();
-		virtual void addTabStop(const int value, const int type);
+
+		void startGroup() override;
+		void endGroup() override;
+		void setEncoding(const int enc) override;
+		void appendText(const QByteArray &text) override;
+		void appendUnicodeText(const QString &text) override;
+		void insertPar() override;
+		void insertTab() override;
+		void insertLeftQuote() override;
+		void insertRightQuote() override;
+		void insertLeftDoubleQuote() override;
+		void insertRightDoubleQuote() override;
+		void insertEnDash() override;
+		void insertEmDash() override;
+		void insertEnSpace() override;
+		void insertEmSpace() override;
+		void insertBullet() override;
+		void insertNewLine() override;
+		void setFontItalic(const int value) override;
+		void setFontBold(const int value) override;
+		void setFontUnderline(const int value) override;
+		void setFontWordUnderline(const int value) override;
+		void setFontOutline(const int value) override;
+		void setFontShadow(const int value) override;
+		void setFontSmallCaps(const int value) override;
+		void setFontCaps(const int value) override;
+		void setFontStrikeOut(const int value) override;
+		void setFontScaleH(const int value) override;
+		void setFontOffset(const int value) override;
+		void setFontStretch(const int value) override;
+		void setFontStretchTw(const int value) override;
+		void setFontPointSize(const int pointSize) override;
+		void setFontLineSpacing(const int value) override;
+		void setForegroundColour(const int colourIndex) override;
+		void setHighlightColour(const int colourIndex) override;
+		void setParagraphPatternBackgroundColour(const int colourIndex) override;
+		void setCharacterPatternBackgroundColour(const int colourIndex) override;
+		void setFont(const int fontIndex) override;
+		void setDefaultFont(const int fontIndex) override;
+		void setFontSuperscript() override;
+		void setFontSubscript() override;
+		void setTextDirectionLeftToRight() override;
+		void setTextDirectionRightToLeft() override;
+		void appendToColourTable(const QColor &colour) override;
+		void insertFontTableEntry(FontTableEntry fontTableEntry, quint32 fontTableIndex) override;
+		void insertStyleSheetTableEntry(quint32 stylesheetTableIndex, const ParagraphStyle& stylesheetTableEntry) override;
+		void resolveStyleSheetParents(QHash<quint32, int> &parentSet) override;
+		void useStyleSheetTableEntry(const int styleIndex) override;
+		void resetParagraphFormat() override;
+		void resetCharacterProperties() override;
+		void setParagraphAlignmentLeft() override;
+		void setParagraphAlignmentCentred() override;
+		void setParagraphAlignmentJustified() override;
+		void setParagraphAlignmentRight() override;
+		void setFirstLineIndent(const int twips) override;
+		void setLeftIndent(const int twips) override;
+		void setRightIndent(const int twips) override;
+		void createImage(const QByteArray &image, int width, int height, int type) override;
+		void setPageHeight(const int pageHeight) override;
+		void setPageWidth(const int pageWidth) override;
+		void setSpaceBefore(const int twips) override;
+		void setSpaceAfter(const int twips) override;
+		void keepWithNext() override;
+		void setDropCapsLines(const int value) override;
+		void setDropCaps() override;
+		void addTabStop(const int value, const int type) override;
 		QString getFontName(const QString& name);
 		double pixelsFromTwips(const int twips);
-		virtual QTextCodec *getCurrentCodec() { return m_codec; }
+		QTextCodec *getCurrentCodec() override { return m_codec; }
+
 	private:
-		PageItem* m_item;
-		ScribusDoc* m_Doc;
-		QTextCodec *m_codec;
+		PageItem* m_item { nullptr };
+		ScribusDoc* m_Doc { nullptr };
+		QTextCodec *m_codec { nullptr };
 		QStack<ParagraphStyle> m_textStyle;
 		QStack<CharStyle> m_textCharStyle;
 		QList<QString> m_colourTable;
@@ -113,10 +116,10 @@ namespace RtfReader
 		QHash<int, FontTableEntry> m_fontTableReal;
 		QHash<int, ParagraphStyle> m_stylesTable;
 		QList<QByteArray> m_codecList;
-		bool m_keepn;
-		bool m_isBold;
-		bool m_isItalic;
-		bool m_prefixName;
+		bool m_keepn { false };
+		bool m_isBold { false };
+		bool m_isItalic { false };
+		bool m_prefixName { false };
 	};
 }
 #endif // SLADOCUMENTRTFOUTPUT_H
