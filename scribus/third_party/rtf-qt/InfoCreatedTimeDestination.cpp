@@ -32,6 +32,6 @@ namespace RtfReader
 
     void InfoCreatedTimeDestination::aboutToEndDestination()
     {
-	m_output->setCreatedDateTime( dateTime() );
+        m_output->setCreatedDateTime( dateTime() );
     }
 }

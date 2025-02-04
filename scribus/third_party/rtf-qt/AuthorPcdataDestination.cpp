@@ -32,6 +32,6 @@ namespace RtfReader
 
     void AuthorPcdataDestination::aboutToEndDestination()
     {
-	m_output->setAuthor( m_pcdata );
+        m_output->setAuthor( m_pcdata );
     }
 }

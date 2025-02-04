@@ -32,6 +32,6 @@ namespace RtfReader
 
     void KeywordsPcdataDestination::aboutToEndDestination()
     {
-	m_output->setKeywords( m_pcdata );
+        m_output->setKeywords( m_pcdata );
     }
 }

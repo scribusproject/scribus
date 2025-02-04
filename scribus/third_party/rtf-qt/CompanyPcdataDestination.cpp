@@ -32,6 +32,6 @@ namespace RtfReader
 
     void CompanyPcdataDestination::aboutToEndDestination()
     {
-	m_output->setCompanyName( m_pcdata );
+        m_output->setCompanyName( m_pcdata );
     }
 }

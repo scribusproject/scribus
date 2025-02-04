@@ -32,6 +32,6 @@ namespace RtfReader
 
     void InfoRevisedTimeDestination::aboutToEndDestination()
     {
-	m_output->setRevisedDateTime( dateTime() );
+        m_output->setRevisedDateTime( dateTime() );
     }
 }

@@ -32,29 +32,29 @@ namespace RtfReader
 
     void InfoTimeDestination::handleControlWord( const QString &controlWord, bool hasValue, const int value )
     {
-	if ( controlWord == "yr" ) {
-	    m_year = value;
-	} else if ( controlWord == "mo" ) {
-	    m_month = value;
-	} else if ( controlWord == "dy" ) {
-	    m_day = value;
-	} else if ( controlWord == "hr" ) {
-	    m_hour = value;
-	} else if ( controlWord == "min" ) {
-	    m_minute = value;
-	} else {
-//	    qDebug() << "unexpected control word in" << m_name << ": " << controlWord;
-	}
+        if ( controlWord == "yr" ) {
+            m_year = value;
+        } else if ( controlWord == "mo" ) {
+            m_month = value;
+        } else if ( controlWord == "dy" ) {
+            m_day = value;
+        } else if ( controlWord == "hr" ) {
+            m_hour = value;
+        } else if ( controlWord == "min" ) {
+            m_minute = value;
+        } else {
+//          qDebug() << "unexpected control word in" << m_name << ": " << controlWord;
+        }
     }
 
-	void InfoTimeDestination::handlePlainText( const QByteArray &plainText )
+    void InfoTimeDestination::handlePlainText( const QByteArray &plainText )
     {
-//	qDebug() << "unexpected text in InfoTimeDestination:" << plainText;
+//      qDebug() << "unexpected text in InfoTimeDestination:" << plainText;
     }
 
     QDateTime InfoTimeDestination::dateTime() const
     {
-	return QDateTime( QDate( m_year, m_month, m_day ),
-			  QTime( m_hour, m_minute, 0 ) );
+        return QDateTime( QDate( m_year, m_month, m_day ),
+                  QTime( m_hour, m_minute, 0 ) );
     }
 }

@@ -32,6 +32,6 @@ namespace RtfReader
 
     void HLinkBasePcdataDestination::aboutToEndDestination()
     {
-	m_output->setHLinkBase( m_pcdata );
+        m_output->setHLinkBase( m_pcdata );
     }
 }

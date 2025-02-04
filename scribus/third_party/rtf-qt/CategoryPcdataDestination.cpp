@@ -32,6 +32,6 @@ namespace RtfReader
 
     void CategoryPcdataDestination::aboutToEndDestination()
     {
-	m_output->setCategory( m_pcdata );
+        m_output->setCategory( m_pcdata );
     }
 }
