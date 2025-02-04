@@ -32,42 +32,66 @@ namespace RtfReader
 
     void UserPropsDestination::handleControlWord( const QString &controlWord, bool hasValue, const int value )
     {
-	if ( controlWord == "propname" ) {
-	    m_nextPlainTextIsPropertyName = true;
-	} else if ( ( controlWord == "proptype" ) && hasValue ) {
-	    if ( value == 30 ) {
-		m_propertyType = QVariant::String;
-	    } else if ( value == 3 ) {
-		m_propertyType = QVariant::Int;
-	    } else if ( value == 5 ) {
-		m_propertyType = QVariant::Double;
-	    } else if ( value == 64 ) {
-	      	m_propertyType = QVariant::Date;
-	    } else if ( value == 11 ) {
-		m_propertyType = QVariant::Bool;
-	    } else {
-	//	qDebug() << "unhandled value type in UserPropsDestination:" << value;
-	    }
-	} else if ( controlWord == "staticval" ) {
-	    m_nextPlainTextIsPropertyName = false;
-	} else {
-	//    qDebug() << "unexpected control word in UserPropsDestination:" << controlWord;
-	}
+        if (controlWord == "propname")
+        {
+            m_nextPlainTextIsPropertyName = true;
+        }
+        else if ((controlWord == "proptype") && hasValue)
+        {
+            if (value == 30)
+            {
+                m_propertyType = QVariant::String;
+            }
+            else if (value == 3)
+            {
+                m_propertyType = QVariant::Int;
+            }
+            else if (value == 5)
+            {
+                m_propertyType = QVariant::Double;
+            }
+            else if (value == 64)
+            {
+                m_propertyType = QVariant::Date;
+            }
+            else if (value == 11)
+            {
+                m_propertyType = QVariant::Bool;
+            }
+            else
+            {
+                // qDebug() << "unhandled value type in UserPropsDestination:" << value;
+            }
+        }
+        else if (controlWord == "staticval")
+        {
+            m_nextPlainTextIsPropertyName = false;
+        }
+        else
+        {
+            // qDebug() << "unexpected control word in UserPropsDestination:" << controlWord;
+        }
     }
 
-	void UserPropsDestination::handlePlainText( const QByteArray &plainText )
+    void UserPropsDestination::handlePlainText( const QByteArray &plainText )
     {
-	if ( m_nextPlainTextIsPropertyName ) {
-	    m_propertyName = plainText;
-	} else {
-	    QVariant value;
-	    if ( m_propertyType == QVariant::String ) {
-		value = QVariant( plainText );
-	    } else {
-		// TODO: Really need some examples of this stuff - int, float, date and boolean
-	//	qDebug() << "unhandled value type in UserPropsDestination:" << m_propertyType;
-	    }
-	    m_output->addUserProp( m_propertyName, value );
-	}
+        if (m_nextPlainTextIsPropertyName)
+        {
+            m_propertyName = plainText;
+        }
+        else
+        {
+            QVariant value;
+            if (m_propertyType == QVariant::String)
+            {
+                value = QVariant(plainText);
+            }
+            else
+            {
+                // TODO: Really need some examples of this stuff - int, float, date and boolean
+                // qDebug() << "unhandled value type in UserPropsDestination:" << m_propertyType;
+            }
+            m_output->addUserProp(m_propertyName, value);
+        }
     }
 }

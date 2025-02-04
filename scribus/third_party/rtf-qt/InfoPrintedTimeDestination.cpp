@@ -32,6 +32,6 @@ namespace RtfReader
 
     void InfoPrintedTimeDestination::aboutToEndDestination()
     {
-	m_output->setPrintedDateTime( dateTime() );
+        m_output->setPrintedDateTime( dateTime() );
     }
 }

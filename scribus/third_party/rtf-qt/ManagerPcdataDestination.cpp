@@ -32,6 +32,6 @@ namespace RtfReader
 
     void ManagerPcdataDestination::aboutToEndDestination()
     {
-	m_output->setManagerName( m_pcdata );
+        m_output->setManagerName( m_pcdata );
     }
 }

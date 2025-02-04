@@ -32,6 +32,6 @@ namespace RtfReader
 
     void OperatorPcdataDestination::aboutToEndDestination()
     {
-	m_output->setOperatorName( m_pcdata );
+        m_output->setOperatorName( m_pcdata );
     }
 }

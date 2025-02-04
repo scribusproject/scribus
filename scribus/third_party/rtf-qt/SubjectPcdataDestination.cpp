@@ -32,6 +32,6 @@ namespace RtfReader
 
     void SubjectPcdataDestination::aboutToEndDestination()
     {
-	m_output->setSubject( m_pcdata );
+        m_output->setSubject( m_pcdata );
     }
 }

@@ -32,6 +32,6 @@ namespace RtfReader
 
     void DocumentCommentPcdataDestination::aboutToEndDestination()
     {
-	m_output->setDocumentComment( m_pcdata );
+        m_output->setDocumentComment( m_pcdata );
     }
 }

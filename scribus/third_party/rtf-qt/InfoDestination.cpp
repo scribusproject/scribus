@@ -31,29 +31,29 @@ namespace RtfReader
 
     void InfoDestination::handleControlWord( const QString &controlWord, bool hasValue, const int value )
     {
-	if ( ( controlWord == "edmins" ) && hasValue ) {
-	    m_output->setTotalEditingTime( value );
-	} else if ( ( controlWord == "nofpages" ) && hasValue ) {
-	    m_output->setNumberOfPages( value );
-	} else if ( ( controlWord == "nofwords" ) && hasValue ) {
-	    m_output->setNumberOfWords( value );
-	} else if ( ( controlWord == "nofchars" ) && hasValue ) {
-	    m_output->setNumberOfCharacters( value );
-	} else if ( ( controlWord == "nofcharsws" ) && hasValue ) {
-	    m_output->setNumberOfCharactersWithoutSpaces( value );
-	} else if ( ( controlWord == "version" ) && hasValue ) {
-	    m_output->setVersionNumber( value );
-	} else if ( ( controlWord == "vern" ) && hasValue ) {
-	    m_output->setInternalVersionNumber( value );
-	} else if ( controlWord == "*" ) {
-	    // handled elsewhere
-	} else {
-//	    qDebug() << "unexpected control word in InfoDestination:" << controlWord;
-	}
+        if ( ( controlWord == "edmins" ) && hasValue ) {
+            m_output->setTotalEditingTime( value );
+        } else if ( ( controlWord == "nofpages" ) && hasValue ) {
+            m_output->setNumberOfPages( value );
+        } else if ( ( controlWord == "nofwords" ) && hasValue ) {
+            m_output->setNumberOfWords( value );
+        } else if ( ( controlWord == "nofchars" ) && hasValue ) {
+            m_output->setNumberOfCharacters( value );
+        } else if ( ( controlWord == "nofcharsws" ) && hasValue ) {
+            m_output->setNumberOfCharactersWithoutSpaces( value );
+        } else if ( ( controlWord == "version" ) && hasValue ) {
+            m_output->setVersionNumber( value );
+        } else if ( ( controlWord == "vern" ) && hasValue ) {
+            m_output->setInternalVersionNumber( value );
+        } else if ( controlWord == "*" ) {
+            // handled elsewhere
+        } else {
+//          qDebug() << "unexpected control word in InfoDestination:" << controlWord;
+        }
     }
 
 	void InfoDestination::handlePlainText( const QByteArray &plainText )
     {
-//	qDebug() << "unexpected text in InfoDestination:" << plainText;
+//      qDebug() << "unexpected text in InfoDestination:" << plainText;
     }
 }
