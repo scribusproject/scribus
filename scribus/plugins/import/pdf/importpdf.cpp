@@ -462,11 +462,11 @@ bool PdfPlug::convert(const QString& fn)
 
 			if (dev->isOk())
 			{
-				OCGs* ocg = pdfDoc->getOptContentConfig();
+				POPPLER_CONST_25_02 OCGs* ocg = pdfDoc->getOptContentConfig();
 				if (ocg && ocg->hasOCGs())
 				{
 					QStringList ocgNames;
-					Array *order = ocg->getOrderArray();
+					POPPLER_CONST_25_02 Array *order = ocg->getOrderArray();
 					if (order)
 					{
 						for (int i = 0; i < order->getLength (); ++i)
