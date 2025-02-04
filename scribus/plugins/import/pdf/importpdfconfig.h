@@ -15,4 +15,10 @@ for which a new license (GPL+exception) is in place.
 	+ ((micro) *     1))
 #define POPPLER_ENCODED_VERSION POPPLER_VERSION_ENCODE(POPPLER_VERSION_MAJOR, POPPLER_VERSION_MINOR, POPPLER_VERSION_MICRO)
 
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 2, 0)
+#define POPPLER_CONST_25_02 const
+#else
+#define POPPLER_CONST_25_02
+#endif
+
 #endif

@@ -2791,7 +2791,7 @@ void SlaOutputDev::beginMarkedContent(const char *name, Object *dictRef)
 	{
 		if (dictRef->isNull())
 			return;
-		OCGs *contentConfig = m_catalog->getOptContentConfig();
+		POPPLER_CONST_25_02 OCGs *contentConfig = m_catalog->getOptContentConfig();
 		OptionalContentGroup *oc;
 		if (dictRef->isRef())
 		{
@@ -2928,7 +2928,11 @@ void SlaOutputDev::updateFont(GfxState *state)
 	SplashFontFile *fontFile;
 	SplashFontSrc *fontsrc = nullptr;
 	Object refObj, strObj;
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 2, 0)
+	std::vector<int> codeToGID;
+#else
 	int *codeToGID = nullptr;
+#endif
 	const double *textMat = nullptr;
 	double m11, m12, m21, m22, fontSize;
 	SplashCoord mat[4] = { 1.0, 0.0, 0.0, 1.0 };
@@ -3055,10 +3059,20 @@ void SlaOutputDev::updateFont(GfxState *state)
 			}
 			else
 			{
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 2, 0)
+				codeToGID.clear();
+#else
 				codeToGID = nullptr;
+#endif
 				n = 0;
 			}
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(24, 11, 0)
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 2, 0)
+			if (!(fontFile = m_fontEngine->loadTrueTypeFont(std::move(id), fontsrc, std::move(codeToGID), fontLoc->fontNum)))
+			{
+				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'", gfxFont->getName() ? gfxFont->getName()->c_str() : "(unnamed)");
+				goto err2;
+			}
+#elif POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(24, 11, 0)
 			if (!(fontFile = m_fontEngine->loadTrueTypeFont(std::move(id), fontsrc, codeToGID, n, fontLoc->fontNum)))
 			{
 				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'", gfxFont->getName() ? gfxFont->getName()->c_str() : "(unnamed)");
@@ -3089,6 +3103,18 @@ void SlaOutputDev::updateFont(GfxState *state)
 #endif
 			break;
 		case fontCIDType0COT:
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 2, 0)
+			if (((GfxCIDFont*) gfxFont)->getCIDToGIDLen() > 0)
+			{
+				codeToGID = ((GfxCIDFont*) gfxFont)->getCIDToGID();
+				n = codeToGID.size();
+			}
+			else
+			{
+				codeToGID.clear();
+				n = 0;
+			}
+#else
 			if (((GfxCIDFont *) gfxFont)->getCIDToGID())
 			{
 				n = ((GfxCIDFont *) gfxFont)->getCIDToGIDLen();
@@ -3100,7 +3126,15 @@ void SlaOutputDev::updateFont(GfxState *state)
 				codeToGID = nullptr;
 				n = 0;
 			}
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(24, 11, 0)
+#endif
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 2, 0)
+			if (!(fontFile = m_fontEngine->loadOpenTypeCFFFont(std::move(id), fontsrc, std::move(codeToGID), fontLoc->fontNum)))
+			{
+				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'",
+					gfxFont->getName() ? gfxFont->getName()->c_str() : "(unnamed)");
+				goto err2;
+			}
+#elif POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(24, 11, 0)
 			if (!(fontFile = m_fontEngine->loadOpenTypeCFFFont(std::move(id), fontsrc, codeToGID, n, fontLoc->fontNum)))
 			{
 				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'",
@@ -3118,6 +3152,15 @@ void SlaOutputDev::updateFont(GfxState *state)
 			break;
 		case fontCIDType2:
 		case fontCIDType2OT:
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 2, 0)
+			codeToGID.clear();
+			n = 0;
+			if (((GfxCIDFont*) gfxFont)->getCIDToGIDLen() > 0)
+			{
+				codeToGID = ((GfxCIDFont*) gfxFont)->getCIDToGID();
+				n = codeToGID.size();
+			}
+#else
 			codeToGID = nullptr;
 			n = 0;
 			if (((GfxCIDFont *) gfxFont)->getCIDToGID())
@@ -3129,6 +3172,7 @@ void SlaOutputDev::updateFont(GfxState *state)
 					memcpy(codeToGID, ((GfxCIDFont *)gfxFont)->getCIDToGID(), n * sizeof(*codeToGID));
 				}
 			}
+#endif
 			else
 			{
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(24, 11, 0)
@@ -3144,10 +3188,20 @@ void SlaOutputDev::updateFont(GfxState *state)
 #endif
 				if (! ff)
 					goto err2;
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 2, 0)
+				codeToGID = ((GfxCIDFont*) gfxFont)->getCodeToGIDMap(ff.get());
+#else
 				codeToGID = ((GfxCIDFont*) gfxFont)->getCodeToGIDMap(ff.get(), &n);
+#endif
 				ff.reset();
 			}
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(24, 11, 0)
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 2, 0)
+			if (!(fontFile = m_fontEngine->loadTrueTypeFont(std::move(id), fontsrc, std::move(codeToGID), fontLoc->fontNum)))
+			{
+				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'", gfxFont->getName() ? gfxFont->getName()->c_str() : "(unnamed)");
+				goto err2;
+			}
+#elif POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(24, 11, 0)
 			if (!(fontFile = m_fontEngine->loadTrueTypeFont(std::move(id), fontsrc, codeToGID, n, fontLoc->fontNum)))
 			{
 				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'", gfxFont->getName() ? gfxFont->getName()->c_str() : "(unnamed)");
