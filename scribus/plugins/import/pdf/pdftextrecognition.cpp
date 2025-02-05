@@ -14,7 +14,7 @@ constexpr double PdfTextRegion::boundingBoxShape[32];
 */
 PdfTextRecognition::PdfTextRecognition()
 {
-	m_pdfTextRegions.push_back(PdfTextRegion());
+	m_pdfTextRegions.emplace_back();
 	activePdfTextRegion = &(m_pdfTextRegions.back());
 	setCharMode(AddCharMode::ADDFIRSTCHAR);
 }
@@ -31,7 +31,7 @@ PdfTextRecognition::~PdfTextRecognition()
 */
 void PdfTextRecognition::addPdfTextRegion()
 {
-	m_pdfTextRegions.push_back(PdfTextRegion());
+	m_pdfTextRegions.emplace_back();
 	activePdfTextRegion = &(m_pdfTextRegions.back());
 	setCharMode(PdfTextRecognition::AddCharMode::ADDFIRSTCHAR);
 }
@@ -66,12 +66,12 @@ void PdfTextRecognition::addChar(GfxState* state, double x, double y, double dx,
 /*
 *	basic test to see if the point lies in a new line or region
 */
-bool PdfTextRecognition::isNewLineOrRegion(QPointF newPosition)
+bool PdfTextRecognition::isNewLineOrRegion(const QPointF& newPosition)
 {
-	return (activePdfTextRegion->collinear(activePdfTextRegion->lastXY.y(), activePdfTextRegion->pdfTextRegionLines.back().baseOrigin.y()) &&
-		!activePdfTextRegion->collinear(newPosition.y(), activePdfTextRegion->lastXY.y()))
-		|| (activePdfTextRegion->collinear(newPosition.y(), activePdfTextRegion->lastXY.y())
-			&& !activePdfTextRegion->isCloseToX(newPosition.x(), activePdfTextRegion->lastXY.x()));
+	return (PdfTextRegion::collinear(activePdfTextRegion->lastXY.y(), activePdfTextRegion->pdfTextRegionLines.back().baseOrigin.y()) &&
+	           !PdfTextRegion::collinear(newPosition.y(), activePdfTextRegion->lastXY.y()))
+	        || (PdfTextRegion::collinear(newPosition.y(), activePdfTextRegion->lastXY.y())
+	            && !activePdfTextRegion->isCloseToX(newPosition.x(), activePdfTextRegion->lastXY.x()));
 }
 
 
@@ -188,7 +188,7 @@ bool PdfTextRegion::collinear(qreal a, qreal b)
 *	like collinear but we allow a deviation of 6 text widths from between positions or 1 text width from the textregion's x origin
 *   FIXME: This should use the char width not linespacing which is y
 */
-bool PdfTextRegion::isCloseToX(qreal x1, qreal x2)
+bool PdfTextRegion::isCloseToX(qreal x1, qreal x2) const
 {
 	return (abs(x2 - x1) <= lineSpacing * 6) || (abs(x1 - this->pdfTextRegionBasenOrigin.x()) <= lineSpacing);
 }
@@ -196,7 +196,7 @@ bool PdfTextRegion::isCloseToX(qreal x1, qreal x2)
 /*
 *	like collinear but we allow a deviation of 3 text heights downwards but none upwards
 */
-bool PdfTextRegion::isCloseToY(qreal y1, qreal y2)
+bool PdfTextRegion::isCloseToY(qreal y1, qreal y2) const
 {
 	return (y2 - y1) >= 0 && y2 - y1 <= lineSpacing * 3;
 }
@@ -204,7 +204,7 @@ bool PdfTextRegion::isCloseToY(qreal y1, qreal y2)
 /*
 *	less than, page upwards, the last y value but bot more than the line spacing less, could also use the base line of the last line to be more accurate
 */
-bool PdfTextRegion::adjunctLesser(qreal testY, qreal lastY, qreal baseY)
+bool PdfTextRegion::adjunctLesser(qreal testY, qreal lastY, qreal baseY) const
 {
 	return (testY > lastY
 		&& testY <= baseY + lineSpacing
@@ -214,7 +214,7 @@ bool PdfTextRegion::adjunctLesser(qreal testY, qreal lastY, qreal baseY)
 /*
 *	greater, page downwards, than the last y value but not more than 3/4 of a line space below baseline
 */
-bool PdfTextRegion::adjunctGreater(qreal testY, qreal lastY, qreal baseY)
+bool PdfTextRegion::adjunctGreater(qreal testY, qreal lastY, qreal baseY) const
 {
 	return (testY <= lastY
 		&& testY >= baseY - lineSpacing * 0.75
@@ -232,7 +232,7 @@ bool PdfTextRegion::adjunctGreater(qreal testY, qreal lastY, qreal baseY)
 *	TODO: support NEWLINE new paragraphs with multiple linespaces and indented x insteads of just ignoring the relative x position
 *	TODO: I don't know if the invariant qDebug cases should always report an error or only do so when DEBUG_TEXT_IMPORT is defined. My feeling is they should always report because it meanms something has happened that shouldn't have and it's useful feedback.
 */
-PdfTextRegion::LineType PdfTextRegion::linearTest(QPointF point, bool xInLimits, bool yInLimits)
+PdfTextRegion::LineType PdfTextRegion::linearTest(const QPointF& point, bool xInLimits, bool yInLimits) const
 {
 	if (collinear(point.y(), lastXY.y()))
 	{
@@ -282,7 +282,7 @@ PdfTextRegion::LineType PdfTextRegion::linearTest(QPointF point, bool xInLimits,
 *	Perform some fuzzy checks to see if newPoint can reasonably be ascribed to the current textframe.
 *	FIXME: It may be that move and addGlyph need different versions of isCloseToX and isCloseToY but keep them the same just for now
 */
-PdfTextRegion::LineType PdfTextRegion::isRegionConcurrent(QPointF newPoint)
+PdfTextRegion::LineType PdfTextRegion::isRegionConcurrent(const QPointF& newPoint)
 {
 	if (glyphs.empty())
 	{
@@ -306,7 +306,7 @@ PdfTextRegion::LineType PdfTextRegion::isRegionConcurrent(QPointF newPoint)
 *		Also needs to have support for rotated text, but I expect I'll add this by removing the text rotation
 *		from calls to movepoint and addGlyph and instead rotating the whole text region as a block
 */
-PdfTextRegion::LineType PdfTextRegion::moveToPoint(QPointF newPoint)
+PdfTextRegion::LineType PdfTextRegion::moveToPoint(const QPointF& newPoint)
 {
 	//qDebug() << "moveToPoint: " << newPoint;
 
@@ -323,7 +323,7 @@ PdfTextRegion::LineType PdfTextRegion::moveToPoint(QPointF newPoint)
 	if (mode == LineType::NEWLINE || mode == LineType::FIRSTPOINT)
 	{
 		if (mode != LineType::FIRSTPOINT || pdfTextRegionLines.empty())
-			pdfTextRegionLines.push_back(PdfTextRegionLine());
+			pdfTextRegionLines.emplace_back();
 
 		pdfTextRegionLine = &pdfTextRegionLines.back();
 		pdfTextRegionLine->baseOrigin = newPoint;
@@ -340,7 +340,7 @@ PdfTextRegion::LineType PdfTextRegion::moveToPoint(QPointF newPoint)
 		|| mode == LineType::NEWLINE
 		|| (mode != LineType::FIRSTPOINT && pdfTextRegionLine->segments[0].glyphIndex != pdfTextRegionLine->glyphIndex))
 	{
-		PdfTextRegionLine newSegment = PdfTextRegionLine();
+		PdfTextRegionLine newSegment;
 		pdfTextRegionLine->segments.push_back(newSegment);
 	}
 	PdfTextRegionLine* segment = &pdfTextRegionLine->segments.back();
@@ -373,7 +373,7 @@ PdfTextRegion::LineType PdfTextRegion::moveToPoint(QPointF newPoint)
 *		Approximated heights and widths and linespaces need to use the correct font data when font support has been added,
 *		but for now just use the x advance value. using font data should also allow for the support of rotated text that may use a mixture of x and y advance
 */
-PdfTextRegion::LineType PdfTextRegion::addGlyphAtPoint(QPointF newGlyphPoint, PdfGlyph newGlyph)
+PdfTextRegion::LineType PdfTextRegion::addGlyphAtPoint(const QPointF& newGlyphPoint, const PdfGlyph& newGlyph)
 {
 	QPointF movedGlyphPoint(newGlyphPoint.x() + newGlyph.dx, newGlyphPoint.y() + newGlyph.dy);
 	if (glyphs.size() == 1)
@@ -436,7 +436,7 @@ void PdfTextRegion::renderToTextFrame(PageItem* textNode)
 /*
 *	Quick test to see if this is a virgin textregion
 */
-bool PdfTextRegion::isNew()
+bool PdfTextRegion::isNew() const
 {
 	return pdfTextRegionLines.empty() ||
 		glyphs.empty();
