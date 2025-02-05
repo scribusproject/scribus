@@ -275,6 +275,7 @@ void ScClipboardProcessor::cocoaParseParagraphs(xmlNode *node, QMap<QString, QSt
 			{
 				for (const auto &segment : std::as_const(segments))
 				{
+					QString style;
 					QString currFamily(currPstyle.charStyle().font().family());
 					if (!segment.isBold && !segment.isItalic)
 					{
@@ -288,39 +289,26 @@ void ScClipboardProcessor::cocoaParseParagraphs(xmlNode *node, QMap<QString, QSt
 							style = "Medium";
 						else if (styles.contains("Book"))
 							style = "Book";
-						const ScFace face = availableFonts.findFont(currFamily, style);
-						if (face != ScFace::none())
-						{
-							currPstyle.charStyle().setFont(face);
-							m_pageItem->itemText.insertChars(pos, segment.text);
-							m_pageItem->itemText.applyStyle(pos, currPstyle);
-							m_pageItem->itemText.applyCharStyle(pos, segment.text.length(), currPstyle.charStyle());
-						}
-						else
-							qDebug()<<"No face found";
 					}
 					else
 					{
-						QString style;
 						if(segment.isBold && !segment.isItalic)
 							style = "Bold";
 						if (!segment.isBold && segment.isItalic)
 							style = "Italic";
 						if(segment.isBold && segment.isItalic)
 							style = "Bold Italic";
-
-						const ScFace& face = availableFonts.findFont(currFamily, style);
-						if (face != ScFace::none())
-						{
-							currPstyle.charStyle().setFont(face);
-							m_pageItem->itemText.insertChars(pos, segment.text);
-							m_pageItem->itemText.applyStyle(pos, currPstyle);
-							m_pageItem->itemText.applyCharStyle(pos, segment.text.length(), currPstyle.charStyle());
-						}
-						else
-							qDebug()<<"No face found";
 					}
-
+					const ScFace& face = availableFonts.findFont(currFamily, style);
+					if (face != ScFace::none())
+					{
+						currPstyle.charStyle().setFont(face);
+						m_pageItem->itemText.insertChars(pos, segment.text);
+						m_pageItem->itemText.applyStyle(pos, currPstyle);
+						m_pageItem->itemText.applyCharStyle(pos, segment.text.length(), currPstyle.charStyle());
+					}
+					else
+						qDebug()<<"No face found";
 					pos = m_pageItem->itemText.cursorPosition();
 				}
 				segments.clear();
