@@ -60,7 +60,6 @@ for which a new license (GPL+exception) is in place.
 #include <QStyleFactory>
 #include <QStyleHints>
 #include <QTableWidget>
-#include <QTextCodec>
 #include <QTranslator>
 #include <QWindow>
 #include <QWheelEvent>
@@ -4722,20 +4721,10 @@ void ScribusMainWindow::slotEditPaste()
 		}
 		else if (ScMimeData::clipboardHasHTML())
 		{
-			ScClipboardProcessor scclipproc;
+			ScClipboardProcessor scclipproc(doc, currItem);
 			QString clipContent = QApplication::clipboard()->mimeData()->html();
 			scclipproc.setContent(clipContent, ScClipboardProcessor::ContentType::HTML);
 			scclipproc.process();
-			//TODO change undo to PASTE_HTML
-			if (UndoManager::undoEnabled())
-			{
-				auto *is = new SimpleState(Um::Paste, QString(), Um::IPaste);
-				is->set("PASTE_PLAINTEXT");
-				is->set("START", currItem->itemText.cursorPosition());
-				is->set("TEXT", scclipproc.data());
-				m_undoManager->action(currItem, is);
-			}
-			currItem->itemText.insertChars(scclipproc.data(), true);
 		}
 		else if (ScMimeData::clipboardHasKnownData())
 		{
@@ -4799,19 +4788,10 @@ void ScribusMainWindow::slotEditPaste()
 		}
 		else
 		{
-			ScClipboardProcessor scclipproc;
+			ScClipboardProcessor scclipproc(doc, currItem);
 			QString clipContent = QApplication::clipboard()->text(QClipboard::Clipboard);
 			scclipproc.setContent(clipContent, ScClipboardProcessor::ContentType::Text);
 			scclipproc.process();
-			if (UndoManager::undoEnabled())
-			{
-				auto *is = new SimpleState(Um::Paste, QString(), Um::IPaste);
-				is->set("PASTE_PLAINTEXT");
-				is->set("START", currItem->itemText.cursorPosition());
-				is->set("TEXT", scclipproc.data());
-				m_undoManager->action(currItem, is);
-			}
-			currItem->itemText.insertChars(scclipproc.data(), true);
 		}
 		if (doc->appMode == modeEditTable)
 			selItem->asTable()->update();

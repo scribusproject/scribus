@@ -1,23 +1,37 @@
 #include "scclipboardprocessor.h"
 
 #include <QApplication>
-#include <QGuiApplication>
 #include <QClipboard>
-#include <QMimeData>
+#include <QDebug>
 #include <QDomDocument>
+#include <QFile>
+#include <QGuiApplication>
+#include <QMimeData>
+#include <QString>
+#include <QRegularExpression>
+
+#include <QTextStream>
 #include <QXmlStreamReader>
 
+#include <libxml/HTMLparser.h>
+#include <libxml/xpath.h>
+
+#include "pageitem.h"
+#include "prefsmanager.h"
+#include "scfonts.h"
+#include "scribusdoc.h"
 #include "text/specialchars.h"
+#include "undomanager.h"
 
 
 ScClipboardProcessor::ScClipboardProcessor()
 {
 }
 
-ScClipboardProcessor::ScClipboardProcessor(const QString &content, ContentType type)
+ScClipboardProcessor::ScClipboardProcessor(ScribusDoc* doc, PageItem *pageItem)
 {
-	m_content = content;
-	m_contentType = type;
+	m_doc = doc;
+	m_pageItem = pageItem;
 }
 
 void ScClipboardProcessor::setContent(const QString &content, ContentType type)
@@ -25,6 +39,12 @@ void ScClipboardProcessor::setContent(const QString &content, ContentType type)
 	m_content = content;
 	m_contentType = type;
 	processed = false;
+}
+
+void ScClipboardProcessor::setDocAndPageItem(ScribusDoc *doc, PageItem *pageItem)
+{
+	m_doc = doc;
+	m_pageItem = pageItem;
 }
 
 bool ScClipboardProcessor::process()
@@ -61,6 +81,18 @@ bool ScClipboardProcessor::processText()
 	text.replace('\n', SpecialChars::PARSEP);
 	m_result = text;
 	processed = true;
+	UndoManager* undoManager = UndoManager::instance();
+	//TODO change undo to PASTE_HTML
+	if (UndoManager::undoEnabled())
+	{
+		auto *is = new SimpleState(Um::Paste, QString(), Um::IPaste);
+		is->set("PASTE_PLAINTEXT");
+		is->set("START", m_pageItem->itemText.cursorPosition());
+		is->set("TEXT", m_result);
+		undoManager->action(m_pageItem, is);
+	}
+	m_pageItem->itemText.insertChars(m_result, true);
+
 	return true;
 }
 
@@ -68,56 +100,21 @@ bool ScClipboardProcessor::processHTML()
 {
 	//Something from Apple Pages (just a first example)
 	if (m_content.contains("Cocoa HTML Writer"))
-		return processHTML_Cocoa();
+		return html_Cocoa_Process();
+
 	//Something from Microsoft Word (just a first example, maybe all of Microsoft's apps)
 	if (m_content.contains("schemas-microsoft-com"))
-		return processHTML_MSFT();
+		return html_MSFT_Process();
+
 	return processHTML_Other();
 }
 
-bool ScClipboardProcessor::processHTML_MSFT()
+bool ScClipboardProcessor::html_MSFT_Process()
 {
 	QTextDocument qTextDoc;
 	qTextDoc.setHtml(m_content);
 
-	// qDebug()<<qTextDoc.defaultTextOption();
-	// qDebug()<<qTextDoc.defaultFont().family();
-	// qDebug()<<qTextDoc.defaultFont().pointSizeF();
-	// qDebug()<<qTextDoc.defaultFont().style();
 
-	/*
-	// Create a QTextCursor to traverse the document
-	QTextCursor cursor(&qTextDoc);
-
-	// Traverse all the blocks in the document
-	while (!cursor.atEnd())
-	{
-		if (!cursor.movePosition(QTextCursor::NextBlock))
-			break;
-
-		// Traverse all the characters in the current block
-		QTextBlock block = cursor.block();
-		// qDebug()<<"Block:"<<block.text();
-		QTextCursor blockCursor(block);
-		while (!blockCursor.atEnd())
-		{
-			if(!blockCursor.movePosition(QTextCursor::NextCharacter))
-				break;
-			// Get the character's formatting
-			QTextCharFormat charFormat = blockCursor.charFormat();
-
-			// Extract and print the character's style attributes
-			// qDebug() << "Character: " << blockCursor.selectedText();
-			// qDebug() << "Font Family: " << charFormat.fontFamilies().toString();
-			// qDebug() << "Font Size: " << charFormat.fontPointSize();
-			// qDebug() << "Font Weight: " << charFormat.fontWeight();
-			// qDebug() << "Font Style: " << charFormat.fontItalic();
-			// qDebug() << "Text Color: " << charFormat.foreground().color();
-			// qDebug() << "Underline: " << charFormat.fontUnderline();
-			// qDebug() << "StrikeOut: " << charFormat.fontStrikeOut();
-		}
-	}
-	*/
 	//temporary result for 1.7.0
 	m_result = qTextDoc.toPlainText();
 	m_result.replace("\r\n", SpecialChars::PARSEP);
@@ -126,102 +123,292 @@ bool ScClipboardProcessor::processHTML_MSFT()
 	return true;
 }
 
-bool ScClipboardProcessor::processHTML_Cocoa()
+bool ScClipboardProcessor::html_Cocoa_Process()
 {
-	QTextDocument qTextDoc;
-	qTextDoc.setHtml(m_content);
+	// Convert to a const xmlChar*, parse with libxml2
+	const xmlChar* html_content_cstr = reinterpret_cast<const xmlChar*>(m_content.toUtf8().constData());
 
-	//Find Style Sheets
-	/*
-	QXmlStreamReader xmlReader(m_content);
+	// Parse the HTML content using libxml2's HTML parser
+	htmlDocPtr doc = htmlReadDoc(html_content_cstr, NULL, NULL, HTML_PARSE_RECOVER | HTML_PARSE_NOERROR | HTML_PARSE_NOWARNING);
 
-	QString cssContent;
-	bool inStyleTag = false;
-
-	while (!xmlReader.atEnd())
+	if (!doc)
 	{
-		// Read the next token
-		xmlReader.readNext();
-
-		if (xmlReader.isStartElement())
-		{
-			// Check if we encounter the <style> tag
-			if (xmlReader.name() == "style")
-				inStyleTag = true;
-		}
-		else if (xmlReader.isEndElement())
-		{
-			// Check if we encounter the </style> tag
-			if (xmlReader.name() == "style")
-				inStyleTag = false;
-		}
-
-		// If we are inside a <style> tag, collect the content
-		if (inStyleTag && xmlReader.isCharacters())
-			cssContent += xmlReader.text().toString();
+		qDebug() << "Failed to parse the HTML content.";
+		return false;
 	}
 
-	//Apple Pages copied contet is not XML compliant it seems.. why check for errors?
-	// Check for parsing errors
-	// if (xmlReader.hasError()) {
-	// 	qDebug() << "Error parsing HTML:" << xmlReader.errorString();
-	// }
-
-	// Output the extracted CSS content
-	if (!cssContent.isEmpty())
+	// Get the document's root <html> tag
+	xmlNodePtr root = xmlDocGetRootElement(doc);
+	if (root != nullptr)
 	{
-		QDebug debug = qDebug();
-		debug.noquote();
-		debug << "Extracted CSS from <style> tag:";
-		debug << cssContent;
+		// Parse the content
+		html_Cocoa_Parse(root);
 	}
-	else
-		qDebug() << "No CSS found in <style> tag.";
+	// Clean up the document after parsing
+	xmlFreeDoc(doc);
+	xmlCleanupParser();
 
-
-
-	// qDebug()<<qTextDoc.defaultTextOption();
-	// qDebug()<<qTextDoc.defaultFont().family();
-	// qDebug()<<qTextDoc.defaultFont().pointSizeF();
-	// qDebug()<<qTextDoc.defaultFont().style();
-
-
-
-	QTextBlock block = qTextDoc.begin();
-	while (block.isValid())
-	{
-		// Iterate over all the fragments in the block
-		QTextBlock::iterator it = block.begin();
-
-		while (it != block.end())
-		{
-			QTextFragment fragment = it.fragment();
-			QTextCharFormat charFormat = fragment.charFormat();
-
-			bool isBold = charFormat.fontWeight() == QFont::Bold;
-			bool isItalic = charFormat.fontItalic();
-			if (isBold && isItalic)
-			{
-				qDebug() << "Bold and Italic text detected: " << fragment.text();
-			} else if (isBold) {
-				qDebug() << "Bold text detected: " << fragment.text();
-			} else if (isItalic) {
-				qDebug() << "Italic text detected: " << fragment.text();
-			} else
-				qDebug() << "Normal text detected: " << fragment.text();
-			++it;
-		}
-
-		// Move to the next block
-		block = block.next();
-	}
-	*/
-	//temporary result for 1.7.0
-	m_result = qTextDoc.toPlainText();
-	m_result.replace("\r\n", SpecialChars::PARSEP);
-	m_result.replace('\n', SpecialChars::PARSEP);
 	processed = true;
 	return true;
+}
+
+void ScClipboardProcessor::html_Cocoa_Parse(xmlNodePtr node)
+{
+	// Find <style> and parse styles
+	for (xmlNode *cur = node->children; cur; cur = cur->next)
+	{
+		if (cur->type == XML_ELEMENT_NODE && xmlStrcmp(cur->name, (const xmlChar *)"head") == 0)
+		{
+			for (xmlNode *headChild = cur->children; headChild; headChild = headChild->next)
+			{
+				cocoaParseStyles(headChild, cssStyles);
+			}
+		}
+	}
+
+	processCSS(cssStyles);
+
+	// Find <p> elements and extract text
+	for (xmlNode *cur = node->children; cur; cur = cur->next)
+	{
+		if (cur->type == XML_ELEMENT_NODE && xmlStrcmp(cur->name, (const xmlChar *)"body") == 0)
+		{
+			cocoaParseParagraphs(cur->children, cssStyles);
+		}
+	}
+}
+
+// Function to extract styles from <style> tag
+void ScClipboardProcessor::cocoaParseStyles(xmlNode *node, QMap<QString, QString> &styles)
+{
+	if (node->type == XML_ELEMENT_NODE && xmlStrcmp(node->name, (const xmlChar *)"style") == 0)
+	{
+		xmlChar *styleContent = xmlNodeGetContent(node);
+		QString stylesText = QString::fromUtf8((const char*)styleContent);
+		xmlFree(styleContent);
+
+		// Regular expression to extract class and styles
+		static QRegularExpression regex(R"(p\.(\w+)\s*\{(.*?)\})");
+		QRegularExpressionMatchIterator it = regex.globalMatch(stylesText);
+
+		while (it.hasNext())
+		{
+			QRegularExpressionMatch match = it.next();
+			if (match.hasMatch())
+			{
+				QString className = match.captured(1).trimmed();
+				QString style = match.captured(2).trimmed();
+				styles[className] = style;
+			}
+		}
+	}
+}
+
+// Function to extract text content (including formatted text like <b> and <i>)
+QString ScClipboardProcessor::cocoaExtractText(xmlNode *node, QList<TextSegment> &segments, bool bold, bool italic)
+{
+	QString text;
+	for (xmlNode *cur = node; cur; cur = cur->next)
+	{
+		if (cur->type == XML_TEXT_NODE)
+		{
+			QString t = QString::fromUtf8((const char *)cur->content);
+			text += t;
+			if (!text.isEmpty())
+			{
+				segments.append({t, bold, italic});
+			}
+		}
+		else if (cur->type == XML_ELEMENT_NODE)
+		{
+			QString tag = QString::fromUtf8((const char *)cur->name);
+			bool newBold = bold || (tag == "b");
+			bool newItalic = italic || (tag == "i");
+			QString innerText = cocoaExtractText(cur->children, segments, newBold, newItalic);
+
+			if (tag == "b")
+			{
+				text += "<b>" + innerText + "</b>";
+			}
+			else if (tag == "i")
+			{
+				text += "<i>" + innerText + "</i>";
+			}
+			else
+			{
+				text += innerText;
+			}
+		}
+	}
+	return text;
+}
+
+// Function to parse paragraphs and their styles
+void ScClipboardProcessor::cocoaParseParagraphs(xmlNode *node, QMap<QString, QString> &styles)
+{
+	SCFonts& availableFonts = PrefsManager::instance().appPrefs.fontPrefs.AvailFonts;
+	QList<TextSegment> segments;
+	for (xmlNode *cur = node; cur; cur = cur->next)
+	{
+		if (cur->type == XML_ELEMENT_NODE && xmlStrcmp(cur->name, (const xmlChar *)"p") == 0)
+		{
+			xmlChar *classAttr = xmlGetProp(cur, (const xmlChar *)"class");
+			QString className = classAttr ? QString::fromUtf8((const char*)classAttr) : "None";
+			xmlFree(classAttr);
+
+			QString content = cocoaExtractText(cur->children, segments);
+			// qDebug() << "-----------------------------------";
+			// qDebug() << "Paragraph Class:" << className;
+			// qDebug() << "Style:" << style;
+			// qDebug() << "Text Content:" << content;
+
+			ParagraphStyle currPstyle = m_doc->paragraphStyle(className);
+			int pos = qMax(0, m_pageItem->itemText.cursorPosition());
+			bool textContainsBoldItalic = content.contains("<b>") || content.contains("<i>");
+			if (!textContainsBoldItalic)
+			{
+				m_pageItem->itemText.insertChars(pos, content);
+				m_pageItem->itemText.applyStyle(pos, currPstyle);
+				m_pageItem->itemText.applyCharStyle(pos, content.length(), currPstyle.charStyle());
+			}
+			else
+			{
+				for (const auto &segment : std::as_const(segments))
+				{
+					QString currFamily(currPstyle.charStyle().font().family());
+					if (!segment.isBold && !segment.isItalic)
+					{
+						QStringList styles = availableFonts.fontMap[currFamily];
+						QString style = styles[0];
+						if (styles.contains("Regular"))
+							style = "Regular";
+						else if (styles.contains("Roman"))
+							style = "Roman";
+						else if (styles.contains("Medium"))
+							style = "Medium";
+						else if (styles.contains("Book"))
+							style = "Book";
+						const ScFace face = availableFonts.findFont(currFamily, style);
+						if (face != ScFace::none())
+						{
+							currPstyle.charStyle().setFont(face);
+							m_pageItem->itemText.insertChars(pos, segment.text);
+							m_pageItem->itemText.applyStyle(pos, currPstyle);
+							m_pageItem->itemText.applyCharStyle(pos, segment.text.length(), currPstyle.charStyle());
+						}
+						else
+							qDebug()<<"No face found";
+					}
+					else
+					{
+						QString style;
+						if(segment.isBold && !segment.isItalic)
+							style = "Bold";
+						if (!segment.isBold && segment.isItalic)
+							style = "Italic";
+						if(segment.isBold && segment.isItalic)
+							style = "Bold Italic";
+
+						const ScFace& face = availableFonts.findFont(currFamily, style);
+						if (face != ScFace::none())
+						{
+							currPstyle.charStyle().setFont(face);
+							m_pageItem->itemText.insertChars(pos, segment.text);
+							m_pageItem->itemText.applyStyle(pos, currPstyle);
+							m_pageItem->itemText.applyCharStyle(pos, segment.text.length(), currPstyle.charStyle());
+						}
+						else
+							qDebug()<<"No face found";
+					}
+
+					pos = m_pageItem->itemText.cursorPosition();
+				}
+				segments.clear();
+			}
+			//Add a new line after the paragraph
+			pos = qMax(0, m_pageItem->itemText.cursorPosition());
+			m_pageItem->itemText.insertChars(pos, SpecialChars::PARSEP);
+			m_pageItem->itemText.applyStyle(pos, currPstyle);
+		}
+	}
+}
+
+void ScClipboardProcessor::processCSS(const QMap<QString, QString> &styles)
+{
+	QMapIterator<QString, QString> i(styles);
+	while (i.hasNext())
+	{
+		i.next();
+		QString paraStyleName = i.key();
+
+		// Parse properties
+		QMap<QString, QString> propertyMap;
+		QStringList propertyList = i.value().split(';', Qt::SkipEmptyParts);
+		for (const QString& property : std::as_const(propertyList))
+		{
+			QStringList keyValue = property.split(':', Qt::SkipEmptyParts);
+			if (keyValue.size() == 2)
+				propertyMap.insert(keyValue[0].trimmed().toLower(), keyValue[1].trimmed());
+		}
+		ParagraphStyle newParaStyle;
+		newParaStyle.setDefaultStyle(false);
+		newParaStyle.setName(paraStyleName);
+		//Clearly this regex only deals with this format of CSS:
+		//p.p1 {margin: 0.0px 0.0px 12.0px 0.0px; font: 11.0px 'Helvetica Neue'; color: #1a1a1a}
+		for (auto it = propertyMap.begin(); it != propertyMap.end(); ++it)
+		{
+			if (it.key() == "color")
+			{
+				ScColor newColor;
+				newColor.fromQColor(QColor(it.value()));
+				QString colorName = m_doc->PageColors.tryAddColor("FromCopy"+it.value(), newColor);
+				newParaStyle.charStyle().setFillColor(colorName);
+			}
+			if (it.key() == "font")
+			{
+				// static QRegularExpression regex(R"(\s*([\d.]+)px\s*'([^']+)')");
+				static QRegularExpression regex(R"(\s*([\d.]+)px\s*('([^']+)'|([\w]+)))");
+
+				QRegularExpressionMatch match = regex.match(it.value());
+				QString fontName;
+				double fontSize;
+				if (match.hasMatch())
+				{
+					//Font name moves between capture 3 and 4 depending on if quotes are used
+					fontSize = match.captured(1).toDouble() * 10.0;
+					fontName = match.captured(match.lastCapturedIndex());
+				}
+				else
+				{
+					fontSize = PrefsManager::instance().appPrefs.itemToolPrefs.textSize;
+					// qDebug() << "No match found";
+				}
+				//Process font name
+				SCFonts& availableFonts = PrefsManager::instance().appPrefs.fontPrefs.AvailFonts;
+				QStringList styles = availableFonts.fontMap[fontName];
+				QString style = styles[0];
+				if (styles.contains("Regular"))
+					style = "Regular";
+				else if (styles.contains("Roman"))
+					style = "Roman";
+				else if (styles.contains("Medium"))
+					style = "Medium";
+				else if (styles.contains("Book"))
+					style = "Book";
+				const ScFace& face = availableFonts.findFont(fontName, style);
+				QString textFont;
+				if (face != ScFace::none())
+					textFont = face.family() + " " + face.style();
+				else
+					textFont = PrefsManager::instance().appPrefs.itemToolPrefs.textFont;
+				newParaStyle.charStyle().setFont((*m_doc->AllFonts)[textFont]);
+				newParaStyle.charStyle().setFontSize(fontSize);
+			}
+			StyleSet<ParagraphStyle> tmpParagraphStyleSet;
+			tmpParagraphStyleSet.create(newParaStyle);
+			m_doc->redefineStyles(tmpParagraphStyleSet, false);
+		}
+	}
 }
 
 bool ScClipboardProcessor::processHTML_Other()
@@ -237,6 +424,8 @@ bool ScClipboardProcessor::processHTML_Other()
 	return true;
 }
 
+
+
 const QString& ScClipboardProcessor::data()
 {
 	if (!processed)
@@ -249,12 +438,17 @@ void ScClipboardProcessor::reset()
 	m_content.clear();
 	m_contentType = ContentType::Unknown;
 	m_result.clear();
+	cssStyles.clear();
+	m_doc = nullptr;
+	m_pageItem = nullptr;
 	processed = false;
 }
 
 void ScClipboardProcessor::dumpClipboardData()
 {
-	qDebug()<<QApplication::clipboard()->mimeData()->text();
-	qDebug()<<QApplication::clipboard()->mimeData()->html();
 	qDebug()<<QApplication::clipboard()->mimeData()->formats();
+	qDebug()<<QApplication::clipboard()->mimeData()->text();
+	QDebug debug = qDebug();
+	 debug.noquote()<<QApplication::clipboard()->mimeData()->html();
+	//debug<<QApplication::clipboard()->mimeData()->html();
 }
