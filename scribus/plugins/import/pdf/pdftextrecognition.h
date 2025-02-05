@@ -24,9 +24,9 @@ for which a new license (GPL+exception) is in place.
 */
 struct PdfGlyph
 {
-	double dx;  // X advance value
-	double dy;  // Y advance value
-	double rise;    // Text rise parameter
+	double dx { 0.0 };  // X advance value
+	double dy { 0.0 };  // Y advance value
+	double rise { 0.0 };    // Text rise parameter
 	QChar code;   // UTF-16 coded character
 };
 
@@ -89,16 +89,16 @@ public:
 	std::vector<PdfGlyph> glyphs;
 
 	static bool collinear(qreal a, qreal b);
-	bool isCloseToX(qreal x1, qreal x2);
-	bool isCloseToY(qreal y1, qreal y2);
-	bool adjunctLesser(qreal testY, qreal lastY, qreal baseY);
-	bool adjunctGreater(qreal testY, qreal lastY, qreal baseY);
-	PdfTextRegion::LineType linearTest(QPointF point, bool xInLimits, bool yInLimits);
-	PdfTextRegion::LineType isRegionConcurrent(QPointF newPoint);
-	PdfTextRegion::LineType moveToPoint(QPointF newPoint);
-	PdfTextRegion::LineType addGlyphAtPoint(QPointF newGlyphPoint, PdfGlyph new_glyph);
+	bool isCloseToX(qreal x1, qreal x2) const;
+	bool isCloseToY(qreal y1, qreal y2) const;
+	bool adjunctLesser(qreal testY, qreal lastY, qreal baseY) const;
+	bool adjunctGreater(qreal testY, qreal lastY, qreal baseY) const;
+	PdfTextRegion::LineType linearTest(const QPointF& point, bool xInLimits, bool yInLimits) const;
+	PdfTextRegion::LineType isRegionConcurrent(const QPointF& newPoint);
+	PdfTextRegion::LineType moveToPoint(const QPointF& newPoint);
+	PdfTextRegion::LineType addGlyphAtPoint(const QPointF& newGlyphPoint, const PdfGlyph& new_glyph);
 	void renderToTextFrame(PageItem* textNode);
-	bool isNew();
+	bool isNew() const;
 };
 
 class PdfTextRecognition
@@ -125,7 +125,7 @@ public:
 
 	void addPdfTextRegion();
 	void addChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, const Unicode* u, int uLen);
-	bool isNewLineOrRegion(QPointF newPosition);
+	bool isNewLineOrRegion(const QPointF& newPosition);
 
 private:
 	std::vector<PdfTextRegion> m_pdfTextRegions = std::vector<PdfTextRegion>();
