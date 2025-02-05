@@ -82,7 +82,6 @@ bool ScClipboardProcessor::processText()
 	m_result = text;
 	processed = true;
 	UndoManager* undoManager = UndoManager::instance();
-	//TODO change undo to PASTE_HTML
 	if (UndoManager::undoEnabled())
 	{
 		auto *is = new SimpleState(Um::Paste, QString(), Um::IPaste);
@@ -111,16 +110,21 @@ bool ScClipboardProcessor::processHTML()
 
 bool ScClipboardProcessor::html_MSFT_Process()
 {
-	QTextDocument qTextDoc;
-	qTextDoc.setHtml(m_content);
-
-
-	//temporary result for 1.7.0
-	m_result = qTextDoc.toPlainText();
-	m_result.replace("\r\n", SpecialChars::PARSEP);
-	m_result.replace('\n', SpecialChars::PARSEP);
-	processed = true;
+	//Workaround for pasting from MSFT apps for now
+	m_content = QApplication::clipboard()->text(QClipboard::Clipboard);
+	m_contentType = ContentType::Text;
+	processText();
 	return true;
+
+// 	QTextDocument qTextDoc;
+// 	qTextDoc.setHtml(m_content);
+
+// 	//temporary result for 1.7.0
+// 	m_result = qTextDoc.toPlainText();
+// 	m_result.replace("\r\n", SpecialChars::PARSEP);
+// 	m_result.replace('\n', SpecialChars::PARSEP);
+// 	processed = true;
+// 	return true;
 }
 
 bool ScClipboardProcessor::html_Cocoa_Process()
