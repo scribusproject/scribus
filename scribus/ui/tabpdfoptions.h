@@ -49,19 +49,19 @@ public:
 					ScribusDoc *doc);
 	~TabPDFOptions() = default;
 
-	void restoreDefaults(PDFOptions & Optionen,
+	void restoreDefaults(const PDFOptions & Optionen,
 						 const SCFonts &AllFonts,
 						 const ProfilesL & PDFXProfiles,
 						 const QMap<QString, int> & DocFonts);
 
-	void storeValues(PDFOptions& options);
+	void storeValues(PDFOptions& options) const;
 
 	void unitChange(int docUnitIndex);
 
-	PDFOptions::PDFFontEmbedding fontEmbeddingMode();
-	QStringList fontsToEmbed();
-	QStringList fontsToSubset();
-	QStringList fontsToOutline();
+	PDFOptions::PDFFontEmbedding fontEmbeddingMode() const;
+	QStringList fontsToEmbed() const;
+	QStringList fontsToSubset() const;
+	QStringList fontsToOutline() const;
 
 signals:
 	void noInfo();
