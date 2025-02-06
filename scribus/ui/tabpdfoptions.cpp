@@ -284,12 +284,12 @@ TabPDFOptions::TabPDFOptions(QWidget* parent, PDFOptions & Optionen,
 	InfoString->setToolTip( "<qt>" + tr( "Mandatory string for PDF/X or the PDF will fail PDF/X conformance. We recommend you use the title of the document." ) + "</qt>" );
 }
 
-PDFOptions::PDFFontEmbedding TabPDFOptions::fontEmbeddingMode()
+PDFOptions::PDFFontEmbedding TabPDFOptions::fontEmbeddingMode() const
 {
 	return fontEmbeddingCombo->embeddingMode();
 }
 
-QStringList TabPDFOptions::fontsToEmbed()
+QStringList TabPDFOptions::fontsToEmbed() const
 {
 	PDFOptions::PDFFontEmbedding embeddingMode = fontEmbeddingCombo->embeddingMode();
 	if (embeddingMode != PDFOptions::EmbedFonts)
@@ -301,7 +301,7 @@ QStringList TabPDFOptions::fontsToEmbed()
 	return fonts;
 }
 
-QStringList TabPDFOptions::fontsToSubset()
+QStringList TabPDFOptions::fontsToSubset() const
 {
 	PDFOptions::PDFFontEmbedding embeddingMode = fontEmbeddingCombo->embeddingMode();
 	if (embeddingMode != PDFOptions::EmbedFonts)
@@ -313,7 +313,7 @@ QStringList TabPDFOptions::fontsToSubset()
 	return fonts;
 }
 
-QStringList TabPDFOptions::fontsToOutline()
+QStringList TabPDFOptions::fontsToOutline() const
 {
 	PDFOptions::PDFFontEmbedding embeddingMode = fontEmbeddingCombo->embeddingMode();
 	if (embeddingMode != PDFOptions::OutlineFonts)
@@ -322,7 +322,7 @@ QStringList TabPDFOptions::fontsToOutline()
 	return m_docFonts;
 }
 
-void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
+void TabPDFOptions::restoreDefaults(const PDFOptions & Optionen,
 									const SCFonts &AllFonts,
 									const ProfilesL & PDFXProfiles,
 									const QMap<QString, int> & DocFonts)
@@ -403,7 +403,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	ToSubset->setEnabled(false);
 	FromSubset->setEnabled(false);
 
-	if ((Opts.EmbedList.count() == 0) && (Opts.SubsetList.count() == 0) && (Opts.firstUse))
+	if (Opts.EmbedList.isEmpty() && Opts.SubsetList.isEmpty() && Opts.firstUse)
 		EmbedAll();
 	else
 	{
@@ -422,11 +422,11 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 					Opts.SubsetList.append(fontName);
 			}
 		}
-		QMap<QString, QString>::Iterator itAnn;
-		for (itAnn = m_annotationFonts.begin(); itAnn != m_annotationFonts.end(); ++itAnn)
+
+		for (auto itAnn = m_annotationFonts.begin(); itAnn != m_annotationFonts.end(); ++itAnn)
 		{
 			QList<QListWidgetItem *> itEmbed = EmbedList->findItems(itAnn.key(), Qt::MatchExactly);
-			if (itEmbed.count() == 0)
+			if (itEmbed.isEmpty())
 			{
 				QListWidgetItem* item = addFontItem(itAnn.key(), EmbedList);
 				item->setFlags(Qt::ItemIsEnabled);
@@ -499,9 +499,8 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		OutCombo->setCurrentIndex(1);
 	useSpot->setChecked(!Opts.UseSpotColors);
 	UseLPI->setChecked(Opts.UseLPI);
-	QMap<QString,LPIData>::Iterator itlp;
 	LPIcolor->clear();
-	for (itlp = Opts.LPISettings.begin(); itlp != Opts.LPISettings.end(); ++itlp)
+	for (auto itlp = Opts.LPISettings.begin(); itlp != Opts.LPISettings.end(); ++itlp)
 		LPIcolor->addItem( itlp.key() );
 	LPIcolor->setCurrentIndex(0);
 
@@ -521,13 +520,12 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		EnablePr(1);
 	EnablePG();
 	EnablePGI();
+
 	QString tp = Opts.SolidProf;
 	if (!ScCore->InputProfiles.contains(tp))
 		tp = m_Doc->cmsSettings().DefaultSolidColorRGBProfile;
-	ProfilesL::Iterator itp;
-	ProfilesL::Iterator itpend = ScCore->InputProfiles.end();
 	SolidPr->clear();
-	for (itp = ScCore->InputProfiles.begin(); itp != itpend; ++itp)
+	for (auto itp = ScCore->InputProfiles.begin(); itp != ScCore->InputProfiles.end(); ++itp)
 	{
 		SolidPr->addItem(itp.key());
 		if (itp.key() == tp)
@@ -538,13 +536,12 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	}
 	if (cmsUse)
 		IntendS->setCurrentIndex(Opts.Intent);
+
 	QString tp1 = Opts.ImageProf;
 	if (!ScCore->InputProfiles.contains(tp1))
 		tp1 = m_Doc->cmsSettings().DefaultSolidColorRGBProfile;
-	ProfilesL::Iterator itp2;
-	ProfilesL::Iterator itp2end = ScCore->InputProfiles.end();
 	ImageP->clear();
-	for (itp2 = ScCore->InputProfiles.begin(); itp2 != itp2end; ++itp2)
+	for (auto itp2 = ScCore->InputProfiles.begin(); itp2 != ScCore->InputProfiles.end(); ++itp2)
 	{
 		ImageP->addItem(itp2.key());
 		if (itp2.key() == tp1)
@@ -555,22 +552,22 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	}
 	if (cmsUse)
 		IntendI->setCurrentIndex(Opts.Intent2);
+
 	if (!cmsUse)
 	{
 		solidsProfileGroup->hide();
 		imageProfileGroup->hide();
 	}
 
-	ProfilesL::const_iterator itp3;
 	QString tp3 = Opts.PrintProf;
 	if (!PDFXProfiles.contains(tp3))
 		tp3 = m_Doc->cmsSettings().DefaultPrinterProfile;
 	PrintProfC->clear();
-	for (itp3 = PDFXProfiles.constBegin(); itp3 != PDFXProfiles.constEnd(); ++itp3)
+	for (auto itp3 = PDFXProfiles.constBegin(); itp3 != PDFXProfiles.constEnd(); ++itp3)
 	{
 		PrintProfC->addItem(itp3.key());
 		if (itp3.key() == tp3)
-			PrintProfC->setCurrentIndex(PrintProfC->count()-1);
+			PrintProfC->setCurrentIndex(PrintProfC->count() - 1);
 	}
 	if (!Opts.Info.isEmpty())
 		InfoString->setText(Opts.Info);
@@ -648,7 +645,7 @@ void TabPDFOptions::handleCompressionMethod(int ind)
 	CQuality->setDisabled(ind == 3);
 }
 
-void TabPDFOptions::storeValues(PDFOptions& pdfOptions)
+void TabPDFOptions::storeValues(PDFOptions& pdfOptions) const
 {
 	pdfOptions.Thumbnails = CheckBox1->isChecked();
 	pdfOptions.Compress = Compression->isChecked();
@@ -957,9 +954,7 @@ void TabPDFOptions::EnableLPI(int a)
 		if (!ScCore->InputProfiles.contains(tp))
 			tp = m_Doc->cmsSettings().DefaultSolidColorRGBProfile;
 		SolidPr->clear();
-		ProfilesL::Iterator itp;
-		ProfilesL::Iterator itpend = ScCore->InputProfiles.end();
-		for (itp = ScCore->InputProfiles.begin(); itp != itpend; ++itp)
+		for (auto itp = ScCore->InputProfiles.begin(); itp != ScCore->InputProfiles.end(); ++itp)
 		{
 			SolidPr->addItem(itp.key());
 			if (itp.key() == tp)
@@ -970,13 +965,12 @@ void TabPDFOptions::EnableLPI(int a)
 		}
 		if (cms)
 			IntendS->setCurrentIndex(Opts.Intent);
+
 		QString tp1 = Opts.ImageProf;
 		if (!ScCore->InputProfiles.contains(tp1))
 			tp1 = m_Doc->cmsSettings().DefaultSolidColorRGBProfile;
 		ImageP->clear();
-		ProfilesL::Iterator itp2;
-		ProfilesL::Iterator itp2end = ScCore->InputProfiles.end();
-		for (itp2 = ScCore->InputProfiles.begin(); itp2 != itp2end; ++itp2)
+		for (auto itp2 = ScCore->InputProfiles.begin(); itp2 != ScCore->InputProfiles.end(); ++itp2)
 		{
 			ImageP->addItem(itp2.key());
 			if (itp2.key() == tp1)
@@ -987,6 +981,7 @@ void TabPDFOptions::EnableLPI(int a)
 		}
 		if (cms)
 			IntendI->setCurrentIndex(Opts.Intent2);
+
 		if (cms)
 		{
 			solidsProfileGroup->show();
@@ -1265,7 +1260,7 @@ void TabPDFOptions::PutToSubset()
 		QString currentFont = fontItem->text();
 		if (SubsetList->count() != 0)
 		{
-			if (SubsetList->findItems(currentFont, Qt::MatchExactly).count() == 0)
+			if (SubsetList->findItems(currentFont, Qt::MatchExactly).isEmpty())
 				addFontItem(currentFont, SubsetList);
 		}
 		else
@@ -1283,7 +1278,7 @@ void TabPDFOptions::PutToSubset()
 void TabPDFOptions::SelEFont(QListWidgetItem*)
 {
 	QList<QListWidgetItem*> selection = EmbedList->selectedItems();
-	bool enableToSubset = (selection.count() > 0);
+	bool enableToSubset = !selection.isEmpty();
 
 	ToSubset->setEnabled(enableToSubset);
 	FromSubset->setEnabled(false);
