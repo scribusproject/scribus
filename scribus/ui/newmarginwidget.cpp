@@ -74,8 +74,8 @@ void NewMarginWidget::languageChange()
 	{
 		topMarginSpinBox->setToolTip( "<qt>" + tr( "Distance between the top margin guide and the edge of the page" ) + "</qt>");
 		bottomMarginSpinBox->setToolTip( "<qt>" + tr( "Distance between the bottom margin guide and the edge of the page" ) + "</qt>");
-		leftMarginSpinBox->setToolTip( "<qt>" + tr( "Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.") + "</qt>");
-		rightMarginSpinBox->setToolTip( "<qt>" + tr( "Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.") + "</qt>");
+		leftMarginSpinBox->setToolTip( "<qt>" + tr( "Distance between the left margin guide and the edge of the page. If a double-sided layout is selected, this margin space can be used to achieve the correct margins for binding.") + "</qt>");
+		rightMarginSpinBox->setToolTip( "<qt>" + tr( "Distance between the right margin guide and the edge of the page. If a double-sided layout is selected, this margin space can be used to achieve the correct margins for binding.") + "</qt>");
 		marginLinkButton->setToolTip( "<qt>" + tr( "Ensure all margins have the same value" ) + "</qt>");
 	}
 	else if (m_flags & BleedWidgetFlags)
