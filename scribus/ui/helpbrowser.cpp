@@ -59,6 +59,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "scribuscore.h"
 #include "util_debug.h"
+#include "util_keyboard.h"
 #include "iconmanager.h"
 #include "util.h"
 
