@@ -395,6 +395,7 @@ PyMethodDef scribus_methods[] = {
 	{ "getLineWidth", scribus_getlinewidth, METH_VARARGS, tr(scribus_getlinewidth__doc__)},
 	{ "getMargins", scribus_getmargins, METH_NOARGS, tr(scribus_getmargins__doc__) },
 	{ "getMasterPage", scribus_getmasterpage, METH_VARARGS, tr(scribus_getmasterpage__doc__)},
+	{ "getMinWordTracking", scribus_getminwordtracking, METH_VARARGS, tr(scribus_getminwordtracking__doc__) },
 	{ "getNextLinkedFrame", scribus_getnextlinkedframe, METH_VARARGS, tr(scribus_getnextlinkedframe__doc__)},
 	{ "getObjectAttributes", scribus_getobjectattributes, METH_VARARGS, tr(scribus_getobjectattributes__doc__)},
 	{ "getObjectType", scribus_getobjecttype, METH_VARARGS, tr(scribus_getobjecttype__doc__)},
@@ -573,6 +574,7 @@ PyMethodDef scribus_methods[] = {
 	{ "setLineTransparency", scribus_setlinetrans, METH_VARARGS, tr(scribus_setlinetrans__doc__)},
 	{ "setLineWidth", scribus_setlinewidth, METH_VARARGS, tr(scribus_setlinewidth__doc__)},
 	{ "setMargins", scribus_setmargins, METH_VARARGS, tr(scribus_setmargins__doc__)},
+	{ "setMinWordTracking", scribus_setminwordtracking, METH_VARARGS, tr(scribus_setminwordtracking__doc__) },
 	{ "setMultiLine", scribus_setmultiline, METH_VARARGS, tr(scribus_setmultiline__doc__)},
 	{ "setNewName", scribus_setitemname, METH_VARARGS, tr(scribus_setitemname__doc__)}, // Deprecated, was in fact never documented
 	{ "setObjectAttributes", scribus_setobjectattributes, METH_VARARGS, tr(scribus_setobjectattributes__doc__)},

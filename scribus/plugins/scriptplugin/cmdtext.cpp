@@ -173,11 +173,11 @@ PyObject *scribus_gettracking(PyObject* /* self */, PyObject* args)
 		for (int i = 0; i < item->itemText.length(); ++i)
 		{
 			if (item->itemText.selected(i))
-				return PyLong_FromLong(item->itemText.charStyle(i).tracking());
+				return PyLong_FromLong(item->itemText.charStyle(i).tracking() / 10.0);
 		}
 		return nullptr;
 	}
-	return PyLong_FromLong(item->currentCharStyle().tracking()/10.0);
+	return PyLong_FromLong(item->currentCharStyle().tracking() / 10.0);
 }
 
 PyObject *scribus_getwordtracking(PyObject* /* self */, PyObject* args)
@@ -200,11 +200,39 @@ PyObject *scribus_getwordtracking(PyObject* /* self */, PyObject* args)
 		for (int i = 0; i < item->itemText.length(); ++i)
 		{
 			if (item->itemText.selected(i))
-				return PyLong_FromLong(item->itemText.charStyle(i).wordTracking());
+				return PyLong_FromLong(item->itemText.charStyle(i).wordTracking() * 100.0);
 		}
 		return nullptr;
 	}
-	return PyLong_FromLong(item->currentCharStyle().wordTracking()*100.0);
+	return PyLong_FromLong(item->currentCharStyle().wordTracking() * 100.0);
+}
+
+PyObject *scribus_getminwordtracking(PyObject* /* self */, PyObject* args)
+{
+	PyESString name;
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	if (item == nullptr)
+		return nullptr;
+	if (!(item->isTextFrame()) && !(item->isPathText()))
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get word tracking of non-text frame.", "python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+	if (item->HasSel)
+	{
+		for (int i = 0; i < item->itemText.length(); ++i)
+		{
+			if (item->itemText.selected(i))
+				return PyLong_FromLong(item->itemText.paragraphStyle(i).minWordTracking() * 100.0);
+		}
+		return nullptr;
+	}
+
+	return PyLong_FromLong(item->currentStyle().minWordTracking() * 100.0);
 }
 
 PyObject *scribus_gettextlength(PyObject* /* self */, PyObject* args)
@@ -992,6 +1020,46 @@ PyObject *scribus_setwordtracking(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
+PyObject *scribus_setminwordtracking(PyObject* /* self */, PyObject* args)
+{
+	PyESString name;
+	double wt;
+	if (!PyArg_ParseTuple(args, "d|es", &wt, "utf-8", name.ptr()))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	if (wt < 1 || wt > 100)
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Minimum word out of bounds, must be >= 1 and <= 100","python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	if (item == nullptr)
+		return nullptr;
+	if (!item->isTextFrame())
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set minimum word tracking on a non-text frame.","python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+
+	ScribusDoc* doc = ScCore->primaryMainWindow()->doc;
+	int oldAppMode = ScCore->primaryMainWindow()->doc->appMode;
+
+	Selection tmpSelection(nullptr, false);
+	tmpSelection.addItem(item);
+	if (item->HasSel)
+		doc->appMode = modeEdit;
+
+	ParagraphStyle newStyle;
+	newStyle.setMinWordTracking(wt / 100.0);
+	doc->itemSelection_ApplyParagraphStyle(newStyle, &tmpSelection);
+
+	doc->appMode = oldAppMode;
+
+	Py_RETURN_NONE;
+}
+
+
 PyObject *scribus_setlinespacingmode(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
@@ -1404,7 +1472,6 @@ PyObject *scribus_settextscalingv(PyObject* /* self */, PyObject* args)
 		
 	Py_RETURN_NONE;
 }
-
 
 PyObject *scribus_settextshade(PyObject* /* self */, PyObject* args)
 {
