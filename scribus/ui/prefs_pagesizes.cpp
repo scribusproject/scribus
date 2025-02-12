@@ -21,7 +21,7 @@ Prefs_PageSizes::Prefs_PageSizes(QWidget* parent, ScribusDoc* /*doc*/)
 	setupUi(this);
 
 	m_caption = tr("Page Sizes");
-	m_icon = "16/page-simple.png";
+	m_icon = "page-sizes";
 
 	treeAvailableSizes->setColumnCount(2);
 	treeActiveSizes->setColumnCount(2);
