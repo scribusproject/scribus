@@ -416,7 +416,7 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon id="page-move" file="16/page-move.svg" />
 		<icon id="page-orientation-horizontal" file="16/page-orientation-horizontal.svg" />
 		<icon id="page-orientation-vertical" file="16/page-orientation-vertical.svg" />
-		
+		<icon id="page-sizes" file="16/page-sizes.svg" />
     
 		<!-- PDF Tools -->
 		<icon id="16/insert-button.png" file="16/pdf-button.svg" />
