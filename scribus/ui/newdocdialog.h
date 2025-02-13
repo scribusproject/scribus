@@ -76,6 +76,7 @@ public:
 
 	int orientation() const { return m_orientation;}
 	int choosenLayout() const { return m_choosenLayout;}
+	int layoutFirstPage() const { return m_layoutFirstPage; }
 	double pageWidth() const { return m_pageWidth;}
 	double pageHeight() const { return m_pageHeight;}
 	double distance() const { return m_distance;}
@@ -87,14 +88,15 @@ public:
 public slots:
 	void setHeight(double v);
 	void setWidth(double v);
-	void selectItem(uint nr);	
 	void handleAutoFrame();
 	void setDistance(double v);
 	void setUnit(int u);
 	void ExitOK();
 	void setOrientation(int ori);
+	void setLayout(int layoutId);
 	void setPageSize(const QString &);
 	void setDocLayout(int layout);
+	void setDocFirstPage(int firstPage);
 	/*! Opens document on doubleclick
 	\author Petr Vanek <petr@yarpen.cz>
 	*/
@@ -111,20 +113,20 @@ public slots:
 private slots:
 	void changeMargin(MarginStruct margin);
 	void changeBleed(MarginStruct bleed);
-	void changeFirstPage(int firstPage);
 	void changeCategory(PageSizeInfo::Category category);
 	void changePageSize(const QModelIndex &ic);
-	void changeScheme(int ic);
 	void changeSortMode(int ic);
 
 protected:
 	PrefsManager& prefsManager;
 	QStringList recentDocList;
 	QButtonGroup* pageOrientationButtons;
+	QButtonGroup* pageLayoutButtons;
 
 	double m_unitRatio { 1.0 };
 	int m_orientation { 0 };
 	int m_choosenLayout { 0 };
+	int m_layoutFirstPage { 0 };
 	double m_pageWidth { 1.0 };
 	double m_pageHeight { 1.0 };
 	double m_distance { 11.0 };

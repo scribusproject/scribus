@@ -2015,7 +2015,7 @@ void ScribusMainWindow::startUpDialog()
 		if (dia->tabSelected() == NewDocDialog::NewDocumentTab)
 		{
 			int facingPages = dia->choosenLayout();
-			int firstPage = dia->pageLayouts->firstPage();//firstPage->currentIndex();
+			int firstPage = dia->layoutFirstPage();
 			docSet = dia->startDocSetup->isChecked();
 			double topMargin = dia->marginGroup->margins().top();
 			double bottomMargin = dia->marginGroup->margins().bottom();
@@ -2091,7 +2091,7 @@ bool ScribusMainWindow::slotFileNew()
 		return false;
 
 	int facingPages = dia->choosenLayout();
-	int firstPage = dia->pageLayouts->firstPage();
+	int firstPage = dia->layoutFirstPage();
 	bool docSet = dia->startDocSetup->isChecked();
 	double topMargin = dia->marginGroup->margins().top();
 	double bottomMargin = dia->marginGroup->margins().bottom();
