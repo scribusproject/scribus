@@ -2479,7 +2479,7 @@ QMap<int, QImage> ScribusView::PagesToPixmap(int maxGr, int Nr, PageToPixmapFlag
 	if (m_doc == nullptr || maxGr <= 0)
 		return m_previews;
 
-	if (m_doc->DocPages.count() == 0)
+	if (m_doc->DocPages.isEmpty())
 		return m_previews;
 
 	// Preserve old settings
@@ -2498,7 +2498,7 @@ QMap<int, QImage> ScribusView::PagesToPixmap(int maxGr, int Nr, PageToPixmapFlag
 	bool mMode = m_doc->masterPageMode();
 
 	bool cmsCorr = false;
-	if ((m_doc->cmsSettings().CMSinUse) && (m_doc->cmsSettings().GamutCheck))
+	if ((m_doc->cmsSettings().CMSinUse) && (m_doc->cmsSettings().GamutCheck) && !flags.testFlag(Pixmap_NoCMSSettingsChange))
 	{
 		cmsCorr = true;
 		m_doc->cmsSettings().GamutCheck = false;

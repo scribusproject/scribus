@@ -208,7 +208,7 @@ void PagePalette_Pages::pageView_updatePagePreview()
 	}
 	else
 	{
-		PageToPixmapFlags flags = Pixmap_DrawFrame | Pixmap_DrawBackground | Pixmap_DontReloadImages | Pixmap_NoCanvasModeChange;
+		PageToPixmapFlags flags = Pixmap_DrawFrame | Pixmap_DrawBackground | Pixmap_DontReloadImages | Pixmap_NoCanvasModeChange | Pixmap_NoCMSSettingsChange;
 		QMap<int, QImage> previews = currView->PagesToPixmap(pageViewWidget->pageGrid()->pageHeight() * devicePixelRatio(), -1, flags);
 
 		for (int i = 0; i < currView->m_doc->DocPages.count(); ++i)

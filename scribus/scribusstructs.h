@@ -519,7 +519,8 @@ enum PageToPixmapFlag
 	Pixmap_DrawBackground = 1 << 1,
 	Pixmap_DrawWhiteBackground = 1 << 2,
 	Pixmap_DontReloadImages = 1 << 3,
-	Pixmap_NoCanvasModeChange = 1 << 4
+	Pixmap_NoCanvasModeChange = 1 << 4,
+	Pixmap_NoCMSSettingsChange = 1 << 5
 };
 
 Q_DECLARE_FLAGS(PageToPixmapFlags, PageToPixmapFlag);
