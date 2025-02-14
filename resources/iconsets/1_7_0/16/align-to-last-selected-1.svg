@@ -1,0 +1,19 @@
+<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><style>@import '../colors.css';</style>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M6 5H3V11H6V5ZM7 5H9V11H7V5ZM10 5H13V11H10V5Z"/>
+<path d="M3 1H1V3H2V2H3V1Z" fill-opacity="0.4"/>
+<path d="M6 1H4V2H6V1Z" fill-opacity="0.4"/>
+<path d="M7 1H9V2H7V1Z" fill-opacity="0.4"/>
+<path d="M12 1H10V2H12V1Z" fill-opacity="0.4"/>
+<path d="M13 1H15V3H14V2H13V1Z" fill-opacity="0.4"/>
+<path d="M15 4H14V6H15V4Z" fill-opacity="0.4"/>
+<path d="M14 7H15V9H14V7Z" fill-opacity="0.4"/>
+<path d="M15 10H14V12H15V10Z" fill-opacity="0.4"/>
+<path d="M14 14V13H15V15H13V14H14Z" fill-opacity="0.4"/>
+<path d="M12 14H10V15H12V14Z" fill-opacity="0.4"/>
+<path d="M7 14H9V15H7V14Z" fill-opacity="0.4"/>
+<path d="M6 14H4V15H6V14Z" fill-opacity="0.4"/>
+<path d="M1 13H2V14H3V15H1V13Z" fill-opacity="0.4"/>
+<path d="M2 10H1V12H2V10Z" fill-opacity="0.4"/>
+<path d="M1 7H2V9H1V7Z" fill-opacity="0.4"/>
+<path d="M2 4H1V6H2V4Z" fill-opacity="0.4"/>
+</svg>

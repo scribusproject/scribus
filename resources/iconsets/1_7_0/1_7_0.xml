@@ -173,6 +173,16 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon onLight="#68B259" onDark="#88CC7A" id="ok.png" file="16/alert-ok.svg" />
 		
 		<!-- Align & Distribute -->
+		<icon id="22/align-to-first-selected.png" file="16/align-to-first-selected.svg" />
+		<icon id="22/align-to-guides.png" file="16/align-to-guides.svg" />
+		<icon id="22/align-to-last-selected-1.png" file="16/align-to-last-selected-1.svg" />
+		<icon id="22/align-to-last-selected.png" file="16/align-to-last-selected.svg" />
+		<icon id="22/align-to-margin.png" file="16/align-to-margin.svg" />
+		<icon id="22/align-to-page.png" file="16/align-to-page.svg" />
+		<icon id="22/align-mode-move.png" file="16/align-mode-move.svg" />
+		<icon id="22/align-mode-resize.png" file="16/align-mode-resize.svg" />
+		<icon id="22/align-reverse-distribution-right.png" file="16/align-reverse-distribution-right.svg" />
+		<icon id="22/align-reverse-distribution-left.png" file="16/align-reverse-distribution-left.svg" />
 		<icon id="22/align-horizontal-center.png" file="16/align-item-horizontal-center.svg" />
 		<icon id="22/align-horizontal-left-out.png" file="16/align-item-horizontal-left-out.svg" />
 		<icon id="22/align-horizontal-left.png" file="16/align-item-horizontal-left.svg" />

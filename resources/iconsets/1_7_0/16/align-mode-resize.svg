@@ -1,0 +1,11 @@
+<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><style>@import '../colors.css';</style>
+<rect x="1" y="1" width="1" height="14" class="success"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M3 14V11H4V12H8V11H9V14H8V13H4V14H3Z" class="error"/>
+<path d="M3 2H5V3H4V4H3V2Z"/>
+<path d="M6 9H8V10H6V9Z"/>
+<path d="M3 8V10H5V9H4V8H3Z"/>
+<path d="M3 5H4V7H3V5Z"/>
+<path d="M6 2V3H8V2H6Z"/>
+<path d="M9 2V3H14V9H9V10H15V2H9Z"/>
+<rect x="4" y="3" width="10" height="6" fill-opacity="0.4"/>
+</svg>

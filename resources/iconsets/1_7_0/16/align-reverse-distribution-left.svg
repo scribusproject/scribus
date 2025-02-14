@@ -1,0 +1,4 @@
+<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><style>@import '../colors.css';</style>
+<path d="M2 1H1V15H2V1Z" class="success"/>
+<path d="M15 7.5L12 5V7H3V8H12V10L15 7.5Z" class="error"/>
+</svg>

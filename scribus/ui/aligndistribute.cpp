@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include "aligndistribute.h"
 
 #include <QComboBox>
+#include <QButtonGroup>
 #include <QEvent>
 #include <QImage>
 #include <QLabel>
@@ -45,11 +46,19 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "units.h"
 
-//TODO Distribute with 
-
 AlignDistribute::AlignDistribute(QWidget* parent) : QWidget(parent)
 {
 	setupUi(this);
+
+	sectionAlign->expand();
+	sectionAlign->setCanSaveState(true);
+	sectionAlign->restorePreferences();
+
+	sectionDistribute->expand();
+	sectionDistribute->setCanSaveState(true);
+	sectionDistribute->restorePreferences();
+
+
 }
 
 
@@ -66,6 +75,21 @@ AlignDistributePalette::AlignDistributePalette(QWidget* parent) : DockPanelBase(
 	//set up scrspinboxes
 	ad->distributeDistSpinBox->setValues(-10000.0, 10000.0, 2, 0.0);
 
+	groupReference = new QButtonGroup();
+
+	groupReference->addButton(ad->buttonReferenceFirst, 0);
+	groupReference->addButton(ad->buttonReferenceLast, 1);
+	groupReference->addButton(ad->buttonReferencePage, 2);
+	groupReference->addButton(ad->buttonReferenceMargins, 3);
+	groupReference->addButton(ad->buttonReferenceGuide, 4);
+	groupReference->addButton(ad->buttonReferenceSelection, 5);
+	ad->buttonReferenceFirst->setChecked(true);
+
+	groupMode = new QButtonGroup();
+	groupMode->addButton(ad->buttonModeMove, 0);
+	groupMode->addButton(ad->buttonModeResize, 1);
+	ad->buttonModeMove->setChecked(true);
+
 	resize( QSize(100, 100).expandedTo(minimumSizeHint()) );
 	languageChange();
 	init();
@@ -73,6 +97,7 @@ AlignDistributePalette::AlignDistributePalette(QWidget* parent) : DockPanelBase(
 
 	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 	connect(ScQApp, SIGNAL(localeChanged()), this, SLOT(localeChange()));
+	connect(ScQApp, SIGNAL(labelVisibilityChanged(bool)), this, SLOT(toggleLabelVisibility(bool)));
 }
 
 void AlignDistributePalette::changeEvent(QEvent *e)
@@ -89,26 +114,18 @@ void AlignDistributePalette::languageChange()
 {
 	ad->retranslateUi(this);
 
-	int alignComboValue = ad->alignRelativeToCombo->currentIndex();
-	ad->alignRelativeToCombo->clear();
-	ad->alignRelativeToCombo->addItem( tr( "First Selected" ) );
-	ad->alignRelativeToCombo->addItem( tr( "Last Selected" ) );
-	ad->alignRelativeToCombo->addItem( tr( "Page" ) );
-	ad->alignRelativeToCombo->addItem( tr( "Margins" ) );
-	ad->alignRelativeToCombo->addItem( tr( "Guide" ) );
-	ad->alignRelativeToCombo->addItem( tr( "Selection" ) );
-	ad->alignRelativeToCombo->setCurrentIndex(alignComboValue);
-	ad->alignRelativeToCombo->setToolTip( tr( "<qt>Align relative to the:<ul><li>First selected item</li><li>Second Selected Item</li><li>The current page</li><li>The margins of the current page</li><li>A Guide</li><li>The selection</ul></qt>" ) );
-	alignToChanged(alignComboValue);
+	referenceGuideTooltipTemplate = tr("Align relative to a guide%1");
 
-	int alignMethodValue = ad->alignMoveOrResizeCombo->currentIndex();
-	ad->alignMoveOrResizeCombo->clear();
-	ad->alignMoveOrResizeCombo->addItem( tr("Move") );
-	ad->alignMoveOrResizeCombo->addItem( tr("Resize") );
-	ad->alignMoveOrResizeCombo->setToolTip( tr( "<qt>When aligning one side of an item do one of the following:<ul><li>Always move the other side too (preserve existing width and height)</li><li>Keep the other side fixed (resize the item instead of moving it) whenever possible</li></ul></qt>" ));
-	alignMethodChanged(alignMethodValue);
+	ad->buttonReferenceFirst->setToolTip(tr("Align relative to the first selected item"));
+	ad->buttonReferenceLast->setToolTip(tr("Align relative to the last selected item"));
+	ad->buttonReferencePage->setToolTip(tr("Align relative to the current page"));
+	ad->buttonReferenceMargins->setToolTip(tr("Align relative to the margins of the current page"));
+	ad->buttonReferenceGuide->setToolTip(referenceGuideTooltipTemplate);
+	ad->buttonReferenceSelection->setToolTip(tr("Align relative the selection"));
 
-	ad->alignGuideLineEdit->setToolTip( tr( "The location of the selected guide to align to" ) );
+	ad->buttonModeMove->setToolTip(tr("When aligning one side of an item, always move the other side too (preserve existing width and height)"));
+	ad->buttonModeResize->setToolTip(tr("When aligning one side of an item,  whenever possible keep the other side fixed (resize the item instead of moving it)"));
+
 	ad->alignLeftOutToolButton->setToolTip( tr( "Align right sides of items to left side of anchor" ) );
 	ad->alignRightOutToolButton->setToolTip( tr( "Align left sides of items to right side of anchor" ) );
 	ad->alignBottomInToolButton->setToolTip( tr( "Align bottoms" ) );
@@ -137,12 +154,23 @@ void AlignDistributePalette::languageChange()
 	ad->distributeDownMarginsToolButton->setToolTip( tr( "Make vertical gaps between items and the top and bottom of page margins equal" ) );
 
 	ad->distributeDistSpinBox->setToolTip( tr( "Distribute the items with the distance specified" ) );
-	ad->reverseDistributionCheckBox->setToolTip( tr("When distributing by a set distance, reverse the direction of the distribution of items") );
-
-	guideInfoTextNone = tr("None Selected");
+	ad->reverseDistributionButton->setToolTip( tr("When distributing by a set distance, reverse the direction of the distribution of items") );
 
 	ad->swapLeftToolButton->setToolTip( tr( "Swap items to the left" ) );
 	ad->swapRightToolButton->setToolTip( tr( "Swap items to the right" ) );
+}
+
+void AlignDistributePalette::toggleLabelVisibility(bool v)
+{
+	ad->alignReferenceLabel->setLabelVisibility(v);
+	ad->alignModeLabel->setLabelVisibility(v);
+	ad->alignHorizontalLabel->setLabelVisibility(v);
+	ad->alignVerticalLabel->setLabelVisibility(v);
+	ad->swapLabel->setLabelVisibility(v);
+	ad->distributeHorizontalLabel->setLabelVisibility(v);
+	ad->distributeVerticalLabel->setLabelVisibility(v);
+	ad->distributeByGapLabel->setLabelVisibility(v);
+	ad->distributeByDistanceLabel->setLabelVisibility(v);
 }
 
 void AlignDistributePalette::init()
@@ -151,6 +179,8 @@ void AlignDistributePalette::init()
 
 	iconSetChange();
 
+	connect(groupReference, &QButtonGroup::idClicked, this, &AlignDistributePalette::alignToChanged);
+	connect(groupMode, &QButtonGroup::idClicked, this, &AlignDistributePalette::alignMethodChanged);
 	connect(ad->alignLeftOutToolButton, SIGNAL(clicked()), this, SLOT(alignLeftOut()));
 	connect(ad->alignRightOutToolButton, SIGNAL(clicked()), this, SLOT(alignRightOut()));
 	connect(ad->alignBottomInToolButton, SIGNAL(clicked()), this, SLOT(alignBottomIn()));
@@ -178,22 +208,30 @@ void AlignDistributePalette::init()
 	connect(ad->swapLeftToolButton, SIGNAL(clicked()), this, SLOT(swapLeft()));
 	connect(ad->swapRightToolButton, SIGNAL(clicked()), this, SLOT(swapRight()));
 
-	ad->alignRelativeToCombo->setCurrentIndex(0);
 	alignToChanged(0);
 	alignMethodChanged(0);
-	connect(ad->alignRelativeToCombo, SIGNAL(activated(int)), this, SLOT(alignToChanged(int)));
-	connect(ad->alignMoveOrResizeCombo, SIGNAL(activated(int)), this, SLOT(alignMethodChanged(int)));
 
 	unitRatio = 1.0;
 	guideDirection = -1;
-
-	guideInfoText = guideInfoTextNone;
-	ad->alignGuideLineEdit->setText(guideInfoTextNone);
 }
 
 void AlignDistributePalette::iconSetChange()
 {
 	IconManager& im = IconManager::instance();
+
+	ad->alignLeftOutToolButton->setIcon(im.loadIcon("align-horizontal-left-out.png"));
+	ad->buttonReferenceFirst->setIcon(im.loadIcon("22/align-to-first-selected.png"));
+	ad->buttonReferenceLast->setIcon(im.loadIcon("22/align-to-last-selected.png"));
+	ad->buttonReferencePage->setIcon(im.loadIcon("22/align-to-page.png"));
+	ad->buttonReferenceMargins->setIcon(im.loadIcon("22/align-to-margin.png"));
+	ad->buttonReferenceGuide->setIcon(im.loadIcon("22/align-to-guides.png"));
+	ad->buttonReferenceSelection->setIcon(im.loadIcon("22/align-to-last-selected-1.png"));
+	ad->buttonModeMove->setIcon(im.loadIcon("22/align-mode-move.png"));
+	ad->buttonModeResize->setIcon(im.loadIcon("22/align-mode-resize.png"));
+	QIcon reverseDistributionIcon;
+	reverseDistributionIcon.addPixmap(im.loadPixmap("22/align-reverse-distribution-right.png"), QIcon::Normal, QIcon::On);
+	reverseDistributionIcon.addPixmap(im.loadPixmap("22/align-reverse-distribution-left.png"), QIcon::Normal, QIcon::Off);
+	ad->reverseDistributionButton->setIcon(reverseDistributionIcon);
 
 	ad->alignLeftOutToolButton->setIcon(im.loadIcon("22/align-horizontal-left-out.png"));
 	ad->alignLeftInToolButton->setIcon(im.loadIcon("22/align-horizontal-left.png"));
@@ -330,7 +368,7 @@ void AlignDistributePalette::distributeRight()
 void AlignDistributePalette::distributeDistH(bool usingDistance)
 {
 	if (currDoc != nullptr)
-		currDoc->itemSelection_DistributeDistH(usingDistance, ad->distributeDistSpinBox->value(), ad->reverseDistributionCheckBox->isChecked());
+		currDoc->itemSelection_DistributeDistH(usingDistance, ad->distributeDistSpinBox->value(), ad->reverseDistributionButton->isChecked());
 }
 
 void AlignDistributePalette::distributeDistValH()
@@ -385,7 +423,7 @@ void AlignDistributePalette::distributeTop()
 void AlignDistributePalette::distributeDistV(bool usingDistance)
 {
 	if (currDoc != nullptr)
-		currDoc->itemSelection_DistributeDistV(usingDistance, ad->distributeDistSpinBox->value(), ad->reverseDistributionCheckBox->isChecked());
+		currDoc->itemSelection_DistributeDistV(usingDistance, ad->distributeDistSpinBox->value(), ad->reverseDistributionButton->isChecked());
 }
 
 void AlignDistributePalette::distributeDistValV()
@@ -420,10 +458,9 @@ void AlignDistributePalette::alignMethodChanged(int newAlignMethod)
 
 void AlignDistributePalette::setGuide(int direction, qreal position)
 {
-	//direction 0 = H, 1 = V
-// 	qDebug() << "AlignDistributePalette::setGuide(" << direction << "" << position << ")";
 	guideDirection = direction;
 	guidePosition = position;
+	ad->buttonReferenceGuide->animatePulsing();
 	enableGuideButtons();
 }
 
@@ -437,6 +474,7 @@ void AlignDistributePalette::localeChange()
 void AlignDistributePalette::enableGuideButtons()
 {
 	QString suffix;
+	QString guidePositionText;
 	double unitRatio = 1.0;
 	int precision = 1;
 	if (currDoc != nullptr)
@@ -450,17 +488,16 @@ void AlignDistributePalette::enableGuideButtons()
 	switch (guideDirection)
 	{
 		case -1:
-			guideInfoText = guideInfoTextNone;
 			if (currAlignTo == ScribusDoc::alignGuide)
 				setterH = setterV = false;
 			break;
 		case 0:
-			guideInfoText = tr("Y: %1%2").arg(guidePosition * unitRatio, 0, 'f', precision).arg(suffix);
+			guidePositionText = tr(": Y: %1%2").arg(guidePosition * unitRatio, 0, 'f', precision).arg(suffix);
 			if (currAlignTo == ScribusDoc::alignGuide)
 				setterV = false;
 			break;
 		case 1:
-			guideInfoText = tr("X: %1%2").arg(guidePosition * unitRatio, 0, 'f', precision).arg(suffix);
+			guidePositionText = tr(": X: %1%2").arg(guidePosition * unitRatio, 0, 'f', precision).arg(suffix);
 			if (currAlignTo == ScribusDoc::alignGuide)
 				setterH = false;
 			break;
@@ -481,6 +518,6 @@ void AlignDistributePalette::enableGuideButtons()
 	ad->alignBottomOutToolButton->setEnabled(setterO);
 	ad->alignCenterVerToolButton->setEnabled(setterH);
 
-	ad->alignGuideLineEdit->setText(guideInfoText);
+	ad->buttonReferenceGuide->setToolTip(referenceGuideTooltipTemplate.arg(guidePositionText == "" ? "" : guidePositionText));
 }
 

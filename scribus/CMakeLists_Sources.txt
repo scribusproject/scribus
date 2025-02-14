@@ -573,6 +573,7 @@ set(SCRIBUS_SOURCES
 	ui/widgets/pagesizepreview.cpp
 	ui/widgets/pagesizeselector.cpp
 	ui/widgets/popup_menu.cpp
+	ui/widgets/pulsing_toolbutton.cpp
 	ui/widgets/section_container.cpp
 	ui/widgets/stacked_container.cpp
 	ui/widgets/switch.cpp

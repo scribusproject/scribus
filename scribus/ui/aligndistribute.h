@@ -76,10 +76,13 @@ public:
 public slots:
 	void setGuide(int, qreal);
 	void localeChange();
+	void toggleLabelVisibility(bool v);
 
 protected:
 	ScribusView *currView { nullptr };
 	AlignDistribute * ad {nullptr};
+	QButtonGroup* groupReference;
+	QButtonGroup* groupMode;
 
 	void changeEvent(QEvent *e) override;
 	
@@ -129,8 +132,7 @@ private:
 	qreal unitRatio { 1.0 };
 	int guideDirection { -1 };
 	qreal guidePosition { 0.0 };
-	QString guideInfoText;
-	QString guideInfoTextNone;
+	QString referenceGuideTooltipTemplate;
 	
 signals:
 	void documentChanged();
