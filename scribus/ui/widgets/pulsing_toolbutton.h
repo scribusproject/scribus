@@ -18,13 +18,15 @@
 
 #include <QColor>
 #include <QToolButton>
+#include <QVariantAnimation>
 
-class QVariantAnimation;
+class QPaintEvent;
 class QWidget;
 
 class PulsingToolButton : public QToolButton
 {
 	Q_OBJECT
+
 public:
 	explicit PulsingToolButton(QWidget *parent = nullptr);
 	void animatePulsing();
@@ -33,7 +35,7 @@ protected:
 	void paintEvent(QPaintEvent *) override;
 
 private:
-	QVariantAnimation *m_transition;
+	QVariantAnimation *m_transition { nullptr };
 	QColor m_currentColor;
 };
 

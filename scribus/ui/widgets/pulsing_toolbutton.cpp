@@ -14,8 +14,7 @@
 #include <QWidget>
 
 PulsingToolButton::PulsingToolButton(QWidget *parent):
-	QToolButton(parent),
-	m_transition(nullptr)
+	QToolButton(parent)
 {
 }
 
@@ -24,19 +23,18 @@ void PulsingToolButton::paintEvent(QPaintEvent* event)
 	if (m_transition == nullptr)
 	{
 		QToolButton::paintEvent(event);
+		return;
 	}
-	else
-	{
-		QStylePainter p(this);
-		QStyleOptionToolButton opt;
-		initStyleOption(&opt);
-		p.drawComplexControl(QStyle::CC_ToolButton, opt);
 
-		m_currentColor.setAlpha(100);
-		p.setBrush(m_currentColor);
-		p.setPen(Qt::NoPen);
-		p.drawRect(0,0,width(),height());
-	}
+	QStylePainter p(this);
+	QStyleOptionToolButton opt;
+	initStyleOption(&opt);
+	p.drawComplexControl(QStyle::CC_ToolButton, opt);
+
+	m_currentColor.setAlpha(100);
+	p.setBrush(m_currentColor);
+	p.setPen(Qt::NoPen);
+	p.drawRect(0, 0, width(), height());
 }
 
 void PulsingToolButton::animatePulsing()
@@ -57,8 +55,8 @@ void PulsingToolButton::animatePulsing()
 	m_transition->setStartValue(startColor);
 	m_transition->setEndValue(endColor);
 
-	connect(m_transition, &QVariantAnimation::valueChanged, this, [this](const QVariant &value){m_currentColor = value.value<QColor>(); repaint();});
-	connect(m_transition, &QVariantAnimation::destroyed, this, [this](){m_transition = nullptr; repaint();});
+	connect(m_transition, &QVariantAnimation::valueChanged, this, [this](const QVariant& value) { m_currentColor = value.value<QColor>(); update(); });
+	connect(m_transition, &QVariantAnimation::destroyed, this, [this]() { m_transition = nullptr; update(); });
 
 	m_transition->start(QAbstractAnimation::DeleteWhenStopped);
 }
