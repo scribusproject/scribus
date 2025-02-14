@@ -690,6 +690,7 @@
     <moc Include="..\..\..\scribus\ui\widgets\pagesizepreview.h" />
     <moc Include="..\..\..\scribus\ui\widgets\pagesizeselector.h" />
     <ClInclude Include="..\..\..\scribus\ui\widgets\popup_menu.h" />
+    <moc Include="..\..\..\scribus\ui\widgets\pulsing_toolbutton.h" />
     <moc Include="..\..\..\scribus\ui\widgets\section_container.h" />
     <moc Include="..\..\..\scribus\ui\widgets\switch.h" />
     <ClInclude Include="..\..\..\scribus\ui\widgets\stacked_container.h" />
@@ -1502,6 +1503,7 @@
     <ClCompile Include="..\..\..\scribus\ui\widgets\pagesizepreview.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\widgets\pagesizeselector.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\widgets\popup_menu.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\widgets\pulsing_toolbutton.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\widgets\section_container.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\widgets\stacked_container.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\widgets\switch.cpp" />
