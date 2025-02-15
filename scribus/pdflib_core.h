@@ -277,6 +277,7 @@ private:
 
 	QByteArray drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex);
 	QByteArray createBorderAppearance(PageItem *ite);
+	QByteArray createCheckMarkAppearance(PageItem *ite);
 	QByteArray paintBorder(const TableBorder& border, const QPointF& start, const QPointF& end, const QPointF& startOffsetFactors, const QPointF& endOffsetFactors);
 	QByteArray handleBrushPattern(const PageItem* ite, const QPainterPath &path, const ScPage* pag, uint PNr);
 
