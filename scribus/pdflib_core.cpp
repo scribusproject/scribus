@@ -9355,7 +9355,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite)
 		QByteArray cc;
 		if (ite->fillColor() != CommonStrings::None)
 			cc += putColor(ite->fillColor(), ite->fillShade(), false);
-		cc += FToStr(x) + " " + FToStr(y2) + " " + FToStr(x2-x) + " " + FToStr(y-y2) + " re\nf\n";
+		cc += FToStr(x) + " " + FToStr(y2) + " " + FToStr(x2 - x) + " " + FToStr(y - y2) + " re\nf\n";
 		cc += createBorderAppearance(ite);
 		cc += "/Tx BMC\nBT\n";
 		if (ite->itemText.defaultStyle().charStyle().fillColor() != CommonStrings::None)
@@ -9364,7 +9364,6 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite)
 			cc += "/" + StdFonts[ind2PDFabr[ite->annotation().Font()]];
 		else
 			cc += UsedFontsF[ite->itemText.defaultStyle().charStyle().font().replacementName()].name;
-//			cc += UsedFontsP[ite->itemText.defaultStyle().charStyle().font().replacementName()] + "Form";
 		cc += " " + FToStr(ite->itemText.defaultStyle().charStyle().fontSize() / 10.0) + " Tf\n";
 		if (bmstUtf16.count() > 1)
 		{
@@ -9384,7 +9383,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite)
 	{
 		QByteArray cc;
 		cc += "q\n1 g\n";
-		cc += "0 0 " + FToStr(x2-x) + " " + FToStr(y-y2) + " re\nf\n";
+		cc += "0 0 " + FToStr(x2 - x) + " " + FToStr(y - y2) + " re\nf\n";
 		cc += createBorderAppearance(ite);
 		cc += "BT\n";
 		if (ite->itemText.defaultStyle().charStyle().fillColor() != CommonStrings::None)
@@ -9394,7 +9393,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite)
 		PDF_xForm(appearanceObj1, ite->width(), ite->height(), cc);
 		cc.clear();
 		cc += "q\n1 g\n";
-		cc += "0 0 " + FToStr(x2-x) + " " + FToStr(y-y2) + " re\nf\n";
+		cc += "0 0 " + FToStr(x2 - x) + " " + FToStr(y - y2) + " re\nf\n";
 		cc += createBorderAppearance(ite);
 		cc += "Q\n";
 		PDF_xForm(appearanceObj2, ite->width(), ite->height(), cc);
@@ -9403,7 +9402,7 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite)
 	{
 		QByteArray cc;
 		cc += "1 g\n";
-		cc += "0 0 " + FToStr(x2-x) + " " + FToStr(y-y2) + " re\nf\n";
+		cc += "0 0 " + FToStr(x2 - x) + " " + FToStr(y - y2) + " re\nf\n";
 		cc += createBorderAppearance(ite);
 		cc += "/Tx BMC\nq\nBT\n";
 		cc += "0 g\n";
@@ -9411,7 +9410,6 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite)
 			cc += "/" + StdFonts[ind2PDFabr[ite->annotation().Font()]];
 		else
 			cc += UsedFontsF[ite->itemText.defaultStyle().charStyle().font().replacementName()].name;
-//			cc += UsedFontsP[ite->itemText.defaultStyle().charStyle().font().replacementName()] + "Form";
 		cc += " " + FToStr(ite->itemText.defaultStyle().charStyle().fontSize() / 10.0) + " Tf\n";
 		cc += "1 0 0 1 0 0 Tm\n0 0 Td\n";
 		if (ite->annotation().Type() == Annotation::Listbox)
