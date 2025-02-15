@@ -189,7 +189,7 @@ PyObject *scribus_getfirstlineoffset(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_gettracking__doc__,
-	QT_TR_NOOP("getTracking([\"name\"]) -> integer\n\
+	QT_TR_NOOP("getTracking([\"name\"]) -> float\n\
 \n\
 Gets the tracking of text inside text frame \"name\".\n\
 If \"name\" is not given the currently selected item is used. \n\
@@ -201,7 +201,7 @@ PyObject *scribus_gettracking(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getwordtracking__doc__,
-QT_TR_NOOP("getWordTracking([\"name\"]) -> integer\n\
+QT_TR_NOOP("getWordTracking([\"name\"]) -> float\n\
 \n\
 Gets the word tracking of text inside text frame \"name\".\n\
 If \"name\" is not given the currently selected item is used. \n\
@@ -212,7 +212,7 @@ PyObject *scribus_getwordtracking(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getminwordtracking__doc__,
-QT_TR_NOOP("getMinWordTracking([\"name\"]) -> integer\n\
+QT_TR_NOOP("getMinWordTracking([\"name\"]) -> float\n\
 \n\
 Gets the min word tracking of text inside text frame \"name\".\n\
 If \"name\" is not given the currently selected item is used. \n\
