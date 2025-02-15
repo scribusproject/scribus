@@ -173,11 +173,11 @@ PyObject *scribus_gettracking(PyObject* /* self */, PyObject* args)
 		for (int i = 0; i < item->itemText.length(); ++i)
 		{
 			if (item->itemText.selected(i))
-				return PyLong_FromLong(item->itemText.charStyle(i).tracking() / 10.0);
+				return PyFloat_FromDouble(item->itemText.charStyle(i).tracking() / 10.0);
 		}
 		return nullptr;
 	}
-	return PyLong_FromLong(item->currentCharStyle().tracking() / 10.0);
+	return PyFloat_FromDouble(item->currentCharStyle().tracking() / 10.0);
 }
 
 PyObject *scribus_getwordtracking(PyObject* /* self */, PyObject* args)
@@ -200,11 +200,11 @@ PyObject *scribus_getwordtracking(PyObject* /* self */, PyObject* args)
 		for (int i = 0; i < item->itemText.length(); ++i)
 		{
 			if (item->itemText.selected(i))
-				return PyLong_FromLong(item->itemText.charStyle(i).wordTracking() * 100.0);
+				return PyFloat_FromDouble(item->itemText.charStyle(i).wordTracking() * 100.0);
 		}
 		return nullptr;
 	}
-	return PyLong_FromLong(item->currentCharStyle().wordTracking() * 100.0);
+	return PyFloat_FromDouble(item->currentCharStyle().wordTracking() * 100.0);
 }
 
 PyObject *scribus_getminwordtracking(PyObject* /* self */, PyObject* args)
@@ -227,12 +227,12 @@ PyObject *scribus_getminwordtracking(PyObject* /* self */, PyObject* args)
 		for (int i = 0; i < item->itemText.length(); ++i)
 		{
 			if (item->itemText.selected(i))
-				return PyLong_FromLong(item->itemText.paragraphStyle(i).minWordTracking() * 100.0);
+				return PyFloat_FromDouble(item->itemText.paragraphStyle(i).minWordTracking() * 100.0);
 		}
 		return nullptr;
 	}
 
-	return PyLong_FromLong(item->currentStyle().minWordTracking() * 100.0);
+	return PyFloat_FromDouble(item->currentStyle().minWordTracking() * 100.0);
 }
 
 PyObject *scribus_gettextlength(PyObject* /* self */, PyObject* args)
