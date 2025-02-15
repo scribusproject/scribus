@@ -1270,6 +1270,8 @@ public: // Start public functions
 	Annotation& annotation() { return m_annotation; }
 	const Annotation& annotation() const { return m_annotation; }
 
+	QPainterPath checkMarkPath() const;
+
 	bool imageVisible() const { return m_imageVisible; }
 	void setImageVisible(bool);
 

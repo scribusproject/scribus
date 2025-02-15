@@ -2395,6 +2395,8 @@ void PDFLibCore::PDF_Begin_WriteUsedFonts(const QMap<QString, QMap<uint, QString
 		qDebug() << pdfFont.name << "uses method" << meth << "and encoding" << pdfFont.encoding;
 		UsedFontsP.insert(it.key(), pdfFont);
 	}
+
+	PDF_WriteStandardFonts();
 }
 
 void PDFLibCore::PDF_Begin_Colors()
@@ -9385,11 +9387,8 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite)
 		cc += "q\n1 g\n";
 		cc += "0 0 " + FToStr(x2 - x) + " " + FToStr(y - y2) + " re\nf\n";
 		cc += createBorderAppearance(ite);
-		cc += "BT\n";
-		if (ite->itemText.defaultStyle().charStyle().fillColor() != CommonStrings::None)
-			cc += putColor(ite->itemText.defaultStyle().charStyle().fillColor(), ite->itemText.defaultStyle().charStyle().fillShade(), true);
-		cc += "/" + StdFonts["/ZapfDingbats"] + " " + FToStr(ite->itemText.defaultStyle().charStyle().fontSize() / 10.0) + " Tf\n";
-		cc += Pdf::toPdf(ite->annotation().borderWidth()) + " " + Pdf::toPdf(ite->annotation().borderWidth()) + " Td\n(" + ct + ") Tj\nET\nQ";
+		cc += createCheckMarkAppearance(ite);
+		cc += "Q\n";
 		PDF_xForm(appearanceObj1, ite->width(), ite->height(), cc);
 		cc.clear();
 		cc += "q\n1 g\n";
@@ -9572,6 +9571,32 @@ QByteArray PDFLibCore::createBorderAppearance(PageItem *ite)
 		}
 	}
 	ret += "Q\n";
+	return ret;
+}
+
+QByteArray PDFLibCore::createCheckMarkAppearance(PageItem* ite)
+{
+	QByteArray ret;
+	ret += "q\n";
+
+	if (ite->itemText.defaultStyle().charStyle().fillColor() != CommonStrings::None)
+		ret += putColor(ite->itemText.defaultStyle().charStyle().fillColor(), ite->itemText.defaultStyle().charStyle().fillShade(), true);
+
+	QPainterPath checkMarkPath = ite->checkMarkPath();
+	QRectF cmRect = checkMarkPath.boundingRect();
+	QRectF itRect(0.0, 0.0, ite->width(), ite->height());
+	double dx = itRect.center().x() - (cmRect.width() / 2.0);
+	double dy = itRect.center().y() - (cmRect.height() / 2.0);
+
+	FPointArray  checkMarkArr;
+	checkMarkArr.fromQPainterPath(checkMarkPath);
+	checkMarkArr.translate(0, -ite->height());
+	checkMarkArr.translate(dx, dy);
+	ret += SetClipPathArray(&checkMarkArr, true);
+	ret += "h\nf\n";
+
+	ret += "Q\n";
+
 	return ret;
 }
 

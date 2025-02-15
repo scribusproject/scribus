@@ -11293,6 +11293,116 @@ QString PageItem::getItemTextSaxed(int selStart, int selLength)
 	return QString(xml.c_str());
 }
 
+QPainterPath PageItem::checkMarkPath() const
+{
+	QPainterPath chkPath;
+	switch (annotation().ChkStil())
+	{
+	case 0:
+		chkPath.moveTo(6.60156, 0);
+		chkPath.lineTo(6.7725, 0.244063);
+		chkPath.cubicTo(6.7725, 0.244063, 5.7275, 1.03031, 4.44813, 2.66609);
+		chkPath.cubicTo(4.44813, 2.66609, 3.16891, 4.30172, 2.49516, 5.72266);
+		chkPath.lineTo(2.13375, 5.96672);
+		chkPath.cubicTo(2.13375, 5.96672, 1.68453, 6.27922, 1.52344, 6.43062);
+		chkPath.cubicTo(1.52344, 6.43062, 1.46, 6.20109, 1.24516, 5.67875);
+		chkPath.lineTo(1.10844, 5.36125);
+		chkPath.cubicTo(1.10844, 5.36125, 0.815469, 4.67766, 0.563906, 4.35062);
+		chkPath.cubicTo(0.563906, 4.35062, 0.3125, 4.02344, 0, 3.91594);
+		chkPath.cubicTo(0, 3.91594, 0.527344, 3.35938, 0.966875, 3.35938);
+		chkPath.cubicTo(0.966875, 3.35938, 1.34281, 3.35938, 1.80172, 4.37984);
+		chkPath.lineTo(1.95312, 4.72172);
+		chkPath.cubicTo(1.95312, 4.72172, 2.77828, 3.33, 4.07219, 2.01656);
+		chkPath.cubicTo(4.07219, 2.01656, 5.36625, 0.703125, 6.60156, 0);
+		chkPath.closeSubpath();
+		break;
+
+	case 1:
+		chkPath.moveTo(2.42672, 3.30078);
+		chkPath.lineTo(2.35359, 3.40328);
+		chkPath.cubicTo(2.35359, 3.40328, 1.59187, 4.55563, 1.10359, 4.55563);
+		chkPath.cubicTo(1.10359, 4.55563, 0.542031, 4.55563, 0, 3.64266);
+		chkPath.cubicTo(0, 3.64266, 0.0732812, 3.6475, 0.1075, 3.6475);
+		chkPath.cubicTo(0.1075, 3.6475, 0.747031, 3.6475, 1.53328, 2.67094);
+		chkPath.lineTo(1.665, 2.50484);
+		chkPath.lineTo(1.49422, 2.31937);
+		chkPath.cubicTo(1.49422, 2.31937, 0.776406, 1.55766, 0.776406, 1.02547);
+		chkPath.cubicTo(0.776406, 1.02547, 0.776406, 0.590781, 1.5625, 0);
+		chkPath.cubicTo(1.5625, 0, 1.67484, 0.756875, 2.23141, 1.47469);
+		chkPath.lineTo(2.37797, 1.66016);
+		chkPath.lineTo(2.49516, 1.50875);
+		chkPath.cubicTo(2.49516, 1.50875, 3.31062, 0.46875, 3.97469, 0.46875);
+		chkPath.cubicTo(3.97469, 0.46875, 4.49219, 0.46875, 4.76078, 1.25484);
+		chkPath.cubicTo(4.76078, 1.25484, 4.68266, 1.24516, 4.64844, 1.24516);
+		chkPath.cubicTo(4.64844, 1.24516, 4.41406, 1.24516, 3.98922, 1.56016);
+		chkPath.cubicTo(3.98922, 1.56016, 3.56453, 1.875, 3.27156, 2.27047);
+		chkPath.lineTo(3.125, 2.47078);
+		chkPath.lineTo(3.26656, 2.6075);
+		chkPath.cubicTo(3.26656, 2.6075, 4.05281, 3.36922, 4.90719, 3.36922);
+		chkPath.cubicTo(4.90719, 3.36922, 4.44828, 4.29687, 3.95016, 4.29687);
+		chkPath.cubicTo(3.95016, 4.29687, 3.50094, 4.29687, 2.65141, 3.50594);
+		chkPath.lineTo(2.42672, 3.30078);
+		chkPath.closeSubpath();
+		break;
+
+	case 2:
+		chkPath.moveTo(0, 4.09187);
+		chkPath.lineTo(2.89062, 0);
+		chkPath.lineTo(5.78125, 4.09187);
+		chkPath.lineTo(2.89062, 8.17875);
+		chkPath.closeSubpath();
+		break;
+
+	case 3:
+		chkPath.moveTo(0, 2.89062);
+		chkPath.cubicTo(0, 2.89062, 0, 1.69437, 0.847187, 0.847187);
+		chkPath.cubicTo(0.847187, 0.847187, 1.69437, 0, 2.89062, 0);
+		chkPath.cubicTo(2.89062, 0, 4.08703, 0, 4.93656, 0.847187);
+		chkPath.cubicTo(4.93656, 0.847187, 5.78625, 1.69437, 5.78625, 2.89062);
+		chkPath.cubicTo(5.78625, 2.89062, 5.78625, 4.08688, 4.93656, 4.93406);
+		chkPath.cubicTo(4.93656, 4.93406, 4.08703, 5.78125, 2.89062, 5.78125);
+		chkPath.cubicTo(2.89062, 5.78125, 1.69437, 5.78125, 0.847187, 4.93406);
+		chkPath.cubicTo(0.847187, 4.93406, 0, 4.08688, 0, 2.89062);
+		chkPath.closeSubpath();
+		break;
+
+	case 4:
+		chkPath.moveTo(0, 2.49516);
+		chkPath.lineTo(2.62219, 2.49516);
+		chkPath.lineTo(3.43266, 0);
+		chkPath.lineTo(4.24328, 2.49516);
+		chkPath.lineTo(6.86531, 2.49516);
+		chkPath.lineTo(4.74609, 4.03812);
+		chkPath.lineTo(5.55672, 6.53313);
+		chkPath.lineTo(3.43266, 4.99016);
+		chkPath.lineTo(1.30859, 6.53313);
+		chkPath.lineTo(2.11922, 4.03812);
+		chkPath.closeSubpath();
+		break;
+
+	case 5:
+		chkPath.moveTo(0, 5.78125);
+		chkPath.lineTo(0, 0);
+		chkPath.lineTo(5.78125, 0);
+		chkPath.lineTo(5.78125, 5.78125);
+		chkPath.closeSubpath();
+		break;
+
+	default:
+		break;
+	}
+
+	if (!chkPath.isEmpty())
+	{
+		QTransform mm;
+		double fontSize = itemText.defaultStyle().charStyle().fontSize() / 10.0;
+		mm.scale(fontSize / 10.0, fontSize / 10.0);
+		chkPath = mm.map(chkPath);
+	}
+
+	return chkPath;
+}
+
 bool compareItemLevel(const PageItem* item1, const PageItem* item2)
 {
 	int level1 = item1->level();
