@@ -1152,7 +1152,7 @@ public:
 	void itemSelection_SetRenderIntent(int intentIndex, Selection* customSelection = nullptr);
 	void itemSelection_SetCompressionMethod(int cmIndex, Selection* customSelection = nullptr);
 	void itemSelection_SetCompressionQuality(int cqIndex, Selection* customSelection = nullptr);
-	void itemSelection_SetTracking(int us, Selection* customSelection = nullptr);
+	void itemSelection_SetTracking(double us, Selection* customSelection = nullptr);
 	void itemSelection_SetWordTracking(double us, Selection* customSelection = nullptr);
 	void MirrorPolyH(PageItem *currItem);
 	void MirrorPolyV(PageItem *currItem);
