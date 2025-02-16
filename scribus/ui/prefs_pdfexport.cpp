@@ -251,10 +251,10 @@ void Prefs_PDFExport::languageChange()
 	imageRenderingIntentComboBox->clear();
 	
 	std::array<QString, 4> tmp_ip = { tr("Perceptual"), tr("Relative Colorimetric"), tr("Saturation"), tr("Absolute Colorimetric")};
-	for (size_t a = 0; a < tmp_ip.size(); ++a)
-		solidColorRenderingIntentComboBox->addItem(tmp_ip[a]);
-	for (size_t a = 0; a < tmp_ip.size(); ++a)
-		imageRenderingIntentComboBox->addItem(tmp_ip[a]);
+	for (const auto& intent : tmp_ip)
+		solidColorRenderingIntentComboBox->addItem(intent);
+	for (const auto& intent : tmp_ip)
+		imageRenderingIntentComboBox->addItem(intent);
 	solidColorRenderingIntentComboBox->setCurrentIndex(i);
 	imageRenderingIntentComboBox->setCurrentIndex(j);
 }
@@ -314,7 +314,7 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 		toSubsetButton->setEnabled(false);
 		fromSubsetButton->setEnabled(false);
 
-		if ((Opts.EmbedList.count() == 0) && (Opts.SubsetList.count() == 0) && (Opts.firstUse))
+		if (Opts.EmbedList.isEmpty() && Opts.SubsetList.isEmpty() && Opts.firstUse)
 			EmbedAll();
 		else
 		{
@@ -334,11 +334,10 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 						Opts.SubsetList.append(fontName);
 				}
 			}
-			QMap<QString, QString>::Iterator itAnn;
-			for (itAnn = AnnotationFonts.begin(); itAnn != AnnotationFonts.end(); ++itAnn)
+			for (auto itAnn = AnnotationFonts.begin(); itAnn != AnnotationFonts.end(); ++itAnn)
 			{
 				QList<QListWidgetItem *> itEmbed = embeddedFontsListWidget->findItems(itAnn.key(), Qt::MatchExactly);
-				if (itEmbed.count() == 0)
+				if (itEmbed.isEmpty())
 				{
 					QListWidgetItem* item = addFontItem(itAnn.key(), embeddedFontsListWidget);
 					item->setFlags(Qt::ItemIsEnabled);
@@ -374,10 +373,9 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 		hideViewerToolBarCheckBox->setChecked(Opts.hideToolBar);
 		hideViewerMenuBarCheckBox->setChecked(Opts.hideMenuBar);
 		fitViewerWindowCheckBox->setChecked(Opts.fitWindow);
-		QMap<QString,QString>::Iterator itja;
 		startupJavascriptComboBox->clear();
 		startupJavascriptComboBox->addItem( tr("No Script"));
-		for (itja = m_doc->JavaScripts.begin(); itja != m_doc->JavaScripts.end(); ++itja)
+		for (auto itja = m_doc->JavaScripts.begin(); itja != m_doc->JavaScripts.end(); ++itja)
 			startupJavascriptComboBox->addItem(itja.key());
 		if (m_doc->JavaScripts.contains(Opts.openAction))
 			setCurrentComboItem(startupJavascriptComboBox, Opts.openAction);
@@ -419,9 +417,8 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 	bleedsWidget->setMarginPreset(prefsData->docSetupPrefs.marginPreset);
 //
 	useCustomRenderingCheckBox->setChecked(prefsData->pdfPrefs.UseLPI);
-	QMap<QString,LPIData>::Iterator itlp;
 	customRenderingColorComboBox->clear();
-	for (itlp = prefsData->pdfPrefs.LPISettings.begin(); itlp != prefsData->pdfPrefs.LPISettings.end(); ++itlp)
+	for (auto itlp = prefsData->pdfPrefs.LPISettings.begin(); itlp != prefsData->pdfPrefs.LPISettings.end(); ++itlp)
 		customRenderingColorComboBox->addItem( itlp.key() );
 	customRenderingColorComboBox->setCurrentIndex(0);
 
@@ -448,10 +445,9 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 		else
 			tp = defaultSolidColorRGBProfile;
 	}
-	ProfilesL::Iterator itp;
 	ProfilesL::Iterator itpend = ScCore->InputProfiles.end();
 	solidColorProfileComboBox->clear();
-	for (itp = ScCore->InputProfiles.begin(); itp != itpend; ++itp)
+	for (auto itp = ScCore->InputProfiles.begin(); itp != itpend; ++itp)
 	{
 		solidColorProfileComboBox->addItem(itp.key());
 		if (itp.key() == tp)
@@ -469,10 +465,9 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 		else
 			tp1 = defaultSolidColorRGBProfile;
 	}
-	ProfilesL::Iterator itp2;
 	ProfilesL::Iterator itp2end = ScCore->InputProfiles.end();
 	imageProfileComboBox->clear();
-	for (itp2 = ScCore->InputProfiles.begin(); itp2 != itp2end; ++itp2)
+	for (auto itp2 = ScCore->InputProfiles.begin(); itp2 != itp2end; ++itp2)
 	{
 		imageProfileComboBox->addItem(itp2.key());
 		if (itp2.key() == tp1)
@@ -489,7 +484,6 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 		enableSolidsImagesWidgets(false);
 	}
 
-	ProfilesL::const_iterator itp3;
 	QString tp3(Opts.PrintProf);
 	if (!PDFXProfiles.contains(tp3))
 	{
@@ -499,7 +493,7 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 			tp3 = defaultPrinterProfile;
 	}
 	pdfx3OutputProfileComboBox->clear();
-	for (itp3 = PDFXProfiles.constBegin(); itp3 != PDFXProfiles.constEnd(); ++itp3)
+	for (auto itp3 = PDFXProfiles.constBegin(); itp3 != PDFXProfiles.constEnd(); ++itp3)
 	{
 		pdfx3OutputProfileComboBox->addItem(itp3.key());
 		if (itp3.key() == tp3)
@@ -814,16 +808,12 @@ void Prefs_PDFExport::enableLPI(int i)
 				tp = defaultSolidColorRGBProfile;
 		}
 		solidColorProfileComboBox->clear();
-		ProfilesL::Iterator itp;
 		ProfilesL::Iterator itpend = ScCore->InputProfiles.end();
-		for (itp = ScCore->InputProfiles.begin(); itp != itpend; ++itp)
+		for (auto itp = ScCore->InputProfiles.begin(); itp != itpend; ++itp)
 		{
 			solidColorProfileComboBox->addItem(itp.key());
-			if (itp.key() == tp)
-			{
-				if (cmsEnabled)
-					solidColorProfileComboBox->setCurrentIndex(solidColorProfileComboBox->count() - 1);
-			}
+			if (cmsEnabled && itp.key() == tp)
+				solidColorProfileComboBox->setCurrentIndex(solidColorProfileComboBox->count() - 1);
 		}
 		if (cmsEnabled)
 			solidColorRenderingIntentComboBox->setCurrentIndex(Opts.Intent);
@@ -836,16 +826,12 @@ void Prefs_PDFExport::enableLPI(int i)
 				tp1 = defaultSolidColorRGBProfile;
 		}
 		imageProfileComboBox->clear();
-		ProfilesL::Iterator itp2;
 		ProfilesL::Iterator itp2end = ScCore->InputProfiles.end();
-		for (itp2 = ScCore->InputProfiles.begin(); itp2 != itp2end; ++itp2)
+		for (auto itp2 = ScCore->InputProfiles.begin(); itp2 != itp2end; ++itp2)
 		{
 			imageProfileComboBox->addItem(itp2.key());
-			if (itp2.key() == tp1)
-			{
-				if (cmsEnabled)
-					imageProfileComboBox->setCurrentIndex(imageProfileComboBox->count() - 1);
-			}
+			if (cmsEnabled && itp2.key() == tp1)
+				imageProfileComboBox->setCurrentIndex(imageProfileComboBox->count() - 1);
 		}
 		if (cmsEnabled)
 			imageRenderingIntentComboBox->setCurrentIndex(Opts.Intent2);
@@ -1378,7 +1364,7 @@ void Prefs_PDFExport::PutToSubset()
 		QString currentFont = fontItem->text();
 		if (subsettedFontsListWidget->count() != 0)
 		{
-			if (subsettedFontsListWidget->findItems(currentFont, Qt::MatchExactly).count() == 0)
+			if (subsettedFontsListWidget->findItems(currentFont, Qt::MatchExactly).isEmpty())
 				addFontItem(currentFont, subsettedFontsListWidget);
 		}
 		else
