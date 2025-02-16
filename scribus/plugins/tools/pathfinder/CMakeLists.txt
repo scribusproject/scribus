@@ -4,11 +4,6 @@ include_directories(
 )
 
 install(FILES
-	pathexclusion.png
-	pathintersection.png
-	pathparts.png
-	pathsubtraction.png
-	pathunite.png
 	DESTINATION ${ICONDIR}/1_7_0/
 )
 

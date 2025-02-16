@@ -78,7 +78,7 @@ ColorsAndFillsDialog::ColorsAndFillsDialog(QWidget* parent, QHash<QString, VGrad
 	setupUi(this);
 	setModal(true);
 
-	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("app-icon"));
 	dataTree->setContextMenuPolicy(Qt::CustomContextMenu);
 	dataTree->setIconSize(QSize(60, 48));
 	colorItems = new QTreeWidgetItem(dataTree);
@@ -232,7 +232,7 @@ QTreeWidgetItem* ColorsAndFillsDialog::updateGradientList(const QString& addedNa
 		VGradient gr = dialogGradients.value(patK[i]);
 		QImage pixm(48, 12, QImage::Format_ARGB32);
 		QPainter pb;
-		QBrush b(QColor(205,205,205), IconManager::instance().loadPixmap("testfill.png"));
+		QBrush b(QColor(205,205,205), IconManager::instance().loadPixmap("testfill"));
 		pb.begin(&pixm);
 		pb.fillRect(0, 0, 48, 12, b);
 		pb.end();

@@ -67,7 +67,7 @@ SATDialog::SATDialog(QWidget* parent, const QString& tmplName, int pageW, int pa
 	setupUi(this);
 	setModal(true);
 	setWindowTitle( tr("Save as Template"));
-	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("app-icon"));
 	readPrefs();
 	
 	nameEdit->setText(tmplName);

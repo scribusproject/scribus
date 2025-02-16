@@ -16,7 +16,7 @@ Prefs_Miscellaneous::Prefs_Miscellaneous(QWidget* parent, ScribusDoc* /*doc*/)
 	languageChange();
 
 	m_caption = tr("Miscellaneous");
-	m_icon = "misc_16.png";
+	m_icon = "pref-miscellaneous";
 }
 
 Prefs_Miscellaneous::~Prefs_Miscellaneous() = default;

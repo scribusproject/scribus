@@ -17,9 +17,9 @@ CxfImportDialog::CxfImportDialog(QWidget* parent)
 	setupUi(this);
 	setDefaultPriorities();
 	
-	buttonUp->setIcon(IconManager::instance().loadIcon("16/go-up.png"));
+	buttonUp->setIcon(IconManager::instance().loadIcon("go-up"));
 	buttonUp->setEnabled(false);
-	buttonDown->setIcon(IconManager::instance().loadIcon("16/go-down.png"));
+	buttonDown->setIcon(IconManager::instance().loadIcon("go-down"));
 	buttonDown->setEnabled(false);
 
 	connect(buttonUp, SIGNAL(clicked()), this, SLOT(moveUp()));

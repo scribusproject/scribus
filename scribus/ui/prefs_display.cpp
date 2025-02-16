@@ -27,9 +27,9 @@ Prefs_Display::Prefs_Display(QWidget* parent, ScribusDoc* doc) : Prefs_Pane(pare
 	languageChange();
 
 	m_caption = tr("Display");
-	m_icon = "16/video-display.png";
+	m_icon = "pref-display";
 
-	buttonRestoreDPI->setIcon(IconManager::instance().loadIcon("screen.png"));
+	buttonRestoreDPI->setIcon(IconManager::instance().loadIcon("pref-display"));
 
 	connect(pageFillColorButton, SIGNAL(clicked()), this, SLOT(changePaperColor()));
 

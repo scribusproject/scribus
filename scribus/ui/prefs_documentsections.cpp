@@ -25,7 +25,7 @@ Prefs_DocumentSections::Prefs_DocumentSections(QWidget* parent, ScribusDoc* doc)
 	languageChange();
 
 	m_caption = tr("Sections");
-	m_icon = "section";
+	m_icon = "pref-section";
 
 	connect(sectionsTable, SIGNAL(cellChanged(int,int)), this, SLOT(tableItemChanged(int,int)));
 	connect(addButton, SIGNAL(clicked()), this, SLOT(addEntry()));

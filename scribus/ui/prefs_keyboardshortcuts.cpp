@@ -35,7 +35,7 @@ Prefs_KeyboardShortcuts::Prefs_KeyboardShortcuts(QWidget* parent, ScribusDoc* /*
 	languageChange();
 
 	m_caption = tr("Keyboard Shortcuts");
-	m_icon = "16/preferences-desktop-keyboard-shortcuts.png";
+	m_icon = "pref-keyboard-shortcuts";
 
 	defMenus = ActionManager::defaultMenus();
 	defNonMenuActions = ActionManager::defaultNonMenuActions();
@@ -70,7 +70,7 @@ Prefs_KeyboardShortcuts::Prefs_KeyboardShortcuts(QWidget* parent, ScribusDoc* /*
 	keyDisplay->setText("");
 	selectedLVI = nullptr;
 
-	clearSearchButton->setIcon(IconManager::instance().loadIcon("clear_right.png"));
+	clearSearchButton->setIcon(IconManager::instance().loadIcon("clear-right"));
 	// signals and slots connections
 	connect( keyTable, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)), this, SLOT(dispKey(QTreeWidgetItem*,QTreeWidgetItem*)));
 	connect( noKey, SIGNAL(clicked()), this, SLOT(setNoKey()));

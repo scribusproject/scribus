@@ -726,8 +726,8 @@ void PropertiesPalette_Fill::iconSetChange()
 {
 	IconManager& im = IconManager::instance();
 
-	evenOdd->setIcon(im.loadIcon("fill-rule-even-odd.png"));
-	nonZero->setIcon(im.loadIcon("fill-rule-nonzero.png"));
+	evenOdd->setIcon(im.loadIcon("fill-rule-even-odd"));
+	nonZero->setIcon(im.loadIcon("fill-rule-nonzero"));
 
 	buttonFillMask->setDotIcon(im.loadIcon("mask", 8));
 

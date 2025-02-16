@@ -32,7 +32,7 @@ Prefs_DocumentSetup::Prefs_DocumentSetup(QWidget* parent, ScribusDoc* doc)
 	scrollArea->widget()->setAutoFillBackground(false);
 
 	m_caption = tr("Document Setup");
-	m_icon = "scribusdoc16.png";
+	m_icon = "pref-document-setup";
 
 	if (!m_doc)
 	{

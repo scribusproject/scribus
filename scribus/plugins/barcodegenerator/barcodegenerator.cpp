@@ -285,7 +285,7 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 
 	ui.okButton->setText(CommonStrings::tr_OK);
 	ui.cancelButton->setText(CommonStrings::tr_Cancel);
-	ui.resetButton->setIcon(IconManager::instance().loadIcon("u_undo16.png"));
+	ui.resetButton->setIcon(IconManager::instance().loadIcon("u_undo"));
 
 	if (ScCore->primaryMainWindow()->doc->PageColors.contains("Black"))
 	{

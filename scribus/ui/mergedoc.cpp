@@ -36,7 +36,7 @@ MergeDoc::MergeDoc(QWidget* parent, bool importMasterPages, int targetDocPageCou
 	masterPages = importMasterPages;
 	setModal(true);
 	setWindowTitle((masterPages) ? tr("Import Master Page") : tr( "Import Page(s)" ));
-	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("app-icon"));
 
 	dialogLayout = new QVBoxLayout(this);
 	dialogLayout->setContentsMargins(9, 9, 9, 9);

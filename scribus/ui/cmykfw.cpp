@@ -61,7 +61,7 @@ CMYKChoose::CMYKChoose(QWidget* parent, ScribusDoc* doc, const ScColor& orig, co
 	setModal(true);
 
 	CurrSwatch.clear();
-	alertIcon = IconManager::instance().loadPixmap("alert.png");
+	alertIcon = IconManager::instance().loadPixmap("alert-warning");
 	imageA.fill( ScColorEngine::getDisplayColor(orig, m_doc));
 	if ( ScColorEngine::isOutOfGamut(orig, m_doc))
 		paintAlert(alertIcon,imageA, 2, 2);
@@ -71,7 +71,7 @@ CMYKChoose::CMYKChoose(QWidget* parent, ScribusDoc* doc, const ScColor& orig, co
 
 	resize( 498, 306 );
 	setWindowTitle( tr( "Edit Color" ));
-	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("app-icon"));
 
 	setupUi(this);
 	ColorMap->setDoc(doc);

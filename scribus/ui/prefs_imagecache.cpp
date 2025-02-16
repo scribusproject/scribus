@@ -19,7 +19,7 @@ Prefs_ImageCache::Prefs_ImageCache(QWidget* parent, ScribusDoc* /*doc*/)
 	languageChange();
 
 	m_caption = tr("Image Cache");
-	m_icon = "16/image-x-generic.png";
+	m_icon = "image-x-generic";
 }
 
 void Prefs_ImageCache::languageChange()

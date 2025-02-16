@@ -118,15 +118,15 @@ void PageLayouts::reloadScheme()
 
 		QString psname = CommonStrings::translatePageSetString(m_pageSets[pg].Name);
 		if (pg == 0)
-			menuScheme->addAction(IconManager::instance().loadIcon("16/page-simple.png"), psname)->setData(QVariant(pg));
+			menuScheme->addAction(IconManager::instance().loadIcon("page-simple"), psname)->setData(QVariant(pg));
 		else if (pg == 1)
-			menuScheme->addAction(IconManager::instance().loadIcon("16/page-doublesided.png"), psname)->setData(QVariant(pg));
+			menuScheme->addAction(IconManager::instance().loadIcon("page-doublesided"), psname)->setData(QVariant(pg));
 		else if (pg == 2)
-			menuScheme->addAction(IconManager::instance().loadIcon("16/page-3fold.png"), psname)->setData(QVariant(pg));
+			menuScheme->addAction(IconManager::instance().loadIcon("page-3fold"), psname)->setData(QVariant(pg));
 		else if (pg == 3)
-			menuScheme->addAction(IconManager::instance().loadIcon("16/page-4fold.png"), psname)->setData(QVariant(pg));
+			menuScheme->addAction(IconManager::instance().loadIcon("page-4fold"), psname)->setData(QVariant(pg));
 		else
-			menuScheme->addAction(IconManager::instance().loadIcon("16/page-simple.png"), psname)->setData(QVariant(pg));
+			menuScheme->addAction(IconManager::instance().loadIcon("page-simple"), psname)->setData(QVariant(pg));
 	}
 
 	connect(menuScheme, &QMenu::triggered, this, &PageLayouts::changeScheme);

@@ -250,7 +250,7 @@ void HelpBrowser::setupLocalUI()
 {
 	IconManager& iconManager = IconManager::instance();
 
-	setWindowIcon(iconManager.loadIcon("AppIcon.png"));
+	setWindowIcon(iconManager.loadIcon("app-icon"));
 	//Add Menus
 	fileMenu = menuBar()->addMenu("");
 	editMenu = menuBar()->addMenu("");
@@ -259,20 +259,20 @@ void HelpBrowser::setupLocalUI()
 
 	//Add Menu items
 #if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
-	filePrint = fileMenu->addAction(iconManager.loadIcon("16/document-print.png"), "", Qt::CTRL|Qt::Key_P, this, &HelpBrowser::print);
+	filePrint = fileMenu->addAction(iconManager.loadIcon("document-print"), "", Qt::CTRL|Qt::Key_P, this, &HelpBrowser::print);
 	fileMenu->addSeparator();
-	fileExit = fileMenu->addAction(iconManager.loadIcon("exit.png"), "", Qt::CTRL|Qt::Key_W, this, &HelpBrowser::close);
-	editFind = editMenu->addAction(iconManager.loadIcon("find.png"), "", Qt::CTRL|Qt::Key_F, this, &HelpBrowser::find);
+	fileExit = fileMenu->addAction(iconManager.loadIcon("exit"), "", Qt::CTRL|Qt::Key_W, this, &HelpBrowser::close);
+	editFind = editMenu->addAction(iconManager.loadIcon("find"), "", Qt::CTRL|Qt::Key_F, this, &HelpBrowser::find);
 	editFindNext = editMenu->addAction( "", Qt::Key_F3, this, &HelpBrowser::findNext);
 	editFindPrev = editMenu->addAction( "", Qt::SHIFT|Qt::Key_F3, this, &HelpBrowser::findPrevious);
 	bookAdd = bookMenu->addAction( "", Qt::CTRL|Qt::Key_D, this, &HelpBrowser::bookmarkButton_clicked);
 	bookDel = bookMenu->addAction( "", this, &HelpBrowser::deleteBookmarkButton_clicked);
 	bookDelAll = bookMenu->addAction( "", this, &HelpBrowser::deleteAllBookmarkButton_clicked);
 #else
-	filePrint = fileMenu->addAction(iconManager.loadIcon("16/document-print.png"), "", this, SLOT(print()), Qt::CTRL | Qt::Key_P);
+	filePrint = fileMenu->addAction(iconManager.loadIcon("document-print"), "", this, SLOT(print()), Qt::CTRL | Qt::Key_P);
 	fileMenu->addSeparator();
-	fileExit = fileMenu->addAction(iconManager.loadIcon("exit.png"), "", this, SLOT(close()), Qt::CTRL | Qt::Key_W);
-	editFind = editMenu->addAction(iconManager.loadIcon("find.png"), "", this, SLOT(find()), Qt::CTRL | Qt::Key_F);
+	fileExit = fileMenu->addAction(iconManager.loadIcon("exit"), "", this, SLOT(close()), Qt::CTRL | Qt::Key_W);
+	editFind = editMenu->addAction(iconManager.loadIcon("find"), "", this, SLOT(find()), Qt::CTRL | Qt::Key_F);
 	editFindNext = editMenu->addAction("", this, SLOT(findNext()), Qt::Key_F3);
 	editFindPrev = editMenu->addAction("", this, SLOT(findPrevious()), Qt::SHIFT | Qt::Key_F3);
 	bookAdd = bookMenu->addAction("", this, SLOT(bookmarkButton_clicked()), Qt::CTRL | Qt::Key_D);
@@ -282,13 +282,13 @@ void HelpBrowser::setupLocalUI()
 
 	//Add Toolbar items
 #if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
-	goHome = toolBar->addAction(iconManager.loadIcon("16/go-home.png"), "", textBrowser, &ScTextBrowser::home);
-	goBack = toolBar->addAction(iconManager.loadIcon("16/go-previous.png"), "", textBrowser, &ScTextBrowser::backward);
-	goFwd = toolBar->addAction(iconManager.loadIcon("16/go-next.png"), "", textBrowser, &ScTextBrowser::forward);
+	goHome = toolBar->addAction(iconManager.loadIcon("go-home"), "", textBrowser, &ScTextBrowser::home);
+	goBack = toolBar->addAction(iconManager.loadIcon("go-previous"), "", textBrowser, &ScTextBrowser::backward);
+	goFwd = toolBar->addAction(iconManager.loadIcon("go-next"), "", textBrowser, &ScTextBrowser::forward);
 #else
-	goHome = toolBar->addAction(iconManager.loadIcon("16/go-home.png"), "", textBrowser, SLOT(home()));
-	goBack = toolBar->addAction(iconManager.loadIcon("16/go-previous.png"), "", textBrowser, SLOT(backward()));
-	goFwd = toolBar->addAction(iconManager.loadIcon("16/go-next.png"), "", textBrowser, SLOT(forward()));
+	goHome = toolBar->addAction(iconManager.loadIcon("go-home"), "", textBrowser, SLOT(home()));
+	goBack = toolBar->addAction(iconManager.loadIcon("go-previous"), "", textBrowser, SLOT(backward()));
+	goFwd = toolBar->addAction(iconManager.loadIcon("go-next"), "", textBrowser, SLOT(forward()));
 #endif
 	goBack->setMenu(histMenu);
 	

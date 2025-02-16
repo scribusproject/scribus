@@ -31,6 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include <QString>
 #include <QWidget>
 
+
 // include cmdvar.h first, as it pulls in <Python.h>
 #include "cmdannotations.h"
 #include "cmdvar.h"

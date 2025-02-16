@@ -36,8 +36,8 @@ void SMCellStyleWidget::changeEvent(QEvent *e)
 void SMCellStyleWidget::iconSetChange()
 {
 	IconManager& iconManager = IconManager::instance();
-	fillColorIcon->setPixmap(iconManager.loadPixmap("16/color-fill.png"));
-	fillShadeLabel->setPixmap(iconManager.loadPixmap("shade.png") );
+	fillColorIcon->setPixmap(iconManager.loadPixmap("color-fill"));
+	fillShadeLabel->setPixmap(iconManager.loadPixmap("shade") );
 }
 
 void SMCellStyleWidget::languageChange()

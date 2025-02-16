@@ -25,8 +25,8 @@ SMLineStyleWidget::SMLineStyleWidget()
 
 	colorCombo->setPixmapType(ColorCombo::fancyPixmaps);
 
-	addButton->setIcon(IconManager::instance().loadIcon("penciladd.png"));
-	removeButton->setIcon(IconManager::instance().loadIcon("pencilsub.png"));
+	addButton->setIcon(IconManager::instance().loadIcon("stroke-add"));
+	removeButton->setIcon(IconManager::instance().loadIcon("stroke-remove"));
 
 	lineWidth->setMinimum(0.0);
 	lineWidth->setMaximum(300.0);
@@ -51,8 +51,8 @@ void SMLineStyleWidget::iconSetChange()
 {
 	IconManager& iconManager = IconManager::instance();
 
-	addButton->setIcon(iconManager.loadIcon("penciladd.png"));
-	removeButton->setIcon(iconManager.loadIcon("pencilsub.png"));
+	addButton->setIcon(iconManager.loadIcon("stroke-add"));
+	removeButton->setIcon(iconManager.loadIcon("stroke-remove"));
 
 	int  oldEndComboIndex = endCombo->currentIndex();
 	bool endComboBlocked  = endCombo->blockSignals(true);
@@ -108,9 +108,9 @@ void SMLineStyleWidget::fillEndCombo()
 	IconManager& im  = IconManager::instance();
 
 	endCombo->clear();
-	endCombo->addItem(im.loadIcon("ButtCap.png"), tr( "Flat Cap" ) );
-	endCombo->addItem(im.loadIcon("SquareCap.png"), tr( "Square Cap" ) );
-	endCombo->addItem(im.loadIcon("RoundCap.png"), tr( "Round Cap" ) );
+	endCombo->addItem(im.loadIcon("stroke-cap-butt"), tr( "Flat Cap" ) );
+	endCombo->addItem(im.loadIcon("stroke-cap-square"), tr( "Square Cap" ) );
+	endCombo->addItem(im.loadIcon("stroke-cap-round"), tr( "Round Cap" ) );
 }
 
 void SMLineStyleWidget::fillJoinCombo()
@@ -118,9 +118,9 @@ void SMLineStyleWidget::fillJoinCombo()
 	IconManager& im  = IconManager::instance();
 
 	joinCombo->clear();
-	joinCombo->addItem(im.loadIcon("MiterJoin.png"), tr( "Miter Join" ) );
-	joinCombo->addItem(im.loadIcon("BevelJoin.png"), tr( "Bevel Join" ) );
-	joinCombo->addItem(im.loadIcon("RoundJoin.png"), tr( "Round Join" ) );
+	joinCombo->addItem(im.loadIcon("stroke-join-miter"), tr( "Miter Join" ) );
+	joinCombo->addItem(im.loadIcon("stroke-join-bevel"), tr( "Bevel Join" ) );
+	joinCombo->addItem(im.loadIcon("stroke-join-round"), tr( "Round Join" ) );
 }
 
 void SMLineStyleWidget::showStyle(const MultiLine &lineStyle, ColorList &colorList, int subLine)

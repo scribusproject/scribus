@@ -551,7 +551,7 @@ void BibView::readContents(const QString& name)
 			}
 			if (dd[dc].compare(".ScribusThumbs", Qt::CaseInsensitive) == 0)
 				continue;
-			QPixmap pm = IconManager::instance().loadPixmap("folder.png");
+			QPixmap pm = IconManager::instance().loadPixmap("folder");
 			addObject(dd[dc], "", pm, true);
 		}
 	}
@@ -712,7 +712,7 @@ void BibView::readContents(const QString& name)
 		pm.fill(palette().color(QPalette::Base));
 		QPainter p;
 		p.begin(&pm);
-		p.fillRect(0, 0, 60, 60, QBrush(iconManager.loadPixmap("testfill.png")));
+		p.fillRect(0, 0, 60, 60, QBrush(iconManager.loadPixmap("testfill")));
 		p.drawPixmap(30 - preview.width() / 2, 30 - preview.height() / 2, preview);
 		p.end();
 		auto *item = new QListWidgetItem(QIcon(pm), itf.key(), this);
@@ -737,23 +737,23 @@ Biblio::Biblio(QWidget* parent) : DockPanelBase("Sclib", "panel-scrapbook", pare
 	buttonLayout->setContentsMargins(0, 0, 0, 0);
 	newButton = new QToolButton(this);
 	newButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-	newButton->setIcon(IconManager::instance().loadPixmap("16/document-new.png"));
+	newButton->setIcon(IconManager::instance().loadPixmap("document-new"));
 	newButton->setIconSize(QSize(16, 16));
 	upButton = new QToolButton(this);
 	upButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-	upButton->setIcon(IconManager::instance().loadPixmap("16/go-up.png"));
+	upButton->setIcon(IconManager::instance().loadPixmap("go-up"));
 	upButton->setIconSize(QSize(16, 16));
 	importButton = new QToolButton(this);
 	importButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-	importButton->setIcon(IconManager::instance().loadPixmap("compfile16.png"));
+	importButton->setIcon(IconManager::instance().loadPixmap("compfile"));
 	importButton->setIconSize(QSize(16, 16));
 	closeButton = new QToolButton(this);
 	closeButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-	closeButton->setIcon(IconManager::instance().loadPixmap("16/close.png"));
+	closeButton->setIcon(IconManager::instance().loadPixmap("close"));
 	closeButton->setIconSize(QSize(16, 16));
 	configButton = new QToolButton(this);
 	configButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-	configButton->setIcon(IconManager::instance().loadPixmap("16/configure.png"));
+	configButton->setIcon(IconManager::instance().loadPixmap("configure"));
 	configButton->setIconSize(QSize(16, 16));
 
 	configMenue = new QMenu();
@@ -829,7 +829,7 @@ void Biblio::setOpenScrapbooks(const QStringList &fileNames)
 		if (activeBView->canWrite)
 			Frame3->addItem(activeBView, d.dirName());
 		else
-			Frame3->addItem(activeBView, IconManager::instance().loadIcon("16/lock.png"), d.dirName());
+			Frame3->addItem(activeBView, IconManager::instance().loadIcon("lock"), d.dirName());
 		activeBView->readContents(fileName);
 		activeBView->ScFilename = fileName;
 		activeBView->visibleName = d.dirName();
@@ -966,7 +966,7 @@ void Biblio::newLib()
 	if (activeBView->canWrite)
 		Frame3->addItem(activeBView, d.dirName());
 	else
-		Frame3->addItem(activeBView, IconManager::instance().loadIcon("16/lock.png"), d.dirName());
+		Frame3->addItem(activeBView, IconManager::instance().loadIcon("lock"), d.dirName());
 	activeBView->readContents(fileName);
 	activeBView->ScFilename = fileName;
 	activeBView->visibleName = d.dirName();
@@ -1120,7 +1120,7 @@ void Biblio::handleDoubleClick(QListWidgetItem *ite)
 			if (fd.isWritable())
 				Frame3->addItem(activeBView, d.dirName());
 			else
-				Frame3->addItem(activeBView, IconManager::instance().loadIcon("16/lock.png"), d.dirName());
+				Frame3->addItem(activeBView, IconManager::instance().loadIcon("lock"), d.dirName());
 		}
 		activeBView->canWrite = fd.isWritable();
 		activeBView->setAcceptDrops(activeBView->canWrite);
@@ -1129,7 +1129,7 @@ void Biblio::handleDoubleClick(QListWidgetItem *ite)
 		activeBView->visibleName = d.dirName();
 		Frame3->setItemText(Frame3->indexOf(activeBView), d.dirName());
 		if (!activeBView->canWrite)
-			Frame3->setItemIcon(Frame3->indexOf(activeBView), IconManager::instance().loadIcon("16/lock.png"));
+			Frame3->setItemIcon(Frame3->indexOf(activeBView), IconManager::instance().loadIcon("lock"));
 		ScCore->fileWatcher->addDir(d.absolutePath(), true);
 		d.cdUp();
 		PrefsContext* dirs = PrefsManager::instance().prefsFile->getContext("dirs");
@@ -1160,7 +1160,7 @@ void Biblio::goOneDirUp()
 	activeBView->visibleName = d.dirName();
 	Frame3->setItemText(Frame3->indexOf(activeBView), d.dirName());
 	if (!activeBView->canWrite)
-		Frame3->setItemIcon(Frame3->indexOf(activeBView), IconManager::instance().loadIcon("16/lock.png"));
+		Frame3->setItemIcon(Frame3->indexOf(activeBView), IconManager::instance().loadIcon("lock"));
 	ScCore->fileWatcher->addDir(d.absolutePath(), true);
 	d.cdUp();
 	PrefsContext* dirs = PrefsManager::instance().prefsFile->getContext("dirs");
@@ -2057,19 +2057,19 @@ void Biblio::iconSetChange()
 {
 	IconManager& iconManager = IconManager::instance();
 
-	newButton->setIcon(iconManager.loadPixmap("16/document-new.png"));
+	newButton->setIcon(iconManager.loadPixmap("document-new"));
 	newButton->setIconSize(QSize(16, 16));
 
-	upButton->setIcon(iconManager.loadPixmap("16/go-up.png"));
+	upButton->setIcon(iconManager.loadPixmap("go-up"));
 	upButton->setIconSize(QSize(16, 16));
 
-	importButton->setIcon(iconManager.loadPixmap("compfile16.png"));
+	importButton->setIcon(iconManager.loadPixmap("compfile"));
 	importButton->setIconSize(QSize(16, 16));
 
-	closeButton->setIcon(iconManager.loadPixmap("16/close.png"));
+	closeButton->setIcon(iconManager.loadPixmap("close"));
 	closeButton->setIconSize(QSize(16, 16));
 
-	configButton->setIcon(iconManager.loadPixmap("16/configure.png"));
+	configButton->setIcon(iconManager.loadPixmap("configure"));
 	configButton->setIconSize(QSize(16, 16));
 }
 

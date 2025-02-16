@@ -183,7 +183,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	clockLabel->setGeometry(m_vhRulerHW + 1, height() - m_vhRulerHW - 61, 60, 60);
 	clockLabel->setVisible(false);
 
-	endEditButton = new QPushButton(IconManager::instance().loadIcon("22/exit.png"), tr("End Edit"), this);
+	endEditButton = new QPushButton(IconManager::instance().loadIcon("exit", 22), tr("End Edit"), this);
 	endEditButton->setGeometry(m_vhRulerHW + 1, height() - m_vhRulerHW - endEditButton->minimumSizeHint().height() - 1, endEditButton->minimumSizeHint().width(), endEditButton->minimumSizeHint().height());
 	endEditButton->setVisible(false);
 
@@ -1588,7 +1588,7 @@ void ScribusView::dragTimerTimeOut()
 {
 	m_dragTimerFired = true;
 	// #0007865
-	// 	qApp->changeOverrideCursor(QCursor(loadIcon("dragpix.png")));
+	// 	qApp->changeOverrideCursor(QCursor(loadIcon("cursor-drop-image")));
 }
 
 Qt::CursorShape ScribusView::getResizeCursor(PageItem *currItem, QRect mpo, Qt::CursorShape cursorShape) const

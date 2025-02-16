@@ -269,7 +269,7 @@ void DashPreview::mouseMoveEvent(QMouseEvent *m)
 	// hover
 	if ((!m_mousePressed) && saveAreaRect().contains(mousePos.toPoint()) && (m_dashValues.count() < 10))
 	{
-		setCursor(IconManager::instance().loadCursor("AddPoint.png", 1, 1));
+		setCursor(IconManager::instance().loadCursor("cursor-add-point", 1, 1));
 		for (int i = 0; i < m_stops.count(); ++i)
 		{
 			if (handleRect(static_cast<int>(m_stops[i])).contains(m->pos()))
@@ -311,7 +311,7 @@ void DashPreview::mouseMoveEvent(QMouseEvent *m)
 	}
 
 	if ((m_mousePressed) && (m_outside || mousePos.y() > saveAreaRect().height()) && (m_currentStop >= 0) && (m_stops.count() > 2))
-		QApplication::changeOverrideCursor(IconManager::instance().loadCursor("DelPoint.png", 1, 1));
+		QApplication::changeOverrideCursor(IconManager::instance().loadCursor("cursor-remove-point", 1, 1));
 }
 
 void DashPreview::leaveEvent(QEvent*)
@@ -319,7 +319,7 @@ void DashPreview::leaveEvent(QEvent*)
 	if (m_mousePressed)
 	{
 		if ((m_currentStop >= 0) && (m_stops.count() > 2))
-			QApplication::changeOverrideCursor(IconManager::instance().loadCursor("DelPoint.png", 1, 1));
+			QApplication::changeOverrideCursor(IconManager::instance().loadCursor("cursor-remove-point", 1, 1));
 		else
 			QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}

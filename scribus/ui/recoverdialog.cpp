@@ -36,7 +36,7 @@ RecoverDialog::RecoverDialog(QWidget* parent, const QStringList& files) : QDialo
 {
 	setupUi(this);
 	setModal(true);
-	setWindowIcon(IconManager::instance().loadPixmap("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadPixmap("app-icon"));
 	m_files = files;
 	recoverFiles.clear();
 

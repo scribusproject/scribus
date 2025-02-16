@@ -47,10 +47,10 @@ PageSelector::PageSelector( QWidget* parent, int maximumPage ) : QWidget( parent
 	forwardButton->setAutoDefault( false );
 	lastButton->setAutoDefault( false );
 
-	startButton->setIcon(IconManager::instance().loadIcon("16/go-first.png"));
-	backButton->setIcon(IconManager::instance().loadIcon("16/go-previous.png"));
-	forwardButton->setIcon(IconManager::instance().loadIcon("16/go-next.png"));
-	lastButton->setIcon(IconManager::instance().loadIcon("16/go-last.png"));
+	startButton->setIcon(IconManager::instance().loadIcon("go-first"));
+	backButton->setIcon(IconManager::instance().loadIcon("go-previous"));
+	forwardButton->setIcon(IconManager::instance().loadIcon("go-next"));
+	lastButton->setIcon(IconManager::instance().loadIcon("go-last"));
 
 	startButton->setFocusPolicy(Qt::NoFocus);
 	backButton->setFocusPolicy(Qt::NoFocus);

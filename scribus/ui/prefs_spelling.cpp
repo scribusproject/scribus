@@ -30,7 +30,7 @@ Prefs_Spelling::Prefs_Spelling(QWidget* parent, ScribusDoc* /*doc*/)
 	languageChange();
 
 	m_caption = tr("Spelling");
-	m_icon = "signature_16.png";
+	m_icon = "pref-hyphenator";
 
 	updateDictList();
 	downloadLocation = ScPaths::downloadDir();

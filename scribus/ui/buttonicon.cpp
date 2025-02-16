@@ -28,7 +28,7 @@ ButtonIcon::ButtonIcon(QWidget* parent, PageItem* ite)
 {
 	setModal(true);
 	setWindowTitle( tr( "Icon Placement" ) );
-	setWindowIcon(IconManager::instance().loadPixmap("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadPixmap("app-icon"));
 
 	auto* ButtonIconLayout = new QVBoxLayout( this );
 	ButtonIconLayout->setContentsMargins(9, 9, 9, 9);

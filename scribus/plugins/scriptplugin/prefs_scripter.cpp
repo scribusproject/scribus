@@ -28,7 +28,7 @@ Prefs_Scripter::Prefs_Scripter(QWidget* parent)
 	languageChange();
 
 	m_caption = tr("Scripter");
-	m_icon = "python_16.png";
+	m_icon = "pref-scripter";
 
 	setupSyntaxColors();
 

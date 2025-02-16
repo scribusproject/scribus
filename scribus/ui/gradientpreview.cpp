@@ -379,7 +379,7 @@ void GradientPreview::mouseMoveEvent(QMouseEvent *m)
 		if (stopAtPosition(m_mousePos.toPoint()) > -1)
 			setCursor(QCursor(Qt::SizeHorCursor));
 		else
-			setCursor(IconManager::instance().loadCursor("AddPoint.png", 1, 1));
+			setCursor(IconManager::instance().loadCursor("cursor-add-point", 1, 1));
 	}
 
 	// Press Left Mouse
@@ -392,7 +392,7 @@ void GradientPreview::mouseMoveEvent(QMouseEvent *m)
 		QList<VColorStop*> cstops = fill_gradient.colorStops();
 		// Set "remove" cursor if gradient has more than 2 stops
 		if (isMouseOutside(m->pos()) && cstops.count() > 2)
-			QApplication::changeOverrideCursor(IconManager::instance().loadCursor("DelPoint.png", 1, 1));
+			QApplication::changeOverrideCursor(IconManager::instance().loadCursor("cursor-remove-point", 1, 1));
 	}
 }
 
@@ -598,7 +598,7 @@ void GradientPreview::paintEvent(QPaintEvent *e)
 	}
 	QImage pixm(width() - 20, 37, QImage::Format_ARGB32_Premultiplied);
 	QPainter pb;
-	QBrush b(QColor(205,205,205), IconManager::instance().loadPixmap("testfill.png"));
+	QBrush b(QColor(205,205,205), IconManager::instance().loadPixmap("testfill"));
 	pb.begin(&pixm);
 	pb.fillRect(0, 0, pixm.width(), pixm.height(), b);
 	pb.end();
@@ -763,7 +763,7 @@ void GradientPreview::mouseMoveEvent(QMouseEvent *m)
 		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		if ((!Mpressed) && (mousePos.y() < height()) && (mousePos.y() > 43) && (mousePos.x() > 9) && (mousePos.x() < width()-9))
 		{
-			setCursor(IconManager::instance().loadCursor("AddPoint.png", 1, 1));
+			setCursor(IconManager::instance().loadCursor("cursor-add-point", 1, 1));
 			for (int yg = 0; yg < static_cast<int>(StopM.count()); ++yg)
 			{
 				fpo = QRect(static_cast<int>(StopM[yg]) - 4, 43, 8, 13);
@@ -798,7 +798,7 @@ void GradientPreview::mouseMoveEvent(QMouseEvent *m)
 				repaint();
 			}
 			if ((Mpressed) && (outside || !insideRect.contains(m->pos())) && (ActStop > 0) && (ActStop != static_cast<int>(StopM.count()-1)))
-				qApp->changeOverrideCursor(IconManager::instance().loadCursor("DelPoint.png", 1, 1));
+				qApp->changeOverrideCursor(IconManager::instance().loadCursor("cursor-remove-point", 1, 1));
 		}
 	}
 }
@@ -810,7 +810,7 @@ void GradientPreview::leaveEvent(QEvent*)
 		if (Mpressed)
 		{
 			if ((ActStop > 0) && (ActStop != static_cast<int>(StopM.count()-1)))
-				qApp->changeOverrideCursor(IconManager::instance().loadCursor("DelPoint.png", 1, 1));
+				qApp->changeOverrideCursor(IconManager::instance().loadCursor("cursor-remove-point", 1, 1));
 			else
 				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		}

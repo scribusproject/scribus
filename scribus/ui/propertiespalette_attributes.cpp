@@ -253,13 +253,13 @@ void PropertiesPalette_Attributes::iconSetChange()
 	IconManager& im = IconManager::instance();
 
 	QIcon icoPrint;
-	icoPrint.addPixmap(im.loadPixmap("NoPrint.png"), QIcon::Normal, QIcon::On);
-	icoPrint.addPixmap(im.loadPixmap("16/document-print.png"), QIcon::Normal, QIcon::Off);
+	icoPrint.addPixmap(im.loadPixmap("no-print"), QIcon::Normal, QIcon::On);
+	icoPrint.addPixmap(im.loadPixmap("document-print"), QIcon::Normal, QIcon::Off);
 	noPrint->setIcon(icoPrint);
 
 	labelName->setPixmap(im.loadPixmap("name"));
 	buttonPDFBookmark->setIcon(im.loadPixmap("pdf-bookmark"));
-	buttonPDFAnnotation->setIcon(im.loadPixmap("16/pdf-annotations.png"));
+	buttonPDFAnnotation->setIcon(im.loadPixmap("pdf-annotation-text"));
 	buttonPDFAnnotationSettings->setIcon(im.loadIcon("settings"));
 
 }

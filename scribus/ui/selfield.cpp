@@ -25,7 +25,7 @@ SelectFields::SelectFields(QWidget* parent, const QString& Felder, const QString
 {
 	setModal(true);
 	setWindowTitle( tr( "Select Fields" ) );
-	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("app-icon"));
 	FTyp = Art;
 	SelectFieldsLayout = new QVBoxLayout( this );
 	SelectFieldsLayout->setContentsMargins(9, 9, 9, 9);

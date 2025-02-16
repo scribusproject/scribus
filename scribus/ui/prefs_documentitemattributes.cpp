@@ -17,7 +17,7 @@ Prefs_DocumentItemAttributes::Prefs_DocumentItemAttributes(QWidget* parent, Scri
 	languageChange();
 
 	m_caption = tr("Document Item Attributes");
-	m_icon = "docattributes_16.png";
+	m_icon = "pref-item-attributes";
 
 	relationships << tr("None", "relationship") << tr("Relates To") << tr("Is Parent Of") << tr("Is Child Of");
 	relationshipsData << "none" << "relation" << "parent" << "child";

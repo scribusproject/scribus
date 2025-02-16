@@ -492,13 +492,13 @@ void PropertiesPalette_Shape::iconSetChange()
 {
 	IconManager& iconManager = IconManager::instance();
 
-	roundRectIcon->setPixmap(iconManager.loadPixmap("round-corners.png"));
+	roundRectIcon->setPixmap(iconManager.loadPixmap("round-corners"));
 
-	textFlowDisabled->setIcon(iconManager.loadIcon("flow-none.png"));
-	textFlowUsesFrameShape->setIcon(iconManager.loadIcon("flow-frame.png"));
-	textFlowUsesBoundingBox->setIcon(iconManager.loadIcon("flow-bounding.png"));
-	textFlowUsesContourLine->setIcon(iconManager.loadIcon("flow-contour.png"));
-	textFlowUsesImageClipping->setIcon(iconManager.loadIcon("flow-contour.png"));
+	textFlowDisabled->setIcon(iconManager.loadIcon("text-wrap-none"));
+	textFlowUsesFrameShape->setIcon(iconManager.loadIcon("text-wrap-shape"));
+	textFlowUsesBoundingBox->setIcon(iconManager.loadIcon("text-wrap-boundingbox"));
+	textFlowUsesContourLine->setIcon(iconManager.loadIcon("text-wrap-contour"));
+	textFlowUsesImageClipping->setIcon(iconManager.loadIcon("text-wrap-image-clip"));
 }
 
 void PropertiesPalette_Shape::languageChange()

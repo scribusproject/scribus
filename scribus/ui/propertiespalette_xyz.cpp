@@ -1423,29 +1423,29 @@ void PropertiesPalette_XYZ::iconSetChange()
 
 	levelUp->setIcon(im.loadIcon("layer-move-up"));
 	levelDown->setIcon(im.loadIcon("layer-move-down"));
-	levelTop->setIcon(im.loadIcon("16/go-top.png"));
-	levelBottom->setIcon(im.loadIcon("16/go-bottom.png"));
+	levelTop->setIcon(im.loadIcon("go-top"));
+	levelBottom->setIcon(im.loadIcon("go-bottom"));
 
-	doGroup->setIcon(im.loadIcon("group.png"));
-	doUnGroup->setIcon(im.loadIcon("ungroup.png"));
+	doGroup->setIcon(im.loadIcon("group"));
+	doUnGroup->setIcon(im.loadIcon("ungroup"));
 
-	flipH->setIcon(im.loadIcon("16/flip-object-horizontal.png"));
-	flipV->setIcon(im.loadIcon("16/flip-object-vertical.png"));
+	flipH->setIcon(im.loadIcon("flip-object-horizontal"));
+	flipV->setIcon(im.loadIcon("flip-object-vertical"));
 
-	rotateCCW->setIcon(im.loadIcon("rotate_ccw.png"));
-	rotateCW->setIcon(im.loadIcon("rotate_cw.png"));
+	rotateCCW->setIcon(im.loadIcon("rotate-ccw"));
+	rotateCW->setIcon(im.loadIcon("rotate-cw"));
 
 	buttonLineBasePoint->setIcon(im.loadIcon("toggle-object-coordination"));
 	labelRotation->setPixmap(im.loadPixmap("object-rotation"));
 	
 	QIcon a;
-	a.addPixmap(im.loadPixmap("16/lock.png"), QIcon::Normal, QIcon::On);
-	a.addPixmap(im.loadPixmap("16/lock-unlocked.png"), QIcon::Normal, QIcon::Off);
+	a.addPixmap(im.loadPixmap("lock"), QIcon::Normal, QIcon::On);
+	a.addPixmap(im.loadPixmap("lock-unlocked"), QIcon::Normal, QIcon::Off);
 	doLock->setIcon(a);
 
 	QIcon a3;
-	a3.addPixmap(im.loadPixmap("framenoresize.png"), QIcon::Normal, QIcon::On);
-	a3.addPixmap(im.loadPixmap("frameresize.png"), QIcon::Normal, QIcon::Off);
+	a3.addPixmap(im.loadPixmap("frame-no-resize"), QIcon::Normal, QIcon::On);
+	a3.addPixmap(im.loadPixmap("frame-resize"), QIcon::Normal, QIcon::Off);
 	noResize->setIcon(a3);
 }
 

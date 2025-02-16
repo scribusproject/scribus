@@ -37,250 +37,217 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 	<nametext lang="fr">Scribus 1.7.0</nametext>
 	<nametext lang="de_DE">Scribus 1.7.0</nametext>
 	<icons>		   		
-    		<icon id="noicon.png" file="16/no-icon.svg" />
+    		<icon id="no-icon" file="16/no-icon.svg" />
     		
-		<!-- Action -->		
-		<icon id="/16/close.png" file="16/action-close.svg" />
-		<icon id="/16/document-new.png" file="16/file-new.svg" />
-		<icon id="/16/document-open.png" file="16/file-open.svg" />
-		<icon id="/16/document-properties.png" file="16/document-setup.svg" />
-		<icon id="/16/document-save.png" file="16/action-save.svg" />
-		<icon id="/16/edit-cut.png" file="16/action-cut.svg" />
-		<icon id="16/close.png" file="16/action-close.svg" />
-		<icon id="16/color-fill.png" file="16/fill-color.svg" />
-		<icon id="16/color-stroke.png" file="16/stroke-color.svg" />
-		<icon id="16/configure.png" file="16/properties-external-tools.svg" />
-		<icon id="16/document-new.png" file="16/file-new.svg" />
-		<icon id="16/document-open.png" file="16/file-open.svg" />
-		<icon id="16/document-print-preview.png" file="16/action-print-preview.svg" />
-		<icon id="16/document-print.png" file="16/action-print.svg" />
-		<icon id="16/document-properties.png" file="16/document-setup.svg" /><!-- file menu -->
-		<icon id="16/document-save-as.png" file="16/action-save.svg" />
-		<icon id="16/document-save.png" file="16/action-save.svg" />
-		<icon id="16/edit-clear.png" file="16/action-delete.svg" />
-		<icon id="16/edit-copy.png" file="16/action-copy.svg" />
-		<icon id="16/edit-cut.png" file="16/action-cut.svg" />
-		<icon id="16/edit-delete.png" file="16/action-delete.svg" />
-		<icon id="16/edit-find-replace.png" file="16/action-file-search.svg" />
-		<icon id="16/edit-paste.png" file="16/action-paste.svg" />
-		<icon id="16/edit-redo.png" file="16/action-redo.svg" />
-		<icon id="16/edit-select-all.png" file="16/action-select-all.svg" />
-		<icon id="16/edit-undo.png" file="16/action-undo.svg" />
-		<icon id="16/editdoc.png" file="16/action-edit-in-preview.svg" />
-		<icon id="16/flip-object-horizontal.png" file="16/object-flip-horizontal.svg" />
-		<icon id="16/flip-object-vertical.png" file="16/object-flip-vertical.svg" />
-		<icon id="16/go-first.png" file="16/navigation-first.svg" />
-		<icon id="16/go-home.png" file="16/navigation-home.svg" />
-		<icon id="16/go-last.png" file="16/navigation-last.svg" />
-		<icon id="16/go-next.png" file="16/navigation-next.svg" />
-		<icon id="16/go-previous.png" file="16/navigation-previous.svg" />
-		<icon id="16/help-browser.png" file="16/action-help.svg" />
-		<icon id="16/information.png" file="16/action-info.svg" />
-		<icon id="16/zoom-in.png" file="16/action-zoom-in.svg" />
-		<icon id="16/zoom-original.png" file="16/action-zoom-original.svg" />
-		<icon id="16/zoom-out.png" file="16/action-zoom-out.svg" />
-		<icon id="22/close.png" file="16/action-close.svg" />
-		<icon id="22/document-new.png" file="16/file-new.svg" />
-		<icon id="22/document-open.png" file="16/file-open.svg" />
-		<icon id="22/document-print-preview.png" file="16/action-print-preview.svg" />
-		<icon id="22/document-print.png" file="16/action-print.svg" />
-		<icon id="22/document-properties.png" file="16/document-setup.svg" />
-		<icon id="22/document-save-as.png" file="16/action-save.svg" />
-		<icon id="22/document-save.png" file="16/action-save.svg" />
-		<icon id="22/edit-copy.png" file="16/action-copy.svg" />
-		<icon id="22/edit-cut.png" file="16/action-cut.svg" />
-		<icon id="22/edit-delete.png" file="16/action-delete.svg" />
-		<icon id="22/edit-find-replace.png" file="16/action-file-search.svg" />
-		<icon id="22/edit-paste.png" file="16/action-paste.svg" />
-		<icon id="22/edit-redo.png" file="16/action-redo.svg" />
-		<icon id="22/edit-undo.png" file="16/action-undo.svg" />
-		<icon id="22/exit.png" file="16/action-exit.svg" />
-		<icon id="22/go-next.png" file="16/navigation-next.svg" />
-		<icon id="22/go-previous.png" file="16/navigation-previous.svg" />
-		<icon id="22/insert-latex.png" file="16/properties-typography.svg" /><!-- Outliner -->
-		<icon id="22/preflight-verifier.png" file="16/properties-preflight.svg" />
-		<icon id="22/zoom-in.png" file="16/action-zoom-in.svg" />
-		<icon id="22/zoom-original.png" file="16/action-zoom-original.svg" />
-		<icon id="22/zoom-out.png" file="16/action-zoom-out.svg" />
-		<icon id="acroread22.png" file="16/file-pdf.svg" />
-		<icon id="chain-closed.png" file="16/action-link.svg" />
-		<icon id="chain-open.png" file="16/action-unlink.svg" />
-		<icon id="clear_right.png" file="16/action-backspace-reverse.svg" />
-		<icon id="cmsOn.png" file="16/preview-colormanagement.svg" />
-		<icon id="compfile.png" file="16/document-import.svg" />
-		<icon id="compfile16.png" file="16/document-import.svg" />
-		<icon id="curve.png" file="16/curve.svg" /><!-- Image effect dialog-->
-		<icon id="curvebezier.png" file="16/curve-bezier.svg" />
-		<icon id="curvelinear.png" file="16/curve-linear.svg" />
-		<icon id="ellipsis.png" file="16/action-browse.svg" />
-		<icon id="exit.png" file="16/action-exit.svg" />
-		<icon id="exit22.png" file="16/action-exit.svg" />
-		<icon id="fill-rule-even-odd.png" file="16/fill-evenodd.svg" />
-		<icon id="fill-rule-nonzero.png" file="16/fill-nonzero.svg" />
-		<icon id="find.png" file="16/tool-zoom.svg" /><!-- Help browser-->
-		<icon id="framenoresize.png" file="16/object-frame-lock.svg" />
-		<icon id="frameresize.png" file="16/object-frame-unlock.svg" />
-		<icon id="group.png" file="16/object-group.svg" />
-		<icon id="invert.png" file="16/action-invert.svg" />
-		<icon id="mover.png" file="16/tool-guide-mover.svg" />
-		<icon id="NoPrint.png" file="16/action-print-off.svg" />
-		<icon id="ok22.png" file="16/alert-ok.svg" />
-		<icon id="previewOn.png" file="16/action-toggle-preview-mode.svg" />
-		<icon id="reload.png" file="16/action-reload.svg" />
-		<icon id="reload16.png" file="16/action-reload.svg" />
-		<icon id="revert.png" file="16/action-file-revert.svg" />
-		<icon id="rotate_ccw.png" file="16/action-rotate-left.svg" />
-		<icon id="rotate_cw.png" file="16/action-rotate-right.svg" />
-		<icon id="round-corners.png" file="16/object-rounded-corner.svg" />
-		<icon id="shade.png" file="16/color-shade.svg" />
-		<icon id="trashcan.png" file="16/action-delete.svg" />
-		<icon id="trashcan2.png" file="16/action-delete-open.svg" />
-		<icon id="u_group.png" file="16/object-group.svg" /><!-- Outliner -->
-		<icon id="u_undo16.png" file="16/action-undo.svg" /><!-- Barcode -->
-		<icon id="ungroup.png" file="16/object-ungroup.svg" />
+		<!-- Action -->	
 		<icon id="add" file="16/action-add.svg" />
+		<icon id="chain-closed" file="16/action-link.svg" />
+		<icon id="chain-open" file="16/action-unlink.svg" />
+		<icon id="clear-right" file="16/action-backspace-reverse.svg" />
+		<icon id="close" file="16/action-close.svg" />
+		<icon id="cms-on" file="16/preview-colormanagement.svg" />
 		<icon id="collapse" file="16/action-chevron-right.svg" />
+		<icon id="color-fill" file="16/fill-color.svg" />
+		<icon id="color-stroke" file="16/stroke-color.svg" />
+		<icon id="compfile" file="16/document-import.svg" />
+		<icon id="configure" file="16/properties-external-tools.svg" />		
 		<icon id="context-menu" file="16/action-menu.svg" />
+		<icon id="curve" file="16/curve.svg" /><!-- Image effect dialog-->
+		<icon id="curve-bezier" file="16/curve-bezier.svg" />
+		<icon id="curve-linear" file="16/curve-linear.svg" />
 		<icon id="delete" file="16/action-delete.svg" />
 		<icon id="delete-selected" file="16/action-delete-selected.svg" />
+		<icon id="document-new" file="16/file-new.svg" />
+		<icon id="document-open" file="16/file-open.svg" />
+		<icon id="document-print" file="16/action-print.svg" />
+		<icon id="document-print-preview" file="16/action-print-preview.svg" />
+		<icon id="document-properties" file="16/document-setup.svg" />
+		<icon id="document-save" file="16/action-save.svg" />
+		<icon id="document-save-as" file="16/action-save.svg" />
+		<icon id="edit-clear" file="16/action-delete.svg" />
+		<icon id="edit-copy" file="16/action-copy.svg" />
+		<icon id="edit-cut" file="16/action-cut.svg" />				
+		<icon id="edit-delete" file="16/action-delete.svg" />
+		<icon id="edit-find-replace" file="16/action-file-search.svg" />
+		<icon id="edit-paste" file="16/action-paste.svg" />
+		<icon id="edit-redo" file="16/action-redo.svg" />
+		<icon id="edit-select-all" file="16/action-select-all.svg" />
+		<icon id="edit-undo" file="16/action-undo.svg" />
+		<icon id="editdoc" file="16/action-edit-in-preview.svg" />
+		<icon id="ellipsis" file="16/action-browse.svg" />
 		<icon id="erase-shadow-off" file="16/action-shadow-erase-off.svg" />
 		<icon id="erase-shadow-on" file="16/action-shadow-erase-on.svg" />
+		<icon id="exit" file="16/action-exit.svg" />
 		<icon id="expand" file="16/action-chevron-down.svg" />
+		<icon id="fill-rule-even-odd" file="16/fill-evenodd.svg" />
+		<icon id="fill-rule-nonzero" file="16/fill-nonzero.svg" />
+		<icon id="find" file="16/tool-zoom.svg" /><!-- Help browser-->
+		<icon id="flip-object-horizontal" file="16/object-flip-horizontal.svg" />
+		<icon id="flip-object-vertical" file="16/object-flip-vertical.svg" />
+		<icon id="frame-no-resize" file="16/object-frame-lock.svg" />
+		<icon id="frame-resize" file="16/object-frame-unlock.svg" />
+		<icon id="go-first" file="16/navigation-first.svg" />
+		<icon id="go-home" file="16/navigation-home.svg" />
+		<icon id="go-last" file="16/navigation-last.svg" />
+		<icon id="go-next" file="16/navigation-next.svg" />
+		<icon id="go-previous" file="16/navigation-previous.svg" />
+		<icon id="group" file="16/object-group.svg" />
+		<icon id="help-browser" file="16/action-help.svg" />
 		<icon id="image-resolution-high" file="16/image-resolution-high.svg" />
 		<icon id="image-resolution-low" file="16/image-resolution-low.svg" />
 		<icon id="image-resolution-normal" file="16/image-resolution-normal.svg" />
+		<icon id="information" file="16/action-info.svg" />
 		<icon id="inherit-opacity-off" file="16/action-inherit-opacity-off.svg" />
 		<icon id="inherit-opacity-on" file="16/action-inherit-opacity-on.svg" />
+		<icon id="insert-latex" file="16/properties-typography.svg" /><!-- Outliner -->
+		<icon id="invert" file="16/action-invert.svg" />
+		<icon id="mover" file="16/tool-guide-mover.svg" />
 		<icon id="name" file="16/object-name.svg" />
+		<icon id="no-print" file="16/action-print-off.svg" />
 		<icon id="object-rotation" file="16/object-rotation.svg" />
+		<icon id="ok" file="16/alert-ok.svg" />
+		<icon id="preflight-verifier" file="16/properties-preflight.svg" />
+		<icon id="preview-on" file="16/action-toggle-preview-mode.svg" />
+		<icon id="reload" file="16/action-reload.svg" />
 		<icon id="remove" file="16/action-remove.svg" />
 		<icon id="reset" file="16/action-reload.svg" />
 		<icon id="reset-style-changes" file="16/action-reload.svg" /> <!-- 16/action-revert-changes.svg -->
+		<icon id="revert" file="16/action-file-revert.svg" />
+		<icon id="rotate-ccw" file="16/action-rotate-left.svg" />
+		<icon id="rotate-cw" file="16/action-rotate-right.svg" />
+		<icon id="round-corners" file="16/object-rounded-corner.svg" />
 		<icon id="scale-height" file="16/action-scale-height.svg" />
 		<icon id="scale-width" file="16/action-scale-width.svg" />
 		<icon id="settings" file="16/properties-external-tools.svg" />
-		<icon id="snap-items" file="16/action-snap-items.svg" />
+		<icon id="shade" file="16/color-shade.svg" />
 		<icon id="snap-grid" file="16/action-snap-grid.svg" />
 		<icon id="snap-guides" file="16/action-snap-guides.svg" />
+		<icon id="snap-items" file="16/action-snap-items.svg" />
 		<icon id="swap" file="16/action-swap.svg" />
 		<icon id="toggle-object-coordination" file="16/object-xycoordination.svg" />
+		<icon id="trashcan" file="16/action-delete.svg" />
+		<icon id="trashcan-open" file="16/action-delete-open.svg" />
+		<icon id="u_group" file="16/object-group.svg" /><!-- Outliner -->
+		<icon id="u_undo" file="16/action-undo.svg" /><!-- Barcode -->
+		<icon id="ungroup" file="16/object-ungroup.svg" />
 		<icon id="whitespace-review-mode" file="16/action-whitespace-review.svg" />
+		<icon id="zoom-in" file="16/action-zoom-in.svg" />
+		<icon id="zoom-original" file="16/action-zoom-original.svg" />
+		<icon id="zoom-out" file="16/action-zoom-out.svg" />	
 			
 		<!-- Alerts -->
-		<icon onLight="#E54545" onDark="#FF6666" id="22/dialog-error.png" file="16/alert-error.svg" />
-		<icon onLight="#D6922B" onDark="#FFC266" id="22/dialog-warning.png" file="16/alert-warning.svg" />
-		<icon onLight="#D6922B" onDark="#FFC266" id="alert.png" file="16/alert-warning.svg" />
-		<icon onLight="#68B259" onDark="#88CC7A" id="ok.png" file="16/alert-ok.svg" />
+		<icon onLight="#E54545" onDark="#FF6666" id="alert-error" file="16/alert-error.svg" />
+		<icon onLight="#D6922B" onDark="#FFC266" id="alert-warning" file="16/alert-warning.svg" />
+		<icon onLight="#68B259" onDark="#88CC7A" id="alert-ok" file="16/alert-ok.svg" />
 		
 		<!-- Align & Distribute -->
-		<icon id="22/align-to-first-selected.png" file="16/align-to-first-selected.svg" />
-		<icon id="22/align-to-guides.png" file="16/align-to-guides.svg" />
-		<icon id="22/align-to-last-selected-1.png" file="16/align-to-last-selected-1.svg" />
-		<icon id="22/align-to-last-selected.png" file="16/align-to-last-selected.svg" />
-		<icon id="22/align-to-margin.png" file="16/align-to-margin.svg" />
-		<icon id="22/align-to-page.png" file="16/align-to-page.svg" />
-		<icon id="22/align-mode-move.png" file="16/align-mode-move.svg" />
-		<icon id="22/align-mode-resize.png" file="16/align-mode-resize.svg" />
-		<icon id="22/align-reverse-distribution-right.png" file="16/align-reverse-distribution-right.svg" />
-		<icon id="22/align-reverse-distribution-left.png" file="16/align-reverse-distribution-left.svg" />
-		<icon id="22/align-horizontal-center.png" file="16/align-item-horizontal-center.svg" />
-		<icon id="22/align-horizontal-left-out.png" file="16/align-item-horizontal-left-out.svg" />
-		<icon id="22/align-horizontal-left.png" file="16/align-item-horizontal-left.svg" />
-		<icon id="22/align-horizontal-right-out.png" file="16/align-item-horizontal-right-out.svg" />
-		<icon id="22/align-horizontal-right.png" file="16/align-item-horizontal-right.svg" />
-		<icon id="22/align-vertical-bottom-out.png" file="16/align-item-vertical-bottom-out.svg" />
-		<icon id="22/align-vertical-bottom.png" file="16/align-item-vertical-bottom.svg" />
-		<icon id="22/align-vertical-center.png" file="16/align-item-vertical-center.svg" />
-		<icon id="22/align-vertical-top-out.png" file="16/align-item-vertical-top-out.svg" />
-		<icon id="22/align-vertical-top.png" file="16/align-item-vertical-top.svg" />
-		<icon id="22/distribute-horizontal-center.png" file="16/distribute-horizontal-center.svg" />
-		<icon id="22/distribute-horizontal-equal.png" file="16/distribute-item-horizontal.svg" />
-		<icon id="22/distribute-horizontal-left.png" file="16/distribute-horizontal-left.svg" />
-		<icon id="22/distribute-horizontal-margin.png" file="16/distribute-margin-horizontal.svg" />
-		<icon id="22/distribute-horizontal-page.png" file="16/distribute-page-horizontal.svg" />
-		<icon id="22/distribute-horizontal-right.png" file="16/distribute-horizontal-right.svg" />
-		<icon id="22/distribute-horizontal-x.png" file="16/distribute-item-horizontal-x.svg" />
-		<icon id="22/distribute-vertical-bottom.png" file="16/distribute-vertical-bottom.svg" />
-		<icon id="22/distribute-vertical-center.png" file="16/distribute-vertical-center.svg" />
-		<icon id="22/distribute-vertical-equal.png" file="16/distribute-item-vertical.svg" />
-		<icon id="22/distribute-vertical-margin.png" file="16/distribute-margin-vertical.svg" />
-		<icon id="22/distribute-vertical-page.png" file="16/distribute-page-vertical.svg" />
-		<icon id="22/distribute-vertical-top.png" file="16/distribute-vertical-top.svg" />
-		<icon id="22/distribute-vertical-y.png" file="16/distribute-item-vertical-x.svg" />
-		<icon id="22/swap-left.png" file="16/distribute-swap-left.svg" />
-		<icon id="22/swap-right.png" file="16/distribute-swap-right.svg" />
+				<icon id="align-horizontal-center" file="16/align-item-horizontal-center.svg" />
+		<icon id="align-horizontal-left" file="16/align-item-horizontal-left.svg" />
+		<icon id="align-horizontal-left-out" file="16/align-item-horizontal-left-out.svg" />
+		<icon id="align-horizontal-right" file="16/align-item-horizontal-right.svg" />
+		<icon id="align-horizontal-right-out" file="16/align-item-horizontal-right-out.svg" />
+		<icon id="align-mode-move" file="16/align-mode-move.svg" />
+		<icon id="align-mode-resize" file="16/align-mode-resize.svg" />
+		<icon id="align-reverse-distribution-left" file="16/align-reverse-distribution-left.svg" />
+		<icon id="align-reverse-distribution-right" file="16/align-reverse-distribution-right.svg" />
+		<icon id="align-to-first-selected" file="16/align-to-first-selected.svg" />
+		<icon id="align-to-guides" file="16/align-to-guides.svg" />
+		<icon id="align-to-last-selected" file="16/align-to-last-selected.svg" />
+		<icon id="align-to-last-selection" file="16/align-to-selection.svg" />
+		<icon id="align-to-margin" file="16/align-to-margin.svg" />
+		<icon id="align-to-page" file="16/align-to-page.svg" />
+		<icon id="align-vertical-bottom" file="16/align-item-vertical-bottom.svg" />
+		<icon id="align-vertical-bottom-out" file="16/align-item-vertical-bottom-out.svg" />
+		<icon id="align-vertical-center" file="16/align-item-vertical-center.svg" />
+		<icon id="align-vertical-top" file="16/align-item-vertical-top.svg" />
+		<icon id="align-vertical-top-out" file="16/align-item-vertical-top-out.svg" />
+		<icon id="distribute-horizontal-center" file="16/distribute-horizontal-center.svg" />
+		<icon id="distribute-horizontal-equal" file="16/distribute-item-horizontal.svg" />
+		<icon id="distribute-horizontal-left" file="16/distribute-horizontal-left.svg" />
+		<icon id="distribute-horizontal-margin" file="16/distribute-margin-horizontal.svg" />
+		<icon id="distribute-horizontal-page" file="16/distribute-page-horizontal.svg" />
+		<icon id="distribute-horizontal-right" file="16/distribute-horizontal-right.svg" />
+		<icon id="distribute-horizontal-x" file="16/distribute-item-horizontal-x.svg" />
+		<icon id="distribute-vertical-bottom" file="16/distribute-vertical-bottom.svg" />
+		<icon id="distribute-vertical-center" file="16/distribute-vertical-center.svg" />
+		<icon id="distribute-vertical-equal" file="16/distribute-item-vertical.svg" />
+		<icon id="distribute-vertical-margin" file="16/distribute-margin-vertical.svg" />
+		<icon id="distribute-vertical-page" file="16/distribute-page-vertical.svg" />
+		<icon id="distribute-vertical-top" file="16/distribute-vertical-top.svg" />
+		<icon id="distribute-vertical-y" file="16/distribute-item-vertical-x.svg" />
+		<icon id="swap-left" file="16/distribute-swap-left.svg" />
+		<icon id="swap-right" file="16/distribute-swap-right.svg" />
     
     		<!-- Application -->
-    		<icon id="AppIcon.png" file="scribus-icon.svg" />
-    		<icon id="AppIcon2.png" file="scribus-icon.svg" />
+    		<icon id="app-icon" file="scribus-icon.svg" />
     
     		<!-- Bezier & Vector Path-->
-    		<icon id="22/transform-shear-down.png" file="16/bezier-path-shear-down.svg" />
-		<icon id="22/transform-shear-left.png" file="16/bezier-path-shear-left.svg" />
-		<icon id="22/transform-shear-right.png" file="16/bezier-path-shear-right.svg" />
-		<icon id="22/transform-shear-up.png" file="16/bezier-path-shear-up.svg" />
-		<icon id="hmirror.png" file="16/object-flip-horizontal.svg" />
-		<icon id="vmirror.png" file="16/object-flip-vertical.svg" />
-		<icon id="AddNode.png" file="16/bezier-node-add.svg" />
-		<icon id="DeleteNode.png" file="16/bezier-node-delete.svg" />		
-		<icon id="Reset1Node.png" file="16/bezier-control-reset.svg" />
-		<icon id="ResetNode.png" file="16/bezier-controls-reset.svg" />
-		<icon id="MoveAsym.png" file="16/bezier-control-asymetric.svg" />
-		<icon id="MoveKontrol.png" file="16/bezier-control-move.svg" />
-		<icon id="MoveNode.png" file="16/bezier-node-move.svg" />
-		<icon id="MoveSym.png" file="16/bezier-control-symetric.svg" />
-		<icon id="PolyCut.png" file="16/bezier-split.svg" />
-		<icon id="BezierClose.png" file="16/bezier-close.svg" />
-		<icon id="expand.png" file="16/bezier-scale-up.svg" />
-		<icon id="crop.png" file="16/bezier-scale-down.svg" />
-		<icon id="pathexclusion.png" file="16/path-exclusion.svg" />
-		<icon id="pathintersection.png" file="16/path-intersection.svg" />
-		<icon id="pathparts.png" file="16/path-combine.svg" />
-		<icon id="pathsubtraction.png" file="16/path-difference.svg" />
-		<icon id="pathunite.png" file="16/path-union.svg" />
+    		<icon id="bezier-close" file="16/bezier-close.svg" />
+		<icon id="bezier-control-asymetric" file="16/bezier-control-asymetric.svg" />
+		<icon id="bezier-control-move" file="16/bezier-control-move.svg" />
+		<icon id="bezier-control-reset" file="16/bezier-control-reset.svg" />
+		<icon id="bezier-control-reset-all" file="16/bezier-controls-reset.svg" />
+		<icon id="bezier-control-symetric" file="16/bezier-control-symetric.svg" />
+		<icon id="bezier-node-add" file="16/bezier-node-add.svg" />
+		<icon id="bezier-node-delete" file="16/bezier-node-delete.svg" />		
+		<icon id="bezier-node-move" file="16/bezier-node-move.svg" />
+		<icon id="bezier-scale-down" file="16/bezier-scale-down.svg" />
+		<icon id="bezier-scale-up" file="16/bezier-scale-up.svg" />
+		<icon id="bezier-split" file="16/bezier-split.svg" />
+		<icon id="object-flip-horizontal" file="16/object-flip-horizontal.svg" />
+		<icon id="object-flip-vertical" file="16/object-flip-vertical.svg" />
+		<icon id="path-exclusion" file="16/path-exclusion.svg" />
+		<icon id="path-intersection" file="16/path-intersection.svg" />
+		<icon id="path-parts" file="16/path-combine.svg" />
+		<icon id="path-subtraction" file="16/path-difference.svg" />
+		<icon id="path-unite" file="16/path-union.svg" />
+		<icon id="transform-shear-down" file="16/bezier-path-shear-down.svg" />
+		<icon id="transform-shear-left" file="16/bezier-path-shear-left.svg" />
+		<icon id="transform-shear-right" file="16/bezier-path-shear-right.svg" />
+		<icon id="transform-shear-up" file="16/bezier-path-shear-up.svg" />
     
 		<!-- Color -->
-		<icon id="register.png" file="16/color-registration.svg" />
-		<icon id="spot.png" file="16/color-spot.svg" />
-		<icon id="rgb.png" file="16/color-rgb.svg" />
-		<icon id="cmyk.png" file="16/color-cmyk.svg" />
-		<icon id="lab.png" file="16/color-lab.svg" />
-		<icon id="colorpicker-gradient" file="16/colorpicker-gradient.svg" />
-		<icon id="colorpicker-hatch" file="16/colorpicker-hatch.svg" />
-		<icon id="colorpicker-pattern" file="16/colorpicker-pattern.svg" />
-		<icon id="colorpicker-solid" file="16/colorpicker-solid.svg" />
+		<icon id="color-cmyk" file="16/color-cmyk.svg" />
+		<icon id="color-lab" file="16/color-lab.svg" />
+		<icon id="color-registration" file="16/color-registration.svg" />
+		<icon id="color-rgb" file="16/color-rgb.svg" />
+		<icon id="color-spot" file="16/color-spot.svg" />
 		<icon id="color-vision-colorblind" file="16/color-vision-colorblind.svg" />
 		<icon id="color-vision-deuteranopia" file="16/color-vision-deuteranopia.svg" />
 		<icon id="color-vision-normal" file="16/color-vision-normal.svg" />
 		<icon id="color-vision-protanopia" file="16/color-vision-protanopia.svg" />
 		<icon id="color-vision-tritanopia" file="16/color-vision-tritanopia.svg" />
+		<icon id="colorpicker-gradient" file="16/colorpicker-gradient.svg" />
+		<icon id="colorpicker-hatch" file="16/colorpicker-hatch.svg" />
+		<icon id="colorpicker-pattern" file="16/colorpicker-pattern.svg" />
+		<icon id="colorpicker-solid" file="16/colorpicker-solid.svg" />
 		<icon id="mask" file="16/color-mask.svg" />
-		<icon id="text-color" file="16/text.svg" />
 		<icon id="text-background-color" file="16/paragraph-align-horizontal-center.svg" />
+		<icon id="text-color" file="16/text.svg" />
 		<icon id="text-outline-color" file="16/character-outline.svg" />
 		
 		<!-- Cursor -->
-		<icon id="LinkTextFrame.png" file="32/cursor-link-text-frame.svg" />
-		<icon id="drawtable.png" file="32/cursor-table.svg" />
-		<icon id="drawcalligraphy.png" file="32/cursor-calligraphy.svg" />
-		<icon id="drawframe.png" file="32/cursor-frame.svg" />
-		<icon id="DrawFreeLine.png" file="32/cursor-pen.svg" />
-		<icon id="drawimageframe.png" file="32/cursor-image.svg" />
-		<icon id="drawlatexframe.png" file="32/cursor-latex.svg" />
-		<icon id="drawpolyline.png" file="32/cursor-polygon.svg" />		
-		<icon id="drawtextframe.png" file="32/cursor-text.svg" />
-		<icon id="AddPoint.png" file="32/cursor-add.svg" />
-		<icon id="DelPoint.png" file="32/cursor-remove.svg" />
-		<icon id="handc.png" file="32/cursor-hand.svg" />
-		<icon id="colorpickercursor.png" file="32/cursor-color-picker.svg" />
-		<icon id="Split.png" file="32/cursor-split.svg" />
-		<icon id="lupez.png" file="32/cursor-zoom-in.svg" />
-		<icon id="lupezm.png" file="32/cursor-zoom-out.svg" />
-		<icon id="tab.png" file="32/cursor-tabulator.svg" />
-		<icon id="Rotieren2.png" file="32/cursor-rotate.svg" />
-		<icon id="select_column.png" file="32/cursor-select-column.svg" /><!-- table -->
-		<icon id="select_row.png" file="32/cursor-select-row.svg" /><!-- table -->
-		<icon id="dragpix.png" file="32/cursor-drop-image.svg" />
+		<icon id="cursor-add-point" file="32/cursor-add.svg" />
+		<icon id="cursor-calligraphy" file="32/cursor-calligraphy.svg" />
+		<icon id="cursor-color-picker" file="32/cursor-color-picker.svg" />
+		<icon id="cursor-drop-image" file="32/cursor-drop-image.svg" />
+		<icon id="cursor-frame" file="32/cursor-frame.svg" />
+		<icon id="cursor-hand" file="32/cursor-hand.svg" />
+		<icon id="cursor-image" file="32/cursor-image.svg" />
+		<icon id="cursor-latex-frame" file="32/cursor-latex.svg" />
+		<icon id="cursor-link-text-frame" file="32/cursor-link-text-frame.svg" />
+		<icon id="cursor-pen" file="32/cursor-pen.svg" />
+		<icon id="cursor-polygon" file="32/cursor-polygon.svg" />		
+		<icon id="cursor-remove-point" file="32/cursor-remove.svg" />
+		<icon id="cursor-rotate" file="32/cursor-rotate.svg" />
+		<icon id="cursor-select-column" file="32/cursor-select-column.svg" /><!-- table -->
+		<icon id="cursor-select-row" file="32/cursor-select-row.svg" /><!-- table -->
+		<icon id="cursor-split" file="32/cursor-split.svg" />
+		<icon id="cursor-table" file="32/cursor-table.svg" />
+		<icon id="cursor-tabulator" file="32/cursor-tabulator.svg" />
+		<icon id="cursor-text-frame" file="32/cursor-text.svg" />
+		<icon id="cursor-zoom-in" file="32/cursor-zoom-in.svg" />
+		<icon id="cursor-zoom-out" file="32/cursor-zoom-out.svg" />
 		
 		<!-- Drawable Shapes -->
 		<!--
@@ -377,47 +344,37 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		-->
 		
 		<!-- Filesystem & Document-->
-		<icon id="16/folder.png" file="16/file-open.svg" />
-		<icon id="folder.png" file="16/file-open.svg" />
-		<icon id="postscript.png" file="16/file-postscript.svg" />
-		<icon id="ooo_draw.png" file="16/file-openoffice-draw.svg" />
-		<icon id="ooo_writer.png" file="16/file-openoffice-writer.svg" />
-		<icon id="txt.png" file="16/file-text.svg" />
-		<icon id="vectorgfx.png" file="16/file-image.svg" />
-		<icon id="pdf.png" file="16/file-pdf.svg" />
+		<icon id="file-doc" file="16/file-new.svg" />
+		<icon id="file-ooo-draw" file="16/file-openoffice-draw.svg" />
+		<icon id="file-ooo-writer" file="16/file-openoffice-writer.svg" />
+		<icon id="file-pdf" file="16/file-pdf.svg" />
+		<icon id="file-postscript" file="16/file-postscript.svg" />
+		<icon id="file-txt" file="16/file-text.svg" />
+		<icon id="file-vectorgfx" file="16/file-image.svg" />
+		<icon id="folder" file="16/file-open.svg" />
 				
 		<!-- Page & Layer -->
-		<icon id="16/page-3fold.png" file="16/page-type-threefold.svg" />
-		<icon id="16/page-4fold.png" file="16/page-type-fourfold.svg" />
-		<icon id="16/page-doublesided.png" file="16/page-type-facing.svg" />
-		<icon id="16/page-simple.png" file="16/page-type-single.svg" />
-		<icon id="16/go-bottom.png" file="16/object-level-background.svg" />
-		<icon id="16/go-down.png" file="16/action-chevron-down.svg" />
-		<icon id="16/go-top.png" file="16/object-level-foreground.svg" />
-		<icon id="16/go-up.png" file="16/action-chevron-up.svg" />
-		<icon id="22/go-bottom.png" file="16/object-level-background.svg" />
-		<icon id="22/go-down.png" file="16/action-chevron-down.svg" />
-		<icon id="22/go-top.png" file="16/object-level-foreground.svg" />
-		<icon id="22/go-up.png" file="16/action-chevron-up.svg" />
-		<icon id="layer-outline.png" file="16/object-outline.svg" />
-		<icon id="16/layer-flow-around.png" file="16/text-wrap-shape.svg" />
-		<icon id="16/lock-unlocked.png" file="16/action-unlock.svg" />
-		<icon id="16/lock.png" file="16/action-lock.svg" />
-		<icon id="16/show-object.png" file="16/object-visible.svg" />
-		<icon id="/16/list-add.png" file="16/action-add.svg" />
-		<icon id="16/list-add.png" file="16/action-add.svg" />
-		<icon id="22/list-add.png" file="16/action-add.svg" />
-		<icon id="/16/list-remove.png" file="16/action-remove.svg" />
-		<icon id="16/list-remove.png" file="16/action-remove.svg" />
-		<icon id="22/list-remove.png" file="16/action-remove.svg" />
 		<icon id="border-bottom" file="16/border-bottom.svg" />
 		<icon id="border-inside" file="16/border-inside.svg" />
 		<icon id="border-left" file="16/border-left.svg" />
 		<icon id="border-outside" file="16/border-outside.svg" />
 		<icon id="border-right" file="16/border-right.svg" />
 		<icon id="border-top" file="16/border-top.svg" />
+		<icon id="go-bottom" file="16/object-level-background.svg" />
+		<icon id="go-down" file="16/action-chevron-down.svg" />
+		<icon id="go-top" file="16/object-level-foreground.svg" />
+		<icon id="go-up" file="16/action-chevron-up.svg" />		
+		<icon id="layer-flow-around" file="16/text-wrap-shape.svg" />
 		<icon id="layer-move-down" file="16/object-level-down.svg" />
 		<icon id="layer-move-up" file="16/object-level-up.svg" />
+		<icon id="layer-outline" file="16/object-outline.svg" />
+		<icon id="list-add" file="16/action-add.svg" />
+		<icon id="list-remove" file="16/action-remove.svg" />		
+		<icon id="lock" file="16/action-lock.svg" />
+		<icon id="lock-unlocked" file="16/action-unlock.svg" />
+		<icon id="page-3fold" file="16/page-type-threefold.svg" />
+		<icon id="page-4fold" file="16/page-type-fourfold.svg" />
+		<icon id="page-doublesided" file="16/page-type-facing.svg" />
 		<icon id="page-duplicate" file="16/page-duplicate.svg" />
 		<icon id="page-first-left" file="16/page-first-left.svg" />
 		<icon id="page-first-right" file="16/page-first-right.svg" />
@@ -426,148 +383,116 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon id="page-move" file="16/page-move.svg" />
 		<icon id="page-orientation-horizontal" file="16/page-orientation-horizontal.svg" />
 		<icon id="page-orientation-vertical" file="16/page-orientation-vertical.svg" />
+		<icon id="page-simple" file="16/page-type-single.svg" />
 		<icon id="page-sizes" file="16/page-sizes.svg" />
+		<icon id="show-object" file="16/object-visible.svg" />
     
 		<!-- PDF Tools -->
-		<icon id="16/insert-button.png" file="16/pdf-button.svg" />
-		<icon id="22/insert-button.png" file="16/pdf-button.svg" />
-		<icon id="16/pdf-annotations.png" file="16/pdf-annotation-text.svg" />
-		<icon id="22/pdf-annotations.png" file="16/pdf-annotation-text.svg" />
-		<icon id="16/radiobutton.png" file="16/pdf-radiobox.svg" />
-		<icon id="22/radiobutton.png" file="16/pdf-radiobox.svg" />
-		<icon id="16/checkbox.png" file="16/pdf-checkbox.svg" />
-		<icon id="22/checkbox.png" file="16/pdf-checkbox.svg" />
-		<icon id="16/combobox.png" file="16/pdf-combobox.svg" />
-		<icon id="22/combobox.png" file="16/pdf-combobox.svg" />
-		<icon id="16/text-field.png" file="16/pdf-textinput.svg" />
-		<icon id="22/text-field.png" file="16/pdf-textinput.svg" />
-		<icon id="16/list-box.png" file="16/pdf-listbox.svg" />
-		<icon id="22/list-box.png" file="16/pdf-listbox.svg" />
-		<icon id="16/annot3d.png" file="16/pdf-annotation-3d.svg" />
-		<icon id="22/annot3d.png" file="16/pdf-annotation-3d.svg" />
-		<icon id="goto16.png" file="16/pdf-annotation-link.svg" />
-		<icon id="goto.png" file="16/pdf-annotation-link.svg" />
+		<icon id="pdf-annotation-3d" file="16/pdf-annotation-3d.svg" />
+		<icon id="pdf-annotation-link" file="16/pdf-annotation-link.svg" />
+		<icon id="pdf-annotation-text" file="16/pdf-annotation-text.svg" />
 		<icon id="pdf-bookmark" file="16/panel-bookmarks.svg" />
+		<icon id="pdf-button" file="16/pdf-button.svg" />
+		<icon id="pdf-checkbox" file="16/pdf-checkbox.svg" />
+		<icon id="pdf-combobox" file="16/pdf-combobox.svg" />
+		<icon id="pdf-listbox" file="16/pdf-listbox.svg" />
+		<icon id="pdf-radiobutton" file="16/pdf-radiobox.svg" />
+		<icon id="pdf-textfield" file="16/pdf-textinput.svg" />
+
 	
-		<!-- Picture Browser -->
-		<icon id="doc.png" file="16/file-new.svg" />
-		<icon id="viewmagin.png" file="16/action-zoom-in.svg" />
-		<icon id="viewmagout.png" file="16/action-zoom-out.svg" />
-		<icon onLight="hsl(0, 0, 80)" onDark="hsl(0, 0, 26)" id="testfill.png" file="checker.svg" />
-		<icon id="pitr_green_arrows_set_1.svg" file="16/action-sort-alphabetical-descending.svg" />
-		<icon id="pitr_green_arrows_set_5.svg" file="16/action-sort-alphabetical-ascending.svg" />
-		<icon id="sarxos_Paper_Sheets.svg" file="16/file-new.svg" /><!-- iconDocumentBrowser -->
-		<icon id="sarxos_Simple_Folder_Seek.svg" file="16/file-open.svg" /><!-- iconFolderBrowser -->
-		<icon id="sarxos_Simple_Green_Yellow_Blue_Violet_Folders.svg" file="16/image-collection.svg" /><!-- iconCollectionsBrowser -->
+		<!-- Picture Browser -->		
+		<icon id="action-sort-alphabetical-ascending" file="16/action-sort-alphabetical-ascending.svg" />
+		<icon id="action-sort-alphabetical-descending" file="16/action-sort-alphabetical-descending.svg" />
+		<icon id="document" file="16/file-new.svg" />
+		<icon id="image-collection" file="16/image-collection.svg" />
+		<icon onLight="hsl(0, 0, 80)" onDark="hsl(0, 0, 26)" id="testfill" file="checker.svg" />
 	
 		<!-- Preferences -->
-		<icon id="scribus16.png" file="16/properties-ui.svg" />
-		<icon id="scribusdoc16.png" file="16/document-setup.svg" />
-		<icon id="16/preferences-desktop-keyboard-shortcuts.png" file="16/properties-keystrokes.svg" />
-		<icon id="16/edit-guides.png" file="16/properties-guides.svg" />
-		<icon id="documentinfo.png" file="16/document-info.svg" />
-		<icon id="16/preferences-desktop-font.png" file="16/properties-fonts.svg" />
-		<icon id="16/draw-text.png" file="16/properties-typography.svg" />
-		<icon id="signature_16.png" file="16/properties-hyphenator.svg" />
-		<icon id="blend_16.png" file="16/properties-color-management.svg" />
-		<icon id="16/image-x-generic.png" file="16/properties-image-cache.svg" />
-		<icon id="16/video-display.png" file="16/properties-display.svg" />
-		<icon id="screen.png" file="16/properties-display.svg" />
-		<icon id="tools_16.png" file="16/properties-tools.svg" />
-		<icon id="gear_16.png" file="16/properties-external-tools.svg" />
-		<icon id="scrap_16.png" file="16/properties-scrapbook.svg" />		
-		<icon id="16/preflight-verifier.png" file="16/properties-preflight.svg" />
-		<icon id="16/printer.png" file="16/action-print.svg" />
-		<icon id="acroread16.png" file="16/file-pdf.svg" />
-		<icon id="misc_16.png" file="16/properties-miscellaneous.svg" />
-		<icon id="docattributes_16.png" file="16/properties-item-attributes.svg" />
-		<icon id="tabtocindex_16.png" file="16/properties-toc.svg" />
-		<icon id="plugins_16.png" file="16/properties-plugins.svg" />
-		<icon id="shortwords_16.png" file="16/properties-shortwords.svg" />
-		<icon id="python_16.png" file="16/properties-scripter.svg" />
-		<icon id="section" file="16/properties-section.svg" />
+		<icon id="image-x-generic" file="16/properties-image-cache.svg" />
+		<icon id="pref-color-management" file="16/properties-color-management.svg" />
+		<icon id="pref-display" file="16/properties-display.svg" />
+		<icon id="pref-document-info" file="16/document-info.svg" />
+		<icon id="pref-document-setup" file="16/document-setup.svg" />
+		<icon id="pref-experimental" file="16/properties-miscellaneous.svg" />
+		<icon id="pref-external-tools" file="16/properties-external-tools.svg" />
+		<icon id="pref-fonts" file="16/properties-fonts.svg" />
+		<icon id="pref-guides" file="16/properties-guides.svg" />
+		<icon id="pref-hyphenator" file="16/properties-hyphenator.svg" />
+		<icon id="pref-indexes" file="16/properties-toc.svg" />
+		<icon id="pref-item-attributes" file="16/properties-item-attributes.svg" />
+		<icon id="pref-keyboard-shortcuts" file="16/properties-keystrokes.svg" />
+		<icon id="pref-miscellaneous" file="16/properties-miscellaneous.svg" />
+		<icon id="pref-pdf-export" file="16/file-pdf.svg" />
+		<icon id="pref-plugins" file="16/properties-plugins.svg" />
+		<icon id="pref-printer" file="16/action-print.svg" />
+		<icon id="pref-scrapbook" file="16/properties-scrapbook.svg" />
+		<icon id="pref-scripter" file="16/properties-scripter.svg" />
+		<icon id="pref-section" file="16/properties-section.svg" />
+		<icon id="pref-shortwords" file="16/properties-shortwords.svg" />
+		<icon id="pref-toc" file="16/properties-toc.svg" />
+		<icon id="pref-tools" file="16/properties-tools.svg" />
+		<icon id="pref-typography" file="16/properties-typography.svg" />
+		<icon id="pref-ui" file="16/properties-ui.svg" />
 	
 		<!-- Shape -->
-		<icon id="flow-bounding.png" file="16/text-wrap-boundingbox.svg" />
-		<icon id="flow-contour.png" file="16/text-wrap-contour.svg" />
-		<icon id="flow-frame.png" file="16/text-wrap-shape.svg" />
-		<icon id="flow-none.png" file="16/text-wrap-none.svg" />
+		<icon id="text-wrap-boundingbox" file="16/text-wrap-boundingbox.svg" />
+		<icon id="text-wrap-contour" file="16/text-wrap-contour.svg" />
+		<icon id="text-wrap-image-clip" file="16/text-wrap-contour.svg" />
+		<icon id="text-wrap-none" file="16/text-wrap-none.svg" />
+		<icon id="text-wrap-shape" file="16/text-wrap-shape.svg" />		
 	
 		<!-- Stroke -->
-		<icon id="16/stroke-cap-butt.png" file="16/stroke-cap-butt.svg" />
-		<icon id="16/stroke-cap-round.png" file="16/stroke-cap-round.svg" />
-		<icon id="16/stroke-cap-square.png" file="16/stroke-cap-square.svg" />
-		<icon id="ButtCap.png" file="16/stroke-cap-butt.svg" />
-		<icon id="SquareCap.png" file="16/stroke-cap-square.svg" />
-		<icon id="RoundCap.png" file="16/stroke-cap-round.svg" />  
-		<icon id="16/stroke-join-bevel.png" file="16/stroke-join-bevel.svg" />
-		<icon id="16/stroke-join-miter.png" file="16/stroke-join-miter.svg" />
-		<icon id="16/stroke-join-round.png" file="16/stroke-join-round.svg" />
-		<icon id="MiterJoin.png" file="16/stroke-join-miter.svg" />
-		<icon id="RoundJoin.png" file="16/stroke-join-round.svg" />
-		<icon id="BevelJoin.png" file="16/stroke-join-bevel.svg" />
-		<icon id="penciladd.png" file="16/stroke-add.svg" />
-		<icon id="pencilsub.png" file="16/stroke-remove.svg" />
-		<icon id="stroke-style" file="16/stroke-style.svg" />
+		<icon id="stroke-add" file="16/stroke-add.svg" />
+		<icon id="stroke-cap-butt" file="16/stroke-cap-butt.svg" />
+		<icon id="stroke-cap-round" file="16/stroke-cap-round.svg" />
+		<icon id="stroke-cap-square" file="16/stroke-cap-square.svg" />
+		<icon id="stroke-join-bevel" file="16/stroke-join-bevel.svg" />
+		<icon id="stroke-join-miter" file="16/stroke-join-miter.svg" />
+		<icon id="stroke-join-round" file="16/stroke-join-round.svg" />
+		<icon id="stroke-remove" file="16/stroke-remove.svg" />
 		<icon id="stroke-style-edit" file="16/action-edit.svg" />
 		<icon id="stroke-style-new" file="16/action-add.svg" />
+		<icon id="stroke-style" file="16/stroke-style.svg" />
 		
 		<!-- Table -->
-		<icon id="16/delete-table-columns.png" file="16/table-column-remove.svg" />
-		<icon id="22/delete-table-columns.png" file="16/table-column-remove.svg" />
-		<icon id="16/delete-table-rows.png" file="16/table-row-remove.svg" />
-		<icon id="22/delete-table-rows.png" file="16/table-row-remove.svg" />
-		<icon id="16/insert-table-columns.png" file="16/table-column-insert.svg" />
-		<icon id="22/insert-table-columns.png" file="16/table-column-insert.svg" />
-		<icon id="16/insert-table-rows.png" file="16/table-row-insert.svg" />
-		<icon id="22/insert-table-rows.png" file="16/table-row-insert.svg" />		
-		<icon id="16/merge-table-cells.png" file="16/table-merge-cells.svg" />
-		<icon id="22/merge-table-cells.png" file="16/table-merge-cells.svg" />
-		<icon id="16/split-table-cells.png" file="16/table-split-cell.svg" />
-		<icon id="22/split-table-cells.png" file="16/table-split-cell.svg" />
+		<icon id="delete-table-columns" file="16/table-column-remove.svg" />
+		<icon id="delete-table-rows" file="16/table-row-remove.svg" />
+		<icon id="insert-table-columns" file="16/table-column-insert.svg" />
+		<icon id="insert-table-rows" file="16/table-row-insert.svg" />		
+		<icon id="merge-table-cells" file="16/table-merge-cells.svg" />
+		<icon id="split-table-cells" file="16/table-split-cell.svg" />
 		
 		<!-- Text & Font-->
-		<icon id="16/format-justify-center.png" file="16/paragraph-align-horizontal-center.svg" />
-		<icon id="16/format-justify-fill-block-right.png" file="16/paragraph-align-justify-rtl.svg" />
-		<icon id="16/format-justify-fill-block.png" file="16/paragraph-align-justify-ltr.svg" />
-		<icon id="16/format-justify-fill.png" file="16/paragraph-align-justify.svg" />
-		<icon id="16/format-justify-left.png" file="16/paragraph-align-left.svg" />
-		<icon id="16/format-justify-right.png" file="16/paragraph-align-right.svg" />
-		<icon id="16/text-direction-ltr.png" file="16/paragraph-direction-ltr.svg" />
-		<icon id="16/text-direction-rtl.png" file="16/paragraph-direction-rtl.svg" />
-		<icon id="font_otf16.png" file="16/font-otf.svg" />
-		<icon id="font_subst16.png" file="16/font-substitute.svg" />
-		<icon id="font_truetype16.png" file="16/font-truetype.svg" />
-		<icon id="font_type1_16.png" file="16/font-postscript.svg" />
-		<icon id="character-capitals-all" file="16/character-capitals-all.svg" />
+				<icon id="character-capitals-all" file="16/character-capitals-all.svg" />
 		<icon id="character-capitals-small" file="16/character-capitals-small.svg" />
 		<icon id="character-letter-tracking" file="16/character-letter-spacing.svg" />
 		<icon id="character-offset-baseline" file="16/character-offset-baseline.svg" />
 		<icon id="character-outline" file="16/character-outline.svg" />
 		<icon id="character-scale-height" file="16/character-scale-height.svg" />
-		<icon id="character-scale-width" file="16/character-scale-width.svg" />
 		<icon id="character-scale-width-max" file="16/character-scale-width-max.svg" />
 		<icon id="character-scale-width-min" file="16/character-scale-width-min.svg" />
+		<icon id="character-scale-width" file="16/character-scale-width.svg" />
 		<icon id="character-shadow" file="16/character-shadow.svg" />
-		<icon id="character-space-width" file="16/character-space-width.svg" />
 		<icon id="character-space-width-min" file="16/character-space-width-min.svg" />
+		<icon id="character-space-width" file="16/character-space-width.svg" />
 		<icon id="character-strikethrough" file="16/character-strikethrough.svg" />
-		<icon id="character-style" file="16/character-style.svg" />
 		<icon id="character-style-edit" file="16/action-edit.svg" />
 		<icon id="character-style-new" file="16/action-add.svg" />
+		<icon id="character-style" file="16/character-style.svg" />
 		<icon id="character-subscript" file="16/character-subscript.svg" />
 		<icon id="character-superscript" file="16/character-superscript.svg" />
-		<icon id="character-underline" file="16/character-underline.svg" />
+		<icon id="character-table" file="16/tool-insert-table.svg" />
 		<icon id="character-underline-word" file="16/character-underline-word.svg" />
+		<icon id="character-underline" file="16/character-underline.svg" />
 		<icon id="ff-afrc" file="16/ff-afrc.svg" />
-		<icon id="ff-c2sc" file="16/ff-c2sc.svg" />
 		<icon id="ff-c2sc-smcp" file="16/ff-c2sc-smcp.svg" />
+		<icon id="ff-c2sc" file="16/ff-c2sc.svg" />
 		<icon id="ff-frac" file="16/ff-frac.svg" />
 		<icon id="ff-lnum" file="16/ff-lnum.svg" />
 		<icon id="ff-onum" file="16/ff-onum.svg" />
 		<icon id="ff-ordn" file="16/ff-ordn.svg" />
-		<icon id="ff-p2pc" file="16/ff-p2pc.svg" />
 		<icon id="ff-p2pc-pcap" file="16/ff-p2pc-pcap.svg" />
+		<icon id="ff-p2pc" file="16/ff-p2pc.svg" />
 		<icon id="ff-pcap" file="16/ff-pcap.svg" />
 		<icon id="ff-pnum" file="16/ff-pnum.svg" />
 		<icon id="ff-smcp" file="16/ff-smcp.svg" />
@@ -581,8 +506,18 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon id="flop-linespace" file="16/paragraph-offset-linespace.svg" />
 		<icon id="flop-max" file="16/paragraph-offset-max.svg" />
 		<icon id="font-face" file="16/properties-fonts.svg" />
+		<icon id="font-otf" file="16/font-otf.svg" />
+		<icon id="font-postscript" file="16/font-postscript.svg" />
 		<icon id="font-size" file="16/font-size.svg" />
 		<icon id="font-style" file="16/font-style.svg" />
+		<icon id="font-substitute" file="16/font-substitute.svg" />
+		<icon id="font-truetype" file="16/font-truetype.svg" />
+		<icon id="format-justify-center" file="16/paragraph-align-horizontal-center.svg" />
+		<icon id="format-justify-fill-block-right" file="16/paragraph-align-justify-rtl.svg" />
+		<icon id="format-justify-fill-block" file="16/paragraph-align-justify-ltr.svg" />
+		<icon id="format-justify-fill" file="16/paragraph-align-justify.svg" />
+		<icon id="format-justify-left" file="16/paragraph-align-left.svg" />
+		<icon id="format-justify-right" file="16/paragraph-align-right.svg" />
 		<icon id="hyphen-character" file="16/hyphenation-character.svg" />
 		<icon id="hyphen-consecutive" file="16/hyphenation-consecutive.svg" />
 		<icon id="hyphen-smallest-word" file="16/hyphenation-smallest-word.svg" />
@@ -602,68 +537,46 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon id="paragraph-orphan" file="16/paragraph-orphan.svg" />
 		<icon id="paragraph-space-above" file="16/paragraph-space-above.svg" />
 		<icon id="paragraph-space-below" file="16/paragraph-space-below.svg" />
-		<icon id="paragraph-style" file="16/paragraph-style.svg" />
 		<icon id="paragraph-style-edit" file="16/action-edit.svg" />
 		<icon id="paragraph-style-new" file="16/action-add.svg" />
+		<icon id="paragraph-style" file="16/paragraph-style.svg" />
 		<icon id="paragraph-widow" file="16/paragraph-widow.svg" />
 		<icon id="tabulator-center" file="16/tabulator-center.svg" />
 		<icon id="tabulator-comma" file="16/tabulator-comma.svg" />
 		<icon id="tabulator-dot" file="16/tabulator-dot.svg" />
 		<icon id="tabulator-left" file="16/tabulator-left.svg" />
 		<icon id="tabulator-right" file="16/tabulator-right.svg" />
+		<icon id="text-direction-ltr" file="16/paragraph-direction-ltr.svg" />
+		<icon id="text-direction-rtl" file="16/paragraph-direction-rtl.svg" />
 		<icon id="text-on-path-distance" file="16/text-on-path-distance.svg" />
 		<icon id="text-on-path-flip" file="16/object-flip-vertical.svg" />
 		<icon id="text-on-path-offset" file="16/text-on-path-offset.svg" />
 				
 		<!-- Tools -->
-		<icon id="22/transform-crop-and-resize.png" file="16/tool-crop.svg" />
-		<icon id="16/pointer.png" file="16/tool-select.svg" />
-		<icon id="22/pointer.png" file="16/tool-select.svg" />
-		<icon id="16/insert-image.png" file="16/tool-insert-image.svg" />
-		<icon id="22/insert-image.png" file="16/tool-insert-image.svg" />
-		<icon id="16/insert-renderframe.png" file="16/tool-insert-render-frame.svg" />
-		<icon id="22/insert-renderframe.png" file="16/tool-insert-render-frame.svg" />
-		<icon id="/16/insert-table.png" file="16/tool-insert-table.svg" />
-		<icon id="16/insert-table.png" file="16/tool-insert-table.svg" />
-		<icon id="22/insert-table.png" file="16/tool-insert-table.svg" />
-		<icon id="16/insert-text-frame.png" file="16/tool-insert-text-frame.svg" />
-		<icon id="22/insert-text-frame.png" file="16/tool-insert-text-frame.svg" />
-		<icon id="16/draw-path.png" file="16/tool-draw-bezier.svg" />
-		<icon id="22/draw-path.png" file="16/tool-draw-bezier.svg" />
-		<icon id="16/draw-polygon.png" file="16/tool-insert-polygon.svg" />
-		<icon id="22/draw-polygon.png" file="16/tool-insert-polygon.svg" />
-		<icon id="16/draw-arc.png" file="16/tool-insert-arc.svg" />
-		<icon id="22/draw-arc.png" file="16/tool-insert-arc.svg" />
-		<icon id="16/draw-spiral.png" file="16/tool-insert-spiral.svg" />
-		<icon id="22/draw-spiral.png" file="16/tool-insert-spiral.svg" />
-		<icon id="stift.png" file="16/tool-insert-line.svg" />
-		<icon id="Stift16.png" file="16/tool-insert-line.svg" />
-		<icon id="16/draw-freehand.png" file="16/tool-draw-freehand.svg" />
-		<icon id="22/draw-freehand.png" file="16/tool-draw-freehand.svg" />
-		<icon id="16/draw-calligraphic.png" file="16/tool-draw-calligraphy.svg" />
-		<icon id="22/draw-calligraphic.png" file="16/tool-draw-calligraphy.svg" />
-		<icon id="16/transform-rotate.png" file="16/tool-rotate.svg" />
-		<icon id="22/transform-rotate.png" file="16/tool-rotate.svg" />
-		<icon id="16/measure.png" file="16/tool-ruler.svg" />
-		<icon id="22/measure.png" file="16/tool-ruler.svg" />
-		<icon id="16/color-picker.png" file="16/tool-color-picker.svg" />
-		<icon id="22/color-picker.png" file="16/tool-color-picker.svg" />
-		<icon id="editm.png" file="16/tool-edit-content.svg" />
-		<icon id="Editm16.png" file="16/tool-edit-content.svg" />
-		<icon id="/16/story-editor.png" file="16/tool-story-editor.svg" />
-		<icon id="16/story-editor.png" file="16/tool-story-editor.svg" />
-		<icon id="22/story-editor.png" file="16/tool-story-editor.svg" />
 		<icon id="gradient-edit" file="16/colorpicker-gradient.svg" />
-		<icon id="16/text-frame-link.png" file="16/tool-link-text-frame.svg" />
-		<icon id="22/text-frame-link.png" file="16/tool-link-text-frame.svg" />
-		<icon id="16/text-frame-unlink.png" file="16/tool-unlink-text-frame.svg" />    
-		<icon id="22/text-frame-unlink.png" file="16/tool-unlink-text-frame.svg" />
-		<icon id="16/zoom.png" file="16/tool-zoom.svg" />
-		<icon id="22/zoom.png" file="16/tool-zoom.svg" />
-		<icon id="wizard.png" file="16/tool-copy-style.svg" />
-		<icon id="wizard16.png" file="16/tool-copy-style.svg" />
-		<icon id="16/insert-barcode.png" file="16/tool-insert-barcode.svg" />
-		<icon id="22/insert-barcode.png" file="16/tool-insert-barcode.svg" />
+		<icon id="tool-color-picker" file="16/tool-color-picker.svg" />
+		<icon id="tool-copy-style" file="16/tool-copy-style.svg" />
+		<icon id="tool-draw-bezier" file="16/tool-draw-bezier.svg" />
+		<icon id="tool-draw-calligraphy" file="16/tool-draw-calligraphy.svg" />
+		<icon id="tool-draw-freehand" file="16/tool-draw-freehand.svg" />
+		<icon id="tool-edit-content" file="16/tool-edit-content.svg" />
+		<icon id="tool-insert-arc" file="16/tool-insert-arc.svg" />
+		<icon id="tool-insert-barcode" file="16/tool-insert-barcode.svg" />
+		<icon id="tool-insert-image" file="16/tool-insert-image.svg" />
+		<icon id="tool-insert-line" file="16/tool-insert-line.svg" />
+		<icon id="tool-insert-polygon" file="16/tool-insert-polygon.svg" />
+		<icon id="tool-insert-render-frame" file="16/tool-insert-render-frame.svg" />
+		<icon id="tool-insert-spiral" file="16/tool-insert-spiral.svg" />
+		<icon id="tool-insert-table" file="16/tool-insert-table.svg" />
+		<icon id="tool-insert-text-frame" file="16/tool-insert-text-frame.svg" />
+		<icon id="tool-link-text-frame" file="16/tool-link-text-frame.svg" />
+		<icon id="tool-measure" file="16/tool-ruler.svg" />
+		<icon id="tool-rotate" file="16/tool-rotate.svg" />
+		<icon id="tool-select" file="16/tool-select.svg" />
+		<icon id="tool-story-editor" file="16/tool-story-editor.svg" />
+		<icon id="tool-unlink-text-frame" file="16/tool-unlink-text-frame.svg" /> 
+		<icon id="tool-zoom" file="16/tool-zoom.svg" />
+		<icon id="transform-crop-and-resize" file="16/tool-crop.svg" />
 
 		<!-- Windows -->
 		<icon id="close" file="16/action-close.svg" />

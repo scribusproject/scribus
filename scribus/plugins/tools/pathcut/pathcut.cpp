@@ -73,8 +73,8 @@ void PathCutPlugin::languageChange()
 	m_actionInfo.text = tr("Cut Polygon");
 	m_actionInfo.helpText = tr("Cuts a Polygon with a Path.");
 	// Menu
-	m_actionInfo.iconPath1 = "22/transform-crop-and-resize.png";
-	m_actionInfo.iconPath2 = "22/transform-crop-and-resize.png";
+	m_actionInfo.iconPath1 = "transform-crop-and-resize";
+	m_actionInfo.iconPath2 = "transform-crop-and-resize";
 	m_actionInfo.menu = "ItemPathOps";
 	m_actionInfo.parentMenu = "Item";
 	m_actionInfo.subMenuName = tr("Path Tools");

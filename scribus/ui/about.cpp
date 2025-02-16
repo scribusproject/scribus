@@ -108,7 +108,7 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	m_mode = diaMode;
 	m_firstShow = true;
 	setWindowTitle( tr("About Scribus %1").arg(ScribusAPI::getVersion()) );
-	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png", true));
+	setWindowIcon(IconManager::instance().loadIcon("app-icon"));
 	setModal(true);
 	aboutLayout = new QVBoxLayout( this );
 	aboutLayout->setSpacing(6);

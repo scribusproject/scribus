@@ -1132,7 +1132,7 @@ void SEditor::scrollContentsBy(int dx, int dy)
 SToolBColorF::SToolBColorF(QMainWindow* parent, ScribusDoc *doc) : QToolBar( tr("Fill Color Settings"), parent)
 {
 	FillIcon = new QLabel(this);
-	FillIcon->setPixmap(IconManager::instance().loadPixmap("16/color-fill.png"));
+	FillIcon->setPixmap(IconManager::instance().loadPixmap("color-fill"));
 	FillIcon->setScaledContents( false );
 	fillIconAction = addWidget(FillIcon);
 	fillIconAction->setVisible(true);
@@ -1166,7 +1166,7 @@ void SToolBColorF::changeEvent(QEvent *e)
 
 void SToolBColorF::iconSetChange()
 {
-	FillIcon->setPixmap(IconManager::instance().loadPixmap("16/color-fill.png"));
+	FillIcon->setPixmap(IconManager::instance().loadPixmap("color-fill"));
 }
 
 void SToolBColorF::languageChange()
@@ -1205,7 +1205,7 @@ void SToolBColorF::newShadeHandler()
 SToolBColorS::SToolBColorS(QMainWindow* parent, ScribusDoc *doc) : QToolBar( tr("Stroke Color Settings"), parent)
 {
 	StrokeIcon = new QLabel( "", this );
-	StrokeIcon->setPixmap(IconManager::instance().loadPixmap("16/color-stroke.png"));
+	StrokeIcon->setPixmap(IconManager::instance().loadPixmap("color-stroke"));
 	StrokeIcon->setScaledContents(false);
 
 	strokeIconAction = addWidget(StrokeIcon);
@@ -1244,7 +1244,7 @@ void SToolBColorS::changeEvent(QEvent *e)
 void SToolBColorS::iconSetChange()
 {
 	IconManager& iconManager = IconManager::instance();
-	StrokeIcon->setPixmap(iconManager.loadPixmap("16/color-stroke.png"));
+	StrokeIcon->setPixmap(iconManager.loadPixmap("color-stroke"));
 }
 
 void SToolBColorS::languageChange()
@@ -1567,7 +1567,7 @@ StoryEditor::StoryEditor(QWidget* parent) : QMainWindow(parent, Qt::Window), // 
 	prefsManager(PrefsManager::instance())
 {
 #ifdef Q_OS_MACOS
-	noIcon = IconManager::instance().loadPixmap("noicon.png");
+	noIcon = IconManager::instance().loadPixmap("no-icon");
 #endif
 	buildGUI();
 	/*
@@ -1672,13 +1672,13 @@ void StoryEditor::loadPrefs()
 void StoryEditor::initActions()
 {
 	//File Menu
-	seActions.insert("fileNew", new ScrAction("16/document-new.png", "22/document-new.png", "", Qt::CTRL|Qt::Key_N, this));
-	seActions.insert("fileRevert", new ScrAction("reload16.png", "reload.png", "", QKeySequence(), this));
-	seActions.insert("fileSaveToFile", new ScrAction("16/document-save.png", "22/document-save.png", "", QKeySequence(), this));
-	seActions.insert("fileLoadFromFile", new ScrAction("16/document-open.png",  "22/document-open.png", "", QKeySequence(), this));
+	seActions.insert("fileNew", new ScrAction("document-new", "document-new", "", Qt::CTRL|Qt::Key_N, this));
+	seActions.insert("fileRevert", new ScrAction("reload", "reload", "", QKeySequence(), this));
+	seActions.insert("fileSaveToFile", new ScrAction("document-save", "document-save", "", QKeySequence(), this));
+	seActions.insert("fileLoadFromFile", new ScrAction("document-open",  "document-open", "", QKeySequence(), this));
 	seActions.insert("fileSaveDocument", new ScrAction("", Qt::CTRL|Qt::Key_S, this));
-	seActions.insert("fileUpdateAndExit", new ScrAction("ok.png", "ok22.png", "", Qt::CTRL|Qt::Key_W,  this));
-	seActions.insert("fileExit", new ScrAction("exit.png", "exit22.png", "", QKeySequence(),  this));
+	seActions.insert("fileUpdateAndExit", new ScrAction("ok", "ok", "", Qt::CTRL|Qt::Key_W,  this));
+	seActions.insert("fileExit", new ScrAction("exit", "exit", "", QKeySequence(),  this));
 
 	connect( seActions["fileNew"], SIGNAL(triggered()), this, SLOT(Do_new()) );
 	connect( seActions["fileRevert"], SIGNAL(triggered()), this, SLOT(slotFileRevert()) );
@@ -1689,15 +1689,15 @@ void StoryEditor::initActions()
 	connect( seActions["fileExit"], SIGNAL(triggered()), this, SLOT(Do_leave()) );
 
 	//Edit Menu
-	seActions.insert("editCut", new ScrAction("16/edit-cut.png", QString(), "", Qt::CTRL|Qt::Key_X, this));
-	seActions.insert("editCopy", new ScrAction("16/edit-copy.png", QString(), "", Qt::CTRL|Qt::Key_C, this));
-	seActions.insert("editPaste", new ScrAction("16/edit-paste.png", QString(), "", Qt::CTRL|Qt::Key_V, this));
-	seActions.insert("editClear", new ScrAction("16/edit-delete.png", QString(), "", Qt::Key_Delete, this));
-	seActions.insert("editSelectAll", new ScrAction("16/edit-select-all.png", QString(), "", Qt::CTRL|Qt::Key_A, this));
-	seActions.insert("editSearchReplace", new ScrAction("16/edit-find-replace.png", QString(), "", Qt::CTRL|Qt::Key_F, this));
+	seActions.insert("editCut", new ScrAction("edit-cut", QString(), "", Qt::CTRL|Qt::Key_X, this));
+	seActions.insert("editCopy", new ScrAction("edit-copy", QString(), "", Qt::CTRL|Qt::Key_C, this));
+	seActions.insert("editPaste", new ScrAction("edit-paste", QString(), "", Qt::CTRL|Qt::Key_V, this));
+	seActions.insert("editClear", new ScrAction("edit-delete", QString(), "", Qt::Key_Delete, this));
+	seActions.insert("editSelectAll", new ScrAction("edit-select-all", QString(), "", Qt::CTRL|Qt::Key_A, this));
+	seActions.insert("editSearchReplace", new ScrAction("edit-find-replace", QString(), "", Qt::CTRL|Qt::Key_F, this));
 	//seActions.insert("editEditStyle", new ScrAction("", QKeySequence(), this));
 	seActions.insert("editFontPreview", new ScrAction("", QKeySequence(), this));
-	seActions.insert("editUpdateFrame", new ScrAction("compfile16.png", "compfile.png", "", Qt::CTRL|Qt::Key_U, this));
+	seActions.insert("editUpdateFrame", new ScrAction("compfile", "compfile", "", Qt::CTRL|Qt::Key_U, this));
 
 	connect( seActions["editCut"], SIGNAL(triggered()), this, SLOT(Do_cut()) );
 	connect( seActions["editCopy"], SIGNAL(triggered()), this, SLOT(Do_copy()) );
@@ -1860,7 +1860,7 @@ void StoryEditor::buildGUI()
 	seActions["unicodeSoftHyphen"]->setEnabled(false);//CB TODO doesn't work in SE yet.
 	buildMenus();
 
-	setWindowIcon(IconManager::instance().loadPixmap("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadPixmap("app-icon"));
 	StoryEd2Layout = new QHBoxLayout;
 	StoryEd2Layout->setSpacing(6);
 	StoryEd2Layout->setContentsMargins(9, 9, 9, 9);
@@ -2013,9 +2013,9 @@ void StoryEditor::iconSetChange()
 {
 	IconManager& iconManager = IconManager::instance();
 #ifdef Q_OS_MACOS
-	noIcon = iconManager.loadPixmap("noicon.png");
+	noIcon = iconManager.loadPixmap("no-icon");
 #endif
-	setWindowIcon(iconManager.loadPixmap("AppIcon.png"));
+	setWindowIcon(iconManager.loadPixmap("app-icon"));
 }
 
 void StoryEditor::languageChange()

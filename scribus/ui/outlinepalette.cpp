@@ -328,7 +328,7 @@ bool OutlineWidget::viewportEvent(QEvent *event)
 		PageItem *pgItem = item->PageItemObject;
 		QPainter p;
 		QImage pm = QImage(80, 80, QImage::Format_ARGB32_Premultiplied);
-		QBrush b(QColor(205,205,205), IconManager::instance().loadPixmap("testfill.png"));
+		QBrush b(QColor(205,205,205), IconManager::instance().loadPixmap("testfill"));
 		p.begin(&pm);
 		p.fillRect(QRectF(0, 0, 80, 80), b);
 		QImage thumb = pgItem->DrawObj_toImage(80);
@@ -1460,25 +1460,25 @@ void OutlinePalette::changeEvent(QEvent *e)
 void OutlinePalette::iconSetChange()
 {
 	IconManager& im = IconManager::instance();
-	imageIcon = im.loadPixmap("22/insert-image.png");
-	latexIcon = im.loadPixmap("22/insert-latex.png");
-	lineIcon = im.loadPixmap("stift.png");
-	textIcon = im.loadPixmap("22/insert-text-frame.png");
-	polylineIcon = im.loadPixmap("22/draw-path.png");
-	polygonIcon = im.loadPixmap("22/draw-polygon.png");
-	arcIcon = im.loadPixmap("22/draw-arc.png");
-	spiralIcon = im.loadPixmap("22/draw-spiral.png");
-	tableIcon = im.loadPixmap("22/insert-table.png");
-	groupIcon = im.loadPixmap("u_group.png");
-	buttonIcon = im.loadPixmap("22/insert-button.png");
-	radiobuttonIcon = im.loadPixmap("22/radiobutton.png");
-	textFieldIcon = im.loadPixmap("22/text-field.png");
-	checkBoxIcon = im.loadPixmap("22/checkbox.png");
-	comboBoxIcon = im.loadPixmap("22/combobox.png");
-	listBoxIcon = im.loadPixmap("22/list-box.png");
-	annotTextIcon = im.loadPixmap("22/pdf-annotations.png");
-	annotLinkIcon = im.loadPixmap("goto.png");
-	annot3DIcon = im.loadPixmap("22/annot3d.png");
+	imageIcon = im.loadPixmap("tool-insert-image");
+	latexIcon = im.loadPixmap("insert-latex");
+	lineIcon = im.loadPixmap("tool-insert-line");
+	textIcon = im.loadPixmap("tool-insert-text-frame");
+	polylineIcon = im.loadPixmap("tool-draw-bezier");
+	polygonIcon = im.loadPixmap("tool-insert-polygon");
+	arcIcon = im.loadPixmap("tool-insert-arc");
+	spiralIcon = im.loadPixmap("tool-insert-spiral");
+	tableIcon = im.loadPixmap("tool-insert-table");
+	groupIcon = im.loadPixmap("u_group");
+	buttonIcon = im.loadPixmap("pdf-button");
+	radiobuttonIcon = im.loadPixmap("pdf-radiobutton");
+	textFieldIcon = im.loadPixmap("pdf-textfield");
+	checkBoxIcon = im.loadPixmap("pdf-checkbox");
+	comboBoxIcon = im.loadPixmap("pdf-combobox");
+	listBoxIcon = im.loadPixmap("pdf-listbox");
+	annotTextIcon = im.loadPixmap("pdf-annotation-text");
+	annotLinkIcon = im.loadPixmap("pdf-annotation-link");
+	annot3DIcon = im.loadPixmap("pdf-annotation-3d");
 
 	if (this->isVisible() && (currDoc != nullptr))
 		BuildTree();

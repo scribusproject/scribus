@@ -36,15 +36,15 @@ Editor::Editor( QWidget* parent, const QString& daten, ScribusView* vie) : QDial
 	setWindowTitle(tr("Editor"));
 
 	IconManager& im = IconManager::instance();
-	setWindowIcon(im.loadIcon("AppIcon.png"));
+	setWindowIcon(im.loadIcon("app-icon"));
 	view = vie;
 	dirs = PrefsManager::instance().prefsFile->getContext("dirs");
 	EditorLayout = new QVBoxLayout(this);
 	EditTex = new QTextEdit(this);
-	newAct = new QAction(im.loadIcon("16/document-new.png"), tr("&New"), this);
+	newAct = new QAction(im.loadIcon("document-new"), tr("&New"), this);
 	newAct->setShortcut(tr("Ctrl+N"));
 	connect(newAct, SIGNAL(triggered()), EditTex, SLOT(clear()));
-	openAct = new QAction(im.loadIcon("16/document-open.png"), tr("&Open..."), this);
+	openAct = new QAction(im.loadIcon("document-open"), tr("&Open..."), this);
 	connect(openAct, SIGNAL(triggered()), this, SLOT(OpenScript()));
 	saveAsAct = new QAction( tr("Save &As..."), this);
 	connect(saveAsAct, SIGNAL(triggered()), this, SLOT(SaveAs()));
@@ -52,21 +52,21 @@ Editor::Editor( QWidget* parent, const QString& daten, ScribusView* vie) : QDial
 	connect(saveExitAct, SIGNAL(triggered()), this, SLOT(accept()));
 	exitAct = new QAction( tr("&Exit without Saving"), this);
 	connect(exitAct, SIGNAL(triggered()), this, SLOT(reject()));
-	undoAct = new QAction(im.loadIcon("16/edit-undo.png"), tr("&Undo"), this);
+	undoAct = new QAction(im.loadIcon("edit-undo"), tr("&Undo"), this);
 	undoAct->setShortcut(tr("Ctrl+Z"));
 	connect(undoAct, SIGNAL(triggered()), EditTex, SLOT(undo()));
-	redoAct = new QAction(im.loadIcon("16/edit-redo.png"),  tr("&Redo"), this);
+	redoAct = new QAction(im.loadIcon("edit-redo"),  tr("&Redo"), this);
 	connect(redoAct, SIGNAL(triggered()), EditTex, SLOT(redo()));
-	cutAct = new QAction(im.loadIcon("16/edit-cut.png"), tr("Cu&t"), this);
+	cutAct = new QAction(im.loadIcon("edit-cut"), tr("Cu&t"), this);
 	cutAct->setShortcut(tr("Ctrl+X"));
 	connect(cutAct, SIGNAL(triggered()), EditTex, SLOT(cut()));
-	copyAct = new QAction(im.loadIcon("16/edit-copy.png"), tr("&Copy"), this);
+	copyAct = new QAction(im.loadIcon("edit-copy"), tr("&Copy"), this);
 	copyAct->setShortcut(tr("Ctrl+C"));
 	connect(copyAct, SIGNAL(triggered()), EditTex, SLOT(copy()));
-	pasteAct = new QAction(im.loadIcon("16/edit-paste.png"), tr("&Paste"), this);
+	pasteAct = new QAction(im.loadIcon("edit-paste"), tr("&Paste"), this);
 	pasteAct->setShortcut(tr("Ctrl-V"));
 	connect(pasteAct, SIGNAL(triggered()), EditTex, SLOT(paste()));
-	clearAct = new QAction(im.loadIcon("16/edit-delete.png"), tr("C&lear"), this);
+	clearAct = new QAction(im.loadIcon("edit-delete"), tr("C&lear"), this);
 	connect(clearAct, SIGNAL(triggered()), this, SLOT(del()));
 	getFieldAct = new QAction( tr("&Get Field Names"), this);
 	connect(getFieldAct, SIGNAL(triggered()), this, SLOT(GetFieldNames()));
@@ -126,16 +126,16 @@ void Editor::iconSetChange()
 {
 	IconManager& im = IconManager::instance();
 
-	setWindowIcon(im.loadIcon("AppIcon.png"));
+	setWindowIcon(im.loadIcon("app-icon"));
 
-	newAct->setIcon(im.loadIcon("16/document-new.png"));
-	openAct->setIcon(im.loadIcon("16/document-open.png"));
-	undoAct->setIcon(im.loadIcon("16/edit-undo.png"));
-	redoAct->setIcon(im.loadIcon("16/edit-redo.png"));
-	cutAct->setIcon(im.loadIcon("16/edit-cut.png"));
-	copyAct->setIcon(im.loadIcon("16/edit-copy.png"));
-	pasteAct->setIcon(im.loadIcon("16/edit-paste.png"));
-	clearAct->setIcon(im.loadIcon("16/edit-delete.png"));
+	newAct->setIcon(im.loadIcon("document-new"));
+	openAct->setIcon(im.loadIcon("document-open"));
+	undoAct->setIcon(im.loadIcon("edit-undo"));
+	redoAct->setIcon(im.loadIcon("edit-redo"));
+	cutAct->setIcon(im.loadIcon("edit-cut"));
+	copyAct->setIcon(im.loadIcon("edit-copy"));
+	pasteAct->setIcon(im.loadIcon("edit-paste"));
+	clearAct->setIcon(im.loadIcon("edit-delete"));
 }
 
 void Editor::GetFieldNames()

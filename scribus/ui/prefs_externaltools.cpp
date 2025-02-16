@@ -28,7 +28,7 @@ Prefs_ExternalTools::Prefs_ExternalTools(QWidget* parent, ScribusDoc* /*doc*/)
 	languageChange();
 
 	m_caption = tr("External Tools");
-	m_icon = "gear_16.png";
+	m_icon = "pref-external-tools";
 
 	connect(psToolChangeButton, SIGNAL(clicked()), this, SLOT(changePostScriptTool()));
 	connect(imageToolChangeButton, SIGNAL(clicked()), this, SLOT(changeImageTool()));

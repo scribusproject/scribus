@@ -30,7 +30,7 @@ Prefs_ItemTools::Prefs_ItemTools(QWidget* parent, ScribusDoc* /*doc*/)
 	languageChange();
 
 	m_caption = tr("Item Tools");
-	m_icon = "tools_16.png";
+	m_icon = "pref-tools";
 
 	lineEndArrowComboBox->setArrowDirection(ArrowDirection::EndArrow);
 	shapeLineWidthSpinBox->setNewUnit(0);

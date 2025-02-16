@@ -254,8 +254,8 @@ LensDialog::LensDialog(QWidget* parent, ScribusDoc *doc) : QDialog(parent)
 	setupUi(this);
 	buttonRemove->setEnabled(false);
 	setModal(true);
-	buttonZoomOut->setIcon(QIcon(IconManager::instance().loadIcon("16/zoom-out.png")));
-	buttonZoomI->setIcon(QIcon(IconManager::instance().loadIcon("16/zoom-in.png")));
+	buttonZoomOut->setIcon(QIcon(IconManager::instance().loadIcon("zoom-out")));
+	buttonZoomI->setIcon(QIcon(IconManager::instance().loadIcon("zoom-in")));
 	addItemsToScene(doc->m_Selection, doc, nullptr, nullptr);
 	previewWidget->setRenderHint(QPainter::Antialiasing);
 	previewWidget->setScene(&scene);

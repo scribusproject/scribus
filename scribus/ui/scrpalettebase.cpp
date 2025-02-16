@@ -59,7 +59,7 @@ ScrPaletteBase::ScrPaletteBase(  QWidget * parent, const QString& prefsContext, 
 	}
 	m_originalParent = parent;
 	m_tempParent = nullptr;
-	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("app-icon"));
 	setPrefsContext(prefsContext);
 	setModal(modal);
 	connect(&PrefsManager::instance(), SIGNAL(prefsChanged()), this, SLOT(setFontSize()));

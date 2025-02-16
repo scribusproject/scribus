@@ -20,7 +20,7 @@ Prefs_Typography::Prefs_Typography(QWidget* parent, ScribusDoc* doc)
 	languageChange();
 
 	m_caption = tr("Typography");
-	m_icon = "16/draw-text.png";
+	m_icon = "pref-typography";
 
 	connect(opticalMarginsEditor, &OpticalMarginEditor::setDeleted, this, &Prefs_Typography::updateParagraphStyles);
 }

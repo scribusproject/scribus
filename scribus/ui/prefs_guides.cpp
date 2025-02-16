@@ -22,11 +22,11 @@ Prefs_Guides::Prefs_Guides(QWidget* parent, ScribusDoc* doc)
 	languageChange();
 
 	m_caption = tr("Guides");
-	m_icon = "16/edit-guides.png";
+	m_icon = "pref-guides";
 
-	buttonUp->setIcon(IconManager::instance().loadIcon("16/go-up.png"));
+	buttonUp->setIcon(IconManager::instance().loadIcon("go-up"));
 	buttonUp->setEnabled(false);
-	buttonDown->setIcon(IconManager::instance().loadIcon("16/go-down.png"));
+	buttonDown->setIcon(IconManager::instance().loadIcon("go-down"));
 	buttonDown->setEnabled(false);
 
 	QString pxSuffix = QString(" %1").arg(CommonStrings::trStrPX);

@@ -132,7 +132,7 @@ LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent) : QDialog( parent )
 	m_Doc = doc;
 	setModal(true);
 	setWindowTitle( tr( "Lorem Ipsum" ) );
-	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("app-icon"));
 	LoremManagerLayout = new QGridLayout(this) ;
 	LoremManagerLayout->setContentsMargins(9, 9, 9, 9);
 	LoremManagerLayout->setSpacing(6);

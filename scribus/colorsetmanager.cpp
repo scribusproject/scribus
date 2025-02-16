@@ -198,7 +198,7 @@ void ColorSetManager::searchDir(const QString& path, QMap<QString, QString> &pLi
 					{
 						item = new QTreeWidgetItem(parent);
 						item->setFlags(Qt::ItemIsEditable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
-						item->setIcon(0, QIcon(IconManager::instance().loadIcon("16/folder.png")));
+						item->setIcon(0, QIcon(IconManager::instance().loadIcon("folder")));
 						item->setText(0, setName);
 					}
 					searchDir(path + dirs[dc] + "/", pList, item);
@@ -221,7 +221,7 @@ void ColorSetManager::searchDir(const QString& path, QMap<QString, QString> &pLi
 					item->setText(0, setName);
 					item->setData(0, Qt::UserRole, fi.absolutePath());
 					if ((!fi.isWritable()) || (fi.absolutePath().contains(ScPaths::applicationDataDir()+"swatches/locked")))
-						item->setIcon(0, QIcon(IconManager::instance().loadIcon("16/lock.png")));
+						item->setIcon(0, QIcon(IconManager::instance().loadIcon("lock")));
 				}
 			}
 		}

@@ -87,7 +87,7 @@ void DockPanelBase::iconSetChange()
 
 	if(m_iconName.isEmpty())
 	{
-		setWindowIcon(iconManager.loadPixmap("AppIcon.png"));
+		setWindowIcon(iconManager.loadPixmap("app-icon"));
 		setIcon(QIcon());
 	}
 	else

@@ -29,7 +29,7 @@ void PanGesture::activate(bool fromGesture)
 {
 	CanvasGesture::activate(fromGesture);
 	m_cursor = m_view->cursor();
-	m_view->setCursor(IconManager::instance().loadCursor("handc.png"));
+	m_view->setCursor(IconManager::instance().loadCursor("cursor-hand"));
 }
 
 void PanGesture::deactivate(bool forGesture)

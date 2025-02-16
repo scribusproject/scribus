@@ -83,7 +83,7 @@ PrintPreview::PrintPreview(QWidget* parent, ScribusDoc *docu, const QString& pri
 	setWindowTitle(caption);
 
 	setModal(true);
-	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("app-icon"));
 	Q_ASSERT(!docu->masterPageMode());
 
 	bool printToFile = (printer == CommonStrings::File || printer == CommonStrings::trFile);
@@ -116,7 +116,7 @@ PrintPreview::PrintPreview(QWidget* parent, ScribusDoc *docu, const QString& pri
 
 		m_ui->inkTable->setColumnCount(2);
 		m_ui->inkTable->setRowCount(4 + spots.count());
-		m_ui->inkTable->setHorizontalHeaderItem(0, new QTableWidgetItem(IconManager::instance().loadIcon("16/show-object.png"), ""));
+		m_ui->inkTable->setHorizontalHeaderItem(0, new QTableWidgetItem(IconManager::instance().loadIcon("show-object"), ""));
 		m_ui->inkTable->setHorizontalHeaderItem(1, new QTableWidgetItem( tr("Separation Name")));
 
 		QHeaderView *header = m_ui->inkTable->horizontalHeader();

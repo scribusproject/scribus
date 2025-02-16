@@ -41,7 +41,7 @@ for which a new license (GPL+exception) is in place.
 ScDialog::ScDialog(QWidget * parent, const QString& prefsContext)
         : QDialog(parent)
 {
-	setWindowIcon(IconManager::instance().loadPixmap("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadPixmap("app-icon"));
 	setPrefsContext(prefsContext);
 	setObjectName(prefsContext);
 }

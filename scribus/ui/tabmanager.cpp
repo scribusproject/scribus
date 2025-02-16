@@ -21,7 +21,7 @@ TabManager::TabManager( QWidget* parent, int dEin, const QList<ParagraphStyle::T
 {
 	setModal(true);
     setWindowTitle( tr( "Manage Tabs" ) );
-	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("app-icon"));
 	m_docUnitRatio = unitGetRatioFromIndex(dEin);
 	m_tabList = inTab;
 	TabManagerLayout = new QVBoxLayout( this );

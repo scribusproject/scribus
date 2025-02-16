@@ -278,7 +278,7 @@ ScribusMainWindow::ScribusMainWindow() :
 #ifdef Q_OS_MACOS
 	//commenting this out until this is resolved :https://bugreports.qt.io/browse/QTBUG-44565
 	//ScQApp->setAttribute(Qt::AA_DontShowIconsInMenus);
-	//noIcon = IconManager::instance().loadPixmap("noicon.png");
+	//noIcon = IconManager::instance().loadPixmap("no-icon");
 #endif
 
 }
@@ -344,7 +344,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	setWindowTitle(scribusTitle);
 	setAttribute(Qt::WA_KeyCompression, false);
 	setAttribute(Qt::WA_InputMethodEnabled, true);
-	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("app-icon"));
 	setObjectName("MainWindow");
 	scrActionGroups.clear();
 	scrActions.clear();
@@ -1436,9 +1436,9 @@ void ScribusMainWindow::initStatusBar()
 	zoomInToolbarButton->setDefault( false );
 	zoomInToolbarButton->setAutoDefault( false );
 
-	zoomDefaultToolbarButton->setIcon(IconManager::instance().loadIcon("16/zoom-original.png"));
-	zoomOutToolbarButton->setIcon(IconManager::instance().loadIcon("16/zoom-out.png"));
-	zoomInToolbarButton->setIcon(IconManager::instance().loadIcon("16/zoom-in.png"));
+	zoomDefaultToolbarButton->setIcon(IconManager::instance().loadIcon("zoom-original"));
+	zoomOutToolbarButton->setIcon(IconManager::instance().loadIcon("zoom-out"));
+	zoomInToolbarButton->setIcon(IconManager::instance().loadIcon("zoom-in"));
 
 	zoomLayout->addWidget( zoomSpinBox );
 	zoomLayout->addWidget( zoomOutToolbarButton );
@@ -3046,7 +3046,7 @@ void ScribusMainWindow::importVectorFile()
 		md->setUrls(urls);
 		QDrag* dr = new QDrag(this);
 		dr->setMimeData(md);
-		const QPixmap& dragCursor = IconManager::instance().loadPixmap("dragpix.png");
+		const QPixmap& dragCursor = IconManager::instance().loadPixmap("cursor-drop-image");
 		dr->setPixmap(dragCursor);
 		dr->exec();
 	}
@@ -8486,12 +8486,12 @@ void ScribusMainWindow::iconSetChange()
 {
 	IconManager& iconManager = IconManager::instance();
 
-	setWindowIcon(iconManager.loadIcon("AppIcon.png"));
+	setWindowIcon(iconManager.loadIcon("app-icon"));
 	setStyleSheet();
 
-	zoomDefaultToolbarButton->setIcon(iconManager.loadIcon("16/zoom-original.png"));
-	zoomOutToolbarButton->setIcon(iconManager.loadIcon("16/zoom-out.png"));
-	zoomInToolbarButton->setIcon(iconManager.loadIcon("16/zoom-in.png"));
+	zoomDefaultToolbarButton->setIcon(iconManager.loadIcon("zoom-original"));
+	zoomOutToolbarButton->setIcon(iconManager.loadIcon("zoom-out"));
+	zoomInToolbarButton->setIcon(iconManager.loadIcon("zoom-in"));
 }
 
 void ScribusMainWindow::languageChange()

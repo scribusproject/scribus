@@ -44,7 +44,7 @@ OutputPreview_PS::OutputPreview_PS(QWidget* parent, ScribusDoc* doc) :
 	int inkTableWidth = 0;
 
 	setModal(true);
-	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("app-icon"));
 
 	QString caption = tr("PostScript Output Preview");
 	setWindowTitle(caption);
@@ -71,7 +71,7 @@ OutputPreview_PS::OutputPreview_PS(QWidget* parent, ScribusDoc* doc) :
 
 		m_optionsUi->inkTable->setColumnCount(2);
 		m_optionsUi->inkTable->setRowCount(4 + spots.count());
-		m_optionsUi->inkTable->setHorizontalHeaderItem(0, new QTableWidgetItem(IconManager::instance().loadIcon("16/show-object.png"), ""));
+		m_optionsUi->inkTable->setHorizontalHeaderItem(0, new QTableWidgetItem(IconManager::instance().loadIcon("show-object"), ""));
 		m_optionsUi->inkTable->setHorizontalHeaderItem(1, new QTableWidgetItem( tr("Separation Name")));
 
 		QHeaderView *header = m_optionsUi->inkTable->horizontalHeader();
@@ -540,7 +540,7 @@ QPixmap OutputPreview_PS::createPreview(int pageIndex, int res)
 		pixmap = QPixmap(image.width(), image.height());
 		pixmap.setDevicePixelRatio(devicePixelRatioF());
 		QPainter p;
-		QBrush b(QColor(205,205,205), IconManager::instance().loadPixmap("testfill.png"));
+		QBrush b(QColor(205,205,205), IconManager::instance().loadPixmap("testfill"));
 		p.begin(&pixmap);
 		p.fillRect(0, 0, image.width(), image.height(), b);
 		p.drawImage(0, 0, image);

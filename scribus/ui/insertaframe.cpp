@@ -272,7 +272,7 @@ void InsertAFrame::iconSetChange()
 {
 	IconManager& im = IconManager::instance();
 
-	placementPagesRangeButton->setIcon(im.loadIcon("ellipsis.png"));
-	selectDocFileButton->setIcon(im.loadIcon("ellipsis.png"));
-	selectImageFileButton->setIcon(im.loadIcon("ellipsis.png"));
+	placementPagesRangeButton->setIcon(im.loadIcon("ellipsis"));
+	selectDocFileButton->setIcon(im.loadIcon("ellipsis"));
+	selectImageFileButton->setIcon(im.loadIcon("ellipsis"));
 }

@@ -31,8 +31,8 @@ void Barcode::languageChange()
 		m_actionInfo.menuAfterName = "toolsInsertRenderFrame";
 		m_actionInfo.toolbar = "Tools";
 	}
-	m_actionInfo.iconPath1 = "16/insert-barcode.png";
-	m_actionInfo.iconPath2 = "22/insert-barcode.png";
+	m_actionInfo.iconPath1 = "tool-insert-barcode";
+	m_actionInfo.iconPath2 = "tool-insert-barcode";
 	m_actionInfo.enabledOnStartup = false;
 //	m_actionInfo.forAppMode.append(modeNormal);
 	m_actionInfo.needsNumObjects = -1;

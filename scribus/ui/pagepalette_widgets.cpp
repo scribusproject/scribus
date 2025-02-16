@@ -1126,7 +1126,7 @@ void PageGrid::mouseMoveEvent(QMouseEvent *event)
 					mimeData->setText("2 " + tmp.setNum(p) + " " + str);
 					QDrag *dr = new QDrag(this);
 					dr->setMimeData(mimeData);
-					//const QPixmap& pm = IconManager::instance().loadPixmap("doc.png");
+					//const QPixmap& pm = IconManager::instance().loadPixmap("document");
 					const QPixmap& pm = ite->pagePreview;
 					dr->setPixmap(pm);
 					dr->exec(Qt::CopyAction | Qt::MoveAction);
@@ -1212,7 +1212,7 @@ void TrashBin::dropEvent(QDropEvent * e)
 
 void TrashBin::iconSetChange()
 {
-	normal = IconManager::instance().loadPixmap("trashcan.png", 24);
-	open = IconManager::instance().loadPixmap("trashcan2.png", 24);
+	normal = IconManager::instance().loadPixmap("trashcan", 24);
+	open = IconManager::instance().loadPixmap("trashcan-open", 24);
 	setPixmap(normal);
 }

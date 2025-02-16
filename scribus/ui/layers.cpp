@@ -75,12 +75,12 @@ LayerPalette::LayerPalette(QWidget* parent) : DockPanelBase("Layers", "panel-lay
 	IconManager& im = IconManager::instance();
 	Table = new QTableWidget(0, 8, this );
 	Table->setHorizontalHeaderItem(0, new QTableWidgetItem(""));
-	Table->setHorizontalHeaderItem(1, new QTableWidgetItem(im.loadIcon("16/show-object.png"), ""));
-	Table->setHorizontalHeaderItem(2, new QTableWidgetItem(im.loadIcon("16/document-print.png"), ""));
-	Table->setHorizontalHeaderItem(3, new QTableWidgetItem(im.loadIcon("16/lock.png"), ""));
-	Table->setHorizontalHeaderItem(4, new QTableWidgetItem(im.loadIcon("16/layer-flow-around.png"), ""));
-	Table->setHorizontalHeaderItem(5, new QTableWidgetItem(im.loadIcon("layer-outline.png"), ""));
-	Table->setHorizontalHeaderItem(6, new QTableWidgetItem(im.loadIcon("16/pointer.png"), ""));
+	Table->setHorizontalHeaderItem(1, new QTableWidgetItem(im.loadIcon("show-object"), ""));
+	Table->setHorizontalHeaderItem(2, new QTableWidgetItem(im.loadIcon("document-print"), ""));
+	Table->setHorizontalHeaderItem(3, new QTableWidgetItem(im.loadIcon("lock"), ""));
+	Table->setHorizontalHeaderItem(4, new QTableWidgetItem(im.loadIcon("layer-flow-around"), ""));
+	Table->setHorizontalHeaderItem(5, new QTableWidgetItem(im.loadIcon("layer-outline"), ""));
+	Table->setHorizontalHeaderItem(6, new QTableWidgetItem(im.loadIcon("tool-select"), ""));
 	Table->setHorizontalHeaderItem(7, new QTableWidgetItem( tr("Name")));
 
 	QHeaderView *header = Table->horizontalHeader();
@@ -117,7 +117,7 @@ LayerPalette::LayerPalette(QWidget* parent) : DockPanelBase("Layers", "panel-lay
 	newLayerButton->setMinimumSize( QSize( 48, 0 ) );
 	newLayerButton->setMaximumSize( QSize( 48, 16777215 ) );
 	newLayerButton->setText( "" );
-	newLayerButton->setIcon(IconManager::instance().loadIcon("16/list-add.png"));
+	newLayerButton->setIcon(IconManager::instance().loadIcon("list-add"));
 	Layout1->addWidget( newLayerButton );
 
 	deleteLayerButton = new QToolButton( this );
@@ -125,7 +125,7 @@ LayerPalette::LayerPalette(QWidget* parent) : DockPanelBase("Layers", "panel-lay
 	deleteLayerButton->setMinimumSize( QSize( 48, 0 ) );
 	deleteLayerButton->setMaximumSize( QSize( 48, 16777215 ) );
 	deleteLayerButton->setText( "" );
-	deleteLayerButton->setIcon(IconManager::instance().loadIcon("16/list-remove.png"));
+	deleteLayerButton->setIcon(IconManager::instance().loadIcon("list-remove"));
 	Layout1->addWidget( deleteLayerButton );
 	
 	duplicateLayerButton = new QToolButton( this );
@@ -133,7 +133,7 @@ LayerPalette::LayerPalette(QWidget* parent) : DockPanelBase("Layers", "panel-lay
 	duplicateLayerButton->setMinimumSize( QSize( 48, 0 ) );
 	duplicateLayerButton->setMaximumSize( QSize( 48, 16777215 ) );
 	duplicateLayerButton->setText( "" );
-	duplicateLayerButton->setIcon(IconManager::instance().loadIcon("16/edit-copy.png"));
+	duplicateLayerButton->setIcon(IconManager::instance().loadIcon("edit-copy"));
 	Layout1->addWidget( duplicateLayerButton );
 
 	raiseLayerButton = new QToolButton( this );
@@ -141,7 +141,7 @@ LayerPalette::LayerPalette(QWidget* parent) : DockPanelBase("Layers", "panel-lay
 	raiseLayerButton->setMinimumSize( QSize( 48, 0 ) );
 	raiseLayerButton->setMaximumSize( QSize( 48, 16777215 ) );
 	raiseLayerButton->setText( "" );
-	raiseLayerButton->setIcon(IconManager::instance().loadIcon("16/go-up.png"));
+	raiseLayerButton->setIcon(IconManager::instance().loadIcon("go-up"));
 	Layout1->addWidget( raiseLayerButton );
 
 	lowerLayerButton = new QToolButton( this );
@@ -149,7 +149,7 @@ LayerPalette::LayerPalette(QWidget* parent) : DockPanelBase("Layers", "panel-lay
 	lowerLayerButton->setMinimumSize( QSize( 48, 0 ) );
 	lowerLayerButton->setMaximumSize( QSize( 48, 16777215 ) );
 	lowerLayerButton->setText( "" );
-	lowerLayerButton->setIcon(IconManager::instance().loadIcon("16/go-down.png"));
+	lowerLayerButton->setIcon(IconManager::instance().loadIcon("go-down"));
 	Layout1->addWidget( lowerLayerButton );
 
 	LayerPaletteLayout->addLayout( Layout1 );
@@ -696,18 +696,18 @@ void LayerPalette::iconSetChange()
 {
 	IconManager& iconManager = IconManager::instance();
 
-	Table->horizontalHeaderItem(1)->setIcon(iconManager.loadIcon("16/show-object.png"));
-	Table->horizontalHeaderItem(2)->setIcon(iconManager.loadIcon("16/document-print.png"));
-	Table->horizontalHeaderItem(3)->setIcon(iconManager.loadIcon("16/lock.png"));
-	Table->horizontalHeaderItem(4)->setIcon(iconManager.loadIcon("16/layer-flow-around.png"));
-	Table->horizontalHeaderItem(5)->setIcon(iconManager.loadIcon("layer-outline.png"));
-	Table->horizontalHeaderItem(6)->setIcon(iconManager.loadIcon("16/pointer.png"));
+	Table->horizontalHeaderItem(1)->setIcon(iconManager.loadIcon("show-object"));
+	Table->horizontalHeaderItem(2)->setIcon(iconManager.loadIcon("document-print"));
+	Table->horizontalHeaderItem(3)->setIcon(iconManager.loadIcon("lock"));
+	Table->horizontalHeaderItem(4)->setIcon(iconManager.loadIcon("layer-flow-around"));
+	Table->horizontalHeaderItem(5)->setIcon(iconManager.loadIcon("layer-outline"));
+	Table->horizontalHeaderItem(6)->setIcon(iconManager.loadIcon("tool-select"));
 
-	newLayerButton->setIcon(iconManager.loadIcon("16/list-add.png"));
-	deleteLayerButton->setIcon(iconManager.loadIcon("16/list-remove.png"));
-	duplicateLayerButton->setIcon(iconManager.loadIcon("16/edit-copy.png"));
-	raiseLayerButton->setIcon(iconManager.loadIcon("16/go-up.png"));
-	lowerLayerButton->setIcon(iconManager.loadIcon("16/go-down.png"));
+	newLayerButton->setIcon(iconManager.loadIcon("list-add"));
+	deleteLayerButton->setIcon(iconManager.loadIcon("list-remove"));
+	duplicateLayerButton->setIcon(iconManager.loadIcon("edit-copy"));
+	raiseLayerButton->setIcon(iconManager.loadIcon("go-up"));
+	lowerLayerButton->setIcon(iconManager.loadIcon("go-down"));
 }
 
 void LayerPalette::languageChange()

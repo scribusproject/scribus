@@ -52,7 +52,7 @@ CupsOptions::CupsOptions(QWidget* parent, const QString& device) : QDialog( pare
 {
 	setModal(true);
 	setWindowTitle( tr( "Printer Options" ) );
-	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("app-icon"));
 	setSizeGripEnabled(true);
 
 	prefs = PrefsManager::instance().prefsFile->getContext("cups_options");

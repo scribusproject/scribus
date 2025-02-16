@@ -854,14 +854,14 @@ void UndoManager::initIcons()
 	QString iconDir = ScPaths::instance().iconDir();
 
 /*** Icons for UndoObjects *******************************************/
-	UndoManager::IImageFrame      = new QPixmap(iconDir + "16/insert-image.png");
-	UndoManager::ITextFrame       = new QPixmap(iconDir + "16/insert-text-frame.png");
-	UndoManager::ILatexFrame      = new QPixmap(iconDir + "16/insert-latex.png");
-	UndoManager::ILine            = new QPixmap(iconDir + "stift.png");
-	UndoManager::IPolygon         = new QPixmap(iconDir + "16/draw-polygon.png");
-	UndoManager::IPolyline        = new QPixmap(iconDir + "16/draw-bezier-curves.png");
+	UndoManager::IImageFrame      = new QPixmap(iconDir + "tool-insert-image");
+	UndoManager::ITextFrame       = new QPixmap(iconDir + "tool-insert-text-frame");
+	UndoManager::ILatexFrame      = new QPixmap(iconDir + "insert-latex");
+	UndoManager::ILine            = new QPixmap(iconDir + "tool-insert-line");
+	UndoManager::IPolygon         = new QPixmap(iconDir + "tool-insert-polygon");
+	UndoManager::IPolyline        = new QPixmap(iconDir + "tool-draw-bezier");
 // 	UndoManager::IPathText        = new QPixmap(iconDir + "?";
-	UndoManager::IGroup           = new QPixmap(iconDir + "u_group.png");
+	UndoManager::IGroup           = new QPixmap(iconDir + "u_group");
 /*** Icons for actions ***********************************************/
 	UndoManager::IMove            = new QPixmap(iconDir + "u_move.png");
 	UndoManager::IResize          = new QPixmap(iconDir + "u_resize.png");
@@ -879,7 +879,7 @@ void UndoManager::initIcons()
 	UndoManager::IDisablePrint    = new QPixmap(iconDir + "u_disableprint.png");
 	UndoManager::IDelete          = new QPixmap(iconDir + "u_delete.png");
 	UndoManager::ICreate          = new QPixmap(iconDir + "u_create.png");
-	UndoManager::IPaste           = new QPixmap(iconDir + "16/edit-paste.png");
+	UndoManager::IPaste           = new QPixmap(iconDir + "edit-paste");
 	UndoManager::ICut             = new QPixmap(iconDir + "u_cut.png");
 	UndoManager::ITransparency    = new QPixmap(iconDir + "u_transp.png");
 	UndoManager::ILineStyle       = new QPixmap(iconDir + "u_line.png");
@@ -888,14 +888,14 @@ void UndoManager::initIcons()
 	UndoManager::IFont            = new QPixmap(iconDir + "u_font.png");
 	UndoManager::IAI              = new QPixmap(iconDir + "u_eps.png"); // using the icon for EPS for now
 	UndoManager::IEPS             = new QPixmap(iconDir + "u_eps.png");
-	UndoManager::IImportOOoDraw   = new QPixmap(iconDir + "ooo_draw.png");
+	UndoManager::IImportOOoDraw   = new QPixmap(iconDir + "file-ooo-draw");
 	UndoManager::ISVG             = new QPixmap(iconDir + "u_svg.png");
 	UndoManager::IUniconv         = new QPixmap(iconDir + "u_svg.png"); // using the icon for SVG for now
 	UndoManager::IWMF             = new QPixmap(iconDir + "u_eps.png"); // using the icon for EPS for now
 	UndoManager::IXFIG            = new QPixmap(iconDir + "u_eps.png"); // using the icon for EPS for now
 	UndoManager::IImageScaling    = new QPixmap(iconDir + "u_scale_image.png");
 	UndoManager::IBorder          = new QPixmap(iconDir + "u_shape.png");
-	UndoManager::IDocument        = new QPixmap(iconDir + "16/document-new.png");
+	UndoManager::IDocument        = new QPixmap(iconDir + "document-new");
 // 	UndoManager::ILayer           = new QPixmap(iconDir + "u_layer.png");
 // 	UndoManager::ILayerAction     = new QPixmap(iconDir + "u_layer_action.png");
 // 	UndoManager::IUp              = new QPixmap(iconDir + "u_up.png");

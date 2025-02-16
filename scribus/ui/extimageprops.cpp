@@ -37,7 +37,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, PageItem *item, ScribusView *view
 
 	setModal(false);
 	setWindowTitle( tr( "Extended Image Properties" ) );
-	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("app-icon"));
 
 	if (!item->pixm.imgInfo.valid)
 		return;

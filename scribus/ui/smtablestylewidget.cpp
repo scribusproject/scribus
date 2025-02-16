@@ -35,8 +35,8 @@ void SMTableStyleWidget::changeEvent(QEvent *e)
 
 void SMTableStyleWidget::iconSetChange()
 {
-	fillColorIcon->setPixmap(IconManager::instance().loadPixmap("16/color-fill.png"));
-	fillShadeLabel->setPixmap(IconManager::instance().loadPixmap("shade.png") );
+	fillColorIcon->setPixmap(IconManager::instance().loadPixmap("color-fill"));
+	fillShadeLabel->setPixmap(IconManager::instance().loadPixmap("shade") );
 }
 
 void SMTableStyleWidget::handleUpdateRequest(int updateFlags)

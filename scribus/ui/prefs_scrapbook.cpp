@@ -16,7 +16,7 @@ Prefs_Scrapbook::Prefs_Scrapbook(QWidget* parent, ScribusDoc* /*doc*/)
 	languageChange();
 
 	m_caption = tr("Scrapbook");
-	m_icon = "scrap_16.png";
+	m_icon = "pref-scrapbook";
 }
 
 Prefs_Scrapbook::~Prefs_Scrapbook() = default;

@@ -16,7 +16,7 @@ Prefs_Experimental::Prefs_Experimental(QWidget* parent, ScribusDoc* /*doc*/)
 	languageChange();
 
 	m_caption = tr("Experimental");
-	m_icon = "misc_16.png";
+	m_icon = "pref-experimental";
 }
 
 Prefs_Experimental::~Prefs_Experimental() = default;

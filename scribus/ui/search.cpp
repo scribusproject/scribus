@@ -50,7 +50,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* item, 
 
 	setModal(true);
 	setWindowTitle( tr( "Search/Replace" ) );
-	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("app-icon"));
 
 	SearchReplaceLayout = new QVBoxLayout( this );
 	SearchReplaceLayout->setContentsMargins(9, 9, 9, 9);

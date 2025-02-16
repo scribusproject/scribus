@@ -24,7 +24,7 @@ Prefs_Indexes::Prefs_Indexes(QWidget* parent, ScribusDoc* doc)
 	languageChange();
 
 	m_caption = tr("Indexes");
-	m_icon = "tabtocindex_16.png";
+	m_icon = "pref-indexes";
 
 	updateStyleComboBoxes();
 

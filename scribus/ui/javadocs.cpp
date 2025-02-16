@@ -33,7 +33,7 @@ JavaDocs::JavaDocs(QWidget* parent, ScribusDoc *doc, ScribusView* vie)
 {
 	setModal(true);
 	setWindowTitle( tr( "Edit JavaScripts" ) );
-	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("app-icon"));
 
 	JavaDocsLayout = new QHBoxLayout(this);
 	JavaDocsLayout->setContentsMargins(9, 9, 9, 9);

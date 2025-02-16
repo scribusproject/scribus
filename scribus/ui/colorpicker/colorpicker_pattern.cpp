@@ -277,8 +277,8 @@ void ColorPickerPattern::iconSetChange()
 {
 	IconManager &iconManager = IconManager::instance();
 
-	buttonFlipHorizontal->setIcon( iconManager.loadIcon("16/flip-object-horizontal.png"));
-	buttonFlipVertical->setIcon( iconManager.loadIcon("16/flip-object-vertical.png"));
+	buttonFlipHorizontal->setIcon( iconManager.loadIcon("flip-object-horizontal"));
+	buttonFlipVertical->setIcon( iconManager.loadIcon("flip-object-vertical"));
 }
 
 void ColorPickerPattern::unitChange()

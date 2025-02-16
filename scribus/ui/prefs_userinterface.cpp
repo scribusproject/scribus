@@ -25,7 +25,7 @@ Prefs_UserInterface::Prefs_UserInterface(QWidget* parent, ScribusDoc* /*doc*/)
 	setupUi(this);
 	languageChange();
 	m_caption = tr("User Interface");
-	m_icon = "scribus16.png";
+	m_icon = "pref-ui";
 
 	// qt styles
 	QStringList styleList = QStyleFactory::keys();

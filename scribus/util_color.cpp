@@ -248,12 +248,12 @@ QPixmap * getFancyPixmap(const ScColor& col, ScribusDoc* doc)
 	if (!iconsInitialized)
 	{
 		IconManager& im = IconManager::instance();
-		alertIcon = im.loadPixmap("alert.png");
-		cmykIcon = im.loadPixmap("cmyk.png");
-		rgbIcon = im.loadPixmap("rgb.png");
-		labIcon = im.loadPixmap("lab.png");
-		spotIcon = im.loadPixmap("spot.png");
-		regIcon = im.loadPixmap("register.png");
+		alertIcon = im.loadPixmap("alert-warning");
+		cmykIcon = im.loadPixmap("color-cmyk");
+		rgbIcon = im.loadPixmap("color-rgb");
+		labIcon = im.loadPixmap("color-lab");
+		spotIcon = im.loadPixmap("color-spot");
+		regIcon = im.loadPixmap("color-registration");
 		iconsInitialized = true;
 	}
 

@@ -373,14 +373,14 @@ void ColorPickerGradientProperties::changeSpecialDiamond()
 void ColorPickerGradientProperties::iconSetChange()
 {
 	IconManager& im = IconManager::instance();
-	editPoints->setIcon(im.loadIcon("MoveNode.png"));
-	editControlPoints->setIcon(im.loadIcon("MoveKontrol.png"));
-	resetControlPoint->setIcon(im.loadIcon("Reset1Node.png"));
-	resetAllControlPoints->setIcon(im.loadIcon("ResetNode.png"));
-	editPPoint->setIcon(im.loadIcon("MoveNode.png"));
-	editPControlPoints->setIcon(im.loadIcon("MoveKontrol.png"));
-	resetPControlPoint->setIcon(im.loadIcon("Reset1Node.png"));
-	resetAllPControlPoints->setIcon(im.loadIcon("ResetNode.png"));
+	editPoints->setIcon(im.loadIcon("bezier-node-move"));
+	editControlPoints->setIcon(im.loadIcon("bezier-control-move"));
+	resetControlPoint->setIcon(im.loadIcon("bezier-control-reset"));
+	resetAllControlPoints->setIcon(im.loadIcon("bezier-control-reset-all"));
+	editPPoint->setIcon(im.loadIcon("bezier-node-move"));
+	editPControlPoints->setIcon(im.loadIcon("bezier-control-move"));
+	resetPControlPoint->setIcon(im.loadIcon("bezier-control-reset"));
+	resetAllPControlPoints->setIcon(im.loadIcon("bezier-control-reset-all"));
 }
 
 void ColorPickerGradientProperties::unitChange(int unitIndex)

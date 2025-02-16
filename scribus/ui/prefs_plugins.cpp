@@ -25,7 +25,7 @@ Prefs_Plugins::Prefs_Plugins(QWidget* parent, ScribusDoc* /*doc*/)
 	languageChange();
 
 	m_caption = tr("Plugins");
-	m_icon = "plugins_16.png";
+	m_icon = "pref-plugins";
 
 	PluginManager& pluginManager(PluginManager::instance());
 	//Hide this stuff as we don't want it now we are not letting people turn plugins on or off

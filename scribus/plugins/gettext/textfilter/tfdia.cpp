@@ -32,7 +32,7 @@ for which a new license (GPL+exception) is in place.
 tfDia::tfDia()
 {
 	setModal(true);
-	setWindowIcon(QIcon(IconManager::instance().loadIcon("AppIcon.png")));
+	setWindowIcon(QIcon(IconManager::instance().loadIcon("app-icon")));
 	setWindowTitle( tr("Create filter"));
 	setMinimumWidth(524);
 	prefs = PrefsManager::instance().prefsFile->getPluginContext("TextFilter");

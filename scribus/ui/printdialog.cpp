@@ -52,8 +52,8 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& 
 	m_unitRatio = unitGetRatioFromIndex(doc->unitIndex());
 	prefs = PrefsManager::instance().prefsFile->getContext("print_options");
 
-	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
-	pageNrButton->setIcon(IconManager::instance().loadIcon("ellipsis.png"));
+	setWindowIcon(IconManager::instance().loadIcon("app-icon"));
+	pageNrButton->setIcon(IconManager::instance().loadIcon("ellipsis"));
 	markLength->setNewUnit(m_unit);
 	markLength->setMinimum(1 * m_unitRatio);
 	markLength->setMaximum(3000 * m_unitRatio);

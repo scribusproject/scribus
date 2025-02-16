@@ -855,13 +855,13 @@ void PropertiesPalette_Line::iconSetChange()
 {
 	IconManager& im = IconManager::instance();
 
-	buttonJoinMiter->setIcon(im.loadIcon("16/stroke-join-miter.png"));
-	buttonJoinBevel->setIcon(im.loadIcon("16/stroke-join-bevel.png"));
-	buttonJoinRound->setIcon(im.loadIcon("16/stroke-join-round.png"));
+	buttonJoinMiter->setIcon(im.loadIcon("stroke-join-miter"));
+	buttonJoinBevel->setIcon(im.loadIcon("stroke-join-bevel"));
+	buttonJoinRound->setIcon(im.loadIcon("stroke-join-round"));
 
-	buttonCapFlat->setIcon(im.loadIcon("16/stroke-cap-butt.png"));
-	buttonCapRound->setIcon(im.loadIcon("16/stroke-cap-round.png"));
-	buttonCapSquare->setIcon(im.loadIcon("16/stroke-cap-square.png"));
+	buttonCapFlat->setIcon(im.loadIcon("stroke-cap-butt"));
+	buttonCapRound->setIcon(im.loadIcon("stroke-cap-round"));
+	buttonCapSquare->setIcon(im.loadIcon("stroke-cap-square"));
 
 	buttonSwapMarker->setIcon(im.loadIcon("swap"));
 	buttonLineMask->setDotIcon(im.loadIcon("mask", 8));

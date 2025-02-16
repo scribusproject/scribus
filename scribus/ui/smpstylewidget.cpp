@@ -117,7 +117,7 @@ void SMPStyleWidget::iconSetChange()
 	maxGlyphExtLabel->setPixmap(iconManager.loadPixmap("character-scale-width-max"));
 	consecutiveHyphenLabel->setPixmap(iconManager.loadPixmap("hyphen-consecutive"));
 
-	bulletCharTableButton->setIcon(iconManager.loadIcon("22/insert-table.png"));
+	bulletCharTableButton->setIcon(iconManager.loadIcon("character-table"));
 	distFromTextLabel->setPixmap(iconManager.loadPixmap("paragraph-list-offset"));
 	parEffectCharStyleComboLabel->setPixmap(iconManager.loadPixmap("character-style"));
 	peLabel->setPixmap(iconManager.loadPixmap("paragraph-effects-style"));

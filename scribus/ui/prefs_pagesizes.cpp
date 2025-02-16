@@ -28,8 +28,8 @@ Prefs_PageSizes::Prefs_PageSizes(QWidget* parent, ScribusDoc* /*doc*/)
 
 	languageChange();
 
-	toActiveButton->setIcon(IconManager::instance().loadIcon("22/go-next.png"));
-	fromActiveButton->setIcon(IconManager::instance().loadIcon("22/go-previous.png"));
+	toActiveButton->setIcon(IconManager::instance().loadIcon("go-next", 22));
+	fromActiveButton->setIcon(IconManager::instance().loadIcon("go-previous", 22));
 	connect(toActiveButton, SIGNAL(clicked()), this, SLOT(moveToActive()));
 	connect(fromActiveButton, SIGNAL(clicked()), this, SLOT(moveFromActive()));
 }

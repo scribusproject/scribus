@@ -46,7 +46,7 @@ ExportForm::ExportForm(QWidget* parent, ScribusDoc* doc, int size, int quality, 
 	DPIBox->setValue(size);
 	enlargementBox->setValue(size);
 	onePageRadio->setChecked( true );
-	pageNrButton->setIcon(IconManager::instance().loadIcon("ellipsis.png"));
+	pageNrButton->setIcon(IconManager::instance().loadIcon("ellipsis"));
 	rangeVal->setEnabled(false);
 	pageNrButton->setEnabled(false);
 	noBackground->setChecked(false);

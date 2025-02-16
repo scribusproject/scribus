@@ -50,7 +50,7 @@ ApplyMasterPageDialog::ApplyMasterPageDialog( QWidget* parent ) : QDialog( paren
 {
 	setModal(true);
 	setWindowTitle( tr( "Apply Master Page" ));
-	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("app-icon"));
 	ApplyMasterPageDialogLayout = new QVBoxLayout(this);
 	ApplyMasterPageDialogLayout->setContentsMargins(9, 9, 9, 9);
 	ApplyMasterPageDialogLayout->setSpacing(6);

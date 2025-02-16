@@ -55,7 +55,7 @@ MultipleDuplicate::MultipleDuplicate(QWidget* parent, ScribusDoc *doc) : QDialog
 	createGapRadioButton->setChecked(true);
 	setCopiesGap();
 
-	toolButtonPageRange->setIcon(IconManager::instance().loadIcon("ellipsis.png"));
+	toolButtonPageRange->setIcon(IconManager::instance().loadIcon("ellipsis"));
 	radioButtonPageAll->setChecked(true);
 
 	// signals and slots connections

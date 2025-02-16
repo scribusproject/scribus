@@ -175,7 +175,7 @@ void ColorChart::drawLabColorMap(int val)
 	if (doSoftProofing && doGamutCheck)
 	{
 		QPainter p;
-		QBrush b(QColor(205, 205, 205), IconManager::instance().loadPixmap("testfill.png"));
+		QBrush b(QColor(205, 205, 205), IconManager::instance().loadPixmap("testfill"));
 		p.begin(&image);
 		p.fillRect(0, 0, image.width(), image.height(), b);
 		p.end();

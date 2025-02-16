@@ -347,7 +347,7 @@ void RulerT::mouseMoveEvent(QMouseEvent *m)
 	}
 	if ((!mousePressed) && (mPosY < height()) && (mPosY > 0) && (mPosX > 0) && (mPosX < width()))
 	{
-		setCursor(IconManager::instance().loadCursor("tab.png", 3));
+		setCursor(IconManager::instance().loadCursor("cursor-tabulator", 3));
 		if (haveInd)
 		{
 			fpo = QRect(static_cast<int>(firstLine + leftIndent - offset) - 4, 0, 8, midline);
@@ -374,7 +374,7 @@ void RulerT::mouseMoveEvent(QMouseEvent *m)
 		}
 	}
 	if (mousePressed && ((mPosY > height()) || (mPosY < 0) || (mPosX < 0) || (mPosX > width())))
-		QApplication::changeOverrideCursor(IconManager::instance().loadCursor("DelPoint.png", 1, 1));
+		QApplication::changeOverrideCursor(IconManager::instance().loadCursor("cursor-remove-point", 1, 1));
 }
 
 void RulerT::wheelEvent(QWheelEvent* m)
@@ -395,7 +395,7 @@ void RulerT::leaveEvent(QEvent*)
 	if (mousePressed)
 	{
 		if (rulerCode == 3)
-			QApplication::changeOverrideCursor(IconManager::instance().loadCursor("DelPoint.png", 1, 1));
+			QApplication::changeOverrideCursor(IconManager::instance().loadCursor("cursor-remove-point", 1, 1));
 		else
 			QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}
@@ -702,7 +702,7 @@ void Tabruler::iconSetChange()
 		rightIndentLabel->setPixmap(iconManager.loadPixmap("paragraph-indent-right"));
 
 	clearOneButton->setIcon(iconManager.loadIcon("delete-selected"));
-	clearButton->setIcon(iconManager.loadIcon("16/edit-delete.png"));
+	clearButton->setIcon(iconManager.loadIcon("edit-delete"));
 }
 
 void Tabruler::languageChange()

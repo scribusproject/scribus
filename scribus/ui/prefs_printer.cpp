@@ -21,7 +21,7 @@ Prefs_Printer::Prefs_Printer(QWidget* parent, ScribusDoc* /*doc*/)
 	languageChange();
 
 	m_caption = tr("Printer");
-	m_icon = "16/printer.png";
+	m_icon = "pref-printer";
 
 	connect(useAltPrinterCmdCheckBox, SIGNAL(clicked()), this, SLOT(selOtherComm()));
 }

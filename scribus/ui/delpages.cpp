@@ -16,7 +16,7 @@ DelPages::DelPages( QWidget* parent, int currentPage, int maxPage ) : QDialog( p
 {
 	setWindowTitle( tr( "Delete Pages" ) );
 	setModal(true);
-	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("app-icon"));
 	dialogLayout = new QVBoxLayout( this );
 	dialogLayout->setSpacing(6);
 	dialogLayout->setContentsMargins(9, 9, 9, 9);

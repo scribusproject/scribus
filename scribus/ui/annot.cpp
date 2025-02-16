@@ -63,7 +63,7 @@ ScAnnot::ScAnnot(QWidget* parent, PageItem *it, ScribusDoc* doc, ScribusView* vi
 	setupUi(this);
 	setModal(true);
 	setWindowTitle( tr( "Field Properties" ) );
-	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("app-icon"));
 
 	Width = static_cast<int>(m_doc->pageWidth());
 	Height = static_cast<int>(m_doc->pageHeight());

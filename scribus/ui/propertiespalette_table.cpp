@@ -51,10 +51,10 @@ void PropertiesPalette_Table::iconSetChange()
 {
 	IconManager& iconManager = IconManager::instance();
 
-	addBorderLineButton->setIcon(iconManager.loadIcon("penciladd.png"));
-	removeBorderLineButton->setIcon(iconManager.loadIcon("pencilsub.png"));
-	buttonClearTableStyle->setIcon(iconManager.loadIcon("16/edit-clear.png"));
-	buttonClearCellStyle->setIcon(iconManager.loadIcon("16/edit-clear.png"));
+	addBorderLineButton->setIcon(iconManager.loadIcon("stroke-add"));
+	removeBorderLineButton->setIcon(iconManager.loadIcon("stroke-remove"));
+	buttonClearTableStyle->setIcon(iconManager.loadIcon("edit-clear"));
+	buttonClearCellStyle->setIcon(iconManager.loadIcon("edit-clear"));
 }
 
 void PropertiesPalette_Table::handleUpdateRequest(int updateFlags)

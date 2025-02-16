@@ -1561,26 +1561,26 @@ void PictureBrowser::loadIcons()
 {
 	IconManager& im = IconManager::instance();
 
-	iconArrowUp = QIcon(im.loadIcon("svg/pitr_green_arrows_set_1.svg"));
-	iconArrowDown = QIcon(im.loadIcon("svg/pitr_green_arrows_set_5.svg"));
-	iconFolderBrowser = QIcon(im.loadIcon("svg/sarxos_Simple_Folder_Seek.svg"));
-	iconCollectionsBrowser = QIcon(im.loadIcon("svg/sarxos_Simple_Green_Yellow_Blue_Violet_Folders.svg"));
-	iconDocumentBrowser = QIcon(im.loadIcon("svg/sarxos_Paper_Sheets.svg"));
-	iconDocument = QIcon(im.loadIcon("doc.png"));
-	iconCollection = QIcon(im.loadIcon("cmyk.png"));
-	iconOk = QIcon(im.loadIcon("ok22.png"));
-	iconClose = QIcon(im.loadIcon("16/close.png"));
-	iconZoomPlus = QIcon(im.loadIcon("viewmagin.png"));
-	iconZoomMinus = QIcon(im.loadIcon("viewmagout.png"));
-	iconNew = QIcon(im.loadIcon("16/insert-table.png"));
-	iconNew2 = QIcon(im.loadIcon("16/document-new.png"));
-	iconEdit = QIcon(im.loadIcon("16/document-properties.png"));
-	iconRemove = QIcon(im.loadIcon("16/edit-cut.png"));
-	iconLoad = QIcon(im.loadIcon("16/document-open.png"));
-	iconSave = QIcon(im.loadIcon("16/document-save.png"));
-	iconPlus = QIcon(im.loadIcon("16/list-add.png"));
-	iconMinus = QIcon(im.loadIcon("16/list-remove.png"));
-	iconPen = QIcon(im.loadIcon("16/story-editor.png"));
+	iconArrowUp = QIcon(im.loadIcon("action-sort-alphabetical-descending"));
+	iconArrowDown = QIcon(im.loadIcon("action-sort-alphabetical-ascending"));
+	iconFolderBrowser = QIcon(im.loadIcon("folder"));
+	iconCollectionsBrowser = QIcon(im.loadIcon("image-collection"));
+	iconDocumentBrowser = QIcon(im.loadIcon("document"));
+	iconDocument = QIcon(im.loadIcon("document"));
+	iconCollection = QIcon(im.loadIcon("color-cmyk"));
+	iconOk = QIcon(im.loadIcon("ok"));
+	iconClose = QIcon(im.loadIcon("close"));
+	iconZoomPlus = QIcon(im.loadIcon("zoom-in"));
+	iconZoomMinus = QIcon(im.loadIcon("zoom-out"));
+	iconNew = QIcon(im.loadIcon("tool-insert-table"));
+	iconNew2 = QIcon(im.loadIcon("document-new"));
+	iconEdit = QIcon(im.loadIcon("document-properties"));
+	iconRemove = QIcon(im.loadIcon("edit-cut"));
+	iconLoad = QIcon(im.loadIcon("document-open"));
+	iconSave = QIcon(im.loadIcon("document-save"));
+	iconPlus = QIcon(im.loadIcon("list-add"));
+	iconMinus = QIcon(im.loadIcon("list-remove"));
+	iconPen = QIcon(im.loadIcon("tool-story-editor"));
 
 	collectionsNewCategoryButton->setIcon(iconNew);
 	collectionsNewButton->setIcon(iconNew2);
@@ -1607,7 +1607,7 @@ void PictureBrowser::loadIcons()
 
 	//moreButton->setIcon(iconArrowDown);
 
-	filterSearchDirButton->setIcon(im.loadIcon("ellipsis.png"));
+	filterSearchDirButton->setIcon(im.loadIcon("ellipsis"));
 }
 
 

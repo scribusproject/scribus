@@ -343,19 +343,19 @@ CurveWidget::CurveWidget( QWidget* parent ) : QWidget( parent )
 
 	invertButton = new QPushButton( this );
 	invertButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-	invertButton->setIcon( IconManager::instance().loadIcon("invert.png") );
+	invertButton->setIcon( IconManager::instance().loadIcon("invert") );
 	invertButton->setIconSize(QSize(22, 22));
 	layout1->addWidget( invertButton );
 
 	resetButton = new QPushButton( this );
 	resetButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-	resetButton->setIcon( IconManager::instance().loadIcon("reload.png") );
+	resetButton->setIcon( IconManager::instance().loadIcon("reload") );
 	resetButton->setIconSize(QSize(22, 22));
 	layout1->addWidget( resetButton );
 	linearButton = new QPushButton( this );
 	QIcon ic;
-	ic.addPixmap(IconManager::instance().loadPixmap("curvebezier.png"), QIcon::Normal, QIcon::Off);
-	ic.addPixmap(IconManager::instance().loadPixmap("curvelinear.png"), QIcon::Normal, QIcon::On);
+	ic.addPixmap(IconManager::instance().loadPixmap("curve-bezier"), QIcon::Normal, QIcon::Off);
+	ic.addPixmap(IconManager::instance().loadPixmap("curve-linear"), QIcon::Normal, QIcon::On);
 	linearButton->setIcon(ic);
 	linearButton->setCheckable( true );
 	linearButton->setChecked(false);
@@ -366,13 +366,13 @@ CurveWidget::CurveWidget( QWidget* parent ) : QWidget( parent )
 	layout1->addItem( spacer1 );
 
 	loadButton = new QPushButton( this );
-	loadButton->setIcon( IconManager::instance().loadIcon("22/document-open.png") );
+	loadButton->setIcon( IconManager::instance().loadIcon("document-open", 22) );
 	loadButton->setIconSize(QSize(22, 22));
 	loadButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
 	layout1->addWidget( loadButton );
 
 	saveButton = new QPushButton( this );
-	saveButton->setIcon( IconManager::instance().loadIcon("22/document-save-as.png") );
+	saveButton->setIcon( IconManager::instance().loadIcon("document-save-as") );
 	saveButton->setIconSize(QSize(22, 22));
 	saveButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
 	layout1->addWidget( saveButton );

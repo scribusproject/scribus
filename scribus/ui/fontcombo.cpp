@@ -58,10 +58,10 @@ FontCombo::FontCombo(QWidget* pa) : QComboBox(pa),
 void FontCombo::iconSetChange()
 {
 	IconManager& iconManager = IconManager::instance();
-	ttfFont = iconManager.loadPixmap("font_truetype16.png");
-	otfFont = iconManager.loadPixmap("font_otf16.png");
-	psFont = iconManager.loadPixmap("font_type1_16.png");
-	substFont = iconManager.loadPixmap("font_subst16.png");
+	ttfFont = iconManager.loadPixmap("font-truetype");
+	otfFont = iconManager.loadPixmap("font-otf");
+	psFont = iconManager.loadPixmap("font-postscript");
+	substFont = iconManager.loadPixmap("font-substitute");
 }
 
 void FontCombo::RebuildList(ScribusDoc *currentDoc, bool forAnnotation, bool forSubstitute)
@@ -170,10 +170,10 @@ void FontComboH::iconSetChange()
 {
 	IconManager &im = IconManager::instance();
 
-	ttfFont = im.loadPixmap("font_truetype16.png");
-	otfFont = im.loadPixmap("font_otf16.png");
-	psFont = im.loadPixmap("font_type1_16.png");
-	substFont = im.loadPixmap("font_subst16.png");
+	ttfFont = im.loadPixmap("font-truetype");
+	otfFont = im.loadPixmap("font-otf");
+	psFont = im.loadPixmap("font-postscript");
+	substFont = im.loadPixmap("font-substitute");
 
 	fontFaceLabel->setPixmap(im.loadPixmap("font-face"));
 	fontStyleLabel->setPixmap(im.loadPixmap("font-style"));

@@ -12,7 +12,7 @@ for which a new license (GPL+exception) is in place.
 InsertTable::InsertTable( QWidget* parent, int maxRow, int maxCol ) : QDialog( parent )
 {
 	setWindowTitle(tr("Insert Table"));
-	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("app-icon"));
 	setModal(true);
 	InsertTableLayout = new QVBoxLayout( this );
 	InsertTableLayout->setContentsMargins(9, 9, 9, 9);

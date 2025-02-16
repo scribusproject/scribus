@@ -22,7 +22,7 @@ Prefs_ShortWords::Prefs_ShortWords(QWidget* parent)
 	languageChange();
 
 	m_caption = tr("Short Words");
-	m_icon = "shortwords_16.png";
+	m_icon = "pref-shortwords";
 
 	// defaults
 	if (QFile::exists(RC_PATH_USR))

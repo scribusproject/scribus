@@ -127,10 +127,10 @@ void PagePalette_MasterPages::iconSetChange()
 {
 	IconManager& iconManager = IconManager::instance();
 
-	importButton->setIcon(iconManager.loadIcon("16/document-open.png"));
-	newButton->setIcon(iconManager.loadIcon("16/document-new.png"));
-	duplicateButton->setIcon(iconManager.loadIcon("16/edit-copy.png"));
-	deleteButton->setIcon(iconManager.loadIcon("16/edit-delete.png"));
+	importButton->setIcon(iconManager.loadIcon("document-open"));
+	newButton->setIcon(iconManager.loadIcon("document-new"));
+	duplicateButton->setIcon(iconManager.loadIcon("edit-copy"));
+	deleteButton->setIcon(iconManager.loadIcon("edit-delete"));
 }
 
 void PagePalette_MasterPages::languageChange()

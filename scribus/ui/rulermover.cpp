@@ -168,7 +168,7 @@ void RulerMover::iconSetChange()
 {
 	QPalette palette;
 	//palette.setBrush(QPalette::Window, QColor(240, 240, 240));
-	palette.setBrush(backgroundRole(), QBrush(IconManager::instance().loadPixmap("mover.png")));
+	palette.setBrush(backgroundRole(), QBrush(IconManager::instance().loadPixmap("mover")));
 	setPalette(palette);
 }
 

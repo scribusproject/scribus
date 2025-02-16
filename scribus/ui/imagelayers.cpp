@@ -68,7 +68,7 @@ ImageLayers::ImageLayers(QWidget *parent) :
 	blendMode->setCurrentIndex(0);
 
 	layerTable->setColumnCount(3);
-	layerTable->setHorizontalHeaderItem(0, new QTableWidgetItem(IconManager::instance().loadIcon("16/show-object.png"), ""));
+	layerTable->setHorizontalHeaderItem(0, new QTableWidgetItem(IconManager::instance().loadIcon("show-object"), ""));
 	layerTable->setHorizontalHeaderItem(1, new QTableWidgetItem(IconManager::instance().loadIcon("mask"), ""));
 	layerTable->setHorizontalHeaderItem(2, new QTableWidgetItem( tr("Name")));
 	layerTable->setColumnWidth(0, 64);

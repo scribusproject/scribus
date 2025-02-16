@@ -77,8 +77,8 @@ void DirectionSelect::changeEvent(QEvent *e)
 void DirectionSelect::iconSetChange()
 {
 	IconManager& iconManager = IconManager::instance();
-	LTR->setIcon(iconManager.loadIcon("16/text-direction-ltr.png"));
-	RTL->setIcon(iconManager.loadIcon("16/text-direction-rtl.png"));
+	LTR->setIcon(iconManager.loadIcon("text-direction-ltr"));
+	RTL->setIcon(iconManager.loadIcon("text-direction-rtl"));
 }
 
 void DirectionSelect::languageChange()

@@ -19,7 +19,7 @@ Prefs_OperatorTools::Prefs_OperatorTools(QWidget* parent, ScribusDoc* /*doc*/)
 	languageChange();
 
 	m_caption = tr("Operator Tools");
-	m_icon = "tools_16.png";
+	m_icon = "pref-tools";
 
 	itemDuplicateXDispSpinBox->setMaximum(1000);
 	itemDuplicateYDispSpinBox->setMaximum(1000);

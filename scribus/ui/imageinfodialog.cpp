@@ -21,7 +21,7 @@ ImageInfoDialog::ImageInfoDialog( QWidget* parent, ImageInfoRecord *info  ) : QD
 {
 	setModal(true);
 	setWindowTitle( tr( "Image Info" ) );
-	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("app-icon"));
 
 	ImageInfoDialogLayout = new QVBoxLayout( this );
 	ImageInfoDialogLayout->setContentsMargins(9, 9, 9, 9);

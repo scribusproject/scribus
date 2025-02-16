@@ -70,7 +70,7 @@ bool previewImage::createPreviewIcon ( const QImage &image, int size )
 
 	previewIcon = QPixmap ( size, size );
 
-	QBrush b ( QColor ( 205,205,205 ), IconManager::instance().loadPixmap( "testfill.png" ) );
+	QBrush b ( QColor ( 205,205,205 ), IconManager::instance().loadPixmap( "testfill" ) );
 
 	p.begin ( &previewIcon );
 
@@ -396,7 +396,7 @@ void PreviewImagesModel::createDefaultIcon ( int size )
 
 	defaultIcon = QPixmap ( size, size );
 
-	QBrush b ( QColor ( 205,205,205 ), IconManager::instance().loadPixmap( "testfill.png" ) );
+	QBrush b ( QColor ( 205,205,205 ), IconManager::instance().loadPixmap( "testfill" ) );
 
 	p.begin ( &defaultIcon );
 

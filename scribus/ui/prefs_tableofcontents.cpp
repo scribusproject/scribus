@@ -23,10 +23,10 @@ Prefs_TableOfContents::Prefs_TableOfContents(QWidget* parent, ScribusDoc* doc)
 	languageChange();
 
 	m_caption = tr("Tables of Contents");
-	m_icon = "tabtocindex_16.png";
+	m_icon = "pref-toc";
 
-	tocStyleUpButton->setIcon(IconManager::instance().loadIcon("16/go-up.png"));
-	tocStyleDownButton->setIcon(IconManager::instance().loadIcon("16/go-down.png"));
+	tocStyleUpButton->setIcon(IconManager::instance().loadIcon("go-up"));
+	tocStyleDownButton->setIcon(IconManager::instance().loadIcon("go-down"));
 
 	itemDestFrameComboBox->setMaximumWidth(fontMetrics().horizontalAdvance( "This is a very long Name" ));
 	itemAttrComboBox->setMaximumWidth(fontMetrics().horizontalAdvance( "This is a very long Name" ));

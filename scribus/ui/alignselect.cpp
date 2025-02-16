@@ -104,11 +104,11 @@ void AlignSelect::iconSetChange()
 {
 	IconManager& im = IconManager::instance();
 
-	TextL->setIcon(im.loadIcon("16/format-justify-left.png"));
-	TextC->setIcon(im.loadIcon("16/format-justify-center.png"));
-	TextR->setIcon(im.loadIcon("16/format-justify-right.png"));
-	TextB->setIcon(im.loadIcon("16/format-justify-fill-block.png"));
-	TextF->setIcon(im.loadIcon("16/format-justify-fill.png"));
+	TextL->setIcon(im.loadIcon("format-justify-left"));
+	TextC->setIcon(im.loadIcon("format-justify-center"));
+	TextR->setIcon(im.loadIcon("format-justify-right"));
+	TextB->setIcon(im.loadIcon("format-justify-fill-block"));
+	TextF->setIcon(im.loadIcon("format-justify-fill"));
 }
 
 void AlignSelect::languageChange()

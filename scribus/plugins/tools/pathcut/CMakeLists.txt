@@ -3,11 +3,6 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/scribus
 )
 
-install(FILES
-	transform-crop-and-resize.png
-	DESTINATION ${ICONDIR}/1_7_0/
-)
-
 set(PATHCUT_PLUGIN_SOURCES
 	pathcut.cpp
 )

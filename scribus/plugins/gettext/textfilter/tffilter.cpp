@@ -134,12 +134,12 @@ void tfFilter::createWidget()
 // 	layout->addStretch(10);
 
 	layout->addSpacing(20);
-	removeButton = new QPushButton(IconManager::instance().loadIcon("22/list-remove.png"), nullptr, this);
+	removeButton = new QPushButton(IconManager::instance().loadIcon("list-remove"), nullptr, this);
 	removeButton->setToolTip( tr("Remove this filter row"));
 	removeButton->setMaximumSize(QSize(25,25));
 	removeButton->setMinimumSize(QSize(25,25));
 	layout->addWidget(removeButton, 0, Qt::AlignTop);
-	addButton = new QPushButton(IconManager::instance().loadIcon("22/list-add.png"), nullptr, this);
+	addButton = new QPushButton(IconManager::instance().loadIcon("list-add"), nullptr, this);
 	addButton->setToolTip( tr("Add a new filter row"));
 	addButton->setMaximumSize(QSize(25,25));
 	addButton->setMinimumSize(QSize(25,25));

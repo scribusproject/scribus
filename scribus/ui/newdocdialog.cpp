@@ -66,7 +66,7 @@ NewDocDialog::NewDocDialog(QWidget* parent, const QStringList& recentDocs, bool 
 
 	buttonVertical->setIcon(iconManager.loadIcon("page-orientation-vertical"));
 	buttonHorizontal->setIcon(iconManager.loadIcon("page-orientation-horizontal"));
-	buttonSinglePage->setIcon(iconManager.loadIcon("16/page-simple.png"));
+	buttonSinglePage->setIcon(iconManager.loadIcon("page-simple"));
 	buttonDoublePageLeft->setIcon(iconManager.loadIcon("page-first-left"));
 	buttonDoublePageRight->setIcon(iconManager.loadIcon("page-first-right"));
 	labelColumns->setPixmap(iconManager.loadPixmap("paragraph-columns"));

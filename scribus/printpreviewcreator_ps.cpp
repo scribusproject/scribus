@@ -313,7 +313,7 @@ QPixmap PrintPreviewCreator_PS::createPreview(int pageIndex)
 		pixmap = QPixmap(image.width(), image.height());
 		pixmap.setDevicePixelRatio(m_devicePixelRatio);
 		QPainter p;
-		QBrush b(QColor(205,205,205), IconManager::instance().loadPixmap("testfill.png"));
+		QBrush b(QColor(205,205,205), IconManager::instance().loadPixmap("testfill"));
 		p.begin(&pixmap);
 		p.fillRect(0, 0, image.width(), image.height(), b);
 		p.drawImage(0, 0, image);

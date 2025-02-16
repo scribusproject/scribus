@@ -205,9 +205,9 @@ UndoPalette::UndoPalette(QWidget* parent) : UndoGui(parent, "undoPalette")
 	QHBoxLayout* buttonLayout = new QHBoxLayout;
 	buttonLayout->setContentsMargins(0, 0, 0, 0);
 	buttonLayout->setSpacing(6);
-	undoButton = new QPushButton(IconManager::instance().loadPixmap("16/edit-undo.png"), "", this);
+	undoButton = new QPushButton(IconManager::instance().loadPixmap("edit-undo"), "", this);
 	buttonLayout->addWidget(undoButton);
-	redoButton = new QPushButton(IconManager::instance().loadPixmap("16/edit-redo.png"), "", this);
+	redoButton = new QPushButton(IconManager::instance().loadPixmap("edit-redo"), "", this);
 	buttonLayout->addWidget(redoButton);
 	//Save the translated key sequence - hopefully we get the translated one here!
 	initialUndoKS = undoButton->shortcut();

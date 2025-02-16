@@ -58,11 +58,11 @@ CharSelect::~CharSelect()
 
 void CharSelect::iconSetChange()
 {
-	enhancedDialogButton->setIcon(IconManager::instance().loadIcon("16/insert-table.png"));
-	unicodeButton->setIcon(IconManager::instance().loadIcon("find.png"));
-	uniLoadButton->setIcon(IconManager::instance().loadIcon("16/document-open.png"));
-	uniSaveButton->setIcon(IconManager::instance().loadIcon("16/document-save.png"));
-	uniClearButton->setIcon(IconManager::instance().loadIcon("16/document-new.png"));
+	enhancedDialogButton->setIcon(IconManager::instance().loadIcon("tool-insert-table"));
+	unicodeButton->setIcon(IconManager::instance().loadIcon("find"));
+	uniLoadButton->setIcon(IconManager::instance().loadIcon("document-open"));
+	uniSaveButton->setIcon(IconManager::instance().loadIcon("document-save"));
+	uniClearButton->setIcon(IconManager::instance().loadIcon("document-new"));
 }
 
 void CharSelect::setDoc(ScribusDoc* doc)

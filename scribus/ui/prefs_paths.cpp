@@ -19,7 +19,7 @@ Prefs_Paths::Prefs_Paths(QWidget* parent, ScribusDoc* /*doc*/)
 	languageChange();
 
 	m_caption = tr("Paths");
-	m_icon = "16/folder.png";
+	m_icon = "folder";
 
 	connect(docDirChangeButton, SIGNAL(clicked()), this, SLOT(changeDocs()));
 	connect(profileDirChangeButton, SIGNAL(clicked()), this, SLOT(changeProfs()));

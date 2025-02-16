@@ -993,9 +993,9 @@ bool CanvasMode_NodeEdit::handleNodeEditMove(QMouseEvent* m, QRect /*r*/, PageIt
 				if (m_doc->nodeEdit.submode() == NodeEditContext::MOVE_POINT)
 					m_view->setCursor(QCursor(Qt::SizeAllCursor));
 				if (m_doc->nodeEdit.submode() == NodeEditContext::DEL_POINT)
-					m_view->setCursor(IconManager::instance().loadCursor("DelPoint.png", 1, 1));
+					m_view->setCursor(IconManager::instance().loadCursor("cursor-remove-point", 1, 1));
 				if (m_doc->nodeEdit.submode() == NodeEditContext::SPLIT_PATH)
-					m_view->setCursor(IconManager::instance().loadCursor("Split.png", 1, 1));
+					m_view->setCursor(IconManager::instance().loadCursor("cursor-split", 1, 1));
 				return true;
 			}
 		}
@@ -1024,11 +1024,11 @@ bool CanvasMode_NodeEdit::handleNodeEditMove(QMouseEvent* m, QRect /*r*/, PageIt
 					if (m_canvas->hitsCanvasPoint(m->globalPosition(), FPoint(pl.x(), pl.y())))
 					{
 						if (m_doc->nodeEdit.submode() == NodeEditContext::MOVE_POINT)
-							m_view->setCursor(IconManager::instance().loadCursor("handc.png"));
+							m_view->setCursor(IconManager::instance().loadCursor("cursor-hand"));
 						else if (m_doc->nodeEdit.submode() == NodeEditContext::ADD_POINT)
-							m_view->setCursor(IconManager::instance().loadCursor("AddPoint.png", 1, 1));
+							m_view->setCursor(IconManager::instance().loadCursor("cursor-add-point", 1, 1));
 						else if (m_doc->nodeEdit.submode() == NodeEditContext::SPLIT_PATH)
-							m_view->setCursor(IconManager::instance().loadCursor("Split.png", 1, 1));
+							m_view->setCursor(IconManager::instance().loadCursor("cursor-split", 1, 1));
 						else
 							m_view->setCursor(QCursor(Qt::ArrowCursor));
 						m_doc->nodeEdit.setClre2(poi);

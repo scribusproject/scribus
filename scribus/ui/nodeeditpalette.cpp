@@ -303,7 +303,7 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase(parent, "nodePalette
 	hboxLayout = new QHBoxLayout();
 	hboxLayout->setSpacing(6);
 	hboxLayout->setContentsMargins(0, 0, 0, 0);
-	editEditButton = new QPushButton(IconManager::instance().loadIcon("22/exit.png"), tr("OK"), this);
+	editEditButton = new QPushButton(IconManager::instance().loadIcon("exit"), tr("OK"), this);
 	editEditButton->setEnabled(true);
 	editEditButton->setDefault(true);
 	hboxLayout->addWidget(editEditButton);
@@ -1069,28 +1069,28 @@ void NodePalette::iconSetChange()
 {
 	IconManager& im = IconManager::instance();
 
-	MoveNode->setIcon(im.loadIcon("MoveNode.png"));
-	AddNode->setIcon(im.loadIcon("AddNode.png"));
-	DeleteNode->setIcon(im.loadIcon("DeleteNode.png"));
-	ResNode->setIcon(im.loadIcon("ResetNode.png"));
-	MoveControl->setIcon(im.loadIcon("MoveKontrol.png"));
-	AsymMove->setIcon(im.loadIcon("MoveAsym.png"));
-	SymMove->setIcon(im.loadIcon("MoveSym.png"));
-	Res1Node->setIcon(im.loadIcon("Reset1Node.png"));
-	PolySplit->setIcon(im.loadIcon("PolyCut.png"));
-	BezierClose->setIcon(im.loadIcon("BezierClose.png"));
-	PolyMirrorH->setIcon(im.loadIcon("hmirror.png"));
-	PolyMirrorV->setIcon(im.loadIcon("vmirror.png"));
-	PolyShearL->setIcon(im.loadIcon("22/transform-shear-left.png"));
-	PolyShearR->setIcon(im.loadIcon("22/transform-shear-right.png"));
-	PolyShearU->setIcon(im.loadIcon("22/transform-shear-up.png"));
-	PolyShearD->setIcon(im.loadIcon("22/transform-shear-down.png"));
-	RotateCCW->setIcon(im.loadIcon("rotate_ccw.png"));
-	RotateCW->setIcon(im.loadIcon("rotate_cw.png"));
-	Expand->setIcon(im.loadIcon("expand.png"));
-	Shrink->setIcon(im.loadIcon("crop.png"));
-	Enlarge->setIcon(im.loadIcon("expand.png"));
-	Reduce->setIcon(im.loadIcon("crop.png"));
+	MoveNode->setIcon(im.loadIcon("bezier-node-move"));
+	AddNode->setIcon(im.loadIcon("bezier-node-add"));
+	DeleteNode->setIcon(im.loadIcon("bezier-node-delete"));
+	ResNode->setIcon(im.loadIcon("bezier-control-reset-all"));
+	MoveControl->setIcon(im.loadIcon("bezier-control-move"));
+	AsymMove->setIcon(im.loadIcon("bezier-control-asymetric"));
+	SymMove->setIcon(im.loadIcon("bezier-control-symetric"));
+	Res1Node->setIcon(im.loadIcon("bezier-control-reset"));
+	PolySplit->setIcon(im.loadIcon("bezier-split"));
+	BezierClose->setIcon(im.loadIcon("bezier-close"));
+	PolyMirrorH->setIcon(im.loadIcon("object-flip-horizontal"));
+	PolyMirrorV->setIcon(im.loadIcon("object-flip-vertical"));
+	PolyShearL->setIcon(im.loadIcon("transform-shear-left"));
+	PolyShearR->setIcon(im.loadIcon("transform-shear-right"));
+	PolyShearU->setIcon(im.loadIcon("transform-shear-up"));
+	PolyShearD->setIcon(im.loadIcon("transform-shear-down"));
+	RotateCCW->setIcon(im.loadIcon("rotate-ccw"));
+	RotateCW->setIcon(im.loadIcon("rotate-cw"));
+	Expand->setIcon(im.loadIcon("bezier-scale-up"));
+	Shrink->setIcon(im.loadIcon("bezier-scale-down"));
+	Enlarge->setIcon(im.loadIcon("bezier-scale-up"));
+	Reduce->setIcon(im.loadIcon("bezier-scale-down"));
 }
 
 void NodePalette::languageChange()

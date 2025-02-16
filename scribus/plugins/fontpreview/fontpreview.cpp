@@ -25,7 +25,7 @@ FontPreview::FontPreview(const QString& fontName, QWidget* parent, ScribusDoc* d
 {
 	setupUi(this);
 	setModal(true);
-	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("app-icon"));
 
 	m_sampleItem = new SampleItem();
 	m_sampleItem->setDevicePixelRatio(devicePixelRatioF());

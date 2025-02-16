@@ -471,7 +471,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 				ScElemMimeData* md = ScriXmlDoc::writeToMimeData(m_doc, m_doc->m_Selection);
 				QDrag* dr = new QDrag(m_view);
 				dr->setMimeData(md);
-				const QPixmap& pm = IconManager::instance().loadPixmap("dragpix.png");
+				const QPixmap& pm = IconManager::instance().loadPixmap("cursor-drop-image");
 				dr->setPixmap(pm);
 			//	dr->setDragCursor(pm, Qt::CopyAction);
 			//	dr->setDragCursor(pm, Qt::MoveAction);

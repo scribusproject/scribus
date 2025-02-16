@@ -631,50 +631,50 @@ QCursor CanvasMode::modeCursor()
 		case modeDrawShapes:
 		case modeDrawArc:
 		case modeDrawSpiral:
-			cursor = im.loadCursor("drawframe.png");
+			cursor = im.loadCursor("cursor-frame");
 			break;
 		case modeDrawImage:
-			cursor = im.loadCursor("drawimageframe.png");
+			cursor = im.loadCursor("cursor-image");
 			break;
 		case modeDrawLatex:
-			cursor = im.loadCursor("drawlatexframe.png");
+			cursor = im.loadCursor("cursor-latex-frame");
 			break;
 		case modeDrawText:
-			cursor = im.loadCursor("drawtextframe.png");
+			cursor = im.loadCursor("cursor-text-frame");
 			break;
 		case modeDrawTable2:
-			cursor = im.loadCursor("drawtable.png");
+			cursor = im.loadCursor("cursor-table");
 			break;
 		case modeDrawRegularPolygon:
-			cursor = im.loadCursor("drawpolyline.png");
+			cursor = im.loadCursor("cursor-polygon");
 			break;
 		case modeDrawLine:
 		case modeDrawBezierLine:
 			cursor = QCursor(Qt::CrossCursor);
 			break;
 		case modeDrawFreehandLine:
-			cursor = im.loadCursor("DrawFreeLine.png", 0, 31);
+			cursor = im.loadCursor("cursor-pen", 0, 31);
 			break;
 		case modeDrawCalligraphicLine:
-			cursor = im.loadCursor("drawcalligraphy.png", 4, 4);
+			cursor = im.loadCursor("cursor-calligraphy", 4, 4);
 			break;
 		case modeImportObject:
-			cursor = im.loadCursor("dragpix.png");
+			cursor = im.loadCursor("cursor-drop-image");
 			break;
 		case modeMagnifier:
 			if (m_view->Magnify)
-				cursor = im.loadCursor("lupez.png");
+				cursor = im.loadCursor("cursor-zoom-in");
 			else
-				cursor = im.loadCursor("lupezm.png");
+				cursor = im.loadCursor("cursor-zoom-out");
 			break;
 		case modePanning:
-			cursor = im.loadCursor("handc.png");
+			cursor = im.loadCursor("cursor-hand");
 			break;
 		case modeEyeDropper:
-			cursor = im.loadCursor("colorpickercursor.png", 0, 31);
+			cursor = im.loadCursor("cursor-color-picker", 0, 31);
 			break;
 		case modeLinkFrames:
-			cursor = im.loadCursor("LinkTextFrame.png", 0, 31);
+			cursor = im.loadCursor("cursor-link-text-frame", 0, 31);
 			break;
 		case modeMeasurementTool:
 		case modeEditGradientVectors:
@@ -849,7 +849,7 @@ void CanvasMode::commonkeyPressEvent_Default(QKeyEvent *e)
 
 	if ((m_doc->appMode == modeMagnifier) && (kk == Qt::Key_Shift))
 	{
-		m_view->setCursor(IconManager::instance().loadCursor("lupezm.png"));
+		m_view->setCursor(IconManager::instance().loadCursor("cursor-zoom-out"));
 		return;
 	}
 
@@ -1680,7 +1680,7 @@ void CanvasMode::commonkeyReleaseEvent(QKeyEvent *e)
 	if ((m_doc->appMode == modePanning) && (e->key() == Qt::Key_Control) && (QApplication::mouseButtons() & Qt::RightButton))
 		m_view->requestMode(modeNormal);
 	if ((m_doc->appMode == modeMagnifier) && (e->key() == Qt::Key_Shift))
-		m_view->setCursor(IconManager::instance().loadCursor("lupez.png"));
+		m_view->setCursor(IconManager::instance().loadCursor("cursor-zoom-in"));
 	if (e->isAutoRepeat() || !m_arrowKeyDown)
 		return;
 	switch(e->key())

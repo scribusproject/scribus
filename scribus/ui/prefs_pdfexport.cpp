@@ -35,15 +35,15 @@ Prefs_PDFExport::Prefs_PDFExport(QWidget* parent, ScribusDoc* doc)
 	scrollArea_3->viewport()->setAutoFillBackground(false);
 	scrollArea_3->widget()->setAutoFillBackground(false);
 
-	exportRangeMorePushButton->setIcon(IconManager::instance().loadIcon("ellipsis.png"));
-	pageMirrorHorizontalToolButton->setIcon(IconManager::instance().loadIcon("16/flip-object-horizontal.png"));
-	pageMirrorVerticalToolButton->setIcon(IconManager::instance().loadIcon("16/flip-object-vertical.png"));
+	exportRangeMorePushButton->setIcon(IconManager::instance().loadIcon("ellipsis"));
+	pageMirrorHorizontalToolButton->setIcon(IconManager::instance().loadIcon("flip-object-horizontal"));
+	pageMirrorVerticalToolButton->setIcon(IconManager::instance().loadIcon("flip-object-vertical"));
 
 	unitChange(0);
 	languageChange();
 
 	m_caption = tr("PDF Export");
-	m_icon = "acroread16.png";
+	m_icon = "pref-pdf-export";
 
 	connect(fontEmbeddingCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(EmbeddingModeChange()));
 	connect(exportChosenPagesRadioButton, SIGNAL(toggled(bool)), this, SLOT(enableRangeControls(bool)));
@@ -167,13 +167,13 @@ QListWidgetItem* Prefs_PDFExport::addFontItem(const QString& fontName, QListWidg
 
 	const ScFace face = AllFonts.value(fontName);
 	if (face.isReplacement())
-		item = new QListWidgetItem( IconManager::instance().loadIcon("font_subst16.png"), fontName, fontList );
+		item = new QListWidgetItem( IconManager::instance().loadIcon("font-substitute"), fontName, fontList );
 	else if (face.type() == ScFace::TYPE1)
-		item = new QListWidgetItem( IconManager::instance().loadIcon("font_type1_16.png"), fontName, fontList );
+		item = new QListWidgetItem( IconManager::instance().loadIcon("font-postscript"), fontName, fontList );
 	else if (face.type() == ScFace::TTF)
-		item = new QListWidgetItem( IconManager::instance().loadIcon("font_truetype16.png"), fontName, fontList );
+		item = new QListWidgetItem( IconManager::instance().loadIcon("font-truetype"), fontName, fontList );
 	else if (face.type() == ScFace::OTF)
-		item = new QListWidgetItem( IconManager::instance().loadIcon("font_otf16.png"), fontName, fontList );
+		item = new QListWidgetItem( IconManager::instance().loadIcon("font-otf"), fontName, fontList );
 
 	return item;
 }

@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
 Query::Query( QWidget* parent,  const char* name, bool modal, const QString& text, const QString& title ) : QDialog( parent )
 {
 	setWindowTitle( title );
-	setWindowIcon(IconManager::instance().loadIcon("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadIcon("app-icon"));
 	setModal(modal);
 	queryLayout = new QVBoxLayout( this );
 	queryLayout->setContentsMargins(9, 9, 9, 9);

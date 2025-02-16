@@ -21,7 +21,7 @@ Prefs_DocumentInformation::Prefs_DocumentInformation(QWidget* parent, ScribusDoc
 	languageChange();
 
 	m_caption = tr("Document Information");
-	m_icon = "documentinfo.png";
+	m_icon = "pref-document-info";
 
 	dateLineEdit->addItem(QDateTime::currentDateTime().toString("yyyy-MM-dd"));
 

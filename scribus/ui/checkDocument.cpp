@@ -103,9 +103,9 @@ void CheckDocument::changeEvent(QEvent *e)
 
 void CheckDocument::iconSetChange()
 {
-	graveError = IconManager::instance().loadPixmap("22/dialog-error.png");
-	onlyWarning = IconManager::instance().loadPixmap("22/dialog-warning.png");
-	noErrors = IconManager::instance().loadPixmap("ok.png");
+	graveError = IconManager::instance().loadPixmap("alert-error");
+	onlyWarning = IconManager::instance().loadPixmap("alert-warning");
+	noErrors = IconManager::instance().loadPixmap("alert-ok");
 }
 
 void CheckDocument::languageChange()

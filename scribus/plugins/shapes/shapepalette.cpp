@@ -295,7 +295,7 @@ ShapePalette::ShapePalette(QWidget *parent) : DockPanelBase("Shap", "panel-custo
 
 	importButton = new QToolButton(this);
 	importButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-	importButton->setIcon(IconManager::instance().loadIcon("16/document-open.png"));
+	importButton->setIcon(IconManager::instance().loadIcon("document-open"));
 	importButton->setIconSize(QSize(16, 16));
 	buttonLayout->addWidget( importButton );
 
@@ -304,7 +304,7 @@ ShapePalette::ShapePalette(QWidget *parent) : DockPanelBase("Shap", "panel-custo
 
 	closeButton = new QToolButton(this);
 	closeButton->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-	closeButton->setIcon(IconManager::instance().loadIcon("16/close.png"));
+	closeButton->setIcon(IconManager::instance().loadIcon("close"));
 	closeButton->setIconSize(QSize(16, 16));
 	buttonLayout->addWidget( closeButton );
 	vLayout->addLayout( buttonLayout );
@@ -601,10 +601,10 @@ void ShapePalette::iconSetChange()
 {
 	IconManager& iconManager = IconManager::instance();
 
-	importButton->setIcon(iconManager.loadIcon("16/document-open.png"));
+	importButton->setIcon(iconManager.loadIcon("document-open"));
 	importButton->setIconSize(QSize(16, 16));
 
-	closeButton->setIcon(iconManager.loadIcon("16/close.png"));
+	closeButton->setIcon(iconManager.loadIcon("close"));
 	closeButton->setIconSize(QSize(16, 16));
 }
 

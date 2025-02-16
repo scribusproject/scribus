@@ -115,7 +115,7 @@ void PropertyWidget_ParEffect::setCurrentItem(PageItem *item)
 void PropertyWidget_ParEffect::iconSetChange()
 {
 	IconManager& iconManager = IconManager::instance();
-	bulletCharTableButton->setIcon(iconManager.loadIcon("22/insert-table.png"));
+	bulletCharTableButton->setIcon(iconManager.loadIcon("tool-insert-table"));
 	peCharStyleLabel->setPixmap(iconManager.loadPixmap("character-style"));
 	peOffsetLabel->setPixmap(iconManager.loadPixmap("paragraph-list-offset"));
 	peLabel->setPixmap(iconManager.loadPixmap("paragraph-effects-style"));

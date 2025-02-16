@@ -29,10 +29,10 @@ FontListModel::FontListModel(QObject * parent, ScribusDoc * doc, bool includeDis
 void FontListModel::iconSetChange()
 {
 	IconManager& iconManager = IconManager::instance();
-	ttfFont = iconManager.loadPixmap("font_truetype16.png");
-	otfFont = iconManager.loadPixmap("font_otf16.png");
-	psFont = iconManager.loadPixmap("font_type1_16.png");
-	substFont = iconManager.loadPixmap("font_subst16.png");
+	ttfFont = iconManager.loadPixmap("font-truetype");
+	otfFont = iconManager.loadPixmap("font-otf");
+	psFont = iconManager.loadPixmap("font-postscript");
+	substFont = iconManager.loadPixmap("font-substitute");
 }
 
 void FontListModel::setFonts(QList<QString> f)

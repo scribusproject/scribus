@@ -63,7 +63,7 @@ ScDockPalette::ScDockPalette(QWidget * parent, const QString& prefsContext, Qt::
 	}
 	m_originalParent = parent;
 	setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
-	setWindowIcon(IconManager::instance().loadPixmap("AppIcon.png"));
+	setWindowIcon(IconManager::instance().loadPixmap("app-icon"));
 	setPrefsContext(prefsContext);
 	setObjectName(prefsContext);
 	connect(&PrefsManager::instance(), SIGNAL(prefsChanged()), this, SLOT(setFontSize()));

@@ -16,7 +16,7 @@ Prefs_PreflightVerifier::Prefs_PreflightVerifier(QWidget* parent, ScribusDoc* /*
 	languageChange();
 
 	m_caption = tr("Preflight Verifier");
-	m_icon = "16/preflight-verifier.png";
+	m_icon = "preflight-verifier";
 
 	connect(currentProfileComboBox, SIGNAL(currentTextChanged(QString)), this, SLOT(setProfile(QString)));
 	connect(currentProfileComboBox, SIGNAL(editTextChanged(QString)), this, SLOT(setProfile(QString)));

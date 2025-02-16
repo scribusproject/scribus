@@ -445,7 +445,7 @@ void CanvasMode_Rotate::mouseMoveEvent(QMouseEvent *m)
 				m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
 				int how = m_canvas->frameHitTest(QPointF(mousePointDoc.x(), mousePointDoc.y()), QRectF(gx, gy, gw, gh));
 				if (how >= 0)
-					m_view->setCursor(IconManager::instance().loadCursor("Rotieren2.png"));
+					m_view->setCursor(IconManager::instance().loadCursor("cursor-rotate"));
 				else
 					setModeCursor();
 				return;
@@ -462,7 +462,7 @@ void CanvasMode_Rotate::mouseMoveEvent(QMouseEvent *m)
 				{
 					QRect tx = p.mapRect(QRect(0, 0, static_cast<int>(currItem->width()), static_cast<int>(currItem->height())));
 					if ((tx.intersects(mpo)) && (!currItem->locked()))
-						m_view->setCursor(IconManager::instance().loadCursor("Rotieren2.png"));
+						m_view->setCursor(IconManager::instance().loadCursor("cursor-rotate"));
 				}
 			}
 		}
