@@ -60,9 +60,9 @@ void AlignSelect::setStyle(int s, int d)
 		buttonGroup->button(s)->setChecked(true);
 
 	if (d == ParagraphStyle::RTL)
-		TextB->setIcon(IconManager::instance().loadIcon("16/format-justify-fill-block-right.png"));
+		TextB->setIcon(IconManager::instance().loadIcon("format-justify-fill-block-right"));
 	else
-		TextB->setIcon(IconManager::instance().loadIcon("16/format-justify-fill-block.png"));
+		TextB->setIcon(IconManager::instance().loadIcon("format-justify-fill-block"));
 }
 
 int AlignSelect::getStyle() const
