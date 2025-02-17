@@ -326,37 +326,34 @@ bool ScribusCore::initFonts(bool showFontInfo)
 
 void ScribusCore::getCMSProfiles(bool showInfo)
 {
-	QString profDir;
-	QStringList profDirs;
 	MonitorProfiles.clear();
 	PrinterProfiles.clear();
 	InputProfiles.clear();
 	InputProfilesCMYK.clear();
 	LabProfiles.clear();
-	profDirs = ScPaths::systemProfilesDirs();
+
+	QStringList profDirs = ScPaths::systemProfilesDirs();
 	profDirs.prepend( m_prefsManager.appPrefs.pathPrefs.colorProfiles );
-	profDirs.prepend( ScPaths::instance().shareDir()+"profiles/");
+	profDirs.prepend( ScPaths::instance().shareDir() + "profiles/");
 	for (int i = 0; i < profDirs.count(); i++)
 	{
-		profDir = profDirs[i];
-		if(!profDir.isEmpty())
-		{
-			if(profDir.right(1) != "/")
-				profDir += "/";
-			getCMSProfilesDir(profDir, showInfo, true);
-		}
+		QString profDir = profDirs[i];
+		if (profDir.isEmpty())
+			continue;
+		if (profDir.right(1) != "/")
+			profDir += "/";
+		getCMSProfilesDir(profDir, showInfo, true);
 	}
 	m_haveCMS = (!PrinterProfiles.isEmpty()) && (!InputProfiles.isEmpty()) && (!MonitorProfiles.isEmpty());
 }
 
 void ScribusCore::getCMSProfilesDir(const QString& pfad, bool showInfo, bool recursive)
 {
-	QString profileName;
 	QList<ScColorProfileInfo> profileInfos = defaultEngine.getAvailableProfileInfo(pfad, recursive);
 	for (int i = 0; i < profileInfos.count(); ++i)
 	{
 		const ScColorProfileInfo& profInfo = profileInfos.at(i);
-		profileName = profInfo.description;
+		QString profileName = profInfo.description;
 		if (profileName.isEmpty())
 		{
 			if (showInfo)
@@ -369,7 +366,7 @@ void ScribusCore::getCMSProfilesDir(const QString& pfad, bool showInfo, bool rec
 				sDebug(profInfo.debug);
 			continue;
 		}
-		switch (static_cast<int>(profInfo.deviceClass))
+		switch (profInfo.deviceClass)
 		{
 		case Class_Input:
 			if (profInfo.colorSpace == ColorSpace_Rgb)
