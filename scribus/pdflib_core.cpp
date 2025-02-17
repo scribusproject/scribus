@@ -9025,7 +9025,6 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite)
 					cnx += Pdf::toName(StdFonts[ind2PDFabr[ite->annotation().Font()]]);
 				else
 					cnx += UsedFontsF[ite->itemText.defaultStyle().charStyle().font().replacementName()].name;
-//					cnx += UsedFontsP[ite->itemText.defaultStyle().charStyle().font().replacementName()] + "Form";
 			}
 			if (ite->annotation().Flag() & Annotation::Flag_AutoTextSize)
 				cnx += " " + FToStr(0) + " Tf";
