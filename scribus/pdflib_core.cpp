@@ -670,7 +670,7 @@ bool PDFLibCore::doExport(const QString& fn, const std::vector<int> & pageNs, co
 		if (!abortExport)
 		{
 			if (PDF_IsPDFX(Options.Version))
-				ret = PDF_End_Doc(ScCore->PrinterProfiles[Options.PrintProf]);
+				ret = PDF_End_Doc(ScCore->PrinterProfiles[Options.PrintProf].file);
 			else
 				ret = PDF_End_Doc();
 		}
@@ -2440,7 +2440,7 @@ void PDFLibCore::PDF_Begin_Colors()
 		writer.startObj(iccProfileObject);
 		QByteArray dataP;
 		PdfICCD dataD;
-		loadRawBytes(ScCore->InputProfiles[Options.SolidProf], dataP);
+		loadRawBytes(ScCore->InputProfiles[Options.SolidProf].file, dataP);
 		PutDoc("<<\n");
 		if (Options.Compress)
 		{
@@ -10805,14 +10805,14 @@ bool PDFLibCore::PDF_Image(PageItem* item, const QString& fn, double sx, double 
 							QString profilePath;
 							if (Embedded && ScCore->InputProfilesCMYK.contains(Options.ImageProf))
 							{
-								profilePath = ScCore->InputProfilesCMYK[Options.ImageProf];
+								profilePath = ScCore->InputProfilesCMYK[Options.ImageProf].file;
 								profInUse = Options.ImageProf;
 							}
 							else if (ScCore->InputProfilesCMYK.contains(Profil))
-								profilePath = ScCore->InputProfilesCMYK[Profil];
+								profilePath = ScCore->InputProfilesCMYK[Profil].file;
 							else
 							{
-								profilePath = ScCore->InputProfilesCMYK[item->doc()->cmsSettings().DefaultImageCMYKProfile];
+								profilePath = ScCore->InputProfilesCMYK[item->doc()->cmsSettings().DefaultImageCMYKProfile].file;
 								profInUse = item->doc()->cmsSettings().DefaultImageCMYKProfile;
 							}
 							loadRawBytes(profilePath, dataP);
@@ -10823,14 +10823,14 @@ bool PDFLibCore::PDF_Image(PageItem* item, const QString& fn, double sx, double 
 							QString profilePath;
 							if (Embedded && ScCore->InputProfiles.contains(Options.ImageProf))
 							{
-								profilePath = ScCore->InputProfiles[Options.ImageProf];
+								profilePath = ScCore->InputProfiles[Options.ImageProf].file;
 								profInUse = Options.ImageProf;
 							}
 							else if (ScCore->InputProfiles.contains(Profil))
-								profilePath = ScCore->InputProfiles[Profil];
+								profilePath = ScCore->InputProfiles[Profil].file;
 							else
 							{
-								profilePath = ScCore->InputProfiles[item->doc()->cmsSettings().DefaultImageRGBProfile];
+								profilePath = ScCore->InputProfiles[item->doc()->cmsSettings().DefaultImageRGBProfile].file;
 								profInUse = item->doc()->cmsSettings().DefaultImageRGBProfile;
 							}
 							loadRawBytes(profilePath, dataP);
@@ -10891,7 +10891,7 @@ bool PDFLibCore::PDF_Image(PageItem* item, const QString& fn, double sx, double 
 								writer.startObj(embeddedProfile);
 								QByteArray dataP;
 								PdfICCD dataD;
-								loadRawBytes(ScCore->InputProfiles[item->doc()->cmsSettings().DefaultImageRGBProfile], dataP);
+								loadRawBytes(ScCore->InputProfiles[item->doc()->cmsSettings().DefaultImageRGBProfile].file, dataP);
 								components = 3;
 								PutDoc("<<\n");
 								if ((Options.CompressMethod != PDFOptions::Compression_None) && Options.Compress)

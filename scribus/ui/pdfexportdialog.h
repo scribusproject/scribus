@@ -18,9 +18,11 @@ class QPushButton;
 class QToolButton;
 class QVBoxLayout;
 
+#include "colormgmt/sccolormgmtstructs.h"
 #include "scribusapi.h"
 #include "scribusstructs.h"
 #include "ui/tabpdfoptions.h"
+
 class ScribusView;
 
 /**
@@ -45,8 +47,8 @@ public:
 	PDFExportDialog( QWidget* parent, const QString & docFileName,
 					 const QMap<QString, int > & DocFonts,
 					 ScribusView * currView, PDFOptions & pdfOptions,
-					 const ProfilesL & PDFXProfiles, const SCFonts & AllFonts,
-					 const ProfilesL & printerProfiles);
+					 const ScProfileInfoMap& PDFXProfiles, const SCFonts & AllFonts,
+					 const ScProfileInfoMap& printerProfiles);
 	~PDFExportDialog() {};
 
 	void updateDocOptions();
@@ -78,7 +80,7 @@ protected:
 	QList<PDFPresentationData> m_presEffects;
 	PDFOptions & m_opts;
 	double m_unitRatio;
-	const ProfilesL & m_printerProfiles;
+	const ScProfileInfoMap& m_printerProfiles;
 };
 
 #endif // PDF_OPTS_H

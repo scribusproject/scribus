@@ -260,7 +260,7 @@ void PropertiesPalette_Image::updateProfileList()
 		{
 			if (m_item->pixm.imgInfo.colorspace == ColorSpaceCMYK)
 			{
-				ProfilesL::Iterator itPend = ScCore->InputProfilesCMYK.end();
+				ScProfileInfoMap::Iterator itPend = ScCore->InputProfilesCMYK.end();
 				for (auto itP = ScCore->InputProfilesCMYK.begin(); itP != itPend; ++itP)
 				{
 					inputProfiles->addItem(itP.key());
@@ -280,7 +280,7 @@ void PropertiesPalette_Image::updateProfileList()
 			}
 			else
 			{
-				ProfilesL::Iterator itPend = ScCore->InputProfiles.end();
+				ScProfileInfoMap::Iterator itPend = ScCore->InputProfiles.end();
 				for (auto itP = ScCore->InputProfiles.begin(); itP != itPend; ++itP)
 				{
 					inputProfiles->addItem(itP.key());

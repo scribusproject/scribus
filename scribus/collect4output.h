@@ -10,13 +10,13 @@ for which a new license (GPL+exception) is in place.
 #include <QObject>
 #include <QMap>
 
+#include "colormgmt/sccolormgmtstructs.h"
 #include "scribusstructs.h"
 
 class QString;
 class ScribusDoc;
 class PrefsContext;
 class PageItem;
-
 
 /*! \brief Performs "Collect for Output" tasks.
 collect() method copies the document, fonts and images
@@ -92,7 +92,7 @@ class CollectForOutput : public QObject
 		*/
 		QString collectFile(const QString& oldFile, QString newFile);
 
-		ProfilesL docProfiles;
+		ScProfileInfoMap docProfiles;
 		QStringList patterns;
 		int profileCount {0};
 		int itemCount {0};

@@ -27,8 +27,9 @@ class QSpinBox;
 class QListWidget;
 class QListWidgetItem;
 
-#include "scribusapi.h"
 #include "bookmwin.h"
+#include "colormgmt/sccolormgmtstructs.h"
+#include "scribusapi.h"
 
 #include "ui_tabpdfoptions.h"
 
@@ -44,14 +45,14 @@ class TabPDFOptions : public QTabWidget, Ui::TabPDFOptions
 public:
 	TabPDFOptions(QWidget* parent, PDFOptions & Optionen,
 					const SCFonts &AllFonts,
-					const ProfilesL & PDFXProfiles,
+					const ScProfileInfoMap& PDFXProfiles,
 					const QMap<QString, int> & DocFonts,
 					ScribusDoc *doc);
 	~TabPDFOptions() = default;
 
 	void restoreDefaults(const PDFOptions & Optionen,
 						 const SCFonts &AllFonts,
-						 const ProfilesL & PDFXProfiles,
+						 const ScProfileInfoMap& PDFXProfiles,
 						 const QMap<QString, int> & DocFonts);
 
 	void storeValues(PDFOptions& options) const;

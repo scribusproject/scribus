@@ -372,43 +372,43 @@ void ScribusCore::getCMSProfilesDir(const QString& pfad, bool showInfo, bool rec
 			if (profInfo.colorSpace == ColorSpace_Rgb)
 			{
 				if (!InputProfiles.contains(profileName))
-					InputProfiles.insert(profileName, profInfo.file);
+					InputProfiles.insert(profileName, profInfo);
 			}
 			break;
 		case Class_ColorSpace:
 			if (profInfo.colorSpace == ColorSpace_Rgb)
 			{
 				if (!InputProfiles.contains(profileName))
-					InputProfiles.insert(profileName, profInfo.file);
+					InputProfiles.insert(profileName, profInfo);
 			}
 			if (profInfo.colorSpace == ColorSpace_Cmyk)
 			{
 				if (!InputProfilesCMYK.contains(profileName))
-					InputProfilesCMYK.insert(profileName, profInfo.file);
+					InputProfilesCMYK.insert(profileName, profInfo);
 			}
 			if (profInfo.colorSpace == ColorSpace_Lab)
 			{
 				if (!LabProfiles.contains(profileName))
-					LabProfiles.insert(profileName, profInfo.file);
+					LabProfiles.insert(profileName, profInfo);
 			}
 			break;
 		case Class_Display:
 			if (profInfo.colorSpace == ColorSpace_Rgb)
 			{
 				if (!MonitorProfiles.contains(profileName))
-					MonitorProfiles.insert(profileName, profInfo.file);
+					MonitorProfiles.insert(profileName, profInfo);
 				if (!InputProfiles.contains(profileName))
-					InputProfiles.insert(profileName, profInfo.file);
+					InputProfiles.insert(profileName, profInfo);
 			}
 			if (profInfo.colorSpace == ColorSpace_Cmyk)
 			{
 				if (!InputProfilesCMYK.contains(profileName))
-					InputProfilesCMYK.insert(profileName, profInfo.file);
+					InputProfilesCMYK.insert(profileName, profInfo);
 			}
 			if (profInfo.colorSpace == ColorSpace_Lab)
 			{
 				if (!LabProfiles.contains(profileName))
-					LabProfiles.insert(profileName, profInfo.file);
+					LabProfiles.insert(profileName, profInfo);
 			}
 			break;
 		case Class_Output:
@@ -417,11 +417,11 @@ void ScribusCore::getCMSProfilesDir(const QString& pfad, bool showInfo, bool rec
 			if (profInfo.colorSpace == ColorSpace_Cmyk)
 			{
 				if (!PDFXProfiles.contains(profileName))
-					PDFXProfiles.insert(profileName, profInfo.file);
+					PDFXProfiles.insert(profileName, profInfo);
 				if (!InputProfilesCMYK.contains(profileName))
-					InputProfilesCMYK.insert(profileName, profInfo.file);
+					InputProfilesCMYK.insert(profileName, profInfo);
 				if (!PrinterProfiles.contains(profileName))
-					PrinterProfiles.insert(profileName, profInfo.file);
+					PrinterProfiles.insert(profileName, profInfo);
 			}
 			break;
 		}
@@ -441,12 +441,12 @@ void ScribusCore::InitDefaultColorTransforms()
 	// Open the default RGB profile
 	if (InputProfiles.contains(defaultRGBString1))
 	{
-		defaultRGBProfile = defaultEngine.openProfileFromFile(InputProfiles[defaultRGBString1]);
+		defaultRGBProfile = defaultEngine.openProfileFromFile(InputProfiles[defaultRGBString1].file);
 		defaultRGBString = defaultRGBString1;
 	}
 	else if (InputProfiles.contains(defaultRGBString2))
 	{
-		defaultRGBProfile = defaultEngine.openProfileFromFile(InputProfiles[defaultRGBString2]);
+		defaultRGBProfile = defaultEngine.openProfileFromFile(InputProfiles[defaultRGBString2].file);
 		defaultRGBString = defaultRGBString2;
 	}
 	else
@@ -457,9 +457,9 @@ void ScribusCore::InitDefaultColorTransforms()
 
 	// Open the default CMYK profile
 	if (InputProfilesCMYK.contains(defaultCMYKString1))
-		defaultCMYKProfile = defaultEngine.openProfileFromFile(InputProfilesCMYK[defaultCMYKString1]);
+		defaultCMYKProfile = defaultEngine.openProfileFromFile(InputProfilesCMYK[defaultCMYKString1].file);
 	else if (InputProfilesCMYK.contains(defaultCMYKString2))
-		defaultCMYKProfile = defaultEngine.openProfileFromFile(InputProfilesCMYK[defaultCMYKString2]);
+		defaultCMYKProfile = defaultEngine.openProfileFromFile(InputProfilesCMYK[defaultCMYKString2].file);
 
 	// Keep all chance to have monitor profile set
 	monitorProfile = defaultRGBProfile;
@@ -473,14 +473,30 @@ void ScribusCore::InitDefaultColorTransforms()
 	// Default rgb profile may be a memory profile, if it is the case add it to the lists of 
 	// rgb profiles (input and monitor) so that it can be used later in prefs
 	if (!InputProfiles.contains(defaultRGBString))
-		InputProfiles.insert(defaultRGBString, defaultRGBProfile.profilePath());
+	{
+		ScColorProfileInfo profileInfo;
+		profileInfo.file = defaultRGBProfile.profilePath();
+		profileInfo.description = defaultRGBProfile.productDescription();
+		profileInfo.colorSpace = defaultRGBProfile.colorSpace();
+		profileInfo.deviceClass = defaultRGBProfile.deviceClass();
+		profileInfo.isSuitableForOutput = defaultRGBProfile.isSuitableForOutput();
+		InputProfiles.insert(defaultRGBString, profileInfo);
+	}
 	if (!MonitorProfiles.contains(defaultRGBString))
-		MonitorProfiles.insert(defaultRGBString, defaultRGBProfile.profilePath());
+	{
+		ScColorProfileInfo profileInfo;
+		profileInfo.file = defaultRGBProfile.profilePath();
+		profileInfo.description = defaultRGBProfile.productDescription();
+		profileInfo.colorSpace = defaultRGBProfile.colorSpace();
+		profileInfo.deviceClass = defaultRGBProfile.deviceClass();
+		profileInfo.isSuitableForOutput = defaultRGBProfile.isSuitableForOutput();
+		MonitorProfiles.insert(defaultRGBString, profileInfo);
+	}
 
 	// Open monitor profile as defined by user preferences
 	QString displayProfile = m_prefsManager.appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile;
 	if (MonitorProfiles.contains(displayProfile))
-		monitorProfile = defaultEngine.openProfileFromFile( MonitorProfiles[displayProfile] );
+		monitorProfile = defaultEngine.openProfileFromFile( MonitorProfiles[displayProfile].file);
 	if (monitorProfile.isNull())
 	{
 		m_prefsManager.appPrefs.colorPrefs.DCMSset.DefaultMonitorProfile = defaultRGBString;
@@ -530,7 +546,7 @@ void ScribusCore::initCMS()
 	if (!m_haveCMS)
 		return;
 
-	ProfilesL::Iterator ip;
+	ScProfileInfoMap::Iterator ip;
 	QString defaultRGBString1 = "sRGB display profile (ICC v2.2)";
 	QString defaultRGBString2 = "sRGB IEC61966-2.1";
 	QString defaultCMYKString1 = "ISO Coated v2 300% (basICColor)";

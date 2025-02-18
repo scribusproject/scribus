@@ -8,13 +8,12 @@ for which a new license (GPL+exception) is in place.
 #ifndef PREFS_COLORMANAGEMENT_H
 #define PREFS_COLORMANAGEMENT_H
 
+#include "colormgmt/sccolormgmtstructs.h"
 #include "ui_prefs_colormanagementbase.h"
 #include "prefs_pane.h"
 #include "scribusapi.h"
 
 class ScribusDoc;
-
-using ProfilesL = QMap<QString, QString>;
 
 class SCRIBUS_API Prefs_ColorManagement : public Prefs_Pane, Ui::Prefs_ColorManagement
 {
@@ -27,7 +26,7 @@ class SCRIBUS_API Prefs_ColorManagement : public Prefs_Pane, Ui::Prefs_ColorMana
 		void restoreDefaults(struct ApplicationPrefs *prefsData) override;
 		void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const override;
 
-		void setProfiles(struct ApplicationPrefs *prefsData, ProfilesL *inputProfiles, ProfilesL *inputProfilesCMYK, ProfilesL *printerProfiles, ProfilesL *monitorProfiles);
+		void setProfiles(struct ApplicationPrefs *prefsData, ScProfileInfoMap *inputProfiles, ScProfileInfoMap *inputProfilesCMYK, ScProfileInfoMap *printerProfiles, ScProfileInfoMap *monitorProfiles);
 		bool cmActive();
 
 	protected:

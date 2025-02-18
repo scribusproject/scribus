@@ -541,7 +541,7 @@ bool OutputPreview_PDF::createPreviewFile(int pageIndex)
 		if (m_pdfOptions.Info.isEmpty())
 		{
 			auto& printerProfiles = ScCore->PrinterProfiles;
-			ScColorProfile outputProfile = m_doc->colorEngine.openProfileFromFile( printerProfiles[m_pdfOptions.PrintProf] );
+			ScColorProfile outputProfile = m_doc->colorEngine.openProfileFromFile( printerProfiles[m_pdfOptions.PrintProf].file );
 			profileDescription = outputProfile.productDescription();
 			m_pdfOptions.Info = profileDescription;
 		}

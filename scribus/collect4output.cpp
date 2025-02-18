@@ -460,7 +460,7 @@ bool CollectForOutput::collectProfiles()
 	int c = 0;
 	for (auto it = docProfiles.cbegin(); it != docProfiles.cend(); ++it)
 	{
-		QString oldFile(it.value());
+		QString oldFile(it.value().file);
 		QString outFile(m_outputDirectory + "profiles/" + QFileInfo(oldFile).fileName());
 		bool success = copyFileAtomic(oldFile, outFile);
 		if (!success)

@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 
 #include "colormgmt/sccolormgmtengine.h"
+#include "colormgmt/sccolormgmtstructs.h"
 
 class QWidget;
 class FileWatcher;
@@ -104,12 +105,12 @@ public:
 	PluginManager* pluginManager {nullptr};
 	FileWatcher* fileWatcher {nullptr};
 	
-	ProfilesL InputProfiles;
-	ProfilesL InputProfilesCMYK;
-	ProfilesL MonitorProfiles;
-	ProfilesL PrinterProfiles;
-	ProfilesL PDFXProfiles;
-	ProfilesL LabProfiles;
+	ScProfileInfoMap InputProfiles;
+	ScProfileInfoMap InputProfilesCMYK;
+	ScProfileInfoMap MonitorProfiles;
+	ScProfileInfoMap PrinterProfiles;
+	ScProfileInfoMap PDFXProfiles;
+	ScProfileInfoMap LabProfiles;
 
 	ScColorMgmtEngine defaultEngine;
 	ScColorProfile   monitorProfile;
