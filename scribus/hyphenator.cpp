@@ -193,7 +193,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 			// TODO: support non-standard hyphenation, see hnj_hyphen_hyphenate2 docs
 			if (!hnj_hyphen_hyphenate2(m_hdict, te.data(), te.length(), buffer, nullptr, &rep, &pos, &cut))
 			{
-	  			int i = 0;
+				int i = 0;
 				buffer[te.length()] = '\0';
 				bool hasHyphen = false;
 				for (i = 1; i < wordLower.length() - 1; ++i)
@@ -219,7 +219,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 				{
 					if (!hasHyphen)
 						it->itemText.hyphenateWord(startC + firstC, wordLower.length(), nullptr);
-					else if (m_automatic)
+					else if (m_automatic || !ScCore->usingGUI())
 					{
 						if (specialWords.contains(word))
 						{
