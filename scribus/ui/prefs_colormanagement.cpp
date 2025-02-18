@@ -81,9 +81,9 @@ void Prefs_ColorManagement::restoreDefaults(struct ApplicationPrefs *prefsData)
 	simulatePrinter(prefsData->colorPrefs.DCMSset.SoftProofOn);
 }
 
-void Prefs_ColorManagement::setProfiles(struct ApplicationPrefs *prefsData, ProfilesL *inputProfiles, ProfilesL *inputProfilesCMYK, ProfilesL *printerProfiles, ProfilesL *monitorProfiles)
+void Prefs_ColorManagement::setProfiles(struct ApplicationPrefs *prefsData, ScProfileInfoMap *inputProfiles, ScProfileInfoMap *inputProfilesCMYK, ScProfileInfoMap *printerProfiles, ScProfileInfoMap *monitorProfiles)
 {
-	ProfilesL::Iterator it;
+	ScProfileInfoMap::Iterator it;
 	rgbImageProfileComboBox->clear();
 	for (it = inputProfiles->begin(); it != inputProfiles->end(); ++it)
 	{

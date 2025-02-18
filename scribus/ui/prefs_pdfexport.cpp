@@ -263,7 +263,7 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
 }
 
-void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const ProfilesL & PDFXProfiles, bool exporting)
+void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const ScProfileInfoMap& PDFXProfiles, bool exporting)
 {
 	exportingPDF = exporting;
 	enablePDFExportTabs(exportingPDF);
@@ -438,18 +438,21 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 		enableProfiles(1);
 	enablePG();
 	enablePGI();
+
 	QString tp(prefsData->pdfPrefs.SolidProf);
-	if (!ScCore->InputProfiles.contains(tp))
+	if (!ScCore->InputProfiles.contains(tp) || !ScCore->InputProfiles[tp].isSuitableForOutput)
 	{
 		if (m_doc != nullptr && exportingPDF)
 			tp = m_doc->cmsSettings().DefaultSolidColorRGBProfile;
 		else
 			tp = defaultSolidColorRGBProfile;
 	}
-	ProfilesL::Iterator itpend = ScCore->InputProfiles.end();
+	ScProfileInfoMap::Iterator itpend = ScCore->InputProfiles.end();
 	solidColorProfileComboBox->clear();
 	for (auto itp = ScCore->InputProfiles.begin(); itp != itpend; ++itp)
 	{
+		if (!itp->isSuitableForOutput)
+			continue;
 		solidColorProfileComboBox->addItem(itp.key());
 		if (itp.key() == tp)
 			solidColorProfileComboBox->setCurrentIndex(solidColorProfileComboBox->count() - 1);
@@ -458,26 +461,30 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 	if (Opts.Intent < 0)
 		solidIntent = 1;
 	solidColorRenderingIntentComboBox->setCurrentIndex(solidIntent);
+
 	QString tp1 = Opts.ImageProf;
-	if (!ScCore->InputProfiles.contains(tp1))
+	if (!ScCore->InputProfiles.contains(tp1) || !ScCore->InputProfiles[tp1].isSuitableForOutput)
 	{
 		if (m_doc != nullptr && exportingPDF)
 			tp1 = m_doc->cmsSettings().DefaultSolidColorRGBProfile;
 		else
 			tp1 = defaultSolidColorRGBProfile;
 	}
-	ProfilesL::Iterator itp2end = ScCore->InputProfiles.end();
+	ScProfileInfoMap::Iterator itp2end = ScCore->InputProfiles.end();
 	imageProfileComboBox->clear();
 	for (auto itp2 = ScCore->InputProfiles.begin(); itp2 != itp2end; ++itp2)
 	{
+		if (!itp2->isSuitableForOutput)
+			continue;
 		imageProfileComboBox->addItem(itp2.key());
 		if (itp2.key() == tp1)
-			imageProfileComboBox->setCurrentIndex(imageProfileComboBox->count()-1);
+			imageProfileComboBox->setCurrentIndex(imageProfileComboBox->count() - 1);
 	}
 	int imageIntent = Opts.Intent2;
 	if (imageIntent < 0)
 		imageIntent = 0;
 	imageRenderingIntentComboBox->setCurrentIndex(imageIntent);
+
 	if (!cmsUse)
 	{
 		//Disabling vis hiding
@@ -801,7 +808,7 @@ void Prefs_PDFExport::enableLPI(int i)
 	if (i == 1)
 	{
 		QString tp(Opts.SolidProf);
-		if (!ScCore->InputProfiles.contains(tp))
+		if (!ScCore->InputProfiles.contains(tp) || !ScCore->InputProfiles[tp].isSuitableForOutput)
 		{
 			if (m_doc != nullptr)
 				tp = m_doc->cmsSettings().DefaultSolidColorRGBProfile;
@@ -809,9 +816,11 @@ void Prefs_PDFExport::enableLPI(int i)
 				tp = defaultSolidColorRGBProfile;
 		}
 		solidColorProfileComboBox->clear();
-		ProfilesL::Iterator itpend = ScCore->InputProfiles.end();
+		ScProfileInfoMap::Iterator itpend = ScCore->InputProfiles.end();
 		for (auto itp = ScCore->InputProfiles.begin(); itp != itpend; ++itp)
 		{
+			if (!itp->isSuitableForOutput)
+				continue;
 			solidColorProfileComboBox->addItem(itp.key());
 			if (cmsEnabled && itp.key() == tp)
 				solidColorProfileComboBox->setCurrentIndex(solidColorProfileComboBox->count() - 1);
@@ -819,7 +828,7 @@ void Prefs_PDFExport::enableLPI(int i)
 		if (cmsEnabled)
 			solidColorRenderingIntentComboBox->setCurrentIndex(Opts.Intent);
 		QString tp1 = Opts.ImageProf;
-		if (!ScCore->InputProfiles.contains(tp1))
+		if (!ScCore->InputProfiles.contains(tp1) || !ScCore->InputProfiles[tp1].isSuitableForOutput)
 		{
 			if (m_doc != nullptr)
 				tp1 = m_doc->cmsSettings().DefaultSolidColorRGBProfile;
@@ -827,12 +836,14 @@ void Prefs_PDFExport::enableLPI(int i)
 				tp1 = defaultSolidColorRGBProfile;
 		}
 		imageProfileComboBox->clear();
-		ProfilesL::Iterator itp2end = ScCore->InputProfiles.end();
+		ScProfileInfoMap::Iterator itp2end = ScCore->InputProfiles.end();
 		for (auto itp2 = ScCore->InputProfiles.begin(); itp2 != itp2end; ++itp2)
 		{
+			if (!itp2->isSuitableForOutput)
+				continue;
 			imageProfileComboBox->addItem(itp2.key());
 			if (cmsEnabled && itp2.key() == tp1)
-				imageProfileComboBox->setCurrentIndex(imageProfileComboBox->count()-1);
+				imageProfileComboBox->setCurrentIndex(imageProfileComboBox->count() - 1);
 		}
 		if (cmsEnabled)
 			imageRenderingIntentComboBox->setCurrentIndex(Opts.Intent2);

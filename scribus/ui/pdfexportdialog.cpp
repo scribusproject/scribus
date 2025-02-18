@@ -15,7 +15,6 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "pdfexportdialog.h"
 
-
 #include <QByteArray>
 #include <QCheckBox>
 #include <QFileDialog>
@@ -32,6 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include <QToolTip>
 #include <QVBoxLayout>
 
+#include "colormgmt/sccolormgmtstructs.h"
 #include "commonstrings.h"
 #include "iconmanager.h"
 #include "pdfoptions.h"
@@ -50,8 +50,8 @@ for which a new license (GPL+exception) is in place.
 PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 								  const QMap<QString, int > & DocFonts,
 								  ScribusView *currView, PDFOptions & pdfOptions,
-								  const ProfilesL & PDFXProfiles, const SCFonts &AllFonts,
-								  const ProfilesL & printerProfiles)
+								  const ScProfileInfoMap& PDFXProfiles, const SCFonts &AllFonts,
+								  const ScProfileInfoMap& printerProfiles)
 	: QDialog( parent ),
 	m_doc(currView->m_doc),
 	m_opts(pdfOptions),

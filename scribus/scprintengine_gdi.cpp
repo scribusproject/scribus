@@ -306,8 +306,8 @@ bool ScPrintEngine_GDI::printPage_GDI(ScPage* page, const PrintOptions& options,
 		QString pProf = m_doc.prefsData().colorPrefs.DCMSset.DefaultPrinterProfile;
 		if (ScCore->MonitorProfiles.contains(mProf) && ScCore->PrinterProfiles.contains(pProf))
 		{
-			inputProfile   = QDir::toNativeSeparators(ScCore->InputProfiles[mProf]);
-			printerProfile = QDir::toNativeSeparators(ScCore->PrinterProfiles[pProf]);
+			inputProfile   = QDir::toNativeSeparators(ScCore->InputProfiles[mProf].file);
+			printerProfile = QDir::toNativeSeparators(ScCore->PrinterProfiles[pProf].file);
 			// Avoid color transform if input and output profile are the same
 			if (inputProfile != printerProfile)
 			{

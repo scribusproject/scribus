@@ -6531,7 +6531,7 @@ void ScribusMainWindow::slotPrefsOrg()
 		bool success = false;
 		if (ScCore->MonitorProfiles.contains(newMonitorProfile))
 		{
-			QString profilePath = ScCore->MonitorProfiles[newMonitorProfile];
+			QString profilePath = ScCore->MonitorProfiles[newMonitorProfile].file;
 			ScColorProfile newProfile = ScCore->defaultEngine.openProfileFromFile(profilePath);
 			if (!newProfile.isNull())
 			{

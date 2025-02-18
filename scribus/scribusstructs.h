@@ -293,8 +293,6 @@ struct PrintOptions
 	QByteArray devMode; // printer specific options on Windows
 };
 
-using ProfilesL = QMap<QString,QString>;
-
 enum PreflightError
 {
 	MissingGlyph = 1,

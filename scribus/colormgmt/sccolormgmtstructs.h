@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCCOLORMGMTSTRUCTS_H
 #define SCCOLORMGMTSTRUCTS_H
 
+#include <QMap>
 #include <QString>
 
 // If you change that enum do not forget to update functions
@@ -118,10 +119,13 @@ struct ScColorProfileInfo
 {
 	QString file;
 	QString description;
-	eColorSpaceType colorSpace;
-	eProfileClass   deviceClass;
+	eColorSpaceType colorSpace { ColorSpace_Unknown };
+	eProfileClass   deviceClass { Class_Unknown };
+	bool isSuitableForOutput { false };
 	QString debug;
 };
+
+using ScProfileInfoMap = QMap<QString, ScColorProfileInfo>;
 
 struct ScColorTransformInfo
 {
@@ -132,7 +136,7 @@ struct ScColorTransformInfo
 	eColorFormat outputFormat;
 	eRenderIntent renderIntent;
 	eRenderIntent proofingIntent;
-	long flags;
+	long flags { 0 };
 };
 
 bool operator==(const ScColorTransformInfo& v1, const ScColorTransformInfo& v2);

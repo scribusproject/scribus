@@ -61,7 +61,7 @@ QList<ScColorProfileInfo> ScLcms2ColorMgmtEngineImpl::getAvailableProfileInfo(co
 			continue;
 		if (fi.isDir() && !file.startsWith('.'))
 		{
-			QList<ScColorProfileInfo> profileInfos2 = getAvailableProfileInfo(fi.filePath()+"/", true);
+			QList<ScColorProfileInfo> profileInfos2 = getAvailableProfileInfo(fi.filePath() + "/", true);
 			profileInfos.append(profileInfos2);
 			continue;
 		}
@@ -123,8 +123,13 @@ QList<ScColorProfileInfo> ScLcms2ColorMgmtEngineImpl::getAvailableProfileInfo(co
 			profileInfos.append(profileInfo);
 			continue;
 		}
+
+		cmsUInt32Number defaultIntent = cmsGetHeaderRenderingIntent(hIn);
 		profileInfo.colorSpace  = translateLcmsColorSpaceType( cmsGetColorSpace(hIn) );
 		profileInfo.deviceClass = translateLcmsProfileClass( cmsGetDeviceClass(hIn) );
+		profileInfo.isSuitableForOutput = cmsIsMatrixShaper(hIn) || 
+		                                  (cmsIsCLUT(hIn, defaultIntent, LCMS_USED_AS_INPUT) && 
+		                                   cmsIsCLUT(hIn, defaultIntent, LCMS_USED_AS_OUTPUT));
 		profileInfos.append(profileInfo);
 		cmsCloseProfile(hIn);
 	}

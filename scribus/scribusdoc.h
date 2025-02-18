@@ -42,6 +42,7 @@ for which a new license (GPL+exception) is in place.
 #include "gtgettext.h" //CB For the ImportSetup struct and itemadduserframe
 #include "scribusapi.h"
 #include "colormgmt/sccolormgmtengine.h"
+#include "colormgmt/sccolormgmtstructs.h"
 #include "documentinformation.h"
 #include "numeration.h"
 #include "marks.h"
@@ -535,8 +536,8 @@ public:
 	/*!
 		* @brief Builds a qmap of the icc profiles used within the document
 	 */
-	void getUsedProfiles(ProfilesL& usedProfiles) const;
-	bool OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL MoPo, ProfilesL PrPo);
+	void getUsedProfiles(ScProfileInfoMap& usedProfiles) const;
+	bool OpenCMSProfiles(ScProfileInfoMap InPo, ScProfileInfoMap InPoCMYK, ScProfileInfoMap MoPo, ScProfileInfoMap PrPo);
 	void CloseCMSProfiles();
 	void SetDefaultCMSParams();
 	/**
@@ -903,7 +904,7 @@ public:
 	   @param PrCMYK cmyk profile
 	   @param dia optional progress widget
 	 */
-	void RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *dia = 0);
+	void RecalcPictures(ScProfileInfoMap *Pr, ScProfileInfoMap *PrCMYK, QProgressBar *dia = 0);
 	/**
 	 * \brief Handle image with color profiles
 	 * @param items list of page items to update
@@ -911,7 +912,7 @@ public:
 	 * @param PrCMYK cmyk profile
 	 * @param dia optional progress widget
 	 */
-	void RecalcPictures(const QList<PageItem*>* items, ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *dia = nullptr);
+	void RecalcPictures(const QList<PageItem*>* items, ScProfileInfoMap *Pr, ScProfileInfoMap *PrCMYK, QProgressBar *dia = nullptr);
 
 	/**
 	 * @brief Find the minX,MinY and maxX,maxY for the canvas required for the doc

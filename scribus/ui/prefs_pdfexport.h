@@ -8,10 +8,11 @@ for which a new license (GPL+exception) is in place.
 #ifndef PREFS_PDFEXPORT_H
 #define PREFS_PDFEXPORT_H
 
-#include "ui_prefs_pdfexportbase.h"
+#include "colormgmt/sccolormgmtstructs.h"
 #include "prefs_pane.h"
 #include "scfonts.h"
 #include "scribusapi.h"
+#include "ui_prefs_pdfexportbase.h"
 
 #include "pdfoptions.h"
 class ScribusDoc;
@@ -25,7 +26,7 @@ class SCRIBUS_API Prefs_PDFExport : public Prefs_Pane, Ui::Prefs_PDFExport
 		~Prefs_PDFExport();
 
 		void restoreDefaults(struct ApplicationPrefs *prefsData)  override;
-		virtual void restoreDefaults(struct ApplicationPrefs *prefsData, const ProfilesL & PDFXProfiles,
+		virtual void restoreDefaults(struct ApplicationPrefs *prefsData, const ScProfileInfoMap & PDFXProfiles,
 									 bool exporting = false);
 		void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const override;
 		void enableCMS(bool);

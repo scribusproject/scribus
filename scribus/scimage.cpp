@@ -2386,7 +2386,7 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 				{
 					imgInfo.profileName = cmSettings.profileName();
 				//	inputProfIsEmbedded = true;
-					profilePath = ScCore->InputProfilesCMYK[imgInfo.profileName];
+					profilePath = ScCore->InputProfilesCMYK[imgInfo.profileName].file;
 					inputProf =  cmSettings.doc()->colorEngine.openProfileFromFile(profilePath);
 				}
 				else
@@ -2401,7 +2401,7 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 			else if (ScCore->InputProfiles.contains(cmSettings.profileName()) && (cmSettings.profileName() != cmSettings.doc()->cmsSettings().DefaultImageRGBProfile))
 			{
 				imgInfo.profileName = cmSettings.profileName();
-				profilePath = ScCore->InputProfiles[imgInfo.profileName];
+				profilePath = ScCore->InputProfiles[imgInfo.profileName].file;
 			//	inputProfIsEmbedded = true;
 				inputProf = cmSettings.doc()->colorEngine.openProfileFromFile(profilePath);
 			}

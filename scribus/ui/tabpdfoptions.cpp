@@ -34,6 +34,7 @@ for which a new license (GPL+exception) is in place.
 #include <QToolButton>
 #include <QVBoxLayout>
 
+#include "colormgmt/sccolormgmtstructs.h"
 #include "iconmanager.h"
 #include "pageitemiterator.h"
 #include "pdfoptions.h"
@@ -49,7 +50,7 @@ for which a new license (GPL+exception) is in place.
 
 TabPDFOptions::TabPDFOptions(QWidget* parent, PDFOptions & Optionen,
 								const SCFonts &AllFonts,
-								const ProfilesL & PDFXProfiles,
+								const ScProfileInfoMap& PDFXProfiles,
 								const QMap<QString, int> & DocFonts,
 								ScribusDoc * doc )
 	: QTabWidget( parent ),
@@ -324,7 +325,7 @@ QStringList TabPDFOptions::fontsToOutline() const
 
 void TabPDFOptions::restoreDefaults(const PDFOptions & Optionen,
 									const SCFonts &AllFonts,
-									const ProfilesL & PDFXProfiles,
+									const ScProfileInfoMap& PDFXProfiles,
 									const QMap<QString, int> & DocFonts)
 {
 	AllPages->setChecked( true );
@@ -522,33 +523,31 @@ void TabPDFOptions::restoreDefaults(const PDFOptions & Optionen,
 	EnablePGI();
 
 	QString tp = Opts.SolidProf;
-	if (!ScCore->InputProfiles.contains(tp))
+	if (!ScCore->InputProfiles.contains(tp) || !ScCore->InputProfiles[tp].isSuitableForOutput)
 		tp = m_Doc->cmsSettings().DefaultSolidColorRGBProfile;
 	SolidPr->clear();
 	for (auto itp = ScCore->InputProfiles.begin(); itp != ScCore->InputProfiles.end(); ++itp)
 	{
+		if (!itp->isSuitableForOutput)
+			continue;
 		SolidPr->addItem(itp.key());
-		if (itp.key() == tp)
-		{
-			if (cmsUse)
-				SolidPr->setCurrentIndex(SolidPr->count() - 1);
-		}
+		if (cmsUse && itp.key() == tp)
+			SolidPr->setCurrentIndex(SolidPr->count() - 1);
 	}
 	if (cmsUse)
 		IntendS->setCurrentIndex(Opts.Intent);
 
 	QString tp1 = Opts.ImageProf;
-	if (!ScCore->InputProfiles.contains(tp1))
+	if (!ScCore->InputProfiles.contains(tp1) || !ScCore->InputProfiles[tp1].isSuitableForOutput)
 		tp1 = m_Doc->cmsSettings().DefaultSolidColorRGBProfile;
 	ImageP->clear();
 	for (auto itp2 = ScCore->InputProfiles.begin(); itp2 != ScCore->InputProfiles.end(); ++itp2)
 	{
+		if (!itp2->isSuitableForOutput)
+			continue;
 		ImageP->addItem(itp2.key());
-		if (itp2.key() == tp1)
-		{
-			if (cmsUse)
-				ImageP->setCurrentIndex(ImageP->count() - 1);
-		}
+		if (cmsUse && itp2.key() == tp1)
+			ImageP->setCurrentIndex(ImageP->count() - 1);
 	}
 	if (cmsUse)
 		IntendI->setCurrentIndex(Opts.Intent2);
@@ -950,33 +949,31 @@ void TabPDFOptions::EnableLPI(int a)
 	if (a == 1)
 	{
 		QString tp = Opts.SolidProf;
-		if (!ScCore->InputProfiles.contains(tp))
+		if (!ScCore->InputProfiles.contains(tp) || !ScCore->InputProfiles[tp].isSuitableForOutput)
 			tp = m_Doc->cmsSettings().DefaultSolidColorRGBProfile;
 		SolidPr->clear();
 		for (auto itp = ScCore->InputProfiles.begin(); itp != ScCore->InputProfiles.end(); ++itp)
 		{
+			if (!itp->isSuitableForOutput)
+				continue;
 			SolidPr->addItem(itp.key());
-			if (itp.key() == tp)
-			{
-				if (cms)
-					SolidPr->setCurrentIndex(SolidPr->count() - 1);
-			}
+			if (cms && itp.key() == tp)
+				SolidPr->setCurrentIndex(SolidPr->count() - 1);
 		}
 		if (cms)
 			IntendS->setCurrentIndex(Opts.Intent);
 
 		QString tp1 = Opts.ImageProf;
-		if (!ScCore->InputProfiles.contains(tp1))
+		if (!ScCore->InputProfiles.contains(tp1) || !ScCore->InputProfiles[tp1].isSuitableForOutput)
 			tp1 = m_Doc->cmsSettings().DefaultSolidColorRGBProfile;
 		ImageP->clear();
 		for (auto itp2 = ScCore->InputProfiles.begin(); itp2 != ScCore->InputProfiles.end(); ++itp2)
 		{
+			if (!itp2->isSuitableForOutput)
+				continue;
 			ImageP->addItem(itp2.key());
-			if (itp2.key() == tp1)
-			{
-				if (cms)
-					ImageP->setCurrentIndex(ImageP->count() - 1);
-			}
+			if (cms && itp2.key() == tp1)
+				ImageP->setCurrentIndex(ImageP->count() - 1);
 		}
 		if (cms)
 			IntendI->setCurrentIndex(Opts.Intent2);

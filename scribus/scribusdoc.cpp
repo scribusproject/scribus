@@ -832,7 +832,7 @@ void ScribusDoc::SetDefaultCMSParams()
 	stdProofLabGC         = ScCore->defaultLabToRGBTrans;
 }
 
-bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL  /*MoPo*/, ProfilesL PrPo)
+bool ScribusDoc::OpenCMSProfiles(ScProfileInfoMap InPo, ScProfileInfoMap InPoCMYK, ScProfileInfoMap  /*MoPo*/, ScProfileInfoMap PrPo)
 {
 	HasCMS = false;
 
@@ -843,11 +843,11 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL  
 	colorEngine.setStrategy(colorStrategy);
 
 	DocDisplayProf   = ScCore->monitorProfile;
-	DocInputRGBProf  = colorEngine.openProfileFromFile( InPo[m_docPrefsData.colorPrefs.DCMSset.DefaultSolidColorRGBProfile] );
-	DocInputCMYKProf = colorEngine.openProfileFromFile( InPoCMYK[m_docPrefsData.colorPrefs.DCMSset.DefaultSolidColorCMYKProfile] );
-	DocPrinterProf   = colorEngine.openProfileFromFile( PrPo[m_docPrefsData.colorPrefs.DCMSset.DefaultPrinterProfile] );
-	DocInputImageRGBProf  = colorEngine.openProfileFromFile( InPo[m_docPrefsData.colorPrefs.DCMSset.DefaultImageRGBProfile] );
-	DocInputImageCMYKProf = colorEngine.openProfileFromFile( InPoCMYK[m_docPrefsData.colorPrefs.DCMSset.DefaultImageCMYKProfile] );
+	DocInputRGBProf  = colorEngine.openProfileFromFile( InPo[m_docPrefsData.colorPrefs.DCMSset.DefaultSolidColorRGBProfile].file );
+	DocInputCMYKProf = colorEngine.openProfileFromFile( InPoCMYK[m_docPrefsData.colorPrefs.DCMSset.DefaultSolidColorCMYKProfile].file );
+	DocPrinterProf   = colorEngine.openProfileFromFile( PrPo[m_docPrefsData.colorPrefs.DCMSset.DefaultPrinterProfile].file );
+	DocInputImageRGBProf  = colorEngine.openProfileFromFile( InPo[m_docPrefsData.colorPrefs.DCMSset.DefaultImageRGBProfile].file );
+	DocInputImageCMYKProf = colorEngine.openProfileFromFile( InPoCMYK[m_docPrefsData.colorPrefs.DCMSset.DefaultImageCMYKProfile].file );
 	if ((!DocDisplayProf) || (!DocInputRGBProf) || (!DocInputCMYKProf) || (!DocPrinterProf) || (!DocInputImageCMYKProf) || (!DocInputImageRGBProf))
 	{
 		m_docPrefsData.colorPrefs.DCMSset.CMSinUse = false;
@@ -4306,7 +4306,7 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, QStrin
 }
 
 
-void ScribusDoc::getUsedProfiles(ProfilesL& usedProfiles) const
+void ScribusDoc::getUsedProfiles(ScProfileInfoMap& usedProfiles) const
 {
 	PageItem* it = nullptr;
 	QStringList profileNames;
@@ -7268,7 +7268,7 @@ int ScribusDoc::columnOfPage(int pageIndex) const
 	return ((pageIndex % setcol) + pageSets()[m_docPrefsData.docSetupPrefs.pagePositioning].FirstPage) % setcol;
 }
 
-void ScribusDoc::RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *dia)
+void ScribusDoc::RecalcPictures(ScProfileInfoMap *Pr, ScProfileInfoMap *PrCMYK, QProgressBar *dia)
 {
 	RecalcPictures(&MasterItems, Pr, PrCMYK, dia);
 	RecalcPictures(&DocItems, Pr, PrCMYK, dia);
@@ -7316,7 +7316,7 @@ void ScribusDoc::RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *
 	}
 }
 
-void ScribusDoc::RecalcPictures(const QList<PageItem*>* items, ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *dia)
+void ScribusDoc::RecalcPictures(const QList<PageItem*>* items, ScProfileInfoMap *Pr, ScProfileInfoMap *PrCMYK, QProgressBar *dia)
 {
 	if (items->isEmpty())
 		return;
