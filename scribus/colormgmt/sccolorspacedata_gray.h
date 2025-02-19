@@ -11,7 +11,7 @@ template<typename T, eColorFormat COLORFORMAT>
 class ScColorSpaceDataTempl_Gray : public ScColorSpaceData
 {
 public:
-	ScColorSpaceDataTempl_Gray(ScColorProfile& profile);
+	explicit ScColorSpaceDataTempl_Gray(ScColorProfile& profile);
 
 	uint alphaIndex(void) const override { return 0; }
 	void flattenAlpha(void* dataIn, uint numElems) const override {};

@@ -16,9 +16,6 @@ for which a new license (GPL+exception) is in place.
 
 class ScColorTransformData  : public ScColorMgmtElem
 {
-protected:
-	ScColorTransformInfo m_transformInfo;
-
 public:
 	inline const ScColorTransformInfo& transformInfo() const { return m_transformInfo; }
 	inline void  setTransformInfo(const ScColorTransformInfo& info) { m_transformInfo = info; }
@@ -27,6 +24,9 @@ public:
 
 	virtual bool apply(void* input, void* output, uint numElem) = 0;
 	virtual bool apply(QByteArray& input, QByteArray& output, uint numElem) = 0;
+
+protected:
+	ScColorTransformInfo m_transformInfo;
 };
 
 #endif

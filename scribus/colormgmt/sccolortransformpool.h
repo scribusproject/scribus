@@ -18,7 +18,7 @@ class ScColorTransformPool
 	friend class ScColorMgmtEngineData;
 
 public:
-	ScColorTransformPool (int engineID);
+	explicit ScColorTransformPool (int engineID);
 
 	void clear();
 	void addTransform(const ScColorTransform& transform, bool force = false);
@@ -28,7 +28,7 @@ public:
 	ScColorTransform findTransform(const ScColorTransformInfo& info) const;
 
 protected:
-	int m_engineID;
+	int m_engineID { 0 };
 	QList< QWeakPointer<ScColorTransformData> > m_pool;
 };
 

@@ -13,26 +13,26 @@ for which a new license (GPL+exception) is in place.
 
 class ScColorProfileImplBase : public ScColorProfileData
 {
-protected:
-	ScColorMgmtEngine m_engine;
-
 public:
 	ScColorProfileImplBase(const ScColorMgmtEngine& engine);
 
 	ScColorMgmtEngine& engine() override;
 	const ScColorMgmtEngine& engine() const override;
+
+protected:
+	ScColorMgmtEngine m_engine;
 };
 
 class ScColorTransformImplBase : public ScColorTransformData
 {
-protected:
-	ScColorMgmtEngine m_engine;
-
 public:
 	ScColorTransformImplBase(const ScColorMgmtEngine& engine);
 
 	ScColorMgmtEngine& engine() override;
 	const ScColorMgmtEngine& engine() const override;
+
+protected:
+	ScColorMgmtEngine m_engine;
 };
 
 #endif

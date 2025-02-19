@@ -32,7 +32,7 @@ void ScColorProfileCache::removeProfile(const ScColorProfile& profile)
 	m_profileMap.remove(profile.profilePath());
 }
 	
-bool ScColorProfileCache::contains(const QString& profilePath)
+bool ScColorProfileCache::contains(const QString& profilePath) const
 {
 	auto iter = m_profileMap.constFind(profilePath);
 	if (iter != m_profileMap.constEnd())
@@ -43,7 +43,7 @@ bool ScColorProfileCache::contains(const QString& profilePath)
 	return false;
 }
 
-ScColorProfile ScColorProfileCache::profile(const QString& profilePath)
+ScColorProfile ScColorProfileCache::profile(const QString& profilePath) const
 {
 	ScColorProfile profile;
 	auto iter = m_profileMap.constFind(profilePath);

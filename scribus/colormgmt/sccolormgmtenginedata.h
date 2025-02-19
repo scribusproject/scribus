@@ -21,13 +21,7 @@ class ScColorMgmtEngine;
 
 class ScColorMgmtEngineData
 {
-protected:
-	int     m_engineID;
-	QString m_description;
-	ScColorMgmtStrategy  m_strategy;
-	
 public:
-
 	ScColorMgmtEngineData(const QString& desc, int uniqueID) : m_engineID(uniqueID), 
 	                                                           m_description(desc)
 	{}
@@ -66,6 +60,11 @@ public:
 	virtual ScColorSpace createColorSpace(ScColorProfile& profile, eColorFormat colorFormat);
 
 	static int channelsOfColorspace(eColorSpaceType colorspace);
+
+protected:
+	int     m_engineID { 0 };
+	QString m_description;
+	ScColorMgmtStrategy  m_strategy;
 };
 
 #endif

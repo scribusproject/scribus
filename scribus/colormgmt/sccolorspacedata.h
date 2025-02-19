@@ -16,12 +16,7 @@ for which a new license (GPL+exception) is in place.
 
 class ScColorSpaceData : public ScColorMgmtElem
 {
-protected:
-	eColorFormat   m_colorFormat;
-	ScColorProfile m_profile;
-
 public:
-
 	eColorType   type() const             { return colorFormatType(m_colorFormat); }
 	eColorFormat colorFormat() const      { return m_colorFormat; }
 	const ScColorProfile& profile() const { return m_profile; }
@@ -30,8 +25,8 @@ public:
 	uint  bytesPerChannel(void) const { return colorFormatBytesPerChannel(m_colorFormat); }
 	bool  hasAlphaChannel(void) const { return colorFormatHasAlpha(m_colorFormat); }
 
-	virtual ScColorMgmtEngine& engine() { return m_profile.engine(); }
-	virtual const ScColorMgmtEngine& engine() const { return m_profile.engine(); }
+	ScColorMgmtEngine& engine() override { return m_profile.engine(); }
+	const ScColorMgmtEngine& engine() const override { return m_profile.engine(); }
 
 	// Index of alpha data
 	virtual uint  alphaIndex(void) const = 0;
@@ -55,9 +50,13 @@ public:
 
 	// Convert color data to a specific color space
 	virtual bool convert(ScColorSpaceData& data, eRenderIntent renderIntent, long transformFlags, 
-	                     void* dataIn, void* dataOut, uint numElems, ScColorTransform* lastTrans = 0);
+	                     void* dataIn, void* dataOut, uint numElems, ScColorTransform* lastTrans = nullptr);
 	virtual bool convert(ScColorSpaceData& data, eRenderIntent renderIntent, long transformFlags, 
-	                     void* dataIn, QIODevice* device, uint numElems, ScColorTransform* lastTrans = 0);
+	                     void* dataIn, QIODevice* device, uint numElems, ScColorTransform* lastTrans = nullptr);
+
+protected:
+	eColorFormat   m_colorFormat { Format_Undefined };
+	ScColorProfile m_profile;
 };
 
 #endif

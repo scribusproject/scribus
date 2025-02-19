@@ -36,7 +36,7 @@ public:
 	bool            save(QByteArray& profileData) const override;
 
 protected:
-	cmsHPROFILE     m_profileHandle;
+	cmsHPROFILE     m_profileHandle { nullptr };
 	mutable QString m_productDescription;
 
 	void closeProfile(void);

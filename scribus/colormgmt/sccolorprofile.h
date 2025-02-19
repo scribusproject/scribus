@@ -30,6 +30,7 @@ public:
 	inline bool isNull()    const { return (m_data.isNull() || m_data->isNull()); }
 	inline operator bool () const { return !isNull(); }
 
+	ScColorProfileInfo info() const;
 	bool isSuitableForOutput() const;
 
 	QString profilePath() const;
