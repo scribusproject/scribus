@@ -474,22 +474,12 @@ void ScribusCore::InitDefaultColorTransforms()
 	// rgb profiles (input and monitor) so that it can be used later in prefs
 	if (!InputProfiles.contains(defaultRGBString))
 	{
-		ScColorProfileInfo profileInfo;
-		profileInfo.file = defaultRGBProfile.profilePath();
-		profileInfo.description = defaultRGBProfile.productDescription();
-		profileInfo.colorSpace = defaultRGBProfile.colorSpace();
-		profileInfo.deviceClass = defaultRGBProfile.deviceClass();
-		profileInfo.isSuitableForOutput = defaultRGBProfile.isSuitableForOutput();
+		ScColorProfileInfo profileInfo = defaultRGBProfile.info();
 		InputProfiles.insert(defaultRGBString, profileInfo);
 	}
 	if (!MonitorProfiles.contains(defaultRGBString))
 	{
-		ScColorProfileInfo profileInfo;
-		profileInfo.file = defaultRGBProfile.profilePath();
-		profileInfo.description = defaultRGBProfile.productDescription();
-		profileInfo.colorSpace = defaultRGBProfile.colorSpace();
-		profileInfo.deviceClass = defaultRGBProfile.deviceClass();
-		profileInfo.isSuitableForOutput = defaultRGBProfile.isSuitableForOutput();
+		ScColorProfileInfo profileInfo = defaultRGBProfile.info();
 		MonitorProfiles.insert(defaultRGBString, profileInfo);
 	}
 
