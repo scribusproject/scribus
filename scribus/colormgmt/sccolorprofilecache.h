@@ -20,8 +20,8 @@ public:
 	void removeProfile(const QString& profilePath);
 	void removeProfile(const ScColorProfile& profile);
 
-	bool contains(const QString& profilePath);
-	ScColorProfile profile(const QString& profilePath);
+	bool contains(const QString& profilePath) const;
+	ScColorProfile profile(const QString& profilePath) const;
 
 protected:
 	QMap<QString, QWeakPointer<ScColorProfileData> > m_profileMap;

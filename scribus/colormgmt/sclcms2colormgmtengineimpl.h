@@ -48,7 +48,6 @@ public:
 											 eRenderIntent proofingIntent, long transformFlags) override;
 
 protected:
-
 	// Color profile cache
 	static QSharedPointer<ScColorProfileCache> m_profileCache;
 

@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 class ScE308Table
 {
 public:
-	virtual ~ScE308Table() {}
+	virtual ~ScE308Table() = default;
 	
 	// Illuminant and observer for which this table is to be used
 	virtual eIlluminant illuminant() const = 0;
@@ -52,11 +52,11 @@ class ScE308Table5_D50_2deg : public ScE308Table
 public:
 	ScE308Table5_D50_2deg();
 
-	virtual eIlluminant illuminant() const { return Illuminant_D50; }
-	virtual eObserver   observer()   const { return Observer_2deg; }
+	eIlluminant illuminant() const override { return Illuminant_D50; }
+	eObserver   observer()   const override { return Observer_2deg; }
 	
-	virtual int wavelengthStart() const { return 360; }
-	virtual int wavelengthIncrement() const { return 10; }
+	int wavelengthStart() const override { return 360; }
+	int wavelengthIncrement() const override { return 10; }
 };
 
 class ScE308Table5_D50_10deg : public ScE308Table
@@ -64,11 +64,11 @@ class ScE308Table5_D50_10deg : public ScE308Table
 public:
 	ScE308Table5_D50_10deg();
 
-	virtual eIlluminant illuminant() const { return Illuminant_D50; }
-	virtual eObserver   observer()   const { return Observer_10deg; }
+	eIlluminant illuminant() const override { return Illuminant_D50; }
+	eObserver   observer()   const override { return Observer_10deg; }
 	
-	virtual int wavelengthStart() const { return 360; }
-	virtual int wavelengthIncrement() const { return 10; }
+	int wavelengthStart() const override { return 360; }
+	int wavelengthIncrement() const override { return 10; }
 };
 
 class ScE308Table6_D50_2deg : public ScE308Table
@@ -76,11 +76,11 @@ class ScE308Table6_D50_2deg : public ScE308Table
 public:
 	ScE308Table6_D50_2deg();
 
-	virtual eIlluminant illuminant() const { return Illuminant_D50; }
-	virtual eObserver   observer()   const { return Observer_2deg; }
+	eIlluminant illuminant() const override { return Illuminant_D50; }
+	eObserver   observer()   const override { return Observer_2deg; }
 	
-	virtual int wavelengthStart() const { return 360; }
-	virtual int wavelengthIncrement() const { return 10; }
+	int wavelengthStart() const override { return 360; }
+	int wavelengthIncrement() const override { return 10; }
 };
 
 class ScE308Table6_D50_10deg : public ScE308Table
@@ -88,11 +88,11 @@ class ScE308Table6_D50_10deg : public ScE308Table
 public:
 	ScE308Table6_D50_10deg();
 
-	virtual eIlluminant illuminant() const { return Illuminant_D50; }
-	virtual eObserver   observer()   const { return Observer_10deg; }
+	eIlluminant illuminant() const override { return Illuminant_D50; }
+	eObserver   observer()   const override { return Observer_10deg; }
 	
-	virtual int wavelengthStart() const { return 360; }
-	virtual int wavelengthIncrement() const { return 10; }
+	int wavelengthStart() const override { return 360; }
+	int wavelengthIncrement() const override { return 10; }
 };
 
 #endif

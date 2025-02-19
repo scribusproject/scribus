@@ -61,6 +61,20 @@ QString ScColorProfile::dataHash() const
 	return QString();
 }
 
+ScColorProfileInfo ScColorProfile::info() const
+{
+	if (!m_data)
+		return ScColorProfileInfo();
+
+	ScColorProfileInfo profileInfo;
+	profileInfo.file = m_data->path();
+	profileInfo.description = m_data->productDescription();
+	profileInfo.colorSpace = m_data->colorSpace();
+	profileInfo.deviceClass = m_data->deviceClass();
+	profileInfo.isSuitableForOutput = m_data->isSuitableForOutput();
+	return profileInfo;
+}
+
 bool ScColorProfile::isSuitableForOutput() const
 {
 	if (m_data)

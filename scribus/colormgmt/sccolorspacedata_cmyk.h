@@ -10,17 +10,17 @@
 template<typename T, eColorFormat COLORFORMAT>
 class ScColorSpaceDataTempl_CMYK : public ScColorSpaceData
 {
-protected:
-	int m_cIndex;
-	int m_mIndex;
-	int m_yIndex;
-	int m_kIndex;
-
 public:
-	ScColorSpaceDataTempl_CMYK(ScColorProfile& profile);
+	explicit ScColorSpaceDataTempl_CMYK(ScColorProfile& profile);
 
 	uint alphaIndex(void) const override { return 0; }
 	void flattenAlpha(void* dataIn, uint numElems) const override {};
+
+protected:
+	int m_cIndex { 0 };
+	int m_mIndex { 1 };
+	int m_yIndex { 2 };
+	int m_kIndex { 3 };
 };
 
 template<typename T, eColorFormat COLORFORMAT>

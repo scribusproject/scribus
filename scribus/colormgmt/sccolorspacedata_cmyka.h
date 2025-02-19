@@ -10,18 +10,18 @@
 template<typename T, eColorFormat COLORFORMAT>
 class ScColorSpaceDataTempl_CMYKA : public ScColorSpaceData
 {
-protected:
-	int m_cIndex;
-	int m_mIndex;
-	int m_yIndex;
-	int m_kIndex;
-	int m_aIndex;
-
 public:
-	ScColorSpaceDataTempl_CMYKA(ScColorProfile& profile);
+	explicit ScColorSpaceDataTempl_CMYKA(ScColorProfile& profile);
 
 	uint alphaIndex(void) const override { return m_aIndex; }
 	void flattenAlpha(void* dataIn, uint numElems) const override;
+
+protected:
+	int m_cIndex { 0 };
+	int m_mIndex { 1 };
+	int m_yIndex { 2 };
+	int m_kIndex { 3 };
+	int m_aIndex { 4 };
 };
 
 template<typename T, eColorFormat COLORFORMAT>

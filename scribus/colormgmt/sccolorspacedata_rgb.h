@@ -10,16 +10,16 @@
 template<typename T, eColorFormat COLORFORMAT>
 class ScColorSpaceDataTempl_RGB : public ScColorSpaceData
 {
-protected:
-	int m_rIndex;
-	int m_gIndex;
-	int m_bIndex;
-
 public:
-	ScColorSpaceDataTempl_RGB(ScColorProfile& profile);
+	explicit ScColorSpaceDataTempl_RGB(ScColorProfile& profile);
 
 	uint alphaIndex(void) const override { return 0; }
 	void flattenAlpha(void* dataIn, uint numElems) const override {};
+
+protected:
+	int m_rIndex { 0 };
+	int m_gIndex { 1 };
+	int m_bIndex { 2 };
 };
 
 template<typename T, eColorFormat COLORFORMAT>

@@ -26,7 +26,7 @@ public:
 	bool apply(QByteArray& input, QByteArray& output, uint numElem) override;
 
 protected:
-	cmsHTRANSFORM m_transformHandle;
+	cmsHTRANSFORM m_transformHandle { nullptr };
 
 	void deleteTransform();
 };
