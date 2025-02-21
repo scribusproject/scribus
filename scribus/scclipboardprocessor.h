@@ -45,19 +45,32 @@ class ScClipboardProcessor
 		struct TextSegment
 		{
 			QString text;
+			QString color;
 			bool isBold = false;
 			bool isItalic = false;
+			bool hasUnderline = false;
+			double fontsize = 0.0;
+			QString family;
 		};
 
 		bool processText();
 		bool processHTML();
 		bool html_MSFT_Process();
+		void html_MSFT_Parse(xmlNodePtr node);
+		void msftParseStyles(xmlNode *node, QMap<QString, QString> &styles);
+		bool styleToProcess(const QString &style);
+		void processMSFTCSS(const QMap<QString, QString> &styles);
+		void msftParseParagraphs(xmlNode *node, QMap<QString, QString> &styles);
+		QString msftExtractText(xmlNode *node, QList<TextSegment> &segments, bool bold = false, bool italic = false, bool underline = false, QString color = QString(), double fontsize = 0.0, QString family = QString());
+		// void msftExtractText(xmlNode *node, QString inheritedStyle = "");
+
+
 		bool html_Cocoa_Process();
 		void html_Cocoa_Parse(xmlNodePtr node);
 		void cocoaParseStyles(xmlNode *node, QMap<QString, QString> &styles);
-		QString cocoaExtractText(xmlNode *node, QList<TextSegment> &segments, bool bold = false, bool italic = false);
+		QString cocoaExtractText(xmlNode *node, QList<TextSegment> &segments, bool bold = false, bool italic = false, bool underline = false);
 		void cocoaParseParagraphs(xmlNode *node, QMap<QString, QString> &styles);
-		void processCSS(const QMap<QString, QString> &styles);
+		void processCocoaCSS(const QMap<QString, QString> &styles);
 		bool processHTML_Other();
 
 		QString m_content;
