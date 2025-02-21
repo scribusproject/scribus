@@ -53,6 +53,7 @@ bool ScClipboardProcessor::process()
 	QString dashes(40, '-');  // Create a string of 'count' dashes
 	qDebug() << dashes;
 	dumpClipboardData();
+	qDebug() << "Content Type:"<< m_contentType;
 	qDebug() << dashes;
 #endif
 	if (m_content.isEmpty())
@@ -110,6 +111,7 @@ bool ScClipboardProcessor::processHTML()
 
 bool ScClipboardProcessor::html_MSFT_Process()
 {
+	qDebug()<<Q_FUNC_INFO;
 	// Convert to a const xmlChar*, parse with libxml2
 	const xmlChar* html_content_cstr = reinterpret_cast<const xmlChar*>(m_content.toUtf8().constData());
 
@@ -470,6 +472,7 @@ void ScClipboardProcessor::msftParseParagraphs(xmlNode *node, QMap<QString, QStr
 
 bool ScClipboardProcessor::html_Cocoa_Process()
 {
+	qDebug()<<Q_FUNC_INFO;
 	// Convert to a const xmlChar*, parse with libxml2
 	const xmlChar* html_content_cstr = reinterpret_cast<const xmlChar*>(m_content.toUtf8().constData());
 
@@ -762,8 +765,14 @@ bool ScClipboardProcessor::processHTML_Other()
 
 	//temporary result for 1.7.0
 	m_result = qTextDoc.toPlainText();
+	if (m_result.isEmpty())
+	{
+		qTextDoc.setPlainText(m_content);
+		m_result = qTextDoc.toPlainText();
+	}
 	m_result.replace("\r\n", SpecialChars::PARSEP);
 	m_result.replace('\n', SpecialChars::PARSEP);
+	m_pageItem->itemText.insertChars(m_result, true);
 	processed = true;
 	return true;
 }
