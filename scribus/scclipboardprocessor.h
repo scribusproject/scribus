@@ -20,7 +20,7 @@ class PageItem;
 #ifndef SCCLIPBOARDPROCESSOR_H
 #define SCCLIPBOARDPROCESSOR_H
 
-//#define SCCLIP_DEBUG 1
+// #define SCCLIP_DEBUG 1
 
 class ScClipboardProcessor
 {
@@ -46,32 +46,38 @@ class ScClipboardProcessor
 		{
 			QString text;
 			QString color;
-			bool isBold = false;
-			bool isItalic = false;
-			bool hasUnderline = false;
-			double fontsize = 0.0;
+			bool isBold {false};
+			bool isItalic {false};
+			bool hasUnderline {false};
+			double fontsize {0.0};
 			QString family;
 		};
 
 		bool processText();
 		bool processHTML();
+		bool processHTML_Other();
+
 		bool html_MSFT_Process();
 		void html_MSFT_Parse(xmlNodePtr node);
-		void msftParseStyles(xmlNode *node, QMap<QString, QString> &styles);
-		bool styleToProcess(const QString &style);
-		void processMSFTCSS(const QMap<QString, QString> &styles);
-		void msftParseParagraphs(xmlNode *node, QMap<QString, QString> &styles);
-		QString msftExtractText(xmlNode *node, QList<TextSegment> &segments, bool bold = false, bool italic = false, bool underline = false, QString color = QString(), double fontsize = 0.0, QString family = QString());
-		// void msftExtractText(xmlNode *node, QString inheritedStyle = "");
+		void html_MSFT_ParseStyles(xmlNode *node, QMap<QString, QString> &styles);
+		bool html_MSFT_StyleToProcess(const QString &style);
+		void html_MSFT_Process_CSS(const QMap<QString, QString> &styles);
+		void html_MSFT_ParseParagraphs(xmlNode *node, QMap<QString, QString> &styles);
+		QString html_MSFT_ExtractText(xmlNode *node, QList<TextSegment> &segments, TextSegment ts);
 
+		bool html_LibreOffice_Process();
+		void html_LibreOffice_Parse(xmlNodePtr node);
+		void html_LibreOffice_ProcessCSS(const QMap<QString, QString> &styles);
+		void html_LibreOffice_ParseStyles(xmlNode *node, QMap<QString, QString> &styles);
+		QString html_LibreOffice_ExtractText(xmlNode *node, QList<TextSegment> &segments, TextSegment ts);
+		void html_LibreOffice_ParseParagraphs(xmlNode *node, QMap<QString, QString> &styles);
 
 		bool html_Cocoa_Process();
 		void html_Cocoa_Parse(xmlNodePtr node);
-		void cocoaParseStyles(xmlNode *node, QMap<QString, QString> &styles);
-		QString cocoaExtractText(xmlNode *node, QList<TextSegment> &segments, bool bold = false, bool italic = false, bool underline = false);
-		void cocoaParseParagraphs(xmlNode *node, QMap<QString, QString> &styles);
-		void processCocoaCSS(const QMap<QString, QString> &styles);
-		bool processHTML_Other();
+		void html_Cocoa_ParseStyles(xmlNode *node, QMap<QString, QString> &styles);
+		QString html_Cocoa_ExtractText(xmlNode *node, QList<TextSegment> &segments, TextSegment ts);
+		void html_Cocoa_ParseParagraphs(xmlNode *node, QMap<QString, QString> &styles);
+		void html_Cocoa_ProcessCSS(const QMap<QString, QString> &styles);
 
 		QString m_content;
 		ContentType m_contentType {ContentType::Unknown};
