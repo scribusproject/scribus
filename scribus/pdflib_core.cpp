@@ -2278,6 +2278,7 @@ void PDFLibCore::PDF_Begin_WriteUsedFonts(const QMap<QString, QMap<uint, QString
 //	qDebug() << "outline list:" << QStringList(Options.OutlineList).join(", ");
 
 	SCFonts& allFonts = PrefsManager::instance().appPrefs.fontPrefs.AvailFonts;
+	bool docUseAnnotations = doc.useAnnotations();
 
 	int a = 0;
 	for (auto it = usedFonts.cbegin(); it != usedFonts.cend(); ++it)
@@ -2366,7 +2367,7 @@ void PDFLibCore::PDF_Begin_WriteUsedFonts(const QMap<QString, QMap<uint, QString
 					pdfFont = PDF_EncodeSimpleFont(fontName, face, baseFont, subtype, embeddedFontObject != 0, fontDescriptor, usedGlyphs);
 				}
 
-				if ((Options.Version != PDFVersion::PDF_X4) && (face.type() != ScFace::OTF))
+				if (docUseAnnotations && !PDF_IsPDFX() && (face.type() != ScFace::OTF))
 					PDF_EncodeFormFont(fontName, face, baseFont, subtype, fontDescriptor);
 			}
 			pdfFont.usage = Used_in_Content;
