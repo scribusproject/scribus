@@ -227,6 +227,10 @@ void SMPStyleWidget::checkParEffectState()
 	if (dropCapsBox->isChecked() || bulletBox->isChecked() || numBox->isChecked())
 		enable = true;
 
+
+	double newMinimum = (bulletBox->isChecked() || numBox->isChecked()) ? 0.0 : -3000.0;
+	parEffectOffset->setMinimum(newMinimum);
+
 	parEffectCharStyleCombo->setEnabled(enable);
 	parEffectOffset->setEnabled(enable);
 	parEffectIndentBox->setEnabled(enable);
@@ -1167,6 +1171,7 @@ void SMPStyleWidget::slotNumbering(bool isOn)
 		numFormatCombo->setEnabled(false);
 		numLevelSpin->setEnabled(false);
 	}
+
 	if (m_hasParent)
 		parentParEffectsButton->show();
 	checkParEffectState();

@@ -389,6 +389,12 @@ void PropertyWidget_ParEffect::handleParEffectUse()
 	if (!m_doc || !m_item)
 		return;
 
+	int id = peCombo->currentIndex();
+	double newMinimum = -3000.0;
+	if (id == 2 || id == 3)
+		newMinimum = 0.0;
+	peOffset->setMinimum(newMinimum);
+
 	ParagraphStyle newStyle;
 	enableParEffect(peCombo->currentIndex() != 0);
 	if (peCombo->currentIndex() == 1)
