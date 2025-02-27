@@ -156,16 +156,6 @@ void SMPStyleWidget::languageChange()
 
 	fillPECombo();
 
-/* #13455 stop making the font 2ce as big
-	QFont font1;
-	if (font1.pointSize())
-		font1.setPointSize(font1.pointSize() *2);
-	else if (font1.pixelSize())
-		font1.setPixelSize(font1.pixelSize() *2);
-	((QComboBox*) bulletStrEdit)->setFont(font1);
-	(bulletStrEdit->lineEdit())->setFont(font1);
-*/
-
 	backgroundColor->colorButton->setPersistentToolTip( tr("Background color of selected text"));
 	backgroundColor->setText(tr("Background"));
 }
@@ -1116,6 +1106,12 @@ void SMPStyleWidget::handleParEffectUse(int index)
 {
 	if (m_hasParent)
 		parentParEffectsButton->show();
+
+	int id = peCombo->currentIndex();
+	double newMinimum = -3000.0;
+	if (id == 2 || id == 3)
+		newMinimum = 0.0;
+	parEffectOffset->setMinimum(newMinimum);
 
 	setParagraphEffect(index);
 }
