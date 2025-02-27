@@ -183,7 +183,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	clockLabel->setGeometry(m_vhRulerHW + 1, height() - m_vhRulerHW - 61, 60, 60);
 	clockLabel->setVisible(false);
 
-	endEditButton = new QPushButton(IconManager::instance().loadIcon("exit", 22), tr("End Edit"), this);
+	endEditButton = new QPushButton(IconManager::instance().loadIcon("exit"), tr("End Edit"), this);
 	endEditButton->setGeometry(m_vhRulerHW + 1, height() - m_vhRulerHW - endEditButton->minimumSizeHint().height() - 1, endEditButton->minimumSizeHint().width(), endEditButton->minimumSizeHint().height());
 	endEditButton->setVisible(false);
 
@@ -240,7 +240,7 @@ void ScribusView::nativeGestureEvent(QNativeGestureEvent *e)
 void ScribusView::iconSetChange()
 {
 	IconManager& iconManager = IconManager::instance();
-	endEditButton->setIcon(iconManager.loadIcon("22/exit.png"));
+	endEditButton->setIcon(iconManager.loadIcon("exit"));
 }
 
 void ScribusView::languageChange()
