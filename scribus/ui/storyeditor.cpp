@@ -91,7 +91,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "util.h"
 #include "util_debug.h"
-
+#include "util_keyboard.h"
 
 class StyledTextMimeData : public QMimeData
 {
@@ -1676,13 +1676,13 @@ void StoryEditor::loadPrefs()
 void StoryEditor::initActions()
 {
 	//File Menu
-	seActions.insert("fileNew", new ScrAction("16/document-new.png", "22/document-new.png", "", Qt::CTRL+Qt::Key_N, this));
+	seActions.insert("fileNew", new ScrAction("16/document-new.png", "22/document-new.png", "", Qt::CTRL + Qt::Key_N, this));
 	seActions.insert("fileRevert", new ScrAction("reload16.png", "reload.png", "", QKeySequence(), this));
 	seActions.insert("fileSaveToFile", new ScrAction("16/document-save.png", "22/document-save.png", "", QKeySequence(), this));
-	seActions.insert("fileLoadFromFile", new ScrAction("16/document-open.png",  "22/document-open.png", "", QKeySequence(), this));
-	seActions.insert("fileSaveDocument", new ScrAction("", Qt::CTRL+Qt::Key_S, this));
-	seActions.insert("fileUpdateAndExit", new ScrAction("ok.png", "ok22.png", "", Qt::CTRL+Qt::Key_W,  this));
-	seActions.insert("fileExit", new ScrAction("exit.png", "exit22.png", "", QKeySequence(),  this));
+	seActions.insert("fileLoadFromFile", new ScrAction("16/document-open.png", "22/document-open.png", "", QKeySequence(), this));
+	seActions.insert("fileSaveDocument", new ScrAction("", Qt::CTRL + Qt::Key_S, this));
+	seActions.insert("fileUpdateAndExit", new ScrAction("ok.png", "ok22.png", "", Qt::CTRL + Qt::Key_W, this));
+	seActions.insert("fileExit", new ScrAction("exit.png", "exit22.png", "", QKeySequence(), this));
 
 	connect( seActions["fileNew"], SIGNAL(triggered()), this, SLOT(Do_new()) );
 	connect( seActions["fileRevert"], SIGNAL(triggered()), this, SLOT(slotFileRevert()) );
@@ -1693,15 +1693,15 @@ void StoryEditor::initActions()
 	connect( seActions["fileExit"], SIGNAL(triggered()), this, SLOT(Do_leave()) );
 
 	//Edit Menu
-	seActions.insert("editCut", new ScrAction("16/edit-cut.png", QString(), "", Qt::CTRL+Qt::Key_X, this));
-	seActions.insert("editCopy", new ScrAction("16/edit-copy.png", QString(), "", Qt::CTRL+Qt::Key_C, this));
-	seActions.insert("editPaste", new ScrAction("16/edit-paste.png", QString(), "", Qt::CTRL+Qt::Key_V, this));
+	seActions.insert("editCut", new ScrAction("16/edit-cut.png", QString(), "", Qt::CTRL + Qt::Key_X, this));
+	seActions.insert("editCopy", new ScrAction("16/edit-copy.png", QString(), "", Qt::CTRL + Qt::Key_C, this));
+	seActions.insert("editPaste", new ScrAction("16/edit-paste.png", QString(), "", Qt::CTRL + Qt::Key_V, this));
 	seActions.insert("editClear", new ScrAction("16/edit-delete.png", QString(), "", Qt::Key_Delete, this));
-	seActions.insert("editSelectAll", new ScrAction("16/edit-select-all.png", QString(), "", Qt::CTRL+Qt::Key_A, this));
-	seActions.insert("editSearchReplace", new ScrAction("16/edit-find-replace.png", QString(), "", Qt::CTRL+Qt::Key_F, this));
+	seActions.insert("editSelectAll", new ScrAction("16/edit-select-all.png", QString(), "", Qt::CTRL + Qt::Key_A, this));
+	seActions.insert("editSearchReplace", new ScrAction("16/edit-find-replace.png", QString(), "", Qt::CTRL + Qt::Key_F, this));
 	//seActions.insert("editEditStyle", new ScrAction("", QKeySequence(), this));
 	seActions.insert("editFontPreview", new ScrAction("", QKeySequence(), this));
-	seActions.insert("editUpdateFrame", new ScrAction("compfile16.png", "compfile.png", "", Qt::CTRL+Qt::Key_U, this));
+	seActions.insert("editUpdateFrame", new ScrAction("compfile16.png", "compfile.png", "", Qt::CTRL + Qt::Key_U, this));
 
 	connect( seActions["editCut"], SIGNAL(triggered()), this, SLOT(Do_cut()) );
 	connect( seActions["editCopy"], SIGNAL(triggered()), this, SLOT(Do_copy()) );
