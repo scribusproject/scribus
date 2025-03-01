@@ -91,6 +91,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "util.h"
 #include "util_debug.h"
+#include "util_keyboard.h"
 
 class StyledTextMimeData : public QMimeData
 {

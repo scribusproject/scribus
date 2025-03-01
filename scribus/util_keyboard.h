@@ -136,11 +136,6 @@ inline int operator|(Qt::KeyboardModifier k1, Qt::Key k2)
 	return static_cast<int>(k1) | static_cast<int>(k2);
 }
 
-inline int operator|(Qt::KeyboardModifier k1, Qt::KeyboardModifier k2)
-{
-	return static_cast<int>(k1) | static_cast<int>(k2);
-}
-
 inline int operator|(Qt::KeyboardModifier k1, Qt::Modifier k2)
 {
 	return static_cast<int>(k1) | static_cast<int>(k2);
@@ -157,11 +152,6 @@ inline int operator|(Qt::Modifier k1, Qt::Key k2)
 }
 
 inline int operator|(Qt::Modifier k1, Qt::KeyboardModifier k2)
-{
-	return static_cast<int>(k1) | static_cast<int>(k2);
-}
-
-inline int operator|(Qt::Modifier k1, Qt::Modifier k2)
 {
 	return static_cast<int>(k1) | static_cast<int>(k2);
 }
