@@ -12,7 +12,8 @@ void PageSizePreview::paintEvent(QPaintEvent *event)
 {
 	QColor colPage = PrefsManager::instance().appPrefs.displayPrefs.paperColor;
 	QColor colBackground = PrefsManager::instance().appPrefs.displayPrefs.scratchColor;
-	QColor colMargin(Qt::blue);
+	QColor colMargin = PrefsManager::instance().appPrefs.guidesPrefs.marginColor;
+	QColor colBleed(Qt::gray);
 	QColor colFrame(Qt::black);
 	QColor colLabel(Qt::white);
 	QColor colLabelBackground(0, 0, 0, 128);
@@ -35,26 +36,45 @@ void PageSizePreview::paintEvent(QPaintEvent *event)
 	{
 		QRect rPage(rectPaper.x() + pageSize.width() * i , rectPaper.y(), pageSize.width(), pageSize.height());
 		QRect rMargin;
+		QRect rBleed;
 
 		// Left Page
 		if (i == 0 && count > 1)
 		{
 			rMargin.setLeft(rPage.left() + m_margins.right() * ratio);
-			rMargin.setRight(rPage.right() - m_margins.left() * ratio);	
+			rMargin.setRight(rPage.right() - m_margins.left() * ratio);
+			rBleed.setLeft(rPage.left() - m_bleeds.left() * ratio);
+			rBleed.setRight(rPage.right());
 		}
-		// Right and Single Page
+		// Right Page
+		else if (i == 1 && count > 1)
+		{
+			rMargin.setLeft(rPage.left() + m_margins.left() * ratio);
+			rMargin.setRight(rPage.right() - m_margins.right() * ratio);
+			rBleed.setLeft(rPage.left());
+			rBleed.setRight(rPage.right() + m_bleeds.right() * ratio);
+		}
+		// Single Page
 		else
 		{
 			rMargin.setLeft(rPage.left() + m_margins.left() * ratio);
 			rMargin.setRight(rPage.right() - m_margins.right() * ratio);
+			rBleed.setLeft(rPage.left() - m_bleeds.left() * ratio);
+			rBleed.setRight(rPage.right() + m_bleeds.right() * ratio);
 		}
 
 		rMargin.setTop(rPage.top() + m_margins.top() * ratio);
 		rMargin.setBottom(rPage.bottom() - m_margins.bottom() * ratio);
+		rBleed.setTop(rPage.top() - m_bleeds.top() * ratio);
+		rBleed.setBottom(rPage.bottom() + m_bleeds.bottom() * ratio);
 
+		// Draw Bleeds
+		painter.setBrush( colPage );
+		painter.setPen( QPen(colBleed, 1, Qt::DashLine) );
+		painter.drawRect( rBleed );
 
 		// Draw Pages
-		painter.setBrush( colPage );
+		painter.setBrush( Qt::NoBrush );
 		painter.setPen( QPen(colFrame) );
 		painter.drawRect( rPage );
 

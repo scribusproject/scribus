@@ -118,7 +118,8 @@ NewDocDialog::NewDocDialog(QWidget* parent, const QStringList& recentDocs, bool 
 	connect(listPageFormats, &PageSizeList::clicked, this, &NewDocDialog::changePageSize);
 	connect(pageSizeSelector, &PageSizeSelector::pageCategoryChanged, this, &NewDocDialog::changeCategory);
 	connect(marginGroup, &NewMarginWidget::marginChanged, this, &NewDocDialog::changeMargin);
-	connect(bleedGroup, &NewMarginWidget::marginChanged, this, &NewDocDialog::changeMargin);
+	connect(bleedGroup, &NewMarginWidget::marginChanged, this, &NewDocDialog::changeBleed);
+	connect(bleedGroup, &NewMarginWidget::valuesChanged, this, &NewDocDialog::changeBleed);
 	connect(comboSortSizes, &QComboBox::currentIndexChanged, this, &NewDocDialog::changeSortMode);
 	if (startUp)
 	{

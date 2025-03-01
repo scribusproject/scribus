@@ -394,6 +394,7 @@ void NewMarginWidget::setFacingPages(bool facing, int pageType)
 	leftMarginLabel->setText( m_facingPages ? tr("Inside") : tr("Left"));
 	rightMarginLabel->setText( m_facingPages ? tr("Outside") : tr("Right"));
 
+	iconSetChange();
 	setPreset();
 }
 
