@@ -1986,7 +1986,6 @@ ScPage* ScribusView::addPage(int nr, bool mov)
 	MidButt = false;
 	HaveSelRect = false;
 	Magnify = false;
-	m_doc->nodeEdit.setEdPoints(true);
 	DraggedGroup = false;
 	//FIXME:av	MoveGY = false;
 	//FIXME:av	MoveGX = false;

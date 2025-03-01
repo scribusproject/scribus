@@ -369,7 +369,7 @@ signals:
 	void DelBM(PageItem *);
 	void ChBMText(PageItem *);
 	void LoadElem(QString, double, double, bool, bool, ScribusDoc *, ScribusView *);
-	void HavePoint(bool, bool);
+	void HavePoint(bool);
 	void ClipPo(double, double);
 	void PolyStatus(int, uint);
 	void MousePos(double, double);

@@ -19,6 +19,7 @@
 #define CANVAS_MODE_NODEEDIT_H
 
 #include "canvasmode.h"
+#include "nodeeditcontext.h"
 
 #include <QTransform>
 #include <QRect>
@@ -38,8 +39,8 @@ class SCRIBUS_API CanvasMode_NodeEdit : public CanvasMode
 		void activate(bool fromgesture) override;
 		void deactivate(bool forGesture) override;
 
-		void enterEvent(QEvent *) override;
-		void leaveEvent(QEvent *) override;
+		void enterEvent(QEvent *) override {};
+		void leaveEvent(QEvent *) override {};
 
 		void mouseDoubleClickEvent(QMouseEvent *m) override;
 		void mouseReleaseEvent(QMouseEvent *m) override;
@@ -55,13 +56,45 @@ class SCRIBUS_API CanvasMode_NodeEdit : public CanvasMode
 		void drawControls(QPainter* p) override;
 
 	private:
+
+		enum MouseMode { None = 0, NodeHandle, ControlHandle, PathSegment };
+
+		struct StateManager {
+			MouseMode clickedOn { None };
+			MouseMode hoveredOver { None };
+			bool isSameLength {false};
+			bool isSameAngle {false};
+			bool wasNewlySelected { false };
+			NodeEditContext::ControlMoveMode originalMoveMode { NodeEditContext::ControlMoveMode::Auto };
+			NodeEditContext::ControlMoveMode moveMode { originalMoveMode }; // we need this for converted auto mode
+
+			void reset()
+			{
+				clickedOn = None;
+				isSameLength = false;
+				isSameAngle = false;
+				wasNewlySelected = false;
+				moveMode = NodeEditContext::ControlMoveMode::Auto;
+			}
+		};
+
 		inline bool GetItem(PageItem** pi);
+		QMap<int, int> selectedNodesList(FPointArray points);
 		void handleNodeEditPress(QMouseEvent*, QRect r);
 		void handleNodeEditDrag(QMouseEvent*, PageItem*);
 		bool handleNodeEditMove(QMouseEvent*, QRect r, PageItem*, const QTransform&);
+		FPoint constraintControlAngle(FPoint anchor, FPoint mouse, double angleStep);
+		FPoint snapControlAngle(FPoint anchor, FPoint mouse, double angle);
+		FPoint snapControlLength(FPoint anchor, FPoint mouse, double length);
+		FPoint snapControlOrigin(FPoint anchor, FPoint mouse);
+		bool deleteNodes();
+
+		void updateItem(PageItem* currItem);
+		void refreshPath(bool edited);
 
 		ScribusMainWindow* m_ScMW { nullptr };
 		RectSelect* m_rectangleSelect { nullptr };
+		StateManager state;
 
 		double m_Mxp { -1.0 }; // last mouse position
 		double m_Myp { -1.0 };
@@ -71,6 +104,7 @@ class SCRIBUS_API CanvasMode_NodeEdit : public CanvasMode
 		double m_GyM { -1.0 };
 		bool m_MoveGX { false };
 		bool m_MoveGY { false };
+
 };
 
 

@@ -19,6 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPainterPath>
 #include <QLineF>
 
+#include "fpoint.h"
 #include "scribusapi.h"
 
 class FPoint;
@@ -42,7 +43,7 @@ QList<QPainterPath> SCRIBUS_API decomposePath(const QPainterPath &path);
  * @param t
  * @return
  */
-QList<QPointF> catmullToBezier(const QList<QPointF>& inputPoints, double t = 1);
+QList<QPointF> SCRIBUS_API catmullToBezier(const QList<QPointF>& inputPoints, double t = 1);
 QPainterPath  SCRIBUS_API regularPolygonPath(double w, double h, uint c, bool star, double factor, double rota, double factor2 = 0.0, double innerRot = 0.0, double factor3 = 0.0);
 QPainterPath  SCRIBUS_API spiralPath(double spiralWidth, double spiralHeight, double spiralStartAngle, double spiralEndAngle, double spiralFactor);
 inline double SCRIBUS_API xy2Deg(double x, double y);
@@ -51,6 +52,7 @@ inline double SCRIBUS_API cosd(double);
 inline double SCRIBUS_API square(double);
 inline double SCRIBUS_API distance(double, double);
 inline double SCRIBUS_API manhattanDistance(const QPointF& p1, const QPointF& p2);
+
 /*! \brief Constrains an angle of rotation to 45 degree intervals
    Will make code simpler and reduce interval or provide as a parameter
    \param angle angle Angle in degrees
@@ -58,6 +60,7 @@ inline double SCRIBUS_API manhattanDistance(const QPointF& p1, const QPointF& p2
    \retval double Constrained angle
  */
 double SCRIBUS_API constrainAngle(double angle, double constrain);
+inline FPoint SCRIBUS_API getPointFromRotation(const FPoint &p1, double distance, double angle);
 /*! \brief Get the rotation angle (in radian) from a transformation matrix
    Will make code simpler and reduce interval or provide as a parameter
    \param matrix the transformation matrix
@@ -90,6 +93,14 @@ inline double manhattanDistance(const QPointF& p1, const QPointF& p2)
 {
 	QPointF point = p2 - p1;
 	return point.manhattanLength();
+}
+
+inline FPoint getPointFromRotation(const FPoint &p1, double distance, double angle)
+{
+	FPoint p2;
+	p2.setX(p1.x() + cosd(angle) * distance);
+	p2.setY(p1.y() + sind(angle) * distance);
+	return p2;
 }
 
 inline double xy2Deg(double x, double y)

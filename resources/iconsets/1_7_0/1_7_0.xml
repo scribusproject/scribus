@@ -141,7 +141,7 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon onLight="#68B259" onDark="#88CC7A" id="alert-ok" file="16/alert-ok.svg" />
 		
 		<!-- Align & Distribute -->
-				<icon id="align-horizontal-center" file="16/align-item-horizontal-center.svg" />
+		<icon id="align-horizontal-center" file="16/align-item-horizontal-center.svg" />
 		<icon id="align-horizontal-left" file="16/align-item-horizontal-left.svg" />
 		<icon id="align-horizontal-left-out" file="16/align-item-horizontal-left-out.svg" />
 		<icon id="align-horizontal-right" file="16/align-item-horizontal-right.svg" />
@@ -184,11 +184,13 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
     		<!-- Bezier & Vector Path-->
     		<icon id="bezier-close" file="16/bezier-close.svg" />
 		<icon id="bezier-control-asymetric" file="16/bezier-control-asymetric.svg" />
+		<icon id="bezier-control-independent" file="16/bezier-control-independent.svg" />
 		<icon id="bezier-control-move" file="16/bezier-control-move.svg" />
 		<icon id="bezier-control-reset" file="16/bezier-control-reset.svg" />
 		<icon id="bezier-control-reset-all" file="16/bezier-controls-reset.svg" />
 		<icon id="bezier-control-symetric" file="16/bezier-control-symetric.svg" />
 		<icon id="bezier-node-add" file="16/bezier-node-add.svg" />
+		<icon id="bezier-node-edit" file="16/bezier-node-edit.svg" />
 		<icon id="bezier-node-delete" file="16/bezier-node-delete.svg" />		
 		<icon id="bezier-node-move" file="16/bezier-node-move.svg" />
 		<icon id="bezier-scale-down" file="16/bezier-scale-down.svg" />
@@ -196,16 +198,25 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon id="bezier-split" file="16/bezier-split.svg" />
 		<icon id="object-flip-horizontal" file="16/object-flip-horizontal.svg" />
 		<icon id="object-flip-vertical" file="16/object-flip-vertical.svg" />
+		<icon id="path-contour-edit" file="16/path-contour-edit.svg" />
+		<icon id="path-contour-reset" file="16/path-contour-reset.svg" />
+		<icon id="path-contour-to-clip" file="16/path-contour-to-clip.svg" />
 		<icon id="path-exclusion" file="16/path-exclusion.svg" />
 		<icon id="path-intersection" file="16/path-intersection.svg" />
+		<icon id="path-node-visibility" file="16/path-node-visibility.svg" />
 		<icon id="path-parts" file="16/path-combine.svg" />
+		<icon id="path-reset-all" file="16/action-reload.svg" />
+		<icon id="path-shape-to-clip" file="16/path-shape-to-clip.svg" />
 		<icon id="path-subtraction" file="16/path-difference.svg" />
 		<icon id="path-unite" file="16/path-union.svg" />
+		<icon id="position-origin-canvas" file="16/position-origin-canvas.svg" />
+		<icon id="position-origin-item" file="16/position-origin-item.svg" />
+		<icon id="position-origin-page" file="16/position-origin-page.svg" />
 		<icon id="transform-shear-down" file="16/bezier-path-shear-down.svg" />
 		<icon id="transform-shear-left" file="16/bezier-path-shear-left.svg" />
 		<icon id="transform-shear-right" file="16/bezier-path-shear-right.svg" />
 		<icon id="transform-shear-up" file="16/bezier-path-shear-up.svg" />
-    
+ 
 		<!-- Color -->
 		<icon id="color-cmyk" file="16/color-cmyk.svg" />
 		<icon id="color-lab" file="16/color-lab.svg" />
@@ -248,6 +259,8 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon id="cursor-text-frame" file="32/cursor-text.svg" />
 		<icon id="cursor-zoom-in" file="32/cursor-zoom-in.svg" />
 		<icon id="cursor-zoom-out" file="32/cursor-zoom-out.svg" />
+		<icon id="cursor-move" file="32/cursor-move.svg" />
+		<icon id="cursor-node-edit" file="32/cursor-node-edit.svg" />
 		
 		<!-- Drawable Shapes -->
 		<!--
@@ -463,7 +476,7 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon id="split-table-cells" file="16/table-split-cell.svg" />
 		
 		<!-- Text & Font-->
-				<icon id="character-capitals-all" file="16/character-capitals-all.svg" />
+		<icon id="character-capitals-all" file="16/character-capitals-all.svg" />
 		<icon id="character-capitals-small" file="16/character-capitals-small.svg" />
 		<icon id="character-letter-tracking" file="16/character-letter-spacing.svg" />
 		<icon id="character-offset-baseline" file="16/character-offset-baseline.svg" />

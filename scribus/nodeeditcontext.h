@@ -39,6 +39,46 @@ for which a new license (GPL+exception) is in place.
 class SCRIBUS_API NodeEditContext : public MassObservable<QPointF>
 {
 	public:
+		enum SubMode
+		{
+			MOVE_POINT = 0,
+			ADD_POINT,
+			DEL_POINT,
+			SPLIT_PATH,
+			EDIT_POINT
+		};
+
+		enum NodeType
+		{
+			ControlLeft = 0,
+			NodeLeft,
+			NodeRight,
+			ControlRight,
+			Opposite, // opposite control/node index of input
+			Sibling, // sibling of node is control, sibling of control is node
+			OppositeSibling, // combination of opposite and sibling
+			Self
+		};
+
+		enum ControlMoveMode
+		{
+			Auto = 0,
+			Symmetric,
+			Asymmetric,
+			Independent
+		};
+
+		struct OppositeControl {
+			FPoint relativePos;
+			bool isValid {false};
+			int controlIndex {-1};
+			int nodeIndex {-1};
+			double distance {0};
+			double angle {0};
+			bool sameAngle {false};
+			bool sameLength {false};
+		};
+
 		NodeEditContext();
 
 		bool isContourLine() { return m_isContourLine; }
@@ -51,16 +91,33 @@ class SCRIBUS_API NodeEditContext : public MassObservable<QPointF>
 		void setSegP1(int i) { m_SegP1 = i; }
 		int segP2() { return m_SegP2; }
 		void setSegP2(int i) { m_SegP2 = i; }
-		bool edPoints() { return m_EdPoints; }
-		void setEdPoints(bool b) { m_EdPoints = b; }
-		bool moveSym() { return m_MoveSym; }
-		void setMoveSym(bool b) { m_MoveSym = b; }
+		ControlMoveMode moveMode() { return m_moveMode; }
+		void setMoveMode(ControlMoveMode b) { m_moveMode = b; }
+		double scale() { return m_scale; };
+		void setScale(double scale) {m_scale = scale; }
 
 		QList<int>& selNode() { return m_SelNode; }
 		bool hasNodeSelected() const;
 		void deselect();
 		void selectNode(int i);
+		void deselectNode(int i);
+		void deselectNodeControls();
 		int  selectionCount() const;
+
+		void getPoints(PageItem* currItem, int i, FPoint& ctrlLeft, FPoint& nodeLeft, FPoint& nodeRight, FPoint& ctrlRight);
+		FPoint getPoint(PageItem* currItem, int i, NodeType nodeType = NodeType::Self);
+		bool isSymetric(PageItem* currItem, int i = -1);
+		bool sameAngle(PageItem* currItem, int i = -1);
+		bool sameLength(PageItem* currItem, int i = -1);
+
+		static bool isNode(int i) { return i % 2 == 0; }
+		static bool isLeftControl(int i);
+		static bool isLeftNode(int i);
+		static bool isRightNode(int i);
+		static bool isRightControl(int i);
+		static bool hasTwoNodes(int i, FPointArray clip);
+		static bool isSharpNode(int i, FPointArray clip);
+		static int indexOfNode(int i, NodeType type = NodeType::NodeRight, int size = -1);
 
 		void reset();
 		void setPreviewMode(bool mode);
@@ -69,16 +126,17 @@ class SCRIBUS_API NodeEditContext : public MassObservable<QPointF>
 		void setSubMode(int i) { m_submode = i; }
 		void reset1Control(PageItem* currItem);
 		void resetControl(PageItem* currItem);
+		FPointArray clipFromItem(PageItem* currItem);
 		FPointArray beginTransaction(PageItem* currItem);
 		void finishTransaction(PageItem* currItem);
 		ScOldNewState<FPointArray>* finishTransaction1(PageItem* currItem);
 		void finishTransaction2(PageItem* currItem, ScOldNewState<FPointArray>* state);
 		void moveClipPoint(PageItem *currItem, const FPoint& ip);
+		void equalizeControls(PageItem *currItem);
 
 		FPointArray *oldClip { nullptr };
 		UndoTransaction nodeTransaction;
-
-		enum SubMode { MOVE_POINT = 0, ADD_POINT = 1, DEL_POINT = 2, SPLIT_PATH = 3 };
+		OppositeControl oppositeControl;
 
 	protected:
 		int m_submode { MOVE_POINT };
@@ -88,11 +146,11 @@ class SCRIBUS_API NodeEditContext : public MassObservable<QPointF>
 		int m_ClRe2 { -1 };
 		int m_SegP1 { -1 };
 		int m_SegP2 { -1 };
-		bool m_EdPoints { true };
-		bool m_MoveSym { false };
+		ControlMoveMode m_moveMode { Auto };
 		QList<int> m_SelNode;
 		double m_oldItemX { 0.0 };
 		double m_oldItemY { 0.0 };
+		double m_scale { 1.0 };
 		bool m_preview { false };
 };
 #endif

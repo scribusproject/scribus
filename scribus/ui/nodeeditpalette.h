@@ -25,13 +25,13 @@ class QEvent;
 #include "scribusapi.h"
 #include "fpointarray.h"
 #include "scrpalettebase.h"
-#include "scrspinbox.h"
+#include "ui_nodeeditpalette.h"
 
 class ScribusDoc;
 class ScribusView;
 class PageItem;
 
-class SCRIBUS_API NodePalette : public ScrPaletteBase
+class SCRIBUS_API NodePalette : public ScrPaletteBase, public Ui::nodePalette
 {
 	Q_OBJECT
 
@@ -40,60 +40,19 @@ public:
 	~NodePalette() {};
 
 	void setDefaults(PageItem* currItem);
-
-	QToolButton* MoveNode { nullptr };
-	QToolButton* MoveControl { nullptr };
-	QToolButton* AddNode { nullptr };
-	QToolButton* DeleteNode { nullptr };
-	QToolButton* AsymMove { nullptr };
-	QToolButton* SymMove { nullptr };
-	QToolButton* ResNode { nullptr };
-	QToolButton* Res1Node { nullptr };
-	QToolButton* PolySplit { nullptr };
-	QToolButton* BezierClose { nullptr };
-	QToolButton* PolyMirrorH { nullptr };
-	QToolButton* PolyMirrorV { nullptr };
-	QToolButton* PolyShearL { nullptr };
-	QToolButton* PolyShearR { nullptr };
-	QToolButton* PolyShearU { nullptr };
-	QToolButton* PolyShearD { nullptr };
-	QToolButton* RotateCCW { nullptr };
-	QToolButton* RotateCW { nullptr };
-	QToolButton* Expand { nullptr };
-	QToolButton* Shrink { nullptr };
-	QToolButton* Enlarge { nullptr };
-	QToolButton* Reduce { nullptr };
-	QCheckBox* PreviewMode { nullptr };
-	QGroupBox* AbsMode { nullptr };
-	QRadioButton* absToCanvas { nullptr };
-	QRadioButton* absToPage { nullptr };
-	QCheckBox* EditCont { nullptr };
-	QLabel* TextLabel1 { nullptr };
-	ScrSpinBox* YSpin { nullptr };
-	QLabel* TextLabel2 { nullptr };
-	ScrSpinBox* XSpin { nullptr };
-	QSpinBox *RotVal { nullptr };
-	QSpinBox *scalePercentage { nullptr };
-	ScrSpinBox *scaleDistance { nullptr };
-	QPushButton* ResetCont { nullptr };
-	QPushButton* ResetContClip { nullptr };
-	QPushButton* ResetShape2Clip { nullptr };
-	QPushButton* editEditButton { nullptr };
-	QPushButton* cancelEditButton { nullptr };
-	QPushButton* resetDefaultButton { nullptr };
-
 	void setDoc(ScribusDoc *dc, ScribusView *vi);
 	ScribusDoc* currentDocument() const;
 
+	bool isSymetricMove() { return SymMove->isChecked(); };
+
 private slots:
-	void MoveK();
 	void AddN();
 	void DelN();
 	void MovePoint();
 	void SetSym();
 	void SetAsym();
-	void ResetControl();
-	void Reset1Control();
+	void SetIndependentMove();
+	void editControl();
 	void ResetContour();
 	void ResetContourToImageClip();
 	void ResetShapeToImageClip();
@@ -111,14 +70,14 @@ private slots:
 	void ShearL();
 	void ShearU();
 	void ShearD();
-	void ToggleAbsMode();
-	void ToggleConMode();
+	void ToggleContourMode();
 	void TogglePreview();
+	void changePosOrigin(int index);
 
 public slots:
 	void MoveN();
 	void SetXY(double x, double y);
-	void HaveNode(bool have, bool mov);
+	void HaveNode(bool have);
 	void IsOpen();
 	void PolyStatus(int typ, uint size);
 	void iconSetChange();
@@ -132,18 +91,20 @@ protected slots:
 	void reject() override;
 
 protected:
+
+	enum PositionOrigin {
+		Canvas = 0,
+		Page,
+		Item
+	};
+
 	void connectSignals();
 	void disconnectSignals();
 
+	void initPosOriginMenu();
+
 	void changeEvent(QEvent *e) override;
 	void closeEvent(QCloseEvent *) override;
-
-	QVBoxLayout *vboxLayout { nullptr };
-	QVBoxLayout *vboxLayout1 { nullptr };
-	QHBoxLayout *hboxLayout { nullptr };
-	QGridLayout *gridLayout { nullptr };
-	QGridLayout *gridLayout2 { nullptr };
-	QGridLayout *gridLayout3 { nullptr };
 
 	ScribusDoc *m_doc { nullptr };
 	ScribusView *m_view { nullptr };
@@ -153,6 +114,7 @@ protected:
 	double m_yPos { 0.0 };
 	FPointArray m_itemPath;
 	FPointArray m_itemContourPath;
+	int m_posOrigin { Page };
 	
 signals:
 	void DocChanged();

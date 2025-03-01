@@ -221,13 +221,13 @@ void CanvasMode::drawSelectionHandles(QPainter *psx, QRectF selectionRect, bool 
 //	}
 
 	drawSelectionHandle(psx, QPointF(x, y), p, m_canvas->scale());
-	drawSelectionHandle(psx, QPointF(x+w/2.0, y), p, m_canvas->scale());
-	drawSelectionHandle(psx, QPointF(x+w, y), p, m_canvas->scale());
-	drawSelectionHandle(psx, QPointF(x+w, y+h/2.0), p, m_canvas->scale());
-	drawSelectionHandle(psx, QPointF(x+w, y+h), p, m_canvas->scale());
-	drawSelectionHandle(psx, QPointF(x+w/2.0, y+h), p, m_canvas->scale());
-	drawSelectionHandle(psx, QPointF(x, y+h), p, m_canvas->scale());
-	drawSelectionHandle(psx, QPointF(x, y+h/2.0), p, m_canvas->scale());
+	drawSelectionHandle(psx, QPointF(x + w / 2.0, y), p, m_canvas->scale());
+	drawSelectionHandle(psx, QPointF(x + w, y), p, m_canvas->scale());
+	drawSelectionHandle(psx, QPointF(x + w, y + h / 2.0), p, m_canvas->scale());
+	drawSelectionHandle(psx, QPointF(x + w, y + h), p, m_canvas->scale());
+	drawSelectionHandle(psx, QPointF(x + w / 2.0, y + h), p, m_canvas->scale());
+	drawSelectionHandle(psx, QPointF(x, y + h), p, m_canvas->scale());
+	drawSelectionHandle(psx, QPointF(x, y + h / 2.0), p, m_canvas->scale());
 }
 
 void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
@@ -257,6 +257,7 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 				if (!m_doc->Items->contains(currItem))
 					continue;
 				psx->save();
+				double lineAdjust(psx->pen().width() / m_canvas->scale());
 				double x, y, w, h;
 				w = currItem->visualWidth() ;
 				h = currItem->visualHeight() ;
@@ -265,14 +266,14 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 					psx->setRenderHint(QPainter::Antialiasing);
 					psx->translate(currItem->xPos(), currItem->yPos());
 					psx->rotate(currItem->rotation());
-					x = currItem->asLine() ? 0 : (currItem->visualXPos() - currItem->xPos());
-					y = currItem->asLine() ? (h / -2.0) : (currItem->visualYPos() - currItem->yPos());
+					x = currItem->asLine() ? 0 : (currItem->visualXPos() - currItem->xPos() - lineAdjust);
+					y = currItem->asLine() ? (h / -2.0) : (currItem->visualYPos() - currItem->yPos() - lineAdjust);
 				}
 				else
 				{
 					psx->translate(currItem->visualXPos(), currItem->visualYPos());
-					x = 0;
-					y = 0;
+					x = currItem->asLine() ? 0 : -lineAdjust;
+					y = currItem->asLine() ? 0 : -lineAdjust;
 				}
 //				psx->setBrush(Qt::NoBrush);
 //				psx->setPen(m_pen["frame-outline"]);
@@ -285,12 +286,13 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 		}
 		psx->save();
 		psx->setPen(m_pen["selection-group"]);
+		double lineAdjust(psx->pen().width() / m_canvas->scale());
 		double x, y, w, h;
 		m_doc->m_Selection->getVisualGroupRect(&x, &y, &w, &h);
 
 		psx->translate(x,y);
-		x = 0;
-		y = 0;
+		x = -lineAdjust;
+		y = -lineAdjust;
 
 //		psx->setBrush(Qt::NoBrush);
 //		psx->setPen(m_pen["frame-outline"]);
@@ -314,6 +316,7 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 			psx->save();
 			psx->setPen(m_pen["selection"]);
 			psx->setBrush(m_brush["selection"]);
+			double lineAdjust(psx->pen().width() / m_canvas->scale());
 			double x, y, w, h;
 			if (currItem->isGroupChild())
 			{
@@ -358,14 +361,14 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 					psx->setRenderHint(QPainter::Antialiasing);
 					psx->translate(currItem->xPos(), currItem->yPos());
 					psx->rotate(currItem->rotation());
-					x = currItem->asLine() ? 0 : (currItem->visualXPos() - currItem->xPos());
-					y = currItem->asLine() ? (h / -2.0) : (currItem->visualYPos() - currItem->yPos());
+					x = currItem->asLine() ? 0 : (currItem->visualXPos() - currItem->xPos() - lineAdjust);
+					y = currItem->asLine() ? (h / -2.0) : (currItem->visualYPos() - currItem->yPos() - lineAdjust);
 				}
 				else
 				{
 					psx->translate(currItem->visualXPos(), currItem->visualYPos());
-					x = 0;
-					y = 0;
+					x = currItem->asLine() ? 0 : -lineAdjust;
+					y = currItem->asLine() ? 0 : -lineAdjust;
 				}
 //				psx->setBrush(Qt::NoBrush);
 				if (m_doc->drawAsPreview && !m_doc->editOnPreview)
@@ -740,7 +743,7 @@ void CanvasMode::drawSnapLine(QPainter* p)
 	QPoint pageOrigin = m_canvas->canvasToLocal(QPointF(xOffset, yOffset));
 	if (ySnap)
 	{
-		p->setPen(Qt::green);
+		p->setPen(m_pen["snap-line"]);
 		QPoint pt = m_canvas->canvasToLocal(QPointF(xOffset, ySnap));
 		double w  = (dragToPage->width() + bleedValues.left() + bleedValues.right()) * m_canvas->scale();
 		p->drawLine(pageOrigin.x(), pt.y(), pageOrigin.x() + w, pt.y());
@@ -748,7 +751,7 @@ void CanvasMode::drawSnapLine(QPainter* p)
 	}
 	if (xSnap)
 	{
-		p->setPen(Qt::green);
+		p->setPen(m_pen["snap-line"]);
 		QPoint pt = m_canvas->canvasToLocal(QPointF(xSnap, yOffset));
 		double h  = (dragToPage->height() + bleedValues.bottom() + bleedValues.top()) * m_canvas->scale();
 		p->drawLine(pt.x(), pageOrigin.y(), pt.x(), pageOrigin.y() + h);
@@ -1291,7 +1294,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 						{
 							int storedClRe = m_doc->nodeEdit.clre();
 							const auto& nodeSelection = m_doc->nodeEdit.selNode();
-							if ((nodeSelection.count() != 0) && (m_doc->nodeEdit.edPoints()))
+							if (nodeSelection.count() != 0)
 							{
 								QPolygonF poly;
 								m_doc->nodeEdit.beginTransaction(currItem);
@@ -1385,7 +1388,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 						{
 							int storedClRe = m_doc->nodeEdit.clre();
 							const auto& nodeSelection = m_doc->nodeEdit.selNode();
-							if ((nodeSelection.count() != 0) && (m_doc->nodeEdit.edPoints()))
+							if (nodeSelection.count() != 0)
 							{
 								QPolygonF poly;
 								m_doc->nodeEdit.beginTransaction(currItem);
@@ -1479,7 +1482,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 						{
 							int storedClRe = m_doc->nodeEdit.clre();
 							const auto& nodeSelection = m_doc->nodeEdit.selNode();
-							if ((nodeSelection.count() != 0) && (m_doc->nodeEdit.edPoints()))
+							if (nodeSelection.count() != 0)
 							{
 								QPolygonF poly;
 								m_doc->nodeEdit.beginTransaction(currItem);
@@ -1573,7 +1576,7 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 						{
 							int storedClRe = m_doc->nodeEdit.clre();
 							const auto& nodeSelection = m_doc->nodeEdit.selNode();
-							if ((nodeSelection.count() != 0) && (m_doc->nodeEdit.edPoints()))
+							if (nodeSelection.count() != 0)
 							{
 								QPolygonF poly;
 								m_doc->nodeEdit.beginTransaction(currItem);
@@ -1734,9 +1737,11 @@ void CanvasMode::setStyle()
 	m_color["frame-group"]		= PrefsManager::instance().appPrefs.displayPrefs.frameGroupColor;
 	m_color["frame"]			= PrefsManager::instance().appPrefs.displayPrefs.frameNormColor;
 	m_color["frame-move"]		= Qt::gray;
-	m_color["weld"]				= QColor(214, 146, 43);
-	m_color["node"]				= QColor(0, 136, 255);
-	m_color["node-handle"]		= QColor(255, 51, 187);
+	m_color["weld"]				= QColor(238, 152, 0);
+	m_color["node"]				= QColor(0, 123, 241);
+	m_color["node-handle"]		= QColor(166, 74, 253);
+	m_color["highlight"]		= QColor(220, 58, 140);
+	m_color["snap-line"]		= Qt::green;
 	m_color["test"]				= Qt::magenta;
 	QColor selectionAlpha		= m_color["frame-selection"];
 	selectionAlpha.setAlphaF(.05f);
@@ -1747,18 +1752,19 @@ void CanvasMode::setStyle()
 #else
 	double stroke = 1.0;
 #endif
-
+	// frame
 	m_pen["frame-move"]				= QPen(m_color["frame-move"], 1.0 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["frame-move"].setCosmetic(true);
 	m_pen["frame-preview"]			= QPen(Qt::black, 1.0, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["frame-preview"].setCosmetic(true);
-	m_pen["selection"]				= QPen(m_color["frame-selection"], stroke, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["selection"]				= QPen(m_color["frame-selection"], 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["selection"].setCosmetic(true);
-	m_pen["selection-handle"]		= QPen(m_color["frame-selection"], stroke, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["selection-handle"]		= QPen(m_color["frame-selection"], 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["selection-handle"].setCosmetic(true);
 	m_pen["selection-group"]		= m_pen["selection"];
 	m_pen["selection-group-inside"] = QPen(m_color["frame-group"], 1.0 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["selection-group-inside"].setCosmetic(true);
+	// vector editing
 	m_pen["vector"]					= QPen(m_color["node"], stroke, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["vector"].setCosmetic(true);
 	m_pen["node"]					= QPen(m_color["node"], stroke, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
@@ -1767,6 +1773,10 @@ void CanvasMode::setStyle()
 	m_pen["node-handle"].setCosmetic(true);
 	m_pen["node-dash"]				= QPen(m_color["node-handle"], stroke, Qt::DashLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["node-dash"].setCosmetic(true);
+	m_pen["highlight"]				= QPen(m_color["highlight"], stroke, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["highlight"].setCosmetic(true);
+	// guides
+	m_pen["snap-line"]				= QPen(m_color["snap-line"], 1.0 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 
 	m_brush["frame-move"]				= Qt::NoBrush;
 	m_brush["selection"]				= Qt::NoBrush;

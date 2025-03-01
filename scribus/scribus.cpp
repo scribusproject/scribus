@@ -5825,11 +5825,11 @@ void ScribusMainWindow::ToggleFrameEdit()
 
 	nodePalette->setDoc(doc, view);
 	nodePalette->MoveN();
-	nodePalette->HaveNode(false, false);
+	nodePalette->HaveNode(false);
 	nodePalette->MoveNode->setChecked(true);
 	nodePalette->show();
 //	qDebug() << "nodepalette show:" << nodePalette->geometry();
-	connect(view, SIGNAL(HavePoint(bool,bool)), nodePalette, SLOT(HaveNode(bool,bool)));
+	connect(view, SIGNAL(HavePoint(bool)), nodePalette, SLOT(HaveNode(bool)));
 	connect(view, SIGNAL(PolyStatus(int,uint)), nodePalette, SLOT(PolyStatus(int,uint)));
 	doc->nodeEdit.reset();
 	appModeHelper->setFrameEditMode(true);
@@ -5869,7 +5869,7 @@ void ScribusMainWindow::ToggleFrameEdit()
 
 void ScribusMainWindow::NoFrameEdit()
 {
-	disconnect(view, SIGNAL(HavePoint(bool, bool)), nodePalette, SLOT(HaveNode(bool, bool)));
+	disconnect(view, SIGNAL(HavePoint(bool)), nodePalette, SLOT(HaveNode(bool)));
 	disconnect(view, SIGNAL(PolyStatus(int, uint)), nodePalette, SLOT(PolyStatus(int, uint)));
 	actionManager->disconnectModeActions();
 	nodePalette->setDoc(nullptr, nullptr);

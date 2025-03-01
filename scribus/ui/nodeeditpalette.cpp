@@ -5,6 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <QButtonGroup>
 #include <QEvent>
 
 #include "nodeeditpalette.h"
@@ -21,301 +22,108 @@ for which a new license (GPL+exception) is in place.
 
 NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase(parent, "nodePalette", false, Qt::WindowFlags())
 {
-	QSize iconSize(22, 22);
-	QSize buttonSize(24, 24);
-	QSize maxButtonSize(16777215, buttonSize.height());
-	QSizePolicy::Policy buttonSizePolicy = static_cast<QSizePolicy::Policy>(QSizePolicy::GrowFlag | QSizePolicy::ExpandFlag);
+	setupUi(this);
 
-	vboxLayout = new QVBoxLayout(this);
-	vboxLayout->setSpacing(6);
-	vboxLayout->setContentsMargins(6, 6, 6, 6);
-
-	MoveNode = new QToolButton(this);
-	MoveNode->setIconSize(iconSize);
-	MoveNode->setMinimumSize(buttonSize);
-	MoveNode->setMaximumSize(maxButtonSize);
-	MoveNode->setSizePolicy(QSizePolicy(buttonSizePolicy, QSizePolicy::Fixed));
 	MoveNode->setCheckable(true);
 	MoveNode->setChecked(true);
 
-	AddNode = new QToolButton(this);
-	AddNode->setIconSize(iconSize);
-	AddNode->setMinimumSize(buttonSize);
-	AddNode->setMaximumSize(maxButtonSize);
-	AddNode->setSizePolicy(QSizePolicy(buttonSizePolicy, QSizePolicy::Fixed));
 	AddNode->setEnabled(true);
 	AddNode->setCheckable(true);
 
-	DeleteNode = new QToolButton(this);
-	DeleteNode->setIconSize(iconSize);
-	DeleteNode->setMinimumSize(buttonSize);
-	DeleteNode->setMaximumSize(maxButtonSize);
-	DeleteNode->setSizePolicy(QSizePolicy(buttonSizePolicy, QSizePolicy::Fixed));
 	DeleteNode->setEnabled(true);
 	DeleteNode->setCheckable(true);
 
-	ResNode = new QToolButton(this);
-	ResNode->setIconSize(iconSize);
-	ResNode->setMinimumSize(buttonSize);
-	ResNode->setMaximumSize(maxButtonSize);
-	ResNode->setSizePolicy(QSizePolicy(buttonSizePolicy, QSizePolicy::Fixed));
-	ResNode->setEnabled(true);
+	EditControl->setCheckable(true);
+	EditControl->setChecked(true);
 
-	MoveControl = new QToolButton(this);
-	MoveControl->setIconSize(iconSize);
-	MoveControl->setMinimumSize(buttonSize);
-	MoveControl->setMaximumSize(maxButtonSize);
-	MoveControl->setSizePolicy(QSizePolicy(buttonSizePolicy, QSizePolicy::Fixed));
-	MoveControl->setCheckable(true);
-
-	AsymMove = new QToolButton(this);
-	AsymMove->setIconSize(iconSize);
-	AsymMove->setMinimumSize(buttonSize);
-	AsymMove->setMaximumSize(maxButtonSize);
-	AsymMove->setSizePolicy(QSizePolicy(buttonSizePolicy, QSizePolicy::Fixed));
-	AsymMove->setEnabled(false);
 	AsymMove->setCheckable(true);
+	AsymMove->setChecked(false);
 
-	SymMove = new QToolButton(this);
-	SymMove->setIconSize(iconSize);
-	SymMove->setMinimumSize(buttonSize);
-	SymMove->setMaximumSize(maxButtonSize);
-	SymMove->setSizePolicy(QSizePolicy(buttonSizePolicy, QSizePolicy::Fixed));
-	SymMove->setEnabled(false);
 	SymMove->setCheckable(true);
+	SymMove->setChecked(false);
 
-	Res1Node = new QToolButton(this);
-	Res1Node->setIconSize(iconSize);
-	Res1Node->setMinimumSize(buttonSize);
-	Res1Node->setMaximumSize(maxButtonSize);
-	Res1Node->setSizePolicy(QSizePolicy(buttonSizePolicy, QSizePolicy::Fixed));
-	Res1Node->setEnabled(false);
+	IndependentMove->setCheckable(true);
+	IndependentMove->setChecked(false);
 
-	PolySplit = new QToolButton(this);
 	PolySplit->setEnabled(false);
 	PolySplit->setCheckable(true);
-	PolySplit->setIconSize(iconSize);
-	PolySplit->setMinimumSize(buttonSize);
-	PolySplit->setMaximumSize(maxButtonSize);
-	PolySplit->setSizePolicy(QSizePolicy(buttonSizePolicy, QSizePolicy::Fixed));
 
-	BezierClose = new QToolButton(this);
 	BezierClose->setEnabled(false);
-	BezierClose->setIconSize(iconSize);
-	BezierClose->setMinimumSize(buttonSize);
-	BezierClose->setMaximumSize(maxButtonSize);
-	BezierClose->setSizePolicy(QSizePolicy(buttonSizePolicy, QSizePolicy::Fixed));
 
-	PolyMirrorH = new QToolButton(this);
-	PolyMirrorH->setIconSize(iconSize);
-	PolyMirrorH->setMinimumSize(buttonSize);
-	PolyMirrorH->setMaximumSize(maxButtonSize);
-	PolyMirrorH->setSizePolicy(QSizePolicy(buttonSizePolicy, QSizePolicy::Fixed));
-
-	PolyMirrorV = new QToolButton(this);
-	PolyMirrorV->setIconSize(iconSize);
-	PolyMirrorV->setMinimumSize(buttonSize);
-	PolyMirrorV->setMaximumSize(maxButtonSize);
-	PolyMirrorV->setSizePolicy(QSizePolicy(buttonSizePolicy, QSizePolicy::Fixed));
-
-	PolyShearL = new QToolButton(this);
-	PolyShearL->setIconSize(iconSize);
-	PolyShearL->setMinimumSize(buttonSize);
-	PolyShearL->setMaximumSize(maxButtonSize);
-	PolyShearL->setSizePolicy(QSizePolicy(buttonSizePolicy, QSizePolicy::Fixed));
 	PolyShearL->setAutoRepeat(true);
-
-	PolyShearR = new QToolButton(this);
-	PolyShearR->setIconSize(iconSize);
-	PolyShearR->setMinimumSize(buttonSize);
-	PolyShearR->setMaximumSize(maxButtonSize);
-	PolyShearR->setSizePolicy(QSizePolicy(buttonSizePolicy, QSizePolicy::Fixed));
 	PolyShearR->setAutoRepeat(true);
-
-	PolyShearU = new QToolButton(this);
-	PolyShearU->setIconSize(iconSize);
-	PolyShearU->setMinimumSize(buttonSize);
-	PolyShearU->setMaximumSize(maxButtonSize);
-	PolyShearU->setSizePolicy(QSizePolicy(buttonSizePolicy, QSizePolicy::Fixed));
 	PolyShearU->setAutoRepeat(true);
-
-	PolyShearD = new QToolButton(this);
-	PolyShearD->setIconSize(iconSize);
-	PolyShearD->setMinimumSize(buttonSize);
-	PolyShearD->setMaximumSize(maxButtonSize);
-	PolyShearD->setSizePolicy(QSizePolicy(buttonSizePolicy, QSizePolicy::Fixed));
 	PolyShearD->setAutoRepeat(true);
-
-	RotateCCW = new QToolButton(this);
-	RotateCCW->setIconSize(iconSize);
-	RotateCCW->setMinimumSize(buttonSize);
-	RotateCCW->setMaximumSize(buttonSize);
 	RotateCCW->setAutoRepeat(true);
-
-	RotateCW = new QToolButton(this);
-	RotateCW->setIconSize(iconSize);
-	RotateCW->setMinimumSize(buttonSize);
-	RotateCW->setMaximumSize(buttonSize);
 	RotateCW->setAutoRepeat(true);
 
-	RotVal = new QSpinBox(this);
 	RotVal->setMinimum(1);
 	RotVal->setMaximum(180);
 	RotVal->setValue(1);
 	RotVal->setSuffix( QString::fromUtf8(" °"));
 
-	Expand = new QToolButton(this);
-	Expand->setIconSize(iconSize);
-	Expand->setMinimumSize(buttonSize);
-	Expand->setMaximumSize(buttonSize);
 	Expand->setAutoRepeat(true);
-
-	Shrink = new QToolButton(this);
-	Shrink->setIconSize(iconSize);
-	Shrink->setMinimumSize(buttonSize);
-	Shrink->setMaximumSize(buttonSize);
 	Shrink->setAutoRepeat(true);
 
-	scalePercentage = new QSpinBox(this);
 	scalePercentage->setMinimum(1);
 	scalePercentage->setMaximum(100);
 	scalePercentage->setValue(10);
 
-	Enlarge = new QToolButton(this);
-	Enlarge->setIconSize(iconSize);
-	Enlarge->setMinimumSize(buttonSize);
-	Enlarge->setMaximumSize(buttonSize);
 	Enlarge->setAutoRepeat(true);
-
-	Reduce = new QToolButton(this);
-	Reduce->setIconSize(iconSize);
-	Reduce->setMinimumSize(buttonSize);
-	Reduce->setMaximumSize(buttonSize);
 	Reduce->setAutoRepeat(true);
 
-	scaleDistance = new ScrSpinBox( 1, 16777215, this, 0);
-	scaleDistance->setMaximumSize(114, 16777215); // ScrSpinBox is bigger for 4px than expected
+	scaleDistance->setMaximumSize(114, 16777215);
 	scaleDistance->setValues(-16777215, 16777215, 2, 30);
 
-	gridLayout = new QGridLayout();
-	gridLayout->setSpacing(6);
-	gridLayout->setContentsMargins(0, 0, 0, 0);
-	gridLayout->addWidget(MoveNode,        0, 1, 1, 1);
-	gridLayout->addWidget(AddNode,         0, 2, 1, 1);
-	gridLayout->addWidget(DeleteNode,      0, 3, 1, 1);
-	gridLayout->addWidget(ResNode,         0, 4, 1, 1);
-	gridLayout->addWidget(MoveControl,     1, 1, 1, 1);
-	gridLayout->addWidget(AsymMove,        1, 2, 1, 1);
-	gridLayout->addWidget(SymMove,         1, 3, 1, 1);
-	gridLayout->addWidget(Res1Node,        1, 4, 1, 1);
-	gridLayout->addWidget(PolySplit,       2, 1, 1, 1);
-	gridLayout->addWidget(BezierClose,     2, 2, 1, 1);
-	gridLayout->addWidget(PolyMirrorH,     2, 3, 1, 1);
-	gridLayout->addWidget(PolyMirrorV,     2, 4, 1, 1);
-	gridLayout->addWidget(PolyShearL,      3, 1, 1, 1);
-	gridLayout->addWidget(PolyShearR,      3, 2, 1, 1);
-	gridLayout->addWidget(PolyShearU,      3, 3, 1, 1);
-	gridLayout->addWidget(PolyShearD,      3, 4, 1, 1);
-	vboxLayout->addLayout(gridLayout);
-
-	gridLayout2 = new QGridLayout();
-	gridLayout2->setSpacing(6);
-	gridLayout2->setContentsMargins(0, 0, 0, 0);
-	gridLayout2->addWidget(RotVal,          0, 0, 1, 4);
-	gridLayout2->addWidget(RotateCCW,       0, 4, 1, 1);
-	gridLayout2->addWidget(RotateCW,        0, 5, 1, 1);
-	gridLayout2->addWidget(scalePercentage, 1, 0, 1, 4);
-	gridLayout2->addWidget(Expand,          1, 4, 1, 1);
-	gridLayout2->addWidget(Shrink,          1, 5, 1, 1);
-	gridLayout2->addWidget(scaleDistance,   2, 0, 1, 4);
-	gridLayout2->addWidget(Enlarge,         2, 4, 1, 1);
-	gridLayout2->addWidget(Reduce,          2, 5, 1, 1);
-	vboxLayout->addLayout(gridLayout2);
-
-	QSpacerItem* spacer = new QSpacerItem( 6, 6, QSizePolicy::Fixed, QSizePolicy::Fixed );
-	vboxLayout->addItem(spacer);
-
-	AbsMode = new QGroupBox( "&Absolute Coordinates", this );
-	AbsMode->setCheckable(true);
-	AbsMode->setChecked(false);
-	vboxLayout1 = new QVBoxLayout(AbsMode);
-	vboxLayout1->setSpacing(6);
-	vboxLayout1->setContentsMargins(9, 9, 9, 9);
-	absToCanvas = new QRadioButton( tr("to Canvas"), AbsMode);
-	vboxLayout1->addWidget(absToCanvas);
-	absToPage = new QRadioButton( tr("to Page"), AbsMode);
-	vboxLayout1->addWidget(absToPage);
-	absToCanvas->setChecked(true);
-	vboxLayout->addWidget(AbsMode);
-
-	gridLayout3 = new QGridLayout();
-	gridLayout3->setSpacing(6);
-	gridLayout3->setContentsMargins(0, 0, 0, 0);
-	gridLayout3->setColumnStretch(0, 0);
-	gridLayout3->setColumnStretch(1, 1);
-
-	TextLabel1 = new QLabel(this);
-	gridLayout3->addWidget(TextLabel1, 0, 0, 1, 1);
-
-	XSpin = new ScrSpinBox( 0, 16777215, this, 2 );
+	XSpin->setMinimum(0);
+	XSpin->setMaximum(16777215);
+	XSpin->setNewUnit(2);
 	XSpin->setSizePolicy(QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Fixed));
 	XSpin->setEnabled(false);
-	gridLayout3->addWidget(XSpin, 0, 1, 1, 1);
 
-	TextLabel2 = new QLabel(this);
-	gridLayout3->addWidget(TextLabel2, 1, 0, 1, 1);
-
-	YSpin = new ScrSpinBox( 0, 16777215, this, 2 );
+	YSpin->setMinimum(0);
+	YSpin->setMaximum(16777215);
+	YSpin->setNewUnit(2);
 	YSpin->setSizePolicy(QSizePolicy(QSizePolicy::Maximum, QSizePolicy::Fixed));
 	YSpin->setEnabled(false);
-	gridLayout3->addWidget(YSpin, 1, 1, 1, 1);
-	vboxLayout->addLayout(gridLayout3);
 
 	TextLabel1->setBuddy(XSpin);
 	TextLabel2->setBuddy(YSpin);
 
-	EditCont = new QCheckBox(this);
 	EditCont->setChecked(false);
-	vboxLayout->addWidget(EditCont);
 
-	PreviewMode = new QCheckBox(this);
 	PreviewMode->setChecked(false);
-	vboxLayout->addWidget(PreviewMode);
 
-	ResetCont = new QPushButton(this);
 	ResetCont->setEnabled(false);
-	vboxLayout->addWidget(ResetCont);
 
-	ResetContClip = new QPushButton(this);
 	ResetContClip->setEnabled(true);
 	ResetContClip->hide();
-	vboxLayout->addWidget(ResetContClip);
 
-	ResetShape2Clip = new QPushButton(this);
 	ResetShape2Clip->setEnabled(true);
 	ResetShape2Clip->hide();
-	vboxLayout->addWidget(ResetShape2Clip);
 
-	resetDefaultButton = new QPushButton(this);
 	resetDefaultButton->setEnabled(true);
-	vboxLayout->addWidget(resetDefaultButton);
 
-	hboxLayout = new QHBoxLayout();
-	hboxLayout->setSpacing(6);
-	hboxLayout->setContentsMargins(0, 0, 0, 0);
-	editEditButton = new QPushButton(IconManager::instance().loadIcon("exit"), tr("OK"), this);
 	editEditButton->setEnabled(true);
 	editEditButton->setDefault(true);
-	hboxLayout->addWidget(editEditButton);
-	cancelEditButton = new QPushButton( tr("Cancel"), this);
+
 	cancelEditButton->setEnabled(true);
-	hboxLayout->addWidget(cancelEditButton);
-	vboxLayout->addLayout(hboxLayout);
+
+	QButtonGroup *btngpTools = new QButtonGroup();
+	btngpTools->setExclusive(true);
+	btngpTools->addButton(MoveNode);
+	btngpTools->addButton(AddNode);
+	btngpTools->addButton(DeleteNode);
+	btngpTools->addButton(PolySplit);
+	btngpTools->addButton(BezierClose);
+	btngpTools->addButton(EditControl);
 
 	resize(QSize(170, 380).expandedTo(minimumSizeHint()));
 	layout()->setSizeConstraint(QLayout::SetFixedSize);
 	iconSetChange();
 	languageChange();
+
+	PosOriginButton->setCurrentIndex(m_posOrigin);
 
 	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 }
@@ -331,11 +139,10 @@ void NodePalette::connectSignals()
 	connect(MoveNode, SIGNAL(clicked()), this, SLOT(MoveN()));
 	connect(AsymMove, SIGNAL(clicked()), this, SLOT(SetAsym()));
 	connect(SymMove, SIGNAL(clicked()), this, SLOT(SetSym()));
-	connect(ResNode, SIGNAL(clicked()), this, SLOT(ResetControl()));
-	connect(Res1Node, SIGNAL(clicked()), this, SLOT(Reset1Control()));
+	connect(IndependentMove, SIGNAL(clicked()), this, SLOT(SetIndependentMove()));
+	connect(EditControl, SIGNAL(clicked()), this, SLOT(editControl()));
 	connect(BezierClose, SIGNAL(clicked()), this, SLOT(CloseBezier()));
 	connect(PolySplit, SIGNAL(clicked()), this, SLOT(SplitPoly()));
-	connect(MoveControl, SIGNAL(clicked()), this, SLOT(MoveK()));
 	connect(XSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
 	connect(YSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
 	connect(PolyMirrorH, SIGNAL(clicked()), this, SLOT(MirrorH()));
@@ -350,14 +157,12 @@ void NodePalette::connectSignals()
 	connect(Expand, SIGNAL(clicked()), this, SLOT(doExpand()));
 	connect(Reduce, SIGNAL(clicked()), this, SLOT(doReduce()));
 	connect(Enlarge, SIGNAL(clicked()), this, SLOT(doEnlarge()));
-	connect(AbsMode, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
-	connect(absToCanvas, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
-	connect(absToPage, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
-	connect(EditCont, SIGNAL(clicked()), this, SLOT(ToggleConMode()));
+	connect(EditCont, SIGNAL(clicked()), this, SLOT(ToggleContourMode()));
 	connect(ResetCont, SIGNAL(clicked()), this, SLOT(ResetContour()));
 	connect(ResetContClip, SIGNAL(clicked()), this, SLOT(ResetContourToImageClip()));
 	connect(ResetShape2Clip, SIGNAL(clicked()), this, SLOT(ResetShapeToImageClip()));
 	connect(PreviewMode, SIGNAL(clicked()), this, SLOT(TogglePreview()));
+	connect(PosOriginButton, SIGNAL(currentIndexChanged(int)), this, SLOT(changePosOrigin(int)));
 }
 
 void NodePalette::disconnectSignals()
@@ -371,11 +176,10 @@ void NodePalette::disconnectSignals()
 	disconnect(MoveNode, SIGNAL(clicked()), this, SLOT(MoveN()));
 	disconnect(AsymMove, SIGNAL(clicked()), this, SLOT(SetAsym()));
 	disconnect(SymMove, SIGNAL(clicked()), this, SLOT(SetSym()));
-	disconnect(ResNode, SIGNAL(clicked()), this, SLOT(ResetControl()));
-	disconnect(Res1Node, SIGNAL(clicked()), this, SLOT(Reset1Control()));
+	disconnect(IndependentMove, SIGNAL(clicked()), this, SLOT(SetIndependentMove()));
+	disconnect(EditControl, SIGNAL(clicked()), this, SLOT(editControl()));
 	disconnect(BezierClose, SIGNAL(clicked()), this, SLOT(CloseBezier()));
 	disconnect(PolySplit, SIGNAL(clicked()), this, SLOT(SplitPoly()));
-	disconnect(MoveControl, SIGNAL(clicked()), this, SLOT(MoveK()));
 	disconnect(XSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
 	disconnect(YSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
 	disconnect(PolyMirrorH, SIGNAL(clicked()), this, SLOT(MirrorH()));
@@ -394,6 +198,23 @@ void NodePalette::disconnectSignals()
 	disconnect(ResetContClip, SIGNAL(clicked()), this, SLOT(ResetContourToImageClip()));
 	disconnect(ResetShape2Clip, SIGNAL(clicked()), this, SLOT(ResetShapeToImageClip()));
 	disconnect(PreviewMode, SIGNAL(clicked()), this, SLOT(TogglePreview()));
+	disconnect(PosOriginButton, SIGNAL(currentIndexChanged(int)), this, SLOT(changePosOrigin(int)));
+}
+
+void NodePalette::initPosOriginMenu()
+{
+	IconManager& im = IconManager::instance();
+	QSignalBlocker sigPosOriginButton(PosOriginButton);
+
+	int index = PosOriginButton->currentIndex();
+
+	PosOriginButton->clear();
+	PosOriginButton->addAction(im.loadIcon("position-origin-canvas"), tr("Canvas"))->setData(PositionOrigin::Canvas);
+	PosOriginButton->addAction(im.loadIcon("position-origin-page"), tr("Page"))->setData(PositionOrigin::Page);
+	PosOriginButton->addAction(im.loadIcon("position-origin-item"), tr("Item"))->setData(PositionOrigin::Item);
+
+	PosOriginButton->setCurrentIndex(index);
+
 }
 
 void NodePalette::setDoc(ScribusDoc *dc, ScribusView *vi)
@@ -402,14 +223,15 @@ void NodePalette::setDoc(ScribusDoc *dc, ScribusView *vi)
 	m_view = vi;
 
 	unitChange();
-	disconnect(EditCont, SIGNAL(clicked()), this, SLOT(ToggleConMode()));
-	disconnect(AbsMode, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
+	disconnect(EditCont, SIGNAL(clicked()), this, SLOT(ToggleContourMode()));
+	disconnect(PosOriginButton, SIGNAL(currentIndexChanged(int)), this, SLOT(changePosOrigin(int)));
 	if (m_doc != nullptr)
 	{
 		YSpin->setNewUnit(m_doc->unitIndex());
 		XSpin->setNewUnit(m_doc->unitIndex());
 	}
-	AbsMode->setChecked(false);
+	PosOriginButton->setCurrentIndex(Page);
+
 	EditCont->setChecked(false);
 	if (m_doc == nullptr)
 		disconnectSignals();
@@ -417,20 +239,11 @@ void NodePalette::setDoc(ScribusDoc *dc, ScribusView *vi)
 		connectSignals();
 }
 
-void NodePalette::SplitPoly()
-{
-	if (m_doc == nullptr)
-		return;
-	MoveN();
-	m_doc->nodeEdit.setSubMode(NodeEditContext::SPLIT_PATH);
-	PolySplit->setChecked(true);
-}
-
 void NodePalette::IsOpen()
 {
 	if (m_doc == nullptr)
 		return;
-	PolySplit->setChecked(false);
+	MoveNode->setChecked(true);
 	BezierClose->setEnabled(true);
 	PolySplit->setEnabled(true);
 	EditCont->setEnabled(false);
@@ -457,21 +270,6 @@ void NodePalette::PolyStatus(int typ, uint size)
 			PolySplit->setEnabled(false);
 			break;
 	}
-}
-
-void NodePalette::CloseBezier()
-{
-	if (m_doc == nullptr)
-		return;
-	MoveN();
-	PageItem *currItem = m_doc->m_Selection->itemAt(0);
-	PageItem* newItem = m_doc->convertItemTo(currItem, PageItem::Polygon);
-	m_doc->m_Selection->clear();
-	m_doc->m_Selection->addItem(newItem);
-	newItem->update();
-	BezierClose->setEnabled(false);
-	PolySplit->setEnabled(true);
-	EditCont->setEnabled(true);
 }
 
 void NodePalette::doRotCCW()
@@ -558,20 +356,6 @@ void NodePalette::MirrorV()
 	m_doc->MirrorPolyV(m_doc->m_Selection->itemAt(0));
 }
 
-void NodePalette::ResetControl()
-{
-	if (m_doc == nullptr)
-		return;
-	m_doc->nodeEdit.resetControl(m_doc->m_Selection->itemAt(0));
-}
-
-void NodePalette::Reset1Control()
-{
-	if (m_doc == nullptr)
-		return;
-	m_doc->nodeEdit.reset1Control(m_doc->m_Selection->itemAt(0));
-}
-
 void NodePalette::ResetContour()
 {
 	if (m_doc == nullptr)
@@ -629,9 +413,9 @@ void NodePalette::MovePoint()
 		PageItem *currItem = m_doc->m_Selection->itemAt(0);
 		FPoint zp;
 		FPoint np(XSpin->value() / m_doc->unitRatio(), YSpin->value() / m_doc->unitRatio());
-		if (AbsMode->isChecked())
+		if (m_posOrigin == Canvas || m_posOrigin == Page)
 		{
-			if (absToCanvas->isChecked())
+			if (m_posOrigin == Canvas)
 				zp = FPoint(currItem->xPos(), currItem->yPos());
 			else
 				zp = FPoint(currItem->xPos() - m_doc->currentPage()->xOffset(), currItem->yPos() - m_doc->currentPage()->yOffset());
@@ -648,20 +432,47 @@ void NodePalette::MovePoint()
 
 void NodePalette::SetSym()
 {
-	if (m_doc != nullptr)
-		m_doc->nodeEdit.setMoveSym(true);
-	SymMove->setChecked(true);
 	AsymMove->setChecked(false);
+	IndependentMove->setChecked(false);
 	PolySplit->setChecked(false);
+
+	if (m_doc == nullptr)
+		return;
+
+	if (SymMove->isChecked())
+		m_doc->nodeEdit.setMoveMode(NodeEditContext::Symmetric);
+	else
+		m_doc->nodeEdit.setMoveMode(NodeEditContext::Auto);
 }
 
 void NodePalette::SetAsym()
 {
-	if (m_doc != nullptr)
-		m_doc->nodeEdit.setMoveSym(false);
 	SymMove->setChecked(false);
-	AsymMove->setChecked(true);
+	IndependentMove->setChecked(false);
 	PolySplit->setChecked(false);
+
+	if (m_doc == nullptr)
+		return;
+
+	if (AsymMove->isChecked())
+		m_doc->nodeEdit.setMoveMode(NodeEditContext::Asymmetric);
+	else
+		m_doc->nodeEdit.setMoveMode(NodeEditContext::Auto);
+}
+
+void NodePalette::SetIndependentMove()
+{
+	SymMove->setChecked(false);
+	AsymMove->setChecked(false);
+	PolySplit->setChecked(false);
+
+	if (m_doc == nullptr)
+		return;
+
+	if (IndependentMove->isChecked())
+		m_doc->nodeEdit.setMoveMode(NodeEditContext::Independent);
+	else
+		m_doc->nodeEdit.setMoveMode(NodeEditContext::Auto);
 }
 
 void NodePalette::SetXY(double x, double y)
@@ -671,55 +482,19 @@ void NodePalette::SetXY(double x, double y)
 	FPoint zp(0.0, 0.0);
 	disconnect(XSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
 	disconnect(YSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
-	if (AbsMode->isChecked())
-	{
-		if (absToCanvas->isChecked())
-			zp = FPoint(m_doc->m_Selection->itemAt(0)->xPos(), m_doc->m_Selection->itemAt(0)->yPos());
-		else
-			zp = FPoint(m_doc->m_Selection->itemAt(0)->xPos() - m_doc->currentPage()->xOffset(), m_doc->m_Selection->itemAt(0)->yPos() - m_doc->currentPage()->yOffset());
-	}
+
+	if (PosOriginButton->currentIndex() == Page)
+		zp = FPoint(m_doc->m_Selection->itemAt(0)->xPos() - m_doc->currentPage()->xOffset(), m_doc->m_Selection->itemAt(0)->yPos() - m_doc->currentPage()->yOffset());
+	else if (PosOriginButton->currentIndex() == Canvas)
+		zp = FPoint(m_doc->m_Selection->itemAt(0)->xPos(), m_doc->m_Selection->itemAt(0)->yPos());
+
 	XSpin->setValue((x + zp.x()) * m_doc->unitRatio());
 	YSpin->setValue((y + zp.y()) * m_doc->unitRatio());
 	connect(XSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
 	connect(YSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
 }
 
-void NodePalette::ToggleAbsMode()
-{
-	if (m_doc == nullptr)
-		return;
-	FPoint zp(0.0, 0.0);
-	disconnect(XSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
-	disconnect(YSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
-	FPointArray Clip;
-	FPoint np(0.0, 0.0);
-	if (EditCont->isChecked())
-		Clip = m_doc->m_Selection->itemAt(0)->ContourLine;
-	else
-		Clip = m_doc->m_Selection->itemAt(0)->PoLine;
-	if (m_doc->nodeEdit.selectionCount() != 0)
-		np = Clip.point(m_doc->nodeEdit.selNode().at(0));
-	if (AbsMode->isChecked())
-	{
-		XSpin->setMinimum(-16777215);
-		YSpin->setMinimum(-16777215);
-		if (absToCanvas->isChecked())
-			zp = FPoint(m_doc->m_Selection->itemAt(0)->xPos(), m_doc->m_Selection->itemAt(0)->yPos());
-		else
-			zp = FPoint(m_doc->m_Selection->itemAt(0)->xPos() - m_doc->currentPage()->xOffset(), m_doc->m_Selection->itemAt(0)->yPos() - m_doc->currentPage()->yOffset());
-	}
-	else
-	{
-		XSpin->setMinimum(0);
-		YSpin->setMinimum(0);
-	}
-	XSpin->setValue((np.x() + zp.x()) * m_doc->unitRatio());
-	YSpin->setValue((np.y() + zp.y()) * m_doc->unitRatio());
-	connect(XSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
-	connect(YSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
-}
-
-void NodePalette::ToggleConMode()
+void NodePalette::ToggleContourMode()
 {
 	if (m_doc == nullptr)
 		return;
@@ -748,7 +523,7 @@ void NodePalette::ToggleConMode()
 		PolySplit->setEnabled(true);
 		ResetCont->setEnabled(false);
 		ResetContClip->setEnabled(false);
-		if (AbsMode->isChecked())
+		if (m_posOrigin == Canvas | m_posOrigin == Page)
 		{
 			XSpin->setMinimum(-16777215);
 			YSpin->setMinimum(-16777215);
@@ -773,7 +548,49 @@ void NodePalette::TogglePreview()
 	m_doc->regionsChanged()->update(QRectF());
 }
 
-void NodePalette::HaveNode(bool have, bool mov)
+void NodePalette::changePosOrigin(int index)
+{
+	m_posOrigin = index;
+
+	if (m_doc == nullptr)
+		return;
+
+	FPoint zp(0.0, 0.0);
+	disconnect(XSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
+	disconnect(YSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
+	FPointArray Clip;
+	FPoint np(0.0, 0.0);
+
+	if (EditCont->isChecked())
+		Clip = m_doc->m_Selection->itemAt(0)->ContourLine;
+	else
+		Clip = m_doc->m_Selection->itemAt(0)->PoLine;
+
+	if (m_doc->nodeEdit.selectionCount() != 0)
+		np = Clip.point(m_doc->nodeEdit.selNode().at(0));
+
+	if (m_posOrigin == Canvas || m_posOrigin == Page)
+	{
+		XSpin->setMinimum(-16777215);
+		YSpin->setMinimum(-16777215);
+		if (m_posOrigin == Canvas)
+			zp = FPoint(m_doc->m_Selection->itemAt(0)->xPos(), m_doc->m_Selection->itemAt(0)->yPos());
+		else
+			zp = FPoint(m_doc->m_Selection->itemAt(0)->xPos() - m_doc->currentPage()->xOffset(), m_doc->m_Selection->itemAt(0)->yPos() - m_doc->currentPage()->yOffset());
+	}
+	else
+	{
+		XSpin->setMinimum(0);
+		YSpin->setMinimum(0);
+	}
+
+	XSpin->setValue((np.x() + zp.x()) * m_doc->unitRatio());
+	YSpin->setValue((np.y() + zp.y()) * m_doc->unitRatio());
+	connect(XSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
+	connect(YSpin, SIGNAL(valueChanged(double)), this, SLOT(MovePoint()));
+}
+
+void NodePalette::HaveNode(bool have)
 {
 	if (m_doc == nullptr)
 		return;
@@ -788,35 +605,7 @@ void NodePalette::HaveNode(bool have, bool mov)
 		XSpin->setEnabled(setter);
 		YSpin->setEnabled(setter);
 	}
-	if (setter)
-	{
-		if (m_doc->nodeEdit.edPoints())
-			ResNode->setEnabled(setter);
-		else
-			Res1Node->setEnabled(setter);
-	}
-	else
-	{
-		ResNode->setEnabled(setter);
-		Res1Node->setEnabled(setter);
-	}
-	if (m_doc->nodeEdit.submode() == NodeEditContext::MOVE_POINT)
-	{
-		disconnect(AsymMove, SIGNAL(clicked()), this, SLOT(SetAsym()));
-		disconnect(SymMove, SIGNAL(clicked()), this, SLOT(SetSym()));
-		if (mov)
-		{
-			SymMove->setChecked(true);
-			AsymMove->setChecked(false);
-		}
-		else
-		{
-			AsymMove->setChecked(true);
-			SymMove->setChecked(false);
-		}
-		connect(AsymMove, SIGNAL(clicked()), this, SLOT(SetAsym()));
-		connect(SymMove, SIGNAL(clicked()), this, SLOT(SetSym()));
-	}
+
 	if (m_doc->nodeEdit.submode() == NodeEditContext::DEL_POINT)
 	{
 		uint cc;
@@ -837,91 +626,106 @@ void NodePalette::HaveNode(bool have, bool mov)
 				leaveEd = true;
 		}
 		if (leaveEd)
-		{
 			MoveN();
-			MoveControl->setEnabled(true);
-		}
 	}
-}
-
-void NodePalette::MoveK()
-{
-	if (m_doc == nullptr)
-		return;
-	m_doc->nodeEdit.setSubMode(NodeEditContext::MOVE_POINT);
-	m_doc->nodeEdit.setEdPoints(false);
-	m_doc->nodeEdit.setClre(-1);
-	m_doc->nodeEdit.setClre2(-1);
-	m_doc->nodeEdit.setSegP1(-1);
-	m_doc->nodeEdit.setSegP2(-1);
-	if (m_doc->m_Selection->count() > 0)
-		m_doc->m_Selection->itemAt(0)->update();
-	SymMove->setEnabled(true);
-	AsymMove->setEnabled(true);
-	Res1Node->setEnabled(false);
-	ResNode->setEnabled(false);
-	AddNode->setEnabled(false);
-	DeleteNode->setEnabled(false);
-	MoveNode->setChecked(false);
-	MoveControl->setChecked(true);
-	DeleteNode->setChecked(false);
-	AddNode->setChecked(false);
-	PolySplit->setChecked(false);
 }
 
 void NodePalette::MoveN()
 {
 	if (m_doc == nullptr)
 		return;
+
 	m_doc->nodeEdit.setSubMode(NodeEditContext::MOVE_POINT);
-	m_doc->nodeEdit.setEdPoints(true);
 	m_doc->nodeEdit.setClre(-1);
 	m_doc->nodeEdit.setClre2(-1);
 	m_doc->nodeEdit.setSegP1(-1);
 	m_doc->nodeEdit.setSegP2(-1);
+
 	if (m_doc->m_Selection->count() > 0)
 		m_doc->m_Selection->itemAt(0)->update();
-	ResNode->setEnabled(false);
-	AddNode->setEnabled(true);
-	DeleteNode->setEnabled(true);
-	SymMove->setEnabled(false);
-	AsymMove->setEnabled(false);
-	Res1Node->setEnabled(false);
+
+	SymMove->setEnabled(true);
+	AsymMove->setEnabled(true);
+	IndependentMove->setEnabled(true);
 	MoveNode->setChecked(true);
-	MoveControl->setChecked(false);
-	DeleteNode->setChecked(false);
-	AddNode->setChecked(false);
-	PolySplit->setChecked(false);
 }
 
 void NodePalette::AddN()
 {
 	if (m_doc == nullptr)
 		return;
+
 	m_doc->nodeEdit.setSubMode(NodeEditContext::ADD_POINT);
-	m_doc->nodeEdit.setEdPoints(true);
 	SymMove->setEnabled(false);
 	AsymMove->setEnabled(false);
-	ResNode->setEnabled(false);
-	Res1Node->setEnabled(false);
+	IndependentMove->setEnabled(false);
 	AddNode->setChecked(true);
-	DeleteNode->setChecked(false);
-	PolySplit->setChecked(false);
 }
 
 void NodePalette::DelN()
 {
 	if (m_doc == nullptr)
 		return;
+
 	m_doc->nodeEdit.setSubMode(NodeEditContext::DEL_POINT);
-	m_doc->nodeEdit.setEdPoints(true);
 	SymMove->setEnabled(false);
 	AsymMove->setEnabled(false);
-	ResNode->setEnabled(false);
-	Res1Node->setEnabled(false);
-	AddNode->setChecked(false);
+	IndependentMove->setEnabled(false);
 	DeleteNode->setChecked(true);
-	PolySplit->setChecked(false);
+}
+
+void NodePalette::SplitPoly()
+{
+	if (m_doc == nullptr)
+		return;
+
+	m_doc->nodeEdit.setSubMode(NodeEditContext::SPLIT_PATH);
+	m_doc->nodeEdit.setClre(-1);
+	m_doc->nodeEdit.setClre2(-1);
+	m_doc->nodeEdit.setSegP1(-1);
+	m_doc->nodeEdit.setSegP2(-1);
+
+	if (m_doc->m_Selection->count() > 0)
+		m_doc->m_Selection->itemAt(0)->update();
+
+	SymMove->setEnabled(false);
+	AsymMove->setEnabled(false);
+	IndependentMove->setEnabled(false);
+	PolySplit->setChecked(true);
+}
+
+void NodePalette::editControl()
+{
+	if (m_doc == nullptr)
+		return;
+
+	m_doc->nodeEdit.setSubMode(NodeEditContext::EDIT_POINT);
+	m_doc->nodeEdit.setClre(-1);
+	m_doc->nodeEdit.setClre2(-1);
+	m_doc->nodeEdit.setSegP1(-1);
+	m_doc->nodeEdit.setSegP2(-1);
+
+	SymMove->setEnabled(false);
+	AsymMove->setEnabled(false);
+	IndependentMove->setEnabled(false);
+	EditControl->setChecked(true);
+
+}
+
+void NodePalette::CloseBezier()
+{
+	if (m_doc == nullptr)
+		return;
+
+	MoveN();
+	PageItem *currItem = m_doc->m_Selection->itemAt(0);
+	PageItem* newItem = m_doc->convertItemTo(currItem, PageItem::Polygon);
+	m_doc->m_Selection->clear();
+	m_doc->m_Selection->addItem(newItem);
+	newItem->update();
+	BezierClose->setEnabled(false);
+	PolySplit->setEnabled(true);
+	EditCont->setEnabled(true);
 }
 
 void NodePalette::closeEvent(QCloseEvent *ce)
@@ -956,7 +760,7 @@ void NodePalette::EndEdit()
 		m_doc->nodeEdit.selNode().clear();
 		m_doc->nodeEdit.setPreviewMode(false);
 		EditCont->setChecked(false);
-		ToggleConMode();
+		ToggleContourMode();
 		PageItem *currItem = m_doc->m_Selection->itemAt(0);
 		if (currItem && currItem->itemType() == PageItem::PathText)
 			currItem->updatePolyClip();
@@ -979,7 +783,7 @@ void NodePalette::CancelEdit()
 		m_doc->nodeEdit.selNode().clear();
 		m_doc->nodeEdit.setPreviewMode(false);
 		EditCont->setChecked(false);
-		ToggleConMode();
+		ToggleContourMode();
 		PageItem *currItem = m_doc->m_Selection->itemAt(0);
 
 		// Calculate the difference of the current position and the original
@@ -1069,14 +873,16 @@ void NodePalette::iconSetChange()
 {
 	IconManager& im = IconManager::instance();
 
+//<<<<<<< .mine
+	initPosOriginMenu();
+
 	MoveNode->setIcon(im.loadIcon("bezier-node-move"));
 	AddNode->setIcon(im.loadIcon("bezier-node-add"));
 	DeleteNode->setIcon(im.loadIcon("bezier-node-delete"));
-	ResNode->setIcon(im.loadIcon("bezier-control-reset-all"));
-	MoveControl->setIcon(im.loadIcon("bezier-control-move"));
 	AsymMove->setIcon(im.loadIcon("bezier-control-asymetric"));
 	SymMove->setIcon(im.loadIcon("bezier-control-symetric"));
-	Res1Node->setIcon(im.loadIcon("bezier-control-reset"));
+	IndependentMove->setIcon(im.loadIcon("bezier-control-independent"));
+	EditControl->setIcon(im.loadIcon("bezier-node-edit"));
 	PolySplit->setIcon(im.loadIcon("bezier-split"));
 	BezierClose->setIcon(im.loadIcon("bezier-close"));
 	PolyMirrorH->setIcon(im.loadIcon("object-flip-horizontal"));
@@ -1091,6 +897,13 @@ void NodePalette::iconSetChange()
 	Shrink->setIcon(im.loadIcon("bezier-scale-down"));
 	Enlarge->setIcon(im.loadIcon("bezier-scale-up"));
 	Reduce->setIcon(im.loadIcon("bezier-scale-down"));
+
+	EditCont->setIcon(im.loadIcon("path-contour-edit"));
+	PreviewMode->setIcon(im.loadIcon("path-node-visibility"));
+	ResetContClip->setIcon(im.loadIcon("path-contour-to-clip"));
+	ResetShape2Clip->setIcon(im.loadIcon("path-shape-to-clip"));
+	ResetCont->setIcon(im.loadIcon("path-contour-reset"));
+	resetDefaultButton->setIcon(im.loadIcon("path-reset-all"));
 }
 
 void NodePalette::languageChange()
@@ -1098,28 +911,21 @@ void NodePalette::languageChange()
 	setWindowTitle( tr( "Nodes" ) );
 	scalePercentage->setSuffix( tr(" %"));
 
-	AbsMode->setTitle( tr("&Absolute Coordinates"));
-	absToCanvas->setText( tr("to Canvas"));
-	absToPage->setText( tr("to Page"));
-	TextLabel1->setText( tr("&X-Pos:"));
-	TextLabel2->setText( tr("&Y-Pos:"));
-	PreviewMode->setText( tr("Hide Nodes"));
-	EditCont->setText( tr("Edit &Contour Line"));
-	ResetCont->setText( tr("&Reset Contour Line"));
-	ResetContClip->setText( tr("Set Contour to Image Clip"));
-	ResetShape2Clip->setText( tr("Set Shape to Image Clip"));
+	initPosOriginMenu();
+
+	PosOriginLabel->setText( tr("Origin:"));
+	TextLabel1->setText( tr("&X:"));
+	TextLabel2->setText( tr("&Y:"));
 	editEditButton->setText( tr("OK"));
 	cancelEditButton->setText( tr("Cancel"));
-	resetDefaultButton->setText( tr("Reset all edits"));
-//	editEditButton->setText( tr("&End Editing"));
+	resetDefaultButton->setToolTip( tr("Reset all edits"));
 	MoveNode->setToolTip( tr("Move Nodes"));
-	MoveControl->setToolTip( tr("Move Control Points"));
 	AddNode->setToolTip( tr("Add Nodes"));
 	DeleteNode->setToolTip( tr("Delete Nodes"));
-	AsymMove->setToolTip( tr("Move Control Points Independently"));
+	AsymMove->setToolTip( tr("Move Control Points Asymetrical"));
 	SymMove->setToolTip( tr("Move Control Points Symmetrical"));
-	ResNode->setToolTip( tr("Reset Control Points"));
-	Res1Node->setToolTip( tr("Reset this Control Point"));
+	IndependentMove->setToolTip( tr("Move Control Points Independently"));
+	EditControl->setToolTip( tr("Edit Control Points"));
 	PolySplit->setToolTip( tr("Open a Polygon or Cuts a Bezier Curve"));
 	BezierClose->setToolTip( tr("Close this Bezier Curve"));
 	PolyMirrorH->setToolTip( tr("Mirror the Path Horizontally"));
@@ -1137,11 +943,12 @@ void NodePalette::languageChange()
 	RotVal->setToolTip( tr("Angle of Rotation"));
 	scalePercentage->setToolTip( tr("% to Enlarge or Shrink By"));
 	scaleDistance->setToolTip( tr("Value to Enlarge or Shrink By"));
+	PreviewMode->setToolTip( tr("Hide Nodes"));
 	EditCont->setToolTip( tr("Activate Contour Line Editing Mode"));
 	ResetCont->setToolTip( tr("Reset the Contour Line to the Original Shape of the Frame"));
 	ResetContClip->setToolTip( tr("Reset the Contour Line to the Clipping Path of the Image"));
 	ResetShape2Clip->setToolTip( tr("Set the Shape to the Clipping Path of the Image"));
-	AbsMode->setToolTip(  "<qt>" + tr("When checked use coordinates relative to the page, otherwise coordinates are relative to the Object") + "</qt>");
+	PosOriginButton->setToolTip(  "<qt>" + tr("Use coordinates relative to the canvas, page, or to the Object") + "</qt>");
 }
 
 void NodePalette::unitChange()
