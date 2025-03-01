@@ -1709,6 +1709,7 @@
     <uic Include="..\..\..\scribus\ui\newmarginwidgetbase.ui" />
     <uic Include="..\..\..\scribus\ui\nftdialog.ui" />
     <uic Include="..\..\..\scribus\ui\nftwidget.ui" />
+    <uic Include="..\..\..\scribus\ui\nodeeditpalette.ui" />
     <uic Include="..\..\..\scribus\ui\notesstyleseditor.ui" />
     <uic Include="..\..\..\scribus\ui\opticalmargineditor.ui" />
     <uic Include="..\..\..\scribus\ui\osgeditor.ui" />

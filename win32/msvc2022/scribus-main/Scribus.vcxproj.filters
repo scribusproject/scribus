@@ -2908,6 +2908,9 @@
     <uic Include="..\..\..\scribus\ui\nftwidget.ui">
       <Filter>Form Files</Filter>
     </uic>
+    <uic Include="..\..\..\scribus\ui\nodeeditpalette.ui">
+      <Filter>Form Files</Filter>
+    </uic>
     <uic Include="..\..\..\scribus\ui\notesstyleseditor.ui">
       <Filter>Form Files</Filter>
     </uic>
