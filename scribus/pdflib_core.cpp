@@ -119,18 +119,72 @@ static inline QByteArray TransformToStr(const QTransform& tr)
 	return FToStr(tr.m11()) + " " + FToStr(tr.m12()) + " " + FToStr(tr.m21()) + " " + FToStr(tr.m22()) + " " + FToStr(tr.dx()) + " " + FToStr(tr.dy());
 }
 
+class PdfTextState
+{
+public:
+	PdfTextState() = default;
+
+	void reset() { *this = PdfTextState(); }
+
+	QByteArray transformToStr(const QTransform& tr) const
+	{
+		return FToStr(tr.m11()) + " " + FToStr(-tr.m12()) + " " + FToStr(-tr.m21()) + " " + FToStr(tr.m22()) + " " + FToStr(tr.dx()) + " " + FToStr(-tr.dy());
+	}
+
+	QByteArray write(const PdfTextState& prevState)
+	{
+		QByteArray result;
+
+		if (firstUse || 
+			(fontName != prevState.fontName) ||
+			(fontSize != prevState.fontSize))
+		{
+			result += fontName + " " + FToStr(fontSize) + " Tf\n";
+		}
+
+		if (firstUse || (fillColor != prevState.fillColor))
+			result += fillColor;
+
+		if (firstUse || (strokeColor != prevState.strokeColor))
+			result += strokeColor;
+
+		if (firstUse || (strokeWidth != prevState.strokeWidth))
+		{
+			if (strokeWidth >= 0)
+				result += FToStr(strokeWidth) + " w\n";
+		}
+
+		if (firstUse || (renderingMode != prevState.renderingMode))
+			result += QByteArray::number(renderingMode) + " Tr\n";
+
+		result += transformToStr(textMatrix) + " Tm\n";
+
+		firstUse = false;
+		return result;
+	}
+
+	bool       firstUse { true };
+	QByteArray fontName;
+	int        fontSize { -1 };
+	QByteArray fillColor;
+	QByteArray strokeColor;
+	int        strokeWidth { -1 };
+	int        renderingMode { 0 };
+	QTransform textMatrix;
+};
+
 class PdfPainter: public TextLayoutPainter
 {
 	QByteArray m_backBuffer;
 	QByteArray m_glyphBuffer;
 	QByteArray m_pathBuffer;
 	QMap<QString, PdfFont>  m_UsedFontsP;
-	PDFLibCore *m_pdf;
-	uint m_PNr;
-	const ScPage* m_page;
+	PDFLibCore *m_pdf { nullptr };
+	uint m_PNr { 0 };
+	const ScPage* m_page { nullptr };
 
-	QByteArray m_prevFontName;
-	double     m_prevFontSize { -1.0 };
+	PdfTextState m_textState;
+	PdfTextState m_prevState;
 
 	QByteArray transformToStr(const QTransform& tr) const
 	{
@@ -143,8 +197,6 @@ public:
 		m_PNr(num),
 		m_page(pag)
 	{}
-
-	~PdfPainter() {}
 
 	void drawGlyph(const GlyphCluster& gc) override
 	{
@@ -216,25 +268,18 @@ public:
 					pdfFontName += "S";
 					pdfFontName += Pdf::toPdf(fontNr);
 				}
-
-				if ((pdfFontName != m_prevFontName) || (fontSize() != m_prevFontSize))
-				{
-					m_glyphBuffer += pdfFontName + " " + FToStr(fontSize()) + " Tf\n";
-					m_prevFontName = pdfFontName;
-					m_prevFontSize = fontSize();
-				}
-
-				if (!StrokeColor.isEmpty())
-					m_glyphBuffer += StrokeColor;
-
-				if (!FillColor.isEmpty())
-					m_glyphBuffer += FillColor;
-
-				m_glyphBuffer += "0 Tr\n";
+				m_textState.fontName = pdfFontName;
+				m_textState.fontSize = fontSize();
+				m_textState.strokeColor = StrokeColor;
+				m_textState.fillColor = FillColor;
+				m_textState.renderingMode = 0;
 
 				transform.translate(x() + gl.xoffset + current_x , y() + gl.yoffset);
 				transform.scale(qMax(gl.scaleH, 0.1), qMax(gl.scaleV, 0.1));
-				m_glyphBuffer += transformToStr(transform) + " Tm\n";
+				m_textState.textMatrix = transform;
+
+				m_glyphBuffer += m_textState.write(m_prevState);
+				m_prevState = m_textState;
 
 				if (pdfFont.method != Use_Type3 || !FillColor.isEmpty())
 				{
@@ -341,9 +386,6 @@ public:
 			}
 			else
 			{
-				if (!StrokeColor.isEmpty())
-					m_pathBuffer += StrokeColor;
-
 				uint gid = gl.glyph;
 				uint fontNr = 65535;
 				switch (pdfFont.encoding)
@@ -370,24 +412,19 @@ public:
 					pdfFontName += "S";
 					pdfFontName += Pdf::toPdf(fontNr);
 				}
-
-				if ((pdfFontName != m_prevFontName) || (fontSize() != m_prevFontSize))
-				{
-					m_glyphBuffer += pdfFontName + " " + FToStr(fontSize()) + " Tf\n";
-					m_prevFontName = pdfFontName;
-					m_prevFontSize = fontSize();
-				}
-
-				if (!StrokeColor.isEmpty())
-					m_glyphBuffer += StrokeColor;
-
-				if (!FillColor.isEmpty())
-					m_glyphBuffer += FillColor;
+				m_textState.fontName = pdfFontName;
+				m_textState.fontSize = fontSize();
+				m_textState.strokeColor = StrokeColor;
+				m_textState.fillColor = FillColor;
 
 				if (pdfFont.method == Use_Type3 && !StrokeColor.isEmpty())
 				{
 					m_pathBuffer += "q\n";
-					m_pathBuffer += FToStr(strokeWidth()) + " w\n[] 0 d\n0 J\n0 j\n";
+					if (!StrokeColor.isEmpty())
+					{
+						m_pathBuffer += FToStr(strokeWidth()) + " w\n[] 0 d\n0 J\n0 j\n";
+						m_pathBuffer += StrokeColor;
+					}
 
 					m_pathBuffer += transformToStr(transform) + " cm\n";
 					m_pathBuffer += "1.0 0 0 1.0 " + FToStr(x()) + " " + FToStr(fontSize() - y()) + " cm\n";
@@ -431,16 +468,19 @@ public:
 				}
 				else
 				{
-					m_glyphBuffer += FToStr(strokeWidth()) + " w ";
+					m_textState.strokeWidth = strokeWidth();
 					if (fill)
-						m_glyphBuffer += "2 Tr\n";
+						m_textState.renderingMode = 2;
 					else
-						m_glyphBuffer += "1 Tr\n";
+						m_textState.renderingMode = 1;
 				}
 
 				transform.translate(x() + gl.xoffset + current_x, y() + gl.yoffset);
 				transform.scale(qMax(gc.scaleH(), 0.1), qMax(gc.scaleV(), 0.1));
-				m_glyphBuffer += transformToStr(transform) + " Tm\n";
+				m_textState.textMatrix = transform;
+				
+				m_glyphBuffer += m_textState.write(m_prevState);
+				m_prevState = m_textState;
 
 				if (pdfFont.method != Use_Type3 || !FillColor.isEmpty())
 				{
@@ -503,6 +543,8 @@ public:
 	{
 		m_glyphBuffer += "ET\n" + m_pathBuffer;
 		m_pathBuffer.clear();
+		m_textState.reset();
+		m_prevState.reset();
 
 		m_pathBuffer += "q\n";
 		m_pathBuffer += FToStr(scaleH()) + " 0 0 " + FToStr(scaleV()) + " " + FToStr(x()) + " " + FToStr(-y()) + " cm\n";
@@ -513,11 +555,11 @@ public:
 		m_pathBuffer += output;
 		m_pathBuffer += "Q\n";
 		m_glyphBuffer += m_pathBuffer + "\n";
-		m_pathBuffer.clear();
-
-		m_prevFontName.clear();
-		m_prevFontSize = -1.0;
 		m_glyphBuffer += "BT\n";
+
+		m_pathBuffer.clear();
+		m_textState.reset();
+		m_prevState.reset();
 	}
 
 	void drawObjectDecoration(PageItem* item) override { }
