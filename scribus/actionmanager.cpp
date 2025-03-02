@@ -491,6 +491,7 @@ void ActionManager::initItemMenuActions()
 	name = "itemShapeEdit";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	(*scrActions)["itemShapeEdit"]->setToggleAction(true);
+	(*scrActions)["itemShapeEdit"]->setChecked(false);
 	name = "itemAttachTextToPath";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name = "itemDetachTextFromPath";
