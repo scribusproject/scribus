@@ -64,13 +64,12 @@ void PropertiesPalette_Shape::changeEvent(QEvent *e)
 void PropertiesPalette_Shape::setMainWindow(ScribusMainWindow* mw)
 {
 	m_ScMW = mw;
-
-	connect(m_ScMW, SIGNAL(UpdateRequest(int)), this  , SLOT(handleUpdateRequest(int)));
+	connect(m_ScMW, SIGNAL(UpdateRequest(int)), this, SLOT(handleUpdateRequest(int)));
 }
 
-void PropertiesPalette_Shape::setDoc(ScribusDoc *d)
+void PropertiesPalette_Shape::setDoc(ScribusDoc *doc)
 {
-	if ((d == (ScribusDoc*) m_doc) || (m_ScMW && m_ScMW->scriptIsRunning()))
+	if ((doc == (ScribusDoc*) m_doc) || (m_ScMW && m_ScMW->scriptIsRunning()))
 		return;
 
 	if (m_doc)
@@ -79,7 +78,7 @@ void PropertiesPalette_Shape::setDoc(ScribusDoc *d)
 		disconnect(m_doc             , SIGNAL(docChanged())      , this, SLOT(handleSelectionChanged()));
 	}
 
-	m_doc  = d;
+	m_doc  = doc;
 	m_item = nullptr;
 	m_unitRatio   = m_doc->unitRatio();
 	m_unitIndex   = m_doc->unitIndex();
@@ -101,10 +100,10 @@ void PropertiesPalette_Shape::unsetDoc()
 		disconnect(m_doc             , SIGNAL(docChanged())      , this, SLOT(handleSelectionChanged()));
 	}
 
-	m_haveDoc  = false;
+	m_haveDoc = false;
 	m_haveItem = false;
-	m_doc   = nullptr;
-	m_item  = nullptr;
+	m_doc = nullptr;
+	m_item = nullptr;
 
 	editShape->setEnabled(false);
 	roundRect->setEnabled(false);
@@ -115,7 +114,7 @@ void PropertiesPalette_Shape::unsetDoc()
 void PropertiesPalette_Shape::unsetItem()
 {
 	m_haveItem = false;
-	m_item     = nullptr;
+	m_item = nullptr;
 	handleSelectionChanged();
 }
 
@@ -136,18 +135,17 @@ void PropertiesPalette_Shape::setCustomShapeIcon(int submode)
 
 void PropertiesPalette_Shape::setLocked(bool isLocked)
 {
+	if (!m_haveDoc || !m_haveItem)
+		return;
 	QPalette pal(QApplication::palette());
 	if (isLocked)
 		pal.setCurrentColorGroup(QPalette::Disabled);
-	if (m_haveDoc && m_haveItem)
-	{
-		enableCustomShape();
-		enableEditShape();
-		if (((m_item->isTextFrame()) || (m_item->isImageFrame()) || (m_item->isPolygon())) &&  (!m_item->ClipEdited) && ((m_item->FrameType == 0) || (m_item->FrameType == 2)))
-			roundRect->setEnabled(!isLocked);
-		else
-			roundRect->setEnabled(false);
-	}
+	enableCustomShape();
+	enableEditShape();
+	if (((m_item->isTextFrame()) || (m_item->isImageFrame()) || (m_item->isPolygon())) &&  (!m_item->ClipEdited) && ((m_item->FrameType == 0) || (m_item->FrameType == 2)))
+		roundRect->setEnabled(!isLocked);
+	else
+		roundRect->setEnabled(false);
 }
 
 void PropertiesPalette_Shape::setSizeLocked(bool )
@@ -185,7 +183,7 @@ void PropertiesPalette_Shape::enableEditShape()
 	bool enabled = false;
 	if (m_item)
 	{
-		enabled  = true;
+		enabled = true;
 		enabled &= !m_item->locked();
 		enabled &= !m_item->sizeLocked();
 		enabled &= !m_item->isOSGFrame();
@@ -198,91 +196,90 @@ void PropertiesPalette_Shape::handleSelectionChanged()
 {
 	if (!m_haveDoc || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-
+	const Selection* docSelection = m_doc->m_Selection;
 	PageItem* currItem = currentItemFromSelection();
-	if (m_doc->m_Selection->count() > 1)
+	if (!docSelection->isEmpty())
 	{
 		roundRect->showValue(0);
 	}
 	else
 	{
 		int itemType = currItem ? (int) currItem->itemType() : -1;
-
 		m_haveItem = (itemType != -1);
 		switch (itemType)
 		{
-		case -1:
-			setEnabled(false);
-			editShape->setEnabled(false);
-			customShape->setEnabled(false);
-			roundRect->setEnabled(false);
-			roundRect->showValue(0);
-			break;
-		case PageItem::ImageFrame:
-		case PageItem::LatexFrame:
-		case PageItem::OSGFrame:
-			if (currItem->isOSGFrame())
-			{
+			case -1:
 				setEnabled(false);
-				roundRect->setEnabled(false);
 				editShape->setEnabled(false);
 				customShape->setEnabled(false);
-			}
-			else
-			{
+				roundRect->setEnabled(false);
+				roundRect->showValue(0);
+				break;
+			case PageItem::ImageFrame:
+			case PageItem::LatexFrame:
+			case PageItem::OSGFrame:
+				if (currItem->isOSGFrame())
+				{
+					setEnabled(false);
+					roundRect->setEnabled(false);
+					editShape->setEnabled(false);
+					customShape->setEnabled(false);
+				}
+				else
+				{
+					setEnabled(true);
+					if ((!currItem->ClipEdited) && ((currItem->FrameType == 0) || (currItem->FrameType == 2)))
+						roundRect->setEnabled(!currItem->locked());
+					else
+						roundRect->setEnabled(false);
+					if ((docSelection->itemAt(0)->FrameType == 0) || (docSelection->itemAt(0)->FrameType == 2))
+						roundRect->setEnabled(!currItem->locked());
+				}
+				break;
+			case PageItem::TextFrame:
 				setEnabled(true);
 				if ((!currItem->ClipEdited) && ((currItem->FrameType == 0) || (currItem->FrameType == 2)))
 					roundRect->setEnabled(!currItem->locked());
 				else
 					roundRect->setEnabled(false);
-				if ((m_doc->m_Selection->itemAt(0)->FrameType == 0) || (m_doc->m_Selection->itemAt(0)->FrameType == 2))
+				break;
+			case PageItem::Line:
+				setEnabled(false);
+				roundRect->setEnabled(false);
+				break;
+			case PageItem::Arc:
+			case PageItem::ItemType1:
+			case PageItem::ItemType3:
+			case PageItem::Polygon:
+			case PageItem::RegularPolygon:
+				setEnabled(true);
+				if ((!currItem->ClipEdited) && ((currItem->FrameType == 0) || (currItem->FrameType == 2)))
 					roundRect->setEnabled(!currItem->locked());
-			}
-			break;
-		case PageItem::TextFrame:
-			setEnabled(true);
-			if ((!currItem->ClipEdited) && ((currItem->FrameType == 0) || (currItem->FrameType == 2)))
-				roundRect->setEnabled(!currItem->locked());
-			else
+				else
+					roundRect->setEnabled(false);
+				break;
+			case PageItem::PolyLine:
+			case PageItem::Spiral:
+				setEnabled(true);
 				roundRect->setEnabled(false);
-			break;
-		case PageItem::Line:
-			setEnabled(false);
-			roundRect->setEnabled(false);
-			break;
-		case PageItem::Arc:
-		case PageItem::ItemType1:
-		case PageItem::ItemType3:
-		case PageItem::Polygon:
-		case PageItem::RegularPolygon:
-			setEnabled(true);
-			if ((!currItem->ClipEdited) && ((currItem->FrameType == 0) || (currItem->FrameType == 2)))
-				roundRect->setEnabled(!currItem->locked());
-			else
+				break;
+			case PageItem::PathText:
+				setEnabled(true);
 				roundRect->setEnabled(false);
-			break;
-		case PageItem::PolyLine:
-		case PageItem::Spiral:
-			setEnabled(true);
-			roundRect->setEnabled(false);
-			break;
-		case PageItem::PathText:
-			setEnabled(true);
-			roundRect->setEnabled(false);
-			break;
-		case PageItem::Symbol:
-			setEnabled(false);
-			if ((!currItem->ClipEdited) && ((currItem->FrameType == 0) || (currItem->FrameType == 2)))
-				roundRect->setEnabled(!currItem->locked());
-			else
+				break;
+			case PageItem::Symbol:
+				setEnabled(false);
+				if ((!currItem->ClipEdited) && ((currItem->FrameType == 0) || (currItem->FrameType == 2)))
+					roundRect->setEnabled(!currItem->locked());
+				else
+					roundRect->setEnabled(false);
+				break;
+			case PageItem::Table:
+				setEnabled(true);
 				roundRect->setEnabled(false);
-			break;
-		case PageItem::Table:
-			setEnabled(true);
-			roundRect->setEnabled(false);
-			editShape->setEnabled(false);
-			customShape->setEnabled(false);
-			break;
+				editShape->setEnabled(false);
+				customShape->setEnabled(false);
+				break;
 		}
 	}
 	setCurrentItem(currItem);
@@ -314,7 +311,8 @@ void PropertiesPalette_Shape::setCurrentItem(PageItem *item)
 	m_haveItem = false;
 	m_item = item;
 
-	if (!m_item) return;
+	if (!m_item)
+		return;
 
 	enableEditShape();
 	enableCustomShape();
@@ -364,73 +362,63 @@ void PropertiesPalette_Shape::setCurrentItem(PageItem *item)
 void PropertiesPalette_Shape::handleTextFlow()
 {
 	PageItem::TextFlowMode mode = PageItem::TextFlowDisabled;
-	if (!m_ScMW || m_ScMW->scriptIsRunning())
+	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	if (m_haveDoc && m_haveItem)
-	{
-		if (textFlowDisabled->isChecked())
-			mode = PageItem::TextFlowDisabled;
-		if (textFlowUsesFrameShape->isChecked())
-			mode = PageItem::TextFlowUsesFrameShape;
-		if (textFlowUsesBoundingBox->isChecked())
-			mode = PageItem::TextFlowUsesBoundingBox;
-		if (textFlowUsesContourLine->isChecked())
-			mode = PageItem::TextFlowUsesContourLine;
-		if (textFlowUsesImageClipping->isChecked())
-			mode = PageItem::TextFlowUsesImageClipping;
-		m_item->setTextFlowMode(mode);
-		m_doc->changed();
-		m_doc->changedPagePreview();
-		m_doc->invalidateAll();
-		m_doc->regionsChanged()->update(QRect());
-	}
+	if (textFlowDisabled->isChecked())
+		mode = PageItem::TextFlowDisabled;
+	if (textFlowUsesFrameShape->isChecked())
+		mode = PageItem::TextFlowUsesFrameShape;
+	if (textFlowUsesBoundingBox->isChecked())
+		mode = PageItem::TextFlowUsesBoundingBox;
+	if (textFlowUsesContourLine->isChecked())
+		mode = PageItem::TextFlowUsesContourLine;
+	if (textFlowUsesImageClipping->isChecked())
+		mode = PageItem::TextFlowUsesImageClipping;
+	m_item->setTextFlowMode(mode);
+	m_doc->changed();
+	m_doc->changedPagePreview();
+	m_doc->invalidateAll();
+	m_doc->regionsChanged()->update(QRect());
 }
 
 void PropertiesPalette_Shape::handleShapeEdit()
 {
-	if (!m_ScMW || m_ScMW->scriptIsRunning())
+	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	if (m_haveDoc && m_haveItem)
+	m_tmpSelection->clear();
+	if (m_item->asRegularPolygon())
 	{
-		m_tmpSelection->clear();
-		if (m_item->asRegularPolygon())
-		{
-			m_ScMW->view->requestMode(modeEditPolygon);
-			roundRect->setEnabled(false);
-		}
-		else if (m_item->asArc())
-		{
-			m_ScMW->view->requestMode(modeEditArc);
-			roundRect->setEnabled(false);
-		}
-		else if (m_item->asSpiral())
-		{
-			m_ScMW->view->requestMode(modeEditSpiral);
-			roundRect->setEnabled(false);
-		}
-		else
-		{
-			m_ScMW->view->requestMode(modeEditClip);
-			roundRect->setEnabled(false);
-			connect(m_ScMW->nodePalette, SIGNAL(paletteClosed()), this, SLOT(handleShapeEditEnded()));
-		}
-		m_doc->changed();
-		m_doc->changedPagePreview();
+		m_ScMW->view->requestMode(modeEditPolygon);
+		roundRect->setEnabled(false);
 	}
+	else if (m_item->asArc())
+	{
+		m_ScMW->view->requestMode(modeEditArc);
+		roundRect->setEnabled(false);
+	}
+	else if (m_item->asSpiral())
+	{
+		m_ScMW->view->requestMode(modeEditSpiral);
+		roundRect->setEnabled(false);
+	}
+	else
+	{
+		m_ScMW->view->requestMode(modeEditClip);
+		roundRect->setEnabled(false);
+		connect(m_ScMW->nodePalette, SIGNAL(paletteClosed()), this, SLOT(handleShapeEditEnded()));
+	}
+	m_doc->changed();
+	m_doc->changedPagePreview();
 }
 
 void PropertiesPalette_Shape::handleShapeEditEnded()
 {
 	disconnect(m_ScMW->nodePalette, SIGNAL(paletteClosed()), this, SLOT(handleShapeEditEnded()));
-	if (m_haveDoc && m_haveItem)
-	{
-		if (m_tmpSelection->count() > 0)
-		{
-			m_doc->m_Selection->copy(*m_tmpSelection, false);
-			m_doc->m_Selection->connectItemToGUI();
-		}
-		m_tmpSelection->clear();
-	}
+	if (!m_haveDoc || !m_haveItem || m_tmpSelection->isEmpty())
+		return;
+	m_doc->m_Selection->copy(*m_tmpSelection, false);
+	m_doc->m_Selection->connectItemToGUI();
+	m_tmpSelection->clear();
 }
 
 void PropertiesPalette_Shape::handleCornerRadius()
@@ -448,24 +436,21 @@ void PropertiesPalette_Shape::handleCornerRadius()
 
 void PropertiesPalette_Shape::handleNewShape(int f, int c, qreal *vals)
 {
-	if (!m_ScMW || m_ScMW->scriptIsRunning())
+	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	if (m_haveDoc && m_haveItem)
-	{
-		if ((m_item->itemType() == PageItem::PolyLine) || (m_item->itemType() == PageItem::PathText))
-			return;
-		bool b = roundRect->blockSignals(true);
-		m_doc->item_setFrameShape(m_item, f, c, vals);
-		roundRect->setValue(m_item->cornerRadius()*m_unitRatio);
-		roundRect->setEnabled(f == 0);
-		roundRect->blockSignals(b);
-		if (f == 0)
-			m_doc->setFrameRounded();
-		if ((m_item->itemType() == PageItem::ImageFrame) || (m_item->itemType() == PageItem::TextFrame))
-			return;
-		m_doc->invalidateAll();
-		m_doc->regionsChanged()->update(QRect());
-	}
+	if ((m_item->itemType() == PageItem::PolyLine) || (m_item->itemType() == PageItem::PathText))
+		return;
+	bool b = roundRect->blockSignals(true);
+	m_doc->item_setFrameShape(m_item, f, c, vals);
+	roundRect->setValue(m_item->cornerRadius()*m_unitRatio);
+	roundRect->setEnabled(f == 0);
+	roundRect->blockSignals(b);
+	if (f == 0)
+		m_doc->setFrameRounded();
+	if ((m_item->itemType() == PageItem::ImageFrame) || (m_item->itemType() == PageItem::TextFrame))
+		return;
+	m_doc->invalidateAll();
+	m_doc->regionsChanged()->update(QRect());
 }
 
 void PropertiesPalette_Shape::showTextFlowMode(PageItem::TextFlowMode mode)
@@ -491,9 +476,7 @@ void PropertiesPalette_Shape::showTextFlowMode(PageItem::TextFlowMode mode)
 void PropertiesPalette_Shape::iconSetChange()
 {
 	IconManager& iconManager = IconManager::instance();
-
 	roundRectIcon->setPixmap(iconManager.loadPixmap("round-corners"));
-
 	textFlowDisabled->setIcon(iconManager.loadIcon("text-wrap-none"));
 	textFlowUsesFrameShape->setIcon(iconManager.loadIcon("text-wrap-shape"));
 	textFlowUsesBoundingBox->setIcon(iconManager.loadIcon("text-wrap-boundingbox"));
