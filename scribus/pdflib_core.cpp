@@ -179,9 +179,6 @@ class PdfPainter: public TextLayoutPainter
 	uint m_PNr { 0 };
 	const ScPage* m_page { nullptr };
 
-	QByteArray m_prevFontName;
-	double     m_prevFontSize { -1.0 };
-
 	PdfTextState m_textState;
 	PdfTextState m_prevState;
 
