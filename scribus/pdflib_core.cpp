@@ -2378,40 +2378,15 @@ void PDFLibCore::PDF_Begin_WriteUsedFonts(const QMap<QString, QMap<uint, QString
 				QByteArray baseFont  = sanitizeFontName(face.psName());
 				PdfId fontDescriptor = PDF_WriteFontDescriptor(baseFont, face, fformat, embeddedFontObject);
 				
-				ScFace::FaceEncoding gl;
-				face.glyphNames(gl);
-
-				// #14550 : for TTF fonts, we already avoid using the Postscript glyph name table
-				// as it is notoriously unreliable. We hence retrieve glyph names using unicode cmap
-				// and adobe glyph names uniXXXX convention. Unfortunately we may still not get all
-				// required glyph names and some glyphs may not have a name anyway. So check we have
-				// ps names for all glyphs we need and if not, then use CID encoding
-				bool canUseSimpleEncoding = face.hasNames() && (gl.count() >= usedGlyphs.count());
-				if (fformat == ScFace::SFNT || fformat == ScFace::TTCF)
-				{
-					for (auto it = usedGlyphs.constBegin(); it != usedGlyphs.constEnd(); ++it)
-					{
-						int glyphIndex = it.key();
-						auto glyphIt = gl.constFind(glyphIndex);
-						canUseSimpleEncoding &= (glyphIt != gl.constEnd());
-						if (canUseSimpleEncoding)
-							canUseSimpleEncoding &= (glyphIt->charcode <= 0xFFFF);
-						if (!canUseSimpleEncoding)
-							break;
-					}
-				}
-				
 				QByteArray subtype = (fformat == ScFace::SFNT || fformat == ScFace::TTCF) ? "/TrueType" : "/Type1";
-				
-				if ((face.isSymbolic() || !canUseSimpleEncoding || Options.Version == PDFVersion::PDF_X4 || face.type() == ScFace::OTF) &&
-					(fformat == ScFace::SFNT || fformat == ScFace::TTCF))
-				{
-					pdfFont = PDF_EncodeCidFont(fontName, face, baseFont, fontDescriptor, usedGlyphs, QMap<uint,uint>());
-				}
+
+				// Avoid using a custom font encoding for TrueType and OTF fonts. We were previously already avoiding
+				// custom encodings in quite a few cases (PDF/X-4, missing glyph names, charcode >= 0xFFFF, ...), now
+				// avoid it entirely. Use of Identity-H encoding for TTF fonts is now pretty ubiquitous.
+				if (fformat == ScFace::SFNT || fformat == ScFace::TTCF)
+					pdfFont = PDF_EncodeCidFont(fontName, face, baseFont, fontDescriptor, usedGlyphs, QMap<uint, uint>());
 				else
-				{
 					pdfFont = PDF_EncodeSimpleFont(fontName, face, baseFont, subtype, embeddedFontObject != 0, fontDescriptor, usedGlyphs);
-				}
 
 				if (docUseAnnotations && !PDF_IsPDFX() && (face.type() != ScFace::OTF))
 					PDF_EncodeFormFont(fontName, face, baseFont, subtype, fontDescriptor);
