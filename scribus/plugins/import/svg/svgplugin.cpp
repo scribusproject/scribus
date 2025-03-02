@@ -31,19 +31,16 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "sclimits.h"
 #include "scmimedata.h"
-#include "scpaths.h"
 #include "scpattern.h"
 #include "scraction.h"
 #include "scribusXml.h"
 #include "scribuscore.h"
-#include "scribusdoc.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
 #include "ui/customfdialog.h"
 #include "ui/propertiespalette.h"
 #include "ui/scmessagebox.h"
-#include "ui/scmwmenumanager.h"
 #include "undomanager.h"
 #include "util.h"
 #include "util_formats.h"
@@ -80,14 +77,7 @@ SVGImportPlugin::SVGImportPlugin() :
 	registerFormats();
 	languageChange();
 }
-/*
-void SVGImportPlugin::addToMainWindowMenu(ScribusMainWindow *mw)
-{
-	importAction->setEnabled(true);
-	connect(importAction, SIGNAL(triggered()), SLOT(import()));
-	mw->scrMenuMgr->addMenuItem(importAction, "FileImport");
-}
-*/
+
 SVGImportPlugin::~SVGImportPlugin()
 {
 	unregisterAll();
