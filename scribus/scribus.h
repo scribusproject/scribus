@@ -540,7 +540,7 @@ public slots:
 	void toggleBase();
 	void toggleSnapGuides();
 	void toggleSnapElements();
-	void SetSnapElements(bool b);
+	void setSnapElements(bool b);
 	void EditTabs();
 	void SearchText();
 	/*! \brief call gimp and wait upon completion */

@@ -1023,11 +1023,29 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("ItemSendToScrapbook", "SendTo");
 	scrMenuMgr->addMenuItemString("itemSendToPattern", "SendTo");
 	scrMenuMgr->addMenuItemString("itemSendToInline", "SendTo");
+	scrMenuMgr->addMenuItemString("SEPARATOR", "Item");
+
+	scrMenuMgr->createMenu("ItemConvertTo", tr("C&onvert to"), "Item");
+	scrMenuMgr->addMenuItemString("ItemConvertTo", "Item");
+	scrMenuMgr->addMenuItemString("itemConvertToTextFrame", "ItemConvertTo");
+	scrMenuMgr->addMenuItemString("itemConvertToImageFrame", "ItemConvertTo");
+	scrMenuMgr->addMenuItemString("itemConvertToPolygon", "ItemConvertTo");
+	scrMenuMgr->addMenuItemString("itemConvertToBezierCurve", "ItemConvertTo");
+	scrMenuMgr->addMenuItemString("itemConvertToOutlines", "ItemConvertTo");
+	scrMenuMgr->addMenuItemString("itemConvertToSymbolFrame", "ItemConvertTo");
 	scrMenuMgr->createMenu("Adjust", tr("Adjust"), "Item");
 	scrMenuMgr->addMenuItemString("Adjust", "Item");
 	scrMenuMgr->addMenuItemString("itemAdjustFrameHeightToText", "Adjust");
 	scrMenuMgr->addMenuItemString("itemAdjustFrameToImage", "Adjust");
 	scrMenuMgr->addMenuItemString("itemAdjustImageToFrame", "Adjust");
+	scrMenuMgr->createMenu("ItemPathOps", tr("Shape && Paths"), "Item");
+	scrMenuMgr->addMenuItemString("ItemPathOps", "Item");
+	scrMenuMgr->addMenuItemString("itemShapeEdit", "ItemPathOps");
+	scrMenuMgr->addMenuItemString("itemCombinePolygons", "ItemPathOps");
+	scrMenuMgr->addMenuItemString("itemSplitPolygons", "ItemPathOps");
+	scrMenuMgr->addMenuItemString("itemAttachTextToPath", "ItemPathOps");
+	scrMenuMgr->addMenuItemString("itemDetachTextFromPath", "ItemPathOps");
+	scrMenuMgr->addMenuItemString("SEPARATOR", "Item");
 	scrMenuMgr->createMenu("Image", tr("Image"), "Item");
 	scrMenuMgr->addMenuItemString("Image", "Item");
 	scrMenuMgr->addMenuItemString("itemUpdateImage", "Image");
@@ -1041,46 +1059,6 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("itemPreviewFull", "ItemPreviewSettings");
 	scrMenuMgr->addMenuItemString("itemPreviewNormal", "ItemPreviewSettings");
 	scrMenuMgr->addMenuItemString("itemPreviewLow", "ItemPreviewSettings");
-	scrMenuMgr->createMenu("ItemPDFOptions", tr("P&DF Options"));
-	scrMenuMgr->addMenuItemString("ItemPDFOptions", "Item");
-	scrMenuMgr->addMenuItemString("itemPDFIsAnnotation", "ItemPDFOptions");
-	scrMenuMgr->addMenuItemString("itemPDFIsBookmark", "ItemPDFOptions");
-	scrMenuMgr->addMenuItemString("itemPDFAnnotationProps", "ItemPDFOptions");
-	scrMenuMgr->addMenuItemString("itemPDFFieldProps", "ItemPDFOptions");
-	scrMenuMgr->createMenu("ItemConvertTo", tr("C&onvert to"), "Item");
-	scrMenuMgr->addMenuItemString("ItemConvertTo", "Item");
-	scrMenuMgr->addMenuItemString("itemConvertToTextFrame", "ItemConvertTo");
-	scrMenuMgr->addMenuItemString("itemConvertToImageFrame", "ItemConvertTo");
-	scrMenuMgr->addMenuItemString("itemConvertToPolygon", "ItemConvertTo");
-	scrMenuMgr->addMenuItemString("itemConvertToBezierCurve", "ItemConvertTo");
-	scrMenuMgr->addMenuItemString("itemConvertToOutlines", "ItemConvertTo");
-	scrMenuMgr->addMenuItemString("itemConvertToSymbolFrame", "ItemConvertTo");
-	scrMenuMgr->createMenu("TextLinking", tr("Text Frame Links"), "Item");
-	scrMenuMgr->addMenuItemString("TextLinking", "Item");
-	scrMenuMgr->addMenuItemString("toolsLinkTextFrame", "TextLinking");
-	scrMenuMgr->addMenuItemString("toolsUnlinkTextFrame", "TextLinking");
-	scrMenuMgr->addMenuItemString("toolsUnlinkTextFrameAndCutText", "TextLinking");
-	scrMenuMgr->createMenu("ItemPathOps", tr("Path Tools"), "Item");
-	scrMenuMgr->addMenuItemString("ItemPathOps", "Item");
-	scrMenuMgr->addMenuItemString("itemCombinePolygons", "ItemPathOps");
-	scrMenuMgr->addMenuItemString("itemSplitPolygons", "ItemPathOps");
-	scrMenuMgr->addMenuItemString("itemAttachTextToPath", "ItemPathOps");
-	scrMenuMgr->addMenuItemString("itemDetachTextFromPath", "ItemPathOps");
-
-
-	scrActions["itemPrintingEnabled"]->setEnabled(false);
-	scrMenuMgr->setMenuEnabled("ItemConvertTo", false);
-
-	scrMenuMgr->createMenu("Weld", tr("Welding"), "Item");
-	scrMenuMgr->addMenuItemString("Weld", "Item");
-	scrMenuMgr->addMenuItemString("itemWeld", "Weld");
-	scrMenuMgr->addMenuItemString("itemsUnWeld", "Weld");
-	scrMenuMgr->addMenuItemString("itemEditWeld", "Weld");
-
-	scrMenuMgr->createMenu("Marks", tr("Marks"), "Item");
-	scrMenuMgr->addMenuItemString("Marks", "Item");
-	scrMenuMgr->addMenuItemString("editMark", "Marks");
-
 	scrMenuMgr->createMenu("TextFeatures", tr("Text Features", "Item"));
 	scrMenuMgr->addMenuItemString("TextFeatures", "Item");
 	scrMenuMgr->addMenuItemString("alignLeft", "TextFeatures");
@@ -1099,8 +1077,32 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("typeEffectSubscript", "TextFeatures");
 	scrMenuMgr->addMenuItemString("typeEffectOutline", "TextFeatures");
 	scrMenuMgr->addMenuItemString("typeEffectShadow", "TextFeatures");
+	scrMenuMgr->createMenu("TextLinking", tr("Text Frame Links"), "Item");
+	scrMenuMgr->addMenuItemString("TextLinking", "Item");
+	scrMenuMgr->addMenuItemString("toolsLinkTextFrame", "TextLinking");
+	scrMenuMgr->addMenuItemString("toolsUnlinkTextFrame", "TextLinking");
+	scrMenuMgr->addMenuItemString("toolsUnlinkTextFrameAndCutText", "TextLinking");
+	scrMenuMgr->createMenu("ItemPDFOptions", tr("P&DF Options"));
+	scrMenuMgr->addMenuItemString("ItemPDFOptions", "Item");
+	scrMenuMgr->addMenuItemString("itemPDFIsAnnotation", "ItemPDFOptions");
+	scrMenuMgr->addMenuItemString("itemPDFIsBookmark", "ItemPDFOptions");
+	scrMenuMgr->addMenuItemString("itemPDFAnnotationProps", "ItemPDFOptions");
+	scrMenuMgr->addMenuItemString("itemPDFFieldProps", "ItemPDFOptions");
 
+	scrMenuMgr->addMenuItemString("SEPARATOR", "Item");
+	scrMenuMgr->createMenu("Weld", tr("Welding"), "Item");
+	scrMenuMgr->addMenuItemString("Weld", "Item");
+	scrMenuMgr->addMenuItemString("itemWeld", "Weld");
+	scrMenuMgr->addMenuItemString("itemsUnWeld", "Weld");
+	scrMenuMgr->addMenuItemString("itemEditWeld", "Weld");
+	scrMenuMgr->createMenu("Marks", tr("Marks"), "Item");
+	scrMenuMgr->addMenuItemString("Marks", "Item");
+	scrMenuMgr->addMenuItemString("editMark", "Marks");
+	scrMenuMgr->addMenuItemString("SEPARATOR", "Item");
 	scrMenuMgr->addMenuItemString("itemAttributes", "Item");
+
+	scrActions["itemPrintingEnabled"]->setEnabled(false);
+	scrMenuMgr->setMenuEnabled("ItemConvertTo", false);
 
 	//Insert menu
 	scrMenuMgr->createMenu("Insert", ActionManager::defaultMenuNameEntryTranslated("Insert"));
@@ -5784,7 +5786,7 @@ void ScribusMainWindow::toggleSnapElements()
 	slotDocCh();
 }
 
-void ScribusMainWindow::SetSnapElements(bool b)
+void ScribusMainWindow::setSnapElements(bool b)
 {
 	if (doc && doc->SnapElement != b)
 		toggleSnapElements();
