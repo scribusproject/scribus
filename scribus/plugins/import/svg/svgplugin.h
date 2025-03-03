@@ -94,7 +94,7 @@ class GradientHelper
 class SvgStyle
 {
 	public:
-
+		QString stylename;
 		bool Display {true};
 		bool FillCSpace {false};
 		bool StrokeCSpace {false};
@@ -144,6 +144,12 @@ class SvgStyle
 		QString filter;
 		QString endMarker;
 		QString startMarker;
+};
+
+struct CSSStyle
+{
+	QString fillColor;
+	QString strokeColor;
 };
 
 class SVGPlug : public QObject
@@ -219,7 +225,7 @@ class SVGPlug : public QObject
 		QString docDesc;
 		QString docTitle;
 		int groupLevel { 0 };
-		QStack<SvgStyle*>	m_gc;
+		QStack<SvgStyle*> m_gc;
 		QMap<QString, GradientHelper> m_gradients;
 		QMap<QString, QDomElement> m_nodeMap;
 		QMap<QString, FPointArray> m_clipPaths;
@@ -259,6 +265,7 @@ class SVGPlug : public QObject
 		QMap<QString, filterSpec> filters;
 		QMap<QString, markerDesc> markers;
 		QList<PageItem*> Elements;
+		QMap<QString, CSSStyle> cssStyleList;
 
 	protected:
 		QVector<double> parseNumbersList(const QString& numbersStr) const;
