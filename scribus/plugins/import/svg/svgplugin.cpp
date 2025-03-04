@@ -2862,6 +2862,7 @@ void SVGPlug::parseStyle(SvgStyle *obj, const QDomElement &e)
 					obj->stylename = className;
 					// Optional: further parse properties if needed
 					QStringList props = properties.split(';', Qt::SkipEmptyParts);
+					QString fill,stroke;
 					for (const QString &prop : props)
 					{
 						QStringList keyValue = prop.split(':', Qt::SkipEmptyParts);
@@ -2869,13 +2870,15 @@ void SVGPlug::parseStyle(SvgStyle *obj, const QDomElement &e)
 						{
 							QString key = keyValue[0].trimmed();
 							QString value = keyValue[1].trimmed();
-							if (key == "fill" || key == "stroke")
-								parsePA(obj, key, value);
+							if (key == "fill")
+								fill = parseColor(value);
+							if (key == "fill")
+								stroke = parseColor(value);
 						}
 					}
 					CSSStyle cst;
-					cst.fillColor=obj->FillCol;
-					cst.strokeColor=obj->StrokeCol;
+					cst.fillColor=fill;
+					cst.strokeColor=stroke;
 					cssStyleList.insert(className, cst);
 				}
 			}
