@@ -2872,7 +2872,7 @@ void SVGPlug::parseStyle(SvgStyle *obj, const QDomElement &e)
 							QString value = keyValue[1].trimmed();
 							if (key == "fill")
 								fill = parseColor(value);
-							if (key == "fill")
+							if (key == "stroke")
 								stroke = parseColor(value);
 						}
 					}
