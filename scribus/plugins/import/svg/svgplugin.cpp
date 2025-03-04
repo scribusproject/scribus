@@ -2056,6 +2056,57 @@ QList<PageItem*> SVGPlug::parseUse(const QDomElement &e)
 	return UElements;
 }
 
+void SVGPlug::parseCSS(const QDomElement &e)
+{
+	// static QRegularExpression ruleRegex(R"(\.(\w+)\s*\{([^}]*)\})");
+	static QRegularExpression newlinesTabsRegex("[\\n\\t\\r]");
+	static QRegularExpression multipleSpacesRegex("\\s+");
+	static QRegularExpression ruleRegex(R"(([^\{]+)\s*\{\s*([^}]+?)\s*\})");
+	for(QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
+	{
+		QDomText t = n.toText();
+		if (!t.isNull())
+		{
+			QString cssText = n.nodeValue();
+			QString normalizedCss = cssText.trimmed();
+
+			normalizedCss.replace(newlinesTabsRegex, " ");
+			normalizedCss.replace(multipleSpacesRegex, " ");
+			QRegularExpressionMatchIterator i = ruleRegex.globalMatch(normalizedCss);
+
+			while (i.hasNext())
+			{
+				QRegularExpressionMatch match = i.next();
+				QString className = match.captured(1).trimmed(); // e.g., "st0"
+				if (className.startsWith('.'))
+						className = className.mid(1); // Remove the leading dot
+				QString properties = match.captured(2).trimmed(); // e.g., "fill:#EA5B0C;"
+				// obj->stylename = className;
+				// Optional: further parse properties if needed
+				QStringList props = properties.split(';', Qt::SkipEmptyParts);
+				QString fill,stroke;
+				for (const QString &prop : props)
+				{
+					QStringList keyValue = prop.split(':', Qt::SkipEmptyParts);
+					if (keyValue.size() == 2)
+					{
+						QString key = keyValue[0].trimmed();
+						QString value = keyValue[1].trimmed();
+						if (key == "fill")
+							fill = parseColor(value);
+						if (key == "stroke")
+							stroke = parseColor(value);
+					}
+				}
+				CSSStyle cst;
+				cst.fillColor=fill;
+				cst.strokeColor=stroke;
+				cssStyleList.insert(className, cst);
+			}
+		}
+	}
+}
+
 QFont SVGPlug::getFontFromStyle(const SvgStyle& style) const
 {
 	QFont font(QApplication::font());
@@ -2834,57 +2885,9 @@ void SVGPlug::parseStyle(SvgStyle *obj, const QDomElement &e)
 	SvgStyle *gc = m_gc.top();
 	if (!gc)
 		return;
-	// static QRegularExpression ruleRegex(R"(\.(\w+)\s*\{([^}]*)\})");
-	static QRegularExpression newlinesTabsRegex("[\\n\\t\\r]");
-	static QRegularExpression multipleSpacesRegex("\\s+");
-	static QRegularExpression ruleRegex(R"(([^\{]+)\s*\{\s*([^}]+?)\s*\})");
+
 	if(e.tagName() == "style")
-	{
-		for(QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
-		{
-			QDomText t = n.toText();
-			if (!t.isNull())
-			{
-				QString cssText = n.nodeValue();
-				QString normalizedCss = cssText.trimmed();
-
-				normalizedCss.replace(newlinesTabsRegex, " ");
-				normalizedCss.replace(multipleSpacesRegex, " ");
-				QRegularExpressionMatchIterator i = ruleRegex.globalMatch(normalizedCss);
-
-				while (i.hasNext())
-				{
-					QRegularExpressionMatch match = i.next();
-					QString className = match.captured(1).trimmed(); // e.g., "st0"
-					if (className.startsWith('.'))
-							className = className.mid(1); // Remove the leading dot
-					QString properties = match.captured(2).trimmed(); // e.g., "fill:#EA5B0C;"
-					obj->stylename = className;
-					// Optional: further parse properties if needed
-					QStringList props = properties.split(';', Qt::SkipEmptyParts);
-					QString fill,stroke;
-					for (const QString &prop : props)
-					{
-						QStringList keyValue = prop.split(':', Qt::SkipEmptyParts);
-						if (keyValue.size() == 2)
-						{
-							QString key = keyValue[0].trimmed();
-							QString value = keyValue[1].trimmed();
-							if (key == "fill")
-								fill = parseColor(value);
-							if (key == "stroke")
-								stroke = parseColor(value);
-						}
-					}
-					CSSStyle cst;
-					cst.fillColor=fill;
-					cst.strokeColor=stroke;
-					cssStyleList.insert(className, cst);
-				}
-			}
-		}
-	}
-
+		parseCSS(e);
 	if (!e.attribute("display").isEmpty())
 		parsePA(obj, "display", e.attribute("display"));
 	if (!e.attribute("color").isEmpty())

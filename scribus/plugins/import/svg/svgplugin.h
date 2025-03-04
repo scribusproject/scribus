@@ -200,6 +200,7 @@ class SVGPlug : public QObject
 		QList<PageItem*> parseSwitch(const QDomElement &e);
 		QList<PageItem*> parseSymbol(const QDomElement &e);
 		QList<PageItem*> parseUse(const QDomElement &e);
+		void parseCSS(const QDomElement &e);
 		const char* getCoord( const char *ptr, double &number) const;
 		QFont getFontFromStyle(const SvgStyle& style) const;
 		QDomElement getReferencedNode(const QDomElement &e) const;
