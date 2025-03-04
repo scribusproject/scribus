@@ -1103,12 +1103,12 @@ void SVGPlug::parseDefs(const QDomElement &e)
 			parseGradient(b);
 		else if (STag2 == "clipPath")
 			parseClipPath(b);
-		else if (STag2 == "pattern")
-			parsePattern(b);
-		else if (STag2 == "marker")
-			parseMarker(b);
 		else if (STag2 == "filter")
 			parseFilter(b);
+		else if (STag2 == "marker")
+			parseMarker(b);
+		else if (STag2 == "pattern")
+			parsePattern(b);
 	}
 }
 
@@ -1554,13 +1554,7 @@ QList<PageItem*> SVGPlug::parseCircle(const QDomElement &e)
 	double x = parseUnit(e.attribute("cx")) - r;
 	double y = parseUnit(e.attribute("cy")) - r;
 	setupNode(e);
-	SvgStyle *gc = m_gc.top();
-	//#14170 a little hack to overwrite colours from the included styles
-	if (e.hasAttribute("class") && cssStyleList.contains(e.attribute("class")))
-	{
-		gc->FillCol = cssStyleList[e.attribute("class")].fillColor;
-		gc->StrokeCol = cssStyleList[e.attribute("class")].strokeColor;
-	}
+	const SvgStyle *gc = m_gc.top();
 	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX, baseY, r * 2.0, r * 2.0, gc->LWidth, gc->FillCol, gc->StrokeCol);
 	PageItem* ite = m_Doc->Items->at(z);
 	QTransform mm;
@@ -1584,13 +1578,7 @@ QList<PageItem*> SVGPlug::parseEllipse(const QDomElement &e)
 	double x = parseUnit(e.attribute("cx")) - rx;
 	double y = parseUnit(e.attribute("cy")) - ry;
 	setupNode(e);
-	SvgStyle *gc = m_gc.top();
-	//#14170 a little hack to overwrite colours from the included styles
-	if (e.hasAttribute("class") && cssStyleList.contains(e.attribute("class")))
-	{
-		gc->FillCol = cssStyleList[e.attribute("class")].fillColor;
-		gc->StrokeCol = cssStyleList[e.attribute("class")].strokeColor;
-	}
+	const SvgStyle *gc = m_gc.top();
 	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, baseX, baseY, rx * 2.0, ry * 2.0, gc->LWidth, gc->FillCol, gc->StrokeCol);
 	PageItem* ite = m_Doc->Items->at(z);
 	QTransform mm;
@@ -1669,13 +1657,7 @@ QList<PageItem*> SVGPlug::parseLine(const QDomElement &e)
 	double x2 = e.attribute("x2").isEmpty() ? 0.0 : parseUnit(e.attribute("x2"));
 	double y2 = e.attribute("y2").isEmpty() ? 0.0 : parseUnit(e.attribute("y2"));
 	setupNode(e);
-	SvgStyle *gc = m_gc.top();
-	//#14170 a little hack to overwrite colours from the included styles
-	if (e.hasAttribute("class") && cssStyleList.contains(e.attribute("class")))
-	{
-		gc->FillCol = cssStyleList[e.attribute("class")].fillColor;
-		gc->StrokeCol = cssStyleList[e.attribute("class")].strokeColor;
-	}
+	const SvgStyle *gc = m_gc.top();
 	int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
 	PageItem* ite = m_Doc->Items->at(z);
 	ite->PoLine.resize(4);
@@ -1725,17 +1707,8 @@ QList<PageItem*> SVGPlug::parsePath(const QDomElement &e)
 	QList<PageItem*> PElements;
 	double baseX = m_Doc->currentPage()->xOffset();
 	double baseY = m_Doc->currentPage()->yOffset();
-
 	setupNode(e);
-
-	SvgStyle *gc = m_gc.top();
-	//#14170 a little hack to overwrite colours from the included styles
-	if (e.hasAttribute("class") && cssStyleList.contains(e.attribute("class")))
-	{
-		gc->FillCol = cssStyleList[e.attribute("class")].fillColor;
-		gc->StrokeCol = cssStyleList[e.attribute("class")].strokeColor;
-	}
-
+	const SvgStyle *gc = m_gc.top();
 	PageItem::ItemType itype = pArray.parseSVG(e.attribute("d")) ? PageItem::PolyLine : PageItem::Polygon;
 	int z = m_Doc->itemAdd(itype, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
 	PageItem* ite = m_Doc->Items->at(z);
@@ -1762,13 +1735,7 @@ QList<PageItem*> SVGPlug::parsePolyline(const QDomElement &e)
 	double baseX = m_Doc->currentPage()->xOffset();
 	double baseY = m_Doc->currentPage()->yOffset();
 	setupNode(e);
-	SvgStyle *gc = m_gc.top();
-	//#14170 a little hack to overwrite colours from the included styles
-	if (e.hasAttribute("class") && cssStyleList.contains(e.attribute("class")))
-	{
-		gc->FillCol = cssStyleList[e.attribute("class")].fillColor;
-		gc->StrokeCol = cssStyleList[e.attribute("class")].strokeColor;
-	}
+	const SvgStyle *gc = m_gc.top();
 	QString points = e.attribute("points");
 	if (!points.isEmpty())
 	{
@@ -1831,13 +1798,7 @@ QList<PageItem*> SVGPlug::parseRect(const QDomElement &e)
 	double rx = e.attribute("rx").isEmpty() ? 0.0 : parseUnit(e.attribute("rx"));
 	double ry = e.attribute("ry").isEmpty() ? 0.0 : parseUnit(e.attribute("ry"));
 	setupNode(e);
-	SvgStyle *gc = m_gc.top();
-	//#14170 a little hack to overwrite colours from the included styles
-	if (e.hasAttribute("class") && cssStyleList.contains(e.attribute("class")))
-	{
-		gc->FillCol = cssStyleList[e.attribute("class")].fillColor;
-		gc->StrokeCol = cssStyleList[e.attribute("class")].strokeColor;
-	}
+	const SvgStyle *gc = m_gc.top();
 	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, width, height, gc->LWidth, gc->FillCol, gc->StrokeCol);
 	PageItem* ite = m_Doc->Items->at(z);
 	if ((rx != 0) || (ry != 0))
@@ -2062,7 +2023,7 @@ void SVGPlug::parseCSS(const QDomElement &e)
 	static QRegularExpression newlinesTabsRegex("[\\n\\t\\r]");
 	static QRegularExpression multipleSpacesRegex("\\s+");
 	static QRegularExpression ruleRegex(R"(([^\{]+)\s*\{\s*([^}]+?)\s*\})");
-	for(QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
+	for (QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
 	{
 		QDomText t = n.toText();
 		if (!t.isNull())
@@ -2083,8 +2044,8 @@ void SVGPlug::parseCSS(const QDomElement &e)
 				QString properties = match.captured(2).trimmed(); // e.g., "fill:#EA5B0C;"
 				// obj->stylename = className;
 				// Optional: further parse properties if needed
+				CSSStyle cst;
 				QStringList props = properties.split(';', Qt::SkipEmptyParts);
-				QString fill,stroke;
 				for (const QString &prop : props)
 				{
 					QStringList keyValue = prop.split(':', Qt::SkipEmptyParts);
@@ -2092,15 +2053,9 @@ void SVGPlug::parseCSS(const QDomElement &e)
 					{
 						QString key = keyValue[0].trimmed();
 						QString value = keyValue[1].trimmed();
-						if (key == "fill")
-							fill = parseColor(value);
-						if (key == "stroke")
-							stroke = parseColor(value);
+						parseCSSAttribute(cst, key, value);
 					}
 				}
-				CSSStyle cst;
-				cst.fillColor=fill;
-				cst.strokeColor=stroke;
 				cssStyleList.insert(className, cst);
 			}
 		}
@@ -2880,14 +2835,72 @@ void SVGPlug::parsePA(SvgStyle *obj, const QString &command, const QString &para
 	}
 }
 
+void  SVGPlug::parseCSSAttribute(CSSStyle& style, const QString& command, const QString& params)
+{
+	if (command == "fill")
+	{
+		style.fillColor = parseColor(params);
+		return;
+	}
+	if (command == "stroke")
+	{
+		style.strokeColor = parseColor(params);
+		return;
+	}
+	if (command == "stroke-linecap")
+	{
+		if (params == "butt")
+			style.strokeLineCap = Qt::FlatCap;
+		else if (params == "round")
+			style.strokeLineCap = Qt::RoundCap;
+		else if (params == "square")
+			style.strokeLineCap = Qt::SquareCap;
+		return;
+	}
+	if (command == "stroke-linejoin")
+	{
+		if (params == "miter")
+			style.strokeLineJoin = Qt::MiterJoin;
+		else if (params == "round")
+			style.strokeLineJoin = Qt::RoundJoin;
+		else if (params == "bevel")
+			style.strokeLineJoin = Qt::BevelJoin;
+		return;
+	}
+	if (command == "stroke-width")
+	{
+		style.strokeWidth = parseUnit(params);
+		return;
+	}
+}
+
 void SVGPlug::parseStyle(SvgStyle *obj, const QDomElement &e)
 {
 	SvgStyle *gc = m_gc.top();
 	if (!gc)
 		return;
 
-	if(e.tagName() == "style")
+	if (e.tagName() == "style")
+	{
 		parseCSS(e);
+		return;
+	}
+
+	if (e.hasAttribute("class") && cssStyleList.contains(e.attribute("class")))
+	{
+		const CSSStyle& cssStyle = cssStyleList[e.attribute("class")];
+		if (!cssStyle.fillColor.isEmpty())
+			gc->FillCol = cssStyle.fillColor;
+		if (!cssStyle.strokeColor.isEmpty())
+			gc->StrokeCol = cssStyle.strokeColor;
+		if (cssStyle.strokeLineCap.has_value())
+			obj->PLineEnd = *cssStyle.strokeLineCap;
+		if (cssStyle.strokeLineJoin.has_value())
+			obj->PLineJoin = *cssStyle.strokeLineJoin;
+		if (cssStyle.strokeWidth.has_value())
+			obj->LWidth = *cssStyle.strokeWidth;
+	}
+
 	if (!e.attribute("display").isEmpty())
 		parsePA(obj, "display", e.attribute("display"));
 	if (!e.attribute("color").isEmpty())

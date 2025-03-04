@@ -7,12 +7,15 @@ for which a new license (GPL+exception) is in place.
 #ifndef SVGPLUG_H
 #define SVGPLUG_H
 
+#include <optional>
+
 #include <QDomElement>
 #include <QFont>
 #include <QList>
 #include <QRectF>
 #include <QSizeF>
 #include <QStack>
+
 #include "pluginapi.h"
 #include "loadsaveplugin.h"
 #include "vgradient.h"
@@ -150,6 +153,9 @@ struct CSSStyle
 {
 	QString fillColor;
 	QString strokeColor;
+	std::optional<double> strokeWidth;
+	std::optional<Qt::PenJoinStyle> strokeLineJoin;
+	std::optional<Qt::PenCapStyle> strokeLineCap;
 };
 
 class SVGPlug : public QObject
@@ -201,6 +207,7 @@ class SVGPlug : public QObject
 		QList<PageItem*> parseSymbol(const QDomElement &e);
 		QList<PageItem*> parseUse(const QDomElement &e);
 		void parseCSS(const QDomElement &e);
+		void parseCSSAttribute(CSSStyle& style, const QString& command, const QString& params);
 		const char* getCoord( const char *ptr, double &number) const;
 		QFont getFontFromStyle(const SvgStyle& style) const;
 		QDomElement getReferencedNode(const QDomElement &e) const;
