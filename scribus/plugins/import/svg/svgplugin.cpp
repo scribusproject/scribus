@@ -1099,16 +1099,18 @@ void SVGPlug::parseDefs(const QDomElement &e)
 		QString STag2 = parseTagName(b);
 		if (STag2 == "g")
 			parseDefs(b);
-		else if (STag2 == "linearGradient" || STag2 == "radialGradient")
-			parseGradient(b);
 		else if (STag2 == "clipPath")
 			parseClipPath(b);
 		else if (STag2 == "filter")
 			parseFilter(b);
+		else if (STag2 == "linearGradient" || STag2 == "radialGradient")
+			parseGradient(b);
 		else if (STag2 == "marker")
 			parseMarker(b);
 		else if (STag2 == "pattern")
 			parsePattern(b);
+		else if (STag2 == "style")
+			parseCSS(b);
 	}
 }
 
@@ -1423,28 +1425,8 @@ QList<PageItem*> SVGPlug::parseElement(const QDomElement &e)
 		parseDefs(e);
 	else if (STag == "a")
 		GElements = parseA(e);
-	else if (STag == "switch")
-		GElements = parseSwitch(e);
-	else if (STag == "symbol")
-		GElements = parseSymbol(e);
-	else if (STag == "use")
-		GElements = parseUse(e);
-	else if (STag == "linearGradient" || STag == "radialGradient")
-		parseGradient(e);
-	else if (STag == "rect")
-		GElements = parseRect(e);
-	else if (STag == "ellipse")
-		GElements = parseEllipse(e);
 	else if (STag == "circle")
 		GElements = parseCircle(e);
-	else if (STag == "line")
-		GElements = parseLine(e);
-	else if (STag == "path")
-		GElements = parsePath(e);
-	else if (STag == "polyline" || STag == "polygon")
-		GElements = parsePolyline(e);
-	else if (STag == "text")
-		GElements = parseText(e);
 	else if (STag == "clipPath")
 		parseClipPath(e);
 	else if (STag == "desc")
@@ -1452,13 +1434,35 @@ QList<PageItem*> SVGPlug::parseElement(const QDomElement &e)
 		if (groupLevel == 1)
 			docDesc = e.text();
 	}
+	else if (STag == "ellipse")
+		GElements = parseEllipse(e);
+	else if (STag == "image")
+		GElements = parseImage(e);
+	else if (STag == "line")
+		GElements = parseLine(e);
+	else if (STag == "linearGradient" || STag == "radialGradient")
+		parseGradient(e);
+	else if (STag == "path")
+		GElements = parsePath(e);
+	else if (STag == "polyline" || STag == "polygon")
+		GElements = parsePolyline(e);
+	else if (STag == "rect")
+		GElements = parseRect(e);
+	else if (STag == "style")
+		parseCSS(e);
+	else if (STag == "switch")
+		GElements = parseSwitch(e);
+	else if (STag == "symbol")
+		GElements = parseSymbol(e);
+	else if (STag == "text")
+		GElements = parseText(e);
 	else if (STag == "title")
 	{
 		if (groupLevel == 1)
 			docTitle = e.text();
 	}
-	else if (STag == "image")
-		GElements = parseImage(e);
+	else if (STag == "use")
+		GElements = parseUse(e);
 /*	else if (STag == "i:pgf")
 	{
 		QByteArray cdat;
@@ -1528,9 +1532,6 @@ QList<PageItem*> SVGPlug::parseElement(const QDomElement &e)
 		(void)inflateEnd(&strm);
 		fclose(source);
 		fclose(dest);
-	} */
-/*	else if (STag == "image")
-		GElements = parseImage(e);
 	} */
 	else if (!isIgnorableNodeName(STag))
 	{
@@ -2889,12 +2890,6 @@ void SVGPlug::parseStyle(SvgStyle *obj, const QDomElement &e)
 	SvgStyle *gc = m_gc.top();
 	if (!gc)
 		return;
-
-	if (e.tagName() == "style")
-	{
-		parseCSS(e);
-		return;
-	}
 
 	if (e.hasAttribute("class") && cssStyleList.contains(e.attribute("class")))
 	{
