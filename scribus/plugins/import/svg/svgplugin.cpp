@@ -2348,21 +2348,25 @@ const char * SVGPlug::getCoord(const char *ptr, double &number) const
 
 QString SVGPlug::parseColor(const QString &s)
 {
+	QString str = s.trimmed();
+	if (str == "none")
+		return CommonStrings::None;
+
 	QColor c;
-	if (s.length() > 11) // icc-color()
+	if (str.length() > 11) // icc-color()
 	{
-		int iccColorIndex  = s.indexOf("icc-color");
+		int iccColorIndex  = str.indexOf("icc-color");
 		if (iccColorIndex >= 0)
 		{
-			QString iccColorName = parseIccColor(s);
+			QString iccColorName = parseIccColor(str);
 			if (iccColorName.length() > 0)
 				return iccColorName;
 		}
 	}
-	if (s.startsWith( "rgb(" ) )
+
+	if (str.startsWith( "rgb(" ) )
 	{
-		QString parse = s.trimmed();
-		QStringList colors = parse.split(',', Qt::SkipEmptyParts);
+		QStringList colors = str.split(',', Qt::SkipEmptyParts);
 		QString r = colors[0].right(colors[0].length() - 4);
 		QString g = colors[1];
 		QString b = colors[2].left(colors[2].length() - 1);
@@ -2384,7 +2388,7 @@ QString SVGPlug::parseColor(const QString &s)
 		c = QColor(r.toInt(), g.toInt(), b.toInt());
 	}
 	else
-		c.setNamedColor(s.trimmed());
+		c.setNamedColor(str);
 
 	ScColor tmp;
 	tmp.fromQColor(c);
