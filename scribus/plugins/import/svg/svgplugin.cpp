@@ -2026,27 +2026,34 @@ void SVGPlug::parseCSS(const QDomElement &e)
 	for (QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
 	{
 		QDomText t = n.toText();
-		if (!t.isNull())
+		if (t.isNull())
+			continue;
+
+		QString cssText = n.nodeValue();
+		QString normalizedCss = cssText.trimmed();
+
+		normalizedCss.replace(newlinesTabsRegex, " ");
+		normalizedCss.replace(multipleSpacesRegex, " ");
+		QRegularExpressionMatchIterator i = ruleRegex.globalMatch(normalizedCss);
+
+		while (i.hasNext())
 		{
-			QString cssText = n.nodeValue();
-			QString normalizedCss = cssText.trimmed();
-
-			normalizedCss.replace(newlinesTabsRegex, " ");
-			normalizedCss.replace(multipleSpacesRegex, " ");
-			QRegularExpressionMatchIterator i = ruleRegex.globalMatch(normalizedCss);
-
-			while (i.hasNext())
+			QRegularExpressionMatch match = i.next();
+			QString className = match.captured(1).trimmed(); // e.g., "st0"
+			QStringList classNameList = className.split(",");
+			for (QString& clsName : classNameList)
 			{
-				QRegularExpressionMatch match = i.next();
-				QString className = match.captured(1).trimmed(); // e.g., "st0"
-				if (className.startsWith('.'))
-						className = className.mid(1); // Remove the leading dot
-				QString properties = match.captured(2).trimmed(); // e.g., "fill:#EA5B0C;"
-				// obj->stylename = className;
-				// Optional: further parse properties if needed
-				CSSStyle cst;
-				QStringList props = properties.split(';', Qt::SkipEmptyParts);
-				for (const QString &prop : props)
+				QString clsName2 = clsName.trimmed();
+				if (clsName2.startsWith('.'))
+					clsName = clsName2.mid(1); // Remove the leading dot
+			}
+			QString properties = match.captured(2).trimmed(); // e.g., "fill:#EA5B0C;"
+			QStringList props = properties.split(';', Qt::SkipEmptyParts);
+			// Optional: further parse properties if needed
+			for (const QString& clsName : classNameList)
+			{
+				CSSStyle& cst = cssStyleList[clsName];
+				for (const QString& prop : props)
 				{
 					QStringList keyValue = prop.split(':', Qt::SkipEmptyParts);
 					if (keyValue.size() == 2)
@@ -2056,7 +2063,6 @@ void SVGPlug::parseCSS(const QDomElement &e)
 						parseCSSAttribute(cst, key, value);
 					}
 				}
-				cssStyleList.insert(className, cst);
 			}
 		}
 	}
