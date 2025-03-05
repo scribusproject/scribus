@@ -81,14 +81,7 @@ SVGImportPlugin::SVGImportPlugin() :
 	registerFormats();
 	languageChange();
 }
-/*
-void SVGImportPlugin::addToMainWindowMenu(ScribusMainWindow *mw)
-{
-	importAction->setEnabled(true);
-	connect(importAction, SIGNAL(triggered()), SLOT(import()));
-	mw->scrMenuMgr->addMenuItem(importAction, "FileImport");
-}
-*/
+
 SVGImportPlugin::~SVGImportPlugin()
 {
 	unregisterAll();
@@ -744,7 +737,7 @@ PageItem *SVGPlug::finishNode(const QDomNode &e, PageItem* item)
 					item->GrEndX   = gc->GradFillX2 * item->width();
 					item->GrEndY   = gc->GradFillY2 * item->height();
 					item->GrFocalX = gc->GradFillFX * item->width();
-					item->GrFocalY = gc->GradFillFY * item->height(); 
+					item->GrFocalY = gc->GradFillFY * item->height();
 					double angle1 = atan2(gc->GradFillY2-gc->GradFillY1,gc->GradFillX2-gc->GradFillX1)*(180.0/M_PI);
 					double angle2 = atan2(item->GrEndY - item->GrStartX, item->GrEndX - item->GrStartX)*(180.0/M_PI);
 					double dx = item->GrStartX + (item->GrEndX - item->GrStartX) / 2.0;
@@ -989,7 +982,7 @@ FPoint SVGPlug::parseTextPosition(const QDomElement &e, const FPoint* pos)
 			QStringList xl(xatt.split(QChar(' '), Qt::SkipEmptyParts));
 			xatt = xl.first();
 		}
-		x = parseUnit(xatt); 
+		x = parseUnit(xatt);
 	}
 
 	if (e.hasAttribute("y"))
@@ -1013,7 +1006,7 @@ FPoint SVGPlug::parseTextPosition(const QDomElement &e, const FPoint* pos)
 			QStringList xl(dxatt.split(QChar(' '), Qt::SkipEmptyParts));
 			dxatt = xl.first();
 		}
-		x += parseUnit(dxatt); 
+		x += parseUnit(dxatt);
 	}
 
 	if (e.hasAttribute("dy"))
@@ -1025,7 +1018,7 @@ FPoint SVGPlug::parseTextPosition(const QDomElement &e, const FPoint* pos)
 			QStringList xl(dyatt.split(QChar(' '), Qt::SkipEmptyParts));
 			dyatt = xl.first();
 		}
-		y += parseUnit(dyatt); 
+		y += parseUnit(dyatt);
 	}
 
 	return FPoint(x, y);
@@ -1095,21 +1088,21 @@ void SVGPlug::parseDefs(const QDomElement &e)
 			continue;
 		SvgStyle svgStyle;
 		parseStyle(&svgStyle, b);
-		if (!svgStyle.Display) 
+		if (!svgStyle.Display)
 			continue;
 		QString STag2 = parseTagName(b);
 		if (STag2 == "g")
 			parseDefs(b);
-		else if (STag2 == "linearGradient" || STag2 == "radialGradient")
-			parseGradient(b);
 		else if (STag2 == "clipPath")
 			parseClipPath(b);
-		else if (STag2 == "pattern")
-			parsePattern(b);
-		else if (STag2 == "marker")
-			parseMarker(b);
 		else if (STag2 == "filter")
 			parseFilter(b);
+		else if (STag2 == "linearGradient" || STag2 == "radialGradient")
+			parseGradient(b);
+		else if (STag2 == "marker")
+			parseMarker(b);
+		else if (STag2 == "pattern")
+			parsePattern(b);
 	}
 }
 
@@ -1189,23 +1182,22 @@ void SVGPlug::parseClipPathAttr(const QDomElement &e, FPointArray& clipPath) con
 
 void SVGPlug::parseFilterAttr(const QDomElement &e, PageItem* item) const
 {
+	if (!e.hasAttribute("filter"))
+		return;
 	QString filterName;
-	if (e.hasAttribute("filter"))
+	QString attr = e.attribute("filter");
+	if (attr.startsWith( "url("))
 	{
-		QString attr = e.attribute("filter");
-		if (attr.startsWith( "url("))
-		{
-			unsigned int start = attr.indexOf("#") + 1;
-			unsigned int end = attr.lastIndexOf(")");
-			filterName = attr.mid(start, end - start);
-			if (filterName.isEmpty())
-				return;
-		}
-		if (filters.contains(filterName))
-		{
-			filterSpec spec = filters[filterName];
-			item->setFillBlendmode(spec.blendMode);
-		}
+		unsigned int start = attr.indexOf("#") + 1;
+		unsigned int end = attr.lastIndexOf(")");
+		filterName = attr.mid(start, end - start);
+		if (filterName.isEmpty())
+			return;
+	}
+	if (filters.contains(filterName))
+	{
+		filterSpec spec = filters[filterName];
+		item->setFillBlendmode(spec.blendMode);
 	}
 }
 
@@ -1220,7 +1212,7 @@ QList<PageItem*> SVGPlug::parseA(const QDomElement &e)
 			continue;
 		SvgStyle svgStyle;
 		parseStyle(&svgStyle, b);
-		if (!svgStyle.Display) 
+		if (!svgStyle.Display)
 			continue;
 		QList<PageItem*> el = parseElement(b);
 		for (int ec = 0; ec < el.count(); ++ec)
@@ -1257,7 +1249,7 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 				continue;
 			SvgStyle svgStyle;
 			parseStyle(&svgStyle, b);
-			if (!svgStyle.Display) 
+			if (!svgStyle.Display)
 				continue;
 			QList<PageItem*> el = parseElement(b);
 			for (int ec = 0; ec < el.count(); ++ec)
@@ -1281,7 +1273,7 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 			continue;
 		SvgStyle svgStyle;
 		parseStyle(&svgStyle, b);
-		if (!svgStyle.Display) 
+		if (!svgStyle.Display)
 			continue;
 		QList<PageItem*> el = parseElement(b);
 		for (int ec = 0; ec < el.count(); ++ec)
@@ -1400,7 +1392,7 @@ QList<PageItem*> SVGPlug::parseDoc(const QDomElement &e)
 			continue;
 		SvgStyle svgStyle;
 		parseStyle(&svgStyle, b);
-		if (!svgStyle.Display) 
+		if (!svgStyle.Display)
 			continue;
 		QList<PageItem*> el = parseElement(b);
 		for (int ec = 0; ec < el.count(); ++ec)
@@ -1425,28 +1417,8 @@ QList<PageItem*> SVGPlug::parseElement(const QDomElement &e)
 		parseDefs(e);
 	else if (STag == "a")
 		GElements = parseA(e);
-	else if (STag == "switch")
-		GElements = parseSwitch(e);
-	else if (STag == "symbol")
-		GElements = parseSymbol(e);
-	else if (STag == "use")
-		GElements = parseUse(e);
-	else if (STag == "linearGradient" || STag == "radialGradient")
-		parseGradient(e);
-	else if (STag == "rect")
-		GElements = parseRect(e);
-	else if (STag == "ellipse")
-		GElements = parseEllipse(e);
 	else if (STag == "circle")
 		GElements = parseCircle(e);
-	else if (STag == "line")
-		GElements = parseLine(e);
-	else if (STag == "path")
-		GElements = parsePath(e);
-	else if (STag == "polyline" || STag == "polygon")
-		GElements = parsePolyline(e);
-	else if (STag == "text")
-		GElements = parseText(e);
 	else if (STag == "clipPath")
 		parseClipPath(e);
 	else if (STag == "desc")
@@ -1454,13 +1426,33 @@ QList<PageItem*> SVGPlug::parseElement(const QDomElement &e)
 		if (groupLevel == 1)
 			docDesc = e.text();
 	}
+	else if (STag == "ellipse")
+		GElements = parseEllipse(e);
+	else if (STag == "image")
+		GElements = parseImage(e);
+	else if (STag == "line")
+		GElements = parseLine(e);
+	else if (STag == "linearGradient" || STag == "radialGradient")
+		parseGradient(e);
+	else if (STag == "path")
+		GElements = parsePath(e);
+	else if (STag == "polyline" || STag == "polygon")
+		GElements = parsePolyline(e);
+	else if (STag == "rect")
+		GElements = parseRect(e);
+	else if (STag == "switch")
+		GElements = parseSwitch(e);
+	else if (STag == "symbol")
+		GElements = parseSymbol(e);
+	else if (STag == "text")
+		GElements = parseText(e);
 	else if (STag == "title")
 	{
 		if (groupLevel == 1)
 			docTitle = e.text();
 	}
-	else if (STag == "image")
-		GElements = parseImage(e);
+	else if (STag == "use")
+		GElements = parseUse(e);
 /*	else if (STag == "i:pgf")
 	{
 		QByteArray cdat;
@@ -1531,9 +1523,6 @@ QList<PageItem*> SVGPlug::parseElement(const QDomElement &e)
 		fclose(source);
 		fclose(dest);
 	} */
-/*	else if (STag == "image")
-		GElements = parseImage(e);
-	} */
 	else if (!isIgnorableNodeName(STag))
 	{
 		// warn if unsupported SVG feature are encountered
@@ -1598,7 +1587,7 @@ QList<PageItem*> SVGPlug::parseImage(const QDomElement &e)
 {
 	FPointArray clipPath;
 	QList<PageItem*> IElements;
-	QString fname = e.attribute("xlink:href");
+	QString hrefData = e.attribute("xlink:href");
 	double baseX = m_Doc->currentPage()->xOffset();
 	double baseY = m_Doc->currentPage()->yOffset();
 	double x = e.attribute("x").isEmpty() ? 0.0 : parseUnit(e.attribute("x"));
@@ -1609,17 +1598,17 @@ QList<PageItem*> SVGPlug::parseImage(const QDomElement &e)
 	parseClipPathAttr(e, clipPath);
 	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, w, h, 1, m_Doc->itemToolPrefs().imageFillColor, m_Doc->itemToolPrefs().imageStrokeColor);
 	PageItem* ite = m_Doc->Items->at(z);
-	if (!fname.isEmpty())
+	if (!hrefData.isEmpty())
 	{
-		if (!fname.startsWith("data:"))
-			m_Doc->loadPict(fname, ite);
+		if (!hrefData.startsWith("data:"))
+			m_Doc->loadPict(hrefData, ite);
 		else
 		{
-			int startData = fname.indexOf(",");
-			QString dataType = fname.left(startData);
-			fname.remove(0, startData + 1);
+			int startData = hrefData.indexOf(",");
+			QString dataType = hrefData.left(startData);
+			hrefData.remove(0, startData + 1);
 			QByteArray ba;
-			ba.append(fname);
+			ba.append(hrefData);
 			if (dataType.contains("base64"))
 				ba = QByteArray::fromBase64(ba);
 			QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_svg_XXXXXX.png");
@@ -1686,7 +1675,6 @@ QVector<double> SVGPlug::parseNumbersList(const QString& numbersStr) const
 	       *str == QLatin1Char('-') || *str == QLatin1Char('+') ||
 	       *str == QLatin1Char('.'))
 	{
-
 		numbers.append(ScCLocale::toDoubleC(str));
 
 		while (str->isSpace())
@@ -1748,7 +1736,7 @@ QList<PageItem*> SVGPlug::parsePolyline(const QDomElement &e)
 		else
 			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
 		PageItem* ite = m_Doc->Items->at(z);
-		ite->fillRule = (gc->fillRule != "nonzero"); 
+		ite->fillRule = (gc->fillRule != "nonzero");
 		ite->PoLine.resize(0);
 		ite->PoLine.svgInit();
 		bool bFirst = true;
@@ -1969,7 +1957,7 @@ QList<PageItem*> SVGPlug::parseSwitch(const QDomElement &e)
 				}
 			}
 		}
-		else 
+		else
 		{
 			if (de.hasAttribute("requiredExtensions") || de.hasAttribute("requiredFeatures"))
 				continue;
