@@ -953,6 +953,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("editCut", "Edit");
 	scrMenuMgr->addMenuItemString("editCopy", "Edit");
 	scrMenuMgr->addMenuItemString("editPaste", "Edit");
+	scrMenuMgr->addMenuItemString("editPastePlainText", "Edit");
 	scrMenuMgr->createMenu("EditPasteRecent", tr("Paste Recent"), "Edit", false, true);
 	scrMenuMgr->addMenuItemString("itemDelete", "Edit");
 	scrMenuMgr->createMenu("EditContents", tr("Contents"), "Edit", false, true);
@@ -4590,7 +4591,7 @@ void ScribusMainWindow::slotEditCopy()
 	}
 }
 
-void ScribusMainWindow::slotEditPaste()
+void ScribusMainWindow::slotEditPaste(bool forcePlainText)
 {
 	if (!HaveDoc)
 		return;
@@ -4711,7 +4712,7 @@ void ScribusMainWindow::slotEditPaste()
 			currItem->itemText.insertObject(fIndex);
 			doc->m_Selection->delaySignalsOff();
 		}
-		else if (ScMimeData::clipboardHasHTML())
+		else if (ScMimeData::clipboardHasHTML() && !forcePlainText)
 		{
 			ScClipboardProcessor scclipproc(doc, currItem);
 			QString clipContent = QApplication::clipboard()->mimeData()->html();
@@ -4861,6 +4862,11 @@ void ScribusMainWindow::slotEditPaste()
 	view->DrawNew();
 	slotDocCh(false);
 	slotPreviewCh();
+}
+
+void ScribusMainWindow::slotEditPastePlainText()
+{
+	slotEditPaste(true);
 }
 
 //CB-->Doc ?????

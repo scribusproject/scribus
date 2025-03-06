@@ -224,6 +224,8 @@ void ActionManager::initEditMenuActions()
 	scrActions->insert(name, new ScrAction("edit-copy", "edit-copy", "", defaultKey(name), mainWindow));
 	name = "editPaste";
 	scrActions->insert(name, new ScrAction("edit-paste", "edit-paste", "", defaultKey(name), mainWindow));
+	name = "editPastePlainText";
+	scrActions->insert(name, new ScrAction("edit-paste", "edit-paste", "", defaultKey(name), mainWindow));
 	name = "editCopyContents";
 	scrActions->insert(name, new ScrAction("edit-copy", "edit-copy", "", defaultKey(name), mainWindow));
 	name = "editPasteContents";
@@ -273,6 +275,7 @@ void ActionManager::initEditMenuActions()
 	connect( (*scrActions)["editCut"], SIGNAL(triggered()), mainWindow, SLOT(slotEditCut()) );
 	connect( (*scrActions)["editCopy"], SIGNAL(triggered()), mainWindow, SLOT(slotEditCopy()) );
 	connect( (*scrActions)["editPaste"], SIGNAL(triggered()), mainWindow, SLOT(slotEditPaste()) );
+	connect( (*scrActions)["editPastePlainText"], SIGNAL(triggered()), mainWindow, SLOT(slotEditPastePlainText()) );
 	connect( (*scrActions)["editCopyContents"], SIGNAL(triggered()), mainWindow, SLOT(slotEditCopyContents()) );
 	connect( (*scrActions)["editPasteContents"], SIGNAL(triggeredData(int)), mainWindow, SLOT(slotEditPasteContents(int)) );
 	connect( (*scrActions)["editPasteContentsAbs"], SIGNAL(triggeredData(int)), mainWindow, SLOT(slotEditPasteContents(int)) );
@@ -1516,6 +1519,7 @@ void ActionManager::languageChange()
 	(*scrActions)["editCut"]->setTexts( tr("Cu&t"));
 	(*scrActions)["editCopy"]->setTexts( tr("&Copy"));
 	(*scrActions)["editPaste"]->setTexts( tr("&Paste"));
+	(*scrActions)["editPastePlainText"]->setTexts( tr("Paste P&lain Text"));
 	(*scrActions)["editCopyContents"]->setTexts( tr("&Copy"));
 	(*scrActions)["editPasteContents"]->setTexts( tr("&Paste"));
 	(*scrActions)["editPasteContentsAbs"]->setTexts( tr("Paste (&Absolute)"));
@@ -1776,6 +1780,7 @@ void ActionManager::languageChange()
 	(*scrActions)["editCopy"]->setStatusTextAndShortcut( tr("Copy"));
 	(*scrActions)["editCut"]->setStatusTextAndShortcut( tr("Cut"));
 	(*scrActions)["editPaste"]->setStatusTextAndShortcut( tr("Paste"));
+	(*scrActions)["editPastePlainText"]->setStatusTextAndShortcut( tr("Paste Unformatted"));
 	(*scrActions)["editRedoAction"]->setStatusTextAndShortcut( tr("Redo"));
 	(*scrActions)["editUndoAction"]->setStatusTextAndShortcut( tr("Undo"));
 	(*scrActions)["fileClose"]->setStatusTextAndShortcut( tr("Close the current document"));
@@ -1918,6 +1923,7 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("editCut", QKeySequence::Cut);
 	defKeys.insert("editCopy", QKeySequence::Copy);
 	defKeys.insert("editPaste", QKeySequence::Paste);
+	defKeys.insert("editPastePlainText", Qt::CTRL | Qt::META | Qt::Key_V);
 	defKeys.insert("editClearContents", Qt::CTRL | Qt::SHIFT | Qt::Key_Delete);
 	defKeys.insert("editCopyContents", Qt::CTRL | Qt::SHIFT | Qt::Key_C);
 	defKeys.insert("editPasteContents", Qt::CTRL | Qt::SHIFT | Qt::Key_V);
@@ -2097,6 +2103,7 @@ void ActionManager::createDefaultMenus()
 		<< "editCut" 
 		<< "editCopy"
 		<< "editPaste"
+		<< "editPastePlainText"
 		<< "editCopyContents"
 		<< "editPasteContents"
 		<< "editPasteContentsAbs"

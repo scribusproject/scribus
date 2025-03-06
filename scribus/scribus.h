@@ -397,7 +397,8 @@ public slots:
 	/** \brief put the marked text/object into the clipboard*/
 	void slotEditCopy();
 	/** \brief paste the clipboard into the document*/
-	void slotEditPaste();
+	void slotEditPaste(bool forcePlainText = false);
+	void slotEditPastePlainText();
 	void slotEditCopyContents();
 	void slotEditPasteContents(int absolute=0);
 	void SelectAll(bool docWideSelect = false);

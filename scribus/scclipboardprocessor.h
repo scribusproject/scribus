@@ -20,7 +20,7 @@ class PageItem;
 #ifndef SCCLIPBOARDPROCESSOR_H
 #define SCCLIPBOARDPROCESSOR_H
 
-// #define SCCLIP_DEBUG 1
+#define SCCLIP_DEBUG 1
 
 class ScClipboardProcessor
 {
