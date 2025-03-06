@@ -4643,7 +4643,10 @@ void ScribusMainWindow::slotEditPaste(bool forcePlainText)
 					is->setItem(story);
 					m_undoManager->action(currItem, is);
 				}
-				currItem->itemText.insert(story);
+				if (forcePlainText)
+					currItem->itemText.insertChars(story.text(0, story.length()));
+				else
+					currItem->itemText.insert(story);
 			}
 		}
 		else if (ScMimeData::clipboardHasScribusElem() || ScMimeData::clipboardHasScribusFragment())
