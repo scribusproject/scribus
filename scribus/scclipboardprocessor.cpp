@@ -144,7 +144,8 @@ bool ScClipboardProcessor::processHTML_Other()
 bool ScClipboardProcessor::html_MSFT_Process()
 {
 	// Convert to a const xmlChar*, parse with libxml2
-	const xmlChar* html_content_cstr = reinterpret_cast<const xmlChar*>(m_content.toUtf8().constData());
+	QByteArray utf8Content = m_content.toUtf8();
+	const xmlChar* html_content_cstr = reinterpret_cast<const xmlChar*>(utf8Content.constData());
 
 	// Parse the HTML content using libxml2's HTML parser
 	htmlDocPtr doc = htmlReadDoc(html_content_cstr, NULL, NULL, HTML_PARSE_RECOVER | HTML_PARSE_NOERROR | HTML_PARSE_NOWARNING);
