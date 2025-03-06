@@ -405,7 +405,11 @@ void ScClipboardProcessor::html_MSFT_ParseParagraphs(xmlNode *node, QMap<QString
 			// qDebug() << "Paragraph Class:" << className;
 			// qDebug() << "Text Content:" << content;
 
-			ParagraphStyle currPstyle = m_doc->paragraphStyle(className);
+			ParagraphStyle currPstyle;
+			if(m_doc->styleExists(className))
+				currPstyle = m_doc->paragraphStyle(className);
+			else
+				currPstyle = m_pageItem->itemText.paragraphStyle();
 			int pos = qMax(0, m_pageItem->itemText.cursorPosition());
 
 			for (const auto &segment : std::as_const(segments))
@@ -668,10 +672,12 @@ void ScClipboardProcessor::html_LibreOffice_ParseParagraphs(xmlNode *node, QMap<
 			// qDebug() << "Paragraph Class:" << className;
 			// qDebug() << "Text Content:" << content;
 
+
 			ParagraphStyle currPstyle;
-			if(!m_doc->paragraphStyles().contains(className))
-				className = CommonStrings::trDefaultParagraphStyle;
-			currPstyle = m_doc->paragraphStyle(className);
+			if(m_doc->styleExists(className))
+				currPstyle = m_doc->paragraphStyle(className);
+			else
+				currPstyle = m_pageItem->itemText.paragraphStyle();
 			int pos = qMax(0, m_pageItem->itemText.cursorPosition());
 			for (const auto &segment : std::as_const(segments))
 			{
@@ -928,7 +934,6 @@ QString ScClipboardProcessor::html_Cocoa_ExtractText(xmlNode *node, QList<TextSe
 			//unlikely this will work as underline is done with a span in Cocoa HTML
 			bool newUnderline = ts.hasUnderline || (tag == "u");
 			TextSegment ts{QString(), QString(), newBold, newItalic, newUnderline, 0.0, QString()};
-			// QString innerText = msftExtractText(cur->children, segments, ts);
 			QString innerText = html_Cocoa_ExtractText(cur->children, segments, ts);
 
 			text += innerText;
@@ -955,7 +960,11 @@ void ScClipboardProcessor::html_Cocoa_ParseParagraphs(xmlNode *node, QMap<QStrin
 			// qDebug() << "Paragraph Class:" << className;
 			// qDebug() << "Text Content:" << content;
 
-			ParagraphStyle currPstyle = m_doc->paragraphStyle(className);
+			ParagraphStyle currPstyle;
+			if(m_doc->styleExists(className))
+				currPstyle = m_doc->paragraphStyle(className);
+			else
+				currPstyle = m_pageItem->itemText.paragraphStyle();
 			int pos = qMax(0, m_pageItem->itemText.cursorPosition());
 			for (const auto &segment : std::as_const(segments))
 			{
