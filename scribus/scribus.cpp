@@ -694,22 +694,19 @@ void ScribusMainWindow::initPalettes()
 	// Outliner
 	outlinePalette = dockManager->outlinePalette;
 	outlinePalette->setMainWindow(this);
-	connect( scrActions["toolsOutline"], SIGNAL(toggled(bool)) , outlinePalette, SLOT(toggleView(bool)));
-	connect( outlinePalette, SIGNAL(viewToggled(bool)), scrActions["toolsOutline"], SLOT(setChecked(bool)));
+	outlinePalette->setToggleViewAction(scrActions["toolsOutline"]);
 
 	// Frame Properties
 	propertiesPalette = dockManager->propertiesPalette;
 	propertiesPalette->setMainWindow(this);
-	connect( scrActions["toolsProperties"], SIGNAL(toggled(bool)) , propertiesPalette, SLOT(toggleView(bool)));
-	connect( propertiesPalette, SIGNAL(viewToggled(bool)), scrActions["toolsProperties"], SLOT(setChecked(bool)));
+	propertiesPalette->setToggleViewAction(scrActions["toolsProperties"]);
 	emit UpdateRequest(reqDefFontListUpdate);
 	propertiesPalette->installEventFilter(this);
 
 	// Content Properties
 	contentPalette = dockManager->contentPalette;
 	contentPalette->setMainWindow(this);
-	connect( scrActions["toolsContent"], SIGNAL(toggled(bool)), contentPalette, SLOT(toggleView(bool)));
-	connect( contentPalette, SIGNAL(viewToggled(bool)), scrActions["toolsContent"], SLOT(setChecked(bool)));
+	contentPalette->setToggleViewAction(scrActions["toolsContent"]);
 	contentPalette->installEventFilter(this);
 
 	// Nodes
@@ -724,14 +721,12 @@ void ScribusMainWindow::initPalettes()
 
 	// Layer
 	layerPalette = dockManager->layerPalette;
-	connect( scrActions["toolsLayers"], SIGNAL(toggled(bool)) , layerPalette, SLOT(toggleView(bool)));
-	connect( layerPalette, SIGNAL(viewToggled(bool)), scrActions["toolsLayers"], SLOT(setChecked(bool)));
+	layerPalette->setToggleViewAction(scrActions["toolsLayers"]);
 	layerPalette->installEventFilter(this);
 
 	// Scrapbook
 	scrapbookPalette = dockManager->scrapbookPalette;
-	connect( scrActions["toolsScrapbook"], SIGNAL(toggled(bool)) , scrapbookPalette, SLOT(toggleView(bool)));
-	connect( scrapbookPalette, SIGNAL(viewToggled(bool)), scrActions["toolsScrapbook"], SLOT(setChecked(bool)));
+	scrapbookPalette->setToggleViewAction(scrActions["toolsScrapbook"]);
 	connect( scrapbookPalette, SIGNAL(pasteToActualPage(QString)), this, SLOT(pasteFromScrapbook(QString)));
 	connect( scrapbookPalette, SIGNAL(scrapbookListChanged()), this, SLOT(rebuildScrapbookMenu()));
 	scrapbookPalette->installEventFilter(this);
@@ -739,14 +734,12 @@ void ScribusMainWindow::initPalettes()
 	// Pages
 	pagePalette = dockManager->pagePalette;
 	pagePalette->setMainWindow(this);
-	connect( scrActions["toolsPages"], SIGNAL(toggled(bool)) , pagePalette, SLOT(toggleView(bool)) );
-	connect( pagePalette, SIGNAL(viewToggled(bool)), scrActions["toolsPages"], SLOT(setChecked(bool)));
+	pagePalette->setToggleViewAction(scrActions["toolsPages"]);
 	pagePalette->installEventFilter(this);
 
 	// Bookmark
 	bookmarkPalette = dockManager->bookPalette;
-	connect( scrActions["toolsBookmarks"], SIGNAL(toggled(bool)) , bookmarkPalette, SLOT(toggleView(bool)) );
-	connect( bookmarkPalette, SIGNAL(viewToggled(bool)), scrActions["toolsBookmarks"], SLOT(setChecked(bool)));
+	bookmarkPalette->setToggleViewAction(scrActions["toolsBookmarks"]);
 	bookmarkPalette->installEventFilter(this);
 
 	// Downloads
@@ -767,16 +760,14 @@ void ScribusMainWindow::initPalettes()
 
 	// Align & Distribute
 	alignDistributePalette = dockManager->alignDistributePalette;
-	connect( scrActions["toolsAlignDistribute"], SIGNAL(toggled(bool)) , alignDistributePalette, SLOT(toggleView(bool)) );
-	connect( alignDistributePalette, SIGNAL(viewToggled(bool)), scrActions["toolsAlignDistribute"], SLOT(setChecked(bool)));
+	alignDistributePalette->setToggleViewAction(scrActions["toolsAlignDistribute"]);
 	connect( alignDistributePalette, SIGNAL(documentChanged()), this, SLOT(slotDocCh()));
 	alignDistributePalette->installEventFilter(this);
 
 	// Symbols
 	symbolPalette = dockManager->symbolPalette;
 	symbolPalette->setMainWindow(this);
-	connect(scrActions["toolsSymbols"], SIGNAL(toggled(bool)), symbolPalette, SLOT(toggleView(bool)) );
-	connect(symbolPalette, SIGNAL(viewToggled(bool)), scrActions["toolsSymbols"], SLOT(setChecked(bool)));
+	symbolPalette->setToggleViewAction(scrActions["toolsSymbols"]);
 	connect(symbolPalette, SIGNAL(startEdit(QString)), this, SLOT(editSymbolStart(QString)));
 	connect(symbolPalette, SIGNAL(endEdit()), this, SLOT(editSymbolEnd()));
 	connect(symbolPalette, SIGNAL(objectDropped()), this, SLOT(PutToPatterns()));
@@ -785,8 +776,7 @@ void ScribusMainWindow::initPalettes()
 	// Inline Elements
 	inlinePalette = dockManager->inlinePalette;
 	inlinePalette->setMainWindow(this);
-	connect(scrActions["toolsInline"], SIGNAL(toggled(bool)), inlinePalette, SLOT(toggleView(bool)) );
-	connect(inlinePalette, SIGNAL(viewToggled(bool)), scrActions["toolsInline"], SLOT(setChecked(bool)));
+	inlinePalette->setToggleViewAction(scrActions["toolsInline"]);
 	connect(inlinePalette, SIGNAL(startEdit(int)), this, SLOT(editInlineStart(int)));
 	connect(inlinePalette, SIGNAL(endEdit()), this, SLOT(editInlineEnd()));
 	connect(inlinePalette, SIGNAL(objectDropped(QString)), this, SLOT(PutToInline(QString)));
@@ -794,9 +784,9 @@ void ScribusMainWindow::initPalettes()
 
 	// Undo
 	undoPalette = dockManager->undoPalette;
+	undoPalette->setToggleViewAction(scrActions["toolsActionHistory"]);
 	undoPalette->installEventFilter(this);
 	m_undoManager->registerGui(undoPalette);
-	connect(undoPalette, SIGNAL(viewToggled(bool)), this, SLOT(setUndoPalette(bool)));
 	connect(undoPalette, SIGNAL(objectMode(bool)), this, SLOT(setUndoMode(bool)));
 
 	// initializing style manager here too even it's not strictly a palette
@@ -5450,52 +5440,19 @@ void ScribusMainWindow::ToggleAllPalettes()
 	if (m_palettesStatus[PAL_ALL])
 	{
 		m_palettesStatus[PAL_ALL] = false;
-//		if (m_palettesStatus[PAL_PROPERTIES])
-//			propertiesPalette->toggleView(true);
-//		if (m_palettesStatus[PAL_CONTENT])
-//			contentPalette->toggleView(true);
-//		if (m_palettesStatus[PAL_OUTLINE])
-//			outlinePalette->toggleView(true);
-//		if (m_palettesStatus[PAL_SCRAPBOOK])
-//			scrapbookPalette->toggleView(true);
-//		if (m_palettesStatus[PAL_LAYER])
-//			layerPalette->toggleView(true);
-//		if (m_palettesStatus[PAL_PAGE])
-//			pagePalette->toggleView(true);
-//		if (m_palettesStatus[PAL_BOOKMARK])
-//			bookmarkPalette->toggleView(true);
+
 		if (m_palettesStatus[PAL_VERIFIER])
 			docCheckerPalette->show();
 		if (m_palettesStatus[PAL_DOWNLOADS])
 			downloadsPalette->show();
-//		if (m_palettesStatus[PAL_ALIGNDISTRIBUTE])
-//			alignDistributePalette->toggleView(true);
-//		setUndoPalette(m_palettesStatus[PAL_UNDO]);
 	}
 	else
 	{
-//		m_palettesStatus[PAL_PROPERTIES] = !propertiesPalette->isClosed();
-//		m_palettesStatus[PAL_CONTENT] = !contentPalette->isClosed();
-//		m_palettesStatus[PAL_OUTLINE] = !outlinePalette->isClosed();
-//		m_palettesStatus[PAL_SCRAPBOOK] = !scrapbookPalette->isClosed();
-//		m_palettesStatus[PAL_LAYER] = !layerPalette->isClosed();
-//		m_palettesStatus[PAL_PAGE] = !pagePalette->isClosed();
-//		m_palettesStatus[PAL_BOOKMARK] = !bookmarkPalette->isClosed();
-//		m_palettesStatus[PAL_UNDO] = !undoPalette->isClosed();
 		m_palettesStatus[PAL_VERIFIER] = docCheckerPalette->isVisible();
 		m_palettesStatus[PAL_DOWNLOADS] = downloadsPalette->isVisible();
-//		m_palettesStatus[PAL_ALIGNDISTRIBUTE] = !alignDistributePalette->isClosed();
-//		propertiesPalette->toggleView(false);
-//		contentPalette->toggleView(false);
-//		outlinePalette->toggleView(false);
-//		scrapbookPalette->toggleView(false);
-//		bookmarkPalette->toggleView(false);
-//		pagePalette->toggleView(false);
-//		layerPalette->toggleView(false);
+
 		docCheckerPalette->hide();
 		downloadsPalette->hide();
-//		alignDistributePalette->toggleView(false);
-//		setUndoPalette(false);
 		m_palettesStatus[PAL_ALL] = true;
 	}
 }
@@ -5505,20 +5462,8 @@ void ScribusMainWindow::toggleCheckPal()
 	m_palettesStatus[PAL_ALL] = false;
 }
 
-void ScribusMainWindow::setUndoPalette(bool visible)
-{
-	undoPalette->toggleView(visible);
-	scrActions["toolsActionHistory"]->setChecked(visible);
-}
-
 void ScribusMainWindow::togglePagePalette()
 {
-	m_palettesStatus[PAL_ALL] = false;
-}
-
-void ScribusMainWindow::toggleUndoPalette()
-{
-	setUndoPalette(undoPalette->isClosed());
 	m_palettesStatus[PAL_ALL] = false;
 }
 

@@ -71,16 +71,23 @@ void ShapePlugin::addToMainWindowMenu(ScribusMainWindow* mw)
 
 	sc_palette->setMainWindow(mw);	
 	languageChange();
-	m_actions.insert("shapeShowPalette", new ScrAction(QObject::tr("Custom Shapes"), QKeySequence(), this));
-	m_actions["shapeShowPalette"]->setToggleAction(true);
-	m_actions["shapeShowPalette"]->setChecked(false);
-	connect(m_actions["shapeShowPalette"], SIGNAL(toggled(bool)), sc_palette, SLOT(toggleView(bool)));
-	connect(sc_palette, SIGNAL(viewToggled(bool)), m_actions["shapeShowPalette"], SLOT(setChecked(bool)));
+	m_actions.insert("shapeShowPalette", new ScrAction(fullTrName(), QKeySequence(), this));
+
+	// Use this if menu action is checkable
+	// m_actions["shapeShowPalette"]->setToggleAction(true);
+	// m_actions["shapeShowPalette"]->setChecked(false);
+	// connect(m_actions["shapeShowPalette"], SIGNAL(toggled(bool)), sc_palette, SLOT(toggleView(bool)));
+	// connect(sc_palette, SIGNAL(viewToggled(bool)), m_actions["shapeShowPalette"], SLOT(setChecked(bool)));
+
+	// Use this if menu action is not checkable
+	connect(m_actions["shapeShowPalette"], SIGNAL(triggered()), sc_palette, SLOT(toggleView()));
+
 	mw->scrMenuMgr->addMenuItemStringAfter("shapeShowPalette", "toolsInline", "Windows");
 	mw->scrMenuMgr->addMenuItemStringsToMenuBar("Windows", m_actions);
 
 	// For some reason we can't call addDockWidget(...) directly. If we do so Scribus crashes.
-	mw->dockManager->addDockFromPlugin(sc_palette);
+	mw->dockManager->addDockFromPlugin(sc_palette, false);
+
 }
 
 QString ShapePlugin::fullTrName() const

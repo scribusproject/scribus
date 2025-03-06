@@ -920,21 +920,9 @@ void ActionManager::initToolsMenuActions()
 	(*scrActions)["toolsSymbols"]->setShortcutContext(Qt::ApplicationShortcut);
 	(*scrActions)["toolsInline"]->setShortcutContext(Qt::ApplicationShortcut);
 
-
-	(*scrActions)["toolsProperties"]->setToggleAction(true);
-	(*scrActions)["toolsContent"]->setToggleAction(true);
-	(*scrActions)["toolsOutline"]->setToggleAction(true);
-	(*scrActions)["toolsScrapbook"]->setToggleAction(true);
-	(*scrActions)["toolsLayers"]->setToggleAction(true);
-	(*scrActions)["toolsPages"]->setToggleAction(true);
-	(*scrActions)["toolsBookmarks"]->setToggleAction(true);
 	(*scrActions)["toolsDownloads"]->setToggleAction(true);
 	(*scrActions)["toolsMeasurements"]->setToggleAction(true);
-	(*scrActions)["toolsActionHistory"]->setToggleAction(true);
 	(*scrActions)["toolsPreflightVerifier"]->setToggleAction(true);
-	(*scrActions)["toolsAlignDistribute"]->setToggleAction(true);
-	(*scrActions)["toolsSymbols"]->setToggleAction(true);
-	(*scrActions)["toolsInline"]->setToggleAction(true);
 	(*scrActions)["toolsToolbarTools"]->setToggleAction(true);
 	(*scrActions)["toolsToolbarPDF"]->setToggleAction(true);
 	(*scrActions)["toolsToolbarView"]->setToggleAction(true);
@@ -957,7 +945,6 @@ void ActionManager::initToolsMenuActions()
 
 	*nonEditActionNames << "itemLowerToBottom" << "itemRaiseToTop" << "itemRaise" << "itemLower";
 
-	connect( (*scrActions)["toolsActionHistory"], SIGNAL(toggled(bool)), mainWindow, SLOT(setUndoPalette(bool)) );
 	connect( (*scrActions)["toolsResources"], SIGNAL(triggered()), mainWindow, SLOT(slotResourceManager()) );
 	connectModeActions();
 }

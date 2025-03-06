@@ -455,8 +455,6 @@ public slots:
 	void toggleRulers();
 	void toggleRulerMode();
 	void togglePagePalette();
-	void toggleUndoPalette();
-	void setUndoPalette(bool visible);
 	void toggleCheckPal();
 	/** \brief Schaltet M_ViewShowImages ein/aus */
 	void toggleImageVisibility();
