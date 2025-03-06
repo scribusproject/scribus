@@ -322,7 +322,6 @@ void ScClipboardProcessor::html_MSFT_Process_CSS(const QMap<QString, QString> &s
 
 //Function to extract text content (including formatted text like <b> and <i>)
 QString ScClipboardProcessor::html_MSFT_ExtractText(xmlNode *node, QList<TextSegment> &segments, TextSegment ts)
-
 {
 	QString text;
 	for (xmlNode *cur = node; cur; cur = cur->next)
@@ -406,7 +405,7 @@ void ScClipboardProcessor::html_MSFT_ParseParagraphs(xmlNode *node, QMap<QString
 			// qDebug() << "Text Content:" << content;
 
 			ParagraphStyle currPstyle;
-			if(m_doc->styleExists(className))
+			if (m_doc->styleExists(className))
 				currPstyle = m_doc->paragraphStyle(className);
 			else
 				currPstyle = m_pageItem->itemText.paragraphStyle();

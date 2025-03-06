@@ -34,6 +34,7 @@ class ScClipboardProcessor
 
 		ScClipboardProcessor();
 		ScClipboardProcessor(ScribusDoc* doc, PageItem *pageItem);
+
 		void setContent(const QString& content, ContentType contentType);
 		void setDocAndPageItem(ScribusDoc* doc, PageItem *pageItem);
 		bool process();
