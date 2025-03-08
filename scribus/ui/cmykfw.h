@@ -29,10 +29,8 @@ public:
 	QString colorName() const;
 	bool isSpotColor() const;
 
-	QPixmap imageA { QPixmap(50, 50) };
-	QPixmap imageN { QPixmap(50, 50) };
-	QPixmap alertIcon;
-	ScColor Farbe;
+
+	ScColor m_color;
 
 	bool Wsave { false };
 	bool dynamic { true };
@@ -45,30 +43,35 @@ public:
 
 public slots:
 	void slotRightClick();
-	void setValSLiders(double value);
+	void setValSliders(double value);
 	void setValueS(int val);
 	void toggleSL();
 	void selSwatch();
 	void setSpot();
 	void selModel(const QString& mod);
 	void setColor();
-	void setColor2(int h, int s, bool ende);
+	void setColor2(int h, int s, bool end);
 	void selFromSwatch(int itemIndex);
 	void setValues();
+	void setValueFromHex();
 	void leave();
 
 protected:
-	ColorSetManager csm;
+	void updateNewColorImage(const ScColor& color);
+
+	ColorSetManager m_CSM;
 	ScribusDoc* m_doc { nullptr };
 	QTreeWidgetItem *systemSwatches { nullptr };
 	QTreeWidgetItem *userSwatches { nullptr };
 	QTreeWidgetItem *hsvSelector { nullptr };
 	QStringList customColSet;
-	bool isHLC { false };
-	
+	bool m_isHLC { false };
+	QPixmap imageA { QPixmap(50, 50) };
+	QPixmap imageN { QPixmap(50, 50) };
+	QPixmap alertIcon;
 	void showEvent(QShowEvent * event) override;
 
-	QPalette sliderPix(int farbe);
+	QPalette sliderPix(int color);
 	QPalette sliderBlack();
 };
 

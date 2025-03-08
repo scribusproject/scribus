@@ -22,7 +22,6 @@ for which a new license (GPL+exception) is in place.
 #include <QToolBox>
 #include <QToolTip>
 #include <QVBoxLayout>
-#include <QValidator>
 #include <QWidget>
 
 #if defined(_MSC_VER) && !defined(_USE_MATH_DEFINES)

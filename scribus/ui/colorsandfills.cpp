@@ -476,8 +476,8 @@ void ColorsAndFillsDialog::createNew()
 		if (!dia->exec())
 			return;
 
-		dia->Farbe.setSpotColor(dia->isSpotColor());
-		m_colorList.insert(dia->colorName(), dia->Farbe);
+		dia->m_color.setSpotColor(dia->isSpotColor());
+		m_colorList.insert(dia->colorName(), dia->m_color);
 		QTreeWidgetItem *lg = updateColorList(dia->colorName());
 		if (lg != nullptr)
 		{
@@ -557,9 +557,9 @@ void ColorsAndFillsDialog::editColorItem()
 		if (!dia->exec())
 			return;
 
-		dia->Farbe.setSpotColor(dia->isSpotColor());
-		dia->Farbe.setRegistrationColor(tmpColor.isRegistrationColor());
-		m_colorList[dia->colorName()] = dia->Farbe;
+		dia->m_color.setSpotColor(dia->isSpotColor());
+		dia->m_color.setRegistrationColor(tmpColor.isRegistrationColor());
+		m_colorList[dia->colorName()] = dia->m_color;
 		if (it->text(0) != dia->colorName())
 		{
 			replaceColorMap.insert(it->text(0), dia->colorName());
@@ -680,9 +680,9 @@ void ColorsAndFillsDialog::duplicateColorItem()
 			return;
 		}
 
-		dia->Farbe.setSpotColor(dia->isSpotColor());
-		dia->Farbe.setRegistrationColor(tmpColor.isRegistrationColor());
-		m_colorList[dia->colorName()] = dia->Farbe;
+		dia->m_color.setSpotColor(dia->isSpotColor());
+		dia->m_color.setRegistrationColor(tmpColor.isRegistrationColor());
+		m_colorList[dia->colorName()] = dia->m_color;
 		if (nam != dia->colorName())
 		{
 			replaceColorMap.insert(nam, dia->colorName());

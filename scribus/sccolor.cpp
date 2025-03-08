@@ -258,10 +258,12 @@ void ScColor::getLab(double *L, double *a, double *b) const
 	*b = m_b_val;
 }
 
-QString ScColor::name() const
+QString ScColor::name(bool withHash) const
 {
 	int value;
-	QString tmp, name="#";
+	QString tmp, name;
+	if (withHash)
+		name = "#";
 
 	switch (m_Model) 
 	{

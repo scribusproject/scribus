@@ -17,7 +17,6 @@ for which a new license (GPL+exception) is in place.
 #include <QPushButton>
 #include <QSignalBlocker>
 #include <QToolTip>
-#include <QValidator>
 
 #include "scpaths.h"
 #include "scribusapp.h"

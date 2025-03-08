@@ -125,7 +125,7 @@ public:
 
 	/** \brief Returns the ScColor as an Hex-String in the Form #CCYYMMKK for a CMYK color or ##RRGGBB for a RGB color. 
 	* For the None color return the "None" string. */
-	QString name() const;
+	QString name(bool withHash = true) const;
 	/** \brief Returns the ScColor as an Hex-String in the Form #RRGGBB
 	* If doc member is not specified, return meaningful result only for RGB colors. */
 	QString nameRGB(const ScribusDoc* doc = nullptr) const;
