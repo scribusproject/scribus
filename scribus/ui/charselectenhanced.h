@@ -23,7 +23,7 @@ class SCRIBUS_API CharSelectEnhanced : public ScrPaletteBase, public Ui::CharSel
 
 public:
 	CharSelectEnhanced(QWidget* parent);
-	~CharSelectEnhanced() = default;
+	~CharSelectEnhanced();
 
 	void setDoc(ScribusDoc* doc);
 	QString getUsedFont() const;

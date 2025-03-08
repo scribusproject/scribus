@@ -239,6 +239,12 @@ CMYKChoose::CMYKChoose(QWidget* parent, ScribusDoc* doc, const ScColor& orig, co
 	layout()->activate();
 }
 
+CMYKChoose::~CMYKChoose()
+{
+	if (hexLineEdit->validator())
+		delete hexLineEdit->validator();
+}
+
 QString CMYKChoose::colorName() const
 {
 	return ColorName->text();
@@ -1155,3 +1161,4 @@ void CMYKChoose::updateNewColorImage(const ScColor& color)
 		paintAlert(alertIcon, imageN, 2, 2);
 	NewC->setPixmap( imageN );
 }
+

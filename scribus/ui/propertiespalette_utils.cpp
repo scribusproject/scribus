@@ -97,6 +97,12 @@ NameWidget::NameWidget(QWidget* parent) : QLineEdit(parent)
 	setValidator( validator );
 }
 
+NameWidget::~NameWidget()
+{
+	if (validator())
+		delete validator();
+}
+
 void NameWidget::focusOutEvent(QFocusEvent *e)
 {
 	emit Leaved();
@@ -128,5 +134,3 @@ bool UserActionSniffer::eventFilter(QObject*, QEvent *e)
 	}
 	return false;
 }
-
-

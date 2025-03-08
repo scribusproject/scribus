@@ -38,6 +38,12 @@ CharSelectEnhanced::CharSelectEnhanced(QWidget* parent)
 	connect(hexLineEdit, SIGNAL(returnPressed()), this, SLOT(hexLineEdit_returnPressed()));
 }
 
+CharSelectEnhanced::~CharSelectEnhanced()
+{
+	if (hexLineEdit->validator())
+		delete hexLineEdit->validator();
+}
+
 void CharSelectEnhanced::setDoc(ScribusDoc* doc)
 {
 //     tDebug("CharSelectEnhanced setDoc start");

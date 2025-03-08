@@ -133,3 +133,9 @@ void Query::setValidator(const QRegularExpression& rx)
 	QValidator* valid = new QRegularExpressionValidator( rx, this );
 	answerEdit->setValidator(valid);
 }
+
+Query::~Query()
+{
+	if (answerEdit->validator())
+		delete answerEdit->validator();
+};

@@ -96,9 +96,9 @@ class SCRIBUS_API NameWidget : public QLineEdit
 
 public:
 	NameWidget(QWidget* parent);
-	~NameWidget() {}
+	~NameWidget();
 
-signals:
+	signals:
 	void Leaved();
 
 protected:
