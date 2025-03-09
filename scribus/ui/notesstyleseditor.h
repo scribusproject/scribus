@@ -26,7 +26,7 @@ private:
 	ScribusDoc         *m_Doc { nullptr };
 	PrefsContext       *m_prefs { nullptr };
 	bool				m_addNewNsMode { false };
-	QMap<QString, NotesStyle> changesMap; //<NSname to change, NSet new values>
+	QMap<QString, NotesStyle> m_changesMap; //<NSname to change, NSet new values>
 
 	void readNotesStyle(const QString& nsName);
 	void changeNotesStyle();
