@@ -232,18 +232,16 @@ void NotesStylesEditor::on_ApplyButton_clicked()
 	{
 		QString newName = NSlistBox->currentText();
 		NotesStyle newNS = m_changesMap.value(newName);
-		if (m_Doc->validateNSet(newNS))
-		{
-			m_addNewNsMode = false;
-			OKButton->setText(tr("OK"));
-			OKButton->setToolTip("");
-			ApplyButton->setText(tr("Apply"));
-			m_Doc->newNotesStyle(newNS);
-			updateNSList();
-			NSlistBox->setCurrentIndex(NSlistBox->findText(newNS.name()));
-		}
-		else
+		if (!m_Doc->validateNSet(newNS))
 			return;
+
+		m_addNewNsMode = false;
+		OKButton->setText(tr("OK"));
+		OKButton->setToolTip("");
+		ApplyButton->setText(tr("Apply"));
+		m_Doc->newNotesStyle(newNS);
+		updateNSList();
+		NSlistBox->setCurrentIndex(NSlistBox->findText(newNS.name()));
 	}
 	else
 	{
