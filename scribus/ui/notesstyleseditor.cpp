@@ -207,18 +207,10 @@ void NotesStylesEditor::setNotesStyle(NotesStyle * NS)
 	AutoW->setChecked(NS->isAutoNotesWidth());
 	AutoWeld->setChecked(NS->isAutoWeldNotesFrames());
 	//for endnotes disable autofixing size of notes frames
-	if (NS->isEndNotes())
-	{
-		AutoW->setEnabled(false);
-		AutoWeld->setEnabled(false);
-	}
-	else
-	{
-		AutoW->setEnabled(true);
-		AutoWeld->setEnabled(true);
-	}
+	bool b = !NS->isEndNotes();
+	AutoW->setEnabled(b);
+	AutoWeld->setEnabled(b);
 	AutoRemove->setChecked(NS->isAutoRemoveEmptyNotesFrames());
-
 	ApplyButton->setEnabled(false);
 	setBlockSignals(wasSignalsBlocked);
 }
@@ -231,10 +223,7 @@ void NotesStylesEditor::readNotesStyle(const QString& nsName)
 
 void NotesStylesEditor::on_NSlistBox_currentTextChanged(const QString &arg1)
 {
-	if (arg1 != tr("default"))
-		DeleteButton->setEnabled(true);
-	else
-		DeleteButton->setEnabled(false);
+	DeleteButton->setEnabled(arg1 != tr("default"));
 	readNotesStyle(arg1);
 }
 
@@ -360,19 +349,18 @@ void NotesStylesEditor::on_ApplyButton_clicked()
 
 void NotesStylesEditor::on_DeleteButton_clicked()
 {
-	QString nsName = NSlistBox->currentText();
+	QString nsName(NSlistBox->currentText());
 	int t = ScMessageBox::warning(m_Doc->scMW(), tr("Warning! Deleting Notes Style"), "<qt>" +
 								 tr("You are going to delete notes style %1. All notes and marks using that style are also going to be deleted.").arg(nsName) + "</qt>",
 								 QMessageBox::Ok | QMessageBox::Abort,
 								 QMessageBox::Abort,	// GUI default
 								 QMessageBox::Ok);	// batch default
-	if (t == QMessageBox::Ok)
-	{
-		m_Doc->deleteNotesStyle(nsName);
-		m_Doc->changed();
-		m_Doc->regionsChanged()->update(QRectF());
-		setDoc(m_Doc);
-	}
+	if (t != QMessageBox::Ok)
+		return;
+	m_Doc->deleteNotesStyle(nsName);
+	m_Doc->changed();
+	m_Doc->regionsChanged()->update(QRectF());
+	setDoc(m_Doc);
 }
 
 void NotesStylesEditor::on_NewButton_clicked()
