@@ -4507,6 +4507,7 @@ void ScribusMainWindow::slotEditCut()
 	slotDocCh();
 	slotPreviewCh();
 	scrActions["editPaste"]->setEnabled(true);
+	scrActions["editPastePlainText"]->setEnabled(true);
 	scrMenuMgr->setMenuEnabled("EditPasteRecent", scrapbookPalette->tempBView->objectMap.count() != 0);
 	if (activeTransaction)
 		activeTransaction.commit();
@@ -4587,6 +4588,7 @@ void ScribusMainWindow::slotEditCopy()
 	if (!internalCopy)
 	{
 		scrActions["editPaste"]->setEnabled(true);
+		scrActions["editPastePlainText"]->setEnabled(true);
 		scrMenuMgr->setMenuEnabled("EditPasteRecent", scrapbookPalette->tempBView->objectMap.count() != 0);
 	}
 }
@@ -5031,6 +5033,7 @@ void ScribusMainWindow::ClipChange()
 		tableEditMode = ((doc->appMode == modeEditTable) && (currItem->isTable()));
 	}
 	scrActions["editPaste"]->setEnabled(HaveDoc && (hasScribusData || textFrameEditMode || tableEditMode || hasExternalData));
+	scrActions["editPastePlainText"]->setEnabled(HaveDoc && (hasScribusData || textFrameEditMode || tableEditMode || hasExternalData));
 }
 
 void ScribusMainWindow::setCopyCutEnabled(bool b)

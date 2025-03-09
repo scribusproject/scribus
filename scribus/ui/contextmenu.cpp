@@ -495,7 +495,10 @@ void ContextMenu::createMenuItems_Selection()
 		menuEdit->addAction(m_ScMW->scrActions["editCopy"]);
 	if (((m_doc->appMode == modeEdit && currItem->itemType() == PageItem::TextFrame) || (m_doc->appMode == modeEditTable && currItem->itemType() == PageItem::Table)) &&
 		(ScMimeData::clipboardHasScribusText() || ScMimeData::clipboardHasScribusElem() || ScMimeData::clipboardHasPlainText()))
+	{
 		menuEdit->addAction(m_ScMW->scrActions["editPaste"]);
+		menuEdit->addAction(m_ScMW->scrActions["editPastePlainText"]);
+	}
 	if (!currItem->locked() && (m_doc->appMode != modeEdit)  && (m_doc->appMode != modeEditTable) && (!(currItem->isSingleSel)))
 		menuEdit->addAction(m_ScMW->scrActions["itemDelete"]);
 

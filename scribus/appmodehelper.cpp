@@ -224,6 +224,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 				(*a_scrActions)["editCopy"]->setEnabled(currItem != nullptr);
 				(*a_scrActions)["editClearContents"]->setEnabled(currItem != nullptr);
 				(*a_scrActions)["editPaste"]->setEnabled(layerUnlocked && ScMimeData::clipboardHasScribusData());
+				(*a_scrActions)["editPastePlainText"]->setEnabled(layerUnlocked && ScMimeData::clipboardHasScribusData());
 				(*a_scrActions)["editTruncateContents"]->setEnabled((currItem != nullptr) && currItem->isTextFrame());
 
 				scmw->propertiesPalette->setGradientEditMode(false);
@@ -286,6 +287,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 					scmw->setTBvals(currItem);
 				}
 				(*a_scrActions)["editPaste"]->setEnabled(false);
+				(*a_scrActions)["editPastePlainText"]->setEnabled(false);
 				if (currItem != nullptr && currItem->isTextFrame())
 				{
 					scmw->charPalette->setEnabled(true, currItem);
@@ -296,6 +298,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 				{
 					bool textFrameEditMode = ((currItem != nullptr) && (currItem->isTextFrame()));
 					(*a_scrActions)["editPaste"]->setEnabled( textFrameEditMode || (currItem == nullptr) );
+					(*a_scrActions)["editPastePlainText"]->setEnabled( textFrameEditMode || (currItem == nullptr) );
 				}
 				setTextEditMode(true);
 
@@ -355,7 +358,10 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 					a_actMgr->saveActionShortcutsPreEditMode();
 					// #11938: Paste is not correctly enabled in modeEditTable
 					if (ScMimeData::clipboardHasScribusData())
+					{
 						(*a_scrActions)["editPaste"]->setEnabled(currItem->isTable());
+						(*a_scrActions)["editPastePlainText"]->setEnabled(currItem->isTable());
+					}
 				}
 			}
 			break;
@@ -1047,6 +1053,7 @@ void AppModeHelper::setSpecialEditMode(bool b)
 	(*a_scrActions)["editCut"]->setEnabled(b2);
 	(*a_scrActions)["editCopy"]->setEnabled(b2);
 	(*a_scrActions)["editPaste"]->setEnabled(b2);
+	(*a_scrActions)["editPastePlainText"]->setEnabled(b2);
 	(*a_scrActions)["editCopyContents"]->setEnabled(b2);
 	(*a_scrActions)["editPasteContents"]->setEnabled(b2);
 	(*a_scrActions)["editPasteContentsAbs"]->setEnabled(b2);
@@ -1131,6 +1138,7 @@ void AppModeHelper::setFrameEditMode(bool b)
 	(*a_scrActions)["editCopy"]->setEnabled(b2);
 	(*a_scrActions)["editCut"]->setEnabled(b2);
 	(*a_scrActions)["editPaste"]->setEnabled(b2);
+	(*a_scrActions)["editPastePlainText"]->setEnabled(b2);
 	(*a_scrActions)["itemDelete"]->setEnabled(b2);
 	(*a_scrActions)["itemLock"]->setEnabled(b2);
 	(*a_scrActions)["itemConvertToTextFrame"]->setEnabled(b2);
@@ -1409,6 +1417,7 @@ void AppModeHelper::changeLayer(ScribusDoc *doc, bool clipScrapHaveData)
 {
 	bool setter = !doc->layerLocked( doc->activeLayer() );
 	(*a_scrActions)["editPaste"]->setEnabled(clipScrapHaveData && setter);
+	(*a_scrActions)["editPastePlainText"]->setEnabled(clipScrapHaveData && setter);
 	(*a_scrActions)["editSelectAll"]->setEnabled(setter);
 	(*a_scrActions)["editSelectAllOnLayer"]->setEnabled(setter);
 	(*a_scrActions)["editDeselectAll"]->setEnabled(false);
@@ -1469,6 +1478,7 @@ void AppModeHelper::mainWindowHasNewDoc(const ScribusDoc *doc, bool clipScrapHav
 	(*a_scrActions)["editCut"]->setEnabled(false);
 	(*a_scrActions)["editCopy"]->setEnabled(false);
 	(*a_scrActions)["editPaste"]->setEnabled(layerUnlocked && clipScrapHaveData);
+	(*a_scrActions)["editPastePlainText"]->setEnabled(layerUnlocked && clipScrapHaveData);
 	(*a_scrActions)["editCopyContents"]->setEnabled(false);
 	(*a_scrActions)["editPasteContents"]->setEnabled(false);
 	(*a_scrActions)["editPasteContentsAbs"]->setEnabled(false);
@@ -1643,6 +1653,7 @@ void AppModeHelper::mainWindowCloseLastDoc()
 	(*a_scrActions)["editMasterPages"]->setEnabled(false);
 	(*a_scrActions)["editNotesStyles"]->setEnabled(false);
 	(*a_scrActions)["editPaste"]->setEnabled(false);
+	(*a_scrActions)["editPastePlainText"]->setEnabled(false);
 	(*a_scrActions)["editRedoAction"]->setEnabled(false);
 	(*a_scrActions)["editReplaceColors"]->setEnabled(false);
 	(*a_scrActions)["editSearchReplace"]->setEnabled(false);
@@ -1869,6 +1880,7 @@ void AppModeHelper::setStartupActionsEnabled(bool enabled)
 	(*a_scrActions)["editCut"]->setEnabled(false);
 	(*a_scrActions)["editCopy"]->setEnabled(false);
 	(*a_scrActions)["editPaste"]->setEnabled(false);
+	(*a_scrActions)["editPastePlainText"]->setEnabled(false);
 //	scrMenuMgr->setMenuEnabled("EditPasteRecent", false);
 	(*a_scrActions)["editClearContents"]->setEnabled(false);
 	(*a_scrActions)["editTruncateContents"]->setEnabled(false);
