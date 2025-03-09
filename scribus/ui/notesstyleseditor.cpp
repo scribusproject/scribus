@@ -68,7 +68,7 @@ void NotesStylesEditor::languageChange()
 	}
 	else
 	{
-		OKButton->setText("OK");
+		OKButton->setText(tr("OK"));
 		OKButton->setToolTip("");
 		ApplyButton->setText(tr("Apply"));
 	}
@@ -387,7 +387,7 @@ void NotesStylesEditor::on_NewButton_clicked()
 
 void NotesStylesEditor::on_OKButton_clicked()
 {
-	if (OKButton->text() != tr("OK"))
+	if (m_addNewNsMode)
 	{
 		//in adding new style mode go back to normal editing mode
 		OKButton->setText(tr("OK"));
@@ -397,7 +397,7 @@ void NotesStylesEditor::on_OKButton_clicked()
 		m_changesMap.remove(newName);
 		int index = NSlistBox->findText(newName);
 		NSlistBox->removeItem(index);
-		NSlistBox->setCurrentIndex(index-1);
+		NSlistBox->setCurrentIndex(index - 1);
 		on_NSlistBox_currentTextChanged(NSlistBox->currentText());
 	}
 	else
