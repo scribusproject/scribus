@@ -295,7 +295,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	connect(insWhereData, SIGNAL( activated(int) ), this, SLOT( insWherePageDataDisable(int) ) );
 	connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
 	connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
-	connect(orientationQComboBox, SIGNAL(activated(int)), this, SLOT(setOrientation(int)));
+	connect(orientationQComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(setOrientation(int)));
 	connect(pageSizeSelector, SIGNAL(pageSizeChanged(QString)), this, SLOT(setSize(QString)));
 	connect(overrideMPSizingCheckBox, SIGNAL(stateChanged(int)), this, SLOT(enableSizingControls(int)));
 }
@@ -303,9 +303,6 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 void InsPage::setSize(const QString & gr)
 {
 	PageSize ps2(gr);
-
-	widthSpinBox->setEnabled(false);
-	heightSpinBox->setEnabled(false);
 	prefsPageSizeName = ps2.name();
 	if (gr == CommonStrings::trCustomPageSize)
 	{
@@ -315,30 +312,26 @@ void InsPage::setSize(const QString & gr)
 	}
 	else
 	{
-		widthSpinBox->setValue(ps2.width() * m_unitRatio);
-		heightSpinBox->setValue(ps2.height() * m_unitRatio);
+		widthSpinBox->setEnabled(false);
+		heightSpinBox->setEnabled(false);
+		double w = ps2.width() * m_unitRatio;
+		double h = ps2.height() * m_unitRatio;
+		if (orientationQComboBox->currentIndex() == 1)
+		{
+			double t = h;
+			h = w;
+			w = t;
+		}
+		widthSpinBox->setValue(w);
+		heightSpinBox->setValue(h);
 	}
 }
 
 void InsPage::setOrientation(int ori)
 {
-	double br;
-	setSize(pageSizeSelector->pageSizeTR());
-	if (ori == 0)
-	{
-		if (pageSizeSelector->pageSizeTR() == CommonStrings::trCustomPageSize)
-		{
-			br = widthSpinBox->value();
-			widthSpinBox->setValue(heightSpinBox->value());
-			heightSpinBox->setValue(br);
-		}
-	}
-	else
-	{
-		br = widthSpinBox->value();
-		widthSpinBox->setValue(heightSpinBox->value());
-		heightSpinBox->setValue(br);
-	}
+	double t = widthSpinBox->value();
+	widthSpinBox->setValue(heightSpinBox->value());
+	heightSpinBox->setValue(t);
 }
 
 QStringList InsPage::getMasterPages() const
