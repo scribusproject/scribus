@@ -23,13 +23,14 @@ protected:
 	void changeEvent(QEvent *e) override;
 
 private:
-	ScribusDoc         *m_Doc;
-	PrefsContext       *m_prefs;
+	ScribusDoc         *m_Doc { nullptr };
+	PrefsContext       *m_prefs { nullptr };
+	bool                m_addNewNsMode { false };
 	QMap<QString, NotesStyle> changesMap; //<NSname to change, NSet new values>
+
 	void readNotesStyle(const QString& nsName);
 	void changeNotesStyle();
 	void setBlockSignals(bool block);
-	bool addNewNsMode;
 
 public slots:
 	void setDoc(ScribusDoc *doc);
