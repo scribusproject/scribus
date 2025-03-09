@@ -523,7 +523,7 @@ void NodePalette::ToggleContourMode()
 		PolySplit->setEnabled(true);
 		ResetCont->setEnabled(false);
 		ResetContClip->setEnabled(false);
-		if (m_posOrigin == Canvas | m_posOrigin == Page)
+		if (m_posOrigin == Canvas || m_posOrigin == Page)
 		{
 			XSpin->setMinimum(-16777215);
 			YSpin->setMinimum(-16777215);
