@@ -21,7 +21,6 @@ NotesStylesEditor::NotesStylesEditor(QWidget *parent, const char *name)
 
 	setBlockSignals(true);
 	
-	addNewNsMode = false;
 	setDoc(nullptr);
 	NSlistBox->setInsertPolicy(QComboBox::InsertAlphabetically);
 
@@ -61,7 +60,7 @@ void NotesStylesEditor::languageChange()
 
 	retranslateUi(this);
 
-	if (addNewNsMode)
+	if (m_addNewNsMode)
 	{
 		OKButton->setText(tr("Cancel"));
 		OKButton->setToolTip(tr("Dialog is in adding new notes style mode. After pressing Cancel button dialog will be switched into normal notes styles edit mode."));
@@ -240,13 +239,13 @@ void NotesStylesEditor::on_NSlistBox_currentIndexChanged(const QString &arg1)
 
 void NotesStylesEditor::on_ApplyButton_clicked()
 {
-	if (addNewNsMode)
+	if (m_addNewNsMode)
 	{
 		QString newName = NSlistBox->currentText();
 		NotesStyle newNS = changesMap.value(newName);
 		if (m_Doc->validateNSet(newNS))
 		{
-			addNewNsMode = false;
+			m_addNewNsMode = false;
 			OKButton->setText(tr("OK"));
 			OKButton->setToolTip("");
 			ApplyButton->setText(tr("Apply"));
@@ -393,7 +392,7 @@ void NotesStylesEditor::on_NewButton_clicked()
 	ApplyButton->setEnabled(true);
 	DeleteButton->setEnabled(false);
 	NewButton->setEnabled(false);
-	addNewNsMode = true;
+	m_addNewNsMode = true;
 	OKButton->setText(tr("Cancel Adding"));
 	OKButton->setToolTip(tr("Notes Styles Editor is in adding new notes style mode. After pressing Cancel button Notes Styles Editor switch into normal notes styles edit mode."));
 }
@@ -405,7 +404,7 @@ void NotesStylesEditor::on_OKButton_clicked()
 		//in adding new style mode go back to normal editing mode
 		OKButton->setText(tr("OK"));
 		NewButton->setEnabled(true);
-		addNewNsMode = false;
+		m_addNewNsMode = false;
 		QString newName = NSlistBox->currentText();
 		changesMap.remove(newName);
 		int index = NSlistBox->findText(newName);
