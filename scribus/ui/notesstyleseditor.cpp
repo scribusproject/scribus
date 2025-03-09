@@ -31,7 +31,7 @@ NotesStylesEditor::NotesStylesEditor(QWidget *parent, const char *name)
 
 	StartSpinBox->setMinimum(1);
 	StartSpinBox->setMaximum(99999);
-	changesMap.clear();
+	m_changesMap.clear();
 
 	setBlockSignals(isVisible());
 }
@@ -119,7 +119,7 @@ void NotesStylesEditor::setDoc(ScribusDoc *doc)
 	}
 	else
 	{
-		changesMap.clear();
+		m_changesMap.clear();
 		NewNameEdit->clear();
 		setEnabled(false);
 	}
@@ -147,11 +147,11 @@ void NotesStylesEditor::updateNSList()
 	else
 	{
 		NSlistBox->clear();
-		changesMap.clear();
+		m_changesMap.clear();
 		for (int a = 0; a < m_Doc->m_docNotesStylesList.count(); ++a)
 		{
 			NSlistBox->addItem(m_Doc->m_docNotesStylesList.at(a)->name());
-			changesMap.insert(m_Doc->m_docNotesStylesList.at(a)->name(), *(m_Doc->m_docNotesStylesList.at(a)));
+			m_changesMap.insert(m_Doc->m_docNotesStylesList.at(a)->name(), *(m_Doc->m_docNotesStylesList.at(a)));
 		}
 		if (!m_Doc->m_docNotesStylesList.isEmpty())
 			NSlistBox->setEnabled(true);
@@ -231,7 +231,7 @@ void NotesStylesEditor::on_ApplyButton_clicked()
 	if (m_addNewNsMode)
 	{
 		QString newName = NSlistBox->currentText();
-		NotesStyle newNS = changesMap.value(newName);
+		NotesStyle newNS = m_changesMap.value(newName);
 		if (m_Doc->validateNSet(newNS))
 		{
 			m_addNewNsMode = false;
@@ -251,9 +251,9 @@ void NotesStylesEditor::on_ApplyButton_clicked()
 		QString currNS = NSlistBox->currentText();
 		NotesStyle* NS = nullptr;
 		
-		foreach (const QString &nsName, changesMap.keys())
+		foreach (const QString &nsName, m_changesMap.keys())
 		{
-			NotesStyle n = changesMap.value(nsName);
+			NotesStyle n = m_changesMap.value(nsName);
 
 			//validate settings
 			if (!m_Doc->validateNSet(n))
@@ -266,7 +266,7 @@ void NotesStylesEditor::on_ApplyButton_clicked()
 			{
 				//new name for existing set
 				QString newName = n.name();
-				getUniqueName(newName, changesMap.keys(),"=");
+				getUniqueName(newName, m_changesMap.keys(),"=");
 				n.setName(newName);
 				NewNameEdit->setText(newName);
 				//current NSet name change
@@ -365,11 +365,11 @@ void NotesStylesEditor::on_DeleteButton_clicked()
 void NotesStylesEditor::on_NewButton_clicked()
 {
 	QString oldName = NSlistBox->currentText();
-	NotesStyle newNS = changesMap.value(oldName);
+	NotesStyle newNS = m_changesMap.value(oldName);
 	QString newName = oldName;
-	getUniqueName(newName, changesMap.keys(), "_");
+	getUniqueName(newName, m_changesMap.keys(), "_");
 	newNS.setName(newName);
-	changesMap.insert(newName, newNS);
+	m_changesMap.insert(newName, newNS);
 	setNotesStyle(&newNS);
 	
 	NewNameEdit->setEnabled(true);
@@ -394,7 +394,7 @@ void NotesStylesEditor::on_OKButton_clicked()
 		NewButton->setEnabled(true);
 		m_addNewNsMode = false;
 		QString newName = NSlistBox->currentText();
-		changesMap.remove(newName);
+		m_changesMap.remove(newName);
 		int index = NSlistBox->findText(newName);
 		NSlistBox->removeItem(index);
 		NSlistBox->setCurrentIndex(index-1);
@@ -413,9 +413,9 @@ void NotesStylesEditor::on_OKButton_clicked()
 
 void NotesStylesEditor::on_NewNameEdit_textChanged(const QString &arg1)
 {
-	NotesStyle ns = changesMap.value(NSlistBox->currentText());
+	NotesStyle ns = m_changesMap.value(NSlistBox->currentText());
 	ns.setName(arg1);
-	changesMap.insert(NSlistBox->currentText(), ns);
+	m_changesMap.insert(NSlistBox->currentText(), ns);
 	ApplyButton->setEnabled(true);
 }
 
@@ -424,9 +424,9 @@ void NotesStylesEditor::on_FootRadio_toggled(bool checked)
 	bool wasSignalsBlocked = signalsBlocked();
 	setBlockSignals(true);
 
-	NotesStyle ns = changesMap.value(NSlistBox->currentText());
+	NotesStyle ns = m_changesMap.value(NSlistBox->currentText());
 	ns.setEndNotes(!checked);
-	changesMap.insert(NSlistBox->currentText(), ns);
+	m_changesMap.insert(NSlistBox->currentText(), ns);
 	EndRadio->setChecked(!checked);
 	if (checked)
 	{
@@ -438,7 +438,7 @@ void NotesStylesEditor::on_FootRadio_toggled(bool checked)
 		AutoWeld->setChecked(true);
 	}
 	
-	changesMap.insert(NSlistBox->currentText(), ns);
+	m_changesMap.insert(NSlistBox->currentText(), ns);
 	ApplyButton->setEnabled(true);
 	setBlockSignals(wasSignalsBlocked);
 }
@@ -448,7 +448,7 @@ void NotesStylesEditor::on_EndRadio_toggled(bool checked)
 	bool wasSignalsBlocked = signalsBlocked();
 	setBlockSignals(true);
 
-	NotesStyle ns = changesMap.value(NSlistBox->currentText());
+	NotesStyle ns = m_changesMap.value(NSlistBox->currentText());
 	ns.setEndNotes(checked);
 	FootRadio->setChecked(!checked);
 	if (checked)
@@ -461,130 +461,130 @@ void NotesStylesEditor::on_EndRadio_toggled(bool checked)
 		AutoWeld->setEnabled(false);
 	}
 	
-	changesMap.insert(NSlistBox->currentText(), ns);
+	m_changesMap.insert(NSlistBox->currentText(), ns);
 	ApplyButton->setEnabled(true);
 	setBlockSignals(wasSignalsBlocked);
 }
 
 void NotesStylesEditor::on_NumberingBox_currentIndexChanged(int /*index*/)
 {
-	NotesStyle ns = changesMap.value(NSlistBox->currentText());
+	NotesStyle ns = m_changesMap.value(NSlistBox->currentText());
 
 	NumFormat formatType = NumberingBox->currentFormat();
 	ns.setType(formatType);
 
-	changesMap.insert(NSlistBox->currentText(), ns);
+	m_changesMap.insert(NSlistBox->currentText(), ns);
 	ApplyButton->setEnabled(true);
 }
 
 void NotesStylesEditor::on_RangeBox_currentIndexChanged(int index)
 {
-	NotesStyle ns = changesMap.value(NSlistBox->currentText());
+	NotesStyle ns = m_changesMap.value(NSlistBox->currentText());
 	ns.setRange((NumerationRange) RangeBox->itemData(index).toInt());
 
-	changesMap.insert(NSlistBox->currentText(), ns);
+	m_changesMap.insert(NSlistBox->currentText(), ns);
 	ApplyButton->setEnabled(true);
 }
 
 void NotesStylesEditor::on_StartSpinBox_valueChanged(int arg1)
 {
-	NotesStyle ns = changesMap.value(NSlistBox->currentText());
+	NotesStyle ns = m_changesMap.value(NSlistBox->currentText());
 	ns.setStart(arg1);
 
-	changesMap.insert(NSlistBox->currentText(), ns);
+	m_changesMap.insert(NSlistBox->currentText(), ns);
 	ApplyButton->setEnabled(true);
 }
 
 void NotesStylesEditor::on_PrefixEdit_textChanged(const QString &arg1)
 {
-	NotesStyle ns = changesMap.value(NSlistBox->currentText());
+	NotesStyle ns = m_changesMap.value(NSlistBox->currentText());
 	ns.setPrefix(arg1);
 
-	changesMap.insert(NSlistBox->currentText(), ns);
+	m_changesMap.insert(NSlistBox->currentText(), ns);
 	ApplyButton->setEnabled(true);
 }
 
 void NotesStylesEditor::on_SuffixEdit_textChanged(const QString &arg1)
 {
-	NotesStyle ns = changesMap.value(NSlistBox->currentText());
+	NotesStyle ns = m_changesMap.value(NSlistBox->currentText());
 	ns.setSuffix(arg1);
 
-	changesMap.insert(NSlistBox->currentText(), ns);
+	m_changesMap.insert(NSlistBox->currentText(), ns);
 	ApplyButton->setEnabled(true);
 }
 
 void NotesStylesEditor::on_SuperMasterCheck_toggled(bool checked)
 {
-	NotesStyle ns = changesMap.value(NSlistBox->currentText());
+	NotesStyle ns = m_changesMap.value(NSlistBox->currentText());
 	ns.setSuperscriptInMaster(checked);
 
-	changesMap.insert(NSlistBox->currentText(), ns);
+	m_changesMap.insert(NSlistBox->currentText(), ns);
 	ApplyButton->setEnabled(true);
 }
 
 void NotesStylesEditor::on_SuperNoteCheck_toggled(bool checked)
 {
-	NotesStyle ns = changesMap.value(NSlistBox->currentText());
+	NotesStyle ns = m_changesMap.value(NSlistBox->currentText());
 	ns.setSuperscriptInNote(checked);
 
-	changesMap.insert(NSlistBox->currentText(), ns);
+	m_changesMap.insert(NSlistBox->currentText(), ns);
 	ApplyButton->setEnabled(true);
 }
 
 void NotesStylesEditor::on_AutoH_toggled(bool checked)
 {
-	NotesStyle ns = changesMap.value(NSlistBox->currentText());
+	NotesStyle ns = m_changesMap.value(NSlistBox->currentText());
 	ns.setAutoNotesHeight(checked);
 
-	changesMap.insert(NSlistBox->currentText(), ns);
+	m_changesMap.insert(NSlistBox->currentText(), ns);
 	ApplyButton->setEnabled(true);
 }
 
 void NotesStylesEditor::on_AutoW_toggled(bool checked)
 {
-	NotesStyle ns = changesMap.value(NSlistBox->currentText());
+	NotesStyle ns = m_changesMap.value(NSlistBox->currentText());
 	ns.setAutoNotesWidth(checked);
 
-	changesMap.insert(NSlistBox->currentText(), ns);
+	m_changesMap.insert(NSlistBox->currentText(), ns);
 	ApplyButton->setEnabled(true);
 }
 
 void NotesStylesEditor::on_AutoWeld_toggled(bool checked)
 {
-	NotesStyle ns = changesMap.value(NSlistBox->currentText());
+	NotesStyle ns = m_changesMap.value(NSlistBox->currentText());
 	ns.setAutoWeldNotesFrames(checked);
 
-	changesMap.insert(NSlistBox->currentText(), ns);
+	m_changesMap.insert(NSlistBox->currentText(), ns);
 	ApplyButton->setEnabled(true);
 }
 
 void NotesStylesEditor::on_AutoRemove_toggled(bool checked)
 {
-	NotesStyle ns = changesMap.value(NSlistBox->currentText());
+	NotesStyle ns = m_changesMap.value(NSlistBox->currentText());
 	ns.setAutoRemoveEmptyNotesFrames(checked);
 
-	changesMap.insert(NSlistBox->currentText(), ns);
+	m_changesMap.insert(NSlistBox->currentText(), ns);
 	ApplyButton->setEnabled(true);
 }
 
 void NotesStylesEditor::on_paraStyleCombo_currentIndexChanged(const int &arg1)
 {
-	NotesStyle ns = changesMap.value(NSlistBox->currentText());
+	NotesStyle ns = m_changesMap.value(NSlistBox->currentText());
 	if (arg1 == 0)
 		ns.setNotesParStyle("");
 	else
 		ns.setNotesParStyle(paraStyleCombo->itemText(arg1));
-	changesMap.insert(NSlistBox->currentText(), ns);
+	m_changesMap.insert(NSlistBox->currentText(), ns);
 	ApplyButton->setEnabled(true);
 }
 
 void NotesStylesEditor::on_charStyleCombo_currentIndexChanged(const int &arg1)
 {
-	NotesStyle ns = changesMap.value(NSlistBox->currentText());
+	NotesStyle ns = m_changesMap.value(NSlistBox->currentText());
 	if (arg1 == 0)
 		ns.setMarksCharStyle("");
 	else
 		ns.setMarksCharStyle(charStyleCombo->itemText(arg1));
-	changesMap.insert(NSlistBox->currentText(), ns);
+	m_changesMap.insert(NSlistBox->currentText(), ns);
 	ApplyButton->setEnabled(true);
 }
