@@ -419,7 +419,6 @@ void ScClipboardProcessor::html_MSFT_ParseParagraphs(xmlNode *node, QMap<QString
 				if (!segment.isBold && !segment.isItalic)
 				{
 					QStringList styles = availableFonts.fontMap[currFamily];
-					QString style;
 					if (!styles.isEmpty())
 						style = styles[0];
 					if (styles.contains("Regular"))
@@ -687,7 +686,6 @@ void ScClipboardProcessor::html_LibreOffice_ParseParagraphs(xmlNode *node, QMap<
 				if (!segment.isBold && !segment.isItalic)
 				{
 					QStringList styles = availableFonts.fontMap[currFamily];
-					QString style;
 					if (!styles.isEmpty())
 						style = styles[0];
 					if (styles.contains("Regular"))
