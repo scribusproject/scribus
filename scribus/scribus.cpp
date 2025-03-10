@@ -2323,7 +2323,7 @@ void ScribusMainWindow::windowsMenuAboutToShow()
 		for ( int i = 0; i < windowCount; ++i )
 		{
 			QString docInWindow(windows.at(i)->windowTitle());
-			scrWindowsActions.insert(docInWindow, new ScrAction( ScrAction::Window, QString(), QString(), docInWindow, QKeySequence(), this, i));
+			scrWindowsActions.insert(docInWindow, new ScrAction(ScrAction::Window, QString(), QString(), QString("&%1 %2").arg(i + 1).arg(docInWindow), QKeySequence(), this, i));
 			scrWindowsActions[docInWindow]->setToggleAction(true);
 			connect( scrWindowsActions[docInWindow], SIGNAL(triggeredData(int)), this, SLOT(windowsMenuActivated(int)) );
 			scrWindowsActions[docInWindow]->setChecked(mdiArea->activeSubWindow() == windows.at(i));
