@@ -148,8 +148,7 @@ bool ScClipboardProcessor::html_MSFT_Process()
 	const xmlChar* html_content_cstr = reinterpret_cast<const xmlChar*>(utf8Content.constData());
 
 	// Parse the HTML content using libxml2's HTML parser
-	htmlDocPtr doc = htmlReadDoc(html_content_cstr, NULL, NULL, HTML_PARSE_RECOVER | HTML_PARSE_NOERROR | HTML_PARSE_NOWARNING);
-
+	htmlDocPtr doc = htmlReadDoc(html_content_cstr, nullptr, nullptr, HTML_PARSE_RECOVER | HTML_PARSE_NOERROR | HTML_PARSE_NOWARNING);
 	if (!doc)
 	{
 		qDebug() << "Failed to parse the HTML content.";
@@ -471,8 +470,7 @@ bool ScClipboardProcessor::html_LibreOffice_Process()
 	const xmlChar* html_content_cstr = reinterpret_cast<const xmlChar*>(utf8Content.constData());
 
 	// Parse the HTML content using libxml2's HTML parser
-	htmlDocPtr doc = htmlReadDoc(html_content_cstr, NULL, NULL, HTML_PARSE_RECOVER | HTML_PARSE_NOERROR | HTML_PARSE_NOWARNING);
-
+	htmlDocPtr doc = htmlReadDoc(html_content_cstr, nullptr, nullptr, HTML_PARSE_RECOVER | HTML_PARSE_NOERROR | HTML_PARSE_NOWARNING);
 	if (!doc)
 	{
 		qDebug() << "Failed to parse the HTML content.";
@@ -728,8 +726,7 @@ bool ScClipboardProcessor::html_Cocoa_Process()
 	const xmlChar* html_content_cstr = reinterpret_cast<const xmlChar*>(utf8Content.constData());
 
 	// Parse the HTML content using libxml2's HTML parser
-	htmlDocPtr doc = htmlReadDoc(html_content_cstr, NULL, NULL, HTML_PARSE_RECOVER | HTML_PARSE_NOERROR | HTML_PARSE_NOWARNING);
-
+	htmlDocPtr doc = htmlReadDoc(html_content_cstr, nullptr, nullptr, HTML_PARSE_RECOVER | HTML_PARSE_NOERROR | HTML_PARSE_NOWARNING);
 	if (!doc)
 	{
 		qDebug() << "Failed to parse the HTML content.";
