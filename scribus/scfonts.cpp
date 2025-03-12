@@ -1355,6 +1355,98 @@ void SCFonts::getFonts(const QString& pf, bool showFontInfo)
 	writeFontCache(pf);
 }
 
+QString SCFonts::getRegularStyle(const QString& family)
+{
+	if (!styleCache.contains(family))
+	{
+		styleCache[family] = {};
+	}
+	if (!styleCache[family].contains(StyleType::Regular))
+	{
+		QString style;
+		QStringList styles = fontMap[family];
+		if (!styles.isEmpty())
+			style = styles[0];
+		if (styles.contains("Regular"))
+			style = "Regular";
+		else if (styles.contains("Roman"))
+			style = "Roman";
+		else if (styles.contains("Medium"))
+			style = "Medium";
+		else if (styles.contains("Book"))
+			style = "Book";
+		styleCache[family][StyleType::Regular] = style;
+	}
+	return styleCache[family][StyleType::Regular];
+}
+
+/*
+ * TODO:
+ * - how to transition:
+ *   - from "Condensed" to "Condensed Bold"?
+ *   - from "Light" to "Regular"?
+ *   - from "Bold" to "Black"?
+ */
+QString SCFonts::getBoldStyle(const QString& family)
+{
+	if (!styleCache.contains(family))
+	{
+		styleCache[family] = {};
+	}
+	if (!styleCache[family].contains(StyleType::Bold))
+	{
+		QString style;
+		QStringList styles = fontMap[family];
+		if (styles.contains("Bold"))
+			style = "Bold";
+		else if (styles.contains("Black"))
+			style = "Black";
+		styleCache[family][StyleType::Bold] = style;
+	}
+	return styleCache[family][StyleType::Bold];
+}
+
+QString SCFonts::getBoldItalicStyle(const QString& family)
+{
+	if (!styleCache.contains(family))
+	{
+		styleCache[family] = {};
+	}
+	if (!styleCache[family].contains(StyleType::BoldItalic))
+	{
+		QString style;
+		QString bold = getBoldStyle(family);
+		QString italic = getItalicStyle(family);
+		if (bold == "")
+			style = italic;
+		else if  (italic == "")
+			style = bold;
+		else
+			style = bold + " " + italic;
+		styleCache[family][StyleType::BoldItalic] = style;
+	}
+	return styleCache[family][StyleType::BoldItalic];
+}
+
+QString SCFonts::getItalicStyle(const QString& family)
+{
+	if (!styleCache.contains(family))
+	{
+		styleCache[family] = {};
+	}
+	if (!styleCache[family].contains(StyleType::Italic))
+	{
+		QString style;
+		QStringList styles = fontMap[family];
+		if (styles.contains("Italic"))
+			style = "Italic";
+		else if (styles.contains("Oblique"))
+			style = "Oblique";
+		styleCache[family][StyleType::Italic] = style;
+	}
+	return styleCache[family][StyleType::Italic];
+}
+
 void SCFonts::addRejectedFont(const QString& fontPath, const QString& message)
 {
 	rejectedFonts.insert(fontPath, message);

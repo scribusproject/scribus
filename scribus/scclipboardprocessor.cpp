@@ -389,7 +389,7 @@ void ScClipboardProcessor::html_MSFT_ParseParagraphs(xmlNode *node, QMap<QString
 		{
 			// qDebug() << "-----------------------------------";
 			xmlChar *styleAttr = xmlGetProp(cur, (const xmlChar *)"style");
-			QString className = styleAttr ? QString::fromUtf8((const char*)styleAttr) : "None";
+			// QString className = styleAttr ? QString::fromUtf8((const char*)styleAttr) : "None";
 			// qDebug()<<"Style in para:"<<className;
 			xmlFree(styleAttr);
 		}
@@ -418,26 +418,16 @@ void ScClipboardProcessor::html_MSFT_ParseParagraphs(xmlNode *node, QMap<QString
 				QString currFamily(segment.family.isEmpty() ? currPstyle.charStyle().font().family() : segment.family);
 				if (!segment.isBold && !segment.isItalic)
 				{
-					QStringList styles = availableFonts.fontMap[currFamily];
-					if (!styles.isEmpty())
-						style = styles[0];
-					if (styles.contains("Regular"))
-						style = "Regular";
-					else if (styles.contains("Roman"))
-						style = "Roman";
-					else if (styles.contains("Medium"))
-						style = "Medium";
-					else if (styles.contains("Book"))
-						style = "Book";
+					style = availableFonts.getRegularStyle(currFamily);
 				}
 				else
 				{
-					if(segment.isBold && !segment.isItalic)
-						style = "Bold";
-					if (!segment.isBold && segment.isItalic)
-						style = "Italic";
-					if(segment.isBold && segment.isItalic)
-						style = "Bold Italic";
+					if (segment.isBold && !segment.isItalic)
+						style = availableFonts.getBoldStyle(currFamily);
+					else if (!segment.isBold && segment.isItalic)
+						style = availableFonts.getItalicStyle(currFamily);
+					else if (segment.isBold && segment.isItalic)
+						style = availableFonts.getBoldItalicStyle(currFamily);
 				}
 				if (segment.hasUnderline)
 				{
@@ -685,26 +675,16 @@ void ScClipboardProcessor::html_LibreOffice_ParseParagraphs(xmlNode *node, QMap<
 				QString currFamily(segment.family.isEmpty() ? currPstyle.charStyle().font().family() : segment.family);
 				if (!segment.isBold && !segment.isItalic)
 				{
-					QStringList styles = availableFonts.fontMap[currFamily];
-					if (!styles.isEmpty())
-						style = styles[0];
-					if (styles.contains("Regular"))
-						style = "Regular";
-					else if (styles.contains("Roman"))
-						style = "Roman";
-					else if (styles.contains("Medium"))
-						style = "Medium";
-					else if (styles.contains("Book"))
-						style = "Book";
+					style = availableFonts.getRegularStyle(currFamily);
 				}
 				else
 				{
-					if(segment.isBold && !segment.isItalic)
-						style = "Bold";
-					if (!segment.isBold && segment.isItalic)
-						style = "Italic";
-					if(segment.isBold && segment.isItalic)
-						style = "Bold Italic";
+					if (segment.isBold && !segment.isItalic)
+						style = availableFonts.getBoldStyle(currFamily);
+					else if (!segment.isBold && segment.isItalic)
+						style = availableFonts.getItalicStyle(currFamily);
+					else if (segment.isBold && segment.isItalic)
+						style = availableFonts.getBoldItalicStyle(currFamily);
 				}
 				if (segment.hasUnderline)
 				{
@@ -972,27 +952,16 @@ void ScClipboardProcessor::html_Cocoa_ParseParagraphs(xmlNode *node, QMap<QStrin
 				QString currFamily(currPstyle.charStyle().font().family());
 				if (!segment.isBold && !segment.isItalic)
 				{
-					QStringList styles = availableFonts.fontMap[currFamily];
-					QString style;
-					if (!styles.isEmpty())
-						style = styles[0];
-					if (styles.contains("Regular"))
-						style = "Regular";
-					else if (styles.contains("Roman"))
-						style = "Roman";
-					else if (styles.contains("Medium"))
-						style = "Medium";
-					else if (styles.contains("Book"))
-						style = "Book";
+					style = availableFonts.getRegularStyle(currFamily);
 				}
 				else
 				{
-					if(segment.isBold && !segment.isItalic)
-						style = "Bold";
-					if (!segment.isBold && segment.isItalic)
-						style = "Italic";
-					if(segment.isBold && segment.isItalic)
-						style = "Bold Italic";
+					if (segment.isBold && !segment.isItalic)
+						style = availableFonts.getBoldStyle(currFamily);
+					else if (!segment.isBold && segment.isItalic)
+						style = availableFonts.getItalicStyle(currFamily);
+					else if (segment.isBold && segment.isItalic)
+						style = availableFonts.getBoldItalicStyle(currFamily);
 				}
 				if (segment.hasUnderline)
 				{

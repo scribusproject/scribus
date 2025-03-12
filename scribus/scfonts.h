@@ -41,6 +41,14 @@ class SCRIBUS_API SCFonts : public QMap<QString,ScFace>
 		SCFonts();
 		~SCFonts() = default;
 
+		enum class StyleType
+		{
+			Regular,
+			Bold,
+			Italic,
+			BoldItalic
+		};
+
 		void updateFontMap();
 		void getFonts(const QString& pf, bool showFontInfo = false);
 		ScFace loadScalableFont(const QString &filename);
@@ -60,6 +68,14 @@ class SCRIBUS_API SCFonts : public QMap<QString,ScFace>
 		/// maps family name to face variants
 		QMap<QString, QStringList> fontMap;
 		QMap<QString, QString> rejectedFonts;
+
+		/// maps regular, bold, itacs style for each family
+		QMap<QString, QMap<StyleType, QString>> styleCache;
+
+		QString getRegularStyle(const QString& family);
+		QString getBoldStyle(const QString& family);
+		QString getBoldItalicStyle(const QString& family);
+		QString getItalicStyle(const QString& family);
 
 	private:
 		void readFontCache(const QString& pf);
