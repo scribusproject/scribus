@@ -1357,27 +1357,29 @@ void SCFonts::getFonts(const QString& pf, bool showFontInfo)
 
 QString SCFonts::getRegularStyle(const QString& family)
 {
-	if (!styleCache.contains(family))
-	{
-		styleCache[family] = {};
-	}
-	if (!styleCache[family].contains(StyleType::Regular))
-	{
-		QString style;
-		QStringList styles = fontMap[family];
-		if (!styles.isEmpty())
-			style = styles[0];
-		if (styles.contains("Regular"))
-			style = "Regular";
-		else if (styles.contains("Roman"))
-			style = "Roman";
-		else if (styles.contains("Medium"))
-			style = "Medium";
-		else if (styles.contains("Book"))
-			style = "Book";
-		styleCache[family][StyleType::Regular] = style;
-	}
-	return styleCache[family][StyleType::Regular];
+	auto itFamily = styleCache.find(family);
+	if (itFamily == styleCache.end())
+		itFamily = styleCache.insert(family, {});
+
+	auto itStyle = itFamily->constFind(StyleType::Regular);
+	if (itStyle != itFamily->constEnd())
+		return itStyle.value();
+
+	QString style;
+	QStringList styles = fontMap.value(family, {});
+	if (!styles.isEmpty())
+		style = styles[0];
+	if (styles.contains("Regular"))
+		style = "Regular";
+	else if (styles.contains("Roman"))
+		style = "Roman";
+	else if (styles.contains("Medium"))
+		style = "Medium";
+	else if (styles.contains("Book"))
+		style = "Book";
+	itFamily->insert(StyleType::Regular, style);
+
+	return style;
 }
 
 /*
@@ -1389,62 +1391,68 @@ QString SCFonts::getRegularStyle(const QString& family)
  */
 QString SCFonts::getBoldStyle(const QString& family)
 {
-	if (!styleCache.contains(family))
-	{
-		styleCache[family] = {};
-	}
-	if (!styleCache[family].contains(StyleType::Bold))
-	{
-		QString style;
-		QStringList styles = fontMap[family];
-		if (styles.contains("Bold"))
-			style = "Bold";
-		else if (styles.contains("Black"))
-			style = "Black";
-		styleCache[family][StyleType::Bold] = style;
-	}
-	return styleCache[family][StyleType::Bold];
+	auto itFamily = styleCache.find(family);
+	if (itFamily == styleCache.end())
+		itFamily = styleCache.insert(family, {});
+
+	auto itStyle = itFamily->constFind(StyleType::Bold);
+	if (itStyle != itFamily->constEnd())
+		return itStyle.value();
+
+	QString style;
+	QStringList styles = fontMap.value(family, {});
+	if (styles.contains("Bold"))
+		style = "Bold";
+	else if (styles.contains("Black"))
+		style = "Black";
+	itFamily->insert(StyleType::Bold, style);
+
+	return style;
 }
 
 QString SCFonts::getBoldItalicStyle(const QString& family)
 {
-	if (!styleCache.contains(family))
-	{
-		styleCache[family] = {};
-	}
-	if (!styleCache[family].contains(StyleType::BoldItalic))
-	{
-		QString style;
-		QString bold = getBoldStyle(family);
-		QString italic = getItalicStyle(family);
-		if (bold == "")
-			style = italic;
-		else if  (italic == "")
-			style = bold;
-		else
-			style = bold + " " + italic;
-		styleCache[family][StyleType::BoldItalic] = style;
-	}
-	return styleCache[family][StyleType::BoldItalic];
+	auto itFamily = styleCache.find(family);
+	if (itFamily == styleCache.end())
+		itFamily = styleCache.insert(family, {});
+
+	auto itStyle = itFamily->constFind(StyleType::BoldItalic);
+	if (itStyle != itFamily->constEnd())
+		return itStyle.value();
+
+	QString style;
+	QString bold = getBoldStyle(family);
+	QString italic = getItalicStyle(family);
+	if (bold.isEmpty())
+		style = italic;
+	else if  (italic.isEmpty())
+		style = bold;
+	else
+		style = bold + " " + italic;
+	itFamily->insert(StyleType::BoldItalic, style);
+
+	return style;
 }
 
 QString SCFonts::getItalicStyle(const QString& family)
 {
-	if (!styleCache.contains(family))
-	{
-		styleCache[family] = {};
-	}
-	if (!styleCache[family].contains(StyleType::Italic))
-	{
-		QString style;
-		QStringList styles = fontMap[family];
-		if (styles.contains("Italic"))
-			style = "Italic";
-		else if (styles.contains("Oblique"))
-			style = "Oblique";
-		styleCache[family][StyleType::Italic] = style;
-	}
-	return styleCache[family][StyleType::Italic];
+	auto itFamily = styleCache.find(family);
+	if (itFamily == styleCache.end())
+		itFamily = styleCache.insert(family, {});
+
+	auto itStyle = itFamily->constFind(StyleType::Italic);
+	if (itStyle != itFamily->constEnd())
+		return itStyle.value();
+
+	QString style;
+	QStringList styles = fontMap.value(family, {});
+	if (styles.contains("Italic"))
+		style = "Italic";
+	else if (styles.contains("Oblique"))
+		style = "Oblique";
+	itFamily->insert(StyleType::Italic, style);
+
+	return style;
 }
 
 void SCFonts::addRejectedFont(const QString& fontPath, const QString& message)
