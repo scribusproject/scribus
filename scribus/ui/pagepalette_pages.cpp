@@ -191,6 +191,12 @@ void PagePalette_Pages::pageView_updatePagePreview()
 		return;
 	}
 
+	if (currView->m_doc->inlineEditMode() || currView->m_doc->symbolEditMode())
+	{
+		m_pagePreviewUpdatePending = true;
+		return;
+	}
+
 	if (pageViewWidget->pageGrid()->rowHeight() == PageGrid::Small)
 	{
 		for (int i = 0; i < currView->m_doc->DocPages.count(); ++i)
