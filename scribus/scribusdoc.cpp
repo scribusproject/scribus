@@ -6694,7 +6694,7 @@ void ScribusDoc::setInlineEditMode(bool mode, int id)
 			m_Selection->addItem(Items->at(as));
 			Items->at(as)->setLayer(layerID);
 		}
-		moveGroup(addedPage->xOffset(), addedPage->yOffset());
+		moveGroup(addedPage->xOffset() - bBox.x(), addedPage->yOffset() - bBox.y());
 		if (Items->at(0)->isGroup())
 			Items->at(0)->asGroupFrame()->adjustXYPosition();
 		m_Selection->clear();
