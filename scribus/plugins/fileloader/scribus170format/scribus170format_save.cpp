@@ -606,6 +606,7 @@ void Scribus170Format::writeCheckerProfiles(ScXmlStreamWriter & docu)
 		docu.writeAttribute("checkFontIsOpenType", static_cast<int>(itcp.value().checkFontIsOpenType));
 		docu.writeAttribute("checkAppliedMasterDifferentSide", static_cast<int>(itcp.value().checkAppliedMasterDifferentSide));
 		docu.writeAttribute("checkEmptyTextFrames", static_cast<int>(itcp.value().checkEmptyTextFrames));
+		docu.writeAttribute("checkImageHasProgressiveEncoding", static_cast<int>(itcp.value().checkImageHasProgressiveEncoding));
 	}
 }
 

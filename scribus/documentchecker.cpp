@@ -51,7 +51,7 @@ public:
 		if (gc.isEmpty())
 		{
 			int pos = gc.firstChar();
-			m_itemError.insert(MissingGlyph, pos);
+			m_itemError.insert(PreflightError::MissingGlyph, pos);
 		}
 	}
 	void drawGlyphOutline(const GlyphCluster& gc, bool) override
@@ -136,7 +136,7 @@ void DocumentChecker::checkPages(ScribusDoc *currDoc, const CheckerPrefs& checke
 					error = true;
 			}
 			if (error)
-				pageError.insert(AppliedMasterDifferentSide, 0);
+				pageError.insert(PreflightError::AppliedMasterDifferentSide, 0);
 		}
 		if (pageError.count() != 0)
 			currDoc->pageErrors.insert(i, pageError);
@@ -156,15 +156,15 @@ void DocumentChecker::checkLayers(ScribusDoc *currDoc, const CheckerPrefs& check
 		layerError.clear();
 		currDoc->Layers.levelToLayer(ll, Lnr);
 		if ((ll.isViewable != ll.isPrintable) && (checkerSettings.checkOffConflictLayers))
-			layerError.insert(OffConflictLayers, 0);
+			layerError.insert(PreflightError::OffConflictLayers, 0);
 		if ((!ll.isViewable) && (checkerSettings.ignoreOffLayers))
 			continue;
 		if ((!ll.isPrintable) && (checkerSettings.ignoreOffLayers))
 			continue;
 		if ((ll.transparency != 1.0) && (checkerSettings.checkTransparency))
-			layerError.insert(Transparency, 0);
+			layerError.insert(PreflightError::Transparency, 0);
 		if ((ll.blendMode != 0) && (checkerSettings.checkTransparency))
-			layerError.insert(BlendMode, 1);
+			layerError.insert(PreflightError::BlendMode, 1);
 		Lnr++;
 		if (layerError.count() != 0)
 			currDoc->docLayerErrors.insert(ll.ID, layerError);
@@ -193,15 +193,15 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, const CheckerPrefs& checke
 				continue;
 			itemError.clear();
 			if (((currItem->isAnnotation()) || (currItem->isBookmark)) && (checkerSettings.checkAnnotations))
-				itemError.insert(PDFAnnotField, 0);
+				itemError.insert(PreflightError::PDFAnnotField, 0);
 			if (currItem->hasSoftShadow() && checkerSettings.checkTransparency)
-				itemError.insert(Transparency, 0);
+				itemError.insert(PreflightError::Transparency, 0);
 			if ((currItem->GrType == 0) && (checkerSettings.checkTransparency))
 			{
 				if (currItem->fillColor() != CommonStrings::None)
 				{
 					if ((currItem->fillTransparency() != 0.0) || (currItem->fillBlendmode() != 0))
-						itemError.insert(Transparency, 0);
+						itemError.insert(PreflightError::Transparency, 0);
 				}
 			}
 			if ((currItem->GrType != 0) && (checkerSettings.checkTransparency))
@@ -209,13 +209,13 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, const CheckerPrefs& checke
 				if (currItem->GrType == Gradient_4Colors)
 				{
 					if (currItem->GrCol1transp != 1.0)
-						itemError.insert(Transparency, 0);
+						itemError.insert(PreflightError::Transparency, 0);
 					else if (currItem->GrCol2transp != 1.0)
-						itemError.insert(Transparency, 0);
+						itemError.insert(PreflightError::Transparency, 0);
 					else if (currItem->GrCol3transp != 1.0)
-						itemError.insert(Transparency, 0);
+						itemError.insert(PreflightError::Transparency, 0);
 					else if (currItem->GrCol4transp != 1.0)
-						itemError.insert(Transparency, 0);
+						itemError.insert(PreflightError::Transparency, 0);
 				}
 				else if (currItem->GrType == Gradient_Mesh)
 				{
@@ -224,7 +224,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, const CheckerPrefs& checke
 						for (int gcol = 0; gcol < currItem->meshGradientArray[grow].count(); gcol++)
 						{
 							if (currItem->meshGradientArray[grow][gcol].transparency != 1.0)
-								itemError.insert(Transparency, 0);
+								itemError.insert(PreflightError::Transparency, 0);
 						}
 					}
 				}
@@ -234,13 +234,13 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, const CheckerPrefs& checke
 					{
 						meshGradientPatch patch = currItem->meshGradientPatches[grow];
 						if (currItem->meshGradientPatches[grow].TL.transparency != 1.0)
-							itemError.insert(Transparency, 0);
+							itemError.insert(PreflightError::Transparency, 0);
 						if (currItem->meshGradientPatches[grow].TR.transparency != 1.0)
-							itemError.insert(Transparency, 0);
+							itemError.insert(PreflightError::Transparency, 0);
 						if (currItem->meshGradientPatches[grow].BR.transparency != 1.0)
-							itemError.insert(Transparency, 0);
+							itemError.insert(PreflightError::Transparency, 0);
 						if (currItem->meshGradientPatches[grow].BL.transparency != 1.0)
-							itemError.insert(Transparency, 0);
+							itemError.insert(PreflightError::Transparency, 0);
 					}
 				}
 				else
@@ -250,7 +250,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, const CheckerPrefs& checke
 					{
 						if (colorStops[offset]->opacity != 1.0)
 						{
-							itemError.insert(Transparency, 0);
+							itemError.insert(PreflightError::Transparency, 0);
 							break;
 						}
 					}
@@ -261,7 +261,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, const CheckerPrefs& checke
 				if ((currItem->lineColor() != CommonStrings::None) || !currItem->NamedLStyle.isEmpty())
 				{
 					if ((currItem->lineTransparency() != 0.0) || (currItem->lineBlendmode() != 0))
-						itemError.insert(Transparency, 0);
+						itemError.insert(PreflightError::Transparency, 0);
 				}
 			}
 			if ((currItem->GrTypeStroke != 0) && (checkerSettings.checkTransparency))
@@ -271,44 +271,44 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, const CheckerPrefs& checke
 				{
 					if (colorStops[offset]->opacity != 1.0)
 					{
-						itemError.insert(Transparency, 0);
+						itemError.insert(PreflightError::Transparency, 0);
 						break;
 					}
 				}
 			}
 			if ((currItem->GrMask > 0) && (checkerSettings.checkTransparency))
-				itemError.insert(Transparency, 0);
+				itemError.insert(PreflightError::Transparency, 0);
 			if ((currItem->OwnPage == -1) && (checkerSettings.checkOrphans))
-				itemError.insert(ObjectNotOnPage, 0);
+				itemError.insert(PreflightError::ObjectNotOnPage, 0);
 			if (currItem->isImageFrame() && !currItem->isOSGFrame())
 			{
 				// check image vs. frame sizes
 				if (checkerSettings.checkPartFilledImageFrames && isPartFilledImageFrame(currItem))
 				{
-					itemError.insert(PartFilledImageFrame, 0);
+					itemError.insert(PreflightError::PartFilledImageFrame, 0);
 				}
 
 				if ((!currItem->imageIsAvailable) && (checkerSettings.checkPictures))
-					itemError.insert(MissingImage, 0);
+					itemError.insert(PreflightError::MissingImage, 0);
 				else
 				{
 					if (currItem->imageIsAvailable)
 					{
 						if (checkerSettings.checkTransparency && currItem->pixm.hasSmoothAlpha())
-							itemError.insert(Transparency, 0);
+							itemError.insert(PreflightError::Transparency, 0);
 					}
 					if  (((qRound(72.0 / currItem->imageXScale()) < checkerSettings.minResolution) || (qRound(72.0 / currItem->imageYScale()) < checkerSettings.minResolution))
 							&& (currItem->isRaster) && (checkerSettings.checkResolution))
-						itemError.insert(ImageDPITooLow, 0);
+						itemError.insert(PreflightError::ImageDPITooLow, 0);
 					if  (((qRound(72.0 / currItem->imageXScale()) > checkerSettings.maxResolution) || (qRound(72.0 / currItem->imageYScale()) > checkerSettings.maxResolution))
 							&& (currItem->isRaster) && (checkerSettings.checkResolution))
-						itemError.insert(ImageDPITooHigh, 0);
+						itemError.insert(PreflightError::ImageDPITooHigh, 0);
 					QFileInfo fi(currItem->Pfile);
 					QString ext = fi.suffix().toLower();
 					if (extensionIndicatesPDF(ext) && (checkerSettings.checkRasterPDF))
-						itemError.insert(PlacedPDF, 0);
+						itemError.insert(PreflightError::PlacedPDF, 0);
 					if ((ext == "gif") && (checkerSettings.checkForGIF))
-						itemError.insert(ImageIsGIF, 0);
+						itemError.insert(PreflightError::ImageIsGIF, 0);
 
 					if (extensionIndicatesPDF(ext))
 					{
@@ -336,7 +336,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, const CheckerPrefs& checke
 										if (usedColorSpaces[i] == CS_DeviceRGB || usedColorSpaces[i] == CS_ICCBased || usedColorSpaces[i] == CS_CalGray
 											|| usedColorSpaces[i] == CS_CalRGB || usedColorSpaces[i] == CS_Lab)
 										{
-											itemError.insert(NotCMYKOrSpot, 0);
+											itemError.insert(PreflightError::NotCMYKOrSpot, 0);
 											break;
 										}
 									}
@@ -347,28 +347,28 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, const CheckerPrefs& checke
 									{
 										if (currPrintProfCS == ColorSpace_Cmyk && (usedColorSpaces[i] == CS_DeviceRGB || usedColorSpaces[i] == CS_DeviceGray))
 										{
-											itemError.insert(DeviceColorsAndOutputIntent, 0);
+											itemError.insert(PreflightError::DeviceColorsAndOutputIntent, 0);
 											break;
 										}
 										if (currPrintProfCS == ColorSpace_Rgb && (usedColorSpaces[i] == CS_DeviceCMYK || usedColorSpaces[i] == CS_DeviceGray))
 										{
-											itemError.insert(DeviceColorsAndOutputIntent, 0);
+											itemError.insert(PreflightError::DeviceColorsAndOutputIntent, 0);
 											break;
 										}
 									}
 								}
 							}
 							if (checkerSettings.checkTransparency && hasTransparency)
-								itemError.insert(Transparency, 0);
+								itemError.insert(PreflightError::Transparency, 0);
 							if (checkerSettings.checkFontNotEmbedded || checkerSettings.checkFontIsOpenType)
 							{
 								for (int i=0; i<usedFonts.size(); ++i)
 								{
 									PDFFont currentFont = usedFonts[i];
 									if (!currentFont.isEmbedded && checkerSettings.checkFontNotEmbedded)
-										itemError.insert(FontNotEmbedded, 0);
+										itemError.insert(PreflightError::FontNotEmbedded, 0);
 									if (currentFont.isEmbedded && currentFont.isOpenType && checkerSettings.checkFontIsOpenType)
-										itemError.insert(EmbeddedFontIsOpenType, 0);
+										itemError.insert(PreflightError::EmbeddedFontIsOpenType, 0);
 								}
 							}
 							if (checkerSettings.checkResolution)
@@ -376,9 +376,9 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, const CheckerPrefs& checke
 								for (int i=0; i<imgs.size(); ++i)
 								{
 									if ((imgs[i].dpiX < checkerSettings.minResolution) || (imgs[i].dpiY < checkerSettings.minResolution))
-										itemError.insert(ImageDPITooLow, 0);
+										itemError.insert(PreflightError::ImageDPITooLow, 0);
 									if ((imgs[i].dpiX > checkerSettings.maxResolution) || (imgs[i].dpiY > checkerSettings.maxResolution))
-										itemError.insert(ImageDPITooHigh, 0);
+										itemError.insert(PreflightError::ImageDPITooHigh, 0);
 								}
 							}
 						}
@@ -388,7 +388,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, const CheckerPrefs& checke
 			if ((currItem->isTextFrame()) || (currItem->isPathText()))
 			{
 				if ( currItem->frameOverflows() && (checkerSettings.checkOverflow) && (!((currItem->isAnnotation()) && ((currItem->annotation().Type() == Annotation::Combobox) || (currItem->annotation().Type() == Annotation::Listbox)))))
-					itemError.insert(TextOverflow, 0);
+					itemError.insert(PreflightError::TextOverflow, 0);
 
 				if (checkerSettings.checkEmptyTextFrames && (currItem->itemText.length() == 0 || currItem->frameUnderflows()))
 				{
@@ -397,14 +397,14 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, const CheckerPrefs& checke
 					                          (currItem->annotation().Type() == Annotation::Checkbox) ||
 					                          (currItem->annotation().Type() == Annotation::RadioButton)));
 					if (!isEmptyAnnotation)
-						itemError.insert(EmptyTextFrame, 0);
+						itemError.insert(PreflightError::EmptyTextFrame, 0);
 				}
 				
 				if (currItem->isAnnotation())
 				{
 					ScFace::FontFormat fformat = currItem->itemText.defaultStyle().charStyle().font().format();
 					if (!(fformat == ScFace::SFNT || fformat == ScFace::TTCF))
-						itemError.insert(WrongFontInAnnotation, 0);
+						itemError.insert(PreflightError::WrongFontInAnnotation, 0);
 				}
 
 				if (checkerSettings.checkGlyphs)
@@ -431,7 +431,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, const CheckerPrefs& checke
 						rgbUsed = true;
 				}
 				if (rgbUsed)
-					itemError.insert(NotCMYKOrSpot, 0);
+					itemError.insert(PreflightError::NotCMYKOrSpot, 0);
 			}
 			if (itemError.count() != 0)
 				currDoc->masterItemErrors.insert(currItem, itemError);
@@ -456,13 +456,13 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, const CheckerPrefs& checke
 				continue;
 			itemError.clear();
 			if (currItem->hasSoftShadow() && checkerSettings.checkTransparency)
-				itemError.insert(Transparency, 0);
+				itemError.insert(PreflightError::Transparency, 0);
 			if ((currItem->GrType == 0) && (checkerSettings.checkTransparency))
 			{
 				if (currItem->fillColor() != CommonStrings::None)
 				{
 					if ((currItem->fillTransparency() != 0.0) || (currItem->fillBlendmode() != 0))
-						itemError.insert(Transparency, 0);
+						itemError.insert(PreflightError::Transparency, 0);
 				}
 			}
 			if ((currItem->GrType != 0) && (checkerSettings.checkTransparency))
@@ -470,13 +470,13 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, const CheckerPrefs& checke
 				if (currItem->GrType == Gradient_4Colors)
 				{
 					if (currItem->GrCol1transp != 1.0)
-						itemError.insert(Transparency, 0);
+						itemError.insert(PreflightError::Transparency, 0);
 					else if (currItem->GrCol2transp != 1.0)
-						itemError.insert(Transparency, 0);
+						itemError.insert(PreflightError::Transparency, 0);
 					else if (currItem->GrCol3transp != 1.0)
-						itemError.insert(Transparency, 0);
+						itemError.insert(PreflightError::Transparency, 0);
 					else if (currItem->GrCol4transp != 1.0)
-						itemError.insert(Transparency, 0);
+						itemError.insert(PreflightError::Transparency, 0);
 				}
 				else if (currItem->GrType == Gradient_Mesh)
 				{
@@ -485,7 +485,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, const CheckerPrefs& checke
 						for (int gcol = 0; gcol < currItem->meshGradientArray[grow].count(); gcol++)
 						{
 							if (currItem->meshGradientArray[grow][gcol].transparency != 1.0)
-								itemError.insert(Transparency, 0);
+								itemError.insert(PreflightError::Transparency, 0);
 						}
 					}
 				}
@@ -495,13 +495,13 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, const CheckerPrefs& checke
 					{
 						meshGradientPatch patch = currItem->meshGradientPatches[grow];
 						if (currItem->meshGradientPatches[grow].TL.transparency != 1.0)
-							itemError.insert(Transparency, 0);
+							itemError.insert(PreflightError::Transparency, 0);
 						if (currItem->meshGradientPatches[grow].TR.transparency != 1.0)
-							itemError.insert(Transparency, 0);
+							itemError.insert(PreflightError::Transparency, 0);
 						if (currItem->meshGradientPatches[grow].BR.transparency != 1.0)
-							itemError.insert(Transparency, 0);
+							itemError.insert(PreflightError::Transparency, 0);
 						if (currItem->meshGradientPatches[grow].BL.transparency != 1.0)
-							itemError.insert(Transparency, 0);
+							itemError.insert(PreflightError::Transparency, 0);
 					}
 				}
 				else
@@ -511,7 +511,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, const CheckerPrefs& checke
 					{
 						if (colorStops[offset]->opacity != 1.0)
 						{
-							itemError.insert(Transparency, 0);
+							itemError.insert(PreflightError::Transparency, 0);
 							break;
 						}
 					}
@@ -522,7 +522,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, const CheckerPrefs& checke
 				if ((currItem->lineColor() != CommonStrings::None) || !currItem->NamedLStyle.isEmpty())
 				{
 					if ((currItem->lineTransparency() != 0.0) || (currItem->lineBlendmode() != 0))
-						itemError.insert(Transparency, 0);
+						itemError.insert(PreflightError::Transparency, 0);
 				}
 			}
 			if ((currItem->GrTypeStroke != 0) && (checkerSettings.checkTransparency))
@@ -532,47 +532,49 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, const CheckerPrefs& checke
 				{
 					if (colorStops[offset]->opacity != 1.0)
 					{
-						itemError.insert(Transparency, 0);
+						itemError.insert(PreflightError::Transparency, 0);
 						break;
 					}
 				}
 			}
 			if ((currItem->GrMask > 0) && (checkerSettings.checkTransparency))
-				itemError.insert(Transparency, 0);
+				itemError.insert(PreflightError::Transparency, 0);
 			if (((currItem->isAnnotation()) || (currItem->isBookmark)) && (checkerSettings.checkAnnotations))
-				itemError.insert(PDFAnnotField, 0);
+				itemError.insert(PreflightError::PDFAnnotField, 0);
 			if ((currItem->OwnPage == -1) && (checkerSettings.checkOrphans))
-				itemError.insert(ObjectNotOnPage, 0);
+				itemError.insert(PreflightError::ObjectNotOnPage, 0);
 			if (currItem->isImageFrame() && !currItem->isOSGFrame())
 			{
 
 				// check image vs. frame sizes
 				if (checkerSettings.checkPartFilledImageFrames && isPartFilledImageFrame(currItem))
 				{
-					itemError.insert(PartFilledImageFrame, 0);
+					itemError.insert(PreflightError::PartFilledImageFrame, 0);
 				}
 
 				if ((!currItem->imageIsAvailable) && (checkerSettings.checkPictures))
-					itemError.insert(MissingImage, 0);
+					itemError.insert(PreflightError::MissingImage, 0);
 				else
 				{
 					if (currItem->imageIsAvailable)
 					{
 						if (checkerSettings.checkTransparency && currItem->pixm.hasSmoothAlpha())
-							itemError.insert(Transparency, 0);
+							itemError.insert(PreflightError::Transparency, 0);
+						if (currItem->pixm.imgInfo.progressive)
+							itemError.insert(PreflightError::ImageHasProgressiveEncoding, 0);
 					}
 					if  (((qRound(72.0 / currItem->imageXScale()) < checkerSettings.minResolution) || (qRound(72.0 / currItem->imageYScale()) < checkerSettings.minResolution))
 							&& (currItem->isRaster) && (checkerSettings.checkResolution))
-						itemError.insert(ImageDPITooLow, 0);
+						itemError.insert(PreflightError::ImageDPITooLow, 0);
 					if  (((qRound(72.0 / currItem->imageXScale()) > checkerSettings.maxResolution) || (qRound(72.0 / currItem->imageYScale()) > checkerSettings.maxResolution))
 							&& (currItem->isRaster) && (checkerSettings.checkResolution))
-						itemError.insert(ImageDPITooHigh, 0);
+						itemError.insert(PreflightError::ImageDPITooHigh, 0);
 					QFileInfo fi(currItem->Pfile);
 					QString ext = fi.suffix().toLower();
 					if (extensionIndicatesPDF(ext) && (checkerSettings.checkRasterPDF))
-						itemError.insert(PlacedPDF, 0);
+						itemError.insert(PreflightError::PlacedPDF, 0);
 					if ((ext == "gif") && (checkerSettings.checkForGIF))
-						itemError.insert(ImageIsGIF, 0);
+						itemError.insert(PreflightError::ImageIsGIF, 0);
 
 					if (extensionIndicatesPDF(ext))
 					{
@@ -600,7 +602,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, const CheckerPrefs& checke
 										if (usedColorSpaces[i] == CS_DeviceRGB || usedColorSpaces[i] == CS_ICCBased || usedColorSpaces[i] == CS_CalGray
 											|| usedColorSpaces[i] == CS_CalRGB || usedColorSpaces[i] == CS_Lab)
 										{
-											itemError.insert(NotCMYKOrSpot, 0);
+											itemError.insert(PreflightError::NotCMYKOrSpot, 0);
 											break;
 										}
 									}
@@ -611,28 +613,28 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, const CheckerPrefs& checke
 									{
 										if (currPrintProfCS == ColorSpace_Cmyk && (usedColorSpaces[i] == CS_DeviceRGB || usedColorSpaces[i] == CS_DeviceGray))
 										{
-											itemError.insert(DeviceColorsAndOutputIntent, 0);
+											itemError.insert(PreflightError::DeviceColorsAndOutputIntent, 0);
 											break;
 										}
 										if (currPrintProfCS == ColorSpace_Rgb && (usedColorSpaces[i] == CS_DeviceCMYK || usedColorSpaces[i] == CS_DeviceGray))
 										{
-											itemError.insert(DeviceColorsAndOutputIntent, 0);
+											itemError.insert(PreflightError::DeviceColorsAndOutputIntent, 0);
 											break;
 										}
 									}
 								}
 							}
 							if (checkerSettings.checkTransparency && hasTransparency)
-								itemError.insert(Transparency, 0);
+								itemError.insert(PreflightError::Transparency, 0);
 							if (checkerSettings.checkFontNotEmbedded || checkerSettings.checkFontIsOpenType)
 							{
 								for (int i = 0; i < usedFonts.size(); ++i)
 								{
 									PDFFont currentFont = usedFonts[i];
 									if (!currentFont.isEmbedded && checkerSettings.checkFontNotEmbedded)
-										itemError.insert(FontNotEmbedded, 0);
+										itemError.insert(PreflightError::FontNotEmbedded, 0);
 									if (currentFont.isEmbedded && currentFont.isOpenType && checkerSettings.checkFontIsOpenType)
-										itemError.insert(EmbeddedFontIsOpenType, 0);
+										itemError.insert(PreflightError::EmbeddedFontIsOpenType, 0);
 								}
 							}
 							if (checkerSettings.checkResolution)
@@ -640,9 +642,9 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, const CheckerPrefs& checke
 								for (int i = 0; i < imgs.size(); ++i)
 								{
 									if ((imgs[i].dpiX < checkerSettings.minResolution) || (imgs[i].dpiY < checkerSettings.minResolution))
-										itemError.insert(ImageDPITooLow, 0);
+										itemError.insert(PreflightError::ImageDPITooLow, 0);
 									if ((imgs[i].dpiX > checkerSettings.maxResolution) || (imgs[i].dpiY > checkerSettings.maxResolution))
-										itemError.insert(ImageDPITooHigh, 0);
+										itemError.insert(PreflightError::ImageDPITooHigh, 0);
 								}
 							}
 						}
@@ -652,7 +654,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, const CheckerPrefs& checke
 			if ((currItem->isTextFrame()) || (currItem->isPathText()))
 			{
 				if ( currItem->frameOverflows() && (checkerSettings.checkOverflow) && (!((currItem->isAnnotation()) && ((currItem->annotation().Type() == Annotation::Combobox) || (currItem->annotation().Type() == Annotation::Listbox)))))
-					itemError.insert(TextOverflow, 0);
+					itemError.insert(PreflightError::TextOverflow, 0);
 
 				if (checkerSettings.checkEmptyTextFrames && (currItem->itemText.length() == 0 || currItem->frameUnderflows()))
 				{
@@ -661,14 +663,14 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, const CheckerPrefs& checke
 					                          (currItem->annotation().Type() == Annotation::Checkbox) ||
 					                          (currItem->annotation().Type() == Annotation::RadioButton)));
 					if (!isEmptyAnnotation)
-						itemError.insert(EmptyTextFrame, 0);
+						itemError.insert(PreflightError::EmptyTextFrame, 0);
 				}
 
 				if (currItem->isAnnotation())
 				{
 					ScFace::FontFormat fformat = currItem->itemText.defaultStyle().charStyle().font().format();
 					if (!(fformat == ScFace::SFNT || fformat == ScFace::TTCF))
-						itemError.insert(WrongFontInAnnotation, 0);
+						itemError.insert(PreflightError::WrongFontInAnnotation, 0);
 				}
 				if (checkerSettings.checkGlyphs)
 				{
@@ -694,7 +696,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, const CheckerPrefs& checke
 						rgbUsed = true;
 				}
 				if (rgbUsed)
-					itemError.insert(NotCMYKOrSpot, 0);
+					itemError.insert(PreflightError::NotCMYKOrSpot, 0);
 			}
 			if (itemError.count() != 0)
 				currDoc->docItemErrors.insert(currItem, itemError);

@@ -1679,6 +1679,7 @@ bool PrefsManager::writePref(const QString& filePath)
 		dcVerifierProfile.setAttribute("CheckFontIsOpenType", static_cast<int>(checkerProfile.checkFontIsOpenType));
 		dcVerifierProfile.setAttribute("CheckAppliedMasterDifferentSide", static_cast<int>(checkerProfile.checkAppliedMasterDifferentSide));
 		dcVerifierProfile.setAttribute("CheckEmptyTextFrames", static_cast<int>(checkerProfile.checkEmptyTextFrames));
+		dcVerifierProfile.setAttribute("CheckImageHasProgressiveEncoding", static_cast<int>(checkerProfile.checkImageHasProgressiveEncoding));
 		elem.appendChild(dcVerifierProfile);
 	}
 
@@ -2496,6 +2497,7 @@ bool PrefsManager::readPref(const QString& filePath)
 			checkerSettings.checkFontIsOpenType = static_cast<bool>(dc.attribute("CheckFontIsOpenType", "0").toInt());
 			checkerSettings.checkAppliedMasterDifferentSide = static_cast<bool>(dc.attribute("CheckAppliedMasterDifferentSide", "1").toInt());
 			checkerSettings.checkEmptyTextFrames = static_cast<bool>(dc.attribute("CheckEmptyTextFrames", "1").toInt());
+			checkerSettings.checkImageHasProgressiveEncoding = static_cast<bool>(dc.attribute("CheckImageHasProgressiveEncoding", "1").toInt());
 			appPrefs.verifierPrefs.checkerPrefsList[name] = checkerSettings;
 		}
 		if (dc.tagName() == "Printer")
@@ -2901,6 +2903,7 @@ void PrefsManager::initDefaultCheckerPrefs(CheckerPrefsList& cp)
 	checkerSettings.checkFontIsOpenType = false;
 	checkerSettings.checkAppliedMasterDifferentSide = true;
 	checkerSettings.checkEmptyTextFrames = true;
+	checkerSettings.checkImageHasProgressiveEncoding = true;
 	//TODO Stop translating these into settings!!!!!!!!!
 	cp.insert(CommonStrings::PostScript, checkerSettings);
 	checkerSettings.checkFontNotEmbedded = true;

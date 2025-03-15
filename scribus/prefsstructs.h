@@ -57,6 +57,7 @@ struct CheckerPrefs
 	bool checkOppositePageMaster;
 	bool checkAppliedMasterDifferentSide;
 	bool checkEmptyTextFrames;
+	bool checkImageHasProgressiveEncoding;
 };
 
 using CheckerPrefsList = QMap<QString, CheckerPrefs>;

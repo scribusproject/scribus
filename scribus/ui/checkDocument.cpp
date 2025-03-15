@@ -147,6 +147,8 @@ void CheckDocument::languageChange()
 	warnMap.insert(PV_LAYER_TRANSPARENCY,		qMakePair(tr("Transparency used"),										tr("This layer uses transparency, only an issue if using older printing profiles. You may safely ignore this when using modern printing methods, or exporting to PDF version greater than 1.4.")));
 	warnMap.insert(PV_LAYER_BLENDMODE,			qMakePair(tr("Blendmode used"),											tr("This layer uses blendmodes which relies on transparency, only an issue if using older printing profiles. You may safely ignore this when using modern printing methods, or exporting to PDF version greater than 1.4.")));
 	warnMap.insert(PV_LAYER_PRINTVIS_MISMATCH,	qMakePair(tr("Print/Visible mismatch"),									tr("This layer uses transparency, only an issue if using older printing profiles. You may safely ignore this when using modern printing methods, or exporting to PDF version greater than 1.4.")));
+	warnMap.insert(PV_IMAGE_HAS_PROGRESSIVE_ENCODING,		qMakePair(tr("Image has progressive encoding"),							tr("The image uses progressive encoding which is useful for websites however does not process well when sending PDFs to professional printers.")));
+
 }
 
 QString CheckDocument::bestCheckerProfileForCheckMode(const QString& defaultProfile)
@@ -279,9 +281,7 @@ void CheckDocument::clearErrorList()
 	masterPageItemMap.clear();
 }
 
-void CheckDocument::buildItem(QTreeWidgetItem * item,
-							   PreflightError errorType,
-							   PageItem * pageItem)
+void CheckDocument::buildItem(QTreeWidgetItem * item, PreflightError errorType, PageItem * pageItem)
 {
 	Q_ASSERT_X(item != nullptr, "CheckDocument::buildItem",
 				"No reference to QTreeWidgetItem item");
@@ -290,24 +290,24 @@ void CheckDocument::buildItem(QTreeWidgetItem * item,
 
 	switch (errorType)
 	{
-		case MissingGlyph:
+		case PreflightError::MissingGlyph:
 			item->setText(COLUMN_PROBLEM, warnMap[PV_MISSING_GLYPH].first);
 			item->setToolTip(COLUMN_PROBLEM, warnMap[PV_MISSING_GLYPH].second);
 			item->setIcon(COLUMN_ITEM, graveError);
 			pageGraveError = true;
 			itemError = true;
 			break;
-		case TextOverflow:
+		case PreflightError::TextOverflow:
 			item->setText(COLUMN_PROBLEM, warnMap[PV_TEXT_OVERFLOW].first);
 			item->setToolTip(COLUMN_PROBLEM, warnMap[PV_TEXT_OVERFLOW].second);
 			item->setIcon(COLUMN_ITEM, onlyWarning);
 			break;
-		case ObjectNotOnPage:
+		case PreflightError::ObjectNotOnPage:
 			item->setText(COLUMN_PROBLEM, warnMap[PV_NON_ON_PAGE].first);
 			item->setToolTip(COLUMN_PROBLEM, warnMap[PV_NON_ON_PAGE].second);
 			item->setIcon(COLUMN_ITEM, onlyWarning);
 			break;
-		case MissingImage:
+		case PreflightError::MissingImage:
 			if (pageItem->externalFile().isEmpty())
 			{
 				item->setText(COLUMN_PROBLEM, warnMap[PV_EMPTY_IMAGE_FRAME].first);
@@ -322,7 +322,7 @@ void CheckDocument::buildItem(QTreeWidgetItem * item,
 				pageGraveError = true;
 			}
 			break;
-		case ImageDPITooLow:
+		case PreflightError::ImageDPITooLow:
 		{
 			int xres = qRound(72.0 / pageItem->imageXScale());
 			int yres = qRound(72.0 / pageItem->imageYScale());
@@ -331,7 +331,7 @@ void CheckDocument::buildItem(QTreeWidgetItem * item,
 			item->setIcon(COLUMN_ITEM, onlyWarning );
 			break;
 		}
-		case ImageDPITooHigh:
+		case PreflightError::ImageDPITooHigh:
 		{
 			int xres = qRound(72.0 / pageItem->imageXScale());
 			int yres = qRound(72.0 / pageItem->imageYScale());
@@ -340,55 +340,61 @@ void CheckDocument::buildItem(QTreeWidgetItem * item,
 			item->setIcon(COLUMN_ITEM, onlyWarning );
 			break;
 		}
-		case PartFilledImageFrame:
+		case PreflightError::PartFilledImageFrame:
 			item->setText(COLUMN_PROBLEM, warnMap[PV_IMAGE_FRAME_PART_FILLED].first);
 			item->setToolTip(COLUMN_PROBLEM, warnMap[PV_IMAGE_FRAME_PART_FILLED].second);
 			item->setIcon(COLUMN_ITEM, onlyWarning);
 			break;
-		case Transparency:
+		case PreflightError::Transparency:
 			item->setText(COLUMN_PROBLEM, warnMap[PV_TRANSPARENCY].first);
 			item->setToolTip(COLUMN_PROBLEM, warnMap[PV_TRANSPARENCY].second);
 			item->setIcon(COLUMN_ITEM, graveError );
 			pageGraveError = true;
 			itemError = true;
 			break;
-		case PDFAnnotField:
+		case PreflightError::PDFAnnotField:
 			item->setText(COLUMN_PROBLEM, warnMap[PV_ANNOTATION].second);
 			item->setToolTip(COLUMN_PROBLEM, warnMap[PV_ANNOTATION].second);
 			item->setIcon(COLUMN_ITEM, onlyWarning );
 			break;
-		case PlacedPDF:
+		case PreflightError::PlacedPDF:
 			item->setText(COLUMN_PROBLEM, warnMap[PV_RASTER_PDF].first);
 			item->setToolTip(COLUMN_PROBLEM, warnMap[PV_RASTER_PDF].second);
 			item->setIcon(COLUMN_ITEM, onlyWarning );
 			break;
-		case ImageIsGIF:
+		case PreflightError::ImageIsGIF:
 			item->setText(COLUMN_PROBLEM, warnMap[PV_IS_GIF].first);
 			item->setToolTip(COLUMN_PROBLEM, warnMap[PV_IS_GIF].second);
 			item->setIcon(COLUMN_ITEM, onlyWarning);
 			break;
-		case WrongFontInAnnotation:
+		case PreflightError::WrongFontInAnnotation:
 			item->setText(COLUMN_PROBLEM, warnMap[PV_WRONG_FONT].first);
 			item->setToolTip(COLUMN_PROBLEM, warnMap[PV_WRONG_FONT].second);
 			item->setIcon(COLUMN_ITEM, graveError );
 			pageGraveError = true;
 			itemError = true;
 			break;
-		case NotCMYKOrSpot:
+		case PreflightError::NotCMYKOrSpot:
 			item->setText(COLUMN_PROBLEM, warnMap[PV_NOT_CMYK_SPOT].first);
 			item->setToolTip(COLUMN_PROBLEM, warnMap[PV_NOT_CMYK_SPOT].second);
 			item->setIcon(COLUMN_ITEM, onlyWarning);
 			itemError = true;
 			break;
-		case FontNotEmbedded:
+		case PreflightError::FontNotEmbedded:
 			item->setText(COLUMN_PROBLEM, warnMap[PV_FONT_NOT_EMBEDDED].first);
 			item->setToolTip(COLUMN_PROBLEM, warnMap[PV_FONT_NOT_EMBEDDED].second);
 			item->setIcon(COLUMN_ITEM, graveError);
 			itemError = true;
 			break;
-		case EmptyTextFrame:
+		case PreflightError::EmptyTextFrame:
 			item->setText(COLUMN_PROBLEM, warnMap[PV_EMPTY_TEXT_FRAME].first);
 			item->setToolTip(COLUMN_PROBLEM, warnMap[PV_EMPTY_TEXT_FRAME].second);
+			item->setIcon(COLUMN_ITEM, onlyWarning);
+			itemError = true;
+			break;
+		case PreflightError::ImageHasProgressiveEncoding:
+			item->setText(COLUMN_PROBLEM, warnMap[PV_IMAGE_HAS_PROGRESSIVE_ENCODING].first);
+			item->setToolTip(COLUMN_PROBLEM, warnMap[PV_IMAGE_HAS_PROGRESSIVE_ENCODING].second);
 			item->setIcon(COLUMN_ITEM, onlyWarning);
 			itemError = true;
 			break;
@@ -463,19 +469,19 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 					QTreeWidgetItem * errorText = new QTreeWidgetItem( layer, 0 );
 					switch (layerErrorsIt.key())
 					{
-						case Transparency:
+						case PreflightError::Transparency:
 							errorText->setText(COLUMN_ITEM, warnMap[PV_LAYER_TRANSPARENCY].first);
 							errorText->setToolTip(COLUMN_ITEM, warnMap[PV_LAYER_TRANSPARENCY].second);
 							errorText->setIcon(COLUMN_ITEM, graveError );
 							layoutGraveError = true;
 							break;
-						case BlendMode:
+						case PreflightError::BlendMode:
 							errorText->setText(COLUMN_ITEM, warnMap[PV_LAYER_BLENDMODE].first);
 							errorText->setToolTip(COLUMN_ITEM, warnMap[PV_LAYER_BLENDMODE].second);
 							errorText->setIcon(COLUMN_ITEM, graveError );
 							layoutGraveError = true;
 							break;
-						case OffConflictLayers:
+						case PreflightError::OffConflictLayers:
 							errorText->setText(COLUMN_ITEM, warnMap[PV_LAYER_PRINTVIS_MISMATCH].first);
 							errorText->setToolTip(COLUMN_ITEM, warnMap[PV_LAYER_PRINTVIS_MISMATCH].second);
 							errorText->setIcon(COLUMN_ITEM, onlyWarning );

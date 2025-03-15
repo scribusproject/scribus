@@ -459,7 +459,7 @@ struct PrintOptions
 	QByteArray devMode; // printer specific options on Windows
 };
 
-enum PreflightError
+enum class PreflightError
 {
 	MissingGlyph = 1,
 	TextOverflow = 2,
@@ -481,7 +481,8 @@ enum PreflightError
 	PartFilledImageFrame = 18,
 	MarksChanged = 19,
 	AppliedMasterDifferentSide = 20,
-	EmptyTextFrame = 21
+	EmptyTextFrame = 21,
+	ImageHasProgressiveEncoding = 22
 };
 
 using errorCodes = QMap<PreflightError, int>;

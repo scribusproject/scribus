@@ -41,6 +41,7 @@ Prefs_PreflightVerifier::Prefs_PreflightVerifier(QWidget* parent, ScribusDoc* /*
 	connect(addProfilePushButton, SIGNAL(clicked()), this, SLOT(addProf()));
 	connect(checkAppliedMasterPageLocationCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
 	connect(checkEmptyTextFramesCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
+	connect(checkImageHasProgressiveEncodingCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
 }
 
 Prefs_PreflightVerifier::~Prefs_PreflightVerifier() = default;
@@ -82,6 +83,7 @@ void Prefs_PreflightVerifier::restoreDefaults(struct ApplicationPrefs *prefsData
 	checkEmptyTextFramesCheckBox->setChecked(checkerProfile.checkEmptyTextFrames);
 	minimumResolutionSpinBox->setValue( qRound(checkerProfile.minResolution) );
 	maximumResolutionSpinBox->setValue( qRound(checkerProfile.maxResolution) );
+	checkImageHasProgressiveEncodingCheckBox->setChecked(checkerProfile.checkImageHasProgressiveEncoding);
 
 	currentProfile = prefProfile;
 	if (checkerProfiles.count() == 1)
@@ -122,6 +124,7 @@ void Prefs_PreflightVerifier::putProfile()
 	checkerProfile.checkOffConflictLayers = checkVisiblePrintableLayersCheckBox->isChecked();
 	checkerProfile.checkAppliedMasterDifferentSide = checkAppliedMasterPageLocationCheckBox->isChecked();
 	checkerProfile.checkEmptyTextFrames = checkEmptyTextFramesCheckBox->isChecked();
+	checkerProfile.checkImageHasProgressiveEncoding = checkImageHasProgressiveEncodingCheckBox->isChecked();
 }
 
 void Prefs_PreflightVerifier::setProfile(const QString& name)

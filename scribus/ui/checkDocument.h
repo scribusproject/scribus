@@ -153,7 +153,8 @@ protected:
 		PV_WRONG_FONT,
 		PV_LAYER_TRANSPARENCY,
 		PV_LAYER_BLENDMODE,
-		PV_LAYER_PRINTVIS_MISMATCH
+		PV_LAYER_PRINTVIS_MISMATCH,
+		PV_IMAGE_HAS_PROGRESSIVE_ENCODING
 	};
 	//! \brief Strings for common texts in GUI dialog tree
 	QMap<int, QPair<QString, QString> > warnMap;

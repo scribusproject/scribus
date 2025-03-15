@@ -2769,12 +2769,13 @@ bool Scribus170Format::readCheckProfile(ScribusDoc* doc, const ScXmlStreamAttrib
 	checkerSettings.checkRasterPDF    = attrs.valueAsBool("checkRasterPDF", true);
 	checkerSettings.checkForGIF       = attrs.valueAsBool("checkForGIF", true);
 	checkerSettings.ignoreOffLayers   = attrs.valueAsBool("ignoreOffLayers", false);
-	checkerSettings.checkNotCMYKOrSpot   = attrs.valueAsBool("checkNotCMYKOrSpot", false);
+	checkerSettings.checkNotCMYKOrSpot = attrs.valueAsBool("checkNotCMYKOrSpot", false);
 	checkerSettings.checkDeviceColorsAndOutputIntent = attrs.valueAsBool("checkDeviceColorsAndOutputIntent", false);
 	checkerSettings.checkFontNotEmbedded = attrs.valueAsBool("checkFontNotEmbedded", false);
 	checkerSettings.checkFontIsOpenType  = attrs.valueAsBool("checkFontIsOpenType", false);
 	checkerSettings.checkAppliedMasterDifferentSide  = attrs.valueAsBool("checkAppliedMasterDifferentSide", true);
-	checkerSettings.checkEmptyTextFrames     = attrs.valueAsBool("checkEmptyTextFrames", true);
+	checkerSettings.checkEmptyTextFrames = attrs.valueAsBool("checkEmptyTextFrames", true);
+	checkerSettings.checkImageHasProgressiveEncoding = attrs.valueAsBool("checkImageHasProgressiveEncoding", true);
 	doc->set1CheckerProfile(profileName, checkerSettings);
 	return true;
 }
