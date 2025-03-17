@@ -107,9 +107,6 @@ void PageSizeSelector::setFormat(PageSizeInfo::Category category, QString name)
 	if (!hasFormatSelector())
 		return;
 
-	PageSize ps(name);
-
-	int index = -1;
 	QSignalBlocker sigFormat(comboFormat);
 	comboFormat->clear();
 
@@ -125,6 +122,8 @@ void PageSizeSelector::setFormat(PageSizeInfo::Category category, QString name)
 		comboFormat->setEnabled(true);
 	}
 
+	PageSize ps(name);
+	int index = -1;
 	for (const auto &item : ps.pageSizes())
 	{
 		if (item.category == category || (category == PageSizeInfo::Preferred && ps.activePageSizes().contains(item.sizeName)))
