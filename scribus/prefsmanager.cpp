@@ -157,6 +157,7 @@ void PrefsManager::initDefaults()
 	appPrefs.uiPrefs.mouseMoveTimeout = 150;
 	appPrefs.uiPrefs.wheelJump = 40;
 	appPrefs.uiPrefs.style = "";
+	appPrefs.uiPrefs.stylePalette = "auto";
 	// On Windows, use the Fusion theme by default when possible,
 	// the old Windows and windowsvista style do not support dark theme
 #if defined Q_OS_WINDOWS
@@ -1360,6 +1361,7 @@ bool PrefsManager::writePref(const QString& filePath)
 	dcUI.setAttribute("UseDocumentTabs", static_cast<int>(appPrefs.uiPrefs.useTabs));
 	dcUI.setAttribute("StickyTools", static_cast<int>(appPrefs.uiPrefs.stickyTools));
 	dcUI.setAttribute("Theme", appPrefs.uiPrefs.style);
+	dcUI.setAttribute("ThemePalette", appPrefs.uiPrefs.stylePalette);
 	dcUI.setAttribute("ScrollWheelJump", appPrefs.uiPrefs.wheelJump);
 	dcUI.setAttribute("MouseMoveTimeout", appPrefs.uiPrefs.mouseMoveTimeout);
 	dcUI.setAttribute("ApplicationFontSize", appPrefs.uiPrefs.applicationFontSize);
@@ -2039,6 +2041,7 @@ bool PrefsManager::readPref(const QString& filePath)
 		if (dc.tagName() == "UI")
 		{
 			appPrefs.uiPrefs.style = dc.attribute("Theme", "Default");
+			appPrefs.uiPrefs.stylePalette = dc.attribute("ThemePalette", "auto");
 			appPrefs.uiPrefs.wheelJump = dc.attribute("ScrollWheelJump").toInt();
 			appPrefs.uiPrefs.mouseMoveTimeout = dc.attribute("MouseMoveTimeout", "150").toInt();
 			appPrefs.uiPrefs.applicationFontSize = dc.attribute("ApplicationFontSize", "12").toInt();

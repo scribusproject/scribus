@@ -30,6 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include <QMessageBox>
 #include <QScreen>
 #include <QStyleFactory>
+#include <QStyleHints>
 
 #include "colormgmt/sccolormgmtenginefactory.h"
 #include "commonstrings.h"
@@ -174,6 +175,37 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 	m_prefsManager.initDefaultActionKeys();
 	setSplashStatus( tr("Reading Preferences") );
 	m_prefsManager.readPrefs();
+
+	// This is a very basic implemenation of the UI theme palette.
+	// If necessary implement platform specific theme configurations here.
+
+	// Apply different palette only if the system UI palette is different.
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 8, 0))
+	if (m_prefsManager.appPrefs.uiPrefs.stylePalette == "dark" && QApplication::styleHints()->colorScheme() == Qt::ColorScheme::Light)
+	{
+		QApplication::styleHints()->setColorScheme(Qt::ColorScheme::Dark);
+
+	// https://bugreports.qt.io/browse/QTBUG-132929
+#if (defined Q_OS_LINUX)
+		QPalette pal(QColor(49, 49, 49));
+		QApplication::setPalette(pal);
+#endif
+		m_SplashScreen->setPixmap(m_iconManager.splashScreen());
+	}
+	else if (m_prefsManager.appPrefs.uiPrefs.stylePalette == "light" && QApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark)
+	{
+		QApplication::styleHints()->setColorScheme(Qt::ColorScheme::Light);
+
+	// https://bugreports.qt.io/browse/QTBUG-132929
+#if (defined Q_OS_LINUX)
+		QPalette pal(QColor(239, 239, 239));
+		QApplication::setPalette(pal);
+#endif
+		m_SplashScreen->setPixmap(m_iconManager.splashScreen());
+	}
+	else
+		QApplication::setPalette(QApplication::style()->standardPalette());
+#endif
 
 	// Configure GUI
 	const QString& prefsUiStyle = m_prefsManager.appPrefs.uiPrefs.style;

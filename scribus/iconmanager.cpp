@@ -36,8 +36,6 @@ IconManager::IconManager(QObject *parent)
 	: QObject(parent)
 {
 	m_splashScreenRect = QRect();
-	m_splashScreen = QPixmap();
-
 }
 
 IconManager& IconManager::instance()
@@ -64,7 +62,7 @@ bool IconManager::setup()
 	}
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
-	connect(QGuiApplication::styleHints(), &QStyleHints::colorSchemeChanged, this, &IconManager::changeColorScheme);
+	connect(qApp->styleHints(), &QStyleHints::colorSchemeChanged, this, &IconManager::changeColorScheme);
 #endif
 
 	return true;
@@ -134,20 +132,18 @@ QColor IconManager::baseColor() const
 
 bool IconManager::iconsForDarkMode() const
 {	
-#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
-	switch(qApp->styleHints()->colorScheme())
-	{
-	case Qt::ColorScheme::Unknown:
-	case Qt::ColorScheme::Light:
-		return false;
-	case Qt::ColorScheme::Dark:
-		return true;
-	default:
-		return false;
-	}
-#else
+// #if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+// 	if (qApp->styleHints()->colorScheme() == Qt::ColorScheme::Light)
+// 		return false;
+// 	else if (qApp->styleHints()->colorScheme() == Qt::ColorScheme::Dark)
+// 		return true;
+// 	else
+// 		return (baseColor().lightness() >= 128) ? true : false;
+// #else
+// 	return (baseColor().lightness() >= 128) ? true : false;
+// #endif
+
 	return (baseColor().lightness() >= 128) ? true : false;
-#endif
 }
 
 void IconManager::rebuildCache()
@@ -608,10 +604,8 @@ void IconManager::readIconConfigFiles()
 					w = (e.hasAttribute("width")) ? e.attribute("width").toInt() : 0;
 					h = (e.hasAttribute("height")) ? e.attribute("height").toInt() : 0;
 					isd.splashMessgeRect = QRect(l,t,w,h);
-					if (iconsForDarkMode())
-						isd.splashScreenPath = (e.hasAttribute("imageDark")) ? e.attribute("imageDark") : "";
-					else
-						isd.splashScreenPath = (e.hasAttribute("imageLight")) ? e.attribute("imageLight") : "";
+					isd.splashScreenDarkPath = (e.hasAttribute("imageDark")) ? e.attribute("imageDark") : "";
+					isd.splashScreenLightPath = (e.hasAttribute("imageLight")) ? e.attribute("imageLight") : "";
 
 				}
 				else if (e.tagName() == "nametext")
@@ -663,7 +657,6 @@ void IconManager::readIconConfigFiles()
 				m_activeSetBasename = isd.baseName;
 				m_activeSetVersion = isd.activeversion;
 				m_splashScreenRect = isd.splashMessgeRect;
-				m_splashScreen = QPixmap(pathForIcon(isd.splashScreenPath));
 			}
 		}
 	}
@@ -677,13 +670,12 @@ bool IconManager::setActiveFromPrefs(const QString& prefsSet)
 	m_activeSetBasename = m_iconSets[prefsSet].baseName;
 	m_activeSetVersion = m_iconSets[prefsSet].activeversion;
 	m_splashScreenRect = m_iconSets[prefsSet].splashMessgeRect;
-	m_splashScreen = QPixmap(pathForIcon(m_iconSets[prefsSet].splashScreenPath));
 
 	rebuildCache();
 	return true;
 }
 
-QString IconManager::pathForIcon(const QString& name)
+QString IconManager::pathForIcon(const QString &name) const
 {
 	//QString iconset(PrefsManager::instance().appPrefs.uiPrefs.iconSet);
 	QString iconSubdir(m_iconSets[m_activeSetBasename].path + "/");
@@ -746,5 +738,8 @@ QRect IconManager::splashScreenRect() const
 
 QPixmap IconManager::splashScreen() const
 {
-	return m_splashScreen;
+	if (iconsForDarkMode())
+		return QPixmap(pathForIcon(m_iconSets[m_activeSetBasename].splashScreenDarkPath));
+	else
+		return QPixmap(pathForIcon(m_iconSets[m_activeSetBasename].splashScreenLightPath));
 }

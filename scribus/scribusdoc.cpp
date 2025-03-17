@@ -3767,7 +3767,7 @@ QString ScribusDoc::getUniquePatternName(const QString& originalName) const
 	// both the number and the text leading up to it sans brackets.
 	//     Copy of fred (5)
 	//     ^^^^^^^^^^^^  ^   (where ^ means captured)
-	QRegularExpression rx("^(.*)\\s+\\((\\d+)\\)$");
+	static QRegularExpression rx("^(.*)\\s+\\((\\d+)\\)$");
 	QRegularExpressionMatch match = rx.match(originalName);
 	// Add a (number) suffix to the end of the name. We start at the
 	// old suffix's value if there was one, or at 2 if there was not.
@@ -6068,8 +6068,8 @@ void ScribusDoc::reformPages(bool moveObjects)
 	double currentXPos = m_docPrefsData.displayPrefs.scratch.left();
 	double currentYPos = m_docPrefsData.displayPrefs.scratch.top();
 	double lastYPos = Pages->at(0)->initialHeight();
-//	currentXPos += (pageWidth + pageSets[currentPageLayout].GapHorizontal) * counter;
-	currentXPos += (m_docPrefsData.docSetupPrefs.pageWidth + m_docPrefsData.displayPrefs.pageGapHorizontal) * counter;
+	currentXPos += (Pages->at(0)->initialWidth() + m_docPrefsData.displayPrefs.pageGapHorizontal) * counter;
+	// currentXPos += (m_docPrefsData.docSetupPrefs.pageWidth + m_docPrefsData.displayPrefs.pageGapHorizontal) * counter;
 
 	ScPage* page;
 	int docPageCount = Pages->count();

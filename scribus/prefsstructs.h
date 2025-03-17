@@ -120,6 +120,7 @@ struct UIPrefs
 	int applicationFontSize {12}; //! Font size to use in the application, apart from pßalettes
 	int paletteFontSize {10}; //! Font size to use in the palettes
 	QString style; 	//! Currently used QStyle name
+	QString stylePalette; //! UI theme palette, dark, light, auto
 	int recentDocCount {5}; //! Number of recent documents to remember
 	QStringList RecentDocs; //! List of recent documents
 	QString language; //! Language of the user interface
@@ -540,7 +541,8 @@ struct ScIconSetData
 	QString variant;
 	bool isDefault;
 	QRect splashMessgeRect;
-	QString splashScreenPath;
+	QString splashScreenLightPath;
+	QString splashScreenDarkPath;
 	QMap<QString, QString> nameTranslations;
 };
 

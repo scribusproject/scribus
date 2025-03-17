@@ -5806,17 +5806,17 @@ void ScribusMainWindow::ToggleFrameEdit()
 		nodePalette->setDefaults(currItem);
 		if ((currItem->isImageFrame()) && (!currItem->imageClip.empty()))
 		{
-			nodePalette->ResetContClip->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
+			nodePalette->ResetContClip->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred));
 			nodePalette->ResetContClip->show();
-			nodePalette->ResetShape2Clip->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(3), static_cast<QSizePolicy::Policy>(3)));
+			nodePalette->ResetShape2Clip->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred));
 			nodePalette->ResetShape2Clip->show();
 			nodePalette->layout()->activate();
 			nodePalette->resize(QSize(170, 380).expandedTo(nodePalette->minimumSizeHint()));
 		}
 		else
 		{
-			nodePalette->ResetContClip->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(6), static_cast<QSizePolicy::Policy>(6)));
-			nodePalette->ResetShape2Clip->setSizePolicy(QSizePolicy(static_cast<QSizePolicy::Policy>(6), static_cast<QSizePolicy::Policy>(6)));
+			nodePalette->ResetContClip->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+			nodePalette->ResetShape2Clip->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 			nodePalette->layout()->activate();
 			nodePalette->ResetContClip->hide();
 			nodePalette->ResetShape2Clip->hide();
@@ -6455,9 +6455,44 @@ void ScribusMainWindow::slotPrefsOrg()
 	m_prefsManager.appPrefs.uiPrefs.language = ScQApp->currGUILanguage();
 	LocaleManager::instance().setUserPreferredLocale(m_prefsManager.appPrefs.uiPrefs.userPreferredLocale);
 	ScQApp->setLocale();
-	QString newUIStyle = m_prefsManager.guiStyle();
-	if (oldPrefs.uiPrefs.style != newUIStyle)
+
+	bool forceStyleUpdate = false;
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 8, 0))
+	QString newUIStylePalette = m_prefsManager.appPrefs.uiPrefs.stylePalette;
+	if (oldPrefs.uiPrefs.stylePalette != newUIStylePalette)
 	{
+		forceStyleUpdate = true;
+
+		if (newUIStylePalette == "dark")
+		{
+			QApplication::styleHints()->setColorScheme(Qt::ColorScheme::Dark);
+#if (defined Q_OS_LINUX)
+			QPalette pal(QColor(49, 49, 49));
+			QApplication::setPalette(pal);
+#endif
+		}
+		else if (newUIStylePalette == "light")
+		{
+			QApplication::styleHints()->setColorScheme(Qt::ColorScheme::Light);
+#if (defined Q_OS_LINUX)
+			QPalette pal(QColor(239, 239, 239));
+			QApplication::setPalette(pal);
+#endif
+		}
+		else
+		{
+			QApplication::styleHints()->unsetColorScheme();
+			QApplication::setPalette(this->style()->standardPalette());
+		}
+	}
+#endif
+
+	bool forceIconUpdate = false;
+	QString newUIStyle = m_prefsManager.guiStyle();
+	if (oldPrefs.uiPrefs.style != newUIStyle || forceStyleUpdate == true)
+	{
+		forceIconUpdate = true;
+
 		QString styleName = m_prefsManager.guiSystemStyle();
 		if (!newUIStyle.isEmpty())
 			styleName = newUIStyle;
@@ -6470,7 +6505,7 @@ void ScribusMainWindow::slotPrefsOrg()
 
 	QString newIconSet = m_prefsManager.guiIconSet();
 	// Recreate icons if icon set or GUI changed. For GUI change the icon recreation will automatically detect light and dark themes
-	if (oldPrefs.uiPrefs.iconSet != newIconSet || oldPrefs.uiPrefs.style != newUIStyle)
+	if (oldPrefs.uiPrefs.iconSet != newIconSet || forceIconUpdate == true)
 		ScQApp->changeIconSet(newIconSet);
 
 	ScQApp->changeLabelVisibility(m_prefsManager.appPrefs.uiPrefs.showLabels);

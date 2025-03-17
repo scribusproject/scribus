@@ -43,7 +43,6 @@ public:
 	void operator=(IconManager const&) = delete;
 	static IconManager& instance();
 
-	void setIconsForDarkMode(bool forDarkMode);
 	QColor baseColor() const;
 	bool iconsForDarkMode() const;
 	bool setup();
@@ -60,7 +59,7 @@ public:
 
 	bool setActiveFromPrefs(const QString& prefsSet);
 	QString activeSetBasename() { return m_activeSetBasename; }
-	QString pathForIcon(const QString& name);
+	QString pathForIcon(const QString& name) const;
 	QString baseNameForTranslation(const QString& transName) const;
 	QStringList nameList(const QString& language) const;
 
@@ -95,7 +94,6 @@ private:
 	QString m_backupSetBasename;
 	QString m_backupSetVersion;
 	QRect m_splashScreenRect;
-	QPixmap m_splashScreen;
 	qreal m_devicePixelRatio { 1.0 };
 
 	bool initIconSets();

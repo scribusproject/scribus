@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include <QFontDialog>
 #include <QPixmap>
 #include <QStyleFactory>
+#include <QStyleHints>
 
 #include "iconmanager.h"
 #include "langmgr.h"
@@ -59,6 +60,12 @@ Prefs_UserInterface::~Prefs_UserInterface() = default;
 
 void Prefs_UserInterface::languageChange()
 {
+	themePaletteComboBox->clear();
+	themePaletteComboBox->addItem(tr("Auto"), "auto");
+	themePaletteComboBox->addItem(tr("Light"), "light");
+	themePaletteComboBox->addItem(tr("Dark"), "dark");
+	themePaletteComboBox->setToolTip( "<qt>" + tr( "Choose the default theme palette. Auto uses the systems default." ) + "</qt>");
+
 	themeComboBox->setToolTip( "<qt>" + tr( "Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins." ) + "</qt>");
 	iconSetComboBox->setToolTip( "<qt>" + tr( "Choose the default icon set" ) + "</qt>");
 	useSmallWidgetsCheckBox->setToolTip( "<qt>" + tr( "Palette windows will use smaller (space savvy) widgets. Requires application restart." ) + "</qt>");
@@ -92,6 +99,13 @@ void Prefs_UserInterface::restoreDefaults(struct ApplicationPrefs *prefsData)
 		selectedGUILang = "en_GB";
 		langString = LanguageManager::instance()->getLangFromAbbrev(selectedGUILang);
 	}
+
+	int index = themePaletteComboBox->findData(prefsData->uiPrefs.stylePalette);
+	if ( index != -1 )
+		themePaletteComboBox->setCurrentIndex(index);
+	else
+		themePaletteComboBox->setCurrentIndex(0);
+
 	setCurrentComboItem(languageComboBox, langString);
 	numberFormatComboBox->setCurrentIndex(prefsData->uiPrefs.userPreferredLocale == "System" ? 0 : 1);
 	setCurrentComboItem(themeComboBox, prefsData->uiPrefs.style);
@@ -118,6 +132,7 @@ void Prefs_UserInterface::saveGuiToPrefs(struct ApplicationPrefs *prefsData) con
 	prefsData->uiPrefs.language = selectedGUILang;
 	prefsData->uiPrefs.userPreferredLocale = numberFormatComboBox->currentData().toString();
 	prefsData->uiPrefs.style = themeComboBox->currentText();
+	prefsData->uiPrefs.stylePalette = themePaletteComboBox->currentData().toString();
 	prefsData->uiPrefs.iconSet = IconManager::instance().baseNameForTranslation(iconSetComboBox->currentText());
 	prefsData->uiPrefs.applicationFontSize = fontSizeMenuSpinBox->value();
 	prefsData->uiPrefs.paletteFontSize = fontSizePaletteSpinBox->value();
@@ -133,6 +148,7 @@ void Prefs_UserInterface::saveGuiToPrefs(struct ApplicationPrefs *prefsData) con
 
 	prefsData->storyEditorPrefs.guiFont = seFont.toString();
 	prefsData->storyEditorPrefs.smartTextSelection = storyEditorUseSmartSelectionCheckBox->isChecked();
+
 }
 
 void Prefs_UserInterface::setSelectedGUILang(const QString &newLang)
