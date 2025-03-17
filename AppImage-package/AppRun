@@ -57,7 +57,7 @@ export TK_LIBRARY="${HERE}"/usr/share/tcltk/tk8.6:$TK_LIBRARY:$TCL_LIBRARY
 # This allows the bundle to run even on older systems than the one it was built on
 ############################################################################################
 
-if [ -e "$HERE/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2" ] ; then
+if [ -e "$HERE/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2" ] ; then
   echo "Run experimental bundle that bundles everything"
   export GCONV_PATH="$HERE/usr/lib/x86_64-linux-gnu/gconv"
   export FONTCONFIG_FILE="$HERE/etc/fonts/fonts.conf"
@@ -72,7 +72,7 @@ if [ -e "$HERE/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2" ] ; then
   export LIBRARY_PATH="$HERE/usr/lib/x86_64-linux-gnu/pulseaudio":$LIBRARY_PATH
   export LIBRARY_PATH="$HERE/usr/lib/x86_64-linux-gnu/alsa-lib":$LIBRARY_PATH
   export LIBRARY_PATH=$GDK_PIXBUF_MODULEDIR:$LIBRARY_PATH # Otherwise getting "Unable to load image-loading module"
-  exec "${HERE}/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2" --inhibit-cache --library-path "${LIBRARY_PATH}" "${MAIN}" "$@"
+  exec "${HERE}/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2" --inhibit-cache --argv0 "${MAIN}" --library-path "${LIBRARY_PATH}" "${MAIN}" "$@"
 else
   exec "${MAIN}" "$@"
 fi

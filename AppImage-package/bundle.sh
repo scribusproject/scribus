@@ -4,7 +4,7 @@ cat /proc/1/cgroup # Check if we run in Docker; https://github.com/AppImage/AppI
 
 # for docker images:
 # if qt is not in the standard path, load its environment variables
-. /opt/qt*/bin/qt*-env.sh || true
+# . /opt/qt*/bin/qt*-env.sh || true
 
 SCRIBUS_VERSION=nightly
 
@@ -15,11 +15,11 @@ SCRIBUS_VERSION=nightly
 cmake . -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
     -DCMAKE_C_COMPILER_LAUNCHER=ccache \
     -DCMAKE_INSTALL_PREFIX=/usr \
+    -DWANT_DEBUG=0 \
     -DWANT_RELOCATABLE=1 \
-    -DWANT_HUNSPELL=1 \
     -DWITH_PODOFO=1 \
     -DWANT_GRAPHICSMAGICK=1 \
-    -DWANT_DEBUG=0 \
+    -DQT_VERSION_MAJOR=6 \
     -DWANT_SVNVERSION=0
 make -j$(nproc)
 
@@ -31,7 +31,6 @@ cp AppImage-package/AppRun appdir/
 chmod +x appdir/AppRun
 
 cp ./appdir/usr/share/icons/hicolor/256x256/apps/scribus.png ./appdir/
-
 # TODO: is this needed?
 sed -i -e 's|^Icon=.*|Icon=scribus|g' ./appdir/usr/share/applications/scribus.desktop
 
@@ -43,8 +42,8 @@ sed -i -e 's|^Icon=.*|Icon=scribus|g' ./appdir/usr/share/applications/scribus.de
 cd appdir/
 
 # Bundle all of glibc; this should eventually be done by linuxdeployqt
-apt-get update -q
-apt-get download libc6
+apt update -q
+apt download libc6
 find *.deb -exec dpkg-deb -x {} . \;
 rm *deb
 
@@ -57,7 +56,7 @@ mkdir -p etc/fonts/
 cp /etc/fonts/fonts.conf etc/fonts/
 
 # Bundle Python
-apt-get download python3.6 python3.6-minimal libpython3.6-minimal libpython3.6-stdlib python3-tk
+apt download python3.12 python3.12-minimal libpython3.12-minimal libpython3.12-stdlib python3-tk
 find *.deb -exec dpkg-deb -x {} . \;
 rm *deb
 cd -
@@ -70,9 +69,12 @@ cd -
 # applicationDirPath() is not usr/bin but lib/x86_64-linux-gnu/
 # when AppRun invokes the binary with
 # exec "${HERE}/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2" --inhibit-cache --library-path "${LIBRARY_PATH}" "${MAIN}" "$@"
-# hence we add a symlink here to mitigate this
-cd appdir/lib/
-ln -s ../usr/* .
+# hence we add symlinks here to mitigate this
+
+cd appdir/
+# On Ubuntu 24.04 /lib is a symlink to /usr/lib
+ln -s usr/lib lib
+ln -s usr/lib64 lib64
 cd -
 
 ########################################################################
@@ -92,7 +94,7 @@ mkdir -p appdir/lib/x86_64-linux-gnu/
 cat > appdir/lib/x86_64-linux-gnu/qt.conf <<\EOF
 # Why is this needed here? Bug?
 [Paths]
-Prefix = ../../usr
+Prefix = ../../../usr
 Plugins = plugins
 Imports = qml
 Qml2Imports = qml
@@ -105,8 +107,9 @@ EOF
 # Finalize AppDir but do not turn into AppImage just yet
 wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
 chmod a+x linuxdeployqt-continuous-x86_64.AppImage
+
 ARCH=x86_64 VERSION=$SCRIBUS_VERSION ./linuxdeployqt-continuous-x86_64.AppImage --appimage-extract-and-run appdir/usr/share/applications/scribus.desktop \
-                                               -appimage -unsupported-bundle-everything \
-                                               -executable=appdir/usr/bin/python3.6 \
-                                               -executable=appdir/usr/lib/python3.6/lib-dynload/_tkinter.cpython-36m-x86_64-linux-gnu.so \
-                                               -extra-plugins=platformthemes/libqgtk2.so,styles/libqgtk2style.so
+   -appimage -unsupported-bundle-everything \
+   -executable=appdir/usr/bin/python3.12 \
+   -executable=appdir/usr/lib/python3.12/lib-dynload/_tkinter.cpython-312-x86_64-linux-gnu.so \
+   -qmake=qmake6;
