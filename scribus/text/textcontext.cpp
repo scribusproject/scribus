@@ -73,9 +73,12 @@ QString TextContext::expand(const ExpansionPoint& expansion)
 		case ExpansionPoint::PageNumber:
 			if (m_frame->OwnPage != -1)
 			{
-				return QString("%1").arg(doc->getSectionPageNumberForPageIndex(m_frame->OwnPage),
-										 doc->getSectionPageNumberWidthForPageIndex(m_frame->OwnPage),
-										 doc->getSectionPageNumberFillCharForPageIndex(m_frame->OwnPage));
+				int pageNumber = m_frame->OwnPage;
+				if (!m_frame->OnMasterPage.isEmpty() && m_frame->OwnPage >= doc->DocPages.count())
+					pageNumber = 0;
+				return QString("%1").arg(doc->getSectionPageNumberForPageIndex(pageNumber),
+										 doc->getSectionPageNumberWidthForPageIndex(pageNumber),
+										 doc->getSectionPageNumberFillCharForPageIndex(pageNumber));
 			}
 			return "#";
 		case ExpansionPoint::PageCount:
