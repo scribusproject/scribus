@@ -22,8 +22,8 @@ appimage:linux:
     - export CCACHE_DIR=${PWD}/ccache
   script:
     - bash -ex AppImage-package/bundle.sh
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "master"'
+  only:
+    - master
   artifacts:
     expire_in: 14 days
     paths:
