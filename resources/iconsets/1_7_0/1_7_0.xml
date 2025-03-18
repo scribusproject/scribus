@@ -450,7 +450,7 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<!-- Shape -->
 		<icon id="text-wrap-boundingbox" file="16/text-wrap-boundingbox.svg" />
 		<icon id="text-wrap-contour" file="16/text-wrap-contour.svg" />
-		<icon id="text-wrap-image-clip" file="16/text-wrap-contour.svg" />
+		<icon id="text-wrap-image-clip" file="16/text-wrap-clip.svg" />
 		<icon id="text-wrap-none" file="16/text-wrap-none.svg" />
 		<icon id="text-wrap-shape" file="16/text-wrap-shape.svg" />		
 	
