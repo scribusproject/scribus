@@ -203,8 +203,6 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 #endif
 		m_SplashScreen->setPixmap(m_iconManager.splashScreen());
 	}
-	else
-		QApplication::setPalette(QApplication::style()->standardPalette());
 #endif
 
 	// Configure GUI
