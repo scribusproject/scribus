@@ -42,10 +42,14 @@ sed -i -e 's|^Icon=.*|Icon=scribus|g' ./appdir/usr/share/applications/scribus.de
 cd appdir/
 
 # Bundle all of glibc; this should eventually be done by linuxdeployqt
-apt update -q
-apt download libc6
+apt-get update -q
+apt-get download libc6
 find *.deb -exec dpkg-deb -x {} . \;
 rm *deb
+
+# On Ubuntu 24.04 /lib is a symlink to /usr/lib
+ln -s usr/lib lib
+ln -s usr/lib64 lib64
 
 # Make absolutely sure it will not load stuff from /lib or /usr
 sed -i -e 's|/usr|/xxx|g' lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
@@ -56,25 +60,9 @@ mkdir -p etc/fonts/
 cp /etc/fonts/fonts.conf etc/fonts/
 
 # Bundle Python
-apt download python3.12 python3.12-minimal libpython3.12-minimal libpython3.12-stdlib python3-tk
+apt-get download python3.12 python3.12-minimal libpython3.12-minimal libpython3.12-stdlib python3-tk
 find *.deb -exec dpkg-deb -x {} . \;
 rm *deb
-cd -
-
-########################################################################
-# Work around side effect of bundling everything
-########################################################################
-
-# https://github.com/scribusproject/scribus/issues/111#issuecomment-457823282
-# applicationDirPath() is not usr/bin but lib/x86_64-linux-gnu/
-# when AppRun invokes the binary with
-# exec "${HERE}/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2" --inhibit-cache --library-path "${LIBRARY_PATH}" "${MAIN}" "$@"
-# hence we add symlinks here to mitigate this
-
-cd appdir/
-# On Ubuntu 24.04 /lib is a symlink to /usr/lib
-ln -s usr/lib lib
-ln -s usr/lib64 lib64
 cd -
 
 ########################################################################
