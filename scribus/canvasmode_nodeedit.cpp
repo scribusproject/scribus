@@ -948,13 +948,13 @@ void CanvasMode_NodeEdit::handleNodeEditPress(QMouseEvent* m, QRect r)
 		}
 	}
 
-	if ((m_doc->nodeEdit.submode() == NodeEditContext::DEL_POINT || m_doc->nodeEdit.submode() == NodeEditContext::MOVE_POINT && m->modifiers() == Qt::ControlModifier) && m_doc->nodeEdit.hasNodeSelected() && state.clickedOn == NodeHandle)
+	if ((m_doc->nodeEdit.submode() == NodeEditContext::DEL_POINT || (m_doc->nodeEdit.submode() == NodeEditContext::MOVE_POINT && m->modifiers() == Qt::ControlModifier)) && m_doc->nodeEdit.hasNodeSelected() && state.clickedOn == NodeHandle)
 	{
 		edited = deleteNodes();
 	}
 
 	// Add node id "add point" mode OR "move point" mode + CTRL
-	if ((m_doc->nodeEdit.submode() == NodeEditContext::ADD_POINT || m_doc->nodeEdit.submode() == NodeEditContext::MOVE_POINT && m->modifiers() == Qt::ControlModifier) && (m_doc->nodeEdit.clre2() != -1))
+	if ((m_doc->nodeEdit.submode() == NodeEditContext::ADD_POINT || (m_doc->nodeEdit.submode() == NodeEditContext::MOVE_POINT && m->modifiers() == Qt::ControlModifier)) && (m_doc->nodeEdit.clre2() != -1))
 	{
 		bool foundP = false;
 		uint seg = 0;
