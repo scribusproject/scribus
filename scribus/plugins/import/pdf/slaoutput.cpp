@@ -1675,38 +1675,38 @@ void SlaOutputDev::createFillItem(GfxState *state, Qt::FillRule fillRule)
 
 	m_coords = output;
 	QRectF bbox = clippedPath.boundingRect();
-	if (!clippedPath.isEmpty() && !bbox.isNull())
+	if (clippedPath.isEmpty() || bbox.isNull())
+		return;
+
+	graphicState.fillColor = getColor(state->getFillColorSpace(), state->getFillColor(), &graphicState.fillShade);
+	int z;
+	if (m_pathIsClosed)
+		z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, xCoor, yCoor, 10, 10, 0, graphicState.fillColor, CommonStrings::None);
+	else
+		z = m_doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, xCoor, yCoor, 10, 10, 0, graphicState.fillColor, CommonStrings::None);
+	PageItem* ite = m_doc->Items->at(z);
+	ite->PoLine.fromQPainterPath(clippedPath, m_pathIsClosed);
+	ite->ClipEdited = true;
+	ite->FrameType = 3;
+	ite->setFillShade(graphicState.fillShade);
+	ite->setLineShade(100);
+	ite->setRotation(-angle);
+	// Only the new path has to be interpreted according to fillRule. QPainterPath
+	// could decide to create a final path according to the other rule. Thus
+	// we have to set this from the final path.
+	ite->setFillEvenOdd(clippedPath.fillRule() == Qt::OddEvenFill);
+	ite->setFillTransparency(1.0 - state->getFillOpacity());
+	ite->setFillBlendmode(getBlendMode(state));
+	ite->setLineEnd(m_lineEnd);
+	ite->setLineJoin(m_lineJoin);
+	ite->setWidthHeight(bbox.width(),bbox.height());
+	ite->setTextFlowMode(PageItem::TextFlowDisabled);
+	m_doc->adjustItemSize(ite);
+	m_Elements->append(ite);
+	if (m_groupStack.count() != 0)
 	{
-		graphicState.fillColor = getColor(state->getFillColorSpace(), state->getFillColor(), &graphicState.fillShade);
-		int z;
-		if (m_pathIsClosed)
-			z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, xCoor, yCoor, 10, 10, 0, graphicState.fillColor, CommonStrings::None);
-		else
-			z = m_doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, xCoor, yCoor, 10, 10, 0, graphicState.fillColor, CommonStrings::None);
-		PageItem* ite = m_doc->Items->at(z);
-		ite->PoLine.fromQPainterPath(clippedPath, true);
-		ite->ClipEdited = true;
-		ite->FrameType = 3;
-		ite->setFillShade(graphicState.fillShade);
-		ite->setLineShade(100);
-		ite->setRotation(-angle);
-		// Only the new path has to be interpreted according to fillRule. QPainterPath
-		// could decide to create a final path according to the other rule. Thus
-		// we have to set this from the final path.
-		ite->setFillEvenOdd(clippedPath.fillRule() == Qt::OddEvenFill);
-		ite->setFillTransparency(1.0 - state->getFillOpacity());
-		ite->setFillBlendmode(getBlendMode(state));
-		ite->setLineEnd(m_lineEnd);
-		ite->setLineJoin(m_lineJoin);
-		ite->setWidthHeight(bbox.width(),bbox.height());
-		ite->setTextFlowMode(PageItem::TextFlowDisabled);
-		m_doc->adjustItemSize(ite);
-		m_Elements->append(ite);
-		if (m_groupStack.count() != 0)
-		{
-			m_groupStack.top().Items.append(ite);
-			applyMask(ite);
-		}
+		m_groupStack.top().Items.append(ite);
+		applyMask(ite);
 	}
 }
 
