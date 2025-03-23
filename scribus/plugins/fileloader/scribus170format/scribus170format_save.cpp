@@ -2791,13 +2791,13 @@ void Scribus170Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	if (item->isRegularPolygon())
 	{
 		PageItem_RegularPolygon *regitem = item->asRegularPolygon();
-		docu.writeAttribute("POLYC", regitem->polyCorners);
-		docu.writeAttribute("POLYF", regitem->polyFactor);
-		docu.writeAttribute("POLYR", regitem->polyRotation);
-		docu.writeAttribute("POLYIR", regitem->polyInnerRot);
-		docu.writeAttribute("POLYCUR", regitem->polyCurvature);
-		docu.writeAttribute("POLYOCUR", regitem->polyOuterCurvature);
-		docu.writeAttribute("POLYS", static_cast<int>(regitem->polyUseFactor));
+		docu.writeAttribute("PolygonCorners", regitem->polyCorners);
+		docu.writeAttribute("PolygonFactor", regitem->polyFactor);
+		docu.writeAttribute("PolygonRotation", regitem->polyRotation);
+		docu.writeAttribute("PolygonInnerRotation", regitem->polyInnerRot);
+		docu.writeAttribute("PolygonCurvature", regitem->polyCurvature);
+		docu.writeAttribute("PolygonOuterCurvature", regitem->polyOuterCurvature);
+		docu.writeAttribute("PolygonUseFactor", static_cast<int>(regitem->polyUseFactor));
 	}
 	if (item->isArc())
 	{
