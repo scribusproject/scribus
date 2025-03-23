@@ -1754,13 +1754,20 @@ bool Scribus170Format::loadFile(const QString & fileName, const FileFormat & /* 
 			temp.create(tstyle);
 			m_Doc->redefineCellStyles(temp, false);
 		}
+		//Remove uppercase in 1.8 format
 		else if (tagName == QLatin1String("JAVA"))
 		{
 			QString name = attrs.valueAsString("NAME");
 			if (!name.isEmpty())
 				m_Doc->JavaScripts[name] = attrs.valueAsString("SCRIPT");
 		}
-		else if (tagName == QLatin1String("LAYERS"))
+		else if (tagName == QLatin1String("Java"))
+		{
+			QString name = attrs.valueAsString("Name");
+			if (!name.isEmpty())
+				m_Doc->JavaScripts[name] = attrs.valueAsString("Script");
+		}
+		else if ((tagName == QLatin1String("LAYERS")) || (tagName == QLatin1String("Layers")))
 		{
 			ScLayer newLayer;
 			readLayers(newLayer, attrs);
@@ -1820,7 +1827,8 @@ bool Scribus170Format::loadFile(const QString & fileName, const FileFormat & /* 
 			success = readSections(m_Doc, reader);
 			if (!success) break;
 		}
-		else if (tagName == QLatin1String("HYPHEN"))
+		//Remove uppercase in 1.8 format
+		else if (tagName == QLatin1String("Hyphenator") || tagName == QLatin1String("HYPHEN"))
 		{
 			success = readHyphen(m_Doc, reader);
 			if (!success) break;
@@ -6099,9 +6107,26 @@ PageItem* Scribus170Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 		currItem->setFillColor(CommonStrings::None);
 	currItem->m_columns   = attrs.valueAsInt("COLUMNS", 1);
 	currItem->m_columnGap = attrs.valueAsDouble("COLGAP", 0.0);
+	//Remove uppercase in 1.8 format
 	if (attrs.valueAsInt("LAYER", 0) != -1)
 	{
 		currItem->setLayer(attrs.valueAsInt("LAYER", 0));
+		uint layerCount = doc->Layers.count();
+		bool found = false;
+		for (uint i = 0; i < layerCount; ++i)
+		{
+			if (doc->Layers[i].ID == currItem->m_layerID)
+			{
+				found = true;
+				break;
+			}
+		}
+		if (!found)
+			currItem->setLayer(doc->firstLayerID());
+	}
+	if (attrs.valueAsInt("Layer", 0) != -1)
+	{
+		currItem->setLayer(attrs.valueAsInt("Layer", 0));
 		uint layerCount = doc->Layers.count();
 		bool found = false;
 		for (uint i = 0; i < layerCount; ++i)

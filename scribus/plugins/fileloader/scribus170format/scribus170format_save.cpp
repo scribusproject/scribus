@@ -790,7 +790,7 @@ void Scribus170Format::writeHyphenatorLists(ScXmlStreamWriter& docu)
 {
 	const auto& hyphenatorPrefs = m_Doc->hyphenatorPrefs();
 
-	docu.writeStartElement("HYPHEN");
+	docu.writeStartElement("Hyphenator");
 	for (auto hyit = hyphenatorPrefs.specialWords.begin(); hyit != hyphenatorPrefs.specialWords.end(); ++hyit)
 	{
 		docu.writeEmptyElement("Exception");
@@ -2252,7 +2252,7 @@ void Scribus170Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 		if (! item->itemText.defaultStyle().isInhAlignment())
 			docu.writeAttribute("ALIGN", item->itemText.defaultStyle().alignment());
 		
-		docu.writeAttribute("LAYER", item->m_layerID);
+		docu.writeAttribute("Layer", item->m_layerID);
 		if (item->isBookmark)
 			docu.writeAttribute("BOOKMARK", 1);
 
