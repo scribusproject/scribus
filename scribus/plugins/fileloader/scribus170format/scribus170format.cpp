@@ -880,7 +880,8 @@ bool Scribus170Format::loadStory(const QByteArray& data, StoryText& story, PageI
 			if (!grName.isEmpty() && !m_Doc->docGradients.contains(grName))
 				m_Doc->docGradients.insert(grName, gra);
 		}
-		if (tagName == QLatin1String("STYLE"))
+		//Remove uppercase in 1.8 format
+		if ((tagName == QLatin1String("ParagraphStyle")) || (tagName == QLatin1String("STYLE")))
 		{
 			ParagraphStyle pstyle;
 			readParagraphStyle(m_Doc, reader, pstyle);
@@ -892,7 +893,8 @@ bool Scribus170Format::loadStory(const QByteArray& data, StoryText& story, PageI
 			tmp.create(pstyle);
 			m_Doc->redefineStyles(tmp, false);
 		}
-		if (tagName == QLatin1String("CHARSTYLE"))
+		//Remove uppercase in 1.8 format
+		if (tagName == QLatin1String("CharacterStyle") || tagName == QLatin1String("CHARSTYLE"))
 		{
 			CharStyle cstyle;
 			ScXmlStreamAttributes attrs = reader.scAttributes();
@@ -1721,7 +1723,8 @@ bool Scribus170Format::loadFile(const QString & fileName, const FileFormat & /* 
 			if (!grName.isEmpty())
 				m_Doc->docGradients.insert(grName, gra);
 		}
-		else if (tagName == QLatin1String("STYLE"))
+		//Remove uppercase in 1.8 format
+		else if ((tagName == QLatin1String("ParagraphStyle")) || (tagName == QLatin1String("STYLE")))
 		{
 			ParagraphStyle pstyle;
 			readParagraphStyle(m_Doc, reader, pstyle);
@@ -1729,7 +1732,8 @@ bool Scribus170Format::loadFile(const QString & fileName, const FileFormat & /* 
 			tmp.create(pstyle);
 			m_Doc->redefineStyles(tmp, false);
 		}
-		else if (tagName == QLatin1String("CHARSTYLE"))
+		//Remove uppercase in 1.8 format
+		if (tagName == QLatin1String("CharacterStyle") || tagName == QLatin1String("CHARSTYLE"))
 		{
 			CharStyle cstyle;
 			ScXmlStreamAttributes attrs = reader.scAttributes();
@@ -5430,8 +5434,11 @@ bool Scribus170Format::readItemText(StoryText& story, const ScXmlStreamAttribute
 	}
 
 	// more legacy stuff:
-	QString pstylename = attrs.valueAsString("PSTYLE", "");		
-
+	QString pstylename;
+	if (attrs.hasAttribute("PSTYLE"))
+		pstylename = attrs.valueAsString("PSTYLE", "");
+	else
+		pstylename = attrs.valueAsString("ParagraphStyle", "");
 	fixLegacyCharStyle(newStyle);
 	last->ParaStyle = pstylename;
 	// end of legacy stuff
@@ -7617,7 +7624,8 @@ bool Scribus170Format::readStyles(const QString& fileName, ScribusDoc* doc, Styl
 			firstElement = false;
 			continue;
 		}
-		if (tagName == QLatin1String("STYLE"))
+		//Remove uppercase in 1.8 format
+		if ((tagName == QLatin1String("ParagraphStyle")) || (tagName == QLatin1String("STYLE")))
 		{
 			pstyle.erase();
 			getStyle(pstyle, reader, &docParagraphStyles, doc, false);
@@ -7657,7 +7665,8 @@ bool Scribus170Format::readCharStyles(const QString& fileName, ScribusDoc* doc, 
 			firstElement = false;
 			continue;
 		}
-		if (tagName == QLatin1String("CHARSTYLE"))
+		//Remove uppercase in 1.8 format
+		if (tagName == QLatin1String("CharacterStyle") || tagName == QLatin1String("CHARSTYLE"))
 		{
 			cstyle.erase();
 			attrs = reader.scAttributes();

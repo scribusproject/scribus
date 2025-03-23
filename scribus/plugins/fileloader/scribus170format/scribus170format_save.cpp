@@ -200,7 +200,7 @@ bool Scribus170Format::saveStory(StoryText& story, PageItem* item, QByteArray& d
 		const CharStyle& charStyle = m_Doc->charStyles()[styleList[i]];
 		if (!names.contains(charStyle.name()))
 			continue;
-		writer.writeStartElement("CHARSTYLE");
+		writer.writeStartElement("CharacterStyle");
 		putNamedCStyle(writer, charStyle);
 		writer.writeEndElement();
 	}
@@ -212,7 +212,7 @@ bool Scribus170Format::saveStory(StoryText& story, PageItem* item, QByteArray& d
 	{
 		const ParagraphStyle& paragraphStyle = m_Doc->paragraphStyles()[styleList[i]];
 		if (names.contains(paragraphStyle.name()))
-			putPStyle(writer, paragraphStyle, "STYLE");
+			putPStyle(writer, paragraphStyle, "ParagraphStyle");
 	}
 
 	writeLineStyles(writer, lists.lineStyleNames());
@@ -2248,7 +2248,7 @@ void Scribus170Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			docu.writeAttribute("pMirrorYM" , mirrorY);
 		}
 		if (item->itemText.defaultStyle().hasParent())
-			docu.writeAttribute("PSTYLE", item->itemText.defaultStyle().parent());
+			docu.writeAttribute("ParagraphStyle", item->itemText.defaultStyle().parent());
 		if (! item->itemText.defaultStyle().isInhAlignment())
 			docu.writeAttribute("ALIGN", item->itemText.defaultStyle().alignment());
 		
