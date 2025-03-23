@@ -357,12 +357,14 @@ bool Scribus170Format::loadElements(const QString& data, const QString& fileDir,
 			if (!grName.isEmpty() && !m_Doc->docGradients.contains(grName))
 				m_Doc->docGradients.insert(grName, gra);
 		}
-		else if (tagName == QLatin1String("STYLE"))
+		//Remove uppercase in 1.8 format
+		else if (tagName == QLatin1String("STYLE") || tagName == QLatin1String("ParagraphStyle"))
 		{
 			ParagraphStyle pstyle;
 			getStyle(pstyle, reader, nullptr, m_Doc, true);
 		}
-		else if (tagName == QLatin1String("CHARSTYLE"))
+		//Remove uppercase in 1.8 format
+		else if (tagName == QLatin1String("CHARSTYLE") || tagName == QLatin1String("CharacterStyle"))
 		{
 			CharStyle cstyle;
 			getStyle(cstyle, reader, nullptr, m_Doc, true);
@@ -2862,16 +2864,157 @@ bool Scribus170Format::readGradient(ScribusDoc *doc, VGradient &gra, ScXmlStream
 
 void Scribus170Format::readCharacterStyleAttrs(ScribusDoc *doc, const ScXmlStreamAttributes& attrs, CharStyle & newStyle) const
 {
+	//Remove uppercase in 1.8 format
 	static const QString CPARENT("CPARENT");
 	if (attrs.hasAttribute(CPARENT))
 	{
-		QString parentStyle = attrs.valueAsString(CPARENT);
+		if (attrs.hasAttribute(CPARENT))
+		{
+			QString parentStyle = attrs.valueAsString(CPARENT);
+			if (!parentStyle.isEmpty())
+				parentStyle = charStyleMap.value(parentStyle, parentStyle);
+			newStyle.setParent(parentStyle);
+		}
+
+		static const QString FONT("FONT");
+		if (attrs.hasAttribute(FONT))
+		{
+			const ScFace& face = m_AvailableFonts->findFont(attrs.valueAsString(FONT), doc);
+			if (!face.isNone())
+				newStyle.setFont(face);
+		}
+
+		static const QString FONTSIZE("FONTSIZE");
+		if (attrs.hasAttribute(FONTSIZE))
+			newStyle.setFontSize(qRound(attrs.valueAsDouble(FONTSIZE) * 10));
+
+		static const QString FONTFEATURES("FONTFEATURES");
+		if (attrs.hasAttribute(FONTFEATURES))
+			newStyle.setFontFeatures(attrs.valueAsString(FONTFEATURES));
+
+		static const QString FCOLOR("FCOLOR");
+		if (attrs.hasAttribute(FCOLOR))
+			newStyle.setFillColor(attrs.valueAsString(FCOLOR));
+
+		static const QString HyphenChar("HyphenChar");
+		if (attrs.hasAttribute(HyphenChar))
+			newStyle.setHyphenChar(attrs.valueAsInt(HyphenChar));
+
+		static const QString HyphenWordMin("HyphenWordMin");
+		if (attrs.hasAttribute(HyphenWordMin))
+			newStyle.setHyphenWordMin(attrs.valueAsInt(HyphenWordMin));
+
+		static const QString KERN("KERN");
+		if (attrs.hasAttribute(KERN))
+			newStyle.setTracking(qRound(attrs.valueAsDouble(KERN) * 10));
+
+		static const QString FSHADE("FSHADE");
+		if (attrs.hasAttribute(FSHADE))
+			newStyle.setFillShade(attrs.valueAsInt(FSHADE));
+
+		static const QString EFFECTS("EFFECTS");
+		if (attrs.hasAttribute(EFFECTS))
+			newStyle.setFeatures(static_cast<StyleFlag>(attrs.valueAsInt(EFFECTS)).featureList());
+
+		static const QString EFFECT("EFFECT");
+		if (attrs.hasAttribute(EFFECT))
+			newStyle.setFeatures(static_cast<StyleFlag>(attrs.valueAsInt(EFFECT)).featureList());
+
+		static const QString FEATURES("FEATURES");
+		if (attrs.hasAttribute(FEATURES))
+			newStyle.setFeatures(attrs.valueAsString(FEATURES).split( " ", Qt::SkipEmptyParts));
+
+		static const QString SCOLOR("SCOLOR");
+		if (attrs.hasAttribute(SCOLOR))
+			newStyle.setStrokeColor(attrs.valueAsString(SCOLOR, CommonStrings::None));
+
+		static const QString BCOLOR("BGCOLOR");
+		if (attrs.hasAttribute(BCOLOR))
+			newStyle.setBackColor(attrs.valueAsString(BCOLOR, CommonStrings::None));
+		static const QString BSHADE("BGSHADE");
+		if (attrs.hasAttribute(BSHADE))
+			newStyle.setBackShade(attrs.valueAsInt(BSHADE, 100));
+
+		static const QString SSHADE("SSHADE");
+		if (attrs.hasAttribute(SSHADE))
+			newStyle.setStrokeShade(attrs.valueAsInt(SSHADE));
+
+		static const QString SCALEH("SCALEH");
+		if (attrs.hasAttribute(SCALEH))
+			newStyle.setScaleH(qRound(attrs.valueAsDouble(SCALEH) * 10));
+
+		static const QString SCALEV("SCALEV");
+		if (attrs.hasAttribute(SCALEV))
+			newStyle.setScaleV(qRound(attrs.valueAsDouble(SCALEV) * 10));
+
+		static const QString BASEO("BASEO");
+		if (attrs.hasAttribute(BASEO))
+			newStyle.setBaselineOffset(qRound(attrs.valueAsDouble(BASEO) * 10));
+
+		static const QString TXTSHX("TXTSHX");
+		if (attrs.hasAttribute(TXTSHX))
+			newStyle.setShadowXOffset(qRound(attrs.valueAsDouble(TXTSHX) * 10));
+
+		static const QString TXTSHY("TXTSHY");
+		if (attrs.hasAttribute(TXTSHY))
+			newStyle.setShadowYOffset(qRound(attrs.valueAsDouble(TXTSHY) * 10));
+
+		static const QString TXTOUT("TXTOUT");
+		if (attrs.hasAttribute(TXTOUT))
+			newStyle.setOutlineWidth(qRound(attrs.valueAsDouble(TXTOUT) * 10));
+
+		static const QString TXTULP("TXTULP");
+		if (attrs.hasAttribute(TXTULP))
+			newStyle.setUnderlineOffset(qRound(attrs.valueAsDouble(TXTULP) * 10));
+
+		static const QString TXTULW("TXTULW");
+		if (attrs.hasAttribute(TXTULW))
+			newStyle.setUnderlineWidth(qRound(attrs.valueAsDouble(TXTULW) * 10));
+
+		static const QString TXTSTP("TXTSTP");
+		if (attrs.hasAttribute(TXTSTP))
+			newStyle.setStrikethruOffset(qRound(attrs.valueAsDouble(TXTSTP) * 10));
+
+		static const QString TXTSTW("TXTSTW");
+		if (attrs.hasAttribute(TXTSTW))
+			newStyle.setStrikethruWidth(qRound(attrs.valueAsDouble(TXTSTW) * 10));
+
+		static const QString LANGUAGE("LANGUAGE");
+		if (attrs.hasAttribute(LANGUAGE))
+		{
+			QString l(attrs.valueAsString(LANGUAGE));
+			if (LanguageManager::instance()->langTableIndex(l) != -1)
+				newStyle.setLanguage(l); //new style storage
+			else
+			{ //old style storage
+				QString lnew = LanguageManager::instance()->getAbbrevFromLang(l, false);
+				if (lnew.isEmpty())
+					lnew = LanguageManager::instance()->getAbbrevFromLang(l, false);
+				newStyle.setLanguage(lnew);
+			}
+		}
+
+		static const QString SHORTCUT("SHORTCUT");
+		if (attrs.hasAttribute(SHORTCUT))
+			newStyle.setShortcut(attrs.valueAsString(SHORTCUT));
+
+		static const QString WORDTRACK("wordTrack");
+		if (attrs.hasAttribute(WORDTRACK))
+			newStyle.setWordTracking(attrs.valueAsDouble(WORDTRACK));
+
+		return;
+	}
+
+	static const QString PARENT("Parent");
+	if (attrs.hasAttribute(PARENT))
+	{
+		QString parentStyle = attrs.valueAsString(PARENT);
 		if (!parentStyle.isEmpty())
 			parentStyle = charStyleMap.value(parentStyle, parentStyle);
 		newStyle.setParent(parentStyle);
 	}
 
-	static const QString FONT("FONT");
+	static const QString FONT("Font");
 	if (attrs.hasAttribute(FONT))
 	{
 		const ScFace& face = m_AvailableFonts->findFont(attrs.valueAsString(FONT), doc);
@@ -2879,31 +3022,31 @@ void Scribus170Format::readCharacterStyleAttrs(ScribusDoc *doc, const ScXmlStrea
 			newStyle.setFont(face);
 	}
 
-	static const QString FONTSIZE("FONTSIZE");
+	static const QString FONTSIZE("FontSize");
 	if (attrs.hasAttribute(FONTSIZE))
 		newStyle.setFontSize(qRound(attrs.valueAsDouble(FONTSIZE) * 10));
 
-	static const QString FONTFEATURES("FONTFEATURES");
+	static const QString FONTFEATURES("FontFeatures");
 	if (attrs.hasAttribute(FONTFEATURES))
 		newStyle.setFontFeatures(attrs.valueAsString(FONTFEATURES));
 
-	static const QString FCOLOR("FCOLOR");
+	static const QString FCOLOR("FontColor");
 	if (attrs.hasAttribute(FCOLOR))
 		newStyle.setFillColor(attrs.valueAsString(FCOLOR));
 
-	static const QString HyphenChar("HyphenChar");
+	static const QString HyphenChar("HyphenCharacter");
 	if (attrs.hasAttribute(HyphenChar))
 		newStyle.setHyphenChar(attrs.valueAsInt(HyphenChar));
 
-	static const QString HyphenWordMin("HyphenWordMin");
+	static const QString HyphenWordMin("HyphenWordMinimum");
 	if (attrs.hasAttribute(HyphenWordMin))
 		newStyle.setHyphenWordMin(attrs.valueAsInt(HyphenWordMin));
 
-	static const QString KERN("KERN");
+	static const QString KERN("Kerning");
 	if (attrs.hasAttribute(KERN))
 		newStyle.setTracking(qRound(attrs.valueAsDouble(KERN) * 10));
 
-	static const QString FSHADE("FSHADE");
+	static const QString FSHADE("FillShade");
 	if (attrs.hasAttribute(FSHADE))
 		newStyle.setFillShade(attrs.valueAsInt(FSHADE));
 
@@ -2915,66 +3058,66 @@ void Scribus170Format::readCharacterStyleAttrs(ScribusDoc *doc, const ScXmlStrea
 	if (attrs.hasAttribute(EFFECT))
 		newStyle.setFeatures(static_cast<StyleFlag>(attrs.valueAsInt(EFFECT)).featureList());
 
-	static const QString FEATURES("FEATURES");
+	static const QString FEATURES("Features");
 	if (attrs.hasAttribute(FEATURES))
 		newStyle.setFeatures(attrs.valueAsString(FEATURES).split( " ", Qt::SkipEmptyParts));
 
-	static const QString SCOLOR("SCOLOR");
+	static const QString SCOLOR("StrokeColor");
 	if (attrs.hasAttribute(SCOLOR))
 		newStyle.setStrokeColor(attrs.valueAsString(SCOLOR, CommonStrings::None));
 
-	static const QString BCOLOR("BGCOLOR");
+	static const QString BCOLOR("BackgroundColor");
 	if (attrs.hasAttribute(BCOLOR))
 		newStyle.setBackColor(attrs.valueAsString(BCOLOR, CommonStrings::None));
-	static const QString BSHADE("BGSHADE");
+	static const QString BSHADE("BackgroundShade");
 	if (attrs.hasAttribute(BSHADE))
 		newStyle.setBackShade(attrs.valueAsInt(BSHADE, 100));
 
-	static const QString SSHADE("SSHADE");
+	static const QString SSHADE("StrokeShade");
 	if (attrs.hasAttribute(SSHADE))
 		newStyle.setStrokeShade(attrs.valueAsInt(SSHADE));
 
-	static const QString SCALEH("SCALEH");
+	static const QString SCALEH("ScaleHorizontal");
 	if (attrs.hasAttribute(SCALEH))
 		newStyle.setScaleH(qRound(attrs.valueAsDouble(SCALEH) * 10));
 
-	static const QString SCALEV("SCALEV");
+	static const QString SCALEV("ScaleVertical");
 	if (attrs.hasAttribute(SCALEV))
 		newStyle.setScaleV(qRound(attrs.valueAsDouble(SCALEV) * 10));
 
-	static const QString BASEO("BASEO");
+	static const QString BASEO("BaselineOffset");
 	if (attrs.hasAttribute(BASEO))
 		newStyle.setBaselineOffset(qRound(attrs.valueAsDouble(BASEO) * 10));
 
-	static const QString TXTSHX("TXTSHX");
+	static const QString TXTSHX("TextShadowXOffset");
 	if (attrs.hasAttribute(TXTSHX))
 		newStyle.setShadowXOffset(qRound(attrs.valueAsDouble(TXTSHX) * 10));
 
-	static const QString TXTSHY("TXTSHY");
+	static const QString TXTSHY("TextShadowYOffset");
 	if (attrs.hasAttribute(TXTSHY))
 		newStyle.setShadowYOffset(qRound(attrs.valueAsDouble(TXTSHY) * 10));
 
-	static const QString TXTOUT("TXTOUT");
+	static const QString TXTOUT("TextOutlineWidth");
 	if (attrs.hasAttribute(TXTOUT))
 		newStyle.setOutlineWidth(qRound(attrs.valueAsDouble(TXTOUT) * 10));
 
-	static const QString TXTULP("TXTULP");
+	static const QString TXTULP("TextUnderlineOffset");
 	if (attrs.hasAttribute(TXTULP))
 		newStyle.setUnderlineOffset(qRound(attrs.valueAsDouble(TXTULP) * 10));
 
-	static const QString TXTULW("TXTULW");
+	static const QString TXTULW("TextUnderlineWidth");
 	if (attrs.hasAttribute(TXTULW))
 		newStyle.setUnderlineWidth(qRound(attrs.valueAsDouble(TXTULW) * 10));
 
-	static const QString TXTSTP("TXTSTP");
+	static const QString TXTSTP("TextStrikeThroughOffset");
 	if (attrs.hasAttribute(TXTSTP))
 		newStyle.setStrikethruOffset(qRound(attrs.valueAsDouble(TXTSTP) * 10));
-	
-	static const QString TXTSTW("TXTSTW");
+
+	static const QString TXTSTW("TextStrikeThroughWidth");
 	if (attrs.hasAttribute(TXTSTW))
 		newStyle.setStrikethruWidth(qRound(attrs.valueAsDouble(TXTSTW) * 10));
 
-	static const QString LANGUAGE("LANGUAGE");
+	static const QString LANGUAGE("Language");
 	if (attrs.hasAttribute(LANGUAGE))
 	{
 		QString l(attrs.valueAsString(LANGUAGE));
@@ -2989,19 +3132,25 @@ void Scribus170Format::readCharacterStyleAttrs(ScribusDoc *doc, const ScXmlStrea
 		}
 	}
 
-	static const QString SHORTCUT("SHORTCUT");
+	static const QString SHORTCUT("Shortcut");
 	if (attrs.hasAttribute(SHORTCUT))
 		newStyle.setShortcut(attrs.valueAsString(SHORTCUT));
 
-	static const QString WORDTRACK("wordTrack");
+	static const QString WORDTRACK("WordTrack");
 	if (attrs.hasAttribute(WORDTRACK))
 		newStyle.setWordTracking(attrs.valueAsDouble(WORDTRACK));
+
+
+
 }
 
 void Scribus170Format::readNamedCharacterStyleAttrs(ScribusDoc *doc, const ScXmlStreamAttributes& attrs, CharStyle & newStyle) const
 {
+	//Remove uppercase in 1.8 format
 	static const QString CNAME("CNAME");
-	if (attrs.hasAttribute(CNAME))
+	if (attrs.hasAttribute("Name"))
+		newStyle.setName(attrs.valueAsString("Name"));
+	else
 		newStyle.setName(attrs.valueAsString(CNAME));
 
 	// The default style attribute must be correctly set before trying to assign a parent
@@ -3024,9 +3173,12 @@ void Scribus170Format::readNamedCharacterStyleAttrs(ScribusDoc *doc, const ScXml
 void Scribus170Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& reader, ParagraphStyle& newStyle) const
 {
 	ScXmlStreamAttributes attrs = reader.scAttributes();
-
+	//Remove uppercase in 1.8 format
 	newStyle.erase();
-	newStyle.setName(attrs.valueAsString("NAME", ""));
+	if (attrs.hasAttribute("Name"))
+		newStyle.setName(attrs.valueAsString("Name"));
+	else
+		newStyle.setName(attrs.valueAsString("NAME"));
 
 	// The default style attribute must be correctly set before trying to assign a parent
 	static const QString DEFAULTSTYLE("DefaultStyle");
@@ -3036,8 +3188,12 @@ void Scribus170Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 		newStyle.setDefaultStyle(true);
 	else
 		newStyle.setDefaultStyle(false);
-
-	QString parentStyle = attrs.valueAsString("PARENT", QString());
+	//Remove uppercase in 1.8 format
+	QString parentStyle;
+	if (attrs.hasAttribute("PARENT"))
+		parentStyle = attrs.valueAsString("PARENT", QString());
+	else
+		parentStyle = attrs.valueAsString("Parent", QString());
 	if (!parentStyle.isEmpty() && (parentStyle != newStyle.name()))
 	{
 		parentStyle = parStyleMap.value(parentStyle, parentStyle);
@@ -3248,9 +3404,13 @@ void Scribus170Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 
 void Scribus170Format::readTableStyle(ScribusDoc *doc, ScXmlStreamReader& reader, TableStyle& newStyle) const
 {
+	//Remove uppercase in 1.8 format
 	ScXmlStreamAttributes attrs = reader.scAttributes();
 	newStyle.erase();
-	newStyle.setName(attrs.valueAsString("NAME", ""));
+	if (attrs.hasAttribute("Name"))
+		newStyle.setName(attrs.valueAsString("Name", ""));
+	else
+		newStyle.setName(attrs.valueAsString("NAME", ""));
 
 	// The default style attribute must be correctly set before trying to assign a parent
 	if (attrs.hasAttribute("DefaultStyle"))
@@ -3259,8 +3419,12 @@ void Scribus170Format::readTableStyle(ScribusDoc *doc, ScXmlStreamReader& reader
 		newStyle.setDefaultStyle(true);
 	else
 		newStyle.setDefaultStyle(false);
-
-	QString parentStyle = attrs.valueAsString("PARENT", "");
+	//Remove uppercase in 1.8 format
+	QString parentStyle;
+	if (attrs.hasAttribute("Parent"))
+		parentStyle = attrs.valueAsString("Parent", "");
+	else
+		parentStyle = attrs.valueAsString("PARENT", "");
 	if (!parentStyle.isEmpty() && (parentStyle != newStyle.name()))
 		newStyle.setParent(parentStyle);
 	if (attrs.hasAttribute("FillColor"))
@@ -3331,9 +3495,14 @@ void Scribus170Format::readTableBorderLines(ScribusDoc* /*doc*/, ScXmlStreamRead
 
 void Scribus170Format::readCellStyle(ScribusDoc *doc, ScXmlStreamReader& reader, CellStyle& newStyle) const
 {
+	//Remove uppercase in 1.8 format
 	ScXmlStreamAttributes attrs = reader.scAttributes();
 	newStyle.erase();
-	newStyle.setName(attrs.valueAsString("NAME", ""));
+	newStyle.erase();
+	if (attrs.hasAttribute("Name"))
+		newStyle.setName(attrs.valueAsString("Name", ""));
+	else
+		newStyle.setName(attrs.valueAsString("NAME", ""));
 
 	// The default style attribute must be correctly set before trying to assign a parent
 	if (attrs.hasAttribute("DefaultStyle"))
@@ -3342,7 +3511,12 @@ void Scribus170Format::readCellStyle(ScribusDoc *doc, ScXmlStreamReader& reader,
 		newStyle.setDefaultStyle(true);
 	else
 		newStyle.setDefaultStyle(false);
-	QString parentStyle = attrs.valueAsString("PARENT", "");
+	//Remove uppercase in 1.8 format
+	QString parentStyle;
+	if (attrs.hasAttribute("Parent"))
+		parentStyle = attrs.valueAsString("Parent", "");
+	else
+		parentStyle = attrs.valueAsString("PARENT", "");
 	if (!parentStyle.isEmpty() && (parentStyle != newStyle.name()))
 		newStyle.setParent(parentStyle);
 	if (attrs.hasAttribute("FillColor"))
@@ -3399,19 +3573,40 @@ void Scribus170Format::readCellStyle(ScribusDoc *doc, ScXmlStreamReader& reader,
 
 void Scribus170Format::readLayers(ScLayer& layer, const ScXmlStreamAttributes& attrs) const
 {
-	int lId   = attrs.valueAsInt("NUMMER");
-	int level = attrs.valueAsInt("LEVEL");
-	layer = ScLayer( attrs.valueAsString("NAME"), level, lId);
-	layer.isViewable   = attrs.valueAsInt("SICHTBAR");
-	layer.isPrintable  = attrs.valueAsInt("DRUCKEN");
-	layer.isEditable   = attrs.valueAsInt("EDIT", 1);
-	layer.flowControl  = attrs.valueAsInt("FLOW", 1);
-	layer.isSelectable = attrs.valueAsInt("SELECT", 0);
-	layer.transparency = attrs.valueAsDouble("TRANS", 1.0);
-	layer.blendMode    = attrs.valueAsInt("BLEND", 0);
-	layer.outlineMode  = attrs.valueAsInt("OUTL", 0);
-	if (attrs.hasAttribute("LAYERC"))
-		layer.markerColor =  QColor(attrs.valueAsString("LAYERC","#000000"));
+	//Remove uppercase in 1.8 format
+	if (attrs.hasAttribute("NUMMER"))
+	{
+		int lId   = attrs.valueAsInt("NUMMER");
+		int level = attrs.valueAsInt("LEVEL");
+		layer = ScLayer( attrs.valueAsString("NAME"), level, lId);
+		layer.isViewable   = attrs.valueAsInt("SICHTBAR");
+		layer.isPrintable  = attrs.valueAsInt("DRUCKEN");
+		layer.isEditable   = attrs.valueAsInt("EDIT", 1);
+		layer.flowControl  = attrs.valueAsInt("FLOW", 1);
+		layer.isSelectable = attrs.valueAsInt("SELECT", 0);
+		layer.transparency = attrs.valueAsDouble("TRANS", 1.0);
+		layer.blendMode    = attrs.valueAsInt("BLEND", 0);
+		layer.outlineMode  = attrs.valueAsInt("OUTL", 0);
+		if (attrs.hasAttribute("LAYERC"))
+			layer.markerColor =  QColor(attrs.valueAsString("LAYERC","#000000"));
+		return;
+	}
+	if (attrs.hasAttribute("Number"))
+	{
+		int lId   = attrs.valueAsInt("Number");
+		int level = attrs.valueAsInt("Level");
+		layer = ScLayer( attrs.valueAsString("Name"), level, lId);
+		layer.isViewable   = attrs.valueAsInt("IsViewable");
+		layer.isPrintable  = attrs.valueAsInt("IsPrintable");
+		layer.isEditable   = attrs.valueAsInt("IsEditable", 1);
+		layer.flowControl  = attrs.valueAsInt("FlowControl", 1);
+		layer.isSelectable = attrs.valueAsInt("IsSelectable", 0);
+		layer.transparency = attrs.valueAsDouble("Transparency", 1.0);
+		layer.blendMode    = attrs.valueAsInt("BlendMode", 0);
+		layer.outlineMode  = attrs.valueAsInt("OutlineMode", 0);
+		if (attrs.hasAttribute("LayerColor"))
+			layer.markerColor =  QColor(attrs.valueAsString("LayerColor","#000000"));
+	}
 }
 
 bool Scribus170Format::readArrows(ScribusDoc* doc, ScXmlStreamAttributes& attrs) const
@@ -3468,11 +3663,23 @@ bool Scribus170Format::readBookMark(ScribusDoc::BookMa& bookmark, int& elem, con
 	bookmark.PageObject = nullptr;
 	bookmark.Title  = attrs.valueAsString("Title");
 	bookmark.Text   = attrs.valueAsString("Text");
-	bookmark.Aktion = attrs.valueAsString("Aktion");
-	bookmark.ItemNr = attrs.valueAsInt("ItemNr");
+	//Fix in 1.8 format
+	if (attrs.hasAttribute("Aktion"))
+		bookmark.Action = attrs.valueAsString("Aktion");
+	else
+		bookmark.Action = attrs.valueAsString("Action");
+	//Fix in 1.8 format
+	if (attrs.hasAttribute("ItemNr"))
+		bookmark.ItemNr = attrs.valueAsInt("ItemNr");
+	else
+		bookmark.ItemNr = attrs.valueAsInt("ItemNumber");
 	bookmark.First  = attrs.valueAsInt("First");
 	bookmark.Last   = attrs.valueAsInt("Last");
-	bookmark.Prev   = attrs.valueAsInt("Prev");
+	//Fix in 1.8 format
+	if (attrs.hasAttribute("Prev"))
+		bookmark.ItemNr = attrs.valueAsInt("Prev");
+	else
+		bookmark.ItemNr = attrs.valueAsInt("Previous");
 	bookmark.Next   = attrs.valueAsInt("Next");
 	bookmark.Parent = attrs.valueAsInt("Parent");
 	return true;
@@ -3884,9 +4091,14 @@ bool Scribus170Format::readNotesFrames(ScXmlStreamReader& reader)
 		{
 			ScXmlStreamAttributes attrs = reader.scAttributes();
 			NoteFrameData eF;
-			eF.NSname = attrs.valueAsString("NSname");
+			//Remove old attribute format in 1.8 format
+			if (attrs.hasAttribute("NSname"))
+				eF.NSname = attrs.valueAsString("NSname");
+			else
+				eF.NSname = attrs.valueAsString("NoteStyleName");
 			eF.myID = attrs.valueAsInt("myID");
-			if (reader.name() == QLatin1String("ENDNOTEFRAME"))
+			//Remove old attribute format in 1.8 format
+			if ((reader.name() == QLatin1String("ENDNOTEFRAME")) || (reader.name() == QLatin1String("EndNoteFrame")))
 			{
 				eF.index = attrs.valueAsInt("index");
 				eF.NSrange = (NumerationRange) attrs.valueAsInt("range");
@@ -3895,6 +4107,8 @@ bool Scribus170Format::readNotesFrames(ScXmlStreamReader& reader)
 					eF.NSrange = NSRstory;
 				eF.itemID = attrs.valueAsInt("ItemID");
 			}
+			if (reader.name() == QLatin1String("FootNoteFrame"))
+				eF.itemID = attrs.valueAsInt("MasterID");
 			if (reader.name() == QLatin1String("FOOTNOTEFRAME"))
 				eF.itemID = attrs.valueAsInt("MasterID");
 			notesFramesData.append(eF);
@@ -3920,7 +4134,11 @@ bool Scribus170Format::readNotes(ScribusDoc* /*doc*/, ScXmlStreamReader& reader)
 			//temporarily insert names of master mark and notes style into maps with note pointer
 			//will be resolved to pointers by updateNames2Ptr() after all will read
 			notesMasterMarks.insert(attrs.valueAsString("Master"), note);
-			notesNSets.insert(note, attrs.valueAsString("NStyle"));
+			//Remove old attribute format in 1.8 format
+			if (attrs.hasAttribute("NStyle"))
+				notesNSets.insert(note, attrs.valueAsString("NStyle"));
+			else
+				notesNSets.insert(note, attrs.valueAsString("NoteStyle"));
 		}
 	}
 	return !reader.hasError();
@@ -4090,7 +4308,21 @@ bool Scribus170Format::readHyphen(ScribusDoc *doc, ScXmlStreamReader& reader) co
 		reader.readNext();
 		if (reader.isEndElement() && reader.name() == tagName)
 			break;
-		if (reader.isStartElement() && reader.name() == QLatin1String("EXCEPTION"))
+		if (reader.isStartElement() && reader.name() == QLatin1String("Exception"))
+		{
+			ScXmlStreamAttributes attrs = reader.scAttributes();
+			QString word = attrs.valueAsString("Word");
+			QString hyph = attrs.valueAsString("Hyphenated");
+			hyphenationPrefs.specialWords.insert(word, hyph);
+		}
+		else if (reader.isStartElement() && reader.name() == QLatin1String("Ignore"))
+		{
+			ScXmlStreamAttributes attrs = reader.scAttributes();
+			QString word = attrs.valueAsString("Word");
+			hyphenationPrefs.ignoredWords.insert(word);
+		}
+		//Removed uppercase in 1.8
+		else if (reader.isStartElement() && reader.name() == QLatin1String("EXCEPTION"))
 		{
 			ScXmlStreamAttributes attrs = reader.scAttributes();
 			QString word = attrs.valueAsString("WORD");
@@ -6649,13 +6881,21 @@ bool Scribus170Format::loadPage(const QString & fileName, int pageNumber, bool M
 			if (!grName.isEmpty() && !m_Doc->docGradients.contains(grName))
 				m_Doc->docGradients.insert(grName, gra);
 		}
-		if (tagName == QLatin1String("JAVA"))
+		//Remove uppercase in 1.8 format
+		if (tagName == QLatin1String("JAVA") || tagName == QLatin1String("Java"))
 		{
-			QString name = attrs.valueAsString("NAME");
+			QString name = attrs.valueAsString("Name");
 			if (!name.isEmpty())
-				m_Doc->JavaScripts[name] = attrs.valueAsString("SCRIPT");
+				m_Doc->JavaScripts[name] = attrs.valueAsString("Script");
+			else
+			{
+				name = attrs.valueAsString("NAME");
+				if (!name.isEmpty())
+					m_Doc->JavaScripts[name] = attrs.valueAsString("SCRIPT");
+			}
 		}
-		if (tagName == QLatin1String("LAYERS"))
+		//Remove uppercase in 1.8 format
+		if (tagName == QLatin1String("LAYERS") || tagName == QLatin1String("Layers"))
 		{
 			ScLayer newLayer;
 			readLayers(newLayer, attrs);
@@ -6701,12 +6941,14 @@ bool Scribus170Format::loadPage(const QString & fileName, int pageNumber, bool M
 			if (!success) break;
 			bookmarks.insert(bmElem, bookmark);
 		}
-		if (tagName == QLatin1String("STYLE"))
+		//Remove old attribute format in 1.8 format
+		if ((tagName == QLatin1String("ParagraphStyle")) || (tagName == QLatin1String("STYLE")))
 		{
 			ParagraphStyle pstyle;
 			getStyle(pstyle, reader, nullptr, m_Doc, true);
 		}
-		if (tagName == QLatin1String("CHARSTYLE"))
+		//Remove uppercase in 1.8 format
+		if (tagName == QLatin1String("CharacterStyle") || tagName == QLatin1String("CHARSTYLE"))
 		{
 			CharStyle cstyle;
 			getStyle(cstyle, reader, nullptr, m_Doc, true);

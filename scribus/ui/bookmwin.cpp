@@ -65,7 +65,7 @@ BookMItem::BookMItem(QTreeWidget* parent, int nr, PageItem* PObject)
 void BookMItem::setup(struct ScribusDoc::BookMa *Bm)
 {
 	ItemNr = Bm->ItemNr;
-	Action = Bm->Aktion;
+	Action = Bm->Action;
 	First = Bm->First;
 	Last = Bm->Last;
 	Prev = Bm->Prev;

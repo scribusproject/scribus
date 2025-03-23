@@ -3454,7 +3454,7 @@ bool Scribus150Format::readBookMark(ScribusDoc::BookMa& bookmark, int& elem, con
 	bookmark.PageObject = nullptr;
 	bookmark.Title  = attrs.valueAsString("Title");
 	bookmark.Text   = attrs.valueAsString("Text");
-	bookmark.Aktion = attrs.valueAsString("Aktion");
+	bookmark.Action = attrs.valueAsString("Aktion");
 	bookmark.ItemNr = attrs.valueAsInt("ItemNr");
 	bookmark.First  = attrs.valueAsInt("First");
 	bookmark.Last   = attrs.valueAsInt("Last");

@@ -685,7 +685,7 @@ void Scribus150Format::writeBookmarks(ScXmlStreamWriter & docu)
 		docu.writeEmptyElement("Bookmark");
 		docu.writeAttribute("Title", itbm->Title);
 		docu.writeAttribute("Text", itbm->Text);
-		docu.writeAttribute("Aktion", itbm->Aktion);
+		docu.writeAttribute("Aktion", itbm->Action);
 		docu.writeAttribute("ItemNr", itbm->ItemNr);
 		docu.writeAttribute("Element", qHash(itbm->PageObject) & 0x7FFFFFFF);
 		docu.writeAttribute("First", itbm->First);

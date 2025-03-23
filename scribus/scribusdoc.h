@@ -1445,7 +1445,7 @@ public:
 	struct BookMa {
 		QString Title;
 		QString Text;
-		QString Aktion;
+		QString Action;
 		PageItem *PageObject;
 		int Parent;
 		int ItemNr;

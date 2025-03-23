@@ -1167,7 +1167,7 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 				{
 					bok.Title = pg.attribute("Title");
 					bok.Text = pg.attribute("Text");
-					bok.Aktion = pg.attribute("Aktion");
+					bok.Action = pg.attribute("Aktion");
 					bok.ItemNr = pg.attribute("ItemNr").toInt();
 					bok.PageObject = m_Doc->Items->at(elem);
 					bok.First = pg.attribute("First").toInt();
@@ -2247,7 +2247,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 						{
 							bok.Title = pg.attribute("Title");
 							bok.Text = pg.attribute("Text");
-							bok.Aktion = pg.attribute("Aktion");
+							bok.Action = pg.attribute("Aktion");
 							bok.ItemNr = pg.attribute("ItemNr").toInt();
 							bok.PageObject = m_Doc->Items->at(elem);
 							bok.First = pg.attribute("First").toInt();

@@ -7376,7 +7376,7 @@ void ScribusMainWindow::StoreBookmarks()
 		ip = (BookMItem*)(*it);
 		Boma.Title = ip->Title;
 		Boma.Text = ip->text(0);
-		Boma.Aktion = ip->Action;
+		Boma.Action = ip->Action;
 		Boma.ItemNr = ip->ItemNr;
 		Boma.PageObject = ip->PageObject;
 //		Boma.Seite = ip->Seite;
