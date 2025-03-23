@@ -1656,6 +1656,7 @@ void SlaOutputDev::adjustClip(GfxState *state, Qt::FillRule fillRule)
 	QString output = convertPath(state->getPath());
 	if (output.isEmpty())
 		return;
+
 	FPointArray out;
 	out.parseSVG(output);
 	out.svgClosePath();
@@ -1679,6 +1680,7 @@ void SlaOutputDev::stroke(GfxState *state)
 {
 //	qDebug() << "Stroke";
 	const double *ctm = state->getCTM();
+	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	double xCoor = m_doc->currentPage()->xOffset();
 	double yCoor = m_doc->currentPage()->yOffset();
 	getPenState(state);
@@ -1687,7 +1689,14 @@ void SlaOutputDev::stroke(GfxState *state)
 	graphicState.strokeColor = getColor(state->getStrokeColorSpace(), state->getStrokeColor(), &graphicState.strokeShade);
 
 	QString output = convertPath(state->getPath());
-	if ((m_Elements->count() != 0) && (output == m_coords))			// Path is the same as in last fill
+
+	FPointArray out;
+	out.parseSVG(output);
+	out.map(m_ctm);
+
+	// Path is the same as in last fill
+	if (!m_Elements->isEmpty() && /*(m_coords == output)*/
+	    ((m_Elements->last()->PoLine == out) || (m_pathIsClosed && (m_coords == output))))
 	{
 		PageItem* ite = m_Elements->last();
 		ite->setLineColor(graphicState.strokeColor);
@@ -1701,10 +1710,6 @@ void SlaOutputDev::stroke(GfxState *state)
 		return;
 	}
 
-	FPointArray out;
-	out.parseSVG(output);
-	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
-	out.map(m_ctm);
 	FPoint wh = out.widthHeight();
 	if ((out.size() <= 3) || ((wh.x() <= 0.0) && (wh.y() <= 0.0)))
 		return;
@@ -1805,10 +1810,10 @@ void SlaOutputDev::createFillItem(GfxState *state, Qt::FillRule fillRule)
 	mm.rotate(angle);
 	clippedPath = mm.map(clippedPath);
 
-	m_coords = output;
 	QRectF bbox = clippedPath.boundingRect();
 	if (clippedPath.isEmpty() || bbox.isNull())
 		return;
+	m_coords = output;
 
 	graphicState.fillColor = getColor(state->getFillColorSpace(), state->getFillColor(), &graphicState.fillShade);
 	int z;
@@ -1817,7 +1822,7 @@ void SlaOutputDev::createFillItem(GfxState *state, Qt::FillRule fillRule)
 	else
 		z = m_doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, xCoor, yCoor, 10, 10, 0, graphicState.fillColor, CommonStrings::None);
 	PageItem* ite = m_doc->Items->at(z);
-	ite->PoLine.fromQPainterPath(clippedPath, true);
+	ite->PoLine.fromQPainterPath(clippedPath, m_pathIsClosed);
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
 	ite->setFillShade(graphicState.fillShade);
