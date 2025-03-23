@@ -1733,7 +1733,7 @@ bool Scribus170Format::loadFile(const QString & fileName, const FileFormat & /* 
 			m_Doc->redefineStyles(tmp, false);
 		}
 		//Remove uppercase in 1.8 format
-		if (tagName == QLatin1String("CharacterStyle") || tagName == QLatin1String("CHARSTYLE"))
+		else if (tagName == QLatin1String("CharacterStyle") || tagName == QLatin1String("CHARSTYLE"))
 		{
 			CharStyle cstyle;
 			ScXmlStreamAttributes attrs = reader.scAttributes();
@@ -1771,6 +1771,7 @@ bool Scribus170Format::loadFile(const QString & fileName, const FileFormat & /* 
 			if (!name.isEmpty())
 				m_Doc->JavaScripts[name] = attrs.valueAsString("Script");
 		}
+		//Remove uppercase in 1.8 format
 		else if ((tagName == QLatin1String("LAYERS")) || (tagName == QLatin1String("Layers")))
 		{
 			ScLayer newLayer;
@@ -6148,7 +6149,22 @@ PageItem* Scribus170Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 			currItem->setLayer(doc->firstLayerID());
 	}
 	tmp.clear();
-	if ((attrs.hasAttribute("NUMDASH")) && (attrs.valueAsInt("NUMDASH", 0) != 0))
+
+	//Remove uppercase in 1.8 format
+	if ((attrs.hasAttribute("DashValues")) && (attrs.valueAsInt("DashValues", 0) != 0))
+	{
+		tmp = attrs.valueAsString("Dashes");
+		ScTextStream dgv(&tmp, QIODevice::ReadOnly);
+		currItem->DashValues.clear();
+		int numDash = attrs.valueAsInt("NUMDASH", 0);
+		for (int cxv = 0; cxv < numDash; ++cxv)
+		{
+			dgv >> xf;
+			currItem->DashValues.append(xf);
+		}
+		tmp.clear();
+	}
+	else if ((attrs.hasAttribute("NUMDASH")) && (attrs.valueAsInt("NUMDASH", 0) != 0))
 	{
 		tmp = attrs.valueAsString("DASHS");
 		ScTextStream dgv(&tmp, QIODevice::ReadOnly);
@@ -6163,7 +6179,12 @@ PageItem* Scribus170Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 	}
 	else
 		currItem->DashValues.clear();
-	currItem->DashOffset = attrs.valueAsDouble("DASHOFF", 0.0);
+
+	//Remove uppercase in 1.8 format
+	if (attrs.hasAttribute("DASHOFF"))
+		currItem->DashOffset = attrs.valueAsDouble("DASHOFF", 0.0);
+	else
+		currItem->DashOffset = attrs.valueAsDouble("DashOffset", 0.0);
 
 	if (currItem->isRegularPolygon())
 	{
@@ -6927,7 +6948,7 @@ bool Scribus170Format::loadPage(const QString & fileName, int pageNumber, bool M
 			}
 		}
 		//Remove uppercase in 1.8 format
-		if (tagName == QLatin1String("LAYERS") || tagName == QLatin1String("Layers"))
+		if ((tagName == QLatin1String("LAYERS")) || (tagName == QLatin1String("Layers")))
 		{
 			ScLayer newLayer;
 			readLayers(newLayer, attrs);

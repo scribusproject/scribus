@@ -3032,13 +3032,13 @@ void Scribus170Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	}
 	if (item->DashValues.count() != 0)
 	{
-		docu.writeAttribute("NUMDASH", static_cast<int>(item->DashValues.count()));
+		docu.writeAttribute("DashValues", static_cast<int>(item->DashValues.count()));
 		QString dlp;
 		QVector<double>::Iterator dax;
 		for (dax = item->DashValues.begin(); dax != item->DashValues.end(); ++dax)
 			dlp += tmp.setNum((*dax)) + " ";
-		docu.writeAttribute("DASHS", dlp);
-		docu.writeAttribute("DASHOFF", item->DashOffset);
+		docu.writeAttribute("Dashes", dlp);
+		docu.writeAttribute("DashOffset", item->DashOffset);
 	}
 	if (!(item->isArc() || item->isSpiral() || item->isRegularPolygon()))
 		docu.writeAttribute("path", item->PoLine.svgPath(!(item->isPolyLine() || item->isPathText())));

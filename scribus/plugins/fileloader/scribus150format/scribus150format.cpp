@@ -5715,9 +5715,26 @@ PageItem* Scribus150Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 		currItem->setFillColor(CommonStrings::None);
 	currItem->m_columns   = attrs.valueAsInt("COLUMNS", 1);
 	currItem->m_columnGap = attrs.valueAsDouble("COLGAP", 0.0);
+	//Remove uppercase in 1.8 format
 	if (attrs.valueAsInt("LAYER", 0) != -1)
 	{
 		currItem->setLayer(attrs.valueAsInt("LAYER", 0));
+		uint layerCount = doc->Layers.count();
+		bool found = false;
+		for (uint i = 0; i < layerCount; ++i)
+		{
+			if (doc->Layers[i].ID == currItem->m_layerID)
+			{
+				found = true;
+				break;
+			}
+		}
+		if (!found)
+			currItem->setLayer(doc->firstLayerID());
+	}
+	if (attrs.valueAsInt("Layer", 0) != -1)
+	{
+		currItem->setLayer(attrs.valueAsInt("Layer", 0));
 		uint layerCount = doc->Layers.count();
 		bool found = false;
 		for (uint i = 0; i < layerCount; ++i)
