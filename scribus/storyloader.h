@@ -48,6 +48,7 @@ public:
 	const FileFormat * const formatSLA134;
 	const FileFormat * const formatSLA150;
 	const FileFormat * const formatSLA170;
+	const FileFormat * const formatSLA171;
 
 private:
 	QMap<QString, QString> m_replacedFonts;

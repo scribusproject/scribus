@@ -55,6 +55,7 @@ public:
 	const FileFormat * const formatSLA134;
 	const FileFormat * const formatSLA150;
 	const FileFormat * const formatSLA170;
+	const FileFormat * const formatSLA171;
 
 	static const QString getLoadFilterString();
 	static const QString getSaveAsFilterString();

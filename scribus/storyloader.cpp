@@ -48,6 +48,7 @@ StoryLoader::StoryLoader() :
 	formatSLA134(LoadSavePlugin::getFormatById(FORMATID_SLA134IMPORT)),
 	formatSLA150(LoadSavePlugin::getFormatById(FORMATID_SLA150IMPORT)),
 	formatSLA170(LoadSavePlugin::getFormatById(FORMATID_SLA170IMPORT)),
+	formatSLA171(LoadSavePlugin::getFormatById(FORMATID_SLA171IMPORT)),
 	m_prefsManager(PrefsManager::instance())
 {
 }
@@ -103,6 +104,7 @@ bool StoryLoader::loadStory(const QByteArray& storyData, ScribusDoc& doc, StoryT
 	{
 		case FORMATID_SLA150IMPORT:
 		case FORMATID_SLA170IMPORT:
+		case FORMATID_SLA171IMPORT:
 			{
 				it->setupTargets(&doc, nullptr, doc.scMW(), doc.scMW()->mainWindowProgressBar, &(m_prefsManager.appPrefs.fontPrefs.AvailFonts));
 				ret = it->loadStory(storyData, story, item);

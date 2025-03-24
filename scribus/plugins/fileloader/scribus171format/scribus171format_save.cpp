@@ -4,8 +4,8 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include "scribus170format.h"
-#include "scribus170formatimpl.h"
+#include "scribus171format.h"
+#include "scribus171formatimpl.h"
 
 #include <ctime>
 #include <memory>
@@ -48,7 +48,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_color.h"
 #include "util_text.h"
 
-QString Scribus170Format::saveElements(double xp, double yp, double wp, double hp, Selection* selection, QByteArray &prevData)
+QString Scribus171Format::saveElements(double xp, double yp, double wp, double hp, Selection* selection, QByteArray &prevData)
 {
 	ResourceCollection lists;
 	QList<PageItem*> emG;
@@ -103,7 +103,7 @@ QString Scribus170Format::saveElements(double xp, double yp, double wp, double h
 		const CharStyle& charStyle = m_Doc->charStyles()[styleList[i]];
 		if (!names.contains(charStyle.name()))
 			continue;
-		writer.writeStartElement("CHARSTYLE");
+		writer.writeStartElement("CharacterStyle");
 		putNamedCStyle(writer, charStyle);
 		writer.writeEndElement();
 	}
@@ -115,7 +115,7 @@ QString Scribus170Format::saveElements(double xp, double yp, double wp, double h
 	{
 		const ParagraphStyle& paragraphStyle = m_Doc->paragraphStyles()[styleList[i]];
 		if (names.contains(paragraphStyle.name()))
-			putPStyle(writer, paragraphStyle, "STYLE");
+			putPStyle(writer, paragraphStyle, "ParagraphStyle");
 	}
 
 	writeLineStyles(writer, lists.lineStyleNames());
@@ -160,7 +160,7 @@ QString Scribus170Format::saveElements(double xp, double yp, double wp, double h
 	return documentStr.trimmed();
 }
 
-bool Scribus170Format::saveStory(StoryText& story, PageItem* item, QByteArray& data)
+bool Scribus171Format::saveStory(StoryText& story, PageItem* item, QByteArray& data)
 {
 	ResourceCollection lists;
 	QList<PageItem*> embeddedFrames;
@@ -200,7 +200,7 @@ bool Scribus170Format::saveStory(StoryText& story, PageItem* item, QByteArray& d
 		const CharStyle& charStyle = m_Doc->charStyles()[styleList[i]];
 		if (!names.contains(charStyle.name()))
 			continue;
-		writer.writeStartElement("CHARSTYLE");
+		writer.writeStartElement("CharacterStyle");
 		putNamedCStyle(writer, charStyle);
 		writer.writeEndElement();
 	}
@@ -212,7 +212,7 @@ bool Scribus170Format::saveStory(StoryText& story, PageItem* item, QByteArray& d
 	{
 		const ParagraphStyle& paragraphStyle = m_Doc->paragraphStyles()[styleList[i]];
 		if (names.contains(paragraphStyle.name()))
-			putPStyle(writer, paragraphStyle, "STYLE");
+			putPStyle(writer, paragraphStyle, "ParagraphStyle");
 	}
 
 	writeLineStyles(writer, lists.lineStyleNames());
@@ -251,7 +251,7 @@ bool Scribus170Format::saveStory(StoryText& story, PageItem* item, QByteArray& d
 	return true;
 }
 
-bool Scribus170Format::savePalette(const QString & fileName)
+bool Scribus171Format::savePalette(const QString & fileName)
 {
 	QString fileDir = QFileInfo(fileName).absolutePath();
 	QScopedPointer<QIODevice> outputFile;
@@ -275,7 +275,7 @@ bool Scribus170Format::savePalette(const QString & fileName)
 	return writeSucceed;
 }
 
-bool Scribus170Format::saveFile(const QString & fileName, const FileFormat & /* fmt */)
+bool Scribus171Format::saveFile(const QString & fileName, const FileFormat & /* fmt */)
 {
 	m_lastSavedFile = "";
 
@@ -577,7 +577,7 @@ bool Scribus170Format::saveFile(const QString & fileName, const FileFormat & /* 
 	return writeSucceed;
 }
 
-void Scribus170Format::writeCheckerProfiles(ScXmlStreamWriter & docu)
+void Scribus171Format::writeCheckerProfiles(ScXmlStreamWriter & docu)
 {
 	CheckerPrefsList::Iterator itcp;
 	CheckerPrefsList::Iterator itcpend = m_Doc->checkerProfiles().end();
@@ -606,10 +606,11 @@ void Scribus170Format::writeCheckerProfiles(ScXmlStreamWriter & docu)
 		docu.writeAttribute("checkFontIsOpenType", static_cast<int>(itcp.value().checkFontIsOpenType));
 		docu.writeAttribute("checkAppliedMasterDifferentSide", static_cast<int>(itcp.value().checkAppliedMasterDifferentSide));
 		docu.writeAttribute("checkEmptyTextFrames", static_cast<int>(itcp.value().checkEmptyTextFrames));
+		docu.writeAttribute("checkImageHasProgressiveEncoding", static_cast<int>(itcp.value().checkImageHasProgressiveEncoding));
 	}
 }
 
-void Scribus170Format::writeLineStyles(ScXmlStreamWriter& docu)
+void Scribus171Format::writeLineStyles(ScXmlStreamWriter& docu)
 {
 	QStringList styleNames = m_Doc->docLineStyles.keys();
 	if (styleNames.isEmpty())
@@ -617,7 +618,7 @@ void Scribus170Format::writeLineStyles(ScXmlStreamWriter& docu)
 	writeLineStyles(docu, styleNames);
 }
 
-void Scribus170Format::writeLineStyles(ScXmlStreamWriter& docu, const QStringList& styleNames)
+void Scribus171Format::writeLineStyles(ScXmlStreamWriter& docu, const QStringList& styleNames)
 {
 	if (styleNames.isEmpty())
 		return;
@@ -644,7 +645,7 @@ void Scribus170Format::writeLineStyles(ScXmlStreamWriter& docu, const QStringLis
 	}
 }
 
-void Scribus170Format::writeArrowStyles(ScXmlStreamWriter& docu)
+void Scribus171Format::writeArrowStyles(ScXmlStreamWriter& docu)
 {
 	const QList<ArrowDesc>& arrowStyles = m_Doc->arrowStyles();
 	for (const ArrowDesc& arrow : arrowStyles)
@@ -666,20 +667,20 @@ void Scribus170Format::writeArrowStyles(ScXmlStreamWriter& docu)
 	}
 }
 
-void Scribus170Format::writeJavascripts(ScXmlStreamWriter & docu)
+void Scribus171Format::writeJavascripts(ScXmlStreamWriter & docu)
 {
 	QMap<QString,QString>::Iterator itja;
 	for (itja = m_Doc->JavaScripts.begin(); itja != m_Doc->JavaScripts.end(); ++itja)
 	{
-		docu.writeEmptyElement("JAVA");
-		docu.writeAttribute("NAME",itja.key());
-		docu.writeAttribute("SCRIPT",itja.value());
+		docu.writeEmptyElement("Java");
+		docu.writeAttribute("Name",itja.key());
+		docu.writeAttribute("Script",itja.value());
 	}
 	
 }
 
 
-void Scribus170Format::writeBookmarks(ScXmlStreamWriter & docu)
+void Scribus171Format::writeBookmarks(ScXmlStreamWriter & docu)
 {	
 	QList<ScribusDoc::BookMa>::Iterator itbm;
 	for (itbm = m_Doc->BookMarks.begin(); itbm != m_Doc->BookMarks.end(); ++itbm)
@@ -687,19 +688,19 @@ void Scribus170Format::writeBookmarks(ScXmlStreamWriter & docu)
 		docu.writeEmptyElement("Bookmark");
 		docu.writeAttribute("Title", itbm->Title);
 		docu.writeAttribute("Text", itbm->Text);
-		docu.writeAttribute("Aktion", itbm->Action);
-		docu.writeAttribute("ItemNr", itbm->ItemNr);
+		docu.writeAttribute("Action", itbm->Action);
+		docu.writeAttribute("ItemNumber", itbm->ItemNr);
 		docu.writeAttribute("Element", qHash(itbm->PageObject) & 0x7FFFFFFF);
 		docu.writeAttribute("First", itbm->First);
 		docu.writeAttribute("Last", itbm->Last);
-		docu.writeAttribute("Prev", itbm->Prev);
+		docu.writeAttribute("Previous", itbm->Prev);
 		docu.writeAttribute("Next", itbm->Next);
 		docu.writeAttribute("Parent", itbm->Parent);
 	}
 }
 
 
-void Scribus170Format::writeColors(ScXmlStreamWriter & docu, bool part)
+void Scribus171Format::writeColors(ScXmlStreamWriter & docu, bool part)
 {	
 	ColorList usedColors;
 	if (part)
@@ -709,7 +710,7 @@ void Scribus170Format::writeColors(ScXmlStreamWriter & docu, bool part)
 	writeColors(docu, usedColors.keys());
 }
 
-void Scribus170Format::writeColors(ScXmlStreamWriter& docu, const QStringList& colorNames)
+void Scribus171Format::writeColors(ScXmlStreamWriter& docu, const QStringList& colorNames)
 {
 	for (const QString& colorName : colorNames)
 	{
@@ -754,7 +755,7 @@ void Scribus170Format::writeColors(ScXmlStreamWriter& docu, const QStringList& c
 	}
 }
 
-void Scribus170Format::writeGradients(ScXmlStreamWriter& docu, bool part)
+void Scribus171Format::writeGradients(ScXmlStreamWriter& docu, bool part)
 {
 	QHash<QString, VGradient> gradMap;
 	if (part)
@@ -764,7 +765,7 @@ void Scribus170Format::writeGradients(ScXmlStreamWriter& docu, bool part)
 	writeGradients(docu, gradMap.keys());
 }
 
-void Scribus170Format::writeGradients(ScXmlStreamWriter & docu, const QStringList& gradientNames)
+void Scribus171Format::writeGradients(ScXmlStreamWriter & docu, const QStringList& gradientNames)
 {
 	for (const QString& gradientName : gradientNames)
 	{
@@ -785,135 +786,133 @@ void Scribus170Format::writeGradients(ScXmlStreamWriter & docu, const QStringLis
 	}
 }
 
-void Scribus170Format::writeHyphenatorLists(ScXmlStreamWriter& docu)
+void Scribus171Format::writeHyphenatorLists(ScXmlStreamWriter& docu)
 {
 	const auto& hyphenatorPrefs = m_Doc->hyphenatorPrefs();
 
-	docu.writeStartElement("HYPHEN");
+	docu.writeStartElement("Hyphenator");
 	for (auto hyit = hyphenatorPrefs.specialWords.begin(); hyit != hyphenatorPrefs.specialWords.end(); ++hyit)
 	{
-		docu.writeEmptyElement("EXCEPTION");
-		docu.writeAttribute("WORD", hyit.key());
-		docu.writeAttribute("HYPHENATED", hyit.value());
+		docu.writeEmptyElement("Exception");
+		docu.writeAttribute("Word", hyit.key());
+		docu.writeAttribute("Hyphenated", hyit.value());
 	}
 	for (auto hyit2 = hyphenatorPrefs.ignoredWords.begin(); hyit2 != hyphenatorPrefs.ignoredWords.end(); ++hyit2)
 	{
-		docu.writeEmptyElement("IGNORE");
-		docu.writeAttribute("WORD", (*hyit2));
+		docu.writeEmptyElement("Ignore");
+		docu.writeAttribute("Word", (*hyit2));
 	}
 	docu.writeEndElement();
 }
 
-void Scribus170Format::writeParagraphStyles(ScXmlStreamWriter & docu)
+void Scribus171Format::writeParagraphStyles(ScXmlStreamWriter & docu)
 {
 	QList<int> styleList = m_Doc->getSortedStyleList();
-	for (int a = 0; a < styleList.count(); ++a)
+	for (int i = 0; i < styleList.count(); ++i)
 	{
-		putPStyle(docu, m_Doc->paragraphStyles()[styleList[a]], "STYLE");
+		putPStyle(docu, m_Doc->paragraphStyles()[styleList[i]], "ParagraphStyle");
 	}
-//	for (int ff = 0; ff < m_Doc->paragraphStyles().count(); ++ff)
-//		putPStyle(docu, m_Doc->paragraphStyles()[ff], "STYLE");
 }
 
-void Scribus170Format::putPStyle(ScXmlStreamWriter & docu, const ParagraphStyle & style, const QString &nodeName)
+void Scribus171Format::putPStyle(ScXmlStreamWriter & docu, const ParagraphStyle & style, const QString &nodeName)
 {
 	bool styleHasTabs = (!style.isInhTabValues() && (style.tabValues().count() > 0));
 	if (styleHasTabs)
 		docu.writeStartElement(nodeName);
 	else
 		docu.writeEmptyElement(nodeName);
-	if ( ! style.name().isEmpty() )
-		docu.writeAttribute("NAME", style.name());
-	if ( ! style.parent().isEmpty())
-		docu.writeAttribute("PARENT", style.parent());
+	if (!style.name().isEmpty() )
+		docu.writeAttribute("Name", style.name());
+	if (!style.parent().isEmpty())
+		docu.writeAttribute("Parent", style.parent());
 	if ( style.isDefaultStyle())
 		docu.writeAttribute("DefaultStyle", style.isDefaultStyle());
 
-	if ( ! style.isInhAlignment())
+	if (!style.isInhAlignment())
 		docu.writeAttribute("ALIGN", style.alignment());
-	if ( ! style.isInhDirection())
+	if (!style.isInhDirection())
 		docu.writeAttribute("DIRECTION", style.direction());
-	if ( ! style.isInhLineSpacingMode())
+	if (!style.isInhLineSpacingMode())
 		docu.writeAttribute("LINESPMode", style.lineSpacingMode());
-	if ( ! style.isInhLineSpacing())
+	if (!style.isInhLineSpacing())
 		docu.writeAttribute("LINESP", style.lineSpacing());
-	if ( ! style.isInhLeftMargin())
+	if (!style.isInhLeftMargin())
 		docu.writeAttribute("INDENT", style.leftMargin());
-	if ( ! style.isInhRightMargin())
+	if (!style.isInhRightMargin())
 		docu.writeAttribute("RMARGIN", style.rightMargin());
-	if ( ! style.isInhFirstIndent())
+	if (!style.isInhFirstIndent())
 		docu.writeAttribute("FIRST", style.firstIndent());
-	if ( ! style.isInhGapBefore())
+	if (!style.isInhGapBefore())
 		docu.writeAttribute("VOR", style.gapBefore());
-	if ( ! style.isInhGapAfter())
+	if (!style.isInhGapAfter())
 		docu.writeAttribute("NACH", style.gapAfter());
-	if ( ! style.isInhPeCharStyleName())
+	if (!style.isInhPeCharStyleName())
 		docu.writeAttribute("ParagraphEffectCharStyle", style.peCharStyleName());
-	if ( ! style.isInhParEffectOffset())
+	if (!style.isInhParEffectOffset())
 		docu.writeAttribute("ParagraphEffectOffset", style.parEffectOffset());
-	if ( ! style.isInhParEffectIndent())
+	if (!style.isInhParEffectIndent())
 		docu.writeAttribute("ParagraphEffectIndent", static_cast<int>(style.parEffectIndent()));
-	if ( ! style.isInhHasDropCap())
+	if (!style.isInhHasDropCap())
 		docu.writeAttribute("DROP", static_cast<int>(style.hasDropCap()));
-	if ( ! style.isInhDropCapLines())
+	if (!style.isInhDropCapLines())
 		docu.writeAttribute("DROPLIN", style.dropCapLines());
-	if ( ! style.isInhHasBullet())
+	if (!style.isInhHasBullet())
 		docu.writeAttribute("Bullet", static_cast<int>(style.hasBullet()));
-	if ( ! style.isInhBulletStr())
+	if (!style.isInhBulletStr())
 		docu.writeAttribute("BulletStr", style.bulletStr());
-	if ( ! style.isInhHasNum())
+	if (!style.isInhHasNum())
 		docu.writeAttribute("Numeration", static_cast<int>(style.hasNum()));
-	if ( ! style.isInhNumFormat())
+	if (!style.isInhNumFormat())
 		docu.writeAttribute("NumerationFormat", style.numFormat());
-	if ( ! style.isInhNumName())
+	if (!style.isInhNumName())
 		docu.writeAttribute("NumerationName", style.numName());
-	if ( ! style.isInhNumLevel())
+	if (!style.isInhNumLevel())
 		docu.writeAttribute("NumerationLevel", style.numLevel());
-	if ( ! style.isInhNumPrefix())
+	if (!style.isInhNumPrefix())
 		docu.writeAttribute("NumerationPrefix", style.numPrefix());
-	if ( ! style.isInhNumSuffix())
+	if (!style.isInhNumSuffix())
 		docu.writeAttribute("NumerationSuffix", style.numSuffix());
-	if ( ! style.isInhNumStart())
+	if (!style.isInhNumStart())
 		docu.writeAttribute("NumerationStart", style.numStart());
-	if ( ! style.isInhNumRestart())
+	if (!style.isInhNumRestart())
 		docu.writeAttribute("NumerationRestart", style.numRestart());
-	if ( ! style.isInhNumOther())
+	if (!style.isInhNumOther())
 		docu.writeAttribute("NumerationOther", static_cast<int>(style.numOther()));
-	if ( ! style.isInhNumHigher())
+	if (!style.isInhNumHigher())
 		docu.writeAttribute("NumerationHigher", static_cast<int>(style.numHigher()));
-	if ( ! style.isInhOpticalMargins())
+	if (!style.isInhOpticalMargins())
 		docu.writeAttribute("OpticalMargins", style.opticalMargins());
-	if ( ! style.isInhOpticalMarginSetId())
+	if (!style.isInhOpticalMarginSetId())
 		docu.writeAttribute("OpticalMarginSetId", style.opticalMarginSetId());
-	if ( ! style.isInhHyphenConsecutiveLines())
+	if (!style.isInhHyphenConsecutiveLines())
 		docu.writeAttribute("HyphenConsecutiveLines", style.hyphenConsecutiveLines());
-	if ( ! style.isInhHyphenationMode())
+	if (!style.isInhHyphenationMode())
 		docu.writeAttribute("HyphenationMode", style.hyphenationMode());
-	if ( ! style.isInhMinWordTracking())
+	if (!style.isInhMinWordTracking())
 		docu.writeAttribute("MinWordTrack", style.minWordTracking());
-	if ( ! style.isInhMinGlyphExtension())
+	if (!style.isInhMinGlyphExtension())
 		docu.writeAttribute("MinGlyphShrink", style.minGlyphExtension());
-	if ( ! style.isInhMaxGlyphExtension())
+	if (!style.isInhMaxGlyphExtension())
 		docu.writeAttribute("MaxGlyphExtend", style.maxGlyphExtension());
-	if ( ! style.isInhKeepLinesStart())
+	if (!style.isInhKeepLinesStart())
 		docu.writeAttribute("KeepLinesStart", style.keepLinesStart());
-	if ( ! style.isInhKeepLinesEnd())
+	if (!style.isInhKeepLinesEnd())
 		docu.writeAttribute("KeepLinesEnd", style.keepLinesEnd());
-	if ( ! style.isInhKeepWithNext())
+	if (!style.isInhKeepWithNext())
 		docu.writeAttribute("KeepWithNext", style.keepWithNext());
-	if ( ! style.isInhKeepTogether())
+	if (!style.isInhKeepTogether())
 		docu.writeAttribute("KeepTogether", style.keepTogether());
-	if ( ! style.isInhBackgroundColor())
+	if (!style.isInhBackgroundColor())
 		docu.writeAttribute("BCOLOR", style.backgroundColor());
-	if ( ! style.isInhBackgroundShade())
+	if (!style.isInhBackgroundShade())
 		docu.writeAttribute("BSHADE", style.backgroundShade());
 
-	if ( ! style.shortcut().isEmpty() )
+	if (!style.shortcut().isEmpty() )
 		docu.writeAttribute("PSHORTCUT", style.shortcut()); // shortcuts won't be inherited
 
 	putCStyle(docu, style.charStyle());
 
-	if ( ! style.isInhTabValues())
+	if (!style.isInhTabValues())
 	{
 		for (int a = 0; a < style.tabValues().count(); ++a)
 		{
@@ -932,91 +931,85 @@ void Scribus170Format::putPStyle(ScXmlStreamWriter & docu, const ParagraphStyle 
 }
 
 
-void Scribus170Format::writeCharStyles(ScXmlStreamWriter & docu)
+void Scribus171Format::writeCharStyles(ScXmlStreamWriter & docu)
 {
 	QList<int> styleList = m_Doc->getSortedCharStyleList();
-	for (int a = 0; a < styleList.count(); ++a)
+	for (int i = 0; i < styleList.count(); ++i)
 	{
-		docu.writeStartElement("CHARSTYLE");
-		putNamedCStyle(docu, m_Doc->charStyles()[styleList[a]]);
+		docu.writeStartElement("CharacterStyle");
+		putNamedCStyle(docu, m_Doc->charStyles()[styleList[i]]);
 		docu.writeEndElement();
 	}
-//	for (int ff = 0; ff < m_Doc->charStyles().count(); ++ff)
-//	{
-//		docu.writeStartElement("CHARSTYLE");
-//		putNamedCStyle(docu, m_Doc->charStyles()[ff]);
-//		docu.writeEndElement();
-//	}
 }
 
-void Scribus170Format::putCStyle(ScXmlStreamWriter & docu, const CharStyle & style)
+void Scribus171Format::putCStyle(ScXmlStreamWriter & docu, const CharStyle & style)
 {
-	if ( ! style.parent().isEmpty() )
-		docu.writeAttribute("CPARENT", style.parent());
-	if ( ! style.isInhFont())	
-		docu.writeAttribute("FONT", style.font().scName());
-	if ( ! style.isInhFontSize())
-		docu.writeAttribute("FONTSIZE", style.fontSize() / 10.0);
-	if ( ! style.isInhFontFeatures())
-		docu.writeAttribute("FONTFEATURES", style.fontFeatures());
-	if ( ! style.isInhFeatures())
-		docu.writeAttribute("FEATURES", style.features().join(" "));
-	if ( ! style.isInhFillColor())
-		docu.writeAttribute("FCOLOR", style.fillColor());
-	if ( ! style.isInhFillShade())
-		docu.writeAttribute("FSHADE", style.fillShade());
-	if ( ! style.isInhHyphenChar())
-		docu.writeAttribute("HyphenChar", style.hyphenChar());
-	if ( ! style.isInhHyphenWordMin())
-		docu.writeAttribute("HyphenWordMin", style.hyphenWordMin());
-	if ( ! style.isInhStrokeColor())
-		docu.writeAttribute("SCOLOR", style.strokeColor());
-	if ( ! style.isInhBackColor())
-		docu.writeAttribute("BGCOLOR", style.backColor());
-	if ( ! style.isInhBackShade())
-		docu.writeAttribute("BGSHADE", style.backShade());
-	if ( ! style.isInhStrokeShade())
-		docu.writeAttribute("SSHADE", style.strokeShade());
-	if ( ! style.isInhShadowXOffset())
-		docu.writeAttribute("TXTSHX", style.shadowXOffset() / 10.0);
-	if ( ! style.isInhShadowYOffset())
-		docu.writeAttribute("TXTSHY", style.shadowYOffset() / 10.0);
-	if ( ! style.isInhOutlineWidth())
-		docu.writeAttribute("TXTOUT", style.outlineWidth() / 10.0);
-	if ( ! style.isInhUnderlineOffset())
-		docu.writeAttribute("TXTULP", style.underlineOffset() / 10.0);
-	if ( ! style.isInhUnderlineWidth())
-		docu.writeAttribute("TXTULW", style.underlineWidth() / 10.0);
-	if ( ! style.isInhStrikethruOffset())
-		docu.writeAttribute("TXTSTP", style.strikethruOffset() / 10.0);
-	if ( ! style.isInhStrikethruWidth())
-		docu.writeAttribute("TXTSTW", style.strikethruWidth() / 10.0);
-	if ( ! style.isInhScaleH())
-		docu.writeAttribute("SCALEH", style.scaleH() / 10.0);
-	if ( ! style.isInhScaleV())
-		docu.writeAttribute("SCALEV", style.scaleV() / 10.0);
-	if ( ! style.isInhBaselineOffset())
-		docu.writeAttribute("BASEO", style.baselineOffset() / 10.0);
-	if ( ! style.isInhTracking())
-		docu.writeAttribute("KERN", style.tracking() / 10.0); 
-	if ( ! style.isInhWordTracking())
-		docu.writeAttribute("wordTrack", style.wordTracking());
-	if ( ! style.isInhLanguage())
-		docu.writeAttribute("LANGUAGE", style.language());
-	if ( ! style.shortcut().isEmpty() )
-		docu.writeAttribute("SHORTCUT", style.shortcut()); // shortcuts won't be inherited
+	if (!style.parent().isEmpty() )
+		docu.writeAttribute("Parent", style.parent());
+	if (!style.isInhFont())
+		docu.writeAttribute("Font", style.font().scName());
+	if (!style.isInhFontSize())
+		docu.writeAttribute("FontSize", style.fontSize() / 10.0);
+	if (!style.isInhFontFeatures())
+		docu.writeAttribute("FontFeatures", style.fontFeatures());
+	if (!style.isInhFeatures())
+		docu.writeAttribute("Features", style.features().join(" "));
+	if (!style.isInhFillColor())
+		docu.writeAttribute("FontColor", style.fillColor());
+	if (!style.isInhFillShade())
+		docu.writeAttribute("FillShade", style.fillShade());
+	if (!style.isInhHyphenChar())
+		docu.writeAttribute("HyphenCharacter", style.hyphenChar());
+	if (!style.isInhHyphenWordMin())
+		docu.writeAttribute("HyphenWordMinimum", style.hyphenWordMin());
+	if (!style.isInhStrokeColor())
+		docu.writeAttribute("StrokeColor", style.strokeColor());
+	if (!style.isInhBackColor())
+		docu.writeAttribute("BackgroundColor", style.backColor());
+	if (!style.isInhBackShade())
+		docu.writeAttribute("BackgroundShade", style.backShade());
+	if (!style.isInhStrokeShade())
+		docu.writeAttribute("StrokeShade", style.strokeShade());
+	if (!style.isInhShadowXOffset())
+		docu.writeAttribute("TextShadowXOffset", style.shadowXOffset() / 10.0);
+	if (!style.isInhShadowYOffset())
+		docu.writeAttribute("TextShadowYOffset", style.shadowYOffset() / 10.0);
+	if (!style.isInhOutlineWidth())
+		docu.writeAttribute("TextOutlineWidth", style.outlineWidth() / 10.0);
+	if (!style.isInhUnderlineOffset())
+		docu.writeAttribute("TextUnderlineOffset", style.underlineOffset() / 10.0);
+	if (!style.isInhUnderlineWidth())
+		docu.writeAttribute("TextUnderlineWidth", style.underlineWidth() / 10.0);
+	if (!style.isInhStrikethruOffset())
+		docu.writeAttribute("TextStrikeThroughOffset", style.strikethruOffset() / 10.0);
+	if (!style.isInhStrikethruWidth())
+		docu.writeAttribute("TextStrikeThroughWidth", style.strikethruWidth() / 10.0);
+	if (!style.isInhScaleH())
+		docu.writeAttribute("ScaleHorizontal", style.scaleH() / 10.0);
+	if (!style.isInhScaleV())
+		docu.writeAttribute("ScaleVertical", style.scaleV() / 10.0);
+	if (!style.isInhBaselineOffset())
+		docu.writeAttribute("BaselineOffset", style.baselineOffset() / 10.0);
+	if (!style.isInhTracking())
+		docu.writeAttribute("Kerning", style.tracking() / 10.0);
+	if (!style.isInhWordTracking())
+		docu.writeAttribute("WordTrack", style.wordTracking());
+	if (!style.isInhLanguage())
+		docu.writeAttribute("Language", style.language());
+	if (!style.shortcut().isEmpty() )
+		docu.writeAttribute("Shortcut", style.shortcut()); // shortcuts won't be inherited
 }
 
-void Scribus170Format::putNamedCStyle(ScXmlStreamWriter& docu, const CharStyle & style)
+void Scribus171Format::putNamedCStyle(ScXmlStreamWriter& docu, const CharStyle & style)
 {
-	if ( ! style.name().isEmpty() )
-		docu.writeAttribute("CNAME", style.name());
+	if (!style.name().isEmpty() )
+		docu.writeAttribute("Name", style.name());
 	if ( style.hasName() && style.isDefaultStyle())
 		docu.writeAttribute("DefaultStyle", style.isDefaultStyle());
 	putCStyle(docu, style);
 }
 
-void Scribus170Format::writeTableStyles(ScXmlStreamWriter& docu)
+void Scribus171Format::writeTableStyles(ScXmlStreamWriter& docu)
 {
 	QList<int> styleList = m_Doc->getSortedTableStyleList();
 	for (int i = 0; i < styleList.count(); ++i)
@@ -1027,7 +1020,7 @@ void Scribus170Format::writeTableStyles(ScXmlStreamWriter& docu)
 	}
 }
 
-void Scribus170Format::writeCellStyles(ScXmlStreamWriter& docu)
+void Scribus171Format::writeCellStyles(ScXmlStreamWriter& docu)
 {
 	QList<int> styleList = m_Doc->getSortedCellStyleList();
 	for (int i = 0; i < styleList.count(); ++i)
@@ -1038,19 +1031,19 @@ void Scribus170Format::writeCellStyles(ScXmlStreamWriter& docu)
 	}
 }
 
-void Scribus170Format::putTableStyle(ScXmlStreamWriter &docu, const TableStyle &style)
+void Scribus171Format::putTableStyle(ScXmlStreamWriter &docu, const TableStyle &style)
 {
-	if ( ! style.name().isEmpty() )
-		docu.writeAttribute("NAME", style.name());
+	if (!style.name().isEmpty() )
+		docu.writeAttribute("Name", style.name());
 	if ( style.hasName() && style.isDefaultStyle())
 		docu.writeAttribute("DefaultStyle", style.isDefaultStyle());
-	if ( ! style.parent().isEmpty() )
-		docu.writeAttribute("PARENT", style.parent());
-	if ( ! style.isInhFillColor())
+	if (!style.parent().isEmpty() )
+		docu.writeAttribute("Parent", style.parent());
+	if (!style.isInhFillColor())
 		docu.writeAttribute("FillColor", style.fillColor());
-	if ( ! style.isInhFillShade())
+	if (!style.isInhFillShade())
 		docu.writeAttribute("FillShade", style.fillShade());
-	if ( ! style.isInhLeftBorder())
+	if (!style.isInhLeftBorder())
 	{
 		const TableBorder& tbLeft = style.leftBorder();
 		docu.writeStartElement("TableBorderLeft");
@@ -1065,7 +1058,7 @@ void Scribus170Format::putTableStyle(ScXmlStreamWriter &docu, const TableStyle &
 		}
 		docu.writeEndElement();
 	}
-	if ( ! style.isInhRightBorder())
+	if (!style.isInhRightBorder())
 	{
 		const TableBorder& tbRight = style.rightBorder();
 		docu.writeStartElement("TableBorderRight");
@@ -1080,7 +1073,7 @@ void Scribus170Format::putTableStyle(ScXmlStreamWriter &docu, const TableStyle &
 		}
 		docu.writeEndElement();
 	}
-	if ( ! style.isInhTopBorder())
+	if (!style.isInhTopBorder())
 	{
 		const TableBorder& tbTop = style.topBorder();
 		docu.writeStartElement("TableBorderTop");
@@ -1095,7 +1088,7 @@ void Scribus170Format::putTableStyle(ScXmlStreamWriter &docu, const TableStyle &
 		}
 		docu.writeEndElement();
 	}
-	if ( ! style.isInhBottomBorder())
+	if (!style.isInhBottomBorder())
 	{
 		const TableBorder& tbBottom = style.bottomBorder();
 		docu.writeStartElement("TableBorderBottom");
@@ -1112,27 +1105,27 @@ void Scribus170Format::putTableStyle(ScXmlStreamWriter &docu, const TableStyle &
 	}
 }
 
-void Scribus170Format::putCellStyle(ScXmlStreamWriter &docu, const CellStyle &style)
+void Scribus171Format::putCellStyle(ScXmlStreamWriter &docu, const CellStyle &style)
 {
-	if ( ! style.name().isEmpty() )
-		docu.writeAttribute("NAME", style.name());
+	if (!style.name().isEmpty() )
+		docu.writeAttribute("Name", style.name());
 	if ( style.hasName() && style.isDefaultStyle())
 		docu.writeAttribute("DefaultStyle", style.isDefaultStyle());
-	if ( ! style.parent().isEmpty() )
-		docu.writeAttribute("PARENT", style.parent());
-	if ( ! style.isInhFillColor())
+	if (!style.parent().isEmpty() )
+		docu.writeAttribute("Parent", style.parent());
+	if (!style.isInhFillColor())
 		docu.writeAttribute("FillColor", style.fillColor());
-	if ( ! style.isInhFillShade())
+	if (!style.isInhFillShade())
 		docu.writeAttribute("FillShade", style.fillShade());
-	if ( ! style.isInhLeftPadding())
+	if (!style.isInhLeftPadding())
 		docu.writeAttribute("LeftPadding",style.leftPadding());
-	if ( ! style.isInhRightPadding())
+	if (!style.isInhRightPadding())
 		docu.writeAttribute("RightPadding", style.rightPadding());
-	if ( ! style.isInhTopPadding())
+	if (!style.isInhTopPadding())
 		docu.writeAttribute("TopPadding",style.topPadding());
-	if ( ! style.isInhBottomPadding())
+	if (!style.isInhBottomPadding())
 		docu.writeAttribute("BottomPadding", style.bottomPadding());
-	if ( ! style.isInhLeftBorder())
+	if (!style.isInhLeftBorder())
 	{
 		const TableBorder& tbLeft = style.leftBorder();
 		docu.writeStartElement("TableBorderLeft");
@@ -1147,7 +1140,7 @@ void Scribus170Format::putCellStyle(ScXmlStreamWriter &docu, const CellStyle &st
 		}
 		docu.writeEndElement();
 	}
-	if ( ! style.isInhRightBorder())
+	if (!style.isInhRightBorder())
 	{
 		const TableBorder& tbRight = style.rightBorder();
 		docu.writeStartElement("TableBorderRight");
@@ -1162,7 +1155,7 @@ void Scribus170Format::putCellStyle(ScXmlStreamWriter &docu, const CellStyle &st
 		}
 		docu.writeEndElement();
 	}
-	if ( ! style.isInhTopBorder())
+	if (!style.isInhTopBorder())
 	{
 		const TableBorder& tbTop = style.topBorder();
 		docu.writeStartElement("TableBorderTop");
@@ -1177,7 +1170,7 @@ void Scribus170Format::putCellStyle(ScXmlStreamWriter &docu, const CellStyle &st
 		}
 		docu.writeEndElement();
 	}
-	if ( ! style.isInhBottomBorder())
+	if (!style.isInhBottomBorder())
 	{
 		const TableBorder& tbBottom = style.bottomBorder();
 		docu.writeStartElement("TableBorderBottom");
@@ -1194,28 +1187,28 @@ void Scribus170Format::putCellStyle(ScXmlStreamWriter &docu, const CellStyle &st
 	}
 }
 
-void Scribus170Format::writeLayers(ScXmlStreamWriter & docu)
+void Scribus171Format::writeLayers(ScXmlStreamWriter & docu)
 {	
 	uint layerCount = m_Doc->layerCount();
 	for (uint lay = 0; lay < layerCount; ++lay)
 	{
-		docu.writeEmptyElement("LAYERS");
-		docu.writeAttribute("NUMMER",m_Doc->Layers[lay].ID);
-		docu.writeAttribute("LEVEL",m_Doc->Layers[lay].Level);
-		docu.writeAttribute("NAME",m_Doc->Layers[lay].Name);
-		docu.writeAttribute("SICHTBAR", static_cast<int>(m_Doc->Layers[lay].isViewable));
-		docu.writeAttribute("DRUCKEN", static_cast<int>(m_Doc->Layers[lay].isPrintable));
-		docu.writeAttribute("EDIT", static_cast<int>(m_Doc->Layers[lay].isEditable));
-		docu.writeAttribute("SELECT", static_cast<int>(m_Doc->Layers[lay].isSelectable));
-		docu.writeAttribute("FLOW", static_cast<int>(m_Doc->Layers[lay].flowControl));
-		docu.writeAttribute("TRANS", m_Doc->Layers[lay].transparency);
-		docu.writeAttribute("BLEND", m_Doc->Layers[lay].blendMode);
-		docu.writeAttribute("OUTL", static_cast<int>(m_Doc->Layers[lay].outlineMode));
-		docu.writeAttribute("LAYERC",m_Doc->Layers[lay].markerColor.name());
+		docu.writeEmptyElement("Layers");
+		docu.writeAttribute("Number",m_Doc->Layers[lay].ID);
+		docu.writeAttribute("Level",m_Doc->Layers[lay].Level);
+		docu.writeAttribute("Name",m_Doc->Layers[lay].Name);
+		docu.writeAttribute("IsViewable", static_cast<int>(m_Doc->Layers[lay].isViewable));
+		docu.writeAttribute("IsPrintable", static_cast<int>(m_Doc->Layers[lay].isPrintable));
+		docu.writeAttribute("IsEditable", static_cast<int>(m_Doc->Layers[lay].isEditable));
+		docu.writeAttribute("IsSelectable", static_cast<int>(m_Doc->Layers[lay].isSelectable));
+		docu.writeAttribute("FlowControl", static_cast<int>(m_Doc->Layers[lay].flowControl));
+		docu.writeAttribute("Transparency", m_Doc->Layers[lay].transparency);
+		docu.writeAttribute("BlendMode", m_Doc->Layers[lay].blendMode);
+		docu.writeAttribute("OutlineMode", static_cast<int>(m_Doc->Layers[lay].outlineMode));
+		docu.writeAttribute("LayerColor",m_Doc->Layers[lay].markerColor.name());
 	}
 }
 
-void Scribus170Format::writePrintOptions(ScXmlStreamWriter & docu)
+void Scribus171Format::writePrintOptions(ScXmlStreamWriter & docu)
 {
 	docu.writeStartElement("Printer");
 	docu.writeAttribute("firstUse", static_cast<int>(m_Doc->Print_Options.firstUse));
@@ -1256,7 +1249,7 @@ void Scribus170Format::writePrintOptions(ScXmlStreamWriter & docu)
 	docu.writeEndElement();
 }
 
-void Scribus170Format::writePdfOptions(ScXmlStreamWriter & docu)
+void Scribus171Format::writePdfOptions(ScXmlStreamWriter & docu)
 {
 	docu.writeStartElement("PDF");
 	docu.writeAttribute("firstUse", static_cast<int>(m_Doc->pdfOptions().firstUse));
@@ -1348,7 +1341,7 @@ void Scribus170Format::writePdfOptions(ScXmlStreamWriter & docu)
 	docu.writeEndElement();
 }
 
-void Scribus170Format::writeDocItemAttributes(ScXmlStreamWriter & docu)
+void Scribus171Format::writeDocItemAttributes(ScXmlStreamWriter & docu)
 {
 	docu.writeStartElement("DocItemAttributes");
 	for (ObjAttrVector::Iterator objAttrIt = m_Doc->itemAttributes().begin() ; objAttrIt != m_Doc->itemAttributes().end(); ++objAttrIt )
@@ -1365,7 +1358,7 @@ void Scribus170Format::writeDocItemAttributes(ScXmlStreamWriter & docu)
 	docu.writeEndElement();
 }
 
-void Scribus170Format::writeIndexes(ScXmlStreamWriter & docu)
+void Scribus171Format::writeIndexes(ScXmlStreamWriter & docu)
 {
 	docu.writeStartElement("Indexes");
 	for (IndexSetupVector::Iterator indexSetupIt = m_Doc->indexSetups().begin() ; indexSetupIt != m_Doc->indexSetups().end(); ++indexSetupIt )
@@ -1388,7 +1381,7 @@ void Scribus170Format::writeIndexes(ScXmlStreamWriter & docu)
 	docu.writeEndElement();
 }
 
-void Scribus170Format::writeTOC(ScXmlStreamWriter & docu)
+void Scribus171Format::writeTOC(ScXmlStreamWriter & docu)
 {
 	docu.writeStartElement("TablesOfContents");
 	for (ToCSetupVector::Iterator tocSetupIt = m_Doc->tocSetups().begin() ; tocSetupIt != m_Doc->tocSetups().end(); ++tocSetupIt )
@@ -1441,7 +1434,7 @@ void Scribus170Format::writeTOC(ScXmlStreamWriter & docu)
 }
 
 
-void Scribus170Format::writeSections(ScXmlStreamWriter & docu)
+void Scribus171Format::writeSections(ScXmlStreamWriter & docu)
 {
 	docu.writeStartElement("Sections");
 	for (DocumentSectionMap::Iterator it = m_Doc->sections().begin() ; it != m_Doc->sections().end(); ++it )
@@ -1499,7 +1492,7 @@ void Scribus170Format::writeSections(ScXmlStreamWriter & docu)
 	docu.writeEndElement();
 }
 
-void Scribus170Format::writeMarks(ScXmlStreamWriter & docu)
+void Scribus171Format::writeMarks(ScXmlStreamWriter & docu)
 {
 	//write list of defined marks to SLA
 	if (m_Doc->marksList().isEmpty())
@@ -1534,7 +1527,7 @@ void Scribus170Format::writeMarks(ScXmlStreamWriter & docu)
 	docu.writeEndElement();
 }
 
-void Scribus170Format::writeOpticalMarginSets(ScXmlStreamWriter & docu)
+void Scribus171Format::writeOpticalMarginSets(ScXmlStreamWriter & docu)
 {
 	docu.writeStartElement("OpticalMarginSets");
 
@@ -1568,7 +1561,7 @@ void Scribus170Format::writeOpticalMarginSets(ScXmlStreamWriter & docu)
 	docu.writeEndElement(); // OpticalMarginSets
 }
 
-void Scribus170Format::writeNotesStyles(ScXmlStreamWriter & docu)
+void Scribus171Format::writeNotesStyles(ScXmlStreamWriter & docu)
 {
 	if (m_Doc->m_docNotesStylesList.isEmpty())
 		return;
@@ -1584,7 +1577,7 @@ void Scribus170Format::writeNotesStyles(ScXmlStreamWriter & docu)
 	writeNotesStyles(docu, noteStyleNames);
 }
 
-void  Scribus170Format::writeNotesStyles(ScXmlStreamWriter & docu, const QStringList& styleSelection)
+void  Scribus171Format::writeNotesStyles(ScXmlStreamWriter & docu, const QStringList& styleSelection)
 {
 	if (styleSelection.isEmpty())
 		return;
@@ -1656,7 +1649,7 @@ void  Scribus170Format::writeNotesStyles(ScXmlStreamWriter & docu, const QString
 	docu.writeEndElement();
 }
 
-void Scribus170Format::writeNotesFrames(ScXmlStreamWriter &docu)
+void Scribus171Format::writeNotesFrames(ScXmlStreamWriter &docu)
 {
 	QList<PageItem_NoteFrame*> nfList;
 	for (NotesStyle* noteStyle : std::as_const(m_Doc->m_docNotesStylesList))
@@ -1665,7 +1658,7 @@ void Scribus170Format::writeNotesFrames(ScXmlStreamWriter &docu)
 	writeNotesFrames(docu, nfList);
 }
 
-void Scribus170Format::writeNotesFrames(ScXmlStreamWriter & docu, const QList<PageItem_NoteFrame*>& itemList)
+void Scribus171Format::writeNotesFrames(ScXmlStreamWriter & docu, const QList<PageItem_NoteFrame*>& itemList)
 {
 	if (itemList.isEmpty())
 		return;
@@ -1678,8 +1671,8 @@ void Scribus170Format::writeNotesFrames(ScXmlStreamWriter & docu, const QList<Pa
 		NotesStyle* noteStyle = noteFrame->notesStyle();
 		if (noteStyle->isEndNotes())
 		{
-			docu.writeEmptyElement("ENDNOTEFRAME");
-			docu.writeAttribute("NSname", noteStyle->name());
+			docu.writeEmptyElement("EndNoteFrame");
+			docu.writeAttribute("NoteStyleName", noteStyle->name());
 			docu.writeAttribute("range", (int) noteStyle->range());
 			docu.writeAttribute("myID", qHash(noteFrame) & 0x7FFFFFFF);
 			
@@ -1689,8 +1682,8 @@ void Scribus170Format::writeNotesFrames(ScXmlStreamWriter & docu, const QList<Pa
 		}
 		else //footnotes frame
 		{
-			docu.writeEmptyElement("FOOTNOTEFRAME");
-			docu.writeAttribute("NSname", noteStyle->name());
+			docu.writeEmptyElement("FootNoteFrame");
+			docu.writeAttribute("NoteStyleName", noteStyle->name());
 			docu.writeAttribute("myID", qHash(noteFrame) & 0x7FFFFFFF);
 			docu.writeAttribute("MasterID", qHash(noteFrame->masterFrame()) & 0x7FFFFFFF);
 		}
@@ -1698,7 +1691,7 @@ void Scribus170Format::writeNotesFrames(ScXmlStreamWriter & docu, const QList<Pa
 	docu.writeEndElement();
 }
 
-void Scribus170Format::writeNotes(ScXmlStreamWriter & docu)
+void Scribus171Format::writeNotes(ScXmlStreamWriter & docu)
 {
 	//write notes
 	if (m_Doc->notesList().isEmpty())
@@ -1708,7 +1701,7 @@ void Scribus170Format::writeNotes(ScXmlStreamWriter & docu)
 	writeNotes(docu, noteList);
 }
 
-void Scribus170Format::writeNotes(ScXmlStreamWriter & docu, const QList<TextNote*>& noteList)
+void Scribus171Format::writeNotes(ScXmlStreamWriter & docu, const QList<TextNote*>& noteList)
 {
 	if (noteList.isEmpty())
 		return;
@@ -1721,13 +1714,13 @@ void Scribus170Format::writeNotes(ScXmlStreamWriter & docu, const QList<TextNote
 			continue;
 		docu.writeEmptyElement("Note");
 		docu.writeAttribute("Master", textNote->masterMark()->label);
-		docu.writeAttribute("NStyle", textNote->notesStyle()->name());
+		docu.writeAttribute("NoteStyle", textNote->notesStyle()->name());
 		docu.writeAttribute("Text", textNote->saxedText());
 	}
 	docu.writeEndElement();
 }
 
-void Scribus170Format::writePageSets(ScXmlStreamWriter & docu)
+void Scribus171Format::writePageSets(ScXmlStreamWriter & docu)
 {	
 	docu.writeStartElement("PageSets");
 	QList<PageSet>::Iterator itpgset;
@@ -1754,7 +1747,7 @@ void Scribus170Format::writePageSets(ScXmlStreamWriter & docu)
 	docu.writeEndElement();
 }
 
-void Scribus170Format::writePatterns(ScXmlStreamWriter & docu, const QString& baseDir, bool part, Selection* selection)
+void Scribus171Format::writePatterns(ScXmlStreamWriter & docu, const QString& baseDir, bool part, Selection* selection)
 {
 	QStringList patterns;
 	if (part)
@@ -1777,7 +1770,7 @@ void Scribus170Format::writePatterns(ScXmlStreamWriter & docu, const QString& ba
 	}	
 }
 
-void Scribus170Format::writeContent(ScXmlStreamWriter & docu, const QString& baseDir)
+void Scribus171Format::writeContent(ScXmlStreamWriter & docu, const QString& baseDir)
 {
 	if (m_mwProgressBar != nullptr)
 	{
@@ -1791,7 +1784,7 @@ void Scribus170Format::writeContent(ScXmlStreamWriter & docu, const QString& bas
 	WriteObjects(m_Doc, docu, baseDir, m_mwProgressBar, m_Doc->MasterPages.count()+m_Doc->DocPages.count()+m_Doc->MasterItems.count()+m_Doc->FrameItems.count(), ItemSelectionPage);
 }
 
-void Scribus170Format::WritePages(ScribusDoc *doc, ScXmlStreamWriter& docu, QProgressBar *dia2, uint maxC, bool master)
+void Scribus171Format::WritePages(ScribusDoc *doc, ScXmlStreamWriter& docu, QProgressBar *dia2, uint maxC, bool master)
 {
 	uint ObCount = maxC;
 	ScPage *page;
@@ -1874,7 +1867,7 @@ namespace { // anon
 	}
 } // namespace anon
 
-void Scribus170Format::writeStoryText(ScribusDoc *doc, ScXmlStreamWriter& docu, StoryText& story, PageItem* item)
+void Scribus171Format::writeStoryText(ScribusDoc *doc, ScXmlStreamWriter& docu, StoryText& story, PageItem* item)
 {
 	docu.writeStartElement("StoryText");
 
@@ -1886,7 +1879,7 @@ void Scribus170Format::writeStoryText(ScribusDoc *doc, ScXmlStreamWriter& docu, 
 	docu.writeEndElement();
 }
 
-void Scribus170Format::writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter &docu, StoryText& story, PageItem* item)
+void Scribus171Format::writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter &docu, StoryText& story, PageItem* item)
 {
 	CharStyle lastStyle;
 	int lastPos = 0;
@@ -2022,7 +2015,7 @@ void Scribus170Format::writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter &docu, Sto
 	}
 }
 
-void Scribus170Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, const QString& baseDir, QProgressBar *dia2, uint maxC, ItemSelection master, QList<PageItem*> *some_items)
+void Scribus171Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, const QString& baseDir, QProgressBar *dia2, uint maxC, ItemSelection master, QList<PageItem*> *some_items)
 {
 	uint ObCount = maxC;
 	QList<PageItem*> *items = nullptr;
@@ -2255,11 +2248,11 @@ void Scribus170Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			docu.writeAttribute("pMirrorYM" , mirrorY);
 		}
 		if (item->itemText.defaultStyle().hasParent())
-			docu.writeAttribute("PSTYLE", item->itemText.defaultStyle().parent());
+			docu.writeAttribute("ParagraphStyle", item->itemText.defaultStyle().parent());
 		if (! item->itemText.defaultStyle().isInhAlignment())
 			docu.writeAttribute("ALIGN", item->itemText.defaultStyle().alignment());
 		
-		docu.writeAttribute("LAYER", item->m_layerID);
+		docu.writeAttribute("Layer", item->m_layerID);
 		if (item->isBookmark)
 			docu.writeAttribute("BOOKMARK", 1);
 
@@ -2732,7 +2725,7 @@ void Scribus170Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 	}
 }
 
-void Scribus170Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, const QString& baseDir)
+void Scribus171Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, const QString& baseDir)
 {
 	docu.writeAttribute("OwnPage", item->OwnPage);
 	docu.writeAttribute("ItemID", qHash(item) & 0x7FFFFFFF);
@@ -2798,13 +2791,13 @@ void Scribus170Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	if (item->isRegularPolygon())
 	{
 		PageItem_RegularPolygon *regitem = item->asRegularPolygon();
-		docu.writeAttribute("POLYC", regitem->polyCorners);
-		docu.writeAttribute("POLYF", regitem->polyFactor);
-		docu.writeAttribute("POLYR", regitem->polyRotation);
-		docu.writeAttribute("POLYIR", regitem->polyInnerRot);
-		docu.writeAttribute("POLYCUR", regitem->polyCurvature);
-		docu.writeAttribute("POLYOCUR", regitem->polyOuterCurvature);
-		docu.writeAttribute("POLYS", static_cast<int>(regitem->polyUseFactor));
+		docu.writeAttribute("PolygonCorners", regitem->polyCorners);
+		docu.writeAttribute("PolygonFactor", regitem->polyFactor);
+		docu.writeAttribute("PolygonRotation", regitem->polyRotation);
+		docu.writeAttribute("PolygonInnerRotation", regitem->polyInnerRot);
+		docu.writeAttribute("PolygonCurvature", regitem->polyCurvature);
+		docu.writeAttribute("PolygonOuterCurvature", regitem->polyOuterCurvature);
+		docu.writeAttribute("PolygonUseFactor", static_cast<int>(regitem->polyUseFactor));
 	}
 	if (item->isArc())
 	{
@@ -3039,13 +3032,13 @@ void Scribus170Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	}
 	if (item->DashValues.count() != 0)
 	{
-		docu.writeAttribute("NUMDASH", static_cast<int>(item->DashValues.count()));
+		docu.writeAttribute("DashValues", static_cast<int>(item->DashValues.count()));
 		QString dlp;
 		QVector<double>::Iterator dax;
 		for (dax = item->DashValues.begin(); dax != item->DashValues.end(); ++dax)
 			dlp += tmp.setNum((*dax)) + " ";
-		docu.writeAttribute("DASHS", dlp);
-		docu.writeAttribute("DASHOFF", item->DashOffset);
+		docu.writeAttribute("Dashes", dlp);
+		docu.writeAttribute("DashOffset", item->DashOffset);
 	}
 	if (!(item->isArc() || item->isSpiral() || item->isRegularPolygon()))
 		docu.writeAttribute("path", item->PoLine.svgPath(!(item->isPolyLine() || item->isPathText())));

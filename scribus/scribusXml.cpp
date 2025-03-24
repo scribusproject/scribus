@@ -139,7 +139,7 @@ bool ScriXmlDoc::readElemToLayer(const QString& fileNameOrData, ScribusDoc *doc,
 	elementData.replace(QChar(0), QChar(32));
 	elementData.replace("&#x5;", SpecialChars::PARSEP);
 	elementData.replace("&#x4;", SpecialChars::TAB);
-	const FileFormat *fmt = LoadSavePlugin::getFormatById(FORMATID_SLA170IMPORT);
+	const FileFormat *fmt = LoadSavePlugin::getFormatById(FORMATID_SLA171IMPORT);
 	if (fmt)
 	{
 		fmt->setupTargets(doc, nullptr, doc->scMW(), nullptr, &(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts));
