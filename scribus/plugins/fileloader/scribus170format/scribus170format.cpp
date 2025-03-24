@@ -2878,148 +2878,17 @@ bool Scribus170Format::readGradient(ScribusDoc *doc, VGradient &gra, ScXmlStream
 void Scribus170Format::readCharacterStyleAttrs(ScribusDoc *doc, const ScXmlStreamAttributes& attrs, CharStyle & newStyle) const
 {
 	//Remove uppercase in 1.8 format
+
 	static const QString CPARENT("CPARENT");
+	static const QString PARENT("Parent");
 	if (attrs.hasAttribute(CPARENT))
 	{
-		if (attrs.hasAttribute(CPARENT))
-		{
-			QString parentStyle = attrs.valueAsString(CPARENT);
-			if (!parentStyle.isEmpty())
-				parentStyle = charStyleMap.value(parentStyle, parentStyle);
-			newStyle.setParent(parentStyle);
-		}
-
-		static const QString FONT("FONT");
-		if (attrs.hasAttribute(FONT))
-		{
-			const ScFace& face = m_AvailableFonts->findFont(attrs.valueAsString(FONT), doc);
-			if (!face.isNone())
-				newStyle.setFont(face);
-		}
-
-		static const QString FONTSIZE("FONTSIZE");
-		if (attrs.hasAttribute(FONTSIZE))
-			newStyle.setFontSize(qRound(attrs.valueAsDouble(FONTSIZE) * 10));
-
-		static const QString FONTFEATURES("FONTFEATURES");
-		if (attrs.hasAttribute(FONTFEATURES))
-			newStyle.setFontFeatures(attrs.valueAsString(FONTFEATURES));
-
-		static const QString FCOLOR("FCOLOR");
-		if (attrs.hasAttribute(FCOLOR))
-			newStyle.setFillColor(attrs.valueAsString(FCOLOR));
-
-		static const QString HyphenChar("HyphenChar");
-		if (attrs.hasAttribute(HyphenChar))
-			newStyle.setHyphenChar(attrs.valueAsInt(HyphenChar));
-
-		static const QString HyphenWordMin("HyphenWordMin");
-		if (attrs.hasAttribute(HyphenWordMin))
-			newStyle.setHyphenWordMin(attrs.valueAsInt(HyphenWordMin));
-
-		static const QString KERN("KERN");
-		if (attrs.hasAttribute(KERN))
-			newStyle.setTracking(qRound(attrs.valueAsDouble(KERN) * 10));
-
-		static const QString FSHADE("FSHADE");
-		if (attrs.hasAttribute(FSHADE))
-			newStyle.setFillShade(attrs.valueAsInt(FSHADE));
-
-		static const QString EFFECTS("EFFECTS");
-		if (attrs.hasAttribute(EFFECTS))
-			newStyle.setFeatures(static_cast<StyleFlag>(attrs.valueAsInt(EFFECTS)).featureList());
-
-		static const QString EFFECT("EFFECT");
-		if (attrs.hasAttribute(EFFECT))
-			newStyle.setFeatures(static_cast<StyleFlag>(attrs.valueAsInt(EFFECT)).featureList());
-
-		static const QString FEATURES("FEATURES");
-		if (attrs.hasAttribute(FEATURES))
-			newStyle.setFeatures(attrs.valueAsString(FEATURES).split( " ", Qt::SkipEmptyParts));
-
-		static const QString SCOLOR("SCOLOR");
-		if (attrs.hasAttribute(SCOLOR))
-			newStyle.setStrokeColor(attrs.valueAsString(SCOLOR, CommonStrings::None));
-
-		static const QString BCOLOR("BGCOLOR");
-		if (attrs.hasAttribute(BCOLOR))
-			newStyle.setBackColor(attrs.valueAsString(BCOLOR, CommonStrings::None));
-		static const QString BSHADE("BGSHADE");
-		if (attrs.hasAttribute(BSHADE))
-			newStyle.setBackShade(attrs.valueAsInt(BSHADE, 100));
-
-		static const QString SSHADE("SSHADE");
-		if (attrs.hasAttribute(SSHADE))
-			newStyle.setStrokeShade(attrs.valueAsInt(SSHADE));
-
-		static const QString SCALEH("SCALEH");
-		if (attrs.hasAttribute(SCALEH))
-			newStyle.setScaleH(qRound(attrs.valueAsDouble(SCALEH) * 10));
-
-		static const QString SCALEV("SCALEV");
-		if (attrs.hasAttribute(SCALEV))
-			newStyle.setScaleV(qRound(attrs.valueAsDouble(SCALEV) * 10));
-
-		static const QString BASEO("BASEO");
-		if (attrs.hasAttribute(BASEO))
-			newStyle.setBaselineOffset(qRound(attrs.valueAsDouble(BASEO) * 10));
-
-		static const QString TXTSHX("TXTSHX");
-		if (attrs.hasAttribute(TXTSHX))
-			newStyle.setShadowXOffset(qRound(attrs.valueAsDouble(TXTSHX) * 10));
-
-		static const QString TXTSHY("TXTSHY");
-		if (attrs.hasAttribute(TXTSHY))
-			newStyle.setShadowYOffset(qRound(attrs.valueAsDouble(TXTSHY) * 10));
-
-		static const QString TXTOUT("TXTOUT");
-		if (attrs.hasAttribute(TXTOUT))
-			newStyle.setOutlineWidth(qRound(attrs.valueAsDouble(TXTOUT) * 10));
-
-		static const QString TXTULP("TXTULP");
-		if (attrs.hasAttribute(TXTULP))
-			newStyle.setUnderlineOffset(qRound(attrs.valueAsDouble(TXTULP) * 10));
-
-		static const QString TXTULW("TXTULW");
-		if (attrs.hasAttribute(TXTULW))
-			newStyle.setUnderlineWidth(qRound(attrs.valueAsDouble(TXTULW) * 10));
-
-		static const QString TXTSTP("TXTSTP");
-		if (attrs.hasAttribute(TXTSTP))
-			newStyle.setStrikethruOffset(qRound(attrs.valueAsDouble(TXTSTP) * 10));
-
-		static const QString TXTSTW("TXTSTW");
-		if (attrs.hasAttribute(TXTSTW))
-			newStyle.setStrikethruWidth(qRound(attrs.valueAsDouble(TXTSTW) * 10));
-
-		static const QString LANGUAGE("LANGUAGE");
-		if (attrs.hasAttribute(LANGUAGE))
-		{
-			QString l(attrs.valueAsString(LANGUAGE));
-			if (LanguageManager::instance()->langTableIndex(l) != -1)
-				newStyle.setLanguage(l); //new style storage
-			else
-			{ //old style storage
-				QString lnew = LanguageManager::instance()->getAbbrevFromLang(l, false);
-				if (lnew.isEmpty())
-					lnew = LanguageManager::instance()->getAbbrevFromLang(l, false);
-				newStyle.setLanguage(lnew);
-			}
-		}
-
-		static const QString SHORTCUT("SHORTCUT");
-		if (attrs.hasAttribute(SHORTCUT))
-			newStyle.setShortcut(attrs.valueAsString(SHORTCUT));
-
-		static const QString WORDTRACK("wordTrack");
-		if (attrs.hasAttribute(WORDTRACK))
-			newStyle.setWordTracking(attrs.valueAsDouble(WORDTRACK));
-
-		return;
+		QString parentStyle = attrs.valueAsString(CPARENT);
+		if (!parentStyle.isEmpty())
+			parentStyle = charStyleMap.value(parentStyle, parentStyle);
+		newStyle.setParent(parentStyle);
 	}
-
-	static const QString PARENT("Parent");
-	if (attrs.hasAttribute(PARENT))
+	else if (attrs.hasAttribute(PARENT))
 	{
 		QString parentStyle = attrs.valueAsString(PARENT);
 		if (!parentStyle.isEmpty())
@@ -3027,41 +2896,69 @@ void Scribus170Format::readCharacterStyleAttrs(ScribusDoc *doc, const ScXmlStrea
 		newStyle.setParent(parentStyle);
 	}
 
-	static const QString FONT("Font");
+	static const QString FONT("FONT");
+	static const QString FONT171("Font");
 	if (attrs.hasAttribute(FONT))
 	{
 		const ScFace& face = m_AvailableFonts->findFont(attrs.valueAsString(FONT), doc);
 		if (!face.isNone())
 			newStyle.setFont(face);
 	}
+	else if (attrs.hasAttribute(FONT171))
+	{
+		const ScFace& face = m_AvailableFonts->findFont(attrs.valueAsString(FONT171), doc);
+		if (!face.isNone())
+			newStyle.setFont(face);
+	}
 
-	static const QString FONTSIZE("FontSize");
+	static const QString FONTSIZE("FONTSIZE");
+	static const QString FONTSIZE171("FontSize");
 	if (attrs.hasAttribute(FONTSIZE))
 		newStyle.setFontSize(qRound(attrs.valueAsDouble(FONTSIZE) * 10));
+	else if (attrs.hasAttribute(FONTSIZE171))
+		newStyle.setFontSize(qRound(attrs.valueAsDouble(FONTSIZE171) * 10));
 
-	static const QString FONTFEATURES("FontFeatures");
+	static const QString FONTFEATURES("FONTFEATURES");
+	static const QString FONTFEATURES171("FontFeatures");
 	if (attrs.hasAttribute(FONTFEATURES))
 		newStyle.setFontFeatures(attrs.valueAsString(FONTFEATURES));
+	else if (attrs.hasAttribute(FONTFEATURES171))
+		newStyle.setFontFeatures(attrs.valueAsString(FONTFEATURES171));
 
-	static const QString FCOLOR("FontColor");
+	static const QString FCOLOR("FCOLOR");
+	static const QString FCOLOR171("FontColor");
 	if (attrs.hasAttribute(FCOLOR))
 		newStyle.setFillColor(attrs.valueAsString(FCOLOR));
+	else if (attrs.hasAttribute(FCOLOR171))
+		newStyle.setFillColor(attrs.valueAsString(FCOLOR171));
 
-	static const QString HyphenChar("HyphenCharacter");
+	static const QString HyphenChar("HyphenChar");
+	static const QString HyphenChar171("HyphenCharacter");
 	if (attrs.hasAttribute(HyphenChar))
 		newStyle.setHyphenChar(attrs.valueAsInt(HyphenChar));
+	else if (attrs.hasAttribute(HyphenChar171))
+		newStyle.setHyphenChar(attrs.valueAsInt(HyphenChar171));
 
-	static const QString HyphenWordMin("HyphenWordMinimum");
+	static const QString HyphenWordMin("HyphenWordMin");
+	static const QString HyphenWordMin171("HyphenWordMinimum");
 	if (attrs.hasAttribute(HyphenWordMin))
 		newStyle.setHyphenWordMin(attrs.valueAsInt(HyphenWordMin));
+	else if (attrs.hasAttribute(HyphenWordMin171))
+		newStyle.setHyphenWordMin(attrs.valueAsInt(HyphenWordMin171));
 
-	static const QString KERN("Kerning");
+	static const QString KERN("KERN");
+	static const QString KERN171("Kerning");
 	if (attrs.hasAttribute(KERN))
 		newStyle.setTracking(qRound(attrs.valueAsDouble(KERN) * 10));
+	else if (attrs.hasAttribute(KERN171))
+		newStyle.setTracking(qRound(attrs.valueAsDouble(KERN171) * 10));
 
-	static const QString FSHADE("FillShade");
+	static const QString FSHADE("FSHADE");
+	static const QString FSHADE171("FillShade");
 	if (attrs.hasAttribute(FSHADE))
 		newStyle.setFillShade(attrs.valueAsInt(FSHADE));
+	else if (attrs.hasAttribute(FSHADE171))
+		newStyle.setFillShade(attrs.valueAsInt(FSHADE171));
 
 	static const QString EFFECTS("EFFECTS");
 	if (attrs.hasAttribute(EFFECTS))
@@ -3071,66 +2968,113 @@ void Scribus170Format::readCharacterStyleAttrs(ScribusDoc *doc, const ScXmlStrea
 	if (attrs.hasAttribute(EFFECT))
 		newStyle.setFeatures(static_cast<StyleFlag>(attrs.valueAsInt(EFFECT)).featureList());
 
-	static const QString FEATURES("Features");
+	static const QString FEATURES("FEATURES");
+	static const QString FEATURES171("Features");
 	if (attrs.hasAttribute(FEATURES))
-		newStyle.setFeatures(attrs.valueAsString(FEATURES).split( " ", Qt::SkipEmptyParts));
+		newStyle.setFeatures(attrs.valueAsString(FEATURES).split(" ", Qt::SkipEmptyParts));
+	else if (attrs.hasAttribute(FEATURES171))
+		newStyle.setFeatures(attrs.valueAsString(FEATURES171).split(" ", Qt::SkipEmptyParts));
 
-	static const QString SCOLOR("StrokeColor");
+	static const QString SCOLOR("SCOLOR");
+	static const QString SCOLOR171("StrokeColor");
 	if (attrs.hasAttribute(SCOLOR))
 		newStyle.setStrokeColor(attrs.valueAsString(SCOLOR, CommonStrings::None));
+	else if (attrs.hasAttribute(SCOLOR171))
+		newStyle.setStrokeColor(attrs.valueAsString(SCOLOR171, CommonStrings::None));
 
-	static const QString BCOLOR("BackgroundColor");
+	static const QString BCOLOR("BGCOLOR");
+	static const QString BCOLOR171("BackgroundColor");
 	if (attrs.hasAttribute(BCOLOR))
 		newStyle.setBackColor(attrs.valueAsString(BCOLOR, CommonStrings::None));
-	static const QString BSHADE("BackgroundShade");
+	else if (attrs.hasAttribute(BCOLOR171))
+		newStyle.setBackColor(attrs.valueAsString(BCOLOR171, CommonStrings::None));
+
+	static const QString BSHADE("BGSHADE");
+	static const QString BSHADE171("BackgroundShade");
 	if (attrs.hasAttribute(BSHADE))
 		newStyle.setBackShade(attrs.valueAsInt(BSHADE, 100));
+	if (attrs.hasAttribute(BSHADE171))
+		newStyle.setBackShade(attrs.valueAsInt(BSHADE171, 100));
 
-	static const QString SSHADE("StrokeShade");
+	static const QString SSHADE("SSHADE");
+	static const QString SSHADE171("StrokeShade");
 	if (attrs.hasAttribute(SSHADE))
 		newStyle.setStrokeShade(attrs.valueAsInt(SSHADE));
+	else if (attrs.hasAttribute(SSHADE171))
+		newStyle.setStrokeShade(attrs.valueAsInt(SSHADE171));
 
-	static const QString SCALEH("ScaleHorizontal");
+	static const QString SCALEH("SCALEH");
+	static const QString SCALEH171("ScaleHorizontal");
 	if (attrs.hasAttribute(SCALEH))
 		newStyle.setScaleH(qRound(attrs.valueAsDouble(SCALEH) * 10));
+	else if (attrs.hasAttribute(SCALEH171))
+		newStyle.setScaleH(qRound(attrs.valueAsDouble(SCALEH171) * 10));
 
-	static const QString SCALEV("ScaleVertical");
+	static const QString SCALEV("SCALEV");
+	static const QString SCALEV171("ScaleVertical");
 	if (attrs.hasAttribute(SCALEV))
 		newStyle.setScaleV(qRound(attrs.valueAsDouble(SCALEV) * 10));
+	else if (attrs.hasAttribute(SCALEV171))
+		newStyle.setScaleV(qRound(attrs.valueAsDouble(SCALEV171) * 10));
 
-	static const QString BASEO("BaselineOffset");
+	static const QString BASEO("BASEO");
+	static const QString BASEO171("BaselineOffset");
 	if (attrs.hasAttribute(BASEO))
 		newStyle.setBaselineOffset(qRound(attrs.valueAsDouble(BASEO) * 10));
+	else if (attrs.hasAttribute(BASEO171))
+		newStyle.setBaselineOffset(qRound(attrs.valueAsDouble(BASEO171) * 10));
 
-	static const QString TXTSHX("TextShadowXOffset");
+	static const QString TXTSHX("TXTSHX");
+	static const QString TXTSHX171("TextShadowXOffset");
 	if (attrs.hasAttribute(TXTSHX))
 		newStyle.setShadowXOffset(qRound(attrs.valueAsDouble(TXTSHX) * 10));
+	else if (attrs.hasAttribute(TXTSHX171))
+		newStyle.setShadowXOffset(qRound(attrs.valueAsDouble(TXTSHX171) * 10));
 
-	static const QString TXTSHY("TextShadowYOffset");
+	static const QString TXTSHY("TXTSHY");
+	static const QString TXTSHY171("TextShadowYOffset");
 	if (attrs.hasAttribute(TXTSHY))
 		newStyle.setShadowYOffset(qRound(attrs.valueAsDouble(TXTSHY) * 10));
+	else if (attrs.hasAttribute(TXTSHY171))
+		newStyle.setShadowYOffset(qRound(attrs.valueAsDouble(TXTSHY171) * 10));
 
-	static const QString TXTOUT("TextOutlineWidth");
+	static const QString TXTOUT("TXTOUT");
+	static const QString TXTOUT171("TextOutlineWidth");
 	if (attrs.hasAttribute(TXTOUT))
 		newStyle.setOutlineWidth(qRound(attrs.valueAsDouble(TXTOUT) * 10));
+	else if (attrs.hasAttribute(TXTOUT171))
+		newStyle.setOutlineWidth(qRound(attrs.valueAsDouble(TXTOUT171) * 10));
 
-	static const QString TXTULP("TextUnderlineOffset");
+	static const QString TXTULP("TXTULP");
+	static const QString TXTULP171("TextUnderlineOffset");
 	if (attrs.hasAttribute(TXTULP))
 		newStyle.setUnderlineOffset(qRound(attrs.valueAsDouble(TXTULP) * 10));
+	else if (attrs.hasAttribute(TXTULP171))
+		newStyle.setUnderlineOffset(qRound(attrs.valueAsDouble(TXTULP171) * 10));
 
-	static const QString TXTULW("TextUnderlineWidth");
+	static const QString TXTULW("TXTULW");
+	static const QString TXTULW171("TextUnderlineWidth");
 	if (attrs.hasAttribute(TXTULW))
 		newStyle.setUnderlineWidth(qRound(attrs.valueAsDouble(TXTULW) * 10));
+	else if (attrs.hasAttribute(TXTULW171))
+		newStyle.setUnderlineWidth(qRound(attrs.valueAsDouble(TXTULW171) * 10));
 
-	static const QString TXTSTP("TextStrikeThroughOffset");
+	static const QString TXTSTP("TXTSTP");
+	static const QString TXTSTP171("TextStrikeThroughOffset");
 	if (attrs.hasAttribute(TXTSTP))
 		newStyle.setStrikethruOffset(qRound(attrs.valueAsDouble(TXTSTP) * 10));
+	else if (attrs.hasAttribute(TXTSTP171))
+		newStyle.setStrikethruOffset(qRound(attrs.valueAsDouble(TXTSTP171) * 10));
 
-	static const QString TXTSTW("TextStrikeThroughWidth");
+	static const QString TXTSTW("TXTSTW");
+	static const QString TXTSTW171("TextStrikeThroughWidth");
 	if (attrs.hasAttribute(TXTSTW))
 		newStyle.setStrikethruWidth(qRound(attrs.valueAsDouble(TXTSTW) * 10));
+	else if (attrs.hasAttribute(TXTSTW171))
+		newStyle.setStrikethruWidth(qRound(attrs.valueAsDouble(TXTSTW171) * 10));
 
-	static const QString LANGUAGE("Language");
+	static const QString LANGUAGE("LANGUAGE");
+	static const QString LANGUAGE171("Language");
 	if (attrs.hasAttribute(LANGUAGE))
 	{
 		QString l(attrs.valueAsString(LANGUAGE));
@@ -3144,17 +3088,30 @@ void Scribus170Format::readCharacterStyleAttrs(ScribusDoc *doc, const ScXmlStrea
 			newStyle.setLanguage(lnew);
 		}
 	}
+	else if (attrs.hasAttribute(LANGUAGE171))
+	{
+		QString l(attrs.valueAsString(LANGUAGE171));
+		if (LanguageManager::instance()->langTableIndex(l) != -1)
+			newStyle.setLanguage(l); //new style storage
+		else
+		{ //old style storage
+			QString lnew = LanguageManager::instance()->getAbbrevFromLang(l, false);
+			if (lnew.isEmpty())
+				lnew = LanguageManager::instance()->getAbbrevFromLang(l, false);
+			newStyle.setLanguage(lnew);
+		}
+	}
 
-	static const QString SHORTCUT("Shortcut");
+	static const QString SHORTCUT("SHORTCUT");
+	static const QString SHORTCUT171("Shortcut");
 	if (attrs.hasAttribute(SHORTCUT))
 		newStyle.setShortcut(attrs.valueAsString(SHORTCUT));
+	else if (attrs.hasAttribute(SHORTCUT171))
+		newStyle.setShortcut(attrs.valueAsString(SHORTCUT171));
 
-	static const QString WORDTRACK("WordTrack");
+	static const QString WORDTRACK("wordTrack");
 	if (attrs.hasAttribute(WORDTRACK))
 		newStyle.setWordTracking(attrs.valueAsDouble(WORDTRACK));
-
-
-
 }
 
 void Scribus170Format::readNamedCharacterStyleAttrs(ScribusDoc *doc, const ScXmlStreamAttributes& attrs, CharStyle & newStyle) const
