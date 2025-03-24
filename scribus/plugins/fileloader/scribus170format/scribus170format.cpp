@@ -6089,7 +6089,7 @@ PageItem* Scribus170Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 		if (!found)
 			currItem->setLayer(doc->firstLayerID());
 	}
-	if (attrs.valueAsInt("Layer", 0) != -1)
+	else if (attrs.valueAsInt("Layer", 0) != -1)
 	{
 		currItem->setLayer(attrs.valueAsInt("Layer", 0));
 		uint layerCount = doc->Layers.count();
