@@ -374,6 +374,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "scribus170format", "scribus
 		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "scribus171format", "scribus171format\scribus171format.vcxproj", "{3C7202D7-41D4-4265-955D-3F69CBD7D526}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B17FCD80-7978-4544-93C4-2FE1AC6FE9F3} = {B17FCD80-7978-4544-93C4-2FE1AC6FE9F3}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -982,6 +987,14 @@ Global
 		{1A326E92-FA0F-461F-B5AE-C13B57C4A145}.Release|Win32.Build.0 = Release|Win32
 		{1A326E92-FA0F-461F-B5AE-C13B57C4A145}.Release|x64.ActiveCfg = Release|x64
 		{1A326E92-FA0F-461F-B5AE-C13B57C4A145}.Release|x64.Build.0 = Release|x64
+		{3C7202D7-41D4-4265-955D-3F69CBD7D526}.Debug|Win32.ActiveCfg = Debug|Win32
+		{3C7202D7-41D4-4265-955D-3F69CBD7D526}.Debug|Win32.Build.0 = Debug|Win32
+		{3C7202D7-41D4-4265-955D-3F69CBD7D526}.Debug|x64.ActiveCfg = Debug|x64
+		{3C7202D7-41D4-4265-955D-3F69CBD7D526}.Debug|x64.Build.0 = Debug|x64
+		{3C7202D7-41D4-4265-955D-3F69CBD7D526}.Release|Win32.ActiveCfg = Release|Win32
+		{3C7202D7-41D4-4265-955D-3F69CBD7D526}.Release|Win32.Build.0 = Release|Win32
+		{3C7202D7-41D4-4265-955D-3F69CBD7D526}.Release|x64.ActiveCfg = Release|x64
+		{3C7202D7-41D4-4265-955D-3F69CBD7D526}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
