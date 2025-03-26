@@ -2880,7 +2880,7 @@ void Scribus171Format::readCharacterStyleAttrs(ScribusDoc *doc, const ScXmlStrea
 	//Remove uppercase in 1.8 format
 
 	static const QString CPARENT("CPARENT");
-	static const QString PARENT("Parent");
+	static const QString CPARENT171("CParent");
 	if (attrs.hasAttribute(CPARENT))
 	{
 		QString parentStyle = attrs.valueAsString(CPARENT);
@@ -2888,9 +2888,9 @@ void Scribus171Format::readCharacterStyleAttrs(ScribusDoc *doc, const ScXmlStrea
 			parentStyle = charStyleMap.value(parentStyle, parentStyle);
 		newStyle.setParent(parentStyle);
 	}
-	else if (attrs.hasAttribute(PARENT))
+	else if (attrs.hasAttribute(CPARENT171))
 	{
-		QString parentStyle = attrs.valueAsString(PARENT);
+		QString parentStyle = attrs.valueAsString(CPARENT171);
 		if (!parentStyle.isEmpty())
 			parentStyle = charStyleMap.value(parentStyle, parentStyle);
 		newStyle.setParent(parentStyle);

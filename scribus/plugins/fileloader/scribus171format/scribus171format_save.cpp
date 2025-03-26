@@ -945,7 +945,7 @@ void Scribus171Format::writeCharStyles(ScXmlStreamWriter & docu)
 void Scribus171Format::putCStyle(ScXmlStreamWriter & docu, const CharStyle & style)
 {
 	if (!style.parent().isEmpty() )
-		docu.writeAttribute("Parent", style.parent());
+		docu.writeAttribute("CParent", style.parent());
 	if (!style.isInhFont())
 		docu.writeAttribute("Font", style.font().scName());
 	if (!style.isInhFontSize())
