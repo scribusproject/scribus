@@ -516,6 +516,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["itemConvertToPolygon"]->setEnabled(false);
 			(*a_scrActions)["itemConvertToTextFrame"]->setEnabled(false);
 			(*a_scrActions)["itemConvertToSymbolFrame"]->setEnabled(false);
+			(*a_scrActions)["itemShapeEdit"]->setEnabled(false);
 			(*a_scrActions)["itemLock"]->setEnabled(false);
 			(*a_scrActions)["itemLockSize"]->setEnabled(false);
 			(*a_scrActions)["itemPrintingEnabled"]->setEnabled(false);
@@ -573,6 +574,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["itemConvertToPolygon"]->setEnabled(!inAnEditMode);
 			(*a_scrActions)["itemConvertToTextFrame"]->setEnabled(!inAnEditMode);
 			(*a_scrActions)["itemConvertToSymbolFrame"]->setEnabled(!inAnEditMode);
+			(*a_scrActions)["itemShapeEdit"]->setEnabled(true);
 			(*a_scrActions)["toolsUnlinkTextFrame"]->setEnabled(false);
 			(*a_scrActions)["toolsUnlinkTextFrameAndCutText"]->setEnabled(false);
 			(*a_scrActions)["toolsLinkTextFrame"]->setEnabled(false);
@@ -624,6 +626,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["itemConvertToPolygon"]->setEnabled(!inAnEditMode);
 			(*a_scrActions)["itemConvertToTextFrame"]->setEnabled(false);
 			(*a_scrActions)["itemConvertToSymbolFrame"]->setEnabled(!inAnEditMode);
+			(*a_scrActions)["itemShapeEdit"]->setEnabled(true);
 
 			(*a_scrActions)["toolsRotate"]->setEnabled(!inAnEditMode);
 			(*a_scrActions)["toolsCopyProperties"]->setEnabled(!inAnEditMode);
@@ -683,6 +686,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["itemSendToPattern"]->setEnabled(!inAnEditMode);
 			(*a_scrActions)["itemSendToInline"]->setEnabled(!inAnEditMode);
 			(*a_scrActions)["toolsRotate"]->setEnabled(!inAnEditMode);
+			(*a_scrActions)["itemShapeEdit"]->setEnabled(false);
 			if (doc->appMode == modeEditTable)
 			{
 				const PageItem *i2 = currItem->asTable()->activeCell().textFrame();
@@ -730,6 +734,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["itemConvertToPolygon"]->setEnabled(false);
 			(*a_scrActions)["itemConvertToTextFrame"]->setEnabled(false);
 			(*a_scrActions)["itemConvertToSymbolFrame"]->setEnabled(true);
+			(*a_scrActions)["itemShapeEdit"]->setEnabled(true);
 
 			(*a_scrActions)["toolsRotate"]->setEnabled(!inAnEditMode);
 			(*a_scrActions)["toolsCopyProperties"]->setEnabled(!inAnEditMode);
@@ -776,6 +781,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 				(*a_scrActions)["itemConvertToPolygon"]->setEnabled(false);
 				(*a_scrActions)["itemConvertToTextFrame"]->setEnabled(!inAnEditMode);
 				(*a_scrActions)["itemConvertToSymbolFrame"]->setEnabled(!inAnEditMode);
+				(*a_scrActions)["itemShapeEdit"]->setEnabled(true);
 			}
 			else if ((SelectedType == PageItem::RegularPolygon) || (SelectedType == PageItem::Arc)) // Regular Polygon + Arc
 			{
@@ -785,6 +791,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 				(*a_scrActions)["itemConvertToPolygon"]->setEnabled(!inAnEditMode);
 				(*a_scrActions)["itemConvertToTextFrame"]->setEnabled(!inAnEditMode);
 				(*a_scrActions)["itemConvertToSymbolFrame"]->setEnabled(!inAnEditMode);
+				(*a_scrActions)["itemShapeEdit"]->setEnabled(false);
 			}
 			else if (SelectedType == PageItem::PolyLine) //Polyline
 			{
@@ -794,6 +801,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 				(*a_scrActions)["itemConvertToPolygon"]->setEnabled(!inAnEditMode);
 				(*a_scrActions)["itemConvertToTextFrame"]->setEnabled(false);
 				(*a_scrActions)["itemConvertToSymbolFrame"]->setEnabled(!inAnEditMode);
+				(*a_scrActions)["itemShapeEdit"]->setEnabled(true);
 			}
 			else if ((SelectedType == PageItem::Line) || (SelectedType == PageItem::Spiral)) // Line
 			{
@@ -806,6 +814,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 					(*a_scrActions)["itemConvertToPolygon"]->setEnabled(false);
 				(*a_scrActions)["itemConvertToTextFrame"]->setEnabled(false);
 				(*a_scrActions)["itemConvertToSymbolFrame"]->setEnabled(!inAnEditMode);
+				(*a_scrActions)["itemShapeEdit"]->setEnabled(false);
 			}
 			else if (SelectedType == PageItem::Symbol)
 			{
@@ -815,6 +824,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 				(*a_scrActions)["itemConvertToPolygon"]->setEnabled(false);
 				(*a_scrActions)["itemConvertToTextFrame"]->setEnabled(false);
 				(*a_scrActions)["itemConvertToSymbolFrame"]->setEnabled(false);
+				(*a_scrActions)["itemShapeEdit"]->setEnabled(false);
 			}
 			(*a_scrActions)["toolsEditContents"]->setEnabled(false);
 			(*a_scrActions)["toolsEditWithStoryEditor"]->setEnabled(false);
@@ -841,6 +851,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["itemConvertToPolygon"]->setEnabled(false);
 			(*a_scrActions)["itemConvertToTextFrame"]->setEnabled(false);
 			(*a_scrActions)["itemConvertToSymbolFrame"]->setEnabled(false);
+			(*a_scrActions)["itemShapeEdit"]->setEnabled(false);
 		}
 		(*a_scrActions)["editSearchReplace"]->setEnabled(false);
 
@@ -919,6 +930,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["itemConvertToPolygon"]->setEnabled(false);
 			(*a_scrActions)["itemConvertToTextFrame"]->setEnabled(false);
 			(*a_scrActions)["itemConvertToSymbolFrame"]->setEnabled(false);
+			(*a_scrActions)["itemShapeEdit"]->setEnabled(false);
 			(*a_scrActions)["itemSplitPolygons"]->setEnabled(false);
 			(*a_scrActions)["itemAttachTextToPath"]->setEnabled(false);
 			(*a_scrActions)["itemDetachTextFromPath"]->setEnabled(false);
@@ -1764,6 +1776,7 @@ void AppModeHelper::mainWindowCloseLastDoc()
 	(*a_scrActions)["itemConvertToPolygon"]->setEnabled(false);
 	(*a_scrActions)["itemConvertToTextFrame"]->setEnabled(false);
 	(*a_scrActions)["itemConvertToSymbolFrame"]->setEnabled(false);
+	(*a_scrActions)["itemShapeEdit"]->setEnabled(false);
 	(*a_scrActions)["itemLock"]->setEnabled(false);
 	(*a_scrActions)["itemLockSize"]->setEnabled(false);
 
@@ -1952,6 +1965,7 @@ void AppModeHelper::setStartupActionsEnabled(bool enabled)
 	(*a_scrActions)["itemConvertToPolygon"]->setEnabled(false);
 	(*a_scrActions)["itemConvertToTextFrame"]->setEnabled(false);
 	(*a_scrActions)["itemConvertToSymbolFrame"]->setEnabled(false);
+	(*a_scrActions)["itemShapeEdit"]->setEnabled(false);
 	(*a_scrActions)["itemAttachTextToPath"]->setEnabled(false);
 	(*a_scrActions)["itemDetachTextFromPath"]->setEnabled(false);
 	(*a_scrActions)["itemCombinePolygons"]->setEnabled(false);
