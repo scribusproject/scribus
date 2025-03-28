@@ -346,6 +346,11 @@ bool PDFOptionsIO::readSettings()
 		m_error = QObject::tr("Unable to read settings XML: %1")
 			.arg(QObject::tr("null root node", "Load PDF settings"));
 	}
+	if (m_root.nodeName() == "SCRIBUSUTF8NEW")
+	{
+		m_error = "This function works with XML files exported with the function savePDFOptions() and not with Scribus documents";
+		return false;
+	}
 	// and start processing elements
 	if (!readElem(m_root, "firstUse", &m_opts->firstUse))
 		return false;
