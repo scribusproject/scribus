@@ -513,7 +513,8 @@ void FontFamilyDelegate::paint(QPainter *painter, const QStyleOptionViewItem &op
 	}
 
 	const QFontDatabase& fontDb = ScQApp->qtFontDatabase();
-	const ScFace& scFace = getScFace(this->parent()->metaObject()->className(), text);
+	QString className(this->parent()->metaObject()->className());
+	const ScFace& scFace = getScFace(className, text);
 
 	QPixmap  pixmap(pixmapW, pixmapH);
 	QPixmap  invPixmap(pixmapW, pixmapH);
