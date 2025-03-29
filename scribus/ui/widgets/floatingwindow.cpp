@@ -107,7 +107,7 @@ QSize FloatingWindow::screenSize() const
 	QList<QScreen*> screens = QGuiApplication::screens();
 	QRect bounds;
 
-	for (auto* screen : screens)
+	for (const auto* screen : std::as_const(screens))
 		bounds = bounds.united(screen->geometry());
 
 	return bounds.size();

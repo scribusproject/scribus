@@ -2317,21 +2317,20 @@ void ScribusMainWindow::windowsMenuAboutToShow()
 	bool windowsListNotEmpty=!windows.isEmpty();
 	scrActions["windowsCascade"]->setEnabled(windowsListNotEmpty);
 	scrActions["windowsTile"]->setEnabled(windowsListNotEmpty);
-	if (windowsListNotEmpty)
+	if (!windowsListNotEmpty)
+		return;
+	int windowCount = static_cast<int>(windows.count());
+	for ( int i = 0; i < windowCount; ++i )
 	{
-		int windowCount = static_cast<int>(windows.count());
-		for ( int i = 0; i < windowCount; ++i )
-		{
-			QString docInWindow(windows.at(i)->windowTitle());
-			scrWindowsActions.insert(docInWindow, new ScrAction(ScrAction::Window, QString(), QString(), QString("&%1 %2").arg(i + 1).arg(docInWindow), QKeySequence(), this, i));
-			scrWindowsActions[docInWindow]->setToggleAction(true);
-			connect( scrWindowsActions[docInWindow], SIGNAL(triggeredData(int)), this, SLOT(windowsMenuActivated(int)) );
-			scrWindowsActions[docInWindow]->setChecked(mdiArea->activeSubWindow() == windows.at(i));
-			scrMenuMgr->addMenuItemString(docInWindow, "Windows");
-		}
-		if (windowCount>1)
-			scrMenuMgr->addMenuItemStringsToRememberedMenu("Windows", scrWindowsActions);
+		QString docInWindow(windows.at(i)->windowTitle());
+		scrWindowsActions.insert(docInWindow, new ScrAction(ScrAction::Window, QString(), QString(), QString("&%1 %2").arg(i + 1).arg(docInWindow), QKeySequence(), this, i));
+		scrWindowsActions[docInWindow]->setToggleAction(true);
+		connect( scrWindowsActions[docInWindow], SIGNAL(triggeredData(int)), this, SLOT(windowsMenuActivated(int)) );
+		scrWindowsActions[docInWindow]->setChecked(mdiArea->activeSubWindow() == windows.at(i));
+		scrMenuMgr->addMenuItemString(docInWindow, "Windows");
 	}
+	if (windowCount>1)
+		scrMenuMgr->addMenuItemStringsToRememberedMenu("Windows", scrWindowsActions);
 }
 
 void ScribusMainWindow::extrasMenuAboutToShow()
