@@ -198,27 +198,17 @@ void CanvasMode::updateViewMode(CanvasViewMode* viewmode)
 	viewmode->drawFramelinksWithContents = false;	
 }
 
-void CanvasMode::drawSelectionHandles(QPainter *psx, QRectF selectionRect, bool background, bool insideGroup, double sx, double sy)
+void CanvasMode::drawSelectionHandles(QPainter *psx, QRectF selectionRect, bool insideGroup)
 {
-//	double markWidth = 4.0 / m_canvas->scale();
-//	if (insideGroup)
-//		markWidth /= qMax(sx, sy);
-//	QRectF handleRect(0, 0, markWidth, markWidth);
 	double x = selectionRect.x();
 	double y = selectionRect.y();
 	double w = selectionRect.width();
 	double h = selectionRect.height();
-//	psx->setBrush(Qt::white);
 
 	QPen p = m_pen["selection-handle"];
 
-//	if (background)
-//		p = m_pen["frame-outline"];
-//	else
-//	{
-		if (insideGroup)
-			p = m_pen["selection-group-inside"];
-//	}
+	if (insideGroup)
+		p = m_pen["selection-group-inside"];
 
 	drawSelectionHandle(psx, QPointF(x, y), p, m_canvas->scale());
 	drawSelectionHandle(psx, QPointF(x + w / 2.0, y), p, m_canvas->scale());
@@ -257,7 +247,6 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 				if (!m_doc->Items->contains(currItem))
 					continue;
 				psx->save();
-				double lineAdjust(psx->pen().width() / m_canvas->scale());
 				double x, y, w, h;
 				w = currItem->visualWidth() ;
 				h = currItem->visualHeight() ;
@@ -266,18 +255,15 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 					psx->setRenderHint(QPainter::Antialiasing);
 					psx->translate(currItem->xPos(), currItem->yPos());
 					psx->rotate(currItem->rotation());
-					x = currItem->asLine() ? 0 : (currItem->visualXPos() - currItem->xPos() - lineAdjust);
-					y = currItem->asLine() ? (h / -2.0) : (currItem->visualYPos() - currItem->yPos() - lineAdjust);
+					x = currItem->asLine() ? 0 : (currItem->visualXPos() - currItem->xPos());
+					y = currItem->asLine() ? (h / -2.0) : (currItem->visualYPos() - currItem->yPos());
 				}
 				else
 				{
 					psx->translate(currItem->visualXPos(), currItem->visualYPos());
-					x = currItem->asLine() ? 0 : -lineAdjust;
-					y = currItem->asLine() ? 0 : -lineAdjust;
+					x = 0;
+					y = 0;
 				}
-//				psx->setBrush(Qt::NoBrush);
-//				psx->setPen(m_pen["frame-outline"]);
-//				psx->drawRect(QRectF(x, y, w, h));
 				psx->setPen(m_pen["selection-group-inside"]);
 				psx->setBrush(m_brush["selection-group-inside"]);
 				psx->drawRect(QRectF(x, y, w, h));
@@ -286,24 +272,18 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 		}
 		psx->save();
 		psx->setPen(m_pen["selection-group"]);
-		double lineAdjust(psx->pen().width() / m_canvas->scale());
 		double x, y, w, h;
 		m_doc->m_Selection->getVisualGroupRect(&x, &y, &w, &h);
 
 		psx->translate(x,y);
-		x = -lineAdjust;
-		y = -lineAdjust;
+		x = 0;
+		y = 0;
 
-//		psx->setBrush(Qt::NoBrush);
-//		psx->setPen(m_pen["frame-outline"]);
-//		psx->drawRect(QRectF(x, y, w, h));
-//		if (drawHandles)
-//			drawSelectionHandles(psx, QRectF(x, y, w, h), true);
 		psx->setPen(m_pen["selection-group"]);
 		psx->setBrush(m_brush["selection-group"]);
 		psx->drawRect(QRectF(x, y, w, h));
 		if (drawHandles)
-			drawSelectionHandles(psx, QRectF(x, y, w, h), false);
+			drawSelectionHandles(psx, QRectF(x, y, w, h));
 		psx->restore();
 	}
 	else if (m_doc->m_Selection->count() != 0)
@@ -316,7 +296,6 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 			psx->save();
 			psx->setPen(m_pen["selection"]);
 			psx->setBrush(m_brush["selection"]);
-			double lineAdjust(psx->pen().width() / m_canvas->scale());
 			double x, y, w, h;
 			if (currItem->isGroupChild())
 			{
@@ -328,7 +307,7 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 				h = currItem->visualHeight();
 				x = currItem->asLine() ? 0 : (-currItem->visualLineWidth() / 2.0);
 				y = -currItem->visualLineWidth() / 2.0;
-//				psx->setBrush(Qt::NoBrush);
+
 				QRectF drRect = QRectF(x, y, w, h).normalized();
 				if (m_doc->drawAsPreview && !m_doc->editOnPreview)
 				{
@@ -336,20 +315,16 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 					{
 						psx->setPen(m_pen["frame-preview"]);
 						psx->setBrush(Qt::NoBrush);
-						psx->drawRect(drRect.adjusted(-1, -1, 1, 1));
+						psx->drawRect(drRect);
 					}
 				}
 				else
 				{
-//					psx->setPen(m_pen["frame-outline"]);
-//					psx->drawRect(drRect);
-//					if (drawHandles)
-//						drawSelectionHandles(psx, QRectF(x, y, w, h), true, true, sx, sy);
 					psx->setPen(m_pen["selection-group-inside"]);
 					psx->setBrush(m_brush["selection-group-inside"]);
 					psx->drawRect(drRect);
 					if (drawHandles)
-						drawSelectionHandles(psx, QRectF(x, y, w, h), false, true, sx, sy);
+						drawSelectionHandles(psx, QRectF(x, y, w, h), true);
 				}
 			}
 			else
@@ -361,31 +336,27 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 					psx->setRenderHint(QPainter::Antialiasing);
 					psx->translate(currItem->xPos(), currItem->yPos());
 					psx->rotate(currItem->rotation());
-					x = currItem->asLine() ? 0 : (currItem->visualXPos() - currItem->xPos() - lineAdjust);
-					y = currItem->asLine() ? (h / -2.0) : (currItem->visualYPos() - currItem->yPos() - lineAdjust);
+					x = currItem->asLine() ? 0 : (currItem->visualXPos() - currItem->xPos());
+					y = currItem->asLine() ? (h / -2.0) : (currItem->visualYPos() - currItem->yPos());
 				}
 				else
 				{
 					psx->translate(currItem->visualXPos(), currItem->visualYPos());
-					x = currItem->asLine() ? 0 : -lineAdjust;
-					y = currItem->asLine() ? 0 : -lineAdjust;
+					x = 0;
+					y = 0;
 				}
-//				psx->setBrush(Qt::NoBrush);
+
 				if (m_doc->drawAsPreview && !m_doc->editOnPreview)
 				{
 					if (!currItem->annotation().IsOpen())
 					{
 						psx->setPen(m_pen["frame-preview"]);
 						psx->setBrush(Qt::NoBrush);
-						psx->drawRect(QRectF(x, y, w, h).adjusted(-1, -1, 1, 1));
+						psx->drawRect(QRectF(x, y, w, h));
 					}
 				}
 				else
 				{
-//					psx->setPen(m_pen["frame-outline"]);
-//					psx->drawRect(QRectF(x, y, w, h));
-//					if (drawHandles && !currItem->locked() && !currItem->isLine())
-//						drawSelectionHandles(psx, QRectF(x, y, w, h), true);
 					psx->setPen(m_pen["selection"]);
 					psx->setBrush(m_brush["selection"]);
 					psx->drawRect(QRectF(x, y, w, h));
@@ -399,7 +370,7 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 						drawSelectionHandle(psx, QPointF(x + w, y + h / 2.0), m_pen["selection-handle"], m_canvas->scale());
 					}
 					else
-						drawSelectionHandles(psx, QRectF(x, y, w, h), false);
+						drawSelectionHandles(psx, QRectF(x, y, w, h));
 				}
 				if (currItem->isWelded())
 				{
