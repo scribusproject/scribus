@@ -100,10 +100,12 @@ QString stringToUnicode(const QString &text)
 	QString out;
 
 	for (auto c : text)
-		out += QString("U+%1,").arg(c.unicode(), 4, 16, QChar('0')).toUpper();
+	{
+		auto u = static_cast<uint>(c.unicode());
+		out += QString("U+%1,").arg(u, 4, 16, QChar('0')).toUpper();
+	}
 
-	return out.mid(0, out.length() -1);
-
+	return out.mid(0, out.length() - 1);
 }
 
 QString unicodeToString(const QString &text)
