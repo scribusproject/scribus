@@ -470,11 +470,7 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, do
 				if (dst->isPageRef())
 				{
 					Ref dstr = dst->getPageRef();
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 76, 0)
 					pagNum = m_pdfDoc->findPage(dstr);
-#else
-					pagNum = m_pdfDoc->findPage(dstr.num, dstr.gen);
-#endif
 				}
 				else
 					pagNum = dst->getPageNum();
@@ -498,11 +494,7 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, do
 					if (dstn->isPageRef())
 					{
 						Ref dstr = dstn->getPageRef();
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 76, 0)
 						pagNum = m_pdfDoc->findPage(dstr);
-#else
-						pagNum = m_pdfDoc->findPage(dstr.num, dstr.gen);
-#endif
 					}
 					else
 						pagNum = dstn->getPageNum();
@@ -989,11 +981,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 					if (dst->isPageRef())
 					{
 						Ref dstr = dst->getPageRef();
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 76, 0)
 						pagNum = m_pdfDoc->findPage(dstr);
-#else
-						pagNum = m_pdfDoc->findPage(dstr.num, dstr.gen);
-#endif
 					}
 					else
 						pagNum = dst->getPageNum();
@@ -1019,11 +1007,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 						if (dstn->isPageRef())
 						{
 							Ref dstr = dstn->getPageRef();
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 76, 0)
 							pagNum = m_pdfDoc->findPage(dstr);
-#else
-							pagNum = m_pdfDoc->findPage(dstr.num, dstr.gen);
-#endif
 						}
 						else
 							pagNum = dstn->getPageNum();
@@ -1865,7 +1849,7 @@ bool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, do
 	if (func->getType() == 3)
 #endif
 	{
-		auto *stitchingFunc = (StitchingFunction*) func;
+		const auto *stitchingFunc = (const StitchingFunction*) func;
 		const double *bounds = stitchingFunc->getBounds();
 		int num_funcs = stitchingFunc->getNumFuncs();
 		double domain_min = stitchingFunc->getDomainMin(0);
@@ -2007,7 +1991,7 @@ bool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading, 
 	if (func->getType() == 3)
 #endif
 	{
-		auto *stitchingFunc = (StitchingFunction*) func;
+		const auto *stitchingFunc = (const StitchingFunction*) func;
 		const double *bounds = stitchingFunc->getBounds();
 		int num_funcs = stitchingFunc->getNumFuncs();
 		double domain_min = stitchingFunc->getDomainMin(0);
