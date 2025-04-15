@@ -99,6 +99,12 @@ void PropertyWidget_Distance::updateStyle(const ParagraphStyle &newCurrent)
 	if (!m_item)
 		return;
 
+	QSignalBlocker firstLineIndentSpinBlocker(firstLineIndentSpin);
+	QSignalBlocker leftIndentSpinBlocker(leftIndentSpin);
+	QSignalBlocker rightIndentSpinBlocker(rightIndentSpin);
+	QSignalBlocker gapBeforeSpinBlocker(gapBeforeSpin);
+	QSignalBlocker gapAfterSpinBlocker(gapAfterSpin);
+
 	firstLineIndentSpin->setValue(newCurrent.firstIndent() * m_unitRatio);
 	leftIndentSpin->setValue(newCurrent.leftMargin() * m_unitRatio);
 	rightIndentSpin->setValue(newCurrent.rightMargin() * m_unitRatio);
