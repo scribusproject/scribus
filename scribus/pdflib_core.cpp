@@ -9855,7 +9855,7 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			importedObjects[page.GetObject().GetIndirectReference()] = xObj;
 			writer.startObj(xObj);
 			PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1");
-			PoDoFo::Rect pageRect = page.GetArtBox(); // Because scimagedataloader_pdf use ArtBox
+			PoDoFo::Rect pageRect = page.GetArtBox(true); // Because scimagedataloader_pdf use ArtBox
 			int rotation = page.GetRotationRaw();
 			double imgWidth  = (rotation == 90 || rotation == 270) ? pageRect.Height : pageRect.Width;
 			double imgHeight = (rotation == 90 || rotation == 270) ? pageRect.Width : pageRect.Height;
@@ -9976,7 +9976,7 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			importedObjects[page.GetObject().GetIndirectReference()] = xObj;
 			writer.startObj(xObj);
 			PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1");
-			PoDoFo::Rect pageRect = page.GetArtBox(); // Because scimagedataloader_pdf use ArtBox
+			PoDoFo::Rect pageRect = page.GetArtBox(true); // Because scimagedataloader_pdf use ArtBox
 			int rotation = page.GetRotationRaw();
 			double imgWidth  = (rotation == 90 || rotation == 270) ? pageRect.Height : pageRect.Width;
 			double imgHeight = (rotation == 90 || rotation == 270) ? pageRect.Width : pageRect.Height;
