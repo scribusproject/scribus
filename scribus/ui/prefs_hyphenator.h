@@ -32,12 +32,16 @@ class SCRIBUS_API Prefs_Hyphenator : public Prefs_Pane, Ui::Prefs_Hyphenator
 	protected slots:
 		void addToIgnoreList();
 		void editIgnoreListEntry();
-		void removeIgnoreListEntry();
+		void editIgnoreListItem(QListWidgetItem* item);
+		void ignoreListItemChanged(QListWidgetItem* item);
+		void removeFromIgnoreList();
 		void enableIgnoreButtons();
-		void addToExceptList();
-		void editExceptListEntry();
-		void removeExceptListEntry();
-		void enableExceptButtons();
+		void addToExceptionList();
+		void editExceptionListEntry();
+		void editExceptionListItem(QListWidgetItem* item);
+		void exceptionListItemChanged(QListWidgetItem* item);
+		void removeFromExceptionList();
+		void enableExceptionButtons();
 
 	protected:
 		QString affixFileName(QStringList files);

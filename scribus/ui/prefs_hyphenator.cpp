@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <QListWidget>
 #include <QTableWidgetItem>
 #include <QTextStream>
+#include <QtAlgorithms>
 
 #include "iconmanager.h"
 #include "prefs_hyphenator.h"
@@ -26,21 +27,21 @@ Prefs_Hyphenator::Prefs_Hyphenator(QWidget* parent, ScribusDoc* /*doc*/)
 	m_icon = "pref-hyphenator";
 
 	exceptionAddButton->setIcon(IconManager::instance().loadIcon("list-add"));
-	exceptionEditButton->setEnabled(false);
 	exceptionRemoveButton->setIcon(IconManager::instance().loadIcon("list-remove"));
 	exceptionRemoveButton->setEnabled(false);
 	ignoreAddButton->setIcon(IconManager::instance().loadIcon("list-add"));
-	ignoreEditButton->setEnabled(false);
 	ignoreRemoveButton->setIcon(IconManager::instance().loadIcon("list-remove"));
 	ignoreRemoveButton->setEnabled(false);
 	connect(ignoreAddButton, SIGNAL(clicked()), this, SLOT(addToIgnoreList()));
-	connect(ignoreEditButton, SIGNAL(clicked()), this, SLOT(editIgnoreListEntry()));
-	connect(ignoreRemoveButton, SIGNAL(clicked()), this, SLOT(removeIgnoreListEntry()));
+	connect(ignoreListWidget, &QListWidget::itemDoubleClicked, this, &Prefs_Hyphenator::editIgnoreListItem);
+	connect(ignoreListWidget, &QListWidget::itemChanged, this, &Prefs_Hyphenator::ignoreListItemChanged);
+	connect(ignoreRemoveButton, SIGNAL(clicked()), this, SLOT(removeFromIgnoreList()));
 	connect(ignoreListWidget, SIGNAL(itemSelectionChanged()), this, SLOT(enableIgnoreButtons()));
-	connect(exceptionAddButton, SIGNAL(clicked()), this, SLOT(addToExceptList()));
-	connect(exceptionEditButton, SIGNAL(clicked()), this, SLOT(editExceptListEntry()));
-	connect(exceptionRemoveButton, SIGNAL(clicked()), this, SLOT(removeExceptListEntry()));
-	connect(exceptionListWidget, SIGNAL(itemSelectionChanged()), this, SLOT(enableExceptButtons()));
+	connect(exceptionAddButton, SIGNAL(clicked()), this, SLOT(addToExceptionList()));
+	connect(exceptionListWidget, &QListWidget::itemDoubleClicked, this, &Prefs_Hyphenator::editExceptionListItem);
+	connect(exceptionListWidget, &QListWidget::itemChanged, this, &Prefs_Hyphenator::exceptionListItemChanged);
+	connect(exceptionRemoveButton, SIGNAL(clicked()), this, SLOT(removeFromExceptionList()));
+	connect(exceptionListWidget, SIGNAL(itemSelectionChanged()), this, SLOT(enableExceptionButtons()));
 }
 
 void Prefs_Hyphenator::languageChange()
@@ -79,13 +80,19 @@ void Prefs_Hyphenator::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 void Prefs_Hyphenator::addToIgnoreList()
 {
 	bool ok;
-	QString text = QInputDialog::getText(this, tr("Ignore List"), tr("Add a new Entry"), QLineEdit::Normal, "", &ok);
-	if (ok && !text.isEmpty())
+	QString text = QInputDialog::getMultiLineText(this, tr("Ignore List"), tr("Add new Entries"), "", &ok);
+	text = text.trimmed();
+	if (!ok || text.isEmpty())
 	{
-		if (ignoreListWidget->findItems(text, Qt::MatchExactly).count() == 0)
-			ignoreListWidget->addItem(text);
-		ignoreListWidget->sortItems();
+		return;
 	}
+	for (QString& word: text.split("\n"))
+	{
+		word = word.trimmed();
+		if (ignoreListWidget->findItems(word, Qt::MatchExactly).count() == 0)
+			ignoreListWidget->addItem(word);
+	}
+	ignoreListWidget->sortItems();
 }
 
 void Prefs_Hyphenator::editIgnoreListEntry()
@@ -100,36 +107,47 @@ void Prefs_Hyphenator::editIgnoreListEntry()
 	}
 }
 
-void Prefs_Hyphenator::removeIgnoreListEntry()
+void Prefs_Hyphenator::editIgnoreListItem(QListWidgetItem* item)
 {
-	QListWidgetItem *item = ignoreListWidget->takeItem(ignoreListWidget->row(ignoreListWidget->currentItem()));
-	delete item;
-	if (ignoreListWidget->count() == 0)
-	{
-		ignoreEditButton->setEnabled(false);
-		ignoreRemoveButton->setEnabled(false);
-	}
+	item->setFlags(item->flags() | Qt::ItemIsEditable);
+	ignoreListWidget->editItem(item);
+}
+
+
+void Prefs_Hyphenator::ignoreListItemChanged(QListWidgetItem*)
+{
+	ignoreListWidget->sortItems();
+}
+
+void Prefs_Hyphenator::removeFromIgnoreList()
+{
+	qDeleteAll(ignoreListWidget->selectedItems());
 }
 
 void Prefs_Hyphenator::enableIgnoreButtons()
 {
-	ignoreEditButton->setEnabled(true);
 	ignoreRemoveButton->setEnabled(true);
 }
 
-void Prefs_Hyphenator::addToExceptList()
+void Prefs_Hyphenator::addToExceptionList()
 {
 	bool ok;
-	QString text = QInputDialog::getText(this, tr("Exception List"), tr("Add a new Entry"), QLineEdit::Normal, "", &ok);
-	if (ok && !text.isEmpty())
+	QString text = QInputDialog::getMultiLineText(this, tr("Exception List"), tr("Add new Entries"), "", &ok);
+	text = text.trimmed();
+	if (!ok || text.isEmpty())
 	{
-		if (exceptionListWidget->findItems(text, Qt::MatchExactly).count() == 0)
-			exceptionListWidget->addItem(text);
-		exceptionListWidget->sortItems();
+		return;
 	}
+	for (QString& word: text.split("\n"))
+	{
+		word = word.trimmed();
+		if (exceptionListWidget->findItems(word, Qt::MatchExactly).count() == 0)
+			exceptionListWidget->addItem(word);
+	}
+	exceptionListWidget->sortItems();
 }
 
-void Prefs_Hyphenator::editExceptListEntry()
+void Prefs_Hyphenator::editExceptionListEntry()
 {
 	bool ok;
 	QString text = QInputDialog::getText(this, tr("Exception List"), tr("Edit Entry"), QLineEdit::Normal, exceptionListWidget->currentItem()->text(), &ok);
@@ -141,19 +159,24 @@ void Prefs_Hyphenator::editExceptListEntry()
 	}
 }
 
-void Prefs_Hyphenator::removeExceptListEntry()
+void Prefs_Hyphenator::editExceptionListItem(QListWidgetItem* item)
 {
-	QListWidgetItem *item = exceptionListWidget->takeItem(exceptionListWidget->row(exceptionListWidget->currentItem()));
-	delete item;
-	if (exceptionListWidget->count() == 0)
-	{
-		exceptionEditButton->setEnabled(false);
-		exceptionRemoveButton->setEnabled(false);
-	}
+	item->setFlags(item->flags() | Qt::ItemIsEditable);
+	exceptionListWidget->editItem(item);
 }
 
-void Prefs_Hyphenator::enableExceptButtons()
+
+void Prefs_Hyphenator::exceptionListItemChanged(QListWidgetItem*)
 {
-	exceptionEditButton->setEnabled(true);
+	exceptionListWidget->sortItems();
+}
+
+void Prefs_Hyphenator::removeFromExceptionList()
+{
+	qDeleteAll(exceptionListWidget->selectedItems());
+}
+
+void Prefs_Hyphenator::enableExceptionButtons()
+{
 	exceptionRemoveButton->setEnabled(true);
 }
