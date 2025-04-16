@@ -6481,7 +6481,9 @@ void ScribusMainWindow::slotPrefsOrg()
 		else
 		{
 			QApplication::styleHints()->unsetColorScheme();
+#if (defined Q_OS_LINUX)
 			QApplication::setPalette(this->style()->standardPalette());
+#endif
 		}
 	}
 #endif
