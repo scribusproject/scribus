@@ -352,7 +352,8 @@ CustomFDialog::CustomFDialog(QWidget *parent, const QString& wDir, const QString
 		QSpacerItem* spacer2 = new QSpacerItem( 2, 2, QSizePolicy::Expanding, QSizePolicy::Minimum );
 		Layout1C->addItem( spacer2 );
 		vboxLayout->addWidget(LayoutC);
-		fileDialog->setFileMode(QFileDialog::DirectoryOnly);
+		fileDialog->setFileMode(QFileDialog::Directory);
+		fileDialog->setOption(QFileDialog::ShowDirsOnly, true);
 		fileDialog->forceDoubleClickActivation(false);
 		filePreview->hide();
 		showPreview->setVisible(false);
@@ -382,7 +383,7 @@ CustomFDialog::CustomFDialog(QWidget *parent, const QString& wDir, const QString
 			if (flags & fdCompressFile)
 				vboxLayout->addWidget(Layout);
 		}
-		
+		fileDialog->setOption(QFileDialog::ShowDirsOnly, false);
 		if (saveZip != nullptr)
 			saveZip->setToolTip( "<qt>" + tr( "Compress the Scribus document on save" ) + "</qt>");
 		if (withFonts != nullptr)
@@ -543,7 +544,7 @@ void CustomFDialog::okClicked()
 	if (selFile.isEmpty())
 		return;
 	QFileInfo fi(selFile);
-	if (fi.isDir() && (fileDialog->fileMode() != QFileDialog::DirectoryOnly))
+	if (fi.isDir() && (fileDialog->fileMode() != QFileDialog::Directory))
 		fileDialog->gotoSelectedDirectory();
 	else
 		accept();
