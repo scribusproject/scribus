@@ -1,9 +1,20 @@
 Scribus - 1.6.4 (Released 2025-xx-xx)
 =========================================
 https://bugs.scribus.net/changelog_page.php?version_id=126
-0017298: [Scripter]  Add functions for getting and setting the size of the current page, and getting the bounding box of a page item (jghali)
-0017383: [Scripter]  isLayerLocked scripter function returns opposite of expected value (cbradney)
-
+ 0017499: [PDF]  Some ‘Image frames’ are half-printed when saving PDF with the option “Embed PDF & EPS files (EXPERIMENTAL)” activated (jghali)
+ 0017463: [Import / Export]  Scribus incorrectly closes open paths when importing PDF (jghali)
+ 0017460: [Master Pages]  Inserted page number does not appear in Master Pages other than Normal in sigle page and Normal Left in facing page view (jghali)
+ 0017420: [PDF]  Checkbox renders incorrectly on some PDF viewers (e.g. MS Edge build in viewer) (jghali)
+ 0017424: [Integration]  Prevent hyphenation dialog from opening when running with --no-gui (jghali)
+ 0017429: [Story Editor / Text Frames]  In the lists, the character offset should never be negative (cbradney)
+ 0017436: [PDF]  Avoid custom font encodings when embedding TTF fonts in PDF (jghali)
+ 0017447: [General]  Notes Style Editor crashes (jghali)
+ 0017298: [Scripter]  Add functions for getting and setting the size of the current page, and getting the bounding box of a page item (jghali)
+ 0017395: [Import / Export]  PDF/X-1a:2001 opens as all colors completely black (jghali)
+ 0017398: [Scripter]  Add script methods for getting and setting min word kerning/tracking on a frame (jghali)
+ 0017405: [Build System]  Build error with poppler 25.02.0 (jghali)
+ 0017406: [PDF]  Exported PDF/X-4 not read by Adobe Acrobat and Microsoft Edge (jghali)
+ 0017383: [Scripter]  isLayerLocked scripter function returns opposite of expected value (cbradney)
 
 Scribus - 1.6.3 (Released 2025-01-08)
 =========================================
