@@ -245,6 +245,28 @@ void ODTIm::parseRawTextHyperlink(const QDomElement& elem, PageItem* item, Parag
 	}
 }
 
+void ODTIm::parseRawTextList(const QDomNode& elem, PageItem* item, ParagraphStyle& newStyle, int& posC)
+{
+	if (!elem.hasChildNodes())
+		return;
+
+	for (QDomNode spn = elem.firstChild(); !spn.isNull(); spn = spn.nextSibling())
+	{
+		if (spn.nodeName() != "text:list-item")
+			continue;
+		if (!spn.hasChildNodes())
+			continue;
+
+		for (QDomNode spp = spn.firstChild(); !spp.isNull(); spp = spp.nextSibling())
+		{
+			if (spp.nodeName() == "text:p" || spp.nodeName() == "text:h")
+			{
+				parseRawTextParagraph(spp, item, newStyle, posC);
+			}
+		}
+	}
+}
+
 void ODTIm::parseRawTextParagraph(const QDomNode &elem, PageItem* item, ParagraphStyle &newStyle, int &posC)
 {
 	CharStyle tmpCStyle = newStyle.charStyle();
@@ -307,25 +329,7 @@ void ODTIm::parseRawText(const QDomElement &elem, PageItem* item)
 		if ((para.nodeName() == "text:p") || (para.nodeName() == "text:h"))
 			parseRawTextParagraph(para, item, newStyle, posC);
 		else if (para.nodeName() == "text:list")
-		{
-			if (!para.hasChildNodes())
-				continue;
-			for (QDomNode spn = para.firstChild(); !spn.isNull(); spn = spn.nextSibling())
-			{
-				if (spn.nodeName() == "text:list-item")
-				{
-					if (!spn.hasChildNodes())
-						continue;
-					for (QDomNode spp = spn.firstChild(); !spp.isNull(); spp = spp.nextSibling())
-					{
-						if (spp.nodeName() == "text:p")
-						{
-							parseRawTextParagraph(spp, item, newStyle, posC);
-						}
-					}
-				}
-			}
-		}
+			parseRawTextList(para, item, newStyle, posC);
 		else if (para.nodeName() == "text:section")
 		{
 			if (!para.hasChildNodes())
@@ -796,6 +800,28 @@ void ODTIm::parseTextHyperlink(const QDomElement& elem, PageItem* item, const Pa
 		m_textStylesStack.pop();
 }
 
+void ODTIm::parseTextList(const QDomNode& elem, PageItem* item, const ParagraphStyle& newStyle, const ObjStyleODT& tmpOStyle, int& posC)
+{
+	if (!elem.hasChildNodes())
+		return;
+
+	for (QDomNode spn = elem.firstChild(); !spn.isNull(); spn = spn.nextSibling())
+	{
+		if (spn.nodeName() != "text:list-item")
+			continue;
+		if (!spn.hasChildNodes())
+			continue;
+
+		for (QDomNode spp = spn.firstChild(); !spp.isNull(); spp = spp.nextSibling())
+		{
+			if (spp.nodeName() == "text:p" || spp.nodeName() == "text:h")
+			{
+				parseTextParagraph(spp, item, newStyle, tmpOStyle, posC);
+			}
+		}
+	}
+}
+
 void ODTIm::parseTextParagraph(const QDomNode &elem, PageItem* item, const ParagraphStyle &newStyle, const ObjStyleODT &tmpOStyle, int &posC)
 {
 	ParagraphStyle tmpStyle = newStyle;
@@ -941,25 +967,7 @@ void ODTIm::parseText(const QDomElement &elem, PageItem* item, const ObjStyleODT
 		if ((para.nodeName() == "text:p") || (para.nodeName() == "text:h"))
 			parseTextParagraph(para, item, newStyle, tmpOStyle, posC);
 		else if (para.nodeName() == "text:list")
-		{
-			if (!para.hasChildNodes())
-				continue;
-			for (QDomNode spn = para.firstChild(); !spn.isNull(); spn = spn.nextSibling())
-			{
-				if (spn.nodeName() == "text:list-item")
-				{
-					if (!spn.hasChildNodes())
-						continue;
-					for (QDomNode spp = spn.firstChild(); !spp.isNull(); spp = spp.nextSibling())
-					{
-						if (spp.nodeName() == "text:p")
-						{
-							parseTextParagraph(spp, item, newStyle, tmpOStyle, posC);
-						}
-					}
-				}
-			}
-		}
+			parseTextList(para, item, newStyle, tmpOStyle, posC);
 		else if (para.nodeName() == "text:section")
 		{
 			if (!para.hasChildNodes())
