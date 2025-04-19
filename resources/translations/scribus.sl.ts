@@ -6454,13 +6454,13 @@ Za več podrobnosti si oglejte razdelek Urejanje barv (Edit Colors) v dokumentac
 <context>
     <name>CustomFDialog</name>
     <message>
-        <location filename="../../scribus/ui/customfdialog.cpp" line="400"/>
+        <location filename="../../scribus/ui/customfdialog.cpp" line="401"/>
         <source>Encoding:</source>
         <translation>Kodiranje znakov:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/customfdialog.cpp" line="339"/>
-        <location filename="../../scribus/ui/customfdialog.cpp" line="370"/>
+        <location filename="../../scribus/ui/customfdialog.cpp" line="371"/>
         <source>&amp;Compress File</source>
         <translation>&amp;Stisni datoteko</translation>
     </message>
@@ -6485,37 +6485,37 @@ Za več podrobnosti si oglejte razdelek Urejanje barv (Edit Colors) v dokumentac
         <translation>Pokaži predogled in podatke o izbrani datoteki</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/customfdialog.cpp" line="387"/>
+        <location filename="../../scribus/ui/customfdialog.cpp" line="388"/>
         <source>Compress the Scribus document on save</source>
         <translation>Ob shranjevanju stisni dokument Scribus</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/customfdialog.cpp" line="389"/>
+        <location filename="../../scribus/ui/customfdialog.cpp" line="390"/>
         <source>Include fonts when collecting files for the document. Be sure to know and understand licensing information for any fonts you collect and possibly redistribute.</source>
         <translation>Pri nabiranju datotek za dokument vključi pisave. Preverite, da poznate in razumete licenčne pogoje za vse pisave, ki jih tako zberete in morebiti razširjate naprej.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/customfdialog.cpp" line="391"/>
+        <location filename="../../scribus/ui/customfdialog.cpp" line="392"/>
         <source>Include color profiles when collecting files for the document</source>
         <translation>Pri nabiranju datotek za dokument vključi barvne profile</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/customfdialog.cpp" line="446"/>
+        <location filename="../../scribus/ui/customfdialog.cpp" line="447"/>
         <source>Import Option:</source>
         <translation>Možnosti uvoza:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/customfdialog.cpp" line="450"/>
+        <location filename="../../scribus/ui/customfdialog.cpp" line="451"/>
         <source>Keep original size</source>
         <translation>Ohrani izvorno velikost</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/customfdialog.cpp" line="451"/>
+        <location filename="../../scribus/ui/customfdialog.cpp" line="452"/>
         <source>Downscale to page size</source>
         <translation>Pomanjšaj na velikost strani</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/customfdialog.cpp" line="452"/>
+        <location filename="../../scribus/ui/customfdialog.cpp" line="453"/>
         <source>Upscale to page size</source>
         <translation>Povečaj na velikost strani</translation>
     </message>
@@ -12469,7 +12469,7 @@ If no handle is selected all handles will be reset.</source>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.ui" line="304"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="74"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="73"/>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="252"/>
         <source>Apply</source>
         <translation>Uporabi</translation>
@@ -12481,71 +12481,71 @@ If no handle is selected all handles will be reset.</source>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.ui" line="330"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="71"/>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="250"/>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="403"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="406"/>
         <source>OK</source>
         <translation>V redu</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="28"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="94"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="27"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="93"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="29"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="95"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="28"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="94"/>
         <source>Story</source>
         <translation>Zgodba</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="66"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="65"/>
         <source>Cancel</source>
         <translation>Prekliči</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="67"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="66"/>
         <source>Dialog is in adding new notes style mode. After pressing Cancel button dialog will be switched into normal notes styles edit mode.</source>
         <translation>Pogovorno okno je v načinu urejanja novega opombenega sloga. Po pritisku na Prekliči, bo pogovorno okno preklopilo v način urejanja navadnih opombenih slogov.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="68"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="392"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="67"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="389"/>
         <source>Add Style</source>
         <translation>Dodaj slog</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="159"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="166"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="187"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="234"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="158"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="165"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="186"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="233"/>
         <source>default</source>
         <translation>privzeto</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="202"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="204"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="201"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="203"/>
         <source>No Style</source>
         <translation>Brez sloga</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="364"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="361"/>
         <source>Warning! Deleting Notes Style</source>
         <translation>Opozorilo! Brisanje opombenih slogov</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="365"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="362"/>
         <source>You are going to delete notes style %1. All notes and marks using that style are also going to be deleted.</source>
         <translation>Izbrisali boste opombeni slog %1. Vse opombe in oznake, ki imajo uporabljen ta slog, bodo prav tako izbrisane.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="397"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="394"/>
         <source>Cancel Adding</source>
         <translation>Prekliči dodajanje</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="398"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="395"/>
         <source>Notes Styles Editor is in adding new notes style mode. After pressing Cancel button Notes Styles Editor switch into normal notes styles edit mode.</source>
         <translation>Urejevalnik opombenih slogov je v načinu dodajanja novih opombenih slogov. Po pritisku na Prekliči, bo Urejevalnik opombenih slogov preklopil v način urejanja navadnih opombenih slogov.</translation>
     </message>
@@ -13413,69 +13413,69 @@ Preverite in ponovno poskusite.</translation>
 <context>
     <name>PDFLibCore</name>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="549"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="591"/>
         <source>Saving PDF</source>
         <translation>Shranjevanje PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="553"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="595"/>
         <source>Exporting Master Page:</source>
         <translation>Izvažanje glavne strani:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="553"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="595"/>
         <source>Exporting Page:</source>
         <translation>Izvažanje strani:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="553"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="595"/>
         <source>Exporting Items on Current Page:</source>
         <translation>Izvažanje predmetov na trenutni strani:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="611"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="653"/>
         <source>Qt build miss both &quot;UTF-16&quot; and &quot;ISO-10646-UCS-2&quot; text codecs, pdf export is not possible</source>
         <translation>Qt izgradnji manjkata oba besedilna kodeka &quot;UTF-16&quot; in &quot;ISO-10646-UCS-2&quot;, zato izvoz PDF-ja ni mogoč</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3470"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3488"/>
         <source>Page:</source>
         <translation>Stran:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3480"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3498"/>
         <source>Date:</source>
         <translation>Datum:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="10634"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="10651"/>
         <source>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</source>
         <translation>Spodletela vdelava datoteke PDF: %1.
 Onemogočite delovno različico PDF in PS vdelave ter poskusite ponovno.</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11923"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11940"/>
         <source>Failed to load an image : %1</source>
         <translation>Slike ni mogoče naložiti: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11928"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11945"/>
         <source>Failed to write an image : %1</source>
         <translation>Slike ni mogoče zapisati: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11933"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11950"/>
         <source>Failed to load an image mask : %1</source>
         <translation>Maske slike ni mogoče naložiti: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11938"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11955"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Za obdelavo slike primanjkuje pomnilnika</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11918"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11935"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>Prišlo je do napake pri zapisovanju. Preverite razpoložljivost prostora na disku</translation>
     </message>
@@ -25119,7 +25119,7 @@ Preverite ime in pot do nje.</translation>
         <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="122"/>
         <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="123"/>
         <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="123"/>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="165"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="158"/>
         <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="128"/>
         <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="130"/>
         <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="124"/>
@@ -29474,7 +29474,7 @@ ni povsem izčrpen zaradi izjem klicanih funkcij.
         <translation>Izvoz SVG</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="107"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="100"/>
         <source>SVG Import</source>
         <translation>Uvoz SVG</translation>
     </message>
@@ -32481,24 +32481,24 @@ Projekt osvobajanja dokumentov (Document Liberation Project) https://www.documen
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="44"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="125"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="244"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="577"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="248"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="581"/>
         <source>Fixed Linespacing</source>
         <translation>Nespremenljiv razmik vrstic</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="45"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="126"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="245"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="578"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="249"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="582"/>
         <source>Automatic Linespacing</source>
         <translation>Samodejen razmik vrstic</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="46"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="127"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="246"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="579"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="250"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="583"/>
         <source>Align to Baseline Grid</source>
         <translation>Poravnaj na mrežo osnovnice</translation>
     </message>
@@ -32639,8 +32639,8 @@ Projekt osvobajanja dokumentov (Document Liberation Project) https://www.documen
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="29"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="475"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="984"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="479"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="988"/>
         <source>Based On:</source>
         <translation>Temelji na:</translation>
     </message>
@@ -32670,7 +32670,7 @@ Projekt osvobajanja dokumentov (Document Liberation Project) https://www.documen
         <translation>Videzna izravnava</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="479"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="483"/>
         <source>A default style cannot be assigned a parent style</source>
         <translation>Privzetega sloga ni mogoče dodeliti nadrejenikovemu slogu</translation>
     </message>
@@ -32750,9 +32750,9 @@ Projekt osvobajanja dokumentov (Document Liberation Project) https://www.documen
         <translation>Če je označeno, se odstavek  primeru, da ni isti strani ali v istem stolpcu, samodejno prestavi v naslednji stolpec ali na naslednjo stran</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="470"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="473"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="1200"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="474"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="477"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="1205"/>
         <source>No Style</source>
         <translation>Brez sloga</translation>
     </message>
@@ -32832,7 +32832,7 @@ Projekt osvobajanja dokumentov (Document Liberation Project) https://www.documen
         <translation>Najm. širina presledka:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="549"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="553"/>
         <source>Shade</source>
         <translation>Senči</translation>
     </message>
@@ -33085,12 +33085,12 @@ Projekt osvobajanja dokumentov (Document Liberation Project) https://www.documen
 <context>
     <name>SToolBAlign</name>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1449"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1431"/>
         <source>Style of current paragraph</source>
         <translation>Slog trenutnega odstavka</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1417"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1399"/>
         <source>Style Settings</source>
         <translation>Nastavitve sloga</translation>
     </message>
@@ -33098,17 +33098,17 @@ Projekt osvobajanja dokumentov (Document Liberation Project) https://www.documen
 <context>
     <name>SToolBColorF</name>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1179"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1161"/>
         <source>Color of text fill</source>
         <translation>Barva polnila besedila</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1180"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1162"/>
         <source>Saturation of color of text fill</source>
         <translation>Nasičenost barve polnila besedila</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1135"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1117"/>
         <source>Fill Color Settings</source>
         <translation>Nastavitve barve polnila</translation>
     </message>
@@ -33116,17 +33116,17 @@ Projekt osvobajanja dokumentov (Document Liberation Project) https://www.documen
 <context>
     <name>SToolBColorS</name>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1257"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1239"/>
         <source>Color of text stroke</source>
         <translation>Barva poteze besedila</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1258"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1240"/>
         <source>Saturation of color of text stroke</source>
         <translation>Nasičenost barve poteze besedila</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1208"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1190"/>
         <source>Stroke Color Settings</source>
         <translation>Nastavitve barve poteze</translation>
     </message>
@@ -33134,27 +33134,27 @@ Projekt osvobajanja dokumentov (Document Liberation Project) https://www.documen
 <context>
     <name>SToolBFont</name>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1538"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1520"/>
         <source>Font of selected text</source>
         <translation>Pisava izbranega besedila</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1539"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1521"/>
         <source>Font Size</source>
         <translation>Velikost pisave</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1540"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1522"/>
         <source>Scaling width of characters</source>
         <translation>Sprememba širine črk</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1471"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1453"/>
         <source>Font Settings</source>
         <translation>Nastavitve pisave</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1541"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1523"/>
         <source>Scaling height of characters</source>
         <translation>Sprememba višine črk</translation>
     </message>
@@ -33162,12 +33162,12 @@ Projekt osvobajanja dokumentov (Document Liberation Project) https://www.documen
 <context>
     <name>SToolBStyle</name>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1286"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1268"/>
         <source>Character Settings</source>
         <translation>Nastavitve znakov</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1338"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1320"/>
         <source>Manual Tracking</source>
         <translation>Ročno sledenje</translation>
     </message>
@@ -33220,22 +33220,22 @@ Pozor, to bo povečalo velikost datoteke!</translation>
 <context>
     <name>SVGImportPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="99"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="92"/>
         <source>Import &amp;SVG...</source>
         <translation>Uvozi &amp;SVG ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="114"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="107"/>
         <source>Imports SVG Files</source>
         <translation>Uzvozi datoteke SVG</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="115"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="108"/>
         <source>Imports most SVG files into the current document, converting their vector data into Scribus objects.</source>
         <translation>Uvozi večino datotek SVG v trenutni dokument in pretvori vektorske podatke v Scribusove predmete.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="198"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="191"/>
         <source>The file could not be imported</source>
         <translation>Datoteke ni mogoče uvoziti</translation>
     </message>
@@ -33243,7 +33243,7 @@ Pozor, to bo povečalo velikost datoteke!</translation>
 <context>
     <name>SVGPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="1355"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="1347"/>
         <source>Group%1</source>
         <translation>Skupina%1</translation>
     </message>
@@ -36528,7 +36528,7 @@ Uporabite Predpregled, da jih odpravite</translation>
     <name>SideBar</name>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="125"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="215"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="212"/>
         <source>No Style</source>
         <translation>Brez sloga</translation>
     </message>
@@ -36638,222 +36638,222 @@ Uporabite Predpregled, da jih odpravite</translation>
 <context>
     <name>StoryEditor</name>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2027"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2159"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2002"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2130"/>
         <source>Story Editor</source>
         <translation>Urejevalnik zgodb</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2057"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2032"/>
         <source>&amp;Sample Text...</source>
         <translation>V&amp;zorčno besedilo ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2062"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2037"/>
         <source>&amp;Smart Text Selection</source>
         <translation>&amp;Pametno izbiranje besedila</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2071"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2046"/>
         <source>Current Paragraph:</source>
         <translation>Trenuten odstavek:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2072"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2076"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2047"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2051"/>
         <source>Words: </source>
         <translation>Besed: </translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2073"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2077"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2048"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2052"/>
         <source>Chars: </source>
         <translation>Znaki: </translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2074"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2049"/>
         <source>Totals:</source>
         <translation>Skupaj:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2075"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2050"/>
         <source>Paragraphs: </source>
         <translation>Odstavkov: </translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="3359"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="3302"/>
         <source>Open</source>
         <translation>Odpri</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="3394"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="3337"/>
         <source>Save as</source>
         <translation>Shrani kot</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2204"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2174"/>
         <source>Do you want to save your changes?</source>
         <translation>Želite shraniti spremembe?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2032"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2007"/>
         <source>&amp;Reload Text from Frame</source>
         <translation>&amp;Osveži besedilo iz okvirja</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2033"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2008"/>
         <source>&amp;Save to File...</source>
         <translation>&amp;Shrani v datoteko ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2034"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2009"/>
         <source>&amp;Load from File...</source>
         <translation>&amp;Naloži iz datoteke ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2035"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2010"/>
         <source>Save &amp;Document</source>
         <translation>Shrani &amp;dokument</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2036"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2011"/>
         <source>&amp;Update Text Frame and Exit</source>
         <translation>&amp;Posodobi besedilni okvir in končaj</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2037"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2012"/>
         <source>&amp;Exit Without Updating Text Frame</source>
         <translation>&amp;Končaj brez posodabljanja besedilnega okvirja</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2041"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2016"/>
         <source>Cu&amp;t</source>
         <translation>&amp;Izreži</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2042"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2017"/>
         <source>&amp;Copy</source>
         <translation>&amp;Kopiraj</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2043"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2018"/>
         <source>&amp;Paste</source>
         <translation>&amp;Prilepi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2044"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2019"/>
         <source>C&amp;lear</source>
         <translation>Po&amp;čisti</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2049"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2024"/>
         <source>&amp;Update Text Frame</source>
         <translation>&amp;Posodobi besedilni okvir</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1743"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2030"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1720"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2005"/>
         <source>&amp;File</source>
         <translation>&amp;Datoteka</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1753"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2040"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1730"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2015"/>
         <source>&amp;Edit</source>
         <translation>Ur&amp;edi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2045"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2020"/>
         <source>Select &amp;All</source>
         <translation>Izberi &amp;vse</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2069"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2044"/>
         <source>File</source>
         <translation>Datoteka</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2046"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2021"/>
         <source>&amp;Search/Replace...</source>
         <translation>Najd&amp;i in zamenjaj ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2048"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2023"/>
         <source>&amp;Fonts Preview...</source>
         <translation>Predogled &amp;pisav ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2061"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2036"/>
         <source>&amp;Display Font...</source>
         <translation>Pisava za &amp;prikaz ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1840"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2060"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1816"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2035"/>
         <source>&amp;Settings</source>
         <translation>Na&amp;stavitve</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2031"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2006"/>
         <source>Clear All Text</source>
         <translation>Počisti vse besedilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2140"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2113"/>
         <source>Story Editor - %1</source>
         <translation>Urejevalnik zgodb - %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2791"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2751"/>
         <source>Do you really want to lose all your changes?</source>
         <translation>Ali zares želite izgubiti vse spremembe?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2822"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2782"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Ali zares želite izbrisati vse besedilo?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1768"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2053"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1744"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2028"/>
         <source>&amp;Insert</source>
         <translation>&amp;Vstavi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1770"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2054"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1746"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2029"/>
         <source>Character</source>
         <translation>Znak</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1790"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2055"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1766"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2030"/>
         <source>Quote</source>
         <translation>Narekovaj</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1815"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1791"/>
         <source>Spaces &amp;&amp; Breaks</source>
         <translation>Presledki in prelomi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1829"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1805"/>
         <source>Ligature</source>
         <translation>Ligatura</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2056"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2031"/>
         <source>Space</source>
         <translation>Presledek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="3359"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="3394"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="3302"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="3337"/>
         <source>Text Files (*.txt);;All Files (*)</source>
         <translation>Besedilne datoteke (*.txt);;Vse datoteke (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2052"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2027"/>
         <source>&amp;Glyph...</source>
         <translation>&amp;Znak ...</translation>
     </message>

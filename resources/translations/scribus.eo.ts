@@ -2410,42 +2410,42 @@
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="116"/>
         <source>Make horizontal gaps between items equal</source>
-        <translation>Egaligu la horizontalan distancon inter la objektoj</translation>
+        <translation>Egaligu la horizontalajn breĉojn inter la objektoj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="117"/>
         <source>Make horizontal gaps between items equal to the value specified</source>
-        <translation>Egaligu la horizontalan distancon inter la objektoj al la specifita valoro</translation>
+        <translation>Egaligu la horizontalajn breĉojn inter la objektoj al la specifita valoro</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="122"/>
         <source>Make vertical gaps between items equal</source>
-        <translation>Egaligu la vertikalan distancon inter la objektoj</translation>
+        <translation>Egaligu la vertikalajn breĉojn inter la objektoj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="123"/>
         <source>Make vertical gaps between items equal to the value specified</source>
-        <translation>Egaligu la vertikalajn distancojn inter la objektoj al la specifita valoro</translation>
+        <translation>Egaligu la vertikalajn breĉojn inter la objektoj al la specifita valoro</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="127"/>
         <source>Make horizontal gaps between items and sides of page equal</source>
-        <translation>Egaligu la horizontalan distancon inter la objektoj al la flankoj de la paĝo</translation>
+        <translation>Egaligu la horizontalajn breĉojn inter la objektoj al la flankoj de la paĝo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="130"/>
         <source>Make vertical gaps between items and the top and bottom of page margins equal</source>
-        <translation>Egaligu la vertikalan distancon inter la objektoj al la supra kaj malsupra paĝmarĝenoj</translation>
+        <translation>Egaligu la vertikalajn breĉojn inter la objektoj al la supra kaj malsupra paĝmarĝenoj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="129"/>
         <source>Make horizontal gaps between items and sides of page margins equal</source>
-        <translation>Egaligu la horizontalan distancon al la flankoj de la paĝmarĝenoj</translation>
+        <translation>Egaligu la horizontalajn breĉojn al la flankoj de la paĝmarĝenoj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="128"/>
         <source>Make vertical gaps between items and the top and bottom of page equal</source>
-        <translation>Egaligu la vertikalan distancon inter la objektoj al la supro kaj malsupro de la paĝo</translation>
+        <translation>Egaligu la vertikalajn breĉojn inter la objektoj al la supro kaj malsupro de la paĝo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="94"/>
@@ -6454,13 +6454,13 @@ VIdu la sekcion Redaktu Kolorojn de la dokumentaro por kromaj detaloj.     </tra
 <context>
     <name>CustomFDialog</name>
     <message>
-        <location filename="../../scribus/ui/customfdialog.cpp" line="400"/>
+        <location filename="../../scribus/ui/customfdialog.cpp" line="401"/>
         <source>Encoding:</source>
         <translation>Kodoprezento:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/customfdialog.cpp" line="339"/>
-        <location filename="../../scribus/ui/customfdialog.cpp" line="370"/>
+        <location filename="../../scribus/ui/customfdialog.cpp" line="371"/>
         <source>&amp;Compress File</source>
         <translation>&amp;Densigu dosieron</translation>
     </message>
@@ -6485,37 +6485,37 @@ VIdu la sekcion Redaktu Kolorojn de la dokumentaro por kromaj detaloj.     </tra
         <translation>Montru antaŭrigardon kaj informojn pri la elektita dosiero</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/customfdialog.cpp" line="387"/>
+        <location filename="../../scribus/ui/customfdialog.cpp" line="388"/>
         <source>Compress the Scribus document on save</source>
         <translation>Densigu la dosieron de Scribus dum la konservo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/customfdialog.cpp" line="389"/>
+        <location filename="../../scribus/ui/customfdialog.cpp" line="390"/>
         <source>Include fonts when collecting files for the document. Be sure to know and understand licensing information for any fonts you collect and possibly redistribute.</source>
         <translation>Inkluzivu tiparojn dum kolektado de dosieroj por la dokumento. Certiĝu ke oni konas kaj komprenas la permesinformojn por ĉiu tiparo kolektota kaj eble distribuota.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/customfdialog.cpp" line="391"/>
+        <location filename="../../scribus/ui/customfdialog.cpp" line="392"/>
         <source>Include color profiles when collecting files for the document</source>
         <translation>Inkluzivu kolorprofilojn dum kolektado de dosieroj por la dokumento</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/customfdialog.cpp" line="446"/>
+        <location filename="../../scribus/ui/customfdialog.cpp" line="447"/>
         <source>Import Option:</source>
         <translation>Importopcioj:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/customfdialog.cpp" line="450"/>
+        <location filename="../../scribus/ui/customfdialog.cpp" line="451"/>
         <source>Keep original size</source>
         <translation>Konservu originan grandon</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/customfdialog.cpp" line="451"/>
+        <location filename="../../scribus/ui/customfdialog.cpp" line="452"/>
         <source>Downscale to page size</source>
         <translation>Malgrandigu proporcie ĝis paĝogrando</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/customfdialog.cpp" line="452"/>
+        <location filename="../../scribus/ui/customfdialog.cpp" line="453"/>
         <source>Upscale to page size</source>
         <translation>Grandigu proporcie ĝis paĝogrando</translation>
     </message>
@@ -8274,7 +8274,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="246"/>
         <source>U&amp;se Gap:</source>
-        <translation>Uzu di&amp;stancon:</translation>
+        <translation>Uzu br&amp;eĉon:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="249"/>
@@ -8314,7 +8314,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="351"/>
         <source>Use &amp;Gap:</source>
-        <translation>Uzu dis&amp;tancon:</translation>
+        <translation>Uzu b&amp;reĉon:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="354"/>
@@ -8394,12 +8394,12 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="243"/>
         <source>Create rows with guides, with an additional gap between the rows</source>
-        <translation>Kreu liniojn per helplinioj, kun kroma distanco inter la linioj</translation>
+        <translation>Kreu liniojn per helplinioj, kun kroma breĉo inter la linioj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="348"/>
         <source>Create columns with guides, with an additional gap between the columns</source>
-        <translation>Kreu kolumnojn per helplinioj, kun kroma distanco inter la kolumnoj</translation>
+        <translation>Kreu kolumnojn per helplinioj, kun kroma breĉo inter la kolumnoj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="265"/>
@@ -10079,7 +10079,7 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="475"/>
         <source>Gap:</source>
-        <translation>Interkolumna distanco:</translation>
+        <translation>Interkolumna breĉo:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="555"/>
@@ -11721,12 +11721,12 @@ Se estis elektita neniu tenilo, ĉiuj teniloj estos reportitaj al komenca pozici
     <message>
         <location filename="../../scribus/ui/multipleduplicate.cpp" line="80"/>
         <source>&amp;Horizontal Gap:</source>
-        <translation>&amp;Horizontala distanco:</translation>
+        <translation>&amp;Horizontala breĉo:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/multipleduplicate.cpp" line="81"/>
         <source>&amp;Vertical Gap:</source>
-        <translation>&amp;Vertikala distanco:</translation>
+        <translation>&amp;Vertikala breĉo:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/multipleduplicate.ui" line="23"/>
@@ -11776,12 +11776,12 @@ Se estis elektita neniu tenilo, ĉiuj teniloj estos reportitaj al komenca pozici
     <message>
         <location filename="../../scribus/ui/multipleduplicate.ui" line="291"/>
         <source>Vertical Gap:</source>
-        <translation>Vertikala distanco:</translation>
+        <translation>Vertikala breĉo:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/multipleduplicate.ui" line="281"/>
         <source>Horizontal Gap:</source>
-        <translation>Horizontala distanco:</translation>
+        <translation>Horizontala breĉo:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/multipleduplicate.ui" line="239"/>
@@ -12007,7 +12007,7 @@ Se estis elektita neniu tenilo, ĉiuj teniloj estos reportitaj al komenca pozici
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="326"/>
         <source>&amp;Gap:</source>
-        <translation>Interkolumna distan&amp;co:</translation>
+        <translation>Interkolumna br&amp;eĉo:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="340"/>
@@ -12469,7 +12469,7 @@ Se estis elektita neniu tenilo, ĉiuj teniloj estos reportitaj al komenca pozici
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.ui" line="304"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="74"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="73"/>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="252"/>
         <source>Apply</source>
         <translation>Apliku</translation>
@@ -12481,71 +12481,71 @@ Se estis elektita neniu tenilo, ĉiuj teniloj estos reportitaj al komenca pozici
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.ui" line="330"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="71"/>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="250"/>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="403"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="406"/>
         <source>OK</source>
         <translation>Konfirmu</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="28"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="94"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="27"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="93"/>
         <source>Document</source>
         <translation>Dokumento</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="29"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="95"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="28"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="94"/>
         <source>Story</source>
         <translation>Historio</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="66"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="65"/>
         <source>Cancel</source>
         <translation>Rezignu</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="67"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="66"/>
         <source>Dialog is in adding new notes style mode. After pressing Cancel button dialog will be switched into normal notes styles edit mode.</source>
         <translation>La dialogo estas en reĝimo de aldono de nova notstilo. Post la premo de la Rezignobutono la dialogo pasos denove al normala reĝimo de notstila redaktado.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="68"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="392"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="67"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="389"/>
         <source>Add Style</source>
         <translation>Aldonu stilon</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="159"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="166"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="187"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="234"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="158"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="165"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="186"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="233"/>
         <source>default</source>
         <translation>defaŭlta </translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="202"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="204"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="201"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="203"/>
         <source>No Style</source>
         <translation>Neniu stilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="364"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="361"/>
         <source>Warning! Deleting Notes Style</source>
         <translation>Atentu! Vi forigos notstilon</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="365"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="362"/>
         <source>You are going to delete notes style %1. All notes and marks using that style are also going to be deleted.</source>
         <translation>Oni forigos la notstilon %1. Ankaŭ ĉiujn notojn kaj indikilojn uzantajn ĉi tiun stilon oni forigos.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="397"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="394"/>
         <source>Cancel Adding</source>
         <translation>Rezignu pri aldono</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="398"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="395"/>
         <source>Notes Styles Editor is in adding new notes style mode. After pressing Cancel button Notes Styles Editor switch into normal notes styles edit mode.</source>
         <translation>La notstila redaktilo estas en reĝimo de aldono de nova notstilo. Post la premo de la Rezignobutono la notstila redaktilo pasos denove al normala reĝimo de notstila redaktado.</translation>
     </message>
@@ -13413,69 +13413,69 @@ Bonvolu kontroli ĝin kaj reprovi.</translation>
 <context>
     <name>PDFLibCore</name>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="549"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="591"/>
         <source>Saving PDF</source>
         <translation>Konservas PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="553"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="595"/>
         <source>Exporting Master Page:</source>
         <translation>Eksporto de ĉefpaĝo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="553"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="595"/>
         <source>Exporting Page:</source>
         <translation>Eksporto de paĝo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="553"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="595"/>
         <source>Exporting Items on Current Page:</source>
         <translation>Eksporto de elementoj sur la aktuala paĝo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="611"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="653"/>
         <source>Qt build miss both &quot;UTF-16&quot; and &quot;ISO-10646-UCS-2&quot; text codecs, pdf export is not possible</source>
         <translation>En la versio de Qt uzata mankas tekstaj kodekoj &quot;UTF-16&quot; kaj &quot;ISO-10646-UCS-2&quot;, do ne eblas la PDF-eksporto</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3470"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3488"/>
         <source>Page:</source>
         <translation>Paĝo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3480"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3498"/>
         <source>Date:</source>
         <translation>Dato:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="10634"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="10651"/>
         <source>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</source>
         <translation>Malsukcesis enkorpigi PDF-dosieron: %1.
 Bonvolu malvalidigi eksperimentan PDF- kaj PS-enkorpigojn kaj reprovu.</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11923"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11940"/>
         <source>Failed to load an image : %1</source>
         <translation>Malsukcesis la ŝargo de bildo: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11928"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11945"/>
         <source>Failed to write an image : %1</source>
         <translation>Malsukcesis skribi bildon: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11933"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11950"/>
         <source>Failed to load an image mask : %1</source>
         <translation>Malsukcesis la ŝargo de bildmasko: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11938"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11955"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Ne sufiĉas memoro por trakti bildon</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11918"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11935"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>Okazis skriberaro, bonvolu kontroli la disponeblan diskospacon</translation>
     </message>
@@ -14543,7 +14543,7 @@ ambaŭ finaj punktoj devas esti ekster la poligono</translation>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="116"/>
         <source>Gap between Objects</source>
-        <translation>Distanco inter objektoj</translation>
+        <translation>Breĉo inter objektoj</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="126"/>
@@ -16871,7 +16871,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="223"/>
         <source>Gaps Between Pages</source>
-        <translation>Distanco inter paĝoj</translation>
+        <translation>Breĉoj inter paĝoj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="54"/>
@@ -18402,7 +18402,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="216"/>
         <source>Column Gap:</source>
-        <translation>Kolumna interdistanco:</translation>
+        <translation>Kolumna interbreĉo:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="431"/>
@@ -21738,7 +21738,7 @@ por paĝointervalo, aŭ unuopa paĝnumero</translation>
     <message>
         <location filename="../../scribus/ui/printpreview.cpp" line="256"/>
         <source>Resize the scale of the page</source>
-        <translation>Ŝanĝŭ la skalon de la paĝo.</translation>
+        <translation>(Mal)grandigu la skalon de la paĝo.</translation>
     </message>
 </context>
 <context>
@@ -21830,7 +21830,7 @@ por paĝointervalo, aŭ unuopa paĝnumero</translation>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="256"/>
         <source>Resize the scale of the page</source>
-        <translation>Ŝanĝŭ la skalon de la paĝo.</translation>
+        <translation>(Mal)grandigu la skalon de la paĝo.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="260"/>
@@ -22074,7 +22074,7 @@ por paĝointervalo, aŭ unuopa paĝnumero</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="172"/>
         <source>Resize the image horizontally</source>
-        <translation>Ŝanĝu la grandon de la bildo horizontale</translation>
+        <translation>(Mal)grandigu la grandon de la bildo horizontale</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="179"/>
@@ -22084,7 +22084,7 @@ por paĝointervalo, aŭ unuopa paĝnumero</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="251"/>
         <source>Resize the image vertically</source>
-        <translation>Ŝanĝu la grandon de la bildo vertikale</translation>
+        <translation>(Mal)grandigu la grandon de la bildo vertikale</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="143"/>
@@ -23310,7 +23310,7 @@ de la objekto</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="434"/>
         <source>Gap:</source>
-        <translation>Interkolumna distanco:</translation>
+        <translation>Interkolumna breĉo:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="435"/>
@@ -23368,12 +23368,12 @@ de la objekto</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="78"/>
         <source>Switches between Gap or Column width</source>
-        <translation>Alternigas inter interkolumna distanco kaj kolumnolarĝo</translation>
+        <translation>Alternigas inter interkolumna breĉo kaj kolumnolarĝo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="82"/>
         <source>Gap:</source>
-        <translation>Interkolumna distanco:</translation>
+        <translation>Interkolumna breĉo:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="87"/>
@@ -25119,7 +25119,7 @@ Kontrolu vojon kaj dosiernomon.</translation>
         <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="122"/>
         <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="123"/>
         <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="123"/>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="165"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="158"/>
         <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="128"/>
         <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="130"/>
         <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="124"/>
@@ -27930,14 +27930,14 @@ Eksteraj ligiloj
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="168"/>
         <source>Cannot get tracking of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne eblas akiri la literdistancon el neteksta kadro.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="195"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="222"/>
         <source>Cannot get word tracking of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne eblas akiri la vortdistancon el neteksta kadro.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="250"/>
@@ -27999,7 +27999,7 @@ Eksteraj ligiloj
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdtext.cpp" line="239"/>
         <source>Cannot get column gap of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Ne eblas akiri interkolumnan distancon el neteksta kadro.</translation>
+        <translation>Ne eblas akiri interkolumnan breĉon el neteksta kadro.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="483"/>
@@ -28515,25 +28515,25 @@ Eksteraj ligiloj
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="976"/>
         <source>Cannot set tracking on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne eblas agordi la literdistancon en neteksta kadro.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1006"/>
         <source>Cannot set word tracking on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne eblas agordi la vortdistancon en neteksta kadro.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1033"/>
         <source>Minimum word out of bounds, must be &gt;= 1 and &lt;= 100</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Minimuma vorto eksterlima, devas esti &gt;=1 kaj &lt;=100</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1041"/>
         <source>Cannot set minimum word tracking on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ne eblas agordi la minimuman vortdistancon en neteksta kadro.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1073"/>
@@ -28554,14 +28554,14 @@ Eksteraj ligiloj
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdtext.cpp" line="952"/>
         <source>Column gap out of bounds, must be positive.</source>
         <comment>python error</comment>
-        <translation>Interkolumna distanco eksterlima, devas esti pozitiva.</translation>
+        <translation>Interkolumna breĉo eksterlima, devas esti pozitiva.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1142"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdtext.cpp" line="960"/>
         <source>Cannot set column gap on a non-text frame.</source>
         <comment>python error</comment>
-        <translation>Ne eblas agordi interkolumnan distancon en neteksta kadro.</translation>
+        <translation>Ne eblas agordi interkolumnan breĉon en neteksta kadro.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1160"/>
@@ -29476,7 +29476,7 @@ pro la esceptoj de la vokitaj funkcioj.
         <translation>SVG-eksporto</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="107"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="100"/>
         <source>SVG Import</source>
         <translation>SVG-importo</translation>
     </message>
@@ -32483,24 +32483,24 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="44"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="125"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="244"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="577"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="248"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="581"/>
         <source>Fixed Linespacing</source>
         <translation>Fiksa lini-distanco</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="45"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="126"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="245"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="578"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="249"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="582"/>
         <source>Automatic Linespacing</source>
         <translation>Aŭtomata linidistanco</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="46"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="127"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="246"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="579"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="250"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="583"/>
         <source>Align to Baseline Grid</source>
         <translation>Alliniigu al la bazlinia krado</translation>
     </message>
@@ -32641,8 +32641,8 @@ Document Liberation Project https://www.documentliberation.org</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="29"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="475"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="984"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="479"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="988"/>
         <source>Based On:</source>
         <translation>Bazita sur:</translation>
     </message>
@@ -32672,7 +32672,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <translation>Optikaj marĝenoj</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="479"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="483"/>
         <source>A default style cannot be assigned a parent style</source>
         <translation>Ne eblas atribui superan stilon al defaŭlta stilo </translation>
     </message>
@@ -32752,9 +32752,9 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <translation>Se markita, ŝovas aŭtomate la alineon al la proksima kolumno aŭ paĝo, se la venonta alineo ne estas sur la sama paĝo aŭ kolumno</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="470"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="473"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="1200"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="474"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="477"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="1205"/>
         <source>No Style</source>
         <translation>Neniu stilo</translation>
     </message>
@@ -32834,7 +32834,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <translation>Min. spacolarĝo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="549"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="553"/>
         <source>Shade</source>
         <translation>Intenso</translation>
     </message>
@@ -33087,12 +33087,12 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>SToolBAlign</name>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1449"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1431"/>
         <source>Style of current paragraph</source>
         <translation>Stilo de la aktuala alineo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1417"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1399"/>
         <source>Style Settings</source>
         <translation>Stil-agordaro</translation>
     </message>
@@ -33100,17 +33100,17 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>SToolBColorF</name>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1179"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1161"/>
         <source>Color of text fill</source>
         <translation>Koloro de la tekstoplenigo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1180"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1162"/>
         <source>Saturation of color of text fill</source>
         <translation>Pureco de la koloro de la tekstoplenigo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1135"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1117"/>
         <source>Fill Color Settings</source>
         <translation>Kolorpleniga agordaro</translation>
     </message>
@@ -33118,17 +33118,17 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>SToolBColorS</name>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1257"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1239"/>
         <source>Color of text stroke</source>
         <translation>Koloro de la tekstokonturo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1258"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1240"/>
         <source>Saturation of color of text stroke</source>
         <translation>Pureco de la koloro de la tekstokonturo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1208"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1190"/>
         <source>Stroke Color Settings</source>
         <translation>Kolorkontura agordaro</translation>
     </message>
@@ -33136,27 +33136,27 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>SToolBFont</name>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1538"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1520"/>
         <source>Font of selected text</source>
         <translation>Tiparo de la elektita teksto</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1539"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1521"/>
         <source>Font Size</source>
         <translation>Tipargrando</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1540"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1522"/>
         <source>Scaling width of characters</source>
         <translation>Larĝoskalo de la signoj</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1471"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1453"/>
         <source>Font Settings</source>
         <translation>Tiparagordaro</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1541"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1523"/>
         <source>Scaling height of characters</source>
         <translation>Altoskalo de la signoj</translation>
     </message>
@@ -33164,12 +33164,12 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>SToolBStyle</name>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1286"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1268"/>
         <source>Character Settings</source>
         <translation>Signoagordaro</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1338"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1320"/>
         <source>Manual Tracking</source>
         <translation>Neaŭtomata literdistanco</translation>
     </message>
@@ -33222,22 +33222,22 @@ Atentu: tio pligrandigos la dosieron!</translation>
 <context>
     <name>SVGImportPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="99"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="92"/>
         <source>Import &amp;SVG...</source>
         <translation>Importu &amp;SVG...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="114"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="107"/>
         <source>Imports SVG Files</source>
         <translation>Importas SVG-dosierojn</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="115"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="108"/>
         <source>Imports most SVG files into the current document, converting their vector data into Scribus objects.</source>
         <translation>Importas la plejparton el la SVG-dosieroj en la aktualan dokumenton, konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="198"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="191"/>
         <source>The file could not be imported</source>
         <translation>Ne eblis importi la dosieron</translation>
     </message>
@@ -33245,7 +33245,7 @@ Atentu: tio pligrandigos la dosieron!</translation>
 <context>
     <name>SVGPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="1355"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="1347"/>
         <source>Group%1</source>
         <translation>Grupo%1</translation>
     </message>
@@ -34931,8 +34931,8 @@ Horizontal gap: %3
 Vertical gap: %4</source>
         <translation>Nombro de linioj: %1
 Nombro de kolumnoj: %2
-Horizontala distanco: %3
-Vertikala distanco: %4</translation>
+Horizontala breĉo: %3
+Vertikala breĉo: %4</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="15186"/>
@@ -36527,7 +36527,7 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
     <name>SideBar</name>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="125"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="215"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="212"/>
         <source>No Style</source>
         <translation>Neniu stilo</translation>
     </message>
@@ -36637,222 +36637,222 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
 <context>
     <name>StoryEditor</name>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2027"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2159"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2002"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2130"/>
         <source>Story Editor</source>
         <translation>Tekstoredaktilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2057"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2032"/>
         <source>&amp;Sample Text...</source>
         <translation>S&amp;pecimena teksto...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2062"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2037"/>
         <source>&amp;Smart Text Selection</source>
         <translation>In&amp;teligenta tekstoselekto</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2071"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2046"/>
         <source>Current Paragraph:</source>
         <translation>Aktuala alineo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2072"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2076"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2047"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2051"/>
         <source>Words: </source>
         <translation>Vortoj:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2073"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2077"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2048"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2052"/>
         <source>Chars: </source>
         <translation>Signoj:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2074"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2049"/>
         <source>Totals:</source>
         <translation>Totaloj:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2075"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2050"/>
         <source>Paragraphs: </source>
         <translation>Alineoj:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="3359"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="3302"/>
         <source>Open</source>
         <translation>Malfermu</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="3394"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="3337"/>
         <source>Save as</source>
         <translation>Konservu kiel</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2204"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2174"/>
         <source>Do you want to save your changes?</source>
         <translation>Ĉu vi volas konservi la ŝanĝojn?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2032"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2007"/>
         <source>&amp;Reload Text from Frame</source>
         <translation>Reŝargu &amp;tekston el kadro</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2033"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2008"/>
         <source>&amp;Save to File...</source>
         <translation>&amp;Konservu en dosiero...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2034"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2009"/>
         <source>&amp;Load from File...</source>
         <translation>Ŝargu e&amp;l dosiero...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2035"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2010"/>
         <source>Save &amp;Document</source>
         <translation>Konser&amp;vu dokumenton</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2036"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2011"/>
         <source>&amp;Update Text Frame and Exit</source>
         <translation>Ĝisdatig&amp;u tekstokadron kaj eliru</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2037"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2012"/>
         <source>&amp;Exit Without Updating Text Frame</source>
         <translation>Eliru ne ĝi&amp;sdatigante tekstokadron</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2041"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2016"/>
         <source>Cu&amp;t</source>
         <translation>El&amp;tondu</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2042"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2017"/>
         <source>&amp;Copy</source>
         <translation>&amp;Kopiu</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2043"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2018"/>
         <source>&amp;Paste</source>
         <translation>&amp;Algluu</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2044"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2019"/>
         <source>C&amp;lear</source>
         <translation>&amp;Vakigu</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2049"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2024"/>
         <source>&amp;Update Text Frame</source>
         <translation>Ĝisdatig&amp;u tekstokadron</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1743"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2030"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1720"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2005"/>
         <source>&amp;File</source>
         <translation>&amp;Dosiero</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1753"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2040"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1730"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2015"/>
         <source>&amp;Edit</source>
         <translation>R&amp;edakti</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2045"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2020"/>
         <source>Select &amp;All</source>
         <translation>Elekt&amp;u ĉiujn</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2069"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2044"/>
         <source>File</source>
         <translation>Dosiero</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2046"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2021"/>
         <source>&amp;Search/Replace...</source>
         <translation>&amp;Serĉu/Anstataŭigu...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2048"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2023"/>
         <source>&amp;Fonts Preview...</source>
         <translation>&amp;Tipar-antaŭrigardo...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2061"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2036"/>
         <source>&amp;Display Font...</source>
         <translation>&amp;Montru tiparon...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1840"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2060"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1816"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2035"/>
         <source>&amp;Settings</source>
         <translation>A&amp;gordaro</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2031"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2006"/>
         <source>Clear All Text</source>
         <translation>Forigu tutan tekston</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2140"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2113"/>
         <source>Story Editor - %1</source>
         <translation>Tekstoredaktilo - %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2791"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2751"/>
         <source>Do you really want to lose all your changes?</source>
         <translation>Ĉu vi vere intencas perdi ĉiujn viajn ŝanĝojn?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2822"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2782"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Ĉu vi vere intencas forigi la tutan tekston?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1768"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2053"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1744"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2028"/>
         <source>&amp;Insert</source>
         <translation>&amp;Enmeti</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1770"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2054"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1746"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2029"/>
         <source>Character</source>
         <translation>Signo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1790"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2055"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1766"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2030"/>
         <source>Quote</source>
         <translation>Citiloj</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1815"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1791"/>
         <source>Spaces &amp;&amp; Breaks</source>
         <translation>Spacoj k &amp;interrompoj</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1829"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1805"/>
         <source>Ligature</source>
         <translation>Ligaturoj</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2056"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2031"/>
         <source>Space</source>
         <translation>Spaco</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="3359"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="3394"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="3302"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="3337"/>
         <source>Text Files (*.txt);;All Files (*)</source>
         <translation>Tekstaj dosieroj (*.txt);;Ĉiaj dosieroj (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2052"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2027"/>
         <source>&amp;Glyph...</source>
         <translation>S&amp;ignobildo...</translation>
     </message>
@@ -40117,7 +40117,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="745"/>
         <source>Change columns gap</source>
-        <translation>Redaktu kolumnan interdistancon</translation>
+        <translation>Redaktu kolumnan interbreĉon</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="746"/>

@@ -6441,13 +6441,13 @@ See the Edit Colors section of the documentation for more details.</source>
 <context>
     <name>CustomFDialog</name>
     <message>
-        <location filename="../../scribus/ui/customfdialog.cpp" line="400"/>
+        <location filename="../../scribus/ui/customfdialog.cpp" line="401"/>
         <source>Encoding:</source>
         <translation>Koding:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/customfdialog.cpp" line="339"/>
-        <location filename="../../scribus/ui/customfdialog.cpp" line="370"/>
+        <location filename="../../scribus/ui/customfdialog.cpp" line="371"/>
         <source>&amp;Compress File</source>
         <translation>&amp;Komprimer fila</translation>
     </message>
@@ -6472,37 +6472,37 @@ See the Edit Colors section of the documentation for more details.</source>
         <translation>Forhåndsvis fila og vis informasjon om den</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/customfdialog.cpp" line="387"/>
+        <location filename="../../scribus/ui/customfdialog.cpp" line="388"/>
         <source>Compress the Scribus document on save</source>
         <translation>Komprimer scribusdokumentet når du lagrer.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/customfdialog.cpp" line="389"/>
+        <location filename="../../scribus/ui/customfdialog.cpp" line="390"/>
         <source>Include fonts when collecting files for the document. Be sure to know and understand licensing information for any fonts you collect and possibly redistribute.</source>
         <translation>Ta med skrifttyper når du samler filer for dokumentet. Vær sikker på at du forstår lisensinformasjonen for skrifttypene du samler og kanskje distribuerer videre.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/customfdialog.cpp" line="391"/>
+        <location filename="../../scribus/ui/customfdialog.cpp" line="392"/>
         <source>Include color profiles when collecting files for the document</source>
         <translation>Ta med fargeprofiler når du samler filer for dokumentet</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/customfdialog.cpp" line="446"/>
+        <location filename="../../scribus/ui/customfdialog.cpp" line="447"/>
         <source>Import Option:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/customfdialog.cpp" line="450"/>
+        <location filename="../../scribus/ui/customfdialog.cpp" line="451"/>
         <source>Keep original size</source>
         <translation>Behold opprinnelig størrelse</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/customfdialog.cpp" line="451"/>
+        <location filename="../../scribus/ui/customfdialog.cpp" line="452"/>
         <source>Downscale to page size</source>
         <translation>Nedskaler til sidestørrelse</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/customfdialog.cpp" line="452"/>
+        <location filename="../../scribus/ui/customfdialog.cpp" line="453"/>
         <source>Upscale to page size</source>
         <translation>Oppskaler til sidestørrelse</translation>
     </message>
@@ -12446,7 +12446,7 @@ Hvis du ikke har valgt noe håndtak blir alle håndtakene stilt tilbake.</transl
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.ui" line="304"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="74"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="73"/>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="252"/>
         <source>Apply</source>
         <translation>Bruk</translation>
@@ -12458,71 +12458,71 @@ Hvis du ikke har valgt noe håndtak blir alle håndtakene stilt tilbake.</transl
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.ui" line="330"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="71"/>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="250"/>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="403"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="406"/>
         <source>OK</source>
         <translation>Greit</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="28"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="94"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="27"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="93"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="29"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="95"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="28"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="94"/>
         <source>Story</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="66"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="65"/>
         <source>Cancel</source>
         <translation>Avbryt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="67"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="66"/>
         <source>Dialog is in adding new notes style mode. After pressing Cancel button dialog will be switched into normal notes styles edit mode.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="68"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="392"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="67"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="389"/>
         <source>Add Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="159"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="166"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="187"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="234"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="158"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="165"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="186"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="233"/>
         <source>default</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="202"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="204"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="201"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="203"/>
         <source>No Style</source>
         <translation>Ingen stil</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="364"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="361"/>
         <source>Warning! Deleting Notes Style</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="365"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="362"/>
         <source>You are going to delete notes style %1. All notes and marks using that style are also going to be deleted.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="397"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="394"/>
         <source>Cancel Adding</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="398"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="395"/>
         <source>Notes Styles Editor is in adding new notes style mode. After pressing Cancel button Notes Styles Editor switch into normal notes styles edit mode.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -13381,68 +13381,68 @@ Please check it and try again.</source>
 <context>
     <name>PDFLibCore</name>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="549"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="591"/>
         <source>Saving PDF</source>
         <translation>Lagrer PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="553"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="595"/>
         <source>Exporting Master Page:</source>
         <translation>Eksporterer malside:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="553"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="595"/>
         <source>Exporting Page:</source>
         <translation>Eksporterer side:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="553"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="595"/>
         <source>Exporting Items on Current Page:</source>
         <translation>Eksporterer elementene på den gjeldende siden:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="611"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="653"/>
         <source>Qt build miss both &quot;UTF-16&quot; and &quot;ISO-10646-UCS-2&quot; text codecs, pdf export is not possible</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3470"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3488"/>
         <source>Page:</source>
         <translation>Side:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3480"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3498"/>
         <source>Date:</source>
         <translation>Dato:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="10634"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="10651"/>
         <source>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11923"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11940"/>
         <source>Failed to load an image : %1</source>
         <translation>Klarte ikke å laste inn et bilde: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11928"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11945"/>
         <source>Failed to write an image : %1</source>
         <translation>Klarte ikke å lagre et bilde: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11933"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11950"/>
         <source>Failed to load an image mask : %1</source>
         <translation>Klarte ikke å laste inn en bildemaske: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11938"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11955"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Ikke nok minne for å behandle bildet</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11918"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11935"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>Det oppsto en skrivefeil, sjekk om du har nok diskplass</translation>
     </message>
@@ -25052,7 +25052,7 @@ Sjekk stien og filnavnet.</translation>
         <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="122"/>
         <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="123"/>
         <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="123"/>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="165"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="158"/>
         <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="128"/>
         <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="130"/>
         <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="124"/>
@@ -29379,7 +29379,7 @@ is not exhaustive due to exceptions from called functions.
         <translation>SVG-eksport</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="107"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="100"/>
         <source>SVG Import</source>
         <translation>SVG-import</translation>
     </message>
@@ -32376,24 +32376,24 @@ Document Liberation Project https://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="44"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="125"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="244"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="577"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="248"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="581"/>
         <source>Fixed Linespacing</source>
         <translation>Fast linjeavstand</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="45"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="126"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="245"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="578"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="249"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="582"/>
         <source>Automatic Linespacing</source>
         <translation>Automatisk linjeavstand</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="46"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="127"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="246"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="579"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="250"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="583"/>
         <source>Align to Baseline Grid</source>
         <translation>Fest til de vannrette linjene</translation>
     </message>
@@ -32534,8 +32534,8 @@ Document Liberation Project https://www.documentliberation.org</source>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="29"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="475"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="984"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="479"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="988"/>
         <source>Based On:</source>
         <translation>Basert på:</translation>
     </message>
@@ -32565,7 +32565,7 @@ Document Liberation Project https://www.documentliberation.org</source>
         <translation>Optiske marger</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="479"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="483"/>
         <source>A default style cannot be assigned a parent style</source>
         <translation>En standardstil kan ikke være en foreldrestil</translation>
     </message>
@@ -32645,9 +32645,9 @@ Document Liberation Project https://www.documentliberation.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="470"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="473"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="1200"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="474"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="477"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="1205"/>
         <source>No Style</source>
         <translation>Ingen stil</translation>
     </message>
@@ -32727,7 +32727,7 @@ Document Liberation Project https://www.documentliberation.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="549"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="553"/>
         <source>Shade</source>
         <translation>Skygge</translation>
     </message>
@@ -32980,12 +32980,12 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>SToolBAlign</name>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1449"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1431"/>
         <source>Style of current paragraph</source>
         <translation>Stilen til gjeldende avsnitt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1417"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1399"/>
         <source>Style Settings</source>
         <translation>Stilinnstillinger</translation>
     </message>
@@ -32993,17 +32993,17 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>SToolBColorF</name>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1179"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1161"/>
         <source>Color of text fill</source>
         <translation>Farge på tekstfyll</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1180"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1162"/>
         <source>Saturation of color of text fill</source>
         <translation>Metning av tekstfyllets farge</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1135"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1117"/>
         <source>Fill Color Settings</source>
         <translation>Fyllfarge-valg</translation>
     </message>
@@ -33011,17 +33011,17 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>SToolBColorS</name>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1257"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1239"/>
         <source>Color of text stroke</source>
         <translation>Farge på tekststreken</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1258"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1240"/>
         <source>Saturation of color of text stroke</source>
         <translation>Metning på tekststrekens farge</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1208"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1190"/>
         <source>Stroke Color Settings</source>
         <translation>Fyllfarge-valg</translation>
     </message>
@@ -33029,27 +33029,27 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>SToolBFont</name>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1538"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1520"/>
         <source>Font of selected text</source>
         <translation>Skrifttype på den markerte teksten</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1539"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1521"/>
         <source>Font Size</source>
         <translation>Skriftstørrelse</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1540"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1522"/>
         <source>Scaling width of characters</source>
         <translation>Skaleringsbredde på tegn</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1471"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1453"/>
         <source>Font Settings</source>
         <translation>Skrifttypeinnstillinger</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1541"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1523"/>
         <source>Scaling height of characters</source>
         <translation>Skaleringshøyde på tegn</translation>
     </message>
@@ -33057,12 +33057,12 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>SToolBStyle</name>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1286"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1268"/>
         <source>Character Settings</source>
         <translation>Tegninnstillinger</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1338"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1320"/>
         <source>Manual Tracking</source>
         <translation type="unfinished"></translation>
     </message>
@@ -33114,22 +33114,22 @@ Caution: this will increase the file size!</source>
 <context>
     <name>SVGImportPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="99"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="92"/>
         <source>Import &amp;SVG...</source>
         <translation>Importer &amp;SVG …</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="114"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="107"/>
         <source>Imports SVG Files</source>
         <translation>Importerer SVG-filer</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="115"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="108"/>
         <source>Imports most SVG files into the current document, converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="198"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="191"/>
         <source>The file could not be imported</source>
         <translation>Klarte ikke å importere fila</translation>
     </message>
@@ -33137,7 +33137,7 @@ Caution: this will increase the file size!</source>
 <context>
     <name>SVGPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="1355"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="1347"/>
         <source>Group%1</source>
         <translation>Gruppa %1</translation>
     </message>
@@ -36414,7 +36414,7 @@ Du kan bruke forhåndssjekken for å rette dem.</translation>
     <name>SideBar</name>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="125"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="215"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="212"/>
         <source>No Style</source>
         <translation>Ingen stil</translation>
     </message>
@@ -36524,222 +36524,222 @@ Du kan bruke forhåndssjekken for å rette dem.</translation>
 <context>
     <name>StoryEditor</name>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2027"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2159"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2002"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2130"/>
         <source>Story Editor</source>
         <translation>Tekstbehandler</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2057"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2032"/>
         <source>&amp;Sample Text...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2062"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2037"/>
         <source>&amp;Smart Text Selection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2071"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2046"/>
         <source>Current Paragraph:</source>
         <translation>Gjeldende avsnitt:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2072"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2076"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2047"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2051"/>
         <source>Words: </source>
         <translation>Ord: </translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2073"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2077"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2048"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2052"/>
         <source>Chars: </source>
         <translation>Tegn: </translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2074"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2049"/>
         <source>Totals:</source>
         <translation>Totalt:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2075"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2050"/>
         <source>Paragraphs: </source>
         <translation>Avsnitt: </translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="3359"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="3302"/>
         <source>Open</source>
         <translation>Åpne</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="3394"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="3337"/>
         <source>Save as</source>
         <translation>Lagre som</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2204"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2174"/>
         <source>Do you want to save your changes?</source>
         <translation>Vil du lagre endringene?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2032"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2007"/>
         <source>&amp;Reload Text from Frame</source>
         <translation>&amp;Hent teksten om igjen fra ramma</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2033"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2008"/>
         <source>&amp;Save to File...</source>
         <translation>&amp;Lagre til fil …</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2034"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2009"/>
         <source>&amp;Load from File...</source>
         <translation>&amp;Hent fil …</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2035"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2010"/>
         <source>Save &amp;Document</source>
         <translation>Lagre &amp;dokument</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2036"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2011"/>
         <source>&amp;Update Text Frame and Exit</source>
         <translation>&amp;Oppdater tekstramma og avslutt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2037"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2012"/>
         <source>&amp;Exit Without Updating Text Frame</source>
         <translation>&amp;Avslutt uten å oppdatere tekstramma</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2041"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2016"/>
         <source>Cu&amp;t</source>
         <translation>&amp;Klipp ut</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2042"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2017"/>
         <source>&amp;Copy</source>
         <translation>&amp;Kopier</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2043"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2018"/>
         <source>&amp;Paste</source>
         <translation>&amp;Lim inn</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2044"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2019"/>
         <source>C&amp;lear</source>
         <translation>&amp;Slett</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2049"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2024"/>
         <source>&amp;Update Text Frame</source>
         <translation>&amp;Oppdater tekstramma</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1743"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2030"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1720"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2005"/>
         <source>&amp;File</source>
         <translation>&amp;Fil</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1753"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2040"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1730"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2015"/>
         <source>&amp;Edit</source>
         <translation>&amp;Rediger</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2045"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2020"/>
         <source>Select &amp;All</source>
         <translation>Marker &amp;Alt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2069"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2044"/>
         <source>File</source>
         <translation>Fil</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2046"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2021"/>
         <source>&amp;Search/Replace...</source>
         <translation>&amp;Søk/erstatt …</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2048"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2023"/>
         <source>&amp;Fonts Preview...</source>
         <translation>&amp;Forhåndsvisning av skrifttyper …</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2061"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2036"/>
         <source>&amp;Display Font...</source>
         <translation>&amp;Vis skrifttype …</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1840"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2060"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1816"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2035"/>
         <source>&amp;Settings</source>
         <translation>&amp;Innstillinger</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2031"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2006"/>
         <source>Clear All Text</source>
         <translation>Fjern all tekst</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2140"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2113"/>
         <source>Story Editor - %1</source>
         <translation>Tekstbehandler – %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2791"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2751"/>
         <source>Do you really want to lose all your changes?</source>
         <translation>Vil du virkelig miste alle dine endringer?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2822"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2782"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Er du sikker på at du vil slette all tekst?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1768"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2053"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1744"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2028"/>
         <source>&amp;Insert</source>
         <translation>Sett &amp;inn</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1770"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2054"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1746"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2029"/>
         <source>Character</source>
         <translation>Tegn</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1790"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2055"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1766"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2030"/>
         <source>Quote</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1815"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1791"/>
         <source>Spaces &amp;&amp; Breaks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1829"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1805"/>
         <source>Ligature</source>
         <translation>Ligaturer</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2056"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2031"/>
         <source>Space</source>
         <translation>Mellomrom</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="3359"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="3394"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="3302"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="3337"/>
         <source>Text Files (*.txt);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2052"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2027"/>
         <source>&amp;Glyph...</source>
         <translation type="unfinished">&amp;Glyff …</translation>
     </message>

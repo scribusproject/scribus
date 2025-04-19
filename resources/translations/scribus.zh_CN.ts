@@ -6454,13 +6454,13 @@ See the Edit Colors section of the documentation for more details.</source>
 <context>
     <name>CustomFDialog</name>
     <message>
-        <location filename="../../scribus/ui/customfdialog.cpp" line="400"/>
+        <location filename="../../scribus/ui/customfdialog.cpp" line="401"/>
         <source>Encoding:</source>
         <translation>编码 :</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/customfdialog.cpp" line="339"/>
-        <location filename="../../scribus/ui/customfdialog.cpp" line="370"/>
+        <location filename="../../scribus/ui/customfdialog.cpp" line="371"/>
         <source>&amp;Compress File</source>
         <translation>压缩文件(&amp;C)</translation>
     </message>
@@ -6485,37 +6485,37 @@ See the Edit Colors section of the documentation for more details.</source>
         <translation>显示所选文件预览和信息</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/customfdialog.cpp" line="387"/>
+        <location filename="../../scribus/ui/customfdialog.cpp" line="388"/>
         <source>Compress the Scribus document on save</source>
         <translation>压缩保存Scribus文档</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/customfdialog.cpp" line="389"/>
+        <location filename="../../scribus/ui/customfdialog.cpp" line="390"/>
         <source>Include fonts when collecting files for the document. Be sure to know and understand licensing information for any fonts you collect and possibly redistribute.</source>
         <translation>打包文档时包含字体。确保了解并理解您打包和可能重新分发的任何字体的许可信息。</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/customfdialog.cpp" line="391"/>
+        <location filename="../../scribus/ui/customfdialog.cpp" line="392"/>
         <source>Include color profiles when collecting files for the document</source>
         <translation>打包文档时包含的颜色配置文件</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/customfdialog.cpp" line="446"/>
+        <location filename="../../scribus/ui/customfdialog.cpp" line="447"/>
         <source>Import Option:</source>
         <translation>导入选项：</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/customfdialog.cpp" line="450"/>
+        <location filename="../../scribus/ui/customfdialog.cpp" line="451"/>
         <source>Keep original size</source>
         <translation>保持原尺寸</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/customfdialog.cpp" line="451"/>
+        <location filename="../../scribus/ui/customfdialog.cpp" line="452"/>
         <source>Downscale to page size</source>
         <translation>缩小到页面尺寸</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/customfdialog.cpp" line="452"/>
+        <location filename="../../scribus/ui/customfdialog.cpp" line="453"/>
         <source>Upscale to page size</source>
         <translation>放大到页面尺寸</translation>
     </message>
@@ -12469,7 +12469,7 @@ If no handle is selected all handles will be reset.</source>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.ui" line="304"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="74"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="73"/>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="252"/>
         <source>Apply</source>
         <translation>应用</translation>
@@ -12481,71 +12481,71 @@ If no handle is selected all handles will be reset.</source>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.ui" line="330"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="71"/>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="250"/>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="403"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="406"/>
         <source>OK</source>
         <translation>确定</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="28"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="94"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="27"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="93"/>
         <source>Document</source>
         <translation>文档</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="29"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="95"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="28"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="94"/>
         <source>Story</source>
         <translation>文章</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="66"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="65"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="67"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="66"/>
         <source>Dialog is in adding new notes style mode. After pressing Cancel button dialog will be switched into normal notes styles edit mode.</source>
         <translation>对话框处于添加新的注解样式模式中。按取消键后对话框将切换至正常的注解样式编辑模式。</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="68"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="392"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="67"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="389"/>
         <source>Add Style</source>
         <translation>添加样式</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="159"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="166"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="187"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="234"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="158"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="165"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="186"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="233"/>
         <source>default</source>
         <translation>默认</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="202"/>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="204"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="201"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="203"/>
         <source>No Style</source>
         <translation>没有样式</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="364"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="361"/>
         <source>Warning! Deleting Notes Style</source>
         <translation>警告！删除注解样式</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="365"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="362"/>
         <source>You are going to delete notes style %1. All notes and marks using that style are also going to be deleted.</source>
         <translation>您将要删除注解样式 %1。所有使用该样式的注解和标记都将被删除。</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="397"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="394"/>
         <source>Cancel Adding</source>
         <translation>取消添加</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="398"/>
+        <location filename="../../scribus/ui/notesstyleseditor.cpp" line="395"/>
         <source>Notes Styles Editor is in adding new notes style mode. After pressing Cancel button Notes Styles Editor switch into normal notes styles edit mode.</source>
         <translation>注解样式编辑器处于添加新的注解样式模式中。按取消键后注解样式编辑器会切换至正常的注解样式编辑模式。</translation>
     </message>
@@ -13413,69 +13413,69 @@ Please check it and try again.</source>
 <context>
     <name>PDFLibCore</name>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="549"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="591"/>
         <source>Saving PDF</source>
         <translation>PDF保存中</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="553"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="595"/>
         <source>Exporting Master Page:</source>
         <translation>正在导出母版页:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="553"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="595"/>
         <source>Exporting Page:</source>
         <translation>导出页面:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="553"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="595"/>
         <source>Exporting Items on Current Page:</source>
         <translation>导出当前页面的对象：</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="611"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="653"/>
         <source>Qt build miss both &quot;UTF-16&quot; and &quot;ISO-10646-UCS-2&quot; text codecs, pdf export is not possible</source>
         <translation>Qt 构建同时缺少“UTF-16”和“ISO-10646-UCS-2”文字编码，PDF 导出无法使用</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3470"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3488"/>
         <source>Page:</source>
         <translation>页面:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3480"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3498"/>
         <source>Date:</source>
         <translation>日期:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="10634"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="10651"/>
         <source>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</source>
         <translation>嵌入该PDF文件失败：%1。
 请禁用实验性PDF和PS嵌入并重试。</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11923"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11940"/>
         <source>Failed to load an image : %1</source>
         <translation>无法加载图像: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11928"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11945"/>
         <source>Failed to write an image : %1</source>
         <translation>写入图像失败: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11933"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11950"/>
         <source>Failed to load an image mask : %1</source>
         <translation>读取图像蒙板失败: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11938"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11955"/>
         <source>Insufficient memory for processing an image</source>
         <translation>处理图片时内存不足</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11918"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11935"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>发生一个写入错误，请检查是否有可用的磁盘空间</translation>
     </message>
@@ -25119,7 +25119,7 @@ Check path and filename.</source>
         <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="122"/>
         <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="123"/>
         <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="123"/>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="165"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="158"/>
         <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="128"/>
         <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="130"/>
         <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="124"/>
@@ -27930,14 +27930,14 @@ External Links
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="168"/>
         <source>Cannot get tracking of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>無法追蹤非文字框。</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="195"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="222"/>
         <source>Cannot get word tracking of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>無法獲取文字非文字框字距。</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="250"/>
@@ -28515,25 +28515,25 @@ External Links
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="976"/>
         <source>Cannot set tracking on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>無法設置非文字框字距。</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1006"/>
         <source>Cannot set word tracking on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>無法設置文字非文字框字距。</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1033"/>
         <source>Minimum word out of bounds, must be &gt;= 1 and &lt;= 100</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>最小文字越界，必須 &gt;= 1 且 &lt;= 100</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1041"/>
         <source>Cannot set minimum word tracking on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>無法在非文字框設置最小文字字距。</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1073"/>
@@ -29506,7 +29506,7 @@ is not exhaustive due to exceptions from called functions.
         <translation>导出SVG</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="107"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="100"/>
         <source>SVG Import</source>
         <translation>导入SVG</translation>
     </message>
@@ -32513,24 +32513,24 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="44"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="125"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="244"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="577"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="248"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="581"/>
         <source>Fixed Linespacing</source>
         <translation>固定行距</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="45"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="126"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="245"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="578"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="249"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="582"/>
         <source>Automatic Linespacing</source>
         <translation>自动行距</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="46"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="127"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="246"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="579"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="250"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="583"/>
         <source>Align to Baseline Grid</source>
         <translation>和基线网格对齐</translation>
     </message>
@@ -32671,8 +32671,8 @@ Document Liberation Project https://www.documentliberation.org</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="29"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="475"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="984"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="479"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="988"/>
         <source>Based On:</source>
         <translation>基于 :</translation>
     </message>
@@ -32702,7 +32702,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <translation>悬挂标点</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="479"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="483"/>
         <source>A default style cannot be assigned a parent style</source>
         <translation>默认样式不能指定父样式</translation>
     </message>
@@ -32782,9 +32782,9 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <translation>选中后，如果下一个段落不在同一页面或列上，则自动将段落移到下一个列或页面</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="470"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="473"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="1200"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="474"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="477"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="1205"/>
         <source>No Style</source>
         <translation>没有样式</translation>
     </message>
@@ -32864,7 +32864,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <translation>最小空白宽度 :</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="549"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="553"/>
         <source>Shade</source>
         <translation>色度</translation>
     </message>
@@ -33117,12 +33117,12 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>SToolBAlign</name>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1449"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1431"/>
         <source>Style of current paragraph</source>
         <translation>当前段落样式</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1417"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1399"/>
         <source>Style Settings</source>
         <translation>样式设置</translation>
     </message>
@@ -33130,17 +33130,17 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>SToolBColorF</name>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1179"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1161"/>
         <source>Color of text fill</source>
         <translation>文本填充色</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1180"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1162"/>
         <source>Saturation of color of text fill</source>
         <translation>文本填充色的饱和度</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1135"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1117"/>
         <source>Fill Color Settings</source>
         <translation>填充色设置</translation>
     </message>
@@ -33148,17 +33148,17 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>SToolBColorS</name>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1257"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1239"/>
         <source>Color of text stroke</source>
         <translation>文本描边颜色</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1258"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1240"/>
         <source>Saturation of color of text stroke</source>
         <translation>文本描边颜色的饱和度</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1208"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1190"/>
         <source>Stroke Color Settings</source>
         <translation>描边颜色设置</translation>
     </message>
@@ -33166,27 +33166,27 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>SToolBFont</name>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1538"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1520"/>
         <source>Font of selected text</source>
         <translation>选中文本的字体</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1539"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1521"/>
         <source>Font Size</source>
         <translation>字号</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1540"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1522"/>
         <source>Scaling width of characters</source>
         <translation>字符宽度缩放</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1471"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1453"/>
         <source>Font Settings</source>
         <translation>字体设置</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1541"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1523"/>
         <source>Scaling height of characters</source>
         <translation>字符高度缩放</translation>
     </message>
@@ -33194,12 +33194,12 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>SToolBStyle</name>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1286"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1268"/>
         <source>Character Settings</source>
         <translation>字符设置</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1338"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1320"/>
         <source>Manual Tracking</source>
         <translation>自定义字符间距</translation>
     </message>
@@ -33252,22 +33252,22 @@ Caution: this will increase the file size!</source>
 <context>
     <name>SVGImportPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="99"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="92"/>
         <source>Import &amp;SVG...</source>
         <translation>导入SVG(&amp;S)...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="114"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="107"/>
         <source>Imports SVG Files</source>
         <translation>导入SVG文件</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="115"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="108"/>
         <source>Imports most SVG files into the current document, converting their vector data into Scribus objects.</source>
         <translation>导入大部分SVG文件到当前文档，这将把其矢量数据转换为Scribus对象。</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="198"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="191"/>
         <source>The file could not be imported</source>
         <translation>文件无法导入</translation>
     </message>
@@ -33275,7 +33275,7 @@ Caution: this will increase the file size!</source>
 <context>
     <name>SVGPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="1355"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="1347"/>
         <source>Group%1</source>
         <translation>组 %1</translation>
     </message>
@@ -36557,7 +36557,7 @@ Consider using the Preflight Verifier to correct them</source>
     <name>SideBar</name>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="125"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="215"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="212"/>
         <source>No Style</source>
         <translation>没有样式</translation>
     </message>
@@ -36667,222 +36667,222 @@ Consider using the Preflight Verifier to correct them</source>
 <context>
     <name>StoryEditor</name>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2027"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2159"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2002"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2130"/>
         <source>Story Editor</source>
         <translation>文章编辑器</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2057"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2032"/>
         <source>&amp;Sample Text...</source>
         <translation>示例文字(&amp;S)...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2062"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2037"/>
         <source>&amp;Smart Text Selection</source>
         <translation>智能文本选择(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2071"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2046"/>
         <source>Current Paragraph:</source>
         <translation>当前段落:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2072"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2076"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2047"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2051"/>
         <source>Words: </source>
         <translation>单词： </translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2073"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2077"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2048"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2052"/>
         <source>Chars: </source>
         <translation>字符： </translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2074"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2049"/>
         <source>Totals:</source>
         <translation>总计:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2075"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2050"/>
         <source>Paragraphs: </source>
         <translation>段落： </translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="3359"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="3302"/>
         <source>Open</source>
         <translation>打开</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="3394"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="3337"/>
         <source>Save as</source>
         <translation>另存为</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2204"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2174"/>
         <source>Do you want to save your changes?</source>
         <translation>您要保存更改吗?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2032"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2007"/>
         <source>&amp;Reload Text from Frame</source>
         <translation>从文本框重新加载文本(&amp;R)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2033"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2008"/>
         <source>&amp;Save to File...</source>
         <translation>保存到文件(&amp;S)...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2034"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2009"/>
         <source>&amp;Load from File...</source>
         <translation>从文件加载(&amp;L)...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2035"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2010"/>
         <source>Save &amp;Document</source>
         <translation>保存文档(&amp;D)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2036"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2011"/>
         <source>&amp;Update Text Frame and Exit</source>
         <translation>更新文本框后退出(&amp;U)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2037"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2012"/>
         <source>&amp;Exit Without Updating Text Frame</source>
         <translation>不更新文本框退出(&amp;E)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2041"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2016"/>
         <source>Cu&amp;t</source>
         <translation>剪切(&amp;T)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2042"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2017"/>
         <source>&amp;Copy</source>
         <translation>复制(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2043"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2018"/>
         <source>&amp;Paste</source>
         <translation>粘贴(&amp;P)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2044"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2019"/>
         <source>C&amp;lear</source>
         <translation>清除(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2049"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2024"/>
         <source>&amp;Update Text Frame</source>
         <translation>更新文本框(&amp;U)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1743"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2030"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1720"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2005"/>
         <source>&amp;File</source>
         <translation>文件(&amp;F)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1753"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2040"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1730"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2015"/>
         <source>&amp;Edit</source>
         <translation>编辑(&amp;E)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2045"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2020"/>
         <source>Select &amp;All</source>
         <translation>全选(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2069"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2044"/>
         <source>File</source>
         <translation>文件</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2046"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2021"/>
         <source>&amp;Search/Replace...</source>
         <translation>查找或替换(&amp;S)...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2048"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2023"/>
         <source>&amp;Fonts Preview...</source>
         <translation>字体预览(&amp;F)...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2061"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2036"/>
         <source>&amp;Display Font...</source>
         <translation>显示字体(&amp;D)...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1840"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2060"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1816"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2035"/>
         <source>&amp;Settings</source>
         <translation>设置(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2031"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2006"/>
         <source>Clear All Text</source>
         <translation>清除全部文本</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2140"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2113"/>
         <source>Story Editor - %1</source>
         <translation>文章编辑器 - %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2791"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2751"/>
         <source>Do you really want to lose all your changes?</source>
         <translation>您确定放弃所有更改吗?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2822"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2782"/>
         <source>Do you really want to clear all your text?</source>
         <translation>您确定清除所有的文本吗?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1768"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2053"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1744"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2028"/>
         <source>&amp;Insert</source>
         <translation>插入(&amp;I)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1770"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2054"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1746"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2029"/>
         <source>Character</source>
         <translation>字符</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1790"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2055"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1766"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2030"/>
         <source>Quote</source>
         <translation>引号</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1815"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1791"/>
         <source>Spaces &amp;&amp; Breaks</source>
         <translation>空格和换行符</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="1829"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="1805"/>
         <source>Ligature</source>
         <translation>拉丁语连字</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2056"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2031"/>
         <source>Space</source>
         <translation>空格</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="3359"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="3394"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="3302"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="3337"/>
         <source>Text Files (*.txt);;All Files (*)</source>
         <translation>文本文件 (*.txt);;所有文件 (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="2052"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="2027"/>
         <source>&amp;Glyph...</source>
         <translation>字形(&amp;G)...</translation>
     </message>
