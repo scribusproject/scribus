@@ -6202,8 +6202,6 @@ void ScribusDoc::reformPages(bool moveObjects)
 		m_undoManager->setUndoEnabled(true);
 	}
 
-	if (isLoading() && is12doc)
-		return;
 	if (!isLoading())
 	{
 		FPoint minPoint, maxPoint;

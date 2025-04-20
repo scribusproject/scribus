@@ -1332,7 +1332,6 @@ protected:
 	QString m_documentFileName;
 
 public: // Public attributes
-	bool is12doc {false}; //public for now, it will be removed later
 	int NrItems {0};
 	int First {1};
 	int Last {0};

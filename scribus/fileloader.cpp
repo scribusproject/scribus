@@ -105,7 +105,7 @@ int FileLoader::testFile()
 	QFileInfo fi(m_fileName);
 	int ret = -1;
 	if (!fi.exists())
-		ret = -1;
+		return ret;
 	QString lwrFileName(m_fileName.toLower());
 
 	bool found = false;

@@ -3365,13 +3365,8 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 				slotOnlineHelp("", "fileproblems.html");
 			return false;
 		}
-		bool is12doc = false;
 		if (testResult == 0)
-		{
 			QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
-			//Scribus 1.3.x warning, remove at a later stage
-			is12doc = true;
-		}
 		QDir docProfileDir(fi.absolutePath() + "/profiles");
 		ScCore->getCMSProfilesDir(fi.absolutePath() + "/", false, false);
 		if (docProfileDir.exists())
@@ -3392,7 +3387,6 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 			actionManager->disconnectNewViewActions();
 		doc = new ScribusDoc();
 		doc->saveFilePermissions(QFile::permissions(fileName));
-		doc->is12doc = is12doc;
 		doc->appMode = modeNormal;
 		doc->HasCMS = false;
 		doc->OpenNodes.clear();
@@ -4040,10 +4034,6 @@ bool ScribusMainWindow::slotFileSave()
 	bool ret = false;
 	if ((doc->hasName) && (!doc->isConverted))
 	{
-		//Scribus 1.3.x warning, remove at a later stage
-		if (doc->is12doc && !warningVersion(this))
-			return false;
-
 		QString fn(doc->documentFileName());
 		QString savedFileName;
 		ret = DoFileSave(fn, &savedFileName);
@@ -4059,12 +4049,6 @@ bool ScribusMainWindow::slotFileSave()
 
 bool ScribusMainWindow::slotFileSaveAs()
 {
-	//Scribus 1.3.x warning, remove at a later stage
-	if (doc->is12doc)
-		if (!warningVersion(this))
-			return false;
-	//Turn off the warnings once the docs is saved.
-	doc->is12doc = false;
 	bool ret = false;
 	QString fileName;
 	PrefsContext* docContext = m_prefsManager.prefsFile->getContext("docdirs", false);
@@ -8269,7 +8253,6 @@ void ScribusMainWindow::emergencySave()
 		doc->setModified(false);
 		QString base = tr("Document");
 		QString path = m_prefsManager.documentDir();
-		QString fileName;
 		if (doc->hasName)
 		{
 			QFileInfo fi(doc->documentFileName());
@@ -8279,7 +8262,7 @@ void ScribusMainWindow::emergencySave()
 		QDateTime dat = QDateTime::currentDateTime();
 		if ((!doc->prefsData().docSetupPrefs.AutoSaveLocation) && (!doc->prefsData().docSetupPrefs.AutoSaveDir.isEmpty()))
 			path = doc->prefsData().docSetupPrefs.AutoSaveDir;
-		fileName = QDir::cleanPath(path + "/" + base + QString("_emergency_%1.sla").arg(dat.toString("dd_MM_yyyy_hh_mm")));
+		QString fileName = QDir::cleanPath(path + "/" + base + QString("_emergency_%1.sla").arg(dat.toString("dd_MM_yyyy_hh_mm")));
 		std::cout << "Saving: " << fileName.toStdString() << std::endl;
 		FileLoader fl(fileName);
 		fl.saveFile(fileName, doc, nullptr);
