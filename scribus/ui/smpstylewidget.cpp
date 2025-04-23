@@ -190,10 +190,14 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 	const ParagraphStyle *parent = dynamic_cast<const ParagraphStyle*>(pstyle->parentStyle());
 	m_hasParent = pstyle->hasParent() && parent != nullptr && parent->hasName() && pstyle->parent() != "";
 
+	int  oldLineSpacingModeIndex = lineSpacingMode->currentIndex();
+	bool lineSpacingModeBlocked = lineSpacingMode->blockSignals(true);
 	lineSpacingMode->clear();
 	lineSpacingMode->addItem( tr("Fixed"));
 	lineSpacingMode->addItem( tr("Automatic"));
 	lineSpacingMode->addItem( tr("Baseline"));
+	lineSpacingMode->setCurrentIndex(oldLineSpacingModeIndex);
+	lineSpacingMode->blockSignals(lineSpacingModeBlocked);
 	
 //	optMarginCombo->clear();
 //	optMarginCombo->addItem(tr("None"), ParagraphStyle::OM_None);
