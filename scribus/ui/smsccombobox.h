@@ -33,6 +33,9 @@ public:
 	void setParentItem(int i);
 	bool useParentValue();
 
+public slots:
+	void clear();
+
 private:
 	bool   m_hasParent = false;
 	bool   m_useParentValue = false;

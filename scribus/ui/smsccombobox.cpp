@@ -14,6 +14,12 @@ SMScComboBox::SMScComboBox(QWidget *parent)
 	
 }
 
+void SMScComboBox::clear()
+{
+	m_useParentValue = false;
+	QComboBox::clear();
+}
+
 void SMScComboBox::setCurrentItem(int i)
 {
 	disconnect(this, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
