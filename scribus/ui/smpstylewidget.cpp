@@ -342,7 +342,7 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QList<ParagraphStyle> &pstyles
 	}
 	else
 	{
-		lineSpacingMode->setCurrentIndex(pstyle->lineSpacingMode());
+		lineSpacingMode->setCurrentItem(pstyle->lineSpacingMode());
 		lineSpacing->setValue(pstyle->lineSpacing());
 		spaceAbove->setValue(pstyle->gapBefore());
 		spaceBelow->setValue(pstyle->gapAfter());
