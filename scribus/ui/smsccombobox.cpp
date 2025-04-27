@@ -22,7 +22,7 @@ void SMScComboBox::clear()
 
 void SMScComboBox::setCurrentItem(int i)
 {
-	disconnect(this, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
+	disconnect(this, SIGNAL(currentIndexChanged(int)), this, SLOT(currentChanged()));
 	setFont(false);
 	m_hasParent = false;
 	m_pItem = 0;
@@ -31,7 +31,7 @@ void SMScComboBox::setCurrentItem(int i)
 
 void SMScComboBox::setCurrentItem(int i, bool isParentValue)
 {
-	disconnect(this, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
+	disconnect(this, SIGNAL(currentIndexChanged(int)), this, SLOT(currentChanged()));
 	m_hasParent = true;
 	m_pItem = i;
 	setFont(!isParentValue);
@@ -42,12 +42,12 @@ void SMScComboBox::setCurrentItem(int i, bool isParentValue)
 	}
 
 	QComboBox::setCurrentIndex(i);
-	connect(this, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
+	connect(this, SIGNAL(currentIndexChanged(int)), this, SLOT(currentChanged()));
 }
 
 void SMScComboBox::setCurrentItemByData(int i)
 {
-	disconnect(this, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
+	disconnect(this, SIGNAL(currentIndexChanged(int)), this, SLOT(currentChanged()));
 	setFont(false);
 	m_hasParent = false;
 	m_pItem = 0;
@@ -56,12 +56,12 @@ void SMScComboBox::setCurrentItemByData(int i)
 		if (itemData(idx).toInt() == i)
 			QComboBox::setCurrentIndex(idx);
 	}
-	connect(this, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
+	connect(this, SIGNAL(currentIndexChanged(int)), this, SLOT(currentChanged()));
 }
 
 void SMScComboBox::setCurrentItemByData(int i, bool isParentValue)
 {
-	disconnect(this, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
+	disconnect(this, SIGNAL(currentIndexChanged(int)), this, SLOT(currentChanged()));
 	m_hasParent = true;
 	setFont(!isParentValue);
 	if (!isParentValue && !m_useParentValue)
@@ -78,12 +78,12 @@ void SMScComboBox::setCurrentItemByData(int i, bool isParentValue)
 			m_pItem = idx;
 		}
 	}
-	connect(this, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
+	connect(this, SIGNAL(currentIndexChanged(int)), this, SLOT(currentChanged()));
 }
 
 void SMScComboBox::setCurrentItemByData(double d)
 {
-	disconnect(this, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
+	disconnect(this, SIGNAL(currentIndexChanged(int)), this, SLOT(currentChanged()));
 	setFont(false);
 	m_hasParent = false;
 	m_pItem = 0;
@@ -92,12 +92,12 @@ void SMScComboBox::setCurrentItemByData(double d)
 		if (itemData(idx).toDouble() == d)
 			QComboBox::setCurrentIndex(idx);
 	}
-	connect(this, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
+	connect(this, SIGNAL(currentIndexChanged(int)), this, SLOT(currentChanged()));
 }
 
 void SMScComboBox::setCurrentItemByData(double d, bool isParentValue)
 {
-	disconnect(this, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
+	disconnect(this, SIGNAL(currentIndexChanged(int)), this, SLOT(currentChanged()));
 	m_hasParent = true;
 	setFont(!isParentValue);
 	if (!isParentValue && !m_useParentValue)
@@ -114,7 +114,7 @@ void SMScComboBox::setCurrentItemByData(double d, bool isParentValue)
 			m_pItem = idx;
 		}
 	}
-	connect(this, SIGNAL(highlighted(int)), this, SLOT(currentChanged()));
+	connect(this, SIGNAL(currentIndexChanged(int)), this, SLOT(currentChanged()));
 }
 
 int SMScComboBox::getItemIndexForData(int i)
