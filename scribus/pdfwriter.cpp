@@ -368,7 +368,7 @@ namespace Pdf
 			{
 				result.append(v);
 			}
-			if (i % linelength == linelength-1)
+			if (i % linelength == linelength - 1)
 				result.append("\\\n");
 		}
 		result.append(")");
@@ -384,7 +384,7 @@ namespace Pdf
 			uchar v = s[i];
 			result.append("0123456789ABCDEF"[v / 16]);
 			result.append("0123456789ABCDEF"[v % 16]);
-			if (i % linelength == linelength-1)
+			if (i % linelength == linelength - 1)
 				result.append("\n");
 		}
 		result.append(">");
@@ -458,12 +458,12 @@ namespace Pdf
 		return "D:" + tmp.toLatin1() + "Z";
 	}
 	
-	QByteArray toRectangleArray(QRect r)
+	QByteArray toRectangleArray(const QRect& r)
 	{
 		return "[" + toPdf(r.left()) + " " + toPdf(r.bottom()) + " " + toPdf(r.right()) + " " + toPdf(r.top()) + "]";
 	}
 	
-	QByteArray toRectangleArray(QRectF r)
+	QByteArray toRectangleArray(const QRectF& r)
 	{
 		return "[" + toPdf(r.left()) + " " + toPdf(r.bottom()) + " " + toPdf(r.right()) + " " + toPdf(r.top()) + "]";
 	}
@@ -639,7 +639,7 @@ namespace Pdf
 		else
 		{
 			for (uint a = 0; a < 32; ++a)
-				us[a] = static_cast<uchar>(QChar(pw.at(a)).cell());
+				us[a] = QChar(pw.at(a)).cell();
 			rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), 5);
 			rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()),
 						reinterpret_cast<uchar*>(m_OwnerKey.data()), 32);
@@ -769,58 +769,50 @@ namespace Pdf
 		if (dict.XObject.count() != 0)
 		{
 			write("/XObject <<\n");
-			ResourceMap::ConstIterator iti;
-			for (iti = dict.XObject.begin(); iti != dict.XObject.end(); ++iti)
+			for (auto iti = dict.XObject.begin(); iti != dict.XObject.end(); ++iti)
 				write(Pdf::toName(iti.key()) + " " + Pdf::toObjRef(iti.value()) + "\n");
 			write(">>\n");
 		}
 		if (dict.Font.count() != 0)
 		{
 			write("/Font << \n");
-			QMap<QByteArray,PdfId>::ConstIterator it2;
-			for (it2 = dict.Font.begin(); it2 != dict.Font.end(); ++it2)
+			for (auto it2 = dict.Font.begin(); it2 != dict.Font.end(); ++it2)
 				write(Pdf::toName(it2.key()) + " " + Pdf::toObjRef(it2.value()) + "\n");
 			write(">>\n");
 		}
 		if (dict.Shading.count() != 0)
 		{
 			write("/Shading << \n");
-			QMap<QByteArray,PdfId>::ConstIterator it3;
-			for (it3 = dict.Shading.begin(); it3 != dict.Shading.end(); ++it3)
+			for (auto it3 = dict.Shading.begin(); it3 != dict.Shading.end(); ++it3)
 				write(Pdf::toName(it3.key()) + " " + Pdf::toObjRef(it3.value()) + "\n");
 			write(">>\n");
 		}
 		if (dict.Pattern.count() != 0)
 		{
 			write("/Pattern << \n");
-			QMap<QByteArray,PdfId>::ConstIterator it3p;
-			for (it3p = dict.Pattern.begin(); it3p != dict.Pattern.end(); ++it3p)
+			for (auto it3p = dict.Pattern.begin(); it3p != dict.Pattern.end(); ++it3p)
 				write(Pdf::toName(it3p.key()) + " " + Pdf::toObjRef(it3p.value()) + "\n");
 			write(">>\n");
 		}
 		if (dict.ExtGState.count() != 0)
 		{
 			write("/ExtGState << \n");
-			QMap<QByteArray,PdfId>::ConstIterator it3t;
-			for (it3t = dict.ExtGState.begin(); it3t != dict.ExtGState.end(); ++it3t)
+			for (auto it3t = dict.ExtGState.begin(); it3t != dict.ExtGState.end(); ++it3t)
 				write(Pdf::toName(it3t.key()) + " " + Pdf::toObjRef(it3t.value()) + "\n");
 			write(">>\n");
 		}
 		if (dict.Properties.count() != 0)
 		{
 			write("/Properties << \n");
-			QMap<QByteArray,PdfId>::ConstIterator it4p;
-			for (it4p = dict.Properties.begin(); it4p != dict.Properties.end(); ++it4p)
+			for (auto it4p = dict.Properties.begin(); it4p != dict.Properties.end(); ++it4p)
 				write(Pdf::toName(it4p.key()) + " " + Pdf::toObjRef(it4p.value()) + "\n");
 			write(">>\n");
 		}
 		if (dict.ColorSpace.count() != 0)
 		{
 			write("/ColorSpace << \n");
-			QList<Resource>::ConstIterator it3c;
-			for (it3c = dict.ColorSpace.begin(); it3c != dict.ColorSpace.end(); ++it3c)
-					write(Pdf::toName(it3c->ResName) + " " + Pdf::toObjRef(it3c->ResNum) + "\n");
-			
+			for (auto it3c = dict.ColorSpace.begin(); it3c != dict.ColorSpace.end(); ++it3c)
+				write(Pdf::toName(it3c->ResName) + " " + Pdf::toObjRef(it3c->ResNum) + "\n");
 			write(">>\n");
 		}
 		write(">>\n");

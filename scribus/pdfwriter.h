@@ -133,8 +133,8 @@ namespace Pdf
 	/**
 	 converts to a PDF rectangle, cf. PDF32000-2008, 8.9.5
 	 */
-	QByteArray toRectangleArray(QRect r);
-	QByteArray toRectangleArray(QRectF r);
+	QByteArray toRectangleArray(const QRect& r);
+	QByteArray toRectangleArray(const QRectF& r);
 	
 	
 	
