@@ -165,10 +165,10 @@ public:
 
 	bool       firstUse { true };
 	QByteArray fontName;
-	int        fontSize { -1 };
+	double     fontSize { -1.0 };
 	QByteArray fillColor;
 	QByteArray strokeColor;
-	int        strokeWidth { -1 };
+	double     strokeWidth { -1.0 };
 	int        renderingMode { 0 };
 	QTransform textMatrix;
 };
