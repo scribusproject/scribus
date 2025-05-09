@@ -554,8 +554,13 @@ void FontFamilyDelegate::paint(QPainter *painter, const QStyleOptionViewItem &op
 	QPainter invpixPainter(&invPixmap);
 
 	QRect r(0, 0, option.rect.width(), option.rect.height());
+	pixPainter.fillRect(r, Qt::white); // #17514: protection if fill color has transparency
 	pixPainter.fillRect(r, option.palette.window());
-	invpixPainter.fillRect(r, option.palette.window());
+	pixPainter.setPen(QPen(option.palette.text(), 0));
+
+	invpixPainter.fillRect(r, Qt::white); // #17514: protection if fill color has transparency
+	invpixPainter.fillRect(r, option.palette.highlight());
+	invpixPainter.setPen(QPen(option.palette.highlightedText(), 0));
 
 	QFont font = option.font;
 	font.setPointSize(QFontInfo(font).pointSize() * 3.0 / 2.0);
@@ -571,13 +576,6 @@ void FontFamilyDelegate::paint(QPainter *painter, const QStyleOptionViewItem &op
 	QFontDatabase::WritingSystem system = writingSystemForFont(font2, &hasLatin);
 	if (hasLatin)
 		font = font2;
-
-	pixPainter.setPen(QPen(option.palette.text(), 0));
-
-	invpixPainter.setBrush(option.palette.highlight());
-	invpixPainter.setPen(Qt::NoPen);
-	invpixPainter.drawRect(0, 0, option.rect.width(), option.rect.height());
-	invpixPainter.setPen(QPen(option.palette.highlightedText(), 0));
 
 	QIcon icon = qvariant_cast<QIcon>(index.data(Qt::DecorationRole));
 	QSize actualSize(icon.actualSize(r.size()));
