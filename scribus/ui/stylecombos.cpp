@@ -38,6 +38,12 @@ ParaStyleComboBox::ParaStyleComboBox(QWidget* parent) : QComboBox(parent)
 	addItem( firstItemString() );
 	addItem( CommonStrings::trDefaultParagraphStyle );
 	connect(this, SIGNAL(activated(int)), this, SLOT(selectedStyle(int)));
+
+	int minContentLength = 20;
+	minContentLength = qMax(minContentLength, CommonStrings::DefaultParagraphStyle.length());
+	minContentLength = qMax(minContentLength, CommonStrings::trDefaultParagraphStyle.length());
+	setMinimumContentsLength(minContentLength);
+	setSizeAdjustPolicy(QComboBox::AdjustToMinimumContentsLengthWithIcon);
 }
 
 QString ParaStyleComboBox::currentStyle() const
@@ -169,6 +175,12 @@ CharStyleComboBox::CharStyleComboBox(QWidget* parent) : QComboBox(parent)
 	addItem( firstItemString()  );
 	addItem( CommonStrings::trDefaultCharacterStyle );
 	connect(this, SIGNAL(activated(int)), this, SLOT(selectedStyle(int)));
+
+	int minContentLength = 20;
+	minContentLength = qMax(minContentLength, CommonStrings::DefaultCharacterStyle.length());
+	minContentLength = qMax(minContentLength, CommonStrings::trDefaultCharacterStyle.length());
+	setMinimumContentsLength(minContentLength);
+	setSizeAdjustPolicy(QComboBox::AdjustToMinimumContentsLengthWithIcon);
 }
 
 QString CharStyleComboBox::currentStyle() const
@@ -300,6 +312,12 @@ CellStyleComboBox::CellStyleComboBox(QWidget* parent) : QComboBox(parent)
 	addItem( firstItemString()  );
 	addItem( CommonStrings::trDefaultCellStyle );
 	connect(this, SIGNAL(activated(int)), this, SLOT(selectedStyle(int)));
+
+	int minContentLength = 20;
+	minContentLength = qMax(minContentLength, CommonStrings::DefaultCellStyle.length());
+	minContentLength = qMax(minContentLength, CommonStrings::trDefaultCellStyle.length());
+	setMinimumContentsLength(minContentLength);
+	setSizeAdjustPolicy(QComboBox::AdjustToMinimumContentsLengthWithIcon);
 }
 
 QString CellStyleComboBox::currentStyle() const
@@ -432,6 +450,12 @@ TableStyleComboBox::TableStyleComboBox(QWidget* parent) : QComboBox(parent)
 	addItem( firstItemString()  );
 	addItem( CommonStrings::trDefaultTableStyle );
 	connect(this, SIGNAL(activated(int)), this, SLOT(selectedStyle(int)));
+
+	int minContentLength = 20;
+	minContentLength = qMax(minContentLength, CommonStrings::DefaultTableStyle.length());
+	minContentLength = qMax(minContentLength, CommonStrings::trDefaultTableStyle.length());
+	setMinimumContentsLength(minContentLength);
+	setSizeAdjustPolicy(QComboBox::AdjustToMinimumContentsLengthWithIcon);
 }
 
 QString TableStyleComboBox::currentStyle() const
