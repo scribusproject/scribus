@@ -759,7 +759,10 @@ void Scribus150Format::writeGradients(ScXmlStreamWriter& docu, bool part)
 		m_Doc->getUsedGradients(gradMap);
 	else
 		gradMap = m_Doc->docGradients;
-	writeGradients(docu, gradMap.keys());
+
+	QStringList gradKeys = gradMap.keys();
+	gradKeys.sort();
+	writeGradients(docu, gradKeys);
 }
 
 void Scribus150Format::writeGradients(ScXmlStreamWriter & docu, const QStringList& gradientNames)
