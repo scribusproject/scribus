@@ -338,7 +338,11 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 			continue;
 
 		hb_font_set_scale(hbFont, style.fontSize(), style.fontSize());
+#if HB_VERSION_ATLEAST(11, 0, 0)
+		FT_Face ftFace = hb_ft_font_get_ft_face(hbFont);
+#else
 		FT_Face ftFace = hb_ft_font_get_face(hbFont);
+#endif
 		if (ftFace)
 		{
 			FT_Set_Char_Size(ftFace, style.fontSize(), 0, 72, 0);
