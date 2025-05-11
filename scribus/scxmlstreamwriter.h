@@ -7,11 +7,14 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCXMLSTREAMWRITER_H
 #define SCXMLSTREAMWRITER_H
 
-#include "scribusapi.h"
+#include <type_traits>
 
 #include <QByteArray>
 #include <QString>
 #include <QXmlStreamWriter>
+
+#include "pdfversion.h"
+#include "scribusapi.h"
 
 class SCRIBUS_API ScXmlStreamWriter : public QXmlStreamWriter
 {
@@ -21,15 +24,14 @@ public:
 	ScXmlStreamWriter(QIODevice* device) : QXmlStreamWriter(device) {}
 	ScXmlStreamWriter(QString*   string) : QXmlStreamWriter(string) {}
 
-	void writeAttribute(const QString & name, const QString & value) { QXmlStreamWriter::writeAttribute(name, value); }
-	void writeAttribute(const QString & name, int value)    { QXmlStreamWriter::writeAttribute(name, QString::number(value)); }
-	void writeAttribute(const QString & name, qint64 value)    { QXmlStreamWriter::writeAttribute(name, QString::number(value)); }
-	void writeAttribute(const QString & name, uint value)   { QXmlStreamWriter::writeAttribute(name, QString::number(value)); }
-	void writeAttribute(const QString & name, quint64 value)   { QXmlStreamWriter::writeAttribute(name, QString::number(value)); }
-#if !defined(Q_OS_WIN) && (Q_PROCESSOR_WORDSIZE != 4)
-	void writeAttribute(const QString & name, size_t value)   { QXmlStreamWriter::writeAttribute(name, QString::number(value)); }
-#endif
-	void writeAttribute(const QString & name, double value) { QXmlStreamWriter::writeAttribute(name, QString::number(value, 'g', 15)); }
+	void writeAttribute(const QString& name, const QString& value) { QXmlStreamWriter::writeAttribute(name, value); }
+	void writeAttribute(const QString& name, const PDFVersion& value) { QXmlStreamWriter::writeAttribute(name, QString::number(value)); }
+
+	template<typename T, std::enable_if_t<std::is_integral_v<T> || std::is_enum_v<T>, bool> = true>
+	void writeAttribute(const QString & name, T value)    { QXmlStreamWriter::writeAttribute(name, QString::number(value)); }
+
+	template<typename T, std::enable_if_t< std::is_floating_point_v<T>, bool> = true>
+	void writeAttribute(const QString & name, T value) { QXmlStreamWriter::writeAttribute(name, QString::number(value, 'g', 15)); }
 };
 
 #endif

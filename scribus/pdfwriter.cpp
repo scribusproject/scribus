@@ -306,46 +306,13 @@ namespace Pdf
 	
 	QByteArray toPdf(bool v)
 	{
-		return v? "true" : "false";
-	}
-	
-	QByteArray toPdf(int v)
-	{
-		return QByteArray::number(v);
-	}
-	
-	QByteArray toPdf(uint v)
-	{
-		return QByteArray::number(v);
-	}
-	
-	QByteArray toPdf(qlonglong v)
-	{
-		return QByteArray::number(v);
-	}
-	
-	QByteArray toPdf(qulonglong v)
-	{
-		return QByteArray::number(v);
-	}
-
-#if !defined(Q_OS_WIN) && (Q_PROCESSOR_WORDSIZE != 4)
-	QByteArray toPdf(size_t v)
-	{
-		return QByteArray::number(v);
-	}
-#endif
-
-	QByteArray toPdf(double v)
-	{
-		return QByteArray::number(v, 'f');
+		return v ? "true" : "false";
 	}
 	
 	QByteArray toObjRef(PdfId id)
 	{
 		return toPdf(id) + " 0 R";
 	}
-	
 	
 	QByteArray toLiteralString(const QString& s)
 	{

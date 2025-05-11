@@ -9,6 +9,8 @@
 #ifndef Scribus_pdfwriter_h
 #define Scribus_pdfwriter_h
 
+#include <type_traits>
+
 #include <QByteArray>
 #include <QDataStream>
 #include <QFile>
@@ -59,38 +61,24 @@ namespace Pdf
 	 Cf. PDF32000-2008, 7.3.2
 	 */
 	QByteArray toPdf(bool v);
-	
-	/**
-	 Cf. PDF32000-2008, 7.3.3
-	 */
-	QByteArray toPdf(int v);
-	
-	/**
-	 Cf. PDF32000-2008, 7.3.3
-	 */
-	QByteArray toPdf(uint v);
 
 	/**
 	 Cf. PDF32000-2008, 7.3.3
 	 */
-	QByteArray toPdf(qlonglong v);
+	template <typename T, std::enable_if_t<std::is_integral_v<T> || std::is_enum_v<T>, bool> = true>
+	inline QByteArray toPdf(T v)
+	{
+		return QByteArray::number(v);
+	}
 
 	/**
 	 Cf. PDF32000-2008, 7.3.3
 	 */
-	QByteArray toPdf(qulonglong v);
-	
-	/**
-	 Cf. PDF32000-2008, 7.3.3
-	 */
-#if !defined(Q_OS_WIN) && (Q_PROCESSOR_WORDSIZE != 4)
-	QByteArray toPdf(size_t v);
-#endif
-	
-	/**
-	 Cf. PDF32000-2008, 7.3.3
-	 */
-	QByteArray toPdf(double v);
+	template <typename T, std::enable_if_t< std::is_floating_point_v<T>, bool> = true>
+	inline QByteArray toPdf(T v)
+	{
+		return QByteArray::number(v, 'f');
+	}
 	
 	/**
 	 Cf. PDF32000-2008, 7.3.3
