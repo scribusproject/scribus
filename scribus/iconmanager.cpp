@@ -62,7 +62,7 @@ bool IconManager::setup()
 	}
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
-	connect(qApp->styleHints(), &QStyleHints::colorSchemeChanged, this, &IconManager::changeColorScheme);
+	connect(QApplication::styleHints(), &QStyleHints::colorSchemeChanged, this, &IconManager::changeColorScheme);
 #endif
 
 	return true;
@@ -127,22 +127,18 @@ void IconManager::addIconFromPainterPath(const QString &name, QPainterPath path)
 
 QColor IconManager::baseColor() const
 {
-	return qApp->palette().windowText().color();
+	return QApplication::palette().windowText().color();
 }
 
 bool IconManager::iconsForDarkMode() const
 {	
-// #if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
-// 	if (qApp->styleHints()->colorScheme() == Qt::ColorScheme::Light)
-// 		return false;
-// 	else if (qApp->styleHints()->colorScheme() == Qt::ColorScheme::Dark)
-// 		return true;
-// 	else
-// 		return (baseColor().lightness() >= 128) ? true : false;
-// #else
-// 	return (baseColor().lightness() >= 128) ? true : false;
-// #endif
-
+ #if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+	const auto* pStyleHints = QApplication::styleHints();
+ 	if (pStyleHints->colorScheme() == Qt::ColorScheme::Light)
+ 		return false;
+ 	if (pStyleHints->colorScheme() == Qt::ColorScheme::Dark)
+ 		return true;
+ #endif
 	return (baseColor().lightness() >= 128) ? true : false;
 }
 
