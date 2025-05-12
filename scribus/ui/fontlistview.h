@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #define FONTLISTVIEW_H
 
 #include <QTableView>
+#include <QWheelEvent>
 
 #include "scfonts.h"
 
@@ -26,10 +27,21 @@ class SCRIBUS_API FontListView : public QTableView
 
 		void setModel(QAbstractItemModel * model);
 		void setFonts(const SCFonts& f);
-
 		QString fontName(int i);
 		bool    isFontUsable(int i);
 		bool    isFontSubsetted(int i);
+	public slots:
+		void customContextMenuRequested(QPoint pos);
+	private:
+		QMenu* contextMenu;
+		QAction* activateAction;
+		QAction* deactivateAction;
+		QAction* subsetAction;
+		QAction* notSubsetAction;
+		void activateSelection();
+		void deactivateSelection();
+		void subsetSelection();
+		void notSubsetSelection();
 };
 
 #endif
