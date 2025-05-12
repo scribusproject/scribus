@@ -264,6 +264,7 @@ void PageSize::generateSizeList()
 	// https://papersizes.io/books/	
 	// https://paper-size.com/size/12mo-books-sizes.html
 	// https://en.wikipedia.org/wiki/Book_size
+	// https://blissetts.com/sizes-stocks-more
 	PageSizeInfo::Category catBooks =  PageSizeInfo::Book;
 	QString prefix = "Book_";
 	addPageSize(prefix + "Folio", QObject::tr("Folio"), 12.0, 19.0, SC_IN, catBooks);
@@ -283,6 +284,8 @@ void PageSize::generateSizeList()
 	addPageSize(prefix + "A Format", QObject::tr("A Format"), 4.25, 7.0, SC_IN, catBooks);
 	addPageSize(prefix + "B Format", QObject::tr("B Format"), 5.1, 7.75, SC_IN, catBooks);
 	addPageSize(prefix + "C Format", QObject::tr("C Format"), 5.25, 8.5, SC_IN, catBooks);
+	addPageSize(prefix + "Comic Book", QObject::tr("Comic Book"), 6.63, 10.25, SC_IN, catBooks);
+	addPageSize(prefix + "Crown Quarto", QObject::tr("Crown Quarto"), 189, 246, SC_MM, catBooks);
 
 	// Business Cards
 	// https://papersizes.io/business-card/	
