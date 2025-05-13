@@ -133,8 +133,8 @@ is not given the currently selected item is used.</p></dd>
 <p>Relayout the whole text chain whom the text frame "name" belongs. If "name" is not given the currently selected item is used.</p></dd>
 
 <dt><a name="-linkTextFrames"><strong>linkTextFrames</strong></a>(...)</dt>
-<dd><code>linkTextFrames("fromname", "toname")</code>
-<p>Link two text frames. The frame named "fromname" is linked to the frame named "toname". The source frame must not already link to another frame. The target frame must not be linked from another frame.</p>
+<dd><code>linkTextFrames("fromname", "toname", [add_paragraph=True])</code>
+<p>Link two text frames. The frame named "fromname" is linked to the frame named "toname". The source frame must not already link to another frame. The target frame must not be linked from another frame. If "add_paragraph" is omitted or set to True then a paragraph separator is added to the end of the source frame text if needed to prevent a paragraph from crossing the frames, otherwise no such paragraph separator is added.</p>
 <p>May throw <a href="#ScribusException">ScribusException</a> if linking rules are violated.</p></dd>
 
 <dt><a name="-selectFrameText"><strong>selectFrameText</strong></a>(...)</dt>
@@ -246,8 +246,8 @@ selected item is used.</p>
 <p>May raise WrongFrameTypeError if the target frame is not an text frame</p></dd>
 
 <dt><a name="-unlinkTextFrames"><strong>unlinkTextFrames</strong></a>(...)</dt>
-<dd><code>unlinkTextFrames("name")</code>
-<p>Remove the specified (named) object from the text frame flow/linkage. If the frame was in the middle of a chain, the previous and next frames will be connected, eg 'a-&gt;b-&gt;c' becomes 'a-&gt;c' when you <a href="#-unlinkTextFrames">unlinkTextFrames</a>(b)'</p>
+<dd><code>unlinkTextFrames("name", [cut_text=False])</code>
+<p>Remove the specified (named) object from the text frame flow/linkage. For example, the chain 'a-&gt;b-&gt;c-&gt;d' becomes the two chains 'a-&gt;b' and 'c-&gt;d' when you <a href="#-unlinkTextFrames">unlinkTextFrames</a>(c). If "cut_text" is set to True the text in the chain is cut to match the new frame linkage, otherwise the text flow ends just before the unlinked frame.</p>
 <p>May throw <a href="#ScribusException">ScribusException</a> if linking rules are violated.</p></dd>
 
 </dl>

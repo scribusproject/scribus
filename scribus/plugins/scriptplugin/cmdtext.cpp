@@ -1500,8 +1500,9 @@ PyObject *scribus_linktextframes(PyObject* /* self */, PyObject* args)
 {
 	PyESString name1;
 	PyESString name2;
+	bool add_paragraph = true;
 
-	if (!PyArg_ParseTuple(args, "eses", "utf-8", name1.ptr(), "utf-8", name2.ptr()))
+	if (!PyArg_ParseTuple(args, "eses", "utf-8", name1.ptr(), "utf-8", name2.ptr(), &add_paragraph))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
@@ -1532,7 +1533,7 @@ PyObject *scribus_linktextframes(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	}
 	// references to the others boxes
-	fromItem->link(toItem);
+	fromItem->link(toItem, add_paragraph);
 	ScCore->primaryMainWindow()->view->DrawNew();
 	// enable 'save icon' stuff
 	ScCore->primaryMainWindow()->slotDocCh();
@@ -1543,7 +1544,8 @@ PyObject *scribus_linktextframes(PyObject* /* self */, PyObject* args)
 PyObject *scribus_unlinktextframes(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
-	if (!PyArg_ParseTuple(args, "es", "utf-8", name.ptr()))
+	bool cut_text = false;
+	if (!PyArg_ParseTuple(args, "es", "utf-8", name.ptr(), &cut_text))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
@@ -1580,7 +1582,11 @@ PyObject *scribus_unlinktextframes(PyObject* /* self */, PyObject* args)
 	for (uint s = 0; s < a2; ++s)
 		item->BackBox->itemText.append(item->itemText.take(0));
 */
-	item->prevInChain()->unlink();
+	if (cut_text)
+		item->unlinkWithText();
+	else
+		item->prevInChain()->unlink();
+
 	// enable 'save icon' stuff
 	ScCore->primaryMainWindow()->slotDocCh();
 	ScCore->primaryMainWindow()->view->DrawNew();
