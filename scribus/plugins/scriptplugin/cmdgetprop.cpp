@@ -313,6 +313,38 @@ PyObject *scribus_getimageoffset(PyObject* /* self */, PyObject* args)
 	return Py_BuildValue("(ff)", item->imageXOffset() * item->imageXScale(), item->imageYOffset() * item->imageYScale());
 }
 
+PyObject *scribus_getimagepage(PyObject* /* self */, PyObject* args)
+{
+	if (!checkHaveDocument())
+		return nullptr;
+
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+		return nullptr;
+
+	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
+	if (item == nullptr)
+		return nullptr;
+
+	return PyLong_FromLong(static_cast<long>(item->pixm.imgInfo.actualPageNumber));
+}
+
+PyObject *scribus_getimagepagecount(PyObject* /* self */, PyObject* args)
+{
+	if (!checkHaveDocument())
+		return nullptr;
+
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+		return nullptr;
+
+	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
+	if (item == nullptr)
+		return nullptr;
+
+	return PyLong_FromLong(static_cast<long>(item->pixm.imgInfo.numberOfPages));
+}
+
 PyObject *scribus_getimagescale(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
@@ -574,6 +606,8 @@ void cmdgetpropdocwarnings()
 	  << scribus_getimagecolorspace__doc__
 	  << scribus_getimagefile__doc__
 	  << scribus_getimageoffset__doc__
+	  << scribus_getimagepage__doc__
+	  << scribus_getimagepagecount__doc__
 	  << scribus_getimagescale__doc__
 	  << scribus_getlinecolor__doc__ 
 	  << scribus_getlineblendmode__doc__ 

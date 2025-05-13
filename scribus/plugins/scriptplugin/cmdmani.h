@@ -223,6 +223,18 @@ May raise WrongFrameTypeError if the target frame is not an image frame\n\
 PyObject *scribus_setimageoffset(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_setimagepage__doc__,
+QT_TR_NOOP("setImagePage(page [, \"name\"])\n\
+\n\
+Set the page for multiple page images (like PDFs) in the image frame \"name\".\n\
+If \"name\" is not given the currently selected item is used. The number must be between 0\n\
+(\"auto\") and the actual number of pages.\n\
+\n\
+May raise WrongFrameTypeError if the target frame is not an image frame\n\
+"));
+PyObject *scribus_setimagepage(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_setimagescale__doc__,
 QT_TR_NOOP("setImageScale(x, y [, \"name\"])\n\
 \n\

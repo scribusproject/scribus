@@ -231,6 +231,27 @@ frame \"name\".  If \"name\" is not given the currently selected item is used.\n
 PyObject *scribus_getimageoffset(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_getimagepage__doc__,
+	QT_TR_NOOP("getImagePage([\"name\"]) -> (x,y)\n\
+\n\
+Return the page for multiple page images (like PDFs) in the image frame \"name\".\n\
+0 means that the value is set to \"auto\".\n\
+If \"name\" is not given the currently selected item is used.\n\
+"));
+/*! Returns the current of page of the object */
+PyObject *scribus_getimagepage(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_getimagepagecount__doc__,
+	QT_TR_NOOP("getImagePageCount([\"name\"]) -> (x,y)\n\
+\n\
+Return the number of pages for multiple page images (like PDFs) in the image frame \"name\".\n\
+If \"name\" is not given the currently selected item is used.\n\
+"));
+/*! Returns the number of pages of the object */
+PyObject *scribus_getimagepagecount(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_getimagescale__doc__,
 	QT_TR_NOOP("getImageScale([\"name\"]) -> (x,y)\n\
 \n\

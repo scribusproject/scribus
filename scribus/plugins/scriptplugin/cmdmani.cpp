@@ -79,6 +79,39 @@ PyObject *scribus_scaleimage(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 }
 
+PyObject *scribus_setimagepage(PyObject* /* self */, PyObject* args)
+{
+	if (!checkHaveDocument())
+		return nullptr;
+
+	char *name = const_cast<char*>("");
+	int page;
+	if (!PyArg_ParseTuple(args, "i|es", &page, "utf-8", &name))
+		return nullptr;
+
+	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
+	if (item == nullptr)
+		return nullptr;
+	if (!item->isImageFrame())
+	{
+		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+
+	if (page < 0 || page > item->pixm.imgInfo.numberOfPages)
+	{
+		PyErr_SetString(ScribusException, QObject::tr("The image has %1 pages: cannot switch to page %2.","python error").arg(item->pixm.imgInfo.numberOfPages).arg(page).toLocal8Bit().constData());
+		return nullptr;
+	}
+
+	item->pixm.imgInfo.actualPageNumber = page;
+
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	currentDoc->updatePic();
+
+	Py_RETURN_NONE;
+}
+
 PyObject *scribus_setimagescale(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
@@ -792,6 +825,7 @@ void cmdmanidocwarnings()
 	  << scribus_setimagebrightness__doc__
 	  << scribus_setimagegrayscale__doc__
 	  << scribus_setimageoffset__doc__
+	  << scribus_setimagepage__doc__
 	  << scribus_setimagescale__doc__
 	  << scribus_setnormalmode__doc__
 	  << scribus_setrotation__doc__
