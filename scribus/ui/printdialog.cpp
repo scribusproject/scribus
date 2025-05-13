@@ -530,8 +530,12 @@ void PrintDialog::setStoredValues(const QString& fileName)
 	{
 		PrintDest->setCurrentIndex(selectedDest);
 		prefs->set("CurrentPrn", PrintDest->currentText());
-		if (PrintDest->currentText() == CommonStrings::trFile)
+		bool printToFile = PrintDest->currentText() == CommonStrings::trFile;
+		if (printToFile)
 			fileNameEdit->setText(fileName);
+		printLanguages->setupLanguages(PrintDest->currentText(), printToFile);
+		printLanguages->setEnabled(printLanguages->count() > 1);
+		setPrintLanguage(m_doc->Print_Options.prnLanguage);
 		selectPrinter(PrintDest->currentText());
 	}
 	altComCheckBox->setChecked(m_doc->Print_Options.useAltPrintCommand);
