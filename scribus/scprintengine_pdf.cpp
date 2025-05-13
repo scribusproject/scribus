@@ -113,7 +113,7 @@ int ScPrintEngine_PDF::createPDFFile(const QString& fileName, const PrintOptions
 	pdfOptions.PrintProf = m_doc.colorPrefs().DCMSset.DefaultPrinterProfile;
 	pdfOptions.UseSpotColors = options.useSpotColors;
 
-	pdfOptions.cropMarks = options.colorMarks;
+	pdfOptions.cropMarks = options.cropMarks;
 	pdfOptions.bleedMarks = options.bleedMarks;
 	pdfOptions.registrationMarks = options.registrationMarks;
 	pdfOptions.colorMarks = options.colorMarks;
