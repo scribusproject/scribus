@@ -125,6 +125,48 @@ PyObject *scribus_valuedialog(PyObject* /* self */, PyObject* args)
 	return PyUnicode_FromString(txt.toUtf8());
 }
 
+PyObject *scribus_itemdialog(PyObject* /* self */, PyObject* args)
+{
+	char *caption = const_cast<char*>("");
+	char *message = const_cast<char*>("");
+	PyObject* listObject;
+	unsigned int editable = 0;
+	if (!PyArg_ParseTuple(args, "esesO|p", "utf-8", &caption, "utf-8", &message, &listObject, &editable))
+		return nullptr;
+
+	QStringList items;
+	PyObject* list = PySequence_List(listObject);
+	if (list == nullptr)
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Expected a list of options", "python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+
+	int n = PyList_Size(list);
+	for (int i = 0; i < n; ++i)
+	{
+		PyObject* itemObject = PyList_GetItem(list, i);
+		char *item = const_cast<char*>("");
+		if (!PyArg_Parse(itemObject, "es", "utf-8", &item))
+		{
+			PyErr_SetString(PyExc_ValueError, QObject::tr("Items must be strings", "python error").toLocal8Bit().constData());
+			return nullptr;
+		}
+		items << QString::fromUtf8(item);
+	}
+
+	QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
+	bool ok;
+	QString choice = QInputDialog::getItem(ScCore->primaryMainWindow(),
+										QString::fromUtf8(caption),
+										QString::fromUtf8(message),
+										items,
+										0,
+										editable == 1,
+										&ok);
+	return PyUnicode_FromString(choice.toUtf8());
+}
+
 PyObject *scribus_newstyledialog(PyObject*, PyObject* args)
 {
 	if (!checkHaveDocument())
@@ -157,6 +199,7 @@ void cmddialogdocwarnings()
 {
 	QStringList s;
 	s << scribus_filedialog__doc__
+	  << scribus_itemdialog__doc__
 	  << scribus_messagebox__doc__
 	  << scribus_newdocdialog__doc__ 
 	  << scribus_newstyledialog__doc__

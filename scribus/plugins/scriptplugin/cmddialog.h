@@ -103,6 +103,17 @@ Example: valueDialog('title', 'text in the window', 'optional')\n\
 /* 09/24/2004 petr vanek */
 PyObject *scribus_valuedialog(PyObject * /*self*/, PyObject* args);
 
+/*! docstring */
+PyDoc_STRVAR(scribus_itemdialog__doc__,
+QT_TR_NOOP("itemDialog(caption, message, list_of_strings[, editable]) -> string\n\
+\n\
+Shows the common 'Make a choice' dialog and returns the selected value as a string\n\
+Parameters: window title, text in the window and a list of string values.\n\
+Optionally, you can let the user edit the value by setting `editable` to `True`.\n\
+\n\
+Example: itemDialog('title', 'text in the window', ['apples', 'pears', 'raisins'])\n\
+"));
+PyObject *scribus_itemdialog(PyObject * /*self*/, PyObject* args);
 
 PyDoc_STRVAR(scribus_newstyledialog__doc__,
 QT_TR_NOOP("newStyleDialog() -> string\n\

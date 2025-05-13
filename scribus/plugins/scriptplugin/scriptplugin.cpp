@@ -460,6 +460,7 @@ PyMethodDef scribus_methods[] = {
 	{ "isLocked", scribus_islocked, METH_VARARGS, tr(scribus_islocked__doc__)},
 	{ "isPDFBookmark", scribus_ispdfbookmark, METH_VARARGS, tr(scribus_ispdfbookmark__doc__)},
 	{ "isSpotColor", scribus_isspotcolor, METH_VARARGS, tr(scribus_isspotcolor__doc__)},
+	{ "itemDialog", scribus_itemdialog, METH_VARARGS, tr(scribus_itemdialog__doc__)},
 	{ "layoutText", scribus_layouttext, METH_VARARGS, tr(scribus_layouttext__doc__)},
 	{ "layoutTextChain", scribus_layouttextchain, METH_VARARGS, tr(scribus_layouttextchain__doc__)},
 	{ "linkTextFrames", scribus_linktextframes, METH_VARARGS, tr(scribus_linktextframes__doc__)},
