@@ -143,10 +143,6 @@ bool ScPrintEngine_GDI::print(PrintOptions& options)
 bool ScPrintEngine_GDI::gdiPrintPreview(ScPage* page, QImage* image, const PrintOptions& options, double scale)
 {
 	bool success = true;
-	HCOLORSPACE hColorSpace  = nullptr;
-	int imagew, imageh;
-	double scalex = 1, scaley = 1;
-	bool rotate = false;
 
 	if (!page || !image)
 		return false;
@@ -159,15 +155,15 @@ bool ScPrintEngine_GDI::gdiPrintPreview(ScPage* page, QImage* image, const Print
 	int cliph = qRound(page->height());
 
 	// Setup image
-	imagew = clipw * scale;
-	imageh = cliph * scale;
+	int imagew = clipw * scale;
+	int imageh = cliph * scale;
 	*image = QImage(imagew, imageh, QImage::Format_ARGB32_Premultiplied);
 	if (image->width() <= 0 || image->height() <= 0)
 		return false;
 
 	// Calculate scaling factors and offsets
-	scalex = options.mirrorH ? -1.0 : 1.0;
-	scaley = options.mirrorV ? -1.0 : 1.0; 
+	double scalex = options.mirrorH ? -1.0 : 1.0;
+	double scaley = options.mirrorV ? -1.0 : 1.0;
 	double dx = - clipx * scalex;
 	double dy = - clipy * scaley;
 	if (options.mirrorH) dx += clipw;
@@ -294,7 +290,6 @@ bool ScPrintEngine_GDI::printPage_GDI(ScPage* page, const PrintOptions& options,
 	QString inputProfile;
 	QString printerProfile;
 	HCOLORSPACE hColorSpace = nullptr;
-	bool rotate = false;
 
 	StartPage(printerDC);
 
