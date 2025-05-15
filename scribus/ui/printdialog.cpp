@@ -135,6 +135,8 @@ PrintDialog::PrintDialog( QWidget* parent, ScribusDoc* doc, const PrintOptions& 
 		if (!printOptions.filename.isEmpty())
 			fileNameEdit->setText(QDir::toNativeSeparators(printOptions.filename));
 		selectFileButton->setEnabled(true);
+		altComCheckBox->setChecked(false);
+		altComCheckBox->setEnabled(false);
 	}
 
 	setMaximumSize(sizeHint());
@@ -308,6 +310,9 @@ void PrintDialog::selectPrinter(const QString& prn)
 	fileNameEdit->setEnabled(toFile);
 	selectFileButton->setEnabled(toFile);
 	optionsButton->setEnabled(!toFile);
+	altComCheckBox->setEnabled(!toFile);
+	if (toFile)
+		altComCheckBox->setChecked(false);
 #if defined(_WIN32)
 	if (!toFile)
 	{
@@ -532,13 +537,22 @@ void PrintDialog::setStoredValues(const QString& fileName)
 		prefs->set("CurrentPrn", PrintDest->currentText());
 		bool printToFile = PrintDest->currentText() == CommonStrings::trFile;
 		if (printToFile)
-			fileNameEdit->setText(fileName);
+			fileNameEdit->setText(QDir::toNativeSeparators(fileName));
 		printLanguages->setupLanguages(PrintDest->currentText(), printToFile);
 		printLanguages->setEnabled(printLanguages->count() > 1);
 		setPrintLanguage(m_doc->Print_Options.prnLanguage);
 		selectPrinter(PrintDest->currentText());
 	}
-	altComCheckBox->setChecked(m_doc->Print_Options.useAltPrintCommand);
+	if (PrintDest->currentText() != CommonStrings::trFile)
+	{
+		altComCheckBox->setChecked(m_doc->Print_Options.useAltPrintCommand);
+		altComCheckBox->setEnabled(true);
+	}
+	else
+	{
+		altComCheckBox->setChecked(false);
+		altComCheckBox->setEnabled(false);
+	}
 	if (altComCheckBox->isChecked())
 	{
 		selectCommand();
