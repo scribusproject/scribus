@@ -543,7 +543,16 @@ void PrintDialog::setStoredValues(const QString& fileName)
 		setPrintLanguage(m_doc->Print_Options.prnLanguage);
 		selectPrinter(PrintDest->currentText());
 	}
-	altComCheckBox->setChecked(m_doc->Print_Options.useAltPrintCommand);
+	if (PrintDest->currentText() != CommonStrings::trFile)
+	{
+		altComCheckBox->setChecked(m_doc->Print_Options.useAltPrintCommand);
+		altComCheckBox->setEnabled(true);
+	}
+	else
+	{
+		altComCheckBox->setChecked(false);
+		altComCheckBox->setEnabled(false);
+	}
 	if (altComCheckBox->isChecked())
 	{
 		selectCommand();
