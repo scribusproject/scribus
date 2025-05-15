@@ -6073,7 +6073,7 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 	currItem->m_columns = attrs.valueAsInt("COLUMNS", 1);
 	currItem->m_columnGap = attrs.valueAsDouble("COLGAP", 0.0);
 	//Remove uppercase in 1.8 format
-	if (attrs.valueAsInt("LAYER", 0) != -1)
+	if (attrs.hasAttribute("LAYER") && (attrs.valueAsInt("LAYER", 0) != -1))
 	{
 		currItem->setLayer(attrs.valueAsInt("LAYER", 0));
 		uint layerCount = doc->Layers.count();
@@ -6089,7 +6089,7 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 		if (!found)
 			currItem->setLayer(doc->firstLayerID());
 	}
-	else if (attrs.valueAsInt("Layer", 0) != -1)
+	else if (attrs.hasAttribute("Layer") && (attrs.valueAsInt("Layer", 0) != -1))
 	{
 		currItem->setLayer(attrs.valueAsInt("Layer", 0));
 		uint layerCount = doc->Layers.count();
