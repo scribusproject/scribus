@@ -3647,9 +3647,9 @@ bool Scribus171Format::readBookMark(ScribusDoc::BookMa& bookmark, int& elem, con
 	bookmark.Last = attrs.valueAsInt("Last");
 	//Fix in 1.8 format
 	if (attrs.hasAttribute("Prev"))
-		bookmark.ItemNr = attrs.valueAsInt("Prev");
+		bookmark.Prev = attrs.valueAsInt("Prev");
 	else
-		bookmark.ItemNr = attrs.valueAsInt("Previous");
+		bookmark.Prev = attrs.valueAsInt("Previous");
 	bookmark.Next = attrs.valueAsInt("Next");
 	bookmark.Parent = attrs.valueAsInt("Parent");
 	return true;
