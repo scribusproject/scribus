@@ -200,11 +200,11 @@ class PLUGIN_API Scribus170Format : public LoadSavePlugin
 		void writeCharStyles(ScXmlStreamWriter& docu);
 		void writeTableStyles(ScXmlStreamWriter& docu);
 		void writeCellStyles(ScXmlStreamWriter& docu);
-		void putPStyle(ScXmlStreamWriter& docu, const ParagraphStyle & style, const QString &nodeName);
-		void putCStyle(ScXmlStreamWriter& docu, const CharStyle & style);
-		void putNamedCStyle(ScXmlStreamWriter& docu, const CharStyle & style);
-		void putTableStyle(ScXmlStreamWriter& docu, const TableStyle & style);
-		void putCellStyle(ScXmlStreamWriter& docu, const CellStyle & style);
+		void putPStyle(ScXmlStreamWriter& docu, const ParagraphStyle & style, const QString &nodeName) const;
+		void putCStyle(ScXmlStreamWriter& docu, const CharStyle & style) const;
+		void putNamedCStyle(ScXmlStreamWriter& docu, const CharStyle & style) const;
+		void putTableStyle(ScXmlStreamWriter& docu, const TableStyle & style) const;
+		void putCellStyle(ScXmlStreamWriter& docu, const CellStyle & style) const;
 		void writeStoryText(ScribusDoc *doc, ScXmlStreamWriter&, StoryText& story, PageItem* item = nullptr);
 		void writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter&, StoryText& story, PageItem* item = nullptr);
 		void writeLayers(ScXmlStreamWriter& docu);
