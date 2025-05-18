@@ -59,7 +59,6 @@ QString Scribus150Format::saveElements(double xp, double yp, double wp, double h
 
 	ScXmlStreamWriter writer(&documentStr);
 	writer.setAutoFormatting(true);
-//	writer.writeStartDocument();
 	writer.writeStartElement("SCRIBUSELEMUTF8");
 	writer.writeAttribute("XP", xp);
 	writer.writeAttribute("YP", yp);
@@ -154,7 +153,7 @@ QString Scribus150Format::saveElements(double xp, double yp, double wp, double h
 		WriteObjects(m_Doc, writer, fileDir, nullptr, 0, ItemSelectionFrame, &emF);
 	WriteObjects(m_Doc, writer, fileDir, nullptr, 0, ItemSelectionElements, &emG);
 	writer.writeEndElement();
-//	writer.writeEndDocument();
+
 	documentStr.squeeze();
 	return documentStr.trimmed();
 }
@@ -172,7 +171,6 @@ bool Scribus150Format::saveStory(StoryText& story, PageItem* item, QByteArray& d
 
 	ScXmlStreamWriter writer(&documentStr);
 	writer.setAutoFormatting(true);
-//	writer.writeStartDocument();
 	writer.writeStartElement("ScribusStory");
 	writer.writeAttribute("Version", ScribusAPI::getVersion());
 
@@ -575,7 +573,7 @@ bool Scribus150Format::saveFile(const QString & fileName, const FileFormat & /* 
 	return writeSucceed;
 }
 
-void Scribus150Format::writeCheckerProfiles(ScXmlStreamWriter & docu) 
+void Scribus150Format::writeCheckerProfiles(ScXmlStreamWriter & docu) const
 {
 	auto itcpend = m_Doc->checkerProfiles().end();
 	for (auto itcp = m_Doc->checkerProfiles().begin(); itcp != itcpend; ++itcp)
@@ -606,7 +604,7 @@ void Scribus150Format::writeCheckerProfiles(ScXmlStreamWriter & docu)
 	}
 }
 
-void Scribus150Format::writeLineStyles(ScXmlStreamWriter& docu) 
+void Scribus150Format::writeLineStyles(ScXmlStreamWriter& docu) const
 {
 	QStringList styleNames = m_Doc->docLineStyles.keys();
 	if (styleNames.isEmpty())
@@ -614,7 +612,7 @@ void Scribus150Format::writeLineStyles(ScXmlStreamWriter& docu)
 	writeLineStyles(docu, styleNames);
 }
 
-void Scribus150Format::writeLineStyles(ScXmlStreamWriter& docu, const QStringList& styleNames)
+void Scribus150Format::writeLineStyles(ScXmlStreamWriter& docu, const QStringList& styleNames) const
 {
 	if (styleNames.isEmpty())
 		return;
@@ -625,23 +623,23 @@ void Scribus150Format::writeLineStyles(ScXmlStreamWriter& docu, const QStringLis
 			continue;
 		docu.writeStartElement("MultiLine");
 		docu.writeAttribute("Name", itMU.key());
-		MultiLine ml = itMU.value();
-		for (auto itMU2 = ml.cbegin(); itMU2 != ml.cend(); ++itMU2)
+		const MultiLine& ml = itMU.value();
+		for (const auto& singleLine : ml)
 		{
 			docu.writeEmptyElement("SubLine");
-			docu.writeAttribute("Color", itMU2->Color);
-			docu.writeAttribute("Shade", itMU2->Shade);
-			docu.writeAttribute("Dash", itMU2->Dash);
-			docu.writeAttribute("LineEnd", itMU2->LineEnd);
-			docu.writeAttribute("LineJoin", itMU2->LineJoin);
-			docu.writeAttribute("Width", itMU2->Width);
+			docu.writeAttribute("Color", singleLine.Color);
+			docu.writeAttribute("Shade", singleLine.Shade);
+			docu.writeAttribute("Dash", singleLine.Dash);
+			docu.writeAttribute("LineEnd", singleLine.LineEnd);
+			docu.writeAttribute("LineJoin", singleLine.LineJoin);
+			docu.writeAttribute("Width", singleLine.Width);
 			docu.writeAttribute("Shortcut", ml.shortcut);
 		}
 		docu.writeEndElement();
 	}
 }
 
-void Scribus150Format::writeArrowStyles(ScXmlStreamWriter& docu)
+void Scribus150Format::writeArrowStyles(ScXmlStreamWriter& docu) const
 {
 	const QList<ArrowDesc>& arrowStyles = m_Doc->arrowStyles();
 	for (const ArrowDesc& arrow : arrowStyles)
@@ -651,19 +649,18 @@ void Scribus150Format::writeArrowStyles(ScXmlStreamWriter& docu)
 		docu.writeEmptyElement("Arrows");
 		docu.writeAttribute("NumPoints", arrow.points.size());
 		QString arp;
-		QString tmp, tmpy;
 		double xa, ya;
 		for (int nxx = 0; nxx < arrow.points.size(); ++nxx)
 		{
 			arrow.points.point(nxx, &xa, &ya);
-			arp += tmp.setNum(xa) + " " + tmpy.setNum(ya) + " ";
+			arp += QString::number(xa) + " " + QString::number(ya) + " ";
 		}
 		docu.writeAttribute("Points", arp);
 		docu.writeAttribute("Name", arrow.name);
 	}
 }
 
-void Scribus150Format::writeJavascripts(ScXmlStreamWriter & docu) 
+void Scribus150Format::writeJavascripts(ScXmlStreamWriter & docu) const
 {
 	for (auto itja = m_Doc->JavaScripts.begin(); itja != m_Doc->JavaScripts.end(); ++itja)
 	{
@@ -673,25 +670,25 @@ void Scribus150Format::writeJavascripts(ScXmlStreamWriter & docu)
 	}
 }
 
-void Scribus150Format::writeBookmarks(ScXmlStreamWriter & docu) 
+void Scribus150Format::writeBookmarks(ScXmlStreamWriter & docu) const
 {	
-	for (auto itbm = m_Doc->BookMarks.begin(); itbm != m_Doc->BookMarks.end(); ++itbm)
+	for (const auto& bookmark : m_Doc->BookMarks)
 	{
 		docu.writeEmptyElement("Bookmark");
-		docu.writeAttribute("Title", itbm->Title);
-		docu.writeAttribute("Text", itbm->Text);
-		docu.writeAttribute("Aktion", itbm->Aktion);
-		docu.writeAttribute("ItemNr", itbm->ItemNr);
-		docu.writeAttribute("Element", qHash(itbm->PageObject) & 0x7FFFFFFF);
-		docu.writeAttribute("First", itbm->First);
-		docu.writeAttribute("Last", itbm->Last);
-		docu.writeAttribute("Prev", itbm->Prev);
-		docu.writeAttribute("Next", itbm->Next);
-		docu.writeAttribute("Parent", itbm->Parent);
+		docu.writeAttribute("Title", bookmark.Title);
+		docu.writeAttribute("Text", bookmark.Text);
+		docu.writeAttribute("Aktion", bookmark.Aktion);
+		docu.writeAttribute("ItemNr", bookmark.ItemNr);
+		docu.writeAttribute("Element", qHash(bookmark.PageObject) & 0x7FFFFFFF);
+		docu.writeAttribute("First", bookmark.First);
+		docu.writeAttribute("Last", bookmark.Last);
+		docu.writeAttribute("Prev", bookmark.Prev);
+		docu.writeAttribute("Next", bookmark.Next);
+		docu.writeAttribute("Parent", bookmark.Parent);
 	}
 }
 
-void Scribus150Format::writeColors(ScXmlStreamWriter & docu, bool part) 
+void Scribus150Format::writeColors(ScXmlStreamWriter & docu, bool part) const
 {	
 	ColorList usedColors;
 	if (part)
@@ -701,7 +698,7 @@ void Scribus150Format::writeColors(ScXmlStreamWriter & docu, bool part)
 	writeColors(docu, usedColors.keys());
 }
 
-void Scribus150Format::writeColors(ScXmlStreamWriter& docu, const QStringList& colorNames)
+void Scribus150Format::writeColors(ScXmlStreamWriter& docu, const QStringList& colorNames) const
 {
 	for (const QString& colorName : colorNames)
 	{
@@ -746,7 +743,7 @@ void Scribus150Format::writeColors(ScXmlStreamWriter& docu, const QStringList& c
 	}
 }
 
-void Scribus150Format::writeGradients(ScXmlStreamWriter& docu, bool part)
+void Scribus150Format::writeGradients(ScXmlStreamWriter& docu, bool part) const
 {
 	QHash<QString, VGradient> gradMap;
 	if (part)
@@ -759,7 +756,7 @@ void Scribus150Format::writeGradients(ScXmlStreamWriter& docu, bool part)
 	writeGradients(docu, gradMap.keys());
 }
 
-void Scribus150Format::writeGradients(ScXmlStreamWriter & docu, const QStringList& gradientNames)
+void Scribus150Format::writeGradients(ScXmlStreamWriter & docu, const QStringList& gradientNames) const
 {
 	for (const QString& gradientName : gradientNames)
 	{
@@ -780,7 +777,7 @@ void Scribus150Format::writeGradients(ScXmlStreamWriter & docu, const QStringLis
 	}
 }
 
-void Scribus150Format::writeHyphenatorLists(ScXmlStreamWriter& docu)
+void Scribus150Format::writeHyphenatorLists(ScXmlStreamWriter& docu) const
 {
 	const auto& hyphenatorPrefs = m_Doc->hyphenatorPrefs();
 
@@ -791,26 +788,24 @@ void Scribus150Format::writeHyphenatorLists(ScXmlStreamWriter& docu)
 		docu.writeAttribute("WORD", hyit.key());
 		docu.writeAttribute("HYPHENATED", hyit.value());
 	}
-	for (auto hyit2 = hyphenatorPrefs.ignoredWords.begin(); hyit2 != hyphenatorPrefs.ignoredWords.end(); ++hyit2)
+	for (const auto& ignoredWord : hyphenatorPrefs.ignoredWords)
 	{
 		docu.writeEmptyElement("IGNORE");
-		docu.writeAttribute("WORD", (*hyit2));
+		docu.writeAttribute("WORD", ignoredWord);
 	}
 	docu.writeEndElement();
 }
 
-void Scribus150Format::writeParagraphStyles(ScXmlStreamWriter & docu)
+void Scribus150Format::writeParagraphStyles(ScXmlStreamWriter & docu) const
 {
 	QList<int> styleList = m_Doc->getSortedStyleList();
-	for (int a = 0; a < styleList.count(); ++a)
+	for (int i = 0; i < styleList.count(); ++i)
 	{
-		putPStyle(docu, m_Doc->paragraphStyles()[styleList[a]], "STYLE");
+		putPStyle(docu, m_Doc->paragraphStyles()[styleList[i]], "STYLE");
 	}
-//	for (int ff = 0; ff < m_Doc->paragraphStyles().count(); ++ff)
-//		putPStyle(docu, m_Doc->paragraphStyles()[ff], "STYLE");
 }
 
-void Scribus150Format::putPStyle(ScXmlStreamWriter & docu, const ParagraphStyle & style, const QString &nodeName)
+void Scribus150Format::putPStyle(ScXmlStreamWriter & docu, const ParagraphStyle & style, const QString &nodeName) const
 {
 	bool styleHasTabs = (!style.isInhTabValues() && !style.tabValues().isEmpty());
 	if (styleHasTabs)
@@ -925,24 +920,18 @@ void Scribus150Format::putPStyle(ScXmlStreamWriter & docu, const ParagraphStyle 
 }
 
 
-void Scribus150Format::writeCharStyles(ScXmlStreamWriter & docu) 
+void Scribus150Format::writeCharStyles(ScXmlStreamWriter & docu)  const
 {
 	QList<int> styleList = m_Doc->getSortedCharStyleList();
-	for (int a = 0; a < styleList.count(); ++a)
+	for (int i = 0; i < styleList.count(); ++i)
 	{
 		docu.writeStartElement("CHARSTYLE");
-		putNamedCStyle(docu, m_Doc->charStyles()[styleList[a]]);
+		putNamedCStyle(docu, m_Doc->charStyles()[styleList[i]]);
 		docu.writeEndElement();
 	}
-//	for (int ff = 0; ff < m_Doc->charStyles().count(); ++ff)
-//	{
-//		docu.writeStartElement("CHARSTYLE");
-//		putNamedCStyle(docu, m_Doc->charStyles()[ff]);
-//		docu.writeEndElement();
-//	}
 }
 
-void Scribus150Format::putCStyle(ScXmlStreamWriter & docu, const CharStyle & style)
+void Scribus150Format::putCStyle(ScXmlStreamWriter & docu, const CharStyle & style) const
 {
 	if ( ! style.parent().isEmpty() )
 		docu.writeAttribute("CPARENT", style.parent());
@@ -1000,7 +989,7 @@ void Scribus150Format::putCStyle(ScXmlStreamWriter & docu, const CharStyle & sty
 		docu.writeAttribute("SHORTCUT", style.shortcut()); // shortcuts won't be inherited
 }
 
-void Scribus150Format::putNamedCStyle(ScXmlStreamWriter& docu, const CharStyle & style)
+void Scribus150Format::putNamedCStyle(ScXmlStreamWriter& docu, const CharStyle & style) const
 {
 	if ( ! style.name().isEmpty() )
 		docu.writeAttribute("CNAME", style.name());
@@ -1009,7 +998,7 @@ void Scribus150Format::putNamedCStyle(ScXmlStreamWriter& docu, const CharStyle &
 	putCStyle(docu, style);
 }
 
-void Scribus150Format::writeTableStyles(ScXmlStreamWriter& docu)
+void Scribus150Format::writeTableStyles(ScXmlStreamWriter& docu) const
 {
 	QList<int> styleList = m_Doc->getSortedTableStyleList();
 	for (int i = 0; i < styleList.count(); ++i)
@@ -1020,7 +1009,7 @@ void Scribus150Format::writeTableStyles(ScXmlStreamWriter& docu)
 	}
 }
 
-void Scribus150Format::writeCellStyles(ScXmlStreamWriter& docu)
+void Scribus150Format::writeCellStyles(ScXmlStreamWriter& docu) const
 {
 	QList<int> styleList = m_Doc->getSortedCellStyleList();
 	for (int i = 0; i < styleList.count(); ++i)
@@ -1031,7 +1020,7 @@ void Scribus150Format::writeCellStyles(ScXmlStreamWriter& docu)
 	}
 }
 
-void Scribus150Format::putTableStyle(ScXmlStreamWriter &docu, const TableStyle &style)
+void Scribus150Format::putTableStyle(ScXmlStreamWriter &docu, const TableStyle &style) const
 {
 	if ( ! style.name().isEmpty() )
 		docu.writeAttribute("NAME", style.name());
@@ -1105,7 +1094,7 @@ void Scribus150Format::putTableStyle(ScXmlStreamWriter &docu, const TableStyle &
 	}
 }
 
-void Scribus150Format::putCellStyle(ScXmlStreamWriter &docu, const CellStyle &style)
+void Scribus150Format::putCellStyle(ScXmlStreamWriter &docu, const CellStyle &style) const
 {
 	if ( ! style.name().isEmpty() )
 		docu.writeAttribute("NAME", style.name());
@@ -1187,7 +1176,7 @@ void Scribus150Format::putCellStyle(ScXmlStreamWriter &docu, const CellStyle &st
 	}
 }
 
-void Scribus150Format::writeLayers(ScXmlStreamWriter & docu) 
+void Scribus150Format::writeLayers(ScXmlStreamWriter & docu) const
 {	
 	uint layerCount = m_Doc->layerCount();
 	for (uint lay = 0; lay < layerCount; ++lay)
@@ -1208,7 +1197,7 @@ void Scribus150Format::writeLayers(ScXmlStreamWriter & docu)
 	}
 }
 
-void Scribus150Format::writePrintOptions(ScXmlStreamWriter & docu) 
+void Scribus150Format::writePrintOptions(ScXmlStreamWriter & docu) const
 {
 	docu.writeStartElement("Printer");
 	docu.writeAttribute("firstUse", static_cast<int>(m_Doc->Print_Options.firstUse));
@@ -1249,7 +1238,7 @@ void Scribus150Format::writePrintOptions(ScXmlStreamWriter & docu)
 	docu.writeEndElement();
 }
 
-void Scribus150Format::writePdfOptions(ScXmlStreamWriter & docu) 
+void Scribus150Format::writePdfOptions(ScXmlStreamWriter & docu) const
 {
 	docu.writeStartElement("PDF");
 	docu.writeAttribute("firstUse", static_cast<int>(m_Doc->pdfOptions().firstUse));
@@ -1340,36 +1329,36 @@ void Scribus150Format::writePdfOptions(ScXmlStreamWriter & docu)
 	docu.writeEndElement();
 }
 
-void Scribus150Format::writeDocItemAttributes(ScXmlStreamWriter & docu) 
+void Scribus150Format::writeDocItemAttributes(ScXmlStreamWriter & docu) const
 {
 	docu.writeStartElement("DocItemAttributes");
-	for (auto objAttrIt = m_Doc->itemAttributes().begin() ; objAttrIt != m_Doc->itemAttributes().end(); ++objAttrIt )
+	for (const auto& objAttribute : m_Doc->itemAttributes())
 	{
 		docu.writeEmptyElement("ItemAttribute");
-		docu.writeAttribute("Name", objAttrIt->name);
-		docu.writeAttribute("Type", objAttrIt->type);
-		docu.writeAttribute("Value", objAttrIt->value);
-		docu.writeAttribute("Parameter", objAttrIt->parameter);
-		docu.writeAttribute("Relationship", objAttrIt->relationship);
-		docu.writeAttribute("RelationshipTo", objAttrIt->relationshipto);
-		docu.writeAttribute("AutoAddTo", objAttrIt->autoaddto);
+		docu.writeAttribute("Name", objAttribute.name);
+		docu.writeAttribute("Type", objAttribute.type);
+		docu.writeAttribute("Value", objAttribute.value);
+		docu.writeAttribute("Parameter", objAttribute.parameter);
+		docu.writeAttribute("Relationship", objAttribute.relationship);
+		docu.writeAttribute("RelationshipTo", objAttribute.relationshipto);
+		docu.writeAttribute("AutoAddTo", objAttribute.autoaddto);
 	}
 	docu.writeEndElement();
 }
 
 
-void Scribus150Format::writeTOC(ScXmlStreamWriter & docu) 
+void Scribus150Format::writeTOC(ScXmlStreamWriter & docu) const
 {
 	docu.writeStartElement("TablesOfContents");
-	for (auto tocSetupIt = m_Doc->tocSetups().begin() ; tocSetupIt != m_Doc->tocSetups().end(); ++tocSetupIt )
+	for (const auto& tocSetup : m_Doc->tocSetups())
 	{
 		docu.writeEmptyElement("TableOfContents");
-		docu.writeAttribute("Name", tocSetupIt->name);
-		docu.writeAttribute("ItemAttributeName", tocSetupIt->itemAttrName);
-		docu.writeAttribute("FrameName", tocSetupIt->frameName);
-		docu.writeAttribute("ListNonPrinting", tocSetupIt->listNonPrintingFrames);
-		docu.writeAttribute("Style", tocSetupIt->textStyle);
-		switch (tocSetupIt->pageLocation)
+		docu.writeAttribute("Name", tocSetup.name);
+		docu.writeAttribute("ItemAttributeName", tocSetup.itemAttrName);
+		docu.writeAttribute("FrameName", tocSetup.frameName);
+		docu.writeAttribute("ListNonPrinting", tocSetup.listNonPrintingFrames);
+		docu.writeAttribute("Style", tocSetup.textStyle);
+		switch (tocSetup.pageLocation)
 		{
 			case Beginning:
 				docu.writeAttribute("NumberPlacement", "Beginning");
@@ -1386,7 +1375,7 @@ void Scribus150Format::writeTOC(ScXmlStreamWriter & docu)
 }
 
 
-void Scribus150Format::writeSections(ScXmlStreamWriter & docu) 
+void Scribus150Format::writeSections(ScXmlStreamWriter & docu) const
 {
 	docu.writeStartElement("Sections");
 	for (auto it = m_Doc->sections().begin() ; it != m_Doc->sections().end(); ++it )
@@ -1444,7 +1433,7 @@ void Scribus150Format::writeSections(ScXmlStreamWriter & docu)
 	docu.writeEndElement();
 }
 
-void Scribus150Format::writeMarks(ScXmlStreamWriter & docu)
+void Scribus150Format::writeMarks(ScXmlStreamWriter & docu) const
 {
 	//write list of defined marks to SLA
 	if (m_Doc->marksList().isEmpty())
@@ -1463,7 +1452,6 @@ void Scribus150Format::writeMarks(ScXmlStreamWriter & docu)
 			const PageItem* item = mrk->getItemPtr();
 			assert(item != nullptr);
 			docu.writeAttribute("ItemID", qHash(item) & 0x7FFFFFFF);
-			//docu.writeAttribute("itemName", item->itemName());
 		}
 		else if (mrk->isType(MARKVariableTextType) && mrk->hasString())
 			docu.writeAttribute("str", mrk->getString());
@@ -1478,7 +1466,7 @@ void Scribus150Format::writeMarks(ScXmlStreamWriter & docu)
 	docu.writeEndElement();
 }
 
-void Scribus150Format::writeNotesStyles(ScXmlStreamWriter & docu)
+void Scribus150Format::writeNotesStyles(ScXmlStreamWriter & docu) const
 {
 	if (m_Doc->m_docNotesStylesList.isEmpty())
 		return;
@@ -1494,7 +1482,7 @@ void Scribus150Format::writeNotesStyles(ScXmlStreamWriter & docu)
 	writeNotesStyles(docu, noteStyleNames);
 }
 
-void  Scribus150Format::writeNotesStyles(ScXmlStreamWriter & docu, const QStringList& styleSelection)
+void  Scribus150Format::writeNotesStyles(ScXmlStreamWriter & docu, const QStringList& styleSelection) const
 {
 	if (styleSelection.isEmpty())
 		return;
@@ -1566,7 +1554,7 @@ void  Scribus150Format::writeNotesStyles(ScXmlStreamWriter & docu, const QString
 	docu.writeEndElement();
 }
 
-void Scribus150Format::writeNotesFrames(ScXmlStreamWriter &docu)
+void Scribus150Format::writeNotesFrames(ScXmlStreamWriter &docu) const
 {
 	QList<PageItem_NoteFrame*> nfList;
 	for (const NotesStyle* noteStyle : qAsConst(m_Doc->m_docNotesStylesList))
@@ -1575,7 +1563,7 @@ void Scribus150Format::writeNotesFrames(ScXmlStreamWriter &docu)
 	writeNotesFrames(docu, nfList);
 }
 
-void Scribus150Format::writeNotesFrames(ScXmlStreamWriter & docu, const QList<PageItem_NoteFrame*>& itemList)
+void Scribus150Format::writeNotesFrames(ScXmlStreamWriter & docu, const QList<PageItem_NoteFrame*>& itemList) const
 {
 	if (itemList.isEmpty())
 		return;
@@ -1608,7 +1596,7 @@ void Scribus150Format::writeNotesFrames(ScXmlStreamWriter & docu, const QList<Pa
 	docu.writeEndElement();
 }
 
-void Scribus150Format::writeNotes(ScXmlStreamWriter & docu)
+void Scribus150Format::writeNotes(ScXmlStreamWriter & docu) const
 {
 	//write notes
 	if (m_Doc->notesList().isEmpty())
@@ -1618,7 +1606,7 @@ void Scribus150Format::writeNotes(ScXmlStreamWriter & docu)
 	writeNotes(docu, noteList);
 }
 
-void Scribus150Format::writeNotes(ScXmlStreamWriter & docu, const QList<TextNote*>& noteList)
+void Scribus150Format::writeNotes(ScXmlStreamWriter & docu, const QList<TextNote*>& noteList) const
 {
 	if (noteList.isEmpty())
 		return;
@@ -1637,32 +1625,28 @@ void Scribus150Format::writeNotes(ScXmlStreamWriter & docu, const QList<TextNote
 	docu.writeEndElement();
 }
 
-void Scribus150Format::writePageSets(ScXmlStreamWriter & docu) 
+void Scribus150Format::writePageSets(ScXmlStreamWriter & docu) const
 {	
 	docu.writeStartElement("PageSets");
-	QList<PageSet> pageSet(m_Doc->pageSets());
-	for (auto itpgset = pageSet.begin(); itpgset != pageSet.end(); ++itpgset )
+	QList<PageSet> pageSets(m_Doc->pageSets());
+	for (const auto& pageSet : pageSets)
 	{
 		docu.writeStartElement("Set");
-		docu.writeAttribute("Name", itpgset->Name);
-		docu.writeAttribute("FirstPage", itpgset->FirstPage);
-		docu.writeAttribute("Rows", itpgset->Rows);
-		docu.writeAttribute("Columns", itpgset->Columns);
-//		docu.writeAttribute("GapHorizontal", itpgset->GapHorizontal);
-//		docu.writeAttribute("GapVertical", itpgset->GapVertical);
-//		docu.writeAttribute("GapBelow", itpgset->GapBelow);
-		QStringList pNames = itpgset->pageNames;
-		for (auto itpgsetN = pNames.begin(); itpgsetN != pNames.end(); ++itpgsetN )
+		docu.writeAttribute("Name", pageSet.Name);
+		docu.writeAttribute("FirstPage", pageSet.FirstPage);
+		docu.writeAttribute("Rows", pageSet.Rows);
+		docu.writeAttribute("Columns", pageSet.Columns);
+		for (const QString& pageName : pageSet.pageNames)
 		{
 			docu.writeEmptyElement("PageNames");
-			docu.writeAttribute("Name", (*itpgsetN));
+			docu.writeAttribute("Name", pageName);
 		}
 		docu.writeEndElement();
 	}
 	docu.writeEndElement();
 }
 
-void Scribus150Format::writePatterns(ScXmlStreamWriter & docu, const QString& baseDir, bool part, Selection* selection)
+void Scribus150Format::writePatterns(ScXmlStreamWriter & docu, const QString& baseDir, bool part, Selection* selection) const
 {
 	QStringList patterns;
 	if (part)
@@ -1699,7 +1683,7 @@ void Scribus150Format::writeContent(ScXmlStreamWriter & docu, const QString& bas
 	WriteObjects(m_Doc, docu, baseDir, m_mwProgressBar, m_Doc->MasterPages.count()+m_Doc->DocPages.count()+m_Doc->MasterItems.count()+m_Doc->FrameItems.count(), ItemSelectionPage);
 }
 
-void Scribus150Format::WritePages(ScribusDoc *doc, ScXmlStreamWriter& docu, QProgressBar *dia2, uint maxC, bool master)
+void Scribus150Format::WritePages(ScribusDoc *doc, ScXmlStreamWriter& docu, QProgressBar *dia2, uint maxC, bool master) const
 {
 	uint ObCount = maxC;
 	ScPage *page;
@@ -1782,7 +1766,7 @@ namespace { // anon
 	}
 } // namespace anon
 
-void Scribus150Format::writeStoryText(ScribusDoc *doc, ScXmlStreamWriter& docu, StoryText& story, PageItem* item)
+void Scribus150Format::writeStoryText(ScribusDoc *doc, ScXmlStreamWriter& docu, StoryText& story, PageItem* item) const
 {
 	docu.writeStartElement("StoryText");
 
@@ -1794,7 +1778,7 @@ void Scribus150Format::writeStoryText(ScribusDoc *doc, ScXmlStreamWriter& docu, 
 	docu.writeEndElement();
 }
 
-void Scribus150Format::writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter &docu, StoryText& story, PageItem* item)
+void Scribus150Format::writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter &docu, StoryText& story, PageItem* item) const
 {
 	CharStyle lastStyle;
 	int lastPos = 0;
@@ -1931,7 +1915,7 @@ void Scribus150Format::writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter &docu, Sto
 	}
 }
 
-void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, const QString& baseDir, QProgressBar *dia2, uint maxC, ItemSelection master, QList<PageItem*> *some_items)
+void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, const QString& baseDir, QProgressBar *dia2, uint maxC, ItemSelection master, QList<PageItem*> *some_items) const
 {
 	uint ObCount = maxC;
 	QList<PageItem*> *items = nullptr;
@@ -2202,7 +2186,6 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 
 		if (item->isWelded())
 		{
-			// bool isWelded = false;
 			for (int i = 0 ; i <  item->weldList.count(); i++)
 			{
 				PageItem::WeldingInfo wInf = item->weldList.at(i);
@@ -2376,9 +2359,6 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			}
 			docu.writeCharacters(latexitem->formula());
 			docu.writeEndElement();
-			/*QDomText latextext = docu->createTextNode(latexitem->formula());
-			latexinfo.appendChild(latextext);
-			ob.appendChild(latexinfo);*/
 		}
 #ifdef HAVE_OSG
 		if (item->isOSGFrame())
@@ -2624,16 +2604,16 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 		if (attributes->count() > 0)
 		{
 			docu.writeStartElement("PageItemAttributes");
-			for (auto objAttrIt = attributes->begin() ; objAttrIt != attributes->end(); ++objAttrIt )
+			for (const auto& itemAttr : *attributes)
 			{
 				docu.writeEmptyElement("ItemAttribute");
-				docu.writeAttribute("Name", objAttrIt->name);
-				docu.writeAttribute("Type", objAttrIt->type);
-				docu.writeAttribute("Value", objAttrIt->value);
-				docu.writeAttribute("Parameter", objAttrIt->parameter);
-				docu.writeAttribute("Relationship", objAttrIt->relationship);
-				docu.writeAttribute("RelationshipTo", objAttrIt->relationshipto);
-				docu.writeAttribute("AutoAddTo", objAttrIt->autoaddto);
+				docu.writeAttribute("Name", itemAttr.name);
+				docu.writeAttribute("Type", itemAttr.type);
+				docu.writeAttribute("Value", itemAttr.value);
+				docu.writeAttribute("Parameter", itemAttr.parameter);
+				docu.writeAttribute("Relationship", itemAttr.relationship);
+				docu.writeAttribute("RelationshipTo", itemAttr.relationshipto);
+				docu.writeAttribute("AutoAddTo", itemAttr.autoaddto);
 			}
 			docu.writeEndElement();
 		}
@@ -2641,7 +2621,7 @@ void Scribus150Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 	}
 }
 
-void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, const QString& baseDir)
+void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, const QString& baseDir) const
 {
 	docu.writeAttribute("OwnPage", item->OwnPage);
 	docu.writeAttribute("ItemID", qHash(item) & 0x7FFFFFFF);
@@ -2950,8 +2930,8 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	{
 		docu.writeAttribute("NUMDASH", item->DashValues.count());
 		QString dlp;
-		for (auto dax = item->DashValues.begin(); dax != item->DashValues.end(); ++dax)
-			dlp += tmp.setNum((*dax)) + " ";
+		for (auto dashValue : item->DashValues)
+			dlp += QString::number(dashValue) + " ";
 		docu.writeAttribute("DASHS", dlp);
 		docu.writeAttribute("DASHOFF", item->DashOffset);
 	}
