@@ -15,7 +15,6 @@ for which a new license (GPL+exception) is in place.
 class SCRIBUS_API ScXmlStreamAttributes : public QXmlStreamAttributes
 {
 public:
-
 	ScXmlStreamAttributes(void);
 	ScXmlStreamAttributes(const QXmlStreamAttributes& attrs);
 
@@ -36,8 +35,9 @@ public:
 class SCRIBUS_API ScXmlStreamReader : public QXmlStreamReader
 {
 public:
-	ScXmlStreamReader(const QString& string) : QXmlStreamReader(string) {};
-	ScXmlStreamReader(QIODevice* device) : QXmlStreamReader(device) {};
+	explicit ScXmlStreamReader(const QString& string) : QXmlStreamReader(string) {};
+	explicit ScXmlStreamReader(QIODevice* device) : QXmlStreamReader(device) {};
+
 	ScXmlStreamAttributes scAttributes(void) const;
 
 	QString nameAsString() const { return name().toString(); }

@@ -20,9 +20,9 @@ class SCRIBUS_API ScXmlStreamWriter : public QXmlStreamWriter
 {
 public:
 	ScXmlStreamWriter(void) : QXmlStreamWriter() {}
-	ScXmlStreamWriter(QByteArray* array) : QXmlStreamWriter(array) {}
-	ScXmlStreamWriter(QIODevice* device) : QXmlStreamWriter(device) {}
-	ScXmlStreamWriter(QString*   string) : QXmlStreamWriter(string) {}
+	explicit ScXmlStreamWriter(QByteArray* array) : QXmlStreamWriter(array) {}
+	explicit ScXmlStreamWriter(QIODevice* device) : QXmlStreamWriter(device) {}
+	explicit ScXmlStreamWriter(QString*   string) : QXmlStreamWriter(string) {}
 
 	void writeAttribute(const QString& name, const QString& value) { QXmlStreamWriter::writeAttribute(name, value); }
 	void writeAttribute(const QString& name, const PDFVersion& value) { QXmlStreamWriter::writeAttribute(name, QString::number(value)); }
