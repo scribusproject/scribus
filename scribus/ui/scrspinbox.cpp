@@ -277,7 +277,6 @@ double ScrSpinBox::valueFromText(const QString & text) const
 
 	//Add in the fparser constants using our unit strings, and the conversion factors.
 	FunctionParser fp;
-// 	setFPConstants(fp);
 	fp.AddUnit(CommonStrings::strPT.toStdString(), value2value(1.0, SC_PT, m_unitIndex));
 	fp.AddUnit(CommonStrings::strMM.toStdString(), value2value(1.0, SC_MM, m_unitIndex));
 	fp.AddUnit(CommonStrings::strIN.toStdString(), value2value(1.0, SC_IN, m_unitIndex));
@@ -299,9 +298,18 @@ double ScrSpinBox::valueFromText(const QString & text) const
 	std::string str(ts.toLocal8Bit().data());
 	double erg = this->value();
 	int ret = fp.Parse(str, "", true);
-	if(ret < 0)
+	if (ret < 0)
 		erg = fp.Eval(nullptr);
 	//qDebug() << "fp value =" << erg ;
+
+	if (m_unitIndex == SC_DEGREES)
+	{
+		while (erg < minimum())
+			erg += 360.0;
+		while (erg > maximum())
+			erg -= 360.0;
+	}
+
 	return erg;
 }
 
