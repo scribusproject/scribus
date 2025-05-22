@@ -1784,46 +1784,44 @@ void Scribus171Format::WritePages(ScribusDoc *doc, ScXmlStreamWriter& docu, QPro
 			dia2->setValue(ObCount);
 		if (master)
 		{
-			docu.writeStartElement("MASTERPAGE");
+			docu.writeStartElement("MasterPage");
 			page = doc->MasterPages.at(i);
 		}
 		else
 		{
-			docu.writeStartElement("PAGE");
+			docu.writeStartElement("Page");
 			page = doc->DocPages.at(i);
 		}
-		docu.writeAttribute("PAGEXPOS",page->xOffset());
-		docu.writeAttribute("PAGEYPOS",page->yOffset());
-		docu.writeAttribute("PAGEWIDTH",page->width());
-		docu.writeAttribute("PAGEHEIGHT",page->height());
-		docu.writeAttribute("BORDERLEFT",page->initialMargins.left());
-		docu.writeAttribute("BORDERRIGHT",page->initialMargins.right());
-		docu.writeAttribute("BORDERTOP",page->initialMargins.top());
-		docu.writeAttribute("BORDERBOTTOM",page->initialMargins.bottom());
-		docu.writeAttribute("NUM",page->pageNr());
-		docu.writeAttribute("NAM",page->pageName());
-		docu.writeAttribute("MNAM",page->masterPageName());
+		docu.writeAttribute("PageXPosition",page->xOffset());
+		docu.writeAttribute("PageYPosition",page->yOffset());
+		docu.writeAttribute("PageWidth",page->width());
+		docu.writeAttribute("PageHeight",page->height());
+		docu.writeAttribute("BorderLeft",page->initialMargins.left());
+		docu.writeAttribute("BorderRight",page->initialMargins.right());
+		docu.writeAttribute("BorderTop",page->initialMargins.top());
+		docu.writeAttribute("BorderBottom",page->initialMargins.bottom());
+		docu.writeAttribute("PageNumber",page->pageNr());
+		docu.writeAttribute("PageName",page->pageName());
+		docu.writeAttribute("MasterPageName",page->masterPageName());
 		docu.writeAttribute("Size", page->size());
 		docu.writeAttribute("Orientation", page->orientation());
-		docu.writeAttribute("LEFT", page->LeftPg);
-		docu.writeAttribute("PRESET", page->marginPreset);
-		docu.writeAttribute("VerticalGuides", GuideManagerIO::writeVerticalGuides(
-													page, GuideManagerCore::Standard));
-		docu.writeAttribute("HorizontalGuides", GuideManagerIO::writeHorizontalGuides(
-													page, GuideManagerCore::Standard));
-		docu.writeAttribute("AGhorizontalAutoGap", page->guides.horizontalAutoGap());
-		docu.writeAttribute("AGverticalAutoGap", page->guides.verticalAutoGap());
-		docu.writeAttribute("AGhorizontalAutoCount", page->guides.horizontalAutoCount());
-		docu.writeAttribute("AGverticalAutoCount", page->guides.verticalAutoCount());
-		docu.writeAttribute("AGhorizontalAutoRefer", page->guides.horizontalAutoRefer());
-		docu.writeAttribute("AGverticalAutoRefer", page->guides.verticalAutoRefer());
-		docu.writeAttribute("AGSelection", GuideManagerIO::writeSelection(page));
-		docu.writeAttribute("pageEffectDuration", page->PresentVals.pageEffectDuration);
-		docu.writeAttribute("pageViewDuration", page->PresentVals.pageViewDuration);
-		docu.writeAttribute("effectType", page->PresentVals.effectType);
-		docu.writeAttribute("Dm", page->PresentVals.Dm);
-		docu.writeAttribute("M", page->PresentVals.M);
-		docu.writeAttribute("Di", page->PresentVals.Di);
+		docu.writeAttribute("LeftPage", page->LeftPg);
+		docu.writeAttribute("Preset", page->marginPreset);
+		docu.writeAttribute("VerticalGuides", GuideManagerIO::writeVerticalGuides(page, GuideManagerCore::Standard));
+		docu.writeAttribute("HorizontalGuides", GuideManagerIO::writeHorizontalGuides(page, GuideManagerCore::Standard));
+		docu.writeAttribute("AutoGuideHorizontalGap", page->guides.horizontalAutoGap());
+		docu.writeAttribute("AutoGuideVerticalGap", page->guides.verticalAutoGap());
+		docu.writeAttribute("AutoGuideHorizontalCount", page->guides.horizontalAutoCount());
+		docu.writeAttribute("AutoGuideVerticalCount", page->guides.verticalAutoCount());
+		docu.writeAttribute("AutoGuideHorizontalReference", page->guides.horizontalAutoRefer());
+		docu.writeAttribute("AutoGuideVerticalReference", page->guides.verticalAutoRefer());
+		docu.writeAttribute("AutoGuideSelection", GuideManagerIO::writeSelection(page));
+		docu.writeAttribute("PageEffectDuration", page->PresentVals.pageEffectDuration);
+		docu.writeAttribute("PageViewDuration", page->PresentVals.pageViewDuration);
+		docu.writeAttribute("PageEffectType", page->PresentVals.effectType);
+		docu.writeAttribute("PageEffectLineDirection", page->PresentVals.Dm);
+		docu.writeAttribute("PageEffectInsideOutside", page->PresentVals.M);
+		docu.writeAttribute("PageEffectDirection", page->PresentVals.Di);
 		docu.writeEndElement();
 	}
 }

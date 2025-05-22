@@ -1838,7 +1838,14 @@ bool Scribus171Format::loadFile(const QString & fileName, const FileFormat & /* 
 			success = readHyphen(m_Doc, reader);
 			if (!success) break;
 		}
+		//Remove uppercase in 1.8 format
 		else if (tagName == QLatin1String("PAGE") || tagName == QLatin1String("MASTERPAGE"))
+		{
+			success = readPage(m_Doc, reader);
+			if (!success)
+				break;
+		}
+		else if (tagName == QLatin1String("Page") || tagName == QLatin1String("MasterPage"))
 		{
 			success = readPage(m_Doc, reader);
 			if (!success)
@@ -4291,7 +4298,7 @@ bool Scribus171Format::readHyphen(ScribusDoc *doc, ScXmlStreamReader& reader) co
 			QString word = attrs.valueAsString("Word");
 			hyphenationPrefs.ignoredWords.insert(word);
 		}
-		//Removed uppercase in 1.8
+		//Remove uppercase in 1.8
 		else if (reader.isStartElement() && reader.name() == QLatin1String("EXCEPTION"))
 		{
 			ScXmlStreamAttributes attrs = reader.scAttributes();
@@ -4314,32 +4321,74 @@ bool Scribus171Format::readPage(ScribusDoc* doc, ScXmlStreamReader& reader)
 	QString tagName(reader.nameAsString());
 
 	ScXmlStreamAttributes attrs = reader.scAttributes();
-	int     pageNum = attrs.valueAsInt("NUM");
-	QString pageName = attrs.valueAsString("NAM", "");
+	int pageNum = 0;
+	QString pageName;
+	//Remove uppercase in 1.8
+	if (attrs.hasAttribute("NUM"))
+		pageNum = attrs.valueAsInt("NUM");
+	else
+		pageNum = attrs.valueAsInt("PageNumber");
+	if (attrs.hasAttribute("NAM"))
+		pageName = attrs.valueAsString("NAM", "");
+	else
+		pageName = attrs.valueAsString("PageName", "");
+	//Remove uppercase in 1.8
 	if (tagName == QLatin1String("MASTERPAGE") && pageName.isEmpty())
 	{
 		qDebug() << "scribus171format: corrupted masterpage with empty name detected";
 		return true;
 	}
+	else
+		if (tagName == QLatin1String("MasterPage") && pageName.isEmpty())
+		{
+			qDebug() << "scribus171format: corrupted masterpage with empty name detected";
+			return true;
+		}
 
 	bool savedMasterPageMode = m_Doc->masterPageMode();
 	m_Doc->setMasterPageMode(!pageName.isEmpty());
 	ScPage* newPage = pageName.isEmpty() ? doc->addPage(pageNum) : doc->addMasterPage(pageNum, pageName);
 
-	newPage->LeftPg = attrs.valueAsInt("LEFT", 0);
-	QString mpName = attrs.valueAsString("MNAM", "Normal");
+	//Remove uppercase in 1.8
+	if (attrs.hasAttribute("LEFT"))
+		newPage->LeftPg = attrs.valueAsInt("LEFT", 0);
+	else
+		newPage->LeftPg = attrs.valueAsInt("LeftPage", 0);
+	//Remove uppercase in 1.8
+	QString mpName;
+	if (attrs.hasAttribute("MNAM"))
+		mpName = attrs.valueAsString("MNAM", "Normal");
+	else
+		mpName = attrs.valueAsString("MasterPageName", "Normal");
 	newPage->setMasterPageName(m_Doc->masterPageMode() ? QString() : mpName);
 	if (attrs.hasAttribute("Size"))
 		newPage->setSize(attrs.valueAsString("Size"));
 	if (attrs.hasAttribute("Orientation"))
 		newPage->setOrientation(attrs.valueAsInt("Orientation"));
-	newPage->setXOffset(attrs.valueAsDouble("PAGEXPOS"));
-	newPage->setYOffset(attrs.valueAsDouble("PAGEYPOS"));
+
+	//Remove uppercase in 1.8
+	if (attrs.hasAttribute("PAGEXPOS"))
+		newPage->setXOffset(attrs.valueAsDouble("PAGEXPOS"));
+	else
+		newPage->setXOffset(attrs.valueAsDouble("PageXPosition"));
+	//Remove uppercase in 1.8
+	if (attrs.hasAttribute("PAGEYPOS"))
+		newPage->setYOffset(attrs.valueAsDouble("PAGEYPOS"));
+	else
+		newPage->setYOffset(attrs.valueAsDouble("PageYPosition"));
+
+
+	//Remove uppercase in 1.8
 	if (attrs.hasAttribute("PAGEWIDTH"))
 		newPage->setWidth(attrs.valueAsDouble("PAGEWIDTH"));
 	else
-		newPage->setWidth(attrs.valueAsDouble("PAGEWITH"));
-	newPage->setHeight(attrs.valueAsDouble("PAGEHEIGHT"));
+		newPage->setWidth(attrs.valueAsDouble("PageWidth"));
+
+	//Remove uppercase in 1.8
+	if (attrs.hasAttribute("PAGEHEIGHT"))
+		newPage->setHeight(attrs.valueAsDouble("PAGEHEIGHT"));
+	else
+		newPage->setHeight(attrs.valueAsDouble("PageHeight"));
 
 	//14704: Double check the page size should not be Custom in case the size doesn't match a standard size
 	if (attrs.hasAttribute("Size"))
@@ -4354,42 +4403,96 @@ bool Scribus171Format::readPage(ScribusDoc* doc, ScXmlStreamReader& reader)
 
 	newPage->setInitialHeight(newPage->height());
 	newPage->setInitialWidth(newPage->width());
-	newPage->initialMargins.setTop(qMax(0.0, attrs.valueAsDouble("BORDERTOP")));
-	newPage->initialMargins.setBottom(qMax(0.0, attrs.valueAsDouble("BORDERBOTTOM")));
-	newPage->initialMargins.setLeft(qMax(0.0, attrs.valueAsDouble("BORDERLEFT")));
-	newPage->initialMargins.setRight(qMax(0.0, attrs.valueAsDouble("BORDERRIGHT")));
-	newPage->marginPreset = attrs.valueAsInt("PRESET", 0);
+	//Remove uppercase in 1.8
+	if (attrs.hasAttribute("BORDERTOP"))
+		newPage->initialMargins.setTop(qMax(0.0, attrs.valueAsDouble("BORDERTOP")));
+	else
+		newPage->initialMargins.setTop(qMax(0.0, attrs.valueAsDouble("BorderTop")));
+	//Remove uppercase in 1.8
+	if (attrs.hasAttribute("BORDERBOTTOM"))
+		newPage->initialMargins.setBottom(qMax(0.0, attrs.valueAsDouble("BORDERBOTTOM")));
+	else
+		newPage->initialMargins.setBottom(qMax(0.0, attrs.valueAsDouble("BorderBottom")));
+	//Remove uppercase in 1.8
+	if (attrs.hasAttribute("BORDERLEFT"))
+		newPage->initialMargins.setLeft(qMax(0.0, attrs.valueAsDouble("BORDERLEFT")));
+	else
+		newPage->initialMargins.setLeft(qMax(0.0, attrs.valueAsDouble("BorderLeft")));
+	//Remove uppercase in 1.8
+	if (attrs.hasAttribute("BORDERRIGHT"))
+		newPage->initialMargins.setRight(qMax(0.0, attrs.valueAsDouble("BORDERRIGHT")));
+	else
+		newPage->initialMargins.setRight(qMax(0.0, attrs.valueAsDouble("BorderRight")));
+	//Remove uppercase in 1.8
+	if (attrs.hasAttribute("PRESET"))
+		newPage->marginPreset = attrs.valueAsInt("PRESET", 0);
+	else
+		newPage->marginPreset = attrs.valueAsInt("Preset", 0);
 	newPage->Margins.setTop(newPage->initialMargins.top());
 	newPage->Margins.setBottom(newPage->initialMargins.bottom());
 
 	m_Doc->setMasterPageMode(savedMasterPageMode);
 
 	// guides reading
-	newPage->guides.setHorizontalAutoGap(attrs.valueAsDouble("AGhorizontalAutoGap", 0.0));
-	newPage->guides.setVerticalAutoGap(attrs.valueAsDouble("AGverticalAutoGap", 0.0));
-	newPage->guides.setHorizontalAutoCount(attrs.valueAsInt("AGhorizontalAutoCount", 0) );
-	newPage->guides.setVerticalAutoCount(attrs.valueAsInt("AGverticalAutoCount", 0) );
-	newPage->guides.setHorizontalAutoRefer(attrs.valueAsInt("AGhorizontalAutoRefer", 0) );
-	newPage->guides.setVerticalAutoRefer(attrs.valueAsInt("AGverticalAutoRefer", 0) );
-	GuideManagerIO::readVerticalGuides(attrs.valueAsString("VerticalGuides"),
-			newPage,
-			GuideManagerCore::Standard,
-			attrs.hasAttribute("NumVGuides"));
-	GuideManagerIO::readHorizontalGuides(attrs.valueAsString("HorizontalGuides"),
-			newPage,
-			GuideManagerCore::Standard,
-			attrs.hasAttribute("NumHGuides"));
-	GuideManagerIO::readSelection(attrs.valueAsString("AGSelection"), newPage);
+	//Remove old ones in 1.8
+	if (attrs.hasAttribute("AGhorizontalAutoGap"))
+	{
+		newPage->guides.setHorizontalAutoGap(attrs.valueAsDouble("AGhorizontalAutoGap", 0.0));
+		newPage->guides.setVerticalAutoGap(attrs.valueAsDouble("AGverticalAutoGap", 0.0));
+		newPage->guides.setHorizontalAutoCount(attrs.valueAsInt("AGhorizontalAutoCount", 0));
+		newPage->guides.setVerticalAutoCount(attrs.valueAsInt("AGverticalAutoCount", 0));
+		newPage->guides.setHorizontalAutoRefer(attrs.valueAsInt("AGhorizontalAutoRefer", 0));
+		newPage->guides.setVerticalAutoRefer(attrs.valueAsInt("AGverticalAutoRefer", 0));
+	}
+	else
+	{
+		newPage->guides.setHorizontalAutoGap(attrs.valueAsDouble("AutoGuideHorizontalGap", 0.0));
+		newPage->guides.setVerticalAutoGap(attrs.valueAsDouble("AutoGuideVerticalGap", 0.0));
+		newPage->guides.setHorizontalAutoCount(attrs.valueAsInt("AutoGuideHorizontalCount", 0));
+		newPage->guides.setVerticalAutoCount(attrs.valueAsInt("AutoGuideVerticalCount", 0));
+		newPage->guides.setHorizontalAutoRefer(attrs.valueAsInt("AutoGuideHorizontalReference", 0));
+		newPage->guides.setVerticalAutoRefer(attrs.valueAsInt("AutoGuideVerticalReference", 0));
+	}
+	GuideManagerIO::readVerticalGuides(attrs.valueAsString("VerticalGuides"), newPage, GuideManagerCore::Standard, false);
+	GuideManagerIO::readHorizontalGuides(attrs.valueAsString("HorizontalGuides"), newPage, GuideManagerCore::Standard, false);
+	if (attrs.hasAttribute("AGSelection"))
+		GuideManagerIO::readSelection(attrs.valueAsString("AGSelection"), newPage);
+	else
+		GuideManagerIO::readSelection(attrs.valueAsString("AutoGuideSelection"), newPage);
 
 	newPage->guides.addHorizontals(newPage->guides.getAutoHorizontals(newPage), GuideManagerCore::Auto);
 	newPage->guides.addVerticals(newPage->guides.getAutoVerticals(newPage), GuideManagerCore::Auto);
 	struct PDFPresentationData ef;
-	ef.pageEffectDuration =  attrs.valueAsInt("pageEffectDuration", 1);
-	ef.pageViewDuration =  attrs.valueAsInt("pageViewDuration", 1);
-	ef.effectType = attrs.valueAsInt("effectType", 0);
-	ef.Dm = attrs.valueAsInt("Dm", 0);
-	ef.M = attrs.valueAsInt("M", 0);
-	ef.Di = attrs.valueAsInt("Di", 0);
+	//Remove old ones in 1.8
+	if (attrs.hasAttribute("pageEffectDuration"))
+		ef.pageEffectDuration =  attrs.valueAsInt("pageEffectDuration", 1);
+	else
+		ef.pageEffectDuration =  attrs.valueAsInt("PageEffectDuration", 1);
+	//Remove old ones in 1.8
+	if (attrs.hasAttribute("pageViewDuration"))
+		ef.pageViewDuration =  attrs.valueAsInt("pageViewDuration", 1);
+	else
+		ef.pageViewDuration =  attrs.valueAsInt("PageViewDuration", 1);
+	//Remove old ones in 1.8
+	if (attrs.hasAttribute("effectType"))
+		ef.effectType = attrs.valueAsInt("effectType", 0);
+	else
+		ef.effectType = attrs.valueAsInt("PageEffectType", 0);
+	//Remove old ones in 1.8
+	if (attrs.hasAttribute("Dm"))
+		ef.Dm = attrs.valueAsInt("Dm", 0);
+	else
+		ef.Dm = attrs.valueAsInt("PageEffectLineDirection", 0);
+	//Remove old ones in 1.8
+	if (attrs.hasAttribute("Dm"))
+		ef.M = attrs.valueAsInt("M", 0);
+	else
+		ef.M = attrs.valueAsInt("PageEffectInsideOutside", 0);
+	//Remove old ones in 1.8
+	if (attrs.hasAttribute("Dm"))
+		ef.Di = attrs.valueAsInt("Di", 0);
+	else
+		ef.Di = attrs.valueAsInt("PageEffectDirection", 0);
 	newPage->PresentVals = ef;
 	return true;
 }
@@ -7793,11 +7896,24 @@ bool Scribus171Format::readPageCount(const QString& fileName, int *num1, int *nu
 			firstElement = false;
 			continue;
 		}
+		//Remove uppercase in 1.8 format
 		if (tagName == QLatin1String("PAGE"))
 			counter++;
+		if (tagName == QLatin1String("Page"))
+			counter++;
+		//Remove uppercase in 1.8 format
 		if (tagName == QLatin1String("MASTERPAGE"))
 		{
 			pageName = reader.scAttributes().valueAsString("NAM");
+			if (!pageName.isEmpty())
+			{
+				counter2++;
+				masterPageNames.append(pageName);
+			}
+		}
+		if (tagName == QLatin1String("MasterPage"))
+		{
+			pageName = reader.scAttributes().valueAsString("PageName");
 			if (!pageName.isEmpty())
 			{
 				counter2++;
