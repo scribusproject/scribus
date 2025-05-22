@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCXMLSTREAMREADER_H
 #define SCXMLSTREAMREADER_H
 
+#include <QAnyStringView>
 #include <QXmlStreamAttributes>
 #include <QXmlStreamReader>
 
@@ -18,18 +19,12 @@ public:
 	ScXmlStreamAttributes(void);
 	ScXmlStreamAttributes(const QXmlStreamAttributes& attrs);
 
-	bool    valueAsBool   (const char*    attrName, bool def = false) const;
-	bool    valueAsBool   (const QString& attrName, bool def = false) const;
-	int     valueAsInt    (const char*    attrName, int def = 0) const;
-	int     valueAsInt    (const QString& attrName, int def = 0) const;
-	int     valueAsInt    (const char*    attrName, int min, int max, int def = 0) const;
-	int     valueAsInt    (const QString& attrName, int min, int max, int def = 0) const;
-	uint    valueAsUInt   (const char*    attrName, uint def = 0) const;
-	uint    valueAsUInt   (const QString& attrName, uint def = 0) const;
-	double  valueAsDouble (const char*    attrName, double def = 0.0) const;
-	double  valueAsDouble (const QString& attrName, double def = 0.0) const;
-	QString valueAsString (const char*    attrName, const QString& def = QString()) const;
-	QString valueAsString (const QString& attrName, const QString& def = QString()) const;
+	bool    valueAsBool   (QAnyStringView attrName, bool def = false) const;
+	int     valueAsInt    (QAnyStringView attrName, int def = 0) const;
+	int     valueAsInt    (QAnyStringView attrName, int min, int max, int def = 0) const;
+	uint    valueAsUInt   (QAnyStringView attrName, uint def = 0) const;
+	double  valueAsDouble (QAnyStringView attrName, double def = 0.0) const;
+	QString valueAsString (QAnyStringView attrName, const QString& def = QString()) const;
 };
 
 class SCRIBUS_API ScXmlStreamReader : public QXmlStreamReader
