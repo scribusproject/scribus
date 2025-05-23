@@ -259,7 +259,7 @@ bool Scribus171Format::savePalette(const QString & fileName)
 	docu.setAutoFormatting(true);
 	docu.setDevice(outputFile.data());
 	docu.writeStartDocument();
-	docu.writeStartElement("SCRIBUSCOLORS");
+	docu.writeStartElement("ScribusColors");
 	writeColors(docu);
 	writeGradients(docu);
 	writePatterns(docu, fileDir);
@@ -769,11 +769,11 @@ void Scribus171Format::writeGradients(ScXmlStreamWriter & docu, const QStringLis
 		const QList<VColorStop*>& cstops = gradient.colorStops();
 		for (int cst = 0; cst < gradient.stops(); ++cst)
 		{
-			docu.writeEmptyElement("CSTOP");
-			docu.writeAttribute("RAMP", cstops.at(cst)->rampPoint);
-			docu.writeAttribute("NAME", cstops.at(cst)->name);
-			docu.writeAttribute("SHADE", cstops.at(cst)->shade);
-			docu.writeAttribute("TRANS", cstops.at(cst)->opacity);
+			docu.writeEmptyElement("ColorStop");
+			docu.writeAttribute("Ramp", cstops.at(cst)->rampPoint);
+			docu.writeAttribute("Name", cstops.at(cst)->name);
+			docu.writeAttribute("Shade", cstops.at(cst)->shade);
+			docu.writeAttribute("Opacity", cstops.at(cst)->opacity);
 		}
 		docu.writeEndElement();
 	}
@@ -2425,19 +2425,19 @@ void Scribus171Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 
 		if (item->isLatexFrame())
 		{
-			docu.writeStartElement("LATEX");
+			docu.writeStartElement("LaTeX");
 			const PageItem_LatexFrame *latexitem = item->asLatexFrame();
 			QFileInfo fi(latexitem->configFile());
 			docu.writeAttribute("ConfigFile", fi.fileName());
 			docu.writeAttribute("DPI", latexitem->dpi());
-			docu.writeAttribute("USE_PREAMBLE", latexitem->usePreamble());
+			docu.writeAttribute("UsePreamble", latexitem->usePreamble());
 			QMapIterator<QString, QString> i(latexitem->editorProperties);
 			while (i.hasNext())
 			{
 				i.next();
-				docu.writeStartElement("PROPERTY");
-				docu.writeAttribute("name", i.key());
-				docu.writeAttribute("value", i.value());
+				docu.writeStartElement("Property");
+				docu.writeAttribute("Name", i.key());
+				docu.writeAttribute("Value", i.value());
 				docu.writeEndElement();
 			}
 			docu.writeCharacters(latexitem->formula());

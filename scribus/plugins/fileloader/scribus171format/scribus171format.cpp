@@ -1091,7 +1091,7 @@ bool Scribus171Format::loadPalette(const QString & fileName)
 
 		if (firstElement)
 		{
-			if (tagName != QLatin1String("SCRIBUSCOLORS"))
+			if (tagName != QLatin1String("SCRIBUSCOLORS") && tagName != QLatin1String("ScribusColors"))
 			{
 				success = false;
 				break;
@@ -1099,7 +1099,10 @@ bool Scribus171Format::loadPalette(const QString & fileName)
 			firstElement = false;
 		}
 		// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...
+		//Remove uppercase in 1.8
 		if (tagName == QLatin1String("COLOR") && attrs.valueAsString("NAME") != CommonStrings::None)
+			readColor(m_Doc->PageColors, attrs);
+		if (tagName == QLatin1String("Color") && attrs.valueAsString("Name") != CommonStrings::None)
 			readColor(m_Doc->PageColors, attrs);
 		if (tagName == QLatin1String("Gradient"))
 		{
@@ -1711,6 +1714,8 @@ bool Scribus171Format::loadFile(const QString & fileName, const FileFormat & /* 
 		}
 		// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...
 		else if (tagName == QLatin1String("COLOR") && attrs.valueAsString("NAME") != CommonStrings::None)
+			readColor(m_Doc->PageColors, attrs);
+		else if (tagName == QLatin1String("Color") && attrs.valueAsString("Name") != CommonStrings::None)
 			readColor(m_Doc->PageColors, attrs);
 		else if (tagName == QLatin1String("Gradient"))
 		{
@@ -2880,6 +2885,7 @@ bool Scribus171Format::readGradient(ScribusDoc *doc, VGradient &gra, ScXmlStream
 		ScXmlStreamReader::TokenType tType = reader.readNext();
 		if (tType == ScXmlStreamReader::EndElement && reader.name() == tagName)
 			break;
+		//Remove uppercase in 1.8 format
 		if (tType == ScXmlStreamReader::StartElement && reader.name() == QLatin1String("CSTOP"))
 		{
 			ScXmlStreamAttributes attrs = reader.scAttributes();
@@ -2889,6 +2895,16 @@ bool Scribus171Format::readGradient(ScribusDoc *doc, VGradient &gra, ScXmlStream
 			double opa = attrs.valueAsDouble("TRANS", 1.0);
 			gra.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
 		}
+		else
+			if (tType == ScXmlStreamReader::StartElement && reader.name() == QLatin1String("ColorStop"))
+			{
+				ScXmlStreamAttributes attrs = reader.scAttributes();
+				QString name = attrs.valueAsString("Name");
+				double ramp = attrs.valueAsDouble("Ramp", 0.0);
+				int shade = attrs.valueAsInt("Shade", 100);
+				double opa = attrs.valueAsDouble("Opacity", 1.0);
+				gra.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
+			}
 	}
 	return !reader.hasError();
 }
@@ -4849,7 +4865,8 @@ bool Scribus171Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 				tb.tabFillChar = tbCh[0];
 			tabValues.append(tb);
 		}
-		if (tName == QLatin1String("LATEX"))
+		//Remove uppercase in 1.8 format
+		if (tName == QLatin1String("LATEX") || tName == QLatin1String("LaTeX"))
 		{
 			if (newItem->isLatexFrame())
 			{
@@ -6869,7 +6886,11 @@ bool Scribus171Format::readLatexInfo(PageItem_LatexFrame* latexitem, ScXmlStream
 
 	latexitem->setConfigFile(attrs.valueAsString("ConfigFile"), true);
 	latexitem->setDpi(attrs.valueAsInt("DPI"));
-	latexitem->setUsePreamble(attrs.valueAsBool("USE_PREAMBLE"));
+	//Remove uppercase in 1.8 format
+	if (attrs.hasAttribute("USE_PREAMBLE"))
+		latexitem->setUsePreamble(attrs.valueAsBool("USE_PREAMBLE"));
+	else
+		latexitem->setUsePreamble(attrs.valueAsBool("UsePreamble"));
 
 	QString formula;
 	while (!reader.atEnd() && !reader.hasError())
@@ -6879,14 +6900,26 @@ bool Scribus171Format::readLatexInfo(PageItem_LatexFrame* latexitem, ScXmlStream
 			break;
 		if (reader.isCharacters())
 			formula += reader.text().toString();
+		//Remove uppercase in 1.8 format
 		if (reader.isStartElement() && reader.name() == QLatin1String("PROPERTY"))
 		{
 			ScXmlStreamAttributes tAtt = reader.scAttributes();
 			QString name = tAtt.valueAsString("name");
 			QString value = tAtt.valueAsString("value");
-			if (name.isEmpty()) continue;
+			if (name.isEmpty())
+				continue;
 			latexitem->editorProperties[name] = value;
 		}
+		else
+			if (reader.isStartElement() && reader.name() == QLatin1String("Property"))
+			{
+				ScXmlStreamAttributes tAtt = reader.scAttributes();
+				QString name = tAtt.valueAsString("Name");
+				QString value = tAtt.valueAsString("Value");
+				if (name.isEmpty())
+					continue;
+				latexitem->editorProperties[name] = value;
+			}
 	}
 	formula = formula.trimmed();
 	latexitem->setFormula(formula, false);
