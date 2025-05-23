@@ -2805,9 +2805,15 @@ bool Scribus171Format::readCheckProfile(ScribusDoc* doc, const ScXmlStreamAttrib
 void Scribus171Format::readColor(ColorList& colors, const ScXmlStreamAttributes& attrs) const
 {
 	ScColor color;
-	if (attrs.hasAttribute("SPACE"))
+	//Remove uppercase in 1.8 format
+	if (attrs.hasAttribute("SPACE") || attrs.hasAttribute("Space"))
 	{
-		QString space = attrs.valueAsString("SPACE");
+		//Remove uppercase in 1.8 format
+		QString space;
+		if (attrs.hasAttribute("SPACE"))
+			space = attrs.valueAsString("SPACE");
+		else
+			space = attrs.valueAsString("Space");
 		if (space == "CMYK")
 		{
 			double c = attrs.valueAsDouble("C", 0) / 100.0;
@@ -2844,7 +2850,12 @@ void Scribus171Format::readColor(ColorList& colors, const ScXmlStreamAttributes&
 	}
 	color.setSpotColor( attrs.valueAsBool("Spot", false) );
 	color.setRegistrationColor( attrs.valueAsBool("Register", false) );
-	QString name(attrs.valueAsString("NAME", color.name()));
+	QString name;
+	//Remove uppercase in 1.8 format
+	if (attrs.hasAttribute("NAME"))
+		name = attrs.valueAsString("NAME", color.name());
+	else
+		name = attrs.valueAsString("Name", color.name());
 	if (name == "All")
 	{
 		color.setSpotColor(true);
@@ -6989,10 +7000,17 @@ bool Scribus171Format::loadPage(const QString & fileName, int pageNumber, bool M
 			}
 			firstElement = false;
 		}
-
+		//Remove uppercase in 1.8 format
 		if (tagName == QLatin1String("COLOR") && attrs.valueAsString("NAME") != CommonStrings::None)
 		{
 			QString colorName = attrs.valueAsString("NAME");
+			if (m_Doc->PageColors.contains(colorName))
+				continue;
+			readColor(m_Doc->PageColors, attrs);
+		}
+		else if (tagName == QLatin1String("Color") && attrs.valueAsString("Name") != CommonStrings::None)
+		{
+			QString colorName = attrs.valueAsString("Name");
 			if (m_Doc->PageColors.contains(colorName))
 				continue;
 			readColor(m_Doc->PageColors, attrs);

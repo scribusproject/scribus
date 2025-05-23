@@ -708,13 +708,13 @@ void Scribus171Format::writeColors(ScXmlStreamWriter& docu, const QStringList& c
 			continue;
 
 		const ScColor& color = m_Doc->PageColors[colorName];
-		docu.writeEmptyElement("COLOR");
-		docu.writeAttribute("NAME", colorName);
+		docu.writeEmptyElement("Color");
+		docu.writeAttribute("Name", colorName);
 		if (color.getColorModel() == colorModelRGB)
 		{
 			double r, g, b;
 			color.getRGB(&r, &g, &b);
-			docu.writeAttribute("SPACE", "RGB");
+			docu.writeAttribute("Space", "RGB");
 			docu.writeAttribute("R", r * 255.0);
 			docu.writeAttribute("G", g * 255.0);
 			docu.writeAttribute("B", b * 255.0);
@@ -723,7 +723,7 @@ void Scribus171Format::writeColors(ScXmlStreamWriter& docu, const QStringList& c
 		{
 			double c, m, y, k;
 			color.getCMYK(&c, &m, &y, &k);
-			docu.writeAttribute("SPACE", "CMYK");
+			docu.writeAttribute("Space", "CMYK");
 			docu.writeAttribute("C", c * 100.0);
 			docu.writeAttribute("M", m * 100.0);
 			docu.writeAttribute("Y", y * 100.0);
@@ -733,7 +733,7 @@ void Scribus171Format::writeColors(ScXmlStreamWriter& docu, const QStringList& c
 		{
 			double L, a, b;
 			color.getLab(&L, &a, &b);
-			docu.writeAttribute("SPACE", "Lab");
+			docu.writeAttribute("Space", "Lab");
 			docu.writeAttribute("L", L);
 			docu.writeAttribute("A", a);
 			docu.writeAttribute("B", b);
