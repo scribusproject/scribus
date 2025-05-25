@@ -3491,41 +3491,59 @@ void Scribus171Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 			newStyle.setParent(CommonStrings::DefaultParagraphStyle);
 	}
 
-	static const QString LINESPMode("LINESPMode");
-	if (attrs.hasAttribute(LINESPMode))
-		newStyle.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(attrs.valueAsInt(LINESPMode)));
+	//Remove uppercase in 1.8 format
+	if (attrs.hasAttribute("LINESPMode"))
+		newStyle.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(attrs.valueAsInt("LINESPMode")));
+	else
+		newStyle.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(attrs.valueAsInt("LineSpacingMode")));
 
-	static const QString LINESP("LINESP");
-	if (attrs.hasAttribute(LINESP))
-		newStyle.setLineSpacing(attrs.valueAsDouble(LINESP));
+	//Remove uppercase in 1.8 format
+	if (attrs.hasAttribute("LINESP"))
+		newStyle.setLineSpacing(attrs.valueAsDouble("LINESP"));
+	else
+		newStyle.setLineSpacing(attrs.valueAsDouble("LineSpacing"));
 
-	static const QString INDENT("INDENT");
-	if (attrs.hasAttribute(INDENT))
-		newStyle.setLeftMargin(attrs.valueAsDouble(INDENT));
+	//Remove uppercase in 1.8 format
+	if (attrs.hasAttribute("INDENT"))
+		newStyle.setLeftMargin(attrs.valueAsDouble("INDENT"));
+	else
+		newStyle.setLeftMargin(attrs.valueAsDouble("LeftMargin"));
 
-	static const QString RMARGIN("RMARGIN");
-	if (attrs.hasAttribute(RMARGIN))
-		newStyle.setRightMargin(attrs.valueAsDouble(RMARGIN));
+	//Remove uppercase in 1.8 format
+	if (attrs.hasAttribute("RMARGIN"))
+		newStyle.setRightMargin(attrs.valueAsDouble("RMARGIN"));
+	else
+		newStyle.setRightMargin(attrs.valueAsDouble("RightMargin"));
 
-	static const QString FIRST("FIRST");
-	if (attrs.hasAttribute(FIRST))
-		newStyle.setFirstIndent(attrs.valueAsDouble(FIRST));
+	//Remove uppercase in 1.8 format
+	if (attrs.hasAttribute("FIRST"))
+		newStyle.setFirstIndent(attrs.valueAsDouble("FIRST"));
+	else
+		newStyle.setFirstIndent(attrs.valueAsDouble("FirstIndent"));
 
-	static const QString ALIGN("ALIGN");
-	if (attrs.hasAttribute(ALIGN))
-		newStyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(attrs.valueAsInt(ALIGN)));
+	//Remove uppercase in 1.8 format
+	if (attrs.hasAttribute("ALIGN"))
+		newStyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(attrs.valueAsInt("ALIGN")));
+	else
+		newStyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(attrs.valueAsInt("Alignment")));
 
-	static const QString DIRECTION("DIRECTION");
-	if (attrs.hasAttribute(DIRECTION))
-		newStyle.setDirection(static_cast<ParagraphStyle::DirectionType>(attrs.valueAsInt(DIRECTION)));
+	//Remove uppercase in 1.8 format
+	if (attrs.hasAttribute("DIRECTION"))
+		newStyle.setDirection(static_cast<ParagraphStyle::DirectionType>(attrs.valueAsInt("DIRECTION")));
+	else
+		newStyle.setDirection(static_cast<ParagraphStyle::DirectionType>(attrs.valueAsInt("Direction")));
 
-	static const QString VOR("VOR");
-	if (attrs.hasAttribute(VOR))
-		newStyle.setGapBefore(attrs.valueAsDouble(VOR));
+	//Remove uppercase in 1.8 format
+	if (attrs.hasAttribute("VOR"))
+		newStyle.setGapBefore(attrs.valueAsDouble("VOR"));
+	else
+		newStyle.setGapBefore(attrs.valueAsDouble("GapBefore"));
 
-	static const QString NACH("NACH");
-	if (attrs.hasAttribute(NACH))
-		newStyle.setGapAfter(attrs.valueAsDouble(NACH));
+	//Remove uppercase in 1.8 format
+	if (attrs.hasAttribute("NACH"))
+		newStyle.setGapAfter(attrs.valueAsDouble("NACH"));
+	else
+		newStyle.setGapAfter(attrs.valueAsDouble("GapAfter"));
 
 	static const QString ParagraphEffectCharStyle("ParagraphEffectCharStyle");
 	if (attrs.hasAttribute(ParagraphEffectCharStyle))
@@ -3539,21 +3557,25 @@ void Scribus171Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 	if (attrs.hasAttribute(ParagraphEffectIndent))
 		newStyle.setParEffectIndent(attrs.valueAsDouble(ParagraphEffectIndent));
 
-	static const QString DROP("DROP");
-	if (attrs.hasAttribute(DROP))
-		newStyle.setHasDropCap(static_cast<bool>(attrs.valueAsInt(DROP)));
+	//Remove uppercase in 1.8 format
+	if (attrs.hasAttribute("DROP"))
+		newStyle.setHasDropCap(static_cast<bool>(attrs.valueAsInt("DROP")));
+	else
+		newStyle.setHasDropCap(static_cast<bool>(attrs.valueAsInt("HasDropCap")));
 
-	static const QString DROPCHSTYLE("DROPCHSTYLE");
-	if (attrs.hasAttribute(DROPCHSTYLE))
-		newStyle.setPeCharStyleName(attrs.valueAsString(DROPCHSTYLE));
+	// static const QString DROPCHSTYLE("DROPCHSTYLE");
+	// if (attrs.hasAttribute(DROPCHSTYLE))
+	// 	newStyle.setPeCharStyleName(attrs.valueAsString(DROPCHSTYLE));
 
-	static const QString DROPLIN("DROPLIN");
-	if (attrs.hasAttribute(DROPLIN))
-		newStyle.setDropCapLines(attrs.valueAsInt(DROPLIN));
+	//Remove uppercase in 1.8 format
+	if (attrs.hasAttribute("DROPLIN"))
+		newStyle.setDropCapLines(attrs.valueAsInt("DROPLIN"));
+	else
+		newStyle.setDropCapLines(attrs.valueAsInt("DropCapLines"));
 
-	static const QString DROPDIST("DROPDIST");
-	if (attrs.hasAttribute(DROPDIST))
-		newStyle.setParEffectOffset(attrs.valueAsDouble(DROPDIST));
+	// static const QString DROPDIST("DROPDIST");
+	// if (attrs.hasAttribute(DROPDIST))
+	// 	newStyle.setParEffectOffset(attrs.valueAsDouble(DROPDIST));
 
 	static const QString Bullet("Bullet");
 	if (attrs.hasAttribute(Bullet))
@@ -3603,9 +3625,11 @@ void Scribus171Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 	if (attrs.hasAttribute(NumerationHigher))
 		newStyle.setNumHigher(static_cast<bool>(attrs.valueAsInt(NumerationHigher)));
 
-	static const QString PSHORTCUT("PSHORTCUT");
-	if (attrs.hasAttribute(PSHORTCUT))
-		newStyle.setShortcut(attrs.valueAsString(PSHORTCUT));
+	//Remove uppercase in 1.8 format
+	if (attrs.hasAttribute("PSHORTCUT"))
+		newStyle.setShortcut(attrs.valueAsString("PSHORTCUT"));
+	else
+		newStyle.setShortcut(attrs.valueAsString("ParagraphStyleShortcut"));
 
 	static const QString OpticalMargins("OpticalMargins");
 	if (attrs.hasAttribute(OpticalMargins))
@@ -3654,12 +3678,16 @@ void Scribus171Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 	static const QString KeepTogether("KeepTogether");
 	if (attrs.hasAttribute(KeepTogether))
 		newStyle.setKeepTogether(attrs.valueAsInt(KeepTogether));
-	static const QString BCOLOR("BCOLOR");
-	if (attrs.hasAttribute(BCOLOR))
-		newStyle.setBackgroundColor(attrs.valueAsString(BCOLOR, CommonStrings::None));
-	static const QString BSHADE("BSHADE");
-	if (attrs.hasAttribute(BSHADE))
-		newStyle.setBackgroundShade(attrs.valueAsInt(BSHADE, 100));
+	//Remove uppercase in 1.8 format
+	if (attrs.hasAttribute("BCOLOR"))
+		newStyle.setBackgroundColor(attrs.valueAsString("BCOLOR", CommonStrings::None));
+	else
+		newStyle.setBackgroundColor(attrs.valueAsString("BackgroundColor", CommonStrings::None));
+	//Remove uppercase in 1.8 format
+	if (attrs.hasAttribute("BSHADE"))
+		newStyle.setBackgroundShade(attrs.valueAsInt("BSHADE", 100));
+	else
+		newStyle.setBackgroundShade(attrs.valueAsInt("BackgroundColorShade", 100));
 
 	readCharacterStyleAttrs(doc, attrs, newStyle.charStyle());
 

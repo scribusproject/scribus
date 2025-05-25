@@ -387,8 +387,6 @@ bool Scribus171Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("ColorManagementActive", static_cast<int>(m_Doc->cmsSettings().CMSinUse));
 	docu.writeAttribute("GamutCheck", static_cast<int>(m_Doc->cmsSettings().GamutCheck));
 	docu.writeAttribute("BlackPoint", static_cast<int>(m_Doc->cmsSettings().BlackPoint));
-	 // Monitor profile is now an application level parameter
-	//docu.writeAttribute("DPMo",m_Doc->cmsSettings().DefaultMonitorProfile);
 	docu.writeAttribute("DefaultPrinterProfile",m_Doc->cmsSettings().DefaultPrinterProfile);
 	docu.writeAttribute("DefaultImageRGBProfile",m_Doc->cmsSettings().DefaultImageRGBProfile);
 	docu.writeAttribute("DefaultImageCMYKProfile",m_Doc->cmsSettings().DefaultImageCMYKProfile);
@@ -398,8 +396,6 @@ bool Scribus171Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("DefaultIntentImages",m_Doc->cmsSettings().DefaultIntentImages);
 	docu.writeAttribute("ActiveLayer", m_Doc->activeLayer());
 	docu.writeAttribute("Language", m_Doc->language());
-//	docu.writeAttribute("MINWORDLEN", m_Doc->hyphMinimumWordLength());
-//	docu.writeAttribute("HYCOUNT", m_Doc->hyphConsecutiveLines());
 	docu.writeAttribute("AutomaticHyphenation", static_cast<int>(m_Doc->hyphAutomatic()));
 	docu.writeAttribute("AutomaticHyphenationCheck", static_cast<int>(m_Doc->hyphAutoCheck()));
 	docu.writeAttribute("GuideLock", static_cast<int>(m_Doc->GuideLock));
@@ -820,23 +816,23 @@ void Scribus171Format::putPStyle(ScXmlStreamWriter & docu, const ParagraphStyle 
 		docu.writeAttribute("DefaultStyle", style.isDefaultStyle());
 
 	if (!style.isInhAlignment())
-		docu.writeAttribute("ALIGN", style.alignment());
+		docu.writeAttribute("Alignment", style.alignment());
 	if (!style.isInhDirection())
-		docu.writeAttribute("DIRECTION", style.direction());
+		docu.writeAttribute("Direction", style.direction());
 	if (!style.isInhLineSpacingMode())
-		docu.writeAttribute("LINESPMode", style.lineSpacingMode());
+		docu.writeAttribute("LineSpacingMode", style.lineSpacingMode());
 	if (!style.isInhLineSpacing())
-		docu.writeAttribute("LINESP", style.lineSpacing());
+		docu.writeAttribute("LineSpacing", style.lineSpacing());
 	if (!style.isInhLeftMargin())
-		docu.writeAttribute("INDENT", style.leftMargin());
+		docu.writeAttribute("LeftMargin", style.leftMargin());
 	if (!style.isInhRightMargin())
-		docu.writeAttribute("RMARGIN", style.rightMargin());
+		docu.writeAttribute("RightMargin", style.rightMargin());
 	if (!style.isInhFirstIndent())
-		docu.writeAttribute("FIRST", style.firstIndent());
+		docu.writeAttribute("FirstIndent", style.firstIndent());
 	if (!style.isInhGapBefore())
-		docu.writeAttribute("VOR", style.gapBefore());
+		docu.writeAttribute("GapBefore", style.gapBefore());
 	if (!style.isInhGapAfter())
-		docu.writeAttribute("NACH", style.gapAfter());
+		docu.writeAttribute("GapAfter", style.gapAfter());
 	if (!style.isInhPeCharStyleName())
 		docu.writeAttribute("ParagraphEffectCharStyle", style.peCharStyleName());
 	if (!style.isInhParEffectOffset())
@@ -844,9 +840,9 @@ void Scribus171Format::putPStyle(ScXmlStreamWriter & docu, const ParagraphStyle 
 	if (!style.isInhParEffectIndent())
 		docu.writeAttribute("ParagraphEffectIndent", static_cast<int>(style.parEffectIndent()));
 	if (!style.isInhHasDropCap())
-		docu.writeAttribute("DROP", static_cast<int>(style.hasDropCap()));
+		docu.writeAttribute("HasDropCap", static_cast<int>(style.hasDropCap()));
 	if (!style.isInhDropCapLines())
-		docu.writeAttribute("DROPLIN", style.dropCapLines());
+		docu.writeAttribute("DropCapLines", style.dropCapLines());
 	if (!style.isInhHasBullet())
 		docu.writeAttribute("Bullet", static_cast<int>(style.hasBullet()));
 	if (!style.isInhBulletStr())
@@ -894,12 +890,12 @@ void Scribus171Format::putPStyle(ScXmlStreamWriter & docu, const ParagraphStyle 
 	if (!style.isInhKeepTogether())
 		docu.writeAttribute("KeepTogether", style.keepTogether());
 	if (!style.isInhBackgroundColor())
-		docu.writeAttribute("BCOLOR", style.backgroundColor());
+		docu.writeAttribute("BackgroundColor", style.backgroundColor());
 	if (!style.isInhBackgroundShade())
-		docu.writeAttribute("BSHADE", style.backgroundShade());
+		docu.writeAttribute("BackgroundColorShade", style.backgroundShade());
 
 	if (!style.shortcut().isEmpty() )
-		docu.writeAttribute("PSHORTCUT", style.shortcut()); // shortcuts won't be inherited
+		docu.writeAttribute("ParagraphStyleShortcut", style.shortcut()); // shortcuts won't be inherited
 
 	putCStyle(docu, style.charStyle());
 
