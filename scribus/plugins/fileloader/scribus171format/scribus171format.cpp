@@ -6528,7 +6528,7 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 		tmp = attrs.valueAsString("Dashes");
 		ScTextStream dgv(&tmp, QIODevice::ReadOnly);
 		currItem->DashValues.clear();
-		int numDash = attrs.valueAsInt("NUMDASH", 0);
+		int numDash = attrs.valueAsInt("DashValues", 0);
 		for (int cxv = 0; cxv < numDash; ++cxv)
 		{
 			dgv >> xf;
