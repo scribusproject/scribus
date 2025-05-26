@@ -2846,9 +2846,9 @@ void Scribus171Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	}
 	if (item->isTextFrame() || item->isPathText())
 	{
-		docu.writeAttribute("COLUMNS", item->columns());
-		docu.writeAttribute("COLGAP", item->columnGap());
-		docu.writeAttribute("AUTOTEXT", item->isAutoText ? 1 : 0);
+		docu.writeAttribute("Columns", item->columns());
+		docu.writeAttribute("ColumnGap", item->columnGap());
+		docu.writeAttribute("AutomaticTextFrame", item->isAutoText ? 1 : 0);
 		docu.writeAttribute("TextToFrameDistanceLeft", item->textToFrameDistLeft());
 		docu.writeAttribute("TextToFrameDistanceTop", item->textToFrameDistTop());
 		docu.writeAttribute("TextToFrameDistanceBottom", item->textToFrameDistBottom());

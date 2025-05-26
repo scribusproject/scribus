@@ -4887,7 +4887,10 @@ bool Scribus171Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 	m_AvailableFonts->findFont(tmpf, doc);
 
 //	newItem->Language = ScMW->GetLang(pg.attribute("LANGUAGE", doc->Language));
-	newItem->isAutoText = attrs.valueAsBool("AUTOTEXT", false);
+	if (attrs.hasAttribute("AUTOTEXT"))
+		newItem->isAutoText = attrs.valueAsBool("AUTOTEXT", false);
+	else
+		newItem->isAutoText = attrs.valueAsBool("AutomaticTextFrame", false);
 	newItem->isEmbedded = attrs.valueAsBool("isInline", false);
 	newItem->gXpos = attrs.valueAsDouble("gXpos", 0.0);
 	newItem->gYpos = attrs.valueAsDouble("gYpos", 0.0);
@@ -6672,8 +6675,16 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 	currItem->setLineBlendmode(attrs.valueAsInt("TransBlendS", 0));
 	if (attrs.valueAsInt("TRANSPARENT", 0) == 1)
 		currItem->setFillColor(CommonStrings::None);
-	currItem->m_columns = attrs.valueAsInt("COLUMNS", 1);
-	currItem->m_columnGap = attrs.valueAsDouble("COLGAP", 0.0);
+	if (attrs.hasAttribute("COLUMNS"))
+	{
+		currItem->m_columns = attrs.valueAsInt("COLUMNS", 1);
+		currItem->m_columnGap = attrs.valueAsDouble("COLGAP", 0.0);
+	}
+	else
+	{
+		currItem->m_columns = attrs.valueAsInt("Columns", 1);
+		currItem->m_columnGap = attrs.valueAsDouble("ColumnGap", 0.0);
+	}
 	//Remove uppercase in 1.8 format
 	if (attrs.hasAttribute("LAYER") && (attrs.valueAsInt("LAYER", 0) != -1))
 	{
