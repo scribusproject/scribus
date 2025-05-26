@@ -20,7 +20,21 @@ ScXmlStreamAttributes::ScXmlStreamAttributes(const QXmlStreamAttributes& attrs)
 
 }
 
-bool ScXmlStreamAttributes::valueAsBool (QAnyStringView attrName, bool def) const
+bool ScXmlStreamAttributes::valueAsBool (const char* attrName, bool def) const
+{
+	bool retValue = def;
+	QStringView att = value(QLatin1String(attrName));
+	if (!att.isEmpty())
+	{
+		bool success = false;
+		int intVal = att.toInt(&success);
+		if (success)
+			retValue = static_cast<bool>(intVal);
+	}
+	return retValue;
+}
+
+bool ScXmlStreamAttributes::valueAsBool (const QString& attrName, bool def) const
 {
 	bool retValue = def;
 	QStringView att = value(attrName);
@@ -34,7 +48,21 @@ bool ScXmlStreamAttributes::valueAsBool (QAnyStringView attrName, bool def) cons
 	return retValue;
 }
 
-int ScXmlStreamAttributes::valueAsInt (QAnyStringView attrName, int def) const
+int ScXmlStreamAttributes::valueAsInt (const char* attrName, int def) const
+{
+	int retValue = def;
+	QStringView att = value(QLatin1String(attrName));
+	if (!att.isEmpty())
+	{
+		bool success = false;
+		int intVal = att.toInt(&success);
+		if (success)
+			retValue = intVal;
+	}
+	return retValue;
+}
+
+int ScXmlStreamAttributes::valueAsInt (const QString& attrName, int def) const
 {
 	int retValue = def;
 	QStringView att = value(attrName);
@@ -48,13 +76,33 @@ int ScXmlStreamAttributes::valueAsInt (QAnyStringView attrName, int def) const
 	return retValue;
 }
 
-int ScXmlStreamAttributes::valueAsInt (QAnyStringView attrName, int min, int max, int def) const
+int ScXmlStreamAttributes::valueAsInt (const char* attrName, int min, int max, int def) const
 {
 	int value = valueAsInt(attrName, def);
 	return qMin(max, qMax(value, min));
 }
 
-uint ScXmlStreamAttributes::valueAsUInt (QAnyStringView attrName, uint def) const
+int ScXmlStreamAttributes::valueAsInt (const QString& attrName, int min, int max, int def) const
+{
+	int value = valueAsInt(attrName, def);
+	return qMin(max, qMax(value, min));
+}
+
+uint ScXmlStreamAttributes::valueAsUInt  (const char*    attrName, uint def) const
+{
+	uint retValue = def;
+	QStringView att = value(QLatin1String(attrName));
+	if (!att.isEmpty())
+	{
+		bool success = false;
+		uint intVal = att.toUInt(&success);
+		if (success)
+			retValue = intVal;
+	}
+	return retValue;
+}
+
+uint ScXmlStreamAttributes::valueAsUInt (const QString& attrName, uint def) const
 {
 	uint retValue = def;
 	QStringView att = value(attrName);
@@ -68,7 +116,19 @@ uint ScXmlStreamAttributes::valueAsUInt (QAnyStringView attrName, uint def) cons
 	return retValue;
 }
 
-double ScXmlStreamAttributes::valueAsDouble (QAnyStringView attrName, double def) const
+double ScXmlStreamAttributes::valueAsDouble (const char* attrName, double def) const
+{
+	double retValue = def;
+	QStringView att = value(QLatin1String(attrName));
+	if (!att.isEmpty())
+	{
+		QString strVal = QString::fromRawData(att.constData(), att.length());
+		retValue = ScCLocale::toDoubleC(strVal, def);
+	}
+	return retValue;
+}
+
+double ScXmlStreamAttributes::valueAsDouble (const QString& attrName, double def) const
 {
 	double retValue = def;
 	QStringView att = value(attrName);
@@ -80,7 +140,16 @@ double ScXmlStreamAttributes::valueAsDouble (QAnyStringView attrName, double def
 	return retValue;
 }
 
-QString ScXmlStreamAttributes::valueAsString (QAnyStringView attrName, const QString& def) const
+QString ScXmlStreamAttributes::valueAsString (const char*    attrName, const QString& def) const
+{
+	QString retValue = def;
+	QStringView att = value(QLatin1String(attrName));
+	if (!att.isEmpty() || hasAttribute(attrName))
+		retValue = att.toString();
+	return retValue;
+}
+
+QString ScXmlStreamAttributes::valueAsString (const QString& attrName, const QString& def) const
 {
 	QString retValue = def;
 	QStringView att = value(attrName);
