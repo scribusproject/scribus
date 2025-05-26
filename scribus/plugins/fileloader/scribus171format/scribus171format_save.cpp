@@ -890,9 +890,9 @@ void Scribus171Format::putPStyle(ScXmlStreamWriter & docu, const ParagraphStyle 
 	if (!style.isInhKeepTogether())
 		docu.writeAttribute("KeepTogether", style.keepTogether());
 	if (!style.isInhBackgroundColor())
-		docu.writeAttribute("BackgroundColor", style.backgroundColor());
+		docu.writeAttribute("ParagraphBackgroundColor", style.backgroundColor());
 	if (!style.isInhBackgroundShade())
-		docu.writeAttribute("BackgroundColorShade", style.backgroundShade());
+		docu.writeAttribute("ParagraphBackgroundColorShade", style.backgroundShade());
 
 	if (!style.shortcut().isEmpty() )
 		docu.writeAttribute("ParagraphStyleShortcut", style.shortcut()); // shortcuts won't be inherited
@@ -2706,9 +2706,9 @@ void Scribus171Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	docu.writeAttribute("Width", item->width());
 	docu.writeAttribute("Height", item->height());
 	if (item->cornerRadius() != 0)
-		docu.writeAttribute("RADRECT", item->cornerRadius());
-	docu.writeAttribute("FRTYPE", item->FrameType);
-	docu.writeAttribute("CLIPEDIT", item->ClipEdited ? 1 : 0);
+		docu.writeAttribute("CornerRadius", item->cornerRadius());
+	docu.writeAttribute("FrameType", item->FrameType);
+	docu.writeAttribute("ClipEdited", item->ClipEdited ? 1 : 0);
 	if (item->GrType != 0)
 		docu.writeAttribute("GRTYP", item->GrType);
 	if (item->GrTypeStroke != 0)
@@ -2716,7 +2716,7 @@ void Scribus171Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	if (item->rotation() != 0)
 		docu.writeAttribute("Rotation", item->rotation());
 	if (!item->printEnabled())
-		docu.writeAttribute("PRINTABLE", 0);
+		docu.writeAttribute("PrintEnabled", 0);
 	if (item->imageFlippedH())
 		docu.writeAttribute("FLIPPEDH", 1);
 	if (item->imageFlippedV())
@@ -2727,11 +2727,11 @@ void Scribus171Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		if (item->fillColor() != CommonStrings::None)
 			docu.writeAttribute("FillColor", item->fillColor());
 		if (item->fillShade() != 100)
-			docu.writeAttribute("SHADE", item->fillShade());
+			docu.writeAttribute("FillShade", item->fillShade());
 		if (item->lineColor() != CommonStrings::None)
 			docu.writeAttribute("LineColor", item->lineColor());
 		if (item->lineShade() != 100)
-			docu.writeAttribute("SHADE2", item->lineShade());
+			docu.writeAttribute("LineShade", item->lineShade());
 		if (!item->NamedLStyle.isEmpty())
 			docu.writeAttribute("NAMEDLST", item->NamedLStyle);
 		if (item->PLineArt != 0)
@@ -2831,14 +2831,8 @@ void Scribus171Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	}
 	if (!item->AutoName)
 		docu.writeAttribute("ANNAME", item->itemName());
-	// "TEXTFLOWMODE" succeed to "TEXTFLOW" "TEXTFLOW2" and "TEXTFLOW3" attributes
 	if (item->textFlowMode() != 0)
 		docu.writeAttribute("TEXTFLOWMODE", (int) item->textFlowMode() );
-	// Set "TEXTFLOW" "TEXTFLOW2" and "TEXTFLOW3" attributes for compatibility
-	// with versions prior to 1.3.4
-//	docu.writeAttribute("TEXTFLOW", item->textFlowAroundObject() ? 1 : 0);
-//	docu.writeAttribute("TEXTFLOW2", item->textFlowUsesBoundingBox() ? 1 : 0);
-//	docu.writeAttribute("TEXTFLOW3", item->textFlowUsesContourLine() ? 1 : 0);
 	if (item->isTextFrame() || item->isPathText() || item->isImageFrame())
 	{
 		docu.writeAttribute("ImageScaleX", item->imageXScale());
@@ -2855,12 +2849,12 @@ void Scribus171Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("COLUMNS", item->columns());
 		docu.writeAttribute("COLGAP", item->columnGap());
 		docu.writeAttribute("AUTOTEXT", item->isAutoText ? 1 : 0);
-		docu.writeAttribute("EXTRA", item->textToFrameDistLeft());
-		docu.writeAttribute("TEXTRA", item->textToFrameDistTop());
-		docu.writeAttribute("BEXTRA", item->textToFrameDistBottom());
-		docu.writeAttribute("REXTRA", item->textToFrameDistRight());
-		docu.writeAttribute("VAlign", item->verticalAlignment());
-		docu.writeAttribute("FLOP", item->firstLineOffset()); // here I think this FLOP "cher à mon cœur" is legitimate!
+		docu.writeAttribute("TextToFrameDistanceLeft", item->textToFrameDistLeft());
+		docu.writeAttribute("TextToFrameDistanceTop", item->textToFrameDistTop());
+		docu.writeAttribute("TextToFrameDistanceBottom", item->textToFrameDistBottom());
+		docu.writeAttribute("TextToFrameDistanceRight", item->textToFrameDistRight());
+		docu.writeAttribute("VerticalAlignment", item->verticalAlignment());
+		docu.writeAttribute("FirstLineOffset", item->firstLineOffset()); // here I think this FLOP "cher à mon cœur" is legitimate!
 		docu.writeAttribute("PLTSHOW", item->PoShow ? 1 : 0);
 		docu.writeAttribute("BASEOF", item->BaseOffs);
 		docu.writeAttribute("textPathType", item->textPathType);

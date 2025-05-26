@@ -3494,55 +3494,55 @@ void Scribus171Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 	//Remove uppercase in 1.8 format
 	if (attrs.hasAttribute("LINESPMode"))
 		newStyle.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(attrs.valueAsInt("LINESPMode")));
-	else
+	else if (attrs.hasAttribute("LineSpacingMode"))
 		newStyle.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(attrs.valueAsInt("LineSpacingMode")));
 
 	//Remove uppercase in 1.8 format
 	if (attrs.hasAttribute("LINESP"))
 		newStyle.setLineSpacing(attrs.valueAsDouble("LINESP"));
-	else
+	else if (attrs.hasAttribute("LineSpacing"))
 		newStyle.setLineSpacing(attrs.valueAsDouble("LineSpacing"));
 
 	//Remove uppercase in 1.8 format
 	if (attrs.hasAttribute("INDENT"))
 		newStyle.setLeftMargin(attrs.valueAsDouble("INDENT"));
-	else
+	else if (attrs.hasAttribute("LeftMargin"))
 		newStyle.setLeftMargin(attrs.valueAsDouble("LeftMargin"));
 
 	//Remove uppercase in 1.8 format
 	if (attrs.hasAttribute("RMARGIN"))
 		newStyle.setRightMargin(attrs.valueAsDouble("RMARGIN"));
-	else
+	else if (attrs.hasAttribute("RightMargin"))
 		newStyle.setRightMargin(attrs.valueAsDouble("RightMargin"));
 
 	//Remove uppercase in 1.8 format
 	if (attrs.hasAttribute("FIRST"))
 		newStyle.setFirstIndent(attrs.valueAsDouble("FIRST"));
-	else
+	else if (attrs.hasAttribute("FirstIndent"))
 		newStyle.setFirstIndent(attrs.valueAsDouble("FirstIndent"));
 
 	//Remove uppercase in 1.8 format
 	if (attrs.hasAttribute("ALIGN"))
 		newStyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(attrs.valueAsInt("ALIGN")));
-	else
+	else if (attrs.hasAttribute("Alignment"))
 		newStyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(attrs.valueAsInt("Alignment")));
 
 	//Remove uppercase in 1.8 format
 	if (attrs.hasAttribute("DIRECTION"))
 		newStyle.setDirection(static_cast<ParagraphStyle::DirectionType>(attrs.valueAsInt("DIRECTION")));
-	else
+	else if (attrs.hasAttribute("Direction"))
 		newStyle.setDirection(static_cast<ParagraphStyle::DirectionType>(attrs.valueAsInt("Direction")));
 
 	//Remove uppercase in 1.8 format
 	if (attrs.hasAttribute("VOR"))
 		newStyle.setGapBefore(attrs.valueAsDouble("VOR"));
-	else
+	else if (attrs.hasAttribute("GapBefore"))
 		newStyle.setGapBefore(attrs.valueAsDouble("GapBefore"));
 
 	//Remove uppercase in 1.8 format
 	if (attrs.hasAttribute("NACH"))
 		newStyle.setGapAfter(attrs.valueAsDouble("NACH"));
-	else
+	else if (attrs.hasAttribute("GapAfter"))
 		newStyle.setGapAfter(attrs.valueAsDouble("GapAfter"));
 
 	static const QString ParagraphEffectCharStyle("ParagraphEffectCharStyle");
@@ -3560,7 +3560,7 @@ void Scribus171Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 	//Remove uppercase in 1.8 format
 	if (attrs.hasAttribute("DROP"))
 		newStyle.setHasDropCap(static_cast<bool>(attrs.valueAsInt("DROP")));
-	else
+	else if (attrs.hasAttribute("HasDropCap"))
 		newStyle.setHasDropCap(static_cast<bool>(attrs.valueAsInt("HasDropCap")));
 
 	// static const QString DROPCHSTYLE("DROPCHSTYLE");
@@ -3570,7 +3570,7 @@ void Scribus171Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 	//Remove uppercase in 1.8 format
 	if (attrs.hasAttribute("DROPLIN"))
 		newStyle.setDropCapLines(attrs.valueAsInt("DROPLIN"));
-	else
+	else if (attrs.hasAttribute("DropCapLines"))
 		newStyle.setDropCapLines(attrs.valueAsInt("DropCapLines"));
 
 	// static const QString DROPDIST("DROPDIST");
@@ -3628,7 +3628,7 @@ void Scribus171Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 	//Remove uppercase in 1.8 format
 	if (attrs.hasAttribute("PSHORTCUT"))
 		newStyle.setShortcut(attrs.valueAsString("PSHORTCUT"));
-	else
+	else if (attrs.hasAttribute("ParagraphStyleShortcut"))
 		newStyle.setShortcut(attrs.valueAsString("ParagraphStyleShortcut"));
 
 	static const QString OpticalMargins("OpticalMargins");
@@ -3681,13 +3681,13 @@ void Scribus171Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 	//Remove uppercase in 1.8 format
 	if (attrs.hasAttribute("BCOLOR"))
 		newStyle.setBackgroundColor(attrs.valueAsString("BCOLOR", CommonStrings::None));
-	else
-		newStyle.setBackgroundColor(attrs.valueAsString("BackgroundColor", CommonStrings::None));
+	else if (attrs.hasAttribute("ParagraphBackgroundColor"))
+		newStyle.setBackgroundColor(attrs.valueAsString("ParagraphBackgroundColor", CommonStrings::None));
 	//Remove uppercase in 1.8 format
 	if (attrs.hasAttribute("BSHADE"))
 		newStyle.setBackgroundShade(attrs.valueAsInt("BSHADE", 100));
-	else
-		newStyle.setBackgroundShade(attrs.valueAsInt("BackgroundColorShade", 100));
+	else if (attrs.hasAttribute("ParagraphBackgroundColorShade"))
+		newStyle.setBackgroundShade(attrs.valueAsInt("ParagraphBackgroundColorShade", 100));
 
 	readCharacterStyleAttrs(doc, attrs, newStyle.charStyle());
 
@@ -6252,7 +6252,10 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 	}
 
 	currItem->setGroupClipping(attrs.valueAsBool("groupClips", true));
-	currItem->FrameType = attrs.valueAsInt("FRTYPE", 0);
+	if (attrs.hasAttribute("FRTYPE"))
+		currItem->FrameType = attrs.valueAsInt("FRTYPE", 0);
+	else
+		currItem->FrameType = attrs.valueAsInt("FrameType", 0);
 	int startArrowIndex = attrs.valueAsInt("startArrowIndex", 0);
 	if ((startArrowIndex < 0) || (startArrowIndex > static_cast<int>(doc->arrowStyles().size())))
 	{
@@ -6273,12 +6276,24 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 	currItem->isBookmark = attrs.valueAsInt("BOOKMARK", 0);
 	currItem->setImageFlippedH( attrs.valueAsInt("FLIPPEDH", 0));
 	currItem->setImageFlippedV( attrs.valueAsInt("FLIPPEDV", 0));
-	currItem->setCornerRadius( attrs.valueAsDouble("RADRECT", 0.0));
-	currItem->ClipEdited = attrs.valueAsInt("CLIPEDIT", 0);
+	if (attrs.hasAttribute("RADRECT"))
+		currItem->setCornerRadius( attrs.valueAsDouble("RADRECT", 0.0));
+	else
+		currItem->setCornerRadius( attrs.valueAsDouble("CornerRadius", 0.0));
+	if (attrs.hasAttribute("CLIPEDIT"))
+		currItem->ClipEdited = attrs.valueAsInt("CLIPEDIT", 0);
+	else
+		currItem->ClipEdited = attrs.valueAsInt("ClipEdited", 0);
 	currItem->setFillColor(fillColor);
 	currItem->setLineColor(lineColor);
-	currItem->setFillShade(attrs.valueAsInt("SHADE", 100));
-	currItem->setLineShade(attrs.valueAsInt("SHADE2", 100));
+	if (attrs.hasAttribute("SHADE"))
+		currItem->setFillShade(attrs.valueAsInt("SHADE", 100));
+	else
+		currItem->setFillShade(attrs.valueAsInt("FillShade", 100));
+	if (attrs.hasAttribute("SHADE2"))
+		currItem->setLineShade(attrs.valueAsInt("SHADE2", 100));
+	else
+		currItem->setLineShade(attrs.valueAsInt("LineShade", 100));
 
 	ParagraphStyle pstyle;
 	if (attrs.hasAttribute("LINESP"))
@@ -6425,17 +6440,32 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 	else
 		currItem->setRotation( attrs.valueAsDouble("Rotation", 0.0) );
 	currItem->oldRot = currItem->rotation();
-	currItem->setTextToFrameDist(attrs.valueAsDouble("EXTRA", 0.0),
+	if (attrs.hasAttribute("EXTRA"))
+		currItem->setTextToFrameDist(attrs.valueAsDouble("EXTRA", 0.0),
 								attrs.valueAsDouble("REXTRA", 0.0),
 								attrs.valueAsDouble("TEXTRA", 0.0),
 								attrs.valueAsDouble("BEXTRA", 0.0));
-	currItem->setVerticalAlignment(attrs.valueAsInt("VAlign", 0));
-	currItem->setFirstLineOffset(static_cast<FirstLineOffsetPolicy>(attrs.valueAsInt("FLOP")));
+	else
+		currItem->setTextToFrameDist(attrs.valueAsDouble("TextToFrameDistanceLeft", 0.0),
+								attrs.valueAsDouble("TextToFrameDistanceRight", 0.0),
+								attrs.valueAsDouble("TextToFrameDistanceTop", 0.0),
+								attrs.valueAsDouble("TextToFrameDistanceBottom", 0.0));
+	if (attrs.hasAttribute("VAlign"))
+		currItem->setVerticalAlignment(attrs.valueAsInt("VAlign", 0));
+	else
+		currItem->setVerticalAlignment(attrs.valueAsInt("VerticalAlignment", 0));
+	if (attrs.hasAttribute("FLOP"))
+		currItem->setFirstLineOffset(static_cast<FirstLineOffsetPolicy>(attrs.valueAsInt("FLOP")));
+	else
+		currItem->setFirstLineOffset(static_cast<FirstLineOffsetPolicy>(attrs.valueAsInt("FirstLineOffset")));
 
 	currItem->PLineArt = Qt::PenStyle(attrs.valueAsInt("PLINEART", 0));
 	currItem->PLineEnd = Qt::PenCapStyle(attrs.valueAsInt("PLINEEND", 0));
 	currItem->PLineJoin = Qt::PenJoinStyle(attrs.valueAsInt("PLINEJOIN", 0));
-	currItem->setPrintEnabled( attrs.valueAsInt("PRINTABLE", 1));
+	if (attrs.hasAttribute("PRINTABLE"))
+		currItem->setPrintEnabled( attrs.valueAsInt("PRINTABLE", 1));
+	else
+		currItem->setPrintEnabled( attrs.valueAsInt("PrintEnabled", 1));
 	currItem->setIsAnnotation( attrs.valueAsInt("ANNOTATION", 0));
 	currItem->annotation().setType( attrs.valueAsInt("ANTYPE", 0));
 	QString itemName = attrs.valueAsString("ANNAME","");
@@ -6515,8 +6545,6 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 				currItem->setImageVisible(attrs.valueAsInt("PICART"));
 			else
 				currItem->setImageVisible(attrs.valueAsInt("ImageVisible"));
-/*			currItem->BBoxX = ScCLocale::toDoubleC( obj->attribute("BBOXX"));
-			currItem->BBoxH = ScCLocale::toDoubleC( obj->attribute("BBOXH")); */
 			if (attrs.hasAttribute("SCALETYPE"))
 				currItem->ScaleType = attrs.valueAsInt("SCALETYPE", 1);
 			else
