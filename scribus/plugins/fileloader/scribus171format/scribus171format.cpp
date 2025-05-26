@@ -2505,7 +2505,7 @@ void Scribus171Format::readDocAttributes(ScribusDoc* doc, const ScXmlStreamAttri
 		m_Doc->setAutoSaveCount(attrs.valueAsInt("AutoSaveCount", 1));
 		m_Doc->setAutoSaveInDocDir(attrs.valueAsBool("AUtoSaveInDocDir", true));
 		m_Doc->setAutoSaveDir(attrs.valueAsString("AutoSaveDir", ""));
-		double leftScratch  = attrs.valueAsDouble("ScratchLeft", 100.0);
+		double leftScratch = attrs.valueAsDouble("ScratchLeft", 100.0);
 		m_Doc->scratch()->set(attrs.valueAsDouble("ScratchTop", 20.0), leftScratch,
 							  attrs.valueAsDouble("ScratchBottom", 20.0),attrs.valueAsDouble("ScratchRight", 100.0));
 		m_Doc->setPageGapHorizontal(attrs.valueAsDouble("GapHorizontal", -1.0));
@@ -2571,7 +2571,7 @@ void Scribus171Format::readDocAttributes(ScribusDoc* doc, const ScXmlStreamAttri
 		m_Doc->setAutoSaveCount(attrs.valueAsInt("AutoSaveCount", 1));
 		m_Doc->setAutoSaveInDocDir(attrs.valueAsBool("AutoSaveInDocumentDirectory", true));
 		m_Doc->setAutoSaveDir(attrs.valueAsString("AutoSaveDirectory", ""));
-		double leftScratch  = attrs.valueAsDouble("ScratchLeft", 100.0);
+		double leftScratch = attrs.valueAsDouble("ScratchLeft", 100.0);
 		m_Doc->scratch()->set(attrs.valueAsDouble("ScratchTop", 20.0), leftScratch,
 							  attrs.valueAsDouble("ScratchBottom", 20.0),attrs.valueAsDouble("ScratchRight", 100.0));
 		m_Doc->setPageGapHorizontal(attrs.valueAsDouble("GapHorizontal", -1.0));
@@ -3927,19 +3927,19 @@ void Scribus171Format::readLayers(ScLayer& layer, const ScXmlStreamAttributes& a
 
 bool Scribus171Format::readArrows(ScribusDoc* doc, ScXmlStreamAttributes& attrs) const
 {
-	double xa;
-	double ya;
+	double x;
+	double y;
 	struct ArrowDesc arrow;
 	arrow.name = attrs.valueAsString("Name");
 	arrow.userArrow = true;
 	QString tmp = attrs.valueAsString("Points");
 	ScTextStream fp(&tmp, QIODevice::ReadOnly);
 	unsigned int numPoints = attrs.valueAsUInt("NumPoints");
-	for (uint cx = 0; cx < numPoints; ++cx)
+	for (uint i = 0; i < numPoints; ++i)
 	{
-		fp >> xa;
-		fp >> ya;
-		arrow.points.addPoint(xa, ya);
+		fp >> x;
+		fp >> y;
+		arrow.points.addPoint(x, y);
 	}
 	if (!doc->hasArrowStyle(arrow.name))
 		doc->appendToArrowStyles(arrow);
@@ -4518,7 +4518,6 @@ bool Scribus171Format::readOpticalMarginSets(ScribusDoc *doc, ScXmlStreamReader 
 	QString tagName(reader.nameAsString());
 	OpticalMarginSets sets;
 	OpticalMarginSet set;
-	QMap<QString, QString> names;
 	OpticalMarginRules rules;
 
 	while (!reader.atEnd() && !reader.hasError())
