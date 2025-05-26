@@ -3037,7 +3037,7 @@ bool Scribus171Format::readCheckProfile(ScribusDoc* doc, const ScXmlStreamAttrib
 	if (profileName.isEmpty())
 		return true;
 	//Remove old in 1.8
-	if(attrs.hasAttribute("ignoreErrors"))
+	if (attrs.hasAttribute("ignoreErrors"))
 	{
 		checkerSettings.ignoreErrors = attrs.valueAsBool("ignoreErrors", false);
 		checkerSettings.autoCheck = attrs.valueAsBool("autoCheck", true);
@@ -4929,7 +4929,6 @@ bool Scribus171Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 	info.ownWeld = attrs.valueAsInt("WeldSource", 0);
 	info.ownNr = doc->Items->indexOf(newItem);
 
-	struct ImageLoadRequest loadingInfo;
 #ifdef HAVE_OSG
 	struct PageItem_OSGFrame::viewDefinition currentView;
 #endif
@@ -4947,6 +4946,7 @@ bool Scribus171Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 			continue;
 		QString tName = reader.name().toString();
 		ScXmlStreamAttributes tAtt = reader.scAttributes();
+		//Remove old format in 1.8
 		if (tName == QLatin1String("CSTOP"))
 		{
 			QString name = tAtt.valueAsString("NAME");
@@ -4955,6 +4955,15 @@ bool Scribus171Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 			double opa = tAtt.valueAsDouble("TRANS", 1.0);
 			newItem->fill_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
 		}
+		if (tName == QLatin1String("ColorStop"))
+		{
+			QString name = tAtt.valueAsString("Name");
+			double ramp = tAtt.valueAsDouble("Ramp", 0.0);
+			int shade = tAtt.valueAsInt("Shade", 100);
+			double opa = tAtt.valueAsDouble("Opacity", 1.0);
+			newItem->fill_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
+		}
+		//Remove old format in 1.8
 		if (tName == QLatin1String("S_CSTOP"))
 		{
 			QString name = tAtt.valueAsString("NAME");
@@ -4963,12 +4972,29 @@ bool Scribus171Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 			double opa = tAtt.valueAsDouble("TRANS", 1.0);
 			newItem->stroke_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
 		}
+		if (tName == QLatin1String("ColorStopStroke"))
+		{
+			QString name = tAtt.valueAsString("Name");
+			double ramp = tAtt.valueAsDouble("Ramp", 0.0);
+			int shade = tAtt.valueAsInt("Shade", 100);
+			double opa = tAtt.valueAsDouble("Opacity", 1.0);
+			newItem->stroke_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
+		}
+		//Remove old format in 1.8
 		if (tName == QLatin1String("M_CSTOP"))
 		{
 			QString name = tAtt.valueAsString("NAME");
 			double ramp = tAtt.valueAsDouble("RAMP", 0.0);
 			int shade = tAtt.valueAsInt("SHADE", 100);
 			double opa = tAtt.valueAsDouble("TRANS", 1.0);
+			newItem->mask_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
+		}
+		if (tName == QLatin1String("ColorStopMaskGradient"))
+		{
+			QString name = tAtt.valueAsString("Name");
+			double ramp = tAtt.valueAsDouble("Ramp", 0.0);
+			int shade = tAtt.valueAsInt("Shade", 100);
+			double opa = tAtt.valueAsDouble("Opacity", 1.0);
 			newItem->mask_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
 		}
 		if (tName == QLatin1String("MPoint"))
@@ -5113,6 +5139,7 @@ bool Scribus171Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 		if (tName == QLatin1String("PSDLayer"))
 		{
 			layerFound = true;
+			struct ImageLoadRequest loadingInfo;
 			loadingInfo.blend = tAtt.valueAsString("Blend");
 			loadingInfo.opacity = tAtt.valueAsInt("Opacity");
 			loadingInfo.visible = tAtt.valueAsBool("Visible");
@@ -5962,43 +5989,84 @@ bool Scribus171Format::readPageItemAttributes(PageItem* item, ScXmlStreamReader&
 
 PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttributes& attrs, const QString& baseDir, PageItem::ItemKind itemKind, int pageNr)
 {
-	int z = 0;
-	struct ImageLoadRequest loadingInfo;
-	PageItem::ItemType pt = static_cast<PageItem::ItemType>(attrs.valueAsInt("PTYPE"));
+	PageItem::ItemType pt;
+	if (attrs.hasAttribute("PTYPE"))
+		pt = static_cast<PageItem::ItemType>(attrs.valueAsInt("PTYPE"));
+	else
+		pt = static_cast<PageItem::ItemType>(attrs.valueAsInt("ItemType"));
 	bool isGroupFlag = attrs.valueAsBool("isGroupControl", false);
 	if (isGroupFlag)
 		pt = PageItem::Group;
 	bool isNoteFrameFlag = attrs.valueAsBool("isNoteFrame", false);
 	if (isNoteFrameFlag && (pt == PageItem::TextFrame))
 		pt = PageItem::NoteFrame;
-	double xf;
-	double yf;
-	double x = attrs.valueAsDouble("XPOS");
-	double y = attrs.valueAsDouble("YPOS");
+
+	double x;
+	if (attrs.hasAttribute("XPOS"))
+		x = attrs.valueAsDouble("XPOS");
+	else
+		x = attrs.valueAsDouble("XPosition");
+	double y;
+	if (attrs.hasAttribute("YPOS"))
+		y = attrs.valueAsDouble("YPOS");
+	else
+		y = attrs.valueAsDouble("YPosition");
 	x = Xp + x - GrX;
 	y = Yp + y - GrY;
-	double w = attrs.valueAsDouble("WIDTH");
-	double h = attrs.valueAsDouble("HEIGHT");
+	double w;
+	if (attrs.hasAttribute("WIDTH"))
+		w = attrs.valueAsDouble("WIDTH");
+	else
+		w = attrs.valueAsDouble("Width");
+	double h;
+	if (attrs.hasAttribute("HEIGHT"))
+		h = attrs.valueAsDouble("HEIGHT");
+	else
+		h = attrs.valueAsDouble("Height");
 	double pw = attrs.valueAsDouble("PWIDTH");
-	double imageXOffset = attrs.valueAsDouble("LOCALX");
-	double imageYOffset = attrs.valueAsDouble("LOCALY");
-	double imageXScale = attrs.valueAsDouble("LOCALSCX");
-	double imageYScale = attrs.valueAsDouble("LOCALSCY");
-	QString Pcolor = attrs.valueAsString("PCOLOR");
-	if (Pcolor.isEmpty())
-		Pcolor = CommonStrings::None;
-	QString Pcolor2 = attrs.valueAsString("PCOLOR2");
-	if (Pcolor2.isEmpty())
-		Pcolor2 = CommonStrings::None;
+	double imageOffsetX;
+	if (attrs.hasAttribute("LOCALX"))
+		imageOffsetX = attrs.valueAsDouble("LOCALX");
+	else
+		imageOffsetX = attrs.valueAsDouble("ImageOffsetX");
+	double imageOffsetY;
+	if (attrs.hasAttribute("LOCALY"))
+		imageOffsetY = attrs.valueAsDouble("LOCALY");
+	else
+		imageOffsetY = attrs.valueAsDouble("ImageOffsetY");
+	double imageScaleX;
+	if (attrs.hasAttribute("LOCALSCX"))
+		imageScaleX = attrs.valueAsDouble("LOCALSCX");
+	else
+		imageScaleX = attrs.valueAsDouble("ImageScaleX");
+	double imageScaleY;
+	if (attrs.hasAttribute("LOCALSCY"))
+		imageScaleY = attrs.valueAsDouble("LOCALSCY");
+	else
+		imageScaleY = attrs.valueAsDouble("ImageScaleY");
+	QString fillColor;
+	if (attrs.hasAttribute("PCOLOR"))
+		fillColor = attrs.valueAsString("PCOLOR");
+	else
+		fillColor = attrs.valueAsString("FillColor");
+	if (fillColor.isEmpty())
+		fillColor = CommonStrings::None;
+	QString lineColor;
+	if (attrs.hasAttribute("PCOLOR2"))
+		lineColor = attrs.valueAsString("PCOLOR2");
+	else
+		lineColor = attrs.valueAsString("LineColor");
+	if (lineColor.isEmpty())
+		lineColor = CommonStrings::None;
 	QColor tmpc;
 	PageItem *currItem = nullptr;
-	QString tmp;
 	QString clPath;
+	int z = 0;
 	switch (pt)
 	{
 	// OBSOLETE CR 2005-02-06
 	case PageItem::ItemType1:
-		z = doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, x, y, w, h, pw, Pcolor, Pcolor2, itemKind);
+		z = doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, x, y, w, h, pw, fillColor, lineColor, itemKind);
 		currItem = doc->Items->at(z);
 		if (pageNr > -2) 
 			currItem->setOwnerPage(pageNr);
@@ -6012,12 +6080,20 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 		if (pageNr > -2) 
 			currItem->setOwnerPage(pageNr);
 		UndoManager::instance()->setUndoEnabled(false);
-		currItem->ScaleType = attrs.valueAsInt("SCALETYPE", 1);
-		currItem->AspectRatio = attrs.valueAsInt("RATIO", 0);
-		currItem->setImageXYScale(imageXScale, imageYScale);
-		currItem->setImageXYOffset(imageXOffset, imageYOffset);
-		currItem->setImageRotation(attrs.valueAsDouble("LOCALROT"));
-//		if (!currItem->isLatexFrame())
+		if (attrs.hasAttribute("SCALETYPE"))
+			currItem->ScaleType = attrs.valueAsInt("SCALETYPE", 1);
+		else
+			currItem->ScaleType = attrs.valueAsInt("ImageScaleType", 1);
+		if (attrs.hasAttribute("RATIO"))
+			currItem->AspectRatio = attrs.valueAsInt("RATIO", 0);
+		else
+			currItem->AspectRatio = attrs.valueAsInt("ImageRatio", 0);
+		currItem->setImageXYScale(imageScaleX, imageScaleY);
+		currItem->setImageXYOffset(imageOffsetX, imageOffsetY);
+		if (attrs.hasAttribute("LOCALROT"))
+			currItem->setImageRotation(attrs.valueAsDouble("LOCALROT"));
+		else
+			currItem->setImageRotation(attrs.valueAsDouble("ImageRotation"));
 #ifdef HAVE_OSG
 		if ((currItem->isImageFrame() || currItem->isOSGFrame()) && (!currItem->isLatexFrame()))
 #else
@@ -6076,7 +6152,7 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 			currItem->CompressionMethodIndex = attrs.valueAsInt("COMPRESSIONMETHOD", 0);
 		if ((currItem->OverrideCompressionQuality = attrs.hasAttribute("COMPRESSIONQUALITY")))
 			currItem->CompressionQualityIndex = attrs.valueAsInt("COMPRESSIONQUALITY");
-		currItem->setImageXYScale(imageXScale, imageYScale);
+		currItem->setImageXYScale(imageScaleX, imageScaleY);
 		currItem->setImageRotation(attrs.valueAsDouble("LOCALROT"));
 		clPath = attrs.valueAsString("ImageClip", "");
 		if (!clPath.isEmpty())
@@ -6084,45 +6160,48 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 			clipPath = clPath;
 			layerFound = true;
 		}
-		currItem->setImageVisible( attrs.valueAsInt("PICART"));
+		if (attrs.hasAttribute("PICART"))
+			currItem->setImageVisible( attrs.valueAsInt("PICART"));
+		else
+			currItem->setImageVisible( attrs.valueAsInt("ImageVisible"));
 		currItem->setLineWidth(pw);
 		UndoManager::instance()->setUndoEnabled(true);
 		break;
 	// OBSOLETE CR 2005-02-06
 	case PageItem::ItemType3:
-		z = doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, x, y, w, h, pw, Pcolor, Pcolor2, itemKind);
+		z = doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, x, y, w, h, pw, fillColor, lineColor, itemKind);
 		currItem = doc->Items->at(z);
 		if (pageNr > -2) 
 			currItem->setOwnerPage(pageNr);
 		break;
 	//
 	case PageItem::PathText:
-		z = doc->itemAdd(PageItem::PathText, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor, itemKind);
+		z = doc->itemAdd(PageItem::PathText, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, fillColor, itemKind);
 		currItem = doc->Items->at(z);
 		if (pageNr > -2) 
 			currItem->setOwnerPage(pageNr);
 		break;
 	case PageItem::NoteFrame:
 	case PageItem::TextFrame:
-		z = doc->itemAdd(pt, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor, itemKind);
+		z = doc->itemAdd(pt, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, fillColor, itemKind);
 		currItem = doc->Items->at(z);
 		if (pageNr > -2) 
 			currItem->setOwnerPage(pageNr);
 		break;
 	case PageItem::Line:
-		z = doc->itemAdd(PageItem::Line, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor2, itemKind);
+		z = doc->itemAdd(PageItem::Line, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, lineColor, itemKind);
 		currItem = doc->Items->at(z);
 		if (pageNr > -2) 
 			currItem->setOwnerPage(pageNr);
 		break;
 	case PageItem::Polygon:
-		z = doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2, itemKind);
+		z = doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, x, y, w, h, pw, fillColor, lineColor, itemKind);
 		currItem = doc->Items->at(z);
 		if (pageNr > -2) 
 			currItem->setOwnerPage(pageNr);
 		break;
 	case PageItem::PolyLine:
-		z = doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2, itemKind);
+		z = doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, x, y, w, h, pw, fillColor, lineColor, itemKind);
 		currItem = doc->Items->at(z);
 		if (pageNr > -2) 
 			currItem->setOwnerPage(pageNr);
@@ -6144,19 +6223,19 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 		doc->GroupCounter++;
 		break;
 	case PageItem::RegularPolygon:
-		z = doc->itemAdd(PageItem::RegularPolygon, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2, itemKind);
+		z = doc->itemAdd(PageItem::RegularPolygon, PageItem::Unspecified, x, y, w, h, pw, fillColor, lineColor, itemKind);
 		currItem = doc->Items->at(z);
 		if (pageNr > -2) 
 			currItem->setOwnerPage(pageNr);
 		break;
 	case PageItem::Arc:
-		z = doc->itemAdd(PageItem::Arc, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2, itemKind);
+		z = doc->itemAdd(PageItem::Arc, PageItem::Unspecified, x, y, w, h, pw, fillColor, lineColor, itemKind);
 		currItem = doc->Items->at(z);
 		if (pageNr > -2) 
 			currItem->setOwnerPage(pageNr);
 		break;
 	case PageItem::Spiral:
-		z = doc->itemAdd(PageItem::Spiral, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2, itemKind);
+		z = doc->itemAdd(PageItem::Spiral, PageItem::Unspecified, x, y, w, h, pw, fillColor, lineColor, itemKind);
 		currItem = doc->Items->at(z);
 		if (pageNr > -2) 
 			currItem->setOwnerPage(pageNr);
@@ -6196,8 +6275,8 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 	currItem->setImageFlippedV( attrs.valueAsInt("FLIPPEDV", 0));
 	currItem->setCornerRadius( attrs.valueAsDouble("RADRECT", 0.0));
 	currItem->ClipEdited = attrs.valueAsInt("CLIPEDIT", 0);
-	currItem->setFillColor(Pcolor);
-	currItem->setLineColor(Pcolor2);
+	currItem->setFillColor(fillColor);
+	currItem->setLineColor(lineColor);
 	currItem->setFillShade(attrs.valueAsInt("SHADE", 100));
 	currItem->setLineShade(attrs.valueAsInt("SHADE2", 100));
 
@@ -6320,6 +6399,7 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 		pstyle.setNumHigher(static_cast<bool>(attrs.valueAsInt("NumerationHigher")));
 	currItem->itemText.setDefaultStyle(pstyle);
 
+	//Remove uppercase in 1.8
 	if (attrs.hasAttribute("PSTYLE"))
 	{
 		QString pstyleName = attrs.valueAsString("PSTYLE");
@@ -6330,7 +6410,20 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 			currItem->itemText.setDefaultStyle(defStyle);
 		}
 	}
-	currItem->setRotation( attrs.valueAsDouble("ROT", 0.0) );
+	if (attrs.hasAttribute("ParagraphStyle"))
+	{
+		QString pstyleName = attrs.valueAsString("ParagraphStyle");
+		if (!pstyleName.isEmpty())
+		{
+			ParagraphStyle defStyle(currItem->itemText.defaultStyle());
+			defStyle.setParent(pstyleName);
+			currItem->itemText.setDefaultStyle(defStyle);
+		}
+	}
+	if (attrs.hasAttribute("ROT"))
+		currItem->setRotation( attrs.valueAsDouble("ROT", 0.0) );
+	else
+		currItem->setRotation( attrs.valueAsDouble("Rotation", 0.0) );
 	currItem->oldRot = currItem->rotation();
 	currItem->setTextToFrameDist(attrs.valueAsDouble("EXTRA", 0.0),
 								attrs.valueAsDouble("REXTRA", 0.0),
@@ -6400,9 +6493,12 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 		UndoManager::instance()->setUndoEnabled(false);
 		if (currItem->isAnnotation() && currItem->annotation().UseIcons())
 		{
-			currItem->setImageXYScale(imageXScale, imageYScale);
-			currItem->setImageXYOffset(imageXOffset, imageYOffset);
-			currItem->setImageRotation(attrs.valueAsDouble("LOCALROT"));
+			currItem->setImageXYScale(imageScaleX, imageScaleY);
+			currItem->setImageXYOffset(imageOffsetX, imageOffsetY);
+			if (attrs.hasAttribute("LOCALROT"))
+				currItem->setImageRotation(attrs.valueAsDouble("LOCALROT"));
+			else
+				currItem->setImageRotation(attrs.valueAsDouble("ImageRotation"));
 			currItem->Pfile = Relative2Path(attrs.valueAsString("PFILE" , ""), baseDir);
 			currItem->Pfile2 = Relative2Path(attrs.valueAsString("PFILE2", ""), baseDir);
 			currItem->Pfile3 = Relative2Path(attrs.valueAsString("PFILE3", ""), baseDir);
@@ -6414,12 +6510,21 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 			currItem->EmbeddedProfile = attrs.valueAsString("EPROF", "");
 			currItem->UseEmbedded = attrs.valueAsInt("EMBEDDED", 1);
 			doc->loadPict(currItem->Pfile, currItem);
-			currItem->setImageXYScale(imageXScale, imageYScale);
-			currItem->setImageVisible( attrs.valueAsInt("PICART"));
+			currItem->setImageXYScale(imageScaleX, imageScaleY);
+			if (attrs.hasAttribute("PICART"))
+				currItem->setImageVisible(attrs.valueAsInt("PICART"));
+			else
+				currItem->setImageVisible(attrs.valueAsInt("ImageVisible"));
 /*			currItem->BBoxX = ScCLocale::toDoubleC( obj->attribute("BBOXX"));
 			currItem->BBoxH = ScCLocale::toDoubleC( obj->attribute("BBOXH")); */
-			currItem->ScaleType = attrs.valueAsInt("SCALETYPE", 1);
-			currItem->AspectRatio = attrs.valueAsInt("RATIO", 0);
+			if (attrs.hasAttribute("SCALETYPE"))
+				currItem->ScaleType = attrs.valueAsInt("SCALETYPE", 1);
+			else
+				currItem->ScaleType = attrs.valueAsInt("ImageScaleType", 1);
+			if (attrs.hasAttribute("RATIO"))
+				currItem->AspectRatio = attrs.valueAsInt("RATIO", 0);
+			else
+				currItem->AspectRatio = attrs.valueAsInt("ImageRatio", 0);
 		}
 		UndoManager::instance()->setUndoEnabled(true);
 	}
@@ -6548,8 +6653,9 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 		if (!found)
 			currItem->setLayer(doc->firstLayerID());
 	}
-	tmp.clear();
-
+	QString tmp;
+	double xf;
+	double yf;
 	//Remove uppercase in 1.8 format
 	if ((attrs.hasAttribute("DashValues")) && (attrs.valueAsInt("DashValues", 0) != 0))
 	{

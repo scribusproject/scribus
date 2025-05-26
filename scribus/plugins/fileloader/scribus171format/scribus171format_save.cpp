@@ -2054,13 +2054,13 @@ void Scribus171Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			docu.writeAttribute("InID", item->inlineCharID);
 		if (master == ItemSelectionElements)
 		{
-			docu.writeAttribute("XPOS", item->xPos() - doc->currentPage()->xOffset());
-			docu.writeAttribute("YPOS", item->yPos() - doc->currentPage()->yOffset());
+			docu.writeAttribute("XPosition", item->xPos() - doc->currentPage()->xOffset());
+			docu.writeAttribute("YPosition", item->yPos() - doc->currentPage()->yOffset());
 		}
 		else
 		{
-			docu.writeAttribute("XPOS", item->xPos());
-			docu.writeAttribute("YPOS", item->yPos());
+			docu.writeAttribute("XPosition", item->xPos());
+			docu.writeAttribute("YPosition", item->yPos());
 		}
 		SetItemProps(docu, item, baseDir);
 		if (!item->OnMasterPage.isEmpty())
@@ -2306,11 +2306,11 @@ void Scribus171Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			QList<VColorStop*> cstops = item->fill_gradient.colorStops();
 			for (int cst = 0; cst < item->fill_gradient.stops(); ++cst)
 			{
-				docu.writeEmptyElement("CSTOP");
-				docu.writeAttribute("RAMP", cstops.at(cst)->rampPoint);
-				docu.writeAttribute("NAME", cstops.at(cst)->name);
-				docu.writeAttribute("SHADE", cstops.at(cst)->shade);
-				docu.writeAttribute("TRANS", cstops.at(cst)->opacity);
+				docu.writeEmptyElement("ColorStop");
+				docu.writeAttribute("Ramp", cstops.at(cst)->rampPoint);
+				docu.writeAttribute("Name", cstops.at(cst)->name);
+				docu.writeAttribute("Shade", cstops.at(cst)->shade);
+				docu.writeAttribute("Opacity", cstops.at(cst)->opacity);
 			}
 		}
 		if ((item->GrTypeStroke > 0) && (item->strokeGradient().isEmpty()))
@@ -2318,11 +2318,11 @@ void Scribus171Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			QList<VColorStop*> cstops = item->stroke_gradient.colorStops();
 			for (int cst = 0; cst < item->stroke_gradient.stops(); ++cst)
 			{
-				docu.writeEmptyElement("S_CSTOP");
-				docu.writeAttribute("RAMP", cstops.at(cst)->rampPoint);
-				docu.writeAttribute("NAME", cstops.at(cst)->name);
-				docu.writeAttribute("SHADE", cstops.at(cst)->shade);
-				docu.writeAttribute("TRANS", cstops.at(cst)->opacity);
+				docu.writeEmptyElement("ColorStopStroke");
+				docu.writeAttribute("Ramp", cstops.at(cst)->rampPoint);
+				docu.writeAttribute("Name", cstops.at(cst)->name);
+				docu.writeAttribute("Shade", cstops.at(cst)->shade);
+				docu.writeAttribute("Opacity", cstops.at(cst)->opacity);
 			}
 		}
 		if ((item->GrMask > 0) && (item->gradientMask().isEmpty()))
@@ -2330,11 +2330,11 @@ void Scribus171Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			QList<VColorStop*> cstops = item->mask_gradient.colorStops();
 			for (int cst = 0; cst < item->mask_gradient.stops(); ++cst)
 			{
-				docu.writeEmptyElement("M_CSTOP");
-				docu.writeAttribute("RAMP", cstops.at(cst)->rampPoint);
-				docu.writeAttribute("NAME", cstops.at(cst)->name);
-				docu.writeAttribute("SHADE", cstops.at(cst)->shade);
-				docu.writeAttribute("TRANS", cstops.at(cst)->opacity);
+				docu.writeEmptyElement("ColorStopMaskGradient");
+				docu.writeAttribute("Ramp", cstops.at(cst)->rampPoint);
+				docu.writeAttribute("Name", cstops.at(cst)->name);
+				docu.writeAttribute("Shade", cstops.at(cst)->shade);
+				docu.writeAttribute("Opacity", cstops.at(cst)->opacity);
 			}
 		}
 		if (item->GrType == Gradient_Mesh)
@@ -2492,7 +2492,7 @@ void Scribus171Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 		//Write all the cells and their data to the document, as sub-elements of the pageitem.
 		if (item->isTable())
 		{
-			//PTYPE == PageItem::Table or 16 (pageitem.h)
+			//ItemType == PageItem::Table or 16 (pageitem.h)
 			const PageItem_Table* tableItem = item->asTable();
 			docu.writeStartElement("TableData");
 			QString tstyle = tableItem->styleName();
@@ -2702,9 +2702,9 @@ void Scribus171Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 {
 	docu.writeAttribute("OwnPage", item->OwnPage);
 	docu.writeAttribute("ItemID", qHash(item) & 0x7FFFFFFF);
-	docu.writeAttribute("PTYPE", item->realItemType());
-	docu.writeAttribute("WIDTH", item->width());
-	docu.writeAttribute("HEIGHT", item->height());
+	docu.writeAttribute("ItemType", item->realItemType());
+	docu.writeAttribute("Width", item->width());
+	docu.writeAttribute("Height", item->height());
 	if (item->cornerRadius() != 0)
 		docu.writeAttribute("RADRECT", item->cornerRadius());
 	docu.writeAttribute("FRTYPE", item->FrameType);
@@ -2714,7 +2714,7 @@ void Scribus171Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	if (item->GrTypeStroke != 0)
 		docu.writeAttribute("GRTYPS", item->GrTypeStroke);
 	if (item->rotation() != 0)
-		docu.writeAttribute("ROT", item->rotation());
+		docu.writeAttribute("Rotation", item->rotation());
 	if (!item->printEnabled())
 		docu.writeAttribute("PRINTABLE", 0);
 	if (item->imageFlippedH())
@@ -2725,11 +2725,11 @@ void Scribus171Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	{
 		docu.writeAttribute("PWIDTH", item->lineWidth());
 		if (item->fillColor() != CommonStrings::None)
-			docu.writeAttribute("PCOLOR", item->fillColor());
+			docu.writeAttribute("FillColor", item->fillColor());
 		if (item->fillShade() != 100)
 			docu.writeAttribute("SHADE", item->fillShade());
 		if (item->lineColor() != CommonStrings::None)
-			docu.writeAttribute("PCOLOR2", item->lineColor());
+			docu.writeAttribute("LineColor", item->lineColor());
 		if (item->lineShade() != 100)
 			docu.writeAttribute("SHADE2", item->lineShade());
 		if (!item->NamedLStyle.isEmpty())
@@ -2841,14 +2841,14 @@ void Scribus171Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 //	docu.writeAttribute("TEXTFLOW3", item->textFlowUsesContourLine() ? 1 : 0);
 	if (item->isTextFrame() || item->isPathText() || item->isImageFrame())
 	{
-		docu.writeAttribute("LOCALSCX", item->imageXScale());
-		docu.writeAttribute("LOCALSCY", item->imageYScale());
-		docu.writeAttribute("LOCALX", item->imageXOffset());
-		docu.writeAttribute("LOCALY", item->imageYOffset());
-		docu.writeAttribute("LOCALROT", item->imageRotation());
-		docu.writeAttribute("PICART", item->imageVisible() ? 1 : 0);
-		docu.writeAttribute("SCALETYPE", item->ScaleType ? 1 : 0);
-		docu.writeAttribute("RATIO", item->AspectRatio ? 1 : 0);
+		docu.writeAttribute("ImageScaleX", item->imageXScale());
+		docu.writeAttribute("ImageScaleY", item->imageYScale());
+		docu.writeAttribute("ImageOffsetX", item->imageXOffset());
+		docu.writeAttribute("ImageOffsetY", item->imageYOffset());
+		docu.writeAttribute("ImageRotation", item->imageRotation());
+		docu.writeAttribute("ImageVisible", item->imageVisible() ? 1 : 0);
+		docu.writeAttribute("ImageScaleType", item->ScaleType ? 1 : 0);
+		docu.writeAttribute("ImageRatio", item->AspectRatio ? 1 : 0);
 	}
 	if (item->isTextFrame() || item->isPathText())
 	{
@@ -2960,7 +2960,7 @@ void Scribus171Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	QString tmp;
 	if (item->isTable())
 	{
-		//PTYPE == PageItem::Table or 16 (pageitem.h)
+		//ItemType == PageItem::Table or 16 (pageitem.h)
 		const PageItem_Table* tableItem = item->asTable();
 		docu.writeAttribute("Rows", tableItem->rows());
 		docu.writeAttribute("Columns", tableItem->columns());
