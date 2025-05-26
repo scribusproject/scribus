@@ -2034,20 +2034,20 @@ void Scribus171Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 		switch (master)
 		{
 			case ItemSelectionMaster:
-				docu.writeStartElement("MASTEROBJECT");
+				docu.writeStartElement("MasterObject");
 				break;
 			case ItemSelectionGroup:
 			case ItemSelectionPage:
-				docu.writeStartElement("PAGEOBJECT");
+				docu.writeStartElement("PageObject");
 				break;
 			case ItemSelectionFrame:
-				docu.writeStartElement("FRAMEOBJECT");
+				docu.writeStartElement("FrameObject");
 				break;
 			case ItemSelectionPattern:
 				docu.writeStartElement("PatternItem");
 				break;
 			case ItemSelectionElements:
-				docu.writeStartElement("ITEM");
+				docu.writeStartElement("Item");
 				break;
 		}
 		if (master == ItemSelectionFrame)
@@ -2231,14 +2231,14 @@ void Scribus171Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 		
 		docu.writeAttribute("Layer", item->m_layerID);
 		if (item->isBookmark)
-			docu.writeAttribute("BOOKMARK", 1);
+			docu.writeAttribute("BookMark", 1);
 
 		if (item->isTextFrame() || item->isPathText() || item->isImageFrame())
 		{
 			if (item->nextInChain() != nullptr)
-				docu.writeAttribute("NEXTITEM", qHash(item->nextInChain()) & 0x7FFFFFFF);
+				docu.writeAttribute("NextItem", qHash(item->nextInChain()) & 0x7FFFFFFF);
 			else
-				docu.writeAttribute("NEXTITEM", -1);
+				docu.writeAttribute("NextItem", -1);
 
 			bool prevTopParentCheck = (master == ItemSelectionGroup);
 			if (master != ItemSelectionGroup)
@@ -2250,10 +2250,10 @@ void Scribus171Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 			}
 
 			if (item->prevInChain() != nullptr && prevTopParentCheck)
-				docu.writeAttribute("BACKITEM", qHash(item->prevInChain()) & 0x7FFFFFFF);
+				docu.writeAttribute("BackItem", qHash(item->prevInChain()) & 0x7FFFFFFF);
 			else
 			{
-				docu.writeAttribute("BACKITEM", -1);
+				docu.writeAttribute("BackItem", -1);
 				if (item->isNoteFrame())
 					docu.writeAttribute("isNoteFrame", 1);
 				else if (item->isTextFrame() || item->isPathText())
@@ -2710,20 +2710,20 @@ void Scribus171Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	docu.writeAttribute("FrameType", item->FrameType);
 	docu.writeAttribute("ClipEdited", item->ClipEdited ? 1 : 0);
 	if (item->GrType != 0)
-		docu.writeAttribute("GRTYP", item->GrType);
+		docu.writeAttribute("GradientType", item->GrType);
 	if (item->GrTypeStroke != 0)
-		docu.writeAttribute("GRTYPS", item->GrTypeStroke);
+		docu.writeAttribute("GradientTypeStroke", item->GrTypeStroke);
 	if (item->rotation() != 0)
 		docu.writeAttribute("Rotation", item->rotation());
 	if (!item->printEnabled())
 		docu.writeAttribute("PrintEnabled", 0);
 	if (item->imageFlippedH())
-		docu.writeAttribute("FLIPPEDH", 1);
+		docu.writeAttribute("FlippedHorizontal", 1);
 	if (item->imageFlippedV())
-		docu.writeAttribute("FLIPPEDV", 1);
+		docu.writeAttribute("FlippedVertical", 1);
 	if (!(item->isGroup() || item->isSymbol()))
 	{
-		docu.writeAttribute("PWIDTH", item->lineWidth());
+		docu.writeAttribute("LineWidth", item->lineWidth());
 		if (item->fillColor() != CommonStrings::None)
 			docu.writeAttribute("FillColor", item->fillColor());
 		if (item->fillShade() != 100)
@@ -2733,13 +2733,13 @@ void Scribus171Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		if (item->lineShade() != 100)
 			docu.writeAttribute("LineShade", item->lineShade());
 		if (!item->NamedLStyle.isEmpty())
-			docu.writeAttribute("NAMEDLST", item->NamedLStyle);
+			docu.writeAttribute("NamedLineStyle", item->NamedLStyle);
 		if (item->PLineArt != 0)
-			docu.writeAttribute("PLINEART", item->PLineArt);
+			docu.writeAttribute("LinePenStyle", item->PLineArt);
 		if (item->PLineEnd != 0)
-			docu.writeAttribute("PLINEEND", item->PLineEnd);
+			docu.writeAttribute("LineCapStyle", item->PLineEnd);
 		if (item->PLineJoin != 0)
-			docu.writeAttribute("PLINEJOIN", item->PLineJoin);
+			docu.writeAttribute("LineJoinStyle", item->PLineJoin);
 	}
 	//write weld parameter
 	if (item->isWelded())

@@ -190,8 +190,13 @@ void BibView::checkForImg(const QDomElement& elem, bool &hasImage)
 		QDomElement pg = node.toElement();
 		if (pg.tagName() == "PAGEOBJECT")
 		{
-			PageItem::ItemType PType = static_cast<PageItem::ItemType>(pg.attribute("PTYPE").toInt());
-			if ((PType == PageItem::ImageFrame) || (PType == PageItem::TextFrame))
+			PageItem::ItemType itemType;
+			if (pg.hasAttribute("PTYPE"))
+				itemType = static_cast<PageItem::ItemType>(pg.attribute("PTYPE").toInt());
+			else
+				itemType = static_cast<PageItem::ItemType>(pg.attribute("ItemType").toInt());
+
+			if ((itemType == PageItem::ImageFrame) || (itemType == PageItem::TextFrame))
 			{
 				QString Pfile = pg.attribute("PFILE");
 				QString Pfile2 = pg.attribute("PFILE2","");
@@ -203,13 +208,13 @@ void BibView::checkForImg(const QDomElement& elem, bool &hasImage)
 				if (!Pfile3.isEmpty())
 					hasImage = true;
 			}
-			else if (PType == PageItem::OSGFrame)
+			else if (itemType == PageItem::OSGFrame)
 			{
 				QString Pfile = pg.attribute("modelFile");
 				if (!Pfile.isEmpty())
 					hasImage = true;
 			}
-			else if (PType == PageItem::Group)
+			else if (itemType == PageItem::Group)
 				checkForImg(pg, hasImage);
 			if (hasImage)
 				break;
@@ -228,9 +233,14 @@ void BibView::checkAndChange(const QString& text, const QString& nam, const QStr
 	while (!node.isNull())
 	{
 		QDomElement pg = node.toElement();
-		if (pg.tagName() == "ITEM")
+		if (pg.tagName() == "ITEM" || pg.tagName() == "Item")
 		{
-			auto itemType = static_cast<PageItem::ItemType>(pg.attribute("PTYPE").toInt());
+			PageItem::ItemType itemType;
+			if (pg.hasAttribute("PTYPE"))
+				itemType = static_cast<PageItem::ItemType>(pg.attribute("PTYPE").toInt());
+			else
+				itemType = static_cast<PageItem::ItemType>(pg.attribute("ItemType").toInt());
+
 			if ((itemType == PageItem::ImageFrame) || (itemType == PageItem::TextFrame))
 			{
 				QString Pfile = pg.attribute("PFILE");
@@ -269,12 +279,16 @@ void BibView::checkAndChange(const QString& text, const QString& nam, const QStr
 	while (!node.isNull())
 	{
 		QDomElement pg = node.toElement();
-		if (pg.tagName() == "ITEM")
+		if (pg.tagName() == "ITEM" || pg.tagName() == "Item")
 		{
 			if (first)
 				pg.setAttribute("ANNAME", fid.baseName());
 			first = false;
-			auto itemType = static_cast<PageItem::ItemType>(pg.attribute("PTYPE").toInt());
+			PageItem::ItemType itemType;
+			if (pg.hasAttribute("PTYPE"))
+				itemType = static_cast<PageItem::ItemType>(pg.attribute("PTYPE").toInt());
+			else
+				itemType = static_cast<PageItem::ItemType>(pg.attribute("ItemType").toInt());
 			if ((itemType == PageItem::ImageFrame) || (itemType == PageItem::TextFrame))
 			{
 				QString Pfile = pg.attribute("PFILE");
@@ -369,7 +383,11 @@ void BibView::checkAndChangeGroups(const QDomElement& elem, const QString& dir, 
 		QDomElement pg = node.toElement();
 		if (pg.tagName() == "PAGEOBJECT")
 		{
-			auto itemType = static_cast<PageItem::ItemType>(pg.attribute("PTYPE").toInt());
+			PageItem::ItemType itemType;
+			if (pg.hasAttribute("PTYPE"))
+				itemType = static_cast<PageItem::ItemType>(pg.attribute("PTYPE").toInt());
+			else
+				itemType = static_cast<PageItem::ItemType>(pg.attribute("ItemType").toInt());
 			if ((itemType == PageItem::ImageFrame) || (itemType == PageItem::TextFrame))
 			{
 				QString Pfile = pg.attribute("PFILE");
@@ -1513,9 +1531,13 @@ void Biblio::adjustReferences(const QString& nam)
 	while (!node.isNull())
 	{
 		QDomElement pg = node.toElement();
-		if (pg.tagName() == "ITEM")
+		if (pg.tagName() == "ITEM" || pg.tagName() == "Item")
 		{
-			auto itemType = static_cast<PageItem::ItemType>(pg.attribute("PTYPE").toInt());
+			PageItem::ItemType itemType;
+			if (pg.hasAttribute("PTYPE"))
+				itemType = static_cast<PageItem::ItemType>(pg.attribute("PTYPE").toInt());
+			else
+				itemType = static_cast<PageItem::ItemType>(pg.attribute("ItemType").toInt());
 			if ((itemType == PageItem::ImageFrame) || (itemType == PageItem::TextFrame))
 			{
 				QString Pfile = pg.attribute("PFILE");
@@ -1574,7 +1596,11 @@ void Biblio::adjustReferencesGroups(const QDomElement& elem, const QFileInfo& fi
 		QDomElement pg = node.toElement();
 		if (pg.tagName() == "PAGEOBJECT")
 		{
-			auto itemType = static_cast<PageItem::ItemType>(pg.attribute("PTYPE").toInt());
+			PageItem::ItemType itemType;
+			if (pg.hasAttribute("PTYPE"))
+				itemType = static_cast<PageItem::ItemType>(pg.attribute("PTYPE").toInt());
+			else
+				itemType = static_cast<PageItem::ItemType>(pg.attribute("ItemType").toInt());
 			if ((itemType == PageItem::ImageFrame) || (itemType == PageItem::TextFrame))
 			{
 				QString Pfile = pg.attribute("PFILE");
@@ -1625,7 +1651,7 @@ QString Biblio::getObjectName(const QString &text) const
 	while (!node.isNull())
 	{
 		QDomElement pg = node.toElement();
-		if (pg.tagName() == "ITEM")
+		if (pg.tagName() == "ITEM" || pg.tagName() == "Item")
 		{
 			result = pg.attribute("ANNAME");
 			break;

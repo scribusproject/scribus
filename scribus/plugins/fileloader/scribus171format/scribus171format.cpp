@@ -408,7 +408,7 @@ bool Scribus171Format::loadElements(const QString& data, const QString& fileDir,
 			if (!mlName.isEmpty() && !m_Doc->docLineStyles.contains(mlName))
 				m_Doc->docLineStyles.insert(mlName, ml);
 		}
-		else if ((tagName == QLatin1String("ITEM")) || (tagName == QLatin1String("PAGEOBJECT")) || (tagName == QLatin1String("FRAMEOBJECT")))
+		else if ((tagName == QLatin1String("ITEM") || tagName == QLatin1String("Item")) || (tagName == QLatin1String("PAGEOBJECT")) || (tagName == QLatin1String("FRAMEOBJECT")) || (tagName == QLatin1String("PageObject")) || (tagName == QLatin1String("FrameObject")))
 		{
 			ItemInfo itemInfo;
 			success = readObject(m_Doc, reader, readObjectParams, itemInfo);
@@ -427,14 +427,14 @@ bool Scribus171Format::loadElements(const QString& data, const QString& fileDir,
 			else
 			{
 			// first of linked chain?
-				if (tagName == QLatin1String("ITEM"))
+				if (tagName == QLatin1String("ITEM") || tagName == QLatin1String("Item"))
 				{
 					if (itemInfo.nextItem != -1)
 						itemNext[itemInfo.ownNr] = itemInfo.nextItem;
 				}
 				if (itemInfo.item->isTableItem)
 				{
-					if (tagName == QLatin1String("ITEM"))
+					if (tagName == QLatin1String("ITEM") || tagName == QLatin1String("Item"))
 					{
 						TableItems.append(itemInfo.item);
 						TableID.insert(itemInfo.ownLink, itemInfo.item);
@@ -442,7 +442,7 @@ bool Scribus171Format::loadElements(const QString& data, const QString& fileDir,
 				}
 				if (itemInfo.isWeldFlag)
 				{
-					if (tagName == QLatin1String("ITEM"))
+					if (tagName == QLatin1String("ITEM") || tagName == QLatin1String("Item"))
 					{
 						WeldItems.append(itemInfo.item);
 						WeldID.insert(itemInfo.ownWeld, itemInfo.item);
@@ -450,7 +450,7 @@ bool Scribus171Format::loadElements(const QString& data, const QString& fileDir,
 				}
 			}
 
-			if ((tagName == QLatin1String("PAGEOBJECT")) && (groupStackPI.count() > 0))
+			if ((tagName == QLatin1String("PAGEOBJECT") || tagName == QLatin1String("PageObject")) && (groupStackPI.count() > 0))
 			{
 				groupStackPI.top().append(itemInfo.item);
 				while (itemInfo.ownNr == groupStackPI2.top())
@@ -461,7 +461,7 @@ bool Scribus171Format::loadElements(const QString& data, const QString& fileDir,
 						break;
 				}
 			}
-			else if ((tagName == QLatin1String("FRAMEOBJECT")) && (groupStackFI.count() > 0))
+			else if ((tagName == QLatin1String("FRAMEOBJECT") || tagName == QLatin1String("FrameObject")) && (groupStackFI.count() > 0))
 			{
 				groupStackFI.top().append(itemInfo.item);
 				while (itemInfo.ownNr == groupStackFI2.top())
@@ -472,7 +472,7 @@ bool Scribus171Format::loadElements(const QString& data, const QString& fileDir,
 						break;
 				}
 			}
-			else if ((tagName == QLatin1String("MASTEROBJECT")) && (groupStackMI.count() > 0))
+			else if ((tagName == QLatin1String("MASTEROBJECT") || tagName == QLatin1String("MasterObject")) && (groupStackMI.count() > 0))
 			{
 				groupStackMI.top().append(itemInfo.item);
 				while (itemInfo.ownNr == groupStackMI2.top())
@@ -488,12 +488,12 @@ bool Scribus171Format::loadElements(const QString& data, const QString& fileDir,
 			{
 				QList<PageItem*> groupItems;
 				groupItems.append(itemInfo.item);
-				if (tagName == QLatin1String("PAGEOBJECT"))
+				if (tagName == QLatin1String("PAGEOBJECT") || tagName == QLatin1String("PageObject"))
 				{
 					groupStackPI.push(groupItems);
 					groupStackPI2.push(itemInfo.groupLastItem + itemInfo.ownNr);
 				}
-				else if (tagName == QLatin1String("FRAMEOBJECT"))
+				else if (tagName == QLatin1String("FRAMEOBJECT") || tagName == QLatin1String("FrameObject"))
 				{
 					groupStackFI.push(groupItems);
 					groupStackFI2.push(itemInfo.groupLastItem + itemInfo.ownNr);
@@ -1133,7 +1133,8 @@ bool Scribus171Format::loadPalette(const QString & fileName)
 				m_Doc->docLineStyles.insert(mlName, ml);
 			}
 		}
-		if (tagName == QLatin1String("PAGEOBJECT") || tagName == QLatin1String("MASTEROBJECT") || tagName == QLatin1String("FRAMEOBJECT"))
+		if (tagName == QLatin1String("PAGEOBJECT") || tagName == QLatin1String("MASTEROBJECT") || tagName == QLatin1String("FRAMEOBJECT") ||
+				tagName == QLatin1String("PageObject") || tagName == QLatin1String("MasterObject") || tagName == QLatin1String("FrameObject"))
 		{
 			ItemInfo itemInfo;
 			success = readObject(m_Doc, reader, readObjectParams, itemInfo);
@@ -1151,24 +1152,24 @@ bool Scribus171Format::loadPalette(const QString & fileName)
 			else
 			{
 				// first of linked chain?
-				if (tagName == QLatin1String("PAGEOBJECT"))
+				if (tagName == QLatin1String("PAGEOBJECT") || tagName == QLatin1String("PageObject"))
 				{
 					if (itemInfo.nextItem != -1)
 						itemNext[itemInfo.ownNr] = itemInfo.nextItem;
 				}
-				else if (tagName == QLatin1String("MASTEROBJECT"))
+				else if (tagName == QLatin1String("MASTEROBJECT") || tagName == QLatin1String("MasterObject"))
 				{
 					if (itemInfo.nextItem != -1)
 						itemNextM[itemInfo.ownNr] = itemInfo.nextItem;
 				}
 				if (itemInfo.item->isTableItem)
 				{
-					if (tagName == QLatin1String("PAGEOBJECT"))
+					if (tagName == QLatin1String("PAGEOBJECT") || tagName == QLatin1String("PageObject"))
 					{
 						TableItems.append(itemInfo.item);
 						TableID.insert(itemInfo.ownLink, itemInfo.item);
 					}
-					else if (tagName == QLatin1String("FRAMEOBJECT"))
+					else if (tagName == QLatin1String("FRAMEOBJECT") || tagName == QLatin1String("FrameObject"))
 					{
 						TableItemsF.append(itemInfo.item);
 						TableIDF.insert(itemInfo.ownLink, itemInfo.item);
@@ -1186,7 +1187,7 @@ bool Scribus171Format::loadPalette(const QString & fileName)
 				}
 			}
 
-			if ((tagName == QLatin1String("PAGEOBJECT")) && (groupStackPI.count() > 0))
+			if ((tagName == QLatin1String("PAGEOBJECT") || tagName == QLatin1String("PageObject")) && (groupStackPI.count() > 0))
 			{
 				groupStackPI.top().append(itemInfo.item);
 				while (itemInfo.ownNr == groupStackPI2.top())
@@ -1197,7 +1198,7 @@ bool Scribus171Format::loadPalette(const QString & fileName)
 						break;
 				}
 			}
-			else if ((tagName == QLatin1String("FRAMEOBJECT")) && (groupStackFI.count() > 0))
+			else if ((tagName == QLatin1String("FRAMEOBJECT") || tagName == QLatin1String("FrameObject")) && (groupStackFI.count() > 0))
 			{
 				groupStackFI.top().append(itemInfo.item);
 				while (itemInfo.ownNr == groupStackFI2.top())
@@ -1208,7 +1209,7 @@ bool Scribus171Format::loadPalette(const QString & fileName)
 						break;
 				}
 			}
-			else if ((tagName == QLatin1String("MASTEROBJECT")) && (groupStackMI.count() > 0))
+			else if ((tagName == QLatin1String("MASTEROBJECT") || tagName == QLatin1String("MasterObject")) && (groupStackMI.count() > 0))
 			{
 				groupStackMI.top().append(itemInfo.item);
 				while (itemInfo.ownNr == groupStackMI2.top())
@@ -1224,12 +1225,12 @@ bool Scribus171Format::loadPalette(const QString & fileName)
 			{
 				QList<PageItem*> groupItems;
 				groupItems.append(itemInfo.item);
-				if (tagName == QLatin1String("PAGEOBJECT"))
+				if (tagName == QLatin1String("PAGEOBJECT") || tagName == QLatin1String("PageObject"))
 				{
 					groupStackPI.push(groupItems);
 					groupStackPI2.push(itemInfo.groupLastItem + itemInfo.ownNr);
 				}
-				else if (tagName == QLatin1String("FRAMEOBJECT"))
+				else if (tagName == QLatin1String("FRAMEOBJECT") || tagName == QLatin1String("FrameObject"))
 				{
 					groupStackFI.push(groupItems);
 					groupStackFI2.push(itemInfo.groupLastItem + itemInfo.ownNr);
@@ -1856,7 +1857,8 @@ bool Scribus171Format::loadFile(const QString & fileName, const FileFormat & /* 
 			if (!success)
 				break;
 		}
-		else if (tagName == QLatin1String("PAGEOBJECT") || tagName == QLatin1String("MASTEROBJECT") || tagName == QLatin1String("FRAMEOBJECT"))
+		else if (tagName == QLatin1String("PAGEOBJECT") || tagName == QLatin1String("MASTEROBJECT") || tagName == QLatin1String("FRAMEOBJECT") ||
+				 tagName == QLatin1String("PageObject") || tagName == QLatin1String("MasterObject") || tagName == QLatin1String("FrameObject"))
 		{
 			ItemInfo itemInfo;
 			success = readObject(m_Doc, reader, readObjectParams, itemInfo);
@@ -1875,24 +1877,24 @@ bool Scribus171Format::loadFile(const QString & fileName, const FileFormat & /* 
 			}
 			else
 			{
-				if (tagName == QLatin1String("PAGEOBJECT"))
+				if (tagName == QLatin1String("PAGEOBJECT") || tagName == QLatin1String("PageObject"))
 				{
 					if (itemInfo.nextItem != -1)
 						itemNext[itemInfo.ownNr] = itemInfo.nextItem;
 				}
-				else if (tagName == QLatin1String("MASTEROBJECT"))
+				else if (tagName == QLatin1String("MASTEROBJECT") || tagName == QLatin1String("MasterObject"))
 				{
 					if (itemInfo.nextItem != -1)
 						itemNextM[itemInfo.ownNr] = itemInfo.nextItem;
 				}
 				if (itemInfo.item->isTableItem)
 				{
-					if (tagName == QLatin1String("PAGEOBJECT"))
+					if (tagName == QLatin1String("PAGEOBJECT") || tagName == QLatin1String("PageObject"))
 					{
 						TableItems.append(itemInfo.item);
 						TableID.insert(itemInfo.ownLink, itemInfo.item);
 					}
-					else if (tagName == QLatin1String("FRAMEOBJECT"))
+					else if (tagName == QLatin1String("FRAMEOBJECT") || tagName == QLatin1String("FrameObject"))
 					{
 						TableItemsF.append(itemInfo.item);
 						TableIDF.insert(itemInfo.ownLink, itemInfo.item);
@@ -1911,7 +1913,7 @@ bool Scribus171Format::loadFile(const QString & fileName, const FileFormat & /* 
 				}
 			}
 
-			if ((tagName == QLatin1String("PAGEOBJECT")) && (groupStackPI.count() > 0))
+			if ((tagName == QLatin1String("PAGEOBJECT") || tagName == QLatin1String("PageObject")) && (groupStackPI.count() > 0))
 			{
 				groupStackPI.top().append(itemInfo.item);
 				while (itemInfo.ownNr == groupStackPI2.top())
@@ -1922,7 +1924,7 @@ bool Scribus171Format::loadFile(const QString & fileName, const FileFormat & /* 
 						break;
 				}
 			}
-			else if ((tagName == QLatin1String("FRAMEOBJECT")) && (groupStackFI.count() > 0))
+			else if ((tagName == QLatin1String("FRAMEOBJECT") || tagName == QLatin1String("FrameObject")) && (groupStackFI.count() > 0))
 			{
 				groupStackFI.top().append(itemInfo.item);
 				while (itemInfo.ownNr == groupStackFI2.top())
@@ -1933,7 +1935,7 @@ bool Scribus171Format::loadFile(const QString & fileName, const FileFormat & /* 
 						break;
 				}
 			}
-			else if ((tagName == QLatin1String("MASTEROBJECT")) && (groupStackMI.count() > 0))
+			else if ((tagName == QLatin1String("MASTEROBJECT") || tagName == QLatin1String("MasterObject")) && (groupStackMI.count() > 0))
 			{
 				groupStackMI.top().append(itemInfo.item);
 				while (itemInfo.ownNr == groupStackMI2.top())
@@ -1949,12 +1951,12 @@ bool Scribus171Format::loadFile(const QString & fileName, const FileFormat & /* 
 			{
 				QList<PageItem*> groupItems;
 				groupItems.append(itemInfo.item);
-				if (tagName == QLatin1String("PAGEOBJECT"))
+				if (tagName == QLatin1String("PAGEOBJECT") || tagName == QLatin1String("PageObject"))
 				{
 					groupStackPI.push(groupItems);
 					groupStackPI2.push(itemInfo.groupLastItem + itemInfo.ownNr);
 				}
-				else if (tagName == QLatin1String("FRAMEOBJECT"))
+				else if (tagName == QLatin1String("FRAMEOBJECT") || tagName == QLatin1String("FrameObject"))
 				{
 					groupStackFI.push(groupItems);
 					groupStackFI2.push(itemInfo.groupLastItem + itemInfo.ownNr);
@@ -3008,14 +3010,10 @@ bool Scribus171Format::readPageSets(ScribusDoc* doc, ScXmlStreamReader& reader) 
 			pageS.FirstPage = attrs.valueAsInt("FirstPage", 0);
 			pageS.Rows = attrs.valueAsInt("Rows", 1);
 			pageS.Columns = attrs.valueAsInt("Columns", 1);
-//			pageS.GapHorizontal = attrs.valueAsDouble("GapHorizontal", 0);
-//			pageS.GapVertical = attrs.valueAsDouble("GapVertical", 0);
-//			pageS.GapBelow = attrs.valueAsDouble("GapBelow", 0);
 			pageS.pageNames.clear();
 		}
 		if (reader.isEndElement() && tagName == QLatin1String("Set"))
 		{
-//			doc->pageSets.append(pageS);
 			doc->appendToPageSets(pageS);
 			if ((doc->pageSets().count()-1 == doc->pagePositioning()) && ((doc->pageGapHorizontal() < 0) && (doc->pageGapVertical() < 0)))
 			{
@@ -4843,14 +4841,15 @@ bool Scribus171Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 	bool savedMasterPageMode = doc->masterPageMode();
 	if (!readObjectParams.loadingPage)
 	{
-		if (tagName == QLatin1String("PAGEOBJECT") || tagName == QLatin1String("FRAMEOBJECT") || tagName == QLatin1String("PatternItem") || tagName == QLatin1String("ITEM"))
+		if (tagName == QLatin1String("PAGEOBJECT") || tagName == QLatin1String("FRAMEOBJECT") || tagName == QLatin1String("PageObject") || tagName == QLatin1String("FrameObject") ||
+				tagName == QLatin1String("PatternItem") || tagName == QLatin1String("ITEM") || tagName == QLatin1String("Item"))
 			doc->setMasterPageMode(false);
 		else
 			doc->setMasterPageMode(true);
 	}
 
 	PageItem::ItemKind itemKind = PageItem::StandardItem;
-	if (tagName == QLatin1String("FRAMEOBJECT"))
+	if (tagName == QLatin1String("FRAMEOBJECT") || tagName == QLatin1String("FrameObject"))
 		itemKind = PageItem::InlineItem;
 	else if (tagName == QLatin1String("PatternItem"))
 		itemKind = PageItem::PatternItem;
@@ -4861,7 +4860,7 @@ bool Scribus171Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 
 	int pageNr = -1;
 	QString masterPageName = attrs.valueAsString("OnMasterPage");
-	if ((!masterPageName.isEmpty()) && (tagName == QLatin1String("MASTEROBJECT")))
+	if ((!masterPageName.isEmpty()) && (tagName == QLatin1String("MASTEROBJECT") || tagName == QLatin1String("MasterObject")))
 	{
 		if (!readObjectParams.renamedMasterPage.isEmpty())
 			masterPageName = readObjectParams.renamedMasterPage;
@@ -4873,13 +4872,13 @@ bool Scribus171Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 
 	PageItem* newItem = pasteItem(doc, attrs, readObjectParams.baseDir, itemKind, pageNr);
 	newItem->setRedrawBounding();
-	if (tagName == QLatin1String("MASTEROBJECT"))
+	if (tagName == QLatin1String("MASTEROBJECT") || tagName == QLatin1String("MasterObject"))
 		newItem->setOwnerPage(doc->OnPage(newItem));
 	else
 		newItem->setOwnerPage(attrs.valueAsInt("OwnPage"));
-	if ((tagName == QLatin1String("PAGEOBJECT")) || (tagName == QLatin1String("ITEM")))
+	if ((tagName == QLatin1String("PAGEOBJECT") || tagName == QLatin1String("PageObject")) || (tagName == QLatin1String("ITEM") || tagName == QLatin1String("Item")))
 		newItem->setMasterPageName(QString());
-	if (tagName == QLatin1String("ITEM"))
+	if (tagName == QLatin1String("ITEM") || tagName == QLatin1String("Item"))
 	{
 		newItem->setLayer(LayerToPaste);
 		newItem->setMasterPage(doc->OnPage(newItem), doc->currentPage()->pageName());
@@ -4897,7 +4896,7 @@ bool Scribus171Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 	if (newItem->isAutoText)
 		doc->LastAuto = newItem;
 
-	if (tagName == QLatin1String("FRAMEOBJECT"))
+	if (tagName == QLatin1String("FRAMEOBJECT") || tagName == QLatin1String("FrameObject"))
 	{
 		if (newItem->inlineCharID == -1)
 			FrameItems.append(m_Doc->Items->takeAt(m_Doc->Items->indexOf(newItem)));
@@ -4913,7 +4912,10 @@ bool Scribus171Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 		info.itemID = attrs.valueAsInt("ItemID", 0);
 		LinkID.insert(info.itemID, newItem);
 	}
-	info.nextItem = attrs.valueAsInt("NEXTITEM", -1);
+	if (attrs.hasAttribute("NEXTITEM"))
+		info.nextItem = attrs.valueAsInt("NEXTITEM", -1);
+	else
+		info.nextItem = attrs.valueAsInt("NextItem", -1);
 	if (isNewFormat)
 	{
 		if (info.nextItem != -1)
@@ -5220,7 +5222,7 @@ bool Scribus171Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 				}
 			}
 		}
-		if ((tName == QLatin1String("PAGEOBJECT")) || (tName == QLatin1String("ITEM")))
+		if ((tName == QLatin1String("PAGEOBJECT") || tName == QLatin1String("PageObject")) || (tName == QLatin1String("ITEM") || tagName == QLatin1String("Item")))
 		{
 			if (newItem->isGroup())
 			{
@@ -6022,7 +6024,11 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 		h = attrs.valueAsDouble("HEIGHT");
 	else
 		h = attrs.valueAsDouble("Height");
-	double pw = attrs.valueAsDouble("PWIDTH");
+	double pw;
+	if (attrs.hasAttribute("PWIDTH"))
+		pw = attrs.valueAsDouble("PWIDTH");
+	else
+		pw = attrs.valueAsDouble("LineWidth");
 	double imageOffsetX;
 	if (attrs.hasAttribute("LOCALX"))
 		imageOffsetX = attrs.valueAsDouble("LOCALX");
@@ -6271,10 +6277,22 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 	currItem->setEndArrowIndex(endArrowIndex);
 	currItem->setStartArrowScale(attrs.valueAsInt("startArrowScale", 100));
 	currItem->setEndArrowScale(attrs.valueAsInt("endArrowScale", 100));
-	currItem->NamedLStyle = attrs.valueAsString("NAMEDLST", "");
-	currItem->isBookmark = attrs.valueAsInt("BOOKMARK", 0);
-	currItem->setImageFlippedH( attrs.valueAsInt("FLIPPEDH", 0));
-	currItem->setImageFlippedV( attrs.valueAsInt("FLIPPEDV", 0));
+	if (attrs.hasAttribute("NAMEDLST"))
+		currItem->NamedLStyle = attrs.valueAsString("NAMEDLST", "");
+	else
+		currItem->NamedLStyle = attrs.valueAsString("NamedLineStyle", "");
+	if (attrs.hasAttribute("BOOKMARK"))
+		currItem->isBookmark = attrs.valueAsInt("BOOKMARK", 0);
+	else
+		currItem->isBookmark = attrs.valueAsInt("BookMark", 0);
+	if (attrs.hasAttribute("FLIPPEDH"))
+		currItem->setImageFlippedH( attrs.valueAsInt("FLIPPEDH", 0));
+	else
+		currItem->setImageFlippedH( attrs.valueAsInt("FlippedHorizontal", 0));
+	if (attrs.hasAttribute("FLIPPEDV"))
+		currItem->setImageFlippedV( attrs.valueAsInt("FLIPPEDV", 0));
+	else
+		currItem->setImageFlippedV( attrs.valueAsInt("FlippedVertical", 0));
 	if (attrs.hasAttribute("RADRECT"))
 		currItem->setCornerRadius( attrs.valueAsDouble("RADRECT", 0.0));
 	else
@@ -6458,9 +6476,18 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 	else
 		currItem->setFirstLineOffset(static_cast<FirstLineOffsetPolicy>(attrs.valueAsInt("FirstLineOffset")));
 
-	currItem->PLineArt = Qt::PenStyle(attrs.valueAsInt("PLINEART", 0));
-	currItem->PLineEnd = Qt::PenCapStyle(attrs.valueAsInt("PLINEEND", 0));
-	currItem->PLineJoin = Qt::PenJoinStyle(attrs.valueAsInt("PLINEJOIN", 0));
+	if (attrs.hasAttribute("PLINEART"))
+	{
+		currItem->PLineArt = Qt::PenStyle(attrs.valueAsInt("PLINEART", 0));
+		currItem->PLineEnd = Qt::PenCapStyle(attrs.valueAsInt("PLINEEND", 0));
+		currItem->PLineJoin = Qt::PenJoinStyle(attrs.valueAsInt("PLINEJOIN", 0));
+	}
+	else
+	{
+		currItem->PLineArt = Qt::PenStyle(attrs.valueAsInt("LinePenStyle", 0));
+		currItem->PLineEnd = Qt::PenCapStyle(attrs.valueAsInt("LineCapStyle", 0));
+		currItem->PLineJoin = Qt::PenJoinStyle(attrs.valueAsInt("LineJoinStyle", 0));
+	}
 	if (attrs.hasAttribute("PRINTABLE"))
 		currItem->setPrintEnabled( attrs.valueAsInt("PRINTABLE", 1));
 	else
@@ -6829,7 +6856,10 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 
 	if (currItem->isPathText())
 		currItem->updatePolyClip();
-	currItem->GrType = attrs.valueAsInt("GRTYP", 0);
+	if (attrs.hasAttribute("GRTYP"))
+		currItem->GrType = attrs.valueAsInt("GRTYP", 0);
+	else
+		currItem->GrType = attrs.valueAsInt("GradientType", 0);
 	QString GrColor;
 	QString GrColor2;
 	int GrShade = 0;
@@ -6988,7 +7018,10 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 	bool atPath = attrs.valueAsBool("pAtPathS", false);
 	currItem->setPatternFlip(mirrorX, mirrorY);
 	currItem->setStrokePatternToPath(atPath);
-	currItem->GrTypeStroke = attrs.valueAsInt("GRTYPS", 0);
+	if (attrs.hasAttribute("GRTYPS"))
+		currItem->GrTypeStroke = attrs.valueAsInt("GRTYPS", 0);
+	else
+		currItem->GrTypeStroke = attrs.valueAsInt("GradientTypeStroke", 0);
 	if (((currItem->GrTypeStroke != 0) && (currItem->GrTypeStroke != Gradient_Pattern)) && (currItem->strokeGradient().isEmpty()))
 		currItem->stroke_gradient.clearStops();
 	currItem->GrStrokeStartX = attrs.valueAsDouble("GRSTARTXS", 0.0);
@@ -7002,7 +7035,6 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 	QString GrNameS(attrs.valueAsString("GRNAMES", ""));
 	if (!GrNameS.isEmpty())
 		currItem->setStrokeGradient(GrNameS);
-
 
 	currItem->setPatternMask( attrs.valueAsString("patternM", "") );
 	ScMaskTransform maskTransform;
@@ -7600,9 +7632,9 @@ bool Scribus171Format::loadPage(const QString & fileName, int pageNumber, bool M
 			temp.create(tstyle);
 			m_Doc->redefineCellStyles(temp, false);
 		}
-		if (((tagName == QLatin1String("PAGE")) || (tagName == QLatin1String("MASTERPAGE"))) && (attrs.valueAsInt("NUM") == pageNumber))
+		if (((tagName == QLatin1String("PAGE")) || (tagName == QLatin1String("MASTERPAGE")) || (tagName == QLatin1String("Page")) || (tagName == QLatin1String("MasterPage"))) && (attrs.valueAsInt("NUM") == pageNumber))
 		{
-			if (Mpage && (tagName != QLatin1String("MASTERPAGE")))
+			if (Mpage && (tagName != QLatin1String("MASTERPAGE") && tagName != QLatin1String("MasterPage")))
 				continue;
 			int pageNr = m_Doc->currentPage()->pageNr();
 			newPage = m_Doc->Pages->at(pageNr);
@@ -7708,20 +7740,21 @@ bool Scribus171Format::loadPage(const QString & fileName, int pageNumber, bool M
 				undoManager->action(newPage, ss);
 			}
 		}
-		if ((tagName == QLatin1String("PAGEOBJECT")) || (tagName == QLatin1String("MASTEROBJECT")) || (tagName == QLatin1String("FRAMEOBJECT")))
+		if ((tagName == QLatin1String("PAGEOBJECT")) || (tagName == QLatin1String("MASTEROBJECT")) || (tagName == QLatin1String("FRAMEOBJECT")) ||
+				(tagName == QLatin1String("PageObject")) || (tagName == QLatin1String("MasterObject")) || (tagName == QLatin1String("FrameObject")))
 		{
-			if ((Mpage && tagName != QLatin1String("MASTEROBJECT")) || (!Mpage && tagName == QLatin1String("MASTEROBJECT")))
+			if ((Mpage && (tagName != QLatin1String("MASTEROBJECT") && tagName != QLatin1String("MasterObject"))) || (!Mpage && (tagName == QLatin1String("MASTEROBJECT") || tagName == QLatin1String("MasterObject"))))
 			{
 				// Go to end of node
 				reader.readToElementEnd();
 				continue;
 			}
 
-			if ((attrs.valueAsInt("OwnPage") != pageNumber) && (tagName != "FRAMEOBJECT"))
+			if ((attrs.valueAsInt("OwnPage") != pageNumber) && (tagName != "FRAMEOBJECT") && (tagName != "FrameObject"))
 			{			
-				if (tagName == QLatin1String("PAGEOBJECT"))
+				if (tagName == QLatin1String("PAGEOBJECT") || tagName == QLatin1String("PageObject"))
 					itemRemap[itemCount++] = -1;
-				else if (tagName == QLatin1String("MASTEROBJECT"))
+				else if (tagName == QLatin1String("MASTEROBJECT") || tagName == QLatin1String("MasterObject"))
 					itemRemapM[itemCountM++] = -1;
 				reader.readToElementEnd();
 				continue;
@@ -7735,7 +7768,7 @@ bool Scribus171Format::loadPage(const QString & fileName, int pageNumber, bool M
 			PageItem* newItem = itemInfo.item;
 			newItem->moveBy(-pageX + newPage->xOffset(), - pageY + newPage->yOffset());
 			newItem->setOwnerPage(m_Doc->currentPageNumber());
-			if (tagName == QLatin1String("PAGEOBJECT"))
+			if (tagName == QLatin1String("PAGEOBJECT") || tagName == QLatin1String("PageObject"))
 				newItem->setMasterPageName(QString());
 			else if (Mpage && !renamedPageName.isEmpty())
 				newItem->setMasterPageName(renamedPageName);
@@ -7752,17 +7785,33 @@ bool Scribus171Format::loadPage(const QString & fileName, int pageNumber, bool M
 			else
 			{
 				// first of linked chain?
-				if (tagName == QLatin1String("PAGEOBJECT"))
+				if (tagName == QLatin1String("PAGEOBJECT") || tagName == QLatin1String("PageObject"))
 				{
 					itemRemap[itemCount++] = m_Doc->DocItems.count();
-					if (attrs.valueAsInt("NEXTITEM", -1) != -1)
-						itemNext[m_Doc->DocItems.count()] = attrs.valueAsInt("NEXTITEM");
+					if (attrs.hasAttribute("NEXTITEM"))
+					{
+						if (attrs.valueAsInt("NEXTITEM", -1) != -1)
+							itemNext[m_Doc->DocItems.count()] = attrs.valueAsInt("NEXTITEM");
+					}
+					else
+					{
+						if (attrs.valueAsInt("NextItem", -1) != -1)
+							itemNext[m_Doc->DocItems.count()] = attrs.valueAsInt("NextItem");
+					}
 				}
-				else if (tagName == QLatin1String("MASTEROBJECT"))
+				else if (tagName == QLatin1String("MASTEROBJECT") || tagName == QLatin1String("MasterObject"))
 				{
 					itemRemapM[itemCountM++] = m_Doc->MasterItems.count();
-					if (attrs.valueAsInt("NEXTITEM", -1) != -1)
-						itemNextM[m_Doc->MasterItems.count()] = attrs.valueAsInt("NEXTITEM");
+					if (attrs.hasAttribute("NEXTITEM"))
+					{
+						if (attrs.valueAsInt("NEXTITEM", -1) != -1)
+							itemNextM[m_Doc->MasterItems.count()] = attrs.valueAsInt("NEXTITEM");
+					}
+					else
+					{
+						if (attrs.valueAsInt("NextItem", -1) != -1)
+							itemNextM[m_Doc->MasterItems.count()] = attrs.valueAsInt("NextItem");
+					}
 				}
 				if (newItem->isTableItem)
 				{
@@ -7776,7 +7825,7 @@ bool Scribus171Format::loadPage(const QString & fileName, int pageNumber, bool M
 				}
 			}
 
-			if ((tagName == QLatin1String("PAGEOBJECT")) && (groupStackPI.count() > 0))
+			if ((tagName == QLatin1String("PAGEOBJECT") || tagName == QLatin1String("PageObject")) && (groupStackPI.count() > 0))
 			{
 				groupStackPI.top().append(itemInfo.item);
 				while (itemInfo.ownNr == groupStackPI2.top())
@@ -7787,7 +7836,7 @@ bool Scribus171Format::loadPage(const QString & fileName, int pageNumber, bool M
 						break;
 				}
 			}
-			else if ((tagName == QLatin1String("FRAMEOBJECT")) && (groupStackFI.count() > 0))
+			else if ((tagName == QLatin1String("FRAMEOBJECT") || tagName == QLatin1String("FrameObject")) && (groupStackFI.count() > 0))
 			{
 				groupStackFI.top().append(itemInfo.item);
 				while (itemInfo.ownNr == groupStackFI2.top())
@@ -7798,7 +7847,7 @@ bool Scribus171Format::loadPage(const QString & fileName, int pageNumber, bool M
 						break;
 				}
 			}
-			else if ((tagName == QLatin1String("MASTEROBJECT")) && (groupStackMI.count() > 0))
+			else if ((tagName == QLatin1String("MASTEROBJECT") || tagName == QLatin1String("MasterObject")) && (groupStackMI.count() > 0))
 			{
 				groupStackMI.top().append(itemInfo.item);
 				while (itemInfo.ownNr == groupStackMI2.top())
@@ -7814,12 +7863,12 @@ bool Scribus171Format::loadPage(const QString & fileName, int pageNumber, bool M
 			{
 				QList<PageItem*> groupItems;
 				groupItems.append(itemInfo.item);
-				if (tagName == QLatin1String("PAGEOBJECT"))
+				if (tagName == QLatin1String("PAGEOBJECT") || tagName == QLatin1String("PageObject"))
 				{
 					groupStackPI.push(groupItems);
 					groupStackPI2.push(itemInfo.groupLastItem + itemInfo.ownNr);
 				}
-				else if (tagName == QLatin1String("FRAMEOBJECT"))
+				else if (tagName == QLatin1String("FRAMEOBJECT") || tagName == QLatin1String("FrameObject"))
 				{
 					groupStackFI.push(groupItems);
 					groupStackFI2.push(itemInfo.groupLastItem + itemInfo.ownNr);
