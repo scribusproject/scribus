@@ -406,7 +406,7 @@ void PropertyWidget_Text::handleTextFill()
 		return;
 
 	PageItem *i2 = m_item;
-	if (m_doc->appMode == modeEditTable)
+	if (m_doc->appMode == modeEditTable && m_item->isTable())
 		i2 = m_item->asTable()->activeCell().textFrame();
 	if (i2 != nullptr)
 	{
@@ -416,7 +416,6 @@ void PropertyWidget_Text::handleTextFill()
 		m_doc->itemSelection_SetFillColor(buttonTextColor->colorName(), &tempSelection);
 		m_doc->itemSelection_SetFillShade(buttonTextColor->colorData().Shade, &tempSelection);
 		m_blockUpdate = false;
-
 	}
 }
 
@@ -426,7 +425,7 @@ void PropertyWidget_Text::handleTextBackground()
 		return;
 
 	PageItem *i2 = m_item;
-	if (m_doc->appMode == modeEditTable)
+	if (m_doc->appMode == modeEditTable && m_item->isTable())
 		i2 = m_item->asTable()->activeCell().textFrame();
 	if (i2 != nullptr)
 	{
@@ -445,7 +444,7 @@ void PropertyWidget_Text::handleTextStroke()
 		return;
 
 	PageItem *i2 = m_item;
-	if (m_doc->appMode == modeEditTable)
+	if (m_doc->appMode == modeEditTable && m_item->isTable())
 		i2 = m_item->asTable()->activeCell().textFrame();
 	if (i2 != nullptr)
 	{
