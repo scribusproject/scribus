@@ -330,6 +330,15 @@ bool Scribus171Format::loadElements(const QString& data, const QString& fileDir,
 				}
 			}
 			else
+			if (tagName == QLatin1String("ScribusElementUTF8"))
+			{
+				if (!loc)
+				{
+					GrX = attrs.valueAsDouble("XPosition");
+					GrY = attrs.valueAsDouble("YPosition");
+				}
+			}
+			else
 			{
 				success = false;
 				break;
@@ -342,6 +351,13 @@ bool Scribus171Format::loadElements(const QString& data, const QString& fileDir,
 		if (tagName == QLatin1String("COLOR") && attrs.valueAsString("NAME") != CommonStrings::None)
 		{
 			QString colorName = attrs.valueAsString("NAME");
+			if (m_Doc->PageColors.contains(colorName))
+				continue;
+			readColor(m_Doc->PageColors, attrs);
+		}
+		else if (tagName == QLatin1String("Color") && attrs.valueAsString("Name") != CommonStrings::None)
+		{
+			QString colorName = attrs.valueAsString("Name");
 			if (m_Doc->PageColors.contains(colorName))
 				continue;
 			readColor(m_Doc->PageColors, attrs);
@@ -869,6 +885,13 @@ bool Scribus171Format::loadStory(const QByteArray& data, StoryText& story, PageI
 				continue;
 			readColor(m_Doc->PageColors, attrs);
 		}
+		if (tagName == QLatin1String("Color") && attrs.valueAsString("Name") != CommonStrings::None)
+		{
+			QString colorName = attrs.valueAsString("Name");
+			if (m_Doc->PageColors.contains(colorName))
+				continue;
+			readColor(m_Doc->PageColors, attrs);
+		}
 		if (tagName == QLatin1String("Gradient"))
 		{
 			VGradient gra;
@@ -946,7 +969,7 @@ bool Scribus171Format::loadStory(const QByteArray& data, StoryText& story, PageI
 			if (!mlName.isEmpty() && !m_Doc->docLineStyles.contains(mlName))
 				m_Doc->docLineStyles.insert(mlName, ml);
 		}
-		if (tagName == QLatin1String("FRAMEOBJECT"))
+		if (tagName == QLatin1String("FRAMEOBJECT") || tagName == QLatin1String("FrameObject"))
 		{
 			ItemInfo itemInfo;
 			success = readObject(m_Doc, reader, readObjectParams, itemInfo);
@@ -5001,6 +5024,7 @@ bool Scribus171Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 			double opa = tAtt.valueAsDouble("Opacity", 1.0);
 			newItem->mask_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
 		}
+		//Remove in 1.8
 		if (tName == QLatin1String("MPoint"))
 		{
 			MeshPoint mp;
@@ -5023,6 +5047,29 @@ bool Scribus171Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 				mGArrayRows++;
 			}
 		}
+		if (tName == QLatin1String("MeshPoint"))
+		{
+			MeshPoint mp;
+			mp.colorName = tAtt.valueAsString("Name");
+			mp.shade = tAtt.valueAsInt("Shade", 100);
+			mp.transparency = tAtt.valueAsDouble("Transparency", 1.0);
+			mp.gridPoint = FPoint(tAtt.valueAsDouble("GridPointX", 0.0), tAtt.valueAsDouble("GridPointY", 0.0));
+			mp.controlTop = FPoint(tAtt.valueAsDouble("ControlTopX", 0.0), tAtt.valueAsDouble("ControlTopY", 0.0));
+			mp.controlBottom = FPoint(tAtt.valueAsDouble("ControlBottomX", 0.0), tAtt.valueAsDouble("ControlBottomY", 0.0));
+			mp.controlLeft = FPoint(tAtt.valueAsDouble("ControlLeftX", 0.0), tAtt.valueAsDouble("ControlLeftY", 0.0));
+			mp.controlRight = FPoint(tAtt.valueAsDouble("ControlRightX", 0.0), tAtt.valueAsDouble("ControlRightY", 0.0));
+			mp.controlColor = FPoint(tAtt.valueAsDouble("ControlColorX", mp.gridPoint.x()), tAtt.valueAsDouble("ControlColorY", mp.gridPoint.y()));
+			mp.color = SetColor(doc, mp.colorName, mp.shade);
+			mp.color.setAlphaF(mp.transparency);
+			newItem->meshGradientArray[mGArrayRows][mGArrayCols] = mp;
+			mGArrayCols++;
+			if (mGArrayCols == newItem->meshGradientArray[mGArrayRows].count())
+			{
+				mGArrayCols = 0;
+				mGArrayRows++;
+			}
+		}
+		//Remove in 1.8
 		if (tName == QLatin1String("PMPoint"))
 		{
 			MeshPoint mp;
@@ -5035,6 +5082,35 @@ bool Scribus171Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 			mp.controlLeft = FPoint(tAtt.valueAsDouble("CLX", mp.gridPoint.x()), tAtt.valueAsDouble("CLY", mp.gridPoint.y()));
 			mp.controlRight = FPoint(tAtt.valueAsDouble("CRX", mp.gridPoint.x()), tAtt.valueAsDouble("CRY", mp.gridPoint.y()));
 			mp.controlColor = FPoint(tAtt.valueAsDouble("CCX", mp.gridPoint.x()), tAtt.valueAsDouble("CCY", mp.gridPoint.y()));
+			mp.color = SetColor(doc, mp.colorName, mp.shade);
+			mp.color.setAlphaF(mp.transparency);
+			if (mGArrayCols == 0)
+				newItem->meshGradientPatches[mGArrayRows].TL = mp;
+			else if (mGArrayCols == 1)
+				newItem->meshGradientPatches[mGArrayRows].TR = mp;
+			else if (mGArrayCols == 2)
+				newItem->meshGradientPatches[mGArrayRows].BR = mp;
+			else if (mGArrayCols == 3)
+				newItem->meshGradientPatches[mGArrayRows].BL = mp;
+			mGArrayCols++;
+			if (mGArrayCols == 4)
+			{
+				mGArrayCols = 0;
+				mGArrayRows++;
+			}
+		}
+		if (tName == QLatin1String("PatchMeshPoint"))
+		{
+			MeshPoint mp;
+			mp.colorName = tAtt.valueAsString("Name");
+			mp.shade = tAtt.valueAsInt("Shade", 100);
+			mp.transparency = tAtt.valueAsDouble("Transparency", 1.0);
+			mp.gridPoint = FPoint(tAtt.valueAsDouble("GridPointX", 0.0), tAtt.valueAsDouble("GridPointY", 0.0));
+			mp.controlTop = FPoint(tAtt.valueAsDouble("ControlTopX", mp.gridPoint.x()), tAtt.valueAsDouble("ControlTopY", mp.gridPoint.y()));
+			mp.controlBottom = FPoint(tAtt.valueAsDouble("ControlBottomX", mp.gridPoint.x()), tAtt.valueAsDouble("ControlBottomY", mp.gridPoint.y()));
+			mp.controlLeft = FPoint(tAtt.valueAsDouble("ControlLeftX", mp.gridPoint.x()), tAtt.valueAsDouble("ControlLeftY", mp.gridPoint.y()));
+			mp.controlRight = FPoint(tAtt.valueAsDouble("ControlRightX", mp.gridPoint.x()), tAtt.valueAsDouble("ControlRightY", mp.gridPoint.y()));
+			mp.controlColor = FPoint(tAtt.valueAsDouble("ControlColorX", mp.gridPoint.x()), tAtt.valueAsDouble("ControlColorY", mp.gridPoint.y()));
 			mp.color = SetColor(doc, mp.colorName, mp.shade);
 			mp.color.setAlphaF(mp.transparency);
 			if (mGArrayCols == 0)
@@ -6585,15 +6661,31 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 	}
 	else
 		currItem->setTextFlowMode(PageItem::TextFlowDisabled);
-	currItem->setLocked (attrs.valueAsBool("LOCK", false));
-	currItem->setSizeLocked(attrs.valueAsBool("LOCKR", false));
-	currItem->fillRule = attrs.valueAsBool("fillRule", true);
-	currItem->doOverprint = attrs.valueAsBool("doOverprint", false);
-	currItem->setFillTransparency(attrs.valueAsDouble("TransValue", 0.0));
-	currItem->setLineTransparency(attrs.valueAsDouble("TransValueS", 0.0));
-	currItem->setFillBlendmode(attrs.valueAsInt("TransBlend", 0));
-	currItem->setLineBlendmode(attrs.valueAsInt("TransBlendS", 0));
-	if (attrs.valueAsInt("TRANSPARENT", 0) == 1)
+	//Remove uppercase in 1.8
+	if (attrs.hasAttribute("LOCK"))
+	{
+		currItem->setLocked (attrs.valueAsBool("LOCK", false));
+		currItem->setSizeLocked(attrs.valueAsBool("LOCKR", false));
+		currItem->fillRule = attrs.valueAsBool("fillRule", true);
+		currItem->doOverprint = attrs.valueAsBool("doOverprint", false);
+		currItem->setFillTransparency(attrs.valueAsDouble("TransValue", 0.0));
+		currItem->setLineTransparency(attrs.valueAsDouble("TransValueS", 0.0));
+		currItem->setFillBlendmode(attrs.valueAsInt("TransBlend", 0));
+		currItem->setLineBlendmode(attrs.valueAsInt("TransBlendS", 0));
+	}
+	else
+	{
+		currItem->setLocked (attrs.valueAsBool("ItemLocked", false));
+		currItem->setSizeLocked(attrs.valueAsBool("ItemSizeLocked", false));
+		currItem->fillRule = attrs.valueAsBool("FillRule", true);
+		currItem->doOverprint = attrs.valueAsBool("DoOverprint", false);
+		currItem->setFillTransparency(attrs.valueAsDouble("FillTransparency", 0.0));
+		currItem->setLineTransparency(attrs.valueAsDouble("LineTransparency", 0.0));
+		currItem->setFillBlendmode(attrs.valueAsInt("FillBlendMode", 0));
+		currItem->setLineBlendmode(attrs.valueAsInt("LineBlendMode", 0));
+	}
+
+	if (attrs.valueAsInt("TRANSPARENT", 0) == 1) //Unnecessary?
 		currItem->setFillColor(CommonStrings::None);
 	if (attrs.hasAttribute("COLUMNS"))
 	{
@@ -8325,12 +8417,20 @@ bool Scribus171Format::readColors(const QString& fileName, ColorList & colors)
 			firstElement = false;
 			continue;
 		}
+		//Remove uppercase in 1.8
 		if (tagName == QLatin1String("COLOR") && attrs.valueAsString("NAME") != CommonStrings::None)
 		{
 			attrs = reader.scAttributes();
 			if (attrs.valueAsString("NAME") != CommonStrings::None)
 				readColor(colors, attrs);
 		}
+		else
+			if (tagName == QLatin1String("Color") && attrs.valueAsString("Name") != CommonStrings::None)
+			{
+				attrs = reader.scAttributes();
+				if (attrs.valueAsString("Name") != CommonStrings::None)
+					readColor(colors, attrs);
+			}
 	}
 	return success;
 }
