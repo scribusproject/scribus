@@ -5052,89 +5052,9 @@ bool Scribus171Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 				mGArrayRows++;
 			}
 		}
-
-		if (tName == QLatin1String("ITEXT"))
-			readItemText(newItem->itemText, tAtt, lastStyle);
-		else if (tName == QLatin1String("TableData"))
+		if (tName == QLatin1String("TableData"))
 		{
 			readItemTableData(newItem->asTable(), reader, doc);
-		}
-		else if (tName == QLatin1String("para"))
-		{
-			newItem->itemText.insertChars(newItem->itemText.length(), SpecialChars::PARSEP);
-			ParagraphStyle newStyle;
-			readParagraphStyle(doc, reader, newStyle);
-			newItem->itemText.setStyle(newItem->itemText.length()-1, newStyle);
-			newItem->itemText.setCharStyle(newItem->itemText.length()-1, 1, lastStyle->Style);
-		}
-		else if (tName == QLatin1String("trail"))
-		{
-			ParagraphStyle newStyle;
-			readParagraphStyle(doc, reader, newStyle);
-			newItem->itemText.setStyle(newItem->itemText.length(), newStyle);
-		}
-		else if (tName == QLatin1String("tab"))
-		{
-			CharStyle newStyle;
-			newItem->itemText.insertChars(newItem->itemText.length(), SpecialChars::TAB);
-			readCharacterStyleAttrs(doc, tAtt, newStyle);
-			newItem->itemText.setCharStyle(newItem->itemText.length()-1, 1, newStyle);
-			lastStyle->StyleStart = newItem->itemText.length()-1;
-			lastStyle->Style = newStyle;
-		}
-		else if (tName == QLatin1String("breakline"))
-			newItem->itemText.insertChars(newItem->itemText.length(), SpecialChars::LINEBREAK);
-		else if (tName == QLatin1String("breakcol"))
-			newItem->itemText.insertChars(newItem->itemText.length(), SpecialChars::COLBREAK);
-		else if (tName == QLatin1String("breakframe"))
-			newItem->itemText.insertChars(newItem->itemText.length(), SpecialChars::FRAMEBREAK);
-		else if (tName == QLatin1String("nbhyphen"))
-		{
-			CharStyle newStyle;
-			newItem->itemText.insertChars(newItem->itemText.length(), SpecialChars::NBHYPHEN);
-			readCharacterStyleAttrs(doc, tAtt, newStyle);
-			newItem->itemText.setCharStyle(newItem->itemText.length()-1, 1, newStyle);
-			lastStyle->StyleStart = newItem->itemText.length()-1;
-			lastStyle->Style = newStyle;
-		}
-		else if (tName == QLatin1String("nbspace"))
-		{
-			CharStyle newStyle;
-			newItem->itemText.insertChars(newItem->itemText.length(), SpecialChars::NBSPACE);
-			readCharacterStyleAttrs(doc, tAtt, newStyle);
-			newItem->itemText.setCharStyle(newItem->itemText.length()-1, 1, newStyle);
-			lastStyle->StyleStart = newItem->itemText.length()-1;
-			lastStyle->Style = newStyle;
-		}
-		else if (tName == QLatin1String("zwnbspace"))
-		{
-			CharStyle newStyle;
-			newItem->itemText.insertChars(newItem->itemText.length(), SpecialChars::ZWNBSPACE);
-			readCharacterStyleAttrs(doc, tAtt, newStyle);
-			newItem->itemText.setCharStyle(newItem->itemText.length()-1, 1, newStyle);
-			lastStyle->StyleStart = newItem->itemText.length()-1;
-			lastStyle->Style = newStyle;
-		}
-		else if (tName == QLatin1String("zwspace"))
-		{
-			CharStyle newStyle;
-			newItem->itemText.insertChars(newItem->itemText.length(), SpecialChars::ZWSPACE);
-			readCharacterStyleAttrs(doc, tAtt, newStyle);
-			newItem->itemText.setCharStyle(newItem->itemText.length()-1, 1, newStyle);
-			lastStyle->StyleStart = newItem->itemText.length()-1;
-			lastStyle->Style = newStyle;
-		}
-		else if (tName == QLatin1String("var"))
-		{
-			CharStyle newStyle;
-			if (tAtt.value("name") == QLatin1String("pgno"))
-				newItem->itemText.insertChars(newItem->itemText.length(), SpecialChars::PAGENUMBER);
-			else
-				newItem->itemText.insertChars(newItem->itemText.length(), SpecialChars::PAGECOUNT);
-			readCharacterStyleAttrs(doc, tAtt, newStyle);
-			newItem->itemText.setCharStyle(newItem->itemText.length()-1, 1, newStyle);
-			lastStyle->StyleStart = newItem->itemText.length()-1;
-			lastStyle->Style = newStyle;
 		}
 		if (tName == QLatin1String("PageItemAttributes"))
 		{
