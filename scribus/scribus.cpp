@@ -8582,7 +8582,7 @@ void ScribusMainWindow::dragEnterEvent ( QDragEnterEvent* e)
 	else if (e->mimeData()->hasText())
 	{
 		QString text = e->mimeData()->text();
-		if ((text.startsWith("<SCRIBUSELEM")) || (text.startsWith("SCRIBUSELEMUTF8")))
+		if ((text.startsWith("<SCRIBUSELEM")) || (text.startsWith("SCRIBUSELEMUTF8")) || (text.startsWith("ScribusElementUTF8")))
 			accepted = true;
 	}
 	if (accepted)
@@ -8656,7 +8656,7 @@ void ScribusMainWindow::dropEvent ( QDropEvent * e)
 		if (e->mimeData()->hasText())
 		{
 			QString text = e->mimeData()->text();
-			if ((text.startsWith("<SCRIBUSELEM")) || (text.startsWith("SCRIBUSELEMUTF8")))
+			if ((text.startsWith("<SCRIBUSELEM")) || (text.startsWith("SCRIBUSELEMUTF8")) || (text.startsWith("ScribusElementUTF8")))
 			{
 				double gx, gy, gw, gh;
 				ScriXmlDoc ss;

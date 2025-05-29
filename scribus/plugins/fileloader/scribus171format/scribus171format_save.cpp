@@ -60,12 +60,12 @@ QString Scribus171Format::saveElements(double xp, double yp, double wp, double h
 
 	ScXmlStreamWriter writer(&documentStr);
 	writer.setAutoFormatting(true);
-	writer.writeStartElement("SCRIBUSELEMUTF8");
-	writer.writeAttribute("XP", xp);
-	writer.writeAttribute("YP", yp);
-	writer.writeAttribute("W", wp);
-	writer.writeAttribute("H", hp);
-	writer.writeAttribute("COUNT", selection->count());
+	writer.writeStartElement("ScribusElementUTF8");
+	writer.writeAttribute("XPosition", xp);
+	writer.writeAttribute("YPosition", yp);
+	writer.writeAttribute("Width", wp);
+	writer.writeAttribute("Height", hp);
+	writer.writeAttribute("Count", selection->count());
 	writer.writeAttribute("Version", ScribusAPI::getVersion());
 	writer.writeAttribute("previewData", QString(prevData));
 	writeColors(writer, true);
@@ -2072,9 +2072,9 @@ void Scribus171Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 		if (item->isEmbedded)
 			docu.writeAttribute("isInline", 1);
 		if (!item->fillRule)
-			docu.writeAttribute("fillRule", 0);
+			docu.writeAttribute("FillRule", 0);
 		if (item->doOverprint)
-			docu.writeAttribute("doOverprint", 1);
+			docu.writeAttribute("DoOverprint", 1);
 		docu.writeAttribute("gXpos", item->gXpos);
 		docu.writeAttribute("gYpos", item->gYpos);
 		docu.writeAttribute("gWidth", item->gWidth);
@@ -2344,22 +2344,22 @@ void Scribus171Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 				for (int gcol = 0; gcol < item->meshGradientArray[grow].count(); gcol++)
 				{
 					MeshPoint mp = item->meshGradientArray[grow][gcol];
-					docu.writeStartElement("MPoint");
-					docu.writeAttribute("GX", mp.gridPoint.x());
-					docu.writeAttribute("GY", mp.gridPoint.y());
-					docu.writeAttribute("CTX", mp.controlTop.x());
-					docu.writeAttribute("CTY", mp.controlTop.y());
-					docu.writeAttribute("CBX", mp.controlBottom.x());
-					docu.writeAttribute("CBY", mp.controlBottom.y());
-					docu.writeAttribute("CLX", mp.controlLeft.x());
-					docu.writeAttribute("CLY", mp.controlLeft.y());
-					docu.writeAttribute("CRX", mp.controlRight.x());
-					docu.writeAttribute("CRY", mp.controlRight.y());
-					docu.writeAttribute("CCX", mp.controlColor.x());
-					docu.writeAttribute("CCY", mp.controlColor.y());
-					docu.writeAttribute("NAME", mp.colorName);
-					docu.writeAttribute("SHADE", mp.shade);
-					docu.writeAttribute("TRANS", mp.transparency);
+					docu.writeStartElement("MeshPoint");
+					docu.writeAttribute("GridPointX", mp.gridPoint.x());
+					docu.writeAttribute("GridPointY", mp.gridPoint.y());
+					docu.writeAttribute("ControlTopX", mp.controlTop.x());
+					docu.writeAttribute("ControlTopY", mp.controlTop.y());
+					docu.writeAttribute("ControlBottomX", mp.controlBottom.x());
+					docu.writeAttribute("ControlBottomY", mp.controlBottom.y());
+					docu.writeAttribute("ControlLeftX", mp.controlLeft.x());
+					docu.writeAttribute("ControlLeftY", mp.controlLeft.y());
+					docu.writeAttribute("ControlRightX", mp.controlRight.x());
+					docu.writeAttribute("ControlRightY", mp.controlRight.y());
+					docu.writeAttribute("ControlColorX", mp.controlColor.x());
+					docu.writeAttribute("ControlColorY", mp.controlColor.y());
+					docu.writeAttribute("Name", mp.colorName);
+					docu.writeAttribute("Shade", mp.shade);
+					docu.writeAttribute("Transparency", mp.transparency);
 					docu.writeEndElement();
 				}
 			}
@@ -2372,46 +2372,46 @@ void Scribus171Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 				for (int gcol = 0; gcol < 4; gcol++)
 				{
 					MeshPoint mp;
-					docu.writeStartElement("PMPoint");
+					docu.writeStartElement("PatchMeshPoint");
 					if (gcol == 0)
 					{
 						mp = patch.TL;
-						docu.writeAttribute("CBX", mp.controlBottom.x());
-						docu.writeAttribute("CBY", mp.controlBottom.y());
-						docu.writeAttribute("CRX", mp.controlRight.x());
-						docu.writeAttribute("CRY", mp.controlRight.y());
+						docu.writeAttribute("ControlBottomX", mp.controlBottom.x());
+						docu.writeAttribute("ControlBottomY", mp.controlBottom.y());
+						docu.writeAttribute("ControlRightX", mp.controlRight.x());
+						docu.writeAttribute("ControlRightY", mp.controlRight.y());
 					}
 					else if (gcol == 1)
 					{
 						mp = patch.TR;
-						docu.writeAttribute("CBX", mp.controlBottom.x());
-						docu.writeAttribute("CBY", mp.controlBottom.y());
-						docu.writeAttribute("CLX", mp.controlLeft.x());
-						docu.writeAttribute("CLY", mp.controlLeft.y());
+						docu.writeAttribute("ControlBottomX", mp.controlBottom.x());
+						docu.writeAttribute("ControlBottomY", mp.controlBottom.y());
+						docu.writeAttribute("ControlLeftX", mp.controlLeft.x());
+						docu.writeAttribute("ControlLeftY", mp.controlLeft.y());
 					}
 					else if (gcol == 2)
 					{
 						mp = patch.BR;
-						docu.writeAttribute("CTX", mp.controlTop.x());
-						docu.writeAttribute("CTY", mp.controlTop.y());
-						docu.writeAttribute("CLX", mp.controlLeft.x());
-						docu.writeAttribute("CLY", mp.controlLeft.y());
+						docu.writeAttribute("ControlTopX", mp.controlTop.x());
+						docu.writeAttribute("ControlTopY", mp.controlTop.y());
+						docu.writeAttribute("ControlLeftX", mp.controlLeft.x());
+						docu.writeAttribute("ControlLeftY", mp.controlLeft.y());
 					}
 					else if (gcol == 3)
 					{
 						mp = patch.BL;
-						docu.writeAttribute("CTX", mp.controlTop.x());
-						docu.writeAttribute("CTY", mp.controlTop.y());
-						docu.writeAttribute("CRX", mp.controlRight.x());
-						docu.writeAttribute("CRY", mp.controlRight.y());
+						docu.writeAttribute("ControlTopX", mp.controlTop.x());
+						docu.writeAttribute("ControlTopY", mp.controlTop.y());
+						docu.writeAttribute("ControlRightX", mp.controlRight.x());
+						docu.writeAttribute("ControlRightY", mp.controlRight.y());
 					}
-					docu.writeAttribute("GX", mp.gridPoint.x());
-					docu.writeAttribute("GY", mp.gridPoint.y());
-					docu.writeAttribute("CCX", mp.controlColor.x());
-					docu.writeAttribute("CCY", mp.controlColor.y());
-					docu.writeAttribute("NAME", mp.colorName);
-					docu.writeAttribute("SHADE", mp.shade);
-					docu.writeAttribute("TRANS", mp.transparency);
+					docu.writeAttribute("GridPointX", mp.gridPoint.x());
+					docu.writeAttribute("GridPointY", mp.gridPoint.y());
+					docu.writeAttribute("ControlColorX", mp.controlColor.x());
+					docu.writeAttribute("ControlColorY", mp.controlColor.y());
+					docu.writeAttribute("Name", mp.colorName);
+					docu.writeAttribute("Shade", mp.shade);
+					docu.writeAttribute("Transparency", mp.transparency);
 					docu.writeEndElement();
 				}
 			}
@@ -2926,17 +2926,17 @@ void Scribus171Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 			docu.writeAttribute("COMPRESSIONQUALITY", item->CompressionQualityIndex);
 	}
 	if (item->locked())
-		docu.writeAttribute("LOCK", 1);
+		docu.writeAttribute("ItemLocked", 1);
 	if (item->sizeLocked())
-		docu.writeAttribute("LOCKR", 1);
+		docu.writeAttribute("ItemSizeLocked", 1);
 	if (item->fillTransparency() != 0)
-		docu.writeAttribute("TransValue", item->fillTransparency());
+		docu.writeAttribute("FillTransparency", item->fillTransparency());
 	if (item->lineTransparency() != 0)
-		docu.writeAttribute("TransValueS", item->lineTransparency());
+		docu.writeAttribute("LineTransparency", item->lineTransparency());
 	if (item->fillBlendmode() != 0)
-		docu.writeAttribute("TransBlend", item->fillBlendmode());
+		docu.writeAttribute("FillBlendMode", item->fillBlendmode());
 	if (item->lineBlendmode() != 0)
-		docu.writeAttribute("TransBlendS", item->lineBlendmode());
+		docu.writeAttribute("LineBlendMode", item->lineBlendmode());
 	if (item->hasSoftShadow())
 	{
 		docu.writeAttribute("HASSOFTSHADOW", item->hasSoftShadow() ? 1 : 0);

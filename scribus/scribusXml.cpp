@@ -102,6 +102,20 @@ bool ScriXmlDoc::readElemHeader(const QString& file, bool isFile, double *x, dou
 				*h = (atth.isEmpty()) ? 0.0 : ScCLocale::toDoubleC(atth);
 				succeed = true;
 			}
+			else
+				if ((tName == QLatin1String("ScribusElementUTF8")))
+				{
+					QXmlStreamAttributes attrs = sReader.attributes();;
+					QString attx = attrs.value("XPosition").toString();
+					QString atty = attrs.value("YPosition").toString();
+					QString attw = attrs.value("Width").toString();
+					QString atth = attrs.value("Height").toString();
+					*x = (attx.isEmpty()) ? 0.0 : ScCLocale::toDoubleC(attx);
+					*y = (atty.isEmpty()) ? 0.0 : ScCLocale::toDoubleC(atty);
+					*w = (attw.isEmpty()) ? 0.0 : ScCLocale::toDoubleC(attw);
+					*h = (atth.isEmpty()) ? 0.0 : ScCLocale::toDoubleC(atth);
+					succeed = true;
+				}
 		}
 	}
 	return (succeed && !sReader.hasError());

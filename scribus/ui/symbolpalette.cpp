@@ -95,7 +95,7 @@ void SymbolView::dropEvent(QDropEvent *e)
 		if (e->source() == this)
 			return;
 		QString text = e->mimeData()->text();
-		if ((text.startsWith("<SCRIBUSELEM")) || (text.startsWith("SCRIBUSELEMUTF8")))
+		if ((text.startsWith("<SCRIBUSELEM")) || (text.startsWith("SCRIBUSELEMUTF8")) || (text.startsWith("ScribusElementUTF8")))
 			emit objectDropped();
 	}
 	else

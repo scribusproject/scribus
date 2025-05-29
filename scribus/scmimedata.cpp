@@ -171,7 +171,7 @@ bool ScElemMimeData::hasFormat(const QString & mimeType) const
 	{
 		if (m_scribusElemData.isEmpty())
 			return false;
-		QString elemtag = "SCRIBUSELEM";
+		QString elemtag = "ScribusElementUTF8";
 		return (m_scribusElemData.lastIndexOf(elemtag, 50 + elemtag.length()) >= 0);
 	}
 #if DEBUG_SCELEMMIMEDATA
