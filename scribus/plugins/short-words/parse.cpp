@@ -73,7 +73,7 @@ void SWParse::parseItem(PageItem *aFrame)
 
 	// get text from frame
 	int i;
-	for (i=0; i < aFrame->itemText.length() && ! aFrame->frameDisplays(i); ++i)
+	for (i = 0; i < aFrame->itemText.length() && !aFrame->frameDisplays(i); ++i)
 		;
 	for (; i < aFrame->itemText.length() && aFrame->frameDisplays(i); ++i)
 		content += aFrame->itemText.text(i,1);
@@ -114,7 +114,7 @@ void SWParse::parseItem(PageItem *aFrame)
 		content.replace(rx, "\\1" + unbreak + "\\2");
 	}
 	// return text into frame
-	for (i=0; i < aFrame->itemText.length() && ! aFrame->frameDisplays(i); ++i)
+	for (i = 0; i < aFrame->itemText.length() && !aFrame->frameDisplays(i); ++i)
 		;
 	for (; i < aFrame->itemText.length() && aFrame->frameDisplays(i); ++i)
 		aFrame->itemText.replaceChar(i, content.at(i));
