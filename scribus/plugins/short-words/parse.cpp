@@ -16,6 +16,8 @@ This program is free software - see LICENSE file in the distribution
 or documentation
 */
 
+#include <memory>
+
 #include <QProgressBar>
 #include <QRegExp>
 
@@ -33,28 +35,23 @@ or documentation
 #include "version.h"
 
 
-SWParse::SWParse()
-{
-	modify = 0;
-}
+SWParse::SWParse() = default;
 
 void SWParse::parseItem(PageItem *aFrame)
 {
+	// just textframes processed
+	if (!aFrame->isTextFrame())
+		return;
+
 	// the content of the frame - text itself
 	QString content;
 	int changes = 0;
-	// list of the short words
-	QStringList shorts;
 	// text with special space
 	QString unbreak;
 	// the regexp
 	QRegExp rx(" ");
 	// cfg
-	SWConfig *cfg = new SWConfig();
-
-	// just textframes processed
-	if (!aFrame->isTextFrame())
-		return;
+	auto cfg = std::make_shared<SWConfig>();
 
 	// an ugly hack to get the language code from the item language property
 	if (lang.isEmpty())
@@ -65,8 +62,8 @@ void SWParse::parseItem(PageItem *aFrame)
 	}
 
 	// apply spaces after shorts
-	shorts = cfg->getShortWords(lang);
-	if (shorts.count()==0)
+	QStringList shorts = cfg->getShortWords(lang);
+	if (shorts.isEmpty())
 		return; // no changes
 
 	// get text from frame
@@ -78,9 +75,9 @@ void SWParse::parseItem(PageItem *aFrame)
 	changes = content.count(SpecialChars::NBSPACE);
 
 	// for every config string, replace its spaces by nbsp's.
-	for (QStringList::Iterator it = shorts.begin(); it != shorts.end(); ++it)
+	for (const QString& shortWord : shorts)
 	{
-		unbreak = (*it);
+		unbreak = shortWord;
 		// replace ' ' from cfg with '~' in the replacement string
 		unbreak = unbreak.replace(SPACE, SpecialChars::NBSPACE);
 		/*
@@ -102,7 +99,7 @@ void SWParse::parseItem(PageItem *aFrame)
 			- "» !" : '«' is matched by \W before, newline is
 			matched by \W after.
 		*/
-		rx.setPattern("(\\b|\\W)" + rx.escape(*it) + "(\\b|\\W)");
+		rx.setPattern("(\\b|\\W)" + QRegExp::escape(shortWord) + "(\\b|\\W)");
 		/*
 		QString::replace works on the whole string in one pass.
 		On every occurrence of our regexp, \1 and \2 are replaced
@@ -118,17 +115,15 @@ void SWParse::parseItem(PageItem *aFrame)
 		aFrame->itemText.replaceChar(i, content.at(i));
 	if (content.count(SpecialChars::NBSPACE) > changes)
 		++modify;
-
-	delete(cfg);
 } // end of method
 
 void SWParse::parseSelection(ScribusDoc* doc)
 {
-	uint docSelectionCount = doc->m_Selection->count();
+	int docSelectionCount = doc->m_Selection->count();
 	if (docSelectionCount == 0)
 		return;
 	doc->scMW()->mainWindowProgressBar->setMaximum(docSelectionCount);
-	for (uint i=0; i < docSelectionCount; ++i)
+	for (int i = 0; i < docSelectionCount; ++i)
 	{
 		doc->scMW()->mainWindowProgressBar->setValue(i);
 		parseItem(doc->m_Selection->itemAt(i));
@@ -144,21 +139,21 @@ void SWParse::parsePage(ScribusDoc* doc)
 
 void SWParse::parsePage(ScribusDoc* doc, int page)
 {
-	uint count = 0;
-	uint docItemsCount = doc->Items->count();
+	int count = 0;
+	int docItemsCount = doc->Items->count();
 	if (docItemsCount == 0)
 		return;
 
-	for (uint i = 0; i < docItemsCount; ++i)
+	for (int i = 0; i < docItemsCount; ++i)
 	{
-		PageItem* pi = doc->Items->at(i);
+		const PageItem* pi = doc->Items->at(i);
 		if (pi->OwnPage == page)
 			++count;
 	}
 	doc->scMW()->mainWindowProgressBar->setMaximum(count);
 	doc->view()->GotoPage(page);
-	uint j = 0;
-	for (uint i = 0; i < docItemsCount; ++i)
+	int j = 0;
+	for (int i = 0; i < docItemsCount; ++i)
 	{
 		PageItem* pi = doc->Items->at(i);
 		if (pi->OwnPage == page)
@@ -172,6 +167,6 @@ void SWParse::parsePage(ScribusDoc* doc, int page)
 
 void SWParse::parseAll(ScribusDoc* doc)
 {
-	for (int i=0; i < doc->Pages->count(); ++i)
+	for (int i = 0; i < doc->Pages->count(); ++i)
 		parsePage(doc, i);
 }
