@@ -53,6 +53,11 @@ void SWParse::parseItem(PageItem *aFrame)
 	// cfg
 	auto cfg = std::make_unique<SWConfig>();
 
+	// use character unicode properties when matching expression
+	auto patternOptions = rx.patternOptions();
+	patternOptions |= QRegularExpression::UseUnicodePropertiesOption;
+	rx.setPatternOptions(patternOptions);
+
 	// an ugly hack to get the language code from the item language property
 	if (lang.isEmpty())
 	{
