@@ -32,7 +32,7 @@ public:
 	~SWParse(){};
 
 	/*! \brief count of the changes (one frame = one change) */
-	uint modify;
+	uint modify { 0 };
 
 	//! language of the frame used
 	QString lang;
