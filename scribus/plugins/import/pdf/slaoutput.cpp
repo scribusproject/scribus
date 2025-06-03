@@ -606,7 +606,12 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 		FormWidget *fm = m_formWidgets->getWidget(i);
 		if (!fm)
 			continue;
-		AnnotWidget *ano = fm->getWidgetAnnotation();
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 06, 0)
+		std::shared_ptr<AnnotWidget> anoSharedPtr = fm->getWidgetAnnotation();
+		AnnotWidget* ano = anoSharedPtr.get();
+#else
+		AnnotWidget* ano = fm->getWidgetAnnotation();
+#endif
 		if (!ano)
 			continue;
 		if (ano != (AnnotWidget*) annota)
