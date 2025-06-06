@@ -9834,7 +9834,11 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 		PoDoFo::PdfPage& page = doc->GetPages().GetPageAt(qMin(qMax(1, c->pixm.imgInfo.actualPageNumber), c->pixm.imgInfo.numberOfPages) - 1);
 		PoDoFo::PdfObject& pageObj = page.GetObject();
 		PoDoFo::PdfObject* contents = page.GetContents() ? &(page.GetContents()->GetObject()) : nullptr;
+#if (PODOFO_VERSION >= PODOFO_MAKE_VERSION(1, 0, 0))
+		const PoDoFo::PdfObject* resources = &(page.GetResources().GetObject());
+#else
 		PoDoFo::PdfObject* resources = page.GetResources() ? &(page.GetResources()->GetObject()) : nullptr;
+#endif
 		PoDoFo::PdfDictionary* pageObjDict = pageObj.IsDictionary() ? &(pageObj.GetDictionary()) : nullptr;
 		for (PoDoFo::PdfDictionary* par = pageObjDict, *parentDict = nullptr; par && !resources; par = parentDict)
 		{
@@ -9855,8 +9859,15 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			importedObjects[page.GetObject().GetIndirectReference()] = xObj;
 			writer.startObj(xObj);
 			PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1");
+#if (PODOFO_VERSION >= PODOFO_MAKE_VERSION(1, 0, 0))
+			PoDoFo::Rect pageRect = page.GetArtBoxRaw().GetNormalized(); // Because scimagedataloader_pdf use ArtBox
+			double rotation = 0;
+			if (!page.TryGetRotationRaw(rotation))
+				rotation = 0;
+#else
 			PoDoFo::Rect pageRect = page.GetArtBox(true); // Because scimagedataloader_pdf use ArtBox
 			int rotation = page.GetRotationRaw();
+#endif
 			double imgWidth  = (rotation == 90 || rotation == 270) ? pageRect.Height : pageRect.Width;
 			double imgHeight = (rotation == 90 || rotation == 270) ? pageRect.Width : pageRect.Height;
 			QTransform pageM;
@@ -9976,8 +9987,15 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 			importedObjects[page.GetObject().GetIndirectReference()] = xObj;
 			writer.startObj(xObj);
 			PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1");
+#if (PODOFO_VERSION >= PODOFO_MAKE_VERSION(1, 0, 0))
+			PoDoFo::Rect pageRect = page.GetArtBoxRaw().GetNormalized(); // Because scimagedataloader_pdf use ArtBox
+			double rotation = 0;
+			if (!page.TryGetRotationRaw(rotation))
+				rotation = 0;
+#else
 			PoDoFo::Rect pageRect = page.GetArtBox(true); // Because scimagedataloader_pdf use ArtBox
 			int rotation = page.GetRotationRaw();
+#endif
 			double imgWidth  = (rotation == 90 || rotation == 270) ? pageRect.Height : pageRect.Width;
 			double imgHeight = (rotation == 90 || rotation == 270) ? pageRect.Width : pageRect.Height;
 			QTransform pageM;
