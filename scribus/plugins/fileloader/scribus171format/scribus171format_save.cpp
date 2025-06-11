@@ -1888,9 +1888,9 @@ void Scribus171Format::writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter &docu, Sto
 			// something new, write pending chars
 			if  (k - lastPos > 0)
 			{
-				docu.writeEmptyElement("ITEXT");
+				docu.writeEmptyElement("Content");
 				putCStyle(docu, lastStyle);
-				docu.writeAttribute("CH", textWithSoftHyphens(story, lastPos, k));
+				docu.writeAttribute("Chars", textWithSoftHyphens(story, lastPos, k));
 			}
 			lastStyle = style1;
 			lastPos = k;
@@ -1898,12 +1898,12 @@ void Scribus171Format::writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter &docu, Sto
 
 		if (ch == SpecialChars::OBJECT && story.object(k).getPageItem(doc) != nullptr)
 		{
-			// each obj in its own ITEXT for now
-			docu.writeEmptyElement("ITEXT");
+			// each obj in its own ITEXT Content for now
+			docu.writeEmptyElement("Content");
 			putCStyle(docu, lastStyle);
 			tmpnum.setNum(ch.unicode());
 			docu.writeAttribute("Unicode", tmpnum);
-			docu.writeAttribute("COBJ", story.object(k).getInlineCharID());
+			docu.writeAttribute("Object", story.object(k).getInlineCharID());
 		}
 		else if (ch == SpecialChars::OBJECT && story.hasMark(k))
 		{
@@ -1966,7 +1966,7 @@ void Scribus171Format::writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter &docu, Sto
 				 (0xd800 <= ch.unicode() && ch.unicode() < 0xe000) ||
 				 ch.unicode() == 0xfffe || ch.unicode() == 0xffff)
 		{
-			docu.writeEmptyElement("ITEXT");
+			docu.writeEmptyElement("Content");
 			putCStyle(docu, lastStyle);
 			tmpnum.setNum(ch.unicode());
 			docu.writeAttribute("Unicode", tmpnum);		
@@ -1981,9 +1981,9 @@ void Scribus171Format::writeITEXTs(ScribusDoc *doc, ScXmlStreamWriter &docu, Sto
 	// write pending chars
 	if (story.length() - lastPos > 0)
 	{
-		docu.writeEmptyElement("ITEXT");
+		docu.writeEmptyElement("Content");
 		putCStyle(docu, lastStyle);
-		docu.writeAttribute("CH", textWithSoftHyphens(story, lastPos, story.length()));
+		docu.writeAttribute("Chars", textWithSoftHyphens(story, lastPos, story.length()));
 	}
 	// paragraphstyle for trailing chars
 	if (story.length() == 0 || story.text(story.length() - 1) != SpecialChars::PARSEP)

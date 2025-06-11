@@ -5688,8 +5688,10 @@ bool Scribus171Format::readStoryText(ScribusDoc *doc, ScXmlStreamReader& reader,
 			readParagraphStyle(doc, reader, newStyle);
 			story.setDefaultStyle(newStyle);
 		}
-
+		//Remove ITEXT in 1.8
 		if (tName == QLatin1String("ITEXT"))
+			readItemText(story, tAtt, lastStyle);
+		else if (tName == QLatin1String("Content"))
 			readItemText(story, tAtt, lastStyle);
 		else if (tName == QLatin1String("para"))
 		{
@@ -5853,7 +5855,11 @@ bool Scribus171Format::readItemText(StoryText& story, const ScXmlStreamAttribute
 	}
 	else
 	{
-		tmp2 = attrs.valueAsString("CH");
+		//Remove uppercase in 1.8
+		if (attrs.hasAttribute("CH"))
+			tmp2 = attrs.valueAsString("CH");
+		else
+			tmp2 = attrs.valueAsString("Chars");
 		
 		// legacy stuff:
 		tmp2.replace(QRegularExpression("\r"), QChar(13));
@@ -5871,7 +5877,12 @@ bool Scribus171Format::readItemText(StoryText& story, const ScXmlStreamAttribute
 	last->ParaStyle = pstylename;
 	// end of legacy stuff
 
-	int iobj = attrs.valueAsInt("COBJ", -1);
+	int iobj = -1;
+	//Remove uppercase in 1.8
+	if (attrs.hasAttribute("COBJ"))
+		iobj = attrs.valueAsInt("COBJ", -1);
+	else
+		iobj = attrs.valueAsInt("Object", -1);
 
 	for (int cxx = 0; cxx < tmp2.length(); ++cxx)
 	{
