@@ -959,10 +959,10 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 //	tim.start();
 // 	qDebug() << "Canvas::drawContents" << clipx << clipy << clipw << cliph<<m_viewMode.forceRedraw<<m_viewMode.operItemSelecting;
 	int docPagesCount = m_doc->Pages->count();
-	ScPainter *painter = nullptr;
 	QImage img(clipw * devicePixelRatioF(), cliph * devicePixelRatioF(), QImage::Format_ARGB32_Premultiplied);
 	img.setDevicePixelRatio(devicePixelRatioF());
-	painter = new ScPainter(&img, img.width(), img.height(), 1.0, 0);
+
+	auto* painter = new ScPainter(&img, img.width(), img.height(), 1.0, 0);
 	painter->clear(PrefsManager::instance().appPrefs.displayPrefs.scratchColor);
 	painter->newPath();
 	painter->moveTo(0, 0);
