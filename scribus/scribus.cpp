@@ -9172,7 +9172,7 @@ void ScribusMainWindow::manageColorsAndFills()
 			m_prefsManager.appPrefs.defaultGradients = dia->dialogGradients;
 			m_prefsManager.appPrefs.defaultPatterns = dia->dialogPatterns;
 			QString Cpfad = QDir::toNativeSeparators(ScPaths::applicationDataDir())+"DefaultColors.xml";
-			const FileFormat *fmt = LoadSavePlugin::getFormatById(FORMATID_SLA170EXPORT);
+			const FileFormat *fmt = LoadSavePlugin::getFormatById(FORMATID_SLA171EXPORT);
 			if (fmt)
 			{
 				ScribusDoc *s_doc = new ScribusDoc();
