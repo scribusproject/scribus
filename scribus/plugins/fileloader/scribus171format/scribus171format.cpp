@@ -7022,25 +7022,56 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 	{
 		if (currItem->GrType == Gradient_Pattern)
 		{
-			currItem->setPattern( attrs.valueAsString("pattern", "") );
-			ScPatternTransform patternTrans;
-			patternTrans.scaleX = attrs.valueAsDouble("pScaleX", 100.0) / 100.0;
-			patternTrans.scaleY = attrs.valueAsDouble("pScaleY", 100.0) / 100.0;
-			patternTrans.offsetX = attrs.valueAsDouble("pOffsetX", 0.0);
-			patternTrans.offsetY = attrs.valueAsDouble("pOffsetY", 0.0);
-			patternTrans.rotation = attrs.valueAsDouble("pRotation", 0.0);
-			patternTrans.skewX = attrs.valueAsDouble("pSkewX", 0.0);
-			patternTrans.skewY = attrs.valueAsDouble("pSkewY", 0.0);
-			currItem->setPatternTransform(patternTrans);
-			bool mirrorX = attrs.valueAsBool("pMirrorX", false);
-			bool mirrorY = attrs.valueAsBool("pMirrorY", false);
-			currItem->setPatternFlip(mirrorX, mirrorY);
+			//Remove in 1.8
+			if (attrs.hasAttribute("pattern"))
+			{
+				currItem->setPattern( attrs.valueAsString("pattern", "") );
+				ScPatternTransform patternTrans;
+				patternTrans.scaleX = attrs.valueAsDouble("pScaleX", 100.0) / 100.0;
+				patternTrans.scaleY = attrs.valueAsDouble("pScaleY", 100.0) / 100.0;
+				patternTrans.offsetX = attrs.valueAsDouble("pOffsetX", 0.0);
+				patternTrans.offsetY = attrs.valueAsDouble("pOffsetY", 0.0);
+				patternTrans.rotation = attrs.valueAsDouble("pRotation", 0.0);
+				patternTrans.skewX = attrs.valueAsDouble("pSkewX", 0.0);
+				patternTrans.skewY = attrs.valueAsDouble("pSkewY", 0.0);
+				currItem->setPatternTransform(patternTrans);
+				bool mirrorX = attrs.valueAsBool("pMirrorX", false);
+				bool mirrorY = attrs.valueAsBool("pMirrorY", false);
+				currItem->setPatternFlip(mirrorX, mirrorY);
+			}
+			else
+			{
+				currItem->setPattern( attrs.valueAsString("Pattern", "") );
+				ScPatternTransform patternTrans;
+				patternTrans.scaleX = attrs.valueAsDouble("PatternXScale", 100.0) / 100.0;
+				patternTrans.scaleY = attrs.valueAsDouble("PatternYScale", 100.0) / 100.0;
+				patternTrans.offsetX = attrs.valueAsDouble("PatternXOffset", 0.0);
+				patternTrans.offsetY = attrs.valueAsDouble("PatternYOffset", 0.0);
+				patternTrans.rotation = attrs.valueAsDouble("PatternRotation", 0.0);
+				patternTrans.skewX = attrs.valueAsDouble("PatternXSkew", 0.0);
+				patternTrans.skewY = attrs.valueAsDouble("PatternYSkew", 0.0);
+				currItem->setPatternTransform(patternTrans);
+				bool mirrorX = attrs.valueAsBool("PatternXMirror", false);
+				bool mirrorY = attrs.valueAsBool("PatternYMirror", false);
+				currItem->setPatternFlip(mirrorX, mirrorY);
+			}
 		}
 		else if (currItem->GrType == Gradient_Mesh)
 		{
 			currItem->meshGradientArray.clear();
-			int mGArrayRows = attrs.valueAsInt("GMAX", 1);
-			int mGArrayCols = attrs.valueAsInt("GMAY", 1);
+			int mGArrayRows = 1;
+			int mGArrayCols = 1;
+			//Remove uppercase in 1.8
+			if (attrs.hasAttribute("GMAX"))
+			{
+				mGArrayRows = attrs.valueAsInt("GMAX", 1);
+				mGArrayCols = attrs.valueAsInt("GMAY", 1);
+			}
+			else
+			{
+				mGArrayRows = attrs.valueAsInt("GradientMeshArrayRows", 1);
+				mGArrayCols = attrs.valueAsInt("GradientMeshArrayColumns", 1);
+			}
 			for (int mgr = 0; mgr < mGArrayRows; mgr++)
 			{
 				QList<MeshPoint> ml;
@@ -7055,7 +7086,12 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 		else if (currItem->GrType == Gradient_PatchMesh)
 		{
 			currItem->meshGradientPatches.clear();
-			int mGArrayRows = attrs.valueAsInt("GMAX", 1);
+			int mGArrayRows = 1;
+			//Remove uppercase in 1.8
+			if (attrs.hasAttribute("GMAX"))
+				mGArrayRows = attrs.valueAsInt("GMAX", 1);
+			else
+				mGArrayRows = attrs.valueAsInt("GradientMeshArrayRows", 1);
 			for (int mgr = 0; mgr < mGArrayRows; mgr++)
 			{
 				meshGradientPatch patchM;
@@ -7064,13 +7100,27 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 		}
 		else if (currItem->GrType == Gradient_Hatch)
 		{
-			int hatchType = attrs.valueAsInt("HatchMode", 0);
-			double hatchDistance = attrs.valueAsDouble("HatchDist", 2);
-			double hatchAngle = attrs.valueAsDouble("HatchAngle", 0);
-			bool hatchUseBackground = attrs.valueAsBool("HatchSolidB", false);
-			QString hatchBackground = attrs.valueAsString("HatchBackG", CommonStrings::None);
-			QString hatchForeground = attrs.valueAsString("HatchForeC", CommonStrings::None);
-			currItem->setHatchParameters(hatchType, hatchDistance, hatchAngle, hatchUseBackground, hatchBackground, hatchForeground);
+			if (attrs.hasAttribute("HatchSolidB"))
+			{
+				int hatchType = attrs.valueAsInt("HatchMode", 0);
+				double hatchDistance = attrs.valueAsDouble("HatchDist", 2);
+				double hatchAngle = attrs.valueAsDouble("HatchAngle", 0);
+				bool hatchUseBackground = attrs.valueAsBool("HatchSolidB", false);
+				QString hatchBackground = attrs.valueAsString("HatchBackG", CommonStrings::None);
+				QString hatchForeground = attrs.valueAsString("HatchForeC", CommonStrings::None);
+				currItem->setHatchParameters(hatchType, hatchDistance, hatchAngle, hatchUseBackground, hatchBackground, hatchForeground);
+			}
+			else
+			{
+				int hatchType = attrs.valueAsInt("HatchMode", 0);
+				double hatchDistance = attrs.valueAsDouble("HatchDistance", 2);
+				double hatchAngle = attrs.valueAsDouble("HatchAngle", 0);
+				bool hatchUseBackground = attrs.valueAsBool("HatchUseBackground", false);
+				QString hatchBackground = attrs.valueAsString("HatchBackgroundColor", CommonStrings::None);
+				QString hatchForeground = attrs.valueAsString("HatchForegroundColor", CommonStrings::None);
+				currItem->setHatchParameters(hatchType, hatchDistance, hatchAngle, hatchUseBackground, hatchBackground, hatchForeground);
+
+			}
 		}
 		else
 		{
@@ -7155,23 +7205,45 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 		default:
 			break;
 	}
-
-	currItem->setStrokePattern( attrs.valueAsString("patternS", "") );
-	ScStrokePatternTransform strokePatternTrans;
-	strokePatternTrans.scaleX = attrs.valueAsDouble("pScaleXS", 100.0) / 100.0;
-	strokePatternTrans.scaleY = attrs.valueAsDouble("pScaleYS", 100.0) / 100.0;
-	strokePatternTrans.offsetX = attrs.valueAsDouble("pOffsetXS", 0.0);
-	strokePatternTrans.offsetY = attrs.valueAsDouble("pOffsetYS", 0.0);
-	strokePatternTrans.rotation = attrs.valueAsDouble("pRotationS", 0.0);
-	strokePatternTrans.skewX = attrs.valueAsDouble("pSkewXS", 0.0);
-	strokePatternTrans.skewY = attrs.valueAsDouble("pSkewYS", 0.0);
-	strokePatternTrans.space = attrs.valueAsDouble("pSpaceS", 1.0);
-	currItem->setStrokePatternTransform(strokePatternTrans);
-	bool mirrorX = attrs.valueAsBool("pMirrorXS", false);
-	bool mirrorY = attrs.valueAsBool("pMirrorYS", false);
-	bool atPath = attrs.valueAsBool("pAtPathS", false);
-	currItem->setPatternFlip(mirrorX, mirrorY);
-	currItem->setStrokePatternToPath(atPath);
+	//Remove in 1.8
+	if (attrs.hasAttribute("patternS"))
+	{
+		currItem->setStrokePattern( attrs.valueAsString("patternS", "") );
+		ScStrokePatternTransform strokePatternTrans;
+		strokePatternTrans.scaleX = attrs.valueAsDouble("pScaleXS", 100.0) / 100.0;
+		strokePatternTrans.scaleY = attrs.valueAsDouble("pScaleYS", 100.0) / 100.0;
+		strokePatternTrans.offsetX = attrs.valueAsDouble("pOffsetXS", 0.0);
+		strokePatternTrans.offsetY = attrs.valueAsDouble("pOffsetYS", 0.0);
+		strokePatternTrans.rotation = attrs.valueAsDouble("pRotationS", 0.0);
+		strokePatternTrans.skewX = attrs.valueAsDouble("pSkewXS", 0.0);
+		strokePatternTrans.skewY = attrs.valueAsDouble("pSkewYS", 0.0);
+		strokePatternTrans.space = attrs.valueAsDouble("pSpaceS", 1.0);
+		currItem->setStrokePatternTransform(strokePatternTrans);
+		bool mirrorX = attrs.valueAsBool("pMirrorXS", false);
+		bool mirrorY = attrs.valueAsBool("pMirrorYS", false);
+		bool atPath = attrs.valueAsBool("pAtPathS", false);
+		currItem->setPatternFlip(mirrorX, mirrorY);
+		currItem->setStrokePatternToPath(atPath);
+	}
+	else
+	{
+		currItem->setStrokePattern( attrs.valueAsString("StrokePattern", "") );
+		ScStrokePatternTransform strokePatternTrans;
+		strokePatternTrans.scaleX = attrs.valueAsDouble("StrokePatternXScale", 100.0) / 100.0;
+		strokePatternTrans.scaleY = attrs.valueAsDouble("StrokePatternYScale", 100.0) / 100.0;
+		strokePatternTrans.offsetX = attrs.valueAsDouble("StrokePatternXOffset", 0.0);
+		strokePatternTrans.offsetY = attrs.valueAsDouble("StrokePatternYOffset", 0.0);
+		strokePatternTrans.rotation = attrs.valueAsDouble("StrokePatternRotation", 0.0);
+		strokePatternTrans.skewX = attrs.valueAsDouble("StrokePatternXSkew", 0.0);
+		strokePatternTrans.skewY = attrs.valueAsDouble("StrokePatternYSkew", 0.0);
+		strokePatternTrans.space = attrs.valueAsDouble("StrokePatternSpace", 1.0);
+		currItem->setStrokePatternTransform(strokePatternTrans);
+		bool mirrorX = attrs.valueAsBool("StrokePatternXMirror", false);
+		bool mirrorY = attrs.valueAsBool("StrokePatternYMirror", false);
+		bool atPath = attrs.valueAsBool("StrokePatternToPath", false);
+		currItem->setPatternFlip(mirrorX, mirrorY);
+		currItem->setStrokePatternToPath(atPath);
+	}
 	if (attrs.hasAttribute("GRTYPS"))
 		currItem->GrTypeStroke = attrs.valueAsInt("GRTYPS", 0);
 	else
@@ -7190,19 +7262,43 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 	if (!GrNameS.isEmpty())
 		currItem->setStrokeGradient(GrNameS);
 
-	currItem->setPatternMask( attrs.valueAsString("patternM", "") );
-	ScMaskTransform maskTransform;
-	maskTransform.scaleX = attrs.valueAsDouble("pScaleXM", 100.0) / 100.0;
-	maskTransform.scaleY = attrs.valueAsDouble("pScaleYM", 100.0) / 100.0;
-	maskTransform.offsetX = attrs.valueAsDouble("pOffsetXM", 0.0);
-	maskTransform.offsetY = attrs.valueAsDouble("pOffsetYM", 0.0);
-	maskTransform.rotation = attrs.valueAsDouble("pRotationM", 0.0);
-	maskTransform.skewX = attrs.valueAsDouble("pSkewXM", 0.0);
-	maskTransform.skewY = attrs.valueAsDouble("pSkewYM", 0.0);
-	currItem->setMaskTransform(maskTransform);
-	bool mirrorXm = attrs.valueAsBool("pMirrorXM", false);
-	bool mirrorYm = attrs.valueAsBool("pMirrorYM", false);
-	currItem->setMaskFlip(mirrorXm, mirrorYm);
+	//Remove in 1.8
+	if (attrs.hasAttribute("patternM"))
+	{
+		currItem->setPatternMask( attrs.valueAsString("patternM", "") );
+		ScMaskTransform maskTransform;
+		maskTransform.scaleX = attrs.valueAsDouble("pScaleXM", 100.0) / 100.0;
+		maskTransform.scaleY = attrs.valueAsDouble("pScaleYM", 100.0) / 100.0;
+		maskTransform.offsetX = attrs.valueAsDouble("pOffsetXM", 0.0);
+		maskTransform.offsetY = attrs.valueAsDouble("pOffsetYM", 0.0);
+		maskTransform.rotation = attrs.valueAsDouble("pRotationM", 0.0);
+		maskTransform.skewX = attrs.valueAsDouble("pSkewXM", 0.0);
+		maskTransform.skewY = attrs.valueAsDouble("pSkewYM", 0.0);
+		currItem->setMaskTransform(maskTransform);
+		bool mirrorXm = attrs.valueAsBool("pMirrorXM", false);
+		bool mirrorYm = attrs.valueAsBool("pMirrorYM", false);
+		currItem->setMaskFlip(mirrorXm, mirrorYm);
+	}
+	else
+	{
+		currItem->setPatternMask( attrs.valueAsString("MaskPattern", "") );
+		ScMaskTransform maskTransform;
+		maskTransform.scaleX = attrs.valueAsDouble("MaskPatternScaleX", 100.0) / 100.0;
+		maskTransform.scaleY = attrs.valueAsDouble("MaskPatternScaleY", 100.0) / 100.0;
+		maskTransform.offsetX = attrs.valueAsDouble("MaskPatternOffsetX", 0.0);
+		maskTransform.offsetY = attrs.valueAsDouble("MaskPatternOffsetY", 0.0);
+		maskTransform.rotation = attrs.valueAsDouble("MaskPatternRotation", 0.0);
+		maskTransform.skewX = attrs.valueAsDouble("MaskPatternSkewX", 0.0);
+		maskTransform.skewY = attrs.valueAsDouble("MaskPatternSkewY", 0.0);
+		currItem->setMaskTransform(maskTransform);
+		bool mirrorXm = attrs.valueAsBool("MaskPatternMirrorX", false);
+		bool mirrorYm = attrs.valueAsBool("MaskPatternMirrorY", false);
+		currItem->setMaskFlip(mirrorXm, mirrorYm);
+	}
+
+
+
+
 	QString GrNameM(attrs.valueAsString("GRNAMEM", ""));
 	currItem->GrMask = attrs.valueAsInt("GRTYPM", 0);
 	if ((currItem->GrMask == GradMask_Linear) || (currItem->GrMask == GradMask_LinearLumAlpha))

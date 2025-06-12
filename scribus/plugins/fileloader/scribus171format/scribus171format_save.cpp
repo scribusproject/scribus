@@ -2085,39 +2085,39 @@ void Scribus171Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 		{
 			if (item->GrType == Gradient_Pattern)
 			{
-				docu.writeAttribute("pattern", item->pattern());
+				docu.writeAttribute("Pattern", item->pattern());
 				const ScPatternTransform& patternTrans = item->patternTransform();
 				bool mirrorX, mirrorY;
 				item->patternFlip(mirrorX, mirrorY);
-				docu.writeAttribute("pScaleX", patternTrans.scaleX * 100.0);
-				docu.writeAttribute("pScaleY", patternTrans.scaleY * 100.0);
-				docu.writeAttribute("pOffsetX", patternTrans.offsetX);
-				docu.writeAttribute("pOffsetY", patternTrans.offsetY);
-				docu.writeAttribute("pRotation", patternTrans.rotation);
-				docu.writeAttribute("pSkewX", patternTrans.skewX);
-				docu.writeAttribute("pSkewY", patternTrans.skewY);
-				docu.writeAttribute("pMirrorX", mirrorX);
-				docu.writeAttribute("pMirrorY", mirrorY);
+				docu.writeAttribute("PatternXScale", patternTrans.scaleX * 100.0);
+				docu.writeAttribute("PatternYScale", patternTrans.scaleY * 100.0);
+				docu.writeAttribute("PatternXOffset", patternTrans.offsetX);
+				docu.writeAttribute("PatternYOffset", patternTrans.offsetY);
+				docu.writeAttribute("PatternRotation", patternTrans.rotation);
+				docu.writeAttribute("PatternXSkew", patternTrans.skewX);
+				docu.writeAttribute("PatternYSkew", patternTrans.skewY);
+				docu.writeAttribute("PatternXMirror", mirrorX);
+				docu.writeAttribute("PatternYMirror", mirrorY);
 			}
 			else
 			{
 				if (item->GrType == Gradient_Mesh)
 				{
-					docu.writeAttribute("GMAY", item->meshGradientArray[0].count());
-					docu.writeAttribute("GMAX", item->meshGradientArray.count());
+					docu.writeAttribute("GradientMeshArrayColumns", item->meshGradientArray[0].count());
+					docu.writeAttribute("GradientMeshArrayRows", item->meshGradientArray.count());
 				}
 				else if (item->GrType == Gradient_PatchMesh)
 				{
-					docu.writeAttribute("GMAX", item->meshGradientPatches.count());
+					docu.writeAttribute("GradientMeshArrayRows", item->meshGradientPatches.count());
 				}
 				else if (item->GrType == Gradient_Hatch)
 				{
 					docu.writeAttribute("HatchMode", item->hatchType);
-					docu.writeAttribute("HatchDist", item->hatchDistance);
+					docu.writeAttribute("HatchDistance", item->hatchDistance);
 					docu.writeAttribute("HatchAngle", item->hatchAngle);
-					docu.writeAttribute("HatchSolidB", item->hatchUseBackground);
-					docu.writeAttribute("HatchBackG", item->hatchBackground);
-					docu.writeAttribute("HatchForeC", item->hatchForeground);
+					docu.writeAttribute("HatchUseBackground", item->hatchUseBackground);
+					docu.writeAttribute("HatchBackgroundColor", item->hatchBackground);
+					docu.writeAttribute("HatchForegroundColor", item->hatchForeground);
 				}
 				else
 				{
@@ -2178,22 +2178,22 @@ void Scribus171Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 		}
 		if (!item->strokePattern().isEmpty())
 		{
-			docu.writeAttribute("patternS", item->strokePattern());
+			docu.writeAttribute("StrokePattern", item->strokePattern());
 			const ScStrokePatternTransform& strokePatTrans = item->strokePatternTransform();
 			bool mirrorX, mirrorY;
 			item->strokePatternFlip(mirrorX, mirrorY);
 			bool atPath = item->isStrokePatternToPath();
-			docu.writeAttribute("pScaleXS", strokePatTrans.scaleX * 100.0);
-			docu.writeAttribute("pScaleYS", strokePatTrans.scaleY * 100.0);
-			docu.writeAttribute("pOffsetXS", strokePatTrans.offsetX);
-			docu.writeAttribute("pOffsetYS", strokePatTrans.offsetY);
-			docu.writeAttribute("pRotationS", strokePatTrans.rotation);
-			docu.writeAttribute("pSkewXS", strokePatTrans.skewX);
-			docu.writeAttribute("pSkewYS", strokePatTrans.skewY);
-			docu.writeAttribute("pSpaceS", strokePatTrans.space);
-			docu.writeAttribute("pMirrorXS", mirrorX);
-			docu.writeAttribute("pMirrorYS", mirrorY);
-			docu.writeAttribute("pAtPathS", atPath);
+			docu.writeAttribute("StrokePatternXScale", strokePatTrans.scaleX * 100.0);
+			docu.writeAttribute("StrokePatternYScale", strokePatTrans.scaleY * 100.0);
+			docu.writeAttribute("StrokePatternXOffset", strokePatTrans.offsetX);
+			docu.writeAttribute("StrokePatternYOffset", strokePatTrans.offsetY);
+			docu.writeAttribute("StrokePatternRotation", strokePatTrans.rotation);
+			docu.writeAttribute("StrokePatternXSkew", strokePatTrans.skewX);
+			docu.writeAttribute("StrokePatternYSkew", strokePatTrans.skewY);
+			docu.writeAttribute("StrokePatternSpace", strokePatTrans.space);
+			docu.writeAttribute("StrokePatternXMirror", mirrorX);
+			docu.writeAttribute("StrokePatternYMirror", mirrorY);
+			docu.writeAttribute("StrokePatternToPath", atPath);
 		}
 		if (item->GrMask > 0)
 		{
@@ -2210,24 +2210,24 @@ void Scribus171Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 		}
 		if (!item->patternMask().isEmpty())
 		{
-			docu.writeAttribute("patternM", item->patternMask());
+			docu.writeAttribute("MaskPattern", item->patternMask());
 			const ScMaskTransform& maskTrans = item->maskTransform();
 			bool mirrorX, mirrorY;
 			item->maskFlip(mirrorX, mirrorY);
-			docu.writeAttribute("pScaleXM", maskTrans.scaleX * 100.0);
-			docu.writeAttribute("pScaleYM", maskTrans.scaleY * 100.0);
-			docu.writeAttribute("pOffsetXM", maskTrans.offsetX);
-			docu.writeAttribute("pOffsetYM", maskTrans.offsetY);
-			docu.writeAttribute("pRotationM", maskTrans.rotation);
-			docu.writeAttribute("pSkewXM", maskTrans.skewX);
-			docu.writeAttribute("pSkewYM", maskTrans.skewY);
-			docu.writeAttribute("pMirrorXM", mirrorX);
-			docu.writeAttribute("pMirrorYM", mirrorY);
+			docu.writeAttribute("MaskPatternScaleX", maskTrans.scaleX * 100.0);
+			docu.writeAttribute("MaskPatternScaleY", maskTrans.scaleY * 100.0);
+			docu.writeAttribute("MaskPatternOffsetX", maskTrans.offsetX);
+			docu.writeAttribute("MaskPatternOffsetY", maskTrans.offsetY);
+			docu.writeAttribute("MaskPatternRotation", maskTrans.rotation);
+			docu.writeAttribute("MaskPatternSkewX", maskTrans.skewX);
+			docu.writeAttribute("MaskPatternSkewY", maskTrans.skewY);
+			docu.writeAttribute("MaskPatternMirrorX", mirrorX);
+			docu.writeAttribute("MaskPatternMirrorY", mirrorY);
 		}
 		if (item->itemText.defaultStyle().hasParent())
 			docu.writeAttribute("ParagraphStyle", item->itemText.defaultStyle().parent());
 		if (! item->itemText.defaultStyle().isInhAlignment())
-			docu.writeAttribute("ALIGN", item->itemText.defaultStyle().alignment());
+			docu.writeAttribute("Alignment", item->itemText.defaultStyle().alignment());
 		
 		docu.writeAttribute("Layer", item->m_layerID);
 		if (item->isBookmark)
