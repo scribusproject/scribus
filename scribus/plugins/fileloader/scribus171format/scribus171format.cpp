@@ -7229,17 +7229,33 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 	currItem->setStrokeGradientExtend((VGradient::VGradientRepeatMethod)(attrs.valueAsInt("GRExtS", VGradient::pad)));
 	currItem->mask_gradient.setRepeatMethod((VGradient::VGradientRepeatMethod)(attrs.valueAsInt("GRExtM", VGradient::pad)));
 
-	currItem->setHasSoftShadow(attrs.valueAsBool("HASSOFTSHADOW", false));
-	currItem->setSoftShadowXOffset(attrs.valueAsDouble("SOFTSHADOWXOFFSET", 5.0));
-	currItem->setSoftShadowYOffset(attrs.valueAsDouble("SOFTSHADOWYOFFSET", 5.0));
-	currItem->setSoftShadowColor(attrs.valueAsString("SOFTSHADOWCOLOR", "Black"));
-	currItem->setSoftShadowShade(attrs.valueAsInt("SOFTSHADOWSHADE", 100));
-	currItem->setSoftShadowBlurRadius(attrs.valueAsDouble("SOFTSHADOWBLURRADIUS", 5.0));
-	currItem->setSoftShadowBlendMode(attrs.valueAsInt("SOFTSHADOWBLENDMODE", 0));
-	currItem->setSoftShadowOpacity(attrs.valueAsDouble("SOFTSHADOWOPACITY", 0.0));
-	currItem->setSoftShadowErasedByObject(attrs.valueAsBool("SOFTSHADOWERASE", false));
-	currItem->setSoftShadowHasObjectTransparency(attrs.valueAsBool("SOFTSHADOWOBJTRANS", false));
-
+	//Remove uppercase in 1.8
+	if (attrs.hasAttribute("HASSOFTSHADOW"))
+	{
+		currItem->setHasSoftShadow(attrs.valueAsBool("HASSOFTSHADOW", false));
+		currItem->setSoftShadowXOffset(attrs.valueAsDouble("SOFTSHADOWXOFFSET", 5.0));
+		currItem->setSoftShadowYOffset(attrs.valueAsDouble("SOFTSHADOWYOFFSET", 5.0));
+		currItem->setSoftShadowColor(attrs.valueAsString("SOFTSHADOWCOLOR", "Black"));
+		currItem->setSoftShadowShade(attrs.valueAsInt("SOFTSHADOWSHADE", 100));
+		currItem->setSoftShadowBlurRadius(attrs.valueAsDouble("SOFTSHADOWBLURRADIUS", 5.0));
+		currItem->setSoftShadowBlendMode(attrs.valueAsInt("SOFTSHADOWBLENDMODE", 0));
+		currItem->setSoftShadowOpacity(attrs.valueAsDouble("SOFTSHADOWOPACITY", 0.0));
+		currItem->setSoftShadowErasedByObject(attrs.valueAsBool("SOFTSHADOWERASE", false));
+		currItem->setSoftShadowHasObjectTransparency(attrs.valueAsBool("SOFTSHADOWOBJTRANS", false));
+	}
+	else
+	{
+		currItem->setHasSoftShadow(attrs.valueAsBool("HasSoftShadow", false));
+		currItem->setSoftShadowBlendMode(attrs.valueAsInt("SoftShadowBlendMode", 0));
+		currItem->setSoftShadowBlurRadius(attrs.valueAsDouble("SoftShadowBlurRadius", 5.0));
+		currItem->setSoftShadowColor(attrs.valueAsString("SoftShadowColor", "Black"));
+		currItem->setSoftShadowErasedByObject(attrs.valueAsBool("SoftShadowErase", false));
+		currItem->setSoftShadowHasObjectTransparency(attrs.valueAsBool("SoftShadowHasObjectTransparency", false));
+		currItem->setSoftShadowOpacity(attrs.valueAsDouble("SoftShadowOpacity", 0.0));
+		currItem->setSoftShadowShade(attrs.valueAsInt("SoftShadowShade", 100));
+		currItem->setSoftShadowXOffset(attrs.valueAsDouble("SoftShadowXOffset", 5.0));
+		currItem->setSoftShadowYOffset(attrs.valueAsDouble("SoftShadowYOffset", 5.0));
+	}
 	//currItem->setRedrawBounding();
 	//currItem->OwnPage = view->OnPage(currItem);
 	return currItem;

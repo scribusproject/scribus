@@ -2939,16 +2939,16 @@ void Scribus171Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("LineBlendMode", item->lineBlendmode());
 	if (item->hasSoftShadow())
 	{
-		docu.writeAttribute("HASSOFTSHADOW", item->hasSoftShadow() ? 1 : 0);
-		docu.writeAttribute("SOFTSHADOWXOFFSET", item->softShadowXOffset());
-		docu.writeAttribute("SOFTSHADOWYOFFSET", item->softShadowYOffset());
-		docu.writeAttribute("SOFTSHADOWCOLOR", item->softShadowColor());
-		docu.writeAttribute("SOFTSHADOWBLURRADIUS", item->softShadowBlurRadius());
-		docu.writeAttribute("SOFTSHADOWSHADE", item->softShadowShade());
-		docu.writeAttribute("SOFTSHADOWBLENDMODE", item->softShadowBlendMode());
-		docu.writeAttribute("SOFTSHADOWOPACITY", item->softShadowOpacity());
-		docu.writeAttribute("SOFTSHADOWERASE", item->softShadowErasedByObject());
-		docu.writeAttribute("SOFTSHADOWOBJTRANS", item->softShadowHasObjectTransparency());
+		docu.writeAttribute("HasSoftShadow", item->hasSoftShadow() ? 1 : 0);
+		docu.writeAttribute("SoftShadowBlendMode", item->softShadowBlendMode());
+		docu.writeAttribute("SoftShadowBlurRadius", item->softShadowBlurRadius());
+		docu.writeAttribute("SoftShadowColor", item->softShadowColor());
+		docu.writeAttribute("SoftShadowErase", item->softShadowErasedByObject());
+		docu.writeAttribute("SoftShadowHasObjectTransparency", item->softShadowHasObjectTransparency());
+		docu.writeAttribute("SoftShadowOpacity", item->softShadowOpacity());
+		docu.writeAttribute("SoftShadowShade", item->softShadowShade());
+		docu.writeAttribute("SoftShadowXOffset", item->softShadowXOffset());
+		docu.writeAttribute("SoftShadowYOffset", item->softShadowYOffset());
 	}
 
 	QString tmp;
