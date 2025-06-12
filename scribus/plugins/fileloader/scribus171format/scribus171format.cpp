@@ -7802,7 +7802,7 @@ bool Scribus171Format::loadPage(const QString & fileName, int pageNumber, bool M
 			temp.create(tstyle);
 			m_Doc->redefineCellStyles(temp, false);
 		}
-		if (((tagName == QLatin1String("PAGE")) || (tagName == QLatin1String("MASTERPAGE")) || (tagName == QLatin1String("Page")) || (tagName == QLatin1String("MasterPage"))) && (attrs.valueAsInt("NUM") == pageNumber))
+		if (((tagName == QLatin1String("PAGE")) || (tagName == QLatin1String("MASTERPAGE")) || (tagName == QLatin1String("Page")) || (tagName == QLatin1String("MasterPage"))) && (attrs.valueAsInt("NUM") == pageNumber || attrs.valueAsInt("PageNumber") == pageNumber))
 		{
 			if (Mpage && (tagName != QLatin1String("MASTERPAGE") && tagName != QLatin1String("MasterPage")))
 				continue;
@@ -7837,24 +7837,39 @@ bool Scribus171Format::loadPage(const QString & fileName, int pageNumber, bool M
 			}
 			if (Mpage)
 			{
-				newPage->LeftPg = attrs.valueAsInt("LEFT", 0);
-
+				//Remove uppercase in 1.8
+				if (attrs.hasAttribute("LEFT"))
+					newPage->LeftPg = attrs.valueAsInt("LEFT", 0);
+				else
+					newPage->LeftPg = attrs.valueAsInt("LeftPage", 0);
 				if (!renamedPageName.isEmpty())
 					newPage->setPageName(renamedPageName);
 				else
-					newPage->setPageName(attrs.valueAsString("NAM",""));
+				{
+					//Remove uppercase in 1.8
+					if (attrs.hasAttribute("NAM"))
+						newPage->setPageName(attrs.valueAsString("NAM",""));
+					else
+						newPage->setPageName(attrs.valueAsString("PageName",""));
+				}
 			}
 			if (attrs.hasAttribute("Size"))
 				newPage->setSize(attrs.valueAsString("Size"));
 			if (attrs.hasAttribute("Orientation"))
 				newPage->setOrientation(attrs.valueAsInt("Orientation"));
 			if (attrs.hasAttribute("PAGEWIDTH"))
-				newPage->setWidth( attrs.valueAsDouble("PAGEWIDTH") );
+				newPage->setWidth(attrs.valueAsDouble("PAGEWIDTH"));
 			else
-				newPage->setWidth( attrs.valueAsDouble("PAGEWITH") );
-			newPage->setHeight( attrs.valueAsDouble("PAGEHEIGHT") );
+				newPage->setWidth(attrs.valueAsDouble("PageWidth"));
+			//Remove uppercase in 1.8
+			if (attrs.hasAttribute("PAGEHEIGHT"))
+				newPage->setHeight(attrs.valueAsDouble("PAGEHEIGHT"));
+			else
+				newPage->setHeight(attrs.valueAsDouble("PageHeight"));
 			newPage->setInitialHeight(newPage->height());
 			newPage->setInitialWidth(newPage->width());
+			if (attrs.hasAttribute("BORDERTOP"))
+			{
 			newPage->initialMargins.setTop(qMax(0.0, attrs.valueAsDouble("BORDERTOP")));
 			newPage->initialMargins.setBottom(qMax(0.0, attrs.valueAsDouble("BORDERBOTTOM")));
 			newPage->initialMargins.setLeft(qMax(0.0, attrs.valueAsDouble("BORDERLEFT")));
@@ -7864,14 +7879,40 @@ bool Scribus171Format::loadPage(const QString & fileName, int pageNumber, bool M
 			newPage->Margins.setBottom(newPage->initialMargins.bottom());
 			pageX = attrs.valueAsDouble("PAGEXPOS");
 			pageY = attrs.valueAsDouble("PAGEYPOS");
+			}
+			else
+			{
+				newPage->initialMargins.setTop(qMax(0.0, attrs.valueAsDouble("BorderTop")));
+				newPage->initialMargins.setBottom(qMax(0.0, attrs.valueAsDouble("BorderBottom")));
+				newPage->initialMargins.setLeft(qMax(0.0, attrs.valueAsDouble("BorderLeft")));
+				newPage->initialMargins.setRight(qMax(0.0, attrs.valueAsDouble("BorderRight")));
+				newPage->marginPreset = attrs.valueAsInt("Preset", 0);
+				newPage->Margins.setTop(newPage->initialMargins.top());
+				newPage->Margins.setBottom(newPage->initialMargins.bottom());
+				pageX = attrs.valueAsDouble("PageXPosition");
+				pageY = attrs.valueAsDouble("PageYPosition");
+			}
 
 			// guides reading
-			newPage->guides.setHorizontalAutoGap(attrs.valueAsDouble("AGhorizontalAutoGap", 0.0));
-			newPage->guides.setVerticalAutoGap(attrs.valueAsDouble("AGverticalAutoGap", 0.0));
-			newPage->guides.setHorizontalAutoCount(attrs.valueAsInt("AGhorizontalAutoCount", 0));
-			newPage->guides.setVerticalAutoCount(attrs.valueAsInt("AGverticalAutoCount", 0));
-			newPage->guides.setHorizontalAutoRefer(attrs.valueAsInt("AGhorizontalAutoRefer", 0));
-			newPage->guides.setVerticalAutoRefer(attrs.valueAsInt("AGverticalAutoRefer", 0));
+			//Remove in 1.8
+			if (attrs.hasAttribute("AGhorizontalAutoGap"))
+			{
+				newPage->guides.setHorizontalAutoGap(attrs.valueAsDouble("AGhorizontalAutoGap", 0.0));
+				newPage->guides.setVerticalAutoGap(attrs.valueAsDouble("AGverticalAutoGap", 0.0));
+				newPage->guides.setHorizontalAutoCount(attrs.valueAsInt("AGhorizontalAutoCount", 0));
+				newPage->guides.setVerticalAutoCount(attrs.valueAsInt("AGverticalAutoCount", 0));
+				newPage->guides.setHorizontalAutoRefer(attrs.valueAsInt("AGhorizontalAutoRefer", 0));
+				newPage->guides.setVerticalAutoRefer(attrs.valueAsInt("AGverticalAutoRefer", 0));
+			}
+			else
+			{
+				newPage->guides.setHorizontalAutoGap(attrs.valueAsDouble("AutoGuideHorizontalGap", 0.0));
+				newPage->guides.setVerticalAutoGap(attrs.valueAsDouble("AutoGuideVerticalGap", 0.0));
+				newPage->guides.setHorizontalAutoCount(attrs.valueAsInt("AutoGuideHorizontalCount", 0));
+				newPage->guides.setVerticalAutoCount(attrs.valueAsInt("AutoGuideVerticalCount", 0));
+				newPage->guides.setHorizontalAutoRefer(attrs.valueAsInt("AutoGuideHorizontalReference", 0));
+				newPage->guides.setVerticalAutoRefer(attrs.valueAsInt("AutoGuideVerticalReference", 0));
+			}
 			GuideManagerIO::readVerticalGuides(attrs.valueAsString("VerticalGuides"),
 											newPage,
 											GuideManagerCore::Standard,
