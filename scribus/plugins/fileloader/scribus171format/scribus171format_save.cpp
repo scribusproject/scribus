@@ -2789,50 +2789,50 @@ void Scribus171Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	}
 	if (item->isAnnotation())
 	{
-		docu.writeAttribute("ANNOTATION",1);
-		docu.writeAttribute("ANTYPE", item->annotation().Type());
-		docu.writeAttribute("ANACTION", item->annotation().Action());
-		docu.writeAttribute("ANEACT", item->annotation().E_act());
-		docu.writeAttribute("ANXACT", item->annotation().X_act());
-		docu.writeAttribute("ANDACT", item->annotation().D_act());
-		docu.writeAttribute("ANFOACT", item->annotation().Fo_act());
-		docu.writeAttribute("ANBLACT", item->annotation().Bl_act());
-		docu.writeAttribute("ANKACT", item->annotation().K_act());
-		docu.writeAttribute("ANFACT", item->annotation().F_act());
-		docu.writeAttribute("ANVACT", item->annotation().V_act());
-		docu.writeAttribute("ANCACT", item->annotation().C_act());
+		docu.writeAttribute("Annotation", 1);
+		docu.writeAttribute("AnnotationType", item->annotation().Type());
+		docu.writeAttribute("AnnotationAction", item->annotation().Action());
+		docu.writeAttribute("AnnotationActionE", item->annotation().E_act());
+		docu.writeAttribute("AnnotationActionX", item->annotation().X_act());
+		docu.writeAttribute("AnnotationActionD", item->annotation().D_act());
+		docu.writeAttribute("AnnotationActionFo", item->annotation().Fo_act());
+		docu.writeAttribute("AnnotationActionBl", item->annotation().Bl_act());
+		docu.writeAttribute("AnnotationActionK", item->annotation().K_act());
+		docu.writeAttribute("AnnotationActionF", item->annotation().F_act());
+		docu.writeAttribute("AnnotationActionV", item->annotation().V_act());
+		docu.writeAttribute("AnnotationActionC", item->annotation().C_act());
 		if (item->annotation().ActionType() == Annotation::Action_URI)
-			docu.writeAttribute("ANEXTERN", item->annotation().Extern());
+			docu.writeAttribute("AnnotationExtern", item->annotation().Extern());
 		else
-			docu.writeAttribute("ANEXTERN", Path2Relative(item->annotation().Extern(), baseDir));
-		docu.writeAttribute("ANZIEL", item->annotation().Ziel());
-		docu.writeAttribute("ANACTYP", item->annotation().ActionType());
-		docu.writeAttribute("ANTOOLTIP", item->annotation().ToolTip());
-		docu.writeAttribute("ANBWID", item->annotation().borderWidth());
-		docu.writeAttribute("ANBSTY", item->annotation().borderStyle());
-		docu.writeAttribute("ANFEED", item->annotation().Feed());
-		docu.writeAttribute("ANFLAG", item->annotation().Flag());
-		docu.writeAttribute("ANFONT", item->annotation().Font());
-		docu.writeAttribute("ANFORMAT", item->annotation().Format());
-		docu.writeAttribute("ANROLL", item->annotation().RollOver());
-		docu.writeAttribute("ANDOWN", item->annotation().Down());
-		docu.writeAttribute("ANVIS", item->annotation().Vis());
-		docu.writeAttribute("ANMC", item->annotation().MaxChar());
-		docu.writeAttribute("ANCHK", item->annotation().IsChk());
-		docu.writeAttribute("ANAA", item->annotation().AAact());
-		docu.writeAttribute("ANCHKS", item->annotation().ChkStil());
-		docu.writeAttribute("ANBCOL", item->annotation().borderColor());
-		docu.writeAttribute("ANHTML", item->annotation().HTML());
-		docu.writeAttribute("ANICON", item->annotation().UseIcons());
-		docu.writeAttribute("ANPLACE", item->annotation().IPlace());
-		docu.writeAttribute("ANSCALE", item->annotation().ScaleW());
-		docu.writeAttribute("ANITYP", item->annotation().Icon());
-		docu.writeAttribute("ANOPEN", item->annotation().IsAnOpen());
+			docu.writeAttribute("AnnotationExtern", Path2Relative(item->annotation().Extern(), baseDir));
+		docu.writeAttribute("AnnotationCount", item->annotation().Ziel());
+		docu.writeAttribute("AnnotationActionType", item->annotation().ActionType());
+		docu.writeAttribute("AnnotationToolTip", item->annotation().ToolTip());
+		docu.writeAttribute("AnnotationBorderWidth", item->annotation().borderWidth());
+		docu.writeAttribute("AnnotationBorderStyle", item->annotation().borderStyle());
+		docu.writeAttribute("AnnotationFeed", item->annotation().Feed());
+		docu.writeAttribute("AnnotationFlag", item->annotation().Flag());
+		docu.writeAttribute("AnnotationFont", item->annotation().Font());
+		docu.writeAttribute("AnnotationFormat", item->annotation().Format());
+		docu.writeAttribute("AnnotationRollOver", item->annotation().RollOver());
+		docu.writeAttribute("AnnotationDown", item->annotation().Down());
+		docu.writeAttribute("AnnotationVisible", item->annotation().Vis());
+		docu.writeAttribute("AnnotationMaxChar", item->annotation().MaxChar());
+		docu.writeAttribute("AnnotationIsCheck", item->annotation().IsChk());
+		docu.writeAttribute("AnnotationAction", item->annotation().AAact());
+		docu.writeAttribute("AnnotationCheckStyle", item->annotation().ChkStil());
+		docu.writeAttribute("AnnotationBorderColor", item->annotation().borderColor());
+		docu.writeAttribute("AnnotationHTML", item->annotation().HTML());
+		docu.writeAttribute("AnnotationUseIcons", item->annotation().UseIcons());
+		docu.writeAttribute("AnnotationTextPosition", item->annotation().IPlace());
+		docu.writeAttribute("AnnotationScaleWidth", item->annotation().ScaleW());
+		docu.writeAttribute("AnnotationIcon", item->annotation().Icon());
+		docu.writeAttribute("AnnotationTextOpen", item->annotation().IsAnOpen());
 	}
 	if (!item->AutoName)
-		docu.writeAttribute("ANNAME", item->itemName());
+		docu.writeAttribute("AutoName", item->itemName());
 	if (item->textFlowMode() != 0)
-		docu.writeAttribute("TEXTFLOWMODE", (int) item->textFlowMode() );
+		docu.writeAttribute("TextFlowMode", (int) item->textFlowMode() );
 	if (item->isTextFrame() || item->isPathText() || item->isImageFrame())
 	{
 		docu.writeAttribute("ImageScaleX", item->imageXScale());

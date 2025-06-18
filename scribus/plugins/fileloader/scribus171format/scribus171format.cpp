@@ -6582,11 +6582,13 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 			currItem->itemText.setDefaultStyle(defStyle);
 		}
 	}
+	//Remove uppercase in 1.8
 	if (attrs.hasAttribute("ROT"))
 		currItem->setRotation( attrs.valueAsDouble("ROT", 0.0) );
 	else
 		currItem->setRotation( attrs.valueAsDouble("Rotation", 0.0) );
 	currItem->oldRot = currItem->rotation();
+	//Remove uppercase in 1.8
 	if (attrs.hasAttribute("EXTRA"))
 		currItem->setTextToFrameDist(attrs.valueAsDouble("EXTRA", 0.0),
 								attrs.valueAsDouble("REXTRA", 0.0),
@@ -6597,15 +6599,17 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 								attrs.valueAsDouble("TextToFrameDistanceRight", 0.0),
 								attrs.valueAsDouble("TextToFrameDistanceTop", 0.0),
 								attrs.valueAsDouble("TextToFrameDistanceBottom", 0.0));
+	//Remove in 1.8
 	if (attrs.hasAttribute("VAlign"))
 		currItem->setVerticalAlignment(attrs.valueAsInt("VAlign", 0));
 	else
 		currItem->setVerticalAlignment(attrs.valueAsInt("VerticalAlignment", 0));
+	//Remove uppercase in 1.8
 	if (attrs.hasAttribute("FLOP"))
 		currItem->setFirstLineOffset(static_cast<FirstLineOffsetPolicy>(attrs.valueAsInt("FLOP")));
 	else
 		currItem->setFirstLineOffset(static_cast<FirstLineOffsetPolicy>(attrs.valueAsInt("FirstLineOffset")));
-
+	//Remove uppercase in 1.8
 	if (attrs.hasAttribute("PLINEART"))
 	{
 		currItem->PLineArt = Qt::PenStyle(attrs.valueAsInt("PLINEART", 0));
@@ -6618,13 +6622,19 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 		currItem->PLineEnd = Qt::PenCapStyle(attrs.valueAsInt("LineCapStyle", 0));
 		currItem->PLineJoin = Qt::PenJoinStyle(attrs.valueAsInt("LineJoinStyle", 0));
 	}
+	//Remove uppercase in 1.8
 	if (attrs.hasAttribute("PRINTABLE"))
 		currItem->setPrintEnabled( attrs.valueAsInt("PRINTABLE", 1));
 	else
 		currItem->setPrintEnabled( attrs.valueAsInt("PrintEnabled", 1));
-	currItem->setIsAnnotation( attrs.valueAsInt("ANNOTATION", 0));
-	currItem->annotation().setType( attrs.valueAsInt("ANTYPE", 0));
-	QString itemName = attrs.valueAsString("ANNAME","");
+
+	//Remove uppercase in 1.8
+	QString itemName;
+	if (attrs.hasAttribute("ANNAME"))
+		itemName = attrs.valueAsString("ANNAME","");
+	else
+		if (attrs.hasAttribute("AutoName"))
+			itemName = attrs.valueAsString("AutoName","");
 	if (!itemName.isEmpty())
 	{
 		if (currItem->itemName() == itemName)
@@ -6635,44 +6645,91 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 			currItem->AutoName = false;
 		}
 	}
-
-	currItem->annotation().setAction( attrs.valueAsString("ANACTION","") );
-	currItem->annotation().setE_act ( attrs.valueAsString("ANEACT","") );
-	currItem->annotation().setX_act ( attrs.valueAsString("ANXACT","") );
-	currItem->annotation().setD_act ( attrs.valueAsString("ANDACT","") );
-	currItem->annotation().setFo_act( attrs.valueAsString("ANFOACT","") );
-	currItem->annotation().setBl_act( attrs.valueAsString("ANBLACT","") );
-	currItem->annotation().setK_act ( attrs.valueAsString("ANKACT","") );
-	currItem->annotation().setF_act ( attrs.valueAsString("ANFACT","") );
-	currItem->annotation().setV_act ( attrs.valueAsString("ANVACT","") );
-	currItem->annotation().setC_act ( attrs.valueAsString("ANCACT","") );
-	currItem->annotation().setActionType(attrs.valueAsInt("ANACTYP", 0));
-	currItem->annotation().setExtern( attrs.valueAsString("ANEXTERN",""));
-	if ((!currItem->annotation().Extern().isEmpty()) && (currItem->annotation().ActionType() != 8))
-		currItem->annotation().setExtern(Relative2Path(attrs.valueAsString("ANEXTERN", "") , baseDir));
-	currItem->annotation().setZiel( attrs.valueAsInt("ANZIEL", 0));
-	currItem->annotation().setToolTip ( attrs.valueAsString("ANTOOLTIP",""));
-	currItem->annotation().setRollOver( attrs.valueAsString("ANROLL",""));
-	currItem->annotation().setDown( attrs.valueAsString("ANDOWN",""));
-	currItem->annotation().setBorderWidth( attrs.valueAsInt("ANBWID", 1));
-	currItem->annotation().setBorderStyle( attrs.valueAsInt("ANBSTY", 0));
-	currItem->annotation().setFeed( attrs.valueAsInt("ANFEED", 1));
-	currItem->annotation().setFlag( attrs.valueAsInt("ANFLAG", 0));
-	currItem->annotation().setFont( attrs.valueAsInt("ANFONT", 4));
-	currItem->annotation().setFormat( attrs.valueAsInt("ANFORMAT", 0));
-	currItem->annotation().setVis( attrs.valueAsInt("ANVIS", 0));
-	currItem->annotation().setIsChk( attrs.valueAsBool("ANCHK", false) );
-	currItem->annotation().setCheckState(currItem->annotation().IsChk());
-	currItem->annotation().setAAact( attrs.valueAsBool("ANAA", false) );
-	currItem->annotation().setHTML ( attrs.valueAsInt("ANHTML", 0));
-	currItem->annotation().setUseIcons( attrs.valueAsBool("ANICON", false));
-	currItem->annotation().setChkStil ( attrs.valueAsInt("ANCHKS", 0));
-	currItem->annotation().setMaxChar ( attrs.valueAsInt("ANMC", -1));
-	currItem->annotation().setBorderColor( attrs.valueAsString("ANBCOL", CommonStrings::None));
-	currItem->annotation().setIPlace(attrs.valueAsInt("ANPLACE", 1));
-	currItem->annotation().setScaleW(attrs.valueAsInt("ANSCALE", 0));
-	currItem->annotation().setIcon(attrs.valueAsInt("ANITYP", 0));
-	currItem->annotation().setAnOpen(attrs.valueAsBool("ANOPEN", false) );
+	//Remove uppercase in 1.8
+	if (attrs.hasAttribute("ANNOTATION"))
+	{
+		currItem->setIsAnnotation( attrs.valueAsInt("ANNOTATION", 0));
+		currItem->annotation().setType( attrs.valueAsInt("ANTYPE", 0));
+		currItem->annotation().setAction( attrs.valueAsString("ANACTION","") );
+		currItem->annotation().setE_act ( attrs.valueAsString("ANEACT","") );
+		currItem->annotation().setX_act ( attrs.valueAsString("ANXACT","") );
+		currItem->annotation().setD_act ( attrs.valueAsString("ANDACT","") );
+		currItem->annotation().setFo_act( attrs.valueAsString("ANFOACT","") );
+		currItem->annotation().setBl_act( attrs.valueAsString("ANBLACT","") );
+		currItem->annotation().setK_act ( attrs.valueAsString("ANKACT","") );
+		currItem->annotation().setF_act ( attrs.valueAsString("ANFACT","") );
+		currItem->annotation().setV_act ( attrs.valueAsString("ANVACT","") );
+		currItem->annotation().setC_act ( attrs.valueAsString("ANCACT","") );
+		currItem->annotation().setActionType(attrs.valueAsInt("ANACTYP", 0));
+		currItem->annotation().setExtern( attrs.valueAsString("ANEXTERN",""));
+		if ((!currItem->annotation().Extern().isEmpty()) && (currItem->annotation().ActionType() != 8))
+			currItem->annotation().setExtern(Relative2Path(attrs.valueAsString("ANEXTERN", "") , baseDir));
+		currItem->annotation().setZiel( attrs.valueAsInt("ANZIEL", 0));
+		currItem->annotation().setToolTip ( attrs.valueAsString("ANTOOLTIP",""));
+		currItem->annotation().setRollOver( attrs.valueAsString("ANROLL",""));
+		currItem->annotation().setDown( attrs.valueAsString("ANDOWN",""));
+		currItem->annotation().setBorderWidth( attrs.valueAsInt("ANBWID", 1));
+		currItem->annotation().setBorderStyle( attrs.valueAsInt("ANBSTY", 0));
+		currItem->annotation().setFeed( attrs.valueAsInt("ANFEED", 1));
+		currItem->annotation().setFlag( attrs.valueAsInt("ANFLAG", 0));
+		currItem->annotation().setFont( attrs.valueAsInt("ANFONT", 4));
+		currItem->annotation().setFormat( attrs.valueAsInt("ANFORMAT", 0));
+		currItem->annotation().setVis( attrs.valueAsInt("ANVIS", 0));
+		currItem->annotation().setIsChk( attrs.valueAsBool("ANCHK", false) );
+		currItem->annotation().setCheckState(currItem->annotation().IsChk());
+		currItem->annotation().setAAact( attrs.valueAsBool("ANAA", false) );
+		currItem->annotation().setHTML ( attrs.valueAsInt("ANHTML", 0));
+		currItem->annotation().setUseIcons( attrs.valueAsBool("ANICON", false));
+		currItem->annotation().setChkStil ( attrs.valueAsInt("ANCHKS", 0));
+		currItem->annotation().setMaxChar ( attrs.valueAsInt("ANMC", -1));
+		currItem->annotation().setBorderColor( attrs.valueAsString("ANBCOL", CommonStrings::None));
+		currItem->annotation().setIPlace(attrs.valueAsInt("ANPLACE", 1));
+		currItem->annotation().setScaleW(attrs.valueAsInt("ANSCALE", 0));
+		currItem->annotation().setIcon(attrs.valueAsInt("ANITYP", 0));
+		currItem->annotation().setAnOpen(attrs.valueAsBool("ANOPEN", false) );
+	}
+	else
+	{
+		currItem->setIsAnnotation( attrs.valueAsInt("Annotation", 0));
+		currItem->annotation().setType( attrs.valueAsInt("AnnotationType", 0));
+		currItem->annotation().setAction( attrs.valueAsString("AnnotationAction","") );
+		currItem->annotation().setE_act ( attrs.valueAsString("AnnotationActionE","") );
+		currItem->annotation().setX_act ( attrs.valueAsString("AnnotationActionX","") );
+		currItem->annotation().setD_act ( attrs.valueAsString("AnnotationActionD","") );
+		currItem->annotation().setFo_act( attrs.valueAsString("AnnotationActionFo","") );
+		currItem->annotation().setBl_act( attrs.valueAsString("AnnotationActionBL","") );
+		currItem->annotation().setK_act ( attrs.valueAsString("AnnotationActionK","") );
+		currItem->annotation().setF_act ( attrs.valueAsString("AnnotationActionF","") );
+		currItem->annotation().setV_act ( attrs.valueAsString("AnnotationActionV","") );
+		currItem->annotation().setC_act ( attrs.valueAsString("AnnotationActionC","") );
+		currItem->annotation().setActionType(attrs.valueAsInt("AnnotationActionType", 0));
+		currItem->annotation().setExtern( attrs.valueAsString("AnnotationExtern",""));
+		if ((!currItem->annotation().Extern().isEmpty()) && (currItem->annotation().ActionType() != 8))
+			currItem->annotation().setExtern(Relative2Path(attrs.valueAsString("AnnotationExtern", "") , baseDir));
+		currItem->annotation().setZiel( attrs.valueAsInt("AnnotationCount", 0));
+		currItem->annotation().setToolTip ( attrs.valueAsString("AnnotationToolTip",""));
+		currItem->annotation().setRollOver( attrs.valueAsString("AnnotationRollOver",""));
+		currItem->annotation().setDown( attrs.valueAsString("AnnotationDown",""));
+		currItem->annotation().setBorderWidth( attrs.valueAsInt("AnnotationBorderWidth", 1));
+		currItem->annotation().setBorderStyle( attrs.valueAsInt("AnnotationBorderStyle", 0));
+		currItem->annotation().setFeed( attrs.valueAsInt("AnnotationFeed", 1));
+		currItem->annotation().setFlag( attrs.valueAsInt("AnnotationFlag", 0));
+		currItem->annotation().setFont( attrs.valueAsInt("AnnotationFont", 4));
+		currItem->annotation().setFormat( attrs.valueAsInt("AnnotationFormat", 0));
+		currItem->annotation().setVis( attrs.valueAsInt("AnnotationVisible", 0));
+		currItem->annotation().setIsChk( attrs.valueAsBool("AnnotationIsCheck", false) );
+		currItem->annotation().setCheckState(currItem->annotation().IsChk());
+		currItem->annotation().setAAact( attrs.valueAsBool("AnnotationAction", false) );
+		currItem->annotation().setHTML ( attrs.valueAsInt("AnnotationHTML", 0));
+		currItem->annotation().setUseIcons( attrs.valueAsBool("AnnotationUseIcons", false));
+		currItem->annotation().setChkStil ( attrs.valueAsInt("AnnotationCheckStyle", 0));
+		currItem->annotation().setMaxChar ( attrs.valueAsInt("AnnotationMaxChar", -1));
+		currItem->annotation().setBorderColor( attrs.valueAsString("AnnotationBorderColor", CommonStrings::None));
+		currItem->annotation().setIPlace(attrs.valueAsInt("AnnotationTextPosition", 1));
+		currItem->annotation().setScaleW(attrs.valueAsInt("AnnotationScaleWidth", 0));
+		currItem->annotation().setIcon(attrs.valueAsInt("AnnotationIcon", 0));
+		currItem->annotation().setAnOpen(attrs.valueAsBool("AnnotationTextOpen", false) );
+	}
 
 	if (currItem->isTextFrame() || currItem->isPathText())
 	{
@@ -6681,6 +6738,7 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 		{
 			currItem->setImageXYScale(imageScaleX, imageScaleY);
 			currItem->setImageXYOffset(imageOffsetX, imageOffsetY);
+			//Remove uppercase in 1.8
 			if (attrs.hasAttribute("LOCALROT"))
 				currItem->setImageRotation(attrs.valueAsDouble("LOCALROT"));
 			else
@@ -6781,6 +6839,9 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 	currItem->textPathFlipped = attrs.valueAsBool("textPathFlipped", false);
 	if ( attrs.hasAttribute("TEXTFLOWMODE") )
 		currItem->setTextFlowMode((PageItem::TextFlowMode) attrs.valueAsInt("TEXTFLOWMODE", 0));
+	else
+		if ( attrs.hasAttribute("TextFlowMode") )
+			currItem->setTextFlowMode((PageItem::TextFlowMode) attrs.valueAsInt("TextFlowMode", 0));
 	else if ( attrs.valueAsInt("TEXTFLOW", 0) != 0)
 	{
 		if (attrs.valueAsInt("TEXTFLOW2", 0))
@@ -7177,6 +7238,7 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 				currItem->GrFocalY = attrs.valueAsDouble("GradientFocalY", 0.0);
 				currItem->GrScale = attrs.valueAsDouble("GradientScale", 1.0);
 				currItem->GrSkew = attrs.valueAsDouble("GradientSkew", 0.0);
+				//<<Seems like unused code
 				GrColor = attrs.valueAsString("GRCOLOR","");
 				if (!GrColor.isEmpty())
 				{
@@ -7184,6 +7246,7 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 					GrShade = attrs.valueAsInt("GRSHADE", 100);
 					GrShade2 = attrs.valueAsInt("GRSHADE2", 100);
 				}
+				//>>
 				QString GrName(attrs.valueAsString("GradientName", ""));
 				if (!GrName.isEmpty())
 					currItem->setGradient(GrName);
