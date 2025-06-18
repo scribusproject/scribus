@@ -2121,60 +2121,60 @@ void Scribus171Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 				}
 				else
 				{
-					docu.writeAttribute("GRSTARTX", item->GrStartX);
-					docu.writeAttribute("GRSTARTY", item->GrStartY);
-					docu.writeAttribute("GRENDX", item->GrEndX);
-					docu.writeAttribute("GRENDY", item->GrEndY);
-					docu.writeAttribute("GRFOCALX", item->GrFocalX);
-					docu.writeAttribute("GRFOCALY", item->GrFocalY);
-					docu.writeAttribute("GRSCALE", item->GrScale);
-					docu.writeAttribute("GRSKEW", item->GrSkew);
-					docu.writeAttribute("GRExt", item->getGradientExtend());
+					docu.writeAttribute("GradientStartX", item->GrStartX);
+					docu.writeAttribute("GradientStartY", item->GrStartY);
+					docu.writeAttribute("GradientEndX", item->GrEndX);
+					docu.writeAttribute("GradientEndY", item->GrEndY);
+					docu.writeAttribute("GradientFocalX", item->GrFocalX);
+					docu.writeAttribute("GradientFocalY", item->GrFocalY);
+					docu.writeAttribute("GradientScale", item->GrScale);
+					docu.writeAttribute("GradientSkew", item->GrSkew);
+					docu.writeAttribute("GradientExtend", item->getGradientExtend());
 					if ((item->GrType == Gradient_4Colors) || (item->GrType == Gradient_Diamond))
 					{
-						docu.writeAttribute("GRC1X", item->GrControl1.x());
-						docu.writeAttribute("GRC1Y", item->GrControl1.y());
-						docu.writeAttribute("GRCOLP1", item->GrColorP1);
-						docu.writeAttribute("GRC2X", item->GrControl2.x());
-						docu.writeAttribute("GRC2Y", item->GrControl2.y());
-						docu.writeAttribute("GRCOLP2", item->GrColorP2);
-						docu.writeAttribute("GRC3X", item->GrControl3.x());
-						docu.writeAttribute("GRC3Y", item->GrControl3.y());
-						docu.writeAttribute("GRCOLP3", item->GrColorP3);
-						docu.writeAttribute("GRC4X", item->GrControl4.x());
-						docu.writeAttribute("GRC4Y", item->GrControl4.y());
-						docu.writeAttribute("GRC5X", item->GrControl5.x());
-						docu.writeAttribute("GRC5Y", item->GrControl5.y());
-						docu.writeAttribute("GRCOLP4", item->GrColorP4);
-						docu.writeAttribute("GRCOLT1", item->GrCol1transp);
-						docu.writeAttribute("GRCOLT2", item->GrCol2transp);
-						docu.writeAttribute("GRCOLT3", item->GrCol3transp);
-						docu.writeAttribute("GRCOLT4", item->GrCol4transp);
-						docu.writeAttribute("GRCOLS1", item->GrCol1Shade);
-						docu.writeAttribute("GRCOLS2", item->GrCol2Shade);
-						docu.writeAttribute("GRCOLS3", item->GrCol3Shade);
-						docu.writeAttribute("GRCOLS4", item->GrCol4Shade);
+						docu.writeAttribute("GradientControl1X", item->GrControl1.x());
+						docu.writeAttribute("GradientControl1Y", item->GrControl1.y());
+						docu.writeAttribute("GradientColorP1", item->GrColorP1);
+						docu.writeAttribute("GradientControl2X", item->GrControl2.x());
+						docu.writeAttribute("GradientControl2Y", item->GrControl2.y());
+						docu.writeAttribute("GradientColorP2", item->GrColorP2);
+						docu.writeAttribute("GradientControl3X", item->GrControl3.x());
+						docu.writeAttribute("GradientControl3Y", item->GrControl3.y());
+						docu.writeAttribute("GradientColorP3", item->GrColorP3);
+						docu.writeAttribute("GradientControl4X", item->GrControl4.x());
+						docu.writeAttribute("GradientControl4Y", item->GrControl4.y());
+						docu.writeAttribute("GradientControl5X", item->GrControl5.x());
+						docu.writeAttribute("GradientControl5Y", item->GrControl5.y());
+						docu.writeAttribute("GradientColorP4", item->GrColorP4);
+						docu.writeAttribute("GradientColorP1Transparency", item->GrCol1transp);
+						docu.writeAttribute("GradientColorP2Transparency", item->GrCol2transp);
+						docu.writeAttribute("GradientColorP3Transparency", item->GrCol3transp);
+						docu.writeAttribute("GradientColorP4Transparency", item->GrCol4transp);
+						docu.writeAttribute("GradientColorP1Shade", item->GrCol1Shade);
+						docu.writeAttribute("GradientColorP2Shade", item->GrCol2Shade);
+						docu.writeAttribute("GradientColorP3Shade", item->GrCol3Shade);
+						docu.writeAttribute("GradientColorP4Shade", item->GrCol4Shade);
 					}
 				}
 			}
 		}
 		if (!item->gradient().isEmpty())
-			docu.writeAttribute("GRNAME", item->gradient());
+			docu.writeAttribute("GradientName", item->gradient());
 		if (!item->strokeGradient().isEmpty())
-			docu.writeAttribute("GRNAMES", item->strokeGradient());
+			docu.writeAttribute("GradientStrokeName", item->strokeGradient());
 		if (!item->gradientMask().isEmpty())
-			docu.writeAttribute("GRNAMEM", item->gradientMask());
+			docu.writeAttribute("GradientMaskName", item->gradientMask());
 		if (item->GrTypeStroke > 0)
 		{
-			docu.writeAttribute("GRExtS", item->getStrokeGradientExtend());
-			docu.writeAttribute("GRSTARTXS", item->GrStrokeStartX);
-			docu.writeAttribute("GRSTARTYS", item->GrStrokeStartY);
-			docu.writeAttribute("GRENDXS", item->GrStrokeEndX);
-			docu.writeAttribute("GRENDYS", item->GrStrokeEndY);
-			docu.writeAttribute("GRFOCALXS", item->GrStrokeFocalX);
-			docu.writeAttribute("GRFOCALYS", item->GrStrokeFocalY);
-			docu.writeAttribute("GRSCALES", item->GrStrokeScale);
-			docu.writeAttribute("GRSKEWS", item->GrStrokeSkew);
+			docu.writeAttribute("GradientStrokeExtend", item->getStrokeGradientExtend());
+			docu.writeAttribute("GradientStrokeStartX", item->GrStrokeStartX);
+			docu.writeAttribute("GradientStrokeStartY", item->GrStrokeStartY);
+			docu.writeAttribute("GradientStrokeEndX", item->GrStrokeEndX);
+			docu.writeAttribute("GradientStrokeEndY", item->GrStrokeEndY);
+			docu.writeAttribute("GradientStrokeFocalX", item->GrStrokeFocalX);
+			docu.writeAttribute("GradientStrokeFocalY", item->GrStrokeFocalY);
+			docu.writeAttribute("GradientStrokeScale", item->GrStrokeScale);
+			docu.writeAttribute("GradientStrokeSkew", item->GrStrokeSkew);
 		}
 		if (!item->strokePattern().isEmpty())
 		{
@@ -2197,16 +2197,16 @@ void Scribus171Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 		}
 		if (item->GrMask > 0)
 		{
-			docu.writeAttribute("GRExtM", item->mask_gradient.repeatMethod());
-			docu.writeAttribute("GRTYPM", item->GrMask);
-			docu.writeAttribute("GRSTARTXM", item->GrMaskStartX);
-			docu.writeAttribute("GRSTARTYM", item->GrMaskStartY);
-			docu.writeAttribute("GRENDXM", item->GrMaskEndX);
-			docu.writeAttribute("GRENDYM", item->GrMaskEndY);
-			docu.writeAttribute("GRFOCALXM", item->GrMaskFocalX);
-			docu.writeAttribute("GRFOCALYM", item->GrMaskFocalY);
-			docu.writeAttribute("GRSCALEM", item->GrMaskScale);
-			docu.writeAttribute("GRSKEWM", item->GrMaskSkew);
+			docu.writeAttribute("GradientMaskRepeatMethod", item->mask_gradient.repeatMethod());
+			docu.writeAttribute("GradientMaskType", item->GrMask);
+			docu.writeAttribute("GradientMaskStartX", item->GrMaskStartX);
+			docu.writeAttribute("GradientMaskStartY", item->GrMaskStartY);
+			docu.writeAttribute("GradientMaskEndX", item->GrMaskEndX);
+			docu.writeAttribute("GradientMaskEndY", item->GrMaskEndY);
+			docu.writeAttribute("GradientMaskFocalX", item->GrMaskFocalX);
+			docu.writeAttribute("GradientMaskFocalY", item->GrMaskFocalY);
+			docu.writeAttribute("GradientMaskScale", item->GrMaskScale);
+			docu.writeAttribute("GradientMaskSkew", item->GrMaskSkew);
 		}
 		if (!item->patternMask().isEmpty())
 		{

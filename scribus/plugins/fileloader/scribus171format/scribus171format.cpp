@@ -7124,44 +7124,90 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 		}
 		else
 		{
-			currItem->GrStartX = attrs.valueAsDouble("GRSTARTX", 0.0);
-			currItem->GrStartY = attrs.valueAsDouble("GRSTARTY", 0.0);
-			currItem->GrEndX = attrs.valueAsDouble("GRENDX", currItem->width());
-			currItem->GrEndY = attrs.valueAsDouble("GRENDY", 0.0);
-			currItem->GrFocalX = attrs.valueAsDouble("GRFOCALX", 0.0);
-			currItem->GrFocalY = attrs.valueAsDouble("GRFOCALY", 0.0);
-			currItem->GrScale = attrs.valueAsDouble("GRSCALE", 1.0);
-			currItem->GrSkew = attrs.valueAsDouble("GRSKEW", 0.0);
-			GrColor = attrs.valueAsString("GRCOLOR","");
-			if (!GrColor.isEmpty())
+			//Remove uppercase in 1.8
+			if (attrs.hasAttribute("GRSTARTX"))
 			{
-				GrColor2 = attrs.valueAsString("GRCOLOR2", "");
-				GrShade = attrs.valueAsInt("GRSHADE", 100);
-				GrShade2 = attrs.valueAsInt("GRSHADE2", 100);
+				currItem->GrStartX = attrs.valueAsDouble("GRSTARTX", 0.0);
+				currItem->GrStartY = attrs.valueAsDouble("GRSTARTY", 0.0);
+				currItem->GrEndX = attrs.valueAsDouble("GRENDX", currItem->width());
+				currItem->GrEndY = attrs.valueAsDouble("GRENDY", 0.0);
+				currItem->GrFocalX = attrs.valueAsDouble("GRFOCALX", 0.0);
+				currItem->GrFocalY = attrs.valueAsDouble("GRFOCALY", 0.0);
+				currItem->GrScale = attrs.valueAsDouble("GRSCALE", 1.0);
+				currItem->GrSkew = attrs.valueAsDouble("GRSKEW", 0.0);
+				GrColor = attrs.valueAsString("GRCOLOR","");
+				if (!GrColor.isEmpty())
+				{
+					GrColor2 = attrs.valueAsString("GRCOLOR2", "");
+					GrShade = attrs.valueAsInt("GRSHADE", 100);
+					GrShade2 = attrs.valueAsInt("GRSHADE2", 100);
+				}
+				QString GrName(attrs.valueAsString("GRNAME", ""));
+				if (!GrName.isEmpty())
+					currItem->setGradient(GrName);
+				if ((currItem->GrType == Gradient_4Colors) || (currItem->GrType == Gradient_Diamond))
+				{
+					currItem->GrControl1 = FPoint(attrs.valueAsDouble("GRC1X", 0.0), attrs.valueAsDouble("GRC1Y", 0.0));
+					currItem->GrControl2 = FPoint(attrs.valueAsDouble("GRC2X", 0.0), attrs.valueAsDouble("GRC2Y", 0.0));
+					currItem->GrControl3 = FPoint(attrs.valueAsDouble("GRC3X", 0.0), attrs.valueAsDouble("GRC3Y", 0.0));
+					currItem->GrControl4 = FPoint(attrs.valueAsDouble("GRC4X", 0.0), attrs.valueAsDouble("GRC4Y", 0.0));
+					currItem->GrControl5 = FPoint(attrs.valueAsDouble("GRC5X", 0.0), attrs.valueAsDouble("GRC5Y", 0.0));
+					currItem->GrColorP1 = attrs.valueAsString("GRCOLP1", "Black");
+					currItem->GrColorP2 = attrs.valueAsString("GRCOLP2", "Black");
+					currItem->GrColorP3 = attrs.valueAsString("GRCOLP3", "Black");
+					currItem->GrColorP4 = attrs.valueAsString("GRCOLP4", "Black");
+					currItem->GrCol1transp = attrs.valueAsDouble("GRCOLT1", 1.0);
+					currItem->GrCol2transp = attrs.valueAsDouble("GRCOLT2", 1.0);
+					currItem->GrCol3transp = attrs.valueAsDouble("GRCOLT3", 1.0);
+					currItem->GrCol4transp = attrs.valueAsDouble("GRCOLT4", 1.0);
+					currItem->GrCol1Shade = attrs.valueAsInt("GRCOLS1", 100);
+					currItem->GrCol2Shade = attrs.valueAsInt("GRCOLS2", 100);
+					currItem->GrCol3Shade = attrs.valueAsInt("GRCOLS3", 100);
+					currItem->GrCol4Shade = attrs.valueAsInt("GRCOLS4", 100);
+					currItem->set4ColorColors(currItem->GrColorP1, currItem->GrColorP2, currItem->GrColorP3, currItem->GrColorP4);
+				}
 			}
-			QString GrName(attrs.valueAsString("GRNAME", ""));
-			if (!GrName.isEmpty())
-				currItem->setGradient(GrName);
-			if ((currItem->GrType == Gradient_4Colors) || (currItem->GrType == Gradient_Diamond))
+			else
 			{
-				currItem->GrControl1 = FPoint(attrs.valueAsDouble("GRC1X", 0.0), attrs.valueAsDouble("GRC1Y", 0.0));
-				currItem->GrControl2 = FPoint(attrs.valueAsDouble("GRC2X", 0.0), attrs.valueAsDouble("GRC2Y", 0.0));
-				currItem->GrControl3 = FPoint(attrs.valueAsDouble("GRC3X", 0.0), attrs.valueAsDouble("GRC3Y", 0.0));
-				currItem->GrControl4 = FPoint(attrs.valueAsDouble("GRC4X", 0.0), attrs.valueAsDouble("GRC4Y", 0.0));
-				currItem->GrControl5 = FPoint(attrs.valueAsDouble("GRC5X", 0.0), attrs.valueAsDouble("GRC5Y", 0.0));
-				currItem->GrColorP1 = attrs.valueAsString("GRCOLP1", "Black");
-				currItem->GrColorP2 = attrs.valueAsString("GRCOLP2", "Black");
-				currItem->GrColorP3 = attrs.valueAsString("GRCOLP3", "Black");
-				currItem->GrColorP4 = attrs.valueAsString("GRCOLP4", "Black");
-				currItem->GrCol1transp = attrs.valueAsDouble("GRCOLT1", 1.0);
-				currItem->GrCol2transp = attrs.valueAsDouble("GRCOLT2", 1.0);
-				currItem->GrCol3transp = attrs.valueAsDouble("GRCOLT3", 1.0);
-				currItem->GrCol4transp = attrs.valueAsDouble("GRCOLT4", 1.0);
-				currItem->GrCol1Shade = attrs.valueAsInt("GRCOLS1", 100);
-				currItem->GrCol2Shade = attrs.valueAsInt("GRCOLS2", 100);
-				currItem->GrCol3Shade = attrs.valueAsInt("GRCOLS3", 100);
-				currItem->GrCol4Shade = attrs.valueAsInt("GRCOLS4", 100);
-				currItem->set4ColorColors(currItem->GrColorP1, currItem->GrColorP2, currItem->GrColorP3, currItem->GrColorP4);
+				currItem->GrStartX = attrs.valueAsDouble("GradientStartX", 0.0);
+				currItem->GrStartY = attrs.valueAsDouble("GradientStartY", 0.0);
+				currItem->GrEndX = attrs.valueAsDouble("GradientEndX", currItem->width());
+				currItem->GrEndY = attrs.valueAsDouble("GradientEndY", 0.0);
+				currItem->GrFocalX = attrs.valueAsDouble("GradientFocalX", 0.0);
+				currItem->GrFocalY = attrs.valueAsDouble("GradientFocalY", 0.0);
+				currItem->GrScale = attrs.valueAsDouble("GradientScale", 1.0);
+				currItem->GrSkew = attrs.valueAsDouble("GradientSkew", 0.0);
+				GrColor = attrs.valueAsString("GRCOLOR","");
+				if (!GrColor.isEmpty())
+				{
+					GrColor2 = attrs.valueAsString("GRCOLOR2", "");
+					GrShade = attrs.valueAsInt("GRSHADE", 100);
+					GrShade2 = attrs.valueAsInt("GRSHADE2", 100);
+				}
+				QString GrName(attrs.valueAsString("GradientName", ""));
+				if (!GrName.isEmpty())
+					currItem->setGradient(GrName);
+				if ((currItem->GrType == Gradient_4Colors) || (currItem->GrType == Gradient_Diamond))
+				{
+					currItem->GrControl1 = FPoint(attrs.valueAsDouble("GradientControl1X", 0.0), attrs.valueAsDouble("GradientControl1Y", 0.0));
+					currItem->GrControl2 = FPoint(attrs.valueAsDouble("GradientControl2X", 0.0), attrs.valueAsDouble("GradientControl2Y", 0.0));
+					currItem->GrControl3 = FPoint(attrs.valueAsDouble("GradientControl3X", 0.0), attrs.valueAsDouble("GradientControl3Y", 0.0));
+					currItem->GrControl4 = FPoint(attrs.valueAsDouble("GradientControl4X", 0.0), attrs.valueAsDouble("GradientControl4Y", 0.0));
+					currItem->GrControl5 = FPoint(attrs.valueAsDouble("GradientControl5X", 0.0), attrs.valueAsDouble("GradientControl5Y", 0.0));
+					currItem->GrColorP1 = attrs.valueAsString("GradientColorP1", "Black");
+					currItem->GrColorP2 = attrs.valueAsString("GradientColorP2", "Black");
+					currItem->GrColorP3 = attrs.valueAsString("GradientColorP3", "Black");
+					currItem->GrColorP4 = attrs.valueAsString("GradientColorP4", "Black");
+					currItem->GrCol1transp = attrs.valueAsDouble("GradientColorP1Transparency", 1.0);
+					currItem->GrCol2transp = attrs.valueAsDouble("GradientColorP2Transparency", 1.0);
+					currItem->GrCol3transp = attrs.valueAsDouble("GradientColorP3Transparency", 1.0);
+					currItem->GrCol4transp = attrs.valueAsDouble("GradientColorP4Transparency", 1.0);
+					currItem->GrCol1Shade = attrs.valueAsInt("GradientColorP1Shade", 100);
+					currItem->GrCol2Shade = attrs.valueAsInt("GradientColorP2Shade", 100);
+					currItem->GrCol3Shade = attrs.valueAsInt("GradientColorP3Shade", 100);
+					currItem->GrCol4Shade = attrs.valueAsInt("GradientColorP4Shade", 100);
+					currItem->set4ColorColors(currItem->GrColorP1, currItem->GrColorP2, currItem->GrColorP3, currItem->GrColorP4);
+				}
 			}
 		}
 	}
@@ -7244,23 +7290,41 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 		currItem->setPatternFlip(mirrorX, mirrorY);
 		currItem->setStrokePatternToPath(atPath);
 	}
+	//Remove uppercase in 1.8
 	if (attrs.hasAttribute("GRTYPS"))
 		currItem->GrTypeStroke = attrs.valueAsInt("GRTYPS", 0);
 	else
 		currItem->GrTypeStroke = attrs.valueAsInt("GradientTypeStroke", 0);
 	if (((currItem->GrTypeStroke != 0) && (currItem->GrTypeStroke != Gradient_Pattern)) && (currItem->strokeGradient().isEmpty()))
 		currItem->stroke_gradient.clearStops();
-	currItem->GrStrokeStartX = attrs.valueAsDouble("GRSTARTXS", 0.0);
-	currItem->GrStrokeStartY = attrs.valueAsDouble("GRSTARTYS", 0.0);
-	currItem->GrStrokeEndX = attrs.valueAsDouble("GRENDXS", currItem->width());
-	currItem->GrStrokeEndY = attrs.valueAsDouble("GRENDYS", 0.0);
-	currItem->GrStrokeFocalX = attrs.valueAsDouble("GRFOCALXS", 0.0);
-	currItem->GrStrokeFocalY = attrs.valueAsDouble("GRFOCALYS", 0.0);
-	currItem->GrStrokeScale = attrs.valueAsDouble("GRSCALES", 1.0);
-	currItem->GrStrokeSkew = attrs.valueAsDouble("GRSKEWS", 0.0);
-	QString GrNameS(attrs.valueAsString("GRNAMES", ""));
-	if (!GrNameS.isEmpty())
-		currItem->setStrokeGradient(GrNameS);
+	if (attrs.hasAttribute("GRSTARTXS"))
+	{
+		currItem->GrStrokeStartX = attrs.valueAsDouble("GRSTARTXS", 0.0);
+		currItem->GrStrokeStartY = attrs.valueAsDouble("GRSTARTYS", 0.0);
+		currItem->GrStrokeEndX = attrs.valueAsDouble("GRENDXS", currItem->width());
+		currItem->GrStrokeEndY = attrs.valueAsDouble("GRENDYS", 0.0);
+		currItem->GrStrokeFocalX = attrs.valueAsDouble("GRFOCALXS", 0.0);
+		currItem->GrStrokeFocalY = attrs.valueAsDouble("GRFOCALYS", 0.0);
+		currItem->GrStrokeScale = attrs.valueAsDouble("GRSCALES", 1.0);
+		currItem->GrStrokeSkew = attrs.valueAsDouble("GRSKEWS", 0.0);
+		QString GrNameS(attrs.valueAsString("GRNAMES", ""));
+		if (!GrNameS.isEmpty())
+			currItem->setStrokeGradient(GrNameS);
+	}
+	else
+	{
+		currItem->GrStrokeStartX = attrs.valueAsDouble("GradientStrokeStartX", 0.0);
+		currItem->GrStrokeStartY = attrs.valueAsDouble("GradientStrokeStartY", 0.0);
+		currItem->GrStrokeEndX = attrs.valueAsDouble("GradientStrokeEndX", currItem->width());
+		currItem->GrStrokeEndY = attrs.valueAsDouble("GradientStrokeEndY", 0.0);
+		currItem->GrStrokeFocalX = attrs.valueAsDouble("GradientStrokeFocalX", 0.0);
+		currItem->GrStrokeFocalY = attrs.valueAsDouble("GradientStrokeFocalY", 0.0);
+		currItem->GrStrokeScale = attrs.valueAsDouble("GradientStrokeScale", 1.0);
+		currItem->GrStrokeSkew = attrs.valueAsDouble("GradientStrokeSkew", 0.0);
+		QString GrNameS(attrs.valueAsString("GradientStrokeName", ""));
+		if (!GrNameS.isEmpty())
+			currItem->setStrokeGradient(GrNameS);
+	}
 
 	//Remove in 1.8
 	if (attrs.hasAttribute("patternM"))
@@ -7299,31 +7363,63 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 
 
 
-	QString GrNameM(attrs.valueAsString("GRNAMEM", ""));
-	currItem->GrMask = attrs.valueAsInt("GRTYPM", 0);
+	QString GrNameM;
+	if (attrs.hasAttribute("GRNAMEM"))
+		GrNameM = attrs.valueAsString("GRNAMEM", "");
+	else
+		GrNameM = attrs.valueAsString("GradientMaskName", "");
+	if (attrs.hasAttribute("GRTYPM"))
+		currItem->GrMask = attrs.valueAsInt("GRTYPM", 0);
+	else
+		currItem->GrMask = attrs.valueAsInt("GradientMaskType", 0);
 	if ((currItem->GrMask == GradMask_Linear) || (currItem->GrMask == GradMask_LinearLumAlpha))
 		currItem->mask_gradient = VGradient(VGradient::linear);
 	else if ((currItem->GrMask == GradMask_Radial) || (currItem->GrMask == GradMask_RadialLumAlpha))
 		currItem->mask_gradient = VGradient(VGradient::radial);
 	if (((currItem->GrMask == GradMask_Linear) || (currItem->GrMask == GradMask_Radial) || (currItem->GrMask == GradMask_LinearLumAlpha) || (currItem->GrMask == GradMask_RadialLumAlpha)) && (GrNameM.isEmpty()))
 		currItem->mask_gradient.clearStops();
-	currItem->GrMaskStartX = attrs.valueAsDouble("GRSTARTXM", 0.0);
-	currItem->GrMaskStartY = attrs.valueAsDouble("GRSTARTYM", 0.0);
-	currItem->GrMaskEndX = attrs.valueAsDouble("GRENDXM", currItem->width());
-	currItem->GrMaskEndY = attrs.valueAsDouble("GRENDYM", 0.0);
-	currItem->GrMaskFocalX = attrs.valueAsDouble("GRFOCALXM", 0.0);
-	currItem->GrMaskFocalY = attrs.valueAsDouble("GRFOCALYM", 0.0);
-	currItem->GrMaskScale = attrs.valueAsDouble("GRSCALEM", 1.0);
-	currItem->GrMaskSkew = attrs.valueAsDouble("GRSKEWM", 0.0);
+	//Remove uppercase in 1.8
+	if (attrs.hasAttribute("GRSTARTXM"))
+	{
+		currItem->GrMaskStartX = attrs.valueAsDouble("GRSTARTXM", 0.0);
+		currItem->GrMaskStartY = attrs.valueAsDouble("GRSTARTYM", 0.0);
+		currItem->GrMaskEndX = attrs.valueAsDouble("GRENDXM", currItem->width());
+		currItem->GrMaskEndY = attrs.valueAsDouble("GRENDYM", 0.0);
+		currItem->GrMaskFocalX = attrs.valueAsDouble("GRFOCALXM", 0.0);
+		currItem->GrMaskFocalY = attrs.valueAsDouble("GRFOCALYM", 0.0);
+		currItem->GrMaskScale = attrs.valueAsDouble("GRSCALEM", 1.0);
+		currItem->GrMaskSkew = attrs.valueAsDouble("GRSKEWM", 0.0);
+	}
+	else
+	{
+		currItem->GrMaskStartX = attrs.valueAsDouble("GradientMaskStartX", 0.0);
+		currItem->GrMaskStartY = attrs.valueAsDouble("GradientMaskStartY", 0.0);
+		currItem->GrMaskEndX = attrs.valueAsDouble("GradientMaskEndX", currItem->width());
+		currItem->GrMaskEndY = attrs.valueAsDouble("GradientMaskEndY", 0.0);
+		currItem->GrMaskFocalX = attrs.valueAsDouble("GradientMaskFocalX", 0.0);
+		currItem->GrMaskFocalY = attrs.valueAsDouble("GradientMaskFocalY", 0.0);
+		currItem->GrMaskScale = attrs.valueAsDouble("GradientMaskScale", 1.0);
+		currItem->GrMaskSkew = attrs.valueAsDouble("GradientMaskSkew", 0.0);
+	}
 	if (!GrNameM.isEmpty())
 		currItem->setGradientMask(GrNameM);
 	if (attrs.hasAttribute("InID"))
 		currItem->inlineCharID = attrs.valueAsInt("InID", -1);
 	else
 		currItem->inlineCharID = -1;
-	currItem->setGradientExtend((VGradient::VGradientRepeatMethod)(attrs.valueAsInt("GRExt", VGradient::pad)));
-	currItem->setStrokeGradientExtend((VGradient::VGradientRepeatMethod)(attrs.valueAsInt("GRExtS", VGradient::pad)));
-	currItem->mask_gradient.setRepeatMethod((VGradient::VGradientRepeatMethod)(attrs.valueAsInt("GRExtM", VGradient::pad)));
+	//Remove uppercase in 1.8
+	if (attrs.hasAttribute("GRExt"))
+	{
+		currItem->setGradientExtend((VGradient::VGradientRepeatMethod)(attrs.valueAsInt("GRExt", VGradient::pad)));
+		currItem->setStrokeGradientExtend((VGradient::VGradientRepeatMethod)(attrs.valueAsInt("GRExtS", VGradient::pad)));
+		currItem->mask_gradient.setRepeatMethod((VGradient::VGradientRepeatMethod)(attrs.valueAsInt("GRExtM", VGradient::pad)));
+	}
+	else
+	{
+		currItem->setGradientExtend((VGradient::VGradientRepeatMethod)(attrs.valueAsInt("GradientExtend", VGradient::pad)));
+		currItem->setStrokeGradientExtend((VGradient::VGradientRepeatMethod)(attrs.valueAsInt("GradientStrokeExtend", VGradient::pad)));
+		currItem->mask_gradient.setRepeatMethod((VGradient::VGradientRepeatMethod)(attrs.valueAsInt("GradientMaskRepeatMethod", VGradient::pad)));
+	}
 
 	//Remove uppercase in 1.8
 	if (attrs.hasAttribute("HASSOFTSHADOW"))
