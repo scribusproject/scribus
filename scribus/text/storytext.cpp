@@ -101,7 +101,8 @@ StoryText::~StoryText()
 		doc->charStyles().disconnect(this, SLOT(invalidateAll()));
 	} */
 	d->refs--;
-	if (d->refs == 0) {
+	if (d->refs == 0)
+	{
 		d->clear();
 		d->len = 0;
 		delete d;
@@ -948,10 +949,14 @@ void StoryText::replaceObject(int pos, int ob)
 	m_doc->FrameItems[ob]->OwnPage = -1; // #10379: OwnPage is not meaningful for inline object
 }
 
-
 int StoryText::length() const
 {
 	return d->len;
+}
+
+bool StoryText::isEmpty() const
+{
+	return (d->len == 0);
 }
 
 QString StoryText::plainText() const

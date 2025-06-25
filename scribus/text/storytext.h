@@ -148,6 +148,8 @@ public:
 	
  	// Retrieve length of story text
  	int length() const;
+	// Check if length == 0
+	bool isEmpty() const;
 
 	// Get content at specific position as plain text
 	// Internal paragraph separator are converted to 
