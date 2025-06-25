@@ -1540,7 +1540,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 		double px = canvasPoint.x() - textFramePoint.x();
 		double py = canvasPoint.y() - textFramePoint.y();
 		FPoint point(px, py);
-		if (mm.isInvertible() && textFrame->itemText.length() > 0)
+		if (mm.isInvertible() && textFrame->itemText.isNotEmpty())
 		{
 			qreal tx = 0, ty = 0;
 			mm.inverted().map(canvasPoint.x(), canvasPoint.y(), &tx, &ty);
@@ -1559,7 +1559,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 				textFrame->itemText.setCursorPosition(result);
 		}
 
-		if (textFrame->itemText.length() > 0)
+		if (textFrame->itemText.isNotEmpty())
 		{
 			int pos = qMax(0, qMin(textFrame->itemText.cursorPosition(), textFrame->itemText.length()));
 			if (textFrame->itemText.hasSelection())

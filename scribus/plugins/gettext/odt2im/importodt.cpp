@@ -898,12 +898,12 @@ void ODTIm::parseTextParagraph(const QDomNode &elem, PageItem* item, const Parag
 		}
 		m_textStylesStack.push(pStyleName);
 	}
-	if ((pStyle.breakBefore == "column") && (item->itemText.length() > 0))
+	if ((pStyle.breakBefore == "column") && (item->itemText.isNotEmpty()))
 	{
 		QString txt = SpecialChars::COLBREAK;
 		insertChars(item, txt, tmpStyle, tmpCStyle, posC);
 	}
-	else if ((pStyle.breakBefore == "page") && (item->itemText.length() > 0))
+	else if ((pStyle.breakBefore == "page") && (item->itemText.isNotEmpty()))
 	{
 		QString txt = SpecialChars::FRAMEBREAK;
 		insertChars(item, txt, tmpStyle, tmpCStyle, posC);

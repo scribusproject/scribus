@@ -345,7 +345,7 @@ void ContextMenu::createMenuItems_Selection()
 		
 		if ((selectedItemCount == 1) && currItem->isTextFrame())
 		{
-			if (currItem->itemText.length() > 0)
+			if (currItem->itemText.isNotEmpty())
 				m_ScMW->scrActions["itemAdjustFrameHeightToText"]->setEnabled(true);
 		}
 	}

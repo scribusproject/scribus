@@ -4308,7 +4308,7 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, QStrin
 	{
 		int annotType  = it->annotation().Type();
 		bool requiredFont = ((annotType >= Annotation::Button) && (annotType <= Annotation::Listbox) && (annotType != Annotation::Checkbox));
-		if (it->itemText.length() > 0 || requiredFont)
+		if (it->itemText.isNotEmpty() || requiredFont)
 		{
 			const ScFace& font = it->itemText.defaultStyle().charStyle().font();
 			QString fontName = font.replacementName();
@@ -11532,7 +11532,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 		}
 		if (currItem->isNoteFrame())
 		{
-			if (currItem->itemText.length() > 0)
+			if (currItem->itemText.isNotEmpty())
 			{
 				currItem->itemText.selectAll();
 				currItem->asTextFrame()->deleteSelectedTextFromFrame();
@@ -14869,7 +14869,7 @@ bool ScribusDoc::sizeItem(double newW, double newH, PageItem *pi, bool fromMP, b
 		if (currItem->isTextFrame() && currItem->nextInChain())
 		{
 			// If current frame is a text frame, force update of linked frames currently displayed on screen
-			if (currItem->itemText.length() > 0)
+			if (currItem->itemText.isNotEmpty())
 				updateRect = QRectF();
 		}	
 		regionsChanged()->update(updateRect);
@@ -16482,7 +16482,7 @@ void ScribusDoc::itemSelection_AdjustFrameHeightToText( Selection *customSelecti
 		PageItem *currItem = itemSelection->itemAt(i);
 		if (currItem != nullptr)
 		{
-			if (currItem->isTextFrame() && (currItem->itemText.length() > 0) && !currItem->isTableItem)
+			if (currItem->isTextFrame() && (currItem->itemText.isNotEmpty()) && !currItem->isTableItem)
 				currItem ->asTextFrame()->setTextFrameHeight();
 		}
 	}
@@ -18142,7 +18142,7 @@ bool ScribusDoc::updateNotesNums(NotesStyle *nStyle)
 			for (i = 0; i < itemsCount; ++i)
 			{
 				PageItem* currItem = Items->at(i);
-				if ((currItem->OwnPage == page) && currItem->isTextFrame() && !currItem->isNoteFrame() && (currItem->itemText.length() > 0))
+				if ((currItem->OwnPage == page) && currItem->isTextFrame() && !currItem->isNoteFrame() && (currItem->itemText.isNotEmpty()))
 				{
 					if (!currItem->asTextFrame()->isValidChainFromBegin())
 					{
@@ -18186,7 +18186,7 @@ bool ScribusDoc::updateNotesNums(NotesStyle *nStyle)
 			PageItem* currItem = Items->at(i);
 			if (currItem == nullptr)
 				continue;
-			if (currItem->isTextFrame() && !currItem->isNoteFrame() && (currItem->itemText.length() > 0))
+			if (currItem->isTextFrame() && !currItem->isNoteFrame() && (currItem->itemText.isNotEmpty()))
 			{
 				if (nStyle->isEndNotes())
 				{
@@ -18538,7 +18538,7 @@ void ScribusDoc::delNoteFrame(PageItem_NoteFrame* noteFrame, bool removeMarks, b
 	for (TextNote* n : noteFrame->notesList())
 		n->setNoteMark(nullptr);
 
-	if (noteFrame->itemText.length() > 0 && removeMarks)
+	if (noteFrame->itemText.isNotEmpty() && removeMarks)
 		noteFrame->removeMarksFromText(false);
 		
 	if (appMode == modeEdit && noteFrame->isSelected())

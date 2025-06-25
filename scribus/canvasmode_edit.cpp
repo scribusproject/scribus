@@ -461,7 +461,7 @@ void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 				currItem->HasSel = false;
 				m_view->slotSetCurs(globalPos.x(), globalPos.y());
 				//Make sure we don't go here if the old cursor position was not set
-				if (oldCp!=-1 && currItem->itemText.length() > 0)
+				if (oldCp!=-1 && currItem->itemText.isNotEmpty())
 				{
 					if (currItem->itemText.cursorPosition() < oldCp)
 					{

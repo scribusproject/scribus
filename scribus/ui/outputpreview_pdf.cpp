@@ -853,7 +853,7 @@ void OutputPreview_PDF::setupFontEmbedding(PDFOptions& options)
 		{
 			int annotType  = currItem->annotation().Type();
 			bool mustEmbed = ((annotType >= Annotation::Button) && (annotType <= Annotation::Listbox) && (annotType != Annotation::Checkbox));
-			if (currItem->itemText.length() > 0 || mustEmbed)
+			if (currItem->itemText.isNotEmpty() || mustEmbed)
 				annotationFonts.insert(currItem->itemText.defaultStyle().charStyle().font().replacementName(), QString());
 		}
 	}

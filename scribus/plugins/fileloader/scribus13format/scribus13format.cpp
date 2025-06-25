@@ -1144,19 +1144,19 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	for (int i = 0; i < m_Doc->DocItems.count(); ++i)
 	{
 		PageItem* item = m_Doc->DocItems.at(i);
-		if (item->prevInChain() == nullptr && item->itemText.length() > 0)
+		if (item->prevInChain() == nullptr && item->itemText.isNotEmpty())
 			item->itemText.fixLegacyFormatting();
 	}
 	for (int i = 0; i < m_Doc->MasterItems.count(); ++i)
 	{
 		PageItem* item = m_Doc->MasterItems.at(i);
-		if (item->prevInChain() == nullptr && item->itemText.length() > 0)
+		if (item->prevInChain() == nullptr && item->itemText.isNotEmpty())
 			item->itemText.fixLegacyFormatting();
 	}
 	for (auto itf = m_Doc->FrameItems.begin(); itf != m_Doc->FrameItems.end(); ++itf)
 	{
 		PageItem *item = itf.value();
-		if (item->prevInChain() == nullptr && item->itemText.length() > 0)
+		if (item->prevInChain() == nullptr && item->itemText.isNotEmpty())
 			item->itemText.fixLegacyFormatting();
 	}
 	for (int i = 0; i < m_Doc->DocItems.count(); ++i)

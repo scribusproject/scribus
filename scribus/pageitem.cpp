@@ -684,7 +684,7 @@ PageItem::~PageItem()
 
 	if (isTextFrame())
 	{
-		if (!asTextFrame()->isInChain() && itemText.length() > 0)
+		if (!asTextFrame()->isInChain() && itemText.isNotEmpty())
 		{
 			for (int pos = 0; pos < itemText.length(); ++pos)
 			{
@@ -1139,7 +1139,7 @@ void PageItem::link(PageItem* nxt, bool addPARSEP)
 	if (nxt->prevInChain() == nullptr)
 		first = true;
 	int textLen = itemText.length();
-	if (nxt->itemText.length() > 0)
+	if (nxt->itemText.isNotEmpty())
 	{   //case when text will be joined with next frame text
 		//do not add PARSEP if first frame has no text or text ends already with PARSEP
 		if (addPARSEP && (textLen > 0) && (itemText.text(textLen-1) != SpecialChars::PARSEP))

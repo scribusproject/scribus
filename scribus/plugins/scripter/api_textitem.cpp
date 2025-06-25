@@ -396,7 +396,7 @@ void TextAPI::linkToTextFrame(QString name2)
 	{
 		RAISE("Can only link text frames.");
 	}
-	if (toitem->itemText.length() > 0)
+	if (toitem->itemText.isNotEmpty())
 	{
 		RAISE("Target frame must be empty.");
 	}

@@ -150,6 +150,8 @@ public:
  	int length() const;
 	// Check if length == 0
 	bool isEmpty() const;
+	// Check if length > 0
+	bool isNotEmpty() const;
 
 	// Get content at specific position as plain text
 	// Internal paragraph separator are converted to 

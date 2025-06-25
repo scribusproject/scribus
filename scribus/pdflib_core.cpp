@@ -1180,7 +1180,7 @@ PDFLibCore::PDF_Begin_FindUsedFonts()
 		bool mustEmbed = ((annotType >= Annotation::Button) && (annotType <= Annotation::Listbox) && (annotType != Annotation::Checkbox));
 		if ((pgit->annotation().Type() == Annotation::Checkbox) || (pgit->annotation().Type() == Annotation::RadioButton))
 			StdFonts.insert("/ZapfDingbats", "");
-		if (pgit->itemText.length() > 0 || mustEmbed)
+		if (pgit->itemText.isNotEmpty() || mustEmbed)
 		{
 			if (Options.Version < PDFVersion::PDF_14)
 				StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
@@ -1204,7 +1204,7 @@ PDFLibCore::PDF_Begin_FindUsedFonts()
 		bool mustEmbed = ((annotType >= Annotation::Button) && (annotType <= Annotation::Listbox) && (annotType != Annotation::Checkbox));
 		if ((pgit->annotation().Type() == Annotation::Checkbox) || (pgit->annotation().Type() == Annotation::RadioButton))
 			StdFonts.insert("/ZapfDingbats", "");
-		if (pgit->itemText.length() > 0 || mustEmbed)
+		if (pgit->itemText.isNotEmpty() || mustEmbed)
 		{
 			if (Options.Version < PDFVersion::PDF_14)
 				StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
@@ -1228,7 +1228,7 @@ PDFLibCore::PDF_Begin_FindUsedFonts()
 		bool mustEmbed = ((annotType >= Annotation::Button) && (annotType <= Annotation::Listbox) && (annotType != Annotation::Checkbox));
 		if ((pgit->annotation().Type() == Annotation::Checkbox) || (pgit->annotation().Type() == Annotation::RadioButton))
 			StdFonts.insert("/ZapfDingbats", "");
-		if (pgit->itemText.length() > 0 || mustEmbed)
+		if (pgit->itemText.isNotEmpty() || mustEmbed)
 		{
 			if (Options.Version < PDFVersion::PDF_14)
 				StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
@@ -1254,7 +1254,7 @@ PDFLibCore::PDF_Begin_FindUsedFonts()
 				continue;
 			if ((pgit->annotation().Type() == Annotation::Checkbox) || (pgit->annotation().Type() == Annotation::RadioButton))
 				StdFonts.insert("/ZapfDingbats", "");
-			if (pgit->itemText.length() > 0)
+			if (pgit->itemText.isNotEmpty())
 			{
 				if (Options.Version < PDFVersion::PDF_14)
 					StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");

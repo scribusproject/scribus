@@ -215,7 +215,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 				if (currItem != nullptr)
 				{
 					editSearchReplace |= currItem->isTextFrame();
-					editSearchReplace |= (currItem->itemText.length() > 0);
+					editSearchReplace |= currItem->itemText.isNotEmpty();
 					editSearchReplace |= (doc->m_Selection->count() == 1);
 				}
 				(*a_scrActions)["editSearchReplace"]->setEnabled(editSearchReplace);
@@ -471,7 +471,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 	(*a_scrActions)["editPasteContentsAbs"]->setEnabled(isImageFrame);
 	(*a_scrActions)["editEditWithImageEditor"]->setEnabled(isImageFrame && currItem->imageIsAvailable && currItem->isRaster);
 	(*a_scrActions)["editEditRenderSource"]->setEnabled(isImageFrame && currItem && (currItem->isLatexFrame() || currItem->isOSGFrame()));
-	(*a_scrActions)["itemAdjustFrameHeightToText"]->setEnabled(SelectedType == PageItem::TextFrame && currItem->itemText.length() > 0);
+	(*a_scrActions)["itemAdjustFrameHeightToText"]->setEnabled(SelectedType == PageItem::TextFrame && currItem->itemText.isNotEmpty());
 	if (!isImageFrame)
 	{
 		(*a_scrActions)["itemImageIsVisible"]->setChecked(false);

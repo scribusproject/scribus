@@ -90,7 +90,7 @@ void gtAction::clearFrame()
 void gtAction::writeUnstyled(const QString& text, bool isNote)
 {
 	UndoTransaction activeTransaction;
-	if (m_isFirstWrite && m_it->itemText.length() > 0)
+	if (m_isFirstWrite && m_it->itemText.isNotEmpty())
 	{
 		if (!m_doAppend)
 		{

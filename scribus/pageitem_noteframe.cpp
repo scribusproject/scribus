@@ -266,7 +266,7 @@ void PageItem_NoteFrame::insertNote(TextNote *note)
 	story.insertMark(mrk, 0);
 	story.setDefaultStyle(itemText.defaultStyle());
 //	story.applyCharStyle(0, story.length(), itemText.charStyle());
-	if (itemText.length() > 0)
+	if (itemText.isNotEmpty())
 		itemText.insertChars(itemText.length(), SpecialChars::PARSEP);
 	itemText.insert(itemText.length(), story);
 }

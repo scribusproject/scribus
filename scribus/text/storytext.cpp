@@ -959,6 +959,11 @@ bool StoryText::isEmpty() const
 	return (d->len == 0);
 }
 
+bool StoryText::isNotEmpty() const
+{
+	return (d->len > 0);
+}
+
 QString StoryText::plainText() const
 {
 	if (length() <= 0)

@@ -1471,7 +1471,7 @@ PageItem* PagesPlug::parseObjReference(QDomElement &draw)
 			QRectF br = po.boundingRect();
 			po.translate(-br.x(), -br.y());
 			po.translate(obState.xPos, obState.yPos);
-			if (itemText.length() > 0)
+			if (itemText.isNotEmpty())
 				z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, baseX + po[0].x(), baseY + po[0].y(), obState.width, obState.height, obState.LineW, obState.CurrColorFill, obState.CurrColorStroke);
 			else if (obState.currentPathClosed)
 				z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX + po[0].x(), baseY + po[0].y(), obState.width, obState.height, obState.LineW, obState.CurrColorFill, obState.CurrColorStroke);
@@ -1489,7 +1489,7 @@ PageItem* PagesPlug::parseObjReference(QDomElement &draw)
 			else
 				retObj->SetRectFrame();
 			retObj->setRotation(-obState.rotation, true);
-			if (itemText.length() > 0)
+			if (itemText.isNotEmpty())
 			{
 				retObj->itemText.append(itemText);
 				retObj->itemText.trim();

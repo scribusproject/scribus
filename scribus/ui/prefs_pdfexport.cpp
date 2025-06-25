@@ -308,7 +308,7 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 		for (PageItemIterator it(m_doc, pageItOptions); *it; ++it)
 		{
 			PageItem *currItem = *it;
-			if (((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText)) && (currItem->isAnnotation()) && (currItem->itemText.length() > 0))
+			if (((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText)) && (currItem->isAnnotation()) && (currItem->itemText.isNotEmpty()))
 				AnnotationFonts.insert(currItem->itemText.defaultStyle().charStyle().font().replacementName(), QString());
 		}
 		toSubsetButton->setEnabled(false);
