@@ -21,7 +21,7 @@ PageItemIterator::PageItemIterator(int options) :
 PageItemIterator::PageItemIterator(const QList<PageItem*>& itemList, int options) :
 	m_options(options)
 {
-	if (itemList.count() > 0)
+	if (!itemList.isEmpty())
 	{
 		State state = { itemList, 0 };
 		m_stateStack.reserve(16);
@@ -36,27 +36,27 @@ PageItemIterator::PageItemIterator(const ScribusDoc* doc, int options) :
 	int stackItemCount = doc->docPatterns.count() + 3;
 	m_stateStack.reserve(stackItemCount);
 
-	if ((m_options & IterateInDocPatterns) && (doc->docPatterns.count() > 0))
+	if ((m_options & IterateInDocPatterns) && !doc->docPatterns.isEmpty())
 	{
 		auto docPatternEnd = doc->docPatterns.constEnd();
 		for (auto it = doc->docPatterns.constBegin(); it != docPatternEnd; ++it)
 		{
 			const ScPattern& pattern = it.value();
-			if (pattern.items.count() > 0)
+			if (!pattern.items.isEmpty())
 				m_stateStack.emplace_back(pattern.items, 0);
 		}
 	}
 
-	if ((m_options & IterateInFrameItems) && (doc->FrameItems.count() > 0))
+	if ((m_options & IterateInFrameItems) && !doc->FrameItems.isEmpty())
 		m_stateStack.emplace_back(doc->FrameItems.values(), 0);
 
-	if ((m_options & IterateInMasterItems) && (doc->MasterItems.count() > 0))
+	if ((m_options & IterateInMasterItems) && !doc->MasterItems.isEmpty())
 		m_stateStack.emplace_back(doc->MasterItems, 0);
 
-	if ((m_options & IterateInDocItems) && (doc->DocItems.count() > 0))
+	if ((m_options & IterateInDocItems) && !doc->DocItems.isEmpty())
 		m_stateStack.emplace_back(doc->DocItems, 0);
 
-	if (m_stateStack.size() > 0)
+	if (!m_stateStack.empty())
 		m_current = next();
 }
 
@@ -66,31 +66,31 @@ PageItem* PageItemIterator::begin(ScribusDoc* doc, int options)
 	m_options = options;
 	m_stateStack.resize(0); // Not clear in order to keep the already allocated memory available
 
-	size_t stackItemCount = static_cast<size_t>(doc->docPatterns.count() + 3);
+	size_t stackItemCount = static_cast<size_t>(doc->docPatterns.count()) + 3;
 	if (m_stateStack.capacity() < stackItemCount)
 		m_stateStack.reserve(stackItemCount);
 
-	if ((m_options & IterateInDocPatterns) && (doc->docPatterns.count() > 0))
+	if ((m_options & IterateInDocPatterns) && !doc->docPatterns.isEmpty())
 	{
 		auto docPatternEnd = doc->docPatterns.constEnd();
 		for (auto it = doc->docPatterns.constBegin(); it != docPatternEnd; ++it)
 		{
 			const ScPattern& pattern = it.value();
-			if (pattern.items.count() > 0)
+			if (!pattern.items.isEmpty())
 				m_stateStack.emplace_back(pattern.items, 0);
 		}
 	}
 
-	if ((m_options & IterateInFrameItems) && (doc->FrameItems.count() > 0))
+	if ((m_options & IterateInFrameItems) && !doc->FrameItems.isEmpty())
 		m_stateStack.emplace_back(doc->FrameItems.values(), 0);
 
-	if ((m_options & IterateInMasterItems) && (doc->MasterItems.count() > 0))
+	if ((m_options & IterateInMasterItems) && !doc->MasterItems.isEmpty())
 		m_stateStack.emplace_back(doc->MasterItems, 0);
 
-	if ((m_options & IterateInDocItems) && (doc->DocItems.count() > 0))
+	if ((m_options & IterateInDocItems) && !doc->DocItems.isEmpty())
 		m_stateStack.emplace_back(doc->DocItems, 0);
 
-	if (m_stateStack.size() > 0)
+	if (!m_stateStack.empty())
 		m_current = next();
 	return m_current;
 }
@@ -100,7 +100,7 @@ PageItem* PageItemIterator::begin(const QList<PageItem*>& itemList)
 	m_current = nullptr;
 	m_stateStack.resize(0); // Not clear in order to keep the already allocated memory available
 
-	if (itemList.count() > 0)
+	if (!itemList.isEmpty())
 	{
 		m_stateStack.emplace_back(itemList, 0);
 		m_current = next();
@@ -111,7 +111,7 @@ PageItem* PageItemIterator::begin(const QList<PageItem*>& itemList)
 
 PageItem* PageItemIterator::next()
 {
-	while (m_stateStack.size() > 0)
+	while (!m_stateStack.empty())
 	{
 		State& currentState = m_stateStack.back();
 		if (currentState.currentIndex >= currentState.itemList.count())
@@ -134,7 +134,7 @@ PageItem* PageItemIterator::next()
 			{
 				m_current = groupItem;
 				currentState.currentIndex++;
-				if (groupItem->groupItemList.count() > 0)
+				if (!groupItem->groupItemList.isEmpty())
 					m_stateStack.emplace_back(groupItem->groupItemList, 0);
 				break;
 			}
@@ -148,7 +148,7 @@ PageItem* PageItemIterator::next()
 				m_current = tableItem;
 				currentState.currentIndex++;
 				QList<PageItem*> cellItems = tableItem->getChildren();
-				if (cellItems.count() > 0)
+				if (!cellItems.isEmpty())
 					m_stateStack.emplace_back(cellItems, 0);
 				break;
 			}

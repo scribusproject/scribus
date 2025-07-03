@@ -31,7 +31,7 @@ public:
 		IterateInDocDefaults = IterateInGroups + IterateInDocItems + IterateInMasterItems + IterateInFrameItems + IterateInDocPatterns,
 		IterateAll = IterateInGroups + IterateInTables + IterateInDocItems + IterateInMasterItems + IterateInFrameItems + IterateInDocPatterns
 	};
-	PageItemIterator(int options = IterateInGroups);
+	explicit PageItemIterator(int options = IterateInGroups);
 	PageItemIterator(const QList<PageItem*>& itemList, int options = IterateInGroups);
 	PageItemIterator(const ScribusDoc* doc, int options = IterateInDocDefaults);
 
@@ -49,17 +49,16 @@ public:
 	inline PageItem*  operator->() const { return m_current; }
 	PageItemIterator& operator++() { next(); return *this; }
 
-protected:
+private:
 	struct State
 	{
-		State() {}
+		State() = default;
 		State(const QList<PageItem*> items, int startIndex)
-		{
-			itemList = items;
-			currentIndex = startIndex;
-		}
+			: itemList(items), currentIndex(startIndex)
+		{ }
+
 		QList<PageItem*> itemList;
-		int   currentIndex { 0 };
+		int currentIndex { 0 };
 	};
 
 	int m_options { 0 };
