@@ -71,7 +71,7 @@ PageItem *GetItem(const QString& name)
 	}
 	else
 	{
-		if (currentDoc->m_Selection->count() != 0)
+		if (!currentDoc->m_Selection->isEmpty())
 			return currentDoc->m_Selection->itemAt(0);
 	}
 	return nullptr;
@@ -100,9 +100,9 @@ void ReplaceColor(const QString& col, const QString& rep)
 /* 04/07/10 returns selection if is not name specified  pv  */
 PageItem* GetUniqueItem(const QString& name)
 {
-	if (name.length() == 0)
+	if (name.isEmpty())
 	{
-		if (ScCore->primaryMainWindow()->doc->m_Selection->count() != 0)
+		if (!ScCore->primaryMainWindow()->doc->m_Selection->isEmpty())
 			return ScCore->primaryMainWindow()->doc->m_Selection->itemAt(0);
 		PyErr_SetString(NoValidObjectError, QString("Cannot use empty string for object name when there is no selection").toLocal8Bit().constData());
 		return nullptr;
@@ -112,13 +112,13 @@ PageItem* GetUniqueItem(const QString& name)
 
 PageItem* getPageItemByName(const QString& name)
 {
-	if (name.length() == 0)
+	if (name.isEmpty())
 	{
 		PyErr_SetString(PyExc_ValueError, QString("Cannot accept empty name for pageitem").toLocal8Bit().constData());
 		return nullptr;
 	}
 
-	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	const ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
 	for (int i = 0; i < currentDoc->Items->count(); ++i)
 	{
 		if (name == currentDoc->Items->at(i)->itemName())
@@ -137,10 +137,10 @@ PageItem* getPageItemByName(const QString& name)
  */
 bool ItemExists(const QString& name)
 {
-	if (name.length() == 0)
+	if (name.isEmpty())
 		return false;
 
-	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	const ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
 	for (int i = 0; i < currentDoc->Items->count(); ++i)
 	{
 		if (name == currentDoc->Items->at(i)->itemName())
@@ -168,7 +168,7 @@ bool checkHaveDocument()
 
 bool checkValidPageNumber(int page)
 {
-	const int numPages = ScCore->primaryMainWindow()->doc->Pages->count();
+	const auto numPages = ScCore->primaryMainWindow()->doc->Pages->count();
 	if (page < 0 || page >= numPages)
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("%1 is not a valid page number.", "python error").arg(page).toLocal8Bit().constData());
@@ -179,13 +179,6 @@ bool checkValidPageNumber(int page)
 
 QStringList getSelectedItemsByName()
 {
-	/*
-	QStringList names;
-	QPtrListIterator<PageItem> it(ScCore->primaryMainWindow()->view->SelItem);
-	for ( ; it.current() != 0 ; ++it)
-		names.append(it.current()->itemName());
-	return names;
-	*/
 	return ScCore->primaryMainWindow()->doc->m_Selection->getSelectedItemsByName();
 }
 
@@ -197,14 +190,17 @@ bool setSelectedItemsByName(const QStringList& itemNames)
 	currentView->deselectItems();
 
 	// For each named item
-	for (auto it = itemNames.begin() ; it != itemNames.end() ; it++)
+	for (const QString& itemName : itemNames)
 	{
 		// Search for the named item
 		PageItem* item = nullptr;
 		for (int j = 0; j < currentDoc->Items->count(); j++)
 		{
-			if (*it == currentDoc->Items->at(j)->itemName())
+			if (itemName == currentDoc->Items->at(j)->itemName())
+			{
 				item = currentDoc->Items->at(j);
+				break;
+			}
 		}
 		if (!item)
 			return false;
@@ -235,8 +231,8 @@ TableBorder parseBorder(PyObject* borderLines, bool* ok)
 	}
 
 	// Parse each tuple describing a border line and append it to the border.
-	int nBorderLines = PyList_Size(borderLinesList);
-	for (int i = 0; i < nBorderLines; ++i)
+	Py_ssize_t nBorderLines = PyList_Size(borderLinesList);
+	for (Py_ssize_t i = 0; i < nBorderLines; ++i)
 	{
 		double width = 0.0;
 		double shade = 100.0;
