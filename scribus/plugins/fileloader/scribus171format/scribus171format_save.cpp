@@ -2068,7 +2068,7 @@ void Scribus171Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 		if (!item->pixm.imgInfo.usedPath.isEmpty())
 			docu.writeAttribute("ImageClip", item->pixm.imgInfo.usedPath);
 		if (item->pixm.imgInfo.lowResType != 1)
-			docu.writeAttribute("ImageRes", item->pixm.imgInfo.lowResType);
+			docu.writeAttribute("ImageLowResType", item->pixm.imgInfo.lowResType);
 		if (item->isEmbedded)
 			docu.writeAttribute("isInline", 1);
 		if (!item->fillRule)
@@ -2855,8 +2855,8 @@ void Scribus171Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("TextToFrameDistanceRight", item->textToFrameDistRight());
 		docu.writeAttribute("VerticalAlignment", item->verticalAlignment());
 		docu.writeAttribute("FirstLineOffset", item->firstLineOffset()); // here I think this FLOP "cher à mon cœur" is legitimate!
-		docu.writeAttribute("PLTSHOW", item->PoShow ? 1 : 0);
-		docu.writeAttribute("BASEOF", item->BaseOffs);
+		docu.writeAttribute("PathTextShowPath", item->PoShow ? 1 : 0);
+		docu.writeAttribute("PathTextDistanceFromPath", item->BaseOffs);
 		docu.writeAttribute("textPathType", item->textPathType);
 		docu.writeAttribute("textPathFlipped", static_cast<int>(item->textPathFlipped));
 	}
@@ -2869,7 +2869,7 @@ void Scribus171Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("Pagenumber", item->pixm.imgInfo.actualPageNumber);
 		if (item->isInlineImage)
 		{
-			docu.writeAttribute("PFILE", "");
+			docu.writeAttribute("ImageFileName", "");
 			docu.writeAttribute("isInlineImage", static_cast<int>(item->isInlineImage));
 			QFileInfo inlFi(item->Pfile);
 			docu.writeAttribute("inlineImageExt", inlFi.suffix());
@@ -2882,14 +2882,14 @@ void Scribus171Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 			}
 		}
 		else
-			docu.writeAttribute("PFILE",Path2Relative(item->Pfile, baseDir));
+			docu.writeAttribute("ImageFileName", Path2Relative(item->Pfile, baseDir));
 	}
 #ifdef HAVE_OSG
 	else if (item->isOSGFrame())
 	{
 		if (!item->Pfile.isEmpty())
 		{
-			docu.writeAttribute("PFILE", "");
+			docu.writeAttribute("ImageFileName", "");
 			docu.writeAttribute("isInlineImage", static_cast<int>(item->isInlineImage));
 			QFileInfo inlFi(item->Pfile);
 			docu.writeAttribute("inlineImageExt", inlFi.suffix());
@@ -2907,23 +2907,23 @@ void Scribus171Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	}
 #endif
 	if (!item->Pfile2.isEmpty())
-		docu.writeAttribute("PFILE2",Path2Relative(item->Pfile2, baseDir));
+		docu.writeAttribute("PDFButtonIconFileName",Path2Relative(item->Pfile2, baseDir));
 	if (!item->Pfile3.isEmpty())
-		docu.writeAttribute("PFILE3",Path2Relative(item->Pfile3, baseDir));
+		docu.writeAttribute("PDFButtonIconHoverFileName",Path2Relative(item->Pfile3, baseDir));
 	if (!item->ImageProfile.isEmpty())
-		docu.writeAttribute("PRFILE", item->ImageProfile);
+		docu.writeAttribute("ImageProfile", item->ImageProfile);
 	if (item->ImageIntent != 1)
-		docu.writeAttribute("IRENDER", item->ImageIntent);
+		docu.writeAttribute("ImageColorimetricIntent", item->ImageIntent);
 	if (!item->EmbeddedProfile.isEmpty())
-		docu.writeAttribute("EPROF", item->EmbeddedProfile);
+		docu.writeAttribute("EmbeddedProfile", item->EmbeddedProfile);
 	if (!item->UseEmbedded)
-		docu.writeAttribute("EMBEDDED", 0);
+		docu.writeAttribute("UseEmbeddedProfile", 0);
 	if (item->isImageFrame())
 	{
 		if (item->OverrideCompressionMethod)
-			docu.writeAttribute("COMPRESSIONMETHOD", item->CompressionMethodIndex);
+			docu.writeAttribute("CompressionMethod", item->CompressionMethodIndex);
 		if (item->OverrideCompressionQuality)
-			docu.writeAttribute("COMPRESSIONQUALITY", item->CompressionQualityIndex);
+			docu.writeAttribute("CompressionQuality", item->CompressionQualityIndex);
 	}
 	if (item->locked())
 		docu.writeAttribute("ItemLocked", 1);
@@ -3009,7 +3009,7 @@ void Scribus171Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("path", item->PoLine.svgPath(!(item->isPolyLine() || item->isPathText())));
 	QString colp = item->ContourLine.svgPath(true);
 	if (!colp.isEmpty())
-		docu.writeAttribute("copath", colp);
+		docu.writeAttribute("ContourLinePath", colp);
 	if (item->isLine() || item->isPolyLine() || item->isSpiral())
 	{
 		if (item->startArrowIndex() != 0)

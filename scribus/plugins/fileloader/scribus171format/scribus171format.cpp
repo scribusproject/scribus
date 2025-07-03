@@ -6144,7 +6144,10 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 			}
 			else
 			{
-				currItem->Pfile = Relative2Path(attrs.valueAsString("PFILE"), baseDir);
+				if (attrs.hasAttribute("PFILE"))
+					currItem->Pfile = Relative2Path(attrs.valueAsString("PFILE"), baseDir);
+				else
+					currItem->Pfile = Relative2Path(attrs.valueAsString("ImageFileName"), baseDir);
 				currItem->Pfile = QDir::fromNativeSeparators(currItem->Pfile);
 			}
 #ifdef HAVE_OSG
@@ -6157,18 +6160,44 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 			}
 #endif
 		}
-		currItem->ImageProfile = attrs.valueAsString("PRFILE", "");
-		currItem->ImageIntent = (eRenderIntent) attrs.valueAsInt("IRENDER", 1);
-		currItem->EmbeddedProfile = attrs.valueAsString("EPROF" , "");
-		currItem->UseEmbedded = attrs.valueAsInt("EMBEDDED", 1);
+		if (attrs.hasAttribute("PRFILE"))
+			currItem->ImageProfile = attrs.valueAsString("PRFILE", "");
+		else
+			currItem->ImageProfile = attrs.valueAsString("ImageProfile", "");
+		if (attrs.hasAttribute("IRENDER"))
+			currItem->ImageIntent = (eRenderIntent) attrs.valueAsInt("IRENDER" , 1);
+		else
+			currItem->ImageIntent = (eRenderIntent) attrs.valueAsInt("ImageColorimetricIntent" , 1);
+		if (attrs.hasAttribute("EPROF"))
+			currItem->EmbeddedProfile = attrs.valueAsString("EPROF", "");
+		else
+			currItem->EmbeddedProfile = attrs.valueAsString("EmbeddedProfile", "");
+		if (attrs.hasAttribute("EMBEDDED"))
+			currItem->UseEmbedded = attrs.valueAsInt("EMBEDDED", 1);
+		else
+			currItem->UseEmbedded = attrs.valueAsInt("UseEmbeddedProfile", 1);
 		currItem->pixm.imgInfo.lowResType = attrs.valueAsInt("ImageRes", 1);
 		currItem->pixm.imgInfo.actualPageNumber = attrs.valueAsInt("Pagenumber", 0);
-		if ((currItem->OverrideCompressionMethod = attrs.hasAttribute("COMPRESSIONMETHOD")))
-			currItem->CompressionMethodIndex = attrs.valueAsInt("COMPRESSIONMETHOD", 0);
-		if ((currItem->OverrideCompressionQuality = attrs.hasAttribute("COMPRESSIONQUALITY")))
-			currItem->CompressionQualityIndex = attrs.valueAsInt("COMPRESSIONQUALITY");
+		if (attrs.hasAttribute("COMPRESSIONMETHOD"))
+		{
+			if ((currItem->OverrideCompressionMethod = attrs.hasAttribute("COMPRESSIONMETHOD")))
+				currItem->CompressionMethodIndex = attrs.valueAsInt("COMPRESSIONMETHOD", 0);
+			if ((currItem->OverrideCompressionQuality = attrs.hasAttribute("COMPRESSIONQUALITY")))
+				currItem->CompressionQualityIndex = attrs.valueAsInt("COMPRESSIONQUALITY");
+		}
+		else
+		{
+			if ((currItem->OverrideCompressionMethod = attrs.hasAttribute("CompressionMethod")))
+				currItem->CompressionMethodIndex = attrs.valueAsInt("CompressionMethod", 0);
+			if ((currItem->OverrideCompressionQuality = attrs.hasAttribute("CompressionQuality")))
+				currItem->CompressionQualityIndex = attrs.valueAsInt("CompressionQuality");
+		}
 		currItem->setImageXYScale(imageScaleX, imageScaleY);
-		currItem->setImageRotation(attrs.valueAsDouble("LOCALROT"));
+		//Remove uppercase in 1.8
+		if (attrs.hasAttribute("LOCALROT"))
+			currItem->setImageRotation(attrs.valueAsDouble("LOCALROT"));
+		else
+			currItem->setImageRotation(attrs.valueAsDouble("ImageRotation"));
 		clPath = attrs.valueAsString("ImageClip", "");
 		if (!clPath.isEmpty())
 		{
@@ -6743,16 +6772,38 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 				currItem->setImageRotation(attrs.valueAsDouble("LOCALROT"));
 			else
 				currItem->setImageRotation(attrs.valueAsDouble("ImageRotation"));
-			currItem->Pfile = Relative2Path(attrs.valueAsString("PFILE" , ""), baseDir);
-			currItem->Pfile2 = Relative2Path(attrs.valueAsString("PFILE2", ""), baseDir);
-			currItem->Pfile3 = Relative2Path(attrs.valueAsString("PFILE3", ""), baseDir);
+			if (attrs.hasAttribute("PFILE"))
+			{
+				currItem->Pfile = Relative2Path(attrs.valueAsString("PFILE" , ""), baseDir);
+				currItem->Pfile2 = Relative2Path(attrs.valueAsString("PFILE2", ""), baseDir);
+				currItem->Pfile3 = Relative2Path(attrs.valueAsString("PFILE3", ""), baseDir);
+			}
+			else
+			{
+				currItem->Pfile = Relative2Path(attrs.valueAsString("ImageFileName" , ""), baseDir);
+				currItem->Pfile2 = Relative2Path(attrs.valueAsString("PDFButtonIconFileName", ""), baseDir);
+				currItem->Pfile3 = Relative2Path(attrs.valueAsString("PDFButtonIconHoverFileName", ""), baseDir);
+			}
+
 			currItem->Pfile = QDir::fromNativeSeparators(currItem->Pfile);
 			currItem->Pfile2 = QDir::fromNativeSeparators(currItem->Pfile2);
 			currItem->Pfile3 = QDir::fromNativeSeparators(currItem->Pfile3);
-			currItem->ImageProfile = attrs.valueAsString("PRFILE", "");
-			currItem->ImageIntent = (eRenderIntent) attrs.valueAsInt("IRENDER" , 1);
-			currItem->EmbeddedProfile = attrs.valueAsString("EPROF", "");
-			currItem->UseEmbedded = attrs.valueAsInt("EMBEDDED", 1);
+			if (attrs.hasAttribute("PRFILE"))
+				currItem->ImageProfile = attrs.valueAsString("PRFILE", "");
+			else
+				currItem->ImageProfile = attrs.valueAsString("ImageProfile", "");
+			if (attrs.hasAttribute("IRENDER"))
+				currItem->ImageIntent = (eRenderIntent) attrs.valueAsInt("IRENDER" , 1);
+			else
+				currItem->ImageIntent = (eRenderIntent) attrs.valueAsInt("ImageColorimetricIntent" , 1);
+			if (attrs.hasAttribute("EPROF"))
+				currItem->EmbeddedProfile = attrs.valueAsString("EPROF", "");
+			else
+				currItem->EmbeddedProfile = attrs.valueAsString("EmbeddedProfile", "");
+			if (attrs.hasAttribute("EMBEDDED"))
+				currItem->UseEmbedded = attrs.valueAsInt("EMBEDDED", 1);
+			else
+				currItem->UseEmbedded = attrs.valueAsInt("UseEmbeddedProfile", 1);
 			doc->loadPict(currItem->Pfile, currItem);
 			currItem->setImageXYScale(imageScaleX, imageScaleY);
 			if (attrs.hasAttribute("PICART"))
@@ -6833,8 +6884,15 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 	currItem->LeftLinkID = attrs.valueAsInt("LeftLINK", -1);
 	currItem->RightLinkID = attrs.valueAsInt("RightLINK", -1);
 	currItem->BottomLinkID = attrs.valueAsInt("BottomLINK", -1);
-	currItem->PoShow = attrs.valueAsInt("PLTSHOW", 0);
-	currItem->BaseOffs = attrs.valueAsDouble("BASEOF", 0.0);
+	//Remove uppercase in 1.8
+	if (attrs.hasAttribute("PLTSHOW"))
+		currItem->PoShow = attrs.valueAsInt("PLTSHOW", 0);
+	else
+		currItem->PoShow = attrs.valueAsInt("PathTextShowPath", 0);
+	if (attrs.hasAttribute("BASEOF"))
+		currItem->BaseOffs = attrs.valueAsDouble("BASEOF", 0.0);
+	else
+		currItem->BaseOffs = attrs.valueAsDouble("PathTextDistanceFromPath", 0.0);
 	currItem->textPathType =  attrs.valueAsInt("textPathType", 0);
 	currItem->textPathFlipped = attrs.valueAsBool("textPathFlipped", false);
 	if ( attrs.hasAttribute("TEXTFLOWMODE") )
@@ -7033,28 +7091,33 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 		}
 	}
 	tmp.clear();
-	if (attrs.hasAttribute("NUMCO"))
-	{
-		currItem->ContourLine.resize(attrs.valueAsUInt("NUMCO"));
-		tmp = attrs.valueAsString("COCOOR");
-		constexpr double maxVal = std::numeric_limits<double>::max() / 2.0;
-		ScTextStream fp(&tmp, QIODevice::ReadOnly);
-		uint numCo = attrs.valueAsUInt("NUMCO");
-		for (uint cx = 0; cx < numCo; ++cx)
-		{
-			fp >> xf;
-			fp >> yf;
-			if (xf >= 999999)
-				xf = maxVal;
-			if (yf >= 999999)
-				yf = maxVal;
-			currItem->ContourLine.setPoint(cx, xf, yf);
-		}
-	}
-	else if (attrs.hasAttribute("copath"))
+	//Read but not written.. WTF remove in 1.8
+	// if (attrs.hasAttribute("NUMCO"))
+	// {
+	// 	currItem->ContourLine.resize(attrs.valueAsUInt("NUMCO"));
+	// 	tmp = attrs.valueAsString("COCOOR");
+	// 	constexpr double maxVal = std::numeric_limits<double>::max() / 2.0;
+	// 	ScTextStream fp(&tmp, QIODevice::ReadOnly);
+	// 	uint numCo = attrs.valueAsUInt("NUMCO");
+	// 	for (uint cx = 0; cx < numCo; ++cx)
+	// 	{
+	// 		fp >> xf;
+	// 		fp >> yf;
+	// 		if (xf >= 999999)
+	// 			xf = maxVal;
+	// 		if (yf >= 999999)
+	// 			yf = maxVal;
+	// 		currItem->ContourLine.setPoint(cx, xf, yf);
+	// 	}
+	// }
+	// else
+	if (attrs.hasAttribute("copath") || attrs.hasAttribute("ContourLinePath"))
 	{
 		currItem->ContourLine.resize(0);
-		currItem->ContourLine.parseSVG(attrs.valueAsString("copath"));
+		if (attrs.hasAttribute("copath"))
+			currItem->ContourLine.parseSVG(attrs.valueAsString("copath"));
+		else
+			currItem->ContourLine.parseSVG(attrs.valueAsString("ContourLinePath"));
 	}
 	else
 		currItem->ContourLine = currItem->PoLine.copy();
