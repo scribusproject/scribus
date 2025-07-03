@@ -6262,8 +6262,16 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 		currItem = doc->Items->at(z);
 		if (pageNr > -2) 
 			currItem->setOwnerPage(pageNr);
-		currItem->groupWidth = attrs.valueAsDouble("groupWidth", w);
-		currItem->groupHeight = attrs.valueAsDouble("groupHeight", h);
+		if (attrs.hasAttribute("groupWidth"))
+		{
+			currItem->groupWidth = attrs.valueAsDouble("groupWidth", w);
+			currItem->groupHeight = attrs.valueAsDouble("groupHeight", h);
+		}
+		else
+		{
+			currItem->groupWidth = attrs.valueAsDouble("GroupWidth", w);
+			currItem->groupHeight = attrs.valueAsDouble("GroupHeight", h);
+		}
 		doc->GroupCounter++;
 		break;
 	case PageItem::RegularPolygon:
@@ -6295,7 +6303,10 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 		break;
 	}
 
-	currItem->setGroupClipping(attrs.valueAsBool("groupClips", true));
+	if(attrs.hasAttribute("groupClips"))
+		currItem->setGroupClipping(attrs.valueAsBool("groupClips", true));
+	else
+		currItem->setGroupClipping(attrs.valueAsBool("GroupClipping", true));
 	if (attrs.hasAttribute("FRTYPE"))
 		currItem->FrameType = attrs.valueAsInt("FRTYPE", 0);
 	else
@@ -6982,7 +6993,7 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 	}
 	QString tmp;
 	double xf;
-	double yf;
+	// double yf;
 	//Remove uppercase in 1.8 format
 	if ((attrs.hasAttribute("DashValues")) && (attrs.valueAsInt("DashValues", 0) != 0))
 	{
@@ -7066,29 +7077,30 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 	else
 	{
 		tmp.clear();
-		if (attrs.hasAttribute("NUMPO"))
-		{
-			currItem->PoLine.resize(attrs.valueAsUInt("NUMPO"));
-			tmp = attrs.valueAsString("POCOOR");
-			constexpr double maxVal = std::numeric_limits<double>::max() / 2.0;
-			ScTextStream fp(&tmp, QIODevice::ReadOnly);
-			uint numPo = attrs.valueAsUInt("NUMPO");
-			for (uint cx = 0; cx < numPo; ++cx)
-			{
-				fp >> xf;
-				fp >> yf;
-				if (xf >= 999999)
-					xf = maxVal;
-				if (yf >= 999999)
-					yf = maxVal;
-				currItem->PoLine.setPoint(cx, xf, yf);
-			}
-		}
-		else
-		{
+		//Unused, remove in 1.8
+		// if (attrs.hasAttribute("NUMPO"))
+		// {
+		// 	currItem->PoLine.resize(attrs.valueAsUInt("NUMPO"));
+		// 	tmp = attrs.valueAsString("POCOOR");
+		// 	constexpr double maxVal = std::numeric_limits<double>::max() / 2.0;
+		// 	ScTextStream fp(&tmp, QIODevice::ReadOnly);
+		// 	uint numPo = attrs.valueAsUInt("NUMPO");
+		// 	for (uint cx = 0; cx < numPo; ++cx)
+		// 	{
+		// 		fp >> xf;
+		// 		fp >> yf;
+		// 		if (xf >= 999999)
+		// 			xf = maxVal;
+		// 		if (yf >= 999999)
+		// 			yf = maxVal;
+		// 		currItem->PoLine.setPoint(cx, xf, yf);
+		// 	}
+		// }
+		// else
+		// {
 			currItem->PoLine.resize(0);
 			currItem->PoLine.parseSVG(attrs.valueAsString("path"));
-		}
+		// }
 	}
 	tmp.clear();
 	//Read but not written.. WTF remove in 1.8
