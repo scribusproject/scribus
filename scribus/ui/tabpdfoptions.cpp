@@ -274,7 +274,7 @@ TabPDFOptions::TabPDFOptions(QWidget* parent, PDFOptions & Optionen,
 	registrationMarks->setToolTip( "<qt>" + tr( "Add registration marks to each separation" ) + "</qt>" );
 	colorMarks->setToolTip( "<qt>" + tr( "Add color calibration bars" ) + "</qt>" );
 	docInfoMarks->setToolTip( "<qt>" + tr( "Add document information which includes the document title and page numbers" ) + "</qt>" );
-	markLength->setToolTip( "<qt>" + tr( "Indicate the size of crops'marks" ) + "</qt>" );
+	markLength->setToolTip( "<qt>" + tr( "Indicate the size of crop marks" ) + "</qt>" );
 	markOffset->setToolTip( "<qt>" + tr( "Indicate the distance offset for the registration marks" ) + "</qt>" );
 	BleedTop->setToolTip( "<qt>" + tr( "Distance for bleed from the top of the physical page" ) + "</qt>" );
 	BleedBottom->setToolTip( "<qt>" + tr( "Distance for bleed from the bottom of the physical page" ) + "</qt>" );
