@@ -1719,10 +1719,16 @@ bool Scribus171Format::loadFile(const QString & fileName, const FileFormat & /* 
 				else
 					firstPage = 1;
 			}
+			//Remove lower case in 1.8
 			if (attrs.hasAttribute("currentProfile"))
 			{
 				m_Doc->clearCheckerProfiles();
 				m_Doc->setCurCheckProfile(attrs.valueAsString("currentProfile"));
+			}
+			else if (attrs.hasAttribute("CurrentProfile"))
+			{
+				m_Doc->clearCheckerProfiles();
+				m_Doc->setCurCheckProfile(attrs.valueAsString("CurrentProfile"));
 			}
 		}
 		else if (tagName == QLatin1String("CheckProfile"))
@@ -4952,7 +4958,11 @@ bool Scribus171Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 	info.isGroupFlag = attrs.valueAsBool("isGroupControl", false);
 	if (info.isGroupFlag)
 		info.groupLastItem = attrs.valueAsInt("groupsLastItem", 0);
-	info.isWeldFlag = attrs.valueAsBool("isWeldItem", false);
+	//Remove lowercase in 1.8
+	if (attrs.hasAttribute("isWeldItem"))
+		info.isWeldFlag = attrs.valueAsBool("isWeldItem", false);
+	else
+		info.isWeldFlag = attrs.valueAsBool("IsWeldItem", false);
 	info.ownWeld = attrs.valueAsInt("WeldSource", 0);
 	info.ownNr = doc->Items->indexOf(newItem);
 
@@ -6115,11 +6125,21 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 		if ((currItem->isImageFrame()) && (!currItem->isLatexFrame()))
 #endif
 		{
-			bool inlineF = attrs.valueAsBool("isInlineImage", false);
+			bool inlineF = false;
+			//Remove lowercase in 1.8
+			if (attrs.hasAttribute("isInlineImage"))
+				attrs.valueAsBool("isInlineImage", false);
+			else
+				attrs.valueAsBool("IsInlineImage", false);
 			QString dat = attrs.valueAsString("ImageData", "");
 			QByteArray inlineImageData;
 			inlineImageData.append(dat.toUtf8());
-			QString inlineImageExt = attrs.valueAsString("inlineImageExt", "");
+			QString inlineImageExt;
+			//Remove lowercase in 1.8
+			if (attrs.hasAttribute("inlineImageExt"))
+				inlineImageExt = attrs.valueAsString("inlineImageExt", "");
+			else
+				inlineImageExt = attrs.valueAsString("InlineImageExt", "");
 			if (inlineF)
 			{
 				if (inlineImageData.size() > 0)
@@ -6154,8 +6174,17 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 			if (currItem->isOSGFrame())
 			{
 				PageItem_OSGFrame *osgframe = currItem->asOSGFrame();
-				osgframe->modelFile = Relative2Path(attrs.valueAsString("modelFile"), baseDir);
-				osgframe->currentView = attrs.valueAsString("currentViewName", "");
+				//Remove lowercase in 1.8
+				if (attrs.hasAttribute("modelFile"))
+				{
+					osgframe->modelFile = Relative2Path(attrs.valueAsString("modelFile"), baseDir);
+					osgframe->currentView = attrs.valueAsString("currentViewName", "");
+				}
+				else
+				{
+					osgframe->modelFile = Relative2Path(attrs.valueAsString("ModelFile"), baseDir);
+					osgframe->currentView = attrs.valueAsString("CurrentViewName", "");
+				}
 				osgframe->loadModel();
 			}
 #endif
@@ -6177,7 +6206,10 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 		else
 			currItem->UseEmbedded = attrs.valueAsInt("UseEmbeddedProfile", 1);
 		currItem->pixm.imgInfo.lowResType = attrs.valueAsInt("ImageRes", 1);
-		currItem->pixm.imgInfo.actualPageNumber = attrs.valueAsInt("Pagenumber", 0);
+		if (attrs.hasAttribute("Pagenumber"))
+			currItem->pixm.imgInfo.actualPageNumber = attrs.valueAsInt("Pagenumber", 0);
+		else
+			currItem->pixm.imgInfo.actualPageNumber = attrs.valueAsInt("ImagePageNumber", 0);
 		if (attrs.hasAttribute("COMPRESSIONMETHOD"))
 		{
 			if ((currItem->OverrideCompressionMethod = attrs.hasAttribute("COMPRESSIONMETHOD")))
@@ -6311,22 +6343,42 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 		currItem->FrameType = attrs.valueAsInt("FRTYPE", 0);
 	else
 		currItem->FrameType = attrs.valueAsInt("FrameType", 0);
-	int startArrowIndex = attrs.valueAsInt("startArrowIndex", 0);
+	//Remove wrong case in 1.8
+	int startArrowIndex = 0;
+	if (attrs.hasAttribute("startArrowIndex"))
+		attrs.valueAsInt("startArrowIndex", 0);
+	else
+		attrs.valueAsInt("StartArrowIndex", 0);
 	if ((startArrowIndex < 0) || (startArrowIndex > static_cast<int>(doc->arrowStyles().size())))
 	{
 		qDebug() << QString("scribus171format: invalid arrow index: %").arg(startArrowIndex);
 		startArrowIndex = 0;
 	}
 	currItem->setStartArrowIndex(startArrowIndex);
-	int endArrowIndex = attrs.valueAsInt("endArrowIndex", 0);
+	//Remove wrong case in 1.8
+	int endArrowIndex = 0;
+	if (attrs.hasAttribute("endArrowIndex"))
+		attrs.valueAsInt("endArrowIndex", 0);
+	else
+		attrs.valueAsInt("EndArrowIndex", 0);
 	if ((endArrowIndex < 0) || (endArrowIndex > static_cast<int>(doc->arrowStyles().size())))
 	{
 		qDebug() << QString("scribus171format: invalid arrow index: %").arg(endArrowIndex);
 		endArrowIndex = 0;
 	}
 	currItem->setEndArrowIndex(endArrowIndex);
-	currItem->setStartArrowScale(attrs.valueAsInt("startArrowScale", 100));
-	currItem->setEndArrowScale(attrs.valueAsInt("endArrowScale", 100));
+	//Remove wrong case in 1.8
+	if (attrs.hasAttribute("startArrowScale"))
+		currItem->setStartArrowScale(attrs.valueAsInt("startArrowScale", 100));
+	else
+		currItem->setStartArrowScale(attrs.valueAsInt("StartArrowScale", 100));
+	//Remove wrong case in 1.8
+	if (attrs.hasAttribute("endArrowScale"))
+		currItem->setEndArrowScale(attrs.valueAsInt("endArrowScale", 100));
+	else
+		currItem->setEndArrowScale(attrs.valueAsInt("EndArrowScale", 100));
+
+
 	if (attrs.hasAttribute("NAMEDLST"))
 		currItem->NamedLStyle = attrs.valueAsString("NAMEDLST", "");
 	else
@@ -6904,8 +6956,17 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 		currItem->BaseOffs = attrs.valueAsDouble("BASEOF", 0.0);
 	else
 		currItem->BaseOffs = attrs.valueAsDouble("PathTextDistanceFromPath", 0.0);
-	currItem->textPathType =  attrs.valueAsInt("textPathType", 0);
-	currItem->textPathFlipped = attrs.valueAsBool("textPathFlipped", false);
+	//Remove lowercase in 1.8
+	if (attrs.hasAttribute("textPathType"))
+	{
+		currItem->textPathType =  attrs.valueAsInt("textPathType", 0);
+		currItem->textPathFlipped = attrs.valueAsBool("textPathFlipped", false);
+	}
+	else
+	{
+		currItem->textPathType =  attrs.valueAsInt("TextPathType", 0);
+		currItem->textPathFlipped = attrs.valueAsBool("TextPathFlipped", false);
+	}
 	if ( attrs.hasAttribute("TEXTFLOWMODE") )
 		currItem->setTextFlowMode((PageItem::TextFlowMode) attrs.valueAsInt("TEXTFLOWMODE", 0));
 	else
@@ -7059,19 +7120,40 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 	else if (currItem->isArc())
 	{
 		PageItem_Arc *arcitem = currItem->asArc();
-		arcitem->arcHeight = attrs.valueAsDouble("arcHeight", 1.0);
-		arcitem->arcWidth = attrs.valueAsDouble("arcWidth", 1.0);
-		arcitem->arcStartAngle = attrs.valueAsDouble("arcStartAngle", 30.0);
-		arcitem->arcSweepAngle = attrs.valueAsDouble("arcSweepAngle", 300.0);
+		//Remove lowercase in 1.8
+		if (attrs.hasAttribute("arcHeight"))
+		{
+			arcitem->arcHeight = attrs.valueAsDouble("arcHeight", 1.0);
+			arcitem->arcWidth = attrs.valueAsDouble("arcWidth", 1.0);
+			arcitem->arcStartAngle = attrs.valueAsDouble("arcStartAngle", 30.0);
+			arcitem->arcSweepAngle = attrs.valueAsDouble("arcSweepAngle", 300.0);
+		}
+		else
+		{
+			arcitem->arcHeight = attrs.valueAsDouble("ArcHeight", 1.0);
+			arcitem->arcWidth = attrs.valueAsDouble("ArcWidth", 1.0);
+			arcitem->arcStartAngle = attrs.valueAsDouble("ArcStartAngle", 30.0);
+			arcitem->arcSweepAngle = attrs.valueAsDouble("ArcSweepAngle", 300.0);
+		}
 		arcitem->recalcPath();
 	}
 	else if (currItem->isSpiral())
 	{
 		PageItem_Spiral *arcitem = currItem->asSpiral();
 		arcitem->FrameType = 3; // Workaround for old docs, otherwise undo breaks spirals
-		arcitem->spiralStartAngle = attrs.valueAsDouble("spiralStartAngle", 0.0);
-		arcitem->spiralEndAngle = attrs.valueAsDouble("spiralEndAngle", 360.0);
-		arcitem->spiralFactor = attrs.valueAsDouble("spiralFactor", 1.2);
+		//Remove lowercase in 1.8
+		if (attrs.hasAttribute("spiralStartAngle"))
+		{
+			arcitem->spiralStartAngle = attrs.valueAsDouble("spiralStartAngle", 0.0);
+			arcitem->spiralEndAngle = attrs.valueAsDouble("spiralEndAngle", 360.0);
+			arcitem->spiralFactor = attrs.valueAsDouble("spiralFactor", 1.2);
+		}
+		else
+		{
+			arcitem->spiralStartAngle = attrs.valueAsDouble("SpiralStartAngle", 0.0);
+			arcitem->spiralEndAngle = attrs.valueAsDouble("SpiralEndAngle", 360.0);
+			arcitem->spiralFactor = attrs.valueAsDouble("SpiralFactor", 1.2);
+		}
 		arcitem->recalcPath();
 	}
 	else
@@ -7099,7 +7181,11 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 		// else
 		// {
 			currItem->PoLine.resize(0);
-			currItem->PoLine.parseSVG(attrs.valueAsString("path"));
+			//Remove lowercase in 1.8
+			if (attrs.hasAttribute("path"))
+				currItem->PoLine.parseSVG(attrs.valueAsString("path"));
+			else
+				currItem->PoLine.parseSVG(attrs.valueAsString("Path"));
 		// }
 	}
 	tmp.clear();

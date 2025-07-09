@@ -501,7 +501,7 @@ bool Scribus171Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("PageColor",m_Doc->paperColor().name());
 	docu.writeAttribute("MarginColor",m_Doc->guidesPrefs().marginColor.name());
 	docu.writeAttribute("ShowMarginsFilled", static_cast<int>(m_Doc->marginColored()));
-	docu.writeAttribute("currentProfile", m_Doc->curCheckProfile());
+	docu.writeAttribute("CurrentProfile", m_Doc->curCheckProfile());
 	docu.writeAttribute("CalligraphicPenFillColor", m_Doc->itemToolPrefs().calligraphicPenFillColor);
 	docu.writeAttribute("CalligraphicPenLineColor", m_Doc->itemToolPrefs().calligraphicPenLineColor);
 	docu.writeAttribute("CalligraphicPenFillColorShade", m_Doc->itemToolPrefs().calligraphicPenFillColorShade);
@@ -2757,7 +2757,7 @@ void Scribus171Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		}
 		if (isWelded)
 		{
-			docu.writeAttribute("isWeldItem", 1);
+			docu.writeAttribute("IsWeldItem", 1);
 			docu.writeAttribute("WeldSource", qHash(item) & 0x7FFFFFFF);
 		}
 	}
@@ -2775,17 +2775,17 @@ void Scribus171Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	if (item->isArc())
 	{
 		const PageItem_Arc *arcItem = item->asArc();
-		docu.writeAttribute("arcHeight", arcItem->arcHeight);
-		docu.writeAttribute("arcWidth", arcItem->arcWidth);
-		docu.writeAttribute("arcStartAngle", arcItem->arcStartAngle);
-		docu.writeAttribute("arcSweepAngle", arcItem->arcSweepAngle);
+		docu.writeAttribute("ArcHeight", arcItem->arcHeight);
+		docu.writeAttribute("ArcWidth", arcItem->arcWidth);
+		docu.writeAttribute("ArcStartAngle", arcItem->arcStartAngle);
+		docu.writeAttribute("ArcSweepAngle", arcItem->arcSweepAngle);
 	}
 	if (item->isSpiral())
 	{
 		const PageItem_Spiral *spiralItem = item->asSpiral();
-		docu.writeAttribute("spiralStartAngle", spiralItem->spiralStartAngle);
-		docu.writeAttribute("spiralEndAngle", spiralItem->spiralEndAngle);
-		docu.writeAttribute("spiralFactor", spiralItem->spiralFactor);
+		docu.writeAttribute("SpiralStartAngle", spiralItem->spiralStartAngle);
+		docu.writeAttribute("SpiralEndAngle", spiralItem->spiralEndAngle);
+		docu.writeAttribute("SpiralFactor", spiralItem->spiralFactor);
 	}
 	if (item->isAnnotation())
 	{
@@ -2857,8 +2857,8 @@ void Scribus171Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("FirstLineOffset", item->firstLineOffset()); // here I think this FLOP "cher à mon cœur" is legitimate!
 		docu.writeAttribute("PathTextShowPath", item->PoShow ? 1 : 0);
 		docu.writeAttribute("PathTextDistanceFromPath", item->BaseOffs);
-		docu.writeAttribute("textPathType", item->textPathType);
-		docu.writeAttribute("textPathFlipped", static_cast<int>(item->textPathFlipped));
+		docu.writeAttribute("TextPathType", item->textPathType);
+		docu.writeAttribute("TextPathFlipped", static_cast<int>(item->textPathFlipped));
 	}
 #ifdef HAVE_OSG
 	if (((item->isImageFrame() && !(item->isLatexFrame() || item->isOSGFrame())) || (item->isTextFrame())) && (!item->Pfile.isEmpty()))
@@ -2866,13 +2866,13 @@ void Scribus171Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	if (((item->isImageFrame() && !(item->isLatexFrame())) || (item->isTextFrame())) && (!item->Pfile.isEmpty()))
 #endif
 	{
-		docu.writeAttribute("Pagenumber", item->pixm.imgInfo.actualPageNumber);
+		docu.writeAttribute("ImagePageNumber", item->pixm.imgInfo.actualPageNumber);
 		if (item->isInlineImage)
 		{
 			docu.writeAttribute("ImageFileName", "");
-			docu.writeAttribute("isInlineImage", static_cast<int>(item->isInlineImage));
+			docu.writeAttribute("IsInlineImage", static_cast<int>(item->isInlineImage));
 			QFileInfo inlFi(item->Pfile);
-			docu.writeAttribute("inlineImageExt", inlFi.suffix());
+			docu.writeAttribute("InlineImageExt", inlFi.suffix());
 			QFile inFil(item->Pfile);
 			if (inFil.open(QIODevice::ReadOnly))
 			{
@@ -2890,9 +2890,9 @@ void Scribus171Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		if (!item->Pfile.isEmpty())
 		{
 			docu.writeAttribute("ImageFileName", "");
-			docu.writeAttribute("isInlineImage", static_cast<int>(item->isInlineImage));
+			docu.writeAttribute("IsInlineImage", static_cast<int>(item->isInlineImage));
 			QFileInfo inlFi(item->Pfile);
-			docu.writeAttribute("inlineImageExt", inlFi.suffix());
+			docu.writeAttribute("InlineImageExt", inlFi.suffix());
 			QFile inFil(item->Pfile);
 			if (inFil.open(QIODevice::ReadOnly))
 			{
@@ -2901,8 +2901,8 @@ void Scribus171Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 				inFil.close();
 			}
 			PageItem_OSGFrame *osgframe = item->asOSGFrame();
-			docu.writeAttribute("modelFile", Path2Relative(osgframe->modelFile, baseDir));
-			docu.writeAttribute("currentViewName", osgframe->currentView);
+			docu.writeAttribute("ModelFile", Path2Relative(osgframe->modelFile, baseDir));
+			docu.writeAttribute("CurrentViewName", osgframe->currentView);
 		}
 	}
 #endif
@@ -3006,19 +3006,19 @@ void Scribus171Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("DashOffset", item->DashOffset);
 	}
 	if (!(item->isArc() || item->isSpiral() || item->isRegularPolygon()))
-		docu.writeAttribute("path", item->PoLine.svgPath(!(item->isPolyLine() || item->isPathText())));
+		docu.writeAttribute("Path", item->PoLine.svgPath(!(item->isPolyLine() || item->isPathText())));
 	QString colp = item->ContourLine.svgPath(true);
 	if (!colp.isEmpty())
 		docu.writeAttribute("ContourLinePath", colp);
 	if (item->isLine() || item->isPolyLine() || item->isSpiral())
 	{
 		if (item->startArrowIndex() != 0)
-			docu.writeAttribute("startArrowIndex", item->startArrowIndex());
+			docu.writeAttribute("StartArrowIndex", item->startArrowIndex());
 		if (item->endArrowIndex() != 0)
-			docu.writeAttribute("endArrowIndex", item->endArrowIndex());
+			docu.writeAttribute("EndArrowIndex", item->endArrowIndex());
 		if (item->startArrowScale() != 100)
-			docu.writeAttribute("startArrowScale", item->startArrowScale());
+			docu.writeAttribute("StartArrowScale", item->startArrowScale());
 		if (item->endArrowScale() != 100)
-			docu.writeAttribute("endArrowScale", item->endArrowScale());
+			docu.writeAttribute("EndArrowScale", item->endArrowScale());
 	}
 }
