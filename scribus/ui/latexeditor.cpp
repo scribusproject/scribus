@@ -75,7 +75,7 @@ LatexEditor::LatexEditor(PageItem_LatexFrame *frame): frame(frame)
 	
 	extEditor = new QProcess();
 	connect(extEditor, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(extEditorFinished(int,QProcess::ExitStatus)));
-	connect(extEditor, SIGNAL(error(QProcess::ProcessError)), this, SLOT(extEditorError(QProcess::ProcessError)));	
+	connect(extEditor, SIGNAL(errorOccurred(QProcess::ProcessError)), this, SLOT(extEditorError(QProcess::ProcessError)));
 	extEditor->setProcessChannelMode(QProcess::MergedChannels);
 	
 	fileWatcher = new FileWatcher(this);
