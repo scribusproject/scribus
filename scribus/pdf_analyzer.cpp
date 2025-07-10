@@ -40,18 +40,14 @@ using namespace PoDoFo;
 #include <string_view>
 #include <utility>
 
-namespace std
+namespace PoDoFo
 {
-	template<>
-	struct less<PoDoFo::PdfName>
+	bool operator<(const PdfName& n1, const PdfName& n2)
 	{
-		bool operator()(const PoDoFo::PdfName& n1, const PoDoFo::PdfName& n2) const
-		{
-			std::string_view s1 = n1.GetRawData();
-			std::string_view s2 = n2.GetRawData();
-			return s1 < s2;
-		}
-	};
+		std::string_view s1 = n1.GetRawData();
+		std::string_view s2 = n2.GetRawData();
+		return s1 < s2;
+	}
 }
 #endif
 
