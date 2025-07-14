@@ -1,8 +1,8 @@
 #include(FindPkgConfig)
 find_package(PkgConfig QUIET)
-pkg_search_module(poppler libpoppler>=22.04.0 poppler>=22.04.0)
+pkg_search_module(poppler libpoppler>=24.02.0 poppler>=24.02.0)
 if (poppler_FOUND)
-	pkg_search_module(poppler_cpp REQUIRED libpoppler-cpp>=22.04.0 poppler-cpp>=22.04.0)
+	pkg_search_module(poppler_cpp REQUIRED libpoppler-cpp>=24.02.0 poppler-cpp>=24.02.0)
 endif(poppler_FOUND)
  
 find_path(poppler_INCLUDE_DIR
