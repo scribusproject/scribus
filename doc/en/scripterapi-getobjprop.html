@@ -15,6 +15,11 @@
 <dd><code>getObjectType(["name"]) -&gt; string</code>
 <p>Get type of object "name" as a string. If "name" is not given the currently selected item is used.</p></dd>
 
+<dt><a name="-getBoundingBox"><strong>getBoundingBox</strong></a>(...)</dt>
+<dd><code>getBoundingBox(["name"]) -&gt; (x, y, width, height)</code>
+<p>Returns a (x, y, width, height) tuple with the position and size of the object "name". If "name" is not given the currently selected item is used.</p>
+<p>The size is expressed in the current measurement unit of the document - see UNIT_<type> for reference.</p></dd>
+
 <dt><a name="-getCornerRadius"><strong>getCornerRadius</strong></a>(...)</dt>
 <dd><code>getCornerRadius(["name"]) -&gt; integer</code>
 <p>Returns the corner radius of the object "name". The radius is expressed in points. If "name" is not given the currently selected item is used.</p></dd>
@@ -116,6 +121,11 @@
 <dt><a name="-getSize"><strong>getSize</strong></a>(...)</dt>
 <dd><code>getSize(["name"]) -&gt; (width,height)</code>
 <p>Returns a (width, height) tuple with the size of the object "name". If "name" is not given the currently selected item is used. The size is expressed in the current measurement unit of the document - see UNIT_&lt;type&gt; for reference.</p></dd>
+
+<dt><a name="-getVisualBoundingBox"><strong>getVisualBoundingBox</strong></a>(...)</dt>
+<dd><code>getVisualBoundingBox(["name"]) -&gt; (x, y, width, height)</code>
+<p>Returns a (x, y, width, height) tuple corresponding to the visual bounding box of the object "name". If "name" is not given the currently selected item is used.</p>
+<p>The size is expressed in the current measurement unit of the document - see UNIT_<type> for reference.</p></dd>
 
 </dl>
 </body>
