@@ -10,10 +10,10 @@
 #include <utility>
 
 #include <QDebug>
-#include <QMainWindow>
-#include <QString>
 #include <QEvent>
 #include <QKeyEvent>
+#include <QMainWindow>
+#include <QString>
 
 #include "stylesearchdialog.h"
 #include "ui_stylesearchdialog.h"
@@ -46,7 +46,7 @@ StyleSearchItem StyleSearchDialog::getStyle() const
 		return {"", StyleSearchType::paragraph};
 
 	auto item = ui->stylesListWidget->currentItem();
-	return {item->text(), static_cast<StyleSearchType>(item->type() - 1000)};
+	return {item->text(), static_cast<StyleSearchType>(item->type() - QListWidgetItem::UserType)};
 }
 
 /**
@@ -54,8 +54,10 @@ StyleSearchItem StyleSearchDialog::getStyle() const
  */
 bool StyleSearchDialog::eventFilter(QObject *obj, QEvent *event)
 {
-	if (obj == ui->filterLineEdit) {
-		if (event->type() == QEvent::KeyPress) {
+	if (obj == ui->filterLineEdit)
+	{
+		if (event->type() == QEvent::KeyPress)
+		{
 			return filterLineEditKeyPress(static_cast<QKeyEvent*>(event));
 		}
 	}
@@ -125,7 +127,7 @@ void StyleSearchDialog::updateList()
 					style.type == StyleSearchType::paragraph ? iconParagraph : iconCharacter,
 					style.name,
 					nullptr,
-					1000 + static_cast<int>(style.type));
+					static_cast<int>(QListWidgetItem::UserType) + static_cast<int>(style.type));
 				ui->stylesListWidget->addItem(qlwi);
 			}
 		}

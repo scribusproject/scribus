@@ -10,14 +10,15 @@
 #ifndef STYLESEARCHDIALOG_H
 #define STYLESEARCHDIALOG_H
 
+#include <QDialog>
+#include <QList>
+
+#include "stylesearch.h"
+
+class QEvent;
 class QKeyEvent;
 class QMainWindow;
 class QString;
-class QEvent;
-
-#include <QDialog>
-#include <QList>
-#include "stylesearch.h"
 
 namespace Ui { class StyleSearchDialog; }
 
@@ -26,7 +27,7 @@ class StyleSearchDialog : public QDialog
 	Q_OBJECT
 
 public:
-	explicit StyleSearchDialog(QMainWindow *parent, const QList<StyleSearchItem> &styleNames);
+	StyleSearchDialog(QMainWindow *parent, const QList<StyleSearchItem> &styleNames);
 	~StyleSearchDialog();
 
 	StyleSearchItem getStyle() const;

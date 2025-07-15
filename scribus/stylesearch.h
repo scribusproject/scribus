@@ -31,17 +31,17 @@ struct StyleSearchItem
 class SCRIBUS_API StyleSearch
 {
 public:
-	StyleSearch(ScribusDoc *scribusDoc);
+	explicit StyleSearch(ScribusDoc *scribusDoc);
 	~StyleSearch() = default;
 
 	const QList<StyleSearchItem>& getStyles() const { return styles; }
 
 	void update();
-	bool hasStyles() { return !styles.empty(); }
+	bool hasStyles() const { return !styles.isEmpty(); }
 	void execute(const StyleSearchItem& styleName);
 
 private:
-	ScribusDoc* scribusDoc;
+	ScribusDoc* scribusDoc { nullptr };
 	QList<PageItem_TextFrame*> textFrames;
 	QList<StyleSearchItem> styles;
 };
