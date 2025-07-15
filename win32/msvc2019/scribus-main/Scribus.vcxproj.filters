@@ -674,6 +674,9 @@
     <ClInclude Include="..\..\..\scribus\styles\tablestyle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\scribus\stylesearch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\scribus\tableborder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -1687,6 +1690,9 @@
     <ClCompile Include="..\..\..\scribus\styles\tablestyle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\stylesearch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\scribus\tableborder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -2563,6 +2569,9 @@
     <ClCompile Include="..\..\..\scribus\ui\stylemanager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\stylesearchdialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\styleselect.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -3152,6 +3161,9 @@
       <Filter>Form Files</Filter>
     </uic>
     <uic Include="..\..\..\scribus\ui\stylemanager.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\stylesearchdialog.ui">
       <Filter>Form Files</Filter>
     </uic>
     <uic Include="..\..\..\scribus\ui\tablecolumnwidthsdialog.ui">
@@ -4449,6 +4461,9 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\stylemanager.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\stylesearchdialog.h">
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\styleselect.h">

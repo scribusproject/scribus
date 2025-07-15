@@ -373,6 +373,7 @@
     <ClInclude Include="..\..\..\scribus\sccolorstructs.h" />
     <ClInclude Include="..\..\..\scribus\scprintengine_pdf.h" />
     <moc Include="..\..\..\scribus\storyloader.h" />
+    <ClInclude Include="..\..\..\scribus\stylesearch.h" />
     <ClInclude Include="..\..\..\scribus\styles\cellstyle.h" />
     <moc Include="..\..\..\scribus\ui\charselect.h" />
     <moc Include="..\..\..\scribus\ui\charselectenhanced.h" />
@@ -679,6 +680,7 @@
     <moc Include="..\..\..\scribus\ui\scdialog.h" />
     <moc Include="..\..\..\scribus\ui\propertywidget_text.h" />
     <moc Include="..\..\..\scribus\ui\widgets\color_button.h" />
+    <moc Include="..\..\..\scribus\ui\stylesearchdialog.h" />
     <ClInclude Include="..\..\..\scribus\ui\widgets\combo_blendmode.h" />
     <moc Include="..\..\..\scribus\ui\widgets\form_widget.h" />
     <ClInclude Include="..\..\..\scribus\ui\widgets\combo_linestyle.h" />
@@ -971,6 +973,7 @@
     <ClCompile Include="..\..\..\scribus\scprintengine_pdf.cpp" />
     <ClCompile Include="..\..\..\scribus\selectionrubberband.cpp" />
     <ClCompile Include="..\..\..\scribus\storyloader.cpp" />
+    <ClCompile Include="..\..\..\scribus\stylesearch.cpp" />
     <ClCompile Include="..\..\..\scribus\textnote.cpp" />
     <ClCompile Include="..\..\..\scribus\text\boxes.cpp" />
     <ClCompile Include="..\..\..\scribus\text\glyphcluster.cpp" />
@@ -1490,6 +1493,7 @@
     <ClCompile Include="..\..\..\scribus\ui\smfontfeatures.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\smlineedit.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\smnumformatcombo.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\stylesearchdialog.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\viewtoolbar.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\widgets\color_button.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\widgets\combo_blendmode.cpp" />
@@ -1791,6 +1795,7 @@
     <uic Include="..\..\..\scribus\ui\spiralvectorbase.ui" />
     <uic Include="..\..\..\scribus\ui\spiralwidgetbase.ui" />
     <uic Include="..\..\..\scribus\ui\stylemanager.ui" />
+    <uic Include="..\..\..\scribus\ui\stylesearchdialog.ui" />
     <uic Include="..\..\..\scribus\ui\tablecolumnwidthsdialog.ui" />
     <uic Include="..\..\..\scribus\ui\tablerowheightsdialog.ui" />
     <uic Include="..\..\..\scribus\ui\tabpdfoptions.ui" />
