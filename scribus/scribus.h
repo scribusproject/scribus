@@ -416,6 +416,7 @@ public slots:
 	void slotOnlineHelp(const QString& jumpToSection = QString(), const QString& jumpToFile = QString());
 	void slotOnlineHelpClosed();
 	void slotResourceManager();
+	void slotItemStyleSearch();
 	void ToggleTips();
 	void ToggleMouseTips();
 	/** \brief Erzeugt eine neue Seite */

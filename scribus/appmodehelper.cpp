@@ -1853,6 +1853,7 @@ void AppModeHelper::enableTextStyleActions(bool enabled)
 	(*a_scrActions)["typeEffectSubscript"]->setEnabled(enabled);
 	(*a_scrActions)["typeEffectOutline"]->setEnabled(enabled);
 	(*a_scrActions)["typeEffectShadow"]->setEnabled(enabled);
+	(*a_scrActions)["itemStyleSearch"]->setEnabled(enabled);
 }
 
 void AppModeHelper::setStartupActionsEnabled(bool enabled)

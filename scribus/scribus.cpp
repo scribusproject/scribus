@@ -148,6 +148,7 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "serializer.h"
 #include "storyloader.h"
+#include "stylesearch.h"
 #include "textnote.h"
 #include "tocgenerator.h"
 #include "ui/about.h"
@@ -231,6 +232,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/smtextstyles.h"
 #include "ui/storyeditor.h"
 #include "ui/stylemanager.h"
+#include "ui/stylesearchdialog.h"
 #include "ui/symbolpalette.h"
 #include "ui/tabmanager.h"
 #include "ui/transformdialog.h"
@@ -1052,6 +1054,8 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("itemPreviewLow", "ItemPreviewSettings");
 	scrMenuMgr->createMenu("TextFeatures", tr("Text Features", "Item"));
 	scrMenuMgr->addMenuItemString("TextFeatures", "Item");
+	scrMenuMgr->addMenuItemString("itemStyleSearch", "TextFeatures");
+	scrMenuMgr->addMenuItemString("SEPARATOR", "TextFeatures");
 	scrMenuMgr->addMenuItemString("alignLeft", "TextFeatures");
 	scrMenuMgr->addMenuItemString("alignCenter", "TextFeatures");
 	scrMenuMgr->addMenuItemString("alignRight", "TextFeatures");
@@ -2107,7 +2111,7 @@ bool ScribusMainWindow::slotFileNew()
 		HaveNewDoc();
 		doc->reformPages(true);
 		retVal = true;
-		// Don's disturb user with "save?" dialog just after new doc
+		// Don't disturb user with "save?" dialog just after new doc
 		// doc changing should be rewritten maybe... maybe later...
 		doc->setModified(false);
 		updateActiveWindowCaption(doc->documentFileName());
@@ -5097,13 +5101,36 @@ void ScribusMainWindow::slotOnlineHelpClosed()
 
 void ScribusMainWindow::slotResourceManager()
 {
-	if (!resourceManager) // in case its allocated???? maybe can remove in future
-	{
-		resourceManager = new ResourceManager(this);
-		resourceManager->exec();
-		resourceManager->deleteLater();
-		resourceManager = nullptr;
-	}
+	if (resourceManager) // in case its allocated???? maybe can remove in future
+		return;
+	resourceManager = new ResourceManager(this);
+	resourceManager->exec();
+	resourceManager->deleteLater();
+	resourceManager = nullptr;
+}
+
+void ScribusMainWindow::slotItemStyleSearch()
+{
+	if (!HaveDoc)
+		return;
+
+	StyleSearch styleSearch(doc);
+	styleSearch.update();
+
+	if (!styleSearch.hasStyles())
+		return;
+
+	StyleSearchDialog dialog(this, styleSearch.getStyles());
+	dialog.setModal(true);
+
+	int result = dialog.exec();
+	if (result != QDialog::Accepted)
+		return;
+
+	auto style = dialog.getStyle();
+	if (style.name.isEmpty())
+		return;
+	styleSearch.execute(style);
 }
 
 void ScribusMainWindow::ToggleTips()

@@ -232,6 +232,7 @@ HEADERS += scribus/actionmanager.h \
            scribus/style.h \
            scribus/styleitem.h \
            scribus/styleoptions.h \
+           scribus/stylesearch.h \
            scribus/tableborder.h \
            scribus/tablecell.h \
            scribus/tablehandle.h \
@@ -644,6 +645,7 @@ HEADERS += scribus/actionmanager.h \
            scribus/ui/storyeditor.h \
            scribus/ui/stylecombos.h \
            scribus/ui/stylemanager.h \
+           scribus/ui/stylesearchdialog.h \
            scribus/ui/styleselect.h \
            scribus/ui/styleview.h \
            scribus/ui/swatchcombo.h \
@@ -1165,6 +1167,7 @@ FORMS += scribus/ui/aboutplugins.ui \
          scribus/ui/spiralvectorbase.ui \
          scribus/ui/spiralwidgetbase.ui \
          scribus/ui/stylemanager.ui \
+         scribus/ui/stylesearchdialog.ui \
          scribus/ui/tablecolumnwidthsdialog.ui \
          scribus/ui/tablerowheightsdialog.ui \
          scribus/ui/tabpdfoptions.ui \
@@ -1397,6 +1400,7 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/serializer.cpp \
            scribus/storyloader.cpp \
            scribus/styleitem.cpp \
+           scribus/stylesearch.cpp \
            scribus/tableborder.cpp \
            scribus/tablecell.cpp \
            scribus/tableutils.cpp \
@@ -1791,6 +1795,7 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/ui/stylecombos.cpp \
            scribus/ui/stylemanager.cpp \
            scribus/ui/styleselect.cpp \
+           scribus/ui/stylesearchdialog.cpp \
            scribus/ui/styleview.cpp \
            scribus/ui/swatchcombo.cpp \
            scribus/ui/symbolpalette.cpp \

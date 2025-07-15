@@ -309,6 +309,10 @@ void ActionManager::initStyleMenuActions()
 		connect( (*scrActions)[fontSizeName], SIGNAL(triggeredData(int)), mainWindow, SLOT(setItemFontSize(int)));
 	}
 
+	name = "itemStyleSearch";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+	connect( (*scrActions)["itemStyleSearch"], SIGNAL(triggered()), mainWindow, SLOT(slotItemStyleSearch()));
+
 	//Alignment actions
 	name = "alignLeft";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QString(), QString(), "", defaultKey(name), mainWindow, 0));
@@ -1547,6 +1551,9 @@ void ActionManager::languageChange()
 		(*scrActions)[fontSizeName]->setTexts( tr("%1 pt").arg(fontSize));
 	}
 	(*scrActions)["fontSizeOther"]->setTexts( tr("&Other..."));
+
+	(*scrActions)["itemStyleSearch"]->setTexts( tr("Style &Search"));
+
 	(*scrActions)["alignLeft"]->setTexts( tr("&Left"));
 	(*scrActions)["alignCenter"]->setTexts( tr("&Center"));
 	(*scrActions)["alignRight"]->setTexts( tr("&Right"));
@@ -1947,6 +1954,7 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("itemRaiseToTop", Qt::Key_Home);
 	defKeys.insert("itemLower", Qt::CTRL | Qt::Key_End);
 	defKeys.insert("itemRaise", Qt::CTRL | Qt::Key_Home);
+	defKeys.insert("itemStyleSearch", Qt::CTRL | Qt::Key_Escape);
 
 	//Insert Menu
 	//Page menu

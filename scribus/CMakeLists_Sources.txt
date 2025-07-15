@@ -213,6 +213,7 @@ set(SCRIBUS_SOURCES
 	serializer.cpp
 	storyloader.cpp
 	styleitem.cpp
+	stylesearch.cpp
 	tableborder.cpp
 	tablecell.cpp
 	tableutils.cpp
@@ -525,6 +526,7 @@ set(SCRIBUS_SOURCES
 	ui/storyeditor.cpp
 	ui/stylecombos.cpp
 	ui/stylemanager.cpp
+	ui/stylesearchdialog.cpp
 	ui/styleselect.cpp
 	ui/styleview.cpp
 	ui/swatchcombo.cpp
