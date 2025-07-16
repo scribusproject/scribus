@@ -252,6 +252,22 @@ If \"name\" is not given the currently selected item is used.\n\
 PyObject *scribus_getimagepagecount(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_getimagepreviewresolution__doc__,
+QT_TR_NOOP("getImagePreviewResolution([\"name\"]) -> integer (Scribus resolution constant)\n\
+\n\
+Gets preview resolution of the picture in the image frame \"name\".\n\
+If \"name\" is not given the currently selected item is used.\n\
+The returned value is one of:\n\
+- IMAGE_PREVIEW_RESOLUTION_FULL,\n\
+- IMAGE_PREVIEW_RESOLUTION_NORMAL,\n\
+- IMAGE_PREVIEW_RESOLUTION_LOW,\n\
+\n\
+May raise WrongFrameTypeError if the target frame is not an image frame.\n\
+"));
+/*! Returns image preview resolution of the object */
+PyObject *scribus_getimagepreviewresolution(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_getimagescale__doc__,
 	QT_TR_NOOP("getImageScale([\"name\"]) -> (x,y)\n\
 \n\

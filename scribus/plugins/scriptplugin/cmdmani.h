@@ -235,6 +235,22 @@ May raise WrongFrameTypeError if the target frame is not an image frame\n\
 PyObject *scribus_setimagepage(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_setimagepreviewresolution__doc__,
+QT_TR_NOOP("setImagePreviewResolution(resolutionType, [, \"name\"])\n\
+\n\
+Sets preview resolution of the picture in the image frame \"name\".\n\
+If \"name\" is not given the currently selected item is used.\n\
+The resolutionType shall be one of:\n\
+- IMAGE_PREVIEW_RESOLUTION_FULL,\n\
+- IMAGE_PREVIEW_RESOLUTION_NORMAL,\n\
+- IMAGE_PREVIEW_RESOLUTION_LOW,\n\
+\n\
+May raise WrongFrameTypeError if the target frame is not an image frame\n\
+"));
+/*! Scale Image. */
+PyObject *scribus_setimagepreviewresolution(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_setimagescale__doc__,
 QT_TR_NOOP("setImageScale(x, y [, \"name\"])\n\
 \n\

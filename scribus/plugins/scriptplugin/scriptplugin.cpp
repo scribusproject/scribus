@@ -378,6 +378,7 @@ PyMethodDef scribus_methods[] = {
 	{ "getImageFile", scribus_getimagefile, METH_VARARGS, tr(scribus_getimagefile__doc__)},
 	{ "getImageOffset", scribus_getimageoffset, METH_VARARGS, tr(scribus_getimageoffset__doc__)},
 	{ "getImagePage", scribus_getimagepage, METH_VARARGS, tr(scribus_getimagepage__doc__)},
+	{ "getImagePreviewResolution", scribus_getimagepreviewresolution, METH_VARARGS, tr(scribus_getimagepreviewresolution__doc__)},
 	{ "getImagePageCount", scribus_getimagepagecount, METH_VARARGS, tr(scribus_getimagepagecount__doc__)},
 	{ "getImageScale", scribus_getimagescale, METH_VARARGS, tr(scribus_getimagescale__doc__)},
 	{ "getInfo", (PyCFunction) scribus_getinfo, METH_VARARGS, tr(scribus_getinfo__doc__)},
@@ -559,6 +560,7 @@ PyMethodDef scribus_methods[] = {
 	{ "setImageGrayscale", scribus_setimagegrayscale, METH_VARARGS, tr(scribus_setimagegrayscale__doc__)},
 	{ "setImageOffset", scribus_setimageoffset, METH_VARARGS, tr(scribus_setimageoffset__doc__)},
 	{ "setImagePage", scribus_setimagepage, METH_VARARGS, tr(scribus_setimagepage__doc__)},
+	{ "setImagePreviewResolution", scribus_setimagepreviewresolution, METH_VARARGS, tr(scribus_setimagepreviewresolution__doc__)},
 	{ "setImageScale", scribus_setimagescale, METH_VARARGS, tr(scribus_setimagescale__doc__)},
 	{ "setInfo", scribus_setinfo, METH_VARARGS, tr(scribus_setinfo__doc__)},
 	{ "setItemName", scribus_setitemname, METH_VARARGS, tr(scribus_setitemname__doc__)},
@@ -951,6 +953,10 @@ PyObject* PyInit_scribus(void)
 	PyDict_SetItemString(d, "BASEPOINT_BOTTOMLEFT", Py_BuildValue("i", (int) AnchorPoint::BottomLeft));
 	PyDict_SetItemString(d, "BASEPOINT_BOTTOM", Py_BuildValue("i", (int) AnchorPoint::Bottom));
 	PyDict_SetItemString(d, "BASEPOINT_BOTTOMRIGHT", Py_BuildValue("i", (int) AnchorPoint::BottomRight));
+	// Image frames
+	PyDict_SetItemString(d, "IMAGE_PREVIEW_RESOLUTION_FULL", Py_BuildValue("i", 0));
+	PyDict_SetItemString(d, "IMAGE_PREVIEW_RESOLUTION_NORMAL", Py_BuildValue("i", 1));
+	PyDict_SetItemString(d, "IMAGE_PREVIEW_RESOLUTION_LOW", Py_BuildValue("i", 2));
 
 	// Measurement units understood by Scribus's units.cpp functions are exported as constant conversion
 	// factors to be used from Python.

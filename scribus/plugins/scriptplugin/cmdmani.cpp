@@ -84,12 +84,12 @@ PyObject *scribus_setimagepage(PyObject* /* self */, PyObject* args)
 	if (!checkHaveDocument())
 		return nullptr;
 
-	char *name = const_cast<char*>("");
+	PyESString name;
 	int page;
-	if (!PyArg_ParseTuple(args, "i|es", &page, "utf-8", &name))
+	if (!PyArg_ParseTuple(args, "i|es", &page, "utf-8", name.ptr()))
 		return nullptr;
 
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name));
+	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	if (!item->isImageFrame())
@@ -106,6 +106,38 @@ PyObject *scribus_setimagepage(PyObject* /* self */, PyObject* args)
 
 	item->pixm.imgInfo.actualPageNumber = page;
 
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	currentDoc->updatePic();
+
+	Py_RETURN_NONE;
+}
+
+PyObject *scribus_setimagepreviewresolution(PyObject* /* self */, PyObject* args)
+{
+	if (!checkHaveDocument())
+		return nullptr;
+
+	PyESString name;
+	int resolutionType;
+	if (!PyArg_ParseTuple(args, "i|es", &resolutionType, "utf-8", name.ptr()))
+		return nullptr;
+
+	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	if (item == nullptr)
+		return nullptr;
+	if (!item->isImageFrame())
+	{
+		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+
+	if (resolutionType < 0 || resolutionType > 2)
+	{
+		PyErr_SetString(ScribusException, QObject::tr("The resolution shall be one of: IMAGE_PREVIEW_RESOLUTION_FULL, IMAGE_PREVIEW_RESOLUTION_NORMAL, IMAGE_PREVIEW_RESOLUTION_LOW. %1 is an invalid value.", "python error").arg(resolutionType).toLocal8Bit().constData());
+		return nullptr;
+	}
+
+	item->pixm.imgInfo.lowResType = resolutionType;
 	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
 	currentDoc->updatePic();
 
@@ -826,6 +858,7 @@ void cmdmanidocwarnings()
 	  << scribus_setimagegrayscale__doc__
 	  << scribus_setimageoffset__doc__
 	  << scribus_setimagepage__doc__
+	  << scribus_setimagepreviewresolution__doc__
 	  << scribus_setimagescale__doc__
 	  << scribus_setnormalmode__doc__
 	  << scribus_setrotation__doc__

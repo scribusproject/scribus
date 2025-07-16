@@ -318,11 +318,11 @@ PyObject *scribus_getimagepage(PyObject* /* self */, PyObject* args)
 	if (!checkHaveDocument())
 		return nullptr;
 
-	char *Name = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+	PyESString name;
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
 		return nullptr;
 
-	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 
@@ -334,15 +334,36 @@ PyObject *scribus_getimagepagecount(PyObject* /* self */, PyObject* args)
 	if (!checkHaveDocument())
 		return nullptr;
 
-	char *Name = const_cast<char*>("");
-	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+	PyESString name;
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
 		return nullptr;
 
-	PageItem *item = GetUniqueItem(QString::fromUtf8(Name));
+	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 
 	return PyLong_FromLong(static_cast<long>(item->pixm.imgInfo.numberOfPages));
+}
+
+PyObject *scribus_getimagepreviewresolution(PyObject* /* self */, PyObject* args)
+{
+	if (!checkHaveDocument())
+		return nullptr;
+
+	PyESString name;
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+		return nullptr;
+
+	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	if (item == nullptr)
+		return nullptr;
+	if (!item->isImageFrame())
+	{
+		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+
+	return PyLong_FromLong(static_cast<long>(item->pixm.imgInfo.lowResType));
 }
 
 PyObject *scribus_getimagescale(PyObject* /* self */, PyObject* args)
@@ -608,6 +629,7 @@ void cmdgetpropdocwarnings()
 	  << scribus_getimageoffset__doc__
 	  << scribus_getimagepage__doc__
 	  << scribus_getimagepagecount__doc__
+	  << scribus_getimagepreviewresolution__doc__
 	  << scribus_getimagescale__doc__
 	  << scribus_getlinecolor__doc__ 
 	  << scribus_getlineblendmode__doc__ 
