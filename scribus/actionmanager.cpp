@@ -1954,7 +1954,7 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("itemRaiseToTop", Qt::Key_Home);
 	defKeys.insert("itemLower", Qt::CTRL | Qt::Key_End);
 	defKeys.insert("itemRaise", Qt::CTRL | Qt::Key_Home);
-	defKeys.insert("itemStyleSearch", Qt::CTRL | Qt::Key_Escape);
+	defKeys.insert("itemStyleSearch", Qt::SHIFT | Qt::Key_Escape);
 
 	//Insert Menu
 	//Page menu
