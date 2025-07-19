@@ -167,12 +167,12 @@ void Prefs_Fonts::saveGuiToPrefs(struct ApplicationPrefs *prefsData) const
 		face.subset(fontListTableView->isFontSubsetted(i));
 	}
 
-	if (m_doc == nullptr)
+	if (m_doc == nullptr && !ScCore->primaryMainWindow()->HaveDoc)
 		writePaths();
 
 	prefsData->fontPrefs.GFontSub.clear();
 	uint a = 0;
-	for (QMap<QString,QString>::ConstIterator itfsu = RList.begin(); itfsu != RList.end(); ++itfsu)
+	for (auto itfsu = RList.begin(); itfsu != RList.end(); ++itfsu)
 		prefsData->fontPrefs.GFontSub[itfsu.key()] = FlagsRepl.at(a++)->currentText();
 }
 
