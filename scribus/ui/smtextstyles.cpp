@@ -795,7 +795,6 @@ void SMParagraphStyle::slotOpticalMarginSelector()
 	}
 
 	slotSelectionDirty();
-
 }
 
 void SMParagraphStyle::slotMinSpace()
