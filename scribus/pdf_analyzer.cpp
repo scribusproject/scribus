@@ -30,12 +30,6 @@ for which a new license (GPL+exception) is in place.
 
 #ifdef HAVE_PODOFO
 
-using namespace PoDoFo;
-
-#if (PODOFO_VERSION < PODOFO_MAKE_VERSION(0, 10, 0))
-#define IsRealStrict IsReal
-#endif
-
 #if (PODOFO_VERSION >= PODOFO_MAKE_VERSION(1, 0, 0))
 #include <string_view>
 #include <utility>
@@ -50,6 +44,8 @@ namespace PoDoFo
 	}
 }
 #endif
+
+using namespace PoDoFo;
 
 static QHash<QString, PDFContentStreamKeyword> kwNameMap;
 
