@@ -372,8 +372,6 @@ void ScPainter::fillPath()
 
 void ScPainter::strokePath()
 {
-//	if (LineWidth == 0)
-//		return;
 	if (m_strokeMode != 0)
 		strokePathHelper();
 }
@@ -1411,7 +1409,7 @@ void ScPainter::setupPolygon(const FPointArray *points, bool closed)
 		if (nPath)
 		{
 			np = points->point(poi);
-			if ((!first) && (closed) && (np4 == firstP))
+			if (!first && closed && (np4 == firstP))
 				cairo_close_path(m_cr);
 			cairo_move_to(m_cr, np.x(), np.y());
 			first = nPath = false;
@@ -1453,7 +1451,7 @@ void ScPainter::setupSharpPolygon(const FPointArray *points, bool closed)
 		if (nPath)
 		{
 			np = points->point(poi);
-			if ((!first) && (closed) && (np4 == firstP))
+			if (!first && closed && (np4 == firstP))
 				cairo_close_path(m_cr);
 			sharpLineHelper(np);
 			cairo_move_to(m_cr, np.x(), np.y());
