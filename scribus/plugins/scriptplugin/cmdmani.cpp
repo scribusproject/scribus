@@ -58,7 +58,7 @@ PyObject *scribus_scaleimage(PyObject* /* self */, PyObject* args)
 	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
 	ScribusView* currentView = ScCore->primaryMainWindow()->view;
 	Selection tempSelection(*currentDoc->m_Selection);
-	bool hadOrigSelection = (tempSelection.count() != 0);
+	bool hadOrigSelection = !tempSelection.isEmpty();
 
 	currentDoc->m_Selection->clear();
 	// Clear the selection
@@ -100,7 +100,7 @@ PyObject *scribus_setimagescale(PyObject* /* self */, PyObject* args)
 	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
 	ScribusView* currentView = ScCore->primaryMainWindow()->view;
 	Selection tempSelection(*currentDoc->m_Selection);
-	bool hadOrigSelection = (tempSelection.count() != 0);
+	bool hadOrigSelection = !tempSelection.isEmpty();
 
 	currentDoc->m_Selection->clear();
 	// Clear the selection
@@ -143,7 +143,7 @@ PyObject *scribus_setimageoffset(PyObject* /* self */, PyObject* args)
 	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
 	ScribusView* currentView = ScCore->primaryMainWindow()->view;
 	Selection tempSelection(*ScCore->primaryMainWindow()->doc->m_Selection);
-	bool hadOrigSelection = (tempSelection.count() != 0);
+	bool hadOrigSelection = !tempSelection.isEmpty();
 
 	currentDoc->m_Selection->clear();
 	// Clear the selection
@@ -237,7 +237,7 @@ PyObject *scribus_moveobjectrel(PyObject* /* self */, PyObject* args)
 	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
 	ScribusView* currentView = ScCore->primaryMainWindow()->view;
 	Selection tempSelection(*currentDoc->m_Selection);
-	bool hadOrigSelection = (tempSelection.count() != 0);
+	bool hadOrigSelection = !tempSelection.isEmpty();
 
 	currentDoc->m_Selection->clear();
 	// Clear the selection
@@ -279,7 +279,7 @@ PyObject *scribus_moveobjectabs(PyObject* /* self */, PyObject* args)
 	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
 	ScribusView* currentView = ScCore->primaryMainWindow()->view;
 	Selection tempSelection(*currentDoc->m_Selection);
-	bool hadOrigSelection = (tempSelection.count() != 0);
+	bool hadOrigSelection = !tempSelection.isEmpty();
 
 	// Clear the selection
 	currentView->deselectItems();
@@ -466,12 +466,10 @@ PyObject *scribus_scalegroup(PyObject* /* self */, PyObject* args)
 
 	currentView->deselectItems();
 	currentView->selectItem(i);
-//	int h = currentView->frameResizeHandle;
-//	currentView->frameResizeHandle = 1;
 	currentView->startGroupTransaction(Um::Resize, "", Um::IResize);
 	currentDoc->scaleGroup(sc, sc);
 	currentView->endGroupTransaction();
-//	currentView->frameResizeHandle = h;
+
 	Py_RETURN_NONE;
 }
 
@@ -668,7 +666,7 @@ PyObject *scribus_flipobject(PyObject* /* self */, PyObject* args)
 	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
 	ScribusView* currentView = ScCore->primaryMainWindow()->view;
 	Selection tempSelection(*currentDoc->m_Selection);
-	bool hadOrigSelection = (tempSelection.count() != 0);
+	bool hadOrigSelection = !tempSelection.isEmpty();
 
 	currentDoc->m_Selection->clear();
 	// Clear the selection
