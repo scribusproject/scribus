@@ -373,8 +373,6 @@ void ScPainter::fillPath()
 
 void ScPainter::strokePath()
 {
-//	if (LineWidth == 0)
-//		return;
 	if (m_strokeMode != 0)
 		strokePathHelper();
 }
@@ -1077,7 +1075,7 @@ void ScPainter::fillPathHelper()
 	else if (m_fillMode == 3)
 	{
 		cairo_set_antialias(m_cr, CAIRO_ANTIALIAS_NONE);
-		cairo_surface_t *image2 = cairo_image_surface_create_for_data ((uchar*)m_pattern->getPattern().bits(), CAIRO_FORMAT_ARGB32, m_pattern->getPattern().width(), m_pattern->getPattern().height(), m_pattern->getPattern().width() * 4);
+		cairo_surface_t *image2 = cairo_image_surface_create_for_data (m_pattern->getPattern().bits(), CAIRO_FORMAT_ARGB32, m_pattern->getPattern().width(), m_pattern->getPattern().height(), m_pattern->getPattern().width() * 4);
 		cairo_pattern_t *m_pat = cairo_pattern_create_for_surface(image2);
 		cairo_pattern_set_extend(m_pat, CAIRO_EXTEND_REPEAT);
 		cairo_pattern_set_filter(m_pat, CAIRO_FILTER_GOOD);
@@ -1243,7 +1241,7 @@ void ScPainter::strokePathHelper()
 	{
 		cairo_push_group(m_cr);
 		cairo_set_antialias(m_cr, CAIRO_ANTIALIAS_NONE);
-		cairo_surface_t *image2 = cairo_image_surface_create_for_data ((uchar*)m_pattern->getPattern().bits(), CAIRO_FORMAT_ARGB32, m_pattern->getPattern().width(), m_pattern->getPattern().height(), m_pattern->getPattern().width() * 4);
+		cairo_surface_t *image2 = cairo_image_surface_create_for_data (m_pattern->getPattern().bits(), CAIRO_FORMAT_ARGB32, m_pattern->getPattern().width(), m_pattern->getPattern().height(), m_pattern->getPattern().width() * 4);
 		cairo_pattern_t *m_pat = cairo_pattern_create_for_surface(image2);
 		cairo_pattern_set_extend(m_pat, CAIRO_EXTEND_REPEAT);
 		cairo_pattern_set_filter(m_pat, CAIRO_FILTER_GOOD);
@@ -1364,8 +1362,8 @@ void ScPainter::drawImage(QImage *image)
 	cairo_push_group(m_cr);
 	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 	cairo_set_fill_rule(m_cr, cairo_get_fill_rule(m_cr));
-	cairo_surface_t *image2  = cairo_image_surface_create_for_data ((uchar*)image->bits(), CAIRO_FORMAT_RGB24, image->width(), image->height(), image->width() * 4);
-	cairo_surface_t *image3 = cairo_image_surface_create_for_data ((uchar*)image->bits(), CAIRO_FORMAT_ARGB32, image->width(), image->height(), image->width() * 4);
+	cairo_surface_t *image2  = cairo_image_surface_create_for_data (image->bits(), CAIRO_FORMAT_RGB24, image->width(), image->height(), image->width() * 4);
+	cairo_surface_t *image3 = cairo_image_surface_create_for_data (image->bits(), CAIRO_FORMAT_ARGB32, image->width(), image->height(), image->width() * 4);
 	cairo_set_source_surface (m_cr, image2, 0, 0);
 	cairo_pattern_set_filter(cairo_get_source(m_cr), CAIRO_FILTER_GOOD);
 	cairo_mask_surface (m_cr, image3, 0, 0);
@@ -1412,7 +1410,7 @@ void ScPainter::setupPolygon(const FPointArray *points, bool closed)
 		if (nPath)
 		{
 			np = points->point(poi);
-			if ((!first) && (closed) && (np4 == firstP))
+			if (!first && closed && (np4 == firstP))
 				cairo_close_path(m_cr);
 			cairo_move_to(m_cr, np.x(), np.y());
 			first = nPath = false;
@@ -1454,7 +1452,7 @@ void ScPainter::setupSharpPolygon(const FPointArray *points, bool closed)
 		if (nPath)
 		{
 			np = points->point(poi);
-			if ((!first) && (closed) && (np4 == firstP))
+			if (!first && closed && (np4 == firstP))
 				cairo_close_path(m_cr);
 			sharpLineHelper(np);
 			cairo_move_to(m_cr, np.x(), np.y());
