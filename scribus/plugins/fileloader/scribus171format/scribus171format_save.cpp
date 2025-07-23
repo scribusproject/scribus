@@ -2819,7 +2819,7 @@ void Scribus171Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("AnnotationVisible", item->annotation().Vis());
 		docu.writeAttribute("AnnotationMaxChar", item->annotation().MaxChar());
 		docu.writeAttribute("AnnotationIsCheck", item->annotation().IsChk());
-		docu.writeAttribute("AnnotationAction", item->annotation().AAact());
+		docu.writeAttribute("AnnotationAdditionalAction", item->annotation().AAact());
 		docu.writeAttribute("AnnotationCheckStyle", item->annotation().ChkStil());
 		docu.writeAttribute("AnnotationBorderColor", item->annotation().borderColor());
 		docu.writeAttribute("AnnotationHTML", item->annotation().HTML());

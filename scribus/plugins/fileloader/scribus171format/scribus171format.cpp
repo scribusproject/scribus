@@ -6811,7 +6811,7 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 		currItem->annotation().setVis( attrs.valueAsInt("AnnotationVisible", 0));
 		currItem->annotation().setIsChk( attrs.valueAsBool("AnnotationIsCheck", false) );
 		currItem->annotation().setCheckState(currItem->annotation().IsChk());
-		currItem->annotation().setAAact( attrs.valueAsBool("AnnotationAction", false) );
+		currItem->annotation().setAAact( attrs.valueAsBool("AnnotationAdditionalAction", false) );
 		currItem->annotation().setHTML ( attrs.valueAsInt("AnnotationHTML", 0));
 		currItem->annotation().setUseIcons( attrs.valueAsBool("AnnotationUseIcons", false));
 		currItem->annotation().setChkStil ( attrs.valueAsInt("AnnotationCheckStyle", 0));
