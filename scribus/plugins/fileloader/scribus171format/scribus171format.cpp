@@ -755,7 +755,12 @@ bool Scribus171Format::loadElements(const QString& data, const QString& fileDir,
 		}
 		bool converted = false;
 		if (isTableIt)
-			converted = convertOldTable(m_Doc, gItem, gpL, &groupStackP, &m_Doc->DocItems);
+		{
+			if (gItem->isGroupChild())
+				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackP, &(gItem->Parent->asGroupFrame()->groupItemList));
+			else
+				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackP, &m_Doc->DocItems);
+		}
 		if (!converted)
 			gItem->groupItemList = gpL;
 	}
@@ -817,7 +822,12 @@ bool Scribus171Format::loadElements(const QString& data, const QString& fileDir,
 		}
 		bool converted = false;
 		if (isTableIt)
-			converted = convertOldTable(m_Doc, gItem, gpL, &groupStackM, &m_Doc->MasterItems);
+		{
+			if (gItem->isGroupChild())
+				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackM, &(gItem->Parent->asGroupFrame()->groupItemList));
+			else
+				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackM, &m_Doc->MasterItems);
+		}
 		if (!converted)
 			gItem->groupItemList = gpL;
 	}
@@ -1508,7 +1518,12 @@ bool Scribus171Format::loadPalette(const QString & fileName)
 		}
 		bool converted = false;
 		if (isTableIt)
-			converted = convertOldTable(m_Doc, gItem, gpL, &groupStackP, &m_Doc->DocItems);
+		{
+			if (gItem->isGroupChild())
+				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackP, &(gItem->Parent->asGroupFrame()->groupItemList));
+			else
+				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackP, &m_Doc->DocItems);
+		}
 		if (!converted)
 			gItem->groupItemList = gpL;
 	}
@@ -1570,7 +1585,12 @@ bool Scribus171Format::loadPalette(const QString & fileName)
 		}
 		bool converted = false;
 		if (isTableIt)
-			converted = convertOldTable(m_Doc, gItem, gpL, &groupStackM, &m_Doc->MasterItems);
+		{
+			if (gItem->isGroupChild())
+				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackM, &(gItem->Parent->asGroupFrame()->groupItemList));
+			else
+				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackM, &m_Doc->MasterItems);
+		}
 		if (!converted)
 			gItem->groupItemList = gpL;
 	}
@@ -2300,7 +2320,12 @@ bool Scribus171Format::loadFile(const QString & fileName, const FileFormat & /* 
 		}
 		bool converted = false;
 		if (isTableIt)
-			converted = convertOldTable(m_Doc, gItem, gpL, &groupStackP, &m_Doc->DocItems);
+		{
+			if (gItem->isGroupChild())
+				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackP, &(gItem->Parent->asGroupFrame()->groupItemList));
+			else
+				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackP, &m_Doc->DocItems);
+		}
 		if (!converted)
 			gItem->groupItemList = gpL;
 	}
@@ -2362,7 +2387,12 @@ bool Scribus171Format::loadFile(const QString & fileName, const FileFormat & /* 
 		}
 		bool converted = false;
 		if (isTableIt)
-			converted = convertOldTable(m_Doc, gItem, gpL, &groupStackM, &m_Doc->MasterItems);
+		{
+			if (gItem->isGroupChild())
+				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackM, &(gItem->Parent->asGroupFrame()->groupItemList));
+			else
+				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackM, &m_Doc->MasterItems);
+		}
 		if (!converted)
 			gItem->groupItemList = gpL;
 	}
@@ -5631,7 +5661,12 @@ bool Scribus171Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 		}
 		bool converted = false;
 		if (isTableIt)
-			converted = convertOldTable(m_Doc, gItem, gpL, &groupStackP, &m_Doc->DocItems);
+		{
+			if (gItem->isGroupChild())
+				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackP, &(gItem->Parent->asGroupFrame()->groupItemList));
+			else
+				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackP, &m_Doc->DocItems);
+		}
 		if (!converted)
 			gItem->groupItemList = gpL;
 	}
@@ -8691,7 +8726,12 @@ bool Scribus171Format::loadPage(const QString & fileName, int pageNumber, bool M
 		}
 		bool converted = false;
 		if (isTableIt)
-			converted = convertOldTable(m_Doc, gItem, gpL, &groupStackP, &m_Doc->DocItems);
+		{
+			if (gItem->isGroupChild())
+				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackP, &(gItem->Parent->asGroupFrame()->groupItemList));
+			else
+				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackP, &m_Doc->DocItems);
+		}
 		if (!converted)
 			gItem->groupItemList = gpL;
 	}
@@ -8753,7 +8793,12 @@ bool Scribus171Format::loadPage(const QString & fileName, int pageNumber, bool M
 		}
 		bool converted = false;
 		if (isTableIt)
-			converted = convertOldTable(m_Doc, gItem, gpL, &groupStackM, &m_Doc->MasterItems);
+		{
+			if (gItem->isGroupChild())
+				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackM, &(gItem->Parent->asGroupFrame()->groupItemList));
+			else
+				converted = convertOldTable(m_Doc, gItem, gpL, &groupStackM, &m_Doc->MasterItems);
+		}
 		if (!converted)
 			gItem->groupItemList = gpL;
 	}
