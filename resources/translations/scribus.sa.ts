@@ -13393,33 +13393,33 @@ Please check it and try again.</source>
         <translation>दिनाङ्कः :</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="10651"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="10669"/>
         <source>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11940"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11958"/>
         <source>Failed to load an image : %1</source>
         <translation>चित्रलोड्करणं निष्फलम् : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11945"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11963"/>
         <source>Failed to write an image : %1</source>
         <translation>चित्रलेखनं निष्फलम् : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11950"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11968"/>
         <source>Failed to load an image mask : %1</source>
         <translation>चित्रवर्णिकालोड्करणं निष्फलम् : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11955"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11973"/>
         <source>Insufficient memory for processing an image</source>
         <translation>चित्रनिर्वाहाय अपर्याप्तस्मृतिः</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11935"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11953"/>
         <source>A write error occurred, please check available disk space</source>
         <translation type="unfinished"></translation>
     </message>
@@ -21197,8 +21197,8 @@ Do you want to use this?</source>
     <name>PrintDialog</name>
     <message>
         <location filename="../../scribus/ui/printdialog.cpp" line="109"/>
-        <location filename="../../scribus/ui/printdialog.cpp" line="354"/>
-        <location filename="../../scribus/ui/printdialog.cpp" line="399"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="359"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="404"/>
         <source>All</source>
         <translation>सर्वम्</translation>
     </message>
@@ -21223,23 +21223,23 @@ Do you want to use this?</source>
         <translation>कृष्णम्</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="462"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="467"/>
         <source>Print Current Pa&amp;ge</source>
         <translation>वर्तमानपृष्ठं मुद्रय</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="353"/>
-        <location filename="../../scribus/ui/printdialog.cpp" line="398"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="358"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="403"/>
         <source>Print Normal</source>
         <translation>सामान्यं मुद्रय</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="447"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="452"/>
         <source>PostScript Files (*.ps);;All Files (*)</source>
         <translation>पोस्ट्स्क्रिप्ट् फैल्स् (*.ps);;सर्वफैल्स्(*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="315"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="320"/>
         <source>Failed to retrieve printer settings</source>
         <translation>मुद्रकनिर्धारणानां प्राप्तिः निष्फला</translation>
     </message>
@@ -21254,12 +21254,12 @@ Do you want to use this?</source>
         <translation>बहिः :</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="447"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="452"/>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>PDF फैल्स् (*.pdf);;सर्वफैल्स् (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="448"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="453"/>
         <source>Save As</source>
         <translation>एवं सञ्चय </translation>
     </message>
@@ -28187,8 +28187,8 @@ External Links
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="138"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="182"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="210"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="612"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="639"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="610"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="637"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="49"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="91"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="134"/>
@@ -29265,7 +29265,7 @@ is not exhaustive due to exceptions from called functions.
         <translation>द्वाभ्यां वस्तुभ्यां न्यूनं समूहस्थीकर्तुं न शक्यते</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="708"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="706"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="642"/>
         <source>Selection must contain only shapes or bezier curves.</source>
         <comment>python error</comment>
@@ -30196,12 +30196,12 @@ Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scprintengine_gdi.cpp" line="109"/>
+        <location filename="../../scribus/scprintengine_gdi.cpp" line="108"/>
         <source>Save As</source>
         <translation>एवं सञ्चय </translation>
     </message>
     <message>
-        <location filename="../../scribus/scprintengine_gdi.cpp" line="258"/>
+        <location filename="../../scribus/scprintengine_gdi.cpp" line="248"/>
         <source>Printing...</source>
         <translation>मुद्रयति...</translation>
     </message>
@@ -30781,8 +30781,8 @@ Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="223"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="232"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="219"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="228"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdutil.cpp" line="222"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdutil.cpp" line="231"/>
         <source>Expected a list of border lines</source>
@@ -30790,7 +30790,7 @@ Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="254"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="250"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdutil.cpp" line="253"/>
         <source>Border line width must be &gt; 0.0</source>
         <comment>python error</comment>
@@ -30802,7 +30802,7 @@ Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="248"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="244"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdutil.cpp" line="247"/>
         <source>Border lines are specified as (width,style,color,shade) tuples</source>
         <comment>python error</comment>
@@ -32336,24 +32336,24 @@ Document Liberation Project https://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="44"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="125"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="248"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="581"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="250"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="585"/>
         <source>Fixed Linespacing</source>
         <translation>स्थिररेखान्तरकरणम्</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="45"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="126"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="249"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="582"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="251"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="586"/>
         <source>Automatic Linespacing</source>
         <translation>स्वचालितरेखान्तरकरणम्</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="46"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="127"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="250"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="583"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="252"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="587"/>
         <source>Align to Baseline Grid</source>
         <translation>आधाररेखाजालं प्रति पङ्क्तीकुरु</translation>
     </message>
@@ -32494,8 +32494,8 @@ Document Liberation Project https://www.documentliberation.org</source>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="29"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="479"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="988"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="483"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="992"/>
         <source>Based On:</source>
         <translation>अस्मिन् आधारितम् :</translation>
     </message>
@@ -32525,7 +32525,7 @@ Document Liberation Project https://www.documentliberation.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="483"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="487"/>
         <source>A default style cannot be assigned a parent style</source>
         <translation type="unfinished"></translation>
     </message>
@@ -32605,9 +32605,9 @@ Document Liberation Project https://www.documentliberation.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="474"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="477"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="1205"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="478"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="481"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="1209"/>
         <source>No Style</source>
         <translation>कापि शैली न</translation>
     </message>
@@ -32687,7 +32687,7 @@ Document Liberation Project https://www.documentliberation.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="553"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="557"/>
         <source>Shade</source>
         <translation>छाया</translation>
     </message>
@@ -32789,10 +32789,10 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>SMScComboBox</name>
     <message>
-        <location filename="../../scribus/ui/smsccombobox.cpp" line="35"/>
-        <location filename="../../scribus/ui/smsccombobox.cpp" line="64"/>
-        <location filename="../../scribus/ui/smsccombobox.cpp" line="100"/>
-        <location filename="../../scribus/ui/smsccombobox.cpp" line="177"/>
+        <location filename="../../scribus/ui/smsccombobox.cpp" line="41"/>
+        <location filename="../../scribus/ui/smsccombobox.cpp" line="70"/>
+        <location filename="../../scribus/ui/smsccombobox.cpp" line="106"/>
+        <location filename="../../scribus/ui/smsccombobox.cpp" line="183"/>
         <source>Use Parent Value</source>
         <translation>प्रभवमूल्यम् उपयोजय</translation>
     </message>

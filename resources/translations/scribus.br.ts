@@ -13433,33 +13433,33 @@ Mar plij, gwiriit hi ha klaskit en-dro.</translation>
         <translation>Deiziad :</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="10651"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="10669"/>
         <source>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11940"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11958"/>
         <source>Failed to load an image : %1</source>
         <translation>C&apos;hwitadenn war kargañ ar skeudenn : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11945"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11963"/>
         <source>Failed to write an image : %1</source>
         <translation>C&apos;hwitadenn war skrivañ ar skeudenn : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11950"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11968"/>
         <source>Failed to load an image mask : %1</source>
         <translation>C&apos;hwitadenn war kargañ maskl ur skeudenn : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11955"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11973"/>
         <source>Insufficient memory for processing an image</source>
         <translation>N&apos;eus ket memor a-walc&apos;h a-benn keweriañ ur skeudenn</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11935"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11953"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>Degouezhet ez eus bet ur fazi skritur, gwiriit ar plas a chom war ar gantenn</translation>
     </message>
@@ -21259,8 +21259,8 @@ HE GWRIZIOÃ D&apos;UR VLEUNIENN WENN;</translation>
     <name>PrintDialog</name>
     <message>
         <location filename="../../scribus/ui/printdialog.cpp" line="109"/>
-        <location filename="../../scribus/ui/printdialog.cpp" line="354"/>
-        <location filename="../../scribus/ui/printdialog.cpp" line="399"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="359"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="404"/>
         <source>All</source>
         <translation>Pep tra</translation>
     </message>
@@ -21285,23 +21285,23 @@ HE GWRIZIOÃ D&apos;UR VLEUNIENN WENN;</translation>
         <translation>Du</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="462"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="467"/>
         <source>Print Current Pa&amp;ge</source>
         <translation>Moullañ ar ba&amp;jennad vremanel</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="353"/>
-        <location filename="../../scribus/ui/printdialog.cpp" line="398"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="358"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="403"/>
         <source>Print Normal</source>
         <translation>Moullañ skoueriek</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="447"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="452"/>
         <source>PostScript Files (*.ps);;All Files (*)</source>
         <translation>Restroù mod PostScript (*.ps);;An holl restroù (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="315"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="320"/>
         <source>Failed to retrieve printer settings</source>
         <translation>C&apos;hwitadenn war gaout arventennoù ho moullerez</translation>
     </message>
@@ -21316,12 +21316,12 @@ HE GWRIZIOÃ D&apos;UR VLEUNIENN WENN;</translation>
         <translation>Diavaez :</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="447"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="452"/>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>Restroù mod PDF (*.pdf);;An holl restroù (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="448"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="453"/>
         <source>Save As</source>
         <translation>Enrollañ evel</translation>
     </message>
@@ -28258,8 +28258,8 @@ External Links
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="138"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="182"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="210"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="612"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="639"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="610"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="637"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="49"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="91"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="134"/>
@@ -29361,7 +29361,7 @@ dre nemedennoù digant an arc&apos;hwelioù galvet.</translation>
         <translation>N&apos;haller ket kevrediñ nebeutoc&apos;h eget div ergorenn</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="708"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="706"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="642"/>
         <source>Selection must contain only shapes or bezier curves.</source>
         <comment>python error</comment>
@@ -30297,12 +30297,12 @@ Amsavet gant &apos;Courrier&apos; e c&apos;hall bezañ, hervez kefluniadur ho Gh
 Neuze ne vo ket dereat ar skeudenn marteze</translation>
     </message>
     <message>
-        <location filename="../../scribus/scprintengine_gdi.cpp" line="109"/>
+        <location filename="../../scribus/scprintengine_gdi.cpp" line="108"/>
         <source>Save As</source>
         <translation>Enrollañ evel</translation>
     </message>
     <message>
-        <location filename="../../scribus/scprintengine_gdi.cpp" line="258"/>
+        <location filename="../../scribus/scprintengine_gdi.cpp" line="248"/>
         <source>Printing...</source>
         <translation>O voullañ...</translation>
     </message>
@@ -30883,8 +30883,8 @@ Neuze ne vo ket dereat ar skeudenn marteze</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="223"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="232"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="219"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="228"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdutil.cpp" line="222"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdutil.cpp" line="231"/>
         <source>Expected a list of border lines</source>
@@ -30892,7 +30892,7 @@ Neuze ne vo ket dereat ar skeudenn marteze</translation>
         <translation>Ur roll a linennoù bevennoù a oa gorgozet</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="254"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="250"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdutil.cpp" line="253"/>
         <source>Border line width must be &gt; 0.0</source>
         <comment>python error</comment>
@@ -30904,7 +30904,7 @@ Neuze ne vo ket dereat ar skeudenn marteze</translation>
         <translation>Enporzhierez IDML</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="248"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="244"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdutil.cpp" line="247"/>
         <source>Border lines are specified as (width,style,color,shade) tuples</source>
         <comment>python error</comment>
@@ -32441,24 +32441,24 @@ Document Liberation Project https://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="44"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="125"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="248"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="581"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="250"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="585"/>
         <source>Fixed Linespacing</source>
         <translation>Etremez difiñv etre al linennoù</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="45"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="126"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="249"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="582"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="251"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="586"/>
         <source>Automatic Linespacing</source>
         <translation>Linennetremez emgefreek</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="46"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="127"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="250"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="583"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="252"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="587"/>
         <source>Align to Baseline Grid</source>
         <translation>Desteudañ an destenn ouzh al linenn diazez</translation>
     </message>
@@ -32599,8 +32599,8 @@ Document Liberation Project https://www.documentliberation.org</source>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="29"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="479"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="988"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="483"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="992"/>
         <source>Based On:</source>
         <translation>Diazezet war :</translation>
     </message>
@@ -32630,7 +32630,7 @@ Document Liberation Project https://www.documentliberation.org</source>
         <translation>Luc&apos;hmarzioù</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="483"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="487"/>
         <source>A default style cannot be assigned a parent style</source>
         <translation>N&apos;haller ket deverkañ ur stil dre ziouer d&apos;ur stil kar</translation>
     </message>
@@ -32710,9 +32710,9 @@ Document Liberation Project https://www.documentliberation.org</source>
         <translation>Mar kevasket e tilec&apos;h ent emgefreek ar rannbennad er bannad testenn pe er bajennad war-lec&apos;h ma n&apos;emañ ket ar rannbennad war-lec&apos;h war an hevelep bann pe bajennad.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="474"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="477"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="1205"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="478"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="481"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="1209"/>
         <source>No Style</source>
         <translation>Stil ebet</translation>
     </message>
@@ -32792,7 +32792,7 @@ Document Liberation Project https://www.documentliberation.org</source>
         <translation>Led esaouiñ izek :</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="553"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="557"/>
         <source>Shade</source>
         <translation>Arliv</translation>
     </message>
@@ -32894,10 +32894,10 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>SMScComboBox</name>
     <message>
-        <location filename="../../scribus/ui/smsccombobox.cpp" line="35"/>
-        <location filename="../../scribus/ui/smsccombobox.cpp" line="64"/>
-        <location filename="../../scribus/ui/smsccombobox.cpp" line="100"/>
-        <location filename="../../scribus/ui/smsccombobox.cpp" line="177"/>
+        <location filename="../../scribus/ui/smsccombobox.cpp" line="41"/>
+        <location filename="../../scribus/ui/smsccombobox.cpp" line="70"/>
+        <location filename="../../scribus/ui/smsccombobox.cpp" line="106"/>
+        <location filename="../../scribus/ui/smsccombobox.cpp" line="183"/>
         <source>Use Parent Value</source>
         <translation>Arverañ ar werzh kar</translation>
     </message>

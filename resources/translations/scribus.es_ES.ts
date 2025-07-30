@@ -13438,34 +13438,34 @@ Por favor revíselo e intente de nuevo.</translation>
         <translation>Fecha:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="10651"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="10669"/>
         <source>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</source>
         <translation>Falló la incrustación del archivo PDF: %1.
 Por favor deshabilite la incrustación esperimental de PDF y PS y pruebe de nuevo.</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11940"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11958"/>
         <source>Failed to load an image : %1</source>
         <translation>No se pudo cargar una imagen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11945"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11963"/>
         <source>Failed to write an image : %1</source>
         <translation>No se pudo escribir una imagen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11950"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11968"/>
         <source>Failed to load an image mask : %1</source>
         <translation>No se pudo cargar una máscara de imagen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11955"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11973"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Memoria insuficiente para procesar una imagen</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11935"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11953"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>Hay un error de escritura, compruebe el espacio disponible en disco</translation>
     </message>
@@ -21261,8 +21261,8 @@ Establecerlo en Postscript Nivel 1 o 2 puede crear archivos enormes.</translatio
     <name>PrintDialog</name>
     <message>
         <location filename="../../scribus/ui/printdialog.cpp" line="109"/>
-        <location filename="../../scribus/ui/printdialog.cpp" line="354"/>
-        <location filename="../../scribus/ui/printdialog.cpp" line="399"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="359"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="404"/>
         <source>All</source>
         <translation>Todos</translation>
     </message>
@@ -21287,23 +21287,23 @@ Establecerlo en Postscript Nivel 1 o 2 puede crear archivos enormes.</translatio
         <translation>Negro</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="462"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="467"/>
         <source>Print Current Pa&amp;ge</source>
         <translation>Imprimir &amp;página actual</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="353"/>
-        <location filename="../../scribus/ui/printdialog.cpp" line="398"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="358"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="403"/>
         <source>Print Normal</source>
         <translation>Impresión normal</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="447"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="452"/>
         <source>PostScript Files (*.ps);;All Files (*)</source>
         <translation>Archivos PostScript (*.ps);;Todos los archivos (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="315"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="320"/>
         <source>Failed to retrieve printer settings</source>
         <translation>Error al obtener la configuración de la impresora</translation>
     </message>
@@ -21318,12 +21318,12 @@ Establecerlo en Postscript Nivel 1 o 2 puede crear archivos enormes.</translatio
         <translation>Exterior:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="447"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="452"/>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>Archivos PDF (*.pdf);;Todos los archivos (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="448"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="453"/>
         <source>Save As</source>
         <translation>Guardar como</translation>
     </message>
@@ -28265,8 +28265,8 @@ Enlaces externos</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="138"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="182"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="210"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="612"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="639"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="610"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="637"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="49"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="91"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="134"/>
@@ -29372,7 +29372,7 @@ código Python esta lista no es exhaustiva debido a las excepciones de las funci
         <translation>No se pueden agrupar menos de dos elementos</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="708"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="706"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="642"/>
         <source>Selection must contain only shapes or bezier curves.</source>
         <comment>python error</comment>
@@ -30308,12 +30308,12 @@ Podrían reemplazarse por &quot;Courier&quot;, dependiendo de la configuración 
 Por eso la imagen pudiera no ser correcta</translation>
     </message>
     <message>
-        <location filename="../../scribus/scprintengine_gdi.cpp" line="109"/>
+        <location filename="../../scribus/scprintengine_gdi.cpp" line="108"/>
         <source>Save As</source>
         <translation>Guardar como</translation>
     </message>
     <message>
-        <location filename="../../scribus/scprintengine_gdi.cpp" line="258"/>
+        <location filename="../../scribus/scprintengine_gdi.cpp" line="248"/>
         <source>Printing...</source>
         <translation>Imprimiendo...</translation>
     </message>
@@ -30893,8 +30893,8 @@ Por eso la imagen pudiera no ser correcta</translation>
         <translation>%1 no es un número de página válido.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="223"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="232"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="219"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="228"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdutil.cpp" line="222"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdutil.cpp" line="231"/>
         <source>Expected a list of border lines</source>
@@ -30902,7 +30902,7 @@ Por eso la imagen pudiera no ser correcta</translation>
         <translation>Se esperaba una lista de líneas de borde</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="254"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="250"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdutil.cpp" line="253"/>
         <source>Border line width must be &gt; 0.0</source>
         <comment>python error</comment>
@@ -30914,7 +30914,7 @@ Por eso la imagen pudiera no ser correcta</translation>
         <translation>Importador Idml</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="248"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="244"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdutil.cpp" line="247"/>
         <source>Border lines are specified as (width,style,color,shade) tuples</source>
         <comment>python error</comment>
@@ -32451,24 +32451,24 @@ Document Liberation Project https://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="44"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="125"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="248"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="581"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="250"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="585"/>
         <source>Fixed Linespacing</source>
         <translation>Interlineado exacto</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="45"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="126"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="249"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="582"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="251"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="586"/>
         <source>Automatic Linespacing</source>
         <translation>Interlineado automático</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="46"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="127"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="250"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="583"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="252"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="587"/>
         <source>Align to Baseline Grid</source>
         <translation>Alinear a malla de la línea base</translation>
     </message>
@@ -32609,8 +32609,8 @@ Document Liberation Project https://www.documentliberation.org</source>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="29"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="479"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="988"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="483"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="992"/>
         <source>Based On:</source>
         <translation>Basada en:</translation>
     </message>
@@ -32640,7 +32640,7 @@ Document Liberation Project https://www.documentliberation.org</source>
         <translation>Márgenes ópticos</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="483"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="487"/>
         <source>A default style cannot be assigned a parent style</source>
         <translation>A un estilo predeterminado no se le puede asignar un estilo padre</translation>
     </message>
@@ -32720,9 +32720,9 @@ Document Liberation Project https://www.documentliberation.org</source>
         <translation>Si se marca, mueve automáticamente el párrafo a la siguiente columna o página si el párrafo siguiente no está en la misma página o columna</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="474"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="477"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="1205"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="478"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="481"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="1209"/>
         <source>No Style</source>
         <translation>Sin estilo</translation>
     </message>
@@ -32802,7 +32802,7 @@ Document Liberation Project https://www.documentliberation.org</source>
         <translation>Espacio de anchura mínimo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="553"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="557"/>
         <source>Shade</source>
         <translation>Saturación</translation>
     </message>
@@ -32904,10 +32904,10 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>SMScComboBox</name>
     <message>
-        <location filename="../../scribus/ui/smsccombobox.cpp" line="35"/>
-        <location filename="../../scribus/ui/smsccombobox.cpp" line="64"/>
-        <location filename="../../scribus/ui/smsccombobox.cpp" line="100"/>
-        <location filename="../../scribus/ui/smsccombobox.cpp" line="177"/>
+        <location filename="../../scribus/ui/smsccombobox.cpp" line="41"/>
+        <location filename="../../scribus/ui/smsccombobox.cpp" line="70"/>
+        <location filename="../../scribus/ui/smsccombobox.cpp" line="106"/>
+        <location filename="../../scribus/ui/smsccombobox.cpp" line="183"/>
         <source>Use Parent Value</source>
         <translation>Usar valor del padre</translation>
     </message>

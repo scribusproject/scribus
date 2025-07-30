@@ -13421,33 +13421,33 @@ Please check it and try again.</source>
         <translation>Data:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="10651"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="10669"/>
         <source>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11940"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11958"/>
         <source>Failed to load an image : %1</source>
         <translation>Nepavyko įkelti paveikslo: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11945"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11963"/>
         <source>Failed to write an image : %1</source>
         <translation>Nepavyko įrašyti paveikslo: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11950"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11968"/>
         <source>Failed to load an image mask : %1</source>
         <translation>Nepavyko įkelti paveikslo maskuotės: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11955"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11973"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Nepakanka atminties paveikslui apdoroti</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11935"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11953"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>Rašymo klaida, prašome patikrinti, ar pakanka vietos diske</translation>
     </message>
@@ -21241,8 +21241,8 @@ Ar naudosite ją?</translation>
     <name>PrintDialog</name>
     <message>
         <location filename="../../scribus/ui/printdialog.cpp" line="109"/>
-        <location filename="../../scribus/ui/printdialog.cpp" line="354"/>
-        <location filename="../../scribus/ui/printdialog.cpp" line="399"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="359"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="404"/>
         <source>All</source>
         <translation>Viską</translation>
     </message>
@@ -21267,23 +21267,23 @@ Ar naudosite ją?</translation>
         <translation>Juoda (Key)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="462"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="467"/>
         <source>Print Current Pa&amp;ge</source>
         <translation>Spausdinti a&amp;ktyvų puslapį</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="353"/>
-        <location filename="../../scribus/ui/printdialog.cpp" line="398"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="358"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="403"/>
         <source>Print Normal</source>
         <translation>Spausdinti įprastai</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="447"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="452"/>
         <source>PostScript Files (*.ps);;All Files (*)</source>
         <translation>Postskriptiniai failai (*.ps);; Visi failai (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="315"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="320"/>
         <source>Failed to retrieve printer settings</source>
         <translation>Nepavyko gauti spausdintuvo nuostatų</translation>
     </message>
@@ -21298,12 +21298,12 @@ Ar naudosite ją?</translation>
         <translation>Išorėje:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="447"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="452"/>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>PDF failai (*.pdf);; Visi failai (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="448"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="453"/>
         <source>Save As</source>
         <translation>Įrašyti kitaip</translation>
     </message>
@@ -28234,8 +28234,8 @@ External Links
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="138"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="182"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="210"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="612"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="639"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="610"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="637"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="49"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="91"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="134"/>
@@ -29341,7 +29341,7 @@ Išsamiau apie kiekvienos funkcijos galimas išimtis rasite jų aprašuose
         <translation>Sugrupuoti galima ne mažiau, kaip 2 objektus</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="708"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="706"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="642"/>
         <source>Selection must contain only shapes or bezier curves.</source>
         <comment>python error</comment>
@@ -30278,12 +30278,12 @@ Jis gali būti pakeistas „Courier“ šrifti, priklausomai nuo „Ghostscript�
 Todėl vaizdas gali būti nekorektiškas</translation>
     </message>
     <message>
-        <location filename="../../scribus/scprintengine_gdi.cpp" line="109"/>
+        <location filename="../../scribus/scprintengine_gdi.cpp" line="108"/>
         <source>Save As</source>
         <translation>Įrašyti kitaip</translation>
     </message>
     <message>
-        <location filename="../../scribus/scprintengine_gdi.cpp" line="258"/>
+        <location filename="../../scribus/scprintengine_gdi.cpp" line="248"/>
         <source>Printing...</source>
         <translation>Spausdinama...</translation>
     </message>
@@ -30863,8 +30863,8 @@ Todėl vaizdas gali būti nekorektiškas</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="223"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="232"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="219"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="228"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdutil.cpp" line="222"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdutil.cpp" line="231"/>
         <source>Expected a list of border lines</source>
@@ -30872,7 +30872,7 @@ Todėl vaizdas gali būti nekorektiškas</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="254"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="250"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdutil.cpp" line="253"/>
         <source>Border line width must be &gt; 0.0</source>
         <comment>python error</comment>
@@ -30884,7 +30884,7 @@ Todėl vaizdas gali būti nekorektiškas</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="248"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="244"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdutil.cpp" line="247"/>
         <source>Border lines are specified as (width,style,color,shade) tuples</source>
         <comment>python error</comment>
@@ -32420,24 +32420,24 @@ Document Liberation Project https://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="44"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="125"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="248"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="581"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="250"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="585"/>
         <source>Fixed Linespacing</source>
         <translation>Fiksuotas intervalas</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="45"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="126"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="249"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="582"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="251"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="586"/>
         <source>Automatic Linespacing</source>
         <translation>Automatinis intervalas</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="46"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="127"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="250"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="583"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="252"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="587"/>
         <source>Align to Baseline Grid</source>
         <translation>Lygiuoti pagal pagrindinį tinklelį</translation>
     </message>
@@ -32578,8 +32578,8 @@ Document Liberation Project https://www.documentliberation.org</source>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="29"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="479"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="988"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="483"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="992"/>
         <source>Based On:</source>
         <translation>Pagrindu imtas:</translation>
     </message>
@@ -32609,7 +32609,7 @@ Document Liberation Project https://www.documentliberation.org</source>
         <translation>Optinės paraštės</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="483"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="487"/>
         <source>A default style cannot be assigned a parent style</source>
         <translation>Numatytasis stilius negali būti susietas su kilminiu stiliumi</translation>
     </message>
@@ -32689,9 +32689,9 @@ Document Liberation Project https://www.documentliberation.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="474"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="477"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="1205"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="478"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="481"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="1209"/>
         <source>No Style</source>
         <translation>Be stiliaus</translation>
     </message>
@@ -32771,7 +32771,7 @@ Document Liberation Project https://www.documentliberation.org</source>
         <translation>Mažiausias tarpo plotis:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="553"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="557"/>
         <source>Shade</source>
         <translation>Šešėlis</translation>
     </message>
@@ -32873,10 +32873,10 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>SMScComboBox</name>
     <message>
-        <location filename="../../scribus/ui/smsccombobox.cpp" line="35"/>
-        <location filename="../../scribus/ui/smsccombobox.cpp" line="64"/>
-        <location filename="../../scribus/ui/smsccombobox.cpp" line="100"/>
-        <location filename="../../scribus/ui/smsccombobox.cpp" line="177"/>
+        <location filename="../../scribus/ui/smsccombobox.cpp" line="41"/>
+        <location filename="../../scribus/ui/smsccombobox.cpp" line="70"/>
+        <location filename="../../scribus/ui/smsccombobox.cpp" line="106"/>
+        <location filename="../../scribus/ui/smsccombobox.cpp" line="183"/>
         <source>Use Parent Value</source>
         <translation>Naudoti pradinę reikšmę</translation>
     </message>

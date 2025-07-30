@@ -13436,34 +13436,34 @@ Javító ellenőrzés után érdemes újra megpróbálni.</translation>
         <translation>Dátum:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="10651"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="10669"/>
         <source>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</source>
         <translation>Nem sikerült a PDF-fájl beágyazása: %1
 A kísérleti PDF és PS beágyazás kikapcsolásával érdemes újrapróbálni.</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11940"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11958"/>
         <source>Failed to load an image : %1</source>
         <translation>Kép betöltése sikertelen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11945"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11963"/>
         <source>Failed to write an image : %1</source>
         <translation>Kép írása sikertelen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11950"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11968"/>
         <source>Failed to load an image mask : %1</source>
         <translation>Képmaszk betöltése sikertelen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11955"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11973"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Nincs elegendő memória egy kép feldolgozásához</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11935"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11953"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>Írási hiba történt, ellenőrizze a rendelkezésre álló szabad lemezterületet</translation>
     </message>
@@ -21270,8 +21270,8 @@ Az 1. és 2. Postscript szint nagy méretű fájlokat eredményez.</translation>
     <name>PrintDialog</name>
     <message>
         <location filename="../../scribus/ui/printdialog.cpp" line="109"/>
-        <location filename="../../scribus/ui/printdialog.cpp" line="354"/>
-        <location filename="../../scribus/ui/printdialog.cpp" line="399"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="359"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="404"/>
         <source>All</source>
         <translation>Minden</translation>
     </message>
@@ -21296,23 +21296,23 @@ Az 1. és 2. Postscript szint nagy méretű fájlokat eredményez.</translation>
         <translation>Fekete</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="462"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="467"/>
         <source>Print Current Pa&amp;ge</source>
         <translation>&amp;Aktuális oldal nyomtatása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="353"/>
-        <location filename="../../scribus/ui/printdialog.cpp" line="398"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="358"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="403"/>
         <source>Print Normal</source>
         <translation>Normál nyomtatás</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="447"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="452"/>
         <source>PostScript Files (*.ps);;All Files (*)</source>
         <translation>PostScript-fájlok (*.ps);;Minden fájl (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="315"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="320"/>
         <source>Failed to retrieve printer settings</source>
         <translation>Nyomtató beállítások elérése sikertelen</translation>
     </message>
@@ -21327,12 +21327,12 @@ Az 1. és 2. Postscript szint nagy méretű fájlokat eredményez.</translation>
         <translation>Külső:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="447"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="452"/>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>PDF-fájlok (*.pdf);;Minden fájl (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/printdialog.cpp" line="448"/>
+        <location filename="../../scribus/ui/printdialog.cpp" line="453"/>
         <source>Save As</source>
         <translation>Mentés másként</translation>
     </message>
@@ -28277,8 +28277,8 @@ Külső hivatkozások
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="138"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="182"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="210"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="612"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="639"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="610"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="637"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="49"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="91"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="134"/>
@@ -29383,7 +29383,7 @@ lista hiányos a meghívott funkciók miatt.
         <translation>Kettőnél kevesebb elem nem csoportosítható</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="708"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="706"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="642"/>
         <source>Selection must contain only shapes or bezier curves.</source>
         <comment>python error</comment>
@@ -30318,12 +30318,12 @@ A Ghostscript beállításaitól függően valószínűleg Courier betűkészlet
 A kép valószínűleg így nem lesz helyes</translation>
     </message>
     <message>
-        <location filename="../../scribus/scprintengine_gdi.cpp" line="109"/>
+        <location filename="../../scribus/scprintengine_gdi.cpp" line="108"/>
         <source>Save As</source>
         <translation>Mentés másként</translation>
     </message>
     <message>
-        <location filename="../../scribus/scprintengine_gdi.cpp" line="258"/>
+        <location filename="../../scribus/scprintengine_gdi.cpp" line="248"/>
         <source>Printing...</source>
         <translation>Nyomtatás...</translation>
     </message>
@@ -30903,8 +30903,8 @@ A kép valószínűleg így nem lesz helyes</translation>
         <translation>Nem érvényes oldalszám: %1.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="223"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="232"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="219"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="228"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdutil.cpp" line="222"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdutil.cpp" line="231"/>
         <source>Expected a list of border lines</source>
@@ -30912,7 +30912,7 @@ A kép valószínűleg így nem lesz helyes</translation>
         <translation>A várt érték egy, a szegélyeket tartalmazó lista</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="254"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="250"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdutil.cpp" line="253"/>
         <source>Border line width must be &gt; 0.0</source>
         <comment>python error</comment>
@@ -30924,7 +30924,7 @@ A kép valószínűleg így nem lesz helyes</translation>
         <translation>Idml-importáló</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="248"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdutil.cpp" line="244"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdutil.cpp" line="247"/>
         <source>Border lines are specified as (width,style,color,shade) tuples</source>
         <comment>python error</comment>
@@ -32464,24 +32464,24 @@ Document Liberation Project számára: https://www.documentliberation.org</trans
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="44"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="125"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="248"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="581"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="250"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="585"/>
         <source>Fixed Linespacing</source>
         <translation>Rögzített sortávolság</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="45"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="126"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="249"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="582"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="251"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="586"/>
         <source>Automatic Linespacing</source>
         <translation>Automatikus sortávolság</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="46"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="127"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="250"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="583"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="252"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="587"/>
         <source>Align to Baseline Grid</source>
         <translation>Igazítás alaprácshoz</translation>
     </message>
@@ -32622,8 +32622,8 @@ Document Liberation Project számára: https://www.documentliberation.org</trans
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="29"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="479"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="988"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="483"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="992"/>
         <source>Based On:</source>
         <translation>Ezen alapul:</translation>
     </message>
@@ -32653,7 +32653,7 @@ Document Liberation Project számára: https://www.documentliberation.org</trans
         <translation>Optikai margó</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="483"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="487"/>
         <source>A default style cannot be assigned a parent style</source>
         <translation>Az alapértelmezett stílus nem rendelhető hozzá szülő stílushoz</translation>
     </message>
@@ -32733,9 +32733,9 @@ Document Liberation Project számára: https://www.documentliberation.org</trans
         <translation>Bejelölve, a bekezdés automatikusan a következő oldalra vagy hasábba kerül, ha a következő bekezdés nincs vele egy oldalon vagy hasábon</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="474"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="477"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="1205"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="478"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="481"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="1209"/>
         <source>No Style</source>
         <translation>Nincs stílus megadva</translation>
     </message>
@@ -32815,7 +32815,7 @@ Document Liberation Project számára: https://www.documentliberation.org</trans
         <translation>Min. szóköz-szélesség:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="553"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="557"/>
         <source>Shade</source>
         <translation>Árnyalat</translation>
     </message>
@@ -32917,10 +32917,10 @@ Document Liberation Project számára: https://www.documentliberation.org</trans
 <context>
     <name>SMScComboBox</name>
     <message>
-        <location filename="../../scribus/ui/smsccombobox.cpp" line="35"/>
-        <location filename="../../scribus/ui/smsccombobox.cpp" line="64"/>
-        <location filename="../../scribus/ui/smsccombobox.cpp" line="100"/>
-        <location filename="../../scribus/ui/smsccombobox.cpp" line="177"/>
+        <location filename="../../scribus/ui/smsccombobox.cpp" line="41"/>
+        <location filename="../../scribus/ui/smsccombobox.cpp" line="70"/>
+        <location filename="../../scribus/ui/smsccombobox.cpp" line="106"/>
+        <location filename="../../scribus/ui/smsccombobox.cpp" line="183"/>
         <source>Use Parent Value</source>
         <translation>Szülő értékének alkalmazása</translation>
     </message>
