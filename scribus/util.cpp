@@ -1079,6 +1079,14 @@ bool convertOldTable(ScribusDoc *m_Doc, PageItem* gItem, QList<PageItem*> &gpL, 
 	QList<double> colWidths;
 	QList<double> rowHeights;
 
+	// Check the provided group is indeed in the PageItem list provided 
+	if (target != nullptr)
+	{
+		int ind = target->indexOf(gItem);
+		if (ind < 0)
+			return false;
+	}
+
 	// 1. Although this was not intended, legacy tables allowed user to link frames together
 	// New table do not support that, so if one frame has any link, we stop the conversion
 	// here, those frame will be converted to a standard group.
