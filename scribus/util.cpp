@@ -1040,6 +1040,12 @@ bool convertOldTable(ScribusDoc *m_Doc, PageItem* gItem, QList<PageItem*> &gpL, 
 		if (ind < 0)
 			return false;
 	}
+	else
+	{
+		int ind = m_Doc->FrameItems.key(gItem, -1);
+		if (ind < 0)
+			return false;
+	}
 
 	// 1. Although this was not intended, legacy tables allowed user to link frames together
 	// New table do not support that, so if one frame has any link, we stop the conversion
