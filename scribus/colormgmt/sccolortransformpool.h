@@ -27,7 +27,7 @@ public:
 
 	ScColorTransform findTransform(const ScColorTransformInfo& info) const;
 
-protected:
+private:
 	int m_engineID { 0 };
 	QList< QWeakPointer<ScColorTransformData> > m_pool;
 };

@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 class SCRIBUS_API ScColorTransform
 {
 	friend class ScColorTransformPool;
+
 public:
 	ScColorTransform();
 	explicit ScColorTransform(ScColorTransformData* data);
@@ -38,7 +39,7 @@ public:
 	ScColorTransform& operator=(const ScColorTransform& other) = default;
 	ScColorTransform& operator=(std::nullptr_t) { m_data.reset(); return *this; }
 
-protected:
+private:
 	QSharedPointer<ScColorTransformData> m_data;
 
 	QWeakPointer<ScColorTransformData>   weakRef()   const { return m_data.toWeakRef(); }
