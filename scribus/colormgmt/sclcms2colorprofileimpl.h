@@ -20,7 +20,7 @@ class ScLcms2ColorProfileImpl : public ScColorProfileImplBase
 
 public:
 	ScLcms2ColorProfileImpl(ScColorMgmtEngine& engine, cmsHPROFILE lcmsProfile);
-	virtual ~ScLcms2ColorProfileImpl();
+	~ScLcms2ColorProfileImpl() override;
 
 	bool isNull() const override;
 

@@ -21,14 +21,15 @@ class SCRIBUS_API ScColorProfile
 
 public:
 	ScColorProfile();
-	ScColorProfile(ScColorProfileData*);
-	ScColorProfile(const QSharedPointer<ScColorProfileData>&);
+	explicit ScColorProfile(ScColorProfileData*);
+	explicit ScColorProfile(const QSharedPointer<ScColorProfileData>&);
 	
 	ScColorMgmtEngine& engine() { return m_data->engine(); }
 	const ScColorMgmtEngine& engine() const { return m_data->engine(); }
 	
-	inline bool isNull()    const { return (m_data.isNull() || m_data->isNull()); }
-	inline operator bool () const { return !isNull(); }
+	void reset() { m_data.reset(); }
+	bool isNull()    const { return (m_data.isNull() || m_data->isNull()); }
+	operator bool () const { return !isNull(); }
 
 	ScColorProfileInfo info() const;
 	bool isSuitableForOutput() const;
@@ -49,6 +50,9 @@ public:
 	bool save(QByteArray& profileData) const;
 
 	bool operator==(const ScColorProfile& other) const;
+
+	ScColorProfile& operator=(const ScColorProfile& other) = default;
+	ScColorProfile& operator=(std::nullptr_t) { m_data.reset(); return *this; }
 	
 protected:
 	QSharedPointer<ScColorProfileData> m_data;

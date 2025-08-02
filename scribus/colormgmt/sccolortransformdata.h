@@ -17,8 +17,8 @@ for which a new license (GPL+exception) is in place.
 class ScColorTransformData  : public ScColorMgmtElem
 {
 public:
-	inline const ScColorTransformInfo& transformInfo() const { return m_transformInfo; }
-	inline void  setTransformInfo(const ScColorTransformInfo& info) { m_transformInfo = info; }
+	const ScColorTransformInfo& transformInfo() const { return m_transformInfo; }
+	void  setTransformInfo(const ScColorTransformInfo& info) { m_transformInfo = info; }
 
 	virtual bool isNull() const = 0;
 

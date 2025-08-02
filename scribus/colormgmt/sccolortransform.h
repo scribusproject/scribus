@@ -18,14 +18,15 @@ class SCRIBUS_API ScColorTransform
 	friend class ScColorTransformPool;
 public:
 	ScColorTransform();
-	ScColorTransform(ScColorTransformData* data);
-	ScColorTransform(const QSharedPointer<ScColorTransformData>& data);
+	explicit ScColorTransform(ScColorTransformData* data);
+	explicit ScColorTransform(const QSharedPointer<ScColorTransformData>& data);
 
 	ScColorMgmtEngine& engine() { return m_data->engine(); }
 	const ScColorMgmtEngine& engine() const { return m_data->engine(); }
 
-	inline bool isNull()    const { return (m_data.isNull() || m_data->isNull()); }
-	inline operator bool () const { return !isNull(); }
+	void reset() { m_data.reset(); }
+	bool isNull()    const { return (m_data.isNull() || m_data->isNull()); }
+	operator bool () const { return !isNull(); }
 
 	const ScColorTransformInfo& transformInfo() const { return m_data->transformInfo(); }
 
@@ -33,6 +34,9 @@ public:
 	bool apply(QByteArray& input, QByteArray& output, uint numElem);
 
 	bool operator==(const ScColorTransform& other) const;
+
+	ScColorTransform& operator=(const ScColorTransform& other) = default;
+	ScColorTransform& operator=(std::nullptr_t) { m_data.reset(); return *this; }
 
 protected:
 	QSharedPointer<ScColorTransformData> m_data;
