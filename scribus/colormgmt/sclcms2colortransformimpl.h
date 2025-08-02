@@ -18,7 +18,7 @@ class ScLcms2ColorTransformImpl : public ScColorTransformImplBase
 
 public:
 	ScLcms2ColorTransformImpl(ScColorMgmtEngine& engine, cmsHTRANSFORM lcmsTransform);
-	virtual ~ScLcms2ColorTransformImpl();
+	~ScLcms2ColorTransformImpl() override;
 
 	bool isNull() const override;
 

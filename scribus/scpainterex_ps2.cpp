@@ -46,12 +46,6 @@ using namespace std;
 ScPs2OutputParams::ScPs2OutputParams(ScribusDoc* doc)
 {
 	document = doc;
-	colorMode = ScPainterExBase::rgbMode;
-	hProfile = nullptr;
-	rgbToOutputColorTransform = nullptr;
-	rgbToOutputImageTransform = nullptr;
-	cmykToOutputColorTransform = nullptr;
-	cmykToOutputImageTransform = nullptr;
 }
 
 ScPainterEx_Ps2::ScPainterEx_Ps2(QIODevice* iodev, const QRect& rect, const ScPs2OutputParams& options )
@@ -70,10 +64,6 @@ ScPainterEx_Ps2::ScPainterEx_Ps2(QIODevice* iodev, const QRect& rect, const ScPs
 	// TODO : set proper values
 
 	clear();
-}
-
-ScPainterEx_Ps2::~ScPainterEx_Ps2()
-{
 }
 
 ScPainterExBase::ImageMode ScPainterEx_Ps2::imageMode() const
@@ -455,7 +445,7 @@ void ScPainterEx_Ps2::putColor(const ScColorShade& colorShade, bool doFill)
 	{
 		unsigned long colorIn[4];
 		unsigned long colorOut[4];
-		ScColorTransform cmsTranform = nullptr;
+		ScColorTransform cmsTranform;
 		if (colorShade.color.getColorModel() == colorModelRGB)
 		{
 			RGBColorF rgb;

@@ -571,5 +571,5 @@ void ScLcms2ColorMgmtEngineImpl::cmsErrorHandler(cmsContext contextID, cmsUInt32
 												 const char *ErrorText)
 {
 	std::string msg = std::string("Littlecms : ") + ErrorText;
-	std::cerr << ErrorText << std::endl;
+	std::cerr << msg << std::endl;
 }

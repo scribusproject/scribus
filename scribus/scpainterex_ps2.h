@@ -73,9 +73,7 @@ public:
 class SCRIBUS_API ScPainterEx_Ps2 : public ScPainterExBase
 {
 public:
-
 	ScPainterEx_Ps2( QIODevice* iodev, const QRect& rect, const ScPs2OutputParams& options );
-	virtual ~ScPainterEx_Ps2();
 
 	int supportedColorModes() const override { return (int) (rgbMode|cmykMode); }
 	ColorMode preferredColorMode() const override { return m_colorMode; }
