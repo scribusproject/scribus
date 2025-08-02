@@ -54,7 +54,7 @@ public:
 	ScColorProfile& operator=(const ScColorProfile& other) = default;
 	ScColorProfile& operator=(std::nullptr_t) { m_data.reset(); return *this; }
 	
-protected:
+private:
 	QSharedPointer<ScColorProfileData> m_data;
 
 	QWeakPointer<ScColorProfileData>   weakRef()   const { return m_data.toWeakRef(); }

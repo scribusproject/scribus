@@ -69,7 +69,7 @@ public:
 	ScColorSpace& operator=(const ScColorSpace& other) = default;
 	ScColorSpace& operator=(std::nullptr_t) { m_data.reset(); return *this; }
 
-protected:
+private:
 	QSharedPointer<ScColorSpaceData> m_data;
 
 	QWeakPointer<ScColorSpaceData>   weakRef()   const { return m_data.toWeakRef(); }

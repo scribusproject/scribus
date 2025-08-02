@@ -23,7 +23,7 @@ public:
 	bool contains(const QString& profilePath) const;
 	ScColorProfile profile(const QString& profilePath) const;
 
-protected:
+private:
 	QMap<QString, QWeakPointer<ScColorProfileData> > m_profileMap;
 };
 
