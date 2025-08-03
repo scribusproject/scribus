@@ -454,6 +454,10 @@ void ScribusCore::getCMSProfilesDir(const QString& pfad, bool showInfo, bool rec
 					PrinterProfiles.insert(profileName, profInfo);
 			}
 			break;
+		default:
+			if (showInfo)
+				sDebug(QString("Color profile uses an unsupported device class: %1").arg(profInfo.file));
+			break;
 		}
 		if (showInfo)
 			sDebug( QString("Color profile %1 loaded from %2").arg(profileName, profInfo.file) );
