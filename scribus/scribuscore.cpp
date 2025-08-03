@@ -51,7 +51,7 @@ for which a new license (GPL+exception) is in place.
 
 //extern ScribusQApp* ScQApp;
 
-ScribusCore::ScribusCore() : defaultEngine(colorMgmtEngineFactory.createDefaultEngine()),
+ScribusCore::ScribusCore() : defaultEngine(ScColorMgmtEngineFactory::createDefaultEngine()),
 							m_iconManager(IconManager::instance()),
 							m_prefsManager(PrefsManager::instance())
 {

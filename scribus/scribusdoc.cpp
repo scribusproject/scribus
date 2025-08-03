@@ -822,8 +822,8 @@ void ScribusDoc::SetDefaultCMSParams()
 bool ScribusDoc::OpenCMSProfiles(ScProfileInfoMap InPo, ScProfileInfoMap InPoCMYK, ScProfileInfoMap  /*MoPo*/, ScProfileInfoMap PrPo)
 {
 	HasCMS = false;
+	colorEngine = ScColorMgmtEngineFactory::createDefaultEngine();
 
-	colorEngine = colorMgmtEngineFactory.createDefaultEngine();
 	ScColorMgmtStrategy colorStrategy;
 	colorStrategy.setUseBlackPointCompensation(m_docPrefsData.colorPrefs.DCMSset.BlackPoint);
 	colorStrategy.setUseBlackPreservation(false);

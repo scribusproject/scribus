@@ -10,8 +10,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "sclcms2colormgmtengineimpl.h"
 
-ScColorMgmtEngineFactory colorMgmtEngineFactory;
-
 ScColorMgmtEngine ScColorMgmtEngineFactory::createEngine(int  /*engineID*/)
 {
 	// for now just return default engine
