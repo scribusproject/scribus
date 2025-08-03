@@ -13,10 +13,8 @@ for which a new license (GPL+exception) is in place.
 class ScColorMgmtEngineFactory
 {
 public:
-	ScColorMgmtEngine createEngine(int engineID);
-	ScColorMgmtEngine createDefaultEngine();
+	static ScColorMgmtEngine createEngine(int engineID);
+	static ScColorMgmtEngine createDefaultEngine();
 };
-
-extern ScColorMgmtEngineFactory colorMgmtEngineFactory;
 
 #endif
