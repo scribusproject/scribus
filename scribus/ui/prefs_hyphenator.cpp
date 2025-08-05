@@ -23,7 +23,7 @@ Prefs_Hyphenator::Prefs_Hyphenator(QWidget* parent, ScribusDoc* /*doc*/)
 	setupUi(this);
 	languageChange();
 
-	m_caption = tr("Hyphenator");
+	m_caption = tr("Hyphenation");
 	m_icon = "pref-hyphenator";
 
 	exceptionAddButton->setIcon(IconManager::instance().loadIcon("list-add"));
