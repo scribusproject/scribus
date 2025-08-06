@@ -22,7 +22,11 @@ PyObject *scribus_loadimage(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	PyESString image;
 	if (!PyArg_ParseTuple(args, "es|es", "utf-8", image.ptr(), "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
+		image.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -42,7 +46,10 @@ PyObject *scribus_scaleimage(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	double x, y;
 	if (!PyArg_ParseTuple(args, "dd|es", &x, &y, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -84,7 +91,10 @@ PyObject *scribus_setimagescale(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	double x, y;
 	if (!PyArg_ParseTuple(args, "dd|es", &x, &y, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -127,7 +137,10 @@ PyObject *scribus_setimageoffset(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	double x, y;
 	if (!PyArg_ParseTuple(args, "dd|es", &x, &y, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -171,7 +184,10 @@ PyObject *scribus_setimagebrightness(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	double n;
 	if (!PyArg_ParseTuple(args, "d|es", &n, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -199,7 +215,10 @@ PyObject *scribus_setimagegrayscale(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -226,7 +245,10 @@ PyObject *scribus_moveobjectrel(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	double x, y;
 	if (!PyArg_ParseTuple(args, "dd|es", &x, &y, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -268,7 +290,10 @@ PyObject *scribus_moveobjectabs(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	double x, y;
 	if (!PyArg_ParseTuple(args, "dd|es", &x, &y, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -310,7 +335,10 @@ PyObject *scribus_rotateobjectrel(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	double x;
 	if (!PyArg_ParseTuple(args, "d|es", &x, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -331,7 +359,12 @@ PyObject *scribus_setrotation(PyObject* /* self */, PyObject* args, PyObject* kw
 					  const_cast<char *>("basepoint"),
 					  nullptr};
 	if (!PyArg_ParseTupleAndKeywords(args, kw, "d|esi", kwargs, &rotation, "utf-8", name.ptr(), &basepoint))
+	{
+		// Some old python versions leave bad pointers behind when an argument parsing error occurs
+		// so we can't free the memory safely in this case
+		name.resetDontFree();
 		return nullptr;
+	}
 
 	if (!checkHaveDocument())
 		return nullptr;
@@ -361,7 +394,10 @@ PyObject *scribus_sizeobject(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	double x, y;
 	if (!PyArg_ParseTuple(args, "dd|es", &x, &y, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -429,7 +465,10 @@ PyObject *scribus_ungroupobjects(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -449,7 +488,10 @@ PyObject *scribus_scalegroup(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	double sc;
 	if (!PyArg_ParseTuple(args, "d|es", &sc, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	if (sc == 0.0)
@@ -483,7 +525,12 @@ PyObject *scribus_getGroupItems(PyObject * /*self*/, PyObject* args, PyObject* k
 	unsigned int type = 0;
 	char* kwargs[] = {const_cast<char*>("name"), const_cast<char*>("recursive"), const_cast<char*>("type"), nullptr};
 	if (!PyArg_ParseTupleAndKeywords(args, kw, "|espi", kwargs, "utf-8", name.ptr(), &recursive, &type))
+	{
+		// Some old python versions leave bad pointers behind when an argument parsing error occurs
+		// so we can't free the memory safely in this case
+		name.resetDontFree();
 		return nullptr;
+	}
 
 	PageItem *pageItem = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (pageItem == nullptr)
@@ -544,7 +591,10 @@ PyObject *scribus_selectobject(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -566,7 +616,10 @@ PyObject *scribus_lockobject(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -584,7 +637,10 @@ PyObject *scribus_islocked(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -601,7 +657,10 @@ PyObject *scribus_setscaleframetoimage(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
@@ -626,7 +685,12 @@ PyObject *scribus_setscaleimagetoframe(PyObject* /* self */, PyObject* args, PyO
 	char* kwargs[] = {const_cast<char*>("scaletoframe"),
 		const_cast<char*>("proportional"), const_cast<char*>("name"), nullptr};
 	if (!PyArg_ParseTupleAndKeywords(args, kw, "i|ies", kwargs, &scaleToFrame, &proportional, "utf-8", name.ptr()))
+	{
+		// Some old python versions leave bad pointers behind when an argument parsing error occurs
+		// so we can't free the memory safely in this case
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -655,7 +719,10 @@ PyObject *scribus_flipobject(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	double h, v;
 	if (!PyArg_ParseTuple(args, "dd|es", &h, &v, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));

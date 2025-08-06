@@ -70,7 +70,12 @@ PyObject* scribus_propertyctype(PyObject* /*self*/, PyObject* args, PyObject* kw
 					  nullptr};
 	if (!PyArg_ParseTupleAndKeywords(args, kw, "Oes|i", kwargs,
 				&objArg, "ascii", propertyname.ptr(), &includesuper))
+	{
+		// Some old python versions leave bad pointers behind when an argument parsing error occurs
+		// so we can't free the memory safely in this case
+		propertyname.resetDontFree();
 		return nullptr;
+	}
 
 	// Get the QObject* the object argument refers to
 	QObject* obj = getQObjectFromPyArg(objArg);
@@ -242,7 +247,12 @@ PyObject* scribus_getproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 					  nullptr};
 	if (!PyArg_ParseTupleAndKeywords(args, kw, "Oes", kwargs,
 				&objArg, "ascii", propertyName.ptr()))
+	{
+		// Some old python versions leave bad pointers behind when an argument parsing error occurs
+		// so we can't free the memory safely in this case
+		propertyName.resetDontFree();
 		return nullptr;
+	}
 
 	// Get the QObject* the object argument refers to
 	const QObject* obj = getQObjectFromPyArg(objArg);
@@ -341,7 +351,12 @@ PyObject* scribus_setproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 					  nullptr};
 	if (!PyArg_ParseTupleAndKeywords(args, kw, "OesO", kwargs,
 				&objArg, "ascii", propertyName.ptr(), &objValue))
+	{
+		// Some old python versions leave bad pointers behind when an argument parsing error occurs
+		// so we can't free the memory safely in this case
+		propertyName.resetDontFree();
 		return nullptr;
+	}
 
 	// We're going to hang on to the value object for a while, so
 	// claim a reference to it.

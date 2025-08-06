@@ -179,7 +179,10 @@ static PyObject *ImageExport_saveAs(ImageExport *self, PyObject *args)
 	if (!checkHaveDocument())
 		return nullptr;
 	if (!PyArg_ParseTuple(args, "es", "utf-8", value.ptr()))
+	{
+		value.resetDontFree();
 		return nullptr;
+	}
 
 	ScribusDoc*  doc = ScCore->primaryMainWindow()->doc;
 	ScribusView*view = ScCore->primaryMainWindow()->view;

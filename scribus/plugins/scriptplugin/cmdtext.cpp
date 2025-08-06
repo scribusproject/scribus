@@ -53,7 +53,10 @@ PyObject *scribus_getfontsize(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -78,7 +81,10 @@ PyObject *scribus_getfont(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -103,7 +109,10 @@ PyObject *scribus_gettextcolor(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -130,7 +139,10 @@ PyObject *scribus_gettextshade(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -157,7 +169,10 @@ PyObject *scribus_gettracking(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -184,7 +199,10 @@ PyObject *scribus_getwordtracking(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -211,7 +229,10 @@ PyObject *scribus_getminwordtracking(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -239,7 +260,10 @@ PyObject *scribus_gettextlength(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -257,7 +281,10 @@ PyObject *scribus_gettextlines(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -275,7 +302,10 @@ PyObject *scribus_gettextverticalalignment(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -293,7 +323,10 @@ PyObject *scribus_getcolumns(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -311,7 +344,10 @@ PyObject *scribus_getcolumngap(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -329,7 +365,10 @@ PyObject *scribus_getfontfeatures(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -354,7 +393,10 @@ PyObject *scribus_getfirstlinkedframe(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -373,7 +415,10 @@ PyObject *scribus_getlastlinkedframe(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -392,7 +437,10 @@ PyObject *scribus_getnextlinkedframe(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -414,7 +462,10 @@ PyObject *scribus_getprevlinkedframe(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -436,7 +487,10 @@ PyObject *scribus_getfirstlineoffset(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -454,7 +508,10 @@ PyObject *scribus_getlinespacing(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -472,7 +529,10 @@ PyObject *scribus_getlinespacingmode(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -490,7 +550,10 @@ PyObject *scribus_gettextdistances(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -512,7 +575,10 @@ PyObject *scribus_getframetext(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -546,7 +612,10 @@ PyObject *scribus_getalltext(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -582,7 +651,11 @@ PyObject *scribus_settext(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	PyESString text;
 	if (!PyArg_ParseTuple(args, "es|es", "utf-8", text.ptr(), "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
+		text.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *currItem = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -610,7 +683,11 @@ PyObject *scribus_inserttext(PyObject* /* self */, PyObject* args)
 	PyESString text;
 	int pos;
 	if (!PyArg_ParseTuple(args, "esi|es", "utf-8", text.ptr(), &pos, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
+		text.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -643,7 +720,10 @@ PyObject *scribus_inserthtmltext(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	PyESString file;
 
-	if (!PyArg_ParseTuple(args, "es|es", "utf-8", file.ptr(), "utf-8", name.ptr())) {
+	if (!PyArg_ParseTuple(args, "es|es", "utf-8", file.ptr(), "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
+		file.resetDontFree();
 		return nullptr;
 	}
 
@@ -676,7 +756,10 @@ PyObject *scribus_layouttext(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -696,7 +779,10 @@ PyObject *scribus_layouttextchain(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -730,7 +816,10 @@ PyObject *scribus_settextalignment(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	int alignment;
 	if (!PyArg_ParseTuple(args, "i|es", &alignment, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	if ((alignment > 4) || (alignment < 0))
@@ -765,7 +854,10 @@ PyObject *scribus_setdirection(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	int direction;
 	if (!PyArg_ParseTuple(args, "i|es", &direction, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	if ((direction > 1) || (direction < 0))
@@ -800,7 +892,10 @@ PyObject *scribus_setfontsize(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	double size;
 	if (!PyArg_ParseTuple(args, "d|es", &size, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	if ((size > 512) || (size < 1))
@@ -836,7 +931,11 @@ PyObject *scribus_setfontfeatures(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	PyESString fontfeature;
 	if (!PyArg_ParseTuple(args, "es|es", "utf-8", fontfeature.ptr(), "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
+		fontfeature.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 
@@ -868,7 +967,11 @@ PyObject *scribus_setfont(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	PyESString font;
 	if (!PyArg_ParseTuple(args, "es|es", "utf-8", font.ptr(), "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
+		font.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -903,7 +1006,10 @@ PyObject *scribus_setfirstlineoffset(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	int offset;
 	if (!PyArg_ParseTuple(args, "i|es", &offset, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	if (offset < 0 || offset > (int) FLOPBaselineGrid)
@@ -930,7 +1036,10 @@ PyObject *scribus_setlinespacing(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	double w;
 	if (!PyArg_ParseTuple(args, "d|es", &w, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	if (w < 0.1)
@@ -965,7 +1074,10 @@ PyObject *scribus_settracking(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	double kern;
 	if (!PyArg_ParseTuple(args, "d|es", &kern, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -995,7 +1107,10 @@ PyObject *scribus_setwordtracking(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	double kern;
 	if (!PyArg_ParseTuple(args, "d|es", &kern, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -1025,7 +1140,10 @@ PyObject *scribus_setminwordtracking(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	double wt;
 	if (!PyArg_ParseTuple(args, "d|es", &wt, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	if (wt < 1 || wt > 100)
@@ -1065,7 +1183,10 @@ PyObject *scribus_setlinespacingmode(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	int w;
 	if (!PyArg_ParseTuple(args, "i|es", &w, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	if (w < 0 || w > 3) // Use constants?
@@ -1100,7 +1221,10 @@ PyObject *scribus_settextdistances(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	double l,r,t,b;
 	if (!PyArg_ParseTuple(args, "dddd|es", &l, &r, &t, &b, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	if (l < 0.0 || r < 0.0 || t < 0.0 || b < 0.0)
@@ -1126,7 +1250,10 @@ PyObject *scribus_setcolumngap(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	double w;
 	if (!PyArg_ParseTuple(args, "d|es", &w, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	if (w < 0.0)
@@ -1152,7 +1279,10 @@ PyObject *scribus_setcolumns(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	int w;
 	if (!PyArg_ParseTuple(args, "i|es", &w, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	if (w < 1)
@@ -1178,7 +1308,10 @@ PyObject *scribus_settextverticalalignment(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	int alignment;
 	if (!PyArg_ParseTuple(args, "i|es", &alignment, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	if (alignment < 0 || alignment > 2)
@@ -1205,7 +1338,10 @@ PyObject *scribus_selectframetext(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	int start, selcount;
 	if (!PyArg_ParseTuple(args, "ii|es", &start, &selcount, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -1248,7 +1384,10 @@ PyObject *scribus_selecttext(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	int start, selcount;
 	if (!PyArg_ParseTuple(args, "ii|es", &start, &selcount, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -1296,7 +1435,10 @@ PyObject *scribus_getselectedtextrange(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -1314,7 +1456,10 @@ PyObject *scribus_getframeselectedtextrange(PyObject* /* self */, PyObject* args
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -1333,7 +1478,10 @@ PyObject *scribus_deletetext(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -1366,7 +1514,11 @@ PyObject *scribus_settextfill(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	PyESString color;
 	if (!PyArg_ParseTuple(args, "es|es", "utf-8", color.ptr(), "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
+		color.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -1386,7 +1538,11 @@ PyObject *scribus_settextstroke(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	PyESString color;
 	if (!PyArg_ParseTuple(args, "es|es", "utf-8", color.ptr(), "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
+		color.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -1407,7 +1563,10 @@ PyObject *scribus_settextscalingh(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	double sc;
 	if (!PyArg_ParseTuple(args, "d|es", &sc, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	if (sc < 10)
@@ -1443,7 +1602,10 @@ PyObject *scribus_settextscalingv(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	double sc;
 	if (!PyArg_ParseTuple(args, "d|es", &sc, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	if (sc < 10)
@@ -1478,7 +1640,10 @@ PyObject *scribus_settextshade(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	int w;
 	if (!PyArg_ParseTuple(args, "i|es", &w, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	if ((w < 0) || (w > 100))
@@ -1502,7 +1667,11 @@ PyObject *scribus_linktextframes(PyObject* /* self */, PyObject* args)
 	PyESString name2;
 
 	if (!PyArg_ParseTuple(args, "eses", "utf-8", name1.ptr(), "utf-8", name2.ptr()))
+	{
+		name1.resetDontFree();
+		name2.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *fromItem = GetUniqueItem(QString::fromUtf8(name1.c_str()));
@@ -1544,7 +1713,10 @@ PyObject *scribus_unlinktextframes(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -1598,7 +1770,10 @@ PyObject *scribus_outlinetext(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -1624,7 +1799,12 @@ PyObject *scribus_istextoverflowing(PyObject * self, PyObject* args, PyObject* k
 	PyESString name;
 	char *kwargs[] = {const_cast<char*>("name"), const_cast<char*>("nolinks"), nullptr};
 	if (!PyArg_ParseTupleAndKeywords(args, kw, "|esi", kwargs, "utf-8", name.ptr(), &nolinks))
+	{
+		// Some old python versions leave bad pointers behind when an argument parsing error occurs
+		// so we can't free the memory safely in this case
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -1673,7 +1853,10 @@ PyObject *scribus_hyphenatetext(PyObject*, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -1696,7 +1879,10 @@ PyObject *scribus_dehyphenatetext(PyObject*, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -1716,7 +1902,10 @@ PyObject *scribus_setpdfbookmark(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	bool toggle;
 	if (!PyArg_ParseTuple(args, "b|es", &toggle, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -1745,7 +1934,10 @@ PyObject *scribus_ispdfbookmark(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));

@@ -32,7 +32,10 @@ PyObject *scribus_getcolor(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	int c, m, y, k;
 	if (!PyArg_ParseTuple(args, "es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (name.isEmpty())
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot get a color with an empty name.","python error").toLocal8Bit().constData());
@@ -58,7 +61,10 @@ PyObject *scribus_getcolorfloat(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	double c, m, y, k;
 	if (!PyArg_ParseTuple(args, "es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (name.isEmpty())
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot get a color with an empty name.","python error").toLocal8Bit().constData());
@@ -83,7 +89,10 @@ PyObject *scribus_getcolorasrgb(PyObject* /* self */, PyObject* args)
 	ColorList edc;
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (name.isEmpty())
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot get a color with an empty name.","python error").toLocal8Bit().constData());
@@ -107,7 +116,10 @@ PyObject *scribus_getcolorasrgbfloat(PyObject* /* self */, PyObject* args)
 	double r, g, b;
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (name.isEmpty())
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot get a color with an empty name.","python error").toLocal8Bit().constData());
@@ -137,7 +149,10 @@ PyObject *scribus_setcolorcmyk(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	int c, m, y, k;
 	if (!PyArg_ParseTuple(args, "esiiii", "utf-8", name.ptr(), &c, &m, &y, &k))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (name.isEmpty())
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot change a color with an empty name.","python error").toLocal8Bit().constData());
@@ -172,7 +187,10 @@ PyObject *scribus_setcolorcmykfloat(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	double c, m, y, k;
 	if (!PyArg_ParseTuple(args, "esdddd", "utf-8", name.ptr(), &c, &m, &y, &k))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (name.isEmpty())
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot change a color with an empty name.","python error").toLocal8Bit().constData());
@@ -211,7 +229,10 @@ PyObject *scribus_setcolorrgb(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	int r, g, b;
 	if (!PyArg_ParseTuple(args, "esiii", "utf-8", name.ptr(), &r, &g, &b))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (name.isEmpty())
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot change a color with an empty name.","python error").toLocal8Bit().constData());
@@ -246,7 +267,10 @@ PyObject *scribus_setcolorrgbfloat(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	double r, g, b;
 	if (!PyArg_ParseTuple(args, "esddd", "utf-8", name.ptr(), &r, &g, &b))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (name.isEmpty())
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot change a color with an empty name.","python error").toLocal8Bit().constData());
@@ -284,7 +308,10 @@ PyObject *scribus_setcolorlab(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	double L, a, b;
 	if (!PyArg_ParseTuple(args, "esddd", "utf-8", name.ptr(), &L, &a, &b))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (name.isEmpty())
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot change a color with an empty name.", "python error").toLocal8Bit().constData());
@@ -327,7 +354,10 @@ PyObject *scribus_newcolorcmyk(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	int c, m, y, k;
 	if (!PyArg_ParseTuple(args, "esiiii", "utf-8", name.ptr(), &c, &m, &y, &k))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (name.isEmpty())
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot create a color with an empty name.","python error").toLocal8Bit().constData());
@@ -362,7 +392,10 @@ PyObject *scribus_newcolorcmykfloat(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	double c, m, y, k;
 	if (!PyArg_ParseTuple(args, "esdddd", "utf-8", name.ptr(), &c, &m, &y, &k))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (name.isEmpty())
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot create a color with an empty name.","python error").toLocal8Bit().constData());
@@ -413,7 +446,10 @@ PyObject *scribus_newcolorrgb(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	int r, g, b;
 	if (!PyArg_ParseTuple(args, "esiii", "utf-8", name.ptr(), &r, &g, &b))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (name.isEmpty())
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot create a color with an empty name.","python error").toLocal8Bit().constData());
@@ -448,7 +484,10 @@ PyObject *scribus_newcolorrgbfloat(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	double r, g, b;
 	if (!PyArg_ParseTuple(args, "esddd", "utf-8", name.ptr(), &r, &g, &b))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (name.isEmpty())
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot create a color with an empty name.","python error").toLocal8Bit().constData());
@@ -498,7 +537,10 @@ PyObject *scribus_newcolorlab(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	double L, a, b;
 	if (!PyArg_ParseTuple(args, "esddd", "utf-8", name.ptr(), &L, &a, &b))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (name.isEmpty())
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot create a color with an empty name.", "python error").toLocal8Bit().constData());
@@ -548,7 +590,11 @@ PyObject *scribus_deletecolor(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	PyESString repl;
 	if (!PyArg_ParseTuple(args, "es|es", "utf-8", name.ptr(), "utf-8", repl.ptr()))
+	{
+		name.resetDontFree();
+		repl.resetDontFree();
 		return nullptr;
+	}
 	if (name.isEmpty())
 	{
 		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot delete a color with an empty name.","python error").toLocal8Bit().constData());
@@ -593,7 +639,11 @@ PyObject *scribus_replcolor(PyObject* /* self */, PyObject* args)
 	PyESString repl;
 	//FIXME: this should definitely use keyword arguments
 	if (!PyArg_ParseTuple(args, "es|es", "utf-8", name.ptr(), "utf-8", repl.ptr()))
+	{
+		name.resetDontFree();
+		repl.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	if (name.isEmpty())
@@ -621,7 +671,10 @@ PyObject *scribus_isspotcolor(PyObject * /*self*/, PyObject* args)
 	PyESString name;
 	
 	if (!PyArg_ParseTuple(args, "es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	if (name.isEmpty())
@@ -643,7 +696,10 @@ PyObject *scribus_setspotcolor(PyObject * /*self*/, PyObject* args)
 	int enable;
 
 	if (!PyArg_ParseTuple(args, "esi", "utf-8", name.ptr(), &enable))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	if (name.isEmpty())

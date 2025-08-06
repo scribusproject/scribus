@@ -398,8 +398,8 @@ void ScripterCore::slotRunScript(const QString& Script)
 	ScCore->primaryMainWindow()->pagePalette->setView(nullptr);
 	ScCore->primaryMainWindow()->setScriptRunning(true);
 	inValue = Script;
-	QString cm;
-	cm = "# -*- coding: utf8 -*- \n";
+
+	QString cm("# -*- coding: utf8 -*- \n");
 	if (PyThreadState_Get() != nullptr)
 	{
 		//initscribus(ScCore->primaryMainWindow());

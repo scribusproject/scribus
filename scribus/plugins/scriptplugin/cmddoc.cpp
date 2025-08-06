@@ -229,7 +229,10 @@ PyObject *scribus_opendoc(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	bool ret = ScCore->primaryMainWindow()->loadDoc(QString::fromUtf8(name.c_str()));
 	if (!ret)
 	{
@@ -273,7 +276,10 @@ PyObject *scribus_savedocas(PyObject* /* self */, PyObject* args)
 {
 	PyESString fileName;
 	if (!PyArg_ParseTuple(args, "es", "utf-8", fileName.ptr()))
+	{
+		fileName.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	bool ret = ScCore->primaryMainWindow()->DoFileSave(QString::fromUtf8(fileName.c_str()));
@@ -375,7 +381,10 @@ PyObject *scribus_stringvaluetopoints(PyObject* /* self */, PyObject *args)
 {
     PyESString strValue;
     if (!PyArg_ParseTuple(args, "es", "utf-8", strValue.ptr()))
-        return nullptr;
+	{
+		strValue.resetDontFree();
+		return nullptr;
+	}
 
     QString qv = QString::fromUtf8(strValue.c_str());
 
@@ -390,7 +399,10 @@ PyObject *scribus_loadstylesfromfile(PyObject* /* self */, PyObject *args)
 {
 	PyESString fileName;
 	if (!PyArg_ParseTuple(args, "es", "utf-8", fileName.ptr()))
+	{
+		fileName.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	ScCore->primaryMainWindow()->doc->loadStylesFromFile(QString::fromUtf8(fileName.c_str()));
@@ -450,7 +462,10 @@ PyObject *scribus_editmasterpage(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	const QString masterPageName(name.c_str());
@@ -470,7 +485,10 @@ PyObject* scribus_createmasterpage(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	const QString masterPageName(name.c_str());
@@ -490,7 +508,10 @@ PyObject* scribus_deletemasterpage(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	const QString masterPageName(name.c_str());
@@ -537,7 +558,10 @@ PyObject* scribus_applymasterpage(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	int page = 0;
 	if (!PyArg_ParseTuple(args, "esi", "utf-8", name.ptr(), &page))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	const QString masterPageName(name.c_str());

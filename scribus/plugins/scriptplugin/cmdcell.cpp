@@ -19,7 +19,10 @@ PyObject *scribus_getcelltext(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	int row, column;
 	if (!PyArg_ParseTuple(args, "ii|es", &row, &column, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -62,7 +65,11 @@ PyObject *scribus_setcelltext(PyObject* /* self */, PyObject* args)
 	PyESString text;
 	int row, column;
 	if (!PyArg_ParseTuple(args, "iies|es", &row, &column, "utf-8", text.ptr(), "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
+		text.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -88,7 +95,10 @@ PyObject *scribus_getcellstyle(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	int row, column;
 	if (!PyArg_ParseTuple(args, "ii|es", &row, &column, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -114,7 +124,11 @@ PyObject *scribus_setcellstyle(PyObject* /* self */, PyObject* args)
 	PyESString style;
 	int row, column;
 	if (!PyArg_ParseTuple(args, "iies|es", &row, &column, "utf-8", style.ptr(), "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
+		style.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -140,7 +154,10 @@ PyObject *scribus_getcellrowspan(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	int row, column;
 	if (!PyArg_ParseTuple(args, "ii|es", &row, &column, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -160,7 +177,10 @@ PyObject *scribus_getcellcolumnspan(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	int row, column;
 	if (!PyArg_ParseTuple(args, "ii|es", &row, &column, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -180,7 +200,10 @@ PyObject *scribus_getcellfillcolor(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	int row, column;
 	if (!PyArg_ParseTuple(args, "ii|es", &row, &column, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -206,7 +229,11 @@ PyObject *scribus_setcellfillcolor(PyObject* /* self */, PyObject* args)
 	PyESString color;
 	int row, column;
 	if (!PyArg_ParseTuple(args, "iies|es", &row, &column, "utf-8", color.ptr(), "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
+		color.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -233,7 +260,10 @@ PyObject *scribus_setcellleftborder(PyObject* /* self */, PyObject* args)
 	int row, column;
 	PyObject* borderLines;
 	if (!PyArg_ParseTuple(args, "iiO|es", &row, &column, &borderLines, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -267,7 +297,10 @@ PyObject *scribus_setcellrightborder(PyObject* /* self */, PyObject* args)
 	int row, column;
 	PyObject* borderLines;
 	if (!PyArg_ParseTuple(args, "iiO|es", &row, &column, &borderLines, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -301,7 +334,10 @@ PyObject *scribus_setcelltopborder(PyObject* /* self */, PyObject* args)
 	int row, column;
 	PyObject* borderLines;
 	if (!PyArg_ParseTuple(args, "iiO|es", &row, &column, &borderLines, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -335,7 +371,10 @@ PyObject *scribus_setcellbottomborder(PyObject* /* self */, PyObject* args)
 	int row, column;
 	PyObject* borderLines;
 	if (!PyArg_ParseTuple(args, "iiO|es", &row, &column, &borderLines, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -369,7 +408,10 @@ PyObject *scribus_setcellleftpadding(PyObject* /* self */, PyObject* args)
 	int row, column;
 	double padding;
 	if (!PyArg_ParseTuple(args, "iid|es", &row, &column, &padding, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -402,7 +444,10 @@ PyObject *scribus_setcellrightpadding(PyObject* /* self */, PyObject* args)
 	int row, column;
 	double padding;
 	if (!PyArg_ParseTuple(args, "iid|es", &row, &column, &padding, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -435,7 +480,10 @@ PyObject *scribus_setcelltoppadding(PyObject* /* self */, PyObject* args)
 	int row, column;
 	double padding;
 	if (!PyArg_ParseTuple(args, "iid|es", &row, &column, &padding, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -468,7 +516,10 @@ PyObject *scribus_setcellbottompadding(PyObject* /* self */, PyObject* args)
 	int row, column;
 	double padding;
 	if (!PyArg_ParseTuple(args, "iid|es", &row, &column, &padding, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));

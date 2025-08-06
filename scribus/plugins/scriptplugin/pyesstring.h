@@ -23,9 +23,13 @@ public:
 
 	const char* c_str() const { return m_pStr ? m_pStr : ""; }
 	const char* data() const { return m_pStr; }
-	const char* defaulted(const char* def) { return (!isEmpty() ? m_pStr : def); }
+	const char* defaulted(const char* def) const { return (!isEmpty() ? m_pStr : def); }
 
 	void free();
+	// The only reason of existence of this function is a python bug with
+	// some old python versions where PyArg_ParseTupleAndKeywords may leave a bad ptr
+	// behind after an argument parsing error
+	void resetDontFree() { m_pStr = nullptr; }
 
 	bool isEmpty() const { return (!m_pStr || strlen(m_pStr) == 0); }
 	size_t length() const { return (m_pStr ? strlen(m_pStr) : 0); }

@@ -54,7 +54,14 @@ PyObject *scribus_createparagraphstyle(PyObject* /* self */, PyObject* args, PyO
 		&leftMargin, &rightMargin, &gapBefore, &gapAfter, &firstIndent,
 		&hasDropCap, &dropCapLines, &peOffset, "utf-8", charStyle.ptr(),
 		"utf-8", bullet.ptr(), &tabDefinitions))
+	{
+		// Some old python versions leave bad pointers behind when an argument parsing error occurs
+		// so we can't free the memory safely in this case
+		name.resetDontFree();
+		charStyle.resetDontFree();
+		bullet.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	if (name.isEmpty())
@@ -219,7 +226,18 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 									"utf-8", fillColor.ptr(), &fillShade, "utf-8", strokeColor.ptr(), &strokeShade, &baselineOffset, &shadowXOffset,
 									&shadowYOffset, &outlineWidth, &underlineOffset, &underlineWidth, &strikethruOffset, &strikethruWidth,
 									&scaleH, &scaleV, &tracking, "utf-8", language.ptr(), "utf-8", fontFeatures.ptr()))
+	{
+		// Some old python versions leave bad pointers behind when an argument parsing error occurs
+		// so we can't free the memory safely in this case
+		name.resetDontFree();
+		font.resetDontFree();
+		features.resetDontFree();
+		fillColor.resetDontFree();
+		fontFeatures.resetDontFree();
+		strokeColor.resetDontFree();
+		language.resetDontFree();
 		return nullptr;
+	}
 	
 	if (name.isEmpty())
 	{
@@ -326,7 +344,10 @@ PyObject *scribus_createcustomlinestyle(PyObject * /* self */, PyObject* args)
 	PyObject *obj;
 
 	if (!PyArg_ParseTuple(args, "esO", "utf-8", name.ptr(), &obj))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 
 	if (!PyList_Check(obj)) {
 		PyErr_SetString(PyExc_TypeError, "'style' must be list.");

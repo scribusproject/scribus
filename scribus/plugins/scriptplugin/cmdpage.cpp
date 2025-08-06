@@ -61,7 +61,10 @@ PyObject *scribus_savepageeps(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	if (!PyArg_ParseTuple(args, "es", "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	QString epsError;
@@ -120,7 +123,10 @@ PyObject *scribus_newpage(PyObject* /* self */, PyObject* args)
 	PyESString name;
 	QString qName(CommonStrings::trMasterPageNormal);
 	if (!PyArg_ParseTuple(args, "i|es", &e, "utf-8", name.ptr()))
+	{
+		name.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 

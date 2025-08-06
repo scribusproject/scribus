@@ -28,7 +28,10 @@ PyObject *scribus_placevec(PyObject* /* self */, PyObject* args)
 	double x = 0.0;
 	double y = 0.0;
 	if (!PyArg_ParseTuple(args, "es|dd", "utf-8", image.ptr(), &x, &y))
+	{
+		image.resetDontFree();
 		return nullptr;
+	}
 	if (!checkHaveDocument())
 		return nullptr;
 	QStringList allFormatsV = LoadSavePlugin::getExtensionsForImport(FORMATID_FIRSTUSER);

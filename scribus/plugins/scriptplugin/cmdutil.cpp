@@ -242,6 +242,7 @@ TableBorder parseBorder(PyObject* borderLines, bool* ok)
 		if (!PyArg_ParseTuple(props, "dies|d", &width, &style, "utf-8", color.ptr(), &shade))
 		{
 			PyErr_SetString(PyExc_ValueError, QObject::tr("Border lines are specified as (width,style,color,shade) tuples", "python error").toLocal8Bit().constData());
+			color.resetDontFree();
 			*ok = false;
 			return border;
 		}

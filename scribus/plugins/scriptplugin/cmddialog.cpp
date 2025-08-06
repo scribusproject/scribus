@@ -44,6 +44,11 @@ PyObject *scribus_filedialog(PyObject* /* self */, PyObject* args, PyObject* kw)
 									 "utf-8", caption.ptr(), "utf-8", filter.ptr(), "utf-8", defName.ptr(),
 									 &haspreview, &issave, &isdir))
 	{
+		// Some old python versions leave bad pointers behind when an argument parsing error occurs
+		// so we can't free the memory safely in this case
+		caption.resetDontFree();
+		filter.resetDontFree();
+		defName.resetDontFree();
 		return nullptr;
 	}
 	QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
@@ -84,7 +89,13 @@ PyObject *scribus_messagebox(PyObject* /* self */, PyObject* args, PyObject* kw)
 						const_cast<char*>("icon"), const_cast<char*>("button1"),
 						const_cast<char*>("button2"), const_cast<char*>("button3"), nullptr};
 	if (!PyArg_ParseTupleAndKeywords(args, kw, "eses|iiii", kwargs, "utf-8", caption.ptr(), "utf-8", message.ptr(), &ico, &butt[0], &butt[1], &butt[2]))
+	{
+		// Some old python versions leave bad pointers behind when an argument parsing error occurs
+		// so we can't free the memory safely in this case
+		caption.resetDontFree();
+		message.resetDontFree();
 		return nullptr;
+	}
 	QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	for (int bi = 0; bi < 3; bi++)
 	{
@@ -113,7 +124,12 @@ PyObject *scribus_valuedialog(PyObject* /* self */, PyObject* args)
 	PyESString message;
 	PyESString value;
 	if (!PyArg_ParseTuple(args, "eses|es", "utf-8", caption.ptr(), "utf-8", message.ptr(), "utf-8", value.ptr()))
+	{
+		caption.resetDontFree();
+		message.resetDontFree();
+		value.resetDontFree();
 		return nullptr;
+	}
 	QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	QString txt = QInputDialog::getText(ScCore->primaryMainWindow(),
 										QString::fromUtf8(caption.c_str()),

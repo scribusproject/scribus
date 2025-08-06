@@ -19,7 +19,10 @@ PyObject *scribus_statusmessage(PyObject* /* self */, PyObject* args)
 {
 	PyESString aText;
 	if (!PyArg_ParseTuple(args, "es", "utf-8", aText.ptr()))
+	{
+		aText.resetDontFree();
 		return nullptr;
+	}
 	ScCore->primaryMainWindow()->setStatusBarInfoText(QString::fromUtf8(aText.c_str()));
 	Py_RETURN_NONE;
 }
@@ -63,7 +66,10 @@ PyObject *scribus_setcursor(PyObject* /* self */, PyObject* args)
 	PyESString aCursor;
 	qDebug("WARNING! SetCursor() is not stable!");
 	if (!PyArg_ParseTuple(args, "es", "ascii", aCursor.ptr()))
+	{
+		aCursor.resetDontFree();
 		return nullptr;
+	}
 	if (strcmp(aCursor.c_str(), "wait") == 0)
 		QApplication::changeOverrideCursor(Qt::WaitCursor);
 //	else
