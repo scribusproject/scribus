@@ -158,6 +158,13 @@ if(APPLE_10_4_X)
 	endif()
 endif()
 # gcc/mac
+#if OSXMINVER has not been set, set a reasonable default
+if (OSXMINVER)
+	message(STATUS "Minimum mac OS version requested: ${OSXMINVER}")
+else()
+	set(OSXMINVER "11.00" CACHE STRING "OSX 11.00")
+	message(STATUS "Minimum mac OS version not set, defaulting to ${OSXMINVER}")
+endif()
 if(WANT_UNIVERSAL_BUNDLE)
 	if (WANT_PPC_I386_BUNDLE)
 		message(STATUS "Setting Universal (PPC/i386) Architecture for OSX Build/Bundle")
