@@ -429,7 +429,7 @@ PyObject *scribus_setitemname(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
 	PyESString newName;
-	if (!PyArg_ParseTuple(args, "es|es", "utf-8", &newName, "utf-8", name.ptr()))
+	if (!PyArg_ParseTuple(args, "es|es", "utf-8", newName.ptr(), "utf-8", name.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
