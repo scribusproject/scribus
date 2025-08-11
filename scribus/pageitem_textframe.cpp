@@ -718,6 +718,9 @@ struct LineControl {
 		int trackingInsertion = 0;
 		double trackingAmount = 0;
 
+		if (lineData.width <= 0.0)
+			return;
+
 		int glyphsCount = lineData.lastCluster - lineData.firstCluster + 1;
 
 		for (int i = 0; i < glyphsCount; ++i)
@@ -746,13 +749,13 @@ struct LineControl {
 		imSpace /= 2;
 
 		// decision: prio 1: stretch glyph;  prio 2: insert spaces;  prio 3: stretch spaces
-		if (lineData.width < spaceNatural + glyphNatural * style.minGlyphExtension() && spaceNatural > 0)
+		if (spaceNatural > 0 && (lineData.width < spaceNatural + glyphNatural * style.minGlyphExtension()))
 		{
 			glyphExtension = style.minGlyphExtension() - 1;
 			spaceExtension = (lineData.width - glyphNatural * (1 + glyphExtension) ) / spaceNatural - 1;
 			imSpace = 0;
 		}
-		else if (lineData.width < spaceNatural + glyphNatural * style.maxGlyphExtension() && glyphNatural > 0)
+		else if (glyphNatural > 0 && (lineData.width < spaceNatural + glyphNatural * style.maxGlyphExtension()))
 		{
 			spaceExtension = 0;
 			glyphExtension = (lineData.width - spaceNatural) / glyphNatural - 1;
