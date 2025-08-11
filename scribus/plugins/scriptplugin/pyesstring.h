@@ -23,7 +23,7 @@ public:
 
 	const char* c_str() const { return m_pStr ? m_pStr : ""; }
 	const char* data() const { return m_pStr; }
-	const char* defaulted(const char* def) { return (!isEmpty() ? m_pStr : def); }
+	const char* defaulted(const char* def) const { return (!isEmpty() ? m_pStr : def); }
 
 	void free();
 
