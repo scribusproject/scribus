@@ -254,7 +254,19 @@ void ContentReader::parse(const QString& fileName)
 #else
 	QByteArray fn(fileName.toLocal8Bit());
 #endif
+
+#if LIBXML_VERSION >= 21100
+	xmlParserCtxtPtr xmlCtxt = xmlNewSAXParserCtxt(cSAXHandler, nullptr);
+	if (xmlCtxt)
+	{
+		xmlDocPtr xmlDoc = xmlCtxtReadFile(xmlCtxt, fn.data(), nullptr, XML_PARSE_RECOVER);
+		if (xmlDoc != nullptr)
+			xmlFreeDoc(xmlDoc);
+		xmlFreeParserCtxt(xmlCtxt);
+	}
+#else
 	xmlSAXParseFile(cSAXHandler, fn.data(), 1);
+#endif
 }
 
 xmlSAXHandler cSAXHandlerStruct = {
