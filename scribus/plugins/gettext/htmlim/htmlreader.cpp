@@ -26,8 +26,9 @@ for which a new license (GPL+exception) is in place.
 
 #include <QObject>
 #include <QByteArray>
-#include "htmlreader.h"
+#include <QDir>
 
+#include "htmlreader.h"
 #include "gtmeasure.h"
 
 HTMLReader* HTMLReader::hreader = nullptr;
@@ -597,7 +598,19 @@ void HTMLReader::parse(const QString& filename)
 	QByteArray fn(filename.toLocal8Bit());
 #endif
 	elemJustStarted = elemJustFinished = false;
+
+#if LIBXML_VERSION >= 21100
+	htmlParserCtxtPtr htmlCtxt = htmlNewSAXParserCtxt(mySAXHandler, nullptr);
+	if (htmlCtxt)
+	{
+		htmlDocPtr htmlDoc = htmlCtxtReadFile(htmlCtxt, fn.data(), nullptr, 0);
+		if (htmlDoc != nullptr)
+			xmlFreeDoc(htmlDoc);
+		htmlFreeParserCtxt(htmlCtxt);
+	}
+#else
 	htmlSAXParseFile(fn.data(), nullptr, mySAXHandler, nullptr);
+#endif
 }
 
 void HTMLReader::createListStyle()
