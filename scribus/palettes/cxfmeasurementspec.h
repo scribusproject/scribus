@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 class CxfMeasurementSpec
 {
 public:
-	CxfMeasurementSpec();
+	CxfMeasurementSpec() = default;
 	
 	bool isValid() const;
 	bool parse(const QDomElement& elem);

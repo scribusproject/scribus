@@ -21,8 +21,8 @@ struct ScLab;
 class CxfColor
 {
 public:
-	CxfColor(CxfDocument* cxfDoc);
-	virtual ~CxfColor() {}
+	explicit CxfColor(CxfDocument* cxfDoc);
+	virtual ~CxfColor() = default;
 
 	virtual bool isValid() const;
 	virtual CxfColorType type() const { return cxfColorUnknown; }
@@ -43,7 +43,7 @@ using CxfColorShPtr = QSharedPointer<CxfColor>;
 class CxfColorRGB : public CxfColor
 {
 public:
-	CxfColorRGB(CxfDocument* cxfDoc);
+	explicit CxfColorRGB(CxfDocument* cxfDoc);
 	
 	double  maxRange() const { return m_maxRange; }
 	
@@ -57,14 +57,14 @@ public:
 	void reset() override;
 	
 protected:
-	double m_maxRange;
-	double m_values[3];
+	double m_maxRange { 255.0 };
+	double m_values[3] { 0.0, 0.0, 0.0 };
 };
 
 class CxfColorSRGB : public CxfColorRGB
 {
 public:
-	CxfColorSRGB(CxfDocument* cxfDoc);
+	explicit CxfColorSRGB(CxfDocument* cxfDoc);
 
 	CxfColorType type() const override { return cxfColorSRGB; }
 };
@@ -72,7 +72,7 @@ public:
 class CxfColorAdobeRGB : public CxfColorRGB
 {
 public:
-	CxfColorAdobeRGB(CxfDocument* cxfDoc);
+	explicit CxfColorAdobeRGB(CxfDocument* cxfDoc);
 
 	CxfColorType type() const override { return cxfColorAdobeRGB; }
 };
@@ -80,7 +80,7 @@ public:
 class CxfColorHTML : public CxfColorRGB
 {
 public:
-	CxfColorHTML(CxfDocument* cxfDoc);
+	explicit CxfColorHTML(CxfDocument* cxfDoc);
 
 	CxfColorType type() const override { return cxfColorHTML; }
 	bool parse(QDomElement& colorElem) override;
@@ -89,7 +89,7 @@ public:
 class CxfColorCMYK : public CxfColor
 {
 public:
-	CxfColorCMYK(CxfDocument* cxfDoc);
+	explicit CxfColorCMYK(CxfDocument* cxfDoc);
 
 	double  cyan() const    { return m_values[0]; }
 	double  magenta() const { return m_values[1]; }
@@ -102,13 +102,13 @@ public:
 	void reset() override;
 
 protected:
-	double m_values[4];
+	double m_values[4] { 0.0, 0.0, 0.0, 0.0 };
 };
 
 class CxfColorCIELab : public CxfColor
 {
 public:
-	CxfColorCIELab(CxfDocument* cxfDoc);
+	explicit CxfColorCIELab(CxfDocument* cxfDoc);
 
 	double  L() const { return m_values[0]; }
 	double  a() const { return m_values[1]; }
@@ -120,13 +120,13 @@ public:
 	void reset() override;
 
 protected:
-	double m_values[3];
+	double m_values[3] { 0.0, 0.0, 0.0 };
 };
 
 class CxfColorCIELCh : public CxfColor
 {
 public:
-	CxfColorCIELCh(CxfDocument* cxfDoc);
+	explicit CxfColorCIELCh(CxfDocument* cxfDoc);
 
 	double  L() const { return m_values[0]; }
 	double  C() const { return m_values[1]; }
@@ -140,13 +140,13 @@ public:
 	void reset() override;
 
 protected:
-	double m_values[3];
+	double m_values[3] { 0.0, 0.0, 0.0 };
 };
 
 class CxfColorCIEXYZ : public CxfColor
 {
 public:
-	CxfColorCIEXYZ(CxfDocument* cxfDoc);
+	explicit CxfColorCIEXYZ(CxfDocument* cxfDoc);
 
 	double  X() const { return m_values[0]; }
 	double  Y() const { return m_values[1]; }
@@ -160,13 +160,13 @@ public:
 	void reset() override;
 
 protected:
-	double m_values[3];
+	double m_values[3] { 0.0, 0.0, 0.0 };
 };
 
 class CxfReflectanceSpectrum : public CxfColor
 {
 public:
-	CxfReflectanceSpectrum(CxfDocument* cxfDoc);
+	explicit CxfReflectanceSpectrum(CxfDocument* cxfDoc);
 
 	const QVector<double>& values() const { return m_values; }
 	CxfColorType type() const override { return cxfReflectanceSpectrum; }
@@ -180,7 +180,7 @@ public:
 
 protected:
 	QVector<double> m_values;
-	int m_wavelengthStart;
+	int m_wavelengthStart { 0 };
 };
 
 #endif

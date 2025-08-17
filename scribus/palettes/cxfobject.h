@@ -20,7 +20,7 @@ class CxfDocument;
 class CxfObject
 {
 public:
-	CxfObject(CxfDocument* cxfDoc);
+	explicit CxfObject(CxfDocument* cxfDoc);
 	
 	const QString& id() const { return m_id; }
 	const QString& name() const { return m_name; }
