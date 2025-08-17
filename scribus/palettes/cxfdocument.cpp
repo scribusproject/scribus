@@ -36,11 +36,19 @@ bool CxfDocument::parse(const QString& fileName)
 		return false;
 
 	QDomDocument domDoc;
+#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
+	if (!domDoc.setContent(&file, QDomDocument::ParseOption::UseNamespaceProcessing))
+	{
+		file.close();
+		return false;
+	}
+#else
 	if (!domDoc.setContent(&file, true))
 	{
 		file.close();
 		return false;
 	}
+#endif
 	file.close();
 
 	QDomElement docElem = domDoc.documentElement();
