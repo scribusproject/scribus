@@ -9,13 +9,6 @@ for which a new license (GPL+exception) is in place.
 #include "cxftristimulusspec.h"
 #include "cxfutils.h"
 
-CxfTristimulusSpec::CxfTristimulusSpec()
-{
-	m_illuminant = cxfIlluminantUnknown;
-	m_observer   = cxfObserverUnknown;
-	m_convMethod = cxfMethodUnknown;
-}
-
 bool CxfTristimulusSpec::isValid() const
 {
 	bool valid = true;
