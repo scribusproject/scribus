@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 class CxfTristimulusSpec
 {
 public:
-	CxfTristimulusSpec();
+	CxfTristimulusSpec() = default;
 	
 	CxfIlluminant illuminant() const { return m_illuminant; }
 	CxfObserver   observer() const { return m_observer; }
@@ -27,10 +27,10 @@ public:
 	bool parse(const QDomElement& elem);
 	void reset();
 	
-protected:
-	CxfIlluminant m_illuminant;
-	CxfObserver   m_observer;
-	CxfCIEConversionMethod m_convMethod;
+private:
+	CxfIlluminant m_illuminant { cxfIlluminantUnknown };
+	CxfObserver   m_observer { cxfObserverUnknown };
+	CxfCIEConversionMethod m_convMethod { cxfMethodUnknown };
 };
 
 #endif
