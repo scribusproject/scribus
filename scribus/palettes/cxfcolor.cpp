@@ -15,9 +15,9 @@ for which a new license (GPL+exception) is in place.
 #include "colormgmt/sccolormgmtstructs.h"
 
 CxfColor::CxfColor(CxfDocument* cxfDoc)
+        : m_cxfDoc(cxfDoc)
 {
-	m_cxfDoc = cxfDoc;
-	m_colorSpec = nullptr;
+	// Nothing else to do
 }
 
 bool CxfColor::isValid() const
@@ -36,10 +36,7 @@ void CxfColor::reset()
 CxfColorRGB::CxfColorRGB(CxfDocument* cxfDoc)
            : CxfColor(cxfDoc)
 {
-	m_maxRange = 255.0;
-	m_values[0] = 0.0;
-	m_values[1] = 0.0;
-	m_values[2] = 0.0;
+	// Nothing else to do
 }
 
 bool CxfColorRGB::parse(QDomElement& colorElem)
@@ -123,19 +120,19 @@ void CxfColorRGB::reset()
 CxfColorSRGB::CxfColorSRGB(CxfDocument* cxfDoc)
 	        : CxfColorRGB(cxfDoc)
 {
-
+	// Nothing else to do
 }
 
 CxfColorAdobeRGB::CxfColorAdobeRGB(CxfDocument* cxfDoc)
 	            : CxfColorRGB(cxfDoc)
 {
-
+	// Nothing else to do
 }
 
 CxfColorHTML::CxfColorHTML(CxfDocument* cxfDoc)
 	        : CxfColorRGB(cxfDoc)
 {
-
+	// Nothing else to do
 }
 
 bool CxfColorHTML::parse(QDomElement& colorElem)
@@ -180,10 +177,7 @@ bool CxfColorHTML::parse(QDomElement& colorElem)
 CxfColorCMYK::CxfColorCMYK(CxfDocument* cxfDoc)
                 : CxfColor(cxfDoc)
 {
-	m_values[0] = 0.0;
-	m_values[1] = 0.0;
-	m_values[2] = 0.0;
-	m_values[3] = 0.0;
+	// Nothing else to do
 }
 
 bool CxfColorCMYK::parse(QDomElement& colorElem)
@@ -266,9 +260,7 @@ void CxfColorCMYK::reset()
 CxfColorCIELab::CxfColorCIELab(CxfDocument* cxfDoc)
 	          : CxfColor(cxfDoc)
 {
-	m_values[0] = 0.0;
-	m_values[1] = 0.0;
-	m_values[2] = 0.0;
+	// Nothing else to do
 }
 
 bool CxfColorCIELab::parse(QDomElement& colorElem)
@@ -340,9 +332,7 @@ void CxfColorCIELab::reset()
 CxfColorCIELCh::CxfColorCIELCh(CxfDocument* cxfDoc)
 	          : CxfColor(cxfDoc)
 {
-	m_values[0] = 0.0;
-	m_values[1] = 0.0;
-	m_values[2] = 0.0;
+	// Nothing else to do
 }
 
 ScLab CxfColorCIELCh::lab() const
@@ -427,9 +417,7 @@ void CxfColorCIELCh::reset()
 CxfColorCIEXYZ::CxfColorCIEXYZ(CxfDocument* cxfDoc)
               : CxfColor(cxfDoc)
 {
-	m_values[0] = 0.0;
-	m_values[1] = 0.0;
-	m_values[2] = 0.0;
+	// Nothing else to do
 }
 
 bool CxfColorCIEXYZ::parse(QDomElement& colorElem)
@@ -504,7 +492,7 @@ void CxfColorCIEXYZ::reset()
 CxfReflectanceSpectrum::CxfReflectanceSpectrum(CxfDocument* cxfDoc)
                       : CxfColor(cxfDoc)
 {
-	m_wavelengthStart = 0;
+	// Nothing else to do
 }
 
 bool CxfReflectanceSpectrum::parse(QDomElement& colorElem)
@@ -525,7 +513,7 @@ bool CxfReflectanceSpectrum::parse(QDomElement& colorElem)
 		return false;
 
 	QString str = colorElem.attribute("StartWL");
-	if (str.length() > 0)
+	if (!str.isEmpty())
 	{
 		int wlStart = str.toInt(&convOk);
 		if (!convOk || (wlStart < 360) || (wlStart > 400))

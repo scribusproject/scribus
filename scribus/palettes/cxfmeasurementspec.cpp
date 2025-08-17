@@ -8,11 +8,6 @@ for which a new license (GPL+exception) is in place.
 #include "cxfmeasurementspec.h"
 #include "cxfutils.h"
 
-CxfMeasurementSpec::CxfMeasurementSpec()
-{
-
-}
-
 bool CxfMeasurementSpec::hasWavelengthRange() const
 {
 	bool hasRange = (m_waveLengthStart >=360 && m_waveLengthStart <= 400);
@@ -52,7 +47,7 @@ bool CxfMeasurementSpec::parse(const QDomElement& elem)
 		if (tagName == QLatin1String("WavelengthRange"))
 		{
 			txt = childElem.attribute("StartWL");
-			if (txt.length() > 0)
+			if (!txt.isEmpty())
 			{
 				int value = txt.toInt(&convOk);
 				if (convOk)
@@ -62,7 +57,7 @@ bool CxfMeasurementSpec::parse(const QDomElement& elem)
 			parsingError |= txt.isEmpty();
 
 			txt = childElem.attribute("Increment");
-			if (txt.length() > 0)
+			if (!txt.isEmpty())
 			{
 				int value = txt.toInt(&convOk);
 				if (convOk)

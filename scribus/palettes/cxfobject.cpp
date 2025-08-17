@@ -39,7 +39,7 @@ bool CxfObject::parse(const QDomElement& elem)
 	if (!deviceValElem.isNull())
 		parseDeviceColorValues(deviceValElem);
 
-	return (m_colorMap.count() > 0);
+	return (!m_colorMap.isEmpty());
 }
 
 void CxfObject::parseColorValues(const QDomElement& elem)

@@ -9,14 +9,9 @@ for which a new license (GPL+exception) is in place.
 
 #include "cxfdocument.h"
 
-CxfDocument::CxfDocument()
-{
-	
-}
-
 CxfDocument::~CxfDocument()
 {
-	while (m_objects.count() > 0)
+	while (!m_objects.isEmpty())
 	{
 		CxfObject* object = m_objects.takeAt(0);
 		delete object;
@@ -70,7 +65,7 @@ bool CxfDocument::parse(const QString& fileName)
 		parseObjectCollection(collectionNode);
 	}
 
-	return (m_objects.count() > 0);
+	return (!m_objects.isEmpty());
 }
 
 bool CxfDocument::parseColorSpecificationCollection(const QDomElement& elem)
@@ -91,7 +86,7 @@ bool CxfDocument::parseColorSpecificationCollection(const QDomElement& elem)
 			continue;
 		m_colorSpecs.insert(colorSpec->id(), colorSpec);
 	}
-	return (m_colorSpecs.count() > 0);
+	return (!m_colorSpecs.isEmpty());
 }
 
 bool CxfDocument::parseObjectCollection(const QDomElement& elem)
@@ -115,7 +110,7 @@ bool CxfDocument::parseObjectCollection(const QDomElement& elem)
 		}
 		m_objects.append(object);
 	}
-	return (m_colorSpecs.count() > 0);
+	return (!m_colorSpecs.isEmpty());
 }
 
 void CxfDocument::reset()

@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 class CxfDocument
 {
 public:
-	CxfDocument();
+	CxfDocument() = default;
 	~CxfDocument();
 	
 	const CxfColorSpecification* colorSpecification(const QString& name) const;
