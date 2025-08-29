@@ -69,6 +69,7 @@ QWidget * GuidesHDelegate::createEditor(QWidget *parent, const QStyleOptionViewI
 	double min = 0.0 - (m_doc->bleeds()->top() * uix);
 	double max = (m_doc->currentPage()->height() * uix) + (m_doc->bleeds()->bottom() * uix);
 	ScrSpinBox *editor = new ScrSpinBox(min, max, parent, m_doc->unitIndex());
+	editor->setConstants(&m_doc->constants());
 	return editor;
 }
 
@@ -86,5 +87,6 @@ QWidget * GuidesVDelegate::createEditor(QWidget *parent, const QStyleOptionViewI
 	double min = 0.0 - (m_doc->bleeds()->left() * uix);
 	double max = (m_doc->currentPage()->width() * uix) + (m_doc->bleeds()->right() * uix);
 	ScrSpinBox *editor = new ScrSpinBox(min, max, parent, m_doc->unitIndex());
+	editor->setConstants(&m_doc->constants());
 	return editor;
 }
