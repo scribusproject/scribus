@@ -96,8 +96,8 @@ NewDocDialog::NewDocDialog(QWidget* parent, const QStringList& recentDocs, bool 
 	buttonVertical->setToolTip( tr( "Vertical orientation of the document's pages" ) );
 	buttonHorizontal->setToolTip( tr( "Horizontal orientation of the document's pages" ) );
 	buttonSinglePage->setToolTip(tr("Single page document"));
-	buttonDoublePageLeft->setToolTip(tr("Double page document, with the first page on the left side"));
-	buttonDoublePageRight->setToolTip(tr("Double page document, with the first page on the right side"));
+	buttonDoublePageLeft->setToolTip(tr("A document with facing pages, with the first page on the left side"));
+	buttonDoublePageRight->setToolTip(tr("A document with facing pages, with the first page on the right side"));
 	widthSpinBox->setToolTip( tr( "Width of the document's pages, editable if you have chosen a custom page size" ) );
 	heightSpinBox->setToolTip( tr( "Height of the document's pages, editable if you have chosen a custom page size" ) );
 	pageCountSpinBox->setToolTip( tr( "Initial number of pages of the document" ) );
