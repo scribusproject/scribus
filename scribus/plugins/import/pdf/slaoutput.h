@@ -20,6 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include <QTextStream>
 #include <QTransform>
 
+#include <array>
 #include <memory>
 
 #include "fpointarray.h"
@@ -199,7 +200,10 @@ public:
 	void stroke(GfxState *state) override;
 	void fill(GfxState *state) override;
 	void eoFill(GfxState *state) override;
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(21, 3, 0)
+	
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 9, 0)
+	bool tilingPatternFill(GfxState *state, Gfx *gfx, Catalog *cat, GfxTilingPattern *tPat, const std::array<double, 6>& mat, int x0, int y0, int x1, int y1, double xStep, double yStep) override;
+#elif POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(21, 3, 0)
 	bool tilingPatternFill(GfxState *state, Gfx *gfx, Catalog *cat, GfxTilingPattern *tPat, const double *mat, int x0, int y0, int x1, int y1, double xStep, double yStep) override;
 #else
 	bool tilingPatternFill(GfxState *state, Gfx *gfx, Catalog *cat, Object *str, const double *pmat, int paintType, int tilingType, Dict *resDict, const double *mat, const double *bbox, int x0, int y0, int x1, int y1, double xStep, double yStep) override;
@@ -262,10 +266,20 @@ public:
 				   bool maskInvert, bool maskInterpolate) override;
 
 	//----- transparency groups and soft masks
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 9, 0)
+	void beginTransparencyGroup(GfxState *state, const std::array<double, 4>& bbox, GfxColorSpace* /*blendingColorSpace*/, bool /*isolated*/, bool /*knockout*/, bool /*forSoftMask*/) override;
+	void paintTransparencyGroup(GfxState *state, const std::array<double, 4>& bbox) override;
+#else
 	void beginTransparencyGroup(GfxState *state, const double *bbox, GfxColorSpace * /*blendingColorSpace*/, bool /*isolated*/, bool /*knockout*/, bool /*forSoftMask*/) override;
 	void paintTransparencyGroup(GfxState *state, const double *bbox) override;
+#endif
 	void endTransparencyGroup(GfxState *state) override;
+
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 9, 0)
+	void setSoftMask(GfxState * /*state*/, const std::array<double, 4> & /*bbox*/, bool /*alpha*/, Function * /*transferFunc*/, GfxColor * /*backdropColor*/) override;
+#else
 	void setSoftMask(GfxState * /*state*/, const double * /*bbox*/, bool /*alpha*/, Function * /*transferFunc*/, GfxColor * /*backdropColor*/) override;
+#endif
 	void clearSoftMask(GfxState * /*state*/) override;
 
 	void updateFillColor(GfxState *state) override;

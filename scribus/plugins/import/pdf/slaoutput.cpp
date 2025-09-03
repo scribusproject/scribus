@@ -1480,14 +1480,22 @@ void SlaOutputDev::restoreState(GfxState *state)
 	m_graphicStack.restore();
 }
 
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 9, 0)
+void SlaOutputDev::beginTransparencyGroup(GfxState *state, const std::array<double, 4>& bbox, GfxColorSpace * /*blendingColorSpace*/, bool isolated, bool knockout, bool forSoftMask)
+#else
 void SlaOutputDev::beginTransparencyGroup(GfxState *state, const double *bbox, GfxColorSpace * /*blendingColorSpace*/, bool isolated, bool knockout, bool forSoftMask)
+#endif
 {
 // 	qDebug() << "SlaOutputDev::beginTransparencyGroup isolated:" << isolated << "knockout:" << knockout << "forSoftMask:" << forSoftMask;
 	pushGroup("", forSoftMask);
 	m_groupStack.top().isolated = isolated;
 }
 
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 9, 0)
+void SlaOutputDev::paintTransparencyGroup(GfxState *state, const std::array<double, 4>& bbox)
+#else
 void SlaOutputDev::paintTransparencyGroup(GfxState *state, const double *bbox)
+#endif
 {
 // 	qDebug() << "SlaOutputDev::paintTransparencyGroup";
 	if (m_groupStack.count() != 0)
@@ -1586,7 +1594,11 @@ void SlaOutputDev::endTransparencyGroup(GfxState *state)
 	m_tmpSel->clear();
 }
 
-void SlaOutputDev::setSoftMask(GfxState * /*state*/, const double * bbox, bool alpha, Function *transferFunc, GfxColor * /*backdropColor*/)
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 9, 0)
+void SlaOutputDev::setSoftMask(GfxState* /*state*/, const std::array<double, 4>& bbox, bool alpha, Function* transferFunc, GfxColor* /*backdropColor*/)
+#else
+void SlaOutputDev::setSoftMask(GfxState* /*state*/, const double* bbox, bool alpha, Function* transferFunc, GfxColor* /*backdropColor*/)
+#endif
 {
 	if (m_groupStack.count() <= 0)
 		return;
@@ -2341,14 +2353,20 @@ bool SlaOutputDev::patchMeshShadedFill(GfxState *state, GfxPatchMeshShading *sha
 	return true;
 }
 
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(21, 3, 0)
-bool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *cat, GfxTilingPattern *tPat, const double *mat, int x0, int y0, int x1, int y1, double xStep, double yStep)
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 9, 0)
+bool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx* /*gfx*/, Catalog *cat, GfxTilingPattern *tPat, const std::array<double, 6>& mat, int x0, int y0, int x1, int y1, double xStep, double yStep)
+#elif POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(21, 3, 0)
+bool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx* /*gfx*/, Catalog *cat, GfxTilingPattern *tPat, const double *mat, int x0, int y0, int x1, int y1, double xStep, double yStep)
 #else
-bool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx * /*gfx*/, Catalog *cat, Object *str, const double *pmat, int /*paintType*/, int /*tilingType*/, Dict *resDict, const double *mat, const double *bbox, int x0, int y0, int x1, int y1, double xStep, double yStep)
+bool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx* /*gfx*/, Catalog *cat, Object *str, const double *pmat, int /*paintType*/, int /*tilingType*/, Dict *resDict, const double *mat, const double *bbox, int x0, int y0, int x1, int y1, double xStep, double yStep)
 #endif
 {
 //	qDebug() << "SlaOutputDev::tilingPatternFill";
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(21, 3, 0)
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 9, 0)
+	const std::array<double, 4>& bbox = tPat->getBBox();
+	const std::array<double, 6>& pmat = tPat->getMatrix();
+	Dict *resDict = tPat->getResDict();
+#elif POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(21, 3, 0)
 	const double *bbox = tPat->getBBox();
 	const double *pmat = tPat->getMatrix();
 	Dict *resDict = tPat->getResDict();
@@ -3835,7 +3853,11 @@ QString SlaOutputDev::getAnnotationColor(const AnnotColor *color)
 		return CommonStrings::None;
 	if (color->getSpace() == AnnotColor::colorRGB)
 	{
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 9, 0)
+		const std::array<double, 4>& color_data = color->getValues();
+#else
 		const double *color_data = color->getValues();
+#endif
 		double Rc = color_data[0];
 		double Gc = color_data[1];
 		double Bc = color_data[2];
@@ -3844,7 +3866,11 @@ QString SlaOutputDev::getAnnotationColor(const AnnotColor *color)
 	}
 	else if (color->getSpace() == AnnotColor::colorCMYK)
 	{
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 9, 0)
+		const std::array<double, 4>& color_data = color->getValues();
+#else
 		const double *color_data = color->getValues();
+#endif
 		double Cc = color_data[0];
 		double Mc = color_data[1];
 		double Yc = color_data[2];
@@ -3854,7 +3880,11 @@ QString SlaOutputDev::getAnnotationColor(const AnnotColor *color)
 	}
 	else if (color->getSpace() == AnnotColor::colorGray)
 	{
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 9, 0)
+		const std::array<double, 4>& color_data = color->getValues();
+#else
 		const double *color_data = color->getValues();
+#endif
 		double Kc = 1.0 - color_data[0];
 		tmp.setCmykColorF(0, 0, 0, Kc);
 		fNam = m_doc->PageColors.tryAddColor(namPrefix+tmp.name(), tmp);
