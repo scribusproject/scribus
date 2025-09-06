@@ -410,7 +410,7 @@ private:
 	QTransform m_ctm;
 	struct F3Entry
 	{
-		bool colored;
+		bool colored = false;
 	};
 	QStack<F3Entry> m_F3Stack;
 	struct mContent
