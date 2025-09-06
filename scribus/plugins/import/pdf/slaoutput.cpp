@@ -3545,75 +3545,73 @@ void SlaOutputDev::drawChar(GfxState* state, double x, double y, double dx, doub
 	// Invisible or only used for clipping
 	if (textRenderingMode == 3)
 		return;
-	if (textRenderingMode < 8)
+	if (textRenderingMode >= 8)
+		return;
+
+	SplashPath * fontPath = m_font->getGlyphPath(code);
+	if (!fontPath)
+		return;
+
+	QPainterPath qPath;
+	qPath.setFillRule(Qt::WindingFill);
+	for (int i = 0; i < fontPath->getLength(); ++i)
 	{
-		SplashPath * fontPath;
-		fontPath = m_font->getGlyphPath(code);
-		if (fontPath)
+		unsigned char f;
+		fontPath->getPoint(i, &x1, &y1, &f);
+		if (f & splashPathFirst)
+			qPath.moveTo(x1,y1);
+		else if (f & splashPathCurve)
 		{
-			QPainterPath qPath;
-			qPath.setFillRule(Qt::WindingFill);
-			for (int i = 0; i < fontPath->getLength(); ++i)
-			{
-				unsigned char f;
-				fontPath->getPoint(i, &x1, &y1, &f);
-				if (f & splashPathFirst)
-					qPath.moveTo(x1,y1);
-				else if (f & splashPathCurve)
-				{
-					double x3, y3;
-					++i;
-					fontPath->getPoint(i, &x2, &y2, &f);
-					++i;
-					fontPath->getPoint(i, &x3, &y3, &f);
-					qPath.cubicTo(x1, y1, x2, y2, x3, y3);
-				}
-				else
-					qPath.lineTo(x1, y1);
-				if (f & splashPathLast)
-					qPath.closeSubpath();
-			}
-			const double * ctm = state->getCTM();
-			m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
-			double xCoor = m_doc->currentPage()->xOffset();
-			double yCoor = m_doc->currentPage()->yOffset();
-			FPointArray textPath;
-			textPath.fromQPainterPath(qPath);
-			FPoint wh = textPath.widthHeight();
-			if (textRenderingMode > 3)
-			{
-				QTransform mm;
-				mm.scale(1, -1);
-				mm.translate(x, -y);
-				// Remember the glyph for later clipping
- 				m_clipTextPath.addPath(m_ctm.map(mm.map(qPath)));
-			}
-			if ((textPath.size() > 3) && ((wh.x() != 0.0) || (wh.y() != 0.0)) && (textRenderingMode != 7))
-			{
-				int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, xCoor, yCoor, 10, 10, 0, CommonStrings::None, CommonStrings::None);
-				PageItem* ite = m_doc->Items->at(z);
+			double x3, y3;
+			++i;
+			fontPath->getPoint(i, &x2, &y2, &f);
+			++i;
+			fontPath->getPoint(i, &x3, &y3, &f);
+			qPath.cubicTo(x1, y1, x2, y2, x3, y3);
+		}
+		else
+			qPath.lineTo(x1, y1);
+		if (f & splashPathLast)
+			qPath.closeSubpath();
+	}
+	const double * ctm = state->getCTM();
+	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
+	double xCoor = m_doc->currentPage()->xOffset();
+	double yCoor = m_doc->currentPage()->yOffset();
+	FPointArray textPath;
+	textPath.fromQPainterPath(qPath);
+	FPoint wh = textPath.widthHeight();
+	if (textRenderingMode > 3)
+	{
+		QTransform mm;
+		mm.scale(1, -1);
+		mm.translate(x, -y);
+		// Remember the glyph for later clipping
+ 		m_clipTextPath.addPath(m_ctm.map(mm.map(qPath)));
+	}
+	if ((textPath.size() > 3) && ((wh.x() != 0.0) || (wh.y() != 0.0)) && (textRenderingMode != 7))
+	{
+		int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, xCoor, yCoor, 10, 10, 0, CommonStrings::None, CommonStrings::None);
+		PageItem* ite = m_doc->Items->at(z);
 
-				// todo: merge this between vector and text implementations.
-				QTransform mm;
-				mm.scale(1, -1);
-				mm.translate(x, -y);
-				textPath.map(mm);
-				textPath.map(m_ctm);
-				ite->PoLine = textPath.copy();
-				setItemFillAndStroke(state, ite);
-				// Fill text rendering modes. See above
-				m_doc->adjustItemSize(ite);
-				m_Elements->append(ite);
-				if (m_groupStack.count() != 0)
-				{
-					m_groupStack.top().Items.append(ite);
-					applyMask(ite);
-				}
-			}
-			delete fontPath;
-
+		// todo: merge this between vector and text implementations.
+		QTransform mm;
+		mm.scale(1, -1);
+		mm.translate(x, -y);
+		textPath.map(mm);
+		textPath.map(m_ctm);
+		ite->PoLine = textPath.copy();
+		setItemFillAndStroke(state, ite);
+		// Fill text rendering modes. See above
+		m_doc->adjustItemSize(ite);
+		m_Elements->append(ite);
+		if (m_groupStack.count() != 0)
+		{
+			m_groupStack.top().Items.append(ite);
+			applyMask(ite);
 		}
 	}
+	delete fontPath;
 }
 
 
@@ -3906,31 +3904,30 @@ QString SlaOutputDev::convertPath(POPPLER_CONST_083 GfxPath *path)
 	for (int i = 0; i < path->getNumSubpaths(); ++i)
 	{
 		POPPLER_CONST_083 GfxSubpath * subpath = path->getSubpath(i);
-		if (subpath->getNumPoints() > 0)
+		if (subpath->getNumPoints() <= 0)
+			continue;
+		output += QString("M %1 %2").arg(subpath->getX(0)).arg(subpath->getY(0));
+		int j = 1;
+		while (j < subpath->getNumPoints())
 		{
-			output += QString("M %1 %2").arg(subpath->getX(0)).arg(subpath->getY(0));
-			int j = 1;
-			while (j < subpath->getNumPoints())
+			if (subpath->getCurve(j))
 			{
-				if (subpath->getCurve(j))
-				{
-					output += QString("C %1 %2 %3 %4 %5 %6")
-					.arg(subpath->getX(j)).arg(subpath->getY(j))
-					.arg(subpath->getX(j + 1)).arg(subpath->getY(j + 1))
-					.arg(subpath->getX(j + 2)).arg(subpath->getY(j + 2));
-					j += 3;
-				}
-				else
-				{
-					output += QString("L %1 %2").arg(subpath->getX(j)).arg(subpath->getY(j));
-					++j;
-				}
+				output += QString("C %1 %2 %3 %4 %5 %6")
+				.arg(subpath->getX(j)).arg(subpath->getY(j))
+				.arg(subpath->getX(j + 1)).arg(subpath->getY(j + 1))
+				.arg(subpath->getX(j + 2)).arg(subpath->getY(j + 2));
+				j += 3;
 			}
-			if (subpath->isClosed())
+			else
 			{
-				output += QString("Z");
-				m_pathIsClosed = true;
+				output += QString("L %1 %2").arg(subpath->getX(j)).arg(subpath->getY(j));
+				++j;
 			}
+		}
+		if (subpath->isClosed())
+		{
+			output += QString("Z");
+			m_pathIsClosed = true;
 		}
 	}
 	return output;
