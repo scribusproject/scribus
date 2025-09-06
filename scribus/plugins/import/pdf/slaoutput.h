@@ -165,7 +165,7 @@ public:
 	SlaOutputDev(ScribusDoc* doc, QList<PageItem*> *Elements, QStringList *importedColors, int flags);
 	~SlaOutputDev() override;
 
-	LinkAction* SC_getAction(AnnotWidget *ano);
+	std::unique_ptr<LinkAction> SC_getAction(AnnotWidget *ano);
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
 	std::unique_ptr<LinkAction> SC_getAdditionalAction(const char *key, AnnotWidget *ano);
 #else
