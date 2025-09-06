@@ -40,7 +40,7 @@ Prefs_KeyboardShortcuts::Prefs_KeyboardShortcuts(QWidget* parent, ScribusDoc* /*
 	defMenus = ActionManager::defaultMenus();
 	defNonMenuActions = ActionManager::defaultNonMenuActions();
 
-	QVector< QPair<QString, QStringList> >::Iterator itnmenua = defNonMenuActions->begin();
+	auto itnmenua = defNonMenuActions->begin();
 	PluginManager& pluginManager(PluginManager::instance());
 	QStringList pluginNames(pluginManager.pluginNames(false));
 	ScPlugin* plugin = nullptr;
@@ -175,7 +175,7 @@ void Prefs_KeyboardShortcuts::importKeySet(const QString& filename)
 		QDomAttr keysetAttr = docElem.attributeNode( "name" );
 
 		//clear current menu entries
-		for (QMap<QString,Keys>::Iterator it = keyMap.begin(); it != keyMap.end(); ++it)
+		for (auto it = keyMap.begin(); it != keyMap.end(); ++it)
 			it.value().keySequence = QKeySequence();
 
 		//load in new set
@@ -215,8 +215,7 @@ bool Prefs_KeyboardShortcuts::exportKeySet(const QString& filename)
 		QString keyset = QString("<shortcutset name=\"%1\"></shortcutset>").arg(setName);
 		doc.setContent(keyset);
 		QDomElement keySetElement = doc.documentElement();
-		QMap<QString, Keys>::Iterator itEnd = keyMap.end();
-		for (QMap<QString, Keys>::Iterator it = keyMap.begin(); it != itEnd; ++it)
+		for (auto it = keyMap.begin(); it != keyMap.end(); ++it)
 		{
 			if (it.value().keySequence.isEmpty() && it.key().isEmpty())
 				continue;
@@ -249,17 +248,17 @@ QStringList Prefs_KeyboardShortcuts::scanForSets()
 {
 	keySetList.clear();
 	QString location(ScPaths::instance().shareDir());
-	QDir keySetsDir(QDir::toNativeSeparators(location+"keysets/"), "*.xml", QDir::Name, QDir::Files | QDir::NoSymLinks);
+	QDir keySetsDir(QDir::toNativeSeparators(location + "keysets/"), "*.xml", QDir::Name, QDir::Files | QDir::NoSymLinks);
 	if ((!keySetsDir.exists()) || (keySetsDir.count() <= 0))
 		return QStringList();
 
 	QStringList appNames;
 	for (uint fileCounter = 0; fileCounter < keySetsDir.count(); ++fileCounter)
 	{
-		QString filename(QDir::toNativeSeparators(location+"keysets/"+keySetsDir[fileCounter]));
+		QString filename(QDir::toNativeSeparators(location + "keysets/" + keySetsDir[fileCounter]));
 
-		QDomDocument doc( "keymapentries" );
-		QFile file( filename );
+		QDomDocument doc("keymapentries");
+		QFile file(filename);
 		if (!file.open( QIODevice::ReadOnly))
 			continue;
 		QString errorMsg;
@@ -277,7 +276,7 @@ QStringList Prefs_KeyboardShortcuts::scanForSets()
 		QDomElement docElem = doc.documentElement();
 		if (docElem.tagName() == "shortcutset" && docElem.hasAttribute("name"))
 		{
-			QDomAttr nameAttr = docElem.attributeNode( "name" );
+			QDomAttr nameAttr = docElem.attributeNode("name");
 			if(nameAttr.value().contains(ScribusAPI::getVersionScribus().remove(".svn")))
 				appNames.prepend(nameAttr.value());
 			else
@@ -547,7 +546,7 @@ void Prefs_KeyboardShortcuts::keyReleaseEvent(QKeyEvent *k)
 QString Prefs_KeyboardShortcuts::getAction(int code)
 {
 	QKeySequence key(code);
-	for (QMap<QString,Keys>::Iterator it = keyMap.begin(); it != keyMap.end(); ++it)
+	for (auto it = keyMap.begin(); it != keyMap.end(); ++it)
 	{
 		if (key.matches(it.value().keySequence) != QKeySequence::NoMatch)
 			return it->cleanMenuText;
@@ -558,7 +557,7 @@ QString Prefs_KeyboardShortcuts::getAction(int code)
 bool Prefs_KeyboardShortcuts::checkKey(int code)
 {
 	QKeySequence key(code);
-	for (QMap<QString,Keys>::Iterator it = keyMap.begin(); it != keyMap.end(); ++it)
+	for (auto it = keyMap.begin(); it != keyMap.end(); ++it)
 	{
 		if (key.matches(it.value().keySequence) != QKeySequence::NoMatch)
 			return true;
