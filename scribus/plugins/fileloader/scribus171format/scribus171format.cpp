@@ -2833,7 +2833,7 @@ void Scribus171Format::readGuideSettings(ScribusDoc* doc, const ScXmlStreamAttri
 		if (attrs.hasAttribute("RenderStack"))
 		{
 			doc->guidesPrefs().renderStackOrder.clear();
-			QString renderStack = attrs.valueAsString("renderStack", "0 1 2 3 4");
+			QString renderStack = attrs.valueAsString("RenderStack", "0 1 2 3 4");
 			ScTextStream fp(&renderStack, QIODevice::ReadOnly);
 			QString val;
 			while (!fp.atEnd())
