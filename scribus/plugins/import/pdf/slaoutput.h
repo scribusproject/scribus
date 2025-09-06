@@ -165,7 +165,7 @@ public:
 	SlaOutputDev(ScribusDoc* doc, QList<PageItem*> *Elements, QStringList *importedColors, int flags);
 	~SlaOutputDev() override;
 
-	LinkAction* SC_getAction(AnnotWidget *ano);
+	std::unique_ptr<LinkAction> SC_getAction(AnnotWidget *ano);
 	std::unique_ptr<LinkAction> SC_getAdditionalAction(const char *key, AnnotWidget *ano);
 	static bool annotations_callback(Annot *annota, void *user_data);
 	bool handleTextAnnot(Annot* annota, double xCoor, double yCoor, double width, double height);

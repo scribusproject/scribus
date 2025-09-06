@@ -294,9 +294,9 @@ SlaOutputDev::~SlaOutputDev()
 }
 
 /* get Actions not implemented by Poppler */
-LinkAction* SlaOutputDev::SC_getAction(AnnotWidget *ano)
+std::unique_ptr<LinkAction> SlaOutputDev::SC_getAction(AnnotWidget *ano)
 {
-	LinkAction *linkAction = nullptr;
+	std::unique_ptr<LinkAction> linkAction;
 	Object obj;
 	Ref refa = ano->getRef();
 
@@ -311,11 +311,11 @@ LinkAction* SlaOutputDev::SC_getAction(AnnotWidget *ano)
 			Object actionObject = additionalActionsObject.dictLookup("S");
 			if (actionObject.isName("ImportData"))
 			{
-				linkAction = new LinkImportData(&additionalActionsObject);
+				linkAction.reset(new LinkImportData(&additionalActionsObject));
 			}
 			else if (actionObject.isName("SubmitForm"))
 			{
-				linkAction = new LinkSubmitForm(&additionalActionsObject);
+				linkAction.reset(new LinkSubmitForm(&additionalActionsObject));
 			}
 		}
 	}
@@ -1065,12 +1065,12 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 			}
 			else
 			{
-				LinkAction* scact = SC_getAction(ano);
+				std::unique_ptr<LinkAction> scact = SC_getAction(ano);
 				if (scact)
 				{
 					if (actString == "ImportData")
 					{
-						auto *impo = (LinkImportData*) scact;
+						auto *impo = (LinkImportData*) scact.get();
 						if (impo->isOk())
 						{
 							ite->annotation().setActionType(5);
@@ -1079,7 +1079,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 					}
 					else if (actString == "SubmitForm")
 					{
-						auto *impo = (LinkSubmitForm*) scact;
+						auto *impo = (LinkSubmitForm*) scact.get();
 						if (impo->isOk())
 						{
 							ite->annotation().setActionType(3);
