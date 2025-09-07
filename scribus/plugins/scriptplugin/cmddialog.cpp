@@ -138,7 +138,7 @@ PyObject *scribus_itemdialog(PyObject* /* self */, PyObject* args)
 	PyObject* list = PySequence_List(listObject);
 	if (list == nullptr)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Expected a list of options", "python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Expected a list of options", "python error").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -149,7 +149,7 @@ PyObject *scribus_itemdialog(PyObject* /* self */, PyObject* args)
 		char *item = const_cast<char*>("");
 		if (!PyArg_Parse(itemObject, "es", "utf-8", &item))
 		{
-			PyErr_SetString(PyExc_ValueError, QObject::tr("Items must be strings", "python error").toLocal8Bit().constData());
+			PyErr_SetString(PyExc_ValueError, QObject::tr("Items must be strings", "python error").toUtf8().constData());
 			return nullptr;
 		}
 		items << QString::fromUtf8(item);

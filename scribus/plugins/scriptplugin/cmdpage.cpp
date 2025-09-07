@@ -51,7 +51,7 @@ PyObject *scribus_getpagetype(PyObject* /* self */, PyObject* args)
 	e--;
 	if ((e < 0) || (e > static_cast<int>(ScCore->primaryMainWindow()->doc->Pages->count()) - 1))
 	{
-		PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	return PyLong_FromLong(static_cast<long>(ScCore->primaryMainWindow()->doc->locationOfPage(e)));
@@ -71,7 +71,7 @@ PyObject *scribus_savepageeps(PyObject* /* self */, PyObject* args)
 		QString message = QObject::tr("Failed to save EPS.","python error");
 		if (!epsError.isEmpty())
 			message += QString("\n%1").arg(epsError);
-		PyErr_SetString(ScribusException, message.toLocal8Bit().constData());
+		PyErr_SetString(ScribusException, message.toUtf8().constData());
 		return nullptr;
 	}
 
@@ -88,7 +88,7 @@ PyObject *scribus_deletepage(PyObject* /* self */, PyObject* args)
 	e--;
 	if ((e < 0) || (e > static_cast<int>(ScCore->primaryMainWindow()->doc->Pages->count()) - 1))
 	{
-		PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	ScCore->primaryMainWindow()->deletePage2(e);
@@ -106,7 +106,7 @@ PyObject *scribus_gotopage(PyObject* /* self */, PyObject* args)
 	e--;
 	if ((e < 0) || (e > static_cast<int>(ScCore->primaryMainWindow()->doc->Pages->count()) - 1))
 	{
-		PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	ScCore->primaryMainWindow()->view->GotoPage(e);
@@ -148,7 +148,7 @@ PyObject *scribus_newpage(PyObject* /* self */, PyObject* args)
 
 	if (!currentDoc->MasterNames.contains(qName))
 	{
-		PyErr_SetString(PyExc_IndexError, QObject::tr("Given master page name does not match any existing.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_IndexError, QObject::tr("Given master page name does not match any existing.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (e < 0)
@@ -158,7 +158,7 @@ PyObject *scribus_newpage(PyObject* /* self */, PyObject* args)
 		e--;
 		if ((e < 0) || (e > loc - 1))
 		{
-			PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range.","python error").toLocal8Bit().constData());
+			PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range.","python error").toUtf8().constData());
 			return nullptr;
 		}
 		mainWin->slotNewPageP(e, qName);
@@ -244,7 +244,7 @@ PyObject *scribus_getpagensize(PyObject* /* self */, PyObject* args)
 	e--;
 	if ((e < 0) || (e > static_cast<int>(currentDoc->Pages->count())-1))
 	{
-		PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	PyObject *t;
@@ -268,7 +268,7 @@ PyObject *scribus_getpagenmargins(PyObject* /* self */, PyObject* args)
 	e--;
 	if ((e < 0) || (e > static_cast<int>(currentDoc->Pages->count())-1))
 	{
-		PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	PyObject *margins = nullptr;
@@ -344,7 +344,7 @@ PyObject *scribus_setHguides(PyObject* /* self */, PyObject* args)
 
 	if (!PyList_Check(l))
 	{
-		PyErr_SetString(PyExc_TypeError, QObject::tr("argument is not list: must be list of float values.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_TypeError, QObject::tr("argument is not list: must be list of float values.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	Py_ssize_t n = PyList_Size(l);
@@ -354,7 +354,7 @@ PyObject *scribus_setHguides(PyObject* /* self */, PyObject* args)
 	{
 		if (!PyArg_Parse(PyList_GetItem(l, i), "d", &guide))
 		{
-			PyErr_SetString(PyExc_TypeError, QObject::tr("argument contains non-numeric values: must be list of float values.","python error").toLocal8Bit().constData());
+			PyErr_SetString(PyExc_TypeError, QObject::tr("argument contains non-numeric values: must be list of float values.","python error").toUtf8().constData());
 			return nullptr;
 		}
 		currentDoc->currentPage()->guides.addHorizontal(ValueToPoint(guide), GuideManagerCore::Standard);
@@ -394,7 +394,7 @@ PyObject *scribus_setVguides(PyObject* /* self */, PyObject* args)
 
 	if (!PyList_Check(l))
 	{
-		PyErr_SetString(PyExc_TypeError, QObject::tr("argument is not list: must be list of float values.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_TypeError, QObject::tr("argument is not list: must be list of float values.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	Py_ssize_t n = PyList_Size(l);
@@ -404,7 +404,7 @@ PyObject *scribus_setVguides(PyObject* /* self */, PyObject* args)
 	{
 		if (!PyArg_Parse(PyList_GetItem(l, i), "d", &guide))
 		{
-			PyErr_SetString(PyExc_TypeError, QObject::tr("argument contains no-numeric values: must be list of float values.","python error").toLocal8Bit().constData());
+			PyErr_SetString(PyExc_TypeError, QObject::tr("argument contains no-numeric values: must be list of float values.","python error").toUtf8().constData());
 			return nullptr;
 		}
 		currentDoc->currentPage()->guides.addVertical(ValueToPoint(guide), GuideManagerCore::Standard);
@@ -503,7 +503,7 @@ PyObject *scribus_setColumnGuides(PyObject* /* self */, PyObject* args, PyObject
 	if (referTo < 0 || referTo > 2)
 	{
 		QString message = QObject::tr("refer_to=0|1|2.","python error");
-		PyErr_SetString(ScribusException, message.toLocal8Bit().constData());
+		PyErr_SetString(ScribusException, message.toUtf8().constData());
 		return nullptr;
 	}
 	else if (referTo == 2)
@@ -512,7 +512,7 @@ PyObject *scribus_setColumnGuides(PyObject* /* self */, PyObject* args, PyObject
 		if (doc->m_Selection->isEmpty())
 		{
 			QString message = QObject::tr("setColumnGuides() with refer_to=2 needs a selection.","python error");
-			PyErr_SetString(ScribusException, message.toLocal8Bit().constData());
+			PyErr_SetString(ScribusException, message.toUtf8().constData());
 			return nullptr;
 		}
 		doc->currentPage()->guides.resetSelectionForPage(doc->currentPage());
@@ -552,7 +552,7 @@ PyObject *scribus_setRowGuides(PyObject* /* self */, PyObject* args, PyObject* k
 	if (referTo < 0 || referTo > 2)
 	{
 		QString message = QObject::tr("refer_to=0|1|2.","python error");
-		PyErr_SetString(ScribusException, message.toLocal8Bit().constData());
+		PyErr_SetString(ScribusException, message.toUtf8().constData());
 		return nullptr;
 	}
 	else if (referTo == 2)
@@ -561,7 +561,7 @@ PyObject *scribus_setRowGuides(PyObject* /* self */, PyObject* args, PyObject* k
 		{
 			// refertTo a selection is only active, when there is a selection in the document
 			QString message = QObject::tr("setRowGuides() with refer_to=2 needs a selection.","python error");
-			PyErr_SetString(ScribusException, message.toLocal8Bit().constData());
+			PyErr_SetString(ScribusException, message.toUtf8().constData());
 			return nullptr;
 		}
 		doc->currentPage()->guides.resetSelectionForPage(doc->currentPage());
@@ -662,7 +662,7 @@ PyObject *scribus_importpage(PyObject* /* self */, PyObject* args)
 
 	if (!PyTuple_Check(pages))
 	{
-		PyErr_SetString(PyExc_TypeError, QObject::tr("second argument is not tuple: must be tuple of integer values.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_TypeError, QObject::tr("second argument is not tuple: must be tuple of integer values.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	Py_INCREF(pages);
@@ -674,7 +674,7 @@ PyObject *scribus_importpage(PyObject* /* self */, PyObject* args)
 	{
 		if (!PyArg_Parse(PyTuple_GetItem(pages, i), "i", &p))
 		{
-			PyErr_SetString(PyExc_TypeError, QObject::tr("second argument contains non-numeric values: must be list of integer values.","python error").toLocal8Bit().constData());
+			PyErr_SetString(PyExc_TypeError, QObject::tr("second argument contains non-numeric values: must be list of integer values.","python error").toUtf8().constData());
 			Py_DECREF(pages);
 			return nullptr;
 		}

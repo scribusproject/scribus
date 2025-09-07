@@ -47,7 +47,7 @@ PyObject *scribus_newdocument(PyObject* /* self */, PyObject* args)
 	// checking the bounds
 	if (pagesType < firstPageOrder)
 	{
-		PyErr_SetString(ScribusException, QObject::tr("firstPageOrder is bigger than allowed.","python error").toLocal8Bit().constData());
+		PyErr_SetString(ScribusException, QObject::tr("firstPageOrder is bigger than allowed.","python error").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -233,7 +233,7 @@ PyObject *scribus_opendoc(PyObject* /* self */, PyObject* args)
 	bool ret = ScCore->primaryMainWindow()->loadDoc(QString::fromUtf8(name.c_str()));
 	if (!ret)
 	{
-		PyErr_SetString(ScribusException, QObject::tr("Failed to open document: %1","python error").arg(name.c_str()).toLocal8Bit().constData());
+		PyErr_SetString(ScribusException, QObject::tr("Failed to open document: %1","python error").arg(name.c_str()).toUtf8().constData());
 		return nullptr;
 	}
 	return PyBool_FromLong(static_cast<long>(true));
@@ -279,7 +279,7 @@ PyObject *scribus_savedocas(PyObject* /* self */, PyObject* args)
 	bool ret = ScCore->primaryMainWindow()->DoFileSave(QString::fromUtf8(fileName.c_str()));
 	if (!ret)
 	{
-		PyErr_SetString(ScribusException, QObject::tr("Failed to save document.","python error").toLocal8Bit().constData());
+		PyErr_SetString(ScribusException, QObject::tr("Failed to save document.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	return PyBool_FromLong(static_cast<long>(true));
@@ -334,7 +334,7 @@ PyObject *scribus_setunit(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if ((e < UNITMIN) || (e > UNITMAX))
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Unit out of range. Use one of the scribus.UNIT_* constants.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Unit out of range. Use one of the scribus.UNIT_* constants.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	ScCore->primaryMainWindow()->slotChangeUnit(e);
@@ -526,7 +526,7 @@ PyObject *scribus_getmasterpage(PyObject* /* self */, PyObject* args)
 	const ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
 	if ((e < 0) || (e > static_cast<int>(currentDoc->Pages->count())-1))
 	{
-		PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range: '%1'.","python error").arg(e+1).toLocal8Bit().constData());
+		PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range: '%1'.","python error").arg(e+1).toUtf8().constData());
 		return nullptr;
 	}
 	return PyUnicode_FromString(currentDoc->DocPages.at(e)->masterPageName().toUtf8());
@@ -545,18 +545,18 @@ PyObject* scribus_applymasterpage(PyObject* /* self */, PyObject* args)
 	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
 	if (!currentDoc->MasterNames.contains(masterPageName))
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Master page does not exist: '%1'","python error").arg(masterPageName).toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Master page does not exist: '%1'","python error").arg(masterPageName).toUtf8().constData());
 		return nullptr;
 	}
 	if ((page < 1) || (page > static_cast<int>(currentDoc->Pages->count())))
 	{
-		PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range: %1.","python error").arg(page).toLocal8Bit().constData());
+		PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range: %1.","python error").arg(page).toUtf8().constData());
 		return nullptr;
 	}
 
 	if (!currentDoc->applyMasterPage(masterPageName, page-1))
 	{
-		PyErr_SetString(ScribusException, QObject::tr("Failed to apply masterpage '%1' on page: %2","python error").arg(masterPageName).arg(page).toLocal8Bit().constData());
+		PyErr_SetString(ScribusException, QObject::tr("Failed to apply masterpage '%1' on page: %2","python error").arg(masterPageName).arg(page).toUtf8().constData());
 		return nullptr;
 	}
 	Py_RETURN_NONE;

@@ -26,7 +26,7 @@ PyObject *scribus_gettablerows(PyObject* /* self */, PyObject* args)
 	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get table row count of non-table item.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get table row count of non-table item.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	return PyLong_FromLong(static_cast<long>(table->rows()));
@@ -46,7 +46,7 @@ PyObject *scribus_gettablecolumns(PyObject* /* self */, PyObject* args)
 	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get table column count of non-table item.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get table column count of non-table item.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	return PyLong_FromLong(static_cast<long>(table->columns()));
@@ -66,17 +66,17 @@ PyObject *scribus_inserttablerows(PyObject* /* self */, PyObject* args)
 	PageItem_Table *table = i->asTable();
 	if (!table)
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot insert rows on a non-table item.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot insert rows on a non-table item.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (index < 0 || index > table->rows())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Table row index out of bounds, must be >= 0 and < %1", "python error").arg(table->rows()).toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Table row index out of bounds, must be >= 0 and < %1", "python error").arg(table->rows()).toUtf8().constData());
 		return nullptr;
 	}
 	if (numRows < 1)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Table row count out of bounds, must be >= 1", "python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Table row count out of bounds, must be >= 1", "python error").toUtf8().constData());
 		return nullptr;
 	}
 	table->insertRows(index, numRows);
@@ -97,22 +97,22 @@ PyObject *scribus_removetablerows(PyObject* /* self */, PyObject* args)
 	PageItem_Table *table = i->asTable();
 	if (!table)
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot remove rows from a non-table item.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot remove rows from a non-table item.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (index < 0 || index >= table->rows())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Table row index out of bounds, must be >= 0 and < %1", "python error").arg(table->rows()).toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Table row index out of bounds, must be >= 0 and < %1", "python error").arg(table->rows()).toUtf8().constData());
 		return nullptr;
 	}
 	if (numRows < 1 || numRows >= table->rows())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Table row count out of bounds, must be >= 1 and < %1", "python error").arg(table->rows()).toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Table row count out of bounds, must be >= 1 and < %1", "python error").arg(table->rows()).toUtf8().constData());
 		return nullptr;
 	}
 	if (index + numRows > table->rows())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Row deletion range out of bounds, index + numRows must be <= %1", "python error").arg(table->rows()).toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Row deletion range out of bounds, index + numRows must be <= %1", "python error").arg(table->rows()).toUtf8().constData());
 		return nullptr;
 	}
 	table->removeRows(index, numRows);
@@ -133,7 +133,7 @@ PyObject *scribus_gettablerowheight(PyObject* /* self */, PyObject* args)
 	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get row height from non-table item.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get row height from non-table item.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	return PyFloat_FromDouble(table->rowHeight(row));
@@ -154,17 +154,17 @@ PyObject *scribus_resizetablerow(PyObject* /* self */, PyObject* args)
 	PageItem_Table *table = i->asTable();
 	if (!table)
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot resize row on a non-table item.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot resize row on a non-table item.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (row < 0 || row >= table->rows())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Table row index out of bounds, must be >= 0 and < %1", "python error").arg(table->rows()).toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Table row index out of bounds, must be >= 0 and < %1", "python error").arg(table->rows()).toUtf8().constData());
 		return nullptr;
 	}
 	if (height <= 0.0)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Table row height must be > 0.0", "python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Table row height must be > 0.0", "python error").toUtf8().constData());
 		return nullptr;
 	}
 	table->resizeRow(row, height);
@@ -185,17 +185,17 @@ PyObject *scribus_inserttablecolumns(PyObject* /* self */, PyObject* args)
 	PageItem_Table *table = i->asTable();
 	if (!table)
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot insert columns on a non-table item.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot insert columns on a non-table item.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (index < 0 || index > table->columns())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Table column index out of bounds, must be >= 0 and < %1", "python error").arg(table->columns()).toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Table column index out of bounds, must be >= 0 and < %1", "python error").arg(table->columns()).toUtf8().constData());
 		return nullptr;
 	}
 	if (numColumns < 1)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Table column count out of bounds, must be >= 1", "python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Table column count out of bounds, must be >= 1", "python error").toUtf8().constData());
 		return nullptr;
 	}
 	table->insertColumns(index, numColumns);
@@ -216,22 +216,22 @@ PyObject *scribus_removetablecolumns(PyObject* /* self */, PyObject* args)
 	PageItem_Table *table = i->asTable();
 	if (!table)
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot remove columns from a non-table item.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot remove columns from a non-table item.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (index < 0 || index >= table->columns())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Table column index out of bounds, must be >= 0 and < %1", "python error").arg(table->columns()).toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Table column index out of bounds, must be >= 0 and < %1", "python error").arg(table->columns()).toUtf8().constData());
 		return nullptr;
 	}
 	if (numColumns < 1 || numColumns >= table->columns())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Table column count out of bounds, must be >= 1 and < %1", "python error").arg(table->columns()).toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Table column count out of bounds, must be >= 1 and < %1", "python error").arg(table->columns()).toUtf8().constData());
 		return nullptr;
 	}
 	if (index + numColumns > table->columns())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Column deletion range out of bounds, index + numColumns must be <= %1", "python error").arg(table->columns()).toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Column deletion range out of bounds, index + numColumns must be <= %1", "python error").arg(table->columns()).toUtf8().constData());
 		return nullptr;
 	}
 	table->removeColumns(index, numColumns);
@@ -252,7 +252,7 @@ PyObject *scribus_gettablecolumnwidth(PyObject* /* self */, PyObject* args)
 	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get column width from non-table item.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get column width from non-table item.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	return PyFloat_FromDouble(table->columnWidth(column));
@@ -273,17 +273,17 @@ PyObject *scribus_resizetablecolumn(PyObject* /* self */, PyObject* args)
 	PageItem_Table *table = i->asTable();
 	if (!table)
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot resize column on a non-table item.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot resize column on a non-table item.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (column < 0 || column >= table->columns())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Table column index out of bounds, must be >= 0 and < %1", "python error").arg(table->columns()).toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Table column index out of bounds, must be >= 0 and < %1", "python error").arg(table->columns()).toUtf8().constData());
 		return nullptr;
 	}
 	if (width <= 0.0)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Table column width must be > 0.0", "python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Table column width must be > 0.0", "python error").toUtf8().constData());
 		return nullptr;
 	}
 	table->resizeColumn(column, width);
@@ -304,19 +304,19 @@ PyObject *scribus_mergetablecells(PyObject* /* self */, PyObject* args)
 	PageItem_Table *table = i->asTable();
 	if (!table)
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot merge cells on a non-table item.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot merge cells on a non-table item.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (numRows < 1 || numColumns < 1)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Number of rows and columns must both be > 0.", "python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Number of rows and columns must both be > 0.", "python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (row < 0 || row >= table->rows() || column < 0 || column >= table->columns() ||
 			row + numRows - 1 < 0 || row + numRows - 1 >= table->rows() ||
 			column + numColumns - 1 < 0 || column + numColumns - 1 >= table->columns())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("The area %1,%2 %3x%4 is not inside the table.", "python error").arg(row).arg(column).arg(numColumns).arg(numRows).toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("The area %1,%2 %3x%4 is not inside the table.", "python error").arg(row).arg(column).arg(numColumns).arg(numRows).toUtf8().constData());
 		return nullptr;
 	}
 	table->mergeCells(row, column, numRows, numColumns);
@@ -336,7 +336,7 @@ PyObject *scribus_gettablestyle(PyObject* /* self */, PyObject* args)
 	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get table style on a non-table item.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get table style on a non-table item.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	return PyUnicode_FromString(table->styleName().toUtf8());
@@ -356,7 +356,7 @@ PyObject *scribus_settablestyle(PyObject* /* self */, PyObject* args)
 	PageItem_Table *table = i->asTable();
 	if (!table)
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set table style on a non-table item.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set table style on a non-table item.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	table->setStyle(QString::fromUtf8(style.c_str()));
@@ -376,7 +376,7 @@ PyObject *scribus_gettablefillcolor(PyObject* /* self */, PyObject* args)
 	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get table fill color on a non-table item.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get table fill color on a non-table item.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	return PyUnicode_FromString(table->fillColor().toUtf8());
@@ -396,7 +396,7 @@ PyObject *scribus_settablefillcolor(PyObject* /* self */, PyObject* args)
 	PageItem_Table *table = i->asTable();
 	if (!table)
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set table fill color on a non-table item.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set table fill color on a non-table item.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	table->setFillColor(QString::fromUtf8(color.c_str()));
@@ -417,7 +417,7 @@ PyObject *scribus_settableleftborder(PyObject* /* self */, PyObject* args)
 	PageItem_Table *table = i->asTable();
 	if (!table)
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set table left border on a non-table item.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set table left border on a non-table item.","python error").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -445,7 +445,7 @@ PyObject *scribus_settablerightborder(PyObject* /* self */, PyObject* args)
 	PageItem_Table *table = i->asTable();
 	if (!table)
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set table right border on a non-table item.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set table right border on a non-table item.","python error").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -473,7 +473,7 @@ PyObject *scribus_settabletopborder(PyObject* /* self */, PyObject* args)
 	PageItem_Table *table = i->asTable();
 	if (!table)
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set table top border on a non-table item.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set table top border on a non-table item.","python error").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -501,7 +501,7 @@ PyObject *scribus_settablebottomborder(PyObject* /* self */, PyObject* args)
 	PageItem_Table *table = i->asTable();
 	if (!table)
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set table bottom border on a non-table item.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set table bottom border on a non-table item.","python error").toUtf8().constData());
 		return nullptr;
 	}
 

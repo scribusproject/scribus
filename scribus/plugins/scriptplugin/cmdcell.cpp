@@ -28,12 +28,12 @@ PyObject *scribus_getcelltext(PyObject* /* self */, PyObject* args)
 	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get cell text on a non-table item.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get cell text on a non-table item.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (column < 0 || column >= table->columns() || row < 0 || row >= table->rows())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("The cell %1,%2 does not exist in table", "python error").arg(row).arg(column).toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("The cell %1,%2 does not exist in table", "python error").arg(row).arg(column).toUtf8().constData());
 		return nullptr;
 	}
 
@@ -71,12 +71,12 @@ PyObject *scribus_setcelltext(PyObject* /* self */, PyObject* args)
 	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set cell text on a non-table item.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set cell text on a non-table item.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (column < 0 || column >= table->columns() || row < 0 || row >= table->rows())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("The cell %1,%2 does not exist in table", "python error").arg(row).arg(column).toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("The cell %1,%2 does not exist in table", "python error").arg(row).arg(column).toUtf8().constData());
 		return nullptr;
 	}
 	table->cellAt(row, column).setText(QString::fromUtf8(text.c_str()));
@@ -97,12 +97,12 @@ PyObject *scribus_getcellstyle(PyObject* /* self */, PyObject* args)
 	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get cell style on a non-table item.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get cell style on a non-table item.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (column < 0 || column >= table->columns() || row < 0 || row >= table->rows())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("The cell %1,%2 does not exist in table", "python error").arg(row).arg(column).toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("The cell %1,%2 does not exist in table", "python error").arg(row).arg(column).toUtf8().constData());
 		return nullptr;
 	}
 	return PyUnicode_FromString(table->cellAt(row, column).styleName().toUtf8());
@@ -123,12 +123,12 @@ PyObject *scribus_setcellstyle(PyObject* /* self */, PyObject* args)
 	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set cell style on a non-table item.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set cell style on a non-table item.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (column < 0 || column >= table->columns() || row < 0 || row >= table->rows())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("The cell %1,%2 does not exist in table", "python error").arg(row).arg(column).toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("The cell %1,%2 does not exist in table", "python error").arg(row).arg(column).toUtf8().constData());
 		return nullptr;
 	}
 	table->cellAt(row, column).setStyle(QString::fromUtf8(style.c_str()));
@@ -149,7 +149,7 @@ PyObject *scribus_getcellrowspan(PyObject* /* self */, PyObject* args)
 	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get cell row span from non-table item.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get cell row span from non-table item.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	return PyLong_FromLong(static_cast<long>(table->cellAt(row, column).rowSpan()));
@@ -169,7 +169,7 @@ PyObject *scribus_getcellcolumnspan(PyObject* /* self */, PyObject* args)
 	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get cell column span from non-table item.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get cell column span from non-table item.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	return PyLong_FromLong(static_cast<long>(table->cellAt(row, column).columnSpan()));
@@ -189,12 +189,12 @@ PyObject *scribus_getcellfillcolor(PyObject* /* self */, PyObject* args)
 	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get cell fill color on a non-table item.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get cell fill color on a non-table item.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (column < 0 || column >= table->columns() || row < 0 || row >= table->rows())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("The cell %1,%2 does not exist in table", "python error").arg(row).arg(column).toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("The cell %1,%2 does not exist in table", "python error").arg(row).arg(column).toUtf8().constData());
 		return nullptr;
 	}
 	return PyUnicode_FromString(table->cellAt(row, column).fillColor().toUtf8());
@@ -215,12 +215,12 @@ PyObject *scribus_setcellfillcolor(PyObject* /* self */, PyObject* args)
 	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set cell fill color on a non-table item.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set cell fill color on a non-table item.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (column < 0 || column >= table->columns() || row < 0 || row >= table->rows())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("The cell %1,%2 does not exist in table", "python error").arg(row).arg(column).toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("The cell %1,%2 does not exist in table", "python error").arg(row).arg(column).toUtf8().constData());
 		return nullptr;
 	}
 	table->cellAt(row, column).setFillColor(QString::fromUtf8(color.c_str()));
@@ -242,12 +242,12 @@ PyObject *scribus_setcellleftborder(PyObject* /* self */, PyObject* args)
 	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set cell left border on a non-table item.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set cell left border on a non-table item.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (column < 0 || column >= table->columns() || row < 0 || row >= table->rows())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("The cell %1,%2 does not exist in table", "python error").arg(row).arg(column).toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("The cell %1,%2 does not exist in table", "python error").arg(row).arg(column).toUtf8().constData());
 		return nullptr;
 	}
 
@@ -276,12 +276,12 @@ PyObject *scribus_setcellrightborder(PyObject* /* self */, PyObject* args)
 	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set cell right border on a non-table item.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set cell right border on a non-table item.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (column < 0 || column >= table->columns() || row < 0 || row >= table->rows())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("The cell %1,%2 does not exist in table", "python error").arg(row).arg(column).toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("The cell %1,%2 does not exist in table", "python error").arg(row).arg(column).toUtf8().constData());
 		return nullptr;
 	}
 
@@ -310,12 +310,12 @@ PyObject *scribus_setcelltopborder(PyObject* /* self */, PyObject* args)
 	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set cell top border on a non-table item.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set cell top border on a non-table item.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (column < 0 || column >= table->columns() || row < 0 || row >= table->rows())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("The cell %1,%2 does not exist in table", "python error").arg(row).arg(column).toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("The cell %1,%2 does not exist in table", "python error").arg(row).arg(column).toUtf8().constData());
 		return nullptr;
 	}
 
@@ -344,12 +344,12 @@ PyObject *scribus_setcellbottomborder(PyObject* /* self */, PyObject* args)
 	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set cell bottom border on a non-table item.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set cell bottom border on a non-table item.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (column < 0 || column >= table->columns() || row < 0 || row >= table->rows())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("The cell %1,%2 does not exist in table", "python error").arg(row).arg(column).toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("The cell %1,%2 does not exist in table", "python error").arg(row).arg(column).toUtf8().constData());
 		return nullptr;
 	}
 
@@ -378,17 +378,17 @@ PyObject *scribus_setcellleftpadding(PyObject* /* self */, PyObject* args)
 	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set cell left padding on a non-table item.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set cell left padding on a non-table item.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (column < 0 || column >= table->columns() || row < 0 || row >= table->rows())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("The cell %1,%2 does not exist in table", "python error").arg(row).arg(column).toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("The cell %1,%2 does not exist in table", "python error").arg(row).arg(column).toUtf8().constData());
 		return nullptr;
 	}
 	if (padding < 0.0)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Cell padding must be >= 0.0", "python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cell padding must be >= 0.0", "python error").toUtf8().constData());
 		return nullptr;
 	}
 	table->cellAt(row, column).setLeftPadding(padding);
@@ -411,17 +411,17 @@ PyObject *scribus_setcellrightpadding(PyObject* /* self */, PyObject* args)
 	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set cell right padding on a non-table item.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set cell right padding on a non-table item.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (column < 0 || column >= table->columns() || row < 0 || row >= table->rows())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("The cell %1,%2 does not exist in table", "python error").arg(row).arg(column).toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("The cell %1,%2 does not exist in table", "python error").arg(row).arg(column).toUtf8().constData());
 		return nullptr;
 	}
 	if (padding < 0.0)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Cell padding must be >= 0.0", "python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cell padding must be >= 0.0", "python error").toUtf8().constData());
 		return nullptr;
 	}
 	table->cellAt(row, column).setRightPadding(padding);
@@ -444,17 +444,17 @@ PyObject *scribus_setcelltoppadding(PyObject* /* self */, PyObject* args)
 	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set cell top padding on a non-table item.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set cell top padding on a non-table item.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (column < 0 || column >= table->columns() || row < 0 || row >= table->rows())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("The cell %1,%2 does not exist in table", "python error").arg(row).arg(column).toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("The cell %1,%2 does not exist in table", "python error").arg(row).arg(column).toUtf8().constData());
 		return nullptr;
 	}
 	if (padding < 0.0)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Cell padding must be >= 0.0", "python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cell padding must be >= 0.0", "python error").toUtf8().constData());
 		return nullptr;
 	}
 	table->cellAt(row, column).setTopPadding(padding);
@@ -477,17 +477,17 @@ PyObject *scribus_setcellbottompadding(PyObject* /* self */, PyObject* args)
 	const PageItem_Table *table = i->asTable();
 	if (!table)
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set cell bottom padding on a non-table item.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set cell bottom padding on a non-table item.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (column < 0 || column >= table->columns() || row < 0 || row >= table->rows())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("The cell %1,%2 does not exist in table", "python error").arg(row).arg(column).toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("The cell %1,%2 does not exist in table", "python error").arg(row).arg(column).toUtf8().constData());
 		return nullptr;
 	}
 	if (padding < 0.0)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Cell padding must be >= 0.0", "python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cell padding must be >= 0.0", "python error").toUtf8().constData());
 		return nullptr;
 	}
 	table->cellAt(row, column).setBottomPadding(padding);

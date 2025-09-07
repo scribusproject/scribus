@@ -99,13 +99,13 @@ PyObject *scribus_renderfont(PyObject* /*self*/, PyObject* args, PyObject* kw)
 		return nullptr;
 	if (!PrefsManager::instance().appPrefs.fontPrefs.AvailFonts.contains(QString::fromUtf8(name.c_str())))
 	{
-		PyErr_SetString(NotFoundError, QObject::tr("Font not found.","python error").toLocal8Bit().constData());
+		PyErr_SetString(NotFoundError, QObject::tr("Font not found.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	QVector<uint> ts = QString::fromUtf8(sample.c_str()).toUcs4();
 	if (ts.isEmpty())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot render an empty sample.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot render an empty sample.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	std::string strFormat(format.c_str());
@@ -122,7 +122,7 @@ PyObject *scribus_renderfont(PyObject* /*self*/, PyObject* args, PyObject* kw)
 		bool ret = pm.save(&buffer, strFormat.c_str());
 		if (!ret)
 		{
-			PyErr_SetString(ScribusException, QObject::tr("Unable to save pixmap","scripter error").toLocal8Bit().constData());
+			PyErr_SetString(ScribusException, QObject::tr("Unable to save pixmap","scripter error").toUtf8().constData());
 			return nullptr;
 		}
 		int bufferSize = buffer.size();
@@ -138,7 +138,7 @@ PyObject *scribus_renderfont(PyObject* /*self*/, PyObject* args, PyObject* kw)
 	ret = pm.save(QString::fromUtf8(fileName.c_str()), strFormat.c_str());
 	if (!ret)
 	{
-		PyErr_SetString(PyExc_Exception, QObject::tr("Unable to save pixmap","scripter error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_Exception, QObject::tr("Unable to save pixmap","scripter error").toUtf8().constData());
 		return nullptr;
 	}
 	// For historical reasons, we need to return true on success.
@@ -168,7 +168,7 @@ PyObject *scribus_setactivelayer(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (name.isEmpty())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	bool found = ScCore->primaryMainWindow()->doc->setActiveLayer(QString::fromUtf8(name.c_str()));
@@ -176,7 +176,7 @@ PyObject *scribus_setactivelayer(PyObject* /* self */, PyObject* args)
 		ScCore->primaryMainWindow()->changeLayer(ScCore->primaryMainWindow()->doc->activeLayer());
 	else
 	{
-		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error").toLocal8Bit().constData());
+		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	Py_RETURN_NONE;
@@ -217,7 +217,7 @@ PyObject *scribus_sendtolayer(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (strlen(Layer) == 0)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -228,7 +228,7 @@ PyObject *scribus_sendtolayer(PyObject* /* self */, PyObject* args)
 	const ScLayer *scLayer = currentDoc->Layers.layerByName( QString::fromUtf8(Layer) );
 	if (!scLayer)
 	{
-		PyErr_SetString(ScribusException, QString("Layer not found").toLocal8Bit().constData());
+		PyErr_SetString(ScribusException, QString("Layer not found").toUtf8().constData());
 		return nullptr;
 	}
 	// If no name have been specified in args, process whole selection
@@ -259,7 +259,7 @@ PyObject *scribus_setlayervisible(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (name.isEmpty())
 	{
-		PyErr_SetString(PyExc_ValueError, QString("Cannot have an empty layer name").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QString("Cannot have an empty layer name").toUtf8().constData());
 		return nullptr;
 	}
 	bool found = false;
@@ -274,7 +274,7 @@ PyObject *scribus_setlayervisible(PyObject* /* self */, PyObject* args)
 	}
 	if (!found)
 	{
-		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error").toLocal8Bit().constData());
+		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	Py_RETURN_NONE;
@@ -290,7 +290,7 @@ PyObject *scribus_setlayerprintable(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (name.isEmpty())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	bool found = false;
@@ -305,7 +305,7 @@ PyObject *scribus_setlayerprintable(PyObject* /* self */, PyObject* args)
 	}
 	if (!found)
 	{
-		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error").toLocal8Bit().constData());
+		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	Py_RETURN_NONE;
@@ -321,7 +321,7 @@ PyObject *scribus_setlayerlocked(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (name.isEmpty())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	bool found = false;
@@ -336,7 +336,7 @@ PyObject *scribus_setlayerlocked(PyObject* /* self */, PyObject* args)
 	}
 	if (!found)
 	{
-		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error").toLocal8Bit().constData());
+		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	Py_RETURN_NONE;
@@ -352,7 +352,7 @@ PyObject *scribus_setlayeroutlined(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (name.isEmpty())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	bool found = false;
@@ -367,7 +367,7 @@ PyObject *scribus_setlayeroutlined(PyObject* /* self */, PyObject* args)
 	}
 	if (!found)
 	{
-		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error").toLocal8Bit().constData());
+		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	Py_RETURN_NONE;
@@ -383,7 +383,7 @@ PyObject *scribus_setlayerflow(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (name.isEmpty())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	bool found = false;
@@ -398,7 +398,7 @@ PyObject *scribus_setlayerflow(PyObject* /* self */, PyObject* args)
 	}
 	if (!found)
 	{
-		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error").toLocal8Bit().constData());
+		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	Py_RETURN_NONE;
@@ -414,7 +414,7 @@ PyObject *scribus_setlayerblendmode(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (name.isEmpty())
 	{
-		PyErr_SetString(PyExc_ValueError, QString("Cannot have an empty layer name").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QString("Cannot have an empty layer name").toUtf8().constData());
 		return nullptr;
 	}
 	bool found = false;
@@ -429,7 +429,7 @@ PyObject *scribus_setlayerblendmode(PyObject* /* self */, PyObject* args)
 	}
 	if (!found)
 	{
-		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error").toLocal8Bit().constData());
+		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	Py_RETURN_NONE;
@@ -445,7 +445,7 @@ PyObject *scribus_setlayertransparency(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (name.isEmpty())
 	{
-		PyErr_SetString(PyExc_ValueError, QString("Cannot have an empty layer name").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QString("Cannot have an empty layer name").toUtf8().constData());
 		return nullptr;
 	}
 	bool found = false;
@@ -460,7 +460,7 @@ PyObject *scribus_setlayertransparency(PyObject* /* self */, PyObject* args)
 	}
 	if (!found)
 	{
-		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error").toLocal8Bit().constData());
+		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	Py_RETURN_NONE;
@@ -475,7 +475,7 @@ PyObject *scribus_islayervisible(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (name.isEmpty())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	int j = 0;
@@ -491,7 +491,7 @@ PyObject *scribus_islayervisible(PyObject* /* self */, PyObject* args)
 	}
 	if (!found)
 	{
-		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error").toLocal8Bit().constData());
+		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	return PyLong_FromLong(static_cast<long>(j));
@@ -506,7 +506,7 @@ PyObject *scribus_islayerprintable(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (name.isEmpty())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	int j = 0;
@@ -522,7 +522,7 @@ PyObject *scribus_islayerprintable(PyObject* /* self */, PyObject* args)
 	}
 	if (!found)
 	{
-		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error").toLocal8Bit().constData());
+		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	return PyLong_FromLong(static_cast<long>(j));
@@ -537,7 +537,7 @@ PyObject *scribus_islayerlocked(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (name.isEmpty())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	int j = 0;
@@ -553,7 +553,7 @@ PyObject *scribus_islayerlocked(PyObject* /* self */, PyObject* args)
 	}
 	if (!found)
 	{
-		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error").toLocal8Bit().constData());
+		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	return PyLong_FromLong(static_cast<long>(j));
@@ -568,7 +568,7 @@ PyObject *scribus_islayeroutlined(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (name.isEmpty())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	int j = 0;
@@ -584,7 +584,7 @@ PyObject *scribus_islayeroutlined(PyObject* /* self */, PyObject* args)
 	}
 	if (!found)
 	{
-		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error").toLocal8Bit().constData());
+		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	return PyLong_FromLong(static_cast<long>(j));
@@ -599,7 +599,7 @@ PyObject *scribus_islayerflow(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (name.isEmpty())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	int j = 0;
@@ -615,7 +615,7 @@ PyObject *scribus_islayerflow(PyObject* /* self */, PyObject* args)
 	}
 	if (!found)
 	{
-		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error").toLocal8Bit().constData());
+		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	return PyLong_FromLong(static_cast<long>(j));
@@ -630,7 +630,7 @@ PyObject *scribus_getlayerblendmode(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (name.isEmpty())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	int j = 0;
@@ -646,7 +646,7 @@ PyObject *scribus_getlayerblendmode(PyObject* /* self */, PyObject* args)
 	}
 	if (!found)
 	{
-		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error").toLocal8Bit().constData());
+		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	return PyLong_FromLong(static_cast<long>(j));
@@ -661,7 +661,7 @@ PyObject *scribus_getlayertransparency(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (name.isEmpty())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	double j = 1.0;
@@ -677,7 +677,7 @@ PyObject *scribus_getlayertransparency(PyObject* /* self */, PyObject* args)
 	}
 	if (!found)
 	{
-		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error").toLocal8Bit().constData());
+		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	return PyFloat_FromDouble(j);
@@ -693,21 +693,21 @@ PyObject *scribus_deletelayer(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (name.isEmpty())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error").toUtf8().constData());
 		return nullptr;
 	}
 
 	auto* currentDoc = ScCore->primaryMainWindow()->doc;
 	if (currentDoc->Layers.count() == 1)
 	{
-		PyErr_SetString(ScribusException, QObject::tr("Cannot remove the last layer.", "python error").toLocal8Bit().constData());
+		PyErr_SetString(ScribusException, QObject::tr("Cannot remove the last layer.", "python error").toUtf8().constData());
 		return nullptr;
 	}
 
 	const ScLayer* pLayer = currentDoc->Layers.layerByName(QString::fromUtf8(name.c_str()));
 	if (!pLayer)
 	{
-		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.", "python error").toLocal8Bit().constData());
+		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.", "python error").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -732,7 +732,7 @@ PyObject *scribus_createlayer(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (name.isEmpty())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot create layer without a name.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot create layer without a name.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	ScCore->primaryMainWindow()->doc->addLayer(QString::fromUtf8(name.c_str()), true);

@@ -104,7 +104,7 @@ PageItem* GetUniqueItem(const QString& name)
 	{
 		if (!ScCore->primaryMainWindow()->doc->m_Selection->isEmpty())
 			return ScCore->primaryMainWindow()->doc->m_Selection->itemAt(0);
-		PyErr_SetString(NoValidObjectError, QString("Cannot use empty string for object name when there is no selection").toLocal8Bit().constData());
+		PyErr_SetString(NoValidObjectError, QString("Cannot use empty string for object name when there is no selection").toUtf8().constData());
 		return nullptr;
 	}
 	return getPageItemByName(name);
@@ -114,7 +114,7 @@ PageItem* getPageItemByName(const QString& name)
 {
 	if (name.isEmpty())
 	{
-		PyErr_SetString(PyExc_ValueError, QString("Cannot accept empty name for pageitem").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QString("Cannot accept empty name for pageitem").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -125,7 +125,7 @@ PageItem* getPageItemByName(const QString& name)
 			return currentDoc->Items->at(i);
 	}
 
-	PyErr_SetString(NoValidObjectError, QString("Object not found").toLocal8Bit().constData());
+	PyErr_SetString(NoValidObjectError, QString("Object not found").toUtf8().constData());
 	return nullptr;
 }
 
@@ -162,7 +162,7 @@ bool checkHaveDocument()
 		return true;
 	// Caller is required to check for false return from this function
 	// and return nullptr.
-	PyErr_SetString(NoDocOpenError, QString("Command does not make sense without an open document").toLocal8Bit().constData());
+	PyErr_SetString(NoDocOpenError, QString("Command does not make sense without an open document").toUtf8().constData());
 	return false;
 }
 
@@ -171,7 +171,7 @@ bool checkValidPageNumber(int page)
 	const auto numPages = ScCore->primaryMainWindow()->doc->Pages->count();
 	if (page < 0 || page >= numPages)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("%1 is not a valid page number.", "python error").arg(page).toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("%1 is not a valid page number.", "python error").arg(page).toUtf8().constData());
 		return false;
 	}
 	return true;
@@ -216,7 +216,7 @@ TableBorder parseBorder(PyObject* borderLines, bool* ok)
 
 	if (!PyList_Check(borderLines))
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Expected a list of border lines", "python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Expected a list of border lines", "python error").toUtf8().constData());
 		*ok = false;
 		return border;
 	}
@@ -225,7 +225,7 @@ TableBorder parseBorder(PyObject* borderLines, bool* ok)
 	PyObject* borderLinesList = PySequence_List(borderLines);
 	if (borderLinesList == nullptr)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Expected a list of border lines", "python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Expected a list of border lines", "python error").toUtf8().constData());
 		*ok = false;
 		return border;
 	}
@@ -241,13 +241,13 @@ TableBorder parseBorder(PyObject* borderLines, bool* ok)
 		PyObject* props = PyList_GET_ITEM(borderLinesList, i);
 		if (!PyArg_ParseTuple(props, "dies|d", &width, &style, "utf-8", color.ptr(), &shade))
 		{
-			PyErr_SetString(PyExc_ValueError, QObject::tr("Border lines are specified as (width,style,color,shade) tuples", "python error").toLocal8Bit().constData());
+			PyErr_SetString(PyExc_ValueError, QObject::tr("Border lines are specified as (width,style,color,shade) tuples", "python error").toUtf8().constData());
 			*ok = false;
 			return border;
 		}
 		if (width <= 0.0)
 		{
-			PyErr_SetString(PyExc_ValueError, QObject::tr("Border line width must be > 0.0", "python error").toLocal8Bit().constData());
+			PyErr_SetString(PyExc_ValueError, QObject::tr("Border line width must be > 0.0", "python error").toUtf8().constData());
 			*ok = false;
 			return border;
 		}
