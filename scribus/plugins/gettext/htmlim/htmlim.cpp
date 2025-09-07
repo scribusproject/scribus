@@ -25,7 +25,8 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 #include "htmlim.h"
-//#include "htmlim.moc"
+#include "htmlreader.h"
+
 #include <QObject>
 #include <QString>
 #include <QStringList>
@@ -34,9 +35,10 @@ for which a new license (GPL+exception) is in place.
 #error The htmlim plugin requires libxml to build
 #endif
 
-#include "scribusstructs.h"
-#include "gtparagraphstyle.h" // Style for paragraph based formatting.
 #include "gtframestyle.h"
+#include "gtparagraphstyle.h" // Style for paragraph based formatting.
+#include "gtwriter.h"
+#include "scribusstructs.h"
 
 QString FileFormatName()
 {
@@ -52,34 +54,25 @@ QStringList FileExtensions()
 
 void GetText(const QString& filename, const QString& encoding, bool textOnly, gtWriter *writer)
 {
-	HTMLIm* him = new HTMLIm(filename, encoding, writer, textOnly);
-	delete him;
+	auto htmlIm = std::make_shared<HTMLIm>(filename, encoding, writer);
+	htmlIm->importText(textOnly);
 }
 
 /******** Class HTMLIm ************************************/
 
-HTMLIm::HTMLIm(const QString& fname, const QString& coding, gtWriter *w, bool textOnly)
+HTMLIm::HTMLIm(const QString& fname, const QString& coding, gtWriter *w)
 {
 	filename = fname;
 	encoding = coding;
 	writer = w;
-	gtFrameStyle *fstyle = writer->getDefaultStyle();
-	pstyle = new gtParagraphStyle(*fstyle);
+	const gtFrameStyle *fstyle = writer->getDefaultStyle();
+	pstyle.reset(new gtParagraphStyle(*fstyle));
 	pstyle->setName("HTML_default");
-// 	defaultFontSize = pstyle->getFont()->getSize();
-	importText(textOnly);
-	delete pstyle;
 }
 
 void HTMLIm::importText(bool textOnly)
 {
-	HTMLReader* handler = new HTMLReader(pstyle, writer, textOnly);
+	auto handler = std::make_shared<HTMLReader>(pstyle.get(), writer, textOnly);
 	handler->parse(filename);
-	delete handler;
-}
-
-HTMLIm::~HTMLIm()
-{
-
 }
 

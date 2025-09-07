@@ -28,14 +28,15 @@ for which a new license (GPL+exception) is in place.
 
 #include "scconfig.h"
 
+#include <memory>
 #include <vector>
 #include <libxml/HTMLparser.h>
 
 #include <QMap>
 #include <QString>
 
-#include <gtparagraphstyle.h>
-#include <gtwriter.h>
+#include "gtparagraphstyle.h"
+#include "gtwriter.h"
 
 using HTMLAttributesMap = QMap<QString, QString>;
 
@@ -73,16 +74,16 @@ private:
 	std::vector<int> nextItemNumbers;
 	gtWriter *writer { nullptr };
 	gtParagraphStyle *pstyle { nullptr };
-	gtParagraphStyle *pstylec { nullptr };
-	gtParagraphStyle *pstyleh1 { nullptr };
-	gtParagraphStyle *pstyleh2 { nullptr };
-	gtParagraphStyle *pstyleh3 { nullptr };
-	gtParagraphStyle *pstyleh4 { nullptr };
-	gtParagraphStyle *pstyleh5 { nullptr };
-	gtParagraphStyle *pstyleh6 { nullptr };
-	gtParagraphStyle *pstylecode { nullptr };
-	gtParagraphStyle *pstylep { nullptr };
-	gtParagraphStyle *pstylepre { nullptr };
+	std::unique_ptr<gtParagraphStyle> pstylec;
+	std::unique_ptr<gtParagraphStyle> pstyleh1;
+	std::unique_ptr<gtParagraphStyle> pstyleh2;
+	std::unique_ptr<gtParagraphStyle> pstyleh3;
+	std::unique_ptr<gtParagraphStyle> pstyleh4;
+	std::unique_ptr<gtParagraphStyle> pstyleh5;
+	std::unique_ptr<gtParagraphStyle> pstyleh6;
+	std::unique_ptr<gtParagraphStyle> pstylecode;
+	std::unique_ptr<gtParagraphStyle> pstylep;
+	std::unique_ptr<gtParagraphStyle> pstylepre;
 	bool inOL { false };
 	bool wasInOL { false };
 	bool inUL { false };
@@ -102,11 +103,11 @@ private:
 	bool inPre { false };
 	bool inP { false };
 
-	static bool elemJustStarted;
-	static bool elemJustFinished;
-
 	bool lastCharWasSpace { false };
 	bool noFormatting { false };
+
+	static bool elemJustStarted;
+	static bool elemJustFinished;
 
 	static HTMLReader* hreader;
 
