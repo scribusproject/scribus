@@ -24,85 +24,102 @@ for which a new license (GPL+exception) is in place.
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.         *
  ***************************************************************************/
 
-#include <QObject>
 #include <QByteArray>
 #include <QDir>
+#include <QObject>
 
 #include "htmlreader.h"
 #include "gtmeasure.h"
 
-HTMLReader* HTMLReader::hreader = nullptr;
-bool HTMLReader::elemJustStarted = false;
-bool HTMLReader::elemJustFinished = false;
-
 extern htmlSAXHandlerPtr mySAXHandler;
 
 HTMLReader::HTMLReader(gtParagraphStyle *ps, gtWriter *w, bool textOnly)
+	: defaultColor(ps->getFont()->getColor()),
+	  defaultWeight(ps->getFont()->getWeight()),
+	  defaultSlant(ps->getFont()->getSlant()),
+	  writer(w),
+	  pstyle(ps),
+	  noFormatting(textOnly)
 {
-	pstyle = ps;
-	defaultColor = ps->getFont()->getColor();
-	defaultWeight = ps->getFont()->getWeight();
-	defaultSlant = ps->getFont()->getSlant();
 	initPStyles();
-
-	writer = w;
-	noFormatting = textOnly;
 	hreader = this;
+}
+
+HTMLReader::~HTMLReader()
+{
+	if (!extLinks.isEmpty())
+	{
+		writer->append(QObject::tr("\nExternal Links\n"), pstyleh4.get());
+		writer->append(extLinks, pstyle);
+	}
+	for (gtParagraphStyle* pStyle : listStyles)
+		delete pStyle;
+	hreader = nullptr;
 }
 
 void HTMLReader::initPStyles()
 {
-	pstylec = new gtParagraphStyle(*pstyle);
+	pstylec = std::make_unique<gtParagraphStyle>(*pstyle);
 	pstylec->setAlignment(CENTER);
 	pstylec->setName("HTML_center");
-	gtParagraphStyle* pstyleli = new gtParagraphStyle(*pstyle);
+
+	auto* pstyleli = new gtParagraphStyle(*pstyle);
 	pstyleli->setIndent(pstyleli->getIndent()+50.0);
 	pstyleli->setName("HTML_li_level-0");
 	listStyles.push_back(pstyleli);
 	nextItemNumbers.push_back(1);
-	pstyleh6 = new gtParagraphStyle(*pstyle);
+
+	pstyleh6 = std::make_unique<gtParagraphStyle>(*pstyle);
 	pstyleh6->getFont()->setSize(pstyle->getFont()->getSize() + 2.5);
 	pstyleh6->getFont()->setWeight(BOLD);
 	pstyleh6->setSpaceAbove(2.5);
 	pstyleh6->setSpaceBelow(1.25);
 	pstyleh6->setName("HTML_h6");
-	pstyleh5 = new gtParagraphStyle(*pstyle);
+
+	pstyleh5 = std::make_unique<gtParagraphStyle>(*pstyle);
 	pstyleh5->getFont()->setSize(pstyle->getFont()->getSize() + 5);
 	pstyleh5->getFont()->setWeight(BOLD);
 	pstyleh5->setSpaceAbove(5.0);
 	pstyleh5->setSpaceBelow(2.5);
 	pstyleh5->setName("HTML_h5");
-	pstyleh4 = new gtParagraphStyle(*pstyle);
+
+	pstyleh4 = std::make_unique<gtParagraphStyle>(*pstyle);
 	pstyleh4->getFont()->setSize(pstyle->getFont()->getSize() + 10);
 	pstyleh4->getFont()->setWeight(BOLD);
 	pstyleh4->setSpaceAbove(10.0);
 	pstyleh4->setSpaceBelow(5.0);
 	pstyleh4->setName("HTML_h4");
-	pstyleh3 = new gtParagraphStyle(*pstyle);
+
+	pstyleh3 = std::make_unique<gtParagraphStyle>(*pstyle);
 	pstyleh3->getFont()->setSize(pstyle->getFont()->getSize() + 20);
 	pstyleh3->getFont()->setWeight(BOLD);
 	pstyleh3->setSpaceAbove(20.0);
 	pstyleh3->setSpaceBelow(10.0);
 	pstyleh3->setName("HTML_h3");
-	pstyleh2 = new gtParagraphStyle(*pstyle);
+
+	pstyleh2 = std::make_unique<gtParagraphStyle>(*pstyle);
 	pstyleh2->getFont()->setSize(pstyle->getFont()->getSize() + 40);
 	pstyleh2->getFont()->setWeight(BOLD);
 	pstyleh2->setSpaceAbove(30.0);
 	pstyleh2->setSpaceBelow(20.0);
 	pstyleh2->setName("HTML_h2");
-	pstyleh1 = new gtParagraphStyle(*pstyle);
+
+	pstyleh1 = std::make_unique<gtParagraphStyle>(*pstyle);
 	pstyleh1->getFont()->setSize(pstyle->getFont()->getSize() + 60);
 	pstyleh1->getFont()->setWeight(BOLD);
 	pstyleh1->setSpaceAbove(40.0);
 	pstyleh1->setSpaceBelow(30.0);
 	pstyleh1->setName("HTML_h1");
-	pstylecode = new gtParagraphStyle(*pstyle);
+
+	pstylecode = std::make_unique<gtParagraphStyle>(*pstyle);
 	pstylecode->getFont()->setName("Courier Regular");
 	pstylecode->setName("HTML_code");
-	pstylep = new gtParagraphStyle(*pstyle);
+
+	pstylep = std::make_unique<gtParagraphStyle>(*pstyle);
 	pstylep->setSpaceBelow(gtMeasure::i2d(5, SC_MM));
 	pstylep->setName("HTML_p");
-	pstylepre = new gtParagraphStyle(*pstyle);
+
+	pstylepre = std::make_unique<gtParagraphStyle>(*pstyle);
 	pstylepre->setName("HTML_pre");
 }
 
@@ -243,8 +260,8 @@ bool HTMLReader::characters(const QString &ch)
 		}
 		QString chl(tmp.at(0));
 		QString chr(tmp.right(1));
-		bool fcis = (chl.length() > 0 && chl[0].isSpace());
-		bool lcis = (chr.length() > 0 && chr[0].isSpace());
+		bool fcis = (!chl.isEmpty() && chl[0].isSpace());
+		bool lcis = (!chr.isEmpty() && chr[0].isSpace());
 		if (inPre)
 		{
 			if (tmp.at(0) == '\n')
@@ -277,29 +294,29 @@ bool HTMLReader::characters(const QString &ch)
 		if (noFormatting)
 			writer->appendUnstyled(tmp);
 		else if (inP)
-			writer->append(tmp, pstylep);
+			writer->append(tmp, pstylep.get());
 		else if (inLI)
 		{
 			writer->append(tmp, listStyles[listLevel]);
 		}
 		else if (inH1)
-			writer->append(tmp, pstyleh1);
+			writer->append(tmp, pstyleh1.get());
 		else if (inH2)
-			writer->append(tmp, pstyleh2);
+			writer->append(tmp, pstyleh2.get());
 		else if (inH3)
-			writer->append(tmp, pstyleh3);
+			writer->append(tmp, pstyleh3.get());
 		else if (inH4)
-			writer->append(tmp, pstyleh4);
+			writer->append(tmp, pstyleh4.get());
 		else if (inH5)
-			writer->append(tmp, pstyleh5);
+			writer->append(tmp, pstyleh5.get());
 		else if (inH6)
-			writer->append(tmp, pstyleh6);
+			writer->append(tmp, pstyleh6.get());
 		else if (inCenter)
-			writer->append(tmp, pstylec);
+			writer->append(tmp, pstylec.get());
 		else if (inCode)
-			writer->append(tmp, pstylecode);
+			writer->append(tmp, pstylecode.get());
 		else if (inPre)
-			writer->append(tmp, pstylepre);
+			writer->append(tmp, pstylepre.get());
 		else
 			writer->append(tmp, pstyle);
 	}
@@ -423,37 +440,37 @@ bool HTMLReader::endElement(const QString &name)
 	{
 		inH1 = false;
 		lastCharWasSpace = true;
-		writer->append("\n", pstyleh1);
+		writer->append("\n", pstyleh1.get());
 	}
 	else if (name == "h2")
 	{
 		inH2 = false;
 		lastCharWasSpace = true;
-		writer->append("\n", pstyleh2);
+		writer->append("\n", pstyleh2.get());
 	}
 	else if (name == "h3")
 	{
 		inH3 = false;
 		lastCharWasSpace = true;
-		writer->append("\n", pstyleh3);
+		writer->append("\n", pstyleh3.get());
 	}
 	else if (name == "h4")
 	{
 		inH4 = false;
 		lastCharWasSpace = true;
-		writer->append("\n", pstyleh4);
+		writer->append("\n", pstyleh4.get());
 	}
 	else if (name == "h5")
 	{
 		inH5 = false;
 		lastCharWasSpace = true;
-		writer->append("\n", pstyleh5);
+		writer->append("\n", pstyleh5.get());
 	}
 	else if (name == "h6")
 	{
 		inH6 = false;
 		lastCharWasSpace = true;
-		writer->append("\n", pstyleh6);
+		writer->append("\n", pstyleh6.get());
 	}
 	else if ((name == "b") || (name == "strong"))
 		unSetBoldFont();
@@ -615,7 +632,7 @@ void HTMLReader::parse(const QString& filename)
 
 void HTMLReader::createListStyle()
 {
-	gtParagraphStyle* tmpStyle = new gtParagraphStyle(*listStyles[0]);
+	auto* tmpStyle = new gtParagraphStyle(*listStyles[0]);
 	tmpStyle->setName(QString("HTML_li_level-%1").arg(listLevel + 1));
 	double indent = listStyles[0]->getIndent();
 	indent += 25 * (listLevel + 1);
@@ -660,26 +677,3 @@ htmlSAXHandler mySAXHandlerStruct = {
 };
 
 htmlSAXHandlerPtr mySAXHandler = &mySAXHandlerStruct;
-
-HTMLReader::~HTMLReader()
-{
-	if (!extLinks.isEmpty())
-	{
-		writer->append(QObject::tr("\nExternal Links\n"), pstyleh4);
-		writer->append(extLinks, pstyle);
-	}
-	for (uint i = 0; i < listStyles.size(); ++i)
-		delete listStyles[i];
-	delete pstylec;
-	delete pstyleh1;
-	delete pstyleh2;
-	delete pstyleh3;
-	delete pstyleh4;
-	delete pstyleh5;
-	delete pstyleh6;
-	delete pstylecode;
-	delete pstylep;
-	delete pstylepre;
-	hreader = nullptr;
-}
-

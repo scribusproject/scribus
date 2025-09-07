@@ -27,10 +27,16 @@ for which a new license (GPL+exception) is in place.
 #ifndef HTMLIM_H
 #define HTMLIM_H
 
-#include "gtwriter.h"
+#include <memory>
 
-#include "scconfig.h"
+#include <QString>
+#include <QStringList>
+
 #include "pluginapi.h"
+#include "scconfig.h"
+
+class gtParagraphStyle;
+class gtWriter;
 
 extern "C" PLUGIN_API void GetText(const QString& filename, const QString& encoding, bool textOnly, gtWriter *writer);
 
@@ -38,21 +44,20 @@ extern "C" PLUGIN_API QString FileFormatName();
 
 extern "C" PLUGIN_API QStringList FileExtensions();
 
-#include "htmlreader.h"
-
 class HTMLIm 
 {
 public:
-	HTMLIm(const QString& fname, const QString& encoding, gtWriter *w, bool textOnly);
-	~HTMLIm();
+	HTMLIm(const QString& fname, const QString& encoding, gtWriter *w);
+	HTMLIm(const HTMLIm&) = delete;
+	HTMLIm& operator=(const HTMLIm&) = delete;
+
+	void importText(bool textOnly);
 
 private:
 	QString encoding;
 	QString filename;
 	gtWriter *writer { nullptr };
-	gtParagraphStyle *pstyle { nullptr };
-
-	void importText(bool textOnly);
+	std::unique_ptr<gtParagraphStyle> pstyle;
 };
 
 #endif // HTMLIM_H
