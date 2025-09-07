@@ -1232,13 +1232,10 @@ PyObject *scribus_selectframetext(PyObject* /* self */, PyObject* args)
 	if (selcount == -1)
 		selcount = item->lastInFrame() + 1 - start;
 	item->itemText.deselectAll();
-	if (selcount == 0)
-	{
-		item->HasSel = false;
-		Py_RETURN_NONE;
-	}
-	item->itemText.select(start, selcount, true);
-	item->HasSel = true;
+	if (selcount > 0)
+		item->itemText.select(start, selcount, true);
+	item->itemText.setCursorPosition(start + selcount);
+	item->HasSel = (selcount != 0);
 
 	Py_RETURN_NONE;
 }
@@ -1273,21 +1270,11 @@ PyObject *scribus_selecttext(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot select text in a non-text frame", "python error").toLocal8Bit().constData());
 		return nullptr;
 	}
-	/* FIXME: not sure if we should make this check or not
-	if (start > ende)
-	{
-		PyErr_SetString(PyExc_ValueError, QString("Selection start > selection end").toLocal8Bit().constData());
-		return nullptr;
-	}
-	*/
 	item->itemText.deselectAll();
-	if (selcount == 0)
-	{
-		item->HasSel = false;
-		Py_RETURN_NONE;
-	}
-	item->itemText.select(start, selcount, true);
-	item->HasSel = true;
+	if (selcount > 0)
+		item->itemText.select(start, selcount, true);
+	item->itemText.setCursorPosition(start + selcount);
+	item->HasSel = (selcount != 0);
 
 	Py_RETURN_NONE;
 }
