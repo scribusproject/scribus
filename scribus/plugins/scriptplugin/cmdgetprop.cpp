@@ -379,6 +379,25 @@ PyObject *scribus_getimagescale(PyObject* /* self */, PyObject* args)
 	return Py_BuildValue("(ff)", item->imageXScale() / 72.0 * item->pixm.imgInfo.xres, item->imageYScale() / 72.0 * item->pixm.imgInfo.yres);
 }
 
+PyObject *scribus_getimageppi(PyObject* /* self */, PyObject* args)
+{
+	PyESString name;
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	if (item == nullptr)
+		return nullptr;
+	if (!item->isImageFrame())
+	{
+		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error").toLocal8Bit().constData());
+		return nullptr;
+	}
+
+	return Py_BuildValue("(ii)", qRound(72.0 / item->imageXScale()), qRound(72.0 / item->imageYScale()));
+}
+
 PyObject *scribus_getimagefile(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
@@ -629,6 +648,7 @@ void cmdgetpropdocwarnings()
 	  << scribus_getimageoffset__doc__
 	  << scribus_getimagepage__doc__
 	  << scribus_getimagepagecount__doc__
+	  << scribus_getimageppi__doc__
 	  << scribus_getimagepreviewresolution__doc__
 	  << scribus_getimagescale__doc__
 	  << scribus_getlinecolor__doc__ 

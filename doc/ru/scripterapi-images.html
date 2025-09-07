@@ -19,42 +19,26 @@
 <dd><code>deleteObject(["name"])</code>
 <p>Deletes the item with the name "name". If "name" is not given the currently selected item is deleted.</p></dd>
 
-<dt><a name="-loadImage"><strong>loadImage</strong></a>(...)</dt>
-<dd><code>loadImage("filename" [, "name"])</code>
-<p>Loads the picture "picture" into the image frame "name". If "name" is not given the currently selected item is used.</p>
-<p>May raise <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> if the target frame is not an image frame</p></dd></dt>
-
 <dt><a name="-getImageFile"><strong>getImageFile</strong></a>(...)</dt>
 <dd><code>getImageFile(["name"]) -&gt; string</code>
 <p>Returns the filename for the image in the image frame. If "name" is not given the currently selected item is used.</p></dd>
- 
-<dt><a name="-setScaleFrameToImage"><strong>setScaleFrameToImage</strong></a>(...)</dt>
-<dd><code>setScaleFrameToImage([name])</code>
-<p>Set frame size on the selected or specified image frame to image size.</p>
-<p>May raise WrongFrameTypeError.</p></dd>
-
-<dt><a name="-setScaleImageToFrame"><strong>setScaleImageToFrame</strong></a>(...)</dt>
-<dd><code>setScaleImageToFrame(scaletoframe, proportional=None, name=&lt;selection&gt;)</code>
-<p>Sets the scale to frame on the selected or specified image frame to `scaletoframe'. If `proportional' is specified, set fixed aspect ratio scaling to `proportional'. Both `scaletoframe' and `proportional' are boolean.</p>
-<p>May raise WrongFrameTypeError.</p></dd>
-
-<dt><a name="-getImageScale"><strong>getImageScale</strong></a>(...)</dt>
-<dd><code>getImageScale(["name"]) -&gt; (x,y)</code>
-<p>Returns a (x, y) tuple containing the scaling values of the image frame "name".  If "name" is not given the currently selected item is used.</p></dd>
-
-<dt><a name="-setImageScale"><strong>setImageScale</strong></a>(...)</dt>
-<dd><code>setImageScale(x, y [, "name"])</code>
-<p>Sets the scaling factors of the picture in the image frame "name". If "name" is not given the currently selected item is used. A number of 1 means 100 %. Scaling factors are equal to the values shown on properties palette.</p>
-<p>May raise <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> if the target frame is not an image frame</p></dd>
 
 <dt><a name="-getImageOffset"><strong>getImageOffset</strong></a>(...)</dt>
 <dd><code>getImageOffset(["name"]) -&gt; (x,y)</code>
 <p>Returns a (x, y) tuple containing the offset values in point unit of the image frame "name".  If "name" is not given the currently selected item is used.</p></dd>
 
-<dt><a name="-setImageOffset"><strong>setImageOffset</strong></a>(...)</dt>
-<dd><code>setImageOffset(x, y [, "name"])</code>
-<p>Sets the position of the picture in the image frame "name". If "name" is not given the currently selected item is used. The specified offset values are equal to the values shown on properties palette when point unit is used.</p>
-<p>May raise <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> if the target frame is not an image frame</p></dd>
+<dt><a name="-getImagePpi"><strong>getImagePpi</strong></a>(...)</dt>
+<dd><code>getImagePpi(["name"]) -&gt; (x,y)</code>
+<p>Returns a (x, y) tuple containing the actual PPI of the image frame "name".  If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-getImageScale"><strong>getImageScale</strong></a>(...)</dt>
+<dd><code>getImageScale(["name"]) -&gt; (x,y)</code>
+<p>Returns a (x, y) tuple containing the scaling values of the image frame "name".  If "name" is not given the currently selected item is used.</p></dd>
+
+<dt><a name="-loadImage"><strong>loadImage</strong></a>(...)</dt>
+<dd><code>loadImage("filename" [, "name"])</code>
+<p>Loads the picture "picture" into the image frame "name". If "name" is not given the currently selected item is used.</p>
+<p>May raise <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> if the target frame is not an image frame</p></dd></dt>
 
 <dt><a name="-placeEPS"><strong>placeEPS</strong>(...)</a></dt>
 <dd><code></code>
@@ -88,6 +72,26 @@ the imported SXD</p></dd>
 <dd><code>savePageAsEPS("name")</code>
 <p>Saves the current page as an EPS to the file "name".</p>
 <p>May raise ScribusError if the save failed.</p></dd>
+
+<dt><a name="-setImageOffset"><strong>setImageOffset</strong></a>(...)</dt>
+<dd><code>setImageOffset(x, y [, "name"])</code>
+<p>Sets the position of the picture in the image frame "name". If "name" is not given the currently selected item is used. The specified offset values are equal to the values shown on properties palette when point unit is used.</p>
+<p>May raise <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> if the target frame is not an image frame</p></dd>
+
+<dt><a name="-setImageScale"><strong>setImageScale</strong></a>(...)</dt>
+<dd><code>setImageScale(x, y [, "name"])</code>
+<p>Sets the scaling factors of the picture in the image frame "name". If "name" is not given the currently selected item is used. A number of 1 means 100 %. Scaling factors are equal to the values shown on properties palette.</p>
+<p>May raise <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> if the target frame is not an image frame</p></dd>
+ 
+<dt><a name="-setScaleFrameToImage"><strong>setScaleFrameToImage</strong></a>(...)</dt>
+<dd><code>setScaleFrameToImage([name])</code>
+<p>Set frame size on the selected or specified image frame to image size.</p>
+<p>May raise WrongFrameTypeError.</p></dd>
+
+<dt><a name="-setScaleImageToFrame"><strong>setScaleImageToFrame</strong></a>(...)</dt>
+<dd><code>setScaleImageToFrame(scaletoframe, proportional=None, name=&lt;selection&gt;)</code>
+<p>Sets the scale to frame on the selected or specified image frame to `scaletoframe'. If `proportional' is specified, set fixed aspect ratio scaling to `proportional'. Both `scaletoframe' and `proportional' are boolean.</p>
+<p>May raise WrongFrameTypeError.</p></dd>
 
 </dl>
 </body>

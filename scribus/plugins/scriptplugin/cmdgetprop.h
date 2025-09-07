@@ -278,6 +278,17 @@ Returns a (x, y) tuple containing the scaling values of the image frame\n\
 PyObject *scribus_getimagescale(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_getimageppi__doc__,
+	QT_TR_NOOP("getImagePpi([\"name\"]) -> (x,y)\n\
+\n\
+Returns a (x, y) tuple containing the actual PPI of the image frame\n\
+\"name\".  If \"name\" is not given the currently selected item is used.\n\
+"));
+/*! Returns actual image ppi of the object */
+PyObject *scribus_getimageppi(PyObject * /*self*/, PyObject* args);
+
+
+/*! docstring */
 PyDoc_STRVAR(scribus_getposition__doc__,
 QT_TR_NOOP("getPosition([\"name\"]) -> (x,y)\n\
 \n\

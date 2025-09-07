@@ -380,6 +380,7 @@ PyMethodDef scribus_methods[] = {
 	{ "getImagePage", scribus_getimagepage, METH_VARARGS, tr(scribus_getimagepage__doc__)},
 	{ "getImagePreviewResolution", scribus_getimagepreviewresolution, METH_VARARGS, tr(scribus_getimagepreviewresolution__doc__)},
 	{ "getImagePageCount", scribus_getimagepagecount, METH_VARARGS, tr(scribus_getimagepagecount__doc__)},
+	{ "getImagePpi", scribus_getimageppi, METH_VARARGS, tr(scribus_getimageppi__doc__)},
 	{ "getImageScale", scribus_getimagescale, METH_VARARGS, tr(scribus_getimagescale__doc__)},
 	{ "getInfo", (PyCFunction) scribus_getinfo, METH_VARARGS, tr(scribus_getinfo__doc__)},
 	{ "getItemPageNumber", scribus_getitempagenumber, METH_VARARGS, tr(scribus_getitempagenumber__doc__)},
