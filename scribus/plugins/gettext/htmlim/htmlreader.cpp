@@ -64,7 +64,7 @@ HTMLReader::~HTMLReader()
 
 void HTMLReader::initPStyles()
 {
-	pstylec = std::make_unique<gtParagraphStyle>(*pstyle);
+	pstylec.reset(new gtParagraphStyle(*pstyle));
 	pstylec->setAlignment(CENTER);
 	pstylec->setName("HTML_center");
 
@@ -74,57 +74,57 @@ void HTMLReader::initPStyles()
 	listStyles.push_back(pstyleli);
 	nextItemNumbers.push_back(1);
 
-	pstyleh6 = std::make_unique<gtParagraphStyle>(*pstyle);
+	pstyleh6.reset(new gtParagraphStyle(*pstyle));
 	pstyleh6->getFont()->setSize(pstyle->getFont()->getSize() + 2.5);
 	pstyleh6->getFont()->setWeight(BOLD);
 	pstyleh6->setSpaceAbove(2.5);
 	pstyleh6->setSpaceBelow(1.25);
 	pstyleh6->setName("HTML_h6");
 
-	pstyleh5 = std::make_unique<gtParagraphStyle>(*pstyle);
+	pstyleh5.reset(new gtParagraphStyle(*pstyle));
 	pstyleh5->getFont()->setSize(pstyle->getFont()->getSize() + 5);
 	pstyleh5->getFont()->setWeight(BOLD);
 	pstyleh5->setSpaceAbove(5.0);
 	pstyleh5->setSpaceBelow(2.5);
 	pstyleh5->setName("HTML_h5");
 
-	pstyleh4 = std::make_unique<gtParagraphStyle>(*pstyle);
+	pstyleh4.reset(new gtParagraphStyle(*pstyle));
 	pstyleh4->getFont()->setSize(pstyle->getFont()->getSize() + 10);
 	pstyleh4->getFont()->setWeight(BOLD);
 	pstyleh4->setSpaceAbove(10.0);
 	pstyleh4->setSpaceBelow(5.0);
 	pstyleh4->setName("HTML_h4");
 
-	pstyleh3 = std::make_unique<gtParagraphStyle>(*pstyle);
+	pstyleh3.reset(new gtParagraphStyle(*pstyle));
 	pstyleh3->getFont()->setSize(pstyle->getFont()->getSize() + 20);
 	pstyleh3->getFont()->setWeight(BOLD);
 	pstyleh3->setSpaceAbove(20.0);
 	pstyleh3->setSpaceBelow(10.0);
 	pstyleh3->setName("HTML_h3");
 
-	pstyleh2 = std::make_unique<gtParagraphStyle>(*pstyle);
+	pstyleh2.reset(new gtParagraphStyle(*pstyle));
 	pstyleh2->getFont()->setSize(pstyle->getFont()->getSize() + 40);
 	pstyleh2->getFont()->setWeight(BOLD);
 	pstyleh2->setSpaceAbove(30.0);
 	pstyleh2->setSpaceBelow(20.0);
 	pstyleh2->setName("HTML_h2");
 
-	pstyleh1 = std::make_unique<gtParagraphStyle>(*pstyle);
+	pstyleh1.reset(new gtParagraphStyle(*pstyle));
 	pstyleh1->getFont()->setSize(pstyle->getFont()->getSize() + 60);
 	pstyleh1->getFont()->setWeight(BOLD);
 	pstyleh1->setSpaceAbove(40.0);
 	pstyleh1->setSpaceBelow(30.0);
 	pstyleh1->setName("HTML_h1");
 
-	pstylecode = std::make_unique<gtParagraphStyle>(*pstyle);
+	pstylecode.reset(new gtParagraphStyle(*pstyle));
 	pstylecode->getFont()->setName("Courier Regular");
 	pstylecode->setName("HTML_code");
 
-	pstylep = std::make_unique<gtParagraphStyle>(*pstyle);
+	pstylep.reset(new gtParagraphStyle(*pstyle));
 	pstylep->setSpaceBelow(gtMeasure::i2d(5, SC_MM));
 	pstylep->setName("HTML_p");
 
-	pstylepre = std::make_unique<gtParagraphStyle>(*pstyle);
+	pstylepre.reset(new gtParagraphStyle(*pstyle));
 	pstylepre->setName("HTML_pre");
 }
 
