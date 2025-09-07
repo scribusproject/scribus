@@ -41,7 +41,7 @@ PyObject *scribus_setjsactionscript(PyObject * /*self*/, PyObject* args)
 	{
 		QString qnum = QString("%1").arg(action);
 		PyErr_SetString(PyExc_RuntimeError,
-			QObject::tr("Action must be an integer in range 0-9 " + qnum.toUtf8(), "python error").toLocal8Bit().constData());
+			QObject::tr("Action must be an integer in range 0-9 " + qnum.toUtf8(), "python error").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -55,7 +55,7 @@ PyObject *scribus_setjsactionscript(PyObject * /*self*/, PyObject* args)
 	if (!item->isAnnotation())
 	{
 		PyErr_SetString(PyExc_RuntimeError,
-			QObject::tr("Page item must be an annotation", "python error").toLocal8Bit().constData());
+			QObject::tr("Page item must be an annotation", "python error").toUtf8().constData());
 		return nullptr;
 	}
 	
@@ -112,7 +112,7 @@ PyObject *scribus_getjsactionscript(PyObject * /*self*/, PyObject* args)
 	{
 		QString qnum = QString("%1").arg(action);
 		PyErr_SetString(PyExc_RuntimeError,
-			QObject::tr("Action must be 0-9 " + qnum.toUtf8(), "python error").toLocal8Bit().constData());
+			QObject::tr("Action must be 0-9 " + qnum.toUtf8(), "python error").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -126,7 +126,7 @@ PyObject *scribus_getjsactionscript(PyObject * /*self*/, PyObject* args)
 	if (!item->isAnnotation())
 	{
 		PyErr_SetString(PyExc_RuntimeError,
-			QObject::tr("Page item must be an annotation", "python error").toLocal8Bit().constData());
+			QObject::tr("Page item must be an annotation", "python error").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -343,7 +343,7 @@ PyObject *scribus_setlinkannotation(PyObject* /* self */, PyObject* args)
 	if (page <= 0 || page > numpages){
 		QString qnum = QString("%1").arg(numpages);
 		PyErr_SetString(PyExc_RuntimeError,
-			QObject::tr("which must be 1 to " + qnum.toUtf8(), "python error").toLocal8Bit().constData());
+			QObject::tr("which must be 1 to " + qnum.toUtf8(), "python error").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -444,7 +444,7 @@ PyObject *scribus_settextannotation(PyObject * /*self*/, PyObject* args)
 	if (icon < 0 || icon > 8)
 	{
 		PyErr_SetString(PyExc_RuntimeError,
-			QObject::tr("Icon must be 0 to 8", "python error").toLocal8Bit().constData());
+			QObject::tr("Icon must be 0 to 8", "python error").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -483,7 +483,7 @@ PyObject *scribus_createpdfannotation(PyObject * /*self*/, PyObject* args)
 
 	if (which < 0 || which > 8){
 		PyErr_SetString(PyExc_RuntimeError,
-			QObject::tr("which must be 0 to 8", "python error").toLocal8Bit().constData());
+			QObject::tr("which must be 0 to 8", "python error").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -523,7 +523,7 @@ PyObject *scribus_createpdfannotation(PyObject * /*self*/, PyObject* args)
 		else
 		{
 			PyErr_SetString(PyExc_RuntimeError,
-			QObject::tr("Doesn't have OSG can't create 3DAnnotation", "python error").toLocal8Bit().constData());
+				QObject::tr("Doesn't have OSG can't create 3DAnnotation", "python error").toUtf8().constData());
 			return nullptr;
 		}
 	}
@@ -661,7 +661,7 @@ static bool testPageItem(PageItem *item)
 	if (!item->isTextFrame())
 	{
 		PyErr_SetString(WrongFrameTypeError, 
-				QObject::tr("Can't set annotation on a non-text frame", "python error").toLocal8Bit().constData());
+				QObject::tr("Can't set annotation on a non-text frame", "python error").toUtf8().constData());
 		return false;
 	}
 

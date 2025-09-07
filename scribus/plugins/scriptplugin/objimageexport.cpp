@@ -79,12 +79,12 @@ static PyObject *ImageExport_getName(ImageExport *self, void * /*closure*/)
 static int ImageExport_setName(ImageExport *self, PyObject *value, void * /*closure*/)
 {
 	if (!PyUnicode_Check(value)) {
-		PyErr_SetString(PyExc_TypeError, QObject::tr("The filename must be a string.", "python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_TypeError, QObject::tr("The filename must be a string.", "python error").toUtf8().constData());
 		return -1;
 	}
 	if (PyUnicode_GET_LENGTH(value) < 1)
 	{
-		PyErr_SetString(PyExc_TypeError, QObject::tr("The filename should not be empty string.", "python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_TypeError, QObject::tr("The filename should not be empty string.", "python error").toUtf8().constData());
 		return -1;
 	}
 	Py_DECREF(self->name);
@@ -102,11 +102,11 @@ static PyObject *ImageExport_getType(ImageExport *self, void * /*closure*/)
 static int ImageExport_setType(ImageExport *self, PyObject *value, void * /*closure*/)
 {
 	if (value == nullptr) {
-		PyErr_SetString(PyExc_TypeError, QObject::tr("Cannot delete image type settings.", "python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_TypeError, QObject::tr("Cannot delete image type settings.", "python error").toUtf8().constData());
 		return -1;
 	}
 	if (!PyUnicode_Check(value)) {
-		PyErr_SetString(PyExc_TypeError, QObject::tr("The image type must be a string.", "python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_TypeError, QObject::tr("The image type must be a string.", "python error").toUtf8().constData());
 		return -1;
 	}
 	Py_DECREF(self->type);
@@ -131,7 +131,7 @@ static PyObject *ImageExport_getAllTypes(ImageExport * /*self*/, void * /*closur
 
 static int ImageExport_setAllTypes(ImageExport * /*self*/, PyObject * /*value*/, void * /*closure*/)
 {
-	PyErr_SetString(PyExc_ValueError, QObject::tr("'allTypes' attribute is READ-ONLY", "python error").toLocal8Bit().constData());
+	PyErr_SetString(PyExc_ValueError, QObject::tr("'allTypes' attribute is READ-ONLY", "python error").toUtf8().constData());
 	return -1;
 }
 
@@ -167,7 +167,7 @@ static PyObject *ImageExport_save(ImageExport *self)
 	QString imgFileName = PyUnicode_asQString(self->name);
 	if (!im.save(imgFileName, PyUnicode_AsUTF8(self->type), self->quality))
 	{
-		PyErr_SetString(ScribusException, QObject::tr("Failed to export image", "python error").toLocal8Bit().constData());
+		PyErr_SetString(ScribusException, QObject::tr("Failed to export image", "python error").toUtf8().constData());
 		return nullptr;
 	}
 	return PyBool_FromLong(static_cast<long>(true));
@@ -204,7 +204,7 @@ static PyObject *ImageExport_saveAs(ImageExport *self, PyObject *args)
 	QString outputFileName = QString::fromUtf8(value.c_str());
 	if (!im.save(outputFileName, PyUnicode_AsUTF8(self->type), self->quality))
 	{
-		PyErr_SetString(ScribusException, QObject::tr("Failed to export image", "python error").toLocal8Bit().constData());
+		PyErr_SetString(ScribusException, QObject::tr("Failed to export image", "python error").toUtf8().constData());
 		return nullptr;
 	}
 	return PyBool_FromLong(static_cast<long>(true));

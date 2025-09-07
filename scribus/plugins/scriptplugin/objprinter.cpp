@@ -513,7 +513,7 @@ static PyObject *Printer_print(Printer *self)
 	if (!printDone)
 	{
 		QString error = printEngine->errorMessage();
-		PyErr_SetString(PyExc_SystemError, error.toLocal8Bit().constData());
+		PyErr_SetString(PyExc_SystemError, error.toUtf8().constData());
 	}
 
 	Py_RETURN_NONE;

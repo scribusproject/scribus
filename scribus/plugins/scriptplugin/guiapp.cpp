@@ -52,7 +52,7 @@ PyObject *scribus_progresssetprogress(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (position > ScCore->primaryMainWindow()->mainWindowProgressBar->maximum())
 	{
-		PyErr_SetString(PyExc_ValueError, QString("Tried to set progress > maximum progress").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QString("Tried to set progress > maximum progress").toUtf8().constData());
 		return nullptr;
 	}
 	ScCore->primaryMainWindow()->mainWindowProgressBar->setValue(position);
@@ -104,7 +104,7 @@ PyObject *scribus_zoomdocument(PyObject* /* self */, PyObject* args)
 		ScCore->primaryMainWindow()->slotZoom(zoomFactor);
 	else
 	{
-		PyErr_SetString(PyExc_ValueError, QString("The zoom factor should be greater than 0.0 or equal to -100.0. See help(zoomFactor).").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QString("The zoom factor should be greater than 0.0 or equal to -100.0. See help(zoomFactor).").toUtf8().constData());
 		return nullptr;
 	}
 	Py_RETURN_NONE;

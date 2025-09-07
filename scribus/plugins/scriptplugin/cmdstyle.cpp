@@ -66,19 +66,19 @@ PyObject *scribus_createparagraphstyle(PyObject* /* self */, PyObject* args, PyO
 		return nullptr;
 	if (name.isEmpty())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty paragraph style name.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty paragraph style name.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	
 	if ((hasDropCap != 0) && (dropCapLines <= 1) )
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("hasdropcap is true but dropcaplines value is invalid","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("hasdropcap is true but dropcaplines value is invalid","python error").toUtf8().constData());
 		return nullptr;
 	}
 	
 	if (bullet.length() > 0 && (hasDropCap  != 0))
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("hasdropcap and bullet are not allowed to be specified together.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("hasdropcap and bullet are not allowed to be specified together.","python error").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -132,7 +132,7 @@ PyObject *scribus_createparagraphstyle(PyObject* /* self */, PyObject* args, PyO
 			float tabPosition = 0.0;
 			if (!PyArg_Parse(tabPositionDefinition, "f", &tabPosition))
 			{
-				PyErr_SetString(PyExc_TypeError, QObject::tr("invalid tab-position specified.","python error").toLocal8Bit().constData());
+				PyErr_SetString(PyExc_TypeError, QObject::tr("invalid tab-position specified.","python error").toUtf8().constData());
 				return nullptr;
 			}
 
@@ -241,7 +241,7 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 	
 	if (name.isEmpty())
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty char style name.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty char style name.","python error").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -250,7 +250,7 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 	{
 		if (!currentDoc->AllFonts->contains(realFont))
 		{
-			PyErr_SetString(PyExc_ValueError, QObject::tr("Specified font is not available.", "python error").toLocal8Bit().constData());
+			PyErr_SetString(PyExc_ValueError, QObject::tr("Specified font is not available.", "python error").toUtf8().constData());
 			return nullptr;
 		}
 	}
@@ -262,7 +262,7 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 	{
 		if ((qFillColor != CommonStrings::None) && (!docColors.contains(qFillColor)))
 		{
-			PyErr_SetString(PyExc_ValueError, QObject::tr("Specified fill color is not available in document.", "python error").toLocal8Bit().constData());
+			PyErr_SetString(PyExc_ValueError, QObject::tr("Specified fill color is not available in document.", "python error").toUtf8().constData());
 			return nullptr;
 		}
 	}
@@ -270,7 +270,7 @@ PyObject *scribus_createcharstyle(PyObject* /* self */, PyObject* args, PyObject
 	{
 		if ((qStrokeColor != CommonStrings::None) && (!docColors.contains(qStrokeColor)))
 		{
-			PyErr_SetString(PyExc_ValueError, QObject::tr("Specified stroke color is not available in document.", "python error").toLocal8Bit().constData());
+			PyErr_SetString(PyExc_ValueError, QObject::tr("Specified stroke color is not available in document.", "python error").toUtf8().constData());
 			return nullptr;
 		}
 	}
@@ -416,7 +416,7 @@ PyObject *scribus_createcustomlinestyle(PyObject * /* self */, PyObject* args)
 
 		if (!docColors.contains(sl.Color))
 		{
-			PyErr_SetString(PyExc_ValueError, QObject::tr("Specified color is not available in document.", "python error").toLocal8Bit().constData());
+			PyErr_SetString(PyExc_ValueError, QObject::tr("Specified color is not available in document.", "python error").toUtf8().constData());
 			return nullptr;
 		}
 		ml.push_back(sl);

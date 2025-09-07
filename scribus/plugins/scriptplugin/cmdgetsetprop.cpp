@@ -34,7 +34,7 @@ QObject* getQObjectFromPyArg(PyObject* arg)
 		return tempObject;
 	}
 	// It's not a type we know what to do with
-	PyErr_SetString(PyExc_TypeError, QObject::tr("Argument must be page item name, or PyCObject instance").toLocal8Bit().constData());
+	PyErr_SetString(PyExc_TypeError, QObject::tr("Argument must be page item name, or PyCObject instance").toUtf8().constData());
 	return nullptr;
 }
 
@@ -87,7 +87,7 @@ PyObject* scribus_propertyctype(PyObject* /*self*/, PyObject* args, PyObject* kw
 	const char* type = getpropertytype(obj, propertyname.c_str(), includesuper);
 	if (type == nullptr)
 	{
-		PyErr_SetString(PyExc_KeyError, QObject::tr("Property not found").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_KeyError, QObject::tr("Property not found").toUtf8().constData());
 		return nullptr;
 	}
 	return PyUnicode_FromString(type);
@@ -198,7 +198,7 @@ PyObject* scribus_getchild(PyObject* , PyObject* args, PyObject* kw)
 	QObject* child = obj->child(childname, ofclass, recursive);
 	if (child == nullptr)
 	{
-		PyErr_SetString(PyExc_KeyError, QObject::tr("Child not found").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_KeyError, QObject::tr("Child not found").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -267,7 +267,7 @@ PyObject* scribus_getproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 	if (i == -1)
 	{
 		PyErr_SetString(PyExc_ValueError,
-				QObject::tr("Property not found").toLocal8Bit().data());
+				QObject::tr("Property not found").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -275,7 +275,7 @@ PyObject* scribus_getproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 	if (!propmeta.isValid())
 	{
 		PyErr_SetString(PyExc_ValueError,
-				QObject::tr("Invalid property").toLocal8Bit().data());
+				QObject::tr("Invalid property").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -324,7 +324,7 @@ PyObject* scribus_getproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 	// UNHANDLED TYPE
 	else
 	{
-		PyErr_SetString(PyExc_TypeError, QObject::tr("Couldn't convert result type '%1'.").arg(prop.typeName()).toLocal8Bit().constData() );
+		PyErr_SetString(PyExc_TypeError, QObject::tr("Couldn't convert result type '%1'.").arg(prop.typeName()).toUtf8().constData() );
 		return resultobj;
 	}
 
@@ -455,7 +455,7 @@ PyObject* scribus_setproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 	{
 		Py_DECREF(objValue);
 		PyErr_SetString(PyExc_TypeError,
-				QObject::tr("Property type '%1' not supported").arg(propertyType).toLocal8Bit().constData());
+				QObject::tr("Property type '%1' not supported").arg(propertyType).toUtf8().constData());
 		return nullptr;
 	}
 
@@ -473,7 +473,7 @@ PyObject* scribus_setproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 		Py_DECREF(objRepr);
 
 		// And return an error
-		PyErr_SetString(PyExc_TypeError, QObject::tr("Couldn't convert '%1' to property type '%2'").arg(reprString, propertyType).toLocal8Bit().constData());
+		PyErr_SetString(PyExc_TypeError, QObject::tr("Couldn't convert '%1' to property type '%2'").arg(reprString, propertyType).toUtf8().constData());
 		return nullptr;
 	}
 
@@ -481,7 +481,7 @@ PyObject* scribus_setproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 	if (!success)
 	{
 		Py_DECREF(objValue);
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Types matched, but setting property failed.").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Types matched, but setting property failed.").toUtf8().constData());
 		return nullptr;
 	}
 

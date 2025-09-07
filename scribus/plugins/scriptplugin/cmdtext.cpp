@@ -64,7 +64,7 @@ PyObject *scribus_getfontsize(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!(item->isTextFrame()) && !(item->isPathText()))
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get font size of non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get font size of non-text frame.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (item->HasSel)
@@ -92,7 +92,7 @@ PyObject *scribus_getfont(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!(item->isTextFrame()) && !(item->isPathText()))
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get font of non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get font of non-text frame.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (item->HasSel)
@@ -120,7 +120,7 @@ PyObject *scribus_gettextcolor(PyObject* /* self */, PyObject* args)
 		return nullptr;
     if (!(item->isTextFrame()) && !(item->isPathText()))
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get text color of non-text frame.", "python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get text color of non-text frame.", "python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (item->HasSel)
@@ -150,7 +150,7 @@ PyObject *scribus_gettextshade(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!(item->isTextFrame()) && !(item->isPathText()))
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get text color of non-text frame.", "python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get text color of non-text frame.", "python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (item->HasSel)
@@ -180,7 +180,7 @@ PyObject *scribus_gettracking(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!(item->isTextFrame()) && !(item->isPathText()))
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get tracking of non-text frame.", "python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get tracking of non-text frame.", "python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (item->HasSel)
@@ -210,7 +210,7 @@ PyObject *scribus_getwordtracking(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!(item->isTextFrame()) && !(item->isPathText()))
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get word tracking of non-text frame.", "python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get word tracking of non-text frame.", "python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (item->HasSel)
@@ -240,7 +240,7 @@ PyObject *scribus_getminwordtracking(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!(item->isTextFrame()) && !(item->isPathText()))
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get word tracking of non-text frame.", "python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get word tracking of non-text frame.", "python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (item->HasSel)
@@ -271,7 +271,7 @@ PyObject *scribus_gettextlength(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!(item->isTextFrame()) && !(item->isPathText()))
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get text size of non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get text size of non-text frame.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	return PyLong_FromLong(static_cast<long>(item->itemText.length()));
@@ -292,7 +292,7 @@ PyObject *scribus_gettextlines(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!(item->isTextFrame()) && !(item->isPathText()))
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get number of lines of non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get number of lines of non-text frame.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	return PyLong_FromLong(static_cast<long>(item->textLayout.lines()));
@@ -313,7 +313,7 @@ PyObject *scribus_gettextverticalalignment(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!item->isTextFrame())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get vertical alignment of non-text frame.", "python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get vertical alignment of non-text frame.", "python error").toUtf8().constData());
 		return nullptr;
 	}
 	return PyLong_FromLong(static_cast<long>(item->verticalAlignment()));
@@ -334,7 +334,7 @@ PyObject *scribus_getcolumns(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!item->isTextFrame())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get column count of non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get column count of non-text frame.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	return PyLong_FromLong(static_cast<long>(item->m_columns));
@@ -355,7 +355,7 @@ PyObject *scribus_getcolumngap(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!item->isTextFrame())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get column gap of non-text frame.", "python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get column gap of non-text frame.", "python error").toUtf8().constData());
 		return nullptr;
 	}
 	return PyFloat_FromDouble(PointToValue(item->m_columnGap));
@@ -376,7 +376,7 @@ PyObject *scribus_getfontfeatures(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!(item->isTextFrame()) && !(item->isPathText()))
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get fontfeatures of non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get fontfeatures of non-text frame.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (item->HasSel)
@@ -404,7 +404,7 @@ PyObject *scribus_getfirstlinkedframe(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!item->isTextFrame())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get linked frames of non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get linked frames of non-text frame.","python error").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -426,7 +426,7 @@ PyObject *scribus_getlastlinkedframe(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!item->isTextFrame())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get linked frames of non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get linked frames of non-text frame.","python error").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -448,7 +448,7 @@ PyObject *scribus_getnextlinkedframe(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!item->isTextFrame())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get linked frames of non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get linked frames of non-text frame.","python error").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -473,7 +473,7 @@ PyObject *scribus_getprevlinkedframe(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!item->isTextFrame())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get linked frames of non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get linked frames of non-text frame.","python error").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -498,7 +498,7 @@ PyObject *scribus_getfirstlineoffset(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!item->isTextFrame())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get first line offset of non-text frame.", "python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get first line offset of non-text frame.", "python error").toUtf8().constData());
 		return nullptr;
 	}
 	return PyLong_FromLong(static_cast<long>(item->firstLineOffset()));
@@ -519,7 +519,7 @@ PyObject *scribus_getlinespacing(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!item->isTextFrame())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get line space of non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get line space of non-text frame.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	return PyFloat_FromDouble(item->currentStyle().lineSpacing());
@@ -540,7 +540,7 @@ PyObject *scribus_getlinespacingmode(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!item->isTextFrame())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get line spacing mode of non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get line spacing mode of non-text frame.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	return PyFloat_FromDouble(static_cast<double>(item->currentStyle().lineSpacingMode()));
@@ -561,7 +561,7 @@ PyObject *scribus_gettextdistances(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!item->isTextFrame())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get text distances of non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get text distances of non-text frame.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	return Py_BuildValue("(dddd)",
@@ -586,7 +586,7 @@ PyObject *scribus_getframetext(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!(item->isTextFrame()) && !(item->isPathText()))
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get text of non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get text of non-text frame.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	
@@ -623,7 +623,7 @@ PyObject *scribus_getalltext(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!(item->isTextFrame()) && !(item->isPathText()))
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get text of non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get text of non-text frame.","python error").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -663,7 +663,7 @@ PyObject *scribus_settext(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!(currItem->isTextFrame()) && !(currItem->isPathText()))
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set text of non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set text of non-text frame.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	QString userText = QString::fromUtf8(text.c_str());
@@ -695,7 +695,7 @@ PyObject *scribus_inserttext(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!(item->isTextFrame()) && !(item->isPathText()))
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot insert text into non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot insert text into non-text frame.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	QString textData = QString::fromUtf8(text.c_str());
@@ -704,7 +704,7 @@ PyObject *scribus_inserttext(PyObject* /* self */, PyObject* args)
 	text.free();
 	if ((pos < -1) || (pos > item->itemText.length()))
 	{
-		PyErr_SetString(PyExc_IndexError, QObject::tr("Insert index out of bounds.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_IndexError, QObject::tr("Insert index out of bounds.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (pos == -1)
@@ -739,7 +739,7 @@ PyObject *scribus_inserthtmltext(PyObject* /* self */, PyObject* args)
 	if (!(item->isTextFrame()) && !(item->isPathText())) {
 		PyErr_SetString(WrongFrameTypeError,
 				QObject::tr("Cannot insert text into non-text frame.",
-					"python error").toLocal8Bit().constData());
+					"python error").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -767,7 +767,7 @@ PyObject *scribus_layouttext(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!item->isTextFrame() && !item->isPathText())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot layout text of a non-text frame.", "python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot layout text of a non-text frame.", "python error").toUtf8().constData());
 		return nullptr;
 	}
 	item->layout();
@@ -790,7 +790,7 @@ PyObject *scribus_layouttextchain(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!item->isTextFrame() && !item->isPathText())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot layout text chain for a non-text frame.", "python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot layout text chain for a non-text frame.", "python error").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -824,7 +824,7 @@ PyObject *scribus_settextalignment(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if ((alignment > 4) || (alignment < 0))
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Alignment out of range. Use one of the scribus.ALIGN_* constants.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Alignment out of range. Use one of the scribus.ALIGN_* constants.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -832,7 +832,7 @@ PyObject *scribus_settextalignment(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!item->isTextFrame())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set text alignment on a non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set text alignment on a non-text frame.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	
@@ -862,7 +862,7 @@ PyObject *scribus_setdirection(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if ((direction > 1) || (direction < 0))
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("direction out of range. Use one of the scribus.DIRECTION* constants.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("direction out of range. Use one of the scribus.DIRECTION* constants.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -870,7 +870,7 @@ PyObject *scribus_setdirection(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!item->isTextFrame())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set text direction on a non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set text direction on a non-text frame.","python error").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -900,7 +900,7 @@ PyObject *scribus_setfontsize(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if ((size > 512) || (size < 1))
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Font size out of bounds - must be 1 <= size <= 512.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Font size out of bounds - must be 1 <= size <= 512.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -909,7 +909,7 @@ PyObject *scribus_setfontsize(PyObject* /* self */, PyObject* args)
 
 	if (!item->isTextFrame())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set font size on a non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set font size on a non-text frame.","python error").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -945,7 +945,7 @@ PyObject *scribus_setfontfeatures(PyObject* /* self */, PyObject* args)
 
 	if (!item->isTextFrame())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set font feature on a non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set font feature on a non-text frame.","python error").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -979,12 +979,12 @@ PyObject *scribus_setfont(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!(item->isTextFrame()) && !(item->isPathText()))
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set font on a non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set font on a non-text frame.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (!PrefsManager::instance().appPrefs.fontPrefs.AvailFonts.contains(QString::fromUtf8(font.c_str())))
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Font not found.", "python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Font not found.", "python error").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -1014,7 +1014,7 @@ PyObject *scribus_setfirstlineoffset(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (offset < 0 || offset > (int) FLOPBaselineGrid)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("First line offset out of bounds, Use one of the scribus.FLOP_* constants.", "python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("First line offset out of bounds, Use one of the scribus.FLOP_* constants.", "python error").toUtf8().constData());
 		return nullptr;
 	}
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -1022,7 +1022,7 @@ PyObject *scribus_setfirstlineoffset(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!item->isTextFrame())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set first line offset on a non-text frame.", "python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set first line offset on a non-text frame.", "python error").toUtf8().constData());
 		return nullptr;
 	}
 	item->setFirstLineOffset((FirstLineOffsetPolicy) offset);
@@ -1044,7 +1044,7 @@ PyObject *scribus_setlinespacing(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (w < 0.1)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Line space out of bounds, must be >= 0.1.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Line space out of bounds, must be >= 0.1.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -1052,7 +1052,7 @@ PyObject *scribus_setlinespacing(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!item->isTextFrame())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set line spacing on a non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set line spacing on a non-text frame.","python error").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -1085,7 +1085,7 @@ PyObject *scribus_settracking(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!item->isTextFrame())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set tracking on a non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set tracking on a non-text frame.","python error").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -1118,7 +1118,7 @@ PyObject *scribus_setwordtracking(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!item->isTextFrame())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set word tracking on a non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set word tracking on a non-text frame.","python error").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -1148,7 +1148,7 @@ PyObject *scribus_setminwordtracking(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (wt < 1 || wt > 100)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Minimum word out of bounds, must be >= 1 and <= 100","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Minimum word out of bounds, must be >= 1 and <= 100","python error").toUtf8().constData());
 		return nullptr;
 	}
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -1156,7 +1156,7 @@ PyObject *scribus_setminwordtracking(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!item->isTextFrame())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set minimum word tracking on a non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set minimum word tracking on a non-text frame.","python error").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -1191,7 +1191,7 @@ PyObject *scribus_setlinespacingmode(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (w < 0 || w > 3) // Use constants?
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Line space mode invalid, must be 0, 1 or 2","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Line space mode invalid, must be 0, 1 or 2","python error").toUtf8().constData());
 		return nullptr;
 	}
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -1199,7 +1199,7 @@ PyObject *scribus_setlinespacingmode(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!item->isTextFrame())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set line spacing mode on a non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set line spacing mode on a non-text frame.","python error").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -1229,7 +1229,7 @@ PyObject *scribus_settextdistances(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (l < 0.0 || r < 0.0 || t < 0.0 || b < 0.0)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Text distances out of bounds, must be positive.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Text distances out of bounds, must be positive.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -1237,7 +1237,7 @@ PyObject *scribus_settextdistances(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!item->isTextFrame())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set text distances on a non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set text distances on a non-text frame.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	item->setTextToFrameDist(ValueToPoint(l), ValueToPoint(r), ValueToPoint(t), ValueToPoint(b));
@@ -1258,7 +1258,7 @@ PyObject *scribus_setcolumngap(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (w < 0.0)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Column gap out of bounds, must be positive.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Column gap out of bounds, must be positive.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -1266,7 +1266,7 @@ PyObject *scribus_setcolumngap(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!item->isTextFrame())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set column gap on a non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set column gap on a non-text frame.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	item->m_columnGap = ValueToPoint(w);
@@ -1287,7 +1287,7 @@ PyObject *scribus_setcolumns(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (w < 1)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Column count out of bounds, must be > 1.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Column count out of bounds, must be > 1.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -1295,7 +1295,7 @@ PyObject *scribus_setcolumns(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!item->isTextFrame())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set number of columns on a non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set number of columns on a non-text frame.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	item->m_columns = w;
@@ -1316,7 +1316,7 @@ PyObject *scribus_settextverticalalignment(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (alignment < 0 || alignment > 2)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Vertical alignment out of bounds, Use one of the scribus.ALIGNV_* constants.", "python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Vertical alignment out of bounds, Use one of the scribus.ALIGNV_* constants.", "python error").toUtf8().constData());
 		return nullptr;
 	}
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -1324,7 +1324,7 @@ PyObject *scribus_settextverticalalignment(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!item->isTextFrame())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set vertical alignment on a non-text frame.", "python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set vertical alignment on a non-text frame.", "python error").toUtf8().constData());
 		return nullptr;
 	}
 	item->setVerticalAlignment(alignment);
@@ -1350,18 +1350,18 @@ PyObject *scribus_selectframetext(PyObject* /* self */, PyObject* args)
 
 	if (!(item->isTextFrame()) && !(item->isPathText()))
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot select text in a non-text frame", "python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot select text in a non-text frame", "python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (selcount < -1)
 	{
-		PyErr_SetString(PyExc_IndexError, QObject::tr("Count must be positive, 0 or -1", "python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_IndexError, QObject::tr("Count must be positive, 0 or -1", "python error").toUtf8().constData());
 		return nullptr;
 	}
 
 	if (start < 0 || (selcount > 0 && ((item->lastInFrame() == -1) || (selcount + start > item->lastInFrame() - item->firstInFrame() + 1))))
 	{
-		PyErr_SetString(PyExc_IndexError, QObject::tr("Selection index out of bounds", "python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_IndexError, QObject::tr("Selection index out of bounds", "python error").toUtf8().constData());
 		return nullptr;
 	}
 	start += item->firstInFrame();
@@ -1404,18 +1404,18 @@ PyObject *scribus_selecttext(PyObject* /* self */, PyObject* args)
 	// cr 2005-01-18 fixed off-by-one with end bound that made selecting the last char impossible
 	if ((start < 0) || ((start + selcount) > item->itemText.length()))
 	{
-		PyErr_SetString(PyExc_IndexError, QObject::tr("Selection index out of bounds", "python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_IndexError, QObject::tr("Selection index out of bounds", "python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (!(item->isTextFrame()) && !(item->isPathText()))
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot select text in a non-text frame", "python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot select text in a non-text frame", "python error").toUtf8().constData());
 		return nullptr;
 	}
 	/* FIXME: not sure if we should make this check or not
 	if (start > ende)
 	{
-		PyErr_SetString(PyExc_ValueError, QString("Selection start > selection end").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QString("Selection start > selection end").toUtf8().constData());
 		return nullptr;
 	}
 	*/
@@ -1446,7 +1446,7 @@ PyObject *scribus_getselectedtextrange(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!item->isTextFrame())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get text selection for non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get text selection for non-text frame.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	return Py_BuildValue("(ii)", item->itemText.startOfSelection(), item->itemText.selectionLength());
@@ -1467,7 +1467,7 @@ PyObject *scribus_getframeselectedtextrange(PyObject* /* self */, PyObject* args
 		return nullptr;
 	if (!item->isTextFrame())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get text selection for non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get text selection for non-text frame.","python error").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -1489,7 +1489,7 @@ PyObject *scribus_deletetext(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!item->isTextFrame() && !item->isPathText())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot delete text from a non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot delete text from a non-text frame.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	PageItem_TextFrame* tf_item = item->asTextFrame();
@@ -1526,7 +1526,7 @@ PyObject *scribus_settextfill(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!item->isTextFrame() && !item->isPathText())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set text fill on a non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set text fill on a non-text frame.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	ApplyCharstyleHelper<QString>(item, QString::fromUtf8(color.c_str())).apply(&CharStyle::setFillColor, 0, item->itemText.length());
@@ -1550,7 +1550,7 @@ PyObject *scribus_settextstroke(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!item->isTextFrame() && !item->isPathText())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set text stroke on a non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set text stroke on a non-text frame.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	ApplyCharstyleHelper<QString>(item, QString::fromUtf8(color.c_str())).apply(&CharStyle::setStrokeColor, 0, item->itemText.length());
@@ -1571,7 +1571,7 @@ PyObject *scribus_settextscalingh(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (sc < 10)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Character scaling out of bounds, must be >= 10","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Character scaling out of bounds, must be >= 10","python error").toUtf8().constData());
 		return nullptr;
 	}
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -1579,7 +1579,7 @@ PyObject *scribus_settextscalingh(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!item->isTextFrame())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set character scaling on a non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set character scaling on a non-text frame.","python error").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -1610,7 +1610,7 @@ PyObject *scribus_settextscalingv(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (sc < 10)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Character scaling out of bounds, must be >= 10","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Character scaling out of bounds, must be >= 10","python error").toUtf8().constData());
 		return nullptr;
 	}
 	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -1618,7 +1618,7 @@ PyObject *scribus_settextscalingv(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!item->isTextFrame())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set character scaling on a non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set character scaling on a non-text frame.","python error").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -1654,7 +1654,7 @@ PyObject *scribus_settextshade(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!item->isTextFrame() && !item->isPathText())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set text shade on a non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set text shade on a non-text frame.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	ApplyCharstyleHelper<double>(item, w).apply(&CharStyle::setFillShade, 0, item->itemText.length());
@@ -1682,22 +1682,22 @@ PyObject *scribus_linktextframes(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!(fromItem->isTextFrame()) || !(toItem->isTextFrame()))
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can only link text frames.", "python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can only link text frames.", "python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (fromItem->nextInChain() != nullptr)
 	{
-		PyErr_SetString(ScribusException, QObject::tr("Source frame is linked to another frame.", "python error").toLocal8Bit().constData());
+		PyErr_SetString(ScribusException, QObject::tr("Source frame is linked to another frame.", "python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (toItem->prevInChain() != nullptr)
 	{
-		PyErr_SetString(ScribusException, QObject::tr("Target frame is linked to by another frame.", "python error").toLocal8Bit().constData());
+		PyErr_SetString(ScribusException, QObject::tr("Target frame is linked to by another frame.", "python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (toItem == fromItem)
 	{
-		PyErr_SetString(ScribusException, QObject::tr("Source and target are the same object.", "python error").toLocal8Bit().constData());
+		PyErr_SetString(ScribusException, QObject::tr("Source and target are the same object.", "python error").toUtf8().constData());
 		return nullptr;
 	}
 	// references to the others boxes
@@ -1724,18 +1724,18 @@ PyObject *scribus_unlinktextframes(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!item->isTextFrame())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot unlink a non-text frame.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot unlink a non-text frame.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	// only linked
 	if (item->prevInChain() == nullptr)
 	{
-		PyErr_SetString(ScribusException, QObject::tr("Object is not a linked text frame, can't unlink.","python error").toLocal8Bit().constData());
+		PyErr_SetString(ScribusException, QObject::tr("Object is not a linked text frame, can't unlink.","python error").toUtf8().constData());
 		return nullptr;
 	}
 /*	if (item->NextBox == 0)
 	{
-		PyErr_SetString(ScribusException, QObject::tr("Object the last frame in a series, can't unlink. Unlink the previous frame instead.","python error").toLocal8Bit().constData());
+		PyErr_SetString(ScribusException, QObject::tr("Object the last frame in a series, can't unlink. Unlink the previous frame instead.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	*/
@@ -1781,7 +1781,7 @@ PyObject *scribus_outlinetext(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!item->isTextFrame())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot convert a non-text frame to outlines.","python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot convert a non-text frame to outlines.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (item->invalid)
@@ -1812,7 +1812,7 @@ PyObject *scribus_istextoverflowing(PyObject * self, PyObject* args, PyObject* k
 		return nullptr;
 	if (!item->isTextFrame())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Only text frames can be checked for overflowing", "python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Only text frames can be checked for overflowing", "python error").toUtf8().constData());
 		return nullptr;
 	}
 	/* original solution
@@ -1864,7 +1864,7 @@ PyObject *scribus_hyphenatetext(PyObject*, PyObject* args)
 		return nullptr;
 	if (!item->isTextFrame())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can only hyphenate text frame", "python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can only hyphenate text frame", "python error").toUtf8().constData());
 		return nullptr;
 	}
 	ScCore->primaryMainWindow()->doc->docHyphenator->slotHyphenate(item);
@@ -1890,7 +1890,7 @@ PyObject *scribus_dehyphenatetext(PyObject*, PyObject* args)
 		return nullptr;
 	if (!item->isTextFrame())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can only dehyphenate text frame", "python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can only dehyphenate text frame", "python error").toUtf8().constData());
 		return nullptr;
 	}
 	ScCore->primaryMainWindow()->doc->docHyphenator->slotDeHyphenate(item);
@@ -1913,7 +1913,7 @@ PyObject *scribus_setpdfbookmark(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!item->isTextFrame())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can't set bookmark on a non-text frame", "python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can't set bookmark on a non-text frame", "python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (item->isBookmark == toggle)
@@ -1945,7 +1945,7 @@ PyObject *scribus_ispdfbookmark(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!item->isTextFrame())
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can't get info from a non-text frame", "python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Can't get info from a non-text frame", "python error").toUtf8().constData());
 		return nullptr;
 	}
 	if (item->isBookmark)

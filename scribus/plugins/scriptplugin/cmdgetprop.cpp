@@ -461,7 +461,7 @@ PyObject *scribus_getallobjects(PyObject* /* self */, PyObject* args, PyObject *
 	int numPages = currentDoc->Pages->count();
 	if (pageNr < 0 || pageNr >= numPages)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("page number is invalid.", "python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("page number is invalid.", "python error").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -471,7 +471,7 @@ PyObject *scribus_getallobjects(PyObject* /* self */, PyObject* args, PyObject *
 		const ScLayer *layer = currentDoc->Layers.layerByName(layerName);
 		if (!layer)
 		{
-			PyErr_SetString(PyExc_ValueError, QObject::tr("layer name is invalid.", "python error").toLocal8Bit().constData());
+			PyErr_SetString(PyExc_ValueError, QObject::tr("layer name is invalid.", "python error").toUtf8().constData());
 			return nullptr;
 		}
 		layerId = layer->ID;
@@ -561,7 +561,7 @@ PyObject *scribus_getimagecolorspace(PyObject* /* self */, PyObject* args)
 	if (item->itemType() != PageItem::ImageFrame)
 	{
 		PyErr_SetString(WrongFrameTypeError,
-			QObject::tr("Page item must be an ImageFrame", "python error").toLocal8Bit().constData());
+			QObject::tr("Page item must be an ImageFrame", "python error").toUtf8().constData());
 		return nullptr;
 	}
 

@@ -27,7 +27,7 @@ PyObject *scribus_setgradfill(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if ((shade1 < 0) || (shade1 > 100) || (shade2 < 0) || (shade2 > 100))
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Stop shade out of bounds, must be 0 <= shade <= 100.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Stop shade out of bounds, must be 0 <= shade <= 100.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	PageItem *currItem = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -108,17 +108,17 @@ PyObject *scribus_setgradstop(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if ((shade1 < 0) || (shade1 > 100))
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Stop shade out of bounds, must be 0 <= shade <= 100.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Stop shade out of bounds, must be 0 <= shade <= 100.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	if ((rampPoint < 0.0) || (rampPoint > 1.0))
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Ramp point out of bounds, must be 0 <= rampPoint <= 1.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Ramp point out of bounds, must be 0 <= rampPoint <= 1.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	if ((opacity < 0.0) || (opacity > 1.0))
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Opacity out of bounds, must be 0 <= transparency <= 1.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Opacity out of bounds, must be 0 <= transparency <= 1.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	PageItem *currItem = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -165,7 +165,7 @@ PyObject *scribus_setfilltrans(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if ((w < 0.0) || (w > 1.0))
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Transparency out of bounds, must be 0 <= transparency <= 1.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Transparency out of bounds, must be 0 <= transparency <= 1.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -188,7 +188,7 @@ PyObject *scribus_setfillblend(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if ((w < 0) || (w > 15))
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Blendmode out of bounds, must be 0 <= blendmode <= 15.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Blendmode out of bounds, must be 0 <= blendmode <= 15.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -216,7 +216,7 @@ PyObject *scribus_setcustomlinestyle(PyObject* /* self */, PyObject* args)
 	QString qStyle = QString::fromUtf8(style.c_str());
 	if (! ScCore->primaryMainWindow()->doc->docLineStyles.contains(qStyle))
 	{
-		PyErr_SetString(NotFoundError, QObject::tr("Line Style not found.","python error").toLocal8Bit().constData());
+		PyErr_SetString(NotFoundError, QObject::tr("Line Style not found.","python error").toUtf8().constData());
 		return nullptr;
 
 	}
@@ -256,7 +256,7 @@ PyObject *scribus_setlinetrans(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if ((w < 0.0) || (w > 1.0))
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Transparency out of bounds, must be 0 <= transparency <= 1.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Transparency out of bounds, must be 0 <= transparency <= 1.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -279,7 +279,7 @@ PyObject *scribus_setlineblend(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if ((w < 0) || (w > 15))
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Blendmode out of bounds, must be 0 <= blendmode <= 15.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Blendmode out of bounds, must be 0 <= blendmode <= 15.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -302,7 +302,7 @@ PyObject *scribus_setlinewidth(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if ((w < 0.0) || (w > 300.0))
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Line width out of bounds, must be 0 <= line_width <= 300.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Line width out of bounds, must be 0 <= line_width <= 300.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -325,7 +325,7 @@ PyObject *scribus_setlineshade(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if ((w < 0) || (w > 100))
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Line shade out of bounds, must be 0 <= shade <= 100.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Line shade out of bounds, must be 0 <= shade <= 100.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	PageItem *it = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -348,7 +348,7 @@ PyObject *scribus_setfillshade(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if ((w < 0) || (w > 100))
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Fill shade out of bounds, must be 0 <= shade <= 100.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Fill shade out of bounds, must be 0 <= shade <= 100.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -425,7 +425,7 @@ PyObject *scribus_setcornerradius(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (w < 0)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Corner radius must be a positive number.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Corner radius must be a positive number.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	PageItem *currItem = GetUniqueItem(QString::fromUtf8(name.c_str()));
@@ -457,7 +457,7 @@ PyObject *scribus_setmultiline(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!ScCore->primaryMainWindow()->doc->docLineStyles.contains(QString::fromUtf8(style.c_str())))
 	{
-		PyErr_SetString(NotFoundError, QObject::tr("Line style not found.","python error").toLocal8Bit().constData());
+		PyErr_SetString(NotFoundError, QObject::tr("Line style not found.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	currItem->NamedLStyle = QString::fromUtf8(style.c_str());

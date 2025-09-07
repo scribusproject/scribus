@@ -150,7 +150,7 @@ PyObject *scribus_createtable(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (numRows < 1 || numColumns < 1)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Both numRows and numColumns must be greater than 0.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Both numRows and numColumns must be greater than 0.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	int i = ScCore->primaryMainWindow()->doc->itemAdd(PageItem::Table, PageItem::Unspecified,
@@ -254,17 +254,17 @@ PyObject *scribus_createpolyline(PyObject* /* self */, PyObject* args)
 	Py_ssize_t len = PyList_Size(il);
 	if (len < 4)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must contain at least two points (four values).","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must contain at least two points (four values).","python error").toUtf8().constData());
 		return nullptr;
 	}
 	if ((len % 2) != 0)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must contain an even number of values.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must contain an even number of values.","python error").toUtf8().constData());
 		return nullptr;
 	}
 //	if (ItemExists(QString::fromUtf8(name.c_str())))
 //	{
-//		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error").toLocal8Bit().constData());
+//		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error").toUtf8().constData());
 //		return nullptr;
 //	}
 	double x, y, w, h;
@@ -334,17 +334,17 @@ PyObject *scribus_createpolygon(PyObject* /* self */, PyObject* args)
 	Py_ssize_t len = PyList_Size(il);
 	if (len < 6)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must contain at least three points (six values).","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must contain at least three points (six values).","python error").toUtf8().constData());
 		return nullptr;
 	}
 	if ((len % 2) != 0)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must contain an even number of values.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must contain an even number of values.","python error").toUtf8().constData());
 		return nullptr;
 	}
 //	if (ItemExists(QString::fromUtf8(name.c_str())))
 //	{
-//		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error").toLocal8Bit().constData());
+//		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error").toUtf8().constData());
 //		return nullptr;
 //	}
 	double x, y, w, h;
@@ -418,17 +418,17 @@ PyObject *scribus_createbezierline(PyObject* /* self */, PyObject* args)
 	Py_ssize_t len = PyList_Size(il);
 	if (len < 8)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must contain at least four points (eight values).","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must contain at least four points (eight values).","python error").toUtf8().constData());
 		return nullptr;
 	}
 	if ((len % 6) != 0)
 	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must have a multiple of six values.","python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Point list must have a multiple of six values.","python error").toUtf8().constData());
 		return nullptr;
 	}
 //	if (ItemExists(QString::fromUtf8(name.c_str())))
 //	{
-//		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error").toLocal8Bit().constData());
+//		PyErr_SetString(NameExistsError, QObject::tr("An object with the requested name already exists.","python error").toUtf8().constData());
 //		return nullptr;
 //	}
 	double x, y, w, h, kx, ky, kx2, ky2;
@@ -526,7 +526,7 @@ PyObject *scribus_createpathtext(PyObject* /* self */, PyObject* args)
 	PageItem *ii = GetItem(QString::fromUtf8(polyB.c_str()));
 	if ((i == nullptr) || (ii == nullptr))
 	{
-		PyErr_SetString(NotFoundError, QObject::tr("Object not found.","python error").toLocal8Bit().constData());
+		PyErr_SetString(NotFoundError, QObject::tr("Object not found.","python error").toUtf8().constData());
 		return nullptr;
 	}
 	ScCore->primaryMainWindow()->doc->m_Selection->clear();
@@ -652,7 +652,7 @@ PyObject *scribus_getcharacterstyle(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if ((item->itemType() != PageItem::TextFrame) && (item->itemType() != PageItem::PathText))
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get character style of a non-text frame.", "python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get character style of a non-text frame.", "python error").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -695,7 +695,7 @@ PyObject *scribus_getparagraphstyle(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if ((item->itemType() != PageItem::TextFrame) && (item->itemType() != PageItem::PathText))
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get style of a non-text frame.", "python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get style of a non-text frame.", "python error").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -743,7 +743,7 @@ PyObject *scribus_setparagraphstyle(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if ((item->itemType() != PageItem::TextFrame) && (item->itemType() != PageItem::PathText))
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set style on a non-text frame.", "python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set style on a non-text frame.", "python error").toUtf8().constData());
 		return nullptr;
 	}
 	
@@ -757,7 +757,7 @@ PyObject *scribus_setparagraphstyle(PyObject* /* self */, PyObject* args)
 	{
 		// whoops, the user specified an invalid style, complain loudly.
 		// FIXME: Should use a more specific exception.
-		PyErr_SetString(NotFoundError, QObject::tr("Style not found.","python error").toLocal8Bit().constData());
+		PyErr_SetString(NotFoundError, QObject::tr("Style not found.","python error").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -823,7 +823,7 @@ PyObject *scribus_setcharstyle(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if ((item->itemType() != PageItem::TextFrame) && (item->itemType() != PageItem::PathText))
 	{
-		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set character style on a non-text frame.", "python error").toLocal8Bit().constData());
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set character style on a non-text frame.", "python error").toUtf8().constData());
 		return nullptr;
 	}
 	
@@ -837,7 +837,7 @@ PyObject *scribus_setcharstyle(PyObject* /* self */, PyObject* args)
 	{
 		// whoops, the user specified an invalid style, complain loudly.
 		// FIXME: Should use a more specific exception.
-		PyErr_SetString(NotFoundError, QObject::tr("Character style not found.", "python error").toLocal8Bit().constData());
+		PyErr_SetString(NotFoundError, QObject::tr("Character style not found.", "python error").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -923,7 +923,7 @@ PyObject *scribus_duplicateobjects(PyObject * /* self */, PyObject *args)
 
 	if ((pyObject != nullptr) && !PyUnicode_Check(pyObject) && !PyList_Check(pyObject))
 	{
-		PyErr_SetString(PyExc_TypeError, QObject::tr("incorrect argument: must be a string or a list of strings", "python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_TypeError, QObject::tr("incorrect argument: must be a string or a list of strings", "python error").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -945,7 +945,7 @@ PyObject *scribus_duplicateobjects(PyObject * /* self */, PyObject *args)
 			PyObject* pyItem = PyList_GetItem(pyObject, i);
 			if (!PyUnicode_Check(pyItem))
 			{
-				PyErr_SetString(PyExc_TypeError, QObject::tr("incorrect argument: must be a list of strings", "python error").toLocal8Bit().constData());
+				PyErr_SetString(PyExc_TypeError, QObject::tr("incorrect argument: must be a list of strings", "python error").toUtf8().constData());
 				return nullptr;
 			}
 			const char* name = PyUnicode_AsUTF8(pyItem);
@@ -1034,7 +1034,7 @@ PyObject *scribus_copyobjects(PyObject * /* self */, PyObject *args)
 
 	if ((pyObject != nullptr) && !PyUnicode_Check(pyObject) && !PyList_Check(pyObject))
 	{
-		PyErr_SetString(PyExc_TypeError, QObject::tr("incorrect argument: must be a string or a list of strings", "python error").toLocal8Bit().constData());
+		PyErr_SetString(PyExc_TypeError, QObject::tr("incorrect argument: must be a string or a list of strings", "python error").toUtf8().constData());
 		return nullptr;
 	}
 
@@ -1056,7 +1056,7 @@ PyObject *scribus_copyobjects(PyObject * /* self */, PyObject *args)
 			PyObject* pyItem = PyList_GetItem(pyObject, i);
 			if (!PyUnicode_Check(pyItem))
 			{
-				PyErr_SetString(PyExc_TypeError, QObject::tr("incorrect argument: must be a list of strings", "python error").toLocal8Bit().constData());
+				PyErr_SetString(PyExc_TypeError, QObject::tr("incorrect argument: must be a list of strings", "python error").toUtf8().constData());
 				return nullptr;
 			}
 			const char* name = PyUnicode_AsUTF8(pyItem);
