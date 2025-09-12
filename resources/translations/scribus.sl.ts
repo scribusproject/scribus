@@ -11495,14 +11495,22 @@ If no handle is selected all handles will be reset.</source>
         <translation>Enostranski dokument</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newdocdialog.cpp" line="99"/>
         <source>Double page document, with the first page on the left side</source>
-        <translation>Dvostranski dokument s prvo stranjo na levi strani</translation>
+        <translation type="vanished">Dvostranski dokument s prvo stranjo na levi strani</translation>
+    </message>
+    <message>
+        <source>Double page document, with the first page on the right side</source>
+        <translation type="vanished">Dvostranski dokument s prvo stranjo nadesni strani</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/newdocdialog.cpp" line="99"/>
+        <source>A document with facing pages, with the first page on the left side</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="100"/>
-        <source>Double page document, with the first page on the right side</source>
-        <translation>Dvostranski dokument s prvo stranjo nadesni strani</translation>
+        <source>A document with facing pages, with the first page on the right side</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="101"/>
@@ -13626,32 +13634,32 @@ Onemogočite delovno različico PDF in PS vdelave ter poskusite ponovno.</transl
 <context>
     <name>PageItem_TextFrame</name>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4902"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="4905"/>
         <source>Linked Text</source>
         <translation>Povezano besedilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4904"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="4907"/>
         <source>Text Frame</source>
         <translation>Besedilni okvir</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4908"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="4911"/>
         <source>Paragraphs: </source>
         <translation>Odstavki: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4916"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="4919"/>
         <source>Lines: </source>
         <translation>Vrstice: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4922"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="4925"/>
         <source>Words: </source>
         <translation>Besede: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4930"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="4933"/>
         <source>Chars: </source>
         <translation>Znaki: </translation>
     </message>
@@ -18460,7 +18468,7 @@ Ali ga želite uporabiti?</translation>
         <translation>Vnesite ime nabora bližnjičnih tipk:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_keyboardshortcuts.cpp" line="533"/>
+        <location filename="../../scribus/ui/prefs_keyboardshortcuts.cpp" line="532"/>
         <source>The %1 key sequence is already in use by &quot;%2&quot;</source>
         <translation>Zaporednje bližnjičnih tipk %1 je že uporabljeno pri &quot;%2&quot;</translation>
     </message>
@@ -24568,12 +24576,12 @@ Preverite ime in pot do nje.</translation>
         <translation>Vsi podprti zapisi</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/gettext/htmlim/htmlim.cpp" line="43"/>
+        <location filename="../../scribus/plugins/gettext/htmlim/htmlim.cpp" line="45"/>
         <source>HTML Files</source>
         <translation>Datoteke HTML</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/gettext/htmlim/htmlim.cpp" line="48"/>
+        <location filename="../../scribus/plugins/gettext/htmlim/htmlim.cpp" line="50"/>
         <source>html</source>
         <translation>html</translation>
     </message>
@@ -24598,7 +24606,7 @@ Preverite ime in pot do nje.</translation>
         <translation>CVS_glava</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/gettext/htmlim/htmlreader.cpp" line="655"/>
+        <location filename="../../scribus/plugins/gettext/htmlim/htmlreader.cpp" line="52"/>
         <source>
 External Links
 </source>
@@ -27294,7 +27302,7 @@ Zunanje povezave
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1228"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1268"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1265"/>
         <source>Selection index out of bounds</source>
         <comment>python error</comment>
         <translation>Števnik izbire je izven meja</translation>
@@ -27370,19 +27378,19 @@ Zunanje povezave
         <translation>Indeks postojev je izven meja, biti mora 0 &lt;= indeks &lt;= številoPostojev.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="495"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="514"/>
         <source>page number is invalid.</source>
         <comment>python error</comment>
         <translation>številka strani ni veljavna.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="505"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="524"/>
         <source>layer name is invalid.</source>
         <comment>python error</comment>
         <translation>ime plasti ni veljavno.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="589"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="608"/>
         <source>Page item must be an ImageFrame</source>
         <comment>python error</comment>
         <translation>Sestavina strani mora biti slikovni okvir</translation>
@@ -27504,6 +27512,7 @@ Zunanje povezave
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="362"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="394"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="53"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="97"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="130"/>
@@ -27746,7 +27755,7 @@ Zunanje povezave
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1217"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1273"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1270"/>
         <source>Cannot select text in a non-text frame</source>
         <comment>python error</comment>
         <translation>V nebesedilnem okviru ni mogoče izbrati besedila</translation>
@@ -27758,80 +27767,80 @@ Zunanje povezave
         <translation>Število mora biti pozitivno, 0 ali -1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1307"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1325"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1294"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1312"/>
         <source>Cannot get text selection for non-text frame.</source>
         <comment>python error</comment>
         <translation>Besedila ni mogoče označiti v nebesedilnem okvirju.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1344"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1331"/>
         <source>Cannot delete text from a non-text frame.</source>
         <comment>python error</comment>
         <translation>V nebesedilnem okvirju ni mogoče izbrisati besedila.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1377"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1364"/>
         <source>Cannot set text fill on a non-text frame.</source>
         <comment>python error</comment>
         <translation>V nebesedilnem okviru ni mogoče nastaviti polnila besedila.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1397"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1384"/>
         <source>Cannot set text stroke on a non-text frame.</source>
         <comment>python error</comment>
         <translation>V nebesedilnem okviru ni mogoče nastaviti poteze besedila.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1492"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1479"/>
         <source>Cannot set text shade on a non-text frame.</source>
         <comment>python error</comment>
         <translation>V nebesedilnem okviru ni mogoče nastaviti senčenja besedila.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1517"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1504"/>
         <source>Can only link text frames.</source>
         <comment>python error</comment>
         <translation>Le besedilne okvire je mogoče povezovati.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1522"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1509"/>
         <source>Source frame is linked to another frame.</source>
         <comment>python error</comment>
         <translation>Izvorni okvir je že povezan na drug okvir.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1527"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1514"/>
         <source>Target frame is linked to by another frame.</source>
         <comment>python error</comment>
         <translation>Na ciljni okvir je že povezan drug okvir.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1532"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1519"/>
         <source>Source and target are the same object.</source>
         <comment>python error</comment>
         <translation>Izvor in cilj sta en in isti predmet.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1557"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1544"/>
         <source>Cannot unlink a non-text frame.</source>
         <comment>python error</comment>
         <translation>Nebesedilnega okvira ni mogoče razvezati.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1615"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1602"/>
         <source>Cannot convert a non-text frame to outlines.</source>
         <comment>python error</comment>
         <translation>Nebesedilnega okvira ni mogoče pretvoriti v krivulje.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1733"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1720"/>
         <source>Can&apos;t set bookmark on a non-text frame</source>
         <comment>python error</comment>
         <translation>Nebesedilnemu okviru ni mogoče nastaviti zaznamka</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1762"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1749"/>
         <source>Can&apos;t get info from a non-text frame</source>
         <comment>python error</comment>
         <translation>Podatkov iz nebesedilnega okvirja ni mogoče pridobiti</translation>
@@ -28244,13 +28253,13 @@ Zunanje povezave
         <translation>Sloga črte ni mogoče najti.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1563"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1550"/>
         <source>Object is not a linked text frame, can&apos;t unlink.</source>
         <comment>python error</comment>
         <translation>Predmet ni povezan besedilni okvir, ni mogoče razvezati.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1641"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1628"/>
         <source>Only text frames can be checked for overflowing</source>
         <comment>python error</comment>
         <translation>Samo v besedilnih okvirih lahko označite za prelivanje besedila</translation>
@@ -28297,7 +28306,7 @@ Zunanje povezave
         <translation>O skriptih</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="1027"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="1028"/>
         <source>Scribus Python interface module
 
 This module is the Python interface for Scribus. It provides functions
@@ -29558,13 +29567,13 @@ ni povsem izčrpen zaradi izjem klicanih funkcij.
         <translation>Določena barva ni na voljo v dokumentu.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1690"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1677"/>
         <source>Can only hyphenate text frame</source>
         <comment>python error</comment>
         <translation>Deljenje besed je podprto le v besedilnem okviru</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1713"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1700"/>
         <source>Can only dehyphenate text frame</source>
         <comment>python error</comment>
         <translation>Preklic deljenja besed je podprt le v besedilnem okviru</translation>
@@ -29712,15 +29721,15 @@ Zato je lahko podoba napačna</translation>
         <translation>Prekrivnost je izven meja, biti mora 0 &lt;= prozornost &lt;= 1.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1415"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1451"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1402"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1438"/>
         <source>Character scaling out of bounds, must be &gt;= 10</source>
         <comment>python error</comment>
         <translation>Povečava znakov je izven meja, biti mora &gt;=10</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1423"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1459"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1410"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1446"/>
         <source>Cannot set character scaling on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Velikosti znakov ni mogoče določiti nebesedilnemu okvirju.</translation>

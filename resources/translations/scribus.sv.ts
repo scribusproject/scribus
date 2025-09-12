@@ -11495,14 +11495,22 @@ Om inget handtag har valts återställs alla handtag.</translation>
         <translation>Dokument med en enda sida</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newdocdialog.cpp" line="99"/>
         <source>Double page document, with the first page on the left side</source>
-        <translation>Dubbelsidigt dokument, med första sidan på vänster sida</translation>
+        <translation type="vanished">Dubbelsidigt dokument, med första sidan på vänster sida</translation>
+    </message>
+    <message>
+        <source>Double page document, with the first page on the right side</source>
+        <translation type="vanished">Dubbelsidigt dokument, med första sidan på höger sida</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/newdocdialog.cpp" line="99"/>
+        <source>A document with facing pages, with the first page on the left side</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="100"/>
-        <source>Double page document, with the first page on the right side</source>
-        <translation>Dubbelsidigt dokument, med första sidan på höger sida</translation>
+        <source>A document with facing pages, with the first page on the right side</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="101"/>
@@ -13626,32 +13634,32 @@ Avaktivera experimentell PDF- och PS-inbäddning och försök igen.</translation
 <context>
     <name>PageItem_TextFrame</name>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4902"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="4905"/>
         <source>Linked Text</source>
         <translation>Länkad text</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4904"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="4907"/>
         <source>Text Frame</source>
         <translation>Textram</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4908"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="4911"/>
         <source>Paragraphs: </source>
         <translation>Stycken: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4916"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="4919"/>
         <source>Lines: </source>
         <translation>Linjer: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4922"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="4925"/>
         <source>Words: </source>
         <translation>Ord: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4930"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="4933"/>
         <source>Chars: </source>
         <translation>Tecken: </translation>
     </message>
@@ -18460,7 +18468,7 @@ Vill du använda detta?</translation>
         <translation>Ange namnet på genvägsuppsättningen:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_keyboardshortcuts.cpp" line="533"/>
+        <location filename="../../scribus/ui/prefs_keyboardshortcuts.cpp" line="532"/>
         <source>The %1 key sequence is already in use by &quot;%2&quot;</source>
         <translation>Tangentsekvensen %1 används redan av &quot;%2&quot;</translation>
     </message>
@@ -24568,12 +24576,12 @@ Kontrollera sökväg och filnamn.</translation>
         <translation>Alla format som stöds</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/gettext/htmlim/htmlim.cpp" line="43"/>
+        <location filename="../../scribus/plugins/gettext/htmlim/htmlim.cpp" line="45"/>
         <source>HTML Files</source>
         <translation>HTML-filer</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/gettext/htmlim/htmlim.cpp" line="48"/>
+        <location filename="../../scribus/plugins/gettext/htmlim/htmlim.cpp" line="50"/>
         <source>html</source>
         <translation>html</translation>
     </message>
@@ -24598,7 +24606,7 @@ Kontrollera sökväg och filnamn.</translation>
         <translation>CSV_header</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/gettext/htmlim/htmlreader.cpp" line="655"/>
+        <location filename="../../scribus/plugins/gettext/htmlim/htmlreader.cpp" line="52"/>
         <source>
 External Links
 </source>
@@ -27294,7 +27302,7 @@ Externa länkar
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1228"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1268"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1265"/>
         <source>Selection index out of bounds</source>
         <comment>python error</comment>
         <translation>Markeringsindex felaktigt</translation>
@@ -27370,19 +27378,19 @@ Externa länkar
         <translation>Stoppindex utanför gränserna, måste vara 0 &lt;= index &lt;= stopsCount.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="495"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="514"/>
         <source>page number is invalid.</source>
         <comment>python error</comment>
         <translation>sidnumret är ogiltigt.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="505"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="524"/>
         <source>layer name is invalid.</source>
         <comment>python error</comment>
         <translation>lagernamnet är ogiltigt.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="589"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="608"/>
         <source>Page item must be an ImageFrame</source>
         <comment>python error</comment>
         <translation>Sidobjektet måste vara en ImageFrame</translation>
@@ -27504,6 +27512,7 @@ Externa länkar
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="362"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="394"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="53"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="97"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="130"/>
@@ -27746,7 +27755,7 @@ Externa länkar
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1217"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1273"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1270"/>
         <source>Cannot select text in a non-text frame</source>
         <comment>python error</comment>
         <translation>Det går inte att markera text i en ram som inte är text</translation>
@@ -27758,80 +27767,80 @@ Externa länkar
         <translation>Antalet måste vara positivt, 0 eller -1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1307"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1325"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1294"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1312"/>
         <source>Cannot get text selection for non-text frame.</source>
         <comment>python error</comment>
         <translation>Det går inte att få textval för en ram som inte innehåller text.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1344"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1331"/>
         <source>Cannot delete text from a non-text frame.</source>
         <comment>python error</comment>
         <translation>Det går inte att ta bort text från en ram som inte innehåller text.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1377"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1364"/>
         <source>Cannot set text fill on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Det går inte att ställa in textfyllning på en ram som inte är text.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1397"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1384"/>
         <source>Cannot set text stroke on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Det går inte att ställa in textstreck på en ram som inte är text.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1492"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1479"/>
         <source>Cannot set text shade on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Det går inte att ställa in textskugga på en ram som inte är text.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1517"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1504"/>
         <source>Can only link text frames.</source>
         <comment>python error</comment>
         <translation>Kan bara länka textramar.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1522"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1509"/>
         <source>Source frame is linked to another frame.</source>
         <comment>python error</comment>
         <translation>Källramen är länkad till en annan ram.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1527"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1514"/>
         <source>Target frame is linked to by another frame.</source>
         <comment>python error</comment>
         <translation>Målramen är länkad till en annan ram.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1532"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1519"/>
         <source>Source and target are the same object.</source>
         <comment>python error</comment>
         <translation>Källa och mål är samma objekt.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1557"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1544"/>
         <source>Cannot unlink a non-text frame.</source>
         <comment>python error</comment>
         <translation>Det går inte att avlänka en ram som inte är text.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1615"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1602"/>
         <source>Cannot convert a non-text frame to outlines.</source>
         <comment>python error</comment>
         <translation>Det går inte att konvertera en ram som inte är text till konturer.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1733"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1720"/>
         <source>Can&apos;t set bookmark on a non-text frame</source>
         <comment>python error</comment>
         <translation>Kan inte sätta bokmärke på en ram som inte är text</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1762"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1749"/>
         <source>Can&apos;t get info from a non-text frame</source>
         <comment>python error</comment>
         <translation>Kan inte hämta information från en ram som inte är text</translation>
@@ -28244,13 +28253,13 @@ Externa länkar
         <translation>Linjestil kunde inte hittas.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1563"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1550"/>
         <source>Object is not a linked text frame, can&apos;t unlink.</source>
         <comment>python error</comment>
         <translation>Objektet är inte en länkad textram, kan inte avlänka.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1641"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1628"/>
         <source>Only text frames can be checked for overflowing</source>
         <comment>python error</comment>
         <translation>Endast textrutor kan kontrolleras för överfyllnad</translation>
@@ -28297,7 +28306,7 @@ Externa länkar
         <translation>Om Skript</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="1027"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="1028"/>
         <source>Scribus Python interface module
 
 This module is the Python interface for Scribus. It provides functions
@@ -29560,13 +29569,13 @@ inte är uttömmande på grund av undantag från anropade funktioner.
         <translation>Angiven färg är inte tillgänglig i dokumentet.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1690"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1677"/>
         <source>Can only hyphenate text frame</source>
         <comment>python error</comment>
         <translation>Kan bara bindestreck i textram</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1713"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1700"/>
         <source>Can only dehyphenate text frame</source>
         <comment>python error</comment>
         <translation>Kan bara avstava textram</translation>
@@ -29714,15 +29723,15 @@ Därför kanske bilden inte är korrekt</translation>
         <translation>Opacity utanför gränserna, måste vara 0 &lt;= transparency &lt;= 1.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1415"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1451"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1402"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1438"/>
         <source>Character scaling out of bounds, must be &gt;= 10</source>
         <comment>python error</comment>
         <translation>Teckenskalning utanför gränserna, måste vara &gt;= 10</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1423"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1459"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1410"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdtext.cpp" line="1446"/>
         <source>Cannot set character scaling on a non-text frame.</source>
         <comment>python error</comment>
         <translation>Det går inte att ställa in teckenskalning på en ram som inte är text.</translation>
@@ -35261,7 +35270,7 @@ Använd verifieraren (Preflight) för att korrigera dem</translation>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="365"/>
         <source>If you are running an official script, please report it at &lt;a href=&quot;https://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Om du kör ett officiellt skript, rapportera det på &lt;a href=&quot;https://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="563"/>
