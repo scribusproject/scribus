@@ -74,5 +74,7 @@
 	<string>NSApplication</string>
 	<key>NSHighResolutionCapable</key>
 	<true/>
+        <key>UIDesignRequiresCompatibility</key>
+        <true/>
 </dict>
 </plist>
