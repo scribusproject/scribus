@@ -14211,7 +14211,8 @@ void ScribusDoc::getClosestElementBorder(double xin, double yin, double *xout, d
 {
 	int gxM = -1;
 	int gyM = -1;
-	QMap<double, uint> tmpGuidesSel;
+	QMap<double, uint> tmpGuidesSelX;
+	QMap<double, uint> tmpGuidesSelY;
 	double viewScale = m_View->scale();
 	const double snappingDistance = prefsData().guidesPrefs.guideRad / viewScale;
 
@@ -14220,7 +14221,7 @@ void ScribusDoc::getClosestElementBorder(double xin, double yin, double *xout, d
 
 	QList<PageItem*> items = getAllItems(*Items);
 	const PageItem *parentI = nullptr;
-	if (m_Selection->count() > 0)
+	if (!m_Selection->isEmpty())
 		parentI = m_Selection->itemAt(0)->Parent;
 
 	for (int i = 0; i < items.size(); ++i)
@@ -14231,53 +14232,47 @@ void ScribusDoc::getClosestElementBorder(double xin, double yin, double *xout, d
 			continue;
 		if (items.at(i)->Parent != parentI)
 			continue;
+
+		double visualXPos = items.at(i)->visualXPos();
 		double visualYPos = items.at(i)->visualYPos();
+		double visualWidth = items.at(i)->visualWidth();
 		double visualHeight = items.at(i)->visualHeight();
+
+		if (fabs(visualXPos - xin) < snappingDistance)
+			tmpGuidesSelX.insert(fabs(visualXPos - xin), i * 3);
+		else if (fabs(visualXPos + visualWidth - xin) < snappingDistance)
+			tmpGuidesSelX.insert(fabs(visualXPos + visualWidth - xin), i * 3 + 1);
+		else if (fabs(visualXPos + visualWidth / 2 - xin) < snappingDistance)
+			tmpGuidesSelX.insert(fabs(visualXPos + visualWidth / 2 - xin), i * 3 + 2);
+
 		if (fabs(visualYPos - yin) < snappingDistance)
-			tmpGuidesSel.insert(fabs(visualYPos - yin), i * 3);
+			tmpGuidesSelY.insert(fabs(visualYPos - yin), i * 3);
 		else if (fabs(visualYPos + visualHeight - yin) < snappingDistance)
-			tmpGuidesSel.insert(fabs(visualYPos + visualHeight - yin), i * 3 + 1);
+			tmpGuidesSelY.insert(fabs(visualYPos + visualHeight - yin), i * 3 + 1);
 		else if (fabs(visualYPos + visualHeight / 2 - yin) < snappingDistance)
-			tmpGuidesSel.insert(fabs(visualYPos + visualHeight / 2 - yin), i * 3 + 2);
+			tmpGuidesSelY.insert(fabs(visualYPos + visualHeight / 2 - yin), i * 3 + 2);
 	}
-	if (tmpGuidesSel.count() != 0)
+
+	if (!tmpGuidesSelX.isEmpty())
 	{
-		gyM = tmpGuidesSel.begin().value();
+		gxM = tmpGuidesSelX.begin().value();
+		if (gxM % 3 == 0)
+			*xout = items.at(gxM / 3)->visualXPos();
+		else if (gxM % 3 == 1)
+			*xout = items.at(gxM / 3)->visualXPos() + items.at(gxM / 3)->visualWidth();
+		else if (gxM % 3 == 2)
+			*xout = items.at(gxM / 3)->visualXPos() + items.at(gxM / 3)->visualWidth() / 2;
+	}
+
+	if (!tmpGuidesSelY.isEmpty())
+	{
+		gyM = tmpGuidesSelY.begin().value();
 		if (gyM % 3 == 0)
 			*yout = items.at(gyM / 3)->visualYPos();
 		else if (gyM %3 == 1)
 			*yout = items.at(gyM / 3)->visualYPos() + items.at(gyM / 3)->visualHeight();
 		else if (gyM %3 == 2)
 			*yout = items.at(gyM / 3)->visualYPos() + items.at(gyM / 3)->visualHeight() / 2;
-	}
-	tmpGuidesSel.clear();
-
-	for (int i = 0; i < items.size(); ++i)
-	{
-		if ((behavior == ExcludeSelection) && m_Selection->containsItem(items.at(i)))
-			continue;
-		if (items.at(i)->OwnPage != OnPage(xin, yin))
-			continue;
-		if (items.at(i)->Parent != parentI)
-			continue;
-		double visualXPos = items.at(i)->visualXPos();
-		double visualWidth = items.at(i)->visualWidth();
-		if (fabs(visualXPos - xin) < snappingDistance)
-			tmpGuidesSel.insert(fabs(visualXPos - xin), i * 3);
-		else if (fabs(visualXPos + visualWidth - xin) < snappingDistance)
-			tmpGuidesSel.insert(fabs(visualXPos + visualWidth - xin), i * 3 + 1);
-		else if (fabs(visualXPos + visualWidth / 2 - xin) < snappingDistance)
-			tmpGuidesSel.insert(fabs(visualXPos + visualWidth / 2 - xin), i * 3 + 2);
-	}
-	if (tmpGuidesSel.count() != 0)
-	{
-		gxM = tmpGuidesSel.begin().value();
-		if (gxM % 3 == 0)
-			*xout = items.at(gxM / 3)->visualXPos();
-		else if (gxM %3 == 1)
-			*xout = items.at(gxM / 3)->visualXPos() + items.at(gxM / 3)->visualWidth();
-		else if (gxM %3 == 2)
-			*xout = items.at(gxM / 3)->visualXPos() + items.at(gxM / 3)->visualWidth() / 2;
 	}
 }
 
