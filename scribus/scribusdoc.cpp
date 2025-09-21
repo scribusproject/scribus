@@ -14269,9 +14269,9 @@ void ScribusDoc::getClosestElementBorder(double xin, double yin, double *xout, d
 		gyM = tmpGuidesSelY.begin().value();
 		if (gyM % 3 == 0)
 			*yout = items.at(gyM / 3)->visualYPos();
-		else if (gyM %3 == 1)
+		else if (gyM % 3 == 1)
 			*yout = items.at(gyM / 3)->visualYPos() + items.at(gyM / 3)->visualHeight();
-		else if (gyM %3 == 2)
+		else if (gyM % 3 == 2)
 			*yout = items.at(gyM / 3)->visualYPos() + items.at(gyM / 3)->visualHeight() / 2;
 	}
 }
