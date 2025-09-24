@@ -625,13 +625,21 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	m_Doc->fixItemPageOwner();
 
 	handleOldLayerBehavior(m_Doc);
-	if (m_Doc->Layers.count() == 0)
+	if (m_Doc->Layers.isEmpty())
 	{
 		ScLayer* nl = m_Doc->Layers.newLayer( QObject::tr("Background") );
 		nl->flowControl  = false;
 		layerToSetActive = nl->ID;
 	}
+	const ScLayer* pActiveLayer = m_Doc->Layers.layerByID(layerToSetActive);
+	if (!pActiveLayer)
+	{
+		pActiveLayer = m_Doc->Layers.bottomLayer();
+		if (pActiveLayer)
+			layerToSetActive = pActiveLayer->ID;
+	}
 	m_Doc->setActiveLayer(layerToSetActive);
+
 	if (!pdfPresEffects.isEmpty())
 	{
 		for (int pdoE = 0; pdoE < pdfPresEffects.count(); ++pdoE)

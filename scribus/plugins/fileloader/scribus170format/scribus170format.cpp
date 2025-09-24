@@ -2211,7 +2211,21 @@ bool Scribus170Format::loadFile(const QString & fileName, const FileFormat & /* 
 //		m_Doc->pageSets[m_Doc->currentPageLayout].GapVertical = 0.0;
 //		m_Doc->pageSets[m_Doc->currentPageLayout].GapBelow = dc.attribute("GapVertical", "40").toDouble();
 	}
+
+	if (m_Doc->Layers.isEmpty())
+	{
+		auto* pBackgroundLayer = m_Doc->Layers.newLayer(QObject::tr("Background"));
+		layerToSetActive = pBackgroundLayer->ID;
+	}
+	const ScLayer* pActiveLayer = m_Doc->Layers.layerByID(layerToSetActive);
+	if (!pActiveLayer)
+	{
+		pActiveLayer = m_Doc->Layers.bottomLayer();
+		if (pActiveLayer)
+			layerToSetActive = pActiveLayer->ID;
+	}
 	m_Doc->setActiveLayer(layerToSetActive);
+
 	m_Doc->setMasterPageMode(false);
 	m_Doc->reformPages();
 	m_Doc->refreshGuides();
@@ -2224,9 +2238,6 @@ bool Scribus170Format::loadFile(const QString & fileName, const FileFormat & /* 
 
 	// #14603 : it seems we need this also for some 1.5.x docs
 	m_Doc->fixItemPageOwner();
-
-	if (m_Doc->Layers.count() == 0)
-		m_Doc->Layers.newLayer( QObject::tr("Background") );
 	if (!pdfPresEffects.isEmpty())
 	{
 		for (int pdoE = 0; pdoE < pdfPresEffects.count(); ++pdoE)
