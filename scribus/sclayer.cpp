@@ -84,7 +84,8 @@ int ScLayers::getMaxID() const
 
 const ScLayer*  ScLayers::bottomLayer () const
 {
-	const ScLayer* layer, *bLayer = nullptr;
+	const ScLayer* layer;
+	const ScLayer *bLayer = nullptr;
 	for (int i = 0; i < this->count(); ++i)
 	{
 		layer = &this->at(i);
@@ -96,7 +97,8 @@ const ScLayer*  ScLayers::bottomLayer () const
 
 const ScLayer* ScLayers::topLayer() const
 {
-	const ScLayer *layer, *tLayer = nullptr;
+	const ScLayer *layer;
+	const ScLayer *tLayer = nullptr;
 	for (int i = 0; i < this->count(); ++i)
 	{
 		layer = &this->at(i);
@@ -108,44 +110,37 @@ const ScLayer* ScLayers::topLayer() const
 
 void ScLayers::levelToLayer (ScLayer& layer, int level) const
 {
-	int layerCount = count();
-	for (int i = 0; i < layerCount; ++i)
-	{
-		if (this->at(i).Level == level)
-		{
-			const ScLayer& ll  = this->at(i);
-			layer.isViewable   = ll.isViewable;
-			layer.isPrintable  = ll.isPrintable;
-			layer.isEditable   = ll.isEditable;
-			layer.isSelectable = ll.isSelectable;
-			layer.ID           = ll.ID;
-			layer.Name         = ll.Name;
-			layer.flowControl  = ll.flowControl;
-			layer.transparency = ll.transparency;
-			layer.blendMode    = ll.blendMode;
-			break;
-		}
-	}
+	const auto* pLayer = layerByLevel(level);
+	if (!pLayer)
+		return;
+
+	layer.isViewable   = pLayer->isViewable;
+	layer.isPrintable  = pLayer->isPrintable;
+	layer.isEditable   = pLayer->isEditable;
+	layer.isSelectable = pLayer->isSelectable;
+	layer.ID           = pLayer->ID;
+	layer.Name         = pLayer->Name;
+	layer.flowControl  = pLayer->flowControl;
+	layer.transparency = pLayer->transparency;
+	layer.blendMode    = pLayer->blendMode;
 }
 
 ScLayer* ScLayers::byLevel(int level)
 {
-	ScLayers::Iterator itend = end();
-	for (ScLayers::Iterator it = begin(); it != itend; ++it)
+	for (auto& layer : *this)
 	{
-		if (it->Level == level)
-			return &(*it);
+		if (layer.Level == level)
+			return &layer;
 	}
 	return nullptr;
 }
 
 ScLayer* ScLayers::byID(int nr)
 {
-	ScLayers::Iterator itend = end();
-	for (ScLayers::Iterator it = begin(); it != itend; ++it)
+	for (auto& layer : *this)
 	{
-		if (it->ID == nr)
-			return &(*it);
+		if (layer.ID == nr)
+			return &layer;
 	}
 	return nullptr;
 }
@@ -153,11 +148,10 @@ ScLayer* ScLayers::byID(int nr)
 ScLayer* ScLayers::bottom()
 {
 	ScLayer* bLayer = nullptr;
-	ScLayers::Iterator it, itEnd = end();
-	for (it = begin(); it != itEnd; ++it)
+	for (auto& layer : *this)
 	{
-		if (!bLayer || (it->Level < bLayer->Level))
-			bLayer = &(*it);
+		if (!bLayer || (layer.Level < bLayer->Level))
+			bLayer = &layer;
 	}
 	return bLayer;
 }
@@ -165,30 +159,29 @@ ScLayer* ScLayers::bottom()
 ScLayer* ScLayers::top()
 {
 	ScLayer *tLayer = nullptr;
-	ScLayers::Iterator it, itEnd = end();
-	for (it = begin(); it != itEnd; ++it)
+	for (auto& layer : *this)
 	{
-		if (!tLayer || (it->Level > tLayer->Level))
-			tLayer = &(*it);
+		if (!tLayer || (layer.Level > tLayer->Level))
+			tLayer = &layer;
 	}
 	return tLayer;
 }
 
 ScLayer* ScLayers::above (int nr)
 {
-	ScLayer* lyr = byID(nr);
+	const ScLayer* lyr = byID(nr);
 	if (!lyr)
 		return nullptr;
+
 	ScLayer *rlyr = top();
 	int level = lyr->Level;
 	int maxLevel = rlyr->Level;
-	ScLayers::Iterator it, itEnd = end();
-	for (it = begin(); it != itEnd; ++it)
+	for (auto& layer : *this)
 	{
-		if (it->Level > level && it->Level < maxLevel)
+		if (layer.Level > level && layer.Level < maxLevel)
 		{
-			maxLevel = it->Level;
-			rlyr     = &(*it);
+			maxLevel = layer.Level;
+			rlyr     = &layer;
 		}
 	}
 	return rlyr;
@@ -196,19 +189,19 @@ ScLayer* ScLayers::above (int nr)
 
 ScLayer* ScLayers::below (int nr)
 {
-	ScLayer* lyr = byID(nr);
+	const ScLayer* lyr = byID(nr);
 	if (!lyr)
 		return nullptr;
+
 	ScLayer *rlyr = bottom();
 	int level = lyr->Level;
 	int minLevel = lyr->Level;
-	ScLayers::Iterator it, itEnd = end();
-	for (it = begin(); it != itEnd; ++it)
+	for (auto& layer : *this)
 	{
-		if (it->Level < level && it->Level > minLevel)
+		if (layer.Level < level && layer.Level > minLevel)
 		{
-			minLevel = it->Level;
-			rlyr     = &(*it);
+			minLevel = layer.Level;
+			rlyr     = &layer;
 		}
 	}
 	return rlyr;
@@ -216,36 +209,30 @@ ScLayer* ScLayers::below (int nr)
 
 const ScLayer* ScLayers::layerByLevel (int level) const
 {
-	const ScLayer *layer = nullptr;
-	for (int i = 0; i < this->count(); ++i)
+	for (const auto& layer : *this)
 	{
-		layer = &this->at(i);
-		if (layer->Level == level)
-			return layer;
+		if (layer.Level == level)
+			return &layer;
 	}
 	return nullptr;
 }
 
 const ScLayer* ScLayers::layerByID (int nr) const
 {
-	const ScLayer *layer = nullptr;
-	for (int i = 0; i < this->count(); ++i)
+	for (const auto& layer : *this)
 	{
-		layer = &this->at(i);
-		if (layer->ID == nr)
-			return layer;
+		if (layer.ID == nr)
+			return &layer;
 	}
 	return nullptr;
 }
 
 const ScLayer* ScLayers::layerByName (const QString& name) const
 {
-	const ScLayer *layer = nullptr;
-	for (int i = 0; i < this->count(); ++i)
+	for (const auto& layer : *this)
 	{
-		layer = &this->at(i);
-		if (layer->Name == name)
-			return layer;
+		if (layer.Name == name)
+			return &layer;
 	}
 	return nullptr;
 }
@@ -253,42 +240,26 @@ const ScLayer* ScLayers::layerByName (const QString& name) const
 const ScLayer* ScLayers::layerAbove (int level) const
 {
 	const ScLayer* top = topLayer();
-	if (top)
+	if (!top)
+		return nullptr;
+
+	const ScLayer* retlay = top;
+	int   maxLevel = top->Level;
+	for (const auto& layer : *this)
 	{
-		const ScLayer *layer, *retlay = top;
-		int   maxLevel = top->Level;
-		for (int i = 0; i < this->count(); ++i)
+		if (layer.Level > level && layer.Level < maxLevel)
 		{
-			layer = &this->at(i);
-			if (layer->Level > level && layer->Level < maxLevel)
-			{
-				retlay = layer;
-				maxLevel = layer->Level;
-			}
+			retlay = &layer;
+			maxLevel = layer.Level;
 		}
-		return retlay;
 	}
-	return nullptr;
+	return retlay;
 }
 
 const ScLayer* ScLayers::layerAbove (const ScLayer& layer) const
 {
-	const ScLayer* top = topLayer();
-	if (!top)
-		return nullptr;
-	const ScLayer *curlay, *retlay = top;
-	int   level    = layer.Level;
-	int   maxLevel = top->Level;
-	for (int i = 0; i < this->count(); ++i)
-	{
-		curlay = &this->at(i);
-		if (curlay->Level > level && curlay->Level < maxLevel)
-		{
-			maxLevel = curlay->Level;
-			retlay   = curlay;
-		}
-	}
-	return retlay;
+	const auto* retLayer = layerAbove(layer.Level);
+	return retLayer;
 }
 
 const ScLayer* ScLayers::layerBelow (int level) const
@@ -296,15 +267,15 @@ const ScLayer* ScLayers::layerBelow (int level) const
 	const ScLayer* bottom = bottomLayer();
 	if (!bottom)
 		return nullptr;
-	const ScLayer *layer, *retlay = bottom;
+
+	const ScLayer* retlay = bottom;
 	int   minLevel = bottom->Level;
-	for (int i = 0; i < this->count(); ++i)
+	for (const auto& layer : *this)
 	{
-		layer = &this->at(i);
-		if (layer->Level < level && layer->Level > minLevel)
+		if (layer.Level < level && layer.Level > minLevel)
 		{
-			minLevel = layer->Level;
-			retlay   = layer;
+			minLevel = layer.Level;
+			retlay   = &layer;
 		}
 	}
 	return retlay;
@@ -312,28 +283,13 @@ const ScLayer* ScLayers::layerBelow (int level) const
 
 const ScLayer* ScLayers::layerBelow (const ScLayer& layer) const
 {
-	const ScLayer* bottom = bottomLayer();
-	if (!bottom)
-		return nullptr;
-
-	const ScLayer *curlay, *retlay = bottom;
-	int   level    = layer.Level;
-	int   minLevel = bottom->Level;
-	for (int i = 0; i < this->count(); ++i)
-	{
-		curlay = &this->at(i);
-		if (curlay->Level < level && curlay->Level > minLevel)
-		{
-			minLevel = curlay->Level;
-			retlay   = curlay;
-		}
-	}
-	return retlay;
+	const auto* retLayer = layerBelow(layer.Level);
+	return retLayer;
 }
 
 int ScLayers::addLayer(const QString& layerName)
 {
-	ScLayer* nl = newLayer(layerName);
+	const ScLayer* nl = newLayer(layerName);
 	if (nl)
 		return nl->ID;
 	return -1;
@@ -388,11 +344,10 @@ bool ScLayers::removeLayerByID(int id)
 	if (index >= 0)
 	{
 		removeAt(index);
-		ScLayers::Iterator it, itEnd = end();
-		for (it = begin(); it != itEnd; ++it)
+		for (auto& layer : *this)
 		{
-			if (it->Level > layerLevel)
-				it->Level -= 1;
+			if (layer.Level > layerLevel)
+				layer.Level -= 1;
 		}
 		return true;
 	}
@@ -413,11 +368,10 @@ bool ScLayers::removeLayerByLevel(int level)
 	if (index >= 0)
 	{
 		removeAt(index);
-		ScLayers::Iterator it, itEnd = end();
-		for (it = begin(); it != itEnd; ++it)
+		for (auto& layer : *this)
 		{
-			if (it->Level > level)
-				it->Level -= 1;
+			if (layer.Level > level)
+				layer.Level -= 1;
 		}
 	}
 	return false;
@@ -428,6 +382,7 @@ bool ScLayers::raiseLayer(int nr)
 	ScLayer* clyr = byID(nr);
 	if (!clyr)
 		return false;
+
 	ScLayer* alyr = above(clyr->ID);
 	if ((!alyr) || (clyr == alyr))
 		return false;
@@ -442,6 +397,7 @@ bool ScLayers::lowerLayer(int nr)
 	ScLayer* clyr = byID(nr);
 	if (!clyr)
 		return false;
+
 	ScLayer* blyr = below(clyr->ID);
 	if (!blyr || (clyr == blyr))
 		return false;
@@ -454,10 +410,8 @@ bool ScLayers::lowerLayer(int nr)
 void ScLayers::sort()
 {
 	int level = 0;
-	ScLayers::Iterator it;
-	ScLayers::Iterator itend = end();
 	std::stable_sort(begin(), end());
-	for (it = begin(); it != itend; ++it, ++level)
+	for (auto it = begin(); it != end(); ++it, ++level)
 		it->Level = level;
 }
 

@@ -19,6 +19,7 @@ class SCRIBUS_API ScLayer
 public:
 	ScLayer(void);
 	ScLayer(const QString& name, int level, int id);
+
 	QString Name;
 	int ID {0};
 	int Level {0};
@@ -31,6 +32,7 @@ public:
 	double transparency {1.0};
 	int blendMode {0};
 	QColor markerColor;
+
 	bool operator< (const ScLayer& other) const;
 	bool operator== (const ScLayer& other) const;
 };
