@@ -98,7 +98,7 @@ void RulerT::paintEvent(QPaintEvent *)
 		p.drawLine(qRound(xl), 11, qRound(xl), 24);
 		switch (unitIndex)
 		{
-			case 2:
+			case SC_IN:
 			{
 				QString tx;
 				int num1 = static_cast<int>(xl / m_iter2);
@@ -114,7 +114,7 @@ void RulerT::paintEvent(QPaintEvent *)
 				p.drawText(qRound(xl + 2), 17, tx);
 				break;
 			}
-			case 3:
+			case SC_P:
 				p.drawText(qRound(xl + 2), 17, QString::number(xl / m_iter));
 				break;
 			default:
@@ -246,7 +246,7 @@ void RulerT::mouseReleaseEvent(QMouseEvent *m)
 	{
 		tabValues.removeAt(actTab);
 		actTab = 0;
-		if (tabValues.count() != 0)
+		if (!tabValues.isEmpty())
 		{
 			emit typeChanged(tabValues[actTab].tabType);
 			emit tabMoved(tabValues[actTab].tabPosition);
@@ -435,7 +435,7 @@ void RulerT::removeActTab()
 	{
 		tabValues.removeAt(actTab);
 		actTab = 0;
-		if (tabValues.count() != 0)
+		if (!tabValues.isEmpty())
 		{
 			emit typeChanged(tabValues[actTab].tabType);
 			emit tabMoved(tabValues[actTab].tabPosition);
