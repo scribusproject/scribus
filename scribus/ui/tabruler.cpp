@@ -283,7 +283,7 @@ void RulerT::mouseReleaseEvent(QMouseEvent *m)
 	{
 		tabValues.removeAt(actTab);
 		actTab = 0;
-		if (tabValues.count() != 0)
+		if (!tabValues.isEmpty())
 		{
 			emit typeChanged(tabValues[actTab].tabType);
 			emit tabMoved(tabValues[actTab].tabPosition);
@@ -485,7 +485,7 @@ void RulerT::removeActTab()
 	{
 		tabValues.removeAt(actTab);
 		actTab = 0;
-		if (tabValues.count() != 0)
+		if (!tabValues.isEmpty())
 		{
 			emit typeChanged(tabValues[actTab].tabType);
 			emit tabMoved(tabValues[actTab].tabPosition);
