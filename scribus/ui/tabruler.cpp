@@ -835,7 +835,7 @@ void Tabruler::lastTabRemoved()
 
 void Tabruler::setFillChar()
 {
-	tabFillCombo->blockSignals(true);
+	bool sigBlocked = tabFillCombo->blockSignals(true);
 	QChar ret;
 	switch (tabFillCombo->currentIndex())
 	{
@@ -862,7 +862,7 @@ void Tabruler::setFillChar()
 	}
 	if (tabFillCombo->currentIndex() != 4)
 		ruler->changeTabChar(ret);
-	tabFillCombo->blockSignals(false);
+	tabFillCombo->blockSignals(sigBlocked);
 	emit tabrulerChanged();
 	emit tabsChanged();
 }
@@ -871,10 +871,10 @@ void Tabruler::setCustomFillChar(const QString &txt)
 {
 	if (txt == CommonStrings::trCustomTabFill)
 		return;
-	tabFillCombo->blockSignals(true);
-	QChar ret = (txt.length() > 0) ? txt[txt.length()-1] : QChar::Null;
+	bool sigBlocked = tabFillCombo->blockSignals(true);
+	QChar ret = (txt.length() > 0) ? txt.back() : QChar::Null;
 	ruler->changeTabChar(ret);
-	tabFillCombo->blockSignals(false);
+	tabFillCombo->blockSignals(sigBlocked);
 	emit tabrulerChanged();
 	emit tabsChanged();
 }
@@ -925,18 +925,18 @@ void Tabruler::setTabType(int t)
 
 void Tabruler::setType()
 {
-	typeCombo->blockSignals(true);
+	bool sigBlocked = typeCombo->blockSignals(true);
 	ruler->changeTab(typeCombo->currentData().toInt());
-	typeCombo->blockSignals(false);
+	typeCombo->blockSignals(sigBlocked);
 	emit tabrulerChanged();
 	emit tabsChanged();
 }
 
 void Tabruler::setTabData(double t)
 {
-	tabData->blockSignals(true);
+	bool sigBlocked = tabData->blockSignals(true);
 	tabData->setValue(t * m_docUnitRatio);
-	tabData->blockSignals(false);
+	tabData->blockSignals(sigBlocked);
 	if (!ruler->mousePressed)
 	{
 		emit tabrulerChanged();
@@ -953,9 +953,9 @@ void Tabruler::setTab()
 
 void Tabruler::setFirstLineData(double t)
 {
-//	firstLineData->blockSignals(true);
+//	bool sigBlocked = firstLineData->blockSignals(true);
 	firstLineData->setValue(t * m_docUnitRatio);
-//	firstLineData->blockSignals(false);
+//	firstLineData->blockSignals(sigBlocked);
 	if (!ruler->mousePressed)
 	{
 		emit tabrulerChanged();
@@ -978,9 +978,9 @@ void Tabruler::setFirstLine()
 
 void Tabruler::setLeftIndentData(double t)
 {
-//	leftIndentData->blockSignals(true);
+//	bool sigBlocked = leftIndentData->blockSignals(true);
 	leftIndentData->setValue(t * m_docUnitRatio);
-//	leftIndentData->blockSignals(false);
+//	leftIndentData->blockSignals(sigBlocked);
 	if (!ruler->mousePressed)
 	{
 		emit tabrulerChanged();
@@ -1018,9 +1018,9 @@ double Tabruler::getLeftIndent() const
 
 void Tabruler::setRightIndentData(double t)
 {
-	rightIndentData->blockSignals(true);
+	bool sigBlocked = rightIndentData->blockSignals(true);
 	rightIndentData->setValue(t * m_docUnitRatio);
-	rightIndentData->blockSignals(false);
+	rightIndentData->blockSignals(sigBlocked);
 	if (!ruler->mousePressed)
 	{
 		emit tabrulerChanged();
