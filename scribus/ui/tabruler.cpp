@@ -67,7 +67,7 @@ void RulerT::setTabs(const QList<ParagraphStyle::TabRecord>& tabs, int unit)
 	m_iter2 = unitRulerGetIter2FromIndex(unitIndex);
 	tabValues = tabs;
 	actTab    = -1;
-	repaint();
+	update();
 }
 
 void RulerT::paintEvent(QPaintEvent *)
@@ -203,7 +203,7 @@ void RulerT::mousePressEvent(QMouseEvent *m)
 			emit typeChanged(tabValues[actTab].tabType);
 			emit tabMoved(tabValues[actTab].tabPosition);
 			emit fillCharChanged(tabValues[actTab].tabFillChar);
-			repaint();
+			update();
 			return;
 		}
 	}
@@ -217,7 +217,7 @@ void RulerT::mousePressEvent(QMouseEvent *m)
 		actTab = 0;
 		rulerCode = 3;
 		updateTabList();
-		repaint();
+		update();
 		emit newTab();
 		emit typeChanged(tabValues[actTab].tabType);
 		emit tabMoved(tabValues[actTab].tabPosition);
@@ -239,7 +239,7 @@ void RulerT::mouseReleaseEvent(QMouseEvent *m)
 			if (tabValues[actTab].tabType > 4)
 				tabValues[actTab].tabType = 0;
 			emit typeChanged(tabValues[actTab].tabType);
-			repaint();
+			update();
 		}
 	}
 	else if (rulerCode == 3)
@@ -254,7 +254,7 @@ void RulerT::mouseReleaseEvent(QMouseEvent *m)
 		}
 		else
 			emit noTabs();
-		repaint();
+		update();
 	}
 	rulerCode = 0;
 	emit mouseReleased();
@@ -276,7 +276,7 @@ void RulerT::mouseMoveEvent(QMouseEvent *m)
 				if (firstLine + leftIndent > m_rulerWidth)
 					firstLine  = m_rulerWidth - leftIndent;
 				emit firstLineMoved(firstLine);
-				repaint();
+				update();
 				break;
 			case 2:
 				oldInd = leftIndent+firstLine;
@@ -288,7 +288,7 @@ void RulerT::mouseMoveEvent(QMouseEvent *m)
 				firstLine = oldInd - leftIndent;
 				emit leftIndentMoved(leftIndent);
 				emit firstLineMoved(firstLine);
-				repaint();
+				update();
 				break;
 			case 3:
 				tabValues[actTab].tabPosition -= mouseX - m->x();
@@ -298,7 +298,7 @@ void RulerT::mouseMoveEvent(QMouseEvent *m)
 					tabValues[actTab].tabPosition = m_rulerWidth - 1;
 				updateTabList();
 				emit tabMoved(tabValues[actTab].tabPosition);
-				repaint();
+				update();
 				break;
 			default:
 				break;
@@ -390,7 +390,7 @@ void RulerT::increaseOffset()
 		offsetIncrement = 30;
 	if (offset + width() > static_cast<int>(m_rulerWidth))
 		offset -= 5;
-	repaint();
+	update();
 }
 
 void RulerT::decreaseOffset()
@@ -401,7 +401,7 @@ void RulerT::decreaseOffset()
 		offsetIncrement = 30;
 	if (offset < 0)
 		offset = 0;
-	repaint();
+	update();
 }
 
 void RulerT::changeTab(int t)
@@ -409,7 +409,7 @@ void RulerT::changeTab(int t)
 	if (actTab < 0 || actTab >= tabValues.count())
 		return;
 	tabValues[actTab].tabType = t;
-	repaint();
+	update();
 }
 
 void RulerT::changeTabChar(QChar t)
@@ -417,7 +417,7 @@ void RulerT::changeTabChar(QChar t)
 	if (actTab < 0 || actTab >= tabValues.count())
 		return;
 	tabValues[actTab].tabFillChar = t;
-	repaint();
+	update();
 }
 
 void RulerT::moveTab(double t)
@@ -426,7 +426,7 @@ void RulerT::moveTab(double t)
 		return;
 	tabValues[actTab].tabPosition = t;
 	updateTabList();
-	repaint();
+	update();
 }
 
 void RulerT::removeActTab()
@@ -444,7 +444,7 @@ void RulerT::removeActTab()
 		else
 			emit noTabs();
 	}
-	repaint();
+	update();
 }
 
 void RulerT::moveFirstLine(double t)
@@ -460,7 +460,7 @@ void RulerT::moveFirstLine(double t)
 		firstLine = m_rulerWidth - leftIndent;
 		emit firstLineMoved(firstLine);
 	}
-	repaint();
+	update();
 }
 
 void RulerT::moveLeftIndent(double t)
@@ -474,7 +474,7 @@ void RulerT::moveLeftIndent(double t)
 	}
 	firstLine = oldInd - leftIndent;
 	emit firstLineMoved(firstLine);
-	repaint();
+	update();
 }
 
 Tabruler::Tabruler( QWidget* parent, bool haveFirst, int unit, const QList<ParagraphStyle::TabRecord>& tabs, double wid ): QWidget( parent )
@@ -761,7 +761,7 @@ void Tabruler::resetOFfR()
 void Tabruler::clearAll()
 {
 	ruler->tabValues.clear();
-	ruler->repaint();
+	ruler->update();
 	lastTabRemoved();
 	emit tabrulerChanged();
 	emit tabsChanged();
