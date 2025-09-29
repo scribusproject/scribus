@@ -6396,9 +6396,9 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 	//Remove wrong case in 1.8
 	int startArrowIndex = 0;
 	if (attrs.hasAttribute("startArrowIndex"))
-		attrs.valueAsInt("startArrowIndex", 0);
+		startArrowIndex = attrs.valueAsInt("startArrowIndex", 0);
 	else
-		attrs.valueAsInt("StartArrowIndex", 0);
+		startArrowIndex = attrs.valueAsInt("StartArrowIndex", 0);
 	if ((startArrowIndex < 0) || (startArrowIndex > static_cast<int>(doc->arrowStyles().size())))
 	{
 		qDebug() << QString("scribus171format: invalid arrow index: %").arg(startArrowIndex);
@@ -6408,9 +6408,9 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 	//Remove wrong case in 1.8
 	int endArrowIndex = 0;
 	if (attrs.hasAttribute("endArrowIndex"))
-		attrs.valueAsInt("endArrowIndex", 0);
+		endArrowIndex = attrs.valueAsInt("endArrowIndex", 0);
 	else
-		attrs.valueAsInt("EndArrowIndex", 0);
+		endArrowIndex = attrs.valueAsInt("EndArrowIndex", 0);
 	if ((endArrowIndex < 0) || (endArrowIndex > static_cast<int>(doc->arrowStyles().size())))
 	{
 		qDebug() << QString("scribus171format: invalid arrow index: %").arg(endArrowIndex);
