@@ -18,9 +18,10 @@ class GlyphCluster;
 class ScribusDoc;
 
 
-class SCRIBUS_API ITextSource {
-
+class SCRIBUS_API ITextSource
+{
 public:
+	virtual ~ITextSource() = default;
 
 	virtual int length() const = 0; 
 	virtual QChar text(int pos) const = 0;
@@ -54,12 +55,12 @@ public:
 	
 	const ITextSource* original() const
     {
-		return parent() == nullptr? this : parent()->original();
+		return parent() == nullptr ? this : parent()->original();
 	}
 	
-	const int originalStartPos() const
+	int originalStartPos() const
 	{
-		return parent() == nullptr? 0 : parent()->parent() == nullptr? parentPos() : parent()->originalStartPos();
+		return parent() == nullptr ? 0 : parent()->parent() == nullptr? parentPos() : parent()->originalStartPos();
     }
 };
 

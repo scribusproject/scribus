@@ -15,9 +15,6 @@
 #include "textnote.h"
 #include "util.h"
 
-static CharStyle* emptyCStyle;
-static ParagraphStyle*  emptyPStyle;
-
 const ScribusDoc* TextContext::getDoc() const
 {
 	return m_frame->doc();
@@ -25,45 +22,25 @@ const ScribusDoc* TextContext::getDoc() const
 
 const CharStyle& TextContext::charStyle() const 
 { 
-	if (!emptyCStyle)
-		emptyCStyle = new CharStyle();
-	return *emptyCStyle; 
+	static CharStyle emptyCStyle;
+	return emptyCStyle; 
 }
- 
 
 const ParagraphStyle& TextContext::paragraphStyle() const 
 { 
-	if (!emptyPStyle)
-		emptyPStyle = new ParagraphStyle();
-	return *emptyPStyle; 
+	static ParagraphStyle emptyPStyle;
+	return emptyPStyle; 
 }
-
 
 PageItem* TextContext::object(const InlineFrame& frame)  const
 { 
 	return frame.getPageItem(m_frame->doc());
-//	return m_frame->doc()->FrameItems[frame.getInlineCharID()];
 }
-
 
 QRectF TextContext::getVisualBoundingBox(const InlineFrame& frame)  const
 {
 	return object(frame)->getVisualBoundingRect();
 }
-
-#if 0
-double TextContext::getWidth(const InlineFrame& frame)  const
-{
-	return object(frame)->width() + object(frame)->lineWidth(); 
-}
-
-double TextContext::getHeight(const InlineFrame& frame)  const
-{
-	return object(frame)->height() + object(frame)->lineWidth(); 
-}
-
-#endif
-
 	
 QString TextContext::expand(const ExpansionPoint& expansion)
 {
@@ -110,7 +87,7 @@ QString TextContext::expand(const ExpansionPoint& expansion)
 					{
 						mark->setItemPtr(m_frame);
 
-						TextNote* note = mark->getNotePtr();
+						const TextNote* note = mark->getNotePtr();
 						if (note == nullptr)
 							return QString();
 					}
@@ -132,10 +109,7 @@ QString TextContext::expand(const ExpansionPoint& expansion)
 	return QString();
 }
 
-
 const TypoPrefs& TextContext::typographicPrefs() const
 {
 	return  m_frame->doc()->typographicPrefs();
 }
-
-

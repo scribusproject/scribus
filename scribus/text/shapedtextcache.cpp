@@ -10,11 +10,9 @@
 #include "index.h"
 #include "shapedtext.h"
 
-
-class ShapedTextCacheImplementation {
-	
+class ShapedTextCacheImplementation
+{
 	IndexedList<ShapedText> m_cache;
-	
 	
 public:
 	
@@ -59,7 +57,6 @@ public:
 		return result;
 	}
 	
-	
 	void put(const ShapedText& txt)
 	{
 		int first = txt.firstChar();
@@ -72,21 +69,28 @@ public:
 	{
 		put(ShapedText(nullptr, charPos, charPos + len - 1));
 	}
-
-	
 };
 
 
-ShapedTextCache::ShapedTextCache() : p_impl(new ShapedTextCacheImplementation()) {}
+ShapedTextCache::ShapedTextCache() : p_impl(new ShapedTextCacheImplementation())
+{}
 
 bool ShapedTextCache::contains(int charPos, uint len) const
-{ return p_impl->contains(charPos, len); }
+{
+	return p_impl->contains(charPos, len);
+}
 
 ShapedText ShapedTextCache::get(int charPos, uint minLen) const
-{ return p_impl->get(charPos, minLen); }
+{
+	return p_impl->get(charPos, minLen);
+}
 
 void ShapedTextCache::put(const ShapedText& txt)
-{ p_impl->put(txt); }
+{
+	p_impl->put(txt);
+}
 
 void ShapedTextCache::clear(int charPos, uint len)
-{ p_impl->clear(charPos, len); }
+{
+	p_impl->clear(charPos, len);
+}

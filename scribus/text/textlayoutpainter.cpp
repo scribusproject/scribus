@@ -9,11 +9,8 @@
 
 TextLayoutPainter::TextLayoutPainter()
 {
-	m_stack.push(State());
+	m_stack.emplace();
 }
-
-TextLayoutPainter::~TextLayoutPainter()
-{ }
 
 void TextLayoutPainter::setFont(const ScFace& font)
 {

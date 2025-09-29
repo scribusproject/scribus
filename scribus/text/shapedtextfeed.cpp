@@ -4,8 +4,6 @@
 #include "shapedtextfeed.h"
 #include "shapedtextcache.h"
 
-
-
 static bool logicalGlyphRunComp(const GlyphCluster &r1, const GlyphCluster &r2)
 {
 	return r1.firstChar() < r2.firstChar();
@@ -16,18 +14,12 @@ static bool visualGlyphRunComp(const GlyphCluster &r1, const GlyphCluster &r2)
 	return r1.visualIndex() < r2.visualIndex();
 }
 
-
-
-
-
 ShapedTextFeed::ShapedTextFeed(ITextSource* source, int firstChar, ITextContext* context, IShapedTextCache* cache) :
     m_textSource(source),
-//    m_context(context),
 	m_cache(cache),
     m_shaper(context, *source, firstChar),
 	m_endChar(firstChar)
 {}
-
 
 bool ShapedTextFeed::haveMoreText(int glyphPos, QList<GlyphCluster>& glyphs)
 {
@@ -36,7 +28,7 @@ bool ShapedTextFeed::haveMoreText(int glyphPos, QList<GlyphCluster>& glyphs)
 		int nextChar = m_textSource->nextBlockStart(m_endChar);
 		ShapedText more(getMore(m_endChar, nextChar));
 		
-		if (more.glyphs().count() == 0)
+		if (more.glyphs().isEmpty())
 			break;
 //		qDebug() << "feed" << m_endChar << "-->" << more.lastChar() + 1;
 		m_endChar = more.lastChar();
@@ -46,8 +38,6 @@ bool ShapedTextFeed::haveMoreText(int glyphPos, QList<GlyphCluster>& glyphs)
 	}
 	return glyphPos < glyphs.count();
 }
-
-
 
 ShapedText ShapedTextFeed::getMore(int fromChar, int toChar)
 {
@@ -63,8 +53,6 @@ ShapedText ShapedTextFeed::getMore(int fromChar, int toChar)
 	return m_shaper.shape(fromChar, toChar);
 }
 
-
-
 QList<GlyphCluster> ShapedTextFeed::putInVisualOrder(const QList<GlyphCluster>& glyphs, int start, int end)
 {
 	int glyphsCount = end - start;
@@ -74,4 +62,3 @@ QList<GlyphCluster> ShapedTextFeed::putInVisualOrder(const QList<GlyphCluster>& 
 	std::stable_sort(runs.begin(), runs.end(), visualGlyphRunComp);
 	return runs;
 }
-

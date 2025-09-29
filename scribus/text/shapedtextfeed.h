@@ -25,11 +25,10 @@ class IShapedTextCache;
  */
 class ShapedTextFeed
 {
-	ITextSource* m_textSource;
-//	ITextContext* m_context;
-	IShapedTextCache* m_cache;
+	ITextSource* m_textSource { nullptr };
+	IShapedTextCache* m_cache { nullptr };
 	TextShaper m_shaper;
-	int m_endChar;
+	int m_endChar { 0 };
 	
 public:
 	ShapedTextFeed(ITextSource* source, int firstChar, ITextContext* context, IShapedTextCache* cache = nullptr);

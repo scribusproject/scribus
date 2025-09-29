@@ -17,7 +17,7 @@ public:
 	ShapedTextImplementation(const ITextSource* src, int firstChar, int lastChar, const ITextContext* ctx) : m_source(src), m_context(ctx)
 	{
 		m_firstChar = firstChar;
-		m_lastChar = lastChar < 0? src->length() - 1 : lastChar;
+		m_lastChar = lastChar < 0 ? src->length() - 1 : lastChar;
 	}
 	
 	ShapedTextImplementation(const ShapedTextImplementation& o) : m_needsContext(o.m_needsContext), m_source(o.m_source), m_context(o.m_context), m_firstChar(o.m_firstChar), m_lastChar(o.m_lastChar),m_glyphs(o.m_glyphs)
