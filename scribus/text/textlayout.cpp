@@ -219,7 +219,7 @@ void TextLayout::setStory(StoryText *story)
 
 int TextLayout::startOfLine(int pos) const
 {
-	for (uint i=0; i < lines(); ++i)
+	for (uint i = 0; i < lines(); ++i)
 	{
 		const LineBox* ls = line(i);
 		if (ls->firstChar() <= pos && pos <= ls->lastChar())
@@ -230,7 +230,7 @@ int TextLayout::startOfLine(int pos) const
 
 int TextLayout::endOfLine(int pos) const
 {
-	for (uint i=0; i < lines(); ++i)
+	for (uint i = 0; i < lines(); ++i)
 	{
 		const LineBox* ls = line(i);
 		if (ls->containsPos(pos))
@@ -243,7 +243,7 @@ int TextLayout::endOfLine(int pos) const
 int TextLayout::prevLine(int pos) const
 {
 	bool isRTL = (m_story->paragraphStyle().direction() == ParagraphStyle::RTL);
-	for (uint i=0; i < lines(); ++i)
+	for (uint i = 0; i < lines(); ++i)
 	{
 		// find line for pos
 		const LineBox* ls = line(i);
@@ -277,7 +277,7 @@ int TextLayout::prevLine(int pos) const
 int TextLayout::nextLine(int pos) const
 {
 	bool isRTL = (m_story->paragraphStyle().direction() == ParagraphStyle::RTL);
-	for (uint i=0; i < lines(); ++i)
+	for (uint i = 0; i < lines(); ++i)
 	{
 		// find line for pos
 		const LineBox* ls = line(i);
@@ -358,13 +358,11 @@ int TextLayout::endOfFrame() const
 	return 0;
 }
 
-
 int TextLayout::pointToPosition(const QPointF& coord) const
 {
 	int position = m_box->pointToPosition(coord, *m_story);
 	return position;
 }
-
 
 QLineF TextLayout::positionToPoint(int pos) const
 {
@@ -372,69 +370,69 @@ QLineF TextLayout::positionToPoint(int pos) const
 	bool isRTL = (m_story->paragraphStyle().direction() == ParagraphStyle::RTL);
 
 	result = m_box->positionToPoint(pos, *m_story);
-	if (result.isNull())
+	if (!result.isNull())
+		return result;
+
+	qreal x;
+	qreal y1;
+	qreal y2;
+	if (lines() > 0)
 	{
-		qreal x;
-		qreal y1;
-		qreal y2;
-		if (lines() > 0)
+		// TODO: move this branch to GroupBox::positionToPoint()
+		// last glyph box in last line
+		Box* column = m_box->boxes().last();
+		if (!column->boxes().isEmpty())
 		{
-			// TODO: move this branch to GroupBox::positionToPoint()
-			// last glyph box in last line
-			Box* column = m_box->boxes().last();
-			if (column->boxes().count() > 0)
+			const Box* line = column->boxes().last();
+			const Box* glyph = line->boxes().empty() ? nullptr : line->boxes().last();
+			QChar ch = story()->text(line->lastChar());
+			if (ch == SpecialChars::PARSEP || ch == SpecialChars::LINEBREAK)
 			{
-				const Box* line = column->boxes().last();
-				const Box* glyph = line->boxes().empty() ? nullptr : line->boxes().last();
-				QChar ch = story()->text(line->lastChar());
-				if (ch == SpecialChars::PARSEP || ch == SpecialChars::LINEBREAK)
-				{
-					// last character is a newline, draw the cursor on the next line.
-					if (isRTL)
-						x = line->width();
-					else
-						x = 1;
-					y1 = line->y() + line->height();
-					y2 = y1 + line->height();
-				}
+				// last character is a newline, draw the cursor on the next line.
+				if (isRTL)
+					x = line->width();
 				else
-				{
-					// draw the cursor at the end of last line.
-					if (isRTL || glyph == nullptr)
-						x = line->x();
-					else
-						x = line->x() + glyph->x() + glyph->width();
-					y1 = line->y();
-					y2 = y1 + line->height();
-				}
+					x = 1;
+				y1 = line->y() + line->height();
+				y2 = y1 + line->height();
 			}
 			else
 			{
-				const ParagraphStyle& pstyle(story()->paragraphStyle(qMin(pos, story()->length())));
-				if (isRTL)
-					x = column->width();
+				// draw the cursor at the end of last line.
+				if (isRTL || glyph == nullptr)
+					x = line->x();
 				else
-					x = 1;
-				y1 = 0;
-				y2 = pstyle.lineSpacing();
+					x = line->x() + glyph->x() + glyph->width();
+				y1 = line->y();
+				y2 = y1 + line->height();
 			}
-			result.setLine(x, y1, x, y2);
-			result.translate(column->x(), column->y());
 		}
 		else
 		{
-			// rather the trailing style than a segfault.
 			const ParagraphStyle& pstyle(story()->paragraphStyle(qMin(pos, story()->length())));
 			if (isRTL)
-				x = m_box->width();
+				x = column->width();
 			else
 				x = 1;
 			y1 = 0;
 			y2 = pstyle.lineSpacing();
-			result.setLine(x, y1, x, y2);
 		}
-		result.translate(m_box->x(), m_box->y());
+		result.setLine(x, y1, x, y2);
+		result.translate(column->x(), column->y());
 	}
+	else
+	{
+		// rather the trailing style than a segfault.
+		const ParagraphStyle& pstyle(story()->paragraphStyle(qMin(pos, story()->length())));
+		if (isRTL)
+			x = m_box->width();
+		else
+			x = 1;
+		y1 = 0;
+		y2 = pstyle.lineSpacing();
+		result.setLine(x, y1, x, y2);
+	}
+	result.translate(m_box->x(), m_box->y());
 
 	return result;
 }

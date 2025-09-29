@@ -104,7 +104,8 @@ StoryText::~StoryText()
 		doc->charStyles().disconnect(this, SLOT(invalidateAll()));
 	} */
 	d->refs--;
-	if (d->refs == 0) {
+	if (d->refs == 0)
+	{
 		d->clear();
 		d->len = 0;
 		delete d;
@@ -234,7 +235,7 @@ void StoryText::normalizeCursorPosition()
 	d->cursorPosition = qMax((uint) 0, qMin(d->cursorPosition, d->len));
 }
 
-int StoryText::normalizedCursorPosition()
+int StoryText::normalizedCursorPosition() const
 {
 	return (int) qMax((uint) 0, qMin(d->cursorPosition, d->len));
 }
@@ -582,9 +583,6 @@ void StoryText::insertParSep(int pos)
 			applyStyle(pos, d->trailingStyle);
 			d->trailingStyle.erase();
 		}
-//		it->parstyle->setName("para"); // DON'T TRANSLATE
-//		it->parstyle->charStyle().setName("cpara"); // DON'T TRANSLATE
-//		it->parstyle->charStyle().setContext( d->defaultStyle.charStyleContext() );
 	}
 	d->replaceCharStyleContextInParagraph(pos, it->parstyle->charStyleContext());
 }
@@ -597,9 +595,6 @@ void StoryText::removeParSep(int pos)
 	ScText* it = item(pos);
 	if (it->parstyle)
 	{
-//		const CharStyle* oldP = & it->parstyle->charStyle();
-//		const CharStyle* newP = & that->paragraphStyle(pos+1).charStyle();
-//		d->replaceParentStyle(pos, oldP, newP);
 		delete it->parstyle;
 		it->parstyle = nullptr;
 	}
@@ -704,7 +699,7 @@ void StoryText::insertChars(int pos, const QString& txt, bool applyNeighbourStyl
 	assert(pos >= 0);
 	assert(pos <= length());
 	
-	if (txt.length() == 0)
+	if (txt.isEmpty())
 		return;
 	
 	const StyleContext* cStyleContext = paragraphStyle(pos).charStyleContext();
@@ -747,7 +742,7 @@ void StoryText::insertCharsWithSoftHyphens(int pos, const QString& txt, bool app
 	assert(pos >= 0);
 	assert(pos <= length());
 	
-	if (txt.length() == 0)
+	if (txt.isEmpty())
 		return;
 	
 	const StyleContext* cStyleContext = paragraphStyle(pos).charStyleContext();
@@ -856,7 +851,7 @@ void StoryText::replaceSelection(const QString& newText)
 	}
 
 	deselectAll();
-	if (newText.length() > 0)
+	if (!newText.isEmpty())
 		select(selStart, newText.length());
 	setCursorPosition(selStart + newText.length());
 }
@@ -951,10 +946,14 @@ void StoryText::replaceObject(int pos, int ob)
 	m_doc->FrameItems[ob]->OwnPage = -1; // #10379: OwnPage is not meaningful for inline object
 }
 
-
 int StoryText::length() const
 {
 	return d->len;
+}
+
+bool StoryText::isEmpty() const
+{
+	return (d->len == 0);
 }
 
 QString StoryText::plainText() const
@@ -1062,7 +1061,7 @@ ExpansionPoint StoryText::expansionPoint(int pos) const
 }
 
 
-QString StoryText::sentence(int pos, int &posn)
+QString StoryText::sentence(int pos, int &posn) const
 {
 	int sentencePos = qMax(0, prevSentence(pos));
 	posn = sentencePos;
@@ -1070,7 +1069,7 @@ QString StoryText::sentence(int pos, int &posn)
 	return text(sentencePos, nextSentencePos - sentencePos);
 }
 
-QString StoryText::word(int pos)
+QString StoryText::word(int pos) const
 {
 	BreakIterator* it = getWordIterator();
 	if (it)
@@ -1342,7 +1341,7 @@ const CharStyle & StoryText::charStyle(int pos) const
 	assert(pos >= 0);
 	assert(pos <= length());
 
-	if (length() == 0)
+	if (this->isEmpty())
 	{
 //		qDebug() << "storytext::charstyle: default";
 		return d->orphanedCharStyle;
@@ -1398,9 +1397,6 @@ const ParagraphStyle & StoryText::paragraphStyle(int pos) const
 		qDebug("inserting default parstyle at %i", pos);
 		current->parstyle = new ParagraphStyle();
 		current->parstyle->setContext( & d->pstyleContext);
-//		current->parstyle->setName( "para(paragraphStyle)" ); // DON'T TRANSLATE
-//		current->parstyle->charStyle().setName( "cpara(paragraphStyle)" ); // DON'T TRANSLATE
-//		current->parstyle->charStyle().setContext( d->defaultStyle.charStyleContext());
 	}
 	else
 	{
@@ -1420,16 +1416,8 @@ const ParagraphStyle& StoryText::defaultStyle() const
 void StoryText::setDefaultStyle(const ParagraphStyle& style)
 {
 	const StyleContext * oldPContext = d->defaultStyle.context();
-//	const StyleContext * oldCContext = d->defaultStyle.charStyle().context();
 	d->defaultStyle = style;
 	d->defaultStyle.setContext( oldPContext );
-//	d->defaultStyle.setName( "storydefault" ); // DON'T TRANSLATE
-//	d->defaultStyle.charStyle().setName( "cstorydefault" ); // DON'T TRANSLATE
-//	qDebug() << QString("defstyle %1 context %2 defcstyle %3 ccontext %4 newcontext %5")
-//		   .arg((uint)&d->defaultStyle,16).arg((uint)oldPContext,16)
-//		   .arg((uint)&d->defaultStyle.charStyle(),16).arg((uint)oldCContext,16)
-//		   .arg((uint)d->defaultStyle.charStyle().context(),16);
-//	d->defaultStyle.charStyle().setContext( oldCContext );
 	invalidateAll();
 }
 
@@ -1528,9 +1516,6 @@ void StoryText::applyStyle(int pos, const ParagraphStyle& style, bool rmDirectFo
 			qDebug("PARSEP without style at pos %i", i);
 			d->at(i)->parstyle = new ParagraphStyle();
 			d->at(i)->parstyle->setContext( & d->pstyleContext);
-//			d->at(i)->parstyle->setName( "para(applyStyle)" ); // DON'T TRANSLATE
-//			d->at(i)->parstyle->charStyle().setName( "cpara(applyStyle)" ); // DON'T TRANSLATE
-//			d->at(i)->parstyle->charStyle().setContext( d->defaultStyle.charStyleContext() );
 		}
 //		qDebug() << QString("applying parstyle %2 at %1 for %3").arg(i).arg(paragraphStyle(pos).name()).arg(pos);
 		d->at(i)->parstyle->applyStyle(style);
@@ -1572,9 +1557,6 @@ void StoryText::eraseStyle(int pos, const ParagraphStyle& style)
 			qDebug("PARSEP without style at pos %i", i);
 			d->at(i)->parstyle = new ParagraphStyle();
 			d->at(i)->parstyle->setContext( & d->pstyleContext);
-//			d->at(i)->parstyle->setName( "para(eraseStyle)" ); // DON'T TRANSLATE
-//			d->at(i)->parstyle->charStyle().setName( "cpara(eraseStyle)" ); // DON'T TRANSLATE
-//			d->at(i)->parstyle->charStyle().setContext( d->defaultStyle.charStyleContext());
 		}
 		//		qDebug() << QString("applying parstyle %2 at %1 for %3").arg(i).arg(paragraphStyle(pos).name()).arg(pos);
 		d->at(i)->parstyle->eraseStyle(style);
@@ -1673,7 +1655,7 @@ void StoryText::replaceCharStyles(QMap<QString,QString> newNameForOld)
 
 void StoryText::fixLegacyFormatting()
 {
-	if (length() == 0)
+	if (this->isEmpty())
 		return;
 
 	for (int i = 0; i < length(); ++ i)
@@ -1686,7 +1668,7 @@ void StoryText::fixLegacyFormatting()
 
 void StoryText::fixLegacyFormatting(int pos)
 {
-	if (length() == 0)
+	if (this->isEmpty())
 		return;
 
 	if (pos < 0)
@@ -1759,7 +1741,9 @@ int StoryText::startOfParagraph(uint index) const
 
 	for (int i = 0; i < length(); ++i)
 	{
-		if (d->at(i)->ch == SpecialChars::PARSEP && ! --index)
+		if (d->at(i)->ch != SpecialChars::PARSEP)
+			continue;
+		if (--index == 0)
 			return i + 1;
 	}
 	return length();
@@ -1775,7 +1759,9 @@ int StoryText::endOfParagraph(uint index) const
 	++index;
 	for (int i = 0; i < length(); ++i)
 	{
-		if (d->at(i)->ch == SpecialChars::PARSEP && ! --index)
+		if (d->at(i)->ch != SpecialChars::PARSEP)
+			continue;
+		if (--index == 0)
 			return i;
 	}
 	return length();
@@ -1798,21 +1784,21 @@ int StoryText::endOfRun(uint index) const
 
 // positioning. all positioning methods return char positions
 
-int StoryText::nextChar(int pos)
+int StoryText::nextChar(int pos) const
 {
 	if (pos < length())
 		return pos + 1;
 	return length();
 }
 
-int StoryText::prevChar(int pos)
+int StoryText::prevChar(int pos) const
 {
 	if (pos > 0)
 		return pos - 1;
 	return 0;
 }
 
-int StoryText::firstWord()
+int StoryText::firstWord() const
 {
 	int len = length();
 	int pos = 0;
@@ -1826,7 +1812,7 @@ int StoryText::firstWord()
 	return pos;
 }
 
-int StoryText::nextWord(int pos)
+int StoryText::nextWord(int pos) const
 {
 	BreakIterator* it = getWordIterator();
 	if (!it)
@@ -1844,7 +1830,7 @@ int StoryText::nextWord(int pos)
 	return pos;
 }
 
-int StoryText::prevWord(int pos)
+int StoryText::prevWord(int pos) const
 {
 	BreakIterator* it = getWordIterator();
 	if (!it)
@@ -1886,7 +1872,7 @@ int StoryText::endOfSentence(int pos) const
 	return end;
 }
 
-int StoryText::nextSentence(int pos)
+int StoryText::nextSentence(int pos) const
 {
 	BreakIterator* it = getSentenceIterator();
 	if (!it)
@@ -1901,7 +1887,7 @@ int StoryText::nextSentence(int pos)
 	return pos;
 }
 
-int StoryText::prevSentence(int pos)
+int StoryText::prevSentence(int pos) const
 {
 	//we cannot go before the first position so just return it.
 	if (pos == 0)
@@ -1918,7 +1904,7 @@ int StoryText::prevSentence(int pos)
 	return pos;
 }
 
-int StoryText::nextParagraph(int pos)
+int StoryText::nextParagraph(int pos) const
 {
 	int len = length();
 	pos = qMin(len, pos + 1);
@@ -1927,7 +1913,7 @@ int StoryText::nextParagraph(int pos)
 	return pos;
 }
 
-int StoryText::prevParagraph(int pos)
+int StoryText::prevParagraph(int pos) const
 {
 	pos = qMax(0, pos - 1);
 	while (pos > 0 && text(pos) != SpecialChars::PARSEP)
@@ -2017,10 +2003,6 @@ void StoryText::select(int pos, int len, bool on)
 	assert( pos + signed(len) <= length() );
 
 //	qDebug("old selection: %d - %d", d->selFirst, d->selLast);
-
-//	StoryText* that = const_cast<StoryText *>(this);
-//	for (int i = pos; i < pos + signed(len); ++i)
-//		that->at(i)->cselect = on;
 
 	if (on)
 	{
@@ -2406,9 +2388,6 @@ void StoryText::saxx(SaxHandler& handler, const Xml_string& elemtag) const
 	handler.end("span");
 	handler.end("p");
 	
-//	if (!lastWasPar)
-//		paragraphStyle(length()-1).saxx(handler);
-	
 	handler.end(elemtag);
 }
 
@@ -2500,7 +2479,7 @@ public:
 		// We have to remove them from object list and add them to the FrameItems list
 		// before inserting them in story object
 		QList<PageItem*> *items = obj->doc()->Items;
-		if (items->count() > 0)
+		if (!items->isEmpty())
 		{
 			if (items->last() == obj) // try a fast path first
 				items->removeLast();
@@ -2667,75 +2646,10 @@ public:
 struct AppendMark : public MakeAction<AppendMark_body>
 {};
 
-/*
-class ApplyStyle_body : public Action_body
-{
-public:
-	void end(const Xml_string& tag) 
-	{
-		qDebug() << "storytext desaxe: apply style";
-		StoryText* story = this->dig->top<StoryText>(1);
-		ParagraphStyle* obj = this->dig->top<ParagraphStyle>(0);
-		story->applyStyle(-1, *obj);
-	}
-};
-
-struct ApplyStyle : public MakeAction<ApplyStyle_body>
-{};
-
-
-class ApplyCharStyle_body : public Action_body
-{
-public:
-	ApplyCharStyle_body() : storyTag(StoryText::saxxDefaultElem), lastPos(0), lastStyle()
-	{}
-	ApplyCharStyle_body(const Xml_string& tag) : storyTag(tag), lastPos(0), lastStyle()
-	{}
-	
-	void end(const Xml_string& tag) 
-	{
-		qDebug() << "storytext desaxe: apply charstyle";
-		if (tag == CharStyle::saxxDefaultElem)
-		{
-			StoryText* story = this->dig->top<StoryText>(1);
-			CharStyle* obj = this->dig->top<CharStyle>(0);
-			int len = story->length();
-			if (len > lastPos && lastStyle != *obj)
-			{
-				story->applyCharStyle(lastPos, len - lastPos, lastStyle);
-				lastPos = len;
-				lastStyle = *obj;
-			}
-		}
-		else if (tag == StoryText::saxxDefaultElem)
-		{
-			StoryText* story = this->dig->top<StoryText>();
-			int len = story->length();
-			if (len > lastPos)
-			{
-				story->applyCharStyle(lastPos, len - lastPos, lastStyle);
-			}
-		}
-	}
-private:
-	Xml_string storyTag;
-	int lastPos;
-	CharStyle lastStyle;
-};
-
-struct ApplyCharStyle : public MakeAction<ApplyCharStyle_body, const Xml_string&>
-{
-	ApplyCharStyle() : MakeAction<ApplyCharStyle_body, const Xml_string&>() {}
-	ApplyCharStyle(const Xml_string& tag) : MakeAction<ApplyCharStyle_body, const Xml_string&>(tag) {}
-};
-
-*/
-
 class Paragraph_body : public Action_body
 {
 public:
-	Paragraph_body()
-	{}
+	Paragraph_body() = default;
 	
 	~Paragraph_body() override
 	{
@@ -2795,15 +2709,14 @@ private:
 
 struct Paragraph : public MakeAction<Paragraph_body>
 {
-	Paragraph() {}
+	Paragraph() = default;
 };
 
 
 class SpanAction_body : public Action_body
 {
 public:
-	SpanAction_body()
-	{}
+	SpanAction_body() = default;
 	
 	~SpanAction_body() override
 	{
@@ -2847,7 +2760,7 @@ private:
 
 struct SpanAction : public MakeAction<SpanAction_body>
 {
-	SpanAction() {}
+	SpanAction() = default;
 };
 
 

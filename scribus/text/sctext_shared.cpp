@@ -23,7 +23,6 @@ ScText_Shared::ScText_Shared(const StyleContext* pstyles) :
 	defaultStyle.setContext( pstyles );
 	trailingStyle.setContext( &pstyleContext );
 	orphanedCharStyle.setContext( defaultStyle.charStyle().context() );
-//		defaultStyle.charStyle().setContext( cstyles );
 //		qDebug() << QString("ScText_Shared() %1 %2 %3 %4").arg(reinterpret_cast<uint>(this)).arg(reinterpret_cast<uint>(&defaultStyle)).arg(reinterpret_cast<uint>(pstyles)).arg(reinterpret_cast<uint>(cstyles));
 }
 		
@@ -41,7 +40,7 @@ ScText_Shared::ScText_Shared(const ScText_Shared& other) :
 	orphanedCharStyle.setContext( defaultStyle.charStyle().context() );
 
 	QListIterator<ScText*> it( other );
-	ScText* elem;
+	const ScText* elem;
 	while ( it.hasNext() )
 	{
 		elem = it.next();
@@ -50,7 +49,6 @@ ScText_Shared::ScText_Shared(const ScText_Shared& other) :
 		if (elem2->parstyle)
 		{
 			elem2->parstyle->setContext( & pstyleContext);
-//				elem2->parstyle->charStyle().setContext( defaultStyle.charStyleContext() );
 			replaceCharStyleContextInParagraph(count() - 1, elem2->parstyle->charStyleContext());
 		}
 	}
@@ -84,9 +82,9 @@ ScText_Shared& ScText_Shared::operator= (const ScText_Shared& other)
 		trailingStyle.setContext( &pstyleContext );
 		orphanedCharStyle.setContext( other.defaultStyle.charStyle().context() );
 		clear();
-		QListIterator<ScText*> it( other );
-		ScText* elem;
-		while ( it.hasNext() )
+		QListIterator<ScText*> it(other);
+		const ScText* elem;
+		while (it.hasNext())
 		{
 			elem = it.next();
 			ScText* elem2 = new ScText(*elem);
@@ -97,7 +95,6 @@ ScText_Shared& ScText_Shared::operator= (const ScText_Shared& other)
 //					qDebug() << QString("StoryText::copy: * %1 align=%2").arg(elem2->parstyle->parent())
 //						   .arg(elem2->parstyle->alignment())
 //						   .arg((uint)elem2->parstyle->context()));
-					//				elem2->parstyle->charStyle().setContext( defaultStyle.charStyleContext());
 				replaceCharStyleContextInParagraph(count()-1, elem2->parstyle->charStyleContext());
 			}
 		}
@@ -137,7 +134,7 @@ void ScText_Shared::replaceCharStyleContextInParagraph(int pos, const StyleConte
 		value(pos)->setContext(newContext);
 	for (int i = pos - 1; i >= 0; --i)
 	{
-		if ( (at(i)->ch) == SpecialChars::PARSEP)
+		if (at(i)->ch == SpecialChars::PARSEP)
 			break;
 		value(i)->setContext(newContext);
 	}

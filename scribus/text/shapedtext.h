@@ -40,7 +40,7 @@ class ShapedText
 	friend class ShapedTextImplementation;
 
 public:
-	ShapedText(ITextSource* src, int firstChar, int lastChar, ITextContext* ctx = nullptr);
+	ShapedText(const ITextSource* src, int firstChar, int lastChar, const ITextContext* ctx = nullptr);
 	ShapedText(const ShapedText& other);
 	
 	static ShapedText Invalid;
@@ -63,7 +63,7 @@ public:
 	ShapedText split(int charPos);
 	/** only possible if they are adjacent pieces of the same text source */
 	bool canCombine(const ShapedText& other) const;
-	void combine(ShapedText& other);
+	void combine(const ShapedText& other);
 };
 
 

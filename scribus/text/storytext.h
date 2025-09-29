@@ -79,7 +79,7 @@ public:
 	StoryText();
 	StoryText(const StoryText & other);
 	StoryText& operator= (const StoryText & other);
-	virtual ~StoryText();
+	~StoryText() override;
 
 	bool hasBulletOrNum() const;
 	bool hasTextMarks() const;
@@ -92,13 +92,13 @@ public:
 	static const Xml_string saxxDefaultElem;
 	static void  desaxeRules(const Xml_string& prefixPattern, desaxe::Digester& ruleset, Xml_string elemtag = saxxDefaultElem);
 	
-	virtual void saxx(SaxHandler& handler, const Xml_string& elemtag) const;
-	virtual void saxx(SaxHandler& handler)                     const { saxx(handler, saxxDefaultElem); }
+	void saxx(SaxHandler& handler, const Xml_string& elemtag) const override;
+	void saxx(SaxHandler& handler) const override { saxx(handler, saxxDefaultElem); }
 	
 	int  cursorPosition() const;
 	void setCursorPosition(int pos, bool relative = false);
 	void normalizeCursorPosition();
-	int  normalizedCursorPosition();
+	int  normalizedCursorPosition() const;
 
 	void moveCursorForward();
 	void moveCursorBackward();
@@ -112,7 +112,7 @@ public:
 	StoryText copy() const;
 
 	// Find text in story
-	int indexOf(const QString &str, int from = 0, Qt::CaseSensitivity cs = Qt::CaseSensitive, int* pLen = 0) const;
+	int indexOf(const QString &str, int from = 0, Qt::CaseSensitivity cs = Qt::CaseSensitive, int* pLen = nullptr) const;
 	int indexOf(QChar ch, int from = 0, Qt::CaseSensitivity cs = Qt::CaseSensitive) const;
 	
 	// Add, change, replace
@@ -147,7 +147,9 @@ public:
 	void hyphenateWord(int pos, uint len, const char* hyphens);
 	
  	// Retrieve length of story text
- 	int length() const;
+ 	int length() const override;
+	// Check if length == 0
+	bool isEmpty() const;
 
 	// Get content at specific position as plain text
 	// Internal paragraph separator are converted to 
@@ -157,24 +159,24 @@ public:
 
 	// TextSource methods 
 
-	virtual bool isBlockStart(int pos) const; 
-	virtual int nextBlockStart(int pos) const;
-	virtual InlineFrame object(int pos) const;
-	virtual bool hasExpansionPoint(int pos) const;
-	virtual ExpansionPoint expansionPoint(int pos) const;
+	bool isBlockStart(int pos) const override;
+	int  nextBlockStart(int pos) const override;
+	InlineFrame object(int pos) const override;
+	bool hasExpansionPoint(int pos) const override;
+	ExpansionPoint expansionPoint(int pos) const override;
 
 	// Get char at current cursor position
 //	QChar   text() const;
 	// Get char at specific position
- 	QChar   text(int pos) const;
+ 	QChar   text(int pos) const override;
 	// Get text with len chars at specific position
-	QString text(int pos, uint len) const;
+	QString text(int pos, uint len) const override;
  	// Get sentence at any position within it
-	QString sentence(int pos, int &posn);
+	QString sentence(int pos, int &posn) const;
 	// Get word starting at position
-	QString word(int pos);
+	QString word(int pos) const;
 
-	bool hasObject(int pos) const;
+	bool hasObject(int pos) const override;
 	PageItem* getItem(int pos) const; // deprecated
 
 	int  findMark(const Mark* mrk, int startPos = 0) const;
@@ -192,15 +194,15 @@ public:
 	// Get charstyle at current cursor position
 	const CharStyle& charStyle() const;
 	// Get charstyle at specific position
- 	const CharStyle& charStyle(int pos) const;
+ 	const CharStyle& charStyle(int pos) const override;
 	// Get paragraph style at current cursor position
 	const ParagraphStyle& paragraphStyle() const;
 	// Get paragraph style at specific position
-	const ParagraphStyle& paragraphStyle(int pos) const;
+	const ParagraphStyle& paragraphStyle(int pos) const override;
 	const ParagraphStyle& defaultStyle() const;
 	void setDefaultStyle(const ParagraphStyle& style);
-	void setCharStyle(int pos, uint len, const CharStyle& style);
-	void setStyle(int pos, const ParagraphStyle& style);
+	void setCharStyle(int pos, uint len, const CharStyle& style) override;
+	void setStyle(int pos, const ParagraphStyle& style) override;
 	void applyCharStyle(int pos, uint len, const CharStyle& style);
 	void applyStyle(int pos, const ParagraphStyle& style, bool rmDirectFormatting = false);
 	void eraseCharStyle(int pos, uint len, const CharStyle& style);
@@ -231,17 +233,17 @@ public:
 	int endOfRun(uint index) const;
 
 // positioning
-	int nextChar(int pos);
-	int prevChar(int pos);
-	int firstWord();
-	int nextWord(int pos);
-	int prevWord(int pos);
+	int nextChar(int pos) const;
+	int prevChar(int pos) const;
+	int firstWord() const;
+	int nextWord(int pos) const;
+	int prevWord(int pos) const;
 	int endOfWord(int pos) const;
-	int nextSentence(int pos);
-	int prevSentence(int pos);
+	int nextSentence(int pos) const;
+	int prevSentence(int pos) const;
 	int endOfSentence(int pos) const;
-	int nextParagraph(int pos);
-	int prevParagraph(int pos);
+	int nextParagraph(int pos) const;
+	int prevParagraph(int pos) const;
 
 // these need valid layout:
 
@@ -277,10 +279,10 @@ public:
 
 	ShapedTextCache* shapedTextCache() { return m_shapedTextCache; }
 
-	LayoutFlags flags(int pos) const;
-	bool hasFlag(int pos, LayoutFlags flag) const;
-	void setFlag(int pos, LayoutFlags flag);
-	void clearFlag(int pos, LayoutFlags flag);
+	LayoutFlags flags(int pos) const override;
+	bool hasFlag(int pos, LayoutFlags flag) const override;
+	void setFlag(int pos, LayoutFlags flag) override;
+	void clearFlag(int pos, LayoutFlags flag) override;
 
 //  when physical view doesn't match logical view any more:
 
@@ -302,8 +304,9 @@ private:
 	void fixSurrogateSelection();
 	
 private:
-	ScribusDoc * m_doc;
-	ShapedTextCache* m_shapedTextCache;
+	ScribusDoc * m_doc { nullptr };
+	ShapedTextCache* m_shapedTextCache { nullptr };
+
 	static icu::BreakIterator* m_graphemeIterator;
 	static icu::BreakIterator* m_wordIterator;
 	static icu::BreakIterator* m_sentenceIterator;
@@ -324,7 +327,7 @@ private:
  	 */
 // 	void validate();
 	/// private data structure
-	ScText_Shared * d;
+	ScText_Shared * d { nullptr };
 	/// gives the physical view which was last given to the layouter
 // 	uint layouterVersion;
  	/// is true after layout() has been exercised

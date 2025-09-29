@@ -17,25 +17,22 @@
 
 struct TextLayoutColor
 {
-	QString color;
-	double shade;
+	QString color { "Black" };
+	double shade { 100.0 };
 
-	TextLayoutColor()
-		: color("Black")
-		, shade(100)
-	{ }
+	TextLayoutColor() = default;
 
-	TextLayoutColor(QString c, double s=100)
+	TextLayoutColor(QString c, double s = 100.0)
 		: color(c)
 		, shade(s)
 	{ }
 
-	bool operator ==(const TextLayoutColor &other) const
+	bool operator==(const TextLayoutColor &other) const
 	{
 		return other.color == color && other.shade == shade;
 	}
 
-	bool operator !=(const TextLayoutColor &other) const
+	bool operator!=(const TextLayoutColor &other) const
 	{
 		return !(*this == other);
 	}
@@ -52,7 +49,7 @@ class SCRIBUS_API TextLayoutPainter
 {
 public:
 	TextLayoutPainter();
-	virtual ~TextLayoutPainter();
+	virtual ~TextLayoutPainter() = default;
 
 	/// Sets the current font that will be used for all subsequent glyph
 	/// drawings.
@@ -136,26 +133,16 @@ private:
 	struct State
 	{
 		ScFace font;
-		double fontSize;
+		double fontSize { 0.0 };
 		TextLayoutColor strokeColor;
 		TextLayoutColor fillColor;
 		QTransform matrix;
-		double strokeWidth;
-		double x;
-		double y;
-		double scaleH;
-		double scaleV;
-		bool selected;
-
-		State()
-			: fontSize(0)
-			, strokeWidth(0)
-			, x(0)
-			, y(0)
-			, scaleH(1)
-			, scaleV(1)
-			, selected(false)
-		{}
+		double strokeWidth { 0.0 };
+		double x { 0.0 };
+		double y { 0.0 };
+		double scaleH { 1.0 };
+		double scaleV { 1.0 };
+		bool selected { false };
 	};
 
 	std::stack<State> m_stack;
