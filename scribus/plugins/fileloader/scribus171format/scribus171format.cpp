@@ -6393,6 +6393,7 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 		currItem->FrameType = attrs.valueAsInt("FRTYPE", 0);
 	else
 		currItem->FrameType = attrs.valueAsInt("FrameType", 0);
+
 	//Remove wrong case in 1.8
 	int startArrowIndex = 0;
 	if (attrs.hasAttribute("startArrowIndex"))
@@ -6405,6 +6406,7 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 		startArrowIndex = 0;
 	}
 	currItem->setStartArrowIndex(startArrowIndex);
+
 	//Remove wrong case in 1.8
 	int endArrowIndex = 0;
 	if (attrs.hasAttribute("endArrowIndex"))
@@ -6417,6 +6419,7 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 		endArrowIndex = 0;
 	}
 	currItem->setEndArrowIndex(endArrowIndex);
+
 	//Remove wrong case in 1.8
 	if (attrs.hasAttribute("startArrowScale"))
 		currItem->setStartArrowScale(attrs.valueAsInt("startArrowScale", 100));
@@ -6427,7 +6430,6 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 		currItem->setEndArrowScale(attrs.valueAsInt("endArrowScale", 100));
 	else
 		currItem->setEndArrowScale(attrs.valueAsInt("EndArrowScale", 100));
-
 
 	if (attrs.hasAttribute("NAMEDLST"))
 		currItem->NamedLStyle = attrs.valueAsString("NAMEDLST", "");
