@@ -247,7 +247,7 @@ public:
 
 	//----- image drawing
 	void drawImageMask(GfxState *state, Object *ref, Stream *str, int width, int height, bool invert, bool interpolate, bool inlineImg) override;
-	void drawImage(GfxState *state, Object *ref, Stream *str, int width, int height, GfxImageColorMap *colorMap, bool interpolate, POPPLER_CONST_082 int *maskColors, bool inlineImg) override;
+	void drawImage(GfxState *state, Object *ref, Stream *str, int width, int height, GfxImageColorMap *colorMap, bool interpolate, const int *maskColors, bool inlineImg) override;
 	void drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str,
 				   int width, int height,
 				   GfxImageColorMap *colorMap,
@@ -289,8 +289,8 @@ public:
 	//----- text drawing
 	void  beginTextObject(GfxState *state) override;
 	void  endTextObject(GfxState *state) override;
-	void  drawChar(GfxState *state, double /*x*/, double /*y*/, double /*dx*/, double /*dy*/, double /*originX*/, double /*originY*/, CharCode /*code*/, int /*nBytes*/, POPPLER_CONST_082 Unicode * /*u*/, int /*uLen*/) override;
-	bool  beginType3Char(GfxState * /*state*/, double /*x*/, double /*y*/, double /*dx*/, double /*dy*/, CharCode /*code*/, POPPLER_CONST_082 Unicode * /*u*/, int /*uLen*/) override;
+	void  drawChar(GfxState *state, double /*x*/, double /*y*/, double /*dx*/, double /*dy*/, double /*originX*/, double /*originY*/, CharCode /*code*/, int /*nBytes*/, const Unicode * /*u*/, int /*uLen*/) override;
+	bool  beginType3Char(GfxState * /*state*/, double /*x*/, double /*y*/, double /*dx*/, double /*dy*/, CharCode /*code*/, const Unicode * /*u*/, int /*uLen*/) override;
 	void  endType3Char(GfxState * /*state*/) override;
 	void  type3D0(GfxState * /*state*/, double /*wx*/, double /*wy*/) override;
 	void  type3D1(GfxState * /*state*/, double /*wx*/, double /*wy*/, double /*llx*/, double /*lly*/, double /*urx*/, double /*ury*/) override;
@@ -385,7 +385,7 @@ private:
 	void getPenState(GfxState *state);
 	QString getColor(GfxColorSpace *color_space, const GfxColor *color, int *shade);
 	QString getAnnotationColor(const AnnotColor *color);
-	QString convertPath(POPPLER_CONST_083 GfxPath *path);
+	QString convertPath(const GfxPath *path);
 	int getBlendMode(GfxState *state) const;
 	QString UnicodeParsedString(const GooString *s1) const;
 	QString UnicodeParsedString(const std::string& s1) const;

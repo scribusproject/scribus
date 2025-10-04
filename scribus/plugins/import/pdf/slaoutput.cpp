@@ -2747,7 +2747,7 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 	delete[] mbuffer;
 }
 
-void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int width, int height, GfxImageColorMap *colorMap, bool interpolate, POPPLER_CONST_082 int* maskColors, bool inlineImg)
+void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int width, int height, GfxImageColorMap *colorMap, bool interpolate, const int* maskColors, bool inlineImg)
 {
 	auto imgStr = std::make_shared<ImageStream>(str, width, colorMap->getNumPixelComps(), colorMap->getBits());
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 02, 0)
@@ -3523,7 +3523,7 @@ err1:
 		fontsrc->unref();
 }
 
-void SlaOutputDev::drawChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, POPPLER_CONST_082 Unicode* u, int uLen)
+void SlaOutputDev::drawChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, const Unicode* u, int uLen)
 {
 //	qDebug() << "SlaOutputDev::drawChar code:" << code << "bytes:" << nBytes << "Unicode:" << u << "ulen:" << uLen << "render:" << state->getRender();
 	double x1, y1, x2, y2;
@@ -3615,7 +3615,7 @@ void SlaOutputDev::drawChar(GfxState* state, double x, double y, double dx, doub
 }
 
 
-bool SlaOutputDev::beginType3Char(GfxState *state, double x, double y, double dx, double dy, CharCode code, POPPLER_CONST_082 Unicode *u, int uLen)
+bool SlaOutputDev::beginType3Char(GfxState *state, double x, double y, double dx, double dy, CharCode code, const Unicode *u, int uLen)
 {
 //	qDebug() << "beginType3Char";
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(22, 4, 0)
@@ -3892,7 +3892,7 @@ QString SlaOutputDev::getAnnotationColor(const AnnotColor *color)
 	return fNam;
 }
 
-QString SlaOutputDev::convertPath(POPPLER_CONST_083 GfxPath *path)
+QString SlaOutputDev::convertPath(const GfxPath *path)
 {
 //	qDebug() << "SlaOutputDev::convertPath";
 	if (! path)
@@ -3903,7 +3903,7 @@ QString SlaOutputDev::convertPath(POPPLER_CONST_083 GfxPath *path)
 
 	for (int i = 0; i < path->getNumSubpaths(); ++i)
 	{
-		POPPLER_CONST_083 GfxSubpath * subpath = path->getSubpath(i);
+		const GfxSubpath * subpath = path->getSubpath(i);
 		if (subpath->getNumPoints() <= 0)
 			continue;
 		output += QString("M %1 %2").arg(subpath->getX(0)).arg(subpath->getY(0));

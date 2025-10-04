@@ -76,12 +76,7 @@ PdfPlug::PdfPlug(ScribusDoc* doc, int flags)
 
 QImage PdfPlug::readThumbnail(const QString& fName)
 {
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 83, 0)
 	globalParams.reset(new GlobalParams());
-#else
-	std::unique_ptr<GlobalParams> globalParamsPtr(new GlobalParams());
-	globalParams = globalParamsPtr.get();
-#endif
 	globalParams->setErrQuiet(true);
 
 	QString pdfFile = QDir::toNativeSeparators(fName);
@@ -331,12 +326,7 @@ bool PdfPlug::convert(const QString& fn)
 		qApp->processEvents();
 	}
 
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 83, 0)
 	globalParams.reset(new GlobalParams());
-#else
-	std::unique_ptr<GlobalParams> globalParamsPtr(new GlobalParams());
-	globalParams = globalParamsPtr.get();
-#endif
 	globalParams->setErrQuiet(true);
 
 	QList<OptionalContentGroup*> ocgGroups;
@@ -376,9 +366,6 @@ bool PdfPlug::convert(const QString& fn)
 			{
 				if (m_progressDialog)
 					m_progressDialog->close();
-#if POPPLER_ENCODED_VERSION < POPPLER_VERSION_ENCODE(0, 83, 0)
-				delete globalParams;
-#endif
 				return false;
 			}
 			if (m_progressDialog)
@@ -827,11 +814,7 @@ bool PdfPlug::convert(const QString& fn)
 		}
 		pdfDoc.reset();
 	}
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 83, 0)
 	globalParams.reset();
-#else
-	globalParams = nullptr;
-#endif
 
 //	qDebug() << "converting finished";
 //	qDebug() << "Imported" << m_elements.count() << "Elements";

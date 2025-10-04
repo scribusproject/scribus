@@ -39,7 +39,7 @@ void PdfTextRecognition::addPdfTextRegion()
 /*
 *	function called via integration with poppler's addChar callback. It decides how to add the charter based on the mode that is set
 */
-void PdfTextRecognition::addChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, POPPLER_CONST_082 Unicode* u, int uLen)
+void PdfTextRecognition::addChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, const Unicode* u, int uLen)
 {
 	if (!u || uLen == 0)
 		return;
@@ -619,7 +619,7 @@ void PdfTextOutputDev::finishItem(PageItem* item)
 	item->OwnPage = m_doc->OnPage(item);
 }
 
-void PdfTextOutputDev::drawChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, POPPLER_CONST_082 Unicode* u, int uLen)
+void PdfTextOutputDev::drawChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, const Unicode* u, int uLen)
 {
 	// TODO Implement the clipping operations. At least the characters are shown.
 	int textRenderingMode = state->getRender();
@@ -681,7 +681,7 @@ void PdfTextOutputDev::updateFont(GfxState* state)
 * NOTE: Override these for now and do nothing so they don't get picked up and rendered as vectors by the base class,
 	though in the long run we may actually want that unless they can be implemented in a similar way to the text import getChar in which case overloading the makes perfect sense.
 */
-bool PdfTextOutputDev::beginType3Char(GfxState* state, double x, double y, double dx, double dy, CharCode code, POPPLER_CONST_082 Unicode* u, int uLen)
+bool PdfTextOutputDev::beginType3Char(GfxState* state, double x, double y, double dx, double dy, CharCode code, const Unicode* u, int uLen)
 {
 	//stub
 	return true;
