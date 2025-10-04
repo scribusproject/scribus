@@ -6467,6 +6467,10 @@ void ScribusMainWindow::slotPrefsOrg()
 	ScQApp->setLocale();
 
 	bool forceStyleUpdate = false;
+	bool useDefaultScratchColor = false;
+	if (m_prefsManager.appPrefs.displayPrefs.scratchColor == QApplication::palette().color(QPalette::Active, QPalette::Window))
+		useDefaultScratchColor = true;
+
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 8, 0))
 	QString newUIStylePalette = m_prefsManager.appPrefs.uiPrefs.stylePalette;
 	if (oldPrefs.uiPrefs.stylePalette != newUIStylePalette)
@@ -6508,12 +6512,16 @@ void ScribusMainWindow::slotPrefsOrg()
 		QString styleName = m_prefsManager.guiSystemStyle();
 		if (!newUIStyle.isEmpty())
 			styleName = newUIStyle;
+
 		QStyle * newStyle = QStyleFactory::create(styleName);
 		if (newStyle)
 			QApplication::setStyle(newStyle);
 		else
 			m_prefsManager.appPrefs.uiPrefs.style = oldPrefs.uiPrefs.style;
 	}
+
+	if (useDefaultScratchColor)
+		m_prefsManager.appPrefs.displayPrefs.scratchColor = QApplication::palette().color(QPalette::Active, QPalette::Window);
 
 	QString newIconSet = m_prefsManager.guiIconSet();
 	// Recreate icons if icon set or GUI changed. For GUI change the icon recreation will automatically detect light and dark themes
