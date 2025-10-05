@@ -167,7 +167,7 @@ bool ODTIm::parseRawDocReferenceXML(const QDomDocument &designMapDom)
 	return true;
 }
 
-void ODTIm::parseRawTextSpan(const QDomElement &elem, PageItem* item, ParagraphStyle &tmpStyle, CharStyle &tmpCStyle, int &posC)
+void ODTIm::parseRawTextSpan(const QDomElement &elem, PageItem* item, const ParagraphStyle &tmpStyle, const CharStyle &tmpCStyle, int &posC)
 {
 	if (!elem.hasChildNodes())
 		return;
@@ -207,7 +207,7 @@ void ODTIm::parseRawTextSpan(const QDomElement &elem, PageItem* item, ParagraphS
 	}
 }
 
-void ODTIm::parseRawTextHyperlink(const QDomElement& elem, PageItem* item, ParagraphStyle& tmpStyle, CharStyle& tmpCStyle, int& posC)
+void ODTIm::parseRawTextHyperlink(const QDomElement& elem, PageItem* item, const ParagraphStyle& tmpStyle, const CharStyle& tmpCStyle, int& posC)
 {
 	if (!elem.hasChildNodes())
 		return;
@@ -245,7 +245,7 @@ void ODTIm::parseRawTextHyperlink(const QDomElement& elem, PageItem* item, Parag
 	}
 }
 
-void ODTIm::parseRawTextList(const QDomNode& elem, PageItem* item, ParagraphStyle& newStyle, int& posC)
+void ODTIm::parseRawTextList(const QDomNode& elem, PageItem* item, const ParagraphStyle& newStyle, int& posC)
 {
 	if (!elem.hasChildNodes())
 		return;
@@ -267,7 +267,7 @@ void ODTIm::parseRawTextList(const QDomNode& elem, PageItem* item, ParagraphStyl
 	}
 }
 
-void ODTIm::parseRawTextParagraph(const QDomNode &elem, PageItem* item, ParagraphStyle &newStyle, int &posC)
+void ODTIm::parseRawTextParagraph(const QDomNode &elem, PageItem* item, const ParagraphStyle &newStyle, int &posC)
 {
 	CharStyle tmpCStyle = newStyle.charStyle();
 
@@ -680,7 +680,7 @@ void ODTIm::parseTextSpan(const QDomElement &elem, PageItem* item, const Paragra
 	CharStyle cStyle = tmpCStyle;
 
 	QString textStyleName = elem.attribute("text:style-name");
-	if (textStyleName.length() > 0)
+	if (!textStyleName.isEmpty())
 	{
 		resolveStyle(odtStyle, textStyleName);
 		if (m_Styles.contains(textStyleName))
@@ -743,7 +743,7 @@ void ODTIm::parseTextSpan(const QDomElement &elem, PageItem* item, const Paragra
 		}
 	}
 
-	if (textStyleName.length() > 0)
+	if (!textStyleName.isEmpty())
 		m_textStylesStack.pop();
 }
 
@@ -756,7 +756,7 @@ void ODTIm::parseTextHyperlink(const QDomElement& elem, PageItem* item, const Pa
 	CharStyle cStyle = tmpCStyle;
 
 	QString textStyleName = elem.attribute("text:style-name");
-	if (textStyleName.length() > 0)
+	if (!textStyleName.isEmpty())
 	{
 		resolveStyle(odtStyle, textStyleName);
 		m_textStylesStack.push(textStyleName);
@@ -796,7 +796,7 @@ void ODTIm::parseTextHyperlink(const QDomElement& elem, PageItem* item, const Pa
 		}
 	}
 
-	if (textStyleName.length() > 0)
+	if (!textStyleName.isEmpty())
 		m_textStylesStack.pop();
 }
 
@@ -830,7 +830,7 @@ void ODTIm::parseTextParagraph(const QDomNode &elem, PageItem* item, const Parag
 	QString parStyleName;
 
 	QString pStyleName = elem.toElement().attribute("text:style-name");
-	if (pStyleName.length() > 0)
+	if (!pStyleName.isEmpty())
 	{
 		resolveStyle(pStyle, pStyleName);
 		if (m_Styles.contains(pStyleName))
@@ -854,12 +854,12 @@ void ODTIm::parseTextParagraph(const QDomNode &elem, PageItem* item, const Parag
 		}
 		m_textStylesStack.push(pStyleName);
 	}
-	if ((pStyle.breakBefore == "column") && (item->itemText.length() > 0))
+	if ((pStyle.breakBefore == "column") && !item->itemText.isEmpty())
 	{
 		QString txt = SpecialChars::COLBREAK;
 		insertChars(item, txt, tmpStyle, tmpCStyle, posC);
 	}
-	else if ((pStyle.breakBefore == "page") && (item->itemText.length() > 0))
+	else if ((pStyle.breakBefore == "page") && !item->itemText.isEmpty())
 	{
 		QString txt = SpecialChars::FRAMEBREAK;
 		insertChars(item, txt, tmpStyle, tmpCStyle, posC);
@@ -941,7 +941,7 @@ void ODTIm::parseTextParagraph(const QDomNode &elem, PageItem* item, const Parag
 	item->itemText.applyStyle(posC, tmpStyle);
 	posC = item->itemText.length();
 
-	if (pStyleName.length() > 0)
+	if (!pStyleName.isEmpty())
 		m_textStylesStack.pop();
 }
 
@@ -985,14 +985,14 @@ void ODTIm::parseText(const QDomElement &elem, PageItem* item, const ObjStyleODT
 
 void ODTIm::insertChars(PageItem *item, QString &txt, const ParagraphStyle &tmpStyle, const CharStyle &tmpCStyle, int &posC)
 {
-	if (txt.length() > 0)
-	{
-		item->itemText.insertChars(posC, txt);
-		item->itemText.applyStyle(posC, tmpStyle);
-		item->itemText.applyCharStyle(posC, txt.length(), tmpCStyle);
-		posC = item->itemText.length();
-		txt.clear();
-	}
+	if (txt.isEmpty())
+		return;
+
+	item->itemText.insertChars(posC, txt);
+	item->itemText.applyStyle(posC, tmpStyle);
+	item->itemText.applyCharStyle(posC, txt.length(), tmpCStyle);
+	posC = item->itemText.length();
+	txt.clear();
 }
 
 void ODTIm::applyCharacterStyle(CharStyle &tmpCStyle, const ObjStyleODT &oStyle)
@@ -1230,7 +1230,7 @@ void ODTIm::resolveStyle(ObjStyleODT &tmpOStyle, const QString& styleName)
 					parentStyles.prepend(drawStyle.parentStyle.value);
 					drawStyle = m_Styles[drawStyle.parentStyle.value];
 				}
-				if (parentStyles.count() > 0)
+				if (!parentStyles.isEmpty())
 					textStyleStack += parentStyles;
 			}
 		}
@@ -1351,7 +1351,7 @@ void ODTIm::resolveStyle(ObjStyleODT &tmpOStyle, const QString& styleName)
 		tmpOStyle.language = actStyle.language.value;
 }
 
-double ODTIm::parseUnit(const QString &unit)
+double ODTIm::parseUnit(const QString &unit) const
 {
 	QString unitval = unit;
 	if (unit.isEmpty())
@@ -1437,7 +1437,7 @@ QString ODTIm::constructFontName(const QString& fontBaseName, const QString& fon
 		// found the font family, now go for the style
 		QStringList slist = PrefsManager::instance().appPrefs.fontPrefs.AvailFonts.fontMap[it.current().family()];
 		slist.sort();
-		if (slist.count() > 0)
+		if (!slist.isEmpty())
 		{
 			for (int a = 0; a < slist.count(); a++)
 			{
