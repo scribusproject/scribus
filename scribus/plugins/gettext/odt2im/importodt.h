@@ -118,10 +118,10 @@ private:
 
 	bool parseRawDocReference(const QString& designMap);
 	bool parseRawDocReferenceXML(const QDomDocument &designMapDom);
-	void parseRawTextSpan(const QDomElement &elem, PageItem* item, ParagraphStyle &tmpStyle, CharStyle &tmpCStyle, int &posC);
-	void parseRawTextHyperlink(const QDomElement &elem, PageItem* item, ParagraphStyle &tmpStyle, CharStyle &tmpCStyle, int &posC);
-	void parseRawTextList(const QDomNode &elem, PageItem* item, ParagraphStyle &newStyle, int &posC);
-	void parseRawTextParagraph(const QDomNode &elem, PageItem* item, ParagraphStyle &newStyle, int &posC);
+	void parseRawTextSpan(const QDomElement &elem, PageItem* item, const ParagraphStyle &tmpStyle, const CharStyle &tmpCStyle, int &posC);
+	void parseRawTextHyperlink(const QDomElement &elem, PageItem* item, const ParagraphStyle &tmpStyle, const CharStyle &tmpCStyle, int &posC);
+	void parseRawTextList(const QDomNode &elem, PageItem* item, const ParagraphStyle &newStyle, int &posC);
+	void parseRawTextParagraph(const QDomNode &elem, PageItem* item, const ParagraphStyle &newStyle, int &posC);
 	void parseRawText(const QDomElement &elem, PageItem* item);
 
 	bool parseStyleSheets(const QString& designMap);
@@ -138,7 +138,7 @@ private:
 	void applyCharacterStyle(CharStyle &tmpCStyle, const ObjStyleODT &oStyle);
 	void applyParagraphStyle(ParagraphStyle &tmpStyle, const ObjStyleODT &oStyle);
 	void resolveStyle(ObjStyleODT &tmpOStyle, const QString& pAttrs);
-	double parseUnit(const QString &unit);
+	double parseUnit(const QString &unit) const;
 	QString parseColor( const QString &s );
 	QString constructFontName(const QString& fontBaseName, const QString& fontStyle);
 	void setFontstyle(CharStyle &tmpCStyle, int kind);
