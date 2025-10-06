@@ -5,6 +5,10 @@
       <UniqueIdentifier>{f0ed8073-cc6d-4aa7-8696-4fd51c24aa11}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{64f28681-b144-454a-8099-cd58b4e912d1}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{78f2f9ad-a509-4d1c-9da3-f37611c54313}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
@@ -25,5 +29,10 @@
     <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="gettext-markdownim.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

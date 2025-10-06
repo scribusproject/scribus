@@ -5,6 +5,10 @@
       <UniqueIdentifier>{764bad19-b863-4a48-b5ce-e03bd85dea18}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{26f6de62-e187-4e33-81fe-3d011ae72381}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{b3c2c91b-27e5-42a3-a3df-c00e2869d95c}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
@@ -39,5 +43,10 @@
     <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="freehandimport.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

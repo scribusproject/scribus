@@ -5,6 +5,10 @@
       <UniqueIdentifier>{8ca149e2-237e-4d67-8d69-a922285a4ba9}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{297866a3-44ed-4689-85e5-5a75c4be1b15}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{15d4e462-c388-4ba8-94cc-543b697d1a71}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
@@ -33,5 +37,10 @@
     <moc Include="..\..\..\scribus\plugins\gettext\csvim\csvdia.h">
       <Filter>Header Files</Filter>
     </moc>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="gettext-csvim.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

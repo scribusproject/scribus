@@ -229,6 +229,9 @@
     <ClInclude Include="..\..\..\scribus\plugins\gettext\odt2im\importodt.h" />
     <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="gettext-odtim.rc" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\Scribus-build-rules.targets" />

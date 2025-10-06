@@ -5,6 +5,10 @@
       <UniqueIdentifier>{4e05c6d5-b0f0-4f8b-9a6b-2b0b331392b0}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{5ce93578-0921-4b22-b1fa-b4fc1039a7e5}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{0f2f94b3-c270-42ba-b4b9-0a56f6ee6acb}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
@@ -33,5 +37,10 @@
     <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="cgmimport.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

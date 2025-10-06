@@ -5,6 +5,10 @@
       <UniqueIdentifier>{d76a1c86-25fc-4950-ad65-4c96a7db940c}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{1ff6e4a7-5969-479b-be3a-bd38ee1697b6}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{da722af9-5ced-421e-ae13-1fcf17b53657}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
@@ -25,5 +29,10 @@
     <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="gettext-odtim.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

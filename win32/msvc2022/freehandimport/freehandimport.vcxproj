@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5FD6472E-9B59-4490-BEDF-AC8966EB4F3F}</ProjectGuid>
-    <RootNamespace>pubimport</RootNamespace>
+    <RootNamespace>freehandimport</RootNamespace>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -234,6 +234,9 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\scribus\plugins\import\revenge\rawpainter.h" />
     <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="freehandimport.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

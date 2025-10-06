@@ -5,6 +5,10 @@
       <UniqueIdentifier>{89b14120-493f-47e2-bc03-c8bd1e7cc30e}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{9ece3e0e-ff3c-4b85-87b0-92c3240fad1b}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{1aa6e6a5-06da-4c37-9e64-377eb3f49e59}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
@@ -45,5 +49,10 @@
     <moc Include="..\..\..\scribus\plugins\gettext\xtgim\xtgdialog.h">
       <Filter>Header Files</Filter>
     </moc>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="gettext-xtgim.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
