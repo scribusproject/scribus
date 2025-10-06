@@ -219,6 +219,9 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\scribus\plugins\plugins_pch.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="flattenpath.rc" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\Scribus-build-rules.targets" />

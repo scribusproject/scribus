@@ -8,6 +8,10 @@
       <UniqueIdentifier>{467096fa-eab5-417a-9f13-65188bdfbc50}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{7716e76a-7036-4eb0-ad7d-bd67354fc327}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{ca73da04-b816-4061-90b5-2b998670e98c}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
@@ -41,5 +45,10 @@
     <moc Include="..\..\..\scribus\plugins\fontpreview\fontpreviewplugin.h">
       <Filter>Header Files</Filter>
     </moc>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="fontpreview.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

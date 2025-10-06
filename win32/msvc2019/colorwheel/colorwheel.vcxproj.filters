@@ -8,6 +8,10 @@
       <UniqueIdentifier>{51b0a2f6-2166-4b0a-91f7-f4a6d0e3ac85}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{031c0abd-a50e-455d-b2a0-871c6600f210}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{32fe5ee4-cfd1-44d7-8ed3-6ad39438be44}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
@@ -47,5 +51,10 @@
     <moc Include="..\..\..\scribus\plugins\colorwheel\cwdialog.h">
       <Filter>Header Files</Filter>
     </moc>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="colorwheel.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

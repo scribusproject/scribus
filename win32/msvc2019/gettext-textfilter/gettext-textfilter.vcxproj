@@ -221,6 +221,9 @@
     <moc Include="..\..\..\scribus\plugins\gettext\textfilter\tfdia.h" />
     <moc Include="..\..\..\scribus\plugins\gettext\textfilter\tffilter.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="gettext-textfilter.rc" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\Scribus-build-rules.targets" />

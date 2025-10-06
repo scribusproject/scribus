@@ -5,6 +5,10 @@
       <UniqueIdentifier>{12b9c71d-11e9-4774-a3da-7d44e785c8c5}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{3b7f721d-2600-40a7-aadd-ba4de81309c1}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{933ebf2f-2838-4ed5-8229-79495e3c2f9e}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
@@ -45,5 +49,10 @@
     <moc Include="..\..\..\scribus\plugins\gettext\sxwim\sxwdia.h">
       <Filter>Header Files</Filter>
     </moc>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="gettext-sxwim.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

@@ -219,6 +219,9 @@
     <moc Include="..\..\..\scribus\plugins\gettext\csvim\csvdia.h" />
     <ClInclude Include="..\..\..\scribus\plugins\gettext\csvim\csvim.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="gettext-csvim.rc" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\Scribus-build-rules.targets" />

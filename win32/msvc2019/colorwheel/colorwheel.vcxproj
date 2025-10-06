@@ -224,6 +224,9 @@
   <ItemGroup>
     <uic Include="..\..\..\scribus\plugins\colorwheel\cwdialog.ui" />
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="colorwheel.rc" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\Scribus-build-rules.targets" />

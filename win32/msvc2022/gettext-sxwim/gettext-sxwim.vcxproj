@@ -223,6 +223,9 @@
     <moc Include="..\..\..\scribus\plugins\gettext\sxwim\sxwdia.h" />
     <ClInclude Include="..\..\..\scribus\plugins\gettext\sxwim\sxwim.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="gettext-sxwim.rc" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\Scribus-build-rules.targets" />

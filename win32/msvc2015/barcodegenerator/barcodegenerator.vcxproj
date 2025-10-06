@@ -223,6 +223,9 @@
   <ItemGroup>
     <uic Include="..\..\..\scribus\plugins\barcodegenerator\barcodegenerator.ui" />
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="barcodegenerator.rc" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\Scribus-build-rules.targets" />

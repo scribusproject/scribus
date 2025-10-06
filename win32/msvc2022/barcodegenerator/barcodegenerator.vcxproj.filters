@@ -52,4 +52,9 @@
       <Filter>Header Files</Filter>
     </moc>
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="barcodegenerator.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
 </Project>
