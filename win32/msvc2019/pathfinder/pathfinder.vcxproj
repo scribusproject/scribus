@@ -234,6 +234,9 @@
   <ItemGroup>
     <uic Include="..\..\..\scribus\plugins\tools\pathfinder\pathfinderbase.ui" />
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="pathfinder.rc" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\Scribus-build-rules.targets" />

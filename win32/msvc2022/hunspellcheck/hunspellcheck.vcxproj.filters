@@ -9,6 +9,10 @@
       <UniqueIdentifier>{e431be5a-3295-43d7-aa9e-e9f73832a915}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{2526ddd3-5b6d-4b63-a4ee-d497236daa9e}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{ac0be42a-3e1c-4233-aeec-9fe5f7f0bf49}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
@@ -57,5 +61,10 @@
     <moc Include="..\..\..\scribus\plugins\tools\hunspellcheck\hunspellpluginimpl.h">
       <Filter>Header Files</Filter>
     </moc>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="hunspellcheck.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
