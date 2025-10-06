@@ -9,6 +9,10 @@
       <UniqueIdentifier>{5c6a6b51-4633-446c-991e-283623a44c89}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{1d7600e1-99bb-4d2f-8f0b-04992584d2d5}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{e7ec5b97-3ea7-4b3c-a094-618986e0c616}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
@@ -42,5 +46,10 @@
     <moc Include="..\..\..\scribus\plugins\tools\2geomtools\pathalongpath\pathdialog.h">
       <Filter>Header Files</Filter>
     </moc>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="pathalongpath.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

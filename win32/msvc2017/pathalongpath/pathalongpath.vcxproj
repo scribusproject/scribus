@@ -221,6 +221,9 @@
   <ItemGroup>
     <uic Include="..\..\..\scribus\plugins\tools\2geomtools\pathalongpath\pathdialogbase.ui" />
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="pathalongpath.rc" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\Scribus-build-rules.targets" />

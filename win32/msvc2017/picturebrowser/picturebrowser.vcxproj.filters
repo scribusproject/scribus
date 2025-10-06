@@ -98,4 +98,9 @@
       <Filter>Header Files</Filter>
     </moc>
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="picturebrowser.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
 </Project>

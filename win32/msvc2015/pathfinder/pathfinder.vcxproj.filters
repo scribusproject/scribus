@@ -9,6 +9,10 @@
       <UniqueIdentifier>{6b593108-b1a3-451f-8d85-e33c89de4997}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{bdc0a6ef-e38e-4134-864d-fae074acbcff}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{6df89d25-da3e-429a-9bae-c48bef986e57}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
@@ -42,5 +46,10 @@
     <moc Include="..\..\..\scribus\plugins\tools\pathfinder\pathfinderdialog.h">
       <Filter>Header Files</Filter>
     </moc>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="pathfinder.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

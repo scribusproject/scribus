@@ -9,6 +9,10 @@
       <UniqueIdentifier>{2aa3be9c-d0bb-4673-822f-279920a32ead}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{89ba4f29-29ea-46d1-a678-618f4c61de41}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{2fc9e43f-d2e8-4ec4-8a95-e0275549820a}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
@@ -42,5 +46,10 @@
     <moc Include="..\..\..\scribus\plugins\tools\pathconnect\pathconnectdialog.h">
       <Filter>Header Files</Filter>
     </moc>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="pathconnect.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

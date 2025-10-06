@@ -9,6 +9,10 @@
       <UniqueIdentifier>{f2df67ca-56c9-4510-8cde-c266955b1f02}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{e36c05ce-dbf6-45b6-a1c2-155c6306963b}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{cade3d53-9a06-4bcd-83da-72a53e3f9cdf}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
@@ -42,5 +46,10 @@
     <moc Include="..\..\..\scribus\plugins\tools\lenseffects\lenseffects.h">
       <Filter>Header Files</Filter>
     </moc>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="lenseffects.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

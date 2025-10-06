@@ -239,6 +239,9 @@
     <uic Include="..\..\..\scribus\plugins\picbrowser\imagedialog.ui" />
     <uic Include="..\..\..\scribus\plugins\picbrowser\picturebrowser.ui" />
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="picturebrowser.rc" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\Scribus-build-rules.targets" />

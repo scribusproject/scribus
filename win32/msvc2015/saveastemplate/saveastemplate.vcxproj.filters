@@ -9,6 +9,10 @@
       <UniqueIdentifier>{971d0aec-16d9-49fe-b278-e64bcd3c6884}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{2364a4eb-7ea7-43e2-877c-40b99a3c0842}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{93a6913c-387c-4104-9ef2-f18c208460d0}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
@@ -42,5 +46,10 @@
     <moc Include="..\..\..\scribus\plugins\saveastemplateplugin\satemplate.h">
       <Filter>Header Files</Filter>
     </moc>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="saveastemplate.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

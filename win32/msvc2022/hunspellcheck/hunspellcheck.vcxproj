@@ -227,6 +227,9 @@
   <ItemGroup>
     <uic Include="..\..\..\scribus\plugins\tools\hunspellcheck\hunspelldialogbase.ui" />
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="hunspellcheck.rc" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\Scribus-build-rules.targets" />

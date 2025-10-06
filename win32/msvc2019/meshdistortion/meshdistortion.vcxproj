@@ -222,6 +222,9 @@
   <ItemGroup>
     <uic Include="..\..\..\scribus\plugins\tools\2geomtools\meshdistortion\meshdistortiondialog.ui" />
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="meshdistortion.rc" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\Scribus-build-rules.targets" />

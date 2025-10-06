@@ -222,6 +222,9 @@
   <ItemGroup>
     <uic Include="..\..\..\scribus\plugins\saveastemplateplugin\satdialog.ui" />
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="saveastemplate.rc" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\Scribus-build-rules.targets" />
