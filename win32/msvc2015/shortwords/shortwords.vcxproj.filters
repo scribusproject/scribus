@@ -9,6 +9,10 @@
       <UniqueIdentifier>{747dd14d-0961-4c6a-ba20-becc21115606}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
     </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{3823a1c3-2242-47c1-83be-5c52ab3a64fe}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{2da6384c-7442-406d-8e8b-e19db4ecbea1}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
@@ -72,5 +76,10 @@
     <moc Include="..\..\..\scribus\plugins\short-words\swsyntaxhighlighter.h">
       <Filter>Header Files</Filter>
     </moc>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="shortwords.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

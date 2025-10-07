@@ -232,6 +232,9 @@
     <uic Include="..\..\..\scribus\plugins\short-words\prefs_shortwordsbase.ui" />
     <uic Include="..\..\..\scribus\plugins\short-words\swdialog.ui" />
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="shortwords.rc" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\Scribus-build-rules.targets" />
