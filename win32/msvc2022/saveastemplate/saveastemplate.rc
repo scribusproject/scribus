@@ -28,9 +28,9 @@ BEGIN
             VALUE "CompanyName", "The Scribus Team"
             VALUE "FileDescription", "Scribus Save As Template Plugin"
             VALUE "FileVersion", SCRIBUS_FULL_VERSION_STRING
-            VALUE "InternalName", "saveastemplate"
+            VALUE "InternalName", "saveastemplateplugin"
             VALUE "LegalCopyright", SCRIBUS_LEGAL_COPYRIGHT
-            VALUE "OriginalFilename", "saveastemplate.dll"
+            VALUE "OriginalFilename", "saveastemplateplugin.dll"
             VALUE "ProductName", "Scribus - Open Source Desktop Publishing"
             VALUE "ProductVersion", SCRIBUS_FULL_VERSION_STRING
         END
