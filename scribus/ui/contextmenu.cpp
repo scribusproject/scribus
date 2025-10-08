@@ -604,7 +604,7 @@ void ContextMenu::createMenuItems_NoSelection(double mx, double my)
 	addSeparator();
 	addAction(m_ScMW->scrActions["viewSnapToGrid"]);
 	addAction(m_ScMW->scrActions["viewSnapToGuides"]);
-	addAction(m_ScMW->scrActions["viewSnapToElements"]);
+	addAction(m_ScMW->scrActions["viewSnapToItems"]);
 	
 	onAPage = (m_doc->OnPage(mx, my) != -1);
 	if (onAPage)

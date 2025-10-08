@@ -59,7 +59,7 @@ ViewToolBar::ViewToolBar(ScribusMainWindow* parent) : ScToolBar( tr("View Tools"
 	addSeparator();
 	addAction(parent->scrActions["viewSnapToGrid"]);
 	addAction(parent->scrActions["viewSnapToGuides"]);
-	addAction(parent->scrActions["viewSnapToElements"]);
+	addAction(parent->scrActions["viewSnapToItems"]);
 
 	languageChange();
 

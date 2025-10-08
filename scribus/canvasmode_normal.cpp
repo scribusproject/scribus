@@ -570,7 +570,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 								m_objectDeltaPos += FPoint(nx - nxo, ny - nyo);
 							}
 						}
-						if (m_doc->SnapElement)
+						if (m_doc->SnapItems)
 						{
 							xSnap = 0;
 							ySnap = 0;
@@ -646,7 +646,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 							m_objectDeltaPos += FPoint(nx-nxo, ny-nyo);
 						}
 					}
-					if (m_doc->SnapElement)
+					if (m_doc->SnapItems)
 					{
 						xSnap = 0;
 						ySnap = 0;
@@ -1826,8 +1826,8 @@ void CanvasMode_Normal::importToPage()
 		QFileInfo fi(fileName);
 		bool savedAlignGrid = m_doc->SnapGrid;
 		bool savedAlignGuides = m_doc->SnapGuides;
-		bool savedAlignElement = m_doc->SnapElement;
-		m_doc->SnapElement = false;
+		bool savedAlignElement = m_doc->SnapItems;
+		m_doc->SnapItems = false;
 		m_doc->SnapGrid = false;
 		m_doc->SnapGuides = false;
 		if (fi.suffix().toLower() == "sce")
@@ -1872,7 +1872,7 @@ void CanvasMode_Normal::importToPage()
 		}
 		m_doc->SnapGrid = savedAlignGrid;
 		m_doc->SnapGuides = savedAlignGuides;
-		m_doc->SnapElement = savedAlignElement;
+		m_doc->SnapItems = savedAlignElement;
 		m_doc->setLoading(false);
 		m_doc->view()->DrawNew();
 		if (m_doc->m_Selection->count() > 0)

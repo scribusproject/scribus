@@ -2510,7 +2510,7 @@ void Scribus170Format::readDocAttributes(ScribusDoc* doc, const ScXmlStreamAttri
 	m_Doc->rulerXoffset = attrs.valueAsDouble("rulerXoffset", 0.0);
 	m_Doc->rulerYoffset = attrs.valueAsDouble("rulerYoffset", 0.0);
 	m_Doc->SnapGuides   = attrs.valueAsBool("SnapToGuides", false);
-	m_Doc->SnapElement  = attrs.valueAsBool("SnapToElement", false);
+	m_Doc->SnapItems  = attrs.valueAsBool("SnapToElement", false);
 	m_Doc->SnapGrid     = attrs.valueAsBool("SnapToGrid", false);
 
 	m_Doc->setAutoSave(attrs.valueAsBool("AutoSave", false));
@@ -4727,11 +4727,11 @@ bool Scribus170Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 
 	bool savedAlignGrid = m_Doc->SnapGrid;
 	bool savedAlignGuides = m_Doc->SnapGuides;
-	bool savedAlignElement = m_Doc->SnapElement;
+	bool savedAlignElement = m_Doc->SnapItems;
 	bool savedMasterPageMode = m_Doc->masterPageMode();
 	m_Doc->SnapGrid  = false;
 	m_Doc->SnapGuides = false;
-	m_Doc->SnapElement = false;
+	m_Doc->SnapItems = false;
 
 	m_Doc->setMasterPageMode(false);
 	int itemCount1 = m_Doc->Items->count();
@@ -4796,7 +4796,7 @@ bool Scribus170Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 
 	doc->SnapGrid   = savedAlignGrid;
 	doc->SnapGuides = savedAlignGuides;
-	doc->SnapElement = savedAlignElement;
+	doc->SnapItems = savedAlignElement;
 	if (!success)
 	{
 		doc->setMasterPageMode(savedMasterPageMode);

@@ -401,7 +401,7 @@ bool Scribus171Format::saveFile(const QString & fileName, const FileFormat & /* 
 	docu.writeAttribute("GuideLock", static_cast<int>(m_Doc->GuideLock));
 	docu.writeAttribute("SnapToGuides", static_cast<int>(m_Doc->SnapGuides));
 	docu.writeAttribute("SnapToGrid", static_cast<int>(m_Doc->SnapGrid));
-	docu.writeAttribute("SnapToElement", static_cast<int>(m_Doc->SnapElement));
+	docu.writeAttribute("SnapToItems", static_cast<int>(m_Doc->SnapItems));
 	docu.writeAttribute("MinorGridSpacing", m_Doc->guidesPrefs().minorGridSpacing);
 	docu.writeAttribute("MajorGridSpacing", m_Doc->guidesPrefs().majorGridSpacing);
 	docu.writeAttribute("ShowGrid", static_cast<int>(m_Doc->guidesPrefs().gridShown));

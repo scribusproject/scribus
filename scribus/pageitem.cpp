@@ -4834,8 +4834,8 @@ void PageItem::restore(UndoState *state, bool isUndo)
 
 	bool SnapGridBackup = m_Doc->SnapGrid;
 	bool SnapGuidesBackup = m_Doc->SnapGuides;
-	bool SnapElementBackup = m_Doc->SnapElement;
-	m_Doc->SnapElement = false;
+	bool SnapElementBackup = m_Doc->SnapItems;
+	m_Doc->SnapItems = false;
 	m_Doc->SnapGrid = false;
 	m_Doc->SnapGuides = false;
 	bool oldMPMode = m_Doc->masterPageMode();
@@ -5097,7 +5097,7 @@ void PageItem::restore(UndoState *state, bool isUndo)
 	if (!OnMasterPage.isEmpty())
 		m_Doc->setCurrentPage(oldCurrentPage);
 	m_Doc->setMasterPageMode(oldMPMode);
-	m_Doc->SnapElement = SnapElementBackup;
+	m_Doc->SnapItems = SnapElementBackup;
 	m_Doc->SnapGrid = SnapGridBackup;
 	m_Doc->SnapGuides = SnapGuidesBackup;
 	if (state->transactionCode == 0 || state->transactionCode == 2)

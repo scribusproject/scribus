@@ -814,7 +814,7 @@ FPoint ResizeGesture::applyGuides(const FPoint& docPoint)
 {
 	int pointPage;
 
-	if (!m_doc->SnapGuides && !m_doc->SnapElement)
+	if (!m_doc->SnapGuides && !m_doc->SnapItems)
 		return docPoint;
 	FPoint snappedPoint = docPoint;
 

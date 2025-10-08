@@ -327,7 +327,7 @@
     <function name="viewShowRulers" shortcut="Ctrl+Shift+R"/>
     <function name="viewShowTextChain" shortcut=""/>
     <function name="viewShowTextControls" shortcut=""/>
-    <function name="viewSnapToElements" shortcut=""/>
+    <function name="viewSnapToItems" shortcut=""/>
     <function name="viewSnapToGrid" shortcut=""/>
     <function name="viewSnapToGuides" shortcut=""/>
     <function name="viewToggleCM" shortcut=""/>

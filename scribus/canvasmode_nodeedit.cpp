@@ -86,7 +86,7 @@ void CanvasMode_NodeEdit::drawControls(QPainter* p)
 	bool highlight = false;
 	bool mergedNodes = true;
 	int nr, nl, inr;
-	FPoint pn, pc;
+	// FPoint pn, pc;
 
 	// Draw Vector Path
 	if (cli.size() > 3)

@@ -28,16 +28,17 @@ for which a new license (GPL+exception) is in place.
 #endif
 // include files for QT
 #include <QColor>
+#include <QFile>
 #include <QFont>
+#include <QHash>
 #include <QList>
 #include <QMap>
-#include <QHash>
 #include <QObject>
 #include <QPixmap>
 #include <QRectF>
 #include <QStringList>
 #include <QTimer>
-#include <QFile>
+#include <QUuid>
 
 #include "appmodes.h"
 #include "gtgettext.h" //CB For the ImportSetup struct and itemadduserframe
@@ -101,6 +102,7 @@ public:
 	~ScribusDoc();
 
 	void init();
+	QString uuidString() {return m_uuid.toString(QUuid::WithoutBraces);}
 	bool inAnEditMode() const;
 	bool inASpecialEditMode() const;
 	QList<PageItem*> getAllItems(const QList<PageItem*> &items) const;
@@ -1330,6 +1332,7 @@ protected:
 	QString m_currentEditedSymbol;
 	int m_currentEditedIFrame {0};
 	QString m_documentFileName;
+	QUuid m_uuid;
 
 public: // Public attributes
 	int NrItems {0};
@@ -1339,7 +1342,7 @@ public: // Public attributes
 	int viewID {0};
 	bool SnapGrid {false};
 	bool SnapGuides {false};
-	bool SnapElement {false};
+	bool SnapItems {false};
 	bool GuideLock {false};
 	bool dontResize {false};
 	/** \brief Minimum and Maximum Points of Document */

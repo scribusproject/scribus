@@ -719,7 +719,7 @@ void ActionManager::initViewMenuActions()
 	scrActions->insert(name, new ScrAction("snap-grid", "snap-grid", "", defaultKey(name), mainWindow));
 	name = "viewSnapToGuides";
 	scrActions->insert(name, new ScrAction("snap-guides", "snap-guides", "", defaultKey(name), mainWindow));
-	name = "viewSnapToElements";
+	name = "viewSnapToItems";
 	scrActions->insert(name, new ScrAction("snap-items", "snap-items", "", defaultKey(name), mainWindow));
 	name = "viewShowContextMenu";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
@@ -755,7 +755,7 @@ void ActionManager::initViewMenuActions()
 	(*scrActions)["viewRulerMode"]->setToggleAction(true);
 	(*scrActions)["viewSnapToGrid"]->setToggleAction(true);
 	(*scrActions)["viewSnapToGuides"]->setToggleAction(true);
-	(*scrActions)["viewSnapToElements"]->setToggleAction(true);
+	(*scrActions)["viewSnapToItems"]->setToggleAction(true);
 	(*scrActions)["showMouseCoordinates"]->setToggleAction(true);
 
 	(*scrActions)["viewPreviewMode"]->setChecked(false);
@@ -795,7 +795,7 @@ void ActionManager::initViewMenuActions()
 	connect( (*scrActions)["viewRulerMode"], SIGNAL(triggered()), mainWindow, SLOT(toggleRulerMode()) );
 	connect( (*scrActions)["viewSnapToGrid"], SIGNAL(triggered()), mainWindow, SLOT(toggleSnapGrid()) );
 	connect( (*scrActions)["viewSnapToGuides"], SIGNAL(triggered()), mainWindow, SLOT(toggleSnapGuides()) );
-	connect( (*scrActions)["viewSnapToElements"], SIGNAL(triggered()), mainWindow, SLOT(toggleSnapElements()) );
+	connect( (*scrActions)["viewSnapToItems"], SIGNAL(triggered()), mainWindow, SLOT(toggleSnapElements()) );
 	connect( (*scrActions)["showMouseCoordinates"], SIGNAL(triggered()), mainWindow, SLOT(ToggleMouseTips()) );
 //	connect( (*scrActions)["viewNewView"], SIGNAL(triggered()), mainWindow, SLOT(newView()) );
 
@@ -1688,7 +1688,7 @@ void ActionManager::languageChange()
 	(*scrActions)["viewRulerMode"]->setTexts( tr("Rulers Relative to Page"));
 	(*scrActions)["viewSnapToGrid"]->setTexts( tr("Sn&ap to Grid"));
 	(*scrActions)["viewSnapToGuides"]->setTexts( tr("Sna&p to Guides"));
-	(*scrActions)["viewSnapToElements"]->setTexts( tr("Snap to Items"));
+	(*scrActions)["viewSnapToItems"]->setTexts( tr("Snap to Items"));
 	(*scrActions)["viewShowContextMenu"]->setTexts( tr("Show Context Menu"));
 //	(*scrActions)["viewNewView"]->setTexts( tr("New View"));
 
@@ -2324,7 +2324,7 @@ void ActionManager::createDefaultMenus()
 		<< "pageManageProperties"
 		<< "viewSnapToGrid"
 		<< "viewSnapToGuides"
-		<< "viewSnapToElements";
+		<< "viewSnapToItems";
 	//View
 	++itmenu;
 	itmenu->second

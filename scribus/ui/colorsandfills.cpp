@@ -1303,10 +1303,10 @@ void ColorsAndFillsDialog::loadVectors(const QString& data)
 	uint ap = m_doc->docPatterns.count();
 	bool savedAlignGrid = m_doc->SnapGrid;
 	bool savedAlignGuides = m_doc->SnapGuides;
-	bool savedAlignElement = m_doc->SnapElement;
+	bool savedAlignElement = m_doc->SnapItems;
 	m_doc->SnapGrid = false;
 	m_doc->SnapGuides = false;
-	m_doc->SnapElement = false;
+	m_doc->SnapItems = false;
 	if (fi.suffix().toLower() == "sce")
 	{
 		ScriXmlDoc ss;
@@ -1329,7 +1329,7 @@ void ColorsAndFillsDialog::loadVectors(const QString& data)
 	}
 	m_doc->SnapGrid = savedAlignGrid;
 	m_doc->SnapGuides = savedAlignGuides;
-	m_doc->SnapElement = savedAlignElement;
+	m_doc->SnapItems = savedAlignElement;
 	uint ae = m_doc->Items->count();
 	if (ac != ae)
 	{

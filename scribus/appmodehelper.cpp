@@ -1514,7 +1514,7 @@ void AppModeHelper::mainWindowHasNewDoc(const ScribusDoc *doc, bool clipScrapHav
 
 	(*a_scrActions)["viewSnapToGrid"]->setChecked(doc->SnapGrid);
 	(*a_scrActions)["viewSnapToGuides"]->setChecked(doc->SnapGuides);
-	(*a_scrActions)["viewSnapToElements"]->setChecked(doc->SnapElement);
+	(*a_scrActions)["viewSnapToItems"]->setChecked(doc->SnapItems);
 	(*a_scrActions)["viewShowRulers"]->setEnabled(true);
 
 	(*a_scrActions)["insertFrame"]->setEnabled(true);
@@ -1638,7 +1638,7 @@ void AppModeHelper::mainWindowSwitchWin(const ScribusDoc *doc)
 
 	(*a_scrActions)["viewSnapToGrid"]->setChecked(doc->SnapGrid);
 	(*a_scrActions)["viewSnapToGuides"]->setChecked(doc->SnapGuides);
-	(*a_scrActions)["viewSnapToElements"]->setChecked(doc->SnapElement);
+	(*a_scrActions)["viewSnapToItems"]->setChecked(doc->SnapItems);
 
 	enableExperimentalActions(doc);
 }
@@ -1763,7 +1763,7 @@ void AppModeHelper::mainWindowCloseLastDoc()
 	(*a_scrActions)["viewFitInWindow"]->setEnabled(false);
 	(*a_scrActions)["viewFitWidth"]->setEnabled(false);
 	(*a_scrActions)["viewShowRulers"]->setEnabled(false);
-	(*a_scrActions)["viewSnapToElements"]->setChecked(false);
+	(*a_scrActions)["viewSnapToItems"]->setChecked(false);
 	(*a_scrActions)["viewSnapToGrid"]->setChecked(false);
 	(*a_scrActions)["viewSnapToGuides"]->setChecked(false);
 
@@ -1928,7 +1928,7 @@ void AppModeHelper::setStartupActionsEnabled(bool enabled)
 	(*a_scrActions)["viewFit200"]->setEnabled(false);
 	(*a_scrActions)["viewFit400"]->setEnabled(false);
 	(*a_scrActions)["viewSnapToGuides"]->setChecked(false);
-	(*a_scrActions)["viewSnapToElements"]->setChecked(false);
+	(*a_scrActions)["viewSnapToItems"]->setChecked(false);
 	(*a_scrActions)["viewSnapToGrid"]->setChecked(false);
 	(*a_scrActions)["viewShowRulers"]->setEnabled(false);
 //	scrMenuMgr->setMenuEnabled("Insert", false);

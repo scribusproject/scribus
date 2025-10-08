@@ -270,6 +270,8 @@ void ScribusDoc::init()
 	Q_CHECK_PTR(m_Selection);
 	Q_CHECK_PTR(autoSaveTimer);
 
+	m_uuid = QUuid::createUuid();
+
 	m_docPrefsData.colorPrefs.DCMSset.CMSinUse = false;
 
 	colorEngine = ScCore->defaultEngine;
@@ -7207,10 +7209,10 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 				int currActiveLayer = activeLayer();
 				bool savedAlignGrid   = this->SnapGrid;
 				bool savedAlignGuides = this->SnapGuides;
-				bool savedAlignElement = this->SnapElement;
+				bool savedAlignElement = this->SnapItems;
 				this->SnapGrid   = false;
 				this->SnapGuides = false;
-				this->SnapElement = false;
+				this->SnapItems = false;
 				for (auto it = Layers.begin(); it != Layers.end(); ++it)
 				{
 					if ((lcount < itemBuffer.count()) && !itemBuffer[lcount].isEmpty())
@@ -7223,7 +7225,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 				}
 				this->SnapGrid   = savedAlignGrid;
 				this->SnapGuides = savedAlignGuides;
-				this->SnapElement = savedAlignElement;
+				this->SnapItems = savedAlignElement;
 				setActiveLayer(currActiveLayer);
 			}
 		}
@@ -10792,10 +10794,10 @@ void ScribusDoc::itemSelection_Transform(int nrOfCopies, const QTransform& matri
 		QList<PageItem*> Elements;
 		bool savedAlignGrid = SnapGrid;
 		bool savedAlignGuides = SnapGuides;
-		bool savedAlignElement = SnapElement;
+		bool savedAlignElement = SnapItems;
 		SnapGrid  = false;
 		SnapGuides = false;
-		SnapElement = false;
+		SnapItems = false;
 		DoDrawing = false;
 		view()->updatesOn(false);
 		m_Selection->delaySignalsOn();
@@ -10917,7 +10919,7 @@ void ScribusDoc::itemSelection_Transform(int nrOfCopies, const QTransform& matri
 		setRotationMode (rotBack);
 		SnapGrid  = savedAlignGrid;
 		SnapGuides = savedAlignGuides;
-		SnapElement = savedAlignElement;
+		SnapItems = savedAlignElement;
 		DoDrawing = true;
 		m_Selection->delaySignalsOff();
 		view()->updatesOn(true);
@@ -13822,10 +13824,10 @@ void ScribusDoc::itemSelection_Duplicate(double shiftX, double shiftY, Selection
 
 	bool savedAlignGrid = this->SnapGrid;
 	bool savedAlignGuides = this->SnapGuides;
-	bool savedAlignElement = this->SnapElement;
+	bool savedAlignElement = this->SnapItems;
 	this->SnapGrid  = false;
 	this->SnapGuides = false;
-	this->SnapElement = false;
+	this->SnapItems = false;
 
 	UndoTransaction trans;
 	if (UndoManager::undoEnabled())
@@ -13854,7 +13856,7 @@ void ScribusDoc::itemSelection_Duplicate(double shiftX, double shiftY, Selection
 
 	this->SnapGrid  = savedAlignGrid;
 	this->SnapGuides = savedAlignGuides;
-	this->SnapElement = savedAlignElement;
+	this->SnapItems = savedAlignElement;
 
 	regionsChanged()->update(QRectF());
 }
@@ -14562,7 +14564,7 @@ bool ScribusDoc::ApplyGuides(double *x, double *y, bool elementSnap)
 	const ScPage* page = Pages->at(pg);
 
 	//	if ((SnapGuides) && (m_SnapCounter > 1))
-	if ((SnapGuides && !elementSnap) || (SnapElement && elementSnap))
+	if ((SnapGuides && !elementSnap) || (SnapItems && elementSnap))
 	{
 		if (!elementSnap)
 			getClosestGuides(*x, *y, &xout, &yout, page);

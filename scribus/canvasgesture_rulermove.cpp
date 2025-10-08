@@ -199,7 +199,7 @@ void RulerGesture::movePoint(QMouseEvent* m, bool mouseRelease)
 			if ((page >= 0) && (viewport.contains(m->globalPosition())))
 			{
 				ScPage* currentPage = m_doc->Pages->at(page);
-				if (m_doc->SnapElement)
+				if (m_doc->SnapItems)
 				{
 					double xout = 0;
 					double yout = 0;
@@ -267,7 +267,7 @@ void RulerGesture::movePoint(QMouseEvent* m, bool mouseRelease)
 			if ((page >= 0) && viewport.contains(m->globalPosition()))
 			{
 				ScPage* currentPage = m_doc->Pages->at(page);
-				if (m_doc->SnapElement)
+				if (m_doc->SnapItems)
 				{
 					double xout = 0;
 					double yout = 0;
