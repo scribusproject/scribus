@@ -1220,7 +1220,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("SEPARATOR", "Page");
 	scrMenuMgr->addMenuItemString("viewSnapToGrid", "Page");
 	scrMenuMgr->addMenuItemString("viewSnapToGuides", "Page");
-	scrMenuMgr->addMenuItemString("viewSnapToElements", "Page");
+	scrMenuMgr->addMenuItemString("viewSnapToItems", "Page");
 
 	//View menu
 	scrMenuMgr->createMenu("View", ActionManager::defaultMenuNameEntryTranslated("View"));
@@ -2961,17 +2961,17 @@ void ScribusMainWindow::doPasteRecent(const QString& data)
 		int docItemCount = doc->Items->count();
 		bool savedAlignGrid = doc->SnapGrid;
 		bool savedAlignGuides = doc->SnapGuides;
-		bool savedAlignElement = doc->SnapElement;
+		bool savedAlignElement = doc->SnapItems;
 		doc->SnapGrid = false;
 		doc->SnapGuides = false;
-		doc->SnapElement = false;
+		doc->SnapItems = false;
 		if ((view->dragX == 0.0) && (view->dragY == 0.0))
 			slotElemRead(data, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), true, true, doc, view);
 		else
 			slotElemRead(data, view->dragX, view->dragY, true, false, doc, view);
 		doc->SnapGrid = savedAlignGrid;
 		doc->SnapGuides = savedAlignGuides;
-		doc->SnapElement = savedAlignElement;
+		doc->SnapItems = savedAlignElement;
 		Selection tmpSelection(this, false);
 		tmpSelection.copy(*doc->m_Selection, true);
 		for (int i = docItemCount; i < doc->Items->count(); ++i)
@@ -4642,7 +4642,7 @@ void ScribusMainWindow::slotEditPaste(bool forcePlainText)
 		{
 			bool savedAlignGrid = doc->SnapGrid;
 			bool savedAlignGuides = doc->SnapGuides;
-			bool savedAlignElement = doc->SnapElement;
+			bool savedAlignElement = doc->SnapItems;
 			int ac = doc->Items->count();
 			bool isGroup = false;
 			double gx, gy, gh, gw;
@@ -4650,7 +4650,7 @@ void ScribusMainWindow::slotEditPaste(bool forcePlainText)
 			FPoint maxSize = doc->maxCanvasCoordinate;
 			doc->SnapGrid = false;
 			doc->SnapGuides = false;
-			doc->SnapElement = false;
+			doc->SnapItems = false;
 			// HACK #6541 : undo does not handle text modification => do not record embedded item creation
 			// if embedded item is deleted, undo system will not be aware of its deletion => crash - JG
 			m_undoManager->setUndoEnabled(false);
@@ -4659,7 +4659,7 @@ void ScribusMainWindow::slotEditPaste(bool forcePlainText)
 
 			doc->SnapGrid = savedAlignGrid;
 			doc->SnapGuides = savedAlignGuides;
-			doc->SnapElement = savedAlignElement;
+			doc->SnapItems = savedAlignElement;
 			Selection tempSelection(*doc->m_Selection);
 			doc->m_Selection->clear();
 			if (doc->Items->count() - ac > 1)
@@ -4715,12 +4715,12 @@ void ScribusMainWindow::slotEditPaste(bool forcePlainText)
 		{
 			bool savedAlignGrid = doc->SnapGrid;
 			bool savedAlignGuides = doc->SnapGuides;
-			bool savedAlignElement = doc->SnapElement;
+			bool savedAlignElement = doc->SnapItems;
 			FPoint minSize = doc->minCanvasCoordinate;
 			FPoint maxSize = doc->maxCanvasCoordinate;
 			doc->SnapGrid = false;
 			doc->SnapGuides = false;
-			doc->SnapElement = false;
+			doc->SnapItems = false;
 			QString ext = ScMimeData::clipboardKnownDataExt();
 			QByteArray bitsBits = ScMimeData::clipboardKnownDataData();
 			double x0 = (view->contentsX() / view->scale()) + ((view->visibleWidth() / 2.0) / view->scale());
@@ -4734,7 +4734,7 @@ void ScribusMainWindow::slotEditPaste(bool forcePlainText)
 				retObj->setXYPos(x, y, true);
 				doc->SnapGrid = savedAlignGrid;
 				doc->SnapGuides = savedAlignGuides;
-				doc->SnapElement = savedAlignElement;
+				doc->SnapItems = savedAlignElement;
 				Selection tempSelection(*doc->m_Selection);
 				doc->m_Selection->clear();
 				doc->m_Selection->delaySignalsOn();
@@ -4789,10 +4789,10 @@ void ScribusMainWindow::slotEditPaste(bool forcePlainText)
 		int docItemCount = doc->Items->count();
 		bool savedAlignGrid = doc->SnapGrid;
 		bool savedAlignGuides = doc->SnapGuides;
-		bool savedAlignElement = doc->SnapElement;
+		bool savedAlignElement = doc->SnapItems;
 		doc->SnapGrid = false;
 		doc->SnapGuides = false;
-		doc->SnapElement = false;
+		doc->SnapItems = false;
 		if (internalCopy)
 			slotElemRead(internalCopyBuffer, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
 		else
@@ -4803,7 +4803,7 @@ void ScribusMainWindow::slotEditPaste(bool forcePlainText)
 
 		doc->SnapGrid = savedAlignGrid;
 		doc->SnapGuides = savedAlignGuides;
-		doc->SnapElement = savedAlignElement;
+		doc->SnapItems = savedAlignElement;
 		doc->m_Selection->delaySignalsOn();
 		for (int i = docItemCount; i < doc->Items->count(); ++i)
 		{
@@ -5749,13 +5749,13 @@ void ScribusMainWindow::toggleSnapElements()
 {
 	if (!doc)
 		return;
-	doc->SnapElement = !doc->SnapElement;
+	doc->SnapItems = !doc->SnapItems;
 	slotDocCh();
 }
 
 void ScribusMainWindow::setSnapElements(bool b)
 {
-	if (doc && doc->SnapElement != b)
+	if (doc && doc->SnapItems != b)
 		toggleSnapElements();
 }
 
@@ -8835,7 +8835,7 @@ void ScribusMainWindow::PutToInline(const QString& buffer)
 	Selection tempSelection(*doc->m_Selection);
 	bool savedAlignGrid = doc->SnapGrid;
 	bool savedAlignGuides = doc->SnapGuides;
-	bool savedAlignElement = doc->SnapElement;
+	bool savedAlignElement = doc->SnapItems;
 	int ac = doc->Items->count();
 	bool isGroup = false;
 	double gx, gy, gh, gw;
@@ -8843,12 +8843,12 @@ void ScribusMainWindow::PutToInline(const QString& buffer)
 	FPoint maxSize = doc->maxCanvasCoordinate;
 	doc->SnapGrid  = false;
 	doc->SnapGuides = false;
-	doc->SnapElement = false;
+	doc->SnapItems = false;
 	m_undoManager->setUndoEnabled(false);
 	slotElemRead(buffer, 0, 0, false, true, doc, view);
 	doc->SnapGrid  = savedAlignGrid;
 	doc->SnapGuides = savedAlignGuides;
-	doc->SnapElement = savedAlignElement;
+	doc->SnapItems = savedAlignElement;
 	doc->m_Selection->clear();
 	if (doc->Items->count() - ac > 1)
 		isGroup = true;
@@ -8894,7 +8894,7 @@ void ScribusMainWindow::PutToInline()
 	Selection tempSelection(*doc->m_Selection);
 	bool savedAlignGrid = doc->SnapGrid;
 	bool savedAlignGuides = doc->SnapGuides;
-	bool savedAlignElement = doc->SnapElement;
+	bool savedAlignElement = doc->SnapItems;
 	int ac = doc->Items->count();
 	bool isGroup = false;
 	double gx, gy, gh, gw;
@@ -8902,7 +8902,7 @@ void ScribusMainWindow::PutToInline()
 	FPoint maxSize = doc->maxCanvasCoordinate;
 	doc->SnapGrid  = false;
 	doc->SnapGuides = false;
-	doc->SnapElement = false;
+	doc->SnapItems = false;
 	m_undoManager->setUndoEnabled(false);
 	internalCopy = true;
 	slotEditCopy();
@@ -8910,7 +8910,7 @@ void ScribusMainWindow::PutToInline()
 	internalCopy = false;
 	doc->SnapGrid  = savedAlignGrid;
 	doc->SnapGuides = savedAlignGuides;
-	doc->SnapElement = savedAlignElement;
+	doc->SnapItems = savedAlignElement;
 	doc->m_Selection->clear();
 	if (doc->Items->count() - ac > 1)
 		isGroup = true;
@@ -8960,13 +8960,13 @@ void ScribusMainWindow::PutToPatterns()
 
 	bool savedAlignGrid = doc->SnapGrid;
 	bool savedAlignGuides = doc->SnapGuides;
-	bool savedAlignElement = doc->SnapElement;
+	bool savedAlignElement = doc->SnapItems;
 	int ac = doc->Items->count();
 	FPoint minSize = doc->minCanvasCoordinate;
 	FPoint maxSize = doc->maxCanvasCoordinate;
 	doc->SnapGrid  = false;
 	doc->SnapGuides = false;
-	doc->SnapElement = false;
+	doc->SnapItems = false;
 	m_undoManager->setUndoEnabled(false);
 	internalCopy = true;
 	slotEditCopy();
@@ -8974,7 +8974,7 @@ void ScribusMainWindow::PutToPatterns()
 	internalCopy = false;
 	doc->SnapGrid  = savedAlignGrid;
 	doc->SnapGuides = savedAlignGuides;
-	doc->SnapElement = savedAlignElement;
+	doc->SnapItems = savedAlignElement;
 	doc->m_Selection->clear();
 	view->deselectItems(true);
 	PageItem* currItem;
