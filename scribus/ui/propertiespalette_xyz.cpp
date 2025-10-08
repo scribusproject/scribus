@@ -725,7 +725,6 @@ void PropertiesPalette_XYZ::handleNewX()
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 
-	QTransform ma;
 	double x = (xposSpin->value() / m_unitRatio) + m_doc->rulerXoffset;
 	double base = 0.0;
 	if (m_doc->guidesPrefs().rulerMode)
@@ -777,6 +776,7 @@ void PropertiesPalette_XYZ::handleNewX()
 		}
 		else
 		{
+			QTransform ma;
 			ma.translate(m_item->xPos(), m_item->yPos());
 			ma.rotate(m_item->rotation());
 
@@ -824,7 +824,6 @@ void PropertiesPalette_XYZ::handleNewY()
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 
-	QTransform ma;
 	double y = (yposSpin->value() / m_unitRatio) + m_doc->rulerYoffset;
 	double base = 0;
 	if (m_doc->guidesPrefs().rulerMode)
@@ -876,6 +875,7 @@ void PropertiesPalette_XYZ::handleNewY()
 		}
 		else
 		{
+			QTransform ma;
 			ma.translate(m_item->xPos(), m_item->yPos());
 			ma.rotate(m_item->rotation());
 
