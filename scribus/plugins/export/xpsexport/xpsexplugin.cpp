@@ -1843,10 +1843,8 @@ XPSResourceInfo XPSExPlug::embedFont(const ScFace& font, QDomElement &rel_root)
 	QByteArray fontData;
 	loadRawText(font.fontFilePath(), fontData);
 	QUuid id = QUuid::createUuid();
-	QString guidString = id.toString();
+	QString guidString = id.toString(QUuid::WithoutBraces);
 	guidString = guidString.toUpper();
-	guidString.remove("{");
-	guidString.remove("}");
 	unsigned short guid[16];
 	const static int indexes[] = {6, 4, 2, 0, 11, 9, 16, 14, 19, 21, 24, 26, 28, 30, 32, 34};
 	for (int i = 0; i < 16; i++)
