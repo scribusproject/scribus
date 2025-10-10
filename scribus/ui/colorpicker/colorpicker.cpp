@@ -31,14 +31,11 @@ ColorPicker::ColorPicker(Context context, QWidget *parent) : QWidget(parent)
 {
 	setupUi(this);
 
-	comboOverprint = new QComboBox();
-	checkboxUsedColors = new QCheckBox();
-
-	buttonGroup = new QButtonGroup();
-	buttonGroup->addButton(buttonSolid, (int)Mode::Solid);
-	buttonGroup->addButton(buttonGradient, (int)Mode::Gradient);
-	buttonGroup->addButton(buttonHatch, (int)Mode::Hatch);
-	buttonGroup->addButton(buttonPattern, (int)Mode::Pattern);
+	buttonGroup = new QButtonGroup(this);
+	buttonGroup->addButton(buttonSolid, (int) Mode::Solid);
+	buttonGroup->addButton(buttonGradient, (int) Mode::Gradient);
+	buttonGroup->addButton(buttonHatch, (int) Mode::Hatch);
+	buttonGroup->addButton(buttonPattern, (int) Mode::Pattern);
 
 	gradientEdit->setSelector(comboType); // required; gradientEdit has no gradient type selector
 	comboType->setVisible(false);
@@ -263,17 +260,21 @@ bool ColorPicker::eventFilter(QObject *object, QEvent *event)
 
 void ColorPicker::initContextMenu()
 {
-	QVBoxLayout *layoutMenu = new QVBoxLayout();
+	QWidget* menu = new QWidget(this);
+	QVBoxLayout* layoutMenu = new QVBoxLayout();
+
+	comboOverprint = new QComboBox(menu);
+	checkboxUsedColors = new QCheckBox(menu);
+
 	layoutMenu->addWidget(comboOverprint);
 	layoutMenu->addWidget(checkboxUsedColors);
 
-	QWidget *menu = new QWidget();
 	menu->setLayout(layoutMenu);
 	menu->adjustSize();
 
 	contextMenu = new PopupMenu(menu);
 	buttonMenu->setMenu(contextMenu);
-	buttonMenu->setPopupMode(QToolButton::InstantPopup);	
+	buttonMenu->setPopupMode(QToolButton::InstantPopup);
 }
 
 Context ColorPicker::context() const
