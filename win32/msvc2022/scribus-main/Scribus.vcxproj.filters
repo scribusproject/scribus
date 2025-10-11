@@ -242,6 +242,9 @@
     <ClInclude Include="..\..\..\scribus\documentinformation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\scribus\documentlogtypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\scribus\exif.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -1117,6 +1120,9 @@
     <ClCompile Include="..\..\..\scribus\documentinformation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\documentlogmanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\scribus\downloadmanager\scdlmgr.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -1949,6 +1955,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\docks\dock_panelbase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\documentlogviewer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\downloadspalette.cpp">
@@ -2827,6 +2836,9 @@
     <uic Include="..\..\..\scribus\ui\cxfimportdialogbase.ui">
       <Filter>Form Files</Filter>
     </uic>
+    <uic Include="..\..\..\scribus\ui\documentlogviewerbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
     <uic Include="..\..\..\scribus\ui\downloadspalettebase.ui">
       <Filter>Form Files</Filter>
     </uic>
@@ -3482,6 +3494,9 @@
     <moc Include="..\..\..\scribus\deferredtask.h">
       <Filter>Header Files</Filter>
     </moc>
+    <moc Include="..\..\..\scribus\documentlogmanager.h">
+      <Filter>Header Files</Filter>
+    </moc>
     <moc Include="..\..\..\scribus\downloadmanager\scdlmgr.h">
       <Filter>Header Files</Filter>
     </moc>
@@ -3846,6 +3861,9 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\docks\dock_panelbase.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\documentlogviewer.h">
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\downloadspalette.h">
