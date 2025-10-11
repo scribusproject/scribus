@@ -2420,19 +2420,19 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 		disconnect(m_undoManager, SIGNAL(undoRedoDone()) , doc->view(), SLOT(DrawNew()));
 		disconnect(doc, SIGNAL(addBookmark(PageItem *)), this, SLOT(AddBookMark(PageItem *)));
 		disconnect(doc, SIGNAL(deleteBookmark(PageItem *)), this, SLOT(DelBookMark(PageItem *)));
-		unitSwitcher->disconnect();
+		disconnect(unitSwitcher, SIGNAL(activated(int)), doc->view(), SLOT(ChgUnit(int)));
 		unitSwitcher->setEnabled(false);
-		zoomSpinBox->disconnect();
+		disconnect(zoomSpinBox, SIGNAL(valueChanged(double)), doc->view(), SLOT(setZoom()));
 		zoomSpinBox->setEnabled(false);
-		zoomDefaultToolbarButton->disconnect();
+		disconnect(zoomDefaultToolbarButton, SIGNAL(clicked()), doc->view(), SLOT(slotZoom100()));
 		zoomDefaultToolbarButton->setEnabled(false);
-		zoomOutToolbarButton->disconnect();
+		disconnect(zoomOutToolbarButton, SIGNAL(clicked()), doc->view(), SLOT(slotZoomOut()));
 		zoomDefaultToolbarButton->setEnabled(false);
-		zoomInToolbarButton->disconnect();
+		disconnect(zoomInToolbarButton, SIGNAL(clicked()), doc->view(), SLOT(slotZoomIn()));
 		zoomInToolbarButton->setEnabled(false);
-		layerMenu->disconnect();
+		disconnect(layerMenu, SIGNAL(activated(int)), doc->view(), SLOT(GotoLayer(int)));
 		layerMenu->setEnabled(false);
-		pageSelector->disconnect();
+		disconnect(pageSelector, SIGNAL(pageChanged(int)), this, SLOT(setCurrentPage(int)));
 		pageSelector->setEnabled(false);
 	}
 	doc = ActWin->doc();
@@ -4239,7 +4239,7 @@ bool ScribusMainWindow::DoFileClose()
 		else
 			QDir::setCurrent( QDir::homePath() );
 	}
-	pageSelector->disconnect();
+	disconnect(pageSelector, SIGNAL(pageChanged(int)), this, SLOT(setCurrentPage(int)));
 	pageSelector->setMaximum(1);
 	pageSelector->setEnabled(false);
 	updateLayerMenu();
