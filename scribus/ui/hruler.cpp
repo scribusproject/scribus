@@ -66,7 +66,7 @@ Hruler::Hruler(ScribusView *pa, ScribusDoc *doc) : QWidget(pa),
 	//setBackgroundRole(QPalette::Window);
 	//setAutoFillBackground(true);
 	setMouseTracking(true);
-	m_contextMenu = new QMenu();
+	m_contextMenu = new QMenu(this);
 	rulerGesture = new RulerGesture(m_view, RulerGesture::HORIZONTAL);
 	unitChange();
 	languageChange();
