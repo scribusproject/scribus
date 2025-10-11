@@ -38,6 +38,7 @@ void DocumentLogViewer::setManager(DocumentLogManager* manager)
 
 void DocumentLogViewer::setDocument(const QString& docID)
 {
+	logTableWidget->setRowCount(0);
 	m_docID = docID;
 
 	for (const auto& entry : m_manager->entries(docID))

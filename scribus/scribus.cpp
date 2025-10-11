@@ -2575,6 +2575,7 @@ void ScribusMainWindow::SwitchWin()
 	outlinePalette->setDoc(doc);
 	symbolPalette->setDoc(doc);
 	inlinePalette->setDoc(doc);
+	documentLogViewer->setDocument(doc->uuidString());
 	rebuildLayersList();
 	updateLayerMenu();
 	//Do not set this!, it doesn't get valid pointers unless its in EditClip mode and its not
