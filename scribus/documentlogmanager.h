@@ -42,7 +42,7 @@ class DocumentLogManager : public QObject
 		void clear(const QString& docID);
 
 	private:
-		static DocumentLogManager* m_instance;
+		static inline DocumentLogManager* m_instance { nullptr };
 		mutable QMutex m_mutex;
 		QMap<QString, QVector<DocumentLogEntry>> m_LogEntries;
 };
