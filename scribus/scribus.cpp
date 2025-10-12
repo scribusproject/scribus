@@ -106,6 +106,7 @@ for which a new license (GPL+exception) is in place.
 #include "desaxe/saxXML.h"
 #include "desaxe/simple_actions.h"
 #include "documentchecker.h"
+#include "documentlogmanager.h"
 #include "documentinformation.h"
 #include "fileloader.h"
 #include "filewatcher.h"
@@ -180,6 +181,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/copypagetomasterpagedialog.h"
 #include "ui/customfdialog.h"
 #include "ui/delpages.h"
+#include "ui/documentlogviewer.h"
 #include "ui/downloadspalette.h"
 #include "ui/edittoolbar.h"
 #include "ui/effectsdialog.h"
@@ -351,6 +353,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	m_objectSpecificUndo = false;
 
 	m_undoManager = UndoManager::instance();
+	m_documentLogManager = DocumentLogManager::instance();
 	PrefsContext *undoPrefs = m_prefsManager.prefsFile->getContext("undo");
 	m_undoManager->setUndoEnabled(undoPrefs->getBool("enabled", true));
 	m_tocGenerator = new TOCGenerator();
@@ -718,6 +721,14 @@ void ScribusMainWindow::initPalettes()
 	connect( docCheckerPalette, SIGNAL(paletteShown(bool)), this, SLOT(docCheckToggle(bool)));
 	docCheckerPalette->installEventFilter(this);
 	docCheckerPalette->hide();
+
+	// DocumentLog
+	documentLogViewer = new DocumentLogViewer(this, false);
+	documentLogViewer->setManager(m_documentLogManager);
+	connect( scrActions["toolsDocumentLog"], SIGNAL(toggled(bool)) , documentLogViewer, SLOT(setPaletteShown(bool)) );
+	connect( documentLogViewer, SIGNAL(paletteShown(bool)), scrActions["toolsDocumentLog"], SLOT(setChecked(bool)));
+	documentLogViewer->installEventFilter(this);
+	documentLogViewer->hide();
 
 	alignDistributePalette = new AlignDistributePalette(this, "AlignDistributePalette");
 	connect( scrActions["toolsAlignDistribute"], SIGNAL(toggled(bool)) , alignDistributePalette, SLOT(setPaletteShown(bool)) );
@@ -1321,6 +1332,7 @@ void ScribusMainWindow::addDefaultWindowMenuItems()
 	scrMenuMgr->addMenuItemString("SEPARATOR", "Windows");
 	scrMenuMgr->addMenuItemString("toolsMeasurements", "Windows");
 	scrMenuMgr->addMenuItemString("toolsPreflightVerifier", "Windows");
+	scrMenuMgr->addMenuItemString("toolsDocumentLog", "Windows");
 	scrMenuMgr->addMenuItemString("SEPARATOR", "Windows");
 	scrMenuMgr->addMenuItemString("toolsToolbarTools", "Windows");
 	scrMenuMgr->addMenuItemString("toolsToolbarPDF", "Windows");
@@ -1877,6 +1889,7 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 		m_prefsManager.savePrefs();
 	UndoManager::deleteInstance();
 	FormatsManager::deleteInstance();
+	DocumentLogManager::deleteInstance();
 //	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	ce->accept();
 }
@@ -2546,6 +2559,7 @@ void ScribusMainWindow::SwitchWin()
 	outlinePalette->setDoc(doc);
 	symbolPalette->setDoc(doc);
 	inlinePalette->setDoc(doc);
+	documentLogViewer->setDocument(doc->uuidString());
 	rebuildLayersList();
 	updateLayerMenu();
 	//Do not set this!, it doesn't get valid pointers unless its in EditClip mode and its not

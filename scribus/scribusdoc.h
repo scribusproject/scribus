@@ -37,6 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include <QStringList>
 #include <QTimer>
 #include <QFile>
+#include <QUuid>
 
 #include "appmodes.h"
 #include "gtgettext.h" //CB For the ImportSetup struct and itemadduserframe
@@ -99,6 +100,7 @@ public:
 	~ScribusDoc();
 
 	void init();
+	QString uuidString() {return m_uuid.toString(QUuid::WithoutBraces);}
 	bool inAnEditMode() const;
 	bool inASpecialEditMode() const;
 	QList<PageItem*> getAllItems(const QList<PageItem*> &items) const;
@@ -1317,6 +1319,7 @@ protected:
 	QString m_currentEditedSymbol;
 	int m_currentEditedIFrame {0};
 	QString m_documentFileName;
+	QUuid m_uuid;
 
 public: // Public attributes
 	bool is12doc {false}; //public for now, it will be removed later

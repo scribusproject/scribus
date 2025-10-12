@@ -1526,6 +1526,7 @@ void AppModeHelper::mainWindowHasNewDoc(const ScribusDoc *doc, bool clipScrapHav
 	(*a_scrActions)["toolsPDFAnnot3D"]->setEnabled(true);
 #endif
 	(*a_scrActions)["toolsPreflightVerifier"]->setEnabled(true);
+	(*a_scrActions)["toolsDocumentLog"]->setEnabled(true);
 	bool setter = doc->DocPages.count() > 1;
 	(*a_scrActions)["pageDelete"]->setEnabled(setter);
 	(*a_scrActions)["pageMove"]->setEnabled(setter);
@@ -1728,6 +1729,7 @@ void AppModeHelper::mainWindowCloseLastDoc()
 	(*a_scrActions)["toolsPDFRadioButton"]->setEnabled(false);
 	(*a_scrActions)["toolsPDFTextField"]->setEnabled(false);
 	(*a_scrActions)["toolsPreflightVerifier"]->setEnabled(false);
+	(*a_scrActions)["toolsDocumentLog"]->setEnabled(false);
 	(*a_scrActions)["toolsRotate"]->setEnabled(false);
 	(*a_scrActions)["toolsSelect"]->setEnabled(false);
 	(*a_scrActions)["toolsUnlinkTextFrame"]->setEnabled(false);
@@ -1891,6 +1893,7 @@ void AppModeHelper::setStartupActionsEnabled(bool enabled)
 	(*a_scrActions)["insertMark2Mark"]->setEnabled(false);
 	(*a_scrActions)["insertMarkNote"]->setEnabled(false);
 	(*a_scrActions)["toolsPreflightVerifier"]->setEnabled(false);
+	(*a_scrActions)["toolsDocumentLog"]->setEnabled(false);
 	(*a_scrActions)["extrasHyphenateText"]->setEnabled(false);
 	(*a_scrActions)["extrasDeHyphenateText"]->setEnabled(false);
 	(*a_scrActions)["viewFitInWindow"]->setEnabled(false);

@@ -69,6 +69,8 @@ class BookPalette;
 class CharSelect;
 class CheckDocument;
 class ColorCombo;
+class DocumentLogManager;
+class DocumentLogViewer;
 class DownloadsPalette;
 class EditToolBar;
 class FileToolBar;
@@ -256,6 +258,7 @@ public:
 	UndoPalette* undoPalette {nullptr};
 	AlignDistributePalette *alignDistributePalette {nullptr};
 	ResourceManager *resourceManager {nullptr};
+	DocumentLogViewer *documentLogViewer {nullptr};
 	StoryEditor* storyEditor {nullptr};
 	StoryEditor* CurrStED {nullptr};
 	QMdiArea *mdiArea {nullptr};
@@ -648,6 +651,7 @@ private:
 
 	StyleManager *m_styleManager {nullptr};
 	UndoManager *m_undoManager {nullptr};
+	DocumentLogManager *m_documentLogManager {nullptr};
 	PrefsManager& m_prefsManager;
 	FormatsManager *m_formatsManager {nullptr};
 

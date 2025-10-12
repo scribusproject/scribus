@@ -819,6 +819,8 @@ void ActionManager::initToolsMenuActions()
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name = "toolsPreflightVerifier";
 	scrActions->insert(name, new ScrAction("16/preflight-verifier.png", "22/preflight-verifier.png","", defaultKey(name), mainWindow));
+	name = "toolsDocumentLog";
+	scrActions->insert(name, new ScrAction("", "","", defaultKey(name), mainWindow));
 	name = "toolsAlignDistribute";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name = "toolsSymbols";
@@ -913,6 +915,7 @@ void ActionManager::initToolsMenuActions()
 	(*scrActions)["toolsDownloads"]->setShortcutContext(Qt::ApplicationShortcut);
 	(*scrActions)["toolsActionHistory"]->setShortcutContext(Qt::ApplicationShortcut);
 	(*scrActions)["toolsPreflightVerifier"]->setShortcutContext(Qt::ApplicationShortcut);
+	(*scrActions)["toolsDocumentLog"]->setShortcutContext(Qt::ApplicationShortcut);
 	(*scrActions)["toolsAlignDistribute"]->setShortcutContext(Qt::ApplicationShortcut);
 	(*scrActions)["toolsSymbols"]->setShortcutContext(Qt::ApplicationShortcut);
 	(*scrActions)["toolsInline"]->setShortcutContext(Qt::ApplicationShortcut);
@@ -929,12 +932,15 @@ void ActionManager::initToolsMenuActions()
 	(*scrActions)["toolsMeasurements"]->setToggleAction(true);
 	(*scrActions)["toolsActionHistory"]->setToggleAction(true);
 	(*scrActions)["toolsPreflightVerifier"]->setToggleAction(true);
+	(*scrActions)["toolsDocumentLog"]->setToggleAction(true);
 	(*scrActions)["toolsAlignDistribute"]->setToggleAction(true);
 	(*scrActions)["toolsSymbols"]->setToggleAction(true);
 	(*scrActions)["toolsInline"]->setToggleAction(true);
 	(*scrActions)["toolsToolbarTools"]->setToggleAction(true);
 	(*scrActions)["toolsToolbarPDF"]->setToggleAction(true);
 	(*scrActions)["toolsToolbarView"]->setToggleAction(true);
+
+	(*scrActions)["toolsDocumentLog"]->setChecked(false);
 
 	*modeActionNames << "toolsSelect" << "toolsInsertTextFrame" << "toolsInsertImageFrame" << "toolsInsertTable";
 	*modeActionNames << "toolsInsertShape" << "toolsInsertPolygon" << "toolsInsertArc" << "toolsInsertSpiral" << "toolsInsertLine" << "toolsInsertBezier";
@@ -1701,6 +1707,7 @@ void ActionManager::languageChange()
 	(*scrActions)["toolsMeasurements"]->setTexts( tr("&Measurements"));
 	(*scrActions)["toolsActionHistory"]->setTexts( tr("Action &History"));
 	(*scrActions)["toolsPreflightVerifier"]->setTexts( tr("Preflight &Verifier"));
+	(*scrActions)["toolsDocumentLog"]->setTexts( tr("Document &Log"));
 	(*scrActions)["toolsAlignDistribute"]->setTexts( tr("&Align and Distribute"));
 	(*scrActions)["toolsSymbols"]->setTexts( tr("Symbols"));
 	(*scrActions)["toolsInline"]->setTexts( tr("Inline Items"));
@@ -1818,6 +1825,7 @@ void ActionManager::languageChange()
 	(*scrActions)["toolsPDFRadioButton"]->setStatusTextAndShortcut( tr("Insert PDF radio button"));
 	(*scrActions)["toolsPDFTextField"]->setStatusTextAndShortcut( tr("Insert PDF text field"));
 	(*scrActions)["toolsPreflightVerifier"]->setStatusTextAndShortcut( tr("Analyse the document for issues prior to exporting to PDF"));
+	(*scrActions)["toolsDocumentLog"]->setStatusTextAndShortcut( tr("Display logged warnings and errors from editing activities"));
 	(*scrActions)["toolsRotate"]->setStatusTextAndShortcut( tr("Rotate an item"));
 	(*scrActions)["toolsSelect"]->setStatusTextAndShortcut( tr("Select an item"));
 	(*scrActions)["toolsUnlinkTextFrame"]->setStatusTextAndShortcut( tr("Unlink text frames"));
@@ -2381,6 +2389,7 @@ void ActionManager::createDefaultMenus()
 		<< "toolsMeasurements"
 		<< "toolsActionHistory"
 		<< "toolsPreflightVerifier"
+		<< "toolsDocumentLog"
 		<< "toolsAlignDistribute"
 		<< "toolsSymbols"
 		<< "toolsInline"

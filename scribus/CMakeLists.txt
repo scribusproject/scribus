@@ -122,6 +122,7 @@ set(SCRIBUS_SOURCES
 	deferredtask.cpp
 	documentchecker.cpp
 	documentinformation.cpp
+	documentlogmanager.cpp
 	exif.cpp
 	fileloader.cpp
 	filesearch.cpp
@@ -364,6 +365,7 @@ set(SCRIBUS_SOURCES
 	ui/dasheditor.cpp
 	ui/dcolor.cpp
 	ui/delpages.cpp
+	ui/documentlogviewer.cpp
 	ui/downloadspalette.cpp
 	ui/editor.cpp
 	ui/effectsdialog.cpp
