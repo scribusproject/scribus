@@ -14,6 +14,7 @@ to the COPYING file provided with the program.
 #ifndef DOCUMENTLOG_H
 #define DOCUMENTLOG_H
 
+#include <QMap>
 #include <QMutex>
 #include <QObject>
 #include <QString>
