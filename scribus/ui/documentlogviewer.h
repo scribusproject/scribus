@@ -37,7 +37,7 @@ class DocumentLogViewer : public ScrPaletteBase, public Ui::DocumentLogViewerBas
 	private:
 		void update();
 
-		DocumentLogManager* m_manager;
+		DocumentLogManager* m_manager { nullptr };
 		QString m_docID;
 };
 #endif // DOCUMENTLOGVIEWER_H

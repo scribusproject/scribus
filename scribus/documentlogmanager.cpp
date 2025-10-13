@@ -11,6 +11,8 @@ For general Scribus (>=1.3.2) copyright and licensing information please refer
 to the COPYING file provided with the program.
 */
 
+#include <QDateTime>
+
 #include "documentlogmanager.h"
 
 DocumentLogManager* DocumentLogManager::m_instance = nullptr;
