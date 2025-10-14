@@ -15,6 +15,7 @@ to the COPYING file provided with the program.
 #define DOCUMENTLOGTYPES_H
 
 #include <QDateTime>
+#include <QMetaType>
 #include <QString>
 
 enum class DocumentLogLevel
