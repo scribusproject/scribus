@@ -361,12 +361,13 @@ void PropertiesPalette_XYZ::setCurrentItem(PageItem *item)
 
 	doGroup->setEnabled(false);
 	doUnGroup->setEnabled(false);
-	if ((m_doc->m_Selection->count() > 1) && haveSameParent)
+	if (m_doc->m_Selection->count() > 1 && haveSameParent)
 		doGroup->setEnabled(true);
-	if (m_doc->m_Selection->count() == 1)
-		doUnGroup->setEnabled(m_item->isGroup());
-	if ((m_doc->appMode == modeEditClip) && (m_item->isGroup()))
-		doUnGroup->setEnabled(false);
+	if (m_doc->m_Selection->count() > 0)
+	{
+		if (m_doc->appMode != modeEditClip && m_doc->m_Selection->containsItemType(PageItem::Group))
+			doUnGroup->setEnabled(true);
+	}
 	if (m_item->isOSGFrame())
 	{
 		setEnabled(true);

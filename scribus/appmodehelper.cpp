@@ -910,7 +910,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 		(*a_scrActions)["itemLock"]->setEnabled(doc->appMode != modeEditClip);
 		(*a_scrActions)["itemLockSize"]->setEnabled(true);
 		(*a_scrActions)["itemPrintingEnabled"]->setEnabled(true);
-		if (currItem->isGroup())
+		if (doc->m_Selection->containsItemType(PageItem::Group))
 		{
 			(*a_scrActions)["itemUngroup"]->setEnabled(doc->appMode != modeEdit);
 			(*a_scrActions)["itemGroupAdjust"]->setEnabled(doc->appMode != modeEdit);

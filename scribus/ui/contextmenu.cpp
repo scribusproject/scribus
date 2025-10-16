@@ -413,13 +413,10 @@ void ContextMenu::createMenuItems_Selection()
 		if (m_Sel.objectsLayer() != -1)
 			addAction(m_ScMW->scrActions["itemGroup"]);
 	}
-	else
+	if (selectedItemCount > 0 && m_doc->m_Selection->containsItemType(PageItem::Group))
 	{
-		if (currItem->isGroup())
-		{
-			addAction(m_ScMW->scrActions["itemUngroup"]);
-			addAction(m_ScMW->scrActions["itemGroupAdjust"]);
-		}
+		addAction(m_ScMW->scrActions["itemUngroup"]);
+		addAction(m_ScMW->scrActions["itemGroupAdjust"]);
 	}
 	//-->
 
