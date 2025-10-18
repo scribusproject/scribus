@@ -190,19 +190,19 @@ class SCRIBUS_API Selection : public QObject
 	protected:
 		PageItem *itemAt_(int index=0);
 		SelectionList m_SelList;
-		bool m_isGUISelection;
-		double m_groupX;
-		double m_groupY;
-		double m_groupW;
-		double m_groupH;
+		bool m_isGUISelection {false};
+		double m_groupX {0.0};
+		double m_groupY {0.0};
+		double m_groupW {0.0};
+		double m_groupH {0.0};
 		
-		double m_visualGX;
-		double m_visualGY;
-		double m_visualGW;
-		double m_visualGH;
+		double m_visualGX {0.0};
+		double m_visualGY {0.0};
+		double m_visualGW {0.0};
+		double m_visualGH {0.0};
 
-		int  m_delaySignals;
-		bool m_sigSelectionChanged;
+		int  m_delaySignals {0};
+		bool m_sigSelectionChanged {false};
 
 		void sendSignals(bool guiConnect = true);
 		

@@ -24,23 +24,14 @@ for which a new license (GPL+exception) is in place.
 #include <QDebug>
 
 Selection::Selection(QObject* parent) :
-	QObject(parent),
-	m_isGUISelection(false),
-	m_delaySignals(0),
-	m_sigSelectionChanged(false)
+	QObject(parent)
 {
-	m_groupX   = m_groupY   = m_groupW   = m_groupH   = 0;
-	m_visualGX = m_visualGY = m_visualGW = m_visualGH = 0;
 }
 
 Selection::Selection(QObject* parent, bool guiSelection) :
 	QObject(parent),
-	m_isGUISelection(guiSelection),
-	m_delaySignals(0),
-	m_sigSelectionChanged(false)
+	m_isGUISelection(guiSelection)
 {
-	m_groupX   = m_groupY   = m_groupW   = m_groupH   = 0;
-	m_visualGX = m_visualGY = m_visualGW = m_visualGH = 0;
 }
 
 Selection::Selection(const Selection& other) :
@@ -275,17 +266,16 @@ QList<PageItem*> Selection::items() const
 
 bool Selection::removeFirst()
 {
-	if (!m_SelList.isEmpty())
-	{
-		if (m_isGUISelection && m_SelList.first())
-			m_SelList.first()->setSelected(false);
-		removeItem(m_SelList.first());
-		if (m_SelList.isEmpty())
-			return true;
-		if (m_isGUISelection)
-			m_sigSelectionChanged = true;
-		sendSignals();
-	}
+	if (m_SelList.isEmpty())
+		return true;
+	if (m_isGUISelection && m_SelList.first())
+		m_SelList.first()->setSelected(false);
+	removeItem(m_SelList.first());
+	if (m_SelList.isEmpty())
+		return true;
+	if (m_isGUISelection)
+		m_sigSelectionChanged = true;
+	sendSignals();
 	return false;
 }
 
