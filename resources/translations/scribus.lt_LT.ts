@@ -370,911 +370,921 @@
 <context>
     <name>ActionManager</name>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1575"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1581"/>
         <source>&amp;Tabulators...</source>
         <translation>&amp;Tabuliatoriai...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1496"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1502"/>
         <source>&amp;Open...</source>
         <translation>&amp;Atverti...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1497"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1503"/>
         <source>&amp;Close</source>
         <translation>&amp;Užverti</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1498"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1504"/>
         <source>&amp;Save</source>
         <translation>Į&amp;rašyti</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1499"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1505"/>
         <source>Save &amp;As...</source>
         <translation>Įrašyti &amp;kitaip...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1500"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1506"/>
         <source>Re&amp;vert to Saved</source>
         <translation>G&amp;rįžti prie įrašyto</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1501"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1507"/>
         <source>Collect for O&amp;utput...</source>
         <translation>&amp;Surinkti maketo failus...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1502"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1508"/>
         <source>Get Text...</source>
         <translation>Importuoti tekstą...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1503"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1509"/>
         <source>Append &amp;Text...</source>
         <translation>Pridurti &amp;tekstą...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1504"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1510"/>
         <source>Get Image...</source>
         <translation>Importuoti paveikslą...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1507"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1513"/>
         <source>Save &amp;Text...</source>
         <translation>Įrašyti &amp;tekstą...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1509"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1515"/>
         <source>Save as P&amp;DF...</source>
         <translation>Įrašyti kaip P&amp;DF...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1511"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1517"/>
         <source>Document &amp;Setup...</source>
         <translation>Dokumento nuo&amp;statos...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1514"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1520"/>
         <source>&amp;Print...</source>
         <translation>S&amp;pausdinti...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1518"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1524"/>
         <source>&amp;Quit</source>
         <translation>&amp;Išeiti</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1520"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1526"/>
         <source>&amp;Undo</source>
         <translation>Atša&amp;ukti</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1521"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1527"/>
         <source>&amp;Redo</source>
         <translation>A&amp;tstatyti</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1522"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1528"/>
         <source>&amp;Item Action Mode</source>
         <translation>&amp;Veiksmų tik su pasirinktu objektu veiksena</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1523"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1529"/>
         <source>Cu&amp;t</source>
         <translation>&amp;Iškirpti</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1524"/>
-        <location filename="../../scribus/actionmanager.cpp" line="1527"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1530"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1533"/>
         <source>&amp;Copy</source>
         <translation>&amp;Kopijuoti</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1525"/>
-        <location filename="../../scribus/actionmanager.cpp" line="1528"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1531"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1534"/>
         <source>&amp;Paste</source>
         <translation>Pa&amp;dėti</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1533"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1539"/>
         <source>Select &amp;All</source>
         <translation>Pažymėti &amp;viską</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1535"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1541"/>
         <source>&amp;Deselect All</source>
         <translation>Visi &amp;nepažymėti</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1536"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1542"/>
         <source>&amp;Search/Replace...</source>
         <translation>&amp;Ieškoti/Keisti...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1544"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1550"/>
         <source>&amp;Master Pages...</source>
         <translation>P&amp;uslapių šablonai...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1513"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1519"/>
         <source>P&amp;references...</source>
         <translation>&amp;Programos nuostatos...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1516"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1522"/>
         <source>PDF...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1517"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1523"/>
         <source>PostScript...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1526"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1532"/>
         <source>Paste P&amp;lain Text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1551"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1557"/>
         <source>%1 pt</source>
         <translation>%1 pt</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1553"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1559"/>
         <source>&amp;Other...</source>
         <translation>&amp;Kita...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1555"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1561"/>
         <source>Style &amp;Search</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1557"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1563"/>
         <source>&amp;Left</source>
         <translation>K&amp;airėje</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1558"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1564"/>
         <source>&amp;Center</source>
         <translation>Per &amp;vidurį</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1559"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1565"/>
         <source>&amp;Right</source>
         <translation>&amp;Dešinėje</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1560"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1566"/>
         <source>&amp;Block</source>
         <translation>&amp;Bloko pločio</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1561"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1567"/>
         <source>&amp;Forced</source>
         <translation>&amp;Paspartintas</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1563"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1569"/>
         <source>&amp;Normal</source>
         <translation>Įp&amp;rastas</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1564"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1570"/>
         <source>&amp;Underline</source>
         <translation>Pa&amp;braukti</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1565"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1571"/>
         <source>Underline &amp;Words</source>
         <translation>Pa&amp;braukti žodžius</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1566"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1572"/>
         <source>&amp;Strike Through</source>
         <translation>Pe&amp;rbraukti</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1567"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1573"/>
         <source>&amp;All Caps</source>
         <translation>Visos &amp;didžiosios</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1568"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1574"/>
         <source>Small &amp;Caps</source>
         <translation>&amp;Mažos didžiosios</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1569"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1575"/>
         <source>Su&amp;perscript</source>
         <translation>&amp;Viršutinis indeksas</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1570"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1576"/>
         <source>Su&amp;bscript</source>
         <translation>&amp;Apatinis indeksas</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1578"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1584"/>
         <source>D&amp;uplicate</source>
         <translation>D&amp;ublikatas</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1581"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1587"/>
         <source>&amp;Delete</source>
         <translation>P&amp;ašalinti</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1582"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1588"/>
         <source>&amp;Group</source>
         <translation>&amp;Grupuoti</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1583"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1589"/>
         <source>&amp;Ungroup</source>
         <translation>&amp;Išgrupuoti</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1585"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1591"/>
         <source>Is &amp;Locked</source>
         <translation>Pri&amp;tvirtintas</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1586"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1592"/>
         <source>Si&amp;ze is Locked</source>
         <translation>&amp;Nekeičiamas dydis</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1590"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1596"/>
         <source>Lower to &amp;Bottom</source>
         <translation>Į pačią a&amp;pačią</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1591"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1597"/>
         <source>Raise to &amp;Top</source>
         <translation>Į patį &amp;viršų</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1592"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1598"/>
         <source>&amp;Lower</source>
         <translation>Vienu že&amp;miau</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1593"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1599"/>
         <source>&amp;Raise</source>
         <translation>Vienu au&amp;kščiau</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1596"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1602"/>
         <source>&amp;Attributes...</source>
         <translation>&amp;Atributai...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1598"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1604"/>
         <source>I&amp;mage Visible</source>
         <translation>Pa&amp;veikslas matomas</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1615"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1621"/>
         <source>Embed Image</source>
         <translation>Įtraukti paveikslą</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1620"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1626"/>
         <source>Is PDF &amp;Bookmark</source>
         <translation>Tai PDF &amp;nuoroda</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1621"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1627"/>
         <source>Is PDF A&amp;nnotation</source>
         <translation>Tai PDF &amp;anotacija</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1624"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1630"/>
         <source>&amp;Edit Shape...</source>
         <translation>Taisyti &amp;figūrą...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1625"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1631"/>
         <source>&amp;Attach Text to Path</source>
         <translation>&amp;Susieti tekstą su kreive</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1626"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1632"/>
         <source>&amp;Detach Text from Path</source>
         <translation>A&amp;tsieti tekstą nuo kreivės</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1627"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1633"/>
         <source>&amp;Combine Polygons</source>
         <translation>Su&amp;vienyti daugiakampius</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1628"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1634"/>
         <source>Split &amp;Polygons</source>
         <translation>Sus&amp;kaidyti daugiakampius</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1629"/>
-        <location filename="../../scribus/actionmanager.cpp" line="1739"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1635"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1746"/>
         <source>&amp;Bezier Curve</source>
         <translation>&amp;Bezjė kreivę</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1630"/>
-        <location filename="../../scribus/actionmanager.cpp" line="1730"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1636"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1737"/>
         <source>&amp;Image Frame</source>
         <translation>Pave&amp;ikslo rėmelį</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1631"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1637"/>
         <source>&amp;Outlines</source>
         <comment>Convert to outlines</comment>
         <translation type="unfinished">&amp;Kontūrai</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1632"/>
-        <location filename="../../scribus/actionmanager.cpp" line="1734"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1638"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1741"/>
         <source>&amp;Polygon</source>
         <translation>Daugiakam&amp;pį</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1633"/>
-        <location filename="../../scribus/actionmanager.cpp" line="1729"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1639"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1736"/>
         <source>&amp;Text Frame</source>
         <translation>&amp;Teksto rėmelį</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1641"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1647"/>
         <source>&amp;Glyph...</source>
         <translation>&amp;Rašmenys...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1649"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1655"/>
         <source>Index Entry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1654"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1660"/>
         <source>&amp;Insert...</source>
         <translation>Į&amp;terpti...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1655"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1661"/>
         <source>Im&amp;port...</source>
         <translation>Im&amp;portuoti...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1656"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1662"/>
         <source>&amp;Delete...</source>
         <translation>Pa&amp;šalinti...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1657"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1663"/>
         <source>&amp;Copy...</source>
         <translation>&amp;Kopijuoti...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1658"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1664"/>
         <source>&amp;Move...</source>
         <translation>&amp;Perkelti...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1659"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1665"/>
         <source>&amp;Apply Master Page...</source>
         <translation>P&amp;ritaikyti puslapio šabloną...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1661"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1667"/>
         <source>Manage &amp;Guides...</source>
         <translation>Tvarkyti &amp;kreiptines...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1667"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1673"/>
         <source>&amp;50%</source>
         <translation>&amp;50%</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1668"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1674"/>
         <source>&amp;75%</source>
         <translation>&amp;75%</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1669"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1675"/>
         <source>&amp;100%</source>
         <translation>&amp;100%</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1670"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1676"/>
         <source>&amp;200%</source>
         <translation>&amp;200%</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1674"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1680"/>
         <source>Toggle White Space Review Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1676"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1682"/>
         <source>Show &amp;Margins</source>
         <translation>Rodyti &amp;paraštes</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1678"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1684"/>
         <source>Show &amp;Frames</source>
         <translation>Rodyti &amp;rėmelius</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1680"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1686"/>
         <source>Show &amp;Images</source>
         <translation>Rodyti pa&amp;veikslus</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1681"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1687"/>
         <source>Show &amp;Grid</source>
         <translation>Rodyti &amp;tinklelį</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1682"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1688"/>
         <source>Show G&amp;uides</source>
         <translation>Rodyti &amp;kreiptines</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1684"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1690"/>
         <source>Show &amp;Baseline Grid</source>
         <translation>Rodyti &amp;bazinį tinklelį</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1685"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1691"/>
         <source>Show &amp;Text Chain</source>
         <translation>Rodyti teksto &amp;grandis</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1689"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1695"/>
         <source>Sn&amp;ap to Grid</source>
         <translation>Tr&amp;aukti prie tinklelio</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1690"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1696"/>
         <source>Sna&amp;p to Guides</source>
         <translation>&amp;Traukti prie kreiptinių</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1696"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1702"/>
         <source>&amp;Properties</source>
         <translation>&amp;Ypatybės</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1699"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1705"/>
         <source>&amp;Scrapbook</source>
         <translation>&amp;Koliažinė</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1700"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1706"/>
         <source>&amp;Layers</source>
         <translation>S&amp;luoksniai</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1702"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1708"/>
         <source>&amp;Bookmarks</source>
         <translation>&amp;Nuorodos</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1705"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1711"/>
         <source>&amp;Measurements</source>
         <translation>&amp;Matuoklis</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1706"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1712"/>
         <source>Action &amp;History</source>
         <translation>Veiksmų &amp;žurnalas</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1707"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1713"/>
         <source>Preflight &amp;Verifier</source>
         <translation>Priešspaustuvinis &amp;tikrintuvas</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1709"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1714"/>
+        <source>Document &amp;Log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/actionmanager.cpp" line="1716"/>
         <source>Symbols</source>
         <translation>Simboliai</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1711"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1718"/>
         <source>&amp;Tools</source>
         <translation>&amp;Įrankiai</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1712"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1719"/>
         <source>P&amp;DF Tools</source>
         <translation>P&amp;DF įrankiai</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1716"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1723"/>
         <source>Select Item</source>
         <translation>Pažymėti objektą</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1717"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1724"/>
         <source>Rotate Item</source>
         <translation>Pasukti objektą</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1718"/>
-        <location filename="../../scribus/actionmanager.cpp" line="1829"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1725"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1837"/>
         <source>Zoom in or out</source>
         <translation>Didinti/mažinti mastelį</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1719"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1726"/>
         <source>Zoom in</source>
         <translation>Didinti mastelį</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1720"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1727"/>
         <source>Zoom out</source>
         <translation>Mažinti mastelį</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1721"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1728"/>
         <source>Edit Contents of Frame</source>
         <translation>Taisyti rėmelio turinį</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1722"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1729"/>
         <source>Edit Text with Story Editor...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1723"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1730"/>
         <source>Link Text Frames</source>
         <translation>Susieti teksto rėmelius</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1724"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1731"/>
         <source>Unlink Text Frames</source>
         <translation>Atsieti teksto rėmelius</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1725"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1732"/>
         <source>Unlink Text Frames and Cut Text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1726"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1733"/>
         <source>&amp;Eye Dropper</source>
         <translation>&amp;Pipetė</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1727"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1734"/>
         <source>Copy Item Properties</source>
         <translation>Kopijuoti objekto ypatybes</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1755"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1762"/>
         <source>&amp;Manage Images...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1756"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1763"/>
         <source>&amp;Hyphenate Text</source>
         <translation>&amp;Skiemenuoti tekstą</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1767"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1774"/>
         <source>&amp;About Scribus</source>
         <translation>&amp;Apie „Scribus“</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1769"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1776"/>
         <source>About &amp;Qt</source>
         <translation>Apie &amp;„Qt“</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1770"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1777"/>
         <source>Action &amp;Search</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1771"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1778"/>
         <source>Toolti&amp;ps</source>
         <translation>Įrankių &amp;paaiškinimai</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1790"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1797"/>
         <source>Paste Unformatted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1832"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1833"/>
+        <source>Display logged warnings and errors from editing activities</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/actionmanager.cpp" line="1840"/>
         <source>Toggle white space review mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1853"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1861"/>
         <source>Zero Width Non-Joiner</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1854"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1862"/>
         <source>Zero Width Joiner</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1856"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1864"/>
         <source>Non Breaking Hyphen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1857"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1865"/>
         <source>Non Breaking &amp;Space</source>
         <translation>Nekeliamasis &amp;tarpas</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1859"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1867"/>
         <source>Page &amp;Number</source>
         <translation>Puslapio &amp;numeris</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1866"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1874"/>
         <source>Copyright</source>
         <translation>Autorių teisės ženklas</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1867"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1875"/>
         <source>Registered Trademark</source>
         <translation>Registruotasis prekės ženklas</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1868"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1876"/>
         <source>Trademark</source>
         <translation>Prekės ženklas</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1870"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1878"/>
         <source>Bullet</source>
         <translation>Ženkliukas</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1872"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1880"/>
         <source>Em Dash</source>
         <translation>Ilgasis brūkšnys („Em“)</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1873"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1881"/>
         <source>En Dash</source>
         <translation>Vidutinis brūkšnys („En“)</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1874"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1882"/>
         <source>Figure Dash</source>
         <translation>Brūkšnelis</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1875"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1883"/>
         <source>Quotation Dash</source>
         <translation>Dialogų brūkšnys</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1764"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1771"/>
         <source>Toggle Palettes</source>
         <translation>Perjungti palečių rodymą</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1572"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1578"/>
         <source>S&amp;hadow</source>
         <translation>Š&amp;ešėlis</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1619"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1625"/>
         <source>&amp;Low Resolution</source>
         <translation>Ž&amp;ema raiška</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1618"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1624"/>
         <source>&amp;Normal Resolution</source>
         <translation>&amp;Normali raiška</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1617"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1623"/>
         <source>&amp;Full Resolution</source>
         <translation>&amp;Maksimali raiška</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1537"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1543"/>
         <source>Edit Image...</source>
         <translation>Taisyti paveikslą...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1599"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1605"/>
         <source>&amp;Update Image</source>
         <translation>At&amp;naujinti paveikslą</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1613"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1619"/>
         <source>Adjust Frame to Image</source>
         <translation>Rėmelį padaryti paveikslo dydžio</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1686"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1692"/>
         <source>Show Control Characters</source>
         <translation>Rodyti valdymo simbolius</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1708"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1715"/>
         <source>&amp;Align and Distribute</source>
         <translation>&amp;Lygiuoti ir išdėstyti</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1861"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1869"/>
         <source>New Line</source>
         <translation>Nauja eilutė</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1862"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1870"/>
         <source>Frame Break</source>
         <translation>Rėmelio turinio pabaiga (lūžis)</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1863"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1871"/>
         <source>Column Break</source>
         <translation>Stulpelio pabaiga (lūžis)</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1782"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1789"/>
         <source>Toggle Guides</source>
         <translation>Perjungti kreiptinių rodymą</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1701"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1707"/>
         <source>&amp;Arrange Pages</source>
         <translation>T&amp;varkyti puslapius</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1757"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1764"/>
         <source>Dehyphenate Text</source>
         <translation>Panaikinti teksto skiemenavimą</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1662"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1668"/>
         <source>Manage Page Properties...</source>
         <translation>Tvarkyti puslapio ypatybes...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1545"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1551"/>
         <source>&amp;JavaScripts...</source>
         <translation>„&amp;JavaScript“ programos...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1660"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1666"/>
         <source>Convert to Master Page...</source>
         <translation>Konvertuoti į puslapio šabloną...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1762"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1769"/>
         <source>&amp;Cascade</source>
         <translation>&amp;Pakopos</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1763"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1770"/>
         <source>&amp;Tile</source>
         <translation>&amp;Išklotinė</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1597"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1603"/>
         <source>More Info...</source>
         <translation>Daugiau informacijos...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1587"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1593"/>
         <source>&amp;Printing Enabled</source>
         <translation>&amp;Spausdinimas leidžiamas</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1588"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1594"/>
         <source>&amp;Flip Horizontally</source>
         <translation>&amp;Atspindėti horizontaliai</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1589"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1595"/>
         <source>&amp;Flip Vertically</source>
         <translation>&amp;Atspindėti vertikaliai</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1687"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1693"/>
         <source>Show Rulers</source>
         <translation>Rodyti liniuotes</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1698"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1704"/>
         <source>&amp;Outline</source>
         <comment>Document Outline Palette</comment>
         <translation>&amp;Kontūrai</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1869"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1877"/>
         <source>Solidus</source>
         <translation>Pasviras brūkšnys</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1871"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1879"/>
         <source>Middle Dot</source>
         <translation>Vidutinis taškas</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1896"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1904"/>
         <source>En Space</source>
         <translation>„N“ tarpas (1/2 „M“ tarpo)</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1897"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1905"/>
         <source>Em Space</source>
         <translation>„M“ tarpas</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1898"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1906"/>
         <source>Thin Space</source>
         <translation>1/5 „M“ tarpo</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1899"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1907"/>
         <source>Thick Space</source>
         <translation>1/3 „M“ tarpo</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1900"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1908"/>
         <source>Mid Space</source>
         <translation>1/4 „M“ tarpo</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1901"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1909"/>
         <source>Hair Space</source>
         <translation>Siauriausias tarpas</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1903"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1911"/>
         <source>ff</source>
         <translation>ff</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1904"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1912"/>
         <source>fi</source>
         <translation>fi</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1905"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1913"/>
         <source>fl</source>
         <translation>fl</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1906"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1914"/>
         <source>ffi</source>
         <translation>ffi</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1907"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1915"/>
         <source>ffl</source>
         <translation>ffl</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1908"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1916"/>
         <source>ft</source>
         <translation>ft</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1909"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1917"/>
         <source>st</source>
         <translation>st</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1541"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1547"/>
         <source>S&amp;tyles...</source>
         <translation>S&amp;tiliai...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1571"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1577"/>
         <source>&amp;Outline</source>
         <comment>type effect</comment>
         <translation>&amp;Kontūras</translation>
@@ -1285,971 +1295,971 @@
         <translation type="vanished">&amp;Kontūrai</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1529"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1535"/>
         <source>Paste (&amp;Absolute)</source>
         <translation>Padėti (&amp;tiksliai)</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1531"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1537"/>
         <source>C&amp;lear</source>
         <translation>&amp;Išvalyti</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1508"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1514"/>
         <source>Save as &amp;EPS...</source>
         <translation>Įrašyti kaip &amp;EPS...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1683"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1689"/>
         <source>Show Text Frame Columns</source>
         <translation>Rodyti teksto rėmelio stulpelius</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1672"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1678"/>
         <source>Preview Mode</source>
         <translation>Peržiūros veiksena</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1679"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1685"/>
         <source>Show Layer Indicators</source>
         <translation>Rodyti sluoksnių rodmenis</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1643"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1649"/>
         <source>Sticky Tools</source>
         <translation>Kibieji įrankiai</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1494"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1500"/>
         <source>&amp;New...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1515"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1521"/>
         <source>Print Previe&amp;w...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1574"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1580"/>
         <source>&amp;Image Effects...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1579"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1585"/>
         <source>&amp;Multiple Duplicate...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1580"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1586"/>
         <source>&amp;Transform...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1616"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1622"/>
         <source>Extended Image Properties...</source>
         <translation>Papildomos paveikslo ypatybės...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1622"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1628"/>
         <source>Annotation P&amp;roperties...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1623"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1629"/>
         <source>Field P&amp;roperties...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1642"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1648"/>
         <source>Sample Text...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1665"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1671"/>
         <source>&amp;Fit to Height</source>
         <translation>Su&amp;talpinti aukščio atžvilgiu</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1666"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1672"/>
         <source>Fit to Width</source>
         <translation>Pritaikyti mastelį pločio atžvilgiu</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1677"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1683"/>
         <source>Show Bleeds</source>
         <translation>Rodyti užlaidas</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1855"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1863"/>
         <source>Soft &amp;Hyphen</source>
         <translation>Korektiškas &amp;skiemuo</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1858"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1866"/>
         <source>Narrow No-Break Space</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1864"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1872"/>
         <source>&amp;Zero Width Space</source>
         <translation>&amp;Nulinio pločio tarpas</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1865"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1873"/>
         <source>Zero Width NB Space</source>
         <translation>Nulinio pločio nekeliamasis tarpas</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1877"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1885"/>
         <source>Apostrophe</source>
         <comment>Unicode 0x0027</comment>
         <translation>Apostrofas</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1878"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1886"/>
         <source>Straight Double</source>
         <comment>Unicode 0x0022</comment>
         <translation>Rašomosios mašinėlės kabutės</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1879"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1887"/>
         <source>Single Left</source>
         <comment>Unicode 0x2018</comment>
         <translation>Atidarančioji vienguba</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1880"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1888"/>
         <source>Single Right</source>
         <comment>Unicode 0x2019</comment>
         <translation>Uždarančioji vienguba</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1881"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1889"/>
         <source>Double Left</source>
         <comment>Unicode 0x201C</comment>
         <translation>Lietuviškos uždarančiosios</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1882"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1890"/>
         <source>Double Right</source>
         <comment>Unicode 0x201D</comment>
         <translation>Uždarančiosios dvigubos</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1883"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1891"/>
         <source>Single Reversed</source>
         <comment>Unicode 0x201B</comment>
         <translation>Apversta vienguba</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1884"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1892"/>
         <source>Double Reversed</source>
         <comment>Unicode 0x201F</comment>
         <translation>Apverstos dvigubos</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1885"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1893"/>
         <source>Single Left Guillemet</source>
         <comment>Unicode 0x2039</comment>
         <translation>Prancūziška atidarančioji vienguba</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1886"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1894"/>
         <source>Single Right Guillemet</source>
         <comment>Unicode 0x203A</comment>
         <translation>Prancūziška uždarančioji vienguba</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1887"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1895"/>
         <source>Double Left Guillemet</source>
         <comment>Unicode 0x00AB</comment>
         <translation>Prancūziškos atidarančiosios dvigubos</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1888"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1896"/>
         <source>Double Right Guillemet</source>
         <comment>Unicode 0x00BB</comment>
         <translation>Prancūziškos uždarančiosios dvigubos</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1889"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1897"/>
         <source>Low Single Comma</source>
         <comment>Unicode 0x201A</comment>
         <translation>Apatinis atidarantysis apostrofas</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1890"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1898"/>
         <source>Low Double Comma</source>
         <comment>Unicode 0x201E</comment>
         <translation>Lietuviškos atidarančiosios</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1891"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1899"/>
         <source>CJK Single Left</source>
         <comment>Unicode 0x300C</comment>
         <translation>CJK atidarančioji vienguba</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1892"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1900"/>
         <source>CJK Single Right</source>
         <comment>Unicode 0x300D</comment>
         <translation>CJK uždarančioji vienguba</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1893"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1901"/>
         <source>CJK Double Left</source>
         <comment>Unicode 0x300E</comment>
         <translation>CJK atidarančioji dviguba</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1894"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1902"/>
         <source>CJK Double Right</source>
         <comment>Unicode 0x300F</comment>
         <translation>CJK uždarančioji dviguba</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1671"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1677"/>
         <source>&amp;400%</source>
         <translation>&amp;400%</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1774"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1781"/>
         <source>Scribus Homepage</source>
         <translation>„Scribus“ interneto svetainė</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1775"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1782"/>
         <source>Scribus Online Documentation</source>
         <translation>„Scribus“ dokumentacija internete</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1776"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1783"/>
         <source>Scribus Wiki</source>
         <translation>„Scribus“ vikio žinynas</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1777"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1784"/>
         <source>Getting Started with Scribus</source>
         <translation>Darbo su „Scribus“ pradžia</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1692"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1698"/>
         <source>Show Context Menu</source>
         <translation>Rodyti kontekstinį meniu</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1768"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1775"/>
         <source>&amp;About Plugins</source>
         <translation>&amp;Apie papildinius</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1783"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1790"/>
         <source>Insert Unicode Character Begin Sequence</source>
         <translation>Įterpti unikodo simbolio pradžios seką</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1505"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1511"/>
         <source>Get Vector File...</source>
         <translation>Importuoti vektorinį failą...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1534"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1540"/>
         <source>Advanced Select All...</source>
         <translation>Pažymėti pagal kriterijus...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1538"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1544"/>
         <source>Edit Source...</source>
         <translation>Taisyti šaltinį...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1540"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1546"/>
         <source>Replace Colors...</source>
         <translation>Keisti spalvas...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1688"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1694"/>
         <source>Rulers Relative to Page</source>
         <translation>Liniuotės susietos su puslapiu</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1778"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1785"/>
         <source>Check for Updates</source>
         <translation>Ieškoti programos atnaujinimų</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1860"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1868"/>
         <source>Number of Pages</source>
         <translation>Puslapių skaičius</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1614"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1620"/>
         <source>Adjust Image to Frame</source>
         <translation>Pritaikyti paveikslo mastelį prie rėmelio</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="2042"/>
+        <location filename="../../scribus/actionmanager.cpp" line="2050"/>
         <source>File</source>
         <translation>Failas</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="2042"/>
+        <location filename="../../scribus/actionmanager.cpp" line="2050"/>
         <source>&amp;File</source>
         <translation>&amp;Failas</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="2044"/>
+        <location filename="../../scribus/actionmanager.cpp" line="2052"/>
         <source>Edit</source>
         <translation>Taisyti</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="2044"/>
+        <location filename="../../scribus/actionmanager.cpp" line="2052"/>
         <source>&amp;Edit</source>
         <translation>&amp;Taisa</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="2046"/>
+        <location filename="../../scribus/actionmanager.cpp" line="2054"/>
         <source>Style</source>
         <translation>Stilius</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="2046"/>
+        <location filename="../../scribus/actionmanager.cpp" line="2054"/>
         <source>&amp;Style</source>
         <translation>&amp;Stilius</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="2048"/>
+        <location filename="../../scribus/actionmanager.cpp" line="2056"/>
         <source>Item</source>
         <translation>Objektas</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="2048"/>
+        <location filename="../../scribus/actionmanager.cpp" line="2056"/>
         <source>&amp;Item</source>
         <translation>&amp;Objektas</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="2050"/>
+        <location filename="../../scribus/actionmanager.cpp" line="2058"/>
         <source>Insert</source>
         <translation>Įterpimas</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="2050"/>
+        <location filename="../../scribus/actionmanager.cpp" line="2058"/>
         <source>I&amp;nsert</source>
         <translation>&amp;Įterpimas</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="2052"/>
+        <location filename="../../scribus/actionmanager.cpp" line="2060"/>
         <source>Page</source>
         <translation>Puslapis</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="2052"/>
+        <location filename="../../scribus/actionmanager.cpp" line="2060"/>
         <source>&amp;Page</source>
         <translation>&amp;Puslapis</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="2054"/>
+        <location filename="../../scribus/actionmanager.cpp" line="2062"/>
         <source>View</source>
         <translation>Rodymas</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="2054"/>
+        <location filename="../../scribus/actionmanager.cpp" line="2062"/>
         <source>&amp;View</source>
         <translation>&amp;Rodymas</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="2058"/>
+        <location filename="../../scribus/actionmanager.cpp" line="2066"/>
         <source>Extras</source>
         <translation>Priemonės</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="2058"/>
+        <location filename="../../scribus/actionmanager.cpp" line="2066"/>
         <source>E&amp;xtras</source>
         <translation>Prie&amp;monės</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="2060"/>
+        <location filename="../../scribus/actionmanager.cpp" line="2068"/>
         <source>Windows</source>
         <translation>Langai</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="2060"/>
+        <location filename="../../scribus/actionmanager.cpp" line="2068"/>
         <source>&amp;Windows</source>
         <translation>&amp;Langai</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="2062"/>
+        <location filename="../../scribus/actionmanager.cpp" line="2070"/>
         <source>Help</source>
         <translation>Pagalba</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="2062"/>
+        <location filename="../../scribus/actionmanager.cpp" line="2070"/>
         <source>&amp;Help</source>
         <translation>Pa&amp;galba</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="2430"/>
+        <location filename="../../scribus/actionmanager.cpp" line="2439"/>
         <source>Plugin Menu Items</source>
         <translation>Papildinių meniu elementai</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="2432"/>
+        <location filename="../../scribus/actionmanager.cpp" line="2441"/>
         <source>Others</source>
         <translation>Kiti</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="2434"/>
+        <location filename="../../scribus/actionmanager.cpp" line="2443"/>
         <source>Unicode Characters</source>
         <translation>Unikodo rašmenys</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1772"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1779"/>
         <source>Move/Resize Value Indicator</source>
         <translation>Perkėlimo/Mastelio pakeitimo reikšmės indikatorius</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1495"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1501"/>
         <source>New &amp;from Template...</source>
         <translation>Naujas &amp;šablono pagrindu...</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1530"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1536"/>
         <source>Paste Image from Clipboard</source>
         <translation>Įdėti paveikslą iš iškarpinės</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1600"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1606"/>
         <source>Insert Rows...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1601"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1607"/>
         <source>Insert Columns...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1602"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1608"/>
         <source>Delete Rows</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1603"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1609"/>
         <source>Delete Columns</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1604"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1610"/>
         <source>Merge Cells</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1605"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1611"/>
         <source>Split Cells...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1606"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1612"/>
         <source>Set Row Heights...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1607"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1613"/>
         <source>Set Column Widths...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1608"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1614"/>
         <source>Distribute Rows Evenly</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1609"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1615"/>
         <source>Distribute Columns Evenly</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1610"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1616"/>
         <source>Adjust Frame to Table</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1611"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1617"/>
         <source>Adjust Table to Frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1640"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1646"/>
         <source>&amp;Frames...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1612"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1618"/>
         <source>Adjust Frame Height to Text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1542"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1548"/>
         <source>Marks...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1543"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1549"/>
         <source>Notes Styles...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1584"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1590"/>
         <source>Adjust Group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1644"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1650"/>
         <source>Anchor Mark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1645"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1651"/>
         <source>Variable Text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1646"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1652"/>
         <source>Reference to Item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1647"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1653"/>
         <source>Reference to Mark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1648"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1654"/>
         <source>Foot/Endnote</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1650"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1656"/>
         <source>Edit Mark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1651"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1657"/>
         <source>Update Marks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1691"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1697"/>
         <source>Snap to Items</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1539"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1545"/>
         <source>Colors and Fills...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1594"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1600"/>
         <source>Patterns</source>
         <translation>Tekstūros</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1595"/>
-        <location filename="../../scribus/actionmanager.cpp" line="1710"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1601"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1717"/>
         <source>Inline Items</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1634"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1640"/>
         <source>&amp;Symbol</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1759"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1766"/>
         <source>&amp;Update Document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="2056"/>
+        <location filename="../../scribus/actionmanager.cpp" line="2064"/>
         <source>Table</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="2056"/>
+        <location filename="../../scribus/actionmanager.cpp" line="2064"/>
         <source>&amp;Table</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1787"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1794"/>
         <source>Copy</source>
         <translation>Kopijuoti</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1697"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1703"/>
         <source>Content Properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1758"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1765"/>
         <source>&amp;Generate Table Of Contents and Indexes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1773"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1780"/>
         <source>Scribus &amp;Help...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1788"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1795"/>
         <source>Cut</source>
         <translation>Iškirpti</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1789"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1796"/>
         <source>Paste</source>
         <translation>Padėti</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1791"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1798"/>
         <source>Redo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1792"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1799"/>
         <source>Undo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1793"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1800"/>
         <source>Close the current document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1794"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1801"/>
         <source>Export the document to PDF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1795"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1802"/>
         <source>Create a new document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1796"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1803"/>
         <source>Open an existing document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1797"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1804"/>
         <source>Print the document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1798"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1805"/>
         <source>Save the current document</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1799"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1806"/>
         <source>Copy item properties</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1800"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1807"/>
         <source>Edit contents of a frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1802"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1809"/>
         <source>Eye Dropper</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1803"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1810"/>
         <source>Insert an arc</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1804"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1811"/>
         <source>Insert a bezier curve</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1805"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1812"/>
         <source>Insert a calligraphic line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1806"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1813"/>
         <source>Insert a freehand line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1807"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1814"/>
         <source>Insert an image frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1808"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1815"/>
         <source>Insert a line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1809"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1816"/>
         <source>Insert a polygon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1810"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1817"/>
         <source>Insert a render frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1811"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1818"/>
         <source>Insert a shape</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1812"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1819"/>
         <source>Insert a spiral</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1813"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1820"/>
         <source>Insert a table</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1814"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1821"/>
         <source>Insert a text frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1815"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1822"/>
         <source>Link text frames</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1816"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1823"/>
         <source>Measurements</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1817"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1824"/>
         <source>Insert link annotation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1818"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1825"/>
         <source>Insert text annotation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1819"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1826"/>
         <source>Insert PDF check box</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1820"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1827"/>
         <source>Insert PDF combo box</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1821"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1828"/>
         <source>Insert PDF list box</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1822"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1829"/>
         <source>Insert PDF push button</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1823"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1830"/>
         <source>Insert PDF radio button</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1824"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1831"/>
         <source>Insert PDF text field</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1825"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1832"/>
         <source>Analyse the document for issues prior to exporting to PDF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1826"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1834"/>
         <source>Rotate an item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1827"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1835"/>
         <source>Select an item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1828"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1836"/>
         <source>Unlink text frames</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1835"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1843"/>
         <source>Insert 3D annotation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1635"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1641"/>
         <source>Unweld Items</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1636"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1642"/>
         <source>Weld Items</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1532"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1538"/>
         <source>T&amp;runcate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1673"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1679"/>
         <source>Edit in Preview Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1675"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1681"/>
         <source>Toggle Color Management System</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1713"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1720"/>
         <source>&amp;View Tools</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1731"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1738"/>
         <source>&amp;Render Frame</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1732"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1739"/>
         <source>T&amp;able</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1733"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1740"/>
         <source>&amp;Shape</source>
         <translation>&amp;Figūra</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1735"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1742"/>
         <source>Arc</source>
         <translation>Lankas</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1736"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1743"/>
         <source>Spiral</source>
         <translation>Spiralė</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1737"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1744"/>
         <source>&amp;Line</source>
         <translation>&amp;Linija</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1738"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1745"/>
         <source>Calligraphic Line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1740"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1747"/>
         <source>&amp;Freehand Line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1742"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1749"/>
         <source>PDF Push Button</source>
         <translation>PDF paleidimo mygtukas</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1743"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1750"/>
         <source>PDF Radio Button</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1744"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1751"/>
         <source>PDF Text Field</source>
         <translation>PDF teksto laukas</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1745"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1752"/>
         <source>PDF Check Box</source>
         <translation>PDF žymimasis langelis</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1746"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1753"/>
         <source>PDF Combo Box</source>
         <translation>PDF parinkties akutė</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1747"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1754"/>
         <source>PDF List Box</source>
         <translation>PDF sąrašo langelis</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1748"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1755"/>
         <source>Text Annotation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1749"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1756"/>
         <source>Link Annotation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1751"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1758"/>
         <source>3D Annotation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1801"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1808"/>
         <source>Edit text in story editor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1830"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1838"/>
         <source>Enable preview mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1831"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1839"/>
         <source>Enable editing in preview mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1833"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1841"/>
         <source>Toggle color management system</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1637"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1643"/>
         <source>Edit Weld</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1703"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1709"/>
         <source>&amp;Downloads</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1704"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1710"/>
         <source>&amp;Resources</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="1779"/>
+        <location filename="../../scribus/actionmanager.cpp" line="1786"/>
         <source>Chat with the Community</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6122,12 +6132,12 @@ Išsamesnės informacijos ieškokite dokumentacijoje, skyrelyje „Edit Colors�
         <translation>Peržiūros nuostatos</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="585"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="582"/>
         <source>Paste File...</source>
         <translation>Importuoti failą...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="620"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="617"/>
         <source>Delete Page</source>
         <translation>Pašalinti puslapį</translation>
     </message>
@@ -6188,33 +6198,33 @@ Išsamesnės informacijos ieškokite dokumentacijoje, skyrelyje „Edit Colors�
         <translation>Pereiti prie sl&amp;uksnio</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="436"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="433"/>
         <source>Le&amp;vel</source>
         <translation>Per&amp;kelti objektą</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="459"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="456"/>
         <source>Conve&amp;rt to</source>
         <translation>Konve&amp;rtuoti į</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="475"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="472"/>
         <source>&amp;PDF Options</source>
         <translation>&amp;PDF parinktys</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="526"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="523"/>
         <source>Edit</source>
         <translation>Taisyti</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="512"/>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="568"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="509"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="565"/>
         <source>&amp;Paste Here</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="576"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="573"/>
         <source>Paste Recent</source>
         <translation>Padėti paskiausiai naudotą</translation>
     </message>
@@ -22467,8 +22477,8 @@ a range of pages or a single page number</source>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="174"/>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="198"/>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="330"/>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="433"/>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="506"/>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="434"/>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="507"/>
         <source>&amp;X:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22476,8 +22486,8 @@ a range of pages or a single page number</source>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="175"/>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="199"/>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="331"/>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="434"/>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="507"/>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="435"/>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="508"/>
         <source>&amp;Y:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22485,8 +22495,8 @@ a range of pages or a single page number</source>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="176"/>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="200"/>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="332"/>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="435"/>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="508"/>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="436"/>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="509"/>
         <source>&amp;W:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22494,8 +22504,8 @@ a range of pages or a single page number</source>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="177"/>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="201"/>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="333"/>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="436"/>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="509"/>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="437"/>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="510"/>
         <source>&amp;H:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22506,12 +22516,12 @@ a range of pages or a single page number</source>
         <translation>&amp;Y2:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="1463"/>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="1464"/>
         <source>Change settings for left or end points</source>
         <translation>Pakeisti kairiojo arba paskutinio taško nuostatas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="1456"/>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="1457"/>
         <source> pt</source>
         <translation> pt</translation>
     </message>
@@ -27948,18 +27958,18 @@ External Links
         <translation>Failas jau yra</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="874"/>
+        <location filename="../../scribus/scribus.cpp" line="885"/>
         <source>Document Version Warning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="875"/>
+        <location filename="../../scribus/scribus.cpp" line="886"/>
         <source>The document you are working with was created by a previous version of Scribus. Saving the current file under a newer version will render it unable to be edited by that older version. To preserve the ability to edit the file with the older version, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="2047"/>
-        <location filename="../../scribus/scribus.cpp" line="2286"/>
+        <location filename="../../scribus/scribus.cpp" line="2060"/>
+        <location filename="../../scribus/scribus.cpp" line="2299"/>
         <source>Document Template: </source>
         <translation>Dokumento šablonas: </translation>
     </message>
@@ -28574,7 +28584,7 @@ Išsamiau apie kiekvienos funkcijos galimas išimtis rasite jų aprašuose
         <translation>Ieškoma šriftų</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4015"/>
+        <location filename="../../scribus/scribus.cpp" line="4029"/>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
         <translation>Jūs neįrašėte dokumento pakeitimų ir netinate visus juos atšaukti.Ar tikrai tęsti?</translation>
     </message>
@@ -30229,12 +30239,12 @@ Todėl vaizdas gali būti nekorektiškas</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3196"/>
+        <location filename="../../scribus/scribus.cpp" line="3210"/>
         <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18627"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18629"/>
         <source>Unacceptable settings for note style</source>
         <translation type="unfinished"></translation>
     </message>
@@ -34015,63 +34025,63 @@ Jei įrašysite šia „Scribus“ versija, tai nebegalėsite atverti senesnėmi
         <location filename="../../scribus/scribusdoc.cpp" line="200"/>
         <location filename="../../scribus/scribusdoc.cpp" line="206"/>
         <location filename="../../scribus/scribusdoc.cpp" line="236"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17073"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17075"/>
         <source>Document</source>
         <translation>Dokumentas</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="442"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="444"/>
         <source>Background</source>
         <translation>Fonas</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11479"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11481"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>Negalima pašalinti naudojamų objektų</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11479"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11481"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>Objektas „%1“ šiuo metu yra pakeistas „Teksto tvarkytuvėje“. Šalinimo komanda bus atšaukta</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12292"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12294"/>
         <source>Some objects are locked.</source>
         <translation>Kai kurie objektai fiksuoti (prirakinti).</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12288"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12290"/>
         <source>&amp;Unlock All</source>
         <translation>At&amp;rakinti viską</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12289"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12291"/>
         <source>&amp;Skip locked objects</source>
         <translation>&amp;Praleisti fiksuotus (prirakintus) objektus</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="941"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="943"/>
         <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
         <translation>Atveriant ICC profilius įvyko klaida. Spalvų valdymas neleidžiamas. </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="950"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16753"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="952"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16755"/>
         <source>Adjusting Colors</source>
         <translation>Patikslinti spalvas</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9254"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9256"/>
         <source>remove direct paragraph formatting</source>
         <translation>pašalinti tiesioginį pastraipų formatavimą</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9727"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9729"/>
         <source>remove direct char formatting</source>
         <translation>pašalinti tiesioginį rašmenų formatavimą</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13957"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13959"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -34082,7 +34092,7 @@ Vertikalus poslinkis: %3
 Posūkis: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13990"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13992"/>
         <source>Number of rows: %1
 Number of columns: %2
 Horizontal gap: %3
@@ -34090,41 +34100,41 @@ Vertical gap: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="15432"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15487"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15649"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15434"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15489"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15651"/>
         <source>Group%1</source>
         <translation>Grupė %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="1545"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="1547"/>
         <source>Imported </source>
         <comment>Prefix of imported default style</comment>
         <translation>Importuotas </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="14113"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14115"/>
         <source>Copied %1 item(s) on %2 page(s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17089"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17091"/>
         <source>File %1 autosaved</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18256"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="18293"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18258"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18295"/>
         <source>No Style</source>
         <translation>Be stiliaus</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18621"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18623"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11375"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11377"/>
         <source>Do you really want to clear the content of all selected frames?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -34132,461 +34142,461 @@ Vertical gap: %4</source>
 <context>
     <name>ScribusMainWindow</name>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="403"/>
+        <location filename="../../scribus/scribus.cpp" line="406"/>
         <source>Initializing Story Editor</source>
         <translation>Inicializuojama teksto tvarkytuvė</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="411"/>
+        <location filename="../../scribus/scribus.cpp" line="414"/>
         <source>Reading Scrapbook</source>
         <translation>Skaitoma koliažinė</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3362"/>
+        <location filename="../../scribus/scribus.cpp" line="3376"/>
         <source>Fatal Error</source>
         <translation>Lemtinga klaida</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="909"/>
+        <location filename="../../scribus/scribus.cpp" line="920"/>
         <source>Open &amp;Recent</source>
         <translation>Atverti &amp;paskiausiai naudotą</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="917"/>
-        <location filename="../../scribus/scribus.cpp" line="3201"/>
+        <location filename="../../scribus/scribus.cpp" line="928"/>
+        <location filename="../../scribus/scribus.cpp" line="3215"/>
         <source>&amp;Import</source>
         <translation>&amp;Importuoti</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="924"/>
+        <location filename="../../scribus/scribus.cpp" line="935"/>
         <source>&amp;Export</source>
         <translation>&amp;Eksportuoti</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1048"/>
+        <location filename="../../scribus/scribus.cpp" line="1059"/>
         <source>Preview Settings</source>
         <translation>Peržiūros nuostatos</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1005"/>
+        <location filename="../../scribus/scribus.cpp" line="1016"/>
         <source>Level</source>
         <translation>Lygmuo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1011"/>
+        <location filename="../../scribus/scribus.cpp" line="1022"/>
         <source>Send to La&amp;yer</source>
         <translation>Pereiti prie sl&amp;uoksnio</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="2075"/>
-        <location filename="../../scribus/scribus.cpp" line="2110"/>
-        <location filename="../../scribus/scribus.cpp" line="3670"/>
-        <location filename="../../scribus/scribus.cpp" line="4111"/>
-        <location filename="../../scribus/scribus.cpp" line="4187"/>
-        <location filename="../../scribus/scribus.cpp" line="4349"/>
-        <location filename="../../scribus/scribus.cpp" line="6611"/>
-        <location filename="../../scribus/scribus.cpp" line="8557"/>
+        <location filename="../../scribus/scribus.cpp" line="2088"/>
+        <location filename="../../scribus/scribus.cpp" line="2123"/>
+        <location filename="../../scribus/scribus.cpp" line="3684"/>
+        <location filename="../../scribus/scribus.cpp" line="4125"/>
+        <location filename="../../scribus/scribus.cpp" line="4201"/>
+        <location filename="../../scribus/scribus.cpp" line="4363"/>
+        <location filename="../../scribus/scribus.cpp" line="6625"/>
+        <location filename="../../scribus/scribus.cpp" line="8571"/>
         <source>Ready</source>
         <translation>Pasirengęs</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3026"/>
-        <location filename="../../scribus/scribus.cpp" line="3142"/>
-        <location filename="../../scribus/scribus.cpp" line="3762"/>
+        <location filename="../../scribus/scribus.cpp" line="3040"/>
+        <location filename="../../scribus/scribus.cpp" line="3156"/>
+        <location filename="../../scribus/scribus.cpp" line="3776"/>
         <source>Open</source>
         <translation>Atverti</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3163"/>
+        <location filename="../../scribus/scribus.cpp" line="3177"/>
         <source>Importing Pages...</source>
         <translation>Importuojami puslapiai...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3194"/>
+        <location filename="../../scribus/scribus.cpp" line="3208"/>
         <source>Import Page(s)</source>
         <translation>Importuoti puslapį (-ius)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3240"/>
+        <location filename="../../scribus/scribus.cpp" line="3254"/>
         <source>Import done</source>
         <translation>Importavimas baigtas</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3244"/>
+        <location filename="../../scribus/scribus.cpp" line="3258"/>
         <source>Found nothing to import</source>
         <translation>Nieko nerasta importavimui</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3317"/>
+        <location filename="../../scribus/scribus.cpp" line="3331"/>
         <source>File does not exist on the specified path :
 %1</source>
         <translation>Nurodytoje vietoje failo nėra:
 %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3363"/>
+        <location filename="../../scribus/scribus.cpp" line="3377"/>
         <source>File %1 is not in an acceptable format</source>
         <translation>Failas %1 nepriimtino formato</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3398"/>
+        <location filename="../../scribus/scribus.cpp" line="3412"/>
         <source>Loading...</source>
         <translation>Keliama...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3562"/>
+        <location filename="../../scribus/scribus.cpp" line="3576"/>
         <source> was replaced by: </source>
         <translation> bus pakeisti šiais:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3592"/>
+        <location filename="../../scribus/scribus.cpp" line="3606"/>
         <source>(converted)</source>
         <translation>(konvertuotas)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3954"/>
+        <location filename="../../scribus/scribus.cpp" line="3968"/>
         <source>Filename and Path for Image</source>
         <translation>Paveikslo failo vardas ir kelias</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3954"/>
+        <location filename="../../scribus/scribus.cpp" line="3968"/>
         <source>All Files (*)</source>
         <translation>Visi failai (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4047"/>
-        <location filename="../../scribus/scribus.cpp" line="4106"/>
-        <location filename="../../scribus/scribus.cpp" line="7058"/>
-        <location filename="../../scribus/scribus.cpp" line="7222"/>
+        <location filename="../../scribus/scribus.cpp" line="4061"/>
+        <location filename="../../scribus/scribus.cpp" line="4120"/>
+        <location filename="../../scribus/scribus.cpp" line="7072"/>
         <location filename="../../scribus/scribus.cpp" line="7236"/>
+        <location filename="../../scribus/scribus.cpp" line="7250"/>
         <source>Cannot write the file: 
 %1</source>
         <translation>Negalima įrašyti failo:
 %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4091"/>
-        <location filename="../../scribus/scribus.cpp" line="7047"/>
+        <location filename="../../scribus/scribus.cpp" line="4105"/>
+        <location filename="../../scribus/scribus.cpp" line="7061"/>
         <source>Save As</source>
         <translation>Įrašyti kitaip</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4120"/>
+        <location filename="../../scribus/scribus.cpp" line="4134"/>
         <source>Saving...</source>
         <translation>Įrašoma...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4252"/>
-        <location filename="../../scribus/scribus.cpp" line="6726"/>
-        <location filename="../../scribus/scribus.cpp" line="6803"/>
-        <location filename="../../scribus/scribus.cpp" line="6875"/>
+        <location filename="../../scribus/scribus.cpp" line="4266"/>
+        <location filename="../../scribus/scribus.cpp" line="6740"/>
+        <location filename="../../scribus/scribus.cpp" line="6817"/>
+        <location filename="../../scribus/scribus.cpp" line="6889"/>
         <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
         <translation>„Scribus“ aptiko keletą klaidų. Priešspauspaustuvinis tikrintuvas padės jas ištaisyti</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4287"/>
+        <location filename="../../scribus/scribus.cpp" line="4301"/>
         <source>Printing...</source>
         <translation>Spausdinama...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1254"/>
-        <location filename="../../scribus/scribus.cpp" line="2138"/>
-        <location filename="../../scribus/scribus.cpp" line="4291"/>
-        <location filename="../../scribus/scribus.cpp" line="7026"/>
-        <location filename="../../scribus/scribus.cpp" line="8289"/>
+        <location filename="../../scribus/scribus.cpp" line="1265"/>
+        <location filename="../../scribus/scribus.cpp" line="2151"/>
+        <location filename="../../scribus/scribus.cpp" line="4305"/>
+        <location filename="../../scribus/scribus.cpp" line="7040"/>
+        <location filename="../../scribus/scribus.cpp" line="8303"/>
         <source>Document</source>
         <translation>Dokumentas</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4337"/>
+        <location filename="../../scribus/scribus.cpp" line="4351"/>
         <source>Printing failed!</source>
         <translation>Spausdinimas nepavyko!</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4427"/>
+        <location filename="../../scribus/scribus.cpp" line="4441"/>
         <source>Cannot Cut In-Use Item</source>
         <translation>Negalima iškirpti naudojamo objekto</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4427"/>
+        <location filename="../../scribus/scribus.cpp" line="4441"/>
         <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
         <translation>Objektas „%1“ šiuo metu yra pakeistas „Teksto tvarkytuvėje“. Iškirpimo komanda bus atšaukta</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5046"/>
+        <location filename="../../scribus/scribus.cpp" line="5060"/>
         <source>About Qt</source>
         <translation>Apie „Qt“</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5077"/>
+        <location filename="../../scribus/scribus.cpp" line="5091"/>
         <source>Scribus Manual</source>
         <translation>„Scribus“ vadovas</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6168"/>
+        <location filename="../../scribus/scribus.cpp" line="6182"/>
         <source>&amp;Size:</source>
         <translation>&amp;Dydis:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1582"/>
-        <location filename="../../scribus/scribus.cpp" line="6168"/>
+        <location filename="../../scribus/scribus.cpp" line="1594"/>
+        <location filename="../../scribus/scribus.cpp" line="6182"/>
         <source>Size</source>
         <translation>Dydis</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6597"/>
+        <location filename="../../scribus/scribus.cpp" line="6611"/>
         <source>An error occurred while opening monitor profile.
 Former monitor profile will be used.</source>
         <translation>Monitoriaus profilio atvėrimo klaida.
 Bus naudojamas senas profilis.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6993"/>
+        <location filename="../../scribus/scribus.cpp" line="7007"/>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
         <translation>„Scribus“ aptiko keletą klaidų.
 Priešspauspaustuvinis tikrintuvas padės jas ištaisyti.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7089"/>
+        <location filename="../../scribus/scribus.cpp" line="7103"/>
         <source>Detected some errors.
 Consider using the Preflight Verifier to correct them</source>
         <translation>Aptikta keletas klaidų.
 Priešspauspaustuvinis tikrintuvas padės jas ištaisyti</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7218"/>
+        <location filename="../../scribus/scribus.cpp" line="7232"/>
         <source>-Page%1</source>
         <translation>-Puslapis%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7762"/>
+        <location filename="../../scribus/scribus.cpp" line="7776"/>
         <source>Some objects are locked.</source>
         <translation>Kai kurie objektai fiksuoti (prirakinti).</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7758"/>
+        <location filename="../../scribus/scribus.cpp" line="7772"/>
         <source>&amp;Lock All</source>
         <translation>&amp;Prirakinti visus</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7250"/>
+        <location filename="../../scribus/scribus.cpp" line="7264"/>
         <source>Locate your PDF viewer</source>
         <translation>Nurodyti PDF žiūryklės vietą</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7759"/>
+        <location filename="../../scribus/scribus.cpp" line="7773"/>
         <source>&amp;Unlock All</source>
         <translation>At&amp;rakinti viską</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3872"/>
-        <location filename="../../scribus/scribus.cpp" line="8754"/>
+        <location filename="../../scribus/scribus.cpp" line="3886"/>
+        <location filename="../../scribus/scribus.cpp" line="8768"/>
         <source>Do you really want to replace your existing image?</source>
         <translation>Ar tikrai norite nori pakeisti turimą paveikslą?</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="961"/>
+        <location filename="../../scribus/scribus.cpp" line="972"/>
         <source>Contents</source>
         <translation>Turinys</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1123"/>
+        <location filename="../../scribus/scribus.cpp" line="1134"/>
         <source>&amp;Character</source>
         <translation>&amp;Specialusis simbolis</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1144"/>
+        <location filename="../../scribus/scribus.cpp" line="1155"/>
         <source>&amp;Quote</source>
         <translation>&amp;Kabutės</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1186"/>
+        <location filename="../../scribus/scribus.cpp" line="1197"/>
         <source>Liga&amp;ture</source>
         <translation>Liga&amp;tūros</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="959"/>
+        <location filename="../../scribus/scribus.cpp" line="970"/>
         <source>Paste Recent</source>
         <translation>Padėti paskiausiai naudotą</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3784"/>
+        <location filename="../../scribus/scribus.cpp" line="3798"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Ar tikrai norite pašalinti visą tekstą?</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3559"/>
+        <location filename="../../scribus/scribus.cpp" line="3573"/>
         <source>Some color profiles used by this document are not installed:</source>
         <translation>Kai kurie šiame dokumente naudojami profiliai neįdiegti:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7047"/>
+        <location filename="../../scribus/scribus.cpp" line="7061"/>
         <source>%1;;All Files (*)</source>
         <translation>%1;;Visi failai (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="387"/>
+        <location filename="../../scribus/scribus.cpp" line="390"/>
         <source>Applying User Shortcuts</source>
         <translation>Taikoma klaviatūros sparčiosioms komandoms</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6633"/>
+        <location filename="../../scribus/scribus.cpp" line="6647"/>
         <source>Updating Images</source>
         <translation>Atnaujinami paveikslai</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4045"/>
-        <location filename="../../scribus/scribus.cpp" line="4104"/>
+        <location filename="../../scribus/scribus.cpp" line="4059"/>
+        <location filename="../../scribus/scribus.cpp" line="4118"/>
         <source>Your document was saved to a temporary file and could not be moved: 
 %1</source>
         <translation>Jūsų dokumentas įrašytas į laikiną failą ir jo negalima perkelti: 
 %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4400"/>
+        <location filename="../../scribus/scribus.cpp" line="4414"/>
         <source>Print engine initialization failed</source>
         <translation>Nepavyko inicializuoti spausdinimo sistemos</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="2999"/>
+        <location filename="../../scribus/scribus.cpp" line="3013"/>
         <source>All Supported Formats</source>
         <translation>Visi palaikomi formatai</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9031"/>
-        <location filename="../../scribus/scribus.cpp" line="9110"/>
+        <location filename="../../scribus/scribus.cpp" line="9045"/>
+        <location filename="../../scribus/scribus.cpp" line="9124"/>
         <source>&amp;Name:</source>
         <translation>Pa&amp;vadinimas:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9031"/>
-        <location filename="../../scribus/scribus.cpp" line="9110"/>
+        <location filename="../../scribus/scribus.cpp" line="9045"/>
+        <location filename="../../scribus/scribus.cpp" line="9124"/>
         <source>New Entry</source>
         <translation>Naujas įrašas</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6767"/>
+        <location filename="../../scribus/scribus.cpp" line="6781"/>
         <source>Ghostscript is missing : PostScript Print Preview is not available</source>
         <translation>Nėra „Ghostscript“: postskriptinio spausdinimo peržiūra negalima</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3348"/>
+        <location filename="../../scribus/scribus.cpp" line="3362"/>
         <source>Document is already opened</source>
         <translation>Dokumentas jau atvertas</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3364"/>
+        <location filename="../../scribus/scribus.cpp" line="3378"/>
         <source>The file may be damaged or may have been produced in a later version of Scribus.</source>
         <translation>Failas pažeistas arba sukurtas naujesne programa „Scribus“.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7513"/>
+        <location filename="../../scribus/scribus.cpp" line="7527"/>
         <source>Editing Symbol: %1</source>
         <translation>Redaguojamas simbolis: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1536"/>
+        <location filename="../../scribus/scribus.cpp" line="1548"/>
         <source>Unknown</source>
         <translation>Nežinomas</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1587"/>
+        <location filename="../../scribus/scribus.cpp" line="1599"/>
         <source>%1 Objects selected, Selection Size = %2 x %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="407"/>
+        <location filename="../../scribus/scribus.cpp" line="410"/>
         <source>Initializing Languages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="668"/>
+        <location filename="../../scribus/scribus.cpp" line="671"/>
         <source>All Supported Formats (%1);;%2All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1093"/>
-        <location filename="../../scribus/scribus.cpp" line="1199"/>
+        <location filename="../../scribus/scribus.cpp" line="1104"/>
+        <location filename="../../scribus/scribus.cpp" line="1210"/>
         <source>Marks</source>
         <translation>Žymos</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9532"/>
-        <location filename="../../scribus/scribus.cpp" line="9797"/>
+        <location filename="../../scribus/scribus.cpp" line="9546"/>
+        <location filename="../../scribus/scribus.cpp" line="9811"/>
         <source>Anchor mark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9540"/>
-        <location filename="../../scribus/scribus.cpp" line="9810"/>
+        <location filename="../../scribus/scribus.cpp" line="9554"/>
+        <location filename="../../scribus/scribus.cpp" line="9824"/>
         <source>Mark with &lt;%1&gt; variable text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9548"/>
-        <location filename="../../scribus/scribus.cpp" line="9849"/>
+        <location filename="../../scribus/scribus.cpp" line="9562"/>
+        <location filename="../../scribus/scribus.cpp" line="9863"/>
         <source>Mark to %1 item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9558"/>
-        <location filename="../../scribus/scribus.cpp" line="9870"/>
+        <location filename="../../scribus/scribus.cpp" line="9572"/>
+        <location filename="../../scribus/scribus.cpp" line="9884"/>
         <source>Mark to %1 mark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="991"/>
+        <location filename="../../scribus/scribus.cpp" line="1002"/>
         <source>Duplicate/Transform</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="397"/>
+        <location filename="../../scribus/scribus.cpp" line="400"/>
         <source>Initializing Workspaces</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="939"/>
+        <location filename="../../scribus/scribus.cpp" line="950"/>
         <source>&amp;Output Preview</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="996"/>
+        <location filename="../../scribus/scribus.cpp" line="1007"/>
         <source>Grouping</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1001"/>
+        <location filename="../../scribus/scribus.cpp" line="1012"/>
         <source>Locking</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1013"/>
+        <location filename="../../scribus/scribus.cpp" line="1024"/>
         <source>Send to</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1015"/>
+        <location filename="../../scribus/scribus.cpp" line="1026"/>
         <source>Scrapbook</source>
         <translation>Koliažinė</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1029"/>
+        <location filename="../../scribus/scribus.cpp" line="1040"/>
         <source>Adjust</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1042"/>
+        <location filename="../../scribus/scribus.cpp" line="1053"/>
         <source>Image</source>
         <translation>Paveikslas</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1080"/>
+        <location filename="../../scribus/scribus.cpp" line="1091"/>
         <source>P&amp;DF Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1075"/>
+        <location filename="../../scribus/scribus.cpp" line="1086"/>
         <source>Text Frame Links</source>
         <translation type="unfinished"></translation>
     </message>
@@ -34595,166 +34605,166 @@ Priešspauspaustuvinis tikrintuvas padės jas ištaisyti</translation>
         <translation type="vanished">Apybrėžų įrankiai</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1088"/>
+        <location filename="../../scribus/scribus.cpp" line="1099"/>
         <source>Welding</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1055"/>
+        <location filename="../../scribus/scribus.cpp" line="1066"/>
         <source>Text Features</source>
         <comment>Item</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1034"/>
+        <location filename="../../scribus/scribus.cpp" line="1045"/>
         <source>Shape &amp;&amp; Paths</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1170"/>
+        <location filename="../../scribus/scribus.cpp" line="1181"/>
         <source>S&amp;paces &amp;&amp; Breaks</source>
         <translation>&amp;Tarpai ir pabaigos (lūžiai)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1227"/>
+        <location filename="../../scribus/scribus.cpp" line="1238"/>
         <source>Zoom</source>
         <translation>Didinti/mažinti</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1236"/>
+        <location filename="../../scribus/scribus.cpp" line="1247"/>
         <source>Preview</source>
         <translation>Peržiūra</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1245"/>
+        <location filename="../../scribus/scribus.cpp" line="1256"/>
         <source>Text Frames</source>
         <translation>Teksto rėmelis</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1251"/>
+        <location filename="../../scribus/scribus.cpp" line="1262"/>
         <source>Image Frames</source>
         <translation>Paveikslo rėmelis</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1260"/>
+        <location filename="../../scribus/scribus.cpp" line="1271"/>
         <source>Grids and Guides</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1410"/>
+        <location filename="../../scribus/scribus.cpp" line="1422"/>
         <source> %</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1451"/>
-        <location filename="../../scribus/scribus.cpp" line="8553"/>
+        <location filename="../../scribus/scribus.cpp" line="1463"/>
+        <location filename="../../scribus/scribus.cpp" line="8567"/>
         <source>X:</source>
         <translation>X:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1453"/>
-        <location filename="../../scribus/scribus.cpp" line="8554"/>
+        <location filename="../../scribus/scribus.cpp" line="1465"/>
+        <location filename="../../scribus/scribus.cpp" line="8568"/>
         <source>Y:</source>
         <translation>Y:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3348"/>
+        <location filename="../../scribus/scribus.cpp" line="3362"/>
         <source>This document is already open. It will be set as the active document.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5154"/>
+        <location filename="../../scribus/scribus.cpp" line="5168"/>
         <source>Text Files (*.txt);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5154"/>
+        <location filename="../../scribus/scribus.cpp" line="5168"/>
         <source>Save as</source>
         <translation>Įrašyti kitaip</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6181"/>
+        <location filename="../../scribus/scribus.cpp" line="6195"/>
         <source>&amp;Language:</source>
         <translation>Ka&amp;lba:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6181"/>
+        <location filename="../../scribus/scribus.cpp" line="6195"/>
         <source>Language</source>
         <translation>Kalba</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7564"/>
+        <location filename="../../scribus/scribus.cpp" line="7578"/>
         <source>Editing Inline Item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8399"/>
+        <location filename="../../scribus/scribus.cpp" line="8413"/>
         <source>The program %1 is missing or failed to open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8547"/>
+        <location filename="../../scribus/scribus.cpp" line="8561"/>
         <source>Current zoom level</source>
         <translation>Dabartinis mastelis</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8548"/>
+        <location filename="../../scribus/scribus.cpp" line="8562"/>
         <source>Zoom to 100%</source>
         <translation>Padidinti iki 100%</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8549"/>
+        <location filename="../../scribus/scribus.cpp" line="8563"/>
         <source>Zoom out by the stepping value in Tools preferences</source>
         <translation>Mažinti pažingsniui imant įrankių ypatybėse nurodytas mastelio reikšmes</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8550"/>
+        <location filename="../../scribus/scribus.cpp" line="8564"/>
         <source>Zoom in by the stepping value in Tools preferences</source>
         <translation>Didinti pažingsniui imant įrankių ypatybėse nurodytas mastelio reikšmes</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8551"/>
+        <location filename="../../scribus/scribus.cpp" line="8565"/>
         <source>Select the current layer</source>
         <translation>Pasirink aktyvų sluoksnį</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8552"/>
+        <location filename="../../scribus/scribus.cpp" line="8566"/>
         <source>Select the current unit</source>
         <translation>Pasirink dabartinį matavimo vienetą</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9506"/>
+        <location filename="../../scribus/scribus.cpp" line="9520"/>
         <source>Insert New </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9581"/>
-        <location filename="../../scribus/scribus.cpp" line="9892"/>
+        <location filename="../../scribus/scribus.cpp" line="9595"/>
+        <location filename="../../scribus/scribus.cpp" line="9906"/>
         <source>Index mark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9777"/>
+        <location filename="../../scribus/scribus.cpp" line="9791"/>
         <source>Edit %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1021"/>
+        <location filename="../../scribus/scribus.cpp" line="1032"/>
         <source>C&amp;onvert to</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1582"/>
+        <location filename="../../scribus/scribus.cpp" line="1594"/>
         <source>%1 selected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3200"/>
+        <location filename="../../scribus/scribus.cpp" line="3214"/>
         <source>C&amp;reate</source>
         <translation>Suku&amp;rti</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1240"/>
+        <location filename="../../scribus/scribus.cpp" line="1251"/>
         <source>Measurement</source>
         <translation type="unfinished"></translation>
     </message>
