@@ -7,7 +7,11 @@ else()
   find_package(QT NAMES Qt6 Qt5 COMPONENTS Core REQUIRED)
 endif()
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Gui Widgets REQUIRED)
+
 if (UNIX AND NOT APPLE)
+    if(DEFINED Qt6Gui_VERSION AND (Qt6Gui_VERSION VERSION_GREATER_EQUAL 6.10))
+        find_package(Qt6 COMPONENTS GuiPrivate REQUIRED)
+    endif()
     include_directories(${Qt${QT_VERSION_MAJOR}Gui_PRIVATE_INCLUDE_DIRS})
 endif()
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -85,6 +89,10 @@ target_link_libraries(${library_name} PUBLIC Qt${QT_VERSION_MAJOR}::Core
                                                Qt${QT_VERSION_MAJOR}::Gui 
                                                Qt${QT_VERSION_MAJOR}::Widgets)
 if (UNIX AND NOT APPLE)
+  if(Qt6GuiPrivate_FOUND)
+      target_link_libraries(${library_name} PUBLIC Qt6::GuiPrivate)
+  endif()
+
   if (${CMAKE_SYSTEM_NAME} MATCHES "FreeBSD")
       find_package(X11 REQUIRED)
       target_link_libraries(${library_name} PUBLIC X11::xcb)
