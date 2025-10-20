@@ -584,8 +584,6 @@ void CanvasMode_NodeEdit::keyPressEvent(QKeyEvent *e)
 	commonkeyPressEvent_NormalNodeEdit(e);
 
 	int kk = e->key();
-//	Qt::KeyboardModifiers buttonModifiers = e->modifiers();
-//	ScribusMainWindow* mainWindow = m_view->m_ScMW;
 	PageItem* currItem = m_doc->m_Selection->itemAt(0);
 
 	if (kk == Qt::Key_Delete || kk == Qt::Key_Backspace)

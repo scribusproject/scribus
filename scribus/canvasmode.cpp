@@ -1655,7 +1655,7 @@ void CanvasMode::commonkeyReleaseEvent(QKeyEvent *e)
 		m_view->requestMode(modeNormal);
 	if ((m_doc->appMode == modeMagnifier) && (e->key() == Qt::Key_Shift))
 		m_view->setCursor(IconManager::instance().loadCursor("cursor-zoom-in"));
-	if (e->isAutoRepeat() || !m_arrowKeyDown)
+	if (e->isAutoRepeat())
 		return;
 	switch(e->key())
 	{
@@ -1663,29 +1663,45 @@ void CanvasMode::commonkeyReleaseEvent(QKeyEvent *e)
 		case Qt::Key_Right:
 		case Qt::Key_Up:
 		case Qt::Key_Down:
-			m_arrowKeyDown = false;
-			if ((!m_view->m_ScMW->zoomSpinBox->hasFocus()) && (!m_view->m_ScMW->pageSelector->hasFocus()))
+			if (m_arrowKeyDown)
 			{
-				int docSelectionCount = m_doc->m_Selection->count();
-				if ((docSelectionCount != 0) && (m_doc->appMode == modeEditClip) && (m_doc->nodeEdit.hasNodeSelected()))
+				m_arrowKeyDown = false;
+				if ((!m_view->m_ScMW->zoomSpinBox->hasFocus()) && (!m_view->m_ScMW->pageSelector->hasFocus()))
 				{
-					PageItem *currItem = m_doc->m_Selection->itemAt(0);
-					double xposOrig = currItem->xPos();
-					double yposOrig = currItem->yPos();
-					m_doc->adjustItemSize(currItem, true);
-					if (!m_doc->nodeEdit.isContourLine())
-						currItem->ContourLine.translate(xposOrig - currItem->xPos(),yposOrig - currItem->yPos());
-					m_doc->nodeEdit.finishTransaction(currItem);
-					currItem->update();
-					m_doc->regionsChanged()->update(currItem->getVisualBoundingRect());					
+					int docSelectionCount = m_doc->m_Selection->count();
+					if ((docSelectionCount != 0) && (m_doc->appMode == modeEditClip) && (m_doc->nodeEdit.hasNodeSelected()))
+					{
+						PageItem *currItem = m_doc->m_Selection->itemAt(0);
+						double xposOrig = currItem->xPos();
+						double yposOrig = currItem->yPos();
+						m_doc->adjustItemSize(currItem, true);
+						if (!m_doc->nodeEdit.isContourLine())
+							currItem->ContourLine.translate(xposOrig - currItem->xPos(), yposOrig - currItem->yPos());
+						m_doc->nodeEdit.finishTransaction(currItem);
+						currItem->update();
+						m_doc->regionsChanged()->update(currItem->getVisualBoundingRect());
+					}
+					for (int i = 0; i < docSelectionCount; ++i)
+						m_doc->m_Selection->itemAt(i)->checkChanges(true);
+					if (docSelectionCount > 1 && m_view->groupTransactionStarted())
+						m_view->endGroupTransaction();
+					m_doc->changedPagePreview();
 				}
-				for (int i = 0; i < docSelectionCount; ++i)
-					m_doc->m_Selection->itemAt(i)->checkChanges(true);
-				if (docSelectionCount > 1 && m_view->groupTransactionStarted())
-					m_view->endGroupTransaction();
-				m_doc->changedPagePreview();
 			}
 			break;
+		case Qt::Key_Delete:
+		case Qt::Key_Backspace:
+			if (!m_view->m_ScMW->zoomSpinBox->hasFocus() && !m_view->m_ScMW->pageSelector->hasFocus())
+			{
+				int docSelectionCount = m_doc->m_Selection->count();
+				if (docSelectionCount != 0 && m_doc->appMode == modeEditClip)
+				{
+					PageItem* currItem = m_doc->m_Selection->itemAt(0);
+					m_doc->nodeEdit.finishTransaction(currItem);
+				}
+			}
+			break;
+
 	}
 }
 
