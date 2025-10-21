@@ -25,7 +25,6 @@ for which a new license (GPL+exception) is in place.
 #define DOWNLOADSPALETTE_H
 
 #include "scribusapi.h"
-#include "scribusstructs.h"
 #include "ui/scrpalettebase.h"
 #include "ui_downloadspalettebase.h"
 
