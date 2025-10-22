@@ -24,23 +24,14 @@ for which a new license (GPL+exception) is in place.
 #include <QDebug>
 
 Selection::Selection(QObject* parent) :
-	QObject(parent),
-	m_isGUISelection(false),
-	m_delaySignals(0),
-	m_sigSelectionChanged(false)
+	QObject(parent)
 {
-	m_groupX   = m_groupY   = m_groupW   = m_groupH   = 0;
-	m_visualGX = m_visualGY = m_visualGW = m_visualGH = 0;
 }
 
 Selection::Selection(QObject* parent, bool guiSelection) :
 	QObject(parent),
-	m_isGUISelection(guiSelection),
-	m_delaySignals(0),
-	m_sigSelectionChanged(false)
+	m_isGUISelection(guiSelection)
 {
-	m_groupX   = m_groupY   = m_groupW   = m_groupH   = 0;
-	m_visualGX = m_visualGY = m_visualGW = m_visualGH = 0;
 }
 
 Selection::Selection(const Selection& other) :
