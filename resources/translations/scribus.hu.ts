@@ -833,7 +833,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1710"/>
         <source>Document &amp;Log</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumentumnapló</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1712"/>
@@ -949,7 +949,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1828"/>
         <source>Display logged warnings and errors from editing activities</source>
-        <translation type="unfinished"></translation>
+        <translation>A szerkesztési tevékenységek során naplózott figyelmeztetések és hibák megjelenítése</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1855"/>
