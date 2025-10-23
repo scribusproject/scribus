@@ -879,7 +879,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1714"/>
         <source>Document &amp;Log</source>
-        <translation type="unfinished"></translation>
+        <translation> گزارش رویدادهای سند</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1716"/>
@@ -910,17 +910,17 @@
         <location filename="../../scribus/actionmanager.cpp" line="1725"/>
         <location filename="../../scribus/actionmanager.cpp" line="1837"/>
         <source>Zoom in or out</source>
-        <translation>بزرگ یا کوچک کردن نمایش</translation>
+        <translation>زوم به‌نزدیک یا زوم به‌دور</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1726"/>
         <source>Zoom in</source>
-        <translation>بزرگ&#x202f;نمایی</translation>
+        <translation>زوم به‌نزدیک</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1727"/>
         <source>Zoom out</source>
-        <translation>دورنمایی</translation>
+        <translation>زوم به‌دور</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1728"/>
@@ -955,7 +955,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1734"/>
         <source>Copy Item Properties</source>
-        <translation>کپی کردن مشخصات شیٔ</translation>
+        <translation>کپی کردن مشخصات شیء</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1762"/>
@@ -995,7 +995,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1833"/>
         <source>Display logged warnings and errors from editing activities</source>
-        <translation type="unfinished"></translation>
+        <translation>نمایش هشدارها و خطاهای ثبت‌شدهٔ مربوط به فعالیت‌های ویرایش</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1840"/>
@@ -1590,7 +1590,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1868"/>
         <source>Number of Pages</source>
-        <translation>شماره صفحات</translation>
+        <translation>تعداد صفحات</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1620"/>
@@ -1605,7 +1605,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2050"/>
         <source>&amp;File</source>
-        <translation>&amp;فایل</translation>
+        <translation>فایل</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2052"/>
@@ -1615,7 +1615,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2052"/>
         <source>&amp;Edit</source>
-        <translation>&amp;ویرایش</translation>
+        <translation>ویرایش</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2054"/>
@@ -1625,17 +1625,17 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2054"/>
         <source>&amp;Style</source>
-        <translation>&amp;استایل</translation>
+        <translation>استایل</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2056"/>
         <source>Item</source>
-        <translation>شیٔ</translation>
+        <translation>شیء</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2056"/>
         <source>&amp;Item</source>
-        <translation>&amp;شیٔ</translation>
+        <translation>شیء</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2058"/>
@@ -1740,17 +1740,17 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1608"/>
         <source>Delete Rows</source>
-        <translation>حذف ردیف&#x202f;ها</translation>
+        <translation>حذف ردیف‌ها</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1609"/>
         <source>Delete Columns</source>
-        <translation>حذف ستون&#x202f;ها</translation>
+        <translation>حذف ستون‌ها</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1610"/>
         <source>Merge Cells</source>
-        <translation>ادغام سلول&#x202f;ها</translation>
+        <translation>ادغام سلول‌ها</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1611"/>
@@ -1815,7 +1815,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1650"/>
         <source>Anchor Mark</source>
-        <translation>نشانهٔ قلاب</translation>
+        <translation>مارک لنگر</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1651"/>
@@ -1835,7 +1835,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1654"/>
         <source>Foot/Endnote</source>
-        <translation>فوت‌نوت/اندتوت</translation>
+        <translation>پانوشت/یادداشت پایانی</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1656"/>
@@ -1845,7 +1845,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1657"/>
         <source>Update Marks</source>
-        <translation>بروزرسانی برچسب‌ها</translation>
+        <translation>بروزرسانی مارک‌ها</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1697"/>
@@ -1886,7 +1886,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2064"/>
         <source>&amp;Table</source>
-        <translation>&amp;جدول</translation>
+        <translation>جدول</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1794"/>
@@ -2136,7 +2136,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1720"/>
         <source>&amp;View Tools</source>
-        <translation>&amp;نمایش ابزارها</translation>
+        <translation>نمایش ابزارها</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1738"/>
@@ -2146,12 +2146,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1739"/>
         <source>T&amp;able</source>
-        <translation>&amp;جدول</translation>
+        <translation>جدول</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1740"/>
         <source>&amp;Shape</source>
-        <translation>&amp;شکل</translation>
+        <translation>شکل</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1742"/>
@@ -2166,7 +2166,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1744"/>
         <source>&amp;Line</source>
-        <translation>&amp;خط</translation>
+        <translation>خط</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1745"/>
@@ -2176,7 +2176,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1747"/>
         <source>&amp;Freehand Line</source>
-        <translation>&amp;خط کشیده شد با دست</translation>
+        <translation>خط کشیده‌شده با دست</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1749"/>
@@ -2216,12 +2216,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1756"/>
         <source>Link Annotation</source>
-        <translation>شرح&#x202f;گزاری لینک</translation>
+        <translation>حاشیه‌نویسی لینک</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1758"/>
         <source>3D Annotation</source>
-        <translation>شرح&#x202f;گزاری 3D</translation>
+        <translation>حاشیه‌نویسی 3D</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1808"/>
@@ -3613,7 +3613,7 @@ It is a reserved name for transparent color</source>
         <location filename="../../scribus/ui/cmykfw.cpp" line="837"/>
         <location filename="../../scribus/ui/cmykfw.cpp" line="838"/>
         <source>If color management is enabled, an exclamation mark indicates that the color may be outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management.</source>
-        <translation> اگر مدیریت رنگ فعال باشد، یک علامت تعجب نشان می‌دهد که ممکن است رنگ خارج از گسترهٔ رنگ پروفایل چاپگر فعلی انتخاب‌شده باشد. این به این معناست که رنگ ممکن است دقیقاً همان‌طور که روی صفحه نمایش داده می‌شود چاپ نشود. راهنمایی‌های بیشتری دربارهٔ هشدارهای گسترهٔ رنگ در راهنمای آنلاین بخش مدیریت رنگ موجود است.</translation>
+        <translation> اگر مدیریت رنگ فعال باشد، یک علامت تعجب نشان می‌دهد که ممکن است رنگ خارج از طیف رنگ پروفایل چاپگر فعلی انتخاب‌شده باشد. این به این معناست که رنگ ممکن است دقیقاً همان‌طور که روی صفحه نمایش داده می‌شود چاپ نشود. راهنمایی‌های بیشتری دربارهٔ هشدارهای طیف رنگ در راهنمای آنلاین بخش مدیریت رنگ موجود است.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="1132"/>
@@ -4662,7 +4662,7 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="450"/>
         <source>After Marks update document was changed</source>
-        <translation>بعد از بروزرسانی برچسب‌ها داکیومنت تغییر کرده است</translation>
+        <translation>بعد از بروزرسانی مارک‌ها سند تغییر کرده است</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="498"/>
@@ -5096,7 +5096,7 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../scribus/ui/colorsandfillsbase.ui" line="38"/>
         <source>If color management is enabled, an exclamation mark indicates that the color may be outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. More hints about gamut warnings are in the online help under Color Management. Registration colors will have a registration mark next to the color. Use Registration only for printers marks and crop marks.</source>
-        <translation> اگر مدیریت رنگ فعال باشد، یک علامت تعجب نشان می‌دهد که ممکن است رنگ خارج از گسترهٔ رنگ پروفایل چاپگر فعلیِ انتخاب‌شده باشد؛ یعنی رنگ ممکن است دقیقاً همان‌طور که روی صفحه دیده می‌شود چاپ نشود. رنگ‌های اسپات با یک دایرهٔ قرمز مشخص می‌شوند. راهنمایی‌های بیشتر دربارهٔ هشدارهای گسترهٔ رنگ در راهنمای آنلاینِ بخش «مدیریت رنگ» موجود است. رنگ‌های رجیستریشن کنار خود علامت رجیستریشن دارند. از «رجیستریشن» فقط برای علائم چاپگر و برش استفاده کنید.</translation>
+        <translation> اگر مدیریت رنگ فعال باشد، یک علامت تعجب نشان می‌دهد که ممکن است رنگ خارج از طیف رنگ پروفایل چاپگر فعلیِ انتخاب‌شده باشد؛ یعنی رنگ ممکن است دقیقاً همان‌طور که روی صفحه دیده می‌شود چاپ نشود. رنگ‌های اسپات با یک دایرهٔ قرمز مشخص می‌شوند. راهنمایی‌های بیشتر دربارهٔ هشدارهای طیف رنگ در راهنمای آنلاینِ بخش مدیریت رنگ موجود است. رنگ‌های تنظیم چاپ کنار خود علائم چاپگرها را دارند. از تنظیم چاپ «رجیستریشن» فقط برای علائم چاپگر و برش استفاده کنید.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorsandfillsbase.ui" line="45"/>
@@ -6178,7 +6178,7 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/ui/contextmenu.cpp" line="222"/>
         <source>Insert Mark</source>
-        <translation>درج نشانه</translation>
+        <translation>درج مارک</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contextmenu.cpp" line="341"/>
@@ -7360,7 +7360,7 @@ failed!</source>
         <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="128"/>
         <source>The output directory - the place to store your images.
 Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</source>
-        <translation> پوشهٔ خروجی – محلی برای ذخیرهٔ تصاویر شما.
+        <translation>پوشهٔ خروجی – محلی برای ذخیرهٔ تصاویر شما.
 نام فایل خروجی به‌صورت «documentname-pagenumber.filetype» خواهد بود.</translation>
     </message>
     <message>
@@ -7511,8 +7511,8 @@ Use 72 dpi for Images intended for the Screen</source>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number</source>
-        <translation> یک فهرست جداشده با ویرگول از نشانه‌ها وارد کنید؛
-یک نشانه می‌تواند * برای همهٔ صفحات، ‏1-5 برای یک محدودهٔ صفحات یا یک شمارهٔ صفحهٔ تکی باشد.</translation>
+        <translation> یک لیست جداشده با ویرگول از توکِن‌ها وارد کنید؛
+یک توکِن می‌تواند * برای همهٔ صفحات، ‏1-5 برای یک محدودهٔ صفحات یا یک شمارهٔ صفحهٔ تکی باشد.</translation>
     </message>
 </context>
 <context>
@@ -8241,12 +8241,12 @@ Document Liberation Project https://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="265"/>
         <source>Create the selected number of horizontal guides relative to the current page</source>
-        <translation>&#xa0;ایجاد تعداد انتخاب‌شدهٔ راهنماهای افقی نسبت به صفحهٔ جاری</translation>
+        <translation>ایجاد تعداد انتخاب‌شدهٔ خطوط راهنمای افقی نسبت به صفحهٔ فعلی</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="281"/>
         <source>Create the selected number of horizontal guides relative to the current page&apos;s margins</source>
-        <translation> ایجاد تعداد انتخاب‌شدهٔ راهنماهای افقی نسبت به حاشیه‌های صفحهٔ جاری</translation>
+        <translation>ایجاد تعداد انتخاب‌شدهٔ خطوط راهنمای افقی نسبت به حاشیه‌های صفحهٔ فعلی</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="294"/>
@@ -8256,12 +8256,12 @@ Document Liberation Project https://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="370"/>
         <source>Create the selected number of vertical guides relative to the current page</source>
-        <translation> ایجاد تعداد انتخاب‌شدهٔ راهنماهای عمودی نسبت به صفحهٔ جاری</translation>
+        <translation> ایجاد تعداد انتخاب‌شدهٔ خطوط راهنمای عمودی نسبت به صفحهٔ فعلی</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="386"/>
         <source>Create the selected number of vertical guides relative to the current page&apos;s margins</source>
-        <translation> ایجاد تعداد انتخاب‌شدهٔ راهنماهای عمودی نسبت به صفحهٔ جاری</translation>
+        <translation>ایجاد تعداد انتخاب‌شدهٔ خطوط راهنمای عمودی نسبت به صفحهٔ فعلی</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="399"/>
@@ -10591,12 +10591,12 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="87"/>
         <source>Zoom In</source>
-        <translation>زوم کردن</translation>
+        <translation>زوم به‌نزدیک</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="97"/>
         <source>Zoom Out</source>
-        <translation>فاصله گرفتن</translation>
+        <translation>زوم به‌دور</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="121"/>
@@ -10815,22 +10815,22 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/mark2mark.cpp" line="29"/>
         <source>Mark to Mark</source>
-        <translation> برچسب به برچسب</translation>
+        <translation> مارک به مارک</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/mark2mark.cpp" line="41"/>
         <source>Mark to Item</source>
-        <translation> برچسب به مورد</translation>
+        <translation> مارک به شیء</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/mark2mark.cpp" line="53"/>
         <source>Note mark</source>
-        <translation> برچسب یادداشت</translation>
+        <translation> مارک یادداشت</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/mark2mark.cpp" line="75"/>
         <source>Reference to Mark</source>
-        <translation>رفرنس به برچسب</translation>
+        <translation>رفرنس به مارک</translation>
     </message>
 </context>
 <context>
@@ -10848,7 +10848,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/mark2mark.ui" line="34"/>
         <source>Select marker:</source>
-        <translation>&#xa0;انتخاب نشانگر:</translation>
+        <translation>انتخاب مارکر:</translation>
     </message>
 </context>
 <context>
@@ -10856,7 +10856,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/markanchor.cpp" line="7"/>
         <source>Anchor Mark</source>
-        <translation>نشانهٔ قلاب</translation>
+        <translation>مارک لنگر</translation>
     </message>
 </context>
 <context>
@@ -10900,7 +10900,7 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="52"/>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="57"/>
         <source>New Mark</source>
-        <translation>برچسب جدید</translation>
+        <translation>مارک جدید</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="21"/>
@@ -10911,18 +10911,18 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="18"/>
         <source>Edit selected Mark&apos;s label. To create new Mark select &quot;New Mark&quot; in drop list and input new label.</source>
-        <translation>لیبل برچسب انتخاب‌شده را ویرایش کنید. برای ساخت برچسب جدید، «لیبل جدید» را در فهرست کشویی انتخاب کرده و لیبل جدید را وارد کنید.</translation>
+        <translation>لیبل مارک انتخاب‌شده را ویرایش کنید. برای ساخت مارک جدید، «مارک جدید» را در فهرست کشویی انتخاب کرده و لیبل جدید را وارد کنید.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="22"/>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="35"/>
         <source>Mark With Variable Text</source>
-        <translation>برچسب با نوشتار متغیر</translation>
+        <translation>مارک با نوشتار متغیر</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="31"/>
         <source>Edit selected Mark&apos;s label</source>
-        <translation>ویرایش لیبل برچسبِ انتخاب شده</translation>
+        <translation>ویرایش لیبل مارک انتخاب شده</translation>
     </message>
 </context>
 <context>
@@ -10930,7 +10930,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/markvariabletext.ui" line="20"/>
         <source>Add New Mark for Variable Text</source>
-        <translation>اضافه کردن برچسب جدید برای نوشتار متغیر</translation>
+        <translation>اضافه کردن مارک جدید برای نوشتار متغیر</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.ui" line="40"/>
@@ -10948,7 +10948,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/marksmanager.ui" line="53"/>
         <source>Update All Marks</source>
-        <translation>بروزرسانی همهٔ برچسب‌ها</translation>
+        <translation>بروزرسانی همهٔ مارک‌ها</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marksmanager.ui" line="64"/>
@@ -10973,17 +10973,17 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/marksmanager.cpp" line="106"/>
         <source>Marks to Items</source>
-        <translation> برچسب به موردها</translation>
+        <translation> مارک به شیء</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marksmanager.cpp" line="107"/>
         <source>Marks to Anchors</source>
-        <translation> برچسب به قلاب‌ها</translation>
+        <translation> مارک‌ها به لنگرها</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marksmanager.cpp" line="108"/>
         <source>Notes marks</source>
-        <translation>برچسب‌های یادداشت‌ها</translation>
+        <translation> مارک یادداشت</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marksmanager.cpp" line="109"/>
@@ -10993,22 +10993,22 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/marksmanager.ui" line="26"/>
         <source>Marks Manager</source>
-        <translation>مدیریت برچسب‌ها</translation>
+        <translation>مدیریت مارک‌ها</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marksmanager.cpp" line="154"/>
         <source>Double click to find mark in text</source>
-        <translation>برای پیدا کردن برچسب در متن دوبار کلیک کنید</translation>
+        <translation>برای پیدا کردن مارک در متن دوبار کلیک کنید</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marksmanager.cpp" line="156"/>
         <source>Edit selected mark</source>
-        <translation>ویرایش برچسبِ انتخاب شده</translation>
+        <translation>ویرایش مارک انتخاب شده</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marksmanager.cpp" line="155"/>
         <source>Update all reference texts for all marks</source>
-        <translation> بروزرسانی همهٔ متون ارجاعی برای همهٔ برچسب‌ها</translation>
+        <translation> بروزرسانی همهٔ متون ارجاعی برای همهٔ مارک‌ها</translation>
     </message>
 </context>
 <context>
@@ -11140,7 +11140,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/mergedoc.cpp" line="74"/>
         <source>Insert a comma separated list of tokens import where a token can be * for all the pages, 1-5 for a range of pages or a single page number</source>
-        <translation>درج کردن فهرستی از نشانه‌ها (tokens) که با ویرگول از هم جدا شده‌اند، در حالیکه هر توکن می‌تواند * برای همهٔ صفحات، 1-5 برای یک طیف صفحات، یا یک شمارهٔ صفحهٔ منفرد باشد.</translation>
+        <translation>درج کردن لیستی از توکِن‌ها (tokens) که با ویرگول از هم جدا شده‌اند، در حالیکه هر توکن می‌تواند * برای همهٔ صفحات، 1-5 برای یک محدودهٔ صفحه‌ها، یا یک شمارهٔ صفحهٔ منفرد باشد.</translation>
     </message>
 </context>
 <context>
@@ -11168,12 +11168,12 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.ui" line="54"/>
         <source>Zoom In</source>
-        <translation>زوم کردن</translation>
+        <translation>زوم به‌نزدیک</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.ui" line="64"/>
         <source>Zoom Out</source>
-        <translation>فاصله گرفتن</translation>
+        <translation>زوم به‌دور</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.ui" line="95"/>
@@ -12152,7 +12152,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="351"/>
         <source>You are going to delete notes style %1. All notes and marks using that style are also going to be deleted.</source>
-        <translation> در شُرف حذف استایل یادداشت %1 هستید. تمام یادداشت‌ها و برچسب‌هایی که از این استایل استفاده می‌کنند نیز حذف خواهند شد.</translation>
+        <translation> در شُرف حذف استایل یادداشت %1 هستید. تمام یادداشت‌ها و مارک‌هایی که از این استایل استفاده می‌کنند نیز حذف خواهند شد.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/notesstyleseditor.cpp" line="382"/>
@@ -12980,7 +12980,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/pdfexportdialog.cpp" line="131"/>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</source>
-        <translation>این گزینه امکان خروجی گرفتن یک فایل PDF جداگانه برای هر صفحه از سند را می‌دهد. شمارهٔ صفحات به‌طور خودکار افزوده می‌شود. این برای صفحه‌بندی PDF جهت چاپ تجاری بسیار مفید است.</translation>
+        <translation>این گزینه امکان خروجی گرفتن یک فایل PDF جداگانه برای هر صفحه از سند را می‌دهد. شمارهٔ صفحات بطور خودکار افزوده می‌شود. این برای صفحه‌بندی PDF جهت چاپ تجاری بسیار مفید است.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pdfexportdialog.cpp" line="185"/>
@@ -15287,12 +15287,12 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="704"/>
         <source>Zoom in</source>
-        <translation>زوم کردن</translation>
+        <translation>زوم به‌نزدیک</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="732"/>
         <source>Zoom out</source>
-        <translation>کم شدن زوم</translation>
+        <translation>زوم به‌دور</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="770"/>
@@ -16280,7 +16280,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="127"/>
         <source>Mark Colors out of Gamut</source>
-        <translation>&#xa0;علامت‌گذاری رنگ‌های خارج از گسترهٔ رنگی</translation>
+        <translation>علامت‌گذاری رنگ‌های خارج از طیف رنگی</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="134"/>
@@ -16564,7 +16564,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_display.cpp" line="76"/>
         <source>Display non-printing characters such as paragraph markers in text frames</source>
-        <translation>نمایش کاراکترهای غیرقابل چاپ مانند نشانگرهای پاراگراف در فریم‌های متنی</translation>
+        <translation>نمایش کاراکترهای غیرقابل چاپ مانند نشانگرهای پاراگراف در فریم‌های نوشتار</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_display.cpp" line="77"/>
@@ -16609,7 +16609,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_display.cpp" line="85"/>
         <source>Set the default zoom level</source>
-        <translation>سطح بزرگ‌نمایی پیشفرض را تنظیم کن</translation>
+        <translation>درجهٔ زوم پیشفرض را تنظیم کن</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_display.cpp" line="86"/>
@@ -17243,7 +17243,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_experimentalbase.ui" line="79"/>
         <source>Enable Notes, Marks and other related features</source>
-        <translation>یادداشت‌ها، نشان‌ها و امکانات مرتبط را فعال کن</translation>
+        <translation>یادداشت‌ها، مارک‌ها و امکانات مرتبط را فعال کن</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_experimental.cpp" line="18"/>
@@ -18587,7 +18587,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_operatortools.cpp" line="40"/>
         <source>Change in magnification for each zoom operation</source>
-        <translation>میزان تغییر بزرگ‌نمایی در هر عمل زوم</translation>
+        <translation> میزان تغییر بزرگ‌نمایی در هر عمل زوم</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_operatortools.cpp" line="41"/>
@@ -19066,7 +19066,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1737"/>
         <source>Zoom Pages to fit Viewer Window</source>
-        <translation>هم‌اندازه کردن صفحات با پنجرهٔ نمایشگر</translation>
+        <translation>زوم صفحات برای جا گرفتن در پنجرهٔ نمایشگر</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1783"/>
@@ -21381,8 +21381,8 @@ Do you want to use this?</source>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number</source>
-        <translation> یک فهرست جداشده با ویرگول از نشانه‌ها وارد کنید؛
-یک نشانه می‌تواند * برای همهٔ صفحات، ‏1-5 برای یک محدودهٔ صفحات یا یک شمارهٔ صفحهٔ تکی باشد.</translation>
+        <translation> یک لیست جداشده با ویرگول از توکِن‌ها وارد کنید؛
+یک توکِن می‌تواند * برای همهٔ صفحات، ‏1-5 برای یک محدودهٔ صفحات یا یک شمارهٔ صفحهٔ تکی باشد.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="319"/>
@@ -21956,7 +21956,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="885"/>
         <source>&amp;Marker</source>
-        <translation>نشانگر</translation>
+        <translation>مارکر</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="897"/>
@@ -22011,12 +22011,12 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="920"/>
         <source>Marker style for end of line</source>
-        <translation>استایل نشانگر برای انتهای خط</translation>
+        <translation>استایل مارکر برای انتهای خط</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="921"/>
         <source>Swap start and end markers</source>
-        <translation>تعویض ابتدا و انتهای نشاگرها</translation>
+        <translation>تعویض ابتدا و انتهای مارکرها</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="922"/>
@@ -33412,17 +33412,17 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="268"/>
         <source>Zoom View In</source>
-        <translation>بزرگنمایی</translation>
+        <translation>زوم به‌نزدیک نمای دید</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="269"/>
         <source>Zoom View Out</source>
-        <translation>کوچک‌نمایی</translation>
+        <translation>زوم به‌دور نمای دید</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="270"/>
         <source>Zoom To</source>
-        <translation>بزرگنمایی به اندازهٔ مشخص</translation>
+        <translation>زوم به</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="271"/>
@@ -34743,22 +34743,22 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/scribus.cpp" line="8561"/>
         <source>Current zoom level</source>
-        <translation>سطح زوم فعلی</translation>
+        <translation>درجهٔ زوم فعلی</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="8562"/>
         <source>Zoom to 100%</source>
-        <translation>بزرگ‌نمایی به 100%</translation>
+        <translation>زوم به 100%</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="8563"/>
         <source>Zoom out by the stepping value in Tools preferences</source>
-        <translation>کوچک‌نمایی بر اساس مقدار گام در تنظیمات ابزارها</translation>
+        <translation>زوم به‌دور بر اساس مقدار گام در تنظیمات ابزارها</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="8564"/>
         <source>Zoom in by the stepping value in Tools preferences</source>
-        <translation>بزرگنمایی بر اساس مقدار گام در تنظیمات ابزارها</translation>
+        <translation>زوم به‌نزدیک بر اساس مقدار گام در تنظیمات ابزارها</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="8565"/>
@@ -37646,7 +37646,7 @@ when PDF document is opened:</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="200"/>
         <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number</source>
-        <translation>فهرستی از توکِن‌های جداشده با ویرگول درج کنید؛ در حالیکه یک توکِن میتواند * برای همهٔ صفحات، 1-5 برای یک محدوده، یا یک شمارهٔ صفحهٔ منفرد باشد</translation>
+        <translation>لیستی از توکِن‌های جداشده با ویرگول درج کنید؛ در حالیکه یک توکِن میتواند * برای همهٔ صفحات، 1-5 برای یک محدوده، یا یک شمارهٔ صفحهٔ منفرد باشد</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="210"/>
