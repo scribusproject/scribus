@@ -8463,8 +8463,12 @@ Projekt reševanja dokumentov (Document Liberation Project) https://www.document
     </message>
     <message>
         <location filename="../../scribus/ui/hruler.cpp" line="1087"/>
+        <source>Period</source>
+        <translation type="unfinished">Pika</translation>
+    </message>
+    <message>
         <source>Dot</source>
-        <translation>Pika</translation>
+        <translation type="vanished">Pika</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/hruler.cpp" line="1088"/>
@@ -20859,17 +20863,22 @@ Ali ga želite uporabiti?</translation>
         <translation>&amp;Preskok koleščka:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="419"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="400"/>
+        <source> lines</source>
+        <translation type="unfinished"> vrstic</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="423"/>
         <source>Start Up</source>
         <translation>Zagon</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="434"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="438"/>
         <source>Show Splashscreen</source>
         <translation>Pokaži pozdravno okno</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="427"/>
+        <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="431"/>
         <source>Show Startup Dialog</source>
         <translation>Pokaži začetno pogovorno okno</translation>
     </message>
