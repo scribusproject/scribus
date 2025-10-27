@@ -71,7 +71,7 @@ public:
 	{
 		LeftTab = 0,
 		RightTab = 1,
-		DotTab = 2,
+		PeriodTab = 2,
 		CommaTab = 3,
 		CenterTab = 4
 	};

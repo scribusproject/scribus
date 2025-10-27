@@ -174,7 +174,7 @@ void RulerT::paintEvent(QPaintEvent *)
 				p.drawLine(qRound(tabValues[i].tabPosition), bottomline - 1, qRound(tabValues[i].tabPosition - 8), bottomline - 1);
 				break;
 			case ParagraphStyle::CommaTab:
-			case ParagraphStyle::DotTab:
+			case ParagraphStyle::PeriodTab:
 				p.drawLine(qRound(tabValues[i].tabPosition), tabline, qRound(tabValues[i].tabPosition), bottomline - 1);
 				p.drawLine(qRound(tabValues[i].tabPosition - 4), bottomline - 1, qRound(tabValues[i].tabPosition + 4), bottomline - 1);
 				p.drawLine(qRound(tabValues[i].tabPosition + 3), bottomline - 3, qRound(tabValues[i].tabPosition + 2), bottomline - 3);
@@ -714,7 +714,7 @@ void Tabruler::languageChange()
 	typeCombo->addItem(im.loadIcon("tabulator-left"), tr( "Left" ), ParagraphStyle::LeftTab );
 	typeCombo->addItem(im.loadIcon("tabulator-center"), tr( "Center" ), ParagraphStyle::CenterTab );
 	typeCombo->addItem(im.loadIcon("tabulator-comma"), tr( "Comma" ), ParagraphStyle::CommaTab );
-	typeCombo->addItem(im.loadIcon("tabulator-dot"), tr( "Period" ), ParagraphStyle::DotTab );
+	typeCombo->addItem(im.loadIcon("tabulator-dot"), tr( "Period" ), ParagraphStyle::PeriodTab );
 	typeCombo->addItem(im.loadIcon("tabulator-right"), tr( "Right" ), ParagraphStyle::RightTab );
 	typeCombo->setCurrentIndex(oldTypeComboIndex);
 	typeCombo->blockSignals(typeComboBlocked);
