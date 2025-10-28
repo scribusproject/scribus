@@ -14748,41 +14748,42 @@ bool ScribusDoc::sizeItem(double newW, double newH, PageItem *pi, bool fromMP, b
 		double moveX = 0.0;
 		double moveY = 0.0;
 
-		switch(m_rotMode){
-		case AnchorPoint::None:
-		case AnchorPoint::TopLeft:
-			ma.map(0, 0, &moveX, &moveY);
-			break;
-		case AnchorPoint::Top:
-			ma.map((currItem->width() - newW) / 2.0, 0, &moveX, &moveY);
-			break;
-		case AnchorPoint::TopRight:
-			ma.map(currItem->width() - newW, 0, &moveX, &moveY);
-			break;
-		case AnchorPoint::Left:
-			ma.map(0, (currItem->height() - newH) / 2.0, &moveX, &moveY);
-			break;
-		case AnchorPoint::Center:
-			ma.map((currItem->width() - newW) / 2.0, (currItem->height() - newH) / 2.0, &moveX, &moveY);
-			break;
-		case AnchorPoint::Right:
-			ma.map(currItem->width() - newW, (currItem->height() - newH) / 2.0, &moveX, &moveY);
-			break;
-		case AnchorPoint::BottomLeft:
-			ma.map(0, currItem->height() - newH, &moveX, &moveY);
-			break;
-		case AnchorPoint::Bottom:
-			ma.map((currItem->width() - newW) / 2.0, currItem->height() - newH, &moveX, &moveY);
-			break;
-		case AnchorPoint::BottomRight:
-			ma.map(currItem->width() - newW, currItem->height() - newH, &moveX, &moveY);
-			break;
+		switch(m_rotMode)
+		{
+			case AnchorPoint::None:
+			case AnchorPoint::TopLeft:
+				ma.map(0, 0, &moveX, &moveY);
+				break;
+			case AnchorPoint::Top:
+				ma.map((currItem->width() - newW) / 2.0, 0, &moveX, &moveY);
+				break;
+			case AnchorPoint::TopRight:
+				ma.map(currItem->width() - newW, 0, &moveX, &moveY);
+				break;
+			case AnchorPoint::Left:
+				ma.map(0, (currItem->height() - newH) / 2.0, &moveX, &moveY);
+				break;
+			case AnchorPoint::Center:
+				ma.map((currItem->width() - newW) / 2.0, (currItem->height() - newH) / 2.0, &moveX, &moveY);
+				break;
+			case AnchorPoint::Right:
+				ma.map(currItem->width() - newW, (currItem->height() - newH) / 2.0, &moveX, &moveY);
+				break;
+			case AnchorPoint::BottomLeft:
+				ma.map(0, currItem->height() - newH, &moveX, &moveY);
+				break;
+			case AnchorPoint::Bottom:
+				ma.map((currItem->width() - newW) / 2.0, currItem->height() - newH, &moveX, &moveY);
+				break;
+			case AnchorPoint::BottomRight:
+				ma.map(currItem->width() - newW, currItem->height() - newH, &moveX, &moveY);
+				break;
 		}
 
 		moveItem(moveX, moveY, currItem);
 	}
 	//	#8541, #8761: "when resizing with ALT-arrow, the size values in the PP aren't updated"
-//	currItem->setWidthHeight(newW, newH, true);
+	//	currItem->setWidthHeight(newW, newH, true);
 	currItem->setWidthHeight(newW, newH);
 
 	if ((currItem->isImageFrame()) && (!currItem->Sizing) && (appMode != modeEditClip))
@@ -14821,9 +14822,9 @@ bool ScribusDoc::sizeItem(double newW, double newH, PageItem *pi, bool fromMP, b
 		if (currItem->FrameType != 0 && !currItem->asLine())
 		{
 			currItem->updateClip();
-//			currItem->updateGradientVectors();
+			//			currItem->updateGradientVectors();
 		}
-			
+
 		if (activeTransaction)
 		{
 			currItem->checkChanges();
@@ -14853,7 +14854,7 @@ bool ScribusDoc::sizeItem(double newW, double newH, PageItem *pi, bool fromMP, b
 			currItem->moveImageInFrame(dX,dY);*/
 		currItem->updateClip();
 	}
-//	currItem->updateGradientVectors();
+	//	currItem->updateGradientVectors();
 	if (!m_loading)
 	{
 		QRectF newR(currItem->getBoundingRect());
@@ -14868,7 +14869,7 @@ bool ScribusDoc::sizeItem(double newW, double newH, PageItem *pi, bool fromMP, b
 			// If current frame is a text frame, force update of linked frames currently displayed on screen
 			if (currItem->itemText.isNotEmpty())
 				updateRect = QRectF();
-		}	
+		}
 		regionsChanged()->update(updateRect);
 	}
 	if (!fromMP)
@@ -15071,35 +15072,36 @@ void ScribusDoc::rotateGroup(double angle, Selection* customSelection)
 	FPoint rotationPoint(0, 0);
 	itemSelection->getGroupRect(&gx, &gy, &gw, &gh);
 
-	switch(m_rotMode){
-	case AnchorPoint::None:
-	case AnchorPoint::TopLeft:
-		rotationPoint = FPoint(gx, gy);
-		break;
-	case AnchorPoint::Top:
-		rotationPoint = FPoint(gx + gw / 2.0, gy);
-		break;
-	case AnchorPoint::TopRight:
-		rotationPoint = FPoint(gx + gw, gy);
-		break;
-	case AnchorPoint::Left:
-		rotationPoint = FPoint(gx, gy + gh / 2.0);
-		break;
-	case AnchorPoint::Center:
-		rotationPoint = FPoint(gx + gw / 2.0, gy + gh / 2.0);
-		break;
-	case AnchorPoint::Right:
-		rotationPoint = FPoint(gx + gw, gy + gh / 2.0);
-		break;
-	case AnchorPoint::BottomLeft:
-		rotationPoint = FPoint(gx, gy + gh);
-		break;
-	case AnchorPoint::Bottom:
-		rotationPoint = FPoint(gx + gw / 2.0, gy + gh);
-		break;
-	case AnchorPoint::BottomRight:
-		rotationPoint = FPoint(gx + gw, gy + gh);
-		break;
+	switch(m_rotMode)
+	{
+		case AnchorPoint::None:
+		case AnchorPoint::TopLeft:
+			rotationPoint = FPoint(gx, gy);
+			break;
+		case AnchorPoint::Top:
+			rotationPoint = FPoint(gx + gw / 2.0, gy);
+			break;
+		case AnchorPoint::TopRight:
+			rotationPoint = FPoint(gx + gw, gy);
+			break;
+		case AnchorPoint::Left:
+			rotationPoint = FPoint(gx, gy + gh / 2.0);
+			break;
+		case AnchorPoint::Center:
+			rotationPoint = FPoint(gx + gw / 2.0, gy + gh / 2.0);
+			break;
+		case AnchorPoint::Right:
+			rotationPoint = FPoint(gx + gw, gy + gh / 2.0);
+			break;
+		case AnchorPoint::BottomLeft:
+			rotationPoint = FPoint(gx, gy + gh);
+			break;
+		case AnchorPoint::Bottom:
+			rotationPoint = FPoint(gx + gw / 2.0, gy + gh);
+			break;
+		case AnchorPoint::BottomRight:
+			rotationPoint = FPoint(gx + gw, gy + gh);
+			break;
 	}
 
 	rotateGroup(angle, rotationPoint, itemSelection);
@@ -15340,35 +15342,34 @@ void ScribusDoc::scaleGroup(double scx, double scy, bool scaleText, Selection* c
 	{
 		switch (m_rotMode)
 		{
-		case AnchorPoint::None:
-		case AnchorPoint::TopLeft:
-			// No translation
-			break;
-		case AnchorPoint::Top:
-			moveGroup((origGW - gw) / 2.0, 0.0);
-			break;
-		case AnchorPoint::TopRight:
-			moveGroup(origGW - gw, 0.0);
-			break;
-		case AnchorPoint::Left:
-			moveGroup(0.0, (origGH - gh) / 2.0);
-			break;
-		case AnchorPoint::Center:
-			moveGroup((origGW - gw) / 2.0, (origGH - gh) / 2.0);
-			break;
-		case AnchorPoint::Right:
-			moveGroup(origGW - gw, (origGH - gh) / 2.0);
-			break;
-		case AnchorPoint::BottomLeft:
-			moveGroup(0.0, origGH - gh);
-			break;
-		case AnchorPoint::Bottom:
-			moveGroup((origGW - gw) / 2.0, origGH - gh);
-			break;
-		case AnchorPoint::BottomRight:
-			moveGroup(origGW - gw, origGH - gh);
-			break;
-
+			case AnchorPoint::None:
+			case AnchorPoint::TopLeft:
+				// No translation
+				break;
+			case AnchorPoint::Top:
+				moveGroup((origGW - gw) / 2.0, 0.0);
+				break;
+			case AnchorPoint::TopRight:
+				moveGroup(origGW - gw, 0.0);
+				break;
+			case AnchorPoint::Left:
+				moveGroup(0.0, (origGH - gh) / 2.0);
+				break;
+			case AnchorPoint::Center:
+				moveGroup((origGW - gw) / 2.0, (origGH - gh) / 2.0);
+				break;
+			case AnchorPoint::Right:
+				moveGroup(origGW - gw, (origGH - gh) / 2.0);
+				break;
+			case AnchorPoint::BottomLeft:
+				moveGroup(0.0, origGH - gh);
+				break;
+			case AnchorPoint::Bottom:
+				moveGroup((origGW - gw) / 2.0, origGH - gh);
+				break;
+			case AnchorPoint::BottomRight:
+				moveGroup(origGW - gw, origGH - gh);
+				break;
 		}
 	}
 	updateManager()->setUpdatesEnabled();
@@ -16044,9 +16045,9 @@ void ScribusDoc::itemSelection_resizeGroupToContents(Selection* customSelection)
 	if (itemSelection->isEmpty())
 		return;
 	int docSelectionCount = itemSelection->count();
-	for (int a = 0; a < docSelectionCount; ++a)
+	for (int i = 0; i < docSelectionCount; ++i)
 	{
-		PageItem *group = itemSelection->itemAt(a);
+		PageItem *group = itemSelection->itemAt(i);
 		if (group->isGroup())
 			resizeGroupToContents(group);
 	}
@@ -16115,8 +16116,8 @@ void ScribusDoc::itemSelection_UniteItems(Selection* /*customSelection*/)
 		m_undoManager->action(currItem, is);
 	}
 	m_View->deselectItems(true);
-	for (int c = 0; c < toDel.count(); ++c)
-		m_View->selectItem(toDel.at(c));
+	for (int i = 0; i < toDel.count(); ++i)
+		m_View->selectItem(toDel.at(i));
 	m_Selection->delaySignalsOff();
 	itemSelection_DeleteItem();
 	regionsChanged()->update(QRectF());
@@ -16147,11 +16148,11 @@ void ScribusDoc::itemSelection_SplitItems(Selection* /*customSelection*/)
 		uint EndInd = currItem->PoLine.size();
 		m_Selection->clear();
 		m_Selection->addItem(currItem);
-		for (uint a = EndInd-1; a > 0; --a)
+		for (uint j = EndInd-1; j > 0; --j)
 		{
-			if (currItem->PoLine.isMarker(a))
+			if (currItem->PoLine.isMarker(j))
 			{
-				StartInd = a + 1;
+				StartInd = j + 1;
 				bb = new PageItem_Polygon(*currItem);
 				currItemNr++;
 				itemsList.append(currItemNr);
@@ -16165,7 +16166,7 @@ void ScribusDoc::itemSelection_SplitItems(Selection* /*customSelection*/)
 				bb->ContourLine = bb->PoLine.copy();
 				bb->ClipEdited = true;
 				m_Selection->addItem(bb, false);
-				a -= 3;
+				j -= 3;
 				EndInd = StartInd - 4;
 			}
 		}
@@ -16637,9 +16638,9 @@ QHash<PageItem*, QString> ScribusDoc::getDocItemNames(PageItem::ItemType itemTyp
 			allItems = ite->getAllChildren();
 		else
 			allItems.append(ite);
-		for (int ii = 0; ii < allItems.count(); ii++)
+		for (int j = 0; j < allItems.count(); j++)
 		{
-			ite = allItems.at(ii);
+			ite = allItems.at(j);
 			if (ite->itemType() == itemType && ite->nextInChain() == nullptr && !ite->isAutoFrame())
 				namesMap.insert(ite, ite->itemName());
 		}
@@ -16716,9 +16717,9 @@ void ScribusDoc::setNewPrefs(const ApplicationPrefs& prefsData, const Applicatio
 	applyPrefsPageSizingAndMargins(resizePages, resizeMasterPages, resizePageMargins, resizeMasterPageMargins);
 
 	int docItemsCount = MasterItems.count();
-	for (int ite = 0; ite < docItemsCount; ++ite)
+	for (int i = 0; i < docItemsCount; ++i)
 	{
-		PageItem *item = MasterItems.at(ite);
+		PageItem *item = MasterItems.at(i);
 		item->moveBy(leftDisplacement, topDisplacement);
 		item->setRedrawBounding();
 	}
@@ -16817,7 +16818,7 @@ void ScribusDoc::setNewPrefs(const ApplicationPrefs& prefsData, const Applicatio
 			Items->at(i)->setImageVisible(m_docPrefsData.guidesPrefs.showPic);
 	}
 
-	bool   mustInvalidateAll = false;
+	bool mustInvalidateAll = false;
 	mustInvalidateAll |= (oldPrefsData.guidesPrefs.valueBaselineGrid  != prefsData.guidesPrefs.valueBaselineGrid);
 	mustInvalidateAll |= (oldPrefsData.guidesPrefs.offsetBaselineGrid != prefsData.guidesPrefs.offsetBaselineGrid);
 	mustInvalidateAll |= (oldPrefsData.typoPrefs != prefsData.typoPrefs);
@@ -17132,10 +17133,10 @@ void ScribusDoc::setupNumerations()
 		int level = style.numLevel();
 		if (level >= numS->m_counters.count())
 		{
-			for (int i = numS->m_counters.count(); i <= level; ++i)
+			for (int j = numS->m_counters.count(); j <= level; ++j)
 			{
-				numS->m_nums.insert(i, num);
-				numS->m_counters.insert(i, 0);
+				numS->m_nums.insert(j, num);
+				numS->m_counters.insert(j, 0);
 			}
 		}
 		numS->m_nums.replace(level, num);
