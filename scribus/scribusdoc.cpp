@@ -13564,30 +13564,30 @@ void ScribusDoc::changedPagePreview()
 void ScribusDoc::invalidateAll()
 {
 	QList<PageItem*> allItems;
-	for (int c = 0; c < DocItems.count(); ++c)
+	for (int i = 0; i < DocItems.count(); ++i)
 	{
-		PageItem *ite = DocItems.at(c);
+		PageItem *ite = DocItems.at(i);
 		if (ite->isGroup())
 			allItems = ite->getAllChildren();
 		else
 			allItems.append(ite);
-		for (int ii = 0; ii < allItems.count(); ii++)
+		for (int j = 0; j < allItems.count(); j++)
 		{
-			ite = allItems.at(ii);
+			ite = allItems.at(j);
 			ite->invalidateLayout();
 		}
 		allItems.clear();
 	}
-	for (int c=0; c < MasterItems.count(); ++c)
+	for (int i=0; i < MasterItems.count(); ++i)
 	{
-		PageItem *ite = MasterItems.at(c);
+		PageItem *ite = MasterItems.at(i);
 		if (ite->isGroup())
 			allItems = ite->getAllChildren();
 		else
 			allItems.append(ite);
-		for (int ii = 0; ii < allItems.count(); ii++)
+		for (int j = 0; j < allItems.count(); j++)
 		{
-			ite = allItems.at(ii);
+			ite = allItems.at(j);
 			ite->invalidateLayout();
 		}
 		allItems.clear();
@@ -13605,9 +13605,9 @@ void ScribusDoc::invalidateLayer(int layerID)
 			allItems = ite->getAllChildren();
 		else
 			allItems.append(ite);
-		for (int ii = 0; ii < allItems.count(); ii++)
+		for (int j = 0; j < allItems.count(); j++)
 		{
-			ite = allItems.at(ii);
+			ite = allItems.at(j);
 			if (ite->m_layerID == layerID)
 					ite->invalidateLayout();
 		}
@@ -13622,9 +13622,9 @@ void ScribusDoc::invalidateLayer(int layerID)
 				allItems = ite->getAllChildren();
 			else
 				allItems.append(ite);
-			for (int ii = 0; ii < allItems.count(); ii++)
+			for (int j = 0; j < allItems.count(); j++)
 			{
-				ite = allItems.at(ii);
+				ite = allItems.at(j);
 				if (ite->m_layerID == layerID)
 					ite->invalidateLayout();
 			}
@@ -13644,9 +13644,9 @@ void ScribusDoc::invalidateRegion(const QRectF& region)
 			allItems = ite->getAllChildren();
 		else
 			allItems.append(ite);
-		for (int ii = 0; ii < allItems.count(); ii++)
+		for (int j = 0; j < allItems.count(); j++)
 		{
-			ite = allItems.at(ii);
+			ite = allItems.at(j);
 			if (ite->getBoundingRect().intersects(region))
 				ite->invalidateLayout();
 		}
@@ -13659,9 +13659,9 @@ void ScribusDoc::invalidateRegion(const QRectF& region)
 			allItems = ite->getAllChildren();
 		else
 			allItems.append(ite);
-		for (int ii = 0; ii < allItems.count(); ii++)
+		for (int j = 0; j < allItems.count(); j++)
 		{
-			ite = allItems.at(ii);
+			ite = allItems.at(j);
 		// for now invalidate all masteritems, should be only necessary in masterpagemode
 			ite->invalidateLayout();
 		}
