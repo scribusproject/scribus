@@ -41,19 +41,20 @@ PyObject *scribus_createparagraphstyle(PyObject* /* self */, PyObject* args, PyO
 			const_cast<char*>("charstyle"),
 			const_cast<char*>("bullet"),
 			const_cast<char*>("tabs"),
+			const_cast<char*>("unit"),
 			nullptr};
 	PyESString name;
 	PyESString charStyle;
 	PyESString bullet;
-	int lineSpacingMode = 0, alignment = 0, dropCapLines = 2, hasDropCap = 0;
+	int lineSpacingMode = 0, alignment = 0, dropCapLines = 2, hasDropCap = 0, unit = SC_PT;
 	double lineSpacing = 15.0, leftMargin = 0.0, rightMargin = 0.0;
 	double gapBefore = 0.0, gapAfter = 0.0, firstIndent = 0.0, peOffset = 0;
 	PyObject *tabDefinitions = nullptr;
-	if (!PyArg_ParseTupleAndKeywords(args, keywords, "es|ididddddiidesesO",
+	if (!PyArg_ParseTupleAndKeywords(args, keywords, "es|ididddddiidesesOi",
 		 keywordargs, "utf-8", name.ptr(), &lineSpacingMode, &lineSpacing, &alignment,
 		&leftMargin, &rightMargin, &gapBefore, &gapAfter, &firstIndent,
 		&hasDropCap, &dropCapLines, &peOffset, "utf-8", charStyle.ptr(),
-		"utf-8", bullet.ptr(), &tabDefinitions))
+		"utf-8", bullet.ptr(), &tabDefinitions, &unit))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
@@ -128,6 +129,7 @@ PyObject *scribus_createparagraphstyle(PyObject* /* self */, PyObject* args, PyO
 				PyErr_SetString(PyExc_TypeError, QObject::tr("invalid tab-position specified.","python error").toUtf8().constData());
 				return nullptr;
 			}
+			tabPosition = value2pts(tabPosition, unit);
 
 			int tabType = 0;
 			if (size >= 2) {
