@@ -2106,23 +2106,11 @@ PdfFont PDFLibCore::PDF_WriteTtfSubsetFont(const QByteArray& fontName, ScFace& f
 
 PdfFont PDFLibCore::PDF_WriteCffSubsetFont(const QByteArray& fontName, ScFace& face, const QMap<uint, QString>& usedGlyphs)
 {
-//	QByteArray sfnt; //TEST
-//	face.rawData(sfnt);
-//	QByteArray cff = sfnt::getTable(sfnt, "CFF ");
-//	dumpFont(fontName, cff);
-//	cff::CFF cfffont(cff);
-//	cfffont.dump();
-//	QByteArray subsetfont = cff::subsetFace(cff, it.value().keys());
-//	dumpFont(it.key() + "subs.cff", subsetfont);
-//	cff::CFF subset(subsetfont);
-//	subset.dump();
-//	PDF_WriteFontDescriptor(fontName, face, fformat, 0);
-//	// END
-	
-	QByteArray font, data;
+	QByteArray data;
 	face.rawData(data);
-	font = sfnt::getTable(data, "CFF ");
+	QByteArray font = sfnt::getTable(data, "CFF ");
 	/*dumpFont(face.psName() + ".cff", font);*/
+
 	QList<ScFace::gid_type> glyphs = usedGlyphs.uniqueKeys();
 	glyphs.removeAll(0);
 	glyphs.prepend(0);
@@ -2333,8 +2321,18 @@ void PDFLibCore::PDF_Begin_WriteUsedFonts(const QMap<QString, QMap<uint, QString
 		ScFace::FontFormat fformat = face.format();
 		PdfFont pdfFont;
 		QByteArray fontName = QByteArray("Fo") + Pdf::toPdf(a);
-		
-		const QMap<uint, QString>& usedGlyphs = it.value();
+
+		// Control glyphs are not written to PDF so we can remove them safely,
+		// and we'd better do so otherwise sfnt::subsetFace might crash...
+		QMap<uint, QString> usedGlyphs = it.value();
+		for (auto glyphIt = usedGlyphs.begin(); glyphIt != usedGlyphs.end(); )
+		{
+			if (glyphIt.key() >= ScFace::CONTROL_GLYPHS)
+				glyphIt = usedGlyphs.erase(glyphIt);
+			else
+				glyphIt++;
+		}
+
 		if (usedGlyphs.count() <= 0)
 			continue;
 		
