@@ -1,5 +1,6 @@
 #Subdirectories
 if(HAVE_BOOST)
+  message(STATUS "Boost found, building 2geomtools plugins")
   add_subdirectory(2geomtools)
 endif()
 add_subdirectory(lenseffects)
