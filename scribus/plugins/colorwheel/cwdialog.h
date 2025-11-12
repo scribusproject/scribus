@@ -78,10 +78,10 @@ class CWDialog : public QDialog, Ui::CWDialog
 		//! \brief Set named colors for labels
 		void updateNamedLabels();
 
-		/*! \brief Connect or disconnect rgbcmyk spinboxes signals.
-		\param conn if true perform connect. Disconnect in the case of false
+		/*! \brief Block rgbcmyk spinboxes signals.
+		\param block set to true to block
 		*/
-		void connectSlots(bool conn = true);
+		void blockSpinSignals(bool block);
 
 		/*! \brief Call main color calculation.
 		It calls a ColorWheel methods to get requested harmonious colors depending
