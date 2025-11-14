@@ -43,13 +43,13 @@ class ColorWheel : public QLabel
 			Tetradic
 		};
 
-		ScribusDoc* currentDoc;
+		ScribusDoc* currentDoc { nullptr };
 
 		//! \brief name of the "base color" to handle in extern color lists
 		QString trBaseColor;
 
 		//! \brief Which color model is in use.
-		colorModel currentColorSpace;
+		colorModel currentColorSpace { colorModelRGB };
 
 		//! \brief Actual type of color computing. See MethodType.
 		MethodType currentType;
@@ -62,7 +62,7 @@ class ColorWheel : public QLabel
 		int angle;
 
 		/*! \brief Angle of the base color */
-		int baseAngle;
+		int baseAngle { 0 };
 
 		/** \brief RGB interpretation of the leading point in the wheel. */
 		ScColor actualColor;
@@ -107,12 +107,12 @@ class ColorWheel : public QLabel
 		/** \brief Angle diff between colorMap and painted wheel itself.
 		QTransform wheel and colorMap have different start points.
 		It's taken from Qt. */
-		int angleShift;
+		int angleShift { 270 };
 
 		/*! \brief Half of the widget sizes.
 		To prevent all width()/2 divisions. */
-		int widthH;
-		int heightH;
+		int widthH { 150 };
+		int heightH { 150 };
 
 		/** \brief An event for mouse actions handling.
 		See \see clicked() for more info.

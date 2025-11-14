@@ -20,14 +20,6 @@ for which a new license (GPL+exception) is in place.
 ColorWheel::ColorWheel(QWidget * parent, const char * name) : QLabel(parent)
 {
 	setObjectName(name);
-	pointList.clear();
-	currentDoc = nullptr;
-	currentColorSpace = colorModelRGB;
-	baseAngle = 0;
-	angleShift = 270;
-	widthH = heightH = 150;
-	// create color map
-	colorMap.clear();
 	// fit the colorMap 1st value with matrix beginning
 	int mapIndex = angleShift;
 	for (int i = 0; i < 360; ++i)
@@ -111,7 +103,7 @@ void ColorWheel::paintWheel()
 	int height = this->height();
 	QPainter p;
 	p.begin(this);
-	p.setWindow( 0, 0, width, height);
+	p.setWindow(0, 0, width, height);
 	p.fillRect(0, 0, width, height, palette().color(QPalette::Base));
 	p.setPen(Qt::black);
 	p.drawRect(0, 0, width, height);
@@ -184,14 +176,11 @@ ScColor ColorWheel::colorSpaceColor(ScColor col)
 
 void ColorWheel::baseColor()
 {
-	//clearBorder();
 	pointList.clear();
-	//drawBorderPoint(baseAngle, true);
 	PaintPoint p;
 	p.angle = baseAngle;
 	p.base = true;
 	pointList.append(p);
-	//paintCenterSample();
 	colorList.clear();
 	colorList[trBaseColor] = colorSpaceColor(actualColor);
 }
@@ -252,12 +241,6 @@ void ColorWheel::makeTetradic()
 	currentType = Tetradic;
 }
 
-// void ColorWheel::clearBorder()
-// {
-// 	for (int i = 0; i < 360; ++i)
-// 		drawBorderPoint(i, false, true);
-// }
-
 void ColorWheel::drawBorderPoint(int angle, bool base, bool clear)
 {
 	double r = 137.0;
@@ -294,7 +277,7 @@ int ColorWheel::valueFromPoint(const QPoint & p) const
 	double xx = (double)p.x() - (double)widthH;
 	double a = (xx || yy) ? atan2(yy, xx) : 0.0;
 
-	if ( a < M_PI/-2 )
+	if ( a < M_PI / -2 )
 		a = a + M_PI * 2;
 
 	int minv = 0, maxv = 359;
