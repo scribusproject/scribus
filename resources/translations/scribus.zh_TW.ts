@@ -879,7 +879,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1714"/>
         <source>Document &amp;Log</source>
-        <translation type="unfinished"></translation>
+        <translation>文档日志(&amp;L)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1716"/>
@@ -995,7 +995,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1833"/>
         <source>Display logged warnings and errors from editing activities</source>
-        <translation type="unfinished"></translation>
+        <translation>显示编辑活动记录的警告和错误</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1840"/>
@@ -3743,37 +3743,37 @@ Please choose another one.</source>
 <context>
     <name>CWDialog</name>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="319"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="321"/>
         <source>Merging colors</source>
         <translation>混合顔色</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="325"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="327"/>
         <source>Error: </source>
         <translation>錯誤: </translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="325"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="327"/>
         <source>Color %1 exists already!</source>
         <translation>顏色 %1 已經存在!</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="330"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="332"/>
         <source>Color %1 appended.</source>
         <translation>顔色 %1 已追加。</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="334"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="336"/>
         <source>Now opening the color manager.</source>
         <translation>現在正在開啟顏色管理器。</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="337"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="339"/>
         <source>Color Merging</source>
         <translation>混合顔色</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="488"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="490"/>
         <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
         <translation>找不到要求的顏色。您可能選擇了黑色, 灰色或是白色。沒有處理這個顏色的方式。</translation>
     </message>
@@ -4969,103 +4969,103 @@ currently %2 x %3 DPI</source>
 <context>
     <name>ColorWheel</name>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="139"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="131"/>
         <source>Monochromatic</source>
         <translation>單色的</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="140"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="132"/>
         <source>Analogous</source>
         <translation>相似的</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="141"/>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="224"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="133"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="213"/>
         <source>Complementary</source>
         <translation>補充的</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="142"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="134"/>
         <source>Split Complementary</source>
         <translation>拆分補充的</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="143"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="135"/>
         <source>Triadic</source>
         <translation>三合一的</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="144"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="136"/>
         <source>Tetradic (Double Complementary)</source>
         <translation>四分的（雙補充的）</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="44"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="36"/>
         <source>Base Color</source>
         <translation>基本顔色</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="206"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="195"/>
         <source>Monochromatic Light</source>
         <translation>單色亮</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="209"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="198"/>
         <source>Monochromatic Dark</source>
         <translation>單色暗</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="216"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="205"/>
         <source>1st. Analogous</source>
         <translation>第 1 相似</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="217"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="206"/>
         <source>2nd. Analogous</source>
         <translation>第 2 相似</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="231"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="220"/>
         <source>1st. Split</source>
         <translation>第 1 分離</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="232"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="221"/>
         <source>2nd. Split</source>
         <translation>第 2 分離</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="233"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="222"/>
         <source>3rd. Split</source>
         <translation>第 3 分離</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="234"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="223"/>
         <source>4th. Split</source>
         <translation>第 4 分離</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="241"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="230"/>
         <source>1st. Triadic</source>
         <translation>第 1 三色</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="242"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="231"/>
         <source>2nd. Triadic</source>
         <translation>第 2 三色</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="249"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="238"/>
         <source>1st. Tetradic (base opposite)</source>
         <translation>第 1 四色（基礎對面）</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="250"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="239"/>
         <source>2nd. Tetradic (angle)</source>
         <translation>第 2 四色（角落）</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="251"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="240"/>
         <source>3rd. Tetradic (angle opposite)</source>
         <translation>第 3 四色（角落對面）</translation>
     </message>
@@ -7787,7 +7787,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/fontlistview.cpp" line="18"/>
         <source>&amp;Deactivate</source>
-        <translation type="unfinished"></translation>
+        <translation>非活动(&amp;D)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/fontlistview.cpp" line="19"/>
@@ -7797,7 +7797,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/fontlistview.cpp" line="20"/>
         <source>Do &amp;not subset</source>
-        <translation type="unfinished"></translation>
+        <translation>非子集(&amp;N)</translation>
     </message>
 </context>
 <context>
@@ -8464,11 +8464,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/hruler.cpp" line="1087"/>
         <source>Period</source>
-        <translation type="unfinished">週期</translation>
-    </message>
-    <message>
-        <source>Dot</source>
-        <translation type="vanished">點</translation>
+        <translation>周期</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/hruler.cpp" line="1088"/>
@@ -11511,12 +11507,12 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="99"/>
         <source>A document with facing pages, with the first page on the left side</source>
-        <translation type="unfinished"></translation>
+        <translation>对页文档，首页在左侧</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="100"/>
         <source>A document with facing pages, with the first page on the right side</source>
-        <translation type="unfinished"></translation>
+        <translation>对页文档，首页在右侧</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="101"/>
@@ -13051,44 +13047,44 @@ Please check it and try again.</source>
         <translation>Qt 構建同時缺少“UTF-16”和“ISO-10646-UCS-2”文字編碼，PDF 匯出無法使用</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3485"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3476"/>
         <source>Page:</source>
         <translation>頁:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3495"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3486"/>
         <source>Date:</source>
         <translation>日期:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="10682"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="10673"/>
         <source>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</source>
         <translation>嵌入該PDF文件失敗：%1。
 請停用實驗性PDF和PS嵌入並重試。</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11971"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11962"/>
         <source>Failed to load an image : %1</source>
         <translation>載入圖片: %1 失敗</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11976"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11967"/>
         <source>Failed to write an image : %1</source>
         <translation>寫入圖片: %1 失敗</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11981"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11972"/>
         <source>Failed to load an image mask : %1</source>
         <translation>載入圖片遮罩: %1 失敗</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11986"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11977"/>
         <source>Insufficient memory for processing an image</source>
         <translation>處理圖片所需要的記憶體不足</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11966"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11957"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>寫入錯誤, 請檢查可用的磁碟空間</translation>
     </message>
@@ -20865,7 +20861,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="400"/>
         <source> lines</source>
-        <translation type="unfinished"> 行數</translation>
+        <translation>线</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="423"/>
@@ -28462,13 +28458,13 @@ is not exhaustive due to exceptions from called functions.
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="103"/>
         <source>The image has %1 pages: cannot switch to page %2.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>图像有%1页：无法切换到第%2页。</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="136"/>
         <source>The resolution shall be one of: IMAGE_PREVIEW_RESOLUTION_FULL, IMAGE_PREVIEW_RESOLUTION_NORMAL, IMAGE_PREVIEW_RESOLUTION_LOW. %1 is an invalid value.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>应为以下分辨率之一：IMAGE_PREVIEW_RESOLUTION_FULL, IMAGE_PREVIEW_RESOLUTION_NORMAL, IMAGE_PREVIEW_RESOLUTION_LOW。 %1 是无效值。</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="448"/>
@@ -29520,61 +29516,61 @@ is not exhaustive due to exceptions from called functions.
         <translation>設定檔案 %1 找不到或檔案是不可讀娶的</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="62"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="63"/>
         <source>Cannot have an empty paragraph style name.</source>
         <comment>python error</comment>
         <translation>段落樣式名不能為空。</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="68"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="69"/>
         <source>hasdropcap is true but dropcaplines value is invalid</source>
         <comment>python error</comment>
         <translation>hasdropcap為true，但dropcaplines值無效</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="74"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="75"/>
         <source>hasdropcap and bullet are not allowed to be specified together.</source>
         <comment>python error</comment>
         <translation>hasdropcap和bullet不允許同時指定。</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="128"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="129"/>
         <source>invalid tab-position specified.</source>
         <comment>python error</comment>
         <translation>指定的製表符位置無效。</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="228"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="231"/>
         <source>Cannot have an empty char style name.</source>
         <comment>python error</comment>
         <translation>字符樣式不能為空。</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="237"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="240"/>
         <source>Specified font is not available.</source>
         <comment>python error</comment>
         <translation>指定的字型不可用。</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="250"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="253"/>
         <source>Specified fill color is not available in document.</source>
         <comment>python error</comment>
         <translation>指定的填充顏色在文件中不可用。</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="258"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="261"/>
         <source>Specified stroke color is not available in document.</source>
         <comment>python error</comment>
         <translation>指定的描邊顏色在文件中不可用。</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="266"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="269"/>
         <source>Specified background color is not available in document.</source>
         <comment>python error</comment>
         <translation>文件未指定背景顏色。</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="411"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="414"/>
         <source>Specified color is not available in document.</source>
         <comment>python error</comment>
         <translation>指定的顏色在文件中不可用。</translation>
@@ -30301,7 +30297,7 @@ Therefore the image may be not correct</source>
         <translation>&lt;p&gt;您正嘗試匯入比目前文件根據活動頁面計數更多的頁面。&lt;/p&gt;請選擇以下選項：&lt;ul&gt;&lt;li&gt;&lt;b&gt;建立&lt;/b&gt;缺失頁面&lt;/li&gt;&lt;li&gt;&lt;b&gt;匯入&lt;/b&gt;直到最後一頁&lt;/li&gt;&lt;li&gt;&lt;b&gt;取消&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18629"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18630"/>
         <source>Unacceptable settings for note style</source>
         <translation>註解樣式的設置不可接受</translation>
     </message>
@@ -34087,7 +34083,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
         <location filename="../../scribus/scribusdoc.cpp" line="200"/>
         <location filename="../../scribus/scribusdoc.cpp" line="206"/>
         <location filename="../../scribus/scribusdoc.cpp" line="236"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17075"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17076"/>
         <source>Document</source>
         <translation>檔案</translation>
     </message>
@@ -34128,7 +34124,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="952"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16755"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16756"/>
         <source>Adjusting Colors</source>
         <translation>調整顔色</translation>
     </message>
@@ -34165,9 +34161,9 @@ Vertical gap: %4</source>
 垂直間距: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="15434"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15489"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15651"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15435"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15490"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15652"/>
         <source>Group%1</source>
         <translation>群組%1</translation>
     </message>
@@ -34183,18 +34179,18 @@ Vertical gap: %4</source>
         <translation>已將 %1 項目複製到 %2 頁</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17091"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17092"/>
         <source>File %1 autosaved</source>
         <translation>檔案 %1 已自動保存</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18258"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="18295"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18259"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18296"/>
         <source>No Style</source>
         <translation>沒有樣式</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18623"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18624"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>%1 註解樣式將文件作為範圍，並提供與集合 %2 相同的編號樣式</translation>
     </message>
@@ -35279,7 +35275,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="365"/>
         <source>If you are running an official script, please report it at &lt;a href=&quot;https://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>如果您正在运行官方脚本，请在 &lt;a href=&quot;https://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; 报告。</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="563"/>

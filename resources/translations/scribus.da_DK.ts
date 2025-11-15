@@ -3743,37 +3743,37 @@ Vælg venligst et andet.</translation>
 <context>
     <name>CWDialog</name>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="319"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="321"/>
         <source>Merging colors</source>
         <translation>Sammenfletter farver</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="325"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="327"/>
         <source>Error: </source>
         <translation>Fejl: </translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="325"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="327"/>
         <source>Color %1 exists already!</source>
         <translation>Farve %1 findes allerede!</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="330"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="332"/>
         <source>Color %1 appended.</source>
         <translation>Farve %1 tilføjet.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="334"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="336"/>
         <source>Now opening the color manager.</source>
         <translation>Nu åbnes farvehåndteringen.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="337"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="339"/>
         <source>Color Merging</source>
         <translation>Farve sammenfletning</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="488"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="490"/>
         <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
         <translation>Ikke i stand til at finde den forespurgte farve. Du har sandsynligvis valgt sort, grå eller hvid. Der er ikke ingen metode til at behandle denne farve.</translation>
     </message>
@@ -4967,103 +4967,103 @@ for øjeblikket %2 x %3 DPI</translation>
 <context>
     <name>ColorWheel</name>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="139"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="131"/>
         <source>Monochromatic</source>
         <translation>Monokromatisk</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="140"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="132"/>
         <source>Analogous</source>
         <translation>Analog</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="141"/>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="224"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="133"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="213"/>
         <source>Complementary</source>
         <translation>komplementær</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="142"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="134"/>
         <source>Split Complementary</source>
         <translation>Opdelt komplementær</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="143"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="135"/>
         <source>Triadic</source>
         <translation>Triade</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="144"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="136"/>
         <source>Tetradic (Double Complementary)</source>
         <translation>Tetrade (Dobbelt komplementær)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="44"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="36"/>
         <source>Base Color</source>
         <translation>Første farve i en trykgang</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="206"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="195"/>
         <source>Monochromatic Light</source>
         <translation>Monokromatisk lys</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="209"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="198"/>
         <source>Monochromatic Dark</source>
         <translation>Monokromatisk mørk</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="216"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="205"/>
         <source>1st. Analogous</source>
         <translation>1. Analog</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="217"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="206"/>
         <source>2nd. Analogous</source>
         <translation>2. Analog</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="231"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="220"/>
         <source>1st. Split</source>
         <translation>1. Opdelt</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="232"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="221"/>
         <source>2nd. Split</source>
         <translation>2. Opdelt</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="233"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="222"/>
         <source>3rd. Split</source>
         <translation>3. Opdelt</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="234"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="223"/>
         <source>4th. Split</source>
         <translation>4. Opdelt</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="241"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="230"/>
         <source>1st. Triadic</source>
         <translation>1. Triade</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="242"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="231"/>
         <source>2nd. Triadic</source>
         <translation>2. Triade</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="249"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="238"/>
         <source>1st. Tetradic (base opposite)</source>
         <translation>1. Tetrade (basis modsætning)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="250"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="239"/>
         <source>2nd. Tetradic (angle)</source>
         <translation>2. Tetrade (vinkel)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="251"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="240"/>
         <source>3rd. Tetradic (angle opposite)</source>
         <translation>3. Tetrade (vinkel modsætning)</translation>
     </message>
@@ -8460,10 +8460,6 @@ Document Liberation Project https://www.documentliberation.org</source>
         <location filename="../../scribus/ui/hruler.cpp" line="1087"/>
         <source>Period</source>
         <translation type="unfinished">Punktum</translation>
-    </message>
-    <message>
-        <source>Dot</source>
-        <translation type="vanished">Prik</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/hruler.cpp" line="1088"/>
@@ -13042,44 +13038,44 @@ Kontroller det venligst og prøv igen.</translation>
         <translation>Qt Build mangler både &quot;UTF-16&quot; og &quot;ISO-10646-UCS-2&quot; kodeks for tekst, så pdf eksport er ikke muligt</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3485"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3476"/>
         <source>Page:</source>
         <translation>Side:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3495"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3486"/>
         <source>Date:</source>
         <translation>Dato:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="10682"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="10673"/>
         <source>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</source>
         <translation>Kunne ikke indlejre PDF-filen : %1.
 Deaktiver venligst eksperimentel PDF og PS indlejring, og prøv igen.</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11971"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11962"/>
         <source>Failed to load an image : %1</source>
         <translation>Kunne ikke indlæse et billede: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11976"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11967"/>
         <source>Failed to write an image : %1</source>
         <translation>Kunne ikke gemme et billede: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11981"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11972"/>
         <source>Failed to load an image mask : %1</source>
         <translation>Kunne ikke indlæse en billedmaske: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11986"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11977"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Utilstrækkelig hukommelse for behandling af et billede</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11966"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11957"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>Der opstod en skrivefejl, kontroller venligst tilgængelig diskplads</translation>
     </message>
@@ -29498,61 +29494,61 @@ er denne liste ikke udtømmende, på grund af indsigelser fra kaldte funktioner.
         <translation>Konfigurationsfil %1 blev ikke fundet eller filen kan ikke læses</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="62"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="63"/>
         <source>Cannot have an empty paragraph style name.</source>
         <comment>python error</comment>
         <translation>Kan ikke have en afsnitstypografi uden navn.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="68"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="69"/>
         <source>hasdropcap is true but dropcaplines value is invalid</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="74"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="75"/>
         <source>hasdropcap and bullet are not allowed to be specified together.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="128"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="129"/>
         <source>invalid tab-position specified.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="228"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="231"/>
         <source>Cannot have an empty char style name.</source>
         <comment>python error</comment>
         <translation>Kan ikke have et tegnformat uden navn.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="237"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="240"/>
         <source>Specified font is not available.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="250"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="253"/>
         <source>Specified fill color is not available in document.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="258"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="261"/>
         <source>Specified stroke color is not available in document.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="266"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="269"/>
         <source>Specified background color is not available in document.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="411"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="414"/>
         <source>Specified color is not available in document.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
@@ -30279,7 +30275,7 @@ Derfor er billedet måske ikke korrekt</translation>
         <translation>&lt;p&gt;Du prøver at importere flere sider end der er tilgængelig i det aktuelle dokument talt fra den aktive side.&lt;/p&gt;Vælg et af følgende:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Lav&lt;/b&gt; manglende sider&lt;/li&gt;&lt;li&gt;&lt;b&gt;Importer&lt;/b&gt; sider indtil den sidste side&lt;/li&gt;&lt;li&gt;&lt;b&gt;Annuller&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18629"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18630"/>
         <source>Unacceptable settings for note style</source>
         <translation>Uacceptable indstillinger for noteformat</translation>
     </message>
@@ -34061,7 +34057,7 @@ Hvis du gemmer den i denne version, vil den ikke længere kunne læses af ældre
         <location filename="../../scribus/scribusdoc.cpp" line="200"/>
         <location filename="../../scribus/scribusdoc.cpp" line="206"/>
         <location filename="../../scribus/scribusdoc.cpp" line="236"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17075"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17076"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
@@ -34102,7 +34098,7 @@ Hvis du gemmer den i denne version, vil den ikke længere kunne læses af ældre
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="952"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16755"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16756"/>
         <source>Adjusting Colors</source>
         <translation>Tilpasser farver</translation>
     </message>
@@ -34136,9 +34132,9 @@ Vertical gap: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="15434"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15489"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15651"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15435"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15490"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15652"/>
         <source>Group%1</source>
         <translation>Gruppe%1</translation>
     </message>
@@ -34154,18 +34150,18 @@ Vertical gap: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17091"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17092"/>
         <source>File %1 autosaved</source>
         <translation>Fil %1 gemt automatisk</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18258"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="18295"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18259"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18296"/>
         <source>No Style</source>
         <translation>Ingen typografi</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18623"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18624"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>%1 noteformat har dokument som rækkevidde og giver samme nummereringsformat som sæt %2</translation>
     </message>

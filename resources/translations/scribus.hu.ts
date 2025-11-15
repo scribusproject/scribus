@@ -3743,37 +3743,37 @@ Adjon meg egy másik nevet.</translation>
 <context>
     <name>CWDialog</name>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="319"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="321"/>
         <source>Merging colors</source>
         <translation>Színek összefésülése</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="325"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="327"/>
         <source>Error: </source>
         <translation>Hiba: </translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="325"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="327"/>
         <source>Color %1 exists already!</source>
         <translation>%1 szín már létezik!</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="330"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="332"/>
         <source>Color %1 appended.</source>
         <translation>%1 szín hozzáfűzve.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="334"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="336"/>
         <source>Now opening the color manager.</source>
         <translation>Színkezelő megnyitása folyamatban.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="337"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="339"/>
         <source>Color Merging</source>
         <translation>Színösszefésülés</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="488"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="490"/>
         <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
         <translation>A kért szín nem található. Valószínűleg fekete, szürke vagy fehér szín lett kiválasztva. Nincs mód e színek feldogozására.</translation>
     </message>
@@ -4963,103 +4963,103 @@ currently %2 x %3 DPI</source>
 <context>
     <name>ColorWheel</name>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="139"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="131"/>
         <source>Monochromatic</source>
         <translation>Egyszínű</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="140"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="132"/>
         <source>Analogous</source>
         <translation>Analóg</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="141"/>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="224"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="133"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="213"/>
         <source>Complementary</source>
         <translation>Kiegészítő</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="142"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="134"/>
         <source>Split Complementary</source>
         <translation>Kiegészítő szomszéd</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="143"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="135"/>
         <source>Triadic</source>
         <translation>Harmadolás</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="144"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="136"/>
         <source>Tetradic (Double Complementary)</source>
         <translation>Negyedelés</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="44"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="36"/>
         <source>Base Color</source>
         <translation>Alapszín</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="206"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="195"/>
         <source>Monochromatic Light</source>
         <translation>Egyszínű világos</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="209"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="198"/>
         <source>Monochromatic Dark</source>
         <translation>Egyszínű sötét</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="216"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="205"/>
         <source>1st. Analogous</source>
         <translation>1. analóg</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="217"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="206"/>
         <source>2nd. Analogous</source>
         <translation>2. analóg</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="231"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="220"/>
         <source>1st. Split</source>
         <translation>1. osztás</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="232"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="221"/>
         <source>2nd. Split</source>
         <translation>2. osztás</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="233"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="222"/>
         <source>3rd. Split</source>
         <translation>3. osztás</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="234"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="223"/>
         <source>4th. Split</source>
         <translation>4. osztás</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="241"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="230"/>
         <source>1st. Triadic</source>
         <translation>1. harmad</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="242"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="231"/>
         <source>2nd. Triadic</source>
         <translation>2. harmad</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="249"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="238"/>
         <source>1st. Tetradic (base opposite)</source>
         <translation>1. negyed (alapszín ellentéte)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="250"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="239"/>
         <source>2nd. Tetradic (angle)</source>
         <translation>2. negyed (szög)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="251"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="240"/>
         <source>3rd. Tetradic (angle opposite)</source>
         <translation>3. negyed (szög ellentéte)</translation>
     </message>
@@ -8457,11 +8457,7 @@ Wesselényinél mázol Quitóban</translation>
     <message>
         <location filename="../../scribus/ui/hruler.cpp" line="1087"/>
         <source>Period</source>
-        <translation type="unfinished">Tizedesponthoz</translation>
-    </message>
-    <message>
-        <source>Dot</source>
-        <translation type="vanished">Pont</translation>
+        <translation>Tizedesponthoz</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/hruler.cpp" line="1088"/>
@@ -13039,44 +13035,44 @@ Javító ellenőrzés után érdemes újra megpróbálni.</translation>
         <translation>A Qt buildből hiányzik az „UTF-16” és az „ISO-10646-UCS-2” szövegkódolás, a PDF exportálás nem lehetséges</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3485"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3476"/>
         <source>Page:</source>
         <translation>Oldal:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3495"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3486"/>
         <source>Date:</source>
         <translation>Dátum:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="10682"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="10673"/>
         <source>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</source>
         <translation>Nem sikerült a PDF-fájl beágyazása: %1
 A kísérleti PDF és PS beágyazás kikapcsolásával érdemes újrapróbálni.</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11971"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11962"/>
         <source>Failed to load an image : %1</source>
         <translation>Kép betöltése sikertelen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11976"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11967"/>
         <source>Failed to write an image : %1</source>
         <translation>Kép írása sikertelen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11981"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11972"/>
         <source>Failed to load an image mask : %1</source>
         <translation>Képmaszk betöltése sikertelen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11986"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11977"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Nincs elegendő memória egy kép feldolgozásához</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11966"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11957"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>Írási hiba történt, ellenőrizze a rendelkezésre álló szabad lemezterületet</translation>
     </message>
@@ -20851,7 +20847,7 @@ Az 1. és 2. PostScript szint nagy méretű fájlokat eredményez.</translation>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="400"/>
         <source> lines</source>
-        <translation type="unfinished"> sor</translation>
+        <translation> sor</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="423"/>
@@ -29506,61 +29502,61 @@ Ez egy érvénytelen érték: %1.</translation>
         <translation>%1 beállítófájl nem található vagy nem tölthető be</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="62"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="63"/>
         <source>Cannot have an empty paragraph style name.</source>
         <comment>python error</comment>
         <translation>Üres bekezdésstílus-név nem lehetséges.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="68"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="69"/>
         <source>hasdropcap is true but dropcaplines value is invalid</source>
         <comment>python error</comment>
         <translation>a „hasdropcap” igaz, de a „dropcaplines” értéke érvénytelen</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="74"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="75"/>
         <source>hasdropcap and bullet are not allowed to be specified together.</source>
         <comment>python error</comment>
         <translation>a „hasdropcap” és a „bullett” együttes meghatározása nem megengedett.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="128"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="129"/>
         <source>invalid tab-position specified.</source>
         <comment>python error</comment>
         <translation>érvénytelen tabulátorpozíció lett meghatározva.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="228"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="231"/>
         <source>Cannot have an empty char style name.</source>
         <comment>python error</comment>
         <translation>Üres karakterstílus-név nem lehetséges.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="237"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="240"/>
         <source>Specified font is not available.</source>
         <comment>python error</comment>
         <translation>A megadott betűkészlet nem elérhető.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="250"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="253"/>
         <source>Specified fill color is not available in document.</source>
         <comment>python error</comment>
         <translation>A megadott kitöltőszín nem elérhető a dokumentumban.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="258"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="261"/>
         <source>Specified stroke color is not available in document.</source>
         <comment>python error</comment>
         <translation>A megadott körvonalszín nem elérhető a dokumentumban.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="266"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="269"/>
         <source>Specified background color is not available in document.</source>
         <comment>python error</comment>
         <translation>A megadott háttérszín nem elérhető a dokumentumban.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="411"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdstyle.cpp" line="414"/>
         <source>Specified color is not available in document.</source>
         <comment>python error</comment>
         <translation>A megadott szín nem elérhető a dokumentumban.</translation>
@@ -30286,7 +30282,7 @@ A kép valószínűleg így nem lesz helyes</translation>
         <translation>&lt;p&gt;Több oldalt próbált meg importálni, mint ahány rendelkezésre áll a dokumentumban az aktív oldaltól számítva.&lt;/p&gt;Válasszon az alábbiak közül:&lt;ul&gt;&lt;li&gt;Hiányzó oldalak &lt;b&gt;létrehozása&lt;/b&gt;&lt;/li&gt;&lt;li&gt;&lt;b&gt;Importálás&lt;/b&gt; az utolsó oldalig &lt;/li&gt;&lt;li&gt;&lt;b&gt;Mégse&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18629"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18630"/>
         <source>Unacceptable settings for note style</source>
         <translation>Nem elfogadható beállítások a jegyzetstílusok számára</translation>
     </message>
@@ -34072,7 +34068,7 @@ Ha elmenti ebben a verzióban, a régebbi Scribus-verziók már nem fogják tudn
         <location filename="../../scribus/scribusdoc.cpp" line="200"/>
         <location filename="../../scribus/scribusdoc.cpp" line="206"/>
         <location filename="../../scribus/scribusdoc.cpp" line="236"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17075"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17076"/>
         <source>Document</source>
         <translation>Dokumentum</translation>
     </message>
@@ -34113,7 +34109,7 @@ Ha elmenti ebben a verzióban, a régebbi Scribus-verziók már nem fogják tudn
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="952"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16755"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16756"/>
         <source>Adjusting Colors</source>
         <translation>A színek módosítása</translation>
     </message>
@@ -34150,9 +34146,9 @@ Vízszintes térköz: %3
 Függőleges térköz: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="15434"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15489"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15651"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15435"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15490"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15652"/>
         <source>Group%1</source>
         <translation>Csoport%1</translation>
     </message>
@@ -34168,18 +34164,18 @@ Függőleges térköz: %4</translation>
         <translation>%1 elem lett másolva a(z) %2 oldalra</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17091"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17092"/>
         <source>File %1 autosaved</source>
         <translation>%1 fájl automatikusan mentve</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18258"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="18295"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18259"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18296"/>
         <source>No Style</source>
         <translation>Nincs stílus megadva</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18623"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18624"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>A(z) %1 jegyzetstílus tartománya az egész dokumentum és ugyanolyan számozási stílussal rendelkezik, mint a(z) %2</translation>
     </message>
