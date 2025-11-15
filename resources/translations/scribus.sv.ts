@@ -54,7 +54,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="209"/>
         <source>&amp;Build Information</source>
-        <translation>information om &amp;Build</translation>
+        <translation>information om &amp;byggverion</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="225"/>
@@ -417,12 +417,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1521"/>
         <source>&amp;Print...</source>
-        <translation>&amp;Skriv ut...</translation>
+        <translation>Skriv &amp;ut...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1525"/>
         <source>&amp;Quit</source>
-        <translation>&amp;Avsluta</translation>
+        <translation>A&amp;vsluta</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1527"/>
@@ -464,7 +464,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1541"/>
         <source>&amp;Deselect All</source>
-        <translation>Ångra &amp;markering</translation>
+        <translation>Avmarkera a&amp;llt</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1542"/>
@@ -783,7 +783,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1687"/>
         <source>Show &amp;Text Chain</source>
-        <translation>Visa &amp;textflöde</translation>
+        <translation>Visa &amp;textkedja</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1691"/>
@@ -833,7 +833,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1710"/>
         <source>Document &amp;Log</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokument&amp;logg</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1712"/>
@@ -949,7 +949,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1828"/>
         <source>Display logged warnings and errors from editing activities</source>
-        <translation type="unfinished"></translation>
+        <translation>Visa loggade varningar och fel från redigeringsaktiviteter</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1855"/>
@@ -2360,7 +2360,7 @@
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="91"/>
         <source>Guide</source>
-        <translation>Hjälplinje</translation>
+        <translation>Stödlinje</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="132"/>
@@ -2460,12 +2460,12 @@
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="94"/>
         <source>&lt;qt&gt;Align relative to the:&lt;ul&gt;&lt;li&gt;First selected item&lt;/li&gt;&lt;li&gt;Second Selected Item&lt;/li&gt;&lt;li&gt;The current page&lt;/li&gt;&lt;li&gt;The margins of the current page&lt;/li&gt;&lt;li&gt;A Guide&lt;/li&gt;&lt;li&gt;The selection&lt;/ul&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Justera i förhållande till:&lt;ul&gt;&lt;li&gt;Första valda objektet&lt;/li&gt;&lt;li&gt;Andra valda objektet&lt;/li&gt;&lt;li&gt;Den aktuella sidan&lt;/li&gt;&lt;li&gt;Marginalerna på den aktuella sidan&lt;/li&gt;&lt;li&gt;En stödlinje&lt;/li&gt;&lt;li&gt;Markeringen&lt;/ul&gt;&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="104"/>
         <source>The location of the selected guide to align to</source>
-        <translation type="unfinished"></translation>
+        <translation>Platsen för den valda stödlinjen att justera mot</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="99"/>
@@ -2480,7 +2480,7 @@
     <message>
         <location filename="../../scribus/ui/aligndistribute.cpp" line="101"/>
         <source>&lt;qt&gt;When aligning one side of an item do one of the following:&lt;ul&gt;&lt;li&gt;Always move the other side too (preserve existing width and height)&lt;/li&gt;&lt;li&gt;Keep the other side fixed (resize the item instead of moving it) whenever possible&lt;/li&gt;&lt;/ul&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;När du justerar ena sidan av ett objekt gör du något av följande:&lt;ul&gt;&lt;li&gt;Flytta alltid den andra sidan också (behåll befintlig bredd och höjd)&lt;/li&gt;&lt;li&gt;Håll den andra sidan fast (ändra storlek på objektet istället för att flytta det) när det är möjligt&lt;/li&gt;&lt;/ul&gt;&lt;/qt&gt;</translation>
     </message>
 </context>
 <context>
@@ -2627,7 +2627,7 @@
     <message>
         <location filename="../../scribus/ui/annota.cpp" line="135"/>
         <source>Paragraph</source>
-        <translation>Paragraf</translation>
+        <translation>Stycke</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annota.cpp" line="136"/>
@@ -4311,7 +4311,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/charselectenhanced.ui" line="58"/>
         <source>C&amp;haracter Class:</source>
-        <translation>C&amp;haracter Class:</translation>
+        <translation>T&amp;eckenklass:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/charselectenhanced.ui" line="90"/>
@@ -4450,7 +4450,7 @@ Med Insert-tangenten infogar du en glyf i markeringen nedan och med Delete-tange
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="122"/>
         <source>Check again</source>
-        <translation>Kontrolera igen</translation>
+        <translation>Kontrollera igen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="137"/>
@@ -4612,7 +4612,7 @@ just nu %2 x %3 DPI</translation>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="148"/>
         <source>This layer uses blendmodes which relies on transparency, only an issue if using older printing profiles. You may safely ignore this when using modern printing methods, or exporting to PDF version greater than 1.4.</source>
-        <translation>Detta lager använder blendmodes som förlitar sig på transparens, endast ett problem om du använder äldre tryckprofiler. Du kan ignorera detta om du använder moderna utskriftsmetoder eller exporterar till en PDF-version som är större än 1.4.</translation>
+        <translation>Detta lager använder blandningslägen som förlitar sig på transparens, endast ett problem om du använder äldre tryckprofiler. Du kan ignorera detta om du använder moderna utskriftsmetoder eller exporterar till en PDF-version som är större än 1.4.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="149"/>
@@ -7506,14 +7506,14 @@ ett antal sidor eller ett enskilt sidnummer</translation>
         <location filename="../../scribus/ui/extimageprops.cpp" line="94"/>
         <location filename="../../scribus/ui/extimageprops.cpp" line="131"/>
         <source>Color Dodge</source>
-        <translation type="unfinished">Färgskugga</translation>
+        <translation>Färgskugga</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/extimageprops.cpp" line="74"/>
         <location filename="../../scribus/ui/extimageprops.cpp" line="95"/>
         <location filename="../../scribus/ui/extimageprops.cpp" line="132"/>
         <source>Color Burn</source>
-        <translation type="unfinished">Efterbelys färg</translation>
+        <translation>Efterbelys färg</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/extimageprops.cpp" line="112"/>
@@ -7574,14 +7574,14 @@ ett antal sidor eller ett enskilt sidnummer</translation>
         <location filename="../../scribus/ui/extimageprops.cpp" line="97"/>
         <location filename="../../scribus/ui/extimageprops.cpp" line="134"/>
         <source>Destination In</source>
-        <translation type="unfinished"></translation>
+        <translation>Destination in</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/extimageprops.cpp" line="77"/>
         <location filename="../../scribus/ui/extimageprops.cpp" line="98"/>
         <location filename="../../scribus/ui/extimageprops.cpp" line="135"/>
         <source>Destination Out</source>
-        <translation type="unfinished"></translation>
+        <translation>Destination ut</translation>
     </message>
 </context>
 <context>
@@ -8093,7 +8093,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="80"/>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="289"/>
         <source>Skew:</source>
-        <translation type="unfinished"></translation>
+        <translation>Förvräng:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="214"/>
@@ -8474,7 +8474,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/helpbrowser.cpp" line="766"/>
         <source>&lt;h2&gt;&lt;p&gt;Sorry, no manual is installed!&lt;/p&gt;&lt;p&gt;Please see:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;https://docs.scribus.net for updated documentation&lt;/li&gt;&lt;li&gt;http://www.scribus.net for downloads&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</source>
         <comment>HTML message for no documentation available to show</comment>
-        <translation type="unfinished"></translation>
+        <translation>&lt;h2&gt;&lt;p&gt;Tyvärr, ingen manual är installerad!&lt;/p&gt;&lt;p&gt;Se:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;https://docs.scribus.net för uppdaterad dokumentation&lt;/li&gt;&lt;li&gt;http://www.scribus.net för nedladdningar&lt;/li&gt;&lt;/ul&gt;&lt;/h2&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.ui" line="77"/>
@@ -10669,12 +10669,12 @@ konverterar deras vektordata till Scribus-objekt.</translation>
     <message>
         <location filename="../../scribus/ui/layers.cpp" line="727"/>
         <source>Color Dodge</source>
-        <translation type="unfinished">Färgskugga</translation>
+        <translation>Färgskugga</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/layers.cpp" line="728"/>
         <source>Color Burn</source>
-        <translation type="unfinished">Efterbelys färg</translation>
+        <translation>Efterbelys färg</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/layers.cpp" line="726"/>
@@ -10704,7 +10704,7 @@ konverterar deras vektordata till Scribus-objekt.</translation>
     <message>
         <location filename="../../scribus/ui/layers.cpp" line="751"/>
         <source>Selects the Blendmode, works only in PDF 1.4</source>
-        <translation>Väljer Blendmode, fungerar endast i PDF 1.4</translation>
+        <translation>Väljer blandningsläget, fungerar endast i PDF 1.4</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/layers.cpp" line="752"/>
@@ -11152,12 +11152,12 @@ konverterar deras vektordata till Scribus-objekt.</translation>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="149"/>
         <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.</source>
-        <translation type="unfinished"></translation>
+        <translation>Avståndet mellan vänster marginalstödlinje och sidans kant. Om en dubbelsidig, 3- eller 4-faldig layout väljs kan detta marginalutrymme användas för att uppnå korrekta marginaler för bindning.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="150"/>
         <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.</source>
-        <translation type="unfinished"></translation>
+        <translation>Avståndet mellan höger marginalstödlinje och sidans kant. Om ett dubbelsidigt, 3- eller 4-faldigt layoutval görs kan detta marginalutrymme användas för att uppnå korrekta marginaler för bindning.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="137"/>
@@ -11175,7 +11175,7 @@ konverterar deras vektordata till Scribus-objekt.</translation>
     <message>
         <location filename="../../scribus/ui/mark2item.cpp" line="19"/>
         <source>Mark to Item</source>
-        <translation type="unfinished">Markera till objekt</translation>
+        <translation>Markera till objekt</translation>
     </message>
 </context>
 <context>
@@ -11299,7 +11299,7 @@ konverterar deras vektordata till Scribus-objekt.</translation>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="22"/>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="35"/>
         <source>Mark with Variable Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Markera med variabel text</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.cpp" line="18"/>
@@ -11317,7 +11317,7 @@ konverterar deras vektordata till Scribus-objekt.</translation>
     <message>
         <location filename="../../scribus/ui/markvariabletext.ui" line="32"/>
         <source>Add new Mark for Variable Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Lägg till ny markering för variabel text</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/markvariabletext.ui" line="52"/>
@@ -12115,12 +12115,12 @@ Om inget handtag har valts återställs alla handtag.</translation>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="73"/>
         <source>Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.</source>
-        <translation type="unfinished"></translation>
+        <translation>Avståndet mellan vänster marginalstödlinje och sidans kant. Om en dubbelsidig, 3- eller 4-faldig layout väljs kan detta marginalutrymme användas för att uppnå korrekta marginaler för bindning.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="74"/>
         <source>Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding.</source>
-        <translation type="unfinished"></translation>
+        <translation>Avståndet mellan höger marginalstödlinje och sidans kant. Om ett dubbelsidigt, 3- eller 4-faldigt layoutval görs kan detta marginalutrymme användas för att uppnå korrekta marginaler för bindning.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="83"/>
@@ -12333,7 +12333,7 @@ Om inget handtag har valts återställs alla handtag.</translation>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1111"/>
         <source>Set Contour to Image Clip</source>
-        <translation type="unfinished"></translation>
+        <translation>Ställ in kontur till bildklipp</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1144"/>
@@ -12355,7 +12355,7 @@ Om inget handtag har valts återställs alla handtag.</translation>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1112"/>
         <source>Set Shape to Image Clip</source>
-        <translation type="unfinished"></translation>
+        <translation>Ställ in form till bildklipp</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1145"/>
@@ -12382,7 +12382,7 @@ Om inget handtag har valts återställs alla handtag.</translation>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1146"/>
         <source>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object</source>
-        <translation type="unfinished"></translation>
+        <translation>När denna ruta är markerad används koordinater relativt till sidan, annars är koordinaterna relativa till objektet.</translation>
     </message>
 </context>
 <context>
@@ -13448,44 +13448,44 @@ Kontrollera det och försök igen.</translation>
         <translation>Qt build saknar både &quot;UTF-16&quot; och &quot;ISO-10646-UCS-2&quot; text codecs, pdf export är inte möjlig</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3488"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3486"/>
         <source>Page:</source>
         <translation>Sida:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3498"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3496"/>
         <source>Date:</source>
         <translation>Datum:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="10669"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="10667"/>
         <source>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</source>
         <translation>Misslyckades med att bädda in PDF-filen: %1.
 Avaktivera experimentell PDF- och PS-inbäddning och försök igen.</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11958"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11956"/>
         <source>Failed to load an image : %1</source>
         <translation>Kunde inte läsa in en bild : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11963"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11961"/>
         <source>Failed to write an image : %1</source>
         <translation>Kunde inte skriva en bild : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11968"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11966"/>
         <source>Failed to load an image mask : %1</source>
         <translation>Misslyckades med att läsa in en bildmask: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11973"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11971"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Otillräckligt minne för bearbetning av en bild</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11953"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11951"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>Ett skrivfel inträffade, kontrollera tillgängligt diskutrymme</translation>
     </message>
@@ -14064,12 +14064,12 @@ Avaktivera experimentell PDF- och PS-inbäddning och försök igen.</translation
     <message>
         <location filename="../../scribus/ui/pagelayout.cpp" line="302"/>
         <source>Location on the canvas where the first page of the document is placed</source>
-        <translation type="unfinished"></translation>
+        <translation>Plats på duken där dokumentets första sida placeras</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagelayout.cpp" line="297"/>
         <source>Number of pages to show side-by-side on the canvas. Often used for allowing items to be placed across page spreads.</source>
-        <translation type="unfinished"></translation>
+        <translation>Antal sidor som ska visas sida vid sida på arbetsytan. Används ofta för att placera objekt över flera sidor.</translation>
     </message>
 </context>
 <context>
@@ -14202,7 +14202,7 @@ Avaktivera experimentell PDF- och PS-inbäddning och försök igen.</translation
     <message>
         <location filename="../../scribus/ui/pagepalette_pagesbase.ui" line="103"/>
         <source>&lt;qt&gt;List of normal pages in the document, shown with the document layout. Pages may be dragged to rearrange or delete them.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Lista över normala sidor i dokumentet, visade med dokumentets layout. Sidorna kan dras för att ordna om eller ta bort dem.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepalette_pagesbase.ui" line="139"/>
@@ -14358,6 +14358,16 @@ Avaktivera experimentell PDF- och PS-inbäddning och försök igen.</translation
         <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="391"/>
         <source>Generating Items</source>
         <translation>Skapar objekt</translation>
+    </message>
+    <message>
+        <source>Parsing failed!
+
+Please submit your file (if possible) to the
+Document Liberation Project https://www.documentliberation.org</source>
+        <translation type="vanished">Tolkning misslyckades!
+
+Skicka in din fil (om möjligt) till
+Document Liberation Project https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
@@ -14843,12 +14853,12 @@ Resultatet är en kombination av &quot;Intersection&quot; och &quot;Exclusion&qu
     <message>
         <location filename="../../scribus/ui/patternpropsdialog.cpp" line="194"/>
         <source>X-Skew:</source>
-        <translation>X-Skew:</translation>
+        <translation>X-förvräng:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/patternpropsdialog.cpp" line="195"/>
         <source>Y-Skew:</source>
-        <translation>Y-Skew:</translation>
+        <translation>Y-förvräng:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/patternpropsdialog.cpp" line="196"/>
@@ -14964,7 +14974,7 @@ Resultatet är en kombination av &quot;Intersection&quot; och &quot;Exclusion&qu
     <message>
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="222"/>
         <source>Note: importing text as text may significantly alter PDF visual aspect</source>
-        <translation type="unfinished"></translation>
+        <translation>Observera: import av text som text kan avsevärt förändra PDF-filens utseende.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.cpp" line="51"/>
@@ -16601,7 +16611,8 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <location filename="../../scribus/prefsmanager.cpp" line="888"/>
         <source>Scribus has detected existing Scribus 1.3.5 preferences files.
 Do you want to migrate them to the new Scribus version?</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus har upptäckt befintliga inställningsfiler för Scribus 1.3.5.
+Vill du överföra dem till den nya versionen av Scribus?</translation>
     </message>
     <message>
         <location filename="../../scribus/prefsmanager.cpp" line="1981"/>
@@ -18530,7 +18541,7 @@ Vill du använda detta?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="783"/>
         <source>Free Scaling</source>
-        <translation type="unfinished"></translation>
+        <translation>Fri skalning</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="916"/>
@@ -18545,7 +18556,7 @@ Vill du använda detta?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="793"/>
         <source>Scale Image to Frame Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Skala bilden till ramstorlek</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="581"/>
@@ -18893,7 +18904,7 @@ Vill du använda detta?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_miscellaneousbase.ui" line="87"/>
         <source>Preview of current Paragraph Style is visible when editing Styles</source>
-        <translation>Förhandsgranskning av aktuell paragrafstil visas när du redigerar stilar</translation>
+        <translation>Förhandsgranskning av aktuell styckestil visas när du redigerar stilar</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_miscellaneousbase.ui" line="116"/>
@@ -18908,7 +18919,7 @@ Vill du använda detta?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_miscellaneousbase.ui" line="139"/>
         <source>Paragraph Count:</source>
-        <translation>Antal paragrafer:</translation>
+        <translation>Antal stycken:</translation>
     </message>
 </context>
 <context>
@@ -20520,7 +20531,8 @@ Vill du använda detta?</translation>
         <location filename="../../scribus/ui/prefs_printer.cpp" line="35"/>
         <source>Sets the printing language to use.
  Setting to Postscript Level 1 or 2 can create huge files.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ställer in vilket utskriftsspråk som ska användas.
+Om du ställer in Postscript Level 1 eller 2 kan det skapa stora filer.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_printer.cpp" line="36"/>
@@ -22019,7 +22031,7 @@ ett antal sidor eller ett enskilt sidnummer</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_image.cpp" line="82"/>
         <source>&amp;To Frame Size</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Till ramstorlek</translation>
     </message>
 </context>
 <context>
@@ -22032,7 +22044,7 @@ ett antal sidor eller ett enskilt sidnummer</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="74"/>
         <source>&amp;Page Number:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Sidnummer:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="37"/>
@@ -22132,7 +22144,7 @@ ett antal sidor eller ett enskilt sidnummer</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="261"/>
         <source>&amp;To Frame Size</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Till ramstorlek</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="312"/>
@@ -22350,22 +22362,22 @@ ett antal sidor eller ett enskilt sidnummer</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="732"/>
         <source>Arrow head style for start of line</source>
-        <translation type="unfinished"></translation>
+        <translation>Pilspetsstil för början av raden</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="733"/>
         <source>Arrow head style for end of line</source>
-        <translation type="unfinished"></translation>
+        <translation>Pilspetsstil för slutet av raden</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="734"/>
         <source>Arrow head scale for start of line</source>
-        <translation type="unfinished"></translation>
+        <translation>Pilspetsskala för början av raden</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="735"/>
         <source>Arrow head scale for end of line</source>
-        <translation type="unfinished"></translation>
+        <translation>Pilspetsskala för slutet av raden</translation>
     </message>
 </context>
 <context>
@@ -22459,7 +22471,7 @@ ett antal sidor eller ett enskilt sidnummer</translation>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="67"/>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="307"/>
         <source>Blendmode:</source>
-        <translation type="unfinished"></translation>
+        <translation>Blandningsläge:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="31"/>
@@ -22527,12 +22539,12 @@ ett antal sidor eller ett enskilt sidnummer</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="299"/>
         <source>Color Dodge</source>
-        <translation type="unfinished">Färgskugga</translation>
+        <translation>Färgskugga</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="300"/>
         <source>Color Burn</source>
-        <translation type="unfinished">Efterbelys färg</translation>
+        <translation>Efterbelys färg</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="301"/>
@@ -22611,7 +22623,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="116"/>
         <source>Blendmode:</source>
-        <translation type="unfinished"></translation>
+        <translation>Blandningsläge:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="127"/>
@@ -22754,7 +22766,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="222"/>
         <source>Text Flow:</source>
-        <translation type="unfinished"></translation>
+        <translation>Textflöde:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="229"/>
@@ -22860,7 +22872,7 @@ Transparency</source>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="79"/>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="761"/>
         <source>Optical Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Optiska marginaler</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="83"/>
@@ -22888,13 +22900,13 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="493"/>
         <source>Baseline</source>
-        <translation type="unfinished"></translation>
+        <translation>Baslinje</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="91"/>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="763"/>
         <source>Font Features</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Typsnittsfunktioner</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="720"/>
@@ -22938,7 +22950,7 @@ Transparency</source>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="72"/>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="759"/>
         <source>Paragraph Effects</source>
-        <translation type="unfinished"></translation>
+        <translation>Effekter för stycken</translation>
     </message>
 </context>
 <context>
@@ -22957,7 +22969,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="110"/>
         <source>Select the line spacing mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Välj radavståndsläge</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="123"/>
@@ -23213,7 +23225,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="364"/>
         <source>Enable or disable exporting of the object</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktivera eller inaktivera export av objektet</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="371"/>
@@ -23350,7 +23362,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="32"/>
         <source>Vertical Alignment:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vertikal justering</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="58"/>
@@ -23514,7 +23526,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="32"/>
         <source>Set the height of the first line of the text frame to use the tallest height of the included characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Ställ in höjden på textramens första rad så att den använder den högsta höjden för de inkluderade tecknen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="35"/>
@@ -23524,7 +23536,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="45"/>
         <source>Set the height of the first line of text frame to use the full ascent of the font(s) in use</source>
-        <translation type="unfinished"></translation>
+        <translation>Ställ in höjden på den första raden i textramen så att den använder hela upphöjningen för det eller de teckensnitt som används</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="48"/>
@@ -23534,7 +23546,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="58"/>
         <source>Set the height of the first line of the text frame to the specified line height</source>
-        <translation type="unfinished"></translation>
+        <translation>Ställ in höjden på textramens första rad till den angivna radhöjden</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="61"/>
@@ -23549,7 +23561,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_flopbase.ui" line="74"/>
         <source>Baseline Grid</source>
-        <translation type="unfinished">Baslinje rutnät</translation>
+        <translation>Baslinjesrutnät</translation>
     </message>
 </context>
 <context>
@@ -23562,7 +23574,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="35"/>
         <source>Common Ligatures</source>
-        <translation type="unfinished"></translation>
+        <translation>Vanliga ligaturer</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="45"/>
@@ -23572,7 +23584,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="48"/>
         <source>Contextual Ligatures</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontextuella ligaturer</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="67"/>
@@ -23582,7 +23594,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="70"/>
         <source>Discretionary Ligatures</source>
-        <translation type="unfinished"></translation>
+        <translation>Diskretionära ligaturer</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="80"/>
@@ -23592,7 +23604,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="83"/>
         <source>Historical Ligatures</source>
-        <translation type="unfinished"></translation>
+        <translation>Historiska ligaturer</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_fontfeaturesbase.ui" line="103"/>
@@ -23940,7 +23952,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="81"/>
         <source>Consecutive Hyphenations Allowed:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tillåtna på varandra följande bindestreck:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="88"/>
@@ -23952,7 +23964,7 @@ Ett värde på 0 innebär obegränsat antal avstavningar.</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="103"/>
         <source>Hyphenation Character:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bindestreckstecken:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_hyphenationbase.ui" line="110"/>
@@ -24005,12 +24017,12 @@ Ett värde på 0 innebär obegränsat antal avstavningar.</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="35"/>
         <source>Don&apos;t separate first:</source>
-        <translation type="unfinished"></translation>
+        <translation>Separera inte första:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="55"/>
         <source>Don&apos;t separate last:</source>
-        <translation type="unfinished"></translation>
+        <translation>Separera inte sista:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_orphansbase.ui" line="62"/>
@@ -24058,7 +24070,7 @@ Ett värde på 0 innebär obegränsat antal avstavningar.</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffect.cpp" line="236"/>
         <source>No Paragraph Effects</source>
-        <translation>Inga paragrafeffekter</translation>
+        <translation>Inga effekter för stycken</translation>
     </message>
 </context>
 <context>
@@ -24131,7 +24143,7 @@ Ett värde på 0 innebär obegränsat antal avstavningar.</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="370"/>
         <source>Choose Character Style or leave blank to use default Paragraph Style</source>
-        <translation>Välj teckenstil eller lämna tomt för att använda standardparagrafstil</translation>
+        <translation>Välj teckenstil eller lämna tomt för att använda standardstil för stycken</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="382"/>
@@ -24179,7 +24191,7 @@ Ett värde på 0 innebär obegränsat antal avstavningar.</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_pathtext.cpp" line="230"/>
         <source>Flip Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Vänd text</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pathtext.cpp" line="231"/>
@@ -24227,7 +24239,7 @@ Ett värde på 0 innebär obegränsat antal avstavningar.</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="62"/>
         <source>Flip Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Vänd text</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="69"/>
@@ -24260,12 +24272,12 @@ Ett värde på 0 innebär obegränsat antal avstavningar.</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="201"/>
         <source>Background color of selected text</source>
-        <translation type="unfinished"></translation>
+        <translation>Bakgrundsfärg för markerad text</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_textcolorbase.ui" line="227"/>
         <source>Saturation of color of text background</source>
-        <translation type="unfinished"></translation>
+        <translation>Färgmättnad för textbakgrund</translation>
     </message>
 </context>
 <context>
@@ -29329,7 +29341,7 @@ inte är uttömmande på grund av undantag från anropade funktioner.
         <location filename="../../scribus/fonts/scface_ps.cpp" line="207"/>
         <location filename="../../scribus/fonts/scface_ps.cpp" line="227"/>
         <source>Font %1 cannot be read, no embedding</source>
-        <translation type="unfinished"></translation>
+        <translation>Typsnittet %1 kan inte läsas, ingen inbäddning</translation>
     </message>
     <message>
         <location filename="../../scribus/scfonts.cpp" line="702"/>
@@ -29958,7 +29970,7 @@ inte är uttömmande på grund av undantag från anropade funktioner.
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdsetprop.cpp" line="248"/>
         <source>Blendmode out of bounds, must be 0 &lt;= blendmode &lt;= 15.</source>
         <comment>python error</comment>
-        <translation>Blendmode utanför gränserna, måste vara 0 &lt;= blendmode &lt;= 15.</translation>
+        <translation>Blandningsläge utanför gränserna, måste vara 0 &lt;= blendmode &lt;= 15.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus12format/scribus12format.cpp" line="69"/>
@@ -31407,7 +31419,7 @@ Därför kanske bilden inte är korrekt</translation>
     <message>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptplugin.cpp" line="137"/>
         <source>Scripter for Python 2.x</source>
-        <translation type="unfinished"></translation>
+        <translation>Skriptare för Python 2.x</translation>
     </message>
 </context>
 <context>
@@ -32083,7 +32095,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="699"/>
         <source>Hyphenation Character:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bindestreckstecken:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="733"/>
@@ -32103,7 +32115,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="808"/>
         <source>Font Features</source>
-        <translation type="unfinished"></translation>
+        <translation>Typsnittsfunktioner</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="68"/>
@@ -32118,17 +32130,17 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="375"/>
         <source>Baseline Offset</source>
-        <translation type="unfinished"></translation>
+        <translation>Baslinjesförskjutning</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="299"/>
         <source>Horizontal Scaling</source>
-        <translation type="unfinished"></translation>
+        <translation>Horisontell skalning</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="337"/>
         <source>Vertical Scaling</source>
-        <translation type="unfinished"></translation>
+        <translation>Vertikal skalning</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="478"/>
@@ -32158,7 +32170,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.ui" line="663"/>
         <source>Background Shade</source>
-        <translation type="unfinished">Bakgrundsskugga</translation>
+        <translation>Bakgrundsskugga</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smcstylewidget.cpp" line="308"/>
@@ -32514,7 +32526,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1145"/>
         <source>Choose Character Style or leave blank to use default Paragraph Style</source>
-        <translation>Välj teckenstil eller lämna tomt för att använda standardparagrafstil</translation>
+        <translation>Välj teckenstil eller lämna tomt för att använda standardstil för stycken</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1181"/>
@@ -32569,7 +32581,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="105"/>
         <source>Maximum white space compression allowed. Expressed as a percentage of the current white space value.</source>
-        <translation type="unfinished"></translation>
+        <translation>Maximal tillåten komprimering av blanksteg. Uttryckt som en procentandel av det aktuella värdet för blanksteg.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="123"/>
@@ -32584,7 +32596,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="179"/>
         <source>Consecutive Hyphenations Allowed:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tillåtna på varandra följande bindestreck:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="674"/>
@@ -32656,7 +32668,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="139"/>
         <source>Maximum compression of glyphs</source>
-        <translation type="unfinished"></translation>
+        <translation>Maximal komprimering av glyfer</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="162"/>
@@ -32666,7 +32678,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="211"/>
         <source>Optical Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Optiska marginaler</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="487"/>
@@ -32763,12 +32775,12 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="805"/>
         <source>Paragraph Effects</source>
-        <translation type="unfinished"></translation>
+        <translation>Effekter för stycken</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1138"/>
         <source>Character Style for Effect:</source>
-        <translation type="unfinished"></translation>
+        <translation>Teckenstil för effekt:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1030"/>
@@ -32778,7 +32790,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1047"/>
         <source>Create New Set:</source>
-        <translation type="unfinished"></translation>
+        <translation>Skapa ny uppsättning:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="1057"/>
@@ -32808,7 +32820,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="451"/>
         <source>Alignment and Distances</source>
-        <translation type="unfinished"></translation>
+        <translation>Justering och avstånd</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="114"/>
@@ -32871,7 +32883,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smtextstyles.cpp" line="57"/>
         <source>Paragraph Styles</source>
-        <translation>Paragrafstilar</translation>
+        <translation>Effekter för stycken</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smtextstyles.cpp" line="62"/>
@@ -32959,7 +32971,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smstyleimport.cpp" line="34"/>
         <source>Paragraph Styles</source>
-        <translation>Paragrafstilar</translation>
+        <translation>Effekter för stycken</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smstyleimport.cpp" line="46"/>
@@ -34790,12 +34802,12 @@ Om du sparar den i den här versionen kommer den inte längre att kunna läsas a
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="95"/>
         <source>Scribus 1.5.0+ File Format Support</source>
-        <translation type="unfinished">Stöd för filformat i Scribus 1.3.4+ {1.5.0+?}</translation>
+        <translation>Filformatsstöd för Scribus 1.5.0+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="96"/>
         <source>Allows Scribus to read Scribus 1.5.0 and higher formatted files.</source>
-        <translation type="unfinished">Gör det möjligt för Scribus att läsa Scribus 1.3.4 och högre formaterade filer. {1.5.0 ?}</translation>
+        <translation>Gör det möjligt för Scribus att läsa filer formaterade med Scribus 1.5.0 och senare.</translation>
     </message>
 </context>
 <context>
@@ -35990,7 +36002,7 @@ Använd verifieraren (Preflight) för att korrigera dem</translation>
     <message>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptplugin.cpp" line="148"/>
         <source>Embedded Python scripting support for Python 2.x.</source>
-        <translation type="unfinished">Inbäddat Python-skriptstöd för Python 3.x. {2.?}</translation>
+        <translation>Inbyggt stöd för Python-skript för Python 3.x. {2.?}</translation>
     </message>
 </context>
 <context>
@@ -41072,12 +41084,12 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="850"/>
         <source>Stroke</source>
-        <translation type="unfinished"></translation>
+        <translation>Streck</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="876"/>
         <source>Stroke Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Streckläge</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="168"/>
@@ -42143,13 +42155,13 @@ välj ett annat namn.</translation>
         <location filename="../../scribus/ui/transparencypalette.ui" line="189"/>
         <location filename="../../scribus/ui/transparencypalette.ui" line="567"/>
         <source>Color Dodge</source>
-        <translation type="unfinished">Färgskugga</translation>
+        <translation>Färgskugga</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/transparencypalette.ui" line="194"/>
         <location filename="../../scribus/ui/transparencypalette.ui" line="572"/>
         <source>Color Burn</source>
-        <translation type="unfinished">Efterbelys färg</translation>
+        <translation>Efterbelys färg</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/transparencypalette.ui" line="199"/>
@@ -42209,7 +42221,7 @@ välj ett annat namn.</translation>
         <location filename="../../scribus/ui/transparencypalette.ui" line="408"/>
         <location filename="../../scribus/ui/transparencypalette.ui" line="486"/>
         <source>Use Luminosity as Alpha</source>
-        <translation type="unfinished"></translation>
+        <translation>Använd luminositet som alfa</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/transparencypalette.ui" line="416"/>
