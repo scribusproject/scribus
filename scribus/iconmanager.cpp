@@ -12,6 +12,7 @@
 *                                                                         *
 ***************************************************************************/
 
+#include <QApplication>
 #include <QCursor>
 #include <QDebug>
 #include <QDir>
@@ -20,8 +21,6 @@
 #include <QFile>
 #include <QIcon>
 #include <QTextStream>
-#include <QDomDocument>
-#include <QApplication>
 #include <QtSvg/QSvgRenderer>
 #include <QRegularExpression>
 #include <QStyleHints>
@@ -253,12 +252,12 @@ void IconManager::applyColors(QDomDocument &doc, QString fileName, QColor color)
 			if (fileCSS.exists())
 			{
 				fileCSS.open(QIODevice::ReadOnly);
-				QByteArray baData = fileCSS.readAll();
+					QByteArray baData = fileCSS.readAll();
 
 				QString styleSheet = QString(baData);
 
-				// Parse Style Sheet
-				parseStyleSheet(styleSheet, styles);
+					// Parse Style Sheet
+					parseStyleSheet(styleSheet, styles);
 			}
 			else
 			{

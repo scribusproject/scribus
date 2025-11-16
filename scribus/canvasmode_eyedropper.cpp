@@ -25,7 +25,6 @@
 #include <QPoint>
 #include <QRect>
 #include <QScreen>
-#include <QScreen>
 
 #include "appmodes.h"
 #include "canvas.h"
