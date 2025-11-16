@@ -39,7 +39,7 @@ LanguageManager* LanguageManager::m_instance = nullptr;
 
 LanguageManager* LanguageManager::instance()
 {
-	if(!m_instance)
+	if (!m_instance)
 	{
 		m_instance = new LanguageManager;
 		Q_ASSERT(m_instance);
@@ -797,7 +797,7 @@ QString LanguageManager::getLangFromTransLang(const QString& transLang) const
 		if (langDef.m_transName == transLang)
 			return langDef.m_name;
 	}
-	return "";
+	return QString();
 }
 
 QString LanguageManager::getTransLangFromLang(const QString& lang) const
@@ -807,7 +807,7 @@ QString LanguageManager::getTransLangFromLang(const QString& lang) const
 		if (langDef.m_name == lang)
 			return langDef.m_transName;
 	}
-	return "";
+	return QString();
 }
 
 QString LanguageManager::getShortAbbrevFromAbbrev(QString langAbbrev) const
@@ -1037,10 +1037,10 @@ bool LanguageManager::findSpellingDictionaries(QStringList &sl) const
 
 void LanguageManager::findSpellingDictionarySets(const QStringList &dictionaryPaths, QMap<QString, QString> &dictionaryMap) const
 {
-	for (int i = 0; i < dictionaryPaths.count(); ++i)
+	for (const auto& dictionaryPath : dictionaryPaths)
 	{
 		// Find the dic and aff files in the location
-		QDir dictLocation(dictionaryPaths.at(i));
+		QDir dictLocation(dictionaryPath);
 		QStringList dictFilters("*.dic");
 		QStringList dictList(dictLocation.entryList(dictFilters, QDir::Files, QDir::Name));
 		dictList.replaceInStrings(".dic", "");
@@ -1049,7 +1049,7 @@ void LanguageManager::findSpellingDictionarySets(const QStringList &dictionaryPa
 		//Ensure we have aff+dic file pairs, remove any hyphenation dictionaries from the list
 		for (const QString& dictName : std::as_const(dictList))
 		{
-			if (!QFile::exists(dictionaryPaths.at(i) + dictName + ".aff"))
+			if (!QFile::exists(dictionaryPath + dictName + ".aff"))
 				continue;
 				
 			if (dictionaryMap.contains(dictName))
@@ -1057,15 +1057,15 @@ void LanguageManager::findSpellingDictionarySets(const QStringList &dictionaryPa
 
 			if (dictName.length() <= 5)
 			{
-				//qDebug()<<"findSpellingDictionarySets"<<dictName<<shortAbbrev;
-				dictionaryMap.insert(dictName, dictionaryPaths.at(i) + dictName);
+				//qDebug() << "findSpellingDictionarySets" << dictName << shortAbbrev;
+				dictionaryMap.insert(dictName, dictionaryPath + dictName);
 			}
-			//qDebug()<<"Spell Finder:"<<dictName<<dictionaryPaths.at(i)+dictName;
+			//qDebug() << "Spell Finder:" << dictName << dictionaryPath + dictName;
 			if (dictName.length() > 5)
 			{
 				QString shortAbbrev(LanguageManager::getShortAbbrevFromAbbrev(dictName));
-				//qDebug()<<shortAbbrev;
-				dictionaryMap.insert(shortAbbrev, dictionaryPaths.at(i) + dictName);
+				//qDebug() << shortAbbrev;
+				dictionaryMap.insert(shortAbbrev, dictionaryPath + dictName);
 			}
 		}
 //		qDebug()<<"Number of dictionaries/AFFs found in"<<dictionaryPaths.at(i)<<":"<<dictList.count();
@@ -1148,7 +1148,7 @@ LanguageManager::~LanguageManager()
 	m_langTable.clear();
 }
 
-QString LanguageManager::getHyphFilename(const QString & langAbbrev)
+QString LanguageManager::getHyphFilename(const QString & langAbbrev) const
 {
 	int j = langTableIndex(langAbbrev);
 	if (j != -1 && m_langTable[j].m_hyphAvailable)

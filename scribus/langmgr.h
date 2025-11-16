@@ -65,7 +65,7 @@ public:
 	bool findHyphDictionaries(QStringList& sl) const;
 	void findHyphDictionarySets(const QStringList& dictionaryPaths, QMap<QString, QString>& dictionaryMap) const;
 	
-	QString getHyphFilename(const QString& langAbbrev);
+	QString getHyphFilename(const QString& langAbbrev) const;
 	int langTableIndex(const QString& abbrev) const;
 
 	bool isAvailableTranslation(QString langAbbrev) const;
