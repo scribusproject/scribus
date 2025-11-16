@@ -41,7 +41,7 @@ for which a new license (GPL+exception) is in place.
 #endif
 
 #if defined(_WIN32)
-#include <windows.h>
+#include <Windows.h>
 #ifndef KEY_WOW64_32KEY
 	#define KEY_WOW64_32KEY (0x0200)
 #endif

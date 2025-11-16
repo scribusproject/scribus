@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPageLayout>
 
 #if defined(_WIN32)
- #include <windows.h>
+ #include <Windows.h>
  #include <winspool.h>
 #endif
 

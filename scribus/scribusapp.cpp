@@ -54,7 +54,7 @@ for which a new license (GPL+exception) is in place.
 #endif
 
 #if defined(_WIN32)
-#include <windows.h>
+#include <Windows.h>
 #endif
 
 #define ARG_VERSION "--version"

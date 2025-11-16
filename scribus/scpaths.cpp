@@ -22,9 +22,9 @@ for which a new license (GPL+exception) is in place.
 #endif
 
 #ifdef _WIN32
-#include <windows.h>
-#include <shlobj.h>
-#include <versionhelpers.h>
+#include <Windows.h>
+#include <ShlObj.h>
+#include <VersionHelpers.h>
 #endif
 
 #if defined(Q_OS_WIN32) || defined (Q_OS_OS2)

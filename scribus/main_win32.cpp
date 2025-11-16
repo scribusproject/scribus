@@ -50,7 +50,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scconfig.h"
 
-#include <windows.h>
+#include <Windows.h>
 #include <wincon.h>
 
 using namespace std;

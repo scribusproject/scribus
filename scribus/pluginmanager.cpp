@@ -31,7 +31,7 @@ for which a new license (GPL+exception) is in place.
 #ifdef HAVE_DLFCN_H
 #include <dlfcn.h>
 #elif defined(DLL_USE_NATIVE_API) && defined(_WIN32)
-#include <windows.h>
+#include <Windows.h>
 #else
 #include <QLibrary>
 #endif

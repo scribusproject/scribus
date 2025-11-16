@@ -21,7 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsfile.h"
 #include "cupsoptions.h"
 #if defined(_WIN32)
-	#include <windows.h>
+	#include <Windows.h>
 	#include <winspool.h>
 #elif defined(HAVE_CUPS) // Haiku doesn't have it
 	#include <cups/cups.h>

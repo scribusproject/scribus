@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 
 #include <cairo.h>
-#include <windows.h>
+#include <Windows.h>
 
 class SCRIBUS_API ScPrintEngine_GDI : public ScPrintEngine
 {

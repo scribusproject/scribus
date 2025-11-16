@@ -14,14 +14,15 @@ for which a new license (GPL+exception) is in place.
 
 #include <memory>
 #include <valarray>
-#include <windows.h>
+#include <Windows.h>
+
 #include <QByteArray>
 #include <QScopedPointer>
 
 #include "scconfig.h"
 
 #ifdef HAVE_ICM
-#include <icm.h>
+#include <Icm.h>
 #endif
 
 #include "commonstrings.h"

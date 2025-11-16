@@ -26,8 +26,8 @@ for which a new license (GPL+exception) is in place.
 #include <QMessageBox>
 
 #ifdef Q_OS_WIN
-#include <windows.h>
-#include <shlobj.h>
+#include <Windows.h>
+#include <ShlObj.h>
 #endif
 
 
@@ -73,7 +73,7 @@ bool HunspellPluginImpl::initHunspell()
 	}
 	dictionaryMap.clear();
 	LanguageManager::instance()->findSpellingDictionarySets(dictionaryPaths, dictionaryMap);
-	if (dictionaryMap.count() == 0)
+	if (dictionaryMap.isEmpty())
 		return false;
 
 	//Initialise one hunspeller for each dictionary found
