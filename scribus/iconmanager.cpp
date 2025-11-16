@@ -251,19 +251,19 @@ void IconManager::applyColors(QDomDocument &doc, QString fileName, QColor color)
 			QFile fileCSS(absFile);
 			if (fileCSS.exists())
 			{
-				fileCSS.open(QIODevice::ReadOnly);
+				if (fileCSS.open(QIODevice::ReadOnly))
+				{
 					QByteArray baData = fileCSS.readAll();
-
-				QString styleSheet = QString(baData);
+					QString styleSheet(baData);
 
 					// Parse Style Sheet
 					parseStyleSheet(styleSheet, styles);
+				}
 			}
 			else
 			{
 				qWarning() << "IconManager: Couldn't load CSS file for icon style! [" << fileName << "]";
 			}
-
 		}
 	}
 

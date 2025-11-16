@@ -1299,121 +1299,131 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(const QString& fn)
 
 void ScImgDataLoader_PS::loadPhotoshopBinary(const QString& fn, QImage &tmpImg)
 {
+	QByteArray psdata;
+	int yCount = 0;
+
 	double x, y, b, h;
 	ScTextStream ts2(&m_BBox, QIODevice::ReadOnly);
 	ts2 >> x >> y >> b >> h;
-	QString tmpFile = QDir::toNativeSeparators(ScPaths::tempFileDir() + "sc1.jpg");
-	QFile f2(tmpFile);
-	QString tmp;
+
 	tmpImg = QImage(m_psXSize, m_psYSize, QImage::Format_ARGB32);
 	tmpImg.fill(qRgba(0, 0, 0, 0));
-	QByteArray psdata;
+
 	QFile f(fn);
-	int yCount = 0;
-	if (f.open(QIODevice::ReadOnly))
+	if (!f.open(QIODevice::ReadOnly))
 	{
-		if (m_psDataType > 2)
+		qDebug() << "Failed to open QFile f in ScImgDataLoader_PS::loadPhotoshopBinary(const QString&, QImage&)";
+		return;
+	}
+
+	QString tmpFile = QDir::toNativeSeparators(ScPaths::tempFileDir() + "sc1.jpg");
+	QFile f2(tmpFile);
+	if (m_psDataType > 2)
+	{
+		if (!f2.open(QIODevice::WriteOnly))
 		{
-			f2.open(QIODevice::WriteOnly);
+			qDebug() << "Failed to open QFile f2 in ScImgDataLoader_PS::loadPhotoshopBinary(const QString&, QImage&)";
+			return;
 		}
-		QDataStream ts(&f);
-		while (!ts.atEnd())
+	}
+
+	QDataStream ts(&f);
+	while (!ts.atEnd())
+	{
+		QString tmp = readLineFromDataStream(ts);
+		if (tmp != m_psCommand)
+			continue;
+
+		if (m_psDataType == 1)
 		{
-			tmp = readLineFromDataStream(ts);
-			if (tmp == m_psCommand)
+			QRgb *p;
+			uchar cc, cm, cy, ck;
+			for (int yh = 0; yh < tmpImg.height(); ++yh )
 			{
-				if (m_psDataType == 1)
+				if (m_psMode == 4)
+					psdata.resize(m_psXSize * (4 + m_psChannel));
+				else
+					psdata.resize(m_psXSize * (3 + m_psChannel));
+				f.read(psdata.data(), psdata.size());
+				p = (QRgb*) tmpImg.scanLine(yh);
+				for (int xh = 0; xh < tmpImg.width(); ++xh )
 				{
-					QRgb *p;
-					uchar cc, cm, cy, ck;
-					for (int yh = 0; yh < tmpImg.height(); ++yh )
+					cc = psdata[xh];
+					cm = psdata[m_psXSize + xh];
+					cy = psdata[m_psXSize * 2 + xh];
+					if (m_psMode == 4)
 					{
-						if (m_psMode == 4)
-							psdata.resize(m_psXSize * (4 + m_psChannel));
-						else
-							psdata.resize(m_psXSize * (3 + m_psChannel));
-						f.read(psdata.data(), psdata.size());
-						p = (QRgb *)tmpImg.scanLine( yh );
-						for (int xh = 0; xh < tmpImg.width(); ++xh )
-						{
-							cc = psdata[xh];
-							cm = psdata[m_psXSize+xh];
-							cy = psdata[m_psXSize*2+xh];
-							if (m_psMode == 4)
-							{
-								ck = psdata[m_psXSize*3+xh];
-								*p = qRgba(cc, cm, cy, ck);
-							}
-							else
-								*p = qRgba(cc, cm, cy, 255);
-							p++;
-						}
-					}
-				}
-				else if (m_psDataType > 1)
-				{
-					while (!ts.atEnd())
-					{
-						tmp = readLineFromDataStream(ts);
-						if ((tmp.isEmpty()) || (tmp.startsWith("%%EndBinary")))
-							break;
-						if (m_psDataType == 2)
-						{
-							for (int a = 0; a < tmp.length(); a += 2)
-							{
-								bool ok;
-								ushort data = QStringView(tmp).sliced(a, 2).toUShort(&ok, 16);
-								psdata.resize(psdata.size()+1);
-								psdata[psdata.size()-1] = data;
-							}
-						}
-						else
-						{
-							decodeA85(psdata, tmp);
-							f2.write(psdata.data(), psdata.size());
-							psdata.resize(0);
-						}
-					}
-					if (m_psDataType > 2)
-					{
-						f2.close();
-						loadPSjpeg(tmpFile, tmpImg);
-						QFile::remove(tmpFile);
+						ck = psdata[m_psXSize * 3 + xh];
+						*p = qRgba(cc, cm, cy, ck);
 					}
 					else
+						*p = qRgba(cc, cm, cy, 255);
+					p++;
+				}
+			}
+		}
+		else if (m_psDataType > 1)
+		{
+			while (!ts.atEnd())
+			{
+				tmp = readLineFromDataStream(ts);
+				if ((tmp.isEmpty()) || (tmp.startsWith("%%EndBinary")))
+					break;
+				if (m_psDataType == 2)
+				{
+					for (int a = 0; a < tmp.length(); a += 2)
 					{
-						QRgb *p;
-						uchar cc, cm, cy, ck;
-						for (int yh = 0; yh < tmpImg.height(); ++yh )
-						{
-							p = (QRgb *)tmpImg.scanLine( yh );
-							for (int xh = 0; xh < tmpImg.width(); ++xh )
-							{
-								cc = psdata[yCount+xh];
-								cm = psdata[yCount+m_psXSize+xh];
-								cy = psdata[yCount+m_psXSize*2+xh];
-								if (m_psMode == 4)
-								{
-									ck = psdata[yCount+m_psXSize*3+xh];
-									*p = qRgba(cc, cm, cy, ck);
-								}
-								else
-									*p = qRgba(cc, cm, cy, 255);
-								p++;
-							}
-							if (m_psMode == 4)
-								yCount += m_psXSize * (4 + m_psChannel);
-							else
-								yCount += m_psXSize * (3 + m_psChannel);
-						}
+						bool ok;
+						ushort data = QStringView(tmp).sliced(a, 2).toUShort(&ok, 16);
+						psdata.resize(psdata.size() + 1);
+						psdata[psdata.size()-1] = data;
 					}
 				}
-				f.close();
-				return;
+				else
+				{
+					decodeA85(psdata, tmp);
+					f2.write(psdata.data(), psdata.size());
+					psdata.resize(0);
+				}
+			}
+			if (m_psDataType > 2)
+			{
+				f2.close();
+				loadPSjpeg(tmpFile, tmpImg);
+				QFile::remove(tmpFile);
+			}
+			else
+			{
+				QRgb *p;
+				uchar cc, cm, cy, ck;
+				for (int yh = 0; yh < tmpImg.height(); ++yh )
+				{
+					p = (QRgb*) tmpImg.scanLine(yh);
+					for (int xh = 0; xh < tmpImg.width(); ++xh )
+					{
+						cc = psdata[yCount + xh];
+						cm = psdata[yCount + m_psXSize + xh];
+						cy = psdata[yCount + m_psXSize * 2 + xh];
+						if (m_psMode == 4)
+						{
+							ck = psdata[yCount + m_psXSize * 3 + xh];
+							*p = qRgba(cc, cm, cy, ck);
+						}
+						else
+							*p = qRgba(cc, cm, cy, 255);
+						p++;
+					}
+					if (m_psMode == 4)
+						yCount += m_psXSize * (4 + m_psChannel);
+					else
+						yCount += m_psXSize * (3 + m_psChannel);
+				}
 			}
 		}
 		f.close();
+		return;
 	}
+	f.close();
 }
 
 void ScImgDataLoader_PS::loadDCS2(const QString& fn, int gsRes)
