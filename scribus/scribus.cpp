@@ -6246,7 +6246,7 @@ void ScribusMainWindow::setAlignmentValue(int i)
 	{
 		QString actionName = "align" + alignment[j];
 		if (scrActions[actionName])
-			scrActions[actionName]->setChecked(i == j);
+			scrActions[actionName]->setChecked(i == static_cast<int>(j));
 	}
 }
 
@@ -6258,7 +6258,7 @@ void ScribusMainWindow::setDirectionValue(int i)
 	{
 		QString actionName = "direction" + direction[j];
 		if (scrActions[actionName])
-			scrActions[actionName]->setChecked(i == j);
+			scrActions[actionName]->setChecked(i == static_cast<int>(j));
 	}
 }
 
@@ -6513,7 +6513,7 @@ void ScribusMainWindow::slotPrefsOrg()
 #if (defined Q_OS_LINUX)
 			QApplication::setPalette(this->style()->standardPalette());
 #endif
-		}
+	}
 	}
 #endif
 
