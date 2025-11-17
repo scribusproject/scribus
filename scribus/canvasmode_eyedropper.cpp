@@ -153,10 +153,27 @@ void CanvasMode_EyeDropper::mouseReleaseEvent(QMouseEvent *m)
 	releaseMouse();
 
 	m_view->setCursor(QCursor(Qt::ArrowCursor));
+
 	QPixmap pm;
-	QScreen *screen = QGuiApplication::primaryScreen();
-	if (screen)
-		pm = screen->grabWindow( QApplication::desktop()->winId(), m->globalPos().x(), m->globalPos().y(), 1, 1);
+	QWidget* pWidget = QApplication::widgetAt(m->globalPos());
+	if (pWidget)
+	{
+		// This works on Wayland contrary to the QScreen::grabWindow() solution,
+		// but only if clicked point is inside Scribus application
+		auto localPos = pWidget->mapFromGlobal(m->globalPos());
+		pm = pWidget->grab(QRect(localPos.x(), localPos.y(), 1, 1));
+	}
+	else
+	{
+		QScreen* screen = QGuiApplication::primaryScreen();
+		if (screen)
+			pm = screen->grabWindow(QApplication::desktop()->winId(), m->globalPos().x(), m->globalPos().y(), 1, 1);
+	}
+	if (pm.isNull())
+	{
+		m_view->requestMode(modeNormal);
+		return;
+	}
 	QImage img = pm.toImage();
 	QColor selectedColor = img.pixel(0, 0);
 
