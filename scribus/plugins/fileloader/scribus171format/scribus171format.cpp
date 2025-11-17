@@ -6178,9 +6178,9 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 			bool inlineF = false;
 			//Remove lowercase in 1.8
 			if (attrs.hasAttribute("isInlineImage"))
-				attrs.valueAsBool("isInlineImage", false);
+				inlineF = attrs.valueAsBool("isInlineImage", false);
 			else
-				attrs.valueAsBool("IsInlineImage", false);
+				inlineF = attrs.valueAsBool("IsInlineImage", false);
 			QString dat = attrs.valueAsString("ImageData", "");
 			QByteArray inlineImageData;
 			inlineImageData.append(dat.toUtf8());
