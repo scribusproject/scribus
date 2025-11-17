@@ -195,7 +195,7 @@ static quint64 code64(const ScColor & col)
 	if (col.getColorModel() == colorModelRGB)
 	{
 		col.getRGB(&R, &G, &B);
-		QColor color = QColor(R, G, B);
+		QColor color(R, G, B);
 		color.getCmyk(&C, &M, &Y, &K);
 	}
 	else if (col.getColorModel() == colorModelCMYK)
@@ -213,7 +213,7 @@ static quint64 code64(const ScColor & col)
 		G = qRound(a + 128);
 		B = qRound(b + 128);
 	}
-	result |= col.getColorModel() == colorModelRGB ? 1 : 0;
+	result |= static_cast<unsigned char>(col.getColorModel());
 	result |= col.isSpotColor() ? 64 : 0;
 	result |= col.isRegistrationColor() ? 32 : 0;
 	result <<= 8;
