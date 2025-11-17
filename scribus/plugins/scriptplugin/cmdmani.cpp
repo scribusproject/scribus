@@ -627,6 +627,43 @@ PyObject *scribus_deselectall(PyObject* /* self */)
 	Py_RETURN_NONE;
 }
 
+PyObject *scribus_setexportableobject(PyObject* /* self */, PyObject* args)
+{
+	PyESString name;
+	int exp = 1;
+	if (!PyArg_ParseTuple(args, "esi", "utf-8", name.ptr(), &exp))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	if (name.isEmpty())
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty item name.","python error").toUtf8().constData());
+		return nullptr;
+	}
+	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	if (item == nullptr)
+		return nullptr;
+	item->setPrintEnabled(static_cast<bool>(exp));
+	if (item->locked())
+		return PyLong_FromLong(1);
+	return PyLong_FromLong(0);
+}
+
+PyObject *scribus_isexportable(PyObject* /* self */, PyObject* args)
+{
+	PyESString name;
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	if (item == nullptr)
+		return nullptr;
+	if (item->printEnabled())
+		return PyBool_FromLong(1);
+	return PyBool_FromLong(0);
+}
+
 PyObject *scribus_lockobject(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
@@ -840,6 +877,7 @@ void cmdmanidocwarnings()
 	  << scribus_getGroupItems__doc__
 	  << scribus_getselectedobject__doc__
 	  << scribus_groupobjects__doc__
+	  << scribus_isexportable__doc__
 	  << scribus_islocked__doc__
 	  << scribus_loadimage__doc__
 	  << scribus_lockobject__doc__
@@ -852,6 +890,7 @@ void cmdmanidocwarnings()
 	  << scribus_selectioncount__doc__
 	  << scribus_selectobject__doc__
 	  << scribus_seteditmode__doc__
+	  << scribus_setexportableobject__doc__
 	  << scribus_setimagebrightness__doc__
 	  << scribus_setimagegrayscale__doc__
 	  << scribus_setimageoffset__doc__
