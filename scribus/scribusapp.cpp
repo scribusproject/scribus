@@ -24,7 +24,6 @@ for which a new license (GPL+exception) is in place.
 #include <iostream>
 #include <cstdlib>
 
-
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
@@ -583,7 +582,9 @@ static void printArgLine(QTextStream & ts, const char * smallArg, const char* fu
 void ScribusQApp::showUsage()
 {
 	QFile f;
-	f.open(stderr, QIODevice::WriteOnly);
+	if (!f.open(stderr, QIODevice::WriteOnly))
+		return;
+
 	QTextStream ts(&f);
 	ts << tr("Usage: scribus [options] [files]") ; Qt::endl(ts); Qt::endl(ts);
 	ts << tr("Options:") ; Qt::endl(ts);
@@ -600,7 +601,6 @@ void ScribusQApp::showUsage()
 	printArgLine(ts, ARG_PYTHONSCRIPT_SHORT, qPrintable(QString("%1 <%2> [%3] ").arg(ARG_PYTHONSCRIPT, tr("script"), tr("arguments ..."))), tr("Run script in Python [with optional arguments]. This option must be last option used") );
 	printArgLine(ts, ARG_NOGUI_SHORT, ARG_NOGUI, tr("Do not start GUI") );
 	ts << (QString("     %1").arg(CMD_OPTIONS_END,-39)) << tr("Explicit end of command line options"); Qt::endl(ts);
- 	
 	
 #if defined(_WIN32) && !defined(_CONSOLE)
 	printArgLine(ts, ARG_CONSOLE_SHORT, ARG_CONSOLE, tr("Display a console window") );
@@ -644,7 +644,9 @@ void ScribusQApp::showVersion()
 void ScribusQApp::showHeader()
 {
 	QFile f;
-	f.open(stderr, QIODevice::WriteOnly);
+	if (!f.open(stderr, QIODevice::WriteOnly))
+		return;
+
 	QTextStream ts(&f);
 	ts << Qt::endl;
 	QString heading( tr("Scribus, Open Source Desktop Publishing") );

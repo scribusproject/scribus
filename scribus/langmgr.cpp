@@ -753,13 +753,10 @@ QString LanguageManager::getLangFromAbbrev(QString langAbbrev, bool getTranslate
 //	qDebug()<<"Trying to find:"<<langAbbrev;
 	int i = langTableIndex(langAbbrev);
 //	qDebug()<<"Index of"<<langAbbrev<<":"<<i;
-	if (i == -1)
+	if ((i == -1) && (langAbbrev.length() > 5))
 	{
-		if (langAbbrev.length() > 5)
-		{
-			langAbbrev.truncate(5);
-			i = langTableIndex(langAbbrev);
-		}
+		langAbbrev.truncate(5);
+		i = langTableIndex(langAbbrev);
 	}
 	if (i != -1)
 	{
@@ -815,13 +812,10 @@ QString LanguageManager::getShortAbbrevFromAbbrev(QString langAbbrev) const
 	//	qDebug()<<"Trying to find:"<<langAbbrev;
 	int i = langTableIndex(langAbbrev);
 	//	qDebug()<<"Index of"<<langAbbrev<<":"<<i;
-	if (i == -1)
+	if ((i == -1) && (langAbbrev.length() > 5))
 	{
-		if (langAbbrev.length() > 5)
-		{
-			langAbbrev.truncate(5);
-			i = langTableIndex(langAbbrev);
-		}
+		langAbbrev.truncate(5);
+		i = langTableIndex(langAbbrev);
 	}
 	if (i != -1)
 		return m_langTable[i].m_priAbbrev;
@@ -930,13 +924,10 @@ bool LanguageManager::isAvailableTranslation(QString langAbbrev) const
 		return true;
 
 	int i = langTableIndex(langAbbrev);
-	if (i == -1)
+	if ((i == -1) && (langAbbrev.length() > 5))
 	{
-		if (langAbbrev.length() > 5)
-		{
-			langAbbrev.truncate(5);
-			i = langTableIndex(langAbbrev);
-		}
+		langAbbrev.truncate(5);
+		i = langTableIndex(langAbbrev);
 	}
 	if (i != -1)
 		return m_langTable[i].m_transAvailable;
