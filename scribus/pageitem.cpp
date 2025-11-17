@@ -11026,25 +11026,26 @@ void PageItem::setInlineData(const QString& data)
 {
 	QByteArray inlineImageData;
 	inlineImageData.append(data.toUtf8());
-	if (inlineImageData.size() > 0)
-	{
-		auto *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_XXXXXX." + inlineExt);
-		tempFile->setAutoRemove(false);
-		tempFile->open();
-		QString fileName = getLongPathName(tempFile->fileName());
-		tempFile->close();
-		inlineImageData = qUncompress(QByteArray::fromBase64(inlineImageData));
-		QFile outFil(fileName);
-		if (outFil.open(QIODevice::WriteOnly))
-		{
-			outFil.write(inlineImageData);
-			outFil.close();
-			isInlineImage = true;
-			isTempFile = true;
-			Pfile = fileName;
-			delete tempFile;
-		}
-	}
+	if (inlineImageData.size() <= 0)
+		return;
+
+	std::unique_ptr<QTemporaryFile> tempFile(new QTemporaryFile(QDir::tempPath() + "/scribus_temp_XXXXXX." + inlineExt));
+	tempFile->setAutoRemove(false);
+	if (!tempFile->open())
+		return;
+	QString fileName = getLongPathName(tempFile->fileName());
+	tempFile->close();
+
+	inlineImageData = qUncompress(QByteArray::fromBase64(inlineImageData));
+	QFile outFil(fileName);
+	if (!outFil.open(QIODevice::WriteOnly))
+		return;
+	outFil.write(inlineImageData);
+	outFil.close();
+
+	isInlineImage = true;
+	isTempFile = true;
+	Pfile = fileName;
 }
 
 void PageItem::makeImageInline()
