@@ -66,7 +66,7 @@ void IconManager::readIconConfigFiles()
 	QStringList locations;
 	locations << baseIconDir;
 	QStringList configNames;
-	for (QStringList::Iterator it = locations.begin(); it != locations.end(); ++it)
+	for (auto it = locations.begin(); it != locations.end(); ++it)
 	{
 		QFileInfo iconDir(*it);
 		if (!iconDir.exists())
@@ -209,7 +209,7 @@ QPixmap IconManager::loadPixmap(const QString& name, bool forceUseColor, bool rt
 	return *pm;
 }
 
-void IconManager::iconToGrayscale(QPixmap* pm)
+void IconManager::iconToGrayscale(QPixmap* pm) const
 {
 	QImage qi(pm->toImage());
 	int h = qi.height();

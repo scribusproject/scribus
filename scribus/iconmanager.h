@@ -54,7 +54,7 @@ class SCRIBUS_API IconManager : public QObject
 		QString pathForIcon(const QString& name);
 		QStringList pathList() const;
 		QStringList nameList(const QString& language) const;
-		void iconToGrayscale(QPixmap *pm);
+		void iconToGrayscale(QPixmap *pm) const;
 		bool setActiveFromPrefs(const QString& prefsSet);
 		QString activeSetBasename() { return m_activeSetBasename; }
 		QString baseNameForTranslation(const QString& transName) const;

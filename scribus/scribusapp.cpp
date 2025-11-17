@@ -24,7 +24,6 @@ for which a new license (GPL+exception) is in place.
 #include <iostream>
 #include <cstdlib>
 
-
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
@@ -580,7 +579,9 @@ static void printArgLine(QTextStream & ts, const char * smallArg, const char* fu
 void ScribusQApp::showUsage()
 {
 	QFile f;
-	f.open(stderr, QIODevice::WriteOnly);
+	if (!f.open(stderr, QIODevice::WriteOnly))
+		return;
+
 	QTextStream ts(&f);
 	ts << tr("Usage: scribus [options] [files]") ; Qt::endl(ts); Qt::endl(ts);
 	ts << tr("Options:") ; Qt::endl(ts);
@@ -641,7 +642,9 @@ void ScribusQApp::showVersion()
 void ScribusQApp::showHeader()
 {
 	QFile f;
-	f.open(stderr, QIODevice::WriteOnly);
+	if (!f.open(stderr, QIODevice::WriteOnly))
+		return;
+
 	QTextStream ts(&f);
 	ts << Qt::endl;
 	QString heading( tr("Scribus, Open Source Desktop Publishing") );
