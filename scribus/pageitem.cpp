@@ -11022,26 +11022,38 @@ void PageItem::setFirstLineOffset(FirstLineOffsetPolicy flop)
 	m_firstLineOffset = flop;
 }
 
-void PageItem::setInlineData(const QString& data)
+void PageItem::setInlineData(const QString& data, const QString& ext)
 {
-	QByteArray inlineImageData;
-	inlineImageData.append(data.toUtf8());
+	QByteArray inlineImageData(data.toUtf8());
 	if (inlineImageData.size() <= 0)
 		return;
+	setInlineData(inlineImageData, ext);
+}
 
-	std::unique_ptr<QTemporaryFile> tempFile(new QTemporaryFile(QDir::tempPath() + "/scribus_temp_XXXXXX." + inlineExt));
-	tempFile->setAutoRemove(false);
-	if (!tempFile->open())
+void PageItem::setInlineData(const QByteArray& data, const QString& ext)
+{
+	if (data.size() <= 0)
 		return;
-	QString fileName = getLongPathName(tempFile->fileName());
-	tempFile->close();
 
-	inlineImageData = qUncompress(QByteArray::fromBase64(inlineImageData));
+	QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_XXXXXX." + ext);
+	tempFile.setAutoRemove(false);
+	if (!tempFile.open())
+		return;
+	QString fileName = getLongPathName(tempFile.fileName());
+	tempFile.close();
+
+	QByteArray inlineImageData = qUncompress(QByteArray::fromBase64(data));
 	QFile outFil(fileName);
 	if (!outFil.open(QIODevice::WriteOnly))
 		return;
-	outFil.write(inlineImageData);
+	qint64 bytesWritten = outFil.write(inlineImageData);
 	outFil.close();
+
+	if (bytesWritten != inlineImageData.size())
+	{
+		tempFile.setAutoRemove(true);
+		return;
+	}
 
 	isInlineImage = true;
 	isTempFile = true;
@@ -11053,12 +11065,12 @@ void PageItem::makeImageInline()
 	QFileInfo fi(Pfile);
 	QString ext = fi.suffix();
 
-	QScopedPointer<QTemporaryFile> tempFile(new QTemporaryFile(QDir::tempPath() + "/scribus_temp_XXXXXX." + ext));
-	tempFile->setAutoRemove(false);
-	if (!tempFile->open())
+	QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_XXXXXX." + ext);
+	tempFile.setAutoRemove(false);
+	if (!tempFile.open())
 		return;
-	QString fileName = getLongPathName(tempFile->fileName());
-	tempFile->close();
+	QString fileName = getLongPathName(tempFile.fileName());
+	tempFile.close();
 
 	if (copyFile(Pfile, fileName))
 	{
@@ -11068,22 +11080,22 @@ void PageItem::makeImageInline()
 	}
 	else
 	{
-		tempFile->setAutoRemove(true);
+		tempFile.setAutoRemove(true);
 	}
 }
 
 void PageItem::makeImageExternal(const QString& path)
 {
-	if (isTempFile && isInlineImage && !path.isEmpty())
+	if (!isTempFile || !isInlineImage || path.isEmpty())
+		return;
+
+	QString oldF = Pfile;
+	if (copyFile(Pfile, path))
 	{
-		QString oldF = Pfile;
-		if (copyFile(Pfile, path))
-		{
-			Pfile = path;
-			QFile::remove(oldF);
-			isInlineImage = false;
-			isTempFile = false;
-		}
+		Pfile = path;
+		QFile::remove(oldF);
+		isInlineImage = false;
+		isTempFile = false;
 	}
 }
 
