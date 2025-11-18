@@ -781,8 +781,8 @@ public: // Start public functions
 	void setFitImageToFrame(bool val) { ScaleType = !val; }
 	bool isImageInline() const { return isInlineImage; }
 	void setImageInline(bool val) { isInlineImage = val; }
-	void setInlineExt(const QString& val) { inlineExt = val; }
-	void setInlineData(const QString& data);
+	void setInlineData(const QString& data, const QString& ext);
+	void setInlineData(const QByteArray& data, const QString& ext);
 	void makeImageInline();
 	void makeImageExternal(const QString& path);
 
@@ -1431,7 +1431,6 @@ public:	// Start public variables
 	QString OnMasterPage;
 	bool isEmbedded {false};
 	int inlineCharID {0};
-	QString inlineExt;
 	/** Radius of rounded corners */
 	double m_roundedCornerRadius {0.0};
 

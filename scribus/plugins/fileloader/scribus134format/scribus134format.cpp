@@ -2664,30 +2664,12 @@ PageItem* Scribus134Format::pasteItem(ScribusDoc *doc, ScXmlStreamAttributes& at
 		{
 			bool inlineF = attrs.valueAsBool("isInlineImage", false);
 			QString dat  = attrs.valueAsString("ImageData", "");
-			QByteArray inlineImageData;
-			inlineImageData.append(dat.toUtf8());
+			QByteArray inlineImageData(dat.toUtf8());
 			QString inlineImageExt = attrs.valueAsString("inlineImageExt", "");
 			if (inlineF)
 			{
 				if (inlineImageData.size() > 0)
-				{
-					QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_XXXXXX." + inlineImageExt);
-					tempFile->setAutoRemove(false);
-					tempFile->open();
-					QString fileName = getLongPathName(tempFile->fileName());
-					tempFile->close();
-					inlineImageData = qUncompress(QByteArray::fromBase64(inlineImageData));
-					QFile outFil(fileName);
-					if (outFil.open(QIODevice::WriteOnly))
-					{
-						outFil.write(inlineImageData);
-						outFil.close();
-						currItem->isInlineImage = true;
-						currItem->Pfile = QDir::fromNativeSeparators(fileName);
-						currItem->isTempFile = true;
-					}
-					delete tempFile;
-				}
+					currItem->setInlineData(inlineImageData, inlineImageExt);
 			}
 			else
 			{
