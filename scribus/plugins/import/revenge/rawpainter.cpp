@@ -406,12 +406,8 @@ void RawPainterPres::insertEquation(const librevenge::RVNGPropertyList &propList
 
 struct RawPainterPrivate
 {
-	RawPainterPrivate();
+	RawPainterPrivate() = default;
 };
-
-RawPainterPrivate::RawPainterPrivate()
-{
-}
 
 RawPainter::RawPainter(ScribusDoc* Doc, double x, double y, double w, double h, int iflags, QList<PageItem*> *Elem, QStringList *iColors, QStringList *iPatterns, Selection* tSel, const QString& fTyp) : m_pImpl(new RawPainterPrivate())
 {
@@ -520,7 +516,7 @@ void RawPainter::startLayer(const librevenge::RVNGPropertyList &propList)
 	FPointArray clip;
 	if (propList["svg:clip-path"])
 	{
-		QString svgString = QString(propList["svg:clip-path"]->getStr().cstr());
+		QString svgString(propList["svg:clip-path"]->getStr().cstr());
 		clip.resize(0);
 		clip.svgInit();
 		svgString.replace(",", ".");
@@ -540,13 +536,13 @@ void RawPainter::endLayer()
 {
 	if (!m_doProcessing)
 		return;
-	if (m_groupStack.count() != 0)
+	if (!m_groupStack.isEmpty())
 	{
 		PageItem *ite;
 		groupEntry gr = m_groupStack.pop();
 		QList<PageItem*> gElements = gr.Items;
 		m_tmpSel->clear();
-		if (gElements.count() > 0)
+		if (!gElements.isEmpty())
 		{
 			bool groupClip = true;
 			for (int dre = 0; dre < gElements.count(); ++dre)
@@ -597,7 +593,7 @@ void RawPainter::endLayer()
 				ite->updateGradientVectors();
 			}
 			m_elements->append(ite);
-			if (m_groupStack.count() != 0)
+			if (!m_groupStack.isEmpty())
 				m_groupStack.top().Items.append(ite);
 		}
 		m_tmpSel->clear();
@@ -802,7 +798,7 @@ void RawPainter::setStyle(const librevenge::RVNGPropertyList &propList)
 	}
 	if (propList["svg:stroke-linecap"])
 	{
-		QString params = QString(propList["svg:stroke-linecap"]->getStr().cstr());
+		QString params(propList["svg:stroke-linecap"]->getStr().cstr());
 		if (params == "butt")
 			m_lineEnd = Qt::FlatCap;
 		else if (params == "round")
@@ -814,7 +810,7 @@ void RawPainter::setStyle(const librevenge::RVNGPropertyList &propList)
 	}
 	if (propList["svg:stroke-linejoin"])
 	{
-		QString params = QString(propList["svg:stroke-linejoin"]->getStr().cstr());
+		QString params(propList["svg:stroke-linejoin"]->getStr().cstr());
 		if (params == "miter")
 			m_lineJoin = Qt::MiterJoin;
 		else if (params == "round")
@@ -962,7 +958,7 @@ void RawPainter::drawPolygon(const librevenge::RVNGPropertyList &propList)
 						  {
 							  fmt->setupTargets(m_Doc, nullptr, nullptr, nullptr, &(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts));
 							  fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
-							  if (m_Doc->m_Selection->count() > 0)
+							  if (!m_Doc->m_Selection->isEmpty())
 							  {
 								  ite = m_Doc->groupObjectsSelection();
 								  double rot = 0;
@@ -1114,7 +1110,7 @@ void RawPainter::drawPath(const librevenge::RVNGPropertyList &propList)
 						  {
 							  fmt->setupTargets(m_Doc, nullptr, nullptr, nullptr, &(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts));
 							  fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
-							  if (m_Doc->m_Selection->count() > 0)
+							  if (!m_Doc->m_Selection->isEmpty())
 							  {
 								  ite = m_Doc->groupObjectsSelection();
 								  double rot = 0;
@@ -1255,7 +1251,7 @@ void RawPainter::drawGraphicObject(const librevenge::RVNGPropertyList &propList)
 						{
 							fmt->setupTargets(m_Doc, nullptr, nullptr, nullptr, &(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts));
 							fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
-							if (m_Doc->m_Selection->count() > 0)
+							if (!m_Doc->m_Selection->isEmpty())
 							{
 								ite = m_Doc->groupObjectsSelection();
 								double rot = 0;
@@ -1384,7 +1380,7 @@ void RawPainter::startTextObject(const librevenge::RVNGPropertyList &propList)
 		}
 		if (propList["draw:textarea-vertical-align"])
 		{
-			QString align = QString(propList["draw:textarea-vertical-align"]->getStr().cstr());
+			QString align(propList["draw:textarea-vertical-align"]->getStr().cstr());
 			if (align == "middle")
 				ite->setVerticalAlignment(1);
 			else if (align == "bottom")
@@ -1525,7 +1521,7 @@ void RawPainter::openParagraph(const librevenge::RVNGPropertyList &propList)
 	m_textStyle = newStyle;
 	if (propList["fo:text-align"])
 	{
-		QString align = QString(propList["fo:text-align"]->getStr().cstr());
+		QString align(propList["fo:text-align"]->getStr().cstr());
 		if (align == "left")
 			m_textStyle.setAlignment(ParagraphStyle::LeftAligned);
 		else if (align == "center")
@@ -1555,7 +1551,7 @@ void RawPainter::openParagraph(const librevenge::RVNGPropertyList &propList)
 	if (propList["fo:line-height"])
 	{
 		m_linespace = propList["fo:line-height"]->getDouble();
-		QString lsp = QString(propList["fo:line-height"]->getStr().cstr());
+		QString lsp(propList["fo:line-height"]->getStr().cstr());
 		m_lineSpIsPT = lsp.endsWith("pt");
 		m_lineSpSet = true;
 	}
@@ -1583,7 +1579,7 @@ void RawPainter::closeParagraph()
 	int posT = m_currTextItem->itemText.length();
 	if (posT > 0)
 	{
-		if ((m_currTextItem->itemText.text(posT - 1) != SpecialChars::PARSEP))
+		if (m_currTextItem->itemText.text(posT - 1) != SpecialChars::PARSEP)
 		{
 			m_currTextItem->itemText.insertChars(posT, SpecialChars::PARSEP);
 			m_currTextItem->itemText.applyStyle(posT, m_textStyle);
@@ -1619,7 +1615,7 @@ void RawPainter::openSpan(const librevenge::RVNGPropertyList &propList)
 			fontVari.append(propList["fo:font-weight"]->getStr().cstr());
 		if (propList["fo:font-style"] && propList["fo:font-style"]->getStr() != "normal")
 			fontVari.append(propList["fo:font-style"]->getStr().cstr());
-		QString fontName = QString(fontNameProp->getStr().cstr());
+		QString fontName(fontNameProp->getStr().cstr());
 		QString realFontName = constructFontName(fontName, fontVari.join(' '));
 		m_textCharStyle.setFont((*m_Doc->AllFonts)[realFontName]);
 	}
@@ -1740,11 +1736,11 @@ void RawPainter::insertText(const librevenge::RVNGString &text)
 	}
 	else
 		m_textStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
-	QString actText = QString(text.cstr());
+	QString actText(text.cstr());
 	if (m_currTextItem)
 	{
 		int posC = m_currTextItem->itemText.length();
-		if (actText.size() > 0)
+		if (!actText.isEmpty())
 		{
 			actText.replace(QChar(10), SpecialChars::LINEBREAK);
 			actText.replace(QChar(12), SpecialChars::FRAMEBREAK);
@@ -1778,7 +1774,7 @@ void RawPainter::insertField(const librevenge::RVNGPropertyList &propList)
 	qDebug() << "insertField";
 }
 
-double RawPainter::valueAsPoint(const librevenge::RVNGProperty *prop)
+double RawPainter::valueAsPoint(const librevenge::RVNGProperty *prop) const
 {
 	switch (prop->getUnit())
 	{
@@ -3164,7 +3160,7 @@ void RawPainter::insertText(const ::WPXString &str)
 	}
 }
 
-double RawPainter::valueAsPoint(const WPXProperty *prop)
+double RawPainter::valueAsPoint(const WPXProperty *prop) const
 {
 	double value = 0.0;
 	QString str = QString(prop->getStr().cstr()).toLower();
@@ -3421,12 +3417,12 @@ QString RawPainter::constructFontName(const QString& fontBaseName, const QString
 				family += " " + fontStyle;
 			if (!PrefsManager::instance().appPrefs.fontPrefs.GFontSub.contains(family))
 			{
-				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+				QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 				MissingFont *dia = new MissingFont(nullptr, family, m_Doc);
 				dia->exec();
 				fontName = dia->getReplacementFont();
 				delete dia;
-				qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+				QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
 				PrefsManager::instance().appPrefs.fontPrefs.GFontSub[family] = fontName;
 			}
 			else
@@ -3436,7 +3432,7 @@ QString RawPainter::constructFontName(const QString& fontBaseName, const QString
 	return fontName;
 }
 
-double RawPainter::fromPercentage( const QString &s )
+double RawPainter::fromPercentage(const QString &s) const
 {
 	QString s1 = s;
 	if (s1.endsWith( ";" ))
@@ -3457,23 +3453,23 @@ QString RawPainter::parseColor( const QString &s )
 	{
 		QString parse = s.trimmed();
 		QStringList colors = parse.split(',', Qt::SkipEmptyParts);
-		QString r = colors[0].right( ( colors[0].length() - 4 ) );
+		QString r = colors[0].right(colors[0].length() - 4);
 		QString g = colors[1];
-		QString b = colors[2].left( ( colors[2].length() - 1 ) );
+		QString b = colors[2].left(colors[2].length() - 1);
 		if (r.contains( "%" ))
 		{
 			r.chop(1);
-			r = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(r) ) / 100.0 ) ) );
+			r = QString::number( static_cast<int>( ( 255 * ScCLocale::toDoubleC(r) ) / 100.0 ) );
 		}
 		if (g.contains( "%" ))
 		{
 			g.chop(1);
-			g = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(g) ) / 100.0 ) ) );
+			g = QString::number( static_cast<int>( ( 255 * ScCLocale::toDoubleC(g) ) / 100.0 ) );
 		}
 		if (b.contains( "%" ))
 		{
 			b.chop(1);
-			b = QString::number( static_cast<int>( ( static_cast<double>( 255 * ScCLocale::toDoubleC(b) ) / 100.0 ) ) );
+			b = QString::number( static_cast<int>( ( 255 * ScCLocale::toDoubleC(b) ) / 100.0 ) );
 		}
 		c = QColor(r.toInt(), g.toInt(), b.toInt());
 	}
@@ -3578,7 +3574,7 @@ void RawPainter::applyShadow(PageItem* ite)
 	}
 }
 
-void RawPainter::applyFlip(PageItem* ite)
+void RawPainter::applyFlip(PageItem* ite) const
 {
 	if (m_style["draw:mirror-horizontal"])
 	{
@@ -3633,7 +3629,7 @@ void RawPainter::applyStartArrow(PageItem* ite)
 
 	FPointArray startArrow;
 	double startArrowWidth;
-	QString params = QString(m_style["draw:marker-start-path"]->getStr().cstr());
+	QString params(m_style["draw:marker-start-path"]->getStr().cstr());
 	startArrowWidth = m_lineWidth;
 	startArrow.resize(0);
 	startArrow.svgInit();
@@ -3686,7 +3682,7 @@ void RawPainter::applyEndArrow(PageItem* ite)
 
 	FPointArray endArrow;
 	double endArrowWidth;
-	QString params = QString(m_style["draw:marker-end-path"]->getStr().cstr());
+	QString params(m_style["draw:marker-end-path"]->getStr().cstr());
 	endArrowWidth = m_lineWidth;
 	endArrow.resize(0);
 	endArrow.svgInit();
@@ -3755,7 +3751,7 @@ void RawPainter::finishItem(PageItem* ite)
 	ite->setLineTransparency(m_currStrokeTrans);
 	ite->updateClip();
 	m_elements->append(ite);
-	if (m_groupStack.count() != 0)
+	if (!m_groupStack.isEmpty())
 		m_groupStack.top().Items.append(ite);
 	m_coords.resize(0);
 	m_coords.svgInit();
