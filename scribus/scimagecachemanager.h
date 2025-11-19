@@ -193,8 +193,8 @@ private:
 
 	MetaAgeList m_metaAge;
 
-	QTemporaryFile *m_writeLockFile;
-	ScImageCacheDir *m_root;
+	QTemporaryFile *m_writeLockFile { nullptr };
+	ScImageCacheDir *m_root { nullptr };
 };
 
 #endif

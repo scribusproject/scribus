@@ -23,17 +23,16 @@ PrintPreviewCreator_GDI::PrintPreviewCreator_GDI(ScribusDoc* doc) :
 	m_printOptions.prnLanguage = PrintLanguage::WindowsGDI;
 
 	// Generate a template name for temporary files
-	QTemporaryFile *tempFile = new QTemporaryFile(ScPaths::tempFileDir() + "/scgdipreview_XXXXXX.png");
-	if (tempFile->open())
+	QTemporaryFile tempFile(ScPaths::tempFileDir() + "/scgdipreview_XXXXXX.png");
+	if (tempFile.open())
 	{
-		QString tempFileBase = tempFile->fileName();
-		tempFile->setAutoRemove(false);
-		tempFile->close();
+		QString tempFileBase = tempFile.fileName();
+		tempFile.setAutoRemove(false);
+		tempFile.close();
 		m_tempBaseName = QFileInfo(tempFileBase).completeBaseName();
 	}
 	if (m_tempBaseName.isEmpty())
 		m_tempBaseName = "scgdipreview";
-	delete tempFile;
 }
 
 PrintPreviewCreator_GDI::~PrintPreviewCreator_GDI()

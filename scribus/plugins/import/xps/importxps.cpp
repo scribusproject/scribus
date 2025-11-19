@@ -1703,15 +1703,15 @@ PageItem* XpsPlug::createItem(QDomElement &dpg, ObjState &obState)
 			if (uz->read(obState.imagePath, f))
 			{
 				QFileInfo fi(obState.imagePath);
-				QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_xps_XXXXXX." + fi.suffix());
-				tempFile->setAutoRemove(false);
-				if (tempFile->open())
+				QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_xps_XXXXXX." + fi.suffix());
+				tempFile.setAutoRemove(false);
+				if (tempFile.open())
 				{
-					QString fileName = getLongPathName(tempFile->fileName());
+					QString fileName = getLongPathName(tempFile.fileName());
 					if (!fileName.isEmpty())
 					{
-						tempFile->write(f);
-						tempFile->close();
+						tempFile.write(f);
+						tempFile.close();
 						retObj->isInlineImage = true;
 						retObj->isTempFile = true;
 						retObj->AspectRatio = false;
@@ -1720,7 +1720,6 @@ PageItem* XpsPlug::createItem(QDomElement &dpg, ObjState &obState)
 						retObj->adjustPictScale();
 					}
 				}
-				delete tempFile;
 			}
 		}
 		retObj = m_Doc->Items->takeAt(z);
@@ -1903,14 +1902,11 @@ ScFace XpsPlug::loadFontByName(const QString &fileName)
 	QByteArray fontData;
 	if (!uz->read(fileName, fontData))
 		return t;
-	QTemporaryFile *tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_zip_XXXXXX.dat");
-	if (tempImageFile == nullptr)
-		return t;
-	tempImageFile->setAutoRemove(false);
-	tempImageFile->open();
-	QString fname = getLongPathName(tempImageFile->fileName());
-	tempImageFile->close();
-	delete tempImageFile;
+	QTemporaryFile tempImageFile(QDir::tempPath() + "/scribus_temp_zip_XXXXXX.dat");
+	tempImageFile.setAutoRemove(false);
+	tempImageFile.open();
+	QString fname = getLongPathName(tempImageFile.fileName());
+	tempImageFile.close();
 	tempFontFiles.append(fname);
 	QFileInfo fi(fileName);
 	QString ext = fi.suffix().toLower();

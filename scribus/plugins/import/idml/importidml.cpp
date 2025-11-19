@@ -2635,15 +2635,15 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 						imgExt = "psd";
 					else if (imageType.contains("TIFF", Qt::CaseInsensitive))
 						imgExt = "tif";
-					QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_idml_XXXXXX." + imgExt);
-					tempFile->setAutoRemove(false);
-					if (tempFile->open())
+					QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_idml_XXXXXX." + imgExt);
+					tempFile.setAutoRemove(false);
+					if (tempFile.open())
 					{
-						QString fileName = getLongPathName(tempFile->fileName());
+						QString fileName = getLongPathName(tempFile.fileName());
 						if (!fileName.isEmpty())
 						{
-							tempFile->write(imageData);
-							tempFile->close();
+							tempFile.write(imageData);
+							tempFile.close();
 							item->isInlineImage = true;
 							item->isTempFile = true;
 							item->AspectRatio = true;
@@ -2663,7 +2663,6 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 							item->adjustPictScale();
 						}
 					}
-					delete tempFile;
 				}
 				else
 				{

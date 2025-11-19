@@ -36,12 +36,12 @@ PrintPreviewCreator_PDF::PrintPreviewCreator_PDF(ScribusDoc* doc) :
 	m_printOptions.prnLanguage = PrintLanguage::PDF;
 
 	// Generate a template name for temporary files
-	QScopedPointer<QTemporaryFile> tempFile(new QTemporaryFile(ScPaths::tempFileDir() + "/scpdfpreview_XXXXXX.png"));
-	if (tempFile->open())
+	QTemporaryFile tempFile(ScPaths::tempFileDir() + "/scpdfpreview_XXXXXX.png");
+	if (tempFile.open())
 	{
-		QString tempFileBase = tempFile->fileName();
-		tempFile->setAutoRemove(false);
-		tempFile->close();
+		QString tempFileBase = tempFile.fileName();
+		tempFile.setAutoRemove(false);
+		tempFile.close();
 		m_tempBaseName = QFileInfo(tempFileBase).completeBaseName();
 	}
 	if (m_tempBaseName.isEmpty())

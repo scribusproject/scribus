@@ -103,17 +103,15 @@ bool copyFileAtomic(const QString& source, const QString& target)
 
 	QFile srcFile(source);
 	QString tempFileName;
-	QTemporaryFile* tempFile = new QTemporaryFile(target + "_XXXXXX");
-	if (!tempFile)
-		return false;
+	QTemporaryFile tempFile(target + "_XXXXXX");
 	if (srcFile.open(QIODevice::ReadOnly))
 	{
-		if (tempFile->open())
+		if (tempFile.open())
 		{
-			tempFileName = tempFile->fileName();
-			success  = copyData(srcFile, *tempFile);
-			success &= (srcFile.error() == QFile::NoError && tempFile->error() == QFile::NoError);
-			tempFile->close();
+			tempFileName = tempFile.fileName();
+			success  = copyData(srcFile, tempFile);
+			success &= (srcFile.error() == QFile::NoError && tempFile.error() == QFile::NoError);
+			tempFile.close();
 		}
 		srcFile.close();
 	}
@@ -125,13 +123,10 @@ bool copyFileAtomic(const QString& source, const QString& target)
 		{
 			// We delete temporary file now to force file close
 			// QTemporaryFile::close() do not really close file
-			tempFile->setAutoRemove(false);
-			delete tempFile; 
-			tempFile = nullptr;
+			tempFile.setAutoRemove(false);
 			success = QFile::rename(tempFileName, target);
 		}
 	}
-	delete tempFile;
 	return success;
 }
 
@@ -265,16 +260,16 @@ PageItem* getVectorFileFromData(ScribusDoc *doc, QByteArray &data, const QString
 {
 	PageItem* retObj = nullptr;
 
-	QScopedPointer<QTemporaryFile> tempFile(new QTemporaryFile(QDir::tempPath() + "/scribus_temp_XXXXXX." + ext));
-	if (!tempFile->open())
+	QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_XXXXXX." + ext);
+	if (!tempFile.open())
 		return nullptr;
 
-	QString fileName = getLongPathName(tempFile->fileName());
+	QString fileName = getLongPathName(tempFile.fileName());
 	if (fileName.isEmpty())
 		return nullptr;
 
-	tempFile->write(data);
-	tempFile->close();
+	tempFile.write(data);
+	tempFile.close();
 
 	FileLoader *fileLoader = new FileLoader(fileName);
 	int testResult = fileLoader->testFile();

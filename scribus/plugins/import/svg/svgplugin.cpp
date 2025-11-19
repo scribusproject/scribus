@@ -1611,12 +1611,11 @@ QList<PageItem*> SVGPlug::parseImage(const QDomElement &e)
 			ba.append(hrefData);
 			if (dataType.contains("base64"))
 				ba = QByteArray::fromBase64(ba);
-			QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_svg_XXXXXX.png");
-			tempFile->setAutoRemove(false);
-			tempFile->open();
-			QString fileName = getLongPathName(tempFile->fileName());
-			tempFile->close();
-			delete tempFile;
+			QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_svg_XXXXXX.png");
+			tempFile.setAutoRemove(false);
+			tempFile.open();
+			QString fileName = getLongPathName(tempFile.fileName());
+			tempFile.close();
 			ite->isTempFile = true;
 			ite->isInlineImage = true;
 			QImage img;

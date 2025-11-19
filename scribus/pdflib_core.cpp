@@ -8586,10 +8586,10 @@ bool PDFLibCore::PDF_3DAnnotation(PageItem *ite, uint)
 	renderModes << "BoundingBox" << "TransparentBoundingBox" << "TransparentBoundingBoxOutline";
 	renderModes << "Wireframe" << "ShadedWireframe" << "HiddenWireframe" << "Vertices";
 	renderModes << "ShadedVertices" << "Illustration" << "SolidOutline" << "ShadedIllustration";
-	QTemporaryFile *tempImageFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_osg_XXXXXX.prc");
-	tempImageFile->open();
-	QString imgName = getLongPathName(tempImageFile->fileName());
-	tempImageFile->close();
+	QTemporaryFile tempImageFile(QDir::tempPath() + "/scribus_temp_osg_XXXXXX.prc");
+	tempImageFile.open();
+	QString imgName = getLongPathName(tempImageFile.fileName());
+	tempImageFile.close();
 	PRCExporter *exprc = new PRCExporter();
 	exprc->convertFile(imgName, ite->asOSGFrame());
 	delete exprc;
@@ -8678,7 +8678,6 @@ bool PDFLibCore::PDF_3DAnnotation(PageItem *ite, uint)
 	PutDoc("/Rect [ " + FToStr(x + bleedDisplacementX) + " " + FToStr(y2 + bleedDisplacementY) + " " + FToStr(x2 + bleedDisplacementX) + " " + FToStr(y + bleedDisplacementY) + " ]\n");
 	PutDoc(">>");
 	writer.endObj(annotationObj);
-	delete tempImageFile;
 	return true;
 }
 #endif

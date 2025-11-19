@@ -2888,14 +2888,14 @@ void SlaOutputDev::createImageFrame(QImage& image, GfxState *state, int numColor
 
 	if (numColorComponents == 4)
 	{
-		auto *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pdf_XXXXXX.tif");
-		tempFile->setAutoRemove(false);
-		if (tempFile->open())
+		QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_pdf_XXXXXX.tif");
+		tempFile.setAutoRemove(false);
+		if (tempFile.open())
 		{
-			QString fileName = getLongPathName(tempFile->fileName());
+			QString fileName = getLongPathName(tempFile.fileName());
 			if (!fileName.isEmpty())
 			{
-				tempFile->close();
+				tempFile.close();
 				ite->isInlineImage = true;
 				ite->isTempFile = true;
 				ite->AspectRatio = false;
@@ -2927,18 +2927,17 @@ void SlaOutputDev::createImageFrame(QImage& image, GfxState *state, int numColor
 			else
 				m_doc->Items->removeAll(ite);
 		}
-		delete tempFile;
 	}
 	else
 	{
-		auto *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pdf_XXXXXX.png");
-		tempFile->setAutoRemove(false);
-		if (tempFile->open())
+		QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_pdf_XXXXXX.png");
+		tempFile.setAutoRemove(false);
+		if (tempFile.open())
 		{
-			QString fileName = getLongPathName(tempFile->fileName());
+			QString fileName = getLongPathName(tempFile.fileName());
 			if (!fileName.isEmpty())
 			{
-				tempFile->close();
+				tempFile.close();
 				ite->isInlineImage = true;
 				ite->isTempFile = true;
 				ite->AspectRatio = false;
@@ -2955,7 +2954,6 @@ void SlaOutputDev::createImageFrame(QImage& image, GfxState *state, int numColor
 			else
 				m_doc->Items->removeAll(ite);
 		}
-		delete tempFile;
 	}
 	if (m_inPattern == 0)
 	{

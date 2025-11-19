@@ -55,12 +55,11 @@ PageItem_LatexFrame::PageItem_LatexFrame(ScribusDoc *pa, double x, double y, dou
 	connect(latex, SIGNAL(errorOccurred(QProcess::ProcessError)), this, SLOT(latexError(QProcess::ProcessError)));
 	latex->setProcessChannelMode(QProcess::MergedChannels);
 	
-	QTemporaryFile *tempfile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_render_XXXXXX");
-	tempfile->open();
-	tempFileBase = getLongPathName(tempfile->fileName());
-	tempfile->setAutoRemove(false);
-	tempfile->close();
-	delete tempfile;
+	QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_render_XXXXXX");
+	tempFile.open();
+	tempFileBase = getLongPathName(tempFile.fileName());
+	tempFile.setAutoRemove(false);
+	tempFile.close();
 	Q_ASSERT(!tempFileBase.isEmpty());
 	
 	m_lastDpi = realDpi();
@@ -344,17 +343,16 @@ void PageItem_LatexFrame::rerunApplication(bool updateDisplay)
 }
 
 
-void PageItem_LatexFrame::writeFileContents(QFile *tempfile)
+void PageItem_LatexFrame::writeFileContents(QFile *tempFile)
 {
 	QString tmp(formulaText);
-	double scaleX, scaleY, realW, realH, offsetX, offsetY;
 	double lDpi = realDpi() / 72.0;
-	scaleX = m_imageXScale * lDpi;
-	scaleY = m_imageYScale * lDpi;
-	offsetX = m_imageXOffset * m_imageXScale;
-	offsetY = m_imageYOffset * m_imageYScale;
-	realW = m_width  - m_imageXOffset / lDpi;
-	realH = m_height - m_imageYOffset / lDpi;
+	double scaleX = m_imageXScale * lDpi;
+	double scaleY = m_imageYScale * lDpi;
+	double offsetX = m_imageXOffset * m_imageXScale;
+	double offsetY = m_imageYOffset * m_imageYScale;
+	double realW = m_width  - m_imageXOffset / lDpi;
+	double realH = m_height - m_imageYOffset / lDpi;
 	if (!tmp.contains("$scribus_noprepost$") && m_usePreamble) {
 		tmp = config->preamble() + tmp + config->postamble();
 	}
@@ -382,7 +380,7 @@ void PageItem_LatexFrame::writeFileContents(QFile *tempfile)
 		i.next();
 		tmp.replace("$scribus_"+i.key()+"$", i.value());
 	}
-	tempfile->write(tmp.toUtf8());
+	tempFile->write(tmp.toUtf8());
 }
 
 bool PageItem_LatexFrame::setFormula(const QString& formula, bool undoable)

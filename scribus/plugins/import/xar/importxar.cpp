@@ -1885,12 +1885,11 @@ void XarPlug::handleBitmapTransparency(QDataStream &ts, quint32 dataLen)
 		}
 		ScPattern pat(m_Doc);
 		PageItem* newItem = new PageItem_ImageFrame(m_Doc, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
-		QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_xar_XXXXXX.png");
-		tempFile->setAutoRemove(false);
-		tempFile->open();
-		QString fileName = getLongPathName(tempFile->fileName());
-		tempFile->close();
-		delete tempFile;
+		QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_xar_XXXXXX.png");
+		tempFile.setAutoRemove(false);
+		tempFile.open();
+		QString fileName = getLongPathName(tempFile.fileName());
+		tempFile.close();
 		newItem->isTempFile = true;
 		newItem->isInlineImage = true;
 		image.setDotsPerMeterY(2834);
@@ -2671,12 +2670,11 @@ void XarPlug::handleContoneBitmapFill(QDataStream &ts, quint32 dataLen)
 		}
 		ScPattern pat(m_Doc);
 		PageItem* newItem = new PageItem_ImageFrame(m_Doc, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
-		QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_xar_XXXXXX.png");
-		tempFile->setAutoRemove(false);
-		tempFile->open();
-		QString fileName = getLongPathName(tempFile->fileName());
-		tempFile->close();
-		delete tempFile;
+		QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_xar_XXXXXX.png");
+		tempFile.setAutoRemove(false);
+		tempFile.open();
+		QString fileName = getLongPathName(tempFile.fileName());
+		tempFile.close();
 		newItem->isTempFile = true;
 		newItem->isInlineImage = true;
 		image.setDotsPerMeterY(2834);
@@ -2758,12 +2756,11 @@ void XarPlug::handleBitmap(QDataStream &ts)
 		QString imgNam = m_Doc->docPatterns[patternRef[bref]].items.at(0)->externalFile();
 		QImage image;
 		image.load(imgNam);
-		QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_xar_XXXXXX.png");
-		tempFile->setAutoRemove(false);
-		tempFile->open();
-		QString fileName = getLongPathName(tempFile->fileName());
-		tempFile->close();
-		delete tempFile;
+		QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_xar_XXXXXX.png");
+		tempFile.setAutoRemove(false);
+		tempFile.open();
+		QString fileName = getLongPathName(tempFile.fileName());
+		tempFile.close();
 		ite->isTempFile = true;
 		ite->isInlineImage = true;
 		image.save(fileName, "PNG");
@@ -2824,12 +2821,11 @@ void XarPlug::defineBitmap(QDataStream &ts, quint32 dataLen, quint32 tag)
 		}
 		ScPattern pat(m_Doc);
 		PageItem* newItem = new PageItem_ImageFrame(m_Doc, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
-		QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_xar_XXXXXX.png");
-		tempFile->setAutoRemove(false);
-		tempFile->open();
-		QString fileName = getLongPathName(tempFile->fileName());
-		tempFile->close();
-		delete tempFile;
+		QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_xar_XXXXXX.png");
+		tempFile.setAutoRemove(false);
+		tempFile.open();
+		QString fileName = getLongPathName(tempFile.fileName());
+		tempFile.close();
 		newItem->isTempFile = true;
 		newItem->isInlineImage = true;
 		image.setDotsPerMeterY(2834);

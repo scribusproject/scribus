@@ -1543,15 +1543,15 @@ PageItem* OdgPlug::parseFrame(QDomElement &e)
 					if (uz->read(imagePath, f))
 					{
 						QFileInfo fi(imagePath);
-						auto *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_odg_XXXXXX." + fi.suffix());
-						tempFile->setAutoRemove(false);
-						if (tempFile->open())
+						QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_odg_XXXXXX." + fi.suffix());
+						tempFile.setAutoRemove(false);
+						if (tempFile.open())
 						{
-							QString fileName = getLongPathName(tempFile->fileName());
+							QString fileName = getLongPathName(tempFile.fileName());
 							if (!fileName.isEmpty())
 							{
-								tempFile->write(f);
-								tempFile->close();
+								tempFile.write(f);
+								tempFile.close();
 								retObj->isInlineImage = true;
 								retObj->isTempFile = true;
 								retObj->AspectRatio = false;
@@ -1560,7 +1560,6 @@ PageItem* OdgPlug::parseFrame(QDomElement &e)
 								retObj->adjustPictScale();
 							}
 						}
-						delete tempFile;
 					}
 					m_Doc->Items->removeLast();
 				}
@@ -1633,15 +1632,15 @@ PageItem* OdgPlug::parseFrame(QDomElement &e)
 								if (e.hasAttribute("draw:transform"))
 									retObj->setRotation(r, true);
 								finishItem(retObj, tmpOStyle);
-								auto *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_odg_XXXXXX." + ext);
-								tempFile->setAutoRemove(false);
-								if (tempFile->open())
+								QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_odg_XXXXXX." + ext);
+								tempFile.setAutoRemove(false);
+								if (tempFile.open())
 								{
-									QString fileName = getLongPathName(tempFile->fileName());
+									QString fileName = getLongPathName(tempFile.fileName());
 									if (!fileName.isEmpty())
 									{
-										tempFile->write(buf);
-										tempFile->close();
+										tempFile.write(buf);
+										tempFile.close();
 										retObj->isInlineImage = true;
 										retObj->isTempFile = true;
 										retObj->AspectRatio = false;
@@ -1650,7 +1649,6 @@ PageItem* OdgPlug::parseFrame(QDomElement &e)
 										retObj->adjustPictScale();
 									}
 								}
-								delete tempFile;
 								m_Doc->Items->removeLast();
 							}
 						}
@@ -3827,15 +3825,15 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 				if (uz->read(gStyle.patternPath, f))
 				{
 					QFileInfo fi(gStyle.patternPath);
-					auto *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_odg_XXXXXX." + fi.suffix());
-					tempFile->setAutoRemove(false);
-					if (tempFile->open())
+					QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_odg_XXXXXX." + fi.suffix());
+					tempFile.setAutoRemove(false);
+					if (tempFile.open())
 					{
-						QString fileName = getLongPathName(tempFile->fileName());
+						QString fileName = getLongPathName(tempFile.fileName());
 						if (!fileName.isEmpty())
 						{
-							tempFile->write(f);
-							tempFile->close();
+							tempFile.write(f);
+							tempFile.close();
 							ScPattern pat(m_Doc);
 							int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
 							PageItem* newItem = m_Doc->Items->at(z);
@@ -3893,7 +3891,6 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 							item->GrType = Gradient_Pattern;
 						}
 					}
-					delete tempFile;
 				}
 			}
 			else if (!gStyle.patternData.isEmpty())
@@ -3922,15 +3919,15 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 					ext = "svm";
 				if (!ext.isEmpty())
 				{
-					auto *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_odg_XXXXXX." + ext);
-					tempFile->setAutoRemove(false);
-					if (tempFile->open())
+					QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_odg_XXXXXX." + ext);
+					tempFile.setAutoRemove(false);
+					if (tempFile.open())
 					{
-						QString fileName = getLongPathName(tempFile->fileName());
+						QString fileName = getLongPathName(tempFile.fileName());
 						if (!fileName.isEmpty())
 						{
-							tempFile->write(buf);
-							tempFile->close();
+							tempFile.write(buf);
+							tempFile.close();
 							ScPattern pat(m_Doc);
 							int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
 							PageItem* newItem = m_Doc->Items->at(z);
@@ -3988,7 +3985,6 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 							item->GrType = Gradient_Pattern;
 						}
 					}
-					delete tempFile;
 				}
 			}
 		}
