@@ -169,7 +169,7 @@ void LatexEditor::writeExternalEditorFile()
 	if (extEditorFile.isEmpty())
 	{
 		QTemporaryFile editorTempFile(QDir::tempPath() + "/scribus_temp_editor_XXXXXX");
-		if (!editorTempFilepfile.open())
+		if (!editorTempFile.open())
 		{
 			ScMessageBox::critical(nullptr, tr("Error"), "<qt>" +
 				tr("Could not create a temporary file to run the external editor!")
