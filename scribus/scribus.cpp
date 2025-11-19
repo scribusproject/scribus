@@ -3894,16 +3894,12 @@ void ScribusMainWindow::slotGetClipboardImage()
 	if (img.isNull())
 		return;
 
-	QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_XXXXXX.png");
-	tempFile->setAutoRemove(false);
-	if (!tempFile->open())
-	{
-		delete tempFile;
+	QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_XXXXXX.png");
+	tempFile.setAutoRemove(false);
+	if (!tempFile.open())
 		return;
-	}
-	QString fileName = getLongPathName(tempFile->fileName());
-	tempFile->close();
-	delete tempFile;
+	QString fileName = getLongPathName(tempFile.fileName());
+	tempFile.close();
 
 	if (!img.save(fileName, "PNG"))
 	{

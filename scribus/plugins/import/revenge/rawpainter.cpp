@@ -946,12 +946,12 @@ void RawPainter::drawPolygon(const librevenge::RVNGPropertyList &propList)
 					  imgExt = "wmf";
 				  else
 					  imgExt = "emf";
-				  QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(m_fileType) + imgExt);
-				  if (tempFile->open())
+				  QTemporaryFile tempFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(m_fileType) + imgExt);
+				  if (tempFile.open())
 				  {
-					  tempFile->write(imageData);
-					  QString fileName = getLongPathName(tempFile->fileName());
-					  tempFile->close();
+					  tempFile.write(imageData);
+					  QString fileName = getLongPathName(tempFile.fileName());
+					  tempFile.close();
 					  FileLoader *fileLoader = new FileLoader(fileName);
 					  int testResult = fileLoader->testFile();
 					  delete fileLoader;
@@ -1013,7 +1013,6 @@ void RawPainter::drawPolygon(const librevenge::RVNGPropertyList &propList)
 						  }
 					  }
 				  }
-				  delete tempFile;
 			  }
 		  }
 		}
@@ -1099,12 +1098,12 @@ void RawPainter::drawPath(const librevenge::RVNGPropertyList &propList)
 					  imgExt = "wmf";
 				  else
 					  imgExt = "emf";
-				  QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(m_fileType) + imgExt);
-				  if (tempFile->open())
+				  QTemporaryFile tempFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(m_fileType) + imgExt);
+				  if (tempFile.open())
 				  {
-					  tempFile->write(imageData);
-					  QString fileName = getLongPathName(tempFile->fileName());
-					  tempFile->close();
+					  tempFile.write(imageData);
+					  QString fileName = getLongPathName(tempFile.fileName());
+					  tempFile.close();
 					  FileLoader *fileLoader = new FileLoader(fileName);
 					  int testResult = fileLoader->testFile();
 					  delete fileLoader;
@@ -1166,7 +1165,6 @@ void RawPainter::drawPath(const librevenge::RVNGPropertyList &propList)
 						  }
 					  }
 				  }
-				  delete tempFile;
 			  }
 		  }
 		}
@@ -1241,12 +1239,12 @@ void RawPainter::drawGraphicObject(const librevenge::RVNGPropertyList &propList)
 					imgExt = "wmf";
 				else
 					imgExt = "emf";
-				QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(m_fileType) + imgExt);
-				if (tempFile->open())
+				QTemporaryFile tempFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(m_fileType) + imgExt);
+				if (tempFile.open())
 				{
-					tempFile->write(imageData);
-					QString fileName = getLongPathName(tempFile->fileName());
-					tempFile->close();
+					tempFile.write(imageData);
+					QString fileName = getLongPathName(tempFile.fileName());
+					tempFile.close();
 					FileLoader *fileLoader = new FileLoader(fileName);
 					int testResult = fileLoader->testFile();
 					delete fileLoader;
@@ -1304,7 +1302,6 @@ void RawPainter::drawGraphicObject(const librevenge::RVNGPropertyList &propList)
 						}
 					}
 				}
-				delete tempFile;
 			}
 		}
 		if (ite)
@@ -2109,13 +2106,13 @@ void RawPainter::applyFill(PageItem* ite)
 			imgExt = "tif";
 		if (!imgExt.isEmpty())
 		{
-			QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(m_fileType) + imgExt);
-			tempFile->setAutoRemove(false);
-			if (tempFile->open())
+			QTemporaryFile tempFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(m_fileType) + imgExt);
+			tempFile.setAutoRemove(false);
+			if (tempFile.open())
 			{
-				tempFile->write(imageData);
-				QString fileName = getLongPathName(tempFile->fileName());
-				tempFile->close();
+				tempFile.write(imageData);
+				QString fileName = getLongPathName(tempFile.fileName());
+				tempFile.close();
 				ScPattern pat(m_Doc);
 				int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
 				PageItem* newItem = m_Doc->Items->at(z);
@@ -2157,7 +2154,6 @@ void RawPainter::applyFill(PageItem* ite)
 				ite->setPattern(patternName);
 				ite->GrType = Gradient_Pattern;
 			}
-			delete tempFile;
 		}
 	}
 }
@@ -2605,12 +2601,12 @@ void RawPainter::drawPolygon(const ::WPXPropertyListVector &vertices)
 				  imgExt = "wmf";
 			  else
 				  imgExt = "emf";
-			  QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(m_fileType) + imgExt);
-			  if (tempFile->open())
+			  QTemporaryFile tempFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(m_fileType) + imgExt);
+			  if (tempFile.open())
 			  {
-				  tempFile->write(imageData);
-				  QString fileName = getLongPathName(tempFile->fileName());
-				  tempFile->close();
+				  tempFile.write(imageData);
+				  QString fileName = getLongPathName(tempFile.fileName());
+				  tempFile.close();
 				  FileLoader *fileLoader = new FileLoader(fileName);
 				  int testResult = fileLoader->testFile();
 				  delete fileLoader;
@@ -2672,7 +2668,6 @@ void RawPainter::drawPolygon(const ::WPXPropertyListVector &vertices)
 					  }
 				  }
 			  }
-			  delete tempFile;
 		  }
 	  }
 	}
@@ -2753,12 +2748,12 @@ void RawPainter::drawPath(const ::WPXPropertyListVector &path)
 					  imgExt = "wmf";
 				  else
 					  imgExt = "emf";
-				  QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(m_fileType) + imgExt);
-				  if (tempFile->open())
+				  QTemporaryFile tempFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(m_fileType) + imgExt);
+				  if (tempFile.open())
 				  {
-					  tempFile->write(imageData);
-					  QString fileName = getLongPathName(tempFile->fileName());
-					  tempFile->close();
+					  tempFile.write(imageData);
+					  QString fileName = getLongPathName(tempFile.fileName());
+					  tempFile.close();
 					  FileLoader *fileLoader = new FileLoader(fileName);
 					  int testResult = fileLoader->testFile();
 					  delete fileLoader;
@@ -2820,7 +2815,6 @@ void RawPainter::drawPath(const ::WPXPropertyListVector &path)
 						  }
 					  }
 				  }
-				  delete tempFile;
 			  }
 		  }
 		}
@@ -2888,12 +2882,12 @@ void RawPainter::drawGraphicObject(const ::WPXPropertyList &propList, const ::WP
 					imgExt = "wmf";
 				else
 					imgExt = "emf";
-				QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(m_fileType) + imgExt);
-				if (tempFile->open())
+				QTemporaryFile tempFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(m_fileType) + imgExt);
+				if (tempFile.open())
 				{
-					tempFile->write(imageData);
-					QString fileName = getLongPathName(tempFile->fileName());
-					tempFile->close();
+					tempFile.write(imageData);
+					QString fileName = getLongPathName(tempFile.fileName());
+					tempFile.close();
 					FileLoader *fileLoader = new FileLoader(fileName);
 					int testResult = fileLoader->testFile();
 					delete fileLoader;
@@ -2955,7 +2949,6 @@ void RawPainter::drawGraphicObject(const ::WPXPropertyList &propList, const ::WP
 						}
 					}
 				}
-				delete tempFile;
 			}
 		}
 		if (ite)
@@ -3323,13 +3316,13 @@ void RawPainter::applyFill(PageItem* ite)
 			imgExt = "tif";
 		if (!imgExt.isEmpty())
 		{
-			QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(m_fileType) + imgExt);
-			tempFile->setAutoRemove(false);
-			if (tempFile->open())
+			QTemporaryFile tempFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(m_fileType) + imgExt);
+			tempFile.setAutoRemove(false);
+			if (tempFile.open())
 			{
-				tempFile->write(imageData);
-				QString fileName = getLongPathName(tempFile->fileName());
-				tempFile->close();
+				tempFile.write(imageData);
+				QString fileName = getLongPathName(tempFile.fileName());
+				tempFile.close();
 				ScPattern pat(m_Doc);
 				int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
 				PageItem* newItem = m_Doc->Items->at(z);
@@ -3371,7 +3364,6 @@ void RawPainter::applyFill(PageItem* ite)
 				ite->setPattern(patternName);
 				ite->GrType = Gradient_Pattern;
 			}
-			delete tempFile;
 		}
 	}
 }
@@ -3502,13 +3494,13 @@ QString RawPainter::parseColor( const QString &s )
 
 void RawPainter::insertImage(PageItem* ite, const QString& imgExt, QByteArray &imageData)
 {
-	QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(m_fileType) + imgExt);
-	tempFile->setAutoRemove(false);
-	if (tempFile->open())
+	QTemporaryFile tempFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(m_fileType) + imgExt);
+	tempFile.setAutoRemove(false);
+	if (tempFile.open())
 	{
-		tempFile->write(imageData);
-		QString fileName = getLongPathName(tempFile->fileName());
-		tempFile->close();
+		tempFile.write(imageData);
+		QString fileName = getLongPathName(tempFile.fileName());
+		tempFile.close();
 		ite->isTempFile = true;
 		ite->isInlineImage = true;
 		if (m_style["draw:red"] && m_style["draw:green"] && m_style["draw:blue"])
@@ -3550,7 +3542,6 @@ void RawPainter::insertImage(PageItem* ite, const QString& imgExt, QByteArray &i
 		}
 #endif
 	}
-	delete tempFile;
 }
 
 void RawPainter::applyShadow(PageItem* ite)

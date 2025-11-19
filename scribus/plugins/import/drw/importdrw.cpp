@@ -881,16 +881,15 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 				{
 					if (currentItem != nullptr)
 					{
-						QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_drw_XXXXXX.png");
-						tempFile->setAutoRemove(false);
-						tempFile->open();
-						QString fileName = getLongPathName(tempFile->fileName());
-						tempFile->close();
+						QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_drw_XXXXXX.png");
+						tempFile.setAutoRemove(false);
+						tempFile.open();
+						QString fileName = getLongPathName(tempFile.fileName());
+						tempFile.close();
 						currentItem->isInlineImage = true;
 						currentItem->isTempFile = true;
 						tmpImage.save(fileName, "PNG");
 						m_Doc->loadPict(fileName, currentItem);
-						delete tempFile;
 						currentItem->setImageScalingMode(false, false);
 					}
 					imageValid = false;
@@ -1849,12 +1848,11 @@ void DrwPlug::handleGradient(PageItem* currentItem, quint8 patternIndex, const Q
 				image = image.convertToFormat(QImage::Format_ARGB32);
 				ScPattern pat(m_Doc);
 				PageItem* newItem = new PageItem_ImageFrame(m_Doc, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
-				QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_drw_XXXXXX.png");
-				tempFile->setAutoRemove(false);
-				tempFile->open();
-				QString fileName = getLongPathName(tempFile->fileName());
-				tempFile->close();
-				delete tempFile;
+				QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_drw_XXXXXX.png");
+				tempFile.setAutoRemove(false);
+				tempFile.open();
+				QString fileName = getLongPathName(tempFile.fileName());
+				tempFile.close();
 				newItem->isInlineImage = true;
 				newItem->isTempFile = true;
 				image.setDotsPerMeterY(2834);

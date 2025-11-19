@@ -1541,18 +1541,17 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 					istr.skipRawData(1);
 			}
 		}
-		QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_cgm_XXXXXX.png");
-		tempFile->setAutoRemove(false);
-		tempFile->open();
-		QString fileName = getLongPathName(tempFile->fileName());
-		tempFile->close();
+		QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_cgm_XXXXXX.png");
+		tempFile.setAutoRemove(false);
+		tempFile.open();
+		QString fileName = getLongPathName(tempFile.fileName());
+		tempFile.close();
 		ite->isInlineImage = true;
 		ite->isTempFile = true;
 		image.save(fileName, "PNG");
 		if ((image.width() < 20) || image.height() < 20)
 			ite->pixm.imgInfo.lowResType = 0;
 		m_Doc->loadPict(fileName, ite);
-		delete tempFile;
 		ite->setImageFlippedH(flipX);
 		ite->setImageFlippedV(flipY);
 		ite->setImageScalingMode(false, false);
@@ -2370,14 +2369,14 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		m_Doc->adjustItemSize(ite);
 		ite->OldB2 = ite->width();
 		ite->OldH2 = ite->height();
-		QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_cgm_XXXXXX.png");
-		tempFile->setAutoRemove(false);
-		if (tempFile->open())
+		QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_cgm_XXXXXX.png");
+		tempFile.setAutoRemove(false);
+		if (tempFile.open())
 		{
-			QString fileName = getLongPathName(tempFile->fileName());
+			QString fileName = getLongPathName(tempFile.fileName());
 			if (!fileName.isEmpty())
 			{
-				tempFile->close();
+				tempFile.close();
 				ite->isInlineImage = true;
 				ite->isTempFile = true;
 				tmpImg.save(fileName, "PNG");
@@ -2409,7 +2408,6 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			m_Doc->Items->removeAll(ite);
 			delete ite;
 		}
-		delete tempFile;
 		colorPrecision = t_colorPrecision;
 	//	qDebug() << "PATTERN TABLE" << "Index" << index << "NX" << nx << "NY" << ny;
 	}

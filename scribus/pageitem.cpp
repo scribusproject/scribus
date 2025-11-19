@@ -354,14 +354,13 @@ PageItem::PageItem(const PageItem & other)
 	{
 		QFileInfo inlFi(Pfile);
 		QString ext = inlFi.suffix();
-		QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_XXXXXX." + ext);
-		tempFile->setAutoRemove(false);
-		tempFile->open();
-		QString fileName = getLongPathName(tempFile->fileName());
-		tempFile->close();
+		QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_XXXXXX." + ext);
+		tempFile.setAutoRemove(false);
+		tempFile.open();
+		QString fileName = getLongPathName(tempFile.fileName());
+		tempFile.close();
 		copyFile(Pfile, fileName);
 		Pfile = fileName;
-		delete tempFile;
 		isInlineImage = true;
 		isTempFile = true;
 	}

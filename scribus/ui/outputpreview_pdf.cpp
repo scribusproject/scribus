@@ -168,17 +168,16 @@ OutputPreview_PDF::OutputPreview_PDF(QWidget* parent, ScribusDoc* doc) :
 	m_optionsUi->coverThresholdValue->setValue(m_prefsManager.appPrefs.pdfOutputPreviewPrefs.inkCoverageThreshold);
 
 	// Generate a template name for temporary files
-	QTemporaryFile *tempFile = new QTemporaryFile(ScPaths::tempFileDir() + "/scpreview_XXXXXX.pdf");
-	if (tempFile->open())
+	QTemporaryFile tempFile(ScPaths::tempFileDir() + "/scpreview_XXXXXX.pdf");
+	if (tempFile.open())
 	{
-		QString tempFileBase = tempFile->fileName();
-		tempFile->setAutoRemove(false);
-		tempFile->close();
+		QString tempFileBase = tempFile.fileName();
+		tempFile.setAutoRemove(false);
+		tempFile.close();
 		m_tempBaseName = QFileInfo(tempFileBase).completeBaseName();
 	}
 	if (m_tempBaseName.isEmpty())
 		m_tempBaseName = "scpreview";
-	delete tempFile;
 
 	setPDFOptionsToUi(m_pdfOptions);
 	

@@ -420,13 +420,11 @@ bool PagesPlug::parseDocReference(const QString& designMap, bool compressed)
 
 	if (compressed)
 	{
-		QTemporaryFile *tmpFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_zip_XXXXXX.dat");
-		if (tmpFile == nullptr)
-			return false;
-		tmpFile->open();
-		QString fname = getLongPathName(tmpFile->fileName());
-		tmpFile->write(f);
-		tmpFile->close();
+		QTemporaryFile tmpFile(QDir::tempPath() + "/scribus_temp_zip_XXXXXX.dat");
+		tmpFile.open();
+		QString fname = getLongPathName(tmpFile.fileName());
+		tmpFile.write(f);
+		tmpFile.close();
 		QFile file(fname);
 		QtIOCompressor compressor(&file);
 		compressor.setStreamFormat(QtIOCompressor::GzipFormat);
@@ -434,11 +432,7 @@ bool PagesPlug::parseDocReference(const QString& designMap, bool compressed)
 		f = compressor.readAll();
 		compressor.close();
 		if (f.isEmpty())
-		{
-			delete tmpFile;
 			return false;
-		}
-		delete tmpFile;
 	}
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
@@ -1435,15 +1429,15 @@ PageItem* PagesPlug::parseObjReference(QDomElement &draw)
 				if (uz->read(obState.imagePath, f))
 				{
 					QFileInfo fi(obState.imagePath);
-					QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_pages_XXXXXX." + fi.suffix());
-					tempFile->setAutoRemove(false);
-					if (tempFile->open())
+					QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_pages_XXXXXX." + fi.suffix());
+					tempFile.setAutoRemove(false);
+					if (tempFile.open())
 					{
-						QString fileName = getLongPathName(tempFile->fileName());
+						QString fileName = getLongPathName(tempFile.fileName());
 						if (!fileName.isEmpty())
 						{
-							tempFile->write(f);
-							tempFile->close();
+							tempFile.write(f);
+							tempFile.close();
 							retObj->isInlineImage = true;
 							retObj->isTempFile = true;
 							retObj->AspectRatio = false;
@@ -1452,7 +1446,6 @@ PageItem* PagesPlug::parseObjReference(QDomElement &draw)
 							retObj->adjustPictScale();
 						}
 					}
-					delete tempFile;
 				}
 			}
 		}

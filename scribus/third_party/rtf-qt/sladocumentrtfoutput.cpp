@@ -633,13 +633,13 @@ namespace RtfReader
 				imgExt = "pict";
 			else if (type == 4)
 				imgExt = "pmg";
-			QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + QString("/scribus_temp_rtf_XXXXXX.") + imgExt);
-			tempFile->setAutoRemove(false);
-			if (tempFile->open())
+			QTemporaryFile tempFile(QDir::tempPath() + QString("/scribus_temp_rtf_XXXXXX.") + imgExt);
+			tempFile.setAutoRemove(false);
+			if (tempFile.open())
 			{
-				tempFile->write(image);
-				QString fileName = getLongPathName(tempFile->fileName());
-				tempFile->close();
+				tempFile.write(image);
+				QString fileName = getLongPathName(tempFile.fileName());
+				tempFile.close();
 				int posT = m_item->itemText.length();
 				int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Rectangle, 0, 0, ww, hh, 0, CommonStrings::None, CommonStrings::None);
 				PageItem* item = m_Doc->Items->at(z);
@@ -661,7 +661,6 @@ namespace RtfReader
 				m_item->itemText.insertObject(fIndex);
 				m_item->itemText.applyStyle(posT, m_textStyle.top());
 			}
-			delete tempFile;
 		}
 		else if ((type == 1) || (type == 2))
 		{
@@ -669,13 +668,13 @@ namespace RtfReader
 				imgExt = "wmf";
 			else if (type == 2)
 				imgExt = "emf";
-			QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + QString("/scribus_temp_rtf_XXXXXX.") + imgExt);
-			tempFile->setAutoRemove(false);
-			if (tempFile->open())
+			QTemporaryFile tempFile(QDir::tempPath() + QString("/scribus_temp_rtf_XXXXXX.") + imgExt);
+			tempFile.setAutoRemove(false);
+			if (tempFile.open())
 			{
-				tempFile->write(image);
-				QString fileName = getLongPathName(tempFile->fileName());
-				tempFile->close();
+				tempFile.write(image);
+				QString fileName = getLongPathName(tempFile.fileName());
+				tempFile.close();
 				FileLoader *fileLoader = new FileLoader(fileName);
 				int testResult = fileLoader->testFile();
 				delete fileLoader;
@@ -707,7 +706,6 @@ namespace RtfReader
 					}
 				}
 			}
-			delete tempFile;
 		}
 	}
 

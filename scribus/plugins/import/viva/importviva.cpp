@@ -1649,15 +1649,15 @@ PageItem* VivaPlug::parseObjectDetailsXML(const QDomElement& obNode, int baseTyp
 			{
 				if (!imageData.isEmpty())
 				{
-					QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_viva_XXXXXX.png");
-					tempFile->setAutoRemove(false);
-					if (tempFile->open())
+					QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_viva_XXXXXX.png");
+					tempFile.setAutoRemove(false);
+					if (tempFile.open())
 					{
-						QString fileName = getLongPathName(tempFile->fileName());
+						QString fileName = getLongPathName(tempFile.fileName());
 						if (!fileName.isEmpty())
 						{
-							tempFile->write(imageData);
-							tempFile->close();
+							tempFile.write(imageData);
+							tempFile.close();
 							item->isInlineImage = true;
 							item->isTempFile = true;
 							item->AspectRatio = true;
@@ -1665,7 +1665,6 @@ PageItem* VivaPlug::parseObjectDetailsXML(const QDomElement& obNode, int baseTyp
 							m_Doc->loadPict(fileName, item);
 						}
 					}
-					delete tempFile;
 				}
 			}
 			item->setImageXYScale(imageScaleX / item->pixm.imgInfo.xres * 72, imageScaleX / item->pixm.imgInfo.xres * 72);

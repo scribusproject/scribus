@@ -2060,14 +2060,14 @@ void SvmPlug::handleImage(QDataStream &ds, qint64 posi, quint32 totalSize)
 	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX + p.x(), baseY + p.y(), width, height, 0, CommonStrings::None, CommonStrings::None);
 	PageItem* ite = m_Doc->Items->at(z);
 	finishItem(ite);
-	QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_svm_XXXXXX.png");
-	tempFile->setAutoRemove(false);
-	if (tempFile->open())
+	QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_svm_XXXXXX.png");
+	tempFile.setAutoRemove(false);
+	if (tempFile.open())
 	{
-		QString fileName = getLongPathName(tempFile->fileName());
+		QString fileName = getLongPathName(tempFile.fileName());
 		if (!fileName.isEmpty())
 		{
-			tempFile->close();
+			tempFile.close();
 			img.save(fileName, "PNG");
 			ite->isInlineImage = true;
 			ite->isTempFile = true;
@@ -2077,7 +2077,6 @@ void SvmPlug::handleImage(QDataStream &ds, qint64 posi, quint32 totalSize)
 			ite->adjustPictScale();
 		}
 	}
-	delete tempFile;
 }
 
 void SvmPlug::handleImageEX(QDataStream &ds, qint64 posi, quint32 totalSize)
@@ -2116,14 +2115,14 @@ void SvmPlug::handleImageEX(QDataStream &ds, qint64 posi, quint32 totalSize)
 	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX + p.x(), baseY + p.y(), width, height, 0, CommonStrings::None, CommonStrings::None);
 	PageItem* ite = m_Doc->Items->at(z);
 	finishItem(ite);
-	QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_svm_XXXXXX.png");
-	tempFile->setAutoRemove(false);
-	if (tempFile->open())
+	QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_svm_XXXXXX.png");
+	tempFile.setAutoRemove(false);
+	if (tempFile.open())
 	{
-		QString fileName = getLongPathName(tempFile->fileName());
+		QString fileName = getLongPathName(tempFile.fileName());
 		if (!fileName.isEmpty())
 		{
-			tempFile->close();
+			tempFile.close();
 			img.save(fileName, "PNG");
 			ite->isInlineImage = true;
 			ite->isTempFile = true;
@@ -2133,7 +2132,6 @@ void SvmPlug::handleImageEX(QDataStream &ds, qint64 posi, quint32 totalSize)
 			ite->adjustPictScale();
 		}
 	}
-	delete tempFile;
 }
 
 void SvmPlug::handlePolygon(QDataStream &ds)
@@ -4198,14 +4196,14 @@ void SvmPlug::getEMFPBrush(quint32 brushID, bool directBrush)
 						QImage img = getImageDataFromStyle(brushID);
 						if (!img.isNull())
 						{
-							QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_emf_XXXXXX.png");
-							tempFile->setAutoRemove(false);
-							if (tempFile->open())
+							QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_emf_XXXXXX.png");
+							tempFile.setAutoRemove(false);
+							if (tempFile.open())
 							{
-								QString fileName = getLongPathName(tempFile->fileName());
+								QString fileName = getLongPathName(tempFile.fileName());
 								if (!fileName.isEmpty())
 								{
-									tempFile->close();
+									tempFile.close();
 									img.save(fileName, "PNG");
 									ScPattern pat(m_Doc);
 									int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
@@ -4588,14 +4586,14 @@ void SvmPlug::handleEMFPDrawImageData(QPointF p1, QPointF p2, QPointF p3, quint8
 		QImage img = getImageDataFromStyle(flagsH);
 		if (!img.isNull())
 		{
-			QTemporaryFile *tempFile = new QTemporaryFile(QDir::tempPath() + "/scribus_temp_emf_XXXXXX.png");
-			tempFile->setAutoRemove(false);
-			if (tempFile->open())
+			QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_emf_XXXXXX.png");
+			tempFile.setAutoRemove(false);
+			if (tempFile.open())
 			{
-				QString fileName = getLongPathName(tempFile->fileName());
+				QString fileName = getLongPathName(tempFile.fileName());
 				if (!fileName.isEmpty())
 				{
-					tempFile->close();
+					tempFile.close();
 					img.save(fileName, "PNG");
 					int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Rectangle, baseX + p1.x(), baseY + p1.y(), QLineF(p1, p2).length(), QLineF(p1, p3).length(), 0, CommonStrings::None, CommonStrings::None);
 					PageItem* ite = m_Doc->Items->at(z);
@@ -4630,7 +4628,6 @@ void SvmPlug::handleEMFPDrawImageData(QPointF p1, QPointF p2, QPointF p3, quint8
 					}
 				}
 			}
-			delete tempFile;
 		}
 	}
 }
