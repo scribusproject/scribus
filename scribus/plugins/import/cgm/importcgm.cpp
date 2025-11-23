@@ -2372,12 +2372,12 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		ite->OldB2 = ite->width();
 		ite->OldH2 = ite->height();
 		QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_cgm_XXXXXX.png");
-		tempFile.setAutoRemove(false);
 		if (tempFile.open())
 		{
 			QString fileName = getLongPathName(tempFile.fileName());
 			if (!fileName.isEmpty())
 			{
+				tempFile.setAutoRemove(false);
 				tempFile.close();
 				ite->isInlineImage = true;
 				ite->isTempFile = true;

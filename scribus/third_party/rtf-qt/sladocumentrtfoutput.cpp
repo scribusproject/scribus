@@ -634,11 +634,11 @@ namespace RtfReader
 			else if (type == 4)
 				imgExt = "pmg";
 			QTemporaryFile tempFile(QDir::tempPath() + QString("/scribus_temp_rtf_XXXXXX.") + imgExt);
-			tempFile.setAutoRemove(false);
 			if (tempFile.open())
 			{
-				tempFile.write(image);
 				QString fileName = getLongPathName(tempFile.fileName());
+				tempFile.setAutoRemove(false);
+				tempFile.write(image);
 				tempFile.close();
 				int posT = m_item->itemText.length();
 				int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Rectangle, 0, 0, ww, hh, 0, CommonStrings::None, CommonStrings::None);
@@ -669,11 +669,11 @@ namespace RtfReader
 			else if (type == 2)
 				imgExt = "emf";
 			QTemporaryFile tempFile(QDir::tempPath() + QString("/scribus_temp_rtf_XXXXXX.") + imgExt);
-			tempFile.setAutoRemove(false);
 			if (tempFile.open())
 			{
-				tempFile.write(image);
 				QString fileName = getLongPathName(tempFile.fileName());
+				tempFile.setAutoRemove(false);
+				tempFile.write(image);
 				tempFile.close();
 				FileLoader *fileLoader = new FileLoader(fileName);
 				int testResult = fileLoader->testFile();

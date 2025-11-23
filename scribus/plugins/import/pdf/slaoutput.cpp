@@ -2766,12 +2766,12 @@ void SlaOutputDev::createImageFrame(QImage& image, GfxState *state, int numColor
 	if (numColorComponents == 4)
 	{
 		QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_pdf_XXXXXX.tif");
-		tempFile.setAutoRemove(false);
 		if (tempFile.open())
 		{
 			QString fileName = getLongPathName(tempFile.fileName());
 			if (!fileName.isEmpty())
 			{
+				tempFile.setAutoRemove(false);
 				tempFile.close();
 				ite->isInlineImage = true;
 				ite->isTempFile = true;
@@ -2808,12 +2808,12 @@ void SlaOutputDev::createImageFrame(QImage& image, GfxState *state, int numColor
 	else
 	{
 		QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_pdf_XXXXXX.png");
-		tempFile.setAutoRemove(false);
 		if (tempFile.open())
 		{
 			QString fileName = getLongPathName(tempFile.fileName());
 			if (!fileName.isEmpty())
 			{
+				tempFile.setAutoRemove(false);
 				tempFile.close();
 				ite->isInlineImage = true;
 				ite->isTempFile = true;

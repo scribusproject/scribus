@@ -945,8 +945,8 @@ void RawPainter::drawPolygon(const librevenge::RVNGPropertyList &propList)
 				  QTemporaryFile tempFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(m_fileType) + imgExt);
 				  if (tempFile.open())
 				  {
-					  tempFile.write(imageData);
 					  QString fileName = getLongPathName(tempFile.fileName());
+					  tempFile.write(imageData);
 					  tempFile.close();
 					  FileLoader *fileLoader = new FileLoader(fileName);
 					  int testResult = fileLoader->testFile();
@@ -1097,8 +1097,8 @@ void RawPainter::drawPath(const librevenge::RVNGPropertyList &propList)
 				  QTemporaryFile tempFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(m_fileType) + imgExt);
 				  if (tempFile.open())
 				  {
-					  tempFile.write(imageData);
 					  QString fileName = getLongPathName(tempFile.fileName());
+					  tempFile.write(imageData);
 					  tempFile.close();
 					  FileLoader *fileLoader = new FileLoader(fileName);
 					  int testResult = fileLoader->testFile();
@@ -1238,8 +1238,8 @@ void RawPainter::drawGraphicObject(const librevenge::RVNGPropertyList &propList)
 				QTemporaryFile tempFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(m_fileType) + imgExt);
 				if (tempFile.open())
 				{
-					tempFile.write(imageData);
 					QString fileName = getLongPathName(tempFile.fileName());
+					tempFile.write(imageData);
 					tempFile.close();
 					FileLoader *fileLoader = new FileLoader(fileName);
 					int testResult = fileLoader->testFile();
@@ -2103,11 +2103,11 @@ void RawPainter::applyFill(PageItem* ite)
 		if (!imgExt.isEmpty())
 		{
 			QTemporaryFile tempFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(m_fileType) + imgExt);
-			tempFile.setAutoRemove(false);
 			if (tempFile.open())
 			{
-				tempFile.write(imageData);
 				QString fileName = getLongPathName(tempFile.fileName());
+				tempFile.write(imageData);
+				tempFile.setAutoRemove(false);
 				tempFile.close();
 				ScPattern pat(m_Doc);
 				int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
@@ -2143,7 +2143,7 @@ void RawPainter::applyFill(PageItem* ite)
 				newItem->gWidth = pat.pattern.width();
 				newItem->gHeight = pat.pattern.height();
 				pat.items.append(newItem);
-				QString patternName = "Pattern_"+ite->itemName();
+				QString patternName = "Pattern_" + ite->itemName();
 				patternName = patternName.trimmed().simplified().replace(" ", "_");
 				m_Doc->addPattern(patternName, pat);
 				m_importedPatterns->append(patternName);
@@ -2600,8 +2600,8 @@ void RawPainter::drawPolygon(const ::WPXPropertyListVector &vertices)
 			  QTemporaryFile tempFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(m_fileType) + imgExt);
 			  if (tempFile.open())
 			  {
-				  tempFile.write(imageData);
 				  QString fileName = getLongPathName(tempFile.fileName());
+				  tempFile.write(imageData);
 				  tempFile.close();
 				  FileLoader *fileLoader = new FileLoader(fileName);
 				  int testResult = fileLoader->testFile();
@@ -2747,8 +2747,8 @@ void RawPainter::drawPath(const ::WPXPropertyListVector &path)
 				  QTemporaryFile tempFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(m_fileType) + imgExt);
 				  if (tempFile.open())
 				  {
-					  tempFile.write(imageData);
 					  QString fileName = getLongPathName(tempFile.fileName());
+					  tempFile.write(imageData);
 					  tempFile.close();
 					  FileLoader *fileLoader = new FileLoader(fileName);
 					  int testResult = fileLoader->testFile();
@@ -2881,8 +2881,8 @@ void RawPainter::drawGraphicObject(const ::WPXPropertyList &propList, const ::WP
 				QTemporaryFile tempFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(m_fileType) + imgExt);
 				if (tempFile.open())
 				{
-					tempFile.write(imageData);
 					QString fileName = getLongPathName(tempFile.fileName());
+					tempFile.write(imageData);
 					tempFile.close();
 					FileLoader *fileLoader = new FileLoader(fileName);
 					int testResult = fileLoader->testFile();
@@ -3313,11 +3313,11 @@ void RawPainter::applyFill(PageItem* ite)
 		if (!imgExt.isEmpty())
 		{
 			QTemporaryFile tempFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(m_fileType) + imgExt);
-			tempFile.setAutoRemove(false);
 			if (tempFile.open())
 			{
-				tempFile.write(imageData);
 				QString fileName = getLongPathName(tempFile.fileName());
+				tempFile.write(imageData);
+				tempFile.setAutoRemove(false);
 				tempFile.close();
 				ScPattern pat(m_Doc);
 				int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
@@ -3491,11 +3491,11 @@ QString RawPainter::parseColor( const QString &s )
 void RawPainter::insertImage(PageItem* ite, const QString& imgExt, QByteArray &imageData)
 {
 	QTemporaryFile tempFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(m_fileType) + imgExt);
-	tempFile.setAutoRemove(false);
 	if (tempFile.open())
 	{
-		tempFile.write(imageData);
 		QString fileName = getLongPathName(tempFile.fileName());
+		tempFile.write(imageData);
+		tempFile.setAutoRemove(false);
 		tempFile.close();
 		ite->isTempFile = true;
 		ite->isInlineImage = true;

@@ -11041,10 +11041,10 @@ void PageItem::setInlineData(const QByteArray& data, const QString& ext)
 		return;
 
 	QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_XXXXXX." + ext);
-	tempFile.setAutoRemove(false);
 	if (!tempFile.open())
 		return;
 	QString fileName = getLongPathName(tempFile.fileName());
+	tempFile.setAutoRemove(false);
 	tempFile.close();
 
 	QByteArray inlineImageData = qUncompress(QByteArray::fromBase64(data));
@@ -11071,10 +11071,10 @@ void PageItem::makeImageInline()
 	QString ext = fi.suffix();
 
 	QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_XXXXXX." + ext);
-	tempFile.setAutoRemove(false);
 	if (!tempFile.open())
 		return;
 	QString fileName = getLongPathName(tempFile.fileName());
+	tempFile.setAutoRemove(false);
 	tempFile.close();
 
 	if (copyFile(Pfile, fileName))

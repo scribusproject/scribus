@@ -1650,12 +1650,12 @@ PageItem* VivaPlug::parseObjectDetailsXML(const QDomElement& obNode, int baseTyp
 				if (!imageData.isEmpty())
 				{
 					QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_viva_XXXXXX.png");
-					tempFile.setAutoRemove(false);
 					if (tempFile.open())
 					{
 						QString fileName = getLongPathName(tempFile.fileName());
 						if (!fileName.isEmpty())
 						{
+							tempFile.setAutoRemove(false);
 							tempFile.write(imageData);
 							tempFile.close();
 							item->isInlineImage = true;
