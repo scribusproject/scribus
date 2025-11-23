@@ -56,10 +56,12 @@ PageItem_LatexFrame::PageItem_LatexFrame(ScribusDoc *pa, double x, double y, dou
 	latex->setProcessChannelMode(QProcess::MergedChannels);
 	
 	QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_render_XXXXXX");
-	tempFile.open();
-	tempFileBase = getLongPathName(tempFile.fileName());
-	tempFile.setAutoRemove(false);
-	tempFile.close();
+	if (tempFile.open())
+	{
+		tempFileBase = getLongPathName(tempFile.fileName());
+		tempFile.setAutoRemove(false);
+		tempFile.close();
+	}
 	Q_ASSERT(!tempFileBase.isEmpty());
 	
 	m_lastDpi = realDpi();
@@ -247,8 +249,9 @@ void PageItem_LatexFrame::runApplication()
 		return;
 	}
 	
-	QFile tempfile(tempFileBase);
-	if (!tempfile.open(QIODevice::Truncate|QIODevice::WriteOnly)) {
+	QFile tempFile(tempFileBase);
+	if (!tempFile.open(QIODevice::Truncate|QIODevice::WriteOnly))
+	{
 		m_err = 0xffff;
 		update(); //Show error marker
 		if (firstWarningTmpfile)
@@ -259,7 +262,7 @@ void PageItem_LatexFrame::runApplication()
 			firstWarningTmpfile = false;
 		}
 		qCritical() << "RENDER FRAME:" << tr("Could not create a temporary file to run the application!");
-		//Don't know how to continue as it's impossible to create tempfile
+		//Don't know how to continue as it's impossible to create tempFile
 		return;
 	}
 	firstWarningTmpfile = true;
@@ -302,8 +305,8 @@ void PageItem_LatexFrame::runApplication()
 	
 	imageFile = tempFileBase + config->imageExtension();
 
-	writeFileContents(&tempfile);
-	tempfile.close();
+	writeFileContents(&tempFile);
+	tempFile.close();
 	
 	latex->start(full_command);
 	emit stateChanged(QProcess::Starting);

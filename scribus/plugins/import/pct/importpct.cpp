@@ -1006,18 +1006,20 @@ void PctPlug::parsePict(QDataStream &ts)
 						int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, image.width() * resX, image.height() * resY, 0, m_Doc->itemToolPrefs().imageFillColor, CommonStrings::None);
 						PageItem *ite = m_Doc->Items->at(z);
 						QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_pct_XXXXXX.png");
-						tempFile.setAutoRemove(false);
-						tempFile.open();
-						QString fileName = getLongPathName(tempFile.fileName());
-						tempFile.close();
-						ite->isInlineImage = true;
-						ite->isTempFile = true;
-						image.save(fileName, "PNG");
-						ite->moveBy(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
-						ite->moveBy(offsetX, offsetY);
-						finishItem(ite);
-						m_Doc->loadPict(fileName, ite);
-						ite->setImageScalingMode(false, false);
+						if (tempFile.open())
+						{
+							QString fileName = getLongPathName(tempFile.fileName());
+							tempFile.setAutoRemove(false);
+							tempFile.close();
+							ite->isInlineImage = true;
+							ite->isTempFile = true;
+							image.save(fileName, "PNG");
+							ite->moveBy(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+							ite->moveBy(offsetX, offsetY);
+							finishItem(ite);
+							m_Doc->loadPict(fileName, ite);
+							ite->setImageScalingMode(false, false);
+						}
 					}
 //					qDebug() << "End of Pict";
 					return;
@@ -1841,18 +1843,20 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 		int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX + dstRect.left() * resX, baseY + dstRect.top() * resY, imgCols * resY, imgRows * resY, 0, m_Doc->itemToolPrefs().imageFillColor, m_Doc->itemToolPrefs().imageStrokeColor);
 		PageItem *ite = m_Doc->Items->at(z);
 		QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_pct_XXXXXX.png");
-		tempFile.setAutoRemove(false);
-		tempFile.open();
-		QString fileName = getLongPathName(tempFile.fileName());
-		tempFile.close();
-		ite->isInlineImage = true;
-		ite->isTempFile = true;
-		image.save(fileName, "PNG");
-		ite->moveBy(baseX, baseY);
-		ite->moveBy(offsetX, offsetY);
-		finishItem(ite);
-		m_Doc->loadPict(fileName, ite);
-		ite->setImageScalingMode(false, false);
+		if (tempFile.open())
+		{
+			QString fileName = getLongPathName(tempFile.fileName());
+			tempFile.setAutoRemove(false);
+			tempFile.close();
+			ite->isInlineImage = true;
+			ite->isTempFile = true;
+			image.save(fileName, "PNG");
+			ite->moveBy(baseX, baseY);
+			ite->moveBy(offsetX, offsetY);
+			finishItem(ite);
+			m_Doc->loadPict(fileName, ite);
+			ite->setImageScalingMode(false, false);
+		}
 		skipOpcode = false;
 	}
 	alignStreamToWord(ts, 0);
@@ -2180,32 +2184,35 @@ void PctPlug::setFillPattern(PageItem* ite)
 		ScPattern pat(m_Doc);
 		PageItem* newItem = new PageItem_ImageFrame(m_Doc, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
 		QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_pct_XXXXXX.png");
-		tempFile.setAutoRemove(false);
-		tempFile.open();
-		QString fileName = getLongPathName(tempFile.fileName());
-		tempFile.close();
-		newItem->isInlineImage = true;
-		newItem->isTempFile = true;
-		image.setDotsPerMeterY(2834);
-		image.setDotsPerMeterX(2834);
-		image.save(fileName, "PNG");
-		if (newItem->loadImage(fileName, false, 72, false))
+		if (tempFile.open())
 		{
-			pat.width = image.width();
-			pat.height = image.height();
-			pat.scaleX = (72.0 / newItem->pixm.imgInfo.xres) * newItem->pixm.imgInfo.lowResScale;
-			pat.scaleY = (72.0 / newItem->pixm.imgInfo.xres) * newItem->pixm.imgInfo.lowResScale;
-			pat.pattern = newItem->pixm.qImage().copy();
-			newItem->setWidth(pat.pattern.width());
-			newItem->setHeight(pat.pattern.height());
-			newItem->SetRectFrame();
-			newItem->gXpos = 0.0;
-			newItem->gYpos = 0.0;
-			newItem->gWidth = pat.pattern.width();
-			newItem->gHeight = pat.pattern.height();
-			pat.items.append(newItem);
+			QString fileName = getLongPathName(tempFile.fileName());
+			tempFile.setAutoRemove(false);
+			tempFile.close();
+			newItem->isInlineImage = true;
+			newItem->isTempFile = true;
+			image.setDotsPerMeterY(2834);
+			image.setDotsPerMeterX(2834);
+			image.save(fileName, "PNG");
+			if (newItem->loadImage(fileName, false, 72, false))
+			{
+				pat.width = image.width();
+				pat.height = image.height();
+				pat.scaleX = (72.0 / newItem->pixm.imgInfo.xres) * newItem->pixm.imgInfo.lowResScale;
+				pat.scaleY = (72.0 / newItem->pixm.imgInfo.xres) * newItem->pixm.imgInfo.lowResScale;
+				pat.pattern = newItem->pixm.qImage().copy();
+				newItem->setWidth(pat.pattern.width());
+				newItem->setHeight(pat.pattern.height());
+				newItem->SetRectFrame();
+				newItem->gXpos = 0.0;
+				newItem->gYpos = 0.0;
+				newItem->gWidth = pat.pattern.width();
+				newItem->gHeight = pat.pattern.height();
+				pat.items.append(newItem);
+			}
+
 		}
-		patternName = "Pattern_"+newItem->itemName();
+		patternName = "Pattern_" + newItem->itemName();
 		patternName = patternName.trimmed().simplified().replace(" ", "_");
 		m_Doc->addPattern(patternName, pat);
 		importedPatterns.append(patternName);

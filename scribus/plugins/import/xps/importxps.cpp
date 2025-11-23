@@ -1903,9 +1903,10 @@ ScFace XpsPlug::loadFontByName(const QString &fileName)
 	if (!uz->read(fileName, fontData))
 		return t;
 	QTemporaryFile tempImageFile(QDir::tempPath() + "/scribus_temp_zip_XXXXXX.dat");
-	tempImageFile.setAutoRemove(false);
-	tempImageFile.open();
+	if (!tempImageFile.open())
+		return t;
 	QString fname = getLongPathName(tempImageFile.fileName());
+	tempImageFile.setAutoRemove(false);
 	tempImageFile.close();
 	tempFontFiles.append(fname);
 	QFileInfo fi(fileName);
