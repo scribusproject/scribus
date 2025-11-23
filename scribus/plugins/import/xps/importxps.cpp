@@ -1690,12 +1690,12 @@ PageItem* XpsPlug::createItem(QDomElement &dpg, ObjState &obState)
 			{
 				QFileInfo fi(obState.imagePath);
 				QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_xps_XXXXXX." + fi.suffix());
-				tempFile.setAutoRemove(false);
 				if (tempFile.open())
 				{
 					QString fileName = getLongPathName(tempFile.fileName());
 					if (!fileName.isEmpty())
 					{
+						tempFile.setAutoRemove(false);
 						tempFile.write(f);
 						tempFile.close();
 						retObj->isInlineImage = true;
@@ -1889,9 +1889,10 @@ ScFace XpsPlug::loadFontByName(const QString &fileName)
 	if (!uz->read(fileName, fontData))
 		return t;
 	QTemporaryFile tempImageFile(QDir::tempPath() + "/scribus_temp_zip_XXXXXX.dat");
-	tempImageFile.setAutoRemove(false);
-	tempImageFile.open();
+	if (!tempImageFile.open())
+		return t;
 	QString fname = getLongPathName(tempImageFile.fileName());
+	tempImageFile.setAutoRemove(false);
 	tempImageFile.close();
 	tempFontFiles.append(fname);
 	QFileInfo fi(fileName);

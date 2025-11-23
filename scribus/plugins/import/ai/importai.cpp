@@ -1454,17 +1454,19 @@ void AIPlug::processData(const QString& data)
 					ite->setTextFlowMode(PageItem::TextFlowDisabled);
 					m_Doc->adjustItemSize(ite);
 					QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_ai_XXXXXX.pdf");
-					tempFile.setAutoRemove(false);
-					tempFile.open();
-					tempFile.write(fData);
-					QString imgName = getLongPathName(tempFile.fileName());
-					tempFile.close();
-					ite->isInlineImage = true;
-					ite->isTempFile = true;
-					m_Doc->loadPict(imgName, ite);
-					if (ite->imageIsAvailable)
-						ite->setImageXYScale(ite->width() / ite->pixm.width(), ite->height() / ite->pixm.height());
-					ite->setImageFlippedV(true);
+					if (tempFile.open())
+					{
+						QString imgName = getLongPathName(tempFile.fileName());
+						tempFile.write(fData);
+						tempFile.setAutoRemove(false);
+						tempFile.close();
+						ite->isInlineImage = true;
+						ite->isTempFile = true;
+						m_Doc->loadPict(imgName, ite);
+						if (ite->imageIsAvailable)
+							ite->setImageXYScale(ite->width() / ite->pixm.width(), ite->height() / ite->pixm.height());
+						ite->setImageFlippedV(true);
+					}
 					ite->Clip = flattenPath(ite->PoLine, ite->Segments);
 					ite->setRedrawBounding();
 					if (importerFlags & LoadSavePlugin::lfCreateDoc)
@@ -3058,59 +3060,62 @@ void AIPlug::processRaster(QDataStream &ts)
 	uint yCount = 0;
 	quint16 eTag = EXTRASAMPLE_UNASSALPHA;
 	QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_ai_XXXXXX.tif");
-	tempFile.setAutoRemove(false);
-	tempFile.open();
-	QString imgName = getLongPathName(tempFile.fileName());
-	tempFile.close();
-	ite->isInlineImage = true;
-	ite->isTempFile = true;
-	TIFF* tif = TIFFOpen(imgName.toLocal8Bit().data(), "w");
-	if (tif)
+	if (tempFile.open())
 	{
-		TIFFSetField(tif, TIFFTAG_IMAGEWIDTH, w);
-		TIFFSetField(tif, TIFFTAG_IMAGELENGTH, h);
-		TIFFSetField(tif, TIFFTAG_BITSPERSAMPLE, 8);
-		TIFFSetField(tif, TIFFTAG_SAMPLESPERPIXEL, m_image.channels());
-		if (alpha == 1)
-			TIFFSetField(tif, TIFFTAG_EXTRASAMPLES, 1, &eTag);
-		TIFFSetField(tif, TIFFTAG_PLANARCONFIG, PLANARCONFIG_CONTIG);
-		if (type == 4)
-			TIFFSetField(tif, TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_SEPARATED);
-		else
-			TIFFSetField(tif, TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_RGB);
-		TIFFSetField(tif, TIFFTAG_COMPRESSION, COMPRESSION_LZW);
-		for (int y = 0; y < h; ++y)
+		QString imgName = getLongPathName(tempFile.fileName());
+		tempFile.setAutoRemove(false);
+		tempFile.close();
+		ite->isInlineImage = true;
+		ite->isTempFile = true;
+
+		TIFF* tif = TIFFOpen(imgName.toLocal8Bit().data(), "w");
+		if (tif)
 		{
-			p = m_image.scanLine( 0 );
-			for (int xh = 0; xh < m_image.width(); ++xh )
+			TIFFSetField(tif, TIFFTAG_IMAGEWIDTH, w);
+			TIFFSetField(tif, TIFFTAG_IMAGELENGTH, h);
+			TIFFSetField(tif, TIFFTAG_BITSPERSAMPLE, 8);
+			TIFFSetField(tif, TIFFTAG_SAMPLESPERPIXEL, m_image.channels());
+			if (alpha == 1)
+				TIFFSetField(tif, TIFFTAG_EXTRASAMPLES, 1, &eTag);
+			TIFFSetField(tif, TIFFTAG_PLANARCONFIG, PLANARCONFIG_CONTIG);
+			if (type == 4)
+				TIFFSetField(tif, TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_SEPARATED);
+			else
+				TIFFSetField(tif, TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_RGB);
+			TIFFSetField(tif, TIFFTAG_COMPRESSION, COMPRESSION_LZW);
+			for (int y = 0; y < h; ++y)
 			{
-				p[0] = psdata[yCount++];
-				if (type > 1)
+				p = m_image.scanLine(0);
+				for (int xh = 0; xh < m_image.width(); ++xh)
 				{
-					p[1] = psdata[yCount++];
-					p[2] = psdata[yCount++];
-					if (type == 4)
-						p[3] = psdata[yCount++];
-				}
-				else
-				{
-					p[1] = p[0];
-					p[2] = p[0];
-				}
-				if (alpha == 1)
-				{
-					if (type == 4)
-						p[4] = psdata[alphaData++];
+					p[0] = psdata[yCount++];
+					if (type > 1)
+					{
+						p[1] = psdata[yCount++];
+						p[2] = psdata[yCount++];
+						if (type == 4)
+							p[3] = psdata[yCount++];
+					}
 					else
-						p[3] = psdata[alphaData++];
+					{
+						p[1] = p[0];
+						p[2] = p[0];
+					}
+					if (alpha == 1)
+					{
+						if (type == 4)
+							p[4] = psdata[alphaData++];
+						else
+							p[3] = psdata[alphaData++];
+					}
+					p += m_image.channels();
 				}
-				p += m_image.channels();
+				TIFFWriteScanline(tif, m_image.scanLine(0), y);
 			}
-			TIFFWriteScanline(tif, m_image.scanLine(0), y);
+			TIFFClose(tif);
 		}
-		TIFFClose(tif);
+		m_Doc->loadPict(imgName, ite);
 	}
-	m_Doc->loadPict(imgName, ite);
 	if (ite->imageIsAvailable)
 		ite->setImageXYScale(ite->width() / ite->pixm.width(), ite->height() / ite->pixm.height());
 	if (importerFlags & LoadSavePlugin::lfCreateDoc)

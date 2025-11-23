@@ -1542,20 +1542,22 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			}
 		}
 		QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_cgm_XXXXXX.png");
-		tempFile.setAutoRemove(false);
-		tempFile.open();
-		QString fileName = getLongPathName(tempFile.fileName());
-		tempFile.close();
-		ite->isInlineImage = true;
-		ite->isTempFile = true;
-		image.save(fileName, "PNG");
-		if ((image.width() < 20) || image.height() < 20)
-			ite->pixm.imgInfo.lowResType = 0;
-		m_Doc->loadPict(fileName, ite);
-		ite->setImageFlippedH(flipX);
-		ite->setImageFlippedV(flipY);
-		ite->setImageScalingMode(false, false);
-		ite->adjustPictScale();
+		if (tempFile.open())
+		{
+			QString fileName = getLongPathName(tempFile.fileName());
+			tempFile.setAutoRemove(false);
+			tempFile.close();
+			ite->isInlineImage = true;
+			ite->isTempFile = true;
+			image.save(fileName, "PNG");
+			if ((image.width() < 20) || image.height() < 20)
+				ite->pixm.imgInfo.lowResType = 0;
+			m_Doc->loadPict(fileName, ite);
+			ite->setImageFlippedH(flipX);
+			ite->setImageFlippedV(flipY);
+			ite->setImageScalingMode(false, false);
+			ite->adjustPictScale();
+		}
 		colorPrecision = t_colorPrecision;
 		colorIndexPrecision = t_colorIndexPrecision;
 	}

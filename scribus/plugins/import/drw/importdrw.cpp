@@ -882,15 +882,17 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 					if (currentItem != nullptr)
 					{
 						QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_drw_XXXXXX.png");
-						tempFile.setAutoRemove(false);
-						tempFile.open();
-						QString fileName = getLongPathName(tempFile.fileName());
-						tempFile.close();
-						currentItem->isInlineImage = true;
-						currentItem->isTempFile = true;
-						tmpImage.save(fileName, "PNG");
-						m_Doc->loadPict(fileName, currentItem);
-						currentItem->setImageScalingMode(false, false);
+						if (tempFile.open())
+						{
+							QString fileName = getLongPathName(tempFile.fileName());
+							tempFile.setAutoRemove(false);
+							tempFile.close();
+							currentItem->isInlineImage = true;
+							currentItem->isTempFile = true;
+							tmpImage.save(fileName, "PNG");
+							m_Doc->loadPict(fileName, currentItem);
+							currentItem->setImageScalingMode(false, false);
+						}
 					}
 					imageValid = false;
 					tmpImage = QImage();
@@ -1849,32 +1851,34 @@ void DrwPlug::handleGradient(PageItem* currentItem, quint8 patternIndex, const Q
 				ScPattern pat(m_Doc);
 				PageItem* newItem = new PageItem_ImageFrame(m_Doc, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
 				QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_drw_XXXXXX.png");
-				tempFile.setAutoRemove(false);
-				tempFile.open();
-				QString fileName = getLongPathName(tempFile.fileName());
-				tempFile.close();
-				newItem->isInlineImage = true;
-				newItem->isTempFile = true;
-				image.setDotsPerMeterY(2834);
-				image.setDotsPerMeterX(2834);
-				image.save(fileName, "PNG");
-				if (newItem->loadImage(fileName, false, 72, false))
+				if (tempFile.open())
 				{
-					pat.width = image.width();
-					pat.height = image.height();
-					pat.scaleX = (72.0 / newItem->pixm.imgInfo.xres) * newItem->pixm.imgInfo.lowResScale;
-					pat.scaleY = (72.0 / newItem->pixm.imgInfo.xres) * newItem->pixm.imgInfo.lowResScale;
-					pat.pattern = newItem->pixm.qImage().copy();
-					newItem->setWidth(pat.pattern.width());
-					newItem->setHeight(pat.pattern.height());
-					newItem->SetRectFrame();
-					newItem->gXpos = 0.0;
-					newItem->gYpos = 0.0;
-					newItem->gWidth = pat.pattern.width();
-					newItem->gHeight = pat.pattern.height();
-					pat.items.append(newItem);
+					QString fileName = getLongPathName(tempFile.fileName());
+					tempFile.setAutoRemove(false);
+					tempFile.close();
+					newItem->isInlineImage = true;
+					newItem->isTempFile = true;
+					image.setDotsPerMeterY(2834);
+					image.setDotsPerMeterX(2834);
+					image.save(fileName, "PNG");
+					if (newItem->loadImage(fileName, false, 72, false))
+					{
+						pat.width = image.width();
+						pat.height = image.height();
+						pat.scaleX = (72.0 / newItem->pixm.imgInfo.xres) * newItem->pixm.imgInfo.lowResScale;
+						pat.scaleY = (72.0 / newItem->pixm.imgInfo.xres) * newItem->pixm.imgInfo.lowResScale;
+						pat.pattern = newItem->pixm.qImage().copy();
+						newItem->setWidth(pat.pattern.width());
+						newItem->setHeight(pat.pattern.height());
+						newItem->SetRectFrame();
+						newItem->gXpos = 0.0;
+						newItem->gYpos = 0.0;
+						newItem->gWidth = pat.pattern.width();
+						newItem->gHeight = pat.pattern.height();
+						pat.items.append(newItem);
+					}
 				}
-				patternName = "Pattern_"+newItem->itemName();
+				patternName = "Pattern_" + newItem->itemName();
 				patternName = patternName.trimmed().simplified().replace(" ", "_");
 				m_Doc->addPattern(patternName, pat);
 				patternMap.insert(patNa, patternName);

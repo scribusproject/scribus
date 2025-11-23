@@ -1624,16 +1624,18 @@ QList<PageItem*> SVGPlug::parseImage(const QDomElement &e)
 			if (dataType.contains("base64"))
 				ba = QByteArray::fromBase64(ba);
 			QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_svg_XXXXXX.png");
-			tempFile.setAutoRemove(false);
-			tempFile.open();
-			QString fileName = getLongPathName(tempFile.fileName());
-			tempFile.close();
-			ite->isTempFile = true;
-			ite->isInlineImage = true;
-			QImage img;
-			img.loadFromData(ba);
-			img.save(fileName, "PNG");
-			m_Doc->loadPict(fileName, ite);
+			if (tempFile.open())
+			{
+				QString fileName = getLongPathName(tempFile.fileName());
+				tempFile.setAutoRemove(false);
+				tempFile.close();
+				ite->isTempFile = true;
+				ite->isInlineImage = true;
+				QImage img;
+				img.loadFromData(ba);
+				img.save(fileName, "PNG");
+				m_Doc->loadPict(fileName, ite);
+			}
 		}
 	}
 	if (!clipPath.empty())

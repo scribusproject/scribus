@@ -133,10 +133,16 @@ bool UniconvImportPlugin::import(const QString& fileName, int flags)
 
 	//Get a temporary filename ending in .svg (sadly
 	//uniconvertor has no other way of specifying the output format
+	QString tempFileName;
 	QTemporaryFile tempFile(QDir::tempPath() + "/scribus_uniconv_XXXXXX.svg");
-	tempFile.open();
-	QString tempFileName = tempFile.fileName();
-	tempFile.close();
+	if (tempFile.open())
+	{
+		tempFileName = tempFile.fileName();
+		tempFile.close();
+	}
+
+	if (tempFileName.isEmpty())
+		return false;
 
 	//prepare arguments for uniconvertor call
 	QStringList arguments;
