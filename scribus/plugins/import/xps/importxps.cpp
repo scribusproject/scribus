@@ -1704,12 +1704,12 @@ PageItem* XpsPlug::createItem(QDomElement &dpg, ObjState &obState)
 			{
 				QFileInfo fi(obState.imagePath);
 				QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_xps_XXXXXX." + fi.suffix());
-				tempFile.setAutoRemove(false);
 				if (tempFile.open())
 				{
 					QString fileName = getLongPathName(tempFile.fileName());
 					if (!fileName.isEmpty())
 					{
+						tempFile.setAutoRemove(false);
 						tempFile.write(f);
 						tempFile.close();
 						retObj->isInlineImage = true;

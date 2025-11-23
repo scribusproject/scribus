@@ -1420,12 +1420,12 @@ PageItem* PagesPlug::parseObjReference(QDomElement &draw)
 				{
 					QFileInfo fi(obState.imagePath);
 					QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_pages_XXXXXX." + fi.suffix());
-					tempFile.setAutoRemove(false);
 					if (tempFile.open())
 					{
 						QString fileName = getLongPathName(tempFile.fileName());
 						if (!fileName.isEmpty())
 						{
+							tempFile.setAutoRemove(false);
 							tempFile.write(f);
 							tempFile.close();
 							retObj->isInlineImage = true;

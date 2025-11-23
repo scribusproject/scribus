@@ -2064,12 +2064,12 @@ void SvmPlug::handleImage(QDataStream &ds, qint64 posi, quint32 totalSize)
 	PageItem* ite = m_Doc->Items->at(z);
 	finishItem(ite);
 	QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_svm_XXXXXX.png");
-	tempFile.setAutoRemove(false);
 	if (tempFile.open())
 	{
 		QString fileName = getLongPathName(tempFile.fileName());
 		if (!fileName.isEmpty())
 		{
+			tempFile.setAutoRemove(false);
 			tempFile.close();
 			img.save(fileName, "PNG");
 			ite->isInlineImage = true;
@@ -2119,12 +2119,12 @@ void SvmPlug::handleImageEX(QDataStream &ds, qint64 posi, quint32 totalSize)
 	PageItem* ite = m_Doc->Items->at(z);
 	finishItem(ite);
 	QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_svm_XXXXXX.png");
-	tempFile.setAutoRemove(false);
 	if (tempFile.open())
 	{
 		QString fileName = getLongPathName(tempFile.fileName());
 		if (!fileName.isEmpty())
 		{
+			tempFile.setAutoRemove(false);
 			tempFile.close();
 			img.save(fileName, "PNG");
 			ite->isInlineImage = true;
@@ -4200,12 +4200,12 @@ void SvmPlug::getEMFPBrush(quint32 brushID, bool directBrush)
 						if (!img.isNull())
 						{
 							QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_emf_XXXXXX.png");
-							tempFile.setAutoRemove(false);
 							if (tempFile.open())
 							{
 								QString fileName = getLongPathName(tempFile.fileName());
 								if (!fileName.isEmpty())
 								{
+									tempFile.setAutoRemove(false);
 									tempFile.close();
 									img.save(fileName, "PNG");
 									ScPattern pat(m_Doc);
@@ -4590,12 +4590,12 @@ void SvmPlug::handleEMFPDrawImageData(QPointF p1, QPointF p2, QPointF p3, quint8
 		if (!img.isNull())
 		{
 			QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_emf_XXXXXX.png");
-			tempFile.setAutoRemove(false);
 			if (tempFile.open())
 			{
 				QString fileName = getLongPathName(tempFile.fileName());
 				if (!fileName.isEmpty())
 				{
+					tempFile.setAutoRemove(false);
 					tempFile.close();
 					img.save(fileName, "PNG");
 					int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Rectangle, baseX + p1.x(), baseY + p1.y(), QLineF(p1, p2).length(), QLineF(p1, p3).length(), 0, CommonStrings::None, CommonStrings::None);

@@ -1544,12 +1544,12 @@ PageItem* OdgPlug::parseFrame(QDomElement &e)
 					{
 						QFileInfo fi(imagePath);
 						QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_odg_XXXXXX." + fi.suffix());
-						tempFile.setAutoRemove(false);
 						if (tempFile.open())
 						{
 							QString fileName = getLongPathName(tempFile.fileName());
 							if (!fileName.isEmpty())
 							{
+								tempFile.setAutoRemove(false);
 								tempFile.write(f);
 								tempFile.close();
 								retObj->isInlineImage = true;
@@ -1633,12 +1633,12 @@ PageItem* OdgPlug::parseFrame(QDomElement &e)
 									retObj->setRotation(r, true);
 								finishItem(retObj, tmpOStyle);
 								QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_odg_XXXXXX." + ext);
-								tempFile.setAutoRemove(false);
 								if (tempFile.open())
 								{
 									QString fileName = getLongPathName(tempFile.fileName());
 									if (!fileName.isEmpty())
 									{
+										tempFile.setAutoRemove(false);
 										tempFile.write(buf);
 										tempFile.close();
 										retObj->isInlineImage = true;
@@ -3826,12 +3826,12 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 				{
 					QFileInfo fi(gStyle.patternPath);
 					QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_odg_XXXXXX." + fi.suffix());
-					tempFile.setAutoRemove(false);
 					if (tempFile.open())
 					{
 						QString fileName = getLongPathName(tempFile.fileName());
 						if (!fileName.isEmpty())
 						{
+							tempFile.setAutoRemove(false);
 							tempFile.write(f);
 							tempFile.close();
 							ScPattern pat(m_Doc);
@@ -3920,12 +3920,12 @@ void OdgPlug::finishItem(PageItem* item, ObjStyle &obState)
 				if (!ext.isEmpty())
 				{
 					QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_odg_XXXXXX." + ext);
-					tempFile.setAutoRemove(false);
 					if (tempFile.open())
 					{
 						QString fileName = getLongPathName(tempFile.fileName());
 						if (!fileName.isEmpty())
 						{
+							tempFile.setAutoRemove(false);
 							tempFile.write(buf);
 							tempFile.close();
 							ScPattern pat(m_Doc);

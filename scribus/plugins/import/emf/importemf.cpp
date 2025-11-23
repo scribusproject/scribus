@@ -1798,11 +1798,11 @@ void EmfPlug::createPatternFromDIB(const QImage& img, quint32 brID)
 		return;
 
 	QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_emf_XXXXXX.png");
-	tempFile.setAutoRemove(false);
 	if (!tempFile.open())
 		return;
 
 	QString fileName = getLongPathName(tempFile.fileName());
+	tempFile.setAutoRemove(false);
 	tempFile.close();
 
 	if (fileName.isEmpty())
@@ -2907,11 +2907,11 @@ void EmfPlug::handleImage(qint32 dstX, qint32 dstY, qint32 dstW, qint32 dstH, co
 	finishItem(ite, false);
 
 	QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_emf_XXXXXX.png");
-	tempFile.setAutoRemove(false);
 	if (!tempFile.open())
 		return;
 
 	QString fileName = getLongPathName(tempFile.fileName());
+	tempFile.setAutoRemove(false);
 	tempFile.close();
 
 	if (fileName.isEmpty())
@@ -5258,11 +5258,11 @@ void EmfPlug::getEMFPBrush(quint32 brushID, bool directBrush)
 				return;
 
 			QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_emf_XXXXXX.png");
-			tempFile.setAutoRemove(false);
 			if (!tempFile.open())
 				return;
 
 			QString fileName = getLongPathName(tempFile.fileName());
+			tempFile.setAutoRemove(false);
 			tempFile.close();
 
 			if (fileName.isEmpty())
@@ -5653,12 +5653,12 @@ void EmfPlug::handleEMFPDrawImageData(QPointF p1, QPointF p2, QPointF p3, quint8
 		if (!img.isNull())
 		{
 			QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_emf_XXXXXX.png");
-			tempFile.setAutoRemove(false);
 			if (tempFile.open())
 			{
 				QString fileName = getLongPathName(tempFile.fileName());
 				if (!fileName.isEmpty())
 				{
+					tempFile.setAutoRemove(false);
 					tempFile.close();
 					img.save(fileName, "PNG");
 					int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Rectangle, baseX + p1.x(), baseY + p1.y(), QLineF(p1, p2).length(), QLineF(p1, p3).length(), 0, CommonStrings::None, CommonStrings::None);

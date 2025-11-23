@@ -2636,12 +2636,12 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 					else if (imageType.contains("TIFF", Qt::CaseInsensitive))
 						imgExt = "tif";
 					QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_idml_XXXXXX." + imgExt);
-					tempFile.setAutoRemove(false);
 					if (tempFile.open())
 					{
 						QString fileName = getLongPathName(tempFile.fileName());
 						if (!fileName.isEmpty())
 						{
+							tempFile.setAutoRemove(false);
 							tempFile.write(imageData);
 							tempFile.close();
 							item->isInlineImage = true;
