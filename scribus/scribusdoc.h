@@ -1308,6 +1308,7 @@ protected:
 	bool m_symbolEditMode {false};
 	bool m_inlineEditMode {false};
 	int  m_storedLayerID {0};
+	int  m_storedFirstLayerID {0};
 	bool m_storedLayerLock {false};
 	bool m_storedLayerVis {false};
 	QMap<QString, double> m_constants;

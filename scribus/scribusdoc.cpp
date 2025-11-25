@@ -6527,6 +6527,7 @@ void ScribusDoc::setSymbolEditMode(bool mode, const QString& symbolName)
 	{
 		m_storedLayerID = activeLayer();
 		int layerID = firstLayerID();
+		m_storedFirstLayerID = layerID;
 		m_storedLayerLock = layerLocked(layerID);
 		m_storedLayerVis = layerVisible(layerID);
 		setActiveLayer(layerID);
@@ -6653,8 +6654,8 @@ void ScribusDoc::setSymbolEditMode(bool mode, const QString& symbolName)
 		assignPageModeLists();
 		delete addedPage;
 		setActiveLayer(m_storedLayerID);
-		setLayerVisible(m_storedLayerID, m_storedLayerVis);
-		setLayerLocked(m_storedLayerID, m_storedLayerLock);
+		setLayerVisible(m_storedFirstLayerID, m_storedLayerVis);
+		setLayerLocked(m_storedFirstLayerID, m_storedLayerLock);
 		m_ScMW->changeLayer(m_storedLayerID);
 	}
 }
@@ -6668,6 +6669,7 @@ void ScribusDoc::setInlineEditMode(bool mode, int id)
 	{
 		m_storedLayerID = activeLayer();
 		int layerID = firstLayerID();
+		m_storedFirstLayerID = layerID;
 		m_storedLayerLock = layerLocked(layerID);
 		m_storedLayerVis = layerVisible(layerID);
 		setActiveLayer(layerID);
@@ -6788,8 +6790,8 @@ void ScribusDoc::setInlineEditMode(bool mode, int id)
 		delete addedPage;
 		EditFrameItems.clear();
 		setActiveLayer(m_storedLayerID);
-		setLayerVisible(m_storedLayerID, m_storedLayerVis);
-		setLayerLocked(m_storedLayerID, m_storedLayerLock);
+		setLayerVisible(m_storedFirstLayerID, m_storedLayerVis);
+		setLayerLocked(m_storedFirstLayerID, m_storedLayerLock);
 		m_ScMW->changeLayer(m_storedLayerID);
 	}
 }
