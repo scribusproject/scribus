@@ -123,42 +123,42 @@ void CanvasMode_Rotate::getNewItemPosition(const PageItem* item, FPoint& pos, do
 		double ro = newAngle - item->rotation();
 		switch (m_rotMode)
 		{
-		case AnchorPoint::None:
-		case AnchorPoint::TopLeft:
-			// No translation
-			break;
-		case AnchorPoint::Top:
-			ma.translate(item->width()/2.0, 0);
-			n = FPoint(-item->width()/2.0, 0);
-			break;
-		case AnchorPoint::TopRight:
-			ma.translate(item->width(), 0);
-			n = FPoint(-item->width(), 0);
-			break;
-		case AnchorPoint::Left:
-			ma.translate(0, item->height()/2.0);
-			n = FPoint(0, -item->height()/2.0);
-			break;
-		case AnchorPoint::Center:
-			ma.translate(item->width()/2.0, item->height()/2.0);
-			n = FPoint(-item->width()/2.0, -item->height()/2.0);
-			break;
-		case AnchorPoint::Right:
-			ma.translate(item->width(), item->height()/2.0);
-			n = FPoint(-item->width(), -item->height()/2.0);
-			break;
-		case AnchorPoint::BottomLeft:
-			ma.translate(0, item->height());
-			n = FPoint(0, -item->height());
-			break;
-		case AnchorPoint::Bottom:
-			ma.translate(item->width()/2.0, item->height());
-			n = FPoint(-item->width()/2.0, -item->height());
-			break;
-		case AnchorPoint::BottomRight:
-			ma.translate(item->width(), item->height());
-			n = FPoint(-item->width(), -item->height());
-			break;
+			case AnchorPoint::None:
+			case AnchorPoint::TopLeft:
+				// No translation
+				break;
+			case AnchorPoint::Top:
+				ma.translate(item->width()/2.0, 0);
+				n = FPoint(-item->width()/2.0, 0);
+				break;
+			case AnchorPoint::TopRight:
+				ma.translate(item->width(), 0);
+				n = FPoint(-item->width(), 0);
+				break;
+			case AnchorPoint::Left:
+				ma.translate(item->width(), item->height()/2.0);
+				n = FPoint(-item->width(), -item->height()/2.0);
+				break;
+			case AnchorPoint::Center:
+				ma.translate(item->width()/2.0, item->height()/2.0);
+				n = FPoint(-item->width()/2.0, -item->height()/2.0);
+				break;
+			case AnchorPoint::Right:
+				ma.translate(0, item->height()/2.0);
+				n = FPoint(0, -item->height()/2.0);
+				break;
+			case AnchorPoint::BottomLeft:
+				ma.translate(0, item->height());
+				n = FPoint(0, -item->height());
+				break;
+			case AnchorPoint::Bottom:
+				ma.translate(item->width()/2.0, item->height());
+				n = FPoint(-item->width()/2.0, -item->height());
+				break;
+			case AnchorPoint::BottomRight:
+				ma.translate(item->width(), item->height());
+				n = FPoint(-item->width(), -item->height());
+				break;
 		}
 		ma.rotate(ro);
 		pos.setXY(ma.m11() * n.x() + ma.m21() * n.y() + ma.dx(), ma.m22() * n.y() + ma.m12() * n.x() + ma.dy());
