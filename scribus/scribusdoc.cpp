@@ -12836,35 +12836,32 @@ void ScribusDoc::itemSelection_DistributeLeft()
 {
 	if (!startAlign(2))
 		return;
-	int alignObjectsCount = AObjects.count();
-	QMap<double, uint> xSorted;
-	for (int i = 0; i < alignObjectsCount; ++i)
+
+	const qsizetype alignObjectsCount = AObjects.count();
+
+	std::vector<std::pair<double, qsizetype>> sortedItems;
+	for (qsizetype i = 0; i < alignObjectsCount; i++)
 	{
-		if (!xSorted.contains(AObjects[i].x1))
-			xSorted.insert(AObjects[i].x1, i);
+		sortedItems.push_back({AObjects[i].x1, i});
 	}
-	QMap<double, uint>::Iterator it = xSorted.begin();
-	QMap<double, uint>::Iterator itend = xSorted.end();
-	double minX = it.key();
-	double maxX = it.key();
-	while ( it != itend)
+	std::sort(sortedItems.begin(), sortedItems.end(), [](const auto& a, const auto& b)
 	{
-		if (minX > it.key())
-			minX = it.key();
-		if (maxX < it.key())
-			maxX = it.key();
-		++it;
-	}
-		
+		return a.first < b.first;
+	});
+
+	double minX = sortedItems.front().first;
+	double maxX = sortedItems.back().first;
 	double separation = (maxX - minX) / static_cast<double>(alignObjectsCount - 1);
-	int i = 0;
-	for (auto it = xSorted.begin(); it != xSorted.end(); ++it)
+
+	for (qsizetype i = 0; i < alignObjectsCount; i++)
 	{
-		double diff = minX + i * separation - AObjects[it.value()].x1;
-		if (!AObjects[it.value()].Object->locked())
-			AObjects[it.value()].Object->moveBy(diff, 0.0);
-		i++;
+		const auto& item = sortedItems[i];
+		if (AObjects[item.second].Object->locked())
+			continue;
+		double diff = minX + i * separation - item.first;
+		AObjects[item.second].Object->moveBy(diff, 0.0);
 	}
+
 	endAlign();
 }
 
@@ -12873,35 +12870,32 @@ void ScribusDoc::itemSelection_DistributeCenterH()
 {
 	if (!startAlign(2))
 		return;
-	int alignObjectsCount = AObjects.count();
-	QMap<double, uint> xSorted;
-	for (int i = 0; i < alignObjectsCount; ++i)
+
+	const qsizetype alignObjectsCount = AObjects.count();
+
+	std::vector<std::pair<double, qsizetype>> sortedItems;
+	for (qsizetype i = 0; i < alignObjectsCount; i++)
 	{
-		if (!xSorted.contains(AObjects[i].x1 + (AObjects[i].width) / 2))
-			xSorted.insert(AObjects[i].x1 + (AObjects[i].width) / 2, i);
+		sortedItems.push_back({AObjects[i].x1 + (AObjects[i].width) / 2, i});
 	}
-	QMap<double, uint>::Iterator it = xSorted.begin();
-	QMap<double, uint>::Iterator itend = xSorted.end();
-	double minX = it.key();
-	double maxX = it.key();
-	while ( it != itend)
+	std::sort(sortedItems.begin(), sortedItems.end(), [](const auto& a, const auto& b)
 	{
-		if (minX > it.key())
-			minX = it.key();
-		if (maxX < it.key())
-			maxX = it.key();
-		++it;
-	}
-		
+		return a.first < b.first;
+	});
+
+	double minX = sortedItems.front().first;
+	double maxX = sortedItems.back().first;
 	double separation = (maxX - minX) / static_cast<double>(alignObjectsCount - 1);
-	int i = 0;
-	for (auto it = xSorted.begin(); it != xSorted.end(); ++it)
+
+	for (qsizetype i = 0; i < alignObjectsCount; i++)
 	{
-		double diff = minX + i * separation - AObjects[it.value()].x1 - (AObjects[it.value()].width) / 2;
-		if (!AObjects[it.value()].Object->locked())
-			AObjects[it.value()].Object->moveBy(diff, 0.0);
-		i++;
+		const auto& item = sortedItems[i];
+		if (AObjects[item.second].Object->locked())
+			continue;
+		double diff = minX + i * separation - item.first;
+		AObjects[item.second].Object->moveBy(diff, 0.0);
 	}
+
 	endAlign();
 }
 
@@ -12910,35 +12904,32 @@ void ScribusDoc::itemSelection_DistributeRight()
 {
 	if (!startAlign(2))
 		return;
-	int alignObjectsCount = AObjects.count();
-	QMap<double, uint> xSorted;
-	for (int i = 0; i < alignObjectsCount; ++i)
+
+	const qsizetype alignObjectsCount = AObjects.count();
+
+	std::vector<std::pair<double, qsizetype>> sortedItems;
+	for (qsizetype i = 0; i < alignObjectsCount; i++)
 	{
-		if (!xSorted.contains(AObjects[i].x2))
-			xSorted.insert(AObjects[i].x2, i);
+		sortedItems.push_back({AObjects[i].x2, i});
 	}
-	QMap<double, uint>::Iterator it = xSorted.begin();
-	QMap<double, uint>::Iterator itend = xSorted.end();
-	double minX = it.key();
-	double maxX = it.key();
-	while ( it != itend)
+	std::sort(sortedItems.begin(), sortedItems.end(), [](const auto& a, const auto& b)
 	{
-		if (minX > it.key())
-			minX = it.key();
-		if (maxX < it.key())
-			maxX = it.key();
-		++it;
-	}
-	
+		return a.first < b.first;
+	});
+
+	double minX = sortedItems.front().first;
+	double maxX = sortedItems.back().first;
 	double separation = (maxX - minX) / static_cast<double>(alignObjectsCount - 1);
-	int i = 0;
-	for (auto it = xSorted.begin(); it != xSorted.end(); ++it)
+
+	for (qsizetype i = 0; i < alignObjectsCount; i++)
 	{
-		double diff = minX + i * separation - AObjects[it.value()].x2;
-		if (!AObjects[it.value()].Object->locked())
-			AObjects[it.value()].Object->moveBy(diff, 0.0);
-		i++;
+		const auto& item = sortedItems[i];
+		if (AObjects[item.second].Object->locked())
+			continue;
+		double diff = minX + i * separation - item.first;
+		AObjects[item.second].Object->moveBy(diff, 0.0);
 	}
+
 	endAlign();
 }
 
@@ -12947,78 +12938,86 @@ void ScribusDoc::itemSelection_DistributeDistH(bool usingDistance, double distan
 {
 	if (!startAlign(2))
 		return;
-	int alignObjectsCount = AObjects.count();
-	QMap<double, int> x1Sorted;
-	QMap<double, int> x2Sorted;
-	for (int i = 0; i < alignObjectsCount; ++i)
-	{
-		if (!x1Sorted.contains(AObjects[i].x1))
-			x1Sorted.insert(AObjects[i].x1, i);
-		if (!x2Sorted.contains(AObjects[i].x2))
-			x2Sorted.insert(AObjects[i].x2, i);
-	}	
-	int left = x1Sorted.begin().value();
-	int right = x2Sorted[x2Sorted.keys().back()];
-	double minX = AObjects[left].x2;
-	double maxX = AObjects[right].x2;
-	double separation = 0.0;
-	if (!usingDistance)
-	{
-		double maxX = AObjects[right].x1;
-		double totalSpace = maxX - minX;
-		double totalWidth = 0;
-		uint insideObjectCount = 0;
-		for (int i = 0; i < alignObjectsCount; ++i)
-		{
-			if (i == left)
-				continue;
-			if (i == right)
-				continue;
-			totalWidth += AObjects[i].width;
-			++insideObjectCount;
-		}
-		separation = (totalSpace - totalWidth) / (insideObjectCount + 1);
-	}
-	else
-		separation = value2pts(distance, unitIndex());
-	if (!reverseDistribute)
-	{
-		double currX = minX;
-		for (auto it = x1Sorted.constBegin(); it != x1Sorted.constEnd(); ++it)
-		{
-			if (it.value() == left)
-				continue;
-			if (it.value() == right && !usingDistance)
-				continue;
-			currX += separation;
 
-			double diff = currX - AObjects[it.value()].x1;
-			if (!AObjects[it.value()].Object->locked())
-				AObjects[it.value()].Object->moveBy(diff, 0.0);
-			currX += AObjects[it.value()].width;
+	std::vector<std::pair<double, qsizetype>> sortedItems;
+	double minX = AObjects[0].x2;
+	qsizetype minI = 0;
+	double maxX = AObjects[0].x1;
+	qsizetype maxI = 0;
+	for (qsizetype i = 0; i < AObjects.count(); ++i)
+	{
+		double x1 = AObjects[i].x1;
+		double x2 = AObjects[i].x2;
+
+		sortedItems.push_back({x1, i});
+
+		if (x2  < minX)
+		{
+			minX = x2;
+			minI = i;
 		}
+		if (x1  > maxX)
+		{
+			maxX = x1;
+			maxI = i;
+		}
+	}
+	std::sort(sortedItems.begin(), sortedItems.end(), [](const auto& a, const auto& b)
+	{
+		return a.first < b.first;
+	});
+
+	double separation = 0.0;
+	if (usingDistance)
+	{
+		separation = value2pts(distance, unitIndex());
 	}
 	else
 	{
-		QMapIterator<double, int> it(x1Sorted);
-		it.toBack();
-		double currX = maxX;
-		while (it.hasPrevious())
+		double totalWidth = 0;
+		size_t innerObjectsCount = 0;
+		for (qsizetype i = 0; i < AObjects.count(); ++i)
 		{
-			it.previous();
-			if (it.value() == right)
-			{
-				currX -= AObjects[it.value()].width;
+			if (i == minI || i == maxI)
 				continue;
-			}
-			if (it.value() == left && !usingDistance)
+			innerObjectsCount++;
+			totalWidth += AObjects[i].width;
+		}
+		separation = (maxX - minX - totalWidth) / (innerObjectsCount + 1);
+	}
+
+	if (usingDistance && reverseDistribute)
+	{
+		double currX = maxX;
+		for (size_t j = sortedItems.size(); j > 0; j--)
+		{
+			qsizetype i = sortedItems[j - 1].second;
+			if ((i == minI && !usingDistance) || i == maxI)
 				continue;
+
 			currX -= separation;
 
-			double diff = currX-AObjects[it.value()].x2;
-			if (!AObjects[it.value()].Object->locked())
-				AObjects[it.value()].Object->moveBy(diff, 0.0);
-			currX -= AObjects[it.value()].width;
+			double diff = currX - AObjects[i].x2;
+			if (!AObjects[i].Object->locked())
+				AObjects[i].Object->moveBy(diff, 0.0);
+			currX -= AObjects[i].width;
+		}
+	}
+	else
+	{
+		double currX = minX;
+		for (const auto& sortedItem: sortedItems)
+		{
+			qsizetype i = sortedItem.second;
+			if (i == minI || (i == maxI && !usingDistance))
+				continue;
+
+			currX += separation;
+
+			double diff = currX - AObjects[i].x1;
+			if (!AObjects[i].Object->locked())
+				AObjects[i].Object->moveBy(diff, 0.0);
+			currX += AObjects[i].width;
 		}
 	}
 	endAlign();
@@ -13029,34 +13028,26 @@ void ScribusDoc::itemSelection_DistributeBottom()
 {
 	if (!startAlign(2))
 		return;
-	int alignObjectsCount = AObjects.count();
-	QMap<double, uint> ySorted;
-	for (int i = 0; i < alignObjectsCount; ++i)
+	std::vector<std::pair<double, long unsigned int>> sortedItems;
+	for (int i = 0; i < AObjects.count(); i++)
 	{
-		if (!ySorted.contains(AObjects[i].y2))
-			ySorted.insert(AObjects[i].y2, i);
+		sortedItems.push_back({AObjects[i].y2, i});
 	}
-	QMap<double, uint>::Iterator it = ySorted.begin();
-	QMap<double, uint>::Iterator itend = ySorted.end();
-	double minY = it.key();
-	double maxY = it.key();
-	while ( it != itend)
+	std::sort(sortedItems.begin(), sortedItems.end(), [](const auto& a, const auto& b)
 	{
-		if (minY > it.key())
-			minY = it.key();
-		if (maxY < it.key())
-			maxY = it.key();
-		++it;
-	}
-		
-	double separation = (maxY - minY) / static_cast<double>(alignObjectsCount - 1);
-	int i = 0;
-	for (auto it = ySorted.begin(); it != ySorted.end(); ++it)
+		return a.first < b.first;
+	});
+	double firstBottom = sortedItems.front().first;
+	double lastBottom = sortedItems.back().first;
+	double bottomDistance = (lastBottom - firstBottom) / (sortedItems.size() - 1);
+	for (long unsigned int i = 1; i < sortedItems.size() - 1; i++)
 	{
-		double diff = minY + i * separation - AObjects[it.value()].y2;
-		if (!AObjects[it.value()].Object->locked())
-			AObjects[it.value()].Object->moveBy(0.0, diff);
-		i++;
+		const auto sortedItem = sortedItems[i];
+		auto item = AObjects[sortedItem.second];
+		if (!item.Object->locked())
+		{
+			item.Object->moveBy(0.0, firstBottom + bottomDistance * i - sortedItem.first);
+		}
 	}
 	endAlign();
 }
@@ -13066,34 +13057,26 @@ void ScribusDoc::itemSelection_DistributeCenterV()
 {
 	if (!startAlign(2))
 		return;
-	int alignObjectsCount = AObjects.count();
-	QMap<double, uint> ySorted;
-	for (int i = 0; i < alignObjectsCount; ++i)
+	std::vector<std::pair<double, long unsigned int>> sortedItems;
+	for (int i = 0; i < AObjects.count(); i++)
 	{
-		if (!ySorted.contains(AObjects[i].y1 + (AObjects[i].height) / 2))
-			ySorted.insert(AObjects[i].y1 + (AObjects[i].height) / 2, i);
+		sortedItems.push_back({AObjects[i].y1 + AObjects[i].height / 2, i});
 	}
-	QMap<double, uint>::Iterator it = ySorted.begin();
-	QMap<double, uint>::Iterator itend = ySorted.end();
-	double minY = it.key();
-	double maxY = it.key();
-	while ( it != itend)
+	std::sort(sortedItems.begin(), sortedItems.end(), [](const auto& a, const auto& b)
 	{
-		if (minY > it.key())
-			minY = it.key();
-		if (maxY < it.key())
-			maxY = it.key();
-		++it;
-	}
-		
-	double separation = (maxY - minY) / static_cast<double>(alignObjectsCount - 1);
-	int i = 0;
-	for (auto it = ySorted.begin(); it != ySorted.end(); ++it)
+		return a.first < b.first;
+	});
+	double firstCenter = sortedItems.front().first;
+	double lastCenter = sortedItems.back().first;
+	double centerDistance = (lastCenter - firstCenter) / (sortedItems.size() - 1);
+	for (long unsigned int i = 1; i < sortedItems.size() - 1; i++)
 	{
-		double diff = minY + i * separation - AObjects[it.value()].y1 - AObjects[it.value()].height / 2;
-		if (!AObjects[it.value()].Object->locked())
-			AObjects[it.value()].Object->moveBy(0.0, diff);
-		i++;
+		const auto sortedItem = sortedItems[i];
+		auto item = AObjects[sortedItem.second];
+		if (!item.Object->locked())
+		{
+			item.Object->moveBy(0.0, firstCenter + centerDistance * i - sortedItem.first);
+		}
 	}
 	endAlign();
 }
@@ -13103,34 +13086,26 @@ void ScribusDoc::itemSelection_DistributeTop()
 {
 	if (!startAlign(2))
 		return;
-	int alignObjectsCount = AObjects.count();
-	QMap<double, uint> ySorted;
-	for (int i = 0; i < alignObjectsCount; ++i)
+	std::vector<std::pair<double, long unsigned int>> sortedItems;
+	for (int i = 0; i < AObjects.count(); i++)
 	{
-		if (!ySorted.contains(AObjects[i].y1))
-			ySorted.insert(AObjects[i].y1, i);
+		sortedItems.push_back({AObjects[i].y1, i});
 	}
-	QMap<double, uint>::Iterator it = ySorted.begin();
-	QMap<double, uint>::Iterator itend = ySorted.end();
-	double minY = it.key();
-	double maxY = it.key();
-	while ( it != itend)
+	std::sort(sortedItems.begin(), sortedItems.end(), [](const auto& a, const auto& b)
 	{
-		if (minY > it.key())
-			minY = it.key();
-		if (maxY < it.key())
-			maxY = it.key();
-		++it;
-	}
-		
-	double separation = (maxY - minY) / static_cast<double>(alignObjectsCount - 1);
-	int i = 0;
-	for (auto it = ySorted.begin(); it != ySorted.end(); ++it)
+		return a.first < b.first;
+	});
+	double firstTop = sortedItems.front().first;
+	double lastTop = sortedItems.back().first;
+	double topDistance = (lastTop - firstTop) / (sortedItems.size() - 1);
+	for (long unsigned int i = 1; i < sortedItems.size() - 1; i++)
 	{
-		double diff = minY + i * separation - AObjects[it.value()].y1;
-		if (!AObjects[it.value()].Object->locked())
-			AObjects[it.value()].Object->moveBy(0.0,diff);
-		i++;
+		const auto sortedItem = sortedItems[i];
+		auto item = AObjects[sortedItem.second];
+		if (!item.Object->locked())
+		{
+			item.Object->moveBy(0.0, firstTop + topDistance * i - sortedItem.first);
+		}
 	}
 	endAlign();
 }
@@ -13140,77 +13115,86 @@ void ScribusDoc::itemSelection_DistributeDistV(bool usingDistance, double distan
 {
 	if (!startAlign(2))
 		return;
-	int alignObjectsCount = AObjects.count();
-	QMap<double, int> y1sorted, y2sorted;
-	for (int i = 0; i < alignObjectsCount; ++i)
-	{
-		if (!y1sorted.contains(AObjects[i].y1))
-			y1sorted.insert(AObjects[i].y1, i);
-		if (!y2sorted.contains(AObjects[i].y2))
-			y2sorted.insert(AObjects[i].y2, i);
-	}	
-	int top = y1sorted.begin().value();
-	int bottom = y2sorted[y2sorted.keys().back()];
-	double minY = AObjects[top].y2;
-	double maxY = AObjects[bottom].y2;
-	double separation=0.0;
-	if (!usingDistance)
-	{
-		double maxY = AObjects[bottom].y1;
-		double totalSpace = maxY - minY;
-		double totalHeight = 0;
-		uint insideObjectCount = 0;
-		for (int i = 0; i < alignObjectsCount; ++i)
-		{
-			if (i == top)
-				continue;
-			if (i == bottom)
-				continue;
-			totalHeight += AObjects[i].height;
-			++insideObjectCount;
-		}
-		separation = (totalSpace - totalHeight) / (insideObjectCount + 1);
-	}
-	else
-		separation = value2pts(distance, unitIndex());
-	if (!reverseDistribute)
-	{
-		double currY = minY;
-		for (auto it = y1sorted.constBegin(); it != y1sorted.constEnd(); ++it)
-		{
-			if (it.value() == top)
-				continue;
-			if (it.value() == bottom && !usingDistance)
-				continue;
-			currY += separation;
 
-			double diff = currY - AObjects[it.value()].y1;
-			if (!AObjects[it.value()].Object->locked())
-				AObjects[it.value()].Object->moveBy(0.0, diff);
-			currY += AObjects[it.value()].height;
+	std::vector<std::pair<double, qsizetype>> sortedItems;
+	double minY = AObjects[0].y2;
+	qsizetype minI = 0;
+	double maxY = AObjects[0].y1;
+	qsizetype maxI = 0;
+	for (qsizetype i = 0; i < AObjects.count(); ++i)
+	{
+		double y1 = AObjects[i].y1;
+		double y2 = AObjects[i].y2;
+
+		sortedItems.push_back({y1, i});
+
+		if (y2  < minY)
+		{
+			minY = y2;
+			minI = i;
 		}
+		if (y1  > maxY)
+		{
+			maxY = y1;
+			maxI = i;
+		}
+	}
+	std::sort(sortedItems.begin(), sortedItems.end(), [](const auto& a, const auto& b)
+	{
+		return a.first < b.first;
+	});
+
+	double separation = 0.0;
+	if (usingDistance)
+	{
+		separation = value2pts(distance, unitIndex());
 	}
 	else
 	{
-		QMapIterator<double, int> it(y1sorted);
-		it.toBack();
-		double currY = maxY;
-		while (it.hasPrevious())
+		double totalHeight = 0;
+		size_t innerObjectsCount = 0;
+		for (qsizetype i = 0; i < AObjects.count(); ++i)
 		{
-			it.previous();
-			if (it.value() == bottom)
-			{
-				currY -= AObjects[it.value()].height;
+			if (i == minI || i == maxI)
 				continue;
-			}
-			if (it.value() == top && !usingDistance)
+			innerObjectsCount++;
+			totalHeight += AObjects[i].height;
+		}
+		separation = (maxY - minY - totalHeight) / (innerObjectsCount + 1);
+	}
+
+	if (usingDistance && reverseDistribute)
+	{
+		double currY = maxY;
+		for (size_t j = sortedItems.size(); j > 0; j--)
+		{
+			qsizetype i = sortedItems[j - 1].second;
+			if ((i == minI && !usingDistance) || i == maxI)
 				continue;
+
 			currY -= separation;
 
-			double diff = currY - AObjects[it.value()].y2;
-			if (!AObjects[it.value()].Object->locked())
-				AObjects[it.value()].Object->moveBy(0.0, diff);
-			currY -= AObjects[it.value()].height;
+			double diff = currY - AObjects[i].y2;
+			if (!AObjects[i].Object->locked())
+				AObjects[i].Object->moveBy(0.0, diff);
+			currY -= AObjects[i].height;
+		}
+	}
+	else
+	{
+		double currY = minY;
+		for (const auto& sortedItem: sortedItems)
+		{
+			qsizetype i = sortedItem.second;
+			if (i == minI || (i == maxI && !usingDistance))
+				continue;
+
+			currY += separation;
+
+			double diff = currY - AObjects[i].y1;
+			if (!AObjects[i].Object->locked())
+				AObjects[i].Object->moveBy(0.0, diff);
+			currY += AObjects[i].height;
 		}
 	}
 	endAlign();
@@ -13222,13 +13206,17 @@ void ScribusDoc::itemSelection_DistributeAcrossPage(bool useMargins)
 	if (!startAlign(2))
 		return;
 
-	QMap<double, int> x1Sorted;
-	int alignObjectsCount = AObjects.count();
-	for (int i = 0; i < alignObjectsCount; ++i)
+	std::vector<std::pair<double, qsizetype>> sortedItems;
+	const qsizetype alignObjectsCount = AObjects.count();
+
+	for (qsizetype i = 0; i < alignObjectsCount; i++)
 	{
-		if (!x1Sorted.contains(AObjects[i].x1))
-			x1Sorted.insert(AObjects[i].x1, i);
-	}	
+		sortedItems.push_back({AObjects[i].x1, i});
+	}
+	std::sort(sortedItems.begin(), sortedItems.end(), [](const auto& a, const auto& b)
+	{
+		return a.first < b.first;
+	});
 	
 	double totalSpace = 0.0;
 	if (useMargins)
@@ -13237,7 +13225,7 @@ void ScribusDoc::itemSelection_DistributeAcrossPage(bool useMargins)
 		totalSpace = m_currentPage->width();
 	double totalWidth = 0.0;
 	uint insideObjectCount = 0;
-	for (int i = 0; i < alignObjectsCount; ++i)
+	for (qsizetype i = 0; i < alignObjectsCount; ++i)
 	{
 		totalWidth += AObjects[i].width;
 		++insideObjectCount;
@@ -13253,13 +13241,13 @@ void ScribusDoc::itemSelection_DistributeAcrossPage(bool useMargins)
 		currX -= separation;
 	}
 		
-	for (auto it = x1Sorted.constBegin(); it != x1Sorted.constEnd(); ++it)
+	for (const auto& item: sortedItems)
 	{
 		currX += separation;
-		double diff = currX - AObjects[it.value()].x1;
-		if (!AObjects[it.value()].Object->locked())
-			AObjects[it.value()].Object->moveBy(diff, 0.0);
-		currX += AObjects[it.value()].width;
+		double diff = currX - item.first;
+		if (!AObjects[item.second].Object->locked())
+			AObjects[item.second].Object->moveBy(diff, 0.0);
+		currX += AObjects[item.second].width;
 	}
 	endAlign();
 }
@@ -13270,13 +13258,17 @@ void ScribusDoc::itemSelection_DistributeDownPage(bool useMargins)
 	if (!startAlign(2))
 		return;
 	
-	QMap<double, int> y1sorted;
-	int alignObjectsCount = AObjects.count();
-	for (int i = 0; i < alignObjectsCount; ++i)
+	std::vector<std::pair<double, qsizetype>> sortedItems;
+	const qsizetype alignObjectsCount = AObjects.count();
+
+	for (qsizetype i = 0; i < alignObjectsCount; i++)
 	{
-		if (!y1sorted.contains(AObjects[i].y1))
-			y1sorted.insert(AObjects[i].y1, i);
-	}	
+		sortedItems.push_back({AObjects[i].y1, i});
+	}
+	std::sort(sortedItems.begin(), sortedItems.end(), [](const auto& a, const auto& b)
+	{
+		return a.first < b.first;
+	});
 	
 	double totalSpace = 0.0;
 	if (useMargins)
@@ -13301,13 +13293,13 @@ void ScribusDoc::itemSelection_DistributeDownPage(bool useMargins)
 		currY -= separation;
 	}
 		
-	for (auto it = y1sorted.constBegin(); it != y1sorted.constEnd(); ++it)
+	for (const auto& item: sortedItems)
 	{
 		currY += separation;
-		double diff = currY-AObjects[it.value()].y1;
-		if (!AObjects[it.value()].Object->locked())
-			AObjects[it.value()].Object->moveBy(0.0, diff);
-		currY += AObjects[it.value()].height;
+		double diff = currY - item.first;
+		if (!AObjects[item.second].Object->locked())
+			AObjects[item.second].Object->moveBy(0.0, diff);
+		currY += AObjects[item.second].height;
 	}
 	endAlign();
 }
@@ -13328,108 +13320,45 @@ void ScribusDoc::itemSelection_SwapLeft()
 {
 	if (!startAlign(2))
 		return;
-	int alignObjectsCount = AObjects.count();
-	QList<int> circleList;
-	int circleListCounter = 0;
-	//X
-	QMap<double, uint> xSorted;
-	for (int i = 0; i < alignObjectsCount; ++i)
+
+	using SortedItem = std::tuple<double, double, qsizetype>;
+	std::vector<SortedItem> sortedItems;
+	for (qsizetype i = 0; i < AObjects.count(); i++)
 	{
-		if (!xSorted.contains(AObjects[i].x1))
-			xSorted.insert(AObjects[i].x1, i);
+		sortedItems.push_back({AObjects[i].x1, AObjects[i].y1, i});
 	}
-	QMap<double, uint>::Iterator itX = xSorted.begin();
-	QMap<double, uint>::Iterator itXend = xSorted.end();
-	double minX = itX.key();
-	double maxX = itX.key();
-	while (itX != itXend)
+	// TODO: what is the correct way to sort, when there are several items at the same x?
+	std::sort(sortedItems.begin(), sortedItems.end(), [](const auto& a, const auto& b)
 	{
-		if (minX > itX.key())
-			minX = itX.key();
-		if (maxX < itX.key())
-			maxX = itX.key();
-		++itX;
-	}
-	//Y
-	QMap<double, uint> ySorted;
-	for (int i = 0; i < alignObjectsCount; ++i)
+		if (std::get<0>(a) < std::get<0>(b))
+			return true;
+		if (std::get<0>(a) == std::get<0>(b) && std::get<1>(a) < std::get<1>(b))
+			return true;
+		return false;
+	});
+
+	double swapX = std::get<0>(sortedItems.back());
+	double swapY = std::get<1>(sortedItems.back());
+
+	for (size_t i = sortedItems.size() - 1; i > 0; i--)
 	{
-		if (!ySorted.contains(AObjects[i].y1))
-			ySorted.insert(AObjects[i].y1, i);
-	}
-	QMap<double, uint>::Iterator itY = ySorted.begin();
-	QMap<double, uint>::Iterator itYend = ySorted.end();
-	double minY = itY.key();
-	double maxY = itY.key();
-	while (itY != itYend)
-	{
-		if (minY > itY.key())
-			minY = itY.key();
-		if (maxY < itY.key())
-			maxY = itY.key();
-		++itY;
+		SortedItem sortedItem = sortedItems[i - 1];
+
+		double diffX = swapX - std::get<0>(sortedItem);
+		double diffY = swapY - std::get<1>(sortedItem);
+
+		swapX = std::get<0>(sortedItem);
+		swapY = std::get<1>(sortedItem);
+
+		size_t object_i = std::get<2>(sortedItem);
+		if (!AObjects[object_i].Object->locked())
+			AObjects[object_i].Object->moveBy(diffX, diffY);
 	}
 
-	itX = xSorted.begin(); //first item is left most
-	int itemIndex = itX.value(); //get our first item's index in the AObjects array
-//	bool found = false;
-//	double itXX = itX.key();
-	minY =  std::numeric_limits<double>::max();
-	maxY = -std::numeric_limits<double>::max();
-	int nextItemIndex = itemIndex;
-	circleList.append(nextItemIndex);
-	++circleListCounter;
-	// find the next X item with the minimum Y
+	size_t object_i = std::get<2>(sortedItems.back());
+	if (!AObjects[object_i].Object->locked())
+		AObjects[object_i].Object->moveBy(swapX - AObjects[object_i].x1, swapY - AObjects[object_i].y1);
 
-	QMap<double, uint>::Iterator itX2_1 = xSorted.begin();
-	QMap<double, uint>::Iterator itLast = xSorted.begin();
-	double xBeginYValue = AObjects[itX2_1.value()].y1;
-	while (itX2_1 != xSorted.end())
-	{
-		if (AObjects[itX2_1.value()].y1 < xBeginYValue)
-		{
-			circleList.append(itX2_1.value());
-			++circleListCounter;
-		}
-		itLast = itX2_1;
-		itX2_1++;
-	}
-
-
-	if (circleListCounter != alignObjectsCount) //need to reverse back now
-	{
-		QMap<double, uint>::Iterator itX2_2 = itLast;
-		while (itX2_2 != xSorted.begin())
-		{
-			if (AObjects[itX2_2.value()].y1 >= xBeginYValue)
-			{
-				circleList.append(itX2_2.value());
-				++circleListCounter;
-			}
-			itX2_2--;
-		}
-	}
-
-	int i=0;
-	double swapX = AObjects[i].x1;
-	double swapY = AObjects[i].y1;
-	if (!AObjects[i].Object->locked())
-		AObjects[i].Object->moveBy(AObjects[circleListCounter-1].x1 - AObjects[i].x1, AObjects[circleListCounter-1].y1 - AObjects[i].y1);
-	++i;
-	while (i < circleListCounter-1)
-	{
-		double diffX = swapX-AObjects[i].x1;
-		double diffY = swapY-AObjects[i].y1;
-		swapX = AObjects[i].x1;
-		swapY = AObjects[i].y1;
-		if (!AObjects[i].Object->locked())
-			AObjects[i].Object->moveBy(diffX, diffY);
-		++i;
-	}
-	double diffX3 = swapX-AObjects[circleListCounter-1].x1;
-	double diffY3 = swapY-AObjects[circleListCounter-1].y1;
-	if (!AObjects[circleListCounter-1].Object->locked())
-		AObjects[circleListCounter-1].Object->moveBy(diffX3, diffY3);
 	endAlign();
 }
 
@@ -13437,108 +13366,44 @@ void ScribusDoc::itemSelection_SwapRight()
 {
 	if (!startAlign(2))
 		return;
-	int alignObjectsCount = AObjects.count();
-	QList<int> circleList;
-	int circleListCounter = 0;
-	//X
-	QMap<double, uint> xSorted;
-	for (int i = 0; i < alignObjectsCount; ++i)
+
+	using SortedItem = std::tuple<double, double, qsizetype>;
+	std::vector<SortedItem> sortedItems;
+	for (qsizetype i = 0; i < AObjects.count(); i++)
 	{
-		if (!xSorted.contains(AObjects[i].x1))
-			xSorted.insert(AObjects[i].x1, i);
+		sortedItems.push_back({AObjects[i].x1, AObjects[i].y1, i});
 	}
-	QMap<double, uint>::Iterator itX = xSorted.begin();
-	QMap<double, uint>::Iterator itXend = xSorted.end();
-	double minX = itX.key();
-	double maxX = itX.key();
-	while (itX != itXend)
+	std::sort(sortedItems.begin(), sortedItems.end(), [](const auto& a, const auto& b)
 	{
-		if (minX > itX.key())
-			minX = itX.key();
-		if (maxX < itX.key())
-			maxX = itX.key();
-		++itX;
-	}
-	//Y
-	QMap<double, uint> ySorted;
-	for (int i = 0; i < alignObjectsCount; ++i)
+		if (std::get<0>(a) < std::get<0>(b))
+			return true;
+		if (std::get<0>(a) == std::get<0>(b) && std::get<1>(a) < std::get<1>(b))
+			return true;
+		return false;
+	});
+
+	double swapX = std::get<0>(sortedItems.front());
+	double swapY = std::get<1>(sortedItems.front());
+
+	for (size_t i =  1; i < sortedItems.size(); i++)
 	{
-		if (!ySorted.contains(AObjects[i].y1))
-			ySorted.insert(AObjects[i].y1, i);
-	}
-	QMap<double, uint>::Iterator itY = ySorted.begin();
-	QMap<double, uint>::Iterator itYend = ySorted.end();
-	double minY = itY.key();
-	double maxY = itY.key();
-	while (itY != itYend)
-	{
-		if (minY > itY.key())
-			minY = itY.key();
-		if (maxY < itY.key())
-			maxY = itY.key();
-		++itY;
+		SortedItem sortedItem = sortedItems[i];
+
+		double diffX = swapX - std::get<0>(sortedItem);
+		double diffY = swapY - std::get<1>(sortedItem);
+
+		swapX = std::get<0>(sortedItem);
+		swapY = std::get<1>(sortedItem);
+
+		size_t object_i = std::get<2>(sortedItem);
+		if (!AObjects[object_i].Object->locked())
+			AObjects[object_i].Object->moveBy(diffX, diffY);
 	}
 
-	itX = xSorted.begin(); //first item is left most
-	int itemIndex = itX.value(); //get our first item's index in the AObjects array
-//	bool found = false;
-//	double itXX = itX.key();
-	minY =  std::numeric_limits<double>::max();
-	maxY = -std::numeric_limits<double>::max();
-	int nextItemIndex = itemIndex;
-	circleList.append(nextItemIndex);
-	++circleListCounter;
-	// find the next X item with the minimum Y
+	size_t object_i = std::get<2>(sortedItems.front());
+	if (!AObjects[object_i].Object->locked())
+		AObjects[object_i].Object->moveBy(swapX - AObjects[object_i].x1, swapY - AObjects[object_i].y1);
 
-	QMap<double, uint>::Iterator itX2_1 = xSorted.begin();
-	QMap<double, uint>::Iterator itLast = xSorted.begin();
-	double xBeginYValue = AObjects[itX2_1.value()].y1;
-	while (itX2_1 != xSorted.end())
-	{
-		if (AObjects[itX2_1.value()].y1 < xBeginYValue)
-		{
-			circleList.append(itX2_1.value());
-			++circleListCounter;
-		}
-		itLast = itX2_1;
-		itX2_1++;
-	}
-
-
-	if (circleListCounter != alignObjectsCount) //need to reverse back now
-	{
-		QMap<double, uint>::Iterator itX2_2 = itLast;
-		while (itX2_2 != xSorted.begin())
-		{
-			if (AObjects[itX2_2.value()].y1 >= xBeginYValue)
-			{
-				circleList.append(itX2_2.value());
-				++circleListCounter;
-			}
-			itX2_2--;
-		}
-	}
-
-	int i = circleListCounter - 1;
-	double swapX = AObjects[i].x1;
-	double swapY = AObjects[i].y1;
-	if (!AObjects[i].Object->locked())
-		AObjects[i].Object->moveBy(AObjects[0].x1-AObjects[i].x1, AObjects[0].y1-AObjects[i].y1);
-	--i;
-	while (i > 0)
-	{
-		double diffX = swapX - AObjects[i].x1;
-		double diffY = swapY - AObjects[i].y1;
-		swapX = AObjects[i].x1;
-		swapY = AObjects[i].y1;
-		if (!AObjects[i].Object->locked())
-			AObjects[i].Object->moveBy(diffX, diffY);
-		--i;
-	}
-	double diffX3 = swapX - AObjects[0].x1;
-	double diffY3 = swapY - AObjects[0].y1;
-	if (!AObjects[0].Object->locked())
-		AObjects[0].Object->moveBy(diffX3, diffY3);
 	endAlign();
 }
 
