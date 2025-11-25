@@ -128,32 +128,32 @@ void CanvasMode_Rotate::getNewItemPosition(const PageItem* item, FPoint& pos, do
 				// No translation
 				break;
 			case AnchorPoint::Top:
-				ma.translate(item->width()/2.0, 0);
-				n = FPoint(-item->width()/2.0, 0);
+				ma.translate(item->width() / 2.0, 0);
+				n = FPoint(-item->width() / 2.0, 0);
 				break;
 			case AnchorPoint::TopRight:
 				ma.translate(item->width(), 0);
 				n = FPoint(-item->width(), 0);
 				break;
 			case AnchorPoint::Left:
-				ma.translate(item->width(), item->height()/2.0);
-				n = FPoint(-item->width(), -item->height()/2.0);
+				ma.translate(0, item->height() / 2.0);
+				n = FPoint(0, -item->height() / 2.0);
 				break;
 			case AnchorPoint::Center:
-				ma.translate(item->width()/2.0, item->height()/2.0);
-				n = FPoint(-item->width()/2.0, -item->height()/2.0);
+				ma.translate(item->width() / 2.0, item->height() / 2.0);
+				n = FPoint(-item->width() / 2.0, -item->height() / 2.0);
 				break;
 			case AnchorPoint::Right:
-				ma.translate(0, item->height()/2.0);
-				n = FPoint(0, -item->height()/2.0);
+				ma.translate(item->width(), item->height() / 2.0);
+				n = FPoint(-item->width(), -item->height() / 2.0);
 				break;
 			case AnchorPoint::BottomLeft:
 				ma.translate(0, item->height());
 				n = FPoint(0, -item->height());
 				break;
 			case AnchorPoint::Bottom:
-				ma.translate(item->width()/2.0, item->height());
-				n = FPoint(-item->width()/2.0, -item->height());
+				ma.translate(item->width() / 2.0, item->height());
+				n = FPoint(-item->width() / 2.0, -item->height());
 				break;
 			case AnchorPoint::BottomRight:
 				ma.translate(item->width(), item->height());
@@ -257,7 +257,7 @@ void CanvasMode_Rotate::mousePressEvent(QMouseEvent *m)
 			m_doc->m_Selection->getGroupRect(&gxR, &gyR, &gwR, &ghR);
 			if (QRect(static_cast<int>(gx), static_cast<int>(gy), static_cast<int>(gw), static_cast<int>(gh)).intersects(mpo))
 			{
-			m_rotMode   = AnchorPoint::Center;
+				m_rotMode   = AnchorPoint::Center;
 				m_rotCenter = FPoint(gxR + gwR / 2.0, gyR + ghR / 2.0);
 				if (QRect(static_cast<int>(gx + gw) - 6, static_cast<int>(gy + gh) - 6, 6, 6).intersects(mpo))
 				{
@@ -312,13 +312,13 @@ void CanvasMode_Rotate::mousePressEvent(QMouseEvent *m)
 					}	
 					else if (mat.mapRect(QRect(0, static_cast<int>(currItem->height() / 2) - 6, 6, 6)).intersects(mpo))
 					{
-						m_rotCenter = FPoint(0, currItem->height() / 2, 0, 0, currItem->rotation(), 1, 1, false);
-						m_rotMode   = AnchorPoint::Left;
+						m_rotCenter = FPoint(currItem->width(), currItem->height() / 2, 0, 0, currItem->rotation(), 1, 1, false);
+						m_rotMode   = AnchorPoint::Right;
 					}
 					else if (mat.mapRect(QRect(currItem->width(), static_cast<int>(currItem->height() / 2) - 6, 6, 6)).intersects(mpo))
 					{
-						m_rotCenter = FPoint(currItem->width(), currItem->height() / 2, 0, 0, currItem->rotation(), 1, 1, false);
-						m_rotMode   = AnchorPoint::Right;
+						m_rotCenter = FPoint(0, currItem->height() / 2, 0, 0, currItem->rotation(), 1, 1, false);
+						m_rotMode   = AnchorPoint::Left;
 					}
 				}
 				m_doc->setRotationMode(m_rotMode);
@@ -500,7 +500,8 @@ void CanvasMode_Rotate::keyPressEvent(QKeyEvent *e)
 		m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
 		m_rotMode   = m_doc->rotationMode();
 
-		switch(m_rotMode){
+		switch(m_rotMode)
+		{
 		case AnchorPoint::TopLeft:
 			m_rotCenter = FPoint(gx, gy);
 			break;
