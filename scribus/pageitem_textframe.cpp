@@ -919,13 +919,14 @@ struct LineControl {
 	double opticalLeftMargin(const StoryText& itemText)
 	{
 		int b = 0;
-		while (b < lineData.lastCluster && (itemText.flags(b) & ScLayout_SuppressSpace))
+		int maxCluster = lineData.lastCluster - lineData.firstCluster + 1;
+		while (b < maxCluster && (itemText.flags(glyphs[b].firstChar()) & ScLayout_SuppressSpace))
 			   ++b;
 
 		if (b < lineData.lastCluster)
 		{
 			const CharStyle& style = glyphs[b].style();
-			const ParagraphStyle& pStyle = itemText.paragraphStyle(lineData.lastCluster);
+			const ParagraphStyle& pStyle = itemText.paragraphStyle(glyphs[b].firstChar());
 			const ScFace& font = style.font();
 			double chs = style.fontSize() * (style.scaleH() / 1000.0);
 			QChar chr = itemText.text(glyphs[b].firstChar());
@@ -933,7 +934,7 @@ struct LineControl {
 
 			OpticalMarginSet set = doc->opticalMarginSets().value(pStyle.opticalMarginSetId());
 			OpticalMarginRule rule = OpticalMarginLookup::instance().offset(chr, set);
-			if ( rule.Unit == SC_PERCENT)
+			if (rule.Unit == SC_PERCENT)
 				leftCorr = font.glyphBBox(font.char2CMap(chr.unicode()), chs / 10.0).width * rule.Left;
 			else
 				leftCorr = rule.Left;
@@ -955,7 +956,7 @@ struct LineControl {
 		if (b >= 0)
 		{
 			const CharStyle& style = glyphs[b].style();
-			const ParagraphStyle& pStyle = itemText.paragraphStyle(lineData.lastCluster);
+			const ParagraphStyle& pStyle = itemText.paragraphStyle(glyphs[b].lastChar());
 			const ScFace& font = style.font();
 			double chs = style.fontSize() * (style.scaleH() / 1000.0);
 			bool softHypen = glyphs[b].hasFlag(ScLayout_SoftHyphenVisible);
