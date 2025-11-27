@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 #include <QtGui>
 #include <QMessageBox>
 #include <QSignalBlocker>
+#include <QStandardPaths>
 
 #include <iostream>
 
@@ -89,12 +90,25 @@ PictureBrowser::PictureBrowser(ScribusDoc* doc, QWidget *parent):
 
 
 //maybe add QDir::Readable, although users might wonder where their folders are
+	folderModel.setRootPath(QString());
 	folderModel.setFilter(QDir::AllDirs|QDir::Drives|QDir::NoDotAndDotDot|QDir::NoSymLinks/*|QDir::Hidden*/);
 	folderView->setModel(&folderModel);
 
 // this should give a little performance boost
+	QString currentPath = QDir::currentPath();
+	QString userDocumentPath = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+	if (QDir(userDocumentPath).exists())
+		currentPath = userDocumentPath;
+	if (m_Doc)
+	{
+		QString docFileName = m_Doc->documentFileName();
+		QFileInfo fInfo(docFileName);
+		if (fInfo.isAbsolute())
+			currentPath = fInfo.absolutePath();
+	}
+
 	folderView->setUniformRowHeights(true);
-	folderView->setCurrentIndex(folderModel.index(QDir::currentPath()));
+	folderView->setCurrentIndex(folderModel.index(currentPath));
 	folderView->scrollTo(folderView->currentIndex(), QAbstractItemView::PositionAtTop);
 	folderView->resizeColumnToContents(0);
 
