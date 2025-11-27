@@ -123,8 +123,8 @@ void CanvasMode_Rotate::getNewItemPosition(PageItem* item, FPoint& pos, double& 
 		switch (m_rotMode)
 		{
 		case 2:
-			ma.translate(item->width()/2.0, item->height()/2.0);
-			n = FPoint(-item->width()/2.0, -item->height()/2.0);
+			ma.translate(item->width() / 2.0, item->height() / 2.0);
+			n = FPoint(-item->width() / 2.0, -item->height() / 2.0);
 			break;
 		case 4:
 			ma.translate(item->width(), item->height());
