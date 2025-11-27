@@ -7,8 +7,8 @@ for which a new license (GPL+exception) is in place.
 
 #include <QComboBox>
 
-#include "ui/prefs_documentitemattributes.h"
 #include "prefsstructs.h"
+#include "ui/preferences/prefs_documentitemattributes.h"
 
 Prefs_DocumentItemAttributes::Prefs_DocumentItemAttributes(QWidget* parent, ScribusDoc* /*doc*/)
 	: Prefs_Pane(parent)

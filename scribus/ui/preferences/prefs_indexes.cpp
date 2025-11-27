@@ -13,7 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include "pagestructs.h"
 #include "prefsstructs.h"
 #include "scribusdoc.h"
-#include "ui/prefs_indexes.h"
+#include "ui/preferences/prefs_indexes.h"
 #include "util.h"
 
 Prefs_Indexes::Prefs_Indexes(QWidget* parent, ScribusDoc* doc)

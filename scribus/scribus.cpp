@@ -213,7 +213,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/pdfexportdialog.h"
 #include "ui/pdftoolbar.h"
 #include "ui/picstatus.h"
-#include "ui/preferencesdialog.h"
+#include "ui/preferences/preferencesdialog.h"
 #include "ui/printdialog.h"
 #include "ui/printpreview.h"
 #include "ui/propertiespalette.h"

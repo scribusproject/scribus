@@ -12,7 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "pagestructs.h"
 #include "prefsstructs.h"
 #include "scribusdoc.h"
-#include "ui/prefs_tableofcontents.h"
+#include "ui/preferences/prefs_tableofcontents.h"
 #include "util.h"
 
 Prefs_TableOfContents::Prefs_TableOfContents(QWidget* parent, ScribusDoc* doc)

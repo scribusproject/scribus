@@ -17,7 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "ui/createrange.h"
-#include "ui/prefs_pdfexport.h"
+#include "ui/preferences/prefs_pdfexport.h"
 #include "ui/scrspinbox.h"
 #include "units.h"
 #include "util.h"

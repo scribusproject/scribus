@@ -5,14 +5,14 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
-#include "ui/prefs_printer.h"
-#include "ui/newmarginwidget.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "prefsstructs.h"
-#include "util_printer.h"
+#include "ui/newmarginwidget.h"
+#include "ui/preferences/prefs_printer.h"
 #include "units.h"
+#include "util_printer.h"
 
 Prefs_Printer::Prefs_Printer(QWidget* parent, ScribusDoc* /*doc*/)
 	         : Prefs_Pane(parent)

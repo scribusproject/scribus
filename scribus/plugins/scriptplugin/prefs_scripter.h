@@ -10,9 +10,9 @@ for which a new license (GPL+exception) is in place.
 
 #include <QListWidgetItem>
 
-#include "ui_prefs_scripterbase.h"
-#include "ui/prefs_pane.h"
 #include "pconsole.h"
+#include "ui/preferences/prefs_pane.h"
+#include "ui_prefs_scripterbase.h"
 
 class Prefs_Scripter : public Prefs_Pane, Ui::Prefs_Scripter
 {

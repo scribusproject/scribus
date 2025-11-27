@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <array>
 
-#include "prefs_colormanagement.h"
+#include "ui/preferences/prefs_colormanagement.h"
 #include "prefsstructs.h"
 #include "scribusstructs.h"
 #include "scribuscore.h"

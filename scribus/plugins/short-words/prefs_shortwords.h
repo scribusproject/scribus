@@ -8,8 +8,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef PREFS_SHORTWORDS_H
 #define PREFS_SHORTWORDS_H
 
+#include "ui/preferences/prefs_pane.h"
 #include "ui_prefs_shortwordsbase.h"
-#include "ui/prefs_pane.h"
 
 class Prefs_ShortWords : public Prefs_Pane, Ui::Prefs_ShortWords
 {

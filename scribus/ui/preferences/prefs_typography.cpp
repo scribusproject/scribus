@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsstructs.h"
 #include "scribus.h"
 #include "scribusdoc.h"
-#include "stylemanager.h"
+#include "ui/stylemanager.h"
 #include "ui/smtextstyles.h"
 
 Prefs_Typography::Prefs_Typography(QWidget* parent, ScribusDoc* doc)

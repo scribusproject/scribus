@@ -5,7 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
-#include "ui/prefs_fonts.h"
+#include "ui/preferences/prefs_fonts.h"
 #include "prefsstructs.h"
 
 
@@ -32,7 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "util.h"
 #include "fontlistmodel.h"
-#include "fontlistview.h"
+#include "ui/fontlistview.h"
 
 Prefs_Fonts::Prefs_Fonts(QWidget* parent, ScribusDoc* doc)
 	: Prefs_Pane(parent),

@@ -11,8 +11,8 @@ for which a new license (GPL+exception) is in place.
 #include "iconmanager.h"
 #include "prefsstructs.h"
 #include "scribusdoc.h"
-#include "scrspinbox.h"
-#include "ui/prefs_guides.h"
+#include "ui/scrspinbox.h"
+#include "ui/preferences/prefs_guides.h"
 #include "units.h"
 
 Prefs_Guides::Prefs_Guides(QWidget* parent, ScribusDoc* doc)

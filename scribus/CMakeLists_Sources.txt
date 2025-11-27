@@ -408,36 +408,36 @@ set(SCRIBUS_SOURCES
 	ui/picstatus.cpp
 	ui/polygonwidget.cpp
 	ui/polyprops.cpp
-	ui/preferencesdialog.cpp
-	ui/prefs_colormanagement.cpp
-	ui/prefs_display.cpp
-	ui/prefs_documentinformation.cpp
-	ui/prefs_documentsections.cpp
-	ui/prefs_documentsetup.cpp
-	ui/prefs_experimental.cpp
-	ui/prefs_externaltools.cpp
-	ui/prefs_fonts.cpp
-	ui/prefs_guides.cpp
-	ui/prefs_hyphenator.cpp
-	ui/prefs_indexes.cpp
-	ui/prefs_imagecache.cpp
-	ui/prefs_keyboardshortcuts.cpp
-	ui/prefs_miscellaneous.cpp
-	ui/prefs_pagesizes.cpp
-	ui/prefs_pane.cpp
-	ui/prefs_paths.cpp
-	ui/prefs_plugins.cpp
-	ui/prefs_preflightverifier.cpp
-	ui/prefs_printer.cpp
-	ui/prefs_scrapbook.cpp
-	ui/prefs_spelling.cpp
-	ui/prefs_typography.cpp
-	ui/prefs_userinterface.cpp
-	ui/prefs_itemtools.cpp
-	ui/prefs_operatortools.cpp
-	ui/prefs_pdfexport.cpp
-	ui/prefs_tableofcontents.cpp
-	ui/prefs_documentitemattributes.cpp
+	ui/preferences/preferencesdialog.cpp
+	ui/preferences/prefs_colormanagement.cpp
+	ui/preferences/prefs_display.cpp
+	ui/preferences/prefs_documentinformation.cpp
+	ui/preferences/prefs_documentsections.cpp
+	ui/preferences/prefs_documentsetup.cpp
+	ui/preferences/prefs_experimental.cpp
+	ui/preferences/prefs_externaltools.cpp
+	ui/preferences/prefs_fonts.cpp
+	ui/preferences/prefs_guides.cpp
+	ui/preferences/prefs_hyphenator.cpp
+	ui/preferences/prefs_indexes.cpp
+	ui/preferences/prefs_imagecache.cpp
+	ui/preferences/prefs_keyboardshortcuts.cpp
+	ui/preferences/prefs_miscellaneous.cpp
+	ui/preferences/prefs_pagesizes.cpp
+	ui/preferences/prefs_pane.cpp
+	ui/preferences/prefs_paths.cpp
+	ui/preferences/prefs_plugins.cpp
+	ui/preferences/prefs_preflightverifier.cpp
+	ui/preferences/prefs_printer.cpp
+	ui/preferences/prefs_scrapbook.cpp
+	ui/preferences/prefs_spelling.cpp
+	ui/preferences/prefs_typography.cpp
+	ui/preferences/prefs_userinterface.cpp
+	ui/preferences/prefs_itemtools.cpp
+	ui/preferences/prefs_operatortools.cpp
+	ui/preferences/prefs_pdfexport.cpp
+	ui/preferences/prefs_tableofcontents.cpp
+	ui/preferences/prefs_documentitemattributes.cpp
 	ui/printdialog.cpp
 	ui/printlanguagecombo.cpp
 	ui/printpreview.cpp

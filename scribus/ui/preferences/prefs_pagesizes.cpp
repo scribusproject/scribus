@@ -12,7 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "pagesize.h"
 #include "prefsstructs.h"
 #include "scribusdoc.h"
-#include "ui/prefs_pagesizes.h"
+#include "ui/preferences/prefs_pagesizes.h"
 
 
 Prefs_PageSizes::Prefs_PageSizes(QWidget* parent, ScribusDoc* /*doc*/)

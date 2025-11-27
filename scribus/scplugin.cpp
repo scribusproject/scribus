@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scribusapp.h"
 #include "selection.h"
-#include "ui/prefs_pane.h"
+#include "ui/preferences/prefs_pane.h"
 
 //=====================================================//
 //                        ScPlugin                     //

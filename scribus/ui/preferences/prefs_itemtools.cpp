@@ -10,10 +10,10 @@ for which a new license (GPL+exception) is in place.
 #include "prefsstructs.h"
 #include "sampleitem.h"
 #include "scribusdoc.h"
-#include "scrspinbox.h"
+#include "ui/scrspinbox.h"
 #include "ui/arrowchooser.h"
 #include "ui/linkbutton.h"
-#include "ui/prefs_itemtools.h"
+#include "ui/preferences/prefs_itemtools.h"
 #include "units.h"
 
 

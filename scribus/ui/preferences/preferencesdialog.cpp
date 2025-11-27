@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include "scplugin.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
-#include "ui/preferencesdialog.h"
+#include "ui/preferences/preferencesdialog.h"
 #include "units.h"
 
 PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsData, ScribusDoc* doc)

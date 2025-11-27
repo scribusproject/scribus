@@ -9,14 +9,14 @@ for which a new license (GPL+exception) is in place.
 #include <QButtonGroup>
 #include <QFileDialog>
 
-#include "ui/prefs_documentsetup.h"
 #include "commonstrings.h"
-#include "ui/newmarginwidget.h"
 #include "langmgr.h"
 #include "pagesize.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "prefsstructs.h"
+#include "ui/newmarginwidget.h"
+#include "ui/preferences/prefs_documentsetup.h"
 #include "undomanager.h"
 #include "units.h"
 #include "util.h"

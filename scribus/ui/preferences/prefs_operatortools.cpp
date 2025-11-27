@@ -5,9 +5,10 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include <QSpinBox>
-#include "ui/prefs_operatortools.h"
+
 #include "prefsstructs.h"
-#include "scrspinbox.h"
+#include "ui/scrspinbox.h"
+#include "ui/preferences/prefs_operatortools.h"
 #include "units.h"
 
 #include "scribusdoc.h"

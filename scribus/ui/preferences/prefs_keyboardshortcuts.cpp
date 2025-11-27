@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "scplugin.h"
 #include "scraction.h"
-#include "ui/prefs_keyboardshortcuts.h"
+#include "ui/preferences/prefs_keyboardshortcuts.h"
 #include "ui/scmessagebox.h"
 #include "util.h"
 
