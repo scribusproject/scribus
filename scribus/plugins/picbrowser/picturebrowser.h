@@ -65,33 +65,31 @@ class findImagesThread;
 class QImage;
 class imageFilters;
 
-
-
 class PictureBrowserSettings
 {
 	public:
-		PictureBrowserSettings();
+		PictureBrowserSettings() = default;
 
 		void load();
 		void save();
 		void reset();
 
+		QString currentDirectory;
 		//save settings?
-		bool saveSettings;
+		bool saveSettings { false };
 		//tells if dialog is enlarged
-		bool showMore;
+		bool showMore { false };
 		//the sortorder, false for ascending, true for descending
-		bool sortOrder;
+		bool sortOrder { false };
 		//sorting, 0 for name, 1 for date, 2 for size, 3 for type
-		int sortSetting;
+		int sortSetting { 0 };
 		//previewmode, 0 for "previewimages only", 1 for "preview with information"
-		int previewMode;
+		int previewMode { 0 };
 		//the size of the icons
-		int previewIconSize;
+		int previewIconSize { 0 };
 		//tells if always-on-top is enabled
-		bool alwaysOnTop;
+		bool alwaysOnTop { false };
 };
-
 
 //central class, manages gui
 class PictureBrowser : public QDialog, Ui::PictureBrowser
@@ -270,7 +268,7 @@ class PictureBrowser : public QDialog, Ui::PictureBrowser
 		loadImagesThread *lit { nullptr };
 		//a thread for reading a collectionsfile
 		collectionReaderThread *crt { nullptr };
-		QList<collectionReaderThread *> crtList { nullptr };
+		QList<collectionReaderThread *> crtList;
 		//the collection currently selected
 		QString currCollectionFile;
 		imageCollection *currCollection { nullptr };
@@ -292,11 +290,10 @@ class PictureBrowser : public QDialog, Ui::PictureBrowser
 		bool documentChanged { false };
 };
 
-
 class imageFilters
 {
 	public:
-		imageFilters();
+		imageFilters() = default;
 
 		QList<int> filterMap;
 		QList<int> filterMap2;
@@ -314,6 +311,5 @@ class imageFilters
 
 		QList<QStringList> typeFilters;
 };
-
 
 #endif

@@ -7,7 +7,6 @@ for which a new license (GPL+exception) is in place.
 #include <QtGui>
 #include <QMessageBox>
 #include <QSignalBlocker>
-#include <QStandardPaths>
 
 #include <iostream>
 
@@ -22,6 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "previewimage.h"
+#include "scpaths.h"
 #include "scribusapp.h"
 #include "ui/scmessagebox.h"
 #include "util_formats.h"
@@ -95,10 +95,7 @@ PictureBrowser::PictureBrowser(ScribusDoc* doc, QWidget *parent):
 	folderView->setModel(&folderModel);
 
 // this should give a little performance boost
-	QString currentPath = QDir::currentPath();
-	QString userDocumentPath = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
-	if (QDir(userDocumentPath).exists())
-		currentPath = userDocumentPath;
+	QString currentPath = ScPaths::userDocumentDir();
 	if (m_Doc)
 	{
 		QString docFileName = m_Doc->documentFileName();
@@ -106,6 +103,8 @@ PictureBrowser::PictureBrowser(ScribusDoc* doc, QWidget *parent):
 		if (fInfo.isAbsolute())
 			currentPath = fInfo.absolutePath();
 	}
+	if (QDir(pbSettings.currentDirectory).exists())
+		currentPath = pbSettings.currentDirectory;
 
 	folderView->setUniformRowHeights(true);
 	folderView->setCurrentIndex(folderModel.index(currentPath));
@@ -274,7 +273,7 @@ PictureBrowser::PictureBrowser(ScribusDoc* doc, QWidget *parent):
 //imageViewArea->setHorizontalScrollMode(QAbstractItemView::ScrollPerItem);
 
 //Actually select the current folder to generate the preview from it's contents
-	dirChosen(folderModel.index( QDir::currentPath()));
+	dirChosen(folderModel.index(currentPath));
 
 	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 }
@@ -577,6 +576,10 @@ void PictureBrowser::dirChosen(const QModelIndex &index)
 		tmpindex = index;
 		documentChanged = false;
 		currPath = folderModel.filePath(index);
+
+		pbSettings.currentDirectory = currPath;
+		if (saveSettingsCheckbox->isChecked())
+			pbSettings.save();
 
 		if (!fit)
 		{
@@ -2021,10 +2024,8 @@ void PictureBrowser::updateTagImagesTab()
 {
 	QStringList tmpTags, tmpTagList;
 
-
 	collectionsSelectedImagesListwidget->clear();
 	collectionsTagImagesCombobox->clear();
-
 
 	for (int i = 0;(i < selectedIndexes.size())&&(i < currCollection->imageFiles.size()); ++i)
 	{
@@ -2041,7 +2042,6 @@ void PictureBrowser::updateTagImagesTab()
 				tmpTagList.append(tmpTags.at(j));
 		}
 	}
-
 
 	for (int i = 0; i < tmpTagList.size(); ++i)
 	{
@@ -2093,27 +2093,11 @@ void PictureBrowser::unitChange()
 	insertHeightSpinbox->setNewUnit(m_Doc->unitIndex());
 }
 
-imageFilters::imageFilters()
-{
-}
-
-
-PictureBrowserSettings::PictureBrowserSettings() :
-	saveSettings(false),
-	showMore(false),
-	sortOrder(false),
-	sortSetting(0),
-	previewMode(0),
-	previewIconSize(0),
-	alwaysOnTop(false)
-{
-}
-
-
 void PictureBrowserSettings::load()
 {
 	PrefsContext *pictureBrowserPluginPrefs = PrefsManager::instance().prefsFile->getPluginContext("picturebrowser");
 
+	currentDirectory = pictureBrowserPluginPrefs->get("pb_currentdir", ScPaths::userDocumentDir());
 	saveSettings = pictureBrowserPluginPrefs->getBool("pb_savesettings", true);
 	showMore = pictureBrowserPluginPrefs->getBool("pb_showmore", false);
 	sortOrder = pictureBrowserPluginPrefs->getBool("pb_sortorder", false);
@@ -2121,16 +2105,13 @@ void PictureBrowserSettings::load()
 	previewMode = pictureBrowserPluginPrefs->getInt("pb_previewmode", 0);
 	previewIconSize = pictureBrowserPluginPrefs->getInt("pb_previewiconsize", 128);
 	alwaysOnTop = pictureBrowserPluginPrefs->getBool("pb_alwaysontop", false);
-
-// default value "dog" will be used if "s" doesn't already exist
-//QString s = myPluginPrefs->get("s", "dog");
 }
-
 
 void PictureBrowserSettings::save()
 {
 	PrefsContext *pictureBrowserPluginPrefs = PrefsManager::instance().prefsFile->getPluginContext("picturebrowser");
 
+	pictureBrowserPluginPrefs->set("pb_currentdir", currentDirectory);
 	pictureBrowserPluginPrefs->set("pb_savesettings", saveSettings);
 	pictureBrowserPluginPrefs->set("pb_showmore", showMore);
 	pictureBrowserPluginPrefs->set("pb_sortorder", sortOrder);
@@ -2138,13 +2119,11 @@ void PictureBrowserSettings::save()
 	pictureBrowserPluginPrefs->set("pb_previewmode", previewMode);
 	pictureBrowserPluginPrefs->set("pb_previewiconsize", previewIconSize);
 	pictureBrowserPluginPrefs->set("pb_alwaysontop", alwaysOnTop);
-
-//pictureBrowserPluginPrefs->set("previewMode", "cat");
 }
-
 
 void PictureBrowserSettings::reset()
 {
+	currentDirectory = ScPaths::userDocumentDir();
 	saveSettings = true;
 	showMore = false;
 	sortOrder = false;
