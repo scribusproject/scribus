@@ -97,14 +97,14 @@ class PictureBrowser : public QDialog, Ui::PictureBrowser
 		Q_OBJECT
 
 	public:
-		PictureBrowser ( ScribusDoc* doc, QWidget* parent = nullptr );
+		PictureBrowser(ScribusDoc* doc, QWidget* parent = nullptr);
 		~PictureBrowser();
 
-		void changedDocument ( ScribusDoc* doc );
+		void changedDocument(ScribusDoc* doc);
 		void closedDocument();
 
 		//posts an image which should be loaded to the imageloading thread
-		void callLoadImageThread ( int row, int pId );
+		void callLoadImageThread(int row, int pId);
 		PictureBrowserSettings pbSettings;
 
 		//for statusinfo, contains how many images are currently displayed/filtered
@@ -124,10 +124,10 @@ class PictureBrowser : public QDialog, Ui::PictureBrowser
 		//QString path: path to the image
 		//int size: size of the icon, the returned QImage will be resized according to this
 		//int pId: a unique id to check whether the pointer is valid or a different set of images has been chosen while thread was executed
-		void loadImageJob ( int, QString, int, int );
+		void loadImageJob(int, QString, int, int);
 		//signals for selecting a page in the current document
-		void selectPage ( int );
-		void selectMasterPage ( QString );
+		void selectPage(int);
+		void selectMasterPage(QString);
 
 	public slots:
 		void unitChange();
@@ -135,14 +135,14 @@ class PictureBrowser : public QDialog, Ui::PictureBrowser
 	private slots:
 		void iconSetChange();
 		//slot for the navigation combobox, sets current browsingmode (folderbrowser, collectionsbrowser, documentbrowser)
-		void navigate ( int index );
+		void navigate(int index);
 		//called when a previewicon was clicked
-		void previewIconClicked ( const QModelIndex &index );
-		void previewIconDoubleClicked ( const QModelIndex &index );
+		void previewIconClicked(const QModelIndex& index);
+		void previewIconDoubleClicked(const QModelIndex& index);
 		//called when sorting was changed, re-sorts images and refreshes view
-		void sortChanged ( int index );
+		void sortChanged(int index);
 		//called when previewmode was changed, changes previewmode
-		void previewModeChanged ( int index );
+		void previewModeChanged(int index);
 		//called when more button was clicked, enlarges dialog
 		void moreButtonClicked();
 		void resetSettingsButtonClicked();
@@ -154,7 +154,7 @@ class PictureBrowser : public QDialog, Ui::PictureBrowser
 		void zoomPlusButtonClicked();
 		//called when zoombutton - was clicked, scales down previewicons
 		void zoomMinusButtonClicked();
-		void tabWidgetCurrentChanged ( int index );
+		void tabWidgetCurrentChanged(int index);
 		//called when "Goto page" in documentbrowser was clicked
 		void gotoPageButtonClicked();
 		//called when always-on-top checkbox was clicked, toggles always-on-top-feature
@@ -163,12 +163,12 @@ class PictureBrowser : public QDialog, Ui::PictureBrowser
 		//called when "include subdirs" checkbox in folderbrowser was clicked, toggles recursive folderbrowsing on/off
 		void subdirsCheckboxStateChanged();
 		//called when a dir is clicked in the folderbrowser, calls thread to find images
-		void dirChosen ( const QModelIndex &index );
+		void dirChosen(const QModelIndex& index);
 		//called when a selection is made in the documentbrowser, lists the images and displays them
-		void documentChosen ( QTreeWidgetItem * item, int column );
+		void documentChosen(QTreeWidgetItem* item, int column);
 		//called when a collection is selected in the collectionsbrowser, reads the images from the file and displays them
-		void collectionChosen ( QTreeWidgetItem * item, int column );
-		void collectionsWidgetItemEdited ( QTreeWidgetItem * item, int column );
+		void collectionChosen(QTreeWidgetItem* item, int column);
+		void collectionsWidgetItemEdited(QTreeWidgetItem* item, int column);
 		//called when the thread has finished browsing a folder for images, displays the images
 		void findImagesThreadFinished();
 		//called when the collectionreaderthread has finished reading a file, displays the images
@@ -178,12 +178,12 @@ class PictureBrowser : public QDialog, Ui::PictureBrowser
 		void collectionsDbWriterThreadFinished();
 		void collectionWriterThreadListFinished();
 		//called when entries have been selected from insertPagesCombobox
-		void insertPagesComboboxCheckstateChanged ( int row );
+		void insertPagesComboboxCheckstateChanged(int row);
 		void insertImageButtonClicked();
-		void insertPositionComboboxChanged ( int index );
-		void insertSizeComboboxChanged ( int index );
-		void filterCriteriaComboboxChanged ( int index );
-		void filterTargetComboboxChanged ( int index );
+		void insertPositionComboboxChanged(int index);
+		void insertSizeComboboxChanged(int index);
+		void filterCriteriaComboboxChanged(int index);
+		void filterTargetComboboxChanged(int index);
 		void filterFilterButtonClicked();
 		void filterClearButtonClicked();
 		void filterAddCriterionButtonClicked();
@@ -199,7 +199,7 @@ class PictureBrowser : public QDialog, Ui::PictureBrowser
 		void collectionsTagImagesButtonClicked();
 		void collectionsAddImagesOkButtonClicked();
 		void collectionsAddImagesCancelButtonClicked();
-		void previewImageSelectionChanged ( const QItemSelection & selected, const QItemSelection & deselected );
+		void previewImageSelectionChanged(const QItemSelection& selected, const QItemSelection& deselected);
 		void collectionsSetTagsButtonClicked();
 		void collectionsAddNewTagButtonClicked();
 		void jumpToImageFolder();
@@ -209,13 +209,13 @@ class PictureBrowser : public QDialog, Ui::PictureBrowser
 		void loadIcons();
 		void setSettings();
 		void updateDocumentBrowser();
-		void updateBrowser ( bool filter, bool sort, bool reload );
-		void updateInformationTab ( int index );
-		void updateCollectionsWidget ( bool addImages );
+		void updateBrowser(bool filter, bool sort, bool reload);
+		void updateInformationTab(int index);
+		void updateCollectionsWidget(bool addImages);
 		void updateCollectionsAddImagesCombobox();
 		//expands/shrinks dialog
-		void expandDialog ( bool expand );
-		void setAlwaysOnTop ( bool alwaysOnTop );
+		void expandDialog(bool expand);
+		void setAlwaysOnTop(bool alwaysOnTop);
 		void saveCollectionsDb();
 		void applyFilters();
 		void updateTagImagesTab();
