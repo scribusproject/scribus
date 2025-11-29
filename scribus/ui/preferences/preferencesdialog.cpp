@@ -75,7 +75,8 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 		prefs_Experimental = new Prefs_Experimental(prefsStackWidget, m_Doc);
 	}
 	createStackWidgetList();
-	addPluginsToStackWidgetList();
+	if (!m_Doc)
+		addPluginsToStackWidgetList();
 	addWidgetsToStack();
 
 	//**********
@@ -310,7 +311,7 @@ void PreferencesDialog::addWidgetsToStack()
 			if(!prefsPaneCaption.contains(searchText, Qt::CaseInsensitive) && prefsPaneKeywordResult.isEmpty())
 				continue;
 		}
-
+		(*it).prefsPane->highlightWidgets(searchText);
 		if ((*it).forDoc && (*it).forPrefs)
 			addWidget((*it).prefsPane);
 		else if (m_Doc && (*it).forDoc)
@@ -384,7 +385,7 @@ void PreferencesDialog::changeEvent(QEvent *e)
 
 void PreferencesDialog::languageChange()
 {
-	setWindowTitle( tr( "Preferences" ) );
+	setWindowTitle(tr("Preferences"));
 }
 
 void PreferencesDialog::addPluginsToStackWidgetList()
@@ -416,8 +417,7 @@ void PreferencesDialog::addPluginsToStackWidgetList()
 			ptd.forDoc = false;
 			ptd.prefsPane = dynamic_cast<Prefs_Pane*>(panel);
 			stackDataList.append(ptd);
-			// plug it in to the dialog,
-			//addWidget(panel);
+
 			// and connect a signal to tell it to save its settings.
 			connect(this, SIGNAL(accepted()), panel, SLOT(apply()));
 		}

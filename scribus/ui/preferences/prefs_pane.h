@@ -26,6 +26,7 @@ class SCRIBUS_API Prefs_Pane : public QWidget
 		const QString& caption() const;
 		const QString& icon() const;
 		QStringList keywords(bool reset = false);
+		void highlightWidgets(const QString& text);
 
 	public slots:
 		virtual void apply() {}; // For plugin prefs panels
