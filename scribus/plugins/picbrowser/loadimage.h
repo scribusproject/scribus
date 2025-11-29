@@ -16,9 +16,8 @@
 *
 ******************************************************************/
 
-#ifndef IMAGELOADER_H
-#define IMAGELOADER_H
-
+#ifndef LOADIMAGE_H
+#define LOADIMAGE_H
 
 #include <QImage>
 #include <QObject>
@@ -31,59 +30,41 @@ class PictureBrowser;
 class PreviewImagesModel;
 
 //a thread to load previewimages
-class loadImagesThread : public QThread
+class LoadImagesThread : public QThread
 {
 		Q_OBJECT
 
 	public:
 		//sets pointer to calling PictureBrowser object and to the related previewImagesModel
-		loadImagesThread ( PictureBrowser *parent, PreviewImagesModel *parentModel );
+		LoadImagesThread(PictureBrowser* parent, PreviewImagesModel* parentModel);
 
 		//called after the thread has been started
-		void run();
+		void run() override;
 
 	private:
 		QMutex mutex;
 		//contains a pointer to the calling PictureBrowser object
-		PictureBrowser *pictureBrowser;
+		PictureBrowser *pictureBrowser { nullptr };
 		//contains a pointer to the related PreviewImagesModel
-		PreviewImagesModel *pModel;
-/*};
+		PreviewImagesModel *pModel { nullptr };
 
-
-//a helper class to get the signals/slots executed in the right thread
-class loadImagesThreadInstance : public QObject
-{
-		Q_OBJECT
-
-	public:
-		loadImagesThreadInstance();
-
-		//contains a pointer to the calling PictureBrowser object
-		PictureBrowser *pictureBrowser;
-		//contains a pointer to the related PreviewImagesModel
-		PreviewImagesModel *pModel;
-*/
 	signals:
 		//emitted when image was loaded
 		//parameters:
-		//previewImage* loadedImage: pointer to the previewImage object which receives the image
+		//PreviewImage* loadedImage: pointer to the PreviewImage object which receives the image
 		//const QImage image: the actual image
 		//int tpId: unique id the thread has been called with
-		void imageLoaded ( int, const QImage, ImageInformation*, int );
-		void imageLoadError ( int, int, int );
+		void imageLoaded(int, const QImage, ImageInformation*, int);
+		void imageLoadError(int, int, int);
 
 	private slots:
 		//called when an image should be loaded
 		//parameters:
-		//previewImage* loadImage: pointer to the previewImage object which should receive the image
+		//PreviewImage* loadImage: pointer to the PreviewImage object which should receive the image
 		//QString path: path to the image
 		//int size: desired size of the icon
 		//int tpId: unique id
-		void processLoadImageJob (int row, const QString& path, int size, int tpId );
+		void processLoadImageJob(int row, const QString& path, int size, int tpId);
 };
-
-
-
 
 #endif // IMAGELOADER_H

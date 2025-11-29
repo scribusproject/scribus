@@ -26,20 +26,20 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "util_color.h"
 
-class collectionListReaderThread;
-class collectionReaderThread;
-class collections;
-class collectionsWriterThread;
-class collectionWriterThread;
-class findImagesThread;
-class imageCollection;
-class imageFilters;
+class CollectionListReaderThread;
+class CollectionReaderThread;
+class Collections;
+class CollectionsWriterThread;
+class CollectionWriterThread;
+class FindImagesThread;
+class ImageCollection;
+class ImageFilters;
 class ImageInformation;
-class loadImagesThread;
+class LoadImagesThread;
 class loadImagesThreadInstance;
 class PictureBrowserSettings;
-class previewImage;
-class previewImages;
+class PreviewImage;
+class PreviewImages;
 class PreviewImagesModel;
 class QImage;
 
@@ -95,7 +95,7 @@ class PictureBrowser : public QDialog, Ui::PictureBrowser
 	signals:
 		//signal which posts a new job to the imageloading thread
 		//parameters:
-		//previewImage* imageToLoad: pointer to identify the previewimage
+		//PreviewImage* imageToLoad: pointer to identify the previewimage
 		//QString path: path to the image
 		//int size: size of the icon, the returned QImage will be resized according to this
 		//int pId: a unique id to check whether the pointer is valid or a different set of images has been chosen while thread was executed
@@ -234,41 +234,41 @@ class PictureBrowser : public QDialog, Ui::PictureBrowser
 		QIcon iconMinus;
 		QIcon iconPen;
 		//thread for searching dirs
-		findImagesThread *fit { nullptr };
+		FindImagesThread *fit { nullptr };
 		//the current set of previewimages
-		previewImages *pImages { nullptr };
+		PreviewImages *pImages { nullptr };
 		//the path currently selected in folderbrowser
 		QString currPath;
 		//a thread for loading images
-		loadImagesThread *lit { nullptr };
+		LoadImagesThread *lit { nullptr };
 		//a thread for reading a collectionsfile
-		collectionReaderThread *crt { nullptr };
-		QList<collectionReaderThread *> crtList;
+		CollectionReaderThread *crt { nullptr };
+		QList<CollectionReaderThread *> crtList;
 		//the collection currently selected
 		QString currCollectionFile;
-		imageCollection *currCollection { nullptr };
+		ImageCollection *currCollection { nullptr };
 		//a list of threads for saving a collection
-		QList<collectionWriterThread *> cwtList;
-		collectionListReaderThread *clrt { nullptr };
-		collectionsWriterThread *cdbwt { nullptr };
+		QList<CollectionWriterThread *> cwtList;
+		CollectionListReaderThread *clrt { nullptr };
+		CollectionsWriterThread *cdbwt { nullptr };
 		//custom position for inserting image enabled/disabled
 		bool insertCustomPosition { false };
 		bool insertCustomSize { false };
 		QStringList nameFilters;
-		imageFilters *filters { nullptr };
+		ImageFilters *filters { nullptr };
 		QString cdbFile;
 		QList<int> selectedIndexes;
 
 		//contains the hierarchy for the collectionsbrowser treewidget
-		QList<collections *> collectionsDb;
+		QList<Collections *> collectionsDb;
 
 		bool documentChanged { false };
 };
 
-class imageFilters
+class ImageFilters
 {
 	public:
-		imageFilters() = default;
+		ImageFilters() = default;
 
 		QList<int> filterMap;
 		QList<int> filterMap2;

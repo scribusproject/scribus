@@ -29,55 +29,39 @@
 #include "util.h"
 
 // //functions for comparing attributes of previewimages (used for sorting)
-bool comparePreviewImageFileName ( const previewImage *i1, const previewImage *i2 );
-bool comparePreviewImageFileType ( const previewImage *i1, const previewImage *i2 );
-bool comparePreviewImageFileDate ( const previewImage *i1, const previewImage *i2 );
-bool comparePreviewImageFileSize ( const previewImage *i1, const previewImage *i2 );
-bool comparePreviewImageResolution ( const previewImage *i1, const previewImage *i2 );
+bool comparePreviewImageFileName ( const PreviewImage *i1, const PreviewImage *i2 );
+bool comparePreviewImageFileType ( const PreviewImage *i1, const PreviewImage *i2 );
+bool comparePreviewImageFileDate ( const PreviewImage *i1, const PreviewImage *i2 );
+bool comparePreviewImageFileSize ( const PreviewImage *i1, const PreviewImage *i2 );
+bool comparePreviewImageResolution ( const PreviewImage *i1, const PreviewImage *i2 );
 
-ImageInformation::ImageInformation()
+PreviewImage::PreviewImage ( const QString& imageFile )
 {
+	fileInformation.setFile(imageFile);
+	fileInformation.setCaching(true);
 }
-
-
-
-previewImage::previewImage ( const QString& imageFile )
-{
-	filtered = false;
-	previewIconCreated = false;
-	previewImageLoading = false;
-
-	fileInformation.setFile ( imageFile );
-//enable caching
-	fileInformation.setCaching ( true );
-
-	imgInfo = nullptr;
-	currentSize = 1;
-}
-
 
 //nothing to do yet
-previewImage::~previewImage()
+PreviewImage::~PreviewImage()
 {
 }
 
-
-bool previewImage::createPreviewIcon ( const QImage &image, int size )
+bool PreviewImage::createPreviewIcon(const QImage& image, int size)
 {
 	QPainter p;
-//width/height of our icon (exclusive 1px border)
+	//width/height of our icon (exclusive 1px border)
 
-	previewIcon = QPixmap ( size, size );
+	previewIcon = QPixmap(size, size);
 
-	QBrush b ( QColor ( 205,205,205 ), IconManager::instance().loadPixmap( "testfill.png" ) );
+	QBrush b(QColor(205, 205, 205), IconManager::instance().loadPixmap("testfill.png"));
 
-	p.begin ( &previewIcon );
+	p.begin(&previewIcon);
 
-	p.setPen ( QPen ( Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin ) );
-	p.setBrush ( b );
-	p.drawRect ( 0, 0, size-1, size-1 );
+	p.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+	p.setBrush(b);
+	p.drawRect(0, 0, size - 1, size - 1);
 
-	p.drawImage ( ( ( size - image.width() ) / 2 ), ( ( size - image.height() ) / 2 ), image );
+	p.drawImage(((size - image.width()) / 2), ((size - image.height()) / 2), image);
 
 	p.end();
 
@@ -87,51 +71,43 @@ bool previewImage::createPreviewIcon ( const QImage &image, int size )
 	return true;
 }
 
-
-bool previewImage::insertIntoDocument ( ScribusDoc *doc, InsertAFrameData &iafData )
+bool PreviewImage::insertIntoDocument(ScribusDoc* doc, InsertAFrameData& iafData)
 {
-//adding imageframe
-	doc->itemAddUserFrame ( iafData );
+	//adding imageframe
+	doc->itemAddUserFrame(iafData);
 
 	return true;
 }
 
-
-bool previewImage::insertIntoImageFrame ( ScribusDoc *doc, PageItem *imageFrame )
+bool PreviewImage::insertIntoImageFrame(ScribusDoc* doc, PageItem* imageFrame)
 {
 	//inserting image
-	return imageFrame->loadImage ( fileInformation.absoluteFilePath(), false, -1, true );
+	return imageFrame->loadImage(fileInformation.absoluteFilePath(), false, -1, true);
 }
 
-
-previewImages::previewImages ( const QStringList& imageFiles )
+PreviewImages::PreviewImages(const QStringList& imageFiles)
 {
-	createPreviewImagesList ( imageFiles );
+	createPreviewImagesList(imageFiles);
 }
 
-
-void previewImages::createPreviewImagesList ( const QStringList& imageFiles )
+void PreviewImages::createPreviewImagesList(const QStringList& imageFiles)
 {
 	//if there are already previewimages allocated, remove them
-	if ( !previewImagesList.empty() )
+	if (!previewImagesList.empty())
 		clearPreviewImagesList();
 
-	if ( imageFiles.isEmpty() )
+	if (imageFiles.isEmpty())
 		return;
 
-
 	int s = imageFiles.size();
-	previewImage *tmpPreviewImage;
-
-	for ( int i = 0 ; i < s ; ++i )
+	for (int i = 0; i < s; ++i)
 	{
-		tmpPreviewImage = new previewImage ( imageFiles.at ( i ) );
-		previewImagesList.append ( tmpPreviewImage );
+		auto* tmpPreviewImage = new PreviewImage(imageFiles.at(i));
+		previewImagesList.append(tmpPreviewImage);
 	}
 }
 
-
-void previewImages::createPreviewImagesList ( const imageCollection *collection )
+void PreviewImages::createPreviewImagesList(const ImageCollection* collection)
 {
 	//if there are already previewimages allocated, remove them
 	if (!previewImagesList.empty())
@@ -140,42 +116,34 @@ void previewImages::createPreviewImagesList ( const imageCollection *collection 
 	if (collection->imageFiles.isEmpty())
 		return;
 
-
 	int s = collection->imageFiles.size();
-	previewImage *tmpPreviewImage;
-
-	for ( int i = 0 ; i < s ; ++i )
+	for (int i = 0; i < s; ++i)
 	{
-		tmpPreviewImage = new previewImage ( collection->imageFiles.at ( i ) );
-		tmpPreviewImage->tags = collection->tags.at ( i );
-		previewImagesList.append ( tmpPreviewImage );
+		auto* tmpPreviewImage = new PreviewImage(collection->imageFiles.at(i));
+		tmpPreviewImage->tags = collection->tags.at(i);
+		previewImagesList.append(tmpPreviewImage);
 	}
 }
 
-
-void previewImages::clearPreviewImagesList()
+void PreviewImages::clearPreviewImagesList()
 {
 	int s = previewImagesList.size();
 
-	for ( int i = 0 ; i < s ; ++i )
-	{
-		delete previewImagesList.at ( i );
-	}
-
+	for (int i = 0; i < s; ++i)
+		delete previewImagesList.at(i);
 	previewImagesList.clear();
 }
 
-
-bool previewImages::toRemove ( bool a, bool b )
+bool PreviewImages::toRemove(bool a, bool b)
 {
-	if ( a )
+	if (a)
 	{
-		if ( !b )
+		if (!b)
 		{
 			return true;
 		}
 	}
-	else if ( b )
+	else if (b)
 	{
 		return true;
 	}
@@ -183,106 +151,68 @@ bool previewImages::toRemove ( bool a, bool b )
 	return false;
 }
 
-
-void previewImages::filterFileName ( const QString &fileName, bool invert )
+void PreviewImages::filterFileName(const QString& fileName, bool invert)
 {
-	previewImage *tmpPreviewImage;
-	QRegExp rx ( fileName );
-//wildcardmode should be sufficient
-	rx.setPatternSyntax ( QRegExp::Wildcard );
+	QRegExp rx(fileName);
+	//wildcardmode should be sufficient
+	rx.setPatternSyntax(QRegExp::Wildcard);
 
-	for ( int i = 0 ; i < previewImagesList.size() ; ++i )
+	for (PreviewImage* tmpPreviewImage : previewImagesList)
 	{
-		tmpPreviewImage = previewImagesList.at ( i );
-
-		if ( toRemove ( rx.exactMatch ( tmpPreviewImage->fileInformation.fileName() ), invert ) )
-		{
+		if (toRemove(rx.exactMatch(tmpPreviewImage->fileInformation.fileName()), invert))
 			tmpPreviewImage->filtered = true;
-		}
 	}
 }
 
-
-void previewImages::filterFileSize ( qint64 fileSize, bool smallerThan )
+void PreviewImages::filterFileSize(qint64 fileSize, bool smallerThan)
 {
-	previewImage *tmpPreviewImage;
-
-	for ( int i = 0 ; i < previewImagesList.size() ; ++i )
+	for (PreviewImage* tmpPreviewImage : previewImagesList)
 	{
-		tmpPreviewImage = previewImagesList.at ( i );
-
-		if ( toRemove ( ( tmpPreviewImage->fileInformation.size() < fileSize ), smallerThan ) )
-		{
+		if (toRemove((tmpPreviewImage->fileInformation.size() < fileSize), smallerThan))
 			tmpPreviewImage->filtered = true;
-		}
 	}
 }
 
-
-void previewImages::filterFileType ( const QStringList &types, bool invert )
+void PreviewImages::filterFileType(const QStringList& types, bool invert)
 {
-	previewImage *tmpPreviewImage;
-
-	for ( int i = 0 ; i < previewImagesList.size() ; ++i )
+	for (PreviewImage* tmpPreviewImage : previewImagesList)
 	{
-		tmpPreviewImage = previewImagesList.at ( i );
-		QString type = QString ( "*." ) + tmpPreviewImage->fileInformation.suffix();
-
-		if ( toRemove ( ( types.contains ( type ) ), invert ) )
-		{
+		QString type = QString("*.") + tmpPreviewImage->fileInformation.suffix();
+		if (toRemove(types.contains(type), invert))
 			tmpPreviewImage->filtered = true;
-		}
 	}
 }
 
-
-void previewImages::filterFileModified ( const QDateTime &modified, bool smallerThan )
+void PreviewImages::filterFileModified(const QDateTime& modified, bool smallerThan)
 {
-	previewImage *tmpPreviewImage;
-
-	for ( int i = 0 ; i < previewImagesList.size() ; ++i )
+	for (PreviewImage* tmpPreviewImage : previewImagesList)
 	{
-		tmpPreviewImage = previewImagesList.at ( i );
-
-		if ( toRemove ( ( tmpPreviewImage->fileInformation.lastModified() < modified ), smallerThan ) )
-		{
+		if (toRemove((tmpPreviewImage->fileInformation.lastModified() < modified), smallerThan))
 			tmpPreviewImage->filtered = true;
-		}
 	}
 }
-
 
 //real image needs to be loaded for this info
-void previewImages::filterResolution ( qint64 resolution, bool smallerThan )
+void PreviewImages::filterResolution(qint64 resolution, bool smallerThan)
 {
-	previewImage *tmpPreviewImage;
-
-	for ( int i = 0 ; i < previewImagesList.size() ; ++i )
+	for (PreviewImage* tmpPreviewImage : previewImagesList)
 	{
-		tmpPreviewImage = previewImagesList.at ( i );
 		if (!tmpPreviewImage->imgInfo)
 			continue;
 		int imgResolution = qMin(tmpPreviewImage->imgInfo->xdpi, tmpPreviewImage->imgInfo->ydpi);
 
-		if ( toRemove ( ( imgResolution < resolution ), smallerThan ) )
-		{
+		if (toRemove((imgResolution < resolution), smallerThan))
 			tmpPreviewImage->filtered = true;
-		}
 	}
 }
 
-
-void previewImages::filterTag ( const QStringList &tags, bool invert )
+void PreviewImages::filterTag(const QStringList& tags, bool invert)
 {
-	previewImage *tmpPreviewImage;
-
-	for ( int i = 0 ; i < previewImagesList.size() ; ++i )
+	for (PreviewImage* tmpPreviewImage : previewImagesList)
 	{
-		tmpPreviewImage = previewImagesList.at ( i );
-
-		for ( int j = 0 ; j < tags.size() ; ++j )
+		for (const QString& tag : tags)
 		{
-			if ( toRemove ( tmpPreviewImage->tags.contains ( tags.at ( j ) ), invert ) )
+			if (toRemove(tmpPreviewImage->tags.contains(tag), invert))
 			{
 				tmpPreviewImage->filtered = true;
 				break;
@@ -291,154 +221,134 @@ void previewImages::filterTag ( const QStringList &tags, bool invert )
 	}
 }
 
-
-void previewImages::clearFilters()
+void PreviewImages::clearFilters()
 {
-	previewImage *tmpPreviewImage;
-
-	for ( int i = 0 ; i < previewImagesList.size() ; ++i )
-	{
-		tmpPreviewImage = previewImagesList.at ( i );
+	for (PreviewImage* tmpPreviewImage : previewImagesList)
 		tmpPreviewImage->filtered = false;
-	}
 }
 
-
-void previewImages::sortPreviewImages ( const int sort )
+void PreviewImages::sortPreviewImages(const int sort)
 {
-	if(previewImagesList.isEmpty())
+	if (previewImagesList.isEmpty())
 		return;
-	
-	switch ( sort )
+
+	switch (sort)
 	{
-			//sort by filename
-		case 0:
-			std::sort ( previewImagesList.begin(), previewImagesList.end(), comparePreviewImageFileName );
-			break;
+		//sort by filename
+	case 0:
+		std::sort(previewImagesList.begin(), previewImagesList.end(), comparePreviewImageFileName);
+		break;
 
-		case 1:
-			//sort by filedate
-			std::sort ( previewImagesList.begin(), previewImagesList.end(), comparePreviewImageFileType );
-			break;
+	case 1:
+		//sort by filedate
+		std::sort(previewImagesList.begin(), previewImagesList.end(), comparePreviewImageFileType);
+		break;
 
-		case 2:
-			//sort by filetype
-			std::sort ( previewImagesList.begin(), previewImagesList.end(), comparePreviewImageFileDate );
-			break;
+	case 2:
+		//sort by filetype
+		std::sort(previewImagesList.begin(), previewImagesList.end(), comparePreviewImageFileDate);
+		break;
 
-		case 3:
-			//sort by filesize
-			std::sort ( previewImagesList.begin(), previewImagesList.end(), comparePreviewImageFileSize );
-			break;
+	case 3:
+		//sort by filesize
+		std::sort(previewImagesList.begin(), previewImagesList.end(), comparePreviewImageFileSize);
+		break;
 
-		case 4:
-			//sort by imageresolution
-			std::sort ( previewImagesList.begin(), previewImagesList.end(), comparePreviewImageResolution );
-			break;
+	case 4:
+		//sort by imageresolution
+		std::sort(previewImagesList.begin(), previewImagesList.end(), comparePreviewImageResolution);
+		break;
 
-		default:
-			break;
-			//if a wrong argument was specified, sort by name
-			std::sort ( previewImagesList.begin(), previewImagesList.end(), comparePreviewImageFileName );
+	default:
+		break;
+		//if a wrong argument was specified, sort by name
+		std::sort(previewImagesList.begin(), previewImagesList.end(), comparePreviewImageFileName);
 	}
 }
 
-
-bool comparePreviewImageFileName ( const previewImage *i1, const previewImage *i2 )
+bool comparePreviewImageFileName(const PreviewImage* i1, const PreviewImage* i2)
 {
 	return i1->fileInformation.fileName() < i2->fileInformation.fileName();
 }
 
-
-bool comparePreviewImageFileType ( const previewImage *i1, const previewImage *i2 )
+bool comparePreviewImageFileType(const PreviewImage* i1, const PreviewImage* i2)
 {
 	return i1->fileInformation.suffix() < i2->fileInformation.suffix();
 }
 
-
-bool comparePreviewImageFileDate ( const previewImage *i1, const previewImage *i2 )
+bool comparePreviewImageFileDate(const PreviewImage* i1, const PreviewImage* i2)
 {
 	return i1->fileInformation.lastModified() < i2->fileInformation.lastModified();
 }
 
-
-bool comparePreviewImageFileSize ( const previewImage *i1, const previewImage *i2 )
+bool comparePreviewImageFileSize(const PreviewImage* i1, const PreviewImage* i2)
 {
 	return i1->fileInformation.size() < i2->fileInformation.size();
 }
 
 //real image needs to be loaded for this information!
-bool comparePreviewImageResolution ( const previewImage *i1, const previewImage *i2 )
+bool comparePreviewImageResolution(const PreviewImage* i1, const PreviewImage* i2)
 {
-//return (resolution) < (resolution);
+	//return (resolution) < (resolution);
 	return true;
 }
 
-
-PreviewImagesModel::PreviewImagesModel ( QObject *parent ) : QAbstractListModel ( parent )
+PreviewImagesModel::PreviewImagesModel(QObject* parent) : QAbstractListModel(parent)
 {
 }
 
-
-PreviewImagesModel::PreviewImagesModel ( PictureBrowser *parent ) : QAbstractListModel ( parent )
+PreviewImagesModel::PreviewImagesModel(PictureBrowser* parent) : QAbstractListModel(parent)
 {
 	pictureBrowser = parent;
-	pId = 0;
 
-	createDefaultIcon ( pictureBrowser->pbSettings.previewIconSize );
+	createDefaultIcon(pictureBrowser->pbSettings.previewIconSize);
 }
 
-
-void PreviewImagesModel::createDefaultIcon ( int size )
+void PreviewImagesModel::createDefaultIcon(int size)
 {
 	QPainter p;
 
-	defaultIcon = QPixmap ( size, size );
+	defaultIcon = QPixmap(size, size);
 
-	QBrush b ( QColor ( 205,205,205 ), IconManager::instance().loadPixmap( "testfill.png" ) );
+	QBrush b(QColor(205, 205, 205), IconManager::instance().loadPixmap("testfill.png"));
 
-	p.begin ( &defaultIcon );
+	p.begin(&defaultIcon);
 
-	p.setPen ( QPen ( Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin ) );
-	p.setBrush ( b );
-	p.drawRect ( 0, 0, size-1, size-1 );
+	p.setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
+	p.setBrush(b);
+	p.drawRect(0, 0, size - 1, size - 1);
 
 	p.end();
 
 	defaultIconSize = size;
 }
 
-
-void PreviewImagesModel::setModelItemsList ( const QList<previewImage *> &previewImagesList )
+void PreviewImagesModel::setModelItemsList(const QList<PreviewImage*>& previewImagesList)
 {
-//create new id
+	//create new id
 	pId++;
 
 	//if there are already items stored, remove them
-	if ( !modelItemsList.empty() )
+	if (!modelItemsList.empty())
 		clearModelItemsList();
 
 	pictureBrowser->imagesDisplayed = 0;
 	pictureBrowser->imagesFiltered = 0;
 
-	beginInsertRows ( QModelIndex(), 0, previewImagesList.size() );
+	beginInsertRows(QModelIndex(), 0, previewImagesList.size());
 
-	previewImage *tmpPreviewImage;
+	PreviewImage* tmpPreviewImage;
 
-	for ( int i = 0 ; i < previewImagesList.size() ; ++i )
+	for (int i = 0; i < previewImagesList.size(); ++i)
 	{
-		if ( ! ( pictureBrowser->pbSettings.sortOrder ) )
-		{
-			tmpPreviewImage = previewImagesList.at ( i );
-		}
+		if (!(pictureBrowser->pbSettings.sortOrder))
+			tmpPreviewImage = previewImagesList.at(i);
 		else
-		{
-			tmpPreviewImage = previewImagesList.at ( previewImagesList.size() - i - 1 );
-		}
+			tmpPreviewImage = previewImagesList.at(previewImagesList.size() - i - 1);
 
-		if ( ! ( tmpPreviewImage->filtered ) )
+		if (!(tmpPreviewImage->filtered))
 		{
-			modelItemsList.append ( tmpPreviewImage );
+			modelItemsList.append(tmpPreviewImage);
 			pictureBrowser->imagesDisplayed++;
 		}
 		else
@@ -450,69 +360,42 @@ void PreviewImagesModel::setModelItemsList ( const QList<previewImage *> &previe
 	endInsertRows();
 }
 
-
 void PreviewImagesModel::clearModelItemsList()
 {
-	beginRemoveRows ( QModelIndex(), 0, ( modelItemsList.size() - 1 ) );
+	beginRemoveRows(QModelIndex(), 0, modelItemsList.size() - 1);
 
 	modelItemsList.clear();
 
 	endRemoveRows();
 }
 
-
-QVariant PreviewImagesModel::data ( const QModelIndex &index, int role ) const
+QVariant PreviewImagesModel::data(const QModelIndex& index, int role) const
 {
-	if ( !index.isValid() )
-	{
+	if (!index.isValid())
 		return QVariant();
-	}
 
 	int row = index.row();
-	previewImage *tmpImage = modelItemsList.at ( row );
+	PreviewImage* tmpImage = modelItemsList.at(row);
 
-	if ( role == Qt::DecorationRole )
+	if (role == Qt::DecorationRole)
 	{
 		pictureBrowser->currentRow = row;
-/*
-		//preload icons before and after current icon
-		if ( ( row - pictureBrowser->previewIconsVisible ) >= 0 )
-		{
-			previewImage *tmpImage2 = modelItemsList.at ( row - pictureBrowser->previewIconsVisible );
 
-			if ( ( !tmpImage2->previewIconCreated ) && ( !tmpImage2->previewImageLoading ) )
-			{
-				tmpImage2->previewImageLoading = true;
-				pictureBrowser->callLoadImageThread ( row - pictureBrowser->previewIconsVisible, pId );
-			}
-		}
-
-		if ( ( row + pictureBrowser->previewIconsVisible ) < modelItemsList.size() )
+		if (!tmpImage->previewIconCreated)
 		{
-			previewImage *tmpImage3 = modelItemsList.at ( row + pictureBrowser->previewIconsVisible );
-
-			if ( ( !tmpImage3->previewIconCreated ) && ( !tmpImage3->previewImageLoading ) )
-			{
-				tmpImage3->previewImageLoading = true;
-				pictureBrowser->callLoadImageThread ( row + pictureBrowser->previewIconsVisible, pId );
-			}
-		}
-*/
-		if ( !tmpImage->previewIconCreated )
-		{
-			if ( !tmpImage->previewImageLoading )
+			if (!tmpImage->previewImageLoading)
 			{
 				tmpImage->previewImageLoading = true;
-				pictureBrowser->callLoadImageThread ( row, pId );
+				pictureBrowser->callLoadImageThread(row, pId);
 			}
 
-			return QIcon ( defaultIcon );
+			return QIcon(defaultIcon);
 		}
-		return QIcon ( tmpImage->previewIcon );
+		return QIcon(tmpImage->previewIcon);
 	}
-	if ( role == Qt::DisplayRole )
+	if (role == Qt::DisplayRole)
 	{
-		if ( pictureBrowser->pbSettings.previewMode == 1 )
+		if (pictureBrowser->pbSettings.previewMode == 1)
 			return tmpImage->fileInformation.fileName();
 		return QVariant();
 	}
@@ -520,24 +403,21 @@ QVariant PreviewImagesModel::data ( const QModelIndex &index, int role ) const
 	return QVariant();
 }
 
-
-Qt::ItemFlags PreviewImagesModel::flags ( const QModelIndex &index ) const
+Qt::ItemFlags PreviewImagesModel::flags(const QModelIndex& index) const
 {
-	if ( index.isValid() )
-		return ( Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsDragEnabled );
+	if (index.isValid())
+		return (Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsDragEnabled);
 
-//Qt modeltest requests 0 here
+	//Qt modeltest requests 0 here
 	return Qt::NoItemFlags;
 }
 
-
-int PreviewImagesModel::rowCount ( const QModelIndex &parent ) const
+int PreviewImagesModel::rowCount(const QModelIndex& parent) const
 {
-	if ( parent.isValid() )
+	if (parent.isValid())
 		return 0;
 	return modelItemsList.size();
 }
-
 
 QStringList PreviewImagesModel::mimeTypes() const
 {
@@ -546,69 +426,59 @@ QStringList PreviewImagesModel::mimeTypes() const
 	return types;
 }
 
-
-QMimeData *PreviewImagesModel::mimeData (const QModelIndexList &indexes) const
+QMimeData* PreviewImagesModel::mimeData(const QModelIndexList& indexes) const
 {
-	QMimeData *mimeData = new QMimeData();
-	int row;
+	QMimeData* mimeData = new QMimeData();
 	QList<QUrl> urls;
-	QString imageFile;
 
 	for (const QModelIndex& index : indexes)
 	{
-		if (index.isValid())
-		{
-			row = index.row();
+		if (!index.isValid())
+			continue;
 
-			if ((row >= 0) && (row < modelItemsList.size()))
-			{
-				imageFile = modelItemsList.at(row)->fileInformation.absoluteFilePath();
-				urls.append (QUrl::fromLocalFile(imageFile));
-			}
-		}
+		int row = index.row();
+		if ((row < 0) || (row >= modelItemsList.size()))
+			continue;
+
+		QString imageFile = modelItemsList.at(row)->fileInformation.absoluteFilePath();
+		urls.append(QUrl::fromLocalFile(imageFile));
 	}
 
-	mimeData->setUrls ( urls );
+	mimeData->setUrls(urls);
 	return mimeData;
 }
 
-
-void PreviewImagesModel::processLoadedImage ( int row, const QImage& image, ImageInformation* imgInfo, int tpId )
+void PreviewImagesModel::processLoadedImage(int row, const QImage& image, ImageInformation* imgInfo, int tpId)
 {
 	//check if list of files has changed and this job is obsolete
-	if ( tpId != pId )
-	{
+	if (tpId != pId)
 		return;
-	}
 
-//emit layoutAboutToBeChanged();
+	//emit layoutAboutToBeChanged();
 
-	previewImage *loadedImage = modelItemsList.at ( row );
+	PreviewImage* loadedImage = modelItemsList.at(row);
 	loadedImage->previewImageLoading = false;
-	loadedImage->createPreviewIcon ( image, pictureBrowser->pbSettings.previewIconSize );
+	loadedImage->createPreviewIcon(image, pictureBrowser->pbSettings.previewIconSize);
 
 	loadedImage->imgInfo = imgInfo;
 
-//emit layoutChanged();
+	//emit layoutChanged();
 
-	QModelIndex changedIndex = index ( row );
-	dataChanged ( changedIndex, changedIndex );
+	QModelIndex changedIndex = index(row);
+	dataChanged(changedIndex, changedIndex);
 }
 
-
-void PreviewImagesModel::processImageLoadError ( int row, int tpId, int errorcode )
+void PreviewImagesModel::processImageLoadError(int row, int tpId, int errorcode)
 {
 	//check if list of files has changed and this job is obsolete
-	if ( tpId != pId )
-	{
+	if (tpId != pId)
 		return;
-	}
 
-//emit layoutAboutToBeChanged();
+	//emit layoutAboutToBeChanged();
 
-	previewImage *loadedImage = modelItemsList.at ( row );
+	PreviewImage* loadedImage = modelItemsList.at(row);
 	loadedImage->previewImageLoading = false;
 
-//emit layoutChanged();
+	//emit layoutChanged();
 }
 

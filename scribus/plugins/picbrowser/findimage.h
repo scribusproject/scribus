@@ -25,7 +25,7 @@
 #include <QThread>
 
 //thread to search images in a folder and subfolders
-class findImagesThread : public QThread
+class FindImagesThread : public QThread
 {
 	Q_OBJECT
 
@@ -35,9 +35,10 @@ class findImagesThread : public QThread
 		//const QStringList& nameFilters2: namefilters for the images
 		//QDir::SortFlags sort2: sortflags
 		//bool searchSubfolders2: tells whether to search subfolders
-		findImagesThread ( const QString& path2, const QStringList& nameFilters2, QDir::SortFlags sort2, bool searchSubfolders2 );
+		FindImagesThread(const QString& path2, const QStringList& nameFilters2, QDir::SortFlags sort2, bool searchSubfolders2);
+
 		//called after thread has been started
-		void run();
+		void run() override;
 		//called when the thread should be restarted
 		void restart();
 
@@ -47,7 +48,7 @@ class findImagesThread : public QThread
 		//contains the images which have been found
 		QStringList imageFiles;
 		//tells whether the thread should restart
-		volatile bool restartThread;
+		volatile bool restartThread = false;
 
 	private:
 		//path to start searching
@@ -57,7 +58,7 @@ class findImagesThread : public QThread
 		//sortflags for search
 		QDir::SortFlags sort;
 		//tells whether to search subfolders
-		bool searchSubfolders;
+		bool searchSubfolders = false;
 };
 
 
