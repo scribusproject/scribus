@@ -33,7 +33,7 @@ collections::collections ( const QString& collectionsName )
 }
 
 
-collectionReaderThread::collectionReaderThread ( QString &xmlFile2, bool importCollection )
+collectionReaderThread::collectionReaderThread(const QString& xmlFile2, bool importCollection)
 {
 	categoriesCount = 0;
 	collection = nullptr;
@@ -47,49 +47,46 @@ collectionReaderThread::collectionReaderThread ( QString &xmlFile2, bool importC
 
 void collectionReaderThread::readFile()
 {
-	QFile inputFile ( xmlFile );
-
-	if ( !inputFile.open ( QFile::ReadOnly | QFile::Text ) )
-	{
+	QFile inputFile(xmlFile);
+	if (!inputFile.open(QFile::ReadOnly | QFile::Text))
 		return;
-	}
 
-	setDevice ( &inputFile );
+	setDevice(&inputFile);
 
-	while ( !atEnd() )
+	while (!atEnd())
 	{
 		readNext();
 
-		if ( isStartElement() )
+		if (!isStartElement())
+			continue;
+
+		if (name() == "picturebrowser")
 		{
-			if ( name() == "picturebrowser" )
+			//we have a collectionsdbfile
+			if (attributes().value("type") == "collectionsset")
 			{
-				//we have a collectionsdbfile
-				if ( attributes().value ( "type" ) == "collectionsset" )
+				readCollectionsDb();
+				type = 1;
+			}
+			//we have a collectionfile
+			else if (attributes().value("type") == "collection")
+			{
+				collection = new imageCollection;
+				collection->file = xmlFile;
+
+				QString name = attributes().value("name").toString();
+
+				if (!name.isEmpty())
 				{
-					readCollectionsDb();
-					type = 1;
+					collection->name = name;
 				}
-				//we have a collectionfile
-				else if ( attributes().value ( "type" ) == "collection" )
+				else
 				{
-					collection = new imageCollection;
-					collection->file = xmlFile;
-
-					QString name = attributes().value ( "name" ).toString();
-
-					if ( !name.isEmpty() )
-					{
-						collection->name = name;
-					}
-					else
-					{
-						collection->name = xmlFile;
-					}
-
-					readCollectionFile();
-					type = 2;
+					collection->name = xmlFile;
 				}
+
+				readCollectionFile();
+				type = 2;
 			}
 		}
 	}
@@ -98,22 +95,20 @@ void collectionReaderThread::readFile()
 
 void collectionReaderThread::readCollectionsDb()
 {
-	while ( !atEnd() )
+	while (!atEnd())
 	{
 		readNext();
 
-		if ( isEndElement() )
-		{
+		if (isEndElement())
 			break;
-		}
 
-		if ( isStartElement() )
+		if (isStartElement())
 		{
-			if ( name() == "category" )
+			if (name() == "category")
 			{
-				QString name = attributes().value ( "name" ).toString();
-				collections *tmpCollections = new collections ( name );
-				collectionsSet.append ( tmpCollections );
+				QString name = attributes().value("name").toString();
+				collections* tmpCollections = new collections(name);
+				collectionsSet.append(tmpCollections);
 
 				readCategory();
 
@@ -130,21 +125,19 @@ void collectionReaderThread::readCollectionsDb()
 
 void collectionReaderThread::readCollectionFile()
 {
-	while ( !atEnd() && !restartThread )
+	while (!atEnd() && !restartThread)
 	{
 		readNext();
 
-		if ( isEndElement() )
-		{
+		if (isEndElement())
 			break;
-		}
 
-		if ( isStartElement() )
+		if (isStartElement())
 		{
-			if ( name() == "image" )
+			if (name() == "image")
 			{
-				QString tmpImageFile = attributes().value ( "file" ).toString();
-				collection->imageFiles.append ( tmpImageFile );
+				QString tmpImageFile = attributes().value("file").toString();
+				collection->imageFiles.append(tmpImageFile);
 
 				readImage();
 			}
@@ -159,18 +152,16 @@ void collectionReaderThread::readCollectionFile()
 
 void collectionReaderThread::readCategory()
 {
-	while ( !atEnd() )
+	while (!atEnd())
 	{
 		readNext();
 
-		if ( isEndElement() )
-		{
+		if (isEndElement())
 			break;
-		}
 
-		if ( isStartElement() )
+		if (isStartElement())
 		{
-			if ( name() == "collection" )
+			if (name() == "collection")
 			{
 				readCollection();
 			}
@@ -196,21 +187,19 @@ void collectionReaderThread::readImage()
 {
 	QStringList tmpTags;
 
-	while ( !atEnd() && !restartThread )
+	while (!atEnd() && !restartThread)
 	{
 		readNext();
 
-		if ( isEndElement() )
-		{
+		if (isEndElement())
 			break;
-		}
 
-		if ( isStartElement() )
+		if (isStartElement())
 		{
-			if ( name() == "tag" )
+			if (name() == "tag")
 			{
 				//read tag here
-				tmpTags.append ( readElementText() );
+				tmpTags.append(readElementText());
 			}
 			else
 			{
@@ -219,22 +208,20 @@ void collectionReaderThread::readImage()
 		}
 	}
 
-	collection->tags.append ( tmpTags );
+	collection->tags.append(tmpTags);
 }
 
 
 void collectionReaderThread::readUnknownElement()
 {
-	while ( !atEnd() )
+	while (!atEnd())
 	{
 		readNext();
 
-		if ( isEndElement() )
-		{
+		if (isEndElement())
 			break;
-		}
 
-		if ( isStartElement() )
+		if (isStartElement())
 		{
 			readUnknownElement();
 		}
@@ -254,7 +241,7 @@ void collectionReaderThread::restart()
 }
 
 
-collectionListReaderThread::collectionListReaderThread ( QStringList &xmlFiles2 )
+collectionListReaderThread::collectionListReaderThread(const QStringList& xmlFiles2)
 {
 	m_clrt = nullptr;
 	restartThread = false;
@@ -265,14 +252,12 @@ collectionListReaderThread::collectionListReaderThread ( QStringList &xmlFiles2 
 
 void collectionListReaderThread::run()
 {
-	if ( xmlFiles.isEmpty() )
-	{
+	if (xmlFiles.isEmpty())
 		return;
-	}
 
-	xmlFile = xmlFiles.takeAt ( 0 );
-	m_clrt = new collectionReaderThread ( xmlFile, false );
-	connect ( m_clrt, SIGNAL ( finished() ), this, SLOT ( collectionReaderThreadFinished() ) );
+	xmlFile = xmlFiles.takeAt(0);
+	m_clrt = new collectionReaderThread(xmlFile, false);
+	connect(m_clrt, SIGNAL(finished()), this, SLOT(collectionReaderThreadFinished()));
 	m_clrt->start();
 
 	exec();
@@ -287,18 +272,18 @@ void collectionListReaderThread::restart()
 
 void collectionListReaderThread::collectionReaderThreadFinished()
 {
-	readCollections.append ( m_clrt->collection );
+	readCollections.append(m_clrt->collection);
 	delete m_clrt;
 
-	if ( xmlFiles.isEmpty() || restartThread )
+	if (xmlFiles.isEmpty() || restartThread)
 	{
 		quit();
 	}
 	else
 	{
-		xmlFile = xmlFiles.takeAt ( 0 );
-		m_clrt = new collectionReaderThread ( xmlFile, false );
-		connect ( m_clrt, SIGNAL ( finished() ), this, SLOT ( collectionReaderThreadFinished() ) );
+		xmlFile = xmlFiles.takeAt(0);
+		m_clrt = new collectionReaderThread(xmlFile, false);
+		connect(m_clrt, SIGNAL(finished()), this, SLOT(collectionReaderThreadFinished()));
 		m_clrt->start();
 	}
 }
@@ -314,27 +299,24 @@ collectionsWriterThread::collectionsWriterThread ( const QString& xmlFile2, QLis
 
 void collectionsWriterThread::writeFile()
 {
-	QFile outputFile ( xmlFile );
-
-	if ( !outputFile.open ( QFile::WriteOnly | QFile::Text ) )
-	{
+	QFile outputFile(xmlFile);
+	if (!outputFile.open(QFile::WriteOnly | QFile::Text))
 		return;
-	}
 
-	setDevice ( &outputFile );
+	setDevice(&outputFile);
 
 	writeStartDocument();
-	writeCharacters ( "\n" );
-//writeDTD("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-	writeStartElement ( "picturebrowser" );
+	writeCharacters("\n");
+	//writeDTD("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+	writeStartElement("picturebrowser");
 
-	writeAttribute ( "type", "collectionsset" );
+	writeAttribute("type", "collectionsset");
 
-	writeCharacters ( "\n" );
+	writeCharacters("\n");
 
-	for ( int i = 0 ; i < saveCollections.size() && !restartThread ; ++i )
+	for (int i = 0; i < saveCollections.size() && !restartThread; ++i)
 	{
-		writeCategory ( saveCollections.at ( i ) );
+		writeCategory(saveCollections.at(i));
 	}
 
 	writeEndDocument();
@@ -343,29 +325,29 @@ void collectionsWriterThread::writeFile()
 
 void collectionsWriterThread::writeCategory ( const collections *category )
 {
-	writeStartElement ( "category" );
-	writeAttribute ( "name", category->name );
-	writeCharacters ( "\n" );
+	writeStartElement("category");
+	writeAttribute("name", category->name);
+	writeCharacters("\n");
 
-	for ( int i = 0 ; i < category->collectionNames.size() && !restartThread ; ++i )
+	for (int i = 0; i < category->collectionNames.size() && !restartThread; ++i)
 	{
-		writeCollection ( category->collectionNames.at ( i ), category->collectionFiles.at ( i ) );
+		writeCollection(category->collectionNames.at(i), category->collectionFiles.at(i));
 	}
 
 	writeEndElement();
-	writeCharacters ( "\n" );
+	writeCharacters("\n");
 }
 
 
 void collectionsWriterThread::writeCollection ( const QString &collectionName, const QString &collectionFile )
 {
-	writeStartElement ( "collection" );
-	writeAttribute ( "file", collectionFile );
+	writeStartElement("collection");
+	writeAttribute("file", collectionFile);
 
-	writeCharacters ( collectionName );
+	writeCharacters(collectionName);
 
 	writeEndElement();
-	writeCharacters ( "\n" );
+	writeCharacters("\n");
 }
 
 
@@ -381,8 +363,7 @@ void collectionsWriterThread::restart()
 }
 
 
-
-collectionWriterThread::collectionWriterThread ( QString &xmlFile2, imageCollection &saveCollection2 )
+collectionWriterThread::collectionWriterThread(const QString& xmlFile2, const imageCollection& saveCollection2)
 {
 	xmlFile = xmlFile2;
 	saveCollection = saveCollection2;
@@ -391,61 +372,58 @@ collectionWriterThread::collectionWriterThread ( QString &xmlFile2, imageCollect
 
 void collectionWriterThread::writeFile()
 {
-	QFile outputFile ( xmlFile );
-
-	if ( !outputFile.open ( QFile::WriteOnly | QFile::Text ) )
-	{
+	QFile outputFile(xmlFile);
+	if (!outputFile.open(QFile::WriteOnly | QFile::Text))
 		return;
-	}
 
-	setDevice ( &outputFile );
+	setDevice(&outputFile);
 
 	writeStartDocument();
-	writeCharacters ( "\n" );
-//writeDTD("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-	writeStartElement ( "picturebrowser" );
+	writeCharacters("\n");
+	//writeDTD("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+	writeStartElement("picturebrowser");
 
-	writeAttribute ( "type", "collection" );
+	writeAttribute("type", "collection");
 
-	if ( !saveCollection.name.isEmpty() )
+	if (!saveCollection.name.isEmpty())
 	{
-		writeAttribute ( "name", saveCollection.name );
+		writeAttribute("name", saveCollection.name);
 	}
 
-	writeCharacters ( "\n" );
+	writeCharacters("\n");
 
-	for ( int i = 0 ; i < saveCollection.imageFiles.size() ; ++i )
+	for (int i = 0; i < saveCollection.imageFiles.size(); ++i)
 	{
-		writeImage ( saveCollection.imageFiles.at ( i ), saveCollection.tags.at ( i ) );
+		writeImage(saveCollection.imageFiles.at(i), saveCollection.tags.at(i));
 	}
 
 	writeEndDocument();
 }
 
 
-void collectionWriterThread::writeImage ( const QString &imageFile, const QStringList &tags )
+void collectionWriterThread::writeImage(const QString& imageFile, const QStringList& tags)
 {
-	writeStartElement ( "image" );
-	writeAttribute ( "file", imageFile );
-	writeCharacters ( "\n" );
+	writeStartElement("image");
+	writeAttribute("file", imageFile);
+	writeCharacters("\n");
 
-	writeTags ( tags );
+	writeTags(tags);
 
 	writeEndElement();
-	writeCharacters ( "\n" );
+	writeCharacters("\n");
 }
 
 
-void collectionWriterThread::writeTags ( const QStringList &tags )
+void collectionWriterThread::writeTags(const QStringList& tags)
 {
-	for ( int i = 0 ; i < tags.size() ; ++i )
+	for (int i = 0; i < tags.size(); ++i)
 	{
-		writeStartElement ( "tag" );
+		writeStartElement("tag");
 
-		writeCharacters ( tags.at ( i ) );
+		writeCharacters(tags.at(i));
 
 		writeEndElement();
-		writeCharacters ( "\n" );
+		writeCharacters("\n");
 	}
 }
 
@@ -454,6 +432,3 @@ void collectionWriterThread::run()
 {
 	writeFile();
 }
-
-
-
