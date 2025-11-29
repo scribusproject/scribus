@@ -18,8 +18,7 @@
 
 #include "findimage.h"
 
-
-findImagesThread::findImagesThread ( const QString& path2, const QStringList& nameFilters2, QDir::SortFlags sort2, bool searchSubfolders2 )
+FindImagesThread::FindImagesThread(const QString& path2, const QStringList& nameFilters2, QDir::SortFlags sort2, bool searchSubfolders2)
 {
 	restartThread = false;
 
@@ -29,46 +28,39 @@ findImagesThread::findImagesThread ( const QString& path2, const QStringList& na
 	searchSubfolders = searchSubfolders2;
 }
 
-
-void findImagesThread::run()
+void FindImagesThread::run()
 {
-	findFiles ( startPath );
+	findFiles(startPath);
 }
 
-
-void findImagesThread::restart()
+void FindImagesThread::restart()
 {
 	restartThread = true;
 }
 
-
-void findImagesThread::findFiles ( const QString& path )
+void FindImagesThread::findFiles(const QString& path)
 {
-	QDir dir ( path );
+	QDir dir(path);
+	if (!dir.exists())
+		return;
 
-	if ( dir.exists() )
+	dir.setFilter(QDir::AllDirs | QDir::Drives | QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks | QDir::Hidden);
+	dir.setNameFilters(nameFilters);
+	dir.setSorting(sort);
+
+	QFileInfoList list = dir.entryInfoList();
+
+	for (int i = 0; (i < list.size()) && (!restartThread); ++i)
 	{
-		QFileInfoList list;
-		dir.setFilter ( QDir::AllDirs|QDir::Drives|QDir::Files|QDir::NoDotAndDotDot|QDir::NoSymLinks|QDir::Hidden );
-		dir.setNameFilters ( nameFilters );
-		dir.setSorting ( sort );
-
-		list = dir.entryInfoList();
-
-		for ( int i = 0 ; ( i < list.size() ) && ( !restartThread ) ; ++i )
+		const QFileInfo& fileInfo = list.at(i);
+		if (fileInfo.isDir())
 		{
-			const QFileInfo& fileInfo = list.at ( i );
-			if ( fileInfo.isDir() )
-			{
-				if ( searchSubfolders )
-					findFiles ( fileInfo.canonicalFilePath() );
-			}
-			else
-			{
-				imageFiles.append ( fileInfo.canonicalFilePath() );
-			}
+			if (searchSubfolders)
+				findFiles(fileInfo.canonicalFilePath());
+		}
+		else
+		{
+			imageFiles.append(fileInfo.canonicalFilePath());
 		}
 	}
 }
-
-

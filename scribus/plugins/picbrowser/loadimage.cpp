@@ -16,7 +16,6 @@
 *
 ******************************************************************/
 
-
 #include "loadimage.h"
 #include "previewimage.h"
 #include "picturebrowser.h"
@@ -28,7 +27,7 @@
 
 #include <QMetaType>
 
-loadImagesThread::loadImagesThread ( PictureBrowser *parent, PreviewImagesModel *parentModel )
+LoadImagesThread::LoadImagesThread(PictureBrowser* parent, PreviewImagesModel* parentModel)
 {
 	mutex.lock();
 	pictureBrowser = parent;
@@ -36,44 +35,27 @@ loadImagesThread::loadImagesThread ( PictureBrowser *parent, PreviewImagesModel 
 	mutex.unlock();
 }
 
-
-void loadImagesThread::run()
+void LoadImagesThread::run()
 {
-//	loadImagesThreadInstance help;
+	//register types for slots and signals
+	qRegisterMetaType<PreviewImage*>("PreviewImage*");
+	qRegisterMetaType<ImageInformation*>("ImageInformation*");
+	qRegisterMetaType<QImage>("QImage");
 
-//	help.pictureBrowser = pictureBrowser;
-//	help.pModel = pModel;
-
-//register types for slots and signals
-	qRegisterMetaType<previewImage *> ( "previewImage*" );
-	qRegisterMetaType<ImageInformation *> ( "ImageInformation*" );
-	qRegisterMetaType<QImage> ( "QImage" );
-
-//	connect(&help, SIGNAL(imageLoaded(int, const QImage, ImageInformation*, int) ), pModel, SLOT(processLoadedImage(int, const QImage, ImageInformation*, int)), Qt::QueuedConnection);
-//	connect(&help, SIGNAL(imageLoadError(int, int, int)), pModel, SLOT(processImageLoadError(int, int, int)), Qt::QueuedConnection);
-//	connect(pictureBrowser, SIGNAL(loadImageJob(int, QString, int, int)), &help, SLOT(processLoadImageJob(int, QString, int, int)), Qt::QueuedConnection);
-
-	connect(this, SIGNAL(imageLoaded(int,QImage,ImageInformation*,int)), pModel, SLOT(processLoadedImage(int,QImage,ImageInformation*,int)), Qt::QueuedConnection);
-	connect(this, SIGNAL(imageLoadError(int,int,int)), pModel, SLOT(processImageLoadError(int,int,int)), Qt::QueuedConnection);
-	connect(pictureBrowser, SIGNAL(loadImageJob(int,QString,int,int)), this, SLOT(processLoadImageJob(int,QString,int,int)), Qt::QueuedConnection);
+	connect(this, SIGNAL(imageLoaded(int, QImage, ImageInformation*, int)), pModel, SLOT(processLoadedImage(int, QImage, ImageInformation*, int)), Qt::QueuedConnection);
+	connect(this, SIGNAL(imageLoadError(int, int, int)), pModel, SLOT(processImageLoadError(int, int, int)), Qt::QueuedConnection);
+	connect(pictureBrowser, SIGNAL(loadImageJob(int, QString, int, int)), this, SLOT(processLoadImageJob(int, QString, int, int)), Qt::QueuedConnection);
 	exec();
 }
 
-/*
-loadImagesThreadInstance::loadImagesThreadInstance()
-{
-}
-*/
-void loadImagesThread::processLoadImageJob(int row, const QString& path, int size, int tpId)
+void LoadImagesThread::processLoadImageJob(int row, const QString& path, int size, int tpId)
 {
 	ScImageCacheManager &icm = ScImageCacheManager::instance();
 	bool cacheEnabled = icm.enabled();
 	icm.setEnabled(false);
 	//check if list of files has changed and this job is obsolete
 	if (pModel->pId != tpId)
-	{
 		return;
-	}
 
 	if (qAbs (row - pictureBrowser->currentRow) > (2 * pictureBrowser->previewIconsVisible))
 	{

@@ -12,52 +12,51 @@ for which a new license (GPL+exception) is in place.
 #include <QListView>
 #include <QStandardItemModel>
 
+class MultiCombobox;
 class QEvent;
-class QObject;
 class QModelIndex;
+class QObject;
 class QWidget;
-class multiCombobox;
 
-class multiComboboxModel : public QStandardItemModel
+class MultiComboboxModel : public QStandardItemModel
 {
 	Q_OBJECT
 	public:
-		multiComboboxModel ( QObject* parent = nullptr );
-		Qt::ItemFlags flags ( const QModelIndex& index ) const;
+		explicit MultiComboboxModel(QObject* parent = nullptr);
+		Qt::ItemFlags flags(const QModelIndex& index) const override;
 };
 
-
-class multiView : public QListView
+class MultiView : public QListView
 {
 	Q_OBJECT
 	public:
-		multiView ( QWidget* parent = nullptr );
-		multiView ( multiCombobox* parent );
+		explicit MultiView(QWidget* parent = nullptr);
+		explicit MultiView(MultiCombobox* parent);
+
 		bool eventFilter(QObject* object, QEvent* event) override;
 
 	private:
-		multiCombobox *parentMcb { nullptr };
+		MultiCombobox *parentMcb { nullptr };
 };
 
-
-class multiCombobox : public QComboBox
+class MultiCombobox : public QComboBox
 {
 	Q_OBJECT
 	public:
-		multiCombobox ( QWidget* parent = nullptr );
+		explicit MultiCombobox(QWidget* parent = nullptr);
 
-		void setCheckstate ( int index, int checked );
-		int checkstate ( int index );
-		void switchCheckstate ( int row );
+		int  checkState(int index) const;
+		void setCheckState(int index, int checked);
+		void switchCheckState(int row);
 
-		int addItem ( const QString& text, int checked=0 );
+		int addItem(const QString& text, int checked = 0);
 
 	private:
-		multiComboboxModel *mcbModel { nullptr };
-		multiView *mcbView { nullptr };
+		MultiComboboxModel *mcbModel { nullptr };
+		MultiView *mcbView { nullptr };
 
 	signals:
-		void checkstateChanged ( int );
+		void checkStateChanged(int);
 };
 
 #endif

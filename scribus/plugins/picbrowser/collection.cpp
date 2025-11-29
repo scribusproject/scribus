@@ -18,22 +18,14 @@
 
 #include "collection.h"
 
-
 #include <QFile>
 
-
-imageCollection::imageCollection()
-{
-}
-
-
-collections::collections ( const QString& collectionsName )
+Collections::Collections(const QString& collectionsName)
 {
 	name = collectionsName;
 }
 
-
-collectionReaderThread::collectionReaderThread(const QString& xmlFile2, bool importCollection)
+CollectionReaderThread::CollectionReaderThread(const QString& xmlFile2, bool importCollection)
 {
 	categoriesCount = 0;
 	collection = nullptr;
@@ -44,8 +36,7 @@ collectionReaderThread::collectionReaderThread(const QString& xmlFile2, bool imp
 	import = importCollection;
 }
 
-
-void collectionReaderThread::readFile()
+void CollectionReaderThread::readFile()
 {
 	QFile inputFile(xmlFile);
 	if (!inputFile.open(QFile::ReadOnly | QFile::Text))
@@ -71,19 +62,14 @@ void collectionReaderThread::readFile()
 			//we have a collectionfile
 			else if (attributes().value("type") == QLatin1String("collection"))
 			{
-				collection = new imageCollection;
+				collection = new ImageCollection;
 				collection->file = xmlFile;
 
 				QString name = attributes().value("name").toString();
-
 				if (!name.isEmpty())
-				{
 					collection->name = name;
-				}
 				else
-				{
 					collection->name = xmlFile;
-				}
 
 				readCollectionFile();
 				type = 2;
@@ -92,8 +78,7 @@ void collectionReaderThread::readFile()
 	}
 }
 
-
-void collectionReaderThread::readCollectionsDb()
+void CollectionReaderThread::readCollectionsDb()
 {
 	while (!atEnd())
 	{
@@ -107,7 +92,7 @@ void collectionReaderThread::readCollectionsDb()
 			if (name() == QLatin1String("category"))
 			{
 				QString name = attributes().value("name").toString();
-				collections* tmpCollections = new collections(name);
+				Collections* tmpCollections = new Collections(name);
 				collectionsSet.append(tmpCollections);
 
 				readCategory();
@@ -122,8 +107,7 @@ void collectionReaderThread::readCollectionsDb()
 	}
 }
 
-
-void collectionReaderThread::readCollectionFile()
+void CollectionReaderThread::readCollectionFile()
 {
 	while (!atEnd() && !restartThread)
 	{
@@ -149,8 +133,7 @@ void collectionReaderThread::readCollectionFile()
 	}
 }
 
-
-void collectionReaderThread::readCategory()
+void CollectionReaderThread::readCategory()
 {
 	while (!atEnd())
 	{
@@ -173,17 +156,15 @@ void collectionReaderThread::readCategory()
 	}
 }
 
-
-void collectionReaderThread::readCollection()
+void CollectionReaderThread::readCollection()
 {
-	collections *tmpCollections = collectionsSet.at ( categoriesCount );
+	Collections *tmpCollections = collectionsSet.at ( categoriesCount );
 
 	tmpCollections->collectionFiles.append ( attributes().value ( "file" ).toString() );
 	tmpCollections->collectionNames.append ( readElementText() );
 }
 
-
-void collectionReaderThread::readImage()
+void CollectionReaderThread::readImage()
 {
 	QStringList tmpTags;
 
@@ -211,8 +192,7 @@ void collectionReaderThread::readImage()
 	collection->tags.append(tmpTags);
 }
 
-
-void collectionReaderThread::readUnknownElement()
+void CollectionReaderThread::readUnknownElement()
 {
 	while (!atEnd())
 	{
@@ -228,20 +208,17 @@ void collectionReaderThread::readUnknownElement()
 	}
 }
 
-
-void collectionReaderThread::run()
+void CollectionReaderThread::run()
 {
 	readFile();
 }
 
-
-void collectionReaderThread::restart()
+void CollectionReaderThread::restart()
 {
 	restartThread = true;
 }
 
-
-collectionListReaderThread::collectionListReaderThread(const QStringList& xmlFiles2)
+CollectionListReaderThread::CollectionListReaderThread(const QStringList& xmlFiles2)
 {
 	m_clrt = nullptr;
 	restartThread = false;
@@ -249,28 +226,25 @@ collectionListReaderThread::collectionListReaderThread(const QStringList& xmlFil
 	xmlFiles = xmlFiles2;
 }
 
-
-void collectionListReaderThread::run()
+void CollectionListReaderThread::run()
 {
 	if (xmlFiles.isEmpty())
 		return;
 
 	xmlFile = xmlFiles.takeAt(0);
-	m_clrt = new collectionReaderThread(xmlFile, false);
+	m_clrt = new CollectionReaderThread(xmlFile, false);
 	connect(m_clrt, SIGNAL(finished()), this, SLOT(collectionReaderThreadFinished()));
 	m_clrt->start();
 
 	exec();
 }
 
-
-void collectionListReaderThread::restart()
+void CollectionListReaderThread::restart()
 {
 	restartThread = true;
 }
 
-
-void collectionListReaderThread::collectionReaderThreadFinished()
+void CollectionListReaderThread::collectionReaderThreadFinished()
 {
 	readCollections.append(m_clrt->collection);
 	delete m_clrt;
@@ -282,22 +256,20 @@ void collectionListReaderThread::collectionReaderThreadFinished()
 	else
 	{
 		xmlFile = xmlFiles.takeAt(0);
-		m_clrt = new collectionReaderThread(xmlFile, false);
+		m_clrt = new CollectionReaderThread(xmlFile, false);
 		connect(m_clrt, SIGNAL(finished()), this, SLOT(collectionReaderThreadFinished()));
 		m_clrt->start();
 	}
 }
 
-
-collectionsWriterThread::collectionsWriterThread ( const QString& xmlFile2, const QList<collections *>& saveCollections2 )
+CollectionsWriterThread::CollectionsWriterThread(const QString& xmlFile2, const QList<Collections *>& saveCollections2)
 {
 	xmlFile = xmlFile2;
 	saveCollections = saveCollections2;
 	restartThread = false;
 }
 
-
-void collectionsWriterThread::writeFile()
+void CollectionsWriterThread::writeFile()
 {
 	QFile outputFile(xmlFile);
 	if (!outputFile.open(QFile::WriteOnly | QFile::Text))
@@ -322,8 +294,7 @@ void collectionsWriterThread::writeFile()
 	writeEndDocument();
 }
 
-
-void collectionsWriterThread::writeCategory ( const collections *category )
+void CollectionsWriterThread::writeCategory(const Collections *category)
 {
 	writeStartElement("category");
 	writeAttribute("name", category->name);
@@ -338,8 +309,7 @@ void collectionsWriterThread::writeCategory ( const collections *category )
 	writeCharacters("\n");
 }
 
-
-void collectionsWriterThread::writeCollection ( const QString &collectionName, const QString &collectionFile )
+void CollectionsWriterThread::writeCollection ( const QString &collectionName, const QString &collectionFile )
 {
 	writeStartElement("collection");
 	writeAttribute("file", collectionFile);
@@ -350,27 +320,23 @@ void collectionsWriterThread::writeCollection ( const QString &collectionName, c
 	writeCharacters("\n");
 }
 
-
-void collectionsWriterThread::run()
+void CollectionsWriterThread::run()
 {
 	writeFile();
 }
 
-
-void collectionsWriterThread::restart()
+void CollectionsWriterThread::restart()
 {
 	restartThread = true;
 }
 
-
-collectionWriterThread::collectionWriterThread(const QString& xmlFile2, const imageCollection& saveCollection2)
+CollectionWriterThread::CollectionWriterThread(const QString& xmlFile2, const ImageCollection& saveCollection2)
 {
 	xmlFile = xmlFile2;
 	saveCollection = saveCollection2;
 }
 
-
-void collectionWriterThread::writeFile()
+void CollectionWriterThread::writeFile()
 {
 	QFile outputFile(xmlFile);
 	if (!outputFile.open(QFile::WriteOnly | QFile::Text))
@@ -400,8 +366,7 @@ void collectionWriterThread::writeFile()
 	writeEndDocument();
 }
 
-
-void collectionWriterThread::writeImage(const QString& imageFile, const QStringList& tags)
+void CollectionWriterThread::writeImage(const QString& imageFile, const QStringList& tags)
 {
 	writeStartElement("image");
 	writeAttribute("file", imageFile);
@@ -413,8 +378,7 @@ void collectionWriterThread::writeImage(const QString& imageFile, const QStringL
 	writeCharacters("\n");
 }
 
-
-void collectionWriterThread::writeTags(const QStringList& tags)
+void CollectionWriterThread::writeTags(const QStringList& tags)
 {
 	for (int i = 0; i < tags.size(); ++i)
 	{
@@ -427,8 +391,7 @@ void collectionWriterThread::writeTags(const QStringList& tags)
 	}
 }
 
-
-void collectionWriterThread::run()
+void CollectionWriterThread::run()
 {
 	writeFile();
 }

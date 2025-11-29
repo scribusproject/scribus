@@ -26,12 +26,9 @@
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 
-class imageCollection
+class ImageCollection
 {
 	public:
-		//creates collection object setting name and file
-		imageCollection();
-
 		//name of the collection
 		QString name;
 		//path to the collectionfile
@@ -42,13 +39,12 @@ class imageCollection
 		QList<QStringList> tags;
 };
 
-
 //manages a set of collections
-class collections
+class Collections
 {
 	public:
 		//sets name
-		collections(const QString& collectionsName);
+		explicit Collections(const QString& collectionsName);
 
 		//contains name of the collections
 		QString name;
@@ -57,13 +53,12 @@ class collections
 		QStringList collectionFiles;
 };
 
-
 //a thread to read collectionfiles
-class collectionReaderThread : public QXmlStreamReader, public QThread
+class CollectionReaderThread : public QXmlStreamReader, public QThread
 {
 	public:
 		//set file to read
-		collectionReaderThread(const QString& xmlFile2, bool importCollection);
+		CollectionReaderThread(const QString& xmlFile2, bool importCollection);
 
 		//starts reading the file
 		void readFile();
@@ -77,9 +72,9 @@ class collectionReaderThread : public QXmlStreamReader, public QThread
 		volatile bool restartThread { false };
 
 		//hierarchy for collectionsbrowser qtreewidget
-		QList<collections *> collectionsSet;
+		QList<Collections *> collectionsSet;
 		//contains the images read from the file
-		imageCollection *collection { nullptr };
+		ImageCollection *collection { nullptr };
 
 		//tells which filetype it was, 0 for collectionsset, 1 for collection
 		int type { 0 };
@@ -110,14 +105,13 @@ class collectionReaderThread : public QXmlStreamReader, public QThread
 		int categoriesCount { 0 };
 };
 
-
-class collectionListReaderThread : public QThread
+class CollectionListReaderThread : public QThread
 {
 		Q_OBJECT
 
 	public:
 		//set files to read
-		collectionListReaderThread(const QStringList& xmlFiles2);
+		explicit CollectionListReaderThread(const QStringList& xmlFiles2);
 
 		//is executed after starting the thread
 		void run() override;
@@ -130,26 +124,25 @@ class collectionListReaderThread : public QThread
 		QString xmlFile;
 		QStringList xmlFiles;
 
-		QList<imageCollection *> readCollections;
+		QList<ImageCollection *> readCollections;
 
 	private slots:
 		void collectionReaderThreadFinished();
 
 	private:
-		collectionReaderThread *m_clrt { nullptr };
+		CollectionReaderThread *m_clrt { nullptr };
 };
 
-
 //thread to write a collectionssetfile
-class collectionsWriterThread : public QXmlStreamWriter, public QThread
+class CollectionsWriterThread : public QXmlStreamWriter, public QThread
 {
 	public:
 		//sets initial values
 		//parameters:
 		//QString &xmlFile2: the file to write
 		//int fileType: the type of file, 0 for collectionfile, 1 for collectionsdb
-		//QList<collections *> saveCollections2: the collectionsset to write to the file
-		collectionsWriterThread(const QString& xmlFile2, const QList<collections*>& saveCollections2);
+		//QList<Collections *> saveCollections2: the collectionsset to write to the file
+		CollectionsWriterThread(const QString& xmlFile2, const QList<Collections*>& saveCollections2);
 
 		//starts writing to the file
 		void writeFile();
@@ -164,26 +157,25 @@ class collectionsWriterThread : public QXmlStreamWriter, public QThread
 
 	private:
 		//writes a category into a collectionssetfile
-		void writeCategory(const collections *category);
+		void writeCategory(const Collections *category);
 		//writes a collection into a collectionssetfile
 		void writeCollection(const QString& collectionName, const QString& collectionFile);
 
 		//contains the path to the output file
 		QString xmlFile;
 		//the collection to write into a collectionfile
-		QList<collections *> saveCollections;
+		QList<Collections *> saveCollections;
 };
 
-
 //thread to write a collectionfile
-class collectionWriterThread : public QXmlStreamWriter, public QThread
+class CollectionWriterThread : public QXmlStreamWriter, public QThread
 {
 	public:
 		//sets initial values
 		//parameters:
 		//QString &xmlFile2: the file to write
-		//imageCollection *saveCollection2: the collection to write to the file
-		collectionWriterThread(const QString& xmlFile2, const imageCollection& saveCollection2);
+		//ImageCollection *saveCollection2: the collection to write to the file
+		CollectionWriterThread(const QString& xmlFile2, const ImageCollection& saveCollection2);
 		//starts writing to the file
 		void writeFile();
 
@@ -198,7 +190,7 @@ class collectionWriterThread : public QXmlStreamWriter, public QThread
 		//contains the path to the output file
 		QString xmlFile;
 		//the collection to write into a collectionfile
-		imageCollection saveCollection;
+		ImageCollection saveCollection;
 };
 
 #endif // COLLECTION_H

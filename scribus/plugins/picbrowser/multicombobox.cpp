@@ -10,61 +10,50 @@ for which a new license (GPL+exception) is in place.
 #include <QObject>
 #include <QWidget>
 
-
-multiComboboxModel::multiComboboxModel ( QObject* parent ) : QStandardItemModel ( parent )
+MultiComboboxModel::MultiComboboxModel(QObject* parent) : QStandardItemModel(parent)
 {
-	insertColumn ( 0 );
+	insertColumn(0);
 }
 
-Qt::ItemFlags multiComboboxModel::flags ( const QModelIndex& index ) const
+Qt::ItemFlags MultiComboboxModel::flags(const QModelIndex& index) const
 {
-	return QStandardItemModel::flags ( index ) | Qt::ItemIsUserCheckable;
+	return QStandardItemModel::flags(index) | Qt::ItemIsUserCheckable;
 }
 
-
-multiView::multiView ( QWidget* parent ) : QListView ( parent )
+MultiView::MultiView(QWidget* parent) : QListView(parent)
 {
 	parentMcb = nullptr;
 }
 
-
-multiView::multiView ( multiCombobox* parent ) : QListView ( parent )
+MultiView::MultiView(MultiCombobox* parent) : QListView(parent)
 {
 	parentMcb = parent;
 }
 
-
-bool multiView::eventFilter ( QObject* object, QEvent* event )
+bool MultiView::eventFilter(QObject* object, QEvent* event)
 {
-	if ( event->type() == QEvent::MouseButtonRelease )
+	if (event->type() == QEvent::MouseButtonRelease)
 	{
-		QMouseEvent* mouse = static_cast<QMouseEvent*> ( event );
-		QModelIndex index = indexAt ( mouse->pos() );
+		QMouseEvent* mouse = static_cast<QMouseEvent*> (event);
+		QModelIndex index = indexAt(mouse->pos());
 
-		if ( index.isValid() )
+		if (index.isValid())
 		{
 			QModelIndexList selectedList = selectedIndexes();
-
-			for ( int i = 0 ; i < selectedList.size() ; ++i )
-			{
-				parentMcb->switchCheckstate ( selectedList.at ( i ).row() );
-			}
+			for (QModelIndex selectedIndex : selectedList)
+				parentMcb->switchCheckState(selectedIndex.row());
 			return true;
 		}
 	}
-	else if ( event->type() == QEvent::KeyPress )
+	else if (event->type() == QEvent::KeyPress)
 	{
-		QKeyEvent* key = static_cast<QKeyEvent*> ( event );
+		QKeyEvent* key = static_cast<QKeyEvent*>(event);
 
-		if ( ( key->key() == Qt::Key_Return ) || ( key->key() == Qt::Key_Enter ) )
+		if ((key->key() == Qt::Key_Return) || (key->key() == Qt::Key_Enter))
 		{
 			QModelIndexList selectedList = selectedIndexes();
-
-			for ( int i = 0 ; i < selectedList.size() ; ++i )
-			{
-				parentMcb->switchCheckstate ( selectedList.at ( i ).row() );
-			}
-
+			for (QModelIndex selectedIndex : selectedList)
+				parentMcb->switchCheckState(selectedIndex.row());
 			return true;
 		}
 	}
@@ -72,91 +61,65 @@ bool multiView::eventFilter ( QObject* object, QEvent* event )
 	return false;
 }
 
-
-
-multiCombobox::multiCombobox ( QWidget *parent ) : QComboBox ( parent )
+MultiCombobox::MultiCombobox(QWidget* parent) : QComboBox(parent)
 {
-	mcbModel = new multiComboboxModel ( this );
-	mcbView = new multiView ( this );
+	mcbModel = new MultiComboboxModel(this);
+	mcbView = new MultiView(this);
 
-	setModel ( mcbModel );
-	setView ( mcbView );
+	setModel(mcbModel);
+	setView(mcbView);
 
-	mcbView->installEventFilter ( mcbView );
-	mcbView->viewport()->installEventFilter ( mcbView );
+	mcbView->installEventFilter(mcbView);
+	mcbView->viewport()->installEventFilter(mcbView);
 
-//setEditable(true);
-//lineEdit()->setReadOnly(true);
-//lineEdit()->setEnabled(false);
-	view()->setSelectionMode ( QAbstractItemView::ExtendedSelection );
+	view()->setSelectionMode(QAbstractItemView::ExtendedSelection);
 }
 
-
-void multiCombobox::setCheckstate ( int index, int checked )
+void MultiCombobox::setCheckState(int index, int checked)
 {
 	int itemsCount = count();
-
-	if ( index < 0 || index >= itemsCount )
-	{
+	if (index < 0 || index >= itemsCount)
 		return;
-	}
 
-	if ( checked == 1 )
-	{
-		QComboBox::setItemData ( index, Qt::Checked, Qt::CheckStateRole );
-	}
-	else if ( checked == 2 )
-	{
-		QComboBox::setItemData ( index, Qt::PartiallyChecked, Qt::CheckStateRole );
-	}
+	if (checked == 1)
+		QComboBox::setItemData(index, Qt::Checked, Qt::CheckStateRole);
+	else if (checked == 2)
+		QComboBox::setItemData(index, Qt::PartiallyChecked, Qt::CheckStateRole);
 	else
-	{
-		QComboBox::setItemData ( index, Qt::Unchecked, Qt::CheckStateRole );
-	}
+		QComboBox::setItemData(index, Qt::Unchecked, Qt::CheckStateRole);
 }
 
-
-int multiCombobox::checkstate ( int index )
+int MultiCombobox::checkState(int index) const
 {
 	int itemsCount = count();
-
-	if ( index < 0 || index >= itemsCount )
-	{
+	if (index < 0 || index >= itemsCount)
 		return false;
-	}
 
-	QVariant var = QComboBox::itemData ( index, Qt::CheckStateRole );
+	QVariant var = QComboBox::itemData(index, Qt::CheckStateRole);
 
-	if ( var == Qt::Checked )
+	if (var == Qt::Checked)
 		return 1;
-	if ( var == Qt::PartiallyChecked )
+	if (var == Qt::PartiallyChecked)
 		return 2;
 	return 0;
 }
 
-
-void multiCombobox::switchCheckstate ( int row )
+void MultiCombobox::switchCheckState(int row)
 {
-	if ( checkstate ( row ) )
-	{
-		setCheckstate ( row, 0 );
-	}
+	if (checkState(row))
+		setCheckState(row, 0);
 	else
-	{
-		setCheckstate ( row, 1 );
-	}
+		setCheckState(row, 1);
 
-	emit checkstateChanged ( row );
+	emit checkStateChanged(row);
 }
 
-
-int multiCombobox::addItem ( const QString& text, int checked )
+int MultiCombobox::addItem(const QString& text, int checked)
 {
-	QComboBox::addItem ( text );
+	QComboBox::addItem(text);
 
 	int itemsCount = count();
+	setCheckState(itemsCount - 1, checked);
 
-	setCheckstate ( itemsCount-1, checked );
-
-	return itemsCount-1;
+	return itemsCount - 1;
 }
