@@ -7,63 +7,41 @@ for which a new license (GPL+exception) is in place.
 #ifndef PICTUREBROWSER_H
 #define PICTUREBROWSER_H
 
-#include <QCloseEvent>
-#include <QFileSystemModel>
-#include "ui_picturebrowser.h"
-
-//previewicon class
-#include <QPixmap>
-#include "scimage.h"
-#include "scribusstructs.h"
-#include "cmsettings.h"
-#include "scribusdoc.h"
-
-#include "imagedialog.h"
-
-//previewImagesModel class
 #include <QAbstractListModel>
-#include <QtAlgorithms>
-
-//threads support
+#include <QPixmap>
+#include <QFileSystemModel>
 #include <QThread>
 
-//documentbrowser
+#include "ui_picturebrowser.h"
+
+#include "cmsettings.h"
+#include "imagedialog.h"
 #include "pageitem.h"
-
-//xml support for collections
-#include <QtXml>
-#include <QXmlStreamReader>
-
-//scribuspaths
+#include "prefscontext.h"
+#include "prefsfile.h"
+#include "scimage.h"
 #include "scpaths.h"
 #include "scribuscore.h"
-
-//colorspace related things
+#include "scribusstructs.h"
+#include "scribusdoc.h"
 #include "util_color.h"
 
-//open/savefile dialog
-#include <QFileDialog>
-
-//settings class
-#include <prefsfile.h>
-#include <prefscontext.h>
-
-class PictureBrowserSettings;
+class collectionListReaderThread;
+class collectionReaderThread;
+class collections;
+class collectionsWriterThread;
+class collectionWriterThread;
+class findImagesThread;
+class imageCollection;
+class imageFilters;
 class ImageInformation;
+class loadImagesThread;
+class loadImagesThreadInstance;
+class PictureBrowserSettings;
 class previewImage;
 class previewImages;
 class PreviewImagesModel;
-class imageCollection;
-class collections;
-class collectionReaderThread;
-class collectionListReaderThread;
-class collectionWriterThread;
-class collectionsWriterThread;
-class loadImagesThread;
-class loadImagesThreadInstance;
-class findImagesThread;
 class QImage;
-class imageFilters;
 
 class PictureBrowserSettings
 {
@@ -113,9 +91,6 @@ class PictureBrowser : public QDialog, Ui::PictureBrowser
 		//contains how many icons are visible at once, is calculated from QListView height/width and previewIconSize
 		int previewIconsVisible { 8 };
 		int currentRow { 0 };
-
-	protected:
-		void closeEvent(QCloseEvent* e) override;
 
 	signals:
 		//signal which posts a new job to the imageloading thread

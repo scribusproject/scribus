@@ -40,7 +40,6 @@ class imageCollection
 		QStringList imageFiles;
 		//tags to each image;
 		QList<QStringList> tags;
-
 };
 
 
@@ -49,7 +48,7 @@ class collections
 {
 	public:
 		//sets name
-		collections (const QString& collectionsName );
+		collections(const QString& collectionsName);
 
 		//contains name of the collections
 		QString name;
@@ -64,28 +63,28 @@ class collectionReaderThread : public QXmlStreamReader, public QThread
 {
 	public:
 		//set file to read
-		collectionReaderThread ( QString &xmlFile2, bool importCollection );
+		collectionReaderThread(const QString& xmlFile2, bool importCollection);
 
 		//starts reading the file
 		void readFile();
 
 		//is executed after starting the thread
-		void run();
+		void run() override;
 		//restarts the thread
 		void restart();
 
 		//true if thread should restart
-		volatile bool restartThread;
+		volatile bool restartThread { false };
 
 		//hierarchy for collectionsbrowser qtreewidget
 		QList<collections *> collectionsSet;
 		//contains the images read from the file
-		imageCollection *collection;
+		imageCollection *collection { nullptr };
 
 		//tells which filetype it was, 0 for collectionsset, 1 for collection
-		int type;
+		int type { 0 };
 		//if it is an import
-		bool import;
+		bool import { false };
 		//the file to read from
 		QString xmlFile;
 		QStringList addImages;
@@ -108,7 +107,7 @@ class collectionReaderThread : public QXmlStreamReader, public QThread
 		void readUnknownElement();
 
 		//tells how many categories the collectionsdb contained
-		int categoriesCount;
+		int categoriesCount { 0 };
 };
 
 
@@ -118,15 +117,15 @@ class collectionListReaderThread : public QThread
 
 	public:
 		//set files to read
-		collectionListReaderThread ( QStringList &xmlFiles2 );
+		collectionListReaderThread(const QStringList& xmlFiles2);
 
 		//is executed after starting the thread
-		void run();
+		void run() override;
 		//restarts the thread
 		void restart();
 
 		//true if thread should restart
-		volatile bool restartThread;
+		volatile bool restartThread { false };
 
 		QString xmlFile;
 		QStringList xmlFiles;
@@ -137,7 +136,7 @@ class collectionListReaderThread : public QThread
 		void collectionReaderThreadFinished();
 
 	private:
-		collectionReaderThread *m_clrt;
+		collectionReaderThread *m_clrt { nullptr };
 };
 
 
@@ -150,23 +149,24 @@ class collectionsWriterThread : public QXmlStreamWriter, public QThread
 		//QString &xmlFile2: the file to write
 		//int fileType: the type of file, 0 for collectionfile, 1 for collectionsdb
 		//QList<collections *> saveCollections2: the collectionsset to write to the file
-		collectionsWriterThread (const QString& xmlFile2, const QList<collections *> &saveCollections2 );
+		collectionsWriterThread(const QString& xmlFile2, const QList<collections*>& saveCollections2);
+
 		//starts writing to the file
 		void writeFile();
 
 		//called after the thread has been started
-		void run();
+		void run() override;
 		//restarts the thread
 		void restart();
 
 		//true if thread should restart
-		volatile bool restartThread;
+		volatile bool restartThread { false };
 
 	private:
 		//writes a category into a collectionssetfile
-		void writeCategory ( const collections *category );
+		void writeCategory(const collections *category);
 		//writes a collection into a collectionssetfile
-		void writeCollection ( const QString &collectionName, const QString &collectionFile );
+		void writeCollection(const QString& collectionName, const QString& collectionFile);
 
 		//contains the path to the output file
 		QString xmlFile;
@@ -183,17 +183,17 @@ class collectionWriterThread : public QXmlStreamWriter, public QThread
 		//parameters:
 		//QString &xmlFile2: the file to write
 		//imageCollection *saveCollection2: the collection to write to the file
-		collectionWriterThread ( QString &xmlFile2, imageCollection &saveCollection2 );
+		collectionWriterThread(const QString& xmlFile2, const imageCollection& saveCollection2);
 		//starts writing to the file
 		void writeFile();
 
 		//called after the thread has been started
-		void run();
+		void run() override;
 
 	private:
 		//writes an image into a collectionfile
-		void writeImage ( const QString &imageFile, const QStringList &tags );
-		void writeTags ( const QStringList &tags );
+		void writeImage(const QString& imageFile, const QStringList& tags);
+		void writeTags(const QStringList& tags);
 
 		//contains the path to the output file
 		QString xmlFile;
