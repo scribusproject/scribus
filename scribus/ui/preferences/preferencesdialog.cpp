@@ -27,12 +27,10 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	m_Doc(doc)
 {
 	setupUi(this);
-	preferencesTypeList->clear();
-	while (prefsStackWidget->currentWidget() != nullptr)
-		prefsStackWidget->removeWidget(prefsStackWidget->currentWidget());
+
 	exportButton->hide();
 
-	if(doc)
+	if(m_Doc)
 	{
 		setWindowTitle( tr("Document Setup") );
 		defaultsButton->hide();
@@ -55,14 +53,14 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	prefs_Printer = new Prefs_Printer(prefsStackWidget, m_Doc);
 
 	prefs_Typography = new Prefs_Typography(prefsStackWidget, m_Doc);
-	if (doc)
+	if (m_Doc)
 	{
 		prefs_DocumentInformation = new Prefs_DocumentInformation(prefsStackWidget, m_Doc);
 		prefs_DocumentSections  = new Prefs_DocumentSections(prefsStackWidget, m_Doc);
 		prefs_Indexes = new Prefs_Indexes(prefsStackWidget, m_Doc);
 		prefs_TableOfContents = new Prefs_TableOfContents(prefsStackWidget, m_Doc);
 	}
-	if (!doc)
+	if (!m_Doc)
 	{
 		prefs_ExternalTools = new Prefs_ExternalTools(prefsStackWidget, m_Doc);
 		prefs_ImageCache = new Prefs_ImageCache(prefsStackWidget, m_Doc);
@@ -76,67 +74,16 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 		prefs_UserInterface = new Prefs_UserInterface(prefsStackWidget, m_Doc);
 		prefs_Experimental = new Prefs_Experimental(prefsStackWidget, m_Doc);
 	}
-	// Add Stack Widgets if required
-	if (!doc)
-	{
-		addWidget(prefs_UserInterface);
-		addWidget(prefs_Paths);
-		addWidget(prefs_KeyboardShortcuts);
-	}
-	addWidget(prefs_DocumentSetup);
-	if (!doc)
-		addWidget(prefs_PageSizes);
-	addWidget(prefs_Guides);
-	if (doc)
-		addWidget(prefs_DocumentInformation);
-	if (doc)
-		addWidget(prefs_DocumentSections);
-
-	addWidget(prefs_ItemTools);
-	addWidget(prefs_Fonts);
-	addWidget(prefs_Typography);
-	addWidget(prefs_Hyphenator);
-	//if (!doc)
-	//	addItem(prefs_Spelling);
-
-
-
-	addWidget(prefs_ColorManagement);
-	if (!doc)
-		addWidget(prefs_ImageCache);
-	addWidget(prefs_Display);
-	addWidget(prefs_OperatorTools);
-	if (!doc)
-		addWidget(prefs_ExternalTools);
-	if (!doc)
-		addWidget(prefs_Scrapbook);
-	addWidget(prefs_PreflightVerifier);
-	addWidget(prefs_Printer);
-	addWidget(prefs_PDFExport);
-	if (!doc)
-		addWidget(prefs_Miscellaneous);
-	addWidget(prefs_DocumentItemAttributes);
-	if (doc)
-	{
-		//Commented out for now until some more Index code is added.
-		addWidget(prefs_Indexes);
-		addWidget(prefs_TableOfContents);
-	}
-
-	if (!doc)
-		addWidget(prefs_Plugins);
-	if (!doc)
-		addWidget(prefs_Experimental);
-
-	arrangeIcons();
+	createStackWidgetList();
+	addPluginsToStackWidgetList();
+	addWidgetsToStack();
 
 	//**********
 
 	localPrefs = prefsData;
 	initPreferenceValues();
 	setupGui();
-	if (!doc)
-		addPlugins();
+
 
 	if (preferencesTypeList->count()>0)
 	{
@@ -149,6 +96,7 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	connect(buttonBox, &QDialogButtonBox::accepted, this, &PreferencesDialog::accept);
 	connect(buttonBox, &QDialogButtonBox::rejected, this, &PreferencesDialog::reject);
 	connect(preferencesTypeList, SIGNAL(itemSelectionChanged()), this, SLOT(newItemSelected()));
+	connect(searchField, SIGNAL(textEdited(QString)), this, SLOT(addWidgetsToStack()));
 }
 
 void PreferencesDialog::restoreDefaults()
@@ -166,71 +114,28 @@ void PreferencesDialog::initPreferenceValues()
 
 void PreferencesDialog::setupGui()
 {
-	if (prefs_UserInterface) prefs_UserInterface->restoreDefaults(&localPrefs);
-	if (prefs_Paths) prefs_Paths->restoreDefaults(&localPrefs);
-	if (prefs_DocumentSetup) prefs_DocumentSetup->restoreDefaults(&localPrefs);
-	if (prefs_DocumentInformation) prefs_DocumentInformation->restoreDefaults(&localPrefs);
-	if (prefs_Guides) prefs_Guides->restoreDefaults(&localPrefs);
-	if (prefs_Typography) prefs_Typography->restoreDefaults(&localPrefs);
-	if (prefs_ItemTools) prefs_ItemTools->restoreDefaults(&localPrefs);
-	if (prefs_OperatorTools) prefs_OperatorTools->restoreDefaults(&localPrefs);
-	if (prefs_Hyphenator) prefs_Hyphenator->restoreDefaults(&localPrefs);
-	if (prefs_Fonts) prefs_Fonts->restoreDefaults(&localPrefs);
-	if (prefs_Printer) prefs_Printer->restoreDefaults(&localPrefs);
-	if (prefs_PDFExport) prefs_PDFExport->restoreDefaults(&localPrefs, ScCore->PDFXProfiles);
-	if (prefs_PreflightVerifier) prefs_PreflightVerifier->restoreDefaults(&localPrefs);
-	if (prefs_DocumentItemAttributes) prefs_DocumentItemAttributes->restoreDefaults(&localPrefs);
-	if (prefs_Indexes) prefs_Indexes->restoreDefaults(&localPrefs);
-	if (prefs_TableOfContents) prefs_TableOfContents->restoreDefaults(&localPrefs);
-	if (prefs_DocumentSections) prefs_DocumentSections->restoreDefaults(&localPrefs);
-	if (prefs_KeyboardShortcuts) prefs_KeyboardShortcuts->restoreDefaults(&localPrefs);
-	if (prefs_ColorManagement)
+	for (auto it = stackDataList.cbegin(), end = stackDataList.cend(); it != end; ++it)
 	{
-		prefs_ColorManagement->setProfiles(&localPrefs, &ScCore->InputProfiles, &ScCore->InputProfilesCMYK, &ScCore->PrinterProfiles, &ScCore->MonitorProfiles);
-		prefs_ColorManagement->restoreDefaults(&localPrefs);
+		if ((*it).prefsPane == nullptr)
+			continue;
+
+		(*it).prefsPane->restoreDefaults(&localPrefs);
 	}
-	if (prefs_Scrapbook) prefs_Scrapbook->restoreDefaults(&localPrefs);
-//	if (prefs_Spelling) prefs_Spelling->restoreDefaults(&localPrefs);
-	if (prefs_Display) prefs_Display->restoreDefaults(&localPrefs);
-	if (prefs_ExternalTools) prefs_ExternalTools->restoreDefaults(&localPrefs);
-	if (prefs_Plugins) prefs_Plugins->restoreDefaults(&localPrefs);
-	if (prefs_Miscellaneous) prefs_Miscellaneous->restoreDefaults(&localPrefs);
-	if (prefs_PageSizes) prefs_PageSizes->restoreDefaults(&localPrefs);
-	if (prefs_ImageCache) prefs_ImageCache->restoreDefaults(&localPrefs);
-	if (prefs_Experimental) prefs_Experimental->restoreDefaults(&localPrefs);
+
+	if (prefs_ColorManagement)
+		prefs_ColorManagement->setProfiles(&localPrefs, &ScCore->InputProfiles, &ScCore->InputProfilesCMYK, &ScCore->PrinterProfiles, &ScCore->MonitorProfiles);
 }
 
 
 void PreferencesDialog::saveGuiToPrefs()
 {
-	if (prefs_ColorManagement) prefs_ColorManagement->saveGuiToPrefs(&localPrefs);
-	if (prefs_Display) prefs_Display->saveGuiToPrefs(&localPrefs);
-	if (prefs_DocumentInformation) prefs_DocumentInformation->saveGuiToPrefs(&localPrefs);
-	if (prefs_DocumentItemAttributes) prefs_DocumentItemAttributes->saveGuiToPrefs(&localPrefs);
-	if (prefs_DocumentSections) prefs_DocumentSections->saveGuiToPrefs(&localPrefs);
-	if (prefs_DocumentSetup) prefs_DocumentSetup->saveGuiToPrefs(&localPrefs);
-	if (prefs_Experimental) prefs_Experimental->saveGuiToPrefs(&localPrefs);
-	if (prefs_ExternalTools) prefs_ExternalTools->saveGuiToPrefs(&localPrefs);
-	if (prefs_Fonts) prefs_Fonts->saveGuiToPrefs(&localPrefs);
-	if (prefs_Guides) prefs_Guides->saveGuiToPrefs(&localPrefs);
-	if (prefs_Hyphenator) prefs_Hyphenator->saveGuiToPrefs(&localPrefs);
-	if (prefs_ImageCache) prefs_ImageCache->saveGuiToPrefs(&localPrefs);
-	if (prefs_Indexes) prefs_Indexes->saveGuiToPrefs(&localPrefs);
-	if (prefs_ItemTools) prefs_ItemTools->saveGuiToPrefs(&localPrefs);
-	if (prefs_KeyboardShortcuts) prefs_KeyboardShortcuts->saveGuiToPrefs(&localPrefs);
-	if (prefs_Miscellaneous) prefs_Miscellaneous->saveGuiToPrefs(&localPrefs);
-	if (prefs_OperatorTools) prefs_OperatorTools->saveGuiToPrefs(&localPrefs);
-	if (prefs_PDFExport) prefs_PDFExport->saveGuiToPrefs(&localPrefs);
-	if (prefs_PageSizes) prefs_PageSizes->saveGuiToPrefs(&localPrefs);
-	if (prefs_Paths) prefs_Paths->saveGuiToPrefs(&localPrefs);
-	if (prefs_Plugins) prefs_Plugins->saveGuiToPrefs(&localPrefs);
-	if (prefs_PreflightVerifier) prefs_PreflightVerifier->saveGuiToPrefs(&localPrefs);
-	if (prefs_Printer) prefs_Printer->saveGuiToPrefs(&localPrefs);
-	if (prefs_Scrapbook) prefs_Scrapbook->saveGuiToPrefs(&localPrefs);
-	if (prefs_TableOfContents) prefs_TableOfContents->saveGuiToPrefs(&localPrefs);
-	if (prefs_Typography) prefs_Typography->saveGuiToPrefs(&localPrefs);
-	if (prefs_UserInterface) prefs_UserInterface->saveGuiToPrefs(&localPrefs);
-//	if (prefs_Spelling) prefs_Spelling->saveGuiToPrefs(&localPrefs);
+	for (auto it = stackDataList.cbegin(), end = stackDataList.cend(); it != end; ++it)
+	{
+		if ((*it).prefsPane == nullptr)
+			continue;
+
+		(*it).prefsPane->saveGuiToPrefs(&localPrefs);
+	}
 }
 
 void PreferencesDialog::accept()
@@ -242,9 +147,181 @@ void PreferencesDialog::accept()
 	QDialog::accept();
 }
 
+void PreferencesDialog::createStackWidgetList()
+{
+	if (!stackDataList.isEmpty())
+		stackDataList.clear();
+	PrefsTabData ptd;
+
+	ptd.forPrefs = true;
+	ptd.forDoc = false;
+	ptd.prefsPane = dynamic_cast<Prefs_Pane*>(prefs_UserInterface);
+	stackDataList.append(ptd);
+
+	ptd.forPrefs = true;
+	ptd.forDoc = false;
+	ptd.prefsPane = dynamic_cast<Prefs_Pane*>(prefs_Paths);
+	stackDataList.append(ptd);
+
+	ptd.forPrefs = true;
+	ptd.forDoc = false;
+	ptd.prefsPane = dynamic_cast<Prefs_Pane*>(prefs_KeyboardShortcuts);
+	stackDataList.append(ptd);
+
+	ptd.forPrefs = true;
+	ptd.forDoc = true;
+	ptd.prefsPane = dynamic_cast<Prefs_Pane*>(prefs_DocumentSetup);
+	stackDataList.append(ptd);
+
+	ptd.forPrefs = true;
+	ptd.forDoc = false;
+	ptd.prefsPane = dynamic_cast<Prefs_Pane*>(prefs_PageSizes);
+	stackDataList.append(ptd);
+
+	ptd.forPrefs = true;
+	ptd.forDoc = true;
+	ptd.prefsPane = dynamic_cast<Prefs_Pane*>(prefs_Guides);
+	stackDataList.append(ptd);
+
+	ptd.forPrefs = false;
+	ptd.forDoc = true;
+	ptd.prefsPane = dynamic_cast<Prefs_Pane*>(prefs_DocumentInformation);
+	stackDataList.append(ptd);
+
+	ptd.forPrefs = false;
+	ptd.forDoc = true;
+	ptd.prefsPane = dynamic_cast<Prefs_Pane*>(prefs_DocumentSections);
+	stackDataList.append(ptd);
+
+	ptd.forPrefs = true;
+	ptd.forDoc = true;
+	ptd.prefsPane = dynamic_cast<Prefs_Pane*>(prefs_ItemTools);
+	stackDataList.append(ptd);
+
+	ptd.forPrefs = true;
+	ptd.forDoc = true;
+	ptd.prefsPane = dynamic_cast<Prefs_Pane*>(prefs_Fonts);
+	stackDataList.append(ptd);
+
+	ptd.forPrefs = true;
+	ptd.forDoc = true;
+	ptd.prefsPane = dynamic_cast<Prefs_Pane*>(prefs_Typography);
+	stackDataList.append(ptd);
+
+	ptd.forPrefs = true;
+	ptd.forDoc = true;
+	ptd.prefsPane = dynamic_cast<Prefs_Pane*>(prefs_Hyphenator);
+	stackDataList.append(ptd);
+
+	ptd.forPrefs = true;
+	ptd.forDoc = true;
+	ptd.prefsPane = dynamic_cast<Prefs_Pane*>(prefs_ColorManagement);
+	stackDataList.append(ptd);
+
+	ptd.forPrefs = true;
+	ptd.forDoc = false;
+	ptd.prefsPane = dynamic_cast<Prefs_Pane*>(prefs_ImageCache);
+	stackDataList.append(ptd);
+
+	ptd.forPrefs = true;
+	ptd.forDoc = true;
+	ptd.prefsPane = dynamic_cast<Prefs_Pane*>(prefs_Display);
+	stackDataList.append(ptd);
+
+	ptd.forPrefs = true;
+	ptd.forDoc = true;
+	ptd.prefsPane = dynamic_cast<Prefs_Pane*>(prefs_OperatorTools);
+	stackDataList.append(ptd);
+
+	ptd.forPrefs = true;
+	ptd.forDoc = false;
+	ptd.prefsPane = dynamic_cast<Prefs_Pane*>(prefs_ExternalTools);
+	stackDataList.append(ptd);
+
+	ptd.forPrefs = true;
+	ptd.forDoc = false;
+	ptd.prefsPane = dynamic_cast<Prefs_Pane*>(prefs_Scrapbook);
+	stackDataList.append(ptd);
+
+	ptd.forPrefs = true;
+	ptd.forDoc = true;
+	ptd.prefsPane = dynamic_cast<Prefs_Pane*>(prefs_PreflightVerifier);
+	stackDataList.append(ptd);
+
+	ptd.forPrefs = true;
+	ptd.forDoc = true;
+	ptd.prefsPane = dynamic_cast<Prefs_Pane*>(prefs_Printer);
+	stackDataList.append(ptd);
+
+	ptd.forPrefs = true;
+	ptd.forDoc = true;
+	ptd.prefsPane = dynamic_cast<Prefs_Pane*>(prefs_PDFExport);
+	stackDataList.append(ptd);
+
+	ptd.forPrefs = true;
+	ptd.forDoc = false;
+	ptd.prefsPane = dynamic_cast<Prefs_Pane*>(prefs_Miscellaneous);
+	stackDataList.append(ptd);
+
+	ptd.forPrefs = true;
+	ptd.forDoc = true;
+	ptd.prefsPane = dynamic_cast<Prefs_Pane*>(prefs_DocumentItemAttributes);
+	stackDataList.append(ptd);
+
+	ptd.forPrefs = false;
+	ptd.forDoc = true;
+	ptd.prefsPane = dynamic_cast<Prefs_Pane*>(prefs_Indexes);
+	stackDataList.append(ptd);
+
+	ptd.forPrefs = false;
+	ptd.forDoc = true;
+	ptd.prefsPane = dynamic_cast<Prefs_Pane*>(prefs_TableOfContents);
+	stackDataList.append(ptd);
+
+	ptd.forPrefs = true;
+	ptd.forDoc = false;
+	ptd.prefsPane = dynamic_cast<Prefs_Pane*>(prefs_Plugins);
+	stackDataList.append(ptd);
+
+	ptd.forPrefs = true;
+	ptd.forDoc = false;
+	ptd.prefsPane = dynamic_cast<Prefs_Pane*>(prefs_Experimental);
+	stackDataList.append(ptd);
+}
+
+void PreferencesDialog::addWidgetsToStack()
+{
+	QString searchText(searchField->text());
+	bool searchIsEmpty = searchText.isEmpty();
+
+	preferencesTypeList->clear();
+	while (prefsStackWidget->currentWidget() != nullptr)
+		prefsStackWidget->removeWidget(prefsStackWidget->currentWidget());
+
+	for (auto it = stackDataList.cbegin(), end = stackDataList.cend(); it != end; ++it)
+	{
+		if ((*it).prefsPane == nullptr || !(*it).visible)
+			continue;
+
+		if (!searchIsEmpty)
+		{
+			QString prefsPaneCaption((*it).prefsPane->caption());
+			QStringList prefsPaneKeywordResult = (*it).prefsPane->keywords().filter(searchText, Qt::CaseInsensitive);
+			if(!prefsPaneCaption.contains(searchText, Qt::CaseInsensitive) && prefsPaneKeywordResult.isEmpty())
+				continue;
+		}
+
+		if ((*it).forDoc && (*it).forPrefs)
+			addWidget((*it).prefsPane);
+		else if (m_Doc && (*it).forDoc)
+			addWidget((*it).prefsPane);
+		else if (!m_Doc && (*it).forPrefs)
+			addWidget((*it).prefsPane);
+	}
+}
+
 void PreferencesDialog::addWidget(Prefs_Pane* tab)
 {
-	//TODO: Can we avoid using this name and duplicating strings by getting it from the tab UIs
 	QListWidgetItem* newItem = new QListWidgetItem(IconManager::instance().loadIcon(tab->icon(), 16), tab->caption(), preferencesTypeList);
 	newItem->setTextAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 	int i = prefsStackWidget->addWidget(tab);
@@ -263,7 +340,6 @@ void PreferencesDialog::itemSelected(QListWidgetItem* ic)
 		return;
 	if (stackWidgetMap.contains(ic))
 	{
-		//emit aboutToShow(prefsWidgets->widget(itemMap[ic]));
 		prefsStackWidget->setCurrentIndex(stackWidgetMap[ic]);
 		if (prefsStackWidget->currentWidget() == dynamic_cast<QWidget*>(prefs_DocumentSetup))
 			prefs_DocumentSetup->setupPageSizes(&localPrefs);
@@ -311,7 +387,7 @@ void PreferencesDialog::languageChange()
 	setWindowTitle( tr( "Preferences" ) );
 }
 
-void PreferencesDialog::addPlugins()
+void PreferencesDialog::addPluginsToStackWidgetList()
 {
 	// Scan for plugins that provide a prefs widget, and add it to the
 	// prefs dialog.
@@ -335,8 +411,13 @@ void PreferencesDialog::addPlugins()
 		// If it gave us one...
 		if (wantPanel && panel != nullptr)
 		{
+			PrefsTabData ptd;
+			ptd.forPrefs = true;
+			ptd.forDoc = false;
+			ptd.prefsPane = dynamic_cast<Prefs_Pane*>(panel);
+			stackDataList.append(ptd);
 			// plug it in to the dialog,
-			addWidget(panel);
+			//addWidget(panel);
 			// and connect a signal to tell it to save its settings.
 			connect(this, SIGNAL(accepted()), panel, SLOT(apply()));
 		}
@@ -347,51 +428,5 @@ void PreferencesDialog::getResizeDocumentPages(bool &resizePages, bool &resizeMa
 {
 	prefs_DocumentSetup->getResizeDocumentPages(resizePages, resizeMasterPages, resizePageMargins, resizeMasterPageMargins);
 }
-
-
-void PreferencesDialog::arrangeIcons()
-{/*
-	int maxWidth = 0;
-	QListWidgetItem* ic;
-	int startY = 5;
-	for (int cc = 0; cc < preferencesTypeList->count(); ++cc)
-	{
-		ic = preferencesTypeList->item(cc);
-		QRect ir = preferencesTypeList->visualItemRect(ic);
-		maxWidth = qMax(ir.width(), maxWidth);
-	}
-	preferencesTypeList->setMaximumWidth(maxWidth+16);
-	preferencesTypeList->setResizeMode(QListView::Fixed);
-#ifdef _WIN32
-	int scrollBarWidth = 0;
-	QList<QScrollBar*> scrollBars = preferencesTypeList->findChildren<QScrollBar*>();
-	for (int cc = 0; cc < scrollBars.count(); ++cc)
-	{
-		if (scrollBars.at(cc)->orientation() == Qt::Vertical)
-		{
-			scrollBarWidth = scrollBars.at(cc)->height();
-			break;
-		}
-	}
-#else
-	int scrollBarWidth = maxWidth;
-#endif
-	int startX = qMax((preferencesTypeList->viewport()->width() - scrollBarWidth) / 2, 0);
-	for (int cc = 0; cc < preferencesTypeList->count(); ++cc)
-	{
-		ic = preferencesTypeList->item(cc);
-		QRect ir = preferencesTypeList->visualItemRect(ic);
-
-#ifdef _WIN32
-		preferencesTypeList->setPositionForIndex(QPoint(qMax(startX - ir.width() / 2, 0), startY), preferencesTypeList->indexFromItem(ic));
-#else
-		int moveW = (maxWidth - ir.width()) / 2;
-		preferencesTypeList->setPositionForIndex(QPoint(moveW + startX, startY), preferencesTypeList->indexFromItem(ic));
-#endif
-
-		startY += ir.height()+5;
-	}*/
-}
-
 
 

@@ -8,7 +8,9 @@ for which a new license (GPL+exception) is in place.
 #ifndef PREFS_PANE_H
 #define PREFS_PANE_H
 
+#include <QStringList>
 #include <QWidget>
+
 #include "scribusapi.h"
 
 class SCRIBUS_API Prefs_Pane : public QWidget
@@ -23,6 +25,7 @@ class SCRIBUS_API Prefs_Pane : public QWidget
 		virtual void saveGuiToPrefs(struct ApplicationPrefs *prefsData) const = 0;
 		const QString& caption() const;
 		const QString& icon() const;
+		QStringList keywords(bool reset = false);
 
 	public slots:
 		virtual void apply() {}; // For plugin prefs panels
@@ -30,6 +33,8 @@ class SCRIBUS_API Prefs_Pane : public QWidget
 	protected:
 		QString m_caption;
 		QString m_icon;
+		QStringList m_keywords;
+		bool m_keywordsGenerated {false};
 };
 
 #endif // PREFS_PANE_H

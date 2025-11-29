@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include <QListWidgetItem>
 #include <QMap>
 #include <QStackedWidget>
+#include <QStringList>
 
 #include "prefsstructs.h"
 #include "scribusapi.h"
@@ -77,14 +78,15 @@ class SCRIBUS_API PreferencesDialog : public ScDialog, Ui::PreferencesDialog
 
 	protected slots:
 		virtual void languageChange();
+		void addWidgetsToStack();
 
 	protected:
+		void createStackWidgetList();
 		void addWidget(Prefs_Pane* tab);
-		void arrangeIcons();
 		void initPreferenceValues();
 		/*! \brief Scans plugins for those that want to add a prefs widget and
 		hooks them up to the dialog. */
-		void addPlugins();
+		void addPluginsToStackWidgetList();
 
 		void changeEvent(QEvent *e) override;
 
@@ -123,6 +125,16 @@ class SCRIBUS_API PreferencesDialog : public ScDialog, Ui::PreferencesDialog
 		ScribusMainWindow* mainWin {nullptr};
 		ScribusDoc* m_Doc {nullptr};
 		ApplicationPrefs localPrefs;
+
+		struct PrefsTabData
+		{
+			Prefs_Pane* prefsPane {nullptr};
+			bool forPrefs {true};
+			bool forDoc {true};
+			bool visible {true};
+			QString prefsPaneName;
+		};
+		QList<PrefsTabData> stackDataList;
 };
 
 #endif
