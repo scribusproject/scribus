@@ -10,8 +10,8 @@
   <!-- Import Qt5 -->
   <PropertyGroup Label="UserMacros">
 	<!-- Qt5 -->
-	<QT5_DIR Condition="'$(Platform)' == 'Win32' and '$(PlatformToolset)' == 'v142'"   >F:\Libraries\Qt-5.15.17\msvc2019</QT5_DIR>
-	<QT5_DIR Condition="'$(Platform)' == 'x64'   and '$(PlatformToolset)' == 'v142'"   >F:\Libraries\Qt-5.15.17\msvc2019_64</QT5_DIR>
+	<QT5_DIR Condition="'$(Platform)' == 'Win32' and '$(PlatformToolset)' == 'v142'"   >F:\Libraries\Qt-5.15.18\msvc2019</QT5_DIR>
+	<QT5_DIR Condition="'$(Platform)' == 'x64'   and '$(PlatformToolset)' == 'v142'"   >F:\Libraries\Qt-5.15.18\msvc2019_64</QT5_DIR>
 	<QT5CORE_LIB Condition="'$(Configuration)' == 'Debug'">Qt5Cored.lib</QT5CORE_LIB>
 	<QT5CORE_LIB Condition="'$(Configuration)' == 'Release'">Qt5Core.lib</QT5CORE_LIB>
 	<QT5GUI_LIB Condition="'$(Configuration)' == 'Debug'">Qt5Guid.lib</QT5GUI_LIB>
