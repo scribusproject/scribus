@@ -13,21 +13,20 @@
 #include "pictview.h"
 #include "previewimage.h"
 
-#include <QMimeData>
-#include <QDrag>
-
 #include <QDebug>
+#include <QDrag>
+#include <QMimeData>
 
-PictView::PictView(QWidget * parent )
-	:QListView(parent)
+PictView::PictView(QWidget* parent)
+	: QListView(parent)
 {
-	setViewMode ( QListView::IconMode );
-	setUniformItemSizes ( true );
-	setContextMenuPolicy ( Qt::CustomContextMenu );
-	setSelectionMode ( QAbstractItemView::SingleSelection );
-	setMovement ( QListView::Static);
-	setResizeMode ( QListView::Adjust );
-	setSelectionRectVisible( false );
+	setViewMode(QListView::IconMode);
+	setUniformItemSizes(true);
+	setContextMenuPolicy(Qt::CustomContextMenu);
+	setSelectionMode(QAbstractItemView::SingleSelection);
+	setMovement(QListView::Static);
+	setResizeMode(QListView::Adjust);
+	setSelectionRectVisible(false);
 }
 
 void PictView::SetModel(PreviewImagesModel * pm)
@@ -45,7 +44,7 @@ void PictView::SetGridSize(const QSize & s)
 	this->setGridSize(s);
 }
 
-QItemSelectionModel * PictView::SelectionModel() const
+QItemSelectionModel* PictView::SelectionModel() const
 {
 	return this->selectionModel(); 
 }
@@ -53,21 +52,19 @@ QItemSelectionModel * PictView::SelectionModel() const
 void PictView::startDrag(Qt::DropActions supportedActions)
 {
 	QModelIndex mdx(currentIndex());
-	QModelIndexList mil;
-	if(mdx.isValid())
-	{
-		mil << mdx;
-		PreviewImagesModel * pim(static_cast<PreviewImagesModel*>(model()));
-		QMimeData *md = pim->mimeData(mil);
-		QDrag *drag = new QDrag(this);
-		drag->setMimeData(md);
-		QIcon icn(pim->data(mdx, Qt::DecorationRole).value<QIcon>());
-		if(!icn.isNull())
-		{
-			drag->setPixmap(icn.pixmap(64,64));
-		}
-		drag->exec(Qt::CopyAction);
-	}
+	if (!mdx.isValid())
+		return;
 
+	QModelIndexList mil;
+	mil << mdx;
+
+	PreviewImagesModel* pim(static_cast<PreviewImagesModel*>(model()));
+	QMimeData* md = pim->mimeData(mil);
+	QDrag* drag = new QDrag(this);
+	drag->setMimeData(md);
+	QIcon icn(pim->data(mdx, Qt::DecorationRole).value<QIcon>());
+	if (!icn.isNull())
+		drag->setPixmap(icn.pixmap(64, 64));
+	drag->exec(Qt::CopyAction);
 }
 

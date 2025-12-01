@@ -22,16 +22,15 @@ class PictView : public QListView
 	Q_OBJECT
 
 	public:
-		PictView(QWidget * parent );
-		
-		void SetModel(PreviewImagesModel * pm);
-		QItemSelectionModel *SelectionModel() const;
+		PictView(QWidget* parent);
+
+		void SetModel(PreviewImagesModel* pm);
+		QItemSelectionModel* SelectionModel() const;
 		void SetIconSize(const QSize& s);
 		void SetGridSize(const QSize& s);
-		
+
 	protected:
-		void startDrag( Qt::DropActions supportedActions );
-		
+		void startDrag(Qt::DropActions supportedActions);
 };
 
 #endif // PICTVIEW_H

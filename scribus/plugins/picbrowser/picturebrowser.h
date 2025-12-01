@@ -49,7 +49,7 @@ class PictureBrowserSettings
 		PictureBrowserSettings() = default;
 
 		void load();
-		void save();
+		void save() const;
 		void reset();
 
 		QString currentDirectory;
