@@ -1831,42 +1831,32 @@ void PictureBrowser::applyFilters()
 			{
 				case 0:
 					if (c[0] < filters->nameFilters.size())
-					{
 						pImages->filterFileName(filters->nameFilters.at(c[0]), filters->nameInverts.at(c[0]));
-					}
 					break;
 
 				case 1:
 					if (c[1] < filters->dateFilters.size())
-					{
 						pImages->filterFileModified(filters->dateFilters.at(c[1]), filters->dateInverts.at(c[1]));
-					}
 					break;
 
 				case 2:
 					if (c[2] < filters->sizeFilters.size())
-					{
 						pImages->filterFileSize(filters->sizeFilters.at(c[2]) * 1024, filters->sizeInverts.at(c[2]));
-					}
 					break;
 
 				case 3:
 					if (c[3] < filters->typeFilters.size())
-					{
 						pImages->filterFileType(filters->typeFilters.at(c[3]), true);
-					}
 					break;
 
 				case 4:
 					if (c[4] < filters->tagFilters.size())
-					{
 						pImages->filterTag(filters->tagFilters.at(c[4]), true);
-					}
 					break;
 			}
 		}
 
-		if (filterType >= 0 && filterType < std::size(c))
+		if (filterType >= 0 && filterType < (int) std::size(c))
 			c[filterType]++;
 	}
 }
@@ -1901,23 +1891,15 @@ void PictureBrowser::updateTagImagesTab()
 		for (int selectedIndex : selectedIndexes)
 		{
 			if (pImages->previewImagesList.at(selectedIndex)->tags.contains(tmpTagList.at(i)))
-			{
 				tagCount++;
-			}
 			else if (tagCount > 0)
-			{
 				break;
-			}
 		}
 
 		if (tagCount == selectedIndexes.size())
-		{
 			collectionsTagImagesCombobox->setCheckState(i, 1);
-		}
 		else if (tagCount > 0)
-		{
 			collectionsTagImagesCombobox->setCheckState(i, 2);
-		}
 	}
 }
 
