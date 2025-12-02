@@ -6,33 +6,33 @@
     <message>
         <location filename="../../scribus/fonts/ftface.cpp" line="55"/>
         <source>Freetype2 library not available</source>
-        <translation type="unfinished">Freetype2 library niet beschikbaar</translation>
+        <translation>Freetype2 bibliotheek niet beschikbaar</translation>
     </message>
     <message>
         <location filename="../../scribus/fonts/ftface.cpp" line="73"/>
         <location filename="../../scribus/fonts/ftface.cpp" line="91"/>
         <source>Font %1(%2) is broken</source>
-        <translation type="unfinished">Lettertype %1(%2) is beschadigd</translation>
+        <translation>Lettertype %1(%2) is beschadigd</translation>
     </message>
     <message>
         <location filename="../../scribus/fonts/ftface.cpp" line="151"/>
         <source>Font %1 has broken glyph %2 (charcode %3)</source>
-        <translation type="unfinished">Lettertype %1 bevat defect teken %2 (lettercode %3)</translation>
+        <translation>Lettertype %1 heeft een beschadigd teken %2 (charcode %3)</translation>
     </message>
     <message>
         <location filename="../../scribus/fonts/ftface.cpp" line="209"/>
         <source>Font %1 has broken glyph %2</source>
-        <translation type="unfinished">Lettertype %1 bevat beschadigd teken %2</translation>
+        <translation>Lettertype %1 heeft beschadigd teken %2</translation>
     </message>
     <message>
         <location filename="../../scribus/fonts/ftface.cpp" line="436"/>
         <source>Font %1 is broken (read stream), no embedding</source>
-        <translation type="unfinished">Lettertype %1 is kapot (lees stream), geen insluiting</translation>
+        <translation>Lettertype %1 is beschadigd (read stream), geen insluiting</translation>
     </message>
     <message>
         <location filename="../../scribus/fonts/scface_ttf.cpp" line="132"/>
         <source>extracting face %1 from font %2 (offset=%3, nTables=%4)</source>
-        <translation type="unfinished">extractie face %1 van lettertype %2 (offset=%3, nTables=%4)</translation>
+        <translation>variant %1 van lettertype %2 extraheren (offset=%3, nTables=%4)</translation>
     </message>
 </context>
 <context>
@@ -27310,7 +27310,7 @@ aangeroepen functies.
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="640"/>
         <source>Cannot have an empty item name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Item kan geen lege naam hebben.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="808"/>

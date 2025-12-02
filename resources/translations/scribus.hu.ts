@@ -6,33 +6,33 @@
     <message>
         <location filename="../../scribus/fonts/ftface.cpp" line="55"/>
         <source>Freetype2 library not available</source>
-        <translation type="unfinished">Freetype2 könyvtár nem elérhető</translation>
+        <translation>Freetype2 könyvtár nem elérhető</translation>
     </message>
     <message>
         <location filename="../../scribus/fonts/ftface.cpp" line="73"/>
         <location filename="../../scribus/fonts/ftface.cpp" line="91"/>
         <source>Font %1(%2) is broken</source>
-        <translation type="unfinished">%1(%2) betűkészlet törött</translation>
+        <translation>%1(%2) betűkészlet törött</translation>
     </message>
     <message>
         <location filename="../../scribus/fonts/ftface.cpp" line="151"/>
         <source>Font %1 has broken glyph %2 (charcode %3)</source>
-        <translation type="unfinished">%1 betűkészletnek törött a %2 betűkészletjele (%3 karakterkód)</translation>
+        <translation>%1 betűkészletnek törött a %2 betűkészletjele (%3 karakterkód)</translation>
     </message>
     <message>
         <location filename="../../scribus/fonts/ftface.cpp" line="209"/>
         <source>Font %1 has broken glyph %2</source>
-        <translation type="unfinished">%1 betűkészlet %2 betűkészletjele törött</translation>
+        <translation>%1 betűkészlet %2 betűkészletjele törött</translation>
     </message>
     <message>
         <location filename="../../scribus/fonts/ftface.cpp" line="436"/>
         <source>Font %1 is broken (read stream), no embedding</source>
-        <translation type="unfinished">%1 betűkészlet törött (adatfolyam betöltése), nem lesz beágyazva</translation>
+        <translation>%1 betűkészlet törött (adatfolyam betöltése), nem lesz beágyazva</translation>
     </message>
     <message>
         <location filename="../../scribus/fonts/scface_ttf.cpp" line="132"/>
         <source>extracting face %1 from font %2 (offset=%3, nTables=%4)</source>
-        <translation type="unfinished">%1 betűkép kicsomagolása a(z) %2 betűkészletből (offset=%3, nTables=%4)</translation>
+        <translation>%1 betűkép kicsomagolása a(z) %2 betűkészletből (offset=%3, nTables=%4)</translation>
     </message>
 </context>
 <context>
@@ -27299,7 +27299,7 @@ Ez egy érvénytelen érték: %1.</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="640"/>
         <source>Cannot have an empty item name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Üres elemnév nem lehetséges.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="808"/>
