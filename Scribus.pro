@@ -529,34 +529,34 @@ HEADERS += scribus/actionmanager.h \
            scribus/ui/polygonwidget.h \
            scribus/ui/polyprops.h \
            scribus/ui/preferencesdialog.h \
-           scribus/ui/prefs_colormanagement.h \
-           scribus/ui/prefs_display.h \
-           scribus/ui/prefs_documentinformation.h \
-           scribus/ui/prefs_documentitemattributes.h \
-           scribus/ui/prefs_documentsections.h \
-           scribus/ui/prefs_documentsetup.h \
-           scribus/ui/prefs_experimental.h \
-           scribus/ui/prefs_externaltools.h \
-           scribus/ui/prefs_fonts.h \
-           scribus/ui/prefs_guides.h \
-           scribus/ui/prefs_hyphenator.h \
-           scribus/ui/prefs_imagecache.h \
-           scribus/ui/prefs_itemtools.h \
-           scribus/ui/prefs_keyboardshortcuts.h \
-           scribus/ui/prefs_miscellaneous.h \
-           scribus/ui/prefs_operatortools.h \
-           scribus/ui/prefs_pagesizes.h \
-           scribus/ui/prefs_pane.h \
-           scribus/ui/prefs_paths.h \
-           scribus/ui/prefs_pdfexport.h \
-           scribus/ui/prefs_plugins.h \
-           scribus/ui/prefs_preflightverifier.h \
-           scribus/ui/prefs_printer.h \
-           scribus/ui/prefs_scrapbook.h \
-           scribus/ui/prefs_spelling.h \
-           scribus/ui/prefs_tableofcontents.h \
-           scribus/ui/prefs_typography.h \
-           scribus/ui/prefs_userinterface.h \
+           scribus/ui/preferences/prefs_colormanagement.h \
+           scribus/ui/preferences/prefs_display.h \
+           scribus/ui/preferences/prefs_documentinformation.h \
+           scribus/ui/preferences/prefs_documentitemattributes.h \
+           scribus/ui/preferences/prefs_documentsections.h \
+           scribus/ui/preferences/prefs_documentsetup.h \
+           scribus/ui/preferences/prefs_experimental.h \
+           scribus/ui/preferences/prefs_externaltools.h \
+           scribus/ui/preferences/prefs_fonts.h \
+           scribus/ui/preferences/prefs_guides.h \
+           scribus/ui/preferences/prefs_hyphenator.h \
+           scribus/ui/preferences/prefs_imagecache.h \
+           scribus/ui/preferences/prefs_itemtools.h \
+           scribus/ui/preferences/prefs_keyboardshortcuts.h \
+           scribus/ui/preferences/prefs_miscellaneous.h \
+           scribus/ui/preferences/prefs_operatortools.h \
+           scribus/ui/preferences/prefs_pagesizes.h \
+           scribus/ui/preferences/prefs_pane.h \
+           scribus/ui/preferences/prefs_paths.h \
+           scribus/ui/preferences/prefs_pdfexport.h \
+           scribus/ui/preferences/prefs_plugins.h \
+           scribus/ui/preferences/prefs_preflightverifier.h \
+           scribus/ui/preferences/prefs_printer.h \
+           scribus/ui/preferences/prefs_scrapbook.h \
+           scribus/ui/preferences/prefs_spelling.h \
+           scribus/ui/preferences/prefs_tableofcontents.h \
+           scribus/ui/preferences/prefs_typography.h \
+           scribus/ui/preferences/prefs_userinterface.h \
            scribus/ui/printdialog.h \
            scribus/ui/printlanguagecombo.h \
            scribus/ui/printpreview.h \
@@ -1101,33 +1101,33 @@ FORMS += scribus/ui/aboutplugins.ui \
          scribus/ui/picstatus.ui \
          scribus/ui/polygonwidgetbase.ui \
          scribus/ui/preferencesdialogbase.ui \
-         scribus/ui/prefs_colormanagementbase.ui \
-         scribus/ui/prefs_displaybase.ui \
-         scribus/ui/prefs_documentinformationbase.ui \
-         scribus/ui/prefs_documentitemattributesbase.ui \
-         scribus/ui/prefs_documentsectionsbase.ui \
-         scribus/ui/prefs_documentsetupbase.ui \
-         scribus/ui/prefs_experimentalbase.ui \
-         scribus/ui/prefs_externaltoolsbase.ui \
-         scribus/ui/prefs_fontsbase.ui \
-         scribus/ui/prefs_guidesbase.ui \
-         scribus/ui/prefs_hyphenatorbase.ui \
-         scribus/ui/prefs_imagecachebase.ui \
-         scribus/ui/prefs_itemtoolsbase.ui \
-         scribus/ui/prefs_keyboardshortcutsbase.ui \
-         scribus/ui/prefs_miscellaneousbase.ui \
-         scribus/ui/prefs_operatortoolsbase.ui \
-         scribus/ui/prefs_pagesizesbase.ui \
-         scribus/ui/prefs_pathsbase.ui \
-         scribus/ui/prefs_pdfexportbase.ui \
-         scribus/ui/prefs_pluginsbase.ui \
-         scribus/ui/prefs_preflightverifierbase.ui \
-         scribus/ui/prefs_printerbase.ui \
-         scribus/ui/prefs_scrapbookbase.ui \
-         scribus/ui/prefs_spellingbase.ui \
-         scribus/ui/prefs_tableofcontentsbase.ui \
-         scribus/ui/prefs_typographybase.ui \
-         scribus/ui/prefs_userinterfacebase.ui \
+         scribus/ui/preferences/prefs_colormanagementbase.ui \
+         scribus/ui/preferences/prefs_displaybase.ui \
+         scribus/ui/preferences/prefs_documentinformationbase.ui \
+         scribus/ui/preferences/prefs_documentitemattributesbase.ui \
+         scribus/ui/preferences/prefs_documentsectionsbase.ui \
+         scribus/ui/preferences/prefs_documentsetupbase.ui \
+         scribus/ui/preferences/prefs_experimentalbase.ui \
+         scribus/ui/preferences/prefs_externaltoolsbase.ui \
+         scribus/ui/preferences/prefs_fontsbase.ui \
+         scribus/ui/preferences/prefs_guidesbase.ui \
+         scribus/ui/preferences/prefs_hyphenatorbase.ui \
+         scribus/ui/preferences/prefs_imagecachebase.ui \
+         scribus/ui/preferences/prefs_itemtoolsbase.ui \
+         scribus/ui/preferences/prefs_keyboardshortcutsbase.ui \
+         scribus/ui/preferences/prefs_miscellaneousbase.ui \
+         scribus/ui/preferences/prefs_operatortoolsbase.ui \
+         scribus/ui/preferences/prefs_pagesizesbase.ui \
+         scribus/ui/preferences/prefs_pathsbase.ui \
+         scribus/ui/preferences/prefs_pdfexportbase.ui \
+         scribus/ui/preferences/prefs_pluginsbase.ui \
+         scribus/ui/preferences/prefs_preflightverifierbase.ui \
+         scribus/ui/preferences/prefs_printerbase.ui \
+         scribus/ui/preferences/prefs_scrapbookbase.ui \
+         scribus/ui/preferences/prefs_spellingbase.ui \
+         scribus/ui/preferences/prefs_tableofcontentsbase.ui \
+         scribus/ui/preferences/prefs_typographybase.ui \
+         scribus/ui/preferences/prefs_userinterfacebase.ui \
          scribus/ui/printdialogbase.ui \
          scribus/ui/printpreviewbase.ui \
          scribus/ui/propertiespalette_groupbase.ui \
@@ -1678,34 +1678,34 @@ SOURCES += scribus/actionmanager.cpp \
            scribus/ui/polygonwidget.cpp \
            scribus/ui/polyprops.cpp \
            scribus/ui/preferencesdialog.cpp \
-           scribus/ui/prefs_colormanagement.cpp \
-           scribus/ui/prefs_display.cpp \
-           scribus/ui/prefs_documentinformation.cpp \
-           scribus/ui/prefs_documentitemattributes.cpp \
-           scribus/ui/prefs_documentsections.cpp \
-           scribus/ui/prefs_documentsetup.cpp \
-           scribus/ui/prefs_experimental.cpp \
-           scribus/ui/prefs_externaltools.cpp \
-           scribus/ui/prefs_fonts.cpp \
-           scribus/ui/prefs_guides.cpp \
-           scribus/ui/prefs_hyphenator.cpp \
-           scribus/ui/prefs_imagecache.cpp \
-           scribus/ui/prefs_itemtools.cpp \
-           scribus/ui/prefs_keyboardshortcuts.cpp \
-           scribus/ui/prefs_miscellaneous.cpp \
-           scribus/ui/prefs_operatortools.cpp \
-           scribus/ui/prefs_pagesizes.cpp \
-           scribus/ui/prefs_pane.cpp \
-           scribus/ui/prefs_paths.cpp \
-           scribus/ui/prefs_pdfexport.cpp \
-           scribus/ui/prefs_plugins.cpp \
-           scribus/ui/prefs_preflightverifier.cpp \
-           scribus/ui/prefs_printer.cpp \
-           scribus/ui/prefs_scrapbook.cpp \
-           scribus/ui/prefs_spelling.cpp \
-           scribus/ui/prefs_tableofcontents.cpp \
-           scribus/ui/prefs_typography.cpp \
-           scribus/ui/prefs_userinterface.cpp \
+           scribus/ui/preferences/prefs_colormanagement.cpp \
+           scribus/ui/preferences/prefs_display.cpp \
+           scribus/ui/preferences/prefs_documentinformation.cpp \
+           scribus/ui/preferences/prefs_documentitemattributes.cpp \
+           scribus/ui/preferences/prefs_documentsections.cpp \
+           scribus/ui/preferences/prefs_documentsetup.cpp \
+           scribus/ui/preferences/prefs_experimental.cpp \
+           scribus/ui/preferences/prefs_externaltools.cpp \
+           scribus/ui/preferences/prefs_fonts.cpp \
+           scribus/ui/preferences/prefs_guides.cpp \
+           scribus/ui/preferences/prefs_hyphenator.cpp \
+           scribus/ui/preferences/prefs_imagecache.cpp \
+           scribus/ui/preferences/prefs_itemtools.cpp \
+           scribus/ui/preferences/prefs_keyboardshortcuts.cpp \
+           scribus/ui/preferences/prefs_miscellaneous.cpp \
+           scribus/ui/preferences/prefs_operatortools.cpp \
+           scribus/ui/preferences/prefs_pagesizes.cpp \
+           scribus/ui/preferences/prefs_pane.cpp \
+           scribus/ui/preferences/prefs_paths.cpp \
+           scribus/ui/preferences/prefs_pdfexport.cpp \
+           scribus/ui/preferences/prefs_plugins.cpp \
+           scribus/ui/preferences/prefs_preflightverifier.cpp \
+           scribus/ui/preferences/prefs_printer.cpp \
+           scribus/ui/preferences/prefs_scrapbook.cpp \
+           scribus/ui/preferences/prefs_spelling.cpp \
+           scribus/ui/preferences/prefs_tableofcontents.cpp \
+           scribus/ui/preferences/prefs_typography.cpp \
+           scribus/ui/preferences/prefs_userinterface.cpp \
            scribus/ui/printdialog.cpp \
            scribus/ui/printlanguagecombo.cpp \
            scribus/ui/printpreview.cpp \
