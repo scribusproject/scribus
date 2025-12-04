@@ -6,33 +6,33 @@
     <message>
         <location filename="../../scribus/fonts/ftface.cpp" line="55"/>
         <source>Freetype2 library not available</source>
-        <translation type="unfinished">Freetype2 库不可用</translation>
+        <translation>Freetype2库不可用</translation>
     </message>
     <message>
         <location filename="../../scribus/fonts/ftface.cpp" line="73"/>
         <location filename="../../scribus/fonts/ftface.cpp" line="91"/>
         <source>Font %1(%2) is broken</source>
-        <translation type="unfinished">字体 %1(%2) 已损坏</translation>
+        <translation>字体 %1(%2) 已损坏</translation>
     </message>
     <message>
         <location filename="../../scribus/fonts/ftface.cpp" line="151"/>
         <source>Font %1 has broken glyph %2 (charcode %3)</source>
-        <translation type="unfinished">字体 %1 已损坏字形 %2 (字符码 %3)</translation>
+        <translation>字体%1有损坏的字形%2 (字符码 %3)</translation>
     </message>
     <message>
         <location filename="../../scribus/fonts/ftface.cpp" line="209"/>
         <source>Font %1 has broken glyph %2</source>
-        <translation type="unfinished">字体 %1 已损坏字形 %2</translation>
+        <translation>字体%1有损坏的字形%2</translation>
     </message>
     <message>
         <location filename="../../scribus/fonts/ftface.cpp" line="436"/>
         <source>Font %1 is broken (read stream), no embedding</source>
-        <translation type="unfinished">字体 %1 已损坏 (读取流)，未嵌入</translation>
+        <translation>字体 %1 已损坏 (读取流)，未嵌入</translation>
     </message>
     <message>
         <location filename="../../scribus/fonts/scface_ttf.cpp" line="132"/>
         <source>extracting face %1 from font %2 (offset=%3, nTables=%4)</source>
-        <translation type="unfinished">从字体 %2 中提取面 %1 (偏移量=%3, nTables=%4)</translation>
+        <translation>从字体 %2 提取面 %1 (偏移=%3, nTables=%4)</translation>
     </message>
 </context>
 <context>
@@ -16283,1270 +16283,1647 @@ Do you want to migrate them to the new Scribus version?</source>
 <context>
     <name>Prefs_ColorManagement</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="38"/>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagement.cpp" line="24"/>
         <source>Color Management</source>
-        <translation type="vanished">颜色管理</translation>
+        <translation>颜色管理</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="92"/>
         <source>Document Options</source>
-        <translation type="vanished">文档选项</translation>
+        <translation>文档选项</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="106"/>
         <source>Activate Color Management</source>
-        <translation type="vanished">激活颜色管理</translation>
+        <translation>激活颜色管理</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="113"/>
         <source>Simulate Printer on the Screen</source>
-        <translation type="vanished">屏幕模拟打印机</translation>
+        <translation>屏幕模拟打印机</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="120"/>
         <source>Convert all colors to printer space</source>
-        <translation type="vanished">转换所有颜色到打印机的颜色空间</translation>
+        <translation>转换所有颜色到打印机的颜色空间</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="127"/>
         <source>Mark Colors out of Gamut</source>
-        <translation type="vanished">标记超色域颜色</translation>
+        <translation>标记超色域颜色</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="134"/>
         <source>Use Blackpoint Compensation</source>
-        <translation type="vanished">使用黑场补偿</translation>
+        <translation>使用黑场补偿</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="163"/>
         <source>Document Profiles</source>
-        <translation type="vanished">文档配置文件</translation>
+        <translation>文档配置文件</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="185"/>
         <source>RGB Images:</source>
-        <translation type="vanished">RGB图像：</translation>
+        <translation>RGB图像：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="205"/>
         <source>CMYK Images:</source>
-        <translation type="vanished">CMYK图像：</translation>
+        <translation>CMYK图像：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="225"/>
         <source>RGB Solid Colors:</source>
-        <translation type="vanished">RGB纯色:</translation>
+        <translation>RGB纯色:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="238"/>
         <source>CMYK Solid Colors:</source>
-        <translation type="vanished">CMYK纯色:</translation>
+        <translation>CMYK纯色:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="251"/>
         <source>Printer:</source>
-        <translation type="vanished">打印机:</translation>
+        <translation>打印机:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="285"/>
         <source>Document Rendering Intents</source>
-        <translation type="vanished">文档渲染意图</translation>
+        <translation>文档渲染意图</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="304"/>
         <source>Images:</source>
-        <translation type="vanished">图片:</translation>
+        <translation>图片:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="314"/>
         <source>Solid Colors:</source>
-        <translation type="vanished">单色:</translation>
+        <translation>单色:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="348"/>
         <source>Monitor Profile</source>
-        <translation type="vanished">显示器颜色配置文件</translation>
+        <translation>显示器颜色配置文件</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="370"/>
         <source>Monitor:</source>
-        <translation type="vanished">显示器:</translation>
+        <translation>显示器:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagement.cpp" line="64"/>
         <source>Perceptual</source>
-        <translation type="vanished">图象感知</translation>
+        <translation>图象感知</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagement.cpp" line="64"/>
         <source>Relative Colorimetric</source>
-        <translation type="vanished">相对比色</translation>
+        <translation>相对比色</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagement.cpp" line="65"/>
         <source>Saturation</source>
-        <translation type="vanished">饱和度</translation>
+        <translation>饱和度</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagement.cpp" line="65"/>
         <source>Absolute Colorimetric</source>
-        <translation type="vanished">绝对比色</translation>
+        <translation>绝对比色</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagement.cpp" line="34"/>
         <source>Monitor profiles can only be changed when no documents are open.</source>
-        <translation type="vanished">没有打开文档时才能修改显示器颜色配置文件。</translation>
+        <translation>没有打开文档时才能修改显示器颜色配置文件。</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagement.cpp" line="55"/>
         <source>&lt;qt&gt;Color Management cannot be activated due to missing color profiles.&lt;/br&gt;You need to install at least one RGB and one CMYK profile.</source>
-        <translation type="vanished">&lt;qt&gt;由于缺少颜色配置文件而无法激活颜色管理。&lt;/br&gt;您需要至少安装一个RGB和一个CMYK配置文件。</translation>
+        <translation>&lt;qt&gt;由于缺少颜色配置文件而无法激活颜色管理。&lt;/br&gt;您需要至少安装一个RGB和一个CMYK配置文件。</translation>
     </message>
 </context>
 <context>
     <name>Prefs_Display</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="29"/>
         <source>Display</source>
-        <translation type="vanished">显示</translation>
+        <translation>显示</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="81"/>
         <source>Show Images</source>
-        <translation type="vanished">显示图像</translation>
+        <translation>显示图像</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="95"/>
         <source>Show Text Control Characters</source>
-        <translation type="vanished">显示文本控制符</translation>
+        <translation>显示文本控制符</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="60"/>
         <source>Show Rulers</source>
-        <translation type="vanished">显示标尺</translation>
+        <translation>显示标尺</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="67"/>
         <source>Show Rulers Relative to Page</source>
-        <translation type="vanished">显示页面标尺</translation>
+        <translation>显示页面标尺</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="88"/>
         <source>Show Text Chains</source>
-        <translation type="vanished">显示文本链</translation>
+        <translation>显示文本链</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="74"/>
         <source>Show Frames</source>
-        <translation type="vanished">显示框架</translation>
+        <translation>显示框架</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="102"/>
         <source>Show Layer Indicators</source>
-        <translation type="vanished">显示图层指示器</translation>
+        <translation>显示图层指示器</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="109"/>
         <source>Show Unprintable Area in Margin Color</source>
-        <translation type="vanished">非打印区域以页面边框颜色显示</translation>
+        <translation>非打印区域以页面边框颜色显示</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="116"/>
         <source>Show Bleed Area</source>
-        <translation type="vanished">显示出血区域</translation>
+        <translation>显示出血区域</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="123"/>
         <source>Show Page Shadow</source>
-        <translation type="vanished">显示页面阴影</translation>
+        <translation>显示页面阴影</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="130"/>
         <source>Show Preflight Verifier Warnings on the Page</source>
-        <translation type="vanished">在页面显示印前校验警告</translation>
+        <translation>在页面显示印前校验警告</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="151"/>
         <source>Scratch Space</source>
-        <translation type="vanished">暂存空间</translation>
+        <translation>暂存空间</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="159"/>
         <source>Left:</source>
-        <translation type="vanished">左边:</translation>
+        <translation>左边:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="169"/>
         <source>Right:</source>
-        <translation type="vanished">右边:</translation>
+        <translation>右边:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="179"/>
         <source>Top:</source>
-        <translation type="vanished">顶部:</translation>
+        <translation>顶部:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="189"/>
         <source>Bottom:</source>
-        <translation type="vanished">底部:</translation>
+        <translation>底部:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="275"/>
         <source>Display Scaling</source>
-        <translation type="vanished">显示比例</translation>
+        <translation>显示比例</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="423"/>
         <source>Scratch Space:</source>
-        <translation type="vanished">暂存空间:</translation>
+        <translation>暂存空间:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="223"/>
         <source>Gaps Between Pages</source>
-        <translation type="vanished">页面间的间距</translation>
+        <translation>页面间的间距</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="54"/>
         <source>Pages</source>
-        <translation type="vanished">页面</translation>
+        <translation>页面</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="239"/>
         <source>Horizontal:</source>
-        <translation type="vanished">水平:</translation>
+        <translation>水平:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="249"/>
         <source>Vertical:</source>
-        <translation type="vanished">垂直:</translation>
+        <translation>垂直:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="299"/>
         <source>Scale%</source>
-        <translation type="vanished">缩放比例%</translation>
+        <translation>缩放比例%</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="309"/>
         <source>Resets the scale to the default dpi of your display</source>
-        <translation type="vanished">将级别重置为显示的默认DPI</translation>
+        <translation>将级别重置为显示的默认DPI</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="367"/>
         <source>Colors</source>
-        <translation type="vanished">颜色</translation>
+        <translation>颜色</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="409"/>
         <source>Page Fill:</source>
-        <translation type="vanished">页面填充：</translation>
+        <translation>页面填充：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="437"/>
         <source>Selected Page Border:</source>
-        <translation type="vanished">选择页面边界:</translation>
+        <translation>选择页面边界:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="451"/>
         <source>Frames:</source>
-        <translation type="vanished">框架:</translation>
+        <translation>框架:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="465"/>
         <source>Locked Frames:</source>
-        <translation type="vanished">锁定的框架：</translation>
+        <translation>锁定的框架：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="479"/>
         <source>Selected Frames:</source>
-        <translation type="vanished">选中的框架：</translation>
+        <translation>选中的框架：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="493"/>
         <source>Linked Frames:</source>
-        <translation type="vanished">链接的框架：</translation>
+        <translation>链接的框架：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="507"/>
         <source>Grouped Frames:</source>
-        <translation type="vanished">群组的框架：</translation>
+        <translation>群组的框架：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="521"/>
         <source>Annotation Frames:</source>
-        <translation type="vanished">注释框架：</translation>
+        <translation>注释框架：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="535"/>
         <source>Text Control Characters:</source>
-        <translation type="vanished">文本控制字符：</translation>
+        <translation>文本控制字符：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="73"/>
         <source>Color for paper (onscreen)</source>
-        <translation type="vanished">纸张颜色 (屏幕上)</translation>
+        <translation>纸张颜色 (屏幕上)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="74"/>
         <source>Mask the area outside the margins in the margin color</source>
-        <translation type="vanished">用边距颜色掩盖边距之外的区域</translation>
+        <translation>用边距颜色掩盖边距之外的区域</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="76"/>
         <source>Display non-printing characters such as paragraph markers in text frames</source>
-        <translation type="vanished">在文本框中显示非打印字符，如段落标记</translation>
+        <translation>在文本框中显示非打印字符，如段落标记</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="77"/>
         <source>Turns the display of frames on or off</source>
-        <translation type="vanished">打开或关闭框架的显示</translation>
+        <translation>打开或关闭框架的显示</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="78"/>
         <source>Turns the display of layer indicators on or off</source>
-        <translation type="vanished">打开或关闭图层指示器的显示</translation>
+        <translation>打开或关闭图层指示器的显示</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="79"/>
         <source>Turns the display of images on or off</source>
-        <translation type="vanished">打开或关闭图像的显示</translation>
+        <translation>打开或关闭图像的显示</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="80"/>
         <source>Turns the page shadow on or off</source>
-        <translation type="vanished">打开或关闭页面阴影</translation>
+        <translation>打开或关闭页面阴影</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="81"/>
         <source>Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="vanished">定义文档画布的剩余空间量，可用作粘贴板，用于创建和修改元素并将它们拖到活动页面上</translation>
+        <translation>定义文档画布的剩余空间量，可用作粘贴板，用于创建和修改元素并将它们拖到活动页面上</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="82"/>
         <source>Defines amount of space right of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="vanished">定义文档画布右侧可用作粘贴板的空间量，用于创建和修改元素并将它们拖到活动页面上</translation>
+        <translation>定义文档画布右侧可用作粘贴板的空间量，用于创建和修改元素并将它们拖到活动页面上</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="83"/>
         <source>Defines amount of space above the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="vanished">定义文档画布上方可用作粘贴板的空间量，用于创建和修改元素并将它们拖到活动页面上</translation>
+        <translation>定义文档画布上方可用作粘贴板的空间量，用于创建和修改元素并将它们拖到活动页面上</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="84"/>
         <source>Defines amount of space below the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="vanished">定义文档画布下方可用作粘贴板的空间量，用于创建和修改元素并将它们拖到活动页面上</translation>
+        <translation>定义文档画布下方可用作粘贴板的空间量，用于创建和修改元素并将它们拖到活动页面上</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="85"/>
         <source>Set the default zoom level</source>
-        <translation type="vanished">设置默认的缩放级别</translation>
+        <translation>设置默认的缩放级别</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="86"/>
         <source>Place a ruler against your screen and drag the slider to set the zoom level so Scribus will display your pages and objects on them at the correct size</source>
-        <translation type="vanished">将尺子放在屏幕上并拖动滑块以设置缩放级别，便于Scribus以正确的尺寸显示页面和对象</translation>
+        <translation>将尺子放在屏幕上并拖动滑块以设置缩放级别，便于Scribus以正确的尺寸显示页面和对象</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="186"/>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="271"/>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="279"/>
         <source> dpi</source>
-        <translation type="vanished"> dpi</translation>
+        <translation> dpi</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="75"/>
         <source>Enable or disable the display of linked frames</source>
-        <translation type="vanished">启用或禁用链接框架的显示</translation>
+        <translation>启用或禁用链接框架的显示</translation>
     </message>
 </context>
 <context>
     <name>Prefs_DocumentInformation</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformation.cpp" line="23"/>
         <source>Document Information</source>
-        <translation type="vanished">文档信息</translation>
+        <translation>文档信息</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="54"/>
         <source>Document</source>
-        <translation type="vanished">文档</translation>
+        <translation>文档</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="60"/>
         <source>Title:</source>
-        <translation type="vanished">标题:</translation>
+        <translation>标题:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="77"/>
         <source>Author:</source>
-        <translation type="vanished">作者:</translation>
+        <translation>作者:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="87"/>
         <source>Subject:</source>
-        <translation type="vanished">主题:</translation>
+        <translation>主题:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="97"/>
         <source>Keywords:</source>
-        <translation type="vanished">关键词:</translation>
+        <translation>关键词:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="111"/>
         <source>Description:</source>
-        <translation type="vanished">描述:</translation>
+        <translation>描述:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="126"/>
         <source>Further Information</source>
-        <translation type="vanished">更多信息</translation>
+        <translation>更多信息</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="167"/>
         <source>Publisher:</source>
-        <translation type="vanished">生产商:</translation>
+        <translation>生产商:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="177"/>
         <source>Contributors:</source>
-        <translation type="vanished">贡献者:</translation>
+        <translation>贡献者:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="191"/>
         <source>Date:</source>
-        <translation type="vanished">日期:</translation>
+        <translation>日期:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="205"/>
         <source>Type:</source>
-        <translation type="vanished">类型:</translation>
+        <translation>类型:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="219"/>
         <source>Format:</source>
-        <translation type="vanished">格式:</translation>
+        <translation>格式:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="229"/>
         <source>Identifier:</source>
-        <translation type="vanished">标识符:</translation>
+        <translation>标识符:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="239"/>
         <source>Source:</source>
-        <translation type="vanished">源:</translation>
+        <translation>源:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="249"/>
         <source>Language:</source>
-        <translation type="vanished">语言:</translation>
+        <translation>语言:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="263"/>
         <source>Relation:</source>
-        <translation type="vanished">关系:</translation>
+        <translation>关系:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="273"/>
         <source>Coverage:</source>
-        <translation type="vanished">覆盖率:</translation>
+        <translation>覆盖率:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="287"/>
         <source>Rights:</source>
-        <translation type="vanished">权限:</translation>
+        <translation>权限:</translation>
     </message>
 </context>
 <context>
     <name>Prefs_DocumentItemAttributes</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="14"/>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="39"/>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="19"/>
         <source>Document Item Attributes</source>
-        <translation type="vanished">文档对象属性</translation>
+        <translation>文档对象属性</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="54"/>
         <source>Name</source>
-        <translation type="vanished">名称</translation>
+        <translation>名称</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="59"/>
         <source>Type</source>
-        <translation type="vanished">类型</translation>
+        <translation>类型</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="64"/>
         <source>Value</source>
-        <translation type="vanished">值</translation>
+        <translation>值</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="69"/>
         <source>Parameter</source>
-        <translation type="vanished">参数</translation>
+        <translation>参数</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="74"/>
         <source>Relationship</source>
-        <translation type="vanished">关系</translation>
+        <translation>关系</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="79"/>
         <source>Relationship To</source>
-        <translation type="vanished">关系到</translation>
+        <translation>关系到</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="84"/>
         <source>Auto Add To</source>
-        <translation type="vanished">自动添加到</translation>
+        <translation>自动添加到</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="110"/>
         <source>&amp;Add</source>
-        <translation type="vanished">添加(&amp;A)</translation>
+        <translation>添加(&amp;A)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="113"/>
         <source>Alt+A</source>
-        <translation type="vanished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="120"/>
         <source>&amp;Copy</source>
-        <translation type="vanished">复制(&amp;C)</translation>
+        <translation>复制(&amp;C)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="123"/>
         <source>Alt+C</source>
-        <translation type="vanished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="130"/>
         <source>&amp;Delete</source>
-        <translation type="vanished">删除(&amp;D)</translation>
+        <translation>删除(&amp;D)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="133"/>
         <source>Alt+D</source>
-        <translation type="vanished">Alt+D</translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="140"/>
         <source>C&amp;lear</source>
-        <translation type="vanished">清除(&amp;L)</translation>
+        <translation>清除(&amp;L)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="143"/>
         <source>Alt+L</source>
-        <translation type="vanished">Alt+L</translation>
+        <translation>Alt+L</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="22"/>
         <source>None</source>
         <comment>relationship</comment>
-        <translation type="vanished">无</translation>
+        <translation>无</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="22"/>
         <source>Relates To</source>
-        <translation type="vanished">相关联</translation>
+        <translation>相关联</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="22"/>
         <source>Is Parent Of</source>
-        <translation type="vanished">父级于</translation>
+        <translation>父级于</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="22"/>
         <source>Is Child Of</source>
-        <translation type="vanished">子级于</translation>
+        <translation>子级于</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="24"/>
         <source>None</source>
         <comment>auto add</comment>
-        <translation type="vanished">无</translation>
+        <translation>无</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="24"/>
         <source>Text Frames</source>
-        <translation type="vanished">文本框</translation>
+        <translation>文本框</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="24"/>
         <source>Image Frames</source>
-        <translation type="vanished">图像框</translation>
+        <translation>图像框</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="26"/>
         <source>None</source>
         <comment>types</comment>
-        <translation type="vanished">无</translation>
+        <translation>无</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="26"/>
         <source>Boolean</source>
-        <translation type="vanished">布尔</translation>
+        <translation>布尔</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="26"/>
         <source>Integer</source>
-        <translation type="vanished">整数</translation>
+        <translation>整数</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="26"/>
         <source>Real Number</source>
-        <translation type="vanished">实数</translation>
+        <translation>实数</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="26"/>
         <source>String</source>
-        <translation type="vanished">字符串</translation>
+        <translation>字符串</translation>
     </message>
 </context>
 <context>
     <name>Prefs_DocumentSections</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsections.cpp" line="27"/>
         <source>Sections</source>
-        <translation type="vanished">章节</translation>
+        <translation>章节</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsections.cpp" line="172"/>
         <source>Page Number Out Of Bounds</source>
-        <translation type="vanished">页码越界</translation>
+        <translation>页码越界</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsections.cpp" line="172"/>
         <source>The value you have entered is outside the range of page numbers in the current document (%1-%2).</source>
-        <translation type="vanished">输入的数值超过当前文档页码范围 (%1-%2)。</translation>
+        <translation>输入的数值超过当前文档页码范围 (%1-%2)。</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="14"/>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="39"/>
         <source>Document Sections</source>
-        <translation type="vanished">文档章节</translation>
+        <translation>文档章节</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="60"/>
         <source>Name</source>
-        <translation type="vanished">名称</translation>
+        <translation>名称</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="65"/>
         <source>Shown</source>
-        <translation type="vanished">显示</translation>
+        <translation>显示</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="75"/>
         <source>From</source>
-        <translation type="vanished">从</translation>
+        <translation>从</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="80"/>
         <source>To</source>
-        <translation type="vanished">到</translation>
+        <translation>到</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="85"/>
         <source>Style</source>
-        <translation type="vanished">样式</translation>
+        <translation>样式</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="90"/>
         <source>Start</source>
-        <translation type="vanished">开始</translation>
+        <translation>开始</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="126"/>
         <source>&amp;Add</source>
-        <translation type="vanished">添加(&amp;A)</translation>
+        <translation>添加(&amp;A)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="129"/>
         <source>Alt+A</source>
-        <translation type="vanished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="136"/>
         <source>&amp;Delete</source>
-        <translation type="vanished">删除(&amp;D)</translation>
+        <translation>删除(&amp;D)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="139"/>
         <source>Alt+D</source>
-        <translation type="vanished">Alt+D</translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="95"/>
         <source>Field Width</source>
-        <translation type="vanished">字段宽度</translation>
+        <translation>字段宽度</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="100"/>
         <source>Fill Character</source>
-        <translation type="vanished">填充字符</translation>
+        <translation>填充字符</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="70"/>
         <source>Reversed</source>
-        <translation type="vanished">反转</translation>
+        <translation>反转</translation>
     </message>
 </context>
 <context>
     <name>Prefs_DocumentSetup</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="35"/>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="34"/>
         <source>Document Setup</source>
-        <translation type="vanished">文档设置</translation>
+        <translation>文档设置</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="53"/>
         <source>General</source>
-        <translation type="vanished">常规</translation>
+        <translation>常规</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="107"/>
         <source>Page Size</source>
-        <translation type="vanished">页面尺寸</translation>
+        <translation>页面尺寸</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="123"/>
         <source>Size:</source>
-        <translation type="vanished">尺寸:</translation>
+        <translation>尺寸:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="144"/>
         <source>Orientation:</source>
-        <translation type="vanished">方向：</translation>
+        <translation>方向：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="157"/>
         <source>Units:</source>
-        <translation type="vanished">单位 :</translation>
+        <translation>单位 :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="170"/>
         <source>Width:</source>
-        <translation type="vanished">宽度:</translation>
+        <translation>宽度:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="183"/>
         <source>Height:</source>
-        <translation type="vanished">高度 :</translation>
+        <translation>高度 :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="198"/>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="422"/>
         <source>Apply changes to all pages</source>
-        <translation type="vanished">应用更改到所有页面</translation>
+        <translation>应用更改到所有页面</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="205"/>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="429"/>
         <source>Apply changes to all master pages</source>
-        <translation type="vanished">应用更改到所有母版页</translation>
+        <translation>应用更改到所有母版页</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="226"/>
         <source>Layout</source>
-        <translation type="vanished">版式</translation>
+        <translation>版式</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="237"/>
         <source>Page Layout</source>
-        <translation type="vanished">页面版式</translation>
+        <translation>页面版式</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="290"/>
         <source>Facing Pages</source>
-        <translation type="vanished">对页</translation>
+        <translation>对页</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="521"/>
         <source>Saving &amp;&amp; Undo</source>
-        <translation type="vanished">保存与撤消</translation>
+        <translation>保存与撤消</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="527"/>
         <source>Save in Compressed Format</source>
-        <translation type="vanished">压缩保存</translation>
+        <translation>压缩保存</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="534"/>
         <source>Try to save an &quot;Emergency File&quot; in case of a crash</source>
-        <translation type="vanished">尝试保存 &quot;应急文件&quot; 防止崩溃</translation>
+        <translation>尝试保存 &quot;应急文件&quot; 防止崩溃</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="562"/>
         <source>Autosave</source>
-        <translation type="vanished">自动保存</translation>
+        <translation>自动保存</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="576"/>
         <source>Enable automatic saving of documents</source>
-        <translation type="vanished">文档启用自动保存</translation>
+        <translation>文档启用自动保存</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="587"/>
         <source>Interval:</source>
-        <translation type="vanished">间隔：</translation>
+        <translation>间隔：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="594"/>
         <source> min</source>
-        <translation type="vanished">分钟</translation>
+        <translation>分钟</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="604"/>
         <source>Number of files to keep:</source>
-        <translation type="vanished">保存的备份文件个数:</translation>
+        <translation>保存的备份文件个数:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="637"/>
         <source>Save into the same directory as the document</source>
-        <translation type="vanished">保存到文档所在目录</translation>
+        <translation>保存到文档所在目录</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="647"/>
         <source>Save into:</source>
-        <translation type="vanished">保存到：</translation>
+        <translation>保存到：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="657"/>
         <source>Change...</source>
-        <translation type="vanished">更改...</translation>
+        <translation>更改...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="669"/>
         <source>Keep backup files after closing the document</source>
-        <translation type="vanished">关闭文档后保留备份文件</translation>
+        <translation>关闭文档后保留备份文件</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="676"/>
         <source>Show autosave countdown clock on the canvas</source>
-        <translation type="vanished">显示自动保存倒计时</translation>
+        <translation>显示自动保存倒计时</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="704"/>
         <source>Undo / Redo</source>
-        <translation type="vanished">撤消或重做</translation>
+        <translation>撤消或重做</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="718"/>
         <source>Enable Undo/Redo System</source>
-        <translation type="vanished">启用撤消或重做功能</translation>
+        <translation>启用撤消或重做功能</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="727"/>
         <source>Action History Length:</source>
-        <translation type="vanished">撤销历史次数:</translation>
+        <translation>撤销历史次数:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="300"/>
         <source>Single Page</source>
-        <translation type="vanished">单页</translation>
+        <translation>单页</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="280"/>
         <source>3-Fold</source>
-        <translation type="vanished">3-折</translation>
+        <translation>3-折</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="270"/>
         <source>4-Fold</source>
-        <translation type="vanished">4-折</translation>
+        <translation>4-折</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="61"/>
         <source>Language:</source>
-        <translation type="vanished">语言 :</translation>
+        <translation>语言 :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="253"/>
         <source>First Page is:</source>
-        <translation type="vanished">首页是:</translation>
+        <translation>首页是:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="329"/>
         <source>Margins &amp;&amp; Bleeds</source>
-        <translation type="vanished">边距与出血</translation>
+        <translation>边距与出血</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="376"/>
         <source>Margins</source>
-        <translation type="vanished">边距</translation>
+        <translation>边距</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="457"/>
         <source>Bleeds</source>
-        <translation type="vanished">出血</translation>
+        <translation>出血</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="111"/>
         <source>Portrait</source>
-        <translation type="vanished">纵向</translation>
+        <translation>纵向</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="112"/>
         <source>Landscape</source>
-        <translation type="vanished">横向</translation>
+        <translation>横向</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="122"/>
         <source>Width of document pages, editable if you have chosen a custom page size</source>
-        <translation type="vanished">文档页面宽度，如果您选择自定义页面可以修改</translation>
+        <translation>文档页面宽度，如果您选择自定义页面可以修改</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="123"/>
         <source>Height of document pages, editable if you have chosen a custom page size</source>
-        <translation type="vanished">文档页面高度，如果您选择自定义页面可以修改</translation>
+        <translation>文档页面高度，如果您选择自定义页面可以修改</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="124"/>
         <source>Default page size, either a standard size or a custom size. More page sizes can be made visible by activating them in Preferences.</source>
-        <translation type="vanished">默认页面尺寸，标准或自定义尺寸。通过在 &quot;首选项&gt;页面尺寸&quot; 中激活它们可以显示更多页面尺寸。</translation>
+        <translation>默认页面尺寸，标准或自定义尺寸。通过在 &quot;首选项&gt;页面尺寸&quot; 中激活它们可以显示更多页面尺寸。</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="125"/>
         <source>Enable or disable more page sizes by jumping to Page Size preferences</source>
-        <translation type="vanished">通过转到 &quot;首选项&gt;页面尺寸&quot; 来启用或禁用更多页面尺寸</translation>
+        <translation>通过转到 &quot;首选项&gt;页面尺寸&quot; 来启用或禁用更多页面尺寸</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="126"/>
         <source>Default orientation of document pages</source>
-        <translation type="vanished">默认文档页面方向</translation>
+        <translation>默认文档页面方向</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="127"/>
         <source>Default unit of measurement for document editing</source>
-        <translation type="vanished">文档编辑默认使用的单位</translation>
+        <translation>文档编辑默认使用的单位</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="128"/>
+        <source>When enabled, Scribus saves backup copies of your file each time the time period elapses</source>
+        <translation>启用后，Scribus会在每个时间间隔保存文件的备份副本</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="133"/>
         <source>Keep this many files during the editing session. Backup files will be removed when you close the document.</source>
-        <translation type="vanished">在编辑会话期间保存所设置文件数，关闭文档时将删除备份文件。</translation>
+        <translation>在编辑会话期间保存所设置文件数，关闭文档时将删除备份文件。</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="393"/>
         <source>Choose a Directory</source>
-        <translation type="vanished">选择目录</translation>
+        <translation>选择目录</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="129"/>
         <source>Time period between saving automatically</source>
-        <translation type="vanished">自动保存的时间间隔</translation>
+        <translation>自动保存的时间间隔</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="130"/>
         <source>Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</source>
-        <translation type="vanished">设置操作历史长度，如果设置为 0 则表示不限制存储操作历史上限。</translation>
+        <translation>设置操作历史长度，如果设置为 0 则表示不限制存储操作历史上限。</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="131"/>
         <source>Apply the page size changes to all existing pages in the document</source>
-        <translation type="vanished">应用页面尺寸改变到文档中现有全部页面</translation>
+        <translation>应用页面尺寸改变到文档中现有全部页面</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="132"/>
         <source>Apply the page size changes to all existing master pages in the document</source>
-        <translation type="vanished">应用页面尺寸改变到文档中现有全部母版页</translation>
+        <translation>应用页面尺寸改变到文档中现有全部母版页</translation>
+    </message>
+</context>
+<context>
+    <name>Prefs_Experimental</name>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_experimentalbase.ui" line="35"/>
+        <source>Experimental Features</source>
+        <translation>实验性功能</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_experimentalbase.ui" line="79"/>
+        <source>Enable Notes, Marks and other related features</source>
+        <translation>启用注解、标记和其他相关功能</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_experimental.cpp" line="18"/>
+        <source>Experimental</source>
+        <translation>实验</translation>
     </message>
 </context>
 <context>
     <name>Prefs_ExternalTools</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="14"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="30"/>
         <source>External Tools</source>
-        <translation type="vanished">外部工具</translation>
+        <translation>外部工具</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="39"/>
         <source>External Tools and Applications</source>
-        <translation type="vanished">外部工具和应用</translation>
+        <translation>外部工具和应用</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="74"/>
         <source>PostScript Interpreter</source>
-        <translation type="vanished">PostScript解释器</translation>
+        <translation>PostScript解释器</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="90"/>
         <source>&amp;Name of Executable:</source>
-        <translation type="vanished">可执行文件名称(&amp;N):</translation>
+        <translation>可执行文件名称(&amp;N):</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="103"/>
         <source>&lt;qt&gt;Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.&lt;/qt&gt;</source>
-        <translation type="vanished">&lt;qt&gt;添加 Ghostscript 解释器的路径。在 Windows 系统上，请注意您需要使用名称为 gswin32c.exe 的程序而不是 gswin32.exe。否则这可能会在启动 Scribus 时引起卡死。&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;添加 Ghostscript 解释器的路径。在 Windows 系统上，请注意您需要使用名称为 gswin32c.exe 的程序而不是 gswin32.exe。否则这可能会在启动 Scribus 时引起卡死。&lt;/qt&gt;</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="110"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="281"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="351"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="418"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="485"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="608"/>
         <source>&amp;Change...</source>
-        <translation type="vanished">修改(&amp;C)...</translation>
+        <translation>修改(&amp;C)...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="113"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="284"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="354"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="488"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="611"/>
         <source>Alt+C</source>
-        <translation type="vanished">Alt+K</translation>
+        <translation>Alt+K</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="124"/>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
-        <translation type="vanished">屏幕辅助渲染用于 EPS 和 PDF 的文本抗锯齿</translation>
+        <translation>屏幕辅助渲染用于 EPS 和 PDF 的文本抗锯齿</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="127"/>
         <source>Antialias &amp;Text</source>
-        <translation type="vanished">文本抗锯齿(&amp;T)</translation>
+        <translation>文本抗锯齿(&amp;T)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="130"/>
         <source>Alt+T</source>
-        <translation type="vanished">Alt+T</translation>
+        <translation>Alt+T</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="153"/>
         <source>Antialias graphics for EPS and PDF onscreen rendering</source>
-        <translation type="vanished">屏幕辅助渲染用于 EPS 和 PDF 的图形抗锯齿</translation>
+        <translation>屏幕辅助渲染用于 EPS 和 PDF 的图形抗锯齿</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="156"/>
         <source>Antialias &amp;Graphics</source>
-        <translation type="vanished">图形抗锯齿(&amp;G)</translation>
+        <translation>图形抗锯齿(&amp;G)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="159"/>
         <source>Alt+G</source>
-        <translation type="vanished">Alt+G</translation>
+        <translation>Alt+G</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="182"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="698"/>
         <source>Resolution:</source>
-        <translation type="vanished">分辨率:</translation>
+        <translation>分辨率:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="195"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="711"/>
         <source> dpi</source>
-        <translation type="vanished"> dpi</translation>
+        <translation> dpi</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="245"/>
         <source>Image Processing Tool</source>
-        <translation type="vanished">图像处理工具</translation>
+        <translation>图像处理工具</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="261"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="331"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="401"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="465"/>
         <source>Name of &amp;Executable:</source>
-        <translation type="vanished">可执行文件名称(&amp;E):</translation>
+        <translation>可执行文件名称(&amp;E):</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="274"/>
         <source>&lt;qt&gt;File system location for graphics editor&lt;/qt&gt;</source>
-        <translation type="vanished">&lt;qt&gt;图形编辑器的文件系统位置&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;图形编辑器的文件系统位置&lt;/qt&gt;</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="315"/>
         <source>Web Browser</source>
-        <translation type="vanished">Web浏览器</translation>
+        <translation>Web浏览器</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="385"/>
         <source>PDF Viewer</source>
-        <translation type="vanished">PDF阅读器</translation>
+        <translation>PDF阅读器</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="449"/>
         <source>Uniconvertor</source>
-        <translation type="vanished">Uniconvertor</translation>
+        <translation>Uniconvertor</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="519"/>
         <source>Render Frames</source>
-        <translation type="vanished">渲染框架</translation>
+        <translation>渲染框架</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="533"/>
         <source>Configurations:</source>
-        <translation type="vanished">配置 :</translation>
+        <translation>配置 :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="547"/>
         <source>Up</source>
-        <translation type="vanished">向上</translation>
+        <translation>向上</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="554"/>
         <source>Down</source>
-        <translation type="vanished">向下</translation>
+        <translation>向下</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="561"/>
         <source>Add</source>
-        <translation type="vanished">添加</translation>
+        <translation>添加</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="568"/>
         <source>Delete</source>
-        <translation type="vanished">删除</translation>
+        <translation>删除</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="575"/>
         <source>Change...</source>
-        <translation type="vanished">更改...</translation>
+        <translation>更改...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="588"/>
         <source>External Editor:</source>
-        <translation type="vanished">外部编辑器 :</translation>
+        <translation>外部编辑器 :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="622"/>
         <source>Start with empty frame</source>
-        <translation type="vanished">启动时显示空框架</translation>
+        <translation>启动时显示空框架</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="648"/>
         <source>Use Embedded Editor</source>
-        <translation type="vanished">使用嵌入式编辑器</translation>
+        <translation>使用嵌入式编辑器</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="675"/>
         <source>Force DPI</source>
-        <translation type="vanished">强制DPI</translation>
+        <translation>强制DPI</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="777"/>
         <source>Rescan for the external tools if they do not exist in the already specified location</source>
-        <translation type="vanished">重新扫描外部工具如果他们不存在那么要指定位置</translation>
+        <translation>重新扫描外部工具如果他们不存在那么要指定位置</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="780"/>
         <source>&amp;Rescan</source>
-        <translation type="vanished">重新扫描(&amp;R)</translation>
+        <translation>重新扫描(&amp;R)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="783"/>
         <source>Alt+R</source>
-        <translation type="vanished">Alt+R</translation>
+        <translation>Alt+R</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="100"/>
         <source>Locate Ghostscript</source>
-        <translation type="vanished">定位Ghostscript</translation>
+        <translation>定位Ghostscript</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="108"/>
         <source>Locate your image editor</source>
-        <translation type="vanished">定位图像编辑器</translation>
+        <translation>定位图像编辑器</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="116"/>
         <source>Locate your web browser</source>
-        <translation type="vanished">指定您的web浏览器</translation>
+        <translation>指定您的web浏览器</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="124"/>
         <source>Locate your PDF viewer</source>
-        <translation type="vanished">定位您的PDF查看器</translation>
+        <translation>定位您的PDF查看器</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="132"/>
         <source>Locate the uniconvertor executable</source>
-        <translation type="vanished">找到UniConvertor可执行文件</translation>
+        <translation>找到UniConvertor可执行文件</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="140"/>
         <source>Locate your editor</source>
-        <translation type="vanished">定位您的编辑器</translation>
+        <translation>定位您的编辑器</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="169"/>
         <source>Uniconvertor executable not found!</source>
-        <translation type="vanished">未找到UniConvertor可执行文件！</translation>
+        <translation>未找到UniConvertor可执行文件！</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="258"/>
         <source>Locate a Configuration file</source>
-        <translation type="vanished">定位配置文件</translation>
+        <translation>定位配置文件</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="260"/>
         <source>Configuration files</source>
-        <translation type="vanished">配置文件</translation>
+        <translation>配置文件</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="280"/>
         <source>Change Command</source>
-        <translation type="vanished">修改命令</translation>
+        <translation>修改命令</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="281"/>
         <source>Enter new command: (leave empty to reset to default command; use quotes around arguments with spaces)</source>
-        <translation type="vanished">输入新命令: (留空重置为默认命令；在带空格的参数周围要使用引号)</translation>
+        <translation>输入新命令: (留空重置为默认命令；在带空格的参数周围要使用引号)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="310"/>
         <source>Command: </source>
-        <translation type="vanished">命令： </translation>
+        <translation>命令： </translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="222"/>
         <source>LaTeX Command</source>
-        <translation type="vanished">LaTeX命令</translation>
+        <translation>LaTeX命令</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="223"/>
         <source>Scribus has found the following pdflatex command:
 %1
 Do you want to use this?</source>
-        <translation type="vanished">Scribus找到了以下pdflatex命令:
+        <translation>Scribus找到了以下pdflatex命令:
 %1
 你想用这个吗？</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="344"/>
         <source>&lt;qt&gt;File system location for web browser&lt;/qt&gt;</source>
-        <translation type="vanished">&lt;qt&gt;网络浏览器的文件系统位置&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;网络浏览器的文件系统位置&lt;/qt&gt;</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="411"/>
         <source>&lt;qt&gt;File system location for PDF viewer&lt;/qt&gt;</source>
-        <translation type="vanished">&lt;qt&gt;PDF 阅读器的文件系统位置&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;PDF 阅读器的文件系统位置&lt;/qt&gt;</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="478"/>
         <source>&lt;qt&gt;File system location for Uniconvertor&lt;/qt&gt;</source>
-        <translation type="vanished">&lt;qt&gt;Uniconvertor 的文件系统位置&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;Uniconvertor 的文件系统位置&lt;/qt&gt;</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="601"/>
         <source>&lt;qt&gt;Path to the editor executable&lt;/qt&gt;</source>
-        <translation type="vanished">&lt;qt&gt;编辑器可执行程序的路径&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;编辑器可执行程序的路径&lt;/qt&gt;</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="672"/>
         <source>Always use the configured DPI setting for calculating the size, even if the image file reports something different</source>
-        <translation type="vanished">始终使用配置的DPI设置来计算尺寸，即使图像文件报告了不同的内容</translation>
+        <translation>始终使用配置的DPI设置来计算尺寸，即使图像文件报告了不同的内容</translation>
     </message>
 </context>
 <context>
     <name>Prefs_Fonts</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_fonts.cpp" line="44"/>
         <source>Fonts</source>
-        <translation type="vanished">字体</translation>
+        <translation>字体</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="88"/>
         <source>Delete</source>
-        <translation type="vanished">删除</translation>
+        <translation>删除</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="111"/>
         <source>C&amp;hange...</source>
-        <translation type="vanished">修改(&amp;H)...</translation>
+        <translation>修改(&amp;H)...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="118"/>
         <source>A&amp;dd...</source>
-        <translation type="vanished">添加(&amp;D)...</translation>
+        <translation>添加(&amp;D)...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="125"/>
         <source>&amp;Remove</source>
-        <translation type="vanished">移除(&amp;R)</translation>
+        <translation>移除(&amp;R)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="176"/>
+        <location filename="../../scribus/ui/preferences/prefs_fonts.cpp" line="49"/>
         <source>Rejected Fonts</source>
-        <translation type="vanished">拒绝的字体</translation>
+        <translation>拒绝的字体</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="186"/>
         <source>Font name</source>
-        <translation type="vanished">字体名称</translation>
+        <translation>字体名称</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="191"/>
         <source>Error message</source>
-        <translation type="vanished">错误信息</translation>
+        <translation>错误信息</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="196"/>
         <source>Font file</source>
-        <translation type="vanished">字体文件</translation>
+        <translation>字体文件</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="54"/>
+        <location filename="../../scribus/ui/preferences/prefs_fonts.cpp" line="49"/>
         <source>Available Fonts</source>
-        <translation type="vanished">可用字体</translation>
+        <translation>可用字体</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="64"/>
+        <location filename="../../scribus/ui/preferences/prefs_fonts.cpp" line="49"/>
         <source>Font Substitutions</source>
-        <translation type="vanished">字体替换</translation>
+        <translation>字体替换</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="98"/>
+        <location filename="../../scribus/ui/preferences/prefs_fonts.cpp" line="49"/>
         <source>Additional Paths</source>
-        <translation type="vanished">其他路径</translation>
+        <translation>其他路径</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fonts.cpp" line="55"/>
         <source>Font Name</source>
-        <translation type="vanished">字体名</translation>
+        <translation>字体名</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fonts.cpp" line="56"/>
         <source>Replacement</source>
-        <translation type="vanished">替换</translation>
+        <translation>替换</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fonts.cpp" line="97"/>
         <source>Font search paths can only be set in File &gt; Preferences, and only when there is no document currently open. Close any open documents, then use File &gt; Preferences &gt; Fonts to change the font search path.</source>
-        <translation type="vanished">字体搜索路径仅能在“文件&gt;首选项”设置，并且仅在当前无文档打开时设置。关闭所有打开的文档，然后点击“文件&gt;首选项&gt;字体”修改字体搜索路径。</translation>
+        <translation>字体搜索路径仅能在“文件&gt;首选项”设置，并且仅在当前无文档打开时设置。关闭所有打开的文档，然后点击“文件&gt;首选项&gt;字体”修改字体搜索路径。</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fonts.cpp" line="285"/>
+        <location filename="../../scribus/ui/preferences/prefs_fonts.cpp" line="312"/>
         <source>Choose a Directory</source>
-        <translation type="vanished">选择目录</translation>
+        <translation>选择目录</translation>
     </message>
 </context>
 <context>
     <name>Prefs_Guides</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="371"/>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="24"/>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="63"/>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="131"/>
         <source>Guides</source>
-        <translation type="vanished">参考线</translation>
+        <translation>参考线</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="54"/>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="66"/>
         <source>Placement</source>
-        <translation type="vanished">位置</translation>
+        <translation>位置</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="171"/>
         <source>Snap Distance:</source>
-        <translation type="vanished">捕捉距离:</translation>
+        <translation>捕捉距离:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="178"/>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="198"/>
         <source> px</source>
-        <translation type="vanished"> 像素</translation>
+        <translation> 像素</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="191"/>
         <source>Grab Radius:</source>
-        <translation type="vanished">抓取半径 :</translation>
+        <translation>抓取半径 :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="361"/>
         <source>Visibility</source>
-        <translation type="vanished">可见</translation>
+        <translation>可见</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="384"/>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="69"/>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="137"/>
         <source>Margins</source>
-        <translation type="vanished">边距</translation>
+        <translation>边距</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="397"/>
         <source>Page Grid</source>
-        <translation type="vanished">页面网格</translation>
+        <translation>页面网格</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="421"/>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="67"/>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="135"/>
         <source>Baseline Grid</source>
-        <translation type="vanished">基线网格</translation>
+        <translation>基线网格</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="268"/>
         <source>Distances</source>
-        <translation type="vanished">距离</translation>
+        <translation>距离</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="296"/>
         <source>Minor Grid Spacing:</source>
-        <translation type="vanished">次网格间距：</translation>
+        <translation>次网格间距：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="306"/>
         <source>Baseline Grid Spacing:</source>
-        <translation type="vanished">基线网格间距：</translation>
+        <translation>基线网格间距：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="286"/>
         <source>Major Grid Spacing:</source>
-        <translation type="vanished">主网格间距：</translation>
+        <translation>主网格间距：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="320"/>
         <source>Baseline Grid Offset:</source>
-        <translation type="vanished">基线网格偏移：</translation>
+        <translation>基线网格偏移：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="459"/>
         <source>Colors</source>
-        <translation type="vanished">颜色</translation>
+        <translation>颜色</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="470"/>
         <source>Guides:</source>
-        <translation type="vanished">参考线：</translation>
+        <translation>参考线：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="484"/>
         <source>Margins:</source>
-        <translation type="vanished">边距：</translation>
+        <translation>边距：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="498"/>
         <source>Major Grid:</source>
-        <translation type="vanished">主网格：</translation>
+        <translation>主网格：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="512"/>
         <source>Minor Grid:</source>
-        <translation type="vanished">次网格：</translation>
+        <translation>次网格：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="526"/>
         <source>Baseline Grid:</source>
-        <translation type="vanished">基线网格：</translation>
+        <translation>基线网格：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="86"/>
         <source>Place guides in front of or behind objects on the page</source>
-        <translation type="vanished">将参考线放置在页面上对象的前面或后面</translation>
+        <translation>将参考线放置在页面上对象的前面或后面</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="87"/>
         <source>Distance between the minor grid lines</source>
-        <translation type="vanished">与次要网格中线的距离</translation>
+        <translation>与次要网格中线的距离</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="88"/>
         <source>Distance between the major grid lines</source>
-        <translation type="vanished">与主要网格中线的距离</translation>
+        <translation>与主要网格中线的距离</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="89"/>
         <source>Distance within which an object will snap to your placed guides. After setting this you will need to restart Scribus to set this setting.</source>
-        <translation type="vanished">页面对象在一定距离内会附着到您的参考线。设置之后您需要重启 Scribus 生效。</translation>
+        <translation>页面对象在一定距离内会附着到您的参考线。设置之后您需要重启 Scribus 生效。</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="91"/>
         <source>Color of the minor grid lines</source>
-        <translation type="vanished">次要网格线的颜色</translation>
+        <translation>次要网格线的颜色</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="92"/>
         <source>Color of the major grid lines</source>
-        <translation type="vanished">主要网格线的颜色</translation>
+        <translation>主要网格线的颜色</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="93"/>
         <source>Color of the guide lines you insert</source>
-        <translation type="vanished">您插入的参考线颜色</translation>
+        <translation>您插入的参考线颜色</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="94"/>
         <source>Color for the margin lines</source>
-        <translation type="vanished">边距线颜色</translation>
+        <translation>边距线颜色</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="95"/>
         <source>Color for the baseline grid</source>
-        <translation type="vanished">基线网格颜色</translation>
+        <translation>基线网格颜色</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="96"/>
         <source>Turns the basegrid on or off</source>
-        <translation type="vanished">开关基线网格</translation>
+        <translation>开关基线网格</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="97"/>
         <source>Distance between the lines of the baseline grid</source>
-        <translation type="vanished">与基线网格中线的距离</translation>
+        <translation>与基线网格中线的距离</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="98"/>
         <source>Distance from the top of the page for the first baseline</source>
-        <translation type="vanished">页面顶部到第一条基线的距离</translation>
+        <translation>页面顶部到第一条基线的距离</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="99"/>
         <source>Turns the gridlines on or off</source>
-        <translation type="vanished">开关页面网格显示</translation>
+        <translation>开关页面网格显示</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="100"/>
         <source>Turns the guides on or off</source>
-        <translation type="vanished">开关参考线显示</translation>
+        <translation>开关参考线显示</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="101"/>
         <source>Turns the margins on or off</source>
-        <translation type="vanished">开关边距线显示</translation>
+        <translation>开关边距线显示</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="404"/>
         <source>Type:</source>
-        <translation type="vanished">类型:</translation>
+        <translation>类型:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="61"/>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="129"/>
         <source>Content Objects</source>
-        <translation type="vanished">内容对象</translation>
+        <translation>内容对象</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="65"/>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="133"/>
         <source>Grid</source>
-        <translation type="vanished">网格</translation>
+        <translation>网格</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="78"/>
         <source>Lines</source>
-        <translation type="vanished">线</translation>
+        <translation>线</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="79"/>
         <source>Crosses and Dots</source>
-        <translation type="vanished">十字和圆点</translation>
+        <translation>十字和圆点</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="90"/>
         <source>Radius of the area where Scribus will allow you to grab an objects handles. After setting this you will need to restart Scribus to set this setting.</source>
-        <translation type="vanished">Scribus将允许您抓取对象句柄的区域半径，设置后需要重新启动Scribus才能生效。</translation>
+        <translation>Scribus将允许您抓取对象句柄的区域半径，设置后需要重新启动Scribus才能生效。</translation>
     </message>
 </context>
 <context>
     <name>Prefs_Hyphenator</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenatorbase.ui" line="35"/>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenator.cpp" line="26"/>
         <source>Hyphenation</source>
-        <translation type="vanished">断字</translation>
+        <translation>断字</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenatorbase.ui" line="62"/>
         <source>&amp;Hyphenation Suggestions</source>
-        <translation type="vanished">连字符建议(&amp;H)</translation>
+        <translation>连字符建议(&amp;H)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenatorbase.ui" line="72"/>
         <source>Hyphenate Text Automatically &amp;During Typing</source>
-        <translation type="vanished">连字符文本自动添加(&amp;D)</translation>
+        <translation>连字符文本自动添加(&amp;D)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenatorbase.ui" line="53"/>
         <source>Behaviour</source>
-        <translation type="vanished">习惯</translation>
+        <translation>习惯</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenatorbase.ui" line="96"/>
         <source>Word Lists</source>
-        <translation type="vanished">单词列表</translation>
+        <translation>单词列表</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenatorbase.ui" line="104"/>
         <source>Exceptions</source>
-        <translation type="vanished">例外</translation>
+        <translation>例外</translation>
     </message>
     <message>
         <source>Edit</source>
         <translation type="vanished">编辑</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenatorbase.ui" line="147"/>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenator.cpp" line="83"/>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenator.cpp" line="101"/>
         <source>Ignore List</source>
-        <translation type="vanished">忽略列表</translation>
+        <translation>忽略列表</translation>
     </message>
     <message>
         <source>Hyphenator</source>
@@ -17557,1733 +17934,2305 @@ Do you want to use this?</source>
         <translation type="vanished">添加新条目</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenator.cpp" line="83"/>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenator.cpp" line="135"/>
+        <source>Add new Entries</source>
+        <translation>新增條目</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenator.cpp" line="101"/>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenator.cpp" line="153"/>
         <source>Edit Entry</source>
-        <translation type="vanished">编辑条目</translation>
+        <translation>编辑条目</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenator.cpp" line="135"/>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenator.cpp" line="153"/>
         <source>Exception List</source>
-        <translation type="vanished">例外列表</translation>
+        <translation>例外列表</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenatorbase.ui" line="59"/>
         <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras &gt; Hyphenate Text option</source>
-        <translation type="vanished">当您使用 &quot;扩展&gt;连字符连接文本&quot; 选项时，将显示一个对话框，显示每个单词的所有可能连字符</translation>
+        <translation>当您使用 &quot;扩展&gt;连字符连接文本&quot; 选项时，将显示一个对话框，显示每个单词的所有可能连字符</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenatorbase.ui" line="69"/>
         <source>Enables automatic hyphenation of your text while typing</source>
-        <translation type="vanished">在输入时启用文本的自动连字符</translation>
+        <translation>在输入时启用文本的自动连字符</translation>
     </message>
 </context>
 <context>
     <name>Prefs_ImageCache</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_imagecache.cpp" line="27"/>
         <source>Enabling the image cache will significantly speed up the loading of images. Enable the cache if you are often working on large documents with lots of images and if you have plenty of disk space in your application data directory.</source>
-        <translation type="vanished">启用图像缓存可以加快图像加载速度。如果磁盘空间充足，建议在经常编辑含有大量图像的大文件时启用此图像缓存。</translation>
+        <translation>启用图像缓存可以加快图像加载速度。如果磁盘空间充足，建议在经常编辑含有大量图像的大文件时启用此图像缓存。</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_imagecache.cpp" line="30"/>
         <source>Set the level of compression for images in the cache. Higher values result in smaller cache files but also make writes to the cache slower.</source>
-        <translation type="vanished">设置缓存图像压缩等级。值越高，消耗的缓存越少，但速度会越慢。</translation>
+        <translation>设置缓存图像压缩等级。值越高，消耗的缓存越少，但速度会越慢。</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_imagecachebase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_imagecache.cpp" line="21"/>
         <source>Image Cache</source>
-        <translation type="vanished">图像缓存</translation>
+        <translation>图像缓存</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_imagecachebase.ui" line="80"/>
         <source>Enable Image Cache</source>
-        <translation type="vanished">启用图像缓存</translation>
+        <translation>启用图像缓存</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_imagecachebase.ui" line="92"/>
         <source>Cache Size Limit:</source>
-        <translation type="vanished">缓存大小限制：</translation>
+        <translation>缓存大小限制：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_imagecachebase.ui" line="123"/>
         <source> Mb</source>
-        <translation type="vanished"> Mb</translation>
+        <translation> Mb</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_imagecachebase.ui" line="142"/>
         <source>Cache Entry Limit:</source>
-        <translation type="vanished">缓存项限制：</translation>
+        <translation>缓存项限制：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_imagecachebase.ui" line="186"/>
         <source>Compression Level:</source>
-        <translation type="vanished">压缩等级：</translation>
+        <translation>压缩等级：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_imagecache.cpp" line="28"/>
         <source>Limit the total size of all files in the image cache directory to this amount</source>
-        <translation type="vanished">设置最大缓存空间</translation>
+        <translation>设置最大缓存空间</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_imagecache.cpp" line="29"/>
         <source>Limit the number of cache entries to this number</source>
-        <translation type="vanished">设置最大缓存条目数</translation>
+        <translation>设置最大缓存条目数</translation>
     </message>
 </context>
 <context>
     <name>Prefs_ItemTools</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="35"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="32"/>
         <source>Item Tools</source>
-        <translation type="vanished">对象工具</translation>
+        <translation>对象工具</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="65"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="144"/>
         <source>Text</source>
-        <translation type="vanished">文本</translation>
+        <translation>文本</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="207"/>
         <source>Columns:</source>
-        <translation type="vanished">文本栏：</translation>
+        <translation>文本栏：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="214"/>
         <source>Column Gap:</source>
-        <translation type="vanished">栏间距：</translation>
+        <translation>栏间距：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="428"/>
         <source>Tab Fill Character:</source>
-        <translation type="vanished">制表符填充字符：</translation>
+        <translation>制表符填充字符：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="468"/>
         <source>Tab Width:</source>
-        <translation type="vanished">制表符宽度：</translation>
+        <translation>制表符宽度：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="508"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="747"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1160"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1452"/>
         <source>Fill Color:</source>
-        <translation type="vanished">填充颜色：</translation>
+        <translation>填充颜色：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="408"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="781"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1060"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1334"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1418"/>
         <source>Line Color:</source>
-        <translation type="vanished">线颜色：</translation>
+        <translation>线颜色：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="285"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="305"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="451"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="481"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="754"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="814"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1053"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1097"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1254"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1411"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1469"/>
         <source>Shading:</source>
-        <translation type="vanished">色度:</translation>
+        <translation>色度:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="295"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="319"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="435"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="488"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="737"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="771"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="893"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="930"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1067"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1114"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1315"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1381"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1428"/>
         <source> %</source>
-        <translation type="vanished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="276"/>
         <source>Columns &amp; Text Distances</source>
-        <translation type="vanished">列和文本间距</translation>
+        <translation>列和文本间距</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="183"/>
         <source>Top:</source>
-        <translation type="vanished">顶：</translation>
+        <translation>顶：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="193"/>
         <source>Bottom:</source>
-        <translation type="vanished">底：</translation>
+        <translation>底：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="200"/>
         <source>Left:</source>
-        <translation type="vanished">左：</translation>
+        <translation>左：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="224"/>
         <source>Right:</source>
-        <translation type="vanished">右：</translation>
+        <translation>右：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="329"/>
         <source>Font:</source>
-        <translation type="vanished">字体：</translation>
+        <translation>字体：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="349"/>
         <source>Size:</source>
-        <translation type="vanished">大小：</translation>
+        <translation>大小：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="339"/>
         <source>Color:</source>
-        <translation type="vanished">颜色：</translation>
+        <translation>颜色：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="312"/>
         <source>Stroke:</source>
-        <translation type="vanished">描边:</translation>
+        <translation>描边:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="564"/>
         <source>Preview</source>
-        <translation type="vanished">预览</translation>
+        <translation>预览</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="693"/>
         <source>Images</source>
-        <translation type="vanished">图像</translation>
+        <translation>图像</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="836"/>
         <source>Use Embedded Clipping Path</source>
-        <translation type="vanished">使用嵌入式剪切路径</translation>
+        <translation>使用嵌入式剪切路径</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="864"/>
         <source>Scaling</source>
-        <translation type="vanished">缩放</translation>
+        <translation>缩放</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="940"/>
         <source>Horizontal Scaling:</source>
-        <translation type="vanished">水平缩放：</translation>
+        <translation>水平缩放：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="903"/>
         <source>Vertical Scaling:</source>
-        <translation type="vanished">竖直缩放：</translation>
+        <translation>竖直缩放：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="576"/>
+        <source>First Line Offset</source>
+        <translation>首行偏移</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="642"/>
+        <source>Offset:</source>
+        <translation>偏移值:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="650"/>
+        <source>Maximum Ascent</source>
+        <translation>最大高度</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="655"/>
+        <source>Font Ascent</source>
+        <translation>字体高度</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="660"/>
+        <source>Line Spacing</source>
+        <translation>行距</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="665"/>
+        <source>Baseline Grid</source>
+        <translation>基线网格</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="878"/>
+        <source>Auto-Fit</source>
+        <translation>自动适应</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="970"/>
         <source>On Screen Preview</source>
-        <translation type="vanished">屏幕预览</translation>
+        <translation>屏幕预览</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="984"/>
         <source>Full Resolution</source>
-        <translation type="vanished">高分辨率</translation>
+        <translation>高分辨率</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="994"/>
         <source>Normal Resolution</source>
-        <translation type="vanished">普通分辨率</translation>
+        <translation>普通分辨率</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1004"/>
         <source>Low Resolution</source>
-        <translation type="vanished">低分辨率</translation>
+        <translation>低分辨率</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1032"/>
         <source>Shapes</source>
-        <translation type="vanished">形状</translation>
+        <translation>形状</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1077"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1301"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1394"/>
         <source>Line Style:</source>
-        <translation type="vanished">线样式：</translation>
+        <translation>线样式：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1084"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1294"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1445"/>
         <source>Line Width:</source>
-        <translation type="vanished">线宽：</translation>
+        <translation>线宽：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1186"/>
         <source>Regular Polygons</source>
-        <translation type="vanished">正多边形</translation>
+        <translation>正多边形</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1233"/>
         <source>Lines</source>
-        <translation type="vanished">线</translation>
+        <translation>线</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1308"/>
         <source>Start Arrow:</source>
-        <translation type="vanished">箭头：</translation>
+        <translation>箭头：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1287"/>
         <source>End Arrow:</source>
-        <translation type="vanished">箭尾：</translation>
+        <translation>箭尾：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="52"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="53"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="54"/>
         <source>Hairline</source>
-        <translation type="vanished">细线</translation>
+        <translation>细线</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="65"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="385"/>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
-        <translation type="vanished">首选项对象工具文本预览 - Woven silk pyjamas exchanged for blue quartz</translation>
+        <translation>首选项对象工具文本预览 - Woven silk pyjamas exchanged for blue quartz</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="108"/>
         <source>None</source>
         <comment>tab fill</comment>
-        <translation type="vanished">无</translation>
+        <translation>无</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="109"/>
         <source>Dot</source>
-        <translation type="vanished">点</translation>
+        <translation>点</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="110"/>
         <source>Hyphen</source>
-        <translation type="vanished">连字符</translation>
+        <translation>连字符</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="111"/>
         <source>Underscore</source>
-        <translation type="vanished">下划线</translation>
+        <translation>下划线</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="112"/>
         <source>Custom</source>
-        <translation type="vanished">自定义</translation>
+        <translation>自定义</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1360"/>
         <source>Calligraphic Pen</source>
-        <translation type="vanished">书法钢笔</translation>
+        <translation>书法钢笔</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1438"/>
         <source>Pen Angle:</source>
-        <translation type="vanished">笔角度：</translation>
+        <translation>笔角度：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1505"/>
         <source>Pen Width:</source>
-        <translation type="vanished">笔宽度：</translation>
+        <translation>笔宽度：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="66"/>
         <source>Keep horizontal and vertical scaling the same</source>
-        <translation type="vanished">保持水平和竖直缩放相同</translation>
+        <translation>保持水平和竖直缩放相同</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1528"/>
         <source>Arc</source>
-        <translation type="vanished">弧</translation>
+        <translation>弧</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1575"/>
         <source>Spiral</source>
-        <translation type="vanished">螺旋</translation>
+        <translation>螺旋</translation>
     </message>
 </context>
 <context>
     <name>Prefs_KeyboardShortcuts</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="14"/>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="39"/>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcuts.cpp" line="37"/>
         <source>Keyboard Shortcuts</source>
-        <translation type="vanished">快捷键</translation>
+        <translation>快捷键</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="95"/>
         <source>Search:</source>
-        <translation type="vanished">搜索 :</translation>
+        <translation>搜索 :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="111"/>
         <source>Action</source>
-        <translation type="vanished">动作</translation>
+        <translation>动作</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="116"/>
         <source>Shortcut</source>
-        <translation type="vanished">快捷键</translation>
+        <translation>快捷键</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="146"/>
         <source>Shortcut for Selected Action</source>
-        <translation type="vanished">选择快捷键动作</translation>
+        <translation>选择快捷键动作</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="162"/>
         <source>&amp;No Key</source>
-        <translation type="vanished">没有快捷键(&amp;N)</translation>
+        <translation>没有快捷键(&amp;N)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="165"/>
         <source>Alt+N</source>
-        <translation type="vanished">Alt+N</translation>
+        <translation>Alt+N</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="172"/>
         <source>&amp;User Defined Key</source>
-        <translation type="vanished">用户定义快捷键(&amp;U)</translation>
+        <translation>用户定义快捷键(&amp;U)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="175"/>
         <source>Alt+U</source>
-        <translation type="vanished">Alt+U</translation>
+        <translation>Alt+U</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="198"/>
         <source>Set &amp;Key</source>
-        <translation type="vanished">设置快捷键(&amp;K)</translation>
+        <translation>设置快捷键(&amp;K)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="201"/>
         <source>Alt+K</source>
-        <translation type="vanished">Alt+K</translation>
+        <translation>Alt+K</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="217"/>
         <source>CTRL+ALT+SHIFT+W</source>
-        <translation type="vanished">CTRL+ALT+SHIFT+W</translation>
+        <translation>CTRL+ALT+SHIFT+W</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="257"/>
         <source>Loadable Shortcut Sets</source>
-        <translation type="vanished">可加载的快捷键设置</translation>
+        <translation>可加载的快捷键设置</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="273"/>
         <source>Keyboard shortcut sets available to load</source>
-        <translation type="vanished">可加载的键盘快捷键设置</translation>
+        <translation>可加载的键盘快捷键设置</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="280"/>
         <source>Load the selected shortcut set</source>
-        <translation type="vanished">加载选中的快捷键设置</translation>
+        <translation>加载选中的快捷键设置</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="283"/>
         <source>&amp;Load</source>
-        <translation type="vanished">加载(&amp;L)</translation>
+        <translation>加载(&amp;L)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="286"/>
         <source>Alt+L</source>
-        <translation type="vanished">Alt+L</translation>
+        <translation>Alt+L</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="309"/>
         <source>Import a shortcut set into the current configuration</source>
-        <translation type="vanished">将快捷键设置导入到当前配置</translation>
+        <translation>将快捷键设置导入到当前配置</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="312"/>
         <source>&amp;Import...</source>
-        <translation type="vanished">导入(&amp;I)...</translation>
+        <translation>导入(&amp;I)...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="315"/>
         <source>Alt+I</source>
-        <translation type="vanished">Alt+I</translation>
+        <translation>Alt+I</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="322"/>
         <source>Export the current shortcuts into an importable file</source>
-        <translation type="vanished">导出当前快捷键到可导入的文件</translation>
+        <translation>导出当前快捷键到可导入的文件</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="325"/>
         <source>&amp;Export...</source>
-        <translation type="vanished">导出(&amp;E)...</translation>
+        <translation>导出(&amp;E)...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="328"/>
         <source>Alt+E</source>
-        <translation type="vanished">Alt+E</translation>
+        <translation>Alt+E</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="351"/>
         <source>Reload the default Scribus shortcuts</source>
-        <translation type="vanished">重新加载默认Scribus快捷键</translation>
+        <translation>重新加载默认Scribus快捷键</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="354"/>
         <source>&amp;Reset</source>
-        <translation type="vanished">重置(&amp;R)</translation>
+        <translation>重置(&amp;R)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="357"/>
         <source>Alt+R</source>
-        <translation type="vanished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcuts.cpp" line="132"/>
         <source>Select a Key set file to read</source>
-        <translation type="vanished">选择要读取的快捷键文件</translation>
+        <translation>选择要读取的快捷键文件</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcuts.cpp" line="132"/>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcuts.cpp" line="140"/>
         <source>Key Set XML Files (*.xml)</source>
-        <translation type="vanished">快捷键设置XML文件 (*.xml)</translation>
+        <translation>快捷键设置XML文件 (*.xml)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcuts.cpp" line="140"/>
         <source>Select a Key set file to save to</source>
-        <translation type="vanished">选择快捷键文件保存到</translation>
+        <translation>选择快捷键文件保存到</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcuts.cpp" line="222"/>
         <source>Export Keyboard Shortcuts to File</source>
-        <translation type="vanished">导出键盘快捷键到文件</translation>
+        <translation>导出键盘快捷键到文件</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcuts.cpp" line="222"/>
         <source>Enter the name of the shortcut set:</source>
-        <translation type="vanished">输入快捷键设置的名称 :</translation>
+        <translation>输入快捷键设置的名称 :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcuts.cpp" line="532"/>
         <source>The %1 key sequence is already in use by &quot;%2&quot;</source>
-        <translation type="vanished">&quot;%2&quot; 已在使用 %1 键位组合</translation>
+        <translation>&quot;%2&quot; 已在使用 %1 键位组合</translation>
     </message>
 </context>
 <context>
     <name>Prefs_Miscellaneous</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_miscellaneousbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_miscellaneous.cpp" line="18"/>
         <source>Miscellaneous</source>
-        <translation type="vanished">杂项</translation>
+        <translation>杂项</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_miscellaneousbase.ui" line="80"/>
         <source>Always ask before fonts are replaced when loading a document</source>
-        <translation type="vanished">加载文档时总是询问是否替换字体</translation>
+        <translation>加载文档时总是询问是否替换字体</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_miscellaneousbase.ui" line="87"/>
         <source>Preview of current Paragraph Style is visible when editing Styles</source>
-        <translation type="vanished">编辑样式时显示预览</translation>
+        <translation>编辑样式时显示预览</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_miscellaneousbase.ui" line="116"/>
         <source>Lorem Ipsum</source>
-        <translation type="vanished">乱数假文</translation>
+        <translation>乱数假文</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_miscellaneousbase.ui" line="130"/>
         <source>Always use standard Lorem Ipsum text</source>
-        <translation type="vanished">始终使用标准的乱数假文</translation>
+        <translation>始终使用标准的乱数假文</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_miscellaneousbase.ui" line="139"/>
         <source>Paragraph Count:</source>
-        <translation type="vanished">段落数量：</translation>
+        <translation>段落数量：</translation>
     </message>
 </context>
 <context>
     <name>Prefs_OperatorTools</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_operatortools.cpp" line="22"/>
         <source>Operator Tools</source>
-        <translation type="vanished">操作员工具</translation>
+        <translation>操作员工具</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="66"/>
         <source>Zoom</source>
-        <translation type="vanished">缩放</translation>
+        <translation>缩放</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="77"/>
         <source>Minimum:</source>
-        <translation type="vanished">最小:</translation>
+        <translation>最小:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="84"/>
         <source>Maximum:</source>
-        <translation type="vanished">最大:</translation>
+        <translation>最大:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="91"/>
         <source>Stepping:</source>
-        <translation type="vanished">步进:</translation>
+        <translation>步进:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="98"/>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="111"/>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="124"/>
         <source> %</source>
-        <translation type="vanished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="153"/>
         <source>Miscellaneous</source>
-        <translation type="vanished">杂项</translation>
+        <translation>杂项</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="165"/>
         <source>Item Duplicate</source>
-        <translation type="vanished">对象再制</translation>
+        <translation>对象再制</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="184"/>
         <source>X Displacement:</source>
-        <translation type="vanished">X位移:</translation>
+        <translation>X位移:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="191"/>
         <source>Y Displacement:</source>
-        <translation type="vanished">Y位移:</translation>
+        <translation>Y位移:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="228"/>
         <source>Rotation Tool</source>
-        <translation type="vanished">旋转工具</translation>
+        <translation>旋转工具</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="247"/>
         <source>Constrain To:</source>
-        <translation type="vanished">约束到:</translation>
+        <translation>约束到:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortools.cpp" line="39"/>
         <source>Minimum magnification allowed</source>
-        <translation type="vanished">允许的最小放大倍数</translation>
+        <translation>允许的最小放大倍数</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortools.cpp" line="40"/>
         <source>Maximum magnification allowed</source>
-        <translation type="vanished">允许的最大放大倍数</translation>
+        <translation>允许的最大放大倍数</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortools.cpp" line="41"/>
         <source>Change in magnification for each zoom operation</source>
-        <translation type="vanished">每次缩放操作的放大倍数变化</translation>
+        <translation>每次缩放操作的放大倍数变化</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortools.cpp" line="42"/>
         <source>Horizontal displacement of page items</source>
-        <translation type="vanished">页面对象的水平位移</translation>
+        <translation>页面对象的水平位移</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortools.cpp" line="43"/>
         <source>Vertical displacement of page items</source>
-        <translation type="vanished">页面对象的竖直位移</translation>
+        <translation>页面对象的竖直位移</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortools.cpp" line="44"/>
         <source>Constrain value for the rotation tool when the Control key is pressed</source>
-        <translation type="vanished">当控制键按下旋转工具的约束值</translation>
+        <translation>当控制键按下旋转工具的约束值</translation>
     </message>
 </context>
 <context>
     <name>Prefs_PDFExport</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="45"/>
         <source>PDF Export</source>
-        <translation type="vanished">PDF输出</translation>
+        <translation>PDF输出</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="66"/>
         <source>Export Range</source>
-        <translation type="vanished">导出范围</translation>
+        <translation>导出范围</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="80"/>
         <source>All Pages</source>
-        <translation type="vanished">全部页面</translation>
+        <translation>全部页面</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="90"/>
         <source>Choose Pages</source>
-        <translation type="vanished">选择页面</translation>
+        <translation>选择页面</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="145"/>
         <source>Rotation and Mirroring</source>
-        <translation type="vanished">旋转和镜像</translation>
+        <translation>旋转和镜像</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="161"/>
         <source>Rotation:</source>
-        <translation type="vanished">旋转:</translation>
+        <translation>旋转:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="188"/>
         <source>Page Mirroring:</source>
-        <translation type="vanished">页面镜像:</translation>
+        <translation>页面镜像:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="298"/>
         <source>Page Binding:</source>
-        <translation type="vanished">页面装订:</translation>
+        <translation>页面装订:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="465"/>
         <source>Resolution for EPS Graphics:</source>
-        <translation type="vanished">EPS图片分辨率:</translation>
+        <translation>EPS图片分辨率:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="435"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="472"/>
         <source> dpi</source>
-        <translation type="vanished"> dpi</translation>
+        <translation> dpi</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="312"/>
         <source>Clip to Printer Margins</source>
-        <translation type="vanished">裁切到打印机边距</translation>
+        <translation>裁切到打印机边距</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="428"/>
         <source>Limit Maximum Image Resolution to:</source>
-        <translation type="vanished">限制最大图像分辨率为:</translation>
+        <translation>限制最大图像分辨率为:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="652"/>
         <source>Allow Copying Text and Graphics</source>
-        <translation type="vanished">允许复制文本和图案</translation>
+        <translation>允许复制文本和图案</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="241"/>
         <source>File Options</source>
-        <translation type="vanished">文件选项</translation>
+        <translation>文件选项</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="54"/>
         <source>Pages</source>
-        <translation type="vanished">页面</translation>
+        <translation>页面</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="288"/>
         <source>Compatibility:</source>
-        <translation type="vanished">兼容性:</translation>
+        <translation>兼容性:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="319"/>
         <source>Generate Thumbnails</source>
-        <translation type="vanished">生成缩略图</translation>
+        <translation>生成缩略图</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="326"/>
         <source>Save Linked Text Frames as PDF Articles</source>
-        <translation type="vanished">已链接文本框另存为PDF对象</translation>
+        <translation>已链接文本框另存为PDF对象</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="333"/>
         <source>Include Layers</source>
-        <translation type="vanished">包括图层</translation>
+        <translation>包括图层</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="340"/>
         <source>Include Bookmarks</source>
-        <translation type="vanished">包含书签</translation>
+        <translation>包含书签</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="347"/>
         <source>Embed PDF &amp;&amp; EPS Files (Experimental)</source>
-        <translation type="vanished">嵌入PDF和EPS文件 (实验性功能)</translation>
+        <translation>嵌入PDF和EPS文件 (实验性功能)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="378"/>
         <source>Compression</source>
-        <translation type="vanished">压缩</translation>
+        <translation>压缩</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="392"/>
         <source>Compress Text and Vector Graphics</source>
-        <translation type="vanished">压缩文本和矢量图</translation>
+        <translation>压缩文本和矢量图</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="404"/>
         <source>Image Compression Method:</source>
-        <translation type="vanished">图像压缩方式:</translation>
+        <translation>图像压缩方式:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="414"/>
         <source>Image Compression Quality:</source>
-        <translation type="vanished">图像压缩质量:</translation>
+        <translation>图像压缩质量:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="518"/>
         <source>Security</source>
-        <translation type="vanished">安全</translation>
+        <translation>安全</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="524"/>
         <source>Use Encryption</source>
-        <translation type="vanished">使用加密</translation>
+        <translation>使用加密</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="553"/>
         <source>Passwords</source>
-        <translation type="vanished">密码</translation>
+        <translation>密码</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="572"/>
         <source>Owner:</source>
-        <translation type="vanished">所有者：</translation>
+        <translation>所有者：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="586"/>
         <source>User:</source>
-        <translation type="vanished">用户名：</translation>
+        <translation>用户名：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="624"/>
         <source>Settings</source>
-        <translation type="vanished">设置</translation>
+        <translation>设置</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="638"/>
         <source>Allow Printing the Document</source>
-        <translation type="vanished">允许打印文档</translation>
+        <translation>允许打印文档</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="645"/>
         <source>Allow Changing the Document</source>
-        <translation type="vanished">允许修改文档</translation>
+        <translation>允许修改文档</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="659"/>
         <source>Allow Adding Annotations and Fields</source>
-        <translation type="vanished">允许加入注释和字段</translation>
+        <translation>允许加入注释和字段</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="680"/>
         <source>Color</source>
-        <translation type="vanished">颜色</translation>
+        <translation>颜色</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="727"/>
         <source>Output Intended For:</source>
-        <translation type="vanished">输出预期为:</translation>
+        <translation>输出预期为:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="739"/>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation type="vanished">转换专色到印刷原色</translation>
+        <translation>转换专色到印刷原色</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="768"/>
         <source>Solid Colors</source>
-        <translation type="vanished">纯色</translation>
+        <translation>纯色</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="789"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="856"/>
         <source>Use Color Profile</source>
-        <translation type="vanished">使用颜色配置文件</translation>
+        <translation>使用颜色配置文件</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="798"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="872"/>
         <source>Profile:</source>
-        <translation type="vanished">配置文件:</translation>
+        <translation>配置文件:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="808"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="882"/>
         <source>Rendering Intent:</source>
-        <translation type="vanished">渲染意图:</translation>
+        <translation>渲染意图:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="842"/>
         <source>Images</source>
-        <translation type="vanished">图像</translation>
+        <translation>图像</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="863"/>
         <source>Do not use Embedded Color Profiles</source>
-        <translation type="vanished">不使用内嵌的颜色配置文件</translation>
+        <translation>不使用内嵌的颜色配置文件</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="916"/>
         <source>Custom Rendering</source>
-        <translation type="vanished">自定义渲染</translation>
+        <translation>自定义渲染</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="930"/>
         <source>Use Custom Rendering</source>
-        <translation type="vanished">使用自定义渲染</translation>
+        <translation>使用自定义渲染</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="942"/>
         <source>Color:</source>
-        <translation type="vanished">颜色:</translation>
+        <translation>颜色:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="952"/>
         <source>Frequency:</source>
-        <translation type="vanished">频率:</translation>
+        <translation>频率:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="969"/>
         <source>Angle:</source>
-        <translation type="vanished">角度:</translation>
+        <translation>角度:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="976"/>
         <source> °</source>
-        <translation type="vanished"> °</translation>
+        <translation> °</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="989"/>
         <source>Spot Function:</source>
-        <translation type="vanished">网点函数:</translation>
+        <translation>网点函数:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1019"/>
         <source>Pre-Press</source>
-        <translation type="vanished">印前</translation>
+        <translation>印前</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1067"/>
         <source>Printer Marks</source>
-        <translation type="vanished">打印机标记</translation>
+        <translation>打印机标记</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1128"/>
         <source>Page Information</source>
-        <translation type="vanished">页面信息</translation>
+        <translation>页面信息</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1324"/>
         <source>Embedding</source>
-        <translation type="vanished">嵌入</translation>
+        <translation>嵌入</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1630"/>
         <source>Facing Pages Left</source>
-        <translation type="vanished">对页左页</translation>
+        <translation>对页左页</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1637"/>
         <source>Facing Pages Right</source>
-        <translation type="vanished">对页右页</translation>
+        <translation>对页右页</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1121"/>
         <source>Registration Marks</source>
-        <translation type="vanished">套准标记</translation>
+        <translation>套准标记</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1143"/>
         <source>Crop Marks</source>
-        <translation type="vanished">裁剪标记</translation>
+        <translation>裁剪标记</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1107"/>
         <source>Bleed Marks</source>
-        <translation type="vanished">出血标记</translation>
+        <translation>出血标记</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1114"/>
         <source>Color Bars</source>
-        <translation type="vanished">颜色栏</translation>
+        <translation>颜色栏</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1190"/>
         <source>Bleed Settings</source>
-        <translation type="vanished">出血设置</translation>
+        <translation>出血设置</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1204"/>
         <source>Use Document Bleeds</source>
-        <translation type="vanished">使用文档出血</translation>
+        <translation>使用文档出血</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1272"/>
         <source>Output Profile:</source>
-        <translation type="vanished">输出配置文件：</translation>
+        <translation>输出配置文件：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1282"/>
         <source>Information String:</source>
-        <translation type="vanished">字符串信息:</translation>
+        <translation>字符串信息:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1312"/>
         <source>Fonts</source>
-        <translation type="vanished">字体</translation>
+        <translation>字体</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1372"/>
         <source>Embed All</source>
-        <translation type="vanished">全部嵌入</translation>
+        <translation>全部嵌入</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1362"/>
         <source>Fonts to Embed</source>
-        <translation type="vanished">要嵌入的字体</translation>
+        <translation>要嵌入的字体</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1454"/>
         <source>Extras</source>
-        <translation type="vanished">扩展</translation>
+        <translation>扩展</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1460"/>
         <source>Enable Presentation Effects</source>
-        <translation type="vanished">启用演示效果</translation>
+        <translation>启用演示效果</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1479"/>
         <source>Display Duration:</source>
-        <translation type="vanished">显示时长:</translation>
+        <translation>显示时长:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1486"/>
         <source>Effect Duration:</source>
-        <translation type="vanished">效果时长:</translation>
+        <translation>效果时长:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1493"/>
         <source>Effect Type:</source>
-        <translation type="vanished">效果类型:</translation>
+        <translation>效果类型:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1503"/>
         <source>Moving Lines:</source>
-        <translation type="vanished">移动线 :</translation>
+        <translation>移动线 :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1513"/>
         <source>From the:</source>
-        <translation type="vanished">从:</translation>
+        <translation>从:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1523"/>
         <source>Direction:</source>
-        <translation type="vanished">方向:</translation>
+        <translation>方向:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1533"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1543"/>
         <source> s</source>
-        <translation type="vanished"> s</translation>
+        <translation> s</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1558"/>
         <source>Apply Effect to All Pages</source>
-        <translation type="vanished">应用效果到所有页面</translation>
+        <translation>应用效果到所有页面</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1582"/>
         <source>Show Page Previews</source>
-        <translation type="vanished">显示页面预览</translation>
+        <translation>显示页面预览</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1590"/>
         <source>Viewer</source>
-        <translation type="vanished">阅读器</translation>
+        <translation>阅读器</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1602"/>
         <source>Document Layout</source>
-        <translation type="vanished">文档版式</translation>
+        <translation>文档版式</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1616"/>
         <source>Single Page</source>
-        <translation type="vanished">单页</translation>
+        <translation>单页</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1623"/>
         <source>Continuous Pages</source>
-        <translation type="vanished">连续页</translation>
+        <translation>连续页</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1666"/>
         <source>Visual Appearance</source>
-        <translation type="vanished">视觉外观</translation>
+        <translation>视觉外观</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1684"/>
         <source>Use Viewer&apos;s Default</source>
-        <translation type="vanished">使用查看器的默认值</translation>
+        <translation>使用查看器的默认值</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1691"/>
         <source>Use Full Screen Mode</source>
-        <translation type="vanished">使用全屏模式</translation>
+        <translation>使用全屏模式</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1698"/>
         <source>Display Bookmarks Tab</source>
-        <translation type="vanished">显示书签栏</translation>
+        <translation>显示书签栏</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1705"/>
         <source>Display Thumbnails</source>
-        <translation type="vanished">显示缩略图</translation>
+        <translation>显示缩略图</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1712"/>
         <source>Display Layers Tab</source>
-        <translation type="vanished">显示图层栏</translation>
+        <translation>显示图层栏</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1723"/>
         <source>Hide Viewer&apos;s Menu Bar</source>
-        <translation type="vanished">隐藏查看器的菜单栏</translation>
+        <translation>隐藏查看器的菜单栏</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1730"/>
         <source>Hide Viewer&apos;s Tool Bar</source>
-        <translation type="vanished">隐藏查看器的工具栏</translation>
+        <translation>隐藏查看器的工具栏</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1737"/>
         <source>Zoom Pages to fit Viewer Window</source>
-        <translation type="vanished">适应阅读器窗口</translation>
+        <translation>适应阅读器窗口</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1783"/>
         <source>Special Actions</source>
-        <translation type="vanished">特殊动作</translation>
+        <translation>特殊动作</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1799"/>
         <source>Javascript to be executed when PDF document is opened:</source>
-        <translation type="vanished">打开PDF文档时需要执行的Javascript:</translation>
+        <translation>打开PDF文档时需要执行的Javascript:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="61"/>
         <source>Automatically rotate the exported pages</source>
-        <translation type="vanished">自动旋转导出的页面</translation>
+        <translation>自动旋转导出的页面</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="62"/>
         <source>Export all pages to PDF</source>
-        <translation type="vanished">导出所有页面为PDF</translation>
+        <translation>导出所有页面为PDF</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="63"/>
         <source>Export a range of pages to PDF</source>
-        <translation type="vanished">导出为PDF的页码范围</translation>
+        <translation>导出为PDF的页码范围</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="69"/>
         <source>Determines the PDF compatibility.&lt;br/&gt;&lt;b&gt;PDF 1.3&lt;/b&gt;, which is the earliest supported version, gives the widest compatibility with printers&apos; RIPS.&lt;br/&gt;&lt;b&gt;PDF 1.4&lt;/b&gt;, which is the default version, supports features such as transparency and 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; is for blind exchange with colors strictly specified in CMYK or spot colors.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; is an extension of PDF/X-3 to support transparency and layering.</source>
-        <translation type="vanished">决定 PDF 兼容性。&lt;br/&gt;&lt;b&gt;PDF 1.3&lt;/b&gt;，最早支持的版本，具有与打印机 RIPS 最广泛的兼容性。&lt;br/&gt;&lt;b&gt;PDF 1.4&lt;/b&gt;，默认的版本，支持如透明和 128 位加密的特性。&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; 是您想要在 PDF 内部分图层保存对象时需要使用的版本。&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; 是用来放心交换具有在 CMYK 或专色中严格指定颜色的文件的。&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; 是您想要将色彩管理的 RGB 用于商业印刷时导出 PDF 使用的并且在您激活色彩管理后可以选择。仅在您的打印机建议或某些使用四色数码彩色激光打印机打印的情况时使用。&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; 是对 PDF/X-3 支持透明和图层的扩展。</translation>
+        <translation>决定 PDF 兼容性。&lt;br/&gt;&lt;b&gt;PDF 1.3&lt;/b&gt;，最早支持的版本，具有与打印机 RIPS 最广泛的兼容性。&lt;br/&gt;&lt;b&gt;PDF 1.4&lt;/b&gt;，默认的版本，支持如透明和 128 位加密的特性。&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; 是您想要在 PDF 内部分图层保存对象时需要使用的版本。&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; 是用来放心交换具有在 CMYK 或专色中严格指定颜色的文件的。&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; 是您想要将色彩管理的 RGB 用于商业印刷时导出 PDF 使用的并且在您激活色彩管理后可以选择。仅在您的打印机建议或某些使用四色数码彩色激光打印机打印的情况时使用。&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; 是对 PDF/X-3 支持透明和图层的扩展。</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="70"/>
         <source>Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left.</source>
-        <translation type="vanished">确定PDF中页面的装订位置。除非您知道需要修改它，否则请保留默认选项 - 左。</translation>
+        <translation>确定PDF中页面的装订位置。除非您知道需要修改它，否则请保留默认选项 - 左。</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="71"/>
         <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
-        <translation type="vanished">生成PDF中每个页面的缩略图，某些观看者喜欢使用缩略图进行导航。</translation>
+        <translation>生成PDF中每个页面的缩略图，某些观看者喜欢使用缩略图进行导航。</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="74"/>
         <source>Embed the bookmarks you created in your document. These are useful for navigating long PDF documents.</source>
-        <translation type="vanished">嵌入文档中您创建的书签，这对于浏览较长的PDF文件有利。</translation>
+        <translation>嵌入文档中您创建的书签，这对于浏览较长的PDF文件有利。</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="75"/>
         <source>Export resolution of text and vector graphics. This does not affect the resolution of bitmap images like photos.</source>
-        <translation type="vanished">文字和矢量图输出的分辨率。这个不会影响 Bitmap 图片(例如照片) 的分辨率。</translation>
+        <translation>文字和矢量图输出的分辨率。这个不会影响 Bitmap 图片(例如照片) 的分辨率。</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="76"/>
         <source>Export PDFs in image frames as embedded PDFs. This does *not* yet take care of colorspaces, so you should know what you are doing before setting this to &apos;true&apos;.</source>
-        <translation type="vanished">将图片框中的PDF导出为嵌入的PDF。这 * 还没有 * 处理色彩空间，因此在将其设置为 &apos;true&apos; 之前，您应该知道自己在做什么。</translation>
+        <translation>将图片框中的PDF导出为嵌入的PDF。这 * 还没有 * 处理色彩空间，因此在将其设置为 &apos;true&apos; 之前，您应该知道自己在做什么。</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="77"/>
         <source>Enables lossless compression of text and graphics. Unless you have a reason, leave this checked. This reduces PDF file size.</source>
-        <translation type="vanished">对于文字和图片启用有损压缩。除非您有特别原因，否则请选中它。这样会减少 PDF 文件大小。</translation>
+        <translation>对于文字和图片启用有损压缩。除非您有特别原因，否则请选中它。这样会减少 PDF 文件大小。</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="78"/>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
-        <translation type="vanished">用于图像的压缩方法。&quot;自动&quot; 允许 Scribus 选择最佳方法。&quot;ZIP&quot; 是无损压缩，适用于均匀填充图像。&quot;JPEG&quot; 更擅长创建包含许多照片的较小PDF文件 (可能会有轻微的图像质量损失)。除非您需要特殊的压缩选项，否则请将其设置为 &quot;自动&quot;。</translation>
+        <translation>用于图像的压缩方法。&quot;自动&quot; 允许 Scribus 选择最佳方法。&quot;ZIP&quot; 是无损压缩，适用于均匀填充图像。&quot;JPEG&quot; 更擅长创建包含许多照片的较小PDF文件 (可能会有轻微的图像质量损失)。除非您需要特殊的压缩选项，否则请将其设置为 &quot;自动&quot;。</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="79"/>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
-        <translation type="vanished">有损压缩方法的压缩质量级别：最小 (25%)，低 (50%)，中 (75%)，高 (85%)，最大 (95%)。注意这个品质和压缩后的图片大小没有直接关系。不同的图片在相同的压缩质量级别下得到的文件大小和质量损耗都是不同的。既使选择最大质量，使用 JPEG 压缩方法仍有损耗。</translation>
+        <translation>有损压缩方法的压缩质量级别：最小 (25%)，低 (50%)，中 (75%)，高 (85%)，最大 (95%)。注意这个品质和压缩后的图片大小没有直接关系。不同的图片在相同的压缩质量级别下得到的文件大小和质量损耗都是不同的。既使选择最大质量，使用 JPEG 压缩方法仍有损耗。</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="80"/>
         <source>Limits the resolution of your bitmap images to the selected DPI. Images with a lower resolution will be left untouched. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
-        <translation type="vanished">选择位图的 DPI 限制分辨率。图片用低分辨率无法动用。不选中将会使用他们原有的分辨率渲染。启用它将会降低您的内存使用并且降低输出速度。</translation>
+        <translation>选择位图的 DPI 限制分辨率。图片用低分辨率无法动用。不选中将会使用他们原有的分辨率渲染。启用它将会降低您的内存使用并且降低输出速度。</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="82"/>
         <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
-        <translation type="vanished">输出 PDF启用安全功能。如果您选择 PDF 1.3，PDF 将会使用40位加密保护。如果您选择 PDF 1.4 将会使用128位加密保护。免责声明：PDF 加密不像 GPG 或者 PGP一样可靠存在一定的局限。</translation>
+        <translation>输出 PDF启用安全功能。如果您选择 PDF 1.3，PDF 将会使用40位加密保护。如果您选择 PDF 1.4 将会使用128位加密保护。免责声明：PDF 加密不像 GPG 或者 PGP一样可靠存在一定的局限。</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="87"/>
         <source>Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</source>
-        <translation type="vanished">允许从 PDF 复制文字或图片。如果不选中，文本和图片不能被复制。</translation>
+        <translation>允许从 PDF 复制文字或图片。如果不选中，文本和图片不能被复制。</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="88"/>
         <source>Allow adding annotations and fields to the PDF. If unchecked, editing annotations and fields is prevented.</source>
-        <translation type="vanished">允许加入注释和字段到PDF。如果不选中，编辑注释和字段会被阻止。</translation>
+        <translation>允许加入注释和字段到PDF。如果不选中，编辑注释和字段会被阻止。</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="90"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
-        <translation type="vanished">这是默认情况下未启用的高级设置。只有在您的打印机特别要求并且他们已向您提供所需的确切详细信息时，才应启用此功能。否则，导出的PDF可能无法正确打印，并且无法跨系统移植。</translation>
+        <translation>这是默认情况下未启用的高级设置。只有在您的打印机特别要求并且他们已向您提供所需的确切详细信息时，才应启用此功能。否则，导出的PDF可能无法正确打印，并且无法跨系统移植。</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="91"/>
         <source>Embed a color profile for solid colors</source>
-        <translation type="vanished">单色嵌入颜色配置文件</translation>
+        <translation>单色嵌入颜色配置文件</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="92"/>
         <source>Color profile for solid colors</source>
-        <translation type="vanished">单色颜色配置文件</translation>
+        <translation>单色颜色配置文件</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="93"/>
         <source>Rendering intent for solid colors</source>
-        <translation type="vanished">单色的渲染意图</translation>
+        <translation>单色的渲染意图</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="94"/>
         <source>Embed a color profile for images</source>
-        <translation type="vanished">图像嵌入颜色配置文件</translation>
+        <translation>图像嵌入颜色配置文件</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="95"/>
         <source>Do not use color profiles that are embedded in source images</source>
-        <translation type="vanished">不使用源图像中嵌入的颜色配置文件</translation>
+        <translation>不使用源图像中嵌入的颜色配置文件</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="96"/>
         <source>Color profile for images</source>
-        <translation type="vanished">图片颜色配置文件</translation>
+        <translation>图片颜色配置文件</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="97"/>
         <source>Rendering intent for images</source>
-        <translation type="vanished">图像的渲染意图</translation>
+        <translation>图像的渲染意图</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="98"/>
         <source>Mirror Page(s) horizontally</source>
-        <translation type="vanished">水平镜像页面</translation>
+        <translation>水平镜像页面</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="99"/>
         <source>Mirror Page(s) vertically</source>
-        <translation type="vanished">垂直镜像页面</translation>
+        <translation>垂直镜像页面</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="100"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation type="vanished">启用专色转换为混合色。除非您计划在商业打印机上打印专色，否则左边起用可能是最好的。</translation>
+        <translation>启用专色转换为混合色。除非您计划在商业打印机上打印专色，否则左边起用可能是最好的。</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="101"/>
         <source>Do not show objects outside the margins in the exported file</source>
-        <translation type="vanished">在输出文件中不提示超出边距的对象</translation>
+        <translation>在输出文件中不提示超出边距的对象</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="103"/>
         <source>Creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
-        <translation type="vanished">在 PDF 中创建指示纸张打印裁切或修剪位置的载剪标记</translation>
+        <translation>在 PDF 中创建指示纸张打印裁切或修剪位置的载剪标记</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="104"/>
         <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
-        <translation type="vanished">创建由  _ . _ 指示的出血标记并显示出血限制</translation>
+        <translation>创建由  _ . _ 指示的出血标记并显示出血限制</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="105"/>
         <source>Add registration marks to each separation</source>
-        <translation type="vanished">为每个分色添加套准标记</translation>
+        <translation>为每个分色添加套准标记</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="106"/>
         <source>Add color calibration bars</source>
-        <translation type="vanished">添加颜色校准栅</translation>
+        <translation>添加颜色校准栅</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="107"/>
         <source>Add document information which includes the document title and page numbers</source>
-        <translation type="vanished">添加文档信息包括文档标题和页码</translation>
+        <translation>添加文档信息包括文档标题和页码</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="109"/>
         <source>Indicate the distance offset for the registration marks</source>
-        <translation type="vanished">指示套准标记偏移距离</translation>
+        <translation>指示套准标记偏移距离</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="114"/>
         <source>Use the existing bleed settings from the document preferences</source>
-        <translation type="vanished">使用文档设置中现存的出血设置</translation>
+        <translation>使用文档设置中现存的出血设置</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="115"/>
         <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
-        <translation type="vanished">用于打印的输出配置文件。如果允许，从您的打印者那里获取关于配置文件选择的指导。</translation>
+        <translation>用于打印的输出配置文件。如果允许，从您的打印者那里获取关于配置文件选择的指导。</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="116"/>
         <source>Mandatory string for PDF/X or the PDF will fail PDF/X conformance. We recommend you use the title of the document.</source>
-        <translation type="vanished">PDF/X或 PDF 的命令字符串会引发 PDF/X相应错误。我们推荐您使用文档标题。</translation>
+        <translation>PDF/X或 PDF 的命令字符串会引发 PDF/X相应错误。我们推荐您使用文档标题。</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="209"/>
         <source>Automatic</source>
-        <translation type="vanished">自动</translation>
+        <translation>自动</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="210"/>
         <source>Lossy - JPEG</source>
-        <translation type="vanished">有损耗 - JPEG</translation>
+        <translation>有损耗 - JPEG</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="211"/>
         <source>Lossless - Zip</source>
-        <translation type="vanished">无损耗 - Zip</translation>
+        <translation>无损耗 - Zip</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="212"/>
         <source>None</source>
-        <translation type="vanished">无</translation>
+        <translation>无</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="217"/>
         <source>Maximum</source>
-        <translation type="vanished">最大</translation>
+        <translation>最大</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="218"/>
         <source>High</source>
-        <translation type="vanished">高</translation>
+        <translation>高</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="219"/>
         <source>Medium</source>
-        <translation type="vanished">中</translation>
+        <translation>中</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="220"/>
         <source>Low</source>
-        <translation type="vanished">低</translation>
+        <translation>低</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="221"/>
         <source>Minimum</source>
-        <translation type="vanished">最小</translation>
+        <translation>最小</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="228"/>
         <source>Left Margin</source>
-        <translation type="vanished">左边距</translation>
+        <translation>左边距</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="229"/>
         <source>Right Margin</source>
-        <translation type="vanished">右边距</translation>
+        <translation>右边距</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="234"/>
         <source>Screen / Web</source>
-        <translation type="vanished">屏幕或网页</translation>
+        <translation>屏幕或网页</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="235"/>
         <source>Printer</source>
-        <translation type="vanished">打印机</translation>
+        <translation>打印机</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="236"/>
         <source>Grayscale</source>
-        <translation type="vanished">灰度</translation>
+        <translation>灰度</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="241"/>
         <source>Simple Dot</source>
-        <translation type="vanished">单点</translation>
+        <translation>单点</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="242"/>
         <source>Line</source>
-        <translation type="vanished">线</translation>
+        <translation>线</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="243"/>
         <source>Round</source>
-        <translation type="vanished">圆</translation>
+        <translation>圆</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="244"/>
         <source>Ellipse</source>
-        <translation type="vanished">椭圆</translation>
+        <translation>椭圆</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="253"/>
         <source>Perceptual</source>
-        <translation type="vanished">图象感知</translation>
+        <translation>图象感知</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="253"/>
         <source>Relative Colorimetric</source>
-        <translation type="vanished">相对比色</translation>
+        <translation>相对比色</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="253"/>
         <source>Saturation</source>
-        <translation type="vanished">饱和度</translation>
+        <translation>饱和度</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="253"/>
         <source>Absolute Colorimetric</source>
-        <translation type="vanished">绝对比色</translation>
+        <translation>绝对比色</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="359"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="1304"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="1312"/>
         <source>Page</source>
-        <translation type="vanished">页面</translation>
+        <translation>页面</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="377"/>
         <source>No Script</source>
-        <translation type="vanished">无脚本</translation>
+        <translation>无脚本</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="520"/>
         <source>InfoString</source>
-        <translation type="vanished">信息字串</translation>
+        <translation>信息字串</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="552"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="971"/>
         <source>No Effect</source>
-        <translation type="vanished">无效果</translation>
+        <translation>无效果</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="553"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="972"/>
         <source>Blinds</source>
-        <translation type="vanished">百叶窗</translation>
+        <translation>百叶窗</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="554"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="973"/>
         <source>Box</source>
-        <translation type="vanished">盒子</translation>
+        <translation>盒子</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="555"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="974"/>
         <source>Dissolve</source>
-        <translation type="vanished">溶解</translation>
+        <translation>溶解</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="556"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="975"/>
         <source>Glitter</source>
-        <translation type="vanished">闪烁金粉</translation>
+        <translation>闪烁金粉</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="557"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="976"/>
         <source>Split</source>
-        <translation type="vanished">分裂</translation>
+        <translation>分裂</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="558"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="977"/>
         <source>Wipe</source>
-        <translation type="vanished">擦拭</translation>
+        <translation>擦拭</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="561"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="980"/>
         <source>Push</source>
-        <translation type="vanished">推</translation>
+        <translation>推</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="562"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="981"/>
         <source>Cover</source>
-        <translation type="vanished">封面</translation>
+        <translation>封面</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="563"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="982"/>
         <source>Uncover</source>
-        <translation type="vanished">翻转</translation>
+        <translation>翻转</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="564"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="983"/>
         <source>Fade</source>
-        <translation type="vanished">淡入淡出</translation>
+        <translation>淡入淡出</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="608"/>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
-        <translation type="vanished">将字体嵌入到PDF中，嵌入字体将保留文档的布局和外观。</translation>
+        <translation>将字体嵌入到PDF中，嵌入字体将保留文档的布局和外观。</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="609"/>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
-        <translation type="vanished">使用 Adobe&amp;#174 Reader&amp;#174 和其它支持全屏模式的 PDF 阅读器时启用演示特效。</translation>
+        <translation>使用 Adobe&amp;#174 Reader&amp;#174 和其它支持全屏模式的 PDF 阅读器时启用演示特效。</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="610"/>
         <source>Show page previews of each page listed above.</source>
-        <translation type="vanished">显示以上列出的每页的页面预览。</translation>
+        <translation>显示以上列出的每页的页面预览。</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="611"/>
         <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
-        <translation type="vanished">在选中的页面上演示开始之前的页面过渡时间。设置为0则会禁用自动页面过度。</translation>
+        <translation>在选中的页面上演示开始之前的页面过渡时间。设置为0则会禁用自动页面过度。</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="612"/>
         <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
-        <translation type="vanished">效果运行的时间。一个短的时间加快效果运行速度，一个长的时间效果运行速度变慢。</translation>
+        <translation>效果运行的时间。一个短的时间加快效果运行速度，一个长的时间效果运行速度变慢。</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="619"/>
         <source>Show the document in single page mode</source>
-        <translation type="vanished">单页模式显示文档</translation>
+        <translation>单页模式显示文档</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="620"/>
         <source>Show the document in single page mode with the pages displayed continuously end to end like a scroll</source>
-        <translation type="vanished">使用单页模式来显示文件，并且将页面一页页地连续显示</translation>
+        <translation>使用单页模式来显示文件，并且将页面一页页地连续显示</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="621"/>
         <source>Show the document with facing pages, starting with the first page displayed on the left</source>
-        <translation type="vanished">显示对页版式的文档，第一页显示在左侧</translation>
+        <translation>显示对页版式的文档，第一页显示在左侧</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="622"/>
         <source>Show the document with facing pages, starting with the first page displayed on the right</source>
-        <translation type="vanished">显示对页版式的文档，第一页显示在右侧</translation>
+        <translation>显示对页版式的文档，第一页显示在右侧</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="623"/>
         <source>Use the viewer&apos;s defaults or the user&apos;s preferences if set differently from the viewer defaults</source>
-        <translation type="vanished">使用阅读器默认或用户属性除非设置与阅读器默认设置不同</translation>
+        <translation>使用阅读器默认或用户属性除非设置与阅读器默认设置不同</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="624"/>
         <source>Enables viewing the document in full screen</source>
-        <translation type="vanished">启用文档全查看</translation>
+        <translation>启用文档全查看</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="625"/>
         <source>Display the bookmarks upon opening</source>
-        <translation type="vanished">打开时显示书签</translation>
+        <translation>打开时显示书签</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="626"/>
         <source>Display the page thumbnails upon opening</source>
-        <translation type="vanished">打开时显示缩略图</translation>
+        <translation>打开时显示缩略图</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="627"/>
         <source>Forces the displaying of layers. Useful only for PDF 1.5+.</source>
-        <translation type="vanished">强制显示图层。仅用于 PDF 1.5+。</translation>
+        <translation>强制显示图层。仅用于 PDF 1.5+。</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="628"/>
         <source>Hides the Tool Bar which has selection and other editing capabilities</source>
-        <translation type="vanished">隐藏具有选择和其他编辑功能的工具栏</translation>
+        <translation>隐藏具有选择和其他编辑功能的工具栏</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1085"/>
         <source>Mark Length:</source>
-        <translation type="vanished">标记长度：</translation>
+        <translation>标记长度：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1154"/>
         <source>Mark Offset:</source>
-        <translation type="vanished">标记偏移：</translation>
+        <translation>标记偏移：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="108"/>
         <source>Length of crop marks</source>
-        <translation type="vanished">裁剪标记的长度</translation>
+        <translation>裁剪标记的长度</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="83"/>
         <source>Choose an owner password which enables or disables all the security features in your exported PDF</source>
-        <translation type="vanished">选择一个所有者密码，用于启用或禁用导出PDF中的所有安全功能</translation>
+        <translation>选择一个所有者密码，用于启用或禁用导出PDF中的所有安全功能</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="67"/>
         <source>Create a range of pages</source>
-        <translation type="vanished">创建页面范围</translation>
+        <translation>创建页面范围</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1346"/>
         <source>Embedding mode:</source>
-        <translation type="vanished">嵌入模式:</translation>
+        <translation>嵌入模式:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1432"/>
         <source>Fonts to Subset</source>
-        <translation type="vanished">子集的字体</translation>
+        <translation>子集的字体</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1442"/>
         <source>Subset All</source>
-        <translation type="vanished">全部子集</translation>
+        <translation>全部子集</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="64"/>
         <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number</source>
-        <translation type="vanished">插入以逗号分隔的标记列表，其中标记可以是 * 代表所有页面，1-5用于页面范围或单个页码</translation>
+        <translation>插入以逗号分隔的标记列表，其中标记可以是 * 代表所有页面，1-5用于页面范围或单个页码</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="72"/>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF</source>
-        <translation type="vanished">生成PDF文章，这对于在PDF中导航链接文章很有用</translation>
+        <translation>生成PDF文章，这对于在PDF中导航链接文章很有用</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="73"/>
         <source>Layers in your document are exported to the PDF. Only available if PDF 1.5 is chosen.</source>
-        <translation type="vanished">文档中的图层将导出为PDF格式，仅在选择 PDF 1.5 时可用。</translation>
+        <translation>文档中的图层将导出为PDF格式，仅在选择 PDF 1.5 时可用。</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="81"/>
         <source>DPI (Dots Per Inch) for image export</source>
-        <translation type="vanished">用于图像导出的DPI (每英寸点数)</translation>
+        <translation>用于图像导出的DPI (每英寸点数)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="84"/>
         <source>Choose a password for users to be able to read your PDF</source>
-        <translation type="vanished">选择一个使用者可以读取您的PDF文件的密码</translation>
+        <translation>选择一个使用者可以读取您的PDF文件的密码</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="86"/>
         <source>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</source>
-        <translation type="vanished">允许修改PDF。如果未选中，将阻止修改PDF。</translation>
+        <translation>允许修改PDF。如果未选中，将阻止修改PDF。</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="89"/>
         <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation type="vanished">选择输出 PDF 文件的颜色模式。“屏幕/Web”模式适用于屏幕显示和喷墨打印机，“打印机”模式应用于真4色 CMYK 打印机打印时，当您想要黑白 PDF 时应用“灰度”模式。</translation>
+        <translation>选择输出 PDF 文件的颜色模式。“屏幕/Web”模式适用于屏幕显示和喷墨打印机，“打印机”模式应用于真4色 CMYK 打印机打印时，当您想要黑白 PDF 时应用“灰度”模式。</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="613"/>
         <source>Type of the display effect</source>
-        <translation type="vanished">显示效果类型</translation>
+        <translation>显示效果类型</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="614"/>
         <source>Direction of the effect of moving lines for the split and blind effects</source>
-        <translation type="vanished">移动线的方向时分裂和色盲效果</translation>
+        <translation>移动线的方向时分裂和色盲效果</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="615"/>
         <source>Starting position for the box and split effects</source>
-        <translation type="vanished">盒子和分裂效果的起始位置</translation>
+        <translation>盒子和分裂效果的起始位置</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="616"/>
         <source>Direction of the glitter or wipe effects</source>
-        <translation type="vanished">闪烁或擦拭效果的方向</translation>
+        <translation>闪烁或擦拭效果的方向</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="617"/>
         <source>Apply the selected effect to all pages</source>
-        <translation type="vanished">将选中特效应用于所有页面</translation>
+        <translation>将选中特效应用于所有页面</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="629"/>
         <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window</source>
-        <translation type="vanished">隐藏阅读器的菜单栏，PDF将显示在普通窗口中</translation>
+        <translation>隐藏阅读器的菜单栏，PDF将显示在普通窗口中</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="630"/>
         <source>Fit the document page or pages to the available space in the viewer window</source>
-        <translation type="vanished">将文档页面或页面调整到查看器窗口中的可用空间</translation>
+        <translation>将文档页面或页面调整到查看器窗口中的可用空间</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="618"/>
         <source>Embed only subset fonts with glyphs used in the document into the PDF</source>
-        <translation type="vanished">仅将文档中使用的带有字形的子集字体嵌入到PDF中</translation>
+        <translation>仅将文档中使用的带有字形的子集字体嵌入到PDF中</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1253"/>
         <source>PDF/X Output Intent</source>
-        <translation type="vanished">PDF/X输出意向</translation>
+        <translation>PDF/X输出意向</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="85"/>
         <source>Allow printing of the PDF. If unchecked, printing is prevented.</source>
-        <translation type="vanished">允许打印PDF。如果未选中，将阻止打印文档。</translation>
+        <translation>允许打印PDF。如果未选中，将阻止打印文档。</translation>
     </message>
 </context>
 <context>
     <name>Prefs_PageSizes</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pagesizesbase.ui" line="35"/>
+        <location filename="../../scribus/ui/preferences/prefs_pagesizes.cpp" line="23"/>
         <source>Page Sizes</source>
-        <translation type="vanished">页面尺寸</translation>
+        <translation>页面尺寸</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pagesizesbase.ui" line="53"/>
         <source>Available Sizes</source>
-        <translation type="vanished">可用尺寸</translation>
+        <translation>可用尺寸</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pagesizesbase.ui" line="120"/>
+        <source>Preferred Sizes</source>
+        <translation>首选大小</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pagesizes.cpp" line="41"/>
+        <source>Page Format</source>
+        <translation>页面格式</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pagesizes.cpp" line="42"/>
+        <source>Dimension</source>
+        <translation>尺寸</translation>
     </message>
 </context>
 <context>
     <name>Prefs_Paths</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_paths.cpp" line="21"/>
         <source>Paths</source>
-        <translation type="vanished">路径</translation>
+        <translation>路径</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="85"/>
         <source>Documents:</source>
-        <translation type="vanished">文档:</translation>
+        <translation>文档:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="114"/>
         <source>&amp;Change...</source>
-        <translation type="vanished">修改(&amp;C)...</translation>
+        <translation>修改(&amp;C)...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="117"/>
         <source>Alt+C</source>
-        <translation type="vanished">Alt+K</translation>
+        <translation>Alt+K</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="124"/>
         <source>Color Profiles:</source>
-        <translation type="vanished">颜色配置文件:</translation>
+        <translation>颜色配置文件:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="147"/>
         <source>C&amp;hange...</source>
-        <translation type="vanished">修改(&amp;H)...</translation>
+        <translation>修改(&amp;H)...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="150"/>
         <source>Alt+H</source>
-        <translation type="vanished">Alt+U</translation>
+        <translation>Alt+U</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="157"/>
         <source>Scripts:</source>
-        <translation type="vanished">脚本:</translation>
+        <translation>脚本:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="180"/>
         <source>Ch&amp;ange...</source>
-        <translation type="vanished">修改(&amp;A)...</translation>
+        <translation>修改(&amp;A)...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="183"/>
         <source>Alt+A</source>
-        <translation type="vanished">Alt+D</translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="190"/>
         <source>Document Templates:</source>
-        <translation type="vanished">文档模板:</translation>
+        <translation>文档模板:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="213"/>
         <source>Cha&amp;nge...</source>
-        <translation type="vanished">修改(&amp;N)...</translation>
+        <translation>修改(&amp;N)...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="216"/>
         <source>Alt+N</source>
-        <translation type="vanished">Alt+T</translation>
+        <translation>Alt+T</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_paths.cpp" line="34"/>
         <source>Default documents directory</source>
-        <translation type="vanished">默认文档目录</translation>
+        <translation>默认文档目录</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_paths.cpp" line="36"/>
         <source>Default Scripter scripts directory</source>
-        <translation type="vanished">默认脚本器脚本目录</translation>
+        <translation>默认脚本器脚本目录</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_paths.cpp" line="37"/>
         <source>Additional directory for document templates</source>
-        <translation type="vanished">文档模板的附加目录</translation>
+        <translation>文档模板的附加目录</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_paths.cpp" line="58"/>
+        <location filename="../../scribus/ui/preferences/prefs_paths.cpp" line="65"/>
+        <location filename="../../scribus/ui/preferences/prefs_paths.cpp" line="72"/>
+        <location filename="../../scribus/ui/preferences/prefs_paths.cpp" line="79"/>
         <source>Choose a Directory</source>
-        <translation type="vanished">选择目录</translation>
+        <translation>选择目录</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_paths.cpp" line="35"/>
         <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc, $home/.local/share/color/icc, /usr/share/color/icc and /usr/local/share/color/icc</source>
-        <translation type="vanished">默认的ICC配置文件目录。 打开文档时无法修改。 默认情况下，Mac OSX和Windows，Scribus将在系统目录中查找；在Linux和Unix上，Scribus将搜索$home/.color/icc, $home/.local/share/color/icc, /usr/share/color/icc and /usr/local/share/color/icc</translation>
+        <translation>默认的ICC配置文件目录。 打开文档时无法修改。 默认情况下，Mac OSX和Windows，Scribus将在系统目录中查找；在Linux和Unix上，Scribus将搜索$home/.color/icc, $home/.local/share/color/icc, /usr/share/color/icc and /usr/local/share/color/icc</translation>
     </message>
 </context>
 <context>
     <name>Prefs_Plugins</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pluginsbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_plugins.cpp" line="27"/>
         <source>Plugins</source>
-        <translation type="vanished">扩展</translation>
+        <translation>扩展</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pluginsbase.ui" line="60"/>
         <source>Plugin</source>
-        <translation type="vanished">插件</translation>
+        <translation>插件</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pluginsbase.ui" line="65"/>
         <source>How to run</source>
-        <translation type="vanished">如何运行</translation>
+        <translation>如何运行</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pluginsbase.ui" line="70"/>
         <source>Type</source>
-        <translation type="vanished">类型</translation>
+        <translation>类型</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pluginsbase.ui" line="75"/>
         <source>Load it?</source>
-        <translation type="vanished">加载它吗?</translation>
+        <translation>加载它吗?</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pluginsbase.ui" line="80"/>
         <source>Plugin ID</source>
-        <translation type="vanished">插件ID</translation>
+        <translation>插件ID</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pluginsbase.ui" line="85"/>
         <source>File</source>
-        <translation type="vanished">文件</translation>
+        <translation>文件</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pluginsbase.ui" line="93"/>
         <source>You need to restart the application to apply the changes.</source>
-        <translation type="vanished">您需要重启应用程序应用修改。</translation>
+        <translation>您需要重启应用程序应用修改。</translation>
     </message>
 </context>
 <context>
     <name>Prefs_PreflightVerifier</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="35"/>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifier.cpp" line="18"/>
         <source>Preflight Verifier</source>
-        <translation type="vanished">印前校验</translation>
+        <translation>印前校验</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="49"/>
         <source>Show pages without errors</source>
-        <translation type="vanished">显示无错误页面</translation>
+        <translation>显示无错误页面</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="56"/>
         <source>Show errors for items on layers that will not print</source>
-        <translation type="vanished">显示非打印图层的对象错误</translation>
+        <translation>显示非打印图层的对象错误</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="84"/>
         <source>Profile Setup</source>
-        <translation type="vanished">配置文件设置</translation>
+        <translation>配置文件设置</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="116"/>
         <source>Output Profile:</source>
-        <translation type="vanished">输出配置文件：</translation>
+        <translation>输出配置文件：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="134"/>
         <source>Add New Profile</source>
-        <translation type="vanished">添加新配置文件</translation>
+        <translation>添加新配置文件</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="141"/>
         <source>Remove Profile</source>
-        <translation type="vanished">移除配置文件</translation>
+        <translation>移除配置文件</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="184"/>
         <source>Profile Options</source>
-        <translation type="vanished">配置文件选项</translation>
+        <translation>配置文件选项</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="198"/>
         <source>Ignore all errors</source>
-        <translation type="vanished">忽略全部错误</translation>
+        <translation>忽略全部错误</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="205"/>
         <source>Automatic check before printing or exporting</source>
-        <translation type="vanished">在打印或输出前自动检测</translation>
+        <translation>在打印或输出前自动检测</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="212"/>
         <source>Check for missing glyphs</source>
-        <translation type="vanished">检查丢失字形</translation>
+        <translation>检查丢失字形</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="219"/>
         <source>Check for items not on a page</source>
-        <translation type="vanished">检查页面范围外的对象</translation>
+        <translation>检查页面范围外的对象</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="233"/>
         <source>Check for overflow in text frames</source>
-        <translation type="vanished">检查文本溢出</translation>
+        <translation>检查文本溢出</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="240"/>
         <source>Check for used transparencies</source>
-        <translation type="vanished">检查使用的透明度</translation>
+        <translation>检查使用的透明度</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="247"/>
         <source>Check for missing images</source>
-        <translation type="vanished">检测丢失图像</translation>
+        <translation>检测丢失图像</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="254"/>
+        <source>Check for partially filled image frames</source>
+        <translation>检查部分填充的图像框</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="261"/>
+        <source>Check for images with progressive encoding</source>
+        <translation>檢查影像是否採用漸進式編碼</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="268"/>
         <source>Check image resolution</source>
-        <translation type="vanished">检查图像分辨率</translation>
+        <translation>检查图像分辨率</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="280"/>
         <source>Minimum Resolution:</source>
-        <translation type="vanished">最低分辨率：</translation>
+        <translation>最低分辨率：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="287"/>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="300"/>
         <source> dpi</source>
-        <translation type="vanished"> dpi</translation>
+        <translation> dpi</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="313"/>
         <source>Maximum Resolution:</source>
-        <translation type="vanished">最高分辨率：</translation>
+        <translation>最高分辨率：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="322"/>
         <source>Check for placed PDF files</source>
-        <translation type="vanished">检查转入的PDF文件</translation>
+        <translation>检查转入的PDF文件</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="329"/>
         <source>Check for GIF images</source>
-        <translation type="vanished">检查GIF图像</translation>
+        <translation>检查GIF图像</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="336"/>
         <source>Check for PDF Annotations and Fields</source>
-        <translation type="vanished">检查PDF注释和字段</translation>
+        <translation>检查PDF注释和字段</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="343"/>
         <source>Check for Visible/Printable mismatch in layers</source>
-        <translation type="vanished">检查图层中可见或可打印的不匹配项</translation>
+        <translation>检查图层中可见或可打印的不匹配项</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="350"/>
         <source>Ignore non-printable layers</source>
-        <translation type="vanished">忽略非打印图层</translation>
+        <translation>忽略非打印图层</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="226"/>
         <source>Check for empty text frames</source>
-        <translation type="vanished">检查空文本框</translation>
+        <translation>检查空文本框</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="357"/>
         <source>Check if applied master page location is the same as each page&apos;s location</source>
-        <translation type="vanished">检查母版页位置是否与每个页面的位置相同</translation>
+        <translation>检查母版页位置是否与每个页面的位置相同</translation>
     </message>
 </context>
 <context>
     <name>Prefs_Printer</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="38"/>
         <source>Printing</source>
-        <translation type="vanished">打印</translation>
+        <translation>打印</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="73"/>
         <source>Destination</source>
-        <translation type="vanished">目标</translation>
+        <translation>目标</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="90"/>
         <source>Alternative Printer Command</source>
-        <translation type="vanished">其它打印机命令</translation>
+        <translation>其它打印机命令</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="99"/>
         <source>Command:</source>
-        <translation type="vanished">命令 :</translation>
+        <translation>命令 :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="133"/>
         <source>General Options</source>
-        <translation type="vanished">常规选项</translation>
+        <translation>常规选项</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="149"/>
         <source>Output:</source>
-        <translation type="vanished">输出：</translation>
+        <translation>输出：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="157"/>
         <source>Normal</source>
-        <translation type="vanished">普通</translation>
+        <translation>普通</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="162"/>
         <source>Separations</source>
-        <translation type="vanished">分色</translation>
+        <translation>分色</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="185"/>
         <source>Include PDF Annotations and Links</source>
-        <translation type="vanished">包括PDF注释和链接</translation>
+        <translation>包括PDF注释和链接</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="214"/>
         <source>Page</source>
-        <translation type="vanished">页面</translation>
+        <translation>页面</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="228"/>
         <source>Mirror Page(s) Horizontally</source>
-        <translation type="vanished">水平镜像页面</translation>
+        <translation>水平镜像页面</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="235"/>
         <source>Mirror Page(s) Vertically</source>
-        <translation type="vanished">垂直镜像页面</translation>
+        <translation>垂直镜像页面</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="242"/>
         <source>Set Media Size</source>
-        <translation type="vanished">设置介质尺寸</translation>
+        <translation>设置介质尺寸</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="249"/>
         <source>Clip to Printer Margins</source>
-        <translation type="vanished">裁切到打印机边距</translation>
+        <translation>裁切到打印机边距</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="278"/>
         <source>Color</source>
-        <translation type="vanished">颜色</translation>
+        <translation>颜色</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="330"/>
         <source>Apply Under Color Removal</source>
-        <translation type="vanished">应用底色清除</translation>
+        <translation>应用底色清除</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="337"/>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation type="vanished">转换专色到印刷原色</translation>
+        <translation>转换专色到印刷原色</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="294"/>
         <source>Print In:</source>
-        <translation type="vanished">打印方式：</translation>
+        <translation>打印方式：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="302"/>
         <source>Color (If Available)</source>
-        <translation type="vanished">彩色(如果可用)</translation>
+        <translation>彩色(如果可用)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="307"/>
         <source>Grayscale</source>
-        <translation type="vanished">灰度</translation>
+        <translation>灰度</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="366"/>
         <source>Printing Language</source>
-        <translation type="vanished">打印语言</translation>
+        <translation>打印语言</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="429"/>
         <source>Marks and Bleeds</source>
-        <translation type="vanished">标记和出血</translation>
+        <translation>标记和出血</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="445"/>
         <source>Crop Marks</source>
-        <translation type="vanished">裁剪标记</translation>
+        <translation>裁剪标记</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="452"/>
         <source>Bleed Marks</source>
-        <translation type="vanished">出血标记</translation>
+        <translation>出血标记</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="459"/>
         <source>Registration Marks</source>
-        <translation type="vanished">套准标记</translation>
+        <translation>套准标记</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="466"/>
         <source>Color Bars</source>
-        <translation type="vanished">颜色栏</translation>
+        <translation>颜色栏</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="475"/>
         <source>Offset:</source>
-        <translation type="vanished">偏移值:</translation>
+        <translation>偏移值:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="535"/>
         <source>Bleed Settings</source>
-        <translation type="vanished">出血设置</translation>
+        <translation>出血设置</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printer.cpp" line="23"/>
         <source>Printer</source>
-        <translation type="vanished">打印机</translation>
+        <translation>打印机</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printer.cpp" line="33"/>
         <source>Do not show objects outside the margins on the printed page</source>
-        <translation type="vanished">不在打印页面边距外显示对象</translation>
+        <translation>不在打印页面边距外显示对象</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printer.cpp" line="34"/>
         <source>Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</source>
-        <translation type="vanished">使用其它打印管理器应用额外的打印选项，例如 Kprinter 或 gtklp</translation>
+        <translation>使用其它打印管理器应用额外的打印选项，例如 Kprinter 或 gtklp</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printer.cpp" line="35"/>
+        <source>Sets the printing language to use.
+ Setting to PostScript Level 1 or 2 can create huge files.</source>
+        <translation>请设置要使用的打印语言。
+ 设置为 PostScript Level 1 或 2 可以创建大型文件。</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_printer.cpp" line="36"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="vanished">一种关闭一些由青色、黄色和品红混合成的灰阶并使用黑色代替的方法。UCR 主要影响图像中中性和/或接近灰色的色度的部分。使用该方法可能会提升一些图像的打印质量且需要基于具体情况进行一些试验和测试。UCR 减小了使用 CMY 墨水过饱和的可能性。</translation>
+        <translation>一种关闭一些由青色、黄色和品红混合成的灰阶并使用黑色代替的方法。UCR 主要影响图像中中性和/或接近灰色的色度的部分。使用该方法可能会提升一些图像的打印质量且需要基于具体情况进行一些试验和测试。UCR 减小了使用 CMY 墨水过饱和的可能性。</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printer.cpp" line="37"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation type="vanished">启用专色转换为混合色。除非您计划在商业打印机上打印专色，否则左边起用可能是最好的。</translation>
+        <translation>启用专色转换为混合色。除非您计划在商业打印机上打印专色，否则左边起用可能是最好的。</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="489"/>
         <source>Length:</source>
-        <translation type="vanished">长度 :</translation>
+        <translation>长度 :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printer.cpp" line="38"/>
         <source>This enables you to explicitly set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
-        <translation type="vanished"> 这使您能够明确设置 PostScript 文件的介质尺寸。除非您的打印机有特殊要求，否则不建议使用。</translation>
+        <translation> 这使您能够明确设置 PostScript 文件的介质尺寸。除非您的打印机有特殊要求，否则不建议使用。</translation>
     </message>
 </context>
 <context>
     <name>Prefs_Scrapbook</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_scrapbookbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_scrapbook.cpp" line="18"/>
         <source>Scrapbook</source>
-        <translation type="vanished">剪贴簿</translation>
+        <translation>剪贴簿</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_scrapbookbase.ui" line="83"/>
         <source>Send Copied Items Automatically to the Scrapbook</source>
-        <translation type="vanished">自动将复制的对象发送到剪贴簿</translation>
+        <translation>自动将复制的对象发送到剪贴簿</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_scrapbookbase.ui" line="90"/>
         <source>Keep Copied Items Permanently Across Sessions</source>
-        <translation type="vanished">跨会话永久保留复制的对象</translation>
+        <translation>跨会话永久保留复制的对象</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_scrapbookbase.ui" line="97"/>
         <source>Write Item Previews to the Scrapbook Directory</source>
-        <translation type="vanished">将对象预览写入剪贴簿目录</translation>
+        <translation>将对象预览写入剪贴簿目录</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_scrapbookbase.ui" line="109"/>
         <source>Number of Copied Items to Keep in Scrapbook</source>
-        <translation type="vanished">剪贴簿中要保留的复制对象数</translation>
+        <translation>剪贴簿中要保留的复制对象数</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_scrapbook.cpp" line="27"/>
         <source>This enables copied items to be kept permanently in the scrapbook</source>
-        <translation type="vanished">该选项允许复制的对象永久保留在剪贴簿中</translation>
+        <translation>该选项允许复制的对象永久保留在剪贴簿中</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_scrapbook.cpp" line="28"/>
         <source>Save generated scrapbook previews in the scrapbook directory</source>
-        <translation type="vanished">将生成的剪贴簿预览保存在剪贴簿目录中</translation>
+        <translation>将生成的剪贴簿预览保存在剪贴簿目录中</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_scrapbook.cpp" line="29"/>
         <source>The minimum number is 1; the maximum is 100</source>
-        <translation type="vanished">该值最小为 1; 最大为 100</translation>
+        <translation>该值最小为 1; 最大为 100</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_scrapbook.cpp" line="26"/>
         <source>This enables the scrapbook to be used an extension to the copy/paste buffers. Simply copying an object or grouped object will send this to the Scrapbook automatically.</source>
-        <translation type="vanished">这使得剪贴簿可以用作复制或粘贴缓存区的扩展。只需复制一个对象或分组对象，就会自动将其发送到剪贴簿。</translation>
+        <translation>这使得剪贴簿可以用作复制或粘贴缓存区的扩展。只需复制一个对象或分组对象，就会自动将其发送到剪贴簿。</translation>
     </message>
 </context>
 <context>
@@ -19445,373 +20394,618 @@ Do you want to use this?</source>
 <context>
     <name>Prefs_Spelling</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spellingbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="32"/>
         <source>Spelling</source>
-        <translation type="vanished">拼写</translation>
+        <translation>拼写</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spellingbase.ui" line="69"/>
         <source>Installed Spelling Dictionaries</source>
-        <translation type="vanished">已安装的拼写词典</translation>
+        <translation>已安装的拼写词典</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spellingbase.ui" line="87"/>
         <source>Downloadable Spelling Dictionaries</source>
-        <translation type="vanished">可下载的拼写词典</translation>
+        <translation>可下载的拼写词典</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spellingbase.ui" line="140"/>
         <source>Refresh Downloadable List</source>
-        <translation type="vanished">刷新可下载列表</translation>
+        <translation>刷新可下载列表</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spellingbase.ui" line="147"/>
         <source>Download Selected Dictionaries</source>
-        <translation type="vanished">下载精选词典</translation>
+        <translation>下载精选词典</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="142"/>
+        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="277"/>
         <source>Language</source>
-        <translation type="vanished">语言</translation>
+        <translation>语言</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="142"/>
+        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="277"/>
         <source>Code</source>
-        <translation type="vanished">代码</translation>
+        <translation>代码</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="142"/>
         <source>Location</source>
-        <translation type="vanished">地点</translation>
+        <translation>地点</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="277"/>
         <source>Installed</source>
-        <translation type="vanished">已安装</translation>
+        <translation>已安装</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="277"/>
         <source>Download</source>
-        <translation type="vanished">下载</translation>
+        <translation>下载</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spellingbase.ui" line="107"/>
         <source>Downloading</source>
-        <translation type="vanished">正在下载</translation>
+        <translation>正在下载</translation>
     </message>
 </context>
 <context>
     <name>Prefs_TableOfContents</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontents.cpp" line="347"/>
         <source>Table of Contents</source>
-        <translation type="vanished">目录</translation>
+        <translation>目录</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="80"/>
         <source>&amp;Add</source>
-        <translation type="vanished">添加(&amp;A)</translation>
+        <translation>添加(&amp;A)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="83"/>
         <source>Alt+A</source>
-        <translation type="vanished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="90"/>
         <source>&amp;Delete</source>
-        <translation type="vanished">删除(&amp;D)</translation>
+        <translation>删除(&amp;D)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="93"/>
         <source>Alt+D</source>
-        <translation type="vanished">Alt+D</translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="112"/>
         <source>Properties</source>
-        <translation type="vanished">属性</translation>
+        <translation>属性</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="121"/>
+        <source>Source of Table of Contents:</source>
+        <translation>目录来源:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="128"/>
+        <source>Whether the Table of Contents will be generated from Paragraph Styles or Item Attributes</source>
+        <translation>目录是由段落样式或对象属性生成的</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="152"/>
+        <source>Include frames that are set to not print</source>
+        <translation>包括设置为不打印的框架</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="203"/>
+        <source>Styles included in Table of Contents</source>
+        <translation>目录中包含的样式</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="263"/>
+        <source>Document Styles:</source>
+        <translation>文档样式:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="297"/>
+        <source>Add</source>
+        <translation>添加</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="304"/>
+        <source>Delete</source>
+        <translation>删除</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="343"/>
+        <source>Table of Contents Entry Properties</source>
+        <translation>目录条目属性</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="352"/>
+        <source>Style for TOC Entry:</source>
+        <translation>TOC条目样式:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="388"/>
+        <source>Remove line breaks from text in the heading</source>
+        <translation>移除标题中文本的换行符</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="391"/>
+        <source>Remove Line Breaks</source>
+        <translation>移除换行符</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="468"/>
         <source>Item Attribute Name:</source>
-        <translation type="vanished">文档对象属性名:</translation>
+        <translation>文档对象属性名:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="478"/>
         <source>The Item Attribute that will be set on frames used as a basis for creation of the entries</source>
-        <translation type="vanished">将在用于条目创建的框架上设置的对象属性</translation>
+        <translation>将在用于条目创建的框架上设置的对象属性</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="135"/>
         <source>Destination Frame:</source>
-        <translation type="vanished">目标框架:</translation>
+        <translation>目标框架:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="145"/>
         <source>The frame the table of contents will be placed into</source>
-        <translation type="vanished">目录将被放入框架中</translation>
+        <translation>目录将被放入框架中</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="369"/>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="434"/>
         <source>Page Number Placement:</source>
-        <translation type="vanished">页码位置 :</translation>
+        <translation>页码位置 :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="379"/>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="444"/>
         <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
-        <translation type="vanished">行首、行尾或不输入页码条目的位置</translation>
+        <translation>行首、行尾或不输入页码条目的位置</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="451"/>
         <source>Paragraph Style:</source>
-        <translation type="vanished">段落样式 :</translation>
+        <translation>段落样式 :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="461"/>
         <source>The paragraph style used for the entry lines</source>
-        <translation type="vanished">条目行使用的段落样式</translation>
+        <translation>条目行使用的段落样式</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="155"/>
         <source>List Non-Printing Entries</source>
-        <translation type="vanished">列出不可打印的条目</translation>
+        <translation>列出不可打印的条目</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontents.cpp" line="25"/>
         <source>Tables of Contents</source>
-        <translation type="vanished">目录</translation>
+        <translation>目录</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontents.cpp" line="111"/>
         <source>Beginning</source>
-        <translation type="vanished">开始</translation>
+        <translation>开始</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontents.cpp" line="113"/>
         <source>End</source>
-        <translation type="vanished">结束</translation>
+        <translation>结束</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontents.cpp" line="115"/>
         <source>Not Shown</source>
-        <translation type="vanished">不显示</translation>
+        <translation>不显示</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontents.cpp" line="118"/>
+        <source>Style</source>
+        <translation>样式</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontents.cpp" line="120"/>
+        <source>Attribute</source>
+        <translation>属性</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontents.cpp" line="349"/>
         <source>Table of Contents %1</source>
-        <translation type="vanished">目录 %1</translation>
+        <translation>目录 %1</translation>
     </message>
 </context>
 <context>
     <name>Prefs_Typography</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="35"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="53"/>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="22"/>
         <source>Typography</source>
-        <translation type="vanished">排版</translation>
+        <translation>排版</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="68"/>
         <source>Subscript</source>
-        <translation type="vanished">下标</translation>
+        <translation>下标</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="90"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="172"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="320"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="417"/>
         <source>Displacement:</source>
-        <translation type="vanished">位移 :</translation>
+        <translation>位移 :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="97"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="107"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="179"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="196"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="261"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="340"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="359"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="430"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="456"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="521"/>
         <source> %</source>
-        <translation type="vanished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="120"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="189"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="254"/>
         <source>Scaling:</source>
-        <translation type="vanished">缩放 :</translation>
+        <translation>缩放 :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="150"/>
         <source>Superscript</source>
-        <translation type="vanished">上标</translation>
+        <translation>上标</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="298"/>
         <source>Underline</source>
-        <translation type="vanished">下划线</translation>
+        <translation>下划线</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="327"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="443"/>
         <source>Line Width:</source>
-        <translation type="vanished">线宽 :</translation>
+        <translation>线宽 :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="337"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="356"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="427"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="453"/>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="32"/>
         <source>Auto</source>
-        <translation type="vanished">自动</translation>
+        <translation>自动</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="395"/>
         <source>Strikeout</source>
-        <translation type="vanished">删除线</translation>
+        <translation>删除线</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="554"/>
+        <source>Optical Margins</source>
+        <translation>悬挂标点</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="232"/>
         <source>Small Caps</source>
-        <translation type="vanished">小写</translation>
+        <translation>小写</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="492"/>
         <source>Automatic Line Spacing</source>
-        <translation type="vanished">自动行距</translation>
+        <translation>自动行距</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="514"/>
         <source>Line Spacing:</source>
-        <translation type="vanished">行距 :</translation>
+        <translation>行距 :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="38"/>
         <source>Displacement below the baseline of the normal font on a line</source>
-        <translation type="vanished">在一行上普通字体基线以下进行位移</translation>
+        <translation>在一行上普通字体基线以下进行位移</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="39"/>
         <source>Relative size of the subscript compared to the normal font</source>
-        <translation type="vanished">与普通字体相比，下标的相对大小</translation>
+        <translation>与普通字体相比，下标的相对大小</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="40"/>
         <source>Displacement above the baseline of the font on a line</source>
-        <translation type="vanished">在一行上字体基线的位移</translation>
+        <translation>在一行上字体基线的位移</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="41"/>
         <source>Relative size of the superscript compared to the normal font</source>
-        <translation type="vanished">与普通字体相比，上标的相对大小</translation>
+        <translation>与普通字体相比，上标的相对大小</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="42"/>
         <source>Displacement below the baseline of the normal font expressed as a percentage of the fonts descender</source>
-        <translation type="vanished">低于正常字体基线的位移，表示为字体下降的百分比</translation>
+        <translation>低于正常字体基线的位移，表示为字体下降的百分比</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="43"/>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="45"/>
         <source>Line width expressed as a percentage of the font size</source>
-        <translation type="vanished">行宽表示为字号的百分比</translation>
+        <translation>行宽表示为字号的百分比</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="44"/>
         <source>Displacement above the baseline of the normal font expressed as a percentage of the fonts ascender</source>
-        <translation type="vanished">超出正常字体基线的位移，表示为字体递增的百分比</translation>
+        <translation>超出正常字体基线的位移，表示为字体递增的百分比</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="46"/>
         <source>Relative size of the small caps font compared to the normal font</source>
-        <translation type="vanished">与普通字体相比，小型大写字体的相对大小</translation>
+        <translation>与普通字体相比，小型大写字体的相对大小</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="47"/>
         <source>Percentage increase over the font size for the line spacing</source>
-        <translation type="vanished">行距相对于字号增加的百分比</translation>
+        <translation>行距相对于字号增加的百分比</translation>
     </message>
 </context>
 <context>
     <name>Prefs_UserInterface</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="35"/>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="28"/>
         <source>User Interface</source>
-        <translation type="vanished">用户界面</translation>
+        <translation>用户界面</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="53"/>
         <source>Main Window</source>
-        <translation type="vanished">主界面</translation>
+        <translation>主界面</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="64"/>
         <source>Appearance</source>
-        <translation type="vanished">外观</translation>
+        <translation>外观</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="196"/>
         <source>&amp;Language:</source>
-        <translation type="vanished">语言(&amp;L):</translation>
+        <translation>语言(&amp;L):</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="83"/>
         <source>&amp;Theme:</source>
-        <translation type="vanished">主题(&amp;T):</translation>
+        <translation>主题(&amp;T):</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="106"/>
         <source>Use Small Widgets on Palettes</source>
-        <translation type="vanished">在面板上使用小部件</translation>
+        <translation>在面板上使用小部件</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="113"/>
         <source>Use Tabs for Documents</source>
-        <translation type="vanished">对文档使用选项卡</translation>
+        <translation>对文档使用选项卡</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="120"/>
         <source>&amp;Recent Documents:</source>
-        <translation type="vanished">最近打开文档(&amp;R):</translation>
+        <translation>最近打开文档(&amp;R):</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="133"/>
+        <source>Show Informational Labels</source>
+        <translation>显示信息标签</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="140"/>
+        <source>Show Labels of Inactive Palette Tabs</source>
+        <translation>显示非活动面板选项卡的标签</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="147"/>
+        <source>Appearance:</source>
+        <translation>外觀：</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="180"/>
         <source>Language and Regionalization</source>
-        <translation type="vanished">语言和本地化</translation>
+        <translation>语言和本地化</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="209"/>
         <source>Number Format:</source>
-        <translation type="vanished">数字格式：</translation>
+        <translation>数字格式：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="245"/>
         <source>Font Sizes</source>
-        <translation type="vanished">字号</translation>
+        <translation>字号</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="261"/>
         <source>&amp;Menus:</source>
-        <translation type="vanished">菜单(&amp;M):</translation>
+        <translation>菜单(&amp;M):</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="271"/>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="288"/>
         <source> pt</source>
-        <translation type="vanished"> 点</translation>
+        <translation> 点</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="278"/>
         <source>&amp;Palettes:</source>
-        <translation type="vanished">面板(&amp;P):</translation>
+        <translation>面板(&amp;P):</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="311"/>
         <source>Story Editor</source>
-        <translation type="vanished">文章编辑器</translation>
+        <translation>文章编辑器</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="322"/>
         <source>Font:</source>
-        <translation type="vanished">字体:</translation>
+        <translation>字体:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="336"/>
         <source>Use Smart Text Selection</source>
-        <translation type="vanished">使用智能文本选择</translation>
+        <translation>使用智能文本选择</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="359"/>
         <source>Interactivity</source>
-        <translation type="vanished">互动性</translation>
+        <translation>互动性</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="370"/>
         <source>Time before resize or move starts:</source>
-        <translation type="vanished">调整/移动动作延时：</translation>
+        <translation>调整/移动动作延时：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="380"/>
         <source> ms</source>
-        <translation type="vanished"> 毫秒</translation>
+        <translation> 毫秒</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="390"/>
         <source>&amp;Wheel Jump:</source>
-        <translation type="vanished">滚轮跳动(&amp;W):</translation>
+        <translation>滚轮跳动(&amp;W):</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="400"/>
+        <source> lines</source>
+        <translation>线</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="423"/>
         <source>Start Up</source>
-        <translation type="vanished">启动</translation>
+        <translation>启动</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="438"/>
         <source>Show Splashscreen</source>
-        <translation type="vanished">显示启动界面</translation>
+        <translation>显示启动界面</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="431"/>
         <source>Show Startup Dialog</source>
-        <translation type="vanished">显示启动对话框</translation>
+        <translation>显示启动对话框</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="74"/>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
-        <translation type="vanished">选择默认窗口装饰和外观。Scribus 继承任何可用的 KDE 或 QT 主题，如果 QT 被配置则搜索 KDE 插件。</translation>
+        <translation>选择默认窗口装饰和外观。Scribus 继承任何可用的 KDE 或 QT 主题，如果 QT 被配置则搜索 KDE 插件。</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="77"/>
         <source>Number of recently edited documents to show in the File menu</source>
-        <translation type="vanished">文件菜单中显示最近编辑文档数量</translation>
+        <translation>文件菜单中显示最近编辑文档数量</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="79"/>
         <source>Use either the system or selected language related definition for number formats for decimals for numbers in the interface</source>
-        <translation type="vanished">使用系统或所选语言相关定义来定义界面中数字的小数格式</translation>
+        <translation>使用系统或所选语言相关定义来定义界面中数字的小数格式</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="80"/>
         <source>Default font size for the menus and windows</source>
-        <translation type="vanished">菜单和窗口的默认字体大小</translation>
+        <translation>菜单和窗口的默认字体大小</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="81"/>
         <source>Default font size for the tool windows</source>
-        <translation type="vanished">工具窗口的默认字号</translation>
+        <translation>工具窗口的默认字号</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="82"/>
         <source>Time before resize or move starts allows for a slight delay between when you click and the operation happens to avoid unintended moves. This can be helpful when dealing with mouse sensitivity settings or accessibility issues related to ergonomic mice, touch pads or moveability of the wrists and hands.</source>
-        <translation type="vanished">调整大小或移动开始之前，允许在您单击和操作发生之间稍有延迟，以避免意外移动。这在处理鼠标灵敏度设置或与人体工程学鼠标、触摸板或手腕和手的可移动性相关的可访问性问题时会很有帮助。</translation>
+        <translation>调整大小或移动开始之前，允许在您单击和操作发生之间稍有延迟，以避免意外移动。这在处理鼠标灵敏度设置或与人体工程学鼠标、触摸板或手腕和手的可移动性相关的可访问性问题时会很有帮助。</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="96"/>
         <source>Icon Set:</source>
-        <translation type="vanished">图标集：</translation>
+        <translation>图标集：</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="75"/>
         <source>Choose the default icon set</source>
-        <translation type="vanished">选择默认的图标集</translation>
+        <translation>选择默认的图标集</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="78"/>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus.</source>
-        <translation type="vanished">选择运行Scribus时使用的默认语言。留空将根据环境变量进行选择，您仍然可以通过在启动Scribus时传递命令行选项来指定。</translation>
+        <translation>选择运行Scribus时使用的默认语言。留空将根据环境变量进行选择，您仍然可以通过在启动Scribus时传递命令行选项来指定。</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="52"/>
         <source>Use System Format</source>
-        <translation type="vanished">使用系统格式</translation>
+        <translation>使用系统格式</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="53"/>
         <source>Use Interface Language Format</source>
-        <translation type="vanished">使用界面语言格式</translation>
+        <translation>使用界面语言格式</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="69"/>
+        <source>Auto</source>
+        <translation>自動</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="70"/>
+        <source>Light</source>
+        <translation>淺色</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="71"/>
+        <source>Dark</source>
+        <translation>深色</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="72"/>
+        <source>Choose the default theme palette. Auto uses the systems default.</source>
+        <translation>選擇預設主題調色盤。自動使用系統預設。</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="76"/>
+        <source>Palette windows will use smaller (space savvy) widgets. Requires application restart.</source>
+        <translation>调色板窗口将使用更小的 (更省空间) 部件，需要重新启动应用程序。</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="83"/>
         <source>Number of lines Scribus will scroll for each &quot;notch&quot; of the mouse wheel</source>
-        <translation type="vanished">Scribus将为鼠标滚轮的每个 &quot;notch&quot; 滚动的行数</translation>
+        <translation>Scribus将为鼠标滚轮的每个 &quot;notch&quot; 滚动的行数</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="86"/>
         <source>The default behavior when double-clicking on a word is to select the word and the first following space. Smart selection will select only the word, without the following space.</source>
-        <translation type="vanished">双击单词时的默认行为是选择单词和后面的第一个空格。智能选择将只选择单词，而没有后面的空格。</translation>
+        <translation>双击单词时的默认行为是选择单词和后面的第一个空格。智能选择将只选择单词，而没有后面的空格。</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="87"/>
+        <source>Shows informational labels on palettes.</source>
+        <translation>在面板显示信息标签。</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="88"/>
+        <source>Shows labels of inactive palette tabs.</source>
+        <translation>显示非活动面板选项卡的标签。</translation>
     </message>
 </context>
 <context>
@@ -27343,7 +28537,7 @@ is not exhaustive due to exceptions from called functions.
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="640"/>
         <source>Cannot have an empty item name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>对象名称不能为空。</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="808"/>

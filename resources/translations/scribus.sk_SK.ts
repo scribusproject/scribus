@@ -16271,926 +16271,1647 @@ Chcete ich migrovať na novú verziu Scribus? {1.6.0 ?}</translation>
 <context>
     <name>Prefs_ColorManagement</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="38"/>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagement.cpp" line="24"/>
         <source>Color Management</source>
-        <translation type="vanished">Správa farieb</translation>
+        <translation>Správa farieb</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="92"/>
         <source>Document Options</source>
-        <translation type="vanished">Možnosti dokumentu</translation>
+        <translation>Možnosti dokumentu</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="106"/>
         <source>Activate Color Management</source>
-        <translation type="vanished">Aktivovať správu farieb</translation>
+        <translation>Aktivovať správu farieb</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="113"/>
         <source>Simulate Printer on the Screen</source>
-        <translation type="vanished">Simulovať tlačiareň na obrazovke</translation>
+        <translation>Simulovať tlačiareň na obrazovke</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="120"/>
         <source>Convert all colors to printer space</source>
-        <translation type="vanished">Konvertovať všetky farby do farieb tlačiarne</translation>
+        <translation>Konvertovať všetky farby do farieb tlačiarne</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="127"/>
         <source>Mark Colors out of Gamut</source>
-        <translation type="vanished">Označte farby mimo gamutu</translation>
+        <translation>Označte farby mimo gamutu</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="134"/>
         <source>Use Blackpoint Compensation</source>
-        <translation type="vanished">Použiť kompenzáciu čierneho bodu</translation>
+        <translation>Použiť kompenzáciu čierneho bodu</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="163"/>
         <source>Document Profiles</source>
-        <translation type="vanished">Profily dokumentov</translation>
+        <translation>Profily dokumentov</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="185"/>
         <source>RGB Images:</source>
-        <translation type="vanished">RGB obrázky:</translation>
+        <translation>RGB obrázky:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="205"/>
         <source>CMYK Images:</source>
-        <translation type="vanished">CMYK obrázky:</translation>
+        <translation>CMYK obrázky:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="225"/>
         <source>RGB Solid Colors:</source>
-        <translation type="vanished">RGB plné farby:</translation>
+        <translation>RGB plné farby:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="238"/>
         <source>CMYK Solid Colors:</source>
-        <translation type="vanished">CMYK plné farby:</translation>
+        <translation>CMYK plné farby:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="251"/>
         <source>Printer:</source>
-        <translation type="vanished">Tlačiareň:</translation>
+        <translation>Tlačiareň:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="285"/>
         <source>Document Rendering Intents</source>
-        <translation type="vanished">Zámery vykresľovania dokumentu</translation>
+        <translation>Zámery vykresľovania dokumentu</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="304"/>
         <source>Images:</source>
-        <translation type="vanished">Obrázky:</translation>
+        <translation>Obrázky:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="314"/>
         <source>Solid Colors:</source>
-        <translation type="vanished">Plné farby:</translation>
+        <translation>Plné farby:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="348"/>
+        <source>Monitor Profile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="370"/>
+        <source>Monitor:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagement.cpp" line="64"/>
         <source>Perceptual</source>
-        <translation type="vanished">Vnímateľné (Perceptual)</translation>
+        <translation>Vnímateľné (Perceptual)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagement.cpp" line="64"/>
         <source>Relative Colorimetric</source>
-        <translation type="vanished">Relatívna kolorimetria</translation>
+        <translation>Relatívna kolorimetria</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagement.cpp" line="65"/>
         <source>Saturation</source>
-        <translation type="vanished">Sýtosť</translation>
+        <translation>Sýtosť</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagement.cpp" line="65"/>
         <source>Absolute Colorimetric</source>
-        <translation type="vanished">Absolútna kolorimetria</translation>
+        <translation>Absolútna kolorimetria</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagement.cpp" line="34"/>
+        <source>Monitor profiles can only be changed when no documents are open.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagement.cpp" line="55"/>
+        <source>&lt;qt&gt;Color Management cannot be activated due to missing color profiles.&lt;/br&gt;You need to install at least one RGB and one CMYK profile.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>Prefs_Display</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="29"/>
         <source>Display</source>
-        <translation type="vanished">Zobraziť</translation>
+        <translation>Zobraziť</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="81"/>
         <source>Show Images</source>
-        <translation type="vanished">Zobraziť obrázky</translation>
+        <translation>Zobraziť obrázky</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="95"/>
         <source>Show Text Control Characters</source>
-        <translation type="vanished">Zobraziť textové riadiace znaky</translation>
+        <translation>Zobraziť textové riadiace znaky</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="60"/>
         <source>Show Rulers</source>
-        <translation type="vanished">Zobraziť pravítka</translation>
+        <translation>Zobraziť pravítka</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="67"/>
+        <source>Show Rulers Relative to Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="88"/>
         <source>Show Text Chains</source>
-        <translation type="vanished">Zobraziť zreťazenie textu</translation>
+        <translation>Zobraziť zreťazenie textu</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="74"/>
         <source>Show Frames</source>
-        <translation type="vanished">Zobraziť rámce</translation>
+        <translation>Zobraziť rámce</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="102"/>
         <source>Show Layer Indicators</source>
-        <translation type="vanished">Zobraziť indikáciu vrstvy</translation>
+        <translation>Zobraziť indikáciu vrstvy</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="109"/>
+        <source>Show Unprintable Area in Margin Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="116"/>
         <source>Show Bleed Area</source>
-        <translation type="vanished">Zobraziť oblasť orezu</translation>
+        <translation>Zobraziť oblasť orezu</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="123"/>
         <source>Show Page Shadow</source>
-        <translation type="vanished">Zobraziť tieň strany</translation>
+        <translation>Zobraziť tieň strany</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="130"/>
+        <source>Show Preflight Verifier Warnings on the Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="151"/>
         <source>Scratch Space</source>
-        <translation type="vanished">Pracovný priestor</translation>
+        <translation>Pracovný priestor</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="159"/>
         <source>Left:</source>
-        <translation type="vanished">Vľavo:</translation>
+        <translation>Vľavo:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="169"/>
         <source>Right:</source>
-        <translation type="vanished">Vpravo:</translation>
+        <translation>Vpravo:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="179"/>
         <source>Top:</source>
-        <translation type="vanished">Hore:</translation>
+        <translation>Hore:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="189"/>
         <source>Bottom:</source>
-        <translation type="vanished">Dole:</translation>
+        <translation>Dole:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="275"/>
+        <source>Display Scaling</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="423"/>
+        <source>Scratch Space:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="223"/>
         <source>Gaps Between Pages</source>
-        <translation type="vanished">Medzery medzi stranami</translation>
+        <translation>Medzery medzi stranami</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="54"/>
         <source>Pages</source>
-        <translation type="vanished">Strany</translation>
+        <translation>Strany</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="239"/>
         <source>Horizontal:</source>
-        <translation type="vanished">Vodorovne:</translation>
+        <translation>Vodorovne:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="249"/>
         <source>Vertical:</source>
-        <translation type="vanished">Zvisle:</translation>
+        <translation>Zvisle:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="299"/>
         <source>Scale%</source>
-        <translation type="vanished">Mierka%</translation>
+        <translation>Mierka%</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="309"/>
         <source>Resets the scale to the default dpi of your display</source>
-        <translation type="vanished">Obnoví mierku na štandardné dpi vašej obrazovky</translation>
+        <translation>Obnoví mierku na štandardné dpi vašej obrazovky</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="367"/>
         <source>Colors</source>
-        <translation type="vanished">Farby</translation>
+        <translation>Farby</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="409"/>
+        <source>Page Fill:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="437"/>
         <source>Selected Page Border:</source>
-        <translation type="vanished">Zvolené hranice strany:</translation>
+        <translation>Zvolené hranice strany:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="451"/>
+        <source>Frames:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="465"/>
+        <source>Locked Frames:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="479"/>
+        <source>Selected Frames:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="493"/>
+        <source>Linked Frames:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="507"/>
+        <source>Grouped Frames:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="521"/>
+        <source>Annotation Frames:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="535"/>
+        <source>Text Control Characters:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="73"/>
+        <source>Color for paper (onscreen)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="74"/>
         <source>Mask the area outside the margins in the margin color</source>
-        <translation type="vanished">Vyplniť plochu za hranicami strany farbou okrajov</translation>
+        <translation>Vyplniť plochu za hranicami strany farbou okrajov</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="76"/>
         <source>Display non-printing characters such as paragraph markers in text frames</source>
-        <translation type="vanished">Zobraziť netlačiteľné znaky ako je označenie odstavca v textových rámcoch</translation>
+        <translation>Zobraziť netlačiteľné znaky ako je označenie odstavca v textových rámcoch</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="77"/>
         <source>Turns the display of frames on or off</source>
-        <translation type="vanished">Zapnutie alebo vypnutie zobrazenia rámcov</translation>
+        <translation>Zapnutie alebo vypnutie zobrazenia rámcov</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="78"/>
         <source>Turns the display of layer indicators on or off</source>
-        <translation type="vanished">Prepnutie zobrazenia indikátora vrstvy</translation>
+        <translation>Prepnutie zobrazenia indikátora vrstvy</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="79"/>
         <source>Turns the display of images on or off</source>
-        <translation type="vanished">Prepnutie zobrazenia obrázkov</translation>
+        <translation>Prepnutie zobrazenia obrázkov</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="80"/>
         <source>Turns the page shadow on or off</source>
-        <translation type="vanished">Vypne alebo zapne tiene strany</translation>
+        <translation>Vypne alebo zapne tiene strany</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="81"/>
         <source>Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="vanished">Definuje množstvo priestoru vľavo od plátna dokumentu, ktoré je dostupné ako lepenka na vytváranie a úpravu elementov a ich potiahnutie na aktívnu stranu</translation>
+        <translation>Definuje množstvo priestoru vľavo od plátna dokumentu, ktoré je dostupné ako lepenka na vytváranie a úpravu elementov a ich potiahnutie na aktívnu stranu</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="82"/>
         <source>Defines amount of space right of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="vanished">Definuje množstvo priestoru vpravo od plátna dokumentu, ktoré je dostupné ako lepenka na vytváranie a úpravu elementov a ich potiahnutie na aktívnu stranu</translation>
+        <translation>Definuje množstvo priestoru vpravo od plátna dokumentu, ktoré je dostupné ako lepenka na vytváranie a úpravu elementov a ich potiahnutie na aktívnu stranu</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="83"/>
         <source>Defines amount of space above the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="vanished">Definuje množstvo priestoru nad plátnom dokumentu, ktoré je dostupné ako lepenka na vytváranie a úpravu elementov a ich potiahnutie na aktívnu stranu</translation>
+        <translation>Definuje množstvo priestoru nad plátnom dokumentu, ktoré je dostupné ako lepenka na vytváranie a úpravu elementov a ich potiahnutie na aktívnu stranu</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="84"/>
         <source>Defines amount of space below the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="vanished">Definuje množstvo priestoru pod plátnom dokumentu, ktoré je dostupné ako lepenka na vytváranie a úpravu elementov a ich potiahnutie na aktívnu stranu</translation>
+        <translation>Definuje množstvo priestoru pod plátnom dokumentu, ktoré je dostupné ako lepenka na vytváranie a úpravu elementov a ich potiahnutie na aktívnu stranu</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="85"/>
         <source>Set the default zoom level</source>
-        <translation type="vanished">Nastavenie štandardnej úrovne zväčšenia</translation>
+        <translation>Nastavenie štandardnej úrovne zväčšenia</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="86"/>
         <source>Place a ruler against your screen and drag the slider to set the zoom level so Scribus will display your pages and objects on them at the correct size</source>
-        <translation type="vanished">Umiestnite pravítko oproti vašej obrazovke a potiahnite jazdca na nastavenie úrovne zväčšenia, tak aby Scribus zobrazoval vaše strany a objekty v správnej veľkosti</translation>
+        <translation>Umiestnite pravítko oproti vašej obrazovke a potiahnite jazdca na nastavenie úrovne zväčšenia, tak aby Scribus zobrazoval vaše strany a objekty v správnej veľkosti</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="186"/>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="271"/>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="279"/>
         <source> dpi</source>
-        <translation type="vanished"> dpi</translation>
+        <translation> dpi</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="75"/>
+        <source>Enable or disable the display of linked frames</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>Prefs_DocumentInformation</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformation.cpp" line="23"/>
         <source>Document Information</source>
-        <translation type="vanished">Informácie o dokumente</translation>
+        <translation>Informácie o dokumente</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="54"/>
         <source>Document</source>
-        <translation type="vanished">Dokument</translation>
+        <translation>Dokument</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="60"/>
         <source>Title:</source>
-        <translation type="vanished">Titulok:</translation>
+        <translation>Titulok:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="77"/>
         <source>Author:</source>
-        <translation type="vanished">Autor:</translation>
+        <translation>Autor:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="87"/>
+        <source>Subject:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="97"/>
         <source>Keywords:</source>
-        <translation type="vanished">Kľúčové slová:</translation>
+        <translation>Kľúčové slová:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="111"/>
         <source>Description:</source>
-        <translation type="vanished">Popis:</translation>
+        <translation>Popis:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="126"/>
+        <source>Further Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="167"/>
+        <source>Publisher:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="177"/>
+        <source>Contributors:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="191"/>
         <source>Date:</source>
-        <translation type="vanished">Dátum:</translation>
+        <translation>Dátum:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="205"/>
         <source>Type:</source>
-        <translation type="vanished">Typ:</translation>
+        <translation>Typ:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="219"/>
         <source>Format:</source>
-        <translation type="vanished">Formát:</translation>
+        <translation>Formát:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="229"/>
+        <source>Identifier:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="239"/>
+        <source>Source:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="249"/>
         <source>Language:</source>
-        <translation type="vanished">Jazyk:</translation>
+        <translation>Jazyk:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="263"/>
+        <source>Relation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="273"/>
+        <source>Coverage:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="287"/>
+        <source>Rights:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>Prefs_DocumentItemAttributes</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="14"/>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="39"/>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="19"/>
         <source>Document Item Attributes</source>
-        <translation type="vanished">Atribúty položiek dokumentu</translation>
+        <translation>Atribúty položiek dokumentu</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="54"/>
         <source>Name</source>
-        <translation type="vanished">Názov</translation>
+        <translation>Názov</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="59"/>
         <source>Type</source>
-        <translation type="vanished">Typ</translation>
+        <translation>Typ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="64"/>
         <source>Value</source>
-        <translation type="vanished">Hodnota</translation>
+        <translation>Hodnota</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="69"/>
         <source>Parameter</source>
-        <translation type="vanished">Parameter</translation>
+        <translation>Parameter</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="74"/>
         <source>Relationship</source>
-        <translation type="vanished">Vzťah</translation>
+        <translation>Vzťah</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="79"/>
         <source>Relationship To</source>
-        <translation type="vanished">Vzťah k</translation>
+        <translation>Vzťah k</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="84"/>
         <source>Auto Add To</source>
-        <translation type="vanished">Automaticky pridať k</translation>
+        <translation>Automaticky pridať k</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="110"/>
         <source>&amp;Add</source>
-        <translation type="vanished">Prid&amp;ať</translation>
+        <translation>Prid&amp;ať</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="113"/>
         <source>Alt+A</source>
-        <translation type="vanished">Alt+T</translation>
+        <translation>Alt+T</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="120"/>
         <source>&amp;Copy</source>
-        <translation type="vanished">&amp;Kopírovať</translation>
+        <translation>&amp;Kopírovať</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="123"/>
         <source>Alt+C</source>
-        <translation type="vanished">Alt+K</translation>
+        <translation>Alt+K</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="130"/>
         <source>&amp;Delete</source>
-        <translation type="vanished">&amp;Odstrániť</translation>
+        <translation>&amp;Odstrániť</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="133"/>
         <source>Alt+D</source>
-        <translation type="vanished">Alt+D</translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="140"/>
         <source>C&amp;lear</source>
-        <translation type="vanished">&amp;Zmazať</translation>
+        <translation>&amp;Zmazať</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="143"/>
         <source>Alt+L</source>
-        <translation type="vanished">Alt+L</translation>
+        <translation>Alt+L</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="22"/>
         <source>None</source>
         <comment>relationship</comment>
-        <translation type="vanished">Nič</translation>
+        <translation>Nič</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="22"/>
         <source>Relates To</source>
-        <translation type="vanished">Vzťahuje sa k</translation>
+        <translation>Vzťahuje sa k</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="22"/>
         <source>Is Parent Of</source>
-        <translation type="vanished">Je rodičom</translation>
+        <translation>Je rodičom</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="22"/>
         <source>Is Child Of</source>
-        <translation type="vanished">Je potomkom</translation>
+        <translation>Je potomkom</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="24"/>
         <source>None</source>
         <comment>auto add</comment>
-        <translation type="vanished">Bez akcie</translation>
+        <translation>Bez akcie</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="24"/>
         <source>Text Frames</source>
-        <translation type="vanished">Textové rámce</translation>
+        <translation>Textové rámce</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="24"/>
         <source>Image Frames</source>
-        <translation type="vanished">Obrázkové rámce</translation>
+        <translation>Obrázkové rámce</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="26"/>
         <source>None</source>
         <comment>types</comment>
-        <translation type="vanished">Nič</translation>
+        <translation>Nič</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="26"/>
         <source>Boolean</source>
-        <translation type="vanished">Logická hodnota</translation>
+        <translation>Logická hodnota</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="26"/>
         <source>Integer</source>
-        <translation type="vanished">Celé číslo</translation>
+        <translation>Celé číslo</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="26"/>
         <source>Real Number</source>
-        <translation type="vanished">Reálne číslo</translation>
+        <translation>Reálne číslo</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="26"/>
         <source>String</source>
-        <translation type="vanished">Reťazec</translation>
+        <translation>Reťazec</translation>
     </message>
 </context>
 <context>
     <name>Prefs_DocumentSections</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsections.cpp" line="27"/>
         <source>Sections</source>
-        <translation type="vanished">Sekcie</translation>
+        <translation>Sekcie</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsections.cpp" line="172"/>
         <source>Page Number Out Of Bounds</source>
-        <translation type="vanished">Číslo strany je mimo ohraničenia</translation>
+        <translation>Číslo strany je mimo ohraničenia</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsections.cpp" line="172"/>
         <source>The value you have entered is outside the range of page numbers in the current document (%1-%2).</source>
-        <translation type="vanished">Hodnota, ktorú ste vložili je mimo rozsahu počtu strán v aktuálnom dokumente (%1-%2).</translation>
+        <translation>Hodnota, ktorú ste vložili je mimo rozsahu počtu strán v aktuálnom dokumente (%1-%2).</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="14"/>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="39"/>
         <source>Document Sections</source>
-        <translation type="vanished">Sekcia dokumentu</translation>
+        <translation>Sekcia dokumentu</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="60"/>
         <source>Name</source>
-        <translation type="vanished">Názov</translation>
+        <translation>Názov</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="65"/>
         <source>Shown</source>
-        <translation type="vanished">Zobrazený</translation>
+        <translation>Zobrazený</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="75"/>
         <source>From</source>
-        <translation type="vanished">Od</translation>
+        <translation>Od</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="80"/>
         <source>To</source>
-        <translation type="vanished">Do</translation>
+        <translation>Do</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="85"/>
         <source>Style</source>
-        <translation type="vanished">Štýl</translation>
+        <translation>Štýl</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="90"/>
         <source>Start</source>
-        <translation type="vanished">Začiatok</translation>
+        <translation>Začiatok</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="126"/>
         <source>&amp;Add</source>
-        <translation type="vanished">Prid&amp;ať</translation>
+        <translation>Prid&amp;ať</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="129"/>
         <source>Alt+A</source>
-        <translation type="vanished">Alt+N</translation>
+        <translation>Alt+N</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="136"/>
         <source>&amp;Delete</source>
-        <translation type="vanished">&amp;Odstrániť</translation>
+        <translation>&amp;Odstrániť</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="139"/>
         <source>Alt+D</source>
-        <translation type="vanished">Alt+D</translation>
+        <translation>Alt+D</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="95"/>
+        <source>Field Width</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="100"/>
+        <source>Fill Character</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="70"/>
+        <source>Reversed</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>Prefs_DocumentSetup</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="35"/>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="34"/>
         <source>Document Setup</source>
-        <translation type="vanished">Nastavenie dokumentu</translation>
+        <translation>Nastavenie dokumentu</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="53"/>
         <source>General</source>
-        <translation type="vanished">Všeobecné</translation>
+        <translation>Všeobecné</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="107"/>
         <source>Page Size</source>
-        <translation type="vanished">Veľkosť strany</translation>
+        <translation>Veľkosť strany</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="123"/>
         <source>Size:</source>
-        <translation type="vanished">Veľkosť:</translation>
+        <translation>Veľkosť:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="144"/>
+        <source>Orientation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="157"/>
         <source>Units:</source>
-        <translation type="vanished">Jednotky:</translation>
+        <translation>Jednotky:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="170"/>
         <source>Width:</source>
-        <translation type="vanished">Šírka:</translation>
+        <translation>Šírka:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="183"/>
         <source>Height:</source>
-        <translation type="vanished">Výška:</translation>
+        <translation>Výška:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="198"/>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="422"/>
         <source>Apply changes to all pages</source>
-        <translation type="vanished">Použiť zmeny na všetkých stránkach</translation>
+        <translation>Použiť zmeny na všetkých stránkach</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="205"/>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="429"/>
         <source>Apply changes to all master pages</source>
-        <translation type="vanished">Použiť zmeny na všetky šablóny</translation>
+        <translation>Použiť zmeny na všetky šablóny</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="226"/>
         <source>Layout</source>
-        <translation type="vanished">Rozloženie</translation>
+        <translation>Rozloženie</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="237"/>
+        <source>Page Layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="290"/>
         <source>Facing Pages</source>
-        <translation type="vanished">Protiľahlé strany</translation>
+        <translation>Protiľahlé strany</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="521"/>
+        <source>Saving &amp;&amp; Undo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="527"/>
+        <source>Save in Compressed Format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="534"/>
+        <source>Try to save an &quot;Emergency File&quot; in case of a crash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="562"/>
         <source>Autosave</source>
-        <translation type="vanished">Automatické ukladanie</translation>
+        <translation>Automatické ukladanie</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="576"/>
+        <source>Enable automatic saving of documents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="587"/>
+        <source>Interval:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="594"/>
+        <source> min</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="604"/>
+        <source>Number of files to keep:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="637"/>
+        <source>Save into the same directory as the document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="647"/>
+        <source>Save into:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="657"/>
         <source>Change...</source>
-        <translation type="vanished">Zmeniť...</translation>
+        <translation>Zmeniť...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="669"/>
+        <source>Keep backup files after closing the document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="676"/>
+        <source>Show autosave countdown clock on the canvas</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="704"/>
+        <source>Undo / Redo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="718"/>
+        <source>Enable Undo/Redo System</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="727"/>
+        <source>Action History Length:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="300"/>
         <source>Single Page</source>
-        <translation type="vanished">Jedna strana</translation>
+        <translation>Jedna strana</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="280"/>
         <source>3-Fold</source>
-        <translation type="vanished">3 prehyby</translation>
+        <translation>3 prehyby</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="270"/>
         <source>4-Fold</source>
-        <translation type="vanished">4 prehyby</translation>
+        <translation>4 prehyby</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="61"/>
         <source>Language:</source>
-        <translation type="vanished">Jazyk:</translation>
+        <translation>Jazyk:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="253"/>
         <source>First Page is:</source>
-        <translation type="vanished">Prvá strana je:</translation>
+        <translation>Prvá strana je:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="329"/>
+        <source>Margins &amp;&amp; Bleeds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="376"/>
         <source>Margins</source>
-        <translation type="vanished">Okraje</translation>
+        <translation>Okraje</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="457"/>
         <source>Bleeds</source>
-        <translation type="vanished">Orezanie</translation>
+        <translation>Orezanie</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="111"/>
         <source>Portrait</source>
-        <translation type="vanished">Na výšku</translation>
+        <translation>Na výšku</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="112"/>
         <source>Landscape</source>
-        <translation type="vanished">Na šírku</translation>
+        <translation>Na šírku</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="122"/>
         <source>Width of document pages, editable if you have chosen a custom page size</source>
-        <translation type="vanished">Šírka strán dokumentu, upraviteľná, ak ste si zvolili vlastnú veľkosť strán</translation>
+        <translation>Šírka strán dokumentu, upraviteľná, ak ste si zvolili vlastnú veľkosť strán</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="123"/>
         <source>Height of document pages, editable if you have chosen a custom page size</source>
-        <translation type="vanished">Výška strán dokumentu, upraviteľná, ak ste si zvolili vlastnú veľkosť strán</translation>
+        <translation>Výška strán dokumentu, upraviteľná, ak ste si zvolili vlastnú veľkosť strán</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="124"/>
+        <source>Default page size, either a standard size or a custom size. More page sizes can be made visible by activating them in Preferences.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="125"/>
+        <source>Enable or disable more page sizes by jumping to Page Size preferences</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="126"/>
         <source>Default orientation of document pages</source>
-        <translation type="vanished">Štandardná orientácia strán dokumentu</translation>
+        <translation>Štandardná orientácia strán dokumentu</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="127"/>
         <source>Default unit of measurement for document editing</source>
-        <translation type="vanished">Štandardná merná jednotka pre úpravu dokumentu</translation>
+        <translation>Štandardná merná jednotka pre úpravu dokumentu</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="128"/>
+        <source>When enabled, Scribus saves backup copies of your file each time the time period elapses</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="133"/>
+        <source>Keep this many files during the editing session. Backup files will be removed when you close the document.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="393"/>
         <source>Choose a Directory</source>
-        <translation type="vanished">Vybrať priečinok</translation>
+        <translation>Vybrať priečinok</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="129"/>
         <source>Time period between saving automatically</source>
-        <translation type="vanished">Časový interval medzi automatickými uloženiami</translation>
+        <translation>Časový interval medzi automatickými uloženiami</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="130"/>
         <source>Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</source>
-        <translation type="vanished">Nastaví dĺžku akcií histórie po krokoch. Ak je nastavené na 0, nekonečné množstvo akcií sa uloží.</translation>
+        <translation>Nastaví dĺžku akcií histórie po krokoch. Ak je nastavené na 0, nekonečné množstvo akcií sa uloží.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="131"/>
         <source>Apply the page size changes to all existing pages in the document</source>
-        <translation type="vanished">Použiť zmeny veľkosti strany na všetky existujúce strany dokumente</translation>
+        <translation>Použiť zmeny veľkosti strany na všetky existujúce strany dokumente</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="132"/>
         <source>Apply the page size changes to all existing master pages in the document</source>
-        <translation type="vanished">Použiť zmeny veľkosti strany na všetky existujúce šablóny v dokumente</translation>
+        <translation>Použiť zmeny veľkosti strany na všetky existujúce šablóny v dokumente</translation>
+    </message>
+</context>
+<context>
+    <name>Prefs_Experimental</name>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_experimentalbase.ui" line="35"/>
+        <source>Experimental Features</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_experimentalbase.ui" line="79"/>
+        <source>Enable Notes, Marks and other related features</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_experimental.cpp" line="18"/>
+        <source>Experimental</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>Prefs_ExternalTools</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="14"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="30"/>
         <source>External Tools</source>
-        <translation type="vanished">Externé nástroje</translation>
+        <translation>Externé nástroje</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="39"/>
+        <source>External Tools and Applications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="74"/>
         <source>PostScript Interpreter</source>
-        <translation type="vanished">Interpret postscriptu</translation>
+        <translation>Interpret postscriptu</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="90"/>
         <source>&amp;Name of Executable:</source>
-        <translation type="vanished">&amp;Príkaz pre spustenie programu:</translation>
+        <translation>&amp;Príkaz pre spustenie programu:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="103"/>
         <source>&lt;qt&gt;Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.&lt;/qt&gt;</source>
-        <translation type="vanished">&lt;qt&gt;Umiestnenie interpreta Ghostscriptu. Nezabudnite, že vo Windows je potrebné použiť program gswin32c.exe, a NIE gswin32.exe, čo by mohlo viesť k zamrznutiu Scribusu.&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;Umiestnenie interpreta Ghostscriptu. Nezabudnite, že vo Windows je potrebné použiť program gswin32c.exe, a NIE gswin32.exe, čo by mohlo viesť k zamrznutiu Scribusu.&lt;/qt&gt;</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="110"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="281"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="351"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="418"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="485"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="608"/>
         <source>&amp;Change...</source>
-        <translation type="vanished">&amp;Zmeniť...</translation>
+        <translation>&amp;Zmeniť...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="113"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="284"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="354"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="488"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="611"/>
         <source>Alt+C</source>
-        <translation type="vanished">Alt+K</translation>
+        <translation>Alt+K</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="124"/>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
-        <translation type="vanished">Vyhladenie textu pre EPS a PDF pri generovaní na obrazovku</translation>
+        <translation>Vyhladenie textu pre EPS a PDF pri generovaní na obrazovku</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="127"/>
         <source>Antialias &amp;Text</source>
-        <translation type="vanished">Vyhladiť &amp;text</translation>
+        <translation>Vyhladiť &amp;text</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="130"/>
         <source>Alt+T</source>
-        <translation type="vanished">Alt+T</translation>
+        <translation>Alt+T</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="153"/>
         <source>Antialias graphics for EPS and PDF onscreen rendering</source>
-        <translation type="vanished">Vyhladenie grafiky pre EPS a PDF pri generovaní na obrazovku</translation>
+        <translation>Vyhladenie grafiky pre EPS a PDF pri generovaní na obrazovku</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="156"/>
         <source>Antialias &amp;Graphics</source>
-        <translation type="vanished">Vyhladiť &amp;grafiku</translation>
+        <translation>Vyhladiť &amp;grafiku</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="159"/>
         <source>Alt+G</source>
-        <translation type="vanished">Alt+G</translation>
+        <translation>Alt+G</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="182"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="698"/>
         <source>Resolution:</source>
-        <translation type="vanished">Rozlíšenie:</translation>
+        <translation>Rozlíšenie:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="195"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="711"/>
         <source> dpi</source>
-        <translation type="vanished"> dpi</translation>
+        <translation> dpi</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="245"/>
         <source>Image Processing Tool</source>
-        <translation type="vanished">Nástroj na úpravu obrázkov</translation>
+        <translation>Nástroj na úpravu obrázkov</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="261"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="331"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="401"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="465"/>
         <source>Name of &amp;Executable:</source>
-        <translation type="vanished">P&amp;ríkaz pre spustenie programu:</translation>
+        <translation>P&amp;ríkaz pre spustenie programu:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="274"/>
+        <source>&lt;qt&gt;File system location for graphics editor&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="315"/>
         <source>Web Browser</source>
-        <translation type="vanished">Web prehliadač</translation>
+        <translation>Web prehliadač</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="385"/>
+        <source>PDF Viewer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="449"/>
+        <source>Uniconvertor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="519"/>
         <source>Render Frames</source>
-        <translation type="vanished">Vykresľovať rámce</translation>
+        <translation>Vykresľovať rámce</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="533"/>
         <source>Configurations:</source>
-        <translation type="vanished">Konfigurácie:</translation>
+        <translation>Konfigurácie:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="547"/>
         <source>Up</source>
-        <translation type="vanished">Hore</translation>
+        <translation>Hore</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="554"/>
         <source>Down</source>
-        <translation type="vanished">Dole</translation>
+        <translation>Dole</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="561"/>
         <source>Add</source>
-        <translation type="vanished">Pridať</translation>
+        <translation>Pridať</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="568"/>
         <source>Delete</source>
-        <translation type="vanished">Odstrániť</translation>
+        <translation>Odstrániť</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="575"/>
         <source>Change...</source>
-        <translation type="vanished">Zmeniť...</translation>
+        <translation>Zmeniť...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="588"/>
         <source>External Editor:</source>
-        <translation type="vanished">Externý editor:</translation>
+        <translation>Externý editor:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="622"/>
         <source>Start with empty frame</source>
-        <translation type="vanished">Začať s prázdnym rámcom</translation>
+        <translation>Začať s prázdnym rámcom</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="648"/>
         <source>Use Embedded Editor</source>
-        <translation type="vanished">Použiť vložený editor</translation>
+        <translation>Použiť vložený editor</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="675"/>
         <source>Force DPI</source>
-        <translation type="vanished">Vnútiť DPI</translation>
+        <translation>Vnútiť DPI</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="777"/>
         <source>Rescan for the external tools if they do not exist in the already specified location</source>
-        <translation type="vanished">Preskenovať externé nástroje, či existujú na určenom mieste</translation>
+        <translation>Preskenovať externé nástroje, či existujú na určenom mieste</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="780"/>
         <source>&amp;Rescan</source>
-        <translation type="vanished">P&amp;reskenovať</translation>
+        <translation>P&amp;reskenovať</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="783"/>
         <source>Alt+R</source>
-        <translation type="vanished">Alt+V</translation>
+        <translation>Alt+V</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="100"/>
         <source>Locate Ghostscript</source>
-        <translation type="vanished">Lokalizovať Ghostscript</translation>
+        <translation>Lokalizovať Ghostscript</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="108"/>
         <source>Locate your image editor</source>
-        <translation type="vanished">Lokalizovať váš editor obrázkov</translation>
+        <translation>Lokalizovať váš editor obrázkov</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="116"/>
         <source>Locate your web browser</source>
-        <translation type="vanished">Lokalizovať váš prehliadač webu</translation>
+        <translation>Lokalizovať váš prehliadač webu</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="124"/>
+        <source>Locate your PDF viewer</source>
+        <translation type="unfinished">Nájdite svoj prehliadač PDF</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="132"/>
+        <source>Locate the uniconvertor executable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="140"/>
         <source>Locate your editor</source>
-        <translation type="vanished">Lokalizovať váš editor</translation>
+        <translation>Lokalizovať váš editor</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="169"/>
+        <source>Uniconvertor executable not found!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="258"/>
         <source>Locate a Configuration file</source>
-        <translation type="vanished">Lokalizovať konfiguračný súbor</translation>
+        <translation>Lokalizovať konfiguračný súbor</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="260"/>
         <source>Configuration files</source>
-        <translation type="vanished">Konfiguračné súbory</translation>
+        <translation>Konfiguračné súbory</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="280"/>
         <source>Change Command</source>
-        <translation type="vanished">Zmeniť príkaz</translation>
+        <translation>Zmeniť príkaz</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="281"/>
         <source>Enter new command: (leave empty to reset to default command; use quotes around arguments with spaces)</source>
-        <translation type="vanished">Vložiť nový príkaz: (pokiaľ ho chcete vynulovať na štandardný príkaz, nechajte nevyplnený; použite úvodzovky s medzerami okolo argumentov)</translation>
+        <translation>Vložiť nový príkaz: (pokiaľ ho chcete vynulovať na štandardný príkaz, nechajte nevyplnený; použite úvodzovky s medzerami okolo argumentov)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="310"/>
         <source>Command: </source>
-        <translation type="vanished">Príkaz:</translation>
+        <translation>Príkaz:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="222"/>
+        <source>LaTeX Command</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="223"/>
         <source>Scribus has found the following pdflatex command:
 %1
 Do you want to use this?</source>
-        <translation type="vanished">Scribus našiel nasledujúci príkaz pdflatex:
+        <translation>Scribus našiel nasledujúci príkaz pdflatex:
 %1
 Chcete to použiť?</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="344"/>
+        <source>&lt;qt&gt;File system location for web browser&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="411"/>
+        <source>&lt;qt&gt;File system location for PDF viewer&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="478"/>
+        <source>&lt;qt&gt;File system location for Uniconvertor&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="601"/>
+        <source>&lt;qt&gt;Path to the editor executable&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="672"/>
         <source>Always use the configured DPI setting for calculating the size, even if the image file reports something different</source>
-        <translation type="vanished">Na výpočet veľkosti vždy používajte nakonfigurované nastavenie DPI, aj keď súbor obrázka uvádza niečo iné</translation>
+        <translation>Na výpočet veľkosti vždy používajte nakonfigurované nastavenie DPI, aj keď súbor obrázka uvádza niečo iné</translation>
     </message>
 </context>
 <context>
     <name>Prefs_Fonts</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_fonts.cpp" line="44"/>
         <source>Fonts</source>
-        <translation type="vanished">Písmo</translation>
+        <translation>Písmo</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="88"/>
         <source>Delete</source>
-        <translation type="vanished">Odstrániť</translation>
+        <translation>Odstrániť</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="111"/>
         <source>C&amp;hange...</source>
-        <translation type="vanished">&amp;Zmeniť...</translation>
+        <translation>&amp;Zmeniť...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="118"/>
         <source>A&amp;dd...</source>
-        <translation type="vanished">&amp;Pridať...</translation>
+        <translation>&amp;Pridať...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="125"/>
         <source>&amp;Remove</source>
-        <translation type="vanished">&amp;Odstrániť</translation>
+        <translation>&amp;Odstrániť</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="176"/>
+        <location filename="../../scribus/ui/preferences/prefs_fonts.cpp" line="49"/>
+        <source>Rejected Fonts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="186"/>
+        <source>Font name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="191"/>
+        <source>Error message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="196"/>
+        <source>Font file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="54"/>
+        <location filename="../../scribus/ui/preferences/prefs_fonts.cpp" line="49"/>
         <source>Available Fonts</source>
-        <translation type="vanished">Dostupné písma</translation>
+        <translation>Dostupné písma</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="64"/>
+        <location filename="../../scribus/ui/preferences/prefs_fonts.cpp" line="49"/>
         <source>Font Substitutions</source>
-        <translation type="vanished">Substitúcia písem</translation>
+        <translation>Substitúcia písem</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="98"/>
+        <location filename="../../scribus/ui/preferences/prefs_fonts.cpp" line="49"/>
         <source>Additional Paths</source>
-        <translation type="vanished">Dodatočné cesty</translation>
+        <translation>Dodatočné cesty</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fonts.cpp" line="55"/>
         <source>Font Name</source>
-        <translation type="vanished">Názov písma</translation>
+        <translation>Názov písma</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fonts.cpp" line="56"/>
         <source>Replacement</source>
-        <translation type="vanished">Náhrada</translation>
+        <translation>Náhrada</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fonts.cpp" line="97"/>
         <source>Font search paths can only be set in File &gt; Preferences, and only when there is no document currently open. Close any open documents, then use File &gt; Preferences &gt; Fonts to change the font search path.</source>
-        <translation type="vanished">Cesty k písmam je možné nastaviť, len pokiaľ nie sú otvorené žiadne dokumenty. Zavrite všetky dokumenty a potom zmeňte cestu pre písma v ponuke Súbor &gt; Nastavenia -&gt; Písma.</translation>
+        <translation>Cesty k písmam je možné nastaviť, len pokiaľ nie sú otvorené žiadne dokumenty. Zavrite všetky dokumenty a potom zmeňte cestu pre písma v ponuke Súbor &gt; Nastavenia -&gt; Písma.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fonts.cpp" line="285"/>
+        <location filename="../../scribus/ui/preferences/prefs_fonts.cpp" line="312"/>
         <source>Choose a Directory</source>
-        <translation type="vanished">Vybrať priečinok</translation>
+        <translation>Vybrať priečinok</translation>
     </message>
 </context>
 <context>
     <name>Prefs_Guides</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="371"/>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="24"/>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="63"/>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="131"/>
         <source>Guides</source>
-        <translation type="vanished">Vodítka</translation>
+        <translation>Vodítka</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="54"/>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="66"/>
+        <source>Placement</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="171"/>
         <source>Snap Distance:</source>
-        <translation type="vanished">Vzdialenosť pritiahnutia:</translation>
+        <translation>Vzdialenosť pritiahnutia:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="178"/>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="198"/>
         <source> px</source>
-        <translation type="vanished"> px</translation>
+        <translation> px</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="191"/>
         <source>Grab Radius:</source>
-        <translation type="vanished">Zachytiť polomer:</translation>
+        <translation>Zachytiť polomer:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="361"/>
+        <source>Visibility</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="384"/>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="69"/>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="137"/>
         <source>Margins</source>
-        <translation type="vanished">Okraje</translation>
+        <translation>Okraje</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="397"/>
+        <source>Page Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="421"/>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="67"/>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="135"/>
+        <source>Baseline Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="268"/>
         <source>Distances</source>
-        <translation type="vanished">Vzdialenosti</translation>
+        <translation>Vzdialenosti</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="296"/>
+        <source>Minor Grid Spacing:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="306"/>
+        <source>Baseline Grid Spacing:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="286"/>
+        <source>Major Grid Spacing:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="320"/>
+        <source>Baseline Grid Offset:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="459"/>
         <source>Colors</source>
-        <translation type="vanished">Farby</translation>
+        <translation>Farby</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="470"/>
+        <source>Guides:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="484"/>
+        <source>Margins:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="498"/>
+        <source>Major Grid:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="512"/>
+        <source>Minor Grid:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="526"/>
+        <source>Baseline Grid:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="86"/>
+        <source>Place guides in front of or behind objects on the page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="87"/>
         <source>Distance between the minor grid lines</source>
-        <translation type="vanished">Vzdialenosť medzi čiarami vedľajšej mriežky</translation>
+        <translation>Vzdialenosť medzi čiarami vedľajšej mriežky</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="88"/>
         <source>Distance between the major grid lines</source>
-        <translation type="vanished">Vzdialenosť medzi čiarami hlavnej mriežky</translation>
+        <translation>Vzdialenosť medzi čiarami hlavnej mriežky</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="89"/>
         <source>Distance within which an object will snap to your placed guides. After setting this you will need to restart Scribus to set this setting.</source>
-        <translation type="vanished">Vzdialenosť od ktorej sa dá objekt pritiahnuť k vodítkam. Po tomto nastavení musíte reštartovať Scribus, aby sa nastavenie použilo.</translation>
+        <translation>Vzdialenosť od ktorej sa dá objekt pritiahnuť k vodítkam. Po tomto nastavení musíte reštartovať Scribus, aby sa nastavenie použilo.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="91"/>
         <source>Color of the minor grid lines</source>
-        <translation type="vanished">Farba vedľajších čiar mriežky</translation>
+        <translation>Farba vedľajších čiar mriežky</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="92"/>
         <source>Color of the major grid lines</source>
-        <translation type="vanished">Farba hlavných čiar mriežky</translation>
+        <translation>Farba hlavných čiar mriežky</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="93"/>
         <source>Color of the guide lines you insert</source>
-        <translation type="vanished">Farba vodítok, ktoré ste vložili</translation>
+        <translation>Farba vodítok, ktoré ste vložili</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="94"/>
         <source>Color for the margin lines</source>
-        <translation type="vanished">Farba pre čiary okrajov</translation>
+        <translation>Farba pre čiary okrajov</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="95"/>
         <source>Color for the baseline grid</source>
-        <translation type="vanished">Farba pre pomocnú mriežku</translation>
+        <translation>Farba pre pomocnú mriežku</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="96"/>
         <source>Turns the basegrid on or off</source>
-        <translation type="vanished">Zapnutie/Vypnutie základnej mriežky</translation>
+        <translation>Zapnutie/Vypnutie základnej mriežky</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="97"/>
         <source>Distance between the lines of the baseline grid</source>
-        <translation type="vanished">Vzdialenosť medzi čiarami pomocnej mriežky</translation>
+        <translation>Vzdialenosť medzi čiarami pomocnej mriežky</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="98"/>
         <source>Distance from the top of the page for the first baseline</source>
-        <translation type="vanished">Vzdialenosť od horného okraja strany k prvej základnej čiare</translation>
+        <translation>Vzdialenosť od horného okraja strany k prvej základnej čiare</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="99"/>
         <source>Turns the gridlines on or off</source>
-        <translation type="vanished">Zapnutie/Vypnutie čiar mriežky</translation>
+        <translation>Zapnutie/Vypnutie čiar mriežky</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="100"/>
         <source>Turns the guides on or off</source>
-        <translation type="vanished">Zapnutie/Vypnutie mriežky</translation>
+        <translation>Zapnutie/Vypnutie mriežky</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="101"/>
         <source>Turns the margins on or off</source>
-        <translation type="vanished">Zapnutie/Vypnutie okrajov</translation>
+        <translation>Zapnutie/Vypnutie okrajov</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="404"/>
         <source>Type:</source>
-        <translation type="vanished">Typ:</translation>
+        <translation>Typ:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="61"/>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="129"/>
         <source>Content Objects</source>
-        <translation type="vanished">Obsah objektov</translation>
+        <translation>Obsah objektov</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="65"/>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="133"/>
+        <source>Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="78"/>
         <source>Lines</source>
-        <translation type="vanished">Čiary</translation>
+        <translation>Čiary</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="79"/>
+        <source>Crosses and Dots</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="90"/>
+        <source>Radius of the area where Scribus will allow you to grab an objects handles. After setting this you will need to restart Scribus to set this setting.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>Prefs_Hyphenator</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenatorbase.ui" line="35"/>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenator.cpp" line="26"/>
+        <source>Hyphenation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenatorbase.ui" line="62"/>
         <source>&amp;Hyphenation Suggestions</source>
-        <translation type="vanished">N&amp;ávrhy pre delenie slov</translation>
+        <translation>N&amp;ávrhy pre delenie slov</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenatorbase.ui" line="72"/>
         <source>Hyphenate Text Automatically &amp;During Typing</source>
-        <translation type="vanished">Automaticky &amp;deliť slová pri písaní</translation>
+        <translation>Automaticky &amp;deliť slová pri písaní</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenatorbase.ui" line="53"/>
         <source>Behaviour</source>
-        <translation type="vanished">Režim</translation>
+        <translation>Režim</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenatorbase.ui" line="96"/>
+        <source>Word Lists</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenatorbase.ui" line="104"/>
         <source>Exceptions</source>
-        <translation type="vanished">Výnimky</translation>
+        <translation>Výnimky</translation>
     </message>
     <message>
         <source>Edit</source>
         <translation type="vanished">Upraviť</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenatorbase.ui" line="147"/>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenator.cpp" line="83"/>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenator.cpp" line="101"/>
         <source>Ignore List</source>
-        <translation type="vanished">Zoznam ignorovaných slov</translation>
+        <translation>Zoznam ignorovaných slov</translation>
     </message>
     <message>
         <source>Hyphenator</source>
@@ -17201,1447 +17922,2304 @@ Chcete to použiť?</translation>
         <translation type="vanished">Pridať novú položku</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenator.cpp" line="83"/>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenator.cpp" line="135"/>
+        <source>Add new Entries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenator.cpp" line="101"/>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenator.cpp" line="153"/>
         <source>Edit Entry</source>
-        <translation type="vanished">Upraviť položku</translation>
+        <translation>Upraviť položku</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenator.cpp" line="135"/>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenator.cpp" line="153"/>
         <source>Exception List</source>
-        <translation type="vanished">Výnimky</translation>
+        <translation>Výnimky</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenatorbase.ui" line="59"/>
         <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras &gt; Hyphenate Text option</source>
-        <translation type="vanished">Keď použijete možnosť Doplnky &gt; Rozdeliť text, zobrazí sa dialógové okno so všetkými možnými pomlčkami pre každé slovo</translation>
+        <translation>Keď použijete možnosť Doplnky &gt; Rozdeliť text, zobrazí sa dialógové okno so všetkými možnými pomlčkami pre každé slovo</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenatorbase.ui" line="69"/>
+        <source>Enables automatic hyphenation of your text while typing</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Prefs_ImageCache</name>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_imagecache.cpp" line="27"/>
+        <source>Enabling the image cache will significantly speed up the loading of images. Enable the cache if you are often working on large documents with lots of images and if you have plenty of disk space in your application data directory.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_imagecache.cpp" line="30"/>
+        <source>Set the level of compression for images in the cache. Higher values result in smaller cache files but also make writes to the cache slower.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_imagecachebase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_imagecache.cpp" line="21"/>
+        <source>Image Cache</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_imagecachebase.ui" line="80"/>
+        <source>Enable Image Cache</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_imagecachebase.ui" line="92"/>
+        <source>Cache Size Limit:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_imagecachebase.ui" line="123"/>
+        <source> Mb</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_imagecachebase.ui" line="142"/>
+        <source>Cache Entry Limit:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_imagecachebase.ui" line="186"/>
+        <source>Compression Level:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_imagecache.cpp" line="28"/>
+        <source>Limit the total size of all files in the image cache directory to this amount</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_imagecache.cpp" line="29"/>
+        <source>Limit the number of cache entries to this number</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>Prefs_ItemTools</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="35"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="32"/>
         <source>Item Tools</source>
-        <translation type="vanished">Položka Nástroje</translation>
+        <translation>Položka Nástroje</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="65"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="144"/>
         <source>Text</source>
-        <translation type="vanished">Text</translation>
+        <translation>Text</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="207"/>
         <source>Columns:</source>
-        <translation type="vanished">Stĺpce:</translation>
+        <translation>Stĺpce:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="214"/>
         <source>Column Gap:</source>
-        <translation type="vanished">Medzera medzi stĺpcami:</translation>
+        <translation>Medzera medzi stĺpcami:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="428"/>
         <source>Tab Fill Character:</source>
-        <translation type="vanished">Znaky výplne tab:</translation>
+        <translation>Znaky výplne tab:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="468"/>
         <source>Tab Width:</source>
-        <translation type="vanished">Šírka tab:</translation>
+        <translation>Šírka tab:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="508"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="747"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1160"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1452"/>
         <source>Fill Color:</source>
-        <translation type="vanished">Farba výplne:</translation>
+        <translation>Farba výplne:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="408"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="781"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1060"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1334"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1418"/>
+        <source>Line Color:</source>
+        <translation type="unfinished">Farba čiary</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="285"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="305"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="451"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="481"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="754"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="814"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1053"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1097"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1254"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1411"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1469"/>
         <source>Shading:</source>
-        <translation type="vanished">Tieňovanie:</translation>
+        <translation>Tieňovanie:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="295"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="319"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="435"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="488"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="737"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="771"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="893"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="930"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1067"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1114"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1315"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1381"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1428"/>
         <source> %</source>
-        <translation type="vanished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="276"/>
         <source>Columns &amp; Text Distances</source>
-        <translation type="vanished">Stĺpce &amp; textové vzdialenosti</translation>
+        <translation>Stĺpce &amp; textové vzdialenosti</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="183"/>
         <source>Top:</source>
-        <translation type="vanished">Hore:</translation>
+        <translation>Hore:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="193"/>
         <source>Bottom:</source>
-        <translation type="vanished">Dole:</translation>
+        <translation>Dole:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="200"/>
         <source>Left:</source>
-        <translation type="vanished">Vľavo:</translation>
+        <translation>Vľavo:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="224"/>
         <source>Right:</source>
-        <translation type="vanished">Vpravo:</translation>
+        <translation>Vpravo:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="329"/>
         <source>Font:</source>
-        <translation type="vanished">Písmo:</translation>
+        <translation>Písmo:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="349"/>
         <source>Size:</source>
-        <translation type="vanished">Veľkosť:</translation>
+        <translation>Veľkosť:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="339"/>
         <source>Color:</source>
-        <translation type="vanished">Farba:</translation>
+        <translation>Farba:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="312"/>
         <source>Stroke:</source>
-        <translation type="vanished">Ťah:</translation>
+        <translation>Ťah:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="564"/>
         <source>Preview</source>
-        <translation type="vanished">Náhľad</translation>
+        <translation>Náhľad</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="693"/>
         <source>Images</source>
-        <translation type="vanished">Obrázky</translation>
+        <translation>Obrázky</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="836"/>
         <source>Use Embedded Clipping Path</source>
-        <translation type="vanished">Použiť vstavanú orezovú cestu</translation>
+        <translation>Použiť vstavanú orezovú cestu</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="864"/>
         <source>Scaling</source>
-        <translation type="vanished">Zmeniť veľkosť</translation>
+        <translation>Zmeniť veľkosť</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="940"/>
+        <source>Horizontal Scaling:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="903"/>
+        <source>Vertical Scaling:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="576"/>
+        <source>First Line Offset</source>
+        <translation>Posun prvého riadku</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="642"/>
+        <source>Offset:</source>
+        <translation>Posun:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="650"/>
+        <source>Maximum Ascent</source>
+        <translation>Maximálny vzostup</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="655"/>
+        <source>Font Ascent</source>
+        <translation>Výška písma</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="660"/>
+        <source>Line Spacing</source>
+        <translation>Riadkovanie</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="665"/>
+        <source>Baseline Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="878"/>
+        <source>Auto-Fit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="970"/>
         <source>On Screen Preview</source>
-        <translation type="vanished">Náhľad na obrazovke</translation>
+        <translation>Náhľad na obrazovke</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="984"/>
+        <source>Full Resolution</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="994"/>
+        <source>Normal Resolution</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1004"/>
+        <source>Low Resolution</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1032"/>
         <source>Shapes</source>
-        <translation type="vanished">Tvary</translation>
+        <translation>Tvary</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1077"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1301"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1394"/>
         <source>Line Style:</source>
-        <translation type="vanished">Štýl čiary:</translation>
+        <translation>Štýl čiary:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1084"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1294"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1445"/>
         <source>Line Width:</source>
-        <translation type="vanished">Šírka čiary:</translation>
+        <translation>Šírka čiary:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1186"/>
         <source>Regular Polygons</source>
-        <translation type="vanished">Pravidelné mnohouholníky</translation>
+        <translation>Pravidelné mnohouholníky</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1233"/>
         <source>Lines</source>
-        <translation type="vanished">Čiary</translation>
+        <translation>Čiary</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1308"/>
         <source>Start Arrow:</source>
-        <translation type="vanished">Začiatok šípky:</translation>
+        <translation>Začiatok šípky:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1287"/>
         <source>End Arrow:</source>
-        <translation type="vanished">Koniec šípky:</translation>
+        <translation>Koniec šípky:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="52"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="53"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="54"/>
         <source>Hairline</source>
-        <translation type="vanished">Vlasová čiara</translation>
+        <translation>Vlasová čiara</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="65"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="385"/>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
-        <translation type="vanished">Kŕdeľ šťastných ďateľov učí pri ústi Váhu mĺkveho koňa obhrýzať kôru a žrať čerstvé mäso</translation>
+        <translation>Kŕdeľ šťastných ďateľov učí pri ústi Váhu mĺkveho koňa obhrýzať kôru a žrať čerstvé mäso</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="108"/>
         <source>None</source>
         <comment>tab fill</comment>
-        <translation type="vanished">Nič</translation>
+        <translation>Nič</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="109"/>
         <source>Dot</source>
-        <translation type="vanished">Bodka</translation>
+        <translation>Bodka</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="110"/>
         <source>Hyphen</source>
-        <translation type="vanished">Spojovník</translation>
+        <translation>Spojovník</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="111"/>
         <source>Underscore</source>
-        <translation type="vanished">Podtržítko</translation>
+        <translation>Podtržítko</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="112"/>
         <source>Custom</source>
-        <translation type="vanished">Vlastné</translation>
+        <translation>Vlastné</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1360"/>
+        <source>Calligraphic Pen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1438"/>
+        <source>Pen Angle:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1505"/>
+        <source>Pen Width:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="66"/>
         <source>Keep horizontal and vertical scaling the same</source>
-        <translation type="vanished">Dodržať rovnakú vodorovné aj zvislú zmenu veľkosti</translation>
+        <translation>Dodržať rovnakú vodorovné aj zvislú zmenu veľkosti</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1528"/>
+        <source>Arc</source>
+        <translation type="unfinished">Oblúk</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1575"/>
+        <source>Spiral</source>
+        <translation type="unfinished">Špirála</translation>
     </message>
 </context>
 <context>
     <name>Prefs_KeyboardShortcuts</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="14"/>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="39"/>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcuts.cpp" line="37"/>
         <source>Keyboard Shortcuts</source>
-        <translation type="vanished">Klávesové skratky</translation>
+        <translation>Klávesové skratky</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="95"/>
         <source>Search:</source>
-        <translation type="vanished">Hľadať:</translation>
+        <translation>Hľadať:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="111"/>
         <source>Action</source>
-        <translation type="vanished">Akcia</translation>
+        <translation>Akcia</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="116"/>
         <source>Shortcut</source>
-        <translation type="vanished">Skratka</translation>
+        <translation>Skratka</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="146"/>
         <source>Shortcut for Selected Action</source>
-        <translation type="vanished">Skratka pre zvolenú akciu</translation>
+        <translation>Skratka pre zvolenú akciu</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="162"/>
         <source>&amp;No Key</source>
-        <translation type="vanished">Žiad&amp;ny kláves</translation>
+        <translation>Žiad&amp;ny kláves</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="165"/>
         <source>Alt+N</source>
-        <translation type="vanished">Alt+N</translation>
+        <translation>Alt+N</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="172"/>
         <source>&amp;User Defined Key</source>
-        <translation type="vanished">Po&amp;užívateľom definovaný kláves</translation>
+        <translation>Po&amp;užívateľom definovaný kláves</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="175"/>
         <source>Alt+U</source>
-        <translation type="vanished">Alt+U</translation>
+        <translation>Alt+U</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="198"/>
         <source>Set &amp;Key</source>
-        <translation type="vanished">Nastaviť &amp;kláves</translation>
+        <translation>Nastaviť &amp;kláves</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="201"/>
         <source>Alt+K</source>
-        <translation type="vanished">Alt+K</translation>
+        <translation>Alt+K</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="217"/>
         <source>CTRL+ALT+SHIFT+W</source>
-        <translation type="vanished">CTRL+ALT+SHIFT+W</translation>
+        <translation>CTRL+ALT+SHIFT+W</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="257"/>
         <source>Loadable Shortcut Sets</source>
-        <translation type="vanished">Súbor klávesových skratiek na načítanie</translation>
+        <translation>Súbor klávesových skratiek na načítanie</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="273"/>
         <source>Keyboard shortcut sets available to load</source>
-        <translation type="vanished">Súbor klávesových skratiek dostupných na načítanie</translation>
+        <translation>Súbor klávesových skratiek dostupných na načítanie</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="280"/>
         <source>Load the selected shortcut set</source>
-        <translation type="vanished">Načítať zvolený súbor klávesových skratiek</translation>
+        <translation>Načítať zvolený súbor klávesových skratiek</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="283"/>
         <source>&amp;Load</source>
-        <translation type="vanished">Načí&amp;tať</translation>
+        <translation>Načí&amp;tať</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="286"/>
         <source>Alt+L</source>
-        <translation type="vanished">Alt+L</translation>
+        <translation>Alt+L</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="309"/>
         <source>Import a shortcut set into the current configuration</source>
-        <translation type="vanished">Importovať súbor skratiek do aktuálnej konfigurácii</translation>
+        <translation>Importovať súbor skratiek do aktuálnej konfigurácii</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="312"/>
         <source>&amp;Import...</source>
-        <translation type="vanished">&amp;Importovať...</translation>
+        <translation>&amp;Importovať...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="315"/>
         <source>Alt+I</source>
-        <translation type="vanished">Alt+I</translation>
+        <translation>Alt+I</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="322"/>
         <source>Export the current shortcuts into an importable file</source>
-        <translation type="vanished">Exportovať aktuálny súbor skratiek do importovateľného súboru</translation>
+        <translation>Exportovať aktuálny súbor skratiek do importovateľného súboru</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="325"/>
         <source>&amp;Export...</source>
-        <translation type="vanished">&amp;Exportovať...</translation>
+        <translation>&amp;Exportovať...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="328"/>
         <source>Alt+E</source>
-        <translation type="vanished">Alt+E</translation>
+        <translation>Alt+E</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="351"/>
         <source>Reload the default Scribus shortcuts</source>
-        <translation type="vanished">Znovu načítať štandardné Scribus skratky</translation>
+        <translation>Znovu načítať štandardné Scribus skratky</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="354"/>
         <source>&amp;Reset</source>
-        <translation type="vanished">&amp;Vynulovať</translation>
+        <translation>&amp;Vynulovať</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="357"/>
         <source>Alt+R</source>
-        <translation type="vanished">Alt+V</translation>
+        <translation>Alt+V</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcuts.cpp" line="132"/>
         <source>Select a Key set file to read</source>
-        <translation type="vanished">Vyberte sadu kláves pre načítanie</translation>
+        <translation>Vyberte sadu kláves pre načítanie</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcuts.cpp" line="132"/>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcuts.cpp" line="140"/>
         <source>Key Set XML Files (*.xml)</source>
-        <translation type="vanished">XML Súbor so sadou kláves (*.xml)</translation>
+        <translation>XML Súbor so sadou kláves (*.xml)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcuts.cpp" line="140"/>
         <source>Select a Key set file to save to</source>
-        <translation type="vanished">Vyberte sadu kláves pre uloženie</translation>
+        <translation>Vyberte sadu kláves pre uloženie</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcuts.cpp" line="222"/>
         <source>Export Keyboard Shortcuts to File</source>
-        <translation type="vanished">Exportovať klávesové skratky do súboru</translation>
+        <translation>Exportovať klávesové skratky do súboru</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcuts.cpp" line="222"/>
         <source>Enter the name of the shortcut set:</source>
-        <translation type="vanished">Vložte názov pre sadu skratiek:</translation>
+        <translation>Vložte názov pre sadu skratiek:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcuts.cpp" line="532"/>
         <source>The %1 key sequence is already in use by &quot;%2&quot;</source>
-        <translation type="vanished">Sekvenciu kláves %1 už používa &quot;%2&quot;</translation>
+        <translation>Sekvenciu kláves %1 už používa &quot;%2&quot;</translation>
     </message>
 </context>
 <context>
     <name>Prefs_Miscellaneous</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_miscellaneousbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_miscellaneous.cpp" line="18"/>
         <source>Miscellaneous</source>
-        <translation type="vanished">Rôzne</translation>
+        <translation>Rôzne</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_miscellaneousbase.ui" line="80"/>
         <source>Always ask before fonts are replaced when loading a document</source>
-        <translation type="vanished">Vždy sa spýtať, či majú byť písma nahradené pri otváraní dokumentu</translation>
+        <translation>Vždy sa spýtať, či majú byť písma nahradené pri otváraní dokumentu</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_miscellaneousbase.ui" line="87"/>
         <source>Preview of current Paragraph Style is visible when editing Styles</source>
-        <translation type="vanished">Ukážka aktuálneho štýlu odseku je viditeľná pri úprave štýlov</translation>
+        <translation>Ukážka aktuálneho štýlu odseku je viditeľná pri úprave štýlov</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_miscellaneousbase.ui" line="116"/>
         <source>Lorem Ipsum</source>
-        <translation type="vanished">Lorem Ipsum</translation>
+        <translation>Lorem Ipsum</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_miscellaneousbase.ui" line="130"/>
         <source>Always use standard Lorem Ipsum text</source>
-        <translation type="vanished">Vždy použiť štandardný text Lorem Ipsum</translation>
+        <translation>Vždy použiť štandardný text Lorem Ipsum</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_miscellaneousbase.ui" line="139"/>
         <source>Paragraph Count:</source>
-        <translation type="vanished">Počet odsekov:</translation>
+        <translation>Počet odsekov:</translation>
     </message>
 </context>
 <context>
     <name>Prefs_OperatorTools</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_operatortools.cpp" line="22"/>
         <source>Operator Tools</source>
-        <translation type="vanished">Nástroje operátora</translation>
+        <translation>Nástroje operátora</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="66"/>
         <source>Zoom</source>
-        <translation type="vanished">Zväčšenie</translation>
+        <translation>Zväčšenie</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="77"/>
         <source>Minimum:</source>
-        <translation type="vanished">Minimum:</translation>
+        <translation>Minimum:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="84"/>
         <source>Maximum:</source>
-        <translation type="vanished">Maximum:</translation>
+        <translation>Maximum:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="91"/>
         <source>Stepping:</source>
-        <translation type="vanished">Krokovanie:</translation>
+        <translation>Krokovanie:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="98"/>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="111"/>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="124"/>
         <source> %</source>
-        <translation type="vanished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="153"/>
         <source>Miscellaneous</source>
-        <translation type="vanished">Rôzne</translation>
+        <translation>Rôzne</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="165"/>
         <source>Item Duplicate</source>
-        <translation type="vanished">Duplikovať položku</translation>
+        <translation>Duplikovať položku</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="184"/>
         <source>X Displacement:</source>
-        <translation type="vanished">X posun:</translation>
+        <translation>X posun:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="191"/>
         <source>Y Displacement:</source>
-        <translation type="vanished">Y posun:</translation>
+        <translation>Y posun:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="228"/>
         <source>Rotation Tool</source>
-        <translation type="vanished">Nástroj otočenie</translation>
+        <translation>Nástroj otočenie</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="247"/>
         <source>Constrain To:</source>
-        <translation type="vanished">Obmedziť na:</translation>
+        <translation>Obmedziť na:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortools.cpp" line="39"/>
         <source>Minimum magnification allowed</source>
-        <translation type="vanished">Minimálne povolené zväčšenie</translation>
+        <translation>Minimálne povolené zväčšenie</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortools.cpp" line="40"/>
         <source>Maximum magnification allowed</source>
-        <translation type="vanished">Maximálne povolené zväčšenie</translation>
+        <translation>Maximálne povolené zväčšenie</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortools.cpp" line="41"/>
         <source>Change in magnification for each zoom operation</source>
-        <translation type="vanished">Zmena zväčšenia pre každý krok lupy</translation>
+        <translation>Zmena zväčšenia pre každý krok lupy</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortools.cpp" line="42"/>
         <source>Horizontal displacement of page items</source>
-        <translation type="vanished">Vodorovný posun položiek strany</translation>
+        <translation>Vodorovný posun položiek strany</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortools.cpp" line="43"/>
         <source>Vertical displacement of page items</source>
-        <translation type="vanished">Zvislý posun položiek strany</translation>
+        <translation>Zvislý posun položiek strany</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortools.cpp" line="44"/>
         <source>Constrain value for the rotation tool when the Control key is pressed</source>
-        <translation type="vanished">Hodnota obmedzenia pre nástroj otočenie, keď je stlačený kláves Ctrl</translation>
+        <translation>Hodnota obmedzenia pre nástroj otočenie, keď je stlačený kláves Ctrl</translation>
     </message>
 </context>
 <context>
     <name>Prefs_PDFExport</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="45"/>
         <source>PDF Export</source>
-        <translation type="vanished">PDF Export</translation>
+        <translation>PDF Export</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="66"/>
         <source>Export Range</source>
-        <translation type="vanished">Rozsah exportu</translation>
+        <translation>Rozsah exportu</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="80"/>
         <source>All Pages</source>
-        <translation type="vanished">Na všetkých stranách</translation>
+        <translation>Na všetkých stranách</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="90"/>
         <source>Choose Pages</source>
-        <translation type="vanished">Výber strán</translation>
+        <translation>Výber strán</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="145"/>
         <source>Rotation and Mirroring</source>
-        <translation type="vanished">Otočenie a zrkadlenie</translation>
+        <translation>Otočenie a zrkadlenie</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="161"/>
         <source>Rotation:</source>
-        <translation type="vanished">Otočenie:</translation>
+        <translation>Otočenie:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="188"/>
         <source>Page Mirroring:</source>
-        <translation type="vanished">Zrkadlenie strany:</translation>
+        <translation>Zrkadlenie strany:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="298"/>
         <source>Page Binding:</source>
-        <translation type="vanished">Väzba strany:</translation>
+        <translation>Väzba strany:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="465"/>
         <source>Resolution for EPS Graphics:</source>
-        <translation type="vanished">Rozlíšenie pre grafiku EPS:</translation>
+        <translation>Rozlíšenie pre grafiku EPS:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="435"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="472"/>
         <source> dpi</source>
-        <translation type="vanished"> dpi</translation>
+        <translation> dpi</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="312"/>
         <source>Clip to Printer Margins</source>
-        <translation type="vanished">Pripnúť k okrajom tlačiarne</translation>
+        <translation>Pripnúť k okrajom tlačiarne</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="428"/>
         <source>Limit Maximum Image Resolution to:</source>
-        <translation type="vanished">Obmedziť maximálne rozlíšenie obrázka na:</translation>
+        <translation>Obmedziť maximálne rozlíšenie obrázka na:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="652"/>
         <source>Allow Copying Text and Graphics</source>
-        <translation type="vanished">Povoliť kopírovanie textu a grafiky</translation>
+        <translation>Povoliť kopírovanie textu a grafiky</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="241"/>
         <source>File Options</source>
-        <translation type="vanished">Súborové nastavenia</translation>
+        <translation>Súborové nastavenia</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="54"/>
         <source>Pages</source>
-        <translation type="vanished">Strany</translation>
+        <translation>Strany</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="288"/>
         <source>Compatibility:</source>
-        <translation type="vanished">Kompatibilita</translation>
+        <translation>Kompatibilita</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="319"/>
         <source>Generate Thumbnails</source>
-        <translation type="vanished">Generovať náhľady</translation>
+        <translation>Generovať náhľady</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="326"/>
         <source>Save Linked Text Frames as PDF Articles</source>
-        <translation type="vanished">Uložiť prepojené textové rámce ako PDF články</translation>
+        <translation>Uložiť prepojené textové rámce ako PDF články</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="333"/>
         <source>Include Layers</source>
-        <translation type="vanished">Zahrnúť vrstvy</translation>
+        <translation>Zahrnúť vrstvy</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="340"/>
         <source>Include Bookmarks</source>
-        <translation type="vanished">Zahrnúť záložky</translation>
+        <translation>Zahrnúť záložky</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="347"/>
         <source>Embed PDF &amp;&amp; EPS Files (Experimental)</source>
-        <translation type="vanished">Vložiť PDF a &amp; EPS súbory (experimentálne)</translation>
+        <translation>Vložiť PDF a &amp; EPS súbory (experimentálne)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="378"/>
         <source>Compression</source>
-        <translation type="vanished">Kompresia</translation>
+        <translation>Kompresia</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="392"/>
         <source>Compress Text and Vector Graphics</source>
-        <translation type="vanished">Komprimovať text a vektorovú grafiku</translation>
+        <translation>Komprimovať text a vektorovú grafiku</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="404"/>
         <source>Image Compression Method:</source>
-        <translation type="vanished">Metóda kompresie obrázkov</translation>
+        <translation>Metóda kompresie obrázkov</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="414"/>
         <source>Image Compression Quality:</source>
-        <translation type="vanished">Kvalita kompresie obrázkov</translation>
+        <translation>Kvalita kompresie obrázkov</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="518"/>
         <source>Security</source>
-        <translation type="vanished">Bezpečnosť</translation>
+        <translation>Bezpečnosť</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="524"/>
         <source>Use Encryption</source>
-        <translation type="vanished">Použiť šifrovanie</translation>
+        <translation>Použiť šifrovanie</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="553"/>
         <source>Passwords</source>
-        <translation type="vanished">Heslo</translation>
+        <translation>Heslo</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="572"/>
         <source>Owner:</source>
-        <translation type="vanished">Vlastník:</translation>
+        <translation>Vlastník:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="586"/>
         <source>User:</source>
-        <translation type="vanished">Používateľ:</translation>
+        <translation>Používateľ:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="624"/>
         <source>Settings</source>
-        <translation type="vanished">Nastavenia</translation>
+        <translation>Nastavenia</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="638"/>
         <source>Allow Printing the Document</source>
-        <translation type="vanished">Povoliť tlač dokumentu</translation>
+        <translation>Povoliť tlač dokumentu</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="645"/>
         <source>Allow Changing the Document</source>
-        <translation type="vanished">Povoliť zmeny dokumentu</translation>
+        <translation>Povoliť zmeny dokumentu</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="659"/>
         <source>Allow Adding Annotations and Fields</source>
-        <translation type="vanished">Povoliť pridávanie anotácií a polí</translation>
+        <translation>Povoliť pridávanie anotácií a polí</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="680"/>
         <source>Color</source>
-        <translation type="vanished">Farba</translation>
+        <translation>Farba</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="727"/>
         <source>Output Intended For:</source>
-        <translation type="vanished">Výstup určený pre:</translation>
+        <translation>Výstup určený pre:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="739"/>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation type="vanished">Konvertovať priame (spot) farby na procesné (process)</translation>
+        <translation>Konvertovať priame (spot) farby na procesné (process)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="768"/>
         <source>Solid Colors</source>
-        <translation type="vanished">Plné farby</translation>
+        <translation>Plné farby</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="789"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="856"/>
         <source>Use Color Profile</source>
-        <translation type="vanished">Použiť farebné profily</translation>
+        <translation>Použiť farebné profily</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="798"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="872"/>
         <source>Profile:</source>
-        <translation type="vanished">Profil:</translation>
+        <translation>Profil:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="808"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="882"/>
         <source>Rendering Intent:</source>
-        <translation type="vanished">Účel generovania:</translation>
+        <translation>Účel generovania:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="842"/>
         <source>Images</source>
-        <translation type="vanished">Obrázky</translation>
+        <translation>Obrázky</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="863"/>
         <source>Do not use Embedded Color Profiles</source>
-        <translation type="vanished">Nepoužívajte vstavané farebné profily</translation>
+        <translation>Nepoužívajte vstavané farebné profily</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="916"/>
         <source>Custom Rendering</source>
-        <translation type="vanished">Vlastné generovanie</translation>
+        <translation>Vlastné generovanie</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="930"/>
         <source>Use Custom Rendering</source>
-        <translation type="vanished">Použiť vlastné generovanie</translation>
+        <translation>Použiť vlastné generovanie</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="942"/>
         <source>Color:</source>
-        <translation type="vanished">Farba:</translation>
+        <translation>Farba:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="952"/>
         <source>Frequency:</source>
-        <translation type="vanished">Frekvencia:</translation>
+        <translation>Frekvencia:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="969"/>
         <source>Angle:</source>
-        <translation type="vanished">Uhol:</translation>
+        <translation>Uhol:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="976"/>
         <source> °</source>
-        <translation type="vanished"> °</translation>
+        <translation> °</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="989"/>
         <source>Spot Function:</source>
-        <translation type="vanished">Funkcia spot/priama:</translation>
+        <translation>Funkcia spot/priama:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1019"/>
         <source>Pre-Press</source>
-        <translation type="vanished">Príprava na tlač</translation>
+        <translation>Príprava na tlač</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1067"/>
         <source>Printer Marks</source>
-        <translation type="vanished">Značky pre tlač</translation>
+        <translation>Značky pre tlač</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1128"/>
         <source>Page Information</source>
-        <translation type="vanished">Informácie o strane</translation>
+        <translation>Informácie o strane</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1324"/>
         <source>Embedding</source>
-        <translation type="vanished">Vkladanie</translation>
+        <translation>Vkladanie</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1630"/>
         <source>Facing Pages Left</source>
-        <translation type="vanished">Ľavá protiľahlá strana</translation>
+        <translation>Ľavá protiľahlá strana</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1637"/>
         <source>Facing Pages Right</source>
-        <translation type="vanished">Pravá protiľahlá strana</translation>
+        <translation>Pravá protiľahlá strana</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1121"/>
         <source>Registration Marks</source>
-        <translation type="vanished">Registračné známky</translation>
+        <translation>Registračné známky</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1143"/>
         <source>Crop Marks</source>
-        <translation type="vanished">Orezové značky</translation>
+        <translation>Orezové značky</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1107"/>
         <source>Bleed Marks</source>
-        <translation type="vanished">Značky orezania</translation>
+        <translation>Značky orezania</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1114"/>
         <source>Color Bars</source>
-        <translation type="vanished">Farebné pásiky</translation>
+        <translation>Farebné pásiky</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1190"/>
         <source>Bleed Settings</source>
-        <translation type="vanished">Nastavenie orezania</translation>
+        <translation>Nastavenie orezania</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1204"/>
         <source>Use Document Bleeds</source>
-        <translation type="vanished">Použiť orez dokumentu</translation>
+        <translation>Použiť orez dokumentu</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1272"/>
         <source>Output Profile:</source>
-        <translation type="vanished">Výstupný profil:</translation>
+        <translation>Výstupný profil:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1282"/>
         <source>Information String:</source>
-        <translation type="vanished">Informačný reťazec:</translation>
+        <translation>Informačný reťazec:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1312"/>
         <source>Fonts</source>
-        <translation type="vanished">Písmo</translation>
+        <translation>Písmo</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1372"/>
         <source>Embed All</source>
-        <translation type="vanished">Vložiť všetko</translation>
+        <translation>Vložiť všetko</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1362"/>
         <source>Fonts to Embed</source>
-        <translation type="vanished">Písma na vloženie</translation>
+        <translation>Písma na vloženie</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1454"/>
         <source>Extras</source>
-        <translation type="vanished">Extra</translation>
+        <translation>Extra</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1460"/>
         <source>Enable Presentation Effects</source>
-        <translation type="vanished">Povoliť efekty prezentácie</translation>
+        <translation>Povoliť efekty prezentácie</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1479"/>
         <source>Display Duration:</source>
-        <translation type="vanished">Doba zobrazenia:</translation>
+        <translation>Doba zobrazenia:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1486"/>
         <source>Effect Duration:</source>
-        <translation type="vanished">Trvanie efektu</translation>
+        <translation>Trvanie efektu</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1493"/>
         <source>Effect Type:</source>
-        <translation type="vanished">Typ efektu:</translation>
+        <translation>Typ efektu:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1503"/>
+        <source>Moving Lines:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1513"/>
+        <source>From the:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1523"/>
+        <source>Direction:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1533"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1543"/>
         <source> s</source>
-        <translation type="vanished"> sek</translation>
+        <translation> sek</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1558"/>
+        <source>Apply Effect to All Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1582"/>
         <source>Show Page Previews</source>
-        <translation type="vanished">Zobraziť náhľady strany</translation>
+        <translation>Zobraziť náhľady strany</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1590"/>
         <source>Viewer</source>
-        <translation type="vanished">Prehliadač</translation>
+        <translation>Prehliadač</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1602"/>
         <source>Document Layout</source>
-        <translation type="vanished">Rozloženie dokumentu</translation>
+        <translation>Rozloženie dokumentu</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1616"/>
         <source>Single Page</source>
-        <translation type="vanished">Jedna strana</translation>
+        <translation>Jedna strana</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1623"/>
+        <source>Continuous Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1666"/>
         <source>Visual Appearance</source>
-        <translation type="vanished">Vzhľad</translation>
+        <translation>Vzhľad</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1684"/>
+        <source>Use Viewer&apos;s Default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1691"/>
         <source>Use Full Screen Mode</source>
-        <translation type="vanished">Použiť celo-obrazovkový režim</translation>
+        <translation>Použiť celo-obrazovkový režim</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1698"/>
         <source>Display Bookmarks Tab</source>
-        <translation type="vanished">Zobraziť kartu Záložky</translation>
+        <translation>Zobraziť kartu Záložky</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1705"/>
         <source>Display Thumbnails</source>
-        <translation type="vanished">Zobraziť náhľady</translation>
+        <translation>Zobraziť náhľady</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1712"/>
         <source>Display Layers Tab</source>
-        <translation type="vanished">Zobraziť kartu vrstvy</translation>
+        <translation>Zobraziť kartu vrstvy</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1723"/>
+        <source>Hide Viewer&apos;s Menu Bar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1730"/>
+        <source>Hide Viewer&apos;s Tool Bar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1737"/>
         <source>Zoom Pages to fit Viewer Window</source>
-        <translation type="vanished">Prispôsobiť veľkosť strán oknu prehliadača</translation>
+        <translation>Prispôsobiť veľkosť strán oknu prehliadača</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1783"/>
         <source>Special Actions</source>
-        <translation type="vanished">Zvláštne akcie</translation>
+        <translation>Zvláštne akcie</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1799"/>
+        <source>Javascript to be executed when PDF document is opened:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="61"/>
         <source>Automatically rotate the exported pages</source>
-        <translation type="vanished">Automaticky otočiť exportované strany</translation>
+        <translation>Automaticky otočiť exportované strany</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="62"/>
         <source>Export all pages to PDF</source>
-        <translation type="vanished">Exportovať všetky strany do PDF</translation>
+        <translation>Exportovať všetky strany do PDF</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="63"/>
         <source>Export a range of pages to PDF</source>
-        <translation type="vanished">Exportovať rozsah strán do PDF</translation>
+        <translation>Exportovať rozsah strán do PDF</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="69"/>
         <source>Determines the PDF compatibility.&lt;br/&gt;&lt;b&gt;PDF 1.3&lt;/b&gt;, which is the earliest supported version, gives the widest compatibility with printers&apos; RIPS.&lt;br/&gt;&lt;b&gt;PDF 1.4&lt;/b&gt;, which is the default version, supports features such as transparency and 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; is for blind exchange with colors strictly specified in CMYK or spot colors.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; is an extension of PDF/X-3 to support transparency and layering.</source>
-        <translation type="vanished">Určuje kompatibilitu PDF.12PDF 1.32, čo je najstaršia podporovaná verzia, poskytuje najširšiu kompatibilitu s tlačiarňami RIPS.34PDF 1.44, ktorá je predvolená verzia, podporuje funkcie ako priehľadnosť a 128-bitové šifrovanie.56PDF 1.56 je potrebné, ak chcete zachovať objekty v samostatných vrstvách v rámci PDF.78PDF/X-1a8 je na slepú výmenu s farbami presne špecifikovanými v CMYK alebo priamych farbách.910PDF/X-310 je pre exportovanie PDF, keď chcete RGB so správou farieb pre komerčnú tlač a je možné vybrať, keď ste aktivovali správu farieb. Používajte len vtedy, keď to odporúča vaša tlačiareň, alebo v niektorých prípadoch pre tlač na 4-farebnej digitálnej laserovej tlačiarni.1112PDF/X-412 je rozšírenie PDF/X-3 na podporu priehľadnosti a vrstvenia.</translation>
+        <translation>Určuje kompatibilitu PDF.12PDF 1.32, čo je najstaršia podporovaná verzia, poskytuje najširšiu kompatibilitu s tlačiarňami RIPS.34PDF 1.44, ktorá je predvolená verzia, podporuje funkcie ako priehľadnosť a 128-bitové šifrovanie.56PDF 1.56 je potrebné, ak chcete zachovať objekty v samostatných vrstvách v rámci PDF.78PDF/X-1a8 je na slepú výmenu s farbami presne špecifikovanými v CMYK alebo priamych farbách.910PDF/X-310 je pre exportovanie PDF, keď chcete RGB so správou farieb pre komerčnú tlač a je možné vybrať, keď ste aktivovali správu farieb. Používajte len vtedy, keď to odporúča vaša tlačiareň, alebo v niektorých prípadoch pre tlač na 4-farebnej digitálnej laserovej tlačiarni.1112PDF/X-412 je rozšírenie PDF/X-3 na podporu priehľadnosti a vrstvenia.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="70"/>
         <source>Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left.</source>
-        <translation type="vanished">Určuje viazanie strán v PDF. Ak nepotrebujete špeciálne nastavenia, použite štandardné nastavenie - Vľavo.</translation>
+        <translation>Určuje viazanie strán v PDF. Ak nepotrebujete špeciálne nastavenia, použite štandardné nastavenie - Vľavo.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="71"/>
         <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
-        <translation type="vanished">Generuje náhľady všetkých strán v PDF. Niektoré prehliadače ich používajú k navigácií.</translation>
+        <translation>Generuje náhľady všetkých strán v PDF. Niektoré prehliadače ich používajú k navigácií.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="74"/>
         <source>Embed the bookmarks you created in your document. These are useful for navigating long PDF documents.</source>
-        <translation type="vanished">Vložiť záložky obsiahnuté v dokumente. Tie sú užitočné pri navigácií v rozsiahlych dokumentoch.</translation>
+        <translation>Vložiť záložky obsiahnuté v dokumente. Tie sú užitočné pri navigácií v rozsiahlych dokumentoch.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="75"/>
         <source>Export resolution of text and vector graphics. This does not affect the resolution of bitmap images like photos.</source>
-        <translation type="vanished">Rozlíšenie textu a vektorovej grafiky pri exporte. Neovplyvňuje rozlíšenie bitmapových obrázkov ako sú napr. fotografie.</translation>
+        <translation>Rozlíšenie textu a vektorovej grafiky pri exporte. Neovplyvňuje rozlíšenie bitmapových obrázkov ako sú napr. fotografie.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="76"/>
         <source>Export PDFs in image frames as embedded PDFs. This does *not* yet take care of colorspaces, so you should know what you are doing before setting this to &apos;true&apos;.</source>
-        <translation type="vanished">Exportuje PDF súbory v obrázkových rámcoch ako vložené PDF súbory. Toto nezohľadňuje farebné priestory preto by ste mali vedieť, čo robíte, ak použijete toto nastavenie.</translation>
+        <translation>Exportuje PDF súbory v obrázkových rámcoch ako vložené PDF súbory. Toto nezohľadňuje farebné priestory preto by ste mali vedieť, čo robíte, ak použijete toto nastavenie.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="77"/>
         <source>Enables lossless compression of text and graphics. Unless you have a reason, leave this checked. This reduces PDF file size.</source>
-        <translation type="vanished">Povolenie bezstratovej kompresia textu a grafiky. Pokiaľ na to nemáte dôvod, tak nechajte túto voľbu povolenú. Znižuje veľkosť PDF súboru.</translation>
+        <translation>Povolenie bezstratovej kompresia textu a grafiky. Pokiaľ na to nemáte dôvod, tak nechajte túto voľbu povolenú. Znižuje veľkosť PDF súboru.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="78"/>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
-        <translation type="vanished">Metóda kompresie pre obrázky. Automaticky - Scribus vyberie najvhodnejšiu metódu. ZIP - bezstratová kompresia vhodná pre obrázky s plnými farbami. JPEG - najlepšia voľba pre vytváranie malých PDF súborov, ktoré majú veľa fotiek (malá strata kvality). Pokiaľ nepotrebujete špeciálnu kompresiu, tak nechajte túto voľbu nastavenú na Automaticky.</translation>
+        <translation>Metóda kompresie pre obrázky. Automaticky - Scribus vyberie najvhodnejšiu metódu. ZIP - bezstratová kompresia vhodná pre obrázky s plnými farbami. JPEG - najlepšia voľba pre vytváranie malých PDF súborov, ktoré majú veľa fotiek (malá strata kvality). Pokiaľ nepotrebujete špeciálnu kompresiu, tak nechajte túto voľbu nastavenú na Automaticky.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="79"/>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
-        <translation type="vanished">Úrovne kvality pre metódy stratovej kompresie: Minimálny (25%), Nízka (50%), Stredná (75%), Vysoká (85%), Maximálna (95%). Uvedomte si prosím, že úroveň kvality nemá jednoznačný vplyv na dátovú veľkosť výsledného obrázku - výsledná veľkosť a strata kvality sa líši obrázok od obrázku a to pri každej úrovni kompresie. I keď vyberiete Maximum pri JPEG vždy dochádza ku strate kvality.</translation>
+        <translation>Úrovne kvality pre metódy stratovej kompresie: Minimálny (25%), Nízka (50%), Stredná (75%), Vysoká (85%), Maximálna (95%). Uvedomte si prosím, že úroveň kvality nemá jednoznačný vplyv na dátovú veľkosť výsledného obrázku - výsledná veľkosť a strata kvality sa líši obrázok od obrázku a to pri každej úrovni kompresie. I keď vyberiete Maximum pri JPEG vždy dochádza ku strate kvality.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="80"/>
         <source>Limits the resolution of your bitmap images to the selected DPI. Images with a lower resolution will be left untouched. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
-        <translation type="vanished">Obmedzí rozlíšenie bitmapových obrázkov na vybrané DPI. Obrázky s nižším rozlíšením budú upravené. Pokiaľ toto pole nezaškrtnete, obrázok bude vložený v pôvodnom rozlíšení. Povolením zvýšite veľkosť použitej pamäte a spomalíte export.</translation>
+        <translation>Obmedzí rozlíšenie bitmapových obrázkov na vybrané DPI. Obrázky s nižším rozlíšením budú upravené. Pokiaľ toto pole nezaškrtnete, obrázok bude vložený v pôvodnom rozlíšení. Povolením zvýšite veľkosť použitej pamäte a spomalíte export.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="82"/>
         <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
-        <translation type="vanished">Povoliť bezpečnostné vlastnosti exportovaného PDF. Pokiaľ ste si vybrali PDF 1.3, PDF bude chránené 40 bitovým šifrovaním. Pokiaľ ste si vybrali PDF 1.4, PDF bude chránené 128 bitovým šifrovaním. Poznámka: PDF šifrovanie nie je tak spoľahlivé ako GPG alebo PGP a má svoje obmedzenia.</translation>
+        <translation>Povoliť bezpečnostné vlastnosti exportovaného PDF. Pokiaľ ste si vybrali PDF 1.3, PDF bude chránené 40 bitovým šifrovaním. Pokiaľ ste si vybrali PDF 1.4, PDF bude chránené 128 bitovým šifrovaním. Poznámka: PDF šifrovanie nie je tak spoľahlivé ako GPG alebo PGP a má svoje obmedzenia.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="87"/>
         <source>Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</source>
-        <translation type="vanished">Povolí kopírovanie textu alebo grafiky z PDF. Ak nie je zaškrtnuté, text ani grafiku nebude možné kopírovať.</translation>
+        <translation>Povolí kopírovanie textu alebo grafiky z PDF. Ak nie je zaškrtnuté, text ani grafiku nebude možné kopírovať.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="88"/>
         <source>Allow adding annotations and fields to the PDF. If unchecked, editing annotations and fields is prevented.</source>
-        <translation type="vanished">Povolí pridávanie anotácií a polí do PDF. Ak nie je zaškrtnuté, úprava anotácií a polí nie je možná.</translation>
+        <translation>Povolí pridávanie anotácií a polí do PDF. Ak nie je zaškrtnuté, úprava anotácií a polí nie je možná.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="90"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
-        <translation type="vanished">Toto je pokročilé nastavenie, ktoré nie je štandardne povolené. Malo by byť povolené len v tom prípade pokiaľ je špeciálne vyžadované tlačiarňou a máte k dispozícií presné detaily. Inak vytvoríte PDF, ktoré sa nebude dať správne vytlačiť a nebude skutočne prenosné medzi systémami.</translation>
+        <translation>Toto je pokročilé nastavenie, ktoré nie je štandardne povolené. Malo by byť povolené len v tom prípade pokiaľ je špeciálne vyžadované tlačiarňou a máte k dispozícií presné detaily. Inak vytvoríte PDF, ktoré sa nebude dať správne vytlačiť a nebude skutočne prenosné medzi systémami.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="91"/>
         <source>Embed a color profile for solid colors</source>
-        <translation type="vanished">Vložiť farebný profil pre plné farby</translation>
+        <translation>Vložiť farebný profil pre plné farby</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="92"/>
         <source>Color profile for solid colors</source>
-        <translation type="vanished">Farebný profil pre plné farby</translation>
+        <translation>Farebný profil pre plné farby</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="93"/>
         <source>Rendering intent for solid colors</source>
-        <translation type="vanished">Účel generovania pre plných farieb</translation>
+        <translation>Účel generovania pre plných farieb</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="94"/>
         <source>Embed a color profile for images</source>
-        <translation type="vanished">Vložiť farebný profil pre obrázky</translation>
+        <translation>Vložiť farebný profil pre obrázky</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="95"/>
         <source>Do not use color profiles that are embedded in source images</source>
-        <translation type="vanished">Nepoužívať farebné profily, ktoré sú vložené do zdrojových obrázkov</translation>
+        <translation>Nepoužívať farebné profily, ktoré sú vložené do zdrojových obrázkov</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="96"/>
         <source>Color profile for images</source>
-        <translation type="vanished">Farebný profil pre obrázky</translation>
+        <translation>Farebný profil pre obrázky</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="97"/>
         <source>Rendering intent for images</source>
-        <translation type="vanished">Účel generovania pre obrázky</translation>
+        <translation>Účel generovania pre obrázky</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="98"/>
         <source>Mirror Page(s) horizontally</source>
-        <translation type="vanished">Vodorovne zrkadliť stranu(y)</translation>
+        <translation>Vodorovne zrkadliť stranu(y)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="99"/>
         <source>Mirror Page(s) vertically</source>
-        <translation type="vanished">Zvislo zrkadliť stranu(y)</translation>
+        <translation>Zvislo zrkadliť stranu(y)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="100"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation type="vanished">Povolí prevod priamych farieb na kompozitné. Pokiaľ neplánujete tlač priamych farieb na komerčnej tlačiarni, najlepšie urobíte, ak necháte voľbu povolenú.</translation>
+        <translation>Povolí prevod priamych farieb na kompozitné. Pokiaľ neplánujete tlač priamych farieb na komerčnej tlačiarni, najlepšie urobíte, ak necháte voľbu povolenú.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="101"/>
         <source>Do not show objects outside the margins in the exported file</source>
-        <translation type="vanished">Neukazovať objekty mimo hraníc tlačiteľnej strany alebo exportovaného súboru</translation>
+        <translation>Neukazovať objekty mimo hraníc tlačiteľnej strany alebo exportovaného súboru</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="103"/>
         <source>Creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
-        <translation type="vanished">v PDF súbore vytvorí orezové značky, kde bude papier po vytlačení orezaný alebo zastrihnutý</translation>
+        <translation>v PDF súbore vytvorí orezové značky, kde bude papier po vytlačení orezaný alebo zastrihnutý</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="104"/>
         <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
-        <translation type="vanished">Vytvorí značky orezania, ktoré sú označené ako _ . _  a zobrazí limit orezania</translation>
+        <translation>Vytvorí značky orezania, ktoré sú označené ako _ . _  a zobrazí limit orezania</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="105"/>
         <source>Add registration marks to each separation</source>
-        <translation type="vanished">Pridať registračné značky do každej separácie</translation>
+        <translation>Pridať registračné značky do každej separácie</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="106"/>
         <source>Add color calibration bars</source>
-        <translation type="vanished">Pridať pásik pre farebnú kalibráciu</translation>
+        <translation>Pridať pásik pre farebnú kalibráciu</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="107"/>
         <source>Add document information which includes the document title and page numbers</source>
-        <translation type="vanished">Pridá informácie o dokumente, ktoré obsahujú jeho názov a čísla stránok</translation>
+        <translation>Pridá informácie o dokumente, ktoré obsahujú jeho názov a čísla stránok</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="109"/>
         <source>Indicate the distance offset for the registration marks</source>
-        <translation type="vanished">Indikuje vzdialenosť posunu registračných značiek</translation>
+        <translation>Indikuje vzdialenosť posunu registračných značiek</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="114"/>
         <source>Use the existing bleed settings from the document preferences</source>
-        <translation type="vanished">Použiť súčasné nastavenia orezu z nastavenia dokumentu</translation>
+        <translation>Použiť súčasné nastavenia orezu z nastavenia dokumentu</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="115"/>
         <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
-        <translation type="vanished">Výstupný profil pre tlač. Ak je to možné, použite príručku k tlačiarni pri výbere profilu.</translation>
+        <translation>Výstupný profil pre tlač. Ak je to možné, použite príručku k tlačiarni pri výbere profilu.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="116"/>
         <source>Mandatory string for PDF/X or the PDF will fail PDF/X conformance. We recommend you use the title of the document.</source>
-        <translation type="vanished">Povinný reťazec pre PDF/X - inak PDF nebude spĺňať špecifikáciu PDF/X. Doporučujeme použiť názov dokumentu.</translation>
+        <translation>Povinný reťazec pre PDF/X - inak PDF nebude spĺňať špecifikáciu PDF/X. Doporučujeme použiť názov dokumentu.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="209"/>
         <source>Automatic</source>
-        <translation type="vanished">Automatický</translation>
+        <translation>Automatický</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="210"/>
         <source>Lossy - JPEG</source>
-        <translation type="vanished">Stratová - JPEG</translation>
+        <translation>Stratová - JPEG</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="211"/>
         <source>Lossless - Zip</source>
-        <translation type="vanished">Bezstratová - Zip</translation>
+        <translation>Bezstratová - Zip</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="212"/>
         <source>None</source>
-        <translation type="vanished">Bez akcie</translation>
+        <translation>Bez akcie</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="217"/>
         <source>Maximum</source>
-        <translation type="vanished">Maximum</translation>
+        <translation>Maximum</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="218"/>
         <source>High</source>
-        <translation type="vanished">Vysoká</translation>
+        <translation>Vysoká</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="219"/>
         <source>Medium</source>
-        <translation type="vanished">Stredná</translation>
+        <translation>Stredná</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="220"/>
         <source>Low</source>
-        <translation type="vanished">Nízka</translation>
+        <translation>Nízka</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="221"/>
         <source>Minimum</source>
-        <translation type="vanished">Minimum</translation>
+        <translation>Minimum</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="228"/>
         <source>Left Margin</source>
-        <translation type="vanished">Ľavý okraj</translation>
+        <translation>Ľavý okraj</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="229"/>
         <source>Right Margin</source>
-        <translation type="vanished">Pravý okraj</translation>
+        <translation>Pravý okraj</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="234"/>
         <source>Screen / Web</source>
-        <translation type="vanished">Obrazovka/Web</translation>
+        <translation>Obrazovka/Web</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="235"/>
         <source>Printer</source>
-        <translation type="vanished">Tlačiareň</translation>
+        <translation>Tlačiareň</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="236"/>
         <source>Grayscale</source>
-        <translation type="vanished">Odtiene šedej</translation>
+        <translation>Odtiene šedej</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="241"/>
         <source>Simple Dot</source>
-        <translation type="vanished">Bodka</translation>
+        <translation>Bodka</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="242"/>
         <source>Line</source>
-        <translation type="vanished">Čiara</translation>
+        <translation>Čiara</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="243"/>
         <source>Round</source>
-        <translation type="vanished">Kruh</translation>
+        <translation>Kruh</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="244"/>
         <source>Ellipse</source>
-        <translation type="vanished">Elipsa</translation>
+        <translation>Elipsa</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="253"/>
         <source>Perceptual</source>
-        <translation type="vanished">Vnímateľné (Perceptual)</translation>
+        <translation>Vnímateľné (Perceptual)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="253"/>
         <source>Relative Colorimetric</source>
-        <translation type="vanished">Relatívna kolorimetria</translation>
+        <translation>Relatívna kolorimetria</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="253"/>
         <source>Saturation</source>
-        <translation type="vanished">Sýtosť</translation>
+        <translation>Sýtosť</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="253"/>
         <source>Absolute Colorimetric</source>
-        <translation type="vanished">Absolútna kolorimetria</translation>
+        <translation>Absolútna kolorimetria</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="359"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="1304"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="1312"/>
         <source>Page</source>
-        <translation type="vanished">Strana</translation>
+        <translation>Strana</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="377"/>
         <source>No Script</source>
-        <translation type="vanished">Bez skriptu</translation>
+        <translation>Bez skriptu</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="520"/>
         <source>InfoString</source>
-        <translation type="vanished">Informačný reťazec</translation>
+        <translation>Informačný reťazec</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="552"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="971"/>
         <source>No Effect</source>
-        <translation type="vanished">Bez efektu</translation>
+        <translation>Bez efektu</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="553"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="972"/>
         <source>Blinds</source>
-        <translation type="vanished">Pruhy</translation>
+        <translation>Pruhy</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="554"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="973"/>
         <source>Box</source>
-        <translation type="vanished">Box</translation>
+        <translation>Box</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="555"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="974"/>
         <source>Dissolve</source>
-        <translation type="vanished">Rozpustenie</translation>
+        <translation>Rozpustenie</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="556"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="975"/>
         <source>Glitter</source>
-        <translation type="vanished">Lesk</translation>
+        <translation>Lesk</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="557"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="976"/>
         <source>Split</source>
-        <translation type="vanished">Rozdeliť</translation>
+        <translation>Rozdeliť</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="558"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="977"/>
         <source>Wipe</source>
-        <translation type="vanished">Zotrieť</translation>
+        <translation>Zotrieť</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="561"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="980"/>
         <source>Push</source>
-        <translation type="vanished">Stlačiť</translation>
+        <translation>Stlačiť</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="562"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="981"/>
         <source>Cover</source>
-        <translation type="vanished">Krytie</translation>
+        <translation>Krytie</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="563"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="982"/>
         <source>Uncover</source>
-        <translation type="vanished">Odkrytie</translation>
+        <translation>Odkrytie</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="564"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="983"/>
         <source>Fade</source>
-        <translation type="vanished">Zanikanie</translation>
+        <translation>Zanikanie</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="608"/>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
-        <translation type="vanished">Vložiť písma do PDF. Vloženie písma zachová rozloženie a vzhľad vášho dokumentu.</translation>
+        <translation>Vložiť písma do PDF. Vloženie písma zachová rozloženie a vzhľad vášho dokumentu.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="609"/>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
-        <translation type="vanished">Povolenie prezentačných efektov pri celoobrazovkovom použití Adobe&amp;#174; Reader&amp;#174. a ostatných PDF prehliadačov, ktoré podporujú celoobrazovkové prezeranie.</translation>
+        <translation>Povolenie prezentačných efektov pri celoobrazovkovom použití Adobe&amp;#174; Reader&amp;#174. a ostatných PDF prehliadačov, ktoré podporujú celoobrazovkové prezeranie.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="610"/>
         <source>Show page previews of each page listed above.</source>
-        <translation type="vanished">Ukázať náhľad každej strany v zozname uvedenom hore.</translation>
+        <translation>Ukázať náhľad každej strany v zozname uvedenom hore.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="611"/>
         <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
-        <translation type="vanished">Dĺžka času stránky, ktorá sa zobrazuje pred spustením prezentácie na označenej strane. Nastavenie 0 zakáže automatickú zmenu strany.</translation>
+        <translation>Dĺžka času stránky, ktorá sa zobrazuje pred spustením prezentácie na označenej strane. Nastavenie 0 zakáže automatickú zmenu strany.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="612"/>
         <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
-        <translation type="vanished">Ako dlho beží prezentačný efekt. Menšia hodnota efekt zrýchli, väčšia spomalí.</translation>
+        <translation>Ako dlho beží prezentačný efekt. Menšia hodnota efekt zrýchli, väčšia spomalí.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="619"/>
         <source>Show the document in single page mode</source>
-        <translation type="vanished">Zobraziť dokument v jednostránkovom režime</translation>
+        <translation>Zobraziť dokument v jednostránkovom režime</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="620"/>
         <source>Show the document in single page mode with the pages displayed continuously end to end like a scroll</source>
-        <translation type="vanished">Zobrazí dokument v priebežnom jednostránkovom režime</translation>
+        <translation>Zobrazí dokument v priebežnom jednostránkovom režime</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="621"/>
         <source>Show the document with facing pages, starting with the first page displayed on the left</source>
-        <translation type="vanished">Zobrazí dokument s protiľahlými stranami, s prvou stranou zobrazenou vľavo</translation>
+        <translation>Zobrazí dokument s protiľahlými stranami, s prvou stranou zobrazenou vľavo</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="622"/>
         <source>Show the document with facing pages, starting with the first page displayed on the right</source>
-        <translation type="vanished">Zobrazí dokument s protiľahlými stranami, s prvou stranou zobrazenou vpravo</translation>
+        <translation>Zobrazí dokument s protiľahlými stranami, s prvou stranou zobrazenou vpravo</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="623"/>
         <source>Use the viewer&apos;s defaults or the user&apos;s preferences if set differently from the viewer defaults</source>
-        <translation type="vanished">Použije štandardné nastavenie prehliadača alebo používateľa</translation>
+        <translation>Použije štandardné nastavenie prehliadača alebo používateľa</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="624"/>
         <source>Enables viewing the document in full screen</source>
-        <translation type="vanished">Povolí prezeranie dokumentu v celoobrázkovom režime</translation>
+        <translation>Povolí prezeranie dokumentu v celoobrázkovom režime</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="625"/>
         <source>Display the bookmarks upon opening</source>
-        <translation type="vanished">Zobrazí záložky pri otváraní</translation>
+        <translation>Zobrazí záložky pri otváraní</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="626"/>
         <source>Display the page thumbnails upon opening</source>
-        <translation type="vanished">Zobraziť náhľady pri otváraní</translation>
+        <translation>Zobraziť náhľady pri otváraní</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="627"/>
         <source>Forces the displaying of layers. Useful only for PDF 1.5+.</source>
-        <translation type="vanished">Vnúti zobrazenie vrstiev. Užitočné iba pre PDF 1.5+.</translation>
+        <translation>Vnúti zobrazenie vrstiev. Užitočné iba pre PDF 1.5+.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="628"/>
         <source>Hides the Tool Bar which has selection and other editing capabilities</source>
-        <translation type="vanished">Skryje panel nástrojov, ktorý umožňuje výber a úpravy</translation>
+        <translation>Skryje panel nástrojov, ktorý umožňuje výber a úpravy</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1085"/>
+        <source>Mark Length:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1154"/>
+        <source>Mark Offset:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="108"/>
+        <source>Length of crop marks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="83"/>
         <source>Choose an owner password which enables or disables all the security features in your exported PDF</source>
-        <translation type="vanished">Vyberte heslo vlastníka, ktoré povolí alebo zakáže všetky funkcie zabezpečenia vo vašom exportovanom súbore PDF</translation>
+        <translation>Vyberte heslo vlastníka, ktoré povolí alebo zakáže všetky funkcie zabezpečenia vo vašom exportovanom súbore PDF</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="67"/>
+        <source>Create a range of pages</source>
+        <translation type="unfinished">Vytvoriť rozsah strán</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1346"/>
         <source>Embedding mode:</source>
-        <translation type="vanished">Režim vkladania</translation>
+        <translation>Režim vkladania</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1432"/>
+        <source>Fonts to Subset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1442"/>
+        <source>Subset All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="64"/>
         <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number</source>
-        <translation type="vanished">Vložte zoznam tokenov oddelených čiarkami, pričom token môže byť * pre všetky stránky, 1-5 pre rozsah stránok alebo jedno číslo strany</translation>
+        <translation>Vložte zoznam tokenov oddelených čiarkami, pričom token môže byť * pre všetky stránky, 1-5 pre rozsah stránok alebo jedno číslo strany</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="72"/>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF</source>
-        <translation type="vanished">Generovať články PDF, čo je užitočné na navigáciu prepojených článkov v PDF</translation>
+        <translation>Generovať články PDF, čo je užitočné na navigáciu prepojených článkov v PDF</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="73"/>
         <source>Layers in your document are exported to the PDF. Only available if PDF 1.5 is chosen.</source>
-        <translation type="vanished">Vrstvy vo vašom dokumente sa exportujú do PDF. Dostupné iba v prípade, že je vybratá verzia PDF 1.5.</translation>
+        <translation>Vrstvy vo vašom dokumente sa exportujú do PDF. Dostupné iba v prípade, že je vybratá verzia PDF 1.5.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="81"/>
+        <source>DPI (Dots Per Inch) for image export</source>
+        <translation type="unfinished">DPI (Dots Per Inch) pre export obrázkov</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="84"/>
         <source>Choose a password for users to be able to read your PDF</source>
-        <translation type="vanished">Vyberte heslo pre používateľov, aby mohli čítať váš PDF</translation>
+        <translation>Vyberte heslo pre používateľov, aby mohli čítať váš PDF</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="86"/>
         <source>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</source>
-        <translation type="vanished">Povoliť úpravu PDF. Ak nie je začiarknuté, nebude možné upravovať PDF.</translation>
+        <translation>Povoliť úpravu PDF. Ak nie je začiarknuté, nebude možné upravovať PDF.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="89"/>
         <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation type="vanished">Farebný model výstupu PDF. Zvoľte Monitor/Web pre PDF, ktoré sú určené na prezeranie na monitore a tlačené na bežnej atramentovej tlačiarni. Zvoľte Tlačiareň, ak bude dokument tlačiť na skutočnej farebnej CMYK tlačiarni.</translation>
+        <translation>Farebný model výstupu PDF. Zvoľte Monitor/Web pre PDF, ktoré sú určené na prezeranie na monitore a tlačené na bežnej atramentovej tlačiarni. Zvoľte Tlačiareň, ak bude dokument tlačiť na skutočnej farebnej CMYK tlačiarni.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="613"/>
+        <source>Type of the display effect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="614"/>
+        <source>Direction of the effect of moving lines for the split and blind effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="615"/>
+        <source>Starting position for the box and split effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="616"/>
+        <source>Direction of the glitter or wipe effects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="617"/>
+        <source>Apply the selected effect to all pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="629"/>
         <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window</source>
-        <translation type="vanished">Skryť panel s ponukami pre prehliadač, súbor PDF sa zobrazí v obyčajnom okne</translation>
+        <translation>Skryť panel s ponukami pre prehliadač, súbor PDF sa zobrazí v obyčajnom okne</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="630"/>
         <source>Fit the document page or pages to the available space in the viewer window</source>
-        <translation type="vanished">Prispôsobiť stranu dokumentu alebo strany dostupnému priestoru v okne zobrazenia</translation>
+        <translation>Prispôsobiť stranu dokumentu alebo strany dostupnému priestoru v okne zobrazenia</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="618"/>
         <source>Embed only subset fonts with glyphs used in the document into the PDF</source>
-        <translation type="vanished">Do PDF vložte iba podmnožinu písiem s glyfmi použitými v dokumente.</translation>
+        <translation>Do PDF vložte iba podmnožinu písiem s glyfmi použitými v dokumente.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1253"/>
+        <source>PDF/X Output Intent</source>
+        <translation type="unfinished">Výstup do PDF/X</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="85"/>
         <source>Allow printing of the PDF. If unchecked, printing is prevented.</source>
-        <translation type="vanished">Povoliť tlač PDF. Ak nie je začiarknuté, tlač nebude povolená.</translation>
+        <translation>Povoliť tlač PDF. Ak nie je začiarknuté, tlač nebude povolená.</translation>
+    </message>
+</context>
+<context>
+    <name>Prefs_PageSizes</name>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pagesizesbase.ui" line="35"/>
+        <location filename="../../scribus/ui/preferences/prefs_pagesizes.cpp" line="23"/>
+        <source>Page Sizes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pagesizesbase.ui" line="53"/>
+        <source>Available Sizes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pagesizesbase.ui" line="120"/>
+        <source>Preferred Sizes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pagesizes.cpp" line="41"/>
+        <source>Page Format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pagesizes.cpp" line="42"/>
+        <source>Dimension</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>Prefs_Paths</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_paths.cpp" line="21"/>
         <source>Paths</source>
-        <translation type="vanished">Cesty</translation>
+        <translation>Cesty</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="85"/>
+        <source>Documents:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="114"/>
         <source>&amp;Change...</source>
-        <translation type="vanished">&amp;Zmeniť...</translation>
+        <translation>&amp;Zmeniť...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="117"/>
         <source>Alt+C</source>
-        <translation type="vanished">Alt+K</translation>
+        <translation>Alt+K</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="124"/>
+        <source>Color Profiles:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="147"/>
         <source>C&amp;hange...</source>
-        <translation type="vanished">&amp;Zmeniť...</translation>
+        <translation>&amp;Zmeniť...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="150"/>
         <source>Alt+H</source>
-        <translation type="vanished">Alt+U</translation>
+        <translation>Alt+U</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="157"/>
         <source>Scripts:</source>
-        <translation type="vanished">Skript:</translation>
+        <translation>Skript:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="180"/>
         <source>Ch&amp;ange...</source>
-        <translation type="vanished">Z&amp;meniť...</translation>
+        <translation>Z&amp;meniť...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="183"/>
         <source>Alt+A</source>
-        <translation type="vanished">Alt+D</translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="190"/>
         <source>Document Templates:</source>
-        <translation type="vanished">Vzory dokumentov:</translation>
+        <translation>Vzory dokumentov:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="213"/>
         <source>Cha&amp;nge...</source>
-        <translation type="vanished">&amp;Zmeniť...</translation>
+        <translation>&amp;Zmeniť...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="216"/>
         <source>Alt+N</source>
-        <translation type="vanished">Alt+T</translation>
+        <translation>Alt+T</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_paths.cpp" line="34"/>
         <source>Default documents directory</source>
-        <translation type="vanished">Štandardný priečinok pre dokumenty</translation>
+        <translation>Štandardný priečinok pre dokumenty</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_paths.cpp" line="36"/>
         <source>Default Scripter scripts directory</source>
-        <translation type="vanished">Štandardný priečinok Scriptera pre skripty</translation>
+        <translation>Štandardný priečinok Scriptera pre skripty</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_paths.cpp" line="37"/>
         <source>Additional directory for document templates</source>
-        <translation type="vanished">Ďalší priečinok pre vzory dokumentov</translation>
+        <translation>Ďalší priečinok pre vzory dokumentov</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_paths.cpp" line="58"/>
+        <location filename="../../scribus/ui/preferences/prefs_paths.cpp" line="65"/>
+        <location filename="../../scribus/ui/preferences/prefs_paths.cpp" line="72"/>
+        <location filename="../../scribus/ui/preferences/prefs_paths.cpp" line="79"/>
         <source>Choose a Directory</source>
-        <translation type="vanished">Vybrať priečinok</translation>
+        <translation>Vybrať priečinok</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_paths.cpp" line="35"/>
+        <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc, $home/.local/share/color/icc, /usr/share/color/icc and /usr/local/share/color/icc</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>Prefs_Plugins</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pluginsbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_plugins.cpp" line="27"/>
         <source>Plugins</source>
-        <translation type="vanished">Rozšírenia</translation>
+        <translation>Rozšírenia</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pluginsbase.ui" line="60"/>
         <source>Plugin</source>
-        <translation type="vanished">Modul</translation>
+        <translation>Modul</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pluginsbase.ui" line="65"/>
         <source>How to run</source>
-        <translation type="vanished">Ako spustiť</translation>
+        <translation>Ako spustiť</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pluginsbase.ui" line="70"/>
         <source>Type</source>
-        <translation type="vanished">Typ</translation>
+        <translation>Typ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pluginsbase.ui" line="75"/>
         <source>Load it?</source>
-        <translation type="vanished">Načítať?</translation>
+        <translation>Načítať?</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pluginsbase.ui" line="80"/>
         <source>Plugin ID</source>
-        <translation type="vanished">Modul ID</translation>
+        <translation>Modul ID</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pluginsbase.ui" line="85"/>
         <source>File</source>
-        <translation type="vanished">Súbor</translation>
+        <translation>Súbor</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pluginsbase.ui" line="93"/>
         <source>You need to restart the application to apply the changes.</source>
-        <translation type="vanished">Musíte reštartovať aplikáciu, aby sa zmeny prejavili.</translation>
+        <translation>Musíte reštartovať aplikáciu, aby sa zmeny prejavili.</translation>
     </message>
 </context>
 <context>
     <name>Prefs_PreflightVerifier</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="35"/>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifier.cpp" line="18"/>
         <source>Preflight Verifier</source>
-        <translation type="vanished">Predtlačová kontrola</translation>
+        <translation>Predtlačová kontrola</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="49"/>
+        <source>Show pages without errors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="56"/>
         <source>Show errors for items on layers that will not print</source>
-        <translation type="vanished">Zobraziť chyby pre položky vo vrstvách, ktoré sa nevytlačia</translation>
+        <translation>Zobraziť chyby pre položky vo vrstvách, ktoré sa nevytlačia</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="84"/>
+        <source>Profile Setup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="116"/>
+        <source>Output Profile:</source>
+        <translation type="unfinished">Výstupný profil:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="134"/>
+        <source>Add New Profile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="141"/>
         <source>Remove Profile</source>
-        <translation type="vanished">Odstrániť profil</translation>
+        <translation>Odstrániť profil</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="184"/>
+        <source>Profile Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="198"/>
         <source>Ignore all errors</source>
-        <translation type="vanished">Ignorovať všetky chyby</translation>
+        <translation>Ignorovať všetky chyby</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="205"/>
         <source>Automatic check before printing or exporting</source>
-        <translation type="vanished">Automatická kontrola pre tlačou alebo exportom</translation>
+        <translation>Automatická kontrola pre tlačou alebo exportom</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="212"/>
         <source>Check for missing glyphs</source>
-        <translation type="vanished">Kontrolovať chýbajúce znaky</translation>
+        <translation>Kontrolovať chýbajúce znaky</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="219"/>
         <source>Check for items not on a page</source>
-        <translation type="vanished">Kontrolovať položky mimo strany</translation>
+        <translation>Kontrolovať položky mimo strany</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="233"/>
         <source>Check for overflow in text frames</source>
-        <translation type="vanished">Kontrolovať pretečenie v textových rámcoch</translation>
+        <translation>Kontrolovať pretečenie v textových rámcoch</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="240"/>
         <source>Check for used transparencies</source>
-        <translation type="vanished">Kontrolovať použitie priesvitnosti</translation>
+        <translation>Kontrolovať použitie priesvitnosti</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="247"/>
         <source>Check for missing images</source>
-        <translation type="vanished">Kontrolovať chýbajúce obrázky</translation>
+        <translation>Kontrolovať chýbajúce obrázky</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="254"/>
+        <source>Check for partially filled image frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="261"/>
+        <source>Check for images with progressive encoding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="268"/>
         <source>Check image resolution</source>
-        <translation type="vanished">Kontrolovať rozlíšenie obrázkov</translation>
+        <translation>Kontrolovať rozlíšenie obrázkov</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="280"/>
+        <source>Minimum Resolution:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="287"/>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="300"/>
         <source> dpi</source>
-        <translation type="vanished"> dpi</translation>
+        <translation> dpi</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="313"/>
+        <source>Maximum Resolution:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="322"/>
+        <source>Check for placed PDF files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="329"/>
         <source>Check for GIF images</source>
-        <translation type="vanished">Kontrola na GIF obrázky</translation>
+        <translation>Kontrola na GIF obrázky</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="336"/>
         <source>Check for PDF Annotations and Fields</source>
-        <translation type="vanished">Kontrolovať PDF anotácie a polia</translation>
+        <translation>Kontrolovať PDF anotácie a polia</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="343"/>
+        <source>Check for Visible/Printable mismatch in layers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="350"/>
+        <source>Ignore non-printable layers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="226"/>
+        <source>Check for empty text frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="357"/>
         <source>Check if applied master page location is the same as each page&apos;s location</source>
-        <translation type="vanished">Skontrolujte, či sa umiestnenie použitej šablóny zhoduje s umiestnením každej stránky</translation>
+        <translation>Skontrolujte, či sa umiestnenie použitej šablóny zhoduje s umiestnením každej stránky</translation>
     </message>
 </context>
 <context>
     <name>Prefs_Printer</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="38"/>
+        <source>Printing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="73"/>
         <source>Destination</source>
-        <translation type="vanished">Cieľ</translation>
+        <translation>Cieľ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="90"/>
         <source>Alternative Printer Command</source>
-        <translation type="vanished">Alternatívny príkaz tlače</translation>
+        <translation>Alternatívny príkaz tlače</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="99"/>
         <source>Command:</source>
-        <translation type="vanished">Príkaz:</translation>
+        <translation>Príkaz:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="133"/>
         <source>General Options</source>
-        <translation type="vanished">Všeobecné nastavenia</translation>
+        <translation>Všeobecné nastavenia</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="149"/>
+        <source>Output:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="157"/>
         <source>Normal</source>
-        <translation type="vanished">Normálne</translation>
+        <translation>Normálne</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="162"/>
+        <source>Separations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="185"/>
         <source>Include PDF Annotations and Links</source>
-        <translation type="vanished">Vložiť PDF anotácie a odkazy</translation>
+        <translation>Vložiť PDF anotácie a odkazy</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="214"/>
         <source>Page</source>
-        <translation type="vanished">Strana</translation>
+        <translation>Strana</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="228"/>
+        <source>Mirror Page(s) Horizontally</source>
+        <translation type="unfinished">Zrkadliť stranu vodorovne</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="235"/>
+        <source>Mirror Page(s) Vertically</source>
+        <translation type="unfinished">Zrkadliť stranu zvislo</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="242"/>
         <source>Set Media Size</source>
-        <translation type="vanished">Nastaviť veľkosť média</translation>
+        <translation>Nastaviť veľkosť média</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="249"/>
         <source>Clip to Printer Margins</source>
-        <translation type="vanished">Pripnúť k okrajom tlačiarne</translation>
+        <translation>Pripnúť k okrajom tlačiarne</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="278"/>
         <source>Color</source>
-        <translation type="vanished">Farba</translation>
+        <translation>Farba</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="330"/>
         <source>Apply Under Color Removal</source>
-        <translation type="vanished">Aplikovať  Under Color Removal</translation>
+        <translation>Aplikovať  Under Color Removal</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="337"/>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation type="vanished">Konvertovať priame (spot) farby na procesné (process)</translation>
+        <translation>Konvertovať priame (spot) farby na procesné (process)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="294"/>
+        <source>Print In:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="302"/>
+        <source>Color (If Available)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="307"/>
         <source>Grayscale</source>
-        <translation type="vanished">Odtiene šedej</translation>
+        <translation>Odtiene šedej</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="366"/>
+        <source>Printing Language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="429"/>
+        <source>Marks and Bleeds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="445"/>
         <source>Crop Marks</source>
-        <translation type="vanished">Orezové značky</translation>
+        <translation>Orezové značky</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="452"/>
         <source>Bleed Marks</source>
-        <translation type="vanished">Značky orezania</translation>
+        <translation>Značky orezania</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="459"/>
         <source>Registration Marks</source>
-        <translation type="vanished">Registračné známky</translation>
+        <translation>Registračné známky</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="466"/>
         <source>Color Bars</source>
-        <translation type="vanished">Farebné pásiky</translation>
+        <translation>Farebné pásiky</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="475"/>
         <source>Offset:</source>
-        <translation type="vanished">Posun:</translation>
+        <translation>Posun:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="535"/>
         <source>Bleed Settings</source>
-        <translation type="vanished">Nastavenie orezania</translation>
+        <translation>Nastavenie orezania</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printer.cpp" line="23"/>
         <source>Printer</source>
-        <translation type="vanished">Tlačiareň</translation>
+        <translation>Tlačiareň</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printer.cpp" line="33"/>
         <source>Do not show objects outside the margins on the printed page</source>
-        <translation type="vanished">Neukazovať objekty mimo hraníc tlačiteľnej strany</translation>
+        <translation>Neukazovať objekty mimo hraníc tlačiteľnej strany</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printer.cpp" line="34"/>
         <source>Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</source>
-        <translation type="vanished">Použiť alternatívneho správcu tlače, ako je kprinter alebo gtklp, na využitie dodatočných tlačových možností</translation>
+        <translation>Použiť alternatívneho správcu tlače, ako je kprinter alebo gtklp, na využitie dodatočných tlačových možností</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printer.cpp" line="35"/>
+        <source>Sets the printing language to use.
+ Setting to PostScript Level 1 or 2 can create huge files.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_printer.cpp" line="36"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="vanished">Spôsob prepínania niektorých šedých tieňov, ktoré sú zložené z azúrovej, fialovej a žltej farby namiesto použitia čiernej. UCR naviac ovplyvňuje časti obrázkov, ktoré sú neutrálne a/alebo v tmavých tónoch, ktoré sú blízko šedej. Použitie tohoto postupu môže zlepšiť tlač niektorých obrázkov - je však potrebné testovať jednotlivé prípady. UCR znižuje možnosť presýtenosti s CMYK atramentami.</translation>
+        <translation>Spôsob prepínania niektorých šedých tieňov, ktoré sú zložené z azúrovej, fialovej a žltej farby namiesto použitia čiernej. UCR naviac ovplyvňuje časti obrázkov, ktoré sú neutrálne a/alebo v tmavých tónoch, ktoré sú blízko šedej. Použitie tohoto postupu môže zlepšiť tlač niektorých obrázkov - je však potrebné testovať jednotlivé prípady. UCR znižuje možnosť presýtenosti s CMYK atramentami.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printer.cpp" line="37"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation type="vanished">Povolí prevod priamych farieb na kompozitné. Pokiaľ neplánujete tlač priamych farieb na komerčnej tlačiarni, najlepšie urobíte, ak necháte voľbu povolenú.</translation>
+        <translation>Povolí prevod priamych farieb na kompozitné. Pokiaľ neplánujete tlač priamych farieb na komerčnej tlačiarni, najlepšie urobíte, ak necháte voľbu povolenú.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="489"/>
         <source>Length:</source>
-        <translation type="vanished">Dĺžka:</translation>
+        <translation>Dĺžka:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_printer.cpp" line="38"/>
+        <source>This enables you to explicitly set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>Prefs_Scrapbook</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_scrapbookbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_scrapbook.cpp" line="18"/>
         <source>Scrapbook</source>
-        <translation type="vanished">Zápisník</translation>
+        <translation>Zápisník</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_scrapbookbase.ui" line="83"/>
         <source>Send Copied Items Automatically to the Scrapbook</source>
-        <translation type="vanished">Automaticky odosielať skopírované položky do zápisníka</translation>
+        <translation>Automaticky odosielať skopírované položky do zápisníka</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_scrapbookbase.ui" line="90"/>
         <source>Keep Copied Items Permanently Across Sessions</source>
-        <translation type="vanished">Ponechať kopírované položky permanentne medzi reláciami</translation>
+        <translation>Ponechať kopírované položky permanentne medzi reláciami</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_scrapbookbase.ui" line="97"/>
         <source>Write Item Previews to the Scrapbook Directory</source>
-        <translation type="vanished">Napíšte ukážky položiek do priečinku Zápisníka</translation>
+        <translation>Napíšte ukážky položiek do priečinku Zápisníka</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_scrapbookbase.ui" line="109"/>
         <source>Number of Copied Items to Keep in Scrapbook</source>
-        <translation type="vanished">Počet skopírovaných položiek, ktoré sa majú ponechať v zápisníku</translation>
+        <translation>Počet skopírovaných položiek, ktoré sa majú ponechať v zápisníku</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_scrapbook.cpp" line="27"/>
         <source>This enables copied items to be kept permanently in the scrapbook</source>
-        <translation type="vanished">To umožňuje, aby skopírované položky zostali natrvalo v zápisníku</translation>
+        <translation>To umožňuje, aby skopírované položky zostali natrvalo v zápisníku</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_scrapbook.cpp" line="28"/>
         <source>Save generated scrapbook previews in the scrapbook directory</source>
-        <translation type="vanished">Uložte vygenerované ukážky zošitov do priečinku zápisníka</translation>
+        <translation>Uložte vygenerované ukážky zošitov do priečinku zápisníka</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_scrapbook.cpp" line="29"/>
         <source>The minimum number is 1; the maximum is 100</source>
-        <translation type="vanished">Minimálny počet je 1; maximum je 100</translation>
+        <translation>Minimálny počet je 1; maximum je 100</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_scrapbook.cpp" line="26"/>
         <source>This enables the scrapbook to be used an extension to the copy/paste buffers. Simply copying an object or grouped object will send this to the Scrapbook automatically.</source>
-        <translation type="vanished">Toto umožňuje použiť zápisník ako rozšírenie vyrovnávacích pamätí na kopírovanie/vkladanie. Jednoduchým skopírovaním objektu alebo zoskupeného objektu bude automaticky odoslaný do Zápisníka.</translation>
+        <translation>Toto umožňuje použiť zápisník ako rozšírenie vyrovnávacích pamätí na kopírovanie/vkladanie. Jednoduchým skopírovaním objektu alebo zoskupeného objektu bude automaticky odoslaný do Zápisníka.</translation>
     </message>
 </context>
 <context>
@@ -18803,281 +20381,618 @@ Chcete to použiť?</translation>
 <context>
     <name>Prefs_Spelling</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spellingbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="32"/>
         <source>Spelling</source>
-        <translation type="vanished">Hláskovanie</translation>
+        <translation>Hláskovanie</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spellingbase.ui" line="69"/>
         <source>Installed Spelling Dictionaries</source>
-        <translation type="vanished">Inštalované preklepové slovníky</translation>
+        <translation>Inštalované preklepové slovníky</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spellingbase.ui" line="87"/>
         <source>Downloadable Spelling Dictionaries</source>
-        <translation type="vanished">Stiahnuteľné preklepové slovníky</translation>
+        <translation>Stiahnuteľné preklepové slovníky</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spellingbase.ui" line="140"/>
         <source>Refresh Downloadable List</source>
-        <translation type="vanished">Obnoviť zoznam na stiahnutie</translation>
+        <translation>Obnoviť zoznam na stiahnutie</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spellingbase.ui" line="147"/>
         <source>Download Selected Dictionaries</source>
-        <translation type="vanished">Stiahnuť označené slovníky</translation>
+        <translation>Stiahnuť označené slovníky</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="142"/>
+        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="277"/>
         <source>Language</source>
-        <translation type="vanished">Jazyk</translation>
+        <translation>Jazyk</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="142"/>
+        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="277"/>
         <source>Code</source>
-        <translation type="vanished">Kód</translation>
+        <translation>Kód</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="142"/>
         <source>Location</source>
-        <translation type="vanished">Umiestnenie</translation>
+        <translation>Umiestnenie</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="277"/>
         <source>Installed</source>
-        <translation type="vanished">Nainštalované</translation>
+        <translation>Nainštalované</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="277"/>
         <source>Download</source>
-        <translation type="vanished">Stiahnuť</translation>
+        <translation>Stiahnuť</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spellingbase.ui" line="107"/>
         <source>Downloading</source>
-        <translation type="vanished">Sťahovanie</translation>
+        <translation>Sťahovanie</translation>
     </message>
 </context>
 <context>
     <name>Prefs_TableOfContents</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontents.cpp" line="347"/>
         <source>Table of Contents</source>
-        <translation type="vanished">Obsah</translation>
+        <translation>Obsah</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="80"/>
         <source>&amp;Add</source>
-        <translation type="vanished">Prid&amp;ať</translation>
+        <translation>Prid&amp;ať</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="83"/>
         <source>Alt+A</source>
-        <translation type="vanished">Alt+N</translation>
+        <translation>Alt+N</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="90"/>
         <source>&amp;Delete</source>
-        <translation type="vanished">&amp;Odstrániť</translation>
+        <translation>&amp;Odstrániť</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="93"/>
         <source>Alt+D</source>
-        <translation type="vanished">Alt+D</translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="112"/>
         <source>Properties</source>
-        <translation type="vanished">Vlastnosti</translation>
+        <translation>Vlastnosti</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="121"/>
+        <source>Source of Table of Contents:</source>
+        <translation>Zdroj pre Obsah:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="128"/>
+        <source>Whether the Table of Contents will be generated from Paragraph Styles or Item Attributes</source>
+        <translation>Či sa Obsah vygeneruje zo štýlov odseku alebo atribútov položiek</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="152"/>
+        <source>Include frames that are set to not print</source>
+        <translation>Zahrnúť rámce, ktoré sú nastavené, aby sa netlačili</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="203"/>
+        <source>Styles included in Table of Contents</source>
+        <translation>Štýly zahrnuté v Obsahu</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="263"/>
+        <source>Document Styles:</source>
+        <translation>Štýly dokumentu</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="297"/>
+        <source>Add</source>
+        <translation>Pridať</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="304"/>
+        <source>Delete</source>
+        <translation>Odstrániť</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="343"/>
+        <source>Table of Contents Entry Properties</source>
+        <translation>Vlastnosti položiek Obsahu</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="352"/>
+        <source>Style for TOC Entry:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="388"/>
+        <source>Remove line breaks from text in the heading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="391"/>
+        <source>Remove Line Breaks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="468"/>
         <source>Item Attribute Name:</source>
-        <translation type="vanished">Názov atribútu položky:</translation>
+        <translation>Názov atribútu položky:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="478"/>
         <source>The Item Attribute that will be set on frames used as a basis for creation of the entries</source>
-        <translation type="vanished">Atribút položky bude nastavený na použitý rámec ako základ pre vytváranie záznamov</translation>
+        <translation>Atribút položky bude nastavený na použitý rámec ako základ pre vytváranie záznamov</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="135"/>
         <source>Destination Frame:</source>
-        <translation type="vanished">Cieľový rámec:</translation>
+        <translation>Cieľový rámec:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="145"/>
         <source>The frame the table of contents will be placed into</source>
-        <translation type="vanished">Rámec tabuľky obsahu bude umiestnený do</translation>
+        <translation>Rámec tabuľky obsahu bude umiestnený do</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="369"/>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="434"/>
         <source>Page Number Placement:</source>
-        <translation type="vanished">Umiestnenie čísla strany:</translation>
+        <translation>Umiestnenie čísla strany:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="379"/>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="444"/>
         <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
-        <translation type="vanished">Umiestniť čísla strán záznamov na začiatok alebo koniec riadku, alebo ich neumiestniť vôbec</translation>
+        <translation>Umiestniť čísla strán záznamov na začiatok alebo koniec riadku, alebo ich neumiestniť vôbec</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="451"/>
         <source>Paragraph Style:</source>
-        <translation type="vanished">Štýl odstavca:</translation>
+        <translation>Štýl odstavca:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="461"/>
         <source>The paragraph style used for the entry lines</source>
-        <translation type="vanished">Štýl odstavca použitý pre riadok záznamu</translation>
+        <translation>Štýl odstavca použitý pre riadok záznamu</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="155"/>
         <source>List Non-Printing Entries</source>
-        <translation type="vanished">Zoznam netlačiteľných položiek</translation>
+        <translation>Zoznam netlačiteľných položiek</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontents.cpp" line="25"/>
         <source>Tables of Contents</source>
-        <translation type="vanished">Obsah</translation>
+        <translation>Obsah</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontents.cpp" line="111"/>
         <source>Beginning</source>
-        <translation type="vanished">Začiatok</translation>
+        <translation>Začiatok</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontents.cpp" line="113"/>
         <source>End</source>
-        <translation type="vanished">Koniec</translation>
+        <translation>Koniec</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontents.cpp" line="115"/>
         <source>Not Shown</source>
-        <translation type="vanished">Nezobrazené</translation>
+        <translation>Nezobrazené</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontents.cpp" line="118"/>
+        <source>Style</source>
+        <translation>Štýl</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontents.cpp" line="120"/>
+        <source>Attribute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontents.cpp" line="349"/>
         <source>Table of Contents %1</source>
-        <translation type="vanished">Obsah %1</translation>
+        <translation>Obsah %1</translation>
     </message>
 </context>
 <context>
     <name>Prefs_Typography</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="35"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="53"/>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="22"/>
         <source>Typography</source>
-        <translation type="vanished">Typografia</translation>
+        <translation>Typografia</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="68"/>
         <source>Subscript</source>
-        <translation type="vanished">Dolný index</translation>
+        <translation>Dolný index</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="90"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="172"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="320"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="417"/>
         <source>Displacement:</source>
-        <translation type="vanished">Posunutie:</translation>
+        <translation>Posunutie:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="97"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="107"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="179"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="196"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="261"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="340"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="359"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="430"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="456"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="521"/>
         <source> %</source>
-        <translation type="vanished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="120"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="189"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="254"/>
         <source>Scaling:</source>
-        <translation type="vanished">Zmena veľkosti:</translation>
+        <translation>Zmena veľkosti:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="150"/>
         <source>Superscript</source>
-        <translation type="vanished">Horný index</translation>
+        <translation>Horný index</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="298"/>
         <source>Underline</source>
-        <translation type="vanished">Podčiarknuté</translation>
+        <translation>Podčiarknuté</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="327"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="443"/>
         <source>Line Width:</source>
-        <translation type="vanished">Šírka čiary:</translation>
+        <translation>Šírka čiary:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="337"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="356"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="427"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="453"/>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="32"/>
         <source>Auto</source>
-        <translation type="vanished">Auto</translation>
+        <translation>Auto</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="395"/>
         <source>Strikeout</source>
-        <translation type="vanished">Prečiarknutie</translation>
+        <translation>Prečiarknutie</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="554"/>
+        <source>Optical Margins</source>
+        <translation>Optické okraje</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="232"/>
         <source>Small Caps</source>
-        <translation type="vanished">Malé kapitálky</translation>
+        <translation>Malé kapitálky</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="492"/>
+        <source>Automatic Line Spacing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="514"/>
         <source>Line Spacing:</source>
-        <translation type="vanished">Riadkovanie:</translation>
+        <translation>Riadkovanie:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="38"/>
         <source>Displacement below the baseline of the normal font on a line</source>
-        <translation type="vanished">Posunutie pod základnú čiaru bežného písma na riadku</translation>
+        <translation>Posunutie pod základnú čiaru bežného písma na riadku</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="39"/>
         <source>Relative size of the subscript compared to the normal font</source>
-        <translation type="vanished">Relatívna veľkosť dolného indexu v porovnaní s bežným písmom</translation>
+        <translation>Relatívna veľkosť dolného indexu v porovnaní s bežným písmom</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="40"/>
         <source>Displacement above the baseline of the font on a line</source>
-        <translation type="vanished">Posunutie nad základnú čiaru písma na riadku</translation>
+        <translation>Posunutie nad základnú čiaru písma na riadku</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="41"/>
         <source>Relative size of the superscript compared to the normal font</source>
-        <translation type="vanished">Relatívna veľkosť horného indexu v porovnaní s bežným písmom</translation>
+        <translation>Relatívna veľkosť horného indexu v porovnaní s bežným písmom</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="42"/>
         <source>Displacement below the baseline of the normal font expressed as a percentage of the fonts descender</source>
-        <translation type="vanished">Posunutie pod základnú čiaru bežného písma vyjadreného ako percento poklesu písma</translation>
+        <translation>Posunutie pod základnú čiaru bežného písma vyjadreného ako percento poklesu písma</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="43"/>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="45"/>
         <source>Line width expressed as a percentage of the font size</source>
-        <translation type="vanished">Šírka riadku vyjadrená ako percento z veľkosti písma</translation>
+        <translation>Šírka riadku vyjadrená ako percento z veľkosti písma</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="44"/>
         <source>Displacement above the baseline of the normal font expressed as a percentage of the fonts ascender</source>
-        <translation type="vanished">Posunutie nad základnú čiaru bežného písma vyjadreného ako percento vystúpenia písma</translation>
+        <translation>Posunutie nad základnú čiaru bežného písma vyjadreného ako percento vystúpenia písma</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="46"/>
         <source>Relative size of the small caps font compared to the normal font</source>
-        <translation type="vanished">Relatívna veľkosť malých kapitálok v porovnaní s bežným písmom</translation>
+        <translation>Relatívna veľkosť malých kapitálok v porovnaní s bežným písmom</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="47"/>
         <source>Percentage increase over the font size for the line spacing</source>
-        <translation type="vanished">Percentuálny nárast riadkovania podľa veľkosti písma</translation>
+        <translation>Percentuálny nárast riadkovania podľa veľkosti písma</translation>
     </message>
 </context>
 <context>
     <name>Prefs_UserInterface</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="35"/>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="28"/>
         <source>User Interface</source>
-        <translation type="vanished">Používateľské rozhranie</translation>
+        <translation>Používateľské rozhranie</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="53"/>
+        <source>Main Window</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="64"/>
         <source>Appearance</source>
-        <translation type="vanished">Vzhľad</translation>
+        <translation>Vzhľad</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="196"/>
         <source>&amp;Language:</source>
-        <translation type="vanished">&amp;Jazyk:</translation>
+        <translation>&amp;Jazyk:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="83"/>
         <source>&amp;Theme:</source>
-        <translation type="vanished">&amp;Téma:</translation>
+        <translation>&amp;Téma:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="106"/>
+        <source>Use Small Widgets on Palettes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="113"/>
+        <source>Use Tabs for Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="120"/>
         <source>&amp;Recent Documents:</source>
-        <translation type="vanished">&amp;Nedávne dokumenty:</translation>
+        <translation>&amp;Nedávne dokumenty:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="133"/>
+        <source>Show Informational Labels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="140"/>
+        <source>Show Labels of Inactive Palette Tabs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="147"/>
+        <source>Appearance:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="180"/>
+        <source>Language and Regionalization</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="209"/>
+        <source>Number Format:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="245"/>
+        <source>Font Sizes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="261"/>
+        <source>&amp;Menus:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="271"/>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="288"/>
         <source> pt</source>
-        <translation type="vanished"> pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="278"/>
+        <source>&amp;Palettes:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="311"/>
         <source>Story Editor</source>
-        <translation type="vanished">Story Editor</translation>
+        <translation>Story Editor</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="322"/>
         <source>Font:</source>
-        <translation type="vanished">Písmo:</translation>
+        <translation>Písmo:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="336"/>
+        <source>Use Smart Text Selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="359"/>
+        <source>Interactivity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="370"/>
+        <source>Time before resize or move starts:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="380"/>
         <source> ms</source>
-        <translation type="vanished">ms</translation>
+        <translation>ms</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="390"/>
         <source>&amp;Wheel Jump:</source>
-        <translation type="vanished">&amp;Krok kolieska:</translation>
+        <translation>&amp;Krok kolieska:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="400"/>
+        <source> lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="423"/>
+        <source>Start Up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="438"/>
+        <source>Show Splashscreen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="431"/>
         <source>Show Startup Dialog</source>
-        <translation type="vanished">Zobraziť štartovací dialóg</translation>
+        <translation>Zobraziť štartovací dialóg</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="74"/>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
-        <translation type="vanished">Vyberte štandardnú dekoráciu okien a vzhľad. Scribus preberá dostupné KDE alebo QT témy, ak je Qt nakonfigurované na vyhľadávanie KDE zásuvných modulov.</translation>
+        <translation>Vyberte štandardnú dekoráciu okien a vzhľad. Scribus preberá dostupné KDE alebo QT témy, ak je Qt nakonfigurované na vyhľadávanie KDE zásuvných modulov.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="77"/>
         <source>Number of recently edited documents to show in the File menu</source>
-        <translation type="vanished">Počet nedávno upravovaných dokumentov, ktoré sa zobrazia v ponuke Súbor</translation>
+        <translation>Počet nedávno upravovaných dokumentov, ktoré sa zobrazia v ponuke Súbor</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="79"/>
+        <source>Use either the system or selected language related definition for number formats for decimals for numbers in the interface</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="80"/>
         <source>Default font size for the menus and windows</source>
-        <translation type="vanished">Štandardná veľkosť písma pre ponuky a okná</translation>
+        <translation>Štandardná veľkosť písma pre ponuky a okná</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="81"/>
         <source>Default font size for the tool windows</source>
-        <translation type="vanished">Štandardná veľkosť písma pre okná nástrojov</translation>
+        <translation>Štandardná veľkosť písma pre okná nástrojov</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="82"/>
+        <source>Time before resize or move starts allows for a slight delay between when you click and the operation happens to avoid unintended moves. This can be helpful when dealing with mouse sensitivity settings or accessibility issues related to ergonomic mice, touch pads or moveability of the wrists and hands.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="96"/>
+        <source>Icon Set:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="75"/>
+        <source>Choose the default icon set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="78"/>
+        <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="52"/>
+        <source>Use System Format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="53"/>
+        <source>Use Interface Language Format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="69"/>
+        <source>Auto</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="70"/>
+        <source>Light</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="71"/>
+        <source>Dark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="72"/>
+        <source>Choose the default theme palette. Auto uses the systems default.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="76"/>
+        <source>Palette windows will use smaller (space savvy) widgets. Requires application restart.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="83"/>
+        <source>Number of lines Scribus will scroll for each &quot;notch&quot; of the mouse wheel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="86"/>
+        <source>The default behavior when double-clicking on a word is to select the word and the first following space. Smart selection will select only the word, without the following space.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="87"/>
+        <source>Shows informational labels on palettes.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="88"/>
+        <source>Shows labels of inactive palette tabs.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -16267,1270 +16267,1647 @@ Do you want to migrate them to the new Scribus version?</source>
 <context>
     <name>Prefs_ColorManagement</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="38"/>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagement.cpp" line="24"/>
         <source>Color Management</source>
-        <translation type="vanished">إدارة الألوان</translation>
+        <translation>إدارة الألوان</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="92"/>
         <source>Document Options</source>
-        <translation type="vanished">خيارات المستند</translation>
+        <translation>خيارات المستند</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="106"/>
         <source>Activate Color Management</source>
-        <translation type="vanished">تفعيل إدارة الألوان</translation>
+        <translation>تفعيل إدارة الألوان</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="113"/>
         <source>Simulate Printer on the Screen</source>
-        <translation type="vanished">حاكِ الطابعة على الشاشة</translation>
+        <translation>حاكِ الطابعة على الشاشة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="120"/>
         <source>Convert all colors to printer space</source>
-        <translation type="vanished">تحويل كل الألوان إلى مجال الطابعة</translation>
+        <translation>تحويل كل الألوان إلى مجال الطابعة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="127"/>
         <source>Mark Colors out of Gamut</source>
-        <translation type="vanished">حدّد الألوان من السلسلة اللونية</translation>
+        <translation>حدّد الألوان من السلسلة اللونية</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="134"/>
         <source>Use Blackpoint Compensation</source>
-        <translation type="vanished">استخدم تعويض النقطة السوداء</translation>
+        <translation>استخدم تعويض النقطة السوداء</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="163"/>
         <source>Document Profiles</source>
-        <translation type="vanished">بيانات المستند</translation>
+        <translation>بيانات المستند</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="185"/>
         <source>RGB Images:</source>
-        <translation type="vanished">&amp;صور ح خ ز:</translation>
+        <translation>&amp;صور ح خ ز:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="205"/>
         <source>CMYK Images:</source>
-        <translation type="vanished">صور س م ص د:</translation>
+        <translation>صور س م ص د:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="225"/>
         <source>RGB Solid Colors:</source>
-        <translation type="vanished">&amp;ألوان ح خ ز الخالصة:</translation>
+        <translation>&amp;ألوان ح خ ز الخالصة:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="238"/>
         <source>CMYK Solid Colors:</source>
-        <translation type="vanished">ألوان س م ص د خالصة:</translation>
+        <translation>ألوان س م ص د خالصة:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="251"/>
         <source>Printer:</source>
-        <translation type="vanished">الطابعة:</translation>
+        <translation>الطابعة:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="285"/>
         <source>Document Rendering Intents</source>
-        <translation type="vanished">وجهات تصيير المستند</translation>
+        <translation>وجهات تصيير المستند</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="304"/>
         <source>Images:</source>
-        <translation type="vanished">صور:</translation>
+        <translation>صور:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="314"/>
         <source>Solid Colors:</source>
-        <translation type="vanished">ألوان خالصة</translation>
+        <translation>ألوان خالصة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="348"/>
         <source>Monitor Profile</source>
-        <translation type="vanished">لاحة الشاشة</translation>
+        <translation>لاحة الشاشة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="370"/>
         <source>Monitor:</source>
-        <translation type="vanished">الشاشة:</translation>
+        <translation>الشاشة:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagement.cpp" line="64"/>
         <source>Perceptual</source>
-        <translation type="vanished">إدراكي</translation>
+        <translation>إدراكي</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagement.cpp" line="64"/>
         <source>Relative Colorimetric</source>
-        <translation type="vanished">قياس ألوان نسبي</translation>
+        <translation>قياس ألوان نسبي</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagement.cpp" line="65"/>
         <source>Saturation</source>
-        <translation type="vanished">التشبع</translation>
+        <translation>التشبع</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagement.cpp" line="65"/>
         <source>Absolute Colorimetric</source>
-        <translation type="vanished">قياس ألوان مطلق</translation>
+        <translation>قياس ألوان مطلق</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagement.cpp" line="34"/>
         <source>Monitor profiles can only be changed when no documents are open.</source>
-        <translation type="vanished">لا يمكن تغيير لاحات الشاشة إلا في حالة عدم وجود مستندات مفتوحة حاليًا.</translation>
+        <translation>لا يمكن تغيير لاحات الشاشة إلا في حالة عدم وجود مستندات مفتوحة حاليًا.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagement.cpp" line="55"/>
         <source>&lt;qt&gt;Color Management cannot be activated due to missing color profiles.&lt;/br&gt;You need to install at least one RGB and one CMYK profile.</source>
-        <translation type="vanished">&lt;qt&gt;لا يمكن تفعيل إدارة اللون بسبب فقدان ملفات تعريف اللون. &lt;/br&gt;يجب عليك على الأقل تثبيت ملف تعريف ح خ ز واحد وملف تعريف س م ص د واحد.</translation>
+        <translation>&lt;qt&gt;لا يمكن تفعيل إدارة اللون بسبب فقدان ملفات تعريف اللون. &lt;/br&gt;يجب عليك على الأقل تثبيت ملف تعريف ح خ ز واحد وملف تعريف س م ص د واحد.</translation>
     </message>
 </context>
 <context>
     <name>Prefs_Display</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="29"/>
         <source>Display</source>
-        <translation type="vanished">العرض</translation>
+        <translation>العرض</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="81"/>
         <source>Show Images</source>
-        <translation type="vanished">أظهر الصور</translation>
+        <translation>أظهر الصور</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="95"/>
         <source>Show Text Control Characters</source>
-        <translation type="vanished">أظهر حروف النص المتحكّمة</translation>
+        <translation>أظهر حروف النص المتحكّمة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="60"/>
         <source>Show Rulers</source>
-        <translation type="vanished">أظهر المساطر</translation>
+        <translation>أظهر المساطر</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="67"/>
         <source>Show Rulers Relative to Page</source>
-        <translation type="vanished">أظهر المساطر بالنسبة للصفحة</translation>
+        <translation>أظهر المساطر بالنسبة للصفحة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="88"/>
         <source>Show Text Chains</source>
-        <translation type="vanished">أظهر سلاسل النص</translation>
+        <translation>أظهر سلاسل النص</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="74"/>
         <source>Show Frames</source>
-        <translation type="vanished">أظهر الإطارات</translation>
+        <translation>أظهر الإطارات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="102"/>
         <source>Show Layer Indicators</source>
-        <translation type="vanished">أَظهِر مؤشرات الطبقة</translation>
+        <translation>أَظهِر مؤشرات الطبقة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="109"/>
         <source>Show Unprintable Area in Margin Color</source>
-        <translation type="vanished">أظهر المساحة غير القابلة للطباعة في هامش اللون</translation>
+        <translation>أظهر المساحة غير القابلة للطباعة في هامش اللون</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="116"/>
         <source>Show Bleed Area</source>
-        <translation type="vanished">أظهر منطقة تجاوزات الهوامش</translation>
+        <translation>أظهر منطقة تجاوزات الهوامش</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="123"/>
         <source>Show Page Shadow</source>
-        <translation type="vanished">أظهر ظل الصفحات</translation>
+        <translation>أظهر ظل الصفحات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="130"/>
         <source>Show Preflight Verifier Warnings on the Page</source>
-        <translation type="vanished">أظهر إنذارات محقق ما قبل الاستخدام على الصفحة</translation>
+        <translation>أظهر إنذارات محقق ما قبل الاستخدام على الصفحة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="151"/>
         <source>Scratch Space</source>
-        <translation type="vanished">مساحة الصفر</translation>
+        <translation>مساحة الصفر</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="159"/>
         <source>Left:</source>
-        <translation type="vanished">يسار:</translation>
+        <translation>يسار:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="169"/>
         <source>Right:</source>
-        <translation type="vanished">يمين:</translation>
+        <translation>يمين:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="179"/>
         <source>Top:</source>
-        <translation type="vanished">أعلى:</translation>
+        <translation>أعلى:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="189"/>
         <source>Bottom:</source>
-        <translation type="vanished">أسفل:</translation>
+        <translation>أسفل:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="275"/>
         <source>Display Scaling</source>
-        <translation type="vanished">تحجيم العرض</translation>
+        <translation>تحجيم العرض</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="423"/>
         <source>Scratch Space:</source>
-        <translation type="vanished">مساحة الصفر:</translation>
+        <translation>مساحة الصفر:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="223"/>
         <source>Gaps Between Pages</source>
-        <translation type="vanished">الفراغات بين الصفخات</translation>
+        <translation>الفراغات بين الصفخات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="54"/>
         <source>Pages</source>
-        <translation type="vanished">صفحات</translation>
+        <translation>صفحات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="239"/>
         <source>Horizontal:</source>
-        <translation type="vanished">أفقي:</translation>
+        <translation>أفقي:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="249"/>
         <source>Vertical:</source>
-        <translation type="vanished">رأسي:</translation>
+        <translation>رأسي:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="299"/>
         <source>Scale%</source>
-        <translation type="vanished">تحجيم%</translation>
+        <translation>تحجيم%</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="309"/>
         <source>Resets the scale to the default dpi of your display</source>
-        <translation type="vanished">تُصفّر التحجيم إلى وحدة dpi الافتراضية للشاشة</translation>
+        <translation>تُصفّر التحجيم إلى وحدة dpi الافتراضية للشاشة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="367"/>
         <source>Colors</source>
-        <translation type="vanished">الالوان</translation>
+        <translation>الالوان</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="409"/>
         <source>Page Fill:</source>
-        <translation type="vanished">ملء الصفحة:</translation>
+        <translation>ملء الصفحة:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="437"/>
         <source>Selected Page Border:</source>
-        <translation type="vanished">حدّ الصفحة المحدد:</translation>
+        <translation>حدّ الصفحة المحدد:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="451"/>
         <source>Frames:</source>
-        <translation type="vanished">الإطارات:</translation>
+        <translation>الإطارات:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="465"/>
         <source>Locked Frames:</source>
-        <translation type="vanished">إطارات مُوصدة:</translation>
+        <translation>إطارات مُوصدة:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="479"/>
         <source>Selected Frames:</source>
-        <translation type="vanished">الإطارات المحددة:</translation>
+        <translation>الإطارات المحددة:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="493"/>
         <source>Linked Frames:</source>
-        <translation type="vanished">الإطارات المترابطة:</translation>
+        <translation>الإطارات المترابطة:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="507"/>
         <source>Grouped Frames:</source>
-        <translation type="vanished">الإطارات المجمعة:</translation>
+        <translation>الإطارات المجمعة:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="521"/>
         <source>Annotation Frames:</source>
-        <translation type="vanished">إطارات الحواشي:</translation>
+        <translation>إطارات الحواشي:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="535"/>
         <source>Text Control Characters:</source>
-        <translation type="vanished">حروف النص المتحكّمة:</translation>
+        <translation>حروف النص المتحكّمة:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="73"/>
         <source>Color for paper (onscreen)</source>
-        <translation type="vanished">لون الورقة (على الشاشة)</translation>
+        <translation>لون الورقة (على الشاشة)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="74"/>
         <source>Mask the area outside the margins in the margin color</source>
-        <translation type="vanished">ضع قناعًا على المنطقة خارج الهوامش في لون الهامش</translation>
+        <translation>ضع قناعًا على المنطقة خارج الهوامش في لون الهامش</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="76"/>
         <source>Display non-printing characters such as paragraph markers in text frames</source>
-        <translation type="vanished">اعرض الحروف غير القابلة للطباعة أمثال واسمات الفقرة في الإطارات النصية</translation>
+        <translation>اعرض الحروف غير القابلة للطباعة أمثال واسمات الفقرة في الإطارات النصية</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="77"/>
         <source>Turns the display of frames on or off</source>
-        <translation type="vanished">تُشغّل/تُطفي عرض الإطارات</translation>
+        <translation>تُشغّل/تُطفي عرض الإطارات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="78"/>
         <source>Turns the display of layer indicators on or off</source>
-        <translation type="vanished">تشغيل/إطفاء عرض مؤشرات الطبقة</translation>
+        <translation>تشغيل/إطفاء عرض مؤشرات الطبقة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="79"/>
         <source>Turns the display of images on or off</source>
-        <translation type="vanished">تُشغّل/تُطفي عرض الصور</translation>
+        <translation>تُشغّل/تُطفي عرض الصور</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="80"/>
         <source>Turns the page shadow on or off</source>
-        <translation type="vanished">تُشغّل/تُطفي ظل الصفحات</translation>
+        <translation>تُشغّل/تُطفي ظل الصفحات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="81"/>
         <source>Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="vanished">تُحدّد مقدار مساحة رقعة الرسم الموجودة يسار المستند والمتاحة كلوحة لصق لإنشاء عناصر وتعديلها وسحبها إلى الصفحة النشطة</translation>
+        <translation>تُحدّد مقدار مساحة رقعة الرسم الموجودة يسار المستند والمتاحة كلوحة لصق لإنشاء عناصر وتعديلها وسحبها إلى الصفحة النشطة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="82"/>
         <source>Defines amount of space right of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="vanished">تُحدّد مقدار مساحة رقعة الرسم الموجودة يمين المستند والمتاحة كلوحة لصق لإنشاء عناصر وتعديلها وسحبها إلى الصفحة النشطة</translation>
+        <translation>تُحدّد مقدار مساحة رقعة الرسم الموجودة يمين المستند والمتاحة كلوحة لصق لإنشاء عناصر وتعديلها وسحبها إلى الصفحة النشطة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="83"/>
         <source>Defines amount of space above the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="vanished">تُحدّد مقدار مساحة رقعة الرسم الموجودة أعلى المستند والمتاحة كلوحة لصق لإنشاء عناصر وتعديلها وسحبها إلى الصفحة النشطة</translation>
+        <translation>تُحدّد مقدار مساحة رقعة الرسم الموجودة أعلى المستند والمتاحة كلوحة لصق لإنشاء عناصر وتعديلها وسحبها إلى الصفحة النشطة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="84"/>
         <source>Defines amount of space below the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="vanished">تُحدّد مقدار مساحة رقعة الرسم الموجودة أسفل المستند والمتاحة كلوحة لصق لإنشاء عناصر وتعديلها وسحبها إلى الصفحة النشطة</translation>
+        <translation>تُحدّد مقدار مساحة رقعة الرسم الموجودة أسفل المستند والمتاحة كلوحة لصق لإنشاء عناصر وتعديلها وسحبها إلى الصفحة النشطة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="85"/>
         <source>Set the default zoom level</source>
-        <translation type="vanished">اضبط مستوى التقريب الافتراضي</translation>
+        <translation>اضبط مستوى التقريب الافتراضي</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="86"/>
         <source>Place a ruler against your screen and drag the slider to set the zoom level so Scribus will display your pages and objects on them at the correct size</source>
-        <translation type="vanished">ضع مسطرة على شاشتك واسحب شريط التمرير لتعيين مستوى التكبير/التصغير بحيث يعرض سكريبس صفحاتك والكائنات عليها بالحجم الصحيح</translation>
+        <translation>ضع مسطرة على شاشتك واسحب شريط التمرير لتعيين مستوى التكبير/التصغير بحيث يعرض سكريبس صفحاتك والكائنات عليها بالحجم الصحيح</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="186"/>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="271"/>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="279"/>
         <source> dpi</source>
-        <translation type="vanished">نقطة لكل بوصة</translation>
+        <translation>نقطة لكل بوصة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="75"/>
         <source>Enable or disable the display of linked frames</source>
-        <translation type="vanished">فعّل عرض الإطارات المرتبطة أو عطّله</translation>
+        <translation>فعّل عرض الإطارات المرتبطة أو عطّله</translation>
     </message>
 </context>
 <context>
     <name>Prefs_DocumentInformation</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformation.cpp" line="23"/>
         <source>Document Information</source>
-        <translation type="vanished">معلومات المستند</translation>
+        <translation>معلومات المستند</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="54"/>
         <source>Document</source>
-        <translation type="vanished">مستند</translation>
+        <translation>مستند</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="60"/>
         <source>Title:</source>
-        <translation type="vanished">العنوان:</translation>
+        <translation>العنوان:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="77"/>
         <source>Author:</source>
-        <translation type="vanished">المؤلف:</translation>
+        <translation>المؤلف:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="87"/>
         <source>Subject:</source>
-        <translation type="vanished">الموضوع:</translation>
+        <translation>الموضوع:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="97"/>
         <source>Keywords:</source>
-        <translation type="vanished">الكلمات المفتاحية:</translation>
+        <translation>الكلمات المفتاحية:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="111"/>
         <source>Description:</source>
-        <translation type="vanished">تعليق:</translation>
+        <translation>تعليق:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="126"/>
         <source>Further Information</source>
-        <translation type="vanished">معلومات إضافية</translation>
+        <translation>معلومات إضافية</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="167"/>
         <source>Publisher:</source>
-        <translation type="vanished">الناشر:</translation>
+        <translation>الناشر:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="177"/>
         <source>Contributors:</source>
-        <translation type="vanished">المساهمون:</translation>
+        <translation>المساهمون:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="191"/>
         <source>Date:</source>
-        <translation type="vanished">التاريخ:</translation>
+        <translation>التاريخ:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="205"/>
         <source>Type:</source>
-        <translation type="vanished">النوع:</translation>
+        <translation>النوع:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="219"/>
         <source>Format:</source>
-        <translation type="vanished">نسّق</translation>
+        <translation>نسّق</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="229"/>
         <source>Identifier:</source>
-        <translation type="vanished">المعرف:</translation>
+        <translation>المعرف:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="239"/>
         <source>Source:</source>
-        <translation type="vanished">المصدر:</translation>
+        <translation>المصدر:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="249"/>
         <source>Language:</source>
-        <translation type="vanished">اللغة:</translation>
+        <translation>اللغة:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="263"/>
         <source>Relation:</source>
-        <translation type="vanished">الارتباط:</translation>
+        <translation>الارتباط:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="273"/>
         <source>Coverage:</source>
-        <translation type="vanished">التغطية:</translation>
+        <translation>التغطية:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="287"/>
         <source>Rights:</source>
-        <translation type="vanished">الحقوق:</translation>
+        <translation>الحقوق:</translation>
     </message>
 </context>
 <context>
     <name>Prefs_DocumentItemAttributes</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="14"/>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="39"/>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="19"/>
         <source>Document Item Attributes</source>
-        <translation type="vanished">خصائص عنصر المستند</translation>
+        <translation>خصائص عنصر المستند</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="54"/>
         <source>Name</source>
-        <translation type="vanished">الاسم</translation>
+        <translation>الاسم</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="59"/>
         <source>Type</source>
-        <translation type="vanished">النوع</translation>
+        <translation>النوع</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="64"/>
         <source>Value</source>
-        <translation type="vanished">القيمة</translation>
+        <translation>القيمة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="69"/>
         <source>Parameter</source>
-        <translation type="vanished">المعامل</translation>
+        <translation>المعامل</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="74"/>
         <source>Relationship</source>
-        <translation type="vanished">علاقة</translation>
+        <translation>علاقة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="79"/>
         <source>Relationship To</source>
-        <translation type="vanished">علاقة بـ</translation>
+        <translation>علاقة بـ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="84"/>
         <source>Auto Add To</source>
-        <translation type="vanished">أضف تلقائيًا إلى</translation>
+        <translation>أضف تلقائيًا إلى</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="110"/>
         <source>&amp;Add</source>
-        <translation type="vanished">&amp;اضافة</translation>
+        <translation>&amp;اضافة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="113"/>
         <source>Alt+A</source>
-        <translation type="vanished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="120"/>
         <source>&amp;Copy</source>
-        <translation type="vanished">&amp;نسخ</translation>
+        <translation>&amp;نسخ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="123"/>
         <source>Alt+C</source>
-        <translation type="vanished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="130"/>
         <source>&amp;Delete</source>
-        <translation type="vanished">&amp;حذف</translation>
+        <translation>&amp;حذف</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="133"/>
         <source>Alt+D</source>
-        <translation type="vanished">Alt+D</translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="140"/>
         <source>C&amp;lear</source>
-        <translation type="vanished">&amp;مسح</translation>
+        <translation>&amp;مسح</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="143"/>
         <source>Alt+L</source>
-        <translation type="vanished">Alt+L</translation>
+        <translation>Alt+L</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="22"/>
         <source>None</source>
         <comment>relationship</comment>
-        <translation type="vanished">لا شيء</translation>
+        <translation>لا شيء</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="22"/>
         <source>Relates To</source>
-        <translation type="vanished">متصل بـ</translation>
+        <translation>متصل بـ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="22"/>
         <source>Is Parent Of</source>
-        <translation type="vanished">أب لـ</translation>
+        <translation>أب لـ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="22"/>
         <source>Is Child Of</source>
-        <translation type="vanished">هو فرع لــ</translation>
+        <translation>هو فرع لــ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="24"/>
         <source>None</source>
         <comment>auto add</comment>
-        <translation type="vanished">لا شيء</translation>
+        <translation>لا شيء</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="24"/>
         <source>Text Frames</source>
-        <translation type="vanished">إطارات النص</translation>
+        <translation>إطارات النص</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="24"/>
         <source>Image Frames</source>
-        <translation type="vanished">إطارات الصور</translation>
+        <translation>إطارات الصور</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="26"/>
         <source>None</source>
         <comment>types</comment>
-        <translation type="vanished">لا شيء</translation>
+        <translation>لا شيء</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="26"/>
         <source>Boolean</source>
-        <translation type="vanished">بوليان</translation>
+        <translation>بوليان</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="26"/>
         <source>Integer</source>
-        <translation type="vanished">عدد صحيح</translation>
+        <translation>عدد صحيح</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="26"/>
         <source>Real Number</source>
-        <translation type="vanished">عدد حقيقي</translation>
+        <translation>عدد حقيقي</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="26"/>
         <source>String</source>
-        <translation type="vanished">سلسلة</translation>
+        <translation>سلسلة</translation>
     </message>
 </context>
 <context>
     <name>Prefs_DocumentSections</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsections.cpp" line="27"/>
         <source>Sections</source>
-        <translation type="vanished">أقسام</translation>
+        <translation>أقسام</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsections.cpp" line="172"/>
         <source>Page Number Out Of Bounds</source>
-        <translation type="vanished">رقم الصفحة جاوز الحدود</translation>
+        <translation>رقم الصفحة جاوز الحدود</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsections.cpp" line="172"/>
         <source>The value you have entered is outside the range of page numbers in the current document (%1-%2).</source>
-        <translation type="vanished">القيمة التي أدخلتها خارج نطاق أرقام الصفحات في المستند الحالي (1%-2%).</translation>
+        <translation>القيمة التي أدخلتها خارج نطاق أرقام الصفحات في المستند الحالي (1%-2%).</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="14"/>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="39"/>
         <source>Document Sections</source>
-        <translation type="vanished">أقسام المستند</translation>
+        <translation>أقسام المستند</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="60"/>
         <source>Name</source>
-        <translation type="vanished">الاسم</translation>
+        <translation>الاسم</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="65"/>
         <source>Shown</source>
-        <translation type="vanished">مبيّن</translation>
+        <translation>مبيّن</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="75"/>
         <source>From</source>
-        <translation type="vanished">من</translation>
+        <translation>من</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="80"/>
         <source>To</source>
-        <translation type="vanished">إلى</translation>
+        <translation>إلى</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="85"/>
         <source>Style</source>
-        <translation type="vanished">سمة</translation>
+        <translation>سمة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="90"/>
         <source>Start</source>
-        <translation type="vanished">البداية</translation>
+        <translation>البداية</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="126"/>
         <source>&amp;Add</source>
-        <translation type="vanished">&amp;اضافة</translation>
+        <translation>&amp;اضافة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="129"/>
         <source>Alt+A</source>
-        <translation type="vanished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="136"/>
         <source>&amp;Delete</source>
-        <translation type="vanished">&amp;حذف</translation>
+        <translation>&amp;حذف</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="139"/>
         <source>Alt+D</source>
-        <translation type="vanished">Alt+D</translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="95"/>
         <source>Field Width</source>
-        <translation type="vanished">عرض الحقل</translation>
+        <translation>عرض الحقل</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="100"/>
         <source>Fill Character</source>
-        <translation type="vanished">املأ الحرف</translation>
+        <translation>املأ الحرف</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="70"/>
         <source>Reversed</source>
-        <translation type="vanished">مقلوب</translation>
+        <translation>مقلوب</translation>
     </message>
 </context>
 <context>
     <name>Prefs_DocumentSetup</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="35"/>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="34"/>
         <source>Document Setup</source>
-        <translation type="vanished">إعداد المستند</translation>
+        <translation>إعداد المستند</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="53"/>
         <source>General</source>
-        <translation type="vanished">عام</translation>
+        <translation>عام</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="107"/>
         <source>Page Size</source>
-        <translation type="vanished">حجم الصفحة</translation>
+        <translation>حجم الصفحة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="123"/>
         <source>Size:</source>
-        <translation type="vanished">الحجم:</translation>
+        <translation>الحجم:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="144"/>
         <source>Orientation:</source>
-        <translation type="vanished">الاتجاه:</translation>
+        <translation>الاتجاه:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="157"/>
         <source>Units:</source>
-        <translation type="vanished">وحدات:</translation>
+        <translation>وحدات:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="170"/>
         <source>Width:</source>
-        <translation type="vanished">العرض:</translation>
+        <translation>العرض:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="183"/>
         <source>Height:</source>
-        <translation type="vanished">الارتفاع:</translation>
+        <translation>الارتفاع:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="198"/>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="422"/>
         <source>Apply changes to all pages</source>
-        <translation type="vanished">طبّق التغييرات على كل الصفحات</translation>
+        <translation>طبّق التغييرات على كل الصفحات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="205"/>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="429"/>
         <source>Apply changes to all master pages</source>
-        <translation type="vanished">طبّق التغييرات على كل الصفحات الرئيسية</translation>
+        <translation>طبّق التغييرات على كل الصفحات الرئيسية</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="226"/>
         <source>Layout</source>
-        <translation type="vanished">تخطيط</translation>
+        <translation>تخطيط</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="237"/>
         <source>Page Layout</source>
-        <translation type="vanished">تخطيط الصفحة</translation>
+        <translation>تخطيط الصفحة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="290"/>
         <source>Facing Pages</source>
-        <translation type="vanished">صفحات متقابلة</translation>
+        <translation>صفحات متقابلة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="521"/>
         <source>Saving &amp;&amp; Undo</source>
-        <translation type="vanished">حفظ ال&amp;تراجع</translation>
+        <translation>حفظ ال&amp;تراجع</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="527"/>
         <source>Save in Compressed Format</source>
-        <translation type="vanished">احفظه بتنسيق مضغوظ</translation>
+        <translation>احفظه بتنسيق مضغوظ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="534"/>
         <source>Try to save an &quot;Emergency File&quot; in case of a crash</source>
-        <translation type="vanished">حاول حفظ &quot;ملف طوارئ&quot; في حالة حدوث عطل</translation>
+        <translation>حاول حفظ &quot;ملف طوارئ&quot; في حالة حدوث عطل</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="562"/>
         <source>Autosave</source>
-        <translation type="vanished">حفظ تلقائي</translation>
+        <translation>حفظ تلقائي</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="576"/>
         <source>Enable automatic saving of documents</source>
-        <translation type="vanished">فعّل الحفظ التلقائي للمستندات</translation>
+        <translation>فعّل الحفظ التلقائي للمستندات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="587"/>
         <source>Interval:</source>
-        <translation type="vanished">الفترة:</translation>
+        <translation>الفترة:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="594"/>
         <source> min</source>
-        <translation type="vanished">دقيقة</translation>
+        <translation>دقيقة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="604"/>
         <source>Number of files to keep:</source>
-        <translation type="vanished">عدد الملفات التي يجب الاحتفاظ بها:</translation>
+        <translation>عدد الملفات التي يجب الاحتفاظ بها:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="637"/>
         <source>Save into the same directory as the document</source>
-        <translation type="vanished">احفظ في نفس المجلد كمستند</translation>
+        <translation>احفظ في نفس المجلد كمستند</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="647"/>
         <source>Save into:</source>
-        <translation type="vanished">احفظه في:</translation>
+        <translation>احفظه في:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="657"/>
         <source>Change...</source>
-        <translation type="vanished">تغيير...</translation>
+        <translation>تغيير...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="669"/>
         <source>Keep backup files after closing the document</source>
-        <translation type="vanished">احتفظ بملفات نسخ احتياطي بعد إغلاق المستند</translation>
+        <translation>احتفظ بملفات نسخ احتياطي بعد إغلاق المستند</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="676"/>
         <source>Show autosave countdown clock on the canvas</source>
-        <translation type="vanished">أظهر العد التنازلي التلقائي على عقارب الساعة على الرقعة</translation>
+        <translation>أظهر العد التنازلي التلقائي على عقارب الساعة على الرقعة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="704"/>
         <source>Undo / Redo</source>
-        <translation type="vanished">تراجع/إعادة</translation>
+        <translation>تراجع/إعادة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="718"/>
         <source>Enable Undo/Redo System</source>
-        <translation type="vanished">فعّل نظام التراجع/الإعادة</translation>
+        <translation>فعّل نظام التراجع/الإعادة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="727"/>
         <source>Action History Length:</source>
-        <translation type="vanished">مدّة تاريخ الإجراءات:</translation>
+        <translation>مدّة تاريخ الإجراءات:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="300"/>
         <source>Single Page</source>
-        <translation type="vanished">صفحة واحدة</translation>
+        <translation>صفحة واحدة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="280"/>
         <source>3-Fold</source>
-        <translation type="vanished">3 طيات</translation>
+        <translation>3 طيات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="270"/>
         <source>4-Fold</source>
-        <translation type="vanished">4 طيات</translation>
+        <translation>4 طيات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="61"/>
         <source>Language:</source>
-        <translation type="vanished">اللغة:</translation>
+        <translation>اللغة:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="253"/>
         <source>First Page is:</source>
-        <translation type="vanished">أول صفحة هي:</translation>
+        <translation>أول صفحة هي:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="329"/>
         <source>Margins &amp;&amp; Bleeds</source>
-        <translation type="vanished">الهوامش وتجاوزات الهوامش</translation>
+        <translation>الهوامش وتجاوزات الهوامش</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="376"/>
         <source>Margins</source>
-        <translation type="vanished">الهوامش</translation>
+        <translation>الهوامش</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="457"/>
         <source>Bleeds</source>
-        <translation type="vanished">تجاوزات هوامش الصفحة</translation>
+        <translation>تجاوزات هوامش الصفحة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="111"/>
         <source>Portrait</source>
-        <translation type="vanished">رأسي</translation>
+        <translation>رأسي</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="112"/>
         <source>Landscape</source>
-        <translation type="vanished">أفقي</translation>
+        <translation>أفقي</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="122"/>
         <source>Width of document pages, editable if you have chosen a custom page size</source>
-        <translation type="vanished">عرض صفحات المستند قابل للتحرير  إذا اخترت حجم صفحة مخصص</translation>
+        <translation>عرض صفحات المستند قابل للتحرير  إذا اخترت حجم صفحة مخصص</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="123"/>
         <source>Height of document pages, editable if you have chosen a custom page size</source>
-        <translation type="vanished">ارتفاع صفحات المستند قابل للتحرير  إذا اخترت حجم صفحة مخصص</translation>
+        <translation>ارتفاع صفحات المستند قابل للتحرير  إذا اخترت حجم صفحة مخصص</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="124"/>
         <source>Default page size, either a standard size or a custom size. More page sizes can be made visible by activating them in Preferences.</source>
-        <translation type="vanished">حجم الصفحة افتراضي سواءً أكان حجمًا قياسيًا أو حجمًا مخصصًا. يمكن إظهار المزيد من أحجام الصفحات بتفعيلهن في التفضيلات.</translation>
+        <translation>حجم الصفحة افتراضي سواءً أكان حجمًا قياسيًا أو حجمًا مخصصًا. يمكن إظهار المزيد من أحجام الصفحات بتفعيلهن في التفضيلات.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="125"/>
         <source>Enable or disable more page sizes by jumping to Page Size preferences</source>
-        <translation type="vanished">تفعيل أو تعطيل المزيد من أحجام الصفحات بالانتقال إلى تفضيلات حجم الصفحة </translation>
+        <translation>تفعيل أو تعطيل المزيد من أحجام الصفحات بالانتقال إلى تفضيلات حجم الصفحة </translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="126"/>
         <source>Default orientation of document pages</source>
-        <translation type="vanished">اتجاه افتراضي لصفحات المستند</translation>
+        <translation>اتجاه افتراضي لصفحات المستند</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="127"/>
         <source>Default unit of measurement for document editing</source>
-        <translation type="vanished">وحدة القياس الافتراضية لتحرير المستند</translation>
+        <translation>وحدة القياس الافتراضية لتحرير المستند</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="128"/>
+        <source>When enabled, Scribus saves backup copies of your file each time the time period elapses</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="133"/>
         <source>Keep this many files during the editing session. Backup files will be removed when you close the document.</source>
-        <translation type="vanished">احتفظ بهذا العدد الكبير من الملفات أثناء جلسة التحرير. ستُزال ملفات النسخ الاحتياطي عند إغلاق المستند.</translation>
+        <translation>احتفظ بهذا العدد الكبير من الملفات أثناء جلسة التحرير. ستُزال ملفات النسخ الاحتياطي عند إغلاق المستند.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="393"/>
         <source>Choose a Directory</source>
-        <translation type="vanished">اختر مجلدًا</translation>
+        <translation>اختر مجلدًا</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="129"/>
         <source>Time period between saving automatically</source>
-        <translation type="vanished">المدة الزمنية بين الحفظ التلقائي</translation>
+        <translation>المدة الزمنية بين الحفظ التلقائي</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="130"/>
         <source>Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</source>
-        <translation type="vanished">اضبط مدة تاريخ الإجراءات بالخطوات. كمٌّ لا نهائي من الإجراءات سيُحفظ إذا حدّدت المدة لـ 0.</translation>
+        <translation>اضبط مدة تاريخ الإجراءات بالخطوات. كمٌّ لا نهائي من الإجراءات سيُحفظ إذا حدّدت المدة لـ 0.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="131"/>
         <source>Apply the page size changes to all existing pages in the document</source>
-        <translation type="vanished">طبّق التغييرات على حجم الصفحة لكل الصفحات الموجودة في المستند</translation>
+        <translation>طبّق التغييرات على حجم الصفحة لكل الصفحات الموجودة في المستند</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="132"/>
         <source>Apply the page size changes to all existing master pages in the document</source>
-        <translation type="vanished">طبّق التغييرات على حجم الصفحة لكل الصفحات الرئيسية الموجودة في المستند</translation>
+        <translation>طبّق التغييرات على حجم الصفحة لكل الصفحات الرئيسية الموجودة في المستند</translation>
+    </message>
+</context>
+<context>
+    <name>Prefs_Experimental</name>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_experimentalbase.ui" line="35"/>
+        <source>Experimental Features</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_experimentalbase.ui" line="79"/>
+        <source>Enable Notes, Marks and other related features</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_experimental.cpp" line="18"/>
+        <source>Experimental</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>Prefs_ExternalTools</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="14"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="30"/>
         <source>External Tools</source>
-        <translation type="vanished">الأدوات الخارجية</translation>
+        <translation>الأدوات الخارجية</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="39"/>
         <source>External Tools and Applications</source>
-        <translation type="vanished">تطبيقات وأدوات خارجية</translation>
+        <translation>تطبيقات وأدوات خارجية</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="74"/>
         <source>PostScript Interpreter</source>
-        <translation type="vanished">مؤول PostScript&#xa0;</translation>
+        <translation>مؤول PostScript&#xa0;</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="90"/>
         <source>&amp;Name of Executable:</source>
-        <translation type="vanished">&amp;اسم الملف التنفيذي:</translation>
+        <translation>&amp;اسم الملف التنفيذي:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="103"/>
         <source>&lt;qt&gt;Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.&lt;/qt&gt;</source>
-        <translation type="vanished">أضِف المسار لمُفسّر جوستسكريبت. إذا كنت تستخدم ويندوز، فستحتاج لاستخدام برنامج يُدعى gswin32c.exe - NOT gswin32.exe. عدم استخدامك لذلك البرنامج قد يسبب توقفًا عند تشغيلك سكريبس.</translation>
+        <translation>أضِف المسار لمُفسّر جوستسكريبت. إذا كنت تستخدم ويندوز، فستحتاج لاستخدام برنامج يُدعى gswin32c.exe - NOT gswin32.exe. عدم استخدامك لذلك البرنامج قد يسبب توقفًا عند تشغيلك سكريبس.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="110"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="281"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="351"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="418"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="485"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="608"/>
         <source>&amp;Change...</source>
-        <translation type="vanished">&amp;غيّر...</translation>
+        <translation>&amp;غيّر...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="113"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="284"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="354"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="488"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="611"/>
         <source>Alt+C</source>
-        <translation type="vanished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="124"/>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
-        <translation type="vanished">نص مُنعّم الحواف لـعرض EPS و PDF على الشاشة</translation>
+        <translation>نص مُنعّم الحواف لـعرض EPS و PDF على الشاشة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="127"/>
         <source>Antialias &amp;Text</source>
-        <translation type="vanished">نعّم &amp;النص</translation>
+        <translation>نعّم &amp;النص</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="130"/>
         <source>Alt+T</source>
-        <translation type="vanished">Alt+T</translation>
+        <translation>Alt+T</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="153"/>
         <source>Antialias graphics for EPS and PDF onscreen rendering</source>
-        <translation type="vanished">رسومات مُنعمّة لعرض EPS و PDF على الشاشة</translation>
+        <translation>رسومات مُنعمّة لعرض EPS و PDF على الشاشة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="156"/>
         <source>Antialias &amp;Graphics</source>
-        <translation type="vanished">نعّم&#xa0;&amp;الرسومات</translation>
+        <translation>نعّم&#xa0;&amp;الرسومات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="159"/>
         <source>Alt+G</source>
-        <translation type="vanished">Alt+G</translation>
+        <translation>Alt+G</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="182"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="698"/>
         <source>Resolution:</source>
-        <translation type="vanished">الدقة:</translation>
+        <translation>الدقة:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="195"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="711"/>
         <source> dpi</source>
-        <translation type="vanished">نقطة لكل بوصة</translation>
+        <translation>نقطة لكل بوصة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="245"/>
         <source>Image Processing Tool</source>
-        <translation type="vanished">أداة معالجة الصور</translation>
+        <translation>أداة معالجة الصور</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="261"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="331"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="401"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="465"/>
         <source>Name of &amp;Executable:</source>
-        <translation type="vanished">اسم الملف ال&amp;تنفيذي:</translation>
+        <translation>اسم الملف ال&amp;تنفيذي:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="274"/>
         <source>&lt;qt&gt;File system location for graphics editor&lt;/qt&gt;</source>
-        <translation type="vanished">&lt;qt&gt;موقع نظام الملف لمحرر الرسومات&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;موقع نظام الملف لمحرر الرسومات&lt;/qt&gt;</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="315"/>
         <source>Web Browser</source>
-        <translation type="vanished">متصفح الشبكة</translation>
+        <translation>متصفح الشبكة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="385"/>
         <source>PDF Viewer</source>
-        <translation type="vanished">عارض PDF&#xa0;</translation>
+        <translation>عارض PDF&#xa0;</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="449"/>
         <source>Uniconvertor</source>
-        <translation type="vanished">Uniconvertor</translation>
+        <translation>Uniconvertor</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="519"/>
         <source>Render Frames</source>
-        <translation type="vanished">صيّر إطارات</translation>
+        <translation>صيّر إطارات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="533"/>
         <source>Configurations:</source>
-        <translation type="vanished">الإعدادات: </translation>
+        <translation>الإعدادات: </translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="547"/>
         <source>Up</source>
-        <translation type="vanished">أعلى</translation>
+        <translation>أعلى</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="554"/>
         <source>Down</source>
-        <translation type="vanished">أسفل</translation>
+        <translation>أسفل</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="561"/>
         <source>Add</source>
-        <translation type="vanished">إضافة</translation>
+        <translation>إضافة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="568"/>
         <source>Delete</source>
-        <translation type="vanished">حذف</translation>
+        <translation>حذف</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="575"/>
         <source>Change...</source>
-        <translation type="vanished">تغيير...</translation>
+        <translation>تغيير...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="588"/>
         <source>External Editor:</source>
-        <translation type="vanished">محرّر خارجي:</translation>
+        <translation>محرّر خارجي:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="622"/>
         <source>Start with empty frame</source>
-        <translation type="vanished">ابدأ بإطار فارغ</translation>
+        <translation>ابدأ بإطار فارغ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="648"/>
         <source>Use Embedded Editor</source>
-        <translation type="vanished">استخدم محرّر مضمّن</translation>
+        <translation>استخدم محرّر مضمّن</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="675"/>
         <source>Force DPI</source>
-        <translation type="vanished">أضِف DPI</translation>
+        <translation>أضِف DPI</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="777"/>
         <source>Rescan for the external tools if they do not exist in the already specified location</source>
-        <translation type="vanished">أعد مسح للأدوات الخارجية إذا لم تكن موجودة في الموقع المحدد بالفعل</translation>
+        <translation>أعد مسح للأدوات الخارجية إذا لم تكن موجودة في الموقع المحدد بالفعل</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="780"/>
         <source>&amp;Rescan</source>
-        <translation type="vanished">&amp;أعد المسح</translation>
+        <translation>&amp;أعد المسح</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="783"/>
         <source>Alt+R</source>
-        <translation type="vanished">Alt+R</translation>
+        <translation>Alt+R</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="100"/>
         <source>Locate Ghostscript</source>
-        <translation type="vanished">حدّد موضع Ghostscript</translation>
+        <translation>حدّد موضع Ghostscript</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="108"/>
         <source>Locate your image editor</source>
-        <translation type="vanished">حدّد موضع محرّر الصور </translation>
+        <translation>حدّد موضع محرّر الصور </translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="116"/>
         <source>Locate your web browser</source>
-        <translation type="vanished">حدّد موضع متصفح الشبكة</translation>
+        <translation>حدّد موضع متصفح الشبكة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="124"/>
         <source>Locate your PDF viewer</source>
-        <translation type="vanished">حدّد موضع عارض PDF </translation>
+        <translation>حدّد موضع عارض PDF </translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="132"/>
         <source>Locate the uniconvertor executable</source>
-        <translation type="vanished">حدّد موقع الملف التنفيذي لـ uniconvertor</translation>
+        <translation>حدّد موقع الملف التنفيذي لـ uniconvertor</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="140"/>
         <source>Locate your editor</source>
-        <translation type="vanished">حدّد موضع محرّرك</translation>
+        <translation>حدّد موضع محرّرك</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="169"/>
         <source>Uniconvertor executable not found!</source>
-        <translation type="vanished">تعذّر العثور على الملف التنفيذي لـUniconvertor!</translation>
+        <translation>تعذّر العثور على الملف التنفيذي لـUniconvertor!</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="258"/>
         <source>Locate a Configuration file</source>
-        <translation type="vanished">حدّد موضع ملف الإعداد</translation>
+        <translation>حدّد موضع ملف الإعداد</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="260"/>
         <source>Configuration files</source>
-        <translation type="vanished">ملفات الإعدادات</translation>
+        <translation>ملفات الإعدادات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="280"/>
         <source>Change Command</source>
-        <translation type="vanished">غيّر الأمر</translation>
+        <translation>غيّر الأمر</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="281"/>
         <source>Enter new command: (leave empty to reset to default command; use quotes around arguments with spaces)</source>
-        <translation type="vanished">أدخِل أمرًا جديدًا: (دعه فارغًا لاستعادة الأمر المبدئي، استخدم علامات تنصيص مع مسافات حول المُعطيات)</translation>
+        <translation>أدخِل أمرًا جديدًا: (دعه فارغًا لاستعادة الأمر المبدئي، استخدم علامات تنصيص مع مسافات حول المُعطيات)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="310"/>
         <source>Command: </source>
-        <translation type="vanished">الأمر:</translation>
+        <translation>الأمر:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="222"/>
         <source>LaTeX Command</source>
-        <translation type="vanished">أمر الليتك (LaTeX)</translation>
+        <translation>أمر الليتك (LaTeX)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="223"/>
         <source>Scribus has found the following pdflatex command:
 %1
 Do you want to use this?</source>
-        <translation type="vanished">عثر سكريبس على أمر pdflatex:
+        <translation>عثر سكريبس على أمر pdflatex:
 %1
 هل تريد استخدامه؟</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="344"/>
         <source>&lt;qt&gt;File system location for web browser&lt;/qt&gt;</source>
-        <translation type="vanished">&lt;qt&gt;موقع نظام الملفات لمتصفح الشبكة&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;موقع نظام الملفات لمتصفح الشبكة&lt;/qt&gt;</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="411"/>
         <source>&lt;qt&gt;File system location for PDF viewer&lt;/qt&gt;</source>
-        <translation type="vanished">&lt;qt&gt;موقع نظام الملفات لعارض PDF &lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;موقع نظام الملفات لعارض PDF &lt;/qt&gt;</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="478"/>
         <source>&lt;qt&gt;File system location for Uniconvertor&lt;/qt&gt;</source>
-        <translation type="vanished">&lt;qt&gt;موقع نظام الملفات لـ Uniconvertor&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;موقع نظام الملفات لـ Uniconvertor&lt;/qt&gt;</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="601"/>
         <source>&lt;qt&gt;Path to the editor executable&lt;/qt&gt;</source>
-        <translation type="vanished">&lt;qt&gt;المسار إلى الملف التنفيذي للمحرر&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;المسار إلى الملف التنفيذي للمحرر&lt;/qt&gt;</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="672"/>
         <source>Always use the configured DPI setting for calculating the size, even if the image file reports something different</source>
-        <translation type="vanished">استخدم دائمًا ضبط DPI المُعدّ لحساب الحجم حتى إذا كان ملف الصورة يشير إلى شيء مختلف</translation>
+        <translation>استخدم دائمًا ضبط DPI المُعدّ لحساب الحجم حتى إذا كان ملف الصورة يشير إلى شيء مختلف</translation>
     </message>
 </context>
 <context>
     <name>Prefs_Fonts</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_fonts.cpp" line="44"/>
         <source>Fonts</source>
-        <translation type="vanished">خطوط</translation>
+        <translation>خطوط</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="88"/>
         <source>Delete</source>
-        <translation type="vanished">حذف</translation>
+        <translation>حذف</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="111"/>
         <source>C&amp;hange...</source>
-        <translation type="vanished">&amp;تغيير...</translation>
+        <translation>&amp;تغيير...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="118"/>
         <source>A&amp;dd...</source>
-        <translation type="vanished">&amp;اضافة...</translation>
+        <translation>&amp;اضافة...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="125"/>
         <source>&amp;Remove</source>
-        <translation type="vanished">&amp;ازالة</translation>
+        <translation>&amp;ازالة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="176"/>
+        <location filename="../../scribus/ui/preferences/prefs_fonts.cpp" line="49"/>
         <source>Rejected Fonts</source>
-        <translation type="vanished">خطوط مرفوضة</translation>
+        <translation>خطوط مرفوضة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="186"/>
         <source>Font name</source>
-        <translation type="vanished">اسم الخط</translation>
+        <translation>اسم الخط</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="191"/>
         <source>Error message</source>
-        <translation type="vanished">رسالة خطأ</translation>
+        <translation>رسالة خطأ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="196"/>
         <source>Font file</source>
-        <translation type="vanished">ملف الخط</translation>
+        <translation>ملف الخط</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="54"/>
+        <location filename="../../scribus/ui/preferences/prefs_fonts.cpp" line="49"/>
         <source>Available Fonts</source>
-        <translation type="vanished">الخطوط المتوفرة</translation>
+        <translation>الخطوط المتوفرة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="64"/>
+        <location filename="../../scribus/ui/preferences/prefs_fonts.cpp" line="49"/>
         <source>Font Substitutions</source>
-        <translation type="vanished">بدائل الخطوط</translation>
+        <translation>بدائل الخطوط</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="98"/>
+        <location filename="../../scribus/ui/preferences/prefs_fonts.cpp" line="49"/>
         <source>Additional Paths</source>
-        <translation type="vanished">مسارات إضافية</translation>
+        <translation>مسارات إضافية</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fonts.cpp" line="55"/>
         <source>Font Name</source>
-        <translation type="vanished">اسم الخط</translation>
+        <translation>اسم الخط</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fonts.cpp" line="56"/>
         <source>Replacement</source>
-        <translation type="vanished">استبدال</translation>
+        <translation>استبدال</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fonts.cpp" line="97"/>
         <source>Font search paths can only be set in File &gt; Preferences, and only when there is no document currently open. Close any open documents, then use File &gt; Preferences &gt; Fonts to change the font search path.</source>
-        <translation type="vanished">يُمكن ضبط مسارات بحث الخط فقط في ملف &gt; تفضيلات وفقط في الحالة التي لا يوجد بها مستند مفتوح حاليًّا.</translation>
+        <translation>يُمكن ضبط مسارات بحث الخط فقط في ملف &gt; تفضيلات وفقط في الحالة التي لا يوجد بها مستند مفتوح حاليًّا.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fonts.cpp" line="285"/>
+        <location filename="../../scribus/ui/preferences/prefs_fonts.cpp" line="312"/>
         <source>Choose a Directory</source>
-        <translation type="vanished">اختر مجلدًا</translation>
+        <translation>اختر مجلدًا</translation>
     </message>
 </context>
 <context>
     <name>Prefs_Guides</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="371"/>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="24"/>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="63"/>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="131"/>
         <source>Guides</source>
-        <translation type="vanished">الأدلة</translation>
+        <translation>الأدلة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="54"/>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="66"/>
         <source>Placement</source>
-        <translation type="vanished">الموضع</translation>
+        <translation>الموضع</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="171"/>
         <source>Snap Distance:</source>
-        <translation type="vanished">اتبع المسافة:</translation>
+        <translation>اتبع المسافة:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="178"/>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="198"/>
         <source> px</source>
-        <translation type="vanished">بكسل</translation>
+        <translation>بكسل</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="191"/>
         <source>Grab Radius:</source>
-        <translation type="vanished">التقط نصف القطر:</translation>
+        <translation>التقط نصف القطر:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="361"/>
         <source>Visibility</source>
-        <translation type="vanished">الوضوح</translation>
+        <translation>الوضوح</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="384"/>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="69"/>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="137"/>
         <source>Margins</source>
-        <translation type="vanished">الهوامش</translation>
+        <translation>الهوامش</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="397"/>
         <source>Page Grid</source>
-        <translation type="vanished">شبكة الصفحة</translation>
+        <translation>شبكة الصفحة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="421"/>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="67"/>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="135"/>
         <source>Baseline Grid</source>
-        <translation type="vanished">خط الشبكة الأساسي</translation>
+        <translation>خط الشبكة الأساسي</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="268"/>
         <source>Distances</source>
-        <translation type="vanished">المسافات</translation>
+        <translation>المسافات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="296"/>
         <source>Minor Grid Spacing:</source>
-        <translation type="vanished">تباعد الشبكة الثانوية:</translation>
+        <translation>تباعد الشبكة الثانوية:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="306"/>
         <source>Baseline Grid Spacing:</source>
-        <translation type="vanished">تباعد خط الشبكة الأساسي:</translation>
+        <translation>تباعد خط الشبكة الأساسي:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="286"/>
         <source>Major Grid Spacing:</source>
-        <translation type="vanished">تباعد الشبكة الرئيسية:</translation>
+        <translation>تباعد الشبكة الرئيسية:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="320"/>
         <source>Baseline Grid Offset:</source>
-        <translation type="vanished">زيحان خط الشبكة الأساسي:</translation>
+        <translation>زيحان خط الشبكة الأساسي:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="459"/>
         <source>Colors</source>
-        <translation type="vanished">الالوان</translation>
+        <translation>الالوان</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="470"/>
         <source>Guides:</source>
-        <translation type="vanished">الأدلة:</translation>
+        <translation>الأدلة:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="484"/>
         <source>Margins:</source>
-        <translation type="vanished">الهوامش:</translation>
+        <translation>الهوامش:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="498"/>
         <source>Major Grid:</source>
-        <translation type="vanished">الشبكة الرئيسية:</translation>
+        <translation>الشبكة الرئيسية:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="512"/>
         <source>Minor Grid:</source>
-        <translation type="vanished">الشبكة الثانوية:</translation>
+        <translation>الشبكة الثانوية:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="526"/>
         <source>Baseline Grid:</source>
-        <translation type="vanished">خط الشبكة الأساسي:</translation>
+        <translation>خط الشبكة الأساسي:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="86"/>
         <source>Place guides in front of or behind objects on the page</source>
-        <translation type="vanished">ضع الأدلة أمام أو خلف العناصر في الصفحة</translation>
+        <translation>ضع الأدلة أمام أو خلف العناصر في الصفحة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="87"/>
         <source>Distance between the minor grid lines</source>
-        <translation type="vanished">المسافة بين خطوط الشبكة الثانوية</translation>
+        <translation>المسافة بين خطوط الشبكة الثانوية</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="88"/>
         <source>Distance between the major grid lines</source>
-        <translation type="vanished">المسافة بين خطوط الشبكة الرئيسية</translation>
+        <translation>المسافة بين خطوط الشبكة الرئيسية</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="89"/>
         <source>Distance within which an object will snap to your placed guides. After setting this you will need to restart Scribus to set this setting.</source>
-        <translation type="vanished">المسافة التي يتبع خلالها كائن ما الأدلة المُدرجة. يجب أن تُعيد تشغيل سكريبس بعد هذا الضبط لتفعيله.</translation>
+        <translation>المسافة التي يتبع خلالها كائن ما الأدلة المُدرجة. يجب أن تُعيد تشغيل سكريبس بعد هذا الضبط لتفعيله.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="91"/>
         <source>Color of the minor grid lines</source>
-        <translation type="vanished">لون خطوط الشبكة الثانوية</translation>
+        <translation>لون خطوط الشبكة الثانوية</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="92"/>
         <source>Color of the major grid lines</source>
-        <translation type="vanished">لون خطوط الشبكة الرئيسية</translation>
+        <translation>لون خطوط الشبكة الرئيسية</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="93"/>
         <source>Color of the guide lines you insert</source>
-        <translation type="vanished">لون خطوط الدليل الذي أدرجته</translation>
+        <translation>لون خطوط الدليل الذي أدرجته</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="94"/>
         <source>Color for the margin lines</source>
-        <translation type="vanished">لون خطوط الهوامش</translation>
+        <translation>لون خطوط الهوامش</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="95"/>
         <source>Color for the baseline grid</source>
-        <translation type="vanished">لون خط الشبكة الأساسي</translation>
+        <translation>لون خط الشبكة الأساسي</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="96"/>
         <source>Turns the basegrid on or off</source>
-        <translation type="vanished">تشغيل/إطفاء خط الشبكة الأساسي</translation>
+        <translation>تشغيل/إطفاء خط الشبكة الأساسي</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="97"/>
         <source>Distance between the lines of the baseline grid</source>
-        <translation type="vanished">المسافة بين خطوط الشبكة الأساسية</translation>
+        <translation>المسافة بين خطوط الشبكة الأساسية</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="98"/>
         <source>Distance from the top of the page for the first baseline</source>
-        <translation type="vanished">المسافة من أعلى الصفحة لخط الأساس الأول</translation>
+        <translation>المسافة من أعلى الصفحة لخط الأساس الأول</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="99"/>
         <source>Turns the gridlines on or off</source>
-        <translation type="vanished">تُشغّل/تُطفي خطوط الشبكة</translation>
+        <translation>تُشغّل/تُطفي خطوط الشبكة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="100"/>
         <source>Turns the guides on or off</source>
-        <translation type="vanished">تشغيل/إيقاف تشغيل خط الشبكة الأساسي</translation>
+        <translation>تشغيل/إيقاف تشغيل خط الشبكة الأساسي</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="101"/>
         <source>Turns the margins on or off</source>
-        <translation type="vanished">تُشغّل/تُطفي الهوامش</translation>
+        <translation>تُشغّل/تُطفي الهوامش</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="404"/>
         <source>Type:</source>
-        <translation type="vanished">النوع:</translation>
+        <translation>النوع:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="61"/>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="129"/>
         <source>Content Objects</source>
-        <translation type="vanished">عناصر المحتوى</translation>
+        <translation>عناصر المحتوى</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="65"/>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="133"/>
         <source>Grid</source>
-        <translation type="vanished">الشبكة</translation>
+        <translation>الشبكة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="78"/>
         <source>Lines</source>
-        <translation type="vanished">الخطوط</translation>
+        <translation>الخطوط</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="79"/>
         <source>Crosses and Dots</source>
-        <translation type="vanished">التقاطعات والنقاط</translation>
+        <translation>التقاطعات والنقاط</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="90"/>
         <source>Radius of the area where Scribus will allow you to grab an objects handles. After setting this you will need to restart Scribus to set this setting.</source>
-        <translation type="vanished">نصف قطر المنطقة حيث سيسمح لك سكريبس بقبض مناولات الكائنات. بعد إعداد هذا ستحتاج لإعادة تشغيل سكريبس لتعيين هذا الإعداد.</translation>
+        <translation>نصف قطر المنطقة حيث سيسمح لك سكريبس بقبض مناولات الكائنات. بعد إعداد هذا ستحتاج لإعادة تشغيل سكريبس لتعيين هذا الإعداد.</translation>
     </message>
 </context>
 <context>
     <name>Prefs_Hyphenator</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenatorbase.ui" line="35"/>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenator.cpp" line="26"/>
         <source>Hyphenation</source>
-        <translation type="vanished">وصل الكلمات</translation>
+        <translation>وصل الكلمات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenatorbase.ui" line="62"/>
         <source>&amp;Hyphenation Suggestions</source>
-        <translation type="vanished">اقتراحات وصل الكلمات</translation>
+        <translation>اقتراحات وصل الكلمات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenatorbase.ui" line="72"/>
         <source>Hyphenate Text Automatically &amp;During Typing</source>
-        <translation type="vanished">صِل النص تلقائيًّا &amp;أثناء الكتابة</translation>
+        <translation>صِل النص تلقائيًّا &amp;أثناء الكتابة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenatorbase.ui" line="53"/>
         <source>Behaviour</source>
-        <translation type="vanished">السلوك</translation>
+        <translation>السلوك</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenatorbase.ui" line="96"/>
         <source>Word Lists</source>
-        <translation type="vanished">قوائم الكلمات</translation>
+        <translation>قوائم الكلمات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenatorbase.ui" line="104"/>
         <source>Exceptions</source>
-        <translation type="vanished">الاستثناءات</translation>
+        <translation>الاستثناءات</translation>
     </message>
     <message>
         <source>Edit</source>
         <translation type="vanished">تحرير</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenatorbase.ui" line="147"/>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenator.cpp" line="83"/>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenator.cpp" line="101"/>
         <source>Ignore List</source>
-        <translation type="vanished">تجاهل القائمة</translation>
+        <translation>تجاهل القائمة</translation>
     </message>
     <message>
         <source>Hyphenator</source>
@@ -17541,1729 +17918,2304 @@ Do you want to use this?</source>
         <translation type="vanished">أضف مدخلًا جديدًا</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenator.cpp" line="83"/>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenator.cpp" line="135"/>
+        <source>Add new Entries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenator.cpp" line="101"/>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenator.cpp" line="153"/>
         <source>Edit Entry</source>
-        <translation type="vanished">حرّر المدخل</translation>
+        <translation>حرّر المدخل</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenator.cpp" line="135"/>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenator.cpp" line="153"/>
         <source>Exception List</source>
-        <translation type="vanished">قائمة الاستثناء</translation>
+        <translation>قائمة الاستثناء</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenatorbase.ui" line="59"/>
         <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras &gt; Hyphenate Text option</source>
-        <translation type="vanished">سيظهر مربع حوار يُظهر كافة الواصلات المُحتملة لكل كلمة عند استخدامك الملحقات  &gt; خيار وصل نص</translation>
+        <translation>سيظهر مربع حوار يُظهر كافة الواصلات المُحتملة لكل كلمة عند استخدامك الملحقات  &gt; خيار وصل نص</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenatorbase.ui" line="69"/>
         <source>Enables automatic hyphenation of your text while typing</source>
-        <translation type="vanished">يُمكّن وصل الكلمات التلقائي لنصّك أثناء الكتابة</translation>
+        <translation>يُمكّن وصل الكلمات التلقائي لنصّك أثناء الكتابة</translation>
     </message>
 </context>
 <context>
     <name>Prefs_ImageCache</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_imagecache.cpp" line="27"/>
         <source>Enabling the image cache will significantly speed up the loading of images. Enable the cache if you are often working on large documents with lots of images and if you have plenty of disk space in your application data directory.</source>
-        <translation type="vanished">سيزيد تفعيل خابية الصور من سرعة تحميل الصور. فعّل الخابية إذا كنت تعمل على مستندات كبيرة بها كثيرٍ من الصور وإذا كنت تملك مساحة كبيرة على القرص في مجلد بيانات تطبيقك.</translation>
+        <translation>سيزيد تفعيل خابية الصور من سرعة تحميل الصور. فعّل الخابية إذا كنت تعمل على مستندات كبيرة بها كثيرٍ من الصور وإذا كنت تملك مساحة كبيرة على القرص في مجلد بيانات تطبيقك.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_imagecache.cpp" line="30"/>
         <source>Set the level of compression for images in the cache. Higher values result in smaller cache files but also make writes to the cache slower.</source>
-        <translation type="vanished">اضبط مستوى ضغط الصور في الخابية. تُفضي القيم العالية إلى ملفات مخبأ صغيرة لكن تجعل الكتابة إلى الخابية أبطأ.</translation>
+        <translation>اضبط مستوى ضغط الصور في الخابية. تُفضي القيم العالية إلى ملفات مخبأ صغيرة لكن تجعل الكتابة إلى الخابية أبطأ.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_imagecachebase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_imagecache.cpp" line="21"/>
         <source>Image Cache</source>
-        <translation type="vanished">تخزين الصور مؤقتًا</translation>
+        <translation>تخزين الصور مؤقتًا</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_imagecachebase.ui" line="80"/>
         <source>Enable Image Cache</source>
-        <translation type="vanished">تفعيل تخزين الصور مؤقتًا</translation>
+        <translation>تفعيل تخزين الصور مؤقتًا</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_imagecachebase.ui" line="92"/>
         <source>Cache Size Limit:</source>
-        <translation type="vanished">حدّ حجم المخبئية: </translation>
+        <translation>حدّ حجم المخبئية: </translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_imagecachebase.ui" line="123"/>
         <source> Mb</source>
-        <translation type="vanished">ميغابايت</translation>
+        <translation>ميغابايت</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_imagecachebase.ui" line="142"/>
         <source>Cache Entry Limit:</source>
-        <translation type="vanished">حدّ مدخل المخبئية:</translation>
+        <translation>حدّ مدخل المخبئية:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_imagecachebase.ui" line="186"/>
         <source>Compression Level:</source>
-        <translation type="vanished">مستوى الضغط:</translation>
+        <translation>مستوى الضغط:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_imagecache.cpp" line="28"/>
         <source>Limit the total size of all files in the image cache directory to this amount</source>
-        <translation type="vanished">اقصر الحجم الكلي لجميع الملفات في مجلد خابية الصور على هذا المقدار</translation>
+        <translation>اقصر الحجم الكلي لجميع الملفات في مجلد خابية الصور على هذا المقدار</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_imagecache.cpp" line="29"/>
         <source>Limit the number of cache entries to this number</source>
-        <translation type="vanished">اقصر عدد مدخلات المَخبأ على هذا العدد</translation>
+        <translation>اقصر عدد مدخلات المَخبأ على هذا العدد</translation>
     </message>
 </context>
 <context>
     <name>Prefs_ItemTools</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="35"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="32"/>
         <source>Item Tools</source>
-        <translation type="vanished">أدوات العنصر</translation>
+        <translation>أدوات العنصر</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="65"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="144"/>
         <source>Text</source>
-        <translation type="vanished">النص</translation>
+        <translation>النص</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="207"/>
         <source>Columns:</source>
-        <translation type="vanished">أعمدة:</translation>
+        <translation>أعمدة:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="214"/>
         <source>Column Gap:</source>
-        <translation type="vanished">الفراغ بين الأعمدة:</translation>
+        <translation>الفراغ بين الأعمدة:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="428"/>
         <source>Tab Fill Character:</source>
-        <translation type="vanished">حرف تعبئة الجدولة:</translation>
+        <translation>حرف تعبئة الجدولة:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="468"/>
         <source>Tab Width:</source>
-        <translation type="vanished">عرض التبويب:</translation>
+        <translation>عرض التبويب:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="508"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="747"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1160"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1452"/>
         <source>Fill Color:</source>
-        <translation type="vanished">لون التعبئة:</translation>
+        <translation>لون التعبئة:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="408"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="781"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1060"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1334"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1418"/>
         <source>Line Color:</source>
-        <translation type="vanished">خط الألوان:</translation>
+        <translation>خط الألوان:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="285"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="305"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="451"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="481"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="754"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="814"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1053"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1097"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1254"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1411"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1469"/>
         <source>Shading:</source>
-        <translation type="vanished">التظليل:</translation>
+        <translation>التظليل:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="295"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="319"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="435"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="488"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="737"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="771"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="893"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="930"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1067"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1114"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1315"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1381"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1428"/>
         <source> %</source>
-        <translation type="vanished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="276"/>
         <source>Columns &amp; Text Distances</source>
-        <translation type="vanished">مسافات النص والأعمدة</translation>
+        <translation>مسافات النص والأعمدة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="183"/>
         <source>Top:</source>
-        <translation type="vanished">أعلى:</translation>
+        <translation>أعلى:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="193"/>
         <source>Bottom:</source>
-        <translation type="vanished">أسفل:</translation>
+        <translation>أسفل:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="200"/>
         <source>Left:</source>
-        <translation type="vanished">يسار:</translation>
+        <translation>يسار:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="224"/>
         <source>Right:</source>
-        <translation type="vanished">يمين:</translation>
+        <translation>يمين:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="329"/>
         <source>Font:</source>
-        <translation type="vanished">الخط:</translation>
+        <translation>الخط:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="349"/>
         <source>Size:</source>
-        <translation type="vanished">الحجم:</translation>
+        <translation>الحجم:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="339"/>
         <source>Color:</source>
-        <translation type="vanished">اللون:</translation>
+        <translation>اللون:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="312"/>
         <source>Stroke:</source>
-        <translation type="vanished">الحدّ:</translation>
+        <translation>الحدّ:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="564"/>
         <source>Preview</source>
-        <translation type="vanished">معاينة</translation>
+        <translation>معاينة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="693"/>
         <source>Images</source>
-        <translation type="vanished">الصور</translation>
+        <translation>الصور</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="836"/>
         <source>Use Embedded Clipping Path</source>
-        <translation type="vanished">استخدم مسار القطع المضمّن</translation>
+        <translation>استخدم مسار القطع المضمّن</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="864"/>
         <source>Scaling</source>
-        <translation type="vanished">تحجيم</translation>
+        <translation>تحجيم</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="940"/>
         <source>Horizontal Scaling:</source>
-        <translation type="vanished">تحجيم أفقي:</translation>
+        <translation>تحجيم أفقي:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="903"/>
         <source>Vertical Scaling:</source>
-        <translation type="vanished">تحجيم رأسي:</translation>
+        <translation>تحجيم رأسي:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="576"/>
+        <source>First Line Offset</source>
+        <translation>زيحان السطر الأول</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="642"/>
+        <source>Offset:</source>
+        <translation>المعادلة:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="650"/>
+        <source>Maximum Ascent</source>
+        <translation>أقصى تصاعد</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="655"/>
+        <source>Font Ascent</source>
+        <translation>تصاعد الخط</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="660"/>
+        <source>Line Spacing</source>
+        <translation>تباعد الأسطر</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="665"/>
+        <source>Baseline Grid</source>
+        <translation>خط الشبكة الأساسي</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="878"/>
+        <source>Auto-Fit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="970"/>
         <source>On Screen Preview</source>
-        <translation type="vanished">معاينة على الشاشة</translation>
+        <translation>معاينة على الشاشة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="984"/>
         <source>Full Resolution</source>
-        <translation type="vanished">دقة عالية</translation>
+        <translation>دقة عالية</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="994"/>
         <source>Normal Resolution</source>
-        <translation type="vanished">دقة عادية</translation>
+        <translation>دقة عادية</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1004"/>
         <source>Low Resolution</source>
-        <translation type="vanished">دقة منخفضة</translation>
+        <translation>دقة منخفضة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1032"/>
         <source>Shapes</source>
-        <translation type="vanished">الأشكال</translation>
+        <translation>الأشكال</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1077"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1301"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1394"/>
         <source>Line Style:</source>
-        <translation type="vanished">نمط الخط:</translation>
+        <translation>نمط الخط:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1084"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1294"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1445"/>
         <source>Line Width:</source>
-        <translation type="vanished">عرض الخط:</translation>
+        <translation>عرض الخط:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1186"/>
         <source>Regular Polygons</source>
-        <translation type="vanished">مضلّعات منتظمة</translation>
+        <translation>مضلّعات منتظمة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1233"/>
         <source>Lines</source>
-        <translation type="vanished">الخطوط</translation>
+        <translation>الخطوط</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1308"/>
         <source>Start Arrow:</source>
-        <translation type="vanished">سهم البداية:</translation>
+        <translation>سهم البداية:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1287"/>
         <source>End Arrow:</source>
-        <translation type="vanished">سهم النهاية:</translation>
+        <translation>سهم النهاية:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="52"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="53"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="54"/>
         <source>Hairline</source>
-        <translation type="vanished">خط رفيع</translation>
+        <translation>خط رفيع</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="65"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="385"/>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
-        <translation type="vanished">Woven silk pyjamas exchanged for blue quartz</translation>
+        <translation>Woven silk pyjamas exchanged for blue quartz</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="108"/>
         <source>None</source>
         <comment>tab fill</comment>
-        <translation type="vanished">لا شيء</translation>
+        <translation>لا شيء</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="109"/>
         <source>Dot</source>
-        <translation type="vanished">نقطة</translation>
+        <translation>نقطة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="110"/>
         <source>Hyphen</source>
-        <translation type="vanished">شرطة</translation>
+        <translation>شرطة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="111"/>
         <source>Underscore</source>
-        <translation type="vanished">تسطير سفلي</translation>
+        <translation>تسطير سفلي</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="112"/>
         <source>Custom</source>
-        <translation type="vanished">مخصص</translation>
+        <translation>مخصص</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1360"/>
         <source>Calligraphic Pen</source>
-        <translation type="vanished">قلم خطي</translation>
+        <translation>قلم خطي</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1438"/>
         <source>Pen Angle:</source>
-        <translation type="vanished">زاوية القلم:</translation>
+        <translation>زاوية القلم:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1505"/>
         <source>Pen Width:</source>
-        <translation type="vanished">عرض القلم:</translation>
+        <translation>عرض القلم:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="66"/>
         <source>Keep horizontal and vertical scaling the same</source>
-        <translation type="vanished">أبقِ التحجيم الأفقي والرأسي متساويين</translation>
+        <translation>أبقِ التحجيم الأفقي والرأسي متساويين</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1528"/>
         <source>Arc</source>
-        <translation type="vanished">قوس</translation>
+        <translation>قوس</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1575"/>
         <source>Spiral</source>
-        <translation type="vanished">لولبي</translation>
+        <translation>لولبي</translation>
     </message>
 </context>
 <context>
     <name>Prefs_KeyboardShortcuts</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="14"/>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="39"/>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcuts.cpp" line="37"/>
         <source>Keyboard Shortcuts</source>
-        <translation type="vanished">اختصارات لوحة المفاتيح</translation>
+        <translation>اختصارات لوحة المفاتيح</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="95"/>
         <source>Search:</source>
-        <translation type="vanished">ابحث:</translation>
+        <translation>ابحث:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="111"/>
         <source>Action</source>
-        <translation type="vanished">الإجراء</translation>
+        <translation>الإجراء</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="116"/>
         <source>Shortcut</source>
-        <translation type="vanished">الاختصار</translation>
+        <translation>الاختصار</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="146"/>
         <source>Shortcut for Selected Action</source>
-        <translation type="vanished">مفتاح الاختصار للإجراء المحدد</translation>
+        <translation>مفتاح الاختصار للإجراء المحدد</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="162"/>
         <source>&amp;No Key</source>
-        <translation type="vanished">&amp;بلا مفتاح</translation>
+        <translation>&amp;بلا مفتاح</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="165"/>
         <source>Alt+N</source>
-        <translation type="vanished">Alt+N</translation>
+        <translation>Alt+N</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="172"/>
         <source>&amp;User Defined Key</source>
-        <translation type="vanished">&amp;مفتاح محدد من المستخدم</translation>
+        <translation>&amp;مفتاح محدد من المستخدم</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="175"/>
         <source>Alt+U</source>
-        <translation type="vanished">Alt+U</translation>
+        <translation>Alt+U</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="198"/>
         <source>Set &amp;Key</source>
-        <translation type="vanished">اضبط ال&amp;مفتاح</translation>
+        <translation>اضبط ال&amp;مفتاح</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="201"/>
         <source>Alt+K</source>
-        <translation type="vanished">Alt+K</translation>
+        <translation>Alt+K</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="217"/>
         <source>CTRL+ALT+SHIFT+W</source>
-        <translation type="vanished">CTRL+ALT+SHIFT+W</translation>
+        <translation>CTRL+ALT+SHIFT+W</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="257"/>
         <source>Loadable Shortcut Sets</source>
-        <translation type="vanished">مجموعات اختصارات قابلة للتحميل</translation>
+        <translation>مجموعات اختصارات قابلة للتحميل</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="273"/>
         <source>Keyboard shortcut sets available to load</source>
-        <translation type="vanished">مجموعات اختصارات لوحة المفاتيح متوفرة لتحميلها</translation>
+        <translation>مجموعات اختصارات لوحة المفاتيح متوفرة لتحميلها</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="280"/>
         <source>Load the selected shortcut set</source>
-        <translation type="vanished">حمّل مجموعة الاختصارات المحددة</translation>
+        <translation>حمّل مجموعة الاختصارات المحددة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="283"/>
         <source>&amp;Load</source>
-        <translation type="vanished">&amp;حمّل</translation>
+        <translation>&amp;حمّل</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="286"/>
         <source>Alt+L</source>
-        <translation type="vanished">Alt+L</translation>
+        <translation>Alt+L</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="309"/>
         <source>Import a shortcut set into the current configuration</source>
-        <translation type="vanished">استورد مجموعة اختصارات للإعداد الحالي</translation>
+        <translation>استورد مجموعة اختصارات للإعداد الحالي</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="312"/>
         <source>&amp;Import...</source>
-        <translation type="vanished">&amp;استورد...</translation>
+        <translation>&amp;استورد...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="315"/>
         <source>Alt+I</source>
-        <translation type="vanished">Alt+I</translation>
+        <translation>Alt+I</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="322"/>
         <source>Export the current shortcuts into an importable file</source>
-        <translation type="vanished">صدّر الاختصارات الحالية لملف قابل للاستيراد</translation>
+        <translation>صدّر الاختصارات الحالية لملف قابل للاستيراد</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="325"/>
         <source>&amp;Export...</source>
-        <translation type="vanished">&amp;صدّر...</translation>
+        <translation>&amp;صدّر...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="328"/>
         <source>Alt+E</source>
-        <translation type="vanished">Alt+E</translation>
+        <translation>Alt+E</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="351"/>
         <source>Reload the default Scribus shortcuts</source>
-        <translation type="vanished">أعد تحميل اختصارات سكريبس الافتراضية</translation>
+        <translation>أعد تحميل اختصارات سكريبس الافتراضية</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="354"/>
         <source>&amp;Reset</source>
-        <translation type="vanished">&amp;صفّر</translation>
+        <translation>&amp;صفّر</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="357"/>
         <source>Alt+R</source>
-        <translation type="vanished">Alt+R</translation>
+        <translation>Alt+R</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcuts.cpp" line="132"/>
         <source>Select a Key set file to read</source>
-        <translation type="vanished">اختر ملف مجموعة مفاتيح لقراءته</translation>
+        <translation>اختر ملف مجموعة مفاتيح لقراءته</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcuts.cpp" line="132"/>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcuts.cpp" line="140"/>
         <source>Key Set XML Files (*.xml)</source>
-        <translation type="vanished">ملفات XML لمجموعة المفاتيح (*.xml)</translation>
+        <translation>ملفات XML لمجموعة المفاتيح (*.xml)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcuts.cpp" line="140"/>
         <source>Select a Key set file to save to</source>
-        <translation type="vanished">اختر ملف مجموعة مفاتيح للحفظ فيه</translation>
+        <translation>اختر ملف مجموعة مفاتيح للحفظ فيه</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcuts.cpp" line="222"/>
         <source>Export Keyboard Shortcuts to File</source>
-        <translation type="vanished">تصدير اختصارات لوحة المفاتيح إلى ملف</translation>
+        <translation>تصدير اختصارات لوحة المفاتيح إلى ملف</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcuts.cpp" line="222"/>
         <source>Enter the name of the shortcut set:</source>
-        <translation type="vanished">أدخل اسم مجموعة الاختصارات:</translation>
+        <translation>أدخل اسم مجموعة الاختصارات:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcuts.cpp" line="532"/>
         <source>The %1 key sequence is already in use by &quot;%2&quot;</source>
-        <translation type="vanished">تسلسل المفاتيح 1% قيد الاستخدام بالفعل من &quot;2%&quot;</translation>
+        <translation>تسلسل المفاتيح 1% قيد الاستخدام بالفعل من &quot;2%&quot;</translation>
     </message>
 </context>
 <context>
     <name>Prefs_Miscellaneous</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_miscellaneousbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_miscellaneous.cpp" line="18"/>
         <source>Miscellaneous</source>
-        <translation type="vanished">متفرقات</translation>
+        <translation>متفرقات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_miscellaneousbase.ui" line="80"/>
         <source>Always ask before fonts are replaced when loading a document</source>
-        <translation type="vanished">اسأل دائمًا قبل استبدال خطوط عند تحميل مستندٍ ما</translation>
+        <translation>اسأل دائمًا قبل استبدال خطوط عند تحميل مستندٍ ما</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_miscellaneousbase.ui" line="87"/>
         <source>Preview of current Paragraph Style is visible when editing Styles</source>
-        <translation type="vanished">معاينة نمط الفقرة الحالية مرئية عند تحرير الأنماط</translation>
+        <translation>معاينة نمط الفقرة الحالية مرئية عند تحرير الأنماط</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_miscellaneousbase.ui" line="116"/>
         <source>Lorem Ipsum</source>
-        <translation type="vanished">Lorem Ipsum</translation>
+        <translation>Lorem Ipsum</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_miscellaneousbase.ui" line="130"/>
         <source>Always use standard Lorem Ipsum text</source>
-        <translation type="vanished">دائمًا استخدم نص لوريم إيبسوم القياسي</translation>
+        <translation>دائمًا استخدم نص لوريم إيبسوم القياسي</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_miscellaneousbase.ui" line="139"/>
         <source>Paragraph Count:</source>
-        <translation type="vanished">عدد كلمات الفقرة:</translation>
+        <translation>عدد كلمات الفقرة:</translation>
     </message>
 </context>
 <context>
     <name>Prefs_OperatorTools</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_operatortools.cpp" line="22"/>
         <source>Operator Tools</source>
-        <translation type="vanished">أدوات المشغل</translation>
+        <translation>أدوات المشغل</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="66"/>
         <source>Zoom</source>
-        <translation type="vanished">تقريب</translation>
+        <translation>تقريب</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="77"/>
         <source>Minimum:</source>
-        <translation type="vanished">أدنى</translation>
+        <translation>أدنى</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="84"/>
         <source>Maximum:</source>
-        <translation type="vanished">أقصى:</translation>
+        <translation>أقصى:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="91"/>
         <source>Stepping:</source>
-        <translation type="vanished">تدرّج:</translation>
+        <translation>تدرّج:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="98"/>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="111"/>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="124"/>
         <source> %</source>
-        <translation type="vanished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="153"/>
         <source>Miscellaneous</source>
-        <translation type="vanished">متفرقات</translation>
+        <translation>متفرقات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="165"/>
         <source>Item Duplicate</source>
-        <translation type="vanished">مضاعفة العنصر</translation>
+        <translation>مضاعفة العنصر</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="184"/>
         <source>X Displacement:</source>
-        <translation type="vanished">إزاحة سينية:</translation>
+        <translation>إزاحة سينية:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="191"/>
         <source>Y Displacement:</source>
-        <translation type="vanished">إزاحة صادية:</translation>
+        <translation>إزاحة صادية:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="228"/>
         <source>Rotation Tool</source>
-        <translation type="vanished">أداة التدوير</translation>
+        <translation>أداة التدوير</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="247"/>
         <source>Constrain To:</source>
-        <translation type="vanished">قيّد بـ:</translation>
+        <translation>قيّد بـ:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortools.cpp" line="39"/>
         <source>Minimum magnification allowed</source>
-        <translation type="vanished">الحد الأدنى من التكبير المسموح به</translation>
+        <translation>الحد الأدنى من التكبير المسموح به</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortools.cpp" line="40"/>
         <source>Maximum magnification allowed</source>
-        <translation type="vanished">الحد الأقصى من التكبير المسموح به</translation>
+        <translation>الحد الأقصى من التكبير المسموح به</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortools.cpp" line="41"/>
         <source>Change in magnification for each zoom operation</source>
-        <translation type="vanished">غيّر التكبير لكل عملية تكبير/تصغير</translation>
+        <translation>غيّر التكبير لكل عملية تكبير/تصغير</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortools.cpp" line="42"/>
         <source>Horizontal displacement of page items</source>
-        <translation type="vanished">إزاحة أفقية لعناصر الصفحة</translation>
+        <translation>إزاحة أفقية لعناصر الصفحة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortools.cpp" line="43"/>
         <source>Vertical displacement of page items</source>
-        <translation type="vanished">إزاحة رأسية لعناصر الصفحة</translation>
+        <translation>إزاحة رأسية لعناصر الصفحة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortools.cpp" line="44"/>
         <source>Constrain value for the rotation tool when the Control key is pressed</source>
-        <translation type="vanished">قيّد القيمة لأداة التدوير عند الضغط على زر &quot;التحكم&quot;</translation>
+        <translation>قيّد القيمة لأداة التدوير عند الضغط على زر &quot;التحكم&quot;</translation>
     </message>
 </context>
 <context>
     <name>Prefs_PDFExport</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="45"/>
         <source>PDF Export</source>
-        <translation type="vanished">تصدير PDF</translation>
+        <translation>تصدير PDF</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="66"/>
         <source>Export Range</source>
-        <translation type="vanished">صدّر نطاقًا</translation>
+        <translation>صدّر نطاقًا</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="80"/>
         <source>All Pages</source>
-        <translation type="vanished">كل الصفحات</translation>
+        <translation>كل الصفحات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="90"/>
         <source>Choose Pages</source>
-        <translation type="vanished">اختر صفحات</translation>
+        <translation>اختر صفحات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="145"/>
         <source>Rotation and Mirroring</source>
-        <translation type="vanished">التدوير والعَكْس</translation>
+        <translation>التدوير والعَكْس</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="161"/>
         <source>Rotation:</source>
-        <translation type="vanished">تدوير:</translation>
+        <translation>تدوير:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="188"/>
         <source>Page Mirroring:</source>
-        <translation type="vanished">عكس الصفحات:</translation>
+        <translation>عكس الصفحات:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="298"/>
         <source>Page Binding:</source>
-        <translation type="vanished">ربط الصفحات:</translation>
+        <translation>ربط الصفحات:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="465"/>
         <source>Resolution for EPS Graphics:</source>
-        <translation type="vanished">الدقة لرسومات EPS: </translation>
+        <translation>الدقة لرسومات EPS: </translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="435"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="472"/>
         <source> dpi</source>
-        <translation type="vanished">نقطة لكل بوصة</translation>
+        <translation>نقطة لكل بوصة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="312"/>
         <source>Clip to Printer Margins</source>
-        <translation type="vanished">قصّ إلى هوامش الطابعة</translation>
+        <translation>قصّ إلى هوامش الطابعة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="428"/>
         <source>Limit Maximum Image Resolution to:</source>
-        <translation type="vanished">اقصر أقصى دقة للصورة على:</translation>
+        <translation>اقصر أقصى دقة للصورة على:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="652"/>
         <source>Allow Copying Text and Graphics</source>
-        <translation type="vanished">اسمح بنسخ النص والرسومات</translation>
+        <translation>اسمح بنسخ النص والرسومات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="241"/>
         <source>File Options</source>
-        <translation type="vanished">خيارات الملفات</translation>
+        <translation>خيارات الملفات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="54"/>
         <source>Pages</source>
-        <translation type="vanished">صفحات</translation>
+        <translation>صفحات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="288"/>
         <source>Compatibility:</source>
-        <translation type="vanished">التوافق:</translation>
+        <translation>التوافق:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="319"/>
         <source>Generate Thumbnails</source>
-        <translation type="vanished">ولّد صورًا مصغرة</translation>
+        <translation>ولّد صورًا مصغرة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="326"/>
         <source>Save Linked Text Frames as PDF Articles</source>
-        <translation type="vanished">احفظ الإطارات النصية المترابطة كمقالات PDF&#xa0;</translation>
+        <translation>احفظ الإطارات النصية المترابطة كمقالات PDF&#xa0;</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="333"/>
         <source>Include Layers</source>
-        <translation type="vanished">ضمّن الطبقات</translation>
+        <translation>ضمّن الطبقات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="340"/>
         <source>Include Bookmarks</source>
-        <translation type="vanished">تضمين علامات</translation>
+        <translation>تضمين علامات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="347"/>
         <source>Embed PDF &amp;&amp; EPS Files (Experimental)</source>
-        <translation type="vanished">ضمّن ملفات PDF وEPS (تجريبي)</translation>
+        <translation>ضمّن ملفات PDF وEPS (تجريبي)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="378"/>
         <source>Compression</source>
-        <translation type="vanished">الضغط</translation>
+        <translation>الضغط</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="392"/>
         <source>Compress Text and Vector Graphics</source>
-        <translation type="vanished">اضغط النص والرسوم المتجهية</translation>
+        <translation>اضغط النص والرسوم المتجهية</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="404"/>
         <source>Image Compression Method:</source>
-        <translation type="vanished">طريقة ضغط الصور:</translation>
+        <translation>طريقة ضغط الصور:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="414"/>
         <source>Image Compression Quality:</source>
-        <translation type="vanished">جودة ضغط الصور:</translation>
+        <translation>جودة ضغط الصور:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="518"/>
         <source>Security</source>
-        <translation type="vanished">الأمان</translation>
+        <translation>الأمان</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="524"/>
         <source>Use Encryption</source>
-        <translation type="vanished">استخدم التشفير</translation>
+        <translation>استخدم التشفير</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="553"/>
         <source>Passwords</source>
-        <translation type="vanished">كلمة سر</translation>
+        <translation>كلمة سر</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="572"/>
         <source>Owner:</source>
-        <translation type="vanished">المالك:</translation>
+        <translation>المالك:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="586"/>
         <source>User:</source>
-        <translation type="vanished">المستخدم:</translation>
+        <translation>المستخدم:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="624"/>
         <source>Settings</source>
-        <translation type="vanished">الإعدادات</translation>
+        <translation>الإعدادات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="638"/>
         <source>Allow Printing the Document</source>
-        <translation type="vanished">اسمح بطباعة المستند</translation>
+        <translation>اسمح بطباعة المستند</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="645"/>
         <source>Allow Changing the Document</source>
-        <translation type="vanished">اسمح بتغيير المستند</translation>
+        <translation>اسمح بتغيير المستند</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="659"/>
         <source>Allow Adding Annotations and Fields</source>
-        <translation type="vanished">اسمح بإضافة حقول وتعليقات</translation>
+        <translation>اسمح بإضافة حقول وتعليقات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="680"/>
         <source>Color</source>
-        <translation type="vanished">لون</translation>
+        <translation>لون</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="727"/>
         <source>Output Intended For:</source>
-        <translation type="vanished">الإخراج بهدف:</translation>
+        <translation>الإخراج بهدف:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="739"/>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation type="vanished">حوّل الألوان الموضعية إلى ألوان معالجة</translation>
+        <translation>حوّل الألوان الموضعية إلى ألوان معالجة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="768"/>
         <source>Solid Colors</source>
-        <translation type="vanished">ألوان خالصة</translation>
+        <translation>ألوان خالصة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="789"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="856"/>
         <source>Use Color Profile</source>
-        <translation type="vanished">استخدم ملف تعريف اللون</translation>
+        <translation>استخدم ملف تعريف اللون</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="798"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="872"/>
         <source>Profile:</source>
-        <translation type="vanished">ملف تعريف:</translation>
+        <translation>ملف تعريف:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="808"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="882"/>
         <source>Rendering Intent:</source>
-        <translation type="vanished">هدف العرض:</translation>
+        <translation>هدف العرض:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="842"/>
         <source>Images</source>
-        <translation type="vanished">الصور</translation>
+        <translation>الصور</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="863"/>
         <source>Do not use Embedded Color Profiles</source>
-        <translation type="vanished">لا تستخدم ملفات تعريف اللون المضمّنة :</translation>
+        <translation>لا تستخدم ملفات تعريف اللون المضمّنة :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="916"/>
         <source>Custom Rendering</source>
-        <translation type="vanished">تصيير مخصص</translation>
+        <translation>تصيير مخصص</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="930"/>
         <source>Use Custom Rendering</source>
-        <translation type="vanished">استخدم تصيير مخصص</translation>
+        <translation>استخدم تصيير مخصص</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="942"/>
         <source>Color:</source>
-        <translation type="vanished">اللون:</translation>
+        <translation>اللون:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="952"/>
         <source>Frequency:</source>
-        <translation type="vanished">التردد:</translation>
+        <translation>التردد:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="969"/>
         <source>Angle:</source>
-        <translation type="vanished">الزاوية:</translation>
+        <translation>الزاوية:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="976"/>
         <source> °</source>
-        <translation type="vanished"> °</translation>
+        <translation> °</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="989"/>
         <source>Spot Function:</source>
-        <translation type="vanished">وظيفة اللون الموضعي:</translation>
+        <translation>وظيفة اللون الموضعي:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1019"/>
         <source>Pre-Press</source>
-        <translation type="vanished">ما قبل الطباعة</translation>
+        <translation>ما قبل الطباعة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1067"/>
         <source>Printer Marks</source>
-        <translation type="vanished">علامات الطابعة</translation>
+        <translation>علامات الطابعة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1128"/>
         <source>Page Information</source>
-        <translation type="vanished">معلومات الصفحات</translation>
+        <translation>معلومات الصفحات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1324"/>
         <source>Embedding</source>
-        <translation type="vanished">تضمين</translation>
+        <translation>تضمين</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1630"/>
         <source>Facing Pages Left</source>
-        <translation type="vanished">يقابل يسار الصفحات</translation>
+        <translation>يقابل يسار الصفحات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1637"/>
         <source>Facing Pages Right</source>
-        <translation type="vanished">يقابل يمين الصفحات</translation>
+        <translation>يقابل يمين الصفحات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1121"/>
         <source>Registration Marks</source>
-        <translation type="vanished">علامات التسجيل</translation>
+        <translation>علامات التسجيل</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1143"/>
         <source>Crop Marks</source>
-        <translation type="vanished">علامات الاقتصاص</translation>
+        <translation>علامات الاقتصاص</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1107"/>
         <source>Bleed Marks</source>
-        <translation type="vanished">علامات تجاوزات الهوامش</translation>
+        <translation>علامات تجاوزات الهوامش</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1114"/>
         <source>Color Bars</source>
-        <translation type="vanished">أشرطة الألوان</translation>
+        <translation>أشرطة الألوان</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1190"/>
         <source>Bleed Settings</source>
-        <translation type="vanished">إعدادات تجاوزات الهوامش</translation>
+        <translation>إعدادات تجاوزات الهوامش</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1204"/>
         <source>Use Document Bleeds</source>
-        <translation type="vanished">استخدم تجاوزات هوامش المستند</translation>
+        <translation>استخدم تجاوزات هوامش المستند</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1272"/>
         <source>Output Profile:</source>
-        <translation type="vanished">ملف الخَْرج: </translation>
+        <translation>ملف الخَْرج: </translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1282"/>
         <source>Information String:</source>
-        <translation type="vanished">سلسلة المعلومات:</translation>
+        <translation>سلسلة المعلومات:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1312"/>
         <source>Fonts</source>
-        <translation type="vanished">خطوط</translation>
+        <translation>خطوط</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1372"/>
         <source>Embed All</source>
-        <translation type="vanished">ضمّن الكل</translation>
+        <translation>ضمّن الكل</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1362"/>
         <source>Fonts to Embed</source>
-        <translation type="vanished">الخطوط للتضمين</translation>
+        <translation>الخطوط للتضمين</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1454"/>
         <source>Extras</source>
-        <translation type="vanished">إضافي</translation>
+        <translation>إضافي</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1460"/>
         <source>Enable Presentation Effects</source>
-        <translation type="vanished">فعّل تأثيرات العرض</translation>
+        <translation>فعّل تأثيرات العرض</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1479"/>
         <source>Display Duration:</source>
-        <translation type="vanished">مدة العرض:</translation>
+        <translation>مدة العرض:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1486"/>
         <source>Effect Duration:</source>
-        <translation type="vanished">مدة التأثير:</translation>
+        <translation>مدة التأثير:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1493"/>
         <source>Effect Type:</source>
-        <translation type="vanished">نوع التأثير:</translation>
+        <translation>نوع التأثير:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1503"/>
         <source>Moving Lines:</source>
-        <translation type="vanished">خطوط التحريك:</translation>
+        <translation>خطوط التحريك:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1513"/>
         <source>From the:</source>
-        <translation type="vanished">من:</translation>
+        <translation>من:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1523"/>
         <source>Direction:</source>
-        <translation type="vanished">الاتجاه:</translation>
+        <translation>الاتجاه:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1533"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1543"/>
         <source> s</source>
-        <translation type="vanished">ثانية</translation>
+        <translation>ثانية</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1558"/>
         <source>Apply Effect to All Pages</source>
-        <translation type="vanished">طبّق التأثير على كل الصفحات</translation>
+        <translation>طبّق التأثير على كل الصفحات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1582"/>
         <source>Show Page Previews</source>
-        <translation type="vanished">أظهر معاينات الصفحات</translation>
+        <translation>أظهر معاينات الصفحات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1590"/>
         <source>Viewer</source>
-        <translation type="vanished">العارض</translation>
+        <translation>العارض</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1602"/>
         <source>Document Layout</source>
-        <translation type="vanished">تخطيط المستند</translation>
+        <translation>تخطيط المستند</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1616"/>
         <source>Single Page</source>
-        <translation type="vanished">صفحة واحدة</translation>
+        <translation>صفحة واحدة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1623"/>
         <source>Continuous Pages</source>
-        <translation type="vanished">صفحات متصلة</translation>
+        <translation>صفحات متصلة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1666"/>
         <source>Visual Appearance</source>
-        <translation type="vanished">المظهر المرئي</translation>
+        <translation>المظهر المرئي</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1684"/>
         <source>Use Viewer&apos;s Default</source>
-        <translation type="vanished">استخدم العارض الافتراضي</translation>
+        <translation>استخدم العارض الافتراضي</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1691"/>
         <source>Use Full Screen Mode</source>
-        <translation type="vanished">استخدم وضع ملء الشاشة</translation>
+        <translation>استخدم وضع ملء الشاشة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1698"/>
         <source>Display Bookmarks Tab</source>
-        <translation type="vanished">اظهر علامة تبويب العلامات</translation>
+        <translation>اظهر علامة تبويب العلامات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1705"/>
         <source>Display Thumbnails</source>
-        <translation type="vanished">اعرض الصور المصغرة</translation>
+        <translation>اعرض الصور المصغرة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1712"/>
         <source>Display Layers Tab</source>
-        <translation type="vanished">أظهر علامة تبويب الطبقات</translation>
+        <translation>أظهر علامة تبويب الطبقات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1723"/>
         <source>Hide Viewer&apos;s Menu Bar</source>
-        <translation type="vanished">اخفِ شريط قوائم العارض</translation>
+        <translation>اخفِ شريط قوائم العارض</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1730"/>
         <source>Hide Viewer&apos;s Tool Bar</source>
-        <translation type="vanished">اخفِ شريط أدوات العارض</translation>
+        <translation>اخفِ شريط أدوات العارض</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1737"/>
         <source>Zoom Pages to fit Viewer Window</source>
-        <translation type="vanished">تكبير/تصغير الصفحات لتلائم نافذة العرض</translation>
+        <translation>تكبير/تصغير الصفحات لتلائم نافذة العرض</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1783"/>
         <source>Special Actions</source>
-        <translation type="vanished">إجراءات خاصة</translation>
+        <translation>إجراءات خاصة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1799"/>
         <source>Javascript to be executed when PDF document is opened:</source>
-        <translation type="vanished">تنفيذ جافا سكريبت (Javascript) عند فتح مستند PDF:</translation>
+        <translation>تنفيذ جافا سكريبت (Javascript) عند فتح مستند PDF:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="61"/>
         <source>Automatically rotate the exported pages</source>
-        <translation type="vanished">أدِر الصفحات المصدرة تلقائيُا</translation>
+        <translation>أدِر الصفحات المصدرة تلقائيُا</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="62"/>
         <source>Export all pages to PDF</source>
-        <translation type="vanished">تصدير كل الصفحات إلى PDF</translation>
+        <translation>تصدير كل الصفحات إلى PDF</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="63"/>
         <source>Export a range of pages to PDF</source>
-        <translation type="vanished">تصدير نطاق من الصفحات إلى PDF</translation>
+        <translation>تصدير نطاق من الصفحات إلى PDF</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="69"/>
         <source>Determines the PDF compatibility.&lt;br/&gt;&lt;b&gt;PDF 1.3&lt;/b&gt;, which is the earliest supported version, gives the widest compatibility with printers&apos; RIPS.&lt;br/&gt;&lt;b&gt;PDF 1.4&lt;/b&gt;, which is the default version, supports features such as transparency and 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; is for blind exchange with colors strictly specified in CMYK or spot colors.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; is an extension of PDF/X-3 to support transparency and layering.</source>
-        <translation type="vanished">يُحدّد توافقية PDF. &lt;br/&gt;&lt;b&gt;PDF 1.3، وهو الإصدار الأقدم المدعوم حيث يمنح توافقية أكثر شمولًا مع معالج الصور النقطية للطابعات.&lt;br/&gt;&lt;b&gt;PDF 1.4&lt;/b&gt; وهو الإصدار الافتراضي الذي يدعم مميزات مثل الشفافية وترميز 128 بت.&lt;br/&gt;&lt;b&gt; يعد PDF 1.5&lt;/b&gt;ضروريًا عندما ترغب في الإبقاء على الكائنات في طبقات منفصلة ضمن PDF.&lt;br/&gt;&lt;b&gt; PDF/X-1a&lt;/b&gt; هو للتبادل الأعمى للألوان المحددة بدقة في النموذج اللوني س م ص د أو الألوان الموضعية. &lt;br/&gt;&lt;b&gt; PDF/X-3 &lt;/b&gt;هو لتصدير  PDF عندما ترغب في إدارة ألوان النموذج ح خ ز للطباعة التجارية باستخدام ويمكن تحديده عند تفعيل إدارة الألوان. ويُستخدم فقط عندما تنصح به طابعتك او في بعض حالات الطباعة باستخدام طابعة ليزر رقمية ملونة بأربعة ألوان. &lt;br/&gt;&lt;b&gt; PDF/X-4 &lt;/b&gt; هو امتداد لــ PDF/X-3 لدعم الشفافية ووضع الطبقات.</translation>
+        <translation>يُحدّد توافقية PDF. &lt;br/&gt;&lt;b&gt;PDF 1.3، وهو الإصدار الأقدم المدعوم حيث يمنح توافقية أكثر شمولًا مع معالج الصور النقطية للطابعات.&lt;br/&gt;&lt;b&gt;PDF 1.4&lt;/b&gt; وهو الإصدار الافتراضي الذي يدعم مميزات مثل الشفافية وترميز 128 بت.&lt;br/&gt;&lt;b&gt; يعد PDF 1.5&lt;/b&gt;ضروريًا عندما ترغب في الإبقاء على الكائنات في طبقات منفصلة ضمن PDF.&lt;br/&gt;&lt;b&gt; PDF/X-1a&lt;/b&gt; هو للتبادل الأعمى للألوان المحددة بدقة في النموذج اللوني س م ص د أو الألوان الموضعية. &lt;br/&gt;&lt;b&gt; PDF/X-3 &lt;/b&gt;هو لتصدير  PDF عندما ترغب في إدارة ألوان النموذج ح خ ز للطباعة التجارية باستخدام ويمكن تحديده عند تفعيل إدارة الألوان. ويُستخدم فقط عندما تنصح به طابعتك او في بعض حالات الطباعة باستخدام طابعة ليزر رقمية ملونة بأربعة ألوان. &lt;br/&gt;&lt;b&gt; PDF/X-4 &lt;/b&gt; هو امتداد لــ PDF/X-3 لدعم الشفافية ووضع الطبقات.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="70"/>
         <source>Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left.</source>
-        <translation type="vanished">يُحدّد ربط الصفحات في PDF. اترك الخيار الافتراضي - اليسار، ما لم تكن تعلم أنك بحاجة لتغييره.</translation>
+        <translation>يُحدّد ربط الصفحات في PDF. اترك الخيار الافتراضي - اليسار، ما لم تكن تعلم أنك بحاجة لتغييره.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="71"/>
         <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
-        <translation type="vanished">تُولّد صورًا مصغرة لكل صفحة في ملف PDF. يمكن لبعض المُظهرات استخدام الصور المصغرة للتصفح.</translation>
+        <translation>تُولّد صورًا مصغرة لكل صفحة في ملف PDF. يمكن لبعض المُظهرات استخدام الصور المصغرة للتصفح.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="74"/>
         <source>Embed the bookmarks you created in your document. These are useful for navigating long PDF documents.</source>
-        <translation type="vanished">ضمّن العلامات التي أنشاتها في المستند الخاص بك. تضمين العلامات يساعد في تصفح مستندات PDF طويلة.</translation>
+        <translation>ضمّن العلامات التي أنشاتها في المستند الخاص بك. تضمين العلامات يساعد في تصفح مستندات PDF طويلة.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="75"/>
         <source>Export resolution of text and vector graphics. This does not affect the resolution of bitmap images like photos.</source>
-        <translation type="vanished">تصدير دقة النص والرسوم المتجهية. لا يؤثر هذا على دقة الصور النقطية كالصور الفوتوغرافية.</translation>
+        <translation>تصدير دقة النص والرسوم المتجهية. لا يؤثر هذا على دقة الصور النقطية كالصور الفوتوغرافية.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="76"/>
         <source>Export PDFs in image frames as embedded PDFs. This does *not* yet take care of colorspaces, so you should know what you are doing before setting this to &apos;true&apos;.</source>
-        <translation type="vanished">تصدير ملفات PDF في إطارات الصور كملفات PDF مضمنة. *لا*  يراعي هذا مساحات الألوان حتى الآن، لذا يجب أن تعرف ما تفعله قبل تعيين هذا على &quot;صحيح&quot;.</translation>
+        <translation>تصدير ملفات PDF في إطارات الصور كملفات PDF مضمنة. *لا*  يراعي هذا مساحات الألوان حتى الآن، لذا يجب أن تعرف ما تفعله قبل تعيين هذا على &quot;صحيح&quot;.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="77"/>
         <source>Enables lossless compression of text and graphics. Unless you have a reason, leave this checked. This reduces PDF file size.</source>
-        <translation type="vanished">تُمكّن الضغط بدون خسائر للنص والرسوميات. ما لم يكن لديك سببًا، اترك هذا الخيار محددًا. يؤدي هذا إلى تقليل حجم ملف PDF.</translation>
+        <translation>تُمكّن الضغط بدون خسائر للنص والرسوميات. ما لم يكن لديك سببًا، اترك هذا الخيار محددًا. يؤدي هذا إلى تقليل حجم ملف PDF.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="78"/>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
-        <translation type="vanished">طريقة للضغط لاستخدامها للصور. يسمح خيار &quot;تلقائي&quot; لسكريبس باختيار أفضل الطرق. الضغط بZIP بلا خسائر وجيد للصور ذات الألوان الخالصة. الضغط بJPEG الأفضل لإنشاء ملفات PDF أقل حجمًا تحتوي على كثير من الصور (مع احتمال فقد طفيف لجودة الصور ). اتركه مضبوطًا على &quot;تلقائي&quot; ما لم تكن في حاجة لخيارات ضغطٍ خاصة.</translation>
+        <translation>طريقة للضغط لاستخدامها للصور. يسمح خيار &quot;تلقائي&quot; لسكريبس باختيار أفضل الطرق. الضغط بZIP بلا خسائر وجيد للصور ذات الألوان الخالصة. الضغط بJPEG الأفضل لإنشاء ملفات PDF أقل حجمًا تحتوي على كثير من الصور (مع احتمال فقد طفيف لجودة الصور ). اتركه مضبوطًا على &quot;تلقائي&quot; ما لم تكن في حاجة لخيارات ضغطٍ خاصة.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="79"/>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
-        <translation type="vanished">مستويات جودة الضغط لطرق الضغط الفَقودَة: الأدنى (25%)، منخفض (50%)، متوسط (75%)، عالي (85%)، الأقصى (95%). لاحظ أن مستوى الجودة لا يُحدد بشكل مباشر حجم الصورة الناتجة - يختلف فقد الحجم والجودة على حد سواء من صورة لأخرى عند أي مستوى جودة معيّن. حتى مع اختيار المستوى &quot;الأقصى&quot; هناك دائمًا بعض الفقد في الجودة مع jpeg.</translation>
+        <translation>مستويات جودة الضغط لطرق الضغط الفَقودَة: الأدنى (25%)، منخفض (50%)، متوسط (75%)، عالي (85%)، الأقصى (95%). لاحظ أن مستوى الجودة لا يُحدد بشكل مباشر حجم الصورة الناتجة - يختلف فقد الحجم والجودة على حد سواء من صورة لأخرى عند أي مستوى جودة معيّن. حتى مع اختيار المستوى &quot;الأقصى&quot; هناك دائمًا بعض الفقد في الجودة مع jpeg.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="80"/>
         <source>Limits the resolution of your bitmap images to the selected DPI. Images with a lower resolution will be left untouched. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
-        <translation type="vanished">تُقصر دقة الصور النقطية على عدد النقاط المحددة. ستُترك الصور ذات الدقة المنخفضة كما هي. إذا ترك هذا دون فحص ستُعرض الصور بدقتها الأصلية. سيزيد تمكين هذا من استخدام الذاكرة ويُبطئ التصدير.</translation>
+        <translation>تُقصر دقة الصور النقطية على عدد النقاط المحددة. ستُترك الصور ذات الدقة المنخفضة كما هي. إذا ترك هذا دون فحص ستُعرض الصور بدقتها الأصلية. سيزيد تمكين هذا من استخدام الذاكرة ويُبطئ التصدير.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="82"/>
         <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
-        <translation type="vanished">اسمح لميزات الحماية في ملف PDF المُستورد. إذا اخترت PDF 1.3 سيُحمى الملف بتشفير 40 بت، وإذا اخترت PDF 1.4 سيُحمى الملف بتشفير 128 بت. تنويه: لا يعد تشفير PDF موثوقًا منه كتشفير GPG أو PGP وبه بعض القيود.</translation>
+        <translation>اسمح لميزات الحماية في ملف PDF المُستورد. إذا اخترت PDF 1.3 سيُحمى الملف بتشفير 40 بت، وإذا اخترت PDF 1.4 سيُحمى الملف بتشفير 128 بت. تنويه: لا يعد تشفير PDF موثوقًا منه كتشفير GPG أو PGP وبه بعض القيود.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="87"/>
         <source>Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</source>
-        <translation type="vanished">اسمح بنسخ نص أو رسوم من ملف PDF. وفي حال عدم التحقق منه لن يُمكن نسخ نص ورسوم.</translation>
+        <translation>اسمح بنسخ نص أو رسوم من ملف PDF. وفي حال عدم التحقق منه لن يُمكن نسخ نص ورسوم.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="88"/>
         <source>Allow adding annotations and fields to the PDF. If unchecked, editing annotations and fields is prevented.</source>
-        <translation type="vanished">اسمح بإضافة تعليقات وحقول إلى ملف PDF. وفي حال عدم التحقق منه لن يُمكن تحرير تعليقات وحقول.</translation>
+        <translation>اسمح بإضافة تعليقات وحقول إلى ملف PDF. وفي حال عدم التحقق منه لن يُمكن تحرير تعليقات وحقول.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="90"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
-        <translation type="vanished">هذا الضبط متقدّم ولا يُفعّل تلقائيًا. يجب أن يٌفعّل فقط عندما تطلب منك الطابعة ذلك وتعطيك التفاصيل التي تحتاج إليها بالضبط، عدا ذلك فإن ملف PDF المُصدّر قد لا يُطبع بشكل صحيح وغير ممكن نقله عبر الأنظمة.</translation>
+        <translation>هذا الضبط متقدّم ولا يُفعّل تلقائيًا. يجب أن يٌفعّل فقط عندما تطلب منك الطابعة ذلك وتعطيك التفاصيل التي تحتاج إليها بالضبط، عدا ذلك فإن ملف PDF المُصدّر قد لا يُطبع بشكل صحيح وغير ممكن نقله عبر الأنظمة.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="91"/>
         <source>Embed a color profile for solid colors</source>
-        <translation type="vanished">ضمّن ملف تعريف اللون للألوان الخالصة</translation>
+        <translation>ضمّن ملف تعريف اللون للألوان الخالصة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="92"/>
         <source>Color profile for solid colors</source>
-        <translation type="vanished">ملف تعريف اللون للألوان الخالصة</translation>
+        <translation>ملف تعريف اللون للألوان الخالصة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="93"/>
         <source>Rendering intent for solid colors</source>
-        <translation type="vanished">هدف العرض للألوان الخالصة</translation>
+        <translation>هدف العرض للألوان الخالصة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="94"/>
         <source>Embed a color profile for images</source>
-        <translation type="vanished">ضمّن لاحة الألوان للصور</translation>
+        <translation>ضمّن لاحة الألوان للصور</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="95"/>
         <source>Do not use color profiles that are embedded in source images</source>
-        <translation type="vanished">لا تستخدم لاحات الألوان المضمّنة في الصور المصدر</translation>
+        <translation>لا تستخدم لاحات الألوان المضمّنة في الصور المصدر</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="96"/>
         <source>Color profile for images</source>
-        <translation type="vanished">لاحة الألوان للصور</translation>
+        <translation>لاحة الألوان للصور</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="97"/>
         <source>Rendering intent for images</source>
-        <translation type="vanished">هدف العرض للصور</translation>
+        <translation>هدف العرض للصور</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="98"/>
         <source>Mirror Page(s) horizontally</source>
-        <translation type="vanished">اعكس الصفحة/الصفحات أفقيًا</translation>
+        <translation>اعكس الصفحة/الصفحات أفقيًا</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="99"/>
         <source>Mirror Page(s) vertically</source>
-        <translation type="vanished">اعكس الصفحة/الصفحات رأسيًا</translation>
+        <translation>اعكس الصفحة/الصفحات رأسيًا</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="100"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation type="vanished">تُمكّن الألوان الموضعية من تحويلها إلى ألوان ممزوجة، إلّا لو كنت تخطط لطباعة الألوان الموضعية في طابعة تجارية فمن الأفضل أن تترك هذا مفعّلًا.</translation>
+        <translation>تُمكّن الألوان الموضعية من تحويلها إلى ألوان ممزوجة، إلّا لو كنت تخطط لطباعة الألوان الموضعية في طابعة تجارية فمن الأفضل أن تترك هذا مفعّلًا.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="101"/>
         <source>Do not show objects outside the margins in the exported file</source>
-        <translation type="vanished">لا تظهر الكائنات خارج الهوامش في الملف المصدّر</translation>
+        <translation>لا تظهر الكائنات خارج الهوامش في الملف المصدّر</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="103"/>
         <source>Creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
-        <translation type="vanished">يُنشئ علامات قص في PDF تشير إلى المكان الذي يجب قص الورق عنده أو تشذيبه بعد الطباعة</translation>
+        <translation>يُنشئ علامات قص في PDF تشير إلى المكان الذي يجب قص الورق عنده أو تشذيبه بعد الطباعة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="104"/>
         <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
-        <translation type="vanished">يُنشئ تجاوزات الهوامش التي يشار إليها بـ  _ . _ وتُظهر حدود التجاوزات.</translation>
+        <translation>يُنشئ تجاوزات الهوامش التي يشار إليها بـ  _ . _ وتُظهر حدود التجاوزات.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="105"/>
         <source>Add registration marks to each separation</source>
-        <translation type="vanished">أضف علامات التسجيل لكل فاصل</translation>
+        <translation>أضف علامات التسجيل لكل فاصل</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="106"/>
         <source>Add color calibration bars</source>
-        <translation type="vanished">أضف قضبان التدرج اللونية</translation>
+        <translation>أضف قضبان التدرج اللونية</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="107"/>
         <source>Add document information which includes the document title and page numbers</source>
-        <translation type="vanished">أضف معلومات المستند التي تتضمن عنوان المستند وأرقام الصفحات</translation>
+        <translation>أضف معلومات المستند التي تتضمن عنوان المستند وأرقام الصفحات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="109"/>
         <source>Indicate the distance offset for the registration marks</source>
-        <translation type="vanished">تُشير إلى إزاحة المسافة لعلامات التسجيل</translation>
+        <translation>تُشير إلى إزاحة المسافة لعلامات التسجيل</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="114"/>
         <source>Use the existing bleed settings from the document preferences</source>
-        <translation type="vanished">استخدم إعدادات تجاوزات الهوامش الموجودة من تفضيلات المستندات</translation>
+        <translation>استخدم إعدادات تجاوزات الهوامش الموجودة من تفضيلات المستندات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="115"/>
         <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
-        <translation type="vanished">ملف الخَْرج للطباعة. احصل على بعض التوجيه من طابعتك حول تحديد الملف.</translation>
+        <translation>ملف الخَْرج للطباعة. احصل على بعض التوجيه من طابعتك حول تحديد الملف.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="116"/>
         <source>Mandatory string for PDF/X or the PDF will fail PDF/X conformance. We recommend you use the title of the document.</source>
-        <translation type="vanished">ستُفشل السلسلة الإلزامية لـPDF/X أو PDF مطابقة  PDF/X. ننصحك باستخدام عنوان المستند.</translation>
+        <translation>ستُفشل السلسلة الإلزامية لـPDF/X أو PDF مطابقة  PDF/X. ننصحك باستخدام عنوان المستند.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="209"/>
         <source>Automatic</source>
-        <translation type="vanished">تلقائي</translation>
+        <translation>تلقائي</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="210"/>
         <source>Lossy - JPEG</source>
-        <translation type="vanished">JPEG - فقود</translation>
+        <translation>JPEG - فقود</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="211"/>
         <source>Lossless - Zip</source>
-        <translation type="vanished">Zip - غبر فقود</translation>
+        <translation>Zip - غبر فقود</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="212"/>
         <source>None</source>
-        <translation type="vanished">لا شيء</translation>
+        <translation>لا شيء</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="217"/>
         <source>Maximum</source>
-        <translation type="vanished">أقصى</translation>
+        <translation>أقصى</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="218"/>
         <source>High</source>
-        <translation type="vanished">عالي</translation>
+        <translation>عالي</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="219"/>
         <source>Medium</source>
-        <translation type="vanished">متوسط</translation>
+        <translation>متوسط</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="220"/>
         <source>Low</source>
-        <translation type="vanished">منخفض</translation>
+        <translation>منخفض</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="221"/>
         <source>Minimum</source>
-        <translation type="vanished">أدنى</translation>
+        <translation>أدنى</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="228"/>
         <source>Left Margin</source>
-        <translation type="vanished">هامش أيسر</translation>
+        <translation>هامش أيسر</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="229"/>
         <source>Right Margin</source>
-        <translation type="vanished">هامش أيمن</translation>
+        <translation>هامش أيمن</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="234"/>
         <source>Screen / Web</source>
-        <translation type="vanished">شاشة / ويب</translation>
+        <translation>شاشة / ويب</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="235"/>
         <source>Printer</source>
-        <translation type="vanished">الطابعة</translation>
+        <translation>الطابعة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="236"/>
         <source>Grayscale</source>
-        <translation type="vanished">تدرج رمادي</translation>
+        <translation>تدرج رمادي</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="241"/>
         <source>Simple Dot</source>
-        <translation type="vanished">نقطة عادية</translation>
+        <translation>نقطة عادية</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="242"/>
         <source>Line</source>
-        <translation type="vanished">خط</translation>
+        <translation>خط</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="243"/>
         <source>Round</source>
-        <translation type="vanished">مستدير</translation>
+        <translation>مستدير</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="244"/>
         <source>Ellipse</source>
-        <translation type="vanished">بيضاوي</translation>
+        <translation>بيضاوي</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="253"/>
         <source>Perceptual</source>
-        <translation type="vanished">إدراكي</translation>
+        <translation>إدراكي</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="253"/>
         <source>Relative Colorimetric</source>
-        <translation type="vanished">قياس ألوان نسبي</translation>
+        <translation>قياس ألوان نسبي</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="253"/>
         <source>Saturation</source>
-        <translation type="vanished">التشبع</translation>
+        <translation>التشبع</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="253"/>
         <source>Absolute Colorimetric</source>
-        <translation type="vanished">قياس ألوان مطلق</translation>
+        <translation>قياس ألوان مطلق</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="359"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="1304"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="1312"/>
         <source>Page</source>
-        <translation type="vanished">صفحة</translation>
+        <translation>صفحة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="377"/>
         <source>No Script</source>
-        <translation type="vanished">لا توجد مخطوطة</translation>
+        <translation>لا توجد مخطوطة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="520"/>
         <source>InfoString</source>
-        <translation type="vanished">سلسلة المعلومات</translation>
+        <translation>سلسلة المعلومات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="552"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="971"/>
         <source>No Effect</source>
-        <translation type="vanished">بلا تأثير</translation>
+        <translation>بلا تأثير</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="553"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="972"/>
         <source>Blinds</source>
-        <translation type="vanished">ستائر</translation>
+        <translation>ستائر</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="554"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="973"/>
         <source>Box</source>
-        <translation type="vanished">صندوق</translation>
+        <translation>صندوق</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="555"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="974"/>
         <source>Dissolve</source>
-        <translation type="vanished">تداخل</translation>
+        <translation>تداخل</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="556"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="975"/>
         <source>Glitter</source>
-        <translation type="vanished">لمعان</translation>
+        <translation>لمعان</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="557"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="976"/>
         <source>Split</source>
-        <translation type="vanished">تجزئة</translation>
+        <translation>تجزئة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="558"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="977"/>
         <source>Wipe</source>
-        <translation type="vanished">مسح</translation>
+        <translation>مسح</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="561"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="980"/>
         <source>Push</source>
-        <translation type="vanished">دفع</translation>
+        <translation>دفع</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="562"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="981"/>
         <source>Cover</source>
-        <translation type="vanished">غطِّ</translation>
+        <translation>غطِّ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="563"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="982"/>
         <source>Uncover</source>
-        <translation type="vanished">اكشف</translation>
+        <translation>اكشف</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="564"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="983"/>
         <source>Fade</source>
-        <translation type="vanished">تلاشي</translation>
+        <translation>تلاشي</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="608"/>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
-        <translation type="vanished">ضمّن خطوطًا في ملف الـ PDF. سيحفظ تضمين الخطوط تخطيط مستندك ومظهره.  </translation>
+        <translation>ضمّن خطوطًا في ملف الـ PDF. سيحفظ تضمين الخطوط تخطيط مستندك ومظهره.  </translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="609"/>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
-        <translation type="vanished">تُمكّن تأثيرات العرض عند استخدام Adobe&amp;#174; Reader&amp;#174; وبرامج أخرى لعرض PDF التي تدعم هذا في وضع ملء الشاشة.</translation>
+        <translation>تُمكّن تأثيرات العرض عند استخدام Adobe&amp;#174; Reader&amp;#174; وبرامج أخرى لعرض PDF التي تدعم هذا في وضع ملء الشاشة.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="610"/>
         <source>Show page previews of each page listed above.</source>
-        <translation type="vanished">أظهر معاينات الصفحات لكل صفحة مُدرجة أعلاه.</translation>
+        <translation>أظهر معاينات الصفحات لكل صفحة مُدرجة أعلاه.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="611"/>
         <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
-        <translation type="vanished">طول فترة إظهار الصفحة قبل بدء العرض على الصفحة المحددة. سيُعطّل تعيين 0 الانتقال التلقائي للصفحات.</translation>
+        <translation>طول فترة إظهار الصفحة قبل بدء العرض على الصفحة المحددة. سيُعطّل تعيين 0 الانتقال التلقائي للصفحات.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="612"/>
         <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
-        <translation type="vanished">طول الفترة الزمنية التي يعمل خلالها التأثير. ستُسرّع الفترة الزمنية القصيرة التأثير في حين ستُبطئه الفترة الزمنية الطويلة.</translation>
+        <translation>طول الفترة الزمنية التي يعمل خلالها التأثير. ستُسرّع الفترة الزمنية القصيرة التأثير في حين ستُبطئه الفترة الزمنية الطويلة.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="619"/>
         <source>Show the document in single page mode</source>
-        <translation type="vanished">اعرض المستند بنمط الصفحة الواحدة</translation>
+        <translation>اعرض المستند بنمط الصفحة الواحدة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="620"/>
         <source>Show the document in single page mode with the pages displayed continuously end to end like a scroll</source>
-        <translation type="vanished">اعرض المستند بنمط الصفحة الواحدة مع عرض الصفحات بشكل مستمر من النهاية إلى النهاية مثل التمرير</translation>
+        <translation>اعرض المستند بنمط الصفحة الواحدة مع عرض الصفحات بشكل مستمر من النهاية إلى النهاية مثل التمرير</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="621"/>
         <source>Show the document with facing pages, starting with the first page displayed on the left</source>
-        <translation type="vanished">اعرض المستند بنمط الصفحات المتقابلة، بدءًا من الصفحة الأولى المعروضة على اليسار</translation>
+        <translation>اعرض المستند بنمط الصفحات المتقابلة، بدءًا من الصفحة الأولى المعروضة على اليسار</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="622"/>
         <source>Show the document with facing pages, starting with the first page displayed on the right</source>
-        <translation type="vanished">اعرض المستند بنمط الصفحات المتقابلة، بدءًا من الصفحة الأولى المعروضة على اليمين</translation>
+        <translation>اعرض المستند بنمط الصفحات المتقابلة، بدءًا من الصفحة الأولى المعروضة على اليمين</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="623"/>
         <source>Use the viewer&apos;s defaults or the user&apos;s preferences if set differently from the viewer defaults</source>
-        <translation type="vanished">استخدم تلقائيات العارض أو خصائص المستخدم إذا ضُبطت بشكل مختلف عن تلقائيات العارض.</translation>
+        <translation>استخدم تلقائيات العارض أو خصائص المستخدم إذا ضُبطت بشكل مختلف عن تلقائيات العارض.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="624"/>
         <source>Enables viewing the document in full screen</source>
-        <translation type="vanished">تُمكّن عرض المستند في وضع ملء الشاشة</translation>
+        <translation>تُمكّن عرض المستند في وضع ملء الشاشة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="625"/>
         <source>Display the bookmarks upon opening</source>
-        <translation type="vanished">اعرض العلامات عند البدء</translation>
+        <translation>اعرض العلامات عند البدء</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="626"/>
         <source>Display the page thumbnails upon opening</source>
-        <translation type="vanished">اعرض الصور المصغرة للصفحة عند البدء</translation>
+        <translation>اعرض الصور المصغرة للصفحة عند البدء</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="627"/>
         <source>Forces the displaying of layers. Useful only for PDF 1.5+.</source>
-        <translation type="vanished">تُجبر عرض الطبقات. مفيدة فقط لـPDF 1.5+.</translation>
+        <translation>تُجبر عرض الطبقات. مفيدة فقط لـPDF 1.5+.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="628"/>
         <source>Hides the Tool Bar which has selection and other editing capabilities</source>
-        <translation type="vanished">تُخفي شريط الأدوات الذي به التحديد وإمكانيات تحرير أخرى.</translation>
+        <translation>تُخفي شريط الأدوات الذي به التحديد وإمكانيات تحرير أخرى.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1085"/>
         <source>Mark Length:</source>
-        <translation type="vanished">طول العلامة:</translation>
+        <translation>طول العلامة:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1154"/>
         <source>Mark Offset:</source>
-        <translation type="vanished">إزاحة العلامة:</translation>
+        <translation>إزاحة العلامة:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="108"/>
         <source>Length of crop marks</source>
-        <translation type="vanished">طول علامات القصّ</translation>
+        <translation>طول علامات القصّ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="83"/>
         <source>Choose an owner password which enables or disables all the security features in your exported PDF</source>
-        <translation type="vanished">اختر كلمة سر المالك التي تمكّن/تعطّل كل مميزات الحماية في ملف PDF المصدّر الخاص بك</translation>
+        <translation>اختر كلمة سر المالك التي تمكّن/تعطّل كل مميزات الحماية في ملف PDF المصدّر الخاص بك</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="67"/>
         <source>Create a range of pages</source>
-        <translation type="vanished">أنشِئ نطاقًا من الصفحات</translation>
+        <translation>أنشِئ نطاقًا من الصفحات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1346"/>
         <source>Embedding mode:</source>
-        <translation type="vanished">نمط التضمين:</translation>
+        <translation>نمط التضمين:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1432"/>
         <source>Fonts to Subset</source>
-        <translation type="vanished">خطوط للاستعاضة</translation>
+        <translation>خطوط للاستعاضة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1442"/>
         <source>Subset All</source>
-        <translation type="vanished">استعض الكلّ</translation>
+        <translation>استعض الكلّ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="64"/>
         <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number</source>
-        <translation type="vanished">أدرج قائمة برموز مميزة مفصولة بفواصل حيث يمكن أن يكون الرمز المميز * لجميع الصفحات أو  1-5 لنطاق من الصفحات أو رقم صفحة واحد</translation>
+        <translation>أدرج قائمة برموز مميزة مفصولة بفواصل حيث يمكن أن يكون الرمز المميز * لجميع الصفحات أو  1-5 لنطاق من الصفحات أو رقم صفحة واحد</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="72"/>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF</source>
-        <translation type="vanished">ولّد مقالات PDF مفيدة لتصفح مقالات موصولة في PDF </translation>
+        <translation>ولّد مقالات PDF مفيدة لتصفح مقالات موصولة في PDF </translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="73"/>
         <source>Layers in your document are exported to the PDF. Only available if PDF 1.5 is chosen.</source>
-        <translation type="vanished">تُصدّر الطبقات الموجودة في مستندك إلى PDF. ستتوفر فقط في حال اختيار PDF 1.5. </translation>
+        <translation>تُصدّر الطبقات الموجودة في مستندك إلى PDF. ستتوفر فقط في حال اختيار PDF 1.5. </translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="81"/>
         <source>DPI (Dots Per Inch) for image export</source>
-        <translation type="vanished">DPI (نقطة في كل بوصة) لتصدير الصور</translation>
+        <translation>DPI (نقطة في كل بوصة) لتصدير الصور</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="84"/>
         <source>Choose a password for users to be able to read your PDF</source>
-        <translation type="vanished">اختر كلمة مرور للمستخدمين ليتمكّنوا من قراءة ملف PDF خاصّتك</translation>
+        <translation>اختر كلمة مرور للمستخدمين ليتمكّنوا من قراءة ملف PDF خاصّتك</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="86"/>
         <source>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</source>
-        <translation type="vanished">اسمح بتعديل PDF. يُمنع تعديل PDF إذا لم يُفحص.</translation>
+        <translation>اسمح بتعديل PDF. يُمنع تعديل PDF إذا لم يُفحص.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="89"/>
         <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation type="vanished">نظام الألوان لخرج ملف PDF خاصتك. اختر شاشة/ويب لملفات PDF التي تستخدم لعرض الشاشة أو للطباعة باستخدام الطابعات النفّاثة للحبر المعتادة. اختر &quot;طابعة&quot; عند طباعتك بطابعة الألوان 4 الحقيقية س م ص د. اختر التدرج اللوني الرمادي عند رغبتك بالحصول على تدرج رمادي لملف PDF.</translation>
+        <translation>نظام الألوان لخرج ملف PDF خاصتك. اختر شاشة/ويب لملفات PDF التي تستخدم لعرض الشاشة أو للطباعة باستخدام الطابعات النفّاثة للحبر المعتادة. اختر &quot;طابعة&quot; عند طباعتك بطابعة الألوان 4 الحقيقية س م ص د. اختر التدرج اللوني الرمادي عند رغبتك بالحصول على تدرج رمادي لملف PDF.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="613"/>
         <source>Type of the display effect</source>
-        <translation type="vanished">نوع تأثير العرض</translation>
+        <translation>نوع تأثير العرض</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="614"/>
         <source>Direction of the effect of moving lines for the split and blind effects</source>
-        <translation type="vanished">اتجاه تأثير خطوط التحريك للتأثيرات العمياء والمنقسمة</translation>
+        <translation>اتجاه تأثير خطوط التحريك للتأثيرات العمياء والمنقسمة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="615"/>
         <source>Starting position for the box and split effects</source>
-        <translation type="vanished">موضع البدء للصندوق والتأثيرات المنقسمة</translation>
+        <translation>موضع البدء للصندوق والتأثيرات المنقسمة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="616"/>
         <source>Direction of the glitter or wipe effects</source>
-        <translation type="vanished">اتجاه تأثيرات المسح أو اللمعان</translation>
+        <translation>اتجاه تأثيرات المسح أو اللمعان</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="617"/>
         <source>Apply the selected effect to all pages</source>
-        <translation type="vanished">طبّق التأثير المحدد على كل الصفحات</translation>
+        <translation>طبّق التأثير المحدد على كل الصفحات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="629"/>
         <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window</source>
-        <translation type="vanished">تٌخفي شريط القوائم للعارض، سيُعرض PDF في نافذة عادية</translation>
+        <translation>تٌخفي شريط القوائم للعارض، سيُعرض PDF في نافذة عادية</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="630"/>
         <source>Fit the document page or pages to the available space in the viewer window</source>
-        <translation type="vanished">ملائمة صفحة أو صفحات المستند للمساحة المتاحة في نافذة العرض</translation>
+        <translation>ملائمة صفحة أو صفحات المستند للمساحة المتاحة في نافذة العرض</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="618"/>
         <source>Embed only subset fonts with glyphs used in the document into the PDF</source>
-        <translation type="vanished">ضمّن في ملف الـPDF فقط الخطوط المستعاضة التي تحوي صورًا رمزية مستخدمة في المستند </translation>
+        <translation>ضمّن في ملف الـPDF فقط الخطوط المستعاضة التي تحوي صورًا رمزية مستخدمة في المستند </translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1253"/>
         <source>PDF/X Output Intent</source>
-        <translation type="vanished">هدف إخراج PDF/X</translation>
+        <translation>هدف إخراج PDF/X</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="85"/>
         <source>Allow printing of the PDF. If unchecked, printing is prevented.</source>
-        <translation type="vanished">اسمح بطباعة PDF. تُمنع طباعته إذا لم يُفحص.</translation>
+        <translation>اسمح بطباعة PDF. تُمنع طباعته إذا لم يُفحص.</translation>
     </message>
 </context>
 <context>
     <name>Prefs_PageSizes</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pagesizesbase.ui" line="35"/>
+        <location filename="../../scribus/ui/preferences/prefs_pagesizes.cpp" line="23"/>
         <source>Page Sizes</source>
-        <translation type="vanished">أحجام الصفحة</translation>
+        <translation>أحجام الصفحة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pagesizesbase.ui" line="53"/>
         <source>Available Sizes</source>
-        <translation type="vanished">الأحجام المتوفرة</translation>
+        <translation>الأحجام المتوفرة</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pagesizesbase.ui" line="120"/>
+        <source>Preferred Sizes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pagesizes.cpp" line="41"/>
+        <source>Page Format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pagesizes.cpp" line="42"/>
+        <source>Dimension</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>Prefs_Paths</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_paths.cpp" line="21"/>
         <source>Paths</source>
-        <translation type="vanished">المسارات</translation>
+        <translation>المسارات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="85"/>
         <source>Documents:</source>
-        <translation type="vanished">المستندات:</translation>
+        <translation>المستندات:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="114"/>
         <source>&amp;Change...</source>
-        <translation type="vanished">&amp;تغيير...</translation>
+        <translation>&amp;تغيير...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="117"/>
         <source>Alt+C</source>
-        <translation type="vanished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="124"/>
         <source>Color Profiles:</source>
-        <translation type="vanished">ملفات تعريف اللون:</translation>
+        <translation>ملفات تعريف اللون:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="147"/>
         <source>C&amp;hange...</source>
-        <translation type="vanished">&amp;تغيير...</translation>
+        <translation>&amp;تغيير...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="150"/>
         <source>Alt+H</source>
-        <translation type="vanished">Alt+H</translation>
+        <translation>Alt+H</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="157"/>
         <source>Scripts:</source>
-        <translation type="vanished">المخطوطات:</translation>
+        <translation>المخطوطات:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="180"/>
         <source>Ch&amp;ange...</source>
-        <translation type="vanished">&amp;تغيير...</translation>
+        <translation>&amp;تغيير...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="183"/>
         <source>Alt+A</source>
-        <translation type="vanished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="190"/>
         <source>Document Templates:</source>
-        <translation type="vanished">قوالب المستند:</translation>
+        <translation>قوالب المستند:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="213"/>
         <source>Cha&amp;nge...</source>
-        <translation type="vanished">&amp;تغيير...</translation>
+        <translation>&amp;تغيير...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="216"/>
         <source>Alt+N</source>
-        <translation type="vanished">Alt+N</translation>
+        <translation>Alt+N</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_paths.cpp" line="34"/>
         <source>Default documents directory</source>
-        <translation type="vanished">مجلد مستندات افتراضي</translation>
+        <translation>مجلد مستندات افتراضي</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_paths.cpp" line="36"/>
         <source>Default Scripter scripts directory</source>
-        <translation type="vanished">مجلد البرامج النصية للبرمجة النصية الإفتراضية</translation>
+        <translation>مجلد البرامج النصية للبرمجة النصية الإفتراضية</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_paths.cpp" line="37"/>
         <source>Additional directory for document templates</source>
-        <translation type="vanished">مجلد إضافي لقوالب المستند</translation>
+        <translation>مجلد إضافي لقوالب المستند</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_paths.cpp" line="58"/>
+        <location filename="../../scribus/ui/preferences/prefs_paths.cpp" line="65"/>
+        <location filename="../../scribus/ui/preferences/prefs_paths.cpp" line="72"/>
+        <location filename="../../scribus/ui/preferences/prefs_paths.cpp" line="79"/>
         <source>Choose a Directory</source>
-        <translation type="vanished">اختر مجلدًا</translation>
+        <translation>اختر مجلدًا</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_paths.cpp" line="35"/>
         <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc, $home/.local/share/color/icc, /usr/share/color/icc and /usr/local/share/color/icc</source>
-        <translation type="vanished">مجلد ملفات تعريف ICC الافتراضي. لا يمكن تغيير هذا بفتح مستند ما. سيبحث سكريبس بشكل افتراضي في مجلدات النظام ضمن أنظمة التشغيل ماك أو أس أكس وويندوز. وفي أنظمة التشغيل لينكس ويونكس سيبحث سكريبس في  $home/.color/icc و$home/.local/share/color/icc و /usr/share/color/icc و/usr/local/share/color/icc</translation>
+        <translation>مجلد ملفات تعريف ICC الافتراضي. لا يمكن تغيير هذا بفتح مستند ما. سيبحث سكريبس بشكل افتراضي في مجلدات النظام ضمن أنظمة التشغيل ماك أو أس أكس وويندوز. وفي أنظمة التشغيل لينكس ويونكس سيبحث سكريبس في  $home/.color/icc و$home/.local/share/color/icc و /usr/share/color/icc و/usr/local/share/color/icc</translation>
     </message>
 </context>
 <context>
     <name>Prefs_Plugins</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pluginsbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_plugins.cpp" line="27"/>
         <source>Plugins</source>
-        <translation type="vanished">الملحقات</translation>
+        <translation>الملحقات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pluginsbase.ui" line="60"/>
         <source>Plugin</source>
-        <translation type="vanished">الملحق</translation>
+        <translation>الملحق</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pluginsbase.ui" line="65"/>
         <source>How to run</source>
-        <translation type="vanished">كيفية تشغيله</translation>
+        <translation>كيفية تشغيله</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pluginsbase.ui" line="70"/>
         <source>Type</source>
-        <translation type="vanished">النوع</translation>
+        <translation>النوع</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pluginsbase.ui" line="75"/>
         <source>Load it?</source>
-        <translation type="vanished">تحميله؟</translation>
+        <translation>تحميله؟</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pluginsbase.ui" line="80"/>
         <source>Plugin ID</source>
-        <translation type="vanished">مُعرّف الملحق</translation>
+        <translation>مُعرّف الملحق</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pluginsbase.ui" line="85"/>
         <source>File</source>
-        <translation type="vanished">ملف</translation>
+        <translation>ملف</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pluginsbase.ui" line="93"/>
         <source>You need to restart the application to apply the changes.</source>
-        <translation type="vanished">يجب عليك إعادة تشغيل التطبيق لتطبيق التغييرات.</translation>
+        <translation>يجب عليك إعادة تشغيل التطبيق لتطبيق التغييرات.</translation>
     </message>
 </context>
 <context>
     <name>Prefs_PreflightVerifier</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="35"/>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifier.cpp" line="18"/>
         <source>Preflight Verifier</source>
-        <translation type="vanished">مراجع قبل الانتهاء</translation>
+        <translation>مراجع قبل الانتهاء</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="49"/>
         <source>Show pages without errors</source>
-        <translation type="vanished">أظهر الصفحات بدون الأخطاء</translation>
+        <translation>أظهر الصفحات بدون الأخطاء</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="56"/>
         <source>Show errors for items on layers that will not print</source>
-        <translation type="vanished">أظهر أخطاء العناصر في الطبقات التي لن تُطبع </translation>
+        <translation>أظهر أخطاء العناصر في الطبقات التي لن تُطبع </translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="84"/>
         <source>Profile Setup</source>
-        <translation type="vanished">إعداد ملف التعريف</translation>
+        <translation>إعداد ملف التعريف</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="116"/>
         <source>Output Profile:</source>
-        <translation type="vanished">ملف الخَْرج: </translation>
+        <translation>ملف الخَْرج: </translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="134"/>
         <source>Add New Profile</source>
-        <translation type="vanished">أضف ملف تعريف جديد</translation>
+        <translation>أضف ملف تعريف جديد</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="141"/>
         <source>Remove Profile</source>
-        <translation type="vanished">أزِل ملف التعريف</translation>
+        <translation>أزِل ملف التعريف</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="184"/>
         <source>Profile Options</source>
-        <translation type="vanished">خيارات ملفات التعريف</translation>
+        <translation>خيارات ملفات التعريف</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="198"/>
         <source>Ignore all errors</source>
-        <translation type="vanished">تجاهل كل الأخطاء</translation>
+        <translation>تجاهل كل الأخطاء</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="205"/>
         <source>Automatic check before printing or exporting</source>
-        <translation type="vanished">فحص تلقائي قبل الطباعة أو التصدير</translation>
+        <translation>فحص تلقائي قبل الطباعة أو التصدير</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="212"/>
         <source>Check for missing glyphs</source>
-        <translation type="vanished">تحقق من الصور الرمزية المفقودة</translation>
+        <translation>تحقق من الصور الرمزية المفقودة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="219"/>
         <source>Check for items not on a page</source>
-        <translation type="vanished">تحقق من عناصر غير موجودة في الصفحة</translation>
+        <translation>تحقق من عناصر غير موجودة في الصفحة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="233"/>
         <source>Check for overflow in text frames</source>
-        <translation type="vanished">تحقق من الفائض في إطارات النص</translation>
+        <translation>تحقق من الفائض في إطارات النص</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="240"/>
         <source>Check for used transparencies</source>
-        <translation type="vanished">تحقق من الشفافية المستخدمة</translation>
+        <translation>تحقق من الشفافية المستخدمة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="247"/>
         <source>Check for missing images</source>
-        <translation type="vanished">تحقق من الصور المفقودة</translation>
+        <translation>تحقق من الصور المفقودة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="254"/>
+        <source>Check for partially filled image frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="261"/>
+        <source>Check for images with progressive encoding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="268"/>
         <source>Check image resolution</source>
-        <translation type="vanished">تحقق من دقة الصورة</translation>
+        <translation>تحقق من دقة الصورة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="280"/>
         <source>Minimum Resolution:</source>
-        <translation type="vanished">أدنى دقة:</translation>
+        <translation>أدنى دقة:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="287"/>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="300"/>
         <source> dpi</source>
-        <translation type="vanished">نقطة لكل بوصة</translation>
+        <translation>نقطة لكل بوصة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="313"/>
         <source>Maximum Resolution:</source>
-        <translation type="vanished">أقصى دقة:</translation>
+        <translation>أقصى دقة:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="322"/>
         <source>Check for placed PDF files</source>
-        <translation type="vanished">تحقق من ملفات PDF مستوردة</translation>
+        <translation>تحقق من ملفات PDF مستوردة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="329"/>
         <source>Check for GIF images</source>
-        <translation type="vanished">تحقق من صور GIF&#xa0;</translation>
+        <translation>تحقق من صور GIF&#xa0;</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="336"/>
         <source>Check for PDF Annotations and Fields</source>
-        <translation type="vanished">تحقق من حقول وتعليقات PDF</translation>
+        <translation>تحقق من حقول وتعليقات PDF</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="343"/>
         <source>Check for Visible/Printable mismatch in layers</source>
-        <translation type="vanished">تأكد من الاختلاف المرئي/القابل للطباعة في الطبقات</translation>
+        <translation>تأكد من الاختلاف المرئي/القابل للطباعة في الطبقات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="350"/>
         <source>Ignore non-printable layers</source>
-        <translation type="vanished">تجاهل الطبقات غير القابلة للطباعة</translation>
+        <translation>تجاهل الطبقات غير القابلة للطباعة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="226"/>
         <source>Check for empty text frames</source>
-        <translation type="vanished">تحقق من إطارات نص فارغة</translation>
+        <translation>تحقق من إطارات نص فارغة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="357"/>
         <source>Check if applied master page location is the same as each page&apos;s location</source>
-        <translation type="vanished">تأكد ما إذا كان موقع الصفحة الرئيسية المستخدمة يطابق موقع كل صفحة </translation>
+        <translation>تأكد ما إذا كان موقع الصفحة الرئيسية المستخدمة يطابق موقع كل صفحة </translation>
     </message>
 </context>
 <context>
     <name>Prefs_Printer</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="38"/>
         <source>Printing</source>
-        <translation type="vanished">طباعة</translation>
+        <translation>طباعة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="73"/>
         <source>Destination</source>
-        <translation type="vanished">الموقع</translation>
+        <translation>الموقع</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="90"/>
         <source>Alternative Printer Command</source>
-        <translation type="vanished">أمر طباعة بديل</translation>
+        <translation>أمر طباعة بديل</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="99"/>
         <source>Command:</source>
-        <translation type="vanished">أمر:</translation>
+        <translation>أمر:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="133"/>
         <source>General Options</source>
-        <translation type="vanished">خيارات عامة</translation>
+        <translation>خيارات عامة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="149"/>
         <source>Output:</source>
-        <translation type="vanished">الإخراج:</translation>
+        <translation>الإخراج:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="157"/>
         <source>Normal</source>
-        <translation type="vanished">عادي</translation>
+        <translation>عادي</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="162"/>
         <source>Separations</source>
-        <translation type="vanished">فواصل</translation>
+        <translation>فواصل</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="185"/>
         <source>Include PDF Annotations and Links</source>
-        <translation type="vanished">ضمّن حقول وتعليقات PDF </translation>
+        <translation>ضمّن حقول وتعليقات PDF </translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="214"/>
         <source>Page</source>
-        <translation type="vanished">صفحة</translation>
+        <translation>صفحة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="228"/>
         <source>Mirror Page(s) Horizontally</source>
-        <translation type="vanished">اعكس الصفحة/الصفحات أفقيًا</translation>
+        <translation>اعكس الصفحة/الصفحات أفقيًا</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="235"/>
         <source>Mirror Page(s) Vertically</source>
-        <translation type="vanished">اعكس الصفحة/الصفحات رأسيًا</translation>
+        <translation>اعكس الصفحة/الصفحات رأسيًا</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="242"/>
         <source>Set Media Size</source>
-        <translation type="vanished">اضبط حجم الوسائط</translation>
+        <translation>اضبط حجم الوسائط</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="249"/>
         <source>Clip to Printer Margins</source>
-        <translation type="vanished">قصّ إلى هوامش الطابعة</translation>
+        <translation>قصّ إلى هوامش الطابعة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="278"/>
         <source>Color</source>
-        <translation type="vanished">لون</translation>
+        <translation>لون</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="330"/>
         <source>Apply Under Color Removal</source>
-        <translation type="vanished">طبّق مُزيل لون سُفلي</translation>
+        <translation>طبّق مُزيل لون سُفلي</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="337"/>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation type="vanished">حوّل الألوان الموضعية إلى ألوان معالجة</translation>
+        <translation>حوّل الألوان الموضعية إلى ألوان معالجة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="294"/>
         <source>Print In:</source>
-        <translation type="vanished">اطبع بــ:</translation>
+        <translation>اطبع بــ:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="302"/>
         <source>Color (If Available)</source>
-        <translation type="vanished">الألوان (إن كانت متاحة)</translation>
+        <translation>الألوان (إن كانت متاحة)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="307"/>
         <source>Grayscale</source>
-        <translation type="vanished">تدرج رمادي</translation>
+        <translation>تدرج رمادي</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="366"/>
+        <source>Printing Language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="429"/>
         <source>Marks and Bleeds</source>
-        <translation type="vanished">العلامات وتجاوزات الهوامش</translation>
+        <translation>العلامات وتجاوزات الهوامش</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="445"/>
         <source>Crop Marks</source>
-        <translation type="vanished">علامات الاقتصاص</translation>
+        <translation>علامات الاقتصاص</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="452"/>
         <source>Bleed Marks</source>
-        <translation type="vanished">علامات تجاوزات الهوامش</translation>
+        <translation>علامات تجاوزات الهوامش</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="459"/>
         <source>Registration Marks</source>
-        <translation type="vanished">علامات التسجيل</translation>
+        <translation>علامات التسجيل</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="466"/>
         <source>Color Bars</source>
-        <translation type="vanished">أشرطة الألوان</translation>
+        <translation>أشرطة الألوان</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="475"/>
         <source>Offset:</source>
-        <translation type="vanished">المعادلة:</translation>
+        <translation>المعادلة:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="535"/>
         <source>Bleed Settings</source>
-        <translation type="vanished">إعدادات تجاوزات الهوامش</translation>
+        <translation>إعدادات تجاوزات الهوامش</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printer.cpp" line="23"/>
         <source>Printer</source>
-        <translation type="vanished">الطابعة</translation>
+        <translation>الطابعة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printer.cpp" line="33"/>
         <source>Do not show objects outside the margins on the printed page</source>
-        <translation type="vanished">لا تظهر العناصر خارج الهوامش في الصفحة المطبوعة</translation>
+        <translation>لا تظهر العناصر خارج الهوامش في الصفحة المطبوعة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printer.cpp" line="34"/>
         <source>Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</source>
-        <translation type="vanished">استخدم مدير طابعة بديل أمثال kprinter أو gtklp لاستخدام خيارات طباعة إضافية</translation>
+        <translation>استخدم مدير طابعة بديل أمثال kprinter أو gtklp لاستخدام خيارات طباعة إضافية</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printer.cpp" line="35"/>
+        <source>Sets the printing language to use.
+ Setting to PostScript Level 1 or 2 can create huge files.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_printer.cpp" line="36"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="vanished">طريقة لإيقاف بعض درجات اللون الرمادي المكوّنة من سيان وأصفر وماجنتا واستبدالها باللون الأسود. ويؤثّر UCR غالبًا على أجزاء من الصورة ذات الدرجات المُحايدة و/أو الغامقة القريبة من اللون الرمادي. قد يُحسّن استخدام هذه الطريقة طباعة بعض الصور غير أنّك تحتاج أن تقوم بعمل بعض التجارب والاختبارات لكل حالة على حدة. يُقلّل UCR من احتمالية التشبّع الزائد بأحبار النموذج اللوني س م ص د.</translation>
+        <translation>طريقة لإيقاف بعض درجات اللون الرمادي المكوّنة من سيان وأصفر وماجنتا واستبدالها باللون الأسود. ويؤثّر UCR غالبًا على أجزاء من الصورة ذات الدرجات المُحايدة و/أو الغامقة القريبة من اللون الرمادي. قد يُحسّن استخدام هذه الطريقة طباعة بعض الصور غير أنّك تحتاج أن تقوم بعمل بعض التجارب والاختبارات لكل حالة على حدة. يُقلّل UCR من احتمالية التشبّع الزائد بأحبار النموذج اللوني س م ص د.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printer.cpp" line="37"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation type="vanished">تُمكّن الألوان الموضعية من تحويلها إلى ألوان ممزوجة، إلّا لو كنت تخطط لطباعة الألوان الموضعية في طابعة تجارية فمن الأفضل أن تترك هذا مفعّلًا.</translation>
+        <translation>تُمكّن الألوان الموضعية من تحويلها إلى ألوان ممزوجة، إلّا لو كنت تخطط لطباعة الألوان الموضعية في طابعة تجارية فمن الأفضل أن تترك هذا مفعّلًا.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="489"/>
         <source>Length:</source>
-        <translation type="vanished">الطول:</translation>
+        <translation>الطول:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printer.cpp" line="38"/>
         <source>This enables you to explicitly set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
-        <translation type="vanished">يمكّنك هذا من ضبط حجم وسائط ملف PostScript بعناية. لا يوصى به ما لم تطلب طابعتك ذلك.</translation>
+        <translation>يمكّنك هذا من ضبط حجم وسائط ملف PostScript بعناية. لا يوصى به ما لم تطلب طابعتك ذلك.</translation>
     </message>
 </context>
 <context>
     <name>Prefs_Scrapbook</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_scrapbookbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_scrapbook.cpp" line="18"/>
         <source>Scrapbook</source>
-        <translation type="vanished">سجل القصاصات</translation>
+        <translation>سجل القصاصات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_scrapbookbase.ui" line="83"/>
         <source>Send Copied Items Automatically to the Scrapbook</source>
-        <translation type="vanished">أرسل العناصر المنسوخة تلقائيًا إلى سجل القصاصات</translation>
+        <translation>أرسل العناصر المنسوخة تلقائيًا إلى سجل القصاصات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_scrapbookbase.ui" line="90"/>
         <source>Keep Copied Items Permanently Across Sessions</source>
-        <translation type="vanished">ابقِ العناصر المنسوخة بشكل دائم خلال الجلسات</translation>
+        <translation>ابقِ العناصر المنسوخة بشكل دائم خلال الجلسات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_scrapbookbase.ui" line="97"/>
         <source>Write Item Previews to the Scrapbook Directory</source>
-        <translation type="vanished">اكتب معاينات العناصر إلى مجلد سجل القصاصات</translation>
+        <translation>اكتب معاينات العناصر إلى مجلد سجل القصاصات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_scrapbookbase.ui" line="109"/>
         <source>Number of Copied Items to Keep in Scrapbook</source>
-        <translation type="vanished">عدد العناصر المنسوخة للاحتفاظ بها في سجل القصاصات</translation>
+        <translation>عدد العناصر المنسوخة للاحتفاظ بها في سجل القصاصات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_scrapbook.cpp" line="27"/>
         <source>This enables copied items to be kept permanently in the scrapbook</source>
-        <translation type="vanished">يُتيح هذا حفظ العناصر المنسوخة بشكل دائم في سجل القصاصات</translation>
+        <translation>يُتيح هذا حفظ العناصر المنسوخة بشكل دائم في سجل القصاصات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_scrapbook.cpp" line="28"/>
         <source>Save generated scrapbook previews in the scrapbook directory</source>
-        <translation type="vanished">احفظ معاينات سجل القصاصات المُولَّدة في مجلد سجل القصاصات</translation>
+        <translation>احفظ معاينات سجل القصاصات المُولَّدة في مجلد سجل القصاصات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_scrapbook.cpp" line="29"/>
         <source>The minimum number is 1; the maximum is 100</source>
-        <translation type="vanished">العدد الأدنى هو  1؛ العدد الأقصى هو 100</translation>
+        <translation>العدد الأدنى هو  1؛ العدد الأقصى هو 100</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_scrapbook.cpp" line="26"/>
         <source>This enables the scrapbook to be used an extension to the copy/paste buffers. Simply copying an object or grouped object will send this to the Scrapbook automatically.</source>
-        <translation type="vanished">يتيح هذا استخدام سجل القصاصات كامتداد لصِوان النسخ واللصق. بمجرد نسخ كائن أو كائن مجمّع سيرسل هذا إلى سجل القصاصات تلقائيًا.</translation>
+        <translation>يتيح هذا استخدام سجل القصاصات كامتداد لصِوان النسخ واللصق. بمجرد نسخ كائن أو كائن مجمّع سيرسل هذا إلى سجل القصاصات تلقائيًا.</translation>
     </message>
 </context>
 <context>
@@ -19425,373 +20377,618 @@ Do you want to use this?</source>
 <context>
     <name>Prefs_Spelling</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spellingbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="32"/>
         <source>Spelling</source>
-        <translation type="vanished">التدقيق الإملائي</translation>
+        <translation>التدقيق الإملائي</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spellingbase.ui" line="69"/>
         <source>Installed Spelling Dictionaries</source>
-        <translation type="vanished">قواميس التدقيق الإملائي المثبتة</translation>
+        <translation>قواميس التدقيق الإملائي المثبتة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spellingbase.ui" line="87"/>
         <source>Downloadable Spelling Dictionaries</source>
-        <translation type="vanished">قواميس التدقيق الإملائي القابلة للتنزيل</translation>
+        <translation>قواميس التدقيق الإملائي القابلة للتنزيل</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spellingbase.ui" line="140"/>
         <source>Refresh Downloadable List</source>
-        <translation type="vanished">حدّث القائمة القابلة للتنزيل </translation>
+        <translation>حدّث القائمة القابلة للتنزيل </translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spellingbase.ui" line="147"/>
         <source>Download Selected Dictionaries</source>
-        <translation type="vanished">نزّل القواميس المحددة</translation>
+        <translation>نزّل القواميس المحددة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="142"/>
+        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="277"/>
         <source>Language</source>
-        <translation type="vanished">اللغة</translation>
+        <translation>اللغة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="142"/>
+        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="277"/>
         <source>Code</source>
-        <translation type="vanished">الشفرة</translation>
+        <translation>الشفرة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="142"/>
         <source>Location</source>
-        <translation type="vanished">الموقع</translation>
+        <translation>الموقع</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="277"/>
         <source>Installed</source>
-        <translation type="vanished">مثبّت</translation>
+        <translation>مثبّت</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="277"/>
         <source>Download</source>
-        <translation type="vanished">تنزيل</translation>
+        <translation>تنزيل</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spellingbase.ui" line="107"/>
         <source>Downloading</source>
-        <translation type="vanished">التنزيل</translation>
+        <translation>التنزيل</translation>
     </message>
 </context>
 <context>
     <name>Prefs_TableOfContents</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontents.cpp" line="347"/>
         <source>Table of Contents</source>
-        <translation type="vanished">جدول المحتويات</translation>
+        <translation>جدول المحتويات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="80"/>
         <source>&amp;Add</source>
-        <translation type="vanished">&amp;اضافة</translation>
+        <translation>&amp;اضافة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="83"/>
         <source>Alt+A</source>
-        <translation type="vanished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="90"/>
         <source>&amp;Delete</source>
-        <translation type="vanished">&amp;حذف</translation>
+        <translation>&amp;حذف</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="93"/>
         <source>Alt+D</source>
-        <translation type="vanished">Alt+D</translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="112"/>
         <source>Properties</source>
-        <translation type="vanished">الخصائص</translation>
+        <translation>الخصائص</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="121"/>
+        <source>Source of Table of Contents:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="128"/>
+        <source>Whether the Table of Contents will be generated from Paragraph Styles or Item Attributes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="152"/>
+        <source>Include frames that are set to not print</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="203"/>
+        <source>Styles included in Table of Contents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="263"/>
+        <source>Document Styles:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="297"/>
+        <source>Add</source>
+        <translation>إضافة</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="304"/>
+        <source>Delete</source>
+        <translation>حذف</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="343"/>
+        <source>Table of Contents Entry Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="352"/>
+        <source>Style for TOC Entry:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="388"/>
+        <source>Remove line breaks from text in the heading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="391"/>
+        <source>Remove Line Breaks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="468"/>
         <source>Item Attribute Name:</source>
-        <translation type="vanished">اسم خاصية العنصر:</translation>
+        <translation>اسم خاصية العنصر:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="478"/>
         <source>The Item Attribute that will be set on frames used as a basis for creation of the entries</source>
-        <translation type="vanished">خاصية العنصر التي ستُعيّن على الإطارات المستخدمة كأساس لإنشاء المدخلات</translation>
+        <translation>خاصية العنصر التي ستُعيّن على الإطارات المستخدمة كأساس لإنشاء المدخلات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="135"/>
         <source>Destination Frame:</source>
-        <translation type="vanished">إطار الموقع:</translation>
+        <translation>إطار الموقع:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="145"/>
         <source>The frame the table of contents will be placed into</source>
-        <translation type="vanished">الإطار الذي سيُوضع جدول المحتويات فيه</translation>
+        <translation>الإطار الذي سيُوضع جدول المحتويات فيه</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="369"/>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="434"/>
         <source>Page Number Placement:</source>
-        <translation type="vanished">موضع رقم الصفحة:</translation>
+        <translation>موضع رقم الصفحة:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="379"/>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="444"/>
         <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
-        <translation type="vanished">ضَع أرقام الصفحات للمدخلات في بداية السطر أو في نهايته، أو لا تضعها على الإطلاق</translation>
+        <translation>ضَع أرقام الصفحات للمدخلات في بداية السطر أو في نهايته، أو لا تضعها على الإطلاق</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="451"/>
         <source>Paragraph Style:</source>
-        <translation type="vanished">نمط الفقر ات:</translation>
+        <translation>نمط الفقر ات:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="461"/>
         <source>The paragraph style used for the entry lines</source>
-        <translation type="vanished">نمط الفقرات المستخدم لسطور المدخلات</translation>
+        <translation>نمط الفقرات المستخدم لسطور المدخلات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="155"/>
         <source>List Non-Printing Entries</source>
-        <translation type="vanished">عدّد المدخلات غير المطبعية</translation>
+        <translation>عدّد المدخلات غير المطبعية</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontents.cpp" line="25"/>
         <source>Tables of Contents</source>
-        <translation type="vanished">جداول المحتويات</translation>
+        <translation>جداول المحتويات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontents.cpp" line="111"/>
         <source>Beginning</source>
-        <translation type="vanished">البداية</translation>
+        <translation>البداية</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontents.cpp" line="113"/>
         <source>End</source>
-        <translation type="vanished">النهاية</translation>
+        <translation>النهاية</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontents.cpp" line="115"/>
         <source>Not Shown</source>
-        <translation type="vanished">غير مبيّن</translation>
+        <translation>غير مبيّن</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontents.cpp" line="118"/>
+        <source>Style</source>
+        <translation>سمة</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontents.cpp" line="120"/>
+        <source>Attribute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontents.cpp" line="349"/>
         <source>Table of Contents %1</source>
-        <translation type="vanished">جدول المحتويات %1</translation>
+        <translation>جدول المحتويات %1</translation>
     </message>
 </context>
 <context>
     <name>Prefs_Typography</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="35"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="53"/>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="22"/>
         <source>Typography</source>
-        <translation type="vanished">فنيات الطباعة</translation>
+        <translation>فنيات الطباعة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="68"/>
         <source>Subscript</source>
-        <translation type="vanished">رمز سفلي</translation>
+        <translation>رمز سفلي</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="90"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="172"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="320"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="417"/>
         <source>Displacement:</source>
-        <translation type="vanished">الإزاحة:</translation>
+        <translation>الإزاحة:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="97"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="107"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="179"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="196"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="261"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="340"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="359"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="430"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="456"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="521"/>
         <source> %</source>
-        <translation type="vanished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="120"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="189"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="254"/>
         <source>Scaling:</source>
-        <translation type="vanished">تحجيم:</translation>
+        <translation>تحجيم:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="150"/>
         <source>Superscript</source>
-        <translation type="vanished">رمز علوي</translation>
+        <translation>رمز علوي</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="298"/>
         <source>Underline</source>
-        <translation type="vanished">التسطير</translation>
+        <translation>التسطير</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="327"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="443"/>
         <source>Line Width:</source>
-        <translation type="vanished">عرض الخط:</translation>
+        <translation>عرض الخط:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="337"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="356"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="427"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="453"/>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="32"/>
         <source>Auto</source>
-        <translation type="vanished">آلي</translation>
+        <translation>آلي</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="395"/>
         <source>Strikeout</source>
-        <translation type="vanished">يتوسطه خط</translation>
+        <translation>يتوسطه خط</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="554"/>
+        <source>Optical Margins</source>
+        <translation>الهوامش البصرية</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="232"/>
         <source>Small Caps</source>
-        <translation type="vanished">أحرف صغيرة</translation>
+        <translation>أحرف صغيرة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="492"/>
         <source>Automatic Line Spacing</source>
-        <translation type="vanished">تباعد أسطر تلقائي</translation>
+        <translation>تباعد أسطر تلقائي</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="514"/>
         <source>Line Spacing:</source>
-        <translation type="vanished">تباعد الأسطر:</translation>
+        <translation>تباعد الأسطر:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="38"/>
         <source>Displacement below the baseline of the normal font on a line</source>
-        <translation type="vanished">الإزاحة أسفل الخط الأساسي للخط العادي على السطر</translation>
+        <translation>الإزاحة أسفل الخط الأساسي للخط العادي على السطر</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="39"/>
         <source>Relative size of the subscript compared to the normal font</source>
-        <translation type="vanished">الحجم النسبي للرمز السفلي مقارنة بالخط العادي</translation>
+        <translation>الحجم النسبي للرمز السفلي مقارنة بالخط العادي</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="40"/>
         <source>Displacement above the baseline of the font on a line</source>
-        <translation type="vanished">الإزاحة أعلى الخط الأساسي للخط العادي على السطر</translation>
+        <translation>الإزاحة أعلى الخط الأساسي للخط العادي على السطر</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="41"/>
         <source>Relative size of the superscript compared to the normal font</source>
-        <translation type="vanished">الحجم النسبي للرمز العلوي مقارنة بالخط العادي</translation>
+        <translation>الحجم النسبي للرمز العلوي مقارنة بالخط العادي</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="42"/>
         <source>Displacement below the baseline of the normal font expressed as a percentage of the fonts descender</source>
-        <translation type="vanished">الإزاحة تحت الخط الأساسي للخط العادي معبرًا عنه بنسبة مئوية فئات الخطوط </translation>
+        <translation>الإزاحة تحت الخط الأساسي للخط العادي معبرًا عنه بنسبة مئوية فئات الخطوط </translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="43"/>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="45"/>
         <source>Line width expressed as a percentage of the font size</source>
-        <translation type="vanished">عرض السطر معبرًا عنه كنسبة مئوية من حجم الخط</translation>
+        <translation>عرض السطر معبرًا عنه كنسبة مئوية من حجم الخط</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="44"/>
         <source>Displacement above the baseline of the normal font expressed as a percentage of the fonts ascender</source>
-        <translation type="vanished">الإزاحة أعلى الخط الأساسي للخط العادي معبرًا عنه كنسبة مئوية من الخطوط الصاعدة</translation>
+        <translation>الإزاحة أعلى الخط الأساسي للخط العادي معبرًا عنه كنسبة مئوية من الخطوط الصاعدة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="46"/>
         <source>Relative size of the small caps font compared to the normal font</source>
-        <translation type="vanished">الحجم النسبي لخط الأحرف الصغيرة مقارنة بالخط العادي</translation>
+        <translation>الحجم النسبي لخط الأحرف الصغيرة مقارنة بالخط العادي</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="47"/>
         <source>Percentage increase over the font size for the line spacing</source>
-        <translation type="vanished">زيادة النسبة المئوية على حجم الخط لتباعد الأسطر</translation>
+        <translation>زيادة النسبة المئوية على حجم الخط لتباعد الأسطر</translation>
     </message>
 </context>
 <context>
     <name>Prefs_UserInterface</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="35"/>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="28"/>
         <source>User Interface</source>
-        <translation type="vanished">واجهة المستخدم</translation>
+        <translation>واجهة المستخدم</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="53"/>
         <source>Main Window</source>
-        <translation type="vanished">نافذة رئيسية</translation>
+        <translation>نافذة رئيسية</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="64"/>
         <source>Appearance</source>
-        <translation type="vanished">المَظْهَر</translation>
+        <translation>المَظْهَر</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="196"/>
         <source>&amp;Language:</source>
-        <translation type="vanished">&amp;اللغة:</translation>
+        <translation>&amp;اللغة:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="83"/>
         <source>&amp;Theme:</source>
-        <translation type="vanished">&amp;النَسَق:</translation>
+        <translation>&amp;النَسَق:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="106"/>
         <source>Use Small Widgets on Palettes</source>
-        <translation type="vanished">استخدم وَدجَات صغيرة على ألواح الألوان</translation>
+        <translation>استخدم وَدجَات صغيرة على ألواح الألوان</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="113"/>
         <source>Use Tabs for Documents</source>
-        <translation type="vanished">استخدم علامات تبويب للمستندات</translation>
+        <translation>استخدم علامات تبويب للمستندات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="120"/>
         <source>&amp;Recent Documents:</source>
-        <translation type="vanished">ال&amp;مستندات الحالية:</translation>
+        <translation>ال&amp;مستندات الحالية:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="133"/>
+        <source>Show Informational Labels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="140"/>
+        <source>Show Labels of Inactive Palette Tabs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="147"/>
+        <source>Appearance:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="180"/>
         <source>Language and Regionalization</source>
-        <translation type="vanished">اللغة والأقلمة</translation>
+        <translation>اللغة والأقلمة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="209"/>
         <source>Number Format:</source>
-        <translation type="vanished">تنسيق الأرقام:</translation>
+        <translation>تنسيق الأرقام:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="245"/>
         <source>Font Sizes</source>
-        <translation type="vanished">أحجام الخطوط</translation>
+        <translation>أحجام الخطوط</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="261"/>
         <source>&amp;Menus:</source>
-        <translation type="vanished">&amp;قوائم:</translation>
+        <translation>&amp;قوائم:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="271"/>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="288"/>
         <source> pt</source>
-        <translation type="vanished">نقطة</translation>
+        <translation>نقطة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="278"/>
         <source>&amp;Palettes:</source>
-        <translation type="vanished">&amp;ألواح الألوان:</translation>
+        <translation>&amp;ألواح الألوان:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="311"/>
         <source>Story Editor</source>
-        <translation type="vanished">محرّر القصة</translation>
+        <translation>محرّر القصة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="322"/>
         <source>Font:</source>
-        <translation type="vanished">الخط:</translation>
+        <translation>الخط:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="336"/>
         <source>Use Smart Text Selection</source>
-        <translation type="vanished">استخدم التحديد الذكي للنص</translation>
+        <translation>استخدم التحديد الذكي للنص</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="359"/>
         <source>Interactivity</source>
-        <translation type="vanished">التفاعلية</translation>
+        <translation>التفاعلية</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="370"/>
         <source>Time before resize or move starts:</source>
-        <translation type="vanished">الوقت قبل إعادة التحجيم أو بدء التحريك: </translation>
+        <translation>الوقت قبل إعادة التحجيم أو بدء التحريك: </translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="380"/>
         <source> ms</source>
-        <translation type="vanished">مللي ثانية</translation>
+        <translation>مللي ثانية</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="390"/>
         <source>&amp;Wheel Jump:</source>
-        <translation type="vanished">&amp;قفز العجلة:</translation>
+        <translation>&amp;قفز العجلة:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="400"/>
+        <source> lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="423"/>
         <source>Start Up</source>
-        <translation type="vanished">بدء التشغيل</translation>
+        <translation>بدء التشغيل</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="438"/>
         <source>Show Splashscreen</source>
-        <translation type="vanished">أظهر شاشة البداية</translation>
+        <translation>أظهر شاشة البداية</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="431"/>
         <source>Show Startup Dialog</source>
-        <translation type="vanished">أظهر مربع حوار بدء التشغيل</translation>
+        <translation>أظهر مربع حوار بدء التشغيل</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="74"/>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
-        <translation type="vanished">اختر زُخْرُفة وأشكال النافذة الافتراضية. يرث سكريبس أية نُسُقٍ KDE أو Qt متاحة، في حال ضُبط Qt للبحث في ملحقات KDE.</translation>
+        <translation>اختر زُخْرُفة وأشكال النافذة الافتراضية. يرث سكريبس أية نُسُقٍ KDE أو Qt متاحة، في حال ضُبط Qt للبحث في ملحقات KDE.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="77"/>
         <source>Number of recently edited documents to show in the File menu</source>
-        <translation type="vanished">عدد المستندات التي حُرّرت مؤخرًا لعرضها في قائمة &quot;ملف&quot;</translation>
+        <translation>عدد المستندات التي حُرّرت مؤخرًا لعرضها في قائمة &quot;ملف&quot;</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="79"/>
         <source>Use either the system or selected language related definition for number formats for decimals for numbers in the interface</source>
-        <translation type="vanished">استخدم إما تعريف النظام أو اللغة المحددة المتعلقة بتنسيقات الأرقام للكسور العشرية للأرقام في الواجهة</translation>
+        <translation>استخدم إما تعريف النظام أو اللغة المحددة المتعلقة بتنسيقات الأرقام للكسور العشرية للأرقام في الواجهة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="80"/>
         <source>Default font size for the menus and windows</source>
-        <translation type="vanished">حجم الخط الافتراضي للقوائم والنوافذ</translation>
+        <translation>حجم الخط الافتراضي للقوائم والنوافذ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="81"/>
         <source>Default font size for the tool windows</source>
-        <translation type="vanished">حجم الخط الافتراضي لنوافذ الأدوات</translation>
+        <translation>حجم الخط الافتراضي لنوافذ الأدوات</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="82"/>
         <source>Time before resize or move starts allows for a slight delay between when you click and the operation happens to avoid unintended moves. This can be helpful when dealing with mouse sensitivity settings or accessibility issues related to ergonomic mice, touch pads or moveability of the wrists and hands.</source>
-        <translation type="vanished">يسمح الوقت قبل بدء التحجيم أو التحريك بتأخير طفيف بين النقر والنقر وتحدث العملية لتجنب التحركات غير المقصودة. يمكن أن يكون هذا مفيدًا عند التعامل مع إعدادات حساسية الفأرة أو مشكلات إمكانية الوصول المتعلقة بأجهزة الفأرة المريحة أو الراسمات اللمسية أو حركة المعصمين واليدين.</translation>
+        <translation>يسمح الوقت قبل بدء التحجيم أو التحريك بتأخير طفيف بين النقر والنقر وتحدث العملية لتجنب التحركات غير المقصودة. يمكن أن يكون هذا مفيدًا عند التعامل مع إعدادات حساسية الفأرة أو مشكلات إمكانية الوصول المتعلقة بأجهزة الفأرة المريحة أو الراسمات اللمسية أو حركة المعصمين واليدين.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="96"/>
         <source>Icon Set:</source>
-        <translation type="vanished">نوع الأيقونات:</translation>
+        <translation>نوع الأيقونات:</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="75"/>
         <source>Choose the default icon set</source>
-        <translation type="vanished">اختار نوع الأيقونات الافتراضي</translation>
+        <translation>اختار نوع الأيقونات الافتراضي</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="78"/>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus.</source>
-        <translation type="vanished">حدّد لغتك الافتراضية ليعمل بها سكريبس. اترك هذا فارغًا للاختيار بناءً على متغيرات البيئة. لا يزال بإمكانك تجاوز هذا بتمرير خيار سطر الأوامر عند بدء سكريبس. </translation>
+        <translation>حدّد لغتك الافتراضية ليعمل بها سكريبس. اترك هذا فارغًا للاختيار بناءً على متغيرات البيئة. لا يزال بإمكانك تجاوز هذا بتمرير خيار سطر الأوامر عند بدء سكريبس. </translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="52"/>
         <source>Use System Format</source>
-        <translation type="vanished">استخدم تنسيق النظام</translation>
+        <translation>استخدم تنسيق النظام</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="53"/>
         <source>Use Interface Language Format</source>
-        <translation type="vanished">استخدم تنسيق لغة الواجهة</translation>
+        <translation>استخدم تنسيق لغة الواجهة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="69"/>
+        <source>Auto</source>
+        <translation type="unfinished">آلي</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="70"/>
+        <source>Light</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="71"/>
+        <source>Dark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="72"/>
+        <source>Choose the default theme palette. Auto uses the systems default.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="76"/>
+        <source>Palette windows will use smaller (space savvy) widgets. Requires application restart.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="83"/>
         <source>Number of lines Scribus will scroll for each &quot;notch&quot; of the mouse wheel</source>
-        <translation type="vanished">عدد الأسطر التي سيمررها سكريبس لكل &quot;ضغطة&quot; لعجلة الفأرة</translation>
+        <translation>عدد الأسطر التي سيمررها سكريبس لكل &quot;ضغطة&quot; لعجلة الفأرة</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="86"/>
         <source>The default behavior when double-clicking on a word is to select the word and the first following space. Smart selection will select only the word, without the following space.</source>
-        <translation type="vanished">الوضع الافتراضي عند الضغط مرتين على كلمة هو لأجل تحديد الكلمة وأول مساحة تأتي بعدها. سيحدد التحديد الذكي الكلمة فقط دون المساحة التي بعدها.</translation>
+        <translation>الوضع الافتراضي عند الضغط مرتين على كلمة هو لأجل تحديد الكلمة وأول مساحة تأتي بعدها. سيحدد التحديد الذكي الكلمة فقط دون المساحة التي بعدها.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="87"/>
+        <source>Shows informational labels on palettes.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="88"/>
+        <source>Shows labels of inactive palette tabs.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

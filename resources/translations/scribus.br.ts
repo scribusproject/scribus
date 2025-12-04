@@ -16271,1248 +16271,1649 @@ Do you want to migrate them to the new Scribus version?</source>
 <context>
     <name>Prefs_ColorManagement</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="38"/>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagement.cpp" line="24"/>
         <source>Color Management</source>
-        <translation type="vanished">Ardeiñ al livioù</translation>
+        <translation>Ardeiñ al livioù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="92"/>
         <source>Document Options</source>
-        <translation type="vanished">Dibarzhioù an teul</translation>
+        <translation>Dibarzhioù an teul</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="106"/>
         <source>Activate Color Management</source>
-        <translation type="vanished">Gweredekaat ardoadur al livioù</translation>
+        <translation>Gweredekaat ardoadur al livioù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="113"/>
         <source>Simulate Printer on the Screen</source>
-        <translation type="vanished">Darvanañ ar voullerez war ar skramm</translation>
+        <translation>Darvanañ ar voullerez war ar skramm</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="120"/>
         <source>Convert all colors to printer space</source>
-        <translation type="vanished">Amdreiñ an holl livioù da egor ar voullerez</translation>
+        <translation>Amdreiñ an holl livioù da egor ar voullerez</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="127"/>
         <source>Mark Colors out of Gamut</source>
-        <translation type="vanished">Merkañ al livioù er-maez eus an dirïad</translation>
+        <translation>Merkañ al livioù er-maez eus an dirïad</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="134"/>
         <source>Use Blackpoint Compensation</source>
-        <translation type="vanished">Arverañ kempouezadur ar poentoù du</translation>
+        <translation>Arverañ kempouezadur ar poentoù du</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="163"/>
         <source>Document Profiles</source>
-        <translation type="vanished">Aeladoù an teul</translation>
+        <translation>Aeladoù an teul</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="185"/>
         <source>RGB Images:</source>
-        <translation type="vanished">Skeudennoù mod RGG :</translation>
+        <translation>Skeudennoù mod RGG :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="205"/>
         <source>CMYK Images:</source>
-        <translation type="vanished">Skeudennoù mod SMMD :</translation>
+        <translation>Skeudennoù mod SMMD :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="225"/>
         <source>RGB Solid Colors:</source>
-        <translation type="vanished">Livioù unvan mod RGG :</translation>
+        <translation>Livioù unvan mod RGG :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="238"/>
         <source>CMYK Solid Colors:</source>
-        <translation type="vanished">Livioù mod SMMD unvan :</translation>
+        <translation>Livioù mod SMMD unvan :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="251"/>
         <source>Printer:</source>
-        <translation type="vanished">Moullerez :</translation>
+        <translation>Moullerez :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="285"/>
         <source>Document Rendering Intents</source>
-        <translation type="vanished">Mennadoù da lakaat deouez war an teul</translation>
+        <translation>Mennadoù da lakaat deouez war an teul</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="304"/>
         <source>Images:</source>
-        <translation type="vanished">Skeudennoù :</translation>
+        <translation>Skeudennoù :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="314"/>
         <source>Solid Colors:</source>
-        <translation type="vanished">Livioù unvan :</translation>
+        <translation>Livioù unvan :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="348"/>
         <source>Monitor Profile</source>
-        <translation type="vanished">Aelad an hewel</translation>
+        <translation>Aelad an hewel</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagementbase.ui" line="370"/>
         <source>Monitor:</source>
-        <translation type="vanished">Hewel :</translation>
+        <translation>Hewel :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagement.cpp" line="64"/>
         <source>Perceptual</source>
-        <translation type="vanished">Merzhadel</translation>
+        <translation>Merzhadel</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagement.cpp" line="64"/>
         <source>Relative Colorimetric</source>
-        <translation type="vanished">Livventerezh daveel</translation>
+        <translation>Livventerezh daveel</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagement.cpp" line="65"/>
         <source>Saturation</source>
-        <translation type="vanished">Peurvec&apos;hiañ</translation>
+        <translation>Peurvec&apos;hiañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagement.cpp" line="65"/>
         <source>Absolute Colorimetric</source>
-        <translation type="vanished">Livventerezh dizave</translation>
+        <translation>Livventerezh dizave</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagement.cpp" line="34"/>
         <source>Monitor profiles can only be changed when no documents are open.</source>
-        <translation type="vanished">Aeladoù an hewel a c&apos;hall bezañ daskemmet pa n&apos;eus teul ebet war zigor hepken.</translation>
+        <translation>Aeladoù an hewel a c&apos;hall bezañ daskemmet pa n&apos;eus teul ebet war zigor hepken.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_colormanagement.cpp" line="55"/>
         <source>&lt;qt&gt;Color Management cannot be activated due to missing color profiles.&lt;/br&gt;You need to install at least one RGB and one CMYK profile.</source>
-        <translation type="vanished">&lt;qt&gt;N&apos;haller ket gweredekaat ardeiñ al livioù rak aeladoù liv a vank.&lt;/br&gt;Ret eo deoc&apos;h staliañ un aelad mod RGG hag unan mod SMMD da vihanañ.</translation>
+        <translation>&lt;qt&gt;N&apos;haller ket gweredekaat ardeiñ al livioù rak aeladoù liv a vank.&lt;/br&gt;Ret eo deoc&apos;h staliañ un aelad mod RGG hag unan mod SMMD da vihanañ.</translation>
     </message>
 </context>
 <context>
     <name>Prefs_Display</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="29"/>
         <source>Display</source>
-        <translation type="vanished">Skrammañ</translation>
+        <translation>Skrammañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="81"/>
         <source>Show Images</source>
-        <translation type="vanished">Diskouez ar skeudennoù</translation>
+        <translation>Diskouez ar skeudennoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="95"/>
         <source>Show Text Control Characters</source>
-        <translation type="vanished">Diskouez an arouezennoù diwelus an destenn</translation>
+        <translation>Diskouez an arouezennoù diwelus an destenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="60"/>
         <source>Show Rulers</source>
-        <translation type="vanished">Diskouez ar reolennoù</translation>
+        <translation>Diskouez ar reolennoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="67"/>
         <source>Show Rulers Relative to Page</source>
-        <translation type="vanished">Diskouez reolennoù daveel ouzh ar bajenn</translation>
+        <translation>Diskouez reolennoù daveel ouzh ar bajenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="88"/>
         <source>Show Text Chains</source>
-        <translation type="vanished">Diskouez an ereoù etre ar sterniadoù testenn</translation>
+        <translation>Diskouez an ereoù etre ar sterniadoù testenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="74"/>
         <source>Show Frames</source>
-        <translation type="vanished">Diskouez ar sterniadoù</translation>
+        <translation>Diskouez ar sterniadoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="102"/>
         <source>Show Layer Indicators</source>
-        <translation type="vanished">Diskouez menegerioù an treuzfollennoù</translation>
+        <translation>Diskouez menegerioù an treuzfollennoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="109"/>
         <source>Show Unprintable Area in Margin Color</source>
-        <translation type="vanished">Skrammañ ar maez divoulladus e liv ar marz</translation>
+        <translation>Skrammañ ar maez divoulladus e liv ar marz</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="116"/>
         <source>Show Bleed Area</source>
-        <translation type="vanished">Diskouez ar maezioù dic&apos;hlannañ</translation>
+        <translation>Diskouez ar maezioù dic&apos;hlannañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="123"/>
         <source>Show Page Shadow</source>
-        <translation type="vanished">Diskouez disheol bannet ar bajenn</translation>
+        <translation>Diskouez disheol bannet ar bajenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="130"/>
         <source>Show Preflight Verifier Warnings on the Page</source>
-        <translation type="vanished">Diskouez Evezhioù gwirierez Preflight war ar bajennad</translation>
+        <translation>Diskouez Evezhioù gwirierez Preflight war ar bajennad</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="151"/>
         <source>Scratch Space</source>
-        <translation type="vanished">Maez labourat</translation>
+        <translation>Maez labourat</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="159"/>
         <source>Left:</source>
-        <translation type="vanished">Kleiz :</translation>
+        <translation>Kleiz :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="169"/>
         <source>Right:</source>
-        <translation type="vanished">Dehou :</translation>
+        <translation>Dehou :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="179"/>
         <source>Top:</source>
-        <translation type="vanished">Lein :</translation>
+        <translation>Lein :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="189"/>
         <source>Bottom:</source>
-        <translation type="vanished">Traoñ :</translation>
+        <translation>Traoñ :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="275"/>
         <source>Display Scaling</source>
-        <translation type="vanished">Skrammañ ar skeuladur</translation>
+        <translation>Skrammañ ar skeuladur</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="423"/>
         <source>Scratch Space:</source>
-        <translation type="vanished">Maez labourat :</translation>
+        <translation>Maez labourat :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="223"/>
         <source>Gaps Between Pages</source>
-        <translation type="vanished">Esaou etre ar bajennoù</translation>
+        <translation>Esaou etre ar bajennoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="54"/>
         <source>Pages</source>
-        <translation type="vanished">Pajennoù</translation>
+        <translation>Pajennoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="239"/>
         <source>Horizontal:</source>
-        <translation type="vanished">A-blaen :</translation>
+        <translation>A-blaen :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="249"/>
         <source>Vertical:</source>
-        <translation type="vanished">A-serzh :</translation>
+        <translation>A-serzh :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="299"/>
         <source>Scale%</source>
-        <translation type="vanished">Skeulaat %</translation>
+        <translation>Skeulaat %</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="309"/>
         <source>Resets the scale to the default dpi of your display</source>
-        <translation type="vanished">Adderaouekaat a ra ar skeulaat da arventennoù ar BDM dre ziouer evit ho skrammañ</translation>
+        <translation>Adderaouekaat a ra ar skeulaat da arventennoù ar BDM dre ziouer evit ho skrammañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="367"/>
         <source>Colors</source>
-        <translation type="vanished">Livioù</translation>
+        <translation>Livioù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="409"/>
         <source>Page Fill:</source>
-        <translation type="vanished">Leuniadur ar bajennad :</translation>
+        <translation>Leuniadur ar bajennad :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="437"/>
         <source>Selected Page Border:</source>
-        <translation type="vanished">Riblennoù ar bajenn diuzet :</translation>
+        <translation>Riblennoù ar bajenn diuzet :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="451"/>
         <source>Frames:</source>
-        <translation type="vanished">Sternioù :</translation>
+        <translation>Sternioù :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="465"/>
         <source>Locked Frames:</source>
-        <translation type="vanished">Sternioù prennet :</translation>
+        <translation>Sternioù prennet :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="479"/>
         <source>Selected Frames:</source>
-        <translation type="vanished">Sternioù diuzet :</translation>
+        <translation>Sternioù diuzet :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="493"/>
         <source>Linked Frames:</source>
-        <translation type="vanished">Sterniadoù ereet :</translation>
+        <translation>Sterniadoù ereet :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="507"/>
         <source>Grouped Frames:</source>
-        <translation type="vanished">Sternioù kevredet :</translation>
+        <translation>Sternioù kevredet :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="521"/>
         <source>Annotation Frames:</source>
-        <translation type="vanished">Sterniadoù notennoù :</translation>
+        <translation>Sterniadoù notennoù :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="535"/>
         <source>Text Control Characters:</source>
-        <translation type="vanished">Arouezennoù reoliañ an destenn :</translation>
+        <translation>Arouezennoù reoliañ an destenn :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="73"/>
         <source>Color for paper (onscreen)</source>
-        <translation type="vanished">Liv ar paper (war ar skramm)</translation>
+        <translation>Liv ar paper (war ar skramm)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="74"/>
         <source>Mask the area outside the margins in the margin color</source>
-        <translation type="vanished">Masklañ ar maez dreist ar marzioù gant liv ar marzioù</translation>
+        <translation>Masklañ ar maez dreist ar marzioù gant liv ar marzioù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="76"/>
         <source>Display non-printing characters such as paragraph markers in text frames</source>
-        <translation type="vanished">Skrammañ an arouezennoù anmoullus evel merkerioù ar rannbennadoù er sterniadoù testenn</translation>
+        <translation>Skrammañ an arouezennoù anmoullus evel merkerioù ar rannbennadoù er sterniadoù testenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="77"/>
         <source>Turns the display of frames on or off</source>
-        <translation type="vanished">(Diw)Gweredekaat skrammadur trolinennoù ar sternioù</translation>
+        <translation>(Diw)Gweredekaat skrammadur trolinennoù ar sternioù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="78"/>
         <source>Turns the display of layer indicators on or off</source>
-        <translation type="vanished">(Diw)Gweredekaat a ra skrammadur menegerioù an dreuzfollenn</translation>
+        <translation>(Diw)Gweredekaat a ra skrammadur menegerioù an dreuzfollenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="79"/>
         <source>Turns the display of images on or off</source>
-        <translation type="vanished">(Diw)Gweredekaat skrammadur ar skeudennoù</translation>
+        <translation>(Diw)Gweredekaat skrammadur ar skeudennoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="80"/>
         <source>Turns the page shadow on or off</source>
-        <translation type="vanished">Gweredekaat pe ziweredekaat disheol bannet ar bajenn</translation>
+        <translation>Gweredekaat pe ziweredekaat disheol bannet ar bajenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="81"/>
         <source>Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="vanished">Despizañ a ra kementad a egor hegerz war an tu kleiz eus steuenn an teul evel maez labourat evit krouiñ ha daskemmañ an elfennoù ha kas anezho war ar bajennad oberiant</translation>
+        <translation>Despizañ a ra kementad a egor hegerz war an tu kleiz eus steuenn an teul evel maez labourat evit krouiñ ha daskemmañ an elfennoù ha kas anezho war ar bajennad oberiant</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="82"/>
         <source>Defines amount of space right of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="vanished">Despizañ a ra kementad a egor hegerz war an tu dehou eus steuenn an teul evel maez labourat evit krouiñ ha daskemmañ an elfennoù ha kas anezho war ar bajennad oberiant</translation>
+        <translation>Despizañ a ra kementad a egor hegerz war an tu dehou eus steuenn an teul evel maez labourat evit krouiñ ha daskemmañ an elfennoù ha kas anezho war ar bajennad oberiant</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="83"/>
         <source>Defines amount of space above the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="vanished">Despizañ a ra kementad a egor hegerz war lein steuenn an teul evel maez labourat evit krouiñ ha daskemmañ an elfennoù ha kas anezho war ar bajennad oberiant</translation>
+        <translation>Despizañ a ra kementad a egor hegerz war lein steuenn an teul evel maez labourat evit krouiñ ha daskemmañ an elfennoù ha kas anezho war ar bajennad oberiant</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="84"/>
         <source>Defines amount of space below the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="vanished">Despizañ a ra kementad a egor hegerz war draoñ steuenn an teul evel maez labourat evit krouiñ ha daskemmañ an elfennoù ha kas anezho war ar bajennad oberiant</translation>
+        <translation>Despizañ a ra kementad a egor hegerz war draoñ steuenn an teul evel maez labourat evit krouiñ ha daskemmañ an elfennoù ha kas anezho war ar bajennad oberiant</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="85"/>
         <source>Set the default zoom level</source>
-        <translation type="vanished">Kefluniañ live ar zoum dre ziouer</translation>
+        <translation>Kefluniañ live ar zoum dre ziouer</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="86"/>
         <source>Place a ruler against your screen and drag the slider to set the zoom level so Scribus will display your pages and objects on them at the correct size</source>
-        <translation type="vanished">Lakait ur reolenn war ho skramm ha dilec&apos;hiit ar reti a-benn tizhout al live zoum o reiñ tu da Scribus da skrammañ ar pajennadoù hag an ergorennoù a vo warno gant ar vent dereat</translation>
+        <translation>Lakait ur reolenn war ho skramm ha dilec&apos;hiit ar reti a-benn tizhout al live zoum o reiñ tu da Scribus da skrammañ ar pajennadoù hag an ergorennoù a vo warno gant ar vent dereat</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="186"/>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="271"/>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="279"/>
         <source> dpi</source>
-        <translation type="vanished"> pdm</translation>
+        <translation> pdm</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_display.cpp" line="75"/>
         <source>Enable or disable the display of linked frames</source>
-        <translation type="vanished">(Diw)Gweredekaat skrammadur ar sterniadoù testenn bet ereet.</translation>
+        <translation>(Diw)Gweredekaat skrammadur ar sterniadoù testenn bet ereet.</translation>
     </message>
 </context>
 <context>
     <name>Prefs_DocumentInformation</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformation.cpp" line="23"/>
         <source>Document Information</source>
-        <translation type="vanished">Titouroù diwar-benn an teul</translation>
+        <translation>Titouroù diwar-benn an teul</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="54"/>
         <source>Document</source>
-        <translation type="vanished">Teul</translation>
+        <translation>Teul</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="60"/>
         <source>Title:</source>
-        <translation type="vanished">Titl :</translation>
+        <translation>Titl :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="77"/>
         <source>Author:</source>
-        <translation type="vanished">Aozer :</translation>
+        <translation>Aozer :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="87"/>
         <source>Subject:</source>
-        <translation type="vanished">Danvez :</translation>
+        <translation>Danvez :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="97"/>
         <source>Keywords:</source>
-        <translation type="vanished">Gerioù alc&apos;hwez :</translation>
+        <translation>Gerioù alc&apos;hwez :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="111"/>
         <source>Description:</source>
-        <translation type="vanished">Deskrivadur :</translation>
+        <translation>Deskrivadur :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="126"/>
         <source>Further Information</source>
-        <translation type="vanished">Titouroù ouzhpenn</translation>
+        <translation>Titouroù ouzhpenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="167"/>
         <source>Publisher:</source>
-        <translation type="vanished">Embanner :</translation>
+        <translation>Embanner :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="177"/>
         <source>Contributors:</source>
-        <translation type="vanished">Perzhiaded :</translation>
+        <translation>Perzhiaded :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="191"/>
         <source>Date:</source>
-        <translation type="vanished">Deiziad :</translation>
+        <translation>Deiziad :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="205"/>
         <source>Type:</source>
-        <translation type="vanished">Rizh :</translation>
+        <translation>Rizh :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="219"/>
         <source>Format:</source>
-        <translation type="vanished">Mentrezh :</translation>
+        <translation>Mentrezh :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="229"/>
         <source>Identifier:</source>
-        <translation type="vanished">Naoudi :</translation>
+        <translation>Naoudi :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="239"/>
         <source>Source:</source>
-        <translation type="vanished">Tarzh :</translation>
+        <translation>Tarzh :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="249"/>
         <source>Language:</source>
-        <translation type="vanished">Yezh :</translation>
+        <translation>Yezh :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="263"/>
         <source>Relation:</source>
-        <translation type="vanished">Darempred :</translation>
+        <translation>Darempred :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="273"/>
         <source>Coverage:</source>
-        <translation type="vanished">Keitad :</translation>
+        <translation>Keitad :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentinformationbase.ui" line="287"/>
         <source>Rights:</source>
-        <translation type="vanished">Gwirioù :</translation>
+        <translation>Gwirioù :</translation>
     </message>
 </context>
 <context>
     <name>Prefs_DocumentItemAttributes</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="14"/>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="39"/>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="19"/>
         <source>Document Item Attributes</source>
-        <translation type="vanished">Doareennoù eergorennoù an teul</translation>
+        <translation>Doareennoù eergorennoù an teul</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="54"/>
         <source>Name</source>
-        <translation type="vanished">Anv</translation>
+        <translation>Anv</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="59"/>
         <source>Type</source>
-        <translation type="vanished">Rizh</translation>
+        <translation>Rizh</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="64"/>
         <source>Value</source>
-        <translation type="vanished">Gwerzh</translation>
+        <translation>Gwerzh</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="69"/>
         <source>Parameter</source>
-        <translation type="vanished">Arventenn</translation>
+        <translation>Arventenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="74"/>
         <source>Relationship</source>
-        <translation type="vanished">Darempred</translation>
+        <translation>Darempred</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="79"/>
         <source>Relationship To</source>
-        <translation type="vanished">Darempred gant</translation>
+        <translation>Darempred gant</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="84"/>
         <source>Auto Add To</source>
-        <translation type="vanished">Ouzhpennañ emgefreek da</translation>
+        <translation>Ouzhpennañ emgefreek da</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="110"/>
         <source>&amp;Add</source>
-        <translation type="vanished">&amp;Ouzhpennañ</translation>
+        <translation>&amp;Ouzhpennañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="113"/>
         <source>Alt+A</source>
-        <translation type="vanished">Alt+T</translation>
+        <translation>Alt+T</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="120"/>
         <source>&amp;Copy</source>
-        <translation type="vanished">&amp;Eilañ</translation>
+        <translation>&amp;Eilañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="123"/>
         <source>Alt+C</source>
-        <translation type="vanished">Alt+K</translation>
+        <translation>Alt+K</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="130"/>
         <source>&amp;Delete</source>
-        <translation type="vanished">&amp;Diverkañ</translation>
+        <translation>&amp;Diverkañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="133"/>
         <source>Alt+D</source>
-        <translation type="vanished">Alt+D</translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="140"/>
         <source>C&amp;lear</source>
-        <translation type="vanished">&amp;Skarzhañ</translation>
+        <translation>&amp;Skarzhañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributesbase.ui" line="143"/>
         <source>Alt+L</source>
-        <translation type="vanished">Alt+L</translation>
+        <translation>Alt+L</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="22"/>
         <source>None</source>
         <comment>relationship</comment>
-        <translation type="vanished">Hini ebet</translation>
+        <translation>Hini ebet</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="22"/>
         <source>Relates To</source>
-        <translation type="vanished">Daveel ouzh</translation>
+        <translation>Daveel ouzh</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="22"/>
         <source>Is Parent Of</source>
-        <translation type="vanished">Zo Kar Da </translation>
+        <translation>Zo Kar Da </translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="22"/>
         <source>Is Child Of</source>
-        <translation type="vanished">Zo Mab da</translation>
+        <translation>Zo Mab da</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="24"/>
         <source>None</source>
         <comment>auto add</comment>
-        <translation type="vanished">Hini ebet</translation>
+        <translation>Hini ebet</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="24"/>
         <source>Text Frames</source>
-        <translation type="vanished">Sterniadoù testenn</translation>
+        <translation>Sterniadoù testenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="24"/>
         <source>Image Frames</source>
-        <translation type="vanished">Sterniadoù skeudenn</translation>
+        <translation>Sterniadoù skeudenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="26"/>
         <source>None</source>
         <comment>types</comment>
-        <translation type="vanished">Hini ebet</translation>
+        <translation>Hini ebet</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="26"/>
         <source>Boolean</source>
-        <translation type="vanished">Booleat</translation>
+        <translation>Booleat</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="26"/>
         <source>Integer</source>
-        <translation type="vanished">Kevan</translation>
+        <translation>Kevan</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="26"/>
         <source>Real Number</source>
-        <translation type="vanished">Niver wir</translation>
+        <translation>Niver wir</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentitemattributes.cpp" line="26"/>
         <source>String</source>
-        <translation type="vanished">Hedad arouezennoù</translation>
+        <translation>Hedad arouezennoù</translation>
     </message>
 </context>
 <context>
     <name>Prefs_DocumentSections</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsections.cpp" line="27"/>
         <source>Sections</source>
-        <translation type="vanished">Kevrennoù</translation>
+        <translation>Kevrennoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsections.cpp" line="172"/>
         <source>Page Number Out Of Bounds</source>
-        <translation type="vanished">Niverenn bajenn dreist ar bevennoù</translation>
+        <translation>Niverenn bajenn dreist ar bevennoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsections.cpp" line="172"/>
         <source>The value you have entered is outside the range of page numbers in the current document (%1-%2).</source>
-        <translation type="vanished">Brasoc&apos;h eo ar werzh enanket ganeoc&apos;h eget niver a bajennoù en teul bremanel (%1-%2).</translation>
+        <translation>Brasoc&apos;h eo ar werzh enanket ganeoc&apos;h eget niver a bajennoù en teul bremanel (%1-%2).</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="14"/>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="39"/>
         <source>Document Sections</source>
-        <translation type="vanished">Kevrennoù an teul</translation>
+        <translation>Kevrennoù an teul</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="60"/>
         <source>Name</source>
-        <translation type="vanished">Anv</translation>
+        <translation>Anv</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="65"/>
         <source>Shown</source>
-        <translation type="vanished">Diskouezet</translation>
+        <translation>Diskouezet</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="75"/>
         <source>From</source>
-        <translation type="vanished">eus</translation>
+        <translation>eus</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="80"/>
         <source>To</source>
-        <translation type="vanished">betek</translation>
+        <translation>betek</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="85"/>
         <source>Style</source>
-        <translation type="vanished">Stil</translation>
+        <translation>Stil</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="90"/>
         <source>Start</source>
-        <translation type="vanished">Loc&apos;hañ</translation>
+        <translation>Loc&apos;hañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="126"/>
         <source>&amp;Add</source>
-        <translation type="vanished">&amp;Ouzhpennañ</translation>
+        <translation>&amp;Ouzhpennañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="129"/>
         <source>Alt+A</source>
-        <translation type="vanished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="136"/>
         <source>&amp;Delete</source>
-        <translation type="vanished">&amp;Diverkañ</translation>
+        <translation>&amp;Diverkañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="139"/>
         <source>Alt+D</source>
-        <translation type="vanished">Alt+D</translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="95"/>
         <source>Field Width</source>
-        <translation type="vanished">Led ar vaezienn</translation>
+        <translation>Led ar vaezienn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="100"/>
         <source>Fill Character</source>
-        <translation type="vanished">Arouezenn leuniañ</translation>
+        <translation>Arouezenn leuniañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsectionsbase.ui" line="70"/>
         <source>Reversed</source>
-        <translation type="vanished">Tuginet</translation>
+        <translation>Tuginet</translation>
     </message>
 </context>
 <context>
     <name>Prefs_DocumentSetup</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="35"/>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="34"/>
         <source>Document Setup</source>
-        <translation type="vanished">Kefluniadur an teul</translation>
+        <translation>Kefluniadur an teul</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="53"/>
         <source>General</source>
-        <translation type="vanished">Hollek</translation>
+        <translation>Hollek</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="107"/>
         <source>Page Size</source>
-        <translation type="vanished">Ment ar bajenn</translation>
+        <translation>Ment ar bajenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="123"/>
         <source>Size:</source>
-        <translation type="vanished">Ment :</translation>
+        <translation>Ment :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="144"/>
         <source>Orientation:</source>
-        <translation type="vanished">Reteradur :</translation>
+        <translation>Reteradur :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="157"/>
         <source>Units:</source>
-        <translation type="vanished">Unanennoù :</translation>
+        <translation>Unanennoù :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="170"/>
         <source>Width:</source>
-        <translation type="vanished">Led :</translation>
+        <translation>Led :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="183"/>
         <source>Height:</source>
-        <translation type="vanished">Sav :</translation>
+        <translation>Sav :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="198"/>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="422"/>
         <source>Apply changes to all pages</source>
-        <translation type="vanished">Seveniñ ar c&apos;hemmoù war an holl bajennadoù</translation>
+        <translation>Seveniñ ar c&apos;hemmoù war an holl bajennadoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="205"/>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="429"/>
         <source>Apply changes to all master pages</source>
-        <translation type="vanished">Arloañ kemmoù d&apos;an holl bajennadoù mestrezed</translation>
+        <translation>Arloañ kemmoù d&apos;an holl bajennadoù mestrezed</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="226"/>
         <source>Layout</source>
-        <translation type="vanished">Pajennaozañ</translation>
+        <translation>Pajennaozañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="237"/>
         <source>Page Layout</source>
-        <translation type="vanished">Pajennaozañ</translation>
+        <translation>Pajennaozañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="290"/>
+        <source>Facing Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="521"/>
         <source>Saving &amp;&amp; Undo</source>
-        <translation type="vanished">Enrolladur &amp;&amp; Dizober</translation>
+        <translation>Enrolladur &amp;&amp; Dizober</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="527"/>
         <source>Save in Compressed Format</source>
-        <translation type="vanished">Enrollañ er mentrezh koazhet</translation>
+        <translation>Enrollañ er mentrezh koazhet</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="534"/>
         <source>Try to save an &quot;Emergency File&quot; in case of a crash</source>
-        <translation type="vanished">Klask enrollañ ur &quot;Restr a zifrae&quot; mar degouezhfe ur sac&apos;hadenn</translation>
+        <translation>Klask enrollañ ur &quot;Restr a zifrae&quot; mar degouezhfe ur sac&apos;hadenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="562"/>
         <source>Autosave</source>
-        <translation type="vanished">Enrollañ emgefreek</translation>
+        <translation>Enrollañ emgefreek</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="576"/>
         <source>Enable automatic saving of documents</source>
-        <translation type="vanished">Gweredekaat emenrollañ an teulioù</translation>
+        <translation>Gweredekaat emenrollañ an teulioù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="587"/>
         <source>Interval:</source>
-        <translation type="vanished">Aliested :</translation>
+        <translation>Aliested :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="594"/>
         <source> min</source>
-        <translation type="vanished">mun</translation>
+        <translation>mun</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="604"/>
         <source>Number of files to keep:</source>
-        <translation type="vanished">Niver a restroù da virout :</translation>
+        <translation>Niver a restroù da virout :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="637"/>
         <source>Save into the same directory as the document</source>
-        <translation type="vanished">Enrollañ en hevelep kavlec&apos;hiad ouzh an teul</translation>
+        <translation>Enrollañ en hevelep kavlec&apos;hiad ouzh an teul</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="647"/>
         <source>Save into:</source>
-        <translation type="vanished">Enrollañ e :</translation>
+        <translation>Enrollañ e :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="657"/>
         <source>Change...</source>
-        <translation type="vanished">Kemmañ...</translation>
+        <translation>Kemmañ...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="669"/>
         <source>Keep backup files after closing the document</source>
-        <translation type="vanished">Mirout restroù gwarediñ goude bezañ serret an teul</translation>
+        <translation>Mirout restroù gwarediñ goude bezañ serret an teul</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="676"/>
         <source>Show autosave countdown clock on the canvas</source>
-        <translation type="vanished">Diskouez enrollañ emgefreek ar gont war-gil war ar steuenn</translation>
+        <translation>Diskouez enrollañ emgefreek ar gont war-gil war ar steuenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="704"/>
         <source>Undo / Redo</source>
-        <translation type="vanished">Dizober/Adober</translation>
+        <translation>Dizober/Adober</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="718"/>
         <source>Enable Undo/Redo System</source>
-        <translation type="vanished">Gweredekaat ar reizhiad Adober/Dizober</translation>
+        <translation>Gweredekaat ar reizhiad Adober/Dizober</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="727"/>
         <source>Action History Length:</source>
-        <translation type="vanished">Hirder roll istor ar gwezhiadurioù</translation>
+        <translation>Hirder roll istor ar gwezhiadurioù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="300"/>
         <source>Single Page</source>
-        <translation type="vanished">Pajenn eeun</translation>
+        <translation>Pajenn eeun</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="280"/>
         <source>3-Fold</source>
-        <translation type="vanished">3 stalaf</translation>
+        <translation>3 stalaf</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="270"/>
         <source>4-Fold</source>
-        <translation type="vanished">4 stalaf</translation>
+        <translation>4 stalaf</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="61"/>
         <source>Language:</source>
-        <translation type="vanished">Yezh :</translation>
+        <translation>Yezh :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="253"/>
         <source>First Page is:</source>
-        <translation type="vanished">Ar bajenn gentañ zo :</translation>
+        <translation>Ar bajenn gentañ zo :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="329"/>
         <source>Margins &amp;&amp; Bleeds</source>
-        <translation type="vanished">Marzioù &amp;&amp; Dic&apos;hlannañ</translation>
+        <translation>Marzioù &amp;&amp; Dic&apos;hlannañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="376"/>
         <source>Margins</source>
-        <translation type="vanished">Marzioù</translation>
+        <translation>Marzioù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="457"/>
         <source>Bleeds</source>
-        <translation type="vanished">Dic&apos;hlannadoù</translation>
+        <translation>Dic&apos;hlannadoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="111"/>
         <source>Portrait</source>
-        <translation type="vanished">Poltred</translation>
+        <translation>Poltred</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="112"/>
         <source>Landscape</source>
-        <translation type="vanished">Gweledva</translation>
+        <translation>Gweledva</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="122"/>
         <source>Width of document pages, editable if you have chosen a custom page size</source>
-        <translation type="vanished">Led pajennoù an teul, daskemmus mard eo bet dibabet ment ar bajenn personelaet ganeoc&apos;h</translation>
+        <translation>Led pajennoù an teul, daskemmus mard eo bet dibabet ment ar bajenn personelaet ganeoc&apos;h</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="123"/>
         <source>Height of document pages, editable if you have chosen a custom page size</source>
-        <translation type="vanished">Sav pajennoù an teul, daskemmus mard eo bet dibabet ment ar bajenn personelaet ganeoc&apos;h</translation>
+        <translation>Sav pajennoù an teul, daskemmus mard eo bet dibabet ment ar bajenn personelaet ganeoc&apos;h</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="124"/>
         <source>Default page size, either a standard size or a custom size. More page sizes can be made visible by activating them in Preferences.</source>
-        <translation type="vanished">Ment ar bajennad dre ziouer, pe ur vent skoueriek pe ur vent personelaet. Hewel ez ay muioc&apos;h a ventoù pajennoù dre o weredekaat er Gwellvezioù.</translation>
+        <translation>Ment ar bajennad dre ziouer, pe ur vent skoueriek pe ur vent personelaet. Hewel ez ay muioc&apos;h a ventoù pajennoù dre o weredekaat er Gwellvezioù.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="125"/>
         <source>Enable or disable more page sizes by jumping to Page Size preferences</source>
-        <translation type="vanished">Gweredekaat pe ziweredekaat muioc&apos;h a ventoù pajennoù en ur vont betek gwellvezioù mentoù ar pajennoù.</translation>
+        <translation>Gweredekaat pe ziweredekaat muioc&apos;h a ventoù pajennoù en ur vont betek gwellvezioù mentoù ar pajennoù.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="126"/>
         <source>Default orientation of document pages</source>
-        <translation type="vanished">Reteradur dre ziouer pajennoù an teul</translation>
+        <translation>Reteradur dre ziouer pajennoù an teul</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="127"/>
         <source>Default unit of measurement for document editing</source>
-        <translation type="vanished">Unanenn vuzuliañ dre ziouer evit embann an teulioù</translation>
+        <translation>Unanenn vuzuliañ dre ziouer evit embann an teulioù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="128"/>
+        <source>When enabled, Scribus saves backup copies of your file each time the time period elapses</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="133"/>
         <source>Keep this many files during the editing session. Backup files will be removed when you close the document.</source>
-        <translation type="vanished">Mirout meur a restr e-pad ar mare embann. Dilamet e vo ar restroù gwarediñ pa vo serret ho teul.</translation>
+        <translation>Mirout meur a restr e-pad ar mare embann. Dilamet e vo ar restroù gwarediñ pa vo serret ho teul.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="393"/>
         <source>Choose a Directory</source>
-        <translation type="vanished">Dibab ur c&apos;havlec&apos;hiad</translation>
+        <translation>Dibab ur c&apos;havlec&apos;hiad</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="129"/>
         <source>Time period between saving automatically</source>
-        <translation type="vanished">Mare etre pep gwaredadur emgefreek</translation>
+        <translation>Mare etre pep gwaredadur emgefreek</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="130"/>
         <source>Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</source>
-        <translation type="vanished">Kefluniañ a ra hirrder roll istor ar gwezhioù. Mar bez 0 anezhi e vo kadavet ur c&apos;hementad divevenn a wezhioù.</translation>
+        <translation>Kefluniañ a ra hirrder roll istor ar gwezhioù. Mar bez 0 anezhi e vo kadavet ur c&apos;hementad divevenn a wezhioù.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="131"/>
         <source>Apply the page size changes to all existing pages in the document</source>
-        <translation type="vanished">Arloañ ar c&apos;hemmoù eus mentoù ar pajennoù d&apos;an holl bajennoù en teul</translation>
+        <translation>Arloañ ar c&apos;hemmoù eus mentoù ar pajennoù d&apos;an holl bajennoù en teul</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="132"/>
         <source>Apply the page size changes to all existing master pages in the document</source>
-        <translation type="vanished">Arloañ kemmoù mentoù ar pajennoù d&apos;an holl bajennadoù mestrezed a zo anezho en teul</translation>
+        <translation>Arloañ kemmoù mentoù ar pajennoù d&apos;an holl bajennadoù mestrezed a zo anezho en teul</translation>
+    </message>
+</context>
+<context>
+    <name>Prefs_Experimental</name>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_experimentalbase.ui" line="35"/>
+        <source>Experimental Features</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_experimentalbase.ui" line="79"/>
+        <source>Enable Notes, Marks and other related features</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_experimental.cpp" line="18"/>
+        <source>Experimental</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>Prefs_ExternalTools</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="14"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="30"/>
         <source>External Tools</source>
-        <translation type="vanished">Ostilhoù diavaez</translation>
+        <translation>Ostilhoù diavaez</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="39"/>
         <source>External Tools and Applications</source>
-        <translation type="vanished">Ostilhoù hag arloadoù diavaez</translation>
+        <translation>Ostilhoù hag arloadoù diavaez</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="74"/>
         <source>PostScript Interpreter</source>
-        <translation type="vanished">Jubennerez PostScript</translation>
+        <translation>Jubennerez PostScript</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="90"/>
         <source>&amp;Name of Executable:</source>
-        <translation type="vanished">A&amp;nv ar meziant erounezadus :</translation>
+        <translation>A&amp;nv ar meziant erounezadus :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="103"/>
         <source>&lt;qt&gt;Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.&lt;/qt&gt;</source>
-        <translation type="vanished">&lt;qt&gt;Ouzhpennañ an treug evit jubennerez Ghostscript. Evit Windows, taolit evez, pouezhus eo: ret eo ober gant ar goulev anvet gswin32c.exe - KET gswin32.exe.A-hend-all e tegouezhfe arsavioù e-pad loc&apos;hadur Scribus.&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;Ouzhpennañ an treug evit jubennerez Ghostscript. Evit Windows, taolit evez, pouezhus eo: ret eo ober gant ar goulev anvet gswin32c.exe - KET gswin32.exe.A-hend-all e tegouezhfe arsavioù e-pad loc&apos;hadur Scribus.&lt;/qt&gt;</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="110"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="281"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="351"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="418"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="485"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="608"/>
         <source>&amp;Change...</source>
-        <translation type="vanished">&amp;Kemmañ...</translation>
+        <translation>&amp;Kemmañ...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="113"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="284"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="354"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="488"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="611"/>
         <source>Alt+C</source>
-        <translation type="vanished">Alt+K</translation>
+        <translation>Alt+K</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="124"/>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
-        <translation type="vanished">Lufrañ an destenn evit deouez restroù mod EPS ha PDF war ar skramm</translation>
+        <translation>Lufrañ an destenn evit deouez restroù mod EPS ha PDF war ar skramm</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="127"/>
         <source>Antialias &amp;Text</source>
-        <translation type="vanished">Lufraat an des&amp;tenn</translation>
+        <translation>Lufraat an des&amp;tenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="130"/>
         <source>Alt+T</source>
-        <translation type="vanished">Alt+T</translation>
+        <translation>Alt+T</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="153"/>
         <source>Antialias graphics for EPS and PDF onscreen rendering</source>
-        <translation type="vanished">Lufrañ ar skeudennoù evit deouez restroù mod EPS ha PDF war ar skramm</translation>
+        <translation>Lufrañ ar skeudennoù evit deouez restroù mod EPS ha PDF war ar skramm</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="156"/>
         <source>Antialias &amp;Graphics</source>
-        <translation type="vanished">Lufrañ ar &amp;skeudennoù</translation>
+        <translation>Lufrañ ar &amp;skeudennoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="159"/>
         <source>Alt+G</source>
-        <translation type="vanished">Alt+G</translation>
+        <translation>Alt+G</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="182"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="698"/>
         <source>Resolution:</source>
-        <translation type="vanished">Diarunusted :</translation>
+        <translation>Diarunusted :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="195"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="711"/>
         <source> dpi</source>
-        <translation type="vanished"> pdm</translation>
+        <translation> pdm</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="245"/>
         <source>Image Processing Tool</source>
-        <translation type="vanished">Ostilh da geweriañ ar skeudennoù</translation>
+        <translation>Ostilh da geweriañ ar skeudennoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="261"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="331"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="401"/>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="465"/>
         <source>Name of &amp;Executable:</source>
-        <translation type="vanished">Anv ar meziant &amp;erounezadus :</translation>
+        <translation>Anv ar meziant &amp;erounezadus :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="274"/>
+        <source>&lt;qt&gt;File system location for graphics editor&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="315"/>
         <source>Web Browser</source>
-        <translation type="vanished">Merdeer web</translation>
+        <translation>Merdeer web</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="385"/>
         <source>PDF Viewer</source>
-        <translation type="vanished">Gwelerez PDF</translation>
+        <translation>Gwelerez PDF</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="449"/>
         <source>Uniconvertor</source>
-        <translation type="vanished">UniConvertor</translation>
+        <translation>UniConvertor</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="519"/>
         <source>Render Frames</source>
-        <translation type="vanished">Sterniadoù an deouez</translation>
+        <translation>Sterniadoù an deouez</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="533"/>
         <source>Configurations:</source>
-        <translation type="vanished">Kefluniadurioù :</translation>
+        <translation>Kefluniadurioù :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="547"/>
         <source>Up</source>
-        <translation type="vanished">Sevel</translation>
+        <translation>Sevel</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="554"/>
         <source>Down</source>
-        <translation type="vanished">Diskenn</translation>
+        <translation>Diskenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="561"/>
         <source>Add</source>
-        <translation type="vanished">Ouzhpennañ</translation>
+        <translation>Ouzhpennañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="568"/>
         <source>Delete</source>
-        <translation type="vanished">Diverkañ</translation>
+        <translation>Diverkañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="575"/>
         <source>Change...</source>
-        <translation type="vanished">Kemmañ...</translation>
+        <translation>Kemmañ...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="588"/>
         <source>External Editor:</source>
-        <translation type="vanished">Embanner diavaez :</translation>
+        <translation>Embanner diavaez :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="622"/>
         <source>Start with empty frame</source>
-        <translation type="vanished">Kregiñ gant ur stern goullo</translation>
+        <translation>Kregiñ gant ur stern goullo</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="648"/>
         <source>Use Embedded Editor</source>
-        <translation type="vanished">Arverañ an embanner enkorfet</translation>
+        <translation>Arverañ an embanner enkorfet</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="675"/>
         <source>Force DPI</source>
-        <translation type="vanished">Bountañ war ar pdm</translation>
+        <translation>Bountañ war ar pdm</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="777"/>
         <source>Rescan for the external tools if they do not exist in the already specified location</source>
-        <translation type="vanished">C&apos;hwilervañ en-dro evit an ostilhoù diavaez ma n&apos;eus ket anezho el lec&apos;hiadur bet erspizet a-raok</translation>
+        <translation>C&apos;hwilervañ en-dro evit an ostilhoù diavaez ma n&apos;eus ket anezho el lec&apos;hiadur bet erspizet a-raok</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="780"/>
         <source>&amp;Rescan</source>
-        <translation type="vanished">C&apos;hwile&amp;rvañ en-dro</translation>
+        <translation>C&apos;hwile&amp;rvañ en-dro</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="783"/>
         <source>Alt+R</source>
-        <translation type="vanished">Alt+R</translation>
+        <translation>Alt+R</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="100"/>
         <source>Locate Ghostscript</source>
-        <translation type="vanished">Delec&apos;hiañ GhostScript</translation>
+        <translation>Delec&apos;hiañ GhostScript</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="108"/>
         <source>Locate your image editor</source>
-        <translation type="vanished">Delec&apos;hiañ hoc&apos;h embanner skeudennoù</translation>
+        <translation>Delec&apos;hiañ hoc&apos;h embanner skeudennoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="116"/>
         <source>Locate your web browser</source>
-        <translation type="vanished">Delec&apos;hiañ ho merdeer web</translation>
+        <translation>Delec&apos;hiañ ho merdeer web</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="124"/>
         <source>Locate your PDF viewer</source>
-        <translation type="vanished">Delec&apos;hiañ ho kwelerez PDF</translation>
+        <translation>Delec&apos;hiañ ho kwelerez PDF</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="132"/>
         <source>Locate the uniconvertor executable</source>
-        <translation type="vanished">Delec&apos;hiañ ar meziant erounit Uniconvertor</translation>
+        <translation>Delec&apos;hiañ ar meziant erounit Uniconvertor</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="140"/>
         <source>Locate your editor</source>
-        <translation type="vanished">Delec&apos;hiañ hoc&apos;h embanner</translation>
+        <translation>Delec&apos;hiañ hoc&apos;h embanner</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="169"/>
         <source>Uniconvertor executable not found!</source>
-        <translation type="vanished">N&apos;eo ket bet kavet ar ar meziant erounezadus Uniconvertor !.</translation>
+        <translation>N&apos;eo ket bet kavet ar ar meziant erounezadus Uniconvertor !.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="258"/>
         <source>Locate a Configuration file</source>
-        <translation type="vanished">Delec&apos;hiañ ur restr kefluniañ</translation>
+        <translation>Delec&apos;hiañ ur restr kefluniañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="260"/>
         <source>Configuration files</source>
-        <translation type="vanished">Restroù kefluniañ</translation>
+        <translation>Restroù kefluniañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="280"/>
         <source>Change Command</source>
-        <translation type="vanished">Kemmañ an arc&apos;had</translation>
+        <translation>Kemmañ an arc&apos;had</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="281"/>
         <source>Enter new command: (leave empty to reset to default command; use quotes around arguments with spaces)</source>
-        <translation type="vanished">Enankañ un arc&apos;had nevez : (leuskel goullo da adderaouekaat an arc&apos;had dre diouer ; ober gant askoù &apos; -&apos; tro dro d&apos;an arguzennoù gant esaouioù)</translation>
+        <translation>Enankañ un arc&apos;had nevez : (leuskel goullo da adderaouekaat an arc&apos;had dre diouer ; ober gant askoù &apos; -&apos; tro dro d&apos;an arguzennoù gant esaouioù)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="310"/>
         <source>Command: </source>
-        <translation type="vanished">Arc&apos;had :</translation>
+        <translation>Arc&apos;had :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="222"/>
         <source>LaTeX Command</source>
-        <translation type="vanished">Arc&apos;had LaTeX</translation>
+        <translation>Arc&apos;had LaTeX</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltools.cpp" line="223"/>
         <source>Scribus has found the following pdflatex command:
 %1
 Do you want to use this?</source>
-        <translation type="vanished">Kavet en deus skribus an arc&apos;had pdflatex amañ dindan :
+        <translation>Kavet en deus skribus an arc&apos;had pdflatex amañ dindan :
 %1
 Fellout a ra deoc&apos;h e arverañ ?</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="344"/>
         <source>&lt;qt&gt;File system location for web browser&lt;/qt&gt;</source>
-        <translation type="vanished"> &lt;qt&gt;Lec&apos;hiadur ar reizhiad restroù evit ho merdeer web.&lt;/qt&gt;</translation>
+        <translation> &lt;qt&gt;Lec&apos;hiadur ar reizhiad restroù evit ho merdeer web.&lt;/qt&gt;</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="411"/>
         <source>&lt;qt&gt;File system location for PDF viewer&lt;/qt&gt;</source>
-        <translation type="vanished"> &lt;qt&gt;Lec&apos;hiadur ar reizhiad restroù evit ho kwelerez PDF.&lt;/qt&gt;
+        <translation> &lt;qt&gt;Lec&apos;hiadur ar reizhiad restroù evit ho kwelerez PDF.&lt;/qt&gt;
 </translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="478"/>
         <source>&lt;qt&gt;File system location for Uniconvertor&lt;/qt&gt;</source>
-        <translation type="vanished"> &lt;qt&gt;Lec&apos;hiadur ar reizhiad restroù evit Uniconvertor.&lt;/qt&gt;
+        <translation> &lt;qt&gt;Lec&apos;hiadur ar reizhiad restroù evit Uniconvertor.&lt;/qt&gt;
 </translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="601"/>
         <source>&lt;qt&gt;Path to the editor executable&lt;/qt&gt;</source>
-        <translation type="vanished">&lt;qt&gt;Treug davet meziant erounezadus an embanner.&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;Treug davet meziant erounezadus an embanner.&lt;/qt&gt;</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="672"/>
         <source>Always use the configured DPI setting for calculating the size, even if the image file reports something different</source>
-        <translation type="vanished">Arverañ bepred arventennoù ar PDM kefluniet evit jediñ ar vent ha pa vefe danevellet un dra disheñvel gant restr ar skeudenn.</translation>
+        <translation>Arverañ bepred arventennoù ar PDM kefluniet evit jediñ ar vent ha pa vefe danevellet un dra disheñvel gant restr ar skeudenn.</translation>
     </message>
 </context>
 <context>
     <name>Prefs_Fonts</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_fonts.cpp" line="44"/>
         <source>Fonts</source>
-        <translation type="vanished">Nodrezh</translation>
+        <translation>Nodrezh</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="88"/>
         <source>Delete</source>
-        <translation type="vanished">Diverkañ</translation>
+        <translation>Diverkañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="111"/>
         <source>C&amp;hange...</source>
-        <translation type="vanished">&amp;Kemmañ...</translation>
+        <translation>&amp;Kemmañ...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="118"/>
         <source>A&amp;dd...</source>
-        <translation type="vanished">Ouzh&amp;pennañ...</translation>
+        <translation>Ouzh&amp;pennañ...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="125"/>
         <source>&amp;Remove</source>
-        <translation type="vanished">Dive&amp;rkañ</translation>
+        <translation>Dive&amp;rkañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="176"/>
+        <location filename="../../scribus/ui/preferences/prefs_fonts.cpp" line="49"/>
+        <source>Rejected Fonts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="186"/>
+        <source>Font name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="191"/>
+        <source>Error message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="196"/>
+        <source>Font file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="54"/>
+        <location filename="../../scribus/ui/preferences/prefs_fonts.cpp" line="49"/>
         <source>Available Fonts</source>
-        <translation type="vanished">Nodrezhoù hegerz</translation>
+        <translation>Nodrezhoù hegerz</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="64"/>
+        <location filename="../../scribus/ui/preferences/prefs_fonts.cpp" line="49"/>
         <source>Font Substitutions</source>
-        <translation type="vanished">Erlec&apos;hiadur nodrezioù</translation>
+        <translation>Erlec&apos;hiadur nodrezioù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fontsbase.ui" line="98"/>
+        <location filename="../../scribus/ui/preferences/prefs_fonts.cpp" line="49"/>
         <source>Additional Paths</source>
-        <translation type="vanished">Treugoù ouzhpenn</translation>
+        <translation>Treugoù ouzhpenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fonts.cpp" line="55"/>
         <source>Font Name</source>
-        <translation type="vanished">Anv an nodrezh</translation>
+        <translation>Anv an nodrezh</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fonts.cpp" line="56"/>
         <source>Replacement</source>
-        <translation type="vanished">Amsavadur</translation>
+        <translation>Amsavadur</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fonts.cpp" line="97"/>
         <source>Font search paths can only be set in File &gt; Preferences, and only when there is no document currently open. Close any open documents, then use File &gt; Preferences &gt; Fonts to change the font search path.</source>
-        <translation type="vanished">Treugoù haeziñ an nodrezhoù a c&apos;hall bezañ kefluniet er gwellvezioù hepken, gant teul digor ebet. Serrit an holl deulioù digor ha grit gant al lañser Restr &gt; Gwellvezioù &gt; Nodrezhoù evit daskemmañ treug haeziñ an nodrezhoù.</translation>
+        <translation>Treugoù haeziñ an nodrezhoù a c&apos;hall bezañ kefluniet er gwellvezioù hepken, gant teul digor ebet. Serrit an holl deulioù digor ha grit gant al lañser Restr &gt; Gwellvezioù &gt; Nodrezhoù evit daskemmañ treug haeziñ an nodrezhoù.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_fonts.cpp" line="285"/>
+        <location filename="../../scribus/ui/preferences/prefs_fonts.cpp" line="312"/>
         <source>Choose a Directory</source>
-        <translation type="vanished">Dibab ur c&apos;havlec&apos;hiad</translation>
+        <translation>Dibab ur c&apos;havlec&apos;hiad</translation>
     </message>
 </context>
 <context>
     <name>Prefs_Guides</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="371"/>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="24"/>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="63"/>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="131"/>
         <source>Guides</source>
-        <translation type="vanished">Dealfoù</translation>
+        <translation>Dealfoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="54"/>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="66"/>
         <source>Placement</source>
-        <translation type="vanished">Lec&apos;hiadur</translation>
+        <translation>Lec&apos;hiadur</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="171"/>
         <source>Snap Distance:</source>
-        <translation type="vanished">Hed ar gwarellaat :</translation>
+        <translation>Hed ar gwarellaat :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="178"/>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="198"/>
         <source> px</source>
-        <translation type="vanished"> pks</translation>
+        <translation> pks</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="191"/>
         <source>Grab Radius:</source>
-        <translation type="vanished">Skin  gwarellek :</translation>
+        <translation>Skin  gwarellek :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="361"/>
         <source>Visibility</source>
-        <translation type="vanished">Hewelded</translation>
+        <translation>Hewelded</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="384"/>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="69"/>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="137"/>
         <source>Margins</source>
-        <translation type="vanished">Marzioù</translation>
+        <translation>Marzioù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="397"/>
         <source>Page Grid</source>
-        <translation type="vanished">Kael ar bajenn</translation>
+        <translation>Kael ar bajenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="421"/>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="67"/>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="135"/>
         <source>Baseline Grid</source>
-        <translation type="vanished">Kael al linenn diazez</translation>
+        <translation>Kael al linenn diazez</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="268"/>
         <source>Distances</source>
-        <translation type="vanished">Pellderioù</translation>
+        <translation>Pellderioù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="296"/>
         <source>Minor Grid Spacing:</source>
-        <translation type="vanished">Esaouiñ ar gael vihan :</translation>
+        <translation>Esaouiñ ar gael vihan :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="306"/>
         <source>Baseline Grid Spacing:</source>
-        <translation type="vanished">Esaouiñ kael al linenn diazez :</translation>
+        <translation>Esaouiñ kael al linenn diazez :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="286"/>
         <source>Major Grid Spacing:</source>
-        <translation type="vanished">Esaouiñ ar gael vras :</translation>
+        <translation>Esaouiñ ar gael vras :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="320"/>
         <source>Baseline Grid Offset:</source>
-        <translation type="vanished">Linkañ ar gael diazez :</translation>
+        <translation>Linkañ ar gael diazez :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="459"/>
         <source>Colors</source>
-        <translation type="vanished">Livioù</translation>
+        <translation>Livioù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="470"/>
         <source>Guides:</source>
-        <translation type="vanished">Dealfoù :</translation>
+        <translation>Dealfoù :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="484"/>
         <source>Margins:</source>
-        <translation type="vanished">Marzioù :</translation>
+        <translation>Marzioù :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="498"/>
         <source>Major Grid:</source>
-        <translation type="vanished">Kael vras :</translation>
+        <translation>Kael vras :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="512"/>
         <source>Minor Grid:</source>
-        <translation type="vanished">Kael vihan :</translation>
+        <translation>Kael vihan :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="526"/>
         <source>Baseline Grid:</source>
-        <translation type="vanished">Kael al linenn diazez :</translation>
+        <translation>Kael al linenn diazez :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="86"/>
         <source>Place guides in front of or behind objects on the page</source>
-        <translation type="vanished">Lakaat an dealfoù e-tal pe a-dreñv an ergorennoù war ar bajennad.</translation>
+        <translation>Lakaat an dealfoù e-tal pe a-dreñv an ergorennoù war ar bajennad.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="87"/>
         <source>Distance between the minor grid lines</source>
-        <translation type="vanished">Hed etre 2 linenn eus ar gael vihan</translation>
+        <translation>Hed etre 2 linenn eus ar gael vihan</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="88"/>
         <source>Distance between the major grid lines</source>
-        <translation type="vanished">Hed etre 2 linenn eus ar gael vras</translation>
+        <translation>Hed etre 2 linenn eus ar gael vras</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="89"/>
         <source>Distance within which an object will snap to your placed guides. After setting this you will need to restart Scribus to set this setting.</source>
-        <translation type="vanished">Pellder brasañ ma vo desteudet un ergorenn ouzh ho tealfoù bet lakaet ganeoc&apos;h. Ret e vo deoc&apos;h adloc&apos;hañ Scribus da lakaat an arventenn-mañ da vezañ efedus.</translation>
+        <translation>Pellder brasañ ma vo desteudet un ergorenn ouzh ho tealfoù bet lakaet ganeoc&apos;h. Ret e vo deoc&apos;h adloc&apos;hañ Scribus da lakaat an arventenn-mañ da vezañ efedus.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="91"/>
         <source>Color of the minor grid lines</source>
-        <translation type="vanished">Liv ar gael vihan</translation>
+        <translation>Liv ar gael vihan</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="92"/>
         <source>Color of the major grid lines</source>
-        <translation type="vanished">Liv ar gael vras</translation>
+        <translation>Liv ar gael vras</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="93"/>
         <source>Color of the guide lines you insert</source>
-        <translation type="vanished">Liv an dealfoù enlakaet ganeoc&apos;h</translation>
+        <translation>Liv an dealfoù enlakaet ganeoc&apos;h</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="94"/>
         <source>Color for the margin lines</source>
-        <translation type="vanished">Liv linennoù ar marzioù</translation>
+        <translation>Liv linennoù ar marzioù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="95"/>
         <source>Color for the baseline grid</source>
-        <translation type="vanished">Liv kael al linenn diazez</translation>
+        <translation>Liv kael al linenn diazez</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="96"/>
         <source>Turns the basegrid on or off</source>
-        <translation type="vanished">(Diw)Gweredekaat ar ra skrammadur kael al linenn diazez</translation>
+        <translation>(Diw)Gweredekaat ar ra skrammadur kael al linenn diazez</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="97"/>
         <source>Distance between the lines of the baseline grid</source>
-        <translation type="vanished">Hed etre al  linennoù eus kael al linenn diazez</translation>
+        <translation>Hed etre al  linennoù eus kael al linenn diazez</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="98"/>
         <source>Distance from the top of the page for the first baseline</source>
-        <translation type="vanished">Hed etre lein ar bajenn hag al linenn diazez kentañ</translation>
+        <translation>Hed etre lein ar bajenn hag al linenn diazez kentañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="99"/>
         <source>Turns the gridlines on or off</source>
-        <translation type="vanished">(Diw)Gweredekaat ar ra skrammadur ar gael</translation>
+        <translation>(Diw)Gweredekaat ar ra skrammadur ar gael</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="100"/>
         <source>Turns the guides on or off</source>
-        <translation type="vanished">(Diw)Gweredekaat ar ra skrammadur an dealfoù</translation>
+        <translation>(Diw)Gweredekaat ar ra skrammadur an dealfoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="101"/>
         <source>Turns the margins on or off</source>
-        <translation type="vanished">(Diw)Gweredekaat ar ra skrammadur ar marzioù</translation>
+        <translation>(Diw)Gweredekaat ar ra skrammadur ar marzioù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guidesbase.ui" line="404"/>
         <source>Type:</source>
-        <translation type="vanished">Rizh :</translation>
+        <translation>Rizh :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="61"/>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="129"/>
         <source>Content Objects</source>
-        <translation type="vanished">Enderc&apos;hel ergorennoù</translation>
+        <translation>Enderc&apos;hel ergorennoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="65"/>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="133"/>
         <source>Grid</source>
-        <translation type="vanished">Kael</translation>
+        <translation>Kael</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="78"/>
         <source>Lines</source>
-        <translation type="vanished">Lilennoù</translation>
+        <translation>Lilennoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="79"/>
         <source>Crosses and Dots</source>
-        <translation type="vanished">Kroazioù ha pikoù</translation>
+        <translation>Kroazioù ha pikoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_guides.cpp" line="90"/>
         <source>Radius of the area where Scribus will allow you to grab an objects handles. After setting this you will need to restart Scribus to set this setting.</source>
-        <translation type="vanished">Skin ar maez ma viot aotreet da dapout dornelloù an ergorennoù. Ret e vo deoc&apos;h adloc&apos;hañ Scribus da lakaat an arventenn-mañ da vezañ efedus.</translation>
+        <translation>Skin ar maez ma viot aotreet da dapout dornelloù an ergorennoù. Ret e vo deoc&apos;h adloc&apos;hañ Scribus da lakaat an arventenn-mañ da vezañ efedus.</translation>
     </message>
 </context>
 <context>
     <name>Prefs_Hyphenator</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenatorbase.ui" line="35"/>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenator.cpp" line="26"/>
         <source>Hyphenation</source>
-        <translation type="vanished">Hosk</translation>
+        <translation>Hosk</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenatorbase.ui" line="62"/>
         <source>&amp;Hyphenation Suggestions</source>
-        <translation type="vanished">Alioù a-fet an &amp;hosk</translation>
+        <translation>Alioù a-fet an &amp;hosk</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenatorbase.ui" line="72"/>
         <source>Hyphenate Text Automatically &amp;During Typing</source>
-        <translation type="vanished">Troc&apos;hañ ar gerioù emgefreek e-pad ar &amp;biziata</translation>
+        <translation>Troc&apos;hañ ar gerioù emgefreek e-pad ar &amp;biziata</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenatorbase.ui" line="53"/>
         <source>Behaviour</source>
-        <translation type="vanished">Emzalc&apos;h</translation>
+        <translation>Emzalc&apos;h</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenatorbase.ui" line="96"/>
         <source>Word Lists</source>
-        <translation type="vanished">Rolloù gerioù</translation>
+        <translation>Rolloù gerioù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenatorbase.ui" line="104"/>
         <source>Exceptions</source>
-        <translation type="vanished">Nemedennoù</translation>
+        <translation>Nemedennoù</translation>
     </message>
     <message>
         <source>Edit</source>
         <translation type="vanished">Embann</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenatorbase.ui" line="147"/>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenator.cpp" line="83"/>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenator.cpp" line="101"/>
         <source>Ignore List</source>
-        <translation type="vanished">Roll ar re laosket a-gostez</translation>
+        <translation>Roll ar re laosket a-gostez</translation>
     </message>
     <message>
         <source>Hyphenator</source>
@@ -17523,1720 +17924,2307 @@ Fellout a ra deoc&apos;h e arverañ ?</translation>
         <translation type="vanished">Ouzhpennañ un enankad nevez</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenator.cpp" line="83"/>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenator.cpp" line="135"/>
+        <source>Add new Entries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenator.cpp" line="101"/>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenator.cpp" line="153"/>
         <source>Edit Entry</source>
-        <translation type="vanished">Embann an enankad</translation>
+        <translation>Embann an enankad</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenator.cpp" line="135"/>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenator.cpp" line="153"/>
         <source>Exception List</source>
-        <translation type="vanished">Roll an nemedennoù</translation>
+        <translation>Roll an nemedennoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenatorbase.ui" line="59"/>
         <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras &gt; Hyphenate Text option</source>
-        <translation type="vanished">Diskouezet e vo ur voestad emziviz a ziskouezo an holl zoareoù da droc&apos;hañ ar gerioù pa reot gant Danvezioù dreist &gt; dibarzh an troc&apos;hañ gerioù. </translation>
+        <translation>Diskouezet e vo ur voestad emziviz a ziskouezo an holl zoareoù da droc&apos;hañ ar gerioù pa reot gant Danvezioù dreist &gt; dibarzh an troc&apos;hañ gerioù. </translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_hyphenatorbase.ui" line="69"/>
         <source>Enables automatic hyphenation of your text while typing</source>
-        <translation type="vanished">Gweredekaat a ra an hoskoù emgefreek e-pad ar biziata.</translation>
+        <translation>Gweredekaat a ra an hoskoù emgefreek e-pad ar biziata.</translation>
     </message>
 </context>
 <context>
     <name>Prefs_ImageCache</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_imagecache.cpp" line="27"/>
         <source>Enabling the image cache will significantly speed up the loading of images. Enable the cache if you are often working on large documents with lots of images and if you have plenty of disk space in your application data directory.</source>
-        <translation type="vanished">Gweredekat krubuilh ar skeudennoù a herreko ent bras tizh kargañ ar skeudennoù. Gweredekait ar grubuilh ma labourot alies gant teulioù bras gant kalz skeudennoù ha mard hoc&apos;h eus kalz plas war ho kantenn galet gant ho kavlec&apos;hiad roadennoù evit an arloadoù.</translation>
+        <translation>Gweredekat krubuilh ar skeudennoù a herreko ent bras tizh kargañ ar skeudennoù. Gweredekait ar grubuilh ma labourot alies gant teulioù bras gant kalz skeudennoù ha mard hoc&apos;h eus kalz plas war ho kantenn galet gant ho kavlec&apos;hiad roadennoù evit an arloadoù.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_imagecache.cpp" line="30"/>
         <source>Set the level of compression for images in the cache. Higher values result in smaller cache files but also make writes to the cache slower.</source>
-        <translation type="vanished">Despizañ live koazhañ ar skeudenn er grubuilh. Gant ur werzh uheloc&apos;h ho po restroù krubuilh bihanoc&apos;h met gorrekoc&apos;h e vo skrivañ ar grubuilh.</translation>
+        <translation>Despizañ live koazhañ ar skeudenn er grubuilh. Gant ur werzh uheloc&apos;h ho po restroù krubuilh bihanoc&apos;h met gorrekoc&apos;h e vo skrivañ ar grubuilh.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_imagecachebase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_imagecache.cpp" line="21"/>
         <source>Image Cache</source>
-        <translation type="vanished">Krubuilh ar skeudenn</translation>
+        <translation>Krubuilh ar skeudenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_imagecachebase.ui" line="80"/>
         <source>Enable Image Cache</source>
-        <translation type="vanished">Gweredekaat krubuilh ar skeudenn</translation>
+        <translation>Gweredekaat krubuilh ar skeudenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_imagecachebase.ui" line="92"/>
         <source>Cache Size Limit:</source>
-        <translation type="vanished">Bevenn ment ar grubuilh :</translation>
+        <translation>Bevenn ment ar grubuilh :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_imagecachebase.ui" line="123"/>
         <source> Mb</source>
-        <translation type="vanished">Me</translation>
+        <translation>Me</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_imagecachebase.ui" line="142"/>
         <source>Cache Entry Limit:</source>
-        <translation type="vanished">Bevenn enankañ ar grubuilh :</translation>
+        <translation>Bevenn enankañ ar grubuilh :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_imagecachebase.ui" line="186"/>
         <source>Compression Level:</source>
-        <translation type="vanished">Live koazhañ :</translation>
+        <translation>Live koazhañ :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_imagecache.cpp" line="28"/>
         <source>Limit the total size of all files in the image cache directory to this amount</source>
-        <translation type="vanished">Ar c&apos;hementad-mañ a dalv da vevenn ment hollek an holl restroù e kavlec&apos;hiad ar skeudennoù</translation>
+        <translation>Ar c&apos;hementad-mañ a dalv da vevenn ment hollek an holl restroù e kavlec&apos;hiad ar skeudennoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_imagecache.cpp" line="29"/>
         <source>Limit the number of cache entries to this number</source>
-        <translation type="vanished">Bevenniñ niver a enankadoù er grubuilh gant an niver-mañ</translation>
+        <translation>Bevenniñ niver a enankadoù er grubuilh gant an niver-mañ</translation>
     </message>
 </context>
 <context>
     <name>Prefs_ItemTools</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="35"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="32"/>
         <source>Item Tools</source>
-        <translation type="vanished">Ostilhoù an ergorenn</translation>
+        <translation>Ostilhoù an ergorenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="65"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="144"/>
         <source>Text</source>
-        <translation type="vanished">Testenn</translation>
+        <translation>Testenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="207"/>
         <source>Columns:</source>
-        <translation type="vanished">Bannoù :</translation>
+        <translation>Bannoù :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="214"/>
         <source>Column Gap:</source>
-        <translation type="vanished">Esaouenn etre ar bannoù :</translation>
+        <translation>Esaouenn etre ar bannoù :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="428"/>
         <source>Tab Fill Character:</source>
-        <translation type="vanished">Arouezenn leuniañ an taolennata :</translation>
+        <translation>Arouezenn leuniañ an taolennata :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="468"/>
         <source>Tab Width:</source>
-        <translation type="vanished">Led an taolennata :</translation>
+        <translation>Led an taolennata :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="508"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="747"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1160"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1452"/>
         <source>Fill Color:</source>
-        <translation type="vanished">Liv leuniañ :</translation>
+        <translation>Liv leuniañ :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="408"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="781"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1060"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1334"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1418"/>
         <source>Line Color:</source>
-        <translation type="vanished">Liv al linenn :</translation>
+        <translation>Liv al linenn :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="285"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="305"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="451"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="481"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="754"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="814"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1053"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1097"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1254"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1411"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1469"/>
         <source>Shading:</source>
-        <translation type="vanished">Arliv :</translation>
+        <translation>Arliv :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="295"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="319"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="435"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="488"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="737"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="771"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="893"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="930"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1067"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1114"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1315"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1381"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1428"/>
         <source> %</source>
-        <translation type="vanished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="276"/>
         <source>Columns &amp; Text Distances</source>
-        <translation type="vanished">Bannoù &amp; pellderioù an destenn</translation>
+        <translation>Bannoù &amp; pellderioù an destenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="183"/>
         <source>Top:</source>
-        <translation type="vanished">Lein :</translation>
+        <translation>Lein :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="193"/>
         <source>Bottom:</source>
-        <translation type="vanished">Traoñ :</translation>
+        <translation>Traoñ :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="200"/>
         <source>Left:</source>
-        <translation type="vanished">Kleiz :</translation>
+        <translation>Kleiz :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="224"/>
         <source>Right:</source>
-        <translation type="vanished">Dehou :</translation>
+        <translation>Dehou :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="329"/>
         <source>Font:</source>
-        <translation type="vanished">Nodrezh :</translation>
+        <translation>Nodrezh :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="349"/>
         <source>Size:</source>
-        <translation type="vanished">Ment :</translation>
+        <translation>Ment :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="339"/>
         <source>Color:</source>
-        <translation type="vanished">Liv :</translation>
+        <translation>Liv :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="312"/>
         <source>Stroke:</source>
-        <translation type="vanished">Tres :</translation>
+        <translation>Tres :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="564"/>
         <source>Preview</source>
-        <translation type="vanished">Alberz</translation>
+        <translation>Alberz</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="693"/>
         <source>Images</source>
-        <translation type="vanished">Skeudennoù</translation>
+        <translation>Skeudennoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="836"/>
         <source>Use Embedded Clipping Path</source>
-        <translation type="vanished">Arverañ an treug dic&apos;hronnañ enkorfet</translation>
+        <translation>Arverañ an treug dic&apos;hronnañ enkorfet</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="864"/>
         <source>Scaling</source>
-        <translation type="vanished">Skeuladur</translation>
+        <translation>Skeuladur</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="940"/>
         <source>Horizontal Scaling:</source>
-        <translation type="vanished">Skeulaat a-blaen</translation>
+        <translation>Skeulaat a-blaen</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="903"/>
         <source>Vertical Scaling:</source>
-        <translation type="vanished">Skeulaat a-serzh</translation>
+        <translation>Skeulaat a-serzh</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="576"/>
+        <source>First Line Offset</source>
+        <translation>Linkad al linenn gentañ</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="642"/>
+        <source>Offset:</source>
+        <translation>Linkañ :</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="650"/>
+        <source>Maximum Ascent</source>
+        <translation>Sevel uc&apos;hel</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="655"/>
+        <source>Font Ascent</source>
+        <translation>Sevel an noderezh</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="660"/>
+        <source>Line Spacing</source>
+        <translation>Etrelinennañ</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="665"/>
+        <source>Baseline Grid</source>
+        <translation>Kael al linenn diazez</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="878"/>
+        <source>Auto-Fit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="970"/>
         <source>On Screen Preview</source>
-        <translation type="vanished">Alberz war ar skramm</translation>
+        <translation>Alberz war ar skramm</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="984"/>
         <source>Full Resolution</source>
-        <translation type="vanished">Diarunusted uhel</translation>
+        <translation>Diarunusted uhel</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="994"/>
         <source>Normal Resolution</source>
-        <translation type="vanished">Diarunusted skoueriek</translation>
+        <translation>Diarunusted skoueriek</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1004"/>
         <source>Low Resolution</source>
-        <translation type="vanished">Diarunusted izel</translation>
+        <translation>Diarunusted izel</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1032"/>
         <source>Shapes</source>
-        <translation type="vanished">Lunioù</translation>
+        <translation>Lunioù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1077"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1301"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1394"/>
         <source>Line Style:</source>
-        <translation type="vanished">Stil al linenn :</translation>
+        <translation>Stil al linenn :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1084"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1294"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1445"/>
         <source>Line Width:</source>
-        <translation type="vanished">Tevder al linenn :</translation>
+        <translation>Tevder al linenn :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1186"/>
         <source>Regular Polygons</source>
-        <translation type="vanished">Liestueg reoliek</translation>
+        <translation>Liestueg reoliek</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1233"/>
         <source>Lines</source>
-        <translation type="vanished">Lilennoù</translation>
+        <translation>Lilennoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1308"/>
         <source>Start Arrow:</source>
-        <translation type="vanished">Penn ar saezh :</translation>
+        <translation>Penn ar saezh :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1287"/>
         <source>End Arrow:</source>
-        <translation type="vanished">Dibenn ar saezh :</translation>
+        <translation>Dibenn ar saezh :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="52"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="53"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="54"/>
         <source>Hairline</source>
-        <translation type="vanished">Rouedad tanav</translation>
+        <translation>Rouedad tanav</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="65"/>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="385"/>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
-        <translation type="vanished">ar veilh a gan eo pa dro, an dour o redek ha glebiañ
+        <translation>ar veilh a gan eo pa dro, an dour o redek ha glebiañ
 he gwrizioù d&apos;ur vleunienn wenn.
 AR VEILH A GAN EO PA DRO, AN DOUR O REDEK HA GLEBIAÃ
 HE GWRIZIOÃ D&apos;UR VLEUNIENN WENN;</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="108"/>
         <source>None</source>
         <comment>tab fill</comment>
-        <translation type="vanished">Hini ebet</translation>
+        <translation>Hini ebet</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="109"/>
         <source>Dot</source>
-        <translation type="vanished">Poent</translation>
+        <translation>Poent</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="110"/>
         <source>Hyphen</source>
-        <translation type="vanished">Kedell</translation>
+        <translation>Kedell</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="111"/>
         <source>Underscore</source>
-        <translation type="vanished">Islinennaat</translation>
+        <translation>Islinennaat</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="112"/>
         <source>Custom</source>
-        <translation type="vanished">Personelaet</translation>
+        <translation>Personelaet</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1360"/>
         <source>Calligraphic Pen</source>
-        <translation type="vanished">Kreion da gaerskrivañ</translation>
+        <translation>Kreion da gaerskrivañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1438"/>
         <source>Pen Angle:</source>
-        <translation type="vanished">Korn ar c&apos;hreion :</translation>
+        <translation>Korn ar c&apos;hreion :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1505"/>
         <source>Pen Width:</source>
-        <translation type="vanished">Tevder ar c&apos;hreion :</translation>
+        <translation>Tevder ar c&apos;hreion :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtools.cpp" line="66"/>
         <source>Keep horizontal and vertical scaling the same</source>
-        <translation type="vanished">Mirout ar skeulaat heñvel a-blaen hag a-serzh</translation>
+        <translation>Mirout ar skeulaat heñvel a-blaen hag a-serzh</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1528"/>
         <source>Arc</source>
-        <translation type="vanished">Gwareg</translation>
+        <translation>Gwareg</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="1575"/>
         <source>Spiral</source>
-        <translation type="vanished">Troellenn</translation>
+        <translation>Troellenn</translation>
     </message>
 </context>
 <context>
     <name>Prefs_KeyboardShortcuts</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="14"/>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="39"/>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcuts.cpp" line="37"/>
         <source>Keyboard Shortcuts</source>
-        <translation type="vanished">Berradennoù klavier</translation>
+        <translation>Berradennoù klavier</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="95"/>
         <source>Search:</source>
-        <translation type="vanished">Klask :</translation>
+        <translation>Klask :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="111"/>
         <source>Action</source>
-        <translation type="vanished">Gwezh</translation>
+        <translation>Gwezh</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="116"/>
         <source>Shortcut</source>
-        <translation type="vanished">Berradenn</translation>
+        <translation>Berradenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="146"/>
         <source>Shortcut for Selected Action</source>
-        <translation type="vanished">Berradenn evit ar gwered diuzet</translation>
+        <translation>Berradenn evit ar gwered diuzet</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="162"/>
         <source>&amp;No Key</source>
-        <translation type="vanished">&amp;Stokell ebet</translation>
+        <translation>&amp;Stokell ebet</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="165"/>
         <source>Alt+N</source>
-        <translation type="vanished">Alt+N</translation>
+        <translation>Alt+N</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="172"/>
         <source>&amp;User Defined Key</source>
-        <translation type="vanished">Stokell despizet gant un ar&amp;veriad</translation>
+        <translation>Stokell despizet gant un ar&amp;veriad</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="175"/>
         <source>Alt+U</source>
-        <translation type="vanished">Alt+U</translation>
+        <translation>Alt+U</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="198"/>
         <source>Set &amp;Key</source>
-        <translation type="vanished">Arventennañ ar sto&amp;kelloù</translation>
+        <translation>Arventennañ ar sto&amp;kelloù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="201"/>
         <source>Alt+K</source>
-        <translation type="vanished">Alt+K</translation>
+        <translation>Alt+K</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="217"/>
         <source>CTRL+ALT+SHIFT+W</source>
-        <translation type="vanished">CTRL+ALT+SHIFT+W</translation>
+        <translation>CTRL+ALT+SHIFT+W</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="257"/>
         <source>Loadable Shortcut Sets</source>
-        <translation type="vanished">Spletadoù berradennoù a vez karget</translation>
+        <translation>Spletadoù berradennoù a vez karget</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="273"/>
         <source>Keyboard shortcut sets available to load</source>
-        <translation type="vanished">Spletadoù berradennoù dre glavier zo hegerz da vezañ karget</translation>
+        <translation>Spletadoù berradennoù dre glavier zo hegerz da vezañ karget</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="280"/>
         <source>Load the selected shortcut set</source>
-        <translation type="vanished">Kargañ ar spletad berradennoù bet diuzet</translation>
+        <translation>Kargañ ar spletad berradennoù bet diuzet</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="283"/>
         <source>&amp;Load</source>
-        <translation type="vanished">&amp;Kargañ</translation>
+        <translation>&amp;Kargañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="286"/>
         <source>Alt+L</source>
-        <translation type="vanished">Alt+L</translation>
+        <translation>Alt+L</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="309"/>
         <source>Import a shortcut set into the current configuration</source>
-        <translation type="vanished">Enporzhiañ ur spletad berradennoù e-barzh ar c&apos;hefluniadur bremanel</translation>
+        <translation>Enporzhiañ ur spletad berradennoù e-barzh ar c&apos;hefluniadur bremanel</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="312"/>
         <source>&amp;Import...</source>
-        <translation type="vanished">E&amp;nporzhiañ...</translation>
+        <translation>E&amp;nporzhiañ...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="315"/>
         <source>Alt+I</source>
-        <translation type="vanished">Alt+I</translation>
+        <translation>Alt+I</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="322"/>
         <source>Export the current shortcuts into an importable file</source>
-        <translation type="vanished">Ezporzhiañ ar berradennoù bremanel e-barzh ur restr a vez enporzhiet</translation>
+        <translation>Ezporzhiañ ar berradennoù bremanel e-barzh ur restr a vez enporzhiet</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="325"/>
         <source>&amp;Export...</source>
-        <translation type="vanished">&amp;Ezporzhiañ...</translation>
+        <translation>&amp;Ezporzhiañ...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="328"/>
         <source>Alt+E</source>
-        <translation type="vanished">Alt+E</translation>
+        <translation>Alt+E</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="351"/>
         <source>Reload the default Scribus shortcuts</source>
-        <translation type="vanished">Adkargañ berradennoù Scribus dre ziouer</translation>
+        <translation>Adkargañ berradennoù Scribus dre ziouer</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="354"/>
         <source>&amp;Reset</source>
-        <translation type="vanished">&amp;Adderaouekaat</translation>
+        <translation>&amp;Adderaouekaat</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcutsbase.ui" line="357"/>
         <source>Alt+R</source>
-        <translation type="vanished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcuts.cpp" line="132"/>
         <source>Select a Key set file to read</source>
-        <translation type="vanished">Diuzañ ur restr spletad berradennoù da lenn</translation>
+        <translation>Diuzañ ur restr spletad berradennoù da lenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcuts.cpp" line="132"/>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcuts.cpp" line="140"/>
         <source>Key Set XML Files (*.xml)</source>
-        <translation type="vanished">Restroù berradennoù mod XML (*.xml)</translation>
+        <translation>Restroù berradennoù mod XML (*.xml)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcuts.cpp" line="140"/>
         <source>Select a Key set file to save to</source>
-        <translation type="vanished">Diuzañ ur restr spletad berradennoù da enrollañ e</translation>
+        <translation>Diuzañ ur restr spletad berradennoù da enrollañ e</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcuts.cpp" line="222"/>
         <source>Export Keyboard Shortcuts to File</source>
-        <translation type="vanished">Ezporzhiañ berradennoù klavier en ur restr</translation>
+        <translation>Ezporzhiañ berradennoù klavier en ur restr</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcuts.cpp" line="222"/>
         <source>Enter the name of the shortcut set:</source>
-        <translation type="vanished">Enankañ anv ar spletad berradennoù klavier :</translation>
+        <translation>Enankañ anv ar spletad berradennoù klavier :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcuts.cpp" line="532"/>
         <source>The %1 key sequence is already in use by &quot;%2&quot;</source>
-        <translation type="vanished">Arveret eo ar spletad stokelloù 1% endeo gant &quot;%2&quot;</translation>
+        <translation>Arveret eo ar spletad stokelloù 1% endeo gant &quot;%2&quot;</translation>
     </message>
 </context>
 <context>
     <name>Prefs_Miscellaneous</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_miscellaneousbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_miscellaneous.cpp" line="18"/>
         <source>Miscellaneous</source>
-        <translation type="vanished">Liesseurt</translation>
+        <translation>Liesseurt</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_miscellaneousbase.ui" line="80"/>
         <source>Always ask before fonts are replaced when loading a document</source>
-        <translation type="vanished">Goulenn bepred ma vo amsavet an nodrezhoù pa vo karget un teul</translation>
+        <translation>Goulenn bepred ma vo amsavet an nodrezhoù pa vo karget un teul</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_miscellaneousbase.ui" line="87"/>
         <source>Preview of current Paragraph Style is visible when editing Styles</source>
-        <translation type="vanished">Hewel e vo alberz stil ar rannbennad bremanel pa vo embannet ar stiloù</translation>
+        <translation>Hewel e vo alberz stil ar rannbennad bremanel pa vo embannet ar stiloù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_miscellaneousbase.ui" line="116"/>
         <source>Lorem Ipsum</source>
-        <translation type="vanished">Lorem Ipsum</translation>
+        <translation>Lorem Ipsum</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_miscellaneousbase.ui" line="130"/>
         <source>Always use standard Lorem Ipsum text</source>
-        <translation type="vanished">Ober gant Lorem Ipsum skoueriek bepred</translation>
+        <translation>Ober gant Lorem Ipsum skoueriek bepred</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_miscellaneousbase.ui" line="139"/>
         <source>Paragraph Count:</source>
-        <translation type="vanished">Kont ar rannbennad :</translation>
+        <translation>Kont ar rannbennad :</translation>
     </message>
 </context>
 <context>
     <name>Prefs_OperatorTools</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_operatortools.cpp" line="22"/>
         <source>Operator Tools</source>
-        <translation type="vanished">Ostilhoù an niñvaer</translation>
+        <translation>Ostilhoù an niñvaer</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="66"/>
         <source>Zoom</source>
-        <translation type="vanished">Zoum</translation>
+        <translation>Zoum</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="77"/>
         <source>Minimum:</source>
-        <translation type="vanished">Izeg :</translation>
+        <translation>Izeg :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="84"/>
         <source>Maximum:</source>
-        <translation type="vanished">Uc&apos;heg :</translation>
+        <translation>Uc&apos;heg :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="91"/>
         <source>Stepping:</source>
-        <translation type="vanished">Araokadur :</translation>
+        <translation>Araokadur :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="98"/>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="111"/>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="124"/>
         <source> %</source>
-        <translation type="vanished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="153"/>
         <source>Miscellaneous</source>
-        <translation type="vanished">Liesseurt</translation>
+        <translation>Liesseurt</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="165"/>
         <source>Item Duplicate</source>
-        <translation type="vanished">Arredaoliñ an ergorenn</translation>
+        <translation>Arredaoliñ an ergorenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="184"/>
         <source>X Displacement:</source>
-        <translation type="vanished">Delec&apos;hiadur X :</translation>
+        <translation>Delec&apos;hiadur X :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="191"/>
         <source>Y Displacement:</source>
-        <translation type="vanished">Delec&apos;hiadur Y :</translation>
+        <translation>Delec&apos;hiadur Y :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="228"/>
         <source>Rotation Tool</source>
-        <translation type="vanished">Ostilh da c&apos;hwelañ</translation>
+        <translation>Ostilh da c&apos;hwelañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortoolsbase.ui" line="247"/>
         <source>Constrain To:</source>
-        <translation type="vanished">Destrizhañ da :</translation>
+        <translation>Destrizhañ da :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortools.cpp" line="39"/>
         <source>Minimum magnification allowed</source>
-        <translation type="vanished">Ment vrasaat izek aotreet</translation>
+        <translation>Ment vrasaat izek aotreet</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortools.cpp" line="40"/>
         <source>Maximum magnification allowed</source>
-        <translation type="vanished">Ment vrasaat uc&apos;hek aotreet</translation>
+        <translation>Ment vrasaat uc&apos;hek aotreet</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortools.cpp" line="41"/>
         <source>Change in magnification for each zoom operation</source>
-        <translation type="vanished">Pazenn vrasaat/bihanaat evit pep kemm gant ar zoum</translation>
+        <translation>Pazenn vrasaat/bihanaat evit pep kemm gant ar zoum</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortools.cpp" line="42"/>
         <source>Horizontal displacement of page items</source>
-        <translation type="vanished">Delec&apos;hiadur a-blaen ergorennoù ar bajennad</translation>
+        <translation>Delec&apos;hiadur a-blaen ergorennoù ar bajennad</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortools.cpp" line="43"/>
         <source>Vertical displacement of page items</source>
-        <translation type="vanished">Delec&apos;hiadur a-serzh ergorennoù ar bajennad</translation>
+        <translation>Delec&apos;hiadur a-serzh ergorennoù ar bajennad</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_operatortools.cpp" line="44"/>
         <source>Constrain value for the rotation tool when the Control key is pressed</source>
-        <translation type="vanished">Destrizhañ ur werzh evit ostilh ar c&apos;hwelañ pa vez pouezet ar stokell Reol (control)</translation>
+        <translation>Destrizhañ ur werzh evit ostilh ar c&apos;hwelañ pa vez pouezet ar stokell Reol (control)</translation>
     </message>
 </context>
 <context>
     <name>Prefs_PDFExport</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="45"/>
         <source>PDF Export</source>
-        <translation type="vanished">Ezporzhiañ e mentrezh PDF</translation>
+        <translation>Ezporzhiañ e mentrezh PDF</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="66"/>
         <source>Export Range</source>
-        <translation type="vanished">Lijorenn ezporzhiañ</translation>
+        <translation>Lijorenn ezporzhiañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="80"/>
         <source>All Pages</source>
-        <translation type="vanished">An holl bajennoù</translation>
+        <translation>An holl bajennoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="90"/>
         <source>Choose Pages</source>
-        <translation type="vanished">Dibab pajennoù</translation>
+        <translation>Dibab pajennoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="145"/>
         <source>Rotation and Mirroring</source>
-        <translation type="vanished">C&apos;hwelañ ha melezouriñ</translation>
+        <translation>C&apos;hwelañ ha melezouriñ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="161"/>
         <source>Rotation:</source>
-        <translation type="vanished">C&apos;hwelañ :</translation>
+        <translation>C&apos;hwelañ :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="188"/>
         <source>Page Mirroring:</source>
-        <translation type="vanished">Melezouriñ ar bajennad :</translation>
+        <translation>Melezouriñ ar bajennad :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="298"/>
         <source>Page Binding:</source>
-        <translation type="vanished">Keinadur ar bajennad :</translation>
+        <translation>Keinadur ar bajennad :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="465"/>
         <source>Resolution for EPS Graphics:</source>
-        <translation type="vanished">Diarunusted ar c&apos;hevregadoù mod EPS :</translation>
+        <translation>Diarunusted ar c&apos;hevregadoù mod EPS :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="435"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="472"/>
         <source> dpi</source>
-        <translation type="vanished"> pdm</translation>
+        <translation> pdm</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="312"/>
         <source>Clip to Printer Margins</source>
-        <translation type="vanished">Didroc&apos;hañ e-keñver marzioù ar voullerez</translation>
+        <translation>Didroc&apos;hañ e-keñver marzioù ar voullerez</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="428"/>
         <source>Limit Maximum Image Resolution to:</source>
-        <translation type="vanished">Bevenniñ diarunusted uc&apos;hekañ ar skeudennoù betek :</translation>
+        <translation>Bevenniñ diarunusted uc&apos;hekañ ar skeudennoù betek :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="652"/>
         <source>Allow Copying Text and Graphics</source>
-        <translation type="vanished">Aotren eiladur an testennoù hag ar c&apos;hevregadoù</translation>
+        <translation>Aotren eiladur an testennoù hag ar c&apos;hevregadoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="241"/>
         <source>File Options</source>
-        <translation type="vanished">Dibarzhioù restr</translation>
+        <translation>Dibarzhioù restr</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="54"/>
         <source>Pages</source>
-        <translation type="vanished">Pajennoù</translation>
+        <translation>Pajennoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="288"/>
         <source>Compatibility:</source>
-        <translation type="vanished">Keverlec&apos;hded :</translation>
+        <translation>Keverlec&apos;hded :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="319"/>
         <source>Generate Thumbnails</source>
-        <translation type="vanished">Genel ar melvennoù</translation>
+        <translation>Genel ar melvennoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="326"/>
         <source>Save Linked Text Frames as PDF Articles</source>
-        <translation type="vanished">Enrollañ ar sterniadoù testenn ereet evel ergorennoù mod PDF</translation>
+        <translation>Enrollañ ar sterniadoù testenn ereet evel ergorennoù mod PDF</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="333"/>
         <source>Include Layers</source>
-        <translation type="vanished">Enkaelaat an treuzfollennoù</translation>
+        <translation>Enkaelaat an treuzfollennoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="340"/>
         <source>Include Bookmarks</source>
-        <translation type="vanished">Enkaelaat ar sinedoù</translation>
+        <translation>Enkaelaat ar sinedoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="347"/>
         <source>Embed PDF &amp;&amp; EPS Files (Experimental)</source>
-        <translation type="vanished">Enkorfañ ar restroù mod PDF &amp;&amp; EPS (Arnodek)</translation>
+        <translation>Enkorfañ ar restroù mod PDF &amp;&amp; EPS (Arnodek)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="378"/>
         <source>Compression</source>
-        <translation type="vanished">Koazhañ</translation>
+        <translation>Koazhañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="392"/>
         <source>Compress Text and Vector Graphics</source>
-        <translation type="vanished">Koazhañ an destenn hag ar c&apos;hevregadoù sturiadel</translation>
+        <translation>Koazhañ an destenn hag ar c&apos;hevregadoù sturiadel</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="404"/>
         <source>Image Compression Method:</source>
-        <translation type="vanished">Hentenn goazhañ ar skeudennoù :</translation>
+        <translation>Hentenn goazhañ ar skeudennoù :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="414"/>
         <source>Image Compression Quality:</source>
-        <translation type="vanished">Perzhded koazhañ ar skeudennoù :</translation>
+        <translation>Perzhded koazhañ ar skeudennoù :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="518"/>
         <source>Security</source>
-        <translation type="vanished">Diogelroez</translation>
+        <translation>Diogelroez</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="524"/>
         <source>Use Encryption</source>
-        <translation type="vanished">Ober gant an enrinegañ</translation>
+        <translation>Ober gant an enrinegañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="553"/>
         <source>Passwords</source>
-        <translation type="vanished">Ger tremen</translation>
+        <translation>Ger tremen</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="572"/>
         <source>Owner:</source>
-        <translation type="vanished">Perc&apos;henner :</translation>
+        <translation>Perc&apos;henner :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="586"/>
         <source>User:</source>
-        <translation type="vanished">Arveriad :</translation>
+        <translation>Arveriad :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="624"/>
         <source>Settings</source>
-        <translation type="vanished">Arventennoù</translation>
+        <translation>Arventennoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="638"/>
         <source>Allow Printing the Document</source>
-        <translation type="vanished">Aotren moulladur an teul</translation>
+        <translation>Aotren moulladur an teul</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="645"/>
         <source>Allow Changing the Document</source>
-        <translation type="vanished">Aotren daskemmadur an teul</translation>
+        <translation>Aotren daskemmadur an teul</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="659"/>
         <source>Allow Adding Annotations and Fields</source>
-        <translation type="vanished">Aotren ouzhpennadur notennoù ha maeziennoù</translation>
+        <translation>Aotren ouzhpennadur notennoù ha maeziennoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="680"/>
         <source>Color</source>
-        <translation type="vanished">Liv</translation>
+        <translation>Liv</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="727"/>
         <source>Output Intended For:</source>
-        <translation type="vanished">Ec&apos;hank gortozet dre :</translation>
+        <translation>Ec&apos;hank gortozet dre :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="739"/>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation type="vanished">Amdreiñ ar poentoù liv da livioù kewerius</translation>
+        <translation>Amdreiñ ar poentoù liv da livioù kewerius</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="768"/>
         <source>Solid Colors</source>
-        <translation type="vanished">Livioù unvan</translation>
+        <translation>Livioù unvan</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="789"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="856"/>
         <source>Use Color Profile</source>
-        <translation type="vanished">Arverañ un aelad liv</translation>
+        <translation>Arverañ un aelad liv</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="798"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="872"/>
         <source>Profile:</source>
-        <translation type="vanished">Aelad :</translation>
+        <translation>Aelad :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="808"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="882"/>
         <source>Rendering Intent:</source>
-        <translation type="vanished">Mannad da lakaat deouez :</translation>
+        <translation>Mannad da lakaat deouez :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="842"/>
         <source>Images</source>
-        <translation type="vanished">Skeudennoù</translation>
+        <translation>Skeudennoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="863"/>
         <source>Do not use Embedded Color Profiles</source>
-        <translation type="vanished">Arabat arverañ an aeladoù liv enkorfet</translation>
+        <translation>Arabat arverañ an aeladoù liv enkorfet</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="916"/>
         <source>Custom Rendering</source>
-        <translation type="vanished">Deouez personelaet</translation>
+        <translation>Deouez personelaet</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="930"/>
         <source>Use Custom Rendering</source>
-        <translation type="vanished">Arverañ an deouez personelaet</translation>
+        <translation>Arverañ an deouez personelaet</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="942"/>
         <source>Color:</source>
-        <translation type="vanished">Liv :</translation>
+        <translation>Liv :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="952"/>
         <source>Frequency:</source>
-        <translation type="vanished">Talm :</translation>
+        <translation>Talm :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="969"/>
         <source>Angle:</source>
-        <translation type="vanished">Korn :</translation>
+        <translation>Korn :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="976"/>
         <source> °</source>
-        <translation type="vanished"> °</translation>
+        <translation> °</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="989"/>
         <source>Spot Function:</source>
-        <translation type="vanished">Arc&apos;hwel ar pikoù :</translation>
+        <translation>Arc&apos;hwel ar pikoù :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1019"/>
         <source>Pre-Press</source>
-        <translation type="vanished">Rakgwask</translation>
+        <translation>Rakgwask</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1067"/>
         <source>Printer Marks</source>
-        <translation type="vanished">Merkoù ar voullerez</translation>
+        <translation>Merkoù ar voullerez</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1128"/>
         <source>Page Information</source>
-        <translation type="vanished">Stlennoù ar bajennad</translation>
+        <translation>Stlennoù ar bajennad</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1324"/>
         <source>Embedding</source>
-        <translation type="vanished">Enkorfadur</translation>
+        <translation>Enkorfadur</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1630"/>
+        <source>Facing Pages Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1637"/>
+        <source>Facing Pages Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1121"/>
         <source>Registration Marks</source>
-        <translation type="vanished">Merkoù ar marilhañ</translation>
+        <translation>Merkoù ar marilhañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1143"/>
         <source>Crop Marks</source>
-        <translation type="vanished">Merkoù an didroc&apos;hañ</translation>
+        <translation>Merkoù an didroc&apos;hañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1107"/>
         <source>Bleed Marks</source>
-        <translation type="vanished">Merkoù an dic&apos;hlannañ</translation>
+        <translation>Merkoù an dic&apos;hlannañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1114"/>
         <source>Color Bars</source>
-        <translation type="vanished">Barrennoù liv</translation>
+        <translation>Barrennoù liv</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1190"/>
         <source>Bleed Settings</source>
-        <translation type="vanished">Arventennoù an dic&apos;hlannañ</translation>
+        <translation>Arventennoù an dic&apos;hlannañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1204"/>
         <source>Use Document Bleeds</source>
-        <translation type="vanished">Arverañ dic&apos;hlannoù an teul</translation>
+        <translation>Arverañ dic&apos;hlannoù an teul</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1272"/>
         <source>Output Profile:</source>
-        <translation type="vanished">Aelad ec&apos;hankañ :</translation>
+        <translation>Aelad ec&apos;hankañ :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1282"/>
         <source>Information String:</source>
-        <translation type="vanished">Hedad titouriñ :</translation>
+        <translation>Hedad titouriñ :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1312"/>
         <source>Fonts</source>
-        <translation type="vanished">Nodrezh</translation>
+        <translation>Nodrezh</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1372"/>
         <source>Embed All</source>
-        <translation type="vanished">Enkorfañ an holl anezho</translation>
+        <translation>Enkorfañ an holl anezho</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1362"/>
         <source>Fonts to Embed</source>
-        <translation type="vanished">Nodrezhoù da enkorfañ</translation>
+        <translation>Nodrezhoù da enkorfañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1454"/>
         <source>Extras</source>
-        <translation type="vanished">Danvezioù dreist</translation>
+        <translation>Danvezioù dreist</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1460"/>
         <source>Enable Presentation Effects</source>
-        <translation type="vanished">Gweredekaat efedoù ar c&apos;hinnig</translation>
+        <translation>Gweredekaat efedoù ar c&apos;hinnig</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1479"/>
         <source>Display Duration:</source>
-        <translation type="vanished">Pad ar skrammañ :</translation>
+        <translation>Pad ar skrammañ :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1486"/>
         <source>Effect Duration:</source>
-        <translation type="vanished">Pad an efed :</translation>
+        <translation>Pad an efed :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1493"/>
         <source>Effect Type:</source>
-        <translation type="vanished">Rizh an efed :</translation>
+        <translation>Rizh an efed :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1503"/>
         <source>Moving Lines:</source>
-        <translation type="vanished">Linennoù hefiñv :</translation>
+        <translation>Linennoù hefiñv :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1513"/>
         <source>From the:</source>
-        <translation type="vanished">Diouzh :</translation>
+        <translation>Diouzh :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1523"/>
         <source>Direction:</source>
-        <translation type="vanished">Tuadur :</translation>
+        <translation>Tuadur :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1533"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1543"/>
         <source> s</source>
-        <translation type="vanished"> eilenn</translation>
+        <translation> eilenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1558"/>
         <source>Apply Effect to All Pages</source>
-        <translation type="vanished">Seveniñ an efed d&apos;an holl bajennadoù</translation>
+        <translation>Seveniñ an efed d&apos;an holl bajennadoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1582"/>
         <source>Show Page Previews</source>
-        <translation type="vanished">Diskouez alberz ar bajennad</translation>
+        <translation>Diskouez alberz ar bajennad</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1590"/>
         <source>Viewer</source>
-        <translation type="vanished">Alberzer</translation>
+        <translation>Alberzer</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1602"/>
         <source>Document Layout</source>
-        <translation type="vanished">Pajennaozañ an teul</translation>
+        <translation>Pajennaozañ an teul</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1616"/>
         <source>Single Page</source>
-        <translation type="vanished">Pajenn eeun</translation>
+        <translation>Pajenn eeun</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1623"/>
         <source>Continuous Pages</source>
-        <translation type="vanished">Pajennadoù dizehan</translation>
+        <translation>Pajennadoù dizehan</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1666"/>
         <source>Visual Appearance</source>
-        <translation type="vanished">Neuz</translation>
+        <translation>Neuz</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1684"/>
         <source>Use Viewer&apos;s Default</source>
-        <translation type="vanished">Arventennoù dre ziouer an alberzer</translation>
+        <translation>Arventennoù dre ziouer an alberzer</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1691"/>
         <source>Use Full Screen Mode</source>
-        <translation type="vanished">Mod skramm leun</translation>
+        <translation>Mod skramm leun</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1698"/>
         <source>Display Bookmarks Tab</source>
-        <translation type="vanished">Skrammañ an ivinell sinedoù</translation>
+        <translation>Skrammañ an ivinell sinedoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1705"/>
         <source>Display Thumbnails</source>
-        <translation type="vanished">Skrammañ ar melvennoù</translation>
+        <translation>Skrammañ ar melvennoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1712"/>
         <source>Display Layers Tab</source>
-        <translation type="vanished">Skrammañ an ivinell treuzfollennoù</translation>
+        <translation>Skrammañ an ivinell treuzfollennoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1723"/>
         <source>Hide Viewer&apos;s Menu Bar</source>
-        <translation type="vanished">Kuzhat barrenn lañserioù an alberzer</translation>
+        <translation>Kuzhat barrenn lañserioù an alberzer</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1730"/>
         <source>Hide Viewer&apos;s Tool Bar</source>
-        <translation type="vanished">Kuzhat barrenn ostilhoù an alberzer</translation>
+        <translation>Kuzhat barrenn ostilhoù an alberzer</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1737"/>
         <source>Zoom Pages to fit Viewer Window</source>
-        <translation type="vanished">Zoumañ ar pajennoù da genglotañ ouzh prenestr an alberzer</translation>
+        <translation>Zoumañ ar pajennoù da genglotañ ouzh prenestr an alberzer</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1783"/>
         <source>Special Actions</source>
-        <translation type="vanished">Gwezhioù dibar</translation>
+        <translation>Gwezhioù dibar</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1799"/>
         <source>Javascript to be executed when PDF document is opened:</source>
-        <translation type="vanished">Javascript da vezañ erounezet pa vez digoret un teul mod PDF :</translation>
+        <translation>Javascript da vezañ erounezet pa vez digoret un teul mod PDF :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="61"/>
         <source>Automatically rotate the exported pages</source>
-        <translation type="vanished">C&apos;hwelañ emgefreek ar pajennoù bet ezporzhiet</translation>
+        <translation>C&apos;hwelañ emgefreek ar pajennoù bet ezporzhiet</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="62"/>
         <source>Export all pages to PDF</source>
-        <translation type="vanished">Ezporzhiañ an holl bajennadoù da PDF</translation>
+        <translation>Ezporzhiañ an holl bajennadoù da PDF</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="63"/>
         <source>Export a range of pages to PDF</source>
-        <translation type="vanished">Ezporzhiañ un diuzad bajennadoù da PDF</translation>
+        <translation>Ezporzhiañ un diuzad bajennadoù da PDF</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="69"/>
+        <source>Determines the PDF compatibility.&lt;br/&gt;&lt;b&gt;PDF 1.3&lt;/b&gt;, which is the earliest supported version, gives the widest compatibility with printers&apos; RIPS.&lt;br/&gt;&lt;b&gt;PDF 1.4&lt;/b&gt;, which is the default version, supports features such as transparency and 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-1a&lt;/b&gt; is for blind exchange with colors strictly specified in CMYK or spot colors.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.&lt;br/&gt;&lt;b&gt;PDF/X-4&lt;/b&gt; is an extension of PDF/X-3 to support transparency and layering.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="70"/>
         <source>Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left.</source>
-        <translation type="vanished">Lec&apos;h ar c&apos;heinadur er restr PDF. Hep abeg resis, leuskel ar werzh dre ziouer - war an tu kleiz.</translation>
+        <translation>Lec&apos;h ar c&apos;heinadur er restr PDF. Hep abeg resis, leuskel ar werzh dre ziouer - war an tu kleiz.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="71"/>
         <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
-        <translation type="vanished">Genel a ra ar melvennoù evit pep pajenn ar restr PDF. Alberzerioù zo a ra ganto evit aesaat merdeadur e-kreiz an teul.</translation>
+        <translation>Genel a ra ar melvennoù evit pep pajenn ar restr PDF. Alberzerioù zo a ra ganto evit aesaat merdeadur e-kreiz an teul.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="74"/>
         <source>Embed the bookmarks you created in your document. These are useful for navigating long PDF documents.</source>
-        <translation type="vanished">Enkorfañ ar sinedoù krouet ganeoc&apos;h en teul. Pleustrek eo evit merdeiñ e-kreiz an teulioù hir mod PDF.</translation>
+        <translation>Enkorfañ ar sinedoù krouet ganeoc&apos;h en teul. Pleustrek eo evit merdeiñ e-kreiz an teulioù hir mod PDF.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="75"/>
         <source>Export resolution of text and vector graphics. This does not affect the resolution of bitmap images like photos.</source>
-        <translation type="vanished">Ezporzhiañ diarunusted an destenn hag an ergorennoù sturiadel. Ne dizh ket an dra-se diarunusted an ergorennoù ogedel evel al luc&apos;hskeudennoù.</translation>
+        <translation>Ezporzhiañ diarunusted an destenn hag an ergorennoù sturiadel. Ne dizh ket an dra-se diarunusted an ergorennoù ogedel evel al luc&apos;hskeudennoù.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="76"/>
         <source>Export PDFs in image frames as embedded PDFs. This does *not* yet take care of colorspaces, so you should know what you are doing before setting this to &apos;true&apos;.</source>
-        <translation type="vanished">Ezporzhiañ ar restroù mod PDF e sterniadoù skeudennoù evel restroù mod PDF enkorfet. An dra-se *ra ket* c&apos;hoazh war-dro al  livverkerezhioù, neuze  gwell e vo deoc&apos;h bezañ sur kent lakaat an arventennoù da &apos;gwir&apos;. </translation>
+        <translation>Ezporzhiañ ar restroù mod PDF e sterniadoù skeudennoù evel restroù mod PDF enkorfet. An dra-se *ra ket* c&apos;hoazh war-dro al  livverkerezhioù, neuze  gwell e vo deoc&apos;h bezañ sur kent lakaat an arventennoù da &apos;gwir&apos;. </translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="77"/>
         <source>Enables lossless compression of text and graphics. Unless you have a reason, leave this checked. This reduces PDF file size.</source>
-        <translation type="vanished">Koazhadur hep koll eus an testennoù hag an ergorennoù kevregat. Hep abeg resis, da leuskel gweredekaet. Reiñ a ra tu da vihanaat ment ar restr mod PDF.</translation>
+        <translation>Koazhadur hep koll eus an testennoù hag an ergorennoù kevregat. Hep abeg resis, da leuskel gweredekaet. Reiñ a ra tu da vihanaat ment ar restr mod PDF.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="78"/>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
-        <translation type="vanished">Hentenn goazhañ evit ar skeudennoù. Emgefreek e laosk Scribus da zibab an doare gwellañ. ZIP evit ur c&apos;hoazhadur hep koll. JPEG a ro tu da vihanaat ment ar restroù mod PDF gant luc&apos;hskeudennoù niverus (ur c&apos;holl bihan a berzhded a c&apos;hoarvezo marteze). Leuskel war Emgefreek, nemet mard hoc&apos;h eus ezhommoù dibar evit ar c&apos;hoazhañ.</translation>
+        <translation>Hentenn goazhañ evit ar skeudennoù. Emgefreek e laosk Scribus da zibab an doare gwellañ. ZIP evit ur c&apos;hoazhadur hep koll. JPEG a ro tu da vihanaat ment ar restroù mod PDF gant luc&apos;hskeudennoù niverus (ur c&apos;holl bihan a berzhded a c&apos;hoarvezo marteze). Leuskel war Emgefreek, nemet mard hoc&apos;h eus ezhommoù dibar evit ar c&apos;hoazhañ.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="79"/>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
-        <translation type="vanished">Live perzhded ar c&apos;hoazhañ evit an hentennoù koazhañ gant kolloù : Izek (25%), Izel (50%), Krenn (75 %), Uhel (85%), Uc&apos;hek (95%). Meizit n&apos;eo ket liammet dre ret al live koazhañ ouzh perzhded ar restroù bet savet. Ar vent hag ar c&apos;holl perzhded a gemmo diouzh ur skeudenn d&apos;eben evit forzh pe live perzhded.</translation>
+        <translation>Live perzhded ar c&apos;hoazhañ evit an hentennoù koazhañ gant kolloù : Izek (25%), Izel (50%), Krenn (75 %), Uhel (85%), Uc&apos;hek (95%). Meizit n&apos;eo ket liammet dre ret al live koazhañ ouzh perzhded ar restroù bet savet. Ar vent hag ar c&apos;holl perzhded a gemmo diouzh ur skeudenn d&apos;eben evit forzh pe live perzhded.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="80"/>
         <source>Limits the resolution of your bitmap images to the selected DPI. Images with a lower resolution will be left untouched. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
-        <translation type="vanished">Bevenniñ a ra diarunusted ho skeudennoù mod bitmap ouzh ar PDM bet diuzet. Ar skeudennoù o diarunusted izelañ a vo laosket digemm. Ma ne ziuzot ket an dibarzh-mañ e vo diskouezet ar skeudennoù-se gant o diarunusted orin. Gweredekaat an dibarzh-mañ a gresko an ezhommoù memor ha gorrekaet e vo an ezporzhiañ.</translation>
+        <translation>Bevenniñ a ra diarunusted ho skeudennoù mod bitmap ouzh ar PDM bet diuzet. Ar skeudennoù o diarunusted izelañ a vo laosket digemm. Ma ne ziuzot ket an dibarzh-mañ e vo diskouezet ar skeudennoù-se gant o diarunusted orin. Gweredekaat an dibarzh-mañ a gresko an ezhommoù memor ha gorrekaet e vo an ezporzhiañ.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="82"/>
         <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
-        <translation type="vanished">Gweredekaat an arc&apos;hwelioù diogelroez er restr mod PDF ezporzhiet ganeoc&apos;h. Gant an handelv 1.3 e vo arveret ar rinekaat dre 40 bit. Gant an handelv 1.4 e vo arveret ur rinekaat dre 128 bit gant ar PDF. Diwallit : n&apos;eo ket ken kreñv ar rinekaat PDF hag hini GPG pe PGP.</translation>
+        <translation>Gweredekaat an arc&apos;hwelioù diogelroez er restr mod PDF ezporzhiet ganeoc&apos;h. Gant an handelv 1.3 e vo arveret ar rinekaat dre 40 bit. Gant an handelv 1.4 e vo arveret ur rinekaat dre 128 bit gant ar PDF. Diwallit : n&apos;eo ket ken kreñv ar rinekaat PDF hag hini GPG pe PGP.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="87"/>
         <source>Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</source>
-        <translation type="vanished">Mar kevasket e vo aotreet eiladur testennoù pe ergorennoù kevregat ar restr PDF, dizaotreet mar digevasket.</translation>
+        <translation>Mar kevasket e vo aotreet eiladur testennoù pe ergorennoù kevregat ar restr PDF, dizaotreet mar digevasket.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="88"/>
         <source>Allow adding annotations and fields to the PDF. If unchecked, editing annotations and fields is prevented.</source>
-        <translation type="vanished">Mar kevasket e vo aotreet ouzhpennañ notennoù ha maeziennoù er restr PDF, dizaotreet mar digevasket.</translation>
+        <translation>Mar kevasket e vo aotreet ouzhpennañ notennoù ha maeziennoù er restr PDF, dizaotreet mar digevasket.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="90"/>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
-        <translation type="vanished">Un arventenn gempleshoc&apos;h eo homañ nad eo ket gweredekaet dre ziouer. Gweredekaet e tlefe bezañ dre c&apos;houlenn ho mouller hepken ur wech roet deoc&apos;h an doare klok d&apos;ober ganti. Mar bez gweredekaet e c&apos;hallfe ho restr PDF bezañ moullet fall pe ne vo ket treuzkasus d&apos;ur reizhiad betek unan all.</translation>
+        <translation>Un arventenn gempleshoc&apos;h eo homañ nad eo ket gweredekaet dre ziouer. Gweredekaet e tlefe bezañ dre c&apos;houlenn ho mouller hepken ur wech roet deoc&apos;h an doare klok d&apos;ober ganti. Mar bez gweredekaet e c&apos;hallfe ho restr PDF bezañ moullet fall pe ne vo ket treuzkasus d&apos;ur reizhiad betek unan all.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="91"/>
         <source>Embed a color profile for solid colors</source>
-        <translation type="vanished">Enkorfañ un aelad liv evit al livioù unvan</translation>
+        <translation>Enkorfañ un aelad liv evit al livioù unvan</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="92"/>
         <source>Color profile for solid colors</source>
-        <translation type="vanished">Aelad liv evit al livioù unvan</translation>
+        <translation>Aelad liv evit al livioù unvan</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="93"/>
         <source>Rendering intent for solid colors</source>
-        <translation type="vanished">Mennad da lakaat deouez evit al livioù unvan</translation>
+        <translation>Mennad da lakaat deouez evit al livioù unvan</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="94"/>
         <source>Embed a color profile for images</source>
-        <translation type="vanished">Enkorfañ un aelad liv evit ar skeudennoù</translation>
+        <translation>Enkorfañ un aelad liv evit ar skeudennoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="95"/>
         <source>Do not use color profiles that are embedded in source images</source>
-        <translation type="vanished">Na arverañ an aeladoù liv enkorfet er skeudennoù-tarzh</translation>
+        <translation>Na arverañ an aeladoù liv enkorfet er skeudennoù-tarzh</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="96"/>
         <source>Color profile for images</source>
-        <translation type="vanished">Aelad liv evit ar skeudennoù</translation>
+        <translation>Aelad liv evit ar skeudennoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="97"/>
         <source>Rendering intent for images</source>
-        <translation type="vanished">Mennad evit lakaat deouez evit ar skeudennoù</translation>
+        <translation>Mennad evit lakaat deouez evit ar skeudennoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="98"/>
         <source>Mirror Page(s) horizontally</source>
-        <translation type="vanished">Melezour a-blaen ar bajenn(où)</translation>
+        <translation>Melezour a-blaen ar bajenn(où)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="99"/>
         <source>Mirror Page(s) vertically</source>
-        <translation type="vanished">Melezour a-serzh ar bajenn(où)</translation>
+        <translation>Melezour a-serzh ar bajenn(où)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="100"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation type="vanished">Gweredekaat a ra ar pikoù liv da vezañ amdroet da livioù kenaoz. Anez goulenn digant ur mouller a-vicher moullañ ho leul e vefe gwell leuskel da weredekaet.</translation>
+        <translation>Gweredekaat a ra ar pikoù liv da vezañ amdroet da livioù kenaoz. Anez goulenn digant ur mouller a-vicher moullañ ho leul e vefe gwell leuskel da weredekaet.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="101"/>
         <source>Do not show objects outside the margins in the exported file</source>
-        <translation type="vanished">Na skrammañ  an ergorennoù dreist ar marzioù en teul ezporzhiet</translation>
+        <translation>Na skrammañ  an ergorennoù dreist ar marzioù en teul ezporzhiet</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="103"/>
         <source>Creates crop marks in the PDF indicating where the paper should be cut or trimmed after printing</source>
-        <translation type="vanished">Ganti e vo krouet merkoù troc&apos;hañ war ar restr PDF o venegiñ al lec&apos;h ma vo troc&apos;het ar baperenn ur wech moullet</translation>
+        <translation>Ganti e vo krouet merkoù troc&apos;hañ war ar restr PDF o venegiñ al lec&apos;h ma vo troc&apos;het ar baperenn ur wech moullet</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="104"/>
         <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
-        <translation type="vanished">Krouet ez eus ganti merkoù dic&apos;hlannañ hag a zo meneget gant _._ ha diskouez a ra bevennoù an dic&apos;hlannañ</translation>
+        <translation>Krouet ez eus ganti merkoù dic&apos;hlannañ hag a zo meneget gant _._ ha diskouez a ra bevennoù an dic&apos;hlannañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="105"/>
         <source>Add registration marks to each separation</source>
-        <translation type="vanished">Ouzhpennañ merkoù desteudañ da bep disrannadur</translation>
+        <translation>Ouzhpennañ merkoù desteudañ da bep disrannadur</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="106"/>
         <source>Add color calibration bars</source>
-        <translation type="vanished">Ouzhpennañ barrennoù kavnezañ al livioù</translation>
+        <translation>Ouzhpennañ barrennoù kavnezañ al livioù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="107"/>
         <source>Add document information which includes the document title and page numbers</source>
-        <translation type="vanished">Ouzhpennañ stlennoù a-fet teul, en o zouez titl an teul ha niverennoù ar pajennoù</translation>
+        <translation>Ouzhpennañ stlennoù a-fet teul, en o zouez titl an teul ha niverennoù ar pajennoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="109"/>
         <source>Indicate the distance offset for the registration marks</source>
-        <translation type="vanished">Menegiñ led al linkañ evit ar merk marilhañ</translation>
+        <translation>Menegiñ led al linkañ evit ar merk marilhañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="114"/>
         <source>Use the existing bleed settings from the document preferences</source>
-        <translation type="vanished">Arverañ arventennoù an dic&apos;hlannañ a zo anezho diwar gwellvezioù an teul</translation>
+        <translation>Arverañ arventennoù an dic&apos;hlannañ a zo anezho diwar gwellvezioù an teul</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="115"/>
         <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
-        <translation type="vanished">Aelad ec&apos;hankañ evit ar moulladur. Diwar e benn, kit e darempred gant ho mouller mar bez tu.</translation>
+        <translation>Aelad ec&apos;hankañ evit ar moulladur. Diwar e benn, kit e darempred gant ho mouller mar bez tu.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="116"/>
         <source>Mandatory string for PDF/X or the PDF will fail PDF/X conformance. We recommend you use the title of the document.</source>
-        <translation type="vanished">Hedad ret evit ar restr mod PDF/X-3 a-hend-all ne vo ket sur kenfurmded ar restr mod PDF/X-3. Erbedet eo deoc&apos;h ober gant titl an teul.</translation>
+        <translation>Hedad ret evit ar restr mod PDF/X-3 a-hend-all ne vo ket sur kenfurmded ar restr mod PDF/X-3. Erbedet eo deoc&apos;h ober gant titl an teul.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="209"/>
         <source>Automatic</source>
-        <translation type="vanished">Emgefreek</translation>
+        <translation>Emgefreek</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="210"/>
         <source>Lossy - JPEG</source>
-        <translation type="vanished">Gant koll - JPEG</translation>
+        <translation>Gant koll - JPEG</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="211"/>
         <source>Lossless - Zip</source>
-        <translation type="vanished">Hep koll - Zip</translation>
+        <translation>Hep koll - Zip</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="212"/>
         <source>None</source>
-        <translation type="vanished">Hini ebet</translation>
+        <translation>Hini ebet</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="217"/>
         <source>Maximum</source>
-        <translation type="vanished">Uc&apos;hek</translation>
+        <translation>Uc&apos;hek</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="218"/>
         <source>High</source>
-        <translation type="vanished">Uhel</translation>
+        <translation>Uhel</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="219"/>
         <source>Medium</source>
-        <translation type="vanished">Krenn</translation>
+        <translation>Krenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="220"/>
         <source>Low</source>
-        <translation type="vanished">Izel</translation>
+        <translation>Izel</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="221"/>
         <source>Minimum</source>
-        <translation type="vanished">Izek</translation>
+        <translation>Izek</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="228"/>
         <source>Left Margin</source>
-        <translation type="vanished">Marz a-gleiz</translation>
+        <translation>Marz a-gleiz</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="229"/>
         <source>Right Margin</source>
-        <translation type="vanished">Marz a-zehou</translation>
+        <translation>Marz a-zehou</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="234"/>
         <source>Screen / Web</source>
-        <translation type="vanished">Skramm / Web</translation>
+        <translation>Skramm / Web</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="235"/>
         <source>Printer</source>
-        <translation type="vanished">Moullerez</translation>
+        <translation>Moullerez</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="236"/>
         <source>Grayscale</source>
-        <translation type="vanished">Liveoù louedoù</translation>
+        <translation>Liveoù louedoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="241"/>
         <source>Simple Dot</source>
-        <translation type="vanished">Poent eeun</translation>
+        <translation>Poent eeun</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="242"/>
         <source>Line</source>
-        <translation type="vanished">Linenn</translation>
+        <translation>Linenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="243"/>
         <source>Round</source>
-        <translation type="vanished">Rond</translation>
+        <translation>Rond</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="244"/>
         <source>Ellipse</source>
-        <translation type="vanished">Elipsenn</translation>
+        <translation>Elipsenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="253"/>
         <source>Perceptual</source>
-        <translation type="vanished">Merzhadel</translation>
+        <translation>Merzhadel</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="253"/>
         <source>Relative Colorimetric</source>
-        <translation type="vanished">Livventerezh daveel</translation>
+        <translation>Livventerezh daveel</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="253"/>
         <source>Saturation</source>
-        <translation type="vanished">Peurvec&apos;hiañ</translation>
+        <translation>Peurvec&apos;hiañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="253"/>
         <source>Absolute Colorimetric</source>
-        <translation type="vanished">Livventerezh dizave</translation>
+        <translation>Livventerezh dizave</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="359"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="1304"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="1312"/>
         <source>Page</source>
-        <translation type="vanished">Pajenn</translation>
+        <translation>Pajenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="377"/>
         <source>No Script</source>
-        <translation type="vanished">Skript ebet</translation>
+        <translation>Skript ebet</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="520"/>
         <source>InfoString</source>
-        <translation type="vanished">Hedad titouroù</translation>
+        <translation>Hedad titouroù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="552"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="971"/>
         <source>No Effect</source>
-        <translation type="vanished">Efed ebet</translation>
+        <translation>Efed ebet</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="553"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="972"/>
         <source>Blinds</source>
-        <translation type="vanished">Maskloù</translation>
+        <translation>Maskloù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="554"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="973"/>
         <source>Box</source>
-        <translation type="vanished">Boest</translation>
+        <translation>Boest</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="555"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="974"/>
         <source>Dissolve</source>
-        <translation type="vanished">Loezañ</translation>
+        <translation>Loezañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="556"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="975"/>
         <source>Glitter</source>
-        <translation type="vanished">Strinkellikat</translation>
+        <translation>Strinkellikat</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="557"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="976"/>
         <source>Split</source>
-        <translation type="vanished">Kefarz</translation>
+        <translation>Kefarz</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="558"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="977"/>
         <source>Wipe</source>
-        <translation type="vanished">Skarzhañ</translation>
+        <translation>Skarzhañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="561"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="980"/>
         <source>Push</source>
-        <translation type="vanished">Bountañ</translation>
+        <translation>Bountañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="562"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="981"/>
         <source>Cover</source>
-        <translation type="vanished">Golo</translation>
+        <translation>Golo</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="563"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="982"/>
         <source>Uncover</source>
-        <translation type="vanished">Dizoleiñ</translation>
+        <translation>Dizoleiñ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="564"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="983"/>
         <source>Fade</source>
-        <translation type="vanished">Arweuz</translation>
+        <translation>Arweuz</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="608"/>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
-        <translation type="vanished">Gannañ an nodrezhoù er PDF. Reiñ a ra tu da virout pajennaozañ ha neuz a-bezh ho teul.</translation>
+        <translation>Gannañ an nodrezhoù er PDF. Reiñ a ra tu da virout pajennaozañ ha neuz a-bezh ho teul.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="609"/>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
-        <translation type="vanished">Gweredekaat a ra an efedoù kinnig pa vez arveret Adobe&amp;#174;  Reader&amp;#174 hag alberzerioù PDF all a skor an dra-se gant ar mod skrammad a-bezh.</translation>
+        <translation>Gweredekaat a ra an efedoù kinnig pa vez arveret Adobe&amp;#174;  Reader&amp;#174 hag alberzerioù PDF all a skor an dra-se gant ar mod skrammad a-bezh.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="610"/>
         <source>Show page previews of each page listed above.</source>
-        <translation type="vanished">Diskouez alberzioù pep pajennad er roll amañ a-us.</translation>
+        <translation>Diskouez alberzioù pep pajennad er roll amañ a-us.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="611"/>
         <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
-        <translation type="vanished">Pad skrammañ ar bajennad kent ma vo kroget ar ginnigadenn gant ar bajennad bet diuzet. Kefluniañ 0 a ziweredekay ardreuzad emgefreek ar pajennoù.</translation>
+        <translation>Pad skrammañ ar bajennad kent ma vo kroget ar ginnigadenn gant ar bajennad bet diuzet. Kefluniañ 0 a ziweredekay ardreuzad emgefreek ar pajennoù.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="612"/>
         <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
-        <translation type="vanished">Pad erounit an efed. Ur mare berr a herrekay an efed, gorrekaet e vo gant ur mare hiroc&apos;h.</translation>
+        <translation>Pad erounit an efed. Ur mare berr a herrekay an efed, gorrekaet e vo gant ur mare hiroc&apos;h.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="619"/>
         <source>Show the document in single page mode</source>
-        <translation type="vanished">Diskouez an teul gant mod ar bajenn eeun</translation>
+        <translation>Diskouez an teul gant mod ar bajenn eeun</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="620"/>
         <source>Show the document in single page mode with the pages displayed continuously end to end like a scroll</source>
-        <translation type="vanished">Diskouez an teul gant ar mod pajenn eeun gant ar pajennoù skrammet dizehan betek an dibenn evel un dibunadenn</translation>
+        <translation>Diskouez an teul gant ar mod pajenn eeun gant ar pajennoù skrammet dizehan betek an dibenn evel un dibunadenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="621"/>
         <source>Show the document with facing pages, starting with the first page displayed on the left</source>
-        <translation type="vanished">Diskouez an teul gant ar pajennoù tal ouzh tal, o kregiñ gant ar bajenn gentañ war an tu kleiz</translation>
+        <translation>Diskouez an teul gant ar pajennoù tal ouzh tal, o kregiñ gant ar bajenn gentañ war an tu kleiz</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="622"/>
         <source>Show the document with facing pages, starting with the first page displayed on the right</source>
-        <translation type="vanished">Diskouez an teul gant ar pajennoù tal ouzh tal, o kregiñ gant ar bajenn gentañ war an tu dehou</translation>
+        <translation>Diskouez an teul gant ar pajennoù tal ouzh tal, o kregiñ gant ar bajenn gentañ war an tu dehou</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="623"/>
         <source>Use the viewer&apos;s defaults or the user&apos;s preferences if set differently from the viewer defaults</source>
-        <translation type="vanished">Arverañ arventennoù an alberzer dre ziouer pe gwellvezioù an arveriad mar befent disheñvel diouzh arventennoù dre ziouer an alberzer</translation>
+        <translation>Arverañ arventennoù an alberzer dre ziouer pe gwellvezioù an arveriad mar befent disheñvel diouzh arventennoù dre ziouer an alberzer</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="624"/>
         <source>Enables viewing the document in full screen</source>
-        <translation type="vanished">Gweredekaat a ra diskouez an teul war ar skramm a-bezh</translation>
+        <translation>Gweredekaat a ra diskouez an teul war ar skramm a-bezh</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="625"/>
         <source>Display the bookmarks upon opening</source>
-        <translation type="vanished">Skrammañ ar sinedoù gant al loc&apos;hañ</translation>
+        <translation>Skrammañ ar sinedoù gant al loc&apos;hañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="626"/>
         <source>Display the page thumbnails upon opening</source>
-        <translation type="vanished">Skrammañ ar bajennad melvennoù gant al loc&apos;hañ</translation>
+        <translation>Skrammañ ar bajennad melvennoù gant al loc&apos;hañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="627"/>
         <source>Forces the displaying of layers. Useful only for PDF 1.5+.</source>
-        <translation type="vanished">Bountañ a ra war skrammañ an treuzfollennoù. Talvoudus evit PDF 1.5+ hepken.</translation>
+        <translation>Bountañ a ra war skrammañ an treuzfollennoù. Talvoudus evit PDF 1.5+ hepken.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="628"/>
         <source>Hides the Tool Bar which has selection and other editing capabilities</source>
-        <translation type="vanished">Kuzhat a ra ar varrenn ostilhoù dezhi barregezhioù a-fet embann pe diuzañ</translation>
+        <translation>Kuzhat a ra ar varrenn ostilhoù dezhi barregezhioù a-fet embann pe diuzañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1085"/>
         <source>Mark Length:</source>
-        <translation type="vanished">Led ar merk :</translation>
+        <translation>Led ar merk :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1154"/>
         <source>Mark Offset:</source>
-        <translation type="vanished">Linkad ar merk :</translation>
+        <translation>Linkad ar merk :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="108"/>
         <source>Length of crop marks</source>
-        <translation type="vanished">Hirder ar merkoù didroc&apos;hañ</translation>
+        <translation>Hirder ar merkoù didroc&apos;hañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="83"/>
         <source>Choose an owner password which enables or disables all the security features in your exported PDF</source>
-        <translation type="vanished">Dibabit ur ger-tremen a roy tu da weredekaat pe ziweredekaat ar c&apos;heweriusterioù diogelroez er restr mod PDF bet krouet</translation>
+        <translation>Dibabit ur ger-tremen a roy tu da weredekaat pe ziweredekaat ar c&apos;heweriusterioù diogelroez er restr mod PDF bet krouet</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="67"/>
         <source>Create a range of pages</source>
-        <translation type="vanished">Krouiñ ul lijorenn bajennoù</translation>
+        <translation>Krouiñ ul lijorenn bajennoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1346"/>
         <source>Embedding mode:</source>
-        <translation type="vanished">Mod enkorfañ :</translation>
+        <translation>Mod enkorfañ :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1432"/>
         <source>Fonts to Subset</source>
-        <translation type="vanished">Nodrezh da enkorfañ e spletad diglok</translation>
+        <translation>Nodrezh da enkorfañ e spletad diglok</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1442"/>
         <source>Subset All</source>
-        <translation type="vanished">Enkorfañ an holl spletadoù diglok</translation>
+        <translation>Enkorfañ an holl spletadoù diglok</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="64"/>
         <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number</source>
-        <translation type="vanished">Enlakaat ur roll elfennoù disrannet gant ur skej, an ergorennoù o c&apos;hallout bezañ * evit an holl bajennadoù, 1-5 evit ur rannad pajennadoù pe un niverenn bajenn eeun.</translation>
+        <translation>Enlakaat ur roll elfennoù disrannet gant ur skej, an ergorennoù o c&apos;hallout bezañ * evit an holl bajennadoù, 1-5 evit ur rannad pajennadoù pe un niverenn bajenn eeun.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="72"/>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF</source>
-        <translation type="vanished">Genel an ergorennoù mod PDF, talvoudus evit ar merdeiñ etre an ergorennoù ereet en ur restr mod PDF.</translation>
+        <translation>Genel an ergorennoù mod PDF, talvoudus evit ar merdeiñ etre an ergorennoù ereet en ur restr mod PDF.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="73"/>
         <source>Layers in your document are exported to the PDF. Only available if PDF 1.5 is chosen.</source>
-        <translation type="vanished">Ezporzhiet e vo treufollennadoù ho teul er restr mod PDF. Hegerz mar bez diuzet ar mentrezh PDF 1.5 hepken.</translation>
+        <translation>Ezporzhiet e vo treufollennadoù ho teul er restr mod PDF. Hegerz mar bez diuzet ar mentrezh PDF 1.5 hepken.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="81"/>
         <source>DPI (Dots Per Inch) for image export</source>
-        <translation type="vanished">PDM (Pikennoù Dre Veutad) evit an ezporzhiañ skeudenn.</translation>
+        <translation>PDM (Pikennoù Dre Veutad) evit an ezporzhiañ skeudenn.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="84"/>
         <source>Choose a password for users to be able to read your PDF</source>
-        <translation type="vanished">Dibabit ur ger-tremen evit an arveriaded evit bezañ aotreet da lenn ho restr mod PDF.</translation>
+        <translation>Dibabit ur ger-tremen evit an arveriaded evit bezañ aotreet da lenn ho restr mod PDF.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="86"/>
         <source>Allow modifying of the PDF. If unchecked, modifying the PDF is prevented.</source>
-        <translation type="vanished">Mar kevasket e vo aotreet daskemm ar restr PDF, dizaotreet mar digevasket.</translation>
+        <translation>Mar kevasket e vo aotreet daskemm ar restr PDF, dizaotreet mar digevasket.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="89"/>
         <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation type="vanished">Skouer liv evit ec&apos;hankad ar restr PDF. Dibab Skramm/Web evit un arver skoueriek pe ur voulladur gant ur voullerez dre huzvannañ. Dibab Moullerez evit ur restr PDF tonket d&apos;ur moulladur SMMD. Dibab liveoù louedoù evit krouiñ ur restr PDF dre liveoù louedoù.</translation>
+        <translation>Skouer liv evit ec&apos;hankad ar restr PDF. Dibab Skramm/Web evit un arver skoueriek pe ur voulladur gant ur voullerez dre huzvannañ. Dibab Moullerez evit ur restr PDF tonket d&apos;ur moulladur SMMD. Dibab liveoù louedoù evit krouiñ ur restr PDF dre liveoù louedoù.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="613"/>
         <source>Type of the display effect</source>
-        <translation type="vanished">Rizh an efedoù skrammañ</translation>
+        <translation>Rizh an efedoù skrammañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="614"/>
         <source>Direction of the effect of moving lines for the split and blind effects</source>
-        <translation type="vanished">Tuadur efed al linennoù hefiñv evit an efedoù regiñ ha masklañ.</translation>
+        <translation>Tuadur efed al linennoù hefiñv evit an efedoù regiñ ha masklañ.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="615"/>
         <source>Starting position for the box and split effects</source>
-        <translation type="vanished">Savlec&apos;h disparti evit an efedoù boest ha regiñ.</translation>
+        <translation>Savlec&apos;h disparti evit an efedoù boest ha regiñ.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="616"/>
         <source>Direction of the glitter or wipe effects</source>
-        <translation type="vanished">Tuadur evit an efedoù strinkellikat pe zilemel.</translation>
+        <translation>Tuadur evit an efedoù strinkellikat pe zilemel.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="617"/>
         <source>Apply the selected effect to all pages</source>
-        <translation type="vanished">Seveniñ an efed diuzet d&apos;an holl bajennadoù.</translation>
+        <translation>Seveniñ an efed diuzet d&apos;an holl bajennadoù.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="629"/>
         <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window</source>
-        <translation type="vanished">Kuzhaat a ra barrenn al lañser evit an alberzer, skrammet e vo ar PDF  en ur prenestr a-bezh.</translation>
+        <translation>Kuzhaat a ra barrenn al lañser evit an alberzer, skrammet e vo ar PDF  en ur prenestr a-bezh.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="630"/>
         <source>Fit the document page or pages to the available space in the viewer window</source>
-        <translation type="vanished">Lakaat pajenn pe bajennoù an teul da genglotañ gant ar plas hegerz e prenestr an alberzer.</translation>
+        <translation>Lakaat pajenn pe bajennoù an teul da genglotañ gant ar plas hegerz e prenestr an alberzer.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="618"/>
         <source>Embed only subset fonts with glyphs used in the document into the PDF</source>
-        <translation type="vanished">Enkorfañ spletadoù an nodrezhoù diglok gant an arouezennoù arveret en teul nemetken e-barzh ar PDF.</translation>
+        <translation>Enkorfañ spletadoù an nodrezhoù diglok gant an arouezennoù arveret en teul nemetken e-barzh ar PDF.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1253"/>
         <source>PDF/X Output Intent</source>
-        <translation type="vanished">Mennad Ec&apos;hankañ mod PDF/X</translation>
+        <translation>Mennad Ec&apos;hankañ mod PDF/X</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="85"/>
         <source>Allow printing of the PDF. If unchecked, printing is prevented.</source>
-        <translation type="vanished">Mar kevasket e vo aotreet moulladur ar restr PDF, dizaotreet mar digevasket. </translation>
+        <translation>Mar kevasket e vo aotreet moulladur ar restr PDF, dizaotreet mar digevasket. </translation>
     </message>
 </context>
 <context>
     <name>Prefs_PageSizes</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pagesizesbase.ui" line="35"/>
+        <location filename="../../scribus/ui/preferences/prefs_pagesizes.cpp" line="23"/>
         <source>Page Sizes</source>
-        <translation type="vanished">Mentoù ar bajenn</translation>
+        <translation>Mentoù ar bajenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pagesizesbase.ui" line="53"/>
         <source>Available Sizes</source>
-        <translation type="vanished">Mentoù hegerz</translation>
+        <translation>Mentoù hegerz</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pagesizesbase.ui" line="120"/>
+        <source>Preferred Sizes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pagesizes.cpp" line="41"/>
+        <source>Page Format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_pagesizes.cpp" line="42"/>
+        <source>Dimension</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>Prefs_Paths</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_paths.cpp" line="21"/>
         <source>Paths</source>
-        <translation type="vanished">Treugoù</translation>
+        <translation>Treugoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="85"/>
         <source>Documents:</source>
-        <translation type="vanished">Teulioù :</translation>
+        <translation>Teulioù :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="114"/>
         <source>&amp;Change...</source>
-        <translation type="vanished">&amp;Kemmañ...</translation>
+        <translation>&amp;Kemmañ...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="117"/>
         <source>Alt+C</source>
-        <translation type="vanished">Alt+K</translation>
+        <translation>Alt+K</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="124"/>
         <source>Color Profiles:</source>
-        <translation type="vanished">Aeladoù liv :</translation>
+        <translation>Aeladoù liv :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="147"/>
         <source>C&amp;hange...</source>
-        <translation type="vanished">&amp;Kemmañ...</translation>
+        <translation>&amp;Kemmañ...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="150"/>
         <source>Alt+H</source>
-        <translation type="vanished">Alt+U</translation>
+        <translation>Alt+U</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="157"/>
         <source>Scripts:</source>
-        <translation type="vanished">Skript :</translation>
+        <translation>Skript :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="180"/>
         <source>Ch&amp;ange...</source>
-        <translation type="vanished">Ke&amp;mmañ...</translation>
+        <translation>Ke&amp;mmañ...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="183"/>
         <source>Alt+A</source>
-        <translation type="vanished">Alt+D</translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="190"/>
         <source>Document Templates:</source>
-        <translation type="vanished">Patromoù teulioù :</translation>
+        <translation>Patromoù teulioù :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="213"/>
         <source>Cha&amp;nge...</source>
-        <translation type="vanished">&amp;K&amp;emmañ...</translation>
+        <translation>&amp;K&amp;emmañ...</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pathsbase.ui" line="216"/>
         <source>Alt+N</source>
-        <translation type="vanished">Alt+T</translation>
+        <translation>Alt+T</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_paths.cpp" line="34"/>
         <source>Default documents directory</source>
-        <translation type="vanished">Kavlec&apos;hiad an teulioù dre ziouer</translation>
+        <translation>Kavlec&apos;hiad an teulioù dre ziouer</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_paths.cpp" line="36"/>
         <source>Default Scripter scripts directory</source>
-        <translation type="vanished">Kavlec&apos;hiad evit ar skriptoù dre ziouer</translation>
+        <translation>Kavlec&apos;hiad evit ar skriptoù dre ziouer</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_paths.cpp" line="37"/>
         <source>Additional directory for document templates</source>
-        <translation type="vanished">Kavlec&apos;hiad ouzhpenn evit patromoù an teulioù</translation>
+        <translation>Kavlec&apos;hiad ouzhpenn evit patromoù an teulioù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_paths.cpp" line="58"/>
+        <location filename="../../scribus/ui/preferences/prefs_paths.cpp" line="65"/>
+        <location filename="../../scribus/ui/preferences/prefs_paths.cpp" line="72"/>
+        <location filename="../../scribus/ui/preferences/prefs_paths.cpp" line="79"/>
         <source>Choose a Directory</source>
-        <translation type="vanished">Dibab ur c&apos;havlec&apos;hiad</translation>
+        <translation>Dibab ur c&apos;havlec&apos;hiad</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_paths.cpp" line="35"/>
         <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc, $home/.local/share/color/icc, /usr/share/color/icc and /usr/local/share/color/icc</source>
-        <translation type="vanished">Kavlec&apos;hiad dre ziouer an aeladoù ICC. N&apos;hall ket bezañ digoret mard eo digor un teul. Dre ziouer e klasko Scribus e-barzh ar c&apos;havlec&apos;hiadoù reizhiad dindan Mac OS ha Windows. Dindan Linux hag Unix e klasko Scribus e-barzh $home/.color/icc, $home/.local/share/color/icc, /usr/share/color/icc and /usr/local/share/color/icc</translation>
+        <translation>Kavlec&apos;hiad dre ziouer an aeladoù ICC. N&apos;hall ket bezañ digoret mard eo digor un teul. Dre ziouer e klasko Scribus e-barzh ar c&apos;havlec&apos;hiadoù reizhiad dindan Mac OS ha Windows. Dindan Linux hag Unix e klasko Scribus e-barzh $home/.color/icc, $home/.local/share/color/icc, /usr/share/color/icc and /usr/local/share/color/icc</translation>
     </message>
 </context>
 <context>
     <name>Prefs_Plugins</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pluginsbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_plugins.cpp" line="27"/>
         <source>Plugins</source>
-        <translation type="vanished">Askouezhadennoù</translation>
+        <translation>Askouezhadennoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pluginsbase.ui" line="60"/>
         <source>Plugin</source>
-        <translation type="vanished">Enlugellad</translation>
+        <translation>Enlugellad</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pluginsbase.ui" line="65"/>
         <source>How to run</source>
-        <translation type="vanished">Penaos erounit</translation>
+        <translation>Penaos erounit</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pluginsbase.ui" line="70"/>
         <source>Type</source>
-        <translation type="vanished">Rizh</translation>
+        <translation>Rizh</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pluginsbase.ui" line="75"/>
         <source>Load it?</source>
-        <translation type="vanished">E gargañ ?</translation>
+        <translation>E gargañ ?</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pluginsbase.ui" line="80"/>
         <source>Plugin ID</source>
-        <translation type="vanished">Naoudi an enlugellad</translation>
+        <translation>Naoudi an enlugellad</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pluginsbase.ui" line="85"/>
         <source>File</source>
-        <translation type="vanished">Restr</translation>
+        <translation>Restr</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_pluginsbase.ui" line="93"/>
         <source>You need to restart the application to apply the changes.</source>
-        <translation type="vanished">Ret eo deoc&apos;h adloc&apos;h an arload da seveniñ ar c&apos;hemmoù.</translation>
+        <translation>Ret eo deoc&apos;h adloc&apos;h an arload da seveniñ ar c&apos;hemmoù.</translation>
     </message>
 </context>
 <context>
     <name>Prefs_PreflightVerifier</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="35"/>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifier.cpp" line="18"/>
         <source>Preflight Verifier</source>
-        <translation type="vanished">Gwirierez Preflight</translation>
+        <translation>Gwirierez Preflight</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="49"/>
         <source>Show pages without errors</source>
-        <translation type="vanished">Diskouez ar pajennadoù difazi</translation>
+        <translation>Diskouez ar pajennadoù difazi</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="56"/>
         <source>Show errors for items on layers that will not print</source>
-        <translation type="vanished">Diskouez ar fazi evit an elfennoù war an dreuzfollenn na vint ket moullet</translation>
+        <translation>Diskouez ar fazi evit an elfennoù war an dreuzfollenn na vint ket moullet</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="84"/>
         <source>Profile Setup</source>
-        <translation type="vanished">Kefluniadur an aelad</translation>
+        <translation>Kefluniadur an aelad</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="116"/>
         <source>Output Profile:</source>
-        <translation type="vanished">Aelad ec&apos;hankañ :</translation>
+        <translation>Aelad ec&apos;hankañ :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="134"/>
         <source>Add New Profile</source>
-        <translation type="vanished">Ouzhpennañ un aelad nevez</translation>
+        <translation>Ouzhpennañ un aelad nevez</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="141"/>
         <source>Remove Profile</source>
-        <translation type="vanished">Dilemel un aelad</translation>
+        <translation>Dilemel un aelad</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="184"/>
         <source>Profile Options</source>
-        <translation type="vanished">Dibarzhioù an aelad</translation>
+        <translation>Dibarzhioù an aelad</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="198"/>
         <source>Ignore all errors</source>
-        <translation type="vanished">Leuskel a-gostez an holl fazioù</translation>
+        <translation>Leuskel a-gostez an holl fazioù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="205"/>
         <source>Automatic check before printing or exporting</source>
-        <translation type="vanished">Klask emgefreek kent moullañ pe ezporzhiañ</translation>
+        <translation>Klask emgefreek kent moullañ pe ezporzhiañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="212"/>
         <source>Check for missing glyphs</source>
-        <translation type="vanished">Klask an arouezennoù a vank</translation>
+        <translation>Klask an arouezennoù a vank</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="219"/>
         <source>Check for items not on a page</source>
-        <translation type="vanished">Klask an ergorennoù n&apos;emaint ket war ur bajenn</translation>
+        <translation>Klask an ergorennoù n&apos;emaint ket war ur bajenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="233"/>
         <source>Check for overflow in text frames</source>
-        <translation type="vanished">Klask moned dreist an destenn er sterniadoù testenn</translation>
+        <translation>Klask moned dreist an destenn er sterniadoù testenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="240"/>
         <source>Check for used transparencies</source>
-        <translation type="vanished">Klask an treuzwelusterioù arveret</translation>
+        <translation>Klask an treuzwelusterioù arveret</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="247"/>
         <source>Check for missing images</source>
-        <translation type="vanished">Klask ar skeudennoù a vank</translation>
+        <translation>Klask ar skeudennoù a vank</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="254"/>
+        <source>Check for partially filled image frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="261"/>
+        <source>Check for images with progressive encoding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="268"/>
         <source>Check image resolution</source>
-        <translation type="vanished">Gwiriañ diarunusted ar skeudenn</translation>
+        <translation>Gwiriañ diarunusted ar skeudenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="280"/>
         <source>Minimum Resolution:</source>
-        <translation type="vanished">Diarunusted izek :</translation>
+        <translation>Diarunusted izek :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="287"/>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="300"/>
         <source> dpi</source>
-        <translation type="vanished"> pdm</translation>
+        <translation> pdm</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="313"/>
         <source>Maximum Resolution:</source>
-        <translation type="vanished">Diarunusted uc&apos;hek :</translation>
+        <translation>Diarunusted uc&apos;hek :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="322"/>
         <source>Check for placed PDF files</source>
-        <translation type="vanished">Klask ar restroù mod PDF bet gannet</translation>
+        <translation>Klask ar restroù mod PDF bet gannet</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="329"/>
         <source>Check for GIF images</source>
-        <translation type="vanished">Klask ar skeudennoù mod GIF</translation>
+        <translation>Klask ar skeudennoù mod GIF</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="336"/>
         <source>Check for PDF Annotations and Fields</source>
-        <translation type="vanished">Klask an notennoù hag ar maeziennoù mod PDF</translation>
+        <translation>Klask an notennoù hag ar maeziennoù mod PDF</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="343"/>
         <source>Check for Visible/Printable mismatch in layers</source>
-        <translation type="vanished">Gwiriañ an digenglotadennoù hewel/moulladus war an treuzfollennoù</translation>
+        <translation>Gwiriañ an digenglotadennoù hewel/moulladus war an treuzfollennoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="350"/>
         <source>Ignore non-printable layers</source>
-        <translation type="vanished">Leuskel a-gostez an treuzfollennadoù divoullus</translation>
+        <translation>Leuskel a-gostez an treuzfollennadoù divoullus</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="226"/>
         <source>Check for empty text frames</source>
-        <translation type="vanished">Klask sternioù testenn goullo.</translation>
+        <translation>Klask sternioù testenn goullo.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="357"/>
         <source>Check if applied master page location is the same as each page&apos;s location</source>
-        <translation type="vanished">Gwiriañ hag-eñ ez eo lec&apos;hiadur ar bajennad vestrez heñvel ouzh pep lec&apos;hiadur ar bajennad</translation>
+        <translation>Gwiriañ hag-eñ ez eo lec&apos;hiadur ar bajennad vestrez heñvel ouzh pep lec&apos;hiadur ar bajennad</translation>
     </message>
 </context>
 <context>
     <name>Prefs_Printer</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="38"/>
         <source>Printing</source>
-        <translation type="vanished">Moulladur</translation>
+        <translation>Moulladur</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="73"/>
         <source>Destination</source>
-        <translation type="vanished">Arvoned</translation>
+        <translation>Arvoned</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="90"/>
         <source>Alternative Printer Command</source>
-        <translation type="vanished">Lanker all ar voullerez</translation>
+        <translation>Lanker all ar voullerez</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="99"/>
         <source>Command:</source>
-        <translation type="vanished">Lanker :</translation>
+        <translation>Lanker :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="133"/>
         <source>General Options</source>
-        <translation type="vanished">Dibarzhioù hollek</translation>
+        <translation>Dibarzhioù hollek</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="149"/>
         <source>Output:</source>
-        <translation type="vanished">Ec&apos;hankad :</translation>
+        <translation>Ec&apos;hankad :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="157"/>
         <source>Normal</source>
-        <translation type="vanished">Skoueriek</translation>
+        <translation>Skoueriek</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="162"/>
         <source>Separations</source>
-        <translation type="vanished">Disrannadurioù</translation>
+        <translation>Disrannadurioù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="185"/>
         <source>Include PDF Annotations and Links</source>
-        <translation type="vanished">Enlakaat notennoù hag ereoù ar restr mod PDF</translation>
+        <translation>Enlakaat notennoù hag ereoù ar restr mod PDF</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="214"/>
         <source>Page</source>
-        <translation type="vanished">Pajenn</translation>
+        <translation>Pajenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="228"/>
         <source>Mirror Page(s) Horizontally</source>
-        <translation type="vanished">Melezour a-blaen ar pajennoù</translation>
+        <translation>Melezour a-blaen ar pajennoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="235"/>
         <source>Mirror Page(s) Vertically</source>
-        <translation type="vanished">Melezour a-serzh ar pajennoù</translation>
+        <translation>Melezour a-serzh ar pajennoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="242"/>
         <source>Set Media Size</source>
-        <translation type="vanished">Kefluniañ ment ar media</translation>
+        <translation>Kefluniañ ment ar media</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="249"/>
         <source>Clip to Printer Margins</source>
-        <translation type="vanished">Didroc&apos;hañ e-keñver marzioù ar voullerez</translation>
+        <translation>Didroc&apos;hañ e-keñver marzioù ar voullerez</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="278"/>
         <source>Color</source>
-        <translation type="vanished">Liv</translation>
+        <translation>Liv</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="330"/>
         <source>Apply Under Color Removal</source>
-        <translation type="vanished">Arloañ dilamadur an danlivioù (UCR)</translation>
+        <translation>Arloañ dilamadur an danlivioù (UCR)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="337"/>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation type="vanished">Amdreiñ ar poentoù liv da livioù kewerius</translation>
+        <translation>Amdreiñ ar poentoù liv da livioù kewerius</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="294"/>
         <source>Print In:</source>
-        <translation type="vanished">Moullañ e :</translation>
+        <translation>Moullañ e :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="302"/>
         <source>Color (If Available)</source>
-        <translation type="vanished">Liv (mard eo hegerz)</translation>
+        <translation>Liv (mard eo hegerz)</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="307"/>
         <source>Grayscale</source>
-        <translation type="vanished">Liveoù louedoù</translation>
+        <translation>Liveoù louedoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="366"/>
+        <source>Printing Language</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="429"/>
         <source>Marks and Bleeds</source>
-        <translation type="vanished">Merkoù ha dic&apos;hlannañ</translation>
+        <translation>Merkoù ha dic&apos;hlannañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="445"/>
         <source>Crop Marks</source>
-        <translation type="vanished">Merkoù an didroc&apos;hañ</translation>
+        <translation>Merkoù an didroc&apos;hañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="452"/>
         <source>Bleed Marks</source>
-        <translation type="vanished">Merkoù an dic&apos;hlannañ</translation>
+        <translation>Merkoù an dic&apos;hlannañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="459"/>
         <source>Registration Marks</source>
-        <translation type="vanished">Merkoù ar marilhañ</translation>
+        <translation>Merkoù ar marilhañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="466"/>
         <source>Color Bars</source>
-        <translation type="vanished">Barrennoù liv</translation>
+        <translation>Barrennoù liv</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="475"/>
         <source>Offset:</source>
-        <translation type="vanished">Linkañ :</translation>
+        <translation>Linkañ :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="535"/>
         <source>Bleed Settings</source>
-        <translation type="vanished">Arventennoù an dic&apos;hlannañ</translation>
+        <translation>Arventennoù an dic&apos;hlannañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printer.cpp" line="23"/>
         <source>Printer</source>
-        <translation type="vanished">Moullerez</translation>
+        <translation>Moullerez</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printer.cpp" line="33"/>
         <source>Do not show objects outside the margins on the printed page</source>
-        <translation type="vanished">Na skrammañ an ergorennoù dreist ar marzioù war ar bajenn moullet</translation>
+        <translation>Na skrammañ an ergorennoù dreist ar marzioù war ar bajenn moullet</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printer.cpp" line="34"/>
         <source>Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</source>
-        <translation type="vanished">Arverañ un ardoer moullañ all evel kprinter pe gtklp, a-benn kaout dibarzhioù moullañ ouzhpenn</translation>
+        <translation>Arverañ un ardoer moullañ all evel kprinter pe gtklp, a-benn kaout dibarzhioù moullañ ouzhpenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printer.cpp" line="35"/>
+        <source>Sets the printing language to use.
+ Setting to PostScript Level 1 or 2 can create huge files.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_printer.cpp" line="36"/>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="vanished">Un doare evit dilemel un darn eus an arlivioù louedoù a zo graet gant siañ, melen ha majenta hag arverañ an du en o lec&apos;h. Efedusoc&apos;h eo UCR (Under Color Removal) war ar maezioù eus ar skeudenn o zonioù teñval pe neptuel, tost eus al loued. Perzhded ar moullañ a c&apos;hall bezañ gwelloc&apos;h gant an arc&apos;hwel-mañ. Taolioù arnod a ranko bezañ graet tro goude tro. Bihanaet e vo arvaroù a beurverc&apos;hiadur gant an huzioù SMM.</translation>
+        <translation>Un doare evit dilemel un darn eus an arlivioù louedoù a zo graet gant siañ, melen ha majenta hag arverañ an du en o lec&apos;h. Efedusoc&apos;h eo UCR (Under Color Removal) war ar maezioù eus ar skeudenn o zonioù teñval pe neptuel, tost eus al loued. Perzhded ar moullañ a c&apos;hall bezañ gwelloc&apos;h gant an arc&apos;hwel-mañ. Taolioù arnod a ranko bezañ graet tro goude tro. Bihanaet e vo arvaroù a beurverc&apos;hiadur gant an huzioù SMM.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printer.cpp" line="37"/>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation type="vanished">Gweredekaat a ra ar pikoù liv da vezañ amdroet da livioù kenaoz. Anez goulenn digant ur mouller a-vicher moullañ ho leul e vefe gwell leuskel da weredekaet.</translation>
+        <translation>Gweredekaat a ra ar pikoù liv da vezañ amdroet da livioù kenaoz. Anez goulenn digant ur mouller a-vicher moullañ ho leul e vefe gwell leuskel da weredekaet.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="489"/>
         <source>Length:</source>
-        <translation type="vanished">Led :</translation>
+        <translation>Led :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_printer.cpp" line="38"/>
         <source>This enables you to explicitly set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
-        <translation type="vanished">Ganti e vez roet tro deoc&apos;h da arventennañ ment vedia ar restr mod Postscript. N&apos;eo ket erbedet anez ma vefe goulennet digant ho moullerez.</translation>
+        <translation>Ganti e vez roet tro deoc&apos;h da arventennañ ment vedia ar restr mod Postscript. N&apos;eo ket erbedet anez ma vefe goulennet digant ho moullerez.</translation>
     </message>
 </context>
 <context>
     <name>Prefs_Scrapbook</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_scrapbookbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_scrapbook.cpp" line="18"/>
         <source>Scrapbook</source>
-        <translation type="vanished">Albom</translation>
+        <translation>Albom</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_scrapbookbase.ui" line="83"/>
         <source>Send Copied Items Automatically to the Scrapbook</source>
-        <translation type="vanished">Kas an elfennoù bet eilet en albom ent embegreek</translation>
+        <translation>Kas an elfennoù bet eilet en albom ent embegreek</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_scrapbookbase.ui" line="90"/>
         <source>Keep Copied Items Permanently Across Sessions</source>
-        <translation type="vanished">Mirout an elfenn bet eilet da vat dre an estezioù</translation>
+        <translation>Mirout an elfenn bet eilet da vat dre an estezioù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_scrapbookbase.ui" line="97"/>
         <source>Write Item Previews to the Scrapbook Directory</source>
-        <translation type="vanished">Skrivañ alberzioù an ergorenn e kavlec&apos;had an albom.</translation>
+        <translation>Skrivañ alberzioù an ergorenn e kavlec&apos;had an albom.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_scrapbookbase.ui" line="109"/>
         <source>Number of Copied Items to Keep in Scrapbook</source>
-        <translation type="vanished">Niver a elfennoù bet eilet da virout en albom</translation>
+        <translation>Niver a elfennoù bet eilet da virout en albom</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_scrapbook.cpp" line="27"/>
         <source>This enables copied items to be kept permanently in the scrapbook</source>
-        <translation type="vanished">Gweredekaat a ra ma vo miret da vat an elfennoù bet eilet en albom.</translation>
+        <translation>Gweredekaat a ra ma vo miret da vat an elfennoù bet eilet en albom.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_scrapbook.cpp" line="28"/>
         <source>Save generated scrapbook previews in the scrapbook directory</source>
-        <translation type="vanished">Enrollañ alberzioù an arlbom bet ganet e kavlec&apos;had an albom.</translation>
+        <translation>Enrollañ alberzioù an arlbom bet ganet e kavlec&apos;had an albom.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_scrapbook.cpp" line="29"/>
         <source>The minimum number is 1; the maximum is 100</source>
-        <translation type="vanished">Da 1 e talv an niverenn vihanañ ; Da 100 e talv an hini vrasañ.</translation>
+        <translation>Da 1 e talv an niverenn vihanañ ; Da 100 e talv an hini vrasañ.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_scrapbook.cpp" line="26"/>
         <source>This enables the scrapbook to be used an extension to the copy/paste buffers. Simply copying an object or grouped object will send this to the Scrapbook automatically.</source>
-        <translation type="vanished">Gweredekaat a ra an dra-mañ ma vo arveret an albom evel un askouezh evit ar skurzerioù da eilañ/begañ.Eilañ un ergorenn pe ur strollad ergorennoù a gaso an ergorennoù-mañ war an albom ent emgefreek.</translation>
+        <translation>Gweredekaat a ra an dra-mañ ma vo arveret an albom evel un askouezh evit ar skurzerioù da eilañ/begañ.Eilañ un ergorenn pe ur strollad ergorennoù a gaso an ergorennoù-mañ war an albom ent emgefreek.</translation>
     </message>
 </context>
 <context>
@@ -19398,353 +20386,618 @@ HE GWRIZIOÃ D&apos;UR VLEUNIENN WENN;</translation>
 <context>
     <name>Prefs_Spelling</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spellingbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="32"/>
         <source>Spelling</source>
-        <translation type="vanished">Reizhskrivadur</translation>
+        <translation>Reizhskrivadur</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spellingbase.ui" line="69"/>
         <source>Installed Spelling Dictionaries</source>
-        <translation type="vanished">Geriadurioù reizhskrivadurioù staliet</translation>
+        <translation>Geriadurioù reizhskrivadurioù staliet</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spellingbase.ui" line="87"/>
         <source>Downloadable Spelling Dictionaries</source>
-        <translation type="vanished">Geriadurioù reizhskrivadurioù a c&apos;hall bezañ pellgarget</translation>
+        <translation>Geriadurioù reizhskrivadurioù a c&apos;hall bezañ pellgarget</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spellingbase.ui" line="140"/>
         <source>Refresh Downloadable List</source>
-        <translation type="vanished">Azbevaat ar rolloù a c&apos;hall bezañ pellgarget</translation>
+        <translation>Azbevaat ar rolloù a c&apos;hall bezañ pellgarget</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spellingbase.ui" line="147"/>
         <source>Download Selected Dictionaries</source>
-        <translation type="vanished">Pellgargañ ar geriadurioù diuzet</translation>
+        <translation>Pellgargañ ar geriadurioù diuzet</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="142"/>
+        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="277"/>
         <source>Language</source>
-        <translation type="vanished">Yezh</translation>
+        <translation>Yezh</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="142"/>
+        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="277"/>
         <source>Code</source>
-        <translation type="vanished">Rineg</translation>
+        <translation>Rineg</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="142"/>
         <source>Location</source>
-        <translation type="vanished">Lec&apos;hiadur</translation>
+        <translation>Lec&apos;hiadur</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="277"/>
         <source>Installed</source>
-        <translation type="vanished">Staliet</translation>
+        <translation>Staliet</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="277"/>
         <source>Download</source>
-        <translation type="vanished">Pellgargañ</translation>
+        <translation>Pellgargañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_spellingbase.ui" line="107"/>
         <source>Downloading</source>
-        <translation type="vanished">Pellgargadur</translation>
+        <translation>Pellgargadur</translation>
     </message>
 </context>
 <context>
     <name>Prefs_TableOfContents</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="36"/>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontents.cpp" line="347"/>
         <source>Table of Contents</source>
-        <translation type="vanished">Taolennad an danvezioù</translation>
+        <translation>Taolennad an danvezioù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="80"/>
         <source>&amp;Add</source>
-        <translation type="vanished">&amp;Ouzhpennañ</translation>
+        <translation>&amp;Ouzhpennañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="83"/>
         <source>Alt+A</source>
-        <translation type="vanished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="90"/>
         <source>&amp;Delete</source>
-        <translation type="vanished">&amp;Diverkañ</translation>
+        <translation>&amp;Diverkañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="93"/>
         <source>Alt+D</source>
-        <translation type="vanished">Alt+D</translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="112"/>
         <source>Properties</source>
-        <translation type="vanished">Perzhioù</translation>
+        <translation>Perzhioù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="121"/>
+        <source>Source of Table of Contents:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="128"/>
+        <source>Whether the Table of Contents will be generated from Paragraph Styles or Item Attributes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="152"/>
+        <source>Include frames that are set to not print</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="203"/>
+        <source>Styles included in Table of Contents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="263"/>
+        <source>Document Styles:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="297"/>
+        <source>Add</source>
+        <translation>Ouzhpennañ</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="304"/>
+        <source>Delete</source>
+        <translation>Diverkañ</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="343"/>
+        <source>Table of Contents Entry Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="352"/>
+        <source>Style for TOC Entry:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="388"/>
+        <source>Remove line breaks from text in the heading</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="391"/>
+        <source>Remove Line Breaks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="468"/>
         <source>Item Attribute Name:</source>
-        <translation type="vanished">Anv  doareenn an ergorenn :</translation>
+        <translation>Anv  doareenn an ergorenn :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="478"/>
         <source>The Item Attribute that will be set on frames used as a basis for creation of the entries</source>
-        <translation type="vanished">An doareenn hag a vo sevenet e-keñver ar sterniadoù arveret ganeoc&apos;h evel diazez evit krouidigezh an enankoù</translation>
+        <translation>An doareenn hag a vo sevenet e-keñver ar sterniadoù arveret ganeoc&apos;h evel diazez evit krouidigezh an enankoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="135"/>
         <source>Destination Frame:</source>
-        <translation type="vanished">Sterniad bukenn :</translation>
+        <translation>Sterniad bukenn :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="145"/>
         <source>The frame the table of contents will be placed into</source>
-        <translation type="vanished">Ar stern ma vo lakaet taolennad an danvezioù</translation>
+        <translation>Ar stern ma vo lakaet taolennad an danvezioù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="369"/>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="434"/>
         <source>Page Number Placement:</source>
-        <translation type="vanished">Lec&apos;hiadur an niverennoù pajenn :</translation>
+        <translation>Lec&apos;hiadur an niverennoù pajenn :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="379"/>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="444"/>
         <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
-        <translation type="vanished">Lec&apos;hiañ a ra niverennoù pajennoù an enankoù e derou pe e dibenn an arroudenn, pe damm ebet</translation>
+        <translation>Lec&apos;hiañ a ra niverennoù pajennoù an enankoù e derou pe e dibenn an arroudenn, pe damm ebet</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="451"/>
         <source>Paragraph Style:</source>
-        <translation type="vanished">Stil ar rannbennad :</translation>
+        <translation>Stil ar rannbennad :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="461"/>
         <source>The paragraph style used for the entry lines</source>
-        <translation type="vanished">Stil ar rannbennad arveret evit an enankoù</translation>
+        <translation>Stil ar rannbennad arveret evit an enankoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontentsbase.ui" line="155"/>
         <source>List Non-Printing Entries</source>
-        <translation type="vanished">Skrammañ a ra an enankoù divoullus</translation>
+        <translation>Skrammañ a ra an enankoù divoullus</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontents.cpp" line="25"/>
         <source>Tables of Contents</source>
-        <translation type="vanished">Taolenn an danvezioù</translation>
+        <translation>Taolenn an danvezioù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontents.cpp" line="111"/>
         <source>Beginning</source>
-        <translation type="vanished">Derou</translation>
+        <translation>Derou</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontents.cpp" line="113"/>
         <source>End</source>
-        <translation type="vanished">Dibenn</translation>
+        <translation>Dibenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontents.cpp" line="115"/>
         <source>Not Shown</source>
-        <translation type="vanished">Diziskouez</translation>
+        <translation>Diziskouez</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontents.cpp" line="118"/>
+        <source>Style</source>
+        <translation>Stil</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontents.cpp" line="120"/>
+        <source>Attribute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_tableofcontents.cpp" line="349"/>
         <source>Table of Contents %1</source>
-        <translation type="vanished">Taolennad an danvezioù %1</translation>
+        <translation>Taolennad an danvezioù %1</translation>
     </message>
 </context>
 <context>
     <name>Prefs_Typography</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="35"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="53"/>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="22"/>
         <source>Typography</source>
-        <translation type="vanished">Lizherennañ</translation>
+        <translation>Lizherennañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="68"/>
         <source>Subscript</source>
-        <translation type="vanished">Feuriader</translation>
+        <translation>Feuriader</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="90"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="172"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="320"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="417"/>
         <source>Displacement:</source>
-        <translation type="vanished">Dilec&apos;hiadur :</translation>
+        <translation>Dilec&apos;hiadur :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="97"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="107"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="179"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="196"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="261"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="340"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="359"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="430"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="456"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="521"/>
         <source> %</source>
-        <translation type="vanished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="120"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="189"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="254"/>
         <source>Scaling:</source>
-        <translation type="vanished">Skeuladur :</translation>
+        <translation>Skeuladur :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="150"/>
         <source>Superscript</source>
-        <translation type="vanished">Mac&apos;her</translation>
+        <translation>Mac&apos;her</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="298"/>
         <source>Underline</source>
-        <translation type="vanished">Islinenn</translation>
+        <translation>Islinenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="327"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="443"/>
         <source>Line Width:</source>
-        <translation type="vanished">Tevder al linenn :</translation>
+        <translation>Tevder al linenn :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="337"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="356"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="427"/>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="453"/>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="32"/>
         <source>Auto</source>
-        <translation type="vanished">Emgefreek</translation>
+        <translation>Emgefreek</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="395"/>
         <source>Strikeout</source>
-        <translation type="vanished">Barrennet </translation>
+        <translation>Barrennet </translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="554"/>
+        <source>Optical Margins</source>
+        <translation>Luc&apos;hmarzioù</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="232"/>
         <source>Small Caps</source>
-        <translation type="vanished">Pennlizherennoù bihan</translation>
+        <translation>Pennlizherennoù bihan</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="492"/>
         <source>Automatic Line Spacing</source>
-        <translation type="vanished">Etrelinennañ emgefreek</translation>
+        <translation>Etrelinennañ emgefreek</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typographybase.ui" line="514"/>
         <source>Line Spacing:</source>
-        <translation type="vanished">Etrelinennañ :</translation>
+        <translation>Etrelinennañ :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="38"/>
         <source>Displacement below the baseline of the normal font on a line</source>
-        <translation type="vanished">Dilec&apos;hiañ dindan linenn diazez an nodrezh skoueriek war ul linenn</translation>
+        <translation>Dilec&apos;hiañ dindan linenn diazez an nodrezh skoueriek war ul linenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="39"/>
         <source>Relative size of the subscript compared to the normal font</source>
-        <translation type="vanished">Ment daveel ar feuriader e-keñver ment an nodrezh skoueriek</translation>
+        <translation>Ment daveel ar feuriader e-keñver ment an nodrezh skoueriek</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="40"/>
         <source>Displacement above the baseline of the font on a line</source>
-        <translation type="vanished">Dilec&apos;hiañ a-us da linenn diazez an nodrezh war ul linenn</translation>
+        <translation>Dilec&apos;hiañ a-us da linenn diazez an nodrezh war ul linenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="41"/>
         <source>Relative size of the superscript compared to the normal font</source>
-        <translation type="vanished">Ment daveel ar mac&apos;her e-keñver ment an nodrezh skoueriek</translation>
+        <translation>Ment daveel ar mac&apos;her e-keñver ment an nodrezh skoueriek</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="42"/>
         <source>Displacement below the baseline of the normal font expressed as a percentage of the fonts descender</source>
-        <translation type="vanished">Dilec&apos;hiadur dindan linenn diazez an nodrezh skoueriek eztaolet e dregantad eus gar al lizherennoù</translation>
+        <translation>Dilec&apos;hiadur dindan linenn diazez an nodrezh skoueriek eztaolet e dregantad eus gar al lizherennoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="43"/>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="45"/>
         <source>Line width expressed as a percentage of the font size</source>
-        <translation type="vanished">Led al linenn eztaolet e dregantad eus ment an nodrezh</translation>
+        <translation>Led al linenn eztaolet e dregantad eus ment an nodrezh</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="44"/>
         <source>Displacement above the baseline of the normal font expressed as a percentage of the fonts ascender</source>
-        <translation type="vanished">Dilec&apos;hiadur a-us da linenn diazez an nodrezh skoueriek, eztaolet e dregantad eus gwern al lizherennoù</translation>
+        <translation>Dilec&apos;hiadur a-us da linenn diazez an nodrezh skoueriek, eztaolet e dregantad eus gwern al lizherennoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="46"/>
         <source>Relative size of the small caps font compared to the normal font</source>
-        <translation type="vanished">Ment daveel ar pennlizherennoù bihan e-keñver ment an nodrezh skoueriek</translation>
+        <translation>Ment daveel ar pennlizherennoù bihan e-keñver ment an nodrezh skoueriek</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_typography.cpp" line="47"/>
         <source>Percentage increase over the font size for the line spacing</source>
-        <translation type="vanished">Dregantad muiañ dreist ment an nodrezh evit an etrelinennañ</translation>
+        <translation>Dregantad muiañ dreist ment an nodrezh evit an etrelinennañ</translation>
     </message>
 </context>
 <context>
     <name>Prefs_UserInterface</name>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="35"/>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="28"/>
         <source>User Interface</source>
-        <translation type="vanished">Ketal an arveriad</translation>
+        <translation>Ketal an arveriad</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="53"/>
         <source>Main Window</source>
-        <translation type="vanished">Prenestr pennañ</translation>
+        <translation>Prenestr pennañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="64"/>
         <source>Appearance</source>
-        <translation type="vanished">Neuz</translation>
+        <translation>Neuz</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="196"/>
         <source>&amp;Language:</source>
-        <translation type="vanished">&amp;Yezh :</translation>
+        <translation>&amp;Yezh :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="83"/>
         <source>&amp;Theme:</source>
-        <translation type="vanished">&amp;Dodenn :</translation>
+        <translation>&amp;Dodenn :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="106"/>
         <source>Use Small Widgets on Palettes</source>
-        <translation type="vanished">Arverañ widjetoù bihan war al livaouegoù</translation>
+        <translation>Arverañ widjetoù bihan war al livaouegoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="113"/>
         <source>Use Tabs for Documents</source>
-        <translation type="vanished">Arverañ an taolennata evit an teul</translation>
+        <translation>Arverañ an taolennata evit an teul</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="120"/>
         <source>&amp;Recent Documents:</source>
-        <translation type="vanished">Teul savet &amp;nevez zo :</translation>
+        <translation>Teul savet &amp;nevez zo :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="133"/>
+        <source>Show Informational Labels</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="140"/>
+        <source>Show Labels of Inactive Palette Tabs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="147"/>
+        <source>Appearance:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="180"/>
+        <source>Language and Regionalization</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="209"/>
+        <source>Number Format:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="245"/>
         <source>Font Sizes</source>
-        <translation type="vanished">Mentoù an nodrezh</translation>
+        <translation>Mentoù an nodrezh</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="261"/>
         <source>&amp;Menus:</source>
-        <translation type="vanished">&amp;Lañserioù :</translation>
+        <translation>&amp;Lañserioù :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="271"/>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="288"/>
         <source> pt</source>
-        <translation type="vanished"> pt</translation>
+        <translation> pt</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="278"/>
         <source>&amp;Palettes:</source>
-        <translation type="vanished">&amp;Livaouegoù :</translation>
+        <translation>&amp;Livaouegoù :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="311"/>
         <source>Story Editor</source>
-        <translation type="vanished">Embanner diabarzh</translation>
+        <translation>Embanner diabarzh</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="322"/>
         <source>Font:</source>
-        <translation type="vanished">Nodrezh :</translation>
+        <translation>Nodrezh :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="336"/>
         <source>Use Smart Text Selection</source>
-        <translation type="vanished">Arverañ an diuzañ testenn speredek</translation>
+        <translation>Arverañ an diuzañ testenn speredek</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="359"/>
         <source>Interactivity</source>
-        <translation type="vanished">Etrewezhiadelezh</translation>
+        <translation>Etrewezhiadelezh</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="370"/>
         <source>Time before resize or move starts:</source>
-        <translation type="vanished">Padvezh a-raok ma krogo un dilec&apos;hiadur pe un adventadur :</translation>
+        <translation>Padvezh a-raok ma krogo un dilec&apos;hiadur pe un adventadur :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="380"/>
         <source> ms</source>
-        <translation type="vanished">me</translation>
+        <translation>me</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="390"/>
         <source>&amp;Wheel Jump:</source>
-        <translation type="vanished">&amp;Rod da ziskuliañ :</translation>
+        <translation>&amp;Rod da ziskuliañ :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="400"/>
+        <source> lines</source>
+        <translation type="unfinished">linenn</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="423"/>
         <source>Start Up</source>
-        <translation type="vanished">Loc&apos;hañ</translation>
+        <translation>Loc&apos;hañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="438"/>
         <source>Show Splashscreen</source>
-        <translation type="vanished">Diskouez ar skeudenn ginnig</translation>
+        <translation>Diskouez ar skeudenn ginnig</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="431"/>
         <source>Show Startup Dialog</source>
-        <translation type="vanished">Diskouez boestad emziviz al loc&apos;hañ</translation>
+        <translation>Diskouez boestad emziviz al loc&apos;hañ</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="74"/>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
-        <translation type="vanished">Dibabit neuz hollek Scribus. Neuzioù KDE pe Qt bet staliet a arver Scribus, mard eo bet kefluniet Qt evit klask ar molladoù KDE.</translation>
+        <translation>Dibabit neuz hollek Scribus. Neuzioù KDE pe Qt bet staliet a arver Scribus, mard eo bet kefluniet Qt evit klask ar molladoù KDE.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="77"/>
         <source>Number of recently edited documents to show in the File menu</source>
-        <translation type="vanished">Niver a deulioù embannet nevez zo da skrammañ el lañser Restr</translation>
+        <translation>Niver a deulioù embannet nevez zo da skrammañ el lañser Restr</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="79"/>
+        <source>Use either the system or selected language related definition for number formats for decimals for numbers in the interface</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="80"/>
         <source>Default font size for the menus and windows</source>
-        <translation type="vanished">Ment an nodrezh dre ziouer evit al lañserioù hag ar prenestroù</translation>
+        <translation>Ment an nodrezh dre ziouer evit al lañserioù hag ar prenestroù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="81"/>
         <source>Default font size for the tool windows</source>
-        <translation type="vanished">Ment an nodrezhdre ziouer evit prenestroù an ostilhoù</translation>
+        <translation>Ment an nodrezhdre ziouer evit prenestroù an ostilhoù</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="82"/>
         <source>Time before resize or move starts allows for a slight delay between when you click and the operation happens to avoid unintended moves. This can be helpful when dealing with mouse sensitivity settings or accessibility issues related to ergonomic mice, touch pads or moveability of the wrists and hands.</source>
-        <translation type="vanished">Amzer kent ma krogo an adventañ pe an dilec&apos;hiañ ; aotreet eo un dale bihan etre ar c&apos;hlikañ ha derou an ober a-benn mirout ouzh dilec&apos;hiadurioù ne fellfe ket deoc&apos;h. Talvoudus pa vez kempennet kizidigezh arventennoù al logodenn pe gudennoù haezadusted e-keñver logodennoù c&apos;hwelaozouriezhel, pavezioù stekiñ pe aesder da fiñval an daouarn.</translation>
+        <translation>Amzer kent ma krogo an adventañ pe an dilec&apos;hiañ ; aotreet eo un dale bihan etre ar c&apos;hlikañ ha derou an ober a-benn mirout ouzh dilec&apos;hiadurioù ne fellfe ket deoc&apos;h. Talvoudus pa vez kempennet kizidigezh arventennoù al logodenn pe gudennoù haezadusted e-keñver logodennoù c&apos;hwelaozouriezhel, pavezioù stekiñ pe aesder da fiñval an daouarn.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="96"/>
         <source>Icon Set:</source>
-        <translation type="vanished">Spletad arlunioù :</translation>
+        <translation>Spletad arlunioù :</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="75"/>
         <source>Choose the default icon set</source>
-        <translation type="vanished">Dibab ar spletad arlunioù dre ziouer</translation>
+        <translation>Dibab ar spletad arlunioù dre ziouer</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="78"/>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus.</source>
-        <translation type="vanished">Diuzañ a ra ar yezh arveret gant Scribus dre ziouer. Laoskit goullo a-benn dibab ar yezh erspizet gant an argemmoù amva. Gallout a reer daskemmañ ar yezh gant dibarzhioù an arc&apos;had pa vez loc&apos;het Scribus.</translation>
+        <translation>Diuzañ a ra ar yezh arveret gant Scribus dre ziouer. Laoskit goullo a-benn dibab ar yezh erspizet gant an argemmoù amva. Gallout a reer daskemmañ ar yezh gant dibarzhioù an arc&apos;had pa vez loc&apos;het Scribus.</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="52"/>
+        <source>Use System Format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="53"/>
+        <source>Use Interface Language Format</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="69"/>
+        <source>Auto</source>
+        <translation type="unfinished">Emgefreek</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="70"/>
+        <source>Light</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="71"/>
+        <source>Dark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="72"/>
+        <source>Choose the default theme palette. Auto uses the systems default.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="76"/>
+        <source>Palette windows will use smaller (space savvy) widgets. Requires application restart.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="83"/>
         <source>Number of lines Scribus will scroll for each &quot;notch&quot; of the mouse wheel</source>
-        <translation type="vanished">Niver a linennoù o tibunañ gant pep ask rod al logodenn</translation>
+        <translation>Niver a linennoù o tibunañ gant pep ask rod al logodenn</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="86"/>
         <source>The default behavior when double-clicking on a word is to select the word and the first following space. Smart selection will select only the word, without the following space.</source>
-        <translation type="vanished">An emzalc&apos;h dre ziouer pa vez daougliket war ur ger a dalv da ziuzañ ar ger gant an esaouenn gentañ. An diuzañ speredek a dalvo da ziuzañ ar ger hepken hep an esouenn war-lerc&apos;h.</translation>
+        <translation>An emzalc&apos;h dre ziouer pa vez daougliket war ur ger a dalv da ziuzañ ar ger gant an esaouenn gentañ. An diuzañ speredek a dalvo da ziuzañ ar ger hepken hep an esouenn war-lerc&apos;h.</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="87"/>
+        <source>Shows informational labels on palettes.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="88"/>
+        <source>Shows labels of inactive palette tabs.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
