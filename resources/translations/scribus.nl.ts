@@ -2669,6 +2669,29 @@
     </message>
 </context>
 <context>
+    <name>AlignVerticalSelect</name>
+    <message>
+        <location filename="../../scribus/ui/alignverticalselect.cpp" line="83"/>
+        <source>Align Text Top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/alignverticalselect.cpp" line="84"/>
+        <source>Align Text Vertical Centered</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/alignverticalselect.cpp" line="85"/>
+        <source>Align Text Bottom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/alignverticalselect.cpp" line="86"/>
+        <source>&amp;Vertical</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Annota</name>
     <message>
         <location filename="../../scribus/ui/annota.cpp" line="51"/>
@@ -5001,6 +5024,498 @@ huidige resolutie %2 x %3 DPI</translation>
     </message>
 </context>
 <context>
+    <name>ColorPicker</name>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker.cpp" line="604"/>
+        <source>Knockout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker.cpp" line="605"/>
+        <source>Overprint</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker.cpp" line="608"/>
+        <source>Display only used colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ColorPickerColor</name>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_color.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_color.ui" line="52"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_color.ui" line="85"/>
+        <source> %</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_color.ui" line="65"/>
+        <source>Opacity:</source>
+        <translation type="unfinished">Dekking:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_color.ui" line="75"/>
+        <source>Shade:</source>
+        <translation type="unfinished">Tint:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_color.ui" line="113"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_color.cpp" line="208"/>
+        <source>Color Swatches</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_color.cpp" line="129"/>
+        <source>Opacity: %1 %</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_color.cpp" line="132"/>
+        <source>&lt;br&gt; Shade: %1 %</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_color.cpp" line="133"/>
+        <source>&lt;br&gt; Opacity: %1 %</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_color.cpp" line="149"/>
+        <source>R: %1 G: %2 B: %3</source>
+        <translation type="unfinished">R: %1 G: %2 B: %3</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_color.cpp" line="156"/>
+        <source>C: %1% M: %2% Y: %3% K: %4%</source>
+        <translation type="unfinished">C: %1% M: %2% Y: %3% K: %4%</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_color.cpp" line="163"/>
+        <source>L: %1 a: %2 b: %3</source>
+        <translation type="unfinished">L: %1 a: %2 b: %3</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_color.cpp" line="171"/>
+        <source>Color: %1 (%2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ColorPickerColorSwatches</name>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_color_swatches.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ColorPickerGradient</name>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="35"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="383"/>
+        <source>Vector</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="49"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="384"/>
+        <source>Gradient</source>
+        <translation type="unfinished">Verloop</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="138"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="311"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="456"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="601"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="759"/>
+        <source>Color</source>
+        <translation type="unfinished">Kleur</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="180"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="353"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="498"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="643"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="801"/>
+        <source>Shade</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="218"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="401"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="546"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="691"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="849"/>
+        <source>Opacity</source>
+        <translation type="unfinished">Dekking</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="379"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="427"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="524"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="572"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="669"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="717"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="827"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="875"/>
+        <source> %</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="898"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="385"/>
+        <source>Gradient Swatches</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="920"/>
+        <source>Use Luminosity as Alpha</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="175"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="182"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="189"/>
+        <source>Linear</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="176"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="183"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="190"/>
+        <source>Radial</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="191"/>
+        <source>Conical</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="192"/>
+        <source>Diamond</source>
+        <translation type="unfinished">Ruit</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="193"/>
+        <source>4 Colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="194"/>
+        <source>Mesh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="195"/>
+        <source>Patch Mesh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="357"/>
+        <source>Gradient: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ColorPickerGradientProperties</name>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="55"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="415"/>
+        <source>End</source>
+        <translation type="unfinished">Einde</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="123"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="357"/>
+        <source>Y:</source>
+        <translation type="unfinished">Y:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="143"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="276"/>
+        <source>X:</source>
+        <translation type="unfinished">X:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="156"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="457"/>
+        <source>Skew</source>
+        <translation type="unfinished">Scheeftrekken</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="208"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="289"/>
+        <source>Start</source>
+        <translation type="unfinished">Start</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="373"/>
+        <source>Focal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="522"/>
+        <source>Scale</source>
+        <translation type="unfinished">Schaal</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="613"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="647"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="694"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="742"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="798"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="832"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="866"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="900"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="934"/>
+        <source>/</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="620"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="849"/>
+        <source>3. Point:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="721"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="815"/>
+        <source>2. Point:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="728"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="883"/>
+        <source>4. Point:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="735"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="781"/>
+        <source>1. Point:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="917"/>
+        <source>5. Point:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="980"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="1169"/>
+        <source>Edit Grid Points</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="1002"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="1191"/>
+        <source>Edit Control Points</source>
+        <translation type="unfinished">Referentiepunten bewerken</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="1027"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="1216"/>
+        <source>Reset selected Control Point</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="1052"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="1241"/>
+        <source>Reset all Control Points</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="1089"/>
+        <source>New Mesh...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="1096"/>
+        <source>Reset Mesh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="1103"/>
+        <source>Mesh -&gt; Shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="1274"/>
+        <source>Snap to other Mesh Points</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="1286"/>
+        <source>Add Patch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="1299"/>
+        <source>Remove Patch</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ColorPickerGradientSwatches</name>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_swatches.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ColorPickerHatch</name>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_hatch.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_hatch.ui" line="46"/>
+        <source>Distance</source>
+        <translation type="unfinished">Afstand</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_hatch.ui" line="81"/>
+        <source>Angle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_hatch.ui" line="123"/>
+        <source>Type</source>
+        <translation type="unfinished">Type</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_hatch.ui" line="147"/>
+        <source>Single</source>
+        <translation type="unfinished">Enkelvoudig</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_hatch.ui" line="152"/>
+        <source>Double</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_hatch.ui" line="157"/>
+        <source>Triple</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_hatch.ui" line="191"/>
+        <source>Line</source>
+        <translation type="unfinished">Lijn</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_hatch.ui" line="230"/>
+        <source>Background</source>
+        <translation type="unfinished">Achtergrond</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_hatch.cpp" line="80"/>
+        <source>Hatch</source>
+        <translation type="unfinished">Arceren</translation>
+    </message>
+</context>
+<context>
+    <name>ColorPickerPattern</name>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.ui" line="35"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.cpp" line="263"/>
+        <source>Properties</source>
+        <translation type="unfinished">Eigenschappen</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.ui" line="68"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.cpp" line="269"/>
+        <source>Rotation</source>
+        <translation type="unfinished">Rotatie</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.ui" line="103"/>
+        <source>Spacing</source>
+        <translation type="unfinished">Spatiëring</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.ui" line="138"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.cpp" line="270"/>
+        <source>Flip</source>
+        <translation type="unfinished">Omdraaien</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.ui" line="208"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.cpp" line="266"/>
+        <source>Offset</source>
+        <translation type="unfinished">Verschuiving</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.ui" line="237"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.cpp" line="271"/>
+        <source>X:</source>
+        <translation type="unfinished">X:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.ui" line="292"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.cpp" line="272"/>
+        <source>Y:</source>
+        <translation type="unfinished">Y:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.ui" line="308"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.cpp" line="268"/>
+        <source>Skew</source>
+        <translation type="unfinished">Scheeftrekken</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.ui" line="343"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.cpp" line="267"/>
+        <source>Scale</source>
+        <translation type="unfinished">Schaal</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.ui" line="424"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.cpp" line="264"/>
+        <source>Patterns</source>
+        <translation type="unfinished">Patronen</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.ui" line="449"/>
+        <source>Use Luminosity as Alpha</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.ui" line="456"/>
+        <source>User inverted Pattern</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.ui" line="463"/>
+        <source>Pattern follows Path</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.cpp" line="204"/>
+        <source>Pattern: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ColorWheel</name>
     <message>
         <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="131"/>
@@ -5453,6 +5968,104 @@ Lees het gedeelte Kleuren bewerken van de documentatie voor meer details.</trans
         <location filename="../../scribus/canvasgesture_columnresize.cpp" line="100"/>
         <source>Width</source>
         <translation>Breedte</translation>
+    </message>
+</context>
+<context>
+    <name>ComboBlendMode</name>
+    <message>
+        <location filename="../../scribus/ui/widgets/combo_blendmode.cpp" line="22"/>
+        <location filename="../../scribus/ui/widgets/combo_blendmode.cpp" line="39"/>
+        <source>Normal</source>
+        <translation type="unfinished">Normaal</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/widgets/combo_blendmode.cpp" line="23"/>
+        <source>Darken</source>
+        <translation type="unfinished">Donkerder</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/widgets/combo_blendmode.cpp" line="24"/>
+        <source>Lighten</source>
+        <translation type="unfinished">Lichter</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/widgets/combo_blendmode.cpp" line="25"/>
+        <source>Multiply</source>
+        <translation type="unfinished">Vermenigvuldig</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/widgets/combo_blendmode.cpp" line="26"/>
+        <source>Screen</source>
+        <translation type="unfinished">Scherm</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/widgets/combo_blendmode.cpp" line="27"/>
+        <source>Overlay</source>
+        <translation type="unfinished">Maskerlaag</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/widgets/combo_blendmode.cpp" line="28"/>
+        <source>Hard Light</source>
+        <translation type="unfinished">Hard licht</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/widgets/combo_blendmode.cpp" line="29"/>
+        <source>Soft Light</source>
+        <translation type="unfinished">Zacht licht</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/widgets/combo_blendmode.cpp" line="30"/>
+        <source>Difference</source>
+        <translation type="unfinished">Verschil</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/widgets/combo_blendmode.cpp" line="31"/>
+        <source>Exclusion</source>
+        <translation type="unfinished">Uitsluiting</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/widgets/combo_blendmode.cpp" line="32"/>
+        <source>Color Dodge</source>
+        <translation type="unfinished">Kleur verminderen</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/widgets/combo_blendmode.cpp" line="33"/>
+        <source>Color Burn</source>
+        <translation type="unfinished">Kleur versterken</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/widgets/combo_blendmode.cpp" line="34"/>
+        <source>Hue</source>
+        <translation type="unfinished">Tint</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/widgets/combo_blendmode.cpp" line="35"/>
+        <source>Saturation</source>
+        <translation type="unfinished">Verzadiging</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/widgets/combo_blendmode.cpp" line="36"/>
+        <source>Color</source>
+        <translation type="unfinished">Kleur</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/widgets/combo_blendmode.cpp" line="37"/>
+        <source>Luminosity</source>
+        <translation type="unfinished">Helderheid</translation>
+    </message>
+</context>
+<context>
+    <name>ComboLineStyle</name>
+    <message>
+        <location filename="../../scribus/ui/widgets/combo_linestyle.cpp" line="75"/>
+        <location filename="../../scribus/ui/widgets/combo_linestyle.cpp" line="85"/>
+        <source>No Style</source>
+        <translation type="unfinished">Geen stijl</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/widgets/combo_linestyle.cpp" line="87"/>
+        <source>Line style of current object</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6827,6 +7440,67 @@ Lees het gedeelte Kleuren bewerken van de documentatie voor meer details.</trans
     </message>
 </context>
 <context>
+    <name>DocumentLogViewer</name>
+    <message>
+        <location filename="../../scribus/ui/documentlogviewer.cpp" line="58"/>
+        <source>Debug</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/documentlogviewer.cpp" line="61"/>
+        <source>Info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/documentlogviewer.cpp" line="64"/>
+        <source>Warning</source>
+        <translation type="unfinished">Waarschuwing</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/documentlogviewer.cpp" line="67"/>
+        <source>Error</source>
+        <translation type="unfinished">Fout</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/documentlogviewer.cpp" line="70"/>
+        <source>Critical</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DocumentLogViewerBase</name>
+    <message>
+        <location filename="../../scribus/ui/documentlogviewerbase.ui" line="14"/>
+        <source>Document Log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/documentlogviewerbase.ui" line="30"/>
+        <source>Time</source>
+        <translation type="unfinished">Tijd</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/documentlogviewerbase.ui" line="35"/>
+        <source>Level</source>
+        <translation type="unfinished">Niveau</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/documentlogviewerbase.ui" line="40"/>
+        <source>Source</source>
+        <translation type="unfinished">Bron</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/documentlogviewerbase.ui" line="45"/>
+        <source>Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/documentlogviewerbase.ui" line="53"/>
+        <source>Clear Log</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>DownloadsPalette</name>
     <message>
         <location filename="../../scribus/ui/downloadspalette.cpp" line="12"/>
@@ -7557,6 +8231,21 @@ een reeks van pagina&apos;s of een enkel paginanummer</translation>
         <source>Extended Image Properties</source>
         <translation>Uitgebreide afbeeldingseigenschappen</translation>
     </message>
+    <message>
+        <location filename="../../scribus/ui/extimageprops.ui" line="14"/>
+        <source>Dialog</source>
+        <translation type="unfinished">Dialoogvenster</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/extimageprops.ui" line="42"/>
+        <source>Layers</source>
+        <translation>Lagen</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/extimageprops.ui" line="67"/>
+        <source>Clipping Paths</source>
+        <translation type="unfinished">Paden bijsnijden</translation>
+    </message>
 </context>
 <context>
     <name>FDialogPreview</name>
@@ -7681,6 +8370,34 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <location filename="../../scribus/plugins/tools/flattenpath/flattenpath.cpp" line="102"/>
         <source>Converts a Bezier Path to a Path made of line segments.</source>
         <translation>Zet een bézierkromme om naar een pad van lijnsegmenten.</translation>
+    </message>
+</context>
+<context>
+    <name>FlopWidget</name>
+    <message>
+        <location filename="../../scribus/ui/flopwidget.cpp" line="66"/>
+        <source>First Line &amp;Offset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/flopwidget.cpp" line="67"/>
+        <source>Set the height of the first line of text frame to use the full ascent of the font(s) in use</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/flopwidget.cpp" line="68"/>
+        <source>Set the height of the first line of the text frame to use the tallest height of the included characters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/flopwidget.cpp" line="69"/>
+        <source>Set the height of the first line of the text frame to the specified line height</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/flopwidget.cpp" line="70"/>
+        <source>Set the base line of the first line of the text frame to the base line grid</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8049,6 +8766,52 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/gradienteditor.ui" line="257"/>
         <source>Extend</source>
         <translation>Uitbreiden</translation>
+    </message>
+</context>
+<context>
+    <name>GradientListBox</name>
+    <message>
+        <location filename="../../scribus/ui/widgets/gradientlistbox.cpp" line="355"/>
+        <source>Sort by Name</source>
+        <translation type="unfinished">Sorteer op naam</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/widgets/gradientlistbox.cpp" line="356"/>
+        <source>Sort by Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>GradientListModel</name>
+    <message>
+        <location filename="../../scribus/models/gradientlistmodel.cpp" line="72"/>
+        <source>Diamond</source>
+        <translation type="unfinished">Ruit</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/models/gradientlistmodel.cpp" line="75"/>
+        <source>4-Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/models/gradientlistmodel.cpp" line="78"/>
+        <source>Free Mesh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/models/gradientlistmodel.cpp" line="81"/>
+        <source>Linear</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/models/gradientlistmodel.cpp" line="84"/>
+        <source>Mesh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/models/gradientlistmodel.cpp" line="87"/>
+        <source>Radial</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8641,6 +9404,19 @@ de negeerlijst</translation>
     </message>
 </context>
 <context>
+    <name>ImageClippingPaths</name>
+    <message>
+        <location filename="../../scribus/ui/imageclippingpaths.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/imageclippingpaths.ui" line="43"/>
+        <source>Don&apos;t use any Path</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ImageInfoDialog</name>
     <message>
         <location filename="../../scribus/ui/imageinfodialog.cpp" line="23"/>
@@ -8741,6 +9517,144 @@ de negeerlijst</translation>
         <location filename="../../scribus/ui/imageinfodialog.cpp" line="137"/>
         <source>ISO equiv.:</source>
         <translation>ISO equiv.:</translation>
+    </message>
+</context>
+<context>
+    <name>ImageLayers</name>
+    <message>
+        <location filename="../../scribus/ui/imagelayers.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/imagelayers.ui" line="46"/>
+        <source>Blendmode</source>
+        <translation type="unfinished">Mengmodus</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/imagelayers.ui" line="67"/>
+        <source>Blendmode of selected layer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/imagelayers.ui" line="99"/>
+        <source>Opacity</source>
+        <translation type="unfinished">Dekking</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/imagelayers.ui" line="120"/>
+        <source>Opacity of selected layer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/imagelayers.cpp" line="41"/>
+        <source>Normal</source>
+        <translation type="unfinished">Normaal</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/imagelayers.cpp" line="42"/>
+        <source>Darken</source>
+        <translation type="unfinished">Donkerder</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/imagelayers.cpp" line="43"/>
+        <source>Lighten</source>
+        <translation type="unfinished">Lichter</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/imagelayers.cpp" line="44"/>
+        <source>Hue</source>
+        <translation type="unfinished">Tint</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/imagelayers.cpp" line="45"/>
+        <source>Saturation</source>
+        <translation type="unfinished">Verzadiging</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/imagelayers.cpp" line="46"/>
+        <source>Color</source>
+        <translation type="unfinished">Kleur</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/imagelayers.cpp" line="47"/>
+        <source>Luminosity</source>
+        <translation type="unfinished">Helderheid</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/imagelayers.cpp" line="48"/>
+        <source>Multiply</source>
+        <translation type="unfinished">Vermenigvuldig</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/imagelayers.cpp" line="49"/>
+        <source>Screen</source>
+        <translation type="unfinished">Scherm</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/imagelayers.cpp" line="50"/>
+        <source>Dissolve</source>
+        <translation type="unfinished">Oplossen</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/imagelayers.cpp" line="51"/>
+        <source>Overlay</source>
+        <translation type="unfinished">Maskerlaag</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/imagelayers.cpp" line="52"/>
+        <source>Hard Light</source>
+        <translation type="unfinished">Hard licht</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/imagelayers.cpp" line="53"/>
+        <source>Soft Light</source>
+        <translation type="unfinished">Zacht licht</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/imagelayers.cpp" line="54"/>
+        <source>Difference</source>
+        <translation type="unfinished">Verschil</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/imagelayers.cpp" line="55"/>
+        <source>Exclusion</source>
+        <translation type="unfinished">Uitsluiting</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/imagelayers.cpp" line="56"/>
+        <source>Color Dodge</source>
+        <translation type="unfinished">Kleur verminderen</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/imagelayers.cpp" line="57"/>
+        <source>Color Burn</source>
+        <translation type="unfinished">Kleur versterken</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/imagelayers.cpp" line="58"/>
+        <source>Plus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/imagelayers.cpp" line="59"/>
+        <source>Destination In</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/imagelayers.cpp" line="60"/>
+        <source>Destination Out</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/imagelayers.cpp" line="66"/>
+        <source> %</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/imagelayers.cpp" line="73"/>
+        <source>Name</source>
+        <translation type="unfinished">Naam</translation>
     </message>
 </context>
 <context>
@@ -10718,6 +11632,53 @@ converting their vector data into Scribus objects.</source>
     </message>
 </context>
 <context>
+    <name>LineMarkerSelector</name>
+    <message>
+        <location filename="../../scribus/ui/linemarkerselector.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/linemarkerselector.ui" line="44"/>
+        <source>Scale:</source>
+        <translation type="unfinished">Schaal:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/linemarkerselector.ui" line="51"/>
+        <source>%</source>
+        <translation type="unfinished">%</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/linemarkerselector.cpp" line="84"/>
+        <source> %</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/linemarkerselector.cpp" line="87"/>
+        <source>Arrow head scale of line</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>LineStyleSelector</name>
+    <message>
+        <location filename="../../scribus/ui/linestyleselector.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/linestyleselector.cpp" line="86"/>
+        <location filename="../../scribus/ui/linestyleselector.cpp" line="139"/>
+        <source>No Style</source>
+        <translation type="unfinished">Geen stijl</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/linestyleselector.cpp" line="141"/>
+        <source>Line style of current object</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>LoadSavePlugin</name>
     <message>
         <location filename="../../scribus/loadsaveplugin.cpp" line="211"/>
@@ -10905,6 +11866,32 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../scribus/ui/markanchor.ui" line="28"/>
         <source>Label:</source>
         <translation>Label:</translation>
+    </message>
+</context>
+<context>
+    <name>MarkIndex</name>
+    <message>
+        <location filename="../../scribus/ui/markindex.cpp" line="7"/>
+        <source>Index Mark</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MarkIndexDlg</name>
+    <message>
+        <location filename="../../scribus/ui/markindex.ui" line="20"/>
+        <source>Dialog</source>
+        <translation type="unfinished">Dialoogvenster</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/markindex.ui" line="28"/>
+        <source>Index:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/markindex.ui" line="38"/>
+        <source>Entry:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12519,6 +13506,192 @@ Als er geen ankerpunt geselecteerd is, zullen alle ankerpunten worden teruggezet
     </message>
 </context>
 <context>
+    <name>OpticalMarginEditor</name>
+    <message>
+        <location filename="../../scribus/ui/opticalmargineditor.ui" line="14"/>
+        <source>Dialog</source>
+        <translation type="unfinished">Dialoogvenster</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/opticalmargineditor.ui" line="37"/>
+        <source>Set:</source>
+        <translation type="unfinished">Verzameling:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/opticalmargineditor.ui" line="47"/>
+        <source>Current selected rule set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/opticalmargineditor.ui" line="54"/>
+        <source>Reset current set to default values.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/opticalmargineditor.ui" line="64"/>
+        <source>Add new rule set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/opticalmargineditor.ui" line="74"/>
+        <source>Remove current selected rule set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/opticalmargineditor.ui" line="97"/>
+        <source>Sets:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/opticalmargineditor.ui" line="104"/>
+        <source>Load default rule sets. Replaces current rule sets</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/opticalmargineditor.ui" line="114"/>
+        <source>Add missing default sets to current sets.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/opticalmargineditor.ui" line="131"/>
+        <source>Add a new rule</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/opticalmargineditor.ui" line="148"/>
+        <source>Unicode:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/opticalmargineditor.cpp" line="167"/>
+        <source>Reset Set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/opticalmargineditor.cpp" line="168"/>
+        <source>Do you want to reset the current set to default?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/opticalmargineditor.cpp" line="169"/>
+        <source>This will revert all changes. This cannot be undone.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/opticalmargineditor.cpp" line="224"/>
+        <source>Remove Current Set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/opticalmargineditor.cpp" line="225"/>
+        <source>Are you sure you want to delete set &apos;%1&apos;?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/opticalmargineditor.cpp" line="226"/>
+        <source>This cannot be undone.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/opticalmargineditor.cpp" line="237"/>
+        <location filename="../../scribus/ui/opticalmargineditor.cpp" line="309"/>
+        <source>Set Replacement</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/opticalmargineditor.cpp" line="237"/>
+        <location filename="../../scribus/ui/opticalmargineditor.cpp" line="309"/>
+        <source>New set for &apos;%1&apos;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/opticalmargineditor.cpp" line="252"/>
+        <source>New Set Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/opticalmargineditor.cpp" line="252"/>
+        <source>Set Name:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/opticalmargineditor.cpp" line="252"/>
+        <source>New Set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/opticalmargineditor.cpp" line="262"/>
+        <source>Add New Set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/opticalmargineditor.cpp" line="263"/>
+        <source>Set name &apos;%1&apos; already exists. Please select another name.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/opticalmargineditor.cpp" line="283"/>
+        <source>Load Default Sets</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/opticalmargineditor.cpp" line="284"/>
+        <source>Do you want to load all default sets?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/opticalmargineditor.cpp" line="285"/>
+        <source>This will replace all current sets. This cannot be undone.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/opticalmargineditor.cpp" line="448"/>
+        <source>Left</source>
+        <translation type="unfinished">Links</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/opticalmargineditor.cpp" line="448"/>
+        <source>Right</source>
+        <translation type="unfinished">Rechts</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/opticalmargineditor.cpp" line="448"/>
+        <source>Unit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/opticalmargineditor.cpp" line="448"/>
+        <source>Characters</source>
+        <translation type="unfinished">Tekens</translation>
+    </message>
+</context>
+<context>
+    <name>OpticalMarginLookup</name>
+    <message>
+        <location filename="../../scribus/opticalmarginlookup.cpp" line="65"/>
+        <source>Default</source>
+        <translation type="unfinished">Standaard</translation>
+    </message>
+</context>
+<context>
+    <name>OpticalMarginsWidget</name>
+    <message>
+        <location filename="../../scribus/ui/opticalmarginswidget.cpp" line="148"/>
+        <source>Optical &amp;Margins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/opticalmarginswidget.cpp" line="150"/>
+        <source>Optical character offset on left side</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/opticalmarginswidget.cpp" line="151"/>
+        <source>Optical character offset on right side</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>OutlinePalette</name>
     <message>
         <location filename="../../scribus/ui/outlinepalette.cpp" line="454"/>
@@ -13697,6 +14870,29 @@ Schakel experimentele insluiting van PDF en EPS uit en probeer het opnieuw.</tra
         <location filename="../../scribus/pageitem_textframe.cpp" line="4934"/>
         <source>Chars: </source>
         <translation>Tekens:</translation>
+    </message>
+</context>
+<context>
+    <name>PageLayouts</name>
+    <message>
+        <location filename="../../scribus/ui/widgets/pagelayout.cpp" line="179"/>
+        <source>Scheme</source>
+        <translation>Schema</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/widgets/pagelayout.cpp" line="180"/>
+        <source>First Page</source>
+        <translation>Eerste pagina</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/widgets/pagelayout.cpp" line="182"/>
+        <source>Number of pages to show side-by-side on the canvas. Often used for allowing items to be placed across page spreads.</source>
+        <translation>Aantal pagina&apos;s naast elkaar laten zien in het document. Wordt vaak gebruikt om onderwerpen over meerdere pagina&apos;s te plaatsen</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/widgets/pagelayout.cpp" line="183"/>
+        <source>Location on the canvas where the first page of the document is placed</source>
+        <translation>Positie in het document waar de eerste pagina geplaatst is</translation>
     </message>
 </context>
 <context>
@@ -16189,20 +17385,30 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>PreferencesDialog</name>
     <message>
+        <location filename="../../scribus/ui/preferences/preferencesdialogbase.ui" line="14"/>
+        <location filename="../../scribus/ui/preferences/preferencesdialog.cpp" line="388"/>
         <source>Preferences</source>
-        <translation type="vanished">Voorkeuren</translation>
+        <translation>Voorkeuren</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/preferencesdialogbase.ui" line="74"/>
+        <source>Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/preferencesdialogbase.ui" line="101"/>
         <source>Export...</source>
-        <translation type="vanished">Exporteren…</translation>
+        <translation>Exporteren…</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/preferencesdialogbase.ui" line="111"/>
         <source>Defaults</source>
-        <translation type="vanished">Standaard</translation>
+        <translation>Standaard</translation>
     </message>
     <message>
+        <location filename="../../scribus/ui/preferences/preferencesdialog.cpp" line="35"/>
         <source>Document Setup</source>
-        <translation type="vanished">Instellingen voor document</translation>
+        <translation>Instellingen voor document</translation>
     </message>
 </context>
 <context>
@@ -17324,7 +18530,7 @@ Wil je deze migreren naar de nieuwe Scribus-versie? {1.6.0 ?}</translation>
         <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="488"/>
         <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="611"/>
         <source>Alt+C</source>
-        <translation>Alt+T</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_externaltoolsbase.ui" line="124"/>
@@ -18016,6 +19222,150 @@ Wilt u deze gebruiken?</translation>
     </message>
 </context>
 <context>
+    <name>Prefs_Indexes</name>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_indexesbase.ui" line="23"/>
+        <location filename="../../scribus/ui/preferences/prefs_indexes.cpp" line="26"/>
+        <source>Indexes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_indexesbase.ui" line="57"/>
+        <source>&amp;Add</source>
+        <translation type="unfinished">&amp;Toevoegen</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_indexesbase.ui" line="60"/>
+        <source>Alt+A</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_indexesbase.ui" line="67"/>
+        <source>&amp;Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_indexesbase.ui" line="70"/>
+        <source>Alt+D</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_indexesbase.ui" line="129"/>
+        <source>Properties:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_indexesbase.ui" line="138"/>
+        <source>Destination Frame:</source>
+        <translation type="unfinished">Bestemmingskader:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_indexesbase.ui" line="148"/>
+        <source>The frame the table of contents will be placed into</source>
+        <translation type="unfinished">Het kader met de inhouds-tabel wordt geplaatst in</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_indexesbase.ui" line="157"/>
+        <source>Include frames that are set to not print</source>
+        <translation type="unfinished">Voeg kaders toe die zijn ingesteld om niet af te drukken</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_indexesbase.ui" line="160"/>
+        <source>List Non-Printing Entries</source>
+        <translation type="unfinished">Maak een lijst vast niet af te drukken toevoegingen</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_indexesbase.ui" line="167"/>
+        <source>Combine entries when a word is repeated on the same page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_indexesbase.ui" line="170"/>
+        <source>Combine Page Numbers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_indexesbase.ui" line="177"/>
+        <source>Combine entries for the same word</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_indexesbase.ui" line="180"/>
+        <source>Combine Identical Entries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_indexesbase.ui" line="187"/>
+        <source>When comparing identical entries, compare with case sensitivity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_indexesbase.ui" line="190"/>
+        <source>Case Sensitive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_indexesbase.ui" line="197"/>
+        <source>Autocapitalize the index entry</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_indexesbase.ui" line="200"/>
+        <source>AutoCapitalize Entries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_indexesbase.ui" line="207"/>
+        <source>Add alphabetical separators in the index</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_indexesbase.ui" line="210"/>
+        <source>Add Alphabetical Separators</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_indexesbase.ui" line="239"/>
+        <source>Styles:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_indexesbase.ui" line="248"/>
+        <source>Heading:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_indexesbase.ui" line="258"/>
+        <source>Separators:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_indexesbase.ui" line="268"/>
+        <source>Level 1:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_indexesbase.ui" line="278"/>
+        <source>Level 2:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_indexesbase.ui" line="288"/>
+        <source>Level 3:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_indexes.cpp" line="119"/>
+        <source>Index</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_indexes.cpp" line="121"/>
+        <source>Index %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Prefs_ItemTools</name>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="35"/>
@@ -18101,7 +19451,7 @@ Wilt u deze gebruiken?</translation>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="276"/>
         <source>Columns &amp; Text Distances</source>
-        <translation>Kolommen &amp;&amp; afstanden</translation>
+        <translation>Kolommen &amp; afstanden</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_itemtoolsbase.ui" line="183"/>
@@ -21684,6 +23034,112 @@ een reeks pagina&apos;s of een enkel paginanummer</translation>
     </message>
 </context>
 <context>
+    <name>PropertiesPalette_Attributes</name>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_attributes.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_attributes.ui" line="40"/>
+        <source>Name</source>
+        <translation type="unfinished">Naam</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_attributes.ui" line="69"/>
+        <source>Name of selected object</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_attributes.ui" line="79"/>
+        <source>Export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_attributes.ui" line="108"/>
+        <source>Enable or disable exporting of the object</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_attributes.ui" line="121"/>
+        <source>PDF Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_attributes.ui" line="155"/>
+        <source>Enabled: Object is a PDF bookmark</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_attributes.ui" line="184"/>
+        <source>Enabled: Object is a PDF annotation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_attributes.ui" line="197"/>
+        <source>Opens annotation options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_attributes.cpp" line="206"/>
+        <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
+        <translation type="unfinished">Naam &quot;%1&quot; is niet uniek.&lt;br/&gt;Kies een andere naam.</translation>
+    </message>
+</context>
+<context>
+    <name>PropertiesPalette_Fill</name>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_fill.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_fill.ui" line="40"/>
+        <source>Color</source>
+        <translation type="unfinished">Kleur</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_fill.ui" line="78"/>
+        <source>Mask</source>
+        <translation type="unfinished">Masker</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_fill.ui" line="114"/>
+        <source>Blendmode</source>
+        <translation type="unfinished">Mengmodus</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_fill.ui" line="145"/>
+        <source>Fill Rule</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_fill.cpp" line="740"/>
+        <source>Blendmode of fill</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_fill.cpp" line="741"/>
+        <source>Any path self-intersections or subpaths create holes in the fill (fill-rule: evenodd)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_fill.cpp" line="742"/>
+        <source>Fill is solid unless a subpath is counterdirectional (fill-rule: nonzero)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_fill.cpp" line="743"/>
+        <source>Color of fill</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_fill.cpp" line="744"/>
+        <source>Mask of fill</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PropertiesPalette_GroupBase</name>
     <message>
         <location filename="../../scribus/ui/propertiespalette_groupbase.ui" line="35"/>
@@ -22834,6 +24290,14 @@ een reeks pagina&apos;s of een enkel paginanummer</translation>
     </message>
 </context>
 <context>
+    <name>PropertyWidget_Alignment</name>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_alignment.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PropertyWidget_Distance</name>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="474"/>
@@ -23522,6 +24986,59 @@ De waarde 0 betekent onbeperkt afbreken.</translation>
     </message>
 </context>
 <context>
+    <name>PropertyWidget_ParagraphStyle</name>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_paragraphstyle.ui" line="14"/>
+        <source>Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_paragraphstyle.ui" line="79"/>
+        <source>Paragraph style of currently selected text or paragraph</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_paragraphstyle.ui" line="86"/>
+        <source>Remove Direct Paragraph Formatting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_paragraphstyle.ui" line="96"/>
+        <source>Edit current selected paragraph style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_paragraphstyle.ui" line="122"/>
+        <source>Add new paragraph style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_paragraphstyle.ui" line="171"/>
+        <source>Character style of currently selected text or paragraph</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_paragraphstyle.ui" line="178"/>
+        <source>Remove Direct Character Formatting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_paragraphstyle.ui" line="188"/>
+        <source>Edit current selected character style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_paragraphstyle.ui" line="214"/>
+        <source>Add new character style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_paragraphstyle.cpp" line="344"/>
+        <source>remove direct paragraph formatting</source>
+        <translation type="unfinished">Directe alinea-opmaak verwijderen</translation>
+    </message>
+</context>
+<context>
     <name>PropertyWidget_PathText</name>
     <message>
         <location filename="../../scribus/ui/propertywidget_pathtext.cpp" line="239"/>
@@ -23615,6 +25132,90 @@ De waarde 0 betekent onbeperkt afbreken.</translation>
         <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="255"/>
         <source>Text distance from the reference path</source>
         <translation>Tekstafstand tot het referentiepad</translation>
+    </message>
+</context>
+<context>
+    <name>PropertyWidget_Text</name>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_text.cpp" line="392"/>
+        <source>Fixed</source>
+        <translation type="unfinished">Vast</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_text.cpp" line="393"/>
+        <source>Automatic</source>
+        <translation type="unfinished">Automatisch</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_text.cpp" line="394"/>
+        <source>Baseline</source>
+        <translation type="unfinished">Basislijn</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_text.cpp" line="397"/>
+        <source>Color of selected text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_text.cpp" line="398"/>
+        <source>Background color of selected text</source>
+        <translation type="unfinished">Achtergrondkleur van geselecteerde tekst</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_text.cpp" line="399"/>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen. If both are chosen, then they share the same color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PropertyWidget_TextBase</name>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textbase.ui" line="14"/>
+        <source>Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textbase.ui" line="49"/>
+        <location filename="../../scribus/ui/propertywidget_textbase.ui" line="73"/>
+        <source>Font Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textbase.ui" line="76"/>
+        <location filename="../../scribus/ui/propertywidget_textbase.ui" line="176"/>
+        <source> pt</source>
+        <translation type="unfinished">pt</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textbase.ui" line="112"/>
+        <location filename="../../scribus/ui/propertywidget_textbase.ui" line="173"/>
+        <source>Line Spacing</source>
+        <translation type="unfinished">Regelafstand</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textbase.ui" line="139"/>
+        <source>Select the line spacing mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textbase.ui" line="155"/>
+        <source>Line Height</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textbase.ui" line="212"/>
+        <source>Color</source>
+        <translation type="unfinished">Kleur</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textbase.ui" line="246"/>
+        <source>Background</source>
+        <translation type="unfinished">Achtergrond</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertywidget_textbase.ui" line="280"/>
+        <source>Stroke</source>
+        <translation type="unfinished">Streek</translation>
     </message>
 </context>
 <context>
@@ -24413,6 +26014,10 @@ Controleer het pad en de bestandsnaam.</translation>
         <location filename="../../scribus/plugins/fileloader/scribus13format/scribus13format.cpp" line="1096"/>
         <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="1572"/>
         <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="2211"/>
+        <location filename="../../scribus/plugins/fileloader/scribus170format/scribus170format.cpp" line="1568"/>
+        <location filename="../../scribus/plugins/fileloader/scribus170format/scribus170format.cpp" line="2217"/>
+        <location filename="../../scribus/plugins/fileloader/scribus171format/scribus171format.cpp" line="1599"/>
+        <location filename="../../scribus/plugins/fileloader/scribus171format/scribus171format.cpp" line="2278"/>
         <source>Background</source>
         <translation>Achtergrond</translation>
     </message>
@@ -30679,6 +32284,21 @@ Mogelijk is daarom het beeld niet correct.</translation>
         <comment>python error</comment>
         <translation>Items moeten tekstreeksen zijn</translation>
     </message>
+    <message>
+        <location filename="../../scribus/plugins/fileloader/scribus170format/scribus170format.cpp" line="87"/>
+        <source>Scribus 1.7.0 Support</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/fileloader/scribus171format/scribus171format.cpp" line="87"/>
+        <source>Scribus 1.7.1+ Support</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/scriptplugin/scriptpaths.cpp" line="25"/>
+        <source>&amp;Scripts</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -31535,6 +33155,14 @@ Document Liberation Project https://www.documentliberation.org</translation>
     </message>
 </context>
 <context>
+    <name>SMColorButton</name>
+    <message>
+        <location filename="../../scribus/ui/smcolorbutton.cpp" line="14"/>
+        <source>Use parent style&apos;s color instead of overriding it</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SMColorCombo</name>
     <message>
         <location filename="../../scribus/ui/smcolorcombo.cpp" line="114"/>
@@ -31745,6 +33373,14 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/smnumformatcombo.cpp" line="79"/>
         <source>Use Parent Value</source>
         <translation>Gebruik bovenliggende waarde</translation>
+    </message>
+</context>
+<context>
+    <name>SMOpticalMarginsWidget</name>
+    <message>
+        <location filename="../../scribus/ui/smopticalmarginswidget.cpp" line="11"/>
+        <source>Use parent style&apos;s optical margins instead of overriding it</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -34047,6 +35683,54 @@ Als u het in deze versie opslaat, zal het niet langer leesbaar zijn voor oudere 
         <location filename="../../scribus/plugins/fileloader/scribus150format/scribus150format.cpp" line="7331"/>
         <source>Copy #%1 of </source>
         <translation>Kopie #%1 van</translation>
+    </message>
+</context>
+<context>
+    <name>Scribus170Format</name>
+    <message>
+        <location filename="../../scribus/plugins/fileloader/scribus170format/scribus170format.cpp" line="81"/>
+        <location filename="../../scribus/plugins/fileloader/scribus170format/scribus170format.cpp" line="115"/>
+        <source>Scribus 1.7.0 Document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/fileloader/scribus170format/scribus170format.cpp" line="97"/>
+        <source>Scribus 1.7.0 File Format Support</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/fileloader/scribus170format/scribus170format.cpp" line="98"/>
+        <source>Allows Scribus to read Scribus 1.7.0 formatted files.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/fileloader/scribus170format/scribus170format.cpp" line="7401"/>
+        <source>Copy #%1 of </source>
+        <translation type="unfinished">Kopie #%1 van</translation>
+    </message>
+</context>
+<context>
+    <name>Scribus171Format</name>
+    <message>
+        <location filename="../../scribus/plugins/fileloader/scribus171format/scribus171format.cpp" line="81"/>
+        <location filename="../../scribus/plugins/fileloader/scribus171format/scribus171format.cpp" line="115"/>
+        <source>Scribus 1.7.1+ Document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/fileloader/scribus171format/scribus171format.cpp" line="97"/>
+        <source>Scribus 1.7.1+ File Format Support</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/fileloader/scribus171format/scribus171format.cpp" line="98"/>
+        <source>Allows Scribus to read Scribus 1.7.1 and higher formatted files.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/plugins/fileloader/scribus171format/scribus171format.cpp" line="9031"/>
+        <source>Copy #%1 of </source>
+        <translation type="unfinished">Kopie #%1 van</translation>
     </message>
 </context>
 <context>
@@ -40757,6 +42441,39 @@ kies een andere.</translation>
         <location filename="../../scribus/ui/nftwidget.ui" line="158"/>
         <source>&amp;Help</source>
         <translation>&amp;Hulp</translation>
+    </message>
+</context>
+<context>
+    <name>nodePalette</name>
+    <message>
+        <location filename="../../scribus/ui/nodeeditpalette.ui" line="14"/>
+        <source>Form</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/nodeeditpalette.ui" line="239"/>
+        <source>&amp;X:</source>
+        <translation type="unfinished">&amp;X:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/nodeeditpalette.ui" line="262"/>
+        <source>&amp;Y:</source>
+        <translation type="unfinished">&amp;Y:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/nodeeditpalette.ui" line="271"/>
+        <source>Origin:</source>
+        <translation type="unfinished">Oorsprong:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/nodeeditpalette.ui" line="417"/>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/nodeeditpalette.ui" line="424"/>
+        <source>Cancel</source>
+        <translation type="unfinished">Annuleren</translation>
     </message>
 </context>
 <context>
