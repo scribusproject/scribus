@@ -81,25 +81,25 @@ struct CPGradientData
 struct CPGradientVectorData
 {
 	// Regular Gradient Vector
-	double StartX;
-	double EndX;
-	double StartY;
-	double EndY;
-	double Skew;
-	double Scale;
-	double FocalX;
-	double FocalY;
+	double StartX = 0.0;
+	double EndX = 0.0;
+	double StartY = 0.0;
+	double EndY = 0.0;
+	double Skew = 0.0;
+	double Scale = 1.0;
+	double FocalX = 0.0;
+	double FocalY = 0.0;
 	// Control Points for Four Colors & Diamond
-	double C1X;
-	double C1Y;
-	double C2X;
-	double C2Y;
-	double C3X;
-	double C3Y;
-	double C4X;
-	double C4Y;
-	double C5X;
-	double C5Y;
+	double C1X = 0.0;
+	double C1Y = 0.0;
+	double C2X = 0.0;
+	double C2Y = 0.0;
+	double C3X = 0.0;
+	double C3Y = 0.0;
+	double C4X = 0.0;
+	double C4Y = 0.0;
+	double C5X = 0.0;
+	double C5Y = 0.0;
 
 };
 

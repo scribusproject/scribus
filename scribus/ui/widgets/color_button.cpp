@@ -281,7 +281,6 @@ void ColorButton::setHatch(int type, double distance, double angle, bool hasBack
 	h.ColorForeground = foregroundColor;
 
 	setHatchData(h);
-
 }
 
 void ColorButton::setModeByType(int type)
@@ -412,7 +411,6 @@ QBrush ColorButton::brushSolid() const
 		return pBackground;
 	else
 		return combinePixmaps(pBackground, icon().pixmap(iconSize()), devicePixelRatio(), m_onIcon, isDarkColor(qColor));
-
 }
 
 QBrush ColorButton::brushGradient() const
