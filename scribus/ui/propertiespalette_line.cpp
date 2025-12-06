@@ -391,13 +391,8 @@ void PropertiesPalette_Line::setCurrentItem_Line(PageItem *item)
 	item->strokePatternFlip(mirrorX, mirrorY);
 	buttonLineColor->setPattern(
 				item->strokePattern(),
-				item->strokePatternTransform().offsetX,
-				item->strokePatternTransform().offsetY,
-				item->strokePatternTransform().scaleX,
-				item->strokePatternTransform().scaleY,
-				item->strokePatternTransform().skewX,
-				item->strokePatternTransform().skewY,
-				item->strokePatternTransform().rotation,
+				item->strokeGradientType(),
+				item->strokePatternTransform(),
 				item->strokePatternTransform().space,
 				mirrorX, mirrorY,
 				item->isStrokePatternToPath()

@@ -220,13 +220,8 @@ void PropertiesPalette_Fill::setCurrentItem_Fill(PageItem *item)
 	bool mirrorX, mirrorY;
 	item->patternFlip(mirrorX, mirrorY);
 	buttonFillColor->setPattern(item->pattern(),
-								item->patternTransform().offsetX,
-								item->patternTransform().offsetY,
-								item->patternTransform().scaleX,
-								item->patternTransform().scaleY,
-								item->patternTransform().skewX,
-								item->patternTransform().skewY,
-								item->patternTransform().rotation,
+								item->gradientType(),
+								item->patternTransform(),
 								0.0, mirrorX, mirrorY, false
 								);
 	// Color
@@ -264,13 +259,8 @@ void PropertiesPalette_Fill::setCurrentItem_FillMask(PageItem *item)
 	bool mirrorX, mirrorY;
 	item->maskFlip(mirrorX, mirrorY);
 	buttonFillMask->setPattern(item->patternMask(),
-							   item->maskTransform().offsetX,
-							   item->maskTransform().offsetY,
-							   item->maskTransform().scaleX,
-							   item->maskTransform().scaleY,
-							   item->maskTransform().skewX,
-							   item->maskTransform().skewY,
-							   item->maskTransform().rotation,
+							   item->maskType(),
+							   item->maskTransform(),
 							   0.0, mirrorX, mirrorY, false
 							   );
 	// Color

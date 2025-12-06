@@ -248,8 +248,36 @@ void ColorPickerPattern::setPatternData(const CPPatternData& pattern)
 	checkboxFollowsPath->setChecked(m_pattern.OnPath);
 	buttonScaleRatio->setChecked( m_pattern.ScaleX == m_pattern.ScaleY );
 
-	connectSlots();
+	if (m_context == Context::FillMask)
+	{
+		if (m_pattern.Type == GradMask_PatternLumAlphaInverted)
+		{
+			checkboxLumAlpha->setChecked(true);
+			checkboxInvertedPattern->setChecked(true);
+		}
+		else if (m_pattern.Type == GradMask_PatternLumAlpha)
+		{
+			checkboxLumAlpha->setChecked(true);
+			checkboxInvertedPattern->setChecked(false);
+		}
+		else if (m_pattern.Type == GradMask_PatternInverted)
+		{
+			checkboxLumAlpha->setChecked(false);
+			checkboxInvertedPattern->setChecked(true);
+		}
+		else
+		{
+			checkboxLumAlpha->setChecked(false);
+			checkboxInvertedPattern->setChecked(false);
+		}
+	}
+	else
+	{
+		checkboxLumAlpha->setChecked(false);
+		checkboxInvertedPattern->setChecked(false);
+	}
 
+	connectSlots();
 }
 
 /* ********************************************************************************* *

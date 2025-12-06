@@ -236,20 +236,20 @@ void ColorButton::setGradientVector(double StartX, double StartY, double EndX, d
 	setGradientVectorData(gvd);
 }
 
-void ColorButton::setPattern(QString patternName, double offsetX, double offsetY, double scaleX, double scaleY, double skewX, double skewY,
-							 double angle, double spacing, bool mirrorX, bool mirrorY, bool onPath
-							 )
+void ColorButton::setPattern(QString patternName, int type, const ScPatternTransform& patTransform, 
+							 double spacing,bool mirrorX, bool mirrorY, bool onPath)
 {
 	CPPatternData p;
 	p.Name = patternName;
-	p.OffsetX = offsetX;
-	p.OffsetY = offsetY;
-	p.ScaleX = scaleX;
-	p.ScaleY = scaleY;
-	p.SkewX = skewX;
-	p.SkewY = skewY;
+	p.Type = type;
+	p.OffsetX = patTransform.offsetX;
+	p.OffsetY = patTransform.offsetY;
+	p.ScaleX = patTransform.scaleX;
+	p.ScaleY = patTransform.scaleY;
+	p.SkewX = patTransform.skewX;
+	p.SkewY = patTransform.skewY;
 	p.Spacing = spacing;
-	p.Angle = angle;
+	p.Angle = patTransform.rotation;
 	p.MirrorX = mirrorX;
 	p.MirrorY = mirrorY;
 	p.OnPath = onPath;

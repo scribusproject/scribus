@@ -3,17 +3,19 @@
 
 #include <QToolButton>
 #include <QPointer>
+
+#include "scpatterntransform.h"
 #include "scribusapi.h"
 #include "ui/colorpicker/colorpicker_enum.h"
 
 class ColorListBox;
-class FloatingWindow;
-class PopupMenu;
-class PageItem;
-class ScribusDoc;
-class ScPattern;
-class UndoManager;
 class ColorPicker;
+class FloatingWindow;
+class PageItem;
+class PopupMenu;
+class ScPattern;
+class ScribusDoc;
+class UndoManager;
 
 class SCRIBUS_API ColorButton : public QToolButton
 {
@@ -82,7 +84,7 @@ public:
 	const CPGradientVectorData& gradientVectorData() const { return m_gradientVectorData; }
 
 	// Pattern
-	void setPattern(QString patternName, double offsetX, double offsetY, double scaleX, double scaleY, double skewX, double skewY, double angle, double spacing, bool mirrorX, bool mirrorY, bool onPath);
+	void setPattern(QString patternName, int type, const ScPatternTransform& patTransform, double spacing, bool mirrorX, bool mirrorY, bool onPath);
 	void setPatternData(const CPPatternData& data) { m_patternData = data; }
 	const CPPatternData& patternData() const { return m_patternData; }
 	ScPattern pattern() const;

@@ -113,6 +113,7 @@ struct CPColorData
 struct CPPatternData
 {
 	QString Name = "";
+	int    Type = 0;
 	double OffsetX = 0.0;
 	double OffsetY = 0.0;
 	double ScaleX = 1.0;
