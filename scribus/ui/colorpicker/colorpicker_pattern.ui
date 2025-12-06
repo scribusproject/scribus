@@ -453,7 +453,7 @@
      <item>
       <widget class="QCheckBox" name="checkboxInvertedPattern">
        <property name="text">
-        <string>User inverted Pattern</string>
+        <string>Use inverted Pattern</string>
        </property>
       </widget>
      </item>
