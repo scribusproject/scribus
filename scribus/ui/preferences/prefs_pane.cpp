@@ -51,38 +51,42 @@ void Prefs_Pane::highlightWidgets(const QString& text)
 	bool textEmpty = text.isEmpty();
 	for (QCheckBox *checkBox : findChildren<QCheckBox *>())
 	{
-		QFont f(checkBox->font());
-		if (textEmpty)
-			f.setBold(false);
+		bool setHighlight = false;
+		if (!textEmpty && checkBox->text().contains(text, Qt::CaseInsensitive))
+			setHighlight = true;
+		if (setHighlight)
+			checkBox->setStyleSheet("color: white; background-color: blue");
 		else
-			f.setBold(checkBox->text().contains(text, Qt::CaseInsensitive));
-		checkBox->setFont(f);
+			checkBox->setStyleSheet(checkBox->parentWidget()->styleSheet());
 	}
 	for (QGroupBox *groupBox : findChildren<QGroupBox *>())
 	{
-		QFont f(groupBox->font());
-		if (textEmpty)
-			f.setBold(false);
+		bool setHighlight = false;
+		if (!textEmpty && groupBox->title().contains(text, Qt::CaseInsensitive))
+			setHighlight = true;
+		if (setHighlight)
+			groupBox->setStyleSheet("color: white; background-color: blue");
 		else
-			f.setBold(groupBox->title().contains(text, Qt::CaseInsensitive));
-		groupBox->setFont(f);
+			groupBox->setStyleSheet(groupBox->parentWidget()->styleSheet());
 	}
 	for (QLabel *label : findChildren<QLabel *>())
 	{
-		QFont f(label->font());
-		if (textEmpty)
-			f.setBold(false);
+		bool setHighlight = false;
+		if (!textEmpty && label->text().contains(text, Qt::CaseInsensitive))
+			setHighlight = true;
+		if (setHighlight)
+			label->setStyleSheet("color: white; background-color: blue");
 		else
-			f.setBold(label->text().contains(text, Qt::CaseInsensitive));
-		label->setFont(f);
+			label->setStyleSheet(label->parentWidget()->styleSheet());
 	}
 	for (QPushButton *pushButton : findChildren<QPushButton *>())
 	{
-		QFont f(pushButton->font());
-		if (textEmpty)
-			f.setBold(false);
+		bool setHighlight = false;
+		if (!textEmpty && pushButton->text().contains(text, Qt::CaseInsensitive))
+			setHighlight = true;
+		if (setHighlight)
+			pushButton->setStyleSheet("color: white; background-color: blue");
 		else
-			f.setBold(pushButton->text().contains(text, Qt::CaseInsensitive));
-		pushButton->setFont(f);
+			pushButton->setStyleSheet(pushButton->parentWidget()->styleSheet());
 	}
 }
