@@ -1856,7 +1856,7 @@ void PictureBrowser::applyFilters()
 			}
 		}
 
-		if (filterType >= 0 && filterType < (int) std::size(c))
+		if (filterType >= 0 && filterType < 5)
 			c[filterType]++;
 	}
 }
