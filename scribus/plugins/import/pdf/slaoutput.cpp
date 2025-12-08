@@ -310,7 +310,7 @@ std::unique_ptr<LinkAction> SlaOutputDev::SC_getAction(AnnotWidget *ano)
 	obj = m_xref->fetch(refa.num, refa.gen);
 	if (obj.isDict())
 	{
-		Dict* adic = obj.getDict();
+		const Dict* adic = obj.getDict();
 		const Object& additionalActions = adic->lookupNF("A");
 		Object additionalActionsObject = additionalActions.fetch(m_pdfDoc->getXRef());
 		if (additionalActionsObject.isDict())
@@ -345,7 +345,7 @@ LinkAction* SlaOutputDev::SC_getAdditionalAction(const char *key, AnnotWidget *a
 	obj = m_xref->fetch(refa.num, refa.gen);
 	if (obj.isDict())
 	{
-		Dict* adic = obj.getDict();
+		const Dict* adic = obj.getDict();
 		const Object& additionalActions = adic->lookupNF("AA");
 		Object additionalActionsObject = additionalActions.fetch(m_pdfDoc->getXRef());
 		if (additionalActionsObject.isDict())
@@ -411,7 +411,7 @@ bool SlaOutputDev::handleTextAnnot(Annot* annota, double xCoor, double yCoor, do
 	ite->ContourLine = ite->PoLine.copy();
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
 	m_Elements->append(ite);
-	if (m_groupStack.count() != 0)
+	if (!m_groupStack.isEmpty())
 	{
 		m_groupStack.top().Items.append(ite);
 		applyMask(ite);
@@ -456,8 +456,8 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, do
 		return false;
 	bool validLink = false;
 	int pagNum = 0;
-	int xco = 0;
-	int yco = 0;
+	double xco = 0;
+	double yco = 0;
 	QString fileName;
 	if (act->getKind() == actionGoTo)
 	{
@@ -560,7 +560,7 @@ bool SlaOutputDev::handleLinkAnnot(Annot* annota, double xCoor, double yCoor, do
 		ite->ContourLine = ite->PoLine.copy();
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
 		m_Elements->append(ite);
-		if (m_groupStack.count() != 0)
+		if (!m_groupStack.isEmpty())
 		{
 			m_groupStack.top().Items.append(ite);
 			applyMask(ite);
@@ -699,14 +699,14 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 			AnnotAppearance *apa = annota->getAppearStreams();
 			if (apa || !achar)
 			{
-				auto *annotOutDev = new AnoOutputDev(m_doc, m_importedColors);
+				auto annotOutDev = std::make_shared<AnoOutputDev>(m_doc, m_importedColors);
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(22, 4, 0)
 				const PDFRectangle& annotaRect = annota->getRect();
-				auto* gfx = new Gfx(m_pdfDoc, annotOutDev, m_pdfDoc->getPage(m_actPage)->getResourceDict(), &annotaRect, nullptr);
+				auto gfx = std::make_shared<Gfx>(m_pdfDoc, annotOutDev.get(), m_pdfDoc->getPage(m_actPage)->getResourceDict(), &annotaRect, nullptr);
 #else
-				auto* gfx = new Gfx(m_pdfDoc, annotOutDev, m_pdfDoc->getPage(m_actPage)->getResourceDict(), annota->getRect(), nullptr);
+				auto gfx = std::make_shared<Gfx>(m_pdfDoc, annotOutDev.get(), m_pdfDoc->getPage(m_actPage)->getResourceDict(), annota->getRect(), nullptr);
 #endif
-				ano->draw(gfx, false);
+				ano->draw(gfx.get(), false);
 				if (!bgFound)
 					m_graphicStack.top().fillColor = annotOutDev->currColorFill;
 				if (!fgFound)
@@ -715,8 +715,6 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 				fontSize = annotOutDev->fontSize;
 				fontName = UnicodeParsedString(annotOutDev->fontName.get());
 				itemText = UnicodeParsedString(annotOutDev->itemText.get());
-				delete gfx;
-				delete annotOutDev;
 			}
 			const auto& graphicState = m_graphicStack.top();
 			int z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, xCoor, yCoor, width, height, 0, graphicState.fillColor, CommonStrings::None);
@@ -731,7 +729,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 			ite->ContourLine = ite->PoLine.copy();
 			ite->setTextFlowMode(PageItem::TextFlowDisabled);
 			m_Elements->append(ite);
-			if (m_groupStack.count() != 0)
+			if (!m_groupStack.isEmpty())
 			{
 				m_groupStack.top().Items.append(ite);
 				applyMask(ite);
@@ -897,7 +895,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 		obj1 = m_xref->fetch(refa.num, refa.gen);
 		if (obj1.isDict())
 		{
-			Dict* dict = obj1.getDict();
+			const Dict* dict = obj1.getDict();
 			Object obj2 = dict->lookup("Kids");
 			//childs
 			if (obj2.isArray())
@@ -933,7 +931,7 @@ void SlaOutputDev::applyTextStyle(PageItem* ite, const QString& fontName, const 
 		SCFontsIterator it(*m_doc->AllFonts);
 		for ( ; it.hasNext() ; it.next())
 		{
-			ScFace& face(it.current());
+			const ScFace& face(it.current());
 			if ((face.psName() == fontName) && (face.usable()) && (face.type() == ScFace::TTF))
 			{
 				newStyle.setFont(face);
@@ -975,8 +973,8 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 		else if (Lact->getKind() == actionGoTo)
 		{
 			int pagNum = 0;
-			int xco = 0;
-			int yco = 0;
+			double xco = 0;
+			double yco = 0;
 			auto *gto = (LinkGoTo*) Lact;
 			const LinkDest *dst = gto->getDest();
 			if (dst)
@@ -1028,8 +1026,8 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 		else if (Lact->getKind() == actionGoToR)
 		{
 			int pagNum = 0;
-			int xco = 0;
-			int yco = 0;
+			double xco = 0;
+			double yco = 0;
 			auto *gto = (LinkGoToR*) Lact;
 			QString fileName = UnicodeParsedString(gto->getFileName());
 			const LinkDest *dst = gto->getDest();
@@ -1394,7 +1392,7 @@ void SlaOutputDev::endPage()
 				PageItem *ite = m_doc->groupObjectsSelection(m_tmpSel);
 				ite->setItemName(it.key());
 				m_Elements->append(ite);
-				if (m_groupStack.count() != 0)
+				if (!m_groupStack.isEmpty())
 					m_groupStack.top().Items.append(ite);
 			}
 		}
@@ -1412,10 +1410,10 @@ void SlaOutputDev::saveState(GfxState *state)
 
 void SlaOutputDev::restoreState(GfxState *state)
 {
-	if (m_groupStack.count() != 0)
+	if (!m_groupStack.isEmpty())
 	{
 		groupEntry gElements = m_groupStack.pop();
-		if (gElements.Items.count() > 0)
+		if (!gElements.Items.isEmpty())
 		{
 			if ((gElements.Items.count() > 1) && (checkClip()))
 			{
@@ -1442,7 +1440,7 @@ void SlaOutputDev::restoreState(GfxState *state)
 					ite->OldB2 = ite->width();
 					ite->OldH2 = ite->height();
 					m_Elements->append(ite);
-					if (m_groupStack.count() != 0)
+					if (!m_groupStack.isEmpty())
 					{
 						applyMask(ite);
 						m_groupStack.top().Items.append(ite);
@@ -1450,7 +1448,7 @@ void SlaOutputDev::restoreState(GfxState *state)
 				}
 				else
 				{
-					if (m_groupStack.count() != 0)
+					if (!m_groupStack.isEmpty())
 					{
 						for (int dre = 0; dre < gElements.Items.count(); ++dre)
 						{
@@ -1464,7 +1462,7 @@ void SlaOutputDev::restoreState(GfxState *state)
 			}
 			else
 			{
-				if (m_groupStack.count() != 0)
+				if (!m_groupStack.isEmpty())
 				{
 					for (int dre = 0; dre < gElements.Items.count(); ++dre)
 					{
@@ -1498,9 +1496,9 @@ void SlaOutputDev::paintTransparencyGroup(GfxState *state, const double *bbox)
 #endif
 {
 // 	qDebug() << "SlaOutputDev::paintTransparencyGroup";
-	if (m_groupStack.count() != 0)
+	if (!m_groupStack.isEmpty())
 	{
-		if ((m_groupStack.top().Items.count() != 0) && (!m_groupStack.top().forSoftMask))
+		if ((!m_groupStack.top().Items.isEmpty()) && (!m_groupStack.top().forSoftMask))
 		{
 			PageItem *ite = m_groupStack.top().Items.last();
 			ite->setFillTransparency(1.0 - state->getFillOpacity());
@@ -1585,7 +1583,7 @@ void SlaOutputDev::endTransparencyGroup(GfxState *state)
 	ite->setFillTransparency(1.0 - state->getFillOpacity());
 	ite->setFillBlendmode(getBlendMode(state));
 	m_Elements->append(ite);
-	if (m_groupStack.count() != 0)
+	if (!m_groupStack.isEmpty())
 	{
 		applyMask(ite);
 		m_groupStack.top().Items.append(ite);
@@ -1614,13 +1612,13 @@ void SlaOutputDev::setSoftMask(GfxState* /*state*/, const double* bbox, bool alp
 	// Remember the mask's position as it might not align with the image to which the mask is later assigned.
 	m_groupStack.top().maskPos = m_currentMaskPosition;
 	m_groupStack.top().alpha = alpha;
-	if (m_groupStack.top().Items.count() != 0)
+	if (!m_groupStack.top().Items.isEmpty())
 		applyMask(m_groupStack.top().Items.last());
 }
 
 void SlaOutputDev::clearSoftMask(GfxState * /*state*/)
 {
-	if (m_groupStack.count() != 0)
+	if (!m_groupStack.isEmpty())
 		m_groupStack.top().maskName = "";
 }
 
@@ -1726,7 +1724,7 @@ void SlaOutputDev::stroke(GfxState *state)
 	ite->FrameType = 3;
 	ite->setWidthHeight(wh.x(), wh.y());
 	m_doc->adjustItemSize(ite);
-	if (m_Elements->count() != 0)
+	if (!m_Elements->isEmpty())
 	{
 		PageItem* lItem = m_Elements->last();
 		if ((lItem->lineColor() == CommonStrings::None) && (lItem->PoLine == ite->PoLine))
@@ -1754,7 +1752,7 @@ void SlaOutputDev::stroke(GfxState *state)
 			ite->setDashOffset(m_dashOffset);
 			ite->setTextFlowMode(PageItem::TextFlowDisabled);
 			m_Elements->append(ite);
-			if (m_groupStack.count() != 0)
+			if (!m_groupStack.isEmpty())
 				m_groupStack.top().Items.append(ite);
 		}
 	}
@@ -1769,7 +1767,7 @@ void SlaOutputDev::stroke(GfxState *state)
 		ite->setDashOffset(m_dashOffset);
 		ite->setTextFlowMode(PageItem::TextFlowDisabled);
 		m_Elements->append(ite);
-		if (m_groupStack.count() != 0)
+		if (!m_groupStack.isEmpty())
 			m_groupStack.top().Items.append(ite);
 	}
 }
@@ -1841,7 +1839,7 @@ void SlaOutputDev::createFillItem(GfxState *state, Qt::FillRule fillRule)
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
 	m_doc->adjustItemSize(ite);
 	m_Elements->append(ite);
-	if (m_groupStack.count() != 0)
+	if (!m_groupStack.isEmpty())
 	{
 		m_groupStack.top().Items.append(ite);
 		applyMask(ite);
@@ -1982,7 +1980,7 @@ bool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, do
 	ite->setGradientVector(GrStartX, GrStartY, GrEndX, GrEndY, 0, 0, 1, 0);
 	m_doc->adjustItemSize(ite);
 	m_Elements->append(ite);
-	if (m_groupStack.count() != 0)
+	if (!m_groupStack.isEmpty())
 	{
 		m_groupStack.top().Items.append(ite);
 		applyMask(ite);
@@ -2114,7 +2112,7 @@ bool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading, 
 	ite->setGradientVector(GrStartX, GrStartY, GrEndX, GrEndY, GrFocalX, GrFocalY, 1, 0);
 	m_doc->adjustItemSize(ite);
 	m_Elements->append(ite);
-	if (m_groupStack.count() != 0)
+	if (!m_groupStack.isEmpty())
 	{
 		m_groupStack.top().Items.append(ite);
 		applyMask(ite);
@@ -2157,7 +2155,7 @@ bool SlaOutputDev::gouraudTriangleShadedFill(GfxState *state, GfxGouraudTriangle
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
 	m_doc->adjustItemSize(ite);
 	m_Elements->append(ite);
-	if (m_groupStack.count() != 0)
+	if (!m_groupStack.isEmpty())
 	{
 		m_groupStack.top().Items.append(ite);
 		applyMask(ite);
@@ -2238,7 +2236,7 @@ bool SlaOutputDev::patchMeshShadedFill(GfxState *state, GfxPatchMeshShading *sha
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
 	m_doc->adjustItemSize(ite);
 	m_Elements->append(ite);
-	if (m_groupStack.count() != 0)
+	if (!m_groupStack.isEmpty())
 	{
 		m_groupStack.top().Items.append(ite);
 		applyMask(ite);
@@ -2246,17 +2244,16 @@ bool SlaOutputDev::patchMeshShadedFill(GfxState *state, GfxPatchMeshShading *sha
 	ite->meshGradientPatches.clear();
 	for (int i = 0; i < shading->getNPatches(); i++)
 	{
+		int u = 0;
+		int v = 0;
 		int shade = 100;
 		const GfxPatch *patch = shading->getPatch(i);
 		GfxColor color;
 		meshGradientPatch patchM;
-		int u, v;
 		patchM.BL.resetTo(FPoint(patch->x[0][0], patch->y[0][0]));
 		patchM.BL.controlTop = FPoint(patch->x[0][1], patch->y[0][1]);
 		patchM.BL.controlRight = FPoint(patch->x[1][0], patch->y[1][0]);
 		patchM.BL.controlColor = FPoint(patch->x[1][1], patch->y[1][1]);
-		u = 0;
-		v = 0;
 		if (shading->isParameterized())
 		{
 			shading->getParameterizedColor (patch->color[u][v].c[0], &color);
@@ -2373,14 +2370,12 @@ bool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx* /*gfx*/, Catalog *cat
 #endif
 
 	PDFRectangle box;
-	Gfx *gfx;
 	QString id;
 	PageItem *ite;
 	groupEntry gElements;
 	m_groupStack.push(gElements);
-	double width, height;
-	width = bbox[2] - bbox[0];
-	height = bbox[3] - bbox[1];
+	double width = bbox[2] - bbox[0];
+	double height = bbox[3] - bbox[1];
 	if (xStep != width || yStep != height)
 		return false;
 	box.x1 = bbox[0];
@@ -2393,7 +2388,7 @@ bool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx* /*gfx*/, Catalog *cat
 	QTransform mm(mat[0], mat[1], mat[2], mat[3], mat[4], mat[5]);
 	QTransform mmx = mm * m_ctm;
 
-	gfx = new Gfx(m_pdfDoc, this, resDict, &box, nullptr);
+	auto gfx = std::make_shared<Gfx>(m_pdfDoc, this, resDict, &box, nullptr);
 	m_inPattern++;
 	// Unset the clip path as it is unrelated to the pattern's coordinate space.
 	QPainterPath savedClip = m_graphicStack.top().clipPath;
@@ -2408,7 +2403,7 @@ bool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx* /*gfx*/, Catalog *cat
 	m_doc->m_Selection->clear();
 
 	gElements = m_groupStack.pop();
-	if (gElements.Items.count() > 0)
+	if (!gElements.Items.isEmpty())
 	{
 		for (int dre = 0; dre < gElements.Items.count(); ++dre)
 		{
@@ -2488,12 +2483,11 @@ bool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx* /*gfx*/, Catalog *cat
 	ite->setPatternTransform(fabs(pmat[0]), fabs(pmat[3]), mmx.dx() - ctm[4], mmx.dy() - ctm[5], 0, -1 * pmat[1], pmat[2]);
 	m_doc->adjustItemSize(ite);
 	m_Elements->append(ite);
-	if (m_groupStack.count() != 0)
+	if (!m_groupStack.isEmpty())
 	{
 		m_groupStack.top().Items.append(ite);
 		applyMask(ite);
 	}
-	delete gfx;
 	return true;
 }
 
@@ -2918,7 +2912,7 @@ void SlaOutputDev::createImageFrame(QImage& image, GfxState *state, int numColor
 					m_doc->loadPict(fileName, ite);
 				}
 				m_Elements->append(ite);
-				if (m_groupStack.count() != 0)
+				if (!m_groupStack.isEmpty())
 				{
 					m_groupStack.top().Items.append(ite);
 					applyMask(ite);
@@ -2945,7 +2939,7 @@ void SlaOutputDev::createImageFrame(QImage& image, GfxState *state, int numColor
 				image.save(fileName, "PNG");
 				m_doc->loadPict(fileName, ite);
 				m_Elements->append(ite);
-				if (m_groupStack.count() != 0)
+				if (!m_groupStack.isEmpty())
 				{
 					m_groupStack.top().Items.append(ite);
 					applyMask(ite);
@@ -3001,7 +2995,7 @@ void SlaOutputDev::beginMarkedContent(const char *name, Object *dictRef)
 			Object dictObj = dictRef->fetch(m_xref);
 			if (!dictObj.isDict())
 				return;
-			Dict* dict = dictObj.getDict();
+			const Dict* dict = dictObj.getDict();
 			Object dictType = dict->lookup("Type");
 			if (dictType.isName("OCG"))
 			{
@@ -3603,7 +3597,7 @@ void SlaOutputDev::drawChar(GfxState* state, double x, double y, double dx, doub
 		// Fill text rendering modes. See above
 		m_doc->adjustItemSize(ite);
 		m_Elements->append(ite);
-		if (m_groupStack.count() != 0)
+		if (!m_groupStack.isEmpty())
 		{
 			m_groupStack.top().Items.append(ite);
 			applyMask(ite);
@@ -3640,7 +3634,7 @@ void SlaOutputDev::endType3Char(GfxState *state)
 	F3Entry f3e = m_F3Stack.pop();
 	groupEntry gElements = m_groupStack.pop();
 	m_doc->m_Selection->clear();
-	if (gElements.Items.count() > 0)
+	if (!gElements.Items.isEmpty())
 	{
 		m_doc->m_Selection->delaySignalsOn();
 		for (int dre = 0; dre < gElements.Items.count(); ++dre)
@@ -3670,14 +3664,14 @@ void SlaOutputDev::endType3Char(GfxState *state)
 void SlaOutputDev::type3D0(GfxState * /*state*/, double /*wx*/, double /*wy*/)
 {
 //	qDebug() << "type3D0";
-	if (m_F3Stack.count() > 0)
+	if (!m_F3Stack.isEmpty())
 		m_F3Stack.top().colored = true;
 }
 
 void SlaOutputDev::type3D1(GfxState *state, double wx, double wy, double llx, double lly, double urx, double ury)
 {
 //	qDebug() << "type3D1";
-	if (m_F3Stack.count() > 0)
+	if (!m_F3Stack.isEmpty())
 		m_F3Stack.top().colored = false;
 }
 
@@ -3694,11 +3688,11 @@ void SlaOutputDev::endTextObject(GfxState *state)
 		m_graphicStack.top().clipPath = intersection(m_graphicStack.top().clipPath, m_clipTextPath);
 		m_clipTextPath = QPainterPath();
 	}
-	if (m_groupStack.count() != 0)
+	if (!m_groupStack.isEmpty())
 	{
 		groupEntry gElements = m_groupStack.pop();
 		m_tmpSel->clear();
-		if (gElements.Items.count() > 0)
+		if (!gElements.Items.isEmpty())
 		{
 			for (int dre = 0; dre < gElements.Items.count(); ++dre)
 			{
@@ -3717,10 +3711,10 @@ void SlaOutputDev::endTextObject(GfxState *state)
 			{
 				m_Elements->append(m_tmpSel->itemAt(as));
 			}
-			if (m_groupStack.count() != 0)
+			if (!m_groupStack.isEmpty())
 				applyMask(ite);
 		}
-		if (m_groupStack.count() != 0)
+		if (!m_groupStack.isEmpty())
 		{
 			for (int as = 0; as < m_tmpSel->count(); ++as)
 			{
@@ -4034,7 +4028,7 @@ int SlaOutputDev::getBlendMode(GfxState *state) const
 
 void SlaOutputDev::applyMask(PageItem *ite)
 {
-	if (m_groupStack.count() != 0)
+	if (!m_groupStack.isEmpty())
 	{
 		if (!m_groupStack.top().maskName.isEmpty())
 		{
