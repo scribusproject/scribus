@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include <QtXml>
 #include <QXmlStreamReader>
 
+#include <array>
 #include <iostream>
 
 #include "picturebrowser.h"
@@ -1815,7 +1816,7 @@ void PictureBrowser::saveCollectionsDb()
 void PictureBrowser::applyFilters()
 {
 	const QListWidgetItem *item;
-	int c[5] = {0, 0, 0, 0, 0};
+	std::array<int, 5> c = { 0, 0, 0, 0, 0 };
 	int filterType;
 
 	pImages->clearFilters();
@@ -1856,7 +1857,7 @@ void PictureBrowser::applyFilters()
 			}
 		}
 
-		if (filterType >= 0 && filterType < 5)
+		if (filterType >= 0 && filterType < c.size())
 			c[filterType]++;
 	}
 }
