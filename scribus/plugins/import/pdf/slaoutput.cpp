@@ -2585,20 +2585,17 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 #endif
 
 	unsigned int *dest = nullptr;
-	unsigned char * buffer = new unsigned char[width * height * 4];
+	std::unique_ptr<unsigned char[]> buffer(new unsigned char[width * height * 4]);
 	for (int y = 0; y < height; y++)
 	{
-		dest = (unsigned int *)(buffer + y * 4 * width);
+		dest = (unsigned int *)(buffer.get() + y * 4 * width);
 		unsigned char * pix = imgStr->getLine();
 		colorMap->getRGBLine(pix, dest, width);
 	}
 
-	QImage image(buffer, width, height, QImage::Format_RGB32);
+	QImage image(buffer.get(), width, height, QImage::Format_RGB32);
 	if (image.isNull())
-	{
-		delete[] buffer;
 		return;
-	}
 
 	auto mskStr = std::make_shared<ImageStream>(maskStr, maskWidth, maskColorMap->getNumPixelComps(), maskColorMap->getBits());
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 02, 0)
@@ -2610,11 +2607,11 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 #endif
 
 	unsigned char *mdest = nullptr;
-	unsigned char * mbuffer = new unsigned char[maskWidth * maskHeight];
-	memset(mbuffer, 0, maskWidth * maskHeight);
+	std::unique_ptr<unsigned char[]>  mbuffer(new unsigned char[maskWidth * maskHeight]);
+	memset(mbuffer.get(), 0, maskWidth * maskHeight);
 	for (int y = 0; y < maskHeight; y++)
 	{
-		mdest = mbuffer + y * maskWidth;
+		mdest = mbuffer.get() + y * maskWidth;
 		unsigned char * pix = mskStr->getLine();
 		maskColorMap->getGrayLine(pix, mdest, maskWidth);
 	}
@@ -2657,9 +2654,6 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 	}
 
 	createImageFrame(res, state, 3);
-
-	delete[] buffer;
-	delete[] mbuffer;
 }
 
 void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  int width, int height, GfxImageColorMap *colorMap, bool interpolate, Stream *maskStr, int maskWidth, int maskHeight, bool maskInvert, bool maskInterpolate)
@@ -2675,20 +2669,17 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 #endif
 
 	unsigned int *dest = nullptr;
-	unsigned char * buffer = new unsigned char[width * height * 4];
+	std::unique_ptr<unsigned char[]> buffer(new unsigned char[width * height * 4]);
 	for (int y = 0; y < height; y++)
 	{
-		dest = (unsigned int *)(buffer + y * 4 * width);
+		dest = (unsigned int *)(buffer.get() + y * 4 * width);
 		unsigned char * pix = imgStr->getLine();
 		colorMap->getRGBLine(pix, dest, width);
 	}
 
-	QImage image(buffer, width, height, QImage::Format_RGB32);
+	QImage image(buffer.get(), width, height, QImage::Format_RGB32);
 	if (image.isNull())
-	{
-		delete[] buffer;
 		return;
-	}
 
 	auto mskStr = std::make_shared<ImageStream>(maskStr, maskWidth, 1, 1);
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 02, 0)
@@ -2701,11 +2692,11 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 
 	unsigned char *mdest = nullptr;
 	int invert_bit = maskInvert ? 1 : 0;
-	unsigned char * mbuffer = new unsigned char[maskWidth * maskHeight];
-	memset(mbuffer, 0, maskWidth * maskHeight);
+	std::unique_ptr<unsigned char[]> mbuffer(new unsigned char[maskWidth * maskHeight]);
+	memset(mbuffer.get(), 0, maskWidth * maskHeight);
 	for (int y = 0; y < maskHeight; y++)
 	{
-		mdest = mbuffer + y * maskWidth;
+		mdest = mbuffer.get() + y * maskWidth;
 		unsigned char * pix = mskStr->getLine();
 		for (int x = 0; x < maskWidth; x++)
 		{
@@ -2736,9 +2727,6 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 	}
 
 	createImageFrame(res, state, 3);
-
-	delete[] buffer;
-	delete[] mbuffer;
 }
 
 void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int width, int height, GfxImageColorMap *colorMap, bool interpolate, const int* maskColors, bool inlineImg)
