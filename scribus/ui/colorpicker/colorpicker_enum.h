@@ -100,7 +100,6 @@ struct CPGradientVectorData
 	double C4Y = 0.0;
 	double C5X = 0.0;
 	double C5Y = 0.0;
-
 };
 
 struct CPColorData
