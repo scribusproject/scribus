@@ -1694,7 +1694,7 @@ void SlaOutputDev::stroke(GfxState *state)
 	out.map(m_ctm);
 
 	// Path is the same as in last fill
-	if (!m_Elements->isEmpty() && /*(m_coords == output)*/
+	if (!m_Elements->isEmpty() &&
 	    ((m_Elements->last()->PoLine == out) || (m_pathIsClosed && (m_coords == output))))
 	{
 		PageItem* ite = m_Elements->last();
@@ -2160,7 +2160,7 @@ bool SlaOutputDev::gouraudTriangleShadedFill(GfxState *state, GfxGouraudTriangle
 		m_groupStack.top().Items.append(ite);
 		applyMask(ite);
 	}
-	GfxColor color[3];
+	GfxColor color[3] {};
 	double x0, y0, x1, y1, x2, y2;
 	for (int i = 0; i < shading->getNTriangles(); i++)
 	{
@@ -2990,7 +2990,7 @@ void SlaOutputDev::beginMarkedContent(const char *name, Object *dictRef)
 				oc = contentConfig->findOcgByRef(dictRef->getRef());
 				if (oc)
 				{
-					//					qDebug() << "Begin OCG Content with Name " << UnicodeParsedString(oc->getName());
+//					qDebug() << "Begin OCG Content with Name " << UnicodeParsedString(oc->getName());
 					m_doc->setActiveLayer(UnicodeParsedString(oc->getName()));
 					mSte.ocgName = UnicodeParsedString(oc->getName());
 				}
@@ -4065,7 +4065,7 @@ void SlaOutputDev::pushGroup(const QString& maskName, bool forSoftMask, bool alp
 QString SlaOutputDev::UnicodeParsedString(const GooString *s1) const
 {
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 10, 0)
-	if (!s1 || s1->size() == 0)
+	if (!s1 || s1->empty())
 		return QString();
 	bool isUnicode;
 	int i;
