@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include <QtXml>
 #include <QXmlStreamReader>
 
+#include <array>
 #include <iostream>
 
 #include "picturebrowser.h"
@@ -1583,13 +1584,12 @@ void PictureBrowser::previewImageSelectionChanged(const QItemSelection& /*select
 {
 	const QItemSelectionModel *selectionModel = imageViewArea->SelectionModel();
 	QModelIndexList selection = selectionModel->selectedIndexes();
-	int tmpIndex;
 
 	selectedIndexes.clear();
 
-	for (int i = 0; i < selection.size(); ++i)
+	for (const QModelIndex& selectionIndex : selection)
 	{
-		tmpIndex = selection.at(i).row();
+		int tmpIndex = selectionIndex.row();
 
 		//take filtered images into account
 		for (int j = 0; (j <= tmpIndex) && (j < pImages->previewImagesList.size()); ++j)
@@ -1815,7 +1815,7 @@ void PictureBrowser::saveCollectionsDb()
 void PictureBrowser::applyFilters()
 {
 	const QListWidgetItem *item;
-	int c[5] = {0, 0, 0, 0, 0};
+	std::array<int, 5> c = { 0, 0, 0, 0, 0 };
 	int filterType;
 
 	pImages->clearFilters();
@@ -1856,7 +1856,7 @@ void PictureBrowser::applyFilters()
 			}
 		}
 
-		if (filterType >= 0 && filterType < (int) std::size(c))
+		if (filterType >= 0 && filterType < (int) c.size())
 			c[filterType]++;
 	}
 }
