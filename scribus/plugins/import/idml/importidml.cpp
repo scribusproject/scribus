@@ -62,7 +62,7 @@ IdmlPlug::IdmlPlug(ScribusDoc* doc, int flags)
 	m_zip = nullptr;
 }
 
-QString IdmlPlug::getNodeValue(QDomNode &baseNode, const QString& path)
+QString IdmlPlug::getNodeValue(const QDomNode &baseNode, const QString& path) const
 {
 	QString ret;
 	QStringList pathParts = path.split("/", Qt::SkipEmptyParts);
@@ -71,9 +71,9 @@ QString IdmlPlug::getNodeValue(QDomNode &baseNode, const QString& path)
 		return QString();
 
 	bool fail = false;
-	for (int a = 1; a < pathParts.count(); a++)
+	for (int i = 1; i < pathParts.count(); i++)
 	{
-		n = n.namedItem(pathParts[a]);
+		n = n.namedItem(pathParts[i]);
 		if (n.isNull())
 		{
 			fail = true;
@@ -99,17 +99,15 @@ QImage IdmlPlug::readThumbnail(const QString& fName)
 	QString ext = fi.suffix().toLower();
 	if (ext == "idml")
 	{
-		m_zip = new ScZipHandler();
+		m_zip.reset(new ScZipHandler());
 		if (!m_zip->open(fName))
 		{
-			delete m_zip;
-			m_zip = nullptr;
+			m_zip.reset();
 			return QImage();
 		}
 		if (m_zip->contains("designmap.xml"))
 			m_zip->read("designmap.xml", f);
-		delete m_zip;
-		m_zip = nullptr;
+		m_zip.reset();
 	}
 	else if (ext == "idms")
 	{
@@ -175,7 +173,7 @@ QImage IdmlPlug::readThumbnail(const QString& fName)
 			m_Doc->DoDrawing = true;
 			m_Doc->m_Selection->delaySignalsOn();
 			QImage tmpImage;
-			if (Elements.count() > 0)
+			if (!Elements.isEmpty())
 			{
 				for (int dre=0; dre<Elements.count(); ++dre)
 				{
@@ -212,11 +210,10 @@ bool IdmlPlug::readColors(const QString& fileName, ColorList & colors)
 	QString ext = fi.suffix().toLower();
 	if (ext == "idml")
 	{
-		m_zip = new ScZipHandler();
+		m_zip.reset(new ScZipHandler());
 		if (!m_zip->open(fileName))
 		{
-			delete m_zip;
-			m_zip = nullptr;
+			m_zip.reset();
 			return false;
 		}
 		if (m_zip->contains("designmap.xml"))
@@ -229,15 +226,13 @@ bool IdmlPlug::readColors(const QString& fileName, ColorList & colors)
 
 	if (f.isEmpty())
 	{
-		delete m_zip;
-		m_zip = nullptr;
+		m_zip.reset();
 		return false;
 	}
 
 	if (!designMapDom.setContent(f))
 	{
-		delete m_zip;
-		m_zip = nullptr;
+		m_zip.reset();
 		return false;
 	}
 
@@ -261,18 +256,16 @@ bool IdmlPlug::readColors(const QString& fileName, ColorList & colors)
 			{
 				if (!parseGraphicsXML(dpg))
 				{
-					delete m_zip;
-					m_zip = nullptr;
+					m_zip.reset();
 					return false;
 				}
 			}
 		}
 	}
 
-	delete m_zip;
-	m_zip = nullptr;
+	m_zip.reset();
 
-	if (importedColors.count() != 0)
+	if (!importedColors.isEmpty())
 	{
 		colors = m_Doc->PageColors;
 		success = true;
@@ -281,7 +274,7 @@ bool IdmlPlug::readColors(const QString& fileName, ColorList & colors)
 	return success;
 }
 
-bool IdmlPlug::import(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
+bool IdmlPlug::importFile(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
 {
 	bool success = false;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
@@ -314,14 +307,14 @@ bool IdmlPlug::import(const QString& fNameIn, const TransactionSettings& trSetti
 		progressDialog->setProgress("GI", 0);
 		progressDialog->show();
 		connect(progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
-		qApp->processEvents();
+		QApplication::processEvents();
 	}
 	else
 		progressDialog = nullptr;
 	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(1);
-		qApp->processEvents();
+		QApplication::processEvents();
 	}
 	/* Set default Page to size defined in Preferences */
 	docWidth = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
@@ -349,12 +342,12 @@ bool IdmlPlug::import(const QString& fNameIn, const TransactionSettings& trSetti
 			baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
 		}
 	}
-	if ((!ret) && (interactive))
+	if (!ret && interactive)
 	{
 		baseX = m_Doc->currentPage()->xOffset();
 		baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
 	}
-	if ((ret) || (!interactive))
+	if (ret || !interactive)
 	{
 		if (docWidth > docHeight)
 			m_Doc->setPageOrientation(1);
@@ -370,7 +363,7 @@ bool IdmlPlug::import(const QString& fNameIn, const TransactionSettings& trSetti
 	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
 		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
-	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
+	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.path());
 	if (convert(fNameIn))
@@ -382,8 +375,8 @@ bool IdmlPlug::import(const QString& fNameIn, const TransactionSettings& trSetti
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->setLoading(false);
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		if ((Elements.count() > 0) && (!ret) && (interactive))
+		QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		if (!Elements.isEmpty() && !ret && interactive)
 		{
 			if (flags & LoadSavePlugin::lfScripted)
 			{
@@ -421,7 +414,7 @@ bool IdmlPlug::import(const QString& fNameIn, const TransactionSettings& trSetti
 				m_Doc->m_Selection->delaySignalsOff();
 				// We must copy the TransationSettings object as it is owned
 				// by handleObjectImport method afterwards
-				TransactionSettings* transacSettings = new TransactionSettings(trSettings);
+				auto* transacSettings = new TransactionSettings(trSettings);
 				m_Doc->view()->handleObjectImport(md, transacSettings);
 				m_Doc->DragP = false;
 				m_Doc->DraggedElem = nullptr;
@@ -444,17 +437,17 @@ bool IdmlPlug::import(const QString& fNameIn, const TransactionSettings& trSetti
 		m_Doc->scMW()->setScriptRunning(false);
 		if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 			m_Doc->view()->updatesOn(true);
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}
 	if (interactive)
 		m_Doc->setLoading(false);
 	//CB If we have a gui we must refresh it if we have used the progressbar
 	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 	{
-		if ((showProgress) && (!interactive))
+		if (showProgress && !interactive)
 			m_Doc->view()->DrawNew();
 	}
-	qApp->restoreOverrideCursor();
+	QApplication::restoreOverrideCursor();
 	return success;
 }
 
@@ -516,7 +509,7 @@ bool IdmlPlug::convert(const QString& fn)
 	{
 		progressDialog->setOverallProgress(2);
 		progressDialog->setLabel("GI", tr("Generating Items"));
-		qApp->processEvents();
+		QApplication::processEvents();
 	}
 	colorTranslate.insert("Swatch/None", CommonStrings::None);
 	bool retVal = true;
@@ -527,11 +520,10 @@ bool IdmlPlug::convert(const QString& fn)
 	QString ext = fi.suffix().toLower();
 	if (ext == "idml")
 	{
-		m_zip = new ScZipHandler();
+		m_zip.reset(new ScZipHandler());
 		if (!m_zip->open(fn))
 		{
-			delete m_zip;
-			m_zip = nullptr;
+			m_zip.reset();
 			return false;
 		}
 		if (m_zip->contains("designmap.xml"))
@@ -546,8 +538,7 @@ bool IdmlPlug::convert(const QString& fn)
 	{
 		if (progressDialog)
 			progressDialog->close();
-		delete m_zip;
-		m_zip = nullptr;
+		m_zip.reset();
 		return false;
 	}
 
@@ -555,8 +546,7 @@ bool IdmlPlug::convert(const QString& fn)
 	{
 		if (progressDialog)
 			progressDialog->close();
-		delete m_zip;
-		m_zip = nullptr;
+		m_zip.reset();
 		return false;
 	}
 
@@ -689,8 +679,7 @@ bool IdmlPlug::convert(const QString& fn)
 	}
 	if (!frameLinks.isEmpty())
 	{
-		QMap<PageItem*, QString>::Iterator lc;
-		for (lc = frameLinks.begin(); lc != frameLinks.end(); ++lc)
+		for (auto lc = frameLinks.begin(); lc != frameLinks.end(); ++lc)
 		{
 			PageItem *Its = lc.key();
 			PageItem *Itn = frameTargets[lc.value()];
@@ -707,8 +696,7 @@ bool IdmlPlug::convert(const QString& fn)
 		m_Doc->setActiveLayer(activeLayer);
 	}
 
-	delete m_zip;
-	m_zip = nullptr;
+	m_zip.reset();
 
 	if (progressDialog)
 		progressDialog->close();
@@ -843,7 +831,7 @@ void IdmlPlug::parseGraphicsXMLNode(const QDomElement& grNode)
 			QString grSelf = e.attribute("Self");
 			QString grName = e.attribute("Self").remove(0, 9);
 			int grTyp = (e.attribute("Type") == "Linear") ? 6 : 7;
-			VGradient currentGradient = VGradient(VGradient::linear);
+			VGradient currentGradient(VGradient::linear);
 			currentGradient.clearStops();
 			for (QDomNode gr = e.firstChild(); !gr.isNull(); gr = gr.nextSibling())
 			{
@@ -1234,7 +1222,7 @@ void IdmlPlug::parseParagraphStyle(const QDomElement& styleElem)
 				{
 					if (i.attribute("type") == "unit")
 					{
-						int lead = i.text().toDouble();
+						double lead = i.text().toDouble();
 						if (lead != 0)
 						{
 							newStyle.setLineSpacingMode(ParagraphStyle::FixedLineSpacing);
@@ -1289,7 +1277,7 @@ void IdmlPlug::parseParagraphStyle(const QDomElement& styleElem)
 
 						}
 					}
-					if (tbs.count() > 0)
+					if (!tbs.isEmpty())
 						newStyle.setTabValues(tbs);
 				}
 			}
@@ -1592,7 +1580,7 @@ void IdmlPlug::parseSpreadXMLNode(const QDomElement& spNode)
 							}
 							else
 							{
-								if ((masterSpreads[mSpr].count() > 0))
+								if (!masterSpreads[mSpr].isEmpty())
 									mp = mSpr + "_" + masterSpreads[mSpr][0];
 							}
 							m_Doc->applyMasterPage(mp, m_Doc->currentPageNumber());
@@ -1616,7 +1604,7 @@ void IdmlPlug::parseSpreadXMLNode(const QDomElement& spNode)
 					}
 				}
 			}
-			if ((facingPages) && (pagecount % 2 == 0))
+			if (facingPages && (pagecount % 2 == 0))
 			{
 				baseX = m_Doc->currentPage()->xOffset() + m_Doc->currentPage()->width();
 				baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
@@ -1878,8 +1866,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 		forLayer = m_Doc->layerName(0);
 	int layerNum = 0;
 	ScLayers::iterator itend = m_Doc->Layers.end();
-	ScLayers::iterator it;
-	for (it = m_Doc->Layers.begin(); it != itend; ++it)
+	for (auto it = m_Doc->Layers.begin(); it != itend; ++it)
 	{
 		if (it->Name == forLayer)
 		{
@@ -1985,7 +1972,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 								GCoords.svgCurveToCubic(p1.x(), p1.y(), p2.x(), p2.y(), p3.x(), p3.y());
 							}
 						}
-						else if (pointList.count() > 0)
+						else if (!pointList.isEmpty())
 						{
 							if (isOpen)
 							{
@@ -2603,7 +2590,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 			{
 				double scXi, scYi, roti, dxi, dyi;
 				getTransformValuesFromMatrix(imageTransform, scXi, scYi, roti, dxi, dyi);
-				if (imageData.size() > 0)
+				if (!imageData.isEmpty())
 				{
 					QString imgExt;
 					if (imageType.contains("EPS", Qt::CaseInsensitive))
@@ -2655,7 +2642,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 				}
 				else
 				{
-					QUrl url = QUrl(imageFileName);
+					QUrl url(imageFileName);
 					QString fiNam = url.toLocalFile();
 					QFileInfo fi(fiNam);
 					QByteArray fileName;
@@ -2691,7 +2678,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 	}
 	else
 	{
-		if (GElements.count() > 0)
+		if (!GElements.isEmpty())
 		{
 			double minx =  std::numeric_limits<double>::max();
 			double miny =  std::numeric_limits<double>::max();
@@ -2835,7 +2822,7 @@ void IdmlPlug::parseParagraphStyleRange(QDomElement &ste, PageItem* item)
 	int posT = item->itemText.length();
 	if (posT > 0)
 	{
-		if ((item->itemText.text(posT - 1) != SpecialChars::PARSEP))
+		if (item->itemText.text(posT - 1) != SpecialChars::PARSEP)
 			item->itemText.insertChars(posT, SpecialChars::PARSEP);
 	}
 	item->itemText.applyStyle(posT, newStyle);
@@ -2864,7 +2851,7 @@ void IdmlPlug::parseCharacterStyleRange(QDomElement &stt, PageItem* item, QStrin
 		{
 			if (sp.attribute("type") == "unit")
 			{
-				int lead = sp.text().toDouble();
+				double lead = sp.text().toDouble();
 				if (lead != 0)
 				{
 					newStyle.setLineSpacingMode(ParagraphStyle::FixedLineSpacing);
@@ -2983,9 +2970,9 @@ void IdmlPlug::parseCharacterStyleRange(QDomElement &stt, PageItem* item, QStrin
 			m_Doc->dontResize = true;
 			int z = m_Doc->itemAdd(PageItem::Table, PageItem::Unspecified, 0, 0, qMin(item->width() - 2, twidth), qMin(item->height() - 2, theight), 0.0, CommonStrings::None, CommonStrings::None);
 			PageItem_Table* currItem = m_Doc->Items->takeAt(z)->asTable();
-			currItem->insertRows(0, rowHeights.count()-1);
+			currItem->insertRows(0, rowHeights.count() - 1);
 			m_Doc->dontResize = true;
-			currItem->insertColumns(0, colWidths.count()-1);
+			currItem->insertColumns(0, colWidths.count() - 1);
 			m_Doc->dontResize = true;
 			for (int i = 0; i < rowHeights.count(); i++)
 			{
@@ -3048,7 +3035,7 @@ void IdmlPlug::parseCharacterStyleRange(QDomElement &stt, PageItem* item, QStrin
 		//	}
 		}
 	}
-	if (data.length() > 0)
+	if (!data.isEmpty())
 	{
 		item->itemText.insertChars(posC, data);
 		item->itemText.applyStyle(posC, newStyle);
@@ -3179,7 +3166,7 @@ void IdmlPlug::readParagraphStyleAttributes(ParagraphStyle &newStyle, const QDom
 */
 }
 
-int IdmlPlug::convertBlendMode(const QString& blendName)
+int IdmlPlug::convertBlendMode(const QString& blendName) const
 {
 	int mode = 0;
 	if (blendName == "Normal")
@@ -3313,12 +3300,12 @@ QString IdmlPlug::constructFontName(const QString& fontBaseName, const QString& 
 					family.remove("$ID/");
 					if (!PrefsManager::instance().appPrefs.fontPrefs.GFontSub.contains(family))
 					{
-						qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+						QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 						MissingFont *dia = new MissingFont(nullptr, family, m_Doc);
 						dia->exec();
 						fontName = dia->getReplacementFont();
 						delete dia;
-						qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+						QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
 						PrefsManager::instance().appPrefs.fontPrefs.GFontSub[family] = fontName;
 					}
 					else

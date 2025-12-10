@@ -13,18 +13,21 @@ for which a new license (GPL+exception) is in place.
 #ifndef IMPORTIDML_H
 #define IMPORTIDML_H
 
-#include "pluginapi.h"
-#include "pageitem.h"
-#include "sccolor.h"
-#include "fpointarray.h"
-#include <QList>
-#include <QTransform>
-#include <QMultiMap>
-#include <QtGlobal>
-#include <QObject>
-#include <QString>
+#include <memory>
+
 #include <QDomDocument>
 #include <QDomElement>
+#include <QList>
+#include <QMultiMap>
+#include <QObject>
+#include <QString>
+#include <QtGlobal>
+#include <QTransform>
+
+#include "fpointarray.h"
+#include "pageitem.h"
+#include "pluginapi.h"
+#include "sccolor.h"
 
 #include "third_party/zip/scribus_zip.h"
 
@@ -49,7 +52,7 @@ public:
 	\retval EPSPlug plugin
 	*/
 	IdmlPlug( ScribusDoc* doc, int flags );
-	~IdmlPlug();
+	~IdmlPlug() override;
 
 	/*!
 	\author Franz Schmid
@@ -61,7 +64,7 @@ public:
 	\param showProgress if progress must be displayed
 	\retval bool true if import was ok
 	 */
-	bool import(const QString& fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
+	bool importFile(const QString& fn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
 	QImage readThumbnail(const QString& fn);
 	bool readColors(const QString& fileName, ColorList & colors);
 
@@ -73,29 +76,29 @@ private:
 		QString fillGradient;
 		QString strokeColor;
 		QString strokeGradient;
-		int fillTint;
-		int strokeTint;
-		double lineWidth;
-		double Opacity;
-		int blendMode;
+		int fillTint { 100 };
+		int strokeTint { 100 };
+		double lineWidth { 0.0 };
+		double Opacity { 0.0 };
+		int blendMode { 0 };
 		QPointF gradientFillStart;
-		double gradientFillLength;
-		double gradientFillAngle;
+		double gradientFillLength { 0.0 };
+		double gradientFillAngle { 0.0 };
 		QPointF gradientStrokeStart;
-		double gradientStrokeLength;
-		double gradientStrokeAngle;
-		double Extra;
-		double TExtra;
-		double BExtra;
-		double RExtra;
-		double TextColumnCount;
-		double TextColumnGutter;
-		double TextColumnFixedWidth;
-		PageItem::TextFlowMode TextFlow;
+		double gradientStrokeLength { 0.0 };
+		double gradientStrokeAngle { 0.0 };
+		double Extra { 0.0 };
+		double TExtra { 0.0 };
+		double BExtra { 0.0 };
+		double RExtra { 0.0 };
+		double TextColumnCount { 1.0 };
+		double TextColumnGutter { 0.0 };
+		double TextColumnFixedWidth { 0.0 };
+		PageItem::TextFlowMode TextFlow { PageItem::TextFlowMode::TextFlowDisabled };
 		QString LeftLineEnd;
 		QString RightLineEnd;
 	};
-	QString getNodeValue(QDomNode &baseNode, const QString& path);
+	QString getNodeValue(const QDomNode &baseNode, const QString& path) const;
 	bool convert(const QString& fn);
 	bool parseFontsXML(const QDomElement& grElem);
 	void parseFontsXMLNode(const QDomElement& grNode);
@@ -118,27 +121,28 @@ private:
 	void readCharStyleAttributes(CharStyle &newStyle, const QDomElement &styleElem);
 	void readParagraphStyleAttributes(ParagraphStyle &newStyle, const QDomElement &styleElem);
 	void resolveObjectStyle(ObjectStyle &nstyle, const QString& baseStyleName);
-	int convertBlendMode(const QString& blendName);
+	int convertBlendMode(const QString& blendName) const;
 	QString constructFontName(const QString& fontBaseName, const QString& fontStyle);
 	
 	QList<PageItem*> Elements;
-	double baseX, baseY;
-	double docWidth;
-	double docHeight;
+	double baseX { 0.0 };
+	double baseY { 0.0 };
+	double docWidth { 1.0 };
+	double docHeight { 1.0 };
 
 	FPointArray Coords;
-	bool interactive;
+	bool interactive { false };
 	MultiProgressDialog * progressDialog { nullptr };
-	bool cancel;
-	ScribusDoc* m_Doc;
-	Selection* tmpSel;
-	int importerFlags;
+	bool cancel { false };
+	ScribusDoc* m_Doc { nullptr };
+	Selection* tmpSel { nullptr };
+	int importerFlags { 0 };
 	QString baseFile;
-	bool firstLayer;
-	bool firstPage;
-	int pagecount;
-	int mpagecount;
-	bool facingPages;
+	bool firstLayer { true };
+	bool firstPage { true };
+	int pagecount { 1 };
+	int mpagecount { 0 };
+	bool facingPages { false };
 	QDomDocument designMapDom;
 	QStringList importedColors;
 	QMap<QString, QString> colorTranslate;
@@ -158,36 +162,36 @@ private:
 	QString def_strokeGradient;
 	QString def_LeftLineEnd;
 	QString def_RightLineEnd;
-	int def_Blendmode;
-	int def_fillBlendmode;
-	int def_strokeBlendmode;
-	int def_fillTint;
-	int def_strokeTint;
-	double def_lineWidth;
-	double def_Opacity;
-	double def_fillOpacity;
-	double def_strokeOpacity;
-	double def_gradientAngle;
-	double def_gradientLen;
-	double def_gradientX;
-	double def_gradientY;
-	double def_gradientStrokeStartX;
-	double def_gradientStrokeStartY;
-	double def_gradientStrokeLength;
-	double def_gradientStrokeAngle;
-	double def_Extra;
-	double def_TExtra;
-	double def_BExtra;
-	double def_RExtra;
-	double def_TextColumnCount;
-	double def_TextColumnGutter;
-	double def_TextColumnFixedWidth;
-	PageItem::TextFlowMode def_TextFlow;
+	int def_Blendmode { 0 };
+	int def_fillBlendmode { 0 };
+	int def_strokeBlendmode { 0 };
+	int def_fillTint { 100 };
+	int def_strokeTint { 100 };
+	double def_lineWidth { 0.0 };
+	double def_Opacity { 0.0 };
+	double def_fillOpacity { 0.0 };
+	double def_strokeOpacity { 0.0 };
+	double def_gradientAngle { 0.0 };
+	double def_gradientLen { 0.0 };
+	double def_gradientX { 0.0 };
+	double def_gradientY { 0.0 };
+	double def_gradientStrokeStartX { 0.0 };
+	double def_gradientStrokeStartY { 0.0 };
+	double def_gradientStrokeLength { 0.0 };
+	double def_gradientStrokeAngle { 0.0 };
+	double def_Extra { 0.0 };
+	double def_TExtra { 0.0 };
+	double def_BExtra { 0.0 };
+	double def_RExtra { 0.0 };
+	double def_TextColumnCount { 1.0 };
+	double def_TextColumnGutter { 0.0 };
+	double def_TextColumnFixedWidth { 0.0 };
+	PageItem::TextFlowMode def_TextFlow { PageItem::TextFlowMode::TextFlowDisabled };
 	QMap<PageItem*, QString> frameLinks;
 	QMap<QString, PageItem*> frameTargets;
 	QMap<QString, ObjectStyle> ObjectStyles;
 
-	ScZipHandler *m_zip { nullptr };
+	std::unique_ptr<ScZipHandler> m_zip;
 
 public slots:
 	void cancelRequested() { cancel = true; }

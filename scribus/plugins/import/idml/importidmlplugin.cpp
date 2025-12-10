@@ -10,6 +10,8 @@ for which a new license (GPL+exception) is in place.
 	copyright            : (C) 2012 by Franz Schmid
 	email                : Franz.Schmid@altmuehlnet.de
  ***************************************************************************/
+#include <memory>
+
 #include "commonstrings.h"
 
 #include "importidml.h"
@@ -33,14 +35,14 @@ int importidml_getPluginAPIVersion()
 
 ScPlugin* importidml_getPlugin()
 {
-	ImportIdmlPlugin* plug = new ImportIdmlPlugin();
+	auto* plug = new ImportIdmlPlugin();
 	Q_CHECK_PTR(plug);
 	return plug;
 }
 
 void importidml_freePlugin(ScPlugin* plugin)
 {
-	ImportIdmlPlugin* plug = qobject_cast<ImportIdmlPlugin*>(plugin);
+	auto* plug = qobject_cast<ImportIdmlPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }
@@ -54,6 +56,11 @@ ImportIdmlPlugin::ImportIdmlPlugin() :
 	languageChange();
 }
 
+ImportIdmlPlugin::~ImportIdmlPlugin()
+{
+	unregisterAll();
+}
+
 void ImportIdmlPlugin::languageChange()
 {
 	importAction->setText( tr("Import Idml..."));
@@ -65,20 +72,14 @@ void ImportIdmlPlugin::languageChange()
 	fmt2->filter = tr("Adobe InDesign IDMS (*.idms *.IDMS)");
 }
 
-ImportIdmlPlugin::~ImportIdmlPlugin()
-{
-	unregisterAll();
-}
-
 QString ImportIdmlPlugin::fullTrName() const
 {
 	return QObject::tr("Idml Importer");
 }
 
-
 const ScActionPlugin::AboutData* ImportIdmlPlugin::getAboutData() const
 {
-	AboutData* about = new AboutData;
+	auto* about = new AboutData;
 	about->authors = "Franz Schmid <franz@scribus.info>";
 	about->shortDescription = tr("Imports IDML Files");
 	about->description = tr("Imports most IDML files into the current document, converting their vector data into Scribus objects.");
@@ -132,31 +133,32 @@ bool ImportIdmlPlugin::fileSupported(QIODevice* /* file */, const QString & file
 bool ImportIdmlPlugin::loadFile(const QString & fileName, const FileFormat &, int flags, int /*index*/)
 {
 	// There's only one format to handle, so we just call import(...)
-	return import(fileName, flags);
+	return importFile(fileName, flags);
 }
 
-bool ImportIdmlPlugin::import(QString fileName, int flags)
+bool ImportIdmlPlugin::importFile(QString fileName, int flags)
 {
 	if (!checkFlags(flags))
 		return false;
+
 	if (fileName.isEmpty())
 	{
 		flags |= lfInteractive;
 		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("importidml");
 		QString wdir = prefs->get("wdir", ".");
-		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), tr("All Supported Formats")+" (*.idml *.IDML *.idms *.IDMS);;All Files (*)");
-		if (diaf.exec())
-		{
-			fileName = diaf.selectedFile();
-			prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
-		}
-		else
+		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), tr("All Supported Formats") + " (*.idml *.IDML *.idms *.IDMS);;All Files (*)");
+		if (!diaf.exec())
 			return true;
+		fileName = diaf.selectedFile();
+		prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
 	}
+
 	m_Doc = ScCore->primaryMainWindow()->doc;
+
 	UndoTransaction activeTransaction;
 	bool emptyDoc = (m_Doc == nullptr);
 	bool hasCurrentPage = (m_Doc && m_Doc->currentPage());
+
 	TransactionSettings trSettings;
 	trSettings.targetName   = hasCurrentPage ? m_Doc->currentPage()->getUName() : "";
 	trSettings.targetPixmap = Um::IImageFrame;
@@ -167,14 +169,16 @@ bool ImportIdmlPlugin::import(QString fileName, int flags)
 		UndoManager::instance()->setUndoEnabled(false);
 	if (UndoManager::undoEnabled())
 		activeTransaction = UndoManager::instance()->beginTransaction(trSettings);
-	IdmlPlug *dia = new IdmlPlug(m_Doc, flags);
+
+	auto dia = std::make_unique<IdmlPlug>(m_Doc, flags);
 	Q_CHECK_PTR(dia);
-	dia->import(fileName, trSettings, flags, !(flags & lfScripted));
+	dia->importFile(fileName, trSettings, flags, !(flags & lfScripted));
+
 	if (activeTransaction)
 		activeTransaction.commit();
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(true);
-	delete dia;
+
 	return true;
 }
 
@@ -184,11 +188,10 @@ QImage ImportIdmlPlugin::readThumbnail(const QString& fileName)
 		return QImage();
 	UndoManager::instance()->setUndoEnabled(false);
 	m_Doc = nullptr;
-	IdmlPlug *dia = new IdmlPlug(m_Doc, lfCreateThumbnail);
+	auto dia = std::make_unique<IdmlPlug>(m_Doc, lfCreateThumbnail);
 	Q_CHECK_PTR(dia);
 	QImage ret = dia->readThumbnail(fileName);
 	UndoManager::instance()->setUndoEnabled(true);
-	delete dia;
 	return ret;
 }
 
@@ -198,10 +201,9 @@ bool ImportIdmlPlugin::readColors(const QString& fileName, ColorList &colors)
 		return false;
 	UndoManager::instance()->setUndoEnabled(false);
 	m_Doc = nullptr;
-	IdmlPlug *dia = new IdmlPlug(m_Doc, lfCreateThumbnail);
+	auto dia = std::make_unique<IdmlPlug>(m_Doc, lfCreateThumbnail);
 	Q_CHECK_PTR(dia);
 	bool ret = dia->readColors(fileName, colors);
 	UndoManager::instance()->setUndoEnabled(true);
-	delete dia;
 	return ret;
 }
