@@ -304,7 +304,7 @@ std::unique_ptr<LinkAction> SlaOutputDev::SC_getAction(AnnotWidget *ano)
 	if (obj.isDict())
 	{
 		const Dict* adic = obj.getDict();
-		const Object & additionalActions = adic->lookupNF("A");
+		const Object& additionalActions = adic->lookupNF("A");
 		Object additionalActionsObject = additionalActions.fetch(m_pdfDoc->getXRef());
 		if (additionalActionsObject.isDict())
 		{
@@ -333,7 +333,7 @@ std::unique_ptr<LinkAction> SlaOutputDev::SC_getAdditionalAction(const char *key
 	if (obj.isDict())
 	{
 		const Dict* adic = obj.getDict();
-		const Object & additionalActions = adic->lookupNF("AA");
+		const Object& additionalActions = adic->lookupNF("AA");
 		Object additionalActionsObject = additionalActions.fetch(m_pdfDoc->getXRef());
 		if (additionalActionsObject.isDict())
 		{
@@ -874,7 +874,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 				QList<int> radList;
 				for (int i = 0; i < obj2.arrayGetLength(); i++)
 				{
-					const Object & childRef = obj2.arrayGetNF(i);
+					const Object& childRef = obj2.arrayGetNF(i);
 					if (!childRef.isRef())
 						continue;
 					Object childObj = obj2.arrayGet(i);
@@ -943,8 +943,8 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 		else if (Lact->getKind() == actionGoTo)
 		{
 			int pagNum = 0;
-			int xco = 0;
-			int yco = 0;
+			double xco = 0;
+			double yco = 0;
 			const auto *gto = (LinkGoTo*) Lact;
 			const LinkDest *dst = gto->getDest();
 			if (dst)
@@ -2128,9 +2128,9 @@ bool SlaOutputDev::patchMeshShadedFill(GfxState *state, GfxPatchMeshShading *sha
 	ite->meshGradientPatches.clear();
 	for (int i = 0; i < shading->getNPatches(); i++)
 	{
-		int shade = 100;
 		int u = 0;
 		int v = 0;
+		int shade = 100;
 		const GfxPatch *patch = shading->getPatch(i);
 		GfxColor color;
 		meshGradientPatch patchM;
