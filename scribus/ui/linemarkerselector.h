@@ -18,10 +18,10 @@ public:
 	void setArrowDirection(ArrowDirection direction);
 	void languageChange();
 
-	QIcon currentIcon();
-	double scale();
+	QIcon currentIcon() const;
+	double scale() const;
 	void setScale(double value);
-	int marker();
+	int marker() const;
 	void setMarker(int id);
 	QString scaleSuffix() const;
 	void setScaleSuffix(const QString suffix);
@@ -29,7 +29,7 @@ public:
 private:
 	ArrowDirection m_arrowDirection { ArrowDirection::StartArrow };
 	int arrow = 23;
-	const QList<ArrowDesc> *m_arrowStyles;
+	const QList<ArrowDesc> *m_arrowStyles { nullptr };
 
 	QPixmap renderPixmap(FPointArray path, int width, int height, int scale);
 

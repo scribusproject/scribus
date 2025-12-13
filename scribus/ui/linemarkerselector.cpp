@@ -99,7 +99,7 @@ void LineMarkerSelector::languageChange()
 	numberScale->setToolTip( tr("Arrow head scale of line"));
 }
 
-double LineMarkerSelector::scale()
+double LineMarkerSelector::scale() const
 {
 	return numberScale->value();
 }
@@ -109,7 +109,7 @@ void LineMarkerSelector::setScale(double value)
 	numberScale->setValue(value);
 }
 
-int LineMarkerSelector::marker()
+int LineMarkerSelector::marker() const
 {
 	if (listMarker->currentItem() != nullptr)
 		return listMarker->currentItem()->data(arrow).toInt();
@@ -169,7 +169,7 @@ QPixmap LineMarkerSelector::renderPixmap(FPointArray path, int width, int height
 	QImage image(width, height, QImage::Format_ARGB32_Premultiplied);
 	image.fill(0);
 
-	ScPainter *painter = new ScPainter(&image, width, height);
+	auto *painter = new ScPainter(&image, width, height);
 	painter->setStrokeMode(ScPainter::Solid); // solid line
 
 	// paint line
@@ -199,7 +199,7 @@ QPixmap LineMarkerSelector::renderPixmap(FPointArray path, int width, int height
 	return QPixmap::fromImage(image);
 }
 
-QIcon LineMarkerSelector::currentIcon()
+QIcon LineMarkerSelector::currentIcon() const
 {
 	QIcon ico;
 
