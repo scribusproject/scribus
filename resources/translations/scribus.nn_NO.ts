@@ -9382,17 +9382,17 @@ lista over ord som skal oversjåast</translation>
 <context>
     <name>IdmlPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="305"/>
+        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="298"/>
         <source>Importing: %1</source>
         <translation>Importerer: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="308"/>
+        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="301"/>
         <source>Analyzing File:</source>
         <translation>Analyserer fila:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="518"/>
+        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="511"/>
         <source>Generating Items</source>
         <translation>Lagar objekt</translation>
     </message>
@@ -9979,46 +9979,46 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>ImportIdmlPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="59"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="66"/>
         <source>Import Idml...</source>
         <translation>Importér Idml …</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="83"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="84"/>
         <source>Imports IDML Files</source>
         <translation>Importerer IDML-filer</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="61"/>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="99"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="68"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="100"/>
         <source>Adobe InDesign IDML</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="62"/>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="100"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="69"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="101"/>
         <source>Adobe InDesign IDML (*.idml *.IDML)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="64"/>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="113"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="71"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="114"/>
         <source>Adobe InDesign IDMS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="65"/>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="114"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="72"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="115"/>
         <source>Adobe InDesign IDMS (*.idms *.IDMS)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="84"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="85"/>
         <source>Imports most IDML files into the current document, converting their vector data into Scribus objects.</source>
         <translation>Importerer dei fleste IDML-filene til gjeldande dokument, med omgjering av vektordata deira til Scribus-objekt.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="147"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="149"/>
         <source>All Supported Formats</source>
         <translation>Alle støtta format</translation>
     </message>
@@ -16874,77 +16874,77 @@ Vél ei anna mappe.</translation>
         <translation>Sett merkelappar</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="393"/>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="699"/>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="770"/>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="844"/>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="883"/>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="974"/>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1160"/>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1226"/>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1316"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="394"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="700"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="771"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="845"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="884"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="975"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1161"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1227"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1317"/>
         <source>Picture Browser Error</source>
         <translation>Bildeframvisar-feil</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="393"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="394"/>
         <source>No Image(s) Selected</source>
         <translation>Ingen bilde valde</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="699"/>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1160"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="700"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1161"/>
         <source>You have to create a category first</source>
         <translation>Du må først laga ein kategori</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="844"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="845"/>
         <source>No image(s) selected</source>
         <translation>Ingen bilde valde</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="883"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="884"/>
         <source>No page/image frame selected</source>
         <translation>Ingen side / bilderamme vald</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="974"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="975"/>
         <source>Directory does not exist</source>
         <translation>Mappe eksisterer ikkje</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1128"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1129"/>
         <source>Select Directory</source>
         <translation>Vél ei mappe</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1199"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1200"/>
         <source>Import Image Collection</source>
         <translation>Importér bildesamling</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1199"/>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1219"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1200"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1220"/>
         <source>Scribus ImageCollection (*.sic)</source>
         <translation>Scribus bildesamling (*.sic)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1219"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1220"/>
         <source>Export Image Collection</source>
         <translation>Eksportér bildesamling</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1226"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1227"/>
         <source>You have to select something you want to export</source>
         <translation>Du må velja noko som du vil eksportera</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1316"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1317"/>
         <source>No tag entered</source>
         <translation>Ingen merkelapp oppgjeve</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1446"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1447"/>
         <source>%1 image(s) displayed, %2 image(s) filtered</source>
         <translation>%1 bilde viste, %2 bilde filtrerte</translation>
     </message>
@@ -26023,7 +26023,7 @@ Sjekk stien og filnamnet.</translation>
         <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="130"/>
         <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="127"/>
         <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="124"/>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="147"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="149"/>
         <location filename="../../scribus/plugins/import/idml_old/importidml.cpp" line="100"/>
         <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="146"/>
         <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="168"/>
@@ -31824,7 +31824,7 @@ Difor treng ikkje bildet vera korrekt</translation>
         <translation>Kantlinje-breidd må vera &gt; 0.0</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="75"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="77"/>
         <source>Idml Importer</source>
         <translation>IDML-importør</translation>
     </message>

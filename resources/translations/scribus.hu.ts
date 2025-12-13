@@ -5051,7 +5051,7 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_color.ui" line="65"/>
         <source>Opacity:</source>
-        <translation type="unfinished">Átlátszatlanság:</translation>
+        <translation>Átlátszatlanság:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_color.ui" line="75"/>
@@ -5234,19 +5234,19 @@ currently %2 x %3 DPI</source>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="123"/>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="357"/>
         <source>Y:</source>
-        <translation type="unfinished">Y:</translation>
+        <translation>Y:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="143"/>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="276"/>
         <source>X:</source>
-        <translation type="unfinished">X:</translation>
+        <translation>X:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="156"/>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="457"/>
         <source>Skew</source>
-        <translation type="unfinished">Nyírt</translation>
+        <translation>Nyírás</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="208"/>
@@ -5333,17 +5333,17 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="1089"/>
         <source>New Mesh...</source>
-        <translation type="unfinished"></translation>
+        <translation>Új színátmenetes háló...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="1096"/>
         <source>Reset Mesh</source>
-        <translation type="unfinished"></translation>
+        <translation>Színátmenetes háló alapállapotba</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="1103"/>
         <source>Mesh -&gt; Shape</source>
-        <translation type="unfinished"></translation>
+        <translation>Színátmenetes háló → Alakzat</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="1274"/>
@@ -5474,7 +5474,7 @@ currently %2 x %3 DPI</source>
         <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.ui" line="308"/>
         <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.cpp" line="296"/>
         <source>Skew</source>
-        <translation type="unfinished">Nyírt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.ui" line="343"/>
@@ -9379,17 +9379,17 @@ Ignore List</source>
 <context>
     <name>IdmlPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="305"/>
+        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="298"/>
         <source>Importing: %1</source>
         <translation>Importálás: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="308"/>
+        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="301"/>
         <source>Analyzing File:</source>
         <translation>Fájl elemzése:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="518"/>
+        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="511"/>
         <source>Generating Items</source>
         <translation>Elemek létrehozása</translation>
     </message>
@@ -9979,46 +9979,46 @@ Document Liberation Project számára: https://www.documentliberation.org</trans
 <context>
     <name>ImportIdmlPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="59"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="66"/>
         <source>Import Idml...</source>
         <translation>Idml importálása...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="83"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="84"/>
         <source>Imports IDML Files</source>
         <translation>IDML-fájlok importálása</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="61"/>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="99"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="68"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="100"/>
         <source>Adobe InDesign IDML</source>
         <translation>Adobe InDesign IDML</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="62"/>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="100"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="69"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="101"/>
         <source>Adobe InDesign IDML (*.idml *.IDML)</source>
         <translation>Adobe InDesign IDML (*.idml *.IDML)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="64"/>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="113"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="71"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="114"/>
         <source>Adobe InDesign IDMS</source>
         <translation>Adobe InDesign IDMS</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="65"/>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="114"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="72"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="115"/>
         <source>Adobe InDesign IDMS (*.idms *.IDMS)</source>
         <translation>Adobe InDesign IDMS (*.idms *.IDMS)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="84"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="85"/>
         <source>Imports most IDML files into the current document, converting their vector data into Scribus objects.</source>
         <translation>A legtöbb IDML-fájlt képes az aktuális dokumentumba importálni, a vektoros adataikat Scribus-objektumokká konvertálva.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="147"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="149"/>
         <source>All Supported Formats</source>
         <translation>Minden támogatott formátum</translation>
     </message>
@@ -16862,77 +16862,77 @@ Adjon meg egy másikat.</translation>
         <translation>Címke módosítása</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="393"/>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="699"/>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="770"/>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="844"/>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="883"/>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="974"/>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1160"/>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1226"/>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1316"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="394"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="700"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="771"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="845"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="884"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="975"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1161"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1227"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1317"/>
         <source>Picture Browser Error</source>
         <translation>Képböngésző-hiba</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="393"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="394"/>
         <source>No Image(s) Selected</source>
         <translation>Nincs kijelölt kép</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="699"/>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1160"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="700"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1161"/>
         <source>You have to create a category first</source>
         <translation>Előbb egy kategóriát kell létrehozni</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="844"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="845"/>
         <source>No image(s) selected</source>
         <translation>Nincs kijelölt kép</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="883"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="884"/>
         <source>No page/image frame selected</source>
         <translation>Nincs kijelölt oldal vagy képkeret</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="974"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="975"/>
         <source>Directory does not exist</source>
         <translation>Mappa nem létezik</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1128"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1129"/>
         <source>Select Directory</source>
         <translation>Mappa kijelölése</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1199"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1200"/>
         <source>Import Image Collection</source>
         <translation>Képgyűjtemény importálása</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1199"/>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1219"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1200"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1220"/>
         <source>Scribus ImageCollection (*.sic)</source>
         <translation>Scribus képgyűjtemény (*.sic)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1219"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1220"/>
         <source>Export Image Collection</source>
         <translation>Képgyűjtemény exportálása</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1226"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1227"/>
         <source>You have to select something you want to export</source>
         <translation>Ki kell jelölni valamit az exportáláshoz</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1316"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1317"/>
         <source>No tag entered</source>
         <translation>Nem lett címke megadva</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1446"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1447"/>
         <source>%1 image(s) displayed, %2 image(s) filtered</source>
         <translation>%1 kép megjelenítve, %2 kép szűrve</translation>
     </message>
@@ -26015,7 +26015,7 @@ Ellenőrizze az elérési útvonalat és a fájl nevét.</translation>
         <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="130"/>
         <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="127"/>
         <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="124"/>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="147"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="149"/>
         <location filename="../../scribus/plugins/import/idml_old/importidml.cpp" line="100"/>
         <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="146"/>
         <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="168"/>
@@ -31820,7 +31820,7 @@ A kép valószínűleg így nem lesz helyes</translation>
         <translation>A szegélyek szélessége &gt; 0.0 kell legyen</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="75"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="77"/>
         <source>Idml Importer</source>
         <translation>Idml-importáló</translation>
     </message>

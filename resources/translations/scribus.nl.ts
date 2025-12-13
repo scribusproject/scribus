@@ -1794,12 +1794,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1612"/>
         <source>Set Row Heights...</source>
-        <translation>Rijhoogte instellen…</translation>
+        <translation>Rijhoogtes instellen…</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1613"/>
         <source>Set Column Widths...</source>
-        <translation>Kolombreedte instellen…</translation>
+        <translation>Kolombreedtes instellen…</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1614"/>
@@ -2876,7 +2876,7 @@
     <message>
         <location filename="../../scribus/ui/applytemplatedialog.cpp" line="268"/>
         <source>Apply the selected master page to even, odd or all pages within the following range</source>
-        <translation>Geselecteerde paginasjabloon toepassen op even, oneven of alle pagina&apos;s binnen de reeks</translation>
+        <translation>Geselecteerde paginasjabloon toepassen op even, oneven of alle pagina&apos;s binnen het bereik</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/applytemplatedialog.cpp" line="257"/>
@@ -4304,7 +4304,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/charselect.cpp" line="312"/>
         <source>Save Quick Character Palette</source>
-        <translation>Lettertekenpalet snel opslaan</translation>
+        <translation>Snel lettertekenpalet opslaan</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/charselect.ui" line="34"/>
@@ -5425,7 +5425,7 @@ huidige resolutie %2 x %3 DPI</translation>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_hatch.cpp" line="80"/>
         <source>Hatch</source>
-        <translation>Arceren</translation>
+        <translation>Arcering</translation>
     </message>
 </context>
 <context>
@@ -5502,7 +5502,7 @@ huidige resolutie %2 x %3 DPI</translation>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.ui" line="456"/>
         <source>Use inverted Pattern</source>
-        <translation type="unfinished"></translation>
+        <translation>Omgekeerd patroon gebruiken </translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.ui" line="463"/>
@@ -6930,7 +6930,7 @@ Lees het gedeelte Kleuren bewerken van de documentatie voor meer details.</trans
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="14"/>
         <source>Create Range</source>
-        <translation>Reeks aanmaken</translation>
+        <translation>Bereik aanmaken</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="351"/>
@@ -6940,12 +6940,12 @@ Lees het gedeelte Kleuren bewerken van de documentatie voor meer details.</trans
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="36"/>
         <source>Basic Range Selection</source>
-        <translation>Basisselectie van reeks</translation>
+        <translation>Basisselectie van bereik</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="192"/>
         <source>Range of Pages</source>
-        <translation>Paginareeks</translation>
+        <translation>Bereik van pagina&apos;s</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="198"/>
@@ -6980,7 +6980,7 @@ Lees het gedeelte Kleuren bewerken van de documentatie voor meer details.</trans
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="48"/>
         <source>Add a Range of Pages</source>
-        <translation>Paginareeks toevoegen</translation>
+        <translation>Bereik van pagina&apos;s toevoegen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="54"/>
@@ -7005,7 +7005,7 @@ Lees het gedeelte Kleuren bewerken van de documentatie voor meer details.</trans
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="108"/>
         <source>&amp;Add To Range</source>
-        <translation>&amp;Aan reeks toevoegen</translation>
+        <translation>&amp;Aan bereik toevoegen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="111"/>
@@ -7043,7 +7043,7 @@ Lees het gedeelte Kleuren bewerken van de documentatie voor meer details.</trans
     <message>
         <location filename="../../scribus/plugins/gettext/csvim/csvdia.cpp" line="27"/>
         <source>CSV Importer Options</source>
-        <translation>Opties voor CSV-import</translation>
+        <translation>Opties voor CSV-importfilter</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/csvim/csvdia.cpp" line="37"/>
@@ -7104,7 +7104,7 @@ Lees het gedeelte Kleuren bewerken van de documentatie voor meer details.</trans
         <location filename="../../scribus/ui/cupsoptions.cpp" line="136"/>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="146"/>
         <source>Page Set</source>
-        <translation>Paginabereik</translation>
+        <translation>Paginaverzameling</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="143"/>
@@ -7435,7 +7435,7 @@ Lees het gedeelte Kleuren bewerken van de documentatie voor meer details.</trans
         <location filename="../../scribus/plugins/gettext/docim/docim.cpp" line="179"/>
         <source>Importing Word document failed 
 %1</source>
-        <translation>Het importeren van Word-bestand is mislukt:
+        <translation>Het importeren van Word-document is mislukt:
 %1 </translation>
     </message>
 </context>
@@ -7603,7 +7603,7 @@ is mislukt!</translation>
     <message>
         <location filename="../../scribus/plugins/import/ps/importps.cpp" line="765"/>
         <source>Converting of %1 images failed!</source>
-        <translation>Omzetting van %1 afbeelding(en) mislukt!</translation>
+        <translation>Omzetting van %1 afbeeldingen is mislukt!</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/ps/importps.cpp" line="639"/>
@@ -8135,7 +8135,7 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/exportform.ui" line="77"/>
         <source>Range</source>
-        <translation>Reeks</translation>
+        <translation>Bereik</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/exportform.ui" line="104"/>
@@ -8150,7 +8150,7 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="118"/>
         <source>Export a range of pages</source>
-        <translation>Paginareeks exporteren</translation>
+        <translation>Bereik van pagina&apos;s exporteren</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="121"/>
@@ -8212,16 +8212,16 @@ afbeeldingen bedoeld voor schermweergave</translation>
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="120"/>
         <source>Create a range of pages</source>
-        <translation>Paginareeks aanmaken</translation>
+        <translation>Bereik van pagina&apos;s aanmaken</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="119"/>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number</source>
-        <translation>Voeg een komma gescheiden lijst van tokens in
+        <translation>Voeg een komma-gescheiden lijst van tokens in
 waar een token * kan zijn voor alle pagina&apos;s, 1-5 voor
-een reeks van pagina&apos;s of een enkel paginanummer</translation>
+een bereik van pagina&apos;s of een enkel paginanummer</translation>
     </message>
 </context>
 <context>
@@ -8369,7 +8369,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/plugins/tools/flattenpath/flattenpath.cpp" line="102"/>
         <source>Converts a Bezier Path to a Path made of line segments.</source>
-        <translation>Zet een bézierkromme om naar een pad van lijnsegmenten.</translation>
+        <translation>Zet een bézierpad om naar een pad van lijnsegmenten.</translation>
     </message>
 </context>
 <context>
@@ -8646,7 +8646,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreviewplugin.cpp" line="49"/>
         <source>&amp;Font Preview...</source>
-        <translation>&amp;Lettertypenvoorbeeld…</translation>
+        <translation>Voorbeeld van &amp;lettertype…</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreviewplugin.cpp" line="67"/>
@@ -9388,17 +9388,17 @@ de negeerlijst</translation>
 <context>
     <name>IdmlPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="305"/>
+        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="298"/>
         <source>Importing: %1</source>
         <translation>Importeren: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="308"/>
+        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="301"/>
         <source>Analyzing File:</source>
         <translation>Analyseer bestand:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="518"/>
+        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="511"/>
         <source>Generating Items</source>
         <translation>Verwerk items</translation>
     </message>
@@ -9989,46 +9989,46 @@ waarbij InDesign-objecten worden geconverteerd in Scribus-pagina-items; niet all
 <context>
     <name>ImportIdmlPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="59"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="66"/>
         <source>Import Idml...</source>
         <translation>Idml importeren…</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="83"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="84"/>
         <source>Imports IDML Files</source>
         <translation>Importeert IDML Bestanden</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="61"/>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="99"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="68"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="100"/>
         <source>Adobe InDesign IDML</source>
         <translation>Adobe InDesign IDML</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="62"/>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="100"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="69"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="101"/>
         <source>Adobe InDesign IDML (*.idml *.IDML)</source>
         <translation>Adobe InDesign IDML (*.idml *.IDML)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="64"/>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="113"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="71"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="114"/>
         <source>Adobe InDesign IDMS</source>
         <translation>Adobe InDesign IDMS</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="65"/>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="114"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="72"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="115"/>
         <source>Adobe InDesign IDMS (*.idms *.IDMS)</source>
         <translation>Adobe InDesign IDMS (*.idms *.IDMS)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="84"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="85"/>
         <source>Imports most IDML files into the current document, converting their vector data into Scribus objects.</source>
         <translation>Importeert de meeste IDML-bestanden in het huidige document en converteert hun vectorgegevens naar Scribus-objecten.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="147"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="149"/>
         <source>All Supported Formats</source>
         <translation>Alle ondersteunde formaten</translation>
     </message>
@@ -10069,7 +10069,7 @@ waarbij InDesign-objecten worden geconverteerd in Scribus-pagina-items; niet all
     <message>
         <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="83"/>
         <source>Imports ODF Drawing Files</source>
-        <translation>Importeerr ODF Drawing-bestanden</translation>
+        <translation>Importeert ODF Drawing-bestanden</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="84"/>
@@ -10106,29 +10106,29 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="59"/>
         <source>Import iWorks Pages...</source>
-        <translation>iWorks Pages importeren…</translation>
+        <translation>iWork Pages importeren…</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="61"/>
         <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="96"/>
         <source>iWorks Pages</source>
-        <translation>iWorks Pages</translation>
+        <translation>iWork Pages</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="62"/>
         <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="97"/>
         <source>iWorks Pages (*.pages *.PAGES)</source>
-        <translation>iWorks Pages (*.pages *.PAGES)</translation>
+        <translation>iWork Pages (*.pages *.PAGES)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="80"/>
         <source>Imports iWorks Pages Files</source>
-        <translation>Importeert iWorks Pages-bestanden</translation>
+        <translation>Importeert iWork Pages-bestanden</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="81"/>
         <source>Imports most iWorks Pages files into the current document, converting their vector data into Scribus objects.</source>
-        <translation>Importeert de meeste iWorks Pages-bestanden in het huidige document en converteert hun vectorgegevens naar Scribus-objecten.</translation>
+        <translation>Importeert de meeste iWork Pages-bestanden in het huidige document en converteert hun vectorgegevens naar Scribus-objecten.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="130"/>
@@ -10807,7 +10807,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="169"/>
         <source>Position of Frame</source>
-        <translation>Kaderpositie</translation>
+        <translation>Positie van kader</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="178"/>
@@ -10902,7 +10902,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="125"/>
         <source>Range of Pages</source>
-        <translation>Paginareeks</translation>
+        <translation>Bereik van pagina&apos;s</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="208"/>
@@ -10927,37 +10927,37 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="44"/>
         <source>Insert one or more text frames</source>
-        <translation>Voeg een of meer tekstkaders in</translation>
+        <translation>Een of meer tekstkaders invoegen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="54"/>
         <source>Insert one or more image frames</source>
-        <translation>Voeg een of meer afbeeldingskaders in</translation>
+        <translation>Een of meer afbeeldingskaders invoegen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="93"/>
         <source>Place the new frames on the current page, on all pages or on a selected range</source>
-        <translation>Plaats de nieuwe kaders op de huidige pagina, op alle pagina&apos;s of op een geselecteerde reeks</translation>
+        <translation>Plaats de nieuwe kaders op de huidige pagina, op alle pagina&apos;s of op een geselecteerd bereik</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="102"/>
         <source>Insert the frame on the current page only</source>
-        <translation>Voeg het kaders alleen op de huidige pagina in</translation>
+        <translation>Het kader alleen op de huidige pagina invoegen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="112"/>
         <source>Insert one frame for each existing page</source>
-        <translation>Plaats één frame op elke bestaande pagina</translation>
+        <translation>Eén kader op elke bestaande pagina invoegen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="122"/>
         <source>Insert frames on a range of pages</source>
-        <translation>Plaats kaders op een reeks pagina&apos;s</translation>
+        <translation>Kaders op een bereik van pagina&apos;s invoegen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="134"/>
         <source>Range of pages to insert frames on</source>
-        <translation>Paginareeks om kaders in te voegen</translation>
+        <translation>Paginabereik om kaders in te voegen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="166"/>
@@ -10967,22 +10967,22 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="175"/>
         <source>Insert the frame at the top left of the page margins</source>
-        <translation>Plaats het kader linksboven binnen de paginamarges</translation>
+        <translation>Het kader linksboven binnen de paginamarges invoegen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="185"/>
         <source>Insert the frame at the top left of the page</source>
-        <translation>Plaats het kader linksboven op de pagina</translation>
+        <translation>Het kader linksboven op de pagina invoegen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="195"/>
         <source>Insert the frame at the top left of the page bleed</source>
-        <translation>Plaats het kader linksboven op de pagina-afloop</translation>
+        <translation>Het kader linksboven op de pagina-afloop invoegen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="205"/>
         <source>Insert the frame at a custom position on the page</source>
-        <translation>Plaats het kader op een aangepaste positie op de pagina</translation>
+        <translation>Het kader op een aangepaste positie op de pagina invoegen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="249"/>
@@ -10997,27 +10997,27 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="317"/>
         <source>Insert the new frame with the same dimensions as the page margins</source>
-        <translation>Plaats het nieuwe kader met dezelfde afmetingen als de paginamarges</translation>
+        <translation>Het nieuwe kader invoegen met dezelfde afmetingen als de paginamarges</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="327"/>
         <source>Insert the new frame with the same dimensions as the page</source>
-        <translation>Plaats het nieuw kader met dezelfde afmetingen als de pagina</translation>
+        <translation>Het nieuw kader invoegen met dezelfde afmetingen als de pagina</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="337"/>
         <source>Insert the new frame with the same dimensions as the bleed area outside the boundary of the page itself</source>
-        <translation>Plaats het nieuwe kader met dezelfde afmetingen als het afloopgebied buiten de grens van de pagina zelf</translation>
+        <translation>Het nieuwe kader invoegen met dezelfde afmetingen als het afloopgebied buiten de grens van de pagina zelf</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="347"/>
         <source>Insert the new frame with the same dimensions as the image that will be imported</source>
-        <translation>Plaats het nieuw kader met dezelfde afmetingen als de afbeelding die wordt geïmporteerd</translation>
+        <translation>Het nieuw kader invoegen met dezelfde afmetingen als de afbeelding die wordt geïmporteerd</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="357"/>
         <source>Insert the new frame with a custom size</source>
-        <translation>Plaats het nieuwe kader met aangepast afmetingen</translation>
+        <translation>Het nieuwe kader invoegen met aangepast afmetingen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="401"/>
@@ -11047,17 +11047,17 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="516"/>
         <source>Link Inserted Frames</source>
-        <translation>Koppel ingevoegde kaders</translation>
+        <translation>ingevoegde kaders koppelen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="525"/>
         <source>Link the first inserted frame to a preexisting text frame</source>
-        <translation>Koppel het eerste ingevoegde kader aan een al bestaand tekstkader</translation>
+        <translation>Het eerste ingevoegde kader koppelen aan een al bestaand tekstkader</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="528"/>
         <source>Link to Existing Frame</source>
-        <translation>Koppel aan bestaand kader</translation>
+        <translation>Koppelen aan bestaand kader</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="544"/>
@@ -11492,7 +11492,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/layers.cpp" line="742"/>
         <source>Name of the Layer. Double click on the name of a layer to edit the name.</source>
-        <translation>Naam van de Laag. Dubbelklik op de naam van de laag om deze te bewerken.</translation>
+        <translation>Naam van de laag. Dubbelklik op de naam van de laag om deze te bewerken.</translation>
     </message>
 </context>
 <context>
@@ -11520,7 +11520,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="50"/>
         <source>Add a new lens</source>
-        <translation>Voeg nieuwe lens toe</translation>
+        <translation>Nieuwe lens toevoegen</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="53"/>
@@ -11530,7 +11530,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="60"/>
         <source>Remove selected lens</source>
-        <translation>Verwijder geselecteerde lens</translation>
+        <translation>Geselecteerde lens verwijderen</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="63"/>
@@ -11711,7 +11711,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/loremipsum.cpp" line="147"/>
         <source>Select Lorem Ipsum</source>
-        <translation>Selecteer Lorem Ipsum</translation>
+        <translation>Lorem Ipsum selecteren</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/loremipsum.cpp" line="218"/>
@@ -16874,77 +16874,77 @@ Kies een andere map.</translation>
         <translation>Labels instellen</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="393"/>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="699"/>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="770"/>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="844"/>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="883"/>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="974"/>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1160"/>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1226"/>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1316"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="394"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="700"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="771"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="845"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="884"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="975"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1161"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1227"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1317"/>
         <source>Picture Browser Error</source>
         <translation>Fout met afbeeldingenbrowser</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="393"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="394"/>
         <source>No Image(s) Selected</source>
         <translation>Geen afbeelding(en) geselecteerd</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="699"/>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1160"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="700"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1161"/>
         <source>You have to create a category first</source>
         <translation>U moet eerst een categorie aanmaken</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="844"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="845"/>
         <source>No image(s) selected</source>
         <translation>Geen afbeelding(en) geselecteerd</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="883"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="884"/>
         <source>No page/image frame selected</source>
         <translation>Geen pagina/afbeeldingskader geselecteerd</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="974"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="975"/>
         <source>Directory does not exist</source>
         <translation>Map bestaat niet</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1128"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1129"/>
         <source>Select Directory</source>
         <translation>Selecteer map</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1199"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1200"/>
         <source>Import Image Collection</source>
         <translation>Importeer afbeeldingscollectie</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1199"/>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1219"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1200"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1220"/>
         <source>Scribus ImageCollection (*.sic)</source>
         <translation>Scribus ImageCollection (*.sic)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1219"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1220"/>
         <source>Export Image Collection</source>
         <translation>Exporteer afbeeldingscollectie</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1226"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1227"/>
         <source>You have to select something you want to export</source>
         <translation>U moet selecteren wat u wilt exporteren</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1316"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1317"/>
         <source>No tag entered</source>
         <translation>Geen tag ingevoerd</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1446"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1447"/>
         <source>%1 image(s) displayed, %2 image(s) filtered</source>
         <translation>%1 afbeelding(en) getoond, %2 afbeelding(en) gefilterd</translation>
     </message>
@@ -26029,7 +26029,7 @@ Controleer het pad en de bestandsnaam.</translation>
         <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="130"/>
         <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="127"/>
         <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="124"/>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="147"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="149"/>
         <location filename="../../scribus/plugins/import/idml_old/importidml.cpp" line="100"/>
         <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="146"/>
         <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="168"/>
@@ -31831,7 +31831,7 @@ Mogelijk is daarom het beeld niet correct.</translation>
         <translation>Randlijndikte moet zijn &gt; 0.0</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="75"/>
+        <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="77"/>
         <source>Idml Importer</source>
         <translation>Idml-importfilter</translation>
     </message>
