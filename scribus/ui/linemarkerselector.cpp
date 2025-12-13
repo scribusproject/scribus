@@ -1,5 +1,6 @@
 #include "linemarkerselector.h"
 #include "ui/delegates/sclistitemdelegate.h"
+#include "scribusapp.h"
 
 /* ********************************************************************************* *
  *
@@ -24,6 +25,8 @@ LineMarkerSelector::LineMarkerSelector(QWidget *parent) :
 		emit scaleChanged(scale());
 	});
 
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(redrawIcons()));
+
 }
 
 /* ********************************************************************************* *
@@ -37,6 +40,7 @@ void LineMarkerSelector::rebuildList(const QList<ArrowDesc> *arrowStyles)
 	// ArrowStyles defined in: void PrefsManager::initArrowStyles()
 	int index = marker() == -1 ? 0 : marker();
 
+	m_arrowStyles = arrowStyles;
 	listMarker->clear();
 
 	qreal m_devicePixelRatio = qApp->devicePixelRatio();
@@ -66,6 +70,14 @@ void LineMarkerSelector::addItem(QPixmap pixmap, const QString &label, int id)
 	item->setText("");
 	item->setData(arrow, id);
 	listMarker->addItem(item);
+}
+
+void LineMarkerSelector::redrawIcons()
+{
+	if (m_arrowStyles->empty())
+		return;
+
+	rebuildList(m_arrowStyles);
 }
 
 /* ********************************************************************************* *
@@ -131,7 +143,7 @@ void LineMarkerSelector::setScaleSuffix(const QString suffix)
 
 QPixmap LineMarkerSelector::renderPixmap(FPointArray path, int width, int height, int scale)
 {
-	const QPalette& pal = this->palette();
+	const QPalette& pal = ScQApp->palette();
 	QColor textColor = pal.color(QPalette::Active, QPalette::Text);
 
 	int offsetX = 0, offsetY = 0, lineStart = 0, lineEnd = 0;

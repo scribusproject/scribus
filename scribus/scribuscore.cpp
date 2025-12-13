@@ -45,6 +45,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribus.h"
 #include "scribusapp.h"
 #include "ui/splash.h"
+#include "ui/factories/scribusproxystyle.h"
 #include "undomanager.h"
 #include "util_debug.h"
 #include "util_ghostscript.h"
@@ -179,45 +180,40 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 	// This is a very basic implemenation of the UI theme palette.
 	// If necessary implement platform specific theme configurations here.
 
+	// Configure GUI
+	const QString& prefsUiStyle = m_prefsManager.appPrefs.uiPrefs.style;
+	QString qtStyle = nullptr;
+	if (prefsUiStyle.length() > 0)
+	{
+		QStringList availableStyles = QStyleFactory::keys();
+		if (availableStyles.contains(prefsUiStyle))
+			qtStyle = prefsUiStyle;
+		else
+			m_prefsManager.appPrefs.uiPrefs.style.clear();
+	}
+
+	ScribusProxyStyle* scStyle = new ScribusProxyStyle(qtStyle);
+	scStyle->setParent(qApp);
+
 	// Apply different palette only if the system UI palette is different.
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 8, 0))
 	if (m_prefsManager.appPrefs.uiPrefs.stylePalette == "dark" && QApplication::styleHints()->colorScheme() == Qt::ColorScheme::Light)
 	{
-		QApplication::styleHints()->setColorScheme(Qt::ColorScheme::Dark);
-
-	// https://bugreports.qt.io/browse/QTBUG-132929
-#if (defined Q_OS_LINUX)
-		QPalette pal(QColor(49, 49, 49));
-		QApplication::setPalette(pal);
-#endif
+		scStyle->setApplicationTheme(ScribusProxyStyle::ApplicationTheme::Dark);
 		m_SplashScreen->setPixmap(m_iconManager.splashScreen());
 	}
 	else if (m_prefsManager.appPrefs.uiPrefs.stylePalette == "light" && QApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark)
 	{
-		QApplication::styleHints()->setColorScheme(Qt::ColorScheme::Light);
-
-	// https://bugreports.qt.io/browse/QTBUG-132929
-#if (defined Q_OS_LINUX)
-		QPalette pal(QColor(239, 239, 239));
-		QApplication::setPalette(pal);
-#endif
+		scStyle->setApplicationTheme(ScribusProxyStyle::ApplicationTheme::Light);
 		m_SplashScreen->setPixmap(m_iconManager.splashScreen());
 	}
+	else
+		scStyle->setApplicationTheme(ScribusProxyStyle::ApplicationTheme::System);
 #endif
 
-	// Configure GUI
-	const QString& prefsUiStyle = m_prefsManager.appPrefs.uiPrefs.style;
-	if (prefsUiStyle.length() > 0)
-	{
-		QStyle* qtStyle = nullptr;
-		QStringList availableStyles = QStyleFactory::keys();
-		if (availableStyles.contains(prefsUiStyle))
-			qtStyle = QStyleFactory::create(prefsUiStyle);
-		if (qtStyle)
-			QApplication::setStyle(qtStyle);
-		else
-			m_prefsManager.appPrefs.uiPrefs.style.clear();
-	}
+	qApp->setStyle(scStyle);
+	qApp->installEventFilter(scStyle);
+
 	QFont apf = QApplication::font();
 	apf.setPointSize(m_prefsManager.appPrefs.uiPrefs.applicationFontSize);
 	QApplication::setFont(apf);

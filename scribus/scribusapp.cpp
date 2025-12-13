@@ -693,23 +693,32 @@ void ScribusQApp::downloadComplete(const QString &t)
 
 bool ScribusQApp::event(QEvent *event)
 {
-	switch (event->type()) 
+	switch (event->type())
 	{
 	case QEvent::FileOpen:
+	{
+		QString filename = static_cast<QFileOpenEvent*>(event)->file();
+		if (m_ScCore && m_ScCore->initialized())
 		{
-			QString filename = static_cast<QFileOpenEvent*>(event)->file();
-			if(m_ScCore && m_ScCore->initialized())
-			{
-				ScribusMainWindow* mw = m_ScCore->primaryMainWindow();
-				mw->loadDoc(filename);
-			}
-			else
-			{
-				m_filesToLoad.append(filename);
-			}
-			return true;
+			ScribusMainWindow* mw = m_ScCore->primaryMainWindow();
+			mw->loadDoc(filename);
 		}
-	default:
-		return QApplication::event(event);
+		else
+		{
+			m_filesToLoad.append(filename);
+		}
+		return true;
 	}
+	case QEvent::ApplicationPaletteChange:
+	{
+		IconManager& im = IconManager::instance();
+		im.rebuildCache();
+		emit iconSetChanged();
+	}
+		break;
+	default:
+		break;
+	}
+
+	return QApplication::event(event);
 }

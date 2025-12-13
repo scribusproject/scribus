@@ -239,6 +239,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/tabmanager.h"
 #include "ui/transformdialog.h"
 #include "ui/viewtoolbar.h"
+#include "ui/factories/scribusproxystyle.h"
 #include "undogui.h"
 #include "undomanager.h"
 #include "undostate.h"
@@ -6476,7 +6477,6 @@ void ScribusMainWindow::slotPrefsOrg()
 	LocaleManager::instance().setUserPreferredLocale(m_prefsManager.appPrefs.uiPrefs.userPreferredLocale);
 	ScQApp->setLocale();
 
-	bool forceStyleUpdate = false;
 	bool useDefaultScratchColor = false;
 	if (m_prefsManager.appPrefs.displayPrefs.scratchColor == QApplication::palette().color(QPalette::Active, QPalette::Window))
 		useDefaultScratchColor = true;
@@ -6485,37 +6485,18 @@ void ScribusMainWindow::slotPrefsOrg()
 	QString newUIStylePalette = m_prefsManager.appPrefs.uiPrefs.stylePalette;
 	if (oldPrefs.uiPrefs.stylePalette != newUIStylePalette)
 	{
-		forceStyleUpdate = true;
-
 		if (newUIStylePalette == "dark")
-		{
-			QApplication::styleHints()->setColorScheme(Qt::ColorScheme::Dark);
-#if (defined Q_OS_LINUX)
-			QPalette pal(QColor(49, 49, 49));
-			QApplication::setPalette(pal);
-#endif
-		}
+			ScribusProxyStyle::instance()->setApplicationTheme(ScribusProxyStyle::ApplicationTheme::Dark);
 		else if (newUIStylePalette == "light")
-		{
-			QApplication::styleHints()->setColorScheme(Qt::ColorScheme::Light);
-#if (defined Q_OS_LINUX)
-			QPalette pal(QColor(239, 239, 239));
-			QApplication::setPalette(pal);
-#endif
-		}
+			ScribusProxyStyle::instance()->setApplicationTheme(ScribusProxyStyle::ApplicationTheme::Light);
 		else
-		{
-			QApplication::styleHints()->unsetColorScheme();
-#if (defined Q_OS_LINUX)
-			QApplication::setPalette(this->style()->standardPalette());
-#endif
-	}
+			ScribusProxyStyle::instance()->setApplicationTheme(ScribusProxyStyle::ApplicationTheme::System);
 	}
 #endif
 
 	bool forceIconUpdate = false;
 	QString newUIStyle = m_prefsManager.guiStyle();
-	if (oldPrefs.uiPrefs.style != newUIStyle || forceStyleUpdate == true)
+	if (oldPrefs.uiPrefs.style != newUIStyle)
 	{
 		forceIconUpdate = true;
 
@@ -6523,11 +6504,12 @@ void ScribusMainWindow::slotPrefsOrg()
 		if (!newUIStyle.isEmpty())
 			styleName = newUIStyle;
 
-		QStyle * newStyle = QStyleFactory::create(styleName);
-		if (newStyle)
-			QApplication::setStyle(newStyle);
-		else
-			m_prefsManager.appPrefs.uiPrefs.style = oldPrefs.uiPrefs.style;
+		ScribusProxyStyle::instance()->setBaseStyleName(styleName);
+		// QStyle * newStyle = QStyleFactory::create(styleName);
+		// if (newStyle)
+		// 	QApplication::setStyle(newStyle);
+		// else
+		// 	m_prefsManager.appPrefs.uiPrefs.style = oldPrefs.uiPrefs.style;
 	}
 
 	if (useDefaultScratchColor)

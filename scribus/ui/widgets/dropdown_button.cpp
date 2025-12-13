@@ -1,17 +1,24 @@
 #include <QMenu>
 #include "dropdown_button.h"
+#include "scribusapp.h"
 
 DropdownButton::DropdownButton(QWidget *parent) : QToolButton(parent)
 {
 	setPopupMode(QToolButton::InstantPopup);
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 }
 
 void DropdownButton::setCurrentIndex(int index)
 {
 	m_index = index;
 
-	if (menu())
-		indexChanged(menu()->actions().at(qBound(0, index, menu()->actions().size())));
+	if (!menu())
+		return;
+
+	if (menu()->actions().empty())
+		return;
+
+	indexChanged(menu()->actions().at(qBound(0, index, menu()->actions().size())));
 }
 
 void DropdownButton::setMenu(QMenu *menu)
@@ -48,4 +55,11 @@ void DropdownButton::indexChanged(QAction *action)
 		emit currentIndexChanged(m_index);
 		emit activated(m_index);
 	}
+}
+
+void DropdownButton::iconSetChange()
+{
+	this->blockSignals(true);
+	setCurrentIndex(m_index);
+	this->blockSignals(false);
 }

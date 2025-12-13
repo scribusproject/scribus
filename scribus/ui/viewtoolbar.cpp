@@ -110,6 +110,7 @@ void ViewToolBar::languageChange()
 	visualMenu->addAction(im.loadIcon("color-vision-colorblind", iconSize()), CommonStrings::trVisionFullColorBlind);
 	visualMenu->setToolTip( tr("Select the visual appearance of the display. You can choose between normal and several color blindness forms."));
 	visualMenu->setStatusTip( tr("Select display visual appearance"));
+	visualMenu->setCurrentIndex(visualMenu->currentIndex());
 
 	QSignalBlocker sigImageRes(previewQualitySwitcher);
 	previewQualitySwitcher->clear();
@@ -118,5 +119,6 @@ void ViewToolBar::languageChange()
 	previewQualitySwitcher->addAction(im.loadIcon("image-resolution-low", iconSize()), tr("Low"));
 	previewQualitySwitcher->setToolTip( tr("Select the image preview quality"));
 	previewQualitySwitcher->setStatusTip( tr("Select image preview quality"));
+	previewQualitySwitcher->setCurrentIndex(previewQualitySwitcher->currentIndex());
 
 }

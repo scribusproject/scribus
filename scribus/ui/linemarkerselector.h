@@ -29,10 +29,14 @@ public:
 private:
 	ArrowDirection m_arrowDirection { ArrowDirection::StartArrow };
 	int arrow = 23;
+	const QList<ArrowDesc> *m_arrowStyles;
 
 	QPixmap renderPixmap(FPointArray path, int width, int height, int scale);
 
 	void addItem(QPixmap pixmap, const QString &label, int id);
+
+private slots:
+	void redrawIcons();
 
 signals:
 	void scaleChanged(double);

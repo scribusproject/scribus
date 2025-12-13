@@ -21,6 +21,7 @@ private:
 
 private slots:
 	void indexChanged(QAction *action);
+	void iconSetChange();
 
 signals:
 	void currentIndexChanged(int index);

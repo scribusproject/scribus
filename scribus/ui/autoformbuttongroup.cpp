@@ -759,9 +759,10 @@ QPixmap AutoformButtonGroup::getIconPixmap(int nr, int pixmapSize)
 //	painter->end();
 //	delete painter;
 
+
 	QPainter *painter = new QPainter(&Ico);
-	painter->setBrush( palette().color(QPalette::WindowText) );
-	painter->setPen( QPen(palette().color(QPalette::Midlight), 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin) );
+	painter->setBrush( ScQApp->palette().color(QPalette::WindowText) );
+	painter->setPen( QPen(ScQApp->palette().color(QPalette::Midlight), 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin) );
 	painter->translate(2.0, 2.0);
 	painter->drawPath( Path.toQPainterPath(true) );
 	painter->end();

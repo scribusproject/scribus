@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include "iconmanager.h"
 #include "scribusapp.h"
 #include "ui/widgets/form_widget.h"
+#include "ui/widgets/dropdown_button.h"
 
 PageLayouts::PageLayouts(QWidget* parent)  : QWidget( parent )
 {
@@ -37,11 +38,8 @@ PageLayouts::PageLayouts(QWidget* parent)  : QWidget( parent )
 	QFont layFont(this->font());
 	layFont.setPointSize(8);
 
-	menuScheme = new QMenu();
-
-	buttonScheme = new QToolButton(this);
+	buttonScheme = new DropdownButton(this);
 	buttonScheme->setPopupMode(QToolButton::InstantPopup);
-	buttonScheme->setMenu(menuScheme);
 
 	labelScheme = new FormWidget();
 	labelScheme->setFont(layFont);
@@ -49,11 +47,8 @@ PageLayouts::PageLayouts(QWidget* parent)  : QWidget( parent )
 	labelScheme->setLabelVisibility(!m_hideLabels);
 	layoutGroupLayout->addWidget( labelScheme );
 
-	menuFirstPage = new QMenu();
-
-	buttonFirstPage = new QToolButton(this);
+	buttonFirstPage = new DropdownButton(this);
 	buttonFirstPage->setPopupMode(QToolButton::InstantPopup);
-	buttonFirstPage->setMenu(menuFirstPage);
 
 	labelPages = new FormWidget();
 	labelPages->setFont(layFont);
@@ -64,8 +59,9 @@ PageLayouts::PageLayouts(QWidget* parent)  : QWidget( parent )
 	languageChange();
 
 	connect(ScQApp, SIGNAL(labelVisibilityChanged(bool)), this, SLOT(toggleLabelVisibility(bool)));
-	connect(menuScheme, &QMenu::triggered, this, &PageLayouts::changeScheme);
-	connect(menuFirstPage, &QMenu::triggered, this, &PageLayouts::changeFirstPage);
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(languageChange()));
+	connect(buttonScheme, &DropdownButton::activated, this, &PageLayouts::changeScheme, Qt::UniqueConnection);
+	connect(buttonFirstPage, &DropdownButton::activated, this, &PageLayouts::changeFirstPage, Qt::UniqueConnection);
 }
 
 void PageLayouts::updateSchemeSelector(QList<PageSet> pageSets, int pagePositioning)
@@ -79,22 +75,22 @@ void PageLayouts::updateSchemeSelector(QList<PageSet> pageSets, int pagePosition
 
 void PageLayouts::setFirstPage(int nr)
 {
-	if (menuFirstPage->actions().isEmpty())
+	if (buttonFirstPage->actions().isEmpty())
 		return;
 
-	m_firstPage = qBound(0, nr, static_cast<int>(menuFirstPage->actions().count()));
-	buttonFirstPage->setIcon(menuFirstPage->actions().at(m_firstPage)->icon());
+	m_firstPage = qBound(0, nr, static_cast<int>(buttonFirstPage->actions().count()));
+	buttonFirstPage->setCurrentIndex(m_firstPage);
 }
 
 void PageLayouts::setScheme(int nr)
 {
-	if (menuScheme->actions().isEmpty())
+	if (buttonScheme->actions().isEmpty())
 		return;
 
-	m_scheme = qBound(0, nr, static_cast<int>(menuScheme->actions().count()));
-	buttonScheme->setIcon(menuScheme->actions().at(m_scheme)->icon());
+	m_scheme = qBound(0, nr, static_cast<int>(buttonScheme->actions().count()));
 
 	reloadFirstPage(m_scheme);
+	buttonScheme->setCurrentIndex(m_scheme);
 
 }
 
@@ -106,9 +102,7 @@ void PageLayouts::setHideLabelsPermanently(bool hide)
 
 void PageLayouts::reloadScheme()
 {
-	disconnect(menuScheme, &QMenu::triggered, this, &PageLayouts::changeScheme);
-
-	menuScheme->clear();
+	buttonScheme->clear();
 
 	for (int pg = 0; pg < m_pageSets.count(); ++pg)
 	{
@@ -118,25 +112,21 @@ void PageLayouts::reloadScheme()
 
 		QString psname = CommonStrings::translatePageSetString(m_pageSets[pg].Name);
 		if (pg == 0)
-			menuScheme->addAction(IconManager::instance().loadIcon("page-simple"), psname)->setData(QVariant(pg));
+			buttonScheme->addAction(IconManager::instance().loadIcon("page-simple"), psname)->setData(QVariant(pg));
 		else if (pg == 1)
-			menuScheme->addAction(IconManager::instance().loadIcon("page-doublesided"), psname)->setData(QVariant(pg));
+			buttonScheme->addAction(IconManager::instance().loadIcon("page-doublesided"), psname)->setData(QVariant(pg));
 		else if (pg == 2)
-			menuScheme->addAction(IconManager::instance().loadIcon("page-3fold"), psname)->setData(QVariant(pg));
+			buttonScheme->addAction(IconManager::instance().loadIcon("page-3fold"), psname)->setData(QVariant(pg));
 		else if (pg == 3)
-			menuScheme->addAction(IconManager::instance().loadIcon("page-4fold"), psname)->setData(QVariant(pg));
+			buttonScheme->addAction(IconManager::instance().loadIcon("page-4fold"), psname)->setData(QVariant(pg));
 		else
-			menuScheme->addAction(IconManager::instance().loadIcon("page-simple"), psname)->setData(QVariant(pg));
+			buttonScheme->addAction(IconManager::instance().loadIcon("page-simple"), psname)->setData(QVariant(pg));
 	}
-
-	connect(menuScheme, &QMenu::triggered, this, &PageLayouts::changeScheme);
 }
 
 void PageLayouts::reloadFirstPage(int scheme)
 {
-	disconnect(menuFirstPage, &QMenu::triggered, this, &PageLayouts::changeFirstPage);
-
-	menuFirstPage->clear();
+	buttonFirstPage->clear();
 
 	// We have to add the other cases if want to support them again
 	// CommonStrings::pageLocLeft
@@ -150,14 +140,13 @@ void PageLayouts::reloadFirstPage(int scheme)
 		QString psname = m_pageSets[scheme].pageNames[pg];
 
 		if (psname == CommonStrings::pageLocLeft)
-			menuFirstPage->addAction(IconManager::instance().loadIcon("page-first-left"), psname)->setData(QVariant(pg));
+			buttonFirstPage->addAction(IconManager::instance().loadIcon("page-first-left"), psname)->setData(QVariant(pg));
 		else if (psname == CommonStrings::pageLocRight)
-			menuFirstPage->addAction(IconManager::instance().loadIcon("page-first-right"), psname)->setData(QVariant(pg));
+			buttonFirstPage->addAction(IconManager::instance().loadIcon("page-first-right"), psname)->setData(QVariant(pg));
 		else
-			menuFirstPage->addAction(IconManager::instance().loadIcon("page-first-left"), psname)->setData(QVariant(pg));
+			buttonFirstPage->addAction(IconManager::instance().loadIcon("page-first-left"), psname)->setData(QVariant(pg));
 	}
 
-	connect(menuFirstPage, &QMenu::triggered, this, &PageLayouts::changeFirstPage);
 }
 
 void PageLayouts::toggleLabelVisibility(bool visibility)
@@ -179,22 +168,35 @@ void PageLayouts::languageChange()
 	labelScheme->setText( tr( "Scheme" ) );
 	labelPages->setText( tr( "First Page" ) );
 
+	QSignalBlocker sigButtonScheme(buttonScheme);
+	buttonScheme->setCurrentIndex(buttonScheme->currentIndex());
 	buttonScheme->setToolTip( tr( "Number of pages to show side-by-side on the canvas. Often used for allowing items to be placed across page spreads." ) );
+
+	QSignalBlocker sigFirstPage(buttonFirstPage);
+	buttonFirstPage->setCurrentIndex(buttonFirstPage->currentIndex());
 	buttonFirstPage->setToolTip( tr( "Location on the canvas where the first page of the document is placed" ) );
 }
 
-void PageLayouts::changeScheme(QAction *action)
+void PageLayouts::changeScheme(int index)
 {
-	buttonScheme->setIcon(action->icon());
+	QAction * action = buttonScheme->menu()->actions().at(qBound(0, index, buttonScheme->menu()->actions().size()));
+
+	if (!action)
+		return;
+
 	int ic = action->data().toInt();
 	reloadFirstPage(ic);
 	labelPages->setVisible( ic > 0 );
 	emit schemeChanged(ic);
 }
 
-void PageLayouts::changeFirstPage(QAction *action)
+void PageLayouts::changeFirstPage(int index)
 {
-	buttonFirstPage->setIcon(action->icon());
+	QAction * action = buttonFirstPage->menu()->actions().at(qBound(0, index, buttonFirstPage->menu()->actions().size()));
+
+	if (!action)
+		return;
+
 	m_firstPage = action->data().toInt();
 	emit firstPageChanged(m_firstPage);
 }

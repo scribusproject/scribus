@@ -565,6 +565,7 @@ set(SCRIBUS_SOURCES
 	ui/delegates/sclistitemdelegate.cpp
 	ui/docks/dock_centralwidget.cpp
 	ui/docks/dock_panelbase.cpp
+	ui/factories/scribusproxystyle.cpp
 	ui/widgets/color_button.cpp
 	ui/widgets/combo_blendmode.cpp
 	ui/widgets/combo_linestyle.cpp

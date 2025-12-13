@@ -16,6 +16,7 @@ class QHBoxLayout;
 class QLabel;
 class QMenu;
 class QToolButton;
+class DropdownButton;
 
 #include "scribusapi.h"
 #include "scribusstructs.h"
@@ -57,10 +58,8 @@ private:
 
 	FormWidget* labelScheme { nullptr };
 	FormWidget* labelPages { nullptr };
-	QToolButton* buttonScheme { nullptr };
-	QToolButton* buttonFirstPage { nullptr };
-	QMenu* menuScheme { nullptr };
-	QMenu* menuFirstPage { nullptr };
+	DropdownButton* buttonScheme { nullptr };
+	DropdownButton* buttonFirstPage { nullptr };
 	QHBoxLayout* layoutGroupLayout { nullptr };
 
 	void reloadScheme();
@@ -68,8 +67,8 @@ private:
 
 protected slots:
 	void languageChange();
-	void changeScheme(QAction* action);
-	void changeFirstPage(QAction* action);
+	void changeScheme(int index);
+	void changeFirstPage(int index);
 
 };
 
