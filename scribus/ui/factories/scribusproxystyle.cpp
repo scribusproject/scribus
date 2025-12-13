@@ -66,7 +66,7 @@ ScribusProxyStyle* ScribusProxyStyle::instance()
 
 bool ScribusProxyStyle::eventFilter(QObject *object, QEvent *event)
 {
-	if(object == qApp && event->type() == QEvent::ThemeChange)
+	if (object == qApp && event->type() == QEvent::ThemeChange)
 	{
 		if (PrefsManager::instance().appPrefs.uiPrefs.stylePalette == "auto" && !blockRefresh)
 			setApplicationTheme(ScribusProxyStyle::ApplicationTheme::System);

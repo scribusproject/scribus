@@ -28,9 +28,7 @@ public slots:
 	void setApplicationTheme(ApplicationTheme theme);
 
 private:
-
 	bool blockRefresh {false};
-
 };
 
 #endif // SCRIBUSPROXYSTYLE_H
