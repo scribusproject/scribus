@@ -44,6 +44,7 @@
     <function name="editMasterPages" shortcut=""/>
     <function name="editNotesStyles" shortcut=""/>
     <function name="editPaste" shortcut="Ctrl+V"/>
+    <function name="editPastePlainText" shortcut=""/>
     <function name="editPasteContents" shortcut="Ctrl+Shift+V"/>
     <function name="editPasteContentsAbs" shortcut="Ctrl+Alt+Shift+V"/>
     <function name="editPasteImageFromClipboard" shortcut=""/>

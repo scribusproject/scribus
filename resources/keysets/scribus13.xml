@@ -37,6 +37,7 @@
     <function shortcut="" name="editJavascripts"/>
     <function shortcut="" name="editMasterPages"/>
     <function shortcut="Ctrl+V" name="editPaste"/>
+    <function shortcut="" name="editPastePlainText"/>
     <function shortcut="Ctrl+Shift+V" name="editPasteContents"/>
     <function shortcut="Ctrl+Alt+Shift+V" name="editPasteContentsAbs"/>
     <function shortcut="" name="editPatterns"/>
