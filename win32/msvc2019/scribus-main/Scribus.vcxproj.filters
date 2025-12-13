@@ -73,6 +73,9 @@
     <Filter Include="Source Files\ui\docks">
       <UniqueIdentifier>{29e20fba-5d39-43f5-b8e7-89008522a144}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\ui\factories">
+      <UniqueIdentifier>{1cbf267e-3556-46ea-b10a-06dbb3d8a922}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Source Files\ui\preferences">
       <UniqueIdentifier>{739b3437-93f8-4f41-bde9-05d291d3f7cc}</UniqueIdentifier>
     </Filter>
@@ -2028,6 +2031,9 @@
     <ClCompile Include="..\..\..\scribus\ui\extimageprops.cpp">
       <Filter>Source Files\ui</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\factories\scribusproxystyle.cpp">
+      <Filter>Source Files\ui\factories</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\filedialogeventcatcher.cpp">
       <Filter>Source Files\ui</Filter>
     </ClCompile>
@@ -2683,6 +2689,9 @@
       <Filter>Source Files\ui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\widgets\color_button.cpp">
+      <Filter>Source Files\ui\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\widgets\color_slider.cpp">
       <Filter>Source Files\ui\widgets</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\widgets\combo_blendmode.cpp">
@@ -3934,6 +3943,9 @@
     <moc Include="..\..\..\scribus\ui\extimageprops.h">
       <Filter>Source Files\ui</Filter>
     </moc>
+    <moc Include="..\..\..\scribus\ui\factories\scribusproxystyle.h">
+      <Filter>Source Files\ui\factories</Filter>
+    </moc>
     <moc Include="..\..\..\scribus\ui\filedialogeventcatcher.h">
       <Filter>Source Files\ui</Filter>
     </moc>
@@ -4586,6 +4598,9 @@
       <Filter>Source Files\ui</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\widgets\color_button.h">
+      <Filter>Source Files\ui\widgets</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\widgets\color_slider.h">
       <Filter>Source Files\ui\widgets</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\widgets\dropdown_button.h">

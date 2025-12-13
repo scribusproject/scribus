@@ -660,6 +660,7 @@
     <moc Include="..\..\..\scribus\ui\imagelayers.h" />
     <moc Include="..\..\..\scribus\ui\opticalmargineditor.h" />
     <moc Include="..\..\..\scribus\ui\documentlogviewer.h" />
+    <moc Include="..\..\..\scribus\ui\factories\scribusproxystyle.h" />
     <ClInclude Include="..\..\..\scribus\ui\propertywidgetbase.h" />
     <moc Include="..\..\..\scribus\pslib.h" />
     <moc Include="..\..\..\scribus\ui\query.h" />
@@ -684,6 +685,7 @@
     <moc Include="..\..\..\scribus\ui\propertywidget_text.h" />
     <moc Include="..\..\..\scribus\ui\widgets\color_button.h" />
     <moc Include="..\..\..\scribus\ui\stylesearchdialog.h" />
+    <moc Include="..\..\..\scribus\ui\widgets\color_slider.h" />
     <ClInclude Include="..\..\..\scribus\ui\widgets\combo_blendmode.h" />
     <moc Include="..\..\..\scribus\ui\widgets\form_widget.h" />
     <ClInclude Include="..\..\..\scribus\ui\widgets\combo_linestyle.h" />
@@ -1110,6 +1112,7 @@
     <ClCompile Include="..\..\..\scribus\ui\extimageprops.cpp" />
     <ClCompile Include="..\..\..\scribus\fileloader.cpp" />
     <ClCompile Include="..\..\..\scribus\filesearch.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\factories\scribusproxystyle.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\filedialogeventcatcher.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\filetoolbar.cpp" />
     <ClCompile Include="..\..\..\scribus\filewatcher.cpp" />
@@ -1501,6 +1504,7 @@
     <ClCompile Include="..\..\..\scribus\ui\stylesearchdialog.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\viewtoolbar.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\widgets\color_button.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\widgets\color_slider.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\widgets\combo_blendmode.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\widgets\combo_linestyle.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\widgets\dropdown_button.cpp" />
