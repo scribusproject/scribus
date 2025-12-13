@@ -175,6 +175,10 @@ void PropertiesPalette_Line::unsetDoc()
 	comboLineStyle->setDoc(m_doc);
 	buttonLineColor->unsetDoc();
 	buttonLineMask->unsetDoc();
+
+	lineMarkerSelectorStart->clearList();
+	lineMarkerSelectorEnd->clearList();
+
 	updateLineStyles(nullptr);
 
 	setEnabled(false);
@@ -333,7 +337,6 @@ void PropertiesPalette_Line::setCurrentItem(PageItem *item)
 
 	showLineWidth(m_item->lineWidth());
 	showLineValues(m_item->lineStyle(), m_item->lineEnd(), m_item->lineJoin());
-
 }
 
 void PropertiesPalette_Line::updateArrowStyles()

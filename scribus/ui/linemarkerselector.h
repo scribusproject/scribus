@@ -14,6 +14,7 @@ public:
 	explicit LineMarkerSelector(QWidget *parent = nullptr);
 	~LineMarkerSelector() {};
 
+	void clearList();
 	void rebuildList(const QList<ArrowDesc> *arrowStyles);
 	void setArrowDirection(ArrowDirection direction);
 	void languageChange();
