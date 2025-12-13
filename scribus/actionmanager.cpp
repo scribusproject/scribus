@@ -1938,10 +1938,10 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("editCut", QKeySequence::Cut);
 	defKeys.insert("editCopy", QKeySequence::Copy);
 	defKeys.insert("editPaste", QKeySequence::Paste);
-	defKeys.insert("editPastePlainText", Qt::CTRL | Qt::META | Qt::Key_V);
+	defKeys.insert("editPastePlainText", Qt::CTRL | Qt::SHIFT | Qt::Key_V);
 	defKeys.insert("editClearContents", Qt::CTRL | Qt::SHIFT | Qt::Key_Delete);
 	defKeys.insert("editCopyContents", Qt::CTRL | Qt::SHIFT | Qt::Key_C);
-	defKeys.insert("editPasteContents", Qt::CTRL | Qt::SHIFT | Qt::Key_V);
+	defKeys.insert("editPasteContents", Qt::CTRL | Qt::ALT | Qt::Key_V);
 	defKeys.insert("editPasteContentsAbs", Qt::CTRL | Qt::ALT | Qt::SHIFT | Qt::Key_V);
 	defKeys.insert("editSelectAll", Qt::CTRL | Qt::Key_A);
 	defKeys.insert("editSelectAllOnLayer", Qt::CTRL | Qt::ALT | Qt::Key_A);
