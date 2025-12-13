@@ -55,11 +55,12 @@ public:
 	ColorSlider(QWidget* parent = nullptr);
 	ColorSlider(Mode mode, QWidget* parent = nullptr);
 
-	const ScColor& color() const{ return m_color; }
+	const ScColor& color() const { return m_color; }
 	double opacity() const { return m_opacity; } // 0.0 - 100.0
 	double shade() const { return m_shade; } // 0.0 - 100.0
 	Mode mode() const { return m_mode; }
 	bool isDynamic() const { return m_dynamicColor; }
+	const QImage& backgroundImage() const { return m_background; }
 
 public slots:
 	void setDoc(ScribusDoc *doc);

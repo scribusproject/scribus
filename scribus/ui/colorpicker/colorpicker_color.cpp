@@ -26,6 +26,9 @@ ColorPickerColor::ColorPickerColor(QWidget *parent) : QWidget(parent)
 
 	languageChange();
 
+	sliderAlpha->setMode(ColorSlider::Opacity);
+	sliderShade->setMode(ColorSlider::Shade);
+
 	connectSlots();
 	connect(sectionSwatches,    &SectionContainer::sizeChanged,				this, &ColorPickerColor::updateSize);
 }
@@ -34,14 +37,18 @@ void ColorPickerColor::connectSlots()
 {
 	connect(swatches,			&ColorPickerColorSwatches::colorChanged,	this, &ColorPickerColor::updateColorFromSwatches);	
 	connect(numberShade,		&ScrSpinBox::valueChanged,					this, &ColorPickerColor::updateColorShade);
+	connect(sliderShade,		&ColorSlider::valueChanged,					this, &ColorPickerColor::updateColorShade);
 	connect(numberAlpha,		&ScrSpinBox::valueChanged,					this, &ColorPickerColor::updateColorAlpha);
+	connect(sliderAlpha,		&ColorSlider::valueChanged,					this, &ColorPickerColor::updateColorAlpha);
 }
 
 void ColorPickerColor::disconnectSlots()
 {
 	disconnect(swatches,		&ColorPickerColorSwatches::colorChanged,	this, &ColorPickerColor::updateColorFromSwatches);
 	disconnect(numberShade,		&ScrSpinBox::valueChanged,					this, &ColorPickerColor::updateColorShade);
+	disconnect(sliderShade,		&ColorSlider::valueChanged,					this, &ColorPickerColor::updateColorShade);
 	disconnect(numberAlpha,		&ScrSpinBox::valueChanged,					this, &ColorPickerColor::updateColorAlpha);
+	disconnect(sliderAlpha,		&ColorSlider::valueChanged,					this, &ColorPickerColor::updateColorAlpha);
 }
 
 /* ********************************************************************************* *
@@ -73,8 +80,10 @@ void ColorPickerColor::setContext(Context config)
 		sectionSwatches->setVisible(true);
 		numberShade->setVisible(false);
 		labelShade->setVisible(false);
+		sliderShade->setVisible(false);
 		numberAlpha->setVisible(false);
 		labelAlpha->setVisible(false);
+		sliderAlpha->setVisible(false);
 		break;
 	case Context::Text:
 	case Context::TextBackground:
@@ -82,38 +91,48 @@ void ColorPickerColor::setContext(Context config)
 		sectionSwatches->setVisible(true);
 		numberShade->setVisible(true);
 		labelShade->setVisible(true);
+		sliderShade->setVisible(true);
 		numberAlpha->setVisible(false);
 		labelAlpha->setVisible(false);
+		sliderAlpha->setVisible(false);
 		break;
 	case Context::Fill:
 		sectionSwatches->setVisible(true);
 		numberShade->setVisible(true);
 		labelShade->setVisible(true);
+		sliderShade->setVisible(true);
 		numberAlpha->setVisible(false);
 		labelAlpha->setVisible(false);
+		sliderAlpha->setVisible(false);
 		break;
 	case Context::Line:
 		sectionSwatches->setVisible(true);
 		numberShade->setVisible(true);
 		labelShade->setVisible(true);
+		sliderShade->setVisible(true);
 		numberAlpha->setVisible(false);
 		labelAlpha->setVisible(false);
+		sliderAlpha->setVisible(false);
 		break;
 	case Context::FillMask:
 	case Context::LineMask:
 		sectionSwatches->setVisible(false);
 		numberShade->setVisible(false);
 		labelShade->setVisible(false);
+		sliderShade->setVisible(false);
 		numberAlpha->setVisible(true);
 		labelAlpha->setVisible(true);
+		sliderAlpha->setVisible(true);
 		isMask = true;
 		break;
 	case Context::DropShadow:
 		sectionSwatches->setVisible(true);
 		numberShade->setVisible(true);
 		labelShade->setVisible(true);
+		sliderShade->setVisible(true);
 		numberAlpha->setVisible(false);
 		labelAlpha->setVisible(false);
+		sliderAlpha->setVisible(false);
 		break;
 	}
 
@@ -183,11 +202,18 @@ QString ColorPickerColor::toolTipText() const
 void ColorPickerColor::setDoc(ScribusDoc *doc)
 {
 	m_doc = doc;
+	sliderAlpha->setDoc(m_doc);
+	sliderShade->setDoc(m_doc);
 }
 
 void ColorPickerColor::setColorData(const CPColorData& color)
 {
+	if (!m_doc)
+		return;
+
 	m_color = color;
+
+	bool hasColor = m_color.Name != CommonStrings::tr_NoneColor;
 
 	// update UI + controls
 	QSignalBlocker sigSwatches(swatches);
@@ -195,11 +221,19 @@ void ColorPickerColor::setColorData(const CPColorData& color)
 
 	QSignalBlocker sigShade(numberShade);
 	numberShade->setValue(m_color.Shade);
-	numberShade->setEnabled(m_color.Name != CommonStrings::tr_NoneColor);
+	numberShade->setEnabled(hasColor);
 
 	QSignalBlocker sigAlpha(numberAlpha);
 	numberAlpha->setValue(qRound(100 - (m_color.Opacity * 100)));
-	numberAlpha->setEnabled(m_color.Name != CommonStrings::tr_NoneColor);
+	numberAlpha->setEnabled(hasColor);
+
+	QSignalBlocker sigAlphaSlider(sliderAlpha);
+	sliderAlpha->setEnabled(hasColor);
+	sliderAlpha->setValues(m_color.Name, numberAlpha->value(), numberShade->value());
+
+	QSignalBlocker sigShadeSlider(sliderShade);
+	sliderShade->setEnabled(hasColor);
+	sliderShade->setValues(m_color.Name, numberAlpha->value(), numberShade->value());
 
 }
 
@@ -211,20 +245,50 @@ void ColorPickerColor::languageChange()
 void ColorPickerColor::updateColorFromSwatches()
 {
 	m_color.Name = swatches->currentColor();
-	numberShade->setEnabled(m_color.Name != CommonStrings::tr_NoneColor);
-	numberAlpha->setEnabled(m_color.Name != CommonStrings::tr_NoneColor);
+	bool hasColor = m_color.Name != CommonStrings::tr_NoneColor;
+
+	numberShade->setEnabled(hasColor);
+	sliderShade->setEnabled(hasColor);
+	sliderShade->setValues(m_color.Name, numberAlpha->value(), numberShade->value());
+	numberAlpha->setEnabled(hasColor);
+	sliderAlpha->setEnabled(hasColor);
+	sliderAlpha->setValues(m_color.Name, numberAlpha->value(), numberShade->value());
 
 	updateColor();
 }
 
 void ColorPickerColor::updateColorShade()
 {
+	QObject* obj = sender();
+	if( obj == sliderShade )
+	{
+		QSignalBlocker sigBlocker(numberShade);
+		numberShade->setValue(sliderShade->value());
+	}
+	else if( obj == numberShade )
+	{
+		QSignalBlocker sigBlocker(sliderShade);
+		sliderShade->setValue(numberShade->value());
+	}
+
 	m_color.Shade = numberShade->value();
 	updateColor();
 }
 
 void ColorPickerColor::updateColorAlpha()
 {
+	QObject* obj = sender();
+	if( obj == sliderAlpha )
+	{
+		QSignalBlocker sigBlocker(numberAlpha);
+		numberAlpha->setValue(sliderAlpha->value());
+	}
+	else if( obj == numberAlpha )
+	{
+		QSignalBlocker sigBlocker(sliderAlpha);
+		sliderAlpha->setValue(numberAlpha->value());
+	}
+
 	m_color.Opacity = (100 - numberAlpha->value()) / 100.0;
 	updateColor();
 }

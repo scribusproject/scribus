@@ -55,7 +55,6 @@ for which a new license (GPL+exception) is in place.
  *
  * ********************************************************************************* */
 
-const int RADIUS = 6;
 const double HAIRLINE = 0.001;
 
 DashPreview::DashPreview(QWidget *pa) : QFrame(pa)

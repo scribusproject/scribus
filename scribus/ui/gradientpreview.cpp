@@ -29,7 +29,6 @@ for which a new license (GPL+exception) is in place.
 #include "gradientpreview.h"
 #include "util_gui.h"
 
-const int RADIUS = 6;
 const int GRADIENT_HEIGHT = 20;
 
 /* ********************************************************************************* *

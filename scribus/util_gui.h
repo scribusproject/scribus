@@ -9,6 +9,8 @@ class VGradient;
 class VColorStop;
 class ScPattern;
 
+const int RADIUS = 6;
+
 void SCRIBUS_API drawCircularHandle(QPainter * painter, QPointF center, qreal width, QBrush background, bool isEnabled = true);
 void SCRIBUS_API drawPointerHandle(QPainter * painter, QPointF pointer, qreal width, QColor background, bool isEnabled = true, bool isEmpty = false);
 void SCRIBUS_API renderCheckerPattern(QPainter *painter, QRectF rect);

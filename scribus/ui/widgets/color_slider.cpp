@@ -18,8 +18,6 @@
  *
  * ********************************************************************************* */
 
-const int RADIUS = 6;
-
 ColorSlider::ColorSlider(QWidget *parent): ColorSlider(Mode::RGBRed, parent) {}
 
 ColorSlider::ColorSlider(Mode mode, QWidget *parent): QSlider(parent)
@@ -553,7 +551,7 @@ void ColorSlider::updateValues()
 	QSignalBlocker blocker(this);
 
 	double v1, v2, v3, v4;
-	int multplier = 1;
+	// int multplier = 1;
 
 	switch (m_mode)
 	{
@@ -720,7 +718,7 @@ void ColorSlider::paintEvent(QPaintEvent *e)
 	if (orientation() == Qt::Horizontal && this->tickPosition() != QSlider::NoTicks)
 	{
 		QFont font = this->font();
-		font.setPixelSize(8);
+		font.setPointSize(8);
 		painter.setFont(font);
 
 		int interval = 4;

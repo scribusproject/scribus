@@ -59,26 +59,6 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="QLabel" name="labelAlpha">
-       <property name="text">
-        <string>Opacity:</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QLabel" name="labelShade">
-       <property name="text">
-        <string>Shade:</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="2">
       <widget class="ScrSpinBox" name="numberShade">
        <property name="suffix">
@@ -92,18 +72,45 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
-      <spacer name="horizontalSpacer">
+     <item row="0" column="0">
+      <widget class="QLabel" name="labelShade">
+       <property name="text">
+        <string>Shade:</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="ColorSlider" name="sliderShade">
        <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+        <enum>Qt::Orientation::Horizontal</enum>
        </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
+       <property name="tickPosition">
+        <enum>QSlider::TickPosition::TicksAbove</enum>
        </property>
-      </spacer>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="labelAlpha">
+       <property name="text">
+        <string>Opacity:</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="ColorSlider" name="sliderAlpha">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+       <property name="tickPosition">
+        <enum>QSlider::TickPosition::TicksAbove</enum>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -135,6 +142,11 @@
    <extends>QWidget</extends>
    <header>ui/colorpicker/colorpicker_color_swatches.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>ColorSlider</class>
+   <extends>QSlider</extends>
+   <header>ui/widgets/color_slider.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
