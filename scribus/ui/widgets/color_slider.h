@@ -55,11 +55,11 @@ public:
 	ColorSlider(QWidget* parent = nullptr);
 	ColorSlider(Mode mode, QWidget* parent = nullptr);
 
-	ScColor color() { return m_color; }
-	double opacity() { return m_opacity; } // 0.0 - 100.0
-	double shade() { return m_shade; } // 0.0 - 100.0
-	Mode mode() { return m_mode; }
-	bool isDynamic() { return m_dynamicColor; }
+	const ScColor& color() const{ return m_color; }
+	double opacity() const { return m_opacity; } // 0.0 - 100.0
+	double shade() const { return m_shade; } // 0.0 - 100.0
+	Mode mode() const { return m_mode; }
+	bool isDynamic() const { return m_dynamicColor; }
 
 public slots:
 	void setDoc(ScribusDoc *doc);
@@ -76,10 +76,10 @@ private slots:
 	void updateColor();
 
 protected:
-	void paintEvent(QPaintEvent * e);
-    void resizeEvent(QResizeEvent* e);
-	void showEvent(QShowEvent *e);
-	void mouseMoveEvent(QMouseEvent *e);
+	void paintEvent(QPaintEvent * e) override;
+    void resizeEvent(QResizeEvent* e) override;
+	void showEvent(QShowEvent *e) override;
+	void mouseMoveEvent(QMouseEvent *e) override;
 
 private:
 	QPointer<ScribusDoc> m_doc;
