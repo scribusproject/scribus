@@ -1,7 +1,8 @@
-Scribus - 1.6.5 (Released 2025-xx-xx)
+Scribus - 1.6.5 (Released 2025-12-14)
 =========================================
 https://bugs.scribus.net/changelog_page.php?version_id=128
 
+ 0017637: [General]  NTLM hash leak in Scribus (jghali)
  0017704: [User Interface]  Dark Color Schema unusable (cbradney)
  0017686: [Color Management]  Color picker (eyedropper) does not work (always returns "black") (jghali)
  0017696: [General]  Layer disappears after editing inline object (layer visibility scrambling) (jghali)
