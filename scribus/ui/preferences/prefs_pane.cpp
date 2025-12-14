@@ -55,7 +55,7 @@ void Prefs_Pane::highlightWidgets(const QString& text)
 		if (!textEmpty && checkBox->text().contains(text, Qt::CaseInsensitive))
 			setHighlight = true;
 		if (setHighlight)
-			checkBox->setStyleSheet("color: white; background-color: blue");
+			checkBox->setStyleSheet("color: white; background-color: dodgerblue");
 		else
 			checkBox->setStyleSheet(checkBox->parentWidget()->styleSheet());
 	}
@@ -65,7 +65,7 @@ void Prefs_Pane::highlightWidgets(const QString& text)
 		if (!textEmpty && groupBox->title().contains(text, Qt::CaseInsensitive))
 			setHighlight = true;
 		if (setHighlight)
-			groupBox->setStyleSheet("color: white; background-color: blue");
+			groupBox->setStyleSheet("color: white; background-color: dodgerblue");
 		else
 			groupBox->setStyleSheet(groupBox->parentWidget()->styleSheet());
 	}
@@ -75,7 +75,7 @@ void Prefs_Pane::highlightWidgets(const QString& text)
 		if (!textEmpty && label->text().contains(text, Qt::CaseInsensitive))
 			setHighlight = true;
 		if (setHighlight)
-			label->setStyleSheet("color: white; background-color: blue");
+			label->setStyleSheet("color: white; background-color: dodgerblue");
 		else
 			label->setStyleSheet(label->parentWidget()->styleSheet());
 	}
@@ -85,7 +85,7 @@ void Prefs_Pane::highlightWidgets(const QString& text)
 		if (!textEmpty && pushButton->text().contains(text, Qt::CaseInsensitive))
 			setHighlight = true;
 		if (setHighlight)
-			pushButton->setStyleSheet("color: white; background-color: blue");
+			pushButton->setStyleSheet("color: white; background-color: dodgerblue");
 		else
 			pushButton->setStyleSheet(pushButton->parentWidget()->styleSheet());
 	}
