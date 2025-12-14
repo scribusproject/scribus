@@ -313,6 +313,9 @@ private:
 	QHash<QString, QPainterPath> pathResources;
 	std::unique_ptr<ScZipHandler> uz;
 
+	QString m_currentOdgFilePath;
+	QString m_currentOdgFileDir;
+
 public slots:
 	void cancelRequested() { cancel = true; }
 };

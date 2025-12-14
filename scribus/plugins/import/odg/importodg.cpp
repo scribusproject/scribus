@@ -138,6 +138,8 @@ bool OdgPlug::import(const QString& fNameIn, const TransactionSettings& trSettin
 	pagecount = 1;
 	mpagecount = 0;
 	QFileInfo fi(fNameIn);
+	m_currentOdgFilePath = fNameIn;
+	m_currentOdgFileDir = fi.absolutePath();
 	if (!ScCore->usingGUI())
 	{
 		interactive = false;
@@ -1523,7 +1525,22 @@ PageItem* OdgPlug::parseFrame(QDomElement &e)
 		}
 		else if (n.tagName() == "draw:image" )
 		{
-			QString imagePath = n.attribute("xlink:href", "");
+			QString imagePath;
+			QString hrefData = n.attribute("xlink:href", "");
+			QUrl imageUrl(hrefData);
+			if (imageUrl.isValid())
+			{
+				bool isLocalFile = imageUrl.isLocalFile();
+				QString host = imageUrl.host();
+				if (isLocalFile && host.isEmpty())
+					imagePath = imageUrl.toLocalFile();
+				else if (host.isEmpty())
+				{
+					imagePath = hrefData;
+					if (imageUrl.isRelative())
+						imagePath = m_currentOdgFileDir + "/" + imageUrl.path();
+				}
+			}
 			if (!imagePath.isEmpty())
 			{
 				QFileInfo fi(imagePath);
