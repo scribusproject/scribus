@@ -125,6 +125,8 @@ void PreferencesDialog::setupGui()
 
 	if (prefs_ColorManagement)
 		prefs_ColorManagement->setProfiles(&localPrefs, &ScCore->InputProfiles, &ScCore->InputProfilesCMYK, &ScCore->PrinterProfiles, &ScCore->MonitorProfiles);
+
+	searchField->setFocus();
 }
 
 
