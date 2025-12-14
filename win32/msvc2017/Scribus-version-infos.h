@@ -8,4 +8,4 @@
 #define SCRIBUS_VERSION_STRING "1.6.5"
 #define SCRIBUS_FULL_VERSION_STRING "1.6.5"
 
-#define SCRIBUS_LEGAL_COPYRIGHT "Copyright (C) 2001-2025 by The Scribus Team"
+#define SCRIBUS_LEGAL_COPYRIGHT "Copyright (C) 2001-2026 by The Scribus Team"
