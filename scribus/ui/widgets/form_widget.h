@@ -80,8 +80,8 @@ public:
 	void addWidget(QWidget* widget);
 
 protected:
-	void paintEvent(QPaintEvent *e) Q_DECL_OVERRIDE;
-	bool event(QEvent *e) Q_DECL_OVERRIDE;
+	void paintEvent(QPaintEvent *e) override;
+	bool event(QEvent *e) override;
 
 private:
 	LabelPosition m_position {LabelPosition::Bottom};

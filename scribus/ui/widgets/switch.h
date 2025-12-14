@@ -33,8 +33,8 @@ public:
 	QSize sizeHint() const override;
 
 protected:
-	void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
-	bool event(QEvent *e) Q_DECL_OVERRIDE;
+	void paintEvent(QPaintEvent *event) override;
+	bool event(QEvent *e) override;
 
 private:
 	int m_radius { 10 };
