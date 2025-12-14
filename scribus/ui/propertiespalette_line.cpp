@@ -347,7 +347,12 @@ void PropertiesPalette_Line::updateArrowStyles()
 void PropertiesPalette_Line::updateArrowStyles(ScribusDoc *doc)
 {
 	if (!doc)
+	{
+		lineMarkerSelectorStart->clearList();
+		lineMarkerSelectorEnd->clearList();
 		return;
+	}
+
 	lineMarkerSelectorStart->rebuildList(&doc->arrowStyles());
 	buttonMarkerStart->setIcon(lineMarkerSelectorStart->currentIcon());
 	lineMarkerSelectorEnd->rebuildList(&doc->arrowStyles());
