@@ -288,6 +288,9 @@ public:
 
 	QMap<QString, QDomElement> buildNodeMap(const QDomElement &e) const;
 
+	QString m_currentSvgFilePath;
+	QString m_currentSvgFileDir;
+
 	QDomDocument inpdoc;
 	QString docDesc;
 	QString docTitle;
