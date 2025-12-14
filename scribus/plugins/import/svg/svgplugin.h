@@ -223,11 +223,14 @@ class SVGPlug : public QObject
 		void parseStyle( SvgStyle *obj, const QDomElement &e );
 		void parseColorStops(GradientHelper *gradient, const QDomElement &e);
 		void parseFilter(const QDomElement &b);
+		void parseGradient(const QDomElement& e);
 		void parseMarker(const QDomElement &b);
 		void parsePattern(const QDomElement &b);
-		void parseGradient(const QDomElement &e);
 
 		QMap<QString, QDomElement> buildNodeMap(const QDomElement &e) const;
+
+		QString m_currentSvgFilePath;
+		QString m_currentSvgFileDir;
 
 		QDomDocument inpdoc;
 		QString docDesc;

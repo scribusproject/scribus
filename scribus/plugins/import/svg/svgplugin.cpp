@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPainterPath>
 #include <QStack>
 #include <QTemporaryFile>
+#include <QUrl>
 
 #include "svgplugin.h"
 
@@ -305,16 +306,24 @@ QImage SVGPlug::readThumbnail(const QString& fName)
 
 bool SVGPlug::import(const QString& fname, const TransactionSettings& trSettings, int flags)
 {
+	m_currentSvgFilePath.clear();
+	m_currentSvgFileDir.clear();
+
 	if (!loadData(fname))
 	{
 		importFailed = true;
 		return false;
 	}
+
+	QFileInfo fInfo(fname);
+	m_currentSvgFilePath = fInfo.absoluteFilePath();
+	m_currentSvgFileDir = fInfo.absolutePath();
+
 	QString CurDirP = QDir::currentPath();
-	QFileInfo efp(fname);
-	QDir::setCurrent(efp.path());
+	QDir::setCurrent(fInfo.path());
 	convert(trSettings, flags);
 	QDir::setCurrent(CurDirP);
+
 	return true;
 }
 
@@ -1610,9 +1619,29 @@ QList<PageItem*> SVGPlug::parseImage(const QDomElement &e)
 	PageItem* ite = m_Doc->Items->at(z);
 	if (!hrefData.isEmpty())
 	{
-		//hrefData contains a filename
+		// hrefData contains a filename
 		if (!hrefData.startsWith("data:"))
-			m_Doc->loadPict(hrefData, ite);
+		{
+			// Be a bit careful about where we load from
+			QUrl fileUrl(hrefData);
+			if (fileUrl.isValid())
+			{
+				bool isLocalFile = fileUrl.isLocalFile();
+				QString host = fileUrl.host();
+				if (isLocalFile && host.isEmpty())
+				{
+					QString imageFilePath = fileUrl.toLocalFile();
+					m_Doc->loadPict(imageFilePath, ite);
+				}
+				else if (host.isEmpty())
+				{
+					QString imageFilePath(hrefData);
+					if (fileUrl.isRelative())
+						imageFilePath = m_currentSvgFileDir + "/" + fileUrl.path();
+					m_Doc->loadPict(imageFilePath, ite);
+				}
+			}
+		}
 		else
 		{
 			//hrefData is embedded
