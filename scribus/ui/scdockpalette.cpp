@@ -209,7 +209,7 @@ void ScDockPalette::storePosition(int newX, int newY)
 
 void ScDockPalette::storeSize()
 {
-	if (m_palettePrefs)
+	if (!m_palettePrefs)
 		return;
 	m_palettePrefs->set("width", width());
 	m_palettePrefs->set("height", height());
