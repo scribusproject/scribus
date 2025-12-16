@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>322</width>
-    <height>426</height>
+    <height>443</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -226,114 +226,19 @@
              <number>0</number>
             </property>
             <item>
-             <widget class="QToolButton" name="alignLeftInToolButton">
-              <property name="minimumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>22</width>
-                <height>22</height>
-               </size>
-              </property>
-             </widget>
+             <widget class="QToolButton" name="alignLeftInToolButton"/>
             </item>
             <item>
-             <widget class="QToolButton" name="alignCenterHorToolButton">
-              <property name="minimumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>22</width>
-                <height>22</height>
-               </size>
-              </property>
-             </widget>
+             <widget class="QToolButton" name="alignCenterHorToolButton"/>
             </item>
             <item>
-             <widget class="QToolButton" name="alignRightInToolButton">
-              <property name="minimumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>22</width>
-                <height>22</height>
-               </size>
-              </property>
-             </widget>
+             <widget class="QToolButton" name="alignRightInToolButton"/>
             </item>
             <item>
-             <widget class="QToolButton" name="alignRightOutToolButton">
-              <property name="minimumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>22</width>
-                <height>22</height>
-               </size>
-              </property>
-             </widget>
+             <widget class="QToolButton" name="alignRightOutToolButton"/>
             </item>
             <item>
-             <widget class="QToolButton" name="alignLeftOutToolButton">
-              <property name="minimumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>22</width>
-                <height>22</height>
-               </size>
-              </property>
-             </widget>
+             <widget class="QToolButton" name="alignLeftOutToolButton"/>
             </item>
            </layout>
           </widget>
@@ -377,114 +282,19 @@
              <number>0</number>
             </property>
             <item>
-             <widget class="QToolButton" name="alignTopInToolButton">
-              <property name="minimumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>22</width>
-                <height>22</height>
-               </size>
-              </property>
-             </widget>
+             <widget class="QToolButton" name="alignTopInToolButton"/>
             </item>
             <item>
-             <widget class="QToolButton" name="alignCenterVerToolButton">
-              <property name="minimumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>22</width>
-                <height>22</height>
-               </size>
-              </property>
-             </widget>
+             <widget class="QToolButton" name="alignCenterVerToolButton"/>
             </item>
             <item>
-             <widget class="QToolButton" name="alignBottomInToolButton">
-              <property name="minimumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>22</width>
-                <height>22</height>
-               </size>
-              </property>
-             </widget>
+             <widget class="QToolButton" name="alignBottomInToolButton"/>
             </item>
             <item>
-             <widget class="QToolButton" name="alignBottomOutToolButton">
-              <property name="minimumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>22</width>
-                <height>22</height>
-               </size>
-              </property>
-             </widget>
+             <widget class="QToolButton" name="alignBottomOutToolButton"/>
             </item>
             <item>
-             <widget class="QToolButton" name="alignTopOutToolButton">
-              <property name="minimumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>22</width>
-                <height>22</height>
-               </size>
-              </property>
-             </widget>
+             <widget class="QToolButton" name="alignTopOutToolButton"/>
             </item>
            </layout>
           </widget>
@@ -557,92 +367,16 @@
              <number>0</number>
             </property>
             <item>
-             <widget class="QToolButton" name="distributeLeftToolButton">
-              <property name="minimumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>22</width>
-                <height>22</height>
-               </size>
-              </property>
-             </widget>
+             <widget class="QToolButton" name="distributeLeftToolButton"/>
             </item>
             <item>
-             <widget class="QToolButton" name="distributeCenterHToolButton">
-              <property name="minimumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>22</width>
-                <height>22</height>
-               </size>
-              </property>
-             </widget>
+             <widget class="QToolButton" name="distributeCenterHToolButton"/>
             </item>
             <item>
-             <widget class="QToolButton" name="distributeRightToolButton">
-              <property name="minimumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>22</width>
-                <height>22</height>
-               </size>
-              </property>
-             </widget>
+             <widget class="QToolButton" name="distributeRightToolButton"/>
             </item>
             <item>
-             <widget class="QToolButton" name="distributeDistHToolButton">
-              <property name="minimumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>22</width>
-                <height>22</height>
-               </size>
-              </property>
-             </widget>
+             <widget class="QToolButton" name="distributeDistHToolButton"/>
             </item>
            </layout>
           </widget>
@@ -686,92 +420,16 @@
              <number>0</number>
             </property>
             <item>
-             <widget class="QToolButton" name="distributeTopToolButton">
-              <property name="minimumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>22</width>
-                <height>22</height>
-               </size>
-              </property>
-             </widget>
+             <widget class="QToolButton" name="distributeTopToolButton"/>
             </item>
             <item>
-             <widget class="QToolButton" name="distributeCenterVToolButton">
-              <property name="minimumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>22</width>
-                <height>22</height>
-               </size>
-              </property>
-             </widget>
+             <widget class="QToolButton" name="distributeCenterVToolButton"/>
             </item>
             <item>
-             <widget class="QToolButton" name="distributeBottomToolButton">
-              <property name="minimumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>22</width>
-                <height>22</height>
-               </size>
-              </property>
-             </widget>
+             <widget class="QToolButton" name="distributeBottomToolButton"/>
             </item>
             <item>
-             <widget class="QToolButton" name="distributeDistVToolButton">
-              <property name="minimumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>22</width>
-                <height>22</height>
-               </size>
-              </property>
-             </widget>
+             <widget class="QToolButton" name="distributeDistVToolButton"/>
             </item>
            </layout>
           </widget>
@@ -822,48 +480,12 @@
               <property name="enabled">
                <bool>true</bool>
               </property>
-              <property name="minimumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>22</width>
-                <height>22</height>
-               </size>
-              </property>
              </widget>
             </item>
             <item>
              <widget class="QToolButton" name="distributeDownPageToolButton">
               <property name="enabled">
                <bool>true</bool>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>22</width>
-                <height>22</height>
-               </size>
               </property>
              </widget>
             </item>
@@ -872,48 +494,12 @@
               <property name="enabled">
                <bool>true</bool>
               </property>
-              <property name="minimumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>22</width>
-                <height>22</height>
-               </size>
-              </property>
              </widget>
             </item>
             <item>
              <widget class="QToolButton" name="distributeDownMarginsToolButton">
               <property name="enabled">
                <bool>true</bool>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>22</width>
-                <height>22</height>
-               </size>
               </property>
              </widget>
             </item>
@@ -942,48 +528,10 @@
              <number>0</number>
             </property>
             <item>
-             <widget class="QToolButton" name="swapLeftToolButton">
-              <property name="minimumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>22</width>
-                <height>22</height>
-               </size>
-              </property>
-             </widget>
+             <widget class="QToolButton" name="swapLeftToolButton"/>
             </item>
             <item>
-             <widget class="QToolButton" name="swapRightToolButton">
-              <property name="minimumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>22</width>
-                <height>22</height>
-               </size>
-              </property>
-             </widget>
+             <widget class="QToolButton" name="swapRightToolButton"/>
             </item>
            </layout>
           </widget>
@@ -1030,48 +578,10 @@
              <number>0</number>
             </property>
             <item>
-             <widget class="QToolButton" name="distributeDistValueVToolButton">
-              <property name="minimumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>22</width>
-                <height>22</height>
-               </size>
-              </property>
-             </widget>
+             <widget class="QToolButton" name="distributeDistValueVToolButton"/>
             </item>
             <item>
-             <widget class="QToolButton" name="distributeDistValueHToolButton">
-              <property name="minimumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>24</width>
-                <height>24</height>
-               </size>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>22</width>
-                <height>22</height>
-               </size>
-              </property>
-             </widget>
+             <widget class="QToolButton" name="distributeDistValueHToolButton"/>
             </item>
             <item>
              <widget class="ScrSpinBox" name="distributeDistSpinBox"/>
