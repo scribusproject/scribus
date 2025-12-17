@@ -57,7 +57,7 @@ public:
 
 	// Color
 	void setColor(QString colorName, double shade = 100.0, double opacity = 0.0);
-	void setColorData(const CPColorData& data) { m_colorData = data; }
+	void setColorData(const CPColorData& data);
 	CPColorData colorData() const { return m_colorData; }
 	QColor color() const;
 	QString colorName() const;
@@ -179,6 +179,7 @@ private:
 	QBrush renderBrush() const;
 	bool isMask() const;
 	void setModeByType(int type);
+	bool canShowDot();
 
 	QBrush brushSolid() const;
 	QBrush brushGradient() const;

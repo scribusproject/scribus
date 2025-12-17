@@ -369,6 +369,12 @@ void ColorPickerGradient::disableGradientEditProperties()
 void ColorPickerGradient::setDoc(ScribusDoc *doc)
 {
 	m_doc = doc;
+	buttonColor1->setDoc(m_doc);
+	buttonColor2->setDoc(m_doc);
+	buttonColor3->setDoc(m_doc);
+	buttonColor4->setDoc(m_doc);
+	buttonColorMesh->setDoc(m_doc);
+	gradientEditor->setDoc(m_doc);
 	unitChange();
 }
 
@@ -485,14 +491,18 @@ void ColorPickerGradient::updateFourColors()
 	m_gradient.Color4Shade = numberColor4Shade->value();
 
 	// render color buttons
-	buttonColor1->setBrush(colorBrush(buttonColor1->circleSize(), m_gradient.Color1Name, m_gradient.Color1Shade, m_gradient.Color1Alpha));
+	buttonColor1->setColor(m_gradient.Color1Name, m_gradient.Color1Shade, 1.0 - m_gradient.Color1Alpha);
 	buttonColor1->setToolTip(m_gradient.Color1Name);
-	buttonColor2->setBrush(colorBrush(buttonColor2->circleSize(), m_gradient.Color2Name, m_gradient.Color2Shade, m_gradient.Color2Alpha));
+	buttonColor1->updatePreview();
+	buttonColor2->setColor(m_gradient.Color2Name, m_gradient.Color2Shade, 1.0 - m_gradient.Color2Alpha);
 	buttonColor2->setToolTip(m_gradient.Color2Name);
-	buttonColor3->setBrush(colorBrush(buttonColor3->circleSize(), m_gradient.Color3Name, m_gradient.Color3Shade, m_gradient.Color3Alpha));
+	buttonColor2->updatePreview();
+	buttonColor3->setColor(m_gradient.Color3Name, m_gradient.Color3Shade, 1.0 - m_gradient.Color3Alpha);
 	buttonColor3->setToolTip(m_gradient.Color3Name);
-	buttonColor4->setBrush(colorBrush(buttonColor4->circleSize(), m_gradient.Color4Name, m_gradient.Color4Shade, m_gradient.Color4Alpha));
+	buttonColor3->updatePreview();
+	buttonColor4->setColor(m_gradient.Color4Name, m_gradient.Color4Shade, 1.0 - m_gradient.Color4Alpha);
 	buttonColor4->setToolTip(m_gradient.Color4Name);
+	buttonColor4->updatePreview();
 
 	updateGradient();
 }
@@ -508,7 +518,8 @@ void ColorPickerGradient::updateMeshColor()
 	m_gradientMesh.Opacity = numberColorMeshAlpha->value() / 100.0;
 
 	// render color button
-	buttonColorMesh->setBrush(colorBrush(buttonColorMesh->circleSize(), m_gradientMesh.Name, m_gradientMesh.Shade, m_gradientMesh.Opacity));
+	buttonColorMesh->setColor(m_gradientMesh.Name, m_gradientMesh.Shade, 1.0 - m_gradientMesh.Opacity);
+	buttonColorMesh->updatePreview();
 	buttonColorMesh->setToolTip(m_gradientMesh.Name);
 
 	if (gradientEditPropertiesEnabled() && (type() == Gradient_PatchMesh || type() == Gradient_Mesh))
@@ -676,14 +687,18 @@ void ColorPickerGradient::setCurrentFourColors(QString color1, QString color2, Q
 	QSignalBlocker sigButtonColor2(buttonColor2);
 	QSignalBlocker sigButtonColor3(buttonColor3);
 	QSignalBlocker sigButtonColor4(buttonColor4);
-	buttonColor1->setBrush(colorBrush(buttonColor1->circleSize(), color1, m_gradient.Color1Shade, m_gradient.Color1Alpha));
-	buttonColor1->setToolTip(color1);
-	buttonColor2->setBrush(colorBrush(buttonColor2->circleSize(), color2, m_gradient.Color2Shade, m_gradient.Color2Alpha));
-	buttonColor2->setToolTip(color2);
-	buttonColor3->setBrush(colorBrush(buttonColor3->circleSize(), color3, m_gradient.Color3Shade, m_gradient.Color3Alpha));
-	buttonColor3->setToolTip(color3);
-	buttonColor4->setBrush(colorBrush(buttonColor4->circleSize(), color4, m_gradient.Color4Shade, m_gradient.Color4Alpha));
-	buttonColor4->setToolTip(color4);
+	buttonColor1->setColor(m_gradient.Color1Name, m_gradient.Color1Shade, 1.0 - m_gradient.Color1Alpha);
+	buttonColor1->setToolTip(m_gradient.Color1Name);
+	buttonColor1->updatePreview();
+	buttonColor2->setColor(m_gradient.Color2Name, m_gradient.Color2Shade, 1.0 - m_gradient.Color2Alpha);
+	buttonColor2->setToolTip(m_gradient.Color2Name);
+	buttonColor2->updatePreview();
+	buttonColor3->setColor(m_gradient.Color3Name, m_gradient.Color3Shade, 1.0 - m_gradient.Color3Alpha);
+	buttonColor3->setToolTip(m_gradient.Color3Name);
+	buttonColor3->updatePreview();
+	buttonColor4->setColor(m_gradient.Color4Name, m_gradient.Color4Shade, 1.0 - m_gradient.Color4Alpha);
+	buttonColor4->setToolTip(m_gradient.Color4Name);
+	buttonColor4->updatePreview();
 
 }
 
@@ -703,7 +718,8 @@ void ColorPickerGradient::setCurrentMeshPoint(QString colorName, double shade, d
 	m_gradientMesh.Opacity = alpha;
 
 	QSignalBlocker sigMeshColor(buttonColorMesh);
-	buttonColorMesh->setBrush(colorBrush(buttonColorMesh->circleSize(), m_gradientMesh.Name, m_gradientMesh.Shade, m_gradientMesh.Opacity));
+	buttonColorMesh->setColor(m_gradientMesh.Name, m_gradientMesh.Shade, 1.0 - m_gradientMesh.Opacity);
+	buttonColorMesh->updatePreview();
 	buttonColorMesh->setToolTip(m_gradientMesh.Name);
 }
 

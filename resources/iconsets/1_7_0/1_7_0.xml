@@ -233,7 +233,7 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon id="colorpicker-pattern" file="16/colorpicker-pattern.svg" />
 		<icon id="colorpicker-solid" file="16/colorpicker-solid.svg" />
 		<icon id="mask" file="16/color-mask.svg" />
-		<icon id="text-background-color" file="16/paragraph-align-horizontal-center.svg" />
+		<icon id="text-background-color" file="16/text-background-color.svg" />
 		<icon id="text-color" file="16/text.svg" />
 		<icon id="text-outline-color" file="16/character-outline.svg" />
 		

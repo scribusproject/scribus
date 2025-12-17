@@ -33,7 +33,8 @@ QSize FormWidget::minimumSizeHint() const
 	int b = 0;
 	int w = 0;
 	int h = 0;
-	labelSize(l, t, r, b, w, h);
+	int offset = 0;
+	labelSize(l, t, r, b, w, h, offset);
 
 	return QSize(w, h).expandedTo(QWidget::minimumSizeHint());
 }
@@ -52,7 +53,7 @@ void FormWidget::calculateFrame()
 	int b = 0;
 	int w = 0;
 	int h = 0;
-	labelSize(l, t, r, b, w, h);
+	labelSize(l, t, r, b, w, h, m_labelOffset);
 	setContentsMargins(l, t, r, b);
 
 	update();
@@ -126,15 +127,16 @@ void FormWidget::paintEvent(QPaintEvent *e)
 		rIcon = QRect(0, 0, m_pixmap.deviceIndependentSize().width(), m_pixmap.deviceIndependentSize().height());
 		rIcon.moveCenter(rWidgets.center());
 
-		switch (m_iconPosition){
+		switch (m_iconPosition)
+		{
 		default:
 		case Left:
 			rIcon.moveLeft(0);
-			rLabel = rLabel.adjusted(rIcon.width() + m_space, 0, 0, 0);
+			rLabel = rLabel.adjusted(m_labelOffset, 0, 0, 0);
 			break;
 		case Right:
 			rIcon.moveRight(width());
-			rLabel = rLabel.adjusted(0, 0, -rIcon.width() - m_space, 0);
+			rLabel = rLabel.adjusted(0, 0, -m_labelOffset, 0);
 			break;
 		case Top:
 			rIcon.moveTop(0);
@@ -155,7 +157,9 @@ void FormWidget::paintEvent(QPaintEvent *e)
 
 	if (canUseLabel())
 	{
-		switch (m_position){
+		switch (m_position)
+		{
+		default:
 		case Left:
 			style->drawItemText(&painter, rLabel, Qt::AlignLeft | Qt::AlignVCenter | Qt::TextShowMnemonic, opt.palette, isEnabled(), m_label, foregroundRole());
 			break;
@@ -252,23 +256,33 @@ bool FormWidget::event(QEvent *e)
  *
  * ********************************************************************************* */
 
-
-void FormWidget::labelSize(int &l, int &t, int &r, int &b, int &w, int &h) const
-{   
+void FormWidget::labelSize(int &l, int &t, int &r, int &b, int &w, int &h, int &offset) const
+{
 	l = 0;
 	t = 0;
 	r = 0;
 	b = 0;
 	w = 0;
 	h = 0;
+	offset = 0;
+
+	if (!layout())
+		return;
+
+	const QSize sizeContent = layout()->minimumSize();
+
+	int iconWidth = 0;
+	int iconHeight = 0;
+	int labelWidth = 0;
+	int labelHeight = 0;
+
+	bool isHorizontalIcon = (m_iconPosition == Left || m_iconPosition == Right);
+	bool fixWidth = false;
 
 	if (canUsePixmap())
 	{
-		int iconWidth = m_pixmapSize.width() + m_space;
-		int iconHeight = m_pixmapSize.height() + m_space;
-
-		w += iconWidth;
-		h += iconHeight;
+		iconWidth = m_pixmapSize.width() + m_space;
+		iconHeight = m_pixmapSize.height() + m_space;
 
 		switch (m_iconPosition)
 		{
@@ -285,7 +299,6 @@ void FormWidget::labelSize(int &l, int &t, int &r, int &b, int &w, int &h) const
 			b += iconHeight;
 			break;
 		}
-
 	}
 
 	if (canUseLabel())
@@ -294,48 +307,55 @@ void FormWidget::labelSize(int &l, int &t, int &r, int &b, int &w, int &h) const
 		if (m_useSmallFont)
 			tmpFont.setPointSize(smallFontSize());
 
-		QFontMetrics metrics(tmpFont);
-		QString label = m_label;
-
-		// calculate width without hidden "&"
+		QString labelText = m_label;
 		if (m_hasShortcut)
+			labelText.remove(QLatin1Char('&'));
+
+		QFontMetrics metrics(tmpFont);
+		labelWidth = metrics.horizontalAdvance(labelText) + metrics.horizontalAdvance(QLatin1Char(' ')) + m_space;
+		labelHeight = metrics.height() + m_space;
+
+		if (m_position == Left || m_position == Right)
 		{
-			int pos = 0;
-			while ( pos < m_label.size())
-			{
-				int index = label.indexOf(QLatin1String("&"), pos);
-
-				if (pos == index)
-					label = label.replace(index, 1, "");
-
-				pos++;
-			}
-		}
-
-		int labelWidth = metrics.horizontalAdvance(label) + metrics.horizontalAdvance(QLatin1Char(' ')) + m_space;
-		int labelHeight = metrics.height() + m_space;
-
-		w += labelWidth;
-		h += labelHeight;
-
-		switch (m_position)
-		{
-			case Left:
+			if (m_position == Left)
 				l += labelWidth;
-				break;
-			case Right:
+			else
 				r += labelWidth;
-				break;
-			case Top:				
-				t += labelHeight;
-				break;
-			case Bottom:				
-				b += labelHeight;
-				break;
-		}
 
+			if (canUsePixmap() && isHorizontalIcon)
+				offset = iconWidth;
+		}
+		else if (m_position == Top || m_position == Bottom)
+		{
+			if (m_position == Top)
+				t += labelHeight;
+			else
+				b += labelHeight;
+
+			if (canUsePixmap() && isHorizontalIcon)
+			{
+				int diff = (sizeContent.width() < labelWidth) ? (labelWidth - sizeContent.width()) / 2 : 0;
+				int space = offset = diff > 0 ? iconWidth - diff : iconWidth;
+
+				if (m_iconPosition == Left)
+				{
+					l = space + diff;
+					r = diff;
+				}
+				else
+				{
+					r = space + diff;
+					l = diff;
+				}
+			}
+			else
+				fixWidth = true;
+		}
 	}
 
+	int maxWidth = sizeContent.width() + l + r;
+	w = fixWidth ? qMax(maxWidth, labelWidth) : maxWidth;
+	h = sizeContent.height() + t + b;
 }
 
 int FormWidget::smallFontSize() const

@@ -867,7 +867,9 @@ void PropertiesPalette_Line::iconSetChange()
 	buttonCapSquare->setIcon(im.loadIcon("stroke-cap-square"));
 
 	buttonSwapMarker->setIcon(im.loadIcon("swap"));
-	buttonLineMask->setDotIcon(im.loadIcon("mask", 8));
+
+	lineMaskLabel->setPixmap(im.loadPixmap("mask"));
+	// lineColorLabel->setPixmap(im.loadPixmap("color-stroke"));
 
 	lineStyleLabel->setPixmap(im.loadPixmap("stroke-style"));
 	buttonLineStyleNew->setIcon(im.loadIcon("stroke-style-new"));
@@ -956,5 +958,4 @@ void PropertiesPalette_Line::toggleLabelVisibility(bool v)
 	lineMarkerLabel->setLabelVisibility(v);
 	lineMaskLabel->setLabelVisibility(v);
 	lineBlendmodeLabel->setLabelVisibility(v);
-	buttonLineMask->setHasDot(!v);
 }

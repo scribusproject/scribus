@@ -144,6 +144,12 @@ void GradientEditor::setExtendVisible(bool visible)
 	extendLabel->setVisible(visible);
 }
 
+void GradientEditor::setDoc(ScribusDoc *doc)
+{
+	m_doc = doc;
+	buttonColor->setDoc(m_doc);
+}
+
 void GradientEditor::changePos(double v)
 {
 	Preview->setActiveStopPosition(v / 100.0);
@@ -194,21 +200,14 @@ void GradientEditor::languageChange()
 void GradientEditor::updateColorButton()
 {
 	QString colorName = colorListBox->currentColor();
-	QBrush brush;
 
 	if (colorName == CommonStrings::tr_NoneColor || colorName == CommonStrings::None)
-		brush = renderEmptyPattern(buttonColor->circleSize(), devicePixelRatio());
+		buttonColor->setBrush(renderEmptyPattern(buttonColor->circleSize(), devicePixelRatio()));
 	else
 	{
-		const ScColor& color = m_colorList[colorName];
-
-		QColor qColorShade = ScColorEngine::getDisplayColor(color, m_colorList.document(), stopShade->value());
-		QColor qColor = ScColorEngine::getDisplayColor(color, m_colorList.document(), 100.0);
-
-		brush = QBrush(renderColor(buttonColor->circleSize(), devicePixelRatio(), qColor, qColorShade, stopOpacity->value() / 100.0));
+		buttonColor->setColor(colorName, stopShade->value(), 1.0 - stopOpacity->value() / 100.0);
+		buttonColor->updatePreview();
 	}
-
-	buttonColor->setBrush(brush);
 }
 
 void GradientEditor::initExtend()

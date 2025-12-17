@@ -59,6 +59,7 @@ public:
 	void setExtendVisible(bool visible);
 
 public slots:
+	void setDoc(ScribusDoc *doc);
 	void setPos(double);
 	void changePos(double);
 	void slotColor(const QString& name, int shade);
@@ -79,6 +80,7 @@ signals:
 protected:
 	ColorList m_colorList;
 	ColorListBox *colorListBox;
+	QPointer<ScribusDoc> m_doc;
 
 	void initExtend();
 

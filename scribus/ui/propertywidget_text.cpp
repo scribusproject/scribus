@@ -29,18 +29,14 @@ PropertyWidget_Text::PropertyWidget_Text( QWidget* parent) : QFrame(parent)
 	buttonTextColor->setContext(Context::Text);
 	buttonTextColor->setMenuContextType(ColorButton::Floating);
 	buttonTextColor->setColor( CommonStrings::tr_NoneColor);
-	buttonTextColor->setIconSize(QSize(20, 20));
-	buttonTextColor->setApplyColorOnIcon(true);
 
 	buttonBackgroundColor->setContext(Context::TextBackground);
 	buttonBackgroundColor->setMenuContextType(ColorButton::Floating);
 	buttonBackgroundColor->setColor(CommonStrings::tr_NoneColor);
-//	buttonBackgroundColor->setIconSize(QSize(16, 16));
 
 	buttonStrokeColor->setContext(Context::TextOutline);
 	buttonStrokeColor->setMenuContextType(ColorButton::Floating);
 	buttonStrokeColor->setColor(CommonStrings::tr_NoneColor);
-	buttonStrokeColor->setIconSize(QSize(20, 20));
 
 	labelFontSize->setLabelVisibility(false);
 	labelLineSpacing->setLabelVisibility(false);
@@ -242,8 +238,9 @@ void PropertyWidget_Text::iconSetChange()
 
 	labelFontSize->setPixmap(im.loadPixmap("font-size"));
 	labelLineSpacing->setPixmap(im.loadPixmap("paragraph-line-height"));
-	buttonTextColor->setIcon(im.loadIcon("text-color", buttonTextColor->iconSize()));
-	buttonStrokeColor->setIcon(im.loadIcon("text-outline-color", buttonStrokeColor->iconSize()));
+	labelTextColor->setPixmap(im.loadPixmap("text-color"));
+	labelStrokeColor->setPixmap(im.loadPixmap("text-outline-color"));
+	labelBackgroundColor->setPixmap(im.loadPixmap("text-background-color"));
 }
 
 

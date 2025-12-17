@@ -6,6 +6,7 @@
 #include "util_gui.h"
 #include "popup_menu.h"
 #include "floatingwindow.h"
+#include "iconmanager.h"
 #include "scribusdoc.h"
 #include "sccolorengine.h"
 #include "manager/widget_manager.h"
@@ -140,6 +141,40 @@ void ColorButton::setColor(QString colorName, double shade, double opacity)
 
 	setColorData(c);
 
+}
+
+void ColorButton::setColorData(const CPColorData &data)
+{
+	m_colorData = data;
+
+	IconManager &im = IconManager::instance();
+	setDotIcon(im.loadPixmap("color-cmyk"));
+	setHasDot(canShowDot());
+
+	if (!m_doc)
+		return;
+
+
+	ScColor sColor(0, 0, 0);
+
+	if (m_doc->PageColors.contains(colorName()))
+		sColor = m_doc->PageColors.value(colorName());
+
+	switch(sColor.getColorModel())
+	{
+	case colorModel::colorModelCMYK:
+		setDotIcon(im.loadPixmap("color-cmyk"));
+		break;
+	case colorModelRGB:
+		setDotIcon(im.loadPixmap("color-rgb"));
+		break;
+	case colorModelLab:
+		setDotIcon(im.loadPixmap("color-lab"));
+		break;
+	}
+
+	if (sColor.isSpotColor())
+		setDotIcon(im.loadPixmap("color-spot"));
 }
 
 QColor ColorButton::color() const
@@ -330,6 +365,11 @@ void ColorButton::setModeByType(int type)
 			break;
 		}
 	}
+}
+
+bool ColorButton::canShowDot()
+{
+	return m_mode == Mode::Solid && !(colorName() == CommonStrings::tr_NoneColor || colorName() == CommonStrings::None || colorName().isEmpty());
 }
 
 QColor ColorButton::colorFromName(QString colorName, double shade) const
@@ -792,14 +832,14 @@ void ColorButton::paintEvent(QPaintEvent *e)
 	{
 		QIcon::Mode iMode = isEnabled() ? QIcon::Normal : QIcon::Disabled;
 
-		int w = 8;
-		int h = 8;
+		int w = 9;
+		int h = 9;
 		QPixmap pix = dotIcon().pixmap(QSize(w, h), iMode);
 		QRectF fDot(rect().right() - fSize.width() + 0.5, rect().bottom() - fSize.height() + 0.5, fSize.width(), fSize.height()); // bottom right corner
 		painter.setPen(QPen(palette().color(QPalette::WindowText)));
 		painter.setBrush(palette().color(QPalette::Base));
 		painter.drawEllipse(fDot.center(), fDot.width() / 2., fDot.height() / 2.);
-		painter.drawPixmap(fDot.center() - QPointF(w/2, h/2), pix);
+		painter.drawPixmap(fDot.center() - QPointF(w/2 + 0.5, h/2 + 0.5), pix);
 	}
 
 	painter.end();
