@@ -614,10 +614,12 @@ bool PDFAnalyzer::inspectCanvas(PdfCanvas* canvas, QList<PDFColorSpace> & usedCo
 							int widthIdx = args.contains(width) ? args.indexOf(width) : args.indexOf(w);
 							double height = args[heightIdx + 1].GetReal();
 							double width = args[widthIdx + 1].GetReal();
+							double scaleX = currGS.ctm.map(QLineF(0, 0, 1, 0)).length();
+							double scaleY = currGS.ctm.map(QLineF(0, 0, 0, 1)).length();
 							PDFImage img;
 							img.imgName = "Inline Image";
-							img.dpiX = qRound(width / (currGS.ctm.m11() / 72));
-							img.dpiY = qRound(height / (currGS.ctm.m22() / 72));
+							img.dpiX = (scaleX != 0.0) ? qRound(width / (scaleX / 72)) : 72.0;
+							img.dpiY = (scaleY != 0.0) ? qRound(height / (scaleY / 72)) : 72.0;
 							imgs.append(img);
 						}
 						inlineImgDict = false;
@@ -731,8 +733,10 @@ bool PDFAnalyzer::inspectCanvas(PdfCanvas* canvas, QList<PDFColorSpace> & usedCo
 								img.imgName = args[0].GetName().GetEscapedName().c_str();
 								double width = xObjectDict->FindKey("Width")->GetReal();
 								double height = xObjectDict->FindKey("Height")->GetReal();
-								img.dpiX = qRound(width / (currGS.ctm.m11() / 72));
-								img.dpiY = qRound(height / (currGS.ctm.m22() / 72));
+								double scaleX = currGS.ctm.map(QLineF(0, 0, 1, 0)).length();
+								double scaleY = currGS.ctm.map(QLineF(0, 0, 0, 1)).length();
+								img.dpiX = (scaleX != 0.0) ? qRound(width / (scaleX / 72)) : 72.0;
+								img.dpiY = (scaleY != 0.0) ? qRound(height / (scaleY / 72)) : 72.0;
 								imgs.append(img);
 							}
 							else if (subtypeObject->GetName() == "Form")
@@ -1125,8 +1129,10 @@ bool PDFAnalyzer::inspectCanvas(PdfCanvas* canvas, QList<PDFColorSpace> & usedCo
 									img.imgName = args[0].GetName().GetEscapedName().c_str();
 									double width = xObject->GetIndirectKey("Width")->GetReal();
 									double height = xObject->GetIndirectKey("Height")->GetReal();
-									img.dpiX = qRound(width/(currGS.ctm.m11()/72));
-									img.dpiY = qRound(height/(currGS.ctm.m22()/72));
+									double scaleX = currGS.ctm.map(QLineF(0, 0, 1, 0)).length();
+									double scaleY = currGS.ctm.map(QLineF(0, 0, 0, 1)).length();
+									img.dpiX = (scaleX != 0.0) ? qRound(width / (scaleX / 72)) : 72.0;
+									img.dpiY = (scaleY != 0.0) ? qRound(height / (scaleY / 72)) : 72.0;
 									imgs.append(img);
 								}
 								else if (subtypeObject->GetName() == "Form")
@@ -1202,10 +1208,12 @@ bool PDFAnalyzer::inspectCanvas(PdfCanvas* canvas, QList<PDFColorSpace> & usedCo
 							int widthIdx = args.contains(width) ? args.indexOf(width) : args.indexOf(w);
 							double height = args[heightIdx + 1].GetReal();
 							double width = args[widthIdx + 1].GetReal();
+							double scaleX = currGS.ctm.map(QLineF(0, 0, 1, 0)).length();
+							double scaleY = currGS.ctm.map(QLineF(0, 0, 0, 1)).length();
 							PDFImage img;
 							img.imgName = "Inline Image";
-							img.dpiX = qRound(width / (currGS.ctm.m11() / 72));
-							img.dpiY = qRound(height / (currGS.ctm.m22() / 72));
+							img.dpiX = (scaleX != 0.0) ? qRound(width / (scaleX / 72)) : 72.0;
+							img.dpiY = (scaleY != 0.0) ? qRound(height / (scaleY / 72)) : 72.0;
 							imgs.append(img);
 						}
 						inlineImgDict = false;
