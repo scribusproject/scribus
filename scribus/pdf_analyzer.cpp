@@ -30,26 +30,22 @@ for which a new license (GPL+exception) is in place.
 
 #ifdef HAVE_PODOFO
 
-using namespace PoDoFo;
-
 #if (PODOFO_VERSION >= PODOFO_MAKE_VERSION(1, 0, 0))
 #include <string_view>
 #include <utility>
 
-namespace std
+namespace PoDoFo
 {
-	template<>
-	struct less<PoDoFo::PdfName>
+	bool operator<(const PdfName& n1, const PdfName& n2)
 	{
-		bool operator()(const PoDoFo::PdfName& n1, const PoDoFo::PdfName& n2) const
-		{
-			std::string_view s1 = n1.GetRawData();
-			std::string_view s2 = n2.GetRawData();
-			return s1 < s2;
-		}
-	};
+		std::string_view s1 = n1.GetRawData();
+		std::string_view s2 = n2.GetRawData();
+		return s1 < s2;
+	}
 }
 #endif
+
+using namespace PoDoFo;
 
 static QHash<QString, PDFContentStreamKeyword> kwNameMap;
 
@@ -618,10 +614,12 @@ bool PDFAnalyzer::inspectCanvas(PdfCanvas* canvas, QList<PDFColorSpace> & usedCo
 							int widthIdx = args.contains(width) ? args.indexOf(width) : args.indexOf(w);
 							double height = args[heightIdx + 1].GetReal();
 							double width = args[widthIdx + 1].GetReal();
+							double scaleX = currGS.ctm.map(QLineF(0, 0, 1, 0)).length();
+							double scaleY = currGS.ctm.map(QLineF(0, 0, 0, 1)).length();
 							PDFImage img;
 							img.imgName = "Inline Image";
-							img.dpiX = qRound(width / (currGS.ctm.m11() / 72));
-							img.dpiY = qRound(height / (currGS.ctm.m22() / 72));
+							img.dpiX = (scaleX != 0.0) ? qRound(width / (scaleX / 72)) : 72.0;
+							img.dpiY = (scaleY != 0.0) ? qRound(height / (scaleY / 72)) : 72.0;
 							imgs.append(img);
 						}
 						inlineImgDict = false;
@@ -735,8 +733,10 @@ bool PDFAnalyzer::inspectCanvas(PdfCanvas* canvas, QList<PDFColorSpace> & usedCo
 								img.imgName = args[0].GetName().GetEscapedName().c_str();
 								double width = xObjectDict->FindKey("Width")->GetReal();
 								double height = xObjectDict->FindKey("Height")->GetReal();
-								img.dpiX = qRound(width / (currGS.ctm.m11() / 72));
-								img.dpiY = qRound(height / (currGS.ctm.m22() / 72));
+								double scaleX = currGS.ctm.map(QLineF(0, 0, 1, 0)).length();
+								double scaleY = currGS.ctm.map(QLineF(0, 0, 0, 1)).length();
+								img.dpiX = (scaleX != 0.0) ? qRound(width / (scaleX / 72)) : 72.0;
+								img.dpiY = (scaleY != 0.0) ? qRound(height / (scaleY / 72)) : 72.0;
 								imgs.append(img);
 							}
 							else if (subtypeObject->GetName() == "Form")
@@ -1129,8 +1129,10 @@ bool PDFAnalyzer::inspectCanvas(PdfCanvas* canvas, QList<PDFColorSpace> & usedCo
 									img.imgName = args[0].GetName().GetEscapedName().c_str();
 									double width = xObject->GetIndirectKey("Width")->GetReal();
 									double height = xObject->GetIndirectKey("Height")->GetReal();
-									img.dpiX = qRound(width/(currGS.ctm.m11()/72));
-									img.dpiY = qRound(height/(currGS.ctm.m22()/72));
+									double scaleX = currGS.ctm.map(QLineF(0, 0, 1, 0)).length();
+									double scaleY = currGS.ctm.map(QLineF(0, 0, 0, 1)).length();
+									img.dpiX = (scaleX != 0.0) ? qRound(width / (scaleX / 72)) : 72.0;
+									img.dpiY = (scaleY != 0.0) ? qRound(height / (scaleY / 72)) : 72.0;
 									imgs.append(img);
 								}
 								else if (subtypeObject->GetName() == "Form")
@@ -1206,10 +1208,12 @@ bool PDFAnalyzer::inspectCanvas(PdfCanvas* canvas, QList<PDFColorSpace> & usedCo
 							int widthIdx = args.contains(width) ? args.indexOf(width) : args.indexOf(w);
 							double height = args[heightIdx + 1].GetReal();
 							double width = args[widthIdx + 1].GetReal();
+							double scaleX = currGS.ctm.map(QLineF(0, 0, 1, 0)).length();
+							double scaleY = currGS.ctm.map(QLineF(0, 0, 0, 1)).length();
 							PDFImage img;
 							img.imgName = "Inline Image";
-							img.dpiX = qRound(width / (currGS.ctm.m11() / 72));
-							img.dpiY = qRound(height / (currGS.ctm.m22() / 72));
+							img.dpiX = (scaleX != 0.0) ? qRound(width / (scaleX / 72)) : 72.0;
+							img.dpiY = (scaleY != 0.0) ? qRound(height / (scaleY / 72)) : 72.0;
 							imgs.append(img);
 						}
 						inlineImgDict = false;
