@@ -122,6 +122,7 @@ void SMPStyleWidget::iconSetChange()
 	parEffectCharStyleComboLabel->setPixmap(iconManager.loadPixmap("character-style"));
 	peLabel->setPixmap(iconManager.loadPixmap("paragraph-effects-style"));
 	parentParEffectsButton->setIcon(iconManager.loadIcon("reset-style-changes"));
+	backgroundColor->setPixmap(iconManager.loadPixmap("color-fill"));
 }
 
 void SMPStyleWidget::languageChange()

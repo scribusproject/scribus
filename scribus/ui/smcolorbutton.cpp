@@ -30,8 +30,8 @@ void SMColorButton::setColor(const QString name, const double shade)
 	m_pShade = -1;
 	m_pColor = "";
 	parentButton->hide();
+	colorButton->setInfoType(ColorButton::InfoColorModel);
 	colorButton->setColor(name, shade);
-	colorButton->setHasDot(false);
 	colorButton->updatePreview();
 	colorButton->updateFloatingContext();
 }
@@ -46,10 +46,14 @@ void SMColorButton::setColor(const QString name, const double shade, const QStri
 	m_pColor = pName;
 
 	if (isParentValue)
+	{
 		parentButton->hide();
+		colorButton->setInfoType(ColorButton::InfoColorModel);
+	}
 	else
 	{
 		parentButton->show();
+		colorButton->setInfoType(ColorButton::InfoColor);
 	}
 
 	if (m_pColor.isEmpty() || m_pColor == CommonStrings::tr_NoneColor)
@@ -61,7 +65,6 @@ void SMColorButton::setColor(const QString name, const double shade, const QStri
 			colorButton->colorFromName(m_pColor, m_pShade)
 		));
 
-	colorButton->setHasDot(!isParentValue);
 	colorButton->setColor(name, shade);
 	colorButton->updatePreview();
 	colorButton->updateFloatingContext();
@@ -75,7 +78,7 @@ void SMColorButton::styleChanged()
 	if (m_hasParent)
 	{
 		parentButton->show();
-		colorButton->setHasDot(true);
+		colorButton->setInfoType(ColorButton::InfoColor);
 	}
 }
 
@@ -85,10 +88,8 @@ bool SMColorButton::useParentValue()
 	m_useParentValue = false;
 
 	if (ret && m_hasParent)
-	{
 		setColor(m_pColor, m_pShade, m_pColor, m_pShade, true);
-		colorButton->setHasDot(false);
-	}
+
 	return ret;
 }
 

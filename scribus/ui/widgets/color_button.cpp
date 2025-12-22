@@ -28,18 +28,6 @@ ColorButton::ColorButton(QWidget *parent) : QToolButton(parent)
  *
  * ********************************************************************************* */
 
-
-void ColorButton::setHasDot(bool enabled)
-{
-	m_hasDot = enabled;
-	update();
-}
-
-bool ColorButton::hasDot() const
-{
-	return m_hasDot;
-}
-
 QSize ColorButton::circleSize() const
 {
 	int smallestSize = qMin(height(), width());
@@ -147,34 +135,38 @@ void ColorButton::setColorData(const CPColorData &data)
 {
 	m_colorData = data;
 
-	IconManager &im = IconManager::instance();
-	setDotIcon(im.loadPixmap("color-cmyk"));
-	setHasDot(canShowDot());
-
 	if (!m_doc)
 		return;
 
+	m_hasDot = canShowDot();
 
-	ScColor sColor(0, 0, 0);
-
-	if (m_doc->PageColors.contains(colorName()))
-		sColor = m_doc->PageColors.value(colorName());
-
-	switch(sColor.getColorModel())
+	if (m_infoType == InfoColorModel)
 	{
-	case colorModel::colorModelCMYK:
-		setDotIcon(im.loadPixmap("color-cmyk"));
-		break;
-	case colorModelRGB:
-		setDotIcon(im.loadPixmap("color-rgb"));
-		break;
-	case colorModelLab:
-		setDotIcon(im.loadPixmap("color-lab"));
-		break;
-	}
+		ScColor sColor(0, 0, 0);
+		IconManager &im = IconManager::instance();
 
-	if (sColor.isSpotColor())
-		setDotIcon(im.loadPixmap("color-spot"));
+		if (m_doc->PageColors.contains(colorName()))
+			sColor = m_doc->PageColors.value(colorName());
+
+		switch (sColor.getColorModel())
+		{
+		case colorModel::colorModelCMYK:
+			m_dotIcon = im.loadIcon("color-cmyk");
+			break;
+		case colorModelRGB:
+			m_dotIcon = im.loadIcon("color-rgb");
+			break;
+		case colorModelLab:
+			m_dotIcon = im.loadIcon("color-lab");
+			break;
+		}
+
+		if (sColor.isSpotColor())
+			m_dotIcon = im.loadIcon("color-spot");
+	}
+	else
+		m_dotIcon = QIcon();
+
 }
 
 QColor ColorButton::color() const
@@ -369,7 +361,10 @@ void ColorButton::setModeByType(int type)
 
 bool ColorButton::canShowDot()
 {
-	return m_mode == Mode::Solid && !(colorName() == CommonStrings::tr_NoneColor || colorName() == CommonStrings::None || colorName().isEmpty());
+	if (m_infoType == InfoNone)
+		return false;
+	else
+		return m_mode == Mode::Solid && !(colorName() == CommonStrings::tr_NoneColor || colorName() == CommonStrings::None || colorName().isEmpty());
 }
 
 QColor ColorButton::colorFromName(QString colorName, double shade) const
@@ -600,12 +595,6 @@ void ColorButton::setIcon(const QIcon &icon)
 	updatePreview();
 }
 
-void ColorButton::setDotIcon(const QIcon &icon)
-{
-	m_dotIcon = icon;
-	update();
-}
-
 void ColorButton::setApplyColorOnIcon(bool onIcon)
 {
 	m_onIcon = onIcon;
@@ -807,7 +796,7 @@ void ColorButton::paintEvent(QPaintEvent *e)
 	drawCircularHandle(&painter, bDot.center(), bSize.width() - inset, brush(), isEnabled());
 
 	// Draw Foreground Dot
-	if (m_hasDot && dotIcon().isNull())
+	if (m_hasDot && m_dotIcon.isNull())
 	{
 		mask.clear();
 		QRectF fDot(0, 0, fSize.width(), fSize.height());
@@ -828,13 +817,13 @@ void ColorButton::paintEvent(QPaintEvent *e)
 	}
 
 	// Draw Icon
-	if (m_hasDot && !dotIcon().isNull())
+	if (m_hasDot && !m_dotIcon.isNull())
 	{
 		QIcon::Mode iMode = isEnabled() ? QIcon::Normal : QIcon::Disabled;
 
 		int w = 9;
 		int h = 9;
-		QPixmap pix = dotIcon().pixmap(QSize(w, h), iMode);
+		QPixmap pix = m_dotIcon.pixmap(QSize(w, h), iMode);
 		QRectF fDot(rect().right() - fSize.width() + 0.5, rect().bottom() - fSize.height() + 0.5, fSize.width(), fSize.height()); // bottom right corner
 		painter.setPen(QPen(palette().color(QPalette::WindowText)));
 		painter.setBrush(palette().color(QPalette::Base));

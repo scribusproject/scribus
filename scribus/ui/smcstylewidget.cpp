@@ -24,8 +24,6 @@ SMCStyleWidget::SMCStyleWidget(QWidget *parent)
 	setupUi(this);
 
 	textColor->colorButton->setContext(Context::Text);
-	textColor->colorButton->setIconSize(QSize(20, 20));
-	textColor->colorButton->setApplyColorOnIcon(true);
 	textColor->setColor(CommonStrings::tr_NoneColor);
 	textColor->setText(tr("Color"));
 
@@ -34,7 +32,6 @@ SMCStyleWidget::SMCStyleWidget(QWidget *parent)
 	backgroundColor->setText(tr("Background"));
 
 	strokeColor->colorButton->setContext(Context::TextOutline);
-	strokeColor->colorButton->setIconSize(QSize(20, 20));
 	strokeColor->setColor(CommonStrings::tr_NoneColor);
 	strokeColor->setText(tr("Stroke"));
 	strokeColor->setEnabled(false);
@@ -76,8 +73,9 @@ void SMCStyleWidget::iconSetChange()
 	languageLabel_->setPixmap(im.loadPixmap("paragraph-language"));
 	hyphenationCharacterLabel->setPixmap(im.loadPixmap("hyphen-character"));
 	smallestWordLabel->setPixmap(im.loadPixmap("hyphen-smallest-word"));
-	textColor->colorButton->setIcon(im.loadIcon("text-color", textColor->colorButton->iconSize()));
-	strokeColor->colorButton->setIcon(im.loadIcon("text-outline-color", strokeColor->colorButton->iconSize()));
+	textColor->setPixmap(im.loadPixmap("text-color"));
+	strokeColor->setPixmap(im.loadPixmap("text-outline-color"));
+	backgroundColor->setPixmap(im.loadPixmap("text-background-color"));
 }
 
 void SMCStyleWidget::languageChange()

@@ -30,15 +30,15 @@ public:
 		List = 2
 	};
 
+	enum InfoType
+	{
+		InfoNone = 0,
+		InfoColorModel = 1,
+		InfoColor = 2
+	};
+
 	ColorButton(QWidget *parent = nullptr);
 	~ColorButton(){};
-
-	/*!
-	 * \brief Show or hide small dot in bottom right corner filled with foreground brush.
-	 * \param enabled
-	 */
-	void setHasDot(bool enabled);
-	bool hasDot() const;
 
 	QSize circleSize() const;
 	QSize dotSize() const;
@@ -106,6 +106,9 @@ public:
 
 	Mode mode() const { return m_mode; };
 
+	void setInfoType(InfoType type)  {m_infoType = type;};
+	InfoType infoType() {return m_infoType;};
+
 	void setType(int type);
 	int type() const { return m_type; };
 
@@ -113,9 +116,6 @@ public:
 	QString persistentToolTip() const { return m_persistenToolTip; };
 
 	void setIcon(const QIcon &icon);
-
-	void setDotIcon(const QIcon &icon);
-	QIcon dotIcon() const { return m_dotIcon; };
 
 	void setApplyColorOnIcon(bool onIcon);
 	bool applyColorOnIcon() { return m_onIcon; };
@@ -159,6 +159,7 @@ private:
 	Context m_context {Context::Simple};
 	MenuContextType m_contextType {MenuContextType::None};
 	Mode m_mode {Mode::Solid};
+	InfoType m_infoType {InfoType::InfoColorModel};
 	CPColorData m_colorData;
 	CPGradientData m_gradientData;
 	CPGradientVectorData m_gradientVectorData;
