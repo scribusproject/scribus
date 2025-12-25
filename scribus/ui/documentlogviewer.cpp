@@ -144,7 +144,7 @@ void DocumentLogViewer::addSampleData()
 	DocumentLogManager::instance()->addLog(m_docID, DocumentLogLevel::Warning, "System", "Application started");
 	DocumentLogManager::instance()->addLog(m_docID, DocumentLogLevel::Error, "Network", "Connection slow");
 	DocumentLogManager::instance()->addLog(m_docID, DocumentLogLevel::Info, "Database", "Failed to open file");
-	DocumentLogManager::instance()->addLog(m_docID, DocumentLogLevel::Info, "Scripter", "Scripter could not find Tk/Tcl librar");
+	DocumentLogManager::instance()->addLog(m_docID, DocumentLogLevel::Info, "Scripter", "Scripter could not find Tk/Tcl library");
 }
 
 void DocumentLogViewer::filterLogView(const QString& sourceFilter, DocumentLogLevel levelFilter)
