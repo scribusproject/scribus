@@ -20,11 +20,12 @@ to the COPYING file provided with the program.
 
 enum class DocumentLogLevel
 {
-	Debug,
-	Info,
-	Warning,
-	Error,
-	Critical
+	Debug = 0,
+	Info = 1,
+	Warning = 2,
+	Error = 3,
+	Critical = 4,
+	All = 99
 };
 
 struct DocumentLogEntry

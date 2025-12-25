@@ -8524,6 +8524,7 @@ void ScribusMainWindow::languageChange()
 		m_undoManager->languageChange();
 	statusBarLanguageChange();
 	viewToolBar->languageChange();
+	documentLogViewer->languageChange();
 }
 
 void ScribusMainWindow::localeChange()

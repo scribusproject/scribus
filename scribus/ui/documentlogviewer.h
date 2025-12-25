@@ -29,15 +29,23 @@ class DocumentLogViewer : public ScrPaletteBase, public Ui::DocumentLogViewerBas
 		void setManager(DocumentLogManager *manager);
 		void setDocument(const QString& docID);
 
+	public slots:
+		void languageChange();
+
 	private slots:
 		void onLogAdded(const DocumentLogEntry& entry);
 		void onLogCleared();
 		void clearLog();
+		void filterSet();
+		void addSampleData();
 
 	private:
-		void update();
+		void filterLogView(const QString& sourceFilter, DocumentLogLevel levelFilter);
+		QString textForLevel(DocumentLogLevel level);
 
 		DocumentLogManager* m_manager { nullptr };
 		QString m_docID;
+		QStringList m_sources;
+		QMap<QString, QString> levelStrings;
 };
 #endif // DOCUMENTLOGVIEWER_H
