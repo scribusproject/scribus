@@ -345,7 +345,7 @@ QImage WMFImport::readThumbnail(const QString& fname)
 	return tmpImage;
 }
 
-bool WMFImport::import(const QString& fname, const TransactionSettings& trSettings, int flags)
+bool WMFImport::importFile(const QString& fname, const TransactionSettings& trSettings, int flags)
 {
 	if (!loadWMF(fname))
 	{

@@ -121,10 +121,10 @@ bool UniconvImportPlugin::loadFile(const QString & fileName,
 	const FileFormat & /* fmt */, int flags, int /*index*/)
 {
 	// For now, "load file" and import are the same thing for this plugin
-	return import(fileName, flags);
+	return importFile(fileName, flags);
 }
 
-bool UniconvImportPlugin::import(const QString& fileName, int flags)
+bool UniconvImportPlugin::importFile(const QString& fileName, int flags)
 {
 	if (!checkFlags(flags))
 		return false;

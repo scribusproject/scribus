@@ -36,7 +36,7 @@ class PLUGIN_API ImportIdml : public LoadSavePlugin
 		bool fileSupported(QIODevice* file, const QString & fileName=QString()) const override;
 		bool loadFile(const QString & fileName, const FileFormat & fmt, int flags, int index = 0) override;
 		void addToMainWindowMenu(ScribusMainWindow *) override {};
-//		virtual bool import(QString fileName = QString(), int flags = lfUseCurrentPage|lfInteractive);
+//		virtual bool importFile(QString fileName = QString(), int flags = lfUseCurrentPage|lfInteractive);
 		void registerFormats();
 };
 

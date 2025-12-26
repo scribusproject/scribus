@@ -225,7 +225,7 @@ QImage XarPlug::readThumbnail(const QString& fName)
 	return image;
 }
 
-bool XarPlug::import(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
+bool XarPlug::importFile(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
 {
 	const QString& fName = fNameIn;
 	bool success = false;

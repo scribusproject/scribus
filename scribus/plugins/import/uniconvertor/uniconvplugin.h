@@ -40,7 +40,7 @@ class PLUGIN_API UniconvImportPlugin : public LoadSavePlugin
 		\param filename a file name to import
 		\retval true for success
 		*/
-		virtual bool import(const QString& fileName = QString(), int flags = lfUseCurrentPage|lfInteractive);
+		virtual bool importFile(const QString& fileName = QString(), int flags = lfUseCurrentPage|lfInteractive);
 
 	private:
 		void registerFormats();

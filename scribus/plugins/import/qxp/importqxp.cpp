@@ -125,7 +125,7 @@ QImage QxpPlug::readThumbnail(QString fName)
 	return QImage();
 }
 
-bool QxpPlug::import(QString fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
+bool QxpPlug::importFile(QString fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
 {
 	QString fName = fNameIn;
 	bool success = false;

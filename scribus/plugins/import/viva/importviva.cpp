@@ -193,7 +193,7 @@ bool VivaPlug::readColors(const QString& fileName, ColorList & colors)
 	return success;
 }
 
-bool VivaPlug::import(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
+bool VivaPlug::importFile(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
 {
 	bool success = false;
 	interactive = (flags & LoadSavePlugin::lfInteractive);

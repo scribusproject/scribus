@@ -134,7 +134,7 @@ QImage DrwPlug::readThumbnail(const QString& fName)
 	return QImage();
 }
 
-bool DrwPlug::import(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
+bool DrwPlug::importFile(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
 {
 	bool success = false;
 	interactive = (flags & LoadSavePlugin::lfInteractive);

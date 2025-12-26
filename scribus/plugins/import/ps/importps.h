@@ -50,7 +50,7 @@ public:
 	\param showProgress if progress must be displayed
 	\retval bool true if import was ok
 	 */
-	bool import(QString fn, const TransactionSettings &trSettings, int flags, bool showProgress = true);
+	bool importFile(QString fn, const TransactionSettings &trSettings, int flags, bool showProgress = true);
 
 private:
 	

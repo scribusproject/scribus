@@ -127,7 +127,7 @@ QImage OdgPlug::readThumbnail(const QString& fName)
 	return tmp;
 }
 
-bool OdgPlug::import(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
+bool OdgPlug::importFile(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
 {
 	bool success = false;
 	interactive = (flags & LoadSavePlugin::lfInteractive);

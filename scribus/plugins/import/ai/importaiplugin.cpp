@@ -114,7 +114,7 @@ bool ImportAIPlugin::fileSupported(QIODevice* /* file */, const QString & fileNa
 
 bool ImportAIPlugin::loadFile(const QString & fileName, const FileFormat & /*fmt*/, int flags, int /*index*/)
 {
-	// There's only one format to handle, so we just call import(...)
+	// There's only one format to handle, so we just call importFile(...)
 	return importFile(fileName, flags);
 }
 

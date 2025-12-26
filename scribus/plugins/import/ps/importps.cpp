@@ -62,7 +62,7 @@ EPSPlug::EPSPlug(ScribusDoc* doc, int flags)
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 }
 
-bool EPSPlug::import(QString fName, const TransactionSettings &trSettings, int flags, bool showProgress)
+bool EPSPlug::importFile(QString fName, const TransactionSettings &trSettings, int flags, bool showProgress)
 {
 #ifdef Q_OS_MACOS
 	#if QT_VERSION >= 0x050300

@@ -162,7 +162,7 @@ QImage CgmPlug::readThumbnail(const QString& fName)
 	return QImage();
 }
 
-bool CgmPlug::import(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
+bool CgmPlug::importFile(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
 {
 	bool success = false;
 	interactive = (flags & LoadSavePlugin::lfInteractive);

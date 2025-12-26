@@ -41,7 +41,7 @@ class PLUGIN_API WMFImportPlugin : public LoadSavePlugin
 		\param filename a file name to import
 		\retval true for success
 		 */
-		virtual bool import(QString filename = QString(), int flags = lfUseCurrentPage|lfInteractive);
+		virtual bool importFile(QString filename = QString(), int flags = lfUseCurrentPage|lfInteractive);
 
 	private:
 		void registerFormats();

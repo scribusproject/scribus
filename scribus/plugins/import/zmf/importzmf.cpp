@@ -120,7 +120,7 @@ QImage ZmfPlug::readThumbnail(QString fName)
 	return QImage();
 }
 
-bool ZmfPlug::import(QString fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
+bool ZmfPlug::importFile(QString fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
 {
 	QString fName = fNameIn;
 	bool success = false;

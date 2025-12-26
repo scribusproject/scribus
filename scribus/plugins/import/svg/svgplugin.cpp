@@ -142,10 +142,10 @@ bool SVGImportPlugin::fileSupported(QIODevice* /* file */, const QString & fileN
 bool SVGImportPlugin::loadFile(const QString & fileName, const FileFormat & /* fmt */, int flags, int /*index*/)
 {
 	// For now, "load file" and import are the same thing for this plugin
-	return import(fileName, flags);
+	return importFile(fileName, flags);
 }
 
-bool SVGImportPlugin::import(QString filename, int flags)
+bool SVGImportPlugin::importFile(QString filename, int flags)
 {
 	if (!checkFlags(flags))
 		return false;
@@ -181,7 +181,7 @@ bool SVGImportPlugin::import(QString filename, int flags)
 		activeTransaction = UndoManager::instance()->beginTransaction(trSettings);
 	SVGPlug *dia = new SVGPlug(m_Doc, flags);
 	Q_CHECK_PTR(dia);
-	dia->import(filename, trSettings, flags);
+	dia->importFile(filename, trSettings, flags);
 	if (activeTransaction)
 		activeTransaction.commit();
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
@@ -307,7 +307,7 @@ QImage SVGPlug::readThumbnail(const QString& fName)
 	return tmpImage;
 }
 
-bool SVGPlug::import(const QString& fname, const TransactionSettings& trSettings, int flags)
+bool SVGPlug::importFile(const QString& fname, const TransactionSettings& trSettings, int flags)
 {
 	m_currentSvgFilePath.clear();
 	m_currentSvgFileDir.clear();

@@ -186,7 +186,7 @@ QImage XfigPlug::readThumbnail(const QString& fName)
 	return QImage();
 }
 
-bool XfigPlug::import(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
+bool XfigPlug::importFile(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
 {
 	bool success = false;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
