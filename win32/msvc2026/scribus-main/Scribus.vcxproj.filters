@@ -1,0 +1,4652 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{89b48344-5dfc-4692-8e28-d0d3d74907a9}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{21958c29-b128-465f-b025-cd419f23d4c9}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{c2397438-4558-4ba4-ad42-8817715bb311}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;h;hpp;hxx;def;odl;idl;hpj;bat;asm;hm;inl;inc</Extensions>
+    </Filter>
+    <Filter Include="Source Files\api">
+      <UniqueIdentifier>{c389f4d1-37c4-46c9-89c3-47d30889ef4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\colormgmt">
+      <UniqueIdentifier>{8b851b32-beee-4cf7-b206-398fbe0b901e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\desaxe">
+      <UniqueIdentifier>{1ec184d8-8655-4113-b840-3f814e997d30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\downloadmanager">
+      <UniqueIdentifier>{104198aa-568f-41ec-9a41-b70df6e79699}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\fonts">
+      <UniqueIdentifier>{591237be-cc33-4392-b63a-011eb59db189}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\imagedataloaders">
+      <UniqueIdentifier>{553fae80-b35b-4bb0-bcdb-64ece4ca95a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\manager">
+      <UniqueIdentifier>{a71c6fc3-ac96-458c-a522-b1944a5c769f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\models">
+      <UniqueIdentifier>{a1112e75-700b-4c6a-8c22-c4d9f768a63e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\palettes">
+      <UniqueIdentifier>{e866b1ec-e209-4411-924b-120bea7fe456}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\styles">
+      <UniqueIdentifier>{c66fd2da-0a2b-4538-a8db-5038e57dbc7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\text">
+      <UniqueIdentifier>{d9f3241f-9078-4fa1-b97f-94137d0d5e9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\third_party">
+      <UniqueIdentifier>{ca48dc71-ff83-4735-bae2-a990b26206c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\third_party\fparser">
+      <UniqueIdentifier>{a081b762-379f-4063-a292-3a17855b33e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\third_party\hyphen">
+      <UniqueIdentifier>{67f8da7f-c662-4ca8-9732-4f9050fd7a1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\tt">
+      <UniqueIdentifier>{cbdf8aa6-7597-438e-ace8-4aca92f8de89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\tt\simpletreemodel">
+      <UniqueIdentifier>{e73982de-b13b-4c8c-9630-f7035e11303a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ui">
+      <UniqueIdentifier>{fe7fe7a8-633d-4fd4-9779-2977c6b12cfc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ui\colorpicker">
+      <UniqueIdentifier>{1b4c5ee1-085b-49d9-a09d-9245f6db4c83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ui\delegates">
+      <UniqueIdentifier>{ca6fc114-4084-4068-8fa4-d6aca8b8b04f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ui\docks">
+      <UniqueIdentifier>{29e20fba-5d39-43f5-b8e7-89008522a144}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ui\factories">
+      <UniqueIdentifier>{1cbf267e-3556-46ea-b10a-06dbb3d8a922}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ui\preferences">
+      <UniqueIdentifier>{739b3437-93f8-4f41-bde9-05d291d3f7cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ui\widgets">
+      <UniqueIdentifier>{c756e6c3-673d-4de5-bf6b-ae228dea6c8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Translation Files">
+      <UniqueIdentifier>{5004f471-a311-431b-8d7b-e9615135621e}</UniqueIdentifier>
+      <Extensions>ts</Extensions>
+    </Filter>
+    <Filter Include="Win-config">
+      <UniqueIdentifier>{e3ba06a6-1934-4239-97da-02b199bebb5a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\scribus\actionsearch.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\annotation.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\api\api_application.h">
+      <Filter>Source Files\api</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\appmodes.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\canvasgesture_linemove.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\canvasgesture_pan.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\canvasgesture_rectselect.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\canvasgesture_resize.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\canvasmode_copyproperties.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\canvasmode_drawbezier.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\canvasmode_drawcalligraphic.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\canvasmode_drawfreehand.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\canvasmode_editgradient.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\canvasmode_editmeshgradient.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\canvasmode_editmeshpatch.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\canvasmode_magnifier.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\canvasmode_nodeedit.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\canvasmode_panning.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\canvasmode_rotate.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\cellarea.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\cmserrorhandling.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\cmsettings.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\collapsedtablepainter.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\collapsedtablepainterex.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\colormgmt\scciedata.h">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\colormgmt\sccieilluminants.h">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\colormgmt\sccieobservers.h">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\colormgmt\sccolormgmtelem.h">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\colormgmt\sccolormgmtengine.h">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\colormgmt\sccolormgmtenginedata.h">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\colormgmt\sccolormgmtenginefactory.h">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\colormgmt\sccolormgmtimplelem.h">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\colormgmt\sccolormgmtstructs.h">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\colormgmt\sccolorprofile.h">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\colormgmt\sccolorprofilecache.h">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\colormgmt\sccolorprofiledata.h">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\colormgmt\sccolorspace.h">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\colormgmt\sccolorspacedata.h">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\colormgmt\sccolorspacedata_cmyk.h">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\colormgmt\sccolorspacedata_cmyka.h">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\colormgmt\sccolorspacedata_gray.h">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\colormgmt\sccolorspacedata_laba.h">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\colormgmt\sccolorspacedata_labdbl.h">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\colormgmt\sccolorspacedata_rgb.h">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\colormgmt\sccolorspacedata_rgba.h">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\colormgmt\sccolortransform.h">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\colormgmt\sccolortransformdata.h">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\colormgmt\sccolortransformpool.h">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\colormgmt\sce308tables.h">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\colormgmt\sclcms2colormgmtengineimpl.h">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\colormgmt\sclcms2colorprofileimpl.h">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\colormgmt\sclcms2colortransformimpl.h">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\colormgmt\scspectralvaluesconvertor.h">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\colorsetmanager.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\desaxe\actions.h">
+      <Filter>Source Files\desaxe</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\desaxe\automata.h">
+      <Filter>Source Files\desaxe</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\desaxe\base_actions.h">
+      <Filter>Source Files\desaxe</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\desaxe\desaxe_conf.h">
+      <Filter>Source Files\desaxe</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\desaxe\digester.h">
+      <Filter>Source Files\desaxe</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\desaxe\prog_actions.h">
+      <Filter>Source Files\desaxe</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\desaxe\saxfilter.h">
+      <Filter>Source Files\desaxe</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\desaxe\saxhandler.h">
+      <Filter>Source Files\desaxe</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\desaxe\saxio.h">
+      <Filter>Source Files\desaxe</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\desaxe\saxiohelper.h">
+      <Filter>Source Files\desaxe</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\desaxe\saxXML.h">
+      <Filter>Source Files\desaxe</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\desaxe\simple_actions.h">
+      <Filter>Source Files\desaxe</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\desaxe\uniqueid.h">
+      <Filter>Source Files\desaxe</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\documentchecker.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\documentinformation.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\documentlogtypes.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\exif.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\fonts\cff.h">
+      <Filter>Source Files\fonts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\fonts\fontfeatures.h">
+      <Filter>Source Files\fonts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\fonts\ftface.h">
+      <Filter>Source Files\fonts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\fonts\scface.h">
+      <Filter>Source Files\fonts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\fonts\scface_ps.h">
+      <Filter>Source Files\fonts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\fonts\scface_ttf.h">
+      <Filter>Source Files\fonts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\fonts\scfontmetrics.h">
+      <Filter>Source Files\fonts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\fonts\sfnt.h">
+      <Filter>Source Files\fonts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\fonts\sfnt_format.h">
+      <Filter>Source Files\fonts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\fpoint.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\fpointarray.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\gtaction.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\gtfont.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\gtframestyle.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\gtgettext.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\gtmeasure.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\gtparagraphstyle.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\gtstyle.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\gtwriter.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\guidemanagercore.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader.h">
+      <Filter>Source Files\imagedataloaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_gimp.h">
+      <Filter>Source Files\imagedataloaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_jpeg.h">
+      <Filter>Source Files\imagedataloaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_kra.h">
+      <Filter>Source Files\imagedataloaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_ora.h">
+      <Filter>Source Files\imagedataloaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_pdf.h">
+      <Filter>Source Files\imagedataloaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_pgf.h">
+      <Filter>Source Files\imagedataloaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_pict.h">
+      <Filter>Source Files\imagedataloaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_png.h">
+      <Filter>Source Files\imagedataloaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_ps.h">
+      <Filter>Source Files\imagedataloaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_psd.h">
+      <Filter>Source Files\imagedataloaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_qt.h">
+      <Filter>Source Files\imagedataloaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_tiff.h">
+      <Filter>Source Files\imagedataloaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\imagedataloaders\scimgdataloader_wpg.h">
+      <Filter>Source Files\imagedataloaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\ioapi.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\KarbonCurveFit.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\langdef.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\langmgr.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\localemgr.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\margins.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\marks.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\mesh.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\nftrcreader.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\nftsettings.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\nfttemplate.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\nodeeditcontext.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\notesstyles.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\numeration.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\pageitemiterator.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\pagesize.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\pagestructs.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\palettes\cxfcolor.h">
+      <Filter>Source Files\palettes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\palettes\cxfcolorspecification.h">
+      <Filter>Source Files\palettes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\palettes\cxfdocument.h">
+      <Filter>Source Files\palettes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\palettes\cxfmeasurementspec.h">
+      <Filter>Source Files\palettes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\palettes\cxfobject.h">
+      <Filter>Source Files\palettes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\palettes\cxftristimulusspec.h">
+      <Filter>Source Files\palettes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\palettes\cxftypes.h">
+      <Filter>Source Files\palettes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\palettes\cxfutils.h">
+      <Filter>Source Files\palettes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\palettes\paletteloader.h">
+      <Filter>Source Files\palettes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\palettes\paletteloader_adobe_acb.h">
+      <Filter>Source Files\palettes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\palettes\paletteloader_adobe_aco.h">
+      <Filter>Source Files\palettes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\palettes\paletteloader_adobe_ase.h">
+      <Filter>Source Files\palettes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\palettes\paletteloader_autocad_acb.h">
+      <Filter>Source Files\palettes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\palettes\paletteloader_cxf.h">
+      <Filter>Source Files\palettes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\palettes\paletteloader_ps.h">
+      <Filter>Source Files\palettes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\palettes\paletteloader_sk1.h">
+      <Filter>Source Files\palettes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\palettes\paletteloader_swatchbook.h">
+      <Filter>Source Files\palettes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\pdfoptions.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\pdfoptionsio.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\pdfstructs.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\pdfversion.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\pdfwriter.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\prefscontext.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\prefsfile.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\prefsreader.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\prefsstructs.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\prefstable.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\printpreviewcreator.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\printpreviewcreator_gdi.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\printpreviewcreator_pdf.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\printpreviewcreator_ps.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\printpreviewcreatorfactory.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\rawimage.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\rc4.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\resourcecollection.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scclipboardprocessor.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scclocale.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\sccolor.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\sccolorengine.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\sccolorshade.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\sccolorstructs.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scconfig.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scdocoutput.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scdocoutput_ps2.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scdomelement.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scfonts.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scguardedptr.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scimage.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scimagecacheproxy.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scimagecachewriteaction.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scimagestructs.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\sclimits.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\sclistboxpixmap.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\sclockedfile.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scpage.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scpageoutput.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scpageoutput_ps2.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scpainter.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scpainterex_cairo.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scpainterex_ps2.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scpainterexbase.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scpaths.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scpattern.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scpatterntransform.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scpixmapcache.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scpreview.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scprintengine_gdi.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scprintengine_pdf.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scprintengine_ps.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scribusapi.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scribusstructs.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scribusXml.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scslainforeader.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scstreamfilter.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scstreamfilter_ascii85.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scstreamfilter_flate.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scstreamfilter_jpeg.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scstreamfilter_rc4.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\sctextstream.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\sctextstruct.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scxmlstreamreader.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\scxmlstreamwriter.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\serializer.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\style.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\styles\cellstyle.h">
+      <Filter>Source Files\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\styles\charstyle.h">
+      <Filter>Source Files\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\styles\linestyle.h">
+      <Filter>Source Files\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\styles\paragraphstyle.h">
+      <Filter>Source Files\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\styles\stylecontext.h">
+      <Filter>Source Files\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\styles\stylecontextproxy.h">
+      <Filter>Source Files\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\styles\styleset.h">
+      <Filter>Source Files\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\styles\tablestyle.h">
+      <Filter>Source Files\styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\stylesearch.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\tableborder.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\tablecell.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\tablehandle.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\tablepainter.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\tableutils.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\text\boxes.h">
+      <Filter>Source Files\text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\text\frect.h">
+      <Filter>Source Files\text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\text\fsize.h">
+      <Filter>Source Files\text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\text\glyphcluster.h">
+      <Filter>Source Files\text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\text\index.h">
+      <Filter>Source Files\text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\text\itextcontext.h">
+      <Filter>Source Files\text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\text\itextsource.h">
+      <Filter>Source Files\text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\text\screenpainter.h">
+      <Filter>Source Files\text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\text\scrptrun.h">
+      <Filter>Source Files\text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\text\sctext_shared.h">
+      <Filter>Source Files\text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\text\scworditerator.h">
+      <Filter>Source Files\text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\text\shapedtext.h">
+      <Filter>Source Files\text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\text\shapedtextcache.h">
+      <Filter>Source Files\text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\text\shapedtextfeed.h">
+      <Filter>Source Files\text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\text\specialchars.h">
+      <Filter>Source Files\text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\text\textcontext.h">
+      <Filter>Source Files\text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\text\textlayout.h">
+      <Filter>Source Files\text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\text\textlayoutpainter.h">
+      <Filter>Source Files\text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\text\textshaper.h">
+      <Filter>Source Files\text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\text\textsource.h">
+      <Filter>Source Files\text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\textwriter.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\third_party\fparser\fparser.hh">
+      <Filter>Source Files\third_party\fparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\third_party\fparser\fpconfig.hh">
+      <Filter>Source Files\third_party\fparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\third_party\fparser\fptypes.hh">
+      <Filter>Source Files\third_party\fparser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\third_party\hyphen\hnjalloc.h">
+      <Filter>Source Files\third_party\hyphen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\third_party\hyphen\hyphen.h">
+      <Filter>Source Files\third_party\hyphen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\transaction.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\tt\simpletreemodel\treeitem.h">
+      <Filter>Source Files\tt\simpletreemodel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\ui\colorpicker\colorpicker_enum.h">
+      <Filter>Source Files\ui\colorpicker</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\ui\delegates\sclistitemdelegate.h">
+      <Filter>Source Files\ui\delegates</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\ui\propertywidgetbase.h">
+      <Filter>Source Files\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\ui\scresizecursor.h">
+      <Filter>Source Files\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\ui\widgets\combo_blendmode.h">
+      <Filter>Source Files\ui\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\ui\widgets\combo_linestyle.h">
+      <Filter>Source Files\ui\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\ui\widgets\popup_menu.h">
+      <Filter>Source Files\ui\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\ui\widgets\stacked_container.h">
+      <Filter>Source Files\ui\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\undoobject.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\undostack.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\undostate.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\undotransaction.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\units.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\updatemanager.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\usertaskstructs.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\util.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\util_color.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\util_debug.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\util_file.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\util_formats.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\util_ghostscript.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\util_gui.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\util_image.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\util_layer.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\util_math.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\util_os.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\util_printer.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\util_text.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\vgradient.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\vgradientex.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\win-config.h">
+      <Filter>Win-config</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="scribuspch.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\scribus\actionmanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\actionsearch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\api\api_application.cpp">
+      <Filter>Source Files\api</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\appmodehelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\canvas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\canvasgesture_cellselect.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\canvasgesture_columnresize.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\canvasgesture_linemove.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\canvasgesture_pan.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\canvasgesture_rectselect.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\canvasgesture_resize.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\canvasgesture_rowresize.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\canvasgesture_rulermove.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\canvasgesture_table.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\canvasgesture_tableresize.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\canvasmode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\canvasmode_copyproperties.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\canvasmode_create.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\canvasmode_drawbezier.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\canvasmode_drawcalligraphic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\canvasmode_drawfreehand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\canvasmode_edit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\canvasmode_editarc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\canvasmode_editgradient.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\canvasmode_editmeshgradient.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\canvasmode_editmeshpatch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\canvasmode_editpolygon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\canvasmode_editspiral.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\canvasmode_edittable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\canvasmode_editweldpoint.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\canvasmode_eyedropper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\canvasmode_framelinks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\canvasmode_imageimport.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\canvasmode_magnifier.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\canvasmode_measurements.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\canvasmode_nodeedit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\canvasmode_normal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\canvasmode_objimport.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\canvasmode_panning.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\canvasmode_rotate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\cellarea.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\chartablemodel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\chartableview.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\cmserrorhandling.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\cmsettings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\collapsedtablepainter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\collapsedtablepainterex.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\collect4output.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\colorblind.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\colormgmt\scciedata.cpp">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\colormgmt\sccieilluminants.cpp">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\colormgmt\sccieobservers.cpp">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\colormgmt\sccolormgmtengine.cpp">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\colormgmt\sccolormgmtenginedata.cpp">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\colormgmt\sccolormgmtenginefactory.cpp">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\colormgmt\sccolormgmtimplelem.cpp">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\colormgmt\sccolormgmtstructs.cpp">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\colormgmt\sccolorprofile.cpp">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\colormgmt\sccolorprofilecache.cpp">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\colormgmt\sccolorprofiledata.cpp">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\colormgmt\sccolorspace.cpp">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\colormgmt\sccolorspacedata.cpp">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\colormgmt\sccolortransform.cpp">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\colormgmt\sccolortransformpool.cpp">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\colormgmt\sce308tables.cpp">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\colormgmt\sclcms2colormgmtengineimpl.cpp">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\colormgmt\sclcms2colorprofileimpl.cpp">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\colormgmt\sclcms2colortransformimpl.cpp">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\colormgmt\scspectralvaluesconvertor.cpp">
+      <Filter>Source Files\colormgmt</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\colorsetmanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\commonstrings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\deferredtask.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\desaxe\digester.cpp">
+      <Filter>Source Files\desaxe</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\desaxe\digester_parse.cpp">
+      <Filter>Source Files\desaxe</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\desaxe\saxfilter.cpp">
+      <Filter>Source Files\desaxe</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\desaxe\saxiohelper.cpp">
+      <Filter>Source Files\desaxe</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\desaxe\saxXML.cpp">
+      <Filter>Source Files\desaxe</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\desaxe\uniqueid.cpp">
+      <Filter>Source Files\desaxe</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\documentchecker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\documentinformation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\documentlogmanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\downloadmanager\scdlmgr.cpp">
+      <Filter>Source Files\downloadmanager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\downloadmanager\scdlthread.cpp">
+      <Filter>Source Files\downloadmanager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\exif.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\fileloader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\filesearch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\filewatcher.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\fontlistmodel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\fonts\cff.cpp">
+      <Filter>Source Files\fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\fonts\fontfeatures.cpp">
+      <Filter>Source Files\fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\fonts\ftface.cpp">
+      <Filter>Source Files\fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\fonts\scface.cpp">
+      <Filter>Source Files\fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\fonts\scface_ps.cpp">
+      <Filter>Source Files\fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\fonts\scface_ttf.cpp">
+      <Filter>Source Files\fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\fonts\scfontmetrics.cpp">
+      <Filter>Source Files\fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\fonts\sfnt.cpp">
+      <Filter>Source Files\fonts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\fpoint.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\fpointarray.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\gtaction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\gtfont.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\gtframestyle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\gtgettext.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\gtmeasure.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\gtparagraphstyle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\gtstyle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\gtwriter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\guidemanagercore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\guidesdelegate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\guidesmodel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\guidesview.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\hyphenator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\iconmanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader.cpp">
+      <Filter>Source Files\imagedataloaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_gimp.cpp">
+      <Filter>Source Files\imagedataloaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_jpeg.cpp">
+      <Filter>Source Files\imagedataloaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_kra.cpp">
+      <Filter>Source Files\imagedataloaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_ora.cpp">
+      <Filter>Source Files\imagedataloaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_pdf.cpp">
+      <Filter>Source Files\imagedataloaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_pgf.cpp">
+      <Filter>Source Files\imagedataloaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_pict.cpp">
+      <Filter>Source Files\imagedataloaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_png.cpp">
+      <Filter>Source Files\imagedataloaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_ps.cpp">
+      <Filter>Source Files\imagedataloaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_psd.cpp">
+      <Filter>Source Files\imagedataloaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_qt.cpp">
+      <Filter>Source Files\imagedataloaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_tiff.cpp">
+      <Filter>Source Files\imagedataloaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\imagedataloaders\scimgdataloader_wpg.cpp">
+      <Filter>Source Files\imagedataloaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ioapi.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\KarbonCurveFit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\langdef.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\langmgr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\latexhelpers.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\loadsaveplugin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\localemgr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\main_win32.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\manager\dock_manager.cpp">
+      <Filter>Source Files\manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\manager\widget_manager.cpp">
+      <Filter>Source Files\manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\marks.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\menumanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\mesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\models\gradientlistmodel.cpp">
+      <Filter>Source Files\models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\navigator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\nftrcreader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\nftsettings.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\nfttemplate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\nodeeditcontext.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\notesstyles.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\numeration.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\observable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\opticalmarginlookup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\pageitem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\pageitem_arc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\pageitem_group.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\pageitem_imageframe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\pageitem_latexframe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\pageitem_line.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\pageitem_noteframe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\pageitem_pathtext.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\pageitem_polygon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\pageitem_polyline.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\pageitem_regularpolygon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\pageitem_spiral.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\pageitem_symbol.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\pageitem_table.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\pageitem_textframe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\pageitemiterator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\pageitempointer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\pagesize.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\palettes\cxfcolor.cpp">
+      <Filter>Source Files\palettes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\palettes\cxfcolorspecification.cpp">
+      <Filter>Source Files\palettes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\palettes\cxfdocument.cpp">
+      <Filter>Source Files\palettes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\palettes\cxfmeasurementspec.cpp">
+      <Filter>Source Files\palettes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\palettes\cxfobject.cpp">
+      <Filter>Source Files\palettes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\palettes\cxftristimulusspec.cpp">
+      <Filter>Source Files\palettes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\palettes\cxfutils.cpp">
+      <Filter>Source Files\palettes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\palettes\paletteloader.cpp">
+      <Filter>Source Files\palettes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\palettes\paletteloader_adobe_acb.cpp">
+      <Filter>Source Files\palettes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\palettes\paletteloader_adobe_aco.cpp">
+      <Filter>Source Files\palettes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\palettes\paletteloader_adobe_ase.cpp">
+      <Filter>Source Files\palettes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\palettes\paletteloader_autocad_acb.cpp">
+      <Filter>Source Files\palettes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\palettes\paletteloader_cxf.cpp">
+      <Filter>Source Files\palettes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\palettes\paletteloader_ps.cpp">
+      <Filter>Source Files\palettes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\palettes\paletteloader_sk1.cpp">
+      <Filter>Source Files\palettes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\palettes\paletteloader_swatchbook.cpp">
+      <Filter>Source Files\palettes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\pdf_analyzer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\pdflib.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\pdflib_core.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\pdfoptions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\pdfoptionsio.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\pdfversion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\pdfwriter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\pluginmanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\prefscontext.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\prefsfile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\prefsmanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\prefsreader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\prefstable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\printpreviewcreator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\printpreviewcreator_gdi.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\printpreviewcreator_pdf.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\printpreviewcreator_ps.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\printpreviewcreatorfactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\pslib.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\qtiocompressor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\rawimage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\rc4.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\sampleitem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scclipboardprocessor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scclocale.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\sccolor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\sccolorengine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\sccolorshade.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\sccolorstructs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scdocoutput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scdocoutput_ps2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scdomelement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scfonts.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scgtplugin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\schelptreemodel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scimage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scimagecachedir.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scimagecachefile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scimagecachemanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scimagecacheproxy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scimagecachewriteaction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scimagestructs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\sclayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\sclockedfile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scmimedata.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scpage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scpageoutput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scpageoutput_ps2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scpainter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scpainterex_cairo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scpainterex_ps2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scpainterexbase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scpaths.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scpattern.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scplugin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scpreview.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scprintengine_gdi.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scprintengine_pdf.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scprintengine_ps.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scraction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scribus.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scribusapp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scribuscore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scribusdoc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scribusview.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scribuswin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scribusXml.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scslainforeader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scstreamfilter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scstreamfilter_ascii85.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scstreamfilter_flate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scstreamfilter_jpeg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scstreamfilter_rc4.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\sctextstream.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\sctextstruct.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\scxmlstreamreader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\selection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\selectionrubberband.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\serializer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\storyloader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\styleitem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\styles\cellstyle.cpp">
+      <Filter>Source Files\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\styles\charstyle.cpp">
+      <Filter>Source Files\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\styles\linestyle.cpp">
+      <Filter>Source Files\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\styles\paragraphstyle.cpp">
+      <Filter>Source Files\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\styles\style.cpp">
+      <Filter>Source Files\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\styles\stylecontext.cpp">
+      <Filter>Source Files\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\styles\stylecontextproxy.cpp">
+      <Filter>Source Files\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\styles\tablestyle.cpp">
+      <Filter>Source Files\styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\stylesearch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\tableborder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\tablecell.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\tableutils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\text\boxes.cpp">
+      <Filter>Source Files\text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\text\frect.cpp">
+      <Filter>Source Files\text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\text\fsize.cpp">
+      <Filter>Source Files\text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\text\glyphcluster.cpp">
+      <Filter>Source Files\text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\text\index.cpp">
+      <Filter>Source Files\text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\text\screenpainter.cpp">
+      <Filter>Source Files\text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\text\scrptrun.cpp">
+      <Filter>Source Files\text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\text\sctext_shared.cpp">
+      <Filter>Source Files\text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\text\scworditerator.cpp">
+      <Filter>Source Files\text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\text\shapedtext.cpp">
+      <Filter>Source Files\text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\text\shapedtextcache.cpp">
+      <Filter>Source Files\text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\text\shapedtextfeed.cpp">
+      <Filter>Source Files\text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\text\specialchars.cpp">
+      <Filter>Source Files\text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\text\storytext.cpp">
+      <Filter>Source Files\text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\text\textcontext.cpp">
+      <Filter>Source Files\text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\text\textlayout.cpp">
+      <Filter>Source Files\text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\text\textlayoutpainter.cpp">
+      <Filter>Source Files\text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\text\textshaper.cpp">
+      <Filter>Source Files\text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\textnote.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\textwriter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\third_party\fparser\fparser.cc">
+      <Filter>Source Files\third_party\fparser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\third_party\fparser\fpoptimizer.cc">
+      <Filter>Source Files\third_party\fparser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\third_party\hyphen\hnjalloc.c">
+      <Filter>Source Files\third_party\hyphen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\third_party\hyphen\hyphen.c">
+      <Filter>Source Files\third_party\hyphen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\tocgenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\transaction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\tt\simpletreemodel\treeitem.cpp">
+      <Filter>Source Files\tt\simpletreemodel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\tt\simpletreemodel\treemodel.cpp">
+      <Filter>Source Files\tt\simpletreemodel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\about.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\aboutplugins.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\actionsearchdialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\aligndistribute.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\alignselect.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\alignverticalselect.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\annot.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\annota.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\applytemplatedialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\arcvectordialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\arcwidget.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\arrowchooser.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\autoform.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\autoformbuttongroup.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\basepointwidget.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\bookmarkpalette.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\bookmwin.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\buttonicon.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\charselect.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\charselectenhanced.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\charzoom.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\checkDocument.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\clockwidget.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\cmykfw.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\collectforoutput_ui.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\colorchart.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\colorcombo.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\colorlistbox.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\colorlistmodel.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\colorpicker\colorpicker.cpp">
+      <Filter>Source Files\ui\colorpicker</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\colorpicker\colorpicker_color.cpp">
+      <Filter>Source Files\ui\colorpicker</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\colorpicker\colorpicker_color_swatches.cpp">
+      <Filter>Source Files\ui\colorpicker</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\colorpicker\colorpicker_gradient.cpp">
+      <Filter>Source Files\ui\colorpicker</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\colorpicker\colorpicker_gradient_properties.cpp">
+      <Filter>Source Files\ui\colorpicker</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\colorpicker\colorpicker_gradient_swatches.cpp">
+      <Filter>Source Files\ui\colorpicker</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\colorpicker\colorpicker_hatch.cpp">
+      <Filter>Source Files\ui\colorpicker</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\colorpicker\colorpicker_pattern.cpp">
+      <Filter>Source Files\ui\colorpicker</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\colorsandfills.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\contentpalette.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\contentpalette_default.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\contentpalette_page.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\contextmenu.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\copypagetomasterpagedialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\createrange.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\cupsoptions.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\curvewidget.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\customfdialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\cxfimportdialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\dasheditor.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\dcolor.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\delegates\sclistitemdelegate.cpp">
+      <Filter>Source Files\ui\delegates</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\delpages.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\directionselect.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\docks\dock_centralwidget.cpp">
+      <Filter>Source Files\ui\docks</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\docks\dock_panelbase.cpp">
+      <Filter>Source Files\ui\docks</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\documentlogviewer.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\downloadspalette.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\editor.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\edittoolbar.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\effectsdialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\extimageprops.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\factories\scribusproxystyle.cpp">
+      <Filter>Source Files\ui\factories</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\filedialogeventcatcher.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\filetoolbar.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\flopwidget.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\fontcombo.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\fontembeddingcombo.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\fontembeddingmodel.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\fontlistview.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\fontreplacedialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\gradientaddedit.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\gradienteditor.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\gradientpreview.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\gtdialogs.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\gtfiledialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\guidemanager.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\helpbrowser.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\helpnavigation.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\hruler.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\hyask.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\imageclippingpaths.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\imageinfodialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\imagelayers.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\inlinepalette.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\insertaframe.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\insertTable.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\inserttablecolumnsdialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\inserttablerowsdialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\inspage.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\javadocs.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\latexeditor.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\layers.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\linecombo.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\linemarkerselector.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\linestyleselector.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\linkbutton.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\loremipsum.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\marginpresetlayout.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\mark2item.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\mark2mark.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\markanchor.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\markindex.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\marknote.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\marksmanager.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\markvariabletext.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\measurements.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\mergedoc.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\missing.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\modetoolbar.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\movepage.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\multipleduplicate.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\multiprogressdialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\newdocdialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\newmarginwidget.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\newtemp.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\nftdialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\nftwidget.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\nodeeditpalette.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\notesstyleseditor.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\numformatcombo.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\opticalmargineditor.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\opticalmarginswidget.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\outlinepalette.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\outputpreview_pdf.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\outputpreview_ps.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\outputpreviewbase.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\pageitemattributes.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\pagepalette.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\pagepalette_masterpages.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\pagepalette_pages.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\pagepalette_widgets.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\pagepropertiesdialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\pageselector.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\patternpropsdialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\pdfexportdialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\pdftoolbar.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\pdfversioncombo.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\pdfversionmodel.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\picsearch.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\picsearchoptions.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\picstatus.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\polygonwidget.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\polyprops.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\preferences\preferencesdialog.cpp">
+      <Filter>Source Files\ui\preferences</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\preferences\prefs_colormanagement.cpp">
+      <Filter>Source Files\ui\preferences</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\preferences\prefs_display.cpp">
+      <Filter>Source Files\ui\preferences</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\preferences\prefs_documentinformation.cpp">
+      <Filter>Source Files\ui\preferences</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\preferences\prefs_documentitemattributes.cpp">
+      <Filter>Source Files\ui\preferences</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\preferences\prefs_documentsections.cpp">
+      <Filter>Source Files\ui\preferences</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\preferences\prefs_documentsetup.cpp">
+      <Filter>Source Files\ui\preferences</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\preferences\prefs_experimental.cpp">
+      <Filter>Source Files\ui\preferences</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\preferences\prefs_externaltools.cpp">
+      <Filter>Source Files\ui\preferences</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\preferences\prefs_fonts.cpp">
+      <Filter>Source Files\ui\preferences</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\preferences\prefs_guides.cpp">
+      <Filter>Source Files\ui\preferences</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\preferences\prefs_hyphenator.cpp">
+      <Filter>Source Files\ui\preferences</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\preferences\prefs_imagecache.cpp">
+      <Filter>Source Files\ui\preferences</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\preferences\prefs_indexes.cpp">
+      <Filter>Source Files\ui\preferences</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\preferences\prefs_itemtools.cpp">
+      <Filter>Source Files\ui\preferences</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\preferences\prefs_keyboardshortcuts.cpp">
+      <Filter>Source Files\ui\preferences</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\preferences\prefs_miscellaneous.cpp">
+      <Filter>Source Files\ui\preferences</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\preferences\prefs_operatortools.cpp">
+      <Filter>Source Files\ui\preferences</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\preferences\prefs_pagesizes.cpp">
+      <Filter>Source Files\ui\preferences</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\preferences\prefs_pane.cpp">
+      <Filter>Source Files\ui\preferences</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\preferences\prefs_paths.cpp">
+      <Filter>Source Files\ui\preferences</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\preferences\prefs_pdfexport.cpp">
+      <Filter>Source Files\ui\preferences</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\preferences\prefs_plugins.cpp">
+      <Filter>Source Files\ui\preferences</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\preferences\prefs_preflightverifier.cpp">
+      <Filter>Source Files\ui\preferences</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\preferences\prefs_printer.cpp">
+      <Filter>Source Files\ui\preferences</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\preferences\prefs_scrapbook.cpp">
+      <Filter>Source Files\ui\preferences</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\preferences\prefs_spelling.cpp">
+      <Filter>Source Files\ui\preferences</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\preferences\prefs_tableofcontents.cpp">
+      <Filter>Source Files\ui\preferences</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\preferences\prefs_typography.cpp">
+      <Filter>Source Files\ui\preferences</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\preferences\prefs_userinterface.cpp">
+      <Filter>Source Files\ui\preferences</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\printdialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\printlanguagecombo.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\printpreview.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\propertiespalette.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\propertiespalette_attributes.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\propertiespalette_fill.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\propertiespalette_group.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\propertiespalette_image.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\propertiespalette_line.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\propertiespalette_shadow.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\propertiespalette_shape.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\propertiespalette_table.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\propertiespalette_text.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\propertiespalette_utils.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\propertiespalette_xyz.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\propertywidget_advanced.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\propertywidget_alignment.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\propertywidget_distance.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\propertywidget_fontfeatures.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\propertywidget_hyphenation.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\propertywidget_orphans.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\propertywidget_paragraphstyle.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\propertywidget_pareffect.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\propertywidget_pathtext.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\propertywidget_text.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\propertywidgetbase.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\proptree.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\query.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\recoverdialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\replacecolors.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\replaceonecolor.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\resourcemanager.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\resourcemanagerlicense.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\rulermover.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\sccolorslider.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\scdialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\scdockpalette.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\scescapecatcher.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\scfilewidget.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\sclistwidgetdelegate.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\scmenu.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\scmessagebox.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\scmwmenumanager.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\scrapbookpalette.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\scresizecursor.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\scrpalettebase.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\scrspinbox.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\sctablewidget.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\sctextbrowser.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\sctoolbar.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\sctreewidget.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\search.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\selectobjects.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\selfield.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\shadebutton.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\shortcutwidget.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\smalignselect.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\smcellstyle.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\smcellstylewidget.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\smcheckbox.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\smcolorbutton.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\smcolorcombo.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\smcstylewidget.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\smdirectionselect.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\smfontcomboh.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\smfontfeatures.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\smlineedit.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\smlinestyle.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\smlinestylewidget.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\smnumformatcombo.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\smopticalmarginswidget.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\smpstylewidget.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\smradiobutton.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\smreplacedia.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\smsccombobox.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\smscrspinbox.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\smshadebutton.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\smspinbox.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\smstyleimport.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\smstyleselect.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\smtablestyle.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\smtablestylewidget.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\smtabruler.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\smtextstyles.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\spiralvectordialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\spiralwidget.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\splash.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\storyeditor.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\stylecombos.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\stylemanager.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\stylesearchdialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\styleselect.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\styleview.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\swatchcombo.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\symbolpalette.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\tablecolumnwidthsdialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\tablerowheightsdialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\tablesideselector.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\tabmanager.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\tabpdfoptions.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\tabruler.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\transformdialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\unicodesearch.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\useprintermarginsdialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\viewtoolbar.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\vruler.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\weldedit.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\widgets\color_button.cpp">
+      <Filter>Source Files\ui\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\widgets\color_slider.cpp">
+      <Filter>Source Files\ui\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\widgets\combo_blendmode.cpp">
+      <Filter>Source Files\ui\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\widgets\combo_linestyle.cpp">
+      <Filter>Source Files\ui\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\widgets\dropdown_button.cpp">
+      <Filter>Source Files\ui\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\widgets\floatingwindow.cpp">
+      <Filter>Source Files\ui\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\widgets\form_widget.cpp">
+      <Filter>Source Files\ui\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\widgets\gradientlistbox.cpp">
+      <Filter>Source Files\ui\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\widgets\pagelayout.cpp">
+      <Filter>Source Files\ui\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\widgets\pagesizelist.cpp">
+      <Filter>Source Files\ui\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\widgets\pagesizepreview.cpp">
+      <Filter>Source Files\ui\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\widgets\pagesizeselector.cpp">
+      <Filter>Source Files\ui\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\widgets\popup_menu.cpp">
+      <Filter>Source Files\ui\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\widgets\pulsing_toolbutton.cpp">
+      <Filter>Source Files\ui\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\widgets\section_container.cpp">
+      <Filter>Source Files\ui\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\widgets\stacked_container.cpp">
+      <Filter>Source Files\ui\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\widgets\switch.cpp">
+      <Filter>Source Files\ui\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\undogui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\undomanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\undoobject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\undostack.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\undostate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\undotransaction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\units.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\updatemanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\upgradechecker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\urllauncher.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\util.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\util_color.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\util_debug.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\util_file.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\util_formats.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\util_ghostscript.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\util_gui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\util_layer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\util_math.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\util_os.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\util_printer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\util_text.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\vgradient.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\vgradientex.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scribuspch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Scribus.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="scribusdoc.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="scribusicon.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <uic Include="..\..\..\scribus\ui\aboutplugins.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\actionsearchdialog.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\aligndistribute.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\annot.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\arcvectorbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\arcwidgetbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\charselect.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\charselectenhanced.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\cmykfwbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\colorpicker\colorpicker.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\colorpicker\colorpicker_color.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\colorpicker\colorpicker_color_swatches.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\colorpicker\colorpicker_gradient.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\colorpicker\colorpicker_gradient_properties.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\colorpicker\colorpicker_gradient_swatches.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\colorpicker\colorpicker_hatch.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\colorpicker\colorpicker_pattern.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\colorsandfillsbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\contentpalette_defaultbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\contentpalette_pagebase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\copypagetomasterpage.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\createrange.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\cxfimportdialogbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\documentlogviewerbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\downloadspalettebase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\extimageprops.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\gradientaddedit.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\gradienteditor.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\gtfiledialog.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\guidemanager.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\helpbrowser.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\helpbrowsernavigation.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\imageclippingpaths.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\imagelayers.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\insertaframe.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\inserttablecolumnsdialog.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\inserttablerowsdialog.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\latexeditor.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\linemarkerselector.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\linestyleselector.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\mark2item.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\mark2mark.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\markanchor.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\markindex.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\marknote.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\marksmanager.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\markvariabletext.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\measurementsbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\multipleduplicate.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\multiprogressdialog.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\newdocdialog.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\newmarginwidgetbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\nftdialog.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\nftwidget.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\nodeeditpalette.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\notesstyleseditor.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\opticalmargineditor.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\osgeditor.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\outputpreview_pdf.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\outputpreview_ps.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\outputpreviewbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\pageitemattributes.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\pagepalette_masterpagesbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\pagepalette_pagesbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\picsearch.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\picsearchoptions.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\picstatus.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\polygonwidgetbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\preferences\preferencesdialogbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\preferences\prefs_colormanagementbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\preferences\prefs_displaybase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\preferences\prefs_documentinformationbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\preferences\prefs_documentitemattributesbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\preferences\prefs_documentsectionsbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\preferences\prefs_documentsetupbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\preferences\prefs_experimentalbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\preferences\prefs_externaltoolsbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\preferences\prefs_fontsbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\preferences\prefs_guidesbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\preferences\prefs_hyphenatorbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\preferences\prefs_imagecachebase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\preferences\prefs_indexesbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\preferences\prefs_itemtoolsbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\preferences\prefs_keyboardshortcutsbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\preferences\prefs_miscellaneousbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\preferences\prefs_operatortoolsbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\preferences\prefs_pagesizesbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\preferences\prefs_pathsbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\preferences\prefs_pdfexportbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\preferences\prefs_pluginsbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\preferences\prefs_preflightverifierbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\preferences\prefs_printerbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\preferences\prefs_scrapbookbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\preferences\prefs_spellingbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\preferences\prefs_tableofcontentsbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\preferences\prefs_typographybase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\preferences\prefs_userinterfacebase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\printdialogbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\printpreviewbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\propertiespalette_attributes.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\propertiespalette_fill.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\propertiespalette_groupbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\propertiespalette_imagebase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\propertiespalette_linebase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\propertiespalette_shadowbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\propertiespalette_shapebase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\propertiespalette_tablebase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\propertiespalette_xyzbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\propertywidget_advancedbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\propertywidget_alignment.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\propertywidget_distancebase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\propertywidget_fontfeaturesbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\propertywidget_hyphenationbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\propertywidget_orphansbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\propertywidget_paragraphstyle.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\propertywidget_pareffectbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\propertywidget_pathtextbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\propertywidget_textbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\recoverdialog.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\replacecolors.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\replaceonecolor.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\resourcemanagerbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\resourcemanagerlicensebase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\selectobjects.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\shortcutwidget.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\smcellstylewidget.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\smcstylewidget.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\smfontfeaturesbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\smlinestylewidget.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\smpstylewidget.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\smreplacedia.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\smstyleimport.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\smtablestylewidget.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\spiralvectorbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\spiralwidgetbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\stylemanager.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\stylesearchdialog.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\tablecolumnwidthsdialog.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\tablerowheightsdialog.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\tabpdfoptions.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\transformdialogbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\unicodesearch.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\useprintermarginsdialog.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+    <uic Include="..\..\..\scribus\ui\weldeditbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
+  </ItemGroup>
+  <ItemGroup>
+    <lrelease Include="..\..\..\resources\translations\scribus.af.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.ar.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.az.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.be.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.bg.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.bn_IN.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.br.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.ca.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.cs_CZ.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.cy.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.da_DK.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.de.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.de_1901.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.de_CH.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.el.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.en_AU.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.en_GB.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.en_US.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.eo.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.es_AR.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.es_ES.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.et.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.eu.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.fa_IR.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.fi.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.fr.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.gl.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.he_IL.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.hi_IN.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.hr_HR.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.hu.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.id.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.it.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.ja.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.kab.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.kn_IN.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.ko.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.lb.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.lt_LT.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.ml.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.mn_MN.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.ms_MY.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.nb_NO.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.nl.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.nn_NO.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.oc.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.pl_PL.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.pms.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.pt_BR.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.pt_PT.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.ro.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.ru.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.sa.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.si.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.sk_SK.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.sl.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.so.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.sq.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.sr.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.sv.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.ta.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.te.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.th_TH.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.tr.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.uk.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.zh_CN.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+    <lrelease Include="..\..\..\resources\translations\scribus.zh_TW.ts">
+      <Filter>Translation Files</Filter>
+    </lrelease>
+  </ItemGroup>
+  <ItemGroup>
+    <moc Include="..\..\..\scribus\actionmanager.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\appmodehelper.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\canvas.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\canvasgesture.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\canvasgesture_cellselect.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\canvasgesture_columnresize.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\canvasgesture_rowresize.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\canvasgesture_rulermove.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\canvasgesture_table.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\canvasgesture_tableresize.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\canvasmode.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\canvasmode_create.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\canvasmode_edit.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\canvasmode_editarc.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\canvasmode_editpolygon.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\canvasmode_editspiral.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\canvasmode_edittable.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\canvasmode_editweldpoint.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\canvasmode_eyedropper.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\canvasmode_framelinks.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\canvasmode_imageimport.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\canvasmode_measurements.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\canvasmode_normal.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\canvasmode_objimport.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\chartablemodel.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\chartableview.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\collect4output.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\colorblind.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\commonstrings.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\deferredtask.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\documentlogmanager.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\downloadmanager\scdlmgr.h">
+      <Filter>Source Files\downloadmanager</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\downloadmanager\scdlthread.h">
+      <Filter>Source Files\downloadmanager</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\fileloader.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\filesearch.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\filewatcher.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\fontlistmodel.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\guidesdelegate.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\guidesmodel.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\guidesview.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\hyphenator.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\iconmanager.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\latexhelpers.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\loadsaveplugin.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\manager\dock_manager.h">
+      <Filter>Source Files\manager</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\manager\widget_manager.h">
+      <Filter>Source Files\manager</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\menumanager.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\models\gradientlistmodel.h">
+      <Filter>Source Files\models</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\navigator.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\observable.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\opticalmarginlookup.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\pageitem.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\pageitem_arc.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\pageitem_group.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\pageitem_imageframe.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\pageitem_latexframe.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\pageitem_line.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\pageitem_noteframe.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\pageitem_pathtext.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\pageitem_polygon.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\pageitem_polyline.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\pageitem_regularpolygon.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\pageitem_spiral.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\pageitem_symbol.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\pageitem_table.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\pageitem_textframe.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\pageitempointer.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\pdf_analyzer.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\pdflib.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\pdflib_core.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\pluginmanager.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\prefsmanager.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\pslib.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\qtiocompressor.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\sampleitem.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\scgtplugin.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\schelptreemodel.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\scimagecachedir.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\scimagecachefile.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\scimagecachemanager.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\sclayer.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\scmimedata.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\scplugin.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\scprintengine.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\scraction.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\scribus.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\scribusapp.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\scribuscore.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\scribusdoc.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\scribusview.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\scribuswin.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\selection.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\selectionrubberband.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\storyloader.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\styleitem.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\text\storytext.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\textnote.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\tocgenerator.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\tt\simpletreemodel\treemodel.h">
+      <Filter>Source Files\tt\simpletreemodel</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\about.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\aboutplugins.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\actionsearchdialog.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\aligndistribute.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\alignselect.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\alignverticalselect.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\annot.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\annota.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\applytemplatedialog.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\arcvectordialog.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\arcwidget.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\arrowchooser.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\autoform.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\autoformbuttongroup.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\basepointwidget.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\bookmarkpalette.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\bookmwin.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\buttonicon.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\charselect.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\charselectenhanced.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\charzoom.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\checkDocument.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\clockwidget.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\cmykfw.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\collectforoutput_ui.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\colorchart.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\colorcombo.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\colorlistbox.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\colorlistmodel.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\colorpicker\colorpicker.h">
+      <Filter>Source Files\ui\colorpicker</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\colorpicker\colorpicker_color.h">
+      <Filter>Source Files\ui\colorpicker</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\colorpicker\colorpicker_color_swatches.h">
+      <Filter>Source Files\ui\colorpicker</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\colorpicker\colorpicker_gradient.h">
+      <Filter>Source Files\ui\colorpicker</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\colorpicker\colorpicker_gradient_properties.h">
+      <Filter>Source Files\ui\colorpicker</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\colorpicker\colorpicker_gradient_swatches.h">
+      <Filter>Source Files\ui\colorpicker</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\colorpicker\colorpicker_hatch.h">
+      <Filter>Source Files\ui\colorpicker</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\colorpicker\colorpicker_pattern.h">
+      <Filter>Source Files\ui\colorpicker</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\colorsandfills.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\contentpalette.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\contentpalette_default.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\contentpalette_page.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\contextmenu.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\copypagetomasterpagedialog.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\createrange.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\cupsoptions.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\curvewidget.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\customfdialog.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\cxfimportdialog.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\dasheditor.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\dcolor.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\delpages.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\directionselect.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\docks\dock_centralwidget.h">
+      <Filter>Source Files\ui\docks</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\docks\dock_panelbase.h">
+      <Filter>Source Files\ui\docks</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\documentlogviewer.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\downloadspalette.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\editor.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\edittoolbar.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\effectsdialog.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\extimageprops.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\factories\scribusproxystyle.h">
+      <Filter>Source Files\ui\factories</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\filedialogeventcatcher.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\filetoolbar.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\flopwidget.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\fontcombo.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\fontembeddingcombo.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\fontembeddingmodel.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\fontlistview.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\fontreplacedialog.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\gradientaddedit.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\gradienteditor.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\gradientpreview.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\gtdialogs.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\gtfiledialog.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\guidemanager.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\helpbrowser.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\helpnavigation.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\hruler.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\hyask.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\imageclippingpaths.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\imageinfodialog.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\imagelayers.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\inlinepalette.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\insertaframe.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\insertTable.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\inserttablecolumnsdialog.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\inserttablerowsdialog.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\inspage.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\javadocs.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\latexeditor.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\layers.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\linecombo.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\linemarkerselector.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\linestyleselector.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\linkbutton.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\loremipsum.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\marginpresetlayout.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\mark2item.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\mark2mark.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\markanchor.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\markindex.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\markinsert.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\marknote.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\marksmanager.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\markvariabletext.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\measurements.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\mergedoc.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\missing.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\modetoolbar.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\movepage.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\multipleduplicate.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\multiprogressdialog.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\newdocdialog.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\newmarginwidget.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\newtemp.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\nftdialog.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\nftwidget.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\nodeeditpalette.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\notesstyleseditor.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\numformatcombo.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\opticalmargineditor.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\opticalmarginswidget.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\outlinepalette.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\outputpreview_pdf.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\outputpreview_ps.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\outputpreviewbase.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\pageitemattributes.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\pagepalette.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\pagepalette_masterpages.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\pagepalette_pages.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\pagepalette_widgets.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\pagepropertiesdialog.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\pageselector.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\patternpropsdialog.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\pdfexportdialog.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\pdftoolbar.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\pdfversioncombo.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\pdfversionmodel.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\picsearch.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\picsearchoptions.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\picstatus.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\polygonwidget.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\polyprops.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\preferences\preferencesdialog.h">
+      <Filter>Source Files\ui\preferences</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\preferences\prefs_colormanagement.h">
+      <Filter>Source Files\ui\preferences</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\preferences\prefs_display.h">
+      <Filter>Source Files\ui\preferences</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\preferences\prefs_documentinformation.h">
+      <Filter>Source Files\ui\preferences</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\preferences\prefs_documentitemattributes.h">
+      <Filter>Source Files\ui\preferences</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\preferences\prefs_documentsections.h">
+      <Filter>Source Files\ui\preferences</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\preferences\prefs_documentsetup.h">
+      <Filter>Source Files\ui\preferences</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\preferences\prefs_experimental.h">
+      <Filter>Source Files\ui\preferences</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\preferences\prefs_externaltools.h">
+      <Filter>Source Files\ui\preferences</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\preferences\prefs_fonts.h">
+      <Filter>Source Files\ui\preferences</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\preferences\prefs_guides.h">
+      <Filter>Source Files\ui\preferences</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\preferences\prefs_hyphenator.h">
+      <Filter>Source Files\ui\preferences</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\preferences\prefs_imagecache.h">
+      <Filter>Source Files\ui\preferences</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\preferences\prefs_indexes.h">
+      <Filter>Source Files\ui\preferences</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\preferences\prefs_itemtools.h">
+      <Filter>Source Files\ui\preferences</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\preferences\prefs_keyboardshortcuts.h">
+      <Filter>Source Files\ui\preferences</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\preferences\prefs_miscellaneous.h">
+      <Filter>Source Files\ui\preferences</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\preferences\prefs_operatortools.h">
+      <Filter>Source Files\ui\preferences</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\preferences\prefs_pagesizes.h">
+      <Filter>Source Files\ui\preferences</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\preferences\prefs_pane.h">
+      <Filter>Source Files\ui\preferences</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\preferences\prefs_paths.h">
+      <Filter>Source Files\ui\preferences</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\preferences\prefs_pdfexport.h">
+      <Filter>Source Files\ui\preferences</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\preferences\prefs_plugins.h">
+      <Filter>Source Files\ui\preferences</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\preferences\prefs_preflightverifier.h">
+      <Filter>Source Files\ui\preferences</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\preferences\prefs_printer.h">
+      <Filter>Source Files\ui\preferences</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\preferences\prefs_scrapbook.h">
+      <Filter>Source Files\ui\preferences</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\preferences\prefs_spelling.h">
+      <Filter>Source Files\ui\preferences</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\preferences\prefs_tableofcontents.h">
+      <Filter>Source Files\ui\preferences</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\preferences\prefs_typography.h">
+      <Filter>Source Files\ui\preferences</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\preferences\prefs_userinterface.h">
+      <Filter>Source Files\ui\preferences</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\printdialog.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\printlanguagecombo.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\printpreview.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\propertiespalette.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\propertiespalette_attributes.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\propertiespalette_fill.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\propertiespalette_group.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\propertiespalette_image.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\propertiespalette_line.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\propertiespalette_shadow.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\propertiespalette_shape.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\propertiespalette_table.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\propertiespalette_text.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\propertiespalette_utils.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\propertiespalette_xyz.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\propertywidget_advanced.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\propertywidget_alignment.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\propertywidget_distance.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\propertywidget_fontfeatures.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\propertywidget_hyphenation.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\propertywidget_orphans.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\propertywidget_paragraphstyle.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\propertywidget_pareffect.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\propertywidget_pathtext.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\propertywidget_text.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\proptree.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\query.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\recoverdialog.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\replacecolors.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\replaceonecolor.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\resourcemanager.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\resourcemanagerlicense.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\rulermover.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\sccolorslider.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\scdialog.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\scdockpalette.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\scescapecatcher.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\scfilewidget.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\sclistwidgetdelegate.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\scmenu.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\scmessagebox.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\scmwmenumanager.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\scrapbookpalette.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\scrpalettebase.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\scrspinbox.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\sctablewidget.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\sctextbrowser.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\sctoolbar.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\sctreewidget.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\search.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\selectobjects.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\selfield.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\shadebutton.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\shortcutwidget.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\smalignselect.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\smcellstyle.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\smcellstylewidget.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\smcheckbox.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\smcolorbutton.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\smcolorcombo.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\smcstylewidget.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\smdirectionselect.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\smfontcomboh.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\smfontfeatures.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\smlineedit.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\smlinestyle.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\smlinestylewidget.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\smnumformatcombo.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\smopticalmarginswidget.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\smpstylewidget.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\smradiobutton.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\smreplacedia.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\smsccombobox.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\smscrspinbox.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\smshadebutton.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\smspinbox.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\smstyleimport.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\smstyleselect.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\smtablestyle.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\smtablestylewidget.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\smtabruler.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\smtextstyles.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\spiralvectordialog.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\spiralwidget.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\splash.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\storyeditor.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\stylecombos.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\stylemanager.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\stylesearchdialog.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\styleselect.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\styleview.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\swatchcombo.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\symbolpalette.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\tablecolumnwidthsdialog.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\tablerowheightsdialog.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\tablesideselector.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\tabmanager.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\tabpdfoptions.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\tabruler.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\transformdialog.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\unicodesearch.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\useprintermarginsdialog.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\viewtoolbar.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\vruler.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\weldedit.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\widgets\color_button.h">
+      <Filter>Source Files\ui\widgets</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\widgets\color_slider.h">
+      <Filter>Source Files\ui\widgets</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\widgets\dropdown_button.h">
+      <Filter>Source Files\ui\widgets</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\widgets\floatingwindow.h">
+      <Filter>Source Files\ui\widgets</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\widgets\form_widget.h">
+      <Filter>Source Files\ui\widgets</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\widgets\gradientlistbox.h">
+      <Filter>Source Files\ui\widgets</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\widgets\pagelayout.h">
+      <Filter>Source Files\ui\widgets</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\widgets\pagesizelist.h">
+      <Filter>Source Files\ui\widgets</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\widgets\pagesizepreview.h">
+      <Filter>Source Files\ui\widgets</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\widgets\pagesizeselector.h">
+      <Filter>Source Files\ui\widgets</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\widgets\pulsing_toolbutton.h">
+      <Filter>Source Files\ui\widgets</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\widgets\section_container.h">
+      <Filter>Source Files\ui\widgets</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\widgets\switch.h">
+      <Filter>Source Files\ui\widgets</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\undogui.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\undomanager.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\upgradechecker.h">
+      <Filter>Source Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\urllauncher.h">
+      <Filter>Source Files</Filter>
+    </moc>
+  </ItemGroup>
+</Project>

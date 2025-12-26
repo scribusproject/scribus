@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{c32ec7fb-4783-48f8-a1d9-f0c6c3fa9775}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc</Extensions>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{40ffc310-f5b1-4465-b1e8-b7832ce2a54c}</UniqueIdentifier>
+      <Extensions>qrc;res</Extensions>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{1a5dd497-6d12-46ea-8e17-5b3e6bd02ef4}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\ads_globals.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\AutoHideDockContainer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\AutoHideSideBar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\AutoHideTab.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockAreaTabBar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockAreaTitleBar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockAreaWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockComponentsFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockContainerWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockFocusController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockingStateReader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockOverlay.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockSplitter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockWidgetTab.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\ElidingLabel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\FloatingDockContainer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\FloatingDragPreview.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\IconProvider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\PushButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\ResizeHandle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\ads_globals.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\AutoHideDockContainer.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\AutoHideSideBar.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\AutoHideTab.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockAreaTabBar.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockAreaTitleBar.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockAreaTitleBar_p.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockAreaWidget.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockComponentsFactory.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockContainerWidget.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockFocusController.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockingStateReader.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockManager.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockOverlay.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockSplitter.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockWidget.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\DockWidgetTab.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\ElidingLabel.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\FloatingDockContainer.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\FloatingDragPreview.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\IconProvider.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\PushButton.h">
+      <Filter>Header Files</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\ResizeHandle.h">
+      <Filter>Header Files</Filter>
+    </moc>
+  </ItemGroup>
+  <ItemGroup>
+    <rcc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\ads.qrc">
+      <Filter>Resources</Filter>
+    </rcc>
+  </ItemGroup>
+</Project>
