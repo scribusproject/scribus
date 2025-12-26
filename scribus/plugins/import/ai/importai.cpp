@@ -180,7 +180,7 @@ QImage AIPlug::readThumbnail(const QString& fNameIn)
 		tmpSel->setGroupRect();
 		double xs = tmpSel->width();
 		double ys = tmpSel->height();
-		if (Elements.count() > 0)
+		if (!Elements.isEmpty())
 			tmpImage = Elements.at(0)->DrawObj_toImage(500);
 		tmpImage.setText("XSize", QString("%1").arg(xs));
 		tmpImage.setText("YSize", QString("%1").arg(ys));
@@ -270,7 +270,7 @@ bool AIPlug::readColors(const QString& fileName, ColorList & colors)
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.path());
 	convert(fName);
-	if (importedColors.count() != 0)
+	if (!importedColors.isEmpty())
 	{
 		colors = m_Doc->PageColors;
 		success = true;
@@ -284,7 +284,7 @@ bool AIPlug::readColors(const QString& fileName, ColorList & colors)
 	return success;
 }
 
-bool AIPlug::import(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
+bool AIPlug::importFile(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
 {
 	QString fName = fNameIn;
 	bool success = false;
@@ -434,23 +434,23 @@ bool AIPlug::import(const QString& fNameIn, const TransactionSettings& trSetting
 	QDir::setCurrent(fi.path());
 	if (convert(fName))
 	{
-		if (Elements.count() == 0)
+		if (Elements.isEmpty())
 		{
-			if ((importedColors.count() != 0) && (!((flags & LoadSavePlugin::lfKeepGradients) || (flags & LoadSavePlugin::lfKeepColors) || (flags & LoadSavePlugin::lfKeepPatterns))))
+			if (!importedColors.isEmpty() && (!((flags & LoadSavePlugin::lfKeepGradients) || (flags & LoadSavePlugin::lfKeepColors) || (flags & LoadSavePlugin::lfKeepPatterns))))
 			{
 				for (int cd = 0; cd < importedColors.count(); cd++)
 				{
 					m_Doc->PageColors.remove(importedColors[cd]);
 				}
 			}
-			if ((importedGradients.count() != 0) && (!((flags & LoadSavePlugin::lfKeepGradients || (flags & LoadSavePlugin::lfKeepPatterns)))))
+			if (!importedGradients.isEmpty() && !(flags & LoadSavePlugin::lfKeepGradients || (flags & LoadSavePlugin::lfKeepPatterns)))
 			{
 				for (int cd = 0; cd < importedGradients.count(); cd++)
 				{
 					m_Doc->docGradients.remove(importedGradients[cd]);
 				}
 			}
-			if ((importedPatterns.count() != 0) && (!(flags & LoadSavePlugin::lfKeepPatterns)))
+			if (!importedPatterns.isEmpty() && (!(flags & LoadSavePlugin::lfKeepPatterns)))
 			{
 				for (int cd = 0; cd < importedPatterns.count(); cd++)
 				{
@@ -466,7 +466,7 @@ bool AIPlug::import(const QString& fNameIn, const TransactionSettings& trSetting
 		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->setLoading(false);
 		QGuiApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		if ((Elements.count() > 0) && (!ret) && (interactive))
+		if (!Elements.isEmpty() && !ret && interactive)
 		{
 			if (flags & LoadSavePlugin::lfScripted)
 			{
@@ -501,21 +501,21 @@ bool AIPlug::import(const QString& fNameIn, const TransactionSettings& trSetting
 				ScElemMimeData* md = ScriXmlDoc::writeToMimeData(m_Doc, tmpSel);
 				m_Doc->itemSelection_DeleteItem(tmpSel);
 				m_Doc->view()->updatesOn(true);
-				if ((importedColors.count() != 0) && (!((flags & LoadSavePlugin::lfKeepGradients) || (flags & LoadSavePlugin::lfKeepColors) || (flags & LoadSavePlugin::lfKeepPatterns))))
+				if (!importedColors.isEmpty() && (!((flags & LoadSavePlugin::lfKeepGradients) || (flags & LoadSavePlugin::lfKeepColors) || (flags & LoadSavePlugin::lfKeepPatterns))))
 				{
 					for (int cd = 0; cd < importedColors.count(); cd++)
 					{
 						m_Doc->PageColors.remove(importedColors[cd]);
 					}
 				}
-				if ((importedGradients.count() != 0) && (!((flags & LoadSavePlugin::lfKeepGradients || (flags & LoadSavePlugin::lfKeepPatterns)))))
+				if (!importedGradients.isEmpty() && !(flags & LoadSavePlugin::lfKeepGradients || (flags & LoadSavePlugin::lfKeepPatterns)))
 				{
 					for (int cd = 0; cd < importedGradients.count(); cd++)
 					{
 						m_Doc->docGradients.remove(importedGradients[cd]);
 					}
 				}
-				if ((importedPatterns.count() != 0) && (!(flags & LoadSavePlugin::lfKeepPatterns)))
+				if (!importedPatterns.isEmpty() && (!(flags & LoadSavePlugin::lfKeepPatterns)))
 				{
 					for (int cd = 0; cd < importedPatterns.count(); cd++)
 					{
@@ -525,7 +525,7 @@ bool AIPlug::import(const QString& fNameIn, const TransactionSettings& trSetting
 				m_Doc->m_Selection->delaySignalsOff();
 				// We must copy the TransationSettings object as it is owned
 				// by handleObjectImport method afterwards
-				TransactionSettings* transacSettings = new TransactionSettings(trSettings);
+				auto* transacSettings = new TransactionSettings(trSettings);
 				m_Doc->view()->handleObjectImport(md, transacSettings);
 				m_Doc->DragP = false;
 				m_Doc->DraggedElem = nullptr;
@@ -569,7 +569,7 @@ AIPlug::~AIPlug()
 	delete tmpSel;
 }
 
-bool AIPlug::extractFromPDF(const QString& infile, const QString& outfile)
+bool AIPlug::extractFromPDF(const QString& infile, const QString& outfile) const
 {
 	bool ret = false;
 #ifdef HAVE_PODOFO
@@ -865,7 +865,7 @@ bool AIPlug::parseHeader(const QString& fName, double &x, double &y, double &b, 
 			if (tmp.startsWith("%%Title"))
 			{
 				QStringList res = getStrings(tmp);
-				if (res.count() > 0)
+				if (!res.isEmpty())
 					docTitle = res[0];
 			}
 			if ((tmp.startsWith("%%CMYKCustomColor")) || (tmp.startsWith("%%CMYKProcessColor")))
@@ -886,9 +886,8 @@ bool AIPlug::parseHeader(const QString& fName, double &x, double &y, double &b, 
 					FarNam.remove(FarNam.length()-1,1);
 					FarNam = FarNam.simplified();
 					QByteArray farN;
-					for (int a = 0; a < FarNam.length(); a++)
+					for (QChar ch : FarNam)
 					{
-						QChar ch = FarNam.at(a);
 						uint chc = ch.unicode();
 						if (chc > 255)
 							farN.append(chc >> 8);
@@ -917,9 +916,8 @@ bool AIPlug::parseHeader(const QString& fName, double &x, double &y, double &b, 
 						FarNam.remove(FarNam.length()-1,1);
 						FarNam = FarNam.simplified();
 						QByteArray farN;
-						for (int a = 0; a < FarNam.length(); a++)
+						for (QChar ch : FarNam)
 						{
-							QChar ch = FarNam.at(a);
 							uint chc = ch.unicode();
 							if (chc > 255)
 								farN.append(chc >> 8);
@@ -951,9 +949,8 @@ bool AIPlug::parseHeader(const QString& fName, double &x, double &y, double &b, 
 					FarNam.remove(FarNam.length()-1,1);
 					FarNam = FarNam.simplified();
 					QByteArray farN;
-					for (int a = 0; a < FarNam.length(); a++)
+					for (QChar ch : FarNam)
 					{
-						QChar ch = FarNam.at(a);
 						uint chc = ch.unicode();
 						if (chc > 255)
 							farN.append(chc >> 8);
@@ -981,9 +978,8 @@ bool AIPlug::parseHeader(const QString& fName, double &x, double &y, double &b, 
 						FarNam.remove(FarNam.length()-1,1);
 						FarNam = FarNam.simplified();
 						QByteArray farN;
-						for (int a = 0; a < FarNam.length(); a++)
+						for (QChar ch : FarNam)
 						{
-							QChar ch = FarNam.at(a);
 							uint chc = ch.unicode();
 							if (chc > 255)
 								farN.append(chc >> 8);
@@ -1011,12 +1007,11 @@ bool AIPlug::parseHeader(const QString& fName, double &x, double &y, double &b, 
 							isX = true;
 							int an = tmp.indexOf("(");
 							int en = tmp.lastIndexOf(")");
-							FarNam = tmp.mid(an+1, en-an-1);
+							FarNam = tmp.mid(an + 1, en - an - 1);
 							FarNam = FarNam.simplified();
 							QByteArray farN;
-							for (int a = 0; a < FarNam.length(); a++)
+							for (QChar ch : FarNam)
 							{
-								QChar ch = FarNam.at(a);
 								uint chc = ch.unicode();
 								if (chc > 255)
 									farN.append(chc >> 8);
@@ -1035,9 +1030,8 @@ bool AIPlug::parseHeader(const QString& fName, double &x, double &y, double &b, 
 								FarNam = tmp.mid(0, en);
 								FarNam = FarNam.simplified();
 								QByteArray farN;
-								for (int a = 0; a < FarNam.length(); a++)
+								for (QChar ch : FarNam)
 								{
-									QChar ch = FarNam.at(a);
 									uint chc = ch.unicode();
 									if (chc > 255)
 										farN.append(chc >> 8);
@@ -1071,13 +1065,13 @@ bool AIPlug::parseHeader(const QString& fName, double &x, double &y, double &b, 
 	return found;
 }
 
-QString AIPlug::removeAIPrefix(QString comment)
+QString AIPlug::removeAIPrefix(QString comment) const
 {
 	QString tmp;
 	if (comment.startsWith("%AI"))
 	{
 		int an = comment.indexOf("_");
-		tmp = comment.remove(0, an+1);
+		tmp = comment.remove(0, an + 1);
 	}
 	else
 		tmp = comment;
@@ -1167,9 +1161,9 @@ QString AIPlug::parseCustomColor(QString data, double &shade)
 	Code >> k;
 	int an = data.indexOf("(");
 	int en = data.lastIndexOf(")");
-	QString FarNam = data.mid(an+1, en-an-1);
+	QString FarNam = data.mid(an + 1, en - an - 1);
 	FarNam.remove("\\");
-	QString FarSha = data.mid(en+1, data.size() - en);
+	QString FarSha = data.mid(en + 1, data.size() - en);
 	ScTextStream Val(&FarSha, QIODevice::ReadOnly);
 	Val >> sh;
 	shade = (1.0 - sh) * 100.0;
@@ -1211,9 +1205,9 @@ QString AIPlug::parseCustomColorX(QString data, double &shade, const QString& ty
 	}
 	int an = data.indexOf("(");
 	int en = data.lastIndexOf(")");
-	QString FarNam = data.mid(an+1, en-an-1);
+	QString FarNam = data.mid(an + 1, en - an - 1);
 	FarNam.remove("\\");
-	QString FarSha = data.mid(en+1, data.size() - en);
+	QString FarSha = data.mid(en + 1, data.size() - en);
 	ScTextStream Val(&FarSha, QIODevice::ReadOnly);
 	Val >> sh;
 	shade = (1.0 - sh) * 100.0;
@@ -1227,19 +1221,16 @@ QString AIPlug::parseCustomColorX(QString data, double &shade, const QString& ty
 	return ret;
 }
 
-QStringList AIPlug::getStrings(const QString& data)
+QStringList AIPlug::getStrings(const QString& data) const
 {
 	QStringList result;
-	result.clear();
-	QChar tmp;
 	QString tmp2;
 	QString tmp3;
 	bool paran = false;
 	bool skip = false;
 	int digitCount = 0;
-	for (int i = 0; i < data.count(); i++)
+	for (QChar tmp : data)
 	{
-		tmp = data[i];
 		if (skip)
 		{
 			if (paran)
@@ -1292,55 +1283,50 @@ QStringList AIPlug::getStrings(const QString& data)
 	return result;
 }
 
-void AIPlug::getCommands(const QString& data, QStringList &commands)
+void AIPlug::getCommands(const QString& data, QStringList &commands) const
 {
-	QString tmp;
 	QString tmp2;
 	QString tmp3;
 	bool paran = false;
-	//bool arra = false;
 	bool skip = false;
-	for (int a = 0; a < data.count(); a++)
+	for (QChar tmp : data)
 	{
-		tmp = data[a];
 		if (skip)
 		{
 			tmp2 += tmp;
 			skip = false;
 			continue;
 		}
-		if (tmp == "(")
+		if (tmp == '(')
 		{
 			paran = true;
 			tmp2 += tmp;
 			continue;
 		}
-		if (tmp == ")")
+		if (tmp == ')')
 		{
 			paran = false;
 			tmp2 += tmp;
 			continue;
 		}
-		if (tmp == "[")
+		if (tmp == '[')
 		{
-		//	arra = true;
 			tmp2 += tmp;
 			continue;
 		}
-		if (tmp == "]")
+		if (tmp == ']')
 		{
-		//	arra = false;
 			tmp2 += tmp;
 			continue;
 		}
-//		if (tmp == "\\")
+//		if (tmp == '\\')
 //		{
 //			skip = true;
 //			continue;
 //		}
 		if (!paran)
 		{
-			if (tmp == " ")
+			if (tmp == ' ')
 			{
 				tmp3 += " " + tmp2;
 				if (commandList.contains(tmp2))
@@ -1361,7 +1347,7 @@ void AIPlug::getCommands(const QString& data, QStringList &commands)
 	}
 }
 
-void AIPlug::decodeA85(QByteArray &psdata, const QString& tmp)
+void AIPlug::decodeA85(QByteArray &psdata, const QString& tmp) const
 {
 	uchar byte;
 	ushort data;
@@ -1482,7 +1468,7 @@ void AIPlug::processData(const QString& data)
 						PatternElements.append(ite);
 					else
 						Elements.append(ite);
-					if (groupStack.count() != 0)
+					if (!groupStack.isEmpty())
 						groupStack.top().append(ite);
 				}
 			}
@@ -1513,7 +1499,7 @@ void AIPlug::processData(const QString& data)
 				int en = Cdata.lastIndexOf(")");
 				if ((an != -1) && (en != -1))
 				{
-					currentSymbolName = Cdata.mid(an+1, en-an-1);
+					currentSymbolName = Cdata.mid(an + 1, en - an - 1);
 					currentSymbolName.remove("\\");
 					currentSymbolName = "S_"+currentSymbolName.trimmed().simplified().replace(" ", "_");
 				}
@@ -1564,13 +1550,13 @@ void AIPlug::processData(const QString& data)
 					PatternElements.append(b);
 				else
 					Elements.append(b);
-				if (groupStack.count() != 0)
+				if (!groupStack.isEmpty())
 					groupStack.top().append(b);
 				symbolMode = false;
 			}
 		}
 		QStringList da2 = Cdata.split(" ", Qt::SkipEmptyParts);
-		if (da2.count() == 0)
+		if (da2.isEmpty())
 			return;
 		command = da2.last();
 /* Start Path construction commands */
@@ -1618,7 +1604,7 @@ void AIPlug::processData(const QString& data)
 			FPoint wh = Coords.widthHeight();
 			if ((Coords.size() > 3) && (wh.x() != 0.0) && (wh.y() != 0.0))
 			{
-				if ((!WasU) || ((WasU) && (FirstU)))
+				if ((!WasU) || (WasU && FirstU))
 				{
 					if ((command == "B") || (command == "F") || (command == "S"))
 					{
@@ -1676,13 +1662,13 @@ void AIPlug::processData(const QString& data)
 						PatternElements.append(ite);
 					else
 						Elements.append(ite);
-					if (groupStack.count() != 0)
+					if (!groupStack.isEmpty())
 						groupStack.top().append(ite);
 					if (importerFlags & LoadSavePlugin::lfCreateDoc)
 						ite->setLocked(itemLocked);
 					
 				}
-				else if (m_Doc->Items->count() > 0)
+				else if (!m_Doc->Items->isEmpty())
 				{
 					ite = m_Doc->Items->last();
 					ite->PoLine.setMarker();
@@ -1704,7 +1690,7 @@ void AIPlug::processData(const QString& data)
 		}
 		else if (command == "*U")
 		{
-			if (m_Doc->Items->count() > 0)
+			if (!m_Doc->Items->isEmpty())
 			{
 				WasU = false;
 				ite = m_Doc->Items->last();
@@ -1721,12 +1707,12 @@ void AIPlug::processData(const QString& data)
 		}
 		else if ((command == "U") || (command == "Q"))
 		{
-			if (groupStack.count() != 0)
+			if (!groupStack.isEmpty())
 			{
 				QList<PageItem*> gElements = groupStack.pop();
 				clipCoords = clipStack.pop();
 				tmpSel->clear();
-				if (gElements.count() > 0)
+				if (!gElements.isEmpty())
 				{
 					for (int dre = 0; dre < gElements.count(); ++dre)
 					{
@@ -1751,7 +1737,7 @@ void AIPlug::processData(const QString& data)
 							Elements.append(tmpSel->itemAt(as));
 					}
 				}
-				if (groupStack.count() != 0)
+				if (!groupStack.isEmpty())
 				{
 					for (int as = 0; as < tmpSel->count(); ++as)
 					{
@@ -1768,7 +1754,7 @@ void AIPlug::processData(const QString& data)
 		}
 		else if (command == "W")
 		{
-			if (clipStack.count() != 0)
+			if (!clipStack.isEmpty())
 			{
 				if (clipStack.top().size() > 3)
 				{
@@ -2002,7 +1988,7 @@ void AIPlug::processData(const QString& data)
 		}
 		else if ((command == "XA") || (command == "Xa"))
 		{
-			QString Xdata = da2[da2.count()-4] + " " + da2[da2.count()-3] + " " + da2[da2.count()-2];
+			QString Xdata = da2[da2.count() - 4] + " " + da2[da2.count() - 3] + " " + da2[da2.count() - 2];
 			if (command == "XA")
 				CurrColorStroke = parseColorRGB(Xdata);
 			else
@@ -2012,9 +1998,9 @@ void AIPlug::processData(const QString& data)
 		else if ((command == "XX") || (command == "Xx") || (command == "Xk"))
 		{
 			if (command == "XX")
-				CurrColorStroke = parseCustomColorX(Cdata, CurrStrokeShade, da2[da2.count()-2]);
+				CurrColorStroke = parseCustomColorX(Cdata, CurrStrokeShade, da2[da2.count() - 2]);
 			else
-				CurrColorFill = parseCustomColorX(Cdata, CurrFillShade, da2[da2.count()-2]);
+				CurrColorFill = parseCustomColorX(Cdata, CurrFillShade, da2[da2.count() - 2]);
 		}
 		else if ((command == "X") || (command == "x"))
 		{
@@ -2027,10 +2013,10 @@ void AIPlug::processData(const QString& data)
 		{
 			int an = Cdata.indexOf("(");
 			int en = Cdata.lastIndexOf(")");
-			currentPatternName = Cdata.mid(an+1, en-an-1);
+			currentPatternName = Cdata.mid(an + 1, en - an - 1);
 			currentPatternName.remove("\\");
 			currentPatternName = currentPatternName.trimmed().simplified().replace(" ", "_");
-			QString tmpS = Cdata.mid(en+1, Cdata.size() - en);
+			QString tmpS = Cdata.mid(en + 1, Cdata.size() - en);
 			ScTextStream gVals(&tmpS, QIODevice::ReadOnly);
 			gVals >> currentPatternX >> currentPatternY >> currentPatternXScale >> currentPatternYScale >> currentPatternRotation;
 		}
@@ -2038,10 +2024,10 @@ void AIPlug::processData(const QString& data)
 		{
 			int an = Cdata.indexOf("(");
 			int en = Cdata.lastIndexOf(")");
-			currentStrokePatternName = Cdata.mid(an+1, en-an-1);
+			currentStrokePatternName = Cdata.mid(an + 1, en - an - 1);
 			currentStrokePatternName.remove("\\");
 			currentStrokePatternName = currentPatternName.trimmed().simplified().replace(" ", "_");
-			QString tmpS = Cdata.mid(en+1, Cdata.size() - en);
+			QString tmpS = Cdata.mid(en + 1, Cdata.size() - en);
 			ScTextStream gVals(&tmpS, QIODevice::ReadOnly);
 			gVals >> currentStrokePatternX >> currentStrokePatternY >> currentStrokePatternXScale >> currentStrokePatternYScale >> currentStrokePatternRotation;
 		}
@@ -2057,7 +2043,7 @@ void AIPlug::processData(const QString& data)
 			if (Cdata.contains("/End"))
 			{
 				meshMode = false;
-				if (meshGradientArray.count() != 0)
+				if (!meshGradientArray.isEmpty())
 				{
 					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None);
 					ite = m_Doc->Items->at(z);
@@ -2094,7 +2080,7 @@ void AIPlug::processData(const QString& data)
 						PatternElements.append(ite);
 					else
 						Elements.append(ite);
-					if (groupStack.count() != 0)
+					if (!groupStack.isEmpty())
 						groupStack.top().append(ite);
 				}
 			}
@@ -2104,7 +2090,7 @@ void AIPlug::processData(const QString& data)
 			int an = Cdata.indexOf("_");
 			QString cmdLine = Cdata.remove(0, an+1);
 			an = cmdLine.lastIndexOf("/");
-			QString tmpS = cmdLine.mid(an+1, Cdata.size());
+			QString tmpS = cmdLine.mid(an + 1, Cdata.size());
 			ScTextStream mVals(&tmpS, QIODevice::ReadOnly);
 			QString mKey;
 			mVals >> mKey;
@@ -2113,13 +2099,13 @@ void AIPlug::processData(const QString& data)
 				meshGradientArray.clear();
 				int ans = cmdLine.indexOf("[");
 				int ens = cmdLine.lastIndexOf("]");
-				QString sizeVals = cmdLine.mid(ans+1, ens-ans-1);
+				QString sizeVals = cmdLine.mid(ans + 1, ens - ans - 1);
 				ScTextStream mVals2(&sizeVals, QIODevice::ReadOnly);
 				mVals2 >> meshXSize >> meshYSize;
-				for (int mgr = 0; mgr < meshYSize+1; mgr++)
+				for (int mgr = 0; mgr < meshYSize + 1; mgr++)
 				{
 					QList<MeshPoint> ml;
-					for (int mgc = 0; mgc < meshXSize+1; mgc++)
+					for (int mgc = 0; mgc < meshXSize + 1; mgc++)
 					{
 						MeshPoint mp;
 						ml.append(mp);
@@ -2131,7 +2117,7 @@ void AIPlug::processData(const QString& data)
 			{
 				int ans = cmdLine.indexOf("[");
 				int ens = cmdLine.lastIndexOf("]");
-				QString posVals = cmdLine.mid(ans+1, ens-ans-1);
+				QString posVals = cmdLine.mid(ans + 1, ens - ans - 1);
 				ScTextStream mVals3(&posVals, QIODevice::ReadOnly);
 				mVals3 >> currentMeshXPos >> currentMeshYPos;
 			}
@@ -2148,30 +2134,30 @@ void AIPlug::processData(const QString& data)
 			{
 				int indY = meshYSize - currentMeshYPos - 1;
 				int indX = currentMeshXPos;
-				meshGradientArray[indY+1][indX+1].gridPoint   = FPoint(meshNode2PointX, meshNode2PointY);
-				meshGradientArray[indY+1][indX+1].controlTop  = FPoint(meshNode2Control2X, meshNode2Control2Y);
-				meshGradientArray[indY+1][indX+1].controlLeft = FPoint(meshNode2Control1X, meshNode2Control1Y);
-				meshGradientArray[indY+1][indX+1].colorName = meshColor2;
-				meshGradientArray[indY+1][indX+1].shade = 100;
-				meshGradientArray[indY+1][indX+1].transparency = 1.0;
-				meshGradientArray[indY+1][indX].gridPoint    = FPoint(meshNode1PointX, meshNode1PointY);
-				meshGradientArray[indY+1][indX].controlRight = FPoint(meshNode1Control2X, meshNode1Control2Y);
-				meshGradientArray[indY+1][indX].controlTop   = FPoint(meshNode1Control1X, meshNode1Control1Y);
-				meshGradientArray[indY+1][indX].colorName = meshColor1;
-				meshGradientArray[indY+1][indX].shade = 100;
-				meshGradientArray[indY+1][indX].transparency = 1.0;
+				meshGradientArray[indY + 1][indX + 1].gridPoint   = FPoint(meshNode2PointX, meshNode2PointY);
+				meshGradientArray[indY + 1][indX + 1].controlTop  = FPoint(meshNode2Control2X, meshNode2Control2Y);
+				meshGradientArray[indY + 1][indX + 1].controlLeft = FPoint(meshNode2Control1X, meshNode2Control1Y);
+				meshGradientArray[indY + 1][indX + 1].colorName = meshColor2;
+				meshGradientArray[indY + 1][indX + 1].shade = 100;
+				meshGradientArray[indY + 1][indX + 1].transparency = 1.0;
+				meshGradientArray[indY + 1][indX].gridPoint    = FPoint(meshNode1PointX, meshNode1PointY);
+				meshGradientArray[indY + 1][indX].controlRight = FPoint(meshNode1Control2X, meshNode1Control2Y);
+				meshGradientArray[indY + 1][indX].controlTop   = FPoint(meshNode1Control1X, meshNode1Control1Y);
+				meshGradientArray[indY + 1][indX].colorName = meshColor1;
+				meshGradientArray[indY + 1][indX].shade = 100;
+				meshGradientArray[indY + 1][indX].transparency = 1.0;
 				meshGradientArray[indY][indX].gridPoint     = FPoint(meshNode4PointX, meshNode4PointY);
 				meshGradientArray[indY][indX].controlBottom = FPoint(meshNode4Control2X, meshNode4Control2Y);
 				meshGradientArray[indY][indX].controlRight  = FPoint(meshNode4Control1X, meshNode4Control1Y);
 				meshGradientArray[indY][indX].colorName = meshColor4;
 				meshGradientArray[indY][indX].shade = 100;
 				meshGradientArray[indY][indX].transparency = 1.0;
-				meshGradientArray[indY][indX+1].gridPoint     = FPoint(meshNode3PointX, meshNode3PointY);
-				meshGradientArray[indY][indX+1].controlLeft   = FPoint(meshNode3Control2X, meshNode3Control2Y);
-				meshGradientArray[indY][indX+1].controlBottom = FPoint(meshNode3Control1X, meshNode3Control1Y);
-				meshGradientArray[indY][indX+1].colorName = meshColor3;
-				meshGradientArray[indY][indX+1].shade = 100;
-				meshGradientArray[indY][indX+1].transparency = 1.0;
+				meshGradientArray[indY][indX + 1].gridPoint     = FPoint(meshNode3PointX, meshNode3PointY);
+				meshGradientArray[indY][indX + 1].controlLeft   = FPoint(meshNode3Control2X, meshNode3Control2Y);
+				meshGradientArray[indY][indX + 1].controlBottom = FPoint(meshNode3Control1X, meshNode3Control1Y);
+				meshGradientArray[indY][indX + 1].colorName = meshColor3;
+				meshGradientArray[indY][indX + 1].shade = 100;
+				meshGradientArray[indY][indX + 1].transparency = 1.0;
 				meshNodeCounter = 0;
 			}
 			if (mKey == "N")
@@ -2181,7 +2167,7 @@ void AIPlug::processData(const QString& data)
 				meshNodeCounter++;
 				int ans = cmdLine.indexOf("[");
 				int ens = cmdLine.lastIndexOf("]");
-				QString nodeVals = cmdLine.mid(ans+1, ens-ans-1);
+				QString nodeVals = cmdLine.mid(ans + 1, ens - ans - 1);
 				ScTextStream mVals4(&nodeVals, QIODevice::ReadOnly);
 				cVal = 0.0;
 				mVal = 0.0;
@@ -2331,12 +2317,12 @@ void AIPlug::processData(const QString& data)
 		{
 			if (importerFlags & LoadSavePlugin::lfCreateDoc)
 			{
-				if (groupStack.count() != 0)
+				if (!groupStack.isEmpty())
 				{
 					QList<PageItem*> gElements = groupStack.pop();
 					clipStack.pop();
 					tmpSel->clear();
-					if (gElements.count() > 0)
+					if (!gElements.isEmpty())
 					{
 						for (int dre = 0; dre < gElements.count(); ++dre)
 						{
@@ -2363,7 +2349,7 @@ void AIPlug::processData(const QString& data)
 						}
 						ite->setItemName( tr("Group%1").arg(m_Doc->layerName(currentLayer)));
 					}
-					if (groupStack.count() != 0)
+					if (!groupStack.isEmpty())
 					{
 						for (int as = 0; as < tmpSel->count(); ++as)
 						{
@@ -2382,7 +2368,7 @@ void AIPlug::processData(const QString& data)
 			{
 				int an = Cdata.indexOf("(");
 				int en = Cdata.lastIndexOf(")");
-				QString LayerNam = Cdata.mid(an+1, en-an-1);
+				QString LayerNam = Cdata.mid(an + 1, en - an - 1);
 				LayerNam.remove("\\");
 				m_Doc->changeLayerName(currentLayer, LayerNam);
 			}
@@ -2414,7 +2400,7 @@ void AIPlug::processData(const QString& data)
 		else if (command == "Tx") // || (command == "TX"))
 		{
 			QStringList res = getStrings(Cdata);
-			if (res.count() > 0)
+			if (!res.isEmpty())
 			{
 				QString tex = res[0];
 				double tempH = 0;
@@ -2555,7 +2541,7 @@ void AIPlug::processData(const QString& data)
 		}
 		else if (command == "TO")
 		{
-			if (textData.length() > 0)
+			if (!textData.isEmpty())
 			{
 				if (!((textData.length() == 1) && (textData.text(0) == SpecialChars::PARSEP)))
 				{
@@ -2598,7 +2584,7 @@ void AIPlug::processData(const QString& data)
 						PatternElements.append(ite);
 					else
 						Elements.append(ite);
-					if (groupStack.count() != 0)
+					if (!groupStack.isEmpty())
 						groupStack.top().append(ite);
 				}
 			}
@@ -2619,10 +2605,10 @@ void AIPlug::processData(const QString& data)
 			if ((an != -1) && (en != -1))
 			{
 				patternMode = true;
-				currentPatternDefName = Cdata.mid(an+1, en-an-1);
+				currentPatternDefName = Cdata.mid(an + 1, en - an - 1);
 				currentPatternDefName.remove("\\");
 				currentPatternDefName = currentPatternDefName.trimmed().simplified().replace(" ", "_");
-				QString tmpS = Cdata.mid(en+1, Cdata.size() - en);
+				QString tmpS = Cdata.mid(en + 1, Cdata.size() - en);
 				ScTextStream gVals(&tmpS, QIODevice::ReadOnly);
 				gVals >> patternX1 >> patternY1 >> patternX2 >> patternY2;
 			}
@@ -2663,7 +2649,7 @@ void AIPlug::processGradientData(const QString& data)
 			int en = Cdata.lastIndexOf(")");
 			currentGradientName = Cdata.mid(an+1, en-an-1);
 			currentGradientName.remove("\\");
-			if (da2[da2.count()-3] == "0")
+			if (da2[da2.count() - 3] == "0")
 				currentGradient = VGradient(VGradient::linear);
 			else
 				currentGradient = VGradient(VGradient::radial);
@@ -2674,7 +2660,7 @@ void AIPlug::processGradientData(const QString& data)
 			QString stopName;
 			double stop = ScCLocale::toDoubleC(da2[da2.count()-2]) / 100.0;
 			double colorShade = 100.0;
-			int colortype = da2[da2.count()-4].toInt();
+			int colortype = da2[da2.count() - 4].toInt();
 			if (colortype == 0)
 			{
 				stopName = parseColorGray(Cdata);
@@ -2744,12 +2730,12 @@ void AIPlug::processPattern(QDataStream &ts)
 			if (tmp == "EndPattern")
 			{
 				tmpSel->clear();
-				if (PatternElements.count() > 0)
+				if (!PatternElements.isEmpty())
 				{
 					for (int dre = 0; dre < PatternElements.count(); ++dre)
 					{
 						tmpSel->addItem(PatternElements.at(dre), true);
-						if (groupStack.count() != 0)
+						if (!groupStack.isEmpty())
 							groupStack.top().removeAll(PatternElements.at(dre));
 					}
 					if (PatternElements.count() > 1)
@@ -2868,7 +2854,7 @@ void AIPlug::processPattern(QDataStream &ts)
 				currentPatternDefName = tmp.mid(an+1, en-an-1);
 				currentPatternDefName.remove("\\");
 				currentPatternDefName = currentPatternDefName.trimmed().simplified().replace(" ", "_");
-				QString tmpS = tmp.mid(en+1, tmp.size() - en);
+				QString tmpS = tmp.mid(en + 1, tmp.size() - en);
 				ScTextStream gVals(&tmpS, QIODevice::ReadOnly);
 				gVals >> patternX1 >> patternY1 >> patternX2 >> patternY2;
 			}
@@ -2891,7 +2877,7 @@ void AIPlug::processSymbol(QDataStream &ts, bool sym)
 			if ((an != -1) && (en != -1))
 			{
 				patternMode = true;
-				currentPatternDefName = tmp.mid(an+1, en-an-1);
+				currentPatternDefName = tmp.mid(an + 1, en - an - 1);
 				currentPatternDefName.remove("\\");
 				if (sym)
 					currentPatternDefName = "S_"+currentPatternDefName.trimmed().simplified().replace(" ", "_");
@@ -2902,7 +2888,7 @@ void AIPlug::processSymbol(QDataStream &ts, bool sym)
 		else if ((tmp == "EndSymbol") || (tmp == "EndBrushPattern"))
 		{
 			tmpSel->clear();
-			if (PatternElements.count() > 0)
+			if (!PatternElements.isEmpty())
 			{
 				for (int dre = 0; dre < PatternElements.count(); ++dre)
 				{
@@ -3131,7 +3117,7 @@ void AIPlug::processRaster(QDataStream &ts)
 		PatternElements.append(ite);
 	else
 		Elements.append(ite);
-	if (groupStack.count() != 0)
+	if (!groupStack.isEmpty())
 		groupStack.top().append(ite);
 }
 
