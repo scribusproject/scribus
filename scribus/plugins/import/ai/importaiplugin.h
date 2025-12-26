@@ -45,11 +45,12 @@ class PLUGIN_API ImportAIPlugin : public LoadSavePlugin
 		\param fileName input filename, or QString::null to prompt.
 		\retval bool always true
 		 */
-	virtual bool import(QString fileName = QString(), int flags = lfUseCurrentPage|lfInteractive);
+		bool importFile(QString fileName = QString(), int flags = lfUseCurrentPage|lfInteractive);
 
 	private:
 		void registerFormats();
-		ScrAction* importAction;
+
+		ScrAction* importAction { nullptr };
 };
 
 extern "C" PLUGIN_API int importai_getPluginAPIVersion();

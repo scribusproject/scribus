@@ -40,7 +40,7 @@ public:
 	\param flags combination of loadFlags - see loadFlags in LoadSavePlugin
 	*/
 	AIPlug( ScribusDoc* doc, int flags );
-	~AIPlug();
+	~AIPlug() override;
 
 	/*!
 	\author Franz Schmid
@@ -52,7 +52,7 @@ public:
 	\param showProgress if progress must be displayed
 	\retval bool true if import was ok
 	 */
-	bool import(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
+	bool importFile(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress = true);
 	QImage readThumbnail(const QString& fn);
 	bool readColors(const QString& fileName, ColorList & colors);
 
@@ -66,19 +66,19 @@ private:
 	\param outfile a filename for output
 	\retval bool true if conversion was ok
 	 */
-	bool extractFromPDF(const QString& infile, const QString& outfile);
+	bool extractFromPDF(const QString& infile, const QString& outfile) const;
 
 	bool decompressAIData(QString &fName);
 	bool parseHeader(const QString& fName, double &x, double &y, double &b, double &h);
-	QString removeAIPrefix(QString comment);
+	QString removeAIPrefix(QString comment) const;
 	QString parseColor(QString data);
 	QString parseColorGray(QString data);
 	QString parseColorRGB(QString data);
 	QString parseCustomColor(QString data, double &shade);
 	QString parseCustomColorX(QString data, double &shade, const QString& type);
-	QStringList getStrings(const QString& data);
-	void getCommands(const QString& data, QStringList &commands);
-	void decodeA85(QByteArray &psdata, const QString& tmp);
+	QStringList getStrings(const QString& data) const;
+	void getCommands(const QString& data, QStringList &commands) const;
+	void decodeA85(QByteArray &psdata, const QString& tmp) const;
 	void processData(const QString& data);
 	void processGradientData(const QString& data);
 	void processSymbol(QDataStream &ts, bool sym);
@@ -171,18 +171,32 @@ private:
 	int meshColorMode = 0;
 	double meshNode1PointX = 0.0;
 	double meshNode1PointY = 0.0;
-	double meshNode1Control1X = 0.0, meshNode1Control1Y = 0.0;
-	double meshNode1Control2X = 0.0, meshNode1Control2Y = 0.0;
-	double meshNode2PointX = 0.0, meshNode2PointY = 0.0;
-	double meshNode2Control1X = 0.0, meshNode2Control1Y = 0.0;
-	double meshNode2Control2X = 0.0, meshNode2Control2Y = 0.0;
-	double meshNode3PointX = 0.0, meshNode3PointY = 0.0;
-	double meshNode3Control1X = 0.0, meshNode3Control1Y = 0.0;
-	double meshNode3Control2X = 0.0, meshNode3Control2Y = 0.0;
-	double meshNode4PointX = 0.0, meshNode4PointY = 0.0;
-	double meshNode4Control1X = 0.0, meshNode4Control1Y = 0.0;
-	double meshNode4Control2X = 0.0, meshNode4Control2Y = 0.0;
-	QString meshColor1, meshColor2, meshColor3, meshColor4;
+	double meshNode1Control1X = 0.0;
+	double meshNode1Control1Y = 0.0;
+	double meshNode1Control2X = 0.0;
+	double meshNode1Control2Y = 0.0;
+	double meshNode2PointX = 0.0;
+	double meshNode2PointY = 0.0;
+	double meshNode2Control1X = 0.0;
+	double meshNode2Control1Y = 0.0;
+	double meshNode2Control2X = 0.0;
+	double meshNode2Control2Y = 0.0;
+	double meshNode3PointX = 0.0;
+	double meshNode3PointY = 0.0;
+	double meshNode3Control1X = 0.0;
+	double meshNode3Control1Y = 0.0;
+	double meshNode3Control2X = 0.0;
+	double meshNode3Control2Y = 0.0;
+	double meshNode4PointX = 0.0;
+	double meshNode4PointY = 0.0;
+	double meshNode4Control1X = 0.0;
+	double meshNode4Control1Y = 0.0;
+	double meshNode4Control2X = 0.0;
+	double meshNode4Control2Y = 0.0;
+	QString meshColor1;
+	QString meshColor2;
+	QString meshColor3;
+	QString meshColor4;
 	QList<QList<MeshPoint> > meshGradientArray;
 	QString docCreator;
 	QString docDate;
