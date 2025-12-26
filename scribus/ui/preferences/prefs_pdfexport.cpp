@@ -261,6 +261,7 @@ void Prefs_PDFExport::languageChange()
 
 void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
+	restoreDefaults(prefsData, ScCore->PDFXProfiles);
 }
 
 void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const ScProfileInfoMap& PDFXProfiles, bool exporting)

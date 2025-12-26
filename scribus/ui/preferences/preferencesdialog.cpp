@@ -117,14 +117,13 @@ void PreferencesDialog::setupGui()
 {
 	for (auto it = stackDataList.cbegin(), end = stackDataList.cend(); it != end; ++it)
 	{
-		if ((*it).prefsPane == nullptr)
+		if (it->prefsPane == nullptr)
 			continue;
 
-		(*it).prefsPane->restoreDefaults(&localPrefs);
+		if (it->prefsPane == prefs_ColorManagement)
+			prefs_ColorManagement->setProfiles(&localPrefs, &ScCore->InputProfiles, &ScCore->InputProfilesCMYK, &ScCore->PrinterProfiles, &ScCore->MonitorProfiles);
+		it->prefsPane->restoreDefaults(&localPrefs);
 	}
-
-	if (prefs_ColorManagement)
-		prefs_ColorManagement->setProfiles(&localPrefs, &ScCore->InputProfiles, &ScCore->InputProfilesCMYK, &ScCore->PrinterProfiles, &ScCore->MonitorProfiles);
 
 	searchField->setFocus();
 }
