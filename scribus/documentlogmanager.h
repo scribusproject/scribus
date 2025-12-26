@@ -22,7 +22,7 @@ to the COPYING file provided with the program.
 
 #include "documentlogtypes.h"
 
-class DocumentLogManager : public QObject
+class SCRIBUS_API DocumentLogManager : public QObject
 {
 	Q_OBJECT
 	public:

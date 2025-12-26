@@ -23,6 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include <libmspub/libmspub.h>
 
 #include "commonstrings.h"
+#include "documentlogmanager.h"
 #include "loadsaveplugin.h"
 #include "prefsmanager.h"
 #include "scconfig.h"
@@ -320,12 +321,14 @@ bool PubPlug::convert(const QString& fn)
 	if (!libmspub::MSPUBDocument::isSupported(&input))
 	{
 		qDebug() << "ERROR: Unsupported file format!";
+		DocumentLogManager::instance()->addLog(m_Doc->uuidString(), DocumentLogLevel::Error, "MS Publisher Importer", "Unsupported file format for " + fn);
 		return false;
 	}
 	RawPainter painter(m_Doc, baseX, baseY, docWidth, docHeight, importerFlags, &Elements, &importedColors, &importedPatterns, tmpSel, "pub");
 	if (!libmspub::MSPUBDocument::parse(&input, &painter))
 	{
 		qDebug() << "ERROR: Parsing failed!";
+		DocumentLogManager::instance()->addLog(m_Doc->uuidString(), DocumentLogLevel::Error, "MS Publisher Importer", "File parsing failed for " + fn);
 		if (progressDialog)
 			progressDialog->close();
 		if (importerFlags & LoadSavePlugin::lfCreateDoc)

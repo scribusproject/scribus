@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include <libcdr/libcdr.h>
 
 #include "commonstrings.h"
+#include "documentlogmanager.h"
 #include "loadsaveplugin.h"
 #include "ui/multiprogressdialog.h"
 #include "prefsmanager.h"
@@ -314,6 +315,7 @@ bool CdrPlug::convert(const QString& fn)
 		if (!libcdr::CDRDocument::isSupported(&input))
 		{
 			qDebug() << "ERROR: Unsupported file format!";
+			DocumentLogManager::instance()->addLog(m_Doc->uuidString(), DocumentLogLevel::Error, "CoralDraw Importer", "Unsupported file format for " + fn);
 			fail = true;
 		}
 		if (!fail)
@@ -325,6 +327,7 @@ bool CdrPlug::convert(const QString& fn)
 		if (fail)
 		{
 			qDebug() << "ERROR: Parsing failed!";
+			DocumentLogManager::instance()->addLog(m_Doc->uuidString(), DocumentLogLevel::Error, "CoralDraw Importer", "File parsing failed for " + fn);
 			if (progressDialog)
 				progressDialog->close();
 		/*	if (importerFlags & LoadSavePlugin::lfCreateDoc)
@@ -348,6 +351,7 @@ bool CdrPlug::convert(const QString& fn)
 		if (!libcdr::CMXDocument::parse(&input, &painter))
 		{
 			qDebug() << "ERROR: Parsing failed!";
+			DocumentLogManager::instance()->addLog(m_Doc->uuidString(), DocumentLogLevel::Error, "CoralDraw Importer", "File parsing failed for " + fn);
 			if (progressDialog)
 				progressDialog->close();
 			if (importerFlags & LoadSavePlugin::lfCreateDoc)
