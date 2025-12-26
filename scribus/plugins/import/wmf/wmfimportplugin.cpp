@@ -125,10 +125,10 @@ bool WMFImportPlugin::fileSupported(QIODevice* /* file */, const QString & fileN
 bool WMFImportPlugin::loadFile(const QString & fileName, const FileFormat & /* fmt */, int flags, int /*index*/)
 {
 	// For now, "load file" and import are the same thing for this plugin
-	return import(fileName, flags);
+	return importFile(fileName, flags);
 }
 
-bool WMFImportPlugin::import(QString filename, int flags)
+bool WMFImportPlugin::importFile(QString filename, int flags)
 {
 	if (!checkFlags(flags))
 		return false;
@@ -163,7 +163,7 @@ bool WMFImportPlugin::import(QString filename, int flags)
 	if (UndoManager::undoEnabled())
 		activeTransaction = UndoManager::instance()->beginTransaction(trSettings);
 	WMFImport *dia = new WMFImport(m_Doc, flags);
-	dia->import(filename, trSettings, flags);
+	dia->importFile(filename, trSettings, flags);
 	Q_CHECK_PTR(dia);
 	if (activeTransaction)
 		activeTransaction.commit();

@@ -51,7 +51,7 @@ class PLUGIN_API SVGImportPlugin : public LoadSavePlugin
 		\param filename a file name to import
 		\retval true for success
 		 */
-		virtual bool import(QString filename = QString(), int flags = lfUseCurrentPage|lfInteractive);
+		virtual bool importFile(QString filename = QString(), int flags = lfUseCurrentPage|lfInteractive);
 
 	private:
 		void registerFormats();
@@ -172,7 +172,7 @@ class SVGPlug : public QObject
 		SVGPlug(ScribusDoc* doc, int flags);
 		~SVGPlug();
 
-		bool import(const QString& fname, const TransactionSettings& trSettings, int flags);
+		bool importFile(const QString& fname, const TransactionSettings& trSettings, int flags);
 		QImage readThumbnail(const QString& fn);
 		bool loadData(const QString& fname);
 		void convert(const TransactionSettings& trSettings, int flags);

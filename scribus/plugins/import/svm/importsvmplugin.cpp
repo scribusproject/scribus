@@ -112,11 +112,11 @@ bool ImportSvmPlugin::fileSupported(QIODevice* /* file */, const QString & fileN
 
 bool ImportSvmPlugin::loadFile(const QString & fileName, const FileFormat &, int flags, int /*index*/)
 {
-	// There's only one format to handle, so we just call import(...)
-	return import(fileName, flags);
+	// There's only one format to handle, so we just call importFile(...)
+	return importFile(fileName, flags);
 }
 
-bool ImportSvmPlugin::import(QString fileName, int flags)
+bool ImportSvmPlugin::importFile(QString fileName, int flags)
 {
 	if (!checkFlags(flags))
 		return false;
@@ -151,7 +151,7 @@ bool ImportSvmPlugin::import(QString fileName, int flags)
 		activeTransaction = new UndoTransaction(UndoManager::instance()->beginTransaction(trSettings));
 	SvmPlug *dia = new SvmPlug(m_Doc, flags);
 	Q_CHECK_PTR(dia);
-	dia->import(fileName, trSettings, flags, !(flags & lfScripted));
+	dia->importFile(fileName, trSettings, flags, !(flags & lfScripted));
 	if (activeTransaction)
 	{
 		activeTransaction->commit();

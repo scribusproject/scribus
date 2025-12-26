@@ -53,7 +53,7 @@ ImportPSPlugin::ImportPSPlugin() : LoadSavePlugin(),
 void ImportPSPlugin::addToMainWindowMenu(ScribusMainWindow *mw)
 {
 	importAction->setEnabled(true);
-	connect( importAction, SIGNAL(triggered()), SLOT(import()) );
+	connect( importAction, SIGNAL(triggered()), SLOT(importFile()) );
 	mw->scrMenuMgr->addMenuItem(importAction, "FileImport");
 }
 */
@@ -139,11 +139,11 @@ bool ImportPSPlugin::fileSupported(QIODevice* /* file */, const QString & fileNa
 
 bool ImportPSPlugin::loadFile(const QString & fileName, const FileFormat &, int flags, int /*index*/)
 {
-	// There's only one format to handle, so we just call import(...)
-	return import(fileName, flags);
+	// There's only one format to handle, so we just call importFile(...)
+	return importFile(fileName, flags);
 }
 
-bool ImportPSPlugin::import(QString fileName, int flags)
+bool ImportPSPlugin::importFile(QString fileName, int flags)
 {
 	if (!checkFlags(flags))
 		return false;
@@ -177,7 +177,7 @@ bool ImportPSPlugin::import(QString fileName, int flags)
 		activeTransaction = UndoManager::instance()->beginTransaction(trSettings);
 	EPSPlug *dia = new EPSPlug(m_Doc, flags);
 	Q_CHECK_PTR(dia);
-	dia->import(fileName, trSettings, flags);
+	dia->importFile(fileName, trSettings, flags);
 	if (activeTransaction)
 		activeTransaction.commit();
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))

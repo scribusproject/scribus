@@ -103,7 +103,7 @@ QImage ZmfPlug::readThumbnail(const QString& fName)
 	return QImage();
 }
 
-bool ZmfPlug::import(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
+bool ZmfPlug::importFile(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
 {
 	bool success = false;
 	interactive = (flags & LoadSavePlugin::lfInteractive);

@@ -119,7 +119,7 @@ QImage ShapePlug::readThumbnail(const QString& fName)
 	return QImage();
 }
 
-bool ShapePlug::import(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
+bool ShapePlug::importFile(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
 {
 	bool success = false;
 	interactive = (flags & LoadSavePlugin::lfInteractive);

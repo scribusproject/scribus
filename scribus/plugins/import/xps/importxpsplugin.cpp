@@ -130,11 +130,11 @@ bool ImportXpsPlugin::fileSupported(QIODevice* /* file */, const QString & fileN
 
 bool ImportXpsPlugin::loadFile(const QString & fileName, const FileFormat &, int flags, int /*index*/)
 {
-	// There's only one format to handle, so we just call import(...)
-	return import(fileName, flags);
+	// There's only one format to handle, so we just call importFile(...)
+	return importFile(fileName, flags);
 }
 
-bool ImportXpsPlugin::import(QString fileName, int flags)
+bool ImportXpsPlugin::importFile(QString fileName, int flags)
 {
 	if (!checkFlags(flags))
 		return false;
@@ -168,7 +168,7 @@ bool ImportXpsPlugin::import(QString fileName, int flags)
 		activeTransaction = UndoManager::instance()->beginTransaction(trSettings);
 	XpsPlug *dia = new XpsPlug(m_Doc, flags);
 	Q_CHECK_PTR(dia);
-	bool ret = dia->import(fileName, trSettings, flags, !(flags & lfScripted));
+	bool ret = dia->importFile(fileName, trSettings, flags, !(flags & lfScripted));
 	if (activeTransaction)
 		activeTransaction.commit();
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))

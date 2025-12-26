@@ -109,7 +109,7 @@ QImage PctPlug::readThumbnail(const QString& fName)
 	return QImage();
 }
 
-bool PctPlug::import(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
+bool PctPlug::importFile(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
 {
 	bool success = false;
 	interactive = (flags & LoadSavePlugin::lfInteractive);

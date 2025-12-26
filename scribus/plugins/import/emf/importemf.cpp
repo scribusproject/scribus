@@ -514,7 +514,7 @@ QImage EmfPlug::readThumbnail(const QString& fName)
 	return QImage();
 }
 
-bool EmfPlug::import(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
+bool EmfPlug::importFile(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
 {
 	bool success = false;
 	interactive = (flags & LoadSavePlugin::lfInteractive);

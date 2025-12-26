@@ -384,7 +384,7 @@ QImage SvmPlug::readThumbnail(const QString& fName)
 	return QImage();
 }
 
-bool SvmPlug::import(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
+bool SvmPlug::importFile(const QString& fNameIn, const TransactionSettings& trSettings, int flags, bool showProgress)
 {
 	bool success = false;
 	interactive = (flags & LoadSavePlugin::lfInteractive);

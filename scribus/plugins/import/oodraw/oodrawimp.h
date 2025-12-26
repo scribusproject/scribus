@@ -39,7 +39,7 @@ class PLUGIN_API OODrawImportPlugin : public LoadSavePlugin
 
 		// Special features - File->Import slot
 	public slots:
-		virtual bool import(QString target = QString(), int flags = lfUseCurrentPage|lfInteractive);
+		virtual bool importFile(QString target = QString(), int flags = lfUseCurrentPage|lfInteractive);
 
 	private:
 		void registerFormats();
@@ -90,7 +90,7 @@ public:
 	bool importFailed { false };
 	bool importCanceled { true };
 
-	bool import(const QString& fName, const TransactionSettings& trSettings, int flags);
+	bool importFile(const QString& fName, const TransactionSettings& trSettings, int flags);
 	QImage readThumbnail(const QString& fileName );
 	static double parseUnit(const QString &unit);
 

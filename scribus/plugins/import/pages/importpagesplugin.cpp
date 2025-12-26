@@ -114,11 +114,11 @@ bool ImportPagesPlugin::fileSupported(QIODevice* /* file */, const QString & fil
 
 bool ImportPagesPlugin::loadFile(const QString & fileName, const FileFormat &, int flags, int /*index*/)
 {
-	// There's only one format to handle, so we just call import(...)
-	return import(fileName, flags);
+	// There's only one format to handle, so we just call importFile(...)
+	return importFile(fileName, flags);
 }
 
-bool ImportPagesPlugin::import(QString fileName, int flags)
+bool ImportPagesPlugin::importFile(QString fileName, int flags)
 {
 	if (!checkFlags(flags))
 		return false;
@@ -152,7 +152,7 @@ bool ImportPagesPlugin::import(QString fileName, int flags)
 		activeTransaction = UndoManager::instance()->beginTransaction(trSettings);
 	PagesPlug *dia = new PagesPlug(m_Doc, flags);
 	Q_CHECK_PTR(dia);
-	bool ret = dia->import(fileName, trSettings, flags, !(flags & lfScripted));
+	bool ret = dia->importFile(fileName, trSettings, flags, !(flags & lfScripted));
 	if (activeTransaction)
 		activeTransaction.commit();
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))

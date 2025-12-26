@@ -110,11 +110,11 @@ bool ImportCdrPlugin::fileSupported(QIODevice* /* file */, const QString & fileN
 
 bool ImportCdrPlugin::loadFile(const QString & fileName, const FileFormat &, int flags, int /*index*/)
 {
-	// There's only one format to handle, so we just call import(...)
-	return import(fileName, flags);
+	// There's only one format to handle, so we just call importFile(...)
+	return importFile(fileName, flags);
 }
 
-bool ImportCdrPlugin::import(QString fileName, int flags)
+bool ImportCdrPlugin::importFile(QString fileName, int flags)
 {
 	if (!checkFlags(flags))
 		return false;
@@ -148,7 +148,7 @@ bool ImportCdrPlugin::import(QString fileName, int flags)
 		activeTransaction = UndoManager::instance()->beginTransaction(trSettings);
 	CdrPlug *dia = new CdrPlug(m_Doc, flags);
 	Q_CHECK_PTR(dia);
-	if (!dia->import(fileName, trSettings, flags, !(flags & lfScripted)))
+	if (!dia->importFile(fileName, trSettings, flags, !(flags & lfScripted)))
 	{
 		ScribusMainWindow* mw = (m_Doc == nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
 		//Import per Uniconverter

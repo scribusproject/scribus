@@ -146,7 +146,7 @@ bool ImportPdfPlugin::fileSupported(QIODevice* /* file */, const QString & fileN
 
 bool ImportPdfPlugin::loadFile(const QString & fileName, const FileFormat &, int flags, int /*index*/)
 {
-	// There's only one format to handle, so we just call import(...)
+	// There's only one format to handle, so we just call importFile(...)
 	return importFile(fileName, flags);
 }
 

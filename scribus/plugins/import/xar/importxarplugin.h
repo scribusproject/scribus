@@ -45,7 +45,7 @@ class PLUGIN_API ImportXarPlugin : public LoadSavePlugin
 		\param fileName input filename, or QString() to prompt.
 		\retval bool always true
 		 */
-		virtual bool import(QString fileName = QString(), int flags = lfUseCurrentPage|lfInteractive);
+		virtual bool importFile(QString fileName = QString(), int flags = lfUseCurrentPage|lfInteractive);
 
 	private:
 		void registerFormats();

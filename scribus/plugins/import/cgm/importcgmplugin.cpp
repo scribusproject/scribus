@@ -113,11 +113,11 @@ bool ImportCgmPlugin::fileSupported(QIODevice* /* file */, const QString & fileN
 
 bool ImportCgmPlugin::loadFile(const QString & fileName, const FileFormat &, int flags, int /*index*/)
 {
-	// There's only one format to handle, so we just call import(...)
-	return import(fileName, flags);
+	// There's only one format to handle, so we just call importFile(...)
+	return importFile(fileName, flags);
 }
 
-bool ImportCgmPlugin::import(QString fileName, int flags)
+bool ImportCgmPlugin::importFile(QString fileName, int flags)
 {
 	if (!checkFlags(flags))
 		return false;
@@ -151,7 +151,7 @@ bool ImportCgmPlugin::import(QString fileName, int flags)
 		activeTransaction = UndoManager::instance()->beginTransaction(trSettings);
 	CgmPlug *dia = new CgmPlug(m_Doc, flags);
 	Q_CHECK_PTR(dia);
-	dia->import(fileName, trSettings, flags, !(flags & lfScripted));
+	dia->importFile(fileName, trSettings, flags, !(flags & lfScripted));
 	if (activeTransaction)
 		activeTransaction.commit();
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))

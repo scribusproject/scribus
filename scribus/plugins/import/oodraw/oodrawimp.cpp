@@ -153,10 +153,10 @@ bool OODrawImportPlugin::fileSupported(QIODevice* /* file */, const QString & fi
 bool OODrawImportPlugin::loadFile(const QString & fileName, const FileFormat &, int flags, int /*index*/)
 {
 	// For this plugin, right now "load" and "import" are the same thing
-	return import(fileName, flags);
+	return importFile(fileName, flags);
 }
 
-bool OODrawImportPlugin::import(QString fileName, int flags)
+bool OODrawImportPlugin::importFile(QString fileName, int flags)
 {
 	if (!checkFlags(flags))
 		return false;
@@ -189,7 +189,7 @@ bool OODrawImportPlugin::import(QString fileName, int flags)
 		UndoManager::instance()->setUndoEnabled(false);
 	if (UndoManager::undoEnabled())
 		activeTransaction = UndoManager::instance()->beginTransaction(trSettings);
-	bool importDone = dia.import(fileName, trSettings, flags);
+	bool importDone = dia.importFile(fileName, trSettings, flags);
 	if (activeTransaction)
 		activeTransaction.commit();
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
@@ -352,7 +352,7 @@ QImage OODPlug::readThumbnail(const QString& fileName)
 	return tmpImage;
 }
 
-bool OODPlug::import(const QString& fileName, const TransactionSettings& trSettings, int flags)
+bool OODPlug::importFile(const QString& fileName, const TransactionSettings& trSettings, int flags)
 {
 	bool importDone = false;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
