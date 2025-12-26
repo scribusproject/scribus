@@ -109,7 +109,7 @@ void PrefsManager::setup()
 	setupPreferencesLocation();
 
 	copyOldAppConfigAndData();
-	prefsFile = new PrefsFile( m_prefsLocation + "prefs170.xml" );
+	prefsFile = new PrefsFile( m_prefsLocation + "prefs172.xml" );
 
 	//<<CB TODO Reset keyboard shortcuts of all 1.3 users as too many
 	//	 have conflicts if they don't nuke their settings.
@@ -779,7 +779,7 @@ void PrefsManager::setupPreferencesLocation()
 
 void PrefsManager::copyOldAppConfigAndData()
 {
-	if (QFile::exists(m_prefsLocation + "scribus170.rc") && QFile::exists(m_prefsLocation + "prefs170.xml"))
+	if (QFile::exists(m_prefsLocation + "scribus172.rc") && QFile::exists(m_prefsLocation + "prefs172.xml"))
 		return;
 
 	//Move to using the ScPaths default prefs location/scribus.* from ~/.scribus.*
@@ -857,7 +857,7 @@ void PrefsManager::copyOldAppConfigAndData()
 	//Now make copies for 1.7.0 use and leave the old ones alone for <1.7.0 usage
 	QString prefs150[5];
 	QString prefs160[5];
-	QString prefs170[5];
+	QString prefs172[5];
 
 	prefs150[0] = QDir::toNativeSeparators(m_prefsLocation + "scribus150.rc");
 	prefs150[1] = QDir::toNativeSeparators(m_prefsLocation + "scrap150.scs");
@@ -871,27 +871,28 @@ void PrefsManager::copyOldAppConfigAndData()
 	prefs160[3] = QDir::toNativeSeparators(m_prefsLocation + "scripter160.rc");
 	prefs160[4] = QDir::toNativeSeparators(m_prefsLocation + "checkfonts160.xml");
 
-	prefs170[0] = QDir::toNativeSeparators(m_prefsLocation + "scribus170.rc");
-	prefs170[1] = QDir::toNativeSeparators(m_prefsLocation + "scrap170.scs");
-	prefs170[2] = QDir::toNativeSeparators(m_prefsLocation + "prefs170.xml");
-	prefs170[3] = QDir::toNativeSeparators(m_prefsLocation + "scripter170.rc");
-	prefs170[4] = QDir::toNativeSeparators(m_prefsLocation + "checkfonts170.xml");
+	// Skip 170 prefs completely due to potential corruption by 1.7.1
+	prefs172[0] = QDir::toNativeSeparators(m_prefsLocation + "scribus172.rc");
+	prefs172[1] = QDir::toNativeSeparators(m_prefsLocation + "scrap172.scs");
+	prefs172[2] = QDir::toNativeSeparators(m_prefsLocation + "prefs172.xml");
+	prefs172[3] = QDir::toNativeSeparators(m_prefsLocation + "scripter172.rc");
+	prefs172[4] = QDir::toNativeSeparators(m_prefsLocation + "checkfonts172.xml");
 
 	bool existsPrefs150[5];
 	bool existsPrefs160[5];
-	bool existsPrefs170[5];
+	bool existsPrefs172[5];
 	for (uint i = 0; i < 5; ++i)
 	{
 		existsPrefs150[i] = QFile::exists(prefs150[i]);
 		existsPrefs160[i] = QFile::exists(prefs160[i]);
-		existsPrefs170[i] = QFile::exists(prefs170[i]);
+		existsPrefs172[i] = QFile::exists(prefs172[i]);
 	}
 
-	if (existsPrefs170[0] && existsPrefs170[2])
+	if (existsPrefs172[0] && existsPrefs172[2])
 		return;
 
 	//Only check for these three as they will be autocreated if they don't exist.
-	if ((existsPrefs160[0] && !existsPrefs170[0]) || (existsPrefs160[2] && !existsPrefs170[2]))
+	if ((existsPrefs160[0] && !existsPrefs172[0]) || (existsPrefs160[2] && !existsPrefs172[2]))
 	{
 		// Now always return false
 		// retVal = true; // converting from 1.2 prefs
@@ -910,8 +911,8 @@ void PrefsManager::copyOldAppConfigAndData()
 			{
 				for (uint i = 0; i < 5; ++i)
 				{
-					if (existsPrefs160[i] && !existsPrefs170[i])
-						copyFile(prefs160[i], prefs170[i]);
+					if (existsPrefs160[i] && !existsPrefs172[i])
+						copyFile(prefs160[i], prefs172[i]);
 				}
 			}
 			if (splashShown)
@@ -922,15 +923,15 @@ void PrefsManager::copyOldAppConfigAndData()
 	{
 		for (uint i = 0; i < 5; ++i)
 		{
-			if (existsPrefs150[i] && !existsPrefs170[i])
-				copyFile(prefs150[i], prefs170[i]);
+			if (existsPrefs150[i] && !existsPrefs172[i])
+				copyFile(prefs150[i], prefs172[i]);
 		}
 	}
 }
 
 void PrefsManager::readPrefs()
 {
-	QString prefsFile(m_prefsLocation + "scribus170.rc");
+	QString prefsFile(m_prefsLocation + "scribus172.rc");
 	if (!QFile::exists(prefsFile))
 		return;
 	if (!readPref(prefsFile))
@@ -1003,7 +1004,7 @@ void PrefsManager::savePrefs()
 	}
 	ScCore->primaryMainWindow()->getDefaultPrinter(appPrefs.printerPrefs.PrinterName, appPrefs.printerPrefs.PrinterFile, appPrefs.printerPrefs.PrinterCommand);
 	savePrefsXML();
-	if (!writePref(m_prefsLocation + "scribus170.rc"))
+	if (!writePref(m_prefsLocation + "scribus172.rc"))
 		alertSavePrefsFailed();
 	emit prefsChanged();
 }
