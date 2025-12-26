@@ -39,7 +39,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="scribus13formatimpl.rc">
+    <ResourceCompile Include="scribus13format.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
