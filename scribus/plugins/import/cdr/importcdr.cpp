@@ -87,7 +87,7 @@ QImage CdrPlug::readThumbnail(const QString& fName)
 		m_Doc->DoDrawing = true;
 		m_Doc->m_Selection->delaySignalsOn();
 		QImage tmpImage;
-		if (Elements.count() > 0)
+		if (!Elements.isEmpty())
 		{
 			for (int dre=0; dre<Elements.count(); ++dre)
 			{
@@ -104,12 +104,14 @@ QImage CdrPlug::readThumbnail(const QString& fName)
 		m_Doc->setLoading(false);
 		m_Doc->m_Selection->delaySignalsOff();
 		delete m_Doc;
+		m_Doc = nullptr;
 		return tmpImage;
 	}
 	QDir::setCurrent(CurDirP);
 	m_Doc->DoDrawing = true;
 	m_Doc->scMW()->setScriptRunning(false);
 	delete m_Doc;
+	m_Doc = nullptr;
 	return QImage();
 }
 
@@ -161,7 +163,7 @@ bool CdrPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 	docHeight = h;
 	baseX = 0;
 	baseY = 0;
-	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
+	if (m_Doc && (!interactive || (flags & LoadSavePlugin::lfInsertPage)))
 	{
 		m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
 		m_Doc->addPage(0);
@@ -213,7 +215,7 @@ bool CdrPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->setLoading(false);
 		QGuiApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		if ((Elements.count() > 0) && (!ret) && (interactive))
+		if (!Elements.isEmpty() && !ret && interactive)
 		{
 			if (flags & LoadSavePlugin::lfScripted)
 			{
@@ -248,14 +250,14 @@ bool CdrPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 				ScElemMimeData* md = ScriXmlDoc::writeToMimeData(m_Doc, tmpSel);
 				m_Doc->itemSelection_DeleteItem(tmpSel);
 				m_Doc->view()->updatesOn(true);
-				if (importedPatterns.count() != 0)
+				if (!importedPatterns.isEmpty())
 				{
 					for (int cd = 0; cd < importedPatterns.count(); cd++)
 					{
 						m_Doc->docPatterns.remove(importedPatterns[cd]);
 					}
 				}
-				if (importedColors.count() != 0)
+				if (!importedColors.isEmpty())
 				{
 					for (int cd = 0; cd < importedColors.count(); cd++)
 					{
@@ -265,7 +267,7 @@ bool CdrPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 				m_Doc->m_Selection->delaySignalsOff();
 				// We must copy the TransationSettings object as it is owned
 				// by handleObjectImport method afterwards
-				TransactionSettings* transacSettings = new TransactionSettings(trSettings);
+				auto* transacSettings = new TransactionSettings(trSettings);
 				m_Doc->view()->handleObjectImport(md, transacSettings);
 				m_Doc->DragP = false;
 				m_Doc->DraggedElem = nullptr;
@@ -379,16 +381,16 @@ bool CdrPlug::convert(const QString& fn)
 	}
 	else
 		return false;
-	if (Elements.count() == 0)
+	if (Elements.isEmpty())
 	{
-		if (importedColors.count() != 0)
+		if (!importedColors.isEmpty())
 		{
 			for (int cd = 0; cd < importedColors.count(); cd++)
 			{
 				m_Doc->PageColors.remove(importedColors[cd]);
 			}
 		}
-		if (importedPatterns.count() != 0)
+		if (!importedPatterns.isEmpty())
 		{
 			for (int cd = 0; cd < importedPatterns.count(); cd++)
 			{
