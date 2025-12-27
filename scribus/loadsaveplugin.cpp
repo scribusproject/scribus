@@ -266,11 +266,11 @@ bool LoadSavePlugin::checkFlags(int flags)
 	int numFlags = 0;
 	// Only one of the following flags must be set:
 	// lfCreateDoc, lfUseCurrentPage, lfInsertPage
-	if( flags & lfCreateDoc ) 
+	if (flags & lfCreateDoc)
 		numFlags++;
-	if( flags & lfUseCurrentPage ) 
+	if (flags & lfUseCurrentPage)
 		numFlags++;
-	if( flags & lfInsertPage ) 
+	if (flags & lfInsertPage)
 		numFlags++;
 	return numFlags <= 1;
 }
