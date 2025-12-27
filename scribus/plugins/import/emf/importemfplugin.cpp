@@ -10,10 +10,12 @@ for which a new license (GPL+exception) is in place.
 	copyright            : (C) 2015 by Franz Schmid
 	email                : Franz.Schmid@altmuehlnet.de
  ***************************************************************************/
-#include "commonstrings.h"
+#include <memory>
 
 #include "importemf.h"
 #include "importemfplugin.h"
+
+#include "commonstrings.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
@@ -33,7 +35,7 @@ int importemf_getPluginAPIVersion()
 
 ScPlugin* importemf_getPlugin()
 {
-	ImportEmfPlugin* plug = new ImportEmfPlugin();
+	auto* plug = new ImportEmfPlugin();
 	Q_CHECK_PTR(plug);
 	return plug;
 }
@@ -71,10 +73,9 @@ QString ImportEmfPlugin::fullTrName() const
 	return QObject::tr("EMF Importer");
 }
 
-
 const ScActionPlugin::AboutData* ImportEmfPlugin::getAboutData() const
 {
-	AboutData* about = new AboutData;
+	auto* about = new AboutData;
 	about->authors = "Franz Schmid <franz@scribus.info>";
 	about->shortDescription = tr("Imports EMF Files");
 	about->description = tr("Imports most EMF files into the current document, converting their vector data into Scribus objects.");
@@ -125,19 +126,19 @@ bool ImportEmfPlugin::importFile(QString fileName, int flags)
 		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("importemf");
 		QString wdir = prefs->get("wdir", ".");
 		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), tr("All Supported Formats")+" (*.emf *.EMF);;All Files (*)");
-		if (diaf.exec())
-		{
-			fileName = diaf.selectedFile();
-			prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
-		}
-		else
+		if (!diaf.exec())
 			return true;
+		fileName = diaf.selectedFile();
+		prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
 	}
+
 	if (m_Doc == nullptr)
 		m_Doc = ScCore->primaryMainWindow()->doc;
-	UndoTransaction* activeTransaction = nullptr;
+
+	UndoTransaction activeTransaction;
 	bool emptyDoc = (m_Doc == nullptr);
 	bool hasCurrentPage = (m_Doc && m_Doc->currentPage());
+
 	TransactionSettings trSettings;
 	trSettings.targetName   = hasCurrentPage ? m_Doc->currentPage()->getUName() : "";
 	trSettings.targetPixmap = Um::IImageFrame;
@@ -147,19 +148,17 @@ bool ImportEmfPlugin::importFile(QString fileName, int flags)
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(false);
 	if (UndoManager::undoEnabled())
-		activeTransaction = new UndoTransaction(UndoManager::instance()->beginTransaction(trSettings));
-	EmfPlug *dia = new EmfPlug(m_Doc, flags);
+		activeTransaction = UndoManager::instance()->beginTransaction(trSettings);
+
+	auto dia = std::make_shared<EmfPlug>(m_Doc, flags);
 	Q_CHECK_PTR(dia);
 	dia->importFile(fileName, trSettings, flags, !(flags & lfScripted));
+
 	if (activeTransaction)
-	{
-		activeTransaction->commit();
-		delete activeTransaction;
-		activeTransaction = nullptr;
-	}
+		activeTransaction.commit();
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(true);
-	delete dia;
+
 	return true;
 }
 
@@ -169,10 +168,9 @@ QImage ImportEmfPlugin::readThumbnail(const QString& fileName)
 		return QImage();
 	UndoManager::instance()->setUndoEnabled(false);
 	m_Doc = nullptr;
-	EmfPlug *dia = new EmfPlug(m_Doc, lfCreateThumbnail);
+	auto dia = std::make_shared<EmfPlug>(m_Doc, lfCreateThumbnail);
 	Q_CHECK_PTR(dia);
 	QImage ret = dia->readThumbnail(fileName);
 	UndoManager::instance()->setUndoEnabled(true);
-	delete dia;
 	return ret;
 }

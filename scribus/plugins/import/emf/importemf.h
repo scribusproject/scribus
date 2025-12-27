@@ -13,7 +13,6 @@ for which a new license (GPL+exception) is in place.
 #ifndef IMPORTEMF_H
 #define IMPORTEMF_H
 
-
 #include "pluginapi.h"
 #include "pageitem.h"
 #include "sccolor.h"
@@ -129,7 +128,7 @@ public:
 	\retval EmfPlug plugin
 	*/
 	EmfPlug( ScribusDoc* doc, int flags );
-	~EmfPlug();
+	~EmfPlug() override;
 
 	/*!
 	\author Franz Schmid
@@ -148,19 +147,19 @@ private:
 	void        parseHeader(const QString& fName, double &x, double &y, double &b, double &h);
 	bool        convert(const QString& fn);
 	// Common functions
-	bool        checkClip(FPointArray &clip);
-	void        aligntoQuadWord(QDataStream &ds);
-	double      convertDevice2Pts(double in);
-	QPointF     convertDevice2Pts(QPointF in);
-	double      convertLogical2Pts(double in);
-	QPointF     convertLogical2Pts(QPointF in);
+	bool        checkClip(const FPointArray &clip) const;
+	void        aligntoQuadWord(QDataStream &ds) const;
+	double      convertDevice2Pts(double in) const;
+	QPointF     convertDevice2Pts(const QPointF& in) const;
+	double      convertLogical2Pts(double in) const;
+	QPointF     convertLogical2Pts(const QPointF& in) const;
 	void        createPatternFromDIB(const QImage& img, quint32 brID);
-	void        getPolyInfo(QDataStream &ds, QRectF &bounds, quint32 &count);
+	void        getPolyInfo(QDataStream &ds, QRectF &bounds, quint32 &count) const;
 	FPointArray getPolyPoints(QDataStream &ds, quint32 count, bool length, bool closed);
-	QPointF     getPoint(QDataStream &ds, bool size);
-	quint32     getColor(QDataStream &ds);
+	QPointF     getPoint(QDataStream &ds, bool size) const;
+	quint32     getColor(QDataStream &ds) const;
 	void        setWTransform(const QTransform& mm, quint32 how);
-	QPointF     intersectBoundingRect(PageItem *item, const QLineF& gradientVector);
+	QPointF     intersectBoundingRect(const PageItem *item, const QLineF& gradientVector) const;
 	void        finishItem(PageItem* ite, bool fill = true);
 	void        invalidateClipGroup();
 	void        createClipGroup();
@@ -231,14 +230,14 @@ private:
 	void        getEMFPStringFormat(quint32 fontID);
 	FPointArray getEMPPathData(QDataStream &ds);
 	QPolygonF   getEMFPCurvePoints(QDataStream &ds, quint8 flagsL, quint32 count);
-	QPolygonF   getEMFPRect(QDataStream &ds, bool size);
-	QPointF     getEMFPPoint(QDataStream &ds, bool size);
-	double      getEMFPDistance(QDataStream &ds, bool size);
-	QPointF     convertEMFPLogical2Pts(QPointF in, quint16 unit);
-	double      convertEMFPLogical2Pts(double in, quint16 unit);
-	QPolygonF   gdip_open_curve_tangents(QPolygonF &points, double tension);
-	QPolygonF   gdip_closed_curve_tangents(QPolygonF &points, double tension);
-	void        append_curve(QPainterPath &path, QPolygonF &points, QPolygonF &tangents, bool type);
+	QPolygonF   getEMFPRect(QDataStream &ds, bool size) const;
+	QPointF     getEMFPPoint(QDataStream &ds, bool size) const;
+	double      getEMFPDistance(QDataStream &ds, bool size) const;
+	QPointF     convertEMFPLogical2Pts(const QPointF& in, quint16 unit) const;
+	double      convertEMFPLogical2Pts(double in, quint16 unit) const;
+	QPolygonF   gdip_open_curve_tangents(const QPolygonF &points, double tension) const;
+	QPolygonF   gdip_closed_curve_tangents(const QPolygonF &points, double tension) const;
+	void        append_curve(QPainterPath &path, const QPolygonF &points, const QPolygonF &tangents, bool type) const;
 	void        GdipAddPathCurve(QPainterPath &path, QPolygonF &points, float tension);
 	void        GdipAddPathClosedCurve(QPainterPath &path, QPolygonF &points, float tension);
 	void        handleEMFPDrawImageData(QPointF p1, QPointF p2, QPointF p3, quint8 flagsH);
