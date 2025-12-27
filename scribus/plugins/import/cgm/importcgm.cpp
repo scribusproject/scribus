@@ -23,7 +23,6 @@ for which a new license (GPL+exception) is in place.
 
 #include <cstdlib>
 
-
 #include "commonstrings.h"
 #include "importcgm.h"
 #include "loadsaveplugin.h"
@@ -39,15 +38,11 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_math.h"
 
-ScBitReader::ScBitReader(QByteArray &data)
+ScBitReader::ScBitReader(const QByteArray &data)
 {
 	buffer = data;
 	actBit = 7;
 	actByte = 0;
-}
-
-ScBitReader::~ScBitReader()
-{
 }
 
 quint32 ScBitReader::getUInt(uint size)
@@ -122,7 +117,7 @@ QImage CgmPlug::readThumbnail(const QString& fName)
 		m_Doc->DoDrawing = true;
 		m_Doc->m_Selection->delaySignalsOn();
 		QImage tmpImage;
-		if (Elements.count() > 0)
+		if (!Elements.isEmpty())
 		{
 			for (int dre =0; dre < Elements.count(); ++dre)
 			{
@@ -139,12 +134,14 @@ QImage CgmPlug::readThumbnail(const QString& fName)
 		m_Doc->setLoading(false);
 		m_Doc->m_Selection->delaySignalsOff();
 		delete m_Doc;
+		m_Doc = nullptr;
 		return tmpImage;
 	}
 	QDir::setCurrent(CurDirP);
 	m_Doc->DoDrawing = true;
 	m_Doc->scMW()->setScriptRunning(false);
 	delete m_Doc;
+	m_Doc = nullptr;
 	return QImage();
 }
 
@@ -178,7 +175,7 @@ bool CgmPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 		progressDialog->setProgress("GI", 0);
 		progressDialog->show();
 		connect(progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
-		qApp->processEvents();
+		QApplication::processEvents();
 	}
 	else
 		progressDialog = nullptr;
@@ -186,7 +183,7 @@ bool CgmPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(1);
-		qApp->processEvents();
+		QApplication::processEvents();
 	}
 	double b = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
 	double h = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
@@ -194,7 +191,7 @@ bool CgmPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 	docHeight = h;
 	baseX = 0;
 	baseY = 0;
-	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
+	if (m_Doc && (!interactive || (flags & LoadSavePlugin::lfInsertPage)))
 	{
 		m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
 		m_Doc->addPage(0);
@@ -202,25 +199,22 @@ bool CgmPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 		baseX = 0;
 		baseY = 0;
 	}
-	else
+	else if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
 	{
-		if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
-		{
-			m_Doc = ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
-			ScCore->primaryMainWindow()->HaveNewDoc();
-			ret = true;
-			baseX = 0;
-			baseY = 0;
-			baseX = m_Doc->currentPage()->xOffset();
-			baseY = m_Doc->currentPage()->yOffset();
-		}
+		m_Doc = ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
+		ScCore->primaryMainWindow()->HaveNewDoc();
+		ret = true;
+		baseX = 0;
+		baseY = 0;
+		baseX = m_Doc->currentPage()->xOffset();
+		baseY = m_Doc->currentPage()->yOffset();
 	}
-	if ((!ret) && (interactive))
+	if (!ret && interactive)
 	{
 		baseX = m_Doc->currentPage()->xOffset();
 		baseY = m_Doc->currentPage()->yOffset();
 	}
-	if ((ret) || (!interactive))
+	if (ret || !interactive)
 	{
 		if (docWidth > docHeight)
 			m_Doc->setPageOrientation(1);
@@ -236,7 +230,7 @@ bool CgmPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
 		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
-	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
+	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.path());
 	if (convert(fNameIn))
@@ -252,8 +246,8 @@ bool CgmPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->setLoading(false);
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		if ((Elements.count() > 0) && (!ret) && (interactive))
+		QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		if (!Elements.isEmpty() && !ret && interactive)
 		{
 			if (flags & LoadSavePlugin::lfScripted)
 			{
@@ -291,7 +285,7 @@ bool CgmPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 				m_Doc->m_Selection->delaySignalsOff();
 				// We must copy the TransationSettings object as it is owned
 				// by handleObjectImport method afterwards
-				TransactionSettings* transacSettings = new TransactionSettings(trSettings);
+				auto* transacSettings = new TransactionSettings(trSettings);
 				m_Doc->view()->handleObjectImport(md, transacSettings);
 				m_Doc->DragP = false;
 				m_Doc->DraggedElem = nullptr;
@@ -313,17 +307,17 @@ bool CgmPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->view()->updatesOn(true);
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}
 	if (interactive)
 		m_Doc->setLoading(false);
 	//CB If we have a gui we must refresh it if we have used the progressbar
 	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 	{
-		if ((showProgress) && (!interactive))
+		if (showProgress && !interactive)
 			m_Doc->view()->DrawNew();
 	}
-	qApp->restoreOverrideCursor();
+	QApplication::restoreOverrideCursor();
 	return success;
 }
 
@@ -414,7 +408,7 @@ bool CgmPlug::convert(const QString& fn)
 	{
 		progressDialog->setOverallProgress(2);
 		progressDialog->setLabel("GI", tr("Generating Items"));
-		qApp->processEvents();
+		QApplication::processEvents();
 	}
 	QFile f(fn);
 	if (f.open(QIODevice::ReadOnly))
@@ -424,7 +418,7 @@ bool CgmPlug::convert(const QString& fn)
 		if (progressDialog)
 		{
 			progressDialog->setTotalSteps("GI", fSize);
-			qApp->processEvents();
+			QApplication::processEvents();
 		}
 		QDataStream ts(&f);
 		ts.setByteOrder(QDataStream::BigEndian);
@@ -435,13 +429,13 @@ bool CgmPlug::convert(const QString& fn)
 			decodeText(f);
 		else
 		{
-			while (!ts.atEnd() && (importRunning))
+			while (!ts.atEnd() && importRunning)
 			{
-				quint16 data, elemClass, elemID, paramLen;
+				quint16 data;
 				ts >> data;
-				elemClass = (data & 0xF000) >> 12;
-				elemID    = (data & 0x0FE0) >>  5;
-				paramLen  = data & 0x001F;
+				quint16 elemClass = (data & 0xF000) >> 12;
+				quint16 elemID    = (data & 0x0FE0) >>  5;
+				quint16 paramLen  = data & 0x001F;
 				if (paramLen == 31)
 					ts >> paramLen;
 			//	qDebug() << "CGM Command Class" << elemClass << "ID" << elemID << "ParamLen" << paramLen;
@@ -449,14 +443,14 @@ bool CgmPlug::convert(const QString& fn)
 				if (progressDialog)
 				{
 					progressDialog->setProgress("GI", ts.device()->pos());
-					qApp->processEvents();
+					QApplication::processEvents();
 				}
 			}
 		}
 		f.close();
-		if (Elements.count() == 0)
+		if (Elements.isEmpty())
 		{
-			if (importedColors.count() != 0)
+			if (!importedColors.isEmpty())
 			{
 				for (int cd = 0; cd < importedColors.count(); cd++)
 				{
@@ -596,7 +590,7 @@ void CgmPlug::decodeClass0(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		figElemIndex = Elements.count();
 		figGstIndex = 0;
 		figFillColor = fillColor;
-		if (groupStack.count() != 0)
+		if (!groupStack.isEmpty())
 			figGstIndex = groupStack.top().count();
 	//	qDebug() << "BEGIN FIGURE";
 	}
@@ -621,7 +615,7 @@ void CgmPlug::decodeClass0(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			m_Doc->Items->takeLast();
 			m_Doc->Items->insert(figDocIndex, ite);
 			Elements.insert(figElemIndex, ite);
-			if (groupStack.count() != 0)
+			if (!groupStack.isEmpty())
 				groupStack.top().insert(figGstIndex, ite);
 		}
 		figurePath = QPainterPath();
@@ -808,9 +802,9 @@ void CgmPlug::decodeClass1(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		int fontID = 1;
 		while (bytesRead < paramLen)
 		{
-			int posA = ts.device()->pos();
+			auto posA = ts.device()->pos();
 			QString p = getBinaryText(ts);
-			int posN = ts.device()->pos();
+			auto posN = ts.device()->pos();
 			bytesRead += posN - posA;
 			fontID_Map.insert(fontID, p);
 		}
@@ -832,9 +826,8 @@ void CgmPlug::decodeClass1(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 17)
 	{
-		QPointF max, min;
-		max = getBinaryCoords(ts);
-		min = getBinaryCoords(ts);
+		QPointF max = getBinaryCoords(ts);
+		QPointF min = getBinaryCoords(ts);
 	//	qDebug() << "MAXIMUM VDC EXTENT" << min.x() << min.y() << max.x() << max.y();
 	}
 	else if (elemID == 18)
@@ -971,9 +964,8 @@ void CgmPlug::decodeClass2(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 8)
 	{
-		QPointF max, min;
-		max = getBinaryCoords(ts);
-		min = getBinaryCoords(ts);
+		QPointF max = getBinaryCoords(ts);
+		QPointF min = getBinaryCoords(ts);
 	//	qDebug() << "DEVICE VIEWPORT" << min.x() << min.y() << max.x() << max.y();
 	}
 	else if (elemID == 9)
@@ -1120,11 +1112,11 @@ void CgmPlug::decodeClass3(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		uint type = getBinaryUInt(ts, indexPrecision);
 		if (type == 1)
 		{
-			if (groupStack.count() != 0)
+			if (!groupStack.isEmpty())
 			{
 				QList<PageItem*> gElements = groupStack.pop();
 				tmpSel->clear();
-				if (gElements.count() > 0)
+				if (!gElements.isEmpty())
 				{
 					for (int dre = 0; dre < gElements.count(); ++dre)
 					{
@@ -1143,7 +1135,7 @@ void CgmPlug::decodeClass3(QDataStream &ts, quint16 elemID, quint16 paramLen)
 					tmpSel->addItem(ite, true);
 					Elements.append(ite);
 				}
-				if (groupStack.count() != 0)
+				if (!groupStack.isEmpty())
 				{
 					for (int as = 0; as < tmpSel->count(); ++as)
 					{
@@ -1349,10 +1341,10 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		QPointF startPoint;
 		while (bytesRead < paramLen)
 		{
-			int posA = ts.device()->pos();
+			auto posA = ts.device()->pos();
 			QPointF p = getBinaryCoords(ts);
 			ts >> flag;
-			int posN = ts.device()->pos();
+			auto posN = ts.device()->pos();
 			bytesRead += posN - posA;
 			if (first)
 			{
@@ -1388,15 +1380,13 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 9)
 	{
-		int pos = ts.device()->pos();
-		QPointF p, q, r;
-		int nx, ny;
+		auto pos = ts.device()->pos();
 		quint16 mode;
-		p = convertCoords(getBinaryCoords(ts));
-		q = convertCoords(getBinaryCoords(ts));
-		r = convertCoords(getBinaryCoords(ts));
-		nx = getBinaryUInt(ts, intPrecision);
-		ny = getBinaryUInt(ts, intPrecision);
+		QPointF p = convertCoords(getBinaryCoords(ts));
+		QPointF q = convertCoords(getBinaryCoords(ts));
+		QPointF r = convertCoords(getBinaryCoords(ts));
+		int nx = getBinaryUInt(ts, intPrecision);
+		int ny = getBinaryUInt(ts, intPrecision);
 		int t_colorPrecision = colorPrecision;
 		int t_colorIndexPrecision = colorIndexPrecision;
 		colorPrecision = getBinaryUInt(ts, intPrecision);
@@ -1408,7 +1398,7 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			colorIndexPrecision = t_colorIndexPrecision;
 		}
 		ts >> mode;
-		int bytesRead = ts.device()->pos() - pos;
+		auto bytesRead = ts.device()->pos() - pos;
 		QLineF pr(p, r);
 		QLineF rq(r, q);
 		double originX = p.x();
@@ -1429,7 +1419,7 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		PageItem *ite = m_Doc->Items->at(z);
 		ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 		finishItem(ite, false);
-		QImage image = QImage(nx, ny, QImage::Format_ARGB32);
+		QImage image(nx, ny, QImage::Format_ARGB32);
 		quint16 flag = paramLen & 0x8000;
 		quint16 pLen = (paramLen & 0x7FFF) - bytesRead;
 		QByteArray imageData;
@@ -1446,11 +1436,11 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		}
 		if (colorPrecision < 8)
 		{
-			ScBitReader *breader = new ScBitReader(imageData);
+			auto *breader = new ScBitReader(imageData);
 			for (int yy = 0; yy < ny; yy++)
 			{
 				ScColor color;
-				QRgb *s = (QRgb*)(image.scanLine(yy));
+				auto *s = (QRgb*)(image.scanLine(yy));
 				if (mode == 1)
 				{
 					for (int xx = 0; xx < nx; xx++)
@@ -1498,7 +1488,7 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 			for (int yy = 0; yy < ny; yy++)
 			{
 				ScColor color;
-				QRgb *s = (QRgb*)(image.scanLine(yy));
+				auto *s = (QRgb*)(image.scanLine(yy));
 				if (mode == 1)
 				{
 					for (int xx = 0; xx < nx; xx++)
@@ -1819,14 +1809,13 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 17)
 	{
-		QPointF center, r1, r2;
-		center = getBinaryCoords(ts);
+		QPointF center = getBinaryCoords(ts);
 		double cx = convertCoords(center.x());
 		double cy = convertCoords(center.y());
-		r1 = getBinaryCoords(ts);
+		QPointF r1 = getBinaryCoords(ts);
 		double r1x = convertCoords(r1.x());
 		double r1y = convertCoords(r1.y());
-		r2 = getBinaryCoords(ts);
+		QPointF r2 = getBinaryCoords(ts);
 		double r2x = convertCoords(r2.x());
 		double r2y = convertCoords(r2.y());
 		double distX = distance(r1x - cx, r1y - cy);
@@ -2348,10 +2337,10 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		uint ny = getBinaryUInt(ts, intPrecision);
 		int t_colorPrecision = colorPrecision;
 		colorPrecision = getBinaryUInt(ts, intPrecision);
-		QImage tmpImg = QImage(nx, ny, QImage::Format_ARGB32);
+		QImage tmpImg(nx, ny, QImage::Format_ARGB32);
 		for (uint a = 0; a < ny; a++)
 		{
-			QRgb *s = (QRgb*)tmpImg.scanLine(a);
+			auto *s = (QRgb*) tmpImg.scanLine(a);
 			for (uint b = 0; b < nx; b++)
 			{
 				ScColor color;
@@ -2484,7 +2473,7 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 	}
 	else if (elemID == 43)
 	{
-		int posI = ts.device()->pos();
+		auto posI = ts.device()->pos();
 		uint type = getBinaryUInt(ts, indexPrecision);
 		QPointF p1 = convertCoords(getBinaryCoords(ts));
 		QPointF p2 = convertCoords(getBinaryCoords(ts));
@@ -2676,8 +2665,8 @@ void CgmPlug::getBinaryBezierPath(QDataStream &ts, quint16 paramLen)
 	uint type = getBinaryUInt(ts, indexPrecision);
 	while (bytesRead < paramLen - 2)
 	{
-		int posA = ts.device()->pos();
-		if ((first) || (type == 1))
+		auto posA = ts.device()->pos();
+		if (first || (type == 1))
 		{
 			QPointF p = getBinaryCoords(ts);
 			Coords.svgMoveTo(convertCoords(p.x()), convertCoords(p.y()));
@@ -2687,7 +2676,7 @@ void CgmPlug::getBinaryBezierPath(QDataStream &ts, quint16 paramLen)
 		QPointF p2 = getBinaryCoords(ts);
 		QPointF p3 = getBinaryCoords(ts);
 		Coords.svgCurveToCubic(convertCoords(p1.x()), convertCoords(p1.y()), convertCoords(p2.x()), convertCoords(p2.y()), convertCoords(p3.x()), convertCoords(p3.y()));
-		int posN = ts.device()->pos();
+		auto posN = ts.device()->pos();
 		bytesRead += posN - posA;
 	}
 	while (flag)
@@ -2698,7 +2687,7 @@ void CgmPlug::getBinaryBezierPath(QDataStream &ts, quint16 paramLen)
 		paramLen = paramLen & 0x7FFF;
 		while (bytesRead < paramLen)
 		{
-			int posA = ts.device()->pos();
+			auto posA = ts.device()->pos();
 			if (type == 1)
 			{
 				QPointF p = getBinaryCoords(ts);
@@ -2708,7 +2697,7 @@ void CgmPlug::getBinaryBezierPath(QDataStream &ts, quint16 paramLen)
 			QPointF p2 = getBinaryCoords(ts);
 			QPointF p3 = getBinaryCoords(ts);
 			Coords.svgCurveToCubic(convertCoords(p1.x()), convertCoords(p1.y()), convertCoords(p2.x()), convertCoords(p2.y()), convertCoords(p3.x()), convertCoords(p3.y()));
-			int posN = ts.device()->pos();
+			auto posN = ts.device()->pos();
 			bytesRead += posN - posA;
 		}
 	}
@@ -2725,7 +2714,7 @@ void CgmPlug::getBinaryPath(QDataStream &ts, quint16 paramLen, bool disjoint)
 	paramLen = paramLen & 0x7FFF;
 	while (bytesRead < paramLen)
 	{
-		int posA = ts.device()->pos();
+		auto posA = ts.device()->pos();
 		QPointF p = getBinaryCoords(ts);
 		if (first)
 		{
@@ -2738,7 +2727,7 @@ void CgmPlug::getBinaryPath(QDataStream &ts, quint16 paramLen, bool disjoint)
 			if (disjoint)
 				first = true;
 		}
-		int posN = ts.device()->pos();
+		auto posN = ts.device()->pos();
 		bytesRead += posN - posA;
 	}
 	while (flag)
@@ -2749,7 +2738,7 @@ void CgmPlug::getBinaryPath(QDataStream &ts, quint16 paramLen, bool disjoint)
 		paramLen = paramLen & 0x7FFF;
 		while (bytesRead < paramLen)
 		{
-			int posA = ts.device()->pos();
+			auto posA = ts.device()->pos();
 			if (disjoint)
 			{
 				QPointF p = getBinaryCoords(ts);
@@ -2770,7 +2759,7 @@ void CgmPlug::getBinaryPath(QDataStream &ts, quint16 paramLen, bool disjoint)
 				QPointF p = getBinaryCoords(ts);
 				Coords.svgLineTo(convertCoords(p.x()), convertCoords(p.y()));
 			}
-			int posN = ts.device()->pos();
+			auto posN = ts.device()->pos();
 			bytesRead += posN - posA;
 		}
 	}
@@ -2782,9 +2771,9 @@ void CgmPlug::getBinaryColorTable(QDataStream &ts, quint16 paramLen)
 	flag = paramLen & 0x8000;
 	paramLen = paramLen & 0x7FFF;
 	quint16 bytesRead = 0;
-	int posA = ts.device()->pos();
+	auto posA = ts.device()->pos();
 	uint c = getBinaryUInt(ts, colorIndexPrecision);
-	int posN = ts.device()->pos();
+	auto posN = ts.device()->pos();
 	bytesRead += posN - posA;
 	QString tmpName = CommonStrings::None;
 	while (bytesRead < paramLen)
@@ -2815,7 +2804,7 @@ void CgmPlug::getBinaryColorTable(QDataStream &ts, quint16 paramLen)
 	}
 }
 
-ScColor CgmPlug::getBinaryDirectColor(ScBitReader *breader)
+ScColor CgmPlug::getBinaryDirectColor(ScBitReader *breader) const
 {
 	ScColor ret;
 	if (m_colorModel == 1)		// RGB
@@ -2843,7 +2832,7 @@ ScColor CgmPlug::getBinaryDirectColor(ScBitReader *breader)
 	return ret;
 }
 
-ScColor CgmPlug::getBinaryDirectColor(QDataStream &ts)
+ScColor CgmPlug::getBinaryDirectColor(QDataStream &ts) const
 {
 	ScColor ret;
 	if (m_colorModel == 1)		// RGB
@@ -3028,7 +3017,7 @@ QString CgmPlug::getBinaryColor(QDataStream &ts)
 	return ret;
 }
 
-double CgmPlug::getBinaryDistance(QDataStream &ts)
+double CgmPlug::getBinaryDistance(QDataStream &ts) const
 {
 	double ret = 0.0;
 	if (vdcType == 0)				// integer coords
@@ -3041,7 +3030,7 @@ double CgmPlug::getBinaryDistance(QDataStream &ts)
 	return ret;
 }
 
-QPointF CgmPlug::getBinaryCoords(QDataStream &ts, bool raw)
+QPointF CgmPlug::getBinaryCoords(QDataStream &ts, bool raw) const
 {
 	QPointF ret(0.0, 0.0);
 	if (vdcType == 0)				// integer coords
@@ -3073,7 +3062,7 @@ QPointF CgmPlug::getBinaryCoords(QDataStream &ts, bool raw)
 	return ret;
 }
 
-uint CgmPlug::getBinaryUInt(QDataStream &ts, int intP)
+uint CgmPlug::getBinaryUInt(QDataStream &ts, int intP) const
 {
 	uint val = 0;
 	if (intP == 1)
@@ -3114,7 +3103,7 @@ uint CgmPlug::getBinaryUInt(QDataStream &ts, int intP)
 	return val;
 }
 
-int CgmPlug::getBinaryInt(QDataStream &ts, int intP)
+int CgmPlug::getBinaryInt(QDataStream &ts, int intP) const
 {
 	int val = 0;
 	if (intP == 8)
@@ -3149,7 +3138,7 @@ int CgmPlug::getBinaryInt(QDataStream &ts, int intP)
 	return val;
 }
 
-double CgmPlug::getBinaryReal(QDataStream &ts, int realP, int realM)
+double CgmPlug::getBinaryReal(QDataStream &ts, int realP, int realM) const
 {
 	double val = 0.0;
 	if (realP == 0)			// real Format
@@ -3205,7 +3194,7 @@ double CgmPlug::getBinaryReal(QDataStream &ts, int realP, int realM)
 	return val;
 }
 
-QString CgmPlug::getBinaryText(QDataStream &ts)
+QString CgmPlug::getBinaryText(QDataStream &ts) const
 {
 	quint8 textLen;
 	QByteArray text;
@@ -3242,7 +3231,7 @@ QString CgmPlug::getBinaryText(QDataStream &ts)
 	return text;
 }
 
-void CgmPlug::alignStreamToWord(QDataStream &ts, uint len)
+void CgmPlug::alignStreamToWord(QDataStream &ts, uint len) const
 {
 	quint16 flag;
 	flag = len & 0x8000;
@@ -3311,7 +3300,7 @@ void CgmPlug::handleMetaFileDescription(const QString& value)
 	// qDebug() << "Metafile Description" << value;
 }
 
-QString CgmPlug::handleColor(ScColor &color, const QString& proposedName)
+QString CgmPlug::handleColor(const ScColor &color, const QString& proposedName)
 {
 	QString tmpName = m_Doc->PageColors.tryAddColor(proposedName, color);
 	if (tmpName == proposedName)
@@ -3319,17 +3308,17 @@ QString CgmPlug::handleColor(ScColor &color, const QString& proposedName)
 	return tmpName;
 }
 
-double CgmPlug::convertCoords(double input)
+double CgmPlug::convertCoords(double input) const
 {
 	return input * metaScale;
 }
 
-QPointF CgmPlug::convertCoords(QPointF input)
+QPointF CgmPlug::convertCoords(const QPointF& input) const
 {
 	return input * metaScale;
 }
 
-void CgmPlug::appendPath(QPainterPath &path1, QPainterPath &path2)
+void CgmPlug::appendPath(QPainterPath &path1, const QPainterPath &path2) const
 {
 	for (int i = 0; i < path2.elementCount(); ++i)
 	{
@@ -3437,7 +3426,7 @@ void CgmPlug::finishItem(PageItem* ite, bool line)
 	}
 	ite->updateClip();
 	Elements.append(ite);
-	if (groupStack.count() != 0)
+	if (!groupStack.isEmpty())
 		groupStack.top().append(ite);
 	Coords.resize(0);
 	Coords.svgInit();

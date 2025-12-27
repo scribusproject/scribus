@@ -11,10 +11,12 @@ for which a new license (GPL+exception) is in place.
     copyright            : (C) 2009 by Franz Schmid
     email                : Franz.Schmid@altmuehlnet.de
  ***************************************************************************/
-#include "commonstrings.h"
+#include <memory>
 
 #include "importcgm.h"
 #include "importcgmplugin.h"
+
+#include "commonstrings.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
@@ -34,7 +36,7 @@ int importcgm_getPluginAPIVersion()
 
 ScPlugin* importcgm_getPlugin()
 {
-	ImportCgmPlugin* plug = new ImportCgmPlugin();
+	auto* plug = new ImportCgmPlugin();
 	Q_CHECK_PTR(plug);
 	return plug;
 }
@@ -76,7 +78,7 @@ QString ImportCgmPlugin::fullTrName() const
 
 const ScActionPlugin::AboutData* ImportCgmPlugin::getAboutData() const
 {
-	AboutData* about = new AboutData;
+	auto* about = new AboutData;
 	about->authors = "Franz Schmid <franz@scribus.info>";
 	about->shortDescription = tr("Imports CGM Files");
 	about->description = tr("Imports most binary CGM files into the current document, converting their vector data into Scribus objects.");
@@ -127,18 +129,18 @@ bool ImportCgmPlugin::importFile(QString fileName, int flags)
 		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("importcgm");
 		QString wdir = prefs->get("wdir", ".");
 		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), tr("All Supported Formats")+" (*.cgm *.CGM);;All Files (*)");
-		if (diaf.exec())
-		{
-			fileName = diaf.selectedFile();
-			prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
-		}
-		else
+		if (!diaf.exec())
 			return true;
+		fileName = diaf.selectedFile();
+		prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
 	}
+
 	m_Doc = ScCore->primaryMainWindow()->doc;
+
 	UndoTransaction activeTransaction;
 	bool emptyDoc = (m_Doc == nullptr);
 	bool hasCurrentPage = (m_Doc && m_Doc->currentPage());
+
 	TransactionSettings trSettings;
 	trSettings.targetName   = hasCurrentPage ? m_Doc->currentPage()->getUName() : "";
 	trSettings.targetPixmap = Um::IImageFrame;
@@ -149,14 +151,16 @@ bool ImportCgmPlugin::importFile(QString fileName, int flags)
 		UndoManager::instance()->setUndoEnabled(false);
 	if (UndoManager::undoEnabled())
 		activeTransaction = UndoManager::instance()->beginTransaction(trSettings);
-	CgmPlug *dia = new CgmPlug(m_Doc, flags);
+
+	auto dia = std::make_unique<CgmPlug>(m_Doc, flags);
 	Q_CHECK_PTR(dia);
 	dia->importFile(fileName, trSettings, flags, !(flags & lfScripted));
+
 	if (activeTransaction)
 		activeTransaction.commit();
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(true);
-	delete dia;
+
 	return true;
 }
 
@@ -166,10 +170,9 @@ QImage ImportCgmPlugin::readThumbnail(const QString& fileName)
 		return QImage();
 	UndoManager::instance()->setUndoEnabled(false);
 	m_Doc = nullptr;
-	CgmPlug *dia = new CgmPlug(m_Doc, lfCreateThumbnail);
+	auto dia = std::make_unique<CgmPlug>(m_Doc, lfCreateThumbnail);
 	Q_CHECK_PTR(dia);
 	QImage ret = dia->readThumbnail(fileName);
 	UndoManager::instance()->setUndoEnabled(true);
-	delete dia;
 	return ret;
 }
