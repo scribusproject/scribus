@@ -21,6 +21,7 @@ to the COPYING file provided with the program.
 #include <QVector>
 
 #include "documentlogtypes.h"
+#include "scribusapi.h"
 
 class SCRIBUS_API DocumentLogManager : public QObject
 {
