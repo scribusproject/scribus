@@ -4,10 +4,12 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include "commonstrings.h"
+#include <memory>
 
 #include "importfh.h"
 #include "importfhplugin.h"
+
+#include "commonstrings.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
@@ -27,7 +29,7 @@ int importfh_getPluginAPIVersion()
 
 ScPlugin* importfh_getPlugin()
 {
-	ImportFhPlugin* plug = new ImportFhPlugin();
+	auto* plug = new ImportFhPlugin();
 	Q_CHECK_PTR(plug);
 	return plug;
 }
@@ -69,7 +71,7 @@ QString ImportFhPlugin::fullTrName() const
 
 const ScActionPlugin::AboutData* ImportFhPlugin::getAboutData() const
 {
-	AboutData* about = new AboutData;
+	auto* about = new AboutData;
 	about->authors = "Franz Schmid <franz@scribus.info>";
 	about->shortDescription = tr("Imports Freehand Files");
 	about->description = tr("Imports most Freehand files into the current document, converting their vector data into Scribus objects.");
@@ -122,18 +124,18 @@ bool ImportFhPlugin::importFile(QString fileName, int flags)
 		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("importfh");
 		QString wdir = prefs->get("wdir", ".");
 		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), tr("All Supported Formats")+" (*.fh* *.FH*);;All Files (*)");
-		if (diaf.exec())
-		{
-			fileName = diaf.selectedFile();
-			prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
-		}
-		else
+		if (!diaf.exec())
 			return true;
+		fileName = diaf.selectedFile();
+		prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
 	}
+
 	m_Doc = ScCore->primaryMainWindow()->doc;
-	UndoTransaction* activeTransaction = nullptr;
+
+	UndoTransaction activeTransaction;
 	bool emptyDoc = (m_Doc == nullptr);
 	bool hasCurrentPage = (m_Doc && m_Doc->currentPage());
+
 	TransactionSettings trSettings;
 	trSettings.targetName   = hasCurrentPage ? m_Doc->currentPage()->getUName() : "";
 	trSettings.targetPixmap = Um::IImageFrame;
@@ -143,19 +145,17 @@ bool ImportFhPlugin::importFile(QString fileName, int flags)
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(false);
 	if (UndoManager::undoEnabled())
-		activeTransaction = new UndoTransaction(UndoManager::instance()->beginTransaction(trSettings));
-	FhPlug *dia = new FhPlug(m_Doc, flags);
+		activeTransaction = UndoManager::instance()->beginTransaction(trSettings);
+
+	auto dia = std::make_shared<FhPlug>(m_Doc, flags);
 	Q_CHECK_PTR(dia);
 	dia->importFile(fileName, trSettings, flags);
+
 	if (activeTransaction)
-	{
-		activeTransaction->commit();
-		delete activeTransaction;
-		activeTransaction = nullptr;
-	}
+		activeTransaction.commit();
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(true);
-	delete dia;
+
 	return true;
 }
 
@@ -165,10 +165,9 @@ QImage ImportFhPlugin::readThumbnail(const QString& fileName)
 		return QImage();
 	UndoManager::instance()->setUndoEnabled(false);
 	m_Doc = nullptr;
-	FhPlug *dia = new FhPlug(m_Doc, lfCreateThumbnail);
+	auto dia = std::make_shared<FhPlug>(m_Doc, lfCreateThumbnail);
 	Q_CHECK_PTR(dia);
 	QImage ret = dia->readThumbnail(fileName);
 	UndoManager::instance()->setUndoEnabled(true);
-	delete dia;
 	return ret;
 }
