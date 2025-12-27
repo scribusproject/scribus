@@ -262,7 +262,7 @@ bool AIPlug::readColors(const QString& fileName, ColorList & colors)
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.path());
 	convert(fName);
-	if (importedColors.count() != 0)
+	if (!importedColors.isEmpty())
 	{
 		colors = m_Doc->PageColors;
 		success = true;
@@ -367,7 +367,7 @@ bool AIPlug::importFile(const QString& fNameIn, const TransactionSettings& trSet
 	docHeight = h - y;
 	baseX = 0;
 	baseY = 0;
-	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
+	if (m_Doc && (!interactive || (flags & LoadSavePlugin::lfInsertPage)))
 	{
 		m_Doc->setPage(b-x, h-y, 0, 0, 0, 0, 0, 0, false, false);
 		m_Doc->addPage(0);
@@ -375,23 +375,20 @@ bool AIPlug::importFile(const QString& fNameIn, const TransactionSettings& trSet
 		baseX = 0;
 		baseY = 0;
 	}
-	else
+	else if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
 	{
-		if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
-		{
-			m_Doc = ScCore->primaryMainWindow()->doFileNew(b - x, h - y, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
-			ScCore->primaryMainWindow()->HaveNewDoc();
-			ret = true;
-			baseX = 0;
-			baseY = 0;
-		}
+		m_Doc = ScCore->primaryMainWindow()->doFileNew(b - x, h - y, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
+		ScCore->primaryMainWindow()->HaveNewDoc();
+		ret = true;
+		baseX = 0;
+		baseY = 0;
 	}
 	if (flags & LoadSavePlugin::lfCreateDoc)
 	{
 		m_Doc->documentInfo().setAuthor(docCreator);
 		m_Doc->documentInfo().setPublisher(docOrganisation);
 		m_Doc->documentInfo().setTitle(docTitle);
-		m_Doc->documentInfo().setDate(docDate+" "+docTime);
+		m_Doc->documentInfo().setDate(docDate + " " + docTime);
 	}
 	if (!ret && interactive)
 	{
@@ -400,7 +397,7 @@ bool AIPlug::importFile(const QString& fNameIn, const TransactionSettings& trSet
 	}
 	if (ret || !interactive)
 	{
-		if (b-x > h-y)
+		if (b - x > h - y)
 			m_Doc->setPageOrientation(1);
 		else
 			m_Doc->setPageOrientation(0);
@@ -429,21 +426,21 @@ bool AIPlug::importFile(const QString& fNameIn, const TransactionSettings& trSet
 	{
 		if (Elements.isEmpty())
 		{
-			if ((importedColors.count() != 0) && (!((flags & LoadSavePlugin::lfKeepGradients) || (flags & LoadSavePlugin::lfKeepColors) || (flags & LoadSavePlugin::lfKeepPatterns))))
+			if (!importedColors.isEmpty() && (!((flags & LoadSavePlugin::lfKeepGradients) || (flags & LoadSavePlugin::lfKeepColors) || (flags & LoadSavePlugin::lfKeepPatterns))))
 			{
 				for (int cd = 0; cd < importedColors.count(); cd++)
 				{
 					m_Doc->PageColors.remove(importedColors[cd]);
 				}
 			}
-			if ((importedGradients.count() != 0) && !(flags & LoadSavePlugin::lfKeepGradients || (flags & LoadSavePlugin::lfKeepPatterns)))
+			if (!importedGradients.isEmpty() && !(flags & LoadSavePlugin::lfKeepGradients || (flags & LoadSavePlugin::lfKeepPatterns)))
 			{
 				for (int cd = 0; cd < importedGradients.count(); cd++)
 				{
 					m_Doc->docGradients.remove(importedGradients[cd]);
 				}
 			}
-			if ((importedPatterns.count() != 0) && (!(flags & LoadSavePlugin::lfKeepPatterns)))
+			if (!importedPatterns.isEmpty() && (!(flags & LoadSavePlugin::lfKeepPatterns)))
 			{
 				for (int cd = 0; cd < importedPatterns.count(); cd++)
 				{
@@ -494,21 +491,21 @@ bool AIPlug::importFile(const QString& fNameIn, const TransactionSettings& trSet
 				ScElemMimeData* md = ScriXmlDoc::writeToMimeData(m_Doc, tmpSel);
 				m_Doc->itemSelection_DeleteItem(tmpSel);
 				m_Doc->view()->updatesOn(true);
-				if ((importedColors.count() != 0) && (!((flags & LoadSavePlugin::lfKeepGradients) || (flags & LoadSavePlugin::lfKeepColors) || (flags & LoadSavePlugin::lfKeepPatterns))))
+				if (!importedColors.isEmpty() && (!((flags & LoadSavePlugin::lfKeepGradients) || (flags & LoadSavePlugin::lfKeepColors) || (flags & LoadSavePlugin::lfKeepPatterns))))
 				{
 					for (int cd = 0; cd < importedColors.count(); cd++)
 					{
 						m_Doc->PageColors.remove(importedColors[cd]);
 					}
 				}
-				if ((importedGradients.count() != 0) && (!(flags & LoadSavePlugin::lfKeepGradients || (flags & LoadSavePlugin::lfKeepPatterns))))
+				if (!importedGradients.isEmpty() && (!(flags & LoadSavePlugin::lfKeepGradients || (flags & LoadSavePlugin::lfKeepPatterns))))
 				{
 					for (int cd = 0; cd < importedGradients.count(); cd++)
 					{
 						m_Doc->docGradients.remove(importedGradients[cd]);
 					}
 				}
-				if ((importedPatterns.count() != 0) && (!(flags & LoadSavePlugin::lfKeepPatterns)))
+				if (!importedPatterns.isEmpty() && (!(flags & LoadSavePlugin::lfKeepPatterns)))
 				{
 					for (int cd = 0; cd < importedPatterns.count(); cd++)
 					{
@@ -858,7 +855,7 @@ bool AIPlug::parseHeader(const QString& fName, double &x, double &y, double &b, 
 			if (tmp.startsWith("%%Title"))
 			{
 				QStringList res = getStrings(tmp);
-				if (res.count() > 0)
+				if (!res.isEmpty())
 					docTitle = res[0];
 			}
 			if ((tmp.startsWith("%%CMYKCustomColor")) || (tmp.startsWith("%%CMYKProcessColor")))
