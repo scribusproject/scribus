@@ -61,28 +61,29 @@ private:
 	void parseColor(quint32 dataF, quint32 dataS, bool color, quint16 flag);
 	
 	QList<PageItem*> Elements;
-	int currentItemNr;
+	int currentItemNr { 0 };
 	QStack<QList<PageItem*> > groupStack;
 	ColorList CustColors;
-	double baseX, baseY;
-	double docWidth;
-	double docHeight;
-	qreal scPg;
+	double baseX { 0.0 };
+	double baseY { 0.0 };
+	double docWidth { 0.0 };
+	double docHeight { 0.0 };
+	qreal scPg { 0 };
 
-	double LineW;
+	double LineW { 0.0 };
 	QString CurrColorFill;
 	QString CurrColorStroke;
-	double CurrStrokeShade;
-	double CurrFillShade;
+	double CurrStrokeShade { 0.0 };
+	double CurrFillShade { 0.0 };
 	QStringList importedColors;
 
 	FPointArray Coords;
-	bool interactive;
-	MultiProgressDialog * progressDialog;
-	bool cancel;
-	ScribusDoc* m_Doc;
-	Selection* tmpSel;
-	int importerFlags;
+	bool interactive { false };
+	MultiProgressDialog* progressDialog { nullptr };
+	bool cancel { false };
+	ScribusDoc* m_Doc { nullptr };
+	Selection* tmpSel { nullptr };
+	int importerFlags { 0 };
 	QString baseFile;
 
 public slots:
