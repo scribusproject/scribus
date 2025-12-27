@@ -149,8 +149,7 @@ QImage AIPlug::readThumbnail(const QString& fNameIn)
 	m_Doc->setGUI(false, ScCore->primaryMainWindow(), nullptr);
 	baseX = m_Doc->currentPage()->xOffset();
 	baseY = m_Doc->currentPage()->yOffset();
-	ColorList::Iterator it;
-	for (it = CustColors.begin(); it != CustColors.end(); ++it)
+	for (auto it = CustColors.begin(); it != CustColors.end(); ++it)
 	{
 		if (!m_Doc->PageColors.contains(it.key()))
 		{
@@ -191,6 +190,7 @@ QImage AIPlug::readThumbnail(const QString& fNameIn)
 	m_Doc->scMW()->setScriptRunning(false);
 	m_Doc->setLoading(false);
 	delete m_Doc;
+	m_Doc = nullptr;
 	QDir::setCurrent(CurDirP);
 	return tmpImage;
 }
@@ -254,8 +254,7 @@ bool AIPlug::readColors(const QString& fileName, ColorList & colors)
 	m_Doc->setGUI(false, ScCore->primaryMainWindow(), nullptr);
 	baseX = m_Doc->currentPage()->xOffset();
 	baseY = m_Doc->currentPage()->yOffset();
-	ColorList::Iterator it;
-	for (it = CustColors.begin(); it != CustColors.end(); ++it)
+	for (auto it = CustColors.begin(); it != CustColors.end(); ++it)
 	{
 		if (!m_Doc->PageColors.contains(it.key()))
 		{
@@ -278,6 +277,7 @@ bool AIPlug::readColors(const QString& fileName, ColorList & colors)
 	m_Doc->scMW()->setScriptRunning(false);
 	m_Doc->setLoading(false);
 	delete m_Doc;
+	m_Doc = nullptr;
 	QDir::setCurrent(CurDirP);
 	if (convertedPDF)
 		QFile::remove(fName);
@@ -374,7 +374,7 @@ bool AIPlug::importFile(const QString& fNameIn, const TransactionSettings& trSet
 	docHeight = h - y;
 	baseX = 0;
 	baseY = 0;
-	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
+	if (m_Doc && (!interactive || (flags & LoadSavePlugin::lfInsertPage)))
 	{
 		m_Doc->setPage(b-x, h-y, 0, 0, 0, 0, 0, 0, false, false);
 		m_Doc->addPage(0);
@@ -382,23 +382,20 @@ bool AIPlug::importFile(const QString& fNameIn, const TransactionSettings& trSet
 		baseX = 0;
 		baseY = 0;
 	}
-	else
+	else if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
 	{
-		if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
-		{
-			m_Doc = ScCore->primaryMainWindow()->doFileNew(b - x, h - y, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
-			ScCore->primaryMainWindow()->HaveNewDoc();
-			ret = true;
-			baseX = 0;
-			baseY = 0;
-		}
+		m_Doc = ScCore->primaryMainWindow()->doFileNew(b - x, h - y, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
+		ScCore->primaryMainWindow()->HaveNewDoc();
+		ret = true;
+		baseX = 0;
+		baseY = 0;
 	}
 	if (flags & LoadSavePlugin::lfCreateDoc)
 	{
 		m_Doc->documentInfo().setAuthor(docCreator);
 		m_Doc->documentInfo().setPublisher(docOrganisation);
 		m_Doc->documentInfo().setTitle(docTitle);
-		m_Doc->documentInfo().setDate(docDate+" "+docTime);
+		m_Doc->documentInfo().setDate(docDate + " " + docTime);
 	}
 	if (!ret && interactive)
 	{
@@ -407,7 +404,7 @@ bool AIPlug::importFile(const QString& fNameIn, const TransactionSettings& trSet
 	}
 	if (ret || !interactive)
 	{
-		if (b-x > h-y)
+		if (b - x > h - y)
 			m_Doc->setPageOrientation(1);
 		else
 			m_Doc->setPageOrientation(0);
@@ -1960,9 +1957,9 @@ void AIPlug::processData(const QString& data)
 		{
 			int an = Cdata.indexOf("(");
 			int en = Cdata.lastIndexOf(")");
-			currentGradientName = Cdata.mid(an+1, en-an-1);
+			currentGradientName = Cdata.mid(an + 1, en - an - 1);
 			currentGradientName.remove("\\");
-			QString tmpS = Cdata.mid(en+1, Cdata.size() - en);
+			QString tmpS = Cdata.mid(en + 1, Cdata.size() - en);
 			ScTextStream gVals(&tmpS, QIODevice::ReadOnly);
 			double xOrig, yOrig, m1, m2, m3, m4, m5, m6;
 			gVals >> xOrig >> yOrig >> currentGradientAngle >> currentGradientLength >> m1 >> m2 >> m3 >> m4 >> m5 >> m6;
@@ -2504,7 +2501,7 @@ void AIPlug::processData(const QString& data)
 			ScTextStream gVals(&Cdata, QIODevice::ReadOnly);
 			gVals >> textFont >> textSize;
 			textFont.remove(0, 2);
-			QString family = textFont;
+			QString family(textFont);
 			QString ret;
 			family.replace( QRegExp( "'" ) , QChar( ' ' ) );
 			textFont = m_Doc->itemToolPrefs().textFont;
