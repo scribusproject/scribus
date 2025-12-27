@@ -41,7 +41,7 @@ public:
 	\retval EPSPlug plugin
 	*/
 	CdrPlug( ScribusDoc* doc, int flags );
-	~CdrPlug();
+	~CdrPlug() override;
 
 	/*!
 	\author Franz Schmid

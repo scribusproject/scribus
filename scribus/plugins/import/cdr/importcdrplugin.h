@@ -20,7 +20,8 @@ class PLUGIN_API ImportCdrPlugin : public LoadSavePlugin
 	public:
 		// Standard plugin implementation
 		ImportCdrPlugin();
-		virtual ~ImportCdrPlugin();
+		~ImportCdrPlugin() override;
+
 		/*!
 		\author Franz Schmid
 		\date
@@ -44,11 +45,12 @@ class PLUGIN_API ImportCdrPlugin : public LoadSavePlugin
 		\param fileName input filename, or QString() to prompt.
 		\retval bool always true
 		 */
-	virtual bool importFile(QString fileName = QString(), int flags = lfUseCurrentPage|lfInteractive);
+		bool importFile(QString fileName = QString(), int flags = lfUseCurrentPage|lfInteractive);
 
 	private:
 		void registerFormats();
-		ScrAction* importAction;
+
+		ScrAction* importAction { nullptr };
 };
 
 extern "C" PLUGIN_API int importcdr_getPluginAPIVersion();

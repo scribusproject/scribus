@@ -4,10 +4,12 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include "commonstrings.h"
+#include <memory>
 
 #include "importcdr.h"
 #include "importcdrplugin.h"
+
+#include "commonstrings.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
@@ -29,7 +31,7 @@ int importcdr_getPluginAPIVersion()
 
 ScPlugin* importcdr_getPlugin()
 {
-	ImportCdrPlugin* plug = new ImportCdrPlugin();
+	auto* plug = new ImportCdrPlugin();
 	Q_CHECK_PTR(plug);
 	return plug;
 }
@@ -71,7 +73,7 @@ QString ImportCdrPlugin::fullTrName() const
 
 const ScActionPlugin::AboutData* ImportCdrPlugin::getAboutData() const
 {
-	AboutData* about = new AboutData;
+	auto* about = new AboutData;
 	about->authors = "Franz Schmid <franz@scribus.info>";
 	about->shortDescription = tr("Imports Corel Draw Files");
 	about->description = tr("Imports most Corel Draw files into the current document, converting their vector data into Scribus objects.");
@@ -118,24 +120,25 @@ bool ImportCdrPlugin::importFile(QString fileName, int flags)
 {
 	if (!checkFlags(flags))
 		return false;
+
 	if (fileName.isEmpty())
 	{
 		flags |= lfInteractive;
 		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("importcdr");
 		QString wdir = prefs->get("wdir", ".");
 		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), tr("All Supported Formats")+" (*.cdr *.CDR);;All Files (*)");
-		if (diaf.exec())
-		{
-			fileName = diaf.selectedFile();
-			prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
-		}
-		else
+		if (!diaf.exec())
 			return true;
+		fileName = diaf.selectedFile();
+		prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
 	}
+
 	m_Doc = ScCore->primaryMainWindow()->doc;
+
 	UndoTransaction activeTransaction;
 	bool emptyDoc = (m_Doc == nullptr);
 	bool hasCurrentPage = (m_Doc && m_Doc->currentPage());
+
 	TransactionSettings trSettings;
 	trSettings.targetName   = hasCurrentPage ? m_Doc->currentPage()->getUName() : "";
 	trSettings.targetPixmap = Um::IImageFrame;
@@ -146,7 +149,8 @@ bool ImportCdrPlugin::importFile(QString fileName, int flags)
 		UndoManager::instance()->setUndoEnabled(false);
 	if (UndoManager::undoEnabled())
 		activeTransaction = UndoManager::instance()->beginTransaction(trSettings);
-	CdrPlug *dia = new CdrPlug(m_Doc, flags);
+
+	auto dia = std::make_unique<CdrPlug>(m_Doc, flags);
 	Q_CHECK_PTR(dia);
 	if (!dia->importFile(fileName, trSettings, flags, !(flags & lfScripted)))
 	{
@@ -170,11 +174,12 @@ bool ImportCdrPlugin::importFile(QString fileName, int flags)
 			return false;
 		}
 	}
+
 	if (activeTransaction)
 		activeTransaction.commit();
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(true);
-	delete dia;
+
 	return true;
 }
 
@@ -184,10 +189,9 @@ QImage ImportCdrPlugin::readThumbnail(const QString& fileName)
 		return QImage();
 	UndoManager::instance()->setUndoEnabled(false);
 	m_Doc = nullptr;
-	CdrPlug *dia = new CdrPlug(m_Doc, lfCreateThumbnail);
+	auto dia = std::make_unique<CdrPlug>(m_Doc, lfCreateThumbnail);
 	Q_CHECK_PTR(dia);
 	QImage ret = dia->readThumbnail(fileName);
 	UndoManager::instance()->setUndoEnabled(true);
-	delete dia;
 	return ret;
 }
