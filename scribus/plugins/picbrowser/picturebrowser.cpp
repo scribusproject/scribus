@@ -1584,13 +1584,12 @@ void PictureBrowser::previewImageSelectionChanged(const QItemSelection& /*select
 {
 	const QItemSelectionModel *selectionModel = imageViewArea->SelectionModel();
 	QModelIndexList selection = selectionModel->selectedIndexes();
-	int tmpIndex;
 
 	selectedIndexes.clear();
 
-	for (int i = 0; i < selection.size(); ++i)
+	for (const QModelIndex& selectionIndex : selection)
 	{
-		tmpIndex = selection.at(i).row();
+		int tmpIndex = selectionIndex.row();
 
 		//take filtered images into account
 		for (int j = 0; (j <= tmpIndex) && (j < pImages->previewImagesList.size()); ++j)
