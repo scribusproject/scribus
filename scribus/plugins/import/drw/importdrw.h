@@ -47,7 +47,7 @@ public:
 	\retval EPSPlug plugin
 	*/
 	DrwPlug( ScribusDoc* doc, int flags );
-	~DrwPlug();
+	~DrwPlug() override;
 
 	/*!
 	\author Franz Schmid
@@ -67,16 +67,16 @@ private:
 	void decodeCmdData(QDataStream &ts, uint dataLen, quint8 cmd);
 	void decodeCmd(quint8 cmd, int pos);
 	void decodeSymbol(QDataStream &ds, bool last = false);
-	void handleLineStyle(PageItem* currentItem, quint8 flags, const QString& lineColor);
-	void handleGradient(PageItem* currentItem, quint8 patternIndex, const QString& fillColor, const QString& backColor, QRectF bBox);
+	void handleLineStyle(PageItem* currentItem, quint8 flags, const QString& lineColor) const;
+	void handleGradient(PageItem* currentItem, quint8 patternIndex, const QString& fillColor, const QString& backColor, const QRectF& bBox);
 	void handlePreviewBitmap(QDataStream &ds);
-	QString handleColor(ScColor &color, const QString& proposedName);
+	QString handleColor(const ScColor &color, const QString& proposedName);
 	void getCommonData(QDataStream &ds);
 	QString getColor(QDataStream &ds);
 	void finishItem(PageItem* ite, bool scale = true);
-	double getValue(QDataStream &ds);
-	double getRawValue(QDataStream &ds);
-	QPointF getCoordinate(QDataStream &ds);
+	double getValue(QDataStream &ds) const;
+	double getRawValue(QDataStream &ds) const;
+	QPointF getCoordinate(QDataStream &ds) const;
 	
 	QList<PageItem*> Elements;
 	struct DRWGroup
@@ -120,79 +120,80 @@ private:
 	QStack<DRWObjectList> listStack;
 	struct DRWGradient
 	{
-		int type;
-		double xOffset;
-		double yOffset;
-		double angle;
+		int type { 0 };
+		double xOffset { 0.0 };
+		double yOffset { 0.0 };
+		double angle { 0.0 };
 	};
 	QMap<int, DRWGradient> gradientMap;
 	QMap<int, QByteArray> patternDataMap;
 	QMap<QString, QString> patternMap;
-	double baseX, baseY;
-	double docWidth;
-	double docHeight;
+	double baseX { 0.0 };
+	double baseY { 0.0 };
+	double docWidth { 0.0 };
+	double docHeight { 0.0 };
 	QStringList importedColors;
 	QStringList importedPatterns;
 	QString lineColor;
 	QString fillColor;
 	QString backColor;
-	double lineWidth;
-	int createObjCode;
-	int nrOfPoints;
-	PageItem *currentItem;
-	quint8 flags;
-	quint8 patternIndex;
+	double lineWidth { 0.0 };
+	int createObjCode { 0 };
+	int nrOfPoints { 0 };
+	PageItem *currentItem { nullptr };
+	quint8 flags { 0 };
+	quint8 patternIndex { 0 };
 	QRectF bBox;
 
 	QImage tmpImage;
 	QImage tmpImage2;
-	quint16 bitsPerPixel;
-	quint16 bytesScanline;
-	quint16 planes;
-	quint16 imageHeight;
-	quint16 imageWidth;
-	quint16 scanLinesRead;
-	quint8 rTrans;
-	quint8 gTrans;
-	quint8 bTrans;
-	bool imageValid;
+	quint16 bitsPerPixel { 8 };
+	quint16 bytesScanline { 0 };
+	quint16 planes { 0 };
+	quint16 imageHeight { 0 };
+	quint16 imageWidth { 0 };
+	quint16 scanLinesRead { 0 };
+	quint8 rTrans { 0 };
+	quint8 gTrans { 0 };
+	quint8 bTrans { 0 };
+	bool imageValid { false };
 
-	quint8 fontID;
-	quint8 fontStyle;
-	quint16 nrOfChars;
-	quint16 fontSize;
-	quint16 fontWidth;
-	quint16 nrOfParagraphs;
-	quint16 paragraphCounter;
+	quint8 fontID { 0 };
+	quint8 fontStyle { 0 };
+	quint16 nrOfChars { 0 };
+	quint16 fontSize { 10 };
+	quint16 fontWidth { 0 };
+	quint16 nrOfParagraphs { 0 };
+	quint16 paragraphCounter { 0 };
 	QString fontName;
 	QString fontColor;
 	struct DRWParagraph
 	{
-		quint8 paragraphAlignment;
-		quint16 paragraphLen;
+		quint8 paragraphAlignment { 0 };
+		quint16 paragraphLen { 0 };
 	};
 	QList<DRWParagraph> paragraphList;
 	QMap<quint8, QString> fontMap;
 
-	int symbolCount;
-	int recordCount;
+	int symbolCount { 0 };
+	int recordCount { 0 };
 
 	FPointArray Coords;
 	QByteArray cmdData;
-	double scaleFactor;
-	double scaleX;
-	double scaleY;
-	double rotationAngle;
+	double scaleFactor { 1.0 };
+	double scaleX { 1.0 };
+	double scaleY { 1.0 };
+	double rotationAngle { 0 };
 	QPointF posPivot;
-	bool interactive;
-	MultiProgressDialog * progressDialog;
-	bool cancel;
-	ScribusDoc* m_Doc;
-	Selection* tmpSel;
-	int importerFlags;
+	bool interactive { false };
+	MultiProgressDialog* progressDialog { nullptr };
+	bool cancel { false };
+	ScribusDoc* m_Doc { nullptr };
+	Selection* tmpSel { nullptr };
+	int importerFlags { 0 };
 	QString baseFile;
 	QImage thumbnailImage;
-	bool thumbRead;
+	bool thumbRead { false };
 
 public slots:
 	void cancelRequested() { cancel = true; }
