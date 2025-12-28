@@ -10,10 +10,12 @@ for which a new license (GPL+exception) is in place.
 	copyright            : (C) 2014 by Franz Schmid
 	email                : Franz.Schmid@altmuehlnet.de
  ***************************************************************************/
-#include "commonstrings.h"
+#include <memory>
 
 #include "importodg.h"
 #include "importodgplugin.h"
+
+#include "commonstrings.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
@@ -33,7 +35,7 @@ int importodg_getPluginAPIVersion()
 
 ScPlugin* importodg_getPlugin()
 {
-	ImportOdgPlugin* plug = new ImportOdgPlugin();
+	auto* plug = new ImportOdgPlugin();
 	Q_CHECK_PTR(plug);
 	return plug;
 }
@@ -75,10 +77,9 @@ QString ImportOdgPlugin::fullTrName() const
 	return QObject::tr("Open Document Importer");
 }
 
-
 const ScActionPlugin::AboutData* ImportOdgPlugin::getAboutData() const
 {
-	AboutData* about = new AboutData;
+	auto* about = new AboutData;
 	about->authors = "Franz Schmid <franz@scribus.info>";
 	about->shortDescription = tr("Imports ODF Drawing Files");
 	about->description = tr("Imports most ODF Drawing files into the current document, converting their vector data into Scribus objects.");
@@ -144,18 +145,18 @@ bool ImportOdgPlugin::importFile(QString fileName, int flags)
 		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("importodg");
 		QString wdir = prefs->get("wdir", ".");
 		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), tr("All Supported Formats")+" (*.odg *.ODG *.fodg *.FODG *.odp *.ODP *.fodp *.FODP);;All Files (*)");
-		if (diaf.exec())
-		{
-			fileName = diaf.selectedFile();
-			prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
-		}
-		else
+		if (!diaf.exec())
 			return true;
+		fileName = diaf.selectedFile();
+		prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
 	}
+
 	m_Doc = ScCore->primaryMainWindow()->doc;
+
 	UndoTransaction activeTransaction;
 	bool emptyDoc = (m_Doc == nullptr);
 	bool hasCurrentPage = (m_Doc && m_Doc->currentPage());
+
 	TransactionSettings trSettings;
 	trSettings.targetName   = hasCurrentPage ? m_Doc->currentPage()->getUName() : "";
 	trSettings.targetPixmap = Um::IImageFrame;
@@ -166,14 +167,16 @@ bool ImportOdgPlugin::importFile(QString fileName, int flags)
 		UndoManager::instance()->setUndoEnabled(false);
 	if (UndoManager::undoEnabled())
 		activeTransaction = UndoManager::instance()->beginTransaction(trSettings);
-	OdgPlug *dia = new OdgPlug(m_Doc, flags);
+
+	auto dia = std::make_shared<OdgPlug>(m_Doc, flags);
 	Q_CHECK_PTR(dia);
 	bool ret = dia->importFile(fileName, trSettings, flags, !(flags & lfScripted));
+
 	if (activeTransaction)
 		activeTransaction.commit();
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(true);
-	delete dia;
+
 	return ret;
 }
 
@@ -183,10 +186,9 @@ QImage ImportOdgPlugin::readThumbnail(const QString& fileName)
 		return QImage();
 	UndoManager::instance()->setUndoEnabled(false);
 	m_Doc = nullptr;
-	OdgPlug *dia = new OdgPlug(m_Doc, lfCreateThumbnail);
+	auto dia = std::make_shared<OdgPlug>(m_Doc, lfCreateThumbnail);
 	Q_CHECK_PTR(dia);
 	QImage ret = dia->readThumbnail(fileName);
 	UndoManager::instance()->setUndoEnabled(true);
-	delete dia;
 	return ret;
 }
