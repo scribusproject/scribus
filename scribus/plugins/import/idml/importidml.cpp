@@ -190,12 +190,14 @@ QImage IdmlPlug::readThumbnail(const QString& fName)
 			m_Doc->setLoading(false);
 			m_Doc->m_Selection->delaySignalsOff();
 			delete m_Doc;
+			m_Doc = nullptr;
 			return tmpImage;
 		}
 		QDir::setCurrent(CurDirP);
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
 		delete m_Doc;
+		m_Doc = nullptr;
 	}
 	return tmp;
 }
@@ -270,7 +272,10 @@ bool IdmlPlug::readColors(const QString& fileName, ColorList & colors)
 		colors = m_Doc->PageColors;
 		success = true;
 	}
+
 	delete m_Doc;
+	m_Doc = nullptr;
+
 	return success;
 }
 
@@ -321,7 +326,7 @@ bool IdmlPlug::importFile(const QString& fNameIn, const TransactionSettings& trS
 	docHeight = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
 	baseX = 0;
 	baseY = 0;
-	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
+	if (m_Doc && (!interactive || (flags & LoadSavePlugin::lfInsertPage)))
 	{
 		m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
 		m_Doc->addPage(0);
@@ -329,18 +334,15 @@ bool IdmlPlug::importFile(const QString& fNameIn, const TransactionSettings& trS
 		baseX = 0;
 		baseY = 0;
 	}
-	else
+	else if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
 	{
-		if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
-		{
-			m_Doc = ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
-			ScCore->primaryMainWindow()->HaveNewDoc();
-			ret = true;
-			baseX = 0;
-			baseY = 0;
-			baseX = m_Doc->currentPage()->xOffset();
-			baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
-		}
+		m_Doc = ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
+		ScCore->primaryMainWindow()->HaveNewDoc();
+		ret = true;
+		baseX = 0;
+		baseY = 0;
+		baseX = m_Doc->currentPage()->xOffset();
+		baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
 	}
 	if (!ret && interactive)
 	{
@@ -1986,7 +1988,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 							if (pointList.count() > 1)
 							{
 								GCoords.svgMoveTo(pointList[0].x(), pointList[0].y());
-								for (int a = 1; a < pointList.count(); a += 3)
+								for (qsizetype a = 1; a < pointList.count(); a += 3)
 								{
 									QPointF p1 = pointList[a];
 									QPointF p2 = pointList[a + 1];
