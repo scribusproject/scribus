@@ -27,8 +27,8 @@ DocumentLogViewer::DocumentLogViewer(QWidget* parent, bool modal)
 	languageChange();
 	clearPushButton->setDisabled(true);
 	//Hide temporary sample log file generation button
-	// samplePushButton->hide();
-	// samplePushButton->setDisabled(true);
+	samplePushButton->hide();
+	samplePushButton->setDisabled(true);
 }
 
 void DocumentLogViewer::setManagerConnections()

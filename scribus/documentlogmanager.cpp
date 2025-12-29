@@ -48,15 +48,17 @@ void DocumentLogManager::addLog(const QString& docID, DocumentLogLevel level, co
 	if (!m_LogEntries.contains(docID))
 		m_LogEntries.insert(docID, QVector<DocumentLogEntry>());
 
+	if (m_LogEntries.contains(docID))
+		m_LogEntries[docID].append(entry);
+
 	QVector<DocumentLogEntry>& entries = m_LogEntries[docID];
 
-	if (m_LogEntries.contains(docID))
-		entries.append(entry);
+	if (entries.isEmpty())
+		entries.reserve(m_maxEntries > 0 ? m_maxEntries : 100);
 
 	// Trim old entries if we exceed max, Remove oldest entries (FIFO)
 	if (m_maxEntries > 0 && entries.size() > m_maxEntries)
 		entries.remove(0, entries.size() - m_maxEntries);
-
 	emit logAdded(entry);
 }
 

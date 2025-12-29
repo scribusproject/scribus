@@ -276,8 +276,8 @@ bool printDinUse;
 extern bool emergencyActivated;
 
 ScribusMainWindow::ScribusMainWindow() :
-	m_prefsManager(PrefsManager::instance()),
 	m_documentLogManager(DocumentLogManager::instance()),
+	m_prefsManager(PrefsManager::instance()),
 	m_widgetManager(WidgetManager::instance())
 {
 
