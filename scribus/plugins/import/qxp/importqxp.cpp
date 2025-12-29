@@ -22,17 +22,14 @@ for which a new license (GPL+exception) is in place.
 #include <libqxp/libqxp.h>
 
 #include "commonstrings.h"
-#include "ui/customfdialog.h"
+#include "documentlogmanager.h"
 #include "fileloader.h"
 #include "loadsaveplugin.h"
-#include "ui/missing.h"
-#include "ui/multiprogressdialog.h"
 #include "pagesize.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "prefstable.h"
-#include "ui/propertiespalette.h"
 #include "rawimage.h"
 #include "sccolorengine.h"
 #include "scconfig.h"
@@ -45,6 +42,10 @@ for which a new license (GPL+exception) is in place.
 #include "scribusview.h"
 #include "sctextstream.h"
 #include "selection.h"
+#include "ui/customfdialog.h"
+#include "ui/missing.h"
+#include "ui/multiprogressdialog.h"
+#include "ui/propertiespalette.h"
 #include "undomanager.h"
 #include "util.h"
 #include "util_formats.h"
@@ -338,17 +339,21 @@ bool QxpPlug::convert(const QString& fn)
 	if (!libqxp::QXPDocument::isSupported(&input, &type))
 	{
 		qDebug() << "ERROR: Unsupported file format!";
+		DocumentLogManager::instance()->addLog(m_Doc->uuidString(), DocumentLogLevel::Error, "QuarkXpress Importer", "Unsupported file format for " + fn);
 		return false;
 	}
 	if (!(type == libqxp::QXPDocument::TYPE_DOCUMENT || type == libqxp::QXPDocument::TYPE_TEMPLATE))
 	{
 		qDebug() << "ERROR: Unsupported file format!";
+		DocumentLogManager::instance()->addLog(m_Doc->uuidString(), DocumentLogLevel::Error, "QuarkXpress Importer", "Unsupported file format for " + fn);
 		return false;
 	}
 	RawPainter painter(m_Doc, baseX, baseY, docWidth, docHeight, importerFlags, &Elements, &importedColors, &importedPatterns, tmpSel, "qxp");
 	if (libqxp::QXPDocument::parse(&input, &painter) != libqxp::QXPDocument::RESULT_OK)
 	{
 		qDebug() << "ERROR: Import failed!";
+		DocumentLogManager::instance()->addLog(m_Doc->uuidString(), DocumentLogLevel::Error, "QuarkXpress Importer", "File parsing failed for " + fn);
+
 		if (progressDialog)
 			progressDialog->close();
 		if (importerFlags & LoadSavePlugin::lfCreateDoc)
