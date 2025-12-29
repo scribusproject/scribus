@@ -339,20 +339,20 @@ bool QxpPlug::convert(const QString& fn)
 	if (!libqxp::QXPDocument::isSupported(&input, &type))
 	{
 		qDebug() << "ERROR: Unsupported file format!";
-		DocumentLogManager::instance()->addLog(m_Doc->uuidString(), DocumentLogLevel::Error, "QuarkXpress Importer", "Unsupported file format for " + fn);
+		DocumentLogManager::instance().addLog(m_Doc->uuidString(), DocumentLogLevel::Error, "QuarkXpress Importer", DocumentLogManager::msgUnsupportedFileFormat(fn));
 		return false;
 	}
 	if (!(type == libqxp::QXPDocument::TYPE_DOCUMENT || type == libqxp::QXPDocument::TYPE_TEMPLATE))
 	{
 		qDebug() << "ERROR: Unsupported file format!";
-		DocumentLogManager::instance()->addLog(m_Doc->uuidString(), DocumentLogLevel::Error, "QuarkXpress Importer", "Unsupported file format for " + fn);
+		DocumentLogManager::instance().addLog(m_Doc->uuidString(), DocumentLogLevel::Error, "QuarkXpress Importer", DocumentLogManager::msgUnsupportedFileFormat(fn));
 		return false;
 	}
 	RawPainter painter(m_Doc, baseX, baseY, docWidth, docHeight, importerFlags, &Elements, &importedColors, &importedPatterns, tmpSel, "qxp");
 	if (libqxp::QXPDocument::parse(&input, &painter) != libqxp::QXPDocument::RESULT_OK)
 	{
 		qDebug() << "ERROR: Import failed!";
-		DocumentLogManager::instance()->addLog(m_Doc->uuidString(), DocumentLogLevel::Error, "QuarkXpress Importer", "File parsing failed for " + fn);
+		DocumentLogManager::instance().addLog(m_Doc->uuidString(), DocumentLogLevel::Error, "QuarkXpress Importer", DocumentLogManager::msgFileParsingFailed(fn));
 
 		if (progressDialog)
 			progressDialog->close();

@@ -321,14 +321,14 @@ bool PubPlug::convert(const QString& fn)
 	if (!libmspub::MSPUBDocument::isSupported(&input))
 	{
 		qDebug() << "ERROR: Unsupported file format!";
-		DocumentLogManager::instance()->addLog(m_Doc->uuidString(), DocumentLogLevel::Error, "MS Publisher Importer", "Unsupported file format for " + fn);
+		DocumentLogManager::instance().addLog(m_Doc->uuidString(), DocumentLogLevel::Error, "MS Publisher Importer", DocumentLogManager::msgUnsupportedFileFormat(fn));
 		return false;
 	}
 	RawPainter painter(m_Doc, baseX, baseY, docWidth, docHeight, importerFlags, &Elements, &importedColors, &importedPatterns, tmpSel, "pub");
 	if (!libmspub::MSPUBDocument::parse(&input, &painter))
 	{
 		qDebug() << "ERROR: Parsing failed!";
-		DocumentLogManager::instance()->addLog(m_Doc->uuidString(), DocumentLogLevel::Error, "MS Publisher Importer", "File parsing failed for " + fn);
+		DocumentLogManager::instance().addLog(m_Doc->uuidString(), DocumentLogLevel::Error, "MS Publisher Importer", DocumentLogManager::msgFileParsingFailed(fn));
 		if (progressDialog)
 			progressDialog->close();
 		if (importerFlags & LoadSavePlugin::lfCreateDoc)

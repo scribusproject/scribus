@@ -27,13 +27,19 @@ class SCRIBUS_API DocumentLogManager : public QObject
 {
 	Q_OBJECT
 	public:
-		DocumentLogManager(QObject* parent = nullptr);
-
-		static DocumentLogManager* instance();
-		static void deleteInstance();
+		static DocumentLogManager& instance();
 
 		void addLog(const QString& docID, DocumentLogLevel level, const QString& source, const QString& message, const QString& details = QString());
 		QVector<DocumentLogEntry> entries(const QString& docID) const;
+
+		// Standard error messages
+		static QString msgUnsupportedFileFormat(const QString& filename);
+		static QString msgFileParsingFailed(const QString& filename);
+		static QString msgFileNotFound(const QString& filename);
+
+		// Max entries configuration
+		void setMaxEntries(int maxEntries);
+		int maxEntries() const;
 
 	signals:
 		void logAdded(const DocumentLogEntry&);
@@ -43,9 +49,11 @@ class SCRIBUS_API DocumentLogManager : public QObject
 		void clear(const QString& docID);
 
 	private:
-		static inline DocumentLogManager* m_instance { nullptr };
+		DocumentLogManager(QObject* parent = nullptr);
+		~DocumentLogManager() = default;
 		mutable QMutex m_mutex;
 		QMap<QString, QVector<DocumentLogEntry>> m_LogEntries;
+		int m_maxEntries { 1000 };
 };
 
 #endif // DOCUMENTLOGMANAGER_H

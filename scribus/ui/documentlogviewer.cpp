@@ -27,19 +27,15 @@ DocumentLogViewer::DocumentLogViewer(QWidget* parent, bool modal)
 	languageChange();
 	clearPushButton->setDisabled(true);
 	//Hide temporary sample log file generation button
-	samplePushButton->hide();
-	samplePushButton->setDisabled(true);
+	// samplePushButton->hide();
+	// samplePushButton->setDisabled(true);
 }
 
-void DocumentLogViewer::setManager(DocumentLogManager* manager)
+void DocumentLogViewer::setManagerConnections()
 {
-	m_manager = manager;
-	if (!m_manager)
-		return;
-
 	qRegisterMetaType<DocumentLogEntry>("DocumentLogEntry");
-	connect(m_manager, SIGNAL(logAdded(DocumentLogEntry)), this, SLOT(onLogAdded(DocumentLogEntry)), Qt::QueuedConnection);
-	connect(m_manager, SIGNAL(logCleared()), this, SLOT(onLogCleared()), Qt::QueuedConnection);
+	connect(&DocumentLogManager::instance(), SIGNAL(logAdded(DocumentLogEntry)), this, SLOT(onLogAdded(DocumentLogEntry)), Qt::QueuedConnection);
+	connect(&DocumentLogManager::instance(), SIGNAL(logCleared()), this, SLOT(onLogCleared()), Qt::QueuedConnection);
 	connect(sourceFilterComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(filterSet()));
 	connect(levelFilterComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(filterSet()));
 	connect(clearPushButton, SIGNAL(clicked()), this, SLOT(clearLog()));
@@ -57,7 +53,7 @@ void DocumentLogViewer::setDocument(const QString& docID)
 	sourceFilterComboBox->clear();
 	sourceFilterComboBox->addItems(m_sources);
 
-	for (const auto& entry : m_manager->entries(docID))
+	for (const auto& entry : DocumentLogManager::instance().entries(docID))
 		onLogAdded(entry);
 }
 
@@ -114,7 +110,7 @@ void DocumentLogViewer::onLogCleared()
 
 void DocumentLogViewer::clearLog()
 {
-	m_manager->clear(m_docID);
+	DocumentLogManager::instance().clear(m_docID);
 }
 
 void DocumentLogViewer::filterSet()
@@ -138,20 +134,20 @@ void DocumentLogViewer::filterSet()
 
 void DocumentLogViewer::addSampleData()
 {
-	DocumentLogManager::instance()->addLog(m_docID, DocumentLogLevel::Info, "System", "Application started");
-	DocumentLogManager::instance()->addLog(m_docID, DocumentLogLevel::Warning, "Network", "Connection slow");
-	DocumentLogManager::instance()->addLog(m_docID, DocumentLogLevel::Error, "Database", "Failed to open file");
-	DocumentLogManager::instance()->addLog(m_docID, DocumentLogLevel::Warning, "System", "Application started");
-	DocumentLogManager::instance()->addLog(m_docID, DocumentLogLevel::Error, "Network", "Connection slow");
-	DocumentLogManager::instance()->addLog(m_docID, DocumentLogLevel::Info, "Database", "Failed to open file");
-	DocumentLogManager::instance()->addLog(m_docID, DocumentLogLevel::Info, "Scripter", "Scripter could not find Tk/Tcl library");
+	DocumentLogManager::instance().addLog(m_docID, DocumentLogLevel::Info, "System", "Application started");
+	DocumentLogManager::instance().addLog(m_docID, DocumentLogLevel::Warning, "Network", "Connection slow");
+	DocumentLogManager::instance().addLog(m_docID, DocumentLogLevel::Error, "Database", "Failed to open file");
+	DocumentLogManager::instance().addLog(m_docID, DocumentLogLevel::Warning, "System", "Application started");
+	DocumentLogManager::instance().addLog(m_docID, DocumentLogLevel::Error, "Network", "Connection slow");
+	DocumentLogManager::instance().addLog(m_docID, DocumentLogLevel::Info, "Database", "Failed to open file");
+	DocumentLogManager::instance().addLog(m_docID, DocumentLogLevel::Info, "Scripter", "Scripter could not find Tk/Tcl library");
 }
 
 void DocumentLogViewer::filterLogView(const QString& sourceFilter, DocumentLogLevel levelFilter)
 {
 	onLogCleared();
 	int row = 0;
-	for (const auto& entry : m_manager->entries(m_docID))
+	for (const auto& entry : DocumentLogManager::instance().entries(m_docID))
 	{
 		if (sourceFilter != levelStrings.value("All") && sourceFilter != entry.source)
 			continue;

@@ -316,7 +316,7 @@ bool CdrPlug::convert(const QString& fn)
 		if (!libcdr::CDRDocument::isSupported(&input))
 		{
 			qDebug() << "ERROR: Unsupported file format!";
-			DocumentLogManager::instance()->addLog(m_Doc->uuidString(), DocumentLogLevel::Error, "CoralDraw Importer", "Unsupported file format for " + fn);
+			DocumentLogManager::instance().addLog(m_Doc->uuidString(), DocumentLogLevel::Error, "CoralDraw Importer", DocumentLogManager::msgUnsupportedFileFormat(fn));
 			fail = true;
 		}
 		if (!fail)
@@ -328,7 +328,7 @@ bool CdrPlug::convert(const QString& fn)
 		if (fail)
 		{
 			qDebug() << "ERROR: Parsing failed!";
-			DocumentLogManager::instance()->addLog(m_Doc->uuidString(), DocumentLogLevel::Error, "CoralDraw Importer", "File parsing failed for " + fn);
+			DocumentLogManager::instance().addLog(m_Doc->uuidString(), DocumentLogLevel::Error, "CoralDraw Importer", DocumentLogManager::msgFileParsingFailed(fn));
 			if (progressDialog)
 				progressDialog->close();
 		/*	if (importerFlags & LoadSavePlugin::lfCreateDoc)
@@ -346,13 +346,15 @@ bool CdrPlug::convert(const QString& fn)
 		if (!libcdr::CMXDocument::isSupported(&input))
 		{
 			qDebug() << "ERROR: Unsupported file format!";
+			DocumentLogManager::instance().addLog(m_Doc->uuidString(), DocumentLogLevel::Error, "CoralDraw Importer", DocumentLogManager::msgUnsupportedFileFormat(fn));
+
 			return false;
 		}
 		RawPainter painter(m_Doc, baseX, baseY, docWidth, docHeight, importerFlags, &Elements, &importedColors, &importedPatterns, tmpSel, "cmx");
 		if (!libcdr::CMXDocument::parse(&input, &painter))
 		{
 			qDebug() << "ERROR: Parsing failed!";
-			DocumentLogManager::instance()->addLog(m_Doc->uuidString(), DocumentLogLevel::Error, "CoralDraw Importer", "File parsing failed for " + fn);
+			DocumentLogManager::instance().addLog(m_Doc->uuidString(), DocumentLogLevel::Error, "CoralDraw Importer", DocumentLogManager::msgFileParsingFailed(fn));
 			if (progressDialog)
 				progressDialog->close();
 			if (importerFlags & LoadSavePlugin::lfCreateDoc)

@@ -26,7 +26,7 @@ class DocumentLogViewer : public ScrPaletteBase, public Ui::DocumentLogViewerBas
 	Q_OBJECT
 	public:
 		explicit DocumentLogViewer(QWidget* parent, bool modal);
-		void setManager(DocumentLogManager *manager);
+		void setManagerConnections();
 		void setDocument(const QString& docID);
 
 	public slots:
@@ -43,7 +43,6 @@ class DocumentLogViewer : public ScrPaletteBase, public Ui::DocumentLogViewerBas
 		void filterLogView(const QString& sourceFilter, DocumentLogLevel levelFilter);
 		QString textForLevel(DocumentLogLevel level);
 
-		DocumentLogManager* m_manager { nullptr };
 		QString m_docID;
 		QStringList m_sources;
 		QMap<QString, QString> levelStrings;

@@ -661,7 +661,7 @@ private:
 
 	StyleManager *m_styleManager {nullptr};
 	UndoManager *m_undoManager {nullptr};
-	DocumentLogManager *m_documentLogManager {nullptr};
+	DocumentLogManager& m_documentLogManager;
 	PrefsManager& m_prefsManager;
 	WidgetManager &m_widgetManager;
 	FormatsManager *m_formatsManager {nullptr};	
