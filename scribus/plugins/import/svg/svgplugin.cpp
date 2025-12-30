@@ -20,6 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include "svgplugin.h"
 
 #include "commonstrings.h"
+#include "documentlogmanager.h"
 #include "fonts/scfontmetrics.h"
 #include "fpointarray.h"
 #include "loadsaveplugin.h"
@@ -185,7 +186,11 @@ bool SVGImportPlugin::importFile(QString filename, int flags)
 	if (dia->importCanceled)
 	{
 		if (dia->importFailed)
+		{
 			ScMessageBox::warning(mw, CommonStrings::trWarning, tr("The file could not be imported"));
+			DocumentLogManager::instance().addLog(m_Doc->uuidString(), DocumentLogLevel::Error, "SVG Importer", DocumentLogManager::msgFileImportFailed(filename));
+
+		}
 	//	else if (dia->unsupported)
 	//		ScMessageBox::warning(mw, CommonStrings::trWarning, tr("SVG file contains some unsupported features"));
 	}

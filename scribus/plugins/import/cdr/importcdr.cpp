@@ -328,7 +328,7 @@ bool CdrPlug::convert(const QString& fn)
 		if (fail)
 		{
 			qDebug() << "ERROR: Parsing failed!";
-			DocumentLogManager::instance().addLog(m_Doc->uuidString(), DocumentLogLevel::Error, "CoralDraw Importer", DocumentLogManager::msgFileParsingFailed(fn));
+			DocumentLogManager::instance().addLog(m_Doc->uuidString(), DocumentLogLevel::Error, "CoralDraw Importer", DocumentLogManager::msgFileImportFailed(fn));
 			if (progressDialog)
 				progressDialog->close();
 		/*	if (importerFlags & LoadSavePlugin::lfCreateDoc)
@@ -354,7 +354,7 @@ bool CdrPlug::convert(const QString& fn)
 		if (!libcdr::CMXDocument::parse(&input, &painter))
 		{
 			qDebug() << "ERROR: Parsing failed!";
-			DocumentLogManager::instance().addLog(m_Doc->uuidString(), DocumentLogLevel::Error, "CoralDraw Importer", DocumentLogManager::msgFileParsingFailed(fn));
+			DocumentLogManager::instance().addLog(m_Doc->uuidString(), DocumentLogLevel::Error, "CoralDraw Importer", DocumentLogManager::msgFileImportFailed(fn));
 			if (progressDialog)
 				progressDialog->close();
 			if (importerFlags & LoadSavePlugin::lfCreateDoc)

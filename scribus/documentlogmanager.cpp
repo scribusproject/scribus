@@ -31,9 +31,9 @@ QString DocumentLogManager::msgUnsupportedFileFormat(const QString& filename)
 	return tr("Unsupported file format for %1").arg(filename);
 }
 
-QString DocumentLogManager::msgFileParsingFailed(const QString& filename)
+QString DocumentLogManager::msgFileImportFailed(const QString& filename)
 {
-	return tr("File parsing failed for %1").arg(filename);
+	return tr("File import failed for %1").arg(filename);
 }
 
 QString DocumentLogManager::msgFileNotFound(const QString& filename)

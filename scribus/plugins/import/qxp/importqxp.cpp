@@ -352,7 +352,7 @@ bool QxpPlug::convert(const QString& fn)
 	if (libqxp::QXPDocument::parse(&input, &painter) != libqxp::QXPDocument::RESULT_OK)
 	{
 		qDebug() << "ERROR: Import failed!";
-		DocumentLogManager::instance().addLog(m_Doc->uuidString(), DocumentLogLevel::Error, "QuarkXpress Importer", DocumentLogManager::msgFileParsingFailed(fn));
+		DocumentLogManager::instance().addLog(m_Doc->uuidString(), DocumentLogLevel::Error, "QuarkXpress Importer", DocumentLogManager::msgFileImportFailed(fn));
 
 		if (progressDialog)
 			progressDialog->close();

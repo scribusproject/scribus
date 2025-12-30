@@ -328,7 +328,7 @@ bool PubPlug::convert(const QString& fn)
 	if (!libmspub::MSPUBDocument::parse(&input, &painter))
 	{
 		qDebug() << "ERROR: Parsing failed!";
-		DocumentLogManager::instance().addLog(m_Doc->uuidString(), DocumentLogLevel::Error, "MS Publisher Importer", DocumentLogManager::msgFileParsingFailed(fn));
+		DocumentLogManager::instance().addLog(m_Doc->uuidString(), DocumentLogLevel::Error, "MS Publisher Importer", DocumentLogManager::msgFileImportFailed(fn));
 		if (progressDialog)
 			progressDialog->close();
 		if (importerFlags & LoadSavePlugin::lfCreateDoc)
