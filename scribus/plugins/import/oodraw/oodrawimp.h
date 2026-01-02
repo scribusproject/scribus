@@ -14,9 +14,14 @@ for which a new license (GPL+exception) is in place.
 #include "stylestack.h"
 #include "scribusstructs.h"
 
+class FPointArray;
 class PageItem;
+class QDomDocument;
+class QDomElement;
+class QWidget;
 class ScrAction;
 class ScribusDoc;
+class ScribusMainWindow;
 class Selection;
 class TransactionSettings;
 
@@ -27,7 +32,8 @@ class PLUGIN_API OODrawImportPlugin : public LoadSavePlugin
 	public:
 		// Standard plugin implementation
 		OODrawImportPlugin();
-		virtual ~OODrawImportPlugin();
+		~OODrawImportPlugin() override;
+
 		QString fullTrName() const override;
 		const AboutData* getAboutData() const override;
 		void deleteAboutData(const AboutData* about) const override;
@@ -39,7 +45,7 @@ class PLUGIN_API OODrawImportPlugin : public LoadSavePlugin
 
 		// Special features - File->Import slot
 	public slots:
-		virtual bool importFile(QString target = QString(), int flags = lfUseCurrentPage|lfInteractive);
+		bool importFile(QString target = QString(), int flags = lfUseCurrentPage|lfInteractive);
 
 	private:
 		void registerFormats();
@@ -49,13 +55,6 @@ class PLUGIN_API OODrawImportPlugin : public LoadSavePlugin
 extern "C" PLUGIN_API int oodrawimp_getPluginAPIVersion();
 extern "C" PLUGIN_API ScPlugin* oodrawimp_getPlugin();
 extern "C" PLUGIN_API void oodrawimp_freePlugin(ScPlugin* plugin);
-
-class QWidget;
-class ScribusMainWindow;
-class ScribusDoc;
-class FPointArray;
-class QDomDocument;
-class QDomElement;
 
 class OODrawStyle
 {
@@ -81,9 +80,8 @@ class OODPlug : public QObject
 	Q_OBJECT
 
 public:
-
-	OODPlug(ScribusDoc* doc);
-	~OODPlug();
+	explicit OODPlug(ScribusDoc* doc);
+	~OODPlug() override;
 
 	//! \brief Indicator if there is any unsupported feature in imported svg.
 	bool unsupported { false };
@@ -95,7 +93,6 @@ public:
 	static double parseUnit(const QString &unit);
 
 protected:
-
 	bool convert(const TransactionSettings& trSettings, int flags);
 	QList<PageItem*> parseGroup(const QDomElement &e);
 	QList<PageItem*> parseElement(const QDomElement &e);
@@ -113,7 +110,7 @@ protected:
 	void parseParagraphStyle(ParagraphStyle& style, const QDomElement &e) const;
 	PageItem* parseTextP(const QDomElement& e, PageItem* item);
 	PageItem* parseTextSpans(const QDomElement& elm, PageItem* item);
-	PageItem* finishNodeParsing(const QDomElement &elm, PageItem* item, OODrawStyle& oostyle);
+	PageItem* finishNodeParsing(const QDomElement &elm, PageItem* item, const OODrawStyle& oostyle);
 	void createStyleMap( QDomDocument &docstyles );
 	void insertDraws( const QDomElement& styles );
 	void insertStyles( const QDomElement& styles );
@@ -121,13 +118,13 @@ protected:
 	void addStyles( const QDomElement* style );
 	void storeObjectStyles( const QDomElement& object );
 	QString parseColor( const QString &s );
-	void parseTransform(FPointArray *composite, const QString &transform) const;
+	void parseTransform(FPointArray& composite, const QString &transform) const;
 	void parseViewBox(const QDomElement& object, double *x, double *y, double *w, double *h) const;
-	void appendPoints(FPointArray *composite, const QDomElement& object, bool closePath) const;
+	void appendPoints(FPointArray& composite, const QDomElement& object, bool closePath) const;
 	const char * getCoord(const char *ptr, double &number) const;
-	bool parseSVG(const QString &s, FPointArray * pts);
+	bool parseSVG(const QString &s, FPointArray *pts);
 	void calculateArc(FPointArray *pts, bool relative, double &curx, double &cury, double angle, double x, double y, double r1, double r2, bool largeArcFlag, bool sweepFlag);
-	void svgClosePath(FPointArray * pts) const;
+	void svgClosePath(FPointArray *pts) const;
 	void svgMoveTo(double x1, double y1);
 	void svgLineTo(FPointArray *pts, double x1, double y1);
 	void svgCurveToCubic(FPointArray *pts, double x1, double y1, double x2, double y2, double x3, double y3);

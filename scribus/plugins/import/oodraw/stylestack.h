@@ -59,7 +59,6 @@ class StyleStack
 {
 public:
     StyleStack();
-    virtual ~StyleStack();
 
 	enum Mode
 	{
@@ -70,7 +69,7 @@ public:
 	/**
      * Set attribute analysis mode.
      */
-	void setMode( const StyleStack::Mode mode );
+	void setMode(const StyleStack::Mode mode);
 
     /**
      * Clears the complete stack.
@@ -96,31 +95,31 @@ public:
     /**
      * Pushes the new style onto the stack.
      */
-    void push( const QDomElement& style );
+	void push(const QDomElement& style);
 
     /**
      * Check if any of the styles on the stack has an attribute called 'name'.
      */
-	bool hasAttribute( const QString& name ) const;
+	bool hasAttribute(const QString& name) const;
 
     /**
      * Search for the attribute called 'name', starting on top of the stack,
      * and return it.
      */
-    QString attribute( const QString& name ) const;
+	QString attribute(const QString& name) const;
 
     /**
      * Check if any of the styles on the stack has an attribute called 'name'-'detail'
      * where detail is e.g. left, right, top or bottom.
      * This allows to also find 'name' alone (e.g. padding implies padding-left, padding-right etc.)
      */
-    bool hasAttribute( const QString& name, const QString& detail ) const;
+	bool hasAttribute(const QString& name, const QString& detail) const;
 
     /**
      * Search for the attribute called 'name', starting on top of the stack,
      * and return it.
      */
-	QString attribute( const QString& name, const QString& detail ) const;
+	QString attribute(const QString& name, const QString& detail) const;
 
     /**
      * Check if any of the styles on the stack has a child node called 'name'.
@@ -157,13 +156,13 @@ private:
     QList<QDomElement> m_stack;
 
 	// Get node name to look for according to property type
-	void fillNodeNameList( QStringList& names, const StyleStack::Mode mode );
+	void fillNodeNameList(QStringList& names, const StyleStack::Mode mode) const;
 
 	// Search a specific attribute amongst childs of an element
-	QDomElement searchAttribute( const QDomElement& element, const QStringList& names,const QString& name ) const;
+	QDomElement searchAttribute(const QDomElement& element, const QStringList& names, const QString& name) const;
 
 	// Search a specific attribute amongst childs of an element
-	QDomElement searchAttribute( const QDomElement& element, const QStringList& names, const QString& name, const QString& fullName ) const;
+	QDomElement searchAttribute(const QDomElement& element, const QStringList& names, const QString& name, const QString& fullName) const;
 };
 
 
