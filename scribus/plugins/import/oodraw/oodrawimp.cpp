@@ -50,8 +50,6 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_math.h"
 
-
-
 using namespace std;
 
 int oodrawimp_getPluginAPIVersion()
@@ -91,12 +89,9 @@ OODrawImportPlugin::~OODrawImportPlugin()
 void OODrawImportPlugin::languageChange()
 {
 	importAction->setText( tr("Import &OpenOffice.org Draw..."));
-//	FileFormat* fmt = getFormatByExt("odg");
-//	fmt->trName = tr("OpenDocument 1.0 Draw", "Import/export format name");
-//	fmt->filter = tr("OpenDocument 1.0 Draw (*.odg *.ODG)");
-	FileFormat* fmt2 = getFormatByExt("sxd");
-	fmt2->trName = tr("OpenOffice.org 1.x Draw", "Import/export format name");
-	fmt2->filter = tr("OpenOffice.org 1.x Draw (*.sxd *.SXD)");
+	FileFormat* fmt = getFormatByExt("sxd");
+	fmt->trName = tr("OpenOffice.org 1.x Draw", "Import/export format name");
+	fmt->filter = tr("OpenOffice.org 1.x Draw (*.sxd *.SXD)");
 }
 
 QString OODrawImportPlugin::fullTrName() const
@@ -123,19 +118,6 @@ void OODrawImportPlugin::deleteAboutData(const AboutData* about) const
 
 void OODrawImportPlugin::registerFormats()
 {
-//	QString odtName = tr("OpenDocument 1.0 Draw", "Import/export format name");
-//	FileFormat odtformat(this);
-//	odtformat.trName = odtName; // Human readable name
-//	odtformat.formatId = 0;
-//	odtformat.filter = odtName + " (*.odg *.ODG)"; // QFileDialog filter
-//	odtformat.fileExtensions = QStringList() << "odg";
-//	odtformat.load = true;
-//	odtformat.save = false;
-//	odtformat.thumb = true;
-//	odtformat.mimeTypes = QStringList("application/vnd.oasis.opendocument.graphics"); // MIME types
-//	odtformat.priority = 64; // Priority
-//	registerFormat(odtformat);
-
 	QString sxdName = tr("OpenOffice.org 1.x Draw", "Import/export format name");
 	FileFormat sxdformat(this);
 	sxdformat.trName = sxdName; // Human readable name
@@ -172,34 +154,37 @@ bool OODrawImportPlugin::importFile(QString fileName, int flags)
 		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("OODrawImport");
 		QString wdir = prefs->get("wdir", ".");
 		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), QObject::tr("OpenOffice.org Draw (*.sxd *.SXD);;All Files (*)"));
-		if (diaf.exec())
-		{
-			fileName = diaf.selectedFile();
-			prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
-		}
-		else
+		if (!diaf.exec())
 			return true;
+		fileName = diaf.selectedFile();
+		prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
 	}
+
 	m_Doc = ScCore->primaryMainWindow()->doc;
+
 	UndoTransaction activeTransaction;
 	bool emptyDoc = (m_Doc == nullptr);
 	bool hasCurrentPage = (m_Doc && m_Doc->currentPage());
+
 	TransactionSettings trSettings;
 	trSettings.targetName   = hasCurrentPage ? m_Doc->currentPage()->getUName() : "";
 	trSettings.targetPixmap = Um::IImageFrame;
 	trSettings.actionName   = Um::ImportOOoDraw;
 	trSettings.description  = fileName;
 	trSettings.actionPixmap = Um::IImportOOoDraw;
-	OODPlug dia(m_Doc);
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(false);
 	if (UndoManager::undoEnabled())
 		activeTransaction = UndoManager::instance()->beginTransaction(trSettings);
+
+	OODPlug dia(m_Doc);
 	bool importDone = dia.importFile(fileName, trSettings, flags);
+
 	if (activeTransaction)
 		activeTransaction.commit();
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(true);
+
 	if (dia.importCanceled)
 	{
 		if ((!importDone) || (dia.importFailed))
@@ -216,11 +201,10 @@ QImage OODrawImportPlugin::readThumbnail(const QString& fileName)
 		return QImage();
 	UndoManager::instance()->setUndoEnabled(false);
 	m_Doc = nullptr;
-	auto *dia = new OODPlug(m_Doc);
+	auto dia = std::make_shared<OODPlug>(m_Doc);
 	Q_CHECK_PTR(dia);
 	QImage ret = dia->readThumbnail(fileName);
 	UndoManager::instance()->setUndoEnabled(true);
-	delete dia;
 	return ret;
 }
 
@@ -329,7 +313,7 @@ QImage OODPlug::readThumbnail(const QString& fileName)
 		Elements.append(el.at(ec));
 	tmpSel->clear();
 	QImage tmpImage;
-	if (Elements.count() > 0)
+	if (!Elements.isEmpty())
 	{
 		if (Elements.count() > 1)
 			m_Doc->groupObjectsList(Elements);
@@ -350,6 +334,7 @@ QImage OODPlug::readThumbnail(const QString& fileName)
 	}
 	m_Doc->scMW()->setScriptRunning(false);
 	delete m_Doc;
+	m_Doc = nullptr;
 	QDir::setCurrent(oldCurrentPath);
 	return tmpImage;
 }
@@ -528,16 +513,12 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 			break;
 	}
 	tmpSel->clear();
-//	if ((Elements.count() > 1) && (interactive))
-	if (Elements.count() == 0)
+	if (Elements.isEmpty())
 	{
 		importFailed = true;
-		if (importedColors.count() != 0)
+		for (int cd = 0; cd < importedColors.count(); cd++)
 		{
-			for (int cd = 0; cd < importedColors.count(); cd++)
-			{
-				m_Doc->PageColors.remove(importedColors[cd]);
-			}
+			m_Doc->PageColors.remove(importedColors[cd]);
 		}
 	}
 	if (Elements.count() > 1)
@@ -547,7 +528,7 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 	if (interactive)
 		m_Doc->setLoading(false);
 	QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
-	if ((Elements.count() > 0) && !ret && interactive)
+	if (!Elements.isEmpty() && !ret && interactive)
 	{
 		if (flags & LoadSavePlugin::lfScripted)
 		{
@@ -558,7 +539,7 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 			if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 			{
 				m_Doc->m_Selection->delaySignalsOn();
-				for (int dre=0; dre<Elements.count(); ++dre)
+				for (int dre = 0; dre < Elements.count(); ++dre)
 				{
 					m_Doc->m_Selection->addItem(Elements.at(dre), true);
 				}
@@ -609,8 +590,9 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 QList<PageItem*> OODPlug::parseGroup(const QDomElement &e)
 {
 	OODrawStyle oostyle;
-	FPointArray ImgClip;
-	QList<PageItem*> elements, cElements;
+	QList<PageItem*> elements;
+	QList<PageItem*> cElements;
+
 	storeObjectStyles(e);
 	parseStyle(oostyle, e);
 	for (QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
@@ -766,7 +748,7 @@ QList<PageItem*> OODPlug::parsePolygon(const QDomElement &e)
 	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, style.strokeWidth, style.fillColor, style.strokeColor);
 	PageItem* ite = m_Doc->Items->at(z);
 	ite->PoLine.resize(0);
-	appendPoints(&ite->PoLine, e, true);
+	appendPoints(ite->PoLine, e, true);
 	FPoint wh = getMaxClipF(&ite->PoLine);
 	ite->setWidthHeight(wh.x(), wh.y());
 	ite->ClipEdited = true;
@@ -792,7 +774,7 @@ QList<PageItem*> OODPlug::parsePolyline(const QDomElement &e)
 	int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, style.strokeWidth, CommonStrings::None, style.strokeColor);
 	PageItem* ite = m_Doc->Items->at(z);
 	ite->PoLine.resize(0);
-	appendPoints(&ite->PoLine, e, false);
+	appendPoints(ite->PoLine, e, false);
 	FPoint wh = getMaxClipF(&ite->PoLine);
 	ite->setWidthHeight(wh.x(), wh.y());
 	ite->ClipEdited = true;
@@ -823,9 +805,7 @@ QList<PageItem*> OODPlug::parsePath(const QDomElement &e)
 	ite->PoLine = pArray;
 	if (ite->PoLine.size() < 4)
 	{
-// 		m_Doc->m_Selection->addItem(ite);
 		tmpSel->addItem(ite);
-// 		m_Doc->itemSelection_DeleteItem();
 		m_Doc->itemSelection_DeleteItem(tmpSel);
 	}
 	else
@@ -1045,8 +1025,8 @@ void OODPlug::parseCharStyle(CharStyle& style, const QDomElement &e) const
 	if (m_styleStack.hasAttribute("fo:font-size"))
 	{
 		QString fs = m_styleStack.attribute("fo:font-size").remove( "pt" );
-		int FontSize = (int) (ScCLocale::toFloatC(fs) * 10.0);
-		style.setFontSize(FontSize);
+		auto fontSize = (int) (ScCLocale::toFloatC(fs) * 10.0);
+		style.setFontSize(fontSize);
 	}
 }
 
@@ -1065,9 +1045,9 @@ void OODPlug::parseParagraphStyle(ParagraphStyle& style, const QDomElement &e) c
 	if (m_styleStack.hasAttribute("fo:font-size"))
 	{
 		QString fs = m_styleStack.attribute("fo:font-size").remove( "pt" );
-		int FontSize = (int) (ScCLocale::toFloatC(fs) * 10.0);
-		style.charStyle().setFontSize(FontSize);
-		style.setLineSpacing((FontSize + FontSize * 0.2) / 10.0);
+		auto fontSize = (int) (ScCLocale::toFloatC(fs) * 10.0);
+		style.charStyle().setFontSize(fontSize);
+		style.setLineSpacing((fontSize + fontSize * 0.2) / 10.0);
 	}
 }
 
@@ -1127,22 +1107,21 @@ PageItem* OODPlug::parseTextSpans(const QDomElement& elm, PageItem* item)
 	return item;
 }
 
-PageItem* OODPlug::finishNodeParsing(const QDomElement &elm, PageItem* item, OODrawStyle& oostyle)
+PageItem* OODPlug::finishNodeParsing(const QDomElement &elm, PageItem* item, const OODrawStyle& oostyle)
 {
 	item->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
 	item->itemText.trim();
-//	bool firstPa = false;
 	QString drawID = elm.attribute("draw:name");
 	item = parseTextP(elm, item);
 	item->setFillTransparency(oostyle.fillTrans);
 	item->setLineTransparency(oostyle.strokeTrans);
-	if (oostyle.dashes.count() != 0)
+	if (!oostyle.dashes.isEmpty())
 		item->DashValues = oostyle.dashes;
 	if (!drawID.isEmpty())
 		item->setItemName(drawID);
 	if (elm.hasAttribute("draw:transform"))
 	{
-		parseTransform(&item->PoLine, elm.attribute("draw:transform"));
+		parseTransform(item->PoLine, elm.attribute("draw:transform"));
 		item->ClipEdited = true;
 		item->FrameType = 3;
 		FPoint wh = getMaxClipF(&item->PoLine);
@@ -1151,7 +1130,6 @@ PageItem* OODPlug::finishNodeParsing(const QDomElement &elm, PageItem* item, OOD
 		m_Doc->adjustItemSize(item);
 	}
 	item->OwnPage = m_Doc->OnPage(item);
-	//ite->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
 	item->setTextFlowMode(PageItem::TextFlowDisabled);
 	if (oostyle.haveGradient)
 	{
@@ -1399,7 +1377,7 @@ QString OODPlug::parseColor( const QString &s )
 	return ret;
 }
 
-void OODPlug::parseTransform(FPointArray *composite, const QString &transform) const
+void OODPlug::parseTransform(FPointArray& composite, const QString &transform) const
 {
 	double dx, dy;
 	QTransform result;
@@ -1419,7 +1397,7 @@ void OODPlug::parseTransform(FPointArray *composite, const QString &transform) c
 		{
 			result = QTransform();
 			result.rotate(-parseUnit(params[0]) * 180 / M_PI);
-			composite->map(result);
+			composite.map(result);
 		}
 		else if (subtransform[0] == "translate")
 		{
@@ -1435,19 +1413,19 @@ void OODPlug::parseTransform(FPointArray *composite, const QString &transform) c
 			}
 			result = QTransform();
 			result.translate(dx, dy);
-			composite->map(result);
+			composite.map(result);
 		}
 		else if (subtransform[0] == "skewx")
 		{
 			result = QTransform();
 			result.shear(-tan(ScCLocale::toDoubleC(params[0])), 0.0);
-			composite->map(result);
+			composite.map(result);
 		}
 		else if (subtransform[0] == "skewy")
 		{
 			result = QTransform();
 			result.shear(0.0, -tan(ScCLocale::toDoubleC(params[0])));
-			composite->map(result);
+			composite.map(result);
 		}
 	}
 }
@@ -1465,7 +1443,7 @@ void OODPlug::parseViewBox(const QDomElement& object, double *x, double *y, doub
 	}
 }
 
-void OODPlug::appendPoints(FPointArray *composite, const QDomElement& object, bool closePath) const
+void OODPlug::appendPoints(FPointArray& composite, const QDomElement& object, bool closePath) const
 {
 	double x = parseUnit(object.attribute("svg:x"));
 	double y = parseUnit(object.attribute("svg:y")) ;
@@ -1479,35 +1457,35 @@ void OODPlug::appendPoints(FPointArray *composite, const QDomElement& object, bo
 	double sx = (vw != 0.0) ? (w / vw) : w;
 	double sy = (vh != 0.0) ? (h / vh) : h;
 	QStringList ptList = object.attribute( "draw:points" ).split( ' ', Qt::SkipEmptyParts );
-	FPoint point, firstP;
+	FPoint firstP;
 	bool bFirst = true;
-	for (auto it = ptList.begin(); it != ptList.end(); ++it)
+	for (const auto& str : ptList)
 	{
-		point = FPoint(ScCLocale::toDoubleC((*it).section( ',', 0, 0 )), ScCLocale::toDoubleC((*it).section( ',', 1, 1 )));
+		FPoint point(ScCLocale::toDoubleC(str.section( ',', 0, 0 )), ScCLocale::toDoubleC(str.section( ',', 1, 1 )));
 		if (bFirst)
 		{
-			composite->addPoint(point);
-			composite->addPoint(point);
+			composite.addPoint(point);
+			composite.addPoint(point);
 			firstP = point;
 			bFirst = false;
 		}
 		else
 		{
-			composite->addPoint(point);
-			composite->addPoint(point);
-			composite->addPoint(point);
-			composite->addPoint(point);
+			composite.addPoint(point);
+			composite.addPoint(point);
+			composite.addPoint(point);
+			composite.addPoint(point);
 		}
 	}
 	if (closePath)
 	{
-		composite->addPoint(firstP);
-		composite->addPoint(firstP);
+		composite.addPoint(firstP);
+		composite.addPoint(firstP);
 	}
 	QTransform mat;
 	mat.translate(x, y);
 	mat.scale(sx, sy);
-	composite->map(mat);
+	composite.map(mat);
 }
 
 const char * OODPlug::getCoord(const char *ptr, double &number) const
@@ -1853,30 +1831,25 @@ void OODPlug::calculateArc(FPointArray *pts, bool relative, double &curx, double
 	else if (th_arc > 0 && !sweepFlag)
 		th_arc -= 2 * M_PI;
 
-	int n_segs = static_cast<int>(ceil(fabs(th_arc / (M_PI * 0.5 + 0.001))));
+	auto n_segs = static_cast<int>(ceil(fabs(th_arc / (M_PI * 0.5 + 0.001))));
 	for (int i = 0; i < n_segs; i++)
 	{
-		double sin_th, cos_th;
-		double a00, a01, a10, a11;
-		double x1, y1, x2, y2, x3, y3;
-		double t;
-		double th_half;
 		double _th0 = th0 + i * th_arc / n_segs;
 		double _th1 = th0 + (i + 1) * th_arc / n_segs;
-		sin_th = sin(angle * (M_PI / 180.0));
-		cos_th = cos(angle * (M_PI / 180.0));
-		a00 = cos_th * r1;
-		a01 = -sin_th * r2;
-		a10 = sin_th * r1;
-		a11 = cos_th * r2;
-		th_half = 0.5 * (_th1 - _th0);
-		t = (8.0 / 3.0) * sin(th_half * 0.5) * sin(th_half * 0.5) / sin(th_half);
-		x1 = xc + cos(_th0) - t * sin(_th0);
-		y1 = yc + sin(_th0) + t * cos(_th0);
-		x3 = xc + cos(_th1);
-		y3 = yc + sin(_th1);
-		x2 = x3 + t * sin(_th1);
-		y2 = y3 - t * cos(_th1);
+		double sin_th = sin(angle * (M_PI / 180.0));
+		double cos_th = cos(angle * (M_PI / 180.0));
+		double a00 = cos_th * r1;
+		double a01 = -sin_th * r2;
+		double a10 = sin_th * r1;
+		double a11 = cos_th * r2;
+		double th_half = 0.5 * (_th1 - _th0);
+		double t = (8.0 / 3.0) * sin(th_half * 0.5) * sin(th_half * 0.5) / sin(th_half);
+		double x1 = xc + cos(_th0) - t * sin(_th0);
+		double y1 = yc + sin(_th0) + t * cos(_th0);
+		double x3 = xc + cos(_th1);
+		double y3 = yc + sin(_th1);
+		double x2 = x3 + t * sin(_th1);
+		double y2 = y3 - t * cos(_th1);
 		svgCurveToCubic(pts, a00 * x1 + a01 * y1, a10 * x1 + a11 * y1, a00 * x2 + a01 * y2, a10 * x2 + a11 * y2, a00 * x3 + a01 * y3, a10 * x3 + a11 * y3 );
 	}
 
