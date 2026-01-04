@@ -7462,26 +7462,6 @@ See the Edit Colors section of the documentation for more details.</source>
 <context>
     <name>DocumentLogViewer</name>
     <message>
-        <source>Debug</source>
-        <translation type="vanished">Отладка</translation>
-    </message>
-    <message>
-        <source>Info</source>
-        <translation type="vanished">Информация</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation type="vanished">Предупреждение</translation>
-    </message>
-    <message>
-        <source>Error</source>
-        <translation type="vanished">Ошибка</translation>
-    </message>
-    <message>
-        <source>Critical</source>
-        <translation type="vanished">Критическая ошибка</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/documentlogviewer.cpp" line="51"/>
         <source>All</source>
         <translation type="unfinished">Все</translation>
@@ -7496,13 +7476,13 @@ See the Edit Colors section of the documentation for more details.</source>
         <location filename="../../scribus/ui/documentlogviewer.cpp" line="64"/>
         <source>Critical</source>
         <comment>Document log level critical</comment>
-        <translation type="unfinished">Критическая ошибка</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/documentlogviewer.cpp" line="65"/>
         <source>Debug</source>
         <comment>Document log level debug</comment>
-        <translation type="unfinished">Отладка</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/documentlogviewer.cpp" line="66"/>
@@ -7514,7 +7494,7 @@ See the Edit Colors section of the documentation for more details.</source>
         <location filename="../../scribus/ui/documentlogviewer.cpp" line="67"/>
         <source>Info</source>
         <comment>Document log level info</comment>
-        <translation type="unfinished">Информация</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/documentlogviewer.cpp" line="68"/>

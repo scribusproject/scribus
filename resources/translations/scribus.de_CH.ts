@@ -7458,22 +7458,6 @@ Weitere Informationen finden Sie in der Dokumentation.</translation>
 <context>
     <name>DocumentLogViewer</name>
     <message>
-        <source>Info</source>
-        <translation type="vanished">Info</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation type="vanished">Warnung</translation>
-    </message>
-    <message>
-        <source>Error</source>
-        <translation type="vanished">Fehler</translation>
-    </message>
-    <message>
-        <source>Critical</source>
-        <translation type="vanished">Kritisch</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/documentlogviewer.cpp" line="51"/>
         <source>All</source>
         <translation type="unfinished">Alle</translation>
@@ -7488,7 +7472,7 @@ Weitere Informationen finden Sie in der Dokumentation.</translation>
         <location filename="../../scribus/ui/documentlogviewer.cpp" line="64"/>
         <source>Critical</source>
         <comment>Document log level critical</comment>
-        <translation type="unfinished">Kritisch</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/documentlogviewer.cpp" line="65"/>
@@ -7506,7 +7490,7 @@ Weitere Informationen finden Sie in der Dokumentation.</translation>
         <location filename="../../scribus/ui/documentlogviewer.cpp" line="67"/>
         <source>Info</source>
         <comment>Document log level info</comment>
-        <translation type="unfinished">Info</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/documentlogviewer.cpp" line="68"/>

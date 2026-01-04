@@ -7458,10 +7458,6 @@ Lee la sección Editar colores de la documentación para más detalles.</transla
 <context>
     <name>DocumentLogViewer</name>
     <message>
-        <source>Error</source>
-        <translation type="vanished">Error</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/documentlogviewer.cpp" line="51"/>
         <source>All</source>
         <translation type="unfinished">Todos</translation>

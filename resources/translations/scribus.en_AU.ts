@@ -7460,26 +7460,6 @@ See the Edit Colours section of the documentation for more details.</translation
 <context>
     <name>DocumentLogViewer</name>
     <message>
-        <source>Debug</source>
-        <translation type="vanished">Debug</translation>
-    </message>
-    <message>
-        <source>Info</source>
-        <translation type="vanished">Info</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation type="vanished">Warning</translation>
-    </message>
-    <message>
-        <source>Error</source>
-        <translation type="vanished">Error</translation>
-    </message>
-    <message>
-        <source>Critical</source>
-        <translation type="vanished">Critical</translation>
-    </message>
-    <message>
         <location filename="../../scribus/ui/documentlogviewer.cpp" line="51"/>
         <source>All</source>
         <translation type="unfinished">All</translation>
@@ -7494,13 +7474,13 @@ See the Edit Colours section of the documentation for more details.</translation
         <location filename="../../scribus/ui/documentlogviewer.cpp" line="64"/>
         <source>Critical</source>
         <comment>Document log level critical</comment>
-        <translation type="unfinished">Critical</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/documentlogviewer.cpp" line="65"/>
         <source>Debug</source>
         <comment>Document log level debug</comment>
-        <translation type="unfinished">Debug</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/documentlogviewer.cpp" line="66"/>
@@ -7512,7 +7492,7 @@ See the Edit Colours section of the documentation for more details.</translation
         <location filename="../../scribus/ui/documentlogviewer.cpp" line="67"/>
         <source>Info</source>
         <comment>Document log level info</comment>
-        <translation type="unfinished">Info</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/documentlogviewer.cpp" line="68"/>
