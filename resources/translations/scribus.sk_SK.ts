@@ -48,12 +48,12 @@
         <translation>Analýza súboru:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ai/importai.cpp" line="2357"/>
+        <location filename="../../scribus/plugins/import/ai/importai.cpp" line="2340"/>
         <source>Group%1</source>
         <translation>Skupina%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ai/importai.cpp" line="3459"/>
+        <location filename="../../scribus/plugins/import/ai/importai.cpp" line="3442"/>
         <source>Generating Items</source>
         <translation>Generovanie položiek</translation>
     </message>
@@ -2330,23 +2330,23 @@
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.ui" line="210"/>
-        <location filename="../../scribus/ui/aligndistribute.ui" line="541"/>
+        <location filename="../../scribus/ui/aligndistribute.ui" line="351"/>
         <source>Horizontal</source>
         <translation type="unfinished">Vodorovne</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.ui" line="361"/>
-        <location filename="../../scribus/ui/aligndistribute.ui" line="670"/>
+        <location filename="../../scribus/ui/aligndistribute.ui" line="266"/>
+        <location filename="../../scribus/ui/aligndistribute.ui" line="404"/>
         <source>Vertical</source>
         <translation type="unfinished">Zvisle</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.ui" line="802"/>
+        <location filename="../../scribus/ui/aligndistribute.ui" line="460"/>
         <source>By gap</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.ui" line="1014"/>
+        <location filename="../../scribus/ui/aligndistribute.ui" line="562"/>
         <source>By distance</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2363,7 +2363,7 @@
         <translation type="vanished">Z&amp;arovnanie strán:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.ui" line="514"/>
+        <location filename="../../scribus/ui/aligndistribute.ui" line="324"/>
         <source>Distribute</source>
         <translation>Rozmiestniť</translation>
     </message>
@@ -2376,7 +2376,7 @@
         <translation type="vanished">Reverzná distribúcia</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aligndistribute.ui" line="926"/>
+        <location filename="../../scribus/ui/aligndistribute.ui" line="512"/>
         <source>Swap</source>
         <translation>Prehodiť</translation>
     </message>
@@ -4219,17 +4219,17 @@ Kliknutím vytvoríte prepojenie na existujúci textový rámec alebo automatick
 <context>
     <name>CdrPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="116"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="118"/>
         <source>Importing: %1</source>
         <translation>Importovanie: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="119"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="121"/>
         <source>Analyzing File:</source>
         <translation>Analýza súboru:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="357"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="364"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -4243,17 +4243,17 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>CgmPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="169"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="166"/>
         <source>Importing: %1</source>
         <translation>Importovanie: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="172"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="169"/>
         <source>Analyzing File:</source>
         <translation>Analýza súboru:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="416"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="410"/>
         <source>Generating Items</source>
         <translation>Generovanie položiek</translation>
     </message>
@@ -5123,13 +5123,13 @@ aktuálne %2 x %3 DPI</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="35"/>
-        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="383"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="389"/>
         <source>Vector</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="49"/>
-        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="384"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="390"/>
         <source>Gradient</source>
         <translation type="unfinished">Prechod</translation>
     </message>
@@ -5174,7 +5174,7 @@ aktuálne %2 x %3 DPI</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="898"/>
-        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="385"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="391"/>
         <source>Gradient Swatches</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7295,12 +7295,12 @@ Pozrite si sekciu Úprava farieb v dokumentácií, kde je viac informácií.</tr
 <context>
     <name>CvgPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="123"/>
+        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="126"/>
         <source>Importing: %1</source>
         <translation>Importovanie: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="126"/>
+        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="129"/>
         <source>Analyzing File:</source>
         <translation>Analýza súboru:</translation>
     </message>
@@ -7440,31 +7440,65 @@ Pozrite si sekciu Úprava farieb v dokumentácií, kde je viac informácií.</tr
     </message>
 </context>
 <context>
-    <name>DocumentLogViewer</name>
+    <name>DocumentLogManager</name>
     <message>
-        <location filename="../../scribus/ui/documentlogviewer.cpp" line="58"/>
-        <source>Debug</source>
+        <location filename="../../scribus/documentlogmanager.cpp" line="31"/>
+        <source>Unsupported file format for %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/documentlogviewer.cpp" line="61"/>
-        <source>Info</source>
+        <location filename="../../scribus/documentlogmanager.cpp" line="36"/>
+        <source>File import failed for %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/documentlogmanager.cpp" line="41"/>
+        <source>File not found: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DocumentLogViewer</name>
+    <message>
+        <location filename="../../scribus/ui/documentlogviewer.cpp" line="51"/>
+        <source>All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/documentlogviewer.cpp" line="63"/>
+        <source>All</source>
+        <comment>Document log level all</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/documentlogviewer.cpp" line="64"/>
-        <source>Warning</source>
-        <translation type="unfinished">Varovanie</translation>
+        <source>Critical</source>
+        <comment>Document log level critical</comment>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/documentlogviewer.cpp" line="67"/>
+        <location filename="../../scribus/ui/documentlogviewer.cpp" line="65"/>
+        <source>Debug</source>
+        <comment>Document log level debug</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/documentlogviewer.cpp" line="66"/>
         <source>Error</source>
+        <comment>Document log level error</comment>
         <translation type="unfinished">Chyba</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/documentlogviewer.cpp" line="70"/>
-        <source>Critical</source>
+        <location filename="../../scribus/ui/documentlogviewer.cpp" line="67"/>
+        <source>Info</source>
+        <comment>Document log level info</comment>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/documentlogviewer.cpp" line="68"/>
+        <source>Warning</source>
+        <comment>Document log level warning</comment>
+        <translation type="unfinished">Varovanie</translation>
     </message>
 </context>
 <context>
@@ -7475,27 +7509,42 @@ Pozrite si sekciu Úprava farieb v dokumentácií, kde je viac informácií.</tr
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/documentlogviewerbase.ui" line="30"/>
+        <location filename="../../scribus/ui/documentlogviewerbase.ui" line="22"/>
+        <source>Source:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/documentlogviewerbase.ui" line="32"/>
+        <source>Level:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/documentlogviewerbase.ui" line="55"/>
+        <source>Add Samples</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/documentlogviewerbase.ui" line="74"/>
         <source>Time</source>
         <translation type="unfinished">Čas</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/documentlogviewerbase.ui" line="35"/>
+        <location filename="../../scribus/ui/documentlogviewerbase.ui" line="84"/>
         <source>Level</source>
         <translation type="unfinished">Úroveň</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/documentlogviewerbase.ui" line="40"/>
+        <location filename="../../scribus/ui/documentlogviewerbase.ui" line="79"/>
         <source>Source</source>
         <translation type="unfinished">Pôvod</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/documentlogviewerbase.ui" line="45"/>
+        <location filename="../../scribus/ui/documentlogviewerbase.ui" line="89"/>
         <source>Message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/documentlogviewerbase.ui" line="53"/>
+        <location filename="../../scribus/ui/documentlogviewerbase.ui" line="97"/>
         <source>Clear Log</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7549,22 +7598,22 @@ Pozrite si sekciu Úprava farieb v dokumentácií, kde je viac informácií.</tr
 <context>
     <name>DrwPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="1208"/>
+        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="1169"/>
         <source>Group%1</source>
         <translation>Skupina%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="141"/>
+        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="140"/>
         <source>Importing: %1</source>
         <translation>Importovanie: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="144"/>
+        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="143"/>
         <source>Analyzing File:</source>
         <translation>Analýza súboru:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="350"/>
+        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="346"/>
         <source>Generating Items</source>
         <translation>Generovanie položiek</translation>
     </message>
@@ -8305,17 +8354,17 @@ a range of pages or a single page number</source>
 <context>
     <name>FhPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="122"/>
+        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="124"/>
         <source>Importing: %1</source>
         <translation>Importovanie: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="125"/>
+        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="127"/>
         <source>Analyzing File:</source>
         <translation>Analýza súboru:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="330"/>
+        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="329"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -8716,17 +8765,17 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>GradientEditor</name>
     <message>
-        <location filename="../../scribus/ui/gradienteditor.cpp" line="219"/>
+        <location filename="../../scribus/ui/gradienteditor.cpp" line="218"/>
         <source>None</source>
         <translation>Bez akcie</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/gradienteditor.cpp" line="220"/>
+        <location filename="../../scribus/ui/gradienteditor.cpp" line="219"/>
         <source>Pad</source>
         <translation>Výplň</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/gradienteditor.cpp" line="229"/>
+        <location filename="../../scribus/ui/gradienteditor.cpp" line="228"/>
         <source>Add, change or remove color stops here</source>
         <translation>Pridať, zmeniť alebo odstrániť zarážky farieb </translation>
     </message>
@@ -9386,17 +9435,17 @@ ignorované</translation>
 <context>
     <name>IdmlPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="298"/>
+        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="303"/>
         <source>Importing: %1</source>
         <translation>Importovanie: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="301"/>
+        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="306"/>
         <source>Analyzing File:</source>
         <translation>Analýza súboru:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="511"/>
+        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="513"/>
         <source>Generating Items</source>
         <translation>Generovanie položiek</translation>
     </message>
@@ -9658,7 +9707,7 @@ ignorované</translation>
 <context>
     <name>ImportAIPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="59"/>
+        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="65"/>
         <source>Import AI...</source>
         <translation>Importovať všetko...</translation>
     </message>
@@ -9668,24 +9717,24 @@ ignorované</translation>
         <translation>Importovať súbory Illustratora</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="170"/>
+        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="172"/>
         <source>Use the PDF part</source>
         <translation>Použiť PDF časť</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="171"/>
+        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="173"/>
         <source>Use the AI part</source>
         <translation>Použiť AI časť</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="190"/>
-        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="211"/>
-        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="225"/>
+        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="192"/>
+        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="213"/>
+        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="230"/>
         <source>The file could not be imported</source>
         <translation>Súbor sa nedá naimportovať</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="167"/>
+        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="169"/>
         <source>This file contains 2 versions of the data.</source>
         <translation>Tento súbor obsahuje 2 verzie údajov.</translation>
     </message>
@@ -9695,17 +9744,17 @@ ignorované</translation>
         <translation>Importuje väčšinu súborov aplikácie Illustrator do aktuálneho dokumentu a konvertuje ich vektorové údaje na objekty Scribus.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="168"/>
+        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="170"/>
         <source>Choose which one should be imported</source>
         <translation>Vyberte, ktorý z nich sa má importovať</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="180"/>
+        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="182"/>
         <source>The PDF Import plugin could not be found</source>
         <translation>Doplnok PDF Import sa nepodarilo nájsť</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="201"/>
+        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="203"/>
         <source>The EPS Import plugin could not be found</source>
         <translation>Doplnok EPS Import sa nepodarilo nájsť</translation>
     </message>
@@ -9713,38 +9762,38 @@ ignorované</translation>
 <context>
     <name>ImportCdrPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="55"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="57"/>
         <source>Import Corel Draw...</source>
         <translation>Importovať Corel Draw...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="57"/>
-        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="92"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="59"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="94"/>
         <source>Corel Draw</source>
         <translation>Corel Draw</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="76"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="78"/>
         <source>Imports Corel Draw Files</source>
         <translation>Importuje Corel Draw súbory</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="77"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="79"/>
         <source>Imports most Corel Draw files into the current document, converting their vector data into Scribus objects.</source>
         <translation>Naimportuje väčšinu súborov Corel Draw do aktuálneho dokumentu a konvertuje ich vektorové údaje na objekty Scribus.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="126"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="129"/>
         <source>All Supported Formats</source>
         <translation>Všetky podporované formáty</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="159"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="163"/>
         <source>The Uniconverter Import plugin could not be found</source>
         <translation>Doplnok Uniconverter Import sa nepodarilo nájsť</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="168"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="172"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -9755,8 +9804,8 @@ Prosím odošlite svoj súbor (ak je to možné) na
 Document Liberation Project https://www.documentliberation.org</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="58"/>
-        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="93"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="60"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="95"/>
         <source>Corel Draw (*.ccx *.CCX *.cdr *.CDR *.cdt *.CDT *.cmx *.CMX)</source>
         <translation>Corel Draw (*.ccx *.CCX *.cdr *.CDR *.cdt *.CDT *.cmx *.CMX)</translation>
     </message>
@@ -9764,42 +9813,42 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>ImportCgmPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="97"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="99"/>
         <source>CGM File</source>
         <translation>CGM súbor</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="99"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="101"/>
         <source>CGM File (*.cgm *.CGM)</source>
         <translation>CGM súbor (*.cgm *.CGM)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="81"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="83"/>
         <source>Imports CGM Files</source>
         <translation>Importovanie CGM súborov</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="129"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="131"/>
         <source>All Supported Formats</source>
         <translation>Všetky podporované formáty</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="60"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="62"/>
         <source>Import Computer Graphics Metafile...</source>
         <translation>Import Computer Graphics Metafile...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="62"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="64"/>
         <source>Computer Graphics Metafile</source>
         <translation>Computer Graphics Metafile</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="63"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="65"/>
         <source>Computer Graphics Metafile (*.cgm *.CGM)</source>
         <translation>Computer Graphics Metafile (*.cgm *.CGM)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="82"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="84"/>
         <source>Imports most binary CGM files into the current document, converting their vector data into Scribus objects.</source>
         <translation>Naimportuje väčšinu binárnych súborov CGM do aktuálneho dokumentu a konvertuje ich vektorové údaje na objekty Scribus.</translation>
     </message>
@@ -9807,22 +9856,22 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>ImportCvgPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="122"/>
+        <location filename="../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="124"/>
         <source>All Supported Formats</source>
         <translation>Všetky podporované formáty</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="53"/>
+        <location filename="../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="55"/>
         <source>Import Calamus Vector Graphics...</source>
         <translation>Import Calamus Vector Graphics...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="74"/>
+        <location filename="../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="76"/>
         <source>Imports Calamus Vector Graphics Files</source>
         <translation>Importovanie Calamus Vector Graphics súborov</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="75"/>
+        <location filename="../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="77"/>
         <source>Imports most Calamus Vector Graphics files into the current document, converting their vector data into Scribus objects.</source>
         <translation>Naimportuje väčšinu súborov vektorovej grafiky Calamus do aktuálneho dokumentu a konvertuje ich vektorové údaje na objekty Scribus.</translation>
     </message>
@@ -9830,42 +9879,42 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>ImportDrwPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="98"/>
+        <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="100"/>
         <source>Micrografx DRW File</source>
         <translation>Micrografx DRW súbor</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="100"/>
+        <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="102"/>
         <source>Micrografx DRW File (*.drw *.DRW)</source>
         <translation>Micrografx DRW súbor (*.drw *.DRW)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="82"/>
+        <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="84"/>
         <source>Imports DRW Files</source>
         <translation>Importovanie DRW súborov</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="130"/>
+        <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="132"/>
         <source>All Supported Formats</source>
         <translation>Všetky podporované formáty</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="60"/>
+        <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="62"/>
         <source>Import Micrografx Draw...</source>
         <translation>Importovať Micrografx Draw...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="62"/>
+        <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="64"/>
         <source>Micrografx Draw</source>
         <translation>Micrografx Draw</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="63"/>
+        <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="65"/>
         <source>Micrografx Draw (*.drw *.DRW)</source>
         <translation>Micrografx Draw (*.drw *.DRW)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="83"/>
+        <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="85"/>
         <source>Imports most DRW files into the current document, converting their vector data into Scribus objects.</source>
         <translation>Naimportuje väčšinu súborov DRW do aktuálneho dokumentu a konvertuje ich vektorové údaje na objekty Scribus.</translation>
     </message>
@@ -9873,42 +9922,42 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>ImportEmfPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="95"/>
+        <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="96"/>
         <source>EMF</source>
         <translation>EMF</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="96"/>
+        <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="97"/>
         <source>EMF (*.emf *.EMF)</source>
         <translation>EMF (*.emf *.EMF)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="79"/>
+        <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="80"/>
         <source>Imports EMF Files</source>
         <translation>Importovanie EMF súborov</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="127"/>
+        <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="128"/>
         <source>All Supported Formats</source>
         <translation>Všetky podporované formáty</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="58"/>
+        <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="60"/>
         <source>Import Enhanced Metafile...</source>
         <translation>Importovať Enhanced Metafile...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="60"/>
+        <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="62"/>
         <source>Enhanced Metafile</source>
         <translation>Enhanced Metafile</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="61"/>
+        <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="63"/>
         <source>Enhanced Metafile (*.emf *.EMF)</source>
         <translation>Enhanced Metafile (*.emf *.EMF)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="80"/>
+        <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="81"/>
         <source>Imports most EMF files into the current document, converting their vector data into Scribus objects.</source>
         <translation>Naimportuje väčšinu súborov EMF do aktuálneho dokumentu a konvertuje ich vektorové údaje na objekty Scribus.</translation>
     </message>
@@ -9916,34 +9965,34 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>ImportFhPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="53"/>
+        <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="55"/>
         <source>Import Freehand...</source>
         <translation>Importovať Freehand...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="55"/>
-        <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="90"/>
+        <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="57"/>
+        <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="92"/>
         <source>Freehand</source>
         <translation>Freehand</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="56"/>
-        <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="91"/>
+        <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="58"/>
+        <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="93"/>
         <source>Freehand (*.fh* *.FH*)</source>
         <translation>Freehand (*.fh* *.FH*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="74"/>
+        <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="76"/>
         <source>Imports Freehand Files</source>
         <translation>Importovanie Freehand súborov</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="75"/>
+        <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="77"/>
         <source>Imports most Freehand files into the current document, converting their vector data into Scribus objects.</source>
         <translation>Naimportuje väčšinu súborov Freehand do aktuálneho dokumentu a konvertuje ich vektorové údaje na objekty Scribus.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="124"/>
+        <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="126"/>
         <source>All Supported Formats</source>
         <translation>Všetky podporované formáty</translation>
     </message>
@@ -10034,48 +10083,48 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>ImportOdgPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="59"/>
+        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="61"/>
         <source>Import ODF Document...</source>
         <translation>Import ODF Document...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="61"/>
-        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="99"/>
+        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="63"/>
+        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="100"/>
         <source>ODF Drawing</source>
         <comment>Import/export format name</comment>
         <translation>ODF Drawing</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="62"/>
-        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="100"/>
+        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="64"/>
+        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="101"/>
         <source>ODF Drawing (*.odg *.ODG *.fodg *.FODG)</source>
         <translation>ODF Drawing (*.odg *.ODG *.fodg *.FODG)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="64"/>
-        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="112"/>
+        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="66"/>
+        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="113"/>
         <source>ODF Presentation</source>
         <comment>Import/export format name</comment>
         <translation>ODF Presentation</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="65"/>
-        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="113"/>
+        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="67"/>
+        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="114"/>
         <source>ODF Presentation (*.odp *.ODP *.fodp *.FODP)</source>
         <translation>ODF Presentation (*.odp *.ODP *.fodp *.FODP)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="83"/>
+        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="84"/>
         <source>Imports ODF Drawing Files</source>
         <translation>Importovanie ODF Drawing súborov</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="84"/>
+        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="85"/>
         <source>Imports most ODF Drawing files into the current document, converting their vector data into Scribus objects.</source>
         <translation>Naimportuje väčšinu súborov výkresov ODF do aktuálneho dokumentu a konvertuje ich vektorové údaje na objekty Scribus.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="146"/>
+        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="147"/>
         <source>All Supported Formats</source>
         <translation>Všetky podporované formáty</translation>
     </message>
@@ -13181,12 +13230,12 @@ Ak nie je vybraný  žiadny riadiacich bod, všetky budú vynulované.</translat
 <context>
     <name>OODPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="425"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="410"/>
         <source>This document does not seem to be an OpenOffice Draw file.</source>
         <translation>Tento dokument nevyzerá ako OpenOffice Draw súbor.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="641"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="623"/>
         <source>Group%1</source>
         <translation>Skupina%1</translation>
     </message>
@@ -13194,39 +13243,39 @@ Ak nie je vybraný  žiadny riadiacich bod, všetky budú vynulované.</translat
 <context>
     <name>OODrawImportPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="87"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="85"/>
         <source>Import &amp;OpenOffice.org Draw...</source>
         <translation>Importovať &amp;OpenOffice.org Draw...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="105"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="100"/>
         <source>Imports OpenOffice.org Draw Files</source>
         <translation>Importovať OpenOffice.org Draw súbory</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="106"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="101"/>
         <source>Imports most OpenOffice.org Draw files into the current document, converting their vector data into Scribus objects.</source>
         <translation>Importuje väčšinu súborov OpenOffice.org Draw do aktuálneho dokumentu a konvertuje ich vektorové dáta na Scribus objekty.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="92"/>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="133"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="87"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="115"/>
         <source>OpenOffice.org 1.x Draw</source>
         <comment>Import/export format name</comment>
         <translation>OpenOffice.org 1.x Draw</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="202"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="187"/>
         <source>This file contains some unsupported features</source>
         <translation>Tento súbor obsahuje nepodporované vlastnosti</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="200"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="185"/>
         <source>The file could not be imported</source>
         <translation>Súbor sa nedá naimportovať</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="93"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="88"/>
         <source>OpenOffice.org 1.x Draw (*.sxd *.SXD)</source>
         <translation>OpenOffice.org 1.x Draw (*.sxd *.SXD)</translation>
     </message>
@@ -13481,17 +13530,17 @@ Ak nie je vybraný  žiadny riadiacich bod, všetky budú vynulované.</translat
 <context>
     <name>OdgPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/odg/importodg.cpp" line="137"/>
+        <location filename="../../scribus/plugins/import/odg/importodg.cpp" line="139"/>
         <source>Importing: %1</source>
         <translation>Importovanie: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/odg/importodg.cpp" line="140"/>
+        <location filename="../../scribus/plugins/import/odg/importodg.cpp" line="142"/>
         <source>Analyzing File:</source>
         <translation>Analýza súboru:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/odg/importodg.cpp" line="325"/>
+        <location filename="../../scribus/plugins/import/odg/importodg.cpp" line="324"/>
         <source>Generating Items</source>
         <translation>Generovanie položiek</translation>
     </message>
@@ -17375,7 +17424,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <name>PreferencesDialog</name>
     <message>
         <location filename="../../scribus/ui/preferences/preferencesdialogbase.ui" line="14"/>
-        <location filename="../../scribus/ui/preferences/preferencesdialog.cpp" line="390"/>
+        <location filename="../../scribus/ui/preferences/preferencesdialog.cpp" line="389"/>
         <source>Preferences</source>
         <translation>Nastavenia</translation>
     </message>
@@ -17403,73 +17452,73 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>PrefsManager</name>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2469"/>
-        <location filename="../../scribus/prefsmanager.cpp" line="2478"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2470"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2479"/>
         <source>Postscript</source>
         <translation>Postscript</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="903"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="904"/>
         <source>Migrate Old Scribus Settings?</source>
         <translation>Migrovať staré nastavenia Scribusu?</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="904"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="905"/>
         <source>Scribus has detected existing Scribus 1.6.0 preferences files.
 Do you want to migrate them to the new Scribus version?</source>
         <translation>Scribus zistil existujúce súbory preferencií Scribus 1.3.5.
 Chcete ich migrovať na novú verziu Scribus? {1.6.0 ?}</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2468"/>
-        <location filename="../../scribus/prefsmanager.cpp" line="2478"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2469"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2479"/>
         <source>PostScript</source>
         <translation>Postscript</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="1961"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="1962"/>
         <source>Could not open preferences file &quot;%1&quot; for writing: %2</source>
         <translation>Nie je možné otvoriť súbor s nastaveniami &quot;%1&quot; pre zápis: %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="1971"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="1972"/>
         <source>Writing to preferences file &quot;%1&quot; failed: QIODevice status code %2</source>
         <translation>Zápis do súbora s nastaveniami &quot;%1&quot; zlyhalo: QIODevice stavový kód %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="1984"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="1985"/>
         <source>Failed to open prefs file &quot;%1&quot;: %2</source>
         <translation>Nepodarilo sa otvoriť súbor nastavení  &quot;%1&quot;: %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="1995"/>
-        <location filename="../../scribus/prefsmanager.cpp" line="2005"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="1996"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2006"/>
         <source>Failed to read prefs XML from &quot;%1&quot;: %2 at line %3, col %4</source>
         <translation>Nepodarilo sa prečítať XML nastavenia &quot;%1&quot;: %2 na riadku %3, stĺpec %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2960"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2961"/>
         <source>Error Writing Preferences</source>
         <translation>Chýba zápisu nastavení</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2962"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2963"/>
         <source>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</source>
         <comment>scribus app error</comment>
         <translation>Scribus nebol schopný uložiť svoje nastavenia: &lt;br&gt;%1&lt;br&gt;Prosím skontrolujte práva súbora a priečinku a dostupný priestor na disku.</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2977"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2978"/>
         <source>Error Loading Preferences</source>
         <translation>Chyba načítavania nastavení</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2979"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2980"/>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
         <translation>Scribus nebol schopný načítať svoje nastavenia:&lt;br&gt;%1&lt;br&gt; Načítajú sa štandardné nastavenia.</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2587"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2588"/>
         <source>No valid renderframe config found. Using defaults!</source>
         <translation>Nebola nájdená platná konfigurácia pre generovanie rámcov. Použijú sa štandardné!</translation>
     </message>
@@ -20741,160 +20790,160 @@ Chcete to použiť?</translation>
         <translation>Absolútna kolorimetria</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="359"/>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="1304"/>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="1312"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="360"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="1305"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="1313"/>
         <source>Page</source>
         <translation>Strana</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="377"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="378"/>
         <source>No Script</source>
         <translation>Bez skriptu</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="520"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="521"/>
         <source>InfoString</source>
         <translation>Informačný reťazec</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="552"/>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="971"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="553"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="972"/>
         <source>No Effect</source>
         <translation>Bez efektu</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="553"/>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="972"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="554"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="973"/>
         <source>Blinds</source>
         <translation>Pruhy</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="554"/>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="973"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="555"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="974"/>
         <source>Box</source>
         <translation>Box</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="555"/>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="974"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="556"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="975"/>
         <source>Dissolve</source>
         <translation>Rozpustenie</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="556"/>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="975"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="557"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="976"/>
         <source>Glitter</source>
         <translation>Lesk</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="557"/>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="976"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="558"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="977"/>
         <source>Split</source>
         <translation>Rozdeliť</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="558"/>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="977"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="559"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="978"/>
         <source>Wipe</source>
         <translation>Zotrieť</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="561"/>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="980"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="562"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="981"/>
         <source>Push</source>
         <translation>Stlačiť</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="562"/>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="981"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="563"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="982"/>
         <source>Cover</source>
         <translation>Krytie</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="563"/>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="982"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="564"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="983"/>
         <source>Uncover</source>
         <translation>Odkrytie</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="564"/>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="983"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="565"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="984"/>
         <source>Fade</source>
         <translation>Zanikanie</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="608"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="609"/>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
         <translation>Vložiť písma do PDF. Vloženie písma zachová rozloženie a vzhľad vášho dokumentu.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="609"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="610"/>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
         <translation>Povolenie prezentačných efektov pri celoobrazovkovom použití Adobe&amp;#174; Reader&amp;#174. a ostatných PDF prehliadačov, ktoré podporujú celoobrazovkové prezeranie.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="610"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="611"/>
         <source>Show page previews of each page listed above.</source>
         <translation>Ukázať náhľad každej strany v zozname uvedenom hore.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="611"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="612"/>
         <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
         <translation>Dĺžka času stránky, ktorá sa zobrazuje pred spustením prezentácie na označenej strane. Nastavenie 0 zakáže automatickú zmenu strany.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="612"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="613"/>
         <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
         <translation>Ako dlho beží prezentačný efekt. Menšia hodnota efekt zrýchli, väčšia spomalí.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="619"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="620"/>
         <source>Show the document in single page mode</source>
         <translation>Zobraziť dokument v jednostránkovom režime</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="620"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="621"/>
         <source>Show the document in single page mode with the pages displayed continuously end to end like a scroll</source>
         <translation>Zobrazí dokument v priebežnom jednostránkovom režime</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="621"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="622"/>
         <source>Show the document with facing pages, starting with the first page displayed on the left</source>
         <translation>Zobrazí dokument s protiľahlými stranami, s prvou stranou zobrazenou vľavo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="622"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="623"/>
         <source>Show the document with facing pages, starting with the first page displayed on the right</source>
         <translation>Zobrazí dokument s protiľahlými stranami, s prvou stranou zobrazenou vpravo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="623"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="624"/>
         <source>Use the viewer&apos;s defaults or the user&apos;s preferences if set differently from the viewer defaults</source>
         <translation>Použije štandardné nastavenie prehliadača alebo používateľa</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="624"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="625"/>
         <source>Enables viewing the document in full screen</source>
         <translation>Povolí prezeranie dokumentu v celoobrázkovom režime</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="625"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="626"/>
         <source>Display the bookmarks upon opening</source>
         <translation>Zobrazí záložky pri otváraní</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="626"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="627"/>
         <source>Display the page thumbnails upon opening</source>
         <translation>Zobraziť náhľady pri otváraní</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="627"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="628"/>
         <source>Forces the displaying of layers. Useful only for PDF 1.5+.</source>
         <translation>Vnúti zobrazenie vrstiev. Užitočné iba pre PDF 1.5+.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="628"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="629"/>
         <source>Hides the Tool Bar which has selection and other editing capabilities</source>
         <translation>Skryje panel nástrojov, ktorý umožňuje výber a úpravy</translation>
     </message>
@@ -20974,42 +21023,42 @@ Chcete to použiť?</translation>
         <translation>Farebný model výstupu PDF. Zvoľte Monitor/Web pre PDF, ktoré sú určené na prezeranie na monitore a tlačené na bežnej atramentovej tlačiarni. Zvoľte Tlačiareň, ak bude dokument tlačiť na skutočnej farebnej CMYK tlačiarni.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="613"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="614"/>
         <source>Type of the display effect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="614"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="615"/>
         <source>Direction of the effect of moving lines for the split and blind effects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="615"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="616"/>
         <source>Starting position for the box and split effects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="616"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="617"/>
         <source>Direction of the glitter or wipe effects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="617"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="618"/>
         <source>Apply the selected effect to all pages</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="629"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="630"/>
         <source>Hides the Menu Bar for the viewer, the PDF will display in a plain window</source>
         <translation>Skryť panel s ponukami pre prehliadač, súbor PDF sa zobrazí v obyčajnom okne</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="630"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="631"/>
         <source>Fit the document page or pages to the available space in the viewer window</source>
         <translation>Prispôsobiť stranu dokumentu alebo strany dostupnému priestoru v okne zobrazenia</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="618"/>
+        <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="619"/>
         <source>Embed only subset fonts with glyphs used in the document into the PDF</source>
         <translation>Do PDF vložte iba podmnožinu písiem s glyfmi použitými v dokumente.</translation>
     </message>
@@ -23100,27 +23149,27 @@ a range of pages or a single page number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_fill.cpp" line="730"/>
+        <location filename="../../scribus/ui/propertiespalette_fill.cpp" line="731"/>
         <source>Blendmode of fill</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_fill.cpp" line="731"/>
+        <location filename="../../scribus/ui/propertiespalette_fill.cpp" line="732"/>
         <source>Any path self-intersections or subpaths create holes in the fill (fill-rule: evenodd)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_fill.cpp" line="732"/>
+        <location filename="../../scribus/ui/propertiespalette_fill.cpp" line="733"/>
         <source>Fill is solid unless a subpath is counterdirectional (fill-rule: nonzero)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_fill.cpp" line="733"/>
+        <location filename="../../scribus/ui/propertiespalette_fill.cpp" line="734"/>
         <source>Color of fill</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_fill.cpp" line="734"/>
+        <location filename="../../scribus/ui/propertiespalette_fill.cpp" line="735"/>
         <source>Mask of fill</source>
         <translation type="unfinished"></translation>
     </message>
@@ -23400,112 +23449,112 @@ a range of pages or a single page number</source>
     <name>PropertiesPalette_Line</name>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="52"/>
-        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="884"/>
+        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="886"/>
         <source>Custom</source>
         <translation>Vlastné</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="908"/>
+        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="910"/>
         <source> pt</source>
         <translation> pt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="912"/>
+        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="914"/>
         <source>Hairline</source>
         <translation>Vlasová čiara</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="914"/>
+        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="916"/>
         <source>Pattern of line</source>
         <translation>Vzorka čiary</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="915"/>
+        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="917"/>
         <source>Thickness of line</source>
         <translation>Hrúbka čiary</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="887"/>
+        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="889"/>
         <source>T&amp;ype</source>
         <translation>T&amp;yp</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="888"/>
+        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="890"/>
         <source>&amp;Marker</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="900"/>
+        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="902"/>
         <source>&amp;Width</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="901"/>
+        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="903"/>
         <source>&amp;Joins</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="902"/>
+        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="904"/>
         <source>&amp;Caps</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="916"/>
+        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="918"/>
         <source>Line end is flat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="917"/>
+        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="919"/>
         <source>Line end is squared</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="918"/>
+        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="920"/>
         <source>Line end is rounded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="919"/>
+        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="921"/>
         <source>Line join is mitered</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="920"/>
+        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="922"/>
         <source>Line join is rounded</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="921"/>
+        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="923"/>
         <source>Line join is beveled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="922"/>
+        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="924"/>
         <source>Marker style for start of line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="923"/>
+        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="925"/>
         <source>Marker style for end of line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="924"/>
+        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="926"/>
         <source>Swap start and end markers</source>
         <translation>Vymeňte značky začiatku a konca</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="925"/>
+        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="927"/>
         <source>Blendmode of line</source>
         <translation>Režim miešania čiary</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="926"/>
+        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="928"/>
         <source>Color of line</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="927"/>
+        <location filename="../../scribus/ui/propertiespalette_line.cpp" line="929"/>
         <source>Mask of line</source>
         <translation type="unfinished"></translation>
     </message>
@@ -25123,32 +25172,32 @@ Hodnota 0 znamená neobmedzené delenie slov.</translation>
 <context>
     <name>PropertyWidget_Text</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_text.cpp" line="392"/>
+        <location filename="../../scribus/ui/propertywidget_text.cpp" line="389"/>
         <source>Fixed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_text.cpp" line="393"/>
+        <location filename="../../scribus/ui/propertywidget_text.cpp" line="390"/>
         <source>Automatic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_text.cpp" line="394"/>
+        <location filename="../../scribus/ui/propertywidget_text.cpp" line="391"/>
         <source>Baseline</source>
         <translation type="unfinished">Základná čiara</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_text.cpp" line="397"/>
+        <location filename="../../scribus/ui/propertywidget_text.cpp" line="394"/>
         <source>Color of selected text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_text.cpp" line="398"/>
+        <location filename="../../scribus/ui/propertywidget_text.cpp" line="395"/>
         <source>Background color of selected text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_text.cpp" line="399"/>
+        <location filename="../../scribus/ui/propertywidget_text.cpp" line="396"/>
         <source>Color of text stroke and/or drop shadow, depending which is chosen. If both are chosen, then they share the same color.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -25207,17 +25256,17 @@ Hodnota 0 znamená neobmedzené delenie slov.</translation>
 <context>
     <name>PubPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/pub/importpub.cpp" line="123"/>
+        <location filename="../../scribus/plugins/import/pub/importpub.cpp" line="124"/>
         <source>Importing: %1</source>
         <translation>Importovanie: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pub/importpub.cpp" line="126"/>
+        <location filename="../../scribus/plugins/import/pub/importpub.cpp" line="127"/>
         <source>Analyzing File:</source>
         <translation>Analýza súboru:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pub/importpub.cpp" line="335"/>
+        <location filename="../../scribus/plugins/import/pub/importpub.cpp" line="338"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -26005,17 +26054,17 @@ Overte, cestu a názov súboru.</translation>
         <translation>Pozadie</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="130"/>
-        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="126"/>
-        <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="129"/>
-        <location filename="../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="122"/>
-        <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="130"/>
-        <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="127"/>
-        <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="124"/>
+        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="131"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="129"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="131"/>
+        <location filename="../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="124"/>
+        <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="132"/>
+        <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="128"/>
+        <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="126"/>
         <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="149"/>
         <location filename="../../scribus/plugins/import/idml_old/importidml.cpp" line="100"/>
-        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="146"/>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="168"/>
+        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="147"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="150"/>
         <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="130"/>
         <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="122"/>
         <location filename="../../scribus/plugins/import/pdf/importpdfplugin.cpp" line="162"/>
@@ -26025,7 +26074,7 @@ Overte, cestu a názov súboru.</translation>
         <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="122"/>
         <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="123"/>
         <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="123"/>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="154"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="156"/>
         <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="128"/>
         <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="130"/>
         <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="124"/>
@@ -29639,8 +29688,8 @@ Externé odkazy
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="2061"/>
-        <location filename="../../scribus/scribus.cpp" line="2300"/>
+        <location filename="../../scribus/scribus.cpp" line="2060"/>
+        <location filename="../../scribus/scribus.cpp" line="2299"/>
         <source>Document Template: </source>
         <translation> Vzor dokumentu: </translation>
     </message>
@@ -30142,12 +30191,12 @@ is not exhaustive due to exceptions from called functions.
         <translation>SVG Export</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="96"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="98"/>
         <source>SVG Import</source>
         <translation>SVG Import</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="98"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="93"/>
         <source>OpenOffice.org Draw Importer</source>
         <translation>Importér pre OpenOffice.org Draw</translation>
     </message>
@@ -30228,7 +30277,7 @@ is not exhaustive due to exceptions from called functions.
         <translation>Vyhľadanie písem</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4026"/>
+        <location filename="../../scribus/scribus.cpp" line="4025"/>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
         <translation>Zmeny vo vašom dokumente neboli uložené, a vy žiadate o ich vrátenie. Prajete si pokračovať?</translation>
     </message>
@@ -31008,7 +31057,7 @@ is not exhaustive due to exceptions from called functions.
         <translation>Nová vrstva</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="72"/>
+        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="73"/>
         <source>Adobe Illustrator Importer</source>
         <translation>Importér Adobe Illustrator</translation>
     </message>
@@ -31387,7 +31436,7 @@ Preto obrázok nemusí byť správny</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="73"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="75"/>
         <source>Cgm Importer</source>
         <translation type="unfinished"></translation>
     </message>
@@ -31397,7 +31446,7 @@ Preto obrázok nemusí byť správny</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="74"/>
+        <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="76"/>
         <source>DRW Importer</source>
         <translation type="unfinished"></translation>
     </message>
@@ -31878,7 +31927,7 @@ Preto obrázok nemusí byť správny</translation>
         <translation>PUB Importér</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3211"/>
+        <location filename="../../scribus/scribus.cpp" line="3210"/>
         <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
         <translation>&lt;p&gt;Pokúšate sa importovať viac strán, ako je k dispozícii v aktuálnom počte dokumentov z aktívnej stránky.&lt;/p&gt;Vyberte si jednu z nasledujúcich možností:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Vytvoriť&lt;/b&gt; chýbajúce strany&lt;/li&gt;&lt;li&gt;&lt;b&gt;Importovať&lt;/b&gt; strany až po poslednú stranu&lt;/li&gt;&lt;li&gt;&lt;b&gt;Zrušiť&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
@@ -31943,17 +31992,17 @@ Preto obrázok nemusí byť správny</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="75"/>
+        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="77"/>
         <source>Open Document Importer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="168"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="150"/>
         <source>OpenOffice.org Draw (*.sxd *.SXD);;All Files (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="68"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="70"/>
         <source>Corel Draw Importer</source>
         <translation type="unfinished"></translation>
     </message>
@@ -32026,7 +32075,7 @@ Preto obrázok nemusí byť správny</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="71"/>
+        <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="73"/>
         <source>EMF Importer</source>
         <translation type="unfinished"></translation>
     </message>
@@ -32092,7 +32141,7 @@ Preto obrázok nemusí byť správny</translation>
         <translation>&lt;fontEmbedding&gt; neplatný</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="66"/>
+        <location filename="../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="68"/>
         <source>Calamus Vector Graphics Importer</source>
         <translation type="unfinished"></translation>
     </message>
@@ -32112,7 +32161,7 @@ Preto obrázok nemusí byť správny</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="66"/>
+        <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="68"/>
         <source>Freehand Importer</source>
         <translation type="unfinished"></translation>
     </message>
@@ -32401,17 +32450,17 @@ Vyberte si prosím iný.</translation>
 <context>
     <name>QxpPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="143"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="144"/>
         <source>Importing: %1</source>
         <translation>Importovanie: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="146"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="147"/>
         <source>Analyzing File:</source>
         <translation>Analýza súboru:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="358"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="363"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -32982,40 +33031,40 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <translation>Veľkosť písma</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smcstylewidget.cpp" line="30"/>
-        <location filename="../../scribus/ui/smcstylewidget.cpp" line="99"/>
+        <location filename="../../scribus/ui/smcstylewidget.cpp" line="28"/>
+        <location filename="../../scribus/ui/smcstylewidget.cpp" line="97"/>
         <source>Color</source>
         <translation>Farba</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smcstylewidget.cpp" line="34"/>
-        <location filename="../../scribus/ui/smcstylewidget.cpp" line="102"/>
+        <location filename="../../scribus/ui/smcstylewidget.cpp" line="32"/>
+        <location filename="../../scribus/ui/smcstylewidget.cpp" line="100"/>
         <source>Background</source>
         <translation>Pozadie</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smcstylewidget.cpp" line="39"/>
-        <location filename="../../scribus/ui/smcstylewidget.cpp" line="105"/>
+        <location filename="../../scribus/ui/smcstylewidget.cpp" line="36"/>
+        <location filename="../../scribus/ui/smcstylewidget.cpp" line="103"/>
         <source>Stroke</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smcstylewidget.cpp" line="98"/>
+        <location filename="../../scribus/ui/smcstylewidget.cpp" line="96"/>
         <source>Text color of selected text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smcstylewidget.cpp" line="101"/>
+        <location filename="../../scribus/ui/smcstylewidget.cpp" line="99"/>
         <source>Background color of selected text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smcstylewidget.cpp" line="104"/>
+        <location filename="../../scribus/ui/smcstylewidget.cpp" line="102"/>
         <source>Stroke color of selected text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smcstylewidget.cpp" line="269"/>
+        <location filename="../../scribus/ui/smcstylewidget.cpp" line="267"/>
         <source>A default style cannot be assigned a parent style</source>
         <translation>K prednastavenému štýlu nie je možné priradiť rodičovský štýl</translation>
     </message>
@@ -33342,7 +33391,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>SMPStyleWidget</name>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="982"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="983"/>
         <source>Drop Caps</source>
         <translation>Iniciály</translation>
     </message>
@@ -33520,7 +33569,7 @@ Hodnota 0 znamená neobmedzené delenie slov.</translation>
         <translation>Medzera pod</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="983"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="984"/>
         <source>Bulleted List</source>
         <translation type="unfinished"></translation>
     </message>
@@ -33540,7 +33589,7 @@ Hodnota 0 znamená neobmedzené delenie slov.</translation>
         <translation>Tabuľka znakov</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="984"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="985"/>
         <source>Numbered List</source>
         <translation type="unfinished"></translation>
     </message>
@@ -33551,63 +33600,63 @@ Hodnota 0 znamená neobmedzené delenie slov.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="42"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="160"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="161"/>
         <source>Background</source>
         <translation>Pozadie</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="44"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="138"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="196"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="506"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="139"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="197"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="507"/>
         <source>Fixed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="45"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="139"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="197"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="507"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="140"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="198"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="508"/>
         <source>Automatic</source>
         <translation>Automatický</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="46"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="140"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="198"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="508"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="141"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="199"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="509"/>
         <source>Baseline</source>
         <translation>Základná čiara</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="131"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="132"/>
         <source>First Line Indent</source>
         <translation>Odsadenie prvého riadku</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="132"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="133"/>
         <source>Left Indent</source>
         <translation>Ľavé odsadenie</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="133"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="134"/>
         <source>Right Indent</source>
         <translation>Pravé odsadenie</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="159"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="160"/>
         <source>Background color of selected text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="981"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="982"/>
         <source>No Paragraph Effects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="62"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="419"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="819"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="420"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="820"/>
         <source>Based On:</source>
         <translation>Naložené na:</translation>
     </message>
@@ -33617,7 +33666,7 @@ Hodnota 0 znamená neobmedzené delenie slov.</translation>
         <translation>Farby</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="423"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="424"/>
         <source>A default style cannot be assigned a parent style</source>
         <translation>Štandardný štýl nie je možné priradiť k rodičovskému štýlu</translation>
     </message>
@@ -33629,8 +33678,8 @@ Hodnota 0 znamená neobmedzené delenie slov.</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="836"/>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="876"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="148"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="149"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="150"/>
         <source> lines</source>
         <translation type="unfinished"></translation>
     </message>
@@ -33665,9 +33714,9 @@ Hodnota 0 znamená neobmedzené delenie slov.</translation>
         <translation>Ak je začiarknuté, odsek sa automaticky presunie na ďalší stĺpec alebo stranu, ak sa nasledujúci odsek nenachádza na rovnakej strane alebo stĺpci</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="414"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="417"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="903"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="415"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="418"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="904"/>
         <source>No Style</source>
         <translation>Bez štýlu</translation>
     </message>
@@ -33697,12 +33746,12 @@ Hodnota 0 znamená neobmedzené delenie slov.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="972"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="973"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="973"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="974"/>
         <source>Story</source>
         <translation type="unfinished"></translation>
     </message>
@@ -34074,22 +34123,22 @@ Varovanie: toto zväčší veľkosť súbora!</translation>
 <context>
     <name>SVGImportPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="88"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="90"/>
         <source>Import &amp;SVG...</source>
         <translation>Importovať &amp;SVG...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="103"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="105"/>
         <source>Imports SVG Files</source>
         <translation>Import SVG súborov</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="104"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="106"/>
         <source>Imports most SVG files into the current document, converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="187"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="190"/>
         <source>The file could not be imported</source>
         <translation>Súbor sa nedá naimportovať</translation>
     </message>
@@ -34097,7 +34146,7 @@ Varovanie: toto zväčší veľkosť súbora!</translation>
 <context>
     <name>SVGPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="1355"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="1369"/>
         <source>Group%1</source>
         <translation>Skupina%1</translation>
     </message>
@@ -35877,7 +35926,7 @@ Vertikálna medzera: %4</translation>
         <translation>Načítavanie zápisníka</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3377"/>
+        <location filename="../../scribus/scribus.cpp" line="3376"/>
         <source>Fatal Error</source>
         <translation>Kritická chyba</translation>
     </message>
@@ -35888,7 +35937,7 @@ Vertikálna medzera: %4</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="929"/>
-        <location filename="../../scribus/scribus.cpp" line="3216"/>
+        <location filename="../../scribus/scribus.cpp" line="3215"/>
         <source>&amp;Import</source>
         <translation>&amp;Import</translation>
     </message>
@@ -35913,209 +35962,209 @@ Vertikálna medzera: %4</translation>
         <translation>Poslať do vrstv&amp;y</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="2089"/>
-        <location filename="../../scribus/scribus.cpp" line="2124"/>
-        <location filename="../../scribus/scribus.cpp" line="3685"/>
-        <location filename="../../scribus/scribus.cpp" line="4122"/>
-        <location filename="../../scribus/scribus.cpp" line="4198"/>
-        <location filename="../../scribus/scribus.cpp" line="4360"/>
-        <location filename="../../scribus/scribus.cpp" line="6603"/>
+        <location filename="../../scribus/scribus.cpp" line="2088"/>
+        <location filename="../../scribus/scribus.cpp" line="2123"/>
+        <location filename="../../scribus/scribus.cpp" line="3684"/>
+        <location filename="../../scribus/scribus.cpp" line="4121"/>
+        <location filename="../../scribus/scribus.cpp" line="4197"/>
+        <location filename="../../scribus/scribus.cpp" line="4359"/>
+        <location filename="../../scribus/scribus.cpp" line="6602"/>
         <location filename="../../scribus/scribus.cpp" line="8549"/>
         <source>Ready</source>
         <translation>Pripravený</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3041"/>
-        <location filename="../../scribus/scribus.cpp" line="3157"/>
-        <location filename="../../scribus/scribus.cpp" line="3777"/>
+        <location filename="../../scribus/scribus.cpp" line="3040"/>
+        <location filename="../../scribus/scribus.cpp" line="3156"/>
+        <location filename="../../scribus/scribus.cpp" line="3776"/>
         <source>Open</source>
         <translation>Otvoriť</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3178"/>
+        <location filename="../../scribus/scribus.cpp" line="3177"/>
         <source>Importing Pages...</source>
         <translation>Importovanie strán...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3209"/>
+        <location filename="../../scribus/scribus.cpp" line="3208"/>
         <source>Import Page(s)</source>
         <translation>Importovať stranu/strany</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3255"/>
+        <location filename="../../scribus/scribus.cpp" line="3254"/>
         <source>Import done</source>
         <translation>Import je dokončený</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3259"/>
+        <location filename="../../scribus/scribus.cpp" line="3258"/>
         <source>Found nothing to import</source>
         <translation>Nebolo nájdené nič na importovanie</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3332"/>
+        <location filename="../../scribus/scribus.cpp" line="3331"/>
         <source>File does not exist on the specified path :
 %1</source>
         <translation>Súbor neexistuje v špecifikovanej ceste:
 %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3378"/>
+        <location filename="../../scribus/scribus.cpp" line="3377"/>
         <source>File %1 is not in an acceptable format</source>
         <translation>Súbor %1 nie je v akceptovateľnom formáte</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3413"/>
+        <location filename="../../scribus/scribus.cpp" line="3412"/>
         <source>Loading...</source>
         <translation>Načítavanie...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3577"/>
+        <location filename="../../scribus/scribus.cpp" line="3576"/>
         <source> was replaced by: </source>
         <translation> bol nadradený: </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3607"/>
+        <location filename="../../scribus/scribus.cpp" line="3606"/>
         <source>(converted)</source>
         <translation>(konvertované)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3965"/>
+        <location filename="../../scribus/scribus.cpp" line="3964"/>
         <source>Filename and Path for Image</source>
         <translation>Názov súboru a cesta k obrázku</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3965"/>
+        <location filename="../../scribus/scribus.cpp" line="3964"/>
         <source>All Files (*)</source>
         <translation>Všetky súbory (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4058"/>
-        <location filename="../../scribus/scribus.cpp" line="4117"/>
-        <location filename="../../scribus/scribus.cpp" line="7050"/>
-        <location filename="../../scribus/scribus.cpp" line="7214"/>
-        <location filename="../../scribus/scribus.cpp" line="7228"/>
+        <location filename="../../scribus/scribus.cpp" line="4057"/>
+        <location filename="../../scribus/scribus.cpp" line="4116"/>
+        <location filename="../../scribus/scribus.cpp" line="7049"/>
+        <location filename="../../scribus/scribus.cpp" line="7213"/>
+        <location filename="../../scribus/scribus.cpp" line="7227"/>
         <source>Cannot write the file: 
 %1</source>
         <translation>Nie je možné zapísať súbor: 
 %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4102"/>
-        <location filename="../../scribus/scribus.cpp" line="7039"/>
+        <location filename="../../scribus/scribus.cpp" line="4101"/>
+        <location filename="../../scribus/scribus.cpp" line="7038"/>
         <source>Save As</source>
         <translation>Uložiť ako</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4131"/>
+        <location filename="../../scribus/scribus.cpp" line="4130"/>
         <source>Saving...</source>
         <translation>Ukladám...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4263"/>
-        <location filename="../../scribus/scribus.cpp" line="6718"/>
-        <location filename="../../scribus/scribus.cpp" line="6795"/>
-        <location filename="../../scribus/scribus.cpp" line="6867"/>
+        <location filename="../../scribus/scribus.cpp" line="4262"/>
+        <location filename="../../scribus/scribus.cpp" line="6717"/>
+        <location filename="../../scribus/scribus.cpp" line="6794"/>
+        <location filename="../../scribus/scribus.cpp" line="6866"/>
         <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
         <translation>Scribus našiel nejaké chyby. Skúste použiť Predtlačovú kontrolu na ich opravu</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4298"/>
+        <location filename="../../scribus/scribus.cpp" line="4297"/>
         <source>Printing...</source>
         <translation>Tlačím...</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1266"/>
-        <location filename="../../scribus/scribus.cpp" line="2152"/>
-        <location filename="../../scribus/scribus.cpp" line="4302"/>
-        <location filename="../../scribus/scribus.cpp" line="7018"/>
-        <location filename="../../scribus/scribus.cpp" line="8281"/>
+        <location filename="../../scribus/scribus.cpp" line="2151"/>
+        <location filename="../../scribus/scribus.cpp" line="4301"/>
+        <location filename="../../scribus/scribus.cpp" line="7017"/>
+        <location filename="../../scribus/scribus.cpp" line="8280"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4348"/>
+        <location filename="../../scribus/scribus.cpp" line="4347"/>
         <source>Printing failed!</source>
         <translation>Tlač sa nepodarila!</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4438"/>
+        <location filename="../../scribus/scribus.cpp" line="4437"/>
         <source>Cannot Cut In-Use Item</source>
         <translation>Nie je možné vystrihnúť používanú položku</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4438"/>
+        <location filename="../../scribus/scribus.cpp" line="4437"/>
         <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
         <translation>Položka %1 práve upravovaná v Story Editore. Operácia vystrihnutie bola zrušená</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5057"/>
+        <location filename="../../scribus/scribus.cpp" line="5056"/>
         <source>About Qt</source>
         <translation>O Qt</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5088"/>
+        <location filename="../../scribus/scribus.cpp" line="5087"/>
         <source>Scribus Manual</source>
         <translation>Scribus manuál</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6179"/>
+        <location filename="../../scribus/scribus.cpp" line="6178"/>
         <source>&amp;Size:</source>
         <translation>&amp;Veľkosť:</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1595"/>
-        <location filename="../../scribus/scribus.cpp" line="6179"/>
+        <location filename="../../scribus/scribus.cpp" line="6178"/>
         <source>Size</source>
         <translation>Veľkosť</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6589"/>
+        <location filename="../../scribus/scribus.cpp" line="6588"/>
         <source>An error occurred while opening monitor profile.
 Former monitor profile will be used.</source>
         <translation>Pri otváraní profilu monitora sa vyskytla chyba.
 Použije sa bývalý profil monitora.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6985"/>
+        <location filename="../../scribus/scribus.cpp" line="6984"/>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
         <translation>Scribus našiel nejaké chyby.
 Skúste použiť Predtlačovú kontrolu na ich opravu.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7081"/>
+        <location filename="../../scribus/scribus.cpp" line="7080"/>
         <source>Detected some errors.
 Consider using the Preflight Verifier to correct them</source>
         <translation>Boli nájdené nejaké chyby.
 Skúste použiť Predtlačovú kontrolu na ich opravu</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7210"/>
+        <location filename="../../scribus/scribus.cpp" line="7209"/>
         <source>-Page%1</source>
         <translation>-Strana%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7754"/>
+        <location filename="../../scribus/scribus.cpp" line="7753"/>
         <source>Some objects are locked.</source>
         <translation>Niektoré objekty sú uzamknuté.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7750"/>
+        <location filename="../../scribus/scribus.cpp" line="7749"/>
         <source>&amp;Lock All</source>
         <translation>&amp;Uzamknúť všetko</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7242"/>
+        <location filename="../../scribus/scribus.cpp" line="7241"/>
         <source>Locate your PDF viewer</source>
         <translation>Nájdite svoj prehliadač PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7751"/>
+        <location filename="../../scribus/scribus.cpp" line="7750"/>
         <source>&amp;Unlock All</source>
         <translation>Odom&amp;knúť všetko</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3887"/>
+        <location filename="../../scribus/scribus.cpp" line="3886"/>
         <location filename="../../scribus/scribus.cpp" line="8746"/>
         <source>Do you really want to replace your existing image?</source>
         <translation>Naozaj chcete nahradiť existujúci obrázok?</translation>
@@ -36146,17 +36195,17 @@ Skúste použiť Predtlačovú kontrolu na ich opravu</translation>
         <translation>Vložiť nedávne</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3799"/>
+        <location filename="../../scribus/scribus.cpp" line="3798"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Skutočne chcete odstrániť všetky svoje texty?</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3574"/>
+        <location filename="../../scribus/scribus.cpp" line="3573"/>
         <source>Some color profiles used by this document are not installed:</source>
         <translation>Niektoré farebné profily použité v tomto dokumente nie sú nainštalované:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7039"/>
+        <location filename="../../scribus/scribus.cpp" line="7038"/>
         <source>%1;;All Files (*)</source>
         <translation>%1;;Všetky súbory (*)</translation>
     </message>
@@ -36166,25 +36215,25 @@ Skúste použiť Predtlačovú kontrolu na ich opravu</translation>
         <translation>Aplikovanie používateľských skratiek</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6625"/>
+        <location filename="../../scribus/scribus.cpp" line="6624"/>
         <source>Updating Images</source>
         <translation>Aktualizácia obrázkov</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4056"/>
-        <location filename="../../scribus/scribus.cpp" line="4115"/>
+        <location filename="../../scribus/scribus.cpp" line="4055"/>
+        <location filename="../../scribus/scribus.cpp" line="4114"/>
         <source>Your document was saved to a temporary file and could not be moved: 
 %1</source>
         <translation>Váš dokument bol uložený do dočasného súboru a nemôže byť presunutý:
 %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4411"/>
+        <location filename="../../scribus/scribus.cpp" line="4410"/>
         <source>Print engine initialization failed</source>
         <translation>Nepodarilo sa inicializovať tlačový systém</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3014"/>
+        <location filename="../../scribus/scribus.cpp" line="3013"/>
         <source>All Supported Formats</source>
         <translation>Všetky podporované formáty</translation>
     </message>
@@ -36201,22 +36250,22 @@ Skúste použiť Predtlačovú kontrolu na ich opravu</translation>
         <translation>Nová položka</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6759"/>
+        <location filename="../../scribus/scribus.cpp" line="6758"/>
         <source>Ghostscript is missing : PostScript Print Preview is not available</source>
         <translation>Chýba Ghostscript: Postscriptový náhľad na tlač nie je dostupný</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3363"/>
+        <location filename="../../scribus/scribus.cpp" line="3362"/>
         <source>Document is already opened</source>
         <translation>Dokument je už otvorený</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3379"/>
+        <location filename="../../scribus/scribus.cpp" line="3378"/>
         <source>The file may be damaged or may have been produced in a later version of Scribus.</source>
         <translation>Súbor môže byť poškodený, alebo bol vytvorené v novšej verzii Scribusu.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7505"/>
+        <location filename="../../scribus/scribus.cpp" line="7504"/>
         <source>Editing Symbol: %1</source>
         <translation>Upravovanie symbolu: %1</translation>
     </message>
@@ -36393,37 +36442,37 @@ Skúste použiť Predtlačovú kontrolu na ich opravu</translation>
         <translation>Y:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3363"/>
+        <location filename="../../scribus/scribus.cpp" line="3362"/>
         <source>This document is already open. It will be set as the active document.</source>
         <translation>Tento dokument je už otvorený. Nastaví sa ako aktívny dokument.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5165"/>
+        <location filename="../../scribus/scribus.cpp" line="5164"/>
         <source>Text Files (*.txt);;All Files (*)</source>
         <translation>Textové súbory (*.txt);;Všetky súbory  (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5165"/>
+        <location filename="../../scribus/scribus.cpp" line="5164"/>
         <source>Save as</source>
         <translation>Uložiť ako</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6192"/>
+        <location filename="../../scribus/scribus.cpp" line="6191"/>
         <source>&amp;Language:</source>
         <translation>&amp;Jazyk:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6192"/>
+        <location filename="../../scribus/scribus.cpp" line="6191"/>
         <source>Language</source>
         <translation>Jazyk</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7556"/>
+        <location filename="../../scribus/scribus.cpp" line="7555"/>
         <source>Editing Inline Item</source>
         <translation>Úprava vloženej položky</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8391"/>
+        <location filename="../../scribus/scribus.cpp" line="8390"/>
         <source>The program %1 is missing or failed to open</source>
         <translation>Program %1 chýba alebo sa nepodarilo otvoriť</translation>
     </message>
@@ -36484,7 +36533,7 @@ Skúste použiť Predtlačovú kontrolu na ich opravu</translation>
         <translation>%1 zvolené</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3215"/>
+        <location filename="../../scribus/scribus.cpp" line="3214"/>
         <source>C&amp;reate</source>
         <translation>Vytvo&amp;riť</translation>
     </message>
