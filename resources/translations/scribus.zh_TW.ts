@@ -14,12 +14,12 @@
         <translation>分析檔案:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ai/importai.cpp" line="2364"/>
+        <location filename="../../scribus/plugins/import/ai/importai.cpp" line="2347"/>
         <source>Group%1</source>
         <translation>群組%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ai/importai.cpp" line="3466"/>
+        <location filename="../../scribus/plugins/import/ai/importai.cpp" line="3449"/>
         <source>Generating Items</source>
         <translation>產生物件中</translation>
     </message>
@@ -29,27 +29,27 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="261"/>
         <source>Contributions from:</source>
-        <translation>貢獻者: </translation>
+        <translation>貢獻者：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="141"/>
         <source>&amp;About</source>
-        <translation>關於 (&amp;A)</translation>
+        <translation>關於(&amp;A)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="151"/>
         <source>A&amp;uthors</source>
-        <translation>作者 (&amp;U)</translation>
+        <translation>作者(&amp;U)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="161"/>
         <source>&amp;Translations</source>
-        <translation>翻譯 (&amp;T)</translation>
+        <translation>翻譯(&amp;T)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="172"/>
         <source>&amp;Online</source>
-        <translation>線上資料 (&amp;O)</translation>
+        <translation>線上資料(&amp;O)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="209"/>
@@ -59,42 +59,42 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="225"/>
         <source>&amp;Close</source>
-        <translation>關閉 (&amp;C)</translation>
+        <translation>關閉(&amp;C)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="251"/>
         <source>Development Team:</source>
-        <translation>開發團隊:</translation>
+        <translation>開發團隊：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="253"/>
         <source>Mac OS&amp;#174; X Port:</source>
-        <translation>Mac OS&amp;#174; X 移植:</translation>
+        <translation>Mac OS&amp;#174; X 移植：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="263"/>
         <source>Contributions from, and Previous Developers:</source>
-        <translation>來自和以前的開發貢獻人員:</translation>
+        <translation>來自和以前的開發貢獻人員：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="265"/>
         <source>Official Documentation:</source>
-        <translation>官方文件: </translation>
+        <translation>官方文件：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="269"/>
         <source>Other Documentation:</source>
-        <translation>其他文件: </translation>
+        <translation>其他文件：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="279"/>
         <source>AppImage for Linux:</source>
-        <translation>適用於Linux的AppImage格式包:</translation>
+        <translation>適用於Linux的AppImage格式包：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="294"/>
         <source>Official Translations and Translators (in order of locale shortcode):</source>
-        <translation>翻譯人員 (按語言簡碼順序排列):</translation>
+        <translation>翻譯人員 (按語言簡碼順序排列)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="309"/>
@@ -124,7 +124,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="657"/>
         <source>SVN Revision: %1</source>
-        <translation>SVN修正版: %1</translation>
+        <translation>SVN修正版：%1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="665"/>
@@ -134,57 +134,57 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="668"/>
         <source>Build ID: %1</source>
-        <translation>構建ID: %1</translation>
+        <translation>構建ID：%1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="675"/>
         <source>Built: %1</source>
-        <translation>構建: %1</translation>
+        <translation>構建：%1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="678"/>
         <source>Companion Programs:</source>
-        <translation>配套程序:</translation>
+        <translation>配套程式：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="681"/>
         <source>Ghostscript: %1</source>
-        <translation>Ghostscript: %1</translation>
+        <translation>Ghostscript：%1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="684"/>
         <source>Libraries:</source>
-        <translation>函數庫:</translation>
+        <translation>函數庫：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="687"/>
         <source>cairo: %1</source>
-        <translation>cairo: %1</translation>
+        <translation>cairo：%1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="689"/>
         <source>Harfbuzz: %1</source>
-        <translation>Harfbuzz: %1</translation>
+        <translation>Harfbuzz：%1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="691"/>
         <source>littlecms: %1</source>
-        <translation>littlecms: %1</translation>
+        <translation>littlecms：%1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="697"/>
         <source>podofo: %1</source>
-        <translation>podofo: %1</translation>
+        <translation>podofo：%1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="703"/>
         <source>poppler: %1</source>
-        <translation>poppler: %1</translation>
+        <translation>poppler：%1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="296"/>
         <source>Previous Translation Contributors:</source>
-        <translation>先前翻譯貢獻者: </translation>
+        <translation>先前翻譯貢獻者：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="105"/>
@@ -209,22 +209,22 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="661"/>
         <source>No Ghostscript version available</source>
-        <translation>沒有可用的 Ghostscript 版本 </translation>
+        <translation>沒有可用的 Ghostscript 版本</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="257"/>
         <source>Windows&amp;#174; Port:</source>
-        <translation>Windows&amp;#174; 移植:</translation>
+        <translation>Windows&amp;#174; 移植：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="275"/>
         <source>Tango Project Icons:</source>
-        <translation>Tango Project Icons:</translation>
+        <translation>Tango Project Icons：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="177"/>
         <source>&amp;Updates</source>
-        <translation>更新 (&amp;U)</translation>
+        <translation>更新(&amp;U)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="233"/>
@@ -234,12 +234,12 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="255"/>
         <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
-        <translation>OS/2&amp;#174;/eComStation&amp;#8482; 移植:</translation>
+        <translation>OS/2&amp;#174;/eComStation&amp;#8482; 移植：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="273"/>
         <source>Splash Screen:</source>
-        <translation>起始視窗:</translation>
+        <translation>起始視窗：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="139"/>
@@ -259,7 +259,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="188"/>
         <source>&amp;Licence</source>
-        <translation>許可 (&amp;L)</translation>
+        <translation>授權(&amp;L)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="139"/>
@@ -274,12 +274,12 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="267"/>
         <source>Doc Translators:</source>
-        <translation>文件翻譯:</translation>
+        <translation>文件翻譯：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="271"/>
         <source>Webmasters:</source>
-        <translation>網站管理:</translation>
+        <translation>網站管理：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="281"/>
@@ -301,7 +301,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="277"/>
         <source>Scribus 1.5.1+ Icon Set:</source>
-        <translation>Scribus 1.5.1+ 圖示組:</translation>
+        <translation>Scribus 1.5.1+ 圖示集：</translation>
     </message>
 </context>
 <context>
@@ -309,37 +309,37 @@
     <message>
         <location filename="../../scribus/ui/aboutplugins.cpp" line="70"/>
         <source>Filename:</source>
-        <translation>檔案名:</translation>
+        <translation>檔案名：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aboutplugins.cpp" line="71"/>
         <source>Version:</source>
-        <translation>版本:</translation>
+        <translation>版本：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aboutplugins.cpp" line="76"/>
         <source>Release Date:</source>
-        <translation>發佈日期:</translation>
+        <translation>發布日期：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aboutplugins.cpp" line="83"/>
         <source>Description:</source>
-        <translation>描述:</translation>
+        <translation>描述：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aboutplugins.cpp" line="84"/>
         <source>Author(s):</source>
-        <translation>作者:</translation>
+        <translation>作者：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aboutplugins.cpp" line="85"/>
         <source>Copyright:</source>
-        <translation>版權:</translation>
+        <translation>版權：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aboutplugins.cpp" line="86"/>
         <source>License:</source>
-        <translation>授權:</translation>
+        <translation>授權條款：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aboutplugins.ui" line="14"/>
@@ -357,32 +357,32 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1503"/>
         <source>&amp;Open...</source>
-        <translation>開啟 (&amp;O)...</translation>
+        <translation>開啟(&amp;O)...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1504"/>
         <source>&amp;Close</source>
-        <translation>關閉 (&amp;C)</translation>
+        <translation>關閉(&amp;C)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1505"/>
         <source>&amp;Save</source>
-        <translation>儲存 (&amp;S)</translation>
+        <translation>儲存(&amp;S)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1506"/>
         <source>Save &amp;As...</source>
-        <translation>另存新檔 (&amp;A)...</translation>
+        <translation>另存新檔(&amp;A)...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1507"/>
         <source>Re&amp;vert to Saved</source>
-        <translation>恢復到已儲存 (&amp;V)</translation>
+        <translation>恢復到已儲存(&amp;V)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1508"/>
         <source>Collect for O&amp;utput...</source>
-        <translation>準備輸出 (&amp;U)...</translation>
+        <translation>準備匯出(&amp;U)...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1509"/>
@@ -392,94 +392,94 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1510"/>
         <source>Append &amp;Text...</source>
-        <translation>追加文字 (&amp;T)...</translation>
+        <translation>追加文字(&amp;T)...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1511"/>
         <source>Get Image...</source>
-        <translation> 匯入影像...</translation>
+        <translation>匯入影像...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1514"/>
         <source>Save &amp;Text...</source>
-        <translation>儲存文字 (&amp;T)...</translation>
+        <translation>儲存文字(&amp;T)...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1516"/>
         <source>Save as P&amp;DF...</source>
-        <translation>儲存為 PDF (&amp;D)...</translation>
+        <translation>儲存為 P&amp;DF...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1518"/>
         <source>Document &amp;Setup...</source>
-        <translation>檔案設定 (&amp;S)...</translation>
+        <translation>檔案設定(&amp;S)...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1521"/>
         <source>&amp;Print...</source>
-        <translation>列印 (&amp;P)...</translation>
+        <translation>列印(&amp;P)...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1525"/>
         <source>&amp;Quit</source>
-        <translation>退出 (&amp;Q)</translation>
+        <translation>退出(&amp;Q)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1527"/>
         <source>&amp;Undo</source>
-        <translation>復原 (&amp;U)</translation>
+        <translation>復原(&amp;U)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1528"/>
         <source>&amp;Redo</source>
-        <translation>重做 (&amp;R)</translation>
+        <translation>重做(&amp;R)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1529"/>
         <source>&amp;Item Action Mode</source>
-        <translation>物件動作模式 (&amp;I)</translation>
+        <translation>物件動作模式(&amp;I)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1530"/>
         <source>Cu&amp;t</source>
-        <translation>剪下 (&amp;T)</translation>
+        <translation>剪下(&amp;T)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1531"/>
         <location filename="../../scribus/actionmanager.cpp" line="1533"/>
         <source>&amp;Copy</source>
-        <translation>複製 (&amp;C)</translation>
+        <translation>複製(&amp;C)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1532"/>
         <location filename="../../scribus/actionmanager.cpp" line="1534"/>
         <source>&amp;Paste</source>
-        <translation>貼上 (&amp;P)</translation>
+        <translation>貼上(&amp;P)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1539"/>
         <source>Select &amp;All</source>
-        <translation>全選 (&amp;A)</translation>
+        <translation>全選(&amp;A)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1541"/>
         <source>&amp;Deselect All</source>
-        <translation>取消全選 (&amp;D)</translation>
+        <translation>取消全選(&amp;D)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1542"/>
         <source>&amp;Search/Replace...</source>
-        <translation>尋找 / 取代 (&amp;S)...</translation>
+        <translation>搜尋 / 取代 (&amp;S)...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1550"/>
         <source>&amp;Master Pages...</source>
-        <translation>主頁 (&amp;M)...</translation>
+        <translation>主頁(&amp;M)...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1520"/>
         <source>P&amp;references...</source>
-        <translation>偏好設定 (&amp;R)...</translation>
+        <translation>偏好設定(&amp;R)...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1523"/>
@@ -499,132 +499,132 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1559"/>
         <source>&amp;Other...</source>
-        <translation>其他 (&amp;O)...</translation>
+        <translation>其他(&amp;O)...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1560"/>
         <source>&amp;Left</source>
-        <translation>左 (&amp;L)</translation>
+        <translation>左(&amp;L)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1561"/>
         <source>&amp;Center</source>
-        <translation>中間 (&amp;C)</translation>
+        <translation>中間(&amp;C)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1562"/>
         <source>&amp;Right</source>
-        <translation>右 (&amp;R)</translation>
+        <translation>右(&amp;R)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1563"/>
         <source>&amp;Block</source>
-        <translation>區塊 (&amp;B)</translation>
+        <translation>區塊(&amp;B)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1564"/>
         <source>&amp;Forced</source>
-        <translation>強制 (&amp;F)</translation>
+        <translation>強制(&amp;F)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1566"/>
         <source>&amp;Normal</source>
-        <translation>普通 (&amp;N)</translation>
+        <translation>普通(&amp;N)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1567"/>
         <source>&amp;Underline</source>
-        <translation>底線 (&amp;U)</translation>
+        <translation>底線(&amp;U)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1568"/>
         <source>Underline &amp;Words</source>
-        <translation>增加底線 (&amp;W)</translation>
+        <translation>增加底線(&amp;W)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1569"/>
         <source>&amp;Strike Through</source>
-        <translation>刪除線 (&amp;S)</translation>
+        <translation>刪除線(&amp;S)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1570"/>
         <source>&amp;All Caps</source>
-        <translation>全部大寫 (&amp;A)</translation>
+        <translation>全部大寫(&amp;A)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1571"/>
         <source>Small &amp;Caps</source>
-        <translation>小寫 (&amp;C)</translation>
+        <translation>小寫(&amp;C)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1572"/>
         <source>Su&amp;perscript</source>
-        <translation>上標 (&amp;P)</translation>
+        <translation>上標(&amp;P)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1573"/>
         <source>Su&amp;bscript</source>
-        <translation>下標 (&amp;B)</translation>
+        <translation>下標(&amp;B)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1581"/>
         <source>D&amp;uplicate</source>
-        <translation>複製 (&amp;U)</translation>
+        <translation>再製(&amp;U)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1584"/>
         <source>&amp;Delete</source>
-        <translation>刪除 (&amp;D)</translation>
+        <translation>刪除(&amp;D)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1585"/>
         <source>&amp;Group</source>
-        <translation>群組 (&amp;G)</translation>
+        <translation>群組(&amp;G)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1586"/>
         <source>&amp;Ungroup</source>
-        <translation>取消群組 (&amp;U)</translation>
+        <translation>取消群組(&amp;U)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1588"/>
         <source>Is &amp;Locked</source>
-        <translation>鎖定 (&amp;L)</translation>
+        <translation>鎖定(&amp;L)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1589"/>
         <source>Si&amp;ze is Locked</source>
-        <translation>鎖定尺寸 (&amp;Z)</translation>
+        <translation>鎖定尺寸(&amp;Z)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1593"/>
         <source>Lower to &amp;Bottom</source>
-        <translation>降低到底部 (&amp;B)</translation>
+        <translation>降低到底部(&amp;B)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1594"/>
         <source>Raise to &amp;Top</source>
-        <translation>升高到頂部 (&amp;T)</translation>
+        <translation>升高到頂端(&amp;T)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1595"/>
         <source>&amp;Lower</source>
-        <translation>降低 (&amp;L)</translation>
+        <translation>降低(&amp;L)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1596"/>
         <source>&amp;Raise</source>
-        <translation>升高 (&amp;R)</translation>
+        <translation>升高(&amp;R)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1599"/>
         <source>&amp;Attributes...</source>
-        <translation>特性 (&amp;A)...</translation>
+        <translation>特性(&amp;A)...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1601"/>
         <source>I&amp;mage Visible</source>
-        <translation>顯示圖像 (&amp;M)</translation>
+        <translation>顯示圖片(&amp;M)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1618"/>
@@ -634,81 +634,81 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1623"/>
         <source>Is PDF &amp;Bookmark</source>
-        <translation>為 PDF 書籤 (&amp;B)</translation>
+        <translation>為 PDF 書籤(&amp;B)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1624"/>
         <source>Is PDF A&amp;nnotation</source>
-        <translation>為 PDF 注釋 (&amp;N)</translation>
+        <translation>為 PDF 註釋(&amp;N)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1627"/>
         <source>&amp;Edit Shape...</source>
-        <translation>編輯形狀 (&amp;E)...</translation>
+        <translation>編輯形狀(&amp;E)...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1628"/>
         <source>&amp;Attach Text to Path</source>
-        <translation>將文字附到路徑上 (&amp;A)</translation>
+        <translation>將文字附到路徑上(&amp;A)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1629"/>
         <source>&amp;Detach Text from Path</source>
-        <translation>從路徑分離文字 (&amp;D)</translation>
+        <translation>從路徑分離文字(&amp;D)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1630"/>
         <source>&amp;Combine Polygons</source>
-        <translation>合併多邊形 (&amp;C)</translation>
+        <translation>合併多邊形(&amp;C)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1631"/>
         <source>Split &amp;Polygons</source>
-        <translation>分離多邊形 (&amp;P)</translation>
+        <translation>分離多邊形(&amp;P)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1632"/>
         <location filename="../../scribus/actionmanager.cpp" line="1742"/>
         <source>&amp;Bezier Curve</source>
-        <translation>貝茲曲線 (&amp;B)</translation>
+        <translation>貝茲曲線(&amp;B)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1633"/>
         <location filename="../../scribus/actionmanager.cpp" line="1733"/>
         <source>&amp;Image Frame</source>
-        <translation>圖片框 (&amp;I)</translation>
+        <translation>圖片框(&amp;I)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1635"/>
         <location filename="../../scribus/actionmanager.cpp" line="1737"/>
         <source>&amp;Polygon</source>
-        <translation>多邊形 (&amp;P)</translation>
+        <translation>多邊形(&amp;P)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1636"/>
         <location filename="../../scribus/actionmanager.cpp" line="1732"/>
         <source>&amp;Text Frame</source>
-        <translation>文字框 (&amp;T)</translation>
+        <translation>文字框(&amp;T)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1644"/>
         <source>&amp;Glyph...</source>
-        <translation>符號 (&amp;G)...</translation>
+        <translation>符號(&amp;G)...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1657"/>
         <source>&amp;Insert...</source>
-        <translation>插入 (&amp;I)...</translation>
+        <translation>插入(&amp;I)...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1658"/>
         <source>Im&amp;port...</source>
-        <translation>匯入 (&amp;P)...</translation>
+        <translation>匯入(&amp;P)...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1659"/>
         <source>&amp;Delete...</source>
-        <translation>刪除 (&amp;D)...</translation>
+        <translation>刪除(&amp;D)...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1660"/>
@@ -718,17 +718,17 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1661"/>
         <source>&amp;Move...</source>
-        <translation>移動 (&amp;M)...</translation>
+        <translation>移動(&amp;M)...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1662"/>
         <source>&amp;Apply Master Page...</source>
-        <translation>套用主頁 (&amp;A)...</translation>
+        <translation>套用主頁(&amp;A)...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1664"/>
         <source>Manage &amp;Guides...</source>
-        <translation>管理參考線 (&amp;G)...</translation>
+        <translation>管理參考線(&amp;G)...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1670"/>
@@ -753,87 +753,87 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1678"/>
         <source>Show &amp;Margins</source>
-        <translation>顯示頁面邊距 (&amp;M)</translation>
+        <translation>顯示頁面邊距(&amp;M)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1680"/>
         <source>Show &amp;Frames</source>
-        <translation>顯示框體 (&amp;F)</translation>
+        <translation>顯示框體(&amp;F)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1682"/>
         <source>Show &amp;Images</source>
-        <translation>顯示圖片 (&amp;I)</translation>
+        <translation>顯示圖片(&amp;I)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1683"/>
         <source>Show &amp;Grid</source>
-        <translation>顯示網格 (&amp;G)</translation>
+        <translation>顯示網格(&amp;G)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1684"/>
         <source>Show G&amp;uides</source>
-        <translation>顯示參考線 (&amp;U)</translation>
+        <translation>顯示參考線(&amp;U)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1686"/>
         <source>Show &amp;Baseline Grid</source>
-        <translation>顯示底線網格 (&amp;B)</translation>
+        <translation>顯示底線網格(&amp;B)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1687"/>
         <source>Show &amp;Text Chain</source>
-        <translation>顯示文字鏈 (&amp;T)</translation>
+        <translation>顯示文字鏈(&amp;T)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1691"/>
         <source>Sn&amp;ap to Grid</source>
-        <translation>吸附到網格 (&amp;A)</translation>
+        <translation>吸附到網格(&amp;A)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1692"/>
         <source>Sna&amp;p to Guides</source>
-        <translation>吸附到參考線 (&amp;P)</translation>
+        <translation>吸附到參考線(&amp;P)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1698"/>
         <source>&amp;Properties</source>
-        <translation>屬性 (&amp;P)</translation>
+        <translation>屬性(&amp;P)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1701"/>
         <source>&amp;Scrapbook</source>
-        <translation>剪貼簿 (&amp;S)</translation>
+        <translation>剪貼簿(&amp;S)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1702"/>
         <source>&amp;Layers</source>
-        <translation>圖層 (&amp;L)</translation>
+        <translation>圖層(&amp;L)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1704"/>
         <source>&amp;Bookmarks</source>
-        <translation>書籤 (&amp;B)</translation>
+        <translation>書籤(&amp;B)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1707"/>
         <source>&amp;Measurements</source>
-        <translation>測量 (&amp;M)</translation>
+        <translation>測量(&amp;M)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1708"/>
         <source>Action &amp;History</source>
-        <translation>歷史動作 (&amp;H)</translation>
+        <translation>歷史動作(&amp;H)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1709"/>
         <source>Preflight &amp;Verifier</source>
-        <translation>印前檢驗器 (&amp;V)</translation>
+        <translation>印前檢驗器(&amp;V)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1710"/>
         <source>Document &amp;Log</source>
-        <translation>文档日志(&amp;L)</translation>
+        <translation>文件日誌(&amp;L)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1712"/>
@@ -843,7 +843,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1714"/>
         <source>&amp;Tools</source>
-        <translation>工具 (&amp;T)</translation>
+        <translation>工具(&amp;T)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1715"/>
@@ -904,7 +904,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1729"/>
         <source>&amp;Eye Dropper</source>
-        <translation>取色器 (&amp;E)</translation>
+        <translation>取色器(&amp;E)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1730"/>
@@ -914,17 +914,17 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1758"/>
         <source>&amp;Manage Images...</source>
-        <translation>管理圖片 (&amp;M)</translation>
+        <translation>管理圖片(&amp;M)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1759"/>
         <source>&amp;Hyphenate Text</source>
-        <translation>用連字元連字 (&amp;H)</translation>
+        <translation>用連字元連字(&amp;H)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1761"/>
         <source>&amp;Generate Table Of Contents</source>
-        <translation>產生目錄索引 (&amp;G)</translation>
+        <translation>產生目錄索引(&amp;G)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1769"/>
@@ -944,12 +944,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1773"/>
         <source>Toolti&amp;ps</source>
-        <translation>提示 (&amp;P)</translation>
+        <translation>提示(&amp;P)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1828"/>
         <source>Display logged warnings and errors from editing activities</source>
-        <translation>显示编辑活动记录的警告和错误</translation>
+        <translation>顯示編輯活動所記錄的警告與錯誤訊息</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1855"/>
@@ -969,12 +969,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1859"/>
         <source>Non Breaking &amp;Space</source>
-        <translation>不間斷空格 (&amp;S)</translation>
+        <translation>不間斷空格(&amp;S)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1861"/>
         <source>Page &amp;Number</source>
-        <translation>頁碼 (&amp;N)</translation>
+        <translation>頁碼(&amp;N)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1868"/>
@@ -1024,22 +1024,22 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1575"/>
         <source>S&amp;hadow</source>
-        <translation>陰影 (&amp;H)</translation>
+        <translation>陰影(&amp;H)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1622"/>
         <source>&amp;Low Resolution</source>
-        <translation>低解析度 (&amp;L)</translation>
+        <translation>低解析度(&amp;L)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1621"/>
         <source>&amp;Normal Resolution</source>
-        <translation>正常解析度 (&amp;N)</translation>
+        <translation>正常解析度(&amp;N)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1620"/>
         <source>&amp;Full Resolution</source>
-        <translation>完全解析度 (&amp;F)</translation>
+        <translation>完全解析度(&amp;F)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1543"/>
@@ -1049,7 +1049,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1602"/>
         <source>&amp;Update Image</source>
-        <translation>刷新圖片 (&amp;U)</translation>
+        <translation>更新圖片(&amp;U)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1616"/>
@@ -1064,12 +1064,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1711"/>
         <source>&amp;Align and Distribute</source>
-        <translation>對齊和分佈 (&amp;A)</translation>
+        <translation>對齊和分佈(&amp;A)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1863"/>
         <source>New Line</source>
-        <translation>新建線條</translation>
+        <translation>新增線條</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1864"/>
@@ -1079,7 +1079,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1865"/>
         <source>Column Break</source>
-        <translation>分列</translation>
+        <translation>分欄</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1785"/>
@@ -1089,12 +1089,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1703"/>
         <source>&amp;Arrange Pages</source>
-        <translation>安排頁面 (&amp;A)</translation>
+        <translation>安排頁面(&amp;A)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1760"/>
         <source>Dehyphenate Text</source>
-        <translation>取消連字元</translation>
+        <translation>消除連字號</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1665"/>
@@ -1114,12 +1114,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1765"/>
         <source>&amp;Cascade</source>
-        <translation>層疊 (&amp;C)</translation>
+        <translation>層疊(&amp;C)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1766"/>
         <source>&amp;Tile</source>
-        <translation>平鋪 (&amp;T)</translation>
+        <translation>平鋪(&amp;T)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1600"/>
@@ -1129,17 +1129,17 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1590"/>
         <source>&amp;Printing Enabled</source>
-        <translation>允許列印 (&amp;P)</translation>
+        <translation>允許列印(&amp;P)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1591"/>
         <source>&amp;Flip Horizontally</source>
-        <translation>水平翻轉 (&amp;F)</translation>
+        <translation>水平翻轉(&amp;F)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1592"/>
         <source>&amp;Flip Vertically</source>
-        <translation>垂直翻轉 (&amp;F)</translation>
+        <translation>垂直翻轉(&amp;F)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1689"/>
@@ -1150,7 +1150,7 @@
         <location filename="../../scribus/actionmanager.cpp" line="1700"/>
         <source>&amp;Outline</source>
         <comment>Document Outline Palette</comment>
-        <translation>輪廓 (&amp;O)</translation>
+        <translation>輪廓(&amp;O)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1871"/>
@@ -1230,29 +1230,29 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1547"/>
         <source>S&amp;tyles...</source>
-        <translation>樣式 (&amp;T)...</translation>
+        <translation>樣式(&amp;T)...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1574"/>
         <source>&amp;Outline</source>
         <comment>type effect</comment>
-        <translation>輪廓 (&amp;O)</translation>
+        <translation>輪廓(&amp;O)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1634"/>
         <source>&amp;Outlines</source>
         <comment>Convert to oulines</comment>
-        <translation>輪廓 (&amp;O)</translation>
+        <translation>輪廓(&amp;O)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1535"/>
         <source>Paste (&amp;Absolute)</source>
-        <translation>絕對貼上 (&amp;A)</translation>
+        <translation>絕對貼上(&amp;A)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1537"/>
         <source>C&amp;lear</source>
-        <translation>清除 (&amp;L)</translation>
+        <translation>清除(&amp;L)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1515"/>
@@ -1282,17 +1282,17 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1501"/>
         <source>&amp;New...</source>
-        <translation>新建 (&amp;N)</translation>
+        <translation>新增(&amp;N)...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1522"/>
         <source>Print Previe&amp;w...</source>
-        <translation>預覽列印 (&amp;W)</translation>
+        <translation>預覽列印(&amp;W)...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1577"/>
         <source>&amp;Image Effects...</source>
-        <translation>圖片效果... (&amp;I)</translation>
+        <translation>圖片效果(&amp;I)...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1582"/>
@@ -1302,7 +1302,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1583"/>
         <source>&amp;Transform...</source>
-        <translation>變形... (&amp;T)</translation>
+        <translation>變形(&amp;T)...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1619"/>
@@ -1312,12 +1312,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1625"/>
         <source>Annotation P&amp;roperties...</source>
-        <translation>注釋屬性 (&amp;R)</translation>
+        <translation>註釋屬性(&amp;R)...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1626"/>
         <source>Field P&amp;roperties...</source>
-        <translation>文字域屬性 (&amp;R)</translation>
+        <translation>文字域屬性(&amp;R)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1645"/>
@@ -1327,7 +1327,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1668"/>
         <source>&amp;Fit to Height</source>
-        <translation>符合高度 (&amp;F)</translation>
+        <translation>符合高度(&amp;F)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1669"/>
@@ -1352,7 +1352,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1866"/>
         <source>&amp;Zero Width Space</source>
-        <translation>零寬空格 (&amp;Z)</translation>
+        <translation>零寬空格(&amp;Z)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1867"/>
@@ -1500,12 +1500,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1770"/>
         <source>&amp;About Plugins</source>
-        <translation>關於外掛程式 (&amp;A)</translation>
+        <translation>關於外掛程式(&amp;A)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1786"/>
         <source>Insert Unicode Character Begin Sequence</source>
-        <translation>開始序列插入Unicode字符</translation>
+        <translation>開始序列插入Unicode字元</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1512"/>
@@ -1545,7 +1545,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1617"/>
         <source>Adjust Image to Frame</source>
-        <translation>調整圖像適應框架</translation>
+        <translation>調整圖片適應框架</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2041"/>
@@ -1555,7 +1555,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2041"/>
         <source>&amp;File</source>
-        <translation>檔案 (&amp;F)</translation>
+        <translation>檔案(&amp;F)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2043"/>
@@ -1565,7 +1565,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2043"/>
         <source>&amp;Edit</source>
-        <translation>編輯 (&amp;E)</translation>
+        <translation>編輯(&amp;E)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2045"/>
@@ -1575,7 +1575,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2045"/>
         <source>&amp;Style</source>
-        <translation>樣式 (&amp;S)</translation>
+        <translation>樣式(&amp;S)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2047"/>
@@ -1585,7 +1585,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2047"/>
         <source>&amp;Item</source>
-        <translation>物件 (&amp;I)</translation>
+        <translation>物件(&amp;I)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2049"/>
@@ -1595,17 +1595,17 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2049"/>
         <source>I&amp;nsert</source>
-        <translation>插入 (&amp;N)</translation>
+        <translation>插入(&amp;N)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2051"/>
         <source>Page</source>
-        <translation>頁</translation>
+        <translation>頁面</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2051"/>
         <source>&amp;Page</source>
-        <translation>頁面 (&amp;P)</translation>
+        <translation>頁面(&amp;P)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2053"/>
@@ -1615,7 +1615,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2053"/>
         <source>&amp;View</source>
-        <translation>檢視 (&amp;V)</translation>
+        <translation>檢視(&amp;V)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2057"/>
@@ -1625,7 +1625,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2057"/>
         <source>E&amp;xtras</source>
-        <translation>附加 (&amp;X)</translation>
+        <translation>附加(&amp;X)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2059"/>
@@ -1635,7 +1635,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2059"/>
         <source>&amp;Windows</source>
-        <translation>視窗 (&amp;W)</translation>
+        <translation>視窗(&amp;W)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2061"/>
@@ -1645,7 +1645,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2061"/>
         <source>&amp;Help</source>
-        <translation>說明 (&amp;H)</translation>
+        <translation>說明(&amp;H)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="2427"/>
@@ -1670,7 +1670,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1502"/>
         <source>New &amp;from Template...</source>
-        <translation>從範本新建 (&amp;F)...</translation>
+        <translation>從範本新增(&amp;F)...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1536"/>
@@ -1740,7 +1740,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1643"/>
         <source>&amp;Frames...</source>
-        <translation>框體 (&amp;F)</translation>
+        <translation>框架(&amp;F)...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1615"/>
@@ -1851,7 +1851,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1775"/>
         <source>Scribus &amp;Help...</source>
-        <translation>Scribus幫助(&amp;H)...</translation>
+        <translation>Scribus說明(&amp;H)...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1791"/>
@@ -1871,7 +1871,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1794"/>
         <source>Undo</source>
-        <translation>撤銷</translation>
+        <translation>復原</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1795"/>
@@ -1941,7 +1941,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1809"/>
         <source>Insert an image frame</source>
-        <translation>插入圖像框</translation>
+        <translation>插入圖片框</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1810"/>
@@ -2096,7 +2096,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1736"/>
         <source>&amp;Shape</source>
-        <translation>形狀 (&amp;S)</translation>
+        <translation>形狀(&amp;S)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1738"/>
@@ -2111,7 +2111,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1740"/>
         <source>&amp;Line</source>
-        <translation>線條 (&amp;L)</translation>
+        <translation>線條(&amp;L)</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1741"/>
@@ -2232,27 +2232,27 @@
     <message>
         <location filename="../../scribus/ui/aligndistribute.ui" line="81"/>
         <source>&amp;Selected Guide:</source>
-        <translation>已選參考線 (&amp;S):</translation>
+        <translation>已選參考線(&amp;S)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.ui" line="94"/>
         <source>&amp;Relative To:</source>
-        <translation>對應於 (&amp;R):</translation>
+        <translation>對應於(&amp;R)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.ui" line="113"/>
         <source>&amp;Align Sides By:</source>
-        <translation>對齊(&amp;A):</translation>
+        <translation>對齊(&amp;A)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.ui" line="429"/>
         <source>Distribute</source>
-        <translation>分佈</translation>
+        <translation>分布</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.ui" line="836"/>
         <source>&amp;Distance:</source>
-        <translation>間距 (&amp;D):</translation>
+        <translation>間距(&amp;D)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aligndistribute.ui" line="903"/>
@@ -2557,7 +2557,7 @@
     <message>
         <location filename="../../scribus/ui/annota.cpp" line="206"/>
         <source>&amp;X-Pos:</source>
-        <translation>X-座標 (&amp;X):</translation>
+        <translation>X-座標(&amp;X)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annota.cpp" line="445"/>
@@ -2567,22 +2567,22 @@
     <message>
         <location filename="../../scribus/ui/annota.cpp" line="88"/>
         <source>&amp;Type:</source>
-        <translation>類型 (&amp;T):</translation>
+        <translation>類型(&amp;T)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annota.cpp" line="160"/>
         <source>C&amp;hange...</source>
-        <translation>變更 (&amp;H)...</translation>
+        <translation>變更(&amp;H)...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annota.cpp" line="180"/>
         <source>&amp;Page:</source>
-        <translation>頁面 (&amp;P):</translation>
+        <translation>頁面(&amp;P)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annota.cpp" line="215"/>
         <source>&amp;Y-Pos:</source>
-        <translation>Y-座標 (&amp;Y):</translation>
+        <translation>Y-座標(&amp;Y)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annota.cpp" line="445"/>
@@ -2661,7 +2661,7 @@
     <message>
         <location filename="../../scribus/ui/applytemplatedialog.cpp" line="266"/>
         <source>&amp;Master Page:</source>
-        <translation>主頁 (&amp;M):</translation>
+        <translation>主頁(&amp;M)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/applytemplatedialog.cpp" line="269"/>
@@ -2716,27 +2716,27 @@
     <message>
         <location filename="../../scribus/ui/applytemplatedialog.cpp" line="268"/>
         <source>Current &amp;Page</source>
-        <translation>目前頁面 (&amp;P)</translation>
+        <translation>目前頁面(&amp;P)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/applytemplatedialog.cpp" line="270"/>
         <source>&amp;Even Pages</source>
-        <translation>偶數頁面 (&amp;E)</translation>
+        <translation>偶數頁面(&amp;E)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/applytemplatedialog.cpp" line="272"/>
         <source>O&amp;dd Pages</source>
-        <translation>奇數頁面 (&amp;D)</translation>
+        <translation>奇數頁面(&amp;D)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/applytemplatedialog.cpp" line="274"/>
         <source>&amp;All Pages</source>
-        <translation>全部頁面 (&amp;A)</translation>
+        <translation>全部頁面(&amp;A)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/applytemplatedialog.cpp" line="276"/>
         <source>&amp;Within Range</source>
-        <translation>在範圍內 (&amp;W)</translation>
+        <translation>在範圍內(&amp;W)</translation>
     </message>
 </context>
 <context>
@@ -2759,12 +2759,12 @@
     <message>
         <location filename="../../scribus/ui/arcvectorbase.ui" line="83"/>
         <source>Height:</source>
-        <translation>高度:</translation>
+        <translation>高度：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/arcvectorbase.ui" line="103"/>
         <source>Width:</source>
-        <translation>寬度:</translation>
+        <translation>寬度：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/arcvectorbase.ui" line="140"/>
@@ -2930,12 +2930,12 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="231"/>
         <source>Draw arrows to be sure of space next the code</source>
-        <translation>畫箭頭確保編碼旁的空位 </translation>
+        <translation>畫箭頭確保編碼旁的空位</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="116"/>
         <source>&amp;Background</source>
-        <translation>背景 (&amp;B)</translation>
+        <translation>背景(&amp;B)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="119"/>
@@ -2950,7 +2950,7 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="129"/>
         <source>&amp;Lines</source>
-        <translation>線條 (&amp;L)</translation>
+        <translation>線條(&amp;L)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="132"/>
@@ -2965,7 +2965,7 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="84"/>
         <source>&amp;Text</source>
-        <translation>文字 (&amp;T)</translation>
+        <translation>文字(&amp;T)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="87"/>
@@ -3050,7 +3050,7 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="338"/>
         <source>&amp;Barcode:</source>
-        <translation>條形碼(&amp;B):</translation>
+        <translation>條形碼(&amp;B)：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="322"/>
@@ -3060,12 +3060,12 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="358"/>
         <source>&amp;Contents:</source>
-        <translation>內容(&amp;C):</translation>
+        <translation>內容(&amp;C)：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="412"/>
         <source>Options:</source>
-        <translation>選項:</translation>
+        <translation>選項：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="383"/>
@@ -3080,17 +3080,17 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="205"/>
         <source>Version:</source>
-        <translation>版本:</translation>
+        <translation>版本：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="251"/>
         <source>Error correction level:</source>
-        <translation>錯誤修正等級:</translation>
+        <translation>錯誤修正等級：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="328"/>
         <source>Barcode Family:</source>
-        <translation>條形碼集:</translation>
+        <translation>條形碼集：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="293"/>
@@ -3143,7 +3143,7 @@
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1795"/>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="1971"/>
         <source>&amp;Name:</source>
-        <translation>名稱 (&amp;N):</translation>
+        <translation>名稱(&amp;N)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="942"/>
@@ -3230,7 +3230,7 @@
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="761"/>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="2086"/>
         <source>Hide Images</source>
-        <translation>隱藏圖像</translation>
+        <translation>隱藏圖片</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scrapbookpalette.cpp" line="764"/>
@@ -3279,7 +3279,7 @@
     <message>
         <location filename="../../scribus/ui/buttonicon.cpp" line="42"/>
         <source>Layout:</source>
-        <translation>版面:</translation>
+        <translation>版面：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/buttonicon.cpp" line="46"/>
@@ -3419,17 +3419,17 @@
         <location filename="../../scribus/ui/cmykfw.cpp" line="631"/>
         <location filename="../../scribus/ui/cmykfw.cpp" line="800"/>
         <source>C:</source>
-        <translation>C:</translation>
+        <translation>C：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="632"/>
         <source>M:</source>
-        <translation>M:</translation>
+        <translation>M：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="633"/>
         <source>Y:</source>
-        <translation>Y:</translation>
+        <translation>Y：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="266"/>
@@ -3444,17 +3444,17 @@
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="685"/>
         <source>R:</source>
-        <translation>R:</translation>
+        <translation>R：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="686"/>
         <source>G:</source>
-        <translation>G:</translation>
+        <translation>G：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="687"/>
         <source>B:</source>
-        <translation>B:</translation>
+        <translation>B：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="119"/>
@@ -3542,7 +3542,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/cmykfw.cpp" line="798"/>
         <source>H:</source>
-        <translation>H:</translation>
+        <translation>H：</translation>
     </message>
 </context>
 <context>
@@ -3555,7 +3555,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="40"/>
         <source>&amp;Name:</source>
-        <translation>名稱(&amp;N):</translation>
+        <translation>名稱(&amp;N)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="66"/>
@@ -3590,7 +3590,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="588"/>
         <source>C:</source>
-        <translation>C:</translation>
+        <translation>C：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="550"/>
@@ -3613,7 +3613,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/cmykfwbase.ui" line="518"/>
         <source>K:</source>
-        <translation>K:</translation>
+        <translation>K：</translation>
     </message>
 </context>
 <context>
@@ -3626,12 +3626,12 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="330"/>
         <source>Error: </source>
-        <translation>錯誤: </translation>
+        <translation>錯誤：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="330"/>
         <source>Color %1 exists already!</source>
-        <translation>顏色 %1 已經存在!</translation>
+        <translation>顏色 %1 已經存在！</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="335"/>
@@ -3694,7 +3694,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="191"/>
         <source>Angle:</source>
-        <translation>角度:</translation>
+        <translation>角度：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="201"/>
@@ -3754,7 +3754,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="303"/>
         <source>Preview:</source>
-        <translation>預覽:</translation>
+        <translation>預覽：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="340"/>
@@ -3769,7 +3769,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="409"/>
         <source>C:</source>
-        <translation>C:</translation>
+        <translation>C：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="419"/>
@@ -3782,65 +3782,65 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="445"/>
         <source>M:</source>
-        <translation>M:</translation>
+        <translation>M：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="481"/>
         <source>Y:</source>
-        <translation>Y:</translation>
+        <translation>Y：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="517"/>
         <source>K:</source>
-        <translation>K:</translation>
+        <translation>K：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="553"/>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="1013"/>
         <source>RGB:</source>
-        <translation>RGB:</translation>
+        <translation>RGB：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="595"/>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="824"/>
         <source>HSV:</source>
-        <translation>HSV:</translation>
+        <translation>HSV：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="686"/>
         <source>R:</source>
-        <translation>R:</translation>
+        <translation>R：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="719"/>
         <source>G:</source>
-        <translation>G:</translation>
+        <translation>G：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="752"/>
         <source>B:</source>
-        <translation>B:</translation>
+        <translation>B：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="785"/>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="1055"/>
         <source>CMYK:</source>
-        <translation>CMYK:</translation>
+        <translation>CMYK：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="914"/>
         <source>H:</source>
-        <translation>H:</translation>
+        <translation>H：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="947"/>
         <source>S:</source>
-        <translation>S:</translation>
+        <translation>S：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="980"/>
         <source>V:</source>
-        <translation>V:</translation>
+        <translation>V：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/colorwheel/cwdialog.ui" line="1099"/>
@@ -3865,38 +3865,38 @@ Please choose another one.</source>
         <location filename="../../scribus/canvas.cpp" line="2473"/>
         <source>X: %1
 Y: %2</source>
-        <translation>X: %1
-Y: %2</translation>
+        <translation>X：%1
+Y：%2</translation>
     </message>
     <message>
         <location filename="../../scribus/canvas.cpp" line="2458"/>
         <source>X: %1</source>
-        <translation>X: %1</translation>
+        <translation>X：%1</translation>
     </message>
     <message>
         <location filename="../../scribus/canvas.cpp" line="2465"/>
         <source>Y: %1</source>
-        <translation>Y: %1</translation>
+        <translation>Y：%1</translation>
     </message>
     <message>
         <location filename="../../scribus/canvas.cpp" line="2481"/>
         <source>Length: %1
 Angle: %2</source>
-        <translation>長度: %1
-角度: %2</translation>
+        <translation>長度：%1
+角度：%2</translation>
     </message>
     <message>
         <location filename="../../scribus/canvas.cpp" line="2483"/>
         <source>Width: %1
 Height: %2</source>
-        <translation>寬: %1
-高: %2</translation>
+        <translation>寬：%1
+高：%2</translation>
     </message>
     <message>
         <location filename="../../scribus/canvas.cpp" line="2495"/>
         <location filename="../../scribus/canvas.cpp" line="2502"/>
         <source>Angle: %1</source>
-        <translation>角度: %1</translation>
+        <translation>角度：%1</translation>
     </message>
 </context>
 <context>
@@ -4038,17 +4038,17 @@ Click to link to existing text frame or auto-create new linked text frame</sourc
 <context>
     <name>CdrPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="132"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="134"/>
         <source>Importing: %1</source>
         <translation>正在匯入: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="135"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="137"/>
         <source>Analyzing File:</source>
         <translation>分析檔案:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="374"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="376"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -4062,17 +4062,17 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>CgmPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="183"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="180"/>
         <source>Importing: %1</source>
         <translation>正在匯入: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="186"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="183"/>
         <source>Analyzing File:</source>
         <translation>分析檔案:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="430"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="424"/>
         <source>Generating Items</source>
         <translation>產生物件中</translation>
     </message>
@@ -4306,12 +4306,12 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/charselectenhanced.ui" line="32"/>
         <source>&amp;Font:</source>
-        <translation>字型(&amp;F):</translation>
+        <translation>字型(&amp;F)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/charselectenhanced.ui" line="58"/>
         <source>C&amp;haracter Class:</source>
-        <translation>字符種類(&amp;H):</translation>
+        <translation>字元種類(&amp;H)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/charselectenhanced.ui" line="90"/>
@@ -4323,7 +4323,7 @@ The Insert key inserts a Glyph into the Selection below and the Delete key remov
     <message>
         <location filename="../../scribus/ui/charselectenhanced.ui" line="109"/>
         <source>Insert &amp;Code:</source>
-        <translation>插入編碼(&amp;C):</translation>
+        <translation>插入編碼(&amp;C)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/charselectenhanced.ui" line="144"/>
@@ -4333,12 +4333,12 @@ The Insert key inserts a Glyph into the Selection below and the Delete key remov
     <message>
         <location filename="../../scribus/ui/charselectenhanced.ui" line="184"/>
         <source>Insert the characters at the cursor in the text</source>
-        <translation>在文字的光標處插入字符</translation>
+        <translation>在文字的光標處插入字元</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/charselectenhanced.ui" line="187"/>
         <source>&amp;Insert</source>
-        <translation>插入 (&amp;I)</translation>
+        <translation>插入(&amp;I)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/charselectenhanced.ui" line="197"/>
@@ -4348,7 +4348,7 @@ The Insert key inserts a Glyph into the Selection below and the Delete key remov
     <message>
         <location filename="../../scribus/ui/charselectenhanced.ui" line="200"/>
         <source>C&amp;lear</source>
-        <translation>清除 (&amp;L)</translation>
+        <translation>清除(&amp;L)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/charselectenhanced.ui" line="119"/>
@@ -4445,7 +4445,7 @@ The Insert key inserts a Glyph into the Selection below and the Delete key remov
         <location filename="../../scribus/ui/checkDocument.cpp" line="121"/>
         <location filename="../../scribus/ui/checkDocument.cpp" line="736"/>
         <source>&amp;Ignore Errors</source>
-        <translation>忽略錯誤 (&amp;I)</translation>
+        <translation>忽略錯誤(&amp;I)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="122"/>
@@ -4524,7 +4524,7 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="136"/>
         <source>Image dimension is smaller than its frame</source>
-        <translation>圖像尺寸小於它的框架</translation>
+        <translation>圖片尺寸小於它的框架</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="444"/>
@@ -4571,7 +4571,7 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="137"/>
         <source>This warning alerts you that you are using a bitmap based graphic format that is typically not used for high resolution images (.gif is one of those). This may result in poor viewing quality (for example: when commercially printed, viewed on a high-resolution screens, etc...). If your PDF will be printed commercially, there are some printing systems that will have difficulty printing these types of images.</source>
-        <translation>該警告是警告您在使用通常不會用於高分辨率圖像的基於位圖的圖像格式（.gif 是其中之一）。這可能會導致較差的閱讀品質（比如：商業列印時，在高分屏上閱讀時等）。如果您的 PDF 將被商業列印，有些列印系統將會在列印這些類型的圖像時遇到困難。</translation>
+        <translation>該警告是警告您在使用通常不會用於高解析度圖片的基於位圖的圖片格式（.gif 是其中之一）。這可能會導致較差的閱讀品質（比如：商業列印時，在高分屏上閱讀時等）。如果您的 PDF 將被商業列印，有些列印系統將會在列印這些類型的圖片時遇到困難。</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="142"/>
@@ -4581,7 +4581,7 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="143"/>
         <source>The warning is verifying for you that there is a PDF loaded into an Image Frame, where it will be rasterized or converted to a bitmap. Its resolution may be less than ideal. See PDF Export to learn how to minimize this problem.</source>
-        <translation>該警告是在為您驗證有 PDF 載入了圖像框，它將被柵格化或轉換為位圖。它的分辨率可能不會太理想。請參閱 PDF 匯出了解如何最小化這個問題。</translation>
+        <translation>該警告是在為您驗證有 PDF 載入了圖片框，它將被柵格化或轉換為位圖。它的分辨率可能不會太理想。請參閱 PDF 匯出了解如何最小化這個問題。</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="144"/>
@@ -4591,7 +4591,7 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="145"/>
         <source>This warning indicates that your document contains images that have a transparent layer. This is really only an issue if using older printing profiles or PostScript. It is safe to ignore this when exporting to PDF version greater than 1.4.</source>
-        <translation>該警告提示您的文件包含了有透明圖層的圖像。這只會在使用老舊的列印設定檔或 PostScript 時是個問題。輸出為版本大於 1.4 的 PDF 時可以安全忽略該警告。</translation>
+        <translation>該警告提示您的文件包含了有透明圖層的圖片。這只會在使用老舊的列印設定檔或 PostScript 時是個問題。輸出為版本大於 1.4 的 PDF 時可以安全忽略該警告。</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="146"/>
@@ -4622,7 +4622,7 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="136"/>
         <source>The image does not fit the whole space you reserved for it. Maybe this is intended, or maybe this is caused by bad inner placement or scale. The result will either be a cropped image or white space around the image.</source>
-        <translation>該圖像不符合您為它保留的整個空間。可能這是有意的，或者是由較差的內部放置或縮放導致的。結果將會是圖像被裁切或在圖像周圍留有空白空間。</translation>
+        <translation>該圖片不符合您為它保留的整個空間。可能這是有意的，或者是由較差的內部放置或縮放導致的。結果將會是圖片被裁切或在圖片周圍留有空白空間。</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="124"/>
@@ -4632,7 +4632,7 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="132"/>
         <source>If you have created an image frame, there is the presumption that you planned to put an image in it</source>
-        <translation>如果您已建立圖片框，那麼推測您計劃在裡面放置圖像</translation>
+        <translation>如果您已建立圖片框，那麼推測您計劃在裡面放置圖片</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="133"/>
@@ -4647,12 +4647,12 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="135"/>
         <source>This is a user definable setting serving as a caution for high resolution images, which may lead to unnecessarily large files</source>
-        <translation>這是用於提醒使用可能導致不必要大文件的高分辨率圖像的可由用戶確定的設置</translation>
+        <translation>這是用於提醒使用可能導致不必要大文件的高分辨率圖片的可由用戶確定的設置</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="138"/>
         <source>This is a user definable setting serving as a caution for low resolution images, which may lead to poor quality output</source>
-        <translation>這是用於提醒使用可能導致較差品質輸出的低分辨率圖像的可由用戶確定的設置</translation>
+        <translation>這是用於提醒使用可能導致較差品質輸出的低分辨率圖片的可由用戶確定的設置</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="139"/>
@@ -4662,7 +4662,7 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="140"/>
         <source>The assigned image file cannot be found</source>
-        <translation>無法找到分配的圖像文件</translation>
+        <translation>無法找到分配的圖片文件</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="141"/>
@@ -4999,7 +4999,7 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../scribus/ui/colorsandfillsbase.ui" line="78"/>
         <source>&amp;Edit</source>
-        <translation>編輯 (&amp;E)</translation>
+        <translation>編輯(&amp;E)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorsandfillsbase.ui" line="85"/>
@@ -5009,7 +5009,7 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../scribus/ui/colorsandfillsbase.ui" line="88"/>
         <source>D&amp;uplicate</source>
-        <translation>複製 (&amp;U)</translation>
+        <translation>複製(&amp;U)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorsandfillsbase.ui" line="95"/>
@@ -5019,7 +5019,7 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../scribus/ui/colorsandfillsbase.ui" line="98"/>
         <source>&amp;Delete</source>
-        <translation>刪除 (&amp;D)</translation>
+        <translation>刪除(&amp;D)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorsandfillsbase.ui" line="105"/>
@@ -5029,7 +5029,7 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../scribus/ui/colorsandfillsbase.ui" line="108"/>
         <source>&amp;Remove Unused</source>
-        <translation>清除未用的 (&amp;R)</translation>
+        <translation>清除未用的(&amp;R)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorsandfillsbase.ui" line="115"/>
@@ -5039,7 +5039,7 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../scribus/ui/colorsandfillsbase.ui" line="121"/>
         <source>Current Color Set:</source>
-        <translation>目前顔色組合:</translation>
+        <translation>目前顔色組合：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorsandfillsbase.ui" line="141"/>
@@ -5049,7 +5049,7 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../scribus/ui/colorsandfillsbase.ui" line="144"/>
         <source>&amp;Save Color Set</source>
-        <translation>儲存顔色組合 (&amp;S)</translation>
+        <translation>儲存顔色組合(&amp;S)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorsandfillsbase.ui" line="169"/>
@@ -5117,7 +5117,7 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../scribus/ui/colorsandfills.cpp" line="370"/>
         <source>&amp;Import</source>
-        <translation>匯入 (&amp;I)</translation>
+        <translation>匯入(&amp;I)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorsandfills.cpp" line="371"/>
@@ -5127,7 +5127,7 @@ currently %2 x %3 DPI</source>
     <message>
         <location filename="../../scribus/ui/colorsandfills.cpp" line="372"/>
         <source>&amp;Edit</source>
-        <translation>編輯 (&amp;E)</translation>
+        <translation>編輯(&amp;E)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorsandfills.cpp" line="398"/>
@@ -5160,7 +5160,7 @@ currently %2 x %3 DPI</source>
         <location filename="../../scribus/ui/colorsandfills.cpp" line="585"/>
         <location filename="../../scribus/ui/colorsandfills.cpp" line="1925"/>
         <source>&amp;Name:</source>
-        <translation>名稱 (&amp;N):</translation>
+        <translation>名稱(&amp;N)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorsandfills.cpp" line="585"/>
@@ -5292,22 +5292,22 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="294"/>
         <source>&amp;Apply</source>
-        <translation>套用 (&amp;A)</translation>
+        <translation>套用(&amp;A)</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="297"/>
         <source>&amp;Cancel</source>
-        <translation>取消 (&amp;C)</translation>
+        <translation>取消(&amp;C)</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="304"/>
         <source>&amp;OK</source>
-        <translation>確定 (&amp;O)</translation>
+        <translation>確定(&amp;O)</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="307"/>
         <source>&amp;Save</source>
-        <translation>儲存 (&amp;S)</translation>
+        <translation>儲存(&amp;S)</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="310"/>
@@ -5459,12 +5459,12 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="314"/>
         <source>&amp;Yes</source>
-        <translation>是 (&amp;Y)</translation>
+        <translation>是(&amp;Y)</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="315"/>
         <source>&amp;No</source>
-        <translation>否 (&amp;N)</translation>
+        <translation>否(&amp;N)</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="358"/>
@@ -5620,7 +5620,7 @@ See the Edit Colors section of the documentation for more details.</source>
         <location filename="../../scribus/commonstrings.cpp" line="440"/>
         <source>Default</source>
         <comment>Optical Margin Setting</comment>
-        <translation>預設 </translation>
+        <translation>預設</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="443"/>
@@ -5947,7 +5947,7 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/ui/contentpalette.cpp" line="337"/>
         <source>Image Properties</source>
-        <translation>圖像屬性</translation>
+        <translation>圖片屬性</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contentpalette.cpp" line="340"/>
@@ -6020,12 +6020,12 @@ See the Edit Colors section of the documentation for more details.</source>
         <location filename="../../scribus/ui/contextmenu.cpp" line="107"/>
         <location filename="../../scribus/ui/contextmenu.cpp" line="146"/>
         <source>In&amp;fo</source>
-        <translation>資訊 (&amp;F)</translation>
+        <translation>資訊(&amp;F)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contextmenu.cpp" line="131"/>
         <source>Print: </source>
-        <translation>列印: </translation>
+        <translation>列印：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contextmenu.cpp" line="134"/>
@@ -6070,22 +6070,22 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/ui/contextmenu.cpp" line="405"/>
         <source>Send to La&amp;yer</source>
-        <translation>傳送到圖層 (&amp;Y)</translation>
+        <translation>傳送到圖層(&amp;Y)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contextmenu.cpp" line="437"/>
         <source>Le&amp;vel</source>
-        <translation>圖層 (&amp;V)</translation>
+        <translation>圖層(&amp;V)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contextmenu.cpp" line="460"/>
         <source>Conve&amp;rt to</source>
-        <translation>轉換為 (&amp;R)</translation>
+        <translation>轉換為(&amp;R)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contextmenu.cpp" line="476"/>
         <source>&amp;PDF Options</source>
-        <translation>&amp;PDF 選項 </translation>
+        <translation>&amp;PDF 選項</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contextmenu.cpp" line="524"/>
@@ -6096,7 +6096,7 @@ See the Edit Colors section of the documentation for more details.</source>
         <location filename="../../scribus/ui/contextmenu.cpp" line="510"/>
         <location filename="../../scribus/ui/contextmenu.cpp" line="566"/>
         <source>&amp;Paste Here</source>
-        <translation>在此黏貼(&amp;P)</translation>
+        <translation>在此貼上(&amp;P)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contextmenu.cpp" line="574"/>
@@ -6119,7 +6119,7 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/ui/copypagetomasterpage.ui" line="37"/>
         <source>Name:</source>
-        <translation>名稱:</translation>
+        <translation>名稱：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/copypagetomasterpage.ui" line="52"/>
@@ -6153,7 +6153,7 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="34"/>
         <source>Number of Pages in Document:</source>
-        <translation>檔案中的頁面數:</translation>
+        <translation>檔案中的頁面數：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="92"/>
@@ -6168,7 +6168,7 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="254"/>
         <source>De&amp;lete</source>
-        <translation>刪除 (&amp;L)</translation>
+        <translation>刪除(&amp;L)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="257"/>
@@ -6178,7 +6178,7 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="280"/>
         <source>Move &amp;Down</source>
-        <translation>向下移動 (&amp;D)</translation>
+        <translation>向下移動(&amp;D)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="283"/>
@@ -6188,7 +6188,7 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="290"/>
         <source>Move &amp;Up</source>
-        <translation>向上移動 (&amp;U)</translation>
+        <translation>向上移動(&amp;U)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="293"/>
@@ -6213,17 +6213,17 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="136"/>
         <source>From:</source>
-        <translation>從:</translation>
+        <translation>從：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="215"/>
         <source>To:</source>
-        <translation>到:</translation>
+        <translation>到：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="164"/>
         <source>&amp;Add To Range</source>
-        <translation>增加到範圍 (&amp;A)</translation>
+        <translation>增加到範圍(&amp;A)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="167"/>
@@ -6258,7 +6258,7 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="416"/>
         <source>&amp;OK</source>
-        <translation>確定 (&amp;O)</translation>
+        <translation>確定(&amp;O)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="419"/>
@@ -6268,7 +6268,7 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="426"/>
         <source>&amp;Cancel</source>
-        <translation>取消 (&amp;C)</translation>
+        <translation>取消(&amp;C)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/createrange.ui" line="429"/>
@@ -6297,7 +6297,7 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/plugins/gettext/csvim/csvdia.cpp" line="53"/>
         <source>Value delimiter:</source>
-        <translation>值分隔符:</translation>
+        <translation>值分隔符：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/csvim/csvdia.cpp" line="68"/>
@@ -6472,7 +6472,7 @@ See the Edit Colors section of the documentation for more details.</source>
         <location filename="../../scribus/ui/customfdialog.cpp" line="339"/>
         <location filename="../../scribus/ui/customfdialog.cpp" line="371"/>
         <source>&amp;Compress File</source>
-        <translation>壓縮檔案 (&amp;C)</translation>
+        <translation>壓縮檔案(&amp;C)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/customfdialog.cpp" line="348"/>
@@ -6533,12 +6533,12 @@ See the Edit Colors section of the documentation for more details.</source>
 <context>
     <name>CvgPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="138"/>
+        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="141"/>
         <source>Importing: %1</source>
         <translation>正在匯入: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="141"/>
+        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="144"/>
         <source>Analyzing File:</source>
         <translation>分析檔案:</translation>
     </message>
@@ -6610,12 +6610,12 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/ui/dcolor.cpp" line="36"/>
         <source>Delete Color:</source>
-        <translation>刪除顔色:</translation>
+        <translation>刪除顔色：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/dcolor.cpp" line="45"/>
         <source>Replace With:</source>
-        <translation>取代上:</translation>
+        <translation>替換為：</translation>
     </message>
 </context>
 <context>
@@ -6628,12 +6628,12 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/ui/delpages.cpp" line="37"/>
         <source>to:</source>
-        <translation>到:</translation>
+        <translation>到：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/delpages.cpp" line="26"/>
         <source>Delete From:</source>
-        <translation>刪除來自:</translation>
+        <translation>刪除來自：</translation>
     </message>
 </context>
 <context>
@@ -6670,6 +6670,67 @@ See the Edit Colors section of the documentation for more details.</source>
 %1</source>
         <translation>匯入 Word 檔案失敗
 %1</translation>
+    </message>
+</context>
+<context>
+    <name>DocumentLogViewer</name>
+    <message>
+        <location filename="../../scribus/ui/documentlogviewer.cpp" line="58"/>
+        <source>Debug</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/documentlogviewer.cpp" line="61"/>
+        <source>Info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/documentlogviewer.cpp" line="64"/>
+        <source>Warning</source>
+        <translation type="unfinished">警告</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/documentlogviewer.cpp" line="67"/>
+        <source>Error</source>
+        <translation type="unfinished">錯誤</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/documentlogviewer.cpp" line="70"/>
+        <source>Critical</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DocumentLogViewerBase</name>
+    <message>
+        <location filename="../../scribus/ui/documentlogviewerbase.ui" line="14"/>
+        <source>Document Log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/documentlogviewerbase.ui" line="30"/>
+        <source>Time</source>
+        <translation type="unfinished">時間</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/documentlogviewerbase.ui" line="35"/>
+        <source>Level</source>
+        <translation type="unfinished">圖層</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/documentlogviewerbase.ui" line="40"/>
+        <source>Source</source>
+        <translation type="unfinished">源</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/documentlogviewerbase.ui" line="45"/>
+        <source>Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/documentlogviewerbase.ui" line="53"/>
+        <source>Clear Log</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6721,22 +6782,22 @@ See the Edit Colors section of the documentation for more details.</source>
 <context>
     <name>DrwPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="1221"/>
+        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="1182"/>
         <source>Group%1</source>
         <translation>群組%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="154"/>
+        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="153"/>
         <source>Importing: %1</source>
         <translation>正在匯入: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="157"/>
+        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="156"/>
         <source>Analyzing File:</source>
         <translation>分析檔案:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="363"/>
+        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="359"/>
         <source>Generating Items</source>
         <translation>產生物件中</translation>
     </message>
@@ -6806,72 +6867,72 @@ failed!</source>
     <message>
         <location filename="../../scribus/ui/editor.cpp" line="44"/>
         <source>&amp;New</source>
-        <translation>新建 (&amp;N)</translation>
+        <translation>新增(&amp;N)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/editor.cpp" line="47"/>
         <source>&amp;Open...</source>
-        <translation>開啟 (&amp;O)...</translation>
+        <translation>開啟(&amp;O)...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/editor.cpp" line="49"/>
         <source>Save &amp;As...</source>
-        <translation>另存新檔 (&amp;A)...</translation>
+        <translation>另存新檔(&amp;A)...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/editor.cpp" line="51"/>
         <source>&amp;Save and Exit</source>
-        <translation>儲存並退出 (&amp;S)</translation>
+        <translation>儲存並退出(&amp;S)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/editor.cpp" line="53"/>
         <source>&amp;Exit without Saving</source>
-        <translation>退出但不儲存 (&amp;E)</translation>
+        <translation>退出但不儲存(&amp;E)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/editor.cpp" line="55"/>
         <source>&amp;Undo</source>
-        <translation>復原 (&amp;U)</translation>
+        <translation>復原(&amp;U)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/editor.cpp" line="58"/>
         <source>&amp;Redo</source>
-        <translation>重做 (&amp;R)</translation>
+        <translation>重做(&amp;R)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/editor.cpp" line="60"/>
         <source>Cu&amp;t</source>
-        <translation>剪下 (&amp;T)</translation>
+        <translation>剪下(&amp;T)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/editor.cpp" line="63"/>
         <source>&amp;Copy</source>
-        <translation>複製 (&amp;C)</translation>
+        <translation>複製(&amp;C)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/editor.cpp" line="66"/>
         <source>&amp;Paste</source>
-        <translation>貼上 (&amp;P)</translation>
+        <translation>貼上(&amp;P)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/editor.cpp" line="69"/>
         <source>C&amp;lear</source>
-        <translation>清除 (&amp;L)</translation>
+        <translation>清除(&amp;L)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/editor.cpp" line="71"/>
         <source>&amp;Get Field Names</source>
-        <translation>取得功能變數名稱 (&amp;G)</translation>
+        <translation>取得功能變數名稱(&amp;G)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/editor.cpp" line="73"/>
         <source>&amp;File</source>
-        <translation>檔案 (&amp;F)</translation>
+        <translation>檔案(&amp;F)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/editor.cpp" line="80"/>
         <source>&amp;Edit</source>
-        <translation>編輯 (&amp;E)</translation>
+        <translation>編輯(&amp;E)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/editor.cpp" line="154"/>
@@ -6925,12 +6986,12 @@ failed!</source>
     <message>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="597"/>
         <source>Options:</source>
-        <translation>選項:</translation>
+        <translation>選項：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="107"/>
         <source>Color:</source>
-        <translation>顔色:</translation>
+        <translation>顔色：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="83"/>
@@ -6940,33 +7001,33 @@ failed!</source>
     <message>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="119"/>
         <source>Shade:</source>
-        <translation>陰影:</translation>
+        <translation>陰影：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="135"/>
         <source>Brightness:</source>
-        <translation>亮度:</translation>
+        <translation>亮度：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="157"/>
         <source>Contrast:</source>
-        <translation>對比:</translation>
+        <translation>對比：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="179"/>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="208"/>
         <source>Radius:</source>
-        <translation>半徑:</translation>
+        <translation>半徑：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="190"/>
         <source>Value:</source>
-        <translation>數值:</translation>
+        <translation>數值：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="226"/>
         <source>Posterize:</source>
-        <translation>海報效果化:</translation>
+        <translation>海報效果化：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="464"/>
@@ -7083,25 +7144,25 @@ failed!</source>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="297"/>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="366"/>
         <source>Color 1:</source>
-        <translation>顔色 1:</translation>
+        <translation>顔色 1：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="267"/>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="318"/>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="387"/>
         <source>Color 2:</source>
-        <translation>顔色 2:</translation>
+        <translation>顔色 2：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="339"/>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="408"/>
         <source>Color 3:</source>
-        <translation>顔色 3:</translation>
+        <translation>顔色 3：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="429"/>
         <source>Color 4:</source>
-        <translation>顔色 4:</translation>
+        <translation>顔色 4：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/effectsdialog.cpp" line="470"/>
@@ -7157,7 +7218,7 @@ failed!</source>
     <message>
         <location filename="../../scribus/plugins/import/emf/importemf.cpp" line="554"/>
         <source>Analyzing File:</source>
-        <translation>分析檔案:</translation>
+        <translation>分析檔案：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/emf/importemf.cpp" line="1036"/>
@@ -7180,7 +7241,7 @@ failed!</source>
     <message>
         <location filename="../../scribus/plugins/scripter/python/excepthook.ui" line="32"/>
         <source>&amp;Close</source>
-        <translation>關閉 (&amp;C)</translation>
+        <translation>關閉(&amp;C)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scripter/python/excepthook.ui" line="45"/>
@@ -7229,19 +7290,19 @@ failed!</source>
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/exportform.ui" line="90"/>
         <source>&amp;All pages</source>
-        <translation>全部頁面 (&amp;A)</translation>
+        <translation>全部頁面(&amp;A)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="129"/>
         <source>Change the output directory</source>
-        <translation>變更輸出目錄</translation>
+        <translation>變更匯出目錄</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="128"/>
         <source>The output directory - the place to store your images.
 Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</source>
-        <translation>輸出目錄是儲存您的圖片的地方。
-輸出檔案的名稱將會是 &apos;檔案名-頁碼.文件類型&apos;</translation>
+        <translation>匯出目錄是儲存您的圖片的地方。
+匯出檔案的名稱將會是 &apos;檔案名-頁碼.文件類型&apos;</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="81"/>
@@ -7261,22 +7322,22 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/exportform.ui" line="47"/>
         <source>C&amp;hange...</source>
-        <translation>變更 (&amp;H)...</translation>
+        <translation>變更(&amp;H)...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/exportform.ui" line="34"/>
         <source>&amp;Export to Directory:</source>
-        <translation>匯出到目錄 (&amp;E):</translation>
+        <translation>匯出到目錄(&amp;E)：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/exportform.ui" line="152"/>
         <source>Image &amp;Type:</source>
-        <translation>圖片類型 (&amp;T):</translation>
+        <translation>圖片類型(&amp;T)：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/exportform.ui" line="208"/>
         <source>&amp;Quality:</source>
-        <translation>品質 (&amp;Q):</translation>
+        <translation>品質(&amp;Q)：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/exportform.ui" line="14"/>
@@ -7291,7 +7352,7 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/exportform.ui" line="225"/>
         <source>&amp;Resolution:</source>
-        <translation>解析度 (&amp;R):</translation>
+        <translation>解析度(&amp;R)：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/exportform.ui" line="162"/>
@@ -7312,7 +7373,7 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/exportform.ui" line="104"/>
         <source>&amp;Current page</source>
-        <translation>目前頁面 (&amp;C)</translation>
+        <translation>目前頁面(&amp;C)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/exportform.ui" line="83"/>
@@ -7339,7 +7400,7 @@ Use 72 dpi for Images intended for the Screen</source>
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/exportform.ui" line="178"/>
         <source>&amp;Size:</source>
-        <translation>尺寸 (&amp;S):</translation>
+        <translation>尺寸(&amp;S)：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="124"/>
@@ -7644,17 +7705,17 @@ a range of pages or a single page number</source>
 <context>
     <name>FhPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="139"/>
+        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="141"/>
         <source>Importing: %1</source>
         <translation>正在匯入: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="142"/>
+        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="144"/>
         <source>Analyzing File:</source>
         <translation>正在分析文件:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="348"/>
+        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="347"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -7675,7 +7736,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/fileloader.cpp" line="458"/>
         <source> was replaced by: </source>
-        <translation> 已被替代成: </translation>
+        <translation> 已被替代成：</translation>
     </message>
 </context>
 <context>
@@ -7714,12 +7775,12 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/fontcombo.cpp" line="161"/>
         <source>Family:</source>
-        <translation>類型 :</translation>
+        <translation>類型：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/fontcombo.cpp" line="162"/>
         <source>Style:</source>
-        <translation>樣式:</translation>
+        <translation>樣式：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/fontcombo.cpp" line="164"/>
@@ -7864,12 +7925,12 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreview.ui" line="32"/>
         <source>&amp;Quick Search:</source>
-        <translation>快速尋找 (&amp;Q):</translation>
+        <translation>快速尋找(&amp;Q)：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreview.ui" line="93"/>
         <source>&amp;Font Size:</source>
-        <translation>字型大小 (&amp;F):</translation>
+        <translation>字型大小(&amp;F)：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreview.ui" line="116"/>
@@ -7884,7 +7945,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreview.ui" line="136"/>
         <source>Se&amp;t</source>
-        <translation>設定 (&amp;T)</translation>
+        <translation>設定(&amp;T)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreview.ui" line="139"/>
@@ -7899,7 +7960,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreview.ui" line="174"/>
         <source>&amp;Close</source>
-        <translation>關閉 (&amp;C)</translation>
+        <translation>關閉(&amp;C)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreview.ui" line="177"/>
@@ -7914,7 +7975,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreview.ui" line="149"/>
         <source>&amp;Default</source>
-        <translation>預設 (&amp;D)</translation>
+        <translation>預設(&amp;D)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreview.ui" line="48"/>
@@ -7932,7 +7993,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreviewplugin.cpp" line="49"/>
         <source>&amp;Font Preview...</source>
-        <translation>字型預覽 (&amp;F)...</translation>
+        <translation>字型預覽(&amp;F)...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/fontpreview/fontpreviewplugin.cpp" line="67"/>
@@ -8063,7 +8124,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="114"/>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="306"/>
         <source>Start:</source>
-        <translation>開始:</translation>
+        <translation>開始：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="97"/>
@@ -8087,7 +8148,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="131"/>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="282"/>
         <source>End:</source>
-        <translation>結束:</translation>
+        <translation>結束：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="80"/>
@@ -8103,36 +8164,36 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="275"/>
         <source>Scale:</source>
-        <translation>縮放:</translation>
+        <translation>縮放：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="407"/>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="507"/>
         <source>1. Point:</source>
-        <translation>1. 點:</translation>
+        <translation>1. 點：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="471"/>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="541"/>
         <source>2. Point:</source>
-        <translation>2. 點:</translation>
+        <translation>2. 點：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="349"/>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="575"/>
         <source>3. Point:</source>
-        <translation>3. 點:</translation>
+        <translation>3. 點：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="366"/>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="609"/>
         <source>4. Point:</source>
-        <translation>4. 點:</translation>
+        <translation>4. 點：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="643"/>
         <source>5. Point:</source>
-        <translation>5. 點:</translation>
+        <translation>5. 點：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="703"/>
@@ -8150,23 +8211,23 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="750"/>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="936"/>
         <source>Reset selected Control Point</source>
-        <translation>重置選擇的控制點</translation>
+        <translation>重設選擇的控制點</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="775"/>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="961"/>
         <source>Reset all Control Points</source>
-        <translation>重置所有控制點</translation>
+        <translation>重設所有控制點</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="812"/>
         <source>New Mesh...</source>
-        <translation>新建網孔...</translation>
+        <translation>新增網孔...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="819"/>
         <source>Reset Mesh</source>
-        <translation>重置網孔</translation>
+        <translation>重設網孔</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="826"/>
@@ -8205,7 +8266,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="77"/>
         <source>&amp;Add</source>
-        <translation>增加 (&amp;A)</translation>
+        <translation>增加(&amp;A)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="80"/>
@@ -8218,7 +8279,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="90"/>
         <source>D&amp;elete</source>
-        <translation>刪除 (&amp;E)</translation>
+        <translation>刪除(&amp;E)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="93"/>
@@ -8236,7 +8297,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="122"/>
         <source>A&amp;dd</source>
-        <translation>增加 (&amp;D)</translation>
+        <translation>增加(&amp;D)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="125"/>
@@ -8246,7 +8307,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="135"/>
         <source>De&amp;lete</source>
-        <translation>刪除 (&amp;L)</translation>
+        <translation>刪除(&amp;L)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="138"/>
@@ -8257,13 +8318,13 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="153"/>
         <source>&amp;Lock Guides</source>
-        <translation>鎖定參考線 (&amp;L)</translation>
+        <translation>鎖定參考線(&amp;L)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="166"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="198"/>
         <source>Appl&amp;y to All Pages</source>
-        <translation>套用到所有頁面 (&amp;Y)</translation>
+        <translation>套用到所有頁面(&amp;Y)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="169"/>
@@ -8279,12 +8340,12 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="214"/>
         <source>&amp;Number:</source>
-        <translation>數目 (&amp;N):</translation>
+        <translation>數目(&amp;N)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="246"/>
         <source>U&amp;se Gap:</source>
-        <translation>使用間距 (&amp;S):</translation>
+        <translation>使用間距(&amp;S)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="249"/>
@@ -8295,7 +8356,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/guidemanager.ui" line="268"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="373"/>
         <source>&amp;Page</source>
-        <translation>頁面 (&amp;P)</translation>
+        <translation>頁面(&amp;P)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="271"/>
@@ -8308,23 +8369,23 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/guidemanager.ui" line="284"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="389"/>
         <source>M&amp;argins</source>
-        <translation>邊距 (&amp;A)</translation>
+        <translation>邊距(&amp;A)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="297"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="402"/>
         <source>S&amp;election</source>
-        <translation>選擇 (&amp;S)</translation>
+        <translation>選擇(&amp;S)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="319"/>
         <source>Nu&amp;mber:</source>
-        <translation>數目 (&amp;M):</translation>
+        <translation>數目(&amp;M)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="351"/>
         <source>Use &amp;Gap:</source>
-        <translation>使用間距 (&amp;G):</translation>
+        <translation>使用間距(&amp;G)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="354"/>
@@ -8344,7 +8405,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="453"/>
         <source>Delete Guides from Current &amp;Page</source>
-        <translation>刪除目前頁面的參考線 (&amp;P)</translation>
+        <translation>刪除目前頁面的參考線(&amp;P)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="463"/>
@@ -8354,7 +8415,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="466"/>
         <source>Delete Guides from &amp;All Pages</source>
-        <translation>刪除所有頁面的參考線 (&amp;A)</translation>
+        <translation>刪除所有頁面的參考線(&amp;A)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="16"/>
@@ -8480,39 +8541,39 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/helpbrowser.ui" line="77"/>
         <location filename="../../scribus/ui/helpbrowser.cpp" line="350"/>
         <source>&amp;Delete</source>
-        <translation>刪除 (&amp;D)</translation>
+        <translation>刪除(&amp;D)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.ui" line="47"/>
         <location filename="../../scribus/ui/helpbrowser.cpp" line="344"/>
         <source>&amp;Print...</source>
-        <translation>列印 (&amp;P)...</translation>
+        <translation>列印(&amp;P)...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.cpp" line="340"/>
         <source>&amp;File</source>
-        <translation>檔案 (&amp;F)</translation>
+        <translation>檔案(&amp;F)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.ui" line="57"/>
         <location filename="../../scribus/ui/helpbrowser.cpp" line="346"/>
         <source>&amp;Find...</source>
-        <translation>尋找 (&amp;F)...</translation>
+        <translation>尋找(&amp;F)...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.cpp" line="347"/>
         <source>Find &amp;Next</source>
-        <translation>尋找下一個 (&amp;N)</translation>
+        <translation>尋找下一個(&amp;N)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.cpp" line="348"/>
         <source>Find &amp;Previous</source>
-        <translation>尋找上一個 (&amp;P)</translation>
+        <translation>尋找上一個(&amp;P)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.cpp" line="341"/>
         <source>&amp;Edit</source>
-        <translation>編輯 (&amp;E)</translation>
+        <translation>編輯(&amp;E)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.cpp" line="171"/>
@@ -8522,49 +8583,49 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/helpbrowser.cpp" line="349"/>
         <source>&amp;Add Bookmark</source>
-        <translation>增加書籤 (&amp;A)</translation>
+        <translation>增加書籤(&amp;A)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.ui" line="82"/>
         <location filename="../../scribus/ui/helpbrowser.cpp" line="351"/>
         <source>D&amp;elete All</source>
-        <translation>全部刪除 (&amp;E)</translation>
+        <translation>全部刪除(&amp;E)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.cpp" line="342"/>
         <source>&amp;Bookmarks</source>
-        <translation>書籤 (&amp;B)</translation>
+        <translation>書籤(&amp;B)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.ui" line="14"/>
         <location filename="../../scribus/ui/helpbrowser.ui" line="36"/>
         <source>Scribus Help</source>
-        <translation>Scribus 幫助</translation>
+        <translation>Scribus 說明</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.ui" line="52"/>
         <source>&amp;Exit</source>
-        <translation>退出 (&amp;E)</translation>
+        <translation>退出(&amp;E)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.ui" line="62"/>
         <source>Find &amp;Next...</source>
-        <translation>尋找下一個 (&amp;N)...</translation>
+        <translation>尋找下一個(&amp;N)...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.ui" line="67"/>
         <source>Find &amp;Previous...</source>
-        <translation>尋找上一個 (&amp;P)...</translation>
+        <translation>尋找上一個(&amp;P)...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.ui" line="72"/>
         <source>&amp;Add</source>
-        <translation>增加 (&amp;A)</translation>
+        <translation>增加(&amp;A)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.cpp" line="345"/>
         <source>&amp;Quit</source>
-        <translation>退出 (&amp;Q)</translation>
+        <translation>退出(&amp;Q)</translation>
     </message>
 </context>
 <context>
@@ -8572,22 +8633,22 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="28"/>
         <source>&amp;Contents</source>
-        <translation>內容 (&amp;C)</translation>
+        <translation>內容(&amp;C)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="42"/>
         <source>Se&amp;arch</source>
-        <translation>尋找 (&amp;A)</translation>
+        <translation>搜尋(&amp;A)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="50"/>
         <source>Searching is case insensitive</source>
-        <translation>尋找大小寫有別</translation>
+        <translation>搜尋不區分大小寫</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="57"/>
         <source>&amp;Search</source>
-        <translation>尋找 (&amp;S)</translation>
+        <translation>搜尋(&amp;S)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="67"/>
@@ -8598,22 +8659,22 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="76"/>
         <source>Book&amp;marks</source>
-        <translation>書籤 (&amp;M)</translation>
+        <translation>書籤(&amp;M)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="93"/>
         <source>&amp;New</source>
-        <translation>新建 (&amp;N)</translation>
+        <translation>新增(&amp;N)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="100"/>
         <source>&amp;Delete</source>
-        <translation>刪除 (&amp;D)</translation>
+        <translation>刪除(&amp;D)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowsernavigation.ui" line="107"/>
         <source>D&amp;elete All</source>
-        <translation>全部刪除 (&amp;E)</translation>
+        <translation>全部刪除(&amp;E)</translation>
     </message>
 </context>
 <context>
@@ -8680,7 +8741,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/hyask.cpp" line="50"/>
         <source>Possible Hyphenation</source>
-        <translation>可能連字元</translation>
+        <translation>可能連字符</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/hyask.cpp" line="70"/>
@@ -8735,17 +8796,17 @@ Ignore List</source>
 <context>
     <name>IdmlPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="309"/>
+        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="314"/>
         <source>Importing: %1</source>
-        <translation>正在匯入: %1</translation>
+        <translation>正在匯入：%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="312"/>
+        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="317"/>
         <source>Analyzing File:</source>
-        <translation>分析檔案:</translation>
+        <translation>正在分析檔案：</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="522"/>
+        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="524"/>
         <source>Generating Items</source>
         <translation>產生物件中</translation>
     </message>
@@ -8765,27 +8826,27 @@ Ignore List</source>
     <message>
         <location filename="../../scribus/ui/imageinfodialog.cpp" line="34"/>
         <source>Date / Time:</source>
-        <translation>日期 / 時間:</translation>
+        <translation>日期 / 時間：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/imageinfodialog.cpp" line="38"/>
         <source>Has Embedded Profile:</source>
-        <translation>已經嵌入設定檔:</translation>
+        <translation>已經嵌入設定檔：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/imageinfodialog.cpp" line="46"/>
         <source>Profile Name:</source>
-        <translation>設定檔名稱:</translation>
+        <translation>設定檔名稱：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/imageinfodialog.cpp" line="50"/>
         <source>Has Embedded Paths:</source>
-        <translation>已經嵌入路徑:</translation>
+        <translation>已經嵌入路徑：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/imageinfodialog.cpp" line="58"/>
         <source>Has Layers:</source>
-        <translation>有圖層:</translation>
+        <translation>有圖層：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/imageinfodialog.cpp" line="69"/>
@@ -8795,47 +8856,47 @@ Ignore List</source>
     <message>
         <location filename="../../scribus/ui/imageinfodialog.cpp" line="85"/>
         <source>Artist:</source>
-        <translation>作者:</translation>
+        <translation>作者：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/imageinfodialog.cpp" line="131"/>
         <source>Comment:</source>
-        <translation>評論:</translation>
+        <translation>評論：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/imageinfodialog.cpp" line="132"/>
         <source>User Comment:</source>
-        <translation>用戶評論:</translation>
+        <translation>用戶評論：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/imageinfodialog.cpp" line="133"/>
         <source>Camera Model:</source>
-        <translation>相機型號:</translation>
+        <translation>相機型號：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/imageinfodialog.cpp" line="134"/>
         <source>Camera Manufacturer:</source>
-        <translation>相機製造商:</translation>
+        <translation>相機製造商：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/imageinfodialog.cpp" line="140"/>
         <source>Description:</source>
-        <translation>描述:</translation>
+        <translation>描述：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/imageinfodialog.cpp" line="141"/>
         <source>Copyright:</source>
-        <translation>版權:</translation>
+        <translation>版權：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/imageinfodialog.cpp" line="142"/>
         <source>Scanner Model:</source>
-        <translation>掃描器型號:</translation>
+        <translation>掃描器型號：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/imageinfodialog.cpp" line="143"/>
         <source>Scanner Manufacturer:</source>
-        <translation>掃描器製造商:</translation>
+        <translation>掃描器製造商：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/imageinfodialog.cpp" line="135"/>
@@ -8845,18 +8906,18 @@ Ignore List</source>
     <message>
         <location filename="../../scribus/ui/imageinfodialog.cpp" line="136"/>
         <source>Aperture:</source>
-        <translation>光圈:</translation>
+        <translation>光圈：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/imageinfodialog.cpp" line="137"/>
         <source>ISO equiv.:</source>
-        <translation>ISO 值:</translation>
+        <translation>ISO 值：</translation>
     </message>
 </context>
 <context>
     <name>ImportAIPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="59"/>
+        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="65"/>
         <source>Import AI...</source>
         <translation>匯入 AI...</translation>
     </message>
@@ -8866,24 +8927,24 @@ Ignore List</source>
         <translation>匯入 Illustrator 檔案</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="170"/>
+        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="172"/>
         <source>Use the PDF part</source>
         <translation>使用PDF部分</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="171"/>
+        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="173"/>
         <source>Use the AI part</source>
         <translation>使用AI部分</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="190"/>
-        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="211"/>
-        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="225"/>
+        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="192"/>
+        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="213"/>
+        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="230"/>
         <source>The file could not be imported</source>
         <translation>這個檔案無法被匯入</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="167"/>
+        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="169"/>
         <source>This file contains 2 versions of the data.</source>
         <translation>該文件包含2個版本的數據。</translation>
     </message>
@@ -8893,17 +8954,17 @@ Ignore List</source>
         <translation>匯入大部分Illustrator文件至目前文件，將它們的向量數據轉換為Scribus物件。</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="168"/>
+        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="170"/>
         <source>Choose which one should be imported</source>
         <translation>選擇應該匯入哪一個</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="180"/>
+        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="182"/>
         <source>The PDF Import plugin could not be found</source>
         <translation>無法找到PDF匯入外掛</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="201"/>
+        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="203"/>
         <source>The EPS Import plugin could not be found</source>
         <translation>無法找到EPS匯入外掛</translation>
     </message>
@@ -8911,38 +8972,38 @@ Ignore List</source>
 <context>
     <name>ImportCdrPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="55"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="57"/>
         <source>Import Corel Draw...</source>
         <translation>匯入 Corel Draw...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="57"/>
-        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="92"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="59"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="94"/>
         <source>Corel Draw</source>
         <translation>Corel Draw</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="76"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="78"/>
         <source>Imports Corel Draw Files</source>
         <translation>匯入 Corel Draw 文件</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="77"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="79"/>
         <source>Imports most Corel Draw files into the current document, converting their vector data into Scribus objects.</source>
         <translation>匯入大部分 Corel Draw 文件至目前文件，將它們的向量數據轉換為 Scribus 物件。</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="126"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="129"/>
         <source>All Supported Formats</source>
         <translation>所有支援的格式</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="159"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="163"/>
         <source>The Uniconverter Import plugin could not be found</source>
         <translation>無法找到Uniconverter匯入外掛</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="168"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="172"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -8953,8 +9014,8 @@ Document Liberation Project https://www.documentliberation.org</source>
 Document Liberation Project https://www.documentliberation.org</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="58"/>
-        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="93"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="60"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="95"/>
         <source>Corel Draw (*.ccx *.CCX *.cdr *.CDR *.cdt *.CDT *.cmx *.CMX)</source>
         <translation>Corel Draw (*.ccx *.CCX *.cdr *.CDR *.cdt *.CDT *.cmx *.CMX)</translation>
     </message>
@@ -8962,42 +9023,42 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>ImportCgmPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="97"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="99"/>
         <source>CGM File</source>
         <translation>CGM文件</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="99"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="101"/>
         <source>CGM File (*.cgm *.CGM)</source>
         <translation>CGM 文件 (*.cgm *.CGM)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="81"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="83"/>
         <source>Imports CGM Files</source>
         <translation>匯入CGM文件</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="129"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="131"/>
         <source>All Supported Formats</source>
         <translation>所有支援的格式</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="60"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="62"/>
         <source>Import Computer Graphics Metafile...</source>
         <translation>匯入電腦圖形 Metafile...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="62"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="64"/>
         <source>Computer Graphics Metafile</source>
         <translation>電腦圖形 Metafile</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="63"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="65"/>
         <source>Computer Graphics Metafile (*.cgm *.CGM)</source>
         <translation>電腦圖形 Metafile (*.cgm *.CGM)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="82"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="84"/>
         <source>Imports most binary CGM files into the current document, converting their vector data into Scribus objects.</source>
         <translation>匯入大部分二進制 CGM 文件至目前文件，將它們的向量數據轉換為 Scribus 物件。</translation>
     </message>
@@ -9005,22 +9066,22 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>ImportCvgPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="122"/>
+        <location filename="../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="124"/>
         <source>All Supported Formats</source>
         <translation>所有支援的格式</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="53"/>
+        <location filename="../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="55"/>
         <source>Import Calamus Vector Graphics...</source>
         <translation>匯入 Calamus 向量圖形...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="74"/>
+        <location filename="../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="76"/>
         <source>Imports Calamus Vector Graphics Files</source>
         <translation>匯入 Calamus 向量圖形檔</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="75"/>
+        <location filename="../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="77"/>
         <source>Imports most Calamus Vector Graphics files into the current document, converting their vector data into Scribus objects.</source>
         <translation>匯入大部分 Calamus 向量圖形檔至目前文件，將它們的向量數據轉換為 Scribus 物件。</translation>
     </message>
@@ -9028,42 +9089,42 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>ImportDrwPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="98"/>
+        <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="100"/>
         <source>Micrografx DRW File</source>
         <translation>Micrografx DRW 文件</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="100"/>
+        <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="102"/>
         <source>Micrografx DRW File (*.drw *.DRW)</source>
         <translation>Micrografx DRW 文件 (*.drw *.DRW)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="82"/>
+        <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="84"/>
         <source>Imports DRW Files</source>
         <translation>匯入 DRW 文件</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="130"/>
+        <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="132"/>
         <source>All Supported Formats</source>
         <translation>所有支援的格式</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="60"/>
+        <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="62"/>
         <source>Import Micrografx Draw...</source>
         <translation>匯入 Micrografx Draw...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="62"/>
+        <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="64"/>
         <source>Micrografx Draw</source>
         <translation>Micrografx Draw</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="63"/>
+        <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="65"/>
         <source>Micrografx Draw (*.drw *.DRW)</source>
         <translation>Micrografx Draw (*.drw *.DRW)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="83"/>
+        <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="85"/>
         <source>Imports most DRW files into the current document, converting their vector data into Scribus objects.</source>
         <translation>匯入大部分 DRW 文件至目前文件，將它們的向量數據轉換為 Scribus 物件。</translation>
     </message>
@@ -9071,42 +9132,42 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>ImportEmfPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="95"/>
+        <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="96"/>
         <source>EMF</source>
         <translation>EMF</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="96"/>
+        <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="97"/>
         <source>EMF (*.emf *.EMF)</source>
         <translation>EMF (*.emf *.EMF)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="79"/>
+        <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="80"/>
         <source>Imports EMF Files</source>
         <translation>匯入 EMF 檔案</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="127"/>
+        <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="128"/>
         <source>All Supported Formats</source>
         <translation>所有支援的格式</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="58"/>
+        <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="60"/>
         <source>Import Enhanced Metafile...</source>
         <translation>匯入增強 Metafile...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="60"/>
+        <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="62"/>
         <source>Enhanced Metafile</source>
         <translation>增強型圖 Metafile</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="61"/>
+        <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="63"/>
         <source>Enhanced Metafile (*.emf *.EMF)</source>
         <translation>增強 Metafile (*.emf *.EMF)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="80"/>
+        <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="81"/>
         <source>Imports most EMF files into the current document, converting their vector data into Scribus objects.</source>
         <translation>匯入大部分 EMF 文件至目前文件，將它們的向量數據轉換為 Scribus 物件。</translation>
     </message>
@@ -9114,34 +9175,34 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>ImportFhPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="53"/>
+        <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="55"/>
         <source>Import Freehand...</source>
         <translation>匯入 Freehand...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="55"/>
-        <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="90"/>
+        <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="57"/>
+        <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="92"/>
         <source>Freehand</source>
         <translation>Freehand</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="56"/>
-        <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="91"/>
+        <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="58"/>
+        <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="93"/>
         <source>Freehand (*.fh* *.FH*)</source>
         <translation>Freehand (*.fh* *.FH*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="74"/>
+        <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="76"/>
         <source>Imports Freehand Files</source>
         <translation>匯入 Freehand 文件</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="75"/>
+        <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="77"/>
         <source>Imports most Freehand files into the current document, converting their vector data into Scribus objects.</source>
         <translation>匯入大部分 Freehand 文件至目前文件，將它們的向量數據轉換為 Scribus 物件。</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="124"/>
+        <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="126"/>
         <source>All Supported Formats</source>
         <translation>所有支持的格式</translation>
     </message>
@@ -9232,48 +9293,48 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>ImportOdgPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="59"/>
+        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="61"/>
         <source>Import ODF Document...</source>
         <translation>匯入 ODF 文件...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="61"/>
-        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="99"/>
+        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="63"/>
+        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="100"/>
         <source>ODF Drawing</source>
         <comment>Import/export format name</comment>
         <translation>ODF 繪圖</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="62"/>
-        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="100"/>
+        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="64"/>
+        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="101"/>
         <source>ODF Drawing (*.odg *.ODG *.fodg *.FODG)</source>
         <translation>ODF 繪圖 (*.odg *.ODG *.fodg *.FODG)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="64"/>
-        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="112"/>
+        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="66"/>
+        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="113"/>
         <source>ODF Presentation</source>
         <comment>Import/export format name</comment>
         <translation>ODF 演示</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="65"/>
-        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="113"/>
+        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="67"/>
+        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="114"/>
         <source>ODF Presentation (*.odp *.ODP *.fodp *.FODP)</source>
         <translation>ODF 演示 (*.odp *.ODP *.fodp *.FODP)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="83"/>
+        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="84"/>
         <source>Imports ODF Drawing Files</source>
         <translation>匯入 ODF 繪圖文件</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="84"/>
+        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="85"/>
         <source>Imports most ODF Drawing files into the current document, converting their vector data into Scribus objects.</source>
         <translation>匯入大部分 ODF 繪圖檔案至目前文件，將它們的向量數據轉換為 Scribus 物件。</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="146"/>
+        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="147"/>
         <source>All Supported Formats</source>
         <translation>所有支援的格式</translation>
     </message>
@@ -9343,17 +9404,17 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="53"/>
         <source>Import Macintosh Pict...</source>
-        <translation>匯入麥金塔圖像...</translation>
+        <translation>匯入麥金塔圖片...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="74"/>
         <source>Imports Macintosh Pict Files</source>
-        <translation>匯入麥金塔圖像檔</translation>
+        <translation>匯入麥金塔圖片檔</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="75"/>
         <source>Imports most Macintosh Pict files into the current document, converting their vector data into Scribus objects.</source>
-        <translation>匯入大部分麥金塔圖像文件至目前文件，將它們的向量數據轉換為 Scribus 物件。</translation>
+        <translation>匯入大部分麥金塔圖片文件至目前文件，將它們的向量數據轉換為 Scribus 物件。</translation>
     </message>
 </context>
 <context>
@@ -9381,7 +9442,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/plugins/import/pdf/importpdfplugin.cpp" line="202"/>
         <source>The Import plugin cannot handle Postscript files</source>
-        <translation>导入插件无法处理 PostScript 文件</translation>
+        <translation>匯入外掛程式無法處理 Postscript 檔案</translation>
     </message>
 </context>
 <context>
@@ -9852,7 +9913,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/inlinepalette.cpp" line="141"/>
         <source>Paste to Item</source>
-        <translation>黏貼至項目</translation>
+        <translation>貼至項目</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/inlinepalette.cpp" line="146"/>
@@ -9901,12 +9962,12 @@ converting their vector data into Scribus objects.</source>
         <location filename="../../scribus/ui/inspage.cpp" line="49"/>
         <location filename="../../scribus/ui/inspage.cpp" line="71"/>
         <source>&amp;Insert</source>
-        <translation>插入 (&amp;I)</translation>
+        <translation>插入(&amp;I)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/inspage.cpp" line="90"/>
         <source>&amp;Master Page:</source>
-        <translation>主頁 (&amp;M):</translation>
+        <translation>主頁(&amp;M)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/inspage.cpp" line="232"/>
@@ -9916,12 +9977,12 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/inspage.cpp" line="236"/>
         <source>&amp;Size:</source>
-        <translation>尺寸 (&amp;S):</translation>
+        <translation>尺寸(&amp;S)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/inspage.cpp" line="257"/>
         <source>Orie&amp;ntation:</source>
-        <translation>頁面方向 (&amp;N):</translation>
+        <translation>頁面方向(&amp;N)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/inspage.cpp" line="261"/>
@@ -9936,12 +9997,12 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/inspage.cpp" line="268"/>
         <source>&amp;Width:</source>
-        <translation>寬度 (&amp;W):</translation>
+        <translation>寬度(&amp;W)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/inspage.cpp" line="276"/>
         <source>&amp;Height:</source>
-        <translation>高度 (&amp;H):</translation>
+        <translation>高度(&amp;H)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/inspage.cpp" line="282"/>
@@ -9969,22 +10030,22 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="36"/>
         <source>T&amp;ype</source>
-        <translation>類型 (&amp;Y)</translation>
+        <translation>類型(&amp;Y)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="47"/>
         <source>&amp;Text Frame</source>
-        <translation>文字框 (&amp;T)</translation>
+        <translation>文字框(&amp;T)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="57"/>
         <source>&amp;Image Frame</source>
-        <translation>圖片框 (&amp;I)</translation>
+        <translation>圖片框(&amp;I)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="87"/>
         <source>&amp;Location</source>
-        <translation>位置 (&amp;L)</translation>
+        <translation>位置(&amp;L)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="96"/>
@@ -10034,7 +10095,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="297"/>
         <source>&amp;Size</source>
-        <translation>尺寸 (&amp;S)</translation>
+        <translation>尺寸(&amp;S)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="320"/>
@@ -10069,12 +10130,12 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="448"/>
         <source>&amp;Options</source>
-        <translation>選項 (&amp;O)</translation>
+        <translation>選項(&amp;O)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="594"/>
         <source>Source Image:</source>
-        <translation>原始圖片:</translation>
+        <translation>原始圖片：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="631"/>
@@ -10084,17 +10145,17 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="489"/>
         <source>Columns:</source>
-        <translation>列:</translation>
+        <translation>欄：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="475"/>
         <source>Gap:</source>
-        <translation>間距:</translation>
+        <translation>間距：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="555"/>
         <source>Source Document:</source>
-        <translation>原始文件:</translation>
+        <translation>原始文件：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="125"/>
@@ -10119,7 +10180,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/insertaframe.cpp" line="133"/>
         <source>&lt;b&gt;Insert an image frame&lt;/b&gt;&lt;br/&gt;An image frame allows you to place an image onto your page. Various image effects may be applied or combined including transparencies, brightness, and posterisation that allow retouching or the creation of interesting visual results. Image scaling and shaping is performed with the Properties Palette.</source>
-        <translation>&lt;b&gt;插入圖片框&lt;/b&gt;&lt;br/&gt;圖片框允許您在頁面上的任意位置插入圖片。可使用或疊加多種圖像特效如透明度、亮度、海報色彩法，允許修飾或者構建有趣的看得見的結果。圖片的縮放比和形狀可在屬性面版裡調整。</translation>
+        <translation>&lt;b&gt;插入圖片框&lt;/b&gt;&lt;br/&gt;圖片框允許您在頁面上的任意位置插入圖片。可使用或疊加多種圖片特效如透明度、亮度、海報色彩法，允許修飾或者構建有趣的看得見的結果。圖片的縮放比和形狀可在屬性面版裡調整。</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="44"/>
@@ -10209,7 +10270,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="347"/>
         <source>Insert the new frame with the same dimensions as the image that will be imported</source>
-        <translation>插入與要匯入的圖像相同尺寸的新圖文框</translation>
+        <translation>插入與要匯入的圖片相同尺寸的新圖文框</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="357"/>
@@ -10287,12 +10348,12 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/insertTable.cpp" line="28"/>
         <source>Number of rows:</source>
-        <translation>行數:</translation>
+        <translation>列數：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertTable.cpp" line="29"/>
         <source>Number of columns:</source>
-        <translation>列數:</translation>
+        <translation>欄數：</translation>
     </message>
 </context>
 <context>
@@ -10300,17 +10361,17 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/inserttablecolumnsdialog.ui" line="14"/>
         <source>Insert Column(s)</source>
-        <translation>插入列</translation>
+        <translation>插入欄</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/inserttablecolumnsdialog.ui" line="37"/>
         <source>Number of Columns:</source>
-        <translation>列數:</translation>
+        <translation>欄數：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/inserttablecolumnsdialog.ui" line="69"/>
         <source>Position:</source>
-        <translation>位置:</translation>
+        <translation>位置：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/inserttablecolumnsdialog.ui" line="78"/>
@@ -10346,17 +10407,17 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/inserttablerowsdialog.ui" line="14"/>
         <source>Insert Row(s)</source>
-        <translation>插入行</translation>
+        <translation>插入列</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/inserttablerowsdialog.ui" line="37"/>
         <source>Number of Rows:</source>
-        <translation>行數:</translation>
+        <translation>列數：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/inserttablerowsdialog.ui" line="69"/>
         <source>Position:</source>
-        <translation>位置:</translation>
+        <translation>位置：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/inserttablerowsdialog.ui" line="78"/>
@@ -10403,27 +10464,27 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/javadocs.cpp" line="54"/>
         <source>&amp;Edit...</source>
-        <translation>編輯 (&amp;E)...</translation>
+        <translation>編輯(&amp;E)...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/javadocs.cpp" line="57"/>
         <source>&amp;Add...</source>
-        <translation>增加 (&amp;A)...</translation>
+        <translation>增加(&amp;A)...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/javadocs.cpp" line="60"/>
         <source>&amp;Delete</source>
-        <translation>刪除 (&amp;D)</translation>
+        <translation>刪除(&amp;D)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/javadocs.cpp" line="65"/>
         <source>&amp;Close</source>
-        <translation>關閉 (&amp;C)</translation>
+        <translation>關閉(&amp;C)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/javadocs.cpp" line="85"/>
         <source>&amp;New Script:</source>
-        <translation>新 Script (&amp;N):</translation>
+        <translation>新 Script (&amp;N)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/javadocs.cpp" line="128"/>
@@ -10456,17 +10517,17 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/latexeditor.ui" line="135"/>
         <source>Program Messages:</source>
-        <translation>程式訊息:</translation>
+        <translation>程式訊息：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/latexeditor.ui" line="186"/>
         <source>Status: Unknown</source>
-        <translation>狀態: 未知</translation>
+        <translation>狀態：未知</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/latexeditor.ui" line="170"/>
         <source>Kill Program</source>
-        <translation>殺掉程式</translation>
+        <translation>終止程式</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/latexeditor.ui" line="78"/>
@@ -10476,7 +10537,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/latexeditor.ui" line="86"/>
         <source>Resolution:</source>
-        <translation>解析度:</translation>
+        <translation>解析度：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/latexeditor.ui" line="93"/>
@@ -10491,7 +10552,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/latexeditor.ui" line="109"/>
         <source>Program:</source>
-        <translation>程式:</translation>
+        <translation>程式：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/latexeditor.ui" line="121"/>
@@ -10501,7 +10562,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/latexeditor.cpp" line="360"/>
         <source>Status: </source>
-        <translation>狀態: </translation>
+        <translation>狀態：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/latexeditor.cpp" line="174"/>
@@ -10802,7 +10863,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="53"/>
         <source>&amp;Add Lens</source>
-        <translation>增加濾鏡 (&amp;A)</translation>
+        <translation>增加濾鏡(&amp;A)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="60"/>
@@ -10812,7 +10873,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="63"/>
         <source>&amp;Remove Lens</source>
-        <translation>移除濾鏡 (&amp;R)</translation>
+        <translation>移除濾鏡(&amp;R)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="87"/>
@@ -10827,7 +10888,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="121"/>
         <source>&amp;X Pos:</source>
-        <translation>X-座標 (&amp;X):</translation>
+        <translation>X-座標(&amp;X)：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="131"/>
@@ -10837,7 +10898,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="144"/>
         <source>&amp;Y Pos:</source>
-        <translation>Y-座標 (&amp;Y):</translation>
+        <translation>Y-座標(&amp;Y)：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="154"/>
@@ -10862,12 +10923,12 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="183"/>
         <source>&amp;Fish Eye Lens</source>
-        <translation>魚眼濾鏡 (&amp;F)</translation>
+        <translation>魚眼濾鏡(&amp;F)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="190"/>
         <source>Ra&amp;dius:</source>
-        <translation>半徑 (&amp;D):</translation>
+        <translation>半徑(&amp;D)：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/lenseffects/lensdialogbase.ui" line="200"/>
@@ -10951,12 +11012,12 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/loremipsum.cpp" line="220"/>
         <source>Get More:</source>
-        <translation>獲得更多:</translation>
+        <translation>獲得更多：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/loremipsum.cpp" line="222"/>
         <source>XML File:</source>
-        <translation>XML 檔案:</translation>
+        <translation>XML 檔案：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/loremipsum.cpp" line="134"/>
@@ -10967,7 +11028,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/loremipsum.cpp" line="257"/>
         <source>Paragraphs:</source>
-        <translation>段落:</translation>
+        <translation>段落：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/loremipsum.cpp" line="261"/>
@@ -11010,24 +11071,24 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="41"/>
         <source>&amp;Bottom:</source>
-        <translation>底部 (&amp;B):</translation>
+        <translation>底部(&amp;B)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="43"/>
         <source>&amp;Top:</source>
-        <translation>頂部 (&amp;T):</translation>
+        <translation>頂端(&amp;T)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="45"/>
         <location filename="../../scribus/ui/marginwidget.cpp" line="229"/>
         <source>&amp;Right:</source>
-        <translation>右 (&amp;R):</translation>
+        <translation>右(&amp;R)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="47"/>
         <location filename="../../scribus/ui/marginwidget.cpp" line="228"/>
         <source>&amp;Left:</source>
-        <translation>左 (&amp;L):</translation>
+        <translation>左(&amp;L)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="147"/>
@@ -11042,17 +11103,17 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="228"/>
         <source>&amp;Inside:</source>
-        <translation>裡面 (&amp;I):</translation>
+        <translation>裡面(&amp;I)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="229"/>
         <source>O&amp;utside:</source>
-        <translation>外面 (&amp;U):</translation>
+        <translation>外面(&amp;U)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="31"/>
         <source>Preset Layouts:</source>
-        <translation>預設版面:</translation>
+        <translation>預設版面：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="88"/>
@@ -11067,7 +11128,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="77"/>
         <source>Apply settings to:</source>
-        <translation>套用設定到:</translation>
+        <translation>套用設定到：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="80"/>
@@ -11092,17 +11153,17 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="116"/>
         <source>Top:</source>
-        <translation>頂部:</translation>
+        <translation>頂端：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="121"/>
         <source>Bottom:</source>
-        <translation>底部:</translation>
+        <translation>底部：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="133"/>
         <source>Distance for bleed from the top of the physical page</source>
-        <translation>從出血到實際頁面頂部的距離</translation>
+        <translation>從出血到實際頁面頂端的距離</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="134"/>
@@ -11147,7 +11208,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="95"/>
         <source>Import the margins for the selected page size from the available printers</source>
-        <translation>從可用打印機為選中頁面大小導入外邊距</translation>
+        <translation>從可用印表機中匯入所選頁面尺寸的邊距</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/marginwidget.cpp" line="149"/>
@@ -11175,7 +11236,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/mark2item.cpp" line="19"/>
         <source>Mark to Item</source>
-        <translation>标记到对象</translation>
+        <translation>標記至項目</translation>
     </message>
 </context>
 <context>
@@ -11188,12 +11249,12 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/mark2item.ui" line="49"/>
         <source>Label:</source>
-        <translation>標籤:</translation>
+        <translation>標籤：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/mark2item.ui" line="59"/>
         <source>Item:</source>
-        <translation>項目:</translation>
+        <translation>項目：</translation>
     </message>
 </context>
 <context>
@@ -11230,7 +11291,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/mark2mark.ui" line="54"/>
         <source>Label:</source>
-        <translation>標籤:</translation>
+        <translation>標籤：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/mark2mark.ui" line="67"/>
@@ -11398,47 +11459,47 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/measurementsbase.ui" line="32"/>
         <source>X1:</source>
-        <translation>X1:</translation>
+        <translation>X1：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/measurementsbase.ui" line="49"/>
         <source>Y1:</source>
-        <translation>Y1:</translation>
+        <translation>Y1：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/measurementsbase.ui" line="66"/>
         <source>X2:</source>
-        <translation>X2:</translation>
+        <translation>X2：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/measurementsbase.ui" line="83"/>
         <source>Y2:</source>
-        <translation>Y2:</translation>
+        <translation>Y2：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/measurementsbase.ui" line="100"/>
         <source>Length:</source>
-        <translation>長度:</translation>
+        <translation>長度：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/measurementsbase.ui" line="117"/>
         <source>DX:</source>
-        <translation>DX:</translation>
+        <translation>DX：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/measurementsbase.ui" line="134"/>
         <source>DY:</source>
-        <translation>DY:</translation>
+        <translation>DY：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/measurementsbase.ui" line="151"/>
         <source>Angle:</source>
-        <translation>角度:</translation>
+        <translation>角度：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/measurementsbase.ui" line="168"/>
         <source>Unit:</source>
-        <translation>單位:</translation>
+        <translation>單位：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/measurementsbase.ui" line="14"/>
@@ -11487,12 +11548,12 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/mergedoc.cpp" line="50"/>
         <source>&amp;From Document:</source>
-        <translation>來自檔案 (&amp;F):</translation>
+        <translation>來自檔案(&amp;F)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/mergedoc.cpp" line="57"/>
         <source>&amp;Import Page(s):</source>
-        <translation>匯入頁面 (&amp;I):</translation>
+        <translation>匯入頁面(&amp;I)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/mergedoc.cpp" line="86"/>
@@ -11512,12 +11573,12 @@ converting their vector data into Scribus objects.</source>
     <message>
         <location filename="../../scribus/ui/mergedoc.cpp" line="105"/>
         <source>&amp;Import</source>
-        <translation>匯入 (&amp;I)</translation>
+        <translation>匯入(&amp;I)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/mergedoc.cpp" line="54"/>
         <source>&amp;Select...</source>
-        <translation>選擇 (&amp;S)...</translation>
+        <translation>選擇(&amp;S)...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/mergedoc.cpp" line="75"/>
@@ -11567,7 +11628,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/meshdistortion/meshdistortiondialog.ui" line="99"/>
         <source>&amp;Reset</source>
-        <translation>重置 (&amp;R)</translation>
+        <translation>重置(&amp;R)</translation>
     </message>
 </context>
 <context>
@@ -11628,13 +11689,13 @@ If no handle is selected all handles will be reset.</source>
         <location filename="../../scribus/ui/modetoolbar.cpp" line="82"/>
         <location filename="../../scribus/ui/modetoolbar.cpp" line="173"/>
         <source>Angle:</source>
-        <translation>角度:</translation>
+        <translation>角度：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/modetoolbar.cpp" line="87"/>
         <location filename="../../scribus/ui/modetoolbar.cpp" line="174"/>
         <source>Width:</source>
-        <translation>寬度:</translation>
+        <translation>寬度：</translation>
     </message>
 </context>
 <context>
@@ -11653,7 +11714,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/movepage.cpp" line="94"/>
         <source>Move Page(s):</source>
-        <translation>移動頁面:</translation>
+        <translation>移動頁面：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/movepage.cpp" line="37"/>
@@ -11678,12 +11739,12 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/movepage.cpp" line="54"/>
         <source>To:</source>
-        <translation>到:</translation>
+        <translation>到：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/movepage.cpp" line="66"/>
         <source>Number of Copies:</source>
-        <translation>複製數量:</translation>
+        <translation>複製數量：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/movepage.cpp" line="83"/>
@@ -11701,12 +11762,12 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/multiprogressdialog.ui" line="37"/>
         <source>Overall Progress:</source>
-        <translation>總進度:</translation>
+        <translation>總進度：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/multiprogressdialog.ui" line="74"/>
         <source>&amp;Cancel</source>
-        <translation>取消 (&amp;C)</translation>
+        <translation>取消(&amp;C)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/multiprogressdialog.cpp" line="67"/>
@@ -11720,23 +11781,23 @@ If no handle is selected all handles will be reset.</source>
         <location filename="../../scribus/ui/multipleduplicate.ui" line="176"/>
         <location filename="../../scribus/ui/multipleduplicate.cpp" line="74"/>
         <source>&amp;Horizontal Shift:</source>
-        <translation>水平位移 (&amp;H):</translation>
+        <translation>水平位移(&amp;H):</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/multipleduplicate.ui" line="143"/>
         <location filename="../../scribus/ui/multipleduplicate.cpp" line="75"/>
         <source>&amp;Vertical Shift:</source>
-        <translation>垂直位移 (&amp;V):</translation>
+        <translation>垂直位移(&amp;V):</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/multipleduplicate.cpp" line="80"/>
         <source>&amp;Horizontal Gap:</source>
-        <translation>水平間距 (&amp;H):</translation>
+        <translation>水平間距(&amp;H):</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/multipleduplicate.cpp" line="81"/>
         <source>&amp;Vertical Gap:</source>
-        <translation>垂直間距 (&amp;V):</translation>
+        <translation>垂直間距(&amp;V)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/multipleduplicate.ui" line="23"/>
@@ -11751,7 +11812,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/multipleduplicate.ui" line="84"/>
         <source>&amp;Number of Copies:</source>
-        <translation>複製數量 (&amp;N):</translation>
+        <translation>複製數量(&amp;N)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/multipleduplicate.ui" line="97"/>
@@ -11776,32 +11837,32 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/multipleduplicate.ui" line="156"/>
         <source>Rotation:</source>
-        <translation>旋轉:</translation>
+        <translation>旋轉：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/multipleduplicate.ui" line="205"/>
         <source>By &amp;Rows &amp;&amp; Columns</source>
-        <translation>按行和列(&amp;R)</translation>
+        <translation>按列和欄(&amp;R)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/multipleduplicate.ui" line="291"/>
         <source>Vertical Gap:</source>
-        <translation>垂直間距:</translation>
+        <translation>垂直間距：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/multipleduplicate.ui" line="281"/>
         <source>Horizontal Gap:</source>
-        <translation>水平間距:</translation>
+        <translation>水平間距：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/multipleduplicate.ui" line="239"/>
         <source>Number of Rows:</source>
-        <translation>行數:</translation>
+        <translation>列數：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/multipleduplicate.ui" line="213"/>
         <source>Number of Columns:</source>
-        <translation>列數:</translation>
+        <translation>欄數：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/multipleduplicate.ui" line="327"/>
@@ -11836,12 +11897,12 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/multipleduplicate.ui" line="434"/>
         <source>&amp;OK</source>
-        <translation>確定 (&amp;O)</translation>
+        <translation>確定(&amp;O)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/multipleduplicate.ui" line="450"/>
         <source>&amp;Cancel</source>
-        <translation>取消 (&amp;C)</translation>
+        <translation>取消(&amp;C)</translation>
     </message>
 </context>
 <context>
@@ -11849,7 +11910,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/plugins/myplugin/myplugin.cpp" line="31"/>
         <source>My &amp;Plugin</source>
-        <translation>我的外掛程式 (&amp;P)</translation>
+        <translation>我的外掛程式(&amp;P)</translation>
     </message>
 </context>
 <context>
@@ -11862,7 +11923,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/plugins/myplugin/mypluginimpl.cpp" line="25"/>
         <source>The plugin worked!</source>
-        <translation>外掛程式可作用!</translation>
+        <translation>外掛程式可作用！</translation>
     </message>
 </context>
 <context>
@@ -11872,27 +11933,27 @@ If no handle is selected all handles will be reset.</source>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="688"/>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="696"/>
         <source>New Document</source>
-        <translation>新建檔案</translation>
+        <translation>新增文件</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="121"/>
         <source>&amp;New Document</source>
-        <translation>新建檔案 (&amp;N)</translation>
+        <translation>新增文件(&amp;N)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="124"/>
         <source>New &amp;from Template</source>
-        <translation>從範本新建 (&amp;F)</translation>
+        <translation>從範本新增(&amp;F)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="126"/>
         <source>Open &amp;Existing Document</source>
-        <translation>開啟現有檔案 (&amp;E)</translation>
+        <translation>開啟現有文件(&amp;E)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="129"/>
         <source>Open Recent &amp;Document</source>
-        <translation>開啟最近的檔案 (&amp;D)</translation>
+        <translation>開啟最近的文件(&amp;D)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="140"/>
@@ -11952,12 +12013,12 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="228"/>
         <source>&amp;Size:</source>
-        <translation>尺寸 (&amp;S):</translation>
+        <translation>尺寸(&amp;S)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="237"/>
         <source>Orie&amp;ntation:</source>
-        <translation>頁面方向 (&amp;N):</translation>
+        <translation>頁面方向(&amp;N)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="240"/>
@@ -11972,17 +12033,17 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="247"/>
         <source>&amp;Width:</source>
-        <translation>寬度 (&amp;W):</translation>
+        <translation>寬度(&amp;W)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="253"/>
         <source>&amp;Height:</source>
-        <translation>高度 (&amp;H):</translation>
+        <translation>高度(&amp;H)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="260"/>
         <source>&amp;Default Unit:</source>
-        <translation>預設單位 (&amp;D):</translation>
+        <translation>預設單位(&amp;D)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="270"/>
@@ -11997,27 +12058,27 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="291"/>
         <source>N&amp;umber of Pages:</source>
-        <translation>頁面數 (&amp;U):</translation>
+        <translation>頁面數(&amp;U)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="301"/>
         <source>First Page is:</source>
-        <translation>第一頁是:</translation>
+        <translation>第一頁是：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="314"/>
         <source>&amp;Automatic Text Frames</source>
-        <translation>自動文字框 (&amp;A)</translation>
+        <translation>自動文字框(&amp;A)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="317"/>
         <source>Colu&amp;mns:</source>
-        <translation>列 (&amp;M):</translation>
+        <translation>列(&amp;M)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="326"/>
         <source>&amp;Gap:</source>
-        <translation> 間距 (&amp;G):</translation>
+        <translation>間距(&amp;G)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="340"/>
@@ -12032,7 +12093,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="690"/>
         <source>New from Template</source>
-        <translation>從範本新建</translation>
+        <translation>從範本新增</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="692"/>
@@ -12050,27 +12111,27 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="77"/>
         <source>Preset Layouts:</source>
-        <translation>預設版面:</translation>
+        <translation>預設版面：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="47"/>
         <source>Left:</source>
-        <translation>左:</translation>
+        <translation>左：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="67"/>
         <source>Right:</source>
-        <translation>右:</translation>
+        <translation>右：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="84"/>
         <source>Top:</source>
-        <translation>頂部:</translation>
+        <translation>頂端：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="37"/>
         <source>Bottom:</source>
-        <translation>底部:</translation>
+        <translation>底部：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="134"/>
@@ -12080,7 +12141,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="71"/>
         <source>Distance between the top margin guide and the edge of the page</source>
-        <translation>頂部邊距線到頁邊的距離</translation>
+        <translation>頂端邊距線到頁邊的距離</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="72"/>
@@ -12090,22 +12151,22 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="327"/>
         <source>&amp;Inside:</source>
-        <translation>裡面 (&amp;I):</translation>
+        <translation>裡面(&amp;I)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="327"/>
         <source>&amp;Left:</source>
-        <translation>左 (&amp;L):</translation>
+        <translation>左(&amp;L)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="328"/>
         <source>O&amp;utside:</source>
-        <translation>外面 (&amp;U):</translation>
+        <translation>外面(&amp;U)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="328"/>
         <source>&amp;Right:</source>
-        <translation>右 (&amp;R):</translation>
+        <translation>右(&amp;R)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="75"/>
@@ -12198,12 +12259,12 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1106"/>
         <source>&amp;X-Pos:</source>
-        <translation>X-座標 (&amp;X):</translation>
+        <translation>X-座標(&amp;X)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1107"/>
         <source>&amp;Y-Pos:</source>
-        <translation>Y-座標 (&amp;Y):</translation>
+        <translation>Y-座標(&amp;Y)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1108"/>
@@ -12213,12 +12274,12 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1109"/>
         <source>Edit &amp;Contour Line</source>
-        <translation>編輯輪廓線 (&amp;C)</translation>
+        <translation>編輯輪廓線(&amp;C)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1110"/>
         <source>&amp;Reset Contour Line</source>
-        <translation>重置輪廓線 (&amp;R)</translation>
+        <translation>重置輪廓線(&amp;R)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1121"/>
@@ -12333,12 +12394,12 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1111"/>
         <source>Set Contour to Image Clip</source>
-        <translation>設置輪廓至圖像剪裁</translation>
+        <translation>設置輪廓至圖片剪裁</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1144"/>
         <source>Reset the Contour Line to the Clipping Path of the Image</source>
-        <translation>重置輪廓線至圖像剪裁路徑</translation>
+        <translation>重置輪廓線至圖片剪裁路徑</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="246"/>
@@ -12355,12 +12416,12 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1112"/>
         <source>Set Shape to Image Clip</source>
-        <translation>設置形狀至圖像剪裁</translation>
+        <translation>設置形狀至圖片剪裁</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="1145"/>
         <source>Set the Shape to the Clipping Path of the Image</source>
-        <translation>設置形狀至圖像剪裁路徑</translation>
+        <translation>設置形狀至圖片剪裁路徑</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.cpp" line="308"/>
@@ -12563,12 +12624,12 @@ If no handle is selected all handles will be reset.</source>
 <context>
     <name>OODPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="423"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="408"/>
         <source>This document does not seem to be an OpenOffice Draw file.</source>
         <translation>這個檔案似乎不是 OpenOffice Draw 檔案。</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="639"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="621"/>
         <source>Group%1</source>
         <translation>群組%1</translation>
     </message>
@@ -12576,39 +12637,39 @@ If no handle is selected all handles will be reset.</source>
 <context>
     <name>OODrawImportPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="93"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="91"/>
         <source>Import &amp;OpenOffice.org Draw...</source>
         <translation>匯入OpenOffice.org Draw (&amp;O)...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="111"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="106"/>
         <source>Imports OpenOffice.org Draw Files</source>
         <translation>匯入 OpenOffice.org Draw 檔案</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="112"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="107"/>
         <source>Imports most OpenOffice.org Draw files into the current document, converting their vector data into Scribus objects.</source>
         <translation>匯入大部分 OpenOffice.org Draw 檔案到目前文件, 把它們的向量資料轉換為 Scribus 物件。</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="98"/>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="139"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="93"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="121"/>
         <source>OpenOffice.org 1.x Draw</source>
         <comment>Import/export format name</comment>
         <translation>OpenOffice.org 1.x Draw</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="208"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="193"/>
         <source>This file contains some unsupported features</source>
         <translation>這個檔案包含了一些不被支援的功能</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="206"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="191"/>
         <source>The file could not be imported</source>
         <translation>這個檔案無法被匯入</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="99"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="94"/>
         <source>OpenOffice.org 1.x Draw (*.sxd *.SXD)</source>
         <translation>OpenOffice.org 1.x Draw (*.sxd *.SXD)</translation>
     </message>
@@ -12818,7 +12879,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/osgeditor.ui" line="469"/>
         <source>Angle:</source>
-        <translation>角度:</translation>
+        <translation>角度：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/osgeditor.ui" line="497"/>
@@ -12863,17 +12924,17 @@ If no handle is selected all handles will be reset.</source>
 <context>
     <name>OdgPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/odg/importodg.cpp" line="149"/>
+        <location filename="../../scribus/plugins/import/odg/importodg.cpp" line="151"/>
         <source>Importing: %1</source>
-        <translation>正在匯入: %1</translation>
+        <translation>正在匯入：%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/odg/importodg.cpp" line="152"/>
+        <location filename="../../scribus/plugins/import/odg/importodg.cpp" line="154"/>
         <source>Analyzing File:</source>
-        <translation>分析檔案:</translation>
+        <translation>分析檔案：</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/odg/importodg.cpp" line="337"/>
+        <location filename="../../scribus/plugins/import/odg/importodg.cpp" line="336"/>
         <source>Generating Items</source>
         <translation>產生物件中</translation>
     </message>
@@ -12910,7 +12971,7 @@ If no handle is selected all handles will be reset.</source>
         <location filename="../../scribus/ui/outlinepalette.cpp" line="449"/>
         <location filename="../../scribus/ui/outlinepalette.cpp" line="1485"/>
         <source>Filter:</source>
-        <translation>過濾器:</translation>
+        <translation>過濾器：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outlinepalette.cpp" line="557"/>
@@ -13002,12 +13063,12 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/outlinepalette.cpp" line="422"/>
         <source>X-Pos:</source>
-        <translation>X-座標:</translation>
+        <translation>X-座標：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outlinepalette.cpp" line="427"/>
         <source>Y-Pos:</source>
-        <translation>Y-座標:</translation>
+        <translation>Y-座標：</translation>
     </message>
 </context>
 <context>
@@ -13020,7 +13081,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="82"/>
         <source>Scaling:</source>
-        <translation>縮放:</translation>
+        <translation>縮放：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreviewbase.ui" line="92"/>
@@ -13167,7 +13228,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.ui" line="170"/>
         <source>Threshold:</source>
-        <translation>閾值：</translation>
+        <translation>臨界值：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_pdf.cpp" line="45"/>
@@ -13259,7 +13320,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/outputpreview_ps.ui" line="95"/>
         <source>&amp;Under Color Removal</source>
-        <translation>清除底色 (&amp;U)</translation>
+        <translation>清除底色(&amp;U)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_ps.ui" line="105"/>
@@ -13284,7 +13345,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/outputpreview_ps.ui" line="124"/>
         <source>Display Trans&amp;parency</source>
-        <translation>顯示透明度 (&amp;P)</translation>
+        <translation>顯示透明度(&amp;P)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/outputpreview_ps.ui" line="131"/>
@@ -13353,7 +13414,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/pdfexportdialog.cpp" line="68"/>
         <source>O&amp;utput to File:</source>
-        <translation>輸出到檔案 (&amp;U):</translation>
+        <translation>匯出到檔案(&amp;U)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pdfexportdialog.cpp" line="102"/>
@@ -13363,7 +13424,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/pdfexportdialog.cpp" line="105"/>
         <source>Output one file for eac&amp;h page</source>
-        <translation>逐頁輸出單個檔案 (&amp;H)</translation>
+        <translation>逐頁匯出單個檔案(&amp;H)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pdfexportdialog.cpp" line="108"/>
@@ -13394,7 +13455,7 @@ If no handle is selected all handles will be reset.</source>
         <location filename="../../scribus/ui/pdfexportdialog.cpp" line="205"/>
         <source>Cannot create directory: 
 %1</source>
-        <translation>無法建立目錄: 
+        <translation>無法建立目錄：
 %1</translation>
     </message>
     <message>
@@ -13430,17 +13491,17 @@ Please check it and try again.</source>
     <message>
         <location filename="../../scribus/pdflib_core.cpp" line="595"/>
         <source>Exporting Master Page:</source>
-        <translation>匯出主頁:</translation>
+        <translation>匯出主頁：</translation>
     </message>
     <message>
         <location filename="../../scribus/pdflib_core.cpp" line="595"/>
         <source>Exporting Page:</source>
-        <translation>匯出頁面:</translation>
+        <translation>匯出頁面：</translation>
     </message>
     <message>
         <location filename="../../scribus/pdflib_core.cpp" line="595"/>
         <source>Exporting Items on Current Page:</source>
-        <translation>匯出目前頁面的物件:</translation>
+        <translation>匯出目前頁面的物件：</translation>
     </message>
     <message>
         <location filename="../../scribus/pdflib_core.cpp" line="653"/>
@@ -13450,12 +13511,12 @@ Please check it and try again.</source>
     <message>
         <location filename="../../scribus/pdflib_core.cpp" line="3486"/>
         <source>Page:</source>
-        <translation>頁:</translation>
+        <translation>頁：</translation>
     </message>
     <message>
         <location filename="../../scribus/pdflib_core.cpp" line="3496"/>
         <source>Date:</source>
-        <translation>日期:</translation>
+        <translation>日期：</translation>
     </message>
     <message>
         <location filename="../../scribus/pdflib_core.cpp" line="10666"/>
@@ -13467,17 +13528,17 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/pdflib_core.cpp" line="11955"/>
         <source>Failed to load an image : %1</source>
-        <translation>載入圖片: %1 失敗</translation>
+        <translation>載入圖片：%1 失敗</translation>
     </message>
     <message>
         <location filename="../../scribus/pdflib_core.cpp" line="11960"/>
         <source>Failed to write an image : %1</source>
-        <translation>寫入圖片: %1 失敗</translation>
+        <translation>寫入圖：%1 失敗</translation>
     </message>
     <message>
         <location filename="../../scribus/pdflib_core.cpp" line="11965"/>
         <source>Failed to load an image mask : %1</source>
-        <translation>載入圖片遮罩: %1 失敗</translation>
+        <translation>載入圖片遮罩：%1 失敗</translation>
     </message>
     <message>
         <location filename="../../scribus/pdflib_core.cpp" line="11970"/>
@@ -13503,32 +13564,32 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/pslib.cpp" line="1637"/>
         <source>Processing Master Page:</source>
-        <translation>處理主頁:</translation>
+        <translation>處理主頁：</translation>
     </message>
     <message>
         <location filename="../../scribus/pslib.cpp" line="1637"/>
         <source>Exporting Page:</source>
-        <translation>匯出頁面:</translation>
+        <translation>匯出頁面：</translation>
     </message>
     <message>
         <location filename="../../scribus/pslib.cpp" line="1576"/>
         <source>Failed to write data for an image</source>
-        <translation>向圖像中寫入數椐失敗</translation>
+        <translation>向圖片中寫入資料失敗</translation>
     </message>
     <message>
         <location filename="../../scribus/pslib.cpp" line="527"/>
         <source>Failed to open file for writing : %1</source>
-        <translation>無法開啟檔案進行寫入: %1</translation>
+        <translation>無法開啟檔案進行寫入：%1</translation>
     </message>
     <message>
         <location filename="../../scribus/pslib.cpp" line="1581"/>
         <source>Failed to load an image : %1</source>
-        <translation>載入圖片: %1 失敗</translation>
+        <translation>載入圖片：%1 失敗</translation>
     </message>
     <message>
         <location filename="../../scribus/pslib.cpp" line="1586"/>
         <source>Failed to load an image mask : %1</source>
-        <translation>載入圖片遮罩: %1 失敗</translation>
+        <translation>載入圖片遮罩：%1 失敗</translation>
     </message>
     <message>
         <location filename="../../scribus/pslib.cpp" line="1591"/>
@@ -13657,7 +13718,7 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.ui" line="71"/>
         <source>&amp;Add</source>
-        <translation>增加 (&amp;A)</translation>
+        <translation>增加(&amp;A)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.ui" line="74"/>
@@ -13667,7 +13728,7 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.ui" line="81"/>
         <source>&amp;Copy</source>
-        <translation>複製 (&amp;C)</translation>
+        <translation>複製(&amp;C)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.ui" line="84"/>
@@ -13677,7 +13738,7 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.ui" line="91"/>
         <source>&amp;Delete</source>
-        <translation>刪除 (&amp;D)</translation>
+        <translation>刪除(&amp;D)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.ui" line="94"/>
@@ -13687,7 +13748,7 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.ui" line="101"/>
         <source>C&amp;lear</source>
-        <translation>清除 (&amp;L)</translation>
+        <translation>清除(&amp;L)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.ui" line="104"/>
@@ -13697,12 +13758,12 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.ui" line="127"/>
         <source>&amp;OK</source>
-        <translation>確定 (&amp;O)</translation>
+        <translation>確定(&amp;O)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.ui" line="143"/>
         <source>&amp;Cancel</source>
-        <translation>取消 (&amp;C)</translation>
+        <translation>取消(&amp;C)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pageitemattributes.ui" line="36"/>
@@ -13753,7 +13814,7 @@ Please disable experimental PDF and PS embedding and try again.</source>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="397"/>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="493"/>
         <source>Embedded Image</source>
-        <translation>已嵌入圖像</translation>
+        <translation>已嵌入圖片</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="110"/>
@@ -13763,33 +13824,33 @@ Please disable experimental PDF and PS embedding and try again.</source>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="521"/>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="523"/>
         <source>File:</source>
-        <translation>檔案:</translation>
+        <translation>檔案：</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="111"/>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="402"/>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="496"/>
         <source>Original PPI:</source>
-        <translation>原始 PPI:</translation>
+        <translation>原始 PPI：</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="112"/>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="407"/>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="497"/>
         <source>Actual PPI:</source>
-        <translation>實際 PPI:</translation>
+        <translation>實際 PPI：</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="113"/>
         <source>Size:</source>
-        <translation>尺寸:</translation>
+        <translation>尺寸：</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="114"/>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="412"/>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="498"/>
         <source>Colorspace:</source>
-        <translation>顔色模式:</translation>
+        <translation>色彩空間：</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="117"/>
@@ -13802,19 +13863,19 @@ Please disable experimental PDF and PS embedding and try again.</source>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="124"/>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="508"/>
         <source>Page:</source>
-        <translation>頁:</translation>
+        <translation>頁：</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="126"/>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="510"/>
         <source>Pages:</source>
-        <translation>頁:</translation>
+        <translation>頁：</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="432"/>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="519"/>
         <source>Embedded Image missing</source>
-        <translation>嵌入的圖像遺失</translation>
+        <translation>嵌入的圖片遺失</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_imageframe.cpp" line="436"/>
@@ -13850,18 +13911,18 @@ Please disable experimental PDF and PS embedding and try again.</source>
         <location filename="../../scribus/pageitem_latexframe.cpp" line="204"/>
         <location filename="../../scribus/pageitem_latexframe.cpp" line="222"/>
         <source>Running the external application failed!</source>
-        <translation>執行外部程式失敗!</translation>
+        <translation>執行外部程式失敗！</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_latexframe.cpp" line="260"/>
         <location filename="../../scribus/pageitem_latexframe.cpp" line="264"/>
         <source>Could not create a temporary file to run the application!</source>
-        <translation>無法產生一個暫時檔案來執行程式!</translation>
+        <translation>無法產生一個暫時檔案來執行程式！</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_latexframe.cpp" line="437"/>
         <source>Running the application &quot;%1&quot; failed!</source>
-        <translation>執行程式 &quot;%1&quot; 失敗!</translation>
+        <translation>執行程式 &quot;%1&quot; 失敗！</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_latexframe.cpp" line="598"/>
@@ -13871,7 +13932,7 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/pageitem_latexframe.cpp" line="431"/>
         <source>The application &quot;%1&quot; crashed!</source>
-        <translation>程式 &quot;%1&quot; 崩潰!</translation>
+        <translation>程式 &quot;%1&quot; 崩潰！</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_latexframe.cpp" line="587"/>
@@ -13990,7 +14051,7 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/pageitem_osgframe.cpp" line="163"/>
         <source>File:</source>
-        <translation>檔案:</translation>
+        <translation>檔案：</translation>
     </message>
 </context>
 <context>
@@ -13998,22 +14059,22 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/pageitem_pathtext.cpp" line="371"/>
         <source>Paragraphs: </source>
-        <translation>段落: </translation>
+        <translation>段落：</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_pathtext.cpp" line="379"/>
         <source>Lines: </source>
-        <translation>線條: </translation>
+        <translation>線條：</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_pathtext.cpp" line="385"/>
         <source>Words: </source>
-        <translation>字: </translation>
+        <translation>字：</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_pathtext.cpp" line="393"/>
         <source>Chars: </source>
-        <translation>字元: </translation>
+        <translation>字元：</translation>
     </message>
 </context>
 <context>
@@ -14031,22 +14092,22 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/pageitem_textframe.cpp" line="4924"/>
         <source>Paragraphs: </source>
-        <translation>段落: </translation>
+        <translation>段落：</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_textframe.cpp" line="4932"/>
         <source>Lines: </source>
-        <translation>線條: </translation>
+        <translation>線條：</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_textframe.cpp" line="4938"/>
         <source>Words: </source>
-        <translation>字: </translation>
+        <translation>字：</translation>
     </message>
     <message>
         <location filename="../../scribus/pageitem_textframe.cpp" line="4946"/>
         <source>Chars: </source>
-        <translation>字元: </translation>
+        <translation>字元：</translation>
     </message>
 </context>
 <context>
@@ -14054,7 +14115,7 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/ui/pagelayout.cpp" line="295"/>
         <source>First Page is:</source>
-        <translation>第一頁是:</translation>
+        <translation>第一頁是：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagelayout.cpp" line="233"/>
@@ -14122,23 +14183,23 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="179"/>
         <source>Do you really want to delete master page &quot;%1&quot;?</source>
-        <translation>是否確定要刪除主頁面 &quot;%1&quot;?</translation>
+        <translation>是否確定要刪除主頁面「%1」？</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="212"/>
         <source>&amp;Name:</source>
-        <translation>名稱 (&amp;N):</translation>
+        <translation>名稱(&amp;N)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="212"/>
         <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="321"/>
         <source>New Master Page</source>
-        <translation>新建主頁</translation>
+        <translation>新增主頁</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="321"/>
         <source>Name:</source>
-        <translation>名稱:</translation>
+        <translation>名稱：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="321"/>
@@ -14169,12 +14230,12 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/ui/pagepalette_pages.cpp" line="164"/>
         <source>Delete Page?</source>
-        <translation>刪除頁?</translation>
+        <translation>刪除頁？</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepalette_pages.cpp" line="165"/>
         <source>Are you sure you want to delete this page?</source>
-        <translation>您確定要刪除這頁嗎?</translation>
+        <translation>您確定要刪除這頁嗎？</translation>
     </message>
 </context>
 <context>
@@ -14187,7 +14248,7 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/ui/pagepalette_pagesbase.ui" line="57"/>
         <source>Available Master Pages:</source>
-        <translation>可用主頁:</translation>
+        <translation>可用主頁：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepalette_pagesbase.ui" line="64"/>
@@ -14230,12 +14291,12 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="46"/>
         <source>&amp;Size:</source>
-        <translation>尺寸 (&amp;S):</translation>
+        <translation>尺寸(&amp;S)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="66"/>
         <source>Orie&amp;ntation:</source>
-        <translation>頁面方向 (&amp;N):</translation>
+        <translation>頁面方向(&amp;N)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="69"/>
@@ -14250,12 +14311,12 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="77"/>
         <source>&amp;Width:</source>
-        <translation>寬度 (&amp;W):</translation>
+        <translation>寬度(&amp;W)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="84"/>
         <source>&amp;Height:</source>
-        <translation>高度 (&amp;H):</translation>
+        <translation>高度(&amp;H)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="89"/>
@@ -14265,7 +14326,7 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="95"/>
         <source>Type:</source>
-        <translation>類型:</translation>
+        <translation>類型：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="115"/>
@@ -14347,12 +14408,12 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="206"/>
         <source>Importing: %1</source>
-        <translation>正在匯入: %1</translation>
+        <translation>正在匯入：%1</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="208"/>
         <source>Analyzing File:</source>
-        <translation>分析檔案:</translation>
+        <translation>分析檔案：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="391"/>
@@ -14445,7 +14506,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/plugins/tools/pathconnect/pathconnectdialogbase.ui" line="74"/>
         <source>by using:</source>
-        <translation>使用:</translation>
+        <translation>使用：</translation>
     </message>
 </context>
 <context>
@@ -14563,7 +14624,7 @@ both end points must lie outside of the polygon</source>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="85"/>
         <source>Rotate Objects by:</source>
-        <translation>旋轉物件按:</translation>
+        <translation>旋轉物件按：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/2geomtools/pathalongpath/pathdialogbase.ui" line="93"/>
@@ -14643,12 +14704,12 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="453"/>
         <source>Stroke:</source>
-        <translation>描邊:</translation>
+        <translation>描邊：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="479"/>
         <source>Fill:</source>
-        <translation>填充:</translation>
+        <translation>填充：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="67"/>
@@ -14710,7 +14771,7 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="409"/>
         <source>Result Takes Color from:</source>
-        <translation>結果形狀的顏色源自 :</translation>
+        <translation>結果形狀的顏色源自 ：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderbase.ui" line="48"/>
@@ -14733,12 +14794,12 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderdialog.cpp" line="106"/>
         <source>Result gets Color of:</source>
-        <translation>配色結果:</translation>
+        <translation>配色結果：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/tools/pathfinder/pathfinderdialog.cpp" line="130"/>
         <source>Intersection gets Color of:</source>
-        <translation>交叉點的顏色為:</translation>
+        <translation>交叉點的顏色為：</translation>
     </message>
 </context>
 <context>
@@ -14808,12 +14869,12 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     <message>
         <location filename="../../scribus/ui/patternpropsdialog.cpp" line="177"/>
         <source>X:</source>
-        <translation>X:</translation>
+        <translation>X：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/patternpropsdialog.cpp" line="179"/>
         <source>Y:</source>
-        <translation>Y:</translation>
+        <translation>Y：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/patternpropsdialog.cpp" line="181"/>
@@ -14823,12 +14884,12 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     <message>
         <location filename="../../scribus/ui/patternpropsdialog.cpp" line="182"/>
         <source>X-Scale:</source>
-        <translation>X-縮放:</translation>
+        <translation>X-縮放：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/patternpropsdialog.cpp" line="184"/>
         <source>Y-Scale:</source>
-        <translation>Y-縮放:</translation>
+        <translation>Y-縮放：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/patternpropsdialog.cpp" line="186"/>
@@ -14853,22 +14914,22 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     <message>
         <location filename="../../scribus/ui/patternpropsdialog.cpp" line="194"/>
         <source>X-Skew:</source>
-        <translation>X-傾斜:</translation>
+        <translation>X-傾斜：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/patternpropsdialog.cpp" line="195"/>
         <source>Y-Skew:</source>
-        <translation>Y-傾斜:</translation>
+        <translation>Y-傾斜：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/patternpropsdialog.cpp" line="196"/>
         <source>Angle:</source>
-        <translation>角度:</translation>
+        <translation>角度：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/patternpropsdialog.cpp" line="197"/>
         <source>Flip:</source>
-        <translation>翻轉:</translation>
+        <translation>翻轉：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/patternpropsdialog.cpp" line="198"/>
@@ -14881,12 +14942,12 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     <message>
         <location filename="../../scribus/plugins/import/pct/importpct.cpp" line="144"/>
         <source>Importing: %1</source>
-        <translation>正在匯入: %1</translation>
+        <translation>正在匯入：%1</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pct/importpct.cpp" line="147"/>
         <source>Analyzing File:</source>
-        <translation>分析檔案:</translation>
+        <translation>分析檔案：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pct/importpct.cpp" line="450"/>
@@ -14909,7 +14970,7 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     <message>
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="75"/>
         <source>Page Range</source>
-        <translation>頁面 </translation>
+        <translation>頁面</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="81"/>
@@ -14989,12 +15050,12 @@ Please check it and try again.</source>
     <message>
         <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="155"/>
         <source>Importing: %1</source>
-        <translation>正在匯入: %1</translation>
+        <translation>正在匯入：%1</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="157"/>
         <source>Analyzing File:</source>
-        <translation>分析檔案:</translation>
+        <translation>分析檔案：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="324"/>
@@ -15118,12 +15179,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/picsearch.cpp" line="119"/>
         <source>Size:</source>
-        <translation>尺寸:</translation>
+        <translation>尺寸：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearch.cpp" line="120"/>
         <source>Resolution:</source>
-        <translation>解析度:</translation>
+        <translation>解析度：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearch.cpp" line="120"/>
@@ -15138,7 +15199,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/picsearch.cpp" line="126"/>
         <source>Colorspace:</source>
-        <translation>顔色模式:</translation>
+        <translation>色彩空間：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearch.ui" line="15"/>
@@ -15148,12 +15209,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/picsearch.ui" line="35"/>
         <source>Search Results for: </source>
-        <translation>搜尋結果: </translation>
+        <translation>搜尋結果：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearch.ui" line="73"/>
         <source>&amp;Preview</source>
-        <translation>預覽 (&amp;P)</translation>
+        <translation>預覽(&amp;P)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearch.ui" line="76"/>
@@ -15163,7 +15224,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/picsearch.ui" line="148"/>
         <source>Apply to all &amp;matching images</source>
-        <translation>套用於所有匹配圖像(&amp;M)</translation>
+        <translation>套用於所有匹配圖片(&amp;M)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearch.ui" line="151"/>
@@ -15173,12 +15234,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/picsearch.ui" line="167"/>
         <source>Since you selected an image with a broken link, only image frames with invalid links will be modified.</source>
-        <translation>由於您選擇了連結斷開的圖像，因此只會修改連結無效的圖片框。</translation>
+        <translation>由於您選擇了連結斷開的圖片，因此只會修改連結無效的圖片框。</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearch.ui" line="195"/>
         <source>&amp;Select</source>
-        <translation>選擇 (&amp;S)</translation>
+        <translation>選擇(&amp;S)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearch.ui" line="198"/>
@@ -15196,13 +15257,13 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/picsearchoptions.cpp" line="59"/>
         <source>Cancel Search</source>
-        <translation>取消尋找</translation>
+        <translation>取消搜尋</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearchoptions.ui" line="125"/>
         <location filename="../../scribus/ui/picsearchoptions.cpp" line="68"/>
         <source>Start Search</source>
-        <translation>開始尋找</translation>
+        <translation>開始搜尋</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearchoptions.cpp" line="92"/>
@@ -15213,27 +15274,27 @@ p, li { white-space: pre-wrap; }
         <location filename="../../scribus/ui/picsearchoptions.cpp" line="104"/>
         <location filename="../../scribus/ui/picsearchoptions.cpp" line="143"/>
         <source>Scribus - Image Search</source>
-        <translation>Scribus - 圖片尋找</translation>
+        <translation>Scribus - 圖片搜尋</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearchoptions.cpp" line="143"/>
         <source>The search failed: %1</source>
-        <translation>尋找失敗: %1</translation>
+        <translation>搜尋失敗：%1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearchoptions.ui" line="14"/>
         <source>Search Images</source>
-        <translation>尋找圖片</translation>
+        <translation>搜尋圖片</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearchoptions.ui" line="32"/>
         <source>Search for:</source>
-        <translation>尋找:</translation>
+        <translation>搜尋：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearchoptions.ui" line="45"/>
         <source>Start at:</source>
-        <translation>開始從:</translation>
+        <translation>開始從：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearchoptions.ui" line="71"/>
@@ -15243,29 +15304,29 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../../scribus/ui/picsearchoptions.ui" line="80"/>
         <source>Searching</source>
-        <translation>尋找中</translation>
+        <translation>搜尋中</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearchoptions.ui" line="136"/>
         <source>Case insensitive search</source>
-        <translation>尋找大小寫沒有別</translation>
+        <translation>不區分大小寫的搜尋</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearchoptions.ui" line="143"/>
         <source>Search recursively</source>
-        <translation>遞迴尋找</translation>
+        <translation>遞迴搜尋</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearchoptions.cpp" line="104"/>
         <source>Base directory for search does not exist.
 Please choose another one.</source>
-        <translation>尋找的基礎目錄不存在。
+        <translation>搜尋的基礎目錄不存在。
 請重新選擇一個。</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picsearchoptions.cpp" line="52"/>
         <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows.</source>
-        <translation>當您選中此項時，將在文件系統中搜尋不區分大小寫的文件名。請記住，除了 MS Windows 之外，大部分操作系統的預設設置都不開啟。</translation>
+        <translation>當您選中此項時，將在文件系統中搜尋不區分大小寫的檔名。請記住，除了 MS Windows 之外，大部分操作系統的預設設定都不開啟。</translation>
     </message>
 </context>
 <context>
@@ -15273,12 +15334,12 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/picstatus.cpp" line="475"/>
         <source>Scribus - Image Search</source>
-        <translation>Scribus - 圖像尋找</translation>
+        <translation>Scribus - 圖片搜尋</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picstatus.cpp" line="475"/>
         <source>No images named &quot;%1&quot; were found.</source>
-        <translation>找不到叫做 &quot;%1&quot; 的圖片。</translation>
+        <translation>找不到叫做「%1」的圖片。</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="679"/>
@@ -15343,7 +15404,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="154"/>
         <source>Path:</source>
-        <translation>路徑:</translation>
+        <translation>路徑：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="197"/>
@@ -15353,7 +15414,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="104"/>
         <source>Name:</source>
-        <translation>名稱:</translation>
+        <translation>名稱：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="230"/>
@@ -15363,17 +15424,17 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="303"/>
         <source>DPI:</source>
-        <translation>DPI:</translation>
+        <translation>DPI：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="236"/>
         <source>Format:</source>
-        <translation>格式:</translation>
+        <translation>格式：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="271"/>
         <source>Colorspace:</source>
-        <translation>顔色模式:</translation>
+        <translation>色彩空間：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="338"/>
@@ -15383,17 +15444,17 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="344"/>
         <source>Pixels:</source>
-        <translation>像素:</translation>
+        <translation>像素：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="373"/>
         <source>Scale:</source>
-        <translation>縮放:</translation>
+        <translation>縮放：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="402"/>
         <source>Printed:</source>
-        <translation>已列印:</translation>
+        <translation>已列印：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="440"/>
@@ -15403,7 +15464,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="448"/>
         <source>On Page:</source>
-        <translation>在頁面上:</translation>
+        <translation>在頁面上：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="561"/>
@@ -15418,7 +15479,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="598"/>
         <source>Set format specific properties of certain image types, like clipping paths</source>
-        <translation>設置包含指定屬性的圖像格式，比如剪切路徑</translation>
+        <translation>設置包含指定屬性的圖片格式，比如剪切路徑</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="624"/>
@@ -15478,7 +15539,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="210"/>
         <source>Show Image in the File Manager</source>
-        <translation>在文件管理器中顯示圖像</translation>
+        <translation>在檔案管理員中顯示圖片</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="213"/>
@@ -15493,27 +15554,27 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="268"/>
         <source>The colorspace of the image</source>
-        <translation>圖片的顏色空間</translation>
+        <translation>圖片的色彩空間</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="290"/>
         <source>Colorspace used within the image, eg RGB or CMYK</source>
-        <translation>圖片使用的顏色空間, 例如 RGB 或 CMYK</translation>
+        <translation>圖片使用的色彩空間, 例如 RGB 或 CMYK</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="322"/>
         <source>Native resolution of the image, in dots per inch</source>
-        <translation>圖像的原始分辨率，單位為每英寸點數</translation>
+        <translation>影像的原始解析度，單位為每英寸點數</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="360"/>
         <source>Height and width of the image</source>
-        <translation>圖像的高度和寬度</translation>
+        <translation>圖片的高度和寬度</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="389"/>
         <source>Horizontal and vertical scaling applied to the image</source>
-        <translation>水平和垂直縮放套用到圖像</translation>
+        <translation>水平和垂直縮放套用到圖片</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="424"/>
@@ -15523,7 +15584,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="464"/>
         <source>Page that the image is displayed on</source>
-        <translation>圖像在頁面上顯示</translation>
+        <translation>圖片在頁面上顯示</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="477"/>
@@ -15533,12 +15594,12 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="493"/>
         <source>Name of the page item that contains the image</source>
-        <translation>包含該圖像的頁面對像名稱</translation>
+        <translation>包含該圖片的頁面對像名稱</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="506"/>
         <source>Effective DPI:</source>
-        <translation>有效的 DPI:</translation>
+        <translation>有效的 DPI：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="525"/>
@@ -15548,7 +15609,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="542"/>
         <source>Move to the page that the image is on</source>
-        <translation>移動到圖像所在的頁面</translation>
+        <translation>移動到圖片所在的頁面</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="558"/>
@@ -15568,24 +15629,24 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="611"/>
         <source>Edit the image in the default editor</source>
-        <translation>在預設編輯器中編輯圖像</translation>
+        <translation>在預設編輯器中編輯圖片</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="621"/>
         <source>Make the image visible or invisible</source>
-        <translation>圖像可見或不可見</translation>
+        <translation>圖片可見或不可見</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picstatus.ui" line="631"/>
         <source>Apply non destructive effects to the image in its frame</source>
-        <translation>對框架中的圖像應用無損效果</translation>
+        <translation>對框架中的圖片應用無損效果</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/picstatus.cpp" line="152"/>
         <location filename="../../scribus/ui/picstatus.cpp" line="176"/>
         <location filename="../../scribus/ui/picstatus.cpp" line="313"/>
         <source>Embedded Image</source>
-        <translation>已嵌入圖像</translation>
+        <translation>已嵌入圖片</translation>
     </message>
 </context>
 <context>
@@ -15603,7 +15664,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="90"/>
         <source>Document Browser</source>
-        <translation>文件瀏覽</translation>
+        <translation>文件瀏覽器</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="120"/>
@@ -15618,7 +15679,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="214"/>
         <source>New collection</source>
-        <translation>新建打包</translation>
+        <translation>新增打包</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="236"/>
@@ -15633,17 +15694,17 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="293"/>
         <source>Add selected images to collection(s)</source>
-        <translation>將選中圖像新增到打包中</translation>
+        <translation>將選中圖片新增到打包中</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="315"/>
         <source>Remove selected images from current collection</source>
-        <translation>從目前打包中刪除選中的圖像</translation>
+        <translation>從目前打包中刪除選中的圖片</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="337"/>
         <source>Tag selected images</source>
-        <translation>標記選中的圖像</translation>
+        <translation>標記選中的圖片</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="372"/>
@@ -15658,11 +15719,11 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="423"/>
         <source>add selected images to collections</source>
-        <translation>將選中圖像新增到打包文件夾中</translation>
+        <translation>將選中圖片新增到打包文件夾中</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="562"/>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1755"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1754"/>
         <source>More</source>
         <translation>更多</translation>
     </message>
@@ -15730,17 +15791,17 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="858"/>
         <source>0 Image(s) Displayed, 0 Image(s) Filtered</source>
-        <translation>顯示0個圖像，過濾0個圖像</translation>
+        <translation>顯示 0 個圖片，過濾 0 個圖片</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="881"/>
         <source>Autosave Settings</source>
-        <translation>自動保存設置</translation>
+        <translation>自動保存設定</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="897"/>
         <source>Reset Settings</source>
-        <translation>還原設置</translation>
+        <translation>還原設定</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="904"/>
@@ -15760,22 +15821,22 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="952"/>
         <source>Name:</source>
-        <translation>名稱:</translation>
+        <translation>名稱：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="972"/>
         <source>Path:</source>
-        <translation>路徑:</translation>
+        <translation>路徑：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1009"/>
         <source>Size:</source>
-        <translation>尺寸:</translation>
+        <translation>尺寸：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1029"/>
         <source>Date:</source>
-        <translation>日期:</translation>
+        <translation>日期：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1065"/>
@@ -15785,34 +15846,34 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1151"/>
         <source>Format:</source>
-        <translation>格式:</translation>
+        <translation>格式：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1123"/>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1775"/>
         <source>Width:</source>
-        <translation>寬度:</translation>
+        <translation>寬度：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1158"/>
         <source>Colorspace:</source>
-        <translation>顔色模式:</translation>
+        <translation>色彩空間：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1179"/>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1785"/>
         <source>Height:</source>
-        <translation>高度:</translation>
+        <translation>高度：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1172"/>
         <source>DPI:</source>
-        <translation>DPI:</translation>
+        <translation>DPI：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1165"/>
         <source>Layers:</source>
-        <translation>圖層:</translation>
+        <translation>圖層：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1095"/>
@@ -15822,7 +15883,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1109"/>
         <source>Profile Name:</source>
-        <translation>設定檔名稱:</translation>
+        <translation>設定檔名稱：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1203"/>
@@ -15832,12 +15893,12 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1217"/>
         <source>Filters:</source>
-        <translation>過濾器 :</translation>
+        <translation>過濾器 ：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1236"/>
         <source>Filter Displayed Images</source>
-        <translation>過濾顯示的圖像</translation>
+        <translation>過濾顯示的圖片</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1241"/>
@@ -15938,12 +15999,12 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1605"/>
         <source>Insert Image</source>
-        <translation>插入圖像</translation>
+        <translation>插入圖片</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1617"/>
         <source>Image Placement</source>
-        <translation>圖像位置</translation>
+        <translation>圖片位置</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1678"/>
@@ -15973,12 +16034,12 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1724"/>
         <source>X:</source>
-        <translation>X:</translation>
+        <translation>X：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1714"/>
         <source>Y:</source>
-        <translation>Y:</translation>
+        <translation>Y：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1822"/>
@@ -15998,7 +16059,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1837"/>
         <source>Same as Image</source>
-        <translation>與圖像相同</translation>
+        <translation>與圖片相同</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1842"/>
@@ -16008,7 +16069,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1861"/>
         <source>Insert Image into</source>
-        <translation>將圖像插入到</translation>
+        <translation>將圖片插入到</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1877"/>
@@ -16028,17 +16089,17 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1913"/>
         <source>Tag Image(s)</source>
-        <translation>標記圖像</translation>
+        <translation>標記圖片</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1919"/>
         <source>Selected Images:</source>
-        <translation>選中的圖像:</translation>
+        <translation>選中的圖片：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1948"/>
         <source>Tag Selected Image(s)</source>
-        <translation>標記選中的圖像</translation>
+        <translation>標記選中的圖片</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1964"/>
@@ -16066,7 +16127,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="394"/>
         <source>No Image(s) Selected</source>
-        <translation>未選擇圖像</translation>
+        <translation>未選擇圖片</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="700"/>
@@ -16077,7 +16138,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="845"/>
         <source>No image(s) selected</source>
-        <translation>未選擇圖像</translation>
+        <translation>未選擇圖片</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="884"/>
@@ -16097,18 +16158,18 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1200"/>
         <source>Import Image Collection</source>
-        <translation>匯入圖像打包</translation>
+        <translation>匯入圖片打包</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1200"/>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1220"/>
         <source>Scribus ImageCollection (*.sic)</source>
-        <translation>Scribus圖像打包 (*.sic)</translation>
+        <translation>Scribus圖片打包 (*.sic)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1220"/>
         <source>Export Image Collection</source>
-        <translation>匯出圖像打包</translation>
+        <translation>匯出圖片打包</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1227"/>
@@ -16123,60 +16184,60 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1447"/>
         <source>%1 image(s) displayed, %2 image(s) filtered</source>
-        <translation>顯示 %1 個圖像，過濾 %2 個圖像</translation>
+        <translation>顯示 %1 個圖片，過濾 %2 個圖片</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1630"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1629"/>
         <source>Image still loading</source>
-        <translation>圖像仍在載入</translation>
+        <translation>圖片仍在載入</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1638"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1637"/>
         <source>JPG</source>
         <translation>JPG</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1642"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1641"/>
         <source>TIFF</source>
         <translation>TIFF</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1646"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1645"/>
         <source>PSD</source>
         <translation>PSD</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1650"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1649"/>
         <source>EPS/PS</source>
         <translation>EPS/PS</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1654"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1653"/>
         <source>PDF</source>
         <translation>PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1658"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1657"/>
         <source>JPG2000</source>
         <translation>JPG2000</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1666"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1665"/>
         <source>emb. PSD</source>
         <translation>emb. PSD</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1670"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1669"/>
         <source>not available</source>
         <translation>不可用</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1617"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1616"/>
         <source>No image selected</source>
-        <translation>無選中的圖像</translation>
+        <translation>無選中的圖片</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1747"/>
+        <location filename="../../scribus/plugins/picbrowser/picturebrowser.cpp" line="1746"/>
         <source>Hide</source>
         <translation>隱藏</translation>
     </message>
@@ -16188,7 +16249,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="765"/>
         <source>Preview Images Only</source>
-        <translation>僅預覽圖像</translation>
+        <translation>僅預覽圖片</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1629"/>
@@ -16198,7 +16259,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1652"/>
         <source>Image Frame(s):</source>
-        <translation>圖像框架：</translation>
+        <translation>圖片框架：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="14"/>
@@ -16285,7 +16346,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1639"/>
         <source>Select the page(s) where to insert the image(s)</source>
-        <translation>選擇要插入圖像的頁面</translation>
+        <translation>選擇要插入圖片的頁面</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1662"/>
@@ -16341,7 +16402,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="63"/>
         <source>Save as &amp;Image...</source>
-        <translation>另存為圖片 (&amp;I)...</translation>
+        <translation>另存為圖片(&amp;I)...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/export.cpp" line="75"/>
@@ -16502,7 +16563,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/polygonwidgetbase.ui" line="66"/>
         <source>&amp;Rotation:</source>
-        <translation>旋轉 (&amp;R):</translation>
+        <translation>旋轉(&amp;R)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/polygonwidgetbase.ui" line="76"/>
@@ -16702,27 +16763,27 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="185"/>
         <source>RGB Images:</source>
-        <translation>RGB圖像：</translation>
+        <translation>RGB圖片：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="205"/>
         <source>CMYK Images:</source>
-        <translation>CMYK圖像：</translation>
+        <translation>CMYK圖片：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="225"/>
         <source>RGB Solid Colors:</source>
-        <translation>RGB純色:</translation>
+        <translation>RGB純色：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="238"/>
         <source>CMYK Solid Colors:</source>
-        <translation>CMYK純色:</translation>
+        <translation>CMYK純色：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="251"/>
         <source>Printer:</source>
-        <translation>印表機:</translation>
+        <translation>印表機：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="285"/>
@@ -16732,12 +16793,12 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="304"/>
         <source>Images:</source>
-        <translation>圖片:</translation>
+        <translation>圖片：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="314"/>
         <source>Solid Colors:</source>
-        <translation>單色:</translation>
+        <translation>純色：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="348"/>
@@ -16747,7 +16808,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_colormanagementbase.ui" line="370"/>
         <source>Monitor:</source>
-        <translation>顯示器:</translation>
+        <translation>顯示器：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_colormanagement.cpp" line="64"/>
@@ -16851,22 +16912,22 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="159"/>
         <source>Left:</source>
-        <translation>左:</translation>
+        <translation>左：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="169"/>
         <source>Right:</source>
-        <translation>右:</translation>
+        <translation>右：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="179"/>
         <source>Top:</source>
-        <translation>頂部:</translation>
+        <translation>頂端：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="189"/>
         <source>Bottom:</source>
-        <translation>底部:</translation>
+        <translation>底部：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="275"/>
@@ -16876,7 +16937,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="423"/>
         <source>Scratch Space:</source>
-        <translation>暫存空間:</translation>
+        <translation>暫存空間：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="223"/>
@@ -16886,17 +16947,17 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="54"/>
         <source>Pages</source>
-        <translation>頁面 </translation>
+        <translation>頁面</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="239"/>
         <source>Horizontal:</source>
-        <translation>水平:</translation>
+        <translation>水平：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="249"/>
         <source>Vertical:</source>
-        <translation>垂直:</translation>
+        <translation>垂直：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="299"/>
@@ -16921,12 +16982,12 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="437"/>
         <source>Selected Page Border:</source>
-        <translation>選擇頁面邊界:</translation>
+        <translation>選擇頁面邊界：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="451"/>
         <source>Frames:</source>
-        <translation>框架:</translation>
+        <translation>框架：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_displaybase.ui" line="465"/>
@@ -17052,27 +17113,27 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="60"/>
         <source>Title:</source>
-        <translation>標題:</translation>
+        <translation>標題：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="77"/>
         <source>Author:</source>
-        <translation>作者:</translation>
+        <translation>作者：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="87"/>
         <source>Subject:</source>
-        <translation>主題:</translation>
+        <translation>主題：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="97"/>
         <source>Keywords:</source>
-        <translation>關鍵字:</translation>
+        <translation>關鍵字：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="111"/>
         <source>Description:</source>
-        <translation>描述:</translation>
+        <translation>描述：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="126"/>
@@ -17082,57 +17143,57 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="167"/>
         <source>Publisher:</source>
-        <translation>生產商:</translation>
+        <translation>生產商：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="177"/>
         <source>Contributors:</source>
-        <translation>貢獻者:</translation>
+        <translation>貢獻者：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="191"/>
         <source>Date:</source>
-        <translation>日期:</translation>
+        <translation>日期：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="205"/>
         <source>Type:</source>
-        <translation>類型:</translation>
+        <translation>類型：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="219"/>
         <source>Format:</source>
-        <translation>格式:</translation>
+        <translation>格式：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="229"/>
         <source>Identifier:</source>
-        <translation>標識符:</translation>
+        <translation>標識符：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="239"/>
         <source>Source:</source>
-        <translation>源:</translation>
+        <translation>源：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="249"/>
         <source>Language:</source>
-        <translation>語言:</translation>
+        <translation>語言：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="263"/>
         <source>Relation:</source>
-        <translation>關係:</translation>
+        <translation>關係：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="273"/>
         <source>Coverage:</source>
-        <translation>覆蓋率:</translation>
+        <translation>覆蓋率：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="287"/>
         <source>Rights:</source>
-        <translation>權限:</translation>
+        <translation>權限：</translation>
     </message>
 </context>
 <context>
@@ -17182,7 +17243,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_documentitemattributesbase.ui" line="110"/>
         <source>&amp;Add</source>
-        <translation>增加 (&amp;A)</translation>
+        <translation>增加(&amp;A)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentitemattributesbase.ui" line="113"/>
@@ -17192,7 +17253,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_documentitemattributesbase.ui" line="120"/>
         <source>&amp;Copy</source>
-        <translation>複製 (&amp;C)</translation>
+        <translation>複製(&amp;C)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentitemattributesbase.ui" line="123"/>
@@ -17202,7 +17263,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_documentitemattributesbase.ui" line="130"/>
         <source>&amp;Delete</source>
-        <translation>刪除 (&amp;D)</translation>
+        <translation>刪除(&amp;D)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentitemattributesbase.ui" line="133"/>
@@ -17212,7 +17273,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_documentitemattributesbase.ui" line="140"/>
         <source>C&amp;lear</source>
-        <translation>清除 (&amp;L)</translation>
+        <translation>清除(&amp;L)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentitemattributesbase.ui" line="143"/>
@@ -17339,7 +17400,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_documentsectionsbase.ui" line="126"/>
         <source>&amp;Add</source>
-        <translation>增加 (&amp;A)</translation>
+        <translation>增加(&amp;A)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsectionsbase.ui" line="129"/>
@@ -17349,7 +17410,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_documentsectionsbase.ui" line="136"/>
         <source>&amp;Delete</source>
-        <translation>刪除 (&amp;D)</translation>
+        <translation>刪除(&amp;D)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsectionsbase.ui" line="139"/>
@@ -17393,7 +17454,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="125"/>
         <source>Size:</source>
-        <translation>尺寸:</translation>
+        <translation>尺寸：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="149"/>
@@ -17403,17 +17464,17 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="162"/>
         <source>Units:</source>
-        <translation>單位:</translation>
+        <translation>單位：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="175"/>
         <source>Width:</source>
-        <translation>寬度:</translation>
+        <translation>寬度：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="188"/>
         <source>Height:</source>
-        <translation>高度:</translation>
+        <translation>高度：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="203"/>
@@ -17540,7 +17601,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="62"/>
         <source>Language:</source>
-        <translation>語言:</translation>
+        <translation>語言：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentsetupbase.ui" line="259"/>
@@ -17692,7 +17753,7 @@ Do you want to migrate them to the new Scribus version?</source>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="485"/>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="608"/>
         <source>&amp;Change...</source>
-        <translation>變更 (&amp;C)...</translation>
+        <translation>變更(&amp;C)...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="113"/>
@@ -17726,7 +17787,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="156"/>
         <source>Antialias &amp;Graphics</source>
-        <translation>反鋸齒圖片 (&amp;G)</translation>
+        <translation>反鋸齒圖片(&amp;G)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="159"/>
@@ -17756,7 +17817,7 @@ Do you want to migrate them to the new Scribus version?</source>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="401"/>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="465"/>
         <source>Name of &amp;Executable:</source>
-        <translation>可執行文件的名字 (&amp;E):</translation>
+        <translation>可執行文件的名字(&amp;E)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="274"/>
@@ -17786,7 +17847,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="533"/>
         <source>Configurations:</source>
-        <translation>設定:</translation>
+        <translation>設定：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="547"/>
@@ -17816,7 +17877,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="588"/>
         <source>External Editor:</source>
-        <translation>外部編輯器:</translation>
+        <translation>外部編輯器：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="622"/>
@@ -17856,7 +17917,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_externaltools.cpp" line="108"/>
         <source>Locate your image editor</source>
-        <translation>定位圖像編輯器</translation>
+        <translation>定位圖片編輯器</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_externaltools.cpp" line="116"/>
@@ -17945,7 +18006,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_externaltoolsbase.ui" line="672"/>
         <source>Always use the configured DPI setting for calculating the size, even if the image file reports something different</source>
-        <translation>始終使用配置的DPI設置來計算尺寸，即使圖像文件報告了不同的內容</translation>
+        <translation>始終使用配置的DPI設置來計算尺寸，即使圖片文件報告了不同的內容</translation>
     </message>
 </context>
 <context>
@@ -17964,17 +18025,17 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="111"/>
         <source>C&amp;hange...</source>
-        <translation>變更 (&amp;H)...</translation>
+        <translation>變更(&amp;H)...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="118"/>
         <source>A&amp;dd...</source>
-        <translation>增加 (&amp;A)...</translation>
+        <translation>增加(&amp;A)...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="125"/>
         <source>&amp;Remove</source>
-        <translation>移除 (&amp;R)</translation>
+        <translation>移除(&amp;R)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_fontsbase.ui" line="176"/>
@@ -18057,7 +18118,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_guidesbase.ui" line="171"/>
         <source>Snap Distance:</source>
-        <translation>吸附距離:</translation>
+        <translation>吸附距離：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_guidesbase.ui" line="178"/>
@@ -18068,7 +18129,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_guidesbase.ui" line="191"/>
         <source>Grab Radius:</source>
-        <translation>抓取半徑:</translation>
+        <translation>抓取半徑：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_guidesbase.ui" line="361"/>
@@ -18267,7 +18328,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="63"/>
         <source>&amp;Hyphenation Suggestions</source>
-        <translation>連字元提示 (&amp;H)</translation>
+        <translation>連字元提示(&amp;H)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_hyphenatorbase.ui" line="73"/>
@@ -18341,23 +18402,23 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_imagecache.cpp" line="27"/>
         <source>Enabling the image cache will significantly speed up the loading of images. Enable the cache if you are often working on large documents with lots of images and if you have plenty of disk space in your application data directory.</source>
-        <translation>啟用圖像緩存可以加快圖像載入速度。如果磁盤空間充足，建議在經常編輯含有大量圖像的大文件時啟用此圖像緩存。</translation>
+        <translation>啟用圖片緩存可以加快圖片載入速度。如果磁盤空間充足，建議在經常編輯含有大量圖片的大文件時啟用此圖片緩存。</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_imagecache.cpp" line="30"/>
         <source>Set the level of compression for images in the cache. Higher values result in smaller cache files but also make writes to the cache slower.</source>
-        <translation>設置緩存圖像壓縮等級。值越高，消耗的緩存越少，但速度會越慢。</translation>
+        <translation>設置緩存圖片壓縮等級。值越高，消耗的緩存越少，但速度會越慢。</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_imagecachebase.ui" line="36"/>
         <location filename="../../scribus/ui/prefs_imagecache.cpp" line="21"/>
         <source>Image Cache</source>
-        <translation>圖像緩存</translation>
+        <translation>圖片緩存</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_imagecachebase.ui" line="80"/>
         <source>Enable Image Cache</source>
-        <translation>啟用圖像緩存</translation>
+        <translation>啟用圖片緩存</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_imagecachebase.ui" line="92"/>
@@ -18417,12 +18478,12 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="431"/>
         <source>Tab Fill Character:</source>
-        <translation>跳位字元填充字元:</translation>
+        <translation>跳位字元填充字元：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="471"/>
         <source>Tab Width:</source>
-        <translation>跳位字元寬度:</translation>
+        <translation>跳位字元寬度：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="511"/>
@@ -18430,7 +18491,7 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1218"/>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1510"/>
         <source>Fill Color:</source>
-        <translation>填充顔色:</translation>
+        <translation>填充顔色：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="411"/>
@@ -18454,7 +18515,7 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1469"/>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1527"/>
         <source>Shading:</source>
-        <translation>陰暗:</translation>
+        <translation>陰暗：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="298"/>
@@ -18481,42 +18542,42 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="185"/>
         <source>Top:</source>
-        <translation>頂部:</translation>
+        <translation>頂端：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="195"/>
         <source>Bottom:</source>
-        <translation>底部:</translation>
+        <translation>底部：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="202"/>
         <source>Left:</source>
-        <translation>左:</translation>
+        <translation>左：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="226"/>
         <source>Right:</source>
-        <translation>右:</translation>
+        <translation>右：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="332"/>
         <source>Font:</source>
-        <translation>字型:</translation>
+        <translation>字型：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="352"/>
         <source>Size:</source>
-        <translation>尺寸:</translation>
+        <translation>尺寸：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="342"/>
         <source>Color:</source>
-        <translation>顔色:</translation>
+        <translation>顔色：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="315"/>
         <source>Stroke:</source>
-        <translation>描邊:</translation>
+        <translation>描邊：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="568"/>
@@ -18556,7 +18617,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="793"/>
         <source>Scale Image to Frame Size</source>
-        <translation>縮放圖像至框架大小</translation>
+        <translation>縮放圖片至框架大小</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="581"/>
@@ -18601,17 +18662,17 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="846"/>
         <source>Full Resolution</source>
-        <translation>高分辨率</translation>
+        <translation>高解析度</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="856"/>
         <source>Normal Resolution</source>
-        <translation>普通分辨率</translation>
+        <translation>正常解析度</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="866"/>
         <source>Low Resolution</source>
-        <translation>低分辨率</translation>
+        <translation>低解析度</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1090"/>
@@ -18623,14 +18684,14 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1359"/>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1452"/>
         <source>Line Style:</source>
-        <translation>線條樣式:</translation>
+        <translation>線條樣式：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1142"/>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1352"/>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1503"/>
         <source>Line Width:</source>
-        <translation>線條寬度:</translation>
+        <translation>線條寬度：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1244"/>
@@ -18645,12 +18706,12 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1366"/>
         <source>Start Arrow:</source>
-        <translation>箭頭:</translation>
+        <translation>箭頭：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtoolsbase.ui" line="1345"/>
         <source>End Arrow:</source>
-        <translation>箭尾:</translation>
+        <translation>箭尾：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_itemtools.cpp" line="52"/>
@@ -18734,7 +18795,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="95"/>
         <source>Search:</source>
-        <translation>尋找:</translation>
+        <translation>搜尋：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="111"/>
@@ -18754,7 +18815,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="162"/>
         <source>&amp;No Key</source>
-        <translation>沒有鍵 (&amp;N)</translation>
+        <translation>沒有鍵(&amp;N)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="165"/>
@@ -18764,7 +18825,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="172"/>
         <source>&amp;User Defined Key</source>
-        <translation>使用者自定鍵 (&amp;U)</translation>
+        <translation>使用者自定鍵(&amp;U)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="175"/>
@@ -18774,7 +18835,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="198"/>
         <source>Set &amp;Key</source>
-        <translation>設定鍵 (&amp;K)</translation>
+        <translation>設定鍵(&amp;K)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="201"/>
@@ -18789,7 +18850,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="257"/>
         <source>Loadable Shortcut Sets</source>
-        <translation>可載入的快捷鍵設置</translation>
+        <translation>可載入的快捷鍵組合</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="273"/>
@@ -18804,7 +18865,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="283"/>
         <source>&amp;Load</source>
-        <translation>載入 (&amp;L)</translation>
+        <translation>載入(&amp;L)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="286"/>
@@ -18819,7 +18880,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="312"/>
         <source>&amp;Import...</source>
-        <translation>匯入 (&amp;I)...</translation>
+        <translation>匯入(&amp;I)...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="315"/>
@@ -18834,7 +18895,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="325"/>
         <source>&amp;Export...</source>
-        <translation>匯出 (&amp;E)...</translation>
+        <translation>匯出(&amp;E)...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="328"/>
@@ -18849,7 +18910,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="354"/>
         <source>&amp;Reset</source>
-        <translation>重置 (&amp;R)</translation>
+        <translation>重置(&amp;R)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_keyboardshortcutsbase.ui" line="357"/>
@@ -18938,17 +18999,17 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="77"/>
         <source>Minimum:</source>
-        <translation>最小:</translation>
+        <translation>最小：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="84"/>
         <source>Maximum:</source>
-        <translation>最大:</translation>
+        <translation>最大：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="91"/>
         <source>Stepping:</source>
-        <translation>步進:</translation>
+        <translation>步進：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="98"/>
@@ -18970,12 +19031,12 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="184"/>
         <source>X Displacement:</source>
-        <translation>X位移:</translation>
+        <translation>X位移：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="191"/>
         <source>Y Displacement:</source>
-        <translation>Y位移:</translation>
+        <translation>Y位移：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="228"/>
@@ -18985,7 +19046,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_operatortoolsbase.ui" line="247"/>
         <source>Constrain To:</source>
-        <translation>約束到:</translation>
+        <translation>約束到：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_operatortools.cpp" line="38"/>
@@ -19049,22 +19110,22 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="161"/>
         <source>Rotation:</source>
-        <translation>旋轉:</translation>
+        <translation>旋轉：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="188"/>
         <source>Page Mirroring:</source>
-        <translation>頁面鏡像:</translation>
+        <translation>頁面鏡像：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="298"/>
         <source>Page Binding:</source>
-        <translation>頁面裝訂:</translation>
+        <translation>頁面裝訂：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="465"/>
         <source>Resolution for EPS Graphics:</source>
-        <translation>EPS圖片分辨率:</translation>
+        <translation>EPS圖形解析度：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="435"/>
@@ -19080,12 +19141,12 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="428"/>
         <source>Limit Maximum Image Resolution to:</source>
-        <translation>限制最大圖像分辨率為:</translation>
+        <translation>限制最大圖片解析度為：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="652"/>
         <source>Allow Copying Text and Graphics</source>
-        <translation>允許複製文字和圖案</translation>
+        <translation>允許複製文字和圖形</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="241"/>
@@ -19095,17 +19156,17 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="54"/>
         <source>Pages</source>
-        <translation>頁面 </translation>
+        <translation>頁面</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="288"/>
         <source>Compatibility:</source>
-        <translation>相容性:</translation>
+        <translation>相容性：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="319"/>
         <source>Generate Thumbnails</source>
-        <translation>生成縮略圖</translation>
+        <translation>產生縮圖</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="326"/>
@@ -19140,12 +19201,12 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="404"/>
         <source>Image Compression Method:</source>
-        <translation>圖像壓縮方式:</translation>
+        <translation>圖片壓縮方式：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="414"/>
         <source>Image Compression Quality:</source>
-        <translation>圖像壓縮品質:</translation>
+        <translation>圖片壓縮品質：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="518"/>
@@ -19200,7 +19261,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="727"/>
         <source>Output Intended For:</source>
-        <translation>輸出預期為:</translation>
+        <translation>輸出目標：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="739"/>
@@ -19222,13 +19283,13 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="798"/>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="872"/>
         <source>Profile:</source>
-        <translation>設定檔:</translation>
+        <translation>設定檔：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="808"/>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="882"/>
         <source>Rendering Intent:</source>
-        <translation>渲染意圖:</translation>
+        <translation>渲染意圖：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="842"/>
@@ -19243,27 +19304,27 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="916"/>
         <source>Custom Rendering</source>
-        <translation>自定義渲染</translation>
+        <translation>自釘渲染</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="930"/>
         <source>Use Custom Rendering</source>
-        <translation>使用自定義渲染</translation>
+        <translation>使用自訂渲染</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="942"/>
         <source>Color:</source>
-        <translation>顔色:</translation>
+        <translation>顔色：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="952"/>
         <source>Frequency:</source>
-        <translation>頻率:</translation>
+        <translation>頻率：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="969"/>
         <source>Angle:</source>
-        <translation>角度:</translation>
+        <translation>角度：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="976"/>
@@ -19273,7 +19334,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="989"/>
         <source>Spot Function:</source>
-        <translation>網點函數:</translation>
+        <translation>網點函數：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1019"/>
@@ -19343,7 +19404,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1282"/>
         <source>Information String:</source>
-        <translation>字串資訊:</translation>
+        <translation>資訊字串：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1312"/>
@@ -19373,32 +19434,32 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1479"/>
         <source>Display Duration:</source>
-        <translation>顯示時長:</translation>
+        <translation>顯示時長：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1486"/>
         <source>Effect Duration:</source>
-        <translation>效果時長:</translation>
+        <translation>效果時長：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1493"/>
         <source>Effect Type:</source>
-        <translation>效果類型:</translation>
+        <translation>效果類型：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1503"/>
         <source>Moving Lines:</source>
-        <translation>移動線 :</translation>
+        <translation>移動線：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1513"/>
         <source>From the:</source>
-        <translation>從:</translation>
+        <translation>從：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1523"/>
         <source>Direction:</source>
-        <translation>方向:</translation>
+        <translation>方向：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexportbase.ui" line="1533"/>
@@ -19679,7 +19740,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="209"/>
         <source>Automatic</source>
-        <translation>自動 </translation>
+        <translation>自動</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="210"/>
@@ -20002,7 +20063,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="81"/>
         <source>DPI (Dots Per Inch) for image export</source>
-        <translation>用於圖像匯出的DPI (每英寸點數)</translation>
+        <translation>用於圖片匯出的DPI (每英寸點數)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_pdfexport.cpp" line="84"/>
@@ -20357,7 +20418,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="258"/>
         <source>Check for part filled image frames</source>
-        <translation>檢查部分填充的圖像框</translation>
+        <translation>檢查部分填充的圖片框</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="230"/>
@@ -20552,7 +20613,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_printer.cpp" line="38"/>
         <source>This enables you to explicitly set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
-        <translation> 這使您能夠明確設置 PostScript 文件的介質尺寸。除非您的印表機有特殊要求，否則不建議使用。</translation>
+        <translation>這使您能夠明確設置 PostScript 文件的介質尺寸。除非您的印表機有特殊要求，否則不建議使用。</translation>
     </message>
 </context>
 <context>
@@ -20630,7 +20691,7 @@ Do you want to use this?</source>
         <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="109"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/prefs_scripterbase.ui" line="109"/>
         <source>Startup Script:</source>
-        <translation>啟動運行 Script:</translation>
+        <translation>啟動運行 Script：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="119"/>
@@ -20642,49 +20703,49 @@ Do you want to use this?</source>
         <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="150"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/prefs_scripterbase.ui" line="150"/>
         <source>Console</source>
-        <translation>控制臺</translation>
+        <translation>控制台</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="171"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/prefs_scripterbase.ui" line="171"/>
         <source>Base Texts:</source>
-        <translation>基本文字:</translation>
+        <translation>基本文字：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="185"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/prefs_scripterbase.ui" line="185"/>
         <source>Comments:</source>
-        <translation>說明:</translation>
+        <translation>評論：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="199"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/prefs_scripterbase.ui" line="199"/>
         <source>Keywords:</source>
-        <translation>關鍵字:</translation>
+        <translation>關鍵字：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="213"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/prefs_scripterbase.ui" line="213"/>
         <source>Signs:</source>
-        <translation>簽名:</translation>
+        <translation>簽名：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="227"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/prefs_scripterbase.ui" line="227"/>
         <source>Errors:</source>
-        <translation>錯誤:</translation>
+        <translation>錯誤：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="241"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/prefs_scripterbase.ui" line="241"/>
         <source>Strings:</source>
-        <translation>字串:</translation>
+        <translation>字串：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/prefs_scripterbase.ui" line="255"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/prefs_scripterbase.ui" line="255"/>
         <source>Numbers:</source>
-        <translation>數位:</translation>
+        <translation>數位：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/prefs_scripter.cpp" line="160"/>
@@ -20820,7 +20881,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="88"/>
         <source>&amp;Add</source>
-        <translation>增加 (&amp;A)</translation>
+        <translation>增加(&amp;A)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="91"/>
@@ -20830,7 +20891,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="98"/>
         <source>&amp;Delete</source>
-        <translation>刪除 (&amp;D)</translation>
+        <translation>刪除(&amp;D)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="101"/>
@@ -20845,7 +20906,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="151"/>
         <source>Item Attribute Name:</source>
-        <translation>物件屬性名稱:</translation>
+        <translation>物件屬性名稱：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="161"/>
@@ -20855,7 +20916,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="168"/>
         <source>Destination Frame:</source>
-        <translation>目標框:</translation>
+        <translation>目標框：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="178"/>
@@ -20865,7 +20926,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="185"/>
         <source>Page Number Placement:</source>
-        <translation>頁碼位置 :</translation>
+        <translation>頁碼位置：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="195"/>
@@ -20875,7 +20936,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="202"/>
         <source>Paragraph Style:</source>
-        <translation>段落樣式:</translation>
+        <translation>段落樣式：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_tableofcontentsbase.ui" line="212"/>
@@ -20937,7 +20998,7 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="315"/>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="413"/>
         <source>Displacement:</source>
-        <translation>移位:</translation>
+        <translation>移位：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="89"/>
@@ -20958,7 +21019,7 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="182"/>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="248"/>
         <source>Scaling:</source>
-        <translation>縮放:</translation>
+        <translation>縮放：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="143"/>
@@ -20974,7 +21035,7 @@ Do you want to use this?</source>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="322"/>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="439"/>
         <source>Line Width:</source>
-        <translation>線條寬度:</translation>
+        <translation>線條寬度：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="332"/>
@@ -21003,7 +21064,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_typographybase.ui" line="511"/>
         <source>Line Spacing:</source>
-        <translation>線條間隔:</translation>
+        <translation>線條間隔：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_typography.cpp" line="32"/>
@@ -21078,22 +21139,22 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="85"/>
         <source>&amp;Theme:</source>
-        <translation>佈景主題 (&amp;T):</translation>
+        <translation>佈景主題(&amp;T)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="108"/>
         <source>Use Small Widgets on Palettes</source>
-        <translation>在面板上使用小部件</translation>
+        <translation>在面板上使用小工具</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="115"/>
         <source>Use Tabs for Documents</source>
-        <translation>對文件使用選項卡</translation>
+        <translation>使用分頁管理文件</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="122"/>
         <source>&amp;Recent Documents:</source>
-        <translation>最近開啟的檔案 (&amp;R):</translation>
+        <translation>最近開啟的檔案(&amp;R)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="159"/>
@@ -21113,7 +21174,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="241"/>
         <source>&amp;Menus:</source>
-        <translation>選單(&amp;M):</translation>
+        <translation>選單(&amp;M)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="251"/>
@@ -21124,7 +21185,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="258"/>
         <source>&amp;Palettes:</source>
-        <translation>面板(&amp;P):</translation>
+        <translation>面板(&amp;P)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="291"/>
@@ -21134,12 +21195,12 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="302"/>
         <source>Font:</source>
-        <translation>字型:</translation>
+        <translation>字型：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="316"/>
         <source>Use Smart Text Selection</source>
-        <translation>使用智能文字選擇</translation>
+        <translation>使用智慧型文字選取功能</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="339"/>
@@ -21159,7 +21220,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="370"/>
         <source>&amp;Wheel Jump:</source>
-        <translation>滾輪跳行 (&amp;W):</translation>
+        <translation>滾輪跳行(&amp;W)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_userinterfacebase.ui" line="399"/>
@@ -21322,7 +21383,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/printdialog.cpp" line="467"/>
         <source>Print Current Pa&amp;ge</source>
-        <translation>列印目前頁面 (&amp;G)</translation>
+        <translation>列印目前頁面(&amp;G)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialog.cpp" line="358"/>
@@ -21376,17 +21437,17 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="53"/>
         <source>&amp;Options...</source>
-        <translation>選項 (&amp;O)...</translation>
+        <translation>選項(&amp;O)...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="86"/>
         <source>&amp;File:</source>
-        <translation>檔案 (&amp;F):</translation>
+        <translation>檔案(&amp;F)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="102"/>
         <source>C&amp;hange...</source>
-        <translation>變更 (&amp;H)...</translation>
+        <translation>變更(&amp;H)...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="117"/>
@@ -21401,7 +21462,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="138"/>
         <source>Co&amp;mmand:</source>
-        <translation>命令 (&amp;M):</translation>
+        <translation>命令(&amp;M)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="160"/>
@@ -21411,22 +21472,22 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="166"/>
         <source>Print &amp;All</source>
-        <translation>全部列印 (&amp;A)</translation>
+        <translation>全部列印(&amp;A)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="186"/>
         <source>N&amp;umber of Copies:</source>
-        <translation>列印份數 (&amp;U):</translation>
+        <translation>列印份數(&amp;U)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="206"/>
         <source>Print Current Pa&amp;ge</source>
-        <translation>列印目前頁面 (&amp;G)</translation>
+        <translation>列印目前頁面(&amp;G)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="213"/>
         <source>Print &amp;Range</source>
-        <translation>列印範圍 (&amp;R)</translation>
+        <translation>列印範圍(&amp;R)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="271"/>
@@ -21556,12 +21617,12 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="530"/>
         <source>Top:</source>
-        <translation>頂部:</translation>
+        <translation>頂端：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="537"/>
         <source>Distance for bleed from the top of the physical page</source>
-        <translation>從出血到實際頁面頂部的距離</translation>
+        <translation>從出血到實際頁面頂端的距離</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="544"/>
@@ -21611,7 +21672,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="625"/>
         <source>&amp;Print</source>
-        <translation>列印 (&amp;P)</translation>
+        <translation>列印(&amp;P)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="635"/>
@@ -21626,7 +21687,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="356"/>
         <source>This enables you to explicitly set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
-        <translation> 這使您能夠明確設置 PostScript 文件的介質尺寸。除非您的印表機有特殊要求，否則不建議使用。</translation>
+        <translation>這使您能夠明確設置 PostScript 文件的介質尺寸。除非您的印表機有特殊要求，否則不建議使用。</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="366"/>
@@ -21636,7 +21697,7 @@ Do you want to use this?</source>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="382"/>
         <source>&lt;qt&gt;A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. Under Color Removal mostly affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. Under Color Removal reduces the possibility of over saturation with CMY inks.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;一種將由 C、M、Y 組成的灰階部分用黑色代替的方式。底色去除主要影響圖像中的中性和/或與灰色接近的色度部分。使用該選項可能會提升一些圖像的列印品質且需要根據實際情況試驗和測試。底色去除會降低使用 CMY 油墨的過飽和可能。&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;一種將由 C、M、Y 組成的灰階部分用黑色代替的方式。底色去除主要影響圖片中的中性和/或與灰色接近的色度部分。使用該選項可能會提升一些圖片的列印品質且需要根據實際情況試驗和測試。底色去除會降低使用 CMY 油墨的過飽和可能。&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="392"/>
@@ -21771,7 +21832,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="95"/>
         <source>Grayscale</source>
-        <translation>灰度</translation>
+        <translation>灰階</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="103"/>
@@ -21800,7 +21861,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="131"/>
         <source>&amp;Under Color Removal</source>
-        <translation>清除底色 (&amp;U)</translation>
+        <translation>清除底色(&amp;U)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="141"/>
@@ -21810,12 +21871,12 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="147"/>
         <source>Enable &amp;Antialiasing</source>
-        <translation>啟用反鋸齒 (&amp;A)</translation>
+        <translation>啟用反鋸齒(&amp;A)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="154"/>
         <source>Display Trans&amp;parency</source>
-        <translation>顯示透明度 (&amp;P)</translation>
+        <translation>顯示透明度(&amp;P)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="161"/>
@@ -21830,12 +21891,12 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="196"/>
         <source>Threshold:</source>
-        <translation>閾值：</translation>
+        <translation>臨界值：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="246"/>
         <source>Scaling:</source>
-        <translation>縮放:</translation>
+        <translation>縮放：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printpreviewbase.ui" line="256"/>
@@ -21903,17 +21964,17 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette.cpp" line="756"/>
         <source>&amp;Shape</source>
-        <translation>形狀 (&amp;S)</translation>
+        <translation>形狀(&amp;S)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette.cpp" line="757"/>
         <source>&amp;Line</source>
-        <translation>線條 (&amp;L)</translation>
+        <translation>線條(&amp;L)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette.cpp" line="758"/>
         <source>&amp;Colors</source>
-        <translation>顔色 (&amp;C)</translation>
+        <translation>顔色(&amp;C)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette.cpp" line="759"/>
@@ -21976,7 +22037,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_image.cpp" line="807"/>
         <source>Automatic</source>
-        <translation>自動 </translation>
+        <translation>自動</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_image.cpp" line="808"/>
@@ -22039,17 +22100,17 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="57"/>
         <source>Rotation:</source>
-        <translation>旋轉:</translation>
+        <translation>旋轉：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="74"/>
         <source>&amp;Page Number:</source>
-        <translation>頁碼 (&amp;N):</translation>
+        <translation>頁碼(&amp;N):</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="37"/>
         <source>&amp;X-Pos:</source>
-        <translation>X-座標 (&amp;X):</translation>
+        <translation>X-座標(&amp;X)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="50"/>
@@ -22059,7 +22120,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="81"/>
         <source>&amp;Y-Pos:</source>
-        <translation>Y-座標 (&amp;Y):</translation>
+        <translation>Y-座標(&amp;Y)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="94"/>
@@ -22079,7 +22140,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="159"/>
         <source>X-Sc&amp;ale:</source>
-        <translation>X-縮放 (&amp;A):</translation>
+        <translation>X-縮放(&amp;A)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="172"/>
@@ -22089,7 +22150,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="179"/>
         <source>Y-Scal&amp;e:</source>
-        <translation>Y-縮放 (&amp;E):</translation>
+        <translation>Y-縮放(&amp;E)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="251"/>
@@ -22104,7 +22165,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="186"/>
         <source>Actual X-DPI:</source>
-        <translation>實際 X-DPI:</translation>
+        <translation>實際 X-DPI：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="199"/>
@@ -22129,7 +22190,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="271"/>
         <source>&amp;Free Scaling</source>
-        <translation>自由縮放 (&amp;F)</translation>
+        <translation>自由縮放(&amp;F)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="278"/>
@@ -22149,22 +22210,22 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="312"/>
         <source>Input Profile:</source>
-        <translation>輸入配置檔案:</translation>
+        <translation>輸入設定檔：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="325"/>
         <source>Source profile of the image</source>
-        <translation>圖像的源配置文件</translation>
+        <translation>圖片的源設定檔</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="332"/>
         <source>Rendering Intent:</source>
-        <translation>渲染意圖:</translation>
+        <translation>渲染意圖：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="345"/>
         <source>Rendering intent for the image</source>
-        <translation>圖像的渲染意圖</translation>
+        <translation>圖片的渲染意圖</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="281"/>
@@ -22189,7 +22250,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="389"/>
         <source>Compression method used in PDF export for the image</source>
-        <translation>圖像在PDF匯出中使用的壓縮方法</translation>
+        <translation>圖片在PDF匯出中使用的壓縮方法</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="396"/>
@@ -22199,7 +22260,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="409"/>
         <source>Compression quality used in PDF export for the image</source>
-        <translation>圖像在PDF匯出中使用的壓縮品質</translation>
+        <translation>圖片在PDF匯出中使用的壓縮品質</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_imagebase.ui" line="430"/>
@@ -22239,38 +22300,38 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="675"/>
         <source>&amp;Basepoint:</source>
-        <translation>基點 (&amp;B):</translation>
+        <translation>基點(&amp;B)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="676"/>
         <source>T&amp;ype of Line:</source>
-        <translation>線條類型 (&amp;Y):</translation>
+        <translation>線條類型(&amp;Y)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="677"/>
         <source>Start Arrow:</source>
-        <translation>箭頭:</translation>
+        <translation>箭頭：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="678"/>
         <source>End Arrow:</source>
-        <translation>箭尾:</translation>
+        <translation>箭尾：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="679"/>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="680"/>
         <source>Scaling:</source>
-        <translation>縮放:</translation>
+        <translation>縮放：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="692"/>
         <source>Line &amp;Width:</source>
-        <translation>線條寬度 (&amp;W):</translation>
+        <translation>線條寬度(&amp;W)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="693"/>
         <source>Ed&amp;ges:</source>
-        <translation>邊緣 (&amp;G):</translation>
+        <translation>邊緣(&amp;G)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="644"/>
@@ -22312,7 +22373,7 @@ a range of pages or a single page number</source>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="656"/>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="711"/>
         <source>&amp;Endings:</source>
-        <translation>結尾 (&amp;E):</translation>
+        <translation>結尾(&amp;E)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="713"/>
@@ -22385,33 +22446,33 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="87"/>
         <source>&amp;Basepoint:</source>
-        <translation>基點 (&amp;B):</translation>
+        <translation>基點(&amp;B)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="32"/>
         <source>T&amp;ype of Line:</source>
-        <translation>線條類型 (&amp;Y):</translation>
+        <translation>線條類型(&amp;Y)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="154"/>
         <source>Start Arrow:</source>
-        <translation>箭頭:</translation>
+        <translation>箭頭：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="99"/>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="129"/>
         <source>Scaling:</source>
-        <translation>縮放:</translation>
+        <translation>縮放：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="161"/>
         <source>End Arrow:</source>
-        <translation>箭尾:</translation>
+        <translation>箭尾：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="39"/>
         <source>Line &amp;Width:</source>
-        <translation>線條寬度 (&amp;W):</translation>
+        <translation>線條寬度(&amp;W)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="68"/>
@@ -22421,12 +22482,12 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="168"/>
         <source>Ed&amp;ges:</source>
-        <translation>邊緣 (&amp;G):</translation>
+        <translation>邊緣(&amp;G)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_linebase.ui" line="175"/>
         <source>&amp;Endings:</source>
-        <translation>結尾 (&amp;E):</translation>
+        <translation>結尾(&amp;E)：</translation>
     </message>
 </context>
 <context>
@@ -22453,25 +22514,25 @@ a range of pages or a single page number</source>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="52"/>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="283"/>
         <source>Color:</source>
-        <translation>顔色:</translation>
+        <translation>顔色：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="55"/>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="284"/>
         <source>Shade:</source>
-        <translation>陰影:</translation>
+        <translation>陰影：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="61"/>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="285"/>
         <source>Opacity:</source>
-        <translation>透明度:</translation>
+        <translation>不透明度：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="67"/>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="307"/>
         <source>Blendmode:</source>
-        <translation>混合模式:</translation>
+        <translation>混合模式：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="31"/>
@@ -22603,17 +22664,17 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="70"/>
         <source>Color:</source>
-        <translation>顔色:</translation>
+        <translation>顔色：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="83"/>
         <source>Shade:</source>
-        <translation>陰影:</translation>
+        <translation>陰影：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="93"/>
         <source>Opacity:</source>
-        <translation>透明度:</translation>
+        <translation>不透明度：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="103"/>
@@ -22624,7 +22685,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="116"/>
         <source>Blendmode:</source>
-        <translation>混合模式:</translation>
+        <translation>混合模式：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shadowbase.ui" line="127"/>
@@ -22727,7 +22788,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="177"/>
         <source>&amp;Edit...</source>
-        <translation>編輯 (&amp;E)...</translation>
+        <translation>編輯(&amp;E)...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="106"/>
@@ -22742,7 +22803,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="37"/>
         <source>Shape:</source>
-        <translation>形狀:</translation>
+        <translation>形狀：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="87"/>
@@ -22762,7 +22823,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="125"/>
         <source>Text flow around image clip path</source>
-        <translation>文字繞排圖像剪切路徑</translation>
+        <translation>文字繞排圖片剪切路徑</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="222"/>
@@ -22772,7 +22833,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="229"/>
         <source>Fill Rule:</source>
-        <translation>填充規則:</translation>
+        <translation>填充規則：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="241"/>
@@ -22790,12 +22851,12 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="53"/>
         <source>Table:</source>
-        <translation>表格:</translation>
+        <translation>表格：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="86"/>
         <source>Cells:</source>
-        <translation>單元格:</translation>
+        <translation>單元格：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="99"/>
@@ -22815,24 +22876,24 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="380"/>
         <source>Width:</source>
-        <translation>寬度:</translation>
+        <translation>寬度：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="159"/>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="393"/>
         <source>Color:</source>
-        <translation>顔色:</translation>
+        <translation>顔色：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="454"/>
         <source>Type:</source>
-        <translation>類型:</translation>
+        <translation>類型：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="198"/>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="486"/>
         <source>Shade:</source>
-        <translation>陰影:</translation>
+        <translation>陰影：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="220"/>
@@ -23012,7 +23073,7 @@ Transparency</source>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="414"/>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="482"/>
         <source>&amp;X-Pos:</source>
-        <translation>X-座標 (&amp;X):</translation>
+        <translation>X-座標(&amp;X)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="186"/>
@@ -23021,7 +23082,7 @@ Transparency</source>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="415"/>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="483"/>
         <source>&amp;Y-Pos:</source>
-        <translation>Y-座標 (&amp;Y):</translation>
+        <translation>Y-座標(&amp;Y)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="188"/>
@@ -23030,31 +23091,31 @@ Transparency</source>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="417"/>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="485"/>
         <source>&amp;Height:</source>
-        <translation>高度 (&amp;H):</translation>
+        <translation>高度(&amp;H)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="218"/>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="328"/>
         <source>&amp;X1:</source>
-        <translation>&amp;X1:</translation>
+        <translation>&amp;X1：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="220"/>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="330"/>
         <source>X&amp;2:</source>
-        <translation>X&amp;2:</translation>
+        <translation>X&amp;2：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="219"/>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="329"/>
         <source>Y&amp;1:</source>
-        <translation>Y&amp;1:</translation>
+        <translation>Y&amp;1：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="221"/>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="331"/>
         <source>&amp;Y2:</source>
-        <translation>&amp;Y2:</translation>
+        <translation>&amp;Y2：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="187"/>
@@ -23063,7 +23124,7 @@ Transparency</source>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="416"/>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="484"/>
         <source>&amp;Width:</source>
-        <translation>寬度 (&amp;W):</translation>
+        <translation>寬度(&amp;W)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="1183"/>
@@ -23101,7 +23162,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="116"/>
         <source>&amp;X-Pos:</source>
-        <translation>X-座標 (&amp;X):</translation>
+        <translation>X-座標 (&amp;X)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="132"/>
@@ -23111,12 +23172,12 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="139"/>
         <source>&amp;Width:</source>
-        <translation>寬度 (&amp;W):</translation>
+        <translation>寬度(&amp;W)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="149"/>
         <source>&amp;Y-Pos:</source>
-        <translation>Y-座標 (&amp;Y):</translation>
+        <translation>Y-座標(&amp;Y)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="159"/>
@@ -23126,22 +23187,22 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="166"/>
         <source>Width of current selection</source>
-        <translation>當前選擇的寬度</translation>
+        <translation>目前選擇的寬度</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="173"/>
         <source>&amp;Height:</source>
-        <translation>高度 (&amp;H):</translation>
+        <translation>高度(&amp;H)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="183"/>
         <source>Height of current selection</source>
-        <translation>當前選擇的高度</translation>
+        <translation>目前選擇的高度</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="190"/>
         <source>&amp;Rotation:</source>
-        <translation>旋轉 (&amp;R):</translation>
+        <translation>旋轉(&amp;R)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="197"/>
@@ -23156,7 +23217,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="210"/>
         <source>Basepoint:</source>
-        <translation>基點:</translation>
+        <translation>基點：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyzbase.ui" line="226"/>
@@ -23277,7 +23338,7 @@ Transparency</source>
         <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="179"/>
         <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="238"/>
         <source>Min:</source>
-        <translation>最小:</translation>
+        <translation>最小：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="186"/>
@@ -23292,7 +23353,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="224"/>
         <source>Norm:</source>
-        <translation>正常:</translation>
+        <translation>正常：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="245"/>
@@ -23307,7 +23368,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="283"/>
         <source>Max:</source>
-        <translation>最大:</translation>
+        <translation>最大：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="231"/>
@@ -23320,12 +23381,12 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="434"/>
         <source>Gap:</source>
-        <translation>間距:</translation>
+        <translation>間距：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="435"/>
         <source>Width:</source>
-        <translation>寬度:</translation>
+        <translation>寬度：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="438"/>
@@ -23335,12 +23396,12 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="335"/>
         <source>Distance between columns</source>
-        <translation>列間距</translation>
+        <translation>欄間距</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="335"/>
         <source>Column width</source>
-        <translation>列寬</translation>
+        <translation>欄寬</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distance.cpp" line="426"/>
@@ -23368,7 +23429,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="58"/>
         <source>Colu&amp;mns:</source>
-        <translation>列 (&amp;M):</translation>
+        <translation>欄(&amp;M)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="65"/>
@@ -23383,32 +23444,32 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="82"/>
         <source>Gap:</source>
-        <translation>間距:</translation>
+        <translation>間距：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="87"/>
         <source>Width:</source>
-        <translation>寬度:</translation>
+        <translation>寬度：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="95"/>
         <source>Distance between columns</source>
-        <translation>列間距</translation>
+        <translation>欄間距</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="102"/>
         <source>To&amp;p:</source>
-        <translation>頂部 (&amp;P):</translation>
+        <translation>頂端(&amp;P)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="109"/>
         <source>Distance of text from top of frame</source>
-        <translation>文字和框架頂部距離</translation>
+        <translation>文字和框架頂端距離</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="116"/>
         <source>&amp;Bottom:</source>
-        <translation>底部 (&amp;B):</translation>
+        <translation>底部(&amp;B)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="123"/>
@@ -23418,7 +23479,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="130"/>
         <source>&amp;Left:</source>
-        <translation>左 (&amp;L):</translation>
+        <translation>左(&amp;L)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="137"/>
@@ -23428,7 +23489,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="144"/>
         <source>&amp;Right:</source>
-        <translation>右 (&amp;R):</translation>
+        <translation>右(&amp;R)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_distancebase.ui" line="151"/>
@@ -24114,7 +24175,7 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="217"/>
         <source>Start:</source>
-        <translation>開始:</translation>
+        <translation>開始：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="241"/>
@@ -24124,7 +24185,7 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="268"/>
         <source>Format:</source>
-        <translation>格式:</translation>
+        <translation>格式：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="295"/>
@@ -24154,7 +24215,7 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="402"/>
         <source>Offset:</source>
-        <translation>位移:</translation>
+        <translation>位移：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pareffectbase.ui" line="161"/>
@@ -24202,17 +24263,17 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_pathtext.cpp" line="232"/>
         <source>Type:</source>
-        <translation>類型:</translation>
+        <translation>類型：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pathtext.cpp" line="233"/>
         <source>Start Offset:</source>
-        <translation>開始位移:</translation>
+        <translation>開始位移：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pathtext.cpp" line="234"/>
         <source>Distance from Curve:</source>
-        <translation>到曲線的距離:</translation>
+        <translation>到曲線的距離：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pathtext.cpp" line="236"/>
@@ -24225,17 +24286,17 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="32"/>
         <source>Type:</source>
-        <translation>類型:</translation>
+        <translation>類型：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="42"/>
         <source>Start Offset:</source>
-        <translation>開始位移:</translation>
+        <translation>開始位移：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="52"/>
         <source>Distance from Curve:</source>
-        <translation>到曲線的距離:</translation>
+        <translation>到曲線的距離：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_pathtextbase.ui" line="62"/>
@@ -24286,12 +24347,12 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <location filename="../../scribus/plugins/import/pub/importpub.cpp" line="140"/>
         <source>Importing: %1</source>
-        <translation>正在匯入: %1</translation>
+        <translation>正在匯入：%1</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pub/importpub.cpp" line="143"/>
         <source>Analyzing File:</source>
-        <translation>分析檔案:</translation>
+        <translation>分析檔案：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pub/importpub.cpp" line="353"/>
@@ -24317,25 +24378,25 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="99"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/pconsole.ui" line="99"/>
         <source>&amp;Save</source>
-        <translation>儲存 (&amp;S)</translation>
+        <translation>儲存(&amp;S)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="72"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/pconsole.ui" line="72"/>
         <source>&amp;File</source>
-        <translation>檔案 (&amp;F)</translation>
+        <translation>檔案(&amp;F)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="114"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/pconsole.ui" line="114"/>
         <source>&amp;Run</source>
-        <translation>執行 (&amp;R)</translation>
+        <translation>執行(&amp;R)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="124"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/pconsole.ui" line="124"/>
         <source>&amp;Save Output...</source>
-        <translation>儲存輸出 (&amp;S)...</translation>
+        <translation>儲存輸出(&amp;S)...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="82"/>
@@ -24347,7 +24408,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="14"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/pconsole.ui" line="14"/>
         <source>Script Console</source>
-        <translation>Script 控制臺</translation>
+        <translation>Script 控制台</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="134"/>
@@ -24377,19 +24438,19 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="104"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/pconsole.ui" line="104"/>
         <source>Save &amp;As...</source>
-        <translation>另存新檔 (&amp;A)...</translation>
+        <translation>另存新檔(&amp;A)...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="119"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/pconsole.ui" line="119"/>
         <source>Run As &amp;Console</source>
-        <translation>以控制臺模式執行 (&amp;C)</translation>
+        <translation>以控制台模式執行 (&amp;C)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="60"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/pconsole.cpp" line="59"/>
         <source>Scribus Python Console</source>
-        <translation>Scribus Python 控制臺</translation>
+        <translation>Scribus Python 控制台</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="62"/>
@@ -24397,8 +24458,8 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <source>This is a standard Python console with some 
 known limitations. Please consult the Scribus 
 Scripter documentation for further information. </source>
-        <translation>這是標準的Python控制台，具有一些
-已知的限制。請參閱Scribus
+        <translation>這是標準的 Python 控制台，具有一些
+已知的限制。請參閱 Scribus
 腳本編輯器文件獲取更多資訊。</translation>
     </message>
     <message>
@@ -24439,7 +24500,7 @@ Scripter documentation for further information. </source>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="109"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/pconsole.ui" line="109"/>
         <source>&amp;Quit</source>
-        <translation>退出 (&amp;Q)</translation>
+        <translation>退出(&amp;Q)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.cpp" line="144"/>
@@ -24475,52 +24536,52 @@ Scripter documentation for further information. </source>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="135"/>
         <source>Hu&amp;e:</source>
-        <translation>色調(&amp;E):</translation>
+        <translation>色調(&amp;E)：</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="136"/>
         <source>&amp;Sat:</source>
-        <translation>飽和度(&amp;S):</translation>
+        <translation>飽和度(&amp;S)：</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="137"/>
         <source>&amp;Val:</source>
-        <translation>亮度(&amp;V):</translation>
+        <translation>亮度(&amp;V)：</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="138"/>
         <source>&amp;Red:</source>
-        <translation>紅 (&amp;R):</translation>
+        <translation>紅(&amp;R)：</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="139"/>
         <source>&amp;Green:</source>
-        <translation>綠 (&amp;G):</translation>
+        <translation>綠(&amp;G)：</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="140"/>
         <source>Bl&amp;ue:</source>
-        <translation>藍 (&amp;U):</translation>
+        <translation>藍(&amp;U)：</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="141"/>
         <source>A&amp;lpha channel:</source>
-        <translation>A&amp;lpha 通道:</translation>
+        <translation>A&amp;lpha 通道：</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="142"/>
         <source>&amp;Basic colors</source>
-        <translation>基本顔色 (&amp;B)</translation>
+        <translation>基本顔色(&amp;B)</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="144"/>
         <source>&amp;Custom colors</source>
-        <translation>自定顔色 (&amp;C)</translation>
+        <translation>自訂顔色(&amp;C)</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="145"/>
         <source>&amp;Define Custom Colors &gt;&gt;</source>
-        <translation>設定自定顔色 (&amp;D)&gt;&gt;</translation>
+        <translation>設定自釘顔色 (&amp;D)&gt;&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="146"/>
@@ -24535,7 +24596,7 @@ Scripter documentation for further information. </source>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="148"/>
         <source>&amp;Add to Custom Colors</source>
-        <translation>增加到自定顔色 (&amp;A)</translation>
+        <translation>增加到自釘顔色 (&amp;A)</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="143"/>
@@ -24558,22 +24619,22 @@ Scripter documentation for further information. </source>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="11"/>
         <source>Read: %1</source>
-        <translation>讀取: %1</translation>
+        <translation>讀取：%1</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="12"/>
         <source>Write: %1</source>
-        <translation>寫入: %1</translation>
+        <translation>寫入：%1</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="13"/>
         <source>File &amp;name:</source>
-        <translation>檔案名 (&amp;N):</translation>
+        <translation>檔案名(&amp;N)：</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="14"/>
         <source>File &amp;type:</source>
-        <translation>檔案類型 (&amp;T):</translation>
+        <translation>檔案類型(&amp;T)：</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="16"/>
@@ -24623,7 +24684,7 @@ Scripter documentation for further information. </source>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="25"/>
         <source>Look &amp;in:</source>
-        <translation>尋找 (&amp;L): </translation>
+        <translation>尋找(&amp;L)：</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="28"/>
@@ -24718,47 +24779,47 @@ Scripter documentation for further information. </source>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="48"/>
         <source>&amp;Open</source>
-        <translation>開啟 (&amp;O)</translation>
+        <translation>開啟(&amp;O)</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="49"/>
         <source>&amp;Save</source>
-        <translation>儲存 (&amp;S)</translation>
+        <translation>儲存(&amp;S)</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="50"/>
         <source>&amp;Rename</source>
-        <translation>重新命名 (&amp;R)</translation>
+        <translation>重新命名(&amp;R)</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="51"/>
         <source>&amp;Delete</source>
-        <translation>刪除 (&amp;D)</translation>
+        <translation>刪除(&amp;D)</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="52"/>
         <source>R&amp;eload</source>
-        <translation>重新載入 (&amp;E)</translation>
+        <translation>重新載入(&amp;E)</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="53"/>
         <source>Sort by &amp;Name</source>
-        <translation>按名稱排序 (&amp;N)</translation>
+        <translation>按名稱排序(&amp;N)</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="54"/>
         <source>Sort by &amp;Size</source>
-        <translation>按大小排序 (&amp;S)</translation>
+        <translation>按大小排序(&amp;S)</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="55"/>
         <source>Sort by &amp;Date</source>
-        <translation>按日期排序 (&amp;D)</translation>
+        <translation>按日期排序(&amp;D)</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="56"/>
         <source>&amp;Unsorted</source>
-        <translation>不排序 (&amp;U)</translation>
+        <translation>不排序(&amp;U)</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="57"/>
@@ -24768,7 +24829,7 @@ Scripter documentation for further information. </source>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="58"/>
         <source>Show &amp;hidden files</source>
-        <translation>顯示隱藏檔案 (&amp;H)</translation>
+        <translation>顯示隱藏檔案(&amp;H)</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="59"/>
@@ -24900,7 +24961,7 @@ Check path and filename.</source>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="153"/>
         <source>&amp;Font</source>
-        <translation>字型 (&amp;F)</translation>
+        <translation>字型(&amp;F)</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="154"/>
@@ -24910,7 +24971,7 @@ Check path and filename.</source>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="155"/>
         <source>&amp;Size</source>
-        <translation>尺寸 (&amp;S)</translation>
+        <translation>尺寸(&amp;S)</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="156"/>
@@ -24920,17 +24981,17 @@ Check path and filename.</source>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="157"/>
         <source>Stri&amp;keout</source>
-        <translation>刪除線 (&amp;K)</translation>
+        <translation>刪除線(&amp;K)</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="158"/>
         <source>&amp;Underline</source>
-        <translation>底線 (&amp;U)</translation>
+        <translation>底線(&amp;U)</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="159"/>
         <source>&amp;Color</source>
-        <translation>顔色 (&amp;C)</translation>
+        <translation>顔色(&amp;C)</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="160"/>
@@ -24983,27 +25044,27 @@ Check path and filename.</source>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="84"/>
         <source>&amp;Undo</source>
-        <translation>復原 (&amp;U)</translation>
+        <translation>復原(&amp;U)</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="85"/>
         <source>&amp;Redo</source>
-        <translation>重做 (&amp;R)</translation>
+        <translation>重做(&amp;R)</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="86"/>
         <source>Cu&amp;t</source>
-        <translation>剪下 (&amp;t )</translation>
+        <translation>剪下(&amp;t )</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="87"/>
         <source>&amp;Copy</source>
-        <translation>複製 (&amp;C)</translation>
+        <translation>複製(&amp;C)</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="88"/>
         <source>&amp;Paste</source>
-        <translation>貼上 (&amp;P)</translation>
+        <translation>貼上(&amp;P)</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="89"/>
@@ -25029,17 +25090,17 @@ Check path and filename.</source>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="119"/>
         <source>&amp;Restore</source>
-        <translation>復原 (&amp;R)</translation>
+        <translation>復原(&amp;R)</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="120"/>
         <source>&amp;Move</source>
-        <translation>移動 (&amp;M)</translation>
+        <translation>移動(&amp;M)</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="121"/>
         <source>&amp;Size</source>
-        <translation>尺寸 (&amp;S)</translation>
+        <translation>尺寸(&amp;S)</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="122"/>
@@ -25054,12 +25115,12 @@ Check path and filename.</source>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="124"/>
         <source>&amp;Close</source>
-        <translation>關閉 (&amp;C)</translation>
+        <translation>關閉(&amp;C)</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="125"/>
         <source>Stay on &amp;Top</source>
-        <translation>至於頂部 (&amp;T)</translation>
+        <translation>至於頂端(&amp;T)</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="126"/>
@@ -25079,7 +25140,7 @@ Check path and filename.</source>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="129"/>
         <source>Sh&amp;ade</source>
-        <translation>陰暗 (&amp;A)</translation>
+        <translation>陰暗(&amp;A)</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="130"/>
@@ -25089,7 +25150,7 @@ Check path and filename.</source>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="131"/>
         <source>&amp;Unshade</source>
-        <translation>取消陰暗 (&amp;U)</translation>
+        <translation>取消陰暗(&amp;U)</translation>
     </message>
 </context>
 <context>
@@ -25109,17 +25170,17 @@ Check path and filename.</source>
         <translation>背景</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="130"/>
-        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="126"/>
-        <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="129"/>
-        <location filename="../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="122"/>
-        <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="130"/>
-        <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="127"/>
-        <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="124"/>
+        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="131"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="129"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="131"/>
+        <location filename="../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="124"/>
+        <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="132"/>
+        <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="128"/>
+        <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="126"/>
         <location filename="../../scribus/plugins/import/idml/importidmlplugin.cpp" line="149"/>
         <location filename="../../scribus/plugins/import/idml_old/importidml.cpp" line="101"/>
-        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="146"/>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="174"/>
+        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="147"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="156"/>
         <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="130"/>
         <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="122"/>
         <location filename="../../scribus/plugins/import/pdf/importpdfplugin.cpp" line="162"/>
@@ -25129,7 +25190,7 @@ Check path and filename.</source>
         <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="122"/>
         <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="123"/>
         <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="123"/>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="158"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="159"/>
         <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="128"/>
         <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="130"/>
         <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="124"/>
@@ -28154,7 +28215,7 @@ External Links
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdgetprop.cpp" line="444"/>
         <source>Page item must be an ImageFrame</source>
         <comment>python error</comment>
-        <translation>頁面對像必須為圖像框</translation>
+        <translation>頁面對像必須為圖片框</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/configuration.cpp" line="140"/>
@@ -28212,14 +28273,14 @@ External Links
         <location filename="../../scribus/plugins/scriptplugin_py2x/objimageexport.cpp" line="104"/>
         <source>Cannot delete image type settings.</source>
         <comment>python error</comment>
-        <translation>不能刪除圖像類型設置。</translation>
+        <translation>不能刪除圖片類型設置。</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/objimageexport.cpp" line="109"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/objimageexport.cpp" line="108"/>
         <source>The image type must be a string.</source>
         <comment>python error</comment>
-        <translation>圖像類型必須是字串。</translation>
+        <translation>圖片類型必須是字串。</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/objimageexport.cpp" line="134"/>
@@ -29325,7 +29386,7 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <location filename="../../scribus/fonts/ftface.cpp" line="55"/>
         <source>Freetype2 library not available</source>
-        <translation>Freetype2 函式庫不可用 </translation>
+        <translation>Freetype2 函式庫不可用</translation>
     </message>
     <message>
         <location filename="../../scribus/fonts/ftface.cpp" line="436"/>
@@ -29486,12 +29547,12 @@ is not exhaustive due to exceptions from called functions.
         <translation>匯出 SVG</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="100"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="101"/>
         <source>SVG Import</source>
         <translation>匯入 SVG</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="104"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="99"/>
         <source>OpenOffice.org Draw Importer</source>
         <translation>OpenOffice.org Draw 匯入器</translation>
     </message>
@@ -29723,12 +29784,12 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="222"/>
         <source>+shadow</source>
-        <translation>+陰影   </translation>
+        <translation>+陰影</translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="222"/>
         <source>-shadow</source>
-        <translation>-陰影   </translation>
+        <translation>-陰影</translation>
     </message>
     <message>
         <location filename="../../scribus/styles/charstyle.cpp" line="224"/>
@@ -29938,12 +29999,12 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_tiff.cpp" line="291"/>
         <source>This image uses an unsupported non integer sample format</source>
-        <translation>此圖像使用不支持的非整數樣本格式</translation>
+        <translation>此圖片使用不支持的非整數樣本格式</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_tiff.cpp" line="298"/>
         <source>This image uses an unsupported bit depth: %1 bits per sample.</source>
-        <translation>此圖像使用不受支持的色深：每個樣本 %1 位。</translation>
+        <translation>此圖片使用不受支持的色深：每個樣本 %1 位。</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_tiff.cpp" line="936"/>
@@ -30076,7 +30137,7 @@ is not exhaustive due to exceptions from called functions.
         <translation>新圖層</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="72"/>
+        <location filename="../../scribus/plugins/import/ai/importaiplugin.cpp" line="73"/>
         <source>Adobe Illustrator Importer</source>
         <translation>Adobe Illustrator 匯入器</translation>
     </message>
@@ -30344,7 +30405,7 @@ Therefore the image may be not correct</source>
         <translation>字型：
 %1 未嵌入或不可用於Scribus。
 它們可能會被 &quot;Courier&quot; 取代，具體取決於您的Ghostscript配置方式。
-因此圖像可能不正確</translation>
+因此圖片可能不正確</translation>
     </message>
     <message>
         <location filename="../../scribus/scprintengine_gdi.cpp" line="108"/>
@@ -30464,7 +30525,7 @@ Therefore the image may be not correct</source>
         <translation>Quark XPress Tags 文件</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="73"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgmplugin.cpp" line="75"/>
         <source>Cgm Importer</source>
         <translation>Cgm匯入器</translation>
     </message>
@@ -30474,7 +30535,7 @@ Therefore the image may be not correct</source>
         <translation>Adobe IDML 匯入器</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="74"/>
+        <location filename="../../scribus/plugins/import/drw/importdrwplugin.cpp" line="76"/>
         <source>DRW Importer</source>
         <translation>DRW匯入器</translation>
     </message>
@@ -31112,17 +31173,17 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../scribus/plugins/export/xpsexport/xpsexplugin.cpp" line="148"/>
         <source>Low Resolution</source>
-        <translation>低分辨率</translation>
+        <translation>低解析度</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/xpsexport/xpsexplugin.cpp" line="149"/>
         <source>Medium Resolution</source>
-        <translation>中分辨率</translation>
+        <translation>中解析度</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/xpsexport/xpsexplugin.cpp" line="150"/>
         <source>High Resolution</source>
-        <translation>高分辨率</translation>
+        <translation>高解析度</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="103"/>
@@ -31130,17 +31191,17 @@ Therefore the image may be not correct</source>
         <translation>Anii</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="75"/>
+        <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="77"/>
         <source>Open Document Importer</source>
         <translation>開放式文件匯入器</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="174"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="156"/>
         <source>OpenOffice.org Draw (*.sxd *.SXD);;All Files (*)</source>
         <translation>OpenOffice.org Draw (*.sxd *.SXD);;所有 (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="68"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdrplugin.cpp" line="70"/>
         <source>Corel Draw Importer</source>
         <translation>Corel Draw 匯入器</translation>
     </message>
@@ -31218,7 +31279,7 @@ Therefore the image may be not correct</source>
         <translation>Telugu</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="71"/>
+        <location filename="../../scribus/plugins/import/emf/importemfplugin.cpp" line="73"/>
         <source>EMF Importer</source>
         <translation>EMF匯入器</translation>
     </message>
@@ -31290,7 +31351,7 @@ Therefore the image may be not correct</source>
         <translation>&lt;fontEmbedding&gt; 無效</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="66"/>
+        <location filename="../../scribus/plugins/import/cvg/importcvgplugin.cpp" line="68"/>
         <source>Calamus Vector Graphics Importer</source>
         <translation>Calamus Vector Graphics 匯入器</translation>
     </message>
@@ -31310,7 +31371,7 @@ Therefore the image may be not correct</source>
         <translation>Qt支持的文件</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="66"/>
+        <location filename="../../scribus/plugins/import/fh/importfhplugin.cpp" line="68"/>
         <source>Freehand Importer</source>
         <translation>Freehand匯入器</translation>
     </message>
@@ -31725,7 +31786,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="802"/>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="847"/>
         <source>License</source>
-        <translation>許可</translation>
+        <translation>授權條款</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/resourcemanager.cpp" line="847"/>
@@ -31797,7 +31858,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/resourcemanagerbase.ui" line="246"/>
         <source>Show License</source>
-        <translation>顯示許可協議</translation>
+        <translation>顯示授權條款</translation>
     </message>
 </context>
 <context>
@@ -31805,7 +31866,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/resourcemanagerlicensebase.ui" line="14"/>
         <source>License</source>
-        <translation>許可</translation>
+        <translation>授權條款</translation>
     </message>
 </context>
 <context>
@@ -33209,13 +33270,13 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="145"/>
         <source>Save Images inline</source>
-        <translation>保存內聯圖像</translation>
+        <translation>保存內聯圖片</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="146"/>
         <source>Adds all Images on the Page inline to the SVG.
 Caution: this will increase the file size!</source>
-        <translation>將頁面上的所有內聯圖像新增到SVG。
+        <translation>將頁面上的所有內聯圖片新增到SVG。
 注意：這將增加文件大小！</translation>
     </message>
     <message>
@@ -33232,22 +33293,22 @@ Caution: this will increase the file size!</source>
 <context>
     <name>SVGImportPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="92"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="93"/>
         <source>Import &amp;SVG...</source>
         <translation>匯入 &amp;SVG...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="107"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="108"/>
         <source>Imports SVG Files</source>
         <translation>匯入 SVG 檔案</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="108"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="109"/>
         <source>Imports most SVG files into the current document, converting their vector data into Scribus objects.</source>
         <translation>匯入大部分SVG文件到目前文件，這將把其向量數據轉換為Scribus物件。</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="191"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="192"/>
         <source>The file could not be imported</source>
         <translation>這個檔案無法被匯入</translation>
     </message>
@@ -33255,7 +33316,7 @@ Caution: this will increase the file size!</source>
 <context>
     <name>SVGPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="1347"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="1356"/>
         <source>Group%1</source>
         <translation>群組%1</translation>
     </message>
@@ -33276,12 +33337,12 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/plugins/short-words/swdialog.ui" line="77"/>
         <source>&amp;Languages:</source>
-        <translation>語言 (&amp;L):</translation>
+        <translation>語言(&amp;L)：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swdialog.ui" line="38"/>
         <source>&amp;Selected Frames</source>
-        <translation>選擇的框 (&amp;S)</translation>
+        <translation>選擇的框(&amp;S)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swdialog.ui" line="45"/>
@@ -33291,7 +33352,7 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/plugins/short-words/swdialog.ui" line="52"/>
         <source>&amp;All Items</source>
-        <translation>所有物件 (&amp;A)</translation>
+        <translation>所有物件(&amp;A)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swdialog.ui" line="62"/>
@@ -33318,7 +33379,7 @@ Caution: this will increase the file size!</source>
         <location filename="../../scribus/plugins/short-words/swdialog.cpp" line="117"/>
         <source>&amp;Selected Frames</source>
         <comment>short words plugin</comment>
-        <translation>選擇的框 (&amp;S)</translation>
+        <translation>選擇的框(&amp;S)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swdialog.cpp" line="118"/>
@@ -33330,7 +33391,7 @@ Caution: this will increase the file size!</source>
         <location filename="../../scribus/plugins/short-words/swdialog.cpp" line="119"/>
         <source>&amp;All Items</source>
         <comment>short words plugin</comment>
-        <translation>所有物件 (&amp;A)</translation>
+        <translation>所有物件(&amp;A)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/swdialog.cpp" line="122"/>
@@ -33356,7 +33417,7 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/plugins/saveastemplateplugin/satemplate.cpp" line="57"/>
         <source>Save as &amp;Template...</source>
-        <translation>儲存為範本 (&amp;T)...</translation>
+        <translation>儲存為範本(&amp;T)...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/saveastemplateplugin/satemplate.cpp" line="77"/>
@@ -33381,7 +33442,7 @@ Caution: this will increase the file size!</source>
         <location filename="../../scribus/ui/annot.ui" line="34"/>
         <location filename="../../scribus/ui/annot.ui" line="909"/>
         <source>Type:</source>
-        <translation>類型:</translation>
+        <translation>類型：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="42"/>
@@ -33416,12 +33477,12 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="108"/>
         <source>Name:</source>
-        <translation>名稱:</translation>
+        <translation>名稱：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="2253"/>
         <source>Tooltip:</source>
-        <translation>工具提示:</translation>
+        <translation>工具提示：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="128"/>
@@ -33442,12 +33503,12 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="226"/>
         <source>Color:</source>
-        <translation>顔色:</translation>
+        <translation>顔色：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="260"/>
         <source>Width:</source>
-        <translation>寬度:</translation>
+        <translation>寬度：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="242"/>
@@ -33471,7 +33532,7 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="267"/>
         <source>Style:</source>
-        <translation>格式:</translation>
+        <translation>格式：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="275"/>
@@ -33521,7 +33582,7 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="312"/>
         <source>Visibility:</source>
-        <translation>可見度:</translation>
+        <translation>可見度：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="320"/>
@@ -33737,7 +33798,7 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1013"/>
         <source>Event:</source>
-        <translation>事件:</translation>
+        <translation>事件：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1021"/>
@@ -33778,7 +33839,7 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1056"/>
         <source>Script:</source>
-        <translation>Script:</translation>
+        <translation>Script：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1081"/>
@@ -33797,7 +33858,7 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1167"/>
         <source>To File:</source>
-        <translation>到檔案:</translation>
+        <translation>到檔案：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1115"/>
@@ -33817,7 +33878,7 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1174"/>
         <source>X-Pos:</source>
-        <translation>X-座標:</translation>
+        <translation>X-座標：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1160"/>
@@ -33830,17 +33891,17 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1146"/>
         <source>Y-Pos:</source>
-        <translation>Y-座標:</translation>
+        <translation>Y-座標：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1229"/>
         <source>Submit to URL:</source>
-        <translation>傳送到 URL:</translation>
+        <translation>傳送到 URL：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1239"/>
         <source>Submit format:</source>
-        <translation>提交格式:</translation>
+        <translation>提交格式：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1247"/>
@@ -33865,7 +33926,7 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1311"/>
         <source>Import Data from:</source>
-        <translation>匯入資料:</translation>
+        <translation>匯入資料：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="901"/>
@@ -33875,7 +33936,7 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1401"/>
         <source>Field is formatted as:</source>
-        <translation>域格式化為:</translation>
+        <translation>域格式化為：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1414"/>
@@ -33911,7 +33972,7 @@ Caution: this will increase the file size!</source>
         <location filename="../../scribus/ui/annot.ui" line="1497"/>
         <location filename="../../scribus/ui/annot.ui" line="1630"/>
         <source>Decimals:</source>
-        <translation>小數位:</translation>
+        <translation>小數位：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1531"/>
@@ -33952,12 +34013,12 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1970"/>
         <source>Format:</source>
-        <translation>格式:</translation>
+        <translation>格式：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="2004"/>
         <source>Keystroke:</source>
-        <translation>按鍵:</translation>
+        <translation>按鍵：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="1393"/>
@@ -33972,17 +34033,17 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="2075"/>
         <source>Value must be greater than or equal to:</source>
-        <translation>值必須大於或等於:</translation>
+        <translation>值必須大於或等於：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="2082"/>
         <source>and less or equal to:</source>
-        <translation>而且小於或等於:</translation>
+        <translation>而且小於或等於：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="2100"/>
         <source>Custom validate script:</source>
-        <translation>自定驗證 Script:</translation>
+        <translation>自定驗證 Script：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="2057"/>
@@ -34027,7 +34088,7 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="2186"/>
         <source>of the following fields:</source>
-        <translation>下面域:</translation>
+        <translation>下面域：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="2200"/>
@@ -34037,7 +34098,7 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="2209"/>
         <source>Custom calculation script:</source>
-        <translation>自定計算 Script:</translation>
+        <translation>自訂計算 Script：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.ui" line="2132"/>
@@ -34092,7 +34153,7 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="737"/>
         <source>Example:</source>
-        <translation>範例:</translation>
+        <translation>範例：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/annot.cpp" line="1398"/>
@@ -34486,7 +34547,7 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="41"/>
         <source>Open &amp;Recent</source>
-        <translation>開啟最近的檔案 (&amp;R)</translation>
+        <translation>開啟最近的檔案(&amp;R)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="42"/>
@@ -34496,12 +34557,12 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="43"/>
         <source>&amp;Import</source>
-        <translation>匯入 (&amp;I)</translation>
+        <translation>匯入(&amp;I)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="44"/>
         <source>&amp;Export</source>
-        <translation>匯出 (&amp;E)</translation>
+        <translation>匯出(&amp;E)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="47"/>
@@ -34511,7 +34572,7 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="52"/>
         <source>&amp;Level</source>
-        <translation>圖層 (&amp;L)</translation>
+        <translation>圖層(&amp;L)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="53"/>
@@ -34521,12 +34582,12 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="58"/>
         <source>Previe&amp;w Settings</source>
-        <translation>預覽設定 (&amp;W)</translation>
+        <translation>預覽設定(&amp;W)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="59"/>
         <source>&amp;PDF Options</source>
-        <translation>&amp;PDF 選項 </translation>
+        <translation>&amp;PDF 選項</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="65"/>
@@ -34546,17 +34607,17 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="68"/>
         <source>Liga&amp;ture</source>
-        <translation>連字 (&amp;T)</translation>
+        <translation>連字(&amp;T)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="83"/>
         <source>&amp;Alignment</source>
-        <translation>對齊 (&amp;A)</translation>
+        <translation>對齊(&amp;A)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="84"/>
         <source>Online &amp;Tutorials</source>
-        <translation>線上教學 (&amp;T)</translation>
+        <translation>線上教學(&amp;T)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="60"/>
@@ -34566,7 +34627,7 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="45"/>
         <source>&amp;Output Preview</source>
-        <translation>輸出預覽(&amp;O)</translation>
+        <translation>匯出預覽(&amp;O)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="49"/>
@@ -34601,7 +34662,7 @@ Caution: this will increase the file size!</source>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="57"/>
         <source>Image</source>
-        <translation>圖像</translation>
+        <translation>圖片</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/scmwmenumanager.cpp" line="61"/>
@@ -34829,7 +34890,7 @@ If you save it in this version, it will no longer be readable by older Scribus v
     <message>
         <location filename="../../scribus/scribuscore.cpp" line="212"/>
         <source>Initializing Image Cache</source>
-        <translation>初始化圖像緩存</translation>
+        <translation>初始化圖片緩存</translation>
     </message>
     <message>
         <location filename="../../scribus/scribuscore.cpp" line="311"/>
@@ -34929,10 +34990,10 @@ If you save it in this version, it will no longer be readable by older Scribus v
 Horizontal shift: %2
 Vertical shift: %3
 Rotation: %4</source>
-        <translation>拷貝數: %1
-水平位移:%2
-垂直位移:%3
-循環:%4</translation>
+        <translation>拷貝數：%1
+水平位移：%2
+垂直位移：%3
+循環：%4</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="13825"/>
@@ -34940,10 +35001,10 @@ Rotation: %4</source>
 Number of columns: %2
 Horizontal gap: %3
 Vertical gap: %4</source>
-        <translation>行數: %1
-列數: %2
-水平間距: %3
-垂直間距: %4</translation>
+        <translation>列數：%1
+欄數：%2
+水平間距：%3
+垂直間距：%4</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="15185"/>
@@ -35005,18 +35066,18 @@ Vertical gap: %4</source>
     <message>
         <location filename="../../scribus/scribus.cpp" line="876"/>
         <source>Open &amp;Recent</source>
-        <translation>開啟最近的檔案 (&amp;R)</translation>
+        <translation>開啟最近的檔案(&amp;R)</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="884"/>
         <location filename="../../scribus/scribus.cpp" line="3192"/>
         <source>&amp;Import</source>
-        <translation>匯入 (&amp;I)</translation>
+        <translation>匯入(&amp;I)</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="891"/>
         <source>&amp;Export</source>
-        <translation>匯出 (&amp;E)</translation>
+        <translation>匯出(&amp;E)</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="996"/>
@@ -35031,7 +35092,7 @@ Vertical gap: %4</source>
     <message>
         <location filename="../../scribus/scribus.cpp" line="977"/>
         <source>Send to La&amp;yer</source>
-        <translation>傳送到圖層 (&amp;Y)</translation>
+        <translation>傳送到圖層(&amp;Y)</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="2061"/>
@@ -35102,7 +35163,7 @@ Vertical gap: %4</source>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3946"/>
         <source>Filename and Path for Image</source>
-        <translation>圖像的檔名和路徑</translation>
+        <translation>圖片的檔名和路徑</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3946"/>
@@ -35181,7 +35242,7 @@ Vertical gap: %4</source>
     <message>
         <location filename="../../scribus/scribus.cpp" line="6176"/>
         <source>&amp;Size:</source>
-        <translation>尺寸 (&amp;S):</translation>
+        <translation>尺寸(&amp;S)：</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1541"/>
@@ -35259,7 +35320,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1147"/>
         <source>Liga&amp;ture</source>
-        <translation>連字 (&amp;T)</translation>
+        <translation>連字(&amp;T)</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="925"/>
@@ -35318,7 +35379,7 @@ Consider using the Preflight Verifier to correct them</source>
         <location filename="../../scribus/scribus.cpp" line="9079"/>
         <location filename="../../scribus/scribus.cpp" line="9158"/>
         <source>&amp;Name:</source>
-        <translation>名稱 (&amp;N):</translation>
+        <translation>名稱(&amp;N)：</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="9079"/>
@@ -35597,7 +35658,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3191"/>
         <source>C&amp;reate</source>
-        <translation>建立 (&amp;R)</translation>
+        <translation>建立(&amp;R)</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1199"/>
@@ -36062,7 +36123,7 @@ Consider using the Preflight Verifier to correct them</source>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="550"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptercore.cpp" line="551"/>
         <source>Documentation for:</source>
-        <translation>文檔對應:</translation>
+        <translation>文件對應：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptercore.cpp" line="555"/>
@@ -36137,19 +36198,19 @@ Consider using the Preflight Verifier to correct them</source>
         <location filename="../../scribus/ui/search.cpp" line="79"/>
         <location filename="../../scribus/ui/search.cpp" line="177"/>
         <source>Font</source>
-        <translation>字體</translation>
+        <translation>字型</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/search.cpp" line="82"/>
         <location filename="../../scribus/ui/search.cpp" line="180"/>
         <source>Font Size</source>
-        <translation>字體尺寸</translation>
+        <translation>字型尺寸</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/search.cpp" line="85"/>
         <location filename="../../scribus/ui/search.cpp" line="183"/>
         <source>Font Effects</source>
-        <translation>字體效果</translation>
+        <translation>字型效果</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/search.cpp" line="88"/>
@@ -36203,7 +36264,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/ui/search.cpp" line="162"/>
         <source>Replace with:</source>
-        <translation>取代為:</translation>
+        <translation>取代為：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/search.cpp" line="264"/>
@@ -36225,32 +36286,32 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/ui/search.cpp" line="260"/>
         <source>&amp;Whole Word</source>
-        <translation>整個字 (&amp;W)</translation>
+        <translation>整個字(&amp;W)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/search.cpp" line="273"/>
         <source>&amp;Search</source>
-        <translation>尋找 (&amp;S)</translation>
+        <translation>搜尋(&amp;S)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/search.cpp" line="276"/>
         <source>&amp;Replace</source>
-        <translation>取代 (&amp;R)</translation>
+        <translation>取代(&amp;R)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/search.cpp" line="279"/>
         <source>Replace &amp;All</source>
-        <translation>全部取代 (&amp;A)</translation>
+        <translation>全部取代(&amp;A)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/search.cpp" line="284"/>
         <source>&amp;Close</source>
-        <translation>關閉 (&amp;C)</translation>
+        <translation>關閉(&amp;C)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/search.cpp" line="282"/>
         <source>C&amp;lear</source>
-        <translation>清除 (&amp;L)</translation>
+        <translation>清除(&amp;L)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/search.cpp" line="76"/>
@@ -36333,7 +36394,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/ui/shadebutton.cpp" line="49"/>
         <source>&amp;Shade:</source>
-        <translation>陰暗 (&amp;S):</translation>
+        <translation>陰暗(&amp;S)：</translation>
     </message>
 </context>
 <context>
@@ -36443,7 +36504,7 @@ Consider using the Preflight Verifier to correct them</source>
         <location filename="../../scribus/plugins/short-words/shortwords.cpp" line="75"/>
         <source>Short &amp;Words...</source>
         <comment>short words plugin</comment>
-        <translation>短字 (&amp;W)...</translation>
+        <translation>短字(&amp;W)...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/short-words/shortwords.cpp" line="99"/>
@@ -36466,12 +36527,12 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/ui/shortcutwidget.ui" line="24"/>
         <source>&amp;User Defined Key</source>
-        <translation>使用者自定鍵 (&amp;U)</translation>
+        <translation>使用者自訂鍵(&amp;U)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/shortcutwidget.ui" line="31"/>
         <source>Set &amp;Key</source>
-        <translation>設定鍵 (&amp;K)</translation>
+        <translation>設定鍵(&amp;K)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/shortcutwidget.cpp" line="78"/>
@@ -36547,12 +36608,12 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/plugins/import/sml/importsml.cpp" line="139"/>
         <source>Importing: %1</source>
-        <translation>正在匯入: %1</translation>
+        <translation>正在匯入：%1</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/sml/importsml.cpp" line="142"/>
         <source>Analyzing File:</source>
-        <translation>分析檔案:</translation>
+        <translation>分析檔案：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/sml/importsml.cpp" line="352"/>
@@ -36665,29 +36726,29 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2046"/>
         <source>Current Paragraph:</source>
-        <translation>目前段落:</translation>
+        <translation>目前段落：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2047"/>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2051"/>
         <source>Words: </source>
-        <translation>字: </translation>
+        <translation>字：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2048"/>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2052"/>
         <source>Chars: </source>
-        <translation>字元: </translation>
+        <translation>字元：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2049"/>
         <source>Totals:</source>
-        <translation>總計: </translation>
+        <translation>總計：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2050"/>
         <source>Paragraphs: </source>
-        <translation>段落: </translation>
+        <translation>段落：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="3302"/>
@@ -36707,74 +36768,74 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2007"/>
         <source>&amp;Reload Text from Frame</source>
-        <translation>從框體重新載入文字 (&amp;R)</translation>
+        <translation>從框體重新載入文字(&amp;R)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2008"/>
         <source>&amp;Save to File...</source>
-        <translation>儲存到檔案 (&amp;S)...</translation>
+        <translation>儲存到檔案(&amp;S)...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2009"/>
         <source>&amp;Load from File...</source>
-        <translation>從檔案載入 (&amp;L)...</translation>
+        <translation>從檔案載入(&amp;L)...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2010"/>
         <source>Save &amp;Document</source>
-        <translation>儲存檔案 (&amp;D)</translation>
+        <translation>儲存檔案(&amp;D)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2011"/>
         <source>&amp;Update Text Frame and Exit</source>
-        <translation>更新文字框並退出 (&amp;U)</translation>
+        <translation>更新文字框並退出(&amp;U)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2012"/>
         <source>&amp;Exit Without Updating Text Frame</source>
-        <translation>不更新文字框就退出 (&amp;E)</translation>
+        <translation>不更新文字框就退出(&amp;E)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2016"/>
         <source>Cu&amp;t</source>
-        <translation>剪下 (&amp;T)</translation>
+        <translation>剪下(&amp;T)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2017"/>
         <source>&amp;Copy</source>
-        <translation>複製 (&amp;C)</translation>
+        <translation>複製(&amp;C)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2018"/>
         <source>&amp;Paste</source>
-        <translation>貼上 (&amp;P)</translation>
+        <translation>貼上(&amp;P)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2019"/>
         <source>C&amp;lear</source>
-        <translation>清除 (&amp;L)</translation>
+        <translation>清除(&amp;L)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2024"/>
         <source>&amp;Update Text Frame</source>
-        <translation>更新文字框 (&amp;U)</translation>
+        <translation>更新文字框(&amp;U)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="1720"/>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2005"/>
         <source>&amp;File</source>
-        <translation>檔案 (&amp;F)</translation>
+        <translation>檔案(&amp;F)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="1730"/>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2015"/>
         <source>&amp;Edit</source>
-        <translation>編輯 (&amp;E)</translation>
+        <translation>編輯(&amp;E)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2020"/>
         <source>Select &amp;All</source>
-        <translation>全選 (&amp;A)</translation>
+        <translation>全選(&amp;A)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2044"/>
@@ -36784,23 +36845,23 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2021"/>
         <source>&amp;Search/Replace...</source>
-        <translation>尋找 / 取代 (&amp;S)...</translation>
+        <translation>搜尋 / 取代(&amp;S)...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2023"/>
         <source>&amp;Fonts Preview...</source>
-        <translation>字體預覽 (&amp;F)...</translation>
+        <translation>字型預覽(&amp;F)...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2036"/>
         <source>&amp;Display Font...</source>
-        <translation>顯示字體 (&amp;D)...</translation>
+        <translation>顯示字型(&amp;D)...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="1816"/>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2035"/>
         <source>&amp;Settings</source>
-        <translation>設定 (&amp;S)</translation>
+        <translation>設定(&amp;S)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2006"/>
@@ -36826,7 +36887,7 @@ Consider using the Preflight Verifier to correct them</source>
         <location filename="../../scribus/ui/storyeditor.cpp" line="1744"/>
         <location filename="../../scribus/ui/storyeditor.cpp" line="2028"/>
         <source>&amp;Insert</source>
-        <translation>插入 (&amp;I)</translation>
+        <translation>插入(&amp;I)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/storyeditor.cpp" line="1746"/>
@@ -36917,7 +36978,7 @@ Consider using the Preflight Verifier to correct them</source>
         <location filename="../../scribus/ui/stylemanager.ui" line="451"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="120"/>
         <source>&amp;Reset</source>
-        <translation>重置 (&amp;R)</translation>
+        <translation>重置(&amp;R)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/stylemanager.ui" line="426"/>
@@ -36926,7 +36987,7 @@ Consider using the Preflight Verifier to correct them</source>
         <location filename="../../scribus/ui/stylemanager.cpp" line="1082"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="1120"/>
         <source>&amp;Apply</source>
-        <translation>套用 (&amp;A)</translation>
+        <translation>套用(&amp;A)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/stylemanager.ui" line="401"/>
@@ -36937,13 +36998,13 @@ Consider using the Preflight Verifier to correct them</source>
         <location filename="../../scribus/ui/stylemanager.ui" line="140"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="125"/>
         <source>&amp;New</source>
-        <translation>新建 (&amp;N)</translation>
+        <translation>新增(&amp;N)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/stylemanager.ui" line="193"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="126"/>
         <source>&amp;Import</source>
-        <translation>匯入 (&amp;I)</translation>
+        <translation>匯入(&amp;I)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/stylemanager.ui" line="174"/>
@@ -36955,7 +37016,7 @@ Consider using the Preflight Verifier to correct them</source>
         <location filename="../../scribus/ui/stylemanager.ui" line="212"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="128"/>
         <source>&amp;Delete</source>
-        <translation>刪除 (&amp;D)</translation>
+        <translation>刪除(&amp;D)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/stylemanager.cpp" line="108"/>
@@ -37017,12 +37078,12 @@ Consider using the Preflight Verifier to correct them</source>
         <location filename="../../scribus/ui/stylemanager.cpp" line="123"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="806"/>
         <source>&amp;Edit</source>
-        <translation>編輯 (&amp;E)</translation>
+        <translation>編輯(&amp;E)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/stylemanager.cpp" line="122"/>
         <source>&amp;Done</source>
-        <translation>完成 (&amp;D)</translation>
+        <translation>完成(&amp;D)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/stylemanager.ui" line="72"/>
@@ -37320,17 +37381,17 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="44"/>
         <source>&amp;All Pages</source>
-        <translation>全部頁面 (&amp;A)</translation>
+        <translation>全部頁面(&amp;A)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="63"/>
         <source>C&amp;hoose Pages</source>
-        <translation>選擇頁面 (&amp;H)</translation>
+        <translation>選擇頁面(&amp;H)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="74"/>
         <source>&amp;Rotation:</source>
-        <translation>旋轉 (&amp;R):</translation>
+        <translation>旋轉(&amp;R)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="147"/>
@@ -37340,12 +37401,12 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="156"/>
         <source>Compatibilit&amp;y:</source>
-        <translation>相容性 (&amp;Y):</translation>
+        <translation>相容性(&amp;Y)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="176"/>
         <source>&amp;Binding:</source>
-        <translation>裝訂 (&amp;B):</translation>
+        <translation>裝訂(&amp;B)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="193"/>
@@ -37360,17 +37421,17 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="206"/>
         <source>Generate &amp;Thumbnails</source>
-        <translation>產生縮圖 (&amp;T)</translation>
+        <translation>產生縮圖(&amp;T)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="233"/>
         <source>Save &amp;Linked Text Frames as PDF Articles</source>
-        <translation>把連鎖的文字框另存為 PDF 物件 (&amp;L)</translation>
+        <translation>把連鎖的文字框另存為 PDF 物件(&amp;L)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="226"/>
         <source>&amp;Include Bookmarks</source>
-        <translation>包括書籤 (&amp;I)</translation>
+        <translation>包括書籤(&amp;I)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="213"/>
@@ -37383,12 +37444,12 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="247"/>
         <source>&amp;Resolution for EPS Graphics:</source>
-        <translation>EPS 圖的解析度 (&amp;R):</translation>
+        <translation>EPS 圖的解析度(&amp;R)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="272"/>
         <source>Com&amp;press Text and Vector Graphics</source>
-        <translation>壓縮文字和向量圖 (&amp;P)</translation>
+        <translation>壓縮文字和向量圖(&amp;P)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="299"/>
@@ -37438,17 +37499,17 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="440"/>
         <source>Fonts to embed:</source>
-        <translation>要嵌入的字體:</translation>
+        <translation>要嵌入的字型：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="404"/>
         <source>&amp;Fonts</source>
-        <translation>字型 (&amp;F)</translation>
+        <translation>字型(&amp;F)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="536"/>
         <source>Enable &amp;Presentation Effects</source>
-        <translation>啟用報告效果 (&amp;P)</translation>
+        <translation>啟用報告效果(&amp;P)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1483"/>
@@ -37470,7 +37531,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="546"/>
         <source>Show Page Pre&amp;views</source>
-        <translation>顯示頁面預覽 (&amp;V)</translation>
+        <translation>顯示頁面預覽(&amp;V)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="553"/>
@@ -37480,32 +37541,32 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="717"/>
         <source>&amp;Display Duration:</source>
-        <translation>顯示持續時間 (&amp;D):</translation>
+        <translation>顯示持續時間(&amp;D)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="697"/>
         <source>Effec&amp;t Duration:</source>
-        <translation>特效持續時間 (&amp;T):</translation>
+        <translation>特效持續時間(&amp;T)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="707"/>
         <source>Effect T&amp;ype:</source>
-        <translation>特效類型 (&amp;Y):</translation>
+        <translation>特效類型(&amp;Y)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="601"/>
         <source>&amp;Moving Lines:</source>
-        <translation>移動的線條 (&amp;M):</translation>
+        <translation>移動的線條(&amp;M)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="670"/>
         <source>F&amp;rom the:</source>
-        <translation>來自 (&amp;R):</translation>
+        <translation>來自(&amp;R)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="591"/>
         <source>D&amp;irection:</source>
-        <translation>方向 (&amp;I):</translation>
+        <translation>方向(&amp;I)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="727"/>
@@ -37612,12 +37673,12 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="530"/>
         <source>E&amp;xtras</source>
-        <translation>附加 (&amp;X)</translation>
+        <translation>附加(&amp;X)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="933"/>
         <source>&amp;Use Encryption</source>
-        <translation>使用加密 (&amp;U)</translation>
+        <translation>使用加密(&amp;U)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="946"/>
@@ -37627,12 +37688,12 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="952"/>
         <source>&amp;User:</source>
-        <translation>使用者 (&amp;U):</translation>
+        <translation>使用者(&amp;U)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="962"/>
         <source>&amp;Owner:</source>
-        <translation>所有者 (&amp;O):</translation>
+        <translation>所有者(&amp;O)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="995"/>
@@ -37642,27 +37703,27 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1001"/>
         <source>Allow &amp;Printing the Document</source>
-        <translation>允許列印檔案 (&amp;P)</translation>
+        <translation>允許列印檔案(&amp;P)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1008"/>
         <source>Allow &amp;Changing the Document</source>
-        <translation>允許變更檔案 (&amp;C)</translation>
+        <translation>允許變更檔案(&amp;C)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1015"/>
         <source>Allow Cop&amp;ying Text and Graphics</source>
-        <translation>允許複製文字和圖片 (&amp;Y)</translation>
+        <translation>允許複製文字和圖片(&amp;Y)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1022"/>
         <source>Allow Adding &amp;Annotations and Fields</source>
-        <translation>允許增加註釋和表單域 (&amp;A)</translation>
+        <translation>允許增加註釋和表單域(&amp;A)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="927"/>
         <source>S&amp;ecurity</source>
-        <translation>安全 (&amp;E)</translation>
+        <translation>安全(&amp;E)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="810"/>
@@ -37682,7 +37743,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1058"/>
         <source>Output &amp;Intended For:</source>
-        <translation>輸出目的 (&amp;I):</translation>
+        <translation>匯出目的(&amp;I)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1069"/>
@@ -37697,32 +37758,32 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1079"/>
         <source>Grayscale</source>
-        <translation>灰度</translation>
+        <translation>灰階</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1097"/>
         <source>&amp;Use Custom Rendering Settings</source>
-        <translation>使用自定渲染設定 (&amp;U)</translation>
+        <translation>使用自訂渲染設定(&amp;U)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1104"/>
         <source>Rendering Settings</source>
-        <translation>渲染設置</translation>
+        <translation>渲染設定</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1115"/>
         <source>Fre&amp;quency:</source>
-        <translation>頻率 (&amp;Q):</translation>
+        <translation>頻率(&amp;Q)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1139"/>
         <source>&amp;Angle:</source>
-        <translation>角度 (&amp;A):</translation>
+        <translation>角度(&amp;A)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1166"/>
         <source>S&amp;pot Function:</source>
-        <translation>網點函數(&amp;P):</translation>
+        <translation>網點函數(&amp;P)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1180"/>
@@ -37747,13 +37808,13 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1208"/>
         <source>Solid Colors:</source>
-        <translation>單色:</translation>
+        <translation>單色：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1214"/>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1281"/>
         <source>Profile:</source>
-        <translation>配置文件:</translation>
+        <translation>設定檔：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1242"/>
@@ -37782,22 +37843,22 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1268"/>
         <source>Images:</source>
-        <translation>圖片:</translation>
+        <translation>圖片：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1046"/>
         <source>C&amp;olor</source>
-        <translation>顔色 (&amp;O)</translation>
+        <translation>顔色(&amp;O)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1506"/>
         <source>&amp;Info String:</source>
-        <translation>資訊字串 (&amp;I):</translation>
+        <translation>資訊字串(&amp;I)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1496"/>
         <source>Output &amp;Profile:</source>
-        <translation>輸入設定檔 (&amp;P):</translation>
+        <translation>匯入設定檔(&amp;P)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="227"/>
@@ -38260,7 +38321,7 @@ when PDF document is opened:</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="218"/>
         <source>Limits the resolution of your bitmap images to the selected DPI. Images with a lower resolution will be left untouched. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
-        <translation>選擇位圖的 DPI 限制分辨率。圖片用低分辨率無法動用。不選中將會使用他們原有的分辨率渲染。啟用它將會降低您的內存使用並且降低輸出速度。</translation>
+        <translation>選擇位圖的 DPI 限制解析度。圖片用低解析度無法動用。不選中將會使用他們原有的解析度渲染。啟用它將會降低您的內存使用並且降低輸出速度。</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="272"/>
@@ -38376,7 +38437,7 @@ when PDF document is opened:</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="279"/>
         <source>Image Quality Settings</source>
-        <translation>圖像品質設置</translation>
+        <translation>圖片品質設置</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="252"/>
@@ -38456,12 +38517,12 @@ when PDF document is opened:</source>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="219"/>
         <source>DPI (Dots Per Inch) for image export</source>
-        <translation>用於圖像匯出的DPI (每英寸點數)</translation>
+        <translation>用於圖片匯出的DPI (每英寸點數)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="253"/>
         <source>Choose a password for users to be able to read your PDF</source>
-        <translation>選擇一個使用者可以讀取您的PDF文件的密碼。</translation>
+        <translation>選擇一個使用者可以讀取您的PDF文件的密碼</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="255"/>
@@ -38563,13 +38624,13 @@ when PDF document is opened:</source>
         <location filename="../../scribus/ui/tabruler.cpp" line="518"/>
         <location filename="../../scribus/ui/tabruler.cpp" line="683"/>
         <source>&amp;Position:</source>
-        <translation>位置 (&amp;P):</translation>
+        <translation>位置(&amp;P)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabruler.cpp" line="529"/>
         <location filename="../../scribus/ui/tabruler.cpp" line="696"/>
         <source>Fill Char:</source>
-        <translation>填充字元:</translation>
+        <translation>填充字元：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabruler.cpp" line="525"/>
@@ -38751,19 +38812,19 @@ when PDF document is opened:</source>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="196"/>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="360"/>
         <source>Horizontal:</source>
-        <translation>水平:</translation>
+        <translation>水平：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="56"/>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="213"/>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="380"/>
         <source>Vertical:</source>
-        <translation>垂直:</translation>
+        <translation>垂直：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="292"/>
         <source>Angle:</source>
-        <translation>角度:</translation>
+        <translation>角度：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/transformdialogbase.ui" line="75"/>
@@ -38910,7 +38971,7 @@ when PDF document is opened:</source>
     <message>
         <location filename="../../scribus/ui/styleselect.cpp" line="72"/>
         <source>Displacement:</source>
-        <translation>移位:</translation>
+        <translation>移位：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/styleselect.cpp" line="75"/>
@@ -39265,7 +39326,7 @@ to %2</source>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="702"/>
         <source>Image frame</source>
-        <translation>圖像框</translation>
+        <translation>圖片框</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="703"/>
@@ -39295,17 +39356,17 @@ to %2</source>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="733"/>
         <source>Import SVG image</source>
-        <translation>匯入 SVG 圖像</translation>
+        <translation>匯入 SVG 圖片</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="735"/>
         <source>Import Uniconvertor image</source>
-        <translation>匯入Uniconvertor圖像</translation>
+        <translation>匯入Uniconvertor圖片</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="722"/>
         <source>Import EPS image</source>
-        <translation>匯入 EPS 圖像</translation>
+        <translation>匯入 EPS 圖片</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="747"/>
@@ -39350,7 +39411,7 @@ to %2</source>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="758"/>
         <source>Set image scaling</source>
-        <translation>設置圖像縮放</translation>
+        <translation>設置圖片縮放</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="759"/>
@@ -39491,12 +39552,12 @@ to %2</source>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="597"/>
         <source>Change Image Offset</source>
-        <translation>修改圖像位移</translation>
+        <translation>修改圖片位移</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="598"/>
         <source>Change Image Scale</source>
-        <translation>修改圖像比例</translation>
+        <translation>修改圖片比例</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="599"/>
@@ -39557,7 +39618,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="824"/>
         <source>Apply image effects</source>
-        <translation>套用圖像效果</translation>
+        <translation>套用圖片效果</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="825"/>
@@ -39567,7 +39628,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="826"/>
         <source>Adjust frame to the image size</source>
-        <translation>調整框架適應圖像大小</translation>
+        <translation>調整框架適應圖片大小</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="648"/>
@@ -39602,7 +39663,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="751"/>
         <source>Text flows around image clipping path</source>
-        <translation>文字繞排圖像剪切路徑</translation>
+        <translation>文字繞排圖片剪切路徑</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="828"/>
@@ -39797,7 +39858,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="623"/>
         <source>Change image resolution</source>
-        <translation>修改圖像分辨率</translation>
+        <translation>修改圖片解析度</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="626"/>
@@ -40087,7 +40148,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="734"/>
         <source>Import SVM image</source>
-        <translation>匯入SVM圖像</translation>
+        <translation>匯入SVM圖片</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="736"/>
@@ -40107,7 +40168,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="740"/>
         <source>Import Xara image</source>
-        <translation>匯入Xara圖像</translation>
+        <translation>匯入Xara圖片</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="742"/>
@@ -40117,7 +40178,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="743"/>
         <source>Import Zoner Draw image</source>
-        <translation>匯入 Zoner Draw 圖像</translation>
+        <translation>匯入 Zoner Draw 圖片</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="744"/>
@@ -40137,7 +40198,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="756"/>
         <source>Show image</source>
-        <translation>顯示圖像</translation>
+        <translation>顯示圖片</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="760"/>
@@ -40552,7 +40613,7 @@ Would you like to start the system&apos;s default browser instead?</source>
     <message>
         <location filename="../../scribus/ui/useprintermarginsdialog.ui" line="34"/>
         <source>Select &amp;Printer:</source>
-        <translation>選擇印表機 (&amp;P):</translation>
+        <translation>選擇印表機(&amp;P)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/useprintermarginsdialog.ui" line="59"/>
@@ -40562,27 +40623,27 @@ Would you like to start the system&apos;s default browser instead?</source>
     <message>
         <location filename="../../scribus/ui/useprintermarginsdialog.ui" line="74"/>
         <source>Right:</source>
-        <translation>右:</translation>
+        <translation>右：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/useprintermarginsdialog.ui" line="117"/>
         <source>&amp;Top:</source>
-        <translation>頂部 (&amp;T):</translation>
+        <translation>頂端(&amp;T)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/useprintermarginsdialog.ui" line="130"/>
         <source>&amp;Bottom:</source>
-        <translation>底部 (&amp;B):</translation>
+        <translation>底部(&amp;B)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/useprintermarginsdialog.ui" line="143"/>
         <source>&amp;Left:</source>
-        <translation>左 (&amp;L):</translation>
+        <translation>左(&amp;L)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/useprintermarginsdialog.ui" line="202"/>
         <source>&amp;OK</source>
-        <translation>確定 (&amp;O)</translation>
+        <translation>確定(&amp;O)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/useprintermarginsdialog.ui" line="205"/>
@@ -40592,7 +40653,7 @@ Would you like to start the system&apos;s default browser instead?</source>
     <message>
         <location filename="../../scribus/ui/useprintermarginsdialog.ui" line="212"/>
         <source>&amp;Cancel</source>
-        <translation>取消 (&amp;C)</translation>
+        <translation>取消(&amp;C)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/useprintermarginsdialog.ui" line="215"/>
@@ -40630,7 +40691,7 @@ Would you like to start the system&apos;s default browser instead?</source>
     <message>
         <location filename="../../scribus/ui/viewtoolbar.cpp" line="99"/>
         <source>Select image preview quality</source>
-        <translation>選擇圖像預覽品質</translation>
+        <translation>選擇圖片預覽品質</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/viewtoolbar.cpp" line="101"/>
@@ -40648,12 +40709,12 @@ Would you like to start the system&apos;s default browser instead?</source>
     <message>
         <location filename="../../scribus/plugins/import/viva/importviva.cpp" line="218"/>
         <source>Importing: %1</source>
-        <translation>正在匯入: %1</translation>
+        <translation>正在匯入：%1</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/viva/importviva.cpp" line="221"/>
         <source>Analyzing File:</source>
-        <translation>分析檔案:</translation>
+        <translation>分析檔案：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/viva/importviva.cpp" line="386"/>
@@ -40666,12 +40727,12 @@ Would you like to start the system&apos;s default browser instead?</source>
     <message>
         <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="142"/>
         <source>Importing: %1</source>
-        <translation>正在匯入: %1</translation>
+        <translation>正在匯入：%1</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="145"/>
         <source>Analyzing File:</source>
-        <translation>分析檔案:</translation>
+        <translation>分析檔案：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="357"/>
@@ -40718,12 +40779,12 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/plugins/import/wpg/importwpg.cpp" line="499"/>
         <source>Importing: %1</source>
-        <translation>正在匯入: %1</translation>
+        <translation>正在匯入：%1</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/wpg/importwpg.cpp" line="502"/>
         <source>Analyzing File:</source>
-        <translation>分析檔案:</translation>
+        <translation>分析檔案：</translation>
     </message>
 </context>
 <context>
@@ -40749,12 +40810,12 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="246"/>
         <source>Importing: %1</source>
-        <translation>正在匯入: %1</translation>
+        <translation>正在匯入：%1</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="249"/>
         <source>Analyzing File:</source>
-        <translation>分析檔案:</translation>
+        <translation>分析檔案：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="3621"/>
@@ -40772,12 +40833,12 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/plugins/import/xfig/importxfig.cpp" line="270"/>
         <source>Importing: %1</source>
-        <translation>正在匯入: %1</translation>
+        <translation>正在匯入：%1</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/xfig/importxfig.cpp" line="273"/>
         <source>Analyzing File:</source>
-        <translation>分析檔案:</translation>
+        <translation>分析檔案：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/xfig/importxfig.cpp" line="1617"/>
@@ -40790,17 +40851,17 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/plugins/import/xps/xpsimportoptions.ui" line="14"/>
         <source>XPS Import</source>
-        <translation>XPS導入</translation>
+        <translation>XPS匯入</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/xps/xpsimportoptions.ui" line="43"/>
         <source>Importing File:</source>
-        <translation>正在匯入檔案:</translation>
+        <translation>正在匯入檔案：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/xps/xpsimportoptions.ui" line="79"/>
         <source>Page Range</source>
-        <translation>頁面 </translation>
+        <translation>頁面</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/xps/xpsimportoptions.ui" line="85"/>
@@ -40823,12 +40884,12 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/plugins/import/xps/importxps.cpp" line="210"/>
         <source>Importing: %1</source>
-        <translation>正在匯入: %1</translation>
+        <translation>正在匯入：%1</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/xps/importxps.cpp" line="213"/>
         <source>Analyzing File:</source>
-        <translation>分析檔案:</translation>
+        <translation>分析檔案：</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/xps/importxps.cpp" line="404"/>
@@ -41036,7 +41097,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="541"/>
         <source>Color:</source>
-        <translation>顔色:</translation>
+        <translation>顔色：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="623"/>
@@ -41102,17 +41163,17 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="689"/>
         <source>Distance:</source>
-        <translation>距離:</translation>
+        <translation>距離：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="699"/>
         <source>Angle:</source>
-        <translation>角度:</translation>
+        <translation>角度：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="716"/>
         <source>Type:</source>
-        <translation>類型:</translation>
+        <translation>類型：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="724"/>
@@ -41132,13 +41193,13 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="742"/>
         <source>Line Color:</source>
-        <translation>線顏色:</translation>
+        <translation>線顏色：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="254"/>
         <location filename="../../scribus/ui/colorpalette.ui" line="1021"/>
         <source>Extend:</source>
-        <translation>擴展:</translation>
+        <translation>擴展：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="262"/>
@@ -41155,12 +41216,12 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="590"/>
         <source>Opacity:</source>
-        <translation>透明度:</translation>
+        <translation>不透明度：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpalette.ui" line="752"/>
         <source>Background:</source>
-        <translation>背景:</translation>
+        <translation>背景：</translation>
     </message>
 </context>
 <context>
@@ -41173,7 +41234,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/gradientaddedit.ui" line="46"/>
         <source>Name:</source>
-        <translation>名稱:</translation>
+        <translation>名稱：</translation>
     </message>
 </context>
 <context>
@@ -41203,7 +41264,7 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/gtfiledialog.cpp" line="29"/>
         <source>Automatic</source>
-        <translation>自動 </translation>
+        <translation>自動</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gtfiledialog.cpp" line="32"/>
@@ -41223,17 +41284,17 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/gtfiledialog.ui" line="35"/>
         <source>&amp;Importer:</source>
-        <translation>匯入器 (&amp;I):</translation>
+        <translation>匯入器(&amp;I)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gtfiledialog.ui" line="48"/>
         <source>Import &amp;Text Only</source>
-        <translation>只匯入文字 (&amp;T)</translation>
+        <translation>只匯入文字(&amp;T)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gtfiledialog.ui" line="55"/>
         <source>&amp;Encoding:</source>
-        <translation>編碼 (&amp;E):</translation>
+        <translation>編碼(&amp;E)：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gtfiledialog.ui" line="68"/>
@@ -41252,12 +41313,12 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/gtdialogs.cpp" line="63"/>
         <source>Choose the importer to use for %1 file:</source>
-        <translation>選擇用於 %1  檔案的匯入工具：</translation>
+        <translation>選擇用於 %1 檔案的匯入工具：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gtdialogs.cpp" line="65"/>
         <source>Choose the importer to use:</source>
-        <translation>選擇要使用的導入工具：</translation>
+        <translation>選擇要使用的匯入工具：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gtdialogs.cpp" line="87"/>
@@ -41285,7 +41346,7 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/picbrowser/imagedialog.ui" line="57"/>
         <source>Custom Zoom</source>
-        <translation>自定義縮放</translation>
+        <translation>自訂縮放</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/imagedialog.ui" line="70"/>
@@ -41326,12 +41387,12 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="32"/>
         <source>&amp;Remove</source>
-        <translation>移除 (&amp;R)</translation>
+        <translation>移除(&amp;R)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="33"/>
         <source>&amp;Open</source>
-        <translation>開啟 (&amp;O)</translation>
+        <translation>開啟(&amp;O)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nftwidget.cpp" line="65"/>
@@ -41436,17 +41497,17 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/nftwidget.ui" line="88"/>
         <source>&amp;About</source>
-        <translation>關於 (&amp;A)</translation>
+        <translation>關於(&amp;A)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nftwidget.ui" line="121"/>
         <source>&amp;Preview</source>
-        <translation>預覽 (&amp;P)</translation>
+        <translation>預覽(&amp;P)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nftwidget.ui" line="158"/>
         <source>&amp;Help</source>
-        <translation>說明 (&amp;H)</translation>
+        <translation>說明(&amp;H)</translation>
     </message>
 </context>
 <context>
@@ -41502,12 +41563,12 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/replaceonecolor.ui" line="46"/>
         <source>Replace:</source>
-        <translation>取代:</translation>
+        <translation>取代：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/replaceonecolor.ui" line="62"/>
         <source>with:</source>
-        <translation>用:</translation>
+        <translation>用：</translation>
     </message>
 </context>
 <context>
@@ -41841,7 +41902,7 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="298"/>
         <source>Style:</source>
-        <translation>格式:</translation>
+        <translation>格式：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="267"/>
@@ -41861,7 +41922,7 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="305"/>
         <source>Width:</source>
-        <translation>寬度:</translation>
+        <translation>寬度：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="326"/>
@@ -41881,7 +41942,7 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="344"/>
         <source>Fraction:</source>
-        <translation>分數:</translation>
+        <translation>分數：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="352"/>
@@ -41911,7 +41972,7 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="403"/>
         <source>Stylistic Sets:</source>
-        <translation>字型樣式集:</translation>
+        <translation>字型樣式集：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smfontfeaturesbase.ui" line="422"/>
@@ -41929,12 +41990,12 @@ please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/gettext/textfilter/tfdia.cpp" line="76"/>
         <source>C&amp;lear</source>
-        <translation>清除 (&amp;L)</translation>
+        <translation>清除(&amp;L)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/textfilter/tfdia.cpp" line="79"/>
         <source>&amp;Delete</source>
-        <translation>刪除 (&amp;D)</translation>
+        <translation>刪除(&amp;D)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/gettext/textfilter/tfdia.cpp" line="86"/>
@@ -42087,7 +42148,7 @@ please choose another one.</source>
         <location filename="../../scribus/ui/transparencypalette.ui" line="131"/>
         <location filename="../../scribus/ui/transparencypalette.ui" line="509"/>
         <source>Blend Mode:</source>
-        <translation>混合模式:</translation>
+        <translation>混合模式：</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/transparencypalette.ui" line="139"/>
