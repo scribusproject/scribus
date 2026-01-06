@@ -6650,7 +6650,7 @@ void ScribusMainWindow::slotDocSetup()
 	scrActions["viewShowTextControls"]->setChecked(doc->guidesPrefs().showControls);
 	scrActions["viewShowRulers"]->setChecked(doc->guidesPrefs().rulersShown);
 	scrActions["viewRulerMode"]->setChecked(doc->guidesPrefs().rulerMode);
-	scrActions["extrasGenerateTableOfContents"]->setEnabled(doc->hasTOCSetup());
+	scrActions["extrasGenerateTableOfContents"]->setEnabled(doc->hasTOCSetup() || doc->hasIndexSetup());
 	scrActions["extrasUpdateDocument"]->setEnabled(true);
 	scrActions["viewToggleCMS"]->setChecked(doc->HasCMS);
 	scrActions["viewToggleWhiteSpaceMode"]->setChecked(doc->whiteSpaceModeEnabled);
