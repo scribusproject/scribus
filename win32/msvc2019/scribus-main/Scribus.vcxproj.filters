@@ -3752,7 +3752,7 @@
       <Filter>Source Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\text\storytext.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\text</Filter>
     </moc>
     <moc Include="..\..\..\scribus\textnote.h">
       <Filter>Source Files</Filter>
