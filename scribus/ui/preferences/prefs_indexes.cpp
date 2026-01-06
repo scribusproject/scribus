@@ -240,22 +240,36 @@ void Prefs_Indexes::selectIndex(int numberSelected)
 
 	if (localIndexSetupVector[numSelected].headingStyle == CommonStrings::None)
 		setCurrentComboItem(styleHeadingComboBox, CommonStrings::tr_None);
+	else if (localIndexSetupVector[numSelected].headingStyle == CommonStrings::DefaultParagraphStyle)
+		setCurrentComboItem(styleHeadingComboBox, CommonStrings::trDefaultParagraphStyle);
 	else
 		setCurrentComboItem(styleHeadingComboBox, localIndexSetupVector[numSelected].headingStyle);
+
 	if (localIndexSetupVector[numSelected].separatorStyle == CommonStrings::None)
 		setCurrentComboItem(styleSeparatorComboBox, CommonStrings::tr_None);
+	else if (localIndexSetupVector[numSelected].separatorStyle == CommonStrings::DefaultParagraphStyle)
+		setCurrentComboItem(styleSeparatorComboBox, CommonStrings::trDefaultParagraphStyle);
 	else
 		setCurrentComboItem(styleSeparatorComboBox, localIndexSetupVector[numSelected].separatorStyle);
+
 	if (localIndexSetupVector[numSelected].level1Style == CommonStrings::None)
 		setCurrentComboItem(styleLevel1ComboBox, CommonStrings::tr_None);
+	else if (localIndexSetupVector[numSelected].level1Style == CommonStrings::DefaultParagraphStyle)
+		setCurrentComboItem(styleLevel1ComboBox, CommonStrings::trDefaultParagraphStyle);
 	else
 		setCurrentComboItem(styleLevel1ComboBox, localIndexSetupVector[numSelected].level1Style);
+
 	if (localIndexSetupVector[numSelected].level2Style == CommonStrings::None)
 		setCurrentComboItem(styleLevel2ComboBox, CommonStrings::tr_None);
+	else if (localIndexSetupVector[numSelected].level2Style == CommonStrings::DefaultParagraphStyle)
+		setCurrentComboItem(styleLevel2ComboBox, CommonStrings::trDefaultParagraphStyle);
 	else
 		setCurrentComboItem(styleLevel2ComboBox, localIndexSetupVector[numSelected].level2Style);
+
 	if (localIndexSetupVector[numSelected].level3Style == CommonStrings::None)
 		setCurrentComboItem(styleLevel3ComboBox, CommonStrings::tr_None);
+	else if (localIndexSetupVector[numSelected].level3Style == CommonStrings::DefaultParagraphStyle)
+		setCurrentComboItem(styleLevel3ComboBox, CommonStrings::trDefaultParagraphStyle);
 	else
 		setCurrentComboItem(styleLevel3ComboBox, localIndexSetupVector[numSelected].level3Style);
 }
@@ -282,7 +296,8 @@ void Prefs_Indexes::generatePageItemList()
 			}
 			allItems.clear();
 		}
-	} else
+	}
+	else
 		itemDestFrameComboBox->setEnabled(false);
 }
 
@@ -360,35 +375,50 @@ void Prefs_Indexes::headingStyleSelected(const QString &style)
 {
 	if (numSelected < 0 || numSelected >= localIndexSetupVector.count())
 		return;
-	localIndexSetupVector[numSelected].headingStyle = style;
+	QString headingStyle = style;
+	if (style == CommonStrings::trDefaultParagraphStyle)
+		headingStyle = CommonStrings::DefaultParagraphStyle;
+	localIndexSetupVector[numSelected].headingStyle = headingStyle;
 }
 
 void Prefs_Indexes::separatorStyleSelected(const QString &style)
 {
 	if (numSelected < 0 || numSelected >= localIndexSetupVector.count())
 		return;
-	localIndexSetupVector[numSelected].separatorStyle = style;
+	QString separatorStyle = style;
+	if (style == CommonStrings::trDefaultParagraphStyle)
+		separatorStyle = CommonStrings::DefaultParagraphStyle;
+	localIndexSetupVector[numSelected].separatorStyle = separatorStyle;
 }
 
 void Prefs_Indexes::level1StyleSelected(const QString &style)
 {
 	if (numSelected < 0 || numSelected >= localIndexSetupVector.count())
 		return;
-	localIndexSetupVector[numSelected].level1Style = style;
+	QString level1Style = style;
+	if (style == CommonStrings::trDefaultParagraphStyle)
+		level1Style = CommonStrings::DefaultParagraphStyle;
+	localIndexSetupVector[numSelected].level1Style = level1Style;
 }
 
 void Prefs_Indexes::level2StyleSelected(const QString &style)
 {
 	if (numSelected < 0 || numSelected >= localIndexSetupVector.count())
 		return;
-	localIndexSetupVector[numSelected].level2Style = style;
+	QString level2Style = style;
+	if (style == CommonStrings::trDefaultParagraphStyle)
+		level2Style = CommonStrings::DefaultParagraphStyle;
+	localIndexSetupVector[numSelected].level2Style = level2Style;
 }
 
 void Prefs_Indexes::level3StyleSelected(const QString &style)
 {
 	if (numSelected < 0 || numSelected >= localIndexSetupVector.count())
 		return;
-	localIndexSetupVector[numSelected].level3Style = style;
+	QString level3Style = style;
+	if (style == CommonStrings::trDefaultParagraphStyle)
+		level3Style = CommonStrings::DefaultParagraphStyle;
+	localIndexSetupVector[numSelected].level2Style = level3Style;
 }
 
 
