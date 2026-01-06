@@ -17693,7 +17693,7 @@ bool ScribusDoc::updateMarks(bool updateNotesMarks)
 		}
 		if (mrk->isType(MARKIndexType))
 		{
-			mrk->setItemName(mItem->itemName());
+			mrk->setItemName(mItem ? mItem->itemName() : QString());
 			mrk->setItemPtr(mItem);
 		}
 		// qDebug()<<"new page"<<mrk->OwnPage<<mrk->getItemName();
