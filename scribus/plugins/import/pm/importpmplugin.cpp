@@ -4,10 +4,12 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include "commonstrings.h"
+#include <memory>
 
 #include "importpm.h"
 #include "importpmplugin.h"
+
+#include "commonstrings.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
@@ -27,7 +29,7 @@ int importpm_getPluginAPIVersion()
 
 ScPlugin* importpm_getPlugin()
 {
-	ImportPmPlugin* plug = new ImportPmPlugin();
+	auto* plug = new ImportPmPlugin();
 	Q_CHECK_PTR(plug);
 	return plug;
 }
@@ -66,10 +68,9 @@ QString ImportPmPlugin::fullTrName() const
 	return QObject::tr("Pagemaker Importer");
 }
 
-
 const ScActionPlugin::AboutData* ImportPmPlugin::getAboutData() const
 {
-	AboutData* about = new AboutData;
+	auto* about = new AboutData;
 	about->authors = "Franz Schmid <franz@scribus.info>";
 	about->shortDescription = tr("Imports Pagemaker Files");
 	about->description = tr("Imports most Pagemaker files into the current document, converting their vector data into Scribus objects.");
@@ -121,18 +122,18 @@ bool ImportPmPlugin::importFile(QString fileName, int flags)
 		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("importpm");
 		QString wdir = prefs->get("wdir", ".");
 		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), tr("All Supported Formats")+" (*.pmd *.PMD *.pm *.PM *.pm3 *.PM3 *.pm4 *.PM4 *.pm5 *.PM5 *.pm6 *.PM6 *.p65 *.P65);;All Files (*)");
-		if (diaf.exec())
-		{
-			fileName = diaf.selectedFile();
-			prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
-		}
-		else
+		if (!diaf.exec())
 			return true;
+		fileName = diaf.selectedFile();
+		prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
 	}
+
 	m_Doc = ScCore->primaryMainWindow()->doc;
-	UndoTransaction* activeTransaction = nullptr;
+
+	UndoTransaction activeTransaction;
 	bool emptyDoc = (m_Doc == nullptr);
 	bool hasCurrentPage = (m_Doc && m_Doc->currentPage());
+
 	TransactionSettings trSettings;
 	trSettings.targetName   = hasCurrentPage ? m_Doc->currentPage()->getUName() : "";
 	trSettings.targetPixmap = Um::IImageFrame;
@@ -142,19 +143,17 @@ bool ImportPmPlugin::importFile(QString fileName, int flags)
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(false);
 	if (UndoManager::undoEnabled())
-		activeTransaction = new UndoTransaction(UndoManager::instance()->beginTransaction(trSettings));
-	PmPlug *dia = new PmPlug(m_Doc, flags);
+		activeTransaction = UndoManager::instance()->beginTransaction(trSettings);
+
+	auto dia = std::make_unique<PmPlug>(m_Doc, flags);
 	Q_CHECK_PTR(dia);
 	dia->importFile(fileName, trSettings, flags, !(flags & lfScripted));
+
 	if (activeTransaction)
-	{
-		activeTransaction->commit();
-		delete activeTransaction;
-		activeTransaction = nullptr;
-	}
+		activeTransaction.commit();
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(true);
-	delete dia;
+
 	return true;
 }
 
@@ -164,10 +163,9 @@ QImage ImportPmPlugin::readThumbnail(const QString& fileName)
 		return QImage();
 	UndoManager::instance()->setUndoEnabled(false);
 	m_Doc = nullptr;
-	PmPlug *dia = new PmPlug(m_Doc, lfCreateThumbnail);
+	auto dia = std::make_unique<PmPlug>(m_Doc, lfCreateThumbnail);
 	Q_CHECK_PTR(dia);
 	QImage ret = dia->readThumbnail(fileName);
 	UndoManager::instance()->setUndoEnabled(true);
-	delete dia;
 	return ret;
 }
