@@ -1854,6 +1854,10 @@ int StoryText::endOfWord(int pos) const
 	icu::UnicodeString unicodeStr(true, (const UChar*) fullText.utf16(), fullText.length());
 	it->setText(unicodeStr);
 
+	// The provided position is already at the limit of a word
+	if (it->isBoundary(pos) && (text(pos).isSpace() || text(pos).isPunct()))
+		return pos;
+
 	pos = it->following(pos);
 	return pos;
 }
