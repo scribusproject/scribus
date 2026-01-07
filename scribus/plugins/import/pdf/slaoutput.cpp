@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "slaoutput.h"
 
+#include <array>
 #include <memory>
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(22, 2, 0)
 #include <optional>
@@ -2495,7 +2496,11 @@ void SlaOutputDev::drawImageMask(GfxState *state, Object *ref, Stream *str, int 
 {
 //	qDebug() << "Draw Image Mask";
 	auto imgStr = std::make_shared<ImageStream>(str, width, 1, 1);
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 02, 0)
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 1, 0)
+	bool rewindDone = imgStr->rewind();
+	if (!rewindDone)
+		return;
+#elif POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 02, 0)
 	bool resetDone = imgStr->reset();
 	if (!resetDone)
 		return;
@@ -2576,7 +2581,11 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 {
 //	qDebug() << "SlaOutputDev::drawSoftMaskedImage Masked Image Components" << colorMap->getNumPixelComps();
 	auto imgStr = std::make_shared<ImageStream>(str, width, colorMap->getNumPixelComps(), colorMap->getBits());
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 02, 0)
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 1, 0)
+	bool rewindDone = imgStr->rewind();
+	if (!rewindDone)
+		return;
+#elif POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 02, 0)
 	bool resetDone = imgStr->reset();
 	if (!resetDone)
 		return;
@@ -2598,7 +2607,11 @@ void SlaOutputDev::drawSoftMaskedImage(GfxState *state, Object *ref, Stream *str
 		return;
 
 	auto mskStr = std::make_shared<ImageStream>(maskStr, maskWidth, maskColorMap->getNumPixelComps(), maskColorMap->getBits());
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 02, 0)
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 1, 0)
+	bool mskRewindDone = mskStr->rewind();
+	if (!mskRewindDone)
+		return;
+#elif POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 02, 0)
 	bool mskResetDone = mskStr->reset();
 	if (!mskResetDone)
 		return;
@@ -2660,7 +2673,11 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 {
 //	qDebug() << "SlaOutputDev::drawMaskedImage";
 	auto imgStr = std::make_shared<ImageStream>(str, width, colorMap->getNumPixelComps(), colorMap->getBits());
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 02, 0)
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 1, 0)
+	bool rewindDone = imgStr->rewind();
+	if (!rewindDone)
+		return;
+#elif POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 02, 0)
 	bool resetDone = imgStr->reset();
 	if (resetDone)
 		return;
@@ -2682,7 +2699,11 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 		return;
 
 	auto mskStr = std::make_shared<ImageStream>(maskStr, maskWidth, 1, 1);
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 02, 0)
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 1, 0)
+	bool mskRewindDone = mskStr->rewind();
+	if (!mskRewindDone)
+		return;
+#elif POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 02, 0)
 	bool mskResetDone = mskStr->reset();
 	if (!mskResetDone)
 		return;
@@ -2732,7 +2753,11 @@ void SlaOutputDev::drawMaskedImage(GfxState *state, Object *ref, Stream *str,  i
 void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int width, int height, GfxImageColorMap *colorMap, bool interpolate, const int* maskColors, bool inlineImg)
 {
 	auto imgStr = std::make_shared<ImageStream>(str, width, colorMap->getNumPixelComps(), colorMap->getBits());
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 02, 0)
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 1, 0)
+	bool rewindDone = imgStr->rewind();
+	if (!rewindDone)
+		return;
+#elif POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 02, 0)
 	bool resetDone = imgStr->reset();
 	if (!resetDone)
 		return;
@@ -3125,10 +3150,18 @@ void SlaOutputDev::updateFont(GfxState *state)
 #endif
 	const double *textMat = nullptr;
 	double m11, m12, m21, m22, fontSize;
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 1, 0)
+	std::array<SplashCoord, 4> mat = { 1.0, 0.0, 0.0, 1.0 };
+#else
 	SplashCoord mat[4] = { 1.0, 0.0, 0.0, 1.0 };
+#endif
 	int n = 0;
 	int faceIndex = 0;
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 1, 0)
+	std::array<SplashCoord, 6> matrix = { 1.0, 0.0, 0.0, 1.0, 0.0, 0.0 };
+#else
 	SplashCoord matrix[6] = { 1.0, 0.0, 0.0, 1.0, 0.0, 0.0 };
+#endif
 
 	m_font = nullptr;
 
