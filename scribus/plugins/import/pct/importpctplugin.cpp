@@ -4,10 +4,12 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include "commonstrings.h"
+#include <memory>
 
 #include "importpct.h"
 #include "importpctplugin.h"
+
+#include "commonstrings.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
@@ -27,7 +29,7 @@ int importpct_getPluginAPIVersion()
 
 ScPlugin* importpct_getPlugin()
 {
-	ImportPctPlugin* plug = new ImportPctPlugin();
+	auto* plug = new ImportPctPlugin();
 	Q_CHECK_PTR(plug);
 	return plug;
 }
@@ -69,7 +71,7 @@ QString ImportPctPlugin::fullTrName() const
 
 const ScActionPlugin::AboutData* ImportPctPlugin::getAboutData() const
 {
-	AboutData* about = new AboutData;
+	auto* about = new AboutData;
 	about->authors = "Franz Schmid <franz@scribus.info>";
 	about->shortDescription = tr("Imports Macintosh Pict Files");
 	about->description = tr("Imports most Macintosh Pict files into the current document, converting their vector data into Scribus objects.");
@@ -120,19 +122,19 @@ bool ImportPctPlugin::importFile(QString fileName, int flags)
 		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("importpct");
 		QString wdir = prefs->get("wdir", ".");
 		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), tr("All Supported Formats")+" (*.pct *.PCT *.pict *.PICT);;All Files (*)");
-		if (diaf.exec())
-		{
-			fileName = diaf.selectedFile();
-			prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
-		}
-		else
+		if (!diaf.exec())
 			return true;
+		fileName = diaf.selectedFile();
+		prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
 	}
+
 	if (m_Doc == nullptr)
 		m_Doc = ScCore->primaryMainWindow()->doc;
+
 	UndoTransaction activeTransaction;
 	bool emptyDoc = (m_Doc == nullptr);
 	bool hasCurrentPage = (m_Doc && m_Doc->currentPage());
+
 	TransactionSettings trSettings;
 	trSettings.targetName   = hasCurrentPage ? m_Doc->currentPage()->getUName() : "";
 	trSettings.targetPixmap = Um::IImageFrame;
@@ -143,14 +145,16 @@ bool ImportPctPlugin::importFile(QString fileName, int flags)
 		UndoManager::instance()->setUndoEnabled(false);
 	if (UndoManager::undoEnabled())
 		activeTransaction = UndoManager::instance()->beginTransaction(trSettings);
-	PctPlug *dia = new PctPlug(m_Doc, flags);
+
+	auto dia = std::make_unique<PctPlug>(m_Doc, flags);
 	Q_CHECK_PTR(dia);
 	dia->importFile(fileName, trSettings, flags, !(flags & lfScripted));
+
 	if (activeTransaction)
 		activeTransaction.commit();
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(true);
-	delete dia;
+
 	return true;
 }
 
@@ -160,10 +164,9 @@ QImage ImportPctPlugin::readThumbnail(const QString& fileName)
 		return QImage();
 	UndoManager::instance()->setUndoEnabled(false);
 	m_Doc = nullptr;
-	PctPlug *dia = new PctPlug(m_Doc, lfCreateThumbnail);
+	auto dia = std::make_unique<PctPlug>(m_Doc, lfCreateThumbnail);
 	Q_CHECK_PTR(dia);
 	QImage ret = dia->readThumbnail(fileName);
 	UndoManager::instance()->setUndoEnabled(true);
-	delete dia;
 	return ret;
 }

@@ -41,7 +41,7 @@ public:
 	\retval EPSPlug plugin
 	*/
 	PctPlug( ScribusDoc* doc, int flags );
-	~PctPlug();
+	~PctPlug()override;
 
 	/*!
 	\author Franz Schmid
@@ -92,54 +92,57 @@ private:
 	void finishItem(PageItem* ite);
 	
 	QList<PageItem*> Elements;
-	int currentItemNr;
+	int currentItemNr { 0 };
 	QStack<QList<PageItem*> > groupStack;
 	ColorList CustColors;
-	double baseX, baseY;
-	double offsetX, offsetY;
-	double docWidth;
-	double docHeight;
-	double resX, resY;
+	double baseX { 0.0 };
+	double baseY { 0.0 };
+	double offsetX { 0.0 };
+	double offsetY { 0.0 };
+	double docWidth { 1.0 };
+	double docHeight { 1.0 };
+	double resX { 1.0 };
+	double resY { 1.0 };
 
-	double LineW;
-	QString CurrColorFill;
+	double LineW { 1.0 };
+	QString CurrColorFill { "White" };
 	QColor backColor;
-	QString CurrColorStroke;
+	QString CurrColorStroke { "Black" };
 	QColor foreColor;
-	double CurrStrokeShade;
-	double CurrFillShade;
-	bool patternMode;
+	double CurrStrokeShade { 100.0 };
+	double CurrFillShade { 100.0 };
+	bool patternMode { false };
 	QByteArray patternData;
 	QMap<QString, QString> patternMap;
 	QRect currRect;
-	int currRectItemNr;
-	int currRectType;
+	int currRectItemNr { 0 };
+	int currRectType { 0 };
 	QRect lastImageRect;
 	QStringList importedColors;
 	QStringList importedPatterns;
 	QPoint ovalSize;
 	QMap<int, QString> fontMap;
-	int currentTextSize;
-	int currentFontID;
-	int currentFontStyle;
+	int currentTextSize { 12 };
+	int currentFontID { 0 };
+	int currentFontStyle { 0 };
 	FPointArray lastCoords;
 	QByteArray imageData;
 
 	FPointArray Coords;
 	QPoint currentPoint;
 	QPoint currentPointT;
-	bool lineMode;
-	bool postscriptMode;
-	bool textIsPostScript;
-	bool interactive;
-	MultiProgressDialog * progressDialog;
-	bool cancel;
-	ScribusDoc* m_Doc;
-	Selection* tmpSel;
-	int importerFlags;
+	bool lineMode { false };
+	bool postscriptMode { false };
+	bool textIsPostScript { false };
+	bool interactive { false };
+	MultiProgressDialog* progressDialog { nullptr };
+	bool cancel { false };
+	ScribusDoc* m_Doc { nullptr };
+	Selection* tmpSel { nullptr };
+	int importerFlags { 0 };
 	QString baseFile;
-	int pctVersion;
-	bool skipOpcode;
+	int pctVersion { 0 };
+	bool skipOpcode { false };
 
 public slots:
 	void cancelRequested() { cancel = true; }
