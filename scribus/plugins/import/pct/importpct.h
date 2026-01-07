@@ -41,7 +41,7 @@ public:
 	\retval EPSPlug plugin
 	*/
 	PctPlug( ScribusDoc* doc, int flags );
-	~PctPlug();
+	~PctPlug()override;
 
 	/*!
 	\author Franz Schmid
@@ -135,7 +135,7 @@ private:
 	bool postscriptMode { false };
 	bool textIsPostScript { false };
 	bool interactive { false };
-	MultiProgressDialog * progressDialog { nullptr };
+	MultiProgressDialog* progressDialog { nullptr };
 	bool cancel { false };
 	ScribusDoc* m_Doc { nullptr };
 	Selection* tmpSel { nullptr };

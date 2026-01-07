@@ -97,9 +97,9 @@ QImage PctPlug::readThumbnail(const QString& fName)
 		m_Doc->DoDrawing = true;
 		m_Doc->m_Selection->delaySignalsOn();
 		QImage tmpImage;
-		if (Elements.count() > 0)
+		if (!Elements.isEmpty())
 		{
-			for (int dre=0; dre<Elements.count(); ++dre)
+			for (int dre = 0; dre < Elements.count(); ++dre)
 			{
 				tmpSel->addItem(Elements.at(dre), true);
 			}
@@ -153,7 +153,7 @@ bool PctPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 		progressDialog->setProgress("GI", 0);
 		progressDialog->show();
 		connect(progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
-		qApp->processEvents();
+		QApplication::processEvents();
 	}
 	else
 		progressDialog = nullptr;
@@ -165,7 +165,7 @@ bool PctPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(1);
-		qApp->processEvents();
+		QApplication::processEvents();
 	}
 	parseHeader(fNameIn, x, y, b, h);
 	if (b == 0.0)
@@ -176,7 +176,7 @@ bool PctPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 	docHeight = h;
 	baseX = 0;
 	baseY = 0;
-	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
+	if (m_Doc && (!interactive || (flags & LoadSavePlugin::lfInsertPage)))
 	{
 		m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
 		m_Doc->addPage(0);
@@ -191,33 +191,30 @@ bool PctPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 		baseX = m_Doc->currentPage()->xOffset();
 		baseY = m_Doc->currentPage()->yOffset();
 	}
-	else
+	else if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
 	{
-		if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
-		{
-			m_Doc = ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
-			ScCore->primaryMainWindow()->HaveNewDoc();
-			m_Doc->setPageHeight(docHeight);
-			m_Doc->setPageWidth(docWidth);
-			m_Doc->currentPage()->setInitialWidth(docWidth);
-			m_Doc->currentPage()->setInitialHeight(docHeight);
-			m_Doc->currentPage()->setWidth(docWidth);
-			m_Doc->currentPage()->setHeight(docHeight);
-			ret = true;
-			baseX = m_Doc->currentPage()->xOffset();
-			baseY = m_Doc->currentPage()->yOffset();
-		}
+		m_Doc = ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
+		ScCore->primaryMainWindow()->HaveNewDoc();
+		m_Doc->setPageHeight(docHeight);
+		m_Doc->setPageWidth(docWidth);
+		m_Doc->currentPage()->setInitialWidth(docWidth);
+		m_Doc->currentPage()->setInitialHeight(docHeight);
+		m_Doc->currentPage()->setWidth(docWidth);
+		m_Doc->currentPage()->setHeight(docHeight);
+		ret = true;
+		baseX = m_Doc->currentPage()->xOffset();
+		baseY = m_Doc->currentPage()->yOffset();
 	}
 	offsetX += m_Doc->currentPage()->xOffset();
 	offsetY += m_Doc->currentPage()->yOffset();
 	offsetX *= -1;
 	offsetY *= -1;
-	if ((!ret) && (interactive))
+	if (!ret && interactive)
 	{
 		baseX = m_Doc->currentPage()->xOffset();
 		baseY = m_Doc->currentPage()->yOffset();
 	}
-	if ((ret) || (!interactive))
+	if (ret || !interactive)
 	{
 		if (docWidth > docHeight)
 			m_Doc->setPageOrientation(1);
@@ -233,7 +230,7 @@ bool PctPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
 		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
-	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
+	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.path());
 	if (convert(fNameIn))
@@ -245,8 +242,8 @@ bool PctPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->setLoading(false);
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		if ((Elements.count() > 0) && (!ret) && (interactive))
+		QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		if (!Elements.isEmpty() && !ret && interactive)
 		{
 			if (flags & LoadSavePlugin::lfScripted)
 			{
@@ -281,14 +278,14 @@ bool PctPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 				ScElemMimeData* md = ScriXmlDoc::writeToMimeData(m_Doc, tmpSel);
 				m_Doc->itemSelection_DeleteItem(tmpSel);
 				m_Doc->view()->updatesOn(true);
-				if (importedColors.count() != 0)
+				if (!importedColors.isEmpty())
 				{
 					for (int cd = 0; cd < importedColors.count(); cd++)
 					{
 						m_Doc->PageColors.remove(importedColors[cd]);
 					}
 				}
-				if (importedPatterns.count() != 0)
+				if (!importedPatterns.isEmpty())
 				{
 					for (int cd = 0; cd < importedPatterns.count(); cd++)
 					{
@@ -320,17 +317,17 @@ bool PctPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->view()->updatesOn(true);
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}
 	if (interactive)
 		m_Doc->setLoading(false);
 	//CB If we have a gui we must refresh it if we have used the progressbar
 	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 	{
-		if ((showProgress) && (!interactive))
+		if (showProgress && !interactive)
 			m_Doc->view()->DrawNew();
 	}
-	qApp->restoreOverrideCursor();
+	QApplication::restoreOverrideCursor();
 	return success;
 }
 
@@ -448,7 +445,7 @@ bool PctPlug::convert(const QString& fn)
 	{
 		progressDialog->setOverallProgress(2);
 		progressDialog->setLabel("GI", tr("Generating Items"));
-		qApp->processEvents();
+		QApplication::processEvents();
 	}
 	QFile f(fn);
 	if (f.open(QIODevice::ReadOnly))
@@ -457,7 +454,7 @@ bool PctPlug::convert(const QString& fn)
 		if (progressDialog)
 		{
 			progressDialog->setTotalSteps("GI", fSize);
-			qApp->processEvents();
+			QApplication::processEvents();
 		}
 		QDataStream ts(&f);
 		ts.setByteOrder(QDataStream::BigEndian);
@@ -498,22 +495,12 @@ bool PctPlug::convert(const QString& fn)
 			ts.skipRawData(22);
 			parsePict(ts);
 		}
-		if (Elements.count() == 0)
+		if (Elements.isEmpty())
 		{
-			if (importedColors.count() != 0)
-			{
-				for (int cd = 0; cd < importedColors.count(); cd++)
-				{
-					m_Doc->PageColors.remove(importedColors[cd]);
-				}
-			}
-			if (importedPatterns.count() != 0)
-			{
-				for (int cd = 0; cd < importedPatterns.count(); cd++)
-				{
-					m_Doc->docPatterns.remove(importedPatterns[cd]);
-				}
-			}
+			for (const auto& importedColor : importedColors)
+				m_Doc->PageColors.remove(importedColor);
+			for (const auto& importedPattern : importedPatterns)
+				m_Doc->docPatterns.remove(importedPattern);
 		}
 		f.close();
 	}
@@ -998,7 +985,7 @@ void PctPlug::parsePict(QDataStream &ts)
 					break;
 				case 0x00FF:		// End of Pict
 					handleLineModeEnd();
-					if (imageData.size() > 0)
+					if (!imageData.isEmpty())
 					{
 						QImage image;
 						image.loadFromData(imageData);
@@ -1046,7 +1033,7 @@ void PctPlug::parsePict(QDataStream &ts)
 		if (progressDialog)
 		{
 			progressDialog->setProgress("GI", ts.device()->pos());
-			qApp->processEvents();
+			QApplication::processEvents();
 		}
 	}
 }
@@ -1234,7 +1221,7 @@ void PctPlug::handlePolygon(QDataStream &ts, quint16 opCode)
 		ite->PoLine.translate(baseX, baseY);
 		ite->PoLine.translate(offsetX, offsetY);
 		finishItem(ite);
-		if ((patternMode) && (opCode != 0x0070))
+		if (patternMode && (opCode != 0x0070))
 			setFillPattern(ite);
 	}
 }
@@ -1311,7 +1298,7 @@ void PctPlug::handleShape(QDataStream &ts, quint16 opCode)
 	if (opCode > 0x0044)
 		currRectType = 1;
 	finishItem(ite);
-	if ((patternMode) && (opCode != 0x0030) && (opCode != 0x0040) && (opCode != 0x0050))
+	if (patternMode && (opCode != 0x0030) && (opCode != 0x0040) && (opCode != 0x0050))
 		setFillPattern(ite);
 }
 
@@ -1396,7 +1383,7 @@ void PctPlug::handleSameShape(QDataStream &ts, quint16 opCode)
 		ite->PoLine.translate(offsetX, offsetY);
 		finishItem(ite);
 	}
-	if ((patternMode) && (opCode != 0x0038) && (opCode != 0x0048) && (opCode != 0x0058))
+	if (patternMode && (opCode != 0x0038) && (opCode != 0x0048) && (opCode != 0x0058))
 		setFillPattern(ite);
 }
 
@@ -1486,7 +1473,7 @@ void PctPlug::handleDHText(QDataStream &ts)
 	if (!textIsPostScript)
 	{
 		QPoint s = currentPointT;
-		currentPointT = QPoint(s.x()+dh * resX, s.y());
+		currentPointT = QPoint(s.x() + dh * resX, s.y());
 		createTextPath(text);
 //		qDebug() << "Handle DH Text at" << currentPointT << text;
 	}
@@ -1504,7 +1491,7 @@ void PctPlug::handleDVText(QDataStream &ts)
 	if (!textIsPostScript)
 	{
 		QPoint s = currentPointT;
-		currentPointT = QPoint(s.x(), s.y()+dv * resY);
+		currentPointT = QPoint(s.x(), s.y() + dv * resY);
 		createTextPath(text);
 //		qDebug() << "Handle DV Text at" << currentPointT << text;
 	}
@@ -1522,7 +1509,7 @@ void PctPlug::handleDHVText(QDataStream &ts)
 	if (!textIsPostScript)
 	{
 		QPoint s = currentPointT;
-		currentPointT = QPoint(s.x()+dh * resX, s.y()+dv * resY);
+		currentPointT = QPoint(s.x() + dh * resX, s.y() + dv * resY);
 		createTextPath(text);
 //		qDebug() << "Handle DHV Text" << dh << dv << "->" << currentPointT << text;
 	}
@@ -1605,8 +1592,8 @@ void PctPlug::handleShortLine(QDataStream &ts)
 		handleLineModeEnd();
 		Coords.svgMoveTo(x * resX, y * resY);
 	}
-	Coords.svgLineTo((x+dh) * resX, (y+dv) * resY);
-	currentPoint = QPoint((x+dh) * resX, (y+dv) * resY);
+	Coords.svgLineTo((x + dh) * resX, (y + dv) * resY);
+	currentPoint = QPoint((x + dh) * resX, (y + dv) * resY);
 	lineMode = true;
 //	qDebug() << "Handle Short Line" << x << y << "+" << dh << dv << "->" << currentPoint;
 }
@@ -1620,8 +1607,8 @@ void PctPlug::handleShortLineFrom(QDataStream &ts)
 	QPoint s = currentPoint;
 	if (Coords.empty())
 		Coords.svgMoveTo(s.x(), s.y());
-	Coords.svgLineTo(s.x()+dh * resX, s.y()+dv * resY);
-	currentPoint = QPoint(s.x()+dh * resX, s.y()+dv * resY);
+	Coords.svgLineTo(s.x() + dh * resX, s.y() + dv * resY);
+	currentPoint = QPoint(s.x() + dh * resX, s.y() + dv * resY);
 	lineMode = true;
 //	qDebug() << "Handle Short Line from" << dh << dv << "->" << currentPoint;
 }
@@ -1768,7 +1755,7 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 				{
 					if (component_size == 4)
 					{
-						uchar *q = (uchar*)(image.scanLine(rr));
+						uchar *q = image.scanLine(rr);
 						for (int xx = 0; xx < img.size(); xx++)
 						{
 							uchar i = (img[xx] >> 4) & 0x0F;
@@ -1835,7 +1822,7 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 		isPixmap = true;
 		imageData.resize(0);
 	}
-	if ((component_size == 24) || (component_size == 8) || (component_size == 1) || (component_size == 5) || (component_size == 4) || (!isPixmap) || (skipOpcode))
+	if ((component_size == 24) || (component_size == 8) || (component_size == 1) || (component_size == 5) || (component_size == 4) || !isPixmap || skipOpcode)
 	{
 		image = image.convertToFormat(QImage::Format_ARGB32);
 		if (!isPixmap)
@@ -2177,7 +2164,7 @@ void PctPlug::setFillPattern(PageItem* ite)
 		image.setColorTable(colors);
 		for (int rr = 0; rr < 8; rr++)
 		{
-			uchar *q = (uchar*)(image.scanLine(rr));
+			uchar *q = image.scanLine(rr);
 			*q = patternData[rr];
 		}
 		image = image.convertToFormat(QImage::Format_ARGB32);
@@ -2210,7 +2197,6 @@ void PctPlug::setFillPattern(PageItem* ite)
 				newItem->gHeight = pat.pattern.height();
 				pat.items.append(newItem);
 			}
-
 		}
 		patternName = "Pattern_" + newItem->itemName();
 		patternName = patternName.trimmed().simplified().replace(" ", "_");
