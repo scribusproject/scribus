@@ -10,10 +10,12 @@ for which a new license (GPL+exception) is in place.
 	copyright            : (C) 2013 by Franz Schmid
 	email                : Franz.Schmid@altmuehlnet.de
  ***************************************************************************/
-#include "commonstrings.h"
+#include <memory>
 
 #include "importpages.h"
 #include "importpagesplugin.h"
+
+#include "commonstrings.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
@@ -33,7 +35,7 @@ int importpages_getPluginAPIVersion()
 
 ScPlugin* importpages_getPlugin()
 {
-	ImportPagesPlugin* plug = new ImportPagesPlugin();
+	auto* plug = new ImportPagesPlugin();
 	Q_CHECK_PTR(plug);
 	return plug;
 }
@@ -72,10 +74,9 @@ QString ImportPagesPlugin::fullTrName() const
 	return QObject::tr("Pages Importer");
 }
 
-
 const ScActionPlugin::AboutData* ImportPagesPlugin::getAboutData() const
 {
-	AboutData* about = new AboutData;
+	auto* about = new AboutData;
 	about->authors = "Franz Schmid <franz@scribus.info>";
 	about->shortDescription = tr("Imports iWorks Pages Files");
 	about->description = tr("Imports most iWorks Pages files into the current document, converting their vector data into Scribus objects.");
@@ -128,18 +129,18 @@ bool ImportPagesPlugin::importFile(QString fileName, int flags)
 		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("importpages");
 		QString wdir = prefs->get("wdir", ".");
 		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), tr("All Supported Formats")+" (*.pages *.PAGES);;All Files (*)");
-		if (diaf.exec())
-		{
-			fileName = diaf.selectedFile();
-			prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
-		}
-		else
+		if (!diaf.exec())
 			return true;
+		fileName = diaf.selectedFile();
+		prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
 	}
+
 	m_Doc = ScCore->primaryMainWindow()->doc;
+
 	UndoTransaction activeTransaction;
 	bool emptyDoc = (m_Doc == nullptr);
 	bool hasCurrentPage = (m_Doc && m_Doc->currentPage());
+
 	TransactionSettings trSettings;
 	trSettings.targetName   = hasCurrentPage ? m_Doc->currentPage()->getUName() : "";
 	trSettings.targetPixmap = Um::IImageFrame;
@@ -150,14 +151,16 @@ bool ImportPagesPlugin::importFile(QString fileName, int flags)
 		UndoManager::instance()->setUndoEnabled(false);
 	if (UndoManager::undoEnabled())
 		activeTransaction = UndoManager::instance()->beginTransaction(trSettings);
-	PagesPlug *dia = new PagesPlug(m_Doc, flags);
+
+	auto dia = std::make_shared<PagesPlug>(m_Doc, flags);
 	Q_CHECK_PTR(dia);
 	bool ret = dia->importFile(fileName, trSettings, flags, !(flags & lfScripted));
+
 	if (activeTransaction)
 		activeTransaction.commit();
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(true);
-	delete dia;
+
 	return ret;
 }
 
@@ -167,10 +170,9 @@ QImage ImportPagesPlugin::readThumbnail(const QString& fileName)
 		return QImage();
 	UndoManager::instance()->setUndoEnabled(false);
 	m_Doc = nullptr;
-	PagesPlug *dia = new PagesPlug(m_Doc, lfCreateThumbnail);
+	auto dia = std::make_shared<PagesPlug>(m_Doc, lfCreateThumbnail);
 	Q_CHECK_PTR(dia);
 	QImage ret = dia->readThumbnail(fileName);
 	UndoManager::instance()->setUndoEnabled(true);
-	delete dia;
 	return ret;
 }
