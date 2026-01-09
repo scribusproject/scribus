@@ -644,9 +644,9 @@ QString About::parseLinksFile(const QString& fileName)
 
 QString About::generateBuildInfo()
 {
-	QString BUILD_DAY = "14";
-	QString BUILD_MONTH = CommonStrings::december;
-	QString BUILD_YEAR = "2025";
+	QString BUILD_DAY = "09";
+	QString BUILD_MONTH = CommonStrings::january;
+	QString BUILD_YEAR = "2026";
 	QString BUILD_TIME;
 	QString BUILD_TZ;
 	QString BUILD_NAME;

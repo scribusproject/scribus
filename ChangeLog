@@ -1,3 +1,17 @@
+Scribus - 1.7.2 (Released 2026-01-09)
+=========================================
+https://bugs.scribus.net/changelog_page.php?version_id=131
+
+0017723: [General]  Crash when attempting to print or save as PDF relating to podofo changes (jghali)
+0017726: [General]  Improve import plugins with code cleanup (jghali)
+0017725: [General]  Record file import errors to document log for SVG, QXP, CDR, PUB formats (cbradney)
+0017724: [General]  Add functionality to document log to filter by source and level of entry (cbradney)
+0017722: [General]  Fix error in storing size of dock palettes (jghali)
+0017721: [General]  Corruption of PDF export and colormanagement preferences by 1.7.1 (jghali)
+0017713: [Printing]  Scribus 1.7.1 crashes when attempting to print or save as a PDF (jghali)
+0017712: [User Interface]  Show color model hint on color button (nitramr)
+0017711: [User Interface]  Icons in 'Align and Distribute' look blurry (nitramr)
+
 Scribus - 1.7.1 (Released 2025-12-14)
 =========================================
 https://bugs.scribus.net/changelog_page.php?version_id=127
