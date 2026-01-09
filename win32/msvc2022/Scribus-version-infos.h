@@ -6,6 +6,6 @@
 #define SCRIBUS_VERSION_EXTRA ".svn"
 
 #define SCRIBUS_VERSION_STRING "1.7.2"
-#define SCRIBUS_FULL_VERSION_STRING "1.7.2.svn"
+#define SCRIBUS_FULL_VERSION_STRING "1.7.2"
 
 #define SCRIBUS_LEGAL_COPYRIGHT "Copyright (C) 2001-2026 by The Scribus Team"
