@@ -22,17 +22,13 @@ for which a new license (GPL+exception) is in place.
 #include <libqxp/libqxp.h>
 
 #include "commonstrings.h"
-#include "ui/customfdialog.h"
 #include "fileloader.h"
 #include "loadsaveplugin.h"
-#include "ui/missing.h"
-#include "ui/multiprogressdialog.h"
 #include "pagesize.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "prefstable.h"
-#include "ui/propertiespalette.h"
 #include "rawimage.h"
 #include "scclocale.h"
 #include "sccolorengine.h"
@@ -41,29 +37,26 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "scpattern.h"
 #include "scribus.h"
-#include "scribusXml.h"
 #include "scribuscore.h"
 #include "scribusview.h"
+#include "scribusXml.h"
 #include "sctextstream.h"
 #include "selection.h"
+#include "ui/customfdialog.h"
+#include "ui/missing.h"
+#include "ui/multiprogressdialog.h"
+#include "ui/propertiespalette.h"
 #include "undomanager.h"
 #include "util.h"
 #include "util_formats.h"
 #include "util_math.h"
 
-extern SCRIBUS_API ScribusQApp * ScQApp;
-
 QxpPlug::QxpPlug(ScribusDoc* doc, int flags)
+	   : m_Doc(doc),
+	     importerFlags(flags)
 {
-	baseX = baseY = 0;
-	docWidth = docHeight = 1;
-
 	tmpSel = new Selection(this, false);
-	m_Doc = doc;
-	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
-	progressDialog = nullptr;
-	cancel = false;
 }
 
 QImage QxpPlug::readThumbnail(QString fName)
@@ -78,7 +71,7 @@ QImage QxpPlug::readThumbnail(QString fName)
 	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
 	m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
 	m_Doc->addPage(0);
-	m_Doc->setGUI(false, ScCore->primaryMainWindow(), 0);
+	m_Doc->setGUI(false, ScCore->primaryMainWindow(), nullptr);
 	baseX = m_Doc->currentPage()->xOffset();
 	baseY = m_Doc->currentPage()->yOffset();
 	Elements.clear();
@@ -96,9 +89,9 @@ QImage QxpPlug::readThumbnail(QString fName)
 		m_Doc->DoDrawing = true;
 		m_Doc->m_Selection->delaySignalsOn();
 		QImage tmpImage;
-		if (Elements.count() > 0)
+		if (!Elements.isEmpty())
 		{
-			for (int dre=0; dre<Elements.count(); ++dre)
+			for (int dre = 0; dre < Elements.count(); ++dre)
 			{
 				tmpSel->addItem(Elements.at(dre), true);
 			}
@@ -113,6 +106,7 @@ QImage QxpPlug::readThumbnail(QString fName)
 		m_Doc->setLoading(false);
 		m_Doc->m_Selection->delaySignalsOff();
 		delete m_Doc;
+		m_Doc = nullptr;
 		return tmpImage;
 	}
 	else
@@ -121,6 +115,7 @@ QImage QxpPlug::readThumbnail(QString fName)
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
 		delete m_Doc;
+		m_Doc = nullptr;
 	}
 	return QImage();
 }
@@ -141,7 +136,7 @@ bool QxpPlug::importFile(QString fNameIn, const TransactionSettings& trSettings,
 	}
 	if (showProgress)
 	{
-		ScribusMainWindow* mw=(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
+		ScribusMainWindow* mw = (m_Doc == nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
 		progressDialog = new MultiProgressDialog( tr("Importing: %1").arg(fi.fileName()), CommonStrings::tr_Cancel, mw );
 		QStringList barNames, barTexts;
 		barNames << "GI";
@@ -154,7 +149,7 @@ bool QxpPlug::importFile(QString fNameIn, const TransactionSettings& trSettings,
 		progressDialog->setProgress("GI", 0);
 		progressDialog->show();
 		connect(progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
-		qApp->processEvents();
+		QApplication::processEvents();
 	}
 	else
 		progressDialog = nullptr;
@@ -164,7 +159,7 @@ bool QxpPlug::importFile(QString fNameIn, const TransactionSettings& trSettings,
 	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(1);
-		qApp->processEvents();
+		QApplication::processEvents();
 	}
 	if (b == 0.0)
 		b = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
@@ -174,7 +169,7 @@ bool QxpPlug::importFile(QString fNameIn, const TransactionSettings& trSettings,
 	docHeight = h;
 	baseX = 0;
 	baseY = 0;
-	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
+	if (m_Doc && (!interactive || (flags & LoadSavePlugin::lfInsertPage)))
 	{
 		m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
 		m_Doc->addPage(0);
@@ -182,25 +177,22 @@ bool QxpPlug::importFile(QString fNameIn, const TransactionSettings& trSettings,
 		baseX = 0;
 		baseY = 0;
 	}
-	else
+	else if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
 	{
-		if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
-		{
-			m_Doc = ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
-			ScCore->primaryMainWindow()->HaveNewDoc();
-			ret = true;
-			baseX = 0;
-			baseY = 0;
-			baseX = m_Doc->currentPage()->xOffset();
-			baseY = m_Doc->currentPage()->yOffset();
-		}
+		m_Doc = ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
+		ScCore->primaryMainWindow()->HaveNewDoc();
+		ret = true;
+		baseX = 0;
+		baseY = 0;
+		baseX = m_Doc->currentPage()->xOffset();
+		baseY = m_Doc->currentPage()->yOffset();
 	}
-	if ((!ret) && (interactive))
+	if (!ret && interactive)
 	{
 		baseX = m_Doc->currentPage()->xOffset();
 		baseY = m_Doc->currentPage()->yOffset();
 	}
-	if ((ret) || (!interactive))
+	if (ret || !interactive)
 	{
 		if (docWidth > docHeight)
 			m_Doc->setPageOrientation(1);
@@ -216,7 +208,7 @@ bool QxpPlug::importFile(QString fNameIn, const TransactionSettings& trSettings,
 	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
 		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
-	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
+	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.path());
 	if (convert(fName))
@@ -228,8 +220,8 @@ bool QxpPlug::importFile(QString fNameIn, const TransactionSettings& trSettings,
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->setLoading(false);
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		if ((Elements.count() > 0) && (!ret) && (interactive))
+		QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		if (!Elements.isEmpty() && !ret && interactive)
 		{
 			if (flags & LoadSavePlugin::lfScripted)
 			{
@@ -240,7 +232,7 @@ bool QxpPlug::importFile(QString fNameIn, const TransactionSettings& trSettings,
 				if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 				{
 					m_Doc->m_Selection->delaySignalsOn();
-					for (int dre=0; dre<Elements.count(); ++dre)
+					for (int dre = 0; dre < Elements.count(); ++dre)
 					{
 						m_Doc->m_Selection->addItem(Elements.at(dre), true);
 					}
@@ -253,10 +245,10 @@ bool QxpPlug::importFile(QString fNameIn, const TransactionSettings& trSettings,
 			else
 			{
 				m_Doc->DragP = true;
-				m_Doc->DraggedElem = 0;
+				m_Doc->DraggedElem = nullptr;
 				m_Doc->DragElements.clear();
 				m_Doc->m_Selection->delaySignalsOn();
-				for (int dre=0; dre<Elements.count(); ++dre)
+				for (int dre = 0; dre < Elements.count(); ++dre)
 				{
 					tmpSel->addItem(Elements.at(dre), true);
 				}
@@ -264,14 +256,14 @@ bool QxpPlug::importFile(QString fNameIn, const TransactionSettings& trSettings,
 				ScElemMimeData* md = ScriXmlDoc::writeToMimeData(m_Doc, tmpSel);
 				m_Doc->itemSelection_DeleteItem(tmpSel);
 				m_Doc->view()->updatesOn(true);
-				if (importedPatterns.count() != 0)
+				if (!importedPatterns.isEmpty())
 				{
 					for (int cd = 0; cd < importedPatterns.count(); cd++)
 					{
 						m_Doc->docPatterns.remove(importedPatterns[cd]);
 					}
 				}
-				if (importedColors.count() != 0)
+				if (!importedColors.isEmpty())
 				{
 					for (int cd = 0; cd < importedColors.count(); cd++)
 					{
@@ -281,10 +273,10 @@ bool QxpPlug::importFile(QString fNameIn, const TransactionSettings& trSettings,
 				m_Doc->m_Selection->delaySignalsOff();
 				// We must copy the TransationSettings object as it is owned
 				// by handleObjectImport method afterwards
-				TransactionSettings* transacSettings = new TransactionSettings(trSettings);
+				auto* transacSettings = new TransactionSettings(trSettings);
 				m_Doc->view()->handleObjectImport(md, transacSettings);
 				m_Doc->DragP = false;
-				m_Doc->DraggedElem = 0;
+				m_Doc->DraggedElem = nullptr;
 				m_Doc->DragElements.clear();
 			}
 		}
@@ -303,17 +295,17 @@ bool QxpPlug::importFile(QString fNameIn, const TransactionSettings& trSettings,
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->view()->updatesOn(true);
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}
 	if (interactive)
 		m_Doc->setLoading(false);
 	//CB If we have a gui we must refresh it if we have used the progressbar
 	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 	{
-		if ((showProgress) && (!interactive))
+		if (showProgress && !interactive)
 			m_Doc->view()->DrawNew();
 	}
-	qApp->restoreOverrideCursor();
+	QApplication::restoreOverrideCursor();
 	return success;
 }
 
@@ -356,29 +348,19 @@ bool QxpPlug::convert(QString fn)
 			progressDialog->close();
 		if (importerFlags & LoadSavePlugin::lfCreateDoc)
 		{
-			ScribusMainWindow* mw=(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			ScribusMainWindow* mw = (m_Doc == nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
+			QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			ScMessageBox::warning(mw, CommonStrings::trWarning, tr("Parsing failed!\n\nPlease submit your file (if possible) to the\nDocument Liberation Project https://www.documentliberation.org"));
-			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+			QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
 		}
 		return false;
 	}
-	if (Elements.count() == 0)
+	if (Elements.isEmpty())
 	{
-		if (importedColors.count() != 0)
-		{
-			for (int cd = 0; cd < importedColors.count(); cd++)
-			{
-				m_Doc->PageColors.remove(importedColors[cd]);
-			}
-		}
-		if (importedPatterns.count() != 0)
-		{
-			for (int cd = 0; cd < importedPatterns.count(); cd++)
-			{
-				m_Doc->docPatterns.remove(importedPatterns[cd]);
-			}
-		}
+		for (const auto& importedColor : importedColors)
+			m_Doc->PageColors.remove(importedColor);
+		for (const auto& importedPattern : importedPatterns)
+			m_Doc->docPatterns.remove(importedPattern);
 	}
 	if (progressDialog)
 		progressDialog->close();
