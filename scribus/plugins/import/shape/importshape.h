@@ -9,15 +9,15 @@ for which a new license (GPL+exception) is in place.
 
 #include <QDomElement>
 #include <QList>
-#include <QtGlobal>
-#include <QObject>
 #include <QMultiMap>
+#include <QObject>
 #include <QString>
+#include <QtGlobal>
 #include <QTransform>
 
-#include "pluginapi.h"
 #include "fpointarray.h"
 #include "pageitem.h"
+#include "pluginapi.h"
 #include "sccolor.h"
 
 class MultiProgressDialog;
@@ -41,7 +41,7 @@ public:
 	\retval EPSPlug plugin
 	*/
 	ShapePlug( ScribusDoc* doc, int flags );
-	~ShapePlug();
+	~ShapePlug() override;
 
 	/*!
 	\author Franz Schmid
@@ -63,7 +63,7 @@ private:
 	void parseGroup(QDomNode &DOC);
 	void parseGroupProperties(QDomNode &DOC, double &minXCoor, double &minYCoor, double &maxXCoor, double &maxYCoor, bool &firstCheck);
 	double parseUnit(const QString &unit);
-	const char * getCoord( const char *ptr, double &number );
+	const char* getCoord(const char* ptr, double& number) const;
 	bool parseSVG( const QString &s, FPointArray *ite );
 	void svgClosePath(FPointArray *i);
 	void svgMoveTo(double x1, double y1);
