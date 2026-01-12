@@ -5,6 +5,8 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <cstdlib>
+
 #include <QByteArray>
 #include <QCursor>
 #include <QDrag>
@@ -14,10 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include <QStack>
 #include <QDebug>
 
-#include <cstdlib>
-
 #include "importsml.h"
-
 
 #include "commonstrings.h"
 #include "loadsaveplugin.h"
@@ -46,21 +45,20 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_formats.h"
 
-
 SmlPlug::SmlPlug(ScribusDoc* doc, int flags)
+       : m_Doc(doc),
+	     importerFlags(flags)
 {
 	tmpSel = new Selection(this, false);
-	m_Doc = doc;
-	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
-	progressDialog = nullptr;
 }
 
 QImage SmlPlug::readThumbnail(const QString& fName)
 {
 	QFileInfo fi(fName);
 	baseFile = QDir::cleanPath(QDir::toNativeSeparators(fi.absolutePath() + "/"));
-	double b, h;
+	double b = 0.0;
+	double h = 0.0;
 	parseHeader(fName, b, h);
 	if (b == 0.0)
 		b = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
@@ -91,9 +89,9 @@ QImage SmlPlug::readThumbnail(const QString& fName)
 		m_Doc->DoDrawing = true;
 		m_Doc->m_Selection->delaySignalsOn();
 		QImage tmpImage;
-		if (Elements.count() > 0)
+		if (!Elements.isEmpty())
 		{
-			for (int dre=0; dre<Elements.count(); ++dre)
+			for (int dre = 0; dre < Elements.count(); ++dre)
 			{
 				tmpSel->addItem(Elements.at(dre), true);
 			}
@@ -108,12 +106,14 @@ QImage SmlPlug::readThumbnail(const QString& fName)
 		m_Doc->setLoading(false);
 		m_Doc->m_Selection->delaySignalsOff();
 		delete m_Doc;
+		m_Doc = nullptr;
 		return tmpImage;
 	}
 	QDir::setCurrent(CurDirP);
 	m_Doc->DoDrawing = true;
 	m_Doc->scMW()->setScriptRunning(false);
 	delete m_Doc;
+	m_Doc = nullptr;
 	return QImage();
 }
 
@@ -146,7 +146,7 @@ bool SmlPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 		progressDialog->setProgress("GI", 0);
 		progressDialog->show();
 		connect(progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
-		qApp->processEvents();
+		QApplication::processEvents();
 	}
 	else
 		progressDialog = nullptr;
@@ -156,7 +156,7 @@ bool SmlPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(1);
-		qApp->processEvents();
+		QApplication::processEvents();
 	}
 	parseHeader(fNameIn, b, h);
 	if (b == 0.0)
@@ -167,7 +167,7 @@ bool SmlPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 	docHeight = h;
 	baseX = 0;
 	baseY = 0;
-	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
+	if (m_Doc && (!interactive || (flags & LoadSavePlugin::lfInsertPage)))
 	{
 		m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
 		m_Doc->addPage(0);
@@ -175,25 +175,22 @@ bool SmlPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 		baseX = 0;
 		baseY = 0;
 	}
-	else
+	else if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
 	{
-		if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
-		{
-			m_Doc = ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
-			ScCore->primaryMainWindow()->HaveNewDoc();
-			ret = true;
-			baseX = 0;
-			baseY = 0;
-			baseX = m_Doc->currentPage()->xOffset();
-			baseY = m_Doc->currentPage()->yOffset();
-		}
+		m_Doc = ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
+		ScCore->primaryMainWindow()->HaveNewDoc();
+		ret = true;
+		baseX = 0;
+		baseY = 0;
+		baseX = m_Doc->currentPage()->xOffset();
+		baseY = m_Doc->currentPage()->yOffset();
 	}
-	if ((!ret) && (interactive))
+	if (!ret && interactive)
 	{
 		baseX = m_Doc->currentPage()->xOffset();
 		baseY = m_Doc->currentPage()->yOffset();
 	}
-	if ((ret) || (!interactive))
+	if (ret || !interactive)
 	{
 		if (docWidth > docHeight)
 			m_Doc->setPageOrientation(1);
@@ -209,7 +206,7 @@ bool SmlPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
 		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
-	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
+	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.path());
 	if (convert(fNameIn))
@@ -221,8 +218,8 @@ bool SmlPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->setLoading(false);
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		if ((Elements.count() > 0) && (!ret) && (interactive))
+		QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		if (!Elements.isEmpty() && !ret && interactive)
 		{
 			if (flags & LoadSavePlugin::lfScripted)
 			{
@@ -233,7 +230,7 @@ bool SmlPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 				if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 				{
 					m_Doc->m_Selection->delaySignalsOn();
-					for (int dre=0; dre<Elements.count(); ++dre)
+					for (int dre = 0; dre < Elements.count(); ++dre)
 					{
 						m_Doc->m_Selection->addItem(Elements.at(dre), true);
 					}
@@ -249,7 +246,7 @@ bool SmlPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 				m_Doc->DraggedElem = nullptr;
 				m_Doc->DragElements.clear();
 				m_Doc->m_Selection->delaySignalsOn();
-				for (int dre=0; dre<Elements.count(); ++dre)
+				for (int dre = 0; dre < Elements.count(); ++dre)
 				{
 					tmpSel->addItem(Elements.at(dre), true);
 				}
@@ -260,7 +257,7 @@ bool SmlPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 				m_Doc->m_Selection->delaySignalsOff();
 				// We must copy the TransationSettings object as it is owned
 				// by handleObjectImport method afterwards
-				TransactionSettings* transacSettings = new TransactionSettings(trSettings);
+				auto* transacSettings = new TransactionSettings(trSettings);
 				m_Doc->view()->handleObjectImport(md, transacSettings);
 				m_Doc->DragP = false;
 				m_Doc->DraggedElem = nullptr;
@@ -283,17 +280,17 @@ bool SmlPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 		m_Doc->scMW()->setScriptRunning(false);
 		if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 			m_Doc->view()->updatesOn(true);
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}
 	if (interactive)
 		m_Doc->setLoading(false);
 	//CB If we have a gui we must refresh it if we have used the progressbar
 	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 	{
-		if ((showProgress) && (!interactive))
+		if (showProgress && !interactive)
 			m_Doc->view()->DrawNew();
 	}
-	qApp->restoreOverrideCursor();
+	QApplication::restoreOverrideCursor();
 	return success;
 }
 
@@ -303,28 +300,28 @@ SmlPlug::~SmlPlug()
 	delete tmpSel;
 }
 
-void SmlPlug::parseHeader(const QString& fName, double &b, double &h)
+void SmlPlug::parseHeader(const QString& fName, double &b, double &h) const
 {
 	QFile f(fName);
-	if (f.open(QIODevice::ReadOnly))
+	if (!f.open(QIODevice::ReadOnly))
+		return;
+
+	QDomDocument docu("scridoc");
+	docu.setContent(&f);
+	QDomElement elem = docu.documentElement();
+	QDomNode node = elem.firstChild();
+	while (!node.isNull())
 	{
-		QDomDocument docu("scridoc");
-		docu.setContent(&f);
-		QDomElement elem = docu.documentElement();
-		QDomNode node = elem.firstChild();
-		while (!node.isNull())
+		QDomElement pg = node.toElement();
+		if (pg.tagName() == "Dimensions")
 		{
-			QDomElement pg = node.toElement();
-			if (pg.tagName() == "Dimensions")
-			{
-				b = ScCLocale::toDoubleC(pg.attribute("w"), 50.0);
-				h = ScCLocale::toDoubleC(pg.attribute("h"), 50.0);
-				break;
-			}
-			node = node.nextSibling();
+			b = ScCLocale::toDoubleC(pg.attribute("w"), 50.0);
+			h = ScCLocale::toDoubleC(pg.attribute("h"), 50.0);
+			break;
 		}
-		f.close();
+		node = node.nextSibling();
 	}
+	f.close();
 }
 
 bool SmlPlug::convert(const QString& fn)
@@ -348,7 +345,7 @@ bool SmlPlug::convert(const QString& fn)
 	{
 		progressDialog->setOverallProgress(2);
 		progressDialog->setLabel("GI", tr("Generating Items"));
-		qApp->processEvents();
+		QApplication::processEvents();
 	}
 	QFile f(fn);
 	if (f.open(QIODevice::ReadOnly))
@@ -366,15 +363,10 @@ bool SmlPlug::convert(const QString& fn)
 				processShapeNode(pg);
 			node = node.nextSibling();
 		}
-		if (Elements.count() == 0)
+		if (Elements.isEmpty())
 		{
-			if (importedColors.count() != 0)
-			{
-				for (int cd = 0; cd < importedColors.count(); cd++)
-				{
-					m_Doc->PageColors.remove(importedColors[cd]);
-				}
-			}
+			for (const auto& importedColor : importedColors)
+				m_Doc->PageColors.remove(importedColor);
 		}
 		f.close();
 	}
@@ -383,7 +375,7 @@ bool SmlPlug::convert(const QString& fn)
 	return true;
 }
 
-void SmlPlug::finishItem(QDomElement &e, PageItem* ite)
+void SmlPlug::finishItem(const QDomElement &e, PageItem* ite)
 {
 	ite->ClipEdited = true;
 	ite->FrameType = 3;
@@ -404,7 +396,7 @@ void SmlPlug::finishItem(QDomElement &e, PageItem* ite)
 	Coords.svgInit();
 }
 
-void SmlPlug::processShapeNode(QDomElement &elem)
+void SmlPlug::processShapeNode(const QDomElement &elem)
 {
 	Coords.resize(0);
 	Coords.svgInit();
@@ -504,7 +496,7 @@ void SmlPlug::processShapeNode(QDomElement &elem)
 	}
 }
 
-QString SmlPlug::processColor(QDomElement &elem)
+QString SmlPlug::processColor(const QDomElement &elem)
 {
 	QString colnam = elem.attribute("color","#ffffff");
 	QColor stroke;
@@ -520,7 +512,7 @@ QString SmlPlug::processColor(QDomElement &elem)
 	return fNam;
 }
 
-void SmlPlug::processStrokeNode(QDomElement &elem)
+void SmlPlug::processStrokeNode(const QDomElement &elem)
 {
 	CurrColorStroke = processColor(elem);
 	LineW = ScCLocale::toDoubleC(elem.attribute("width"), 1.0);
@@ -529,7 +521,7 @@ void SmlPlug::processStrokeNode(QDomElement &elem)
 	LineEnd = Qt::PenCapStyle(elem.attribute("capStyle", "0").toInt());
 }
 
-void SmlPlug::processFillNode(QDomElement &elem)
+void SmlPlug::processFillNode(const QDomElement &elem)
 {
 	fillStyle = elem.attribute("colorStyle","1").toInt();
 	if (fillStyle == 0)
@@ -538,7 +530,7 @@ void SmlPlug::processFillNode(QDomElement &elem)
 		CurrColorFill = processColor(elem);
 }
 
-void SmlPlug::processLineNode(QDomElement &elem)
+void SmlPlug::processLineNode(const QDomElement &elem)
 {
 	double x = ScCLocale::toDoubleC(elem.attribute("x1"));
 	double y = ScCLocale::toDoubleC(elem.attribute("y1"));
@@ -553,7 +545,7 @@ void SmlPlug::processLineNode(QDomElement &elem)
 	first = false;
 }
 
-void SmlPlug::processPointNode(QDomElement &elem)
+void SmlPlug::processPointNode(const QDomElement &elem)
 {
 	double x = ScCLocale::toDoubleC(elem.attribute("x"));
 	double y = ScCLocale::toDoubleC(elem.attribute("y"));
