@@ -20,6 +20,7 @@ for which a new license (GPL+exception) is in place.
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
+#include <memory>
 
 #include <QBuffer>
 #include <QByteArray>
@@ -62,7 +63,7 @@ int svgexplugin_getPluginAPIVersion()
 
 ScPlugin* svgexplugin_getPlugin()
 {
-	SVGExportPlugin* plug = new SVGExportPlugin();
+	auto* plug = new SVGExportPlugin();
 	Q_CHECK_PTR(plug);
 	return plug;
 }
@@ -82,8 +83,6 @@ SVGExportPlugin::SVGExportPlugin()
 	// it in one place.
 	languageChange();
 }
-
-SVGExportPlugin::~SVGExportPlugin() {};
 
 void SVGExportPlugin::languageChange()
 {
@@ -107,7 +106,7 @@ QString SVGExportPlugin::fullTrName() const
 
 const ScActionPlugin::AboutData* SVGExportPlugin::getAboutData() const
 {
-	AboutData* about = new AboutData;
+	auto* about = new AboutData;
 	about->authors = "Franz Schmid <franz@scribus.info>";
 	about->shortDescription = tr("Exports SVG Files");
 	about->description = tr("Exports the current page into an SVG file.");
@@ -124,67 +123,69 @@ void SVGExportPlugin::deleteAboutData(const AboutData* about) const
 
 bool SVGExportPlugin::run(ScribusDoc* doc, const QString& filename)
 {
+	if (doc == nullptr)
+		return true;
+
 	Q_ASSERT(filename.isEmpty());
 	QString fileName;
-	if (doc != nullptr)
+
+	PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("svgex");
+	QString wdir = prefs->get("wdir", ".");
+	QScopedPointer<CustomFDialog> openDia( new CustomFDialog(doc->scMW(), wdir, QObject::tr("Save as"), QObject::tr("%1;;All Files (*)").arg(FormatsManager::instance()->extensionsForFormat(FormatsManager::SVG)), fdHidePreviewCheckBox) );
+	openDia->setSelection(getFileNameByPage(doc, doc->currentPage()->pageNr(), "svg"));
+	openDia->setExtension("svg");
+	openDia->setZipExtension("svgz");
+	QCheckBox* compress = new QCheckBox(openDia.data());
+	compress->setText( tr("Compress File"));
+	compress->setChecked(false);
+	openDia->addWidgets(compress);
+	QCheckBox* inlineImages = new QCheckBox(openDia.data());
+	inlineImages->setText( tr("Save Images inline"));
+	inlineImages->setToolTip( tr("Adds all Images on the Page inline to the SVG.\nCaution: this will increase the file size!"));
+	inlineImages->setChecked(true);
+	openDia->addWidgets(inlineImages);
+	QCheckBox* exportBack = new QCheckBox(openDia.data());
+	exportBack->setText( tr("Export Page background"));
+	exportBack->setToolTip( tr("Adds the Page itself as background to the SVG"));
+	exportBack->setChecked(false);
+	openDia->addWidgets(exportBack);
+
+	if (!openDia->exec())
+		return true;
+	fileName = openDia->selectedFile();
+	QFileInfo fi(fileName);
+	QString m_baseDir = fi.absolutePath();
+	if (compress->isChecked())
+		fileName = m_baseDir + "/" + fi.baseName() + ".svgz";
+	else
+		fileName = m_baseDir + "/" + fi.baseName() + ".svg";
+
+	SVGOptions Options;
+	Options.inlineImages = inlineImages->isChecked();
+	Options.exportPageBackground = exportBack->isChecked();
+	Options.compressFile = compress->isChecked();
+
+	if (fileName.isEmpty())
+		return true;
+	prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
+	if (QFile::exists(fileName))
 	{
-		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("svgex");
-		QString wdir = prefs->get("wdir", ".");
-		QScopedPointer<CustomFDialog> openDia( new CustomFDialog(doc->scMW(), wdir, QObject::tr("Save as"), QObject::tr("%1;;All Files (*)").arg(FormatsManager::instance()->extensionsForFormat(FormatsManager::SVG)), fdHidePreviewCheckBox) );
-		openDia->setSelection(getFileNameByPage(doc, doc->currentPage()->pageNr(), "svg"));
-		openDia->setExtension("svg");
-		openDia->setZipExtension("svgz");
-		QCheckBox* compress = new QCheckBox(openDia.data());
-		compress->setText( tr("Compress File"));
-		compress->setChecked(false);
-		openDia->addWidgets(compress);
-		QCheckBox* inlineImages = new QCheckBox(openDia.data());
-		inlineImages->setText( tr("Save Images inline"));
-		inlineImages->setToolTip( tr("Adds all Images on the Page inline to the SVG.\nCaution: this will increase the file size!"));
-		inlineImages->setChecked(true);
-		openDia->addWidgets(inlineImages);
-		QCheckBox* exportBack = new QCheckBox(openDia.data());
-		exportBack->setText( tr("Export Page background"));
-		exportBack->setToolTip( tr("Adds the Page itself as background to the SVG"));
-		exportBack->setChecked(false);
-		openDia->addWidgets(exportBack);
-
-		if (!openDia->exec())
+		int exit = ScMessageBox::warning(doc->scMW(), CommonStrings::trWarning,
+			QObject::tr("Do you really want to overwrite the file:\n%1 ?").arg(fileName),
+			QMessageBox::Yes | QMessageBox::No,
+			QMessageBox::NoButton,	// GUI default
+			QMessageBox::Yes);	// batch default
+		if (exit == QMessageBox::No)
 			return true;
-		fileName = openDia->selectedFile();
-		QFileInfo fi(fileName);
-		QString m_baseDir = fi.absolutePath();
-		if (compress->isChecked())
-			fileName = m_baseDir + "/" + fi.baseName() + ".svgz";
-		else
-			fileName = m_baseDir + "/" + fi.baseName() + ".svg";
-
-		SVGOptions Options;
-		Options.inlineImages = inlineImages->isChecked();
-		Options.exportPageBackground = exportBack->isChecked();
-		Options.compressFile = compress->isChecked();
-
-		if (fileName.isEmpty())
-			return true;
-		prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
-		if (QFile::exists(fileName))
-		{
-			int exit = ScMessageBox::warning(doc->scMW(), CommonStrings::trWarning,
-				QObject::tr("Do you really want to overwrite the file:\n%1 ?").arg(fileName),
-				QMessageBox::Yes | QMessageBox::No,
-				QMessageBox::NoButton,	// GUI default
-				QMessageBox::Yes);	// batch default
-			if (exit == QMessageBox::No)
-				return true;
-		}
-		SVGExPlug *dia = new SVGExPlug(doc);
-		dia->doExport(fileName, Options);
-		delete dia;
 	}
+
+	auto pPlug = std::make_unique<SVGExPlug>(doc);
+	pPlug->doExport(fileName, Options);
+
 	return true;
 }
 
-SVGExPlug::SVGExPlug( ScribusDoc* doc )
+SVGExPlug::SVGExPlug(ScribusDoc* doc)
 {
 	m_Doc = doc;
 	Options.inlineImages = true;
@@ -193,7 +194,7 @@ SVGExPlug::SVGExPlug( ScribusDoc* doc )
 	m_glyphNames.clear();
 }
 
-bool SVGExPlug::doExport( const QString& fName, SVGOptions &Opts )
+bool SVGExPlug::doExport(const QString& fName, const SVGOptions& Opts)
 {
 	Options = Opts;
 	QFileInfo fiBase(fName);
@@ -290,7 +291,7 @@ bool SVGExPlug::doExport( const QString& fName, SVGOptions &Opts )
 	return true;
 }
 
-void SVGExPlug::processPageLayer(ScPage *page, ScLayer& layer)
+void SVGExPlug::processPageLayer(ScPage *page, const ScLayer& layer)
 {
 	QDomElement layerGroup;
 	PageItem *item;
@@ -300,7 +301,7 @@ void SVGExPlug::processPageLayer(ScPage *page, ScLayer& layer)
 		items = m_Doc->DocItems;
 	else
 		items = m_Doc->MasterItems;
-	if (items.count() == 0)
+	if (items.isEmpty())
 		return;
 	if (!layer.isPrintable)
 		return;
@@ -327,9 +328,9 @@ void SVGExPlug::processPageLayer(ScPage *page, ScLayer& layer)
 		double y2 = item->BoundingY;
 		double w2 = item->BoundingW;
 		double h2 = item->BoundingH;
-		if (!( qMax( x, x2 ) <= qMin( x+w, x2+w2 ) && qMax( y, y2 ) <= qMin( y+h, y2+h2 )))
+		if (!(qMax(x, x2) <= qMin(x + w, x2 + w2) && qMax(y, y2) <= qMin(y + h, y2 + h2)))
 			continue;
-		if ((!page->pageNameEmpty()) && (item->OwnPage != static_cast<int>(page->pageNr())) && (item->OwnPage != -1))
+		if ((!page->pageNameEmpty()) && (item->OwnPage != page->pageNr()) && (item->OwnPage != -1))
 			continue;
 		processItemOnPage(item->xPos()-page->xOffset(), item->yPos()-page->yOffset(), item, &layerGroup);
 	}
@@ -376,7 +377,7 @@ void SVGExPlug::processItemOnPage(double xOffset, double yOffset, PageItem *item
 			ob = processSymbolItem(item, trans);
 			break;
 		case PageItem::Group:
-			if (item->groupItemList.count() > 0)
+			if (!item->groupItemList.isEmpty())
 			{
 				ob = m_domDoc.createElement("g");
 				if (!item->AutoName)
@@ -409,7 +410,7 @@ void SVGExPlug::processItemOnPage(double xOffset, double yOffset, PageItem *item
 					transform.scale(item->width() / item->groupWidth, item->height() / item->groupHeight);
 					transform = transform.inverted();
 					clipPath.map(transform);
-					QDomElement obc = createClipPathElement(&clipPath);
+					QDomElement obc = createClipPathElement(clipPath);
 					if (!obc.isNull())
 						ob.setAttribute("clip-path", "url(#" + obc.attribute("id") + ")");
 					if (item->fillRule)
@@ -491,7 +492,8 @@ void SVGExPlug::processItemOnPage(double xOffset, double yOffset, PageItem *item
 						QPointF start(borderX, 0.0);
 						QPointF end(borderX, 0.0);
 						QPointF startOffsetFactors, endOffsetFactors;
-						int startRow, endRow;
+						int startRow = 0;
+						int endRow = 0;
 						for (int row = cell.row(); row <= lastRow; row += endRow - startRow + 1)
 						{
 							TableCell rightCell = item->asTable()->cellAt(row, lastCol + 1);
@@ -507,7 +509,7 @@ void SVGExPlug::processItemOnPage(double xOffset, double yOffset, PageItem *item
 							if (border.isNull())
 								continue; // Quit early if the border to paint is null.
 							start.setY(item->asTable()->rowPosition(startRow));
-							end.setY((item->asTable()->rowPosition(endRow) + item->asTable()->rowHeight(endRow)));
+							end.setY(item->asTable()->rowPosition(endRow) + item->asTable()->rowHeight(endRow));
 							joinVertical(border, topLeft, top, topRight, bottomLeft, bottom, bottomRight, &start, &end, &startOffsetFactors, &endOffsetFactors);
 							paintBorder(border, start, end, startOffsetFactors, endOffsetFactors, ob);
 						}
@@ -519,7 +521,8 @@ void SVGExPlug::processItemOnPage(double xOffset, double yOffset, PageItem *item
 							QPointF start(borderX, 0.0);
 							QPointF end(borderX, 0.0);
 							QPointF startOffsetFactors, endOffsetFactors;
-							int startRow, endRow;
+							int startRow = 0;
+							int endRow = 0;
 							for (int row = cell.row(); row <= lastRow; row += endRow - startRow + 1)
 							{
 								TableCell leftCell = item->asTable()->cellAt(row, firstCol - 1);
@@ -535,7 +538,7 @@ void SVGExPlug::processItemOnPage(double xOffset, double yOffset, PageItem *item
 								if (border.isNull())
 									continue; // Quit early if the border to paint is null.
 								start.setY(item->asTable()->rowPosition(startRow));
-								end.setY((item->asTable()->rowPosition(endRow) + item->asTable()->rowHeight(endRow)));
+								end.setY(item->asTable()->rowPosition(endRow) + item->asTable()->rowHeight(endRow));
 								joinVertical(border, topLeft, top, topRight, bottomLeft, bottom, bottomRight, &start, &end, &startOffsetFactors, &endOffsetFactors);
 								paintBorder(border, start, end, startOffsetFactors, endOffsetFactors, ob);
 							}
@@ -559,7 +562,8 @@ void SVGExPlug::processItemOnPage(double xOffset, double yOffset, PageItem *item
 						QPointF start(0.0, borderY);
 						QPointF end(0.0, borderY);
 						QPointF startOffsetFactors, endOffsetFactors;
-						int startCol, endCol;
+						int startCol = 0;
+						int endCol = 0;
 						for (int col = cell.column(); col <= lastCol; col += endCol - startCol + 1)
 						{
 							TableCell bottomCell = item->asTable()->cellAt(lastRow + 1, col);
@@ -587,7 +591,8 @@ void SVGExPlug::processItemOnPage(double xOffset, double yOffset, PageItem *item
 							QPointF start(0.0, borderY);
 							QPointF end(0.0, borderY);
 							QPointF startOffsetFactors, endOffsetFactors;
-							int startCol, endCol;
+							int startCol = 0;
+							int endCol = 0;
 							for (int col = cell.column(); col <= lastCol; col += endCol - startCol + 1)
 							{
 								TableCell topCell = item->asTable()->cellAt(firstRow - 1, col);
@@ -638,7 +643,9 @@ void SVGExPlug::processItemOnPage(double xOffset, double yOffset, PageItem *item
 
 void SVGExPlug::paintBorder(const TableBorder& border, const QPointF& start, const QPointF& end, const QPointF& startOffsetFactors, const QPointF& endOffsetFactors, QDomElement &ob)
 {
-	QPointF lineStart, lineEnd;
+	QPointF lineStart;
+	QPointF lineEnd;
+
 	for (const TableBorderLine& line : border.borderLines())
 	{
 		lineStart.setX(start.x() + line.width() * startOffsetFactors.x());
@@ -661,18 +668,18 @@ void SVGExPlug::paintBorder(const TableBorder& border, const QPointF& start, con
 			stroke += "none;";
 		else
 		{
-			QString Da = getDashString(line.style(), qMax(line.width(), 1.0));
-			if (Da.isEmpty())
+			QString ds = getDashString(line.style(), qMax(line.width(), 1.0));
+			if (ds.isEmpty())
 				stroke += "none;";
 			else
-				stroke += Da.replace(" ", ", ") + ";";
+				stroke += ds.replace(" ", ", ") + ";";
 		}
 		cl.setAttribute("style", stroke);
 		ob.appendChild(cl);
 	}
 }
 
-QString SVGExPlug::processDropShadow(PageItem *item)
+QString SVGExPlug::processDropShadow(const PageItem *item)
 {
 	if (!item->hasSoftShadow())
 		return "";
@@ -717,13 +724,13 @@ QString SVGExPlug::processDropShadow(PageItem *item)
 	return "filter:url(#" + ID + ");";
 }
 
-QDomElement SVGExPlug::processHatchFill(PageItem *item, const QString& transl)
+QDomElement SVGExPlug::processHatchFill(const PageItem *item, const QString& transl)
 {
 	QDomElement ob;
 	ob = m_domDoc.createElement("g");
 	if (!transl.isEmpty())
 		ob.setAttribute("transform", transl);
-	QDomElement obc = createClipPathElement(&item->PoLine);
+	QDomElement obc = createClipPathElement(item->PoLine);
 	if (!obc.isNull())
 		ob.setAttribute("clip-path", "url(#" + obc.attribute("id") + ")");
 	if (item->fillRule)
@@ -733,7 +740,7 @@ QDomElement SVGExPlug::processHatchFill(PageItem *item, const QString& transl)
 	if (item->hatchUseBackground)
 	{
 		QDomElement ob2 = m_domDoc.createElement("path");
-		ob2.setAttribute("d", setClipPath(&item->PoLine, true));
+		ob2.setAttribute("d", setClipPath(item->PoLine, true));
 		ob2.setAttribute("fill", setColor(item->hatchBackground, 100));
 		ob.appendChild(ob2);
 	}
@@ -824,7 +831,7 @@ QDomElement SVGExPlug::processHatchFill(PageItem *item, const QString& transl)
 	return ob;
 }
 
-QDomElement SVGExPlug::processSymbolStroke(PageItem *item, const QString& trans)
+QDomElement SVGExPlug::processSymbolStroke(const PageItem *item, const QString& trans)
 {
 	QDomElement ob;
 	ob = m_domDoc.createElement("g");
@@ -875,7 +882,7 @@ QDomElement SVGExPlug::processSymbolStroke(PageItem *item, const QString& trans)
 	return ob;
 }
 
-QDomElement SVGExPlug::processSymbolItem(PageItem *item, const QString& trans)
+QDomElement SVGExPlug::processSymbolItem(const PageItem *item, const QString& trans)
 {
 	QDomElement ob;
 	ScPattern pat = m_Doc->docPatterns[item->pattern()];
@@ -890,7 +897,7 @@ QDomElement SVGExPlug::processSymbolItem(PageItem *item, const QString& trans)
 	return ob;
 }
 
-QDomElement SVGExPlug::processPolyItem(PageItem *item, const QString& trans, const QString& fill, const QString& stroke)
+QDomElement SVGExPlug::processPolyItem(const PageItem *item, const QString& trans, const QString& fill, const QString& stroke)
 {
 	bool closedPath;
 	QDomElement ob;
@@ -906,7 +913,7 @@ QDomElement SVGExPlug::processPolyItem(PageItem *item, const QString& trans, con
 				ob.appendChild(ob1);
 			}
 			QDomElement ob2 = m_domDoc.createElement("path");
-			ob2.setAttribute("d", setClipPath(&item->PoLine, closedPath));
+			ob2.setAttribute("d", setClipPath(item->PoLine, closedPath));
 			ob2.setAttribute("transform", trans);
 			if (item->GrType != Gradient_Hatch)
 				ob2.setAttribute("style", fill);
@@ -928,14 +935,14 @@ QDomElement SVGExPlug::processPolyItem(PageItem *item, const QString& trans, con
 				QDomElement ob1 = processHatchFill(item);
 				ob.appendChild(ob1);
 				QDomElement ob2 = m_domDoc.createElement("path");
-				ob2.setAttribute("d", setClipPath(&item->PoLine, closedPath));
+				ob2.setAttribute("d", setClipPath(item->PoLine, closedPath));
 				ob2.setAttribute("style", stroke + "fill:none;" + processDropShadow(item));
 				ob.appendChild(ob2);
 			}
 			else
 			{
 				ob = m_domDoc.createElement("path");
-				ob.setAttribute("d", setClipPath(&item->PoLine, closedPath));
+				ob.setAttribute("d", setClipPath(item->PoLine, closedPath));
 				ob.setAttribute("transform", trans);
 				ob.setAttribute("style", fill + stroke);
 			}
@@ -951,7 +958,7 @@ QDomElement SVGExPlug::processPolyItem(PageItem *item, const QString& trans, con
 			ob.appendChild(ob1);
 		}
 		QDomElement ob2 = m_domDoc.createElement("path");
-		ob2.setAttribute("d", setClipPath(&item->PoLine, closedPath));
+		ob2.setAttribute("d", setClipPath(item->PoLine, closedPath));
 		if (item->GrType != Gradient_Hatch)
 			ob2.setAttribute("style", fill);
 		else
@@ -962,13 +969,13 @@ QDomElement SVGExPlug::processPolyItem(PageItem *item, const QString& trans, con
 		}
 		ob.appendChild(ob2);
 		MultiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
-		for (int it = ml.size()-1; it > -1; it--)
+		for (qsizetype it = ml.size() - 1; it > -1; it--)
 		{
 			if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
 			{
 				QDomElement ob3 = m_domDoc.createElement("path");
-				ob3.setAttribute("d", setClipPath(&item->PoLine, closedPath));
-				ob3.setAttribute("style", getMultiStroke(&ml[it], item));
+				ob3.setAttribute("d", setClipPath(item->PoLine, closedPath));
+				ob3.setAttribute("style", getMultiStroke(ml[it], item));
 				ob.appendChild(ob3);
 			}
 		}
@@ -976,7 +983,7 @@ QDomElement SVGExPlug::processPolyItem(PageItem *item, const QString& trans, con
 	return ob;
 }
 
-QDomElement SVGExPlug::processLineItem(PageItem *item, const QString& trans, const QString& stroke)
+QDomElement SVGExPlug::processLineItem(const PageItem *item, const QString& trans, const QString& stroke)
 {
 	QDomElement ob;
 	if (item->NamedLStyle.isEmpty())
@@ -991,13 +998,13 @@ QDomElement SVGExPlug::processLineItem(PageItem *item, const QString& trans, con
 		ob = m_domDoc.createElement("g");
 		ob.setAttribute("transform", trans);
 		MultiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
-		for (int i = ml.size()-1; i > -1; i--)
+		for (qsizetype i = ml.size() - 1; i > -1; i--)
 		{
 			if ((ml[i].Color != CommonStrings::None) && (ml[i].Width != 0))
 			{
 				QDomElement ob2 = m_domDoc.createElement("path");
 				ob2.setAttribute("d", "M 0 0 L " + FToStr(item->width()) + " 0");
-				ob2.setAttribute("style", getMultiStroke(&ml[i], item));
+				ob2.setAttribute("style", getMultiStroke(ml[i], item));
 				ob.appendChild(ob2);
 			}
 		}
@@ -1005,7 +1012,7 @@ QDomElement SVGExPlug::processLineItem(PageItem *item, const QString& trans, con
 	return ob;
 }
 
-QDomElement SVGExPlug::processImageItem(PageItem *item, const QString& trans, const QString& fill, const QString& stroke)
+QDomElement SVGExPlug::processImageItem(const PageItem *item, const QString& trans, const QString& fill, const QString& stroke)
 {
 	QDomElement ob;
 	ob = m_domDoc.createElement("g");
@@ -1023,7 +1030,7 @@ QDomElement SVGExPlug::processImageItem(PageItem *item, const QString& trans, co
 		else
 		{
 			QDomElement ob1 = m_domDoc.createElement("path");
-			ob1.setAttribute("d", setClipPath(&item->PoLine, true));
+			ob1.setAttribute("d", setClipPath(item->PoLine, true));
 			ob1.setAttribute("style", fill);
 			ob.appendChild(ob1);
 		}
@@ -1032,9 +1039,9 @@ QDomElement SVGExPlug::processImageItem(PageItem *item, const QString& trans, co
 	{
 		QDomElement cl, ob2;
 		if (!item->imageClip.empty())
-			ob2 = createClipPathElement(&item->imageClip, &cl);
+			ob2 = createClipPathElement(item->imageClip, &cl);
 		else
-			ob2 = createClipPathElement(&item->PoLine, &cl);
+			ob2 = createClipPathElement(item->PoLine, &cl);
 		if (!ob2.isNull())
 		{
 			ob2.setAttribute("clipPathUnits", "userSpaceOnUse");
@@ -1108,7 +1115,7 @@ QDomElement SVGExPlug::processImageItem(PageItem *item, const QString& trans, co
 		{
 			QDomElement ob4 = m_domDoc.createElement("g");
 			QDomElement ob2 = m_domDoc.createElement("path");
-			ob2.setAttribute("d", setClipPath(&item->PoLine, true));
+			ob2.setAttribute("d", setClipPath(item->PoLine, true));
 			ob2.setAttribute("transform", trans);
 			ob2.setAttribute("style", fill);
 			ob4.appendChild(ob2);
@@ -1118,7 +1125,7 @@ QDomElement SVGExPlug::processImageItem(PageItem *item, const QString& trans, co
 		else
 		{
 			QDomElement ob4 = m_domDoc.createElement("path");
-			ob4.setAttribute("d", setClipPath(&item->PoLine, true));
+			ob4.setAttribute("d", setClipPath(item->PoLine, true));
 			ob4.setAttribute("style", "fill:none; " + stroke);
 			ob.appendChild(ob4);
 		}
@@ -1126,13 +1133,13 @@ QDomElement SVGExPlug::processImageItem(PageItem *item, const QString& trans, co
 	else
 	{
 		MultiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
-		for (int it = ml.size()-1; it > -1; it--)
+		for (qsizetype it = ml.size() - 1; it > -1; it--)
 		{
 			if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
 			{
 				QDomElement ob5 = m_domDoc.createElement("path");
-				ob5.setAttribute("d", setClipPath(&item->PoLine, true));
-				ob5.setAttribute("style", "fill:none; " + getMultiStroke(&ml[it], item));
+				ob5.setAttribute("d", setClipPath(item->PoLine, true));
+				ob5.setAttribute("style", "fill:none; " + getMultiStroke(ml[it], item));
 				ob.appendChild(ob5);
 			}
 		}
@@ -1147,7 +1154,7 @@ class SvgPainter: public TextLayoutPainter
 	QString m_trans;
 
 public:
-	SvgPainter(const QString& trans, SVGExPlug *svg, QDomElement &elem)
+	SvgPainter(const QString& trans, SVGExPlug *svg, const QDomElement &elem)
 		: m_elem(elem)
 		, m_svg(svg)
 		, m_trans(trans)
@@ -1262,7 +1269,7 @@ public:
 	void drawObjectDecoration(PageItem* item) override {}
 };
 
-QDomElement SVGExPlug::processTextItem(PageItem *item, const QString& trans, const QString& fill, const QString& stroke)
+QDomElement SVGExPlug::processTextItem(const PageItem *item, const QString& trans, const QString& fill, const QString& stroke)
 {
 	QDomElement ob;
 	ob = m_domDoc.createElement("g");
@@ -1280,13 +1287,13 @@ QDomElement SVGExPlug::processTextItem(PageItem *item, const QString& trans, con
 		else
 		{
 			QDomElement ob1 = m_domDoc.createElement("path");
-			ob1.setAttribute("d", setClipPath(&item->PoLine, true));
+			ob1.setAttribute("d", setClipPath(item->PoLine, true));
 			ob1.setAttribute("style", fill);
 			ob.appendChild(ob1);
 		}
 	}
 
-	if (item->itemText.length() != 0)
+	if (item->itemText.isNotEmpty())
 	{
 		SvgPainter p(trans, this, ob);
 		item->textLayout.renderBackground(&p);
@@ -1300,7 +1307,7 @@ QDomElement SVGExPlug::processTextItem(PageItem *item, const QString& trans, con
 			{
 				QDomElement ob4 = m_domDoc.createElement("g");
 				QDomElement ob2 = m_domDoc.createElement("path");
-				ob2.setAttribute("d", setClipPath(&item->PoLine, true));
+				ob2.setAttribute("d", setClipPath(item->PoLine, true));
 				ob2.setAttribute("transform", trans);
 				ob2.setAttribute("style", fill);
 				ob4.appendChild(ob2);
@@ -1310,7 +1317,7 @@ QDomElement SVGExPlug::processTextItem(PageItem *item, const QString& trans, con
 			else
 			{
 				QDomElement ob4 = m_domDoc.createElement("path");
-				ob4.setAttribute("d", setClipPath(&item->PoLine, true));
+				ob4.setAttribute("d", setClipPath(item->PoLine, true));
 				ob4.setAttribute("style", "fill:none; " + stroke);
 				ob.appendChild(ob4);
 			}
@@ -1318,13 +1325,13 @@ QDomElement SVGExPlug::processTextItem(PageItem *item, const QString& trans, con
 		else
 		{
 			MultiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
-			for (int it = ml.size()-1; it > -1; it--)
+			for (qsizetype it = ml.size() - 1; it > -1; it--)
 			{
 				if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
 				{
 					QDomElement ob5 = m_domDoc.createElement("path");
-					ob5.setAttribute("d", setClipPath(&item->PoLine, true));
-					ob5.setAttribute("style", "fill:none; " + getMultiStroke(&ml[it], item));
+					ob5.setAttribute("d", setClipPath(item->PoLine, true));
+					ob5.setAttribute("style", "fill:none; " + getMultiStroke(ml[it], item));
 					ob.appendChild(ob5);
 				}
 			}
@@ -1338,7 +1345,7 @@ QDomElement SVGExPlug::processTextItem(PageItem *item, const QString& trans, con
 			{
 				QDomElement ob4 = m_domDoc.createElement("g");
 				QDomElement ob2 = m_domDoc.createElement("path");
-				ob2.setAttribute("d", setClipPath(&item->PoLine, false));
+				ob2.setAttribute("d", setClipPath(item->PoLine, false));
 				ob2.setAttribute("transform", trans);
 				ob2.setAttribute("style", fill);
 				ob4.appendChild(ob2);
@@ -1348,7 +1355,7 @@ QDomElement SVGExPlug::processTextItem(PageItem *item, const QString& trans, con
 			else
 			{
 				QDomElement ob4 = m_domDoc.createElement("path");
-				ob4.setAttribute("d", setClipPath(&item->PoLine, false));
+				ob4.setAttribute("d", setClipPath(item->PoLine, false));
 				ob4.setAttribute("style", "fill:none; " + stroke);
 				ob.appendChild(ob4);
 			}
@@ -1356,13 +1363,13 @@ QDomElement SVGExPlug::processTextItem(PageItem *item, const QString& trans, con
 		else
 		{
 			MultiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
-			for (int it = ml.size()-1; it > -1; it--)
+			for (qsizetype it = ml.size() - 1; it > -1; it--)
 			{
 				if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
 				{
 					QDomElement ob5 = m_domDoc.createElement("path");
-					ob5.setAttribute("d", setClipPath(&item->PoLine, false));
-					ob5.setAttribute("style", "fill:none; " + getMultiStroke(&ml[it], item));
+					ob5.setAttribute("d", setClipPath(item->PoLine, false));
+					ob5.setAttribute("style", "fill:none; " + getMultiStroke(ml[it], item));
 					ob.appendChild(ob5);
 				}
 			}
@@ -1422,7 +1429,7 @@ QDomElement SVGExPlug::processInlineItem(PageItem* embItem, const QString& trans
 				obE = processSymbolItem(embedded, transE);
 				break;
 			case PageItem::Group:
-				if (embedded->groupItemList.count() > 0)
+				if (!embedded->groupItemList.isEmpty())
 				{
 					obE = m_domDoc.createElement("g");
 					if (!embedded->AutoName)
@@ -1455,7 +1462,7 @@ QDomElement SVGExPlug::processInlineItem(PageItem* embItem, const QString& trans
 						transform.scale(embedded->width() / embedded->groupWidth, embedded->height() / embedded->groupHeight);
 						transform = transform.inverted();
 						clipPath.map(transform);
-						QDomElement obc = createClipPathElement(&clipPath);
+						QDomElement obc = createClipPathElement(clipPath);
 						if (!obc.isNull())
 							obE.setAttribute("clip-path", "url(#" + obc.attribute("id") + ")");
 						if (embedded->fillRule)
@@ -1489,22 +1496,22 @@ QString SVGExPlug::handleGlyph(uint gid, const ScFace& font)
 		return glName;
 	FPointArray pts = font.glyphOutline(gid);
 	QDomElement ob = m_domDoc.createElement("path");
-	ob.setAttribute("d", setClipPath(&pts, true));
+	ob.setAttribute("d", setClipPath(pts, true));
 	ob.setAttribute("id", glName);
 	m_globalDefs.appendChild(ob);
 	m_glyphNames.append(glName);
 	return glName;
 }
 
-QDomElement SVGExPlug::processArrows(PageItem *item, const QDomElement& line, const QString& trans)
+QDomElement SVGExPlug::processArrows(const PageItem *item, const QDomElement& line, const QString& trans)
 {
-	QDomElement ob, gr;
-	gr = m_domDoc.createElement("g");
+	QDomElement ob;
+	QDomElement gr = m_domDoc.createElement("g");
 	gr.appendChild(line);
 	if (item->startArrowIndex() != 0)
 	{
 		QTransform arrowTrans;
-		FPointArray arrow = m_Doc->arrowStyles().at(item->startArrowIndex()-1).points.copy();
+		FPointArray arrow = m_Doc->arrowStyles().at(item->startArrowIndex() - 1).points.copy();
 		if (item->itemType() == PageItem::Line)
 		{
 			arrowTrans.translate(0, 0);
@@ -1517,10 +1524,10 @@ QDomElement SVGExPlug::processArrows(PageItem *item, const QDomElement& line, co
 			else
 			{
 				MultiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
-				if (ml[ml.size()-1].Width != 0.0)
-					arrowTrans.scale(ml[ml.size()-1].Width, ml[ml.size()-1].Width);
+				if (ml.last().Width != 0.0)
+					arrowTrans.scale(ml.last().Width, ml.last().Width);
 			}
-			arrowTrans.scale(-1,1);
+			arrowTrans.scale(-1, 1);
 		}
 		else
 		{
@@ -1530,7 +1537,7 @@ QDomElement SVGExPlug::processArrows(PageItem *item, const QDomElement& line, co
 				FPoint Vector = item->PoLine.point(xx);
 				if ((Start.x() != Vector.x()) || (Start.y() != Vector.y()))
 				{
-					double r = atan2(Start.y()-Vector.y(),Start.x()-Vector.x())*(180.0/M_PI);
+					double r = atan2(Start.y() - Vector.y(), Start.x() - Vector.x()) * (180.0 / M_PI);
 					arrowTrans.translate(Start.x(), Start.y());
 					arrowTrans.rotate(r);
 					arrowTrans.scale(item->startArrowScale() / 100.0, item->startArrowScale() / 100.0);
@@ -1542,8 +1549,8 @@ QDomElement SVGExPlug::processArrows(PageItem *item, const QDomElement& line, co
 					else
 					{
 						MultiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
-						if (ml[ml.size()-1].Width != 0.0)
-							arrowTrans.scale(ml[ml.size()-1].Width, ml[ml.size()-1].Width);
+						if (ml.last().Width != 0.0)
+							arrowTrans.scale(ml.last().Width, ml.last().Width);
 					}
 					break;
 				}
@@ -1553,7 +1560,7 @@ QDomElement SVGExPlug::processArrows(PageItem *item, const QDomElement& line, co
 		if (item->NamedLStyle.isEmpty())
 		{
 			ob = m_domDoc.createElement("path");
-			ob.setAttribute("d", setClipPath(&arrow, true));
+			ob.setAttribute("d", setClipPath(arrow, true));
 			ob.setAttribute("transform", trans);
 			QString aFill;
 			if (!item->strokePattern().isEmpty())
@@ -1609,7 +1616,7 @@ QDomElement SVGExPlug::processArrows(PageItem *item, const QDomElement& line, co
 				for (int cst = 0; cst < item->stroke_gradient.stops(); ++cst)
 				{
 					actualStop = cstops.at(cst)->rampPoint;
-					if ((actualStop != lastStop) || (isFirst))
+					if ((actualStop != lastStop) || isFirst)
 					{
 						QDomElement itcl = m_domDoc.createElement("stop");
 						itcl.setAttribute("offset", FToStr(cstops.at(cst)->rampPoint*100) + "%");
@@ -1642,18 +1649,18 @@ QDomElement SVGExPlug::processArrows(PageItem *item, const QDomElement& line, co
 			if (ml[0].Color != CommonStrings::None)
 			{
 				ob = m_domDoc.createElement("path");
-				ob.setAttribute("d", setClipPath(&arrow, true));
+				ob.setAttribute("d", setClipPath(arrow, true));
 				ob.setAttribute("transform", trans);
 				QString aFill = "fill:" + setColor(ml[0].Color, ml[0].Shade) + ";";
 				ob.setAttribute("style", aFill + " stroke:none;");
 				gr.appendChild(ob);
 			}
-			for (int it = ml.size()-1; it > 0; it--)
+			for (qsizetype it = ml.size() - 1; it > 0; it--)
 			{
 				if (ml[it].Color != CommonStrings::None)
 				{
 					QDomElement ob5 = m_domDoc.createElement("path");
-					ob5.setAttribute("d", setClipPath(&arrow, true));
+					ob5.setAttribute("d", setClipPath(arrow, true));
 					ob5.setAttribute("transform", trans);
 					QString stroke = "fill:none; stroke:" + setColor(ml[it].Color, ml[it].Shade) + "; stroke-linecap:butt; stroke-linejoin:miter; stroke-dasharray:none;";
 					if (ml[it].Width != 0.0)
@@ -1669,7 +1676,7 @@ QDomElement SVGExPlug::processArrows(PageItem *item, const QDomElement& line, co
 	if (item->endArrowIndex() != 0)
 	{
 		QTransform arrowTrans;
-		FPointArray arrow = m_Doc->arrowStyles().at(item->endArrowIndex()-1).points.copy();
+		FPointArray arrow = m_Doc->arrowStyles().at(item->endArrowIndex() - 1).points.copy();
 		if (item->itemType() == PageItem::Line)
 		{
 			arrowTrans.translate(item->width(), 0);
@@ -1682,8 +1689,8 @@ QDomElement SVGExPlug::processArrows(PageItem *item, const QDomElement& line, co
 			else
 			{
 				MultiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
-				if (ml[ml.size()-1].Width != 0.0)
-					arrowTrans.scale(ml[ml.size() - 1].Width, ml[ml.size() - 1].Width);
+				if (ml.last().Width != 0.0)
+					arrowTrans.scale(ml.last().Width, ml.last().Width);
 			}
 		}
 		else
@@ -1706,8 +1713,8 @@ QDomElement SVGExPlug::processArrows(PageItem *item, const QDomElement& line, co
 					else
 					{
 						MultiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
-						if (ml[ml.size() - 1].Width != 0.0)
-							arrowTrans.scale(ml[ml.size() - 1].Width, ml[ml.size() - 1].Width);
+						if (ml.last().Width != 0.0)
+							arrowTrans.scale(ml.last().Width, ml.last().Width);
 					}
 					break;
 				}
@@ -1717,7 +1724,7 @@ QDomElement SVGExPlug::processArrows(PageItem *item, const QDomElement& line, co
 		if (item->NamedLStyle.isEmpty())
 		{
 			ob = m_domDoc.createElement("path");
-			ob.setAttribute("d", setClipPath(&arrow, true));
+			ob.setAttribute("d", setClipPath(arrow, true));
 			ob.setAttribute("transform", trans);
 			QString aFill;
 			if (!item->strokePattern().isEmpty())
@@ -1773,7 +1780,7 @@ QDomElement SVGExPlug::processArrows(PageItem *item, const QDomElement& line, co
 				for (int cst = 0; cst < item->stroke_gradient.stops(); ++cst)
 				{
 					actualStop = cstops.at(cst)->rampPoint;
-					if ((actualStop != lastStop) || (isFirst))
+					if ((actualStop != lastStop) || isFirst)
 					{
 						QDomElement itcl = m_domDoc.createElement("stop");
 						itcl.setAttribute("offset", FToStr(cstops.at(cst)->rampPoint*100) + "%");
@@ -1806,18 +1813,18 @@ QDomElement SVGExPlug::processArrows(PageItem *item, const QDomElement& line, co
 			if (ml[0].Color != CommonStrings::None)
 			{
 				ob = m_domDoc.createElement("path");
-				ob.setAttribute("d", setClipPath(&arrow, true));
+				ob.setAttribute("d", setClipPath(arrow, true));
 				ob.setAttribute("transform", trans);
 				QString aFill = "fill:" + setColor(ml[0].Color, ml[0].Shade) + ";";
 				ob.setAttribute("style", aFill + " stroke:none;");
 				gr.appendChild(ob);
 			}
-			for (int it = ml.size()-1; it > 0; it--)
+			for (int it = ml.size() - 1; it > 0; it--)
 			{
 				if (ml[it].Color != CommonStrings::None)
 				{
 					QDomElement ob5 = m_domDoc.createElement("path");
-					ob5.setAttribute("d", setClipPath(&arrow, true));
+					ob5.setAttribute("d", setClipPath(arrow, true));
 					ob5.setAttribute("transform", trans);
 					QString stroke = "fill:none; stroke:" + setColor(ml[it].Color, ml[it].Shade) + "; stroke-linecap:butt; stroke-linejoin:miter; stroke-dasharray:none;";
 					if (ml[it].Width != 0.0)
@@ -1833,7 +1840,7 @@ QDomElement SVGExPlug::processArrows(PageItem *item, const QDomElement& line, co
 	return gr;
 }
 
-QString SVGExPlug::handleMask(PageItem *item, double xOffset, double yOffset)
+QString SVGExPlug::handleMask(const PageItem *item, double xOffset, double yOffset)
 {
 	QDomElement grad;
 	QString retVal;
@@ -2059,7 +2066,7 @@ QString SVGExPlug::getFillStyle(PageItem *item)
 				for (int cst = 0; cst < item->fill_gradient.stops(); ++cst)
 				{
 					actualStop = cstops.at(cst)->rampPoint;
-					if ((actualStop != lastStop) || (isFirst))
+					if ((actualStop != lastStop) || isFirst)
 					{
 						QDomElement itcl = m_domDoc.createElement("stop");
 						itcl.setAttribute("offset", FToStr(cstops.at(cst)->rampPoint * 100) + "%");
@@ -2127,7 +2134,7 @@ void SVGExPlug::writeBaseSymbols()
 	}
 }
 
-QString SVGExPlug::getStrokeStyle(PageItem *item)
+QString SVGExPlug::getStrokeStyle(const PageItem *item)
 {
 	QString stroke;
 	if (item->lineTransparency() != 0)
@@ -2169,12 +2176,10 @@ QString SVGExPlug::getStrokeStyle(PageItem *item)
 			break;
 	}
 	stroke += " stroke-dasharray:";
-	if (item->DashValues.count() != 0)
+	if (!item->DashValues.isEmpty())
 	{
-		for (auto it = item->DashValues.cbegin(); it != item->DashValues.cend(); ++it )
-		{
-			stroke += IToStr(static_cast<int>(*it)) + " ";
-		}
+		for (auto dashValue : item->DashValues)
+			stroke += IToStr(static_cast<int>(dashValue)) + " ";
 		stroke += "; stroke-dashoffset:" + IToStr(static_cast<int>(item->DashOffset)) + ";";
 	}
 	else
@@ -2183,11 +2188,11 @@ QString SVGExPlug::getStrokeStyle(PageItem *item)
 			stroke += "none;";
 		else
 		{
-			QString Da = getDashString(item->PLineArt, item->lineWidth());
-			if (Da.isEmpty())
+			QString ds = getDashString(item->PLineArt, item->lineWidth());
+			if (ds.isEmpty())
 				stroke += "none;";
 			else
-				stroke += Da.replace(" ", ", ") + ";";
+				stroke += ds.replace(" ", ", ") + ";";
 		}
 	}
 	if ((!item->strokePattern().isEmpty()) && (!item->patternStrokePath))
@@ -2245,7 +2250,7 @@ QString SVGExPlug::getStrokeStyle(PageItem *item)
 		for (int cst = 0; cst < item->stroke_gradient.stops(); ++cst)
 		{
 			actualStop = cstops.at(cst)->rampPoint;
-			if ((actualStop != lastStop) || (isFirst))
+			if ((actualStop != lastStop) || isFirst)
 			{
 				QDomElement itcl = m_domDoc.createElement("stop");
 				itcl.setAttribute("offset", FToStr(cstops.at(cst)->rampPoint*100) + "%");
@@ -2303,7 +2308,7 @@ QString SVGExPlug::getStrokeStyle(PageItem *item)
 	return stroke;
 }
 
-QDomElement SVGExPlug::createClipPathElement(FPointArray *ite, QDomElement* pathElem)
+QDomElement SVGExPlug::createClipPathElement(const FPointArray& ite, QDomElement* pathElem)
 {
 	QString clipPathStr = setClipPath(ite, true);
 	if (clipPathStr.isEmpty())
@@ -2320,27 +2325,27 @@ QDomElement SVGExPlug::createClipPathElement(FPointArray *ite, QDomElement* path
 	return clipPathElem;
 }
 
-QString SVGExPlug::setClipPath(FPointArray *ite, bool closed)
+QString SVGExPlug::setClipPath(const FPointArray& ite, bool closed) const
 {
 	QString tmp;
 	FPoint np, np1, np2, np3, np4, firstP;
 	bool nPath = true;
 	bool first = true;
 
-	if (ite->size() <= 3)
+	if (ite.size() <= 3)
 		return tmp;
 
-	for (int poi=0; poi<ite->size()-3; poi += 4)
+	for (int poi = 0; poi < ite.size() - 3; poi += 4)
 	{
-		if (ite->isMarker(poi))
+		if (ite.isMarker(poi))
 		{
 			nPath = true;
 			continue;
 		}
 		if (nPath)
 		{
-			np = ite->point(poi);
-			if ((!first) && (closed) && (np4 == firstP))
+			np = ite.point(poi);
+			if (!first && closed && (np4 == firstP))
 				tmp += "Z ";
 			tmp += QString("M%1 %2 ").arg(np.x()).arg(np.y());
 			nPath = false;
@@ -2348,10 +2353,10 @@ QString SVGExPlug::setClipPath(FPointArray *ite, bool closed)
 			firstP = np;
 			np4 = np;
 		}
-		np = ite->point(poi);
-		np1 = ite->point(poi+1);
-		np2 = ite->point(poi+3);
-		np3 = ite->point(poi+2);
+		np = ite.point(poi);
+		np1 = ite.point(poi + 1);
+		np2 = ite.point(poi + 3);
+		np3 = ite.point(poi + 2);
 		if ((np == np1) && (np2 == np3))
 			tmp += QString("L%1 %2 ").arg(np3.x()).arg(np3.y());
 		else
@@ -2363,41 +2368,41 @@ QString SVGExPlug::setClipPath(FPointArray *ite, bool closed)
 	return tmp;
 }
 
-QString SVGExPlug::FToStr(double c)
+QString SVGExPlug::FToStr(double c) const
 {
 	QString cc;
 	return cc.setNum(c);
 }
 
-QString SVGExPlug::IToStr(int c)
+QString SVGExPlug::IToStr(int c) const
 {
 	QString cc;
 	return cc.setNum(c);
 }
 
-QString SVGExPlug::matrixToStr(QTransform &mat)
+QString SVGExPlug::matrixToStr(const QTransform &mat) const
 {
 	QString cc("matrix(%1 %2 %3 %4 %5 %6)");
 	return  cc.arg(mat.m11()).arg(mat.m12()).arg(mat.m21()).arg(mat.m22()).arg(mat.dx()).arg(mat.dy());
 }
 
-QString SVGExPlug::setColor(const QString& farbe, int shad)
+QString SVGExPlug::setColor(const QString& colorName, double shad)
 {
-	if (farbe == CommonStrings::None)
+	if (colorName == CommonStrings::None)
 		return "#FFFFFF";
-	const ScColor& col = m_Doc->PageColors[farbe];
+	const ScColor& col = m_Doc->PageColors[colorName];
 	return ScColorEngine::getShadeColorProof(col, m_Doc, shad).name();
 }
 
-QString SVGExPlug::getMultiStroke(struct SingleLine *sl, PageItem *item)
+QString SVGExPlug::getMultiStroke(const SingleLine& sl, const PageItem *item)
 {
 	QString tmp = "fill:none; ";
-	tmp += "stroke:" + setColor(sl->Color, sl->Shade) + "; ";
+	tmp += "stroke:" + setColor(sl.Color, sl.Shade) + "; ";
 	if (item->fillTransparency() != 0)
 		tmp += QString(" stroke-opacity:%1; ").arg(1.0 - item->fillTransparency());
-	tmp += QString("stroke-width:%1; ").arg(sl->Width);
+	tmp += QString("stroke-width:%1; ").arg(sl.Width);
 	tmp += "stroke-linecap:";
-	switch (static_cast<Qt::PenCapStyle>(sl->LineEnd))
+	switch (static_cast<Qt::PenCapStyle>(sl.LineEnd))
 	{
 		case Qt::FlatCap:
 			tmp += "butt;";
@@ -2413,7 +2418,7 @@ QString SVGExPlug::getMultiStroke(struct SingleLine *sl, PageItem *item)
 			break;
 	}
 	tmp += " stroke-linejoin:";
-	switch (static_cast<Qt::PenJoinStyle>(sl->LineJoin))
+	switch (static_cast<Qt::PenJoinStyle>(sl.LineJoin))
 	{
 		case Qt::MiterJoin:
 			tmp += "miter;";
@@ -2429,19 +2434,15 @@ QString SVGExPlug::getMultiStroke(struct SingleLine *sl, PageItem *item)
 			break;
 	}
 	tmp += " stroke-dasharray:";
-	if (static_cast<Qt::PenStyle>(sl->Dash) == Qt::SolidLine)
+	if (static_cast<Qt::PenStyle>(sl.Dash) == Qt::SolidLine)
 		tmp += "none;";
 	else
 	{
-		QString Da = getDashString(sl->Dash, sl->Width);
-		if (Da.isEmpty())
+		QString ds = getDashString(sl.Dash, sl.Width);
+		if (ds.isEmpty())
 			tmp += "none;";
 		else
-			tmp += Da.replace(" ", ", ") + ";";
+			tmp += ds.replace(" ", ", ") + ";";
 	}
 	return tmp;
-}
-
-SVGExPlug::~SVGExPlug()
-{
 }
