@@ -3873,7 +3873,7 @@ QString SlaOutputDev::getAnnotationColor(const AnnotColor *color)
 		double Gc = color_data[1];
 		double Bc = color_data[2];
 		tmp.setRgbColorF(Rc, Gc, Bc);
-		fNam = m_doc->PageColors.tryAddColor(namPrefix+tmp.name(), tmp);
+		fNam = m_doc->PageColors.tryAddColor(namPrefix + tmp.name(), tmp);
 	}
 	else if (color->getSpace() == AnnotColor::colorCMYK)
 	{
@@ -3887,7 +3887,7 @@ QString SlaOutputDev::getAnnotationColor(const AnnotColor *color)
 		double Yc = color_data[2];
 		double Kc = color_data[3];
 		tmp.setCmykColorF(Cc, Mc, Yc, Kc);
-		fNam = m_doc->PageColors.tryAddColor(namPrefix+tmp.name(), tmp);
+		fNam = m_doc->PageColors.tryAddColor(namPrefix + tmp.name(), tmp);
 	}
 	else if (color->getSpace() == AnnotColor::colorGray)
 	{
@@ -3898,9 +3898,9 @@ QString SlaOutputDev::getAnnotationColor(const AnnotColor *color)
 #endif
 		double Kc = 1.0 - color_data[0];
 		tmp.setCmykColorF(0, 0, 0, Kc);
-		fNam = m_doc->PageColors.tryAddColor(namPrefix+tmp.name(), tmp);
+		fNam = m_doc->PageColors.tryAddColor(namPrefix + tmp.name(), tmp);
 	}
-	if (fNam == namPrefix+tmp.name())
+	if (fNam == namPrefix + tmp.name())
 		m_importedColors->append(fNam);
 	return fNam;
 }
@@ -4223,7 +4223,6 @@ bool SlaOutputDev::checkClip()
 
 void SlaOutputDev::setItemFillAndStroke(GfxState* state, PageItem* textNode)
 {
-
 	textNode->ClipEdited = true;
 	textNode->FrameType = 3;
 	textNode->setLineEnd(m_lineEnd);
