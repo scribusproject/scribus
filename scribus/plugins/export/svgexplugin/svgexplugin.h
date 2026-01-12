@@ -35,7 +35,7 @@ class PLUGIN_API SVGExportPlugin : public ScActionPlugin
 public:
 	// Standard plugin implementation
 	SVGExportPlugin();
-	virtual ~SVGExportPlugin();
+
 	/*!
 	\author Franz Schmid
 	\brief Run the SVG export
@@ -67,10 +67,9 @@ public:
 	\brief Create the SVG exporter window
 	\param fName QString file name
 	 */
-	SVGExPlug( ScribusDoc* doc );
-	~SVGExPlug();
+	SVGExPlug(ScribusDoc* doc);
 
-	bool doExport( const QString& fName, SVGOptions &Opts );
+	bool doExport(const QString& fName, const SVGOptions& Opts);
 	SVGOptions Options;
 
 private:
@@ -92,23 +91,23 @@ private:
 	\brief Process a page to export to SVG format
 	\param Seite Page *
 	*/
-	void processPageLayer(ScPage *page, ScLayer& layer);
+	void processPageLayer(ScPage *page, const ScLayer& layer);
 	void processItemOnPage(double xOffset, double yOffset, PageItem *Item, QDomElement *parentElem);
 	void paintBorder(const TableBorder& border, const QPointF& start, const QPointF& end, const QPointF& startOffsetFactors, const QPointF& endOffsetFactors, QDomElement &ob);
-	QString processDropShadow(PageItem *Item);
-	QDomElement processHatchFill(PageItem *Item, const QString& transl = "");
-	QDomElement processSymbolStroke(PageItem *Item, const QString& trans);
-	QDomElement processSymbolItem(PageItem *Item, const QString& trans);
-	QDomElement processPolyItem(PageItem *Item, const QString& trans, const QString& fill, const QString& stroke);
-	QDomElement processLineItem(PageItem *Item, const QString& trans, const QString& stroke);
-	QDomElement processImageItem(PageItem *Item, const QString& trans, const QString& fill, const QString& stroke);
-	QDomElement processTextItem(PageItem *Item, const QString& trans, const QString& fill, const QString& stroke);
+	QString processDropShadow(const PageItem *Item);
+	QDomElement processHatchFill(const PageItem *Item, const QString& transl = "");
+	QDomElement processSymbolStroke(const PageItem *Item, const QString& trans);
+	QDomElement processSymbolItem(const PageItem *Item, const QString& trans);
+	QDomElement processPolyItem(const PageItem *Item, const QString& trans, const QString& fill, const QString& stroke);
+	QDomElement processLineItem(const PageItem *Item, const QString& trans, const QString& stroke);
+	QDomElement processImageItem(const PageItem *Item, const QString& trans, const QString& fill, const QString& stroke);
+	QDomElement processTextItem(const PageItem *Item, const QString& trans, const QString& fill, const QString& stroke);
 	QDomElement processInlineItem(PageItem* embItem, const QString& trans, double scaleH, double scaleV);
 	QString handleGlyph(uint gid, const ScFace& font);
-	QDomElement processArrows(PageItem *Item, const QDomElement& line, const QString& trans);
-	QString handleMask(PageItem *Item, double xOffset, double yOffset);
+	QDomElement processArrows(const PageItem *Item, const QDomElement& line, const QString& trans);
+	QString handleMask(const PageItem *Item, double xOffset, double yOffset);
 	QString getFillStyle(PageItem *Item);
-	QString getStrokeStyle(PageItem *Item);
+	QString getStrokeStyle(const PageItem *Item);
 	void writeBasePatterns();
 	void writeBaseSymbols();
 	/*!
@@ -116,22 +115,22 @@ private:
 	\param ite PageItem *
 	\retval QString Clipping Path
 	*/
-	QString setClipPath(FPointArray *ite, bool closed);
-	QDomElement createClipPathElement(FPointArray *ite, QDomElement* pathElem = nullptr);
+	QString setClipPath(const FPointArray& ite, bool closed) const;
+	QDomElement createClipPathElement(const FPointArray& ite, QDomElement* pathElem = nullptr);
 	/*!
 	\author Franz Schmid
 	\brief Converts double to string
 	\param c double
 	\retval QString
 		*/
-	QString FToStr(double c);
+	QString FToStr(double c) const;
 	/*!
 	\author Franz Schmid
 	\brief Converts integer to QString
 	\param c int
 	\retval QString representation of value
 	*/
-	QString IToStr(int c);
+	QString IToStr(int c) const;
 	/*!
 	\author Franz Schmid
 	\param farbe QString color
@@ -139,15 +138,15 @@ private:
 	\param plug ScribusMainWindow *
 	\retval QString Colour settings
 	*/
-	QString matrixToStr(QTransform &mat);
-	QString setColor(const QString& farbe, int shad);
+	QString matrixToStr(const QTransform &mat) const;
+	QString setColor(const QString& colorName, double shad);
 	/*!
 	\author Franz Schmid
 	\param sl struct SingleLine *
 	\param Item PageItem *
 	\retval QString Stroke settings
 	*/
-	QString getMultiStroke(struct SingleLine *sl, PageItem *Item);
+	QString getMultiStroke(const SingleLine& sl, const PageItem *Item);
 };
 
 #endif
