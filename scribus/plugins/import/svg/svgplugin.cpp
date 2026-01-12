@@ -58,7 +58,7 @@ int svgimplugin_getPluginAPIVersion()
 
 ScPlugin* svgimplugin_getPlugin()
 {
-	SVGImportPlugin* plug = new SVGImportPlugin();
+	auto* plug = new SVGImportPlugin();
 	Q_CHECK_PTR(plug);
 	return plug;
 }
@@ -100,7 +100,7 @@ QString SVGImportPlugin::fullTrName() const
 
 const ScActionPlugin::AboutData* SVGImportPlugin::getAboutData() const
 {
-	AboutData* about = new AboutData;
+	auto* about = new AboutData;
 	about->authors = "Franz Schmid <franz@scribus.info>";
 	about->shortDescription = tr("Imports SVG Files");
 	about->description = tr("Imports most SVG files into the current document, converting their vector data into Scribus objects.");
@@ -146,26 +146,26 @@ bool SVGImportPlugin::importFile(QString filename, int flags)
 {
 	if (!checkFlags(flags))
 		return false;
+
 	m_Doc = ScCore->primaryMainWindow()->doc;
 	ScribusMainWindow* mw = (m_Doc == nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
+
 	if (filename.isEmpty())
 	{
 		flags |= lfInteractive;
 		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("SVGPlugin");
 		QString wdir = prefs->get("wdir", ".");
 		CustomFDialog diaf(mw, wdir, QObject::tr("Open"), FormatsManager::instance()->fileDialogFormatList(FormatsManager::SVG));
-		if (diaf.exec())
-		{
-			filename = diaf.selectedFile();
-			prefs->set("wdir", filename.left(filename.lastIndexOf("/")));
-		}
-		else
+		if (diaf.exec() != QDialog::Accepted)
 			return true;
+		filename = diaf.selectedFile();
+		prefs->set("wdir", filename.left(filename.lastIndexOf("/")));
 	}
 	
 	UndoTransaction activeTransaction;
 	bool emptyDoc = (m_Doc == nullptr);
 	bool hasCurrentPage = (m_Doc && m_Doc->currentPage());
+
 	TransactionSettings trSettings;
 	trSettings.targetName   = hasCurrentPage ? m_Doc->currentPage()->getUName() : "";
 	trSettings.targetPixmap = Um::IImageFrame;
@@ -176,26 +176,27 @@ bool SVGImportPlugin::importFile(QString filename, int flags)
 		UndoManager::instance()->setUndoEnabled(false);
 	if (UndoManager::undoEnabled())
 		activeTransaction = UndoManager::instance()->beginTransaction(trSettings);
-	SVGPlug *dia = new SVGPlug(m_Doc, flags);
-	Q_CHECK_PTR(dia);
-	dia->importFile(filename, trSettings, flags);
+
+	auto pPlug = std::make_unique<SVGPlug>(m_Doc, flags);
+	Q_CHECK_PTR(pPlug);
+	pPlug->importFile(filename, trSettings, flags);
+
 	if (activeTransaction)
 		activeTransaction.commit();
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(true);
-	if (dia->importCanceled)
+
+	if (pPlug->importCanceled)
 	{
-		if (dia->importFailed)
+		if (pPlug->importFailed)
 		{
 			ScMessageBox::warning(mw, CommonStrings::trWarning, tr("The file could not be imported"));
 			DocumentLogManager::instance().addLog(m_Doc->uuidString(), DocumentLogLevel::Error, "SVG Importer", DocumentLogManager::msgFileImportFailed(filename));
-
 		}
-	//	else if (dia->unsupported)
+	//	else if (pPlug->unsupported)
 	//		ScMessageBox::warning(mw, CommonStrings::trWarning, tr("SVG file contains some unsupported features"));
 	}
 
-	delete dia;
 	return true;
 }
 
@@ -203,13 +204,14 @@ QImage SVGImportPlugin::readThumbnail(const QString& fileName)
 {
 	if (fileName.isEmpty())
 		return QImage();
+
 	UndoManager::instance()->setUndoEnabled(false);
 	m_Doc = nullptr;
-	SVGPlug *dia = new SVGPlug(m_Doc, lfCreateThumbnail);
-	Q_CHECK_PTR(dia);
-	QImage ret = dia->readThumbnail(fileName);
+	auto pPlug = std::make_unique<SVGPlug>(m_Doc, lfCreateThumbnail);
+	Q_CHECK_PTR(pPlug);
+	QImage ret = pPlug->readThumbnail(fileName);
 	UndoManager::instance()->setUndoEnabled(true);
-	delete dia;
+
 	return ret;
 }
 
@@ -224,7 +226,6 @@ SVGPlug::SVGPlug(ScribusDoc* doc, int flags)
 	importedPatterns.clear();
 
 	interactive = (flags & LoadSavePlugin::lfInteractive);
-	//	m_gc.setAutoDelete(true);
 }
 
 SVGPlug::~SVGPlug()
@@ -239,7 +240,7 @@ QImage SVGPlug::readThumbnail(const QString& fName)
 	QString CurDirP = QDir::currentPath();
 	QFileInfo efp(fName);
 	QDir::setCurrent(efp.path());
-	SvgStyle *gc = new SvgStyle;
+	auto *gc = new SvgStyle;
 	QDomElement docElem = inpdoc.documentElement();
 	QSizeF wh = parseWidthHeight(docElem);
 	m_Doc = new ScribusDoc();
@@ -285,12 +286,12 @@ QImage SVGPlug::readThumbnail(const QString& fName)
 
 	tmpSel->clear();
 	QImage tmpImage;
-	if (Elements.count() > 0)
+	if (!Elements.isEmpty())
 	{
 		m_Doc->groupObjectsList(Elements);
 		m_Doc->DoDrawing = true;
 		m_Doc->m_Selection->delaySignalsOn();
-		for (int dre=0; dre<Elements.count(); ++dre)
+		for (int dre = 0; dre < Elements.count(); ++dre)
 		{
 			tmpSel->addItem(Elements.at(dre), true);
 		}
@@ -305,6 +306,7 @@ QImage SVGPlug::readThumbnail(const QString& fName)
 	m_Doc->scMW()->setScriptRunning(false);
 	m_Doc->setLoading(false);
 	delete m_Doc;
+	m_Doc = nullptr;
 	QDir::setCurrent(CurDirP);
 	return tmpImage;
 }
@@ -415,7 +417,7 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
 	{
 		m_Doc->setPage(width, height, 0, 0, 0, 0, 0, 0, false, false);
-		if (m_Doc->Pages->count() == 0)
+		if (m_Doc->Pages->isEmpty())
 		{
 			m_Doc->addPage(0);
 			m_Doc->view()->addPage(0);
@@ -447,7 +449,7 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 	m_Doc->scMW()->setScriptRunning(true);
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 
-	SvgStyle *gc = new SvgStyle;
+	auto *gc = new SvgStyle;
 	gc->FontFamily = m_Doc->itemToolPrefs().textFont;
 	if (!m_Doc->PageColors.contains("Black"))
 		m_Doc->PageColors.insert("Black", ScColor(0, 0, 0, 255));
@@ -488,7 +490,7 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 		m_Doc->documentInfo().setComments(docDesc);
 	}
 	tmpSel->clear();
-	if (Elements.count() == 0)
+	if (Elements.isEmpty())
 	{
 		importFailed = true;
 		if ((importedColors.count() != 0) && ((flags & LoadSavePlugin::lfKeepGradients) || (flags & LoadSavePlugin::lfKeepColors) || (flags & LoadSavePlugin::lfKeepPatterns)))
@@ -497,26 +499,20 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 			importFailed = false;
 		if ((importedPatterns.count() != 0) && (flags & LoadSavePlugin::lfKeepPatterns))
 			importFailed = false;
-		if ((importedColors.count() != 0) && (!((flags & LoadSavePlugin::lfKeepGradients) || (flags & LoadSavePlugin::lfKeepColors) || (flags & LoadSavePlugin::lfKeepPatterns))))
+		if (!importedColors.isEmpty() && !((flags & LoadSavePlugin::lfKeepGradients) || (flags & LoadSavePlugin::lfKeepColors) || (flags & LoadSavePlugin::lfKeepPatterns)))
 		{
-			for (int cd = 0; cd < importedColors.count(); cd++)
-			{
-				m_Doc->PageColors.remove(importedColors[cd]);
-			}
+			for (const auto& importedColor : importedColors)
+				m_Doc->PageColors.remove(importedColor);
 		}
-		if ((importedGradients.count() != 0) && (!((flags & LoadSavePlugin::lfKeepGradients || (flags & LoadSavePlugin::lfKeepPatterns)))))
+		if (!importedGradients.isEmpty() && !((flags & LoadSavePlugin::lfKeepGradients) || (flags & LoadSavePlugin::lfKeepPatterns)))
 		{
-			for (int cd = 0; cd < importedGradients.count(); cd++)
-			{
-				m_Doc->docGradients.remove(importedGradients[cd]);
-			}
+			for (const auto& importedGradient : importedGradients)
+				m_Doc->docGradients.remove(importedGradient);
 		}
-		if ((importedPatterns.count() != 0) && (!(flags & LoadSavePlugin::lfKeepPatterns)))
+		if (!importedPatterns.isEmpty() && !(flags & LoadSavePlugin::lfKeepPatterns))
 		{
-			for (int cd = 0; cd < importedPatterns.count(); cd++)
-			{
-				m_Doc->docPatterns.remove(importedPatterns[cd]);
-			}
+			for (const auto& importedPattern : importedPatterns)
+				m_Doc->docPatterns.remove(importedPattern);
 		}
 	}
 	if ((Elements.count() > 1) && (!(flags & LoadSavePlugin::lfCreateDoc)))
@@ -528,7 +524,7 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 	if (interactive)
 		m_Doc->setLoading(false);
 	QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
-	if ((Elements.count() > 0) && (!ret) && (interactive))
+	if (!Elements.isEmpty() && !ret && interactive)
 	{
 		if (flags & LoadSavePlugin::lfScripted)
 		{
@@ -539,7 +535,7 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 			if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 			{
 				m_Doc->m_Selection->delaySignalsOn();
-				for (int dre=0; dre<Elements.count(); ++dre)
+				for (int dre = 0; dre < Elements.count(); ++dre)
 				{
 					m_Doc->m_Selection->addItem(Elements.at(dre), true);
 				}
@@ -556,7 +552,7 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 			m_Doc->DraggedElem = nullptr;
 			m_Doc->DragElements.clear();
 			m_Doc->m_Selection->delaySignalsOn();
-			for (int dre=0; dre<Elements.count(); ++dre)
+			for (int dre = 0; dre < Elements.count(); ++dre)
 			{
 				tmpSel->addItem(Elements.at(dre), true);
 			}
@@ -564,31 +560,25 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 			ScElemMimeData* md = ScriXmlDoc::writeToMimeData(m_Doc, tmpSel);
 			m_Doc->itemSelection_DeleteItem(tmpSel);
 			m_Doc->view()->updatesOn(true);
-			if ((importedColors.count() != 0) && (!((flags & LoadSavePlugin::lfKeepGradients) || (flags & LoadSavePlugin::lfKeepColors) || (flags & LoadSavePlugin::lfKeepPatterns))))
+			if (!importedColors.isEmpty() && (!((flags & LoadSavePlugin::lfKeepGradients) || (flags & LoadSavePlugin::lfKeepColors) || (flags & LoadSavePlugin::lfKeepPatterns))))
 			{
-				for (int cd = 0; cd < importedColors.count(); cd++)
-				{
-					m_Doc->PageColors.remove(importedColors[cd]);
-				}
+				for (const auto& importedColor : importedColors)
+					m_Doc->PageColors.remove(importedColor);
 			}
-			if ((importedGradients.count() != 0) && (!((flags & LoadSavePlugin::lfKeepGradients) || (flags & LoadSavePlugin::lfKeepPatterns))))
+			if (!importedGradients.isEmpty() && (!((flags & LoadSavePlugin::lfKeepGradients) || (flags & LoadSavePlugin::lfKeepPatterns))))
 			{
-				for (int cd = 0; cd < importedGradients.count(); cd++)
-				{
-					m_Doc->docGradients.remove(importedGradients[cd]);
-				}
+				for (const auto& importedGradient : importedGradients)
+					m_Doc->docGradients.remove(importedGradient);
 			}
-			if ((importedPatterns.count() != 0) && (!(flags & LoadSavePlugin::lfKeepPatterns)))
+			if (!importedPatterns.isEmpty() && (!(flags & LoadSavePlugin::lfKeepPatterns)))
 			{
-				for (int cd = 0; cd < importedPatterns.count(); cd++)
-				{
-					m_Doc->docPatterns.remove(importedPatterns[cd]);
-				}
+				for (const auto& importedPattern: importedPatterns)
+					m_Doc->docPatterns.remove(importedPattern);
 			}
 			m_Doc->m_Selection->delaySignalsOff();
 			// We must copy the TransationSettings object as it is owned
 			// by handleObjectImport method afterwards
-			TransactionSettings* transacSettings = new TransactionSettings(trSettings);
+			auto* transacSettings = new TransactionSettings(trSettings);
 			m_Doc->view()->handleObjectImport(md, transacSettings);
 			m_Doc->DragP = false;
 			m_Doc->DraggedElem = nullptr;
@@ -615,7 +605,7 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 
 void SVGPlug::addGraphicContext()
 {
-	SvgStyle *gc = new SvgStyle;
+	auto *gc = new SvgStyle;
 	if (m_gc.top())
 	{
 		*gc = *(m_gc.top());
@@ -987,7 +977,7 @@ bool SVGPlug::isIgnorableNodeName(const QString &n) const
 	return n.startsWith("sodipodi") || n.startsWith("inkscape") || n == "metadata";
 }
 
-FPoint SVGPlug::parseTextPosition(const QDomElement &e, const FPoint* pos)
+FPoint SVGPlug::parseTextPosition(const QDomElement &e, const FPoint* pos) const
 {
 	// FIXME According to spec, we should in fact return a point list
 	double  x = pos ? pos->x() : 0.0;
@@ -1175,7 +1165,7 @@ void SVGPlug::parseClipPathAttr(const QDomElement &e, FPointArray& clipPath) con
 			QString params(substyle[1].trimmed());
 			if (command == "clip-path")
 			{
-				if (params.startsWith( "url("))
+				if (params.startsWith("url("))
 				{
 					unsigned int start = params.indexOf("#") + 1;
 					unsigned int end = params.lastIndexOf(")");
@@ -1190,10 +1180,10 @@ void SVGPlug::parseClipPathAttr(const QDomElement &e, FPointArray& clipPath) con
 	if (e.hasAttribute("clip-path"))
 	{
 		QString attr = e.attribute("clip-path");
-		if (attr.startsWith( "url("))
+		if (attr.startsWith("url("))
 		{
-			unsigned int start = attr.indexOf("#") + 1;
-			unsigned int end = attr.lastIndexOf(")");
+			qsizetype start = attr.indexOf("#") + 1;
+			qsizetype end = attr.lastIndexOf(")");
 			QString key = attr.mid(start, end - start);
 			auto it = m_clipPaths.find(key);
 			if (it != m_clipPaths.end())
@@ -1208,10 +1198,10 @@ void SVGPlug::parseFilterAttr(const QDomElement &e, PageItem* item) const
 		return;
 	QString filterName;
 	QString attr = e.attribute("filter");
-	if (attr.startsWith( "url("))
+	if (attr.startsWith("url("))
 	{
-		unsigned int start = attr.indexOf("#") + 1;
-		unsigned int end = attr.lastIndexOf(")");
+		qsizetype start = attr.indexOf("#") + 1;
+		qsizetype end = attr.lastIndexOf(")");
 		filterName = attr.mid(start, end - start);
 		if (filterName.isEmpty())
 			return;
@@ -1247,7 +1237,8 @@ QList<PageItem*> SVGPlug::parseA(const QDomElement &e)
 QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 {
 	FPointArray clipPath;
-	QList<PageItem*> GElements, gElements;
+	QList<PageItem*> GElements;
+	QList<PageItem*> gElements;
 
 	if ((importerFlags & LoadSavePlugin::lfCreateDoc) && (e.hasAttribute("inkscape:groupmode")) && (e.attribute("inkscape:groupmode") == "layer"))
 	{
@@ -1310,7 +1301,7 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 	}
 	parseFilterAttr(e, neu);
 
-	if (gElements.count() == 0 || (gElements.count() < 2 && (clipPath.empty()) && (gc->Opacity == 1.0)))
+	if (gElements.isEmpty() || (gElements.count() < 2 && (clipPath.empty()) && (gc->Opacity == 1.0)))
 	{
 		// Unfortunately we have to take the long route here, or we risk crash on undo/redo
 		// FIXME : create group object after parsing grouped objects
@@ -1430,7 +1421,7 @@ QList<PageItem*> SVGPlug::parseElement(const QDomElement &e)
 	QString STag = parseTagName(e);
 	if (STag.startsWith("svg:"))
 		STag = STag.mid(4, - 1);
-	if (STag == "g" )
+	if (STag == "g")
 	{
 		GElements = parseGroup(e);
 		return GElements;
@@ -1650,7 +1641,7 @@ QList<PageItem*> SVGPlug::parseImage(const QDomElement &e)
 		else
 		{
 			//hrefData is embedded
-			int startData = hrefData.indexOf(",");
+			qsizetype startData = hrefData.indexOf(",");
 			QString dataType = hrefData.left(startData);
 			hrefData.remove(0, startData + 1);
 			QByteArray ba;
@@ -1778,7 +1769,7 @@ QList<PageItem*> SVGPlug::parsePolyline(const QDomElement &e)
 		QString STag = parseTagName(e);
 		points = points.simplified().replace(',', " ");
 		QStringList pointList = points.split(' ', Qt::SkipEmptyParts);
-		if ((STag == "polygon" ) && (pointList.count() > 4))
+		if ((STag == "polygon") && (pointList.count() > 4))
 			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
 		else
 			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
@@ -1789,7 +1780,7 @@ QList<PageItem*> SVGPlug::parsePolyline(const QDomElement &e)
 		bool bFirst = true;
 		double x = 0.0;
 		double y = 0.0;
-		for (QStringList::Iterator it = pointList.begin(); it != pointList.end(); it++)
+		for (auto it = pointList.begin(); it != pointList.end(); it++)
 		{
 			x = ScCLocale::toDoubleC(*(it++));
 			y = ScCLocale::toDoubleC(*it);
@@ -2011,7 +2002,7 @@ QList<PageItem*> SVGPlug::parseSwitch(const QDomElement &e)
 			if (de.hasAttribute("id") && hrefs.contains(de.attribute("id")))
 				continue;
 			SElements = parseElement(de);
-			if (SElements.count() > 0)
+			if (!SElements.isEmpty())
 				break;
 		}
 	}
@@ -2228,7 +2219,7 @@ bool SVGPlug::getTextChunkWidth(const QDomElement &e, double& width)
 		{
 			QDomText text = n.toText();
 			QString  textString = text.data().simplified();
-			if (textString.length() > 0)
+			if (!textString.isEmpty())
 			{
 				const SvgStyle *gc   = m_gc.top();
 				QFont textFont = getFontFromStyle(*gc);
@@ -2279,13 +2270,13 @@ double SVGPlug::parseUnit(const QString &unit) const
 	if (unit.right(2) == "pt")
 		unitval.replace("pt", "");
 	else if (unit.right(2) == "cm")
-		unitval.replace("cm", "" );
+		unitval.replace("cm", "");
 	else if (unit.right(2) == "mm")
 		unitval.replace("mm" , "");
 	else if (unit.right(2) == "in")
-		unitval.replace("in", "" );
+		unitval.replace("in", "");
 	else if (unit.right(2) == "px")
-		unitval.replace("px", "" );
+		unitval.replace("px", "");
 	if (unitval == unit)
 		noUnit = true;
 	double value = ScCLocale::toDoubleC(unitval);
@@ -2442,12 +2433,12 @@ QString SVGPlug::parseColor(const QString &s)
 		if (iccColorIndex >= 0)
 		{
 			QString iccColorName = parseIccColor(str);
-			if (iccColorName.length() > 0)
+			if (!iccColorName.isEmpty())
 				return iccColorName;
 		}
 	}
 	
-	if (str.startsWith( "rgb(" ) )
+	if (str.startsWith("rgb("))
 	{
 		QStringList colors = str.split(',', Qt::SkipEmptyParts);
 		QString r = colors[0].right(colors[0].length() - 4);
@@ -2492,8 +2483,8 @@ QString SVGPlug::parseIccColor(const QString &s)
 	int iccColorIndex  = s.indexOf("icc-color");
 	if (iccColorIndex < 0)
 		return ret;
-	int iccFirst = s.indexOf("(", iccColorIndex);
-	int iccLast  = s.indexOf(")", iccColorIndex);
+	qsizetype iccFirst = s.indexOf("(", iccColorIndex);
+	qsizetype iccLast  = s.indexOf(")", iccColorIndex);
 	if (iccFirst >= 0 && iccLast >= 0)
 	{
 		QString iccColor = s.mid(iccFirst + 1, iccLast - iccFirst - 1);
@@ -2567,10 +2558,10 @@ void SVGPlug::parsePA(SvgStyle *obj, const QString &command, const QString &para
 			obj->FillCol = CommonStrings::None;
 			obj->FillGradientType = 0;
 		}
-		else if (params.startsWith( "url(" ))
+		else if (params.startsWith("url("))
 		{
-			unsigned int start = params.indexOf("#") + 1;
-			unsigned int end = params.lastIndexOf(")");
+			qsizetype start = params.indexOf("#") + 1;
+			qsizetype end = params.lastIndexOf(")");
 			QString key = params.mid(start, end - start);
 			obj->FillGradientType = 0;
 			obj->matrixgf = QTransform();
@@ -2668,7 +2659,7 @@ void SVGPlug::parsePA(SvgStyle *obj, const QString &command, const QString &para
 	{
 		if (params == "none")
 			obj->CurCol = CommonStrings::None;
-		else if (params.startsWith( "url(" ) )
+		else if (params.startsWith("url("))
 			obj->CurCol = CommonStrings::None;
 		else if (params == "currentColor")
 			obj->CurCol = obj->CurCol;
@@ -2685,10 +2676,10 @@ void SVGPlug::parsePA(SvgStyle *obj, const QString &command, const QString &para
 			obj->StrokeCol = CommonStrings::None;
 			obj->StrokeGradientType = 0;
 		}
-		else if (params.startsWith( "url(" ) )
+		else if (params.startsWith("url("))
 		{
-			unsigned int start = params.indexOf("#") + 1;
-			unsigned int end = params.lastIndexOf(")");
+			qsizetype start = params.indexOf("#") + 1;
+			qsizetype end = params.lastIndexOf(")");
 			QString key = params.mid(start, end - start);
 			obj->StrokeGradientType = 0;
 			obj->matrixgs = QTransform();
@@ -2798,7 +2789,7 @@ void SVGPlug::parsePA(SvgStyle *obj, const QString &command, const QString &para
 		else if (params == "square")
 			obj->PLineEnd = Qt::SquareCap;
 	}
-	//	else if (command == "stroke-miterlimit" )
+	//	else if (command == "stroke-miterlimit")
 	//		gc->stroke.setMiterLimit(params.todouble());
 	else if (command == "stroke-dasharray")
 	{
@@ -2807,10 +2798,10 @@ void SVGPlug::parsePA(SvgStyle *obj, const QString &command, const QString &para
 		{
 			QString params2 = params.simplified().replace(',', " ");
 			QStringList dashes = params2.split(' ', Qt::SkipEmptyParts);
-			if ((dashes.count() > 0) && (parseUnit(dashes[0]) != 0.0))
+			if (!dashes.isEmpty() && (parseUnit(dashes[0]) != 0.0))
 			{
-				for (QStringList::Iterator it = dashes.begin(); it != dashes.end(); ++it)
-					array.append(parseUnit(*it));
+				for (const auto& dashStr : dashes)
+					array.append(parseUnit(dashStr));
 			}
 		}
 		obj->dashArray = array;
@@ -2833,10 +2824,10 @@ void SVGPlug::parsePA(SvgStyle *obj, const QString &command, const QString &para
 		obj->textDecoration = params;
 	else if (command == "clip-path")
 	{
-		if (params.startsWith( "url("))
+		if (params.startsWith("url("))
 		{
-			unsigned int start = params.indexOf("#") + 1;
-			unsigned int end = params.lastIndexOf(")");
+			qsizetype start = params.indexOf("#") + 1;
+			qsizetype end = params.lastIndexOf(")");
 			QString key = params.mid(start, end - start);
 			QMap<QString, FPointArray>::iterator it = m_clipPaths.find(key);
 			if (it != m_clipPaths.end())
@@ -2845,28 +2836,28 @@ void SVGPlug::parsePA(SvgStyle *obj, const QString &command, const QString &para
 	}
 	else if (command == "filter")
 	{
-		if (params.startsWith( "url("))
+		if (params.startsWith("url("))
 		{
-			unsigned int start = params.indexOf("#") + 1;
-			unsigned int end = params.lastIndexOf(")");
+			qsizetype start = params.indexOf("#") + 1;
+			qsizetype end = params.lastIndexOf(")");
 			obj->filter = params.mid(start, end - start);
 		}
 	}
 	else if (command == "marker-end")
 	{
-		if (params.startsWith( "url("))
+		if (params.startsWith("url("))
 		{
-			unsigned int start = params.indexOf("#") + 1;
-			unsigned int end = params.lastIndexOf(")");
+			qsizetype start = params.indexOf("#") + 1;
+			qsizetype end = params.lastIndexOf(")");
 			obj->endMarker = params.mid(start, end - start);
 		}
 	}
 	else if (command == "marker-start")
 	{
-		if (params.startsWith( "url("))
+		if (params.startsWith("url("))
 		{
-			unsigned int start = params.indexOf("#") + 1;
-			unsigned int end = params.lastIndexOf(")");
+			qsizetype start = params.indexOf("#") + 1;
+			qsizetype end = params.lastIndexOf(")");
 			obj->startMarker = params.mid(start, end - start);
 		}
 	}
@@ -2996,7 +2987,7 @@ void SVGPlug::parseStyle(SvgStyle *obj, const QDomElement &e)
 		parsePA(obj, "marker-start", e.attribute("marker-start"));
 	QString style = e.attribute("style").simplified();
 	QStringList substyles = style.split(';', Qt::SkipEmptyParts);
-	for (QStringList::Iterator it = substyles.begin(); it != substyles.end(); ++it)
+	for (auto it = substyles.begin(); it != substyles.end(); ++it)
 	{
 		QStringList substyle = it->split(':', Qt::SkipEmptyParts);
 		if (substyle.count() >= 2)
@@ -3119,7 +3110,7 @@ void SVGPlug::parseMarker(const QDomElement &b)
 
 	QList<PageItem*> GElements;
 	GElements = parseGroup(b);
-	if (GElements.count() > 0)
+	if (!GElements.isEmpty())
 	{
 		ScPattern pat(m_Doc);
 		PageItem* currItem = GElements.at(0);
@@ -3177,7 +3168,7 @@ void SVGPlug::parsePattern(const QDomElement &b)
 		double hpat = parseUnit(b.attribute("height", "0"));
 		QList<PageItem*> GElements;
 		GElements = parseGroup(b);
-		if (GElements.count() > 0)
+		if (!GElements.isEmpty())
 		{
 			ScPattern pat(m_Doc);
 			PageItem* currItem = GElements.at(0);
@@ -3227,7 +3218,7 @@ void SVGPlug::parseGradient(const QDomElement &e)
 	gradhelper.gradient.setRepeatMethod(VGradient::none);
 
 	QString href = e.attribute("xlink:href").mid(1);
-	double x1=0, y1=0, x2=0, fx=0, fy=0;
+	double x1 = 0, y1 = 0, x2 = 0, fx = 0, fy = 0;
 	if (!href.isEmpty())
 	{
 		if (m_gradients.contains(href))
