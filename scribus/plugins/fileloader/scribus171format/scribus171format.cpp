@@ -5276,7 +5276,7 @@ bool Scribus171Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 				}
 			}
 		}
-		if ((tName == QLatin1String("PAGEOBJECT") || tName == QLatin1String("PageObject")) || (tName == QLatin1String("ITEM") || tagName == QLatin1String("Item")))
+		if ((tName == QLatin1String("PAGEOBJECT") || tName == QLatin1String("PageObject")) || (tName == QLatin1String("ITEM") || tName == QLatin1String("Item")))
 		{
 			if (newItem->isGroup())
 			{
