@@ -32,7 +32,8 @@ class PLUGIN_API SVGImportPlugin : public LoadSavePlugin
 	public:
 		// Standard plugin implementation
 		SVGImportPlugin();
-		virtual ~SVGImportPlugin();
+		~SVGImportPlugin() override;
+
 		QString fullTrName() const override;
 		const AboutData* getAboutData() const override;
 		void deleteAboutData(const AboutData* about) const override;
@@ -49,12 +50,12 @@ class PLUGIN_API SVGImportPlugin : public LoadSavePlugin
 		\param filename a file name to import
 		\retval true for success
 		 */
-		virtual bool importFile(QString filename = QString(), int flags = lfUseCurrentPage|lfInteractive);
+		bool importFile(QString filename = QString(), int flags = lfUseCurrentPage|lfInteractive);
 
 	private:
 		void registerFormats();
-		ScrAction* importAction;
 
+		ScrAction* importAction { nullptr };
 };
 
 extern "C" PLUGIN_API int svgimplugin_getPluginAPIVersion();
@@ -231,19 +232,19 @@ public:
 	\param isInteractive flag to use GUI
 	 */
 	SVGPlug(ScribusDoc* doc, int flags);
-	~SVGPlug();
+	~SVGPlug() override;
 
 	bool importFile(const QString& fname, const TransactionSettings& trSettings, int flags);
 	QImage readThumbnail(const QString& fn);
 	bool loadData(const QString& fname);
 	void convert(const TransactionSettings& trSettings, int flags);
 	void addGraphicContext();
-	void setupNode( const QDomElement &e );
-	void setupTransform( const QDomElement &e );
-	PageItem* finishNode( const QDomNode &e, PageItem* item);
-	bool isIgnorableNode( const QDomElement &e ) const;
-	bool isIgnorableNodeName( const QString &n ) const;
-	FPoint parseTextPosition(const QDomElement &e, const FPoint* pos = nullptr);
+	void setupNode(const QDomElement &e);
+	void setupTransform(const QDomElement &e);
+	PageItem* finishNode(const QDomNode &e, PageItem* item);
+	bool isIgnorableNode(const QDomElement &e) const;
+	bool isIgnorableNodeName(const QString &n) const;
+	FPoint parseTextPosition(const QDomElement &e, const FPoint* pos = nullptr) const;
 	QSizeF  parseWidthHeight(const QDomElement &e);
 	QRectF  parseViewBox(const QDomElement &e);
 	void parseDefs(const QDomElement &e);
@@ -267,24 +268,24 @@ public:
 	QList<PageItem*> parseSwitch(const QDomElement &e);
 	QList<PageItem*> parseSymbol(const QDomElement &e);
 	QList<PageItem*> parseUse(const QDomElement &e);
-	const char* getCoord( const char *ptr, double &number) const;
+	const char* getCoord(const char *ptr, double &number) const;
 	QFont       getFontFromStyle(const SvgStyle& style) const;
 	QDomElement getReferencedNode(const QDomElement &e) const;
 	bool        getTextChunkWidth(const QDomElement &e, double& width);
-	double  fromPercentage(const QString &s ) const;
+	double  fromPercentage(const QString &s) const;
 	double  parseFontSize(const QString& fsize) const;
 	double  parseUnit(const QString &unit) const;
 	QTransform parseTransform(const QString &transform) const;
-	QString parseColor( const QString &s );
-	QString parseIccColor( const QString &s );
-	QString parseTagName( const QDomElement &e) const;
-	void parsePA( SvgStyle *obj, const QString &command, const QString &params );
-	void parseStyle( SvgStyle *obj, const QDomElement &e );
+	QString parseColor(const QString &s);
+	QString parseIccColor(const QString &s);
+	QString parseTagName(const QDomElement &e) const;
+	void parsePA(SvgStyle *obj, const QString &command, const QString &params);
+	void parseStyle(SvgStyle *obj, const QDomElement &e);
 	void parseColorStops(GradientHelper *gradient, const QDomElement &e);
 	void parseFilter(const QDomElement &b);
 	void parseMarker(const QDomElement &b);
 	void parsePattern(const QDomElement &b);
-	void parseGradient( const QDomElement &e );
+	void parseGradient(const QDomElement &e);
 
 	QMap<QString, QDomElement> buildNodeMap(const QDomElement &e) const;
 
@@ -323,14 +324,14 @@ public:
 	bool firstLayer { true };
 	struct filterSpec
 	{
-		int blendMode;
+		int blendMode { 0 };
 	};
 	struct markerDesc
 	{
-		double xref;
-		double yref;
-		double wpat;
-		double hpat;
+		double xref { 0.0 };
+		double yref { 0.0 };
+		double wpat { 0.0 };
+		double hpat { 0.0 };
 	};
 	QMap<QString, filterSpec> filters;
 	QMap<QString, markerDesc> markers;
