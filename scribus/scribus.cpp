@@ -9439,7 +9439,7 @@ void ScribusMainWindow::slotInsertMarkNote()
 			is->set("type", (int) MARKNoteMasterType);
 			is->set("strtxt", QString());
 			is->set("nStyle", nStyle->name());
-			is->set("at", currItem->itemText.cursorPosition() -1);
+			is->set("at", currItem->itemText.cursorPosition() - 1);
 			is->insertItem("inItem", currItem);
 			m_undoManager->action(doc, is);
 		}
@@ -9674,7 +9674,7 @@ bool ScribusMainWindow::insertMarkDialog(PageItem_TextFrame* currItem, MarkType 
 			if (mrk->isType(MARKNoteMasterType))
 				is->set("nStyle", mrk->getNotePtr()->notesStyle()->name());
 		}
-		is->set("at", currItem->itemText.cursorPosition() -1);
+		is->set("at", currItem->itemText.cursorPosition() - 1);
 		if (currItem->isNoteFrame())
 			is->set("noteframeName", currItem->getUName());
 		else
