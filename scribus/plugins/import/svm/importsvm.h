@@ -14,18 +14,18 @@ for which a new license (GPL+exception) is in place.
 #define IMPORTSVM_H
 
 #include <QList>
-#include <QTransform>
 #include <QMultiMap>
-#include <QtGlobal>
 #include <QObject>
+#include <QRect>
 #include <QStack>
 #include <QString>
-#include <QRect>
+#include <QtGlobal>
+#include <QTransform>
 
-#include "pluginapi.h"
 #include "commonstrings.h"
 #include "fpointarray.h"
 #include "pageitem.h"
+#include "pluginapi.h"
 #include "sccolor.h"
 
 class MultiProgressDialog;
@@ -115,14 +115,14 @@ private:
 	void        parseHeader(const QString& fName, double &x, double &y, double &b, double &h);
 	bool        convert(const QString& fn);
 	// Common functions
-	void        aligntoQuadWord(QDataStream &ds);
-	double      convertLogical2Pts(double in);
-	QPointF     convertLogical2Pts(QPointF in);
-	FPointArray getPolyPolygonPoints(QDataStream &ds, quint16 version);
-	FPointArray getPolyPoints(QDataStream &ds, quint32 count, bool closed);
-	QPointF     getPoint(QDataStream &ds);
+	void        aligntoQuadWord(QDataStream &ds) const;
+	double      convertLogical2Pts(double in) const;
+	QPointF     convertLogical2Pts(const QPointF& in) const;
+	FPointArray getPolyPolygonPoints(QDataStream &ds, quint16 version) const;
+	FPointArray getPolyPoints(QDataStream &ds, quint32 count, bool closed) const;
+	QPointF     getPoint(QDataStream &ds) const;
 	void        getColor(QDataStream &ds, QString &colorN);
-	QPointF     intersectBoundingRect(PageItem *item, QLineF gradientVector);
+	QPointF     intersectBoundingRect(const PageItem *item, const QLineF& gradientVector) const;
 	void        finishItem(PageItem* ite, bool fill = true);
 	void        handleEllipse(QDataStream &ds);
 	void        handleRectangle(QDataStream &ds);
@@ -146,7 +146,7 @@ private:
 	void        handleGradientEX(QDataStream &ds, quint16 version);
 	void        commonGradient(QDataStream &ds, PageItem* ite);
 	QString     handleColor(const QColor& col);
-	void        handleSetClipRegion(QDataStream &ds);
+	void        handleSetClipRegion(QDataStream &ds) const;
 	void        handleComment(QDataStream &ds);
 	// Functions for EMF+ Files
 	void        handleEMFPlus(QDataStream &ds, quint32 dtaSize);
@@ -159,7 +159,7 @@ private:
 	quint32     getImageData(QDataStream &ds, quint16 id, bool first, bool cont, quint32 dataSize, emfStyle &sty);
 	void        handleEMPFont(QDataStream &ds, quint16 id);
 	void        handleEMPSFormat(QDataStream &ds, quint16 id);
-	void        handleEMPLineCap(QDataStream &ds, quint16 id);
+	void        handleEMPLineCap(QDataStream &ds, quint16 id) const;
 	void        handleEMFPFillClosedCurve(QDataStream &ds, quint8 flagsL);
 	void        handleEMFPFillEllipse(QDataStream &ds, quint8 flagsL);
 	void        handleEMFPFillPath(QDataStream &ds, quint8 flagsL, quint8 flagsH);
@@ -188,18 +188,18 @@ private:
 	void        getEMFPPen(quint32 penID);
 	void        getEMFPFont(quint32 fontID);
 	void        getEMFPStringFormat(quint32 fontID);
-	FPointArray getEMPPathData(QDataStream &ds);
-	QPolygonF   getEMFPCurvePoints(QDataStream &ds, quint8 flagsL, quint32 count);
-	QPolygonF   getEMFPRect(QDataStream &ds, bool size);
-	QPointF     getEMFPPoint(QDataStream &ds, bool size);
-	double      getEMFPDistance(QDataStream &ds, bool size);
-	QPointF     convertEMFPLogical2Pts(QPointF in, quint16 unit);
-	double      convertEMFPLogical2Pts(double in, quint16 unit);
-	QPolygonF   gdip_open_curve_tangents(QPolygonF &points, double tension);
-	QPolygonF   gdip_closed_curve_tangents(QPolygonF &points, double tension);
-	void        append_curve(QPainterPath &path, QPolygonF &points, QPolygonF &tangents, bool type);
-	void        GdipAddPathCurve(QPainterPath &path, QPolygonF &points, float tension);
-	void        GdipAddPathClosedCurve(QPainterPath &path, QPolygonF &points, float tension);
+	FPointArray getEMPPathData(QDataStream &ds) const;
+	QPolygonF   getEMFPCurvePoints(QDataStream &ds, quint8 flagsL, quint32 count) const;
+	QPolygonF   getEMFPRect(QDataStream &ds, bool size) const;
+	QPointF     getEMFPPoint(QDataStream &ds, bool size) const;
+	double      getEMFPDistance(QDataStream &ds, bool size) const;
+	QPointF     convertEMFPLogical2Pts(const QPointF& in, quint16 unit) const;
+	double      convertEMFPLogical2Pts(double in, quint16 unit) const;
+	QPolygonF   gdip_open_curve_tangents(QPolygonF &points, double tension) const;
+	QPolygonF   gdip_closed_curve_tangents(QPolygonF &points, double tension) const;
+	void        append_curve(QPainterPath &path, QPolygonF &points, QPolygonF &tangents, bool type) const;
+	void        GdipAddPathCurve(QPainterPath &path, QPolygonF &points, float tension) const;
+	void        GdipAddPathClosedCurve(QPainterPath &path, QPolygonF &points, float tension) const;
 	void        handleEMFPDrawImageData(QPointF p1, QPointF p2, QPointF p3, quint8 flagsH);
 	QImage      getImageDataFromStyle(quint8 flagsH);
 	struct dcState
@@ -291,31 +291,31 @@ private:
 	QString baseFile;
 	struct VersionCompat
 	{
-		quint16  version;
-		quint32  length;
+		quint16  version { 0 };
+		quint32  length { 0 };
 	};
 	struct Fraction
 	{
-		quint32  numerator;
-		quint32  denominator;
+		quint32  numerator { 0 };
+		quint32  denominator { 0 };
 	};
 	struct MapMode
 	{
 		VersionCompat  version;
-		quint16        unit;
+		quint16        unit { 0 };
 		QPoint         origin;
 		Fraction       scaleX;
 		Fraction       scaleY;
-		quint8         isSimple;
+		quint8         isSimple { 0 };
 	};
 	struct SvmHeader
 	{
 		VersionCompat  versionCompat;
-		quint32        compressionMode;
+		quint32        compressionMode { 0 };
 		MapMode        mapMode;
-		quint32        width;
-		quint32        height;
-		quint32        actionCount;
+		quint32        width { 0 };
+		quint32        height { 0 };
+		quint32        actionCount { 0 };
 	};
 	enum ActionType
 	{
@@ -492,6 +492,7 @@ private:
 	quint32 m_currObjSize { 0 };
 	quint16 m_objID { 0 };
 	bool seen_XGRAD_SEQ_BEGIN { false };
+
 public slots:
 	void cancelRequested() { cancel = true; }
 };

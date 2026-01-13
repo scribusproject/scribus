@@ -10,10 +10,12 @@ for which a new license (GPL+exception) is in place.
 	copyright            : (C) 2015 by Franz Schmid
 	email                : Franz.Schmid@altmuehlnet.de
  ***************************************************************************/
-#include "commonstrings.h"
+#include <memory>
 
 #include "importsvm.h"
 #include "importsvmplugin.h"
+
+#include "commonstrings.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
@@ -33,7 +35,7 @@ int importsvm_getPluginAPIVersion()
 
 ScPlugin* importsvm_getPlugin()
 {
-	ImportSvmPlugin* plug = new ImportSvmPlugin();
+	auto* plug = new ImportSvmPlugin();
 	Q_CHECK_PTR(plug);
 	return plug;
 }
@@ -72,10 +74,9 @@ QString ImportSvmPlugin::fullTrName() const
 	return QObject::tr("SVM Importer");
 }
 
-
 const ScActionPlugin::AboutData* ImportSvmPlugin::getAboutData() const
 {
-	AboutData* about = new AboutData;
+	auto* about = new AboutData;
 	about->authors = "Franz Schmid <franz@scribus.info>";
 	about->shortDescription = tr("Imports SVM Files");
 	about->description = tr("Imports most SVM files into the current document, converting their vector data into Scribus objects.");
@@ -126,19 +127,19 @@ bool ImportSvmPlugin::importFile(QString fileName, int flags)
 		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("importsvm");
 		QString wdir = prefs->get("wdir", ".");
 		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), tr("All Supported Formats")+" (*.svm *.SVM);;All Files (*)");
-		if (diaf.exec())
-		{
-			fileName = diaf.selectedFile();
-			prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
-		}
-		else
+		if (diaf.exec() != QDialog::Accepted)
 			return true;
+		fileName = diaf.selectedFile();
+		prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
 	}
+
 	if (m_Doc == nullptr)
 		m_Doc = ScCore->primaryMainWindow()->doc;
-	UndoTransaction* activeTransaction = nullptr;
+
+	UndoTransaction activeTransaction;
 	bool emptyDoc = (m_Doc == nullptr);
 	bool hasCurrentPage = (m_Doc && m_Doc->currentPage());
+
 	TransactionSettings trSettings;
 	trSettings.targetName   = hasCurrentPage ? m_Doc->currentPage()->getUName() : "";
 	trSettings.targetPixmap = Um::IImageFrame;
@@ -148,19 +149,17 @@ bool ImportSvmPlugin::importFile(QString fileName, int flags)
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(false);
 	if (UndoManager::undoEnabled())
-		activeTransaction = new UndoTransaction(UndoManager::instance()->beginTransaction(trSettings));
-	SvmPlug *dia = new SvmPlug(m_Doc, flags);
-	Q_CHECK_PTR(dia);
-	dia->importFile(fileName, trSettings, flags, !(flags & lfScripted));
+		activeTransaction = UndoManager::instance()->beginTransaction(trSettings);
+
+	auto pPlug = std::make_unique<SvmPlug>(m_Doc, flags);
+	Q_CHECK_PTR(pPlug);
+	pPlug->importFile(fileName, trSettings, flags, !(flags & lfScripted));
+
 	if (activeTransaction)
-	{
-		activeTransaction->commit();
-		delete activeTransaction;
-		activeTransaction = nullptr;
-	}
+		activeTransaction.commit();
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(true);
-	delete dia;
+
 	return true;
 }
 
@@ -168,12 +167,13 @@ QImage ImportSvmPlugin::readThumbnail(const QString& fileName)
 {
 	if (fileName.isEmpty())
 		return QImage();
+
 	UndoManager::instance()->setUndoEnabled(false);
 	m_Doc = nullptr;
-	SvmPlug *dia = new SvmPlug(m_Doc, lfCreateThumbnail);
-	Q_CHECK_PTR(dia);
-	QImage ret = dia->readThumbnail(fileName);
+	auto pPlug = std::make_unique<SvmPlug>(m_Doc, lfCreateThumbnail);
+	Q_CHECK_PTR(pPlug);
+	QImage ret = pPlug->readThumbnail(fileName);
 	UndoManager::instance()->setUndoEnabled(true);
-	delete dia;
+
 	return ret;
 }
