@@ -24,7 +24,8 @@ class PLUGIN_API WMFImportPlugin : public LoadSavePlugin
 	public:
 		// Standard plugin implementation
 		WMFImportPlugin();
-		virtual ~WMFImportPlugin();
+		~WMFImportPlugin() override;
+
 		QString fullTrName() const override;
 		const AboutData* getAboutData() const override;
 		void deleteAboutData(const AboutData* about) const override;
@@ -41,12 +42,12 @@ class PLUGIN_API WMFImportPlugin : public LoadSavePlugin
 		\param filename a file name to import
 		\retval true for success
 		 */
-		virtual bool importFile(QString filename = QString(), int flags = lfUseCurrentPage|lfInteractive);
+		bool importFile(QString filename = QString(), int flags = lfUseCurrentPage|lfInteractive);
 
 	private:
 		void registerFormats();
-		ScrAction* importAction;
 
+		ScrAction* importAction { nullptr };
 };
 
 extern "C" PLUGIN_API int wmfimplugin_getPluginAPIVersion();

@@ -5,35 +5,35 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "scconfig.h"
-#include "wmfimportplugin.h"
+
+#include <cmath>
+#include <memory>
 
 #include <QCursor>
 #include <QFile>
 #include <QMessageBox>
 
-#include "ui/customfdialog.h"
+#include "wmfimport.h"
+#include "wmfimportplugin.h"
 
-#include "scribusXml.h"
-#include "prefsfile.h"
-
-#include <cmath>
 #include "commonstrings.h"
+#include "fonts/scfontmetrics.h"
 #include "fpointarray.h"
-#include "ui/scmwmenumanager.h"
-#include "prefsmanager.h"
+#include "loadsaveplugin.h"
 #include "pageitem.h"
+#include "prefsfile.h"
+#include "prefsmanager.h"
 #include "scraction.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
+#include "scribusXml.h"
 #include "selection.h"
-#include "undomanager.h"
-#include "loadsaveplugin.h"
+#include "ui/customfdialog.h"
 #include "ui/scmessagebox.h"
+#include "ui/scmwmenumanager.h"
+#include "undomanager.h"
 #include "util.h"
 #include "util_formats.h"
-#include "fonts/scfontmetrics.h"
-
-#include "wmfimport.h"
 
 using namespace std;
 
@@ -44,7 +44,7 @@ int wmfimplugin_getPluginAPIVersion()
 
 ScPlugin* wmfimplugin_getPlugin()
 {
-	WMFImportPlugin* plug = new WMFImportPlugin();
+	auto* plug = new WMFImportPlugin();
 	Q_CHECK_PTR(plug);
 	return plug;
 }
@@ -86,7 +86,7 @@ QString WMFImportPlugin::fullTrName() const
 
 const ScActionPlugin::AboutData* WMFImportPlugin::getAboutData() const
 {
-	AboutData* about = new AboutData;
+	auto* about = new AboutData;
 	about->authors = "Jean Ghali <jghali@scribus.info>";
 	about->shortDescription = tr("Imports WMF Files");
 	about->description = tr("Imports most WMF files into the current document, converting their vector data into Scribus objects.");
@@ -132,22 +132,21 @@ bool WMFImportPlugin::importFile(QString filename, int flags)
 {
 	if (!checkFlags(flags))
 		return false;
+
 	if (m_Doc == nullptr)
 		m_Doc = ScCore->primaryMainWindow()->doc;
 	ScribusMainWindow* mw = (m_Doc == nullptr) ? ScCore->primaryMainWindow() : m_Doc->scMW();
+
 	if (filename.isEmpty())
 	{
 		flags |= lfInteractive;
 		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("WMFPlugin");
 		QString wdir = prefs->get("wdir", ".");
 		CustomFDialog diaf(mw, wdir, QObject::tr("Open"), FormatsManager::instance()->fileDialogFormatList(FormatsManager::WMF));
-		if (diaf.exec())
-		{
-			filename = diaf.selectedFile();
-			prefs->set("wdir", filename.left(filename.lastIndexOf("/")));
-		}
-		else
+		if (diaf.exec() != QDialog::Accepted)
 			return true;
+		filename = diaf.selectedFile();
+		prefs->set("wdir", filename.left(filename.lastIndexOf("/")));
 	}
 	
 	bool hasCurrentPage = (m_Doc && m_Doc->currentPage());
@@ -157,28 +156,31 @@ bool WMFImportPlugin::importFile(QString filename, int flags)
 	trSettings.actionName   = Um::ImportWMF;
 	trSettings.description  = filename;
 	trSettings.actionPixmap = Um::IWMF;
+
 	UndoTransaction activeTransaction;
 	if ((m_Doc == nullptr) || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(false);
 	if (UndoManager::undoEnabled())
 		activeTransaction = UndoManager::instance()->beginTransaction(trSettings);
-	WMFImport *dia = new WMFImport(m_Doc, flags);
-	dia->importFile(filename, trSettings, flags);
-	Q_CHECK_PTR(dia);
+
+	auto pPlug = std::make_unique<WMFImport>(m_Doc, flags);
+	Q_CHECK_PTR(pPlug);
+	pPlug->importFile(filename, trSettings, flags);
+
 	if (activeTransaction)
 		activeTransaction.commit();
 	if ((m_Doc == nullptr) || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(true);
-	if (dia->importCanceled)
+
+	if (pPlug->importCanceled)
 	{
-		if (dia->importFailed)
+		if (pPlug->importFailed)
 			ScMessageBox::warning(mw, CommonStrings::trWarning, tr("The file could not be imported"));
-		else if (dia->unsupported)
+		else if (pPlug->unsupported)
 			ScMessageBox::warning(mw, CommonStrings::trWarning, tr("WMF file contains some unsupported features"));
 	}
 
-	bool success = !dia->importFailed;
-	delete dia;
+	bool success = !pPlug->importFailed;
 	return success;
 }
 
@@ -186,12 +188,13 @@ QImage WMFImportPlugin::readThumbnail(const QString& fileName)
 {
 	if (fileName.isEmpty())
 		return QImage();
+
 	UndoManager::instance()->setUndoEnabled(false);
 	m_Doc = nullptr;
-	WMFImport *dia = new WMFImport(m_Doc, lfCreateThumbnail);
-	Q_CHECK_PTR(dia);
-	QImage ret = dia->readThumbnail(fileName);
+	auto pPlug = std::make_unique<WMFImport>(m_Doc, lfCreateThumbnail);
+	Q_CHECK_PTR(pPlug);
+	QImage ret = pPlug->readThumbnail(fileName);
 	UndoManager::instance()->setUndoEnabled(true);
-	delete dia;
+
 	return ret;
 }

@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include <QGuiApplication>
 #include <QMimeData>
 #include <QPainterPath>
+#include <QTextCodec>
 
 #include "commonstrings.h"
 #include "fpointarray.h"
@@ -127,7 +128,7 @@ static const ushort symbol_to_unicode[96] = {
 	0x03C8, 0x03B6, 0x03EA, 0xFFFD, 0xFFFD, 0xFFFD, 0xFFFD, 0xFFFD
 };
 
-WMFImport::WMFImport( ScribusDoc* doc, int flags )
+WMFImport::WMFImport(ScribusDoc* doc, int flags)
          : interactive(flags & LoadSavePlugin::lfInteractive),
            m_Doc(doc)
 {	
@@ -139,7 +140,7 @@ WMFImport::~WMFImport()
 	qDeleteAll(m_commands);
 	m_commands.clear();
 	delete m_tmpSel;
-	if ( m_ObjHandleTab ) 
+	if (m_ObjHandleTab)
 	{
 		for (int i = 0; i < MAX_OBJHANDLE; ++i)
 		{
@@ -165,18 +166,15 @@ QString WMFImport::importColor(const QColor& color)
 
 QColor WMFImport::colorFromParam(const short* params )
 {
-	unsigned int colorRef;
-	int red, green, blue;
+	unsigned int colorRef = toDWord(params) & 0xffffff;
+	int red      = colorRef & 255;
+	int green    = (colorRef >> 8) & 255;
+	int blue     = (colorRef >> 16) & 255;
 
-	colorRef = toDWord( params ) & 0xffffff;
-	red      = colorRef & 255;
-	green    = ( colorRef>>8 ) & 255;
-	blue     = ( colorRef>>16 ) & 255;
-
-	return QColor( red, green, blue );
+	return QColor(red, green, blue);
 }
 
-QTextCodec* WMFImport::codecFromCharset( int charset )
+QTextCodec* WMFImport::codecFromCharset(int charset)
 {
 	QTextCodec* codec = nullptr;
 	if (charset == DEFAULT_CHARSET || charset == OEM_CHARSET)
@@ -216,47 +214,49 @@ QTextCodec* WMFImport::codecFromCharset( int charset )
 	return codec;
 }
 
-QString WMFImport::symbolToUnicode ( const QByteArray& chars ) const
+QString WMFImport::symbolToUnicode(const QByteArray& chars) const
 {
 	/*Code under GPL licence (http://root.cern.ch/viewvc/trunk/LICENSE)
 	taken from http://root.cern.ch/viewvc/trunk/qt/src/TQtSymbolCodec.cxx*/
 	QString r;
-	const unsigned char * c = (const unsigned char *) chars.data();
+	const auto* c = (const unsigned char*) chars.data();
 	
-	if (chars.size() == 0)
+	if (chars.isEmpty())
 		return r;
 	
 	for (int i = 0; i < chars.size(); ++i) 
 	{
-		if ( 64 < c[i] && c[i] <= 64+32 )
-			r.append( QChar(greek_symbol_to_unicode[c[i]-65]) );
-		else if (64+32+1 <= c[i] && c[i] < 64+32+32+1)
-			r.append( QChar(greek_symbol_to_unicode[c[i]-65-32]+32) );
-		else if (161 <= c[i] )
-			r.append(  QChar(symbol_to_unicode[c[i]-161]) );
+		if (64 < c[i] && c[i] <= 64 + 32)
+			r.append(QChar(greek_symbol_to_unicode[c[i] - 65]));
+		else if (64 + 32 + 1 <= c[i] && c[i] < 64 + 32 + 32 + 1)
+			r.append(QChar(greek_symbol_to_unicode[c[i] - 65 - 32] + 32));
+		else if (161 <= c[i])
+			r.append(QChar(symbol_to_unicode[c[i] - 161]));
 		else
-			r.append( QChar(c[i]) );
+			r.append(QChar(c[i]));
 	}
 	return r;
 }
 
-FPointArray WMFImport::pointsFromParam( short num, const short* params ) const
+FPointArray WMFImport::pointsFromParam(short num, const short* params) const
 {
 	FPointArray points;
-	points.resize( num );
+	points.resize(num);
 
-	for ( int i = 0; i < num; i++, params += 2 )
-		points.setPoint( i, params[ 0 ], params[ 1 ] );
+	for (int i = 0; i < num; i++, params += 2)
+		points.setPoint(i, params[0], params[1]);
 
 	return points;
 }
 
-FPointArray WMFImport::pointsToPolyline( const FPointArray& points, bool closePath ) const
+FPointArray WMFImport::pointsToPolyline(const FPointArray& points, bool closePath) const
 {
 	bool bFirst = true;
-	double x = 0.0, y = 0.0;
+	double x = 0.0;
+	double y = 0.0;
 	FPointArray polyline;
 	polyline.svgInit();
+
 	for (int i = 0; i < points.size(); ++i )
 	{
 		const FPoint& point = points.point(i);
@@ -277,14 +277,15 @@ FPointArray WMFImport::pointsToPolyline( const FPointArray& points, bool closePa
 	return polyline;
 }
 
-void WMFImport::pointsToAngle( double xStart, double yStart, double xEnd, double yEnd, double& angleStart, double& angleLength ) const
+void WMFImport::pointsToAngle(double xStart, double yStart, double xEnd, double yEnd, double& angleStart, double& angleLength) const
 {
-	double aStart  = atan2( yStart,  xStart );
-	double aLength = atan2( yEnd, xEnd ) - aStart;
+	double aStart  = atan2(yStart, xStart);
+	double aLength = atan2(yEnd, xEnd) - aStart;
 
 	angleStart  = (int)(aStart * 180.0 / 3.14166);
 	angleLength = (int)(aLength * 180.0 / 3.14166);
-	if ( angleLength < 0 ) angleLength = 360.0 + angleLength;
+	if (angleLength < 0)
+		angleLength = 360.0 + angleLength;
 }
 
 QImage WMFImport::readThumbnail(const QString& fname)
@@ -312,7 +313,7 @@ QImage WMFImport::readThumbnail(const QString& fname)
 	QList<PageItem*> Elements = parseWmfCommands();
 	m_tmpSel->clear();
 	QImage tmpImage;
-	if (Elements.count() > 0)
+	if (!Elements.isEmpty())
 	{
 		if (Elements.count() > 1)
 			m_Doc->groupObjectsList(Elements);
@@ -333,6 +334,7 @@ QImage WMFImport::readThumbnail(const QString& fname)
 	}
 	m_Doc->scMW()->setScriptRunning(false);
 	delete m_Doc;
+	m_Doc = nullptr;
 	QDir::setCurrent(CurDirP);
 	return tmpImage;
 }
@@ -352,7 +354,7 @@ bool WMFImport::importFile(const QString& fname, const TransactionSettings& trSe
 	return success;
 }
 
-bool WMFImport::loadWMF( const QString &fileName )
+bool WMFImport::loadWMF(const QString& fileName)
 {
 	QFile file(fileName);
 	if (!file.exists())
@@ -360,7 +362,7 @@ bool WMFImport::loadWMF( const QString &fileName )
 		cerr << "File " << QFile::encodeName(fileName).data() << " does not exist" << std::endl;
 		return false;
 	}
-	if (!file.open( QIODevice::ReadOnly))
+	if (!file.open(QIODevice::ReadOnly))
 	{
 		cerr << "Cannot open file " << QFile::encodeName(fileName).data() << std::endl;
 		return false;
@@ -369,19 +371,20 @@ bool WMFImport::loadWMF( const QString &fileName )
 	QByteArray ba = file.readAll();
 	file.close();
 
-	QBuffer buffer( &ba );
-	buffer.open( QIODevice::ReadOnly );
-	return loadWMF( buffer );
+	QBuffer buffer(&ba);
+	buffer.open(QIODevice::ReadOnly);
+	return loadWMF(buffer);
 }
 
-bool WMFImport::loadWMF( QBuffer &buffer )
+bool WMFImport::loadWMF(QBuffer& buffer)
 {
 	QDataStream st;
 	WmfEnhMetaHeader eheader;
 	WmfMetaHeader header;
 	WmfPlaceableHeader pheader;
 	WORD16 checksum;
-	int filePos, idx, i;
+	int i, idx;
+	qint64 filePos;
 	WmfCmd *cmd;
 	WORD32 rdSize;
 	WORD16 rdFunc;
@@ -393,13 +396,13 @@ bool WMFImport::loadWMF( QBuffer &buffer )
 	qDeleteAll(m_commands);
 	m_commands.clear();
 
-	st.setDevice( &buffer );
-	st.setByteOrder( QDataStream::LittleEndian ); // Great, I love Qt !
+	st.setDevice(&buffer);
+	st.setByteOrder(QDataStream::LittleEndian); // Great, I love Qt !
 
 	//----- Read placeable metafile header
 	st >> pheader.key;
 	m_IsPlaceable = (pheader.key == (WORD32) APMHEADER_KEY);
-	if ( m_IsPlaceable )
+	if (m_IsPlaceable)
 	{
 		st >> pheader.hmf;
 		st >> pheader.bbox.left;
@@ -409,17 +412,17 @@ bool WMFImport::loadWMF( QBuffer &buffer )
 		st >> pheader.inch;
 		st >> pheader.reserved;
 		st >> pheader.checksum;
-		checksum = calcCheckSum( &pheader );
+		checksum = calcCheckSum(&pheader);
 		if (pheader.checksum != checksum)
 			m_IsPlaceable = false;
 
 		m_Dpi = pheader.inch;
-		m_BBox.setLeft( pheader.bbox.left );
-		m_BBox.setTop( pheader.bbox.top );
-		m_BBox.setRight( pheader.bbox.right );
-		m_BBox.setBottom( pheader.bbox.bottom );
+		m_BBox.setLeft(pheader.bbox.left);
+		m_BBox.setTop(pheader.bbox.top);
+		m_BBox.setRight(pheader.bbox.right);
+		m_BBox.setBottom(pheader.bbox.bottom);
 		m_HeaderBoundingBox = m_BBox;
-		if ( WMFIMPORT_DEBUG )
+		if (WMFIMPORT_DEBUG)
 		{
 			cerr << endl << "-------------------------------------------------" << endl;
 			cerr << "WMF Placeable Header ( " << static_cast<int>(sizeof( pheader ) ) << "):" << endl;
@@ -428,7 +431,7 @@ bool WMFImport::loadWMF( QBuffer &buffer )
 			cerr << "  checksum=" << pheader.checksum << "( " << (pheader.checksum == checksum ? "ok" : "wrong") << " )" << endl;
 		}
 	}
-	else buffer.seek( 0 );
+	else buffer.seek(0);
 
 	//----- Read as enhanced metafile header
 	filePos = buffer.pos();
@@ -444,7 +447,7 @@ bool WMFImport::loadWMF( QBuffer &buffer )
 	st >> eheader.rclFrame.bottom;
 	st >> eheader.dSignature;
 	m_IsEnhanced = (eheader.dSignature == ENHMETA_SIGNATURE);
-	if ( m_IsEnhanced ) // is it really enhanced ?
+	if (m_IsEnhanced) // is it really enhanced ?
 	{
 		st >> eheader.nVersion;
 		st >> eheader.nBytes;
@@ -459,7 +462,7 @@ bool WMFImport::loadWMF( QBuffer &buffer )
 		st >> eheader.szlMillimeters.width;
 		st >> eheader.szlMillimeters.height;
 
-		if ( WMFIMPORT_DEBUG )
+		if (WMFIMPORT_DEBUG)
 		{
 			cerr << endl << "-------------------------------------------------" << endl;
 			cerr << "WMF Extended Header:" << endl;
@@ -476,7 +479,7 @@ bool WMFImport::loadWMF( QBuffer &buffer )
 	else // no, not enhanced
 	{
 		//----- Read as standard metafile header
-		buffer.seek( filePos );
+		buffer.seek(filePos);
 		st >> header.mtType;
 		st >> header.mtHeaderSize;
 		st >> header.mtVersion;
@@ -484,23 +487,22 @@ bool WMFImport::loadWMF( QBuffer &buffer )
 		st >> header.mtNoObjects;
 		st >> header.mtMaxRecord;
 		st >> header.mtNoParameters;
-		if ( WMFIMPORT_DEBUG ) {
+		if (WMFIMPORT_DEBUG)
 			cerr << "WMF Header: " <<  "mtSize=" << header.mtSize << endl;
-		}
 	}
 
 	//----- Test header validity
 	m_Valid = ((header.mtHeaderSize == 9) && (header.mtNoParameters == 0)) || m_IsEnhanced || m_IsPlaceable;
-	if ( m_Valid && !m_IsEnhanced )
+	if (m_Valid && !m_IsEnhanced)
 	{
 		//----- Read Metafile Records
 		rdFunc = -1;
-		while ( !st.atEnd() && (rdFunc != 0) )
+		while (!st.atEnd() && (rdFunc != 0))
 		{
 			st >> rdSize;
 			st >> rdFunc;
 
-			idx = findFunc( rdFunc );
+			idx = findFunc(rdFunc);
 			rdSize -= 3;
 
 			cmd = new WmfCmd;
@@ -510,22 +512,23 @@ bool WMFImport::loadWMF( QBuffer &buffer )
 			cmd->numParam = rdSize;
 			cmd->params = new WORD16[ rdSize ];
 
-			for ( i=0; i<rdSize && !st.atEnd(); i++ )
-				st >> cmd->params[ i ];
+			for (i = 0; i < rdSize && !st.atEnd(); i++)
+				st >> cmd->params[i];
 
-
-			if ( rdFunc == 0x020B && !m_IsPlaceable) {         // SETWINDOWORG: dimensions
-				m_BBox.setLeft( qMin((int) cmd->params[ 1 ], m_BBox.left()) );
-				m_BBox.setTop ( qMin((int) cmd->params[ 0 ], m_BBox.top()) );
+			if (rdFunc == 0x020B && !m_IsPlaceable)
+			{
+				// SETWINDOWORG: dimensions
+				m_BBox.setLeft(qMin((int) cmd->params[1], m_BBox.left()));
+				m_BBox.setTop(qMin((int) cmd->params[0], m_BBox.top()));
 			}
-			if ( rdFunc == 0x020C && !m_IsPlaceable ) {         // SETWINDOWEXT: dimensions
-				m_BBox.setWidth((int) cmd->params[ 1 ]);
-				m_BBox.setHeight((int) cmd->params[ 0 ]);
-//				m_BBox.setWidth ( qMax((int) cmd->params[ 1 ], m_BBox.width()) );
-//				m_BBox.setHeight( qMax((int) cmd->params[ 0 ], m_BBox.height()));
+			if (rdFunc == 0x020C && !m_IsPlaceable)
+			{
+				// SETWINDOWEXT: dimensions
+				m_BBox.setWidth((int) cmd->params[1]);
+				m_BBox.setHeight((int) cmd->params[0]);
 			}
 
-			if ( i<rdSize )
+			if (i < rdSize)
 			{
 				cerr << "WMF : file truncated !" << endl;
 				return false;
@@ -534,19 +537,20 @@ bool WMFImport::loadWMF( QBuffer &buffer )
 		m_BBox = m_BBox.normalized();
 		//----- Test records validities
 		m_Valid = (rdFunc == 0) && (m_BBox.width() != 0) && (m_BBox.height() != 0);
-		if ( !m_Valid ) {
+		if (!m_Valid)
 			cerr << "WMF : incorrect file format !" << endl;
-		}
 	}
-	else if ( m_IsEnhanced ) {
+	else if (m_IsEnhanced)
+	{
 		cerr << "WMF : unsupported Enhanced Metafile !" << endl;
 	}
-	else {
+	else
+	{
 		cerr << "WMF Header : incorrect header !" << endl;
 	}
 
 	buffer.close();
-	return ( m_Valid && !m_IsEnhanced );
+	return (m_Valid && !m_IsEnhanced);
 }
 
 bool WMFImport::importWMF(const TransactionSettings& trSettings, int flags)
@@ -556,22 +560,19 @@ bool WMFImport::importWMF(const TransactionSettings& trSettings, int flags)
 	double scale  = (m_Dpi > 0) ? 72.0 / m_Dpi : 0.05;
 	double width  = m_BBox.width() * scale;
 	double height = m_BBox.height() * scale;
-	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
+	if (m_Doc && (!interactive || (flags & LoadSavePlugin::lfInsertPage)))
 	{
 		m_Doc->setPage(fabs(width), fabs(height), 0, 0, 0, 0, 0, 0, false, false);
 		m_Doc->addPage(0);
 		m_Doc->view()->addPage(0);
 	}
-	else
+	else if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
 	{
-		if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
-		{
-			m_Doc = ScCore->primaryMainWindow()->doFileNew(fabs(width), fabs(height), 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
-			ScCore->primaryMainWindow()->HaveNewDoc();
-			ret = true;
-		}
+		m_Doc = ScCore->primaryMainWindow()->doFileNew(fabs(width), fabs(height), 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
+		ScCore->primaryMainWindow()->HaveNewDoc();
+		ret = true;
 	}
-	if ((ret) || (!interactive))
+	if (ret || !interactive)
 	{
 		if (width > height)
 			m_Doc->setPageOrientation(1);
@@ -598,16 +599,11 @@ bool WMFImport::importWMF(const TransactionSettings& trSettings, int flags)
 		m_Doc->documentInfo().setComments(m_docDesc);
 	}
 	m_tmpSel->clear();
-	if (Elements.count() == 0)
+	if (Elements.isEmpty())
 	{
 		importFailed = true;
-		if (importedColors.count() != 0)
-		{
-			for (int cd = 0; cd < importedColors.count(); cd++)
-			{
-				m_Doc->PageColors.remove(importedColors[cd]);
-			}
-		}
+		for (const auto& importedColor : importedColors)
+			m_Doc->PageColors.remove(importedColor);
 	}
 	if (Elements.count() > 1)
 		m_Doc->groupObjectsList(Elements);
@@ -615,7 +611,7 @@ bool WMFImport::importWMF(const TransactionSettings& trSettings, int flags)
 	m_Doc->scMW()->setScriptRunning(false);
 	if (interactive)
 		m_Doc->setLoading(false);
-	if ((Elements.count() > 0) && (!ret) && (interactive))
+	if (!Elements.isEmpty() && !ret && interactive)
 	{
 		if (flags & LoadSavePlugin::lfScripted)
 		{
@@ -657,7 +653,7 @@ bool WMFImport::importWMF(const TransactionSettings& trSettings, int flags)
 			m_Doc->m_Selection->delaySignalsOff();
 			// We must copy the TransationSettings object as it is owned
 			// by handleObjectImport method afterwards
-			TransactionSettings* transacSettings = new TransactionSettings(trSettings);
+			auto* transacSettings = new TransactionSettings(trSettings);
 			m_Doc->view()->handleObjectImport(md, transacSettings);
 			m_Doc->DragP = false;
 			m_Doc->DraggedElem = nullptr;
@@ -679,48 +675,49 @@ bool WMFImport::importWMF(const TransactionSettings& trSettings, int flags)
 
 QList<PageItem*> WMFImport::parseWmfCommands()
 {
-	int idx, i;
+	int idx;
 	const WmfCmd* cmd;
 	QList<PageItem*> elements;
 
 	m_context.reset();
 
-	if ( !m_Valid )  return elements;
+	if (!m_Valid)
+		return elements;
 
 	delete[] m_ObjHandleTab;
 	m_ObjHandleTab = new WmfObjHandle* [ MAX_OBJHANDLE ];
-	for ( i = MAX_OBJHANDLE-1; i >= 0; i-- )
-		m_ObjHandleTab[ i ] = nullptr;
+	for (int i = MAX_OBJHANDLE - 1; i >= 0; i--)
+		m_ObjHandleTab[i] = nullptr;
 
-	if ( WMFIMPORT_DEBUG )  {
+	if (WMFIMPORT_DEBUG)
 		cerr << "Bounding box : " << m_BBox.left() << " " << m_BBox.top() << " " << m_BBox.right() << " " << m_BBox.bottom() << endl;
-	}
 
-	double scale  = (m_Dpi > 0) ? 72.0 / m_Dpi : 0.05;
-	m_context.setViewportOrg( 0, 0 );
-	m_context.setViewportExt( m_BBox.width() * scale, m_BBox.height() * scale );
-	m_context.setWindowOrg( m_BBox.left(), m_BBox.bottom() );
-	m_context.setWindowExt( m_BBox.width(), m_BBox.height() );
+	double scale = (m_Dpi > 0) ? 72.0 / m_Dpi : 0.05;
+	m_context.setViewportOrg(0, 0);
+	m_context.setViewportExt(m_BBox.width() * scale, m_BBox.height() * scale);
+	m_context.setWindowOrg(m_BBox.left(), m_BBox.bottom());
+	m_context.setWindowExt(m_BBox.width(), m_BBox.height());
 
 	for (int index = 0; index < m_commands.count(); ++index)
 	{
 		cmd = m_commands.at(index);
 		idx = cmd->funcIndex;
-		( this->*metaFuncTab[ idx ].method )( elements, cmd->numParam, cmd->params );
+		(this->*metaFuncTab[idx].method)(elements, cmd->numParam, cmd->params);
 
-		if ( WMFIMPORT_DEBUG )  {
-			QString str = "", param;
-			if ( metaFuncTab[ idx ].name == nullptr ) {
+		if (WMFIMPORT_DEBUG)
+		{
+			QString str;
+			if (metaFuncTab[idx].name == nullptr)
 				str += "UNKNOWN ";
-			}
-			if ( metaFuncTab[ idx ].method == &WMFImport::noop ) {
+			if (metaFuncTab[idx].method == &WMFImport::noop)
 				str += "UNIMPLEMENTED ";
-			}
-			str += metaFuncTab[ idx ].name;
+			str += metaFuncTab[idx].name;
 			str += " : ";
 
-			for ( i=0 ; i < cmd->numParam ; i++ ) {
-				param.setNum( cmd->params[ i ] );
+			QString param;
+			for (int i = 0; i < cmd->numParam; i++)
+			{
+				param.setNum(cmd->params[i]);
 				str += param;
 				str += " ";
 			}
@@ -730,7 +727,7 @@ QList<PageItem*> WMFImport::parseWmfCommands()
 	return elements;
 }
 
-void WMFImport::finishCmdParsing( PageItem* item )
+void WMFImport::finishCmdParsing(PageItem* item)
 {
 	QTransform gcm  = m_context.worldMatrix();
 	double coeff1 = sqrt(gcm.m11() * gcm.m11() + gcm.m12() * gcm.m12());
@@ -766,17 +763,17 @@ void WMFImport::finishCmdParsing( PageItem* item )
 	//item->DashValues = gc->dashArray;
 }
 
-void WMFImport::setWindowOrg( QList<PageItem*>& /*items*/, long, const short* params )
+void WMFImport::setWindowOrg(QList<PageItem*>& /*items*/, long, const short* params)
 {
-	m_context.setWindowOrg( params[ 1 ], params[ 0 ] );
+	m_context.setWindowOrg(params[1], params[0]);
 }
 
-void WMFImport::setWindowExt( QList<PageItem*>& /*items*/, long, const short* params )
+void WMFImport::setWindowExt(QList<PageItem*>& /*items*/, long, const short* params)
 {
-	m_context.setWindowExt( params[ 1 ], params[ 0 ] );
+	m_context.setWindowExt(params[1], params[0]);
 }
 
-void WMFImport::lineTo( QList<PageItem*>& items, long, const short* params )
+void WMFImport::lineTo(QList<PageItem*>& items, long, const short* params)
 {
 	double BaseX = m_Doc->currentPage()->xOffset();
 	double BaseY = m_Doc->currentPage()->yOffset();
@@ -800,26 +797,26 @@ void WMFImport::lineTo( QList<PageItem*>& items, long, const short* params )
 		finishCmdParsing(ite);
 		items.append(ite);
 	}
-	m_context.setPosition( QPoint(params[1], params[0]) );
+	m_context.setPosition(QPoint(params[1], params[0]));
 }
 
-void WMFImport::moveTo( QList<PageItem*>& /*items*/, long, const short* params )
+void WMFImport::moveTo(QList<PageItem*>& /*items*/, long, const short* params)
 {
-	m_context.setPosition( QPoint(params[1], params[0]) );
+	m_context.setPosition(QPoint(params[1], params[0]));
 }
 
-void WMFImport::ellipse( QList<PageItem*>& items, long, const short* params )
+void WMFImport::ellipse(QList<PageItem*>& items, long, const short* params)
 {
 	double BaseX = m_Doc->currentPage()->xOffset();
 	double BaseY = m_Doc->currentPage()->yOffset();
-	double rx = (params[ 1 ] - params[ 3 ]) / 2.0;
-	double ry = (params[ 0 ] - params[ 2 ]) / 2.0;
-	double px = (params[ 1 ] + params[ 3 ]) / 2.0 - rx;
-	double py = (params[ 0 ] + params[ 2 ]) / 2.0 - ry;
+	double rx = (params[1] - params[3]) / 2.0;
+	double ry = (params[0] - params[2]) / 2.0;
+	double px = (params[1] + params[3]) / 2.0 - rx;
+	double py = (params[0] + params[2]) / 2.0 - ry;
 	bool   doFill = m_context.brush().style() != Qt::NoBrush;
 	bool   doStroke = m_context.pen().style() != Qt::NoPen;
-	QString fillColor   = doFill ? importColor( m_context.brush().color() ) : CommonStrings::None;
-	QString strokeColor = doStroke ? importColor( m_context.pen().color() ) : CommonStrings::None;
+	QString fillColor   = doFill ? importColor(m_context.brush().color()) : CommonStrings::None;
+	QString strokeColor = doStroke ? importColor(m_context.pen().color()) : CommonStrings::None;
 	double  lineWidth   = m_context.pen().width();
 	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, BaseX, BaseY, rx * 2.0, ry * 2.0, lineWidth, fillColor, strokeColor);
 	PageItem* ite = m_Doc->Items->at(z);
@@ -829,20 +826,20 @@ void WMFImport::ellipse( QList<PageItem*>& items, long, const short* params )
 	items.append(ite);
 }
 
-void WMFImport::polygon( QList<PageItem*>& items, long, const short* params )
+void WMFImport::polygon(QList<PageItem*>& items, long, const short* params)
 {
 	//cerr << "WMFImport::polygon unimplemented" << endl;
 	double  BaseX = m_Doc->currentPage()->xOffset();
 	double  BaseY = m_Doc->currentPage()->yOffset();
 	bool    doFill = m_context.brush().style() != Qt::NoBrush;
 	bool    doStroke = m_context.pen().style() != Qt::NoPen;
-	QString fillColor   = doFill ? importColor( m_context.brush().color() ) : CommonStrings::None;
-	QString strokeColor = doStroke ? importColor( m_context.pen().color() ) : CommonStrings::None;
+	QString fillColor   = doFill ? importColor(m_context.brush().color()) : CommonStrings::None;
+	QString strokeColor = doStroke ? importColor(m_context.pen().color()) : CommonStrings::None;
 	double  lineWidth   = m_context.pen().width();
 	if (doStroke && lineWidth <= 0.0 )
 		lineWidth = 1.0;
-	FPointArray paramPoints = pointsFromParam( params[0], &params[1] );
-	FPointArray points      = pointsToPolyline( paramPoints, true );
+	FPointArray paramPoints = pointsFromParam(params[0], &params[1]);
+	FPointArray points      = pointsToPolyline(paramPoints, true);
 	if (!paramPoints.empty())
 	{
 		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lineWidth, fillColor, strokeColor);
@@ -854,32 +851,30 @@ void WMFImport::polygon( QList<PageItem*>& items, long, const short* params )
 	}
 }
 
-void WMFImport::polyPolygon( QList<PageItem*>& items, long num, const short* params )
+void WMFImport::polyPolygon(QList<PageItem*>& items, long /*num*/, const short* params)
 {
 	int numPolys   = params[0];
 	int pointIndex = params[0] + 1;
 	FPointArray pointsPoly;
 	for (int i = 0; i < numPolys; ++i)
 	{
-		short  numPoints  = params[i + 1];
-		short* paramArray = new short[1 + 2 * numPoints];
+		short numPoints  = params[i + 1];
+		auto paramArray = make_unique<short[]>(1 + 2 * numPoints);
 		paramArray[0] = numPoints;
 		memcpy(&paramArray[1], &params[pointIndex], 2 * numPoints * sizeof(short));
-		FPointArray paramPoints = pointsFromParam( numPoints, &paramArray[1] );
-		FPointArray points      = pointsToPolyline( paramPoints, true );
+		FPointArray paramPoints = pointsFromParam(numPoints, &paramArray[1]);
+		FPointArray points      = pointsToPolyline(paramPoints, true);
 		pointsPoly += points;
 		if (numPolys > 1)
 			pointsPoly.setMarker();
-//		polygon(items, num, paramArray);
-		delete[] paramArray;
 		pointIndex += (2 * numPoints);
 	}
 	double  BaseX = m_Doc->currentPage()->xOffset();
 	double  BaseY = m_Doc->currentPage()->yOffset();
 	bool    doFill = m_context.brush().style() != Qt::NoBrush;
 	bool    doStroke = m_context.pen().style() != Qt::NoPen;
-	QString fillColor   = doFill ? importColor( m_context.brush().color() ) : CommonStrings::None;
-	QString strokeColor = doStroke ? importColor( m_context.pen().color() ) : CommonStrings::None;
+	QString fillColor   = doFill ? importColor(m_context.brush().color()) : CommonStrings::None;
+	QString strokeColor = doStroke ? importColor(m_context.pen().color()) : CommonStrings::None;
 	double  lineWidth   = m_context.pen().width();
 	if (doStroke && lineWidth <= 0.0 )
 		lineWidth = 1.0;
@@ -894,18 +889,18 @@ void WMFImport::polyPolygon( QList<PageItem*>& items, long num, const short* par
 	}
 }
 
-void WMFImport::polyline( QList<PageItem*>& items, long, const short* params )
+void WMFImport::polyline(QList<PageItem*>& items, long, const short* params)
 {
 	double  BaseX = m_Doc->currentPage()->xOffset();
 	double  BaseY = m_Doc->currentPage()->yOffset();
 	bool    doStroke = m_context.pen().style() != Qt::NoPen;
 	QString fillColor   = CommonStrings::None;
-	QString strokeColor = doStroke ? importColor( m_context.pen().color() ) : CommonStrings::None;
+	QString strokeColor = doStroke ? importColor(m_context.pen().color()) : CommonStrings::None;
 	double  lineWidth   = m_context.pen().width();
 	if (doStroke && lineWidth <= 0.0 )
 		lineWidth = 1.0;
-	FPointArray paramPoints = pointsFromParam( params[0], &params[1] );
-	FPointArray points      = pointsToPolyline( paramPoints, false );
+	FPointArray paramPoints = pointsFromParam(params[0], &params[1]);
+	FPointArray points      = pointsToPolyline(paramPoints, false);
 	if (!paramPoints.empty())
 	{
 		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, lineWidth, fillColor, strokeColor);
@@ -916,15 +911,15 @@ void WMFImport::polyline( QList<PageItem*>& items, long, const short* params )
 	}
 }
 
-void WMFImport::rectangle( QList<PageItem*>& items, long, const short* params )
+void WMFImport::rectangle(QList<PageItem*>& items, long, const short* params)
 {
 	//cerr << "WMFImport::rectangle unimplemented" << endl;
 	double  BaseX = m_Doc->currentPage()->xOffset();
 	double  BaseY = m_Doc->currentPage()->yOffset();
 	bool    doFill = m_context.brush().style() != Qt::NoBrush;
 	bool    doStroke = m_context.pen().style() != Qt::NoPen;
-	QString fillColor   = doFill ? importColor( m_context.brush().color() ) : CommonStrings::None;
-	QString strokeColor = doStroke ? importColor( m_context.pen().color() ) : CommonStrings::None;
+	QString fillColor   = doFill ? importColor(m_context.brush().color()) : CommonStrings::None;
+	QString strokeColor = doStroke ? importColor(m_context.pen().color()) : CommonStrings::None;
 	double  lineWidth   = m_context.pen().width();
 	if (doStroke && lineWidth <= 0.0 )
 		lineWidth = 1.0;
@@ -940,16 +935,16 @@ void WMFImport::rectangle( QList<PageItem*>& items, long, const short* params )
 	items.append(ite);
 }
 
-void WMFImport::roundRect( QList<PageItem*>& items, long, const short* params )
+void WMFImport::roundRect(QList<PageItem*>& items, long, const short* params)
 {
 	double  BaseX = m_Doc->currentPage()->xOffset();
 	double  BaseY = m_Doc->currentPage()->yOffset();
 	bool    doFill = m_context.brush().style() != Qt::NoBrush;
 	bool    doStroke = m_context.pen().style() != Qt::NoPen;
-	QString fillColor   = doFill ? importColor( m_context.brush().color() ) : CommonStrings::None;
-	QString strokeColor = doStroke ? importColor( m_context.pen().color() ) : CommonStrings::None;
+	QString fillColor   = doFill ? importColor(m_context.brush().color()) : CommonStrings::None;
+	QString strokeColor = doStroke ? importColor(m_context.pen().color()) : CommonStrings::None;
 	double  lineWidth   = m_context.pen().width();
-	if (doStroke && lineWidth <= 0.0 )
+	if (doStroke && lineWidth <= 0.0)
 		lineWidth = 1.0;
 	double x = ((params[5] - params[3]) > 0) ? params[3] : params[5];
 	double y = ((params[4] - params[2]) > 0) ? params[2] : params[4];
@@ -971,7 +966,7 @@ void WMFImport::roundRect( QList<PageItem*>& items, long, const short* params )
 	items.append(ite);
 }
 
-void WMFImport::arc( QList<PageItem*>& items, long, const short* params )
+void WMFImport::arc(QList<PageItem*>& items, long, const short* params)
 {
 	FPointArray  pointArray;
 	QPainterPath painterPath;
@@ -979,9 +974,9 @@ void WMFImport::arc( QList<PageItem*>& items, long, const short* params )
 	double  BaseY = m_Doc->currentPage()->yOffset();
 	bool    doStroke = m_context.pen().style() != Qt::NoPen;
 	QString fillColor   = CommonStrings::None;
-	QString strokeColor = doStroke ? importColor( m_context.pen().color() ) : CommonStrings::None;
+	QString strokeColor = doStroke ? importColor(m_context.pen().color()) : CommonStrings::None;
 	double  lineWidth   = m_context.pen().width();
-	if (doStroke && lineWidth <= 0.0 )
+	if (doStroke && lineWidth <= 0.0)
 		lineWidth = 1.0;
 	double  angleStart, angleLength;
 	double  x = ((params[7] - params[5]) > 0) ? params[5] : params[7];
@@ -1004,7 +999,7 @@ void WMFImport::arc( QList<PageItem*>& items, long, const short* params )
 	}
 }
 
-void WMFImport::chord( QList<PageItem*>& items, long, const short* params )
+void WMFImport::chord(QList<PageItem*>& items, long, const short* params)
 {
 	QPointF      firstPoint;
 	FPointArray  pointArray;
@@ -1013,8 +1008,8 @@ void WMFImport::chord( QList<PageItem*>& items, long, const short* params )
 	double  BaseY = m_Doc->currentPage()->yOffset();
 	bool    doFill   = m_context.brush().style() != Qt::NoBrush;
 	bool    doStroke = m_context.pen().style() != Qt::NoPen;
-	QString fillColor   = doFill ? importColor( m_context.brush().color() ) : CommonStrings::None;
-	QString strokeColor = doStroke ? importColor( m_context.pen().color() ) : CommonStrings::None;
+	QString fillColor   = doFill ? importColor(m_context.brush().color()) : CommonStrings::None;
+	QString strokeColor = doStroke ? importColor(m_context.pen().color()) : CommonStrings::None;
 	double  lineWidth   = m_context.pen().width();
 	if (doStroke && lineWidth <= 0.0 )
 		lineWidth = 1.0;
@@ -1041,7 +1036,7 @@ void WMFImport::chord( QList<PageItem*>& items, long, const short* params )
 	}
 }
 
-void WMFImport::pie( QList<PageItem*>& items, long, const short* params )
+void WMFImport::pie(QList<PageItem*>& items, long, const short* params)
 {
 	QPointF      firstPoint;
 	FPointArray  pointArray;
@@ -1050,10 +1045,10 @@ void WMFImport::pie( QList<PageItem*>& items, long, const short* params )
 	double  BaseY = m_Doc->currentPage()->yOffset();
 	bool    doFill   = m_context.brush().style() != Qt::NoBrush;
 	bool    doStroke = m_context.pen().style() != Qt::NoPen;
-	QString fillColor   = doFill ? importColor( m_context.brush().color() ) : CommonStrings::None;
-	QString strokeColor = doStroke ? importColor( m_context.pen().color() ) : CommonStrings::None;
+	QString fillColor   = doFill ? importColor(m_context.brush().color()) : CommonStrings::None;
+	QString strokeColor = doStroke ? importColor(m_context.pen().color()) : CommonStrings::None;
 	double  lineWidth   = m_context.pen().width();
-	if (doStroke && lineWidth <= 0.0 )
+	if (doStroke && lineWidth <= 0.0)
 		lineWidth = 1.0;
 	double  angleStart, angleLength;
 	double  x = ((params[7] - params[5]) > 0) ? params[5] : params[7];
@@ -1079,58 +1074,58 @@ void WMFImport::pie( QList<PageItem*>& items, long, const short* params )
 	}
 }
 
-void WMFImport::setPolyFillMode( QList<PageItem*>& /*items*/, long, const short* params )
+void WMFImport::setPolyFillMode(QList<PageItem*>& /*items*/, long, const short* params)
 {
-	m_context.setWindingFill( params[0] );
+	m_context.setWindingFill(params[0]);
 }
 
-void WMFImport::setBkColor( QList<PageItem*>& /*items*/, long, const short* params )
+void WMFImport::setBkColor(QList<PageItem*>& /*items*/, long, const short* params)
 {
-	m_context.setBackgroundColor( colorFromParam( params ) );
+	m_context.setBackgroundColor(colorFromParam(params));
 }
 
 void WMFImport::setBkMode(QList<PageItem*>& /*items*/, long, const short* params )
 {
 	if (params[0] == 1)
-		m_context.setBackgroundMode( Qt::TransparentMode );
+		m_context.setBackgroundMode(Qt::TransparentMode);
 	else 
-		m_context.setBackgroundMode( Qt::OpaqueMode );
+		m_context.setBackgroundMode(Qt::OpaqueMode);
 }
 
-void WMFImport::saveDC( QList<PageItem*>& /*items*/, long, const short* )
+void WMFImport::saveDC(QList<PageItem*>& /*items*/, long, const short*)
 {
 	m_context.save();
 }
 
-void WMFImport::restoreDC( QList<PageItem*>& /*items*/, long, const short *params )
+void WMFImport::restoreDC(QList<PageItem*>& /*items*/, long, const short* params)
 {
 	for (int i = 0; i > params[0]; i--)
 		m_context.restore();
 }
 
-void WMFImport::intersectClipRect( QList<PageItem*>& /*items*/, long, const short* /*params*/ )
+void WMFImport::intersectClipRect(QList<PageItem*>& /*items*/, long, const short* /*params*/)
 {
 	cerr << "WMFImport::intersectClipRect unimplemented" << endl;
 }
 
-void WMFImport::excludeClipRect( QList<PageItem*>& /*items*/, long, const short* /*params*/ )
+void WMFImport::excludeClipRect(QList<PageItem*>& /*items*/, long, const short* /*params*/)
 {
 	cerr << "WMFImport::excludeClipRect unimplemented" << endl;
 }
 
-void WMFImport::setTextColor( QList<PageItem*>& /*items*/, long, const short* params )
+void WMFImport::setTextColor(QList<PageItem*>& /*items*/, long, const short* params)
 {
-	m_context.setTextColor( colorFromParam(params) );
+	m_context.setTextColor(colorFromParam(params));
 }
 
-void WMFImport::setTextAlign( QList<PageItem*>& /*items*/, long, const short* params )
+void WMFImport::setTextAlign(QList<PageItem*>& /*items*/, long, const short* params)
 {
-	m_context.setTextAlign(params[ 0 ]);
+	m_context.setTextAlign(params[0]);
 }
 
-void WMFImport::textOut( QList<PageItem*>& items, long num, const short* params )
+void WMFImport::textOut(QList<PageItem*>& items, long num, const short* params)
 {
-	short *copyParm = new short[num + 1];
+	auto copyParm = std::make_unique<short[]>(num + 1);
 
 	// re-order parameters
 	int idxOffset = (params[0] / 2) + 1 + (params[0] & 1);
@@ -1138,15 +1133,14 @@ void WMFImport::textOut( QList<PageItem*>& items, long num, const short* params 
 	copyParm[1] = params[idxOffset + 1];
 	copyParm[2] = params[0];
 	copyParm[3] = 0;
-	memcpy( &copyParm[4], &params[1], params[0] );
+	memcpy(&copyParm[4], &params[1], params[0]);
 
-	extTextOut(items, num + 1, copyParm );
-	delete [] copyParm;
+	extTextOut(items, num + 1, copyParm.get());
 }
 
-void WMFImport::extTextOut( QList<PageItem*>& items, long num, const short* params )
+void WMFImport::extTextOut(QList<PageItem*>& items, long num, const short* params)
 {
-	QString    textString;
+	QString textString;
 	double  BaseX = m_Doc->currentPage()->xOffset();
 	double  BaseY = m_Doc->currentPage()->yOffset();
 
@@ -1158,18 +1152,18 @@ void WMFImport::extTextOut( QList<PageItem*>& items, long num, const short* para
 	}
 
 	// ETO_CLIPPED flag add 4 parameters
-	char* ptStr = (params[3] & 0x0004) ? ((char*)&params[8]) : ((char*)&params[4]);
-	QByteArray textArray( ptStr, params[2] );
+	const auto* ptStr = (const char*) ((params[3] & 0x0004) ? (&params[8]) : (&params[4]));
+	QByteArray textArray(ptStr, params[2]);
 	
-	QTextCodec* codec = codecFromCharset( m_context.textCharSet() );
+	const QTextCodec* codec = codecFromCharset(m_context.textCharSet());
 	if (codec)
 		textString = codec->toUnicode(textArray);
-	else if ( m_context.textCharSet() == SYMBOL_CHARSET )
+	else if (m_context.textCharSet() == SYMBOL_CHARSET)
 		textString = symbolToUnicode(textArray);
 	else
 		textString = QString::fromLocal8Bit(textArray.data());
 
-	QFontMetrics fm( m_context.font() );
+	QFontMetrics fm(m_context.font());
 	int width  = fm.horizontalAdvance(textString) + fm.descent();  // because fm.width(text) isn't right with Italic text
 	/*int height = fm.height();
 	int ascent = fm.ascent();*/
@@ -1178,7 +1172,7 @@ void WMFImport::extTextOut( QList<PageItem*>& items, long num, const short* para
 	double startY = params[0];
 	int    textAlign    = m_context.textAlign();
 	double textRotation = m_context.textRotation();
-	if ( textAlign & 0x01 )
+	if (textAlign & 0x01)
 	{
 		// (left, top) position = current logical position
 		QPoint pos = m_context.position();
@@ -1189,30 +1183,31 @@ void WMFImport::extTextOut( QList<PageItem*>& items, long num, const short* para
 	m_context.save();
 	// A bit hacky but should be sufficient to have text not flipped
 	// top down in some wmfs (see cell.wmf sample from libwmf)
-	if ( m_context.worldMatrix().m22() < 0.0)
+	if (m_context.worldMatrix().m22() < 0.0)
 	{
 		m_context.translate(startX, startY);
-		m_context.scale (1.0, -1.0);
-		m_context.translate( -startX, -startY);
+		m_context.scale(1.0, -1.0);
+		m_context.translate(-startX, -startY);
 	}
-	if ( textRotation != 0.0) {
+	if (textRotation != 0.0)
+	{
 		m_context.translate(startX, startY);
-		m_context.rotate ( textRotation );
-		m_context.translate( -startX, -startY);
+		m_context.rotate(textRotation);
+		m_context.translate(-startX, -startY);
 	}
 
-	if ( (textAlign & 0x04) && (textAlign & 0x02) ) // TA_CENTER 0x06
+	if ((textAlign & 0x04) && (textAlign & 0x02)) // TA_CENTER 0x06
 		startX -= (width / 2);
-	else if ( textAlign & 0x02 ) // TA_RIGHT 0x02
+	else if (textAlign & 0x02) // TA_RIGHT 0x02
 		startX -= width;
-	if ( textAlign == 0 ) // TA_TOP                       
+	if (textAlign == 0) // TA_TOP                       
 		startY += fm.ascent();
 
 	bool eto_empty = (params[3] == 0);
 	bool eto_clipped_set = (params[3] & 0x0004);
 	bool eto_pdy_set     = (params[3] & 0x2000);
 
-	int  idxOffset = (params[ 2 ] / 2) + 4 + (params[ 2 ] & 1) + (eto_clipped_set ? 4 : 0);
+	int  idxOffset = (params[2] / 2) + 4 + (params[2] & 1) + (eto_clipped_set ? 4 : 0);
 	int  minParams = eto_pdy_set ? (idxOffset + 2 * (params[2] - 1)) : (idxOffset + params[2]);
 	bool useCharInterdistances = (num >= minParams) && (eto_empty || eto_pdy_set);
 	if ((params[2] > 1) && useCharInterdistances) 
@@ -1221,7 +1216,7 @@ void WMFImport::extTextOut( QList<PageItem*>& items, long num, const short* para
 		double ypos  = startY;
 		double lineWidth = 0.0;
 		FPointArray textPath;
-		QString textColor = importColor( m_context.textColor() );
+		QString textColor = importColor(m_context.textColor());
 		for (int index = 0; (index < params[2] && index < textString.length()); ++index) 
 		{
 			QPainterPath painterPath;
@@ -1247,9 +1242,9 @@ void WMFImport::extTextOut( QList<PageItem*>& items, long num, const short* para
 	else 
 	{
 		FPointArray textPath;
-		QString textColor = importColor( m_context.textColor() );
+		QString textColor = importColor(m_context.textColor());
 		QPainterPath painterPath;
-		painterPath.addText( startX, startY, m_context.font(), textString );
+		painterPath.addText(startX, startY, m_context.font(), textString);
 		textPath.fromQPainterPath(painterPath);
 		if (!textPath.empty())
 		{
@@ -1267,24 +1262,24 @@ void WMFImport::extTextOut( QList<PageItem*>& items, long num, const short* para
 void WMFImport::selectObject(QList<PageItem*>& /*items*/, long, const short* params )
 {
 	int idx = params[ 0 ];
-	if ( idx >= 0 && idx < MAX_OBJHANDLE && m_ObjHandleTab[ idx ] )
-		m_ObjHandleTab[ idx ]->apply( m_context );
+	if (idx >= 0 && idx < MAX_OBJHANDLE && m_ObjHandleTab[idx])
+		m_ObjHandleTab[idx]->apply(m_context);
 }
 
-void WMFImport::deleteObject( QList<PageItem*>& /*items*/, long, const short* params )
+void WMFImport::deleteObject(QList<PageItem*>& /*items*/, long, const short* params)
 {
-	deleteHandle( params[ 0 ] );
+	deleteHandle(params[0]);
 }
 
-void WMFImport::createEmptyObject( QList<PageItem*>& /*items*/, long, const short* )
+void WMFImport::createEmptyObject(QList<PageItem*>& /*items*/, long, const short*)
 {
 	// allocation of an empty object (to keep object counting in sync)
-	WmfObjPenHandle* handle = new WmfObjPenHandle();
-	addHandle( handle );
+	auto* handle = new WmfObjPenHandle();
+	addHandle(handle);
 	cerr << "WMFImport: unimplemented createObject " << endl;
 }
 
-void WMFImport::createBrushIndirect( QList<PageItem*>& /*items*/, long, const short* params )
+void WMFImport::createBrushIndirect(QList<PageItem*>& /*items*/, long, const short* params)
 {
 	static Qt::BrushStyle hatchedStyleTab[] =
 	{
@@ -1306,85 +1301,85 @@ void WMFImport::createBrushIndirect( QList<PageItem*>& /*items*/, long, const sh
 	  Qt::Dense3Pattern   /* should be device-independent BS_DIBPATTERN8x8 */
 	};
 	Qt::BrushStyle style;
-	WmfObjBrushHandle* handle = new WmfObjBrushHandle();
-	addHandle( handle );
+	auto* handle = new WmfObjBrushHandle();
+	addHandle(handle);
 
 	short arg = params[0];
-	if ( arg == 2 )
+	if (arg == 2)
 	{
 		arg = params[3];
-		if ( arg >= 0 && arg < 5 ) 
-			style = hatchedStyleTab[ arg ];
+		if (arg >= 0 && arg < 5)
+			style = hatchedStyleTab[arg];
 		else
 		{
 			cerr << "WMFImport::createBrushIndirect: invalid hatched brush " << arg << endl;
 			style = Qt::SolidPattern;
 		}
 	}
-	else if ( arg >= 0 && arg < 9 )
+	else if (arg >= 0 && arg < 9)
 		style = styleTab[arg];
 	else
 	{
 		cerr << "WMFImport::createBrushIndirect: invalid brush " << arg << endl;
 		style = Qt::SolidPattern;
 	}
-	handle->brush.setStyle( style );
-	handle->brush.setColor( colorFromParam( params+1 ) );
+	handle->brush.setStyle(style);
+	handle->brush.setColor(colorFromParam(params + 1));
 }
 
-void WMFImport::createPenIndirect( QList<PageItem*>& /*items*/, long, const short* params )
+void WMFImport::createPenIndirect(QList<PageItem*>& /*items*/, long, const short* params)
 {
 	static Qt::PenStyle styleTab[] = { Qt::SolidLine, Qt::DashLine, Qt::DotLine, Qt::DashDotLine, Qt::DashDotDotLine,
 	  Qt::NoPen, Qt::SolidLine };
 	Qt::PenStyle style;
-	WmfObjPenHandle* handle = new WmfObjPenHandle();
-	addHandle( handle );
+	auto* handle = new WmfObjPenHandle();
+	addHandle(handle);
 
-	if ( params[0] >= 0 && params[0] < 6 ) 
-		style = styleTab[ params[0] ];
+	if (params[0] >= 0 && params[0] < 6)
+		style = styleTab[params[0]];
 	else
 	{
-		cerr << "WMFImport::createPenIndirect: invalid pen " << params[ 0 ] << endl;
+		cerr << "WMFImport::createPenIndirect: invalid pen " << params[0] << endl;
 		style = Qt::SolidLine;
 	}
 
-	handle->pen.setStyle( style );
-	handle->pen.setWidth( params[1] );
-	handle->pen.setColor( colorFromParam( params+3 ) );
-	handle->pen.setCapStyle( Qt::RoundCap );
+	handle->pen.setStyle(style);
+	handle->pen.setWidth(params[1]);
+	handle->pen.setColor(colorFromParam(params + 3));
+	handle->pen.setCapStyle(Qt::RoundCap);
 }
 
-void WMFImport::createFontIndirect( QList<PageItem*>& /*items*/, long , const short* params)
+void WMFImport::createFontIndirect(QList<PageItem*>& /*items*/, long, const short* params)
 {
-	WmfObjFontHandle* handle = new WmfObjFontHandle();
-	addHandle( handle );
+	auto* handle = new WmfObjFontHandle();
+	addHandle(handle);
 
-	QString family( (const char*)&params[ 9 ] );
+	QString family((const char*) &params[9]);
 
-	handle->rotation = -params[ 2 ]  / 10; // text rotation (in 1/10 degree)
-	handle->font.setFamily( family );
-	handle->font.setStyleStrategy( QFont::PreferOutline );
-	handle->font.setFixedPitch( ((params[ 8 ] & 0x01) == 0) );
+	handle->rotation = -params[2] / 10; // text rotation (in 1/10 degree)
+	handle->font.setFamily(family);
+	handle->font.setStyleStrategy(QFont::PreferOutline);
+	handle->font.setFixedPitch((params[8] & 0x01) == 0);
 	// TODO: investigation why some test case need -2. (size of font in logical point)
 	int fontSize = (params[0] != 0) ? (qAbs(params[0]) - 2) : 12;
-	handle->font.setPixelSize( fontSize );
-	handle->font.setWeight( (QFont::Weight) ((params[ 4 ] >> 3)) );
-	handle->font.setItalic( (params[ 5 ] & 0x01) );
-	handle->font.setUnderline( (params[ 5 ] & 0x100) );
-	handle->font.setStrikeOut( (params[ 6 ] & 0x01) );
-	handle->charset = (params[ 6 ] & 0xFF00) >> 8;
+	handle->font.setPixelSize(fontSize);
+	handle->font.setWeight((QFont::Weight) (params[4] >> 3));
+	handle->font.setItalic(params[5] & 0x01);
+	handle->font.setUnderline(params[5] & 0x100);
+	handle->font.setStrikeOut(params[6] & 0x01);
+	handle->charset = (params[6] & 0xFF00) >> 8;
 }
 
-void WMFImport::noop( QList<PageItem*>& /*items*/, long, const short* )
+void WMFImport::noop(QList<PageItem*>& /*items*/, long, const short*)
 {
 }
 
-void WMFImport::end( QList<PageItem*>& /*items*/, long, const short* )
+void WMFImport::end(QList<PageItem*>& /*items*/, long, const short*)
 {
 	//cerr << "WMFImport::end unimplemented" << endl;
 }
 
-void WMFImport::addHandle( WmfObjHandle* handle )
+void WMFImport::addHandle(WmfObjHandle* handle)
 {
 	int idx;
 
@@ -1394,61 +1389,64 @@ void WMFImport::addHandle( WmfObjHandle* handle )
 			break;
 	}
 
-	if ( idx < MAX_OBJHANDLE )
-		m_ObjHandleTab[ idx ] = handle;
+	if (idx < MAX_OBJHANDLE)
+		m_ObjHandleTab[idx] = handle;
 	else
 		cerr << "WMFImport error: handle table full !" << endl;
 }
 
-void WMFImport::deleteHandle( int idx )
+void WMFImport::deleteHandle(int idx)
 {
-	if ( idx >= 0 && idx < MAX_OBJHANDLE && m_ObjHandleTab[ idx ] )
+	if (idx >= 0 && idx < MAX_OBJHANDLE && m_ObjHandleTab[idx])
 	{
-		delete m_ObjHandleTab[ idx ];
-		m_ObjHandleTab[ idx ] = nullptr;
+		delete m_ObjHandleTab[idx];
+		m_ObjHandleTab[idx] = nullptr;
 	}
 }
 
-unsigned short WMFImport::calcCheckSum( WmfPlaceableHeader* apmfh )
+unsigned short WMFImport::calcCheckSum(WmfPlaceableHeader* apmfh)
 {
 	WORD16*  lpWord;
-	WORD16   wResult, i;
+	WORD16   wResult;
 
 	// Start with the first word
-	wResult = *( lpWord = ( WORD16* )( apmfh ) );
+	wResult = *(lpWord = (WORD16*) (apmfh));
 	// XOR in each of the other 9 words
-	for (i = 1; i <= 9; i++)
+	for (int i = 1; i <= 9; i++)
 	{
-		wResult ^= lpWord[ i ];
+		wResult ^= lpWord[i];
 	}
 	return wResult;
 }
 
-int WMFImport::findFunc( unsigned short aFunc ) const
+int WMFImport::findFunc(unsigned short aFunc) const
 {
 	int i = 0;
 
-	for ( i=0; metaFuncTab[ i ].name; i++ )
-		if ( metaFuncTab[ i ].func == aFunc ) return i;
+	for (i = 0; metaFuncTab[i].name; i++)
+	{
+		if (metaFuncTab[i].func == aFunc)
+			return i;
+	}
 
 	// here : unknown function
 	return i;
 }
 
-unsigned int WMFImport::toDWord( const short* params )
+unsigned int WMFImport::toDWord(const short* params)
 {
 	unsigned int l;
-#if !defined( WORDS_BIGENDIAN )
-	l = *(const unsigned int* )( params );
+#if !defined(WORDS_BIGENDIAN)
+	l = *(const unsigned int*) (params);
 #else
-	char *bytes;
-	char swap[ 4 ];
-	bytes = ( char* )params;
-	swap[ 0 ] = bytes[ 2 ];
-	swap[ 1 ] = bytes[ 3 ];
-	swap[ 2 ] = bytes[ 0 ];
-	swap[ 3 ] = bytes[ 1 ];
-	l = *( unsigned int* )( swap );
+	char* bytes;
+	char swap[4];
+	bytes = (char*) params;
+	swap[0] = bytes[2];
+	swap[1] = bytes[3];
+	swap[2] = bytes[0];
+	swap[3] = bytes[1];
+	l = *(unsigned int*) (swap);
 #endif
 	return l;
 }

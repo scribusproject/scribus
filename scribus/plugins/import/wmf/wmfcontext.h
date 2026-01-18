@@ -19,30 +19,6 @@ for which a new license (GPL+exception) is in place.
 
 class WMFGraphicsState
 {
-protected:
-
-	QPointF windowOrg;
-	QSizeF  windowExt;
-	QPointF viewportOrg;
-	QSizeF  viewportExt;
-
-	void updateWorldMatrix();
-
-public:
-	QFont		font;
-	QPoint		position;
-	QPen        pen;
-	QBrush      brush;
-	QColor      backgroundColor;
-	Qt::BGMode  backgroundMode;
-	QColor      textColor;
-	int         textAlign;
-	int         textCharset;
-	double      textRotation;
-	bool        windingFill;
-	FPointArray path;
-	QTransform     worldMatrix;
-	
 public:
 	WMFGraphicsState();
 
@@ -50,12 +26,33 @@ public:
 	void setWindowExt(double x, double y);
 	void setViewportOrg(double x, double y);
 	void setViewportExt(double x, double y);
+
+	QFont		font;
+	QPoint		position;
+	QPen        pen;
+	QBrush      brush;
+	QColor      backgroundColor;
+	Qt::BGMode  backgroundMode { Qt::TransparentMode };
+	QColor      textColor;
+	int         textAlign { 0 };
+	int         textCharset { 1 }; // DEFAULT_CHARSET
+	double      textRotation { 0.0 };
+	bool        windingFill { false };
+	FPointArray path;
+	QTransform  worldMatrix;
+
+protected:
+	QPointF windowOrg;
+	QSizeF  windowExt;
+	QPointF viewportOrg;
+	QSizeF  viewportExt;
+
+	void updateWorldMatrix();
 };
 
 class WMFContext : public QStack<WMFGraphicsState>
 {
 public:
-
 	WMFContext();
 
 	void save();
