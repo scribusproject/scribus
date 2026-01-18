@@ -11,16 +11,6 @@ for which a new license (GPL+exception) is in place.
 	email                : Franz.Schmid@altmuehlnet.de
  ***************************************************************************/
 
-#include <QByteArray>
-#include <QCursor>
-#include <QDrag>
-#include <QFile>
-#include <QList>
-#include <QMimeData>
-#include <QStack>
-#include <QUrl>
-#include <QDebug>
-
 #if defined(_MSC_VER) && !defined(_USE_MATH_DEFINES)
 #define _USE_MATH_DEFINES
 #endif
@@ -29,10 +19,18 @@ for which a new license (GPL+exception) is in place.
 #include <climits>
 #include <limits>
 
+#include <QByteArray>
+#include <QCursor>
+#include <QDebug>
+#include <QDrag>
+#include <QFile>
+#include <QList>
+#include <QMimeData>
+#include <QScopedPointer>
+#include <QStack>
+#include <QUrl>
 
 #include "importviva.h"
-
-
 
 #include "commonstrings.h"
 #include "loadsaveplugin.h"
@@ -69,38 +67,37 @@ VivaPlug::VivaPlug(ScribusDoc* doc, int flags)
 	m_Doc = doc;
 	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
-	progressDialog = nullptr;
 }
 
-double VivaPlug::parseUnit(const QString &unit)
+double VivaPlug::parseUnit(const QString &unit) const
 {
 	bool noUnit = false;
 	QString unitval = unit;
-	if (unit.right( 2 ) == "pt")
-		unitval.replace( "pt", "");
-	else if (unit.right( 2 ) == "cm")
-		unitval.replace( "cm", "" );
-	else if (unit.right( 2 ) == "mm")
-		unitval.replace( "mm" , "");
-	else if (unit.right( 2 ) == "in")
-		unitval.replace( "in", "" );
-	else if (unit.right( 2 ) == "px")
-		unitval.replace( "px", "" );
+	if (unit.right(2) == "pt")
+		unitval.replace("pt", "");
+	else if (unit.right(2) == "cm")
+		unitval.replace("cm", "");
+	else if (unit.right(2) == "mm")
+		unitval.replace("mm", "");
+	else if (unit.right(2) == "in")
+		unitval.replace("in", "");
+	else if (unit.right(2) == "px")
+		unitval.replace("px", "");
 	if (unitval == unit)
 		noUnit = true;
 	double value = ScCLocale::toDoubleC(unitval);
-	if (unit.right( 2 ) == "pt")
-		{}/* value = value; */ //no change
-	else if (unit.right( 2 ) == "cm")
-		value = ( value / 2.54 ) * 72;
-	else if (unit.right( 2 ) == "mm")
-		value = ( value / 25.4 ) * 72;
-	else if (unit.right( 2 ) == "in")
+	if (unit.right(2) == "pt")
+		{} /* value = value; */ //no change
+	else if (unit.right(2) == "cm")
+		value = (value / 2.54) * 72;
+	else if (unit.right(2) == "mm")
+		value = (value / 25.4) * 72;
+	else if (unit.right(2) == "in")
 		value = value * 72;
-	else if (unit.right( 2 ) == "px")
+	else if (unit.right(2) == "px")
 		value = value * 0.8;
 	else if (noUnit)
-		{}/* value = value; */ //no change
+		{} /* value = value; */ //no change
 	return value;
 }
 
@@ -136,9 +133,9 @@ QImage VivaPlug::readThumbnail(const QString& fName)
 		m_Doc->DoDrawing = true;
 		m_Doc->m_Selection->delaySignalsOn();
 		QImage tmpImage;
-		if (Elements.count() > 0)
+		if (!Elements.isEmpty())
 		{
-			for (int dre=0; dre<Elements.count(); ++dre)
+			for (int dre = 0; dre < Elements.count(); ++dre)
 			{
 				tmpSel->addItem(Elements.at(dre), true);
 			}
@@ -153,12 +150,14 @@ QImage VivaPlug::readThumbnail(const QString& fName)
 		m_Doc->setLoading(false);
 		m_Doc->m_Selection->delaySignalsOff();
 		delete m_Doc;
+		m_Doc = nullptr;
 		return tmpImage;
 	}
 	QDir::setCurrent(CurDirP);
 	m_Doc->DoDrawing = true;
 	m_Doc->scMW()->setScriptRunning(false);
 	delete m_Doc;
+	m_Doc = nullptr;
 	return tmp;
 }
 
@@ -183,12 +182,13 @@ bool VivaPlug::readColors(const QString& fileName, ColorList & colors)
 				parseColorsXML(dpg);
 		}
 	}
-	if (importedColors.count() != 0)
+	if (!importedColors.isEmpty())
 	{
 		colors = m_Doc->PageColors;
 		success = true;
 	}
 	delete m_Doc;
+	m_Doc = nullptr;
 	return success;
 }
 
@@ -226,21 +226,21 @@ bool VivaPlug::importFile(const QString& fNameIn, const TransactionSettings& trS
 		progressDialog->setProgress("GI", 0);
 		progressDialog->show();
 		connect(progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
-		qApp->processEvents();
+		QApplication::processEvents();
 	}
 	else
 		progressDialog = nullptr;
 	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(1);
-		qApp->processEvents();
+		QApplication::processEvents();
 	}
 	/* Set default Page to size defined in Preferences */
 	docWidth = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
 	docHeight = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
 	baseX = 0;
 	baseY = 0;
-	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
+	if (m_Doc && (!interactive || (flags & LoadSavePlugin::lfInsertPage)))
 	{
 		m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
 		m_Doc->addPage(0);
@@ -248,25 +248,22 @@ bool VivaPlug::importFile(const QString& fNameIn, const TransactionSettings& trS
 		baseX = 0;
 		baseY = 0;
 	}
-	else
+	else if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
 	{
-		if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
-		{
-			m_Doc = ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
-			ScCore->primaryMainWindow()->HaveNewDoc();
-			ret = true;
-			baseX = 0;
-			baseY = 0;
-			baseX = m_Doc->currentPage()->xOffset();
-			baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
-		}
+		m_Doc = ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
+		ScCore->primaryMainWindow()->HaveNewDoc();
+		ret = true;
+		baseX = 0;
+		baseY = 0;
+		baseX = m_Doc->currentPage()->xOffset();
+		baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
 	}
-	if ((!ret) && (interactive))
+	if (!ret && interactive)
 	{
 		baseX = m_Doc->currentPage()->xOffset();
 		baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
 	}
-	if ((ret) || (!interactive))
+	if (ret || !interactive)
 	{
 		if (docWidth > docHeight)
 			m_Doc->setPageOrientation(1);
@@ -280,7 +277,7 @@ bool VivaPlug::importFile(const QString& fNameIn, const TransactionSettings& trS
 	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
-	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
+	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.path());
 	if (convert(fNameIn))
@@ -292,8 +289,8 @@ bool VivaPlug::importFile(const QString& fNameIn, const TransactionSettings& trS
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->setLoading(false);
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		if ((Elements.count() > 0) && (!ret) && (interactive))
+		QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		if (!Elements.isEmpty() && !ret && interactive)
 		{
 			if (flags & LoadSavePlugin::lfScripted)
 			{
@@ -330,7 +327,7 @@ bool VivaPlug::importFile(const QString& fNameIn, const TransactionSettings& trS
 				m_Doc->m_Selection->delaySignalsOff();
 				// We must copy the TransationSettings object as it is owned
 				// by handleObjectImport method afterwards
-				TransactionSettings* transacSettings = new TransactionSettings(trSettings);
+				auto* transacSettings = new TransactionSettings(trSettings);
 				m_Doc->view()->handleObjectImport(md, transacSettings);
 				m_Doc->DragP = false;
 				m_Doc->DraggedElem = nullptr;
@@ -353,17 +350,17 @@ bool VivaPlug::importFile(const QString& fNameIn, const TransactionSettings& trS
 		m_Doc->scMW()->setScriptRunning(false);
 		if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 			m_Doc->view()->updatesOn(true);
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}
 	if (interactive)
 		m_Doc->setLoading(false);
 	//CB If we have a gui we must refresh it if we have used the progressbar
 	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 	{
-		if ((showProgress) && (!interactive))
+		if (showProgress && !interactive)
 			m_Doc->view()->DrawNew();
 	}
-	qApp->restoreOverrideCursor();
+	QApplication::restoreOverrideCursor();
 	return success;
 }
 
@@ -383,7 +380,7 @@ bool VivaPlug::convert(const QString& fn)
 	{
 		progressDialog->setOverallProgress(2);
 		progressDialog->setLabel("GI", tr("Generating Items"));
-		qApp->processEvents();
+		QApplication::processEvents();
 	}
 	bool retVal = true;
 	importedColors.clear();
@@ -423,81 +420,81 @@ bool VivaPlug::convert(const QString& fn)
 
 void VivaPlug::parseSettingsXML(const QDomElement& grNode)
 {
-	if (importerFlags & LoadSavePlugin::lfCreateDoc)
+	if ((importerFlags & LoadSavePlugin::lfCreateDoc) == 0)
+		return;
+
+	topMargin = m_Doc->marginsVal().top();
+	leftMargin = m_Doc->marginsVal().left();
+	rightMargin = m_Doc->marginsVal().right();
+	bottomMargin = m_Doc->marginsVal().bottom();
+	double pgCols = m_Doc->PageSp;
+	double pgGap = m_Doc->PageSpa;
+	papersize = "Custom";
+	QString paperOrien = "portrait";
+	bool hasPageSize = false;
+	for (QDomNode n = grNode.firstChild(); !n.isNull(); n = n.nextSibling() )
 	{
-		topMargin = m_Doc->marginsVal().top();
-		leftMargin = m_Doc->marginsVal().left();
-		rightMargin = m_Doc->marginsVal().right();
-		bottomMargin = m_Doc->marginsVal().bottom();
-		double pgCols = m_Doc->PageSp;
-		double pgGap = m_Doc->PageSpa;
-		papersize = "Custom";
-		QString paperOrien = "portrait";
-		bool hasPageSize = false;
-		for (QDomNode n = grNode.firstChild(); !n.isNull(); n = n.nextSibling() )
+		QDomElement e = n.toElement();
+		if (e.tagName() == "vd:pageMargins")
 		{
-			QDomElement e = n.toElement();
-			if (e.tagName() == "vd:pageMargins")
-			{
-				topMargin = parseUnit(e.attribute("vd:top", "0"));
-				leftMargin = parseUnit(e.attribute("vd:left", "0"));
-				rightMargin = parseUnit(e.attribute("vd:right", "0"));
-				bottomMargin = parseUnit(e.attribute("vd:bottom", "0"));
-			}
-			else if (e.tagName() == "vd:pageColumns")
-			{
-				pgCols = e.attribute("vd:count", "1").toInt();
-				pgGap = parseUnit(e.attribute("vd:distance", "0"));
-			}
-			else if (e.tagName() == "vd:pageMode")
-				facingPages = e.text() == "doublePage";
-			else if (e.tagName() == "vd:pageFormat")
-				papersize = e.text();
-			else if (e.tagName() == "vd:pageOrientation")
-				paperOrien = e.text();
-			else if (e.tagName() == "vd:pageSize")
-			{
-				docWidth = parseUnit(e.attribute("vd:width", "0"));
-				docHeight = parseUnit(e.attribute("vd:height", "0"));
-				hasPageSize = true;
-			}
+			topMargin = parseUnit(e.attribute("vd:top", "0"));
+			leftMargin = parseUnit(e.attribute("vd:left", "0"));
+			rightMargin = parseUnit(e.attribute("vd:right", "0"));
+			bottomMargin = parseUnit(e.attribute("vd:bottom", "0"));
 		}
-		PageSize ps(papersize);
-		if (hasPageSize)
+		else if (e.tagName() == "vd:pageColumns")
 		{
-			if (!paperOrien.startsWith("portrait"))
-			{
-				double tmp = docWidth;
-				docWidth = docHeight;
-				docHeight = tmp;
-			}
+			pgCols = e.attribute("vd:count", "1").toInt();
+			pgGap = parseUnit(e.attribute("vd:distance", "0"));
+		}
+		else if (e.tagName() == "vd:pageMode")
+			facingPages = e.text() == "doublePage";
+		else if (e.tagName() == "vd:pageFormat")
+			papersize = e.text();
+		else if (e.tagName() == "vd:pageOrientation")
+			paperOrien = e.text();
+		else if (e.tagName() == "vd:pageSize")
+		{
+			docWidth = parseUnit(e.attribute("vd:width", "0"));
+			docHeight = parseUnit(e.attribute("vd:height", "0"));
+			hasPageSize = true;
+		}
+	}
+	PageSize ps(papersize);
+	if (hasPageSize)
+	{
+		if (!paperOrien.startsWith("portrait"))
+		{
+			double tmp = docWidth;
+			docWidth = docHeight;
+			docHeight = tmp;
+		}
+	}
+	else
+	{
+		if (paperOrien.startsWith("portrait"))
+		{
+			docWidth = ps.width();
+			docHeight = ps.height();
 		}
 		else
 		{
-			if (paperOrien.startsWith("portrait"))
-			{
-				docWidth = ps.width();
-				docHeight = ps.height();
-			}
-			else
-			{
-				docHeight = ps.width();
-				docWidth = ps.height();
-			}
+			docHeight = ps.width();
+			docWidth = ps.height();
 		}
-		m_Doc->setPage(docWidth, docHeight, topMargin, leftMargin, rightMargin, bottomMargin, pgCols, pgGap, false, facingPages);
-		m_Doc->setPageSize(papersize);
-		m_Doc->currentPage()->setSize(papersize);
-		m_Doc->currentPage()->setInitialHeight(docHeight);
-		m_Doc->currentPage()->setInitialWidth(docWidth);
-		m_Doc->currentPage()->setHeight(docHeight);
-		m_Doc->currentPage()->setWidth(docWidth);
-		m_Doc->currentPage()->initialMargins.setTop(topMargin);
-		m_Doc->currentPage()->initialMargins.setBottom(bottomMargin);
-		m_Doc->currentPage()->initialMargins.setLeft(leftMargin);
-		m_Doc->currentPage()->initialMargins.setRight(rightMargin);
-		m_Doc->reformPages(true);
 	}
+	m_Doc->setPage(docWidth, docHeight, topMargin, leftMargin, rightMargin, bottomMargin, pgCols, pgGap, false, facingPages);
+	m_Doc->setPageSize(papersize);
+	m_Doc->currentPage()->setSize(papersize);
+	m_Doc->currentPage()->setInitialHeight(docHeight);
+	m_Doc->currentPage()->setInitialWidth(docWidth);
+	m_Doc->currentPage()->setHeight(docHeight);
+	m_Doc->currentPage()->setWidth(docWidth);
+	m_Doc->currentPage()->initialMargins.setTop(topMargin);
+	m_Doc->currentPage()->initialMargins.setBottom(bottomMargin);
+	m_Doc->currentPage()->initialMargins.setLeft(leftMargin);
+	m_Doc->currentPage()->initialMargins.setRight(rightMargin);
+	m_Doc->reformPages(true);
 }
 
 void VivaPlug::parseColorsXML(const QDomElement& grNode)
@@ -597,7 +594,7 @@ void VivaPlug::parseColorsXML(const QDomElement& grNode)
 				grTyp = 7;
 			else if (e.attribute("vc:type") == "rectangle")
 				grTyp = 10;
-			VGradient currentGradient = VGradient(VGradient::linear);
+			VGradient currentGradient(VGradient::linear);
 			currentGradient.clearStops();
 			for (QDomNode gr = e.firstChild(); !gr.isNull(); gr = gr.nextSibling())
 			{
@@ -641,28 +638,28 @@ void VivaPlug::parseColorsXML(const QDomElement& grNode)
 
 void VivaPlug::parsePreferencesXML(const QDomElement& spNode)
 {
-	if (importerFlags & LoadSavePlugin::lfCreateDoc)
+	if ((importerFlags & LoadSavePlugin::lfCreateDoc) == 0)
+		return;
+
+	for (QDomNode n = spNode.firstChild(); !n.isNull(); n = n.nextSibling() )
 	{
-		for (QDomNode n = spNode.firstChild(); !n.isNull(); n = n.nextSibling() )
+		QDomElement e = n.toElement();
+		if (e.tagName() != "vd:text")
+			continue;
+
+		for (QDomNode spo = e.firstChild(); !spo.isNull(); spo = spo.nextSibling())
 		{
-			QDomElement e = n.toElement();
-			if (e.tagName() == "vd:text")
-			{
-				for (QDomNode spo = e.firstChild(); !spo.isNull(); spo = spo.nextSibling())
-				{
-					QDomElement eo = spo.toElement();
-					if (eo.tagName() == "vd:superscriptVerticalOffset")
-						m_Doc->typographicPrefs().valueSuperScript = eo.text().toInt();
-					else if (eo.tagName() == "vd:superscriptCharacterHeight")
-						m_Doc->typographicPrefs().scalingSuperScript = eo.text().toInt();
-					else if (eo.tagName() == "vd:subscriptVerticalOffset")
-						m_Doc->typographicPrefs().valueSubScript = eo.text().toInt();
-					else if (eo.tagName() == "vd:subscriptCharacterHeight")
-						m_Doc->typographicPrefs().scalingSubScript = eo.text().toInt();
-					else if (eo.tagName() == "vd:smallCapsCharacterHeight")
-						m_Doc->typographicPrefs().valueSmallCaps = eo.text().toInt();
-				}
-			}
+			QDomElement eo = spo.toElement();
+			if (eo.tagName() == "vd:superscriptVerticalOffset")
+				m_Doc->typographicPrefs().valueSuperScript = eo.text().toInt();
+			else if (eo.tagName() == "vd:superscriptCharacterHeight")
+				m_Doc->typographicPrefs().scalingSuperScript = eo.text().toInt();
+			else if (eo.tagName() == "vd:subscriptVerticalOffset")
+				m_Doc->typographicPrefs().valueSubScript = eo.text().toInt();
+			else if (eo.tagName() == "vd:subscriptCharacterHeight")
+				m_Doc->typographicPrefs().scalingSubScript = eo.text().toInt();
+			else if (eo.tagName() == "vd:smallCapsCharacterHeight")
+				m_Doc->typographicPrefs().valueSmallCaps = eo.text().toInt();
 		}
 	}
 }
@@ -713,35 +710,86 @@ void VivaPlug::parseLayerXML(const QDomElement& spNode)
 
 void VivaPlug::parseMasterSpreadXML(const QDomElement& spNode)
 {
-	if (importerFlags & LoadSavePlugin::lfCreateDoc)
+	if ((importerFlags & LoadSavePlugin::lfCreateDoc) == 0)
+		return;
+
+	bool firstSpread = true;
+	m_Doc->setMasterPageMode(true);
+	ScPage *oldCur = m_Doc->currentPage();
+	for (QDomNode n = spNode.firstChild(); !n.isNull(); n = n.nextSibling() )
 	{
-		bool firstSpread = true;
-		m_Doc->setMasterPageMode(true);
-		ScPage *oldCur = m_Doc->currentPage();
-		for (QDomNode n = spNode.firstChild(); !n.isNull(); n = n.nextSibling() )
+		QString pageNam = spNode.attribute("vd:name");
+		QDomElement e = n.toElement();
+		if (e.tagName() != "vd:aliasPage")
+			continue;
+
+		if (spNode.tagName() == "vd:doubleAliasPage")
 		{
-			QString pageNam = spNode.attribute("vd:name");
-			QDomElement e = n.toElement();
-			if (e.tagName() == "vd:aliasPage")
+			mspreadTypes.insert(pageNam, 1);
+			if (firstSpread)
+				pageNam += "_Left";
+			else
+				pageNam += "_Right";
+		}
+		else
+			mspreadTypes.insert(pageNam, 0);
+		ScPage *addedPage = m_Doc->addMasterPage(mpagecount, pageNam);
+		m_Doc->setCurrentPage(addedPage);
+		addedPage->clearMasterPageName();
+		m_Doc->view()->addPage(mpagecount, true);
+		baseX = addedPage->xOffset();
+		baseY = addedPage->yOffset();
+		mpagecount++;
+		for (QDomNode spo = e.firstChild(); !spo.isNull(); spo = spo.nextSibling())
+		{
+			QDomElement eo = spo.toElement();
+			if (eo.tagName() == "vo:object")
 			{
-				if (spNode.tagName() == "vd:doubleAliasPage")
-				{
-					mspreadTypes.insert(pageNam, 1);
-					if (firstSpread)
-						pageNam += "_Left";
-					else
-						pageNam += "_Right";
-				}
-				else
-					mspreadTypes.insert(pageNam, 0);
-				ScPage *addedPage = m_Doc->addMasterPage(mpagecount, pageNam);
-				m_Doc->setCurrentPage(addedPage);
-				addedPage->clearMasterPageName();
-				m_Doc->view()->addPage(mpagecount, true);
-				baseX = addedPage->xOffset();
-				baseY = addedPage->yOffset();
-				mpagecount++;
-				for (QDomNode spo = e.firstChild(); !spo.isNull(); spo = spo.nextSibling())
+				PageItem* ite = parseObjectXML(eo);
+				if (ite == nullptr)
+					continue;
+				m_Doc->Items->append(ite);
+				Elements.append(ite);
+			}
+		}
+		firstSpread = false;
+	}
+	m_Doc->setCurrentPage(oldCur);
+	m_Doc->setMasterPageMode(false);
+}
+
+void VivaPlug::parseSpreadXML(const QDomElement& spNode)
+{
+	for (QDomNode n = spNode.firstChild(); !n.isNull(); n = n.nextSibling() )
+	{
+		QDomElement e = n.toElement();
+		if (e.tagName() != "vd:page")
+			continue;
+
+		if ((importerFlags & LoadSavePlugin::lfCreateDoc) && (!firstPage))
+		{
+			m_Doc->addPage(pagecount);
+			m_Doc->currentPage()->setSize(papersize);
+			m_Doc->currentPage()->setInitialHeight(docHeight);
+			m_Doc->currentPage()->setInitialWidth(docWidth);
+			m_Doc->currentPage()->setHeight(docHeight);
+			m_Doc->currentPage()->setWidth(docWidth);
+			m_Doc->currentPage()->initialMargins.setTop(topMargin);
+			m_Doc->currentPage()->initialMargins.setBottom(bottomMargin);
+			m_Doc->currentPage()->initialMargins.setLeft(leftMargin);
+			m_Doc->currentPage()->initialMargins.setRight(rightMargin);
+			m_Doc->currentPage()->setMasterPageNameNormal();
+			m_Doc->view()->addPage(pagecount, true);
+			pagecount++;
+		}
+		baseX = m_Doc->currentPage()->xOffset();
+		baseY = m_Doc->currentPage()->yOffset();
+		for (QDomNode sp = e.firstChild(); !sp.isNull(); sp = sp.nextSibling())
+		{
+			QDomElement spe = sp.toElement();
+			if (spe.tagName() == "vd:content")
+			{
+				for (QDomNode spo = spe.firstChild(); !spo.isNull(); spo = spo.nextSibling())
 				{
 					QDomElement eo = spo.toElement();
 					if (eo.tagName() == "vo:object")
@@ -754,90 +802,38 @@ void VivaPlug::parseMasterSpreadXML(const QDomElement& spNode)
 						}
 					}
 				}
-				firstSpread = false;
 			}
-		}
-		m_Doc->setCurrentPage(oldCur);
-		m_Doc->setMasterPageMode(false);
-	}
-}
-
-void VivaPlug::parseSpreadXML(const QDomElement& spNode)
-{
-	for (QDomNode n = spNode.firstChild(); !n.isNull(); n = n.nextSibling() )
-	{
-		QDomElement e = n.toElement();
-		if (e.tagName() == "vd:page")
-		{
-			if ((importerFlags & LoadSavePlugin::lfCreateDoc) && (!firstPage))
+			else if (spe.tagName() == "vd:column")
 			{
-				m_Doc->addPage(pagecount);
-				m_Doc->currentPage()->setSize(papersize);
-				m_Doc->currentPage()->setInitialHeight(docHeight);
-				m_Doc->currentPage()->setInitialWidth(docWidth);
-				m_Doc->currentPage()->setHeight(docHeight);
-				m_Doc->currentPage()->setWidth(docWidth);
-				m_Doc->currentPage()->initialMargins.setTop(topMargin);
-				m_Doc->currentPage()->initialMargins.setBottom(bottomMargin);
-				m_Doc->currentPage()->initialMargins.setLeft(leftMargin);
-				m_Doc->currentPage()->initialMargins.setRight(rightMargin);
-				m_Doc->currentPage()->setMasterPageNameNormal();
-				m_Doc->view()->addPage(pagecount, true);
-				pagecount++;
-			}
-			baseX = m_Doc->currentPage()->xOffset();
-			baseY = m_Doc->currentPage()->yOffset();
-			for (QDomNode sp = e.firstChild(); !sp.isNull(); sp = sp.nextSibling())
-			{
-				QDomElement spe = sp.toElement();
-				if (spe.tagName() == "vd:content")
+				if ((importerFlags & LoadSavePlugin::lfCreateDoc) && firstPage)
 				{
-					for (QDomNode spo = spe.firstChild(); !spo.isNull(); spo = spo.nextSibling())
+					if (spe.text() == "1")
+						m_Doc->setPageSetFirstPage(m_Doc->pagePositioning(), 0);
+					else
+						m_Doc->setPageSetFirstPage(m_Doc->pagePositioning(), 1);
+					m_Doc->reformPages(false);
+					baseX = m_Doc->currentPage()->xOffset();
+					baseY = m_Doc->currentPage()->yOffset();
+				}
+				if (importerFlags & LoadSavePlugin::lfCreateDoc)
+				{
+					QString mpage = e.attribute("vd:aliasPageName");
+					int mType = mspreadTypes[mpage];
+					if (mType == 1)
 					{
-						QDomElement eo = spo.toElement();
-						if (eo.tagName() == "vo:object")
+						if (facingPages == 1)
 						{
-							PageItem* ite = parseObjectXML(eo);
-							if (ite != nullptr)
-							{
-								m_Doc->Items->append(ite);
-								Elements.append(ite);
-							}
+							if (spe.text() == "1")
+								mpage += "_Left";
+							else
+								mpage += "_Right";
 						}
 					}
-				}
-				else if (spe.tagName() == "vd:column")
-				{
-					if ((importerFlags & LoadSavePlugin::lfCreateDoc) && (firstPage))
-					{
-						if (spe.text() == "1")
-							m_Doc->setPageSetFirstPage(m_Doc->pagePositioning(), 0);
-						else
-							m_Doc->setPageSetFirstPage(m_Doc->pagePositioning(), 1);
-						m_Doc->reformPages(false);
-						baseX = m_Doc->currentPage()->xOffset();
-						baseY = m_Doc->currentPage()->yOffset();
-					}
-					if (importerFlags & LoadSavePlugin::lfCreateDoc)
-					{
-						QString mpage = e.attribute("vd:aliasPageName");
-						int mType = mspreadTypes[mpage];
-						if (mType == 1)
-						{
-							if (facingPages == 1)
-							{
-								if (spe.text() == "1")
-									mpage += "_Left";
-								else
-									mpage += "_Right";
-							}
-						}
-						m_Doc->applyMasterPage(mpage, m_Doc->currentPageNumber());
-					}
+					m_Doc->applyMasterPage(mpage, m_Doc->currentPageNumber());
 				}
 			}
-			firstPage = false;
 		}
+		firstPage = false;
 	}
 }
 
@@ -849,32 +845,32 @@ void VivaPlug::parseTextChainsXML(const QDomElement& obNode)
 	for (QDomNode ob = eo.firstChild(); !ob.isNull(); ob = ob.nextSibling())
 	{
 		QDomElement obe = ob.toElement();
-		if (obe.tagName() == "vd:sequence")
+		if (obe.tagName() != "vd:sequence")
+			continue;
+
+		QList<PageItem*> GElements;
+		for (QDomNode obg = obe.firstChild(); !obg.isNull(); obg = obg.nextSibling())
 		{
-			QList<PageItem*> GElements;
-			GElements.clear();
-			for (QDomNode obg = obe.firstChild(); !obg.isNull(); obg = obg.nextSibling())
+			QDomElement eog = obg.toElement();
+			if (eog.tagName() == "vd:object")
 			{
-				QDomElement eog = obg.toElement();
-				if (eog.tagName() == "vd:object")
-				{
-					QString id = eog.attribute("vd:id");
-					if (storyMap.contains(id))
-						GElements.append(storyMap[id]);
-				}
+				QString id = eog.attribute("vd:id");
+				if (storyMap.contains(id))
+					GElements.append(storyMap[id]);
 			}
-			if (GElements.count() > 1)
-			{
-				PageItem *first = GElements[0];
-				for (int a = 1; a < GElements.count(); a++)
-				{
-					PageItem *next = GElements[a];
-					first->link(next);
-					next->setColumns(first->columns());
-					next->setColumnGap(first->columnGap());
-					first = next;
-				}
-			}
+		}
+
+		if (GElements.count() < 2)
+			continue;
+
+		PageItem *first = GElements[0];
+		for (int a = 1; a < GElements.count(); a++)
+		{
+			PageItem *next = GElements[a];
+			first->link(next);
+			next->setColumns(first->columns());
+			next->setColumnGap(first->columnGap());
+			first = next;
 		}
 	}
 }
@@ -913,7 +909,7 @@ PageItem* VivaPlug::parseObjectXML(const QDomElement& obNode)
 					}
 				}
 			}
-			if (GElements.count() > 0)
+			if (!GElements.isEmpty())
 			{
 				double minx =  std::numeric_limits<double>::max();
 				double miny =  std::numeric_limits<double>::max();
@@ -922,7 +918,7 @@ PageItem* VivaPlug::parseObjectXML(const QDomElement& obNode)
 				bool groupClip = true;
 				for (int ep = 0; ep < GElements.count(); ++ep)
 				{
-					PageItem* currItem = GElements.at(ep);
+					const PageItem* currItem = GElements.at(ep);
 					double x1, x2, y1, y2;
 					currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
 					minx = qMin(minx, x1);
@@ -1204,7 +1200,7 @@ PageItem* VivaPlug::parseObjectDetailsXML(const QDomElement& obNode, int baseTyp
 								else if ((eo.attribute("vo:control") == "constraint-after") || (eo.attribute("vo:control") == "after"))
 									hasAfter = true;
 							}
-							if ((hasBefore) && ((eo.attribute("vo:control") == "constraint-before") || (eo.attribute("vo:control") == "before")))
+							if (hasBefore && ((eo.attribute("vo:control") == "constraint-before") || (eo.attribute("vo:control") == "before")))
 								triPoint.beforePolyPoint = pp;
 							else if (hasAfter && hasBefore)
 							{
@@ -1226,7 +1222,7 @@ PageItem* VivaPlug::parseObjectDetailsXML(const QDomElement& obNode, int baseTyp
 							}
 						}
 					}
-					if (tPoints.count() > 0)
+					if (!tPoints.isEmpty())
 					{
 						if (ob_type == 2)
 						{
@@ -1253,15 +1249,15 @@ PageItem* VivaPlug::parseObjectDetailsXML(const QDomElement& obNode, int baseTyp
 						{
 							Path.addPoint(tPoints[0].PolyPoint);
 							Path.addPoint(tPoints[0].afterPolyPoint);
-							for (int ppx = 1; ppx < tPoints.count()-1; ppx++)
+							for (int ppx = 1; ppx < tPoints.count() - 1; ppx++)
 							{
 								Path.addPoint(tPoints[ppx].PolyPoint);
 								Path.addPoint(tPoints[ppx].beforePolyPoint);
 								Path.addPoint(tPoints[ppx].PolyPoint);
 								Path.addPoint(tPoints[ppx].afterPolyPoint);
 							}
-							Path.addPoint(tPoints[tPoints.count()-1].PolyPoint);
-							Path.addPoint(tPoints[tPoints.count()-1].beforePolyPoint);
+							Path.addPoint(tPoints.last().PolyPoint);
+							Path.addPoint(tPoints.last().beforePolyPoint);
 						}
 					}
 				}
@@ -1468,7 +1464,7 @@ PageItem* VivaPlug::parseObjectDetailsXML(const QDomElement& obNode, int baseTyp
 	{
 		PageItem* item = m_Doc->Items->at(z);
 		item->setTextFlowMode(textFlow);
-		if (((ob_type == 2) || (ob_type == 3) || (ob_type == 4)) && (Path.count() > 0))
+		if (((ob_type == 2) || (ob_type == 3) || (ob_type == 4)) && !Path.isEmpty())
 		{
 			item->PoLine = Path.copy();
 			FPoint wh = getMaxClipF(&item->PoLine);
@@ -2111,7 +2107,7 @@ void VivaPlug::parseStylesheetsXML(const QDomElement& obNode)
 	}
 }
 
-void VivaPlug::applyParagraphAttrs(ParagraphStyle &newStyle, AttributeSet &pAttrs)
+void VivaPlug::applyParagraphAttrs(ParagraphStyle& newStyle, const AttributeSet& pAttrs) const
 {
 	if (pAttrs.applyedParStyle.valid)
 		newStyle = m_Doc->paragraphStyle(pAttrs.applyedParStyle.value);
@@ -2184,12 +2180,12 @@ void VivaPlug::applyParagraphAttrs(ParagraphStyle &newStyle, AttributeSet &pAttr
 				tbs.append(tb);
 			}
 		}
-		if (tbs.count() > 0)
+		if (!tbs.isEmpty())
 			newStyle.setTabValues(tbs);
 	}
 }
 
-void VivaPlug::applyCharacterAttrs(CharStyle &tmpCStyle, ParagraphStyle &newStyle, AttributeSet &pAttrs)
+void VivaPlug::applyCharacterAttrs(CharStyle &tmpCStyle, ParagraphStyle &newStyle, const AttributeSet &pAttrs)
 {
 	if (pAttrs.fontSize.valid)
 	{
@@ -2306,7 +2302,7 @@ QString VivaPlug::constructFontName(const QString& fontBaseName, const QString& 
 			// found the font family, now go for the style
 			QStringList slist = PrefsManager::instance().appPrefs.fontPrefs.AvailFonts.fontMap[it.current().family()];
 			slist.sort();
-			if (slist.count() > 0)
+			if (!slist.isEmpty())
 			{
 				for (int a = 0; a < slist.count(); a++)
 				{
@@ -2319,7 +2315,7 @@ QString VivaPlug::constructFontName(const QString& fontBaseName, const QString& 
 				}
 				if (!found)
 				{
-					int reInd = slist.indexOf("Regular");
+					qsizetype reInd = slist.indexOf("Regular");
 					if (reInd < 0)
 						fontName = it.current().family() + " " + slist[0];
 					else
@@ -2346,12 +2342,11 @@ QString VivaPlug::constructFontName(const QString& fontBaseName, const QString& 
 				family += " " + fontStyle;
 			if (!PrefsManager::instance().appPrefs.fontPrefs.GFontSub.contains(family))
 			{
-				qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-				MissingFont *dia = new MissingFont(nullptr, family, m_Doc);
+				QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
+				QScopedPointer<MissingFont> dia(new MissingFont(nullptr, family, m_Doc));
 				dia->exec();
 				fontName = dia->getReplacementFont();
-				delete dia;
-				qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+				QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
 				PrefsManager::instance().appPrefs.fontPrefs.GFontSub[family] = fontName;
 			}
 			else
@@ -2361,7 +2356,7 @@ QString VivaPlug::constructFontName(const QString& fontBaseName, const QString& 
 	return fontName;
 }
 
-QPointF VivaPlug::intersectBoundingRect(PageItem *item, QLineF gradientVector)
+QPointF VivaPlug::intersectBoundingRect(const PageItem *item, const QLineF& gradientVector) const
 {
 	QPointF interPoint;
 	QPointF gradEnd;
