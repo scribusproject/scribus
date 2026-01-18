@@ -7,10 +7,11 @@ for which a new license (GPL+exception) is in place.
 #ifndef UNICONVPLUGIN_H
 #define UNICONVPLUGIN_H
 
-#include "pluginapi.h"
-#include "loadsaveplugin.h"
-#include "../../formatidlist.h"
 #include <QObject>
+
+#include "loadsaveplugin.h"
+#include "pluginapi.h"
+#include "../../formatidlist.h"
 
 class ScrAction;
 class ScribusMainWindow;
@@ -25,7 +26,8 @@ class PLUGIN_API UniconvImportPlugin : public LoadSavePlugin
 	public:
 		// Standard plugin implementation
 		UniconvImportPlugin();
-		virtual ~UniconvImportPlugin();
+		~UniconvImportPlugin() override;
+
 		QString fullTrName() const override;
 		const AboutData* getAboutData() const override;
 		void deleteAboutData(const AboutData* about) const override;
@@ -40,11 +42,10 @@ class PLUGIN_API UniconvImportPlugin : public LoadSavePlugin
 		\param filename a file name to import
 		\retval true for success
 		*/
-		virtual bool importFile(const QString& fileName = QString(), int flags = lfUseCurrentPage|lfInteractive);
+		bool importFile(const QString& fileName = QString(), int flags = lfUseCurrentPage|lfInteractive);
 
 	private:
 		void registerFormats();
-
 };
 
 extern "C" PLUGIN_API int uniconvertorplugin_getPluginAPIVersion();

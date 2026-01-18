@@ -5,30 +5,29 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
-#include "uniconvplugin.h"
-#include "scraction.h"
-#include "util_formats.h"
-#include "prefsmanager.h"
-
-#include <QDebug>
-#include <QMessageBox>
-#include <QString>
-#include <QProcess>
-#include <QTemporaryFile>
-
+#include <cmath>
 
 #include <QCursor>
+#include <QDebug>
 #include <QDrag>
 #include <QFile>
 #include <QList>
+#include <QMessageBox>
 #include <QMimeData>
 #include <QPainterPath>
-#include <cmath>
+#include <QProcess>
+#include <QString>
+#include <QTemporaryFile>
+
+#include "uniconvplugin.h"
 
 #include "commonstrings.h"
+#include "prefsmanager.h"
+#include "scraction.h"
 #include "scribuscore.h"
 #include "ui/scmessagebox.h"
 #include "undomanager.h"
+#include "util_formats.h"
 
 int uniconvertorplugin_getPluginAPIVersion()
 {
@@ -37,7 +36,7 @@ int uniconvertorplugin_getPluginAPIVersion()
 
 ScPlugin* uniconvertorplugin_getPlugin()
 {
-	UniconvImportPlugin* plug = new UniconvImportPlugin();
+	auto* plug = new UniconvImportPlugin();
 	Q_CHECK_PTR(plug);
 	return plug;
 }
@@ -78,7 +77,7 @@ QString UniconvImportPlugin::fullTrName() const
 
 const ScActionPlugin::AboutData* UniconvImportPlugin::getAboutData() const
 {
-	AboutData* about = new AboutData;
+	auto* about = new AboutData;
 	about->authors = "Hermann Kraus <herm@scribus.info>";
 	about->shortDescription = tr("Imports Vector Files with UniConvertor");
 	about->description = tr("Converts many vector formats to SVG and then "
