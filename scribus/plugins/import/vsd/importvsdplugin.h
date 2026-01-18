@@ -7,8 +7,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef IMPORTVSDPLUGIN_H
 #define IMPORTVSDPLUGIN_H
 
-#include "pluginapi.h"
 #include "loadsaveplugin.h"
+#include "pluginapi.h"
 #include "../../formatidlist.h"
 
 class ScrAction;
@@ -20,7 +20,8 @@ class PLUGIN_API ImportVsdPlugin : public LoadSavePlugin
 	public:
 		// Standard plugin implementation
 		ImportVsdPlugin();
-		virtual ~ImportVsdPlugin();
+		~ImportVsdPlugin() override;
+
 		/*!
 		\author Franz Schmid
 		\date
@@ -44,11 +45,12 @@ class PLUGIN_API ImportVsdPlugin : public LoadSavePlugin
 		\param fileName input filename, or QString() to prompt.
 		\retval bool always true
 		 */
-		virtual bool importFile(QString fileName = QString(), int flags = lfUseCurrentPage|lfInteractive);
+		bool importFile(QString fileName = QString(), int flags = lfUseCurrentPage|lfInteractive);
 
 	private:
 		void registerFormats();
-		ScrAction* importAction;
+
+		ScrAction* importAction { nullptr };
 };
 
 extern "C" PLUGIN_API int importvsd_getPluginAPIVersion();
