@@ -10,10 +10,12 @@ for which a new license (GPL+exception) is in place.
 	copyright            : (C) 2013 by Franz Schmid
 	email                : Franz.Schmid@altmuehlnet.de
  ***************************************************************************/
-#include "commonstrings.h"
+#include <memory>
 
 #include "importviva.h"
 #include "importvivaplugin.h"
+
+#include "commonstrings.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
@@ -33,7 +35,7 @@ int importviva_getPluginAPIVersion()
 
 ScPlugin* importviva_getPlugin()
 {
-	ImportVivaPlugin* plug = new ImportVivaPlugin();
+	auto* plug = new ImportVivaPlugin();
 	Q_CHECK_PTR(plug);
 	return plug;
 }
@@ -72,10 +74,9 @@ QString ImportVivaPlugin::fullTrName() const
 	return QObject::tr("Viva Importer");
 }
 
-
 const ScActionPlugin::AboutData* ImportVivaPlugin::getAboutData() const
 {
-	AboutData* about = new AboutData;
+	auto* about = new AboutData;
 	about->authors = "Franz Schmid <franz@scribus.info>";
 	about->shortDescription = tr("Imports Viva Files");
 	about->description = tr("Imports most Viva files into the current document, converting their vector data into Scribus objects.");
@@ -128,18 +129,18 @@ bool ImportVivaPlugin::importFile(QString fileName, int flags)
 		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("importviva");
 		QString wdir = prefs->get("wdir", ".");
 		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), tr("All Supported Formats")+" (*.xml *.XML);;All Files (*)");
-		if (diaf.exec())
-		{
-			fileName = diaf.selectedFile();
-			prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
-		}
-		else
+		if (diaf.exec() != QDialog::Accepted)
 			return true;
+		fileName = diaf.selectedFile();
+		prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
 	}
+
 	m_Doc = ScCore->primaryMainWindow()->doc;
+
 	UndoTransaction activeTransaction;
 	bool emptyDoc = (m_Doc == nullptr);
 	bool hasCurrentPage = (m_Doc && m_Doc->currentPage());
+
 	TransactionSettings trSettings;
 	trSettings.targetName   = hasCurrentPage ? m_Doc->currentPage()->getUName() : "";
 	trSettings.targetPixmap = Um::IImageFrame;
@@ -150,14 +151,16 @@ bool ImportVivaPlugin::importFile(QString fileName, int flags)
 		UndoManager::instance()->setUndoEnabled(false);
 	if (UndoManager::undoEnabled())
 		activeTransaction = UndoManager::instance()->beginTransaction(trSettings);
-	VivaPlug *dia = new VivaPlug(m_Doc, flags);
-	Q_CHECK_PTR(dia);
-	dia->importFile(fileName, trSettings, flags, !(flags & lfScripted));
+
+	auto pPlug = std::make_shared<VivaPlug>(m_Doc, flags);
+	Q_CHECK_PTR(pPlug);
+	pPlug->importFile(fileName, trSettings, flags, !(flags & lfScripted));
+
 	if (activeTransaction)
 		activeTransaction.commit();
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(true);
-	delete dia;
+
 	return true;
 }
 
@@ -165,13 +168,14 @@ QImage ImportVivaPlugin::readThumbnail(const QString& fileName)
 {
 	if (fileName.isEmpty())
 		return QImage();
+
 	UndoManager::instance()->setUndoEnabled(false);
 	m_Doc = nullptr;
-	VivaPlug *dia = new VivaPlug(m_Doc, lfCreateThumbnail);
-	Q_CHECK_PTR(dia);
-	QImage ret = dia->readThumbnail(fileName);
+	auto pPlug = std::make_shared<VivaPlug>(m_Doc, lfCreateThumbnail);
+	Q_CHECK_PTR(pPlug);
+	QImage ret = pPlug->readThumbnail(fileName);
 	UndoManager::instance()->setUndoEnabled(true);
-	delete dia;
+
 	return ret;
 }
 
@@ -179,12 +183,13 @@ bool ImportVivaPlugin::readColors(const QString& fileName, ColorList &colors)
 {
 	if (fileName.isEmpty())
 		return false;
+
 	UndoManager::instance()->setUndoEnabled(false);
 	m_Doc = nullptr;
-	VivaPlug *dia = new VivaPlug(m_Doc, lfCreateThumbnail);
-	Q_CHECK_PTR(dia);
-	bool ret = dia->readColors(fileName, colors);
+	auto pPlug = std::make_shared<VivaPlug>(m_Doc, lfCreateThumbnail);
+	Q_CHECK_PTR(pPlug);
+	bool ret = pPlug->readColors(fileName, colors);
 	UndoManager::instance()->setUndoEnabled(true);
-	delete dia;
+
 	return ret;
 }

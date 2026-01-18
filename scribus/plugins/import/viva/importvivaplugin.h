@@ -21,8 +21,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef IMPORTVIVAPLUGIN_H
 #define IMPORTVIVAPLUGIN_H
 
-#include "pluginapi.h"
 #include "loadsaveplugin.h"
+#include "pluginapi.h"
 
 class ScrAction;
 
@@ -33,7 +33,8 @@ class PLUGIN_API ImportVivaPlugin : public LoadSavePlugin
 	public:
 		// Standard plugin implementation
 		ImportVivaPlugin();
-		virtual ~ImportVivaPlugin();
+		~ImportVivaPlugin() override;
+
 		/*!
 		\author Franz Schmid
 		\date
@@ -58,11 +59,12 @@ class PLUGIN_API ImportVivaPlugin : public LoadSavePlugin
 		\param fileName input filename, or QString() to prompt.
 		\retval bool always true
 		 */
-		virtual bool importFile(QString fileName = QString(), int flags = lfUseCurrentPage|lfInteractive);
+		bool importFile(QString fileName = QString(), int flags = lfUseCurrentPage|lfInteractive);
 
 	private:
 		void registerFormats();
-		ScrAction* importAction;
+
+		ScrAction* importAction { nullptr };
 };
 
 extern "C" PLUGIN_API int importviva_getPluginAPIVersion();

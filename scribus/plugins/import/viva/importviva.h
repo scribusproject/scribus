@@ -13,21 +13,22 @@ for which a new license (GPL+exception) is in place.
 #ifndef IMPORTVIVA_H
 #define IMPORTVIVA_H
 
-#include "pluginapi.h"
-#include "pageitem.h"
-#include "sccolor.h"
-#include "sctextstruct.h"
-#include "text/storytext.h"
-#include "fpointarray.h"
-#include "scribusstructs.h"
-#include <QList>
-#include <QTransform>
-#include <QMultiMap>
-#include <QtGlobal>
-#include <QObject>
-#include <QString>
 #include <QDomDocument>
 #include <QDomElement>
+#include <QList>
+#include <QMultiMap>
+#include <QObject>
+#include <QString>
+#include <QtGlobal>
+#include <QTransform>
+
+#include "fpointarray.h"
+#include "pageitem.h"
+#include "pluginapi.h"
+#include "sccolor.h"
+#include "scribusstructs.h"
+#include "sctextstruct.h"
+#include "text/storytext.h"
 
 class MultiProgressDialog;
 class ScribusDoc;
@@ -49,8 +50,8 @@ public:
 	\param showProgress if progress must be displayed
 	\retval EPSPlug plugin
 	*/
-	VivaPlug( ScribusDoc* doc, int flags );
-	~VivaPlug();
+	VivaPlug(ScribusDoc* doc, int flags);
+	~VivaPlug() override;
 
 	/*!
 	\author Franz Schmid
@@ -115,7 +116,7 @@ private:
 		AttributeValue dropCapsDist;
 		AttributeValue tabulators;
 	};
-	double parseUnit(const QString &unit);
+	double parseUnit(const QString &unit) const;
 	bool convert(const QString& fn);
 	void parseSettingsXML(const QDomElement& grNode);
 	void parseColorsXML(const QDomElement& grNode);
@@ -130,10 +131,10 @@ private:
 	void parseAttributeSetXML(const QDomElement& obNode, AttributeSet &attrs);
 	void parseAttributeSetsXML(const QDomElement& obNode);
 	void parseStylesheetsXML(const QDomElement& obNode);
-	void applyParagraphAttrs(ParagraphStyle &newStyle, AttributeSet &pAttrs);
-	void applyCharacterAttrs(CharStyle &tmpCStyle, ParagraphStyle &newStyle, AttributeSet &pAttrs);
+	void applyParagraphAttrs(ParagraphStyle &newStyle, const AttributeSet& pAttrs) const;
+	void applyCharacterAttrs(CharStyle &tmpCStyle, ParagraphStyle &newStyle, const AttributeSet &pAttrs);
 	QString constructFontName(const QString& fontBaseName, const QString& fontStyle);
-	QPointF intersectBoundingRect(PageItem *item, QLineF gradientVector);
+	QPointF intersectBoundingRect(const PageItem *item, const QLineF& gradientVector) const;
 
 	QList<PageItem*> Elements;
 	double baseX { 0.0 };
@@ -149,7 +150,7 @@ private:
 	QMap<QString, int> mspreadTypes;
 	FPointArray Coords;
 	bool interactive { false };
-	MultiProgressDialog * progressDialog { nullptr };
+	MultiProgressDialog* progressDialog { nullptr };
 	bool cancel { false };
 	ScribusDoc* m_Doc { nullptr };
 	Selection* tmpSel { nullptr };
