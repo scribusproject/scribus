@@ -9,14 +9,15 @@ for which a new license (GPL+exception) is in place.
 
 #include <QDialog>
 
-class QLabel;
-class QHBoxLayout;
-class QGridLayout;
-class QPushButton;
-class FontComboH;
-class ScribusDoc;
 #include "scribusapi.h"
 #include "scribusstructs.h"
+
+class FontComboH;
+class QGridLayout;
+class QHBoxLayout;
+class QLabel;
+class QPushButton;
+class ScribusDoc;
 
 class SCRIBUS_API MissingFont : public QDialog
 {
@@ -24,7 +25,7 @@ class SCRIBUS_API MissingFont : public QDialog
 
 public:
 	MissingFont(QWidget* parent, const QString& fon, ScribusDoc* doc);
-	~MissingFont() = default;
+	~MissingFont() override = default;
 	
 	const QString &getReplacementFont();
 
@@ -32,14 +33,14 @@ public slots:
 	virtual void newFont(const QString& replacement);
 
 protected:
-	QHBoxLayout* missingFontLayout;
-	QGridLayout* missingFontGridLayout;
-	QPushButton* okButton;
-	QLabel* insteadLabel;
-	QLabel* pixmapLabel;
-	FontComboH* replaceFontCombo;
-	QLabel* notInstalledLabel;
-	QLabel* useLabel;
+	QHBoxLayout* missingFontLayout { nullptr };
+	QGridLayout* missingFontGridLayout { nullptr };
+	QPushButton* okButton { nullptr };
+	QLabel* insteadLabel { nullptr };
+	QLabel* pixmapLabel { nullptr };
+	FontComboH* replaceFontCombo { nullptr };
+	QLabel* notInstalledLabel { nullptr };
+	QLabel* useLabel { nullptr };
 	QString replacementFont;
 };
 
