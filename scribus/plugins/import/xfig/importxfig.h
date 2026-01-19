@@ -7,16 +7,17 @@ for which a new license (GPL+exception) is in place.
 #ifndef IMPORTXFIG_H
 #define IMPORTXFIG_H
 
+#include <QList>
+#include <QMultiMap>
+#include <QObject>
+#include <QStack>
+#include <QString>
+#include <QtGlobal>
+#include <QTransform>
+
+#include "fpointarray.h"
 #include "pluginapi.h"
 #include "sccolor.h"
-#include "fpointarray.h"
-#include <QList>
-#include <QStack>
-#include <QTransform>
-#include <QMultiMap>
-#include <QtGlobal>
-#include <QObject>
-#include <QString>
 
 class MultiProgressDialog;
 class PageItem;
@@ -40,7 +41,7 @@ public:
 	\retval EPSPlug plugin
 	*/
 	XfigPlug( ScribusDoc* doc, int flags );
-	~XfigPlug();
+	~XfigPlug() override;
 
 	/*!
 	\author Franz Schmid
@@ -68,26 +69,26 @@ private:
 	\param h double
 	\retval bool true if conversion was ok
 	 */
-	bool parseHeader(const QString& fName, double &x, double &y, double &b, double &h);
+	bool parseHeader(const QString& fName, double &x, double &y, double &b, double &h) const;
 	void parseColor(QString data);
 	void useColor(int colorNum, int area_fill, bool forFill);
-	QVector<double> getDashValues(double linewidth, int code);
+	QVector<double> getDashValues(double linewidth, int code) const;
 	void processArrows(int forward_arrow, QString fArrowData, int backward_arrow, QString bArrowData, int depth, PageItem *ite);
 	void processPolyline(QDataStream &ts, const QString& data);
 	void processSpline(QDataStream &ts, const QString& data);
 	void processArc(QDataStream &ts, const QString& data);
 	void processEllipse(const QString& data);
-	QString cleanText(const QString& text);
+	QString cleanText(const QString& text) const;
 	void processText(const QString& data);
 	void processData(QDataStream &ts, const QString& data);
-	double fig2Pts(double in);
+	double fig2Pts(double in) const;
 	void resortItems();
 	bool convert(const QString& fn);
 	
 	QList<PageItem*> Elements;
 	QList<PageItem*> PatternElements;
 	QMultiMap<int, int> depthMap;
-	int currentItemNr;
+	int currentItemNr { 0 };
 	QStack<QList<PageItem*> > groupStack;
 	ColorList CustColors;
 	double baseX { 0.0 };
@@ -106,7 +107,7 @@ private:
 	FPointArray Coords;
 	FPointArray clipCoords;
 	bool interactive { false };
-	MultiProgressDialog * progressDialog { nullptr };
+	MultiProgressDialog* progressDialog { nullptr };
 	bool cancel { false };
 	ScribusDoc* m_Doc { nullptr };
 	Selection* tmpSel { nullptr };
