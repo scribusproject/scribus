@@ -14,9 +14,9 @@ for which a new license (GPL+exception) is in place.
 #include <QTransform>
 #include <QVector>
 
-#include "pluginapi.h"
 #include "fpointarray.h"
 #include "pageitem.h"
+#include "pluginapi.h"
 #include "sccolor.h"
 #include "vgradient.h"
 
@@ -40,8 +40,8 @@ public:
 	\param showProgress if progress must be displayed
 	\retval EPSPlug plugin
 	*/
-	ZmfPlug( ScribusDoc* doc, int flags );
-	~ZmfPlug();
+	ZmfPlug(ScribusDoc* doc, int flags);
+	~ZmfPlug() override;
 
 	/*!
 	\author Franz Schmid
