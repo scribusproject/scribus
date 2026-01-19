@@ -5,18 +5,18 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <cstdlib>
+#include <cstdio>
+
 #include <QByteArray>
 #include <QCursor>
+#include <QDebug>
 #include <QDrag>
 #include <QFile>
 #include <QList>
 #include <QMimeData>
 #include <QRegExp>
 #include <QStack>
-#include <QDebug>
-
-#include <cstdlib>
-#include <cstdio>
 
 #include "importwpg.h"
 
@@ -109,31 +109,31 @@ void ScrPainter::endLayer(unsigned int id)
 
 void ScrPainter::setPen(const libwpg::WPGPen& pen)
 {
-	LineW = 72 * pen.width;
+	int Rc = pen.foreColor.red;
+	int Gc = pen.foreColor.green;
+	int Bc = pen.foreColor.blue;
+
 	ScColor tmp;
-	ColorList::Iterator it;
-	CurrColorStroke = "Black";
-	CurrStrokeShade = 100.0;
-	int Rc, Gc, Bc;
-	Rc = pen.foreColor.red;
-	Gc = pen.foreColor.green;
-	Bc = pen.foreColor.blue;
 	tmp.setRgbColor(Rc, Gc, Bc);
 	tmp.setSpotColor(false);
 	tmp.setRegistrationColor(false);
-	QString newColorName = "FromWPG"+tmp.name();
+
+	QString newColorName = "FromWPG" + tmp.name();
 	QString fNam = m_Doc->PageColors.tryAddColor(newColorName, tmp);
 	if (fNam == newColorName)
 		importedColors.append(newColorName);
+
+	LineW = 72 * pen.width;
+	CurrColorStroke = "Black";
+	CurrStrokeShade = 100.0;
 	CurrColorStroke = fNam;
 	CurrStrokeTrans = pen.foreColor.alpha / 255.0;
+
 	if (!pen.solid)
 	{
 		dashArray.clear();
 		for (unsigned i = 0; i < pen.dashArray.count(); i++)
-		{
-			dashArray.append(pen.dashArray.at(i)*LineW);
-		}
+			dashArray.append(pen.dashArray.at(i) * LineW);
 	}
 	switch (pen.joinstyle)
 	{
@@ -171,10 +171,10 @@ void ScrPainter::setPen(const libwpg::WPGPen& pen)
 void ScrPainter::setBrush(const libwpg::WPGBrush& brush)
 {
 	ScColor tmp;
-	ColorList::Iterator it;
+	int Rc, Gc, Bc;
+
 	CurrColorFill = "Black";
 	CurrFillShade = 100.0;
-	int Rc, Gc, Bc;
 	if (brush.style == libwpg::WPGBrush::Solid)
 	{
 		Rc = brush.foreColor.red;
@@ -183,7 +183,7 @@ void ScrPainter::setBrush(const libwpg::WPGBrush& brush)
 		tmp.setRgbColor(Rc, Gc, Bc);
 		tmp.setSpotColor(false);
 		tmp.setRegistrationColor(false);
-		QString newColorName = "FromWPG"+tmp.name();
+		QString newColorName = "FromWPG" + tmp.name();
 		QString fNam = m_Doc->PageColors.tryAddColor(newColorName, tmp);
 		if (fNam == newColorName)
 			importedColors.append(newColorName);
@@ -205,7 +205,7 @@ void ScrPainter::setBrush(const libwpg::WPGBrush& brush)
 			tmp.setRgbColor(Rc, Gc, Bc);
 			tmp.setSpotColor(false);
 			tmp.setRegistrationColor(false);
-			QString newColorName = "FromWPG"+tmp.name();
+			QString newColorName = "FromWPG" + tmp.name();
 			QString fNam = m_Doc->PageColors.tryAddColor(newColorName, tmp);
 			if (fNam == newColorName)
 				importedColors.append(newColorName);
@@ -312,16 +312,10 @@ void ScrPainter::drawPath(const libwpg::WPGPath& path)
 	if (!Coords.empty())
 	{
 		int z;
-		if (fillSet)
-		{
-			if (!path.filled)
-				CurrColorFill = CommonStrings::None;
-		}
-		if (strokeSet)
-		{
-			if (!path.framed)
-				CurrColorStroke = CommonStrings::None;
-		}
+		if (fillSet && !path.filled)
+			CurrColorFill = CommonStrings::None;
+		if (strokeSet && !path.framed)
+			CurrColorStroke = CommonStrings::None;
 		if (path.closed)
 		{
 			Coords.svgClosePath();
@@ -415,22 +409,25 @@ void ScrPainter::drawImageObject(const libwpg::WPGBinaryData& /*binaryData*/)
 //	qDebug() << "drawBinaryData";
 }
 
-
 WpgPlug::WpgPlug(ScribusDoc* doc, int flags)
+	: m_Doc(doc),
+	  importerFlags(flags)
 {
 	tmpSel = new Selection(this, false);
-	m_Doc = doc;
-	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
+}
+
+WpgPlug::~WpgPlug()
+{
+	delete progressDialog;
+	delete tmpSel;
 }
 
 QImage WpgPlug::readThumbnail(const QString& fName)
 {
 	QFileInfo fi(fName);
-	double b = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
-	double h = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
-	docWidth = b;
-	docHeight = h;
+	docWidth = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
+	docHeight = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
 	progressDialog = nullptr;
 	m_Doc = new ScribusDoc();
 	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
@@ -454,12 +451,9 @@ QImage WpgPlug::readThumbnail(const QString& fName)
 		m_Doc->DoDrawing = true;
 		m_Doc->m_Selection->delaySignalsOn();
 		QImage tmpImage;
-		if (Elements.count() > 0)
+		if (!Elements.isEmpty())
 		{
-			for (int dre=0; dre<Elements.count(); ++dre)
-			{
-				tmpSel->addItem(Elements.at(dre), true);
-			}
+			tmpSel->addItems(Elements);
 			tmpSel->setGroupRect();
 			double xs = tmpSel->width();
 			double ys = tmpSel->height();
@@ -471,12 +465,14 @@ QImage WpgPlug::readThumbnail(const QString& fName)
 		m_Doc->setLoading(false);
 		m_Doc->m_Selection->delaySignalsOff();
 		delete m_Doc;
+		m_Doc = nullptr;
 		return tmpImage;
 	}
 	QDir::setCurrent(CurDirP);
 	m_Doc->DoDrawing = true;
 	m_Doc->scMW()->setScriptRunning(false);
 	delete m_Doc;
+	m_Doc = nullptr;
 	return QImage();
 }
 
@@ -508,7 +504,7 @@ bool WpgPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 		progressDialog->setProgress("GI", 0);
 		progressDialog->show();
 		connect(progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
-		qApp->processEvents();
+		QApplication::processEvents();
 	}
 	else
 		progressDialog = nullptr;
@@ -518,7 +514,7 @@ bool WpgPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(1);
-		qApp->processEvents();
+		QApplication::processEvents();
 	}
 	if (b == 0.0)
 		b = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
@@ -528,7 +524,7 @@ bool WpgPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 	docHeight = h;
 	baseX = 0;
 	baseY = 0;
-	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
+	if (m_Doc && (!interactive || (flags & LoadSavePlugin::lfInsertPage)))
 	{
 		m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
 		m_Doc->addPage(0);
@@ -536,25 +532,22 @@ bool WpgPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 		baseX = 0;
 		baseY = 0;
 	}
-	else
+	else if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
 	{
-		if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
-		{
-			m_Doc = ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
-			ScCore->primaryMainWindow()->HaveNewDoc();
-			ret = true;
-			baseX = 0;
-			baseY = 0;
-			baseX = m_Doc->currentPage()->xOffset();
-			baseY = m_Doc->currentPage()->yOffset();
-		}
+		m_Doc = ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
+		ScCore->primaryMainWindow()->HaveNewDoc();
+		ret = true;
+		baseX = 0;
+		baseY = 0;
+		baseX = m_Doc->currentPage()->xOffset();
+		baseY = m_Doc->currentPage()->yOffset();
 	}
-	if ((!ret) && (interactive))
+	if (!ret && interactive)
 	{
 		baseX = m_Doc->currentPage()->xOffset();
 		baseY = m_Doc->currentPage()->yOffset();
 	}
-	if ((ret) || (!interactive))
+	if (ret || !interactive)
 	{
 		if (docWidth > docHeight)
 			m_Doc->setPageOrientation(1);
@@ -570,7 +563,7 @@ bool WpgPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
 		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
-	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
+	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.path());
 	if (convert(fNameIn))
@@ -582,8 +575,8 @@ bool WpgPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->setLoading(false);
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		if ((Elements.count() > 0) && (!ret) && (interactive))
+		QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		if (!Elements.isEmpty() && !ret && interactive)
 		{
 			if (flags & LoadSavePlugin::lfScripted)
 			{
@@ -594,10 +587,7 @@ bool WpgPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 				if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 				{
 					m_Doc->m_Selection->delaySignalsOn();
-					for (int dre=0; dre<Elements.count(); ++dre)
-					{
-						m_Doc->m_Selection->addItem(Elements.at(dre), true);
-					}
+					m_Doc->m_Selection->addItems(Elements);
 					m_Doc->m_Selection->delaySignalsOff();
 					m_Doc->m_Selection->setGroupRect();
 					if (m_Doc->view() != nullptr)
@@ -610,10 +600,7 @@ bool WpgPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 				m_Doc->DraggedElem = nullptr;
 				m_Doc->DragElements.clear();
 				m_Doc->m_Selection->delaySignalsOn();
-				for (int dre=0; dre<Elements.count(); ++dre)
-				{
-					tmpSel->addItem(Elements.at(dre), true);
-				}
+				tmpSel->addItems(Elements);
 				tmpSel->setGroupRect();
 				ScElemMimeData* md = ScriXmlDoc::writeToMimeData(m_Doc, tmpSel);
 				m_Doc->itemSelection_DeleteItem(tmpSel);
@@ -621,7 +608,7 @@ bool WpgPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 				m_Doc->m_Selection->delaySignalsOff();
 				// We must copy the TransationSettings object as it is owned
 				// by handleObjectImport method afterwards
-				TransactionSettings* transacSettings = new TransactionSettings(trSettings);
+				auto* transacSettings = new TransactionSettings(trSettings);
 				m_Doc->view()->handleObjectImport(md, transacSettings);
 				m_Doc->DragP = false;
 				m_Doc->DraggedElem = nullptr;
@@ -643,24 +630,18 @@ bool WpgPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->view()->updatesOn(true);
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}
 	if (interactive)
 		m_Doc->setLoading(false);
 	//CB If we have a gui we must refresh it if we have used the progressbar
 	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 	{
-		if ((showProgress) && (!interactive))
+		if (showProgress && !interactive)
 			m_Doc->view()->DrawNew();
 	}
-	qApp->restoreOverrideCursor();
+	QApplication::restoreOverrideCursor();
 	return success;
-}
-
-WpgPlug::~WpgPlug()
-{
-	delete progressDialog;
-	delete tmpSel;
 }
 
 bool WpgPlug::convert(const QString& fn)
@@ -695,15 +676,10 @@ bool WpgPlug::convert(const QString& fn)
 	libwpg::WPGraphics::parse(&input, &painter);
 	Elements = painter.Elements;
 	importedColors = painter.importedColors;
-	if (Elements.count() == 0)
+	if (Elements.isEmpty())
 	{
-		if (importedColors.count() != 0)
-		{
-			for (int cd = 0; cd < importedColors.count(); cd++)
-			{
-				m_Doc->PageColors.remove(importedColors[cd]);
-			}
-		}
+		for (const auto& importedColor : importedColors)
+			m_Doc->PageColors.remove(importedColor);
 	}
 	if (progressDialog)
 		progressDialog->close();
