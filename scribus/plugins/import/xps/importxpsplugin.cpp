@@ -10,10 +10,13 @@ for which a new license (GPL+exception) is in place.
 	copyright            : (C) 2013 by Franz Schmid
 	email                : Franz.Schmid@altmuehlnet.de
  ***************************************************************************/
-#include "commonstrings.h"
+
+#include <memory>
 
 #include "importxps.h"
 #include "importxpsplugin.h"
+
+#include "commonstrings.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
@@ -33,7 +36,7 @@ int importxps_getPluginAPIVersion()
 
 ScPlugin* importxps_getPlugin()
 {
-	ImportXpsPlugin* plug = new ImportXpsPlugin();
+	auto* plug = new ImportXpsPlugin();
 	Q_CHECK_PTR(plug);
 	return plug;
 }
@@ -75,10 +78,9 @@ QString ImportXpsPlugin::fullTrName() const
 	return QObject::tr("Xps Importer");
 }
 
-
 const ScActionPlugin::AboutData* ImportXpsPlugin::getAboutData() const
 {
-	AboutData* about = new AboutData;
+	auto* about = new AboutData;
 	about->authors = "Franz Schmid <franz@scribus.info>";
 	about->shortDescription = tr("Imports XPS and Open XML Paper Files");
 	about->description = tr("Imports most XPS and Open XML Paper files into the current document, converting their vector data into Scribus objects.");
@@ -108,6 +110,7 @@ void ImportXpsPlugin::registerFormats()
 	fmt.mimeTypes.append("");
 	fmt.priority = 64; // Priority
 	registerFormat(fmt);
+
 	FileFormat fmt2(this);
 	fmt2.trName = tr("Open XML Paper");
 	fmt2.filter = tr("Open XML Paper (*.oxps *.OXPS)");
@@ -144,18 +147,18 @@ bool ImportXpsPlugin::importFile(QString fileName, int flags)
 		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("importxps");
 		QString wdir = prefs->get("wdir", ".");
 		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), tr("All Supported Formats")+" (*.oxps *.OXPS *.xps *.XPS);;All Files (*)");
-		if (diaf.exec())
-		{
-			fileName = diaf.selectedFile();
-			prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
-		}
-		else
+		if (diaf.exec() != QDialog::Accepted)
 			return true;
+		fileName = diaf.selectedFile();
+		prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
 	}
+
 	m_Doc = ScCore->primaryMainWindow()->doc;
+
 	UndoTransaction activeTransaction;
 	bool emptyDoc = (m_Doc == nullptr);
 	bool hasCurrentPage = (m_Doc && m_Doc->currentPage());
+
 	TransactionSettings trSettings;
 	trSettings.targetName   = hasCurrentPage ? m_Doc->currentPage()->getUName() : "";
 	trSettings.targetPixmap = Um::IImageFrame;
@@ -166,14 +169,16 @@ bool ImportXpsPlugin::importFile(QString fileName, int flags)
 		UndoManager::instance()->setUndoEnabled(false);
 	if (UndoManager::undoEnabled())
 		activeTransaction = UndoManager::instance()->beginTransaction(trSettings);
-	XpsPlug *dia = new XpsPlug(m_Doc, flags);
-	Q_CHECK_PTR(dia);
-	bool ret = dia->importFile(fileName, trSettings, flags, !(flags & lfScripted));
+
+	auto pPlug = std::make_shared<XpsPlug>(m_Doc, flags);
+	Q_CHECK_PTR(pPlug);
+	bool ret = pPlug->importFile(fileName, trSettings, flags, !(flags & lfScripted));
+
 	if (activeTransaction)
 		activeTransaction.commit();
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(true);
-	delete dia;
+
 	return ret;
 }
 
@@ -181,12 +186,13 @@ QImage ImportXpsPlugin::readThumbnail(const QString& fileName)
 {
 	if (fileName.isEmpty())
 		return QImage();
+
 	UndoManager::instance()->setUndoEnabled(false);
 	m_Doc = nullptr;
-	XpsPlug *dia = new XpsPlug(m_Doc, lfCreateThumbnail);
-	Q_CHECK_PTR(dia);
-	QImage ret = dia->readThumbnail(fileName);
+	auto pPlug = std::make_shared<XpsPlug>(m_Doc, lfCreateThumbnail);
+	Q_CHECK_PTR(pPlug);
+	QImage ret = pPlug->readThumbnail(fileName);
 	UndoManager::instance()->setUndoEnabled(true);
-	delete dia;
+
 	return ret;
 }

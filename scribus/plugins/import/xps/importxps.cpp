@@ -11,17 +11,6 @@ for which a new license (GPL+exception) is in place.
 	email                : Franz.Schmid@altmuehlnet.de
  ***************************************************************************/
 
-#include <QByteArray>
-#include <QCursor>
-#include <QDrag>
-#include <QFile>
-#include <QList>
-#include <QMimeData>
-#include <QRegExp>
-#include <QStack>
-#include <QUrl>
-#include <QDebug>
-
 #if defined(_MSC_VER) && !defined(_USE_MATH_DEFINES)
 #define _USE_MATH_DEFINES
 #endif
@@ -30,10 +19,20 @@ for which a new license (GPL+exception) is in place.
 #include <climits>
 #include <limits>
 
-#include "commonstrings.h"
+#include <QByteArray>
+#include <QCursor>
+#include <QDebug>
+#include <QDrag>
+#include <QFile>
+#include <QList>
+#include <QMimeData>
+#include <QRegExp>
+#include <QStack>
+#include <QUrl>
 
 #include "importxps.h"
 
+#include "commonstrings.h"
 #include "loadsaveplugin.h"
 #include "pageitem_table.h"
 #include "pagesize.h"
@@ -47,10 +46,10 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "scmimedata.h"
 #include "scpaths.h"
-#include "scribusXml.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
+#include "scribusXml.h"
 #include "sctextstream.h"
 #include "selection.h"
 #include "third_party/zip/scribus_zip.h"
@@ -65,13 +64,19 @@ for which a new license (GPL+exception) is in place.
 #include "xpsimportoptions.h"
 
 XpsPlug::XpsPlug(ScribusDoc* doc, int flags)
+	: m_Doc(doc),
+	  importerFlags(flags)
 {
 	tmpSel = new Selection(this, false);
-	m_Doc = doc;
-	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
-	progressDialog = nullptr;
-	uz = nullptr;
+}
+
+XpsPlug::~XpsPlug()
+{
+	delete progressDialog;
+	delete tmpSel;
+	for (const auto& tempFontFile : tempFontFiles)
+		QFile::remove(tempFontFile);
 }
 
 QImage XpsPlug::readThumbnail(const QString& fName)
@@ -84,6 +89,7 @@ QImage XpsPlug::readThumbnail(const QString& fName)
 	if (!uz->open(fName))
 	{
 		delete uz;
+		uz = nullptr;
 		if (progressDialog)
 			progressDialog->close();
 		return QImage();
@@ -148,7 +154,7 @@ QImage XpsPlug::readThumbnail(const QString& fName)
 			parseDocSequence("FixedDocSeq.fdseq");
 		else if (uz->contains("FixedDocumentSequence.fdseq"))
 			parseDocSequence("FixedDocumentSequence.fdseq");
-		if (Elements.count() > 0)
+		if (!Elements.isEmpty())
 		{
 			tmpSel->clear();
 			QDir::setCurrent(CurDirP);
@@ -156,12 +162,9 @@ QImage XpsPlug::readThumbnail(const QString& fName)
 				m_Doc->groupObjectsList(Elements);
 			m_Doc->DoDrawing = true;
 			m_Doc->m_Selection->delaySignalsOn();
-			if (Elements.count() > 0)
+			if (!Elements.isEmpty())
 			{
-				for (int dre=0; dre<Elements.count(); ++dre)
-				{
-					tmpSel->addItem(Elements.at(dre), true);
-				}
+				tmpSel->addItems(Elements);
 				tmpSel->setGroupRect();
 				double xs = tmpSel->width();
 				double ys = tmpSel->height();
@@ -173,6 +176,7 @@ QImage XpsPlug::readThumbnail(const QString& fName)
 			m_Doc->setLoading(false);
 			m_Doc->m_Selection->delaySignalsOff();
 			delete m_Doc;
+			m_Doc = nullptr;
 		}
 		else
 		{
@@ -180,10 +184,12 @@ QImage XpsPlug::readThumbnail(const QString& fName)
 			m_Doc->DoDrawing = true;
 			m_Doc->scMW()->setScriptRunning(false);
 			delete m_Doc;
+			m_Doc = nullptr;
 		}
 	}
 	uz->close();
 	delete uz;
+	uz = nullptr;
 	return tmp;
 }
 
@@ -219,21 +225,21 @@ bool XpsPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 		progressDialog->setProgress("GI", 0);
 		progressDialog->show();
 		connect(progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
-		qApp->processEvents();
+		QApplication::processEvents();
 	}
 	else
 		progressDialog = nullptr;
 	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(1);
-		qApp->processEvents();
+		QApplication::processEvents();
 	}
 	/* Set default Page to size defined in Preferences */
 	docWidth = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
 	docHeight = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
 	baseX = 0;
 	baseY = 0;
-	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
+	if (m_Doc && (!interactive || (flags & LoadSavePlugin::lfInsertPage)))
 	{
 		m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
 		m_Doc->addPage(0);
@@ -241,25 +247,22 @@ bool XpsPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 		baseX = 0;
 		baseY = 0;
 	}
-	else
+	else if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
 	{
-		if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
-		{
-			m_Doc = ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
-			ScCore->primaryMainWindow()->HaveNewDoc();
-			ret = true;
-			baseX = 0;
-			baseY = 0;
-			baseX = m_Doc->currentPage()->xOffset();
-			baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
-		}
+		m_Doc = ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
+		ScCore->primaryMainWindow()->HaveNewDoc();
+		ret = true;
+		baseX = 0;
+		baseY = 0;
+		baseX = m_Doc->currentPage()->xOffset();
+		baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
 	}
-	if ((!ret) && (interactive))
+	if (!ret && interactive)
 	{
 		baseX = m_Doc->currentPage()->xOffset();
 		baseY = m_Doc->currentPage()->yOffset() + m_Doc->currentPage()->height() / 2.0;
 	}
-	if ((ret) || (!interactive))
+	if (ret || !interactive)
 	{
 		if (docWidth > docHeight)
 			m_Doc->setPageOrientation(1);
@@ -275,7 +278,7 @@ bool XpsPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
 		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
-	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
+	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.path());
 	if (convert(fNameIn))
@@ -287,8 +290,8 @@ bool XpsPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->setLoading(false);
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		if ((Elements.count() > 0) && (!ret) && (interactive))
+		QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		if (!Elements.isEmpty() && !ret && interactive)
 		{
 			if (flags & LoadSavePlugin::lfScripted)
 			{
@@ -299,10 +302,7 @@ bool XpsPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 				if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 				{
 					m_Doc->m_Selection->delaySignalsOn();
-					for (int dre=0; dre<Elements.count(); ++dre)
-					{
-						m_Doc->m_Selection->addItem(Elements.at(dre), true);
-					}
+					m_Doc->m_Selection->addItems(Elements);
 					m_Doc->m_Selection->delaySignalsOff();
 					m_Doc->m_Selection->setGroupRect();
 					if (m_Doc->view() != nullptr)
@@ -315,32 +315,25 @@ bool XpsPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 				m_Doc->DraggedElem = nullptr;
 				m_Doc->DragElements.clear();
 				m_Doc->m_Selection->delaySignalsOn();
-				for (int dre=0; dre<Elements.count(); ++dre)
-				{
-					tmpSel->addItem(Elements.at(dre), true);
-				}
+				tmpSel->addItems(Elements);
 				tmpSel->setGroupRect();
 				ScElemMimeData* md = ScriXmlDoc::writeToMimeData(m_Doc, tmpSel);
 				m_Doc->itemSelection_DeleteItem(tmpSel);
 				m_Doc->view()->updatesOn(true);
-				if ((importedColors.count() != 0) && (!((flags & LoadSavePlugin::lfKeepGradients) || (flags & LoadSavePlugin::lfKeepColors) || (flags & LoadSavePlugin::lfKeepPatterns))))
+				if (!importedColors.isEmpty() && (!((flags & LoadSavePlugin::lfKeepGradients) || (flags & LoadSavePlugin::lfKeepColors) || (flags & LoadSavePlugin::lfKeepPatterns))))
 				{
-					for (int cd = 0; cd < importedColors.count(); cd++)
-					{
-						m_Doc->PageColors.remove(importedColors[cd]);
-					}
+					for (const auto& importedColor : importedColors)
+						m_Doc->PageColors.remove(importedColor);
 				}
-				if ((importedPatterns.count() != 0) && (!(flags & LoadSavePlugin::lfKeepPatterns)))
+				if (!importedPatterns.isEmpty() && (!(flags & LoadSavePlugin::lfKeepPatterns)))
 				{
-					for (int cd = 0; cd < importedPatterns.count(); cd++)
-					{
-						m_Doc->docPatterns.remove(importedPatterns[cd]);
-					}
+					for (const auto& importedPattern : importedPatterns)
+						m_Doc->docPatterns.remove(importedPattern);
 				}
 				m_Doc->m_Selection->delaySignalsOff();
 				// We must copy the TransationSettings object as it is owned
 				// by handleObjectImport method afterwards
-				TransactionSettings* transacSettings = new TransactionSettings(trSettings);
+				auto* transacSettings = new TransactionSettings(trSettings);
 				m_Doc->view()->handleObjectImport(md, transacSettings);
 				m_Doc->DragP = false;
 				m_Doc->DraggedElem = nullptr;
@@ -363,7 +356,7 @@ bool XpsPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 		m_Doc->scMW()->setScriptRunning(false);
 		if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 			m_Doc->view()->updatesOn(true);
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		success = false;
 	}
 	if (interactive)
@@ -371,21 +364,11 @@ bool XpsPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 	//CB If we have a gui we must refresh it if we have used the progressbar
 	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 	{
-		if ((showProgress) && (!interactive))
+		if (showProgress && !interactive)
 			m_Doc->view()->DrawNew();
 	}
-	qApp->restoreOverrideCursor();
+	QApplication::restoreOverrideCursor();
 	return success;
-}
-
-XpsPlug::~XpsPlug()
-{
-	delete progressDialog;
-	delete tmpSel;
-	for (int a = 0; a < tempFontFiles.count(); a++)
-	{
-		QFile::remove(tempFontFiles[a]);
-	}
 }
 
 bool XpsPlug::convert(const QString& fn)
@@ -402,13 +385,14 @@ bool XpsPlug::convert(const QString& fn)
 	{
 		progressDialog->setOverallProgress(2);
 		progressDialog->setLabel("GI", tr("Generating Items"));
-		qApp->processEvents();
+		QApplication::processEvents();
 	}
 
 	uz = new ScZipHandler();
 	if (!uz->open(fn))
 	{
 		delete uz;
+		uz = nullptr;
 		if (progressDialog)
 			progressDialog->close();
 		return false;
@@ -424,6 +408,7 @@ bool XpsPlug::convert(const QString& fn)
 
 	uz->close();
 	delete uz;
+	uz = nullptr;
 	if (progressDialog)
 		progressDialog->close();
 	return retVal;
@@ -439,7 +424,7 @@ bool XpsPlug::parseDocSequence(const QString& designMap)
 		return false;
 
 	bool parsed = false;
-	QString DocumentReference = "";
+	QString DocumentReference;
 	QDomElement docElem = designMapDom.documentElement();
 	for (QDomNode drawPag = docElem.firstChild(); !drawPag.isNull(); drawPag = drawPag.nextSibling())
 	{
@@ -471,7 +456,7 @@ bool XpsPlug::parseDocReference(const QString& designMap)
 	if (!designMapDom.setContent(f))
 		return false;
 
-	QString PageReference = "";
+	QString PageReference;
 	QDomElement docElem = designMapDom.documentElement();
 	if (importerFlags & LoadSavePlugin::lfCreateThumbnail)
 	{
@@ -506,20 +491,20 @@ bool XpsPlug::parseDocReference(const QString& designMap)
 		QString pageString = "*";
 		int pgCount = 0;
 		int maxPages = docElem.childNodes().count();
-		if (((interactive) || (importerFlags & LoadSavePlugin::lfCreateDoc)) && (maxPages > 1))
+		if ((interactive || (importerFlags & LoadSavePlugin::lfCreateDoc)) && (maxPages > 1))
 		{
 			if (progressDialog)
 				progressDialog->hide();
-			qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+			QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 			XpsImportOptions optImp(ScCore->primaryMainWindow());
 			optImp.setUpOptions(m_FileName, 1, maxPages, interactive);
 			if (optImp.exec() != QDialog::Accepted)
 				return false;
 			pageString = optImp.getPagesString();
-			qApp->changeOverrideCursor(QCursor(Qt::WaitCursor));
+			QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
 			if (progressDialog)
 				progressDialog->show();
-			qApp->processEvents();
+			QApplication::processEvents();
 		}
 		parsePagesString(pageString, &pageNs, maxPages);
 		if (pageString != "*")
@@ -528,7 +513,7 @@ bool XpsPlug::parseDocReference(const QString& designMap)
 		{
 			progressDialog->setTotalSteps("GI", maxPages);
 			progressDialog->setProgress("GI", pgCount);
-			qApp->processEvents();
+			QApplication::processEvents();
 		}
 		QDomNodeList pgList = docElem.childNodes();
 		for (uint ap = 0; ap < pageNs.size(); ++ap)
@@ -560,7 +545,7 @@ bool XpsPlug::parseDocReference(const QString& designMap)
 			if (progressDialog)
 			{
 				progressDialog->setProgress("GI", pgCount);
-				qApp->processEvents();
+				QApplication::processEvents();
 			}
 		}
 	}
@@ -670,7 +655,7 @@ void XpsPlug::parsePageReference(const QString& designMap)
 						{
 							Coords.resize(0);
 							Coords.svgInit();
-							QString pdata = "";
+							QString pdata;
 							QString key = dpg.attribute("x:Key");
 							if (dpg.hasAttribute("Figures"))
 								pdata = dpg.attribute("Figures");
@@ -717,8 +702,8 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, const QString& path)
 	obState.JoinStyle = Qt::MiterJoin;
 	obState.DashOffset = 0;
 	obState.DashPattern.clear();
-	QString itemName = "";
-	QString itemTarget = "";
+	QString itemName;
+	QString itemTarget;
 	if (dpg.hasAttribute("Name"))
 		itemName = dpg.attribute("Name");
 	if (dpg.hasAttribute("FixedPage.NavigateUri"))
@@ -903,18 +888,18 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, const QString& path)
 										if (!glyInd[1].isEmpty())
 											adv = glyInd[1].toDouble() * fontSizeEM / 100.0;
 									}
-									if (glyInd.count() > 0)
+									if (!glyInd.isEmpty())
 									{
 										if (!glyInd[0].isEmpty())
 										{
 											if (glyInd[0].startsWith("("))
 											{
 												int r = glyInd[0].indexOf(")");
-												QString comb = glyInd[0].mid(1, r-1);
+												QString comb = glyInd[0].mid(1, r - 1);
 												QStringList combInd = comb.split(":");
 												int advUtf = combInd[0].toInt() - 1;
 												sti += advUtf;
-												glyInd[0].remove(0, r+1);
+												glyInd[0].remove(0, r + 1);
 											}
 											uint gli = glyInd[0].toUInt();
 											pts = iteFont.glyphOutline(gli, fontSize);
@@ -981,18 +966,18 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, const QString& path)
 							if (!glyInd[1].isEmpty())
 								adv = glyInd[1].toDouble() * fontSizeEM / 100.0;
 						}
-						if (glyInd.count() > 0)
+						if (!glyInd.isEmpty())
 						{
 							if (!glyInd[0].isEmpty())
 							{
 								if (glyInd[0].startsWith("("))
 								{
 									int r = glyInd[0].indexOf(")");
-									QString comb = glyInd[0].mid(1, r-1);
+									QString comb = glyInd[0].mid(1, r - 1);
 									QStringList combInd = comb.split(":");
 									int advUtf = combInd[0].toInt() - 1;
 									glInd += advUtf;
-									glyInd[0].remove(0, r+1);
+									glyInd[0].remove(0, r + 1);
 								}
 								uint gli = glyInd[0].toUInt();
 								pts = iteFont.glyphOutline(gli, fontSize);
@@ -1168,7 +1153,7 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, const QString& path)
 								{
 									Coords.resize(0);
 									Coords.svgInit();
-									QString pdata = "";
+									QString pdata;
 									QString key = dpg.attribute("x:Key");
 									if (dpg.hasAttribute("Figures"))
 										pdata = dpg.attribute("Figures");
@@ -1192,7 +1177,7 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, const QString& path)
 			else if (spe.tagName() == "Canvas.Clip")
 				parsePathDataXML(spe, obState, true);
 		}
-		if (GElements.count() > 0)
+		if (!GElements.isEmpty())
 		{
 			double minx =  std::numeric_limits<double>::max();
 			double miny =  std::numeric_limits<double>::max();
@@ -1200,7 +1185,7 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, const QString& path)
 			double maxy = -std::numeric_limits<double>::max();
 			for (int ep = 0; ep < GElements.count(); ++ep)
 			{
-				PageItem* currItem = GElements.at(ep);
+				const PageItem* currItem = GElements.at(ep);
 				double x1, x2, y1, y2;
 				currItem->getVisualBoundingRect(&x1, &y1, &x2, &y2);
 				minx = qMin(minx, x1);
@@ -1228,7 +1213,7 @@ PageItem* XpsPlug::parseObjectXML(QDomElement &dpg, const QString& path)
 				double rot = 0.0;
 				double dx = 0.0;
 				double dy = 0.0;
-				getTransformValuesFromMatrix( obState.transform, scX, scY, rot, dx, dy);
+				getTransformValuesFromMatrix(obState.transform, scX, scY, rot, dx, dy);
 				QLineF transp(0, 0, retObj->xPos() - m_Doc->currentPage()->xOffset(), retObj->yPos() - m_Doc->currentPage()->yOffset());
 				transp = obState.transform.map(transp);
 				retObj->setXYPos(transp.p2().x() + m_Doc->currentPage()->xOffset(), transp.p2().y() + m_Doc->currentPage()->yOffset());
@@ -1471,7 +1456,7 @@ void XpsPlug::parseFillXML(QDomElement &spe, const QString& path, ObjState &obSt
 					QImage tmpImg = item->DrawObj_toImage(qMin(qMax(item->width(), item->height()), 500.0));
 					if (tmpImg.isNull())
 						continue;
-					QImage retImg = QImage(qRound(Viewport_x2 * conversionFactor), qRound(Viewport_y2 * conversionFactor), QImage::Format_ARGB32_Premultiplied);
+					QImage retImg(qRound(Viewport_x2 * conversionFactor), qRound(Viewport_y2 * conversionFactor), QImage::Format_ARGB32_Premultiplied);
 					retImg.fill( qRgba(0, 0, 0, 0) );
 					QPainter p;
 					p.begin(&retImg);
@@ -1500,7 +1485,7 @@ void XpsPlug::parsePathDataXML(QDomElement &spe, ObjState &obState, bool forClip
 {
 	Coords.resize(0);
 	Coords.svgInit();
-	QString svgString = "";
+	QString svgString;
 	bool windFill = false;
 	for (QDomElement dpgp = spe.firstChildElement(); !dpgp.isNull(); dpgp = dpgp.nextSiblingElement())
 	{
@@ -1526,9 +1511,9 @@ void XpsPlug::parsePathDataXML(QDomElement &spe, ObjState &obState, bool forClip
 	}
 }
 
-QString XpsPlug::parsePathGeometryXML(QDomElement &spe)
+QString XpsPlug::parsePathGeometryXML(QDomElement &spe) const
 {
-	QString svgString = "";
+	QString svgString;
 	for (QDomElement dpg = spe.firstChildElement(); !dpg.isNull(); dpg = dpg.nextSiblingElement())
 	{
 		if (dpg.tagName() != "PathFigure")
@@ -1592,7 +1577,7 @@ void XpsPlug::parseResourceFile(const QString& resFile)
 			continue;
 		Coords.resize(0);
 		Coords.svgInit();
-		QString pdata = "";
+		QString pdata;
 		QString key = dpg.attribute("x:Key");
 		if (dpg.hasAttribute("Figures"))
 			pdata = dpg.attribute("Figures");
@@ -1622,7 +1607,7 @@ void XpsPlug::resolveLinks()
 		if (!linkTargets.contains(target))
 			continue;
 
-		PageItem* linkT = linkTargets[target];
+		const PageItem* linkT = linkTargets[target];
 		if (!linkT)
 			continue;
 
@@ -1800,10 +1785,10 @@ QString XpsPlug::handleColor(QString rgbColor, double &opacity)
 {
 	QString fNam = CommonStrings::None;
 	QString alpha = "FF";
-	if (rgbColor.startsWith( "sc#" ))
+	if (rgbColor.startsWith("sc#"))
 	{
 		QColor c;
-		rgbColor = rgbColor.remove(0,3);
+		rgbColor = rgbColor.remove(0, 3);
 		QStringList co = rgbColor.split(",");
 		if (co.size() == 3)
 		{
@@ -1835,7 +1820,7 @@ QString XpsPlug::handleColor(QString rgbColor, double &opacity)
 		if (fNam == newColorName)
 			importedColors.append(newColorName);
 	}
-	else if (rgbColor.startsWith( "#" ))
+	else if (rgbColor.startsWith("#"))
 	{
 		QColor c;
 		if (rgbColor.length() == 9)
@@ -1844,7 +1829,7 @@ QString XpsPlug::handleColor(QString rgbColor, double &opacity)
 			bool ok;
 			int hex = alpha.toInt(&ok, 16);
 			opacity = 1.0 - (hex / 255.0);
-			rgbColor = rgbColor.remove(1,2);
+			rgbColor = rgbColor.remove(1, 2);
 		}
 		else
 			opacity = 0;
@@ -1861,7 +1846,7 @@ QString XpsPlug::handleColor(QString rgbColor, double &opacity)
 	return fNam;
 }
 
-int XpsPlug::hex2int(char hex)
+int XpsPlug::hex2int(char hex) const
 {
 	QChar hexchar = QLatin1Char(hex);
 	int v;
@@ -1876,7 +1861,7 @@ int XpsPlug::hex2int(char hex)
 	return v;
 }
 
-bool XpsPlug::parseGUID( const QString &guidString, unsigned short guid[16])
+bool XpsPlug::parseGUID(const QString& guidString, unsigned short guid[16]) const
 {
 	if (guidString.length() <= 35)
 		return false;
@@ -1885,7 +1870,7 @@ bool XpsPlug::parseGUID( const QString &guidString, unsigned short guid[16])
 	for (int i = 0; i < 16; i++)
 	{
 		int hex1 = hex2int(guidString[indexes[i]].cell());
-		int hex2 = hex2int(guidString[indexes[i]+1].cell());
+		int hex2 = hex2int(guidString[indexes[i] + 1].cell());
 		if ((hex1 < 0) || (hex2 < 0))
 			return false;
 		guid[i] = hex1 * 16 + hex2;
@@ -1924,10 +1909,10 @@ ScFace XpsPlug::loadFontByName(const QString &fileName)
 		}
 		// Obfuscation - xor bytes in font binary with bytes from guid (font's filename)
 		const static int mapping[] = {15, 14, 13, 12, 11, 10, 9, 8, 6, 7, 4, 5, 0, 1, 2, 3};
-		for (int i = 0; i < 16; i++)
+		for (int i = 0; i < 16; ++i)
 		{
 			fontData[i] = fontData[i] ^ guid[mapping[i]];
-			fontData[i+16] = fontData[i+16] ^ guid[mapping[i]];
+			fontData[i + 16] = fontData[i + 16] ^ guid[mapping[i]];
 		}
 	}
 	QFile ft(fname);

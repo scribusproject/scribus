@@ -24,8 +24,8 @@ for which a new license (GPL+exception) is in place.
 
 #include "commonstrings.h"
 #include "fpointarray.h"
-#include "pluginapi.h"
 #include "pageitem.h"
+#include "pluginapi.h"
 #include "sccolor.h"
 
 class MultiProgressDialog;
@@ -49,8 +49,8 @@ public:
 	\param showProgress if progress must be displayed
 	\retval EPSPlug plugin
 	*/
-	XpsPlug( ScribusDoc* doc, int flags );
-	~XpsPlug();
+	XpsPlug(ScribusDoc* doc, int flags);
+	~XpsPlug() override;
 
 	/*!
 	\author Franz Schmid
@@ -105,7 +105,7 @@ private:
 		QVector<double> DashPattern;
 		double DashOffset { 0.0 };
 	};
-
+	
 	bool convert(const QString& fn);
 	bool parseDocSequence(const QString& designMap);
 	bool parseDocReference(const QString& designMap);
@@ -115,15 +115,15 @@ private:
 	void parseStrokeXML(QDomElement &spe, const QString& path, ObjState &obState);
 	void parseFillXML(QDomElement &spe, const QString& path, ObjState &obState);
 	void parsePathDataXML(QDomElement &spe, ObjState &obState, bool forClip = false);
-	QString parsePathGeometryXML(QDomElement &spe);
+	QString parsePathGeometryXML(QDomElement &spe) const;
 	void parseResourceFile(const QString& resFile);
 	void resolveLinks();
 	PageItem* addClip(PageItem* retObj, ObjState &obState);
 	PageItem* createItem(QDomElement &dpg, ObjState &obState);
 	void finishItem(PageItem* item, ObjState &obState);
 	QString handleColor(QString rgbColor, double &opacity);
-	int hex2int(char hex);
-	bool parseGUID( const QString &guidString, unsigned short guid[16]);
+	int hex2int(char hex) const;
+	bool parseGUID(const QString& guidString, unsigned short guid[16]) const;
 	ScFace loadFontByName(const QString &fileName);
 
 	QList<PageItem*> Elements;
@@ -134,7 +134,7 @@ private:
 
 	FPointArray Coords;
 	bool interactive { false };
-	MultiProgressDialog * progressDialog { nullptr };
+	MultiProgressDialog* progressDialog { nullptr };
 	bool cancel { false };
 	ScribusDoc* m_Doc { nullptr };
 	Selection* tmpSel { nullptr };
