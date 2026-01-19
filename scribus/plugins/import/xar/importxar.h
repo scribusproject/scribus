@@ -132,7 +132,7 @@ public:
 	\retval EPSPlug plugin
 	*/
 	XarPlug( ScribusDoc* doc, int flags );
-	~XarPlug();
+	~XarPlug() override;
 
 	/*!
 	\author Franz Schmid
@@ -149,7 +149,7 @@ public:
 	bool readColors(const QString& fileName, ColorList & colors);
 
 private:
-	void parseHeader(const QString& fName, double &x, double &y, double &b, double &h);
+	void parseHeader(const QString& fName, double &x, double &y, double &b, double &h) const;
 	bool convert(const QString& fn);
 	void parseXar(QDataStream &ts);
 	void handleTags(quint32 tag, quint32 dataLen, QDataStream &ts);
@@ -182,7 +182,7 @@ private:
 	void handleSimpleGradientTransparencySkewed(QDataStream &ts, quint32 dataLen);
 	void handleEllipticalGradientTransparency(QDataStream &ts, quint32 dataLen);
 	void handleBitmapTransparency(QDataStream &ts, quint32 dataLen);
-	int  convertBlendMode(int val);
+	int  convertBlendMode(int val) const;
 	void handleSimpleGradientElliptical(QDataStream &ts, quint32 dataLen);
 	void handleMultiGradientElliptical(QDataStream &ts);
 	void handleMultiGradientSkewed(QDataStream &ts);
@@ -217,9 +217,9 @@ private:
 	void handlePage(QDataStream &ts);
 	void handleComplexColor(QDataStream &ts);
 	void handleColorRGB(QDataStream &ts);
-	double decodeColorComponent(quint32 data);
-	double decodeFixed16(quint32 data);
-	void readCoords(QDataStream &ts, double &x, double &y);
+	double decodeColorComponent(quint32 data) const;
+	double decodeFixed16(quint32 data) const;
+	void readCoords(QDataStream &ts, double &x, double &y) const;
 	void addToAtomic(quint32 dataLen, QDataStream &ts);
 	void addGraphicContext();
 	void popGraphicContext();
@@ -351,7 +351,7 @@ private:
 	FPointArray clipCoords;
 	FPointArray Coords;
 	FPointArray textPath;
-	MultiProgressDialog * progressDialog { nullptr };
+	MultiProgressDialog* progressDialog { nullptr };
 	ScribusDoc* m_Doc { nullptr };
 	Selection* tmpSel { nullptr };
 

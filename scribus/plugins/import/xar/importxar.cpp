@@ -12,19 +12,19 @@ for which a new license (GPL+exception) is in place.
     email                : Franz.Schmid@altmuehlnet.de
  ***************************************************************************/
 
+#include <cstdlib>
+
 #include <QByteArray>
 #include <QCursor>
+#include <QDebug>
 #include <QDrag>
 #include <QFile>
 #include <QMimeData>
 #include <QRegExp>
-#include <QDebug>
+
 #include "qtiocompressor.h"
 
-#include <cstdlib>
-
 #include "importxar.h"
-
 
 #include "loadsaveplugin.h"
 #include "pageitem_imageframe.h"
@@ -58,12 +58,17 @@ for which a new license (GPL+exception) is in place.
 #include "util_math.h"
 
 XarPlug::XarPlug(ScribusDoc* doc, int flags)
+	: importerFlags(flags),
+	  m_Doc(doc)
 {
 	tmpSel = new Selection(this, false);
-	m_Doc = doc;
-	importerFlags = flags;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
-	progressDialog = nullptr;
+}
+
+XarPlug::~XarPlug()
+{
+	delete progressDialog;
+	delete tmpSel;
 }
 
 bool XarPlug::readColors(const QString& fileName, ColorList & colors)
@@ -71,89 +76,93 @@ bool XarPlug::readColors(const QString& fileName, ColorList & colors)
 	progressDialog = nullptr;
 	bool success = false;
 	importedColors.clear();
+
 	QFile f(fileName);
-	if (f.open(QIODevice::ReadOnly))
+	if (!f.open(QIODevice::ReadOnly))
+		return false;
+
+	QDataStream ts(&f);
+	ts.setByteOrder(QDataStream::LittleEndian);
+	quint32 id;
+	ts >> id;
+	if (id != 0x41524158)
+		return false;
+	ts >> id;
+	if (id != 0x0A0DA3A3)
+		return false;
+
+	m_Doc = new ScribusDoc();
+	m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
+	m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
+	m_Doc->addPage(0);
+	m_Doc->setGUI(false, ScCore->primaryMainWindow(), nullptr);
+	m_Doc->setLoading(true);
+	m_Doc->DoDrawing = false;
+	m_Doc->scMW()->setScriptRunning(true);
+	m_Doc->PageColors.clear();
+
+	while (!ts.atEnd())
 	{
-		QDataStream ts(&f);
-		ts.setByteOrder(QDataStream::LittleEndian);
-		quint32 id;
-		ts >> id;
-		if (id != 0x41524158)
-			return false;
-		ts >> id;
-		if (id != 0x0A0DA3A3)
-			return false;
-		m_Doc = new ScribusDoc();
-		m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
-		m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
-		m_Doc->addPage(0);
-		m_Doc->setGUI(false, ScCore->primaryMainWindow(), nullptr);
-		m_Doc->setLoading(true);
-		m_Doc->DoDrawing = false;
-		m_Doc->scMW()->setScriptRunning(true);
-		m_Doc->PageColors.clear();
-		while (!ts.atEnd())
+		quint32 opCode, dataLen;
+		ts >> opCode;
+		ts >> dataLen;
+		if (opCode == 30)
 		{
-			quint32 opCode, dataLen;
-			ts >> opCode;
-			ts >> dataLen;
-			if (opCode == 30)
+			ts.skipRawData(dataLen);
+			QtIOCompressor compressor(ts.device(), 6, 1);
+			compressor.setStreamFormat(QtIOCompressor::RawZipFormat);
+			compressor.open(QIODevice::ReadOnly);
+			QDataStream tsc(&compressor);
+			tsc.setByteOrder(QDataStream::LittleEndian);
+			while (!tsc.atEnd())
 			{
-				ts.skipRawData(dataLen);
-				QtIOCompressor compressor(ts.device(), 6, 1);
-				compressor.setStreamFormat(QtIOCompressor::RawZipFormat);
-				compressor.open(QIODevice::ReadOnly);
-				QDataStream tsc(&compressor);
-				tsc.setByteOrder(QDataStream::LittleEndian);
-				while (!tsc.atEnd())
+				tsc >> opCode;
+				tsc >> dataLen;
+				recordCounter++;
+				if (opCode == 31)
 				{
-					tsc >> opCode;
-					tsc >> dataLen;
-					recordCounter++;
-					if (opCode == 31)
-					{
-						tsc.skipRawData(dataLen);
-						break;
-					}
-					if (opCode == 51)
-						handleComplexColor(tsc);
-					else
-						tsc.skipRawData(dataLen);
+					tsc.skipRawData(dataLen);
+					break;
 				}
-				ts.skipRawData(dataLen+1);
-			}
-			else
-			{
 				if (opCode == 51)
-					handleComplexColor(ts);
+					handleComplexColor(tsc);
 				else
-					ts.skipRawData(dataLen);
+					tsc.skipRawData(dataLen);
 			}
+			ts.skipRawData(dataLen + 1);
 		}
-		f.close();
-		if (m_Doc->PageColors.count() != 0)
+		else
 		{
-			ColorList::Iterator it;
-			for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
+			if (opCode == 51)
+				handleComplexColor(ts);
+			else
+				ts.skipRawData(dataLen);
+		}
+	}
+	f.close();
+	if (!m_Doc->PageColors.isEmpty())
+	{
+		for (auto it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
+		{
+			if (!it.key().startsWith("FromXara"))
 			{
-				if (!it.key().startsWith("FromXara"))
-				{
-					success = true;
-					colors.insert(it.key(), it.value());
-				}
+				success = true;
+				colors.insert(it.key(), it.value());
 			}
 		}
-		m_Doc->scMW()->setScriptRunning(false);
-		m_Doc->setLoading(false);
-		delete m_Doc;
 	}
+	m_Doc->scMW()->setScriptRunning(false);
+	m_Doc->setLoading(false);
+	delete m_Doc;
+	m_Doc = nullptr;
+
 	return success;
 }
 
 QImage XarPlug::readThumbnail(const QString& fName)
 {
 	progressDialog = nullptr;
-	QImage image = QImage();
+	QImage image;
 	QFile f(fName);
 	if (f.open(QIODevice::ReadOnly))
 	{
@@ -201,7 +210,7 @@ QImage XarPlug::readThumbnail(const QString& fName)
 					else
 						tsc.skipRawData(dataLen);
 				}
-				ts.skipRawData(dataLen+1);
+				ts.skipRawData(dataLen + 1);
 			}
 			else
 			{
@@ -232,7 +241,6 @@ bool XarPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 	importerFlags = flags;
 	cancel = false;
-	double x, y, b, h;
 	bool ret = false;
 	QFileInfo fi(fName);
 	if (!ScCore->usingGUI())
@@ -255,19 +263,19 @@ bool XarPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 		progressDialog->setProgress("GI", 0);
 		progressDialog->show();
 		connect(progressDialog, SIGNAL(canceled()), this, SLOT(cancelRequested()));
-		qApp->processEvents();
+		QApplication::processEvents();
 	}
 	else
 		progressDialog = nullptr;
 /* Set default Page to size defined in Preferences */
-	x = 0.0;
-	y = 0.0;
-	b = 0.0;
-	h = 0.0;
+	double x = 0.0;
+	double y = 0.0;
+	double b = 0.0;
+	double h = 0.0;
 	if (progressDialog)
 	{
 		progressDialog->setOverallProgress(1);
-		qApp->processEvents();
+		QApplication::processEvents();
 	}
 //	parseHeader(fName, x, y, b, h);
 	if (b == 0.0)
@@ -279,7 +287,7 @@ bool XarPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 	baseX = 0;
 	baseY = 0;
 	pagecount = 1;
-	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
+	if (m_Doc && (!interactive || (flags & LoadSavePlugin::lfInsertPage)))
 	{
 		m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
 		m_Doc->addPage(0);
@@ -287,23 +295,20 @@ bool XarPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 		baseX = -x;
 		baseY = -y;
 	}
-	else
+	else if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
 	{
-		if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
-		{
-			m_Doc = ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
-			ScCore->primaryMainWindow()->HaveNewDoc();
-			ret = true;
-			baseX = m_Doc->currentPage()->xOffset() - x;
-			baseY = m_Doc->currentPage()->yOffset() - y;
-		}
+		m_Doc = ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
+		ScCore->primaryMainWindow()->HaveNewDoc();
+		ret = true;
+		baseX = m_Doc->currentPage()->xOffset() - x;
+		baseY = m_Doc->currentPage()->yOffset() - y;
 	}
-	if ((!ret) && (interactive))
+	if (!ret && interactive)
 	{
 		baseX = m_Doc->currentPage()->xOffset() - x;
 		baseY = m_Doc->currentPage()->yOffset() - y;
 	}
-	if ((ret) || (!interactive))
+	if (ret || !interactive)
 	{
 		if (docWidth > docHeight)
 			m_Doc->setPageOrientation(1);
@@ -319,7 +324,7 @@ bool XarPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
 		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
-	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
+	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.path());
 	if (convert(fName))
@@ -331,8 +336,8 @@ bool XarPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->setLoading(false);
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
-		if ((Elements.count() > 0) && (!ret) && (interactive))
+		QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		if (!Elements.isEmpty() && !ret && interactive)
 		{
 			if (flags & LoadSavePlugin::lfScripted)
 			{
@@ -343,10 +348,7 @@ bool XarPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 				if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 				{
 					m_Doc->m_Selection->delaySignalsOn();
-					for (int dre=0; dre<Elements.count(); ++dre)
-					{
-						m_Doc->m_Selection->addItem(Elements.at(dre), true);
-					}
+					m_Doc->m_Selection->addItems(Elements);
 					m_Doc->m_Selection->delaySignalsOff();
 					m_Doc->m_Selection->setGroupRect();
 					if (m_Doc->view() != nullptr)
@@ -359,32 +361,25 @@ bool XarPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 				m_Doc->DraggedElem = nullptr;
 				m_Doc->DragElements.clear();
 				m_Doc->m_Selection->delaySignalsOn();
-				for (int dre=0; dre<Elements.count(); ++dre)
-				{
-					tmpSel->addItem(Elements.at(dre), true);
-				}
+				tmpSel->addItems(Elements);
 				tmpSel->setGroupRect();
 				ScElemMimeData* md = ScriXmlDoc::writeToMimeData(m_Doc, tmpSel);
 				m_Doc->itemSelection_DeleteItem(tmpSel);
 				m_Doc->view()->updatesOn(true);
-				if (importedColors.count() != 0)
+				if (!importedColors.isEmpty())
 				{
-					for (int cd = 0; cd < importedColors.count(); cd++)
-					{
-						m_Doc->PageColors.remove(importedColors[cd]);
-					}
+					for (const auto& importedColor : importedColors)
+						m_Doc->PageColors.remove(importedColor);
 				}
-				if (importedPatterns.count() != 0)
+				if (!importedPatterns.isEmpty())
 				{
-					for (int cd = 0; cd < importedPatterns.count(); cd++)
-					{
-						m_Doc->docPatterns.remove(importedPatterns[cd]);
-					}
+					for (const auto& importedPattern : importedPatterns)
+						m_Doc->docPatterns.remove(importedPattern);
 				}
 				m_Doc->m_Selection->delaySignalsOff();
 				// We must copy the TransationSettings object as it is owned
 				// by handleObjectImport method afterwards
-				TransactionSettings* transacSettings = new TransactionSettings(trSettings);
+				auto* transacSettings = new TransactionSettings(trSettings);
 				m_Doc->view()->handleObjectImport(md, transacSettings);
 				m_Doc->DragP = false;
 				m_Doc->DraggedElem = nullptr;
@@ -408,27 +403,21 @@ bool XarPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 		m_Doc->scMW()->setScriptRunning(false);
 		if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 			m_Doc->view()->updatesOn(true);
-		qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	}
 	if (interactive)
 		m_Doc->setLoading(false);
 	//CB If we have a gui we must refresh it if we have used the progressbar
 	if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 	{
-		if ((showProgress) && (!interactive))
+		if (showProgress && !interactive)
 			m_Doc->view()->DrawNew();
 	}
-	qApp->restoreOverrideCursor();
+	QApplication::restoreOverrideCursor();
 	return success;
 }
 
-XarPlug::~XarPlug()
-{
-	delete progressDialog;
-	delete tmpSel;
-}
-
-void XarPlug::parseHeader(const QString& fName, double &x, double &y, double &b, double &h)
+void XarPlug::parseHeader(const QString& fName, double &x, double &y, double &b, double &h) const
 {
 	QFile f(fName);
 	if (f.open(QIODevice::ReadOnly))
@@ -534,7 +523,7 @@ bool XarPlug::convert(const QString& fn)
 	{
 		progressDialog->setOverallProgress(2);
 		progressDialog->setLabel("GI", tr("Generating Items"));
-		qApp->processEvents();
+		QApplication::processEvents();
 	}
 	QFile f(fn);
 	if (f.open(QIODevice::ReadOnly))
@@ -543,27 +532,17 @@ bool XarPlug::convert(const QString& fn)
 		if (progressDialog)
 		{
 			progressDialog->setTotalSteps("GI", fSize);
-			qApp->processEvents();
+			QApplication::processEvents();
 		}
 		QDataStream ts(&f);
 		ts.setByteOrder(QDataStream::LittleEndian);
 		parseXar(ts);
-		if (Elements.count() == 0)
+		if (Elements.isEmpty())
 		{
-			if (importedColors.count() != 0)
-			{
-				for (int cd = 0; cd < importedColors.count(); cd++)
-				{
-					m_Doc->PageColors.remove(importedColors[cd]);
-				}
-			}
-			if (importedPatterns.count() != 0)
-			{
-				for (int cd = 0; cd < importedPatterns.count(); cd++)
-				{
-					m_Doc->docPatterns.remove(importedPatterns[cd]);
-				}
-			}
+			for (const auto& importedColor : importedColors)
+				m_Doc->PageColors.remove(importedColor);
+			for (const auto& importedPattern : importedPatterns)
+				m_Doc->docPatterns.remove(importedPattern);
 		}
 		f.close();
 	}
@@ -574,7 +553,7 @@ bool XarPlug::convert(const QString& fn)
 
 void XarPlug::parseXar(QDataStream &ts)
 {
-	XarStyle *gc = new XarStyle;
+	auto *gc = new XarStyle;
 	m_gc.push( gc );
 	quint32 id;
 	ts >> id;
@@ -610,14 +589,14 @@ void XarPlug::parseXar(QDataStream &ts)
 				}
 				handleTags(opCode, dataLen, tsc);
 			}
-			ts.skipRawData(dataLen+1);
+			ts.skipRawData(dataLen + 1);
 		}
 		else
 			handleTags(opCode, dataLen, ts);
 		if (progressDialog)
 		{
 			progressDialog->setProgress("GI", ts.device()->pos());
-			qApp->processEvents();
+			QApplication::processEvents();
 		}
 	}
 }
@@ -635,7 +614,6 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 	if (tag == 0)
 	{
 		popGraphicContext();
-//		delete( m_gc.pop() );
 //		qDebug() << "Stack dropped to" << m_gc.count();
 	}
 	else if (tag == 1)
@@ -831,56 +809,38 @@ void XarPlug::handleTags(quint32 tag, quint32 dataLen, QDataStream &ts)
 	else if (tag == 2908)
 	{
 		gc->FontBold = true;
-		if (textLines.count() > 0)
-		{
-			if (textLines.last().textData.count() > 0)
-				textLines.last().textData.last().FontBold = gc->FontBold;
-		}
+		if (!textLines.isEmpty() && !textLines.last().textData.isEmpty())
+			textLines.last().textData.last().FontBold = gc->FontBold;
 	}
 	else if (tag == 2909)
 	{
 		gc->FontBold = false;
-		if (textLines.count() > 0)
-		{
-			if (textLines.last().textData.count() > 0)
-				textLines.last().textData.last().FontBold = gc->FontBold;
-		}
+		if (!textLines.isEmpty() && !textLines.last().textData.isEmpty())
+			textLines.last().textData.last().FontBold = gc->FontBold;
 	}
 	else if (tag == 2910)
 	{
 		gc->FontItalic = true;
-		if (textLines.count() > 0)
-		{
-			if (textLines.last().textData.count() > 0)
-				textLines.last().textData.last().FontItalic = gc->FontItalic;
-		}
+		if (!textLines.isEmpty() && !textLines.last().textData.isEmpty())
+			textLines.last().textData.last().FontItalic = gc->FontItalic;
 	}
 	else if (tag == 2911)
 	{
 		gc->FontItalic = false;
-		if (textLines.count() > 0)
-		{
-			if (textLines.last().textData.count() > 0)
-				textLines.last().textData.last().FontItalic = gc->FontItalic;
-		}
+		if (!textLines.isEmpty() && !textLines.last().textData.isEmpty())
+			textLines.last().textData.last().FontItalic = gc->FontItalic;
 	}
 	else if (tag == 2912)
 	{
 		gc->FontUnderline = true;
-		if (textLines.count() > 0)
-		{
-			if (textLines.last().textData.count() > 0)
-				textLines.last().textData.last().FontUnderline = gc->FontUnderline;
-		}
+		if (!textLines.isEmpty() && !textLines.last().textData.isEmpty())
+			textLines.last().textData.last().FontUnderline = gc->FontUnderline;
 	}
 	else if (tag == 2913)
 	{
 		gc->FontUnderline = false;
-		if (textLines.count() > 0)
-		{
-			if (textLines.last().textData.count() > 0)
-				textLines.last().textData.last().FontUnderline = gc->FontUnderline;
-		}
+		if (!textLines.isEmpty() && !textLines.last().textData.isEmpty())
+			textLines.last().textData.last().FontUnderline = gc->FontUnderline;
 	}
 	else if (tag == 2918)
 		handleTextTracking(ts);
@@ -944,11 +904,8 @@ void XarPlug::handleTextFontSize(QDataStream &ts)
 	ts >> size;
 	XarStyle *gc = m_gc.top();
 	gc->FontSize = size / 1000.0;
-	if (textLines.count() > 0)
-	{
-		if (textLines.last().textData.count() > 0)
-			textLines.last().textData.last().FontSize = gc->FontSize;
-	}
+	if (!textLines.isEmpty() && !textLines.last().textData.isEmpty())
+		textLines.last().textData.last().FontSize = gc->FontSize;
 //	qDebug() << "Font Size" << gc->FontSize;
 }
 
@@ -989,11 +946,8 @@ void XarPlug::handleTextFont(QDataStream &ts)
 	{
 		if (fontRef.contains(val))
 			gc->FontFamily = fontRef[val];
-		if (textLines.count() > 0)
-		{
-			if (textLines.last().textData.count() > 0)
-				textLines.last().textData.last().FontFamily = gc->FontFamily;
-		}
+		if (!textLines.isEmpty() && !textLines.last().textData.isEmpty())
+			textLines.last().textData.last().FontFamily = gc->FontFamily;
 	}
 //	qDebug() << "Using Font" << gc->FontFamily;
 }
@@ -1002,7 +956,7 @@ void XarPlug::handleTextString(QDataStream &ts, quint32 dataLen)
 {
 	quint32 l = dataLen / 2;
 	quint16 val;
-	XarStyle *gc = m_gc.top();
+	const XarStyle *gc = m_gc.top();
 	XarText text;
 	text.itemText = "";
 	QString iText;
@@ -1073,7 +1027,7 @@ void XarPlug::handleTextChar(QDataStream &ts)
 {
 	quint16 val;
 	ts >> val;
-	XarStyle *gc = m_gc.top();
+	const XarStyle *gc = m_gc.top();
 	XarText text;
 	text.itemText = QChar(val);
 	text.FontFamily = gc->FontFamily;
@@ -1177,11 +1131,8 @@ void XarPlug::handleTextKerning(QDataStream &ts)
 	ts >> valX >> valY;
 	XarStyle *gc = m_gc.top();
 	gc->FontKerning = valX / 1000.0;
-	if (textLines.count() > 0)
-	{
-		if (textLines.last().textData.count() > 0)
-			textLines.last().textData.last().FontKerning = gc->FontKerning;
-	}
+	if (!textLines.isEmpty() && !textLines.last().textData.isEmpty())
+		textLines.last().textData.last().FontKerning = gc->FontKerning;
 //	qDebug() << "Kerning" << valX / 1000.0 << valY / 1000.0;
 }
 
@@ -1192,11 +1143,8 @@ void XarPlug::handleTextAspectRatio(QDataStream &ts)
 	double scaleX = decodeFixed16(val);
 	XarStyle *gc = m_gc.top();
 	gc->FontStretch = scaleX;
-	if (textLines.count() > 0)
-	{
-		if (textLines.last().textData.count() > 0)
-			textLines.last().textData.last().FontStretch = gc->FontStretch;
-	}
+	if (!textLines.isEmpty() && !textLines.last().textData.isEmpty())
+		textLines.last().textData.last().FontStretch = gc->FontStretch;
 //	qDebug() << "Aspect Ratio" << scaleX;
 }
 
@@ -1217,7 +1165,7 @@ void XarPlug::startTextLine()
 
 void XarPlug::endTextLine()
 {
-	XarStyle *gc = m_gc.top();
+	const XarStyle *gc = m_gc.top();
 //	TextY += gc->LineHeight;
 	QPainterPath painterPath;
 	double xpos = 0;
@@ -1236,7 +1184,7 @@ void XarPlug::endTextLine()
 					XarText txDat = txLin.textData[c];
 					xpos += txDat.FontKerning * (txDat.FontSize  * 72.0 / 96.0);
 					txDat.FontSize *= 10;
-					QFont textFont = QFont(txDat.FontFamily, txDat.FontSize);
+					QFont textFont(txDat.FontFamily, txDat.FontSize);
 					if (txDat.FontSize >= 1)
 						textFont.setPixelSize(txDat.FontSize);
 					else
@@ -1374,7 +1322,7 @@ void XarPlug::endTextLine()
 			{
 				XarText txDat = txLin.textData[b];
 				painterPath = QPainterPath();
-				QFont textFont = QFont(txDat.FontFamily, txDat.FontSize);
+				QFont textFont(txDat.FontFamily, txDat.FontSize);
 				xpos += txDat.FontKerning * txDat.FontSize;
 				txDat.FontSize *= 10;
 				if (txDat.FontSize >= 1)
@@ -1557,7 +1505,6 @@ void XarPlug::startComplexPathText(QDataStream &ts, quint32 dataLen, int type)
 	ts >> tRot >> tSk;
 	textRotation = decodeFixed16(tRot);
 	textSkew = decodeFixed16(tSk);
-//	textSkew = (qint32)tSk;
 	if (dataLen > 32)
 		ts >> flag;
 	TextX = 0;
@@ -1592,11 +1539,8 @@ void XarPlug::handleLineEnd(QDataStream &ts)
 		gc->PLineEnd = Qt::RoundCap;
 	else if (val == 2)
 		gc->PLineEnd = Qt::SquareCap;
-	if (textLines.count() > 0)
-	{
-		if (textLines.last().textData.count() > 0)
-			textLines.last().textData.last().PLineEnd = gc->PLineEnd;
-	}
+	if (!textLines.isEmpty() && !textLines.last().textData.isEmpty())
+		textLines.last().textData.last().PLineEnd = gc->PLineEnd;
 }
 
 void XarPlug::handleLineJoin(QDataStream &ts)
@@ -1610,16 +1554,13 @@ void XarPlug::handleLineJoin(QDataStream &ts)
 		gc->PLineJoin = Qt::RoundJoin;
 	else if (val == 2)
 		gc->PLineJoin = Qt::BevelJoin;
-	if (textLines.count() > 0)
-	{
-		if (textLines.last().textData.count() > 0)
-			textLines.last().textData.last().PLineJoin = gc->PLineJoin;
-	}
+	if (!textLines.isEmpty() && !textLines.last().textData.isEmpty())
+		textLines.last().textData.last().PLineJoin = gc->PLineJoin;
 }
 
 void XarPlug::handleQuickShapeSimple(QDataStream &ts, quint32 dataLen)
 {
-	XarStyle *gc = m_gc.top();
+	const XarStyle *gc = m_gc.top();
 	quint32 bytesRead = 0;
 	double minorAxisX, minorAxisY, majorAxisX, majorAxisY;
 	quint16 numSides = 0;
@@ -1685,14 +1626,11 @@ void XarPlug::handleFlatFillTransparency(QDataStream &ts)
 		gc->FillOpacity = transVal / 255.0;
 		gc->FillBlend = convertBlendMode(transType);
 		gc->GradMask = 0;
-		if (textLines.count() > 0)
+		if (!textLines.isEmpty() && !textLines.last().textData.isEmpty())
 		{
-			if (textLines.last().textData.count() > 0)
-			{
-				textLines.last().textData.last().FillOpacity = gc->FillOpacity;
-				textLines.last().textData.last().FillBlend = gc->FillBlend;
-				textLines.last().textData.last().GradMask = gc->GradMask;
-			}
+			textLines.last().textData.last().FillOpacity = gc->FillOpacity;
+			textLines.last().textData.last().FillBlend = gc->FillBlend;
+			textLines.last().textData.last().GradMask = gc->GradMask;
 		}
 	}
 }
@@ -1728,19 +1666,16 @@ void XarPlug::handleSimpleGradientTransparency(QDataStream &ts, quint32 dataLen,
 	gc->GradMaskY1 = (docHeight - bly) + baseY + m_Doc->currentPage()->yOffset();
 	gc->GradMaskX2 = brx + baseX + m_Doc->currentPage()->xOffset();
 	gc->GradMaskY2 = (docHeight - bry) + baseY + m_Doc->currentPage()->yOffset();
-	if (textLines.count() > 0)
+	if (!textLines.isEmpty() && !textLines.last().textData.isEmpty())
 	{
-		if (textLines.last().textData.count() > 0)
-		{
-			textLines.last().textData.last().GradMask = gc->GradMask;
-			textLines.last().textData.last().MaskGradient = gc->MaskGradient;
-			textLines.last().textData.last().GradMaskX1 = gc->GradMaskX1;
-			textLines.last().textData.last().GradMaskY1 = gc->GradMaskY1;
-			textLines.last().textData.last().GradMaskX2 = gc->GradMaskX2;
-			textLines.last().textData.last().GradMaskY2 = gc->GradMaskY2;
-			textLines.last().textData.last().GradMaskScale = gc->GradMaskScale;
-			textLines.last().textData.last().GradMaskSkew = gc->GradMaskSkew;
-		}
+		textLines.last().textData.last().GradMask = gc->GradMask;
+		textLines.last().textData.last().MaskGradient = gc->MaskGradient;
+		textLines.last().textData.last().GradMaskX1 = gc->GradMaskX1;
+		textLines.last().textData.last().GradMaskY1 = gc->GradMaskY1;
+		textLines.last().textData.last().GradMaskX2 = gc->GradMaskX2;
+		textLines.last().textData.last().GradMaskY2 = gc->GradMaskY2;
+		textLines.last().textData.last().GradMaskScale = gc->GradMaskScale;
+		textLines.last().textData.last().GradMaskSkew = gc->GradMaskSkew;
 	}
 }
 
@@ -1774,19 +1709,16 @@ void XarPlug::handleSimpleGradientTransparencySkewed(QDataStream &ts, quint32 da
 	gc->GradMaskX2 = brx + baseX + m_Doc->currentPage()->xOffset();
 	gc->GradMaskY2 = (docHeight - bry) + baseY + m_Doc->currentPage()->yOffset();
 	gc->GradMask = 1;
-	if (textLines.count() > 0)
+	if (!textLines.isEmpty() && !textLines.last().textData.isEmpty())
 	{
-		if (textLines.last().textData.count() > 0)
-		{
-			textLines.last().textData.last().GradMask = gc->GradMask;
-			textLines.last().textData.last().MaskGradient = gc->MaskGradient;
-			textLines.last().textData.last().GradMaskX1 = gc->GradMaskX1;
-			textLines.last().textData.last().GradMaskY1 = gc->GradMaskY1;
-			textLines.last().textData.last().GradMaskX2 = gc->GradMaskX2;
-			textLines.last().textData.last().GradMaskY2 = gc->GradMaskY2;
-			textLines.last().textData.last().GradMaskScale = gc->GradMaskScale;
-			textLines.last().textData.last().GradMaskSkew = gc->GradMaskSkew;
-		}
+		textLines.last().textData.last().GradMask = gc->GradMask;
+		textLines.last().textData.last().MaskGradient = gc->MaskGradient;
+		textLines.last().textData.last().GradMaskX1 = gc->GradMaskX1;
+		textLines.last().textData.last().GradMaskY1 = gc->GradMaskY1;
+		textLines.last().textData.last().GradMaskX2 = gc->GradMaskX2;
+		textLines.last().textData.last().GradMaskY2 = gc->GradMaskY2;
+		textLines.last().textData.last().GradMaskScale = gc->GradMaskScale;
+		textLines.last().textData.last().GradMaskSkew = gc->GradMaskSkew;
 	}
 }
 
@@ -1820,19 +1752,16 @@ void XarPlug::handleEllipticalGradientTransparency(QDataStream &ts, quint32 data
 	gc->GradMaskX2 = brx + baseX + m_Doc->currentPage()->xOffset();
 	gc->GradMaskY2 = (docHeight - bry) + baseY + m_Doc->currentPage()->yOffset();
 	gc->GradMask = 2;
-	if (textLines.count() > 0)
+	if (!textLines.isEmpty() && !textLines.last().textData.isEmpty())
 	{
-		if (textLines.last().textData.count() > 0)
-		{
-			textLines.last().textData.last().GradMask = gc->GradMask;
-			textLines.last().textData.last().MaskGradient = gc->MaskGradient;
-			textLines.last().textData.last().GradMaskX1 = gc->GradMaskX1;
-			textLines.last().textData.last().GradMaskY1 = gc->GradMaskY1;
-			textLines.last().textData.last().GradMaskX2 = gc->GradMaskX2;
-			textLines.last().textData.last().GradMaskY2 = gc->GradMaskY2;
-			textLines.last().textData.last().GradMaskScale = gc->GradMaskScale;
-			textLines.last().textData.last().GradMaskSkew = gc->GradMaskSkew;
-		}
+		textLines.last().textData.last().GradMask = gc->GradMask;
+		textLines.last().textData.last().MaskGradient = gc->MaskGradient;
+		textLines.last().textData.last().GradMaskX1 = gc->GradMaskX1;
+		textLines.last().textData.last().GradMaskY1 = gc->GradMaskY1;
+		textLines.last().textData.last().GradMaskX2 = gc->GradMaskX2;
+		textLines.last().textData.last().GradMaskY2 = gc->GradMaskY2;
+		textLines.last().textData.last().GradMaskScale = gc->GradMaskScale;
+		textLines.last().textData.last().GradMaskSkew = gc->GradMaskSkew;
 	}
 }
 
@@ -1926,19 +1855,16 @@ void XarPlug::handleBitmapTransparency(QDataStream &ts, quint32 dataLen)
 		gc->maskPatternTrans.skewX = rotS - 90 - rotB;
 		gc->maskPatternTrans.skewY = 0.0;
 		gc->GradMask = 3;
-		if (textLines.count() > 0)
+		if (!textLines.isEmpty() && !textLines.last().textData.isEmpty())
 		{
-			if (textLines.last().textData.count() > 0)
-			{
-				textLines.last().textData.last().GradMask = gc->GradMask;
-				textLines.last().textData.last().maskPattern = gc->maskPattern;
-				textLines.last().textData.last().maskPatternTrans = gc->maskPatternTrans;
-			}
+			textLines.last().textData.last().GradMask = gc->GradMask;
+			textLines.last().textData.last().maskPattern = gc->maskPattern;
+			textLines.last().textData.last().maskPatternTrans = gc->maskPatternTrans;
 		}
 	}
 }
 
-int XarPlug::convertBlendMode(int val)
+int XarPlug::convertBlendMode(int val) const
 {
 	int ret = 0;
 	if (val == 2)
@@ -2005,18 +1931,15 @@ void XarPlug::handleSimpleGradientElliptical(QDataStream &ts, quint32 dataLen)
 	gc->GradFillY1 = (docHeight - bly) + baseY + m_Doc->currentPage()->yOffset();
 	gc->GradFillX2 = brx + baseX + m_Doc->currentPage()->xOffset();
 	gc->GradFillY2 = (docHeight - bry) + baseY + m_Doc->currentPage()->yOffset();
-	if (textLines.count() > 0)
+	if (!textLines.isEmpty() && !textLines.last().textData.isEmpty())
 	{
-		if (textLines.last().textData.count() > 0)
-		{
-			textLines.last().textData.last().FillGradient = gc->FillGradient;
-			textLines.last().textData.last().GradFillX1 = gc->GradFillX1;
-			textLines.last().textData.last().GradFillY1 = gc->GradFillY1;
-			textLines.last().textData.last().GradFillX2 = gc->GradFillX2;
-			textLines.last().textData.last().GradFillY2 = gc->GradFillY2;
-			textLines.last().textData.last().GrScale = gc->GrScale;
-			textLines.last().textData.last().GrSkew = gc->GrSkew;
-		}
+		textLines.last().textData.last().FillGradient = gc->FillGradient;
+		textLines.last().textData.last().GradFillX1 = gc->GradFillX1;
+		textLines.last().textData.last().GradFillY1 = gc->GradFillY1;
+		textLines.last().textData.last().GradFillX2 = gc->GradFillX2;
+		textLines.last().textData.last().GradFillY2 = gc->GradFillY2;
+		textLines.last().textData.last().GrScale = gc->GrScale;
+		textLines.last().textData.last().GrSkew = gc->GrSkew;
 	}
 }
 
@@ -2081,18 +2004,15 @@ void XarPlug::handleMultiGradientElliptical(QDataStream &ts)
 	gc->GradFillY1 = (docHeight - bly) + baseY + m_Doc->currentPage()->yOffset();
 	gc->GradFillX2 = brx + baseX + m_Doc->currentPage()->xOffset();
 	gc->GradFillY2 = (docHeight - bry) + baseY + m_Doc->currentPage()->yOffset();
-	if (textLines.count() > 0)
+	if (!textLines.isEmpty() && !textLines.last().textData.isEmpty())
 	{
-		if (textLines.last().textData.count() > 0)
-		{
-			textLines.last().textData.last().FillGradient = gc->FillGradient;
-			textLines.last().textData.last().GradFillX1 = gc->GradFillX1;
-			textLines.last().textData.last().GradFillY1 = gc->GradFillY1;
-			textLines.last().textData.last().GradFillX2 = gc->GradFillX2;
-			textLines.last().textData.last().GradFillY2 = gc->GradFillY2;
-			textLines.last().textData.last().GrScale = gc->GrScale;
-			textLines.last().textData.last().GrSkew = gc->GrSkew;
-		}
+		textLines.last().textData.last().FillGradient = gc->FillGradient;
+		textLines.last().textData.last().GradFillX1 = gc->GradFillX1;
+		textLines.last().textData.last().GradFillY1 = gc->GradFillY1;
+		textLines.last().textData.last().GradFillX2 = gc->GradFillX2;
+		textLines.last().textData.last().GradFillY2 = gc->GradFillY2;
+		textLines.last().textData.last().GrScale = gc->GrScale;
+		textLines.last().textData.last().GrSkew = gc->GrSkew;
 	}
 }
 
@@ -2157,18 +2077,15 @@ void XarPlug::handleMultiGradientSkewed(QDataStream &ts)
 	gc->GradFillY1 = (docHeight - bly) + baseY + m_Doc->currentPage()->yOffset();
 	gc->GradFillX2 = brx + baseX + m_Doc->currentPage()->xOffset();
 	gc->GradFillY2 = (docHeight - bry) + baseY + m_Doc->currentPage()->yOffset();
-	if (textLines.count() > 0)
+	if (!textLines.isEmpty() && !textLines.last().textData.isEmpty())
 	{
-		if (textLines.last().textData.count() > 0)
-		{
-			textLines.last().textData.last().FillGradient = gc->FillGradient;
-			textLines.last().textData.last().GradFillX1 = gc->GradFillX1;
-			textLines.last().textData.last().GradFillY1 = gc->GradFillY1;
-			textLines.last().textData.last().GradFillX2 = gc->GradFillX2;
-			textLines.last().textData.last().GradFillY2 = gc->GradFillY2;
-			textLines.last().textData.last().GrScale = gc->GrScale;
-			textLines.last().textData.last().GrSkew = gc->GrSkew;
-		}
+		textLines.last().textData.last().FillGradient = gc->FillGradient;
+		textLines.last().textData.last().GradFillX1 = gc->GradFillX1;
+		textLines.last().textData.last().GradFillY1 = gc->GradFillY1;
+		textLines.last().textData.last().GradFillX2 = gc->GradFillX2;
+		textLines.last().textData.last().GradFillY2 = gc->GradFillY2;
+		textLines.last().textData.last().GrScale = gc->GrScale;
+		textLines.last().textData.last().GrSkew = gc->GrSkew;
 	}
 }
 
@@ -2231,18 +2148,15 @@ void XarPlug::handleMultiGradient(QDataStream &ts, bool linear)
 	gc->GradFillY2 = (docHeight - bry) + baseY + m_Doc->currentPage()->yOffset();
 	gc->GrScale = 1.0;
 	gc->GrSkew = 0;
-	if (textLines.count() > 0)
+	if (!textLines.isEmpty() && !textLines.last().textData.isEmpty())
 	{
-		if (textLines.last().textData.count() > 0)
-		{
-			textLines.last().textData.last().FillGradient = gc->FillGradient;
-			textLines.last().textData.last().GradFillX1 = gc->GradFillX1;
-			textLines.last().textData.last().GradFillY1 = gc->GradFillY1;
-			textLines.last().textData.last().GradFillX2 = gc->GradFillX2;
-			textLines.last().textData.last().GradFillY2 = gc->GradFillY2;
-			textLines.last().textData.last().GrScale = gc->GrScale;
-			textLines.last().textData.last().GrSkew = gc->GrSkew;
-		}
+		textLines.last().textData.last().FillGradient = gc->FillGradient;
+		textLines.last().textData.last().GradFillX1 = gc->GradFillX1;
+		textLines.last().textData.last().GradFillY1 = gc->GradFillY1;
+		textLines.last().textData.last().GradFillX2 = gc->GradFillX2;
+		textLines.last().textData.last().GradFillY2 = gc->GradFillY2;
+		textLines.last().textData.last().GrScale = gc->GrScale;
+		textLines.last().textData.last().GrSkew = gc->GrSkew;
 	}
 }
 
@@ -2293,18 +2207,15 @@ void XarPlug::handleSimpleGradientSkewed(QDataStream &ts, quint32 dataLen)
 	gc->GradFillY1 = (docHeight - bly) + baseY + m_Doc->currentPage()->yOffset();
 	gc->GradFillX2 = brx + baseX + m_Doc->currentPage()->xOffset();
 	gc->GradFillY2 = (docHeight - bry) + baseY + m_Doc->currentPage()->yOffset();
-	if (textLines.count() > 0)
+	if (!textLines.isEmpty() && !textLines.last().textData.isEmpty())
 	{
-		if (textLines.last().textData.count() > 0)
-		{
-			textLines.last().textData.last().FillGradient = gc->FillGradient;
-			textLines.last().textData.last().GradFillX1 = gc->GradFillX1;
-			textLines.last().textData.last().GradFillY1 = gc->GradFillY1;
-			textLines.last().textData.last().GradFillX2 = gc->GradFillX2;
-			textLines.last().textData.last().GradFillY2 = gc->GradFillY2;
-			textLines.last().textData.last().GrScale = gc->GrScale;
-			textLines.last().textData.last().GrSkew = gc->GrSkew;
-		}
+		textLines.last().textData.last().FillGradient = gc->FillGradient;
+		textLines.last().textData.last().GradFillX1 = gc->GradFillX1;
+		textLines.last().textData.last().GradFillY1 = gc->GradFillY1;
+		textLines.last().textData.last().GradFillX2 = gc->GradFillX2;
+		textLines.last().textData.last().GradFillY2 = gc->GradFillY2;
+		textLines.last().textData.last().GrScale = gc->GrScale;
+		textLines.last().textData.last().GrSkew = gc->GrSkew;
 	}
 }
 
@@ -2353,18 +2264,15 @@ void XarPlug::handleSimpleGradient(QDataStream &ts, quint32 dataLen, bool linear
 	gc->GradFillY2 = (docHeight - bry) + baseY + m_Doc->currentPage()->yOffset();
 	gc->GrScale = 1.0;
 	gc->GrSkew = 0;
-	if (textLines.count() > 0)
+	if (!textLines.isEmpty() && !textLines.last().textData.isEmpty())
 	{
-		if (textLines.last().textData.count() > 0)
-		{
-			textLines.last().textData.last().FillGradient = gc->FillGradient;
-			textLines.last().textData.last().GradFillX1 = gc->GradFillX1;
-			textLines.last().textData.last().GradFillY1 = gc->GradFillY1;
-			textLines.last().textData.last().GradFillX2 = gc->GradFillX2;
-			textLines.last().textData.last().GradFillY2 = gc->GradFillY2;
-			textLines.last().textData.last().GrScale = gc->GrScale;
-			textLines.last().textData.last().GrSkew = gc->GrSkew;
-		}
+		textLines.last().textData.last().FillGradient = gc->FillGradient;
+		textLines.last().textData.last().GradFillX1 = gc->GradFillX1;
+		textLines.last().textData.last().GradFillY1 = gc->GradFillY1;
+		textLines.last().textData.last().GradFillX2 = gc->GradFillX2;
+		textLines.last().textData.last().GradFillY2 = gc->GradFillY2;
+		textLines.last().textData.last().GrScale = gc->GrScale;
+		textLines.last().textData.last().GrSkew = gc->GrSkew;
 	}
 }
 
@@ -2429,25 +2337,22 @@ void XarPlug::handleMultiDiamondGradient(QDataStream &ts)
 	QPointF intRT = rNVec.p2();
 	gc->GrControl2 = FPoint(intRT.x(), intRT.y());
 	QLineF vg4(cen, intRT);
-	vg4.setAngle(vg4.angle()+180);
+	vg4.setAngle(vg4.angle() + 180);
 	gc->GrControl4 = FPoint(vg4.x2(), vg4.y2());
 	QLineF tNVec = tVec.translated(-rVec.dx(), -rVec.dy());
 	QPointF intLT = tNVec.p2();
 	gc->GrControl1 = FPoint(intLT.x(), intLT.y());
 	QLineF vg3(cen, intLT);
-	vg3.setAngle(vg3.angle()+180);
+	vg3.setAngle(vg3.angle() + 180);
 	gc->GrControl3 = FPoint(vg3.x2(), vg3.y2());
-	if (textLines.count() > 0)
+	if (!textLines.isEmpty() && !textLines.last().textData.isEmpty())
 	{
-		if (textLines.last().textData.count() > 0)
-		{
-			textLines.last().textData.last().FillGradient = gc->FillGradient;
-			textLines.last().textData.last().GrControl1 = gc->GrControl1;
-			textLines.last().textData.last().GrControl2 = gc->GrControl2;
-			textLines.last().textData.last().GrControl3 = gc->GrControl3;
-			textLines.last().textData.last().GrControl4 = gc->GrControl4;
-			textLines.last().textData.last().GrControl5 = gc->GrControl5;
-		}
+		textLines.last().textData.last().FillGradient = gc->FillGradient;
+		textLines.last().textData.last().GrControl1 = gc->GrControl1;
+		textLines.last().textData.last().GrControl2 = gc->GrControl2;
+		textLines.last().textData.last().GrControl3 = gc->GrControl3;
+		textLines.last().textData.last().GrControl4 = gc->GrControl4;
+		textLines.last().textData.last().GrControl5 = gc->GrControl5;
 	}
 }
 
@@ -2498,25 +2403,22 @@ void XarPlug::handleSimpleDiamondGradient(QDataStream &ts, quint32 dataLen)
 	QPointF intRT = rNVec.p2();
 	gc->GrControl2 = FPoint(intRT.x(), intRT.y());
 	QLineF vg4(cen, intRT);
-	vg4.setAngle(vg4.angle()+180);
+	vg4.setAngle(vg4.angle() + 180);
 	gc->GrControl4 = FPoint(vg4.x2(), vg4.y2());
 	QLineF tNVec = tVec.translated(-rVec.dx(), -rVec.dy());
 	QPointF intLT = tNVec.p2();
 	gc->GrControl1 = FPoint(intLT.x(), intLT.y());
 	QLineF vg3(cen, intLT);
-	vg3.setAngle(vg3.angle()+180);
+	vg3.setAngle(vg3.angle() + 180);
 	gc->GrControl3 = FPoint(vg3.x2(), vg3.y2());
-	if (textLines.count() > 0)
+	if (!textLines.isEmpty() && !textLines.last().textData.isEmpty())
 	{
-		if (textLines.last().textData.count() > 0)
-		{
-			textLines.last().textData.last().FillGradient = gc->FillGradient;
-			textLines.last().textData.last().GrControl1 = gc->GrControl1;
-			textLines.last().textData.last().GrControl2 = gc->GrControl2;
-			textLines.last().textData.last().GrControl3 = gc->GrControl3;
-			textLines.last().textData.last().GrControl4 = gc->GrControl4;
-			textLines.last().textData.last().GrControl5 = gc->GrControl5;
-		}
+		textLines.last().textData.last().FillGradient = gc->FillGradient;
+		textLines.last().textData.last().GrControl1 = gc->GrControl1;
+		textLines.last().textData.last().GrControl2 = gc->GrControl2;
+		textLines.last().textData.last().GrControl3 = gc->GrControl3;
+		textLines.last().textData.last().GrControl4 = gc->GrControl4;
+		textLines.last().textData.last().GrControl5 = gc->GrControl5;
 	}
 }
 
@@ -2542,16 +2444,13 @@ void XarPlug::handleFourColorGradient(QDataStream &ts)
 	if (XarColorMap.contains(colRef4))
 		gc->GrColorP4 = XarColorMap[colRef4].name;
 	gc->FillGradientType = 9;
-	if (textLines.count() > 0)
+	if (!textLines.isEmpty() && !textLines.last().textData.isEmpty())
 	{
-		if (textLines.last().textData.count() > 0)
-		{
-			textLines.last().textData.last().FillGradientType = gc->FillGradientType;
-			textLines.last().textData.last().GrColorP1 = gc->GrColorP1;
-			textLines.last().textData.last().GrColorP2 = gc->GrColorP2;
-			textLines.last().textData.last().GrColorP3 = gc->GrColorP3;
-			textLines.last().textData.last().GrColorP4 = gc->GrColorP4;
-		}
+		textLines.last().textData.last().FillGradientType = gc->FillGradientType;
+		textLines.last().textData.last().GrColorP1 = gc->GrColorP1;
+		textLines.last().textData.last().GrColorP2 = gc->GrColorP2;
+		textLines.last().textData.last().GrColorP3 = gc->GrColorP3;
+		textLines.last().textData.last().GrColorP4 = gc->GrColorP4;
 	}
 }
 
@@ -2596,13 +2495,10 @@ void XarPlug::handleBitmapFill(QDataStream &ts, quint32 dataLen)
 			a = tan(M_PI / 180.0 * skewX);
 		gc->fillPatternTrans.skewX = tan(a);
 		gc->fillPatternTrans.skewY = 0.0;
-		if (textLines.count() > 0)
+		if (!textLines.isEmpty() && !textLines.last().textData.isEmpty())
 		{
-			if (textLines.last().textData.count() > 0)
-			{
-				textLines.last().textData.last().fillPattern = gc->fillPattern;
-				textLines.last().textData.last().fillPatternTrans = gc->fillPatternTrans;
-			}
+			textLines.last().textData.last().fillPattern = gc->fillPattern;
+			textLines.last().textData.last().fillPatternTrans = gc->fillPatternTrans;
 		}
 	}
 }
@@ -2724,20 +2620,17 @@ void XarPlug::handleContoneBitmapFill(QDataStream &ts, quint32 dataLen)
 			a = tan(M_PI / 180.0 * skewX);
 		gc->fillPatternTrans.skewX = tan(a);
 		gc->fillPatternTrans.skewY = 0.0;
-		if (textLines.count() > 0)
+		if (!textLines.isEmpty() && !textLines.last().textData.isEmpty())
 		{
-			if (textLines.last().textData.count() > 0)
-			{
-				textLines.last().textData.last().fillPattern = gc->fillPattern;
-				textLines.last().textData.last().fillPatternTrans = gc->fillPatternTrans;
-			}
+			textLines.last().textData.last().fillPattern = gc->fillPattern;
+			textLines.last().textData.last().fillPatternTrans = gc->fillPatternTrans;
 		}
 	}
 }
 
 void XarPlug::handleBitmap(QDataStream &ts)
 {
-	XarStyle *gc = m_gc.top();
+	const XarStyle *gc = m_gc.top();
 	qint32 bref;
 	double blx, bly, brx, bry, tlx, tly, trix, triy;
 	readCoords(ts, blx, bly);
@@ -2808,7 +2701,7 @@ void XarPlug::defineBitmap(QDataStream &ts, quint32 dataLen, quint32 tag)
 	{
 		bool rawAlpha = image.hasAlphaChannel();
 		image = image.convertToFormat(QImage::Format_ARGB32);
-		if ((tag == 68) && (rawAlpha))
+		if ((tag == 68) && rawAlpha)
 		{
 			int h = image.height();
 			int w = image.width();
@@ -2871,11 +2764,8 @@ void XarPlug::handleLineColor(QDataStream &ts)
 	if (XarColorMap.contains(val))
 	{
 		gc->StrokeCol = XarColorMap[val].name;
-		if (textLines.count() > 0)
-		{
-			if (textLines.last().textData.count() > 0)
-				textLines.last().textData.last().StrokeCol = gc->StrokeCol;
-		}
+		if (!textLines.isEmpty() && !textLines.last().textData.isEmpty())
+			textLines.last().textData.last().StrokeCol = gc->StrokeCol;
 	}
 }
 
@@ -2885,11 +2775,8 @@ void XarPlug::handleLineWidth(QDataStream &ts)
 	quint32 val;
 	ts >> val;
 	gc->LWidth = val / 1000.0;
-	if (textLines.count() > 0)
-	{
-		if (textLines.last().textData.count() > 0)
-			textLines.last().textData.last().LWidth = gc->LWidth;
-	}
+	if (!textLines.isEmpty() && !textLines.last().textData.isEmpty())
+		textLines.last().textData.last().LWidth = gc->LWidth;
 }
 
 void XarPlug::handleFlatLineTransparency(QDataStream &ts)
@@ -2900,11 +2787,8 @@ void XarPlug::handleFlatLineTransparency(QDataStream &ts)
 	if (transType > 0)
 	{
 		gc->StrokeOpacity = transVal / 255.0;
-		if (textLines.count() > 0)
-		{
-			if (textLines.last().textData.count() > 0)
-				textLines.last().textData.last().StrokeOpacity = gc->StrokeOpacity;
-		}
+		if (!textLines.isEmpty() && !textLines.last().textData.isEmpty())
+			textLines.last().textData.last().StrokeOpacity = gc->StrokeOpacity;
 	}
 }
 
@@ -2916,17 +2800,14 @@ void XarPlug::handleFlatFill(QDataStream &ts)
 	if (XarColorMap.contains(val))
 	{
 		gc->FillCol = XarColorMap[val].name;
-		if (textLines.count() > 0)
-		{
-			if (textLines.last().textData.count() > 0)
-				textLines.last().textData.last().FillCol = gc->FillCol;
-		}
+		if (!textLines.isEmpty() && !textLines.last().textData.isEmpty())
+			textLines.last().textData.last().FillCol = gc->FillCol;
 	}
 }
 
 void XarPlug::createRectangleItem(QDataStream &ts, bool ellipse)
 {
-	XarStyle *gc = m_gc.top();
+	const XarStyle *gc = m_gc.top();
 	double centerX, centerY, majorAxis, minorAxis;
 	readCoords(ts, centerX, centerY);
 	readCoords(ts, majorAxis, minorAxis);
@@ -2947,7 +2828,7 @@ void XarPlug::createRectangleItem(QDataStream &ts, bool ellipse)
 
 void XarPlug::createSimilarItem(QDataStream &ts)
 {
-	XarStyle *gc = m_gc.top();
+	const XarStyle *gc = m_gc.top();
 	qint32 val;
 	ts >> val;
 	quint32 scX, skX, skY, scY;
@@ -2962,7 +2843,7 @@ void XarPlug::createSimilarItem(QDataStream &ts)
 	{
 		PageItem* newItem;
 		int z = -1;
-		PageItem* ite = pathMap[val];
+		const PageItem* ite = pathMap[val];
 		if (ite->realItemType() == PageItem::ImageFrame)
 			z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
 		else if (ite->realItemType() == PageItem::Polygon)
@@ -2999,7 +2880,7 @@ void XarPlug::createSimilarItem(QDataStream &ts)
 void XarPlug::createPolygonItem(int type)
 {
 	int z = -1;
-	XarStyle *gc = m_gc.top();
+	const XarStyle *gc = m_gc.top();
 	if (type == 0)
 		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, CommonStrings::None, gc->StrokeCol);
 	else if (type == 1)
@@ -3014,7 +2895,7 @@ void XarPlug::createPolygonItem(int type)
 void XarPlug::createPolylineItem(int type)
 {
 	int z = -1;
-	XarStyle *gc = m_gc.top();
+	const XarStyle *gc = m_gc.top();
 	if (type == 0)
 		z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, CommonStrings::None, gc->StrokeCol);
 	else if (type == 1)
@@ -3050,7 +2931,7 @@ void XarPlug::handleBrushItem(QDataStream &ts)
 	gc->strokePatternTrans.rotation = 0.0;
 	gc->strokePatternTrans.skewX = 0.0;
 	gc->strokePatternTrans.skewY = 0.0;
-	gc->strokePatternTrans.space = (spacing / 1000.0) / static_cast<double>(m_Doc->docPatterns[brushRef[handle]].width);
+	gc->strokePatternTrans.space = (spacing / 1000.0) / m_Doc->docPatterns[brushRef[handle]].width;
 	gc->patternStrokePath = true;
 }
 
@@ -3109,7 +2990,7 @@ void XarPlug::createClipItem()
 
 void XarPlug::finishClip()
 {
-	if (groupStack.count() > 0)
+	if (!groupStack.isEmpty())
 		groupStack.top().clipping = false;
 }
 
@@ -3127,7 +3008,7 @@ void XarPlug::finishItem(int z)
 	ite->setWidthHeight(wh.x(),wh.y());
 	ite->setTextFlowMode(PageItem::TextFlowDisabled);
 	m_Doc->adjustItemSize(ite);
-	if (groupStack.count() > 0)
+	if (!groupStack.isEmpty())
 	{
 		XarGroup gg = groupStack.top();
 		if (gg.clipping)
@@ -3404,7 +3285,7 @@ void XarPlug::handleComplexColor(QDataStream &ts)
 		tmpName = XarName;
 	else
 	{
-		QColor c = QColor(Rc, Gc, Bc);
+		QColor c(Rc, Gc, Bc);
 		if ((colorType == 0) || (colorType == 1))
 		{
 			if (colorModel == 3)
@@ -3472,7 +3353,7 @@ void XarPlug::handleColorRGB(QDataStream &ts)
 	ScColor tmp;
 	quint8 Rc, Gc, Bc;
 	ts >> Rc >> Gc >> Bc;
-	QColor c = QColor(Rc, Gc, Bc);
+	QColor c(Rc, Gc, Bc);
 	tmp.setRgbColor(Rc, Gc, Bc);
 	tmp.setSpotColor(false);
 	tmp.setRegistrationColor(false);
@@ -3493,7 +3374,7 @@ void XarPlug::handleColorRGB(QDataStream &ts)
 	XarColorMap.insert(recordCounter, color);
 }
 
-double XarPlug::decodeColorComponent(quint32 data)
+double XarPlug::decodeColorComponent(quint32 data) const
 {
 	double ret = 0.0;
 	char man = (data & 0xFF000000) >> 24;
@@ -3510,7 +3391,7 @@ double XarPlug::decodeColorComponent(quint32 data)
 	return ret;
 }
 
-double XarPlug::decodeFixed16(quint32 data)
+double XarPlug::decodeFixed16(quint32 data) const
 {
 	double ret = 0.0;
 	qint16 man = (data & 0xFFFF0000) >> 16;
@@ -3527,7 +3408,7 @@ double XarPlug::decodeFixed16(quint32 data)
 	return ret;
 }
 
-void XarPlug::readCoords(QDataStream &ts, double &x, double &y)
+void XarPlug::readCoords(QDataStream &ts, double &x, double &y) const
 {
 	qint32 xc, yc;
 	ts >> xc >> yc;
@@ -3548,19 +3429,12 @@ void XarPlug::addToAtomic(quint32 dataLen, QDataStream &ts)
 
 void XarPlug::addGraphicContext()
 {
-/*	XarStyle *gc2 = m_gc.top();
-	XarStyle *gc = new XarStyle;
-	if (m_gc.top())
-		*gc = *( m_gc.top() );
-	m_gc.push( gc );
-	if (gc2->Elements.count() > 0)
-		gc2->Elements.removeLast(); */
 	XarStyle *gc2 = m_gc.top();
-	XarStyle *gc = new XarStyle;
+	auto *gc = new XarStyle;
 	if (m_gc.top())
 		*gc = *( m_gc.top() );
 	m_gc.push( gc );
-	if (gc2->Elements.count() > 0)
+	if (!gc2->Elements.isEmpty())
 	{
 		PageItem* ite = gc2->Elements.last();
 		gc->Elements.clear();
@@ -3578,7 +3452,7 @@ void XarPlug::popGraphicContext()
 		recordPath = false;
 		pathGcStackIndex = 0;
 	}
-	if (groupStack.count() > 0)
+	if (!groupStack.isEmpty())
 	{
 		XarGroup gg = groupStack.top();
 		if (gg.gcStackDepth == m_gc.count())
@@ -3598,7 +3472,7 @@ void XarPlug::popGraphicContext()
 				double maxx = -std::numeric_limits<double>::max();
 				double maxy = -std::numeric_limits<double>::max();
 				PageItem* groupItem = Elements.at(gg.index);
-				for (int a = gg.index+1; a < Elements.count(); ++a)
+				for (int a = gg.index + 1; a < Elements.count(); ++a)
 				{
 					PageItem* currItem = Elements.at(a);
 					groupItem->groupItemList.append(currItem);
@@ -3661,7 +3535,7 @@ void XarPlug::popGraphicContext()
 			}
 		}
 	}
-	if (gc->Elements.count() > 0)
+	if (!gc->Elements.isEmpty())
 	{
 		for (int a = 0; a < gc->Elements.count(); a++)
 		{
