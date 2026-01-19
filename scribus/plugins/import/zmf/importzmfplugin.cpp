@@ -4,10 +4,13 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include "commonstrings.h"
+
+#include <memory>
 
 #include "importzmf.h"
 #include "importzmfplugin.h"
+
+#include "commonstrings.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
@@ -27,14 +30,14 @@ int importzmf_getPluginAPIVersion()
 
 ScPlugin* importzmf_getPlugin()
 {
-	ImportZmfPlugin* plug = new ImportZmfPlugin();
+	auto* plug = new ImportZmfPlugin();
 	Q_CHECK_PTR(plug);
 	return plug;
 }
 
 void importzmf_freePlugin(ScPlugin* plugin)
 {
-	ImportZmfPlugin* plug = dynamic_cast<ImportZmfPlugin*>(plugin);
+	auto* plug = dynamic_cast<ImportZmfPlugin*>(plugin);
 	Q_ASSERT(plug);
 	delete plug;
 }
@@ -68,7 +71,7 @@ QString ImportZmfPlugin::fullTrName() const
 
 const ScActionPlugin::AboutData* ImportZmfPlugin::getAboutData() const
 {
-	AboutData* about = new AboutData;
+	auto* about = new AboutData;
 	about->authors = "Franz Schmid <franz@scribus.info>";
 	about->shortDescription = tr("Imports Zoner Draw Files");
 	about->description = tr("Imports Zoner Draw 4-5 files into the current document, converting their vector data into Scribus objects.");
@@ -120,18 +123,18 @@ bool ImportZmfPlugin::importFile(QString fileName, int flags)
 		PrefsContext* prefs = PrefsManager::instance().prefsFile->getPluginContext("importzmf");
 		QString wdir = prefs->get("wdir", ".");
 		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), tr("All Supported Formats")+" (*.zmf *.ZMF);;All Files (*)");
-		if (diaf.exec())
-		{
-			fileName = diaf.selectedFile();
-			prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
-		}
-		else
+		if (diaf.exec() != QDialog::Accepted)
 			return true;
+		fileName = diaf.selectedFile();
+		prefs->set("wdir", fileName.left(fileName.lastIndexOf("/")));
 	}
+
 	m_Doc = ScCore->primaryMainWindow()->doc;
-	UndoTransaction* activeTransaction = nullptr;
+
+	UndoTransaction activeTransaction;
 	bool emptyDoc = (m_Doc == nullptr);
 	bool hasCurrentPage = (m_Doc && m_Doc->currentPage());
+
 	TransactionSettings trSettings;
 	trSettings.targetName   = hasCurrentPage ? m_Doc->currentPage()->getUName() : "";
 	trSettings.targetPixmap = Um::IImageFrame;
@@ -141,19 +144,17 @@ bool ImportZmfPlugin::importFile(QString fileName, int flags)
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(false);
 	if (UndoManager::undoEnabled())
-		activeTransaction = new UndoTransaction(UndoManager::instance()->beginTransaction(trSettings));
-	ZmfPlug *dia = new ZmfPlug(m_Doc, flags);
-	Q_CHECK_PTR(dia);
-	dia->importFile(fileName, trSettings, flags, !(flags & lfScripted));
+		activeTransaction = UndoManager::instance()->beginTransaction(trSettings);
+
+	auto pPlug = std::make_unique<ZmfPlug>(m_Doc, flags);
+	Q_CHECK_PTR(pPlug);
+	pPlug->importFile(fileName, trSettings, flags, !(flags & lfScripted));
+
 	if (activeTransaction)
-	{
-		activeTransaction->commit();
-		delete activeTransaction;
-		activeTransaction = nullptr;
-	}
+		activeTransaction.commit();
 	if (emptyDoc || !(flags & lfInteractive) || !(flags & lfScripted))
 		UndoManager::instance()->setUndoEnabled(true);
-	delete dia;
+
 	return true;
 }
 
@@ -161,12 +162,13 @@ QImage ImportZmfPlugin::readThumbnail(const QString& fileName)
 {
 	if (fileName.isEmpty())
 		return QImage();
+
 	UndoManager::instance()->setUndoEnabled(false);
 	m_Doc = nullptr;
-	ZmfPlug *dia = new ZmfPlug(m_Doc, lfCreateThumbnail);
-	Q_CHECK_PTR(dia);
-	QImage ret = dia->readThumbnail(fileName);
+	auto pPlug = std::make_unique<ZmfPlug>(m_Doc, lfCreateThumbnail);
+	Q_CHECK_PTR(pPlug);
+	QImage ret = pPlug->readThumbnail(fileName);
 	UndoManager::instance()->setUndoEnabled(true);
-	delete dia;
+
 	return ret;
 }
