@@ -59,10 +59,7 @@ QImage ScPreview::createPreview(const QString& data)
 					m_Doc->groupObjectsList(Elements);
 				m_Doc->DoDrawing = true;
 				m_Doc->m_Selection->delaySignalsOn();
-				for (int dre=0; dre<Elements.count(); ++dre)
-				{
-					tmpSel->addItem(Elements.at(dre), true);
-				}
+				tmpSel->addItems(Elements);
 				tmpSel->setGroupRect();
 				double xs = tmpSel->width();
 				double ys = tmpSel->height();

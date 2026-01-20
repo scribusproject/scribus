@@ -94,10 +94,7 @@ QImage DrwPlug::readThumbnail(const QString& fName)
 		}
 		else if (!Elements.isEmpty())
 		{
-			for (int dre = 0; dre < Elements.count(); ++dre)
-			{
-				tmpSel->addItem(Elements.at(dre), true);
-			}
+			tmpSel->addItems(Elements);
 			tmpSel->setGroupRect();
 			double xs = tmpSel->width();
 			double ys = tmpSel->height();
@@ -230,10 +227,7 @@ bool DrwPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 				if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 				{
 					m_Doc->m_Selection->delaySignalsOn();
-					for (int dre=0; dre<Elements.count(); ++dre)
-					{
-						m_Doc->m_Selection->addItem(Elements.at(dre), true);
-					}
+					m_Doc->m_Selection->addItems(Elements);
 					m_Doc->m_Selection->delaySignalsOff();
 					m_Doc->m_Selection->setGroupRect();
 					if (m_Doc->view() != nullptr)
@@ -246,10 +240,7 @@ bool DrwPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 				m_Doc->DraggedElem = nullptr;
 				m_Doc->DragElements.clear();
 				m_Doc->m_Selection->delaySignalsOn();
-				for (int dre = 0; dre < Elements.count(); ++dre)
-				{
-					tmpSel->addItem(Elements.at(dre), true);
-				}
+				tmpSel->addItems(Elements);
 				tmpSel->setGroupRect();
 				ScElemMimeData* md = ScriXmlDoc::writeToMimeData(m_Doc, tmpSel);
 				m_Doc->itemSelection_DeleteItem(tmpSel);
@@ -985,10 +976,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 					DRWGroup popped = groupStack.pop();
 					cElements = groupStack.top();
 					tmpSel->clear();
-					for (int dre = 0;  dre < popped.GElements.count(); ++dre)
-					{
-						tmpSel->addItem(popped.GElements.at(dre), true);
-					}
+					tmpSel->addItems(popped.GElements);
 					bX = cElements.xoffset;
 					bY = cElements.yoffset;
 					uint selectedItemCount = tmpSel->count();
@@ -1108,10 +1096,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 			{
 				DRWObjectList popped = listStack.pop();
 				tmpSel->clear();
-				for (int dre = 0;  dre < popped.GElements.count(); ++dre)
-				{
-					tmpSel->addItem(popped.GElements.at(dre), true);
-				}
+				tmpSel->addItems(popped.GElements);
 				uint selectedItemCount = tmpSel->count();
 				if (selectedItemCount > 0)
 				{
