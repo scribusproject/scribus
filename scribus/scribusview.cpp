@@ -1012,7 +1012,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			{
 				currItem = m_doc->Items->at(i);
 				m_doc->setRedrawBounding(currItem);
-				tmpSelection.addItem(currItem, true);
+				tmpSelection.addItem(currItem);
 				if (currItem->isBookmark)
 					emit AddBM(currItem);
 			}
@@ -1068,10 +1068,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					}
 					Selection tmpSelection(this, false);
 					tmpSelection.copy(*m_doc->m_Selection, true);
-					for (int i = 0; i < m_doc->DragElements.count(); ++i)
-					{
-						tmpSelection.addItem(m_doc->DragElements[i], true);
-					}
+					tmpSelection.addItems(m_doc->DragElements);
 					m_doc->m_Selection->copy(tmpSelection, false);
 					PageItem* bb;
 					int fin;
@@ -1115,7 +1112,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			{
 				currItem = m_doc->Items->at(i);
 				m_doc->setRedrawBounding(currItem);
-				tmpSelection.addItem(currItem, true);
+				tmpSelection.addItem(currItem);
 				if (currItem->isBookmark)
 					emit AddBM(currItem);
 			}

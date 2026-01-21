@@ -174,7 +174,7 @@ bool Selection::disconnectAllItemsFromGUI()
 	return true;
 }
 
-bool Selection::addItem(PageItem *item, bool /*ignoreGUI*/)
+bool Selection::addItem(PageItem *item)
 {
 	if (item == nullptr)
 		return false;

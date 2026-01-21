@@ -547,7 +547,7 @@ void RawPainter::endLayer()
 			bool groupClip = true;
 			for (int dre = 0; dre < gElements.count(); ++dre)
 			{
-				m_tmpSel->addItem(gElements.at(dre), true);
+				m_tmpSel->addItem(gElements.at(dre));
 				m_elements->removeAll(gElements.at(dre));
 				if (gElements.at(dre)->hasSoftShadow())
 					groupClip = false;
@@ -2253,7 +2253,7 @@ void RawPainter::endLayer()
 			bool groupClip = true;
 			for (int dre = 0; dre < gElements.count(); ++dre)
 			{
-				m_tmpSel->addItem(gElements.at(dre), true);
+				m_tmpSel->addItem(gElements.at(dre));
 				m_elements->removeAll(gElements.at(dre));
 				if (gElements.at(dre)->hasSoftShadow())
 					groupClip = false;

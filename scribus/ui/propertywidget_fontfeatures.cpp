@@ -322,7 +322,7 @@ void PropertyWidget_FontFeatures::handleFontFeatures()
 		font_feature << "+ss20";
 
 	Selection tempSelection(this, false);
-	tempSelection.addItem(m_item, true);
+	tempSelection.addItem(m_item);
 	m_doc->itemSelection_SetFontFeatures(font_feature.join(","), &tempSelection);
 }
 

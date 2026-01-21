@@ -1697,7 +1697,7 @@ void AIPlug::processData(const QString& data)
 				{
 					for (int dre = 0; dre < gElements.count(); ++dre)
 					{
-						tmpSel->addItem(gElements.at(dre), true);
+						tmpSel->addItem(gElements.at(dre));
 						if (patternMode)
 							PatternElements.removeAll(gElements.at(dre));
 						else
@@ -2307,7 +2307,7 @@ void AIPlug::processData(const QString& data)
 					{
 						for (int dre = 0; dre < gElements.count(); ++dre)
 						{
-							tmpSel->addItem(gElements.at(dre), true);
+							tmpSel->addItem(gElements.at(dre));
 							if (patternMode)
 								PatternElements.removeAll(gElements.at(dre));
 							else
@@ -2715,7 +2715,7 @@ void AIPlug::processPattern(QDataStream &ts)
 				{
 					for (int dre = 0; dre < PatternElements.count(); ++dre)
 					{
-						tmpSel->addItem(PatternElements.at(dre), true);
+						tmpSel->addItem(PatternElements.at(dre));
 						if (!groupStack.isEmpty())
 							groupStack.top().removeAll(PatternElements.at(dre));
 					}
@@ -2873,7 +2873,7 @@ void AIPlug::processSymbol(QDataStream &ts, bool sym)
 			{
 				for (int dre = 0; dre < PatternElements.count(); ++dre)
 				{
-					tmpSel->addItem(PatternElements.at(dre), true);
+					tmpSel->addItem(PatternElements.at(dre));
 					groupStack.top().removeAll(PatternElements.at(dre));
 				}
 				if (PatternElements.count() > 1)

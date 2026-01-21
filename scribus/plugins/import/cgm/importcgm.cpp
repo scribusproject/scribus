@@ -1108,7 +1108,7 @@ void CgmPlug::decodeClass3(QDataStream &ts, quint16 elemID, quint16 paramLen)
 				{
 					for (int dre = 0; dre < gElements.count(); ++dre)
 					{
-						tmpSel->addItem(gElements.at(dre), true);
+						tmpSel->addItem(gElements.at(dre));
 						Elements.removeAll(gElements.at(dre));
 					}
 					PageItem *ite = m_Doc->itemSelection_GroupObjects(false, false, tmpSel);
@@ -1120,7 +1120,7 @@ void CgmPlug::decodeClass3(QDataStream &ts, quint16 elemID, quint16 paramLen)
 						ite->PoLine.translate(baseX, baseY);
 					}
 					tmpSel->clear();
-					tmpSel->addItem(ite, true);
+					tmpSel->addItem(ite);
 					Elements.append(ite);
 				}
 				if (!groupStack.isEmpty())

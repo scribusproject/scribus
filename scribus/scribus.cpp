@@ -2992,7 +2992,7 @@ void ScribusMainWindow::doPasteRecent(const QString& data)
 		{
 			PageItem* currItem = doc->Items->at(i);
 			doc->setRedrawBounding(currItem);
-			tmpSelection.addItem(currItem, true);
+			tmpSelection.addItem(currItem);
 			if (currItem->isBookmark)
 				AddBookMark(currItem);
 		}

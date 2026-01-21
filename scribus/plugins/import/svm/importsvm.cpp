@@ -1467,7 +1467,7 @@ void SvmPlug::finishItem(PageItem* ite, bool fill)
 				QList<PageItem*> gElements;
 				gElements.append(ite);
 				tmpSel->clear();
-				tmpSel->addItem(ite, true);
+				tmpSel->addItem(ite);
 				iteG = m_Doc->groupObjectsSelection(tmpSel);
 				iteG->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
 				double oldX = iteG->xPos();

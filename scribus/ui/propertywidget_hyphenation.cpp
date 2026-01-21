@@ -75,7 +75,7 @@ void PropertyWidget_Hyphenation::handleWordMin(int minWord)
 		return;
 
 	Selection tempSelection(this, false);
-	tempSelection.addItem(m_item, true);
+	tempSelection.addItem(m_item);
 	m_doc->itemSelection_SetHyphenWordMin(minWord, &tempSelection);
 }
 
@@ -85,7 +85,7 @@ void PropertyWidget_Hyphenation::handleConsecutiveLines(int consecutiveLines)
 		return;
 
 	Selection tempSelection(this, false);
-	tempSelection.addItem(m_item, true);
+	tempSelection.addItem(m_item);
 	m_doc->itemSelection_SetHyphenConsecutiveLines(consecutiveLines, &tempSelection);
 }
 
@@ -101,7 +101,7 @@ void PropertyWidget_Hyphenation::handleHyphenChar(const QString& hyphenText)
 	else
 		hyphenChar = hyphenText.toUcs4()[0];
 
-	tempSelection.addItem(m_item, true);
+	tempSelection.addItem(m_item);
 	m_doc->itemSelection_SetHyphenChar(hyphenChar, &tempSelection);
 }
 
@@ -225,7 +225,7 @@ void PropertyWidget_Hyphenation::changeLang(int id)
 	LanguageManager::instance()->fillInstalledStringList(&languageList);
 	QString abrv = LanguageManager::instance()->getAbbrevFromLang(languageList.value(id),false);
 	Selection tempSelection(this, false);
-	tempSelection.addItem(m_item, true);
+	tempSelection.addItem(m_item);
 	m_doc->itemSelection_SetLanguage(abrv, &tempSelection);
 }
 

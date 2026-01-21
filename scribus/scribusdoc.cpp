@@ -5147,7 +5147,7 @@ bool ScribusDoc::copyPageToMasterPage(int pageNumber, int leftPage, int maxLeftP
 					{
 						PageItem *itemToCopy = MasterItems.at(ite);
 						if ((itemToCopy->OnMasterPage == pageMaster->pageName()) && (it->ID == itemToCopy->m_layerID))
-							tempSelection.addItem(itemToCopy, true);
+							tempSelection.addItem(itemToCopy);
 					}
 					if (tempSelection.count() != 0)
 					{
@@ -5177,7 +5177,7 @@ bool ScribusDoc::copyPageToMasterPage(int pageNumber, int leftPage, int maxLeftP
 			{
 				PageItem *itemToCopy = DocItems.at(ite);
 				if ((itemToCopy->OwnPage == sourcePage->pageNr()) && (it->ID == itemToCopy->m_layerID))
-					tempSelection.addItem(itemToCopy, true);
+					tempSelection.addItem(itemToCopy);
 			}
 			if (tempSelection.count() != 0)
 			{
@@ -7134,7 +7134,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 				{
 					PageItem *itemToCopy = Items->at(ite);
 					if ((itemToCopy->OwnPage == from->pageNr()) && (it->ID == itemToCopy->m_layerID))
-						tempSelection.addItem(itemToCopy, true);
+						tempSelection.addItem(itemToCopy);
 				}
 				if (tempSelection.count() != 0)
 				{
@@ -10913,10 +10913,7 @@ void ScribusDoc::itemSelection_Transform(int nrOfCopies, const QTransform& matri
 			comulatedMatrix *= matrix;
 			m_Selection->clear();
 		}
-		for (int c = 0; c < Elements.count(); ++c)
-		{
-			m_Selection->addItem(Elements.at(c), true);
-		}
+		m_Selection->addItems(Elements);
 		m_Selection->setGroupRect();
 		setRotationMode (rotBack);
 		SnapGrid  = savedAlignGrid;
@@ -15535,7 +15532,7 @@ PageItem * ScribusDoc::itemSelection_GroupObjects(bool changeLock, bool lock, Se
 	{
 		auto *is = new ScItemState<QList<QPointer<PageItem> > >(UndoManager::Group);
 		is->set("GROUP");
-		tempSelection.addItem(groupItem, true);
+		tempSelection.addItem(groupItem);
 		is->setItem(tempSelection.selectionList());
 		m_undoManager->action(this, is);
 	}
@@ -15625,7 +15622,7 @@ void ScribusDoc::itemSelection_UnGroupObjects(Selection* customSelection)
 			is->set("UNGROUP");
 			Selection tempSelection(this, false);
 			tempSelection.addItems(oldGroupItems);
-			tempSelection.addItem(currItem, true);
+			tempSelection.addItem(currItem);
 			is->setItem(tempSelection.selectionList());
 			m_undoManager->action(this, is);
 		}
@@ -16032,7 +16029,7 @@ void ScribusDoc::itemSelection_SplitItems(Selection* /*customSelection*/)
 				adjustItemSize(bb);
 				bb->ContourLine = bb->PoLine.copy();
 				bb->ClipEdited = true;
-				m_Selection->addItem(bb, false);
+				m_Selection->addItem(bb);
 				j -= 3;
 				EndInd = StartInd - 4;
 			}
@@ -17261,7 +17258,7 @@ void ScribusDoc::updateNumbers(bool updateNumerations)
 						ParagraphStyle newStyle;
 						newStyle.setNumName("<local block>");
 						Selection tempSelection(this, false);
-						tempSelection.addItem(item, true);
+						tempSelection.addItem(item);
 						itemSelection_ApplyParagraphStyle(newStyle, &tempSelection);
 						continue;
 					}

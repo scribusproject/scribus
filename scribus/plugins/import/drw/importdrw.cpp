@@ -1863,7 +1863,7 @@ void DrwPlug::finishItem(PageItem* ite, bool scale)
 	if (ite->PoLine.size() < 4)
 	{
 		tmpSel->clear();
-		tmpSel->addItem(ite, true);
+		tmpSel->addItem(ite);
 		m_Doc->itemSelection_DeleteItem(tmpSel);
 		currentItem = nullptr;
 		createObjCode = 0;

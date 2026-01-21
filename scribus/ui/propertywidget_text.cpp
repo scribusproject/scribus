@@ -264,7 +264,7 @@ void PropertyWidget_Text::handleLineSpacingMode(int id)
 	if (!m_haveDoc || !m_haveItem)
 		return;
 	Selection tempSelection(this, false);
-	tempSelection.addItem(m_item, true);
+	tempSelection.addItem(m_item);
 	m_doc->itemSelection_SetLineSpacingMode(id, &tempSelection);
 	m_doc->regionsChanged()->update(QRect());
 }
@@ -347,7 +347,7 @@ void PropertyWidget_Text::handleLineSpacing()
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	Selection tempSelection(this, false);
-	tempSelection.addItem(m_item, true);
+	tempSelection.addItem(m_item);
 	m_doc->itemSelection_SetLineSpacing(lineSpacing->value(), &tempSelection);
 }
 
@@ -356,7 +356,7 @@ void PropertyWidget_Text::handleFontSize()
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	Selection tempSelection(this, false);
-	tempSelection.addItem(m_item, true);
+	tempSelection.addItem(m_item);
 	m_doc->itemSelection_SetFontSize(qRound(fontSize->value()*10.0), &tempSelection);
 }
 
@@ -365,7 +365,7 @@ void PropertyWidget_Text::handleTextFont(const QString& font)
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	Selection tempSelection(this, false);
-	tempSelection.addItem(m_item, true);
+	tempSelection.addItem(m_item);
 	m_doc->itemSelection_SetFont(font, &tempSelection);
 }
 
@@ -407,7 +407,7 @@ void PropertyWidget_Text::handleTextFill()
 	if (i2 != nullptr)
 	{
 		Selection tempSelection(this, false);
-		tempSelection.addItem(i2, true);
+		tempSelection.addItem(i2);
 		m_blockUpdate = true;
 		m_doc->itemSelection_SetFillColor(buttonTextColor->colorName(), &tempSelection);
 		m_doc->itemSelection_SetFillShade(buttonTextColor->colorData().Shade, &tempSelection);
@@ -426,7 +426,7 @@ void PropertyWidget_Text::handleTextBackground()
 	if (i2 != nullptr)
 	{
 		Selection tempSelection(this, false);
-		tempSelection.addItem(i2, true);
+		tempSelection.addItem(i2);
 		m_blockUpdate = true;
 		m_doc->itemSelection_SetBackgroundColor(buttonBackgroundColor->colorName(), &tempSelection);
 		m_doc->itemSelection_SetBackgroundShade(buttonBackgroundColor->colorData().Shade, &tempSelection);
@@ -445,7 +445,7 @@ void PropertyWidget_Text::handleTextStroke()
 	if (i2 != nullptr)
 	{
 		Selection tempSelection(this, false);
-		tempSelection.addItem(i2, true);
+		tempSelection.addItem(i2);
 		m_blockUpdate = true;
 		m_doc->itemSelection_SetStrokeColor(buttonStrokeColor->colorName(), &tempSelection);
 		m_doc->itemSelection_SetStrokeShade(buttonStrokeColor->colorData().Shade, &tempSelection);

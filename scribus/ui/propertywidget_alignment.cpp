@@ -288,7 +288,7 @@ void PropertyWidget_Alignment::handleAlignment(int a)
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	Selection tempSelection(this, false);
-	tempSelection.addItem(m_item, true);
+	tempSelection.addItem(m_item);
 	m_doc->itemSelection_SetAlignment(a, &tempSelection);
 
 }
@@ -315,7 +315,7 @@ void PropertyWidget_Alignment::handleDirection(int d)
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	Selection tempSelection(this, false);
-	tempSelection.addItem(m_item, true);
+	tempSelection.addItem(m_item);
 	m_doc->itemSelection_SetDirection(d, &tempSelection);
 	// If current text alignment is left or right, change it to match direction
 	if (d == ParagraphStyle::RTL && textAlignment->selectedId() == ParagraphStyle::LeftAligned)
@@ -368,7 +368,7 @@ void PropertyWidget_Alignment::handleOpticalMargins()
 	if (item != nullptr)
 	{
 		Selection tempSelection(this, false);
-		tempSelection.addItem(item, true);
+		tempSelection.addItem(item);
 		m_doc->itemSelection_SetOpticalMargins(opticalMarginsWidget->opticalMargin(), opticalMarginsWidget->opticalMarginSetId(), &tempSelection);
 	}
 }

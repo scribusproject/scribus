@@ -233,7 +233,7 @@ void ShapeView::startDrag(Qt::DropActions supportedActions)
 		ite->updateClip();
 		ite->ClipEdited = true;
 		ite->FrameType = 3;
-		m_Doc->m_Selection->addItem(ite, true);
+		m_Doc->m_Selection->addItem(ite);
 		ScElemMimeData* md = ScriXmlDoc::writeToMimeData(m_Doc, m_Doc->m_Selection);
 		QDrag* dr = new QDrag(this);
 		dr->setMimeData(md);

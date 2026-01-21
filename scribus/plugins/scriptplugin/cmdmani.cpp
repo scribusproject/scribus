@@ -468,7 +468,7 @@ PyObject *scribus_groupobjects(PyObject* /* self */, PyObject* args)
 				delete tempSelection;
 				return nullptr;
 			}
-			tempSelection->addItem (ic, true);
+			tempSelection->addItem (ic);
 		}
 		finalSelection = tempSelection;
 	}
