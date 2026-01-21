@@ -7465,7 +7465,7 @@ void PageItem::restoreImageScaleMode(SimpleState *state, bool isUndo)
 			double ox = state->getDouble("OLD_IMAGEXOFFSET");
 			double oy = state->getDouble("OLD_IMAGEYOFFSET");
 			Selection tempSelection(this, false);
-			tempSelection.addItem(this, true);
+			tempSelection.addItem(this);
 			m_Doc->itemSelection_SetImageScale(oscx, oscy, &tempSelection);
 			m_Doc->itemSelection_SetImageOffset(ox, oy, &tempSelection);
 		}
@@ -7497,7 +7497,7 @@ void PageItem::restoreImageScaleChange(SimpleState *state, bool isUndo)
 	double  scx = state->getDouble("NEW_IMAGEXSCALE");
 	double  scy = state->getDouble("NEW_IMAGEYSCALE");
 	Selection tempSelection(this, false);
-	tempSelection.addItem(this, true);
+	tempSelection.addItem(this);
 	if (!isUndo)
 		m_Doc->itemSelection_SetImageScale(scx, scy, &tempSelection);
 	else
@@ -7511,7 +7511,7 @@ void PageItem::restoreImageOffsetChange(SimpleState *state, bool isUndo)
 	double  x = state->getDouble("NEW_IMAGEXOFFSET");
 	double  y = state->getDouble("NEW_IMAGEYOFFSET");
 	Selection tempSelection(this, false);
-	tempSelection.addItem(this, true);
+	tempSelection.addItem(this);
 	if (!isUndo)
 		m_Doc->itemSelection_SetImageOffset(x, y, &tempSelection);
 	else
@@ -7893,7 +7893,7 @@ void PageItem::restoreGetImage(UndoState *state, bool isUndo)
 	if (fn.isEmpty())
 	{
 		Selection tempSelection(this, false);
-		tempSelection.addItem(this, true);
+		tempSelection.addItem(this);
 		m_Doc->itemSelection_ClearItem(&tempSelection);
 		if (isUndo)
 		{
@@ -7980,7 +7980,7 @@ void PageItem::select()
 {
 	m_Doc->view()->deselectItems(false);
 	//CB #2969 add this true parm to addItem so we don't connectToGUI, the rest of view->SelectItem isn't needed anyway
-	m_Doc->m_Selection->addItem(this, true);
+	m_Doc->m_Selection->addItem(this);
 }
 
 ObjAttrVector* PageItem::getObjectAttributes()

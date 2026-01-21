@@ -609,7 +609,7 @@ void PropertyWidget_ParEffect::handleChanges(PageItem *item, ParagraphStyle &new
 		disconnect(m_doc             , SIGNAL(docChanged())      , this, SLOT(handleSelectionChanged()));
 
 		Selection tempSelection(this, false);
-		tempSelection.addItem(item, true);
+		tempSelection.addItem(item);
 		m_doc->itemSelection_ApplyParagraphStyle(newStyle, &tempSelection);
 		m_doc->updateNumbers();
 

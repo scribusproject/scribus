@@ -74,10 +74,9 @@ class SCRIBUS_API Selection : public QObject
 		 * @brief Add an item to the selection. 
 		 * If its added to a GUI selection selection and its item 0, its connected to the GUI too
 		 * @param item Item to add
-		 * @param ignoreGUI Don't connect Item To GUI even if this is a GUI selection
 		 * @return If the item was added
 		 */
-		bool addItem(PageItem *item, bool ignoreGUI = false);
+		bool addItem(PageItem *item);
 		/**
 		 * @brief Add items to the selection. 
 		 * If its added to a GUI selection selection and its item 0, its connected to the GUI too

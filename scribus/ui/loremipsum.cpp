@@ -297,7 +297,7 @@ void LoremManager::insertLoremIpsum(const QString& name, int paraCount, bool ran
 			item2->asTextFrame()->deleteSelectedTextFromFrame();
 			//We don't need to open a dialog box as the user can undo this action.
 			//Selection tempSelection(this, false);
-			//tempSelection.addItem(item2, true);
+			//tempSelection.addItem(item2);
 			//m_Doc->itemSelection_ClearItem(&tempSelection);
 			/* ClearItem() doesn't return true or false so
 			the following test has to be done */

@@ -303,7 +303,7 @@ void PropertyWidget_TextColor::handleOutlineWidth()
 	if (i2 != nullptr)
 	{
 		Selection tempSelection(this, false);
-		tempSelection.addItem(i2, true);
+		tempSelection.addItem(i2);
 		m_doc->itemSelection_SetOutlineWidth(x, &tempSelection);
 	}
 }
@@ -320,7 +320,7 @@ void PropertyWidget_TextColor::handleShadowOffs()
 	if (i2 != nullptr)
 	{
 		Selection tempSelection(this, false);
-		tempSelection.addItem(i2, true);
+		tempSelection.addItem(i2);
 		m_doc->itemSelection_SetShadowOffsets(x, y, &tempSelection);
 	}
 }
@@ -337,7 +337,7 @@ void PropertyWidget_TextColor::handleStrikeThru()
 	if (i2 != nullptr)
 	{
 		Selection tempSelection(this, false);
-		tempSelection.addItem(i2, true);
+		tempSelection.addItem(i2);
 		m_doc->itemSelection_SetStrikethru(x, y, &tempSelection);
 	}
 }
@@ -352,7 +352,7 @@ void PropertyWidget_TextColor::handleTextFill()
 	if (i2 != nullptr)
 	{
 		Selection tempSelection(this, false);
-		tempSelection.addItem(i2, true);
+		tempSelection.addItem(i2);
 		m_doc->itemSelection_SetFillColor(fillColor->currentColor(), &tempSelection);
 	}
 }
@@ -367,7 +367,7 @@ void PropertyWidget_TextColor::handleTextStroke()
 	if (i2 != nullptr)
 	{
 		Selection tempSelection(this, false);
-		tempSelection.addItem(i2, true);
+		tempSelection.addItem(i2);
 		m_doc->itemSelection_SetStrokeColor(strokeColor->currentColor(), &tempSelection);
 	}
 }
@@ -382,7 +382,7 @@ void PropertyWidget_TextColor::handleTextBackground()
 	if (i2 != nullptr)
 	{
 		Selection tempSelection(this, false);
-		tempSelection.addItem(i2, true);
+		tempSelection.addItem(i2);
 		m_doc->itemSelection_SetBackgroundColor(backColor->currentColor(), &tempSelection);
 	}
 }
@@ -400,7 +400,7 @@ void PropertyWidget_TextColor::handleTextShade()
 		if (i2 != nullptr)
 		{
 			Selection tempSelection(this, false);
-			tempSelection.addItem(i2, true);
+			tempSelection.addItem(i2);
 			m_doc->itemSelection_SetStrokeShade(b, &tempSelection);
 		}
 	}
@@ -413,7 +413,7 @@ void PropertyWidget_TextColor::handleTextShade()
 		if (i2 != nullptr)
 		{
 			Selection tempSelection(this, false);
-			tempSelection.addItem(i2, true);
+			tempSelection.addItem(i2);
 			m_doc->itemSelection_SetFillShade(b, &tempSelection);
 		}
 	}
@@ -426,7 +426,7 @@ void PropertyWidget_TextColor::handleTextShade()
 		if (i2 != nullptr)
 		{
 			Selection tempSelection(this, false);
-			tempSelection.addItem(i2, true);
+			tempSelection.addItem(i2);
 			m_doc->itemSelection_SetBackgroundShade(b, &tempSelection);
 		}
 	}
@@ -442,7 +442,7 @@ void PropertyWidget_TextColor::handleTypeStyle(int s)
 	if (i2 != nullptr)
 	{
 		Selection tempSelection(this, false);
-		tempSelection.addItem(i2, true);
+		tempSelection.addItem(i2);
 		m_doc->itemSelection_SetEffects(s, &tempSelection);
 		m_ScMW->setStyleEffects(s);
 	}
@@ -468,7 +468,7 @@ void PropertyWidget_TextColor::handleUnderline()
 		if (i2 != nullptr)
 		{
 			Selection tempSelection(this, false);
-			tempSelection.addItem(i2, true);
+			tempSelection.addItem(i2);
 			m_doc->itemSelection_SetUnderline(x, y, &tempSelection);
 		}
 	}

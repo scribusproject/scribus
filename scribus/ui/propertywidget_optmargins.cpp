@@ -178,7 +178,7 @@ void PropertyWidget_OptMargins::handleOpticalMargins()
 	if (item != nullptr)
 	{
 		Selection tempSelection(this, false);
-		tempSelection.addItem(item, true);
+		tempSelection.addItem(item);
 		m_doc->itemSelection_SetOpticalMargins(omt, &tempSelection);
 	}
 }
@@ -193,7 +193,7 @@ void PropertyWidget_OptMargins::resetOpticalMargins()
 	if (item != nullptr)
 	{
 		Selection tempSelection(this, false);
-		tempSelection.addItem(item, true);
+		tempSelection.addItem(item);
 		m_doc->itemSelection_resetOpticalMargins(&tempSelection);
 	}
 }

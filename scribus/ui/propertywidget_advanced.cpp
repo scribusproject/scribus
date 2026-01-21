@@ -199,7 +199,7 @@ void PropertyWidget_Advanced::handleBaselineOffset()
 	if (i2 != nullptr)
 	{
 		Selection tempSelection(this, false);
-		tempSelection.addItem(i2, true);
+		tempSelection.addItem(i2);
 		m_doc->itemSelection_SetBaselineOffset(qRound(textBase->value() * 10), &tempSelection);
 	}
 }
@@ -214,7 +214,7 @@ void PropertyWidget_Advanced::handleMinWordTracking()
 	if (i2 != nullptr)
 	{
 		Selection tempSelection(this, false);
-		tempSelection.addItem(i2, true);
+		tempSelection.addItem(i2);
 		ParagraphStyle newStyle;
 		newStyle.setMinWordTracking(minWordTrackingSpinBox->value() / 100.0);
 		m_doc->itemSelection_ApplyParagraphStyle(newStyle, &tempSelection);
@@ -231,7 +231,7 @@ void PropertyWidget_Advanced::handleNormWordTracking()
 	if (i2 != nullptr)
 	{
 		Selection tempSelection(this, false);
-		tempSelection.addItem(i2, true);
+		tempSelection.addItem(i2);
 		ParagraphStyle newStyle;
 		newStyle.charStyle().setWordTracking(normWordTrackingSpinBox->value() / 100.0);
 		m_doc->itemSelection_ApplyParagraphStyle(newStyle, &tempSelection);
@@ -248,7 +248,7 @@ void PropertyWidget_Advanced::handleMinGlyphExtension()
 	if (i2 != nullptr)
 	{
 		Selection tempSelection(this, false);
-		tempSelection.addItem(i2, true);
+		tempSelection.addItem(i2);
 		ParagraphStyle newStyle;
 		newStyle.setMinGlyphExtension(minGlyphExtSpinBox->value() / 100.0);
 		m_doc->itemSelection_ApplyParagraphStyle(newStyle, &tempSelection);
@@ -265,7 +265,7 @@ void PropertyWidget_Advanced::handleMaxGlyphExtension()
 	if (i2 != nullptr)
 	{
 		Selection tempSelection(this, false);
-		tempSelection.addItem(i2, true);
+		tempSelection.addItem(i2);
 		ParagraphStyle newStyle;
 		newStyle.setMaxGlyphExtension(maxGlyphExtSpinBox->value() / 100.0);
 		m_doc->itemSelection_ApplyParagraphStyle(newStyle, &tempSelection);
@@ -282,7 +282,7 @@ void PropertyWidget_Advanced::handleTextScaleH()
 	if (i2 != nullptr)
 	{
 		Selection tempSelection(this, false);
-		tempSelection.addItem(i2, true);
+		tempSelection.addItem(i2);
 		m_doc->itemSelection_SetScaleH(qRound(scaleH->value() * 10), &tempSelection);
 	}
 }
@@ -297,7 +297,7 @@ void PropertyWidget_Advanced::handleTextScaleV()
 	if (i2 != nullptr)
 	{
 		Selection tempSelection(this, false);
-		tempSelection.addItem(i2, true);
+		tempSelection.addItem(i2);
 		m_doc->itemSelection_SetScaleV(qRound(scaleV->value() * 10), &tempSelection);
 	}
 }
@@ -312,7 +312,7 @@ void PropertyWidget_Advanced::handleTracking()
 	if (i2 != nullptr)
 	{
 		Selection tempSelection(this, false);
-		tempSelection.addItem(i2, true);
+		tempSelection.addItem(i2);
 		m_doc->itemSelection_SetTracking(qRound(tracking->value() * 10.0), &tempSelection);
 	}
 }

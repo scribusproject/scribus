@@ -1384,7 +1384,7 @@ void SlaOutputDev::endPage()
 			{
 				if (m_radioButtons.contains(refList[a]))
 				{
-					m_tmpSel->addItem(m_radioButtons[refList[a]], true);
+					m_tmpSel->addItem(m_radioButtons[refList[a]]);
 					m_Elements->removeAll(m_radioButtons[refList[a]]);
 				}
 			}
@@ -1421,7 +1421,7 @@ void SlaOutputDev::restoreState(GfxState *state)
 				m_tmpSel->clear();
 				for (int dre = 0; dre < gElements.Items.count(); ++dre)
 				{
-					m_tmpSel->addItem(gElements.Items.at(dre), true);
+					m_tmpSel->addItem(gElements.Items.at(dre));
 					m_Elements->removeAll(gElements.Items.at(dre));
 				}
 				PageItem *ite = m_doc->groupObjectsSelection(m_tmpSel);
@@ -1524,7 +1524,7 @@ void SlaOutputDev::endTransparencyGroup(GfxState *state)
 	{
 		for (int dre = 0; dre < gElements.Items.count(); ++dre)
 		{
-			m_tmpSel->addItem(gElements.Items.at(dre), true);
+			m_tmpSel->addItem(gElements.Items.at(dre));
 			m_Elements->removeAll(gElements.Items.at(dre));
 		}
 		PageItem *ite = m_doc->groupObjectsSelection(m_tmpSel);
@@ -1553,7 +1553,7 @@ void SlaOutputDev::endTransparencyGroup(GfxState *state)
 	PageItem *ite;
 	for (int dre = 0; dre < gElements.Items.count(); ++dre)
 	{
-		m_tmpSel->addItem(gElements.Items.at(dre), true);
+		m_tmpSel->addItem(gElements.Items.at(dre));
 		m_Elements->removeAll(gElements.Items.at(dre));
 	}
 	if ((gElements.Items.count() != 1) || (gElements.isolated))
@@ -2408,7 +2408,7 @@ bool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx* /*gfx*/, Catalog *cat
 	{
 		for (int dre = 0; dre < gElements.Items.count(); ++dre)
 		{
-			m_doc->m_Selection->addItem(gElements.Items.at(dre), true);
+			m_doc->m_Selection->addItem(gElements.Items.at(dre));
 			m_Elements->removeAll(gElements.Items.at(dre));
 		}
 		m_doc->itemSelection_FlipV();
@@ -3660,7 +3660,7 @@ void SlaOutputDev::endType3Char(GfxState *state)
 		m_doc->m_Selection->delaySignalsOn();
 		for (int dre = 0; dre < gElements.Items.count(); ++dre)
 		{
-			m_doc->m_Selection->addItem(gElements.Items.at(dre), true);
+			m_doc->m_Selection->addItem(gElements.Items.at(dre));
 			m_Elements->removeAll(gElements.Items.at(dre));
 		}
 		PageItem *ite;
@@ -3717,7 +3717,7 @@ void SlaOutputDev::endTextObject(GfxState *state)
 		{
 			for (int dre = 0; dre < gElements.Items.count(); ++dre)
 			{
-				m_tmpSel->addItem(gElements.Items.at(dre), true);
+				m_tmpSel->addItem(gElements.Items.at(dre));
 				m_Elements->removeAll(gElements.Items.at(dre));
 			}
 			PageItem *ite;

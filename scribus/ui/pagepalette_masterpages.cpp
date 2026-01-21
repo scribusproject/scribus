@@ -286,7 +286,7 @@ void PagePalette_MasterPages::duplicateMasterPage()
 			{
 				PageItem *itemToCopy = m_doc->Items->at(ite);
 				if (itemToCopy->OwnPage == inde && (it->ID == itemToCopy->m_layerID))
-					m_doc->m_Selection->addItem(itemToCopy, true);
+					m_doc->m_Selection->addItem(itemToCopy);
 			}
 			if (m_doc->m_Selection->count() != 0)
 			{

@@ -403,7 +403,7 @@ void PropertiesPalette_Text::handleLineSpacingMode(int id)
 	if (!m_haveDoc || !m_haveItem)
 		return;
 	Selection tempSelection(this, false);
-	tempSelection.addItem(m_item, true);
+	tempSelection.addItem(m_item);
 	m_doc->itemSelection_SetLineSpacingMode(id, &tempSelection);
 //	updateStyle(((m_doc->appMode == modeEdit) || (m_doc->appMode == modeEditTable)) ? m_item->currentStyle() : m_item->itemText.defaultStyle());
 	m_doc->regionsChanged()->update(QRect());
@@ -417,7 +417,7 @@ void PropertiesPalette_Text::changeLang(int id)
 	LanguageManager::instance()->fillInstalledStringList(&languageList);
 	QString abrv = LanguageManager::instance()->getAbbrevFromLang(languageList.value(id),false);
 	Selection tempSelection(this, false);
-	tempSelection.addItem(m_item, true);
+	tempSelection.addItem(m_item);
 	m_doc->itemSelection_SetLanguage(abrv, &tempSelection);
 }
 
@@ -647,7 +647,7 @@ void PropertiesPalette_Text::handleLineSpacing()
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	Selection tempSelection(this, false);
-	tempSelection.addItem(m_item, true);
+	tempSelection.addItem(m_item);
 	m_doc->itemSelection_SetLineSpacing(lineSpacing->value(), &tempSelection);
 }
 
@@ -656,7 +656,7 @@ void PropertiesPalette_Text::handleFontSize()
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	Selection tempSelection(this, false);
-	tempSelection.addItem(m_item, true);
+	tempSelection.addItem(m_item);
 	m_doc->itemSelection_SetFontSize(qRound(fontSize->value()*10.0), &tempSelection);
 }
 
@@ -665,7 +665,7 @@ void PropertiesPalette_Text::handleAlignment(int a)
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	Selection tempSelection(this, false);
-	tempSelection.addItem(m_item, true);
+	tempSelection.addItem(m_item);
 	m_doc->itemSelection_SetAlignment(a, &tempSelection);
 	if (m_item->isPathText())
 		pathTextWidgets->handleSelectionChanged();
@@ -676,7 +676,7 @@ void PropertiesPalette_Text::handleDirection(int d)
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	Selection tempSelection(this, false);
-	tempSelection.addItem(m_item, true);
+	tempSelection.addItem(m_item);
 	m_doc->itemSelection_SetDirection(d, &tempSelection);
 	// If current text alignment is left or right, change it to match direction
 	if (d == ParagraphStyle::RTL && textAlignment->selectedId() == ParagraphStyle::LeftAligned)
@@ -696,7 +696,7 @@ void PropertiesPalette_Text::handleTextFont(const QString& font)
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
 	Selection tempSelection(this, false);
-	tempSelection.addItem(m_item, true);
+	tempSelection.addItem(m_item);
 	m_doc->itemSelection_SetFont(font, &tempSelection);
 }
 
@@ -705,7 +705,7 @@ void PropertiesPalette_Text::doClearCStyle()
 	if (!m_ScMW || m_ScMW->scriptIsRunning() || !m_haveDoc || !m_haveItem)
 		return;
 	Selection tempSelection(this, false);
-	tempSelection.addItem(m_item, true);
+	tempSelection.addItem(m_item);
 	m_doc->itemSelection_EraseCharStyle(&tempSelection);
 }
 
@@ -720,7 +720,7 @@ void PropertiesPalette_Text::doClearPStyle()
 		activeTransaction = UndoManager::instance()->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::RemoveTextStyle, tr( "remove direct paragraph formatting" ), Um::IFont);
 
 	Selection tempSelection(this, false);
-	tempSelection.addItem(m_item, true);
+	tempSelection.addItem(m_item);
 	m_doc->itemSelection_ClearBulNumStrings(&tempSelection);
 	m_doc->itemSelection_EraseParagraphStyle(&tempSelection);
 	CharStyle emptyCStyle;
