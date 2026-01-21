@@ -240,10 +240,7 @@ bool PdfPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 				if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 				{
 					m_Doc->m_Selection->delaySignalsOn();
-					for (int dre=0; dre < m_elements.count(); ++dre)
-					{
-						m_Doc->m_Selection->addItem(m_elements.at(dre), true);
-					}
+					m_Doc->m_Selection->addItems(m_elements);
 					m_Doc->m_Selection->delaySignalsOff();
 					m_Doc->m_Selection->setGroupRect();
 					if (m_Doc->view() != nullptr)
@@ -256,10 +253,7 @@ bool PdfPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 				m_Doc->DraggedElem = nullptr;
 				m_Doc->DragElements.clear();
 				m_Doc->m_Selection->delaySignalsOn();
-				for (int dre = 0; dre < m_elements.count(); ++dre)
-				{
-					m_tmpSele->addItem(m_elements.at(dre), true);
-				}
+				m_tmpSele->addItems(m_elements);
 				m_tmpSele->setGroupRect();
 				ScElemMimeData* md = ScriXmlDoc::writeToMimeData(m_Doc, m_tmpSele);
 				m_Doc->itemSelection_DeleteItem(m_tmpSele);

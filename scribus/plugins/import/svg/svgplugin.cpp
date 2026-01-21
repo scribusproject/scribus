@@ -292,10 +292,7 @@ QImage SVGPlug::readThumbnail(const QString& fName)
 		m_Doc->groupObjectsList(Elements);
 		m_Doc->DoDrawing = true;
 		m_Doc->m_Selection->delaySignalsOn();
-		for (int dre = 0; dre < Elements.count(); ++dre)
-		{
-			tmpSel->addItem(Elements.at(dre), true);
-		}
+		tmpSel->addItems(Elements);
 		tmpSel->setGroupRect();
 		double xs = tmpSel->width();
 		double ys = tmpSel->height();
@@ -524,10 +521,7 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 			if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 			{
 				m_Doc->m_Selection->delaySignalsOn();
-				for (int dre = 0; dre < Elements.count(); ++dre)
-				{
-					m_Doc->m_Selection->addItem(Elements.at(dre), true);
-				}
+				m_Doc->m_Selection->addItems(Elements);
 				m_Doc->m_Selection->delaySignalsOff();
 				m_Doc->m_Selection->setGroupRect();
 				if (m_Doc->view() != nullptr)
@@ -541,10 +535,7 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 			m_Doc->DraggedElem = nullptr;
 			m_Doc->DragElements.clear();
 			m_Doc->m_Selection->delaySignalsOn();
-			for (int dre = 0; dre < Elements.count(); ++dre)
-			{
-				tmpSel->addItem(Elements.at(dre), true);
-			}
+			tmpSel->addItems(Elements);
 			tmpSel->setGroupRect();
 			ScElemMimeData* md = ScriXmlDoc::writeToMimeData(m_Doc, tmpSel);
 			m_Doc->itemSelection_DeleteItem(tmpSel);
@@ -1371,10 +1362,7 @@ QList<PageItem*> SVGPlug::parseGroup(const QDomElement &e)
 		GElements.removeAll(neu);
 		Selection tmpSelection(m_Doc, false);
 		tmpSelection.addItem(neu);
-		for (int gr = 0; gr < gElements.count(); ++gr)
-		{
-			tmpSelection.addItem(gElements.at(gr));
-		}
+		tmpSelection.addItems(gElements);
 		m_Doc->itemSelection_DeleteItem(&tmpSelection);
 	}
 	delete (m_gc.pop());

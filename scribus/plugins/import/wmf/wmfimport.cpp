@@ -327,10 +327,7 @@ QImage WMFImport::readThumbnail(const QString& fname)
 			m_Doc->groupObjectsList(Elements);
 		m_Doc->DoDrawing = true;
 		m_Doc->m_Selection->delaySignalsOn();
-		for (int dre=0; dre<Elements.count(); ++dre)
-		{
-			m_tmpSel->addItem(Elements.at(dre), true);
-		}
+		m_tmpSel->addItems(Elements);
 		m_tmpSel->setGroupRect();
 		double xs = m_tmpSel->width();
 		double ys = m_tmpSel->height();
@@ -630,10 +627,7 @@ bool WMFImport::importWMF(const TransactionSettings& trSettings, int flags)
 			if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 			{
 				m_Doc->m_Selection->delaySignalsOn();
-				for (int dre=0; dre<Elements.count(); ++dre)
-				{
-					m_Doc->m_Selection->addItem(Elements.at(dre), true);
-				}
+				m_Doc->m_Selection->addItems(Elements);
 				m_Doc->m_Selection->delaySignalsOff();
 				m_Doc->m_Selection->setGroupRect();
 				if (m_Doc->view() != nullptr)
@@ -647,10 +641,7 @@ bool WMFImport::importWMF(const TransactionSettings& trSettings, int flags)
 			m_Doc->DraggedElem = nullptr;
 			m_Doc->DragElements.clear();
 			m_Doc->m_Selection->delaySignalsOn();
-			for (int dre=0; dre<Elements.count(); ++dre)
-			{
-				m_tmpSel->addItem(Elements.at(dre), true);
-			}
+			m_tmpSel->addItems(Elements);
 			m_tmpSel->setGroupRect();
 			ScElemMimeData* md = ScriXmlDoc::writeToMimeData(m_Doc, m_tmpSel);
 /*#ifndef QT_MAC*/
