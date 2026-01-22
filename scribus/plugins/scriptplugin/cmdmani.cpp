@@ -565,7 +565,7 @@ PyObject *scribus_getGroupItems(PyObject * /*self*/, PyObject* args, PyObject* k
 	while (!queue.isEmpty())
 	{
 		const auto pageItem = queue.dequeue();
-		for (auto groupItem: pageItem->groupItemList)
+		for (auto groupItem: std::as_const(pageItem->groupItemList))
 		{
 			if (type == 0 || groupItem->itemType() == type)
 			{

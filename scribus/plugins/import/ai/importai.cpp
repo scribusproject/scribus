@@ -867,7 +867,7 @@ bool AIPlug::parseHeader(const QString& fName, double &x, double &y, double &b, 
 					FarNam.remove(FarNam.length()-1,1);
 					FarNam = FarNam.simplified();
 					QByteArray farN;
-					for (QChar ch : FarNam)
+					for (QChar ch : std::as_const(FarNam))
 					{
 						uint chc = ch.unicode();
 						if (chc > 255)
@@ -897,7 +897,7 @@ bool AIPlug::parseHeader(const QString& fName, double &x, double &y, double &b, 
 						FarNam.remove(FarNam.length()-1,1);
 						FarNam = FarNam.simplified();
 						QByteArray farN;
-						for (QChar ch : FarNam)
+						for (QChar ch : std::as_const(FarNam))
 						{
 							uint chc = ch.unicode();
 							if (chc > 255)
@@ -930,7 +930,7 @@ bool AIPlug::parseHeader(const QString& fName, double &x, double &y, double &b, 
 					FarNam.remove(FarNam.length()-1,1);
 					FarNam = FarNam.simplified();
 					QByteArray farN;
-					for (QChar ch : FarNam)
+					for (QChar ch : std::as_const(FarNam))
 					{
 						uint chc = ch.unicode();
 						if (chc > 255)
@@ -959,7 +959,7 @@ bool AIPlug::parseHeader(const QString& fName, double &x, double &y, double &b, 
 						FarNam.remove(FarNam.length()-1,1);
 						FarNam = FarNam.simplified();
 						QByteArray farN;
-						for (QChar ch : FarNam)
+						for (QChar ch : std::as_const(FarNam))
 						{
 							uint chc = ch.unicode();
 							if (chc > 255)
@@ -991,7 +991,7 @@ bool AIPlug::parseHeader(const QString& fName, double &x, double &y, double &b, 
 							FarNam = tmp.mid(an + 1, en - an - 1);
 							FarNam = FarNam.simplified();
 							QByteArray farN;
-							for (QChar ch : FarNam)
+							for (QChar ch : std::as_const(FarNam))
 							{
 								uint chc = ch.unicode();
 								if (chc > 255)
@@ -1011,7 +1011,7 @@ bool AIPlug::parseHeader(const QString& fName, double &x, double &y, double &b, 
 								FarNam = tmp.mid(0, en);
 								FarNam = FarNam.simplified();
 								QByteArray farN;
-								for (QChar ch : FarNam)
+								for (QChar ch : std::as_const(FarNam))
 								{
 									uint chc = ch.unicode();
 									if (chc > 255)

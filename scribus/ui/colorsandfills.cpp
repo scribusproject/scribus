@@ -153,7 +153,7 @@ ColorsAndFillsDialog::ColorsAndFillsDialog(QWidget* parent, QHash<QString, VGrad
 	QFontMetrics fontMetrics(dataTree->fontMetrics());
 
 	int maxAdvance = 0;
-	for (QString colorName : m_colorList.keys())
+	for (const QString& colorName : m_colorList.keys())
 	{
 		QRect itemRect = dataTree->style()->itemTextRect(fontMetrics, QRect(), Qt::AlignLeft, true, colorName);
 		maxAdvance = std::max(maxAdvance, itemRect.width());

@@ -178,7 +178,7 @@ void Prefs_ExternalTools::rescanForTools()
 				/*Linux */ "kwrite" << "kate" << "gedit" << "gvim" <<
 				/*Windows */ "notepad" <<
 				/*Mac OS*/ "open";
-		for (const QString& editor : editors)
+		for (const QString& editor : std::as_const(editors))
 		{
 			if (fileInPath(editor))
 			{

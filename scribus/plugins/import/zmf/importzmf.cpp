@@ -239,12 +239,12 @@ bool ZmfPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 				m_Doc->view()->updatesOn(true);
 				if (!importedPatterns.isEmpty())
 				{
-					for (const auto& importedPattern : importedPatterns)
+					for (const auto& importedPattern : std::as_const(importedPatterns))
 						m_Doc->docPatterns.remove(importedPattern);
 				}
 				if (!importedColors.isEmpty())
 				{
-					for (const auto& importedColor : importedColors)
+					for (const auto& importedColor : std::as_const(importedColors))
 						m_Doc->PageColors.remove(importedColor);
 				}
 				m_Doc->m_Selection->delaySignalsOff();
@@ -320,9 +320,9 @@ bool ZmfPlug::convert(const QString& fn)
 	}
 	if (Elements.isEmpty())
 	{
-		for (const auto& importedColor : importedColors)
+		for (const auto& importedColor : std::as_const(importedColors))
 			m_Doc->PageColors.remove(importedColor);
-		for (const auto& importedPattern : importedPatterns)
+		for (const auto& importedPattern : std::as_const(importedPatterns))
 			m_Doc->docPatterns.remove(importedPattern);
 	}
 	if (progressDialog)

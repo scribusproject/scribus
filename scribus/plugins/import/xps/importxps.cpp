@@ -63,7 +63,7 @@ XpsPlug::~XpsPlug()
 {
 	delete progressDialog;
 	delete tmpSel;
-	for (const auto& tempFontFile : tempFontFiles)
+	for (const auto& tempFontFile : std::as_const(tempFontFiles))
 		QFile::remove(tempFontFile);
 }
 
@@ -310,12 +310,12 @@ bool XpsPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 				m_Doc->view()->updatesOn(true);
 				if (!importedColors.isEmpty() && (!((flags & LoadSavePlugin::lfKeepGradients) || (flags & LoadSavePlugin::lfKeepColors) || (flags & LoadSavePlugin::lfKeepPatterns))))
 				{
-					for (const auto& importedColor : importedColors)
+					for (const auto& importedColor :std::as_const(importedColors))
 						m_Doc->PageColors.remove(importedColor);
 				}
 				if (!importedPatterns.isEmpty() && (!(flags & LoadSavePlugin::lfKeepPatterns)))
 				{
-					for (const auto& importedPattern : importedPatterns)
+					for (const auto& importedPattern : std::as_const(importedPatterns))
 						m_Doc->docPatterns.remove(importedPattern);
 				}
 				m_Doc->m_Selection->delaySignalsOff();

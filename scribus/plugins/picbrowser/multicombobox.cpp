@@ -40,7 +40,7 @@ bool MultiView::eventFilter(QObject* object, QEvent* event)
 		if (index.isValid())
 		{
 			QModelIndexList selectedList = selectedIndexes();
-			for (QModelIndex selectedIndex : selectedList)
+			for (QModelIndex selectedIndex : std::as_const(selectedList))
 				parentMcb->switchCheckState(selectedIndex.row());
 			return true;
 		}
@@ -52,7 +52,7 @@ bool MultiView::eventFilter(QObject* object, QEvent* event)
 		if ((key->key() == Qt::Key_Return) || (key->key() == Qt::Key_Enter))
 		{
 			QModelIndexList selectedList = selectedIndexes();
-			for (QModelIndex selectedIndex : selectedList)
+			for (QModelIndex selectedIndex : std::as_const(selectedList))
 				parentMcb->switchCheckState(selectedIndex.row());
 			return true;
 		}

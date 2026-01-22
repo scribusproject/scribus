@@ -2516,7 +2516,7 @@ QMap<int, QImage> ScribusView::PagesToPixmap(int maxGr, int Nr, PageToPixmapFlag
 	// Draw all pages
 	if (Nr == -1)
 	{
-		for (ScPage * page : m_doc->DocPages)
+		for (ScPage * page : std::as_const(m_doc->DocPages))
 		{
 			QImage im = drawPageToPixmap(maxGr, page, flags);
 			m_previews.insert(page->pageNr(), im);

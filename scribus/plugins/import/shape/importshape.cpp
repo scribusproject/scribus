@@ -341,7 +341,7 @@ bool ShapePlug::convert(const QString& fn)
 		parseGroup(DOC);
 		if (Elements.isEmpty())
 		{
-			for (const auto& importedColor : importedColors)
+			for (const auto& importedColor : std::as_const(importedColors))
 				m_Doc->PageColors.remove(importedColor);
 		}
 		f.close();

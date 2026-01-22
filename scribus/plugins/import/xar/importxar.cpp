@@ -354,12 +354,12 @@ bool XarPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 				m_Doc->view()->updatesOn(true);
 				if (!importedColors.isEmpty())
 				{
-					for (const auto& importedColor : importedColors)
+					for (const auto& importedColor : std::as_const(importedColors))
 						m_Doc->PageColors.remove(importedColor);
 				}
 				if (!importedPatterns.isEmpty())
 				{
-					for (const auto& importedPattern : importedPatterns)
+					for (const auto& importedPattern : std::as_const(importedPatterns))
 						m_Doc->docPatterns.remove(importedPattern);
 				}
 				m_Doc->m_Selection->delaySignalsOff();
@@ -525,9 +525,9 @@ bool XarPlug::convert(const QString& fn)
 		parseXar(ts);
 		if (Elements.isEmpty())
 		{
-			for (const auto& importedColor : importedColors)
+			for (const auto& importedColor : std::as_const(importedColors))
 				m_Doc->PageColors.remove(importedColor);
-			for (const auto& importedPattern : importedPatterns)
+			for (const auto& importedPattern : std::as_const(importedPatterns))
 				m_Doc->docPatterns.remove(importedPattern);
 		}
 		f.close();

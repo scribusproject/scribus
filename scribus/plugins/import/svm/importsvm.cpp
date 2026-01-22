@@ -528,12 +528,12 @@ bool SvmPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 				m_Doc->view()->updatesOn(true);
 				if (!importedColors.isEmpty())
 				{
-					for (const auto& importedColor : importedColors)
+					for (const auto& importedColor : std::as_const(importedColors))
 						m_Doc->PageColors.remove(importedColor);
 				}
 				if (!importedPatterns.isEmpty())
 				{
-					for (const auto& importedPattern : importedPatterns)
+					for (const auto& importedPattern : std::as_const(importedPatterns))
 						m_Doc->docPatterns.remove(importedPattern);
 				}
 				m_Doc->m_Selection->delaySignalsOff();
@@ -926,9 +926,9 @@ bool SvmPlug::convert(const QString& fn)
 		}
 		if (Elements.isEmpty())
 		{
-			for (const auto& importedColor : importedColors)
+			for (const auto& importedColor : std::as_const(importedColors))
 				m_Doc->PageColors.remove(importedColor);
-			for (const auto& importedPattern : importedPatterns)
+			for (const auto& importedPattern : std::as_const(importedPatterns))
 				m_Doc->docPatterns.remove(importedPattern);
 		}
 		f.close();
@@ -1170,7 +1170,7 @@ void SvmPlug::finishItem(PageItem* ite, bool fill)
 	if (!currentDC.dashArray.isEmpty())
 	{
 		ite->DashValues.clear();
-		for (double dashValue : currentDC.dashArray)
+		for (double dashValue : std::as_const(currentDC.dashArray))
 			ite->DashValues.append(dashValue * ite->lineWidth());
 	}
 	ite->DashOffset = currentDC.dashOffset;

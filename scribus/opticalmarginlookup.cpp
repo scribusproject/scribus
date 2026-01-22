@@ -216,7 +216,7 @@ const OpticalMarginChars OpticalMarginLookup::splitRulesToChars(const OpticalMar
 			continue;
 
 		// split string
-		for (auto chr : s)
+		for (auto chr : std::as_const(s))
 			out.insert(chr, OpticalMarginRule(chr, rule.Left, rule.Right, rule.Unit));
 	}
 

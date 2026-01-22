@@ -859,7 +859,7 @@ QStringList LanguageManager::getAbbrevDecomposition(const QString& langAbbrev) c
 	while (true)
 	{
 		int rightMost = 0;
-		for (QChar delimiter : delimiters)
+		for (QChar delimiter : std::as_const(delimiters))
 		{
 			int k = curAbbrev.lastIndexOf(delimiter);
 			if (k > rightMost)

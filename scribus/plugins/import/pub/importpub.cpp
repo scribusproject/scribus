@@ -327,9 +327,9 @@ bool PubPlug::convert(const QString& fn)
 	}
 	if (Elements.isEmpty())
 	{
-		for (const auto& importedColor : importedColors)
+		for (const auto& importedColor : std::as_const(importedColors))
 			m_Doc->PageColors.remove(importedColor);
-		for (const auto& importedPattern : importedPatterns)
+		for (const auto& importedPattern : std::as_const(importedPatterns))
 			m_Doc->docPatterns.remove(importedPattern);
 	}
 	if (progressDialog)

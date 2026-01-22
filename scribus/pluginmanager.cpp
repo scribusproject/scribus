@@ -134,7 +134,7 @@ QString PluginManager::getPluginName(const QString& fileName)
 	if (baseName.endsWith(platformDllExtension()))
 		baseName.chop(1 + platformDllExtension().length());
 	// check name
-	for (QChar c : baseName)
+	for (QChar c : std::as_const(baseName))
 	{
 		if (!c.isLetterOrNumber() && c != '_' )
 		{

@@ -159,7 +159,7 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 
 	// Which options checkboxes are enabled for each encoder
 	// Check whether `includetext` option is available for each encoder
-	for(const QString &enc : encoderlist)
+	for(const QString &enc : std::as_const(encoderlist))
 		resincludetextAvail[enc] = resexops[enc].contains("includetext");
 
 	QStringList guardwhitespaceAvail;

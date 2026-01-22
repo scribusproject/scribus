@@ -601,7 +601,7 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 					fontN = fontMap[fontID];
 				QFont textFont(fontN, fontSize * 0.8);
 				QFontMetrics fm(textFont);
-				for (const QString& para : parList)
+				for (const QString& para : std::as_const(parList))
 				{
 					path.addText( 0, yp, textFont, para.trimmed());
 					yp += fm.lineSpacing();

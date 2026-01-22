@@ -76,7 +76,7 @@ void Prefs_Spelling::downloadSpellDicts()
 	dlLabel->setVisible(true);
 	int i = 0;
 	QString userDictDir(ScPaths::userDictDir(ScPaths::Spell, true));
-	for (const DownloadItem& d : dictList)
+	for (const DownloadItem& d : std::as_const(dictList))
 	{
 		if (dlLangs.contains(d.lang))
 		{
@@ -254,7 +254,7 @@ void Prefs_Spelling::setAvailDictsXMLFile(const QString& availDictsXMLDataFile)
 	availDictTableWidget->setRowCount(dictList.count());
 	availDictTableWidget->setColumnCount(4);
 	int row = 0;
-	for (const DownloadItem& d : dictList)
+	for (const DownloadItem& d : std::as_const(dictList))
 	{
 		int column = 0;
 		//qDebug()<<d.version<<d.files<<d.url<<d.desc<<d.license;

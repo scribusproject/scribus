@@ -599,7 +599,7 @@ bool WMFImport::importWMF(const TransactionSettings& trSettings, int flags)
 	if (Elements.isEmpty())
 	{
 		importFailed = true;
-		for (const auto& importedColor : importedColors)
+		for (const auto& importedColor : std::as_const(importedColors))
 			m_Doc->PageColors.remove(importedColor);
 	}
 	if (Elements.count() > 1)

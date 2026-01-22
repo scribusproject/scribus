@@ -384,7 +384,7 @@ bool CollectForOutput::collectFonts()
 				if (dir.exists(fontDir + "/pfm") && metrics.empty())
 					metrics += findFontMetrics(fontDir + "/pfm", fontFile);
 			}
-			for (const QString& origAFM : metrics)
+			for (const QString& origAFM : std::as_const(metrics))
 			{
 				QFileInfo fi(origAFM);
 				QString outFileAFM(m_outputDirectory + "fonts/" + fi.fileName());

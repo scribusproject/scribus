@@ -2920,7 +2920,7 @@ void SlaOutputDev::beginMarkedContent(const char *name, Dict *properties)
 			Object obj = properties->lookup("Title");
 			if (obj.isString())
 				lName = QString(obj.getString()->c_str());
-			for (const auto& layer : m_doc->Layers)
+			for (const auto& layer : std::as_const(m_doc->Layers))
 			{
 				if (layer.Name == lName)
 				{
@@ -2969,7 +2969,7 @@ void SlaOutputDev::endMarkedContent(GfxState *state)
 	if (mSte.name != "OC")
 		return;
 
-	for (const auto& layer : m_doc->Layers)
+	for (const auto& layer : std::as_const(m_doc->Layers))
 	{
 		if (layer.Name == mSte.ocgName)
 		{

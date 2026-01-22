@@ -158,7 +158,7 @@ void PreviewImages::filterFileName(const QString& fileName, bool invert)
 	//wildcardmode should be sufficient
 	rx.setPatternSyntax(QRegExp::Wildcard);
 
-	for (PreviewImage* tmpPreviewImage : previewImagesList)
+	for (PreviewImage* tmpPreviewImage : std::as_const(previewImagesList))
 	{
 		if (toRemove(rx.exactMatch(tmpPreviewImage->fileInformation.fileName()), invert))
 			tmpPreviewImage->filtered = true;
@@ -167,7 +167,7 @@ void PreviewImages::filterFileName(const QString& fileName, bool invert)
 
 void PreviewImages::filterFileSize(qint64 fileSize, bool smallerThan)
 {
-	for (PreviewImage* tmpPreviewImage : previewImagesList)
+	for (PreviewImage* tmpPreviewImage : std::as_const(previewImagesList))
 	{
 		if (toRemove((tmpPreviewImage->fileInformation.size() < fileSize), smallerThan))
 			tmpPreviewImage->filtered = true;
@@ -176,7 +176,7 @@ void PreviewImages::filterFileSize(qint64 fileSize, bool smallerThan)
 
 void PreviewImages::filterFileType(const QStringList& types, bool invert)
 {
-	for (PreviewImage* tmpPreviewImage : previewImagesList)
+	for (PreviewImage* tmpPreviewImage : std::as_const(previewImagesList))
 	{
 		QString type = QString("*.") + tmpPreviewImage->fileInformation.suffix();
 		if (toRemove(types.contains(type), invert))
@@ -186,7 +186,7 @@ void PreviewImages::filterFileType(const QStringList& types, bool invert)
 
 void PreviewImages::filterFileModified(const QDateTime& modified, bool smallerThan)
 {
-	for (PreviewImage* tmpPreviewImage : previewImagesList)
+	for (PreviewImage* tmpPreviewImage : std::as_const(previewImagesList))
 	{
 		if (toRemove((tmpPreviewImage->fileInformation.lastModified() < modified), smallerThan))
 			tmpPreviewImage->filtered = true;
@@ -196,7 +196,7 @@ void PreviewImages::filterFileModified(const QDateTime& modified, bool smallerTh
 //real image needs to be loaded for this info
 void PreviewImages::filterResolution(qint64 resolution, bool smallerThan)
 {
-	for (PreviewImage* tmpPreviewImage : previewImagesList)
+	for (PreviewImage* tmpPreviewImage : std::as_const(previewImagesList))
 	{
 		if (!tmpPreviewImage->imgInfo)
 			continue;
@@ -209,7 +209,7 @@ void PreviewImages::filterResolution(qint64 resolution, bool smallerThan)
 
 void PreviewImages::filterTag(const QStringList& tags, bool invert)
 {
-	for (PreviewImage* tmpPreviewImage : previewImagesList)
+	for (PreviewImage* tmpPreviewImage : std::as_const(previewImagesList))
 	{
 		for (const QString& tag : tags)
 		{
@@ -224,7 +224,7 @@ void PreviewImages::filterTag(const QStringList& tags, bool invert)
 
 void PreviewImages::clearFilters()
 {
-	for (PreviewImage* tmpPreviewImage : previewImagesList)
+	for (PreviewImage* tmpPreviewImage : std::as_const(previewImagesList))
 		tmpPreviewImage->filtered = false;
 }
 

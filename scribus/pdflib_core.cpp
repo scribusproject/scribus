@@ -11800,7 +11800,7 @@ void PDFLibCore::generateXMP(const QString& timeStamp)
 		contributor.appendChild(bag5);
 
 		QStringList contributors = doc.documentInfo().contrib().split(QRegularExpression(" *[;\n] *"), Qt::SkipEmptyParts);
-		for (const QString &contrib : contributors)
+		for (const QString &contrib : std::as_const(contributors))
 		{
 			QDomElement li5 = xmpDoc.createElement("rdf:li");
 			bag5.appendChild(li5);

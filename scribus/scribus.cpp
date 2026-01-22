@@ -3643,7 +3643,7 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 		doc->reformPages();
 		doc->refreshGuides();
 		doc->setLoading(false);
-		for (PageItem* ite : doc->MasterItems)
+		for (PageItem* ite : std::as_const(doc->MasterItems))
 		{
 			// TODO fix that for Groups on Masterpages
 //			if (ite->Groups.count() != 0)
@@ -7347,7 +7347,7 @@ void ScribusMainWindow::updateLayerMenu()
 
 	QStringList newNames;
 	doc->orderedLayerList(&newNames);
-	for (const QString& newName : newNames)
+	for (const QString& newName : std::as_const(newNames))
 	{
 		QPixmap pm(20,15);
 		pm.fill(doc->Layers.layerByName(newName)->markerColor);

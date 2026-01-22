@@ -671,7 +671,7 @@ void Scribus150Format::writeJavascripts(ScXmlStreamWriter & docu) const
 
 void Scribus150Format::writeBookmarks(ScXmlStreamWriter & docu) const
 {	
-	for (const auto& bookmark : m_Doc->BookMarks)
+	for (const auto& bookmark : std::as_const(m_Doc->BookMarks))
 	{
 		docu.writeEmptyElement("Bookmark");
 		docu.writeAttribute("Title", bookmark.Title);
@@ -2929,7 +2929,7 @@ void Scribus150Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 	{
 		docu.writeAttribute("NUMDASH", item->DashValues.count());
 		QString dlp;
-		for (auto dashValue : item->DashValues)
+		for (auto dashValue : std::as_const(item->DashValues))
 			dlp += QString::number(dashValue) + " ";
 		docu.writeAttribute("DASHS", dlp);
 		docu.writeAttribute("DASHOFF", item->DashOffset);

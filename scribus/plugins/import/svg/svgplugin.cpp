@@ -498,17 +498,17 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 			importFailed = false;
 		if (!importedColors.isEmpty() && !((flags & LoadSavePlugin::lfKeepGradients) || (flags & LoadSavePlugin::lfKeepColors) || (flags & LoadSavePlugin::lfKeepPatterns)))
 		{
-			for (const auto& importedColor : importedColors)
+			for (const auto& importedColor : std::as_const(importedColors))
 				m_Doc->PageColors.remove(importedColor);
 		}
 		if (!importedGradients.isEmpty() && !((flags & LoadSavePlugin::lfKeepGradients) || (flags & LoadSavePlugin::lfKeepPatterns)))
 		{
-			for (const auto& importedGradient : importedGradients)
+			for (const auto& importedGradient : std::as_const(importedGradients))
 				m_Doc->docGradients.remove(importedGradient);
 		}
 		if (!importedPatterns.isEmpty() && !(flags & LoadSavePlugin::lfKeepPatterns))
 		{
-			for (const auto& importedPattern : importedPatterns)
+			for (const auto& importedPattern : std::as_const(importedPatterns))
 				m_Doc->docPatterns.remove(importedPattern);
 		}
 	}
@@ -553,17 +553,17 @@ void SVGPlug::convert(const TransactionSettings& trSettings, int flags)
 			m_Doc->view()->updatesOn(true);
 			if (!importedColors.isEmpty() && (!((flags & LoadSavePlugin::lfKeepGradients) || (flags & LoadSavePlugin::lfKeepColors) || (flags & LoadSavePlugin::lfKeepPatterns))))
 			{
-				for (const auto& importedColor : importedColors)
+				for (const auto& importedColor : std::as_const(importedColors))
 					m_Doc->PageColors.remove(importedColor);
 			}
 			if (!importedGradients.isEmpty() && (!((flags & LoadSavePlugin::lfKeepGradients) || (flags & LoadSavePlugin::lfKeepPatterns))))
 			{
-				for (const auto& importedGradient : importedGradients)
+				for (const auto& importedGradient : std::as_const(importedGradients))
 					m_Doc->docGradients.remove(importedGradient);
 			}
 			if (!importedPatterns.isEmpty() && (!(flags & LoadSavePlugin::lfKeepPatterns)))
 			{
-				for (const auto& importedPattern: importedPatterns)
+				for (const auto& importedPattern: std::as_const(importedPatterns))
 					m_Doc->docPatterns.remove(importedPattern);
 			}
 			m_Doc->m_Selection->delaySignalsOff();
@@ -2065,10 +2065,10 @@ void SVGPlug::parseCSS(const QDomElement &e)
 			QString properties = match.captured(2).trimmed(); // e.g., "fill:#EA5B0C;"
 			QStringList props = properties.split(';', Qt::SkipEmptyParts);
 			// Optional: further parse properties if needed
-			for (const QString& clsName : classNameList)
+			for (const QString& clsName : std::as_const(classNameList))
 			{
 				CSSStyle& cst = cssStyleList[clsName];
-				for (const QString& prop : props)
+				for (const QString& prop : std::as_const(props))
 				{
 					QStringList keyValue = prop.split(':', Qt::SkipEmptyParts);
 					if (keyValue.size() == 2)
@@ -2788,7 +2788,7 @@ void SVGPlug::parsePA(SvgStyle *obj, const QString &command, const QString &para
 			QStringList dashes = params2.split(' ', Qt::SkipEmptyParts);
 			if (!dashes.isEmpty() && (parseUnit(dashes[0]) != 0.0))
 			{
-				for (const auto& dashStr : dashes)
+				for (const auto& dashStr : std::as_const(dashes))
 					array.append(parseUnit(dashStr));
 			}
 		}

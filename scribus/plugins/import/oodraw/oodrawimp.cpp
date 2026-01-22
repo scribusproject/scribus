@@ -1452,7 +1452,7 @@ void OODPlug::appendPoints(FPointArray& composite, const QDomElement& object, bo
 	QStringList ptList = object.attribute( "draw:points" ).split( ' ', Qt::SkipEmptyParts );
 	FPoint firstP;
 	bool bFirst = true;
-	for (const auto& str : ptList)
+	for (const auto& str : std::as_const(ptList))
 	{
 		FPoint point(ScCLocale::toDoubleC(str.section( ',', 0, 0 )), ScCLocale::toDoubleC(str.section( ',', 1, 1 )));
 		if (bFirst)

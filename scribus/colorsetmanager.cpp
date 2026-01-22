@@ -149,7 +149,7 @@ void ColorSetManager::findPaletteLocations()
 	QStringList locations = ScPaths::systemCreatePalettesDirs();
 	locations << ScPaths::instance().shareDir()+"swatches/";
 	locations << ScPaths::dirsFromEnvVar("XDG_DATA_HOME", "scribus/swatches/");
-	for (const auto& loc : locations)
+	for (const auto& loc : std::as_const(locations))
 	{
 		QFileInfo paletteDir(loc);
 		if (paletteDir.exists())
@@ -159,7 +159,7 @@ void ColorSetManager::findPaletteLocations()
 		}
 	}
 	QStringList xdgSysLocations = ScPaths::dirsFromEnvVar("XDG_DATA_DIRS", "scribus/swatches/");
-	for (const auto& loc : xdgSysLocations)
+	for (const auto& loc : std::as_const(xdgSysLocations))
 	{
 		QFile paletteDir(loc);
 		if (paletteDir.exists())
@@ -231,7 +231,7 @@ void ColorSetManager::searchDir(const QString& path, QMap<QString, QString> &pLi
 void ColorSetManager::findPalettes(QTreeWidgetItem* parent)
 {
 	palettes.clear();
-	for (const auto& loc : paletteLocations)
+	for (const auto& loc : std::as_const(paletteLocations))
 		searchDir(loc, palettes, parent);
 }
 

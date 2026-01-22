@@ -1631,7 +1631,7 @@ bool PrefsManager::writePref(const QString& filePath)
 
 
 	QDomElement pageSetAttr = docu.createElement("PageSets");
-	for (const PageSet& pageSet : appPrefs.pageSets)
+	for (const PageSet& pageSet : std::as_const(appPrefs.pageSets))
 	{
 		QDomElement pgst = docu.createElement("Set");
 		pgst.setAttribute("Name", pageSet.Name);
@@ -1780,7 +1780,7 @@ bool PrefsManager::writePref(const QString& filePath)
 		hyElem.setAttribute("Hyphenated", hyit.value());
 		rde.appendChild(hyElem);
 	}
-	for (const auto& hyWord : appPrefs.hyphPrefs.ignoredWords)
+	for (const auto& hyWord : std::as_const(appPrefs.hyphPrefs.ignoredWords))
 	{
 		QDomElement hyElem2 = docu.createElement("Ignore");
 		hyElem2.setAttribute("Word", hyWord);
@@ -1881,7 +1881,7 @@ bool PrefsManager::writePref(const QString& filePath)
 	elem.appendChild(pdf);
 
 	QDomElement docItemAttrs = docu.createElement("DefaultItemAttributes");
-	for (const auto& objAttr : appPrefs.itemAttrPrefs.defaultItemAttributes)
+	for (const auto& objAttr : std::as_const(appPrefs.itemAttrPrefs.defaultItemAttributes))
 	{
 		QDomElement itemAttr = docu.createElement("ItemAttribute");
 		itemAttr.setAttribute("Name", objAttr.name);
@@ -1896,7 +1896,7 @@ bool PrefsManager::writePref(const QString& filePath)
 	elem.appendChild(docItemAttrs);
 
 	QDomElement tocElem = docu.createElement("TablesOfContents");
-	for (const auto& tocSetup : appPrefs.tocPrefs.defaultToCSetups)
+	for (const auto& tocSetup : std::as_const(appPrefs.tocPrefs.defaultToCSetups))
 	{
 		QDomElement tocsetup = docu.createElement("TableOfContents");
 		tocsetup.setAttribute("Name", tocSetup.name);
@@ -2795,7 +2795,7 @@ bool PrefsManager::readPref(const QString& filePath)
 			appPrefs.activePageSizes = QString(dc.attribute("Names", "")).split(separator);
 
 			// check if page sizes existing
-			for (const auto& item : appPrefs.activePageSizes)
+			for (const auto& item : std::as_const(appPrefs.activePageSizes))
 			{
 				PageSize ps(item);
 				if (ps.name() != CommonStrings::customPageSize)

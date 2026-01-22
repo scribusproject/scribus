@@ -43,20 +43,20 @@ Prefs_DocumentInformation::Prefs_DocumentInformation(QWidget* parent, ScribusDoc
 	auto allLocales = QLocale::matchingLocales(QLocale::AnyLanguage, QLocale::AnyScript, QLocale::AnyCountry);
 
 	QStringList languages;
-	for (const QLocale &locale : allLocales)
+	for (const QLocale &locale : std::as_const(allLocales))
 		languages << locale.bcp47Name();
 	languages.sort();
 	languages.removeDuplicates();
-	for (const auto& language : languages)
+	for (const auto& language : std::as_const(languages))
 		languageLineEdit->addItem(language);
 
 	QStringList countries;
-	for (const QLocale &locale : allLocales)
+	for (const QLocale &locale : std::as_const(allLocales))
 		countries << QLocale::territoryToString(locale.territory());
 	countries.sort();
 	countries.removeDuplicates();
 	coverageLineEdit->addItem("Worldwide");
-	for (const auto& country : countries)
+	for (const auto& country : std::as_const(countries))
 		coverageLineEdit->addItem(country);
 
 	rightsLineEdit->addItem("All Rights Reserved");

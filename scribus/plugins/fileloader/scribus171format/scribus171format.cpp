@@ -6935,7 +6935,7 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 		{
 			QStringList slRowHeights = rowHeights.split(" ");
 			int i = 0;
-			for (const QString& pos : slRowHeights)
+			for (const QString& pos : std::as_const(slRowHeights))
 			{
 				tableitem->resizeRow(i, pos.toDouble());
 				++i;
@@ -6947,7 +6947,7 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 		{
 			QStringList slColWidths = colWidths.split(" ");
 			int i = 0;
-			for (const QString& pos : slColWidths)
+			for (const QString& pos : std::as_const(slColWidths))
 			{
 				tableitem->resizeColumn(i, pos.toDouble());
 				++i;

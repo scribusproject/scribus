@@ -28,7 +28,7 @@ protected:
 
 public slots:
 	void setBaseStyleName(const QString &styleName);
-	void setApplicationTheme(ApplicationTheme theme);
+	void setApplicationTheme(ScribusProxyStyle::ApplicationTheme theme);
 
 private:
 	bool blockRefresh {false};

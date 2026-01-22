@@ -76,7 +76,7 @@ ScFileWidget::ScFileWidget(QWidget * parent, fwContextFlags contextFlags) : QFil
 
 	FileDialogEventCatcher* keyCatcher = new FileDialogEventCatcher(this);
 	QList<QListView *> childListViews = findChildren<QListView *>();
-	for (QListView * lvi : childListViews)
+	for (QListView * lvi : std::as_const(childListViews))
 		lvi->installEventFilter(keyCatcher);
 	connect(keyCatcher, SIGNAL(escapePressed()), this, SLOT(reject()));
 	connect(keyCatcher, SIGNAL(dropLocation(QString)), this, SLOT(locationDropped(QString)));
@@ -86,7 +86,7 @@ ScFileWidget::ScFileWidget(QWidget * parent, fwContextFlags contextFlags) : QFil
 	connect(keyCatcher, SIGNAL(enterSelectedPressed()), this, SLOT(gotoSelectedDirectory()));
 
 	QList<QPushButton *> childPushButtons = findChildren<QPushButton *>();
-	for (QPushButton* pb : childPushButtons)
+	for (QPushButton* pb : std::as_const(childPushButtons))
 		pb->setVisible(false);
 	setMinimumSize(QSize(480, 310));
 	setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);

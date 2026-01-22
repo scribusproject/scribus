@@ -189,13 +189,13 @@ PictureBrowser::PictureBrowser(ScribusDoc* doc, QWidget *parent):
 	insertFramesCombobox->addItem("All Empty Frames", 0);
 
 	QList<PageItem*> allItems;
-	for (PageItem* currItem : m_Doc->MasterItems)
+	for (PageItem* currItem : std::as_const(m_Doc->MasterItems))
 	{
 		if (currItem->isGroup())
 			allItems = currItem->getAllChildren();
 		else
 			allItems.append(currItem);
-		for (const PageItem* pItem : allItems)
+		for (const PageItem* pItem : std::as_const(allItems))
 		{
 			if ((pItem->itemType() == PageItem::ImageFrame) && (!pItem->isLatexFrame()))
 			{
@@ -210,13 +210,13 @@ PictureBrowser::PictureBrowser(ScribusDoc* doc, QWidget *parent):
 		allItems.clear();
 	}
 
-	for (PageItem* currItem : m_Doc->DocItems)
+	for (PageItem* currItem : std::as_const(m_Doc->DocItems))
 	{
 		if (currItem->isGroup())
 			allItems = currItem->getAllChildren();
 		else
 			allItems.append(currItem);
-		for (const PageItem* pItem : allItems)
+		for (const PageItem* pItem : std::as_const(allItems))
 		{
 			if ((pItem->itemType() == PageItem::ImageFrame) && (!pItem->isLatexFrame()))
 			{
@@ -255,7 +255,7 @@ PictureBrowser::PictureBrowser(ScribusDoc* doc, QWidget *parent):
 
 	filterTypeCombobox->addItem("All Supported Formats", 1);
 
-	for (const QString& nameFilter : nameFilters)
+	for (const QString& nameFilter : std::as_const(nameFilters))
 	{
 		filterTypeCombobox->addItem(nameFilter, 1);
 	}
@@ -567,13 +567,13 @@ void PictureBrowser::documentChosen(QTreeWidgetItem * item, int /*column*/)
 
 	int id = item->data(0, Qt::UserRole).toInt();
 
-	for (PageItem* currItem : m_Doc->MasterItems)
+	for (PageItem* currItem : std::as_const(m_Doc->MasterItems))
 	{
 		if (currItem->isGroup())
 			allItems = currItem->getAllChildren();
 		else
 			allItems.append(currItem);
-		for (const PageItem* pItem : allItems)
+		for (const PageItem* pItem : std::as_const(allItems))
 		{
 			if ((pItem->itemType() == PageItem::ImageFrame) && (pItem->imageIsAvailable) && (!pItem->isLatexFrame()))
 			{
@@ -592,7 +592,7 @@ void PictureBrowser::documentChosen(QTreeWidgetItem * item, int /*column*/)
 			allItems = currItem->getAllChildren();
 		else
 			allItems.append(currItem);
-		for (const PageItem* pItem : allItems)
+		for (const PageItem* pItem : std::as_const(allItems))
 		{
 			if ((pItem->itemType() == PageItem::ImageFrame) && (pItem->imageIsAvailable) && (!pItem->isLatexFrame()))
 			{
@@ -1275,14 +1275,14 @@ void PictureBrowser::collectionsSetTagsButtonClicked()
 	{
 		if (collectionsTagImagesCombobox->checkState(i)== 0)
 		{
-			for (int selectedIndex : selectedIndexes)
+			for (int selectedIndex : std::as_const(selectedIndexes))
 			{
 				pImages->previewImagesList.at(selectedIndex)->tags.removeAll(collectionsTagImagesCombobox->itemText(i));
 			}
 		}
 		else if (collectionsTagImagesCombobox->checkState(i)== 1)
 		{
-			for (int selectedIndex : selectedIndexes)
+			for (int selectedIndex : std::as_const(selectedIndexes))
 			{
 				if (!pImages->previewImagesList.at(selectedIndex)->tags.contains(collectionsTagImagesCombobox->itemText(i)))
 				{
@@ -1295,7 +1295,7 @@ void PictureBrowser::collectionsSetTagsButtonClicked()
 	currCollection->imageFiles.clear();
 	currCollection->tags.clear();
 
-	for (const PreviewImage* pPreviewImage : pImages->previewImagesList)
+	for (const PreviewImage* pPreviewImage : std::as_const(pImages->previewImagesList))
 	{
 		currCollection->imageFiles.append(pPreviewImage->fileInformation.absoluteFilePath());
 		currCollection->tags.append(pPreviewImage->tags);
@@ -1344,7 +1344,7 @@ void PictureBrowser::collectionsRemoveImagesButtonClicked()
 {
 	QList<PreviewImage *> tmpPreviewImagesList;
 
-	for (int selectedIndex : selectedIndexes)
+	for (int selectedIndex : std::as_const(selectedIndexes))
 	{
 		tmpPreviewImagesList.append(pImages->previewImagesList.takeAt(selectedIndex));
 	}
@@ -1360,7 +1360,7 @@ void PictureBrowser::collectionsRemoveImagesButtonClicked()
 	currCollection->imageFiles.clear();
 	currCollection->tags.clear();
 
-	for (const PreviewImage* pPreviewImage : pImages->previewImagesList)
+	for (const PreviewImage* pPreviewImage : std::as_const(pImages->previewImagesList))
 	{
 		currCollection->imageFiles.append(pPreviewImage->fileInformation.absoluteFilePath());
 		currCollection->tags.append(pPreviewImage->tags);
@@ -1385,7 +1385,7 @@ void PictureBrowser::collectionsAddImagesOkButtonClicked()
 
 	QStringList addImages;
 
-	for (int selectedIndex : selectedIndexes)
+	for (int selectedIndex : std::as_const(selectedIndexes))
 	{
 		addImages.append(pModel->modelItemsList.at(selectedIndex)->fileInformation.absoluteFilePath());
 	}
@@ -1435,7 +1435,7 @@ void PictureBrowser::updateBrowser(bool filter, bool sort, bool reload)
 	if (reload && pImages)
 	{
 		// force reload, check if needed is necessary
-		for (PreviewImage* tmpImage : pImages->previewImagesList)
+		for (PreviewImage* tmpImage : std::as_const(pImages->previewImagesList))
 		{
 			tmpImage->previewImageLoading = false;
 			tmpImage->previewIconCreated = false;
@@ -1587,7 +1587,7 @@ void PictureBrowser::previewImageSelectionChanged(const QItemSelection& /*select
 
 	selectedIndexes.clear();
 
-	for (const QModelIndex& selectionIndex : selection)
+	for (const QModelIndex& selectionIndex : std::as_const(selection))
 	{
 		int tmpIndex = selectionIndex.row();
 
@@ -1691,7 +1691,7 @@ void PictureBrowser::updateCollectionsWidget(bool addImages)
 	collectionsWidget->blockSignals(true);
 	collectionsWidget->clear();
 
-	for (const Collections* tmpCollections : collectionsDb)
+	for (const Collections* tmpCollections : std::as_const(collectionsDb))
 	{
 		auto* tmpCategory = new QTreeWidgetItem(collectionsWidget, QStringList(tmpCollections->name));
 		tmpCategory->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEditable|Qt::ItemIsEnabled);
@@ -1781,7 +1781,7 @@ void PictureBrowser::saveCollectionsDb()
 	QTreeWidgetItem *tmpItem, *tmpItem2;
 	Collections *tmpCollections;
 
-	for (auto* pCollections : collectionsDb)
+	for (auto* pCollections : std::as_const(collectionsDb))
 		delete pCollections;
 	collectionsDb.clear();
 
@@ -1873,7 +1873,7 @@ void PictureBrowser::updateTagImagesTab()
 		new QListWidgetItem(pImages->previewImagesList.at(selectedIndexes.at(i))->fileInformation.absoluteFilePath(), collectionsSelectedImagesListwidget);
 	}
 
-	for (const QStringList& tmpTags : currCollection->tags)
+	for (const QStringList& tmpTags :std::as_const(currCollection->tags))
 	{
 		for (const QString& tmpTag : tmpTags)
 		{
@@ -1888,7 +1888,7 @@ void PictureBrowser::updateTagImagesTab()
 
 		int tagCount = 0;
 
-		for (int selectedIndex : selectedIndexes)
+		for (int selectedIndex : std::as_const(selectedIndexes))
 		{
 			if (pImages->previewImagesList.at(selectedIndex)->tags.contains(tmpTagList.at(i)))
 				tagCount++;

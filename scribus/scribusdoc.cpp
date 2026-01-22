@@ -1790,7 +1790,7 @@ void ScribusDoc::restoreLevelUpOrDown(SimpleState* ss, bool isUndo)
 	QList<QPointer<PageItem> > listItem = is->getItem();
 
 	m_Selection->clear();
-	for (const QPointer<PageItem>& pItem : listItem)
+	for (const QPointer<PageItem>& pItem : std::as_const(listItem))
 	{
 		if (pItem.isNull())
 			continue;
@@ -1811,7 +1811,7 @@ void ScribusDoc::restoreLevelTopOrBottom(SimpleState* ss, bool isUndo)
 	QList<QPointer<PageItem> > listItem = is->getItem();
 
 	m_Selection->clear();
-	for (const QPointer<PageItem>& pItem : listItem)
+	for (const QPointer<PageItem>& pItem : std::as_const(listItem))
 	{
 		if (pItem.isNull())
 			continue;

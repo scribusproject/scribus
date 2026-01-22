@@ -117,7 +117,7 @@ bool ScImageCacheWriteAction::commit()
 		return false;
 	}
 	ScImageCacheManager & scm = ScImageCacheManager::instance();
-	for (const QString& file : m_files)
+	for (const QString& file : std::as_const(m_files))
 		scm.updateFile(file);
 	for (auto i = m_access.begin(); i != m_access.end(); i++)
 	{

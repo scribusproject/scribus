@@ -462,10 +462,10 @@ void GuideManagerCore::drawPage(ScPainter *p, ScribusDoc *doc, double lineWidth)
 	{
 		p->setPen(Qt::red, lineWidth, Qt::DashDotLine, Qt::FlatCap, Qt::MiterJoin);
 		Guides highlight = guideManager->selectedVerticals();
-		for (auto guide : highlight)
+		for (auto guide : std::as_const(highlight))
 			p->drawLine(FPoint(guide, verticalFrom), FPoint(guide, verticalTo));
 		highlight = guideManager->selectedHorizontals();
-		for (auto guide : highlight)
+		for (auto guide : std::as_const(highlight))
 			p->drawLine(FPoint(horizontalFrom, guide), FPoint(horizontalTo, guide));
 	}
 
@@ -667,7 +667,7 @@ void GuideManagerCore::resetSelectionForPage(ScPage* page)
 void GuideManagerIO::readVerticalGuides(const QString& guideString, ScPage *page, GuideManagerCore::GuideType type, bool useOldGuides)
 {
 	QStringList gVal(guideString.split(' ', Qt::SkipEmptyParts));
-	for (const QString& guideStr : gVal)
+	for (const QString& guideStr : std::as_const(gVal))
 		useOldGuides ?
 			page->guides.addHorizontal(ScCLocale::toDoubleC(guideStr), type) :
 			page->guides.addVertical(ScCLocale::toDoubleC(guideStr), type);
@@ -676,7 +676,7 @@ void GuideManagerIO::readVerticalGuides(const QString& guideString, ScPage *page
 void GuideManagerIO::readHorizontalGuides(const QString& guideString, ScPage *page, GuideManagerCore::GuideType type, bool useOldGuides)
 {
 	QStringList gVal(guideString.split(' ', Qt::SkipEmptyParts));
-	for (const QString& guideStr : gVal)
+	for (const QString& guideStr : std::as_const(gVal))
 		useOldGuides ?
 			page->guides.addVertical(ScCLocale::toDoubleC(guideStr), type):
 			page->guides.addHorizontal(ScCLocale::toDoubleC(guideStr), type);
@@ -687,7 +687,7 @@ QString GuideManagerIO::writeHorizontalGuides(const ScPage *page, GuideManagerCo
 	QString retval;
 	QString tmp;
 	Guides tmpGuides = page->guides.horizontals(type);
-	for (auto guidePos : tmpGuides)
+	for (auto guidePos : std::as_const(tmpGuides))
 	{
 		tmp.setNum(guidePos);
 		retval += tmp + " ";
@@ -700,7 +700,7 @@ QString GuideManagerIO::writeVerticalGuides(const ScPage *page, GuideManagerCore
 	QString retval;
 	QString tmp;
 	Guides tmpGuides = page->guides.verticals(type);
-	for (auto guidePos : tmpGuides)
+	for (auto guidePos : std::as_const(tmpGuides))
 	{
 		tmp.setNum(guidePos);
 		retval += tmp + " ";

@@ -664,7 +664,7 @@ bool WpgPlug::convert(const QString& fn)
 	importedColors = painter.importedColors;
 	if (Elements.isEmpty())
 	{
-		for (const auto& importedColor : importedColors)
+		for (const auto& importedColor : std::as_const(importedColors))
 			m_Doc->PageColors.remove(importedColor);
 	}
 	if (progressDialog)

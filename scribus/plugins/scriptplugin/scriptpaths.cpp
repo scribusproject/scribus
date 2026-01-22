@@ -45,7 +45,7 @@ void ScriptPaths::buildMenu()
 	scriptsActions.clear();
 	menuManager->clearMenuStrings("OwnScripts");
 
-	for (const auto& scriptInfo: scriptsList)
+	for (const auto& scriptInfo: std::as_const(scriptsList))
 	{
 		// TODO: strippedName should be unique for the whole menu (repo index + script name?)... we could use the full path...
 		auto scriptName = scriptInfo.name;
@@ -78,7 +78,7 @@ void ScriptPaths::updateScriptsList()
 {
 	scriptsList.clear();
 	// TODO: how to manage duplicate file names? (in different repositories)
-	for (const auto& path: paths.paths) {
+	for (const auto& path: std::as_const(paths.paths)) {
 		{
 			QDir scriptDirectory(QDir::toNativeSeparators(path), "*.py", QDir::Name | QDir::IgnoreCase, QDir::Files | QDir::NoSymLinks);
 			for (const auto& file: scriptDirectory.entryList())
@@ -114,7 +114,7 @@ void ScriptPaths::updateScriptsList()
 void ScriptPaths::runScript(const QString& path)
 {
 	// TODO: give some sort of warning?
-	if (!QFileInfo(path).exists())
+	if (!QFileInfo::exists(path))
 		return;
 
 	emit runScriptFile(path);

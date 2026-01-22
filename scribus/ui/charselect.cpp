@@ -119,7 +119,7 @@ void CharSelect::slot_insertSpecialChar()
 	QString fontName = m_doc->currentStyle.charStyle().font().scName();
 	if (m_enhanced)
 		fontName = m_enhanced->getUsedFont();
-	for (QChar ch : chToIns)
+	for (QChar ch : std::as_const(chToIns))
 	{
 		if (ch == QChar(10))
 			ch = QChar(13);

@@ -290,7 +290,7 @@ SyntaxHighlighter::SyntaxHighlighter(QTextEdit *textEdit) : QSyntaxHighlighter(t
 	numberFormat.setForeground(colors.numberColor);
 	operatorFormat.setForeground(colors.signColor);
 
-	for (const QString& kw : keywords)
+	for (const QString& kw : std::as_const(keywords))
 	{
 		rule.pattern = QRegularExpression("\\b" + kw + "\\b", QRegularExpression::CaseInsensitiveOption);
 		rule.format = keywordFormat;
@@ -323,7 +323,7 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
 	// Apply default text color
 	setFormat(0, text.length(), colors.textColor);
 
-	for (const HighlightingRule& rule : highlightingRules)
+	for (const HighlightingRule& rule : std::as_const(highlightingRules))
 	{
 		QRegularExpression expression(rule.pattern);
 		QRegularExpressionMatch match = expression.match(text);
@@ -377,13 +377,13 @@ SyntaxColors::SyntaxColors()
 	}
 	else
 	{
-		errorColor = QColor::fromString("#aa0000");
-		commentColor = QColor::fromString("#A0A0A0");
-		keywordColor = QColor::fromString("#00007f");
-		signColor = QColor::fromString("#aa00ff");
-		numberColor = QColor::fromString("#ffaa00");
-		stringColor = QColor::fromString("#005500");
-		textColor = QColor::fromString("#000000");
+		errorColor = QColor(0xaa0000);
+		commentColor = QColor(0xA0A0A0);
+		keywordColor = QColor(0x00007f);
+		signColor = QColor(0xaa00ff);
+		numberColor = QColor(0xffaa00);
+		stringColor = QColor(0x005500);
+		textColor = QColor(QColorConstants::Black);
 	}
 }
 

@@ -80,7 +80,7 @@ void SWParse::parseItem(PageItem *aFrame)
 	changes = content.count(SpecialChars::NBSPACE);
 
 	// for every config string, replace its spaces by nbsp's.
-	for (const QString& shortWord : shorts)
+	for (const QString& shortWord : std::as_const(shorts))
 	{
 		unbreak = shortWord;
 		// replace ' ' from cfg with '~' in the replacement string
