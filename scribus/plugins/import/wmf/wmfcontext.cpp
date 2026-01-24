@@ -11,11 +11,11 @@ for which a new license (GPL+exception) is in place.
 using namespace std;
 
 WMFGraphicsState::WMFGraphicsState()
-				: windowOrg(0.0, 0.0),
+				: position (0.0, 0.0),
+				  windowOrg(0.0, 0.0),
 				  windowExt(1.0, 1.0),
 				  viewportOrg(0.0, 0.0),
-				  viewportExt(1.0, 1.0),
-				  position (0.0, 0.0)
+				  viewportExt(1.0, 1.0)
 {
 
 }
@@ -60,7 +60,7 @@ WMFContext::WMFContext()
 
 void WMFContext::save()
 {
-	if (this->count() > 0)
+	if (!this->isEmpty())
 		push( WMFGraphicsState(top()) );
 	else
 	{
