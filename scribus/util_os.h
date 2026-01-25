@@ -7,12 +7,38 @@ for which a new license (GPL+exception) is in place.
 #ifndef _UTIL_OS_H
 #define _UTIL_OS_H
 
-
+#include <QtGlobal>
 #include "scribusapi.h"
 
 bool SCRIBUS_API os_is_osx();
 bool SCRIBUS_API os_is_win();
 bool SCRIBUS_API os_is_win64();
 bool SCRIBUS_API os_is_unix();
+
+// Unfortunately some versions of MVSC to not deal
+// correctly with constexpr + dllexport/dllimport
+#ifdef Q_OS_MACOS
+constexpr bool os_is_osx_constexpr() { return true; }
+#else
+constexpr bool os_is_osx_constexpr() { return false; }
+#endif
+
+#ifdef Q_OS_WIN
+constexpr bool os_is_win_constexpr() { return true; }
+#else
+constexpr bool os_is_win_constexpr() { return false; }
+#endif
+
+#ifdef Q_OS_WIN64
+constexpr bool os_is_win64_constexpr() { return true; }
+#else
+constexpr bool os_is_win64_constexpr() { return false; }
+#endif
+
+#ifdef Q_OS_UNIX
+constexpr bool os_is_unix_constexpr() { return true; }
+#else
+constexpr bool os_is_unix_constexpr() { return false; }
+#endif
 
 #endif
