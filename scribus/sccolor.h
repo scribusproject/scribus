@@ -170,7 +170,7 @@ class SCRIBUS_API ColorList : public QMap<QString, ScColor>
 public:
 	ColorList(ScribusDoc* doc = nullptr, bool retainDoc = false);
 
-	ColorList& operator= (const ColorList& list);
+	ColorList& operator=(const ColorList& list);
 
 	/** \brief Get the document the list is related , return in cpp due to scribusdoc class declaration */
 	ScribusDoc* document() const;
@@ -186,6 +186,9 @@ public:
 
 	/** \brief Ensure availability of black and white colors. */
 	void ensureDefaultColors();
+
+	/** \brief Remove specified colors */
+	void removeColors(const QStringList& colorNames);
 
 	/** \brief Try to add ScColor col to the list, if col already exists either by name or by value the existing color name is returned. */
 	QString tryAddColor(QString name, const ScColor& col);

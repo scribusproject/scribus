@@ -321,7 +321,7 @@ QString ScColor::nameCMYK(const ScribusDoc* doc) const
 	QString tmp, name = CommonStrings::None;
 	ScColorEngine::getCMYKValues(*this, doc, cmyk);
 	cmyk.getValues(c, m, y, k);
-	name="#";
+	name = "#";
 	tmp.setNum(c, 16);
 	if (tmp.length() < 2)
 		tmp.insert(0, "0");
@@ -425,7 +425,7 @@ void ColorList::setDocument(ScribusDoc* doc)
 	m_doc = doc;
 }
 
-ColorList& ColorList::operator= (const ColorList& list)
+ColorList& ColorList::operator=(const ColorList& list)
 {
 	clear();
 	if (!m_retainDoc)
@@ -436,10 +436,8 @@ ColorList& ColorList::operator= (const ColorList& list)
 
 void ColorList::addColors(const ColorList& colorList, bool overwrite)
 {
-	ColorList::ConstIterator it;
-	ColorList::ConstIterator itend;
-	itend = colorList.end();
-	for (it = colorList.begin(); it != itend; ++it)
+	auto itEnd = colorList.end();
+	for (auto it = colorList.begin(); it != itEnd; ++it)
 	{
 		if (overwrite || !contains(it.key()))
 			insert(it.key(), it.value());
@@ -547,14 +545,23 @@ void ColorList::ensureRegistration()
 	insert("Registration", cc);
 }
 
+void ColorList::removeColors(const QStringList& colorNames)
+{
+	for (const auto& colorName : colorNames)
+	{
+		if (colorName == "Black" || colorName == "White" || colorName == "Registration")
+			continue;
+		remove(colorName);
+	}
+}
+
 QString ColorList::tryAddColor(QString name, const ScColor& col)
 {
 	if (contains(name))
 		return name;
 	bool found = false;
 	QString ret = name;
-	ColorList::Iterator it;
-	for (it = begin(); it != end(); ++it)
+	for (auto it = begin(); it != end(); ++it)
 	{
 		if (it.value() == col)
 		{
