@@ -129,11 +129,11 @@ FormatsManager::FormatsManager()
 	m_fmtMimeTypes.insert(FormatsManager::XFIG, QStringList() << "image/x-xfig");
 	m_fmtMimeTypes.insert(FormatsManager::XPM,  QStringList() << "image/xpm ");
 
-	QMapIterator<int, QStringList> i(m_fmts);
-	while (i.hasNext())
+	QMapIterator<int, QStringList> it(m_fmts);
+	while (it.hasNext())
 	{
-		i.next();
-		m_fmtList << i.value().first().toUpper();
+		it.next();
+		m_fmtList << it.value().first().toUpper();
 	}
 
 	m_qtSupportedImageFormats = QImageReader::supportedImageFormats();
@@ -142,11 +142,11 @@ FormatsManager::FormatsManager()
 	{
 		QString fmt = m_qtSupportedImageFormats[qf];
 		bool found = false;
-		QMapIterator<int, QStringList> i(m_fmts);
-		while (i.hasNext())
+		QMapIterator<int, QStringList> it2(m_fmts);
+		while (it2.hasNext())
 		{
-			i.next();
-			if (i.value().contains(fmt))
+			it2.next();
+			if (it2.value().contains(fmt))
 				found = true;
 		}
 		if (!found)
@@ -231,32 +231,32 @@ QString FormatsManager::fileDialogFormatList(int type) const
 QString FormatsManager::extensionListForFormat(int type, int listType) const
 {
 	QString nameMatch;
-	QString separator(listType==0 ? " *." : "|");
+	QString separator(listType == 0 ? " *." : "|");
+
 	QMapIterator<int, QStringList> it(m_fmts);
-	bool first = true;
 	while (it.hasNext())
 	{
 		it.next();
-		if (type & it.key())
+		if ((type & it.key()) == 0)
+			continue;
+
+		//Just in case the Qt used doesn't support jpeg or gif
+		if ((JPEG & it.key()) && !m_supportedImageFormats.contains(QByteArray("jpg")))
+			continue;
+		if ((GIF & it.key()) && !m_supportedImageFormats.contains(QByteArray("gif")))
+			continue;
+
+		QStringListIterator itSL(it.value());
+		while (itSL.hasNext())
 		{
-			//Just in case the Qt used doesn't support jpeg or gif
-			if ((JPEG & it.key()) && !m_supportedImageFormats.contains(QByteArray("jpg")))
-				continue;
-			if ((GIF & it.key()) && !m_supportedImageFormats.contains(QByteArray("gif")))
-				continue;
-			if (first)
-				first = false;
-			QStringListIterator itSL(it.value());
-			while (itSL.hasNext())
-			{
-				if (listType==0)
-					nameMatch += separator;
-				nameMatch += itSL.next();
-				if (listType == 1 && itSL.hasNext())
-					nameMatch += separator;
-			}
+			if (listType == 0)
+				nameMatch += separator;
+			nameMatch += itSL.next();
+			if (listType == 1 && itSL.hasNext())
+				nameMatch += separator;
 		}
-		if (listType == 1 && it.hasNext() && nameMatch.length() > 0 && !nameMatch.endsWith(separator))
+
+		if (listType == 1 && it.hasNext() && !nameMatch.isEmpty() && !nameMatch.endsWith(separator))
 			nameMatch += separator;
 	}
 	if (listType == 0 && nameMatch.startsWith(" "))
@@ -275,40 +275,40 @@ void FormatsManager::fileTypeStrings(int type, QString& formatList, QString& for
 	while (it.hasNext())
 	{
 		it.next();
-		if (type & it.key())
+		if ((type & it.key()) == 0)
+			continue;
+
+		//Just in case the Qt used doesn't support jpeg or gif
+		if ((JPEG & it.key()) && !m_supportedImageFormats.contains(QByteArray("jpg")))
+			continue;
+		if ((GIF & it.key()) && !m_supportedImageFormats.contains(QByteArray("gif")))
+			continue;
+
+		if (first)
+			first = false;
+		else
+			allFormats += " ";
+
+		QString text = m_fmtNames[it.key()] + " (";
+		QStringListIterator itSL(it.value());
+		while (itSL.hasNext())
 		{
-			//Just in case the Qt used doesn't support jpeg or gif
-			if ((JPEG & it.key()) && !m_supportedImageFormats.contains(QByteArray("jpg")))
-				continue;
-			if ((GIF & it.key()) && !m_supportedImageFormats.contains(QByteArray("gif")))
-				continue;
-
-			if (first)
-				first = false;
-			else
-				allFormats += " ";
-
-			QString text = m_fmtNames[it.key()] + " (";
-			QStringListIterator itSL(it.value());
-			while (itSL.hasNext())
+			QString t("*." + itSL.next());
+			allFormats += t;
+			text += t;
+			if (!lowerCaseOnly)
 			{
-				QString t("*." + itSL.next());
-				allFormats += t;
-				text += t;
-				if (!lowerCaseOnly)
-				{
-					allFormats += " " + t.toUpper();
-					text += " " + t.toUpper();
-				}
-				if (itSL.hasNext())
-				{
-					allFormats += " ";
-					text += " ";
-				}
+				allFormats += " " + t.toUpper();
+				text += " " + t.toUpper();
 			}
-			text += ")";
-			formats.append(text);
+			if (itSL.hasNext())
+			{
+				allFormats += " ";
+				text += " ";
+			}
 		}
+		text += ")";
+		formats.append(text);
 	}
 	formatList += allFormats + ");;";
 	formats.sort(Qt::CaseInsensitive);
