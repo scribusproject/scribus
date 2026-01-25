@@ -10,16 +10,6 @@ for which a new license (GPL+exception) is in place.
 
 using namespace std;
 
-WMFGraphicsState::WMFGraphicsState()
-				: position (0.0, 0.0),
-				  windowOrg(0.0, 0.0),
-				  windowExt(1.0, 1.0),
-				  viewportOrg(0.0, 0.0),
-				  viewportExt(1.0, 1.0)
-{
-
-}
-
 void WMFGraphicsState::setWindowOrg(double x, double y)
 {
 	windowOrg = QPointF(x, y);
