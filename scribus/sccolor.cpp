@@ -259,7 +259,7 @@ void ScColor::getLab(double *L, double *a, double *b) const
 QString ScColor::name() const
 {
 	int value;
-	QString tmp, name="#";
+	QString tmp, name = "#";
 
 	switch (m_Model) 
 	{
@@ -317,7 +317,7 @@ QString ScColor::nameCMYK(const ScribusDoc* doc) const
 	QString tmp, name = CommonStrings::None;
 	ScColorEngine::getCMYKValues(*this, doc, cmyk);
 	cmyk.getValues(c, m, y, k);
-	name="#";
+	name = "#";
 	tmp.setNum(c, 16);
 	if (tmp.length() < 2)
 		tmp.insert(0, "0");
@@ -367,17 +367,17 @@ void ScColor::setNamedColor(QString colorName)
 	bool ok;
 	if (colorName.length () == 9)
 	{
-		int c = colorName.midRef(1,2).toInt(&ok, 16);
-		int m = colorName.midRef(3,2).toInt(&ok, 16);
-		int y = colorName.midRef(5,2).toInt(&ok, 16);
-		int k = colorName.midRef(7,2).toInt(&ok, 16);
+		int c = colorName.midRef(1, 2).toInt(&ok, 16);
+		int m = colorName.midRef(3, 2).toInt(&ok, 16);
+		int y = colorName.midRef(5, 2).toInt(&ok, 16);
+		int k = colorName.midRef(7, 2).toInt(&ok, 16);
 		setColor(c, m, y, k);
 	}
 	else if (colorName.length () == 7)
 	{
-		int r = colorName.midRef(1,2).toInt(&ok, 16);
-		int g = colorName.midRef(3,2).toInt(&ok, 16);
-		int b = colorName.midRef(5,2).toInt(&ok, 16);
+		int r = colorName.midRef(1, 2).toInt(&ok, 16);
+		int g = colorName.midRef(3, 2).toInt(&ok, 16);
+		int b = colorName.midRef(5, 2).toInt(&ok, 16);
 		setRgbColor(r, g, b);
 	}
 }
@@ -419,7 +419,7 @@ void ColorList::setDocument(ScribusDoc* doc)
 	m_doc = doc;
 }
 
-ColorList& ColorList::operator= (const ColorList& list)
+ColorList& ColorList::operator=(const ColorList& list)
 {
 	clear();
 	if (!m_retainDoc)
@@ -430,10 +430,8 @@ ColorList& ColorList::operator= (const ColorList& list)
 
 void ColorList::addColors(const ColorList& colorList, bool overwrite)
 {
-	ColorList::ConstIterator it;
-	ColorList::ConstIterator itend;
-	itend = colorList.end();
-	for (it = colorList.begin(); it != itend; ++it)
+	auto itEnd = colorList.end();
+	for (auto it = colorList.begin(); it != itEnd; ++it)
 	{
 		if (overwrite || !contains(it.key()))
 			insert(it.key(), it.value());
@@ -547,8 +545,7 @@ QString ColorList::tryAddColor(QString name, const ScColor& col)
 		return name;
 	bool found = false;
 	QString ret = name;
-	ColorList::Iterator it;
-	for (it = begin(); it != end(); ++it)
+	for (auto it = begin(); it != end(); ++it)
 	{
 		if (it.value() == col)
 		{

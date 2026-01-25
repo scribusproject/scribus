@@ -170,9 +170,9 @@ class SCRIBUS_API ColorList : public QMap<QString, ScColor>
 public:
 	ColorList(ScribusDoc* doc = nullptr, bool retainDoc = false);
 
-	ColorList& operator= (const ColorList& list);
+	ColorList& operator=(const ColorList& list);
 
-	/** \brief Get the document the list is related , return in cpp due to scribusdoc class delcaration */
+	/** \brief Get the document the list is related , return in cpp due to scribusdoc class declaration */
 	ScribusDoc* document() const;
 
 	/** \brief Assign the doc to which the list belong to.*/
