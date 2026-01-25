@@ -49,6 +49,7 @@ for which a new license (GPL+exception) is in place.
 #include "util_file.h"
 #include "util_ghostscript.h"
 #include "util_math.h"
+#include "util_os.h"
 
 #include <cairo.h>
 
@@ -565,7 +566,10 @@ bool AIPlug::extractFromPDF(const QString& infile, const QString& outfile) const
 	try
 	{
 		PoDoFo::PdfMemDocument doc;
-		doc.Load(infile.toLocal8Bit().data());
+		if constexpr (os_is_win_constexpr())
+			doc.Load(infile.toUtf8().data());
+		else
+			doc.Load(infile.toLocal8Bit().data());
 
 		PoDoFo::PdfPage& curPage = doc.GetPages().GetPageAt(0);
 		PoDoFo::PdfObject& pageObj = curPage.GetObject();
@@ -633,9 +637,13 @@ bool AIPlug::extractFromPDF(const QString& infile, const QString& outfile) const
 #else
 	try
 	{
-		PoDoFo::PdfError::EnableDebug( false );
-		PoDoFo::PdfError::EnableLogging( false );
-		PoDoFo::PdfMemDocument doc( infile.toLocal8Bit().data() );
+		PoDoFo::PdfError::EnableDebug(false);
+		PoDoFo::PdfError::EnableLogging(false);
+#if defined(Q_OS_WIN32)
+		PoDoFo::PdfMemDocument doc((const wchar_t*) infile.utf16());
+#else
+		PoDoFo::PdfMemDocument doc(infile.toLocal8Bit().data());
+#endif
 		PoDoFo::PdfPage *curPage = doc.GetPage(0);
 		if (curPage != nullptr)
 		{

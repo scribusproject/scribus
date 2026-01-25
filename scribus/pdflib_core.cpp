@@ -84,8 +84,8 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_file.h"
 #include "util_formats.h"
-#include "util_math.h"
 #include "util_ghostscript.h"
+#include "util_math.h"
 
 #ifdef HAVE_OSG
 	#include "third_party/prc/exportPRC.h"
@@ -9822,7 +9822,13 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 		PoDoFo::PdfError::EnableLogging(false);
 #endif
 		doc.reset(new PoDoFo::PdfMemDocument());
+#if defined(Q_OS_WIN32) && (PODOFO_VERSION >= PODOFO_MAKE_VERSION(0, 10, 0))
+		doc->Load(fn.toUtf8().data());
+#elif defined(Q_OS_WIN32)
+		doc->Load((const wchar_t*) fn.utf16());
+#else
 		doc->Load(fn.toLocal8Bit().data());
+#endif
 	}
 	catch (PoDoFo::PdfError& e)
 	{

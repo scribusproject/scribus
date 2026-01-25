@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "scribuscore.h"
 #include "scimgdataloader_pdf.h"
+#include "util_os.h"
 
 #ifdef HAVE_PODOFO
 #include <podofo/podofo.h>
@@ -57,12 +58,19 @@ bool ScImgDataLoader_PDF::loadPicture(const QString& fn, int page, int gsRes, bo
 	{
 #if (PODOFO_VERSION >= PODOFO_MAKE_VERSION(0, 10, 0))
 		PoDoFo::PdfMemDocument doc;
-		doc.Load(fn.toLocal8Bit().data());
+		if constexpr (os_is_win_constexpr())
+			doc.Load(fn.toUtf8().data());
+		else
+			doc.Load(fn.toLocal8Bit().data());
 		m_imageInfoRecord.numberOfPages = doc.GetPages().GetCount();
 #else
 		PoDoFo::PdfError::EnableDebug(false);
 		PoDoFo::PdfError::EnableLogging(false);
+#if defined(Q_OS_WIN32)
+		PoDoFo::PdfMemDocument doc((const wchar_t*) fn.utf16());
+#else
 		PoDoFo::PdfMemDocument doc(fn.toLocal8Bit().data());
+#endif
 		m_imageInfoRecord.numberOfPages = doc.GetPageCount();
 #endif
 		if (page > m_imageInfoRecord.numberOfPages)
