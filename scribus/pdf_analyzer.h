@@ -160,10 +160,11 @@ public:
 	 * \param imgs List of images that this page contains.
 	 */
 	bool inspectPDF(int pageNum, QList<PDFColorSpace> & usedColorSpaces, bool & hasTransparency, QList<PDFFont> & usedFonts, QList<PDFImage> & imgs);
+
 #ifdef HAVE_PODOFO
 private:
 	// pointer to the PoDoFo Pdf's object
-	PoDoFo::PdfMemDocument* m_pdfdoc;
+	PoDoFo::PdfMemDocument* m_pdfdoc { nullptr };
 
 	// Path to the analyzed file
 	QString m_filename;

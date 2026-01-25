@@ -57,12 +57,20 @@ bool ScImgDataLoader_PDF::loadPicture(const QString& fn, int page, int gsRes, bo
 	{
 #if (PODOFO_VERSION >= PODOFO_MAKE_VERSION(0, 10, 0))
 		PoDoFo::PdfMemDocument doc;
+#if defined(Q_OS_WIN32)
+		doc.Load(fn.toUtf8().data());
+#else
 		doc.Load(fn.toLocal8Bit().data());
+#endif
 		m_imageInfoRecord.numberOfPages = doc.GetPages().GetCount();
 #else
 		PoDoFo::PdfError::EnableDebug(false);
 		PoDoFo::PdfError::EnableLogging(false);
+#if defined(Q_OS_WIN32)
+		PoDoFo::PdfMemDocument doc((const wchar_t*) fn.utf16());
+#else
 		PoDoFo::PdfMemDocument doc(fn.toLocal8Bit().data());
+#endif
 		m_imageInfoRecord.numberOfPages = doc.GetPageCount();
 #endif
 		if (page > m_imageInfoRecord.numberOfPages)

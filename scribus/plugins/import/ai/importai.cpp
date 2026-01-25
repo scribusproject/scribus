@@ -572,7 +572,11 @@ bool AIPlug::extractFromPDF(const QString& infile, const QString& outfile) const
 	try
 	{
 		PoDoFo::PdfMemDocument doc;
+#if defined(Q_OS_WIN32)
+		doc.Load(infile.toUtf8().data());
+#else
 		doc.Load(infile.toLocal8Bit().data());
+#endif
 
 		PoDoFo::PdfPage& curPage = doc.GetPages().GetPageAt(0);
 		PoDoFo::PdfObject& pageObj = curPage.GetObject();
@@ -640,9 +644,13 @@ bool AIPlug::extractFromPDF(const QString& infile, const QString& outfile) const
 #else
 	try
 	{
-		PoDoFo::PdfError::EnableDebug( false );
-		PoDoFo::PdfError::EnableLogging( false );
-		PoDoFo::PdfMemDocument doc( infile.toLocal8Bit().data() );
+		PoDoFo::PdfError::EnableDebug(false);
+		PoDoFo::PdfError::EnableLogging(false);
+#if defined(Q_OS_WIN32)
+		PoDoFo::PdfMemDocument doc((const wchar_t*) infile.utf16());
+#else
+		PoDoFo::PdfMemDocument doc(infile.toLocal8Bit().data());
+#endif
 		PoDoFo::PdfPage *curPage = doc.GetPage(0);
 		if (curPage != nullptr)
 		{
@@ -683,7 +691,7 @@ bool AIPlug::extractFromPDF(const QString& infile, const QString& outfile) const
 							long bLen = oStream.GetLength();
 							char *Buffer = oStream.TakeBuffer();
 							outf.write(Buffer, bLen);
-							free( Buffer );
+							free(Buffer);
 						}
 						else
 						{

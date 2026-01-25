@@ -9816,7 +9816,13 @@ bool PDFLibCore::PDF_EmbeddedPDF(PageItem* c, const QString& fn, double sx, doub
 		PoDoFo::PdfError::EnableLogging(false);
 #endif
 		doc.reset(new PoDoFo::PdfMemDocument());
+#if defined(Q_OS_WIN32) && (PODOFO_VERSION >= PODOFO_MAKE_VERSION(0, 10, 0))
+		doc->Load(fn.toUtf8().data());
+#elif defined(Q_OS_WIN32)
+		doc->Load((const wchar_t*) fn.utf16());
+#else
 		doc->Load(fn.toLocal8Bit().data());
+#endif
 	}
 	catch (PoDoFo::PdfError& e)
 	{

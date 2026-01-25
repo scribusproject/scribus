@@ -92,15 +92,20 @@ PDFAnalyzer::PDFAnalyzer(QString & filename)
 		nameMapInited = true;
 	}
 
-	m_pdfdoc = nullptr;
-
 #if (PODOFO_VERSION < PODOFO_MAKE_VERSION(0, 10, 0))
 	PdfError::EnableDebug( false );
 #endif
+
 	try
 	{
 		m_pdfdoc = new PdfMemDocument();
+#if defined(Q_OS_WIN32) && (PODOFO_VERSION >= PODOFO_MAKE_VERSION(0, 10, 0))
+		m_pdfdoc->Load(filename.toUtf8().data());
+#elif defined(Q_OS_WIN32)
+		m_pdfdoc->Load((const wchar_t*) filename.utf16());
+#else
 		m_pdfdoc->Load(filename.toLocal8Bit().data());
+#endif
 	}
 	catch (PdfError & e)
 	{
