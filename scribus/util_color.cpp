@@ -113,7 +113,7 @@ QColor getOldColorShade(uchar red, uchar green, uchar blue, int shade)
 	return color;
 }
 
-QImage ProofImage(QImage *Image, ScribusDoc* doc)
+QImage ProofImage(const QImage *Image, const ScribusDoc* doc)
 {
 	QImage out = Image->copy();
 	bool cmsUse = doc ? doc->HasCMS : false;
@@ -130,7 +130,7 @@ QImage ProofImage(QImage *Image, ScribusDoc* doc)
 	return out;
 }
 
-QColor SetColor(ScribusDoc *currentDoc, const QString& color, int shad)
+QColor SetColor(const ScribusDoc *currentDoc, const QString& color, int shad)
 {
 	if (color == CommonStrings::None)
 		return { 0, 0, 0, 0 };
@@ -155,7 +155,7 @@ QPixmap * getSmallPixmap(const QColor& rgb)
 	if (pxCache.contains(index))
 		return pxCache[index];
 
-	QPixmap *pm = new QPixmap(15, 15);
+	auto *pm = new QPixmap(15, 15);
 	pm->fill(rgb);
 	QPainter p;
 	p.begin(pm);
@@ -176,7 +176,7 @@ QPixmap * getWidePixmap(const QColor& rgb)
 	if (pxCache.contains(index))
 		return pxCache[index];
 
-	QPixmap *pm = new QPixmap(30, 15);
+	auto *pm = new QPixmap(30, 15);
 	pm->fill(rgb);
 	pxCache.insert(index, pm);
 	return pm;
@@ -233,7 +233,7 @@ static quint64 code64(const ScColor & col)
 	return result;
 }
 
-QPixmap * getFancyPixmap(const ScColor& col, ScribusDoc* doc)
+QPixmap * getFancyPixmap(const ScColor& col, const ScribusDoc* doc)
 {
 	static ScPixmapCache<quint64> pxCache;
 
@@ -479,7 +479,7 @@ void HLSTORGB (uchar& hue, uchar& lightness, uchar& saturation)
 	saturation = qRound(255 * HLSVALUE(var_1, var_2, H - (1.0 / 3.0)));
 }
 
-double getCurveYValue(FPointArray &curve, double x, bool linear)
+double getCurveYValue(const FPointArray &curve, double x, bool linear)
 {
 	double t;
 	FPoint p;
@@ -492,7 +492,7 @@ double getCurveYValue(FPointArray &curve, double x, bool linear)
 	p = curve.point(0);
 	if (x < p.x())
 		return p.y();
-	p = curve.point(curve.size()-1);
+	p = curve.point(curve.size() - 1);
 	if (x >= p.x())
 		return p.y();
 	int cc = 0;
@@ -505,14 +505,14 @@ double getCurveYValue(FPointArray &curve, double x, bool linear)
 	}
 	if (cc > 1)
 	{
-		p0 = curve.point(cc-2);
-		p1 = curve.point(cc-1);
+		p0 = curve.point(cc - 2);
+		p1 = curve.point(cc - 1);
 	}
 	else
 		p1 = p0 = curve.point(0);
 	p2 = p;
-	if (cc < curve.size()-1)
-		p3 = curve.point(cc+1);
+	if (cc < curve.size() - 1)
+		p3 = curve.point(cc + 1);
 	else
 		p3 = p;
 	// Calculate the value
@@ -604,7 +604,7 @@ bool importColorsFromFile(const QString& fileName, ColorList &EditColors, QHash<
 {
 	if (fileName.isEmpty())
 		return false;
-	int oldCount = EditColors.count();
+	qsizetype oldCount = EditColors.count();
 
 	QFileInfo fi(fileName);
 	QString ext = fi.suffix().toLower();
@@ -625,11 +625,8 @@ bool importColorsFromFile(const QString& fileName, ColorList &EditColors, QHash<
 			ColorList LColors;
 			if (fl.readColors(LColors))
 			{
-				ColorList::Iterator it;
-				for (it = LColors.begin(); it != LColors.end(); ++it)
-				{
+				for (auto it = LColors.begin(); it != LColors.end(); ++it)
 					EditColors.tryAddColor(it.key(), it.value());
-				}
 				return (EditColors.count() != oldCount);
 			}
 		}
@@ -801,7 +798,7 @@ bool importColorsFromFile(const QString& fileName, ColorList &EditColors, QHash<
 							gra.addStop(color, ramp, 0.5, opa, name, shade);
 							grad = grad.nextSibling();
 						}
-						if ((!dialogGradients->contains(pg.attribute("Name"))) || (merge))
+						if (!dialogGradients->contains(pg.attribute("Name")) || merge)
 							dialogGradients->insert(pg.attribute("Name"), gra);
 						else
 						{
@@ -889,7 +886,7 @@ bool importColorsFromFile(const QString& fileName, ColorList &EditColors, QHash<
 			{
 				ScColor tmp;
 				colorEn = tsC.readLine();
-				if (colorEn.length() > 0 && colorEn[0] == QChar('#'))
+				if (!colorEn.isEmpty() && colorEn[0] == QChar('#'))
 					continue;
 				ScTextStream CoE(&colorEn, QIODevice::ReadOnly);
 				CoE >> rVal;
@@ -908,7 +905,7 @@ bool importColorsFromFile(const QString& fileName, ColorList &EditColors, QHash<
 				}
 				if (colorName == "Untitled")
 					colorName.clear();
-				if (colorName.length() == 0)
+				if (colorName.isEmpty())
 				{
 					if (!cus)
 						colorName = paletteName + QString("#%1%2%3").arg(rVal, 2, 16).arg(gVal, 2, 16).arg(bVal, 2, 16).toUpper();

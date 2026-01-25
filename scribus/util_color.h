@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 
 class ScribusDoc;
 
-QColor SCRIBUS_API SetColor(ScribusDoc *currentDoc, const QString& color, int shad);
+QColor SCRIBUS_API SetColor(const ScribusDoc *currentDoc, const QString& color, int shad);
 
 /*! \brief Create a cool all-infos pixmaps for the specified color.
 \param col Scribus color
@@ -27,7 +27,7 @@ QColor SCRIBUS_API SetColor(ScribusDoc *currentDoc, const QString& color, int sh
  */
 QPixmap SCRIBUS_API *getSmallPixmap(const QColor& rgb);
 QPixmap SCRIBUS_API *getWidePixmap(const QColor& rgb);
-QPixmap SCRIBUS_API *getFancyPixmap(const ScColor& col, ScribusDoc* doc);
+QPixmap SCRIBUS_API *getFancyPixmap(const ScColor& col, const ScribusDoc* doc);
 
 /*! \brief Put toPaint pixmap into target at the x, y place.
 There is handled the alpha channel/transparency too. In the beginning
@@ -41,7 +41,7 @@ in alpha mask too.
 \param useMask unused now
  */
 void SCRIBUS_API paintAlert(const QPixmap &toPaint, QPixmap &target, int x = 0, int y = 0);
-QImage SCRIBUS_API ProofImage(QImage *Im, ScribusDoc* doc);
+QImage SCRIBUS_API ProofImage(const QImage *Im, const ScribusDoc* doc);
 
 /*! \brief Associate a color shade to a document color according to pre-1.3.4cvs rgb shade calculation method, 
      creating new document color if necessary
@@ -70,7 +70,7 @@ QColor SCRIBUS_API getOldColorShade(uchar red, uchar green, uchar blue, int shad
  * \param green the green component (modified in place).
  * \param blue the blue component (modified in place).
  */
-void SCRIBUS_API RGBTOHSV ( uchar& red, uchar& green, uchar& blue );
+void SCRIBUS_API RGBTOHSV(uchar& red, uchar& green, uchar& blue);
 
 unsigned char SCRIBUS_API INT_MULT ( unsigned char a, unsigned char b );
 
@@ -79,14 +79,14 @@ unsigned char SCRIBUS_API INT_MULT ( unsigned char a, unsigned char b );
  * \param saturation the saturation component (modified in place).
  * \param value the value component (modified in place).
  */
-void SCRIBUS_API HSVTORGB ( uchar& hue, uchar& saturation, uchar& value );
+void SCRIBUS_API HSVTORGB(uchar& hue, uchar& saturation, uchar& value);
 
 /*! \brief Convert a color in RGB space to HLS space (Hue, Lightness, Saturation).
  * \param red the red component.
  * \param green the green component.
  * \param blue the blue component.
  */
-void SCRIBUS_API RGBTOHLS ( uchar& red, uchar& green, uchar& blue );
+void SCRIBUS_API RGBTOHLS(uchar& red, uchar& green, uchar& blue);
 
 /*! \brief Implement the HLS "double hex-cone".
  * \param n1 lightness fraction (?)
@@ -94,16 +94,16 @@ void SCRIBUS_API RGBTOHLS ( uchar& red, uchar& green, uchar& blue );
  * \param hue hue "angle".
  * \return HLS value.
  */
-double SCRIBUS_API HLSVALUE ( double n1, double n2, double hue );
+double SCRIBUS_API HLSVALUE(double n1, double n2, double hue);
 
 /*! \brief Convert a color in HLS space to RGB space.
  * \param hue the hue component (modified in place).
  * \param lightness the lightness component (modified in place).
  * \param saturation the saturation component (modified in place).
  */
-void SCRIBUS_API HLSTORGB ( uchar& hue, uchar& lightness, uchar& saturation );
+void SCRIBUS_API HLSTORGB(uchar& hue, uchar& lightness, uchar& saturation);
 
-double SCRIBUS_API getCurveYValue(FPointArray &curve, double x, bool linear = false);
+double SCRIBUS_API getCurveYValue(const FPointArray &curve, double x, bool linear = false);
 
 double SCRIBUS_API Lum(uchar red, uchar green, uchar blue);
 double SCRIBUS_API LumD(double red, double green, double blue);
