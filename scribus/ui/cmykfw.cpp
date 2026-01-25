@@ -64,10 +64,10 @@ CMYKChoose::CMYKChoose(QWidget* parent, ScribusDoc* doc, const ScColor& orig, co
 	alertIcon = IconManager::instance().loadPixmap("alert.png");
 	imageA.fill( ScColorEngine::getDisplayColor(orig, m_doc) );
 	if ( ScColorEngine::isOutOfGamut(orig, m_doc) )
-		paintAlert(alertIcon,imageA, 2, 2, false);
+		paintAlert(alertIcon,imageA, 2, 2);
 	imageN.fill( ScColorEngine::getDisplayColor(orig, m_doc) );
 	if ( ScColorEngine::isOutOfGamut(orig, m_doc) )
-		paintAlert(alertIcon, imageN, 2, 2, false);
+		paintAlert(alertIcon, imageN, 2, 2);
 
 	resize( 498, 306 );
 	setWindowTitle( tr( "Edit Color" ) );
@@ -817,7 +817,7 @@ void CMYKChoose::selModel(const QString& mod)
 	}
 	imageN.fill( ScColorEngine::getDisplayColor(Farbe, m_doc) );
 	if (ScColorEngine::isOutOfGamut(Farbe, m_doc))
-		paintAlert(alertIcon, imageN, 2, 2, false);
+		paintAlert(alertIcon, imageN, 2, 2);
 	NewC->setPixmap( imageN );
 	NewC->setToolTip( "<qt>" + tr( "If color management is enabled, an exclamation mark indicates that the color may be outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management." ) + "</qt>");
 	OldC->setToolTip( "<qt>" + tr( "If color management is enabled, an exclamation mark indicates that the color may be outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management." ) + "</qt>");
@@ -937,7 +937,7 @@ void CMYKChoose::setColor()
 	}
 	imageN.fill(ScColorEngine::getDisplayColor(tmp, m_doc) );
 	if ( ScColorEngine::isOutOfGamut(tmp, m_doc) )
-		paintAlert(alertIcon, imageN, 2, 2, false);
+		paintAlert(alertIcon, imageN, 2, 2);
 	NewC->setPixmap( imageN );
 }
 
@@ -969,7 +969,7 @@ void CMYKChoose::setColor2(int h, int s, bool ende)
 	}
 	imageN.fill( ScColorEngine::getDisplayColor(tmp, m_doc) );
 	if (ScColorEngine::isOutOfGamut(tmp, m_doc))
-		paintAlert(alertIcon, imageN, 2, 2, false);
+		paintAlert(alertIcon, imageN, 2, 2);
 	NewC->setPixmap( imageN );
 	Farbe = tmp;
 	if (ende)
@@ -1007,7 +1007,7 @@ void CMYKChoose::selFromSwatch(int itemIndex)
 	}
 	imageN.fill( ScColorEngine::getDisplayColor(tmp, m_doc) );
 	if ( ScColorEngine::isOutOfGamut(tmp, m_doc) )
-		paintAlert(alertIcon, imageN, 2, 2, false);
+		paintAlert(alertIcon, imageN, 2, 2);
 	NewC->setPixmap( imageN );
 	Farbe = tmp;
 	setValues();
