@@ -19,7 +19,7 @@ for which a new license (GPL+exception) is in place.
 
 class ScribusDoc;
 
-QColor SCRIBUS_API SetColor(ScribusDoc *currentDoc, const QString& color, int shad);
+QColor SCRIBUS_API SetColor(const ScribusDoc *currentDoc, const QString& color, int shad);
 
 /*! \brief Create a cool all-infos pixmaps for the specified color.
 \param col Scribus color
@@ -27,7 +27,7 @@ QColor SCRIBUS_API SetColor(ScribusDoc *currentDoc, const QString& color, int sh
  */
 QPixmap SCRIBUS_API *getSmallPixmap(const QColor& rgb);
 QPixmap SCRIBUS_API *getWidePixmap(const QColor& rgb);
-QPixmap SCRIBUS_API *getFancyPixmap(const ScColor& col, ScribusDoc* doc);
+QPixmap SCRIBUS_API *getFancyPixmap(const ScColor& col, const ScribusDoc* doc);
 
 /*! \brief Put toPaint pixmap into target at the x, y place.
 There is handled the alpha channel/transparency too. In the beginning
@@ -40,8 +40,8 @@ in alpha mask too.
 \param y coordinate
 \param useMask unused now
  */
-void SCRIBUS_API paintAlert(const QPixmap &toPaint, QPixmap &target, int x = 0, int y = 0, bool useMask = true);
-QImage SCRIBUS_API ProofImage(QImage *Im, ScribusDoc* doc);
+void SCRIBUS_API paintAlert(const QPixmap &toPaint, QPixmap &target, int x = 0, int y = 0);
+QImage SCRIBUS_API ProofImage(const QImage *Im, ScribusDoc* doc);
 
 /*! \brief Associate a color shade to a document color according to pre-1.3.4cvs rgb shade calculation method, 
      creating new document color if necessary
@@ -103,7 +103,7 @@ double SCRIBUS_API HLSVALUE ( double n1, double n2, double hue );
  */
 void SCRIBUS_API HLSTORGB ( uchar& hue, uchar& lightness, uchar& saturation );
 
-double SCRIBUS_API getCurveYValue(FPointArray &curve, double x, bool linear = false);
+double SCRIBUS_API getCurveYValue(const FPointArray &curve, double x, bool linear = false);
 
 double SCRIBUS_API Lum(uchar red, uchar green, uchar blue);
 double SCRIBUS_API LumD(double red, double green, double blue);
