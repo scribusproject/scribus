@@ -3777,7 +3777,7 @@ void ScribusMainWindow::slotGetContent()
 		if (dia->exec() == QDialog::Accepted)
 			fileNames = dia->selectedFiles();
 		delete dia;
-		//QStringList fileNames = CFileDialog( docDir, tr("Open"), formatD, "", fdShowPreview | fdExistingFiles);
+
 		if (!fileNames.isEmpty())
 		{
 			dirsContext->set("images", fileNames[0].left(fileNames[0].lastIndexOf("/")));
