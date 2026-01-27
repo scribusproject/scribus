@@ -2020,7 +2020,7 @@ QList<PageItem*> SVGPlug::parseUse(const QDomElement &e)
 	}
 	QString href = e.attribute("xlink:href").mid(1);
 	auto it = m_nodeMap.constFind(href);
-	if (it != m_nodeMap.end())
+	if (it != m_nodeMap.constEnd())
 	{
 		QDomElement elem = it.value().toElement();
 		if (parseTagName(elem) == "symbol")
