@@ -1697,8 +1697,9 @@ void VivaPlug::parseTextXML(const QDomElement& obNode, StoryText &itemText, int 
 		{
 			if (eo.hasAttribute("vt:story-attribute-set"))
 			{
-				applyParagraphAttrs(newStyle, AttributeSets.value(eo.attribute("vt:story-attribute-set")));
-				applyCharacterAttrs(newStyle.charStyle(), newStyle, AttributeSets.value(eo.attribute("vt:story-attribute-set")));
+				auto storyAttributeSet = AttributeSets.value(eo.attribute("vt:story-attribute-set"));
+				applyParagraphAttrs(newStyle, storyAttributeSet);
+				applyCharacterAttrs(newStyle.charStyle(), newStyle, storyAttributeSet);
 			}
 			for (QDomNode stx = eo.firstChild(); !stx.isNull(); stx = stx.nextSibling())
 			{
