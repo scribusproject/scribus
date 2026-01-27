@@ -237,7 +237,7 @@ void MarkDownIm::parseMarkDown()
 					QString family(m_item->itemText.charStyle(m_item->itemText.length()).font().family());
 					if (!family.isEmpty())
 					{
-						QStringList slist = PrefsManager::instance().appPrefs.fontPrefs.AvailFonts.fontMap[family];
+						QStringList slist = PrefsManager::instance().appPrefs.fontPrefs.AvailFonts.fontMap.value(family);
 						if (isBold && isItalic && slist.contains("Bold Italic"))
 							cs.setFont(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts[family + " Bold Italic"]);
 						if (isBold && !isItalic && slist.contains("Bold"))

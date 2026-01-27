@@ -413,7 +413,7 @@ QColor PropertiesPalette_Table::getColor(const QString& colorName, int shade) co
 	if (!m_doc)
 		return QColor();
 
-	return ScColorEngine::getDisplayColor(m_doc->PageColors[colorName], m_doc, shade);
+	return ScColorEngine::getDisplayColor(m_doc->PageColors.value(colorName), m_doc, shade);
 }
 
 void PropertiesPalette_Table::on_borderLineList_currentRowChanged(int row)

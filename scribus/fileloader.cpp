@@ -431,7 +431,7 @@ bool FileLoader::postLoad(ScribusDoc* currDoc)
 
 	if (dia.stickyReplacements->isChecked())
 	{
-		for (auto it = m_ReplacedFonts.begin(); it != m_ReplacedFonts.end(); ++it)
+		for (auto it = m_ReplacedFonts.cbegin(); it != m_ReplacedFonts.cend(); ++it)
 			m_prefsManager.appPrefs.fontPrefs.GFontSub[it.key()] = it.value();
 	}
 	currDoc->AllFonts->setSubstitutions(m_ReplacedFonts, currDoc);
@@ -451,7 +451,7 @@ void FileLoader::informReplacementFonts()
 
 	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	QString mess = tr("Some fonts used by this document have been substituted:") + "\n\n";
-	for (auto it = m_ReplacedFonts.begin(); it != m_ReplacedFonts.end(); ++it)
+	for (auto it = m_ReplacedFonts.cbegin(); it != m_ReplacedFonts.cend(); ++it)
 	{
 		mess += it.key() + tr(" was replaced by: ") + it.value() +"\n";
 	}

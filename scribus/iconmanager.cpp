@@ -98,7 +98,7 @@ QPixmap IconManager::loadPixmap(const QString &name, QSize size)
 	// Check in item cache
 	if (m_lookupTable.contains(name))
 	{
-		Item item = m_lookupTable[name];
+		Item item = m_lookupTable.value(name);
 		m_pxCache.insert(cName, pixmapFromFile(item.filePath, item.color, size));
 		return *m_pxCache[cName];
 	}
@@ -157,7 +157,7 @@ void IconManager::rebuildCache()
 
 bool IconManager::createLookupTable()
 {
-		QString iconSubdir(m_iconSets[m_activeSetBasename].path);
+		QString iconSubdir(m_iconSets.value(m_activeSetBasename).path);
 		QString iconSetPath(QString("%1%2%3").arg(ScPaths::instance().iconDir(), iconSubdir, ".xml"));
 		QDomDocument document;
 

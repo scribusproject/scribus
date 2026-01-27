@@ -163,7 +163,7 @@ void RulerT::paintEvent(QPaintEvent *)
 			p.setPen(QPen(selectedColor, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 		else
 			p.setPen(QPen(textColor, 2, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
-		switch (tabValues[i].tabType)
+		switch (tabValues.at(i).tabType)
 		{
 			case ParagraphStyle::LeftTab:
 				p.drawLine(qRound(tabValues[i].tabPosition), tabline, qRound(tabValues[i].tabPosition), bottomline - 1);

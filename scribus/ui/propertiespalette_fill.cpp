@@ -179,7 +179,7 @@ void PropertiesPalette_Fill::setCurrentItem_Fill(PageItem *item)
 		{
 			int index = qBound(0, item->selectedMeshPointX, item->meshGradientPatches.count()-1);
 
-			meshGradientPatch patch = item->meshGradientPatches[index];
+			meshGradientPatch patch = item->meshGradientPatches.at(index);
 			MeshPoint mp;
 			switch (item->selectedMeshPointY)
 			{

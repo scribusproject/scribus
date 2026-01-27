@@ -58,7 +58,7 @@ bool ScImgDataLoader_GIMP::loadPicture(const QString& fn, int /*page*/, int /*re
 		QRgb *d;
 		for (uint y = 0; y < patternHeight; y++)
 		{
-			d = (QRgb*)(m_image.scanLine( y ));
+			d = (QRgb*)(m_image.constScanLine( y ));
 			if (patternType == 1)
 			{
 				for (uint x = 0; x < patternWidth; x++)

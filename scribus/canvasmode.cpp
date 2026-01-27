@@ -205,10 +205,10 @@ void CanvasMode::drawSelectionHandles(QPainter *psx, QRectF selectionRect, bool 
 	double w = selectionRect.width();
 	double h = selectionRect.height();
 
-	QPen p = m_pen["selection-handle"];
+	QPen p = m_pen.value("selection-handle");
 
 	if (insideGroup)
-		p = m_pen["selection-group-inside"];
+		p = m_pen.value("selection-group-inside");
 
 	drawSelectionHandle(psx, QPointF(x, y), p, m_canvas->scale());
 	drawSelectionHandle(psx, QPointF(x + w / 2.0, y), p, m_canvas->scale());
@@ -366,8 +366,8 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 					if (currItem->isLine())
 					{
 						psx->setRenderHint(QPainter::Antialiasing);
-						drawSelectionHandle(psx, QPointF(x, y + h / 2.0), m_pen["selection-handle"], m_canvas->scale());
-						drawSelectionHandle(psx, QPointF(x + w, y + h / 2.0), m_pen["selection-handle"], m_canvas->scale());
+						drawSelectionHandle(psx, QPointF(x, y + h / 2.0), m_pen.value("selection-handle"), m_canvas->scale());
+						drawSelectionHandle(psx, QPointF(x + w, y + h / 2.0), m_pen.value("selection-handle"), m_canvas->scale());
 					}
 					else
 						drawSelectionHandles(psx, QRectF(x, y, w, h));
@@ -377,7 +377,7 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 					for (int i = 0 ; i <  currItem->weldList.count(); i++)
 					{
 						PageItem::WeldingInfo wInf =  currItem->weldList.at(i);
-						drawWeldMarker(psx, QPointF(wInf.weldPoint.x(), wInf.weldPoint.y()), m_color["weld"], m_canvas->scale());
+						drawWeldMarker(psx, QPointF(wInf.weldPoint.x(), wInf.weldPoint.y()), m_color.value("weld"), m_canvas->scale());
 					}
 				}
 			}
@@ -1730,7 +1730,7 @@ void CanvasMode::setStyle()
 	m_color["highlight"]		= QColor(220, 58, 140);
 	m_color["snap-line"]		= Qt::green;
 	m_color["test"]				= Qt::magenta;
-	QColor selectionAlpha		= m_color["frame-selection"];
+	QColor selectionAlpha		= m_color.value("frame-selection");
 	selectionAlpha.setAlphaF(.05f);
 
 //CB for now 1.0 looks ok for Mac
@@ -1740,30 +1740,30 @@ void CanvasMode::setStyle()
 	double stroke = 1.0;
 #endif
 	// frame
-	m_pen["frame-move"]				= QPen(m_color["frame-move"], 1.0 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["frame-move"]				= QPen(m_color.value("frame-move"), 1.0 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["frame-move"].setCosmetic(true);
 	m_pen["frame-preview"]			= QPen(Qt::black, 1.0, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["frame-preview"].setCosmetic(true);
-	m_pen["selection"]				= QPen(m_color["frame-selection"], 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["selection"]				= QPen(m_color.value("frame-selection"), 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["selection"].setCosmetic(true);
-	m_pen["selection-handle"]		= QPen(m_color["frame-selection"], 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["selection-handle"]		= QPen(m_color.value("frame-selection"), 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["selection-handle"].setCosmetic(true);
-	m_pen["selection-group"]		= m_pen["selection"];
-	m_pen["selection-group-inside"] = QPen(m_color["frame-group"], 1.0 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["selection-group"]		= m_pen.value("selection");
+	m_pen["selection-group-inside"] = QPen(m_color.value("frame-group"), 1.0 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["selection-group-inside"].setCosmetic(true);
 	// vector editing
-	m_pen["vector"]					= QPen(m_color["node"], stroke, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["vector"]					= QPen(m_color.value("node"), stroke, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["vector"].setCosmetic(true);
-	m_pen["node"]					= QPen(m_color["node"], stroke, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["node"]					= QPen(m_color.value("node"), stroke, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["node"].setCosmetic(true);
-	m_pen["node-handle"]			= QPen(m_color["node-handle"], stroke, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["node-handle"]			= QPen(m_color.value("node-handle"), stroke, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["node-handle"].setCosmetic(true);
-	m_pen["node-dash"]				= QPen(m_color["node-handle"], stroke, Qt::DashLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["node-dash"]				= QPen(m_color.value("node-handle"), stroke, Qt::DashLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["node-dash"].setCosmetic(true);
-	m_pen["highlight"]				= QPen(m_color["highlight"], stroke, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["highlight"]				= QPen(m_color.value("highlight"), stroke, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 	m_pen["highlight"].setCosmetic(true);
 	// guides
-	m_pen["snap-line"]				= QPen(m_color["snap-line"], 1.0 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	m_pen["snap-line"]				= QPen(m_color.value("snap-line"), 1.0 , Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 
 	m_brush["frame-move"]				= Qt::NoBrush;
 	m_brush["selection"]				= Qt::NoBrush;

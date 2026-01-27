@@ -88,7 +88,7 @@ void ColumnResize::mouseMoveEvent(QMouseEvent* event)
 
 	QPointF gridPoint = globalToTableGrid(event->globalPosition());
 
-	double requestedWidth = gridPoint.x() - m_columnPositions[m_column];
+	double requestedWidth = gridPoint.x() - m_columnPositions.at(m_column);
 	double actualWidth = 0.0;
 
 	if (event->modifiers() & Qt::ShiftModifier)
@@ -133,11 +133,11 @@ double ColumnResize::resizeColumnMoveFollowing(double width)
 	double newWidth = m_columnWidths[m_column] = qMax(PageItem_Table::MinimumColumnWidth, width);
 
 	// Move following columns.
-	double columnPosition = m_columnPositions[m_column];
+	double columnPosition = m_columnPositions.at(m_column);
 	for (int column = m_column; column < m_columnPositions.size(); ++column)
 	{
 		m_columnPositions[column] = columnPosition;
-		columnPosition += m_columnWidths[column];
+		columnPosition += m_columnWidths.at(column);
 	}
 
 	return newWidth;
@@ -145,7 +145,7 @@ double ColumnResize::resizeColumnMoveFollowing(double width)
 
 double ColumnResize::resizeColumnResizeFollowing(double width)
 {
-	double oldWidth = m_columnWidths[m_column];
+	double oldWidth = m_columnWidths.at(m_column);
 	double newWidth = 0.0;
 
 	if (m_column < table()->columns() - 1)
@@ -153,7 +153,7 @@ double ColumnResize::resizeColumnResizeFollowing(double width)
 		// Following column exists, so width is bounded at both ends.
 		newWidth = m_columnWidths[m_column] = qBound(
 			PageItem_Table::MinimumColumnWidth, width,
-			oldWidth + m_columnWidths[m_column + 1] - PageItem_Table::MinimumColumnWidth);
+			oldWidth + m_columnWidths.at(m_column + 1) - PageItem_Table::MinimumColumnWidth);
 
 		// Resize/move following column.
 		double widthChange = newWidth - oldWidth;

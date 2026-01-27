@@ -164,7 +164,7 @@ void SelectFields::PutToSel()
 {
 	if (SelFields->count() != 0)
 	{
-		if (SelFields->findItems(AvailFields->currentItem()->text(), Qt::MatchExactly).count() == 0)
+		if (SelFields->findItems(AvailFields->currentItem()->text(), Qt::MatchExactly).isEmpty())
 			SelFields->addItem(AvailFields->currentItem()->text());
 	}
 	else

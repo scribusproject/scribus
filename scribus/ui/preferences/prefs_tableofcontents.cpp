@@ -187,7 +187,7 @@ void Prefs_TableOfContents::setupItemAttrs(const QStringList& newNames)
 		if (localToCSetupVector[numSelected].itemAttrName == CommonStrings::None)
 			setCurrentComboItem(itemAttrComboBox, CommonStrings::tr_None);
 		else
-			setCurrentComboItem(itemAttrComboBox, localToCSetupVector[numSelected].itemAttrName);
+			setCurrentComboItem(itemAttrComboBox, localToCSetupVector.at(numSelected).itemAttrName);
 	}
 }
 
@@ -212,36 +212,36 @@ void Prefs_TableOfContents::selectToC(int numberSelected)
 	if (localToCSetupVector.count() < numSelected)
 		numSelected = 0;
 
-	setCurrentComboItem(itemToCSource, localToCSetupVector[numSelected].tocSource);
+	setCurrentComboItem(itemToCSource, localToCSetupVector.at(numSelected).tocSource);
 
 	enableGUIWidgets();
 
 	if (localToCSetupVector[numSelected].itemAttrName == CommonStrings::None)
 		setCurrentComboItem(itemAttrComboBox, CommonStrings::tr_None);
 	else
-		setCurrentComboItem(itemAttrComboBox, localToCSetupVector[numSelected].itemAttrName);
+		setCurrentComboItem(itemAttrComboBox, localToCSetupVector.at(numSelected).itemAttrName);
 
-	if (localToCSetupVector[numSelected].pageLocation == NotShown)
+	if (localToCSetupVector.at(numSelected).pageLocation == NotShown)
 		setCurrentComboItem(itemNumberPlacementComboBox, trStrPNNotShown);
-	else if (localToCSetupVector[numSelected].pageLocation == Beginning)
+	else if (localToCSetupVector.at(numSelected).pageLocation == Beginning)
 		setCurrentComboItem(itemNumberPlacementComboBox, trStrPNBeginning);
 	else
 		setCurrentComboItem(itemNumberPlacementComboBox, trStrPNEnd);
 
-	itemListNonPrintingCheckBox->setChecked(localToCSetupVector[numSelected].listNonPrintingFrames);
+	itemListNonPrintingCheckBox->setChecked(localToCSetupVector.at(numSelected).listNonPrintingFrames);
 	if (m_Doc != nullptr)
 	{
 		if (localToCSetupVector[numSelected].frameName == CommonStrings::None)
 			setCurrentComboItem(itemDestFrameComboBox, CommonStrings::tr_None);
 		else
-			setCurrentComboItem(itemDestFrameComboBox, localToCSetupVector[numSelected].frameName);
+			setCurrentComboItem(itemDestFrameComboBox, localToCSetupVector.at(numSelected).frameName);
 
 		if (itemParagraphStyleComboBox->count() > 0)
 		{
-			if (!paragraphStyleList.contains(localToCSetupVector[numSelected].textStyle) || localToCSetupVector[numSelected].textStyle == CommonStrings::None)
+			if (!paragraphStyleList.contains(localToCSetupVector.at(numSelected).textStyle) || localToCSetupVector.at(numSelected).textStyle == CommonStrings::None)
 				setCurrentComboItem(itemParagraphStyleComboBox, CommonStrings::tr_None);
 			else
-				setCurrentComboItem(itemParagraphStyleComboBox, localToCSetupVector[numSelected].textStyle);
+				setCurrentComboItem(itemParagraphStyleComboBox, localToCSetupVector.at(numSelected).textStyle);
 		}
 	}
 	styleListWidget->clear();

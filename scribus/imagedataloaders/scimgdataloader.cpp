@@ -60,7 +60,7 @@ void ScImgDataLoader::swapRGBA()
 {
 	for (int i = 0; i < m_image.height(); ++i)
 	{
-		unsigned int *ptr = (unsigned int *) m_image.scanLine(i);
+		unsigned int *ptr = (unsigned int *) m_image.constScanLine(i);
 		unsigned char r, b;
 		for (int j = 0; j < m_image.width(); ++j)
 		{

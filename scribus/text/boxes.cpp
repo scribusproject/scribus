@@ -327,7 +327,7 @@ void LineBox::update()
 	m_naturalWidth = m_naturalAscent = m_naturalDescent = 0;
 	for (int i = 0; i < m_boxes.count(); ++i)
 	{
-		Box* box = m_boxes[i];
+		Box* box = m_boxes.at(i);
 		m_firstChar = qMin(m_firstChar, box->firstChar());
 		m_lastChar = qMax(m_lastChar, box->lastChar());
 

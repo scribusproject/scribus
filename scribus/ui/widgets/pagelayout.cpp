@@ -110,7 +110,7 @@ void PageLayouts::reloadScheme()
 		if (pg > 1 && docPagePositioning < 2)
 			continue;
 
-		QString psname = CommonStrings::translatePageSetString(m_pageSets[pg].Name);
+		QString psname = CommonStrings::translatePageSetString(m_pageSets.at(pg).Name);
 		if (pg == 0)
 			buttonScheme->addAction(IconManager::instance().loadIcon("page-simple"), psname)->setData(QVariant(pg));
 		else if (pg == 1)
@@ -135,9 +135,9 @@ void PageLayouts::reloadFirstPage(int scheme)
 	// CommonStrings::pageLocMiddleRight
 	// CommonStrings::pageLocRight
 
-	for (int pg = 0; pg < m_pageSets[scheme].pageNames.count(); ++pg)
+	for (int pg = 0; pg < m_pageSets.at(scheme).pageNames.count(); ++pg)
 	{
-		QString psname = m_pageSets[scheme].pageNames[pg];
+		QString psname = m_pageSets.at(scheme).pageNames.at(pg);
 
 		if (psname == CommonStrings::pageLocLeft)
 			buttonFirstPage->addAction(IconManager::instance().loadIcon("page-first-left"), psname)->setData(QVariant(pg));

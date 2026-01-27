@@ -266,7 +266,7 @@ bool FontListModel::setData(const QModelIndex & idx,
 	else
 		qDebug("FontListModel::setData() out of defined editable columns"); */
 
-	ScFace f = m_font_values[idx.row()];
+	ScFace f = m_font_values.at(idx.row());
 
 	if (isLive())
 	{

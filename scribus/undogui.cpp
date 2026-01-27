@@ -224,10 +224,8 @@ UndoPalette::UndoPalette(QWidget* parent) : UndoGui(parent, "undoPalette")
 	connect(undoList, SIGNAL(itemEntered(QListWidgetItem*)), this, SLOT(showToolTip(QListWidgetItem*)));
 	connect(undoList, SIGNAL(viewportEntered()), this, SLOT(removeToolTip()));
 	connect(objectBox, SIGNAL(toggled(bool)), this, SLOT(objectCheckBoxClicked(bool)));
-	connect(ScCore->primaryMainWindow()->scrActions["editActionMode"], SIGNAL(toggled(bool)),
-	        objectBox, SLOT(setChecked(bool)));
-	connect(objectBox, SIGNAL(toggled(bool)),
-			ScCore->primaryMainWindow()->scrActions["editActionMode"], SLOT(setChecked(bool)));
+	connect(ScCore->primaryMainWindow()->scrActions["editActionMode"], SIGNAL(toggled(bool)), objectBox, SLOT(setChecked(bool)));
+	connect(objectBox, SIGNAL(toggled(bool)), ScCore->primaryMainWindow()->scrActions["editActionMode"], SLOT(setChecked(bool)));
 }
 
 void UndoPalette::clear()

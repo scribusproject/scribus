@@ -266,7 +266,7 @@ PSLib::PSLib(ScribusDoc* doc, PrintOptions &options, OutputFormat outputFmt, Col
 		m_Doc->getUsedColors(colorsToUse);
 	colorsToUse.setDocument(m_Doc);
 
-	for (auto itf = colorsToUse.begin(); itf != colorsToUse.end(); ++itf)
+	for (auto itf = colorsToUse.cbegin(); itf != colorsToUse.cend(); ++itf)
 	{
 		if (((itf->isSpotColor()) || (itf->isRegistrationColor())) && (Options.useSpotColors))
 		{
@@ -1908,7 +1908,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 			}
 			else
 			{
-				MultiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
+				MultiLine ml = m_Doc->docLineStyles.value(item->NamedLStyle);
 				for (int it = ml.size() - 1; it > -1; it--)
 				{
 					if (ml[it].Color != CommonStrings::None) // && (ml[it].Width != 0))
@@ -2011,7 +2011,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 			}
 			else
 			{
-				MultiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
+				MultiLine ml = m_Doc->docLineStyles.value(item->NamedLStyle);
 				for (int it = ml.size() - 1; it > -1; it--)
 				{
 					if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
@@ -2064,7 +2064,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 		}
 		else
 		{
-			MultiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
+			MultiLine ml = m_Doc->docLineStyles.value(item->NamedLStyle);
 			for (int it = ml.size() - 1; it > -1; it--)
 			{
 				if (ml[it].Color == CommonStrings::None)
@@ -2139,7 +2139,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 			}
 			else
 			{
-				MultiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
+				MultiLine ml = m_Doc->docLineStyles.value(item->NamedLStyle);
 				for (int it = ml.size() - 1; it > -1; it--)
 				{
 					if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
@@ -2195,7 +2195,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 			}
 			else
 			{
-				MultiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
+				MultiLine ml = m_Doc->docLineStyles.value(item->NamedLStyle);
 				for (int it = ml.size() - 1; it > -1; it--)
 				{
 					if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
@@ -2275,7 +2275,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 			}
 			else
 			{
-				MultiLine ml = m_Doc->docLineStyles[item->NamedLStyle];
+				MultiLine ml = m_Doc->docLineStyles.value(item->NamedLStyle);
 				for (int it = ml.size() - 1; it > -1; it--)
 				{
 					if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
@@ -2298,7 +2298,7 @@ bool PSLib::ProcessItem(ScPage* page, PageItem* item, uint PNr, bool master, boo
 	case PageItem::Symbol:
 		if (m_Doc->docPatterns.contains(item->pattern()))
 		{
-			ScPattern pat = m_Doc->docPatterns[item->pattern()];
+			auto pat = m_Doc->docPatterns.value(item->pattern());
 			PS_save();
 			SetPathAndClip(item->PoLine, item->fillRule);
 			if (item->imageFlippedH())
@@ -2647,7 +2647,7 @@ bool PSLib::ProcessMasterPageLayer(ScPage* page, ScLayer& layer, uint PNr)
 	if (!layer.isPrintable)
 		return true;
 
-	ScPage* mPage = m_Doc->MasterPages.at(m_Doc->MasterNames[page->masterPageName()]);
+	ScPage* mPage = m_Doc->MasterPages.at(m_Doc->MasterNames.value(page->masterPageName()));
 	for (int am = 0; am < page->FromMaster.count() && !abortExport; ++am)
 	{
 		PageItem *ite = page->FromMaster.at(am);
@@ -2657,7 +2657,7 @@ bool PSLib::ProcessMasterPageLayer(ScPage* page, ScLayer& layer, uint PNr)
 			continue;
 		if (!ite->isTextContainer())
 		{
-			int mpIndex = m_Doc->MasterNames[page->masterPageName()];
+			int mpIndex = m_Doc->MasterNames.value(page->masterPageName());
 			PS_UseTemplate(QString("mp_obj_%1_%2").arg(mpIndex).arg(qHash(ite)));
 		}
 		else if (!ite->isTextFrame())
@@ -2737,7 +2737,7 @@ bool PSLib::ProcessMasterPageLayer(ScPage* page, ScLayer& layer, uint PNr)
 				}
 				else
 				{
-					MultiLine ml = m_Doc->docLineStyles[ite->NamedLStyle];
+					MultiLine ml = m_Doc->docLineStyles.value(ite->NamedLStyle);
 					for (int it = ml.size() - 1; it > -1; it--)
 					{
 						if (ml[it].Color != CommonStrings::None) //&& (ml[it].Width != 0))
@@ -2811,7 +2811,7 @@ bool PSLib::ProcessPageLayer(ScPage* page, ScLayer& layer, uint PNr)
 
 void PSLib::HandleBrushPattern(PageItem *item, QPainterPath &path, ScPage* page, uint PNr, bool master)
 {
-	ScPattern pat = m_Doc->docPatterns[item->strokePattern()];
+	auto pat = m_Doc->docPatterns.value(item->strokePattern());
 	double pLen = path.length() - ((pat.width / 2.0) * item->patternStrokeTransfrm.scaleX);
 	double adv = pat.width * item->patternStrokeTransfrm.scaleX * item->patternStrokeTransfrm.space;
 	double xpos = item->patternStrokeTransfrm.offsetX * item->patternStrokeTransfrm.scaleX;
@@ -3063,7 +3063,7 @@ void PSLib::HandlePatchMeshGradient(PageItem* item)
 	QList<int> colsSh;
 	for (int col = 0; col < item->meshGradientPatches.count(); col++)
 	{
-		meshGradientPatch patch = item->meshGradientPatches[col];
+		meshGradientPatch patch = item->meshGradientPatches.at(col);
 		MeshPoint mp1 = patch.TL;
 		cols.append(mp1.colorName);
 		colsSh.append(mp1.shade);
@@ -3194,7 +3194,7 @@ void PSLib::HandlePatchMeshGradient(PageItem* item)
 		for (int col2 = col; col2 < item->meshGradientPatches.count(); col2++)
 		{
 			col = col2;
-			meshGradientPatch patch = item->meshGradientPatches[col2];
+			meshGradientPatch patch = item->meshGradientPatches.at(col2);
 			MeshPoint mp1 = patch.TL;
 			MeshPoint mp2 = patch.TR;
 			MeshPoint mp3 = patch.BR;
@@ -3990,7 +3990,7 @@ void PSLib::drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex)
 	}
 	else
 	{
-		MultiLine ml = m_Doc->docLineStyles[ite->NamedLStyle];
+		MultiLine ml = m_Doc->docLineStyles.value(ite->NamedLStyle);
 		if (ml[ml.size() - 1].Width != 0.0)
 			arrowTrans.scale(ml[ml.size() - 1].Width, ml[ml.size() - 1].Width);
 	}
@@ -4043,7 +4043,7 @@ void PSLib::drawArrow(PageItem *ite, QTransform &arrowTrans, int arrowIndex)
 	}
 	else
 	{
-		MultiLine ml = m_Doc->docLineStyles[ite->NamedLStyle];
+		MultiLine ml = m_Doc->docLineStyles.value(ite->NamedLStyle);
 		if (ml[0].Color != CommonStrings::None)
 		{
 			SetColor(ml[0].Color, ml[0].Shade, &h, &s, &v, &k);

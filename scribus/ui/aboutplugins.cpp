@@ -25,9 +25,7 @@ AboutPlugins::AboutPlugins( QWidget* parent )
 {
 	setupUi(this);
 	// Populate the list with translated human-readable plugin names
-	QStringList::const_iterator it(pluginNames.begin());
-	QStringList::const_iterator itEnd(pluginNames.end());
-	for ( ; it != itEnd; ++it )
+	for (auto it = pluginNames.cbegin() ; it != pluginNames.cend(); ++it )
 	{
 		ScPlugin* plugin = PluginManager::instance().getPlugin(*it, true);
 		Q_ASSERT(plugin);
@@ -56,7 +54,7 @@ void AboutPlugins::displayPlugin(QListWidgetItem* currItem, QListWidgetItem* pre
 	// Look up the list entry to get the plugin name and use
 	// it to grab the plugin instance and get its about data.
 	PluginManager& pluginManager = PluginManager::instance();
-	const QString& name(pluginNames[sel]);
+	const QString& name(pluginNames.at(sel));
 	ScPlugin* plugin = pluginManager.getPlugin(name, true);
 	Q_ASSERT(plugin);
 	const ScPlugin::AboutData* about = plugin->getAboutData();

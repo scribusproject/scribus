@@ -99,7 +99,7 @@ QString LocaleManager::pageSizeForLocale(const QString& locale)
 	for (int i = 0; i < m_localeTable.size(); ++i)
 	{
 		if (m_localeTable[i].m_locale == locale)
-			return m_localeTable[i].m_pageSize;
+			return m_localeTable.at(i).m_pageSize;
 	}
 
 	//qDebug()<<"No definition for locale: "<<selectedLocale;
@@ -116,7 +116,7 @@ QString LocaleManager::unitForLocale(const QString &locale)
 	for (int i = 0; i < m_localeTable.size(); ++i)
 	{
 		if (m_localeTable[i].m_locale == locale)
-			return m_localeTable[i].m_unit;
+			return m_localeTable.at(i).m_unit;
 	}
 	//qDebug()<<"No definition for locale: "<<selectedLocale;
 	//No, we don't translate these, they are internal use that don't get to the GUI

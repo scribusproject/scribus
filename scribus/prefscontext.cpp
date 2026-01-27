@@ -77,7 +77,7 @@ QString PrefsContext::get(const QString& key, const QString& defValue)
 	if (!values.contains(key))
 		values[key] = defValue;
 
-	return values[key];
+	return values.value(key);
 }
 
 void PrefsContext::set(const QString& key, const char* value)
@@ -99,7 +99,7 @@ int PrefsContext::getInt(const QString& key, int defValue)
 {
 	if (!values.contains(key))
 		set(key, defValue);
-	QString stringValue = values[key];
+	QString stringValue = values.value(key);
 	bool ok = false;
 	int ivalue = stringValue.toInt(&ok);
 	if (!ok)
@@ -111,7 +111,7 @@ uint PrefsContext::getUInt(const QString& key, uint defValue)
 {
 	if (!values.contains(key))
 		set(key, QString("%1").arg(defValue));
-	QString stringValue = values[key];
+	QString stringValue = values.value(key);
 	bool ok = false;
 	int uivalue = stringValue.toUInt(&ok);
 	if (!ok)
@@ -133,7 +133,7 @@ double PrefsContext::getDouble(const QString& key, double defValue)
 {
 	if (!values.contains(key))
 		set(key, defValue);
-	QString stringValue = values[key];
+	QString stringValue = values.value(key);
 	bool ok = false;
 	double dvalue = ScCLocale::toDoubleC(stringValue, &ok);
 	if (!ok)
@@ -152,7 +152,7 @@ bool PrefsContext::getBool(const QString& key, bool defValue)
 {
 	if (!values.contains(key))
 		set(key, defValue);
-	QString stringValue = values[key];
+	QString stringValue = values.value(key);
 	bool ok = false;
 	int ivalue = stringValue.toInt(&ok);
 	if (!ok)
@@ -169,7 +169,7 @@ PrefsTable* PrefsContext::getTable(const QString& name)
 {
 	if (!tables.contains(name))
 		tables[name] = new PrefsTable(name);
-	return tables[name];
+	return tables.value(name);
 }
 
 void PrefsContext::removeTable(const QString& name)

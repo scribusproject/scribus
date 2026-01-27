@@ -86,7 +86,7 @@ void FileWatcher::removeFile(const QString& fileName)
 	if (m_watchedFiles.contains(qtFileName))
 	{
 		m_watchedFiles[qtFileName].refCount--;
-		if (m_watchedFiles[qtFileName].refCount == 0)
+		if (m_watchedFiles.value(qtFileName).refCount == 0)
 			m_watchedFiles.remove(qtFileName);
 	}
 	if (!(m_stateFlags & TimerStopped))

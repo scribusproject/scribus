@@ -69,8 +69,7 @@ Selection& Selection::operator=(const Selection &other)
 		return *this;
 	if (m_isGUISelection)
 	{
-		SelectionList::Iterator itend = m_SelList.end();
-		for (SelectionList::Iterator it = m_SelList.begin(); it != itend; ++it)
+		for (auto it = m_SelList.cbegin(); it != m_SelList.cend(); ++it)
 			(*it)->setSelected(false);
 	}
 	m_SelList = other.m_SelList;
@@ -95,8 +94,7 @@ void Selection::copy(Selection& other, bool emptyOther)
 		return;
 	if (m_isGUISelection)
 	{
-		SelectionList::Iterator itend = m_SelList.end();
-		for (SelectionList::Iterator it = m_SelList.begin(); it != itend; ++it)
+		for (auto it = m_SelList.cbegin(); it != m_SelList.cend(); ++it)
 			(*it)->setSelected(false);
 	}
 	m_SelList = other.m_SelList;
@@ -115,8 +113,8 @@ bool Selection::clear()
 {
 	if (!m_SelList.isEmpty())
 	{
-		SelectionList::Iterator itend = m_SelList.end();
-		SelectionList::Iterator it = m_SelList.begin();
+		auto itend = m_SelList.cend();
+		auto it = m_SelList.cbegin();
 		while (it != itend)
 		{
 			(*it)->isSingleSel = false;
@@ -139,7 +137,7 @@ bool Selection::connectItemToGUI()
 	if (!m_isGUISelection || m_SelList.isEmpty())
 		return false;
 
-	QPointer<PageItem> pi = m_SelList.first();
+	QPointer<PageItem> pi = m_SelList.constFirst();
 	//Quick check to see if the pointer is nullptr, if its nullptr, we should remove it from the list now
 	while (pi.isNull())
 	{
@@ -164,8 +162,8 @@ bool Selection::disconnectAllItemsFromGUI()
 {
 	if (!m_isGUISelection || m_SelList.isEmpty())
 		return false;
-	SelectionList::Iterator it2end = m_SelList.end();
-	SelectionList::Iterator it2 = m_SelList.begin();
+	auto it2end = m_SelList.cend();
+	auto it2 = m_SelList.cbegin();
 	while (it2 != it2end)
 	{
 		(*it2)->disconnectFromGUI();
@@ -242,7 +240,7 @@ PageItem *Selection::itemAt_(int index)
 {
 	if (!m_SelList.isEmpty() && index < m_SelList.count())
 	{
-		QPointer<PageItem> pi = m_SelList[index];
+		QPointer<PageItem> pi = m_SelList.at(index);
 		//If not nullptr return it, otherwise remove from the list and return nullptr
 		if (!pi.isNull())
 			return pi;
@@ -268,9 +266,9 @@ bool Selection::removeFirst()
 {
 	if (m_SelList.isEmpty())
 		return true;
-	if (m_isGUISelection && m_SelList.first())
+	if (m_isGUISelection && m_SelList.constFirst())
 		m_SelList.first()->setSelected(false);
-	removeItem(m_SelList.first());
+	removeItem(m_SelList.constFirst());
 	if (m_SelList.isEmpty())
 		return true;
 	if (m_isGUISelection)
@@ -353,7 +351,7 @@ PageItem* Selection::takeItem(int itemIndex)
 	if (m_SelList.isEmpty() || itemIndex >= m_SelList.count())
 		return nullptr;
 
-	PageItem *item =  m_SelList[itemIndex];
+	PageItem *item = m_SelList.at(itemIndex);
 	bool removeOk = (m_SelList.removeAll(item) == 1);
 	if (removeOk)
 	{

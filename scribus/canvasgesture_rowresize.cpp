@@ -88,7 +88,7 @@ void RowResize::mouseMoveEvent(QMouseEvent* event)
 
 	QPointF gridPoint = globalToTableGrid(event->globalPosition());
 
-	double requestedHeight = gridPoint.y() - m_rowPositions[m_row];
+	double requestedHeight = gridPoint.y() - m_rowPositions.at(m_row);
 	double actualHeight = 0.0;
 
 	if (event->modifiers() & Qt::ShiftModifier)
@@ -133,11 +133,11 @@ double RowResize::resizeRowMoveFollowing(double height)
 	double newHeight = m_rowHeights[m_row] = qMax(PageItem_Table::MinimumRowHeight, height);
 
 	// Move following rows.
-	double rowPosition = m_rowPositions[m_row];
+	double rowPosition = m_rowPositions.at(m_row);
 	for (int row = m_row; row < m_rowPositions.size(); ++row)
 	{
 		m_rowPositions[row] = rowPosition;
-		rowPosition += m_rowHeights[row];
+		rowPosition += m_rowHeights.at(row);
 	}
 
 	return newHeight;
@@ -145,7 +145,7 @@ double RowResize::resizeRowMoveFollowing(double height)
 
 double RowResize::resizeRowResizeFollowing(double height)
 {
-	double oldHeight = m_rowHeights[m_row];
+	double oldHeight = m_rowHeights.at(m_row);
 	double newHeight = 0.0;
 
 	if (m_row < table()->rows() - 1)
@@ -153,7 +153,7 @@ double RowResize::resizeRowResizeFollowing(double height)
 		// Following row exists, so height is bounded at both ends.
 		newHeight = m_rowHeights[m_row] = qBound(
 			PageItem_Table::MinimumRowHeight, height,
-			oldHeight + m_rowHeights[m_row + 1] - PageItem_Table::MinimumRowHeight);
+			oldHeight + m_rowHeights.at(m_row + 1) - PageItem_Table::MinimumRowHeight);
 
 		// Resize/move following row.
 		double heightChange = newHeight - oldHeight;

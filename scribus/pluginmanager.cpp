@@ -175,7 +175,7 @@ int PluginManager::initPlugin(const QString& fileName)
 
 void PluginManager::initPlugs()
 {
-	Q_ASSERT(!pluginMap.count());
+	Q_ASSERT(pluginMap.isEmpty());
 	QString libPattern = QString("*.%1*").arg(platformDllExtension());
 	QMap<QString, int> allPlugs;
 	int loaded = 0;

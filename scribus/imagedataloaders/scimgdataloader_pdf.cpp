@@ -103,7 +103,7 @@ bool ScImgDataLoader_PDF::loadPicture(const QString& fn, int page, int gsRes, bo
 	{
 		for (int yi = 0; yi < m_image.height(); ++yi)
 		{
-			QRgb *s = (QRgb*)(m_image.scanLine( yi ));
+			QRgb *s = (QRgb*)(m_image.constScanLine( yi ));
 			for (int xi = 0; xi < m_image.width(); ++xi )
 			{
 				if ((*s) == 0xffffffff)
@@ -154,7 +154,7 @@ bool ScImgDataLoader_PDF::preloadAlphaChannel(const QString& fn, int page, int g
 			QRgb *s;
 			for (int yi=0; yi < m_image.height(); ++yi)
 			{
-				s = (QRgb*)(m_image.scanLine( yi ));
+				s = (QRgb*)(m_image.constScanLine( yi ));
 				for (int xi=0; xi < m_image.width(); ++xi)
 				{
 					if ((*s) == 0xffffffff)

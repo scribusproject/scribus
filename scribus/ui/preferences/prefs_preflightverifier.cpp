@@ -64,7 +64,7 @@ void Prefs_PreflightVerifier::restoreDefaults(struct ApplicationPrefs *prefsData
 	QString prefProfile(prefsData->verifierPrefs.curCheckProfile);
 	setCurrentComboItem(currentProfileComboBox, prefProfile);
 
-	CheckerPrefs& checkerProfile = checkerProfiles[prefProfile];
+	auto checkerProfile = checkerProfiles.value(prefProfile);
 	ignoreAllErrorsCheckBox->setChecked(checkerProfile.ignoreErrors);
 	autoCheckBeforePrintExportCheckBox->setChecked(checkerProfile.autoCheck);
 	checkMissingGlyphsCheckBox->setChecked(checkerProfile.checkGlyphs);
@@ -105,7 +105,7 @@ void Prefs_PreflightVerifier::putProfile()
 	if (!checkerProfiles.contains(currentProfile))
 		return;
 
-	CheckerPrefs& checkerProfile = checkerProfiles[currentProfile];
+	auto checkerProfile = checkerProfiles.value(currentProfile);
 	checkerProfile.ignoreErrors = ignoreAllErrorsCheckBox->isChecked();
 	checkerProfile.autoCheck = autoCheckBeforePrintExportCheckBox->isChecked();
 	checkerProfile.checkGlyphs = checkMissingGlyphsCheckBox->isChecked();
@@ -163,7 +163,7 @@ void Prefs_PreflightVerifier::updateProfile(const QString& name)
 	disconnect(checkAppliedMasterPageLocationCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
 	disconnect(checkEmptyTextFramesCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
 
-	CheckerPrefs& checkerProfile = checkerProfiles[name];
+	auto checkerProfile = checkerProfiles.value(name);
 	ignoreAllErrorsCheckBox->setChecked(checkerProfile.ignoreErrors);
 	autoCheckBeforePrintExportCheckBox->setChecked(checkerProfile.autoCheck);
 	checkMissingGlyphsCheckBox->setChecked(checkerProfile.checkGlyphs);

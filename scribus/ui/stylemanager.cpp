@@ -184,7 +184,7 @@ ItemType* StyleManager::item()
 {
 	for (int i = 0; i < m_items.count(); ++i)
 	{
-		StyleItem* item = m_items[i];
+		StyleItem* item = m_items.at(i);
 		ItemType*  typedItem = qobject_cast<ItemType*>(item);
 		if (typedItem)
 			return typedItem;
@@ -753,7 +753,7 @@ void StyleManager::slotRightClick(/*StyleViewItem *item, */const QPoint &point/*
 			QString key = item->rootName() + SEPARATOR + item->text(NAME_COL);
 			if (m_styleActions.contains(key))
 			{
-				m_selectedStyleAction = m_styleActions[key];
+				m_selectedStyleAction = m_styleActions.value(key);
 				if (m_selectedStyleAction)
 				{
 					m_rightClickPopup->insertAction(m_rightClickPopup->actions().first(), m_selectedStyleAction);
@@ -765,8 +765,7 @@ void StyleManager::slotRightClick(/*StyleViewItem *item, */const QPoint &point/*
 	else if (item && item->isRoot())
 	{
 		m_rightClickPopup->removeAction(m_rcpNewId);
-		m_rcpNewId = m_rightClickPopup->addAction( tr("New %1").arg(m_styleClassesPS[item->text(0)]),
-												this, SLOT(slotNewPopup()));
+		m_rcpNewId = m_rightClickPopup->addAction( tr("New %1").arg(m_styleClassesPS.value(item->text(0))), this, SLOT(slotNewPopup()));
 		m_rcpDeleteId->setEnabled(false);
 		m_rcpEditId->setEnabled(false);
 		m_rcpCloneId->setEnabled(false);
@@ -1184,7 +1183,7 @@ void StyleManager::updateActionName(const QString &oldName, const QString &newNa
 
 	if (m_styleActions.contains(oldKey))
 	{
-		ScrAction *a = m_styleActions[oldKey];
+		ScrAction *a = m_styleActions.value(oldKey);
 		disconnect(a, SIGNAL(triggeredData(QString)), this, SLOT(slotApplyStyle(QString)));
 		ScrAction *b = new ScrAction(ScrAction::DataQString, QString(), QString(), tr("&Apply"),
 						   a->shortcut(), m_doc->view(), newKey);
@@ -1236,16 +1235,14 @@ bool StyleManager::shortcutExists(const QString &keys)
 {
 	QKeySequence key(keys);
 
-	QMap<QString, QPointer<ScrAction> >::iterator it;
-	for (it = m_styleActions.begin(); it != m_styleActions.end(); ++it)
+	for (auto it = m_styleActions.cbegin(); it != m_styleActions.cend(); ++it)
 	{
 		if ((*it)->shortcut() == key)
 			return true;
 	}
 
 	ApplicationPrefs *prefsData = &(PrefsManager::instance().appPrefs);
-	for (QMap<QString, Keys>::Iterator it = prefsData->keyShortcutPrefs.KeyActions.begin();
-		 it != prefsData->keyShortcutPrefs.KeyActions.end(); ++it)
+	for (auto it = prefsData->keyShortcutPrefs.KeyActions.cbegin(); it != prefsData->keyShortcutPrefs.KeyActions.cend(); ++it)
 	{
 		if (key.matches(it.value().keySequence) != QKeySequence::NoMatch)
 			return true;

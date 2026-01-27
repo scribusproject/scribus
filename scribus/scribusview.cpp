@@ -737,7 +737,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			int z = m_doc->itemAdd(PageItem::Symbol, PageItem::Unspecified, dropPosDoc.x(), dropPosDoc.y(), 1, 1, 0, CommonStrings::None, CommonStrings::None);
 			PageItem *item = m_doc->Items->at(z);
 			item->m_layerID = m_doc->activeLayer();
-			ScPattern pat = m_doc->docPatterns[patternVal];
+			ScPattern pat = m_doc->docPatterns.value(patternVal);
 			item->setWidth(pat.width);
 			item->setHeight(pat.height);
 			item->OldB2 = item->width();
@@ -1041,7 +1041,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					pmen->addAction( tr("Cancel"));
 					for (int i=0; i<m_doc->DragElements.count(); ++i)
 					{
-						if (m_doc->DragElements[i]->locked())
+						if (m_doc->DragElements.at(i)->locked())
 						{
 							mov->setEnabled(false);
 							break;
@@ -2391,7 +2391,7 @@ QImage ScribusView::MPageToPixmap(const QString& name, int maxGr, bool drawFrame
 {
 	ScLayer layer;
 	layer.isViewable = false;
-	int Nr = m_doc->MasterNames[name];
+	int Nr = m_doc->MasterNames.value(name);
 	int clipx = static_cast<int>(m_doc->scratch()->left());
 	int clipy = static_cast<int>(m_doc->scratch()->top());
 	int clipw = qRound(m_doc->MasterPages.at(Nr)->width());

@@ -82,7 +82,7 @@ void TextLayout::appendLine(LineBox* ls)
 	assert(ls->lastChar() < story()->length());
 	assert(!m_box->boxes().empty());
 
-	GroupBox* column = dynamic_cast<GroupBox*>(m_box->boxes().last());
+	GroupBox* column = dynamic_cast<GroupBox*>(m_box->boxes().constLast());
 	assert(column);
 	if (ls->type() == Box::T_PathLine)
 		ls->setAscent(ls->y() - column->naturalHeight());
@@ -382,10 +382,10 @@ QLineF TextLayout::positionToPoint(int pos) const
 	{
 		// TODO: move this branch to GroupBox::positionToPoint()
 		// last glyph box in last line
-		Box* column = m_box->boxes().last();
+		Box* column = m_box->boxes().constLast();
 		if (!column->boxes().isEmpty())
 		{
-			const Box* line = column->boxes().last();
+			const Box* line = column->boxes().constLast();
 			const Box* glyph = line->boxes().empty() ? nullptr : line->boxes().last();
 			QChar ch = story()->text(line->lastChar());
 			if (ch == SpecialChars::PARSEP || ch == SpecialChars::LINEBREAK)

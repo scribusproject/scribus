@@ -201,7 +201,7 @@ bool ScImgDataLoader_PSD::loadPicture(const QString& fn, int /*page*/, int res, 
 				uchar *d;
 				for (int yit = 0; yit < m_imageInfoRecord.exifInfo.thumbnail.height(); ++yit)
 				{
-					s = (QRgb*)(m_imageInfoRecord.exifInfo.thumbnail.scanLine( yit ));
+					s = (QRgb*)(m_imageInfoRecord.exifInfo.thumbnail.constScanLine( yit ));
 					d = r_image.scanLine( yit );
 					for (int xit = 0; xit < m_imageInfoRecord.exifInfo.thumbnail.width(); ++xit)
 					{

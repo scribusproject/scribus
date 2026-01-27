@@ -54,7 +54,7 @@ public:
 	bool isCMYKPreviewEnabled() const;
 	bool isAntialiasingEnabled() const;
 	bool isTransparencyEnabled() const;
-	bool isInkChannelVisible(const QString& ink) { return (m_inkVisibilities.contains(ink) ? m_inkVisibilities[ink]->isChecked() : false); }
+	bool isInkChannelVisible(const QString& ink) { return (m_inkVisibilities.contains(ink) ? m_inkVisibilities.value(ink)->isChecked() : false); }
 	bool isInkCoverageEnabled() const;
 	bool useGhostscriptPreview() const;
 

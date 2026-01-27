@@ -181,7 +181,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 				unsigned char cc, cm, cy, ck;
 				for (int yit=0; yit < m_image.height(); ++yit)
 				{
-					s = (QRgb*)(m_image.scanLine( yit ));
+					s = (QRgb*)(m_image.constScanLine( yit ));
 					for (int xit=0; xit < m_image.width(); ++xit)
 					{
 						cc = 255 - qRed(*s);
@@ -370,8 +370,8 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 				unsigned char cc, cm, cy, ck;
 				for (int yit=0; yit < m_image.height(); ++yit)
 				{
-					d = (QRgb*)(m_image.scanLine( yit ));
-					s = (QRgb*)(m_imageInfoRecord.exifInfo.thumbnail.scanLine( yit ));
+					d = (QRgb*)(m_image.constScanLine( yit ));
+					s = (QRgb*)(m_imageInfoRecord.exifInfo.thumbnail.constScanLine( yit ));
 					for (int xit=0; xit < m_image.width(); ++xit)
 					{
 						cc = 255 - qRed(*s);
@@ -427,7 +427,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 			for (uint j = 0; j < cinfo.output_height; j++)
 			{
 				in = m_image.scanLine(j) + cinfo.output_width * 3;
-				out = (QRgb*) m_image.scanLine(j);
+				out = (QRgb*) m_image.constScanLine(j);
 				for (uint i = cinfo.output_width; i--; )
 				{
 					in -= 3;
@@ -453,7 +453,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 			unsigned char *p;
 			for (int i = 0; i < m_image.height(); i++)
 			{
-				ptr = (QRgb*)  m_image.scanLine(i);
+				ptr = (QRgb*)  m_image.constScanLine(i);
 				if (method == 1)
 				{
 					for (int j = 0; j <  m_image.width(); j++)
@@ -508,7 +508,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int /*page*/, int res,
 			for (int yi = 0; yi < tmpImg.height(); ++yi)
 			{
 				s = (QRgb*)(tmpImg.scanLine( yi ));
-				d = (QRgb*)(m_image.scanLine( yi ));
+				d = (QRgb*)(m_image.constScanLine( yi ));
 				for (int xi = 0; xi < tmpImg.width(); ++xi)
 				{
 					(*d) = (*s);

@@ -293,7 +293,7 @@ void TOCGenerator::generateByStyle()
 				QString key = QString("%1,%2,%3").arg(pageID, tocID, sectionID);
 				paraText.remove(SpecialChars::COLBREAK);
 				paraText.remove(SpecialChars::FRAMEBREAK);
-				for (auto tocEntryIterator = tocSetupIt->entryData.begin(); tocEntryIterator != tocSetupIt->entryData.end(); ++tocEntryIterator)
+				for (auto tocEntryIterator = tocSetupIt->entryData.cbegin(); tocEntryIterator != tocSetupIt->entryData.cend(); ++tocEntryIterator)
 				{
 					if ((*tocEntryIterator).styleToFind == pname)
 					{

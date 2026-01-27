@@ -1657,7 +1657,7 @@ void StoryEditor::initActions()
 	seActions.insert("fileUpdateAndExit", new ScrAction("ok", "ok", "", Qt::CTRL | Qt::Key_W, this));
 	seActions.insert("fileExit", new ScrAction("exit", "exit", "", QKeySequence(), this));
 
-	connect( seActions["fileNew"], SIGNAL(triggered()), this, SLOT(Do_new()) );
+	connect( seActions.value("fileNew"), SIGNAL(triggered()), this, SLOT(Do_new()) );
 	connect( seActions["fileRevert"], SIGNAL(triggered()), this, SLOT(slotFileRevert()) );
 	connect( seActions["fileSaveToFile"], SIGNAL(triggered()), this, SLOT(SaveTextFile()) );
 	connect( seActions["fileLoadFromFile"], SIGNAL(triggered()), this, SLOT(LoadTextFile()) );

@@ -252,5 +252,5 @@ void CanvasMode_ImageImport::updateList()
 		QToolTip::hideText();
 	}
 	else
-		newToolTip(m_imageList.first());
+		newToolTip(m_imageList.constFirst());
 }

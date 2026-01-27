@@ -41,11 +41,11 @@ public:
 	{
 		int pos = splitPosition(charPos);
 		this->m_lastChar = charPos - 1;
-		this->m_glyphs.erase(this->m_glyphs.begin() + pos, this->m_glyphs.end());
+		this->m_glyphs.erase(this->m_glyphs.cbegin() + pos, this->m_glyphs.cend());
 
 		ShapedTextImplementation* result = new ShapedTextImplementation(*this);
 		result->m_firstChar = charPos;
-		result->m_glyphs.erase(result->m_glyphs.begin(), result->m_glyphs.begin() + pos);
+		result->m_glyphs.erase(result->m_glyphs.cbegin(), result->m_glyphs.cbegin() + pos);
 		return ShapedText(result);
 	}
 	

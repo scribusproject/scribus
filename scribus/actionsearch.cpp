@@ -35,7 +35,7 @@ void ActionSearch::execute(const QString& actionName)
 	if (!m_actions.contains(actionName))
 		return;
 
-	QAction* action = m_actions[actionName];
+	QAction* action = m_actions.value(actionName);
 	if (!action->isEnabled())
 		return;
 	action->trigger();

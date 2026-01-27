@@ -108,7 +108,7 @@ void JavaDocs::slotEdit()
 		return;
 
 	QString name = currentItem->text();
-	std::unique_ptr<Editor> dia2(new Editor(this, m_Doc->JavaScripts[name], m_View));
+	std::unique_ptr<Editor> dia2(new Editor(this, m_Doc->JavaScripts.value(name), m_View));
 	if (!dia2->exec())
 		return;
 

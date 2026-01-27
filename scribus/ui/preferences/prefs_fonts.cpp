@@ -128,7 +128,7 @@ void Prefs_Fonts::restoreDefaults(struct ApplicationPrefs *prefsData)
 	m_GFontSub = prefsData->fontPrefs.GFontSub;
 
 	int i = 0;
-	for (auto itfsu = RList.begin(); itfsu != RList.end(); ++itfsu)
+	for (auto itfsu = RList.cbegin(); itfsu != RList.cend(); ++itfsu)
 	{
 		QTableWidgetItem* tWidgetItem = new QTableWidgetItem(itfsu.key());
 		tWidgetItem->setFlags(tWidgetItem->flags() & ~Qt::ItemIsEditable);

@@ -534,7 +534,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 				unsigned char cc, cm, cy, ck;
 				for (int yit = 0; yit < m_image.height(); ++yit)
 				{
-					s = (QRgb*)(m_image.scanLine( yit ));
+					s = (QRgb*)(m_image.constScanLine( yit ));
 					for (int xit = 0; xit < m_image.width(); ++xit)
 					{
 						cc = 255 - qRed(*s);
@@ -600,7 +600,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 					QRgb *s;
 					for (int yi = 0; yi < hi; ++yi)
 					{
-						s = (QRgb*)(m_image.scanLine( yi ));
+						s = (QRgb*)(m_image.constScanLine( yi ));
 						for (int xi = 0; xi < wi; ++xi)
 						{
 							if ((*s) == alphaFF)
@@ -674,7 +674,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 				{
 					for (int y=0; y < h2; ++y )
 					{
-						p = (uint *)m_image.scanLine( y );
+						p = (uint *)m_image.constScanLine( y );
 						f.read(imgc.data(), w2);
 						for (int x=0; x < w2; x += 4 )
 						{
@@ -771,7 +771,7 @@ void ScImgDataLoader_PS::loadPhotoshop(const QString& fn, int gsRes)
 			{
 				for (int y=0; y < h2; ++y )
 				{
-					p = (uint *)m_image.scanLine( y );
+					p = (uint *)m_image.constScanLine( y );
 					f.read(imgc.data(), w2);
 					for (int x=0; x < w2; x += 4 )
 					{
@@ -801,7 +801,7 @@ void ScImgDataLoader_PS::loadPhotoshop(const QString& fn, int gsRes)
 				QRgb *s;
 				for (int yi = 0; yi < hi; ++yi)
 				{
-					s = (QRgb*)(m_image.scanLine( yi ));
+					s = (QRgb*)(m_image.constScanLine( yi ));
 					for (int xi = 0; xi < wi; ++xi)
 					{
 						if ((*s) == alphaFF)
@@ -959,7 +959,7 @@ bool ScImgDataLoader_PS::loadPSjpeg(const QString& fn)
 			for (uint j = 0; j < cinfo.output_height; j++)
 			{
 				in = m_image.scanLine(j) + cinfo.output_width * 3;
-				out = (QRgb*) m_image.scanLine(j);
+				out = (QRgb*) m_image.constScanLine(j);
 				for (uint i = cinfo.output_width; i--; )
 				{
 					in -= 3;
@@ -975,7 +975,7 @@ bool ScImgDataLoader_PS::loadPSjpeg(const QString& fn)
 			unsigned char *p;
 			for (int i = 0; i < m_image.height(); i++)
 			{
-				ptr = (QRgb*)  m_image.scanLine(i);
+				ptr = (QRgb*)  m_image.constScanLine(i);
 				if ((cinfo.jpeg_color_space == JCS_YCCK) || ((cinfo.jpeg_color_space == JCS_CMYK) && (cinfo.saw_Adobe_marker)))
 				{
 					for (int j = 0; j <  m_image.width(); j++)
@@ -1013,8 +1013,8 @@ bool ScImgDataLoader_PS::loadPSjpeg(const QString& fn)
 			QRgb *d;
 			for (int yi=0; yi < tmpImg.height(); ++yi)
 			{
-				s = (QRgb*)(tmpImg.scanLine( yi ));
-				d = (QRgb*)(m_image.scanLine( yi ));
+				s = (QRgb*)(tmpImg.constScanLine( yi ));
+				d = (QRgb*)(m_image.constScanLine( yi ));
 				for (int xi=0; xi < tmpImg.width(); ++xi)
 				{
 					(*d) = (*s);
@@ -1206,7 +1206,7 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(const QString& fn)
 				else
 					psdata.resize(m_psXSize * (3 + m_psChannel));
 				f.read(psdata.data(), psdata.size());
-				p = (QRgb*) m_image.scanLine(yh);
+				p = (QRgb*) m_image.constScanLine(yh);
 				for (int xh = 0; xh < m_image.width(); ++xh )
 				{
 					cc = psdata[xh];
@@ -1257,7 +1257,7 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(const QString& fn)
 				uchar cc, cm, cy, ck;
 				for (int yh = 0; yh < m_image.height(); ++yh )
 				{
-					p = (QRgb*) m_image.scanLine(yh);
+					p = (QRgb*) m_image.constScanLine(yh);
 					for (int xh = 0; xh < m_image.width(); ++xh )
 					{
 						cc = psdata[yCount + xh];
@@ -1654,8 +1654,8 @@ void ScImgDataLoader_PS::blendImages(QImage &source, const ScColor& col)
 	QRgb *pq;
 	for (int y=0; y < h; ++y )
 	{
-		p = (QRgb *)m_image.scanLine( y );
-		pq = (QRgb *)source.scanLine( y );
+		p = (QRgb *)m_image.constScanLine( y );
+		pq = (QRgb *)source.constScanLine( y );
 		for (int x=0; x < w; ++x )
 		{
 			cyan = 255 - qRed(*pq);
@@ -1728,7 +1728,7 @@ bool ScImgDataLoader_PS::preloadAlphaChannel(const QString& fn, int page, int gs
 				QRgb *s;
 				for (int yi = 0; yi < hi; ++yi)
 				{
-					s = (QRgb*)(m_image.scanLine(yi));
+					s = (QRgb*)(m_image.constScanLine(yi));
 					for (int xi = 0; xi < wi; ++xi)
 					{
 						if ((*s) == alphaFF)

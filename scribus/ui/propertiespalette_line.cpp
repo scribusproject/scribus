@@ -525,7 +525,7 @@ void PropertiesPalette_Line::handleLineWidth()
 			{
 				for (int a = 0; a < m_item->DashValues.count(); a++)
 				{
-					m_item->DashValues[a] = m_item->DashValues[a] / oldL * m_item->lineWidth();
+					m_item->DashValues[a] = m_item->DashValues.at(a) / oldL * m_item->lineWidth();
 				}
 				m_item->setDashOffset(m_item->dashOffset() / oldL * m_item->lineWidth());
 			}

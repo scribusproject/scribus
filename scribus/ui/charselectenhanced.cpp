@@ -387,7 +387,7 @@ void CharSelectEnhanced::generatePreview(int charClass)
 void CharSelectEnhanced::newCharClass(int c)
 {
 //     tDebug("newCharClass start");
-	m_characterClass = usedCharClasses[c];
+	m_characterClass = usedCharClasses.value(c);
 	generatePreview(m_characterClass);
 //     tDebug("newCharClass end");
 }

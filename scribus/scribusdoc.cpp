@@ -5945,7 +5945,7 @@ void  ScribusDoc::fixItemPageOwner()
 		pageNr = currItem->OwnPage;
 
 		// TODO check group owner
-		if (currItem->getAllChildren().count() > 0)
+		if (!currItem->getAllChildren().isEmpty())
 			continue;
 
 		// If item has a valid page, check that

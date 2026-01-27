@@ -147,7 +147,7 @@ bool ScrPopupMenu::insertMenuItem(ScrAction *newMenuAction)
 		int s = menuItemList.size() - 1;
 		for (int i = s; i >= 0; --i)
 		{
-			QObject* menuItem = menuItemList[i];
+			QObject* menuItem = menuItemList.at(i);
 			QString menuItemListClassName = menuItemList[i]->metaObject()->className();
 			if (menuItemListClassName == "ScrAction")
 			{

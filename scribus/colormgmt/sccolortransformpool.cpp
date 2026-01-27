@@ -42,7 +42,7 @@ void ScColorTransformPool::removeTransform(const ScColorTransform& transform)
 
 void ScColorTransformPool::removeTransform(const ScColorTransformInfo& info)
 {
-	QList< QWeakPointer<ScColorTransformData> >::Iterator it = m_pool.begin();
+	QList< QWeakPointer<ScColorTransformData> >::ConstIterator it = m_pool.cbegin();
 	while (it != m_pool.end())
 	{
 		QSharedPointer<ScColorTransformData> ref = it->toStrongRef();

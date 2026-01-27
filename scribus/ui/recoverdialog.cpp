@@ -93,8 +93,8 @@ void RecoverDialog::doRecover()
 	{
 		if (((QCheckBox*)(filesList->cellWidget(a, 0)))->isChecked())
 		{
-			recoverFiles.append(m_files[a]);
-			QString nName = m_files[a];
+			recoverFiles.append(m_files.at(a));
+			QString nName = m_files.at(a);
 			if (nName.contains("emergency"))
 				nName.replace("emergency", tr("(recovered)"));
 			if (nName.contains("autosave"))
@@ -113,8 +113,8 @@ void RecoverDialog::doRemove()
 	{
 		if (((QCheckBox*)(filesList->cellWidget(a, 0)))->isChecked())
 		{
-			QFile::remove(m_files[a]);
-			filesToRemove.append(m_files[a]);
+			QFile::remove(m_files.at(a));
+			filesToRemove.append(m_files.at(a));
 		}
 	}
 	for (int a = 0; a < filesToRemove.count(); a++)
@@ -135,7 +135,7 @@ void RecoverDialog::updateFilesTable()
 	buttonRecover->setEnabled(false);
 	for (int a = 0; a < m_files.count(); a++)
 	{
-		QFileInfo fi(m_files[a]);
+		QFileInfo fi(m_files.at(a));
 		QString name = fi.baseName();
 		QStringList parts;
 		parts.clear();

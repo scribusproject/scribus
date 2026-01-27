@@ -197,7 +197,7 @@ QString SMLineStyle::newStyle(const QString &fromStyle)
 {
 	Q_ASSERT(m_tmpLines.contains(fromStyle));
 
-	MultiLine ml(m_tmpLines[fromStyle]);
+	MultiLine ml(m_tmpLines.value(fromStyle));
 	QString name = getUniqueName(fromStyle);
 	m_tmpLines[name] = ml;
 	return name;
@@ -275,7 +275,7 @@ void SMLineStyle::apply()
 				ite->NamedLStyle = replacement[ite->NamedLStyle];
 		}
 	}
-	for (auto it = m_doc->FrameItems.begin(); it != m_doc->FrameItems.end(); ++it)
+	for (auto it = m_doc->FrameItems.cbegin(); it != m_doc->FrameItems.cend(); ++it)
 	{
 		ite = it.value();
 		if (!ite->NamedLStyle.isEmpty())
@@ -333,7 +333,7 @@ void SMLineStyle::setShortcut(const QString &shortcut)
 	if (m_selection.count() != 1)
 		return;
 
-	for (auto it = m_selection.begin(); it != m_selection.end(); ++it)
+	for (auto it = m_selection.cbegin(); it != m_selection.cend(); ++it)
 		(*it)->shortcut = shortcut;
 
 	if (!m_selectionIsDirty)
@@ -437,7 +437,7 @@ void SMLineStyle::slotLineStyle(int i)
 	if (m_currentLine < 0)
 		return;
 
-	for (auto it = m_selection.begin(); it != m_selection.end(); ++it)
+	for (auto it = m_selection.cbegin(); it != m_selection.cend(); ++it)
 	{
 		MultiLine *tmp = it.value();
 		(*tmp)[m_currentLine].Dash = i + 1;
@@ -469,7 +469,7 @@ void SMLineStyle::slotSetEnd(int i)
 			break;
 	}
 
-	for (auto it = m_selection.begin(); it != m_selection.end(); ++it)
+	for (auto it = m_selection.cbegin(); it != m_selection.cend(); ++it)
 	{
 		MultiLine *tmp = it.value();
 		(*tmp)[m_currentLine].LineEnd = static_cast<int>(c);
@@ -505,7 +505,7 @@ void SMLineStyle::slotSetJoin(int i)
 			break;
 	}
 
-	for (auto it = m_selection.begin(); it != m_selection.end(); ++it)
+	for (auto it = m_selection.cbegin(); it != m_selection.cend(); ++it)
 	{
 		MultiLine *tmp = it.value();
 		(*tmp)[m_currentLine].LineJoin = static_cast<int>(c);
@@ -523,7 +523,7 @@ void SMLineStyle::slotSetJoin(int i)
 
 void SMLineStyle::slotColor(const QString &s)
 {
-	for (auto it = m_selection.begin(); it != m_selection.end(); ++it)
+	for (auto it = m_selection.cbegin(); it != m_selection.cend(); ++it)
 	{
 		MultiLine *tmp = it.value();
 		(*tmp)[m_currentLine].Color = s;
@@ -541,7 +541,7 @@ void SMLineStyle::slotColor(const QString &s)
 
 void SMLineStyle::slotShade(int i)
 {
-	for (auto it = m_selection.begin(); it != m_selection.end(); ++it)
+	for (auto it = m_selection.cbegin(); it != m_selection.cend(); ++it)
 	{
 		MultiLine *tmp = it.value();
 		(*tmp)[m_currentLine].Shade = i;
@@ -561,7 +561,7 @@ void SMLineStyle::slotLineWidth()
 {
 	double unitRatio = m_widget->lineWidth->unitRatio();
 
-	for (auto it = m_selection.begin(); it != m_selection.end(); ++it)
+	for (auto it = m_selection.cbegin(); it != m_selection.cend(); ++it)
 	{
 		MultiLine *tmp = it.value();
 		(*tmp)[m_currentLine].Width = m_widget->lineWidth->value() / unitRatio;

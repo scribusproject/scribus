@@ -55,7 +55,7 @@ void Prefs_DocumentSections::updateTable()
 
 	sectionsTable->setRowCount(m_localSections.count());
 	int row = 0;
-	for (auto it = m_localSections.begin(); it!= m_localSections.end(); ++it)
+	for (auto it = m_localSections.cbegin(); it!= m_localSections.cend(); ++it)
 	{
 		uint i = 0;
 		//Name

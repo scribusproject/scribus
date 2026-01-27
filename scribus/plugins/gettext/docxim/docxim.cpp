@@ -716,8 +716,8 @@ QString DocXIm::getFontName(const QString& name)
 		{
 			if (it.currentKey().toLower() == fontName.toLower()) // exact Match
 				return fontName;
-			QStringList slist = PrefsManager::instance().appPrefs.fontPrefs.AvailFonts.fontMap[it.current().family()];
-			if (slist.count() > 0)
+			QStringList slist = PrefsManager::instance().appPrefs.fontPrefs.AvailFonts.fontMap.value(it.current().family());
+			if (!slist.isEmpty())
 			{
 				slist.sort();
 				int reInd = slist.indexOf("Regular");

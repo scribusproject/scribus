@@ -51,21 +51,21 @@ PrefsContext* PrefsFile::getContext(const QString& contextName, bool persistent)
 {
 	if (!m_contexts.contains(contextName))
 		m_contexts[contextName] = new PrefsContext(contextName, persistent);
-	return m_contexts[contextName];
+	return m_contexts.value(contextName);
 }
 
 PrefsContext* PrefsFile::getPluginContext(const QString& contextName, bool persistent)
 {
 	if (!m_pluginContexts.contains(contextName))
 		m_pluginContexts[contextName] = new PrefsContext(contextName, persistent);
-	return m_pluginContexts[contextName];
+	return m_pluginContexts.value(contextName);
 }
 
 PrefsContext* PrefsFile::getUserPrefsContext(const QString& contextName, bool persistent)
 {
 	if (!m_userprefsContexts.contains(contextName))
 		m_userprefsContexts[contextName] = new PrefsContext(contextName, persistent);
-	return m_userprefsContexts[contextName];
+	return m_userprefsContexts.value(contextName);
 }
 
 void PrefsFile::load()

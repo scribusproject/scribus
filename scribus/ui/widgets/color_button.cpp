@@ -492,7 +492,7 @@ QBrush ColorButton::brushGradient() const
 			{
 				if (m_doc->PageColors.contains(m_gradientData.Color1Name))
 				{
-					const ScColor& col = m_doc->PageColors[m_gradientData.Color1Name];
+					const ScColor& col = m_doc->PageColors.value(m_gradientData.Color1Name);
 					color1 = ScColorEngine::getShadeColorProof(col, m_doc, m_gradientData.Color1Shade);
 				}
 			}
@@ -501,7 +501,7 @@ QBrush ColorButton::brushGradient() const
 			{
 				if (m_doc->PageColors.contains(m_gradientData.Color2Name))
 				{
-					const ScColor& col = m_doc->PageColors[m_gradientData.Color2Name];
+					const ScColor& col = m_doc->PageColors.value(m_gradientData.Color2Name);
 					color2 = ScColorEngine::getShadeColorProof(col, m_doc, m_gradientData.Color2Shade);
 				}
 			}
@@ -510,7 +510,7 @@ QBrush ColorButton::brushGradient() const
 			{
 				if (m_doc->PageColors.contains(m_gradientData.Color3Name))
 				{
-					const ScColor& col = m_doc->PageColors[m_gradientData.Color3Name];
+					const ScColor& col = m_doc->PageColors.value(m_gradientData.Color3Name);
 					color3 = ScColorEngine::getShadeColorProof(col, m_doc, m_gradientData.Color3Shade);
 				}
 			}
@@ -519,7 +519,7 @@ QBrush ColorButton::brushGradient() const
 			{
 				if (m_doc->PageColors.contains(m_gradientData.Color4Name))
 				{
-					const ScColor& col = m_doc->PageColors[m_gradientData.Color4Name];
+					const ScColor& col = m_doc->PageColors.value(m_gradientData.Color4Name);
 					color4 = ScColorEngine::getShadeColorProof(col, m_doc, m_gradientData.Color4Shade);
 				}
 			}

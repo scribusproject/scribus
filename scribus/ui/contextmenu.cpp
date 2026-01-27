@@ -189,7 +189,7 @@ void ContextMenu::createMenuItems_Selection()
 		menuEditContent->addAction(m_ScMW->scrActions["editClearContents"]);
 	if (m_actionList.contains("editTruncateContents"))
 		menuEditContent->addAction(m_ScMW->scrActions["editTruncateContents"]);
-	if (menuEditContent->actions().count()>0)
+	if (!menuEditContent->actions().isEmpty())
 	{
 		QAction *act = addMenu(menuEditContent);
 		act->setText( tr("Content"));
@@ -291,7 +291,7 @@ void ContextMenu::createMenuItems_Selection()
 				menuResolution->addAction(m_ScMW->scrActions["itemPreviewNormal"]);
 			if (m_actionList.contains("itemPreviewLow"))
 				menuResolution->addAction(m_ScMW->scrActions["itemPreviewLow"]);
-			if (menuResolution->actions().count()>0)
+			if (!menuResolution->actions().isEmpty())
 			{
 				QAction *act = addMenu(menuResolution);
 				act->setText( tr("Preview Settings"));
@@ -334,8 +334,7 @@ void ContextMenu::createMenuItems_Selection()
 					m_ScMW->scrActions["editEditWithImageEditor"]->setEnabled(true);
 				}
 
-
-				if (menuImage->actions().count()>0)
+				if (!menuImage->actions().isEmpty())
 				{
 					QAction *act = addMenu(menuImage);
 					act->setText( tr("Image"));
@@ -427,7 +426,7 @@ void ContextMenu::createMenuItems_Selection()
 		menuLevel->addAction(m_ScMW->scrActions["itemLower"]);
 		menuLevel->addAction(m_ScMW->scrActions["itemRaiseToTop"]);
 		menuLevel->addAction(m_ScMW->scrActions["itemLowerToBottom"]);
-		if (menuLevel->actions().count()>0)
+		if (!menuLevel->actions().isEmpty())
 		{
 			QAction *act = addMenu(menuLevel);
 			act->setText( tr("Le&vel"));
@@ -450,7 +449,7 @@ void ContextMenu::createMenuItems_Selection()
 			menuConvertTo->addAction(m_ScMW->scrActions["itemConvertToTextFrame"]);
 		if (m_ScMW->scrActions["itemConvertToSymbolFrame"]->isEnabled() && !currItem->isSymbol())
 			menuConvertTo->addAction(m_ScMW->scrActions["itemConvertToSymbolFrame"]);
-		if (menuConvertTo->actions().count()>0)
+		if (!menuConvertTo->actions().isEmpty())
 		{
 			QAction *act = addMenu(menuConvertTo);
 			act->setText( tr("Conve&rt to"));

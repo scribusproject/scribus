@@ -103,7 +103,7 @@ bool ScImgDataLoader_PGF::loadPicture(const QString& fn, int /*page*/, int /*res
 					int imgDcount = 0;
 					for (uint y = 0; y < pgfImg->Height(level); y++)
 					{
-						QRgb *q = (QRgb*)(m_image.scanLine(y));
+						QRgb *q = (QRgb*)(m_image.constScanLine(y));
 						for (uint x = 0; x < pgfImg->Width(level); x++)
 						{
 							uchar r = data[imgDcount++];
@@ -122,7 +122,7 @@ bool ScImgDataLoader_PGF::loadPicture(const QString& fn, int /*page*/, int /*res
 				int imgDcount = 0;
 				for (uint y = 0; y < pgfImg->Height(); y++)
 				{
-					QRgb *q = (QRgb*)(m_image.scanLine(y));
+					QRgb *q = (QRgb*)(m_image.constScanLine(y));
 					for (uint x = 0; x < pgfImg->Width(); x++)
 					{
 						uchar r = data[imgDcount++];
@@ -160,7 +160,7 @@ bool ScImgDataLoader_PGF::loadPicture(const QString& fn, int /*page*/, int /*res
 					int imgDcount = 0;
 					for (uint y = 0; y < pgfImg->Height(level); y++)
 					{
-						QRgb *q = (QRgb*)(m_image.scanLine(y));
+						QRgb *q = (QRgb*)(m_image.constScanLine(y));
 						for (uint x = 0; x < pgfImg->Width(level); x++)
 						{
 							uchar r = data[imgDcount++];
@@ -179,7 +179,7 @@ bool ScImgDataLoader_PGF::loadPicture(const QString& fn, int /*page*/, int /*res
 				int imgDcount = 0;
 				for (uint y = 0; y < pgfImg->Height(level); y++)
 				{
-					QRgb *q = (QRgb*)(m_image.scanLine(y));
+					QRgb *q = (QRgb*)(m_image.constScanLine(y));
 					for (uint x = 0; x < pgfImg->Width(level); x++)
 					{
 						uchar r = data[imgDcount++];

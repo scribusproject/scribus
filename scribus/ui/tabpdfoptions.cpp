@@ -424,7 +424,7 @@ void TabPDFOptions::restoreDefaults(const PDFOptions & Optionen,
 			}
 		}
 
-		for (auto itAnn = m_annotationFonts.begin(); itAnn != m_annotationFonts.end(); ++itAnn)
+		for (auto itAnn = m_annotationFonts.cbegin(); itAnn != m_annotationFonts.cend(); ++itAnn)
 		{
 			QList<QListWidgetItem *> itEmbed = EmbedList->findItems(itAnn.key(), Qt::MatchExactly);
 			if (itEmbed.isEmpty())
@@ -465,7 +465,7 @@ void TabPDFOptions::restoreDefaults(const PDFOptions & Optionen,
 	fitWindow->setChecked(Opts.fitWindow);
 	actionCombo->clear();
 	actionCombo->addItem( tr("No Script"));
-	for (auto itja = m_Doc->JavaScripts.begin(); itja != m_Doc->JavaScripts.end(); ++itja)
+	for (auto itja = m_Doc->JavaScripts.cbegin(); itja != m_Doc->JavaScripts.cend(); ++itja)
 		actionCombo->addItem(itja.key());
 	if (m_Doc->JavaScripts.contains(Opts.openAction))
 		setCurrentComboItem(actionCombo, Opts.openAction);
@@ -501,7 +501,7 @@ void TabPDFOptions::restoreDefaults(const PDFOptions & Optionen,
 	useSpot->setChecked(!Opts.UseSpotColors);
 	UseLPI->setChecked(Opts.UseLPI);
 	LPIcolor->clear();
-	for (auto itlp = Opts.LPISettings.begin(); itlp != Opts.LPISettings.end(); ++itlp)
+	for (auto itlp = Opts.LPISettings.cbegin(); itlp != Opts.LPISettings.cend(); ++itlp)
 		LPIcolor->addItem( itlp.key() );
 	LPIcolor->setCurrentIndex(0);
 
@@ -526,7 +526,7 @@ void TabPDFOptions::restoreDefaults(const PDFOptions & Optionen,
 	if (!ScCore->InputProfiles.contains(tp) || !ScCore->InputProfiles[tp].isSuitableForOutput)
 		tp = m_Doc->cmsSettings().DefaultSolidColorRGBProfile;
 	SolidPr->clear();
-	for (auto itp = ScCore->InputProfiles.begin(); itp != ScCore->InputProfiles.end(); ++itp)
+	for (auto itp = ScCore->InputProfiles.cbegin(); itp != ScCore->InputProfiles.cend(); ++itp)
 	{
 		if (!itp->isSuitableForOutput)
 			continue;
@@ -541,7 +541,7 @@ void TabPDFOptions::restoreDefaults(const PDFOptions & Optionen,
 	if (!ScCore->InputProfiles.contains(tp1) || !ScCore->InputProfiles[tp1].isSuitableForOutput)
 		tp1 = m_Doc->cmsSettings().DefaultSolidColorRGBProfile;
 	ImageP->clear();
-	for (auto itp2 = ScCore->InputProfiles.begin(); itp2 != ScCore->InputProfiles.end(); ++itp2)
+	for (auto itp2 = ScCore->InputProfiles.cbegin(); itp2 != ScCore->InputProfiles.cend(); ++itp2)
 	{
 		if (!itp2->isSuitableForOutput)
 			continue;
@@ -953,7 +953,7 @@ void TabPDFOptions::EnableLPI(int a)
 		if (!ScCore->InputProfiles.contains(tp) || !ScCore->InputProfiles[tp].isSuitableForOutput)
 			tp = m_Doc->cmsSettings().DefaultSolidColorRGBProfile;
 		SolidPr->clear();
-		for (auto itp = ScCore->InputProfiles.begin(); itp != ScCore->InputProfiles.end(); ++itp)
+		for (auto itp = ScCore->InputProfiles.cbegin(); itp != ScCore->InputProfiles.cend(); ++itp)
 		{
 			if (!itp->isSuitableForOutput)
 				continue;
@@ -968,7 +968,7 @@ void TabPDFOptions::EnableLPI(int a)
 		if (!ScCore->InputProfiles.contains(tp1) || !ScCore->InputProfiles[tp1].isSuitableForOutput)
 			tp1 = m_Doc->cmsSettings().DefaultSolidColorRGBProfile;
 		ImageP->clear();
-		for (auto itp2 = ScCore->InputProfiles.begin(); itp2 != ScCore->InputProfiles.end(); ++itp2)
+		for (auto itp2 = ScCore->InputProfiles.cbegin(); itp2 != ScCore->InputProfiles.cend(); ++itp2)
 		{
 			if (!itp2->isSuitableForOutput)
 				continue;

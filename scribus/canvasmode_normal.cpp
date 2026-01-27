@@ -1301,7 +1301,7 @@ void CanvasMode_Normal::handleRadioButtonPress(PageItem* currItem)
 		PageItem *group = currItem->Parent->asGroupFrame();
 		for (int a = 0; a < group->groupItemList.count(); a++)
 		{
-			PageItem *gItem = group->groupItemList[a];
+			PageItem *gItem = group->groupItemList.at(a);
 			if ((gItem->isAnnotation()) && (gItem->annotation().Type() == Annotation::RadioButton))
 			{
 				gItem->update();
@@ -1380,7 +1380,7 @@ void CanvasMode_Normal::handleRadioButtonRelease(PageItem* currItem)
 		PageItem *group = currItem->Parent->asGroupFrame();
 		for (int a = 0; a < group->groupItemList.count(); a++)
 		{
-			PageItem *gItem = group->groupItemList[a];
+			PageItem *gItem = group->groupItemList.at(a);
 			if ((gItem->isAnnotation()) && (gItem->annotation().Type() == Annotation::RadioButton))
 			{
 				gItem->annotation().setCheckState(false);

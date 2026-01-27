@@ -47,7 +47,7 @@ PageItem_LatexFrame::PageItem_LatexFrame(ScribusDoc *pa, double x, double y, dou
 	m_itemName = tr("Render") + QString::number(m_Doc->TotalItems);
 	setUName(m_itemName);
 	
-	if (PrefsManager::instance().latexConfigs().count() > 0)
+	if (!PrefsManager::instance().latexConfigs().isEmpty())
 		setConfigFile(PrefsManager::instance().latexConfigs()[0]);
 
 	latex = new QProcess();

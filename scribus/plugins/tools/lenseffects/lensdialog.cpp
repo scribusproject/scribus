@@ -543,9 +543,7 @@ void LensDialog::changeLens()
 
 void LensDialog::selectionHasChanged()
 {
-	bool setter = true;
-	if (scene.selectedItems().count() == 0)
-		setter = false;
+	bool setter = !scene.selectedItems().isEmpty();
 	spinXPos->setEnabled(setter);
 	spinYPos->setEnabled(setter);
 	spinRadius->setEnabled(setter);

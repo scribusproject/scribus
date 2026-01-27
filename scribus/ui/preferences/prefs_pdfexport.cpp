@@ -335,7 +335,7 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 						Opts.SubsetList.append(fontName);
 				}
 			}
-			for (auto itAnn = AnnotationFonts.begin(); itAnn != AnnotationFonts.end(); ++itAnn)
+			for (auto itAnn = AnnotationFonts.cbegin(); itAnn != AnnotationFonts.cend(); ++itAnn)
 			{
 				QList<QListWidgetItem *> itEmbed = embeddedFontsListWidget->findItems(itAnn.key(), Qt::MatchExactly);
 				if (itEmbed.isEmpty())
@@ -376,7 +376,7 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 		fitViewerWindowCheckBox->setChecked(Opts.fitWindow);
 		startupJavascriptComboBox->clear();
 		startupJavascriptComboBox->addItem( tr("No Script"));
-		for (auto itja = m_doc->JavaScripts.begin(); itja != m_doc->JavaScripts.end(); ++itja)
+		for (auto itja = m_doc->JavaScripts.cbegin(); itja != m_doc->JavaScripts.cend(); ++itja)
 			startupJavascriptComboBox->addItem(itja.key());
 		if (m_doc->JavaScripts.contains(Opts.openAction))
 			setCurrentComboItem(startupJavascriptComboBox, Opts.openAction);
@@ -419,7 +419,7 @@ void Prefs_PDFExport::restoreDefaults(struct ApplicationPrefs *prefsData, const 
 //
 	useCustomRenderingCheckBox->setChecked(prefsData->pdfPrefs.UseLPI);
 	customRenderingColorComboBox->clear();
-	for (auto itlp = prefsData->pdfPrefs.LPISettings.begin(); itlp != prefsData->pdfPrefs.LPISettings.end(); ++itlp)
+	for (auto itlp = prefsData->pdfPrefs.LPISettings.cbegin(); itlp != prefsData->pdfPrefs.LPISettings.cend(); ++itlp)
 		customRenderingColorComboBox->addItem( itlp.key() );
 	customRenderingColorComboBox->setCurrentIndex(0);
 

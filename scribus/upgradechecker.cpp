@@ -220,7 +220,7 @@ void UpgradeChecker::show(bool error)
 	{
 		outputText("<b>" + tr("One or more updates for your version of Scribus (%1) are available:").arg(ScribusAPI::getVersion()) + "</b>");
 		outputText( tr("This list may contain development/unstable versions."));
-		for ( QStringList::Iterator it = m_updates.begin(); it != m_updates.end(); ++it )
+		for (auto it = m_updates.cbegin(); it != m_updates.cend(); ++it )
 			outputText(*it);
 		outputText("<b>" + tr("Please visit www.scribus.net for details.") + "</b>");
 		outputText("<b>" + tr("If you have installed Scribus from a package management system, for example on a Linux-based operating system, your package manager may have this upgrade available.") + "</b>");

@@ -406,7 +406,7 @@ PageItem* Canvas::itemUnderCursor(QPointF globalPos, PageItem* itemAbove, bool a
 	// look for masterpage items first
 	if (allowMasterItems && !m_doc->masterPageMode() && m_doc->currentPage()->FromMaster.count() != 0)
 	{
-		const ScPage* Mp = m_doc->MasterPages.at(m_doc->MasterNames[m_doc->currentPage()->masterPageName()]);
+		const ScPage* Mp = m_doc->MasterPages.at(m_doc->MasterNames.value(m_doc->currentPage()->masterPageName()));
 		// if itemAbove is given, we expect to find it among the masterpage items of this page
 		int currNr = itemAbove ? m_doc->currentPage()->FromMaster.indexOf(itemAbove) - 1 : m_doc->currentPage()->FromMaster.count() - 1;
 		if (currNr < 0)
@@ -998,7 +998,7 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 		int renderStackCount = m_doc->guidesPrefs().renderStackOrder.count();
 		for (int r = 0; r < renderStackCount; r++)
 		{
-			int ri = m_doc->guidesPrefs().renderStackOrder[r];
+			int ri = m_doc->guidesPrefs().renderStackOrder.at(r);
 			if (ri == 0)
 			{
 				if (!m_viewMode.viewAsPreview)
@@ -1050,7 +1050,7 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 		int renderStackCount = m_doc->guidesPrefs().renderStackOrder.count();
 		for (int r = 0; r < renderStackCount; r++)
 		{
-			int ri = m_doc->guidesPrefs().renderStackOrder[r];
+			int ri = m_doc->guidesPrefs().renderStackOrder.at(r);
 			if (ri == 0)
 			{
 				DrawPageMargins(painter, clip, true);			// drawing stack id = 0
@@ -1211,7 +1211,7 @@ void Canvas::drawControlsMovingItemsRect(QPainter* pp)
 							}
 							else
 							{
-								MultiLine ml = m_doc->docLineStyles[currItem->NamedLStyle];
+								MultiLine ml = m_doc->docLineStyles.value(currItem->NamedLStyle);
 								lw2 = qRound(ml[ml.size()-1].Width  / 2.0);
 								lw = qRound(qMax(ml[ml.size()-1].Width, 1.0));
 								le = static_cast<Qt::PenCapStyle>(ml[ml.size()-1].LineEnd);
@@ -1245,7 +1245,7 @@ void Canvas::drawControlsMovingItemsRect(QPainter* pp)
 				}
 				else
 				{
-					MultiLine ml = m_doc->docLineStyles[currItem->NamedLStyle];
+					MultiLine ml = m_doc->docLineStyles.value(currItem->NamedLStyle);
 					lw2 = qRound(ml[ml.size()-1].Width  / 2.0);
 					lw = qRound(qMax(ml[ml.size()-1].Width, 1.0));
 					le = static_cast<Qt::PenCapStyle>(ml[ml.size()-1].LineEnd);
@@ -1366,7 +1366,7 @@ void Canvas::DrawMasterItems(ScPainter *painter, const ScPage *page, const ScLay
 	                   qRound(clip.width() / m_viewMode.scale + 0.5), qRound(clip.height() / m_viewMode.scale + 0.5));
 
 	PageItem *currItem;
-	ScPage* Mp = m_doc->MasterPages.at(m_doc->MasterNames[page->masterPageName()]);
+	ScPage* Mp = m_doc->MasterPages.at(m_doc->MasterNames.value(page->masterPageName()));
 	if (((layer.blendMode != 0) || (layer.transparency != 1.0)) && (!layer.outlineMode))
 		painter->beginLayer(layer.transparency, layer.blendMode);
 	int pageFromMasterCount = page->FromMaster.count();
@@ -1473,7 +1473,7 @@ void Canvas::DrawPageItems(ScPainter *painter, const ScLayer& layer, QRect clip,
 	//then we must be sure that text frames are valid and all notes frames are created before we start drawing
 	if (!notesFramesPass && !m_doc->notesList().isEmpty())
 	{
-		for (auto it = m_doc->Items->begin(); it != m_doc->Items->end(); ++it)
+		for (auto it = m_doc->Items->cbegin(); it != m_doc->Items->cend(); ++it)
 		{
 			PageItem* currItem = *it;
 			if ( !currItem->isTextFrame()

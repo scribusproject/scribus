@@ -119,7 +119,7 @@ void ResourceManager::readAvailableFonts()
 	QTextStream ts(&dataFile);
 	ts.setEncoding(QStringConverter::Utf8);
 
-	QDomDocument doc( m_dataFiles[RM_FONTS] );
+	QDomDocument doc( m_dataFiles.value(RM_FONTS));
 	QString data(ts.readAll());
 	dataFile.close();
 
@@ -1021,7 +1021,7 @@ void ResourceManager::downloadListFinished()
 	disconnect(ScQApp->dlManager(), SIGNAL(fileDownloadProgress(qint64,qint64)), this, SLOT(updateProgressData(qint64,qint64)));
 
 	int category = categoryComboBox->currentData().toInt();
-	bool fileOk = checkFileHash(ScPaths::downloadDir(), m_dataFiles[category], m_dataFiles[category] + ".sha256", QCryptographicHash::Sha256);
+	bool fileOk = checkFileHash(ScPaths::downloadDir(), m_dataFiles.value(category), m_dataFiles.value(category) + ".sha256", QCryptographicHash::Sha256);
 	switch (category)
 	{
 		case RM_FONTS:

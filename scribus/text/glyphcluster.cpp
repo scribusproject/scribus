@@ -67,10 +67,7 @@ void GlyphCluster::setFlag(LayoutFlags f)
 	if (f == ScLayout_SuppressSpace)
 	{
 		for (int i = 0; i < m_glyphs.count(); i++)
-		{
-			GlyphLayout& gl = m_glyphs[i];
-			gl.xadvance = 0;
-		}
+			m_glyphs[i].xadvance = 0;
 		extraWidth = 0;
 	}
 }
@@ -123,20 +120,14 @@ void GlyphCluster::setScaleH(double s)
 {
 	m_scaleH = s;
 	for (int i = 0; i < m_glyphs.count(); i++)
-	{
-		GlyphLayout& gl = m_glyphs[i];
-		gl.scaleH = m_scaleH;
-	}
+		m_glyphs[i].scaleH = m_scaleH;
 }
 
 void GlyphCluster::setScaleV(double s)
 {
 	m_scaleV = s;
 	for (int i = 0; i < m_glyphs.count(); i++)
-	{
-		GlyphLayout& gl = m_glyphs[i];
-		gl.scaleV = m_scaleV;
-	}
+		m_glyphs[i].scaleV = m_scaleV;
 }
 
 bool GlyphCluster::isEmpty() const

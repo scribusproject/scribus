@@ -89,7 +89,7 @@ void Prefs_Hyphenator::addToIgnoreList()
 	for (QString& word: text.split("\n"))
 	{
 		word = word.trimmed();
-		if (ignoreListWidget->findItems(word, Qt::MatchExactly).count() == 0)
+		if (ignoreListWidget->findItems(word, Qt::MatchExactly).isEmpty())
 			ignoreListWidget->addItem(word);
 	}
 	ignoreListWidget->sortItems();
@@ -101,7 +101,7 @@ void Prefs_Hyphenator::editIgnoreListEntry()
 	QString text = QInputDialog::getText(this, tr("Ignore List"), tr("Edit Entry"), QLineEdit::Normal, ignoreListWidget->currentItem()->text(), &ok);
 	if (ok && !text.isEmpty())
 	{
-		if (ignoreListWidget->findItems(text, Qt::MatchExactly).count() == 0)
+		if (ignoreListWidget->findItems(text, Qt::MatchExactly).isEmpty())
 			ignoreListWidget->currentItem()->setText(text);
 		ignoreListWidget->sortItems();
 	}
@@ -141,7 +141,7 @@ void Prefs_Hyphenator::addToExceptionList()
 	for (QString& word: text.split("\n"))
 	{
 		word = word.trimmed();
-		if (exceptionListWidget->findItems(word, Qt::MatchExactly).count() == 0)
+		if (exceptionListWidget->findItems(word, Qt::MatchExactly).isEmpty())
 			exceptionListWidget->addItem(word);
 	}
 	exceptionListWidget->sortItems();
@@ -153,7 +153,7 @@ void Prefs_Hyphenator::editExceptionListEntry()
 	QString text = QInputDialog::getText(this, tr("Exception List"), tr("Edit Entry"), QLineEdit::Normal, exceptionListWidget->currentItem()->text(), &ok);
 	if (ok && !text.isEmpty())
 	{
-		if (exceptionListWidget->findItems(text, Qt::MatchExactly).count() == 0)
+		if (exceptionListWidget->findItems(text, Qt::MatchExactly).isEmpty())
 			exceptionListWidget->currentItem()->setText(text);
 		exceptionListWidget->sortItems();
 	}

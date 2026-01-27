@@ -132,7 +132,7 @@ void CanvasMode_EditMeshPatch::drawControlsMeshPatch(QPainter* psx, PageItem* cu
 	// Draw Vector Path
 	for (int col = 0; col < currItem->meshGradientPatches.count(); col++)
 	{
-		meshGradientPatch patch = currItem->meshGradientPatches[col];
+		meshGradientPatch patch = currItem->meshGradientPatches.at(col);
 		MeshPoint mp1 = patch.TL;
 		MeshPoint mp2 = patch.TR;
 		MeshPoint mp3 = patch.BR;
@@ -152,7 +152,7 @@ void CanvasMode_EditMeshPatch::drawControlsMeshPatch(QPainter* psx, PageItem* cu
 	// Draw Selected Patch Mesh
 	if (currItem->selectedMeshPointX >= 0)
 	{
-		meshGradientPatch patch = currItem->meshGradientPatches[currItem->selectedMeshPointX];
+		meshGradientPatch patch = currItem->meshGradientPatches.at(currItem->selectedMeshPointX);
 		MeshPoint mp1 = patch.TL;
 		MeshPoint mp2 = patch.TR;
 		MeshPoint mp3 = patch.BR;
@@ -773,7 +773,7 @@ void CanvasMode_EditMeshPatch::mousePressEvent(QMouseEvent *m)
 		{
 			if (m_view->editStrokeGradient == GradientEdit::PatchMesh_Color)
 			{
-				meshGradientPatch patch = m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX];
+				meshGradientPatch patch = m_currItem->meshGradientPatches.at(m_currItem->selectedMeshPointX);
 				MeshPoint mp1 = patch.TL;
 				MeshPoint mp2 = patch.TR;
 				MeshPoint mp3 = patch.BR;
@@ -803,7 +803,7 @@ void CanvasMode_EditMeshPatch::mousePressEvent(QMouseEvent *m)
 			}
 			else if (m_view->editStrokeGradient == GradientEdit::PatchMesh_Point)
 			{
-				meshGradientPatch patch = m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX];
+				meshGradientPatch patch = m_currItem->meshGradientPatches.at(m_currItem->selectedMeshPointX);
 				MeshPoint mp1 = patch.TL;
 				MeshPoint mp2 = patch.TR;
 				MeshPoint mp3 = patch.BR;
@@ -835,7 +835,7 @@ void CanvasMode_EditMeshPatch::mousePressEvent(QMouseEvent *m)
 			{
 				if (m_patchPoint != noPointDefined)
 				{
-					meshGradientPatch patch = m_currItem->meshGradientPatches[m_currItem->selectedMeshPointX];
+					meshGradientPatch patch = m_currItem->meshGradientPatches.at(m_currItem->selectedMeshPointX);
 					MeshPoint mp1 = patch.TL;
 					MeshPoint mp2 = patch.TR;
 					MeshPoint mp3 = patch.BR;
@@ -876,7 +876,7 @@ void CanvasMode_EditMeshPatch::mousePressEvent(QMouseEvent *m)
 			{
 				for (int col = 0; col < m_currItem->meshGradientPatches.count(); col++)
 				{
-					meshGradientPatch patch = m_currItem->meshGradientPatches[col];
+					meshGradientPatch patch = m_currItem->meshGradientPatches.at(col);
 					MeshPoint mp1 = patch.TL;
 					MeshPoint mp2 = patch.TR;
 					MeshPoint mp3 = patch.BR;
@@ -904,7 +904,7 @@ void CanvasMode_EditMeshPatch::mousePressEvent(QMouseEvent *m)
 		{
 			for (int col = 0; col < m_currItem->meshGradientPatches.count(); col++)
 			{
-				meshGradientPatch patch = m_currItem->meshGradientPatches[col];
+				meshGradientPatch patch = m_currItem->meshGradientPatches.at(col);
 				MeshPoint mp1 = patch.TL;
 				MeshPoint mp2 = patch.TR;
 				MeshPoint mp3 = patch.BR;
@@ -1004,7 +1004,7 @@ void CanvasMode_EditMeshPatch::snapToOtherPatch(double &x, double &y)
 	{
 		if (col != m_currItem->selectedMeshPointX)
 		{
-			meshGradientPatch patch = m_currItem->meshGradientPatches[col];
+			meshGradientPatch patch = m_currItem->meshGradientPatches.at(col);
 			QPointF mp1(patch.TL.gridPoint.x(), patch.TL.gridPoint.y());
 			QPointF mp2(patch.TR.gridPoint.x(), patch.TR.gridPoint.y());
 			QPointF mp3(patch.BR.gridPoint.x(), patch.BR.gridPoint.y());

@@ -868,7 +868,7 @@ PageItem *SVGPlug::finishNode(const QDomNode &e, PageItem* item)
 	{
 		if (filters.contains(gc->filter))
 		{
-			filterSpec filter = filters[gc->filter];
+			filterSpec filter = filters.value(gc->filter);
 			item->setFillBlendmode(filter.blendMode);
 		}
 	}

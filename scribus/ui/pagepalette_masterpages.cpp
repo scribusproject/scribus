@@ -198,7 +198,7 @@ void PagePalette_MasterPages::deleteMasterPage()
 	}
 
 	// set the 1st MP for the other slots
-	QMap<QString,int>::Iterator it = m_doc->MasterNames.begin();
+	auto it = m_doc->MasterNames.cbegin();
 	m_currentPage = it.key();
 	updateMasterPageList(m_currentPage);
 	selectMasterPage(m_currentPage);
@@ -223,7 +223,7 @@ void PagePalette_MasterPages::duplicateMasterPage()
 	name = getUniqueName(name, m_doc->MasterNames);
 
 //	PrefsManager& prefsManager = PrefsManager::instance();
-	int inde = m_doc->MasterNames[m_currentPage];
+	int inde = m_doc->MasterNames.value(m_currentPage);
 	int nr = m_doc->Pages->count();
 	ScPage* from = m_doc->Pages->at(inde);
 	ScPage* destination = m_doc->addMasterPage(nr, name);
@@ -301,7 +301,7 @@ void PagePalette_MasterPages::duplicateMasterPage()
 	for (uint a = end2; a < end3; ++a)
 	{
 		PageItem *newItem = m_doc->MasterItems.at(a);
-		int masterPageIndex = m_doc->MasterNames[name];
+		int masterPageIndex = m_doc->MasterNames.value(name);
 		newItem->setMasterPage(masterPageIndex, name);
 	}
 	from->guides.copy(&destination->guides);
@@ -455,7 +455,7 @@ void PagePalette_MasterPages::updateMasterPageList(QString masterPageName)
 		return;
 
 	masterPageListBox->clear();
-	for (QMap<QString,int>::Iterator it = m_doc->MasterNames.begin(); it != m_doc->MasterNames.end(); ++it)
+	for (auto it = m_doc->MasterNames.cbegin(); it != m_doc->MasterNames.cend(); ++it)
 	{
 		QString mpName = it.key();
 

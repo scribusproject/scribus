@@ -144,7 +144,7 @@ FormatsManager::FormatsManager()
 	QStringList qtFmts;
 	for (int qf = 0; qf < m_qtSupportedImageFormats.count(); qf++)
 	{
-		QString fmt = m_qtSupportedImageFormats[qf];
+		QString fmt = m_qtSupportedImageFormats.at(qf);
 		bool found = false;
 		QMapIterator<int, QStringList> it2(m_fmts);
 		while (it2.hasNext())

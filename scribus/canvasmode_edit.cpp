@@ -13,6 +13,7 @@
 *                                                                         *
 ***************************************************************************/
 
+#include <chrono>
 
 #include "canvasmode_edit.h"
 
@@ -49,6 +50,8 @@
 #include "ui/scrspinbox.h"
 #include "undomanager.h"
 #include "util_math.h"
+
+using namespace std::chrono_literals;
 
 
 CanvasMode_Edit::CanvasMode_Edit(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
@@ -312,7 +315,7 @@ void CanvasMode_Edit::activate(bool fromGesture)
 			m_canvas->setupEditHRuler(it, true);
 			if (m_doc->appMode == modeEdit)
 			{
-				m_blinker->start(200);
+				m_blinker->start(200ms);
 				m_blinkTime.start();
 				m_cursorVisible = true;
 				blinkTextCursor();

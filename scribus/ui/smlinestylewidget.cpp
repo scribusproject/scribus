@@ -193,7 +193,7 @@ void SMLineStyleWidget::updateLineList()
 	QPixmap * pm2;
 	double unitRatio = lineWidth->unitRatio();
 	int decimals = lineWidth->decimals();
-	for (MultiLine::iterator it = m_currentStyle.begin(); it != m_currentStyle.end(); ++it)
+	for (auto it = m_currentStyle.cbegin(); it != m_currentStyle.cend(); ++it)
 	{
 		pm2 = getWidePixmap(getColor(it->Color, it->Shade));
 		tmp2 = " "+ tmp.setNum(it->Width * unitRatio, 'f', decimals) + lineWidth->suffix() + " ";

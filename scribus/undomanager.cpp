@@ -145,10 +145,10 @@ void UndoManager::setState(UndoGui* gui, int uid)
 {
 	gui->clear();
 
-	if ( m_stacks[m_currentDoc].size() == 0 )
+	if ( m_stacks.value(m_currentDoc).size() == 0 )
 		return;
 
-	UndoStack& currentStack = m_stacks[m_currentDoc];
+	auto currentStack = m_stacks.value(m_currentDoc);
 
 	StateList::iterator itstartU = currentStack.m_undoActions.begin(); // undo actions
 	StateList::iterator itendU   = currentStack.m_undoActions.end();
@@ -286,13 +286,13 @@ void UndoManager::renameStack(const QString& newName)
 	if (m_currentDoc == newName)
 		return;
 
-	if (m_stacks[m_currentDoc].size() == 0)
+	if (m_stacks.value(m_currentDoc).size() == 0)
 	{
 		m_currentDoc = newName;
 		return;
 	}
 	
-	UndoStack tmp(m_stacks[m_currentDoc]);
+	UndoStack tmp(m_stacks.value(m_currentDoc));
 	m_stacks.remove(m_currentDoc);
 	m_stacks[newName] = tmp;
 	m_currentDoc = newName;
@@ -454,7 +454,7 @@ UndoObject* UndoManager::replaceObject(ulong uid, UndoObject *newUndoObject)
 	TransactionState* transaction_ = nullptr;
 	if (!m_transactions.empty())
 		transaction_ = m_transactions.at(m_transactions.size()-1)->transactionState;
-	for (uint i = 0; i < m_stacks[m_currentDoc].m_undoActions.size(); ++i)
+	for (uint i = 0; i < m_stacks.value(m_currentDoc).m_undoActions.size(); ++i)
 	{
 		UndoState *tmpState = m_stacks[m_currentDoc].m_undoActions[i];
 		TransactionState *ts = dynamic_cast<TransactionState*>(tmpState);
@@ -466,7 +466,7 @@ UndoObject* UndoManager::replaceObject(ulong uid, UndoObject *newUndoObject)
 			tmpState->setUndoObject(newUndoObject);
 		}
 	}
-	for (uint i = 0; i < m_stacks[m_currentDoc].m_redoActions.size(); ++i)
+	for (uint i = 0; i < m_stacks.value(m_currentDoc).m_redoActions.size(); ++i)
 	{
 		UndoState *tmpState = m_stacks[m_currentDoc].m_redoActions[i];
 		TransactionState *ts = dynamic_cast<TransactionState*>(tmpState);
@@ -488,20 +488,17 @@ void UndoManager::setHistoryLength(int steps)
 	if (steps >= 0)
 	{
 		m_stacks[m_currentDoc].setMaxSize(static_cast<uint>(steps));
-		prefs_->set("historylength", m_stacks[m_currentDoc].maxSize());
+		prefs_->set("historylength", m_stacks.value(m_currentDoc).maxSize());
 	}
 }
 
 void UndoManager::setAllHistoryLengths(int steps)
 {
-	if (steps >= 0)
-	{
-		for (StackMap::Iterator it = m_stacks.begin(); it != m_stacks.end(); ++it )
-		{
-			it.value().setMaxSize(static_cast<uint>(steps));
-		}
-		prefs_->set("historylength", steps);
-	}
+	if (steps < 0)
+		return;
+	for (auto it = m_stacks.begin(); it != m_stacks.end(); ++it)
+		it.value().setMaxSize(static_cast<uint>(steps));
+	prefs_->set("historylength", steps);
 }
 
 int UndoManager::getHistoryLength() const

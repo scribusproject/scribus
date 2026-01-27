@@ -478,12 +478,12 @@ void ScribusMainWindow::setupMainWindow()
 	setDefaultPrinter(m_prefsManager.appPrefs.printerPrefs.PrinterName, m_prefsManager.appPrefs.printerPrefs.PrinterFile, m_prefsManager.appPrefs.printerPrefs.PrinterCommand);
 
 	uint max = qMin(m_prefsManager.appPrefs.uiPrefs.recentDocCount, m_prefsManager.appPrefs.uiPrefs.RecentDocs.count());
-	for (uint m = 0; m < max; ++m)
+	for (uint i = 0; i < max; ++i)
 	{
-		QFileInfo fd(m_prefsManager.appPrefs.uiPrefs.RecentDocs[m]);
+		QFileInfo fd(m_prefsManager.appPrefs.uiPrefs.RecentDocs.at(i));
 		if (fd.exists())
 		{
-			m_recentDocsList.append(m_prefsManager.appPrefs.uiPrefs.RecentDocs[m]);
+			m_recentDocsList.append(m_prefsManager.appPrefs.uiPrefs.RecentDocs[i]);
 			//#9845: ScCore->fileWatcher->addFile(appPrefs.uiPrefs.RecentDocs[m]);
 		}
 	}
