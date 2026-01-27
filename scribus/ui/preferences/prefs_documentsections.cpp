@@ -243,7 +243,7 @@ void Prefs_DocumentSections::deleteEntry()
 	bool found = false;
 	auto it = m_localSections.begin();
 	int count = 0;
-	for (; it!= m_localSections.cend(); ++it)
+	for (; it != m_localSections.end(); ++it)
 	{
 		if(count == currRow)
 		{
