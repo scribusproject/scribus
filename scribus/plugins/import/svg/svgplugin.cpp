@@ -889,7 +889,7 @@ PageItem *SVGPlug::finishNode(const QDomNode &e, PageItem* item)
 					QTransform arrowTrans;
 					double bX = item->xPos() + End.x();
 					double bY = item->yPos() + End.y();
-					ScPattern pat = m_Doc->docPatterns[marker];
+					auto pat = m_Doc->docPatterns.value(marker);
 					double dX = (pat.width * item->lineWidth()) / 2.0;
 					double dY = (pat.height * item->lineWidth()) / 2.0;
 					arrowTrans.translate(bX, bY);
@@ -925,7 +925,7 @@ PageItem *SVGPlug::finishNode(const QDomNode &e, PageItem* item)
 					QTransform arrowTrans;
 					double bX = item->xPos() + End.x();
 					double bY = item->yPos() + End.y();
-					ScPattern pat = m_Doc->docPatterns[marker];
+					auto pat = m_Doc->docPatterns.value(marker);
 					double dX = (pat.width * item->lineWidth()) / 2.0;
 					double dY = (pat.height * item->lineWidth()) / 2.0;
 					arrowTrans.translate(bX, bY);
@@ -2019,7 +2019,7 @@ QList<PageItem*> SVGPlug::parseUse(const QDomElement &e)
 		gc->matrix   = QTransform(1.0, 0.0, 0.0, 1.0, xAtt, yAtt) * gc->matrix;
 	}
 	QString href = e.attribute("xlink:href").mid(1);
-	QMap<QString, QDomElement>::Iterator it = m_nodeMap.find(href);
+	auto it = m_nodeMap.constFind(href);
 	if (it != m_nodeMap.end())
 	{
 		QDomElement elem = it.value().toElement();
@@ -2067,7 +2067,7 @@ void SVGPlug::parseCSS(const QDomElement &e)
 			// Optional: further parse properties if needed
 			for (const QString& clsName : std::as_const(classNameList))
 			{
-				CSSStyle& cst = cssStyleList[clsName];
+				auto cst = cssStyleList.value(clsName);
 				for (const QString& prop : std::as_const(props))
 				{
 					QStringList keyValue = prop.split(':', Qt::SkipEmptyParts);
@@ -2554,14 +2554,14 @@ void SVGPlug::parsePA(SvgStyle *obj, const QString &command, const QString &para
 			obj->FillGradientType = 0;
 			obj->matrixgf = QTransform();
 			bool firstMatrixValid = false;
-			if (m_gradients[key].matrixValid)
+			if (m_gradients.value(key).matrixValid)
 			{
 				firstMatrixValid = true;
 				obj->matrixgf = m_gradients[key].matrix;
 			}
 			while (!m_gradients[key].reference.isEmpty())
 			{
-				QString key2 = m_gradients[key].reference;
+				QString key2 = m_gradients.value(key).reference;
 				const GradientHelper& gradientHelper(m_gradients[key2]);
 				if (gradientHelper.typeValid)
 					obj->FillGradientType = gradientHelper.type;
@@ -2708,18 +2708,18 @@ void SVGPlug::parsePA(SvgStyle *obj, const QString &command, const QString &para
 				else
 				{
 					obj->GStrokeCol1 = key2;
-					if ((m_gradients[key2].matrixValid) && (!firstMatrixValid))
-						obj->matrixgs *= m_gradients[key2].matrix;
+					if ((m_gradients.value(key2).matrixValid) && (!firstMatrixValid))
+						obj->matrixgs *= m_gradients.value(key2).matrix;
 				}
-				key = m_gradients[key].reference;
+				key = m_gradients.value(key).reference;
 			}
 			if (obj->StrokeGradientType != 8)
 			{
 				key = params.mid(start, end - start);
-				const GradientHelper& gradientHelper(m_gradients[key]);
+				const GradientHelper& gradientHelper(m_gradients.value(key));
 				if (gradientHelper.typeValid)
 					obj->StrokeGradientType = gradientHelper.type;
-				key = m_gradients[key].reference;
+				key = m_gradients.value(key).reference;
 				if (obj->StrokeGradientType != 8)
 				{
 					if (gradientHelper.gradientValid)
@@ -2745,7 +2745,7 @@ void SVGPlug::parsePA(SvgStyle *obj, const QString &command, const QString &para
 				else
 				{
 					obj->GStrokeCol1 = key;
-					if (m_gradients[key].matrixValid)
+					if (m_gradients.value(key).matrixValid)
 						obj->matrixgs = m_gradients[key].matrix;
 				}
 			}
@@ -3138,11 +3138,12 @@ void SVGPlug::parsePattern(const QDomElement &b)
 	{
 		if (m_gradients.contains(href))
 		{
-			gradhelper.type = m_gradients[href].type;
-			gradhelper.gradientValid = m_gradients[href].gradientValid;
-			gradhelper.typeValid = m_gradients[href].typeValid;
-			gradhelper.matrix = m_gradients[href].matrix;
-			gradhelper.matrixValid = m_gradients[href].matrixValid;
+			const auto& g = m_gradients.value(href);
+			gradhelper.type = g.type;
+			gradhelper.gradientValid = g.gradientValid;
+			gradhelper.typeValid = g.typeValid;
+			gradhelper.matrix = g.matrix;
+			gradhelper.matrixValid = g.matrixValid;
 		}
 		gradhelper.reference = href;
 	}
@@ -3211,26 +3212,27 @@ void SVGPlug::parseGradient(const QDomElement &e)
 	{
 		if (m_gradients.contains(href))
 		{
-			gradhelper.type = m_gradients[href].type;
-			gradhelper.gradient = m_gradients[href].gradient;
-			gradhelper.x1 = m_gradients[href].x1;
-			gradhelper.y1 = m_gradients[href].y1;
-			gradhelper.x2 = m_gradients[href].x2;
-			gradhelper.y2 = m_gradients[href].y2;
-			gradhelper.fx = m_gradients[href].fx;
-			gradhelper.fy = m_gradients[href].fy;
-			gradhelper.cspace = m_gradients[href].cspace;
-			gradhelper.matrix = m_gradients[href].matrix;
-			gradhelper.x1Valid = m_gradients[href].x1Valid;
-			gradhelper.x2Valid = m_gradients[href].x2Valid;
-			gradhelper.y1Valid = m_gradients[href].y1Valid;
-			gradhelper.y2Valid = m_gradients[href].y2Valid;
-			gradhelper.fxValid = m_gradients[href].fxValid;
-			gradhelper.fyValid = m_gradients[href].fyValid;
-			gradhelper.cspaceValid = m_gradients[href].cspaceValid;
-			gradhelper.matrixValid = m_gradients[href].matrixValid;
-			gradhelper.gradientValid = m_gradients[href].gradientValid;
-			gradhelper.typeValid = m_gradients[href].typeValid;
+			const auto& g = m_gradients.value(href);
+			gradhelper.type = g.type;
+			gradhelper.gradient = g.gradient;
+			gradhelper.x1 = g.x1;
+			gradhelper.y1 = g.y1;
+			gradhelper.x2 = g.x2;
+			gradhelper.y2 = g.y2;
+			gradhelper.fx = g.fx;
+			gradhelper.fy = g.fy;
+			gradhelper.cspace = g.cspace;
+			gradhelper.matrix = g.matrix;
+			gradhelper.x1Valid = g.x1Valid;
+			gradhelper.x2Valid = g.x2Valid;
+			gradhelper.y1Valid = g.y1Valid;
+			gradhelper.y2Valid = g.y2Valid;
+			gradhelper.fxValid = g.fxValid;
+			gradhelper.fyValid = g.fyValid;
+			gradhelper.cspaceValid = g.cspaceValid;
+			gradhelper.matrixValid = g.matrixValid;
+			gradhelper.gradientValid = g.gradientValid;
+			gradhelper.typeValid = g.typeValid;
 		}
 		gradhelper.reference = href;
 	}

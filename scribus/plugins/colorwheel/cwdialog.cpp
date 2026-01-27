@@ -320,7 +320,7 @@ void CWDialog::addButton_clicked()
 {
 	QString status("<qt><h2>" + tr("Merging colors") + "</h2><p>");
 	bool err = false;
-	for (ColorList::iterator it = colorWheel->colorList.begin(); it != colorWheel->colorList.end(); ++it)
+	for (auto it = colorWheel->colorList.cbegin(); it != colorWheel->colorList.cend(); ++it)
 	{
 		if (m_Doc->PageColors.contains(it.key()))
 		{

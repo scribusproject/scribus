@@ -281,7 +281,7 @@ void ScClipboardProcessor::html_MSFT_Process_CSS(const QMap<QString, QString> &s
 				SCFonts& availableFonts = PrefsManager::instance().appPrefs.fontPrefs.AvailFonts;
 				if (availableFonts.fontMap.contains(fontName))
 				{
-					QStringList styles = availableFonts.fontMap[fontName];
+					QStringList styles = availableFonts.fontMap.value(fontName);
 					QString style;
 					if (!styles.isEmpty())
 						style = styles[0];
@@ -857,7 +857,7 @@ void ScClipboardProcessor::html_Cocoa_ProcessCSS(const QMap<QString, QString> &s
 				SCFonts& availableFonts = PrefsManager::instance().appPrefs.fontPrefs.AvailFonts;
 				if (availableFonts.fontMap.contains(fontName))
 				{
-					QStringList styles = availableFonts.fontMap[fontName];
+					QStringList styles = availableFonts.fontMap.value(fontName);
 					QString style;
 					if (!styles.isEmpty())
 						style = styles[0];

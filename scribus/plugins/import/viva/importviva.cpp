@@ -809,7 +809,7 @@ void VivaPlug::parseSpreadXML(const QDomElement& spNode)
 				if (importerFlags & LoadSavePlugin::lfCreateDoc)
 				{
 					QString mpage = e.attribute("vd:aliasPageName");
-					int mType = mspreadTypes[mpage];
+					int mType = mspreadTypes.value(mpage);
 					if (mType == 1)
 					{
 						if (facingPages == 1)
@@ -847,7 +847,7 @@ void VivaPlug::parseTextChainsXML(const QDomElement& obNode)
 			{
 				QString id = eog.attribute("vd:id");
 				if (storyMap.contains(id))
-					GElements.append(storyMap[id]);
+					GElements.append(storyMap.value(id));
 			}
 		}
 
@@ -1069,7 +1069,7 @@ PageItem* VivaPlug::parseObjectDetailsXML(const QDomElement& obNode, int baseTyp
 							else if (gradientTranslate.contains(eo.text()))
 							{
 								fillGradient = gradientTranslate[eo.text()];
-								fillGradientTyp = gradientTypeMap[fillGradient];
+								fillGradientTyp = gradientTypeMap.value(fillGradient);
 							}
 						}
 						else if (eo.tagName() == "vo:lineDensity")
@@ -1697,8 +1697,8 @@ void VivaPlug::parseTextXML(const QDomElement& obNode, StoryText &itemText, int 
 		{
 			if (eo.hasAttribute("vt:story-attribute-set"))
 			{
-				applyParagraphAttrs(newStyle, AttributeSets[eo.attribute("vt:story-attribute-set")]);
-				applyCharacterAttrs(newStyle.charStyle(), newStyle, AttributeSets[eo.attribute("vt:story-attribute-set")]);
+				applyParagraphAttrs(newStyle, AttributeSets.value(eo.attribute("vt:story-attribute-set")));
+				applyCharacterAttrs(newStyle.charStyle(), newStyle, AttributeSets.value(eo.attribute("vt:story-attribute-set")));
 			}
 			for (QDomNode stx = eo.firstChild(); !stx.isNull(); stx = stx.nextSibling())
 			{
@@ -1712,7 +1712,7 @@ void VivaPlug::parseTextXML(const QDomElement& obNode, StoryText &itemText, int 
 						{
 							if (ste.hasAttribute("vt:layout-attribute-set"))
 							{
-								AttributeSet attrs = AttributeSets[ste.attribute("vt:layout-attribute-set")];
+								AttributeSet attrs = AttributeSets.value(ste.attribute("vt:layout-attribute-set"));
 								if (attrs.columnCount.valid)
 									textColumnCount = attrs.columnCount.value.toInt();
 								if (attrs.columnGutter.valid)
@@ -1727,7 +1727,7 @@ void VivaPlug::parseTextXML(const QDomElement& obNode, StoryText &itemText, int 
 									if (stce.hasAttribute("vt:paragraph-attribute-set"))
 									{
 										if (AttributeSets.contains(stce.attribute("vt:paragraph-attribute-set")))
-											applyParagraphAttrs(tmpStyle, AttributeSets[stce.attribute("vt:paragraph-attribute-set")]);
+											applyParagraphAttrs(tmpStyle, AttributeSets.value(stce.attribute("vt:paragraph-attribute-set")));
 										else if (m_Doc->styleExists(stce.attribute("vt:paragraph-attribute-set")))
 											tmpStyle = m_Doc->paragraphStyle(stce.attribute("vt:paragraph-attribute-set"));
 									}
@@ -2291,7 +2291,7 @@ QString VivaPlug::constructFontName(const QString& fontBaseName, const QString& 
 		if (fontBaseName.toLower() == it.current().family().toLower())
 		{
 			// found the font family, now go for the style
-			QStringList slist = PrefsManager::instance().appPrefs.fontPrefs.AvailFonts.fontMap[it.current().family()];
+			QStringList slist = PrefsManager::instance().appPrefs.fontPrefs.AvailFonts.fontMap.value(it.current().family());
 			slist.sort();
 			if (!slist.isEmpty())
 			{

@@ -303,7 +303,7 @@ bool ColorWheel::recomputeColor(ScColor col)
 	if (colorMap.contains(angle))
 	{
 		int tmph, tmps, tmpv;
-		QColor col(ScColorEngine::getRGBColor(colorMap[angle], currentDoc));
+		QColor col(ScColorEngine::getRGBColor(colorMap.value(angle), currentDoc));
 		col.getHsv(&tmph, &tmps, &tmpv);
 		act.setHsv(tmph , origs, origv);
 		actualColor.fromQColor(act);

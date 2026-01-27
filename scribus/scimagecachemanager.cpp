@@ -338,7 +338,7 @@ bool ScImageCacheManager::MetaAgeList::ageLessThan(const ScImageCacheFile *a, co
 
 ScImageCacheFile *ScImageCacheManager::MetaAgeList::getOldest()
 {
-	return m_fa.isEmpty() ? 0 : m_fa.front();
+	return m_fa.isEmpty() ? 0 : m_fa.constFirst();
 }
 
 ScImageCacheManager & ScImageCacheManager::instance()

@@ -64,7 +64,7 @@ void RawPainterPres::endDocument()
 		{
 			double bX = mDoc->Pages->at(i)->xOffset();
 			double bY = mDoc->Pages->at(i)->yOffset();
-			for (int j = 0; j < pageElements[i].count(); ++j)
+			for (int j = 0; j < pageElements.at(i).count(); ++j)
 			{
 				PageItem *item = pageElements[i][j];
 				item->setXYPos(item->xPos() + bX, item->yPos() + bY, true);

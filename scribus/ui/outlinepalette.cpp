@@ -883,18 +883,18 @@ void OutlinePalette::reopenTree()
 			qFatal("OutlinePalette::reopenTree !item");
 		for (int olc = 0; olc < currDoc->OpenNodes.count(); olc++)
 		{
-			if (item->type == currDoc->OpenNodes[olc].type)
+			if (item->type == currDoc->OpenNodes.at(olc).type)
 			{
 				if ((item->type == -3) || (item->type == -2))
 					reportDisplay->expandItem((*it));
 				else if ((item->type == 0) || (item->type == 2))
 				{
-					if (item->PageObject == currDoc->OpenNodes[olc].page)
+					if (item->PageObject == currDoc->OpenNodes.at(olc).page)
 						reportDisplay->expandItem((*it));
 				}
 				else if ((item->type == 2) || (item->type == 3) || (item->type == 4))
 				{
-					if (item->PageItemObject == currDoc->OpenNodes[olc].item)
+					if (item->PageItemObject == currDoc->OpenNodes.at(olc).item)
 						reportDisplay->expandItem((*it));
 				}
 			}

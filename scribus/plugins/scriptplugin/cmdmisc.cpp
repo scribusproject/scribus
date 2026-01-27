@@ -112,7 +112,7 @@ PyObject *scribus_renderfont(PyObject* /*self*/, PyObject* args, PyObject* kw)
 	if (strFormat.empty())
 		// User specified no format, so use the historical default of PPM format.
 		strFormat =  "PPM";
-	QPixmap pm = FontSample(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts[QString::fromUtf8(name.c_str())], Size, ts, Qt::white);
+	QPixmap pm = FontSample(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts.value(QString::fromUtf8(name.c_str())), Size, ts, Qt::white);
 	// If the user specified an empty filename, return the image data as bytes. Otherwise, save it to disk.
 	if (fileName.isEmpty())
 	{

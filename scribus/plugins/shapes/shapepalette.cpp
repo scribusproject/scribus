@@ -214,8 +214,8 @@ void ShapeView::startDrag(Qt::DropActions supportedActions)
 	QString key = currentItem()->data(Qt::UserRole).toString();
 	if (shapes.contains(key))
 	{
-		int w = shapes[key].width;
-		int h = shapes[key].height;
+		int w = shapes.value(key).width;
+		int h = shapes.value(key).height;
 		ScribusDoc *m_Doc = new ScribusDoc();
 		m_Doc->setup(0, 1, 1, 1, 1, "Custom", "Custom");
 		m_Doc->setPage(w, h, 0, 0, 0, 0, 0, 0, false, false);
@@ -247,7 +247,7 @@ void ShapeView::updateShapeList()
 {
 	clear();
 	setWordWrap(true);
-	for (QHash<QString, shapeData>::Iterator it = shapes.begin(); it != shapes.end(); ++it)
+	for (auto it = shapes.cbegin(); it != shapes.cend(); ++it)
 	{
 		int w = it.value().width + 4;
 		int h = it.value().height + 4;
@@ -340,7 +340,7 @@ void ShapePalette::writeToPrefs()
 		ShapeViewWidget = (ShapeView*)Frame3->widget(a);
 		QDomElement fil = docu.createElement("file");
 		fil.setAttribute("name", Frame3->itemText(a));
-		for (QHash<QString, shapeData>::Iterator it = ShapeViewWidget->shapes.begin(); it != ShapeViewWidget->shapes.end(); ++it)
+		for (auto it = ShapeViewWidget->shapes.cbegin(); it != ShapeViewWidget->shapes.cend(); ++it)
 		{
 			QDomElement shp = docu.createElement("shape");
 			shp.setAttribute("width", it.value().width);

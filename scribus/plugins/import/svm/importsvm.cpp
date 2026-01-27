@@ -1430,7 +1430,7 @@ void SvmPlug::finishItem(PageItem* ite, bool fill)
 				if (m_Doc->docPatterns.contains(currentDC.patternName))
 				{
 					ite->setPattern(currentDC.patternName);
-					ScPattern pat = m_Doc->docPatterns[currentDC.patternName];
+					auto pat = m_Doc->docPatterns.value(currentDC.patternName);
 					if ((pat.height < ite->height()) || (pat.width < ite->width()))
 					{
 						if (currentDC.patternMode == 1)
@@ -3964,7 +3964,7 @@ void SvmPlug::handleEMFPSetClipRegion(QDataStream &ds, quint8 flagsL, quint8 fla
 {
 	if (emfStyleMapEMP.contains(flagsH))
 	{
-		if (emfStyleMapEMP[flagsH].Coords.isEmpty())
+		if (emfStyleMapEMP.value(flagsH).Coords.isEmpty())
 		{
 			currentDC.clipPath.resize(0);
 			currentDC.clipPath.svgInit();
@@ -3972,10 +3972,10 @@ void SvmPlug::handleEMFPSetClipRegion(QDataStream &ds, quint8 flagsL, quint8 fla
 		}
 		quint8 mode = flagsL & 0x0F;
 		if ((mode == 0) || (currentDC.clipPath.isEmpty()))
-			currentDC.clipPath = emfStyleMapEMP[flagsH].Coords.copy();
+			currentDC.clipPath = emfStyleMapEMP.value(flagsH).Coords.copy();
 		else
 		{
-			FPointArray clipPath = emfStyleMapEMP[flagsH].Coords.copy();
+			FPointArray clipPath = emfStyleMapEMP.value(flagsH).Coords.copy();
 			QPainterPath pathN = clipPath.toQPainterPath(true);
 			QPainterPath pathA = currentDC.clipPath.toQPainterPath(true);
 			QPainterPath resultPath;
@@ -4013,10 +4013,10 @@ void SvmPlug::handleEMFPSetClipPath(QDataStream &ds, quint8 flagsL, quint8 flags
 	{
 		quint8 mode = flagsL & 0x0F;
 		if ((mode == 0) || (currentDC.clipPath.isEmpty()))
-			currentDC.clipPath = emfStyleMapEMP[flagsH].Coords.copy();
+			currentDC.clipPath = emfStyleMapEMP.value(flagsH).Coords.copy();
 		else
 		{
-			FPointArray clipPath = emfStyleMapEMP[flagsH].Coords.copy();
+			FPointArray clipPath = emfStyleMapEMP.value(flagsH).Coords.copy();
 			QPainterPath pathN = clipPath.toQPainterPath(true);
 			QPainterPath pathA = currentDC.clipPath.toQPainterPath(true);
 			QPainterPath resultPath;
@@ -4134,7 +4134,7 @@ void SvmPlug::getEMFPBrush(quint32 brushID, bool directBrush)
 	if (!emfStyleMapEMP.contains(brushID))
 		return;
 
-	emfStyle sty = emfStyleMapEMP[brushID];
+	emfStyle sty = emfStyleMapEMP.value(brushID);
 	currentDC.CurrColorFill = sty.brushColor;
 	currentDC.brushStyle = sty.brushStyle;
 	currentDC.hatchStyle = sty.hatchStyle;
@@ -4216,7 +4216,7 @@ void SvmPlug::getEMFPPen(quint32 penID)
 {
 	if (emfStyleMapEMP.contains(penID))
 	{
-		emfStyle sty = emfStyleMapEMP[penID];
+		emfStyle sty = emfStyleMapEMP.value(penID);
 		currentDC.CurrColorStroke = sty.penColor;
 		currentDC.CurrStrokeTrans = sty.penTrans;
 		currentDC.LineW = sty.penWidth;
@@ -4232,7 +4232,7 @@ void SvmPlug::getEMFPFont(quint32 fontID)
 {
 	if (emfStyleMapEMP.contains(fontID))
 	{
-		emfStyle sty = emfStyleMapEMP[fontID];
+		emfStyle sty = emfStyleMapEMP.value(fontID);
 		currentDC.fontName = sty.fontName;
 		currentDC.fontSize = sty.fontSize;
 		currentDC.fontUnit = sty.fontUnit;
@@ -4243,7 +4243,7 @@ void SvmPlug::getEMFPStringFormat(quint32 fontID)
 {
 	if (emfStyleMapEMP.contains(fontID))
 	{
-		emfStyle sty = emfStyleMapEMP[fontID];
+		emfStyle sty = emfStyleMapEMP.value(fontID);
 		currentDC.hAlign = sty.hAlign;
 		currentDC.vAlign = sty.vAlign;
 		currentDC.verticalText = sty.verticalText;
@@ -4536,12 +4536,12 @@ void SvmPlug::GdipAddPathClosedCurve(QPainterPath &path, QPolygonF &points, floa
 
 void SvmPlug::handleEMFPDrawImageData(QPointF p1, QPointF p2, QPointF p3, quint8 flagsH)
 {
-	if (emfStyleMapEMP[flagsH].MetaFile)
+	if (emfStyleMapEMP.value(flagsH).MetaFile)
 	{
-		QString ext = "emf";
-		if (emfStyleMapEMP[flagsH].imageType < U_MDT_Emf)
+		QString ext("emf");
+		if (emfStyleMapEMP.value(flagsH).imageType < U_MDT_Emf)
 			ext = "wmf";
-		PageItem* ite = getVectorFileFromData(m_Doc, emfStyleMapEMP[flagsH].imageData, ext, baseX + p1.x(), baseY + p1.y(), QLineF(p1, p2).length(), QLineF(p1, p3).length());
+		PageItem* ite = getVectorFileFromData(m_Doc, emfStyleMapEMP.value(flagsH).imageData, ext, baseX + p1.x(), baseY + p1.y(), QLineF(p1, p2).length(), QLineF(p1, p3).length());
 		if (ite != nullptr)
 		{
 			if (QLineF(p1, p2).angle() != 0)
@@ -4603,17 +4603,17 @@ void SvmPlug::handleEMFPDrawImageData(QPointF p1, QPointF p2, QPointF p3, quint8
 QImage SvmPlug::getImageDataFromStyle(quint8 flagsH)
 {
 	QImage img;
-	if (emfStyleMapEMP[flagsH].imageType == 1)
-		img.loadFromData(emfStyleMapEMP[flagsH].imageData);
+	if (emfStyleMapEMP.value(flagsH).imageType == 1)
+		img.loadFromData(emfStyleMapEMP.value(flagsH).imageData);
 	else
 	{
-		int hWidth = qAbs(emfStyleMapEMP[flagsH].imageWidth);
-		int hHeight = qAbs(emfStyleMapEMP[flagsH].imageHeight);
-		QDataStream dsB(emfStyleMapEMP[flagsH].imageData);
+		int hWidth = qAbs(emfStyleMapEMP.value(flagsH).imageWidth);
+		int hHeight = qAbs(emfStyleMapEMP.value(flagsH).imageHeight);
+		QDataStream dsB(emfStyleMapEMP.value(flagsH).imageData);
 		dsB.setByteOrder(QDataStream::LittleEndian);
 		img = QImage(hWidth, hHeight, QImage::Format_ARGB32);
 		img.fill(0);
-		if (emfStyleMapEMP[flagsH].imagePixelFormat == U_PF_32bppARGB)
+		if (emfStyleMapEMP.value(flagsH).imagePixelFormat == U_PF_32bppARGB)
 		{
 			for (qint32 yy = 0; yy < hHeight; yy++)
 			{
@@ -4627,7 +4627,7 @@ QImage SvmPlug::getImageDataFromStyle(quint8 flagsH)
 				}
 			}
 		}
-		else if (emfStyleMapEMP[flagsH].imagePixelFormat == U_PF_32bppRGB)
+		else if (emfStyleMapEMP.value(flagsH).imagePixelFormat == U_PF_32bppRGB)
 		{
 			for (qint32 yy = 0; yy < hHeight; yy++)
 			{
@@ -4641,7 +4641,7 @@ QImage SvmPlug::getImageDataFromStyle(quint8 flagsH)
 				}
 			}
 		}
-		else if (emfStyleMapEMP[flagsH].imagePixelFormat == U_PF_24bppRGB)
+		else if (emfStyleMapEMP.value(flagsH).imagePixelFormat == U_PF_24bppRGB)
 		{
 			for (qint32 yy = 0; yy < hHeight; yy++)
 			{
@@ -4656,7 +4656,7 @@ QImage SvmPlug::getImageDataFromStyle(quint8 flagsH)
 				aligntoQuadWord(dsB);
 			}
 		}
-		else if (emfStyleMapEMP[flagsH].imagePixelFormat == U_PF_16bppRGB555)
+		else if (emfStyleMapEMP.value(flagsH).imagePixelFormat == U_PF_16bppRGB555)
 		{
 			for (qint32 yy = 0; yy < hHeight; yy++)
 			{
@@ -4675,7 +4675,7 @@ QImage SvmPlug::getImageDataFromStyle(quint8 flagsH)
 				aligntoQuadWord(dsB);
 			}
 		}
-		else if (emfStyleMapEMP[flagsH].imagePixelFormat == U_PF_16bppGrayScale)
+		else if (emfStyleMapEMP.value(flagsH).imagePixelFormat == U_PF_16bppGrayScale)
 		{
 			for (qint32 yy = 0; yy < hHeight; yy++)
 			{
@@ -4691,7 +4691,7 @@ QImage SvmPlug::getImageDataFromStyle(quint8 flagsH)
 				aligntoQuadWord(dsB);
 			}
 		}
-		else if (emfStyleMapEMP[flagsH].imagePixelFormat == U_PF_8bppIndexed)
+		else if (emfStyleMapEMP.value(flagsH).imagePixelFormat == U_PF_8bppIndexed)
 		{
 			QVector<QRgb> colorTbl;
 			quint32 palFlags, colorsUsed;
@@ -4721,7 +4721,7 @@ QImage SvmPlug::getImageDataFromStyle(quint8 flagsH)
 			}
 			img = img.convertToFormat(QImage::Format_ARGB32);
 		}
-		else if (emfStyleMapEMP[flagsH].imagePixelFormat == U_PF_4bppIndexed)
+		else if (emfStyleMapEMP.value(flagsH).imagePixelFormat == U_PF_4bppIndexed)
 		{
 			QVector<QRgb> colorTbl;
 			quint32 palFlags, colorsUsed;
@@ -4761,7 +4761,7 @@ QImage SvmPlug::getImageDataFromStyle(quint8 flagsH)
 				aligntoQuadWord(dsB);
 			}
 		}
-		else if (emfStyleMapEMP[flagsH].imagePixelFormat == U_PF_1bppIndexed)
+		else if (emfStyleMapEMP.value(flagsH).imagePixelFormat == U_PF_1bppIndexed)
 		{
 			QVector<QRgb> colorTbl;
 			quint32 palFlags, colorsUsed;

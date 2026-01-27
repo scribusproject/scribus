@@ -125,10 +125,10 @@ bool LensEffectsPlugin::run(ScribusDoc* doc, const QString&)
 
 	for (int i = 0; i < dia->origPathItem.count(); i++)
 	{
-		PageItem *currItem = dia->origPageItem[i];
+		PageItem *currItem = dia->origPageItem.value(i);
 		if (currItem->itemType() == PageItem::Line)
 			continue;
-		QPainterPath path = dia->origPathItem[i]->path();
+		QPainterPath path = dia->origPathItem.value(i)->path();
 		FPointArray points;
 		points.fromQPainterPath(path);
 		currItem->PoLine = points;

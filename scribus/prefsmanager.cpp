@@ -561,7 +561,7 @@ void PrefsManager::applyLoadedShortCuts()
 {
 	const auto &actions = ScCore->primaryMainWindow()->scrActions;
 
-	for (auto it = appPrefs.keyShortcutPrefs.KeyActions.begin(); it != appPrefs.keyShortcutPrefs.KeyActions.end(); ++it)
+	for (auto it = appPrefs.keyShortcutPrefs.KeyActions.cbegin(); it != appPrefs.keyShortcutPrefs.KeyActions.cend(); ++it)
 	{
 		if (it.value().actionName.isEmpty())
 			continue;
@@ -1292,7 +1292,7 @@ void PrefsManager::setKeyEntry(const QString& actName, const QString& cleanMenuT
 	Keys ke;
 	if (!actName.isEmpty())
 	{
-		if (ScCore->primaryMainWindow()->scrActions[actName])
+		if (ScCore->primaryMainWindow()->scrActions.value(actName))
 		{
 			ke.actionName = actName;
 			ke.keySequence = keyseq;
@@ -1497,7 +1497,7 @@ bool PrefsManager::writePref(const QString& filePath)
 			elem.appendChild(fn);
 		}
 	}
-	for (auto itfsu = appPrefs.fontPrefs.GFontSub.begin(); itfsu != appPrefs.fontPrefs.GFontSub.end(); ++itfsu)
+	for (auto itfsu = appPrefs.fontPrefs.GFontSub.cbegin(); itfsu != appPrefs.fontPrefs.GFontSub.cend(); ++itfsu)
 	{
 		QDomElement fosu = docu.createElement("Substitute");
 		fosu.setAttribute("Name", itfsu.key());
@@ -1654,8 +1654,8 @@ bool PrefsManager::writePref(const QString& filePath)
 	dcPreflightVerifier.setAttribute("ShowNonPrintingLayerErrors", appPrefs.verifierPrefs.showNonPrintingLayerErrors);
 	elem.appendChild(dcPreflightVerifier);
 
-	auto itcpend = appPrefs.verifierPrefs.checkerPrefsList.end();
-	for (auto itcp = appPrefs.verifierPrefs.checkerPrefsList.begin(); itcp != itcpend; ++itcp)
+	auto itcpend = appPrefs.verifierPrefs.checkerPrefsList.cend();
+	for (auto itcp = appPrefs.verifierPrefs.checkerPrefsList.cbegin(); itcp != itcpend; ++itcp)
 	{
 		QDomElement dcVerifierProfile = docu.createElement("VerifierProfile");
 		const CheckerPrefs& checkerProfile = itcp.value();
@@ -1869,7 +1869,7 @@ bool PrefsManager::writePref(const QString& filePath)
 	pdf.setAttribute("openAfterExport", static_cast<int>(appPrefs.pdfPrefs.openAfterExport));
 	pdf.setAttribute("PageLayout", appPrefs.pdfPrefs.PageLayout);
 	pdf.setAttribute("OpenAction", appPrefs.pdfPrefs.openAction);
-	for (auto itlp = appPrefs.pdfPrefs.LPISettings.begin(); itlp != appPrefs.pdfPrefs.LPISettings.end(); ++itlp)
+	for (auto itlp = appPrefs.pdfPrefs.LPISettings.cbegin(); itlp != appPrefs.pdfPrefs.LPISettings.cend(); ++itlp)
 	{
 		QDomElement pdf4 = docu.createElement("LPI");
 		pdf4.setAttribute("Color", itlp.key());

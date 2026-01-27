@@ -111,7 +111,7 @@ void SeparationPreviewCreator::setSeparationPreviewEnabled(bool enabled)
 
 void SeparationPreviewCreator::setSeparationVisible(const QString& name, bool visible)
 {
-	if (m_separationVisibilities.contains(name) && (m_separationVisibilities[name] == visible))
+	if (m_separationVisibilities.contains(name) && (m_separationVisibilities.value(name) == visible))
 		return;
 	m_separationVisibilities[name] = visible;
 }

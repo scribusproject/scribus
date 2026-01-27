@@ -128,7 +128,7 @@ bool XarPlug::readColors(const QString& fileName, ColorList & colors)
 	f.close();
 	if (!m_Doc->PageColors.isEmpty())
 	{
-		for (auto it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
+		for (auto it = m_Doc->PageColors.cbegin(); it != m_Doc->PageColors.cend(); ++it)
 		{
 			if (!it.key().startsWith("FromXara"))
 			{
@@ -1162,12 +1162,12 @@ void XarPlug::endTextLine()
 			QPainterPath guidePath = textPath.toQPainterPath(false);
 			for (int a = 0; a < textLines.count(); ++a)
 			{
-				XarTextLine txLin = textLines[a];
+				XarTextLine txLin = textLines.at(a);
 				TextY += gc->LineHeight;
 				xpos = 0;
 				for (int c = 0; c < txLin.textData.count(); ++c)
 				{
-					XarText txDat = txLin.textData[c];
+					XarText txDat = txLin.textData.at(c);
 					xpos += txDat.FontKerning * (txDat.FontSize  * 72.0 / 96.0);
 					txDat.FontSize *= 10;
 					QFont textFont(txDat.FontFamily, txDat.FontSize);
@@ -1301,12 +1301,12 @@ void XarPlug::endTextLine()
 	{
 		for (int a = 0; a < textLines.count(); ++a)
 		{
-			XarTextLine txLin = textLines[a];
+			XarTextLine txLin = textLines.at(a);
 			TextY += gc->LineHeight;
 			xpos = 0;
 			for (int b = 0; b < txLin.textData.count(); ++b)
 			{
-				XarText txDat = txLin.textData[b];
+				XarText txDat = txLin.textData.at(b);
 				painterPath = QPainterPath();
 				QFont textFont(txDat.FontFamily, txDat.FontSize);
 				xpos += txDat.FontKerning * txDat.FontSize;
@@ -1774,7 +1774,7 @@ void XarPlug::handleBitmapTransparency(QDataStream &ts, quint32 dataLen)
 	double rotS = xy2Deg(tlx - blx, tly - bly);
 	if (patternRef.contains(bref))
 	{
-		QString imgNam = m_Doc->docPatterns[patternRef[bref]].items.at(0)->externalFile();
+		QString imgNam = m_Doc->docPatterns.value(patternRef[bref]).items.at(0)->externalFile();
 		QImage image;
 		image.load(imgNam);
 		int h = image.height();
@@ -2460,7 +2460,7 @@ void XarPlug::handleBitmapFill(QDataStream &ts, quint32 dataLen)
 	double rotS = xy2Deg(tlx - blx, tly - bly);
 	if (patternRef.contains(bref))
 	{
-		ScPattern pat = m_Doc->docPatterns[patternRef[bref]];
+		ScPattern pat = m_Doc->docPatterns.value(patternRef[bref]);
 		gc->fillPattern = patternRef[bref];
 		gc->fillPatternTrans.scaleX = distX / pat.width;
 		gc->fillPatternTrans.scaleY = distY / pat.height;
@@ -2524,7 +2524,7 @@ void XarPlug::handleContoneBitmapFill(QDataStream &ts, quint32 dataLen)
 	double rotS = xy2Deg(tlx - blx, tly - bly);
 	if (patternRef.contains(bref))
 	{
-		QString imgNam = m_Doc->docPatterns[patternRef[bref]].items.at(0)->externalFile();
+		QString imgNam = m_Doc->docPatterns.value(patternRef[bref]).items.at(0)->externalFile();
 		QImage image;
 		image.load(imgNam);
 		int h = image.height();
@@ -2636,7 +2636,7 @@ void XarPlug::handleBitmap(QDataStream &ts)
 	PageItem *ite = m_Doc->Items->at(z);
 	if (patternRef.contains(bref))
 	{
-		QString imgNam = m_Doc->docPatterns[patternRef[bref]].items.at(0)->externalFile();
+		QString imgNam = m_Doc->docPatterns.value(patternRef[bref]).items.at(0)->externalFile();
 		QImage image;
 		image.load(imgNam);
 		QTemporaryFile tempFile(QDir::tempPath() + "/scribus_temp_xar_XXXXXX.png");
@@ -2829,7 +2829,7 @@ void XarPlug::createSimilarItem(QDataStream &ts)
 	{
 		PageItem* newItem;
 		int z = -1;
-		const PageItem* ite = pathMap[val];
+		const PageItem* ite = pathMap.value(val);
 		if (ite->realItemType() == PageItem::ImageFrame)
 			z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, baseX, baseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol);
 		else if (ite->realItemType() == PageItem::Polygon)
@@ -2907,7 +2907,7 @@ void XarPlug::handleBrushItem(QDataStream &ts)
 	ts >> rotate;
 	ts >> offsetX >> offsetY;
 	ts >> scale;
-	ScPattern pat = m_Doc->docPatterns[brushRef[handle]];
+	ScPattern pat = m_Doc->docPatterns.value(brushRef[handle]);
 	XarStyle *gc = m_gc.top();
 	gc->strokePattern = brushRef[handle];
 	gc->strokePatternTrans.scaleX = scale;
@@ -2917,7 +2917,7 @@ void XarPlug::handleBrushItem(QDataStream &ts)
 	gc->strokePatternTrans.rotation = 0.0;
 	gc->strokePatternTrans.skewX = 0.0;
 	gc->strokePatternTrans.skewY = 0.0;
-	gc->strokePatternTrans.space = (spacing / 1000.0) / m_Doc->docPatterns[brushRef[handle]].width;
+	gc->strokePatternTrans.space = (spacing / 1000.0) / m_Doc->docPatterns.value(brushRef[handle]).width;
 	gc->patternStrokePath = true;
 }
 

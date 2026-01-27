@@ -169,7 +169,7 @@ bool HunspellPluginImpl::parseTextFrame(StoryText *iText)
 			}
 		}
 
-		if (hspellerMap.contains(wordLang) && hspellerMap[wordLang]->spell(word)==0)
+		if (hspellerMap.contains(wordLang) && hspellerMap.value(wordLang)->spell(word)==0)
 		{
 			//qDebug() << "hspellerMap.contains(wordLang)" << hspellerMap.contains(wordLang) << "hspellerMap[wordLang]->spell(word)" << hspellerMap[wordLang]->spell(word);
 			struct WordsFound wf;

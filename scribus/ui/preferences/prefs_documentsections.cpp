@@ -177,9 +177,9 @@ void Prefs_DocumentSections::addEntry()
 {
 	int currRow = sectionsTable->currentRow();
 	bool found = false;
-	DocumentSectionMap::Iterator it = m_localSections.begin();
+	auto it = m_localSections.cbegin();
 	int count = 0;
-	for (; it != m_localSections.end(); ++it)
+	for (; it != m_localSections.cend(); ++it)
 	{
 		if(count == currRow)
 		{
@@ -241,9 +241,9 @@ void Prefs_DocumentSections::deleteEntry()
 	if (currRow == 0 && m_localSections.count() == 1)
 		return;
 	bool found = false;
-	DocumentSectionMap::Iterator it = m_localSections.begin();
+	auto it = m_localSections.begin();
 	int count = 0;
-	for (; it!= m_localSections.end(); ++it)
+	for (; it!= m_localSections.cend(); ++it)
 	{
 		if(count == currRow)
 		{

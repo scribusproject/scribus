@@ -145,7 +145,7 @@ QPixmap PrintPreviewCreator_PDF::createPreview(int pageIndex)
 			}
 		}
 
-		for (auto sepit = m_sepsToFileNum.begin(); sepit != m_sepsToFileNum.end(); ++sepit)
+		for (auto sepit = m_sepsToFileNum.cbegin(); sepit != m_sepsToFileNum.cend(); ++sepit)
 		{
 			bool visibleSeparation = m_separationVisibilities.value(sepit.key(), false);
 			if (!visibleSeparation)

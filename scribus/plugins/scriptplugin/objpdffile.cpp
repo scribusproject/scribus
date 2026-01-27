@@ -569,8 +569,8 @@ static int PDFfile_init(PDFfile *self, PyObject * /*args*/, PyObject * /*kwds*/)
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'lpival' attribute");
 		return -1;
 	}
-	QMap<QString,LPIData>::Iterator it = pdfOptions.LPISettings.begin();
-	while (it != pdfOptions.LPISettings.end())
+	auto it = pdfOptions.LPISettings.cbegin();
+	while (it != pdfOptions.LPISettings.cend())
 	{
 		PyObject *tmp;
 		tmp = Py_BuildValue("[siii]", it.key().toLatin1().constData(), it.value().Frequency, it.value().Angle, it.value().SpotFunc);

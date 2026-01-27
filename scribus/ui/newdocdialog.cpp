@@ -156,7 +156,7 @@ void NewDocDialog::createNewDocPage()
 	{
 		pageLayoutButtons->button(0)->setChecked(true);
 	}
-	else if (prefsManager.appPrefs.pageSets[pagePositioning].FirstPage == 0)
+	else if (prefsManager.appPrefs.pageSets.at(pagePositioning).FirstPage == 0)
 	{
 		pageLayoutButtons->button(1)->setChecked(true);
 	}
@@ -596,7 +596,7 @@ void NewDocDialog::setDocLayout(int layout)
 	marginGroup->setFacingPages(layout != singlePage);
 	bleedGroup->setFacingPages(layout != singlePage);
 	m_choosenLayout = layout;
-	m_layoutFirstPage = prefsManager.appPrefs.pageSets[m_choosenLayout].FirstPage;
+	m_layoutFirstPage = prefsManager.appPrefs.pageSets.at(m_choosenLayout).FirstPage;
 	pagePreview->setPage(m_pageHeight, m_pageWidth, marginGroup->margins(), bleedGroup->margins(), m_pageSize, m_choosenLayout, m_layoutFirstPage);
 }
 

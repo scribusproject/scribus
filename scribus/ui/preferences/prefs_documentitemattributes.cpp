@@ -238,7 +238,7 @@ void Prefs_DocumentItemAttributes::copyEntry()
 QStringList Prefs_DocumentItemAttributes::getDocAttributesNames()
 {
 	QStringList nameList;
-	for (ObjAttrVector::Iterator it = localAttributes.begin(); it!= localAttributes.end(); ++it)
+	for (auto it = localAttributes.cbegin(); it!= localAttributes.cend(); ++it)
 		nameList.append((*it).name);
 	return nameList;
 }

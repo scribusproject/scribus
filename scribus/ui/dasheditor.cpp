@@ -148,7 +148,7 @@ void DashPreview::paintEvent(QPaintEvent *e)
 	// Draw handles
 	for (int i = 0; i < m_stops.count(); ++i)
 	{
-		qreal sPos = m_stops[i];
+		qreal sPos = m_stops.at(i);
 		qreal yPos = handleRect(sPos).top() + 0.5;
 		qreal xPos = mapPositionToGrid(sPos) + saveAreaRect().left() + .5;
 
@@ -286,13 +286,13 @@ void DashPreview::mouseMoveEvent(QMouseEvent *m)
 
 		if (m_currentStop > 1)
 		{
-			if (static_cast<int>(m_stops[m_currentStop - 1] + canvasRect().left()) + 2 >= mousePos.x())
+			if (static_cast<int>(m_stops.at(m_currentStop - 1) + canvasRect().left()) + 2 >= mousePos.x())
 				return;
 		}
 
 		if (m_currentStop < static_cast<int>(m_stops.count() - 2))
 		{
-			if (static_cast<int>(m_stops[m_currentStop + 1] + canvasRect().left()) - 2 < mousePos.x())
+			if (static_cast<int>(m_stops.at(m_currentStop + 1) + canvasRect().left()) - 2 < mousePos.x())
 				return;
 		}
 
@@ -303,7 +303,7 @@ void DashPreview::mouseMoveEvent(QMouseEvent *m)
 
 		for (int i = 0; i < m_currentStop; ++i)
 		{
-			startX += m_stops[i] / ratio() - startX;
+			startX += m_stops.at(i) / ratio() - startX;
 		}
 
 		emit currStep(m_stops[m_currentStop] / ratio() - startX);
@@ -352,7 +352,7 @@ void DashPreview::setDashValues(const QVector<double>& vals)
 	{
 		m_patternLength = 0;
 		for(int i = 0; i < m_dashValues.count(); i++)
-			m_patternLength += m_dashValues[i];
+			m_patternLength += m_dashValues.at(i);
 		m_patternLength += 1;
 
 		if ((m_currentStop >= vals.count()) || (m_currentStop == -1))
@@ -403,9 +403,9 @@ QColor DashPreview::errorColor()
 qreal DashPreview::clampStopPosition(qreal xPos)
 {
 	// position of left neighbor + .1
-	qreal xMin = m_currentStop != 0 ? m_stops[m_currentStop - 1] + .1 : 0;
+	qreal xMin = m_currentStop != 0 ? m_stops.at(m_currentStop - 1) + .1 : 0;
 	// position of right neighbor - .1
-	qreal xMax = m_currentStop != m_stops.count() - 1 ? m_stops[m_currentStop + 1] -.1 : canvasRect().right();
+	qreal xMax = m_currentStop != m_stops.count() - 1 ? m_stops.at(m_currentStop + 1) -.1 : canvasRect().right();
 
 	return qBound(xMin, xPos, xMax);
 }
@@ -422,7 +422,7 @@ void DashPreview::updateDashValues()
 	double startX = 0.0;
 	for (int i = 0; i < m_stops.count(); ++i)
 	{
-		double w = m_stops[i] / ratio() - startX;
+		double w = m_stops.at(i) / ratio() - startX;
 		m_dashValues.append(w);
 		startX += w;
 	}
@@ -434,7 +434,7 @@ void DashPreview::updateStops()
 	double startX = 0.0;
 	for (int i = 0; i < m_dashValues.count(); ++i)
 	{
-		startX += m_dashValues[i] * ratio();
+		startX += m_dashValues.at(i) * ratio();
 		m_stops.append(startX);
 	}
 }

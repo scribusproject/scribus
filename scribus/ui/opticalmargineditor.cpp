@@ -151,7 +151,7 @@ void OpticalMarginEditor::createTable()
 	tableWidget->clearContents();
 	tableWidget->setRowCount(0);
 
-	if (m_sets.size() <= 0)
+	if (m_sets.isEmpty())
 		qWarning() << Q_FUNC_INFO << "Empty optical margin sets.";
 
 	OpticalMarginSet set = (m_sets.contains(m_setId)) ? m_sets.value(m_setId) : m_sets.first();

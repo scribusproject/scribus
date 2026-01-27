@@ -173,12 +173,12 @@ void ImageLayers::selectLayer()
 	if ((info->isRequest) && (info->RequestProps.contains(currentLayer)))
 	{
 		opacitySpinBox->setValue(qRound(info->RequestProps[currentLayer].opacity / 255.0 * 100));
-		setCurrentComboItemFromData(blendMode, info->RequestProps[currentLayer].blend);
+		setCurrentComboItemFromData(blendMode, info->RequestProps.value(currentLayer).blend);
 	}
 	else
 	{
 		opacitySpinBox->setValue(qRound(info->layerInfo[currentLayer].opacity / 255.0 * 100));
-		setCurrentComboItemFromData(blendMode, info->layerInfo[currentLayer].blend);
+		setCurrentComboItemFromData(blendMode, info->layerInfo.value(currentLayer).blend);
 	}
 	opacitySpinBox->setEnabled(true);
 	blendMode->setEnabled(true);
@@ -275,12 +275,12 @@ void ImageLayers::updateLayerInfo()
 		else if ((isRequest) && (m_item->pixm.imgInfo.RequestProps.contains(layerIndex)))
 		{
 			loadingInfo.blend = m_item->pixm.imgInfo.RequestProps[layerIndex].blend;
-			loadingInfo.opacity = m_item->pixm.imgInfo.RequestProps[layerIndex].opacity;
+			loadingInfo.opacity = m_item->pixm.imgInfo.RequestProps.value(layerIndex).opacity;
 		}
 		else
 		{
 			loadingInfo.blend = m_item->pixm.imgInfo.layerInfo[layerIndex].blend;
-			loadingInfo.opacity = m_item->pixm.imgInfo.layerInfo[layerIndex].opacity;
+			loadingInfo.opacity = m_item->pixm.imgInfo.layerInfo.value(layerIndex).opacity;
 		}
 
 		QCheckBox *cbLayer = dynamic_cast<QCheckBox*>(layerTable->cellWidget(r, 0));
