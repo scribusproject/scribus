@@ -136,13 +136,13 @@ void LineStyle::getNamedResources(ResourceCollection& lists) const
 void LineStyle::replaceNamedResources(ResourceCollection& newNames)
 {
 	QMap<QString,QString>::ConstIterator it;
-	QList<LineStyle>::iterator itl;
+	QList<LineStyle>::iterator itl, itle = m_Sublines.end();
 
 	if (!inh_Color && (it = newNames.colors().find(color())) != newNames.colors().end())
 		setColor(it.value());
 	if (hasParent() && (it = newNames.lineStyles().find(parent())) != newNames.lineStyles().end())
 		setParent(it.value());
-	for (itl = m_Sublines.begin(); itl != m_Sublines.cend(); ++itl)
+	for (itl = m_Sublines.begin(); itl != itle; ++itl)
 		(*itl).replaceNamedResources(newNames);
 }
 
