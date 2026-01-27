@@ -122,7 +122,7 @@ void Prefs_DocumentItemAttributes::updateTable()
 	for (int row = 0; row < localAttributes.count(); ++row)
 	{
 		uint col = 0;
-		auto objAttr = localAttributes.at(row);
+		ObjectAttribute& objAttr = localAttributes[row];
 
 		//Name
 		QTableWidgetItem *item1 = new QTableWidgetItem(objAttr.name);

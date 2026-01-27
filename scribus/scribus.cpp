@@ -483,7 +483,7 @@ void ScribusMainWindow::setupMainWindow()
 		QFileInfo fd(m_prefsManager.appPrefs.uiPrefs.RecentDocs.at(i));
 		if (fd.exists())
 		{
-			m_recentDocsList.append(m_prefsManager.appPrefs.uiPrefs.RecentDocs[i]);
+			m_recentDocsList.append(m_prefsManager.appPrefs.uiPrefs.RecentDocs.at(i));
 			//#9845: ScCore->fileWatcher->addFile(appPrefs.uiPrefs.RecentDocs[m]);
 		}
 	}
