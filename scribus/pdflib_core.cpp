@@ -7039,10 +7039,8 @@ bool PDFLibCore::PDF_MeshGradientFill(QByteArray& output, const PageItem *c)
 	output = tmp;
 	if (tmpAddedColors.count() != 0)
 	{
-		for (int cd = 0; cd < tmpAddedColors.count(); cd++)
-		{
-			doc.PageColors.remove(tmpAddedColors[cd]);
-		}
+		for (const auto& tmpAddedColor : std::as_const(tmpAddedColors))
+			doc.PageColors.remove(tmpAddedColor);
 	}
 	return true;
 }

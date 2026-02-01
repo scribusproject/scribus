@@ -226,17 +226,13 @@ bool PmPlug::importFile(const QString& fNameIn, const TransactionSettings& trSet
 				m_Doc->view()->updatesOn(true);
 				if (!importedPatterns.isEmpty())
 				{
-					for (int i = 0; i < importedPatterns.count(); i++)
-					{
-						m_Doc->docPatterns.remove(importedPatterns[i]);
-					}
+					for (const auto& importedPattern : std::as_const(importedPatterns))
+						m_Doc->docPatterns.remove(importedPattern);
 				}
 				if (!importedColors.isEmpty())
 				{
-					for (int i = 0; i < importedColors.count(); i++)
-					{
-						m_Doc->PageColors.remove(importedColors[i]);
-					}
+					for (const auto& importedColor : std::as_const(importedColors))
+						m_Doc->PageColors.remove(importedColor);
 				}
 				m_Doc->m_Selection->delaySignalsOff();
 				// We must copy the TransationSettings object as it is owned

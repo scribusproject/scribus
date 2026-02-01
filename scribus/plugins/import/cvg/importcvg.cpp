@@ -356,10 +356,8 @@ bool CvgPlug::convert(const QString& fn)
 		}
 		if (Elements.isEmpty())
 		{
-			for (int cd = 0; cd < importedColors.count(); cd++)
-			{
-				m_Doc->PageColors.remove(importedColors[cd]);
-			}
+			for (const auto& importedColor : std::as_const(importedColors))
+				m_Doc->PageColors.remove(importedColor);
 		}
 		f.close();
 	}

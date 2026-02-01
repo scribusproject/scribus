@@ -233,17 +233,13 @@ bool FhPlug::importFile(const QString& fNameIn, const TransactionSettings& trSet
 				m_Doc->view()->updatesOn(true);
 				if (!importedPatterns.isEmpty())
 				{
-					for (int cd = 0; cd < importedPatterns.count(); cd++)
-					{
-						m_Doc->docPatterns.remove(importedPatterns[cd]);
-					}
+					for (const auto& importedPattern : std::as_const(importedPatterns))
+						m_Doc->docPatterns.remove(importedPattern);
 				}
 				if (!importedColors.isEmpty())
 				{
-					for (int cd = 0; cd < importedColors.count(); cd++)
-					{
-						m_Doc->PageColors.remove(importedColors[cd]);
-					}
+					for (const auto& importedColor : std::as_const(importedColors))
+						m_Doc->PageColors.remove(importedColor);
 				}
 				m_Doc->m_Selection->delaySignalsOff();
 				// We must copy the TransationSettings object as it is owned
@@ -324,14 +320,10 @@ bool FhPlug::convert(const QString& fn)
 	}
 	if (Elements.isEmpty())
 	{
-		for (int cd = 0; cd < importedColors.count(); cd++)
-		{
-			m_Doc->PageColors.remove(importedColors[cd]);
-		}
-		for (int cd = 0; cd < importedPatterns.count(); cd++)
-		{
-			m_Doc->docPatterns.remove(importedPatterns[cd]);
-		}
+		for (const auto& importedColor : std::as_const(importedColors))
+			m_Doc->PageColors.remove(importedColor);
+		for (const auto& importedPattern : std::as_const(importedPatterns))
+			m_Doc->docPatterns.remove(importedPattern);
 	}
 	if (progressDialog)
 		progressDialog->close();
