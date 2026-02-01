@@ -513,10 +513,8 @@ bool OODPlug::convert(const TransactionSettings& trSettings, int flags)
 	if (Elements.isEmpty())
 	{
 		importFailed = true;
-		for (int cd = 0; cd < importedColors.count(); cd++)
-		{
-			m_Doc->PageColors.remove(importedColors[cd]);
-		}
+		for (const auto& importedColor : importedColors)
+			m_Doc->PageColors.remove(importedColor);
 	}
 	if (Elements.count() > 1)
 		m_Doc->groupObjectsList(Elements);

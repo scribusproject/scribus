@@ -260,17 +260,13 @@ bool DrwPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 				m_Doc->view()->updatesOn(true);
 				if (!importedColors.isEmpty())
 				{
-					for (int cd = 0; cd < importedColors.count(); cd++)
-					{
-						m_Doc->PageColors.remove(importedColors[cd]);
-					}
+					for (const auto& importedColor : importedColors)
+						m_Doc->PageColors.remove(importedColor);
 				}
 				if (!importedPatterns.isEmpty())
 				{
-					for (int cd = 0; cd < importedPatterns.count(); cd++)
-					{
-						m_Doc->docPatterns.remove(importedPatterns[cd]);
-					}
+					for (const auto& importedPattern : importedPatterns)
+						m_Doc->docPatterns.remove(importedPattern);
 				}
 				m_Doc->m_Selection->delaySignalsOff();
 				// We must copy the TransationSettings object as it is owned
@@ -386,14 +382,10 @@ bool DrwPlug::convert(const QString& fn)
 		}
 		if (Elements.isEmpty())
 		{
-			for (int cd = 0; cd < importedColors.count(); cd++)
-			{
-				m_Doc->PageColors.remove(importedColors[cd]);
-			}
-			for (int cd = 0; cd < importedPatterns.count(); cd++)
-			{
-				m_Doc->docPatterns.remove(importedPatterns[cd]);
-			}
+			for (const auto& importedColor : importedColors)
+				m_Doc->PageColors.remove(importedColor);
+			for (const auto& importedPattern : importedPatterns)
+				m_Doc->docPatterns.remove(importedPattern);
 		}
 		f.close();
 	}

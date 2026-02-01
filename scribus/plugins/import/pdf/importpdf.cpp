@@ -815,10 +815,8 @@ bool PdfPlug::convert(const QString& fn)
 
 	if (m_elements.isEmpty())
 	{
-		for (int i = 0; i < m_importedColors.count(); i++)
-		{
-			m_Doc->PageColors.remove(m_importedColors[i]);
-		}
+		for (const auto& importedColor : m_importedColors)
+			m_Doc->PageColors.remove(importedColor);
 	}
 
 	if (m_progressDialog)
