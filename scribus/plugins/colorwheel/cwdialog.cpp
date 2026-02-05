@@ -55,8 +55,8 @@ CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool moda
 	angleSpin->setValue(prefs->getInt("cw_angle", 15));
 	colorList->setPixmapType(ColorListBox::fancyPixmap);
 	colorWheel->currentDoc = m_Doc;
-	colorWheel->angle = angleSpin->value();
-	colorWheel->baseAngle = prefs->getInt("cw_baseangle", 0);
+	colorWheel->setAngle(angleSpin->value());
+	colorWheel->setBaseAngle(prefs->getInt("cw_baseangle", 0));
 	colorspaceTab->setCurrentIndex(prefs->getInt("cw_space", 0));
 	color.setNamedColor(prefs->get("cw_color", "#00000000"));
 	// Handle color previously selected in the document tab
@@ -74,7 +74,7 @@ CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool moda
 	rgb.getHsv(&h, &s, &v);
 	if (h == -1)
 	{   // Reset to defaults
-		colorWheel->baseAngle = 0;
+		colorWheel->setBaseAngle(0);
 		colorWheel->currentColorSpace = colorModelCMYK;
 		colorWheel->actualColor = colorWheel->colorByAngle(0);
 		colorspaceTab->setCurrentIndex(0);
@@ -136,7 +136,7 @@ CWDialog::~CWDialog()
 	QString colorName = (colorspaceTab->currentWidget() == tabDocument) ? documentColorList->currentColor() : "";
 	prefs->set("cw_type", typeCombo->currentIndex());
 	prefs->set("cw_angle", angleSpin->value());
-	prefs->set("cw_baseangle", colorWheel->baseAngle);
+	prefs->set("cw_baseangle", colorWheel->baseAngle());
 	prefs->set("cw_color", colorWheel->actualColor.name());
 	prefs->set("cw_colorname", colorName);
 	prefs->set("cw_space", colorspaceTab->currentIndex());
@@ -242,7 +242,7 @@ void CWDialog::colorWheel_clicked(int, const QPoint&)
 
 void CWDialog::angleSpin_valueChanged(int value)
 {
-	colorWheel->angle = value;
+	colorWheel->setAngle(value);
 	processColors(typeCombo->currentIndex(), false);
 }
 
@@ -252,36 +252,35 @@ void CWDialog::setPreview()
 	int y = previewLabel->height();
 	QList<ScColor> cols = colorWheel->colorList.values();
 	int xstep = x / cols.count();
-	QPixmap pm = QPixmap(x * devicePixelRatioF(), y * devicePixelRatioF());
+	QPixmap pm(x * devicePixelRatioF(), y * devicePixelRatioF());
 	pm.setDevicePixelRatio(devicePixelRatioF());
-	QPainter *p = new QPainter(&pm);
-	QFontMetrics fm = p->fontMetrics();
+	QPainter p(&pm);
+	QFontMetrics fm = p.fontMetrics();
 
 	pm.fill(Qt::white);
-	p->setPen(Qt::white);
-	p->drawRect(0, 0, x, y);
+	p.setPen(Qt::white);
+	p.drawRect(0, 0, x, y);
 	QColor c;
 	for (int i = 0; i < cols.count(); ++i)
 	{
 		//c = computeDefect(cols[i].getRGBColor());
 		c = computeDefect( ScColorEngine::getDisplayColor(cols[i], m_Doc) );
-		p->setPen(c);
-		p->setBrush(c);
-		p->drawRect(i * xstep, 0, xstep, y);
+		p.setPen(c);
+		p.setBrush(c);
+		p.drawRect(i * xstep, 0, xstep, y);
 	}
-	p->setPen(Qt::black);
-	p->setBrush(Qt::black);
-	p->drawText(15, 5 + fm.height(), "Lorem ipsum dolor sit amet");
-	p->setPen(Qt::white);
-	p->setBrush(Qt::white);
-	p->drawText(90, y - 5 - fm.height(), "Lorem ipsum dolor sit amet");
-	p->end();
-	delete(p);
+	p.setPen(Qt::black);
+	p.setBrush(Qt::black);
+	p.drawText(15, 5 + fm.height(), "Lorem ipsum dolor sit amet");
+	p.setPen(Qt::white);
+	p.setBrush(Qt::white);
+	p.drawText(90, y - 5 - fm.height(), "Lorem ipsum dolor sit amet");
+	p.end();
 	previewLabel->clear();
 	previewLabel->setPixmap(pm);
 }
 
-QColor CWDialog::computeDefect(QColor c)
+QColor CWDialog::computeDefect(QColor c) const
 {
 	if (defectCombo->currentIndex() == VisionDefectColor::normalVision)
 		return c;
@@ -347,7 +346,7 @@ void CWDialog::addButton_clicked()
 
 void CWDialog::replaceButton_clicked()
 {
-	for (ColorList::iterator it = colorWheel->colorList.begin(); it != colorWheel->colorList.end(); ++it)
+	for (auto it = colorWheel->colorList.begin(); it != colorWheel->colorList.end(); ++it)
 	{
 		m_Doc->PageColors[it.key()] = it.value();
 	}
@@ -554,7 +553,7 @@ void CWDialog::colorList_currentChanged(const QString& itemText)
 	}
 }
 
-QString CWDialog::getHexHsv(const ScColor& c)
+QString CWDialog::getHexHsv(const ScColor& c) const
 {
 	int h, s, v;
 	QColor hsvCol(ScColorEngine::getRGBColor(c, m_Doc));

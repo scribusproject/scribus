@@ -50,7 +50,7 @@ class CWDialog : public QDialog, Ui::CWDialog
 		\param c input color. QColor from sample list.
 		\retval QColor It returns c for chosen defect filter.
 		*/
-		QColor computeDefect(QColor c);
+		QColor computeDefect(QColor c) const;
 
 		/** \brief It fills colors into list view.
 		It takes colors from ColorWheel widget. */
@@ -94,7 +94,7 @@ class CWDialog : public QDialog, Ui::CWDialog
 		void processColors(int index, bool updateSpins = true);
 
 		//! \brief Get a #hhssvv string for given ScColor
-		QString getHexHsv(const ScColor& c);
+		QString getHexHsv(const ScColor& c) const;
 
 	private slots:
 		void colorspaceTab_currentChanged(int);
