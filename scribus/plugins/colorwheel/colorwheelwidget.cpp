@@ -20,16 +20,8 @@ for which a new license (GPL+exception) is in place.
 ColorWheel::ColorWheel(QWidget * parent, const char * name) : QLabel(parent)
 {
 	setObjectName(name);
-	pointList.clear();
-	currentDoc = nullptr;
-	currentColorSpace = colorModelRGB;
-	baseAngle = 0;
-	angleShift = 270;
-	widthH = heightH = 150;
-	// create color map
-	colorMap.clear();
 	// fit the colorMap 1st value with matrix beginning
-	int mapIndex = angleShift;
+	int mapIndex = m_angleShift;
 	for (int i = 0; i < 360; ++i)
 	{
 		QColor c;
@@ -56,8 +48,8 @@ void ColorWheel::mouseMoveEvent(QMouseEvent *e)
 
 void ColorWheel::mouseReleaseEvent(QMouseEvent *e)
 {
-	baseAngle = valueFromPoint(e->pos());
-	actualColor = colorMap[baseAngle];
+	m_baseAngle = valueFromPoint(e->pos());
+	actualColor = colorMap[m_baseAngle];
 	actualColor = ScColorEngine::convertToModel(actualColor, currentDoc, currentColorSpace);
 	emit clicked(e->button(), e->pos());
 	update();
@@ -98,7 +90,7 @@ void ColorWheel::paintCenterSample()
 	p.setRenderHint(QPainter::Antialiasing, true);
 	p.setPen(QPen(Qt::black, 2));
 	p.setBrush(ScColorEngine::getDisplayColor(actualColor, currentDoc ));
-	p.drawEllipse(widthH - 20, heightH - 20, 40, 40);
+	p.drawEllipse(m_widthH - 20, m_heightH - 20, 40, 40);
 	p.end();
 }
 
@@ -111,17 +103,17 @@ void ColorWheel::paintWheel()
 	int height = this->height();
 	QPainter p;
 	p.begin(this);
-	p.setWindow( 0, 0, width, height);
+	p.setWindow(0, 0, width, height);
 	p.fillRect(0, 0, width, height, palette().color(QPalette::Base));
 	p.setPen(Qt::black);
 	p.drawRect(0, 0, width, height);
 	// Half sizes
-	heightH = height / 2;
-	widthH = width / 2;
+	m_heightH = height / 2;
+	m_widthH = width / 2;
 	for (int i = 0; i < 360; ++i)
 	{
 		QTransform matrix;
-		matrix.translate(widthH, heightH);
+		matrix.translate(m_widthH, m_heightH);
 		matrix.rotate((float) i);
 		p.setWorldTransform(matrix);
 		QColor c;
@@ -132,7 +124,7 @@ void ColorWheel::paintWheel()
 	}
 }
 
-QString ColorWheel::getTypeDescription(MethodType aType)
+QString ColorWheel::getTypeDescription(MethodType aType) const
 {
 	switch (aType)
 	{
@@ -148,20 +140,19 @@ QString ColorWheel::getTypeDescription(MethodType aType)
 
 ScColor ColorWheel::colorByAngle(int angle)
 {
-	while (angle > 359)
-		angle -= 359;
+	while (angle >= 360)
+		angle -= 360;
 	while (angle < 0)
-		angle += 359;
+		angle += 360;
 	return colorSpaceColor(colorMap[angle]);
 }
 
 ScColor ColorWheel::sampleByAngle(int angle)
 {
-	while (angle > 359)
-		angle -= 359;
+	while (angle >= 360)
+		angle -= 360;
 	while (angle < 0)
-		angle += 359;
-	//drawBorderPoint(angle);
+		angle += 360;
 	PaintPoint p;
 	p.angle = angle;
 	p.base = false;
@@ -169,7 +160,7 @@ ScColor ColorWheel::sampleByAngle(int angle)
 	return colorSpaceColor(colorMap[angle]);
 }
 
-ScColor ColorWheel::colorSpaceColor(ScColor col)
+ScColor ColorWheel::colorSpaceColor(const ScColor& col) const
 {
 	QColor newcol;
 	ScColor ret;
@@ -184,14 +175,11 @@ ScColor ColorWheel::colorSpaceColor(ScColor col)
 
 void ColorWheel::baseColor()
 {
-	//clearBorder();
 	pointList.clear();
-	//drawBorderPoint(baseAngle, true);
 	PaintPoint p;
-	p.angle = baseAngle;
+	p.angle = m_baseAngle;
 	p.base = true;
 	pointList.append(p);
-	//paintCenterSample();
 	colorList.clear();
 	colorList[trBaseColor] = colorSpaceColor(actualColor);
 }
@@ -213,58 +201,52 @@ void ColorWheel::makeMonochromatic()
 void ColorWheel::makeAnalogous()
 {
 	baseColor();
-	colorList[tr("1st. Analogous")] = sampleByAngle(baseAngle + angle);
-	colorList[tr("2nd. Analogous")] = sampleByAngle(baseAngle - angle);
+	colorList[tr("1st. Analogous")] = sampleByAngle(m_baseAngle + m_angle);
+	colorList[tr("2nd. Analogous")] = sampleByAngle(m_baseAngle - m_angle);
 	currentType = Analogous;
 }
 
 void ColorWheel::makeComplementary()
 {
 	baseColor();
-	colorList[tr("Complementary")] = sampleByAngle(baseAngle + 180);
+	colorList[tr("Complementary")] = sampleByAngle(m_baseAngle + 180);
 	currentType = Complementary;
 }
 
 void ColorWheel::makeSplit()
 {
 	baseColor();
-	colorList[tr("1st. Split")] = sampleByAngle(baseAngle + angle);
-	colorList[tr("2nd. Split")] = sampleByAngle(baseAngle - angle);
-	colorList[tr("3rd. Split")] = sampleByAngle(baseAngle + 180 + angle);
-	colorList[tr("4th. Split")] = sampleByAngle(baseAngle + 180 - angle);
+	colorList[tr("1st. Split")] = sampleByAngle(m_baseAngle + m_angle);
+	colorList[tr("2nd. Split")] = sampleByAngle(m_baseAngle - m_angle);
+	colorList[tr("3rd. Split")] = sampleByAngle(m_baseAngle + 180 + m_angle);
+	colorList[tr("4th. Split")] = sampleByAngle(m_baseAngle + 180 - m_angle);
 	currentType = Split;
 }
 
 void ColorWheel::makeTriadic()
 {
 	baseColor();
-	colorList[tr("1st. Triadic")] = sampleByAngle(baseAngle + 120);
-	colorList[tr("2nd. Triadic")] = sampleByAngle(baseAngle - 120);
+	colorList[tr("1st. Triadic")] = sampleByAngle(m_baseAngle + 120);
+	colorList[tr("2nd. Triadic")] = sampleByAngle(m_baseAngle - 120);
 	currentType = Triadic;
 }
 
 void ColorWheel::makeTetradic()
 {
 	baseColor();
-	colorList[tr("1st. Tetradic (base opposite)")] = sampleByAngle(baseAngle + 180);
-	colorList[tr("2nd. Tetradic (angle)")] = sampleByAngle(baseAngle + angle);
-	colorList[tr("3rd. Tetradic (angle opposite)")] = sampleByAngle(baseAngle + angle + 180);
+	colorList[tr("1st. Tetradic (base opposite)")] = sampleByAngle(m_baseAngle + 180);
+	colorList[tr("2nd. Tetradic (angle)")] = sampleByAngle(m_baseAngle + m_angle);
+	colorList[tr("3rd. Tetradic (angle opposite)")] = sampleByAngle(m_baseAngle + m_angle + 180);
 	currentType = Tetradic;
 }
-
-// void ColorWheel::clearBorder()
-// {
-// 	for (int i = 0; i < 360; ++i)
-// 		drawBorderPoint(i, false, true);
-// }
 
 void ColorWheel::drawBorderPoint(int angle, bool base, bool clear)
 {
 	double r = 137.0;
-	angle -= angleShift;
-	double radang = M_PI * (double)angle/180.0;
-	int x = (int)(r * cos(radang)) + widthH;
-	int y = (int)(r * sin(radang)) + heightH;
+	angle -= m_angleShift;
+	double radang = M_PI * (double) angle / 180.0;
+	int x = (int)(r * cos(radang)) + m_widthH;
+	int y = (int)(r * sin(radang)) + m_heightH;
 	// draw border mark
 	QPainter p;
 	p.begin(this);
@@ -290,11 +272,11 @@ void ColorWheel::drawBorderPoint(int angle, bool base, bool clear)
 
 int ColorWheel::valueFromPoint(const QPoint & p) const
 {
-	double yy = (double)heightH - (double)p.y();
-	double xx = (double)p.x() - (double)widthH;
+	double yy = (double) m_heightH - (double) p.y();
+	double xx = (double) p.x() - (double) m_widthH;
 	double a = (xx || yy) ? atan2(yy, xx) : 0.0;
 
-	if ( a < M_PI/-2 )
+	if (a < M_PI / -2)
 		a = a + M_PI * 2;
 
 	int minv = 0, maxv = 359;
@@ -306,27 +288,27 @@ int ColorWheel::valueFromPoint(const QPoint & p) const
 	return val;
 }
 
-bool ColorWheel::recomputeColor(ScColor col)
+bool ColorWheel::recomputeColor(const ScColor& col)
 {
 	int origh, origs, origv;
-	ColorMap::iterator it;
 	QColor c(ScColorEngine::getRGBColor(col, currentDoc));
 	QColor act(ScColorEngine::getRGBColor(actualColor, currentDoc));
 
 	c.getHsv(&origh, &origs, &origv);
-	angle = origh + angleShift;
+	int angle = origh + m_angleShift;
 	if (angle > 359)
 		angle -= 360;
-	if (colorMap.contains(angle))
-	{
-		int tmph, tmps, tmpv;
-		QColor col(ScColorEngine::getRGBColor(colorMap[angle], currentDoc));
-		col.getHsv(&tmph, &tmps, &tmpv);
-		act.setHsv(tmph , origs, origv);
-		actualColor.fromQColor(act);
-		actualColor = ScColorEngine::convertToModel(actualColor, currentDoc, currentColorSpace);
-		baseAngle = angle;
-		return true;
-	}
-	return false;
+
+	if (!colorMap.contains(angle))
+		return false;
+
+	int tmph, tmps, tmpv;
+	QColor qCol(ScColorEngine::getRGBColor(colorMap.value(angle), currentDoc));
+	qCol.getHsv(&tmph, &tmps, &tmpv);
+	act.setHsv(tmph , origs, origv);
+	actualColor.fromQColor(act);
+	actualColor = ScColorEngine::convertToModel(actualColor, currentDoc, currentColorSpace);
+	m_baseAngle = angle;
+
+	return true;
 }

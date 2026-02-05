@@ -43,26 +43,16 @@ class ColorWheel : public QLabel
 			Tetradic
 		};
 
-		ScribusDoc* currentDoc;
+		ScribusDoc* currentDoc { nullptr };
 
 		//! \brief name of the "base color" to handle in extern color lists
 		QString trBaseColor;
 
 		//! \brief Which color model is in use.
-		colorModel currentColorSpace;
+		colorModel currentColorSpace { colorModelRGB };
 
 		//! \brief Actual type of color computing. See MethodType.
 		MethodType currentType;
-
-		/** \brief Difference between selected value and counted ones.
-		Let's set angle = 15 and base point e.g. 60 (everything in grades).
-		Now you will have Analogous angles 60 (base) and 75 (+15) and 45 (-15).
-		Exact interpretation of the angle value depends on the MethodType value.
-		*/
-		int angle;
-
-		/*! \brief Angle of the base color */
-		int baseAngle;
 
 		/** \brief RGB interpretation of the leading point in the wheel. */
 		ScColor actualColor;
@@ -74,7 +64,7 @@ class ColorWheel : public QLabel
 		/** \brief Returns localized name of the type.
 		\param aType Type of the color algorithm. See MethodType.
 		\retval QString Translated method name. */
-		QString getTypeDescription(MethodType aType);
+		QString getTypeDescription(MethodType aType) const;
 
 		/** \brief Get sample color from specific angle.
 		\param angle Angle of the color in the wheel. An angle for transformation counting.
@@ -90,7 +80,18 @@ class ColorWheel : public QLabel
 		It sets all options by given color (from input color dialogs).
 		\param col examined color
 		\retval true on color found, false when color not found - black or white etc.*/
-		bool recomputeColor(ScColor col);
+		bool recomputeColor(const ScColor& col);
+		
+		/**
+		 * \brief Set difference between selected value and counted ones.
+		 */
+		void setAngle(int angle) { m_angle = angle; }
+
+		/**
+		 * \brief Angle diff between colorMap and painted wheel itself.
+		 */
+		int baseAngle() const { return m_baseAngle; }
+		void setBaseAngle(int angle) { m_baseAngle = angle; }
 
 	signals:
 		/** \brief Signal raised by mouse click on widget by user.
@@ -104,15 +105,25 @@ class ColorWheel : public QLabel
 		*/
 		ColorMap colorMap;
 
+		/** \brief Difference between selected value and counted ones.
+		Let's set angle = 15 and base point e.g. 60 (everything in grades).
+		Now you will have Analogous angles 60 (base) and 75 (+15) and 45 (-15).
+		Exact interpretation of the angle value depends on the MethodType value.
+		*/
+		int m_angle { 0 };
+
 		/** \brief Angle diff between colorMap and painted wheel itself.
 		QTransform wheel and colorMap have different start points.
 		It's taken from Qt. */
-		int angleShift;
+		int m_angleShift { 270 };
+
+		/*! \brief Angle of the base color */
+		int m_baseAngle { 0 };
 
 		/*! \brief Half of the widget sizes.
 		To prevent all width()/2 divisions. */
-		int widthH;
-		int heightH;
+		int m_widthH { 150 };
+		int m_heightH { 150 };
 
 		/** \brief An event for mouse actions handling.
 		See \see clicked() for more info.
@@ -178,7 +189,7 @@ class ColorWheel : public QLabel
 		Its result depends on the currentColorSpace value.
 		\param col a ScColor to convert.
 		\retval ScColor Scribus color structure */
-		ScColor colorSpaceColor(ScColor col);
+		ScColor colorSpaceColor(const ScColor& col) const;
 
 		/** \brief Display user selection - selected colors.
 		Chosen colors are marked via bullets on the border of
@@ -201,8 +212,8 @@ class ColorWheel : public QLabel
 
 		struct PaintPoint
 		{
-			int angle;
-			bool base;
+			int angle { 0 };
+			bool base { false };
 		};
 		QList<PaintPoint> pointList;
 };
