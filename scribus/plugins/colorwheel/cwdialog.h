@@ -36,9 +36,9 @@ class CWDialog : public QDialog, Ui::CWDialog
 		~CWDialog();
 	private:
 		/** \brief Configuration structure */
-		PrefsContext* prefs;
+		PrefsContext* prefs { nullptr };
 		//! \brief a parent doc reference
-		ScribusDoc* m_Doc;
+		ScribusDoc* m_Doc { nullptr };
 
 		/** \brief Draws a strange colorful things as preview of the color schema.
 		User can see what will see a person with selected kind of color blindness.

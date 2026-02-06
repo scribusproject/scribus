@@ -30,11 +30,11 @@ class ColorWheel : public QLabel
 	Q_OBJECT
 
 	public:
-		ColorWheel(QWidget * parent, const char * name = 0);
-		~ColorWheel(){};
+		ColorWheel(QWidget * parent, const char * name = nullptr);
 
 		//! \brief It can handle these color theory methods
-		enum MethodType {
+		enum MethodType
+		{
 			Monochromatic,
 			Analogous,
 			Complementary,
@@ -43,23 +43,40 @@ class ColorWheel : public QLabel
 			Tetradic
 		};
 
-		ScribusDoc* currentDoc { nullptr };
+		/** \brief RGB interpretation of the leading point in the wheel. */
+		const ScColor& actualColor() const { return m_actualColor; }
+		void setActualColor(const ScColor& color) { m_actualColor = color; }
 
 		//! \brief name of the "base color" to handle in extern color lists
-		QString trBaseColor;
+		const QString& trBaseColor() const { return m_trBaseColor; }
 
-		//! \brief Which color model is in use.
-		colorModel currentColorSpace { colorModelRGB };
+		/**
+		 * \brief Set difference between selected value and counted ones.
+		 */
+		int  angle() const { return m_angle; }
+		void setAngle(int angle) { m_angle = angle; }
 
-		//! \brief Actual type of color computing. See MethodType.
-		MethodType currentType;
-
-		/** \brief RGB interpretation of the leading point in the wheel. */
-		ScColor actualColor;
+		/**
+		 * \brief Angle diff between colorMap and painted wheel itself.
+		 */
+		int  baseAngle() const { return m_baseAngle; }
+		void setBaseAngle(int angle) { m_baseAngle = angle; }
 
 		/** \brief List of the colors created in this widget.
 		Colors can be added into Scribus color list later. */
-		ColorList colorList;
+		ColorList& colorList() { return m_colorList; }
+		const ColorList& colorList() const { return m_colorList; }
+
+		//! \brief Which color model is in use.
+		colorModel colorspace() const { return m_colorspace; }
+		void setColorspace(colorModel model) { m_colorspace = model; }
+
+		//! \brief Set current document
+		void setDoc(ScribusDoc* doc) { m_doc = doc; }
+
+		//! \brief Actual type of color computing. See MethodType.
+		MethodType methodType() const { return m_methodType; }
+		void setMethodType(MethodType methodType) { m_methodType = methodType; }
 
 		/** \brief Returns localized name of the type.
 		\param aType Type of the color algorithm. See MethodType.
@@ -73,7 +90,7 @@ class ColorWheel : public QLabel
 		\retval ScColor Scribus color of the angle. */
 		ScColor colorByAngle(int angle);
 
-		//! \brief Call one of makeFoo() methods depending on the currentType value.
+		//! \brief Call one of makeFoo() methods depending on the m_methodType value.
 		void makeColors();
 
 		/*! \brief Setup the values by given QColor.
@@ -81,17 +98,6 @@ class ColorWheel : public QLabel
 		\param col examined color
 		\retval true on color found, false when color not found - black or white etc.*/
 		bool recomputeColor(const ScColor& col);
-		
-		/**
-		 * \brief Set difference between selected value and counted ones.
-		 */
-		void setAngle(int angle) { m_angle = angle; }
-
-		/**
-		 * \brief Angle diff between colorMap and painted wheel itself.
-		 */
-		int baseAngle() const { return m_baseAngle; }
-		void setBaseAngle(int angle) { m_baseAngle = angle; }
 
 	signals:
 		/** \brief Signal raised by mouse click on widget by user.
@@ -103,7 +109,17 @@ class ColorWheel : public QLabel
 		/*! \brief Internal color mapping.
 		It provides angle-color dictionary.
 		*/
-		ColorMap colorMap;
+		ColorMap m_colorMap;
+
+		/** \brief List of the colors created in this widget.
+		Colors can be added into Scribus color list later. */
+		ColorList m_colorList;
+
+		/** \brief RGB interpretation of the leading point in the wheel. */
+		ScColor m_actualColor;
+
+		//! \brief name of the "base color" to handle in extern color lists
+		QString m_trBaseColor;
 
 		/** \brief Difference between selected value and counted ones.
 		Let's set angle = 15 and base point e.g. 60 (everything in grades).
@@ -120,10 +136,25 @@ class ColorWheel : public QLabel
 		/*! \brief Angle of the base color */
 		int m_baseAngle { 0 };
 
+		//! \brief Which color model is in use.
+		colorModel m_colorspace { colorModelRGB };
+
+		//! \brief Actual type of color computing. See MethodType.
+		MethodType m_methodType { Monochromatic };
+
+		struct PaintPoint
+		{
+			int angle { 0 };
+			bool base { false };
+		};
+		QList<PaintPoint> m_pointList;
+
 		/*! \brief Half of the widget sizes.
 		To prevent all width()/2 divisions. */
 		int m_widthH { 150 };
 		int m_heightH { 150 };
+
+		ScribusDoc* m_doc { nullptr };
 
 		/** \brief An event for mouse actions handling.
 		See \see clicked() for more info.
@@ -186,7 +217,7 @@ class ColorWheel : public QLabel
 		void baseColor();
 
 		/** \brief Creates a Scribus ScColor from rgb value.
-		Its result depends on the currentColorSpace value.
+		Its result depends on the m_colorspace value.
 		\param col a ScColor to convert.
 		\retval ScColor Scribus color structure */
 		ScColor colorSpaceColor(const ScColor& col) const;
@@ -200,22 +231,11 @@ class ColorWheel : public QLabel
 		*/
 		void drawBorderPoint(int angle, bool base = false, bool clear = false);
 
-		/*! \brief Clear border marks before redrawing.
-		It redraws only small piece of the bitmap */
-// 		void clearBorder();
-
 		/** \brief Counts an angle of the point in color wheel.
 		Modified method from Qt QDial widget.
 		\param p coordinates of the point.
 		\retval int index in the colorMap */
 		int valueFromPoint(const QPoint & p) const;
-
-		struct PaintPoint
-		{
-			int angle { 0 };
-			bool base { false };
-		};
-		QList<PaintPoint> pointList;
 };
 
 #endif
