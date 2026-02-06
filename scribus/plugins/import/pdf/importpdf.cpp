@@ -734,13 +734,8 @@ bool PdfPlug::convert(const QString& fn)
 							names = catDict.dictLookup("OpenAction");
 							if (names.isDict())
 							{
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
 								std::unique_ptr<LinkAction> linkActionUPtr = LinkAction::parseAction(&names, pdfDoc->getCatalog()->getBaseURI());
 								LinkAction *linkAction = linkActionUPtr.get();
-#else
-								LinkAction *linkAction = nullptr;
-								linkAction = LinkAction::parseAction(&names, pdfDoc->getCatalog()->getBaseURI());
-#endif
 								if (linkAction && (linkAction->getKind() == actionJavaScript))
 								{
 									LinkJavaScript *jsa = (LinkJavaScript*) linkAction;

@@ -166,11 +166,7 @@ public:
 	~SlaOutputDev() override;
 
 	std::unique_ptr<LinkAction> SC_getAction(AnnotWidget *ano);
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(0, 86, 0)
 	std::unique_ptr<LinkAction> SC_getAdditionalAction(const char *key, AnnotWidget *ano);
-#else
-	LinkAction* SC_getAdditionalAction(const char *key, AnnotWidget *ano);
-#endif
 	static bool annotations_callback(Annot *annota, void *user_data);
 	bool handleTextAnnot(Annot* annota, double xCoor, double yCoor, double width, double height);
 	bool handleLinkAnnot(Annot* annota, double xCoor, double yCoor, double width, double height);
