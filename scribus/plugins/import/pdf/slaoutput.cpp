@@ -1553,7 +1553,7 @@ void SlaOutputDev::eoClip(GfxState *state)
 
 void SlaOutputDev::adjustClip(GfxState *state, Qt::FillRule fillRule)
 {
-	const double *ctm = state->getCTM();
+	const auto ctm = state->getCTM();
 	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	QString output = convertPath(state->getPath());
 	if (output.isEmpty())
@@ -1581,7 +1581,7 @@ void SlaOutputDev::adjustClip(GfxState *state, Qt::FillRule fillRule)
 void SlaOutputDev::stroke(GfxState *state)
 {
 //	qDebug() << "Stroke";
-	const double *ctm = state->getCTM();
+	const auto ctm = state->getCTM();
 	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	double xCoor = m_doc->currentPage()->xOffset();
 	double yCoor = m_doc->currentPage()->yOffset();
@@ -1689,8 +1689,7 @@ void SlaOutputDev::eoFill(GfxState *state)
 
 void SlaOutputDev::createFillItem(GfxState *state, Qt::FillRule fillRule)
 {
-	const double *ctm;
-	ctm = state->getCTM();
+	const auto ctm = state->getCTM();
 	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	double xCoor = m_doc->currentPage()->xOffset();
 	double yCoor = m_doc->currentPage()->yOffset();
@@ -1817,7 +1816,7 @@ bool SlaOutputDev::axialShadedFill(GfxState *state, GfxAxialShading *shading, do
 		out = intersection(m_graphicStack.top().clipPath, out);
 		crect = out.boundingRect();
 	}
-	const double *ctm = state->getCTM();
+	const auto ctm = state->getCTM();
 	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	FPointArray gr;
 	gr.addPoint(GrStartX, GrStartY);
@@ -1956,7 +1955,7 @@ bool SlaOutputDev::radialShadedFill(GfxState *state, GfxRadialShading *shading, 
 	double GrFocalY = y1;
 	GrEndX = GrFocalX + r1;
 	GrEndY = GrFocalY;
-	const double *ctm = state->getCTM();
+	const auto ctm = state->getCTM();
 	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	FPointArray gr;
 	gr.addPoint(GrStartX, GrStartY);
@@ -2041,7 +2040,7 @@ bool SlaOutputDev::gouraudTriangleShadedFill(GfxState *state, GfxGouraudTriangle
 	output += QString("Z");
 	m_pathIsClosed = true;
 	m_coords = output;
-	const double *ctm = state->getCTM();
+	const auto ctm = state->getCTM();
 	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	const auto& graphicState = m_graphicStack.top();
 	int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xCoor + crect.x(), yCoor + crect.y(), crect.width(), crect.height(), 0, graphicState.fillColor, CommonStrings::None);
@@ -2122,7 +2121,7 @@ bool SlaOutputDev::patchMeshShadedFill(GfxState *state, GfxPatchMeshShading *sha
 	output += QString("Z");
 	m_pathIsClosed = true;
 	m_coords = output;
-	const double *ctm = state->getCTM();
+	const auto ctm = state->getCTM();
 	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	const auto& graphicState = m_graphicStack.top();
 	int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, xCoor + crect.x(), yCoor + crect.y(), crect.width(), crect.height(), 0, graphicState.fillColor, CommonStrings::None);
@@ -2286,7 +2285,7 @@ bool SlaOutputDev::tilingPatternFill(GfxState *state, Gfx* /*gfx*/, Catalog *cat
 	box.x2 = bbox[2];
 	box.y2 = bbox[3];
 
-	const double *ctm = state->getCTM();
+	const auto ctm = state->getCTM();
 	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	QTransform mm(mat[0], mat[1], mat[2], mat[3], mat[4], mat[5]);
 	QTransform mmx = mm * m_ctm;
@@ -2737,7 +2736,7 @@ void SlaOutputDev::drawImage(GfxState *state, Object *ref, Stream *str, int widt
 void SlaOutputDev::createImageFrame(QImage& image, GfxState *state, int numColorComponents)
 {
 //	qDebug() << "SlaOutputDev::createImageFrame";
-	const double *ctm = state->getCTM();
+	const auto ctm = state->getCTM();
 	double xCoor = m_doc->currentPage()->xOffset();
 	double yCoor = m_doc->currentPage()->yOffset();
 
@@ -3039,8 +3038,16 @@ void SlaOutputDev::updateFont(GfxState *state)
 #else
 	SlaOutFontFileID *id;
 #endif
-	SplashFontFile *fontFile;
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 2, 0)
+	std::shared_ptr<SplashFontFile> fontFile;
+#else
+	SplashFontFile *fontFile = nullptr;
+#endif
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 2, 0)
+	std::unique_ptr<SplashFontSrc> fontsrc;
+#else
 	SplashFontSrc *fontsrc = nullptr;
+#endif
 	Object refObj, strObj;
 #if POPPLER_ENCODED_VERSION < POPPLER_VERSION_ENCODE(22, 4, 0)
 	int tmpBufLen = 0;
@@ -3050,7 +3057,11 @@ void SlaOutputDev::updateFont(GfxState *state)
 #else
 	int *codeToGID = nullptr;
 #endif
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 2, 0)
+	std::array<double, 6> textMat;
+#else
 	const double *textMat = nullptr;
+#endif
 	double m11, m12, m21, m22, fontSize;
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 1, 0)
 	std::array<SplashCoord, 4> mat = { 1.0, 0.0, 0.0, 1.0 };
@@ -3126,13 +3137,19 @@ void SlaOutputDev::updateFont(GfxState *state)
 			fontType = fontLoc->fontType;
 		}
 
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 2, 0)
+		if (!fileName.empty())
+			fontsrc = std::make_unique<SplashFontSrc>(fileName);
+		else
+			fontsrc = std::make_unique<SplashFontSrc>(std::move(tmpBuf.value()));
+#elif POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(22, 4, 0)
 		fontsrc = new SplashFontSrc;
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(22, 4, 0)
 		if (!fileName.empty())
 			fontsrc->setFile(fileName);
 		else
 			fontsrc->setBuf(std::move(tmpBuf.value()));
 #else
+		fontsrc = new SplashFontSrc;
 		if (fileName)
 			fontsrc->setFile(fileName, false);
 		else
@@ -3142,7 +3159,13 @@ void SlaOutputDev::updateFont(GfxState *state)
 		// load the font file
 		switch (fontType) {
 		case fontType1:
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(24, 11, 0)
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 2, 0)
+			if (!(fontFile = m_fontEngine->loadType1Font(std::move(id), std::move(fontsrc), (const char**) ((Gfx8BitFont*) gfxFont)->getEncoding(), fontLoc->fontNum)))
+			{
+				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'", gfxFont->getName() ? gfxFont->getName()->c_str() : "(unnamed)");
+				goto err2;
+			}
+#elif POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(24, 11, 0)
 			if (!(fontFile = m_fontEngine->loadType1Font(std::move(id), fontsrc, (const char**) ((Gfx8BitFont*) gfxFont)->getEncoding(), fontLoc->fontNum)))
 			{
 				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'", gfxFont->getName() ? gfxFont->getName()->c_str() : "(unnamed)");
@@ -3157,7 +3180,13 @@ void SlaOutputDev::updateFont(GfxState *state)
 #endif
 			break;
 		case fontType1C:
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(24, 11, 0)
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 2, 0)
+			if (!(fontFile = m_fontEngine->loadType1CFont(std::move(id), std::move(fontsrc), (const char**) ((Gfx8BitFont*) gfxFont)->getEncoding(), fontLoc->fontNum)))
+			{
+				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'", gfxFont->getName() ? gfxFont->getName()->c_str() : "(unnamed)");
+				goto err2;
+			}
+#elif POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(24, 11, 0)
 			if (!(fontFile = m_fontEngine->loadType1CFont(std::move(id), fontsrc, (const char**) ((Gfx8BitFont*) gfxFont)->getEncoding(), fontLoc->fontNum)))
 			{
 				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'", gfxFont->getName() ? gfxFont->getName()->c_str() : "(unnamed)");
@@ -3172,7 +3201,13 @@ void SlaOutputDev::updateFont(GfxState *state)
 #endif
 			break;
 		case fontType1COT:
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(24, 11, 0)
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 2, 0)
+			if (!(fontFile = m_fontEngine->loadOpenTypeT1CFont(std::move(id), std::move(fontsrc), (const char**) ((Gfx8BitFont*) gfxFont)->getEncoding(), fontLoc->fontNum)))
+			{
+				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'", gfxFont->getName() ? gfxFont->getName()->c_str() : "(unnamed)");
+				goto err2;
+			}
+#elif POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(24, 11, 0)
 			if (!(fontFile = m_fontEngine->loadOpenTypeT1CFont(std::move(id), fontsrc, (const char **)((Gfx8BitFont *) gfxFont)->getEncoding(), fontLoc->fontNum)))
 			{
 				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'", gfxFont->getName() ? gfxFont->getName()->c_str() : "(unnamed)");
@@ -3188,7 +3223,12 @@ void SlaOutputDev::updateFont(GfxState *state)
 			break;
 		case fontTrueType:
 		case fontTrueTypeOT:
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 7, 0)
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 2, 0)
+			if (!fileName.empty())
+				ff = FoFiTrueType::load(fileName.c_str(), fontLoc->fontNum);
+			else
+				ff = FoFiTrueType::make(fontsrc->buf(), fontLoc->fontNum);
+#elif POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 7, 0)
 			if (!fileName.empty())
 				ff = FoFiTrueType::load(fileName.c_str(), fontLoc->fontNum);
 			else
@@ -3229,7 +3269,13 @@ void SlaOutputDev::updateFont(GfxState *state)
 #endif
 				n = 0;
 			}
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 2, 0)
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 2, 0)
+			if (!(fontFile = m_fontEngine->loadTrueTypeFont(std::move(id), std::move(fontsrc), std::move(codeToGID), fontLoc->fontNum)))
+			{
+				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'", gfxFont->getName() ? gfxFont->getName()->c_str() : "(unnamed)");
+				goto err2;
+			}
+#elif POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 2, 0)
 			if (!(fontFile = m_fontEngine->loadTrueTypeFont(std::move(id), fontsrc, std::move(codeToGID), fontLoc->fontNum)))
 			{
 				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'", gfxFont->getName() ? gfxFont->getName()->c_str() : "(unnamed)");
@@ -3251,7 +3297,13 @@ void SlaOutputDev::updateFont(GfxState *state)
 			break;
 		case fontCIDType0:
 		case fontCIDType0C:
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(24, 11, 0)
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 2, 0)
+			if (!(fontFile = m_fontEngine->loadCIDFont(std::move(id), std::move(fontsrc), fontLoc->fontNum)))
+			{
+				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'", gfxFont->getName() ? gfxFont->getName()->c_str() : "(unnamed)");
+				goto err2;
+			}
+#elif POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(24, 11, 0)
 			if (!(fontFile = m_fontEngine->loadCIDFont(std::move(id), fontsrc, fontLoc->fontNum)))
 			{
 				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'", gfxFont->getName() ? gfxFont->getName()->c_str() : "(unnamed)");
@@ -3290,7 +3342,14 @@ void SlaOutputDev::updateFont(GfxState *state)
 				n = 0;
 			}
 #endif
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 2, 0)
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 2, 0)
+			if (!(fontFile = m_fontEngine->loadOpenTypeCFFFont(std::move(id), std::move(fontsrc), std::move(codeToGID), fontLoc->fontNum)))
+			{
+				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'",
+					gfxFont->getName() ? gfxFont->getName()->c_str() : "(unnamed)");
+				goto err2;
+			}
+#elif POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 2, 0)
 			if (!(fontFile = m_fontEngine->loadOpenTypeCFFFont(std::move(id), fontsrc, std::move(codeToGID), fontLoc->fontNum)))
 			{
 				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'",
@@ -3338,7 +3397,12 @@ void SlaOutputDev::updateFont(GfxState *state)
 #endif
 			else
 			{
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 7, 0)
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 2, 0)
+				if (!fileName.empty())
+					ff = FoFiTrueType::load(fileName.c_str(), fontLoc->fontNum);
+				else
+					ff = FoFiTrueType::make(fontsrc->buf(), fontLoc->fontNum);
+#elif POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 7, 0)
 				if (!fileName.empty())
 					ff = FoFiTrueType::load(fileName.c_str(), fontLoc->fontNum);
 				else
@@ -3371,7 +3435,13 @@ void SlaOutputDev::updateFont(GfxState *state)
 				delete ff;
 #endif
 			}
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 2, 0)
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 2, 0)
+			if (!(fontFile = m_fontEngine->loadTrueTypeFont(std::move(id), std::move(fontsrc), std::move(codeToGID), fontLoc->fontNum)))
+			{
+				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'", gfxFont->getName() ? gfxFont->getName()->c_str() : "(unnamed)");
+				goto err2;
+			}
+#elif POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 2, 0)
 			if (!(fontFile = m_fontEngine->loadTrueTypeFont(std::move(id), fontsrc, std::move(codeToGID), fontLoc->fontNum)))
 			{
 				error(errSyntaxError, -1, "Couldn't create a font for '{0:s}'", gfxFont->getName() ? gfxFont->getName()->c_str() : "(unnamed)");
@@ -3419,8 +3489,10 @@ void SlaOutputDev::updateFont(GfxState *state)
 #if POPPLER_ENCODED_VERSION < POPPLER_VERSION_ENCODE(22, 2, 0)
 	delete fontLoc;
 #endif
+#if POPPLER_ENCODED_VERSION < POPPLER_VERSION_ENCODE(26, 2, 0)
 	if (fontsrc && !fontsrc->isFile)
 		fontsrc->unref();
+#endif
 	return;
 
 err2:
@@ -3434,8 +3506,12 @@ err2:
 #endif
 
 err1:
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 2, 0)
+	fontsrc.reset();
+#else
 	if (fontsrc && !fontsrc->isFile)
 		fontsrc->unref();
+#endif
 }
 
 void SlaOutputDev::drawChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, const Unicode* u, int uLen)
@@ -3489,7 +3565,7 @@ void SlaOutputDev::drawChar(GfxState* state, double x, double y, double dx, doub
 		if (f & splashPathLast)
 			qPath.closeSubpath();
 	}
-	const double * ctm = state->getCTM();
+	const auto ctm = state->getCTM();
 	m_ctm = QTransform(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	double xCoor = m_doc->currentPage()->xOffset();
 	double yCoor = m_doc->currentPage()->yOffset();

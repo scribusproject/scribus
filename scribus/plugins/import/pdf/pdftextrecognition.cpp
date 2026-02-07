@@ -81,7 +81,7 @@ bool PdfTextRecognition::isNewLineOrRegion(const QPointF& newPosition)
 */
 PdfGlyph PdfTextRecognition::AddCharCommon(GfxState* state, double x, double y, double dx, double dy, Unicode const* u, int uLen)
 {
-	const double * ctm = state->getCTM();
+	const auto ctm = state->getCTM();
 	QTransform trans(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	QPointF charDelta1 = trans.map(QPointF(0.0, 0.0));
 	QPointF charDelta2 = trans.map(QPointF(dx, dy));
@@ -121,7 +121,7 @@ PdfGlyph PdfTextRecognition::AddFirstChar(GfxState* state, double x, double y, d
 	setCharMode(AddCharMode::ADDBASICCHAR);
 
 	//only need to be called for the very first point
-	const double * ctm = state->getCTM();
+	const auto ctm = state->getCTM();
 	QTransform trans(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 	QPointF glyphPos = trans.map(QPointF(x, y));
 
@@ -136,7 +136,7 @@ PdfGlyph PdfTextRecognition::AddFirstChar(GfxState* state, double x, double y, d
 */
 PdfGlyph PdfTextRecognition::AddBasicChar(GfxState* state, double x, double y, double dx, double dy, double originX, double originY, CharCode code, int nBytes, Unicode const* u, int uLen)
 {
-	const double * ctm = state->getCTM();
+	const auto ctm = state->getCTM();
 	QTransform trans(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 
 	PdfGlyph newGlyph = AddCharCommon(state, x, y, dx, dy, u, uLen);
@@ -461,7 +461,7 @@ PdfTextOutputDev::~PdfTextOutputDev()
  */
 void PdfTextOutputDev::updateTextPos(GfxState* state)
 {
-	const double * ctm = state->getCTM();
+	const auto ctm = state->getCTM();
 	QTransform trans(ctm[0], ctm[1], ctm[2], ctm[3], ctm[4], ctm[5]);
 
 	QPointF newPosition = trans.map(QPointF(state->getCurX(), state->getCurY()));

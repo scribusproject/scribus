@@ -100,7 +100,11 @@ QImage PdfPlug::readThumbnail(const QString& fName)
 	bgColor[0] = 255;
 	bgColor[1] = 255;
 	bgColor[2] = 255;
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 2, 0)
+	SplashOutputDev dev(splashModeXBGR8, 4, bgColor, true);
+#else
 	SplashOutputDev dev(splashModeXBGR8, 4, false, bgColor, true);
+#endif
 	dev.setVectorAntialias(true);
 	dev.setFreeTypeHinting(true, false);
 	dev.startDoc(&pdfDoc);
@@ -175,20 +179,17 @@ bool PdfPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 	}
 	double docWidth = PrefsManager::instance().appPrefs.docSetupPrefs.pageWidth;
 	double docHeight = PrefsManager::instance().appPrefs.docSetupPrefs.pageHeight;
-	if (!m_interactive || (flags & LoadSavePlugin::lfInsertPage))
+	if (m_Doc && (!m_interactive || (flags & LoadSavePlugin::lfInsertPage)))
 	{
 		m_Doc->setPage(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, false);
 		m_Doc->addPage(0);
 		m_Doc->view()->addPage(0, true);
 	}
-	else
+	else if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
 	{
-		if (!m_Doc || (flags & LoadSavePlugin::lfCreateDoc))
-		{
-			m_Doc = ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, 0, 0, 0, 0, 1, "Custom", true);
-			ScCore->primaryMainWindow()->HaveNewDoc();
-			ret = true;
-		}
+		m_Doc = ScCore->primaryMainWindow()->doFileNew(docWidth, docHeight, 0, 0, 0, 0, 0, 0, false, 0, 0, 0, 0, 1, "Custom", true);
+		ScCore->primaryMainWindow()->HaveNewDoc();
+		ret = true;
 	}
 
 	if (ret || !m_interactive)
@@ -833,11 +834,15 @@ QImage PdfPlug::readPreview(int pgNum, int width, int height, int box)
 	bgColor[0] = 255;
 	bgColor[1] = 255;
 	bgColor[2] = 255;
-	SplashOutputDev *dev = new SplashOutputDev(splashModeXBGR8, 4, false, bgColor, true);
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 2, 0)
+	auto dev = std::make_unique<SplashOutputDev>(splashModeXBGR8, 4, bgColor, true);
+#else
+	auto dev = std::make_unique<SplashOutputDev>(splashModeXBGR8, 4, false, bgColor, true);
+#endif
 	dev->setVectorAntialias(true);
 	dev->setFreeTypeHinting(true, false);
 	dev->startDoc(m_pdfDoc);
-	m_pdfDoc->displayPage(dev, pgNum, hDPI, vDPI, 0, true, false, false);
+	m_pdfDoc->displayPage(dev.get(), pgNum, hDPI, vDPI, 0, true, false, false);
 	SplashBitmap *bitmap = dev->getBitmap();
 	int bw = bitmap->getWidth();
 	int bh = bitmap->getHeight();
@@ -875,7 +880,6 @@ QImage PdfPlug::readPreview(int pgNum, int width, int height, int box)
 		pp.drawRect(cRect);
 		pp.end();
 	}
-	delete dev;
 	return image;
 }
 
