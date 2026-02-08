@@ -52,9 +52,10 @@ void BarcodeGeneratorRenderThread::run()
 	QString psFile = QDir::toNativeSeparators(ScPaths::tempFileDir() + "bcode.ps");
 	QString fileStdErr = QDir::toNativeSeparators(ScPaths::tempFileDir() + "bcode.err");
 	QString fileStdOut = QDir::toNativeSeparators(ScPaths::tempFileDir() + "bcode.out");
-	int dpi=72;
+	int dpi = 72;
 
-	forever {
+	forever
+	{
 		mutex.lock();
 		QString psCommand = this->psCommand;
 		mutex.unlock();
@@ -74,12 +75,12 @@ void BarcodeGeneratorRenderThread::run()
 		gargs.append( psFile );
 		QFile::remove(pngFile);
 		int gs = callGS(gargs, QString(), fileStdErr, fileStdOut);
-		bool retval = gs==0 && QFile::exists(pngFile);   // GS returns 0 for BWIPP-handled errors
+		bool retval = gs == 0 && QFile::exists(pngFile);   // GS returns 0 for BWIPP-handled errors
 
 		QString errorMsg;
 		if (!retval)
 		{
-			errorMsg="Barcode incomplete";
+			errorMsg = "Barcode incomplete";
 			if (QFile::exists(fileStdErr))  // Display BWIPP handled error message
 			{
 				QFile f(fileStdErr);
