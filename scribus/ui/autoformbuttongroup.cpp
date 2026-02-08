@@ -679,56 +679,8 @@ void AutoformButtonGroup::selForm(int a)
 
 QPixmap AutoformButtonGroup::getIconPixmap(int nr, int pixmapSize)
 {
-//	if ((pixmapSize == 16) || (pixmapSize == 22))
-//	{
-//		if (nr < 18)
-//		{
-//			QString strSize = QString("%1").arg(pixmapSize);
-//			IconManager& im = IconManager::instance();
-//			switch (nr)
-//			{
-//				case 0:
-//					return im.loadPixmap(strSize + "/draw-rectangle.png");
-//				case 1:
-//					return im.loadPixmap(strSize + "/draw-ellipse.png");
-//				case 2:
-//					return im.loadPixmap(strSize + "/draw-triangle.png");
-//				case 3:
-//					return im.loadPixmap(strSize + "/draw-cross.png");
-//				case 4:
-//					return im.loadPixmap(strSize + "/draw-arrow-back.png");
-//				case 5:
-//					return im.loadPixmap(strSize + "/draw-arrow-forward.png");
-//				case 6:
-//					return im.loadPixmap(strSize + "/draw-arrow-up.png");
-//				case 7:
-//					return im.loadPixmap(strSize + "/draw-arrow-down.png");
-//				case 8:
-//					return im.loadPixmap(strSize + "/draw-halfcircle1.png");
-//				case 9:
-//					return im.loadPixmap(strSize + "/draw-halfcircle2.png");
-//				case 10:
-//					return im.loadPixmap(strSize + "/draw-halfcircle3.png");
-//				case 11:
-//					return im.loadPixmap(strSize + "/draw-halfcircle4.png");
-//				case 12:
-//					return im.loadPixmap(strSize + "/draw-triangle1.png");
-//				case 13:
-//					return im.loadPixmap(strSize + "/draw-triangle2.png");
-//				case 14:
-//					return im.loadPixmap(strSize + "/draw-triangle3.png");
-//				case 15:
-//					return im.loadPixmap(strSize + "/draw-triangle4.png");
-//				case 16:
-//					return im.loadPixmap(strSize + "/draw-square-inverted-corners.png");
-//				case 17:
-//					return im.loadPixmap(strSize + "/draw-donut.png");
-//			}
-//		}
-//	}
-
-	QImage Ico(32, 32, QImage::Format_ARGB32_Premultiplied);
-	Ico.fill(0);
+	QImage ico(32, 32, QImage::Format_ARGB32_Premultiplied);
+	ico.fill(0);
 	int count = 0;
 	FPointArray Path;
 	qreal* AutoShapes = getShapeData(nr, &count);
@@ -747,28 +699,14 @@ QPixmap AutoformButtonGroup::getIconPixmap(int nr, int pixmapSize)
 		Path.addPoint(x2, y2);
 	}
 
-//	ScPainter *painter = new ScPainter(&Ico, 32, 32);
-//	painter->setBrush(qRgb(238, 238, 236));
-//	painter->setPen(qRgb(137, 139, 134), 2.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-//	painter->setFillMode(ScPainter::Solid);
-//	painter->setStrokeMode(ScPainter::Solid);
-//	painter->translate(2.0, 2.0);
-//	painter->setupPolygon(&Path);
-//	painter->drawPolygon();
-//	painter->drawPolyLine();
-//	painter->end();
-//	delete painter;
+	QPainter painter(&ico);
+	painter.setBrush( ScQApp->palette().color(QPalette::WindowText) );
+	painter.setPen( QPen(ScQApp->palette().color(QPalette::Midlight), 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin) );
+	painter.translate(2.0, 2.0);
+	painter.drawPath( Path.toQPainterPath(true) );
+	painter.end();
 
-
-	QPainter *painter = new QPainter(&Ico);
-	painter->setBrush( ScQApp->palette().color(QPalette::WindowText) );
-	painter->setPen( QPen(ScQApp->palette().color(QPalette::Midlight), 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin) );
-	painter->translate(2.0, 2.0);
-	painter->drawPath( Path.toQPainterPath(true) );
-	painter->end();
-	delete painter;
-
-	return QPixmap::fromImage(Ico.scaled(pixmapSize, pixmapSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
+	return QPixmap::fromImage(ico.scaled(pixmapSize, pixmapSize, Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
 }
 
 void AutoformButtonGroup::changeEvent(QEvent *e)
