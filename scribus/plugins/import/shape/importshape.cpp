@@ -423,7 +423,7 @@ void ShapePlug::parseGroup(QDomNode &DOC)
 					else
 					{
 						fill.setNamedColor(params);
-						FillCol = "FromDia"+fill.name();
+						FillCol = "FromDia" + fill.name();
 						ScColor tmp;
 						tmp.fromQColor(fill);
 						tmp.setSpotColor(false);
@@ -440,7 +440,7 @@ void ShapePlug::parseGroup(QDomNode &DOC)
 				if (!((params == "foreground") || (params == "background") || (params == "fg") || (params == "bg") || (params == "none") || (params == "default")) || (params == "inverse"))
 				{
 					stroke.setNamedColor(params);
-					StrokeCol = "FromDia"+stroke.name();
+					StrokeCol = "FromDia" + stroke.name();
 					ScColor tmp;
 					tmp.fromQColor(stroke);
 					tmp.setSpotColor(false);
@@ -664,11 +664,11 @@ void ShapePlug::parseGroupProperties(QDomNode &DOC, double &minXCoor, double &mi
 			for (int a = 0; a < 29; a += 4)
 			{
 				double xa = x2 * rect[a];
-				double ya = y2 * rect[a+1];
-				double xb = x2 * rect[a+2];
-				double yb = y2 * rect[a+3];
-				PoLine.addPoint(x1+xa, y1+ya);
-				PoLine.addPoint(x1+xb, y1+yb);
+				double ya = y2 * rect[a + 1];
+				double xb = x2 * rect[a + 2];
+				double yb = y2 * rect[a + 3];
+				PoLine.addPoint(x1 + xa, y1 + ya);
+				PoLine.addPoint(x1 + xb, y1 + yb);
 			}
 		}
 		else if ((STag == "svg:polygon") || (STag == "svg:polyline"))
@@ -717,11 +717,11 @@ void ShapePlug::parseGroupProperties(QDomNode &DOC, double &minXCoor, double &mi
 			for (int a = 0; a < 29; a += 4)
 			{
 				double xa = x1 * rect[a];
-				double ya = y1 * rect[a+1];
-				double xb = x1 * rect[a+2];
-				double yb = y1 * rect[a+3];
-				PoLine.addPoint(x2+xa, y2+ya);
-				PoLine.addPoint(x2+xb, y2+yb);
+				double ya = y1 * rect[a + 1];
+				double xb = x1 * rect[a + 2];
+				double yb = y1 * rect[a + 3];
+				PoLine.addPoint(x2 + xa, y2 + ya);
+				PoLine.addPoint(x2 + xb, y2 + yb);
 			}
 		}
 		else if (STag == "svg:ellipse")
@@ -739,11 +739,11 @@ void ShapePlug::parseGroupProperties(QDomNode &DOC, double &minXCoor, double &mi
 			for (int a = 0; a < 29; a += 4)
 			{
 				double xa = x1 * rect[a];
-				double ya = y1 * rect[a+1];
-				double xb = x1 * rect[a+2];
-				double yb = y1 * rect[a+3];
-				PoLine.addPoint(x2+xa, y2+ya);
-				PoLine.addPoint(x2+xb, y2+yb);
+				double ya = y1 * rect[a + 1];
+				double xb = x1 * rect[a + 2];
+				double yb = y1 * rect[a + 3];
+				PoLine.addPoint(x2 + xa, y2 + ya);
+				PoLine.addPoint(x2 + xb, y2 + yb);
 			}
 		}
 		else if (STag == "svg:path")
