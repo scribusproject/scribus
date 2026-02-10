@@ -4966,6 +4966,29 @@ void PageItem_TextFrame::toggleEditModeActions()
 	m_Doc->scMW()->scrActions["editMark"]->setEnabled(enableEditMark);
 }
 
+int PageItem_TextFrame::textPositionFromPoint(const QPointF& canvasPoint)
+{
+	if (itemText.isEmpty())
+		return 0;
+	QTransform mm = getTransform();
+	QPointF textFramePoint = mm.map(QPointF(0, 0));
+	double px = canvasPoint.x() - textFramePoint.x();
+	double py = canvasPoint.y() - textFramePoint.y();
+	FPoint point(px, py);
+	if (mm.isInvertible())
+	{
+		qreal tx = 0, ty = 0;
+		mm.inverted().map(canvasPoint.x(), canvasPoint.y(), &tx, &ty);
+		point.setXY(tx, ty);
+	}
+	if (imageFlippedH())
+		point.setX(width() - point.x());
+	if (imageFlippedV())
+		point.setY(height() - point.y());
+
+	return textLayout.pointToPosition(point.toQPointF());
+}
+
 void PageItem_TextFrame::applicableActions(QStringList & actionList)
 {
 	actionList << "insertMarkVariableText";

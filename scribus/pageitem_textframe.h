@@ -86,6 +86,7 @@ public:
 	//enable/disable marks inserting actions depending on editMode
 	void toggleEditModeActions();
 	QRegion availableRegion() { return m_availableRegion; }
+	int textPositionFromPoint(const QPointF& canvasPoint);
 
 protected:
 	QRegion calcAvailableRegion();

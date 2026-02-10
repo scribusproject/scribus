@@ -1533,7 +1533,8 @@ bool ScribusView::slotSetCurs(int x, int y)
 		// #9592 : layout must be valid here, or screenToPosition() may crash
 		if (textFrame->invalid)
 			textFrame->layout();
-
+		int textPosition = textFrame->textPositionFromPoint(canvasPoint);
+		/*
 		double px = canvasPoint.x() - textFramePoint.x();
 		double py = canvasPoint.y() - textFramePoint.y();
 		FPoint point(px, py);
@@ -1555,7 +1556,8 @@ bool ScribusView::slotSetCurs(int x, int y)
 			if (result >= 0)
 				textFrame->itemText.setCursorPosition(result);
 		}
-
+		*/
+		textFrame->itemText.setCursorPosition(textPosition);
 		if (textFrame->itemText.isNotEmpty())
 		{
 			int pos = qMax(0, qMin(textFrame->itemText.cursorPosition(), textFrame->itemText.length()));
