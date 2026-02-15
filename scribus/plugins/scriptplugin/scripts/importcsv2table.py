@@ -31,9 +31,9 @@ HINTS:
 
 Postgresql:
 You can easily create a CSV file with a Postgresql database. From Postgresql,
-toggle unaligned output with the '\a' switch, then activate a comma as
-a separator with '\f ,' (without apostrophes). Send output to a file
-with '\o myfile.csv', then query your database.
+toggle unaligned output with the '\\a' switch, then activate a comma as
+a separator with '\\f ,' (without apostrophes). Send output to a file
+with '\\o myfile.csv', then query your database.
 
 Sqlite3:
 You can use "sqlite3 -csv" in the command line or ".mode csv" in sqlite's
