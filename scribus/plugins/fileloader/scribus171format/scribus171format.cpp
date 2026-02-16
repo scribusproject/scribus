@@ -4389,6 +4389,7 @@ bool Scribus171Format::readTableOfContents(ScribusDoc* doc, ScXmlStreamReader& r
 		if (reader.isEndElement() && tagName == QLatin1String("TableOfContents"))
 		{
 			doc->appendToTocSetups(tocsetup);
+			tocsetup.entryData.clear();
 			tocsetup.styleListToFind.clear();
 			tocsetup.styleListForTOC.clear();
 		}
