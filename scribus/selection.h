@@ -61,31 +61,31 @@ class SCRIBUS_API Selection : public QObject
 		 * \brief Copy the selection of items from one selection to another
 		 */
 		void copy(Selection& other, bool emptyOther);
-		
+
 		bool connectItemToGUI();
 		/**
-		 * \brief Disconnect all items from the GUI slots. 
+		 * \brief Disconnect all items from the GUI slots.
 		 * This should not really be necessary if all things are going ok
 		 * except for within the clearAll function.
 		 * @return bool true on success
 		 */
 		bool disconnectAllItemsFromGUI();
 		/**
-		 * @brief Add an item to the selection. 
+		 * @brief Add an item to the selection.
 		 * If its added to a GUI selection selection and its item 0, its connected to the GUI too
 		 * @param item Item to add
 		 * @return If the item was added
 		 */
 		bool addItem(PageItem *item);
 		/**
-		 * @brief Add items to the selection. 
+		 * @brief Add items to the selection.
 		 * If its added to a GUI selection selection and its item 0, its connected to the GUI too
 		 * @param item Item to add
 		 * @return If any item was added
 		 */
 		bool addItems(const QList<PageItem *>& items);
 		/**
-		 * @brief Prepend an item to the selection. 
+		 * @brief Prepend an item to the selection.
 		 * If its added to a GUI selection selection and its item 0, its connected to the GUI too
 		 * @param item Item to add
 		 * @param doEmit call emitAllToGUI()
@@ -138,7 +138,11 @@ class SCRIBUS_API Selection : public QObject
 		/**
 		 * \brief Check if the selection is empty.
 		 */
-		bool isEmpty() const { return m_SelList.count() == 0; }
+		bool isEmpty() const { return m_SelList.isEmpty(); }
+		/**
+		 * \brief Check if the selection is not empty.
+		 */
+		bool isNotEmpty() const { return !m_SelList.isEmpty(); }
 		/**
 		 * \brief Clear a list
 		 */
@@ -185,7 +189,7 @@ class SCRIBUS_API Selection : public QObject
 		bool signalsDelayed();
 		void delaySignalsOn();
 		void delaySignalsOff();
-		
+
 	protected:
 		PageItem *itemAt_(int index=0);
 		SelectionList m_SelList;
@@ -194,7 +198,7 @@ class SCRIBUS_API Selection : public QObject
 		double m_groupY {0.0};
 		double m_groupW {0.0};
 		double m_groupH {0.0};
-		
+
 		double m_visualGX {0.0};
 		double m_visualGY {0.0};
 		double m_visualGW {0.0};
@@ -204,7 +208,7 @@ class SCRIBUS_API Selection : public QObject
 		bool m_sigSelectionChanged {false};
 
 		void sendSignals(bool guiConnect = true);
-		
+
 	signals:
 		void selectionChanged();
 };
