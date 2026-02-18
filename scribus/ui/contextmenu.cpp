@@ -26,11 +26,14 @@
 #include "appmodes.h"
 #include "canvas.h"
 #include "canvasmode.h"
+#include "pageitem_textframe.h"
 #include "scmimedata.h"
 #include "scraction.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
+#include "spellcheckfunctions.h"
+#include "textframespellchecker.h"
 #include "undomanager.h"
 
 
@@ -139,8 +142,6 @@ void ContextMenu::createMenuItems_Selection()
 			MenAct->setDefaultWidget(infoGroup);
 			menuInfo->addAction(MenAct);
 	
-	// Qt4				menuInfo->insertItem(infoGroup);
-//			currItem->createContextMenu(menuInfo, 5);
 			QAction *act = addMenu(menuInfo);
 			act->setText( tr("In&fo"));
 		}
@@ -237,6 +238,65 @@ void ContextMenu::createMenuItems_Selection()
 				if (currItem->itemText.hasMark(currItem->itemText.cursorPosition()))
 					addAction(m_ScMW->scrActions["editMark"]);
 			}
+
+
+			// Inside the modeEdit block, after the existing marks menu
+			if (TextFrameSpellChecker::instance()->isEnabled() && selectedItemCount == 1 && currItem->isTextFrame())
+			{
+				PageItem_TextFrame* tf = currItem->asTextFrame();
+
+				// Convert current cursor position to text position
+				QPointF canvasPoint = m_doc->view()->m_canvas->globalToCanvas(QCursor::pos()).toQPointF();
+				int textPos = tf->textPositionFromPoint(canvasPoint); // see note below
+
+				// Check if cursor is over a misspelled word
+				const QVector<SpellError> errors = TextFrameSpellChecker::instance()->getErrors(tf);
+
+				for (const SpellError& error : errors)
+				{
+					if (textPos >= error.position && textPos < error.position + error.length)
+					{
+						addSeparator();
+
+						// Fetch suggestions now — only for this one word
+						QStringList suggestions = getSpellingSuggestions(error.word, error.language);
+
+						if (suggestions.isEmpty())
+						{
+							QAction* act = addAction(tr("No suggestions for \"%1\"").arg(error.word));
+							act->setEnabled(false);
+						}
+						else
+						{
+							QMenu* spellMenu = new QMenu(this);
+							QAction* menuAct = addMenu(spellMenu);
+							menuAct->setText(tr("Spelling: \"%1\"").arg(error.word));
+
+							for (const QString& suggestion : suggestions)
+							{
+								QAction* sugAct = spellMenu->addAction(suggestion);
+								// Connect to replace the word in the frame
+								connect(sugAct, &QAction::triggered, this,
+									[this, tf, error, suggestion]() {
+									replaceSpellingError(tf, error, suggestion);
+								});
+							}
+
+							spellMenu->addSeparator();
+							QAction* ignoreAct = spellMenu->addAction(tr("Ignore"));
+							connect(ignoreAct, &QAction::triggered, this,
+								[tf, error]() {
+									// For now just triggers a recheck which will
+									// re-evaluate — proper ignore list is future work
+									TextFrameSpellChecker::instance()->frameTextChanged(tf);
+								});
+						}
+						break; // Only show menu for the word under cursor
+					}
+				}
+			}
+
+
 		}
 		if (!m_doc->marksList().isEmpty())
 		{
@@ -623,4 +683,11 @@ ContextMenu::~ContextMenu()
 {
 	if (onAPage && m_ScMW->scrActions["pageDelete"]->isEnabled())
 		m_ScMW->scrActions["pageDelete"]->setText(pageDeletePrimaryString);
+}
+
+void ContextMenu::replaceSpellingError(PageItem_TextFrame* tf, const SpellError& error, const QString& suggestion)
+{
+	if (tf == nullptr)
+		return;
+	tf->replaceSpellingErrorText(error, suggestion);
 }

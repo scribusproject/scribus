@@ -51,6 +51,7 @@
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
+#include "textframespellchecker.h"
 #include "ui/aligndistribute.h"
 #include "ui/contextmenu.h"
 #include "ui/customfdialog.h"
@@ -69,7 +70,7 @@ inline bool CanvasMode_Normal::GetItem(PageItem** pi)
 
 void CanvasMode_Normal::drawControls(QPainter* p)
 {
-//	qDebug() << "CanvasMode_Normal::drawControls";
+	// qDebug() << Q_FUNC_INFO;
 	if (m_canvas->m_viewMode.operItemMoving)
 		drawOutline(p, m_objectDeltaPos.x(), m_objectDeltaPos.y());
 	else
@@ -91,7 +92,7 @@ void CanvasMode_Normal::leaveEvent(QEvent *e)
 
 void CanvasMode_Normal::activate(bool fromGesture)
 {
-//	qDebug() << "CanvasMode_Normal::activate" << fromGesture;
+	// qDebug() << Q_FUNC_INFO << fromGesture;
 	CanvasMode::activate(fromGesture);
 
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
@@ -117,13 +118,14 @@ void CanvasMode_Normal::activate(bool fromGesture)
 
 void CanvasMode_Normal::deactivate(bool forGesture)
 {
-//	qDebug() << "CanvasMode_Normal::deactivate" << forGesture;
+	// qDebug() << Q_FUNC_INFO << forGesture;
 	m_view->setRedrawMarkerShown(false);
 	CanvasMode::deactivate(forGesture);
 }
 
 void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
 {
+	// qDebug()<<Q_FUNC_INFO;
 	const QPoint globalPos = m->globalPosition().toPoint();
 	PageItem *currItem = nullptr;
 
@@ -236,7 +238,9 @@ void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
 				//if we weren't in mode edit before.
 				//unsure if this is correct, but its ok given we had no
 				//double click select until now.
-//				mousePressEvent(m);
+				//mousePressEvent(m);
+
+				TextFrameSpellChecker::instance()->frameActivated(currItem->asTextFrame());
 			}
 		}
 		else if (currItem->isSymbol())

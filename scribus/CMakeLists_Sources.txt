@@ -212,12 +212,14 @@ set(SCRIBUS_SOURCES
 	selection.cpp
 	selectionrubberband.cpp
 	serializer.cpp
+	spellcheckfunctions.cpp
 	storyloader.cpp
 	styleitem.cpp
 	stylesearch.cpp
 	tableborder.cpp
 	tablecell.cpp
 	tableutils.cpp
+	textframespellchecker.cpp
 	textnote.cpp
 	textwriter.cpp
 	tocgenerator.cpp

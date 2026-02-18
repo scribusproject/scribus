@@ -114,7 +114,7 @@ class SCRIBUS_API PreferencesDialog : public ScDialog, Ui::PreferencesDialog
 		Prefs_PreflightVerifier *prefs_PreflightVerifier {nullptr};
 		Prefs_Printer *prefs_Printer {nullptr};
 		Prefs_Scrapbook *prefs_Scrapbook {nullptr};
-		//Prefs_Spelling *prefs_Spelling {nullptr};
+		Prefs_Spelling *prefs_Spelling {nullptr};
 		Prefs_TableOfContents *prefs_TableOfContents {nullptr};
 		Prefs_Typography *prefs_Typography {nullptr};
 		Prefs_UserInterface *prefs_UserInterface {nullptr};

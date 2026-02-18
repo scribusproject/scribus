@@ -44,6 +44,7 @@
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
+#include "textframespellchecker.h"
 #include "ui/contextmenu.h"
 #include "ui/hruler.h"
 #include "ui/pageselector.h"
@@ -82,6 +83,7 @@ void CanvasMode_Edit::blinkTextCursor()
 
 void CanvasMode_Edit::keyPressEvent(QKeyEvent *e)
 {
+	// qDebug()<<Q_FUNC_INFO;
 	if (m_keyRepeat)
 		return;
 	m_keyRepeat = true;
@@ -307,7 +309,7 @@ void CanvasMode_Edit::activate(bool fromGesture)
 		m_view->update();
 	}
 	mRulerGuide = -1;
-	PageItem * it(nullptr);
+	PageItem* it(nullptr);
 	if (GetItem(&it))
 	{
 		if (it->isTextFrame())
@@ -315,6 +317,7 @@ void CanvasMode_Edit::activate(bool fromGesture)
 			m_canvas->setupEditHRuler(it, true);
 			if (m_doc->appMode == modeEdit)
 			{
+				TextFrameSpellChecker::instance()->frameActivated(it->asTextFrame());
 				m_blinker->start(200ms);
 				m_blinkTime.start();
 				m_cursorVisible = true;
@@ -326,6 +329,14 @@ void CanvasMode_Edit::activate(bool fromGesture)
 
 void CanvasMode_Edit::deactivate(bool forGesture)
 {
+	//<<TSC
+	PageItem* it(nullptr);
+	if (GetItem(&it))
+	{
+		if (it->isTextFrame())
+			TextFrameSpellChecker::instance()->frameDeactivated(it->asTextFrame());
+	}
+	//>>TSC
 	m_view->setRedrawMarkerShown(false);
 	if (!forGesture)
 	{
@@ -588,7 +599,7 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 	frameResizeHandle = 0;
 	int oldP = 0;
 
-	PageItem* currItem{ nullptr };
+	PageItem* currItem { nullptr };
 	if (GetItem(&currItem))
 	{
 //		m_view->slotDoCurs(false);

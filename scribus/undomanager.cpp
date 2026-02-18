@@ -844,6 +844,7 @@ void UndoManager::languageChange()
 	UndoManager::SoftShadowYOffset  = tr("Drop Shadow Y Offset");
 	UndoManager::SoftShadowOpacity  = tr("Drop Shadow Opacity");
 	UndoManager::SoftShadowBlendMode= tr("Drop Shadow Blend Mode");
+	UndoManager::SpellCheck         = tr("Apply spelling corrections");
 }
 
 void UndoManager::initIcons()
@@ -1182,6 +1183,7 @@ QString UndoManager::SoftShadowOpacity  = "";
 QString UndoManager::SoftShadowBlendMode= "";
 QString UndoManager::SoftShadowErase    = "";
 QString UndoManager::SoftShadowObjectTrans = "";
+QString UndoManager::SpellCheck         = "";
 
 /*** Icons for UndoObjects *******************************************/
 QPixmap *UndoManager::IImageFrame      = nullptr;

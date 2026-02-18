@@ -46,6 +46,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_group.h"
 #include "pageitem_noteframe.h"
 #include "prefsmanager.h"
+#include "prefsstructs.h"
 #include "scconfig.h"
 #include "scpage.h"
 #include "scpainter.h"
@@ -61,6 +62,7 @@ for which a new license (GPL+exception) is in place.
 #include "text/textshaper.h"
 #include "text/shapedtext.h"
 #include "text/shapedtextfeed.h"
+#include "textframespellchecker.h"
 #include "textnote.h"
 #include "ui/guidemanager.h"
 #include "ui/marksmanager.h"
@@ -84,6 +86,11 @@ PageItem_TextFrame::PageItem_TextFrame(const PageItem & p) : PageItem(p)
 {
 	init();
 	m_notesFramesMap.clear();
+}
+
+PageItem_TextFrame::~PageItem_TextFrame()
+{
+	TextFrameSpellChecker::instance()->frameDeleted(this);
 }
 
 void PageItem_TextFrame::init()
@@ -3464,6 +3471,17 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, const QRectF& cullingArea)
 		if (!m_Doc->whiteSpaceModeEnabled)
 			textLayout.renderBackground(&painter);
 		textLayout.render(&painter, this);
+
+		// Draw spell check underlines (only in edit mode)
+		if (TextFrameSpellChecker::instance()->isEnabled() &&
+			PrefsManager::instance().appPrefs.spellCheckPrefs.showMisspeltIndicator &&
+			 m_Doc->appMode == modeEdit && this == m_Doc->m_Selection->itemAt(0))
+		{
+			const QVector<SpellError> errors = TextFrameSpellChecker::instance()->getErrors(this);
+			if (!errors.isEmpty())
+				drawSpellCheckSquiggles(p, errors);
+		}
+
 		p->setFillMode(fm);
 		p->setStrokeMode(sm);
 	}
@@ -3660,6 +3678,88 @@ void PageItem_TextFrame::DrawObj_Decoration(ScPainter *p)
 	p->restore();
 }
 
+void PageItem_TextFrame::drawSpellCheckSquiggles(ScPainter* p, const QVector<SpellError>& errors)
+{
+	p->save();
+
+	// Set red pen for spell check squiggles
+	p->setPen(Qt::red, 0.5, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+	for (const SpellError& error : errors)
+	{
+		// Iterate over columns
+		for (const Box* column : textLayout.box()->boxes())
+		{
+			// Iterate over lines within each column
+			for (const Box* box : column->boxes())
+			{
+				const LineBox* line = dynamic_cast<const LineBox*>(box);
+				if (!line)
+					continue;
+
+				// Check if error overlaps this line
+				if (error.position > line->lastChar() ||
+					error.position + error.length <= line->firstChar())
+					continue;
+
+				// Calculate x positions for the error span
+				int startPos = qMax(error.position, line->firstChar());
+				int endPos = qMin(error.position + error.length, line->lastChar() + 1);
+
+				QLineF startPoint = line->positionToPoint(startPos, itemText);
+				QLineF endPoint = line->positionToPoint(endPos, itemText);
+				double startX = startPoint.x1();
+				double endX = endPoint.x1();
+				double squiggleY = startPoint.y2();
+				// Draw squiggle
+				drawSquiggleLine(p, startX, squiggleY, endX - startX);
+			}
+		}
+	}
+
+	p->restore();
+}
+
+void PageItem_TextFrame::drawSquiggleLine(ScPainter* p, double x, double y, double width)
+{
+	if (width <= 0)
+		return;
+
+	const double amplitude = 0.25;
+	const double wavelength = 4.0;
+
+	// Create a smooth wave using bezier curves
+	FPointArray wave;
+	wave.svgInit();
+
+	double currentX = x;
+	bool up = true;
+
+	wave.svgMoveTo(currentX, y);
+
+	while (currentX < x + width)
+	{
+		double nextX = qMin(currentX + wavelength, x + width);
+		double peakY = up ? y - amplitude : y + amplitude;
+		double curveY = peakY;
+
+		// If this is the final segment, make it gentler
+		if (nextX >= x + width)
+			curveY = up ? y - amplitude * 0.5 : y + amplitude * 0.5;
+		// Final curve - use smaller amplitude
+		wave.svgCurveToCubic(
+					currentX + wavelength / 4.0, curveY,
+					currentX + 3 * wavelength / 4.0, curveY,
+					nextX, y
+					);
+
+		currentX = nextX;
+		up = !up;
+	}
+
+	p->setupPolygon(&wave, false);
+	p->setFillMode(ScPainter::None);
+	p->strokePath();
+}
 
 void PageItem_TextFrame::clearContents()
 {
@@ -4253,6 +4353,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			}
 		}
 		m_Doc->scMW()->setTBvals(this);
+		TextFrameSpellChecker::instance()->frameTextChanged(this);
 //		update();
 //		view->RefreshItem(this);
 		break;
@@ -4416,6 +4517,26 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			m_Doc->scMW()->selectItemsFromOutlines(m_nextBox);
 		}
 		break;
+	}
+	switch (kk)
+	{
+		case Qt::Key_PageDown:
+		case Qt::Key_PageUp:
+		case Qt::Key_End:
+		case Qt::Key_Home:
+		case Qt::Key_Right:
+		case Qt::Key_Left:
+		case Qt::Key_Up:
+		case Qt::Key_Down:
+		case Qt::Key_Shift:
+		case Qt::Key_Control:
+		case Qt::Key_Alt:
+		case Qt::Key_Meta:
+		case Qt::Key_CapsLock:
+		case Qt::Key_Escape:
+			break;
+		default:
+			TextFrameSpellChecker::instance()->frameTextChanged(this);
 	}
 // 	update();
 //	view->slotDoCurs(true);
@@ -4987,6 +5108,68 @@ int PageItem_TextFrame::textPositionFromPoint(const QPointF& canvasPoint)
 		point.setY(height() - point.y());
 
 	return textLayout.pointToPosition(point.toQPointF());
+}
+
+void PageItem_TextFrame::replaceSpellingErrorText(const SpellError& error, const QString& suggestion)
+{
+	// Capture the character style from the first character of the misspelled word
+	CharStyle originalStyle = itemText.charStyle(error.position);
+
+	UndoTransaction transaction;
+	if (UndoManager::undoEnabled())
+	{
+		UndoObject* undoTarget = isNoteFrame() ? dynamic_cast<UndoObject*>(doc()) : dynamic_cast<UndoObject*>(this);
+		transaction = UndoManager::instance()->beginTransaction(getUName(), getUPixmap());
+		if (error.length > 0)
+		{
+			auto is = new ScItemState<CharStyle>(Um::DeleteText, "", Um::IDelete);
+			is->set("DELETE_FRAMETEXT");
+			is->set("ETEA",  QString("delete_frametext"));
+			is->set("TEXT_STR", error.word);
+			is->set("START", error.position);
+			is->setItem(itemText.charStyle(error.position));
+			if (isNoteFrame())
+				is->set("noteframeName", getUName());
+			UndoManager::instance()->action(undoTarget, is);
+		}
+		if (suggestion.length() > 0)
+		{
+			auto ss = new SimpleState(Um::InsertText, "", Um::ICreate);
+			ss->set("INSERT_FRAMETEXT");
+			ss->set("ETEA", QString("insert_frametext"));
+			ss->set("TEXT_STR", suggestion);
+			ss->set("START", error.position);
+			UndoObject * undoTarget = this;
+			if (isNoteFrame())
+				ss->set("noteframeName", getUName());
+			UndoManager::instance()->action(undoTarget, ss);
+
+			ScOldNewState<CharStyle> *is = new ScOldNewState<CharStyle>(Um::SpellCheck);
+			is->set("APPLY_CHARSTYLE");
+			is->set("START", error.position);
+			is->set("LENGTH", suggestion.length());
+			is->set("ETEA", "NAMED_STYLE");
+			is->setStates(itemText.charStyle(error.position), originalStyle);
+			UndoManager::instance()->action(undoTarget, is);
+		}
+	}
+
+	// Replace the text
+	itemText.select(error.position, error.length);
+	itemText.replaceSelection(suggestion);
+
+	// Apply the original style to all the new characters
+	itemText.select(error.position, suggestion.length());
+	itemText.applyCharStyle(error.position, suggestion.length(), originalStyle);
+
+	if (transaction)
+		transaction.commit();
+
+	// Update layout and view
+	invalidateLayout(false);
+
+	// Trigger immediate recheck
+	TextFrameSpellChecker::instance()->checkFrameNow(this);
 }
 
 void PageItem_TextFrame::applicableActions(QStringList & actionList)

@@ -17,6 +17,7 @@ set(SCRIBUS_TEXT_SOURCES
 	text/shapedtextfeed.cpp
 	text/specialchars.cpp
 	text/storytext.cpp
+	text/storytextsnapshot.cpp
 	text/textlayout.cpp
 	text/textlayoutpainter.cpp
 	text/textshaper.cpp

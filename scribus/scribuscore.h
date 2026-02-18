@@ -97,7 +97,6 @@ public:
 	void InitDefaultColorTransforms();
 	void ResetDefaultColorTransforms();
 	bool fileWatcherActive() const;
-	void recheckGS();
 	
 	//Main Window members
 	ScribusMainWindow* primaryMainWindow();
@@ -128,6 +127,9 @@ public:
 	
 protected:
 	void initCMS();
+	void initGS();
+	void initSpellChecker(bool enabled = true, int debounceDelay = 500);
+	void closeSpellChecker();
 	
 	IconManager& m_iconManager;
 	PrefsManager& m_prefsManager;

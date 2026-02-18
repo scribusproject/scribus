@@ -33,6 +33,7 @@ pageitem.cpp  -  description
 #include "sctext_shared.h"
 #include "selection.h"
 #include "storytext.h"
+#include "text/storytextsnapshot.h"
 #include "textnote.h"
 #include "util.h"
 #include "resourcecollection.h"
@@ -2201,6 +2202,12 @@ void StoryText::invalidate(int firstItem, int endItem)
 	}
 	if (!signalsBlocked())
 		emit changed(firstItem, endItem);
+}
+
+StoryTextSnapshot StoryText::createSnapshot() const
+{
+	// Delegate to the static factory method
+	return StoryTextSnapshot::create(*this);
 }
 
 // physical view

@@ -36,6 +36,7 @@ pageitem.cpp  -  description
 #include "text/frect.h"
 #include "text/specialchars.h"
 #include "sctextstruct.h"
+#include "storytextsnapshot.h"
 #include "style.h"
 #include "styles/charstyle.h"
 #include "styles/paragraphstyle.h"
@@ -297,6 +298,16 @@ public:
 public slots:
 	/// call this if some logical style changes (redos shaping and layout)
 	void invalidateAll();
+
+	/**
+	 * @brief Create a thread-safe, immutable snapshot for spell/grammar checking
+	 *
+	 * Creates a complete copy of the text content, paragraph boundaries, and
+	 * language information that can be safely used in worker threads.
+	 *
+	 * @return StoryTextSnapshot A thread-safe snapshot
+	 */
+	StoryTextSnapshot createSnapshot() const;
 
 signals:
 	void changed(int firstItem, int endItem);

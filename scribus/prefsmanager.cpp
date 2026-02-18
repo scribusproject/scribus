@@ -335,6 +335,10 @@ void PrefsManager::initDefaults()
 	appPrefs.hyphPrefs.ignoredWords.clear();
 	appPrefs.hyphPrefs.Automatic = true;
 	appPrefs.hyphPrefs.AutoCheck = false;
+	appPrefs.spellCheckPrefs.liveSpellCheckEnabled = true;
+	appPrefs.spellCheckPrefs.debounceDelay = 500;
+	appPrefs.spellCheckPrefs.maxSuggestions = 10;
+	appPrefs.spellCheckPrefs.showMisspeltIndicator = true;
 	appPrefs.docSetupPrefs.AutoSave = true;
 	appPrefs.docSetupPrefs.AutoSaveTime = 600000;
 	appPrefs.docSetupPrefs.AutoSaveCount = 1;
@@ -1788,6 +1792,13 @@ bool PrefsManager::writePref(const QString& filePath)
 	}
 	elem.appendChild(rde);
 
+	QDomElement ssp = docu.createElement("SpellCheck");
+	ssp.setAttribute("LiveSpellCheckEnabled", static_cast<int>(appPrefs.spellCheckPrefs.liveSpellCheckEnabled));
+	ssp.setAttribute("ShowMisspeltIndicator", static_cast<int>(appPrefs.spellCheckPrefs.showMisspeltIndicator));
+	ssp.setAttribute("MaxSuggestions", appPrefs.spellCheckPrefs.maxSuggestions);
+	ssp.setAttribute("LiveCheckDebounceDelay", appPrefs.spellCheckPrefs.debounceDelay);
+	elem.appendChild(ssp);
+
 	for (int i = 0; i < appPrefs.uiPrefs.RecentDocs.count(); ++i)
 	{
 		QDomElement rcElem = docu.createElement("Recent");
@@ -2612,6 +2623,14 @@ bool PrefsManager::readPref(const QString& filePath)
 				hyNode = hyNode.nextSibling();
 			}
 		}
+		if (dc.tagName() == "SpellCheck")
+		{
+			appPrefs.spellCheckPrefs.liveSpellCheckEnabled = static_cast<bool>(dc.attribute("LiveSpellCheckEnabled", "1").toInt());
+			appPrefs.spellCheckPrefs.showMisspeltIndicator = static_cast<bool>(dc.attribute("ShowMisspeltIndicator", "1").toInt());
+			appPrefs.spellCheckPrefs.maxSuggestions = dc.attribute("MaxSuggestions").toInt();
+			appPrefs.spellCheckPrefs.debounceDelay = dc.attribute("LiveCheckDebounceDelay").toInt();
+		}
+
 		if (dc.tagName() == "Fonts")
 		{
 			appPrefs.fontPrefs.askBeforeSubstitute = static_cast<bool>(dc.attribute("AutomaticSubstitution", "1").toInt());

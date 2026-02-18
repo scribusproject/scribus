@@ -286,7 +286,7 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 			drawSelectionHandles(psx, QRectF(x, y, w, h));
 		psx->restore();
 	}
-	else if (m_doc->m_Selection->count() != 0)
+	else if (!m_doc->m_Selection->isEmpty())
 	{
 		int docSelectionCount = m_doc->m_Selection->count();
 		PageItem *currItem;

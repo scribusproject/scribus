@@ -44,6 +44,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "scribus.h"
 #include "scribusapp.h"
+#include "textframespellchecker.h"
 #include "ui/splash.h"
 #include "ui/factories/scribusproxystyle.h"
 #include "undomanager.h"
@@ -64,6 +65,7 @@ ScribusCore::ScribusCore() : defaultEngine(ScColorMgmtEngineFactory::createDefau
 
 ScribusCore::~ScribusCore()
 {
+	TextFrameSpellChecker::instance()->stopThread();
 
 	while (m_ScMWList.count() > 0)
 	{
@@ -226,9 +228,7 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 		m_prefsManager.appPrefs.uiPrefs.iconSet = m_iconManager.activeSetBasename();
 	}
 
-	m_haveGS = testGSAvailability();
-	m_havePNGAlpha = testGSDeviceAvailability("pngalpha");
-	m_haveTiffSep = testGSDeviceAvailability("tiffsep");
+	initGS();
 	setSplashStatus( tr("Initializing Plugins") );
 	pluginManager->initPlugs();
 	
@@ -244,6 +244,9 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 	icm.setMaxCacheEntries(m_prefsManager.appPrefs.imageCachePrefs.maxCacheEntries);
 	icm.setCompressionLevel(m_prefsManager.appPrefs.imageCachePrefs.compressionLevel);
 	icm.initialize();
+
+	initSpellChecker(m_prefsManager.appPrefs.spellCheckPrefs.liveSpellCheckEnabled, m_prefsManager.appPrefs.spellCheckPrefs.debounceDelay);
+
 	return 0;
 }
 
@@ -651,12 +654,32 @@ ScribusMainWindow * ScribusCore::primaryMainWindow()
 	return mw;
 }
 
-void ScribusCore::recheckGS()
+void ScribusCore::initGS()
 {
 	m_haveGS = testGSAvailability();
 	m_havePNGAlpha = testGSDeviceAvailability("pngalpha");
 	m_haveTiffSep = testGSDeviceAvailability("tiffsep");
 }
+
+void ScribusCore::initSpellChecker(bool enabled, int debounceDelay)
+{
+	// Create singleton
+	TextFrameSpellChecker* checker = TextFrameSpellChecker::instance();
+
+	// Configure
+	checker->setEnabled(enabled);
+	checker->setDebounceDelay(debounceDelay);
+
+	// START THE THREAD - this is required!
+	checker->startThread();
+	checker->setThreadPriority(QThread::LowPriority); // Run in background
+}
+
+void ScribusCore::closeSpellChecker()
+{
+	TextFrameSpellChecker::instance()->stopThread();
+}
+
 
 bool ScribusCore::fileWatcherActive() const
 {

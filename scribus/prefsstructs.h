@@ -306,6 +306,14 @@ struct HyphenatorPrefs
 	bool AutoCheck;
 };
 
+struct SpellCheckPrefs
+{
+	bool liveSpellCheckEnabled { true };
+	bool showMisspeltIndicator { true };
+	int maxSuggestions { 10 };
+	int debounceDelay { 500 }; // milliseconds
+};
+
 struct FontPrefs
 {
 	SCFonts AvailFonts; //! Fonts that Scribus has available to it, or the current document has available to use
@@ -492,6 +500,7 @@ struct ApplicationPrefs
 	FontPrefs fontPrefs;
 	GuidesPrefs guidesPrefs;
 	HyphenatorPrefs hyphPrefs;
+	SpellCheckPrefs spellCheckPrefs;
 	ImageCachePrefs imageCachePrefs;
 	IndexPrefs indexPrefs;
 	ItemAttrPrefs itemAttrPrefs;

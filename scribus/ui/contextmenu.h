@@ -29,21 +29,24 @@ class ScribusMainWindow;
 class ContextMenu : public QMenu
 {
 	Q_OBJECT
-public:
-	ContextMenu(Selection& sel, ScribusMainWindow* actionsParent, ScribusDoc* doc, QWidget* parent = nullptr);
-	ContextMenu(ScribusMainWindow* actionsParent, ScribusDoc* doc, double mx, double my, QWidget* parent = nullptr);
-	~ContextMenu();
-	
-protected:
-	void processSelection();
-	void createMenuItems_Selection();
-	void createMenuItems_NoSelection(double mx, double my);
-	
-	Selection m_Sel;
-	QStringList m_actionList;
-	ScribusMainWindow *m_ScMW;
-	ScribusDoc *m_doc;
-	
-	QString pageDeletePrimaryString;
-	bool onAPage;
+	public:
+		ContextMenu(Selection& sel, ScribusMainWindow* actionsParent, ScribusDoc* doc, QWidget* parent = nullptr);
+		ContextMenu(ScribusMainWindow* actionsParent, ScribusDoc* doc, double mx, double my, QWidget* parent = nullptr);
+		~ContextMenu();
+
+	private slots:
+		void replaceSpellingError(PageItem_TextFrame* tf, const SpellError& error, const QString& suggestion);
+
+	protected:
+		void processSelection();
+		void createMenuItems_Selection();
+		void createMenuItems_NoSelection(double mx, double my);
+
+		Selection m_Sel;
+		QStringList m_actionList;
+		ScribusMainWindow *m_ScMW;
+		ScribusDoc *m_doc;
+
+		QString pageDeletePrimaryString;
+		bool onAPage;
 };

@@ -30,6 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
+#include "textframespellchecker.h"
 #include "ui/charselect.h"
 #include "ui/hruler.h"
 #include "ui/modetoolbar.h"
@@ -293,6 +294,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 					scmw->charPalette->setEnabled(true, currItem);
 					enableTextActions(true, currItem->currentCharStyle().font().scName());
 					currItem->asTextFrame()->toggleEditModeActions();
+					TextFrameSpellChecker::instance()->frameActivated(currItem->asTextFrame());
 				}
 				if (ScMimeData::clipboardHasScribusData())
 				{

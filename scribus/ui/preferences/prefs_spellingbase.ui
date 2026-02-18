@@ -28,7 +28,6 @@
      <property name="font">
       <font>
        <pointsize>14</pointsize>
-       <weight>75</weight>
        <bold>true</bold>
       </font>
      </property>
@@ -40,7 +39,7 @@
    <item>
     <widget class="Line" name="line">
      <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+      <enum>Qt::Orientation::Horizontal</enum>
      </property>
     </widget>
    </item>
@@ -54,77 +53,41 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>704</width>
-        <height>236</height>
+        <width>728</width>
+        <height>260</height>
        </rect>
       </property>
-      <layout class="QVBoxLayout" name="verticalLayout_4">
+      <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
-         <item>
-          <layout class="QVBoxLayout" name="verticalLayout">
-           <item>
-            <widget class="QLabel" name="label_5">
-             <property name="text">
-              <string>Installed Spelling Dictionaries</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QTableWidget" name="dictTableWidget">
-             <attribute name="verticalHeaderVisible">
-              <bool>false</bool>
-             </attribute>
-            </widget>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QVBoxLayout" name="verticalLayout_2">
-           <item>
-            <widget class="QLabel" name="label_6">
-             <property name="text">
-              <string>Downloadable Spelling Dictionaries</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QTableWidget" name="availDictTableWidget">
-             <attribute name="verticalHeaderVisible">
-              <bool>false</bool>
-             </attribute>
-            </widget>
-           </item>
-          </layout>
-         </item>
-        </layout>
+        <widget class="QCheckBox" name="checkSpellingWhileTypingCheckbox">
+         <property name="text">
+          <string>Check spelling while typing</string>
+         </property>
+        </widget>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout">
+        <widget class="QCheckBox" name="showMisspeltIndicatorCheckBox">
+         <property name="text">
+          <string>Show indicator for misspelt words</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
-          <widget class="QLabel" name="dlLabel">
+          <widget class="QLabel" name="maxSpellingSuggestionsLabel">
            <property name="text">
-            <string>Downloading</string>
+            <string>Maximum spelling suggestions:</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QProgressBar" name="downloadProgressBar">
-           <property name="value">
-            <number>0</number>
-           </property>
-           <property name="textVisible">
-            <bool>true</bool>
-           </property>
-           <property name="invertedAppearance">
-            <bool>false</bool>
-           </property>
-          </widget>
+          <widget class="QSpinBox" name="maxSpellingSuggestionsSpinBox"/>
          </item>
          <item>
-          <spacer name="horizontalSpacer">
+          <spacer name="horizontalSpacer_2">
            <property name="orientation">
-            <enum>Qt::Horizontal</enum>
+            <enum>Qt::Orientation::Horizontal</enum>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
@@ -134,21 +97,54 @@
            </property>
           </spacer>
          </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
-          <widget class="QPushButton" name="availListDownloadButton">
+          <widget class="QLabel" name="spellingDelayLabel">
            <property name="text">
-            <string>Refresh Downloadable List</string>
+            <string>Spelling delay:</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="spellDownloadButton">
-           <property name="text">
-            <string>Download Selected Dictionaries</string>
+          <widget class="QSpinBox" name="spellingDelaySpinBox">
+           <property name="suffix">
+            <string> ms</string>
+           </property>
+           <property name="maximum">
+            <number>5000</number>
            </property>
           </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Orientation::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
          </item>
         </layout>
+       </item>
+       <item>
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Orientation::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
        </item>
       </layout>
      </widget>

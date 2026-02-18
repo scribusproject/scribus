@@ -31,6 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "marks.h"
 #include "notesstyles.h"
+#include "textframespellchecker.h"
 
 class PageItem_NoteFrame;
 class ScPainter;
@@ -49,7 +50,7 @@ class SCRIBUS_API PageItem_TextFrame : public PageItem
 public:
 	PageItem_TextFrame(ScribusDoc *pa, double x, double y, double w, double h, double w2, const QString& fill, const QString& outline);
 	PageItem_TextFrame(const PageItem & p);
-	~PageItem_TextFrame() {}
+	~PageItem_TextFrame();
 
 	void init();
 
@@ -88,6 +89,9 @@ public:
 	QRegion availableRegion() { return m_availableRegion; }
 	int textPositionFromPoint(const QPointF& canvasPoint);
 
+	void replaceSpellingErrorText(const SpellError& error, const QString& suggestion);
+
+
 protected:
 	QRegion calcAvailableRegion();
 	QRegion m_availableRegion;
@@ -97,6 +101,8 @@ protected:
 	//void drawOverflowMarker(ScPainter *p);
 	void drawUnderflowMarker(ScPainter *p);
 	void drawColumnBorders(ScPainter *p);
+	void drawSpellCheckSquiggles(ScPainter* p, const QVector<SpellError>& errors);
+	void drawSquiggleLine(ScPainter* p, double x, double y, double width);
 
 	bool unicodeTextEditMode {false};
 	int unicodeInputCount {0};

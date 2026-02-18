@@ -150,6 +150,7 @@ for which a new license (GPL+exception) is in place.
 #include "serializer.h"
 #include "storyloader.h"
 #include "stylesearch.h"
+#include "textframespellchecker.h"
 #include "textnote.h"
 #include "tocgenerator.h"
 #include "ui/about.h"
@@ -6597,6 +6598,10 @@ void ScribusMainWindow::slotPrefsOrg()
 	icm.setMaxCacheSizeMiB(newPrefs.imageCachePrefs.maxCacheSizeMiB);
 	icm.setMaxCacheEntries(newPrefs.imageCachePrefs.maxCacheEntries);
 	icm.setCompressionLevel(newPrefs.imageCachePrefs.compressionLevel);
+
+	TextFrameSpellChecker* checker = TextFrameSpellChecker::instance();
+	checker->setEnabled(newPrefs.spellCheckPrefs.liveSpellCheckEnabled);
+	checker->setDebounceDelay(newPrefs.spellCheckPrefs.debounceDelay);
 
 	m_prefsManager.savePrefs();
 	m_mainWindowStatusLabel->setText( tr("Ready"));
