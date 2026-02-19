@@ -3213,6 +3213,9 @@
     <uic Include="..\..\..\scribus\ui\resourcemanagerlicensebase.ui">
       <Filter>Form Files</Filter>
     </uic>
+    <uic Include="..\..\..\scribus\ui\searchbase.ui">
+      <Filter>Form Files</Filter>
+    </uic>
     <uic Include="..\..\..\scribus\ui\selectobjects.ui">
       <Filter>Form Files</Filter>
     </uic>
