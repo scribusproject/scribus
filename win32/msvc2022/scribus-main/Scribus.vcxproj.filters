@@ -706,6 +706,9 @@
     <ClInclude Include="..\..\..\scribus\serializer.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\scribus\spellcheckfunctions.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\scribus\style.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -794,6 +797,9 @@
       <Filter>Source Files\text</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\text\specialchars.h">
+      <Filter>Source Files\text</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\text\storytextsnapshot.h">
       <Filter>Source Files\text</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\text\textcontext.h">
@@ -1722,6 +1728,9 @@
     <ClCompile Include="..\..\..\scribus\serializer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\spellcheckfunctions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\scribus\storyloader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -1806,6 +1815,9 @@
     <ClCompile Include="..\..\..\scribus\text\storytext.cpp">
       <Filter>Source Files\text</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\text\storytextsnapshot.cpp">
+      <Filter>Source Files\text</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\scribus\text\textcontext.cpp">
       <Filter>Source Files\text</Filter>
     </ClCompile>
@@ -1817,6 +1829,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\text\textshaper.cpp">
       <Filter>Source Files\text</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\textframespellchecker.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\textnote.cpp">
       <Filter>Source Files</Filter>
@@ -3753,6 +3768,9 @@
     </moc>
     <moc Include="..\..\..\scribus\text\storytext.h">
       <Filter>Source Files\text</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\textframespellchecker.h">
+      <Filter>Source Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\textnote.h">
       <Filter>Source Files</Filter>

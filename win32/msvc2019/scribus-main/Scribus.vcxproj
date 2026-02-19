@@ -101,8 +101,8 @@
       <Optimization>Disabled</Optimization>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
       <IntrinsicFunctions>false</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>..\..\msvc2019;..\..\..\scribus;..\..\..\scribus\colormgmt;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;$(QT6_DIR)\include\QtCore;$(QT6_DIR)\include\QtCore5Compat;$(QT6_DIR)\include\QtGui;$(QT6_DIR)\include\QtNetwork;$(QT6_DIR)\include\QtPrintSupport;$(QT6_DIR)\include\QtWidgets;$(QT6_DIR)\include\QtXml;$(QT6_DIR)\include;$(BOOST_INCLUDE_DIR);$(CAIRO_INCLUDE_DIR);$(FREETYPE_INCLUDE_DIR);$(HARFBUZZ_INCLUDE_DIR);$(ICONV_INCLUDE_DIR);$(ICU_INCLUDE_DIR);$(LCMS_INCLUDE_DIR);$(LIBJPEG_INCLUDE_DIR);$(LIBPNG_INCLUDE_DIR);$(LIBTIFF_INCLUDE_DIR);$(LIBXML2_INCLUDE_DIR);$(OPENSSL_INCLUDE_DIR);$(PODOFO_INCLUDE_DIR);$(POPPLER_INCLUDE_DIR);$(ZLIB_INCLUDE_DIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_USE_MATH_DEFINES;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;HAVE_CONFIG_H;AVOID_WIN32_FILEIO;COMPILE_SCRIBUS_MAIN_APP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\msvc2019;..\..\..\scribus;..\..\..\scribus\colormgmt;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;$(QT6_DIR)\include\QtCore;$(QT6_DIR)\include\QtCore5Compat;$(QT6_DIR)\include\QtGui;$(QT6_DIR)\include\QtNetwork;$(QT6_DIR)\include\QtPrintSupport;$(QT6_DIR)\include\QtWidgets;$(QT6_DIR)\include\QtXml;$(QT6_DIR)\include;$(BOOST_INCLUDE_DIR);$(CAIRO_INCLUDE_DIR);$(FREETYPE_INCLUDE_DIR);$(HARFBUZZ_INCLUDE_DIR);$(HUNSPELL_INCLUDE_DIR);$(ICONV_INCLUDE_DIR);$(ICU_INCLUDE_DIR);$(LCMS_INCLUDE_DIR);$(LIBJPEG_INCLUDE_DIR);$(LIBPNG_INCLUDE_DIR);$(LIBTIFF_INCLUDE_DIR);$(LIBXML2_INCLUDE_DIR);$(OPENSSL_INCLUDE_DIR);$(PODOFO_INCLUDE_DIR);$(POPPLER_INCLUDE_DIR);$(ZLIB_INCLUDE_DIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_USE_MATH_DEFINES;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;HAVE_CONFIG_H;AVOID_WIN32_FILEIO;COMPILE_SCRIBUS_MAIN_APP;HUNSPELL_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -121,8 +121,8 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(QT6CORE_LIB);$(QT6CORE5COMPAT_LIB);$(QT6GUI_LIB);$(QT6NETWORK_LIB);$(QT6PRINTSUPPORT_LIB);$(QT6SVG_LIB);$(QT6WIDGETS_LIB);$(QT6XML_LIB);$(CAIRO_LIB);$(FREETYPE_LIB);$(HARFBUZZ_LIB);$(ICU_LIB);$(LCMS_LIB);$(LIBJPEG_LIB);$(LIBPNG_LIB);$(LIBTIFF_LIB);$(LIBXML2_LIB);$(PODOFO_LIB);$(ZLIB_LIB);mscms.lib;qtadvanceddocking.lib;WSock32.Lib;scribus-pgf.lib;scribus-wpg.lib;scribus-zip.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(QT6_DIR)\lib;$(CAIRO_LIB_DIR);$(FREETYPE_LIB_DIR);$(HARFBUZZ_LIB_DIR);$(ICU_LIB_DIR);$(LCMS_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBPNG_LIB_DIR);$(LIBTIFF_LIB_DIR);$(LIBXML2_LIB_DIR);$(PODOFO_LIB_DIR);$(ZLIB_LIB_DIR);$(OutDir).;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(QT6CORE_LIB);$(QT6CORE5COMPAT_LIB);$(QT6GUI_LIB);$(QT6NETWORK_LIB);$(QT6PRINTSUPPORT_LIB);$(QT6SVG_LIB);$(QT6WIDGETS_LIB);$(QT6XML_LIB);$(CAIRO_LIB);$(FREETYPE_LIB);$(HARFBUZZ_LIB);$(HUNSPELL_LIB);$(ICU_LIB);$(LCMS_LIB);$(LIBJPEG_LIB);$(LIBPNG_LIB);$(LIBTIFF_LIB);$(LIBXML2_LIB);$(PODOFO_LIB);$(ZLIB_LIB);mscms.lib;qtadvanceddocking.lib;WSock32.Lib;scribus-pgf.lib;scribus-wpg.lib;scribus-zip.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(QT6_DIR)\lib;$(CAIRO_LIB_DIR);$(FREETYPE_LIB_DIR);$(HARFBUZZ_LIB_DIR);$(HUNSPELL_LIB_DIR);$(ICU_LIB_DIR);$(LCMS_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBPNG_LIB_DIR);$(LIBTIFF_LIB_DIR);$(LIBXML2_LIB_DIR);$(PODOFO_LIB_DIR);$(ZLIB_LIB_DIR);$(OutDir).;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AssemblyDebug />
       <SubSystem>Console</SubSystem>
@@ -137,8 +137,8 @@
       <Optimization>Disabled</Optimization>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
       <IntrinsicFunctions>false</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>..\..\msvc2019;..\..\..\scribus;..\..\..\scribus\colormgmt;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;$(QT6_DIR)\include\QtCore;$(QT6_DIR)\include\QtCore5Compat;$(QT6_DIR)\include\QtGui;$(QT6_DIR)\include\QtNetwork;$(QT6_DIR)\include\QtPrintSupport;$(QT6_DIR)\include\QtWidgets;$(QT6_DIR)\include\QtXml;$(QT6_DIR)\include;$(BOOST_INCLUDE_DIR);$(CAIRO_INCLUDE_DIR);$(FREETYPE_INCLUDE_DIR);$(HARFBUZZ_INCLUDE_DIR);$(ICONV_INCLUDE_DIR);$(ICU_INCLUDE_DIR);$(LCMS_INCLUDE_DIR);$(LIBJPEG_INCLUDE_DIR);$(LIBPNG_INCLUDE_DIR);$(LIBTIFF_INCLUDE_DIR);$(LIBXML2_INCLUDE_DIR);$(OPENSSL_INCLUDE_DIR);$(PODOFO_INCLUDE_DIR);$(POPPLER_INCLUDE_DIR);$(ZLIB_INCLUDE_DIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_USE_MATH_DEFINES;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;HAVE_CONFIG_H;AVOID_WIN32_FILEIO;COMPILE_SCRIBUS_MAIN_APP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\msvc2019;..\..\..\scribus;..\..\..\scribus\colormgmt;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;$(QT6_DIR)\include\QtCore;$(QT6_DIR)\include\QtCore5Compat;$(QT6_DIR)\include\QtGui;$(QT6_DIR)\include\QtNetwork;$(QT6_DIR)\include\QtPrintSupport;$(QT6_DIR)\include\QtWidgets;$(QT6_DIR)\include\QtXml;$(QT6_DIR)\include;$(BOOST_INCLUDE_DIR);$(CAIRO_INCLUDE_DIR);$(FREETYPE_INCLUDE_DIR);$(HARFBUZZ_INCLUDE_DIR);$(HUNSPELL_INCLUDE_DIR);$(ICONV_INCLUDE_DIR);$(ICU_INCLUDE_DIR);$(LCMS_INCLUDE_DIR);$(LIBJPEG_INCLUDE_DIR);$(LIBPNG_INCLUDE_DIR);$(LIBTIFF_INCLUDE_DIR);$(LIBXML2_INCLUDE_DIR);$(OPENSSL_INCLUDE_DIR);$(PODOFO_INCLUDE_DIR);$(POPPLER_INCLUDE_DIR);$(ZLIB_INCLUDE_DIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_USE_MATH_DEFINES;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;HAVE_CONFIG_H;AVOID_WIN32_FILEIO;COMPILE_SCRIBUS_MAIN_APP;HUNSPELL_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -157,8 +157,8 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(QT6CORE_LIB);$(QT6CORE5COMPAT_LIB);$(QT6GUI_LIB);$(QT6NETWORK_LIB);$(QT6PRINTSUPPORT_LIB);$(QT6SVG_LIB);$(QT6WIDGETS_LIB);$(QT6XML_LIB);$(CAIRO_LIB);$(FREETYPE_LIB);$(HARFBUZZ_LIB);$(ICU_LIB);$(LCMS_LIB);$(LIBJPEG_LIB);$(LIBPNG_LIB);$(LIBTIFF_LIB);$(LIBXML2_LIB);$(PODOFO_LIB);$(ZLIB_LIB);mscms.lib;qtadvanceddocking.lib;WSock32.Lib;scribus-pgf.lib;scribus-wpg.lib;scribus-zip.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(QT6_DIR)\lib;$(CAIRO_LIB_DIR);$(FREETYPE_LIB_DIR);$(HARFBUZZ_LIB_DIR);$(ICU_LIB_DIR);$(LCMS_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBPNG_LIB_DIR);$(LIBTIFF_LIB_DIR);$(LIBXML2_LIB_DIR);$(PODOFO_LIB_DIR);$(ZLIB_LIB_DIR);$(OutDir).;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(QT6CORE_LIB);$(QT6CORE5COMPAT_LIB);$(QT6GUI_LIB);$(QT6NETWORK_LIB);$(QT6PRINTSUPPORT_LIB);$(QT6SVG_LIB);$(QT6WIDGETS_LIB);$(QT6XML_LIB);$(CAIRO_LIB);$(FREETYPE_LIB);$(HARFBUZZ_LIB);$(HUNSPELL_LIB);$(ICU_LIB);$(LCMS_LIB);$(LIBJPEG_LIB);$(LIBPNG_LIB);$(LIBTIFF_LIB);$(LIBXML2_LIB);$(PODOFO_LIB);$(ZLIB_LIB);mscms.lib;qtadvanceddocking.lib;WSock32.Lib;scribus-pgf.lib;scribus-wpg.lib;scribus-zip.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(QT6_DIR)\lib;$(CAIRO_LIB_DIR);$(FREETYPE_LIB_DIR);$(HARFBUZZ_LIB_DIR);$(HUNSPELL_LIB_DIR);$(ICU_LIB_DIR);$(LCMS_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBPNG_LIB_DIR);$(LIBTIFF_LIB_DIR);$(LIBXML2_LIB_DIR);$(PODOFO_LIB_DIR);$(ZLIB_LIB_DIR);$(OutDir).;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AssemblyDebug>
       </AssemblyDebug>
@@ -174,8 +174,8 @@
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <OmitFramePointers>true</OmitFramePointers>
-      <AdditionalIncludeDirectories>..\..\msvc2019;..\..\..\scribus;..\..\..\scribus\colormgmt;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;$(QT6_DIR)\include\QtCore;$(QT6_DIR)\include\QtCore5Compat;$(QT6_DIR)\include\QtGui;$(QT6_DIR)\include\QtNetwork;$(QT6_DIR)\include\QtPrintSupport;$(QT6_DIR)\include\QtWidgets;$(QT6_DIR)\include\QtXml;$(QT6_DIR)\include;$(BOOST_INCLUDE_DIR);$(CAIRO_INCLUDE_DIR);$(FREETYPE_INCLUDE_DIR);$(HARFBUZZ_INCLUDE_DIR);$(ICONV_INCLUDE_DIR);$(ICU_INCLUDE_DIR);$(LCMS_INCLUDE_DIR);$(LIBJPEG_INCLUDE_DIR);$(LIBPNG_INCLUDE_DIR);$(LIBTIFF_INCLUDE_DIR);$(LIBXML2_INCLUDE_DIR);$(OPENSSL_INCLUDE_DIR);$(PODOFO_INCLUDE_DIR);$(POPPLER_INCLUDE_DIR);$(ZLIB_INCLUDE_DIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_USE_MATH_DEFINES;_WINDOWS;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;HAVE_CONFIG_H;AVOID_WIN32_FILEIO;COMPILE_SCRIBUS_MAIN_APP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\msvc2019;..\..\..\scribus;..\..\..\scribus\colormgmt;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;$(QT6_DIR)\include\QtCore;$(QT6_DIR)\include\QtCore5Compat;$(QT6_DIR)\include\QtGui;$(QT6_DIR)\include\QtNetwork;$(QT6_DIR)\include\QtPrintSupport;$(QT6_DIR)\include\QtWidgets;$(QT6_DIR)\include\QtXml;$(QT6_DIR)\include;$(BOOST_INCLUDE_DIR);$(CAIRO_INCLUDE_DIR);$(FREETYPE_INCLUDE_DIR);$(HARFBUZZ_INCLUDE_DIR);$(HUNSPELL_INCLUDE_DIR);$(ICONV_INCLUDE_DIR);$(ICU_INCLUDE_DIR);$(LCMS_INCLUDE_DIR);$(LIBJPEG_INCLUDE_DIR);$(LIBPNG_INCLUDE_DIR);$(LIBTIFF_INCLUDE_DIR);$(LIBXML2_INCLUDE_DIR);$(OPENSSL_INCLUDE_DIR);$(PODOFO_INCLUDE_DIR);$(POPPLER_INCLUDE_DIR);$(ZLIB_INCLUDE_DIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_USE_MATH_DEFINES;_WINDOWS;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;HAVE_CONFIG_H;AVOID_WIN32_FILEIO;COMPILE_SCRIBUS_MAIN_APP;HUNSPELL_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <BufferSecurityCheck>true</BufferSecurityCheck>
@@ -194,8 +194,8 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(QT6CORE_LIB);$(QT6CORE5COMPAT_LIB);$(QT6GUI_LIB);$(QT6NETWORK_LIB);$(QT6PRINTSUPPORT_LIB);$(QT6SVG_LIB);$(QT6WIDGETS_LIB);$(QT6XML_LIB);$(CAIRO_LIB);$(FREETYPE_LIB);$(HARFBUZZ_LIB);$(ICU_LIB);$(LCMS_LIB);$(LIBJPEG_LIB);$(LIBPNG_LIB);$(LIBTIFF_LIB);$(LIBXML2_LIB);$(PODOFO_LIB);$(ZLIB_LIB);mscms.lib;qtadvanceddocking.lib;WSock32.Lib;scribus-pgf.lib;scribus-wpg.lib;scribus-zip.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(QT6_DIR)\lib;$(CAIRO_LIB_DIR);$(FREETYPE_LIB_DIR);$(HARFBUZZ_LIB_DIR);$(ICU_LIB_DIR);$(LCMS_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBPNG_LIB_DIR);$(LIBTIFF_LIB_DIR);$(LIBXML2_LIB_DIR);$(PODOFO_LIB_DIR);$(ZLIB_LIB_DIR);$(OutDir).;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(QT6CORE_LIB);$(QT6CORE5COMPAT_LIB);$(QT6GUI_LIB);$(QT6NETWORK_LIB);$(QT6PRINTSUPPORT_LIB);$(QT6SVG_LIB);$(QT6WIDGETS_LIB);$(QT6XML_LIB);$(CAIRO_LIB);$(FREETYPE_LIB);$(HARFBUZZ_LIB);$(HUNSPELL_LIB);$(ICU_LIB);$(LCMS_LIB);$(LIBJPEG_LIB);$(LIBPNG_LIB);$(LIBTIFF_LIB);$(LIBXML2_LIB);$(PODOFO_LIB);$(ZLIB_LIB);mscms.lib;qtadvanceddocking.lib;WSock32.Lib;scribus-pgf.lib;scribus-wpg.lib;scribus-zip.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(QT6_DIR)\lib;$(CAIRO_LIB_DIR);$(FREETYPE_LIB_DIR);$(HARFBUZZ_LIB_DIR);$(HUNSPELL_LIB_DIR);$(ICU_LIB_DIR);$(LCMS_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBPNG_LIB_DIR);$(LIBTIFF_LIB_DIR);$(LIBXML2_LIB_DIR);$(PODOFO_LIB_DIR);$(ZLIB_LIB_DIR);$(OutDir).;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -212,8 +212,8 @@
       <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <OmitFramePointers>true</OmitFramePointers>
-      <AdditionalIncludeDirectories>..\..\msvc2019;..\..\..\scribus;..\..\..\scribus\colormgmt;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;$(QT6_DIR)\include\QtCore;$(QT6_DIR)\include\QtCore5Compat;$(QT6_DIR)\include\QtGui;$(QT6_DIR)\include\QtNetwork;$(QT6_DIR)\include\QtPrintSupport;$(QT6_DIR)\include\QtWidgets;$(QT6_DIR)\include\QtXml;$(QT6_DIR)\include;$(BOOST_INCLUDE_DIR);$(CAIRO_INCLUDE_DIR);$(FREETYPE_INCLUDE_DIR);$(HARFBUZZ_INCLUDE_DIR);$(ICONV_INCLUDE_DIR);$(ICU_INCLUDE_DIR);$(LCMS_INCLUDE_DIR);$(LIBJPEG_INCLUDE_DIR);$(LIBPNG_INCLUDE_DIR);$(LIBTIFF_INCLUDE_DIR);$(LIBXML2_INCLUDE_DIR);$(OPENSSL_INCLUDE_DIR);$(PODOFO_INCLUDE_DIR);$(POPPLER_INCLUDE_DIR);$(ZLIB_INCLUDE_DIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_USE_MATH_DEFINES;_WINDOWS;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;HAVE_CONFIG_H;AVOID_WIN32_FILEIO;COMPILE_SCRIBUS_MAIN_APP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\msvc2019;..\..\..\scribus;..\..\..\scribus\colormgmt;..\..\..\scribus\fonts;..\..\..\scribus\text;..\..\..\scribus\styles;..\..\..\scribus\simpletreemodel;..\..\..\scribus\ui;$(QT6_DIR)\include\QtCore;$(QT6_DIR)\include\QtCore5Compat;$(QT6_DIR)\include\QtGui;$(QT6_DIR)\include\QtNetwork;$(QT6_DIR)\include\QtPrintSupport;$(QT6_DIR)\include\QtWidgets;$(QT6_DIR)\include\QtXml;$(QT6_DIR)\include;$(BOOST_INCLUDE_DIR);$(CAIRO_INCLUDE_DIR);$(FREETYPE_INCLUDE_DIR);$(HARFBUZZ_INCLUDE_DIR);$(HUNSPELL_INCLUDE_DIR);$(ICONV_INCLUDE_DIR);$(ICU_INCLUDE_DIR);$(LCMS_INCLUDE_DIR);$(LIBJPEG_INCLUDE_DIR);$(LIBPNG_INCLUDE_DIR);$(LIBTIFF_INCLUDE_DIR);$(LIBXML2_INCLUDE_DIR);$(OPENSSL_INCLUDE_DIR);$(PODOFO_INCLUDE_DIR);$(POPPLER_INCLUDE_DIR);$(ZLIB_INCLUDE_DIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_USE_MATH_DEFINES;_WINDOWS;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;HAVE_CONFIG_H;AVOID_WIN32_FILEIO;COMPILE_SCRIBUS_MAIN_APP;HUNSPELL_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <BufferSecurityCheck>true</BufferSecurityCheck>
@@ -232,8 +232,8 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(QT6CORE_LIB);$(QT6CORE5COMPAT_LIB);$(QT6GUI_LIB);$(QT6NETWORK_LIB);$(QT6PRINTSUPPORT_LIB);$(QT6SVG_LIB);$(QT6WIDGETS_LIB);$(QT6XML_LIB);$(CAIRO_LIB);$(FREETYPE_LIB);$(HARFBUZZ_LIB);$(ICU_LIB);$(LCMS_LIB);$(LIBJPEG_LIB);$(LIBPNG_LIB);$(LIBTIFF_LIB);$(LIBXML2_LIB);$(PODOFO_LIB);$(ZLIB_LIB);mscms.lib;qtadvanceddocking.lib;WSock32.Lib;scribus-pgf.lib;scribus-wpg.lib;scribus-zip.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(QT6_DIR)\lib;$(CAIRO_LIB_DIR);$(FREETYPE_LIB_DIR);$(HARFBUZZ_LIB_DIR);$(ICU_LIB_DIR);$(LCMS_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBPNG_LIB_DIR);$(LIBTIFF_LIB_DIR);$(LIBXML2_LIB_DIR);$(PODOFO_LIB_DIR);$(ZLIB_LIB_DIR);$(OutDir).;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(QT6CORE_LIB);$(QT6CORE5COMPAT_LIB);$(QT6GUI_LIB);$(QT6NETWORK_LIB);$(QT6PRINTSUPPORT_LIB);$(QT6SVG_LIB);$(QT6WIDGETS_LIB);$(QT6XML_LIB);$(CAIRO_LIB);$(FREETYPE_LIB);$(HARFBUZZ_LIB);$(HUNSPELL_LIB);$(ICU_LIB);$(LCMS_LIB);$(LIBJPEG_LIB);$(LIBPNG_LIB);$(LIBTIFF_LIB);$(LIBXML2_LIB);$(PODOFO_LIB);$(ZLIB_LIB);mscms.lib;qtadvanceddocking.lib;WSock32.Lib;scribus-pgf.lib;scribus-wpg.lib;scribus-zip.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(QT6_DIR)\lib;$(CAIRO_LIB_DIR);$(FREETYPE_LIB_DIR);$(HARFBUZZ_LIB_DIR);$(HUNSPELL_LIB_DIR);$(ICU_LIB_DIR);$(LCMS_LIB_DIR);$(LIBJPEG_LIB_DIR);$(LIBPNG_LIB_DIR);$(LIBTIFF_LIB_DIR);$(LIBXML2_LIB_DIR);$(PODOFO_LIB_DIR);$(ZLIB_LIB_DIR);$(OutDir).;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -375,6 +375,7 @@
     <ClInclude Include="..\..\..\scribus\sccolorstructs.h" />
     <ClInclude Include="..\..\..\scribus\scprintengine_pdf.h" />
     <moc Include="..\..\..\scribus\storyloader.h" />
+    <ClInclude Include="..\..\..\scribus\spellcheckfunctions.h" />
     <ClInclude Include="..\..\..\scribus\stylesearch.h" />
     <ClInclude Include="..\..\..\scribus\styles\cellstyle.h" />
     <moc Include="..\..\..\scribus\ui\charselect.h" />
@@ -426,6 +427,7 @@
     <ClInclude Include="..\..\..\scribus\fpoint.h" />
     <ClInclude Include="..\..\..\scribus\fpointarray.h" />
     <moc Include="..\..\..\scribus\textnote.h" />
+    <moc Include="..\..\..\scribus\textframespellchecker.h" />
     <ClInclude Include="..\..\..\scribus\text\boxes.h" />
     <ClInclude Include="..\..\..\scribus\text\frect.h" />
     <ClInclude Include="..\..\..\scribus\text\fsize.h" />
@@ -459,6 +461,7 @@
     <ClInclude Include="..\..\..\scribus\text\shapedtext.h" />
     <ClInclude Include="..\..\..\scribus\text\shapedtextcache.h" />
     <ClInclude Include="..\..\..\scribus\text\shapedtextfeed.h" />
+    <ClInclude Include="..\..\..\scribus\text\storytextsnapshot.h" />
     <ClInclude Include="..\..\..\scribus\text\textcontext.h" />
     <ClInclude Include="..\..\..\scribus\text\textlayout.h" />
     <moc Include="..\..\..\scribus\ui\filedialogeventcatcher.h" />
@@ -978,8 +981,10 @@
     <ClCompile Include="..\..\..\scribus\sccolorstructs.cpp" />
     <ClCompile Include="..\..\..\scribus\scprintengine_pdf.cpp" />
     <ClCompile Include="..\..\..\scribus\selectionrubberband.cpp" />
+    <ClCompile Include="..\..\..\scribus\spellcheckfunctions.cpp" />
     <ClCompile Include="..\..\..\scribus\storyloader.cpp" />
     <ClCompile Include="..\..\..\scribus\stylesearch.cpp" />
+    <ClCompile Include="..\..\..\scribus\textframespellchecker.cpp" />
     <ClCompile Include="..\..\..\scribus\textnote.cpp" />
     <ClCompile Include="..\..\..\scribus\text\boxes.cpp" />
     <ClCompile Include="..\..\..\scribus\text\glyphcluster.cpp" />
@@ -990,6 +995,7 @@
     <ClCompile Include="..\..\..\scribus\text\shapedtext.cpp" />
     <ClCompile Include="..\..\..\scribus\text\shapedtextcache.cpp" />
     <ClCompile Include="..\..\..\scribus\text\shapedtextfeed.cpp" />
+    <ClCompile Include="..\..\..\scribus\text\storytextsnapshot.cpp" />
     <ClCompile Include="..\..\..\scribus\text\textcontext.cpp" />
     <ClCompile Include="..\..\..\scribus\text\textlayout.cpp" />
     <ClCompile Include="..\..\..\scribus\text\textlayoutpainter.cpp" />
