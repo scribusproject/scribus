@@ -406,7 +406,7 @@ void RawPainterPres::insertEquation(const librevenge::RVNGPropertyList &propList
 
 struct RawPainterPrivate
 {
-	RawPainterPrivate() = default;
+		RawPainterPrivate() = default;
 };
 
 RawPainter::RawPainter(ScribusDoc* Doc, double x, double y, double w, double h, int iflags, QList<PageItem*> *Elem, QStringList *iColors, QStringList *iPatterns, Selection* tSel, const QString& fTyp) : m_pImpl(new RawPainterPrivate())
@@ -667,9 +667,9 @@ void RawPainter::setStyle(const librevenge::RVNGPropertyList &propList)
 	}
 	if (propList["draw:fill"] && propList["draw:fill"]->getStr() == "gradient")
 	{
-	//	double angle = 0;
-	//	if (propList["draw:angle"])
-	//		angle = propList["draw:angle"]->getDouble();
+		//	double angle = 0;
+		//	if (propList["draw:angle"])
+		//		angle = propList["draw:angle"]->getDouble();
 		double opacity = 1.0;
 		librevenge::RVNGPropertyListVector gradient;
 		if (propList.child("svg:linearGradient"))
@@ -913,104 +913,104 @@ void RawPainter::drawPolygon(const librevenge::RVNGPropertyList &propList)
 	{
 		if (m_style["draw:fill"] && m_style["draw:fill"]->getStr() == "bitmap" && m_style["style:repeat"] && m_style["style:repeat"]->getStr() == "stretch")
 		{
-		  if (m_style["draw:fill-image"] && m_style["librevenge:mime-type"])
-		  {
-			  QByteArray ba(m_style["draw:fill-image"]->getStr().cstr());
-			  QByteArray imageData = QByteArray::fromBase64(ba);
-			  QString imgExt;
-			  if (m_style["librevenge:mime-type"]->getStr() == "image/png")
-				  imgExt = "png";
-			  else if (m_style["librevenge:mime-type"]->getStr() == "image/jpeg")
-				  imgExt = "jpg";
-			  else if (m_style["librevenge:mime-type"]->getStr() == "image/bmp")
-				  imgExt = "bmp";
-			  else if (m_style["librevenge:mime-type"]->getStr() == "image/pict")
-				  imgExt = "pict";
-			  else if (m_style["librevenge:mime-type"]->getStr() == "image/tiff")
-				  imgExt = "tif";
-			  if (!imgExt.isEmpty())
-			  {
-				  int z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_lineWidth, m_currColorFill, m_currColorStroke);
-				  ite = m_doc->Items->at(z);
-				  ite->PoLine = m_coords.copy();
-				  finishItem(ite);
-				  insertImage(ite, imgExt, imageData);
-			  }
-			  else if ((m_style["librevenge:mime-type"]->getStr() == "image/wmf") || (m_style["librevenge:mime-type"]->getStr() == "image/emf"))
-			  {
-				  if (m_style["librevenge:mime-type"]->getStr() == "image/wmf")
-					  imgExt = "wmf";
-				  else
-					  imgExt = "emf";
-				  QTemporaryFile tempFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(m_fileType) + imgExt);
-				  if (tempFile.open())
-				  {
-					  QString fileName = getLongPathName(tempFile.fileName());
-					  tempFile.write(imageData);
-					  tempFile.close();
-					  FileLoader *fileLoader = new FileLoader(fileName);
-					  int testResult = fileLoader->testFile();
-					  delete fileLoader;
-					  if (testResult != -1)
-					  {
-						  const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
-						  if (fmt)
-						  {
-							  fmt->setupTargets(m_doc, nullptr, nullptr, nullptr, &(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts));
-							  fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
-							  if (m_doc->m_Selection->isNotEmpty())
-							  {
-								  ite = m_doc->groupObjectsSelection();
-								  double rot = 0;
-								  if (m_style["librevenge:rotate"])
-									  rot = m_style["librevenge:rotate"]->getDouble();
-								  QPainterPath ba = m_coords.toQPainterPath(true);
-								  QRectF baR = ba.boundingRect();
-								  if (rot != 0)
-								  {
-									  QTransform mm;
-									  mm.translate(baR.x(), baR.y());
-									  mm.translate(baR.width() / 2.0, baR.height() / 2.0);
-									  mm.rotate(rot);
-									  mm.translate(-baR.width() / 2.0, -baR.height() / 2.0);
-									  mm.translate(-baR.x(), -baR.y());
-									  ba = mm.map(ba);
-									  baR = ba.boundingRect();
-									  ite->setXYPos(m_baseX + baR.x(), m_baseY + baR.y(), true);
-									  ite->setWidthHeight(baR.width(), baR.height(), true);
-									  m_coords.fromQPainterPath(ba, true);
-									  FPoint tp2(getMinClipF(&m_coords));
-									  m_coords.translate(-tp2.x(), -tp2.y());
-									  ite->PoLine = m_coords.copy();
-									  AnchorPoint rm = m_doc->rotationMode();
-									  m_doc->setRotationMode(AnchorPoint::Center);
-									  m_doc->rotateItem(-rot, ite);
-									  m_doc->setRotationMode(rm);
-								  }
-								  else
-								  {
-									  ite->setXYPos(m_baseX + baR.x(), m_baseY + baR.y(), true);
-									  ite->setWidthHeight(baR.width(), baR.height(), true);
-									  FPoint tp2(getMinClipF(&m_coords));
-									  m_coords.translate(-tp2.x(), -tp2.y());
-									  ite->PoLine = m_coords.copy();
-								  }
-								  finishItem(ite);
-								  if (m_style["draw:red"] && m_style["draw:green"] && m_style["draw:blue"])
-								  {
-									  int r = qRound(m_style["draw:red"]->getDouble() * 255);
-									  int g = qRound(m_style["draw:green"]->getDouble() * 255);
-									  int b = qRound(m_style["draw:blue"]->getDouble() * 255);
-									  QString colVal = QString("#%1%2%3").arg(r, 2, 16, QLatin1Char('0')).arg(g, 2, 16, QLatin1Char('0')).arg(b, 2, 16, QLatin1Char('0'));
-									  QString efVal = parseColor(colVal);
-									  recolorItem(ite, efVal);
-								  }
-							  }
-						  }
-					  }
-				  }
-			  }
-		  }
+			if (m_style["draw:fill-image"] && m_style["librevenge:mime-type"])
+			{
+				QByteArray ba(m_style["draw:fill-image"]->getStr().cstr());
+				QByteArray imageData = QByteArray::fromBase64(ba);
+				QString imgExt;
+				if (m_style["librevenge:mime-type"]->getStr() == "image/png")
+					imgExt = "png";
+				else if (m_style["librevenge:mime-type"]->getStr() == "image/jpeg")
+					imgExt = "jpg";
+				else if (m_style["librevenge:mime-type"]->getStr() == "image/bmp")
+					imgExt = "bmp";
+				else if (m_style["librevenge:mime-type"]->getStr() == "image/pict")
+					imgExt = "pict";
+				else if (m_style["librevenge:mime-type"]->getStr() == "image/tiff")
+					imgExt = "tif";
+				if (!imgExt.isEmpty())
+				{
+					int z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_lineWidth, m_currColorFill, m_currColorStroke);
+					ite = m_doc->Items->at(z);
+					ite->PoLine = m_coords.copy();
+					finishItem(ite);
+					insertImage(ite, imgExt, imageData);
+				}
+				else if ((m_style["librevenge:mime-type"]->getStr() == "image/wmf") || (m_style["librevenge:mime-type"]->getStr() == "image/emf"))
+				{
+					if (m_style["librevenge:mime-type"]->getStr() == "image/wmf")
+						imgExt = "wmf";
+					else
+						imgExt = "emf";
+					QTemporaryFile tempFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(m_fileType) + imgExt);
+					if (tempFile.open())
+					{
+						QString fileName = getLongPathName(tempFile.fileName());
+						tempFile.write(imageData);
+						tempFile.close();
+						FileLoader *fileLoader = new FileLoader(fileName);
+						int testResult = fileLoader->testFile();
+						delete fileLoader;
+						if (testResult != -1)
+						{
+							const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
+							if (fmt)
+							{
+								fmt->setupTargets(m_doc, nullptr, nullptr, nullptr, &(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts));
+								fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
+								if (m_doc->m_Selection->isNotEmpty())
+								{
+									ite = m_doc->groupObjectsSelection();
+									double rot = 0;
+									if (m_style["librevenge:rotate"])
+										rot = m_style["librevenge:rotate"]->getDouble();
+									QPainterPath ba = m_coords.toQPainterPath(true);
+									QRectF baR = ba.boundingRect();
+									if (rot != 0)
+									{
+										QTransform mm;
+										mm.translate(baR.x(), baR.y());
+										mm.translate(baR.width() / 2.0, baR.height() / 2.0);
+										mm.rotate(rot);
+										mm.translate(-baR.width() / 2.0, -baR.height() / 2.0);
+										mm.translate(-baR.x(), -baR.y());
+										ba = mm.map(ba);
+										baR = ba.boundingRect();
+										ite->setXYPos(m_baseX + baR.x(), m_baseY + baR.y(), true);
+										ite->setWidthHeight(baR.width(), baR.height(), true);
+										m_coords.fromQPainterPath(ba, true);
+										FPoint tp2(getMinClipF(&m_coords));
+										m_coords.translate(-tp2.x(), -tp2.y());
+										ite->PoLine = m_coords.copy();
+										AnchorPoint rm = m_doc->rotationMode();
+										m_doc->setRotationMode(AnchorPoint::Center);
+										m_doc->rotateItem(-rot, ite);
+										m_doc->setRotationMode(rm);
+									}
+									else
+									{
+										ite->setXYPos(m_baseX + baR.x(), m_baseY + baR.y(), true);
+										ite->setWidthHeight(baR.width(), baR.height(), true);
+										FPoint tp2(getMinClipF(&m_coords));
+										m_coords.translate(-tp2.x(), -tp2.y());
+										ite->PoLine = m_coords.copy();
+									}
+									finishItem(ite);
+									if (m_style["draw:red"] && m_style["draw:green"] && m_style["draw:blue"])
+									{
+										int r = qRound(m_style["draw:red"]->getDouble() * 255);
+										int g = qRound(m_style["draw:green"]->getDouble() * 255);
+										int b = qRound(m_style["draw:blue"]->getDouble() * 255);
+										QString colVal = QString("#%1%2%3").arg(r, 2, 16, QLatin1Char('0')).arg(g, 2, 16, QLatin1Char('0')).arg(b, 2, 16, QLatin1Char('0'));
+										QString efVal = parseColor(colVal);
+										recolorItem(ite, efVal);
+									}
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 		else
 		{
@@ -1065,104 +1065,104 @@ void RawPainter::drawPath(const librevenge::RVNGPropertyList &propList)
 	{
 		if (m_style["draw:fill"] && m_style["draw:fill"]->getStr() == "bitmap" && m_style["style:repeat"] && m_style["style:repeat"]->getStr() == "stretch")
 		{
-		  if (m_style["draw:fill-image"] && m_style["librevenge:mime-type"])
-		  {
-			  QByteArray ba(m_style["draw:fill-image"]->getStr().cstr());
-			  QByteArray imageData = QByteArray::fromBase64(ba);
-			  QString imgExt;
-			  if (m_style["librevenge:mime-type"]->getStr() == "image/png")
-				  imgExt = "png";
-			  else if (m_style["librevenge:mime-type"]->getStr() == "image/jpeg")
-				  imgExt = "jpg";
-			  else if (m_style["librevenge:mime-type"]->getStr() == "image/bmp")
-				  imgExt = "bmp";
-			  else if (m_style["librevenge:mime-type"]->getStr() == "image/pict")
-				  imgExt = "pict";
-			  else if (m_style["librevenge:mime-type"]->getStr() == "image/tiff")
-				  imgExt = "tif";
-			  if (!imgExt.isEmpty())
-			  {
-				  int z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_lineWidth, m_currColorFill, m_currColorStroke);
-				  ite = m_doc->Items->at(z);
-				  ite->PoLine = m_coords.copy();
-				  finishItem(ite);
-				  insertImage(ite, imgExt, imageData);
-			  }
-			  else if ((m_style["librevenge:mime-type"]->getStr() == "image/wmf") || (m_style["librevenge:mime-type"]->getStr() == "image/emf"))
-			  {
-				  if (m_style["librevenge:mime-type"]->getStr() == "image/wmf")
-					  imgExt = "wmf";
-				  else
-					  imgExt = "emf";
-				  QTemporaryFile tempFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(m_fileType) + imgExt);
-				  if (tempFile.open())
-				  {
-					  QString fileName = getLongPathName(tempFile.fileName());
-					  tempFile.write(imageData);
-					  tempFile.close();
-					  FileLoader *fileLoader = new FileLoader(fileName);
-					  int testResult = fileLoader->testFile();
-					  delete fileLoader;
-					  if (testResult != -1)
-					  {
-						  const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
-						  if (fmt)
-						  {
-							  fmt->setupTargets(m_doc, nullptr, nullptr, nullptr, &(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts));
-							  fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
-							  if (m_doc->m_Selection->isNotEmpty())
-							  {
-								  ite = m_doc->groupObjectsSelection();
-								  double rot = 0;
-								  if (m_style["librevenge:rotate"])
-									  rot = m_style["librevenge:rotate"]->getDouble();
-								  QPainterPath ba = m_coords.toQPainterPath(true);
-								  QRectF baR = ba.boundingRect();
-								  if (rot != 0)
-								  {
-									  QTransform mm;
-									  mm.translate(baR.x(), baR.y());
-									  mm.translate(baR.width() / 2.0, baR.height() / 2.0);
-									  mm.rotate(rot);
-									  mm.translate(-baR.width() / 2.0, -baR.height() / 2.0);
-									  mm.translate(-baR.x(), -baR.y());
-									  ba = mm.map(ba);
-									  baR = ba.boundingRect();
-									  ite->setXYPos(m_baseX + baR.x(), m_baseY + baR.y(), true);
-									  ite->setWidthHeight(baR.width(), baR.height(), true);
-									  m_coords.fromQPainterPath(ba, true);
-									  FPoint tp2(getMinClipF(&m_coords));
-									  m_coords.translate(-tp2.x(), -tp2.y());
-									  ite->PoLine = m_coords.copy();
-									  AnchorPoint rm = m_doc->rotationMode();
-									  m_doc->setRotationMode(AnchorPoint::Center);
-									  m_doc->rotateItem(-rot, ite);
-									  m_doc->setRotationMode(rm);
-								  }
-								  else
-								  {
-									  ite->setXYPos(m_baseX + baR.x(), m_baseY + baR.y(), true);
-									  ite->setWidthHeight(baR.width(), baR.height(), true);
-									  FPoint tp2(getMinClipF(&m_coords));
-									  m_coords.translate(-tp2.x(), -tp2.y());
-									  ite->PoLine = m_coords.copy();
-								  }
-								  finishItem(ite);
-								  if (m_style["draw:red"] && m_style["draw:green"] && m_style["draw:blue"])
-								  {
-									  int r = qRound(m_style["draw:red"]->getDouble() * 255);
-									  int g = qRound(m_style["draw:green"]->getDouble() * 255);
-									  int b = qRound(m_style["draw:blue"]->getDouble() * 255);
-									  QString colVal = QString("#%1%2%3").arg(r, 2, 16, QLatin1Char('0')).arg(g, 2, 16, QLatin1Char('0')).arg(b, 2, 16, QLatin1Char('0'));
-									  QString efVal = parseColor(colVal);
-									  recolorItem(ite, efVal);
-								  }
-							  }
-						  }
-					  }
-				  }
-			  }
-		  }
+			if (m_style["draw:fill-image"] && m_style["librevenge:mime-type"])
+			{
+				QByteArray ba(m_style["draw:fill-image"]->getStr().cstr());
+				QByteArray imageData = QByteArray::fromBase64(ba);
+				QString imgExt;
+				if (m_style["librevenge:mime-type"]->getStr() == "image/png")
+					imgExt = "png";
+				else if (m_style["librevenge:mime-type"]->getStr() == "image/jpeg")
+					imgExt = "jpg";
+				else if (m_style["librevenge:mime-type"]->getStr() == "image/bmp")
+					imgExt = "bmp";
+				else if (m_style["librevenge:mime-type"]->getStr() == "image/pict")
+					imgExt = "pict";
+				else if (m_style["librevenge:mime-type"]->getStr() == "image/tiff")
+					imgExt = "tif";
+				if (!imgExt.isEmpty())
+				{
+					int z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_lineWidth, m_currColorFill, m_currColorStroke);
+					ite = m_doc->Items->at(z);
+					ite->PoLine = m_coords.copy();
+					finishItem(ite);
+					insertImage(ite, imgExt, imageData);
+				}
+				else if ((m_style["librevenge:mime-type"]->getStr() == "image/wmf") || (m_style["librevenge:mime-type"]->getStr() == "image/emf"))
+				{
+					if (m_style["librevenge:mime-type"]->getStr() == "image/wmf")
+						imgExt = "wmf";
+					else
+						imgExt = "emf";
+					QTemporaryFile tempFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(m_fileType) + imgExt);
+					if (tempFile.open())
+					{
+						QString fileName = getLongPathName(tempFile.fileName());
+						tempFile.write(imageData);
+						tempFile.close();
+						FileLoader *fileLoader = new FileLoader(fileName);
+						int testResult = fileLoader->testFile();
+						delete fileLoader;
+						if (testResult != -1)
+						{
+							const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
+							if (fmt)
+							{
+								fmt->setupTargets(m_doc, nullptr, nullptr, nullptr, &(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts));
+								fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
+								if (m_doc->m_Selection->isNotEmpty())
+								{
+									ite = m_doc->groupObjectsSelection();
+									double rot = 0;
+									if (m_style["librevenge:rotate"])
+										rot = m_style["librevenge:rotate"]->getDouble();
+									QPainterPath ba = m_coords.toQPainterPath(true);
+									QRectF baR = ba.boundingRect();
+									if (rot != 0)
+									{
+										QTransform mm;
+										mm.translate(baR.x(), baR.y());
+										mm.translate(baR.width() / 2.0, baR.height() / 2.0);
+										mm.rotate(rot);
+										mm.translate(-baR.width() / 2.0, -baR.height() / 2.0);
+										mm.translate(-baR.x(), -baR.y());
+										ba = mm.map(ba);
+										baR = ba.boundingRect();
+										ite->setXYPos(m_baseX + baR.x(), m_baseY + baR.y(), true);
+										ite->setWidthHeight(baR.width(), baR.height(), true);
+										m_coords.fromQPainterPath(ba, true);
+										FPoint tp2(getMinClipF(&m_coords));
+										m_coords.translate(-tp2.x(), -tp2.y());
+										ite->PoLine = m_coords.copy();
+										AnchorPoint rm = m_doc->rotationMode();
+										m_doc->setRotationMode(AnchorPoint::Center);
+										m_doc->rotateItem(-rot, ite);
+										m_doc->setRotationMode(rm);
+									}
+									else
+									{
+										ite->setXYPos(m_baseX + baR.x(), m_baseY + baR.y(), true);
+										ite->setWidthHeight(baR.width(), baR.height(), true);
+										FPoint tp2(getMinClipF(&m_coords));
+										m_coords.translate(-tp2.x(), -tp2.y());
+										ite->PoLine = m_coords.copy();
+									}
+									finishItem(ite);
+									if (m_style["draw:red"] && m_style["draw:green"] && m_style["draw:blue"])
+									{
+										int r = qRound(m_style["draw:red"]->getDouble() * 255);
+										int g = qRound(m_style["draw:green"]->getDouble() * 255);
+										int b = qRound(m_style["draw:blue"]->getDouble() * 255);
+										QString colVal = QString("#%1%2%3").arg(r, 2, 16, QLatin1Char('0')).arg(g, 2, 16, QLatin1Char('0')).arg(b, 2, 16, QLatin1Char('0'));
+										QString efVal = parseColor(colVal);
+										recolorItem(ite, efVal);
+									}
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 		else
 		{
@@ -1305,7 +1305,7 @@ void RawPainter::drawGraphicObject(const librevenge::RVNGPropertyList &propList)
 			applyFlip(ite);
 			if (m_currColorFill != CommonStrings::None)
 				applyShadow(ite);
-			}
+		}
 	}
 }
 
@@ -1323,8 +1323,8 @@ void RawPainter::startTextObject(const librevenge::RVNGPropertyList &propList)
 	m_currTextItem = nullptr;
 	m_lineSpSet = false;
 	m_lineSpIsPT = false;
-//	if ((m_fileType == "pmd") || (m_fileType == "pm5") || (m_fileType == "p65"))
-		setStyle(propList);
+	//	if ((m_fileType == "pmd") || (m_fileType == "pm5") || (m_fileType == "p65"))
+	setStyle(propList);
 	if (propList["svg:x"] && propList["svg:y"] && propList["svg:width"] && propList["svg:height"])
 	{
 		double x = valueAsPoint(propList["svg:x"]);
@@ -1546,7 +1546,7 @@ void RawPainter::openParagraph(const librevenge::RVNGPropertyList &propList)
 		m_textStyle.setGapAfter(valueAsPoint(propList["fo:margin-bottom"]));
 	if (propList["fo:margin-top"])
 		m_textStyle.setGapBefore(valueAsPoint(propList["fo:margin-top"]));
-//	m_maxFontSize = m_textStyle.charStyle().fontSize() / 10.0;
+	//	m_maxFontSize = m_textStyle.charStyle().fontSize() / 10.0;
 	m_maxFontSize = 1.0;
 	if (propList["fo:line-height"])
 	{
@@ -2211,8 +2211,8 @@ void RawPainter::endGraphics()
 {
 	if (m_importerFlags & LoadSavePlugin::lfCreateThumbnail)
 		m_doProcessing = false;
-//	qDebug() << "endGraphics";
-//  printf("RawPainter::endGraphics\n");
+	//	qDebug() << "endGraphics";
+	//  printf("RawPainter::endGraphics\n");
 }
 
 void RawPainter::startLayer(const ::WPXPropertyList &propList)
@@ -2306,15 +2306,15 @@ void RawPainter::startEmbeddedGraphics(const ::WPXPropertyList &propList)
 	if (!m_doProcessing)
 		return;
 	qDebug() << "startEmbeddedGraphics";
-//  printf("RawPainter::startEmbeddedGraphics (%s)\n", getPropString(propList).cstr());
+	//  printf("RawPainter::startEmbeddedGraphics (%s)\n", getPropString(propList).cstr());
 }
 
 void RawPainter::endEmbeddedGraphics()
 {
 	if (!m_doProcessing)
 		return;
-//	qDebug() << "endEmbeddedGraphics";
-//  printf("RawPainter::endEmbeddedGraphics \n");
+	//	qDebug() << "endEmbeddedGraphics";
+	//  printf("RawPainter::endEmbeddedGraphics \n");
 }
 
 void RawPainter::setStyle(const ::WPXPropertyList &propList, const ::WPXPropertyListVector &gradient)
@@ -2480,8 +2480,8 @@ void RawPainter::setStyle(const ::WPXPropertyList &propList, const ::WPXProperty
 		else
 			m_lineJoin = Qt::MiterJoin;
 	}
-//	qDebug() << "setStyle";
-//  printf("RawPainter::setStyle(%s, gradient: (%s))\n", getPropString(propList).cstr(), getPropString(gradient).cstr());
+	//	qDebug() << "setStyle";
+	//  printf("RawPainter::setStyle(%s, gradient: (%s))\n", getPropString(propList).cstr(), getPropString(gradient).cstr());
 }
 
 void RawPainter::drawRectangle(const ::WPXPropertyList &propList)
@@ -2501,8 +2501,8 @@ void RawPainter::drawRectangle(const ::WPXPropertyList &propList)
 		if (m_currColorFill != CommonStrings::None)
 			applyShadow(ite);
 	}
-//	qDebug() << "drawRectangle";
-//  printf("RawPainter::drawRectangle (%s)\n", getPropString(propList).cstr());
+	//	qDebug() << "drawRectangle";
+	//  printf("RawPainter::drawRectangle (%s)\n", getPropString(propList).cstr());
 }
 
 void RawPainter::drawEllipse(const ::WPXPropertyList &propList)
@@ -2522,8 +2522,8 @@ void RawPainter::drawEllipse(const ::WPXPropertyList &propList)
 		if (m_currColorFill != CommonStrings::None)
 			applyShadow(ite);
 	}
-//	qDebug() << "drawEllipse";
-//  printf("RawPainter::drawEllipse (%s)\n", getPropString(propList).cstr());
+	//	qDebug() << "drawEllipse";
+	//  printf("RawPainter::drawEllipse (%s)\n", getPropString(propList).cstr());
 }
 
 void RawPainter::drawPolyline(const ::WPXPropertyListVector &vertices)
@@ -2570,102 +2570,102 @@ void RawPainter::drawPolygon(const ::WPXPropertyListVector &vertices)
 	{
 		if (m_style["draw:fill-image"] && m_style["libwpg:mime-type"])
 		{
-		  QByteArray ba(m_style["draw:fill-image"]->getStr().cstr());
-		  QByteArray imageData = QByteArray::fromBase64(ba);
-		  QString imgExt;
-		  if (m_style["libwpg:mime-type"]->getStr() == "image/png")
-			  imgExt = "png";
-		  else if (m_style["libwpg:mime-type"]->getStr() == "image/jpeg")
-			  imgExt = "jpg";
-		  else if (m_style["libwpg:mime-type"]->getStr() == "image/bmp")
-			  imgExt = "bmp";
-		  else if (m_style["libwpg:mime-type"]->getStr() == "image/pict")
-			  imgExt = "pict";
-		  else if (m_style["libwpg:mime-type"]->getStr() == "image/tiff")
-			  imgExt = "tif";
-		  if (!imgExt.isEmpty())
-		  {
-			  z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_lineWidth, m_currColorFill, m_currColorStroke);
-			  ite = m_Doc->Items->at(z);
-			  ite->PoLine = m_coords.copy();
-			  finishItem(ite);
-			  insertImage(ite, imgExt, imageData);
-		  }
-		  else if ((m_style["libwpg:mime-type"]->getStr() == "image/wmf") || (m_style["libwpg:mime-type"]->getStr() == "image/emf"))
-		  {
-			  if (m_style["libwpg:mime-type"]->getStr() == "image/wmf")
-				  imgExt = "wmf";
-			  else
-				  imgExt = "emf";
-			  QTemporaryFile tempFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(m_fileType) + imgExt);
-			  if (tempFile.open())
-			  {
-				  QString fileName = getLongPathName(tempFile.fileName());
-				  tempFile.write(imageData);
-				  tempFile.close();
-				  FileLoader *fileLoader = new FileLoader(fileName);
-				  int testResult = fileLoader->testFile();
-				  delete fileLoader;
-				  if (testResult != -1)
-				  {
-					  const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
-					  if (fmt)
-					  {
-						  fmt->setupTargets(m_Doc, 0, 0, 0, &(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts));
-						  fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
-						  if (m_Doc->m_Selection->count() > 0)
-						  {
-							  ite = m_Doc->groupObjectsSelection();
-							  double rot = 0;
-							  if (m_style["libwpg:rotate"])
-								  rot = m_style["libwpg:rotate"]->getDouble();
-							  QPainterPath ba = m_coords.toQPainterPath(true);
-							  QRectF baR = ba.boundingRect();
-							  if (rot != 0)
-							  {
-								  QTransform mm;
-								  mm.translate(baR.x(), baR.y());
-								  mm.translate(baR.width() / 2.0, baR.height() / 2.0);
-								  mm.rotate(rot);
-								  mm.translate(-baR.width() / 2.0, -baR.height() / 2.0);
-								  mm.translate(-baR.x(), -baR.y());
-								  ba = mm.map(ba);
-								  baR = ba.boundingRect();
-								  ite->setXYPos(m_baseX + baR.x(), m_baseY + baR.y(), true);
-								  ite->setWidthHeight(baR.width(), baR.height(), true);
-								  m_coords.fromQPainterPath(ba, true);
-								  FPoint tp2(getMinClipF(&m_coords));
-								  m_coords.translate(-tp2.x(), -tp2.y());
-								  ite->PoLine = m_coords.copy();
-								  int rm = m_Doc->rotationMode();
-								  m_Doc->setRotationMode(2);
-								  m_Doc->rotateItem(-rot, ite);
-								  m_Doc->setRotationMode(rm);
-							  }
-							  else
-							  {
-								  ite->setXYPos(m_baseX + baR.x(), m_baseY + baR.y(), true);
-								  ite->setWidthHeight(baR.width(), baR.height(), true);
-								  FPoint tp2(getMinClipF(&m_coords));
-								  m_coords.translate(-tp2.x(), -tp2.y());
-								  ite->PoLine = m_coords.copy();
-							  }
-							  finishItem(ite);
-							  if (m_style["draw:red"] && m_style["draw:green"] && m_style["draw:blue"])
-							  {
-								  int r = qRound(m_style["draw:red"]->getDouble() * 255);
-								  int g = qRound(m_style["draw:green"]->getDouble() * 255);
-								  int b = qRound(m_style["draw:blue"]->getDouble() * 255);
-								  QString colVal = QString("#%1%2%3").arg(r, 2, 16, QLatin1Char('0')).arg(g, 2, 16, QLatin1Char('0')).arg(b, 2, 16, QLatin1Char('0'));
-								  QString efVal = parseColor(colVal);
-								  recolorItem(ite, efVal);
-							  }
-						  }
-					  }
-				  }
-			  }
-		  }
-	  }
+			QByteArray ba(m_style["draw:fill-image"]->getStr().cstr());
+			QByteArray imageData = QByteArray::fromBase64(ba);
+			QString imgExt;
+			if (m_style["libwpg:mime-type"]->getStr() == "image/png")
+				imgExt = "png";
+			else if (m_style["libwpg:mime-type"]->getStr() == "image/jpeg")
+				imgExt = "jpg";
+			else if (m_style["libwpg:mime-type"]->getStr() == "image/bmp")
+				imgExt = "bmp";
+			else if (m_style["libwpg:mime-type"]->getStr() == "image/pict")
+				imgExt = "pict";
+			else if (m_style["libwpg:mime-type"]->getStr() == "image/tiff")
+				imgExt = "tif";
+			if (!imgExt.isEmpty())
+			{
+				z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_lineWidth, m_currColorFill, m_currColorStroke);
+				ite = m_Doc->Items->at(z);
+				ite->PoLine = m_coords.copy();
+				finishItem(ite);
+				insertImage(ite, imgExt, imageData);
+			}
+			else if ((m_style["libwpg:mime-type"]->getStr() == "image/wmf") || (m_style["libwpg:mime-type"]->getStr() == "image/emf"))
+			{
+				if (m_style["libwpg:mime-type"]->getStr() == "image/wmf")
+					imgExt = "wmf";
+				else
+					imgExt = "emf";
+				QTemporaryFile tempFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(m_fileType) + imgExt);
+				if (tempFile.open())
+				{
+					QString fileName = getLongPathName(tempFile.fileName());
+					tempFile.write(imageData);
+					tempFile.close();
+					FileLoader *fileLoader = new FileLoader(fileName);
+					int testResult = fileLoader->testFile();
+					delete fileLoader;
+					if (testResult != -1)
+					{
+						const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
+						if (fmt)
+						{
+							fmt->setupTargets(m_Doc, 0, 0, 0, &(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts));
+							fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
+							if (m_Doc->m_Selection->count() > 0)
+							{
+								ite = m_Doc->groupObjectsSelection();
+								double rot = 0;
+								if (m_style["libwpg:rotate"])
+									rot = m_style["libwpg:rotate"]->getDouble();
+								QPainterPath ba = m_coords.toQPainterPath(true);
+								QRectF baR = ba.boundingRect();
+								if (rot != 0)
+								{
+									QTransform mm;
+									mm.translate(baR.x(), baR.y());
+									mm.translate(baR.width() / 2.0, baR.height() / 2.0);
+									mm.rotate(rot);
+									mm.translate(-baR.width() / 2.0, -baR.height() / 2.0);
+									mm.translate(-baR.x(), -baR.y());
+									ba = mm.map(ba);
+									baR = ba.boundingRect();
+									ite->setXYPos(m_baseX + baR.x(), m_baseY + baR.y(), true);
+									ite->setWidthHeight(baR.width(), baR.height(), true);
+									m_coords.fromQPainterPath(ba, true);
+									FPoint tp2(getMinClipF(&m_coords));
+									m_coords.translate(-tp2.x(), -tp2.y());
+									ite->PoLine = m_coords.copy();
+									int rm = m_Doc->rotationMode();
+									m_Doc->setRotationMode(2);
+									m_Doc->rotateItem(-rot, ite);
+									m_Doc->setRotationMode(rm);
+								}
+								else
+								{
+									ite->setXYPos(m_baseX + baR.x(), m_baseY + baR.y(), true);
+									ite->setWidthHeight(baR.width(), baR.height(), true);
+									FPoint tp2(getMinClipF(&m_coords));
+									m_coords.translate(-tp2.x(), -tp2.y());
+									ite->PoLine = m_coords.copy();
+								}
+								finishItem(ite);
+								if (m_style["draw:red"] && m_style["draw:green"] && m_style["draw:blue"])
+								{
+									int r = qRound(m_style["draw:red"]->getDouble() * 255);
+									int g = qRound(m_style["draw:green"]->getDouble() * 255);
+									int b = qRound(m_style["draw:blue"]->getDouble() * 255);
+									QString colVal = QString("#%1%2%3").arg(r, 2, 16, QLatin1Char('0')).arg(g, 2, 16, QLatin1Char('0')).arg(b, 2, 16, QLatin1Char('0'));
+									QString efVal = parseColor(colVal);
+									recolorItem(ite, efVal);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 	else
 	{
@@ -2715,104 +2715,104 @@ void RawPainter::drawPath(const ::WPXPropertyListVector &path)
 	{
 		if (m_style["draw:fill"] && m_style["draw:fill"]->getStr() == "bitmap" && m_style["style:repeat"] && m_style["style:repeat"]->getStr() == "stretch")
 		{
-		  if (m_style["draw:fill-image"] && m_style["libwpg:mime-type"])
-		  {
-			  QByteArray ba(m_style["draw:fill-image"]->getStr().cstr());
-			  QByteArray imageData = QByteArray::fromBase64(ba);
-			  QString imgExt;
-			  if (m_style["libwpg:mime-type"]->getStr() == "image/png")
-				  imgExt = "png";
-			  else if (m_style["libwpg:mime-type"]->getStr() == "image/jpeg")
-				  imgExt = "jpg";
-			  else if (m_style["libwpg:mime-type"]->getStr() == "image/bmp")
-				  imgExt = "bmp";
-			  else if (m_style["libwpg:mime-type"]->getStr() == "image/pict")
-				  imgExt = "pict";
-			  else if (m_style["libwpg:mime-type"]->getStr() == "image/tiff")
-				  imgExt = "tif";
-			  if (!imgExt.isEmpty())
-			  {
-				  z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_lineWidth, m_currColorFill, m_currColorStroke);
-				  ite = m_Doc->Items->at(z);
-				  ite->PoLine = m_coords.copy();
-				  finishItem(ite);
-				  insertImage(ite, imgExt, imageData);
-			  }
-			  else if ((m_style["libwpg:mime-type"]->getStr() == "image/wmf") || (m_style["libwpg:mime-type"]->getStr() == "image/emf"))
-			  {
-				  if (m_style["libwpg:mime-type"]->getStr() == "image/wmf")
-					  imgExt = "wmf";
-				  else
-					  imgExt = "emf";
-				  QTemporaryFile tempFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(m_fileType) + imgExt);
-				  if (tempFile.open())
-				  {
-					  QString fileName = getLongPathName(tempFile.fileName());
-					  tempFile.write(imageData);
-					  tempFile.close();
-					  FileLoader *fileLoader = new FileLoader(fileName);
-					  int testResult = fileLoader->testFile();
-					  delete fileLoader;
-					  if (testResult != -1)
-					  {
-						  const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
-						  if (fmt)
-						  {
-							  fmt->setupTargets(m_Doc, 0, 0, 0, &(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts));
-							  fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
-							  if (m_Doc->m_Selection->count() > 0)
-							  {
-								  ite = m_Doc->groupObjectsSelection();
-								  double rot = 0;
-								  if (m_style["libwpg:rotate"])
-									  rot = m_style["libwpg:rotate"]->getDouble();
-								  QPainterPath ba = m_coords.toQPainterPath(true);
-								  QRectF baR = ba.boundingRect();
-								  if (rot != 0)
-								  {
-									  QTransform mm;
-									  mm.translate(baR.x(), baR.y());
-									  mm.translate(baR.width() / 2.0, baR.height() / 2.0);
-									  mm.rotate(rot);
-									  mm.translate(-baR.width() / 2.0, -baR.height() / 2.0);
-									  mm.translate(-baR.x(), -baR.y());
-									  ba = mm.map(ba);
-									  baR = ba.boundingRect();
-									  ite->setXYPos(m_baseX + baR.x(), m_baseY + baR.y(), true);
-									  ite->setWidthHeight(baR.width(), baR.height(), true);
-									  m_coords.fromQPainterPath(ba, true);
-									  FPoint tp2(getMinClipF(&m_coords));
-									  m_coords.translate(-tp2.x(), -tp2.y());
-									  ite->PoLine = m_coords.copy();
-									  int rm = m_Doc->rotationMode();
-									  m_Doc->setRotationMode(2);
-									  m_Doc->rotateItem(-rot, ite);
-									  m_Doc->setRotationMode(rm);
-								  }
-								  else
-								  {
-									  ite->setXYPos(m_baseX + baR.x(), m_baseY + baR.y(), true);
-									  ite->setWidthHeight(baR.width(), baR.height(), true);
-									  FPoint tp2(getMinClipF(&m_coords));
-									  m_coords.translate(-tp2.x(), -tp2.y());
-									  ite->PoLine = m_coords.copy();
-								  }
-								  finishItem(ite);
-								  if (m_style["draw:red"] && m_style["draw:green"] && m_style["draw:blue"])
-								  {
-									  int r = qRound(m_style["draw:red"]->getDouble() * 255);
-									  int g = qRound(m_style["draw:green"]->getDouble() * 255);
-									  int b = qRound(m_style["draw:blue"]->getDouble() * 255);
-									  QString colVal = QString("#%1%2%3").arg(r, 2, 16, QLatin1Char('0')).arg(g, 2, 16, QLatin1Char('0')).arg(b, 2, 16, QLatin1Char('0'));
-									  QString efVal = parseColor(colVal);
-									  recolorItem(ite, efVal);
-								  }
-							  }
-						  }
-					  }
-				  }
-			  }
-		  }
+			if (m_style["draw:fill-image"] && m_style["libwpg:mime-type"])
+			{
+				QByteArray ba(m_style["draw:fill-image"]->getStr().cstr());
+				QByteArray imageData = QByteArray::fromBase64(ba);
+				QString imgExt;
+				if (m_style["libwpg:mime-type"]->getStr() == "image/png")
+					imgExt = "png";
+				else if (m_style["libwpg:mime-type"]->getStr() == "image/jpeg")
+					imgExt = "jpg";
+				else if (m_style["libwpg:mime-type"]->getStr() == "image/bmp")
+					imgExt = "bmp";
+				else if (m_style["libwpg:mime-type"]->getStr() == "image/pict")
+					imgExt = "pict";
+				else if (m_style["libwpg:mime-type"]->getStr() == "image/tiff")
+					imgExt = "tif";
+				if (!imgExt.isEmpty())
+				{
+					z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_lineWidth, m_currColorFill, m_currColorStroke);
+					ite = m_Doc->Items->at(z);
+					ite->PoLine = m_coords.copy();
+					finishItem(ite);
+					insertImage(ite, imgExt, imageData);
+				}
+				else if ((m_style["libwpg:mime-type"]->getStr() == "image/wmf") || (m_style["libwpg:mime-type"]->getStr() == "image/emf"))
+				{
+					if (m_style["libwpg:mime-type"]->getStr() == "image/wmf")
+						imgExt = "wmf";
+					else
+						imgExt = "emf";
+					QTemporaryFile tempFile(QDir::tempPath() + QString("/scribus_temp_%1_XXXXXX.").arg(m_fileType) + imgExt);
+					if (tempFile.open())
+					{
+						QString fileName = getLongPathName(tempFile.fileName());
+						tempFile.write(imageData);
+						tempFile.close();
+						FileLoader *fileLoader = new FileLoader(fileName);
+						int testResult = fileLoader->testFile();
+						delete fileLoader;
+						if (testResult != -1)
+						{
+							const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
+							if (fmt)
+							{
+								fmt->setupTargets(m_Doc, 0, 0, 0, &(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts));
+								fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
+								if (m_Doc->m_Selection->count() > 0)
+								{
+									ite = m_Doc->groupObjectsSelection();
+									double rot = 0;
+									if (m_style["libwpg:rotate"])
+										rot = m_style["libwpg:rotate"]->getDouble();
+									QPainterPath ba = m_coords.toQPainterPath(true);
+									QRectF baR = ba.boundingRect();
+									if (rot != 0)
+									{
+										QTransform mm;
+										mm.translate(baR.x(), baR.y());
+										mm.translate(baR.width() / 2.0, baR.height() / 2.0);
+										mm.rotate(rot);
+										mm.translate(-baR.width() / 2.0, -baR.height() / 2.0);
+										mm.translate(-baR.x(), -baR.y());
+										ba = mm.map(ba);
+										baR = ba.boundingRect();
+										ite->setXYPos(m_baseX + baR.x(), m_baseY + baR.y(), true);
+										ite->setWidthHeight(baR.width(), baR.height(), true);
+										m_coords.fromQPainterPath(ba, true);
+										FPoint tp2(getMinClipF(&m_coords));
+										m_coords.translate(-tp2.x(), -tp2.y());
+										ite->PoLine = m_coords.copy();
+										int rm = m_Doc->rotationMode();
+										m_Doc->setRotationMode(2);
+										m_Doc->rotateItem(-rot, ite);
+										m_Doc->setRotationMode(rm);
+									}
+									else
+									{
+										ite->setXYPos(m_baseX + baR.x(), m_baseY + baR.y(), true);
+										ite->setWidthHeight(baR.width(), baR.height(), true);
+										FPoint tp2(getMinClipF(&m_coords));
+										m_coords.translate(-tp2.x(), -tp2.y());
+										ite->PoLine = m_coords.copy();
+									}
+									finishItem(ite);
+									if (m_style["draw:red"] && m_style["draw:green"] && m_style["draw:blue"])
+									{
+										int r = qRound(m_style["draw:red"]->getDouble() * 255);
+										int g = qRound(m_style["draw:green"]->getDouble() * 255);
+										int b = qRound(m_style["draw:blue"]->getDouble() * 255);
+										QString colVal = QString("#%1%2%3").arg(r, 2, 16, QLatin1Char('0')).arg(g, 2, 16, QLatin1Char('0')).arg(b, 2, 16, QLatin1Char('0'));
+										QString efVal = parseColor(colVal);
+										recolorItem(ite, efVal);
+									}
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 		else
 		{
@@ -2954,8 +2954,8 @@ void RawPainter::drawGraphicObject(const ::WPXPropertyList &propList, const ::WP
 				applyShadow(ite);
 		}
 	}
-//	qDebug() << "drawGraphicObject";
-//  printf("RawPainter::drawGraphicObject (%s)\n", getPropString(propList).cstr());
+	//	qDebug() << "drawGraphicObject";
+	//  printf("RawPainter::drawGraphicObject (%s)\n", getPropString(propList).cstr());
 }
 
 void RawPainter::startTextObject(const ::WPXPropertyList &propList, const ::WPXPropertyListVector &path)
@@ -3056,7 +3056,7 @@ void RawPainter::startTextLine(const ::WPXPropertyList &propList)
 		m_textStyle.setGapAfter(valueAsPoint(propList["fo:margin-bottom"]));
 	if (propList["fo:margin-top"])
 		m_textStyle.setGapBefore(valueAsPoint(propList["fo:margin-top"]));
-//	m_maxFontSize = m_textStyle.charStyle().fontSize() / 10.0;
+	//	m_maxFontSize = m_textStyle.charStyle().fontSize() / 10.0;
 	m_maxFontSize = 1.0;
 	if (propList["fo:line-height"])
 	{
