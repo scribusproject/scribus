@@ -29,14 +29,6 @@ class SCRIBUS_API Prefs_Spelling : public Prefs_Pane, Ui::Prefs_Spelling
 	public slots:
 		void languageChange();
 
-	protected slots:
-		void downloadSpellDicts();
-		void updateDictList();
-		void updateAvailDictList();
-		void downloadDictListFinished();
-		void downloadSpellDictsFinished();
-		void updateProgressBar();
-
 	protected:
 		QString affixFileName(const QStringList& files) const;
 		QString dictFileName(const QStringList& files) const;
