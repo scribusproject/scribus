@@ -7,12 +7,15 @@
  *                                                                         *
  ***************************************************************************/
 
-#include "textframespellchecker.h"
-#include "pageitem_textframe.h"
-#include "spellcheckfunctions.h"
-#include "text/storytext.h"
 #include <QCryptographicHash>
 #include <QDebug>
+
+#include "pageitem_textframe.h"
+#include "scribusdoc.h"
+#include "scribusview.h"
+#include "spellcheckfunctions.h"
+#include "text/storytext.h"
+#include "textframespellchecker.h"
 
 // Initialize static instance pointer
 TextFrameSpellChecker* TextFrameSpellChecker::m_instance = nullptr;

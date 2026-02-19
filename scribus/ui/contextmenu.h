@@ -20,11 +20,12 @@
 
 class QWidget;
 
-
 #include "selection.h"
+#include "textframespellchecker.h"
 
 class ScribusDoc;
 class ScribusMainWindow;
+struct SpellError;
 
 class ContextMenu : public QMenu
 {
