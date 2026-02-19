@@ -80,7 +80,7 @@ private:
 	//! \brief Store the guide values in the Qt4 model
 	GuidesModel * verticalModel { nullptr };
 
-	ScribusDoc* m_Doc { nullptr };
+	ScribusDoc* m_doc { nullptr };
 	//! \brief a reference to the current pages
 	ScPage * currentPage { nullptr };
 	//! \brief A flag to prevent guides drawing when it's not needed

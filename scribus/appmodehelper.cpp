@@ -90,7 +90,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 
 	int oldMode = doc->appMode;
 	PageItem *currItem = nullptr;
-	if (!doc->m_Selection->isEmpty())
+	if (doc->m_Selection->isNotEmpty())
 		currItem = doc->m_Selection->itemAt(0);
 
 	//Ugly hack but I have absolutely no idea about how to do this in another way
@@ -234,7 +234,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 			break;
 		case modeCopyProperties:
 			{
-				if (!doc->m_Selection->isEmpty())
+				if (doc->m_Selection->isNotEmpty())
 				{
 					doc->ElemToLink = doc->m_Selection->itemAt(0);
 					doc->view()->deselectItems(true);

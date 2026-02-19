@@ -753,7 +753,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 	}
 	else if (e->mimeData()->hasFormat("text/inline"))
 	{
-		if (((m_doc->appMode == modeEditTable) || (m_doc->appMode == modeEdit)) && (!m_doc->m_Selection->isEmpty()))
+		if (((m_doc->appMode == modeEditTable) || (m_doc->appMode == modeEdit)) && (m_doc->m_Selection->isNotEmpty()))
 		{
 			PageItem *item = m_doc->m_Selection->itemAt(0);
 			if (item->isTextFrame() || item->isTable())
@@ -1507,7 +1507,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 	PageItem_TextFrame *textFrame;
 	QPointF canvasPoint;
 	QTransform mm = item->getTransform();
-	QPointF textFramePoint = mm.map(QPointF(0, 0));
+
 	if (item->isTextFrame())
 	{
 		textFrame = item->asTextFrame();
@@ -1535,6 +1535,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 			textFrame->layout();
 		int textPosition = textFrame->textPositionFromPoint(canvasPoint);
 		/*
+		QPointF textFramePoint = mm.map(QPointF(0, 0));
 		double px = canvasPoint.x() - textFramePoint.x();
 		double py = canvasPoint.y() - textFramePoint.y();
 		FPoint point(px, py);
@@ -1665,7 +1666,7 @@ void ScribusView::selectItem(PageItem *currItem, bool draw, bool single)
 				updateContents(currItem->getRedrawBounding(m_canvas->scale()));
 		}
 	}
-	if (draw && !m_doc->m_Selection->isEmpty())
+	if (draw && m_doc->m_Selection->isNotEmpty())
 	{
 		double x, y, w, h;
 		m_doc->m_Selection->getGroupRect(&x, &y, &w, &h);
@@ -3528,7 +3529,7 @@ void ScribusView::zoom(double scale)
 	double zPointY = m_oldZoomY;
 	if (scale <= 0.0)
 		scale = m_canvas->scale();
-	if (!m_doc->m_Selection->isEmpty())
+	if (m_doc->m_Selection->isNotEmpty())
 	{
 		const PageItem *currItem = m_doc->m_Selection->itemAt(0);
 		zPointX = currItem->xPos() + currItem->width() / 2.0;

@@ -286,7 +286,7 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 			drawSelectionHandles(psx, QRectF(x, y, w, h));
 		psx->restore();
 	}
-	else if (!m_doc->m_Selection->isEmpty())
+	else if (m_doc->m_Selection->isNotEmpty())
 	{
 		int docSelectionCount = m_doc->m_Selection->count();
 		PageItem *currItem;
@@ -836,7 +836,7 @@ void CanvasMode::commonkeyPressEvent_Default(QKeyEvent *e)
 	{
 		m_keyRepeat = false;
 		PageItem *currItem;
-		if (!m_doc->m_Selection->isEmpty())
+		if (m_doc->m_Selection->isNotEmpty())
 		{
 			currItem = m_doc->m_Selection->itemAt(0);
 			switch (m_doc->appMode)

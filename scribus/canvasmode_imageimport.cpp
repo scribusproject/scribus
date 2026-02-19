@@ -47,7 +47,7 @@ void CanvasMode_ImageImport::setImageList(QStringList l)
 	{
 		while (!(m_doc->m_Selection->itemAt(0)->isImageFrame()))
 			m_doc->m_Selection->removeFirst();
-		if (!m_doc->m_Selection->isEmpty())
+		if (m_doc->m_Selection->isNotEmpty())
 		{
 			setImage(m_doc->m_Selection->itemAt(0));
 			m_view->requestMode(submodePaintingDone);

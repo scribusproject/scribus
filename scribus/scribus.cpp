@@ -2523,7 +2523,7 @@ void ScribusMainWindow::newActWin(QMdiSubWindow *w)
 	if (!doc->isLoading())
 	{
 		HaveNewSel();
-		if (!doc->m_Selection->isEmpty())
+		if (doc->m_Selection->isNotEmpty())
 			doc->m_Selection->itemAt(0)->emitAllToGUI();
 	}
 	docCheckerPalette->setDoc(doc);
@@ -2946,7 +2946,7 @@ void ScribusMainWindow::doPasteRecent(const QString& data)
 				fmt->loadFile(data, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
 			}
 		}
-		if (!doc->m_Selection->isEmpty())
+		if (doc->m_Selection->isNotEmpty())
 		{
 			double x2, y2, w, h;
 			doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
@@ -3129,7 +3129,7 @@ void ScribusMainWindow::updateItemLayerList()
 		(*it)->disconnect(SIGNAL(triggeredData(int)));
 		(*it)->setChecked(false);
 	}
-	if (!doc->m_Selection->isEmpty() && doc->m_Selection->itemAt(0))
+	if (doc->m_Selection->isNotEmpty() && doc->m_Selection->itemAt(0))
 		scrLayersActions[QString("%1").arg(doc->m_Selection->itemAt(0)->m_layerID)]->setChecked(true);
 	for (auto it = scrLayersActions.begin(); it != itend; ++it)
 		connect( (*it), SIGNAL(triggeredData(int)), doc, SLOT(itemSelection_SendToLayer(int)) );
@@ -3998,7 +3998,7 @@ void ScribusMainWindow::toogleInlineState()
 
 void ScribusMainWindow::slotFileAppend()
 {
-	if (!doc->m_Selection->isEmpty())
+	if (doc->m_Selection->isNotEmpty())
 	{
 		gtGetText* gt = new gtGetText(doc);
 		ImportSetup impsetup = gt->run();
@@ -5024,7 +5024,7 @@ void ScribusMainWindow::ClipChange()
 	bool tableEditMode = false;
 	bool hasScribusData = ScMimeData::clipboardHasScribusElem() || ScMimeData::clipboardHasScribusFragment();
 	bool hasExternalData = ScMimeData::clipboardHasKnownData();
-	if (HaveDoc && !doc->m_Selection->isEmpty())
+	if (HaveDoc && doc->m_Selection->isNotEmpty())
 	{
 		const PageItem *currItem = doc->m_Selection->itemAt(0);
 		textFrameEditMode  = ((doc->appMode == modeEdit) && (currItem->isTextFrame()));
@@ -5817,7 +5817,7 @@ void ScribusMainWindow::ToggleFrameEdit()
 	m_styleManager->setEnabled(false);
 	pageSelector->setEnabled(false);
 	layerMenu->setEnabled(false);
-	if (!doc->m_Selection->isEmpty())
+	if (doc->m_Selection->isNotEmpty())
 	{
 		PageItem *currItem = doc->m_Selection->itemAt(0);
 		nodePalette->EditCont->setEnabled(!currItem->ContourLine.empty());
@@ -5866,7 +5866,7 @@ void ScribusMainWindow::NoFrameEdit()
 	{
 		doc->nodeEdit.reset();
 		HaveNewSel();
-		if (!doc->m_Selection->isEmpty())
+		if (doc->m_Selection->isNotEmpty())
 		{
 			doc->m_Selection->itemAt(0)->emitAllToGUI();
 			view->DrawNew();
@@ -6320,7 +6320,7 @@ void ScribusMainWindow::editItemsFromOutlines(PageItem *ite)
 {
 	if (ite->locked())
 		return;
-	if (!doc->m_Selection->isEmpty())
+	if (doc->m_Selection->isNotEmpty())
 	{
 		if (doc->m_Selection->itemAt(0) != ite)
 			selectItemsFromOutlines(ite, ite->isGroup());
@@ -7022,14 +7022,14 @@ void ScribusMainWindow::reallySaveAsEps()
 	if (!doc->documentFileName().startsWith( tr("Document")))
 	{
 		QFileInfo fi(doc->documentFileName());
-		if (!doc->m_Selection->isEmpty())
+		if (doc->m_Selection->isNotEmpty())
 			filename = fi.path() + "/" + fi.completeBaseName() + "_selection.eps";
 		else
 			filename = fi.path() + "/" + getFileNameByPage(doc, doc->currentPage()->pageNr(), "eps");
 	}
 	else
 	{
-		if (!doc->m_Selection->isEmpty())
+		if (doc->m_Selection->isNotEmpty())
 			filename = QDir::currentPath() + "/" + doc->documentFileName() + "_selection.eps";
 		else
 			filename = QDir::currentPath() + "/" + getFileNameByPage(doc, doc->currentPage()->pageNr(), "eps");
@@ -8788,7 +8788,7 @@ void ScribusMainWindow::slotInsertFrame()
 		return;
 
 	view->requestMode(modeNormal);
-	if (!doc->m_Selection->isEmpty())
+	if (doc->m_Selection->isNotEmpty())
 		view->deselectItems(false);
 
 	InsertAFrame dia(this, doc);
@@ -9190,7 +9190,7 @@ void ScribusMainWindow::manageColorsAndFills()
 				doc->recalcPicturesRes(ScribusDoc::RecalcPicRes_ImageWithColorEffectsOnly);
 			symbolPalette->updateSymbolList();
 			updateColorLists();
-			if (!doc->m_Selection->isEmpty())
+			if (doc->m_Selection->isNotEmpty())
 				doc->m_Selection->itemAt(0)->emitAllToGUI();
 			view->DrawNew();
 		}
@@ -9250,7 +9250,7 @@ void ScribusMainWindow::slotReplaceColors()
 		doc->recalcPicturesRes(ScribusDoc::RecalcPicRes_ImageWithColorEffectsOnly);
 	requestUpdate(reqColorsUpdate | reqLineStylesUpdate);
 	m_styleManager->updateColorList();
-	if (!doc->m_Selection->isEmpty())
+	if (doc->m_Selection->isNotEmpty())
 		doc->m_Selection->itemAt(0)->emitAllToGUI();
 	view->DrawNew();
 }

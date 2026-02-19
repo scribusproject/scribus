@@ -129,7 +129,7 @@ void InlinePalette::handleContextMenue(QPoint p)
 	{
 		actItem = item->data(Qt::UserRole).toInt();
 		bool txFrame = false;
-		if (!m_doc->m_Selection->isEmpty())
+		if (m_doc->m_Selection->isNotEmpty())
 		{
 			PageItem* selItem = m_doc->m_Selection->itemAt(0);
 			if ((selItem->isTextFrame() || selItem->isTable()))

@@ -286,7 +286,7 @@ PageItem* getVectorFileFromData(ScribusDoc *doc, const QByteArray &data, const Q
 	doc->m_Selection->delaySignalsOn();
 	fmt->setupTargets(doc, nullptr, nullptr, nullptr, &(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts));
 	fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
-	if (!doc->m_Selection->isEmpty())
+	if (doc->m_Selection->isNotEmpty())
 	{
 		retObj = doc->groupObjectsSelection();
 		retObj->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);

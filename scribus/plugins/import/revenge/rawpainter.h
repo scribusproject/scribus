@@ -114,7 +114,7 @@ public:
 
 private:
 	RawPainterPrivate *m_pImpl { nullptr };
-	ScribusDoc* m_Doc { nullptr };
+	ScribusDoc* m_doc { nullptr };
 	double m_baseX { 0.0 };
 	double m_baseY { 0.0 };
 	double m_docWidth { 0.0 };

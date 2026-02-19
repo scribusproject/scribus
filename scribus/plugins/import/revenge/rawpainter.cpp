@@ -411,7 +411,7 @@ struct RawPainterPrivate
 
 RawPainter::RawPainter(ScribusDoc* Doc, double x, double y, double w, double h, int iflags, QList<PageItem*> *Elem, QStringList *iColors, QStringList *iPatterns, Selection* tSel, const QString& fTyp) : m_pImpl(new RawPainterPrivate())
 {
-	m_Doc = Doc;
+	m_doc = Doc;
 	m_baseX = x;
 	m_baseY = y;
 	m_docWidth = w;
@@ -469,21 +469,21 @@ void RawPainter::startPage(const librevenge::RVNGPropertyList &propList)
 	{
 		if (!m_firstPage)
 		{
-			m_Doc->addPage(m_currentPage);
-			m_Doc->setActiveLayer(m_baseLayer);
+			m_doc->addPage(m_currentPage);
+			m_doc->setActiveLayer(m_baseLayer);
 		}
 		else
-			m_baseLayer = m_Doc->activeLayerName();
-		m_Doc->setPageSize("Custom");
-		m_Doc->currentPage()->setInitialWidth(m_docWidth);
-		m_Doc->currentPage()->setInitialHeight(m_docHeight);
-		m_Doc->currentPage()->setWidth(m_docWidth);
-		m_Doc->currentPage()->setHeight(m_docHeight);
-		m_Doc->currentPage()->setMasterPageNameNormal();
-		m_Doc->currentPage()->setSize("Custom");
-		m_Doc->reformPages(true);
-		m_baseX = m_Doc->currentPage()->xOffset();
-		m_baseY = m_Doc->currentPage()->yOffset();
+			m_baseLayer = m_doc->activeLayerName();
+		m_doc->setPageSize("Custom");
+		m_doc->currentPage()->setInitialWidth(m_docWidth);
+		m_doc->currentPage()->setInitialHeight(m_docHeight);
+		m_doc->currentPage()->setWidth(m_docWidth);
+		m_doc->currentPage()->setHeight(m_docHeight);
+		m_doc->currentPage()->setMasterPageNameNormal();
+		m_doc->currentPage()->setSize("Custom");
+		m_doc->reformPages(true);
+		m_baseX = m_doc->currentPage()->xOffset();
+		m_baseY = m_doc->currentPage()->yOffset();
 	}
 	m_firstPage = false;
 	m_currentPage++;
@@ -557,7 +557,7 @@ void RawPainter::endLayer()
 						groupClip = false;
 				}
 			}
-			ite = m_Doc->groupObjectsSelection(m_tmpSel);
+			ite = m_doc->groupObjectsSelection(m_tmpSel);
 			ite->setGroupClipping(groupClip);
 			ite->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
 			if (!gr.clip.isEmpty())
@@ -583,8 +583,8 @@ void RawPainter::endLayer()
 				{
 					PageItem* embedded = ite->groupItemList.at(em);
 					embedded->moveBy(-dx, -dy, true);
-					m_Doc->setRedrawBounding(embedded);
-					embedded->OwnPage = m_Doc->OnPage(embedded);
+					m_doc->setRedrawBounding(embedded);
+					embedded->OwnPage = m_doc->OnPage(embedded);
 				}
 				ite->ClipEdited = true;
 				ite->OldB2 = ite->width();
@@ -696,20 +696,20 @@ void RawPainter::setStyle(const librevenge::RVNGPropertyList &propList)
 					double rampPoint = dr * c;
 					if (grad["svg:offset"])
 						rampPoint = fromPercentage(QString(grad["svg:offset"]->getStr().cstr()));
-					const ScColor& gradC = m_Doc->PageColors[stopName];
+					const ScColor& gradC = m_doc->PageColors[stopName];
 					if (grad["svg:stop-opacity"])
 						opacity = qMax(0.0, qMin(fromPercentage(QString(grad["svg:stop-opacity"]->getStr().cstr())), 1.0));
-					m_currentGradient.addStop( ScColorEngine::getRGBColor(gradC, m_Doc), rampPoint, 0.5, opacity, stopName, 100 );
+					m_currentGradient.addStop( ScColorEngine::getRGBColor(gradC, m_doc), rampPoint, 0.5, opacity, stopName, 100 );
 					if (c == 0)
 					{
 						m_gradColor1Str = stopName;
-						m_gradColor1 = ScColorEngine::getRGBColor(gradC, m_Doc);
+						m_gradColor1 = ScColorEngine::getRGBColor(gradC, m_doc);
 						m_gradColor1Trans = opacity;
 					}
 					else
 					{
 						m_gradColor2Str = stopName;
-						m_gradColor2 = ScColorEngine::getRGBColor(gradC, m_Doc);
+						m_gradColor2 = ScColorEngine::getRGBColor(gradC, m_doc);
 						m_gradColor2Trans = opacity;
 					}
 				}
@@ -734,14 +734,14 @@ void RawPainter::setStyle(const librevenge::RVNGPropertyList &propList)
 			{
 				if (QString(propList["draw:style"]->getStr().cstr()) == "axial")
 				{
-					m_currentGradient.addStop( ScColorEngine::getRGBColor(m_Doc->PageColors[m_gradColor1Str], m_Doc), 0.0, 0.5, opacity, m_gradColor1Str, 100 );
-					m_currentGradient.addStop( ScColorEngine::getRGBColor(m_Doc->PageColors[m_gradColor2Str], m_Doc), 0.5, 0.5, opacity, m_gradColor2Str, 100 );
-					m_currentGradient.addStop( ScColorEngine::getRGBColor(m_Doc->PageColors[m_gradColor1Str], m_Doc), 1.0, 0.5, opacity, m_gradColor1Str, 100 );
+					m_currentGradient.addStop( ScColorEngine::getRGBColor(m_doc->PageColors[m_gradColor1Str], m_doc), 0.0, 0.5, opacity, m_gradColor1Str, 100 );
+					m_currentGradient.addStop( ScColorEngine::getRGBColor(m_doc->PageColors[m_gradColor2Str], m_doc), 0.5, 0.5, opacity, m_gradColor2Str, 100 );
+					m_currentGradient.addStop( ScColorEngine::getRGBColor(m_doc->PageColors[m_gradColor1Str], m_doc), 1.0, 0.5, opacity, m_gradColor1Str, 100 );
 				}
 				else
 				{
-					m_currentGradient.addStop( ScColorEngine::getRGBColor(m_Doc->PageColors[m_gradColor1Str], m_Doc), 0.0, 0.5, opacity, m_gradColor1Str, 100 );
-					m_currentGradient.addStop( ScColorEngine::getRGBColor(m_Doc->PageColors[m_gradColor2Str], m_Doc), 1.0, 0.5, opacity, m_gradColor2Str, 100 );
+					m_currentGradient.addStop( ScColorEngine::getRGBColor(m_doc->PageColors[m_gradColor1Str], m_doc), 0.0, 0.5, opacity, m_gradColor1Str, 100 );
+					m_currentGradient.addStop( ScColorEngine::getRGBColor(m_doc->PageColors[m_gradColor2Str], m_doc), 1.0, 0.5, opacity, m_gradColor2Str, 100 );
 				}
 				m_isGradient = true;
 			}
@@ -834,8 +834,8 @@ void RawPainter::drawRectangle(const librevenge::RVNGPropertyList &propList)
 		double y = valueAsPoint(propList["svg:y"]);
 		double w = valueAsPoint(propList["svg:width"]);
 		double h = valueAsPoint(propList["svg:height"]);
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, m_baseX + x, m_baseY + y, w, h, m_lineWidth, m_currColorFill, m_currColorStroke);
-		PageItem *ite = m_Doc->Items->at(z);
+		int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, m_baseX + x, m_baseY + y, w, h, m_lineWidth, m_currColorFill, m_currColorStroke);
+		PageItem *ite = m_doc->Items->at(z);
 		finishItem(ite);
 		applyFill(ite);
 		if (m_currColorFill != CommonStrings::None)
@@ -855,8 +855,8 @@ void RawPainter::drawEllipse(const librevenge::RVNGPropertyList &propList)
 		double y = valueAsPoint(propList["svg:y"]);
 		double w = valueAsPoint(propList["svg:width"]);
 		double h = valueAsPoint(propList["svg:height"]);
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, m_baseX + x, m_baseY + y, w, h, m_lineWidth, m_currColorFill, m_currColorStroke);
-		PageItem *ite = m_Doc->Items->at(z);
+		int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, m_baseX + x, m_baseY + y, w, h, m_lineWidth, m_currColorFill, m_currColorStroke);
+		PageItem *ite = m_doc->Items->at(z);
 		finishItem(ite);
 		applyFill(ite);
 		if (m_currColorFill != CommonStrings::None)
@@ -883,8 +883,8 @@ void RawPainter::drawPolyline(const librevenge::RVNGPropertyList &propList)
 	}
 	if (!m_coords.empty())
 	{
-		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_lineWidth, CommonStrings::None, m_currColorStroke);
-		ite = m_Doc->Items->at(z);
+		int z = m_doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_lineWidth, CommonStrings::None, m_currColorStroke);
+		ite = m_doc->Items->at(z);
 		ite->PoLine = m_coords.copy();
 		finishItem(ite);
 		applyArrows(ite);
@@ -930,8 +930,8 @@ void RawPainter::drawPolygon(const librevenge::RVNGPropertyList &propList)
 				  imgExt = "tif";
 			  if (!imgExt.isEmpty())
 			  {
-				  int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_lineWidth, m_currColorFill, m_currColorStroke);
-				  ite = m_Doc->Items->at(z);
+				  int z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_lineWidth, m_currColorFill, m_currColorStroke);
+				  ite = m_doc->Items->at(z);
 				  ite->PoLine = m_coords.copy();
 				  finishItem(ite);
 				  insertImage(ite, imgExt, imageData);
@@ -956,11 +956,11 @@ void RawPainter::drawPolygon(const librevenge::RVNGPropertyList &propList)
 						  const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
 						  if (fmt)
 						  {
-							  fmt->setupTargets(m_Doc, nullptr, nullptr, nullptr, &(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts));
+							  fmt->setupTargets(m_doc, nullptr, nullptr, nullptr, &(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts));
 							  fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
-							  if (!m_Doc->m_Selection->isEmpty())
+							  if (m_doc->m_Selection->isNotEmpty())
 							  {
-								  ite = m_Doc->groupObjectsSelection();
+								  ite = m_doc->groupObjectsSelection();
 								  double rot = 0;
 								  if (m_style["librevenge:rotate"])
 									  rot = m_style["librevenge:rotate"]->getDouble();
@@ -982,10 +982,10 @@ void RawPainter::drawPolygon(const librevenge::RVNGPropertyList &propList)
 									  FPoint tp2(getMinClipF(&m_coords));
 									  m_coords.translate(-tp2.x(), -tp2.y());
 									  ite->PoLine = m_coords.copy();
-									  AnchorPoint rm = m_Doc->rotationMode();
-									  m_Doc->setRotationMode(AnchorPoint::Center);
-									  m_Doc->rotateItem(-rot, ite);
-									  m_Doc->setRotationMode(rm);
+									  AnchorPoint rm = m_doc->rotationMode();
+									  m_doc->setRotationMode(AnchorPoint::Center);
+									  m_doc->rotateItem(-rot, ite);
+									  m_doc->setRotationMode(rm);
 								  }
 								  else
 								  {
@@ -1014,8 +1014,8 @@ void RawPainter::drawPolygon(const librevenge::RVNGPropertyList &propList)
 		}
 		else
 		{
-			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_lineWidth, m_currColorFill, m_currColorStroke);
-			ite = m_Doc->Items->at(z);
+			int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_lineWidth, m_currColorFill, m_currColorStroke);
+			ite = m_doc->Items->at(z);
 			ite->PoLine = m_coords.copy();
 			finishItem(ite);
 			applyFill(ite);
@@ -1082,8 +1082,8 @@ void RawPainter::drawPath(const librevenge::RVNGPropertyList &propList)
 				  imgExt = "tif";
 			  if (!imgExt.isEmpty())
 			  {
-				  int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_lineWidth, m_currColorFill, m_currColorStroke);
-				  ite = m_Doc->Items->at(z);
+				  int z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_lineWidth, m_currColorFill, m_currColorStroke);
+				  ite = m_doc->Items->at(z);
 				  ite->PoLine = m_coords.copy();
 				  finishItem(ite);
 				  insertImage(ite, imgExt, imageData);
@@ -1108,11 +1108,11 @@ void RawPainter::drawPath(const librevenge::RVNGPropertyList &propList)
 						  const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
 						  if (fmt)
 						  {
-							  fmt->setupTargets(m_Doc, nullptr, nullptr, nullptr, &(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts));
+							  fmt->setupTargets(m_doc, nullptr, nullptr, nullptr, &(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts));
 							  fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
-							  if (!m_Doc->m_Selection->isEmpty())
+							  if (m_doc->m_Selection->isNotEmpty())
 							  {
-								  ite = m_Doc->groupObjectsSelection();
+								  ite = m_doc->groupObjectsSelection();
 								  double rot = 0;
 								  if (m_style["librevenge:rotate"])
 									  rot = m_style["librevenge:rotate"]->getDouble();
@@ -1134,10 +1134,10 @@ void RawPainter::drawPath(const librevenge::RVNGPropertyList &propList)
 									  FPoint tp2(getMinClipF(&m_coords));
 									  m_coords.translate(-tp2.x(), -tp2.y());
 									  ite->PoLine = m_coords.copy();
-									  AnchorPoint rm = m_Doc->rotationMode();
-									  m_Doc->setRotationMode(AnchorPoint::Center);
-									  m_Doc->rotateItem(-rot, ite);
-									  m_Doc->setRotationMode(rm);
+									  AnchorPoint rm = m_doc->rotationMode();
+									  m_doc->setRotationMode(AnchorPoint::Center);
+									  m_doc->rotateItem(-rot, ite);
+									  m_doc->setRotationMode(rm);
 								  }
 								  else
 								  {
@@ -1166,8 +1166,8 @@ void RawPainter::drawPath(const librevenge::RVNGPropertyList &propList)
 		}
 		else
 		{
-			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_lineWidth, m_currColorFill, m_currColorStroke);
-			ite = m_Doc->Items->at(z);
+			int z = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_lineWidth, m_currColorFill, m_currColorStroke);
+			ite = m_doc->Items->at(z);
 			ite->PoLine = m_coords.copy();
 			finishItem(ite);
 			applyFill(ite);
@@ -1181,8 +1181,8 @@ void RawPainter::drawPath(const librevenge::RVNGPropertyList &propList)
 	}
 	else
 	{
-		int z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_lineWidth, CommonStrings::None, m_currColorStroke);
-		ite = m_Doc->Items->at(z);
+		int z = m_doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, m_lineWidth, CommonStrings::None, m_currColorStroke);
+		ite = m_doc->Items->at(z);
 		ite->PoLine = m_coords.copy();
 		finishItem(ite);
 		applyArrows(ite);
@@ -1221,8 +1221,8 @@ void RawPainter::drawGraphicObject(const librevenge::RVNGPropertyList &propList)
 			imgExt = "tif";
 		if (!imgExt.isEmpty())
 		{
-			int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Rectangle, m_baseX + x, m_baseY + y, w, h, 0, m_currColorFill, m_currColorStroke);
-			ite = m_Doc->Items->at(z);
+			int z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Rectangle, m_baseX + x, m_baseY + y, w, h, 0, m_currColorFill, m_currColorStroke);
+			ite = m_doc->Items->at(z);
 			finishItem(ite);
 			insertImage(ite, imgExt, imageData);
 		}
@@ -1249,11 +1249,11 @@ void RawPainter::drawGraphicObject(const librevenge::RVNGPropertyList &propList)
 						const FileFormat * fmt = LoadSavePlugin::getFormatById(testResult);
 						if (fmt)
 						{
-							fmt->setupTargets(m_Doc, nullptr, nullptr, nullptr, &(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts));
+							fmt->setupTargets(m_doc, nullptr, nullptr, nullptr, &(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts));
 							fmt->loadFile(fileName, LoadSavePlugin::lfUseCurrentPage|LoadSavePlugin::lfInteractive|LoadSavePlugin::lfScripted);
-							if (!m_Doc->m_Selection->isEmpty())
+							if (m_doc->m_Selection->isNotEmpty())
 							{
-								ite = m_Doc->groupObjectsSelection();
+								ite = m_doc->groupObjectsSelection();
 								double rot = 0;
 								if (m_style["librevenge:rotate"])
 									rot = m_style["librevenge:rotate"]->getDouble();
@@ -1273,10 +1273,10 @@ void RawPainter::drawGraphicObject(const librevenge::RVNGPropertyList &propList)
 									ite->setXYPos(m_baseX + baR.x(), m_baseY + baR.y(), true);
 									ite->setWidthHeight(baR.width(), baR.height(), true);
 									ite->updateClip();
-									AnchorPoint rm = m_Doc->rotationMode();
-									m_Doc->setRotationMode(AnchorPoint::Center);
-									m_Doc->rotateItem(-rot, ite);
-									m_Doc->setRotationMode(rm);
+									AnchorPoint rm = m_doc->rotationMode();
+									m_doc->setRotationMode(AnchorPoint::Center);
+									m_doc->rotateItem(-rot, ite);
+									m_doc->setRotationMode(rm);
 								}
 								else
 								{
@@ -1336,16 +1336,16 @@ void RawPainter::startTextObject(const librevenge::RVNGPropertyList &propList)
 		double rot = 0;
 		if (propList["librevenge:rotate"])
 			rot = propList["librevenge:rotate"]->getDouble();
-		int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, m_baseX + x, m_baseY + y, w, qMax(h, 2.0), 0, m_currColorFill, m_currColorStroke);
-		PageItem *ite = m_Doc->Items->at(z);
+		int z = m_doc->itemAdd(PageItem::TextFrame, PageItem::Rectangle, m_baseX + x, m_baseY + y, w, qMax(h, 2.0), 0, m_currColorFill, m_currColorStroke);
+		PageItem *ite = m_doc->Items->at(z);
 		finishItem(ite);
 		applyShadow(ite);
 		if (rot != 0)
 		{
-			AnchorPoint rm = m_Doc->rotationMode();
-			m_Doc->setRotationMode(AnchorPoint::Center);
-			m_Doc->rotateItem(rot, ite);
-			m_Doc->setRotationMode(rm);
+			AnchorPoint rm = m_doc->rotationMode();
+			m_doc->setRotationMode(AnchorPoint::Center);
+			m_doc->rotateItem(rot, ite);
+			m_doc->setRotationMode(rm);
 		}
 		if (propList["draw-mirror-horizontal"])
 			ite->flipImageH();
@@ -1617,7 +1617,7 @@ void RawPainter::openSpan(const librevenge::RVNGPropertyList &propList)
 			fontVari.append(propList["fo:font-style"]->getStr().cstr());
 		QString fontName(fontNameProp->getStr().cstr());
 		QString realFontName = constructFontName(fontName, fontVari.join(' '));
-		m_textCharStyle.setFont((*m_Doc->AllFonts)[realFontName]);
+		m_textCharStyle.setFont((*m_doc->AllFonts)[realFontName]);
 	}
 	StyleFlag styleEffects = m_textCharStyle.effects();
 	if (propList["style:text-underline-type"])
@@ -2109,9 +2109,9 @@ void RawPainter::applyFill(PageItem* ite)
 				tempFile.write(imageData);
 				tempFile.setAutoRemove(false);
 				tempFile.close();
-				ScPattern pat(m_Doc);
-				int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
-				PageItem* newItem = m_Doc->Items->at(z);
+				ScPattern pat(m_doc);
+				int z = m_doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
+				PageItem* newItem = m_doc->Items->at(z);
 				if (m_style["draw:red"] && m_style["draw:green"] && m_style["draw:blue"])
 				{
 					int r = qRound(m_style["draw:red"]->getDouble() * 255);
@@ -2126,8 +2126,8 @@ void RawPainter::applyFill(PageItem* ite)
 					ef.effectParameters = efVal;
 					ite->effectsInUse.append(ef);
 				}
-				m_Doc->loadPict(fileName, newItem);
-				m_Doc->Items->takeAt(z);
+				m_doc->loadPict(fileName, newItem);
+				m_doc->Items->takeAt(z);
 				newItem->isInlineImage = true;
 				newItem->isTempFile = true;
 				pat.width = newItem->pixm.qImage().width();
@@ -2145,7 +2145,7 @@ void RawPainter::applyFill(PageItem* ite)
 				pat.items.append(newItem);
 				QString patternName = "Pattern_" + ite->itemName();
 				patternName = patternName.trimmed().simplified().replace(" ", "_");
-				m_Doc->addPattern(patternName, pat);
+				m_doc->addPattern(patternName, pat);
 				m_importedPatterns->append(patternName);
 				ite->setPattern(patternName);
 				ite->GrType = Gradient_Pattern;
@@ -3418,7 +3418,7 @@ QString RawPainter::constructFontName(const QString& fontBaseName, const QString
 			if (!PrefsManager::instance().appPrefs.fontPrefs.GFontSub.contains(family))
 			{
 				QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
-				MissingFont *dia = new MissingFont(nullptr, family, m_Doc);
+				MissingFont *dia = new MissingFont(nullptr, family, m_doc);
 				dia->exec();
 				fontName = dia->getReplacementFont();
 				delete dia;
@@ -3481,7 +3481,7 @@ QString RawPainter::parseColor( const QString &s )
 	tmp.setSpotColor(false);
 	tmp.setRegistrationColor(false);
 	QString newColorName = QString("From%1").arg(m_fileType.toUpper())+c.name();
-	QString fNam = m_Doc->PageColors.tryAddColor(newColorName, tmp);
+	QString fNam = m_doc->PageColors.tryAddColor(newColorName, tmp);
 	if (fNam == newColorName)
 		m_importedColors->append(newColorName);
 	ret = fNam;
@@ -3521,7 +3521,7 @@ void RawPainter::insertImage(PageItem* ite, const QString& imgExt, QByteArray &i
 			ef.effectParameters = QString("%1").arg(qRound((per - 0.5) * 255));
 			ite->effectsInUse.append(ef);
 		}
-		m_Doc->loadPict(fileName, ite);
+		m_doc->loadPict(fileName, ite);
 #if HAVE_REVENGE
 		if (m_style["librevenge:rotate"])
 		{
@@ -3592,14 +3592,14 @@ void RawPainter::recolorItem(PageItem* ite, const QString& efVal)
 	{
 		if (ite->fillColor() != CommonStrings::None)
 		{
-			QColor fill = ScColorEngine::getShadeColorProof(m_Doc->PageColors[ite->fillColor()], m_Doc, ite->fillShade());
+			QColor fill = ScColorEngine::getShadeColorProof(m_doc->PageColors[ite->fillColor()], m_doc, ite->fillShade());
 			double k = 100.0 - qMin((0.3 * fill.redF() + 0.59 * fill.greenF() + 0.11 * fill.blueF()) * 100.0, 100.0);
 			ite->setFillColor(efVal);
 			ite->setFillShade(k);
 		}
 		if (ite->lineColor() != CommonStrings::None)
 		{
-			QColor line = ScColorEngine::getShadeColorProof(m_Doc->PageColors[ite->lineColor()], m_Doc, ite->lineShade());
+			QColor line = ScColorEngine::getShadeColorProof(m_doc->PageColors[ite->lineColor()], m_doc, ite->lineShade());
 			double k2 = 100.0 - qMin((0.3 * line.redF() + 0.59 * line.greenF() + 0.11 * line.blueF()) * 100.0, 100.0);
 			ite->setLineColor(efVal);
 			ite->setLineShade(k2);
@@ -3664,11 +3664,11 @@ void RawPainter::applyStartArrow(PageItem* ite)
 		refP = m2.map(refP);
 		startArrow.translate(-refP.x(), -refP.y());
 		QTransform arrowTrans;
-		arrowTrans.translate(-m_Doc->currentPage()->xOffset(), -m_Doc->currentPage()->yOffset());
+		arrowTrans.translate(-m_doc->currentPage()->xOffset(), -m_doc->currentPage()->yOffset());
 		arrowTrans.translate(startPoint.x() + ite->xPos(), startPoint.y() + ite->yPos());
 		startArrow.map(arrowTrans);
-		int zS = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, 0, m_currColorStroke, CommonStrings::None);
-		PageItem *iteS = m_Doc->Items->at(zS);
+		int zS = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, 0, m_currColorStroke, CommonStrings::None);
+		PageItem *iteS = m_doc->Items->at(zS);
 		iteS->PoLine = startArrow.copy();
 		finishItem(iteS);
 		break;
@@ -3717,11 +3717,11 @@ void RawPainter::applyEndArrow(PageItem* ite)
 		refP = m2.map(refP);
 		endArrow.translate(-refP.x(), -refP.y());
 		QTransform arrowTrans;
-		arrowTrans.translate(-m_Doc->currentPage()->xOffset(), -m_Doc->currentPage()->yOffset());
+		arrowTrans.translate(-m_doc->currentPage()->xOffset(), -m_doc->currentPage()->yOffset());
 		arrowTrans.translate(endPoint.x() + ite->xPos(), endPoint.y() + ite->yPos());
 		endArrow.map(arrowTrans);
-		int zE = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, 0, m_currColorStroke, CommonStrings::None);
-		PageItem *iteE = m_Doc->Items->at(zE);
+		int zE = m_doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, m_baseX, m_baseY, 10, 10, 0, m_currColorStroke, CommonStrings::None);
+		PageItem *iteE = m_doc->Items->at(zE);
 		iteE->PoLine = endArrow.copy();
 		finishItem(iteE);
 		break;
@@ -3744,7 +3744,7 @@ void RawPainter::finishItem(PageItem* ite)
 	FPoint wh = getMaxClipF(&ite->PoLine);
 	ite->setWidthHeight(wh.x(),wh.y(), true);
 	ite->setTextFlowMode(PageItem::TextFlowDisabled); // TODO: get this from shape props
-	m_Doc->adjustItemSize(ite);
+	m_doc->adjustItemSize(ite);
 	ite->OldB2 = ite->width();
 	ite->OldH2 = ite->height();
 	ite->setFillTransparency(m_currFillTrans);
