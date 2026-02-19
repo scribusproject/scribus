@@ -6,34 +6,33 @@ for which a new license (GPL+exception) is in place.
 */
 #include "search.h"
 
-#include <array>
 
-#include <QCheckBox>
-#include <QComboBox>
-#include <QGroupBox>
-#include <QHBoxLayout>
-#include <QGridLayout>
-#include <QVBoxLayout>
-#include <QLabel>
-#include <QLineEdit>
+#include <QApplication>
+#include <QCursor>
 #include <QListView>
-#include <QMessageBox>
-#include <QPixmap>
-#include <QPushButton>
 #include <QScopedValueRollback>
+#include <QScreen>
+#include <QSizePolicy>
+#include <QTimer>
 
 #include "appmodes.h"
+#include "canvas.h"
 #include "colorcombo.h"
+#include "colorlistbox.h"
+#include "commonstrings.h"
 #include "fontcombo.h"
 #include "iconmanager.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
+#include "scpage.h"
 #include "scribus.h"
 #include "scribusview.h"
 #include "scrspinbox.h"
 #include "selection.h"
 #include "shadebutton.h"
+#include "styles/charstyle.h"
+#include "styles/paragraphstyle.h"
 #include "styleselect.h"
 #include "ui/storyeditor.h"
 #include "undomanager.h"
@@ -41,1181 +40,1303 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_text.h"
 
-SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* item, bool mode )
-	: QDialog( parent )
+SearchReplace::SearchReplace(QWidget* parent, ScribusDoc *doc)
+	: QDialog(parent)
 {
-	m_item = item;
 	m_doc = doc;
-	m_itemMode = mode;
 
-	setModal(true);
-	setWindowTitle( tr( "Search/Replace" ) );
-	setWindowIcon(IconManager::instance().loadIcon("app-icon"));
+	setupUi(this);
 
-	SearchReplaceLayout = new QVBoxLayout( this );
-	SearchReplaceLayout->setContentsMargins(9, 9, 9, 9);
-	SearchReplaceLayout->setSpacing(6);
-	SelLayout = new QHBoxLayout;
-	SelLayout->setContentsMargins(0, 0, 0, 0);
-	SelLayout->setSpacing(6);
-	searchGroupBox = new QGroupBox( this );
-	searchGroupBox->setTitle( tr( "Search for:" ) );
-	SearchLayout = new QGridLayout( searchGroupBox );
-	SearchLayout->setContentsMargins(9, 9, 9, 9);
-	SearchLayout->setSpacing(6);
-	SearchLayout->setAlignment( Qt::AlignTop );
-	searchTextCheckBox = new QCheckBox( searchGroupBox );
-	searchTextCheckBox->setText( tr( "Text" ) );
-	SearchLayout->addWidget( searchTextCheckBox, 0, 0 );
-	searchStyleCheckBox = new QCheckBox( searchGroupBox );
-	searchStyleCheckBox->setText( tr( "Style" ) );
-	SearchLayout->addWidget( searchStyleCheckBox, 1, 0 );
-	searchAlignCheckBox = new QCheckBox( searchGroupBox );
-	searchAlignCheckBox->setText( tr( "Alignment" ) );
-	SearchLayout->addWidget( searchAlignCheckBox, 2, 0 );
-	searchFontCheckBox = new QCheckBox( searchGroupBox );
-	searchFontCheckBox->setText( tr( "Font" ) );
-	SearchLayout->addWidget( searchFontCheckBox, 3, 0 );
-	searchSizeCheckBox = new QCheckBox( searchGroupBox );
-	searchSizeCheckBox->setText( tr( "Font Size" ) );
-	SearchLayout->addWidget( searchSizeCheckBox, 4, 0 );
-	searchEffectCheckBox = new QCheckBox( searchGroupBox );
-	searchEffectCheckBox->setText( tr( "Font Effects" ) );
-	SearchLayout->addWidget( searchEffectCheckBox, 5, 0 );
-	searchFillCheckBox = new QCheckBox( searchGroupBox);
-	searchFillCheckBox->setText( tr( "Fill Color" ) );
-	SearchLayout->addWidget( searchFillCheckBox, 6, 0 );
-	searchFillShadeCheckBox = new QCheckBox( searchGroupBox );
-	searchFillShadeCheckBox->setText( tr( "Fill Shade" ) );
-	SearchLayout->addWidget( searchFillShadeCheckBox, 7, 0 );
-	searchStrokeCheckBox = new QCheckBox( searchGroupBox );
-	searchStrokeCheckBox->setText( tr( "Stroke Color" ) );
-	SearchLayout->addWidget( searchStrokeCheckBox, 8, 0 );
-	searchStrokeShadeCheckBox = new QCheckBox( searchGroupBox );
-	searchStrokeShadeCheckBox->setText( tr( "Stroke Shade" ) );
-	SearchLayout->addWidget( searchStrokeShadeCheckBox, 9, 0 );
-	searchTextLineEdit = new QLineEdit( searchGroupBox );
-	searchTextLineEdit->setEnabled(false);
-	SearchLayout->addWidget( searchTextLineEdit, 0, 1 );
-	searchStyleValue = new QComboBox( searchGroupBox );
-	searchStyleValue->setEditable(false);
-	for (int x = 0; x < doc->paragraphStyles().count(); ++x)
-		searchStyleValue->addItem(doc->paragraphStyles()[x].name());
-	QListView *tmpView = qobject_cast<QListView*>(searchStyleValue->view()); Q_ASSERT(tmpView);
-	int tmpWidth = tmpView->sizeHintForColumn(0);
-	if (tmpWidth > 0)
-		tmpView->setMinimumWidth(tmpWidth + 24);
-	searchStyleValue->setCurrentIndex(findParagraphStyle(doc, doc->currentStyle));
-	searchStyleValue->setEnabled(false);
-	SearchLayout->addWidget( searchStyleValue, 1, 1 );
-	searchAlignValue = new QComboBox( searchGroupBox );
-	searchAlignValue->setEditable(false);
-	std::array<QString, 5> tmp_sty = { tr("Left"), tr("Center"), tr("Right"), tr("Block"), tr("Forced") };
-	for (size_t i = 0; i < tmp_sty.size(); ++i)
-		searchAlignValue->addItem( tmp_sty[i] );
-	tmpView = qobject_cast<QListView*>(searchAlignValue->view()); Q_ASSERT(tmpView);
-	tmpWidth = tmpView->sizeHintForColumn(0);
-	if (tmpWidth > 0)
-		tmpView->setMinimumWidth(tmpWidth + 24);
-	searchAlignValue->setEnabled(false);
-	SearchLayout->addWidget( searchAlignValue, 2, 1 );
-	searchFontValue = new FontCombo(searchGroupBox);
-	searchFontValue->setMaximumSize(190, 30);
-	setCurrentComboItem(searchFontValue, doc->currentStyle.charStyle().font().scName());
-	searchFontValue->setEnabled(false);
-	SearchLayout->addWidget( searchFontValue, 3, 1 );
-	searchSizeSpinBox = new ScrSpinBox( 0.5, 2048, searchGroupBox, 0 );
-	searchSizeSpinBox->setValue( doc->currentStyle.charStyle().fontSize() / 10.0 );
-	searchSizeSpinBox->setEnabled(false);
-	SearchLayout->addWidget( searchSizeSpinBox, 4, 1 );
-	searchStyleEffectsValue = new StyleSelect( searchGroupBox );
-	searchStyleEffectsValue->setStyle(0);
-	searchStyleEffectsValue->setEnabled(false);
-	SearchLayout->addWidget( searchStyleEffectsValue, 5, 1, Qt::AlignLeft );
-	searchFillValue = new ColorCombo( searchGroupBox );
-	searchFillValue->setEditable(false);
-	searchFillValue->setPixmapType(ColorCombo::fancyPixmaps);
-	searchFillValue->setColors(doc->PageColors, true);
-	searchFillValue->setMinimumWidth(searchFillValue->view()->maximumViewportSize().width() + 24);
-	setCurrentComboItem(searchFillValue, doc->currentStyle.charStyle().fillColor());
-	searchFillValue->setEnabled(false);
-	SearchLayout->addWidget( searchFillValue, 6, 1 );
-	searchFillShadeValue = new ShadeButton(searchGroupBox);
-	searchFillShadeValue->setEnabled(false);
-	SearchLayout->addWidget( searchFillShadeValue, 7, 1, Qt::AlignLeft );
-	searchStrokeValue = new ColorCombo( searchGroupBox );
-	searchStrokeValue->setEditable(false);
-	searchStrokeValue->setPixmapType(ColorCombo::fancyPixmaps);
-	searchStrokeValue->setColors(doc->PageColors, true);
-	setCurrentComboItem(searchStrokeValue, doc->currentStyle.charStyle().strokeColor());
-	searchStrokeValue->setEnabled(false);
-	SearchLayout->addWidget( searchStrokeValue, 8, 1 );
-	searchStrokeShadeValue =  new ShadeButton(searchGroupBox);
-	searchStrokeShadeValue->setEnabled(false);
-	SearchLayout->addWidget( searchStrokeShadeValue, 9, 1, Qt::AlignLeft );
-	SelLayout->addWidget( searchGroupBox );
+	QSizePolicy sp = messageLabel->sizePolicy();
+	sp.setRetainSizeWhenHidden(true);
+	messageLabel->setSizePolicy(sp);
+	hideMessage();
 
-	replaceGroupBox = new QGroupBox( this );
-	replaceGroupBox->setTitle( tr( "Replace with:" ) );
-	ReplaceLayout = new QGridLayout( replaceGroupBox );
-	ReplaceLayout->setSpacing(6);
-	ReplaceLayout->setContentsMargins(9, 9, 9, 9);
-	ReplaceLayout->setAlignment( Qt::AlignTop );
-	replaceTextCheckBox = new QCheckBox( replaceGroupBox );
-	replaceTextCheckBox->setText( tr( "Text" ) );
-	ReplaceLayout->addWidget( replaceTextCheckBox, 0, 0 );
-	replaceStyleCheckBox = new QCheckBox( replaceGroupBox );
-	replaceStyleCheckBox->setText( tr( "Style" ) );
-	ReplaceLayout->addWidget( replaceStyleCheckBox, 1, 0 );
-	replaceAlignCheckBox = new QCheckBox( replaceGroupBox );
-	replaceAlignCheckBox->setText( tr( "Alignment" ) );
-	ReplaceLayout->addWidget( replaceAlignCheckBox, 2, 0 );
-	replaceFontCheckBox = new QCheckBox( replaceGroupBox );
-	replaceFontCheckBox->setText( tr( "Font" ) );
-	ReplaceLayout->addWidget( replaceFontCheckBox, 3, 0 );
-	replaceSizeCheckBox = new QCheckBox( replaceGroupBox );
-	replaceSizeCheckBox->setText( tr( "Font Size" ) );
-	ReplaceLayout->addWidget( replaceSizeCheckBox, 4, 0 );
-	replaceEffectCheckBox = new QCheckBox( replaceGroupBox );
-	replaceEffectCheckBox->setText( tr( "Font Effects" ) );
-	ReplaceLayout->addWidget( replaceEffectCheckBox, 5, 0 );
-	replaceFillCheckBox = new QCheckBox( replaceGroupBox );
-	replaceFillCheckBox->setText( tr( "Fill Color" ) );
-	ReplaceLayout->addWidget( replaceFillCheckBox, 6, 0 );
-	replaceFillShadeCheckBox = new QCheckBox( replaceGroupBox );
-	replaceFillShadeCheckBox->setText( tr( "Fill Shade" ) );
-	ReplaceLayout->addWidget( replaceFillShadeCheckBox, 7, 0 );
-	replaceStrokeCheckBox = new QCheckBox( replaceGroupBox );
-	replaceStrokeCheckBox->setText( tr( "Stroke Color" ) );
-	ReplaceLayout->addWidget( replaceStrokeCheckBox, 8, 0 );
-	replaceStrokeShadeCheckBox = new QCheckBox( replaceGroupBox );
-	replaceStrokeShadeCheckBox->setText( tr( "Stroke Shade" ) );
-	ReplaceLayout->addWidget( replaceStrokeShadeCheckBox, 9, 0 );
-	replaceTextLineEdit = new QLineEdit( replaceGroupBox );
-	replaceTextLineEdit->setEnabled(false);
-	ReplaceLayout->addWidget( replaceTextLineEdit, 0, 1 );
-	replaceStyleValue = new QComboBox( replaceGroupBox );
-	replaceStyleValue->setEditable(false);
-	for (int x = 0; x < doc->paragraphStyles().count(); ++x)
-		replaceStyleValue->addItem(doc->paragraphStyles()[x].name());
-	tmpView = qobject_cast<QListView*>(replaceStyleValue->view()); Q_ASSERT(tmpView);
-	tmpWidth = tmpView->sizeHintForColumn(0);
-	if (tmpWidth > 0)
-		tmpView->setMinimumWidth(tmpWidth + 24);
-	replaceStyleValue->setCurrentIndex(findParagraphStyle(doc, doc->currentStyle));
-	replaceStyleValue->setEnabled(false);
-	ReplaceLayout->addWidget( replaceStyleValue, 1, 1 );
-	replaceAlignValue = new QComboBox( replaceGroupBox );
-	replaceAlignValue->setEditable(false);
-	for (uint i = 0; i < tmp_sty.size(); ++i)
-		replaceAlignValue->addItem(tmp_sty[i]);
-	tmpView = qobject_cast<QListView*>(replaceAlignValue->view()); Q_ASSERT(tmpView);
-	tmpWidth = tmpView->sizeHintForColumn(0);
-	if (tmpWidth > 0)
-		tmpView->setMinimumWidth(tmpWidth + 24);
-	replaceAlignValue->setEnabled(false);
-	ReplaceLayout->addWidget( replaceAlignValue, 2, 1 );
-	replaceFontValue = new FontCombo(replaceGroupBox);
-	replaceFontValue->setMaximumSize(190, 30);
-	setCurrentComboItem(replaceFontValue, doc->currentStyle.charStyle().font().scName());
-	replaceFontValue->setEnabled(false);
-	ReplaceLayout->addWidget( replaceFontValue, 3, 1 );
-	replaceSizeSpinBox = new ScrSpinBox( 0.5, 2048, replaceGroupBox, 0 );
-	replaceSizeSpinBox->setValue( doc->currentStyle.charStyle().fontSize() / 10.0 );
-	replaceSizeSpinBox->setEnabled(false);
-	ReplaceLayout->addWidget( replaceSizeSpinBox, 4, 1 );
-	replaceStyleEffectsValue = new StyleSelect( replaceGroupBox );
-	replaceStyleEffectsValue->setStyle(0);
-	replaceStyleEffectsValue->setEnabled(false);
-	ReplaceLayout->addWidget( replaceStyleEffectsValue, 5, 1, Qt::AlignLeft );
-	replaceFillValue = new ColorCombo( true, replaceGroupBox );
-	replaceFillValue->setEditable(false);
-	replaceFillValue->setPixmapType(ColorCombo::fancyPixmaps);
-	replaceFillValue->setColors(doc->PageColors, true);
-	setCurrentComboItem(replaceFillValue, doc->currentStyle.charStyle().fillColor());
-	replaceFillValue->setEnabled(false);
-	ReplaceLayout->addWidget( replaceFillValue, 6, 1 );
-	replaceFillShadeValue = new ShadeButton(replaceGroupBox);
-	replaceFillShadeValue->setEnabled(false);
-	ReplaceLayout->addWidget( replaceFillShadeValue, 7, 1, Qt::AlignLeft );
-	replaceStrokeValue = new ColorCombo( true, replaceGroupBox );
-	replaceStrokeValue->setEditable(false);
-	replaceStrokeValue->setPixmapType(ColorCombo::fancyPixmaps);
-	replaceStrokeValue->setColors(doc->PageColors, true);
-	setCurrentComboItem(replaceStrokeValue, doc->currentStyle.charStyle().strokeColor());
-	replaceStrokeValue->setEnabled(false);
-	ReplaceLayout->addWidget( replaceStrokeValue, 8, 1 );
-	replaceStrokeShadeValue = new ShadeButton(replaceGroupBox);
-	replaceStrokeShadeValue->setEnabled(false);
-	ReplaceLayout->addWidget( replaceStrokeShadeValue, 9, 1, Qt::AlignLeft );
-	SelLayout->addWidget( replaceGroupBox );
-	SearchReplaceLayout->addLayout( SelLayout );
+	stopButton->setVisible(false);
 
-	OptsLayout = new QHBoxLayout;
-	OptsLayout->setSpacing(6);
-	OptsLayout->setContentsMargins(0, 0, 0, 0);
-	wholeWordCheckBox = new QCheckBox( tr( "&Whole Word" ), this );
-	if (mode)
-		wholeWordCheckBox->setEnabled(false);
-	OptsLayout->addWidget( wholeWordCheckBox );
-	ignoreCaseCheckBox = new QCheckBox( tr( "&Ignore Case, Diacritics and Kashida" ), this );
-	if (mode)
-		ignoreCaseCheckBox->setEnabled(false);
-	OptsLayout->addWidget( ignoreCaseCheckBox );
-	SearchReplaceLayout->addLayout( OptsLayout );
+	for (int i = 0; i < doc->paragraphStyles().count(); ++i)
+	{
+		const auto name = doc->paragraphStyles()[i].name();
+		searchStyleComboBox->addItem(name);
+		replaceStyleComboBox->addItem(name);
+	}
+	searchStyleComboBox->setCurrentIndex(findParagraphStyle(doc, doc->currentStyle));
+	replaceStyleComboBox->setCurrentIndex(findParagraphStyle(doc, doc->currentStyle));
 
-	ButtonsLayout = new QHBoxLayout;
-	ButtonsLayout->setSpacing(6);
-	ButtonsLayout->setContentsMargins(0, 0, 0, 0);
-	searchButton = new QPushButton( tr( "&Search" ), this );
-	searchButton->setDefault( true );
-	ButtonsLayout->addWidget( searchButton );
-	replaceButton = new QPushButton( tr( "&Replace" ), this );
-	replaceButton->setEnabled(false);
-	ButtonsLayout->addWidget( replaceButton );
-	replaceAllButton = new QPushButton( tr( "Replace &All" ), this );
-	replaceAllButton->setEnabled(false);
-	ButtonsLayout->addWidget( replaceAllButton );
-	clearButton = new QPushButton( tr("C&lear"), this);
-	ButtonsLayout->addWidget(clearButton);
-	closeButton = new QPushButton( tr( "&Close" ), this );
-	ButtonsLayout->addWidget( closeButton );
-	SearchReplaceLayout->addLayout( ButtonsLayout );
+	QStringList alignment{tr("Left"), tr("Center"), tr("Right"), tr("Block"), tr("Forced")};
+	searchAlignmentComboBox->addItems(alignment);
+	replaceAlignmentComboBox->addItems(alignment);
 
-	resize(minimumSizeHint());
+	searchFillColorComboBox->setPixmapType(ColorCombo::fancyPixmaps);
+	searchFillColorComboBox->setColors(doc->PageColors, true);
+	searchFillColorComboBox->setMinimumWidth(searchFillColorComboBox->view()->maximumViewportSize().width() + 24);
+	setCurrentComboItem(searchFillColorComboBox, doc->currentStyle.charStyle().fillColor());
 
- // signals and slots connections
-	connect( closeButton, SIGNAL( clicked() ), this, SLOT( writePrefs() ) );
-	connect( searchButton, SIGNAL( clicked() ), this, SLOT( slotSearch() ) );
-	connect( replaceButton, SIGNAL( clicked() ), this, SLOT( slotReplace() ) );
-	connect( replaceAllButton, SIGNAL( clicked() ), this, SLOT( slotReplaceAll() ) );
-	connect( searchTextLineEdit, SIGNAL( textChanged(QString) ), this, SLOT( updateSearchButtonState() ) );
-	connect( searchTextCheckBox, SIGNAL( clicked() ), this, SLOT( enableTxSearch() ) );
-	connect( searchStyleCheckBox, SIGNAL( clicked() ), this, SLOT( enableStyleSearch() ) );
-	connect( searchAlignCheckBox, SIGNAL( clicked() ), this, SLOT( enableAlignSearch() ) );
-	connect( searchFontCheckBox, SIGNAL( clicked() ), this, SLOT( enableFontSearch() ) );
-	connect( searchSizeCheckBox, SIGNAL( clicked() ), this, SLOT( enableSizeSearch() ) );
-	connect( searchEffectCheckBox, SIGNAL( clicked() ), this, SLOT( enableEffSearch() ) );
-	connect( searchFillCheckBox, SIGNAL( clicked() ), this, SLOT( enableFillSearch() ) );
-	connect( searchFillShadeCheckBox, SIGNAL( clicked() ), this, SLOT( enableFillSSearch() ) );
-	connect( searchStrokeShadeCheckBox, SIGNAL( clicked() ), this, SLOT( enableStrokeSSearch() ) );
-	connect( searchStrokeCheckBox, SIGNAL( clicked() ), this, SLOT( enableStrokeSearch() ) );
-	connect( replaceTextCheckBox, SIGNAL( clicked() ), this, SLOT( enableTxReplace() ) );
-	connect( replaceStyleCheckBox, SIGNAL( clicked() ), this, SLOT( enableStyleReplace() ) );
-	connect( replaceAlignCheckBox, SIGNAL( clicked() ), this, SLOT( enableAlignReplace() ) );
-	connect( replaceFontCheckBox, SIGNAL( clicked() ), this, SLOT( enableFontReplace() ) );
-	connect( replaceSizeCheckBox, SIGNAL( clicked() ), this, SLOT( enableSizeReplace() ) );
-	connect( replaceEffectCheckBox, SIGNAL( clicked() ), this, SLOT( enableEffReplace() ) );
-	connect( replaceFillCheckBox, SIGNAL( clicked() ), this, SLOT( enableFillReplace() ) );
-	connect( replaceStrokeCheckBox, SIGNAL( clicked() ), this, SLOT( enableStrokeReplace() ) );
-	connect( replaceFillShadeCheckBox, SIGNAL( clicked() ), this, SLOT( enableFillSReplace() ) );
-	connect( replaceStrokeShadeCheckBox, SIGNAL( clicked() ), this, SLOT( enableStrokeSReplace() ) );
-	connect(clearButton, SIGNAL(clicked()), this, SLOT(clear()));
+	searchStrokeColorComboBox->setPixmapType(ColorCombo::fancyPixmaps);
+	searchStrokeColorComboBox->setColors(doc->PageColors, true);
+	searchStrokeColorComboBox->view()->setMinimumWidth(searchStrokeColorComboBox->view()->maximumViewportSize().width() + 24);
+	setCurrentComboItem(searchStrokeColorComboBox, doc->currentStyle.charStyle().strokeColor());
 
-	//tooltips
+	replaceFillColorComboBox->setPixmapType(ColorCombo::fancyPixmaps);
+	replaceFillColorComboBox->setColors(doc->PageColors, true);
+	replaceFillColorComboBox->view()->setMinimumWidth(replaceFillColorComboBox->view()->maximumViewportSize().width() + 24);
+	setCurrentComboItem(replaceFillColorComboBox, doc->currentStyle.charStyle().fillColor());
+	replaceStrokeColorComboBox->setPixmapType(ColorCombo::fancyPixmaps);
+	replaceStrokeColorComboBox->setColors(doc->PageColors, true);
+	replaceStrokeColorComboBox->view()->setMinimumWidth(replaceStrokeColorComboBox->view()->maximumViewportSize().width() + 24);
+	setCurrentComboItem(replaceStrokeColorComboBox, doc->currentStyle.charStyle().strokeColor());
+
+	connect(collapseButton, &QPushButton::clicked, this, &SearchReplace::slotCollapseFormat);
+
+	connect(clearButton, &QPushButton::clicked, this, &SearchReplace::clear);
+	connect(closeButton, &QPushButton::clicked, this, &SearchReplace::accept);
+	connect(replaceAllButton, &QPushButton::clicked, this, &SearchReplace::slotReplaceAll);
+	connect(replaceButton, &QPushButton::clicked, this, &SearchReplace::slotReplace);
+	connect(searchButton, &QPushButton::clicked, this, &SearchReplace::slotSearch);
+	connect(stopButton, &QPushButton::clicked, this, &SearchReplace::slotStop);
+
+	connect(searchAlignmentCheckBox, &QCheckBox::clicked, [this](){enableAlignmentSearch(); updateButtonState();});
+	connect(searchFillColorCheckBox, &QCheckBox::clicked, [this](){enableFillColorSearch(); updateButtonState();});
+	connect(searchFillShadeCheckBox, &QCheckBox::clicked, [this](){enableFillShadeSearch(); updateButtonState();});
+	connect(searchFontCheckBox, &QCheckBox::clicked, [this](){enableFontSearch(); updateButtonState();});
+	connect(searchFontEffectsCheckBox, &QCheckBox::clicked, [this](){enableFontEffectsSearch(); updateButtonState();});
+	connect(searchFontSizeCheckBox, &QCheckBox::clicked, [this](){enableFontSizeSearch(); updateButtonState();});
+	connect(searchStrokeColorCheckBox, &QCheckBox::clicked, [this](){enableStrokeColorSearch(); updateButtonState();});
+	connect(searchStrokeShadeCheckBox, &QCheckBox::clicked, [this](){enableStrokeShadeSearch(); updateButtonState();});
+	connect(searchStyleCheckBox, &QCheckBox::clicked, [this](){enableStyleSearch(); updateButtonState();});
+	connect(searchTextValue, &QLineEdit::textChanged, [this]() {enableTextSearch(); updateButtonState();});
+
+	connect(replaceAlignmentCheckBox, &QCheckBox::clicked, this, &SearchReplace::enableAlignmentReplace);
+	connect(replaceFillColorCheckBox, &QCheckBox::clicked, this, &SearchReplace::enableFillColorReplace);
+	connect(replaceFillShadeCheckBox, &QCheckBox::clicked, this, &SearchReplace::enableFillShadeReplace);
+	connect(replaceFontCheckBox, &QCheckBox::clicked, this, &SearchReplace::enableFontReplace);
+	connect(replaceFontEffectsCheckBox, &QCheckBox::clicked, this, &SearchReplace::enableFontEffectsReplace);
+	connect(replaceFontSizeCheckBox, &QCheckBox::clicked, this, &SearchReplace::enableFontSizeReplace);
+	connect(replaceStrokeColorCheckBox, &QCheckBox::clicked, this, &SearchReplace::enableStrokeColorReplace);
+	connect(replaceStrokeShadeCheckBox, &QCheckBox::clicked, this, &SearchReplace::enableStrokeShadeReplace);
+	connect(replaceStyleCheckBox, &QCheckBox::clicked, this, &SearchReplace::enableStyleReplace);
+	connect(replaceTextValue, &QLineEdit::textChanged, this, &SearchReplace::updateButtonState);
+
+	collapseButton->setToolTip( tr( "Collapse or expand the formatting options" ) );
 	searchButton->setToolTip( tr( "Search for text or formatting in the current text" ) );
 	replaceButton->setToolTip( tr( "Replace the searched for formatting with the replacement values" ) );
 	replaceAllButton->setToolTip( tr( "Replace all found instances" ) );
 	clearButton->setToolTip( tr( "Clear all search and replace options" ) );
 	closeButton->setToolTip( tr( "Close search and replace" ) );
 
- // tab order
-	setTabOrder( searchTextCheckBox, searchStyleCheckBox );
-	setTabOrder( searchStyleCheckBox, searchFontCheckBox );
-	setTabOrder( searchFontCheckBox, searchSizeCheckBox );
-	setTabOrder( searchSizeCheckBox, searchEffectCheckBox );
-	setTabOrder( searchEffectCheckBox, searchFillCheckBox );
-	setTabOrder( searchFillCheckBox, searchStrokeCheckBox );
-	setTabOrder( searchStrokeCheckBox, searchTextLineEdit );
-	setTabOrder( searchTextLineEdit, searchStyleValue );
-	setTabOrder( searchStyleValue, searchAlignValue );
-	setTabOrder( searchAlignValue, searchFontValue );
-	setTabOrder( searchFontValue, searchSizeSpinBox );
-	setTabOrder( searchSizeSpinBox, searchStyleEffectsValue );
-	setTabOrder( searchStyleEffectsValue, searchFillValue );
-	setTabOrder( searchFillValue, searchStrokeValue );
-	setTabOrder( searchStrokeValue, replaceTextCheckBox );
-	setTabOrder( replaceTextCheckBox, replaceStyleCheckBox );
-	setTabOrder( replaceStyleCheckBox, replaceFontCheckBox );
-	setTabOrder( replaceFontCheckBox, replaceSizeCheckBox );
-	setTabOrder( replaceSizeCheckBox, replaceEffectCheckBox );
-	setTabOrder( replaceEffectCheckBox, replaceFillCheckBox );
-	setTabOrder( replaceFillCheckBox, replaceStrokeCheckBox );
-	setTabOrder( replaceStrokeCheckBox, replaceTextLineEdit );
-	setTabOrder( replaceTextLineEdit, replaceStyleValue );
-	setTabOrder( replaceStyleValue, replaceAlignValue );
-	setTabOrder( replaceAlignValue, replaceFontValue );
-	setTabOrder( replaceFontValue, replaceSizeSpinBox );
-	setTabOrder( replaceSizeSpinBox, replaceStyleEffectsValue );
-	setTabOrder( replaceStyleEffectsValue, replaceFillValue );
-	setTabOrder( replaceFillValue, replaceStrokeValue );
-	setTabOrder( replaceStrokeValue, wholeWordCheckBox );
-	setTabOrder( wholeWordCheckBox, ignoreCaseCheckBox );
-	setTabOrder( ignoreCaseCheckBox, searchButton );
-	setTabOrder( searchButton, replaceButton );
-	setTabOrder( replaceButton, replaceAllButton );
-	setTabOrder( replaceAllButton, closeButton );
-
 	m_prefs = PrefsManager::instance().prefsFile->getContext("SearchReplace");
 	readPrefs();
+
+	collapseFormat();
+}
+
+void SearchReplace::processCurrentSelection(QString selection)
+{
+	selection = selection.trimmed();
+	if (!selection.isEmpty())
+	{
+		// \r newlines from the frames and QChar::ParagraphSeparator for the story editor
+		if (selection.contains("\r") || selection.contains(QChar::ParagraphSeparator))
+			// TODO: add a "Current selection only" checkbox
+			/* enableSelectionSearch()*/ ;
+		else
+			searchTextValue->setText(selection);
+	}
+}
+
+QPair<int, int> SearchReplace::cursorPosition()
+{
+	return { m_selectionStart, m_selectionEnd };
 }
 
 void SearchReplace::slotSearch()
 {
-	doSearch();
+	m_searching = true;
+	updateButtonState();
 
-	if (m_itemMode)
-		m_item->update();
-	if (!m_found)
-		showNotFoundMessage();
-}
-
-void SearchReplace::doSearch()
-{
-	if (m_itemMode)
-		doSearch_itemMode();
-	else if (m_doc->scMW()->CurrStED != nullptr)
-		doSearch_storyEdMode();
-}
-
-void SearchReplace::doSearch_itemMode()
-{
-	replaceButton->setEnabled(false);
-	replaceAllButton->setEnabled(false);
-
-	m_item->itemText.deselectAll();
-	m_item->HasSel = false;
-
-	bool searchForReplace = false;
-	bool rep = false;
-
-	m_found = true;
-
-	if ((replaceFillCheckBox->isChecked()) || (replaceStrokeCheckBox->isChecked()) || (replaceStyleCheckBox->isChecked()) || (replaceFontCheckBox->isChecked())
-		|| (replaceStrokeShadeCheckBox->isChecked()) || (replaceFillShadeCheckBox->isChecked()) || (replaceSizeCheckBox->isChecked()) || (replaceTextCheckBox->isChecked())
-		|| (replaceEffectCheckBox->isChecked()) || (replaceAlignCheckBox->isChecked()))
-		rep = true;
-
-	if ((searchFillCheckBox->isChecked()) || (searchStrokeCheckBox->isChecked()) || (searchStyleCheckBox->isChecked()) || (searchFontCheckBox->isChecked())
-		|| (searchStrokeShadeCheckBox->isChecked()) || (searchFillShadeCheckBox->isChecked()) || (searchSizeCheckBox->isChecked()) || (searchTextCheckBox->isChecked())
-		|| (searchEffectCheckBox->isChecked()) || (searchAlignCheckBox->isChecked()))
-		searchForReplace = true;
-
-	int textLen(0);
-	int cursorPos = m_item->itemText.cursorPosition();
-	int firstChar = doSearch_storyText(m_item->itemText, cursorPos, textLen);
-
-	bool found = (firstChar >= 0);
-	if (found)
-	{
-		m_item->itemText.select(firstChar, textLen);
-		m_item->HasSel = true;
-		m_item->itemText.setCursorPosition(firstChar + textLen);
-		m_matchesFound++;
-	}
-	if (found && !m_replacingAll)
-	{
-		QPointF textCanvasPos;
-		int foundPos = m_item->itemText.cursorPosition();
-		if (m_item->itemText.selectionLength() > 0)
-			foundPos = m_item->itemText.startOfSelection();
-		bool cPosFound = m_doc->textCanvasPosition(m_item, foundPos, textCanvasPos);
-		if (cPosFound)
-		{
-			QRectF updateRect;
-			PageItem* textItem = m_item->frameOfChar(foundPos);
-			if (textItem != m_item)
-			{
-				updateRect = m_item->getVisualBoundingRect();
-				updateRect = updateRect.united(textItem->getVisualBoundingRect());
-				int selLength = m_item->itemText.selectionLength();
-				m_item->itemText.deselectAll();
-				m_item->HasSel = false;
-				m_doc->m_Selection->delaySignalsOn();
-				m_doc->m_Selection->removeItem(m_item);
-				m_doc->m_Selection->addItem(textItem);
-				m_item = textItem;
-				m_item->itemText.deselectAll();
-				if (selLength > 0)
-					m_item->itemText.select(foundPos, selLength);
-				m_item->itemText.setCursorPosition(foundPos + selLength);
-				m_item->HasSel = true;
-				m_doc->m_Selection->delaySignalsOff();
-			}
-			QRectF visibleCanvasRect = m_doc->view()->visibleCanvasRect();
-			if (!visibleCanvasRect.contains(textCanvasPos))
-				m_doc->view()->setCanvasCenterPos(textCanvasPos.x(), textCanvasPos.y());
-			if (!updateRect.isEmpty())
-				m_doc->regionsChanged()->update(updateRect.adjusted(-10.0, -10.0, 10.0, 10.0));
-		}
-	}
-	if (found && searchForReplace)
-	{
-		if (rep)
-		{
-			replaceButton->setEnabled(true);
-			replaceAllButton->setEnabled(true);
-		}
-	}
+	if (m_storyEditorMode)
+		searchInStoryEditor();
 	else
-	{
-		m_doc->DoDrawing = true;
-		m_item->update();
-		replaceButton->setEnabled(false);
-		replaceAllButton->setEnabled(false);
-		m_item->itemText.setCursorPosition(0);
-		m_found = false;
-	}
+		searchOnCanvas();
+
+	m_searching = false;
+	updateButtonState();
 }
 
-void SearchReplace::doSearch_storyEdMode()
+void SearchReplace::searchInStoryEditor()
 {
-	replaceButton->setEnabled(false);
-	replaceAllButton->setEnabled(false);
+	hideMessage();
 
-	bool searchForReplace = false;
-	bool rep = false;
-
-	m_found = true;
-
-	if ((replaceFillCheckBox->isChecked()) || (replaceStrokeCheckBox->isChecked()) || (replaceStyleCheckBox->isChecked()) || (replaceFontCheckBox->isChecked())
-		|| (replaceStrokeShadeCheckBox->isChecked()) || (replaceFillShadeCheckBox->isChecked()) || (replaceSizeCheckBox->isChecked()) || (replaceTextCheckBox->isChecked())
-		|| (replaceEffectCheckBox->isChecked()) || (replaceAlignCheckBox->isChecked()))
-		rep = true;
-
-	if ((searchFillCheckBox->isChecked()) || (searchStrokeCheckBox->isChecked()) || (searchStyleCheckBox->isChecked()) || (searchFontCheckBox->isChecked())
-		|| (searchStrokeShadeCheckBox->isChecked()) || (searchFillShadeCheckBox->isChecked()) || (searchSizeCheckBox->isChecked()) || (searchTextCheckBox->isChecked())
-		|| (searchEffectCheckBox->isChecked()) || (searchAlignCheckBox->isChecked()))
-		searchForReplace = true;
-
-	if (m_doc->scMW()->CurrStED == nullptr)
-		return;
+	auto options = getSearchOptions();
 
 	SEditor* storyTextEdit = m_doc->scMW()->CurrStED->Editor;
-	if (storyTextEdit->StyledText.length() == 0)
-		return;
+	StoryText& storyText = storyTextEdit->StyledText;
 	QTextCursor cursor = storyTextEdit->textCursor();
+	// TODO: as soon as we have them, use optional and const auto [start, end] = ...
+	auto pos = searchStory(storyText, cursor.position(), storyText.length(), options);
 
-	int textLen(0);
-	int cursorPos = cursor.position();
-	int firstChar = doSearch_storyText(storyTextEdit->StyledText, cursorPos, textLen);
-	int lastChar = (firstChar >= 0) ? (firstChar + textLen) : 0;
-
-	bool found = (firstChar >= 0);
-	if (found)
+	if (pos.first < 0)
 	{
-		cursor.setPosition(firstChar);
-		cursor.setPosition(lastChar, QTextCursor::KeepAnchor);
-		storyTextEdit->setTextCursor(cursor);
-		m_matchesFound++;
+		showMessage(tr(messageEndOfSelection));
+		pos = searchStory(storyText, 0, storyText.length(), options);
 	}
-	if (found && searchForReplace)
+
+	if (pos.first >= 0)
 	{
-		// m_doc->scMW()->CurrStED->updateProps(); FIXME
-		if (rep)
-		{
-			replaceButton->setEnabled(true);
-			replaceAllButton->setEnabled(true);
-		}
-		m_firstMatchPosition = storyTextEdit->textCursor().selectionStart();
+		m_selectionStart = pos.first;
+		m_selectionEnd = pos.second + 1;
+		cursor.setPosition(pos.first);
+		cursor.setPosition(pos.second + 1, QTextCursor::KeepAnchor);
+		storyTextEdit->setTextCursor(cursor);
 	}
 	else
+		showMessage(tr(messageNoMatch));
+}
+
+void SearchReplace::searchOnCanvas()
+{
+	hideMessage();
+
+	auto options = getSearchOptions();
+
+	initCanvasSelection();
+
+	PageItem* pageItem;
+	int itemsToBeProcessed = m_pageItems.size();
+	bool matchFound{false};
+
+	while ((pageItem = currentPageItem()))
 	{
-		m_found = false;
-		QTextCursor cursor = storyTextEdit->textCursor();
-		cursor.clearSelection();
-		cursor.movePosition(QTextCursor::Start, QTextCursor::MoveAnchor);
-		storyTextEdit->setTextCursor(cursor);
+		if (itemsToBeProcessed < 0)
+			break;
+		--itemsToBeProcessed;
+
+		StoryText& storyText = pageItem->itemText;
+
+		if (m_doc->appMode != modeEdit)
+		{
+			m_doc->view()->requestMode(modeEdit);
+			pageItem->itemText.setCursorPosition(0);
+		}
+
+		auto pos = searchStory(storyText, storyText.cursorPosition(), storyText.length(), options);
+
+		if (pos.first < 0)
+		{
+			nextPageItem();
+			pageItem = currentPageItem();
+
+			if (m_endReached)
+				showMessage(tr(messageEndOfSelection));
+
+			pos = searchStory(storyText, storyText.cursorPosition(), storyText.length(), options);
+		}
+
+		if (pos.first >= 0)
+		{
+			storyText.select(pos.first, pos.second + 1 - pos.first);
+			storyText.setCursorPosition(pos.second + 1);
+			matchFound = true;
+			break;
+		}
+	}
+	updatePageItemSelection(pageItem);
+
+	if (!matchFound)
+		showMessage(tr(messageNoMatch));
+}
+
+void SearchReplace::initCanvasSelection()
+{
+	if (m_doc->Items->isEmpty())
+		return;
+
+	if (m_doc->m_Selection->isEmpty())
+	{
+		// TODO: search the whole document or the whole page?
+		readAllPageItems();
+		selectPageItem(m_pageItems.at(0));
+	}
+	else
+		readSelectedPageItems();
+}
+
+void SearchReplace::readAllPageItems()
+{
+	if (!m_pageItems.empty())
+		return;
+
+	QMap<int, std::vector<PageItem*>> pages;
+	PageItem* pageItem;
+	for (int i = 0; i < m_doc->Items->count(); i++)
+	{
+		pageItem = m_doc->Items->at(i);
+
+		if (!(pageItem->isTextFrame()))
+			continue;
+
+		// text chains are automatically searched until the end
+		if (pageItem->prevInChain())
+			continue;
+
+		pages[pageItem->OwnPage].push_back(pageItem);
+	}
+
+	// TODO: add it as compareCoordinates to util.h, or pageItem.h... or implement the < operator for PageItem.
+	auto sortCoordinates = [](const PageItem* a, const PageItem* b) {
+		return a->yPos() == b->yPos() ? (a->xPos() < b->xPos()) : (a->yPos() < b->yPos());
+	};
+
+	for (int i = m_doc->currentPageNumber(); i < m_doc->DocPages.count(); i++)
+	{
+		auto pageItems = pages.value(i, {});
+		if (pageItems.empty())
+			continue;
+
+		std::sort(pageItems.begin(), pageItems.end(), sortCoordinates);
+
+		m_pageItems.insert(m_pageItems.end(), pageItems.begin(), pageItems.end() );
+	}
+
+	for (int i = 0; i < m_doc->currentPageNumber(); i++)
+	{
+		auto pageItems = pages.value(i, {});
+		if (pageItems.empty())
+			continue;
+
+		std::sort(pageItems.begin(), pageItems.end(), sortCoordinates);
+
+		m_pageItems.insert(m_pageItems.end(), pageItems.begin(), pageItems.end() );
 	}
 }
 
-int SearchReplace::doSearch_storyText(const StoryText& storyText, int start, int& textLen)
+// TODO: if only one frame is selected: add an option to search for the whole story (automatically enabled; currently it just follows the story)
+void SearchReplace::readSelectedPageItems()
 {
-	QString fCol;
-	QString sCol;
-	QString sFont;
-	QString sText;
-	int sStyle = 0;
-	int sAlign = 0;
-	int sSize = 0;
-	int sEff = 0;
-	int sFillSh = 100;
-	int sStrokeSh = 100;
-	bool found = true;
+	// TODO: sort by position?
+	// only read once
+	if (!m_pageItems.empty())
+		return;
 
-	int maxChar = storyText.length() - 1;
-	textLen = 0;
+	m_currentPageItem = 0;
 
-	if (searchTextCheckBox->isChecked())
-		sText = searchTextLineEdit->text();
-	if (ignoreCaseCheckBox->isChecked())
-		sText = sText.toLower();
-	if (searchEffectCheckBox->isChecked())
-		sEff = searchStyleEffectsValue->getStyle();
-	if (searchFillCheckBox->isChecked())
-		fCol = searchFillValue->currentText();
-	if (searchFillShadeCheckBox->isChecked())
-		sFillSh = searchFillShadeValue->getValue();
-	if (searchStrokeCheckBox->isChecked())
-		sCol = searchStrokeValue->currentText();
-	if (searchStrokeShadeCheckBox->isChecked())
-		sStrokeSh = searchStrokeShadeValue->getValue();
-	if (searchFontCheckBox->isChecked())
-		sFont = searchFontValue->currentText();
-	if (searchStyleCheckBox->isChecked())
-		sStyle = searchStyleValue->currentIndex();
-	if (searchAlignCheckBox->isChecked())
-		sAlign = searchAlignValue->currentIndex();
-	if (searchSizeCheckBox->isChecked())
-		sSize = qRound(searchSizeSpinBox->value() * 10);
-	if (sText.length() > 0)
-		found = false;
+	if (m_doc->m_Selection->count() == 0)
+		return;
 
-	int firstChar = -1;
-	int lastChar = storyText.length();
-
-	if (searchTextCheckBox->isChecked())
+	for (int i = 0 ; i < m_doc->m_Selection->count(); i++)
 	{
-		Qt::CaseSensitivity cs = Qt::CaseSensitive;
-		if (ignoreCaseCheckBox->isChecked())
-			cs = Qt::CaseInsensitive;
+		auto pageItem = m_doc->m_Selection->itemAt(i);
 
-		for (int i = start; i < m_item->itemText.length(); ++i)
+		if (!pageItem->isTextFrame())
+			continue;
+
+		m_pageItems.push_back(pageItem);
+	}
+}
+
+// TODO: as soon as available, use std::optional
+PageItem* SearchReplace::currentPageItem()
+{
+	return m_pageItems.at(m_currentPageItem);
+}
+
+void SearchReplace::nextPageItem()
+{
+	m_endReached = false;
+	++m_currentPageItem;
+	if (m_currentPageItem >= m_pageItems.size())
+	{
+		m_currentPageItem = 0;
+		m_endReached = true;
+	}
+
+	auto pageItem = m_pageItems.at(m_currentPageItem);
+
+	if (!m_endReached && pageItem == m_doc->m_Selection->itemAt(0))
+		return;
+
+	selectPageItem(pageItem);
+}
+
+void SearchReplace::selectPageItem(PageItem* pageItem)
+{
+	m_doc->m_Selection->clear();
+	m_doc->m_Selection->addItem(pageItem);
+	m_doc->view()->requestMode(modeNormal);
+}
+
+SearchReplace::MatchRange SearchReplace::getMatchRange(const StoryText& storyText, int position, const int length, const Options& options)
+{
+	if (length == 0)
+		return { -1, 0, 1 };
+
+	int matchStart = position;
+	int matchEnd = position;
+
+	if (options.textEnabled)
+	{
+		// match the text
+		int matchLength = 0;
+
+		Qt::CaseSensitivity cs = options.ignoreCase ? Qt::CaseInsensitive : Qt::CaseSensitive;
+		matchStart = storyText.indexOf(options.text, matchStart, cs, &matchLength);
+
+		if (matchStart < 0)
+			// there is no match after position
+			return {-1, 0, length + 1};
+
+		// TODO: can it be longer than length?
+		// if yes qMin(i + matchLength, length[ -1])
+		matchEnd = matchStart + matchLength - 1;
+
+		if (options.wholeWords)
 		{
-			i = m_item->itemText.indexOf(sText, i, cs, &textLen);
-			found = (i >= 0);
-			if (!found)
-				break;
-
-			if (wholeWordCheckBox->isChecked() && (i > 0) && storyText.text(i - 1).isLetterOrNumber())
-				found = false;
-			if (wholeWordCheckBox->isChecked())
-			{
-				int lastChar = qMin(i + textLen, maxChar);
-				found = ((lastChar == maxChar) || !storyText.text(lastChar).isLetterOrNumber());
-			}
-			if (!found) continue;
-
-			int selStart = i;
-			for (int ap = 0; ap < textLen; ++ap)
-			{
-				const ParagraphStyle& parStyle = storyText.paragraphStyle(selStart + ap);
-				const CharStyle& charStyle = storyText.charStyle(selStart + ap);
-				if (searchStyleCheckBox->isChecked() && (parStyle.parent() != m_doc->paragraphStyles()[sStyle].name()))
-					found = false;
-				if (searchAlignCheckBox->isChecked() && (parStyle.alignment() != sAlign))
-					found = false;
-				if (searchFontCheckBox->isChecked() && (charStyle.font().scName() != sFont))
-					found = false;
-				if (searchSizeCheckBox->isChecked() && (charStyle.fontSize() != sSize))
-					found = false;
-				if (searchEffectCheckBox->isChecked() && ((charStyle.effects() & ScStyle_UserStyles) != sEff))
-					found = false;
-				if (searchFillCheckBox->isChecked() && (charStyle.fillColor() != fCol))
-					found = false;
-				if (searchFillShadeCheckBox->isChecked() && (charStyle.fillShade() != sFillSh))
-					found = false;
-				if (searchStrokeCheckBox->isChecked() && (charStyle.strokeColor() != sCol))
-					found = false;
-				if (searchStrokeShadeCheckBox->isChecked() && (charStyle.strokeShade() != sStrokeSh))
-					found = false;
-			}
-
-			if (found)
-			{
-				firstChar = i;
-				lastChar = i + textLen;
-				break;
-			}
+			if (matchStart > 0 && storyText.text(matchStart - 1).isLetterOrNumber())
+				return {-1, 0, matchEnd + 1};
+			if (matchEnd + 1 < length && storyText.text(matchEnd + 1).isLetterOrNumber())
+				return {-1, 0, matchEnd + 1};
 		}
 	}
-	else
+
+	// check the first char or the matched text
+	// TODO: is it possible/worth to include all contiguous matching when not textEnabled? (move in here the loop below)
+	bool formatMatching{true};
+	for (int i = matchStart; i <= matchEnd; ++i)
 	{
-		for (int i = start; i < storyText.length(); ++i)
+		const auto& parStyle = storyText.paragraphStyle(i);
+		const auto& charStyle = storyText.charStyle(i);
+		formatMatching = isFormatMatching(parStyle, charStyle, options);
+		if (!formatMatching)
+			break;
+	}
+	if (!formatMatching)
+	{
+		// skip all contiguous non matching chars
+		for (int i = matchEnd; i <= length; ++i)
 		{
+			const auto& parStyle = storyText.paragraphStyle(i);
+			const auto& charStyle = storyText.charStyle(i);
+			formatMatching = isFormatMatching(parStyle, charStyle, options);
+			if (formatMatching)
+				break;
+			matchEnd = i;
+		}
+		return {-1, 0, matchEnd + 1};
+	}
+
+	if (!options.textEnabled)
+	{
+		// include all contiguous chars with matching format
+		for (int i = matchEnd + 1; i < length; ++i)
+		{
+			const auto& parStyle = storyText.paragraphStyle(i);
+			const auto& charStyle = storyText.charStyle(i);
+			if (!(formatMatching = isFormatMatching(parStyle, charStyle, options)))
+				break;
+			matchEnd = i;
+		}
+	}
+
+	return { matchStart, matchEnd, matchEnd + 1 };
+}
+
+// TODO: return std::optional<QPair> as soon as we have it.
+QPair<int, int> SearchReplace::searchStory(const StoryText& storyText, const int start, const int length, const Options& options)
+{
+	if (length == 0)
+		return { -1, -1 };
+
+	int matchStart = start;
+	int matchEnd = start;
+	bool found = false;
+
+	while (!found && matchStart < length)
+	{
+		QApplication::processEvents();
+		if (!m_searching)
+			break;
+
+		const auto match = getMatchRange(storyText, matchStart, length, options);
+		if (match.start == -1)
+			matchStart = match.nextPosition;
+		else
+		{
+			matchStart = match.start;
+			matchEnd = match.end;
 			found = true;
-			const ParagraphStyle& parStyle = storyText.paragraphStyle(i);
-			const CharStyle& charStyle = storyText.charStyle(i);
-			if (searchStyleCheckBox->isChecked() && (parStyle.parent() != m_doc->paragraphStyles()[sStyle].name()))
-				found = false;
-			if (searchAlignCheckBox->isChecked() && (parStyle.alignment() != sAlign))
-				found = false;
-			if (searchFontCheckBox->isChecked() && (charStyle.font().scName() != sFont))
-				found = false;
-			if (searchSizeCheckBox->isChecked() && (charStyle.fontSize() != sSize))
-				found = false;
-			if (searchEffectCheckBox->isChecked() && ((charStyle.effects() & ScStyle_UserStyles) != sEff))
-				found = false;
-			if (searchFillCheckBox->isChecked() && (charStyle.fillColor() != fCol))
-				found = false;
-			if (searchFillShadeCheckBox->isChecked() && (charStyle.fillShade() != sFillSh))
-				found = false;
-			if (searchStrokeCheckBox->isChecked() && (charStyle.strokeColor() != sCol))
-				found = false;
-			if (searchStrokeShadeCheckBox->isChecked() && (charStyle.strokeShade() != sStrokeSh))
-				found = false;
-			if (found && (firstChar < 0))
-				firstChar = i;
-			else if ((firstChar >= 0) && !found)
-			{
-				lastChar = i;
-				break;
-			}
-			// When searching paragraph styles break at the end of each found paragraph
-			if (searchStyleCheckBox->isChecked() && (firstChar >= 0) && storyText.text(i) == SpecialChars::PARSEP)
-			{
-				lastChar = i + 1;
-				break;
-			}
 		}
-		if (firstChar >= 0)
-			textLen = lastChar - firstChar;
 	}
 
-	if (firstChar >= 0)
-		return firstChar;
+	if (!found)
+		return { -1, -1 };
 
-	textLen = 0;
-	return -1;
+	return { matchStart, matchEnd };
+}
+
+void SearchReplace::updatePageItemSelection(PageItem* pageItem)
+{
+	StoryText& storyText = pageItem->itemText;
+
+	int foundPos = storyText.cursorPosition();
+	if (storyText.selectionLength() > 0)
+		foundPos = storyText.startOfSelection();
+
+	QPointF textCanvasPos;
+	if (!m_doc->textCanvasPosition(pageItem, foundPos, textCanvasPos))
+		return;
+
+	QRectF updateRect;
+	PageItem* textItem = pageItem->frameOfChar(foundPos);
+	if (textItem != pageItem)
+	{
+		updateRect = pageItem->getVisualBoundingRect();
+		updateRect = updateRect.united(textItem->getVisualBoundingRect());
+		int selLength = pageItem->itemText.selectionLength();
+		pageItem->itemText.deselectAll();
+		pageItem->HasSel = false;
+		m_doc->m_Selection->delaySignalsOn();
+		m_doc->m_Selection->removeItem(pageItem);
+		m_doc->m_Selection->addItem(textItem);
+		pageItem = textItem;
+		pageItem->itemText.deselectAll();
+		if (selLength > 0)
+			pageItem->itemText.select(foundPos, selLength);
+		pageItem->itemText.setCursorPosition(foundPos + selLength);
+		pageItem->HasSel = true;
+		m_doc->m_Selection->delaySignalsOff();
+	}
+	QRectF visibleCanvasRect = m_doc->view()->visibleCanvasRect();
+	if (!visibleCanvasRect.contains(textCanvasPos))
+		m_doc->view()->setCanvasCenterPos(textCanvasPos.x(), textCanvasPos.y());
+	if (!updateRect.isEmpty())
+		m_doc->regionsChanged()->update(updateRect.adjusted(-10.0, -10.0, 10.0, 10.0));
+	pageItem->update();
+}
+
+bool SearchReplace::isFormatMatching(const ParagraphStyle& parStyle, const CharStyle& charStyle, const Options& options)
+{
+	if (options.paragraphStyleEnabled && parStyle.parent() != m_doc->paragraphStyles()[options.paragraphStyle].name())
+		return false;
+	if (options.alignmentEnabled && parStyle.alignment() != options.alignment)
+		return false;
+	if (options.fontEnabled && charStyle.font().scName() != options.font)
+		return false;
+	if (options.fontSizeEnabled && charStyle.fontSize() != options.fontSize)
+		return false;
+	if (options.fontEffectsEnabled && (charStyle.effects() & ScStyle_UserStyles) != options.fontEffects)
+		return false;
+	if (options.fillColorEnabled && charStyle.fillColor() != options.fillColor)
+		return false;
+	if (options.fillShadeEnabled && charStyle.fillShade() != options.fillShade)
+		return false;
+	if (options.strokeColorEnabled && charStyle.strokeColor() != options.strokeColor)
+		return false;
+	if (options.strokeShadeEnabled && charStyle.strokeShade() != options.strokeShade)
+		return false;
+	return true;
 }
 
 void SearchReplace::slotReplace()
 {
-	doReplace();
+	m_searching = true;
+	updateButtonState();
 
-	if (m_itemMode)
-		m_item->update();
-	if (!m_found)
-		showNotFoundMessage();
+	if (m_storyEditorMode)
+		replaceInStoryEditor();
+	else
+		replaceOnCanvas();
+
+	m_searching = false;
+	updateButtonState();
 }
 
-void SearchReplace::doReplace()
+void SearchReplace::replaceInStoryEditor()
 {
-	if (m_itemMode)
+	auto options = getSearchOptions();
+
+	SEditor* storyTextEdit = m_doc->scMW()->CurrStED->Editor;
+	StoryText& storyText =  storyTextEdit->StyledText;
+
+	int selectionStart = storyTextEdit->textCursor().selectionStart();
+	int selectionEnd = storyTextEdit->textCursor().selectionEnd();
+
+	MatchRange match = getMatchRange(storyText, selectionStart, storyText.length(), options);
+
+	if (selectionStart == match.start && selectionEnd - 1 == match.end)
+		replaceSelectionInStoryEditor();
+
+	searchInStoryEditor();
+}
+
+void SearchReplace::replaceOnCanvas()
+{
+	auto options = getSearchOptions();
+
+	initCanvasSelection();
+
+	auto pageItem = currentPageItem();
+	StoryText& storyText = pageItem->itemText;
+
+	int selectionStart = storyText.startOfSelection();
+	int selectionEnd = storyText.endOfSelection();
+
+	if (selectionEnd < 0)
 	{
-		UndoTransaction transaction;
+		searchOnCanvas();
+		return;
+	}
+
+	MatchRange match = getMatchRange(storyText, selectionStart, storyText.length(), options);
+
+	if (selectionStart == match.start && selectionEnd - 1 == match.end)
+	{
+		replaceSelectionOnCanvas();
+		updatePageItemSelection(pageItem);
+	}
+
+	searchOnCanvas();
+}
+
+
+void SearchReplace::replaceSelectionInStoryEditor()
+{
+	StoryEditor* se = m_doc->scMW()->CurrStED;
+	auto options = getReplaceOptions();
+
+	// TODO: undo does not work
+	if (options.textEnabled)
+	{
+		disconnect(se->Editor, SIGNAL(cursorPositionChanged()), se, SLOT(updateProps()));
+		int SelStart = se->Editor->textCursor().selectionStart();
+		int SelEnd = se->Editor->textCursor().selectionEnd();
+		se->Editor->textCursor().setPosition(SelStart);
+		se->Editor->textCursor().setPosition(SelEnd, QTextCursor::KeepAnchor);
+		se->Editor->textCursor().removeSelectedText();
+		QString newText = options.text;
+		se->Editor->insertPlainText(newText);
+		if (newText.length() > 0)
+		{
+			QTextCursor textCursor = se->Editor->textCursor();
+			textCursor.setPosition(SelStart);
+			textCursor.setPosition(SelStart + newText.length(), QTextCursor::KeepAnchor);
+			se->Editor->setTextCursor(textCursor);
+		}
+		connect(se->Editor, SIGNAL(cursorPositionChanged()), se, SLOT(updateProps()));
+	}
+	if (options.paragraphStyleEnabled)
+		se->newStyle(m_doc->paragraphStyles()[options.paragraphStyle].name());
+	if (options.alignmentEnabled)
+		se->newAlign(options.alignment);
+	if (options.fillColorEnabled)
+		se->newTxFill(options.fillColorId, -1);
+	if (options.fillShadeEnabled)
+		se->newTxFill(-1, options.fillShade);
+	if (options.strokeColorEnabled)
+		se->newTxStroke(options.strokeColorId, -1);
+	if (options.strokeShadeEnabled)
+		se->newTxStroke(-1, options.strokeShade);
+	if (options.fontEnabled)
+		se->newTxFont(options.font);
+	if (options.fontSizeEnabled)
+		se->newTxSize(options.fontSize / 10);
+	if (options.fontEffectsEnabled)
+		se->newTxStyle(options.fontEffects);
+
+	// TODO: not sure that this is needed, since we then jump away...
+	QTextCursor textCursor = se->Editor->textCursor();
+	int selStart = textCursor.selectionStart();
+	int selEnd = textCursor.selectionEnd();
+	int selPos = qMax(selStart, selEnd);
+	textCursor.setPosition(selPos);
+	se->Editor->setTextCursor(textCursor);
+}
+
+void SearchReplace::replaceSelectionOnCanvas()
+{
+	auto options = getReplaceOptions();
+	auto pageItem = currentPageItem();
+	UndoTransaction transaction;
+	if (UndoManager::undoEnabled())
+		transaction = UndoManager::instance()->beginTransaction(pageItem->getUName(), pageItem->getUPixmap());
+
+	if (options.textEnabled)
+	{
 		if (UndoManager::undoEnabled())
-			transaction = UndoManager::instance()->beginTransaction(m_item->getUName(), m_item->getUPixmap());
-
-		if (replaceTextCheckBox->isChecked())
 		{
-			QString selectedText = m_item->itemText.selectedText();
-			QString repl = replaceTextLineEdit->text();
-			if (UndoManager::undoEnabled())
+			UndoObject* undoTarget = pageItem->isNoteFrame() ? dynamic_cast<UndoObject*>(pageItem->doc()) : dynamic_cast<UndoObject*>(pageItem);
+			if (pageItem->itemText.selectionLength() > 0)
 			{
-				UndoObject* undoTarget = m_item->isNoteFrame() ? dynamic_cast<UndoObject*>(m_item->doc()) : dynamic_cast<UndoObject*>(m_item);
-				if (selectedText.length() > 0)
-				{
-					auto is = new ScItemState<CharStyle>(Um::DeleteText, "", Um::IDelete);
-					int selStart =  m_item->itemText.startOfSelection();
-					is->set("DELETE_FRAMETEXT");
-					is->set("ETEA",  QString("delete_frametext"));
-					is->set("TEXT_STR", selectedText);
-					is->set("START", m_item->itemText.startOfSelection());
-					is->setItem(m_item->itemText.charStyle(selStart));
-					if (m_item->isNoteFrame())
-						is->set("noteframeName", m_item->getUName());
-					UndoManager::instance()->action(undoTarget, is);
-				}
-				if (repl.length() > 0)
-				{
-					int selStart = qMin(m_item->itemText.cursorPosition(), m_item->itemText.startOfSelection());
-					auto ss = new SimpleState(Um::InsertText, "", Um::ICreate);
-					ss->set("INSERT_FRAMETEXT");
-					ss->set("ETEA", QString("insert_frametext"));
-					ss->set("TEXT_STR", repl);
-					ss->set("START", selStart);
-					UndoObject * undoTarget = m_item;
-					if (m_item->isNoteFrame())
-						ss->set("noteframeName", m_item->getUName());
-					UndoManager::instance()->action(undoTarget, ss);
-				}
+				auto is = new ScItemState<CharStyle>(Um::DeleteText, "", Um::IDelete);
+				int selStart =  pageItem->itemText.startOfSelection();
+				is->set("DELETE_FRAMETEXT");
+				is->set("ETEA",  QString("delete_frametext"));
+				is->set("TEXT_STR", pageItem->itemText.selectedText());
+				is->set("START", pageItem->itemText.startOfSelection());
+				is->setItem(pageItem->itemText.charStyle(selStart));
+				if (pageItem->isNoteFrame())
+					is->set("noteframeName", pageItem->getUName());
+				UndoManager::instance()->action(undoTarget, is);
 			}
-			m_item->itemText.replaceSelection(repl);
-		}
-		if (replaceStyleCheckBox->isChecked())
-		{
-			int oldMode = m_doc->appMode;
-			m_doc->appMode = modeEdit;
-			m_doc->itemSelection_SetNamedParagraphStyle(m_doc->paragraphStyles()[replaceStyleValue->currentIndex()].name());
-			m_doc->appMode = oldMode;
-		}
-		if (replaceAlignCheckBox->isChecked())
-		{
-			int oldMode = m_doc->appMode;
-			m_doc->appMode = modeEdit;
-			m_doc->itemSelection_SetAlignment(replaceAlignValue->currentIndex());
-			m_doc->appMode = oldMode;
-		}
-		if (replaceFillCheckBox->isChecked())
-			m_doc->itemSelection_SetFillColor(replaceFillValue->currentText());
-		if (replaceFillShadeCheckBox->isChecked())
-			m_doc->itemSelection_SetFillShade(replaceFillShadeValue->getValue());
-		if (replaceStrokeCheckBox->isChecked())
-			m_doc->itemSelection_SetStrokeColor(replaceStrokeValue->currentText());
-		if (replaceStrokeShadeCheckBox->isChecked())
-			m_doc->itemSelection_SetStrokeShade(replaceStrokeShadeValue->getValue());
-		if (replaceFontCheckBox->isChecked())
-			m_doc->itemSelection_SetFont(replaceFontValue->currentText());
-		if (replaceSizeCheckBox->isChecked())
-			m_doc->itemSelection_SetFontSize(qRound(replaceSizeSpinBox->value() * 10.0));
-		if (replaceEffectCheckBox->isChecked() && (m_item->itemText.hasSelection()))
-		{
-			int s = replaceStyleEffectsValue->getStyle() & ScStyle_UserStyles;
-			m_doc->currentStyle.charStyle().setFeatures(static_cast<StyleFlag>(s).featureList()); // ???
-			for (int i = 0; i < m_item->itemText.length(); ++i)
+			if (options.text.length() > 0)
 			{
-				if (m_item->itemText.selected(i))
-				{
-					CharStyle newFeatures;
-					newFeatures.setFeatures(static_cast<StyleFlag>(s).featureList());
-					m_item->itemText.applyCharStyle(i, 1, newFeatures);
-				}
+				int selStart = qMin(pageItem->itemText.cursorPosition(), pageItem->itemText.startOfSelection());
+				auto ss = new SimpleState(Um::InsertText, "", Um::ICreate);
+				ss->set("INSERT_FRAMETEXT");
+				ss->set("ETEA", QString("insert_frametext"));
+				ss->set("TEXT_STR", options.text);
+				ss->set("START", selStart);
+				UndoObject * undoTarget = pageItem;
+				if (pageItem->isNoteFrame())
+					ss->set("noteframeName", pageItem->getUName());
+				UndoManager::instance()->action(undoTarget, ss);
 			}
 		}
-		m_item->itemText.deselectAll();
-
-		if (transaction)
-			transaction.commit();
+		pageItem->itemText.replaceSelection(options.text);
 	}
-	else if (m_doc->scMW()->CurrStED != nullptr)
+
+	if (options.paragraphStyleEnabled)
 	{
-		StoryEditor* se = m_doc->scMW()->CurrStED;
-		if (replaceTextCheckBox->isChecked())
-		{
-			disconnect(se->Editor, SIGNAL(cursorPositionChanged()), se, SLOT(updateProps()));
-			int SelStart = se->Editor->textCursor().selectionStart();
-			int SelEnd = se->Editor->textCursor().selectionEnd();
-//			se->Editor->insChars(RTextVal->text());
-			se->Editor->textCursor().setPosition(SelStart);
-			se->Editor->textCursor().setPosition(SelEnd, QTextCursor::KeepAnchor);
-			se->Editor->textCursor().removeSelectedText();
-//FIXME		se->Editor->setEffects(se->Editor->CurrentEffects);
-			QString newText = replaceTextLineEdit->text();
-			se->Editor->insertPlainText(newText);
-			if (newText.length() > 0)
-			{
-				QTextCursor textCursor = se->Editor->textCursor();
-				textCursor.setPosition(SelStart);
-				textCursor.setPosition(SelStart + newText.length(), QTextCursor::KeepAnchor);
-				se->Editor->setTextCursor(textCursor);
-			}
-			connect(se->Editor, SIGNAL(cursorPositionChanged()), se, SLOT(updateProps()));
-//			se->newAlign(se->Editor->currentParaStyle);
-		}
-		if (replaceStyleCheckBox->isChecked())
-			se->newStyle(m_doc->paragraphStyles()[replaceStyleValue->currentIndex()].name());
-		if (replaceAlignCheckBox->isChecked())
-			se->newAlign(replaceAlignValue->currentIndex());
-		if (replaceFillCheckBox->isChecked())
-			se->newTxFill(replaceFillValue->currentIndex(), -1);
-		if (replaceFillShadeCheckBox->isChecked())
-			se->newTxFill(-1, replaceFillShadeValue->getValue());
-		if (replaceStrokeCheckBox->isChecked())
-			se->newTxStroke(replaceStrokeValue->currentIndex(), -1);
-		if (replaceStrokeShadeCheckBox->isChecked())
-			se->newTxStroke(-1, replaceStrokeShadeValue->getValue());
-		if (replaceFontCheckBox->isChecked())
-			se->newTxFont(replaceFontValue->currentText());
-		if (replaceSizeCheckBox->isChecked())
-			se->newTxSize(replaceSizeSpinBox->value());
-		if (replaceEffectCheckBox->isChecked())
-			se->newTxStyle(replaceStyleEffectsValue->getStyle());
-
-		QTextCursor textCursor = se->Editor->textCursor();
-		int selStart = textCursor.selectionStart();
-		int selEnd   = textCursor.selectionEnd();
-		int selPos   = qMax(selStart, selEnd);
-		textCursor.setPosition(selPos);
-		se->Editor->setTextCursor(textCursor);
+		int oldMode = m_doc->appMode;
+		m_doc->appMode = modeEdit;
+		m_doc->itemSelection_SetNamedParagraphStyle(m_doc->paragraphStyles()[options.paragraphStyle].name());
+		m_doc->appMode = oldMode;
 	}
-	replaceButton->setEnabled(false);
-	replaceAllButton->setEnabled(false);
-	doSearch();
-}
 
-int SearchReplace::firstMatchCursorPosition() const
-{
-	return m_firstMatchPosition;
-}
+	if (options.alignmentEnabled)
+	{
+		int oldMode = m_doc->appMode;
+		m_doc->appMode = modeEdit;
+		m_doc->itemSelection_SetAlignment(options.alignment);
+		m_doc->appMode = oldMode;
+	}
 
-void SearchReplace::setSearchedText(const QString& text)
-{
-	if (searchTextCheckBox->isChecked())
-		searchTextLineEdit->setText(text);
+	if (options.fontEnabled)
+		m_doc->itemSelection_SetFont(options.font);
+
+	if (options.fontSizeEnabled)
+		m_doc->itemSelection_SetFontSize(options.fontSize);
+
+	// TODO: undo does not work
+	if (options.fontEffectsEnabled && (pageItem->itemText.hasSelection()))
+	{
+		int start = pageItem->itemText.startOfSelection();
+		int end = pageItem->itemText.endOfSelection();
+		int s = options.fontEffects & ScStyle_UserStyles;
+		m_doc->currentStyle.charStyle().setFeatures(static_cast<StyleFlag>(s).featureList()); // ???
+		for (int i = start; i < end; ++i)
+		{
+			CharStyle newFeatures;
+			newFeatures.setFeatures(static_cast<StyleFlag>(s).featureList());
+			pageItem->itemText.applyCharStyle(i, 1, newFeatures);
+		}
+	}
+
+	if (options.fillColorEnabled)
+		m_doc->itemSelection_SetFillColor(options.fillColor);
+
+	if (options.fillShadeEnabled)
+		m_doc->itemSelection_SetFillShade(options.fillShade);
+
+	if (options.strokeColorEnabled)
+		m_doc->itemSelection_SetStrokeColor(options.strokeColor);
+
+	if (options.strokeShadeEnabled)
+		m_doc->itemSelection_SetStrokeShade(options.strokeShade);
+
+	if (transaction)
+		transaction.commit();
 }
 
 void SearchReplace::slotReplaceAll()
 {
-	QScopedValueRollback<bool> replaceAllRollback(m_replacingAll, true);
+	m_searching = true;
+	updateButtonState();
+	showMessage();
 
-	if (m_itemMode)
-		m_doc->DoDrawing = false;
+	auto showOccurrences = [this](){showMessage(QString(messageOccurrences).arg(m_matchesFound));};
+	QTimer timer;
+	connect(&timer, &QTimer::timeout, showOccurrences);
+	timer.start(1000);
 
-	UndoTransaction undoTransaction;
-	if (m_itemMode && UndoManager::undoEnabled())
-		undoTransaction = UndoManager::instance()->beginTransaction(m_item->getUName(), m_item->getUPixmap());
-	do
-	{
-		doReplace();
-	}
-	while (m_found);
+	if (m_storyEditorMode)
+		replaceAllInStoryEditor();
+	else
+		replaceAllOnCanvas();
 
-	if (undoTransaction)
-		undoTransaction.commit();
-
-	if (m_itemMode)
-	{
-		m_doc->DoDrawing = true;
-		if (m_item->isTextFrame())
-			m_item->asTextFrame()->invalidateLayout(true);
-		m_doc->regionsChanged()->update(QRectF());
-	}
-
-	showNotFoundMessage();
+	timer.stop();
+	showOccurrences();
+	m_searching = false;
+	updateButtonState();
 }
 
-void SearchReplace::showNotFoundMessage()
+void SearchReplace::replaceAllInStoryEditor()
 {
-	if (m_found)
-		return;
+	auto options = getSearchOptions();
 
-	ScMessageBox::information(this, tr("Search/Replace"), tr("Search finished. ") + tr("%n match(es) found", "", m_matchesFound));
+	SEditor* storyTextEdit = m_doc->scMW()->CurrStED->Editor;
+	StoryText& storyText = storyTextEdit->StyledText;
+
+	bool found = false;
 	m_matchesFound = 0;
+
+	MatchRange match = getMatchRange(storyText, 0, storyText.length(), options);
+
+	while (match.start >= 0)
+	{
+		found = true;
+
+		QApplication::processEvents();
+		if (!m_searching)
+			break;
+
+		QTextCursor cursor = storyTextEdit->textCursor();
+		cursor.setPosition(match.start);
+		cursor.setPosition(match.end + 1, QTextCursor::KeepAnchor);
+		storyTextEdit->setTextCursor(cursor);
+
+		++m_matchesFound;
+		replaceSelectionInStoryEditor();
+
+		match = getMatchRange(storyText, match.start + 1, storyText.length(), options);
+	}
+
+	if (!found)
+		showMessage(tr(messageNoMatch));
 }
 
-void SearchReplace::enableTxSearch()
+void SearchReplace::replaceAllOnCanvas()
 {
-	bool setter = searchTextCheckBox->isChecked();
-	searchTextLineEdit->setEnabled(setter);
-	wholeWordCheckBox->setEnabled(setter);
-	ignoreCaseCheckBox->setEnabled(setter);
-	if (setter)
-		searchTextLineEdit->setFocus();
-	updateSearchButtonState();
+	// TODO: store the current page and go back to it when finished
+	// auto currentPage = m_doc->currentPage();
+	m_doc->DoDrawing = false;
+
+	auto options = getSearchOptions();
+
+	initCanvasSelection();
+
+	bool found = false;
+	m_matchesFound = 0;
+	m_currentPageItem = 0;
+	for (auto pageItem: m_pageItems)
+	{
+		selectPageItem(pageItem);
+		// TODO: createcreate  resetEditSelection() ?
+		if (m_doc->appMode != modeEdit)
+		{
+			m_doc->view()->requestMode(modeEdit);
+			pageItem->itemText.setCursorPosition(0);
+		}
+
+		StoryText& storyText = pageItem->itemText;
+
+		MatchRange match = getMatchRange(storyText, 0, storyText.length(), options);
+
+		while (match.start >= 0)
+		{
+			QApplication::processEvents();
+			if (!m_searching)
+				break;
+
+			found = true;
+			++m_matchesFound;
+
+			storyText.select(match.start, match.end + 1 - match.start);
+			storyText.setCursorPosition(match.end + 1);
+
+			replaceSelectionOnCanvas();
+
+			match = getMatchRange(storyText, match.start + 1, storyText.length(), options);
+
+		}
+
+		if (!m_searching)
+			break;
+		++m_currentPageItem;
+	}
+
+	if (!found)
+		showMessage(tr(messageNoMatch));
+
+	m_doc->view()->requestMode(modeNormal);
+
+	m_doc->DoDrawing = true;
+	// m_doc->setCurrentPage(currentPage);
+	// TODO: deselect the current item or select the first item on page
+	// updatePageItemSelection(m_pageItems[currentPage]);
+
+	for (auto pageItem: m_pageItems)
+		pageItem->asTextFrame()->invalidateLayout(true);
+	m_doc->regionsChanged()->update(QRectF());
+}
+
+
+void SearchReplace::slotCollapseFormat()
+{
+	m_stateCollapsed = !m_stateCollapsed;
+	collapseFormat();
+}
+
+void SearchReplace::collapseFormat()
+{
+	searchGroupBox->setVisible(!m_stateCollapsed);
+	replaceGroupBox->setVisible(!m_stateCollapsed);
+	// move the following line to setCollapseLabel() if we have to catch languageChange()
+	collapseButton->setText(m_stateCollapsed ? tr("More...") : tr("Less..."));
+	// It's important to call QApplication::processEvents() before calling adjustSize()
+	// https://stackoverflow.com/questions/1675499/how-do-i-auto-adjust-the-size-of-a-qdialog-depending-on-the-text-length-of-one-o#comment82074153_1679399
+	QTimer::singleShot(0, [this](){adjustSize();});
+}
+
+void SearchReplace::enableTextSearch()
+{
+	bool enabled = !searchTextValue->text().isEmpty();
+	wholeWordsCheckBox->setEnabled(enabled);
+	ignoreCaseCheckBox->setEnabled(enabled);
 }
 
 void SearchReplace::enableStyleSearch()
 {
-	searchStyleValue->setEnabled(searchStyleValue->count() ? searchStyleCheckBox->isChecked() : false);
-	updateSearchButtonState();
+	searchStyleComboBox->setEnabled(searchStyleCheckBox->isChecked());
 }
 
-void SearchReplace::enableAlignSearch()
+void SearchReplace::enableAlignmentSearch()
 {
-	searchAlignValue->setEnabled(searchAlignCheckBox->isChecked());
-	updateSearchButtonState();
+	searchAlignmentComboBox->setEnabled(searchAlignmentCheckBox->isChecked());
 }
 
 void SearchReplace::enableFontSearch()
 {
-	searchFontValue->setEnabled(searchFontCheckBox->isChecked());
-	updateSearchButtonState();
+	searchFontComboBox->setEnabled(searchFontCheckBox->isChecked());
 }
 
-void SearchReplace::enableSizeSearch()
+void SearchReplace::enableFontSizeSearch()
 {
-	searchSizeSpinBox->setEnabled(searchSizeCheckBox->isChecked());
-	updateSearchButtonState();
+	searchFontSizeSpinBox->setEnabled(searchFontSizeCheckBox->isChecked());
 }
 
-void SearchReplace::enableEffSearch()
+void SearchReplace::enableFontEffectsSearch()
 {
-	searchStyleEffectsValue->setEnabled(searchEffectCheckBox->isChecked());
-	updateSearchButtonState();
+	searchFontEffects->setEnabled(searchFontEffectsCheckBox->isChecked());
 }
 
-void SearchReplace::enableFillSearch()
+void SearchReplace::enableFillColorSearch()
 {
-	searchFillValue->setEnabled(searchFillCheckBox->isChecked());
-	updateSearchButtonState();
+	searchFillColorComboBox->setEnabled(searchFillColorCheckBox->isChecked());
 }
 
-void SearchReplace::enableFillSSearch()
+void SearchReplace::enableFillShadeSearch()
 {
-	searchFillShadeValue->setEnabled(searchFillShadeCheckBox->isChecked());
-	updateSearchButtonState();
+	searchFillShadeToolButton->setEnabled(searchFillShadeCheckBox->isChecked());
 }
 
-void SearchReplace::enableStrokeSearch()
+void SearchReplace::enableStrokeColorSearch()
 {
-	searchStrokeValue->setEnabled(searchStrokeCheckBox->isChecked());
-	updateSearchButtonState();
+	searchStrokeColorComboBox->setEnabled(searchStrokeColorCheckBox->isChecked());
 }
 
-void SearchReplace::enableStrokeSSearch()
+void SearchReplace::enableStrokeShadeSearch()
 {
-	searchStrokeShadeValue->setEnabled(searchStrokeShadeCheckBox->isChecked());
-	updateSearchButtonState();
-}
-
-void SearchReplace::enableTxReplace()
-{
-	replaceTextLineEdit->setEnabled(replaceTextCheckBox->isChecked());
-	if (replaceTextCheckBox->isChecked())
-		replaceTextLineEdit->setFocus();
-	updateReplaceButtonsState();
+	searchStrokeShadeToolButton->setEnabled(searchStrokeShadeCheckBox->isChecked());
 }
 
 void SearchReplace::enableStyleReplace()
 {
-	replaceStyleValue->setEnabled(replaceStyleCheckBox->isChecked());
-	updateReplaceButtonsState();
+	replaceStyleComboBox->setEnabled(replaceStyleCheckBox->isChecked());
 }
 
-void SearchReplace::enableAlignReplace()
+void SearchReplace::enableAlignmentReplace()
 {
-	replaceAlignValue->setEnabled(replaceAlignCheckBox->isChecked());
-	updateReplaceButtonsState();
+	replaceAlignmentComboBox->setEnabled(replaceAlignmentCheckBox->isChecked());
 }
 
 void SearchReplace::enableFontReplace()
 {
-	replaceFontValue->setEnabled(replaceFontCheckBox->isChecked());
-	updateReplaceButtonsState();
+	replaceFontComboBox->setEnabled(replaceFontCheckBox->isChecked());
 }
 
-void SearchReplace::enableSizeReplace()
+void SearchReplace::enableFontSizeReplace()
 {
-	replaceSizeSpinBox->setEnabled(replaceSizeCheckBox->isChecked());
-	updateReplaceButtonsState();
+	replaceFontSizeSpinBox->setEnabled(replaceFontSizeCheckBox->isChecked());
 }
 
-void SearchReplace::enableEffReplace()
+void SearchReplace::enableFontEffectsReplace()
 {
-	replaceStyleEffectsValue->setEnabled(replaceEffectCheckBox->isChecked());
-	updateReplaceButtonsState();
+	replaceFontEffects->setEnabled(replaceFontEffectsCheckBox->isChecked());
 }
 
-void SearchReplace::enableFillReplace()
+void SearchReplace::enableFillColorReplace()
 {
-	replaceFillValue->setEnabled(replaceFillCheckBox->isChecked());
-	updateReplaceButtonsState();
+	replaceFillColorComboBox->setEnabled(replaceFillColorCheckBox->isChecked());
 }
 
-void SearchReplace::enableFillSReplace()
+void SearchReplace::enableFillShadeReplace()
 {
-	replaceFillShadeValue->setEnabled(replaceFillShadeCheckBox->isChecked());
-	updateReplaceButtonsState();
+	replaceFillShadeToolButton->setEnabled(replaceFillShadeCheckBox->isChecked());
 }
 
-void SearchReplace::enableStrokeReplace()
+void SearchReplace::enableStrokeColorReplace()
 {
-	replaceStrokeValue->setEnabled(replaceStrokeCheckBox->isChecked());
-	updateReplaceButtonsState();
+	replaceStrokeColorComboBox->setEnabled(replaceStrokeColorCheckBox->isChecked());
 }
 
-void SearchReplace::enableStrokeSReplace()
+void SearchReplace::enableStrokeShadeReplace()
 {
-	replaceStrokeShadeValue->setEnabled(replaceStrokeShadeCheckBox->isChecked());
-	updateReplaceButtonsState();
+	replaceStrokeShadeToolButton->setEnabled(replaceStrokeShadeCheckBox->isChecked());
+}
+
+void SearchReplace::slotStop()
+{
+	m_searching = false;
 }
 
 void SearchReplace::clear()
 {
-	replaceEffectCheckBox->setChecked(false);
-	searchAlignCheckBox->setChecked(false);
-	searchEffectCheckBox->setChecked(false);
-	searchFillCheckBox->setChecked(false);
-	searchFillShadeCheckBox->setChecked(false);
-	searchFontCheckBox->setChecked(false);
-	searchSizeCheckBox->setChecked(false);
-	searchStrokeCheckBox->setChecked(false);
-	searchStrokeShadeCheckBox->setChecked(false);
-	searchStyleCheckBox->setChecked(false);
-	searchTextCheckBox->setChecked(false);
-	searchTextLineEdit->setText("");
-	int currentParaStyle = findParagraphStyle(m_doc, m_doc->currentStyle);
-	searchStyleValue->setCurrentIndex(currentParaStyle);
-	replaceAlignValue->setCurrentIndex(m_doc->currentStyle.alignment());
-	setCurrentComboItem(searchFontValue, m_doc->currentStyle.charStyle().font().scName());
-	setCurrentComboItem(searchFillValue, m_doc->currentStyle.charStyle().fillColor());
-	setCurrentComboItem(searchStrokeValue, m_doc->currentStyle.charStyle().strokeColor());
-	searchSizeSpinBox->setValue(m_doc->currentStyle.charStyle().fontSize() / 10.0);
-	replaceFillCheckBox->setChecked(false);
+	replaceAlignmentCheckBox->setChecked(false);
+	replaceFillColorCheckBox->setChecked(false);
 	replaceFillShadeCheckBox->setChecked(false);
 	replaceFontCheckBox->setChecked(false);
-	replaceSizeCheckBox->setChecked(false);
-	replaceStrokeCheckBox->setChecked(false);
+	replaceFontEffectsCheckBox->setChecked(false);
+	replaceFontSizeCheckBox->setChecked(false);
+	replaceStrokeColorCheckBox->setChecked(false);
 	replaceStrokeShadeCheckBox->setChecked(false);
 	replaceStyleCheckBox->setChecked(false);
-	replaceTextCheckBox->setChecked(false);
-	replaceTextLineEdit->setText("");
-	replaceStyleValue->setCurrentIndex(currentParaStyle);
-	replaceAlignValue->setCurrentIndex(m_doc->currentStyle.alignment());
-	setCurrentComboItem(replaceFontValue, m_doc->currentStyle.charStyle().font().scName());
-	setCurrentComboItem(replaceFillValue, m_doc->currentStyle.charStyle().fillColor());
-	setCurrentComboItem(replaceStrokeValue, m_doc->currentStyle.charStyle().strokeColor());
-	replaceSizeSpinBox->setValue(m_doc->currentStyle.charStyle().fontSize() / 10.0);
-	wholeWordCheckBox->setChecked(false);
+
+	searchAlignmentCheckBox->setChecked(false);
+	searchFillColorCheckBox->setChecked(false);
+	searchFillShadeCheckBox->setChecked(false);
+	searchFontCheckBox->setChecked(false);
+	searchFontEffectsCheckBox->setChecked(false);
+	searchFontSizeCheckBox->setChecked(false);
+	searchStrokeColorCheckBox->setChecked(false);
+	searchStrokeShadeCheckBox->setChecked(false);
+	searchStyleCheckBox->setChecked(false);
+
+	auto currentParaStyle = findParagraphStyle(m_doc, m_doc->currentStyle);
+
+	searchTextValue->setText("");
+	searchStyleComboBox->setCurrentIndex(currentParaStyle);
+	searchAlignmentComboBox->setCurrentIndex(m_doc->currentStyle.alignment());
+	setCurrentComboItem(searchFontComboBox, m_doc->currentStyle.charStyle().font().scName());
+	searchFontSizeSpinBox->setValue(m_doc->currentStyle.charStyle().fontSize() / 10.0);
+	setCurrentComboItem(searchFillColorComboBox, m_doc->currentStyle.charStyle().fillColor());
+	setCurrentComboItem(searchStrokeColorComboBox, m_doc->currentStyle.charStyle().strokeColor());
+
+	replaceTextValue->setText("");
+	replaceStyleComboBox->setCurrentIndex(currentParaStyle);
+	replaceAlignmentComboBox->setCurrentIndex(m_doc->currentStyle.alignment());
+	setCurrentComboItem(replaceFontComboBox, m_doc->currentStyle.charStyle().font().scName());
+	replaceFontSizeSpinBox->setValue(m_doc->currentStyle.charStyle().fontSize() / 10.0);
+	setCurrentComboItem(replaceFillColorComboBox, m_doc->currentStyle.charStyle().fillColor());
+	setCurrentComboItem(replaceStrokeColorComboBox, m_doc->currentStyle.charStyle().strokeColor());
+
+
 	ignoreCaseCheckBox->setChecked(false);
-	enableTxSearch();
-	enableStyleSearch();
-	enableFontSearch();
-	enableSizeSearch();
-	enableEffSearch();
-	enableFillSearch();
-	enableFillSSearch();
-	enableStrokeSearch();
-	enableStrokeSSearch();
-	enableTxReplace();
-	enableStyleReplace();
-	enableFontReplace();
-	enableSizeReplace();
-	enableEffReplace();
-	enableFillReplace();
-	enableFillSReplace();
-	enableStrokeReplace();
-	enableStrokeSReplace();
+	wholeWordsCheckBox->setChecked(false);
+	
+	replaceAlignmentComboBox->setEnabled(false);
+	replaceFillColorComboBox->setEnabled(false);
+	replaceFillShadeToolButton->setEnabled(false);
+	replaceFontComboBox->setEnabled(false);
+	replaceFontEffects->setEnabled(false);
+	replaceFontSizeSpinBox->setEnabled(false);
+	replaceStrokeColorComboBox->setEnabled(false);
+	replaceStrokeShadeToolButton->setEnabled(false);
+	replaceStyleComboBox->setEnabled(false);
+
+	searchAlignmentComboBox->setEnabled(false);
+	searchFillColorComboBox->setEnabled(false);
+	searchFillShadeToolButton->setEnabled(false);
+	searchFontComboBox->setEnabled(false);
+	searchFontEffects->setEnabled(false);
+	searchFontSizeSpinBox->setEnabled(false);
+	searchStrokeColorComboBox->setEnabled(false);
+	searchStrokeShadeToolButton->setEnabled(false);
+	searchStyleComboBox->setEnabled(false);
+
+	replaceAllButton->setEnabled(false);
+	replaceButton->setEnabled(false);
+	searchButton->setEnabled(false);
 }
 
-void SearchReplace::updateReplaceButtonsState()
+bool SearchReplace::anySearchChecked()
 {
-	bool replaceEnabled = false;
-	if (replaceFillCheckBox->isChecked() || replaceStrokeCheckBox->isChecked() || replaceStyleCheckBox->isChecked() || replaceFontCheckBox->isChecked()  ||
-		replaceStrokeShadeCheckBox->isChecked() || replaceFillShadeCheckBox->isChecked() || replaceSizeCheckBox->isChecked() || replaceEffectCheckBox->isChecked() ||
-		replaceAlignCheckBox->isChecked())
-	{
-		replaceEnabled = true;
-	}
-	replaceEnabled |= replaceTextCheckBox->isChecked();
-	if (m_itemMode)
-		replaceEnabled &= (m_item->itemText.hasSelection());
-	else if (m_doc->scMW()->CurrStED != nullptr)
-		replaceEnabled &= m_doc->scMW()->CurrStED->Editor->textCursor().hasSelection();
-	else
-		replaceEnabled = false;
-	replaceEnabled &= m_found;
-	replaceButton->setEnabled(replaceEnabled);
-	replaceAllButton->setEnabled(replaceEnabled);
+	return
+		!searchTextValue->text().isEmpty() ||
+		searchAlignmentCheckBox->isChecked() ||
+		searchFillColorCheckBox->isChecked() ||
+		searchFillShadeCheckBox->isChecked() ||
+		searchFontCheckBox->isChecked() ||
+		searchFontEffectsCheckBox->isChecked() ||
+		searchFontSizeCheckBox->isChecked() ||
+		searchStrokeColorCheckBox->isChecked() ||
+		searchStrokeShadeCheckBox->isChecked() ||
+		searchStyleCheckBox->isChecked();
 }
 
-void SearchReplace::updateSearchButtonState()
+bool SearchReplace::anyReplaceChecked()
 {
-	bool searchEnabled = false;
-	if (searchFillCheckBox->isChecked() || searchStrokeCheckBox->isChecked() || searchStyleCheckBox->isChecked() || searchFontCheckBox->isChecked() ||
-		searchStrokeShadeCheckBox->isChecked() || searchFillShadeCheckBox->isChecked() || searchSizeCheckBox->isChecked() || searchEffectCheckBox->isChecked() ||
-		searchAlignCheckBox->isChecked())
+	return
+		replaceAlignmentCheckBox->isChecked() ||
+		replaceFillColorCheckBox->isChecked() ||
+		replaceFillShadeCheckBox->isChecked() ||
+		replaceFontCheckBox->isChecked() ||
+		replaceFontEffectsCheckBox->isChecked() ||
+		replaceFontSizeCheckBox->isChecked() ||
+		replaceStrokeColorCheckBox->isChecked() ||
+		replaceStrokeShadeCheckBox->isChecked() ||
+		replaceStyleCheckBox->isChecked();
+}
+
+SearchReplace::Options SearchReplace::getSearchOptions()
+{
+	Options options{};
+
+	options.alignmentEnabled = searchAlignmentCheckBox->isChecked();
+	options.fillColorEnabled = searchFillColorCheckBox->isChecked();
+	options.fillShadeEnabled = searchFillShadeCheckBox->isChecked();
+	options.fontEffectsEnabled = searchFontEffectsCheckBox->isChecked();
+	options.fontEnabled = searchFontCheckBox->isChecked();
+	options.fontSizeEnabled = searchFontSizeCheckBox->isChecked();
+	options.ignoreCase = ignoreCaseCheckBox->isChecked();
+	options.paragraphStyleEnabled = searchStyleCheckBox->isChecked();
+	options.strokeColorEnabled = searchStrokeColorCheckBox->isChecked();
+	options.strokeShadeEnabled = searchStrokeShadeCheckBox->isChecked();
+	options.textEnabled = !searchTextValue->text().isEmpty();
+	options.wholeWords = wholeWordsCheckBox->isChecked();
+
+	if (options.textEnabled)
+		options.text = searchTextValue->text();
+	if (options.paragraphStyleEnabled)
+		options.paragraphStyle = searchStyleComboBox->currentIndex();
+	if (options.alignmentEnabled)
+		options.alignment = searchAlignmentComboBox->currentIndex();
+	if (options.fontEnabled)
+		options.font = searchFontComboBox->currentText();
+	if (options.fontSizeEnabled)
+		options.fontSize = qRound(searchFontSizeSpinBox->value() * 10);
+	if (options.fontEffectsEnabled)
+		options.fontEffects = searchFontEffects->getStyle();
+	if (options.fillColorEnabled)
+		options.fillColor = searchFillColorComboBox->currentText();
+	if (options.fillShadeEnabled)
+		options.fillShade = searchFillShadeToolButton->getValue();
+	if (options.strokeColorEnabled)
 	{
-		searchEnabled = true;
+		options.strokeColor = searchStrokeColorComboBox->currentText();
 	}
-	searchEnabled |= (searchTextCheckBox->isChecked() && !searchTextLineEdit->text().isEmpty());
-	searchButton->setEnabled(searchEnabled);
+	if (options.strokeShadeEnabled)
+		options.strokeShade = searchStrokeShadeToolButton->getValue();
+
+	return options;
+}
+
+SearchReplace::Options SearchReplace::getReplaceOptions()
+{
+	Options options{};
+
+	// replace if there is a text or if no format is selected
+	options.alignmentEnabled = replaceAlignmentCheckBox->isChecked();
+	options.fillColorEnabled = replaceFillColorCheckBox->isChecked();
+	options.fillShadeEnabled = replaceFillShadeCheckBox->isChecked();
+	options.fontEffectsEnabled = replaceFontEffectsCheckBox->isChecked();
+	options.fontEnabled = replaceFontCheckBox->isChecked();
+	options.fontSizeEnabled = replaceFontSizeCheckBox->isChecked();
+	options.paragraphStyleEnabled = replaceStyleCheckBox->isChecked();
+	options.strokeColorEnabled = replaceStrokeColorCheckBox->isChecked();
+	options.strokeShadeEnabled = replaceStrokeShadeCheckBox->isChecked();
+	options.textEnabled = !replaceTextValue->text().isEmpty() || !anyReplaceChecked();
+
+	if (options.textEnabled)
+		options.text = replaceTextValue->text();
+	if (options.paragraphStyleEnabled)
+		options.paragraphStyle = replaceStyleComboBox->currentIndex();
+	if (options.alignmentEnabled)
+		options.alignment = replaceAlignmentComboBox->currentIndex();
+	if (replaceFontCheckBox->isChecked())
+		options.font = replaceFontComboBox->currentText();
+	if (options.fontSizeEnabled)
+		options.fontSize = qRound(replaceFontSizeSpinBox->value() * 10);
+	if (options.fontEffectsEnabled)
+		options.fontEffects = replaceFontEffects->getStyle();
+	if (options.fillColorEnabled)
+	{
+		options.fillColor = replaceFillColorComboBox->currentText();
+		options.fillColorId = searchFillColorComboBox->currentIndex();
+	}
+	if (options.fillShadeEnabled)
+		options.fillShade = replaceFillShadeToolButton->getValue();
+	if (options.strokeColorEnabled)
+	{
+		options.strokeColor = replaceStrokeColorComboBox->currentText();
+		options.strokeColorId = searchStrokeColorComboBox->currentIndex();
+	}
+	if (options.strokeShadeEnabled)
+		options.strokeShade = replaceStrokeShadeToolButton->getValue();
+
+
+	return options;
+}
+
+void SearchReplace::updateButtonState()
+{
+	replaceAllButton->setVisible(!m_searching);
+	replaceButton->setVisible(!m_searching);
+	searchButton->setVisible(!m_searching);
+	stopButton->setVisible(m_searching);
+
+	bool enabled = anySearchChecked();
+
+	replaceAllButton->setEnabled(enabled);
+	replaceButton->setEnabled(enabled);
+	searchButton->setEnabled(enabled);
+}
+
+void SearchReplace::hideMessage()
+{
+	messageLabel->setVisible(false);
+}
+
+void SearchReplace::showMessage(const QString& message)
+{
+	messageLabel->setText(message);
+	messageLabel->setVisible(true);
 }
 
 void SearchReplace::readPrefs()
 {
-	searchAlignCheckBox->setChecked(m_prefs->getBool("SAlign", false));
-	searchEffectCheckBox->setChecked(m_prefs->getBool("SEffect", false));
-	searchFillCheckBox->setChecked(m_prefs->getBool("SFill", false));
-	searchFillShadeCheckBox->setChecked(m_prefs->getBool("SFillS", false));
-	searchFontCheckBox->setChecked(m_prefs->getBool("SFont", false));
-	searchSizeCheckBox->setChecked(m_prefs->getBool("SSize", false));
-	searchStrokeCheckBox->setChecked(m_prefs->getBool("SStroke", false));
-	searchStrokeShadeCheckBox->setChecked(m_prefs->getBool("SStrokeS", false));
-	searchStyleCheckBox->setChecked(m_prefs->getBool("SStyle", false));
-	searchTextCheckBox->setChecked(m_prefs->getBool("SText", true));
-	replaceEffectCheckBox->setChecked(m_prefs->getBool("REffect", false));
-	searchTextLineEdit->setText(m_prefs->get("STextVal", ""));
-	int tmp = m_prefs->getInt("SStyleVal", findParagraphStyle(m_doc, m_doc->currentStyle.parent()));
-	if (tmp < 0 || tmp >= searchStyleValue->count())
-		tmp = 0;
-	searchStyleValue->setCurrentIndex(tmp);
-	tmp = m_prefs->getInt("SAlignVal", m_doc->currentStyle.alignment());
-	if (tmp < 0 || tmp >= searchAlignValue->count())
-		tmp = 0;
-	searchAlignValue->setCurrentIndex(tmp);
-	setCurrentComboItem(searchFontValue, m_prefs->get("SFontVal", m_doc->currentStyle.charStyle().font().scName()));
-	setCurrentComboItem(searchFillValue, m_prefs->get("SFillVal", m_doc->currentStyle.charStyle().fillColor()));
-	setCurrentComboItem(searchStrokeValue, m_prefs->get("SStrokeVal", m_doc->currentStyle.charStyle().strokeColor()));
-	searchSizeSpinBox->setValue(m_prefs->getDouble("SSizeVal", m_doc->currentStyle.charStyle().fontSize() / 10.0));
-	replaceAlignCheckBox->setChecked(m_prefs->getBool("RAlign", false));
-	replaceFillCheckBox->setChecked(m_prefs->getBool("RFill", false));
-	replaceFillShadeCheckBox->setChecked(m_prefs->getBool("RFillS", false));
-	replaceFontCheckBox->setChecked(m_prefs->getBool("RFont", false));
-	replaceSizeCheckBox->setChecked(m_prefs->getBool("RSize", false));
-	replaceStrokeCheckBox->setChecked(m_prefs->getBool("RStroke", false));
-	replaceStrokeShadeCheckBox->setChecked(m_prefs->getBool("RStrokeS", false));
-	replaceStyleCheckBox->setChecked(m_prefs->getBool("RStyle", false));
-	replaceTextCheckBox->setChecked(m_prefs->getBool("RText", true));
-	replaceTextLineEdit->setText(m_prefs->get("RTextVal", ""));
-	tmp = m_prefs->getInt("RStyleVal", findParagraphStyle(m_doc, m_doc->currentStyle.parent()));
-	if (tmp < 0 || tmp >= replaceStyleValue->count())
-		tmp = 0;
-	replaceStyleValue->setCurrentIndex(tmp);
-	tmp = m_prefs->getInt("RAlignVal", m_doc->currentStyle.alignment());
-	if (tmp < 0 || tmp >= replaceAlignValue->count())
-		tmp = 0;
-	replaceAlignValue->setCurrentIndex(tmp);
-	setCurrentComboItem(replaceFontValue, m_prefs->get("RFontVal", m_doc->currentStyle.charStyle().font().scName()));
-	setCurrentComboItem(replaceFillValue, m_prefs->get("RFillVal", m_doc->currentStyle.charStyle().fillColor()));
-	setCurrentComboItem(replaceStrokeValue, m_prefs->get("RStrokeVal", m_doc->currentStyle.charStyle().strokeColor()));
-	replaceSizeSpinBox->setValue(m_prefs->getDouble("RSizeVal", m_doc->currentStyle.charStyle().fontSize() / 10.0));
-	wholeWordCheckBox->setChecked(m_prefs->getBool("Word", false));
-	ignoreCaseCheckBox->setChecked(m_prefs->getBool("CaseIgnore", false));
+	m_stateCollapsed = m_prefs->getBool("collapsed", false);
 
-	enableTxSearch();
-	enableStyleSearch();
-	enableAlignSearch();
-	enableFontSearch();
-	enableSizeSearch();
-	enableEffSearch();
-	enableFillSearch();
-	enableFillSSearch();
-	enableStrokeSearch();
-	enableStrokeSSearch();
-	enableTxReplace();
-	enableStyleReplace();
-	enableAlignReplace();
+	QRect screen = QApplication::primaryScreen()->availableGeometry();
+	// int left = m_prefs->getInt("left", screen.width() > width() ? (screen.width() - width()) / 2 : 0);
+	// int top = m_prefs->getInt("top", screen.height() > height() ? (screen.height() - height()) / 2 : 0);
+	// ensure that it's in the screen
+	// if (left + width() > screen.width())
+	// 	left = screen.width() - left;
+	// if (left < 0)
+	// 	left = 0;
+	// move(left, top);
+
+	replaceAlignmentCheckBox->setChecked(m_prefs->getBool("replaceAlignment", false));
+	replaceFillColorCheckBox->setChecked(m_prefs->getBool("replaceFillColor", false));
+	replaceFillShadeCheckBox->setChecked(m_prefs->getBool("replaceFillColorShade", false));
+	replaceFontCheckBox->setChecked(m_prefs->getBool("replaceFont", false));
+	replaceFontEffectsCheckBox->setChecked(m_prefs->getBool("replaceFontEffects", false));
+	replaceFontSizeCheckBox->setChecked(m_prefs->getBool("replaceFontSize", false));
+	replaceFontSizeSpinBox->setValue(m_prefs->getDouble("replaceFontSizeValue", m_doc->currentStyle.charStyle().fontSize() / 10.0));
+	replaceStrokeColorCheckBox->setChecked(m_prefs->getBool("replaceStrokeColor", false));
+	replaceStrokeShadeCheckBox->setChecked(m_prefs->getBool("replaceStrokeShade", false));
+	replaceStyleCheckBox->setChecked(m_prefs->getBool("replaceParagraphStyle", false));
+	replaceTextValue->setText(m_prefs->get("replaceTextValue", ""));
+	searchAlignmentCheckBox->setChecked(m_prefs->getBool("searchAlignment", false));
+	searchFillColorCheckBox->setChecked(m_prefs->getBool("searchFillColor", false));
+	searchFillShadeCheckBox->setChecked(m_prefs->getBool("searchFillColorShade", false));
+	searchFontCheckBox->setChecked(m_prefs->getBool("searchFont", false));
+	searchFontEffectsCheckBox->setChecked(m_prefs->getBool("searchFontEffects", false));
+	searchFontSizeCheckBox->setChecked(m_prefs->getBool("searchFontSize", false));
+	searchFontSizeSpinBox->setValue(m_prefs->getDouble("searchFontSizeValue", m_doc->currentStyle.charStyle().fontSize() / 10.0));
+	searchStrokeColorCheckBox->setChecked(m_prefs->getBool("searchStrokeColor", false));
+	searchStrokeShadeCheckBox->setChecked(m_prefs->getBool("searchStrokeColorShade", false));
+	searchStyleCheckBox->setChecked(m_prefs->getBool("searchParagraphStyle", false));
+	searchTextValue->setText(m_prefs->get("searchTextValue", ""));
+
+	int tmp = m_prefs->getInt("replaceStyleValue", findParagraphStyle(m_doc, m_doc->currentStyle));
+	if (tmp < 0 || tmp >= replaceStyleComboBox->count())
+		tmp = 0;
+	replaceStyleComboBox->setCurrentIndex(tmp);
+
+	tmp = m_prefs->getInt("replaceAlignmentValue", m_doc->currentStyle.alignment());
+	if (tmp < 0 || tmp >= replaceAlignmentComboBox->count())
+		tmp = 0;
+	replaceAlignmentComboBox->setCurrentIndex(tmp);
+
+	tmp = m_prefs->getInt("searchParagraphStyleValue", findParagraphStyle(m_doc, m_doc->currentStyle));
+	if (tmp < 0 || tmp >= searchStyleComboBox->count())
+		tmp = 0;
+	searchStyleComboBox->setCurrentIndex(tmp);
+
+	tmp = m_prefs->getInt("searchAlignmentValue", m_doc->currentStyle.alignment());
+	if (tmp < 0 || tmp >= searchAlignmentComboBox->count())
+		tmp = 0;
+	searchAlignmentComboBox->setCurrentIndex(tmp);
+
+	setCurrentComboItem(replaceFillColorComboBox, m_prefs->get("replaceFillColorValue", m_doc->currentStyle.charStyle().fillColor()));
+	setCurrentComboItem(replaceFontComboBox, m_prefs->get("replaceFontValue", m_doc->currentStyle.charStyle().font().scName()));
+	setCurrentComboItem(replaceStrokeColorComboBox, m_prefs->get("replaceStrokeColorValue", m_doc->currentStyle.charStyle().strokeColor()));
+	setCurrentComboItem(searchFillColorComboBox, m_prefs->get("searchFillColorValue", m_doc->currentStyle.charStyle().fillColor()));
+	setCurrentComboItem(searchFontComboBox, m_prefs->get("searchFontValue", m_doc->currentStyle.charStyle().font().scName()));
+	setCurrentComboItem(searchStrokeColorComboBox, m_prefs->get("searchStrokeColorValue", m_doc->currentStyle.charStyle().strokeColor()));
+
+	ignoreCaseCheckBox->setChecked(m_prefs->getBool("ignoreCase", false));
+	wholeWordsCheckBox->setChecked(m_prefs->getBool("wholeword", false));
+
+	enableAlignmentReplace();
+	enableAlignmentSearch();
+	enableFillColorReplace();
+	enableFillColorSearch();
+	enableFillShadeReplace();
+	enableFillShadeSearch();
+	enableFontEffectsReplace();
+	enableFontEffectsSearch();
 	enableFontReplace();
-	enableSizeReplace();
-	enableEffReplace();
-	enableFillReplace();
-	enableFillSReplace();
-	enableStrokeReplace();
-	enableStrokeSReplace();
+	enableFontSearch();
+	enableFontSizeReplace();
+	enableFontSizeSearch();
+	enableStrokeColorReplace();
+	enableStrokeColorSearch();
+	enableStrokeShadeReplace();
+	enableStrokeShadeSearch();
+	enableStyleReplace();
+	enableStyleSearch();
+	enableTextSearch();
 
-	if (searchTextCheckBox->isChecked() && replaceTextCheckBox->isChecked())
-		searchTextLineEdit->setFocus();
+	updateButtonState();
+
+	searchTextValue->setFocus();
+}
+
+void SearchReplace::accept()
+{
+	writePrefs();
+	QDialog::accept();
 }
 
 void SearchReplace::writePrefs()
 {
-	m_prefs->set("CaseIgnore", ignoreCaseCheckBox->isChecked());
-	m_prefs->set("RAlign", replaceAlignCheckBox->isChecked());
-	m_prefs->set("RAlignVal", replaceAlignValue->currentIndex());
-	m_prefs->set("REffect", replaceEffectCheckBox->isChecked());
-	m_prefs->set("RFill", replaceFillCheckBox->isChecked());
-	m_prefs->set("RFillS", replaceFillShadeCheckBox->isChecked());
-	m_prefs->set("RFillVal", replaceFillValue->currentText());
-	m_prefs->set("RFont", replaceFontCheckBox->isChecked());
-	m_prefs->set("RFontVal", replaceFontValue->currentText());
-	m_prefs->set("RSize", replaceSizeCheckBox->isChecked());
-	m_prefs->set("RSizeVal", replaceSizeSpinBox->value());
-	m_prefs->set("RStroke", replaceStrokeCheckBox->isChecked());
-	m_prefs->set("RStrokeS", replaceStrokeShadeCheckBox->isChecked());
-	m_prefs->set("RStrokeVal", replaceStrokeValue->currentText());
-	m_prefs->set("RStyle", replaceStyleCheckBox->isChecked());
-	m_prefs->set("RStyleVal", replaceStyleValue->currentText());
-	m_prefs->set("RText", replaceTextCheckBox->isChecked());
-	m_prefs->set("RTextVal", replaceTextLineEdit->text());
-	m_prefs->set("SAlign", searchAlignCheckBox->isChecked());
-	m_prefs->set("SAlignVal", searchAlignValue->currentIndex());
-	m_prefs->set("SEffect", searchEffectCheckBox->isChecked());
-	m_prefs->set("SFill", searchFillCheckBox->isChecked());
-	m_prefs->set("SFillS", searchFillShadeCheckBox->isChecked());
-	m_prefs->set("SFillVal", searchFillValue->currentText());
-	m_prefs->set("SFont", searchFontCheckBox->isChecked());
-	m_prefs->set("SFontVal", searchFontValue->currentText());
-	m_prefs->set("SSize", searchSizeCheckBox->isChecked());
-	m_prefs->set("SSizeVal", searchSizeSpinBox->value());
-	m_prefs->set("SStroke", searchStrokeCheckBox->isChecked());
-	m_prefs->set("SStrokeS", searchStrokeShadeCheckBox->isChecked());
-	m_prefs->set("SStrokeVal", searchStrokeValue->currentText());
-	m_prefs->set("SStyle", searchStyleCheckBox->isChecked());
-	m_prefs->set("SStyleVal", searchStyleValue->currentIndex());
-	m_prefs->set("SText", searchTextCheckBox->isChecked());
-	m_prefs->set("STextVal", searchTextLineEdit->text());
-	m_prefs->set("Word", wholeWordCheckBox->isChecked());
-	accept();
+	m_prefs->set("collapsed", m_stateCollapsed);
+	m_prefs->set("left", pos().x());
+	m_prefs->set("top", pos().y());
+	m_prefs->set("replaceAlignment", replaceAlignmentCheckBox->isChecked());
+	m_prefs->set("replaceAlignmentValue", replaceAlignmentComboBox->currentIndex());
+	m_prefs->set("replaceFillColor", replaceFillColorCheckBox->isChecked());
+	m_prefs->set("replaceFillColorShade", replaceFillShadeCheckBox->isChecked());
+	m_prefs->set("replaceFillColorValue", replaceFillColorComboBox->currentText());
+	m_prefs->set("replaceFont", replaceFontCheckBox->isChecked());
+	m_prefs->set("replaceFontEffects", replaceFontEffectsCheckBox->isChecked());
+	m_prefs->set("replaceFontSize", replaceFontSizeCheckBox->isChecked());
+	m_prefs->set("replaceFontSizeValue", replaceFontSizeSpinBox->value());
+	m_prefs->set("replaceFontValue", replaceFontComboBox->currentText());
+	m_prefs->set("replaceParagraphStyle", replaceStyleCheckBox->isChecked());
+	m_prefs->set("replaceStrokeColor", replaceStrokeColorCheckBox->isChecked());
+	m_prefs->set("replaceStrokeColorValue", replaceStrokeColorComboBox->currentText());
+	m_prefs->set("replaceStrokeShade", replaceStrokeShadeCheckBox->isChecked());
+	m_prefs->set("replaceStyleValue", replaceStyleComboBox->currentText());
+	m_prefs->set("replaceTextValue", replaceTextValue->text());
+	m_prefs->set("searchAlignment", searchAlignmentCheckBox->isChecked());
+	m_prefs->set("searchAlignmentValue", searchAlignmentComboBox->currentIndex());
+	m_prefs->set("searchFillColor", searchFillColorCheckBox->isChecked());
+	m_prefs->set("searchFillColorShade", replaceFillShadeCheckBox->isChecked());
+	m_prefs->set("searchFillColorValue", searchFillColorComboBox->currentText());
+	m_prefs->set("searchFont", searchFontCheckBox->isChecked());
+	m_prefs->set("searchFontEffects", searchFontEffectsCheckBox->isChecked());
+	m_prefs->set("searchFontSize", searchFontSizeCheckBox->isChecked());
+	m_prefs->set("searchFontSizeValue", searchFontSizeSpinBox->value());
+	m_prefs->set("searchFontValue", searchFontComboBox->currentText());
+	m_prefs->set("searchParagraphStyle", searchStyleCheckBox->isChecked());
+	m_prefs->set("searchParagraphStyleValue", searchStyleComboBox->currentIndex());
+	m_prefs->set("searchStrokeColor", searchStrokeColorCheckBox->isChecked());
+	m_prefs->set("searchStrokeColorValue", searchStrokeColorComboBox->currentText());
+	m_prefs->set("searchStrokeShade", searchStrokeShadeCheckBox->isChecked());
+	m_prefs->set("searchTextValue", searchTextValue->text());
+	m_prefs->set("ignoreCase", ignoreCaseCheckBox->isChecked());
+	m_prefs->set("wholeword", wholeWordsCheckBox->isChecked());
 }

@@ -7,150 +7,174 @@ for which a new license (GPL+exception) is in place.
 #ifndef SEARCHREPLACE_H
 #define SEARCHREPLACE_H
 
-#include <QDialog>
-
-class QCheckBox;
-class QComboBox;
-class QGridLayout;
-class QGroupBox;
-class QHBoxLayout;
-class QLabel;
-class QLineEdit;
-class QPushButton;
-class QVBoxLayout;
+#include "ui_searchbase.h"
 
 #include "scribusapi.h"
 
-class ColorCombo;
-class FontCombo;
-class PageItem;
 class PrefsContext;
-class ScribusDoc;
-class ScrSpinBox;
-class ShadeButton;
-class StoryText;
-class StyleSelect;
+class ParagraphStyle;
+class CharStyle;
 
-class SCRIBUS_API SearchReplace : public QDialog
+class ScribusDoc;
+class PageItem;
+
+class SCRIBUS_API SearchReplace : public QDialog, Ui::SearchReplaceBase
 {
 	Q_OBJECT
 
+private:
+	struct Options 
+	{
+		bool alignmentEnabled { false };
+		bool fillColorEnabled { false };
+		bool fillShadeEnabled { false };
+		bool fontEffectsEnabled { false };
+		bool fontEnabled { false };
+		bool fontSizeEnabled { false };
+		bool ignoreCase { false };
+		bool paragraphStyleEnabled { false };
+		bool strokeColorEnabled { false };
+		bool strokeShadeEnabled { false };
+		bool textEnabled { false };
+		bool wholeWords { false };
+
+		QString fillColor;
+		QString font;
+		QString strokeColor;
+		QString text;
+		int alignment { 0 };
+		int fillColorId { 0 };
+		int fillShade { 100 };
+		int fontEffects { 0 };
+		int fontSize { 0 };
+		int paragraphStyle { 0 };
+		int strokeColorId { 0 };
+		int strokeShade { 100 };
+	};
+
+	struct MatchRange
+	{
+		int start;
+		int end;
+		int nextPosition;
+	};
+
 public:
-	SearchReplace(QWidget* parent, ScribusDoc *doc, PageItem* item, bool mode = true );
+	// mode is false when calling from the story editor
+	SearchReplace( QWidget* parent, ScribusDoc *doc);
 	~SearchReplace() {};
 
-	int firstMatchCursorPosition() const;
-	void setSearchedText(const QString& text);
+	void setStoryEditorMode(bool mode = true) {m_storyEditorMode = true;}
+	QPair<int, int> cursorPosition();
+	//! \brief fill the text field with the current selection, if the selection does not contain a newline.
+	void processCurrentSelection(QString selection);
 
 public slots:
-	virtual void slotSearch();
-	virtual void slotReplace();
-	virtual void slotReplaceAll();
-	virtual void enableTxSearch();
-	virtual void enableStyleSearch();
-	virtual void enableAlignSearch();
-	virtual void enableFontSearch();
-	virtual void enableSizeSearch();
-	virtual void enableEffSearch();
-	virtual void enableFillSearch();
-	virtual void enableFillSSearch();
-	virtual void enableStrokeSearch();
-	virtual void enableStrokeSSearch();
-	virtual void enableTxReplace();
-	virtual void enableStyleReplace();
-	virtual void enableAlignReplace();
-	virtual void enableFontReplace();
-	virtual void enableSizeReplace();
-	virtual void enableEffReplace();
-	virtual void enableFillReplace();
-	virtual void enableFillSReplace();
-	virtual void enableStrokeReplace();
-	virtual void enableStrokeSReplace();
-	virtual void updateReplaceButtonsState();
-	virtual void updateSearchButtonState();
-	virtual void writePrefs();
-	virtual void clear();
+	void slotCollapseFormat();
+	void slotSearch();
+	void slotReplace();
+	void slotReplaceAll();
+	void slotStop();
+	void clear();
+	void accept() override;
 
-protected:
-	PageItem* m_item { nullptr };
-	ScribusDoc* m_doc { nullptr };
+	void enableTextSearch();
+	void enableStyleSearch();
+	void enableAlignmentSearch();
+	void enableFontSearch();
+	void enableFontSizeSearch();
+	void enableFontEffectsSearch();
+	void enableFillColorSearch();
+	void enableFillShadeSearch();
+	void enableStrokeColorSearch();
+	void enableStrokeShadeSearch();
+	void enableStyleReplace();
+	void enableAlignmentReplace();
+	void enableFontReplace();
+	void enableFontSizeReplace();
+	void enableFontEffectsReplace();
+	void enableFillColorReplace();
+	void enableFillShadeReplace();
+	void enableStrokeColorReplace();
+	void enableStrokeShadeReplace();
 
-	PrefsContext* m_prefs { nullptr };
-	bool m_found { false };
+	void updateButtonState();
+
+private:
+	ScribusDoc* m_doc;
+
+	bool m_storyEditorMode { false };
 	bool m_itemMode;
-	bool m_replacingAll { false };
+	bool m_stateCollapsed { true };
 
-	QVBoxLayout* SearchReplaceLayout { nullptr };
-	QHBoxLayout* SelLayout { nullptr };
-	QGridLayout* SearchLayout { nullptr };
-	QGridLayout* ReplaceLayout { nullptr };
-	QHBoxLayout* OptsLayout { nullptr };
-	QHBoxLayout* ButtonsLayout { nullptr };
+	PrefsContext* m_prefs;
 
-	ColorCombo* replaceFillValue { nullptr };
-	ColorCombo* replaceStrokeValue { nullptr };
-	ColorCombo* searchFillValue { nullptr };
-	ColorCombo* searchStrokeValue { nullptr };
-	FontCombo* replaceFontValue { nullptr };
-	FontCombo* searchFontValue { nullptr };
-	QCheckBox* ignoreCaseCheckBox { nullptr };
-	QCheckBox* replaceAlignCheckBox { nullptr };
-	QCheckBox* replaceEffectCheckBox { nullptr };
-	QCheckBox* replaceFillCheckBox { nullptr };
-	QCheckBox* replaceFillShadeCheckBox { nullptr };
-	QCheckBox* replaceFontCheckBox { nullptr };
-	QCheckBox* replaceSizeCheckBox { nullptr };
-	QCheckBox* replaceStrokeCheckBox { nullptr };
-	QCheckBox* replaceStrokeShadeCheckBox { nullptr };
-	QCheckBox* replaceStyleCheckBox { nullptr };
-	QCheckBox* replaceTextCheckBox { nullptr };
-	QCheckBox* searchAlignCheckBox { nullptr };
-	QCheckBox* searchEffectCheckBox { nullptr };
-	QCheckBox* searchFillCheckBox { nullptr };
-	QCheckBox* searchFillShadeCheckBox { nullptr };
-	QCheckBox* searchFontCheckBox { nullptr };
-	QCheckBox* searchSizeCheckBox { nullptr };
-	QCheckBox* searchStrokeCheckBox { nullptr };
-	QCheckBox* searchStrokeShadeCheckBox { nullptr };
-	QCheckBox* searchStyleCheckBox { nullptr };
-	QCheckBox* searchTextCheckBox { nullptr };
-	QCheckBox* wholeWordCheckBox { nullptr };
-	QComboBox* replaceAlignValue { nullptr };
-	QComboBox* replaceStyleValue { nullptr };
-	QComboBox* searchAlignValue { nullptr };
-	QComboBox* searchStyleValue { nullptr };
-	QGroupBox* replaceGroupBox { nullptr };
-	QGroupBox* searchGroupBox { nullptr };
-	QLabel* replaceTextLabel { nullptr };
-	QLabel* searchTextLabel { nullptr };
-	QLineEdit* replaceTextLineEdit { nullptr };
-	QLineEdit* searchTextLineEdit { nullptr };
-	QPushButton* clearButton { nullptr };
-	QPushButton* closeButton { nullptr };
-	QPushButton* replaceAllButton { nullptr };
-	QPushButton* replaceButton { nullptr };
-	QPushButton* searchButton { nullptr };
-	ScrSpinBox* replaceSizeSpinBox { nullptr };
-	ScrSpinBox* searchSizeSpinBox { nullptr };
-	ShadeButton* replaceFillShadeValue { nullptr };
-	ShadeButton* replaceStrokeShadeValue { nullptr };
-	ShadeButton* searchFillShadeValue { nullptr };
-	ShadeButton* searchStrokeShadeValue { nullptr };
-	StyleSelect* replaceStyleEffectsValue { nullptr };
-	StyleSelect* searchStyleEffectsValue { nullptr };
+	void collapseFormat();
+	void readPrefs();
+	void writePrefs();
 
-	virtual void doSearch();
-	virtual void doSearch_itemMode();
-	virtual void doSearch_storyEdMode();
-	virtual int  doSearch_storyText(const StoryText& storyText, int start, int& textLen);
-	virtual void doReplace();
-	virtual void showNotFoundMessage();
-	virtual void readPrefs();
+	void hideMessage();
+	void showMessage(const QString& message = QString());
+	const char* messageNoMatch = "No match found";
+	const char* messageEndOfSelection = "Reached the end of the selection";
+	const char* messageOccurrences = "%1 occurrences replaced";
 
-	/// Number of matches found thus far in a search
+
+	void searchInStoryEditor();
+	void searchOnCanvas();
+	//! /brief Search storyText starting from start.
+	//! /param length The length of the story
+	//! /return The start and end position of the selection or (-1, -1) if nothing found.
+	QPair<int, int> searchStory(const StoryText& storyText, int start, const int length, const Options& options);
+
+	//! \brief Check if there is a match starting at position
+	//!
+	//! When textEnabled, the resulting start position might be different than position.
+	MatchRange getMatchRange(const StoryText& storyText, int position, const int length, const Options& options);
+	//! If the current selection matches the search, replace the selection.
+	// Otherwise do a search.
+	void replaceInStoryEditor();
+	void replaceOnCanvas();
+	//! \brief if the current selection matches the search, replace the selection.
+	// otherwise do a search.
+	void replaceSelectionInStoryEditor();
+	void replaceSelectionOnCanvas();
+	void replaceAllInStoryEditor();
+	void replaceAllOnCanvas();
+
+	//! \brief Initialize pageItems based on the current selection
+	void initCanvasSelection();
+	//! \brief Put all the document's text frames into pageItems
+	void readAllPageItems();
+	//! \brief Put all the selected text frames into pageItems
+	void readSelectedPageItems();
+	PageItem* currentPageItem();
+	void nextPageItem();
+	void selectPageItem(PageItem* pageItem);
+
+	std::vector<PageItem*> m_pageItems {};
+	size_t m_currentPageItem { 0 };
+	bool m_endReached { false };
+
+	bool m_found { false };
+	bool m_searching { false };
+	//! Number of matches found (thus far) in a search
 	int m_matchesFound { 0 };
-	int m_firstMatchPosition { -1 };
 
+	void updatePageItemSelection(PageItem* pageItem);
+
+	// \brief is any search checkbox checked?
+	bool anySearchChecked();
+	// \brief is any replace checkbox checked?
+	bool anyReplaceChecked();
+	Options getSearchOptions();
+	Options getReplaceOptions();
+	// \brief Check for all search options but the text
+	bool isFormatMatching(const ParagraphStyle& parStyle, const CharStyle& charStyle, const Options& options);
+
+	// TODO: isn't 0, 0 good enough?
+	int m_selectionStart { -1} ;
+	int m_selectionEnd { -1 };
 };
 
 #endif // SEARCHREPLACE_H

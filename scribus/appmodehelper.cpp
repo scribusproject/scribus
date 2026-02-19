@@ -212,15 +212,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 	{
 		case modeNormal:
 			{
-				bool editSearchReplace = false;
-				if (currItem != nullptr)
-				{
-					editSearchReplace |= currItem->isTextFrame();
-					editSearchReplace |= currItem->itemText.isNotEmpty();
-					editSearchReplace |= (doc->m_Selection->count() == 1);
-				}
-				(*a_scrActions)["editSearchReplace"]->setEnabled(editSearchReplace);
-
+				(*a_scrActions)["editSearchReplace"]->setEnabled(true);
 				(*a_scrActions)["editCut"]->setEnabled(currItem != nullptr);
 				(*a_scrActions)["editCopy"]->setEnabled(currItem != nullptr);
 				(*a_scrActions)["editClearContents"]->setEnabled(currItem != nullptr);
@@ -289,7 +281,8 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 				}
 				(*a_scrActions)["editPaste"]->setEnabled(false);
 				(*a_scrActions)["editPastePlainText"]->setEnabled(false);
-				if (currItem != nullptr && currItem->isTextFrame())
+				bool isTextFrame = currItem->isTextFrame();
+				if (currItem != nullptr && isTextFrame)
 				{
 					scmw->charPalette->setEnabled(true, currItem);
 					enableTextActions(true, currItem->currentCharStyle().font().scName());
@@ -298,18 +291,18 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 				}
 				if (ScMimeData::clipboardHasScribusData())
 				{
-					bool textFrameEditMode = ((currItem != nullptr) && (currItem->isTextFrame()));
-					(*a_scrActions)["editPaste"]->setEnabled( textFrameEditMode || (currItem == nullptr) );
+					bool textFrameEditMode = ((currItem != nullptr) && isTextFrame);
+					(*a_scrActions)["editPaste"]->setEnabled( isTextFrame || (currItem == nullptr) );
 					(*a_scrActions)["editPastePlainText"]->setEnabled( textFrameEditMode || (currItem == nullptr) );
 				}
 				setTextEditMode(true);
-
+				(*a_scrActions)["editSearchReplace"]->setEnabled(isTextFrame);
 				if (currItem != nullptr)
 				{
 					(*a_scrActions)["editCut"]->setEnabled(currItem->HasSel);
 					(*a_scrActions)["editCopy"]->setEnabled(currItem->HasSel);
 					(*a_scrActions)["editClearContents"]->setEnabled(currItem->HasSel);
-					(*a_scrActions)["editTruncateContents"]->setEnabled(currItem->HasSel && currItem->isTextFrame());
+					(*a_scrActions)["editTruncateContents"]->setEnabled(currItem->HasSel && isTextFrame);
 					(*a_scrActions)["editSearchReplace"]->setEnabled(true);
 				}
 			}
@@ -527,7 +520,6 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["editCopyContents"]->setEnabled(false);
 			(*a_scrActions)["editClearContents"]->setEnabled(false);
 			(*a_scrActions)["editTruncateContents"]->setEnabled(false);
-			(*a_scrActions)["editSearchReplace"]->setEnabled(false);
 			(*a_scrActions)["extrasHyphenateText"]->setEnabled(false);
 			(*a_scrActions)["extrasDeHyphenateText"]->setEnabled(false);
 
@@ -553,7 +545,6 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["editCopy"]->setEnabled(!inAnEditMode);
 			(*a_scrActions)["editClearContents"]->setEnabled(true);
 			(*a_scrActions)["editTruncateContents"]->setEnabled(false);
-			(*a_scrActions)["editSearchReplace"]->setEnabled(false);
 			(*a_scrActions)["extrasHyphenateText"]->setEnabled(false);
 			(*a_scrActions)["extrasDeHyphenateText"]->setEnabled(false);
 			(*a_scrActions)["itemDuplicate"]->setEnabled(true);
@@ -602,7 +593,6 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			//scrMenuMgr->setMenuEnabled("EditContents", true);
 			(*a_scrActions)["editClearContents"]->setEnabled(true);
 			(*a_scrActions)["editTruncateContents"]->setEnabled(true);
-			(*a_scrActions)["editSearchReplace"]->setEnabled(currItem->itemText.length() != 0);
 			(*a_scrActions)["extrasHyphenateText"]->setEnabled(true);
 			(*a_scrActions)["extrasDeHyphenateText"]->setEnabled(true);
 			//		scrMenuMgr->setMenuEnabled("Item", true);
@@ -708,7 +698,6 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["editCopy"]->setEnabled(!inAnEditMode);
 			(*a_scrActions)["editClearContents"]->setEnabled(false);
 			(*a_scrActions)["editTruncateContents"]->setEnabled(false);
-			(*a_scrActions)["editSearchReplace"]->setEnabled(false);
 			(*a_scrActions)["extrasHyphenateText"]->setEnabled(false);
 			(*a_scrActions)["extrasDeHyphenateText"]->setEnabled(false);
 			//		scrMenuMgr->setMenuEnabled("Item", true);
@@ -756,7 +745,6 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["editCopy"]->setEnabled(!inAnEditMode);
 			(*a_scrActions)["editClearContents"]->setEnabled(false);
 			(*a_scrActions)["editTruncateContents"]->setEnabled(false);
-			(*a_scrActions)["editSearchReplace"]->setEnabled(false);
 
 			(*a_scrActions)["extrasHyphenateText"]->setEnabled(false);
 			(*a_scrActions)["extrasDeHyphenateText"]->setEnabled(false);
@@ -855,7 +843,6 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["itemConvertToSymbolFrame"]->setEnabled(false);
 			(*a_scrActions)["itemShapeEdit"]->setEnabled(false);
 		}
-		(*a_scrActions)["editSearchReplace"]->setEnabled(false);
 
 		bool hPoly = true;
 		for (int i = 0; i < docSelectionCount; ++i)

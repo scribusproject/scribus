@@ -2955,16 +2955,24 @@ void StoryEditor::SearchText()
 {
 	m_blockUpdate = true;
 	EditorBar->setRepaint(false);
-	QScopedPointer<SearchReplace> dia(new SearchReplace(this, m_doc, m_item, false));
-	if (dia->exec())
+	SearchReplace dia(this, m_doc);
+
+	dia.setStoryEditorMode(true);
+
+	dia.processCurrentSelection(Editor->textCursor().selectedText());
+
+	if (dia.exec())
 	{
-		int pos = dia->firstMatchCursorPosition();
-		if (pos >= 0)
+		// TODO: when available: const auto [start, end] = ...
+		const auto pos = dia.cursorPosition();
+		if (pos.first >= 0)
 		{
-			QTextCursor tCursor = Editor->textCursor();
-			tCursor.setPosition(pos);
-			Editor->setTextCursor(tCursor);
-			Editor->SelStack.push(std::make_tuple(pos, -1, Editor->verticalScrollBar()->value()));
+			// TODO: why isn't enough to set the cursor in the search dialog?
+			QTextCursor cursor = Editor->textCursor();
+			cursor.setPosition(pos.first);
+			cursor.setPosition(pos.second, QTextCursor::KeepAnchor);
+			Editor->setTextCursor(cursor);
+			Editor->SelStack.push(std::make_tuple(pos.first, pos.second, Editor->verticalScrollBar()->value()));
 		}
 	}
 	QApplication::processEvents();

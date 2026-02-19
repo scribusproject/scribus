@@ -8323,26 +8323,13 @@ void ScribusMainWindow::EditTabs()
 
 void ScribusMainWindow::SearchText()
 {
-	bool wasModeEdit = (doc->appMode == modeEdit);
-
-	PageItem *currItem = doc->m_Selection->itemAt(0);
-	if (!wasModeEdit)
+	SearchReplace dia(this, doc);
+	if (doc->appMode == modeEdit)
 	{
-		view->requestMode(modeEdit);
-		currItem->itemText.setCursorPosition(0);
+		PageItem *currItem = doc->m_Selection->itemAt(0);
+		dia.processCurrentSelection(currItem->itemText.selectedText());
 	}
-	
-	SearchReplace* dia = new SearchReplace(this, doc, currItem);
-	if (wasModeEdit)
-	{
-		QString selText = currItem->itemText.selectedText();
-		if (!selText.isEmpty())
-			dia->setSearchedText(selText);
-	}
-	dia->exec();
-	dia->disconnect();
-	delete dia;
-	//slotSelect();
+	dia.exec();
 }
 
 /* call gimp and wait upon completion */

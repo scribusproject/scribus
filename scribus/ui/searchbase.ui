@@ -1,0 +1,604 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SearchReplaceBase</class>
+ <widget class="QDialog" name="SearchReplaceBase">
+  <property name="windowModality">
+   <enum>Qt::WindowModality::ApplicationModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>668</width>
+    <height>517</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>Search/Replace</string>
+  </property>
+  <property name="modal">
+   <bool>true</bool>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <item>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="0">
+        <widget class="QLabel" name="searchTextLabel">
+         <property name="text">
+          <string>Search:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="searchTextValue">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>250</width>
+           <height>0</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QCheckBox" name="wholeWordsCheckBox">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string>&amp;Whole Word</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QCheckBox" name="ignoreCaseCheckBox">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string>&amp;Ignore Case, Diacritics and Kashida</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QGridLayout" name="gridLayout_4">
+       <item row="0" column="0">
+        <widget class="QLabel" name="replaceTextLabel">
+         <property name="text">
+          <string>Replace:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="replaceTextValue">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>250</width>
+           <height>0</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Orientation::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="collapseButton">
+           <property name="text">
+            <string>More...</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="1" column="1">
+        <spacer name="horizontalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="messageLabel">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="text">
+      <string>Feedback</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QGroupBox" name="searchGroupBox">
+       <property name="title">
+        <string/>
+       </property>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="11" column="1">
+         <widget class="ColorCombo" name="searchStrokeColorComboBox">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QComboBox" name="searchAlignmentComboBox">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="11" column="0">
+         <widget class="QCheckBox" name="searchStrokeColorCheckBox">
+          <property name="text">
+           <string>Stroke Colour</string>
+          </property>
+         </widget>
+        </item>
+        <item row="10" column="1">
+         <widget class="ShadeButton" name="searchFillShadeToolButton">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="text">
+           <string>...</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="1">
+         <widget class="ScrSpinBox" name="searchFontSizeSpinBox">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="minimum">
+           <double>0.500000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>2048.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0">
+         <widget class="QCheckBox" name="searchAlignmentCheckBox">
+          <property name="text">
+           <string>Alignment</string>
+          </property>
+         </widget>
+        </item>
+        <item row="9" column="1">
+         <widget class="ColorCombo" name="searchFillColorComboBox">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="12" column="0">
+         <widget class="QCheckBox" name="searchStrokeShadeCheckBox">
+          <property name="text">
+           <string>Stroke Shade</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="1">
+         <widget class="StyleSelect" name="searchFontEffects" native="true">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="0">
+         <widget class="QCheckBox" name="searchFontSizeCheckBox">
+          <property name="text">
+           <string>Font Size</string>
+          </property>
+         </widget>
+        </item>
+        <item row="9" column="0">
+         <widget class="QCheckBox" name="searchFillColorCheckBox">
+          <property name="text">
+           <string>Fill Colour</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0">
+         <widget class="QCheckBox" name="searchFontCheckBox">
+          <property name="text">
+           <string>Font</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="0">
+         <widget class="QCheckBox" name="searchFontEffectsCheckBox">
+          <property name="text">
+           <string>Font Effects</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1">
+         <widget class="FontCombo" name="searchFontComboBox">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="12" column="1">
+         <widget class="ShadeButton" name="searchStrokeShadeToolButton">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="text">
+           <string>...</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QComboBox" name="searchStyleComboBox">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
+        </item>
+        <item row="10" column="0">
+         <widget class="QCheckBox" name="searchFillShadeCheckBox">
+          <property name="text">
+           <string>Fill Shade</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QCheckBox" name="searchStyleCheckBox">
+          <property name="text">
+           <string>Style</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="replaceGroupBox">
+       <property name="title">
+        <string/>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="5" column="0">
+         <widget class="QCheckBox" name="replaceFontEffectsCheckBox">
+          <property name="text">
+           <string>Font Effects</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="0">
+         <widget class="QCheckBox" name="replaceStrokeColorCheckBox">
+          <property name="text">
+           <string>Stroke Colour</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QCheckBox" name="replaceStyleCheckBox">
+          <property name="text">
+           <string>Style</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QCheckBox" name="replaceAlignmentCheckBox">
+          <property name="text">
+           <string>Alignment</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0">
+         <widget class="QCheckBox" name="replaceFillColorCheckBox">
+          <property name="text">
+           <string>Fill Colour</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QCheckBox" name="replaceFontCheckBox">
+          <property name="text">
+           <string>Font</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QCheckBox" name="replaceFontSizeCheckBox">
+          <property name="text">
+           <string>Font Size</string>
+          </property>
+         </widget>
+        </item>
+        <item row="9" column="0">
+         <widget class="QCheckBox" name="replaceStrokeShadeCheckBox">
+          <property name="text">
+           <string>Stroke Shade</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="0">
+         <widget class="QCheckBox" name="replaceFillShadeCheckBox">
+          <property name="text">
+           <string>Fill Shade</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QComboBox" name="replaceStyleComboBox">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="StyleSelect" name="replaceFontEffects" native="true">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="ScrSpinBox" name="replaceFontSizeSpinBox">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="minimum">
+           <double>0.500000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>2048.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="FontCombo" name="replaceFontComboBox">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QComboBox" name="replaceAlignmentComboBox">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1">
+         <widget class="ColorCombo" name="replaceFillColorComboBox">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="1">
+         <widget class="ShadeButton" name="replaceFillShadeToolButton">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="text">
+           <string>...</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="1">
+         <widget class="ColorCombo" name="replaceStrokeColorComboBox">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="9" column="1">
+         <widget class="ShadeButton" name="replaceStrokeShadeToolButton">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="text">
+           <string>...</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QPushButton" name="searchButton">
+       <property name="text">
+        <string>&amp;Search</string>
+       </property>
+       <property name="default">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="replaceButton">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>&amp;Replace</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="replaceAllButton">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Replace &amp;All</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="stopButton">
+       <property name="enabled">
+        <bool>true</bool>
+       </property>
+       <property name="text">
+        <string>&amp;Stop</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="clearButton">
+       <property name="text">
+        <string>C&amp;lear</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="closeButton">
+       <property name="text">
+        <string>&amp;Close</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ScrSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>ui/scrspinbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>StyleSelect</class>
+   <extends>QWidget</extends>
+   <header>ui/styleselect.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>FontCombo</class>
+   <extends>QComboBox</extends>
+   <header>ui/fontcombo.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ColorCombo</class>
+   <extends>QComboBox</extends>
+   <header>ui/colorcombo.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ShadeButton</class>
+   <extends>QToolButton</extends>
+   <header>ui/shadebutton.h</header>
+  </customwidget>
+ </customwidgets>
+ <tabstops>
+  <tabstop>searchTextValue</tabstop>
+  <tabstop>replaceTextValue</tabstop>
+  <tabstop>searchButton</tabstop>
+  <tabstop>replaceButton</tabstop>
+  <tabstop>replaceAllButton</tabstop>
+  <tabstop>wholeWordsCheckBox</tabstop>
+  <tabstop>ignoreCaseCheckBox</tabstop>
+  <tabstop>collapseButton</tabstop>
+  <tabstop>searchStyleCheckBox</tabstop>
+  <tabstop>searchStyleComboBox</tabstop>
+  <tabstop>replaceStyleCheckBox</tabstop>
+  <tabstop>replaceStyleComboBox</tabstop>
+  <tabstop>searchAlignmentCheckBox</tabstop>
+  <tabstop>searchAlignmentComboBox</tabstop>
+  <tabstop>replaceAlignmentCheckBox</tabstop>
+  <tabstop>replaceAlignmentComboBox</tabstop>
+  <tabstop>searchFontCheckBox</tabstop>
+  <tabstop>searchFontComboBox</tabstop>
+  <tabstop>replaceFontCheckBox</tabstop>
+  <tabstop>replaceFontComboBox</tabstop>
+  <tabstop>searchFontSizeCheckBox</tabstop>
+  <tabstop>searchFontSizeSpinBox</tabstop>
+  <tabstop>replaceFontSizeCheckBox</tabstop>
+  <tabstop>replaceFontSizeSpinBox</tabstop>
+  <tabstop>searchFontEffectsCheckBox</tabstop>
+  <tabstop>replaceFontEffectsCheckBox</tabstop>
+  <tabstop>searchFillColorCheckBox</tabstop>
+  <tabstop>searchFillColorComboBox</tabstop>
+  <tabstop>replaceFillColorCheckBox</tabstop>
+  <tabstop>replaceFillColorComboBox</tabstop>
+  <tabstop>searchFillShadeCheckBox</tabstop>
+  <tabstop>searchFillShadeToolButton</tabstop>
+  <tabstop>replaceFillShadeCheckBox</tabstop>
+  <tabstop>replaceFillShadeToolButton</tabstop>
+  <tabstop>searchStrokeColorCheckBox</tabstop>
+  <tabstop>searchStrokeColorComboBox</tabstop>
+  <tabstop>replaceStrokeColorCheckBox</tabstop>
+  <tabstop>replaceStrokeColorComboBox</tabstop>
+  <tabstop>searchStrokeShadeCheckBox</tabstop>
+  <tabstop>searchStrokeShadeToolButton</tabstop>
+  <tabstop>replaceStrokeShadeCheckBox</tabstop>
+  <tabstop>replaceStrokeShadeToolButton</tabstop>
+  <tabstop>clearButton</tabstop>
+  <tabstop>closeButton</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>

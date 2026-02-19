@@ -829,6 +829,8 @@ void StoryText::replaceSelection(const QString& newText)
 	int selLength = selectionLength();
 
 	int lengthDiff = newText.length() - selLength;
+
+	/*
 	if (lengthDiff == 0)
 	{
 		for (int i = 0; i < selLength; ++i)
@@ -847,6 +849,20 @@ void StoryText::replaceSelection(const QString& newText)
 			replaceChar(selStart + i, newText[i]);
 		removeChars(selStart + newText.length(), -lengthDiff);
 	}
+	*/
+
+	if (lengthDiff > 0)
+	{
+		// extend the selected string with its last char until the lengths match
+		auto lastChar = selectedText().mid(selLength -1, 1);
+		insertChars(selStart + selLength -1, lastChar.repeated(lengthDiff), true);
+	}
+
+	for (int i = 0; i < newText.length(); ++i)
+		replaceChar(selStart + i, newText[i]);
+
+	if (lengthDiff < 0)
+		removeChars(selStart + newText.length(), -lengthDiff);
 
 	deselectAll();
 	if (!newText.isEmpty())
