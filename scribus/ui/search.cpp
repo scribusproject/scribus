@@ -1089,7 +1089,7 @@ bool SearchReplace::anyReplaceChecked()
 
 SearchReplace::Options SearchReplace::getSearchOptions()
 {
-	Options options{};
+	Options options;
 
 	options.alignmentEnabled = searchAlignmentCheckBox->isChecked();
 	options.fillColorEnabled = searchFillColorCheckBox->isChecked();
@@ -1132,7 +1132,7 @@ SearchReplace::Options SearchReplace::getSearchOptions()
 
 SearchReplace::Options SearchReplace::getReplaceOptions()
 {
-	Options options{};
+	Options options;
 
 	// replace if there is a text or if no format is selected
 	options.alignmentEnabled = replaceAlignmentCheckBox->isChecked();
@@ -1224,7 +1224,7 @@ void SearchReplace::readPrefs()
 	replaceFontSizeCheckBox->setChecked(m_prefs->getBool("replaceFontSize", false));
 	replaceFontSizeSpinBox->setValue(m_prefs->getDouble("replaceFontSizeValue", m_doc->currentStyle.charStyle().fontSize() / 10.0));
 	replaceStrokeColorCheckBox->setChecked(m_prefs->getBool("replaceStrokeColor", false));
-	replaceStrokeShadeCheckBox->setChecked(m_prefs->getBool("replaceStrokeShade", false));
+	replaceStrokeShadeCheckBox->setChecked(m_prefs->getBool("replaceStrokeColorShade", false));
 	replaceStyleCheckBox->setChecked(m_prefs->getBool("replaceParagraphStyle", false));
 	replaceTextValue->setText(m_prefs->get("replaceTextValue", ""));
 	searchAlignmentCheckBox->setChecked(m_prefs->getBool("searchAlignment", false));
@@ -1318,7 +1318,7 @@ void SearchReplace::writePrefs()
 	m_prefs->set("replaceParagraphStyle", replaceStyleCheckBox->isChecked());
 	m_prefs->set("replaceStrokeColor", replaceStrokeColorCheckBox->isChecked());
 	m_prefs->set("replaceStrokeColorValue", replaceStrokeColorComboBox->currentText());
-	m_prefs->set("replaceStrokeShade", replaceStrokeShadeCheckBox->isChecked());
+	m_prefs->set("replaceStrokeColorShade", replaceStrokeShadeCheckBox->isChecked());
 	m_prefs->set("replaceStyleValue", replaceStyleComboBox->currentText());
 	m_prefs->set("replaceTextValue", replaceTextValue->text());
 	m_prefs->set("searchAlignment", searchAlignmentCheckBox->isChecked());

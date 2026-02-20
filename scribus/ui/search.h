@@ -42,6 +42,7 @@ private:
 		QString font;
 		QString strokeColor;
 		QString text;
+
 		int alignment { 0 };
 		int fillColorId { 0 };
 		int fillShade { 100 };
