@@ -238,7 +238,7 @@ bool ScImgDataLoader_JPEGXL::decodeJpegXlOneShot(const uint8_t *jxl, size_t size
 			size_t icc_size;
 			if (JXL_DEC_SUCCESS !=
 					JxlDecoderGetICCProfileSize(
-						dec.get(), &format, JXL_COLOR_PROFILE_TARGET_DATA, &icc_size))
+						dec.get(), JXL_COLOR_PROFILE_TARGET_DATA, &icc_size))
 			{
 				fprintf(stderr, "JxlDecoderGetICCProfileSize failed\n");
 				return false;
@@ -246,7 +246,7 @@ bool ScImgDataLoader_JPEGXL::decodeJpegXlOneShot(const uint8_t *jxl, size_t size
 			icc_profile->resize(icc_size);
 			icc_profile->fill(0);
 			if (JXL_DEC_SUCCESS != JxlDecoderGetColorAsICCProfile(
-						dec.get(), &format,
+						dec.get(),
 						JXL_COLOR_PROFILE_TARGET_DATA,
 						reinterpret_cast<uint8_t *>(icc_profile->data()), icc_profile->size()))
 			{

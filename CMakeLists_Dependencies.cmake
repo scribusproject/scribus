@@ -211,8 +211,7 @@ endif()
 #>>LibXML2
 
 #<<JPEG XL
-set(JXL_DIR ${CMAKE_MODULE_PATH})
-#find_package(JXL)
+find_package(JXL)
 if(JXL_FOUND)
 	set(HAVE_JXL ON)
 	message("JPEG XL Library Found OK")

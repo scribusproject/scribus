@@ -309,7 +309,7 @@ if(HAVE_PODOFO)
 endif()
 
 if(HAVE_JXL)
-	target_link_libraries(${EXE_NAME} PRIVATE ${JXL_LIBRARY} ${JXL_THREADS_LIBRARY})
+	target_link_libraries(${EXE_NAME} PRIVATE ${JXL_LIBRARY} ${JXL_CMS_LIBRARY} ${JXL_THREADS_LIBRARY})
 endif()
 
 if(HAVE_OSG)
