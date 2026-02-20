@@ -12,6 +12,7 @@ to the COPYING file provided with the program.
 */
 
 #include <QDateTime>
+#include <QFileInfo>
 
 #include "documentlogmanager.h"
 
