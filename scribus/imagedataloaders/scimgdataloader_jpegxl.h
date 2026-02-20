@@ -17,6 +17,15 @@ for which a new license (GPL+exception) is in place.
 class ScImgDataLoader_JPEGXL : public ScImgDataLoader
 {
 public:
+
+	struct JXLImageInfo
+	{
+			size_t width;
+			size_t height;
+			int channels;
+			int bits_per_sample;
+	};
+
 	ScImgDataLoader_JPEGXL();
 
 	bool preloadAlphaChannel(const QString& fn, int page, int res, bool& hasAlpha) override;
@@ -26,15 +35,9 @@ public:
 protected:
 	void initSupportedFormatList();
 	bool loadFile(const char* filename, std::vector<uint8_t>* out);
-	bool decodeJpegXlOneShot(const uint8_t* jxl, size_t size,
-							 std::vector<float>* pixels, size_t* xsize,
-							 size_t* ysize, QByteArray* icc_profile);
-	QImage tmpImage;
-	JxlBasicInfo m_basicinfo;
-	QImage::Format m_input_image_format;
-//	QImage::Format m_target_image_format;
+	bool decodeJpegXlOneShot(const uint8_t* jxl, size_t size, std::vector<uint8_t>* pixels, JXLImageInfo *imageInfo, QByteArray* icc_profile);
 
-	JxlPixelFormat m_input_pixel_format;
+	JxlBasicInfo m_basicinfo;
 
 };
 
