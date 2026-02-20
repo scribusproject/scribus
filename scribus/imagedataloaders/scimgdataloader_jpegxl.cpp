@@ -17,7 +17,6 @@ https://github.com/libjxl/libjxl/blob/main/examples/decode_oneshot.cc
 #include <QObject>
 
 #include <inttypes.h>
-#include <string>
 #include <vector>
 
 #include <jxl/resizable_parallel_runner.h>
@@ -25,7 +24,7 @@ https://github.com/libjxl/libjxl/blob/main/examples/decode_oneshot.cc
 
 #include "scconfig.h"
 #include "scimgdataloader_jpegxl.h"
-#include "scribuscore.h"
+#include "documentlogmanager.h"
 #include "exif.h"
 
 ScImgDataLoader_JPEGXL::ScImgDataLoader_JPEGXL()
@@ -54,13 +53,18 @@ bool ScImgDataLoader_JPEGXL::preloadAlphaChannel(const QString& fn, int /*page*/
 bool ScImgDataLoader_JPEGXL::loadPicture(const QString& fn, int /*page*/, int res, bool thumbnail)
 {
 	if (!QFile::exists(fn))
+	{
+		m_message = DocumentLogManager::msgFileNotFound(fn);
+		m_msgType = errorMsg;
 		return false;
+	}
 	initialize();
 
 	std::vector<uint8_t> jxl;
 	if (!loadFile(fn.toLocal8Bit(), &jxl))
 	{
-		qDebug() << "Couldn't load " << fn;
+		m_message = QObject::tr("Failed to read file: %1").arg(fn);
+		m_msgType = errorMsg;
 		return false;
 	}
 
@@ -69,7 +73,9 @@ bool ScImgDataLoader_JPEGXL::loadPicture(const QString& fn, int /*page*/, int re
 	JXLImageInfo imageInfo;
 	if (!decodeJpegXlOneShot(jxl.data(), jxl.size(), &pixels, &imageInfo, &icc_data))
 	{
-		qDebug() << "Error while decoding the jxl file " << fn;
+		// qDebug() << "Error while decoding the jxl file " << fn;
+		m_message = DocumentLogManager::msgDecoderError(fn, "JPEG XL");
+		m_msgType = errorMsg;
 		return false;
 	}
 
@@ -215,14 +221,16 @@ bool ScImgDataLoader_JPEGXL::decodeJpegXlOneShot(const uint8_t *jxl, size_t size
 	if (JXL_DEC_SUCCESS != JxlDecoderSubscribeEvents(dec.get(),
 		JXL_DEC_BASIC_INFO | JXL_DEC_COLOR_ENCODING | JXL_DEC_FULL_IMAGE))
 	{
-		qWarning("JxlDecoderSubscribeEvents failed");
+		m_message = QObject::tr("JPEG XL: JxlDecoderSubscribeEvents failed");
+		m_msgType = errorMsg;
 		return false;
 	}
 
 	if (JXL_DEC_SUCCESS != JxlDecoderSetParallelRunner(dec.get(),
 		JxlResizableParallelRunner, runner.get()))
 	{
-		qWarning("JxlDecoderSetParallelRunner failed");
+		m_message = QObject::tr("JPEG XL: JxlDecoderSetParallelRunner failed");
+		m_msgType = errorMsg;
 		return false;
 	}
 
@@ -238,19 +246,22 @@ bool ScImgDataLoader_JPEGXL::decodeJpegXlOneShot(const uint8_t *jxl, size_t size
 
 		if (status == JXL_DEC_ERROR)
 		{
-			qWarning("JXL decoder error");
+			m_message = QObject::tr("JPEG XL: decoder error");
+			m_msgType = errorMsg;
 			return false;
 		}
 		else if (status == JXL_DEC_NEED_MORE_INPUT)
 		{
-			qWarning("JXL error: already provided all input");
+			m_message = QObject::tr("JPEG XL: error, already provided all input");
+			m_msgType = errorMsg;
 			return false;
 		}
 		else if (status == JXL_DEC_BASIC_INFO)
 		{
 			if (JXL_DEC_SUCCESS != JxlDecoderGetBasicInfo(dec.get(), &info))
 			{
-				qWarning("JxlDecoderGetBasicInfo failed");
+				m_message = QObject::tr("JPEG XL: JxlDecoderGetBasicInfo failed");
+				m_msgType = errorMsg;
 				return false;
 			}
 
@@ -271,8 +282,7 @@ bool ScImgDataLoader_JPEGXL::decodeJpegXlOneShot(const uint8_t *jxl, size_t size
 
 			format.num_channels = imageInfo->channels;
 
-			JxlResizableParallelRunnerSetThreads(runner.get(),
-				JxlResizableParallelRunnerSuggestThreads(info.xsize, info.ysize));
+			JxlResizableParallelRunnerSetThreads(runner.get(), JxlResizableParallelRunnerSuggestThreads(info.xsize, info.ysize));
 		}
 		else if (status == JXL_DEC_COLOR_ENCODING)
 		{
@@ -280,7 +290,8 @@ bool ScImgDataLoader_JPEGXL::decodeJpegXlOneShot(const uint8_t *jxl, size_t size
 			if (JXL_DEC_SUCCESS != JxlDecoderGetICCProfileSize(dec.get(),
 				JXL_COLOR_PROFILE_TARGET_DATA, &icc_size))
 			{
-				qWarning("JxlDecoderGetICCProfileSize failed");
+				m_message = QObject::tr("JPEG XL: JxlDecoderGetICCProfileSize failed");
+				m_msgType = errorMsg;
 				return false;
 			}
 			icc_profile->resize(icc_size);
@@ -289,7 +300,8 @@ bool ScImgDataLoader_JPEGXL::decodeJpegXlOneShot(const uint8_t *jxl, size_t size
 				JXL_COLOR_PROFILE_TARGET_DATA,
 				reinterpret_cast<uint8_t*>(icc_profile->data()), icc_profile->size()))
 			{
-				qWarning("JxlDecoderGetColorAsICCProfile failed");
+				m_message = QObject::tr("JPEG XL: JxlDecoderGetColorAsICCProfile failed");
+				m_msgType = errorMsg;
 				return false;
 			}
 		}
@@ -298,16 +310,22 @@ bool ScImgDataLoader_JPEGXL::decodeJpegXlOneShot(const uint8_t *jxl, size_t size
 			size_t buffer_size;
 			if (JXL_DEC_SUCCESS != JxlDecoderImageOutBufferSize(dec.get(), &format, &buffer_size))
 			{
-				qWarning("JxlDecoderImageOutBufferSize failed");
+				m_message = QObject::tr("JPEG XL: JxlDecoderImageOutBufferSize failed");
+				m_msgType = errorMsg;
 				return false;
 			}
 
-			int bytesPerSample = (imageInfo->bits_per_sample > 8) ? 2 : 1;
+			int bytesPerSample;
+			if (imageInfo->bits_per_sample == -1)
+				bytesPerSample = -1;
+			else
+				bytesPerSample = (imageInfo->bits_per_sample > 8) ? 2 : 1;
 			size_t expected = (size_t) imageInfo->width * imageInfo->height * imageInfo->channels * bytesPerSample;
 			if (buffer_size != expected)
 			{
-				qWarning("Invalid out buffer size %" PRIu64 " expected %" PRIu64,
-					static_cast<uint64_t>(buffer_size), static_cast<uint64_t>(expected));
+				QString msg = QString("Invalid out buffer size %1, expected %2").arg(static_cast<uint64_t>(buffer_size), static_cast<uint64_t>(expected));
+				m_message = msg;
+				m_msgType = errorMsg;
 				return false;
 			}
 
@@ -315,7 +333,8 @@ bool ScImgDataLoader_JPEGXL::decodeJpegXlOneShot(const uint8_t *jxl, size_t size
 			if (JXL_DEC_SUCCESS != JxlDecoderSetImageOutBuffer(dec.get(), &format,
 				pixels->data(), pixels->size()))
 			{
-				qWarning("JxlDecoderSetImageOutBuffer failed");
+				m_message = QObject::tr("JPEG XL: JxlDecoderSetImageOutBuffer failed");
+				m_msgType = errorMsg;
 				return false;
 			}
 		}
@@ -335,7 +354,8 @@ bool ScImgDataLoader_JPEGXL::decodeJpegXlOneShot(const uint8_t *jxl, size_t size
 		}
 		else
 		{
-			qWarning("Unknown JXL decoder status");
+			m_message = QObject::tr("JPEG XL: Unknown JXL decoder status");
+			m_msgType = errorMsg;
 			return false;
 		}
 	}

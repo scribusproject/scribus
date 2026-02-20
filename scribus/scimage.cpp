@@ -20,6 +20,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "cmsettings.h"
 #include "commonstrings.h"
+#include "documentlogmanager.h"
 #include "exif.h"
 #include "rawimage.h"
 #include "sccolorengine.h"
@@ -2347,6 +2348,16 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 	}
 	else
 	{
+		ScribusDoc* doc = cmSettings.doc();
+		if (!doc && ScCore->primaryMainWindow())
+			doc = ScCore->primaryMainWindow()->doc;
+		if (doc)
+		{
+			DocumentLogManager::instance().addLog(doc->uuidString(),
+												  DocumentLogLevel::Error, "Image Loader",
+												  pDataLoader->issuedErrorMsg() ? pDataLoader->getMessage()
+																				: DocumentLogManager::msgFileImportFailed(fn));
+		}
 		if	(ScCore->usingGUI() && pDataLoader->issuedErrorMsg() && showMsg)
 		{
 			ScMessageBox::critical(ScCore->primaryMainWindow(), CommonStrings::trWarning, pDataLoader->getMessage());

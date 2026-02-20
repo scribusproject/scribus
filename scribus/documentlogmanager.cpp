@@ -41,6 +41,16 @@ QString DocumentLogManager::msgFileNotFound(const QString& filename)
 	return tr("File not found: %1").arg(filename);
 }
 
+QString DocumentLogManager::msgDecoderError(const QString& filename, const QString& detail)
+{
+	return tr("Failed to decode '%1': %2").arg(QFileInfo(filename).fileName(), detail);
+}
+
+QString DocumentLogManager::msgMemoryAllocationFailed(const QString& filename)
+{
+	return tr("Memory allocation failed while loading '%1'").arg(QFileInfo(filename).fileName());
+}
+
 void DocumentLogManager::addLog(const QString& docID, DocumentLogLevel level, const QString& source, const QString& message, const QString& details)
 {
 	DocumentLogEntry entry{QDateTime::currentDateTime(), level, source, message, details};

@@ -25,8 +25,8 @@ public:
 	{
 		size_t width;
 		size_t height;
-		int channels;
-		int bits_per_sample;
+		int channels { -1 };
+		int bits_per_sample { -1 };
 	};
 
 	ScImgDataLoader_JPEGXL();

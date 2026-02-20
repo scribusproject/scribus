@@ -36,6 +36,8 @@ class SCRIBUS_API DocumentLogManager : public QObject
 		static QString msgUnsupportedFileFormat(const QString& filename);
 		static QString msgFileImportFailed(const QString& filename);
 		static QString msgFileNotFound(const QString& filename);
+		static QString msgDecoderError(const QString& filename, const QString& detail);
+		static QString msgMemoryAllocationFailed(const QString& filename);
 
 		// Max entries configuration
 		void setMaxEntries(int maxEntries);
