@@ -46,7 +46,6 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	prefs_Fonts = new Prefs_Fonts(prefsStackWidget, m_Doc);
 	prefs_Guides = new Prefs_Guides(prefsStackWidget, m_Doc);
 	prefs_Hyphenator = new Prefs_Hyphenator(prefsStackWidget, m_Doc);
-	prefs_Spelling = new Prefs_Spelling(prefsStackWidget, m_Doc);
 	prefs_ItemTools = new Prefs_ItemTools(prefsStackWidget, m_Doc);
 	prefs_OperatorTools = new Prefs_OperatorTools(prefsStackWidget, m_Doc);
 	prefs_PDFExport = new Prefs_PDFExport(prefsStackWidget, m_Doc);
@@ -63,6 +62,7 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 	}
 	if (!m_Doc)
 	{
+		prefs_Experimental = new Prefs_Experimental(prefsStackWidget, m_Doc);
 		prefs_ExternalTools = new Prefs_ExternalTools(prefsStackWidget, m_Doc);
 		prefs_ImageCache = new Prefs_ImageCache(prefsStackWidget, m_Doc);
 		prefs_KeyboardShortcuts = new Prefs_KeyboardShortcuts(prefsStackWidget, m_Doc);
@@ -71,8 +71,8 @@ PreferencesDialog::PreferencesDialog(QWidget* parent, ApplicationPrefs& prefsDat
 		prefs_Paths = new Prefs_Paths(prefsStackWidget, m_Doc);
 		prefs_Plugins = new Prefs_Plugins(prefsStackWidget, m_Doc);
 		prefs_Scrapbook = new Prefs_Scrapbook(prefsStackWidget, m_Doc);
+		prefs_Spelling = new Prefs_Spelling(prefsStackWidget, m_Doc);
 		prefs_UserInterface = new Prefs_UserInterface(prefsStackWidget, m_Doc);
-		prefs_Experimental = new Prefs_Experimental(prefsStackWidget, m_Doc);
 	}
 	createStackWidgetList();
 	if (!m_Doc)
