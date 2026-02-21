@@ -8323,6 +8323,7 @@ void ScribusMainWindow::EditTabs()
 
 void ScribusMainWindow::SearchText()
 {
+	TextFrameSpellChecker::instance()->pauseChecking();
 	SearchReplace dia(this, doc);
 	if (doc->appMode == modeEdit)
 	{
@@ -8330,6 +8331,7 @@ void ScribusMainWindow::SearchText()
 		dia.processCurrentSelection(currItem->itemText.selectedText());
 	}
 	dia.exec();
+	TextFrameSpellChecker::instance()->resumeChecking();
 }
 
 /* call gimp and wait upon completion */
