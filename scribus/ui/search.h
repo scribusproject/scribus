@@ -153,7 +153,7 @@ private:
 	void nextPageItem();
 	void selectPageItem(PageItem* pageItem);
 
-	std::vector<PageItem*> m_pageItems {};
+	std::vector<PageItem*> m_pageItems;
 	size_t m_currentPageItem { 0 };
 	bool m_endReached { false };
 

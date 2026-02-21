@@ -457,7 +457,7 @@ QPair<int, int> SearchReplace::searchStory(const StoryText& storyText, const int
 
 	while (!found && matchStart < length)
 	{
-		QApplication::processEvents();
+		// QApplication::processEvents();
 		if (!m_searching)
 			break;
 
@@ -791,7 +791,7 @@ void SearchReplace::replaceAllInStoryEditor()
 	{
 		found = true;
 
-		QApplication::processEvents();
+		// QApplication::processEvents();
 		if (!m_searching)
 			break;
 
@@ -836,24 +836,23 @@ void SearchReplace::replaceAllOnCanvas()
 
 		StoryText& storyText = pageItem->itemText;
 
-		MatchRange match = getMatchRange(storyText, 0, storyText.length(), options);
+		auto pos = searchStory(storyText, 0, storyText.length(), options);
 
-		while (match.start >= 0)
+		while (pos.first >= 0)
 		{
-			QApplication::processEvents();
+			// QApplication::processEvents();
 			if (!m_searching)
 				break;
 
 			found = true;
 			++m_matchesFound;
 
-			storyText.select(match.start, match.end + 1 - match.start);
-			storyText.setCursorPosition(match.end + 1);
+			storyText.select(pos.first, pos.second + 1 - pos.first);
+			storyText.setCursorPosition(pos.second + 1);
 
 			replaceSelectionOnCanvas();
 
-			match = getMatchRange(storyText, match.start + 1, storyText.length(), options);
-
+			pos = searchStory(storyText, pos.first + 1, storyText.length(), options);
 		}
 
 		if (!m_searching)
