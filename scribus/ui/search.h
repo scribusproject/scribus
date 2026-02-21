@@ -144,7 +144,7 @@ private:
 	void replaceAllOnCanvas();
 
 	//! \brief Initialize pageItems based on the current selection
-	void initCanvasSelection();
+	bool initCanvasSelection();
 	//! \brief Put all the document's text frames into pageItems
 	void readAllPageItems();
 	//! \brief Put all the selected text frames into pageItems

@@ -169,6 +169,9 @@ void SearchReplace::searchInStoryEditor()
 
 	auto options = getSearchOptions();
 
+	if (!m_doc || !m_doc->scMW()->CurrStED)
+		return;
+
 	SEditor* storyTextEdit = m_doc->scMW()->CurrStED->Editor;
 	StoryText& storyText = storyTextEdit->StyledText;
 	QTextCursor cursor = storyTextEdit->textCursor();
@@ -199,7 +202,8 @@ void SearchReplace::searchOnCanvas()
 
 	auto options = getSearchOptions();
 
-	initCanvasSelection();
+	if (!initCanvasSelection())
+		return;
 
 	PageItem* pageItem;
 	int itemsToBeProcessed = m_pageItems.size();
@@ -246,10 +250,10 @@ void SearchReplace::searchOnCanvas()
 		showMessage(tr(messageNoMatch));
 }
 
-void SearchReplace::initCanvasSelection()
+bool SearchReplace::initCanvasSelection()
 {
-	if (m_doc->Items->isEmpty())
-		return;
+	if (!m_doc || m_doc->Items->isEmpty())
+		return false;
 
 	if (m_doc->m_Selection->isEmpty())
 	{
@@ -259,6 +263,7 @@ void SearchReplace::initCanvasSelection()
 	}
 	else
 		readSelectedPageItems();
+	return true;
 }
 
 void SearchReplace::readAllPageItems()
@@ -572,7 +577,8 @@ void SearchReplace::replaceOnCanvas()
 {
 	auto options = getSearchOptions();
 
-	initCanvasSelection();
+	if (!initCanvasSelection())
+		return;
 
 	auto pageItem = currentPageItem();
 	StoryText& storyText = pageItem->itemText;
@@ -812,7 +818,8 @@ void SearchReplace::replaceAllOnCanvas()
 
 	auto options = getSearchOptions();
 
-	initCanvasSelection();
+	if (!initCanvasSelection())
+		return;
 
 	bool found = false;
 	m_matchesFound = 0;
