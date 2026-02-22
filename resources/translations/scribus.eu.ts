@@ -4,22 +4,22 @@
 <context>
     <name>AIPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/ai/importai.cpp" line="340"/>
+        <location filename="../../scribus/plugins/import/ai/importai.cpp" line="337"/>
         <source>Importing: %1</source>
         <translation>Inportatzen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ai/importai.cpp" line="343"/>
+        <location filename="../../scribus/plugins/import/ai/importai.cpp" line="340"/>
         <source>Analyzing File:</source>
         <translation>Fitxategia analizatzen:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ai/importai.cpp" line="2347"/>
+        <location filename="../../scribus/plugins/import/ai/importai.cpp" line="2334"/>
         <source>Group%1</source>
         <translation>%1taldea</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ai/importai.cpp" line="3449"/>
+        <location filename="../../scribus/plugins/import/ai/importai.cpp" line="3436"/>
         <source>Generating Items</source>
         <translation>Elementuak sortzen</translation>
     </message>
@@ -3619,37 +3619,37 @@ Hautatu beste izen bat.</translation>
 <context>
     <name>CWDialog</name>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="324"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="322"/>
         <source>Merging colors</source>
         <translation>Koloreak batzen</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="330"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="328"/>
         <source>Error: </source>
         <translation>Errorea:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="330"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="328"/>
         <source>Color %1 exists already!</source>
         <translation>%1 kolorea badago lehendik ere!</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="335"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="333"/>
         <source>Color %1 appended.</source>
         <translation>%1 kolorea erantsi da.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="339"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="337"/>
         <source>Now opening the color manager.</source>
         <translation>Kolore-kudeatzailea irekitzen.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="342"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="340"/>
         <source>Color Merging</source>
         <translation>Koloreak batzea</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="493"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="491"/>
         <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
         <translation>Ezin izan da aurkitu hautatutako kolorea. Ziur aski beltza, grisa edo zuria aukeratu duzu. Ez dago kolore hau prozesatzeko modurik.</translation>
     </message>
@@ -4038,17 +4038,17 @@ Klik lehendik dagoen testu-markoarekin estekatzeko edo estekatutako testu-marko 
 <context>
     <name>CdrPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="134"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="131"/>
         <source>Importing: %1</source>
         <translation>Inportatzen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="137"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="134"/>
         <source>Analyzing File:</source>
         <translation>Fitxategia analizatzen:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="376"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="363"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -4059,17 +4059,17 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>CgmPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="180"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="177"/>
         <source>Importing: %1</source>
         <translation>Inportatzen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="183"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="180"/>
         <source>Analyzing File:</source>
         <translation>Fitxategia analizatzen:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="424"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="415"/>
         <source>Generating Items</source>
         <translation>Elementuak sortzen</translation>
     </message>
@@ -4832,103 +4832,103 @@ unekoa %2 x %3 DPI</translation>
 <context>
     <name>ColorWheel</name>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="139"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="131"/>
         <source>Monochromatic</source>
         <translation>Monokromatikoa</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="140"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="132"/>
         <source>Analogous</source>
         <translation>Analogoa</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="141"/>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="224"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="133"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="212"/>
         <source>Complementary</source>
         <translation>Osagarria</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="142"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="134"/>
         <source>Split Complementary</source>
         <translation>Zatitu osagarria</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="143"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="135"/>
         <source>Triadic</source>
         <translation>Hirukotea</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="144"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="136"/>
         <source>Tetradic (Double Complementary)</source>
         <translation>Laukotea (osagarri bikoitza)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="44"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="36"/>
         <source>Base Color</source>
         <translation>Oinarri-kolorea</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="206"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="194"/>
         <source>Monochromatic Light</source>
         <translation>Argi monokromatikoa</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="209"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="197"/>
         <source>Monochromatic Dark</source>
         <translation>Ilun monokromatikoa</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="216"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="204"/>
         <source>1st. Analogous</source>
         <translation>1. analogoa</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="217"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="205"/>
         <source>2nd. Analogous</source>
         <translation>2. analogoa</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="231"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="219"/>
         <source>1st. Split</source>
         <translation>1. zatiketa</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="232"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="220"/>
         <source>2nd. Split</source>
         <translation>2. zatiketa</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="233"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="221"/>
         <source>3rd. Split</source>
         <translation>3. zatiketa</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="234"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="222"/>
         <source>4th. Split</source>
         <translation>4. zatiketa</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="241"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="229"/>
         <source>1st. Triadic</source>
         <translation>1. triadikoa</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="242"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="230"/>
         <source>2nd. Triadic</source>
         <translation>2. triadikoa</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="249"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="237"/>
         <source>1st. Tetradic (base opposite)</source>
         <translation>1. tetradikoa (aurkako oinarria)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="250"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="238"/>
         <source>2nd. Tetradic (angle)</source>
         <translation>2. tetradikoa (angelua)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="251"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="239"/>
         <source>3rd. Tetradic (angle opposite)</source>
         <translation>3. tetradikoa (aurkako angelua)</translation>
     </message>
@@ -6531,17 +6531,17 @@ C=CUPS, C=littlecms, T=TIFF euskarria. Falta diren liburutegiak * ikurrarekin ad
 <context>
     <name>CvgPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="141"/>
+        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="138"/>
         <source>Importing: %1</source>
         <translation>Inportatzen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="144"/>
+        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="141"/>
         <source>Analyzing File:</source>
         <translation>Fitxategia analizatzen:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="340"/>
+        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="331"/>
         <source>Generating Items</source>
         <translation>Elementuak sortzen</translation>
     </message>
@@ -6780,22 +6780,22 @@ C=CUPS, C=littlecms, T=TIFF euskarria. Falta diren liburutegiak * ikurrarekin ad
 <context>
     <name>DrwPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="1182"/>
+        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="1159"/>
         <source>Group%1</source>
         <translation>%1taldea</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="153"/>
+        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="150"/>
         <source>Importing: %1</source>
         <translation>Inportatzen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="156"/>
+        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="153"/>
         <source>Analyzing File:</source>
         <translation>Fitxategia analizatzen:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="359"/>
+        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="346"/>
         <source>Generating Items</source>
         <translation>Elementuak sortzen</translation>
     </message>
@@ -7209,17 +7209,17 @@ huts egin du</translation>
 <context>
     <name>EmfPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/emf/importemf.cpp" line="551"/>
+        <location filename="../../scribus/plugins/import/emf/importemf.cpp" line="545"/>
         <source>Importing: %1</source>
         <translation>Inportatzen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/emf/importemf.cpp" line="554"/>
+        <location filename="../../scribus/plugins/import/emf/importemf.cpp" line="548"/>
         <source>Analyzing File:</source>
         <translation>Fitxategia analizatzen:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/emf/importemf.cpp" line="1036"/>
+        <location filename="../../scribus/plugins/import/emf/importemf.cpp" line="1017"/>
         <source>Generating Items</source>
         <translation>Elementuak sortzen</translation>
     </message>
@@ -7704,17 +7704,17 @@ batentzako, edo orrialde bakar baten zenbakia</translation>
 <context>
     <name>FhPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="141"/>
+        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="138"/>
         <source>Importing: %1</source>
         <translation>Inportatzen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="144"/>
+        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="141"/>
         <source>Analyzing File:</source>
         <translation>Fitxategia analizatzen:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="347"/>
+        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="334"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -8792,17 +8792,17 @@ ezikusien zerrendara</translation>
 <context>
     <name>IdmlPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="314"/>
+        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="311"/>
         <source>Importing: %1</source>
         <translation>Inportatzen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="317"/>
+        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="314"/>
         <source>Analyzing File:</source>
         <translation>Fitxategia analizatzen:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="524"/>
+        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="515"/>
         <source>Generating Items</source>
         <translation>Elementuak sortzen</translation>
     </message>
@@ -9355,34 +9355,34 @@ eta haien datu bektorialak Scribus objektu bihurtzen ditu.</translation>
 <context>
     <name>ImportPagesPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="59"/>
+        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="61"/>
         <source>Import iWorks Pages...</source>
         <translation>Inportatu iWorks Pages...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="61"/>
-        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="96"/>
+        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="63"/>
+        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="97"/>
         <source>iWorks Pages</source>
         <translation>iWorks Pages</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="62"/>
-        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="97"/>
+        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="64"/>
+        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="98"/>
         <source>iWorks Pages (*.pages *.PAGES)</source>
         <translation>iWorks Pages (*.pages *.PAGES)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="80"/>
+        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="81"/>
         <source>Imports iWorks Pages Files</source>
         <translation>iWorks Pages fitxategiak inportatzen ditu</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="81"/>
+        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="82"/>
         <source>Imports most iWorks Pages files into the current document, converting their vector data into Scribus objects.</source>
         <translation>iWorks Pages fitxategi gehienak uneko dokumentura inportatzen ditu, eta haien datu bektorialak Scribus objektu bihurtzen ditu.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="130"/>
+        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="131"/>
         <source>All Supported Formats</source>
         <translation>Onartutako formatu guztiak</translation>
     </message>
@@ -9390,22 +9390,22 @@ eta haien datu bektorialak Scribus objektu bihurtzen ditu.</translation>
 <context>
     <name>ImportPctPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="122"/>
+        <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="124"/>
         <source>All Supported Formats</source>
         <translation>Onartutako formatu guztiak</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="53"/>
+        <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="55"/>
         <source>Import Macintosh Pict...</source>
         <translation>Inportatu Macintosh Pict...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="74"/>
+        <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="76"/>
         <source>Imports Macintosh Pict Files</source>
         <translation>Macintosh Pict fitxategiak inportatzen ditu</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="75"/>
+        <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="77"/>
         <source>Imports most Macintosh Pict files into the current document, converting their vector data into Scribus objects.</source>
         <translation>Macintosh Pict fitxategi gehienak uneko dokumentura inportatzen ditu, eta haien datu bektorialak Scribus objektu bihurtzen ditu.</translation>
     </message>
@@ -9441,34 +9441,34 @@ eta haien datu bektorialak Scribus objektu bihurtzen ditu.</translation>
 <context>
     <name>ImportPmPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="53"/>
+        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="55"/>
         <source>Import Pagemaker...</source>
         <translation>Inportatu Pagemaker...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="55"/>
-        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="90"/>
+        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="57"/>
+        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="91"/>
         <source>Pagemaker</source>
         <translation>Pagemaker</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="56"/>
-        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="91"/>
+        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="58"/>
+        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="92"/>
         <source>Pagemaker (*.pmd *.PMD *.pm *.PM *.pm3 *.PM3 *.pm4 *.PM4 *.pm5 *.PM5 *.pm6 *.PM6 *.p65 *.P65)</source>
         <translation>Pagemaker (*.pmd *.PMD *.pm *.PM *.pm3 *.PM3 *.pm4 *.PM4 *.pm5 *.PM5 *.pm6 *.PM6 *.p65 *.P65)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="74"/>
+        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="75"/>
         <source>Imports Pagemaker Files</source>
         <translation>Pagemaker fitxategiak inportatzen ditu</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="75"/>
+        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="76"/>
         <source>Imports most Pagemaker files into the current document, converting their vector data into Scribus objects.</source>
         <translation>Pagemaker fitxategi gehienak uneko dokumentura inportatzen ditu, eta haien datu bektorialak Scribus objektu bihurtzen ditu.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="123"/>
+        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="124"/>
         <source>All Supported Formats</source>
         <translation>Onartutako formatu guztiak</translation>
     </message>
@@ -9476,34 +9476,34 @@ eta haien datu bektorialak Scribus objektu bihurtzen ditu.</translation>
 <context>
     <name>ImportPubPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="53"/>
+        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="55"/>
         <source>Import PUB...</source>
         <translation>Inportatu PUB...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="55"/>
-        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="90"/>
+        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="57"/>
+        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="91"/>
         <source>MS Publisher</source>
         <translation>MS Publisher</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="56"/>
-        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="91"/>
+        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="58"/>
+        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="92"/>
         <source>MS Publisher (*.pub *.PUB)</source>
         <translation>MS Publisher (*.pub *.PUB)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="74"/>
+        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="75"/>
         <source>Imports PUB Files</source>
         <translation>Inportatu PUB fitxategiak</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="75"/>
+        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="76"/>
         <source>Imports most MS Publisher files into the current document, converting their vector data into Scribus objects.</source>
         <translation>MS Publisher fitxategi gehienak uneko dokumentura inportatzen ditu, eta haien datu bektorialak Scribus objektu bihurtzen ditu.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="124"/>
+        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="125"/>
         <source>All Supported Formats</source>
         <translation>Onartutako formatu guztiak</translation>
     </message>
@@ -9511,34 +9511,34 @@ eta haien datu bektorialak Scribus objektu bihurtzen ditu.</translation>
 <context>
     <name>ImportQxpPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="53"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="55"/>
         <source>Import QuarkXPress...</source>
         <translation>Inportatu QuarkXPress...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="55"/>
-        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="89"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="57"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="91"/>
         <source>QuarkXPress</source>
         <translation>QuarkXPress</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="56"/>
-        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="90"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="58"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="92"/>
         <source>QuarkXPress (*.qxd *.QXD *.qxt *.QXT)</source>
         <translation>QuarkXPress (*.qxd *.QXD *.qxt *.QXT)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="73"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="75"/>
         <source>Imports QuarkXPress Files</source>
         <translation>QuarkXPress fitxategiak inportatzen ditu</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="74"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="76"/>
         <source>Imports QuarkXPress 3.1-4.1 files into the current document, converting their vector data into Scribus objects.</source>
         <translation>QuarkXPress 3.1-4.1 fitxategiak inportatzen ditu uneko dokumentura, eta haien datu bektorialak Scribus objektu bihurtzen ditu.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="122"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="124"/>
         <source>All Supported Formats</source>
         <translation>Onartutako formatu guztiak</translation>
     </message>
@@ -9546,38 +9546,38 @@ eta haien datu bektorialak Scribus objektu bihurtzen ditu.</translation>
 <context>
     <name>ImportShapePlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="53"/>
+        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="55"/>
         <source>Import Dia Shapes...</source>
         <translation>Inportatu Dia Shapes...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="74"/>
+        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="76"/>
         <source>Imports Dia shape Files</source>
         <translation>Dia shape fitxategiak inportatzen ditu</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="123"/>
+        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="125"/>
         <source>All Supported Formats</source>
         <translation>Onartutako formatu guztiak</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="55"/>
-        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="90"/>
+        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="57"/>
+        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="92"/>
         <source>Dia Shapes</source>
         <translation>Dia Shapes</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="56"/>
+        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="58"/>
         <source>Dia Shapes (*.shape *.SHAPE)</source>
         <translation>Dia Shapes (*.shape *.SHAPE)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="75"/>
+        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="77"/>
         <source>Imports most Dia shapes into the current document, converting their vector data into Scribus objects.</source>
         <translation>Dia Shapes gehienak uneko dokumentura inportatzen ditu, eta haien datu bektorialak Scribus objektu bihurtzen ditu.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="92"/>
+        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="94"/>
         <source>Dia shapes (*.shape *.SHAPE)</source>
         <translation>Dia shapes (*.shape *.SHAPE)</translation>
     </message>
@@ -9585,42 +9585,42 @@ eta haien datu bektorialak Scribus objektu bihurtzen ditu.</translation>
 <context>
     <name>ImportSmlPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="53"/>
+        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="55"/>
         <source>Import Sml...</source>
         <translation>Inportatu SML...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="75"/>
+        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="76"/>
         <source>Imports most Kivio stencils into the current document, converting their vector data into Scribus objects.</source>
         <translation>Kivio txantiloi gehienak uneko dokumentura inportatzen ditu, eta haien datu bektorialak Scribus objektu bihurtzen ditu.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="90"/>
+        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="91"/>
         <source>Kivio Stencils &quot;*.sml&quot; File</source>
         <translation>Kivio txantiloien &quot;*.sml&quot; fitxategia</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="92"/>
+        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="93"/>
         <source>Kivio Stencils &quot;*.sml&quot; File (*.sml *.SML)</source>
         <translation>Kivio txantiloien &quot;*.sml&quot; fitxategia (*.sml *.SML)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="74"/>
+        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="75"/>
         <source>Imports Sml Files</source>
         <translation>SML fitxategiak inportatzen ditu</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="123"/>
+        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="124"/>
         <source>All Supported Formats</source>
         <translation>Onartutako formatu guztiak</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="55"/>
+        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="57"/>
         <source>Kivio Stencils</source>
         <translation>Kivio txantiloiak</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="56"/>
+        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="58"/>
         <source>Kivio Stencils (*.sml *.SML)</source>
         <translation>Kivio txantiloiak (*.sml *.SML)</translation>
     </message>
@@ -9628,34 +9628,34 @@ eta haien datu bektorialak Scribus objektu bihurtzen ditu.</translation>
 <context>
     <name>ImportSvmPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="59"/>
+        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="61"/>
         <source>Import SVM...</source>
         <translation>Inportatu SVM...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="61"/>
-        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="96"/>
+        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="63"/>
+        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="97"/>
         <source>SVM</source>
         <translation>SVM</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="62"/>
-        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="97"/>
+        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="64"/>
+        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="98"/>
         <source>SVM (*.svm *.svm)</source>
         <translation>SVM (*.svm *.svm)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="80"/>
+        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="81"/>
         <source>Imports SVM Files</source>
         <translation>SVM fitxategiak inportatzen ditu</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="81"/>
+        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="82"/>
         <source>Imports most SVM files into the current document, converting their vector data into Scribus objects.</source>
         <translation>SVM fitxategi gehienak uneko dokumentura inportatzen ditu, eta haien datu bektorialak Scribus objektu bihurtzen ditu.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="128"/>
+        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="129"/>
         <source>All Supported Formats</source>
         <translation>Onartutako formatu guztiak</translation>
     </message>
@@ -9663,34 +9663,34 @@ eta haien datu bektorialak Scribus objektu bihurtzen ditu.</translation>
 <context>
     <name>ImportVivaPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="59"/>
+        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="61"/>
         <source>Import Viva...</source>
         <translation>Inportatu Viva...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="61"/>
-        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="96"/>
+        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="63"/>
+        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="97"/>
         <source>Viva Designer XML</source>
         <translation>Viva Designer XML</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="62"/>
-        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="97"/>
+        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="64"/>
+        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="98"/>
         <source>Viva Designer XML (*.xml *.XML)</source>
         <translation>Viva Designer XML (*.xml *.XML)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="80"/>
+        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="81"/>
         <source>Imports Viva Files</source>
         <translation>Viva fitxategiak inportatzen dit</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="81"/>
+        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="82"/>
         <source>Imports most Viva files into the current document, converting their vector data into Scribus objects.</source>
         <translation>Viva fitxategi gehienak uneko dokumentura inportatzen ditu, eta haien datu bektorialak Scribus objektu bihurtzen ditu.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="130"/>
+        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="131"/>
         <source>All Supported Formats</source>
         <translation>Onartutako formatu guztiak</translation>
     </message>
@@ -9698,34 +9698,34 @@ eta haien datu bektorialak Scribus objektu bihurtzen ditu.</translation>
 <context>
     <name>ImportVsdPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="53"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="55"/>
         <source>Import Visio...</source>
         <translation>Inportatu Visio...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="55"/>
-        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="90"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="57"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="91"/>
         <source>MS Visio</source>
         <translation>MS Visio</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="56"/>
-        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="91"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="58"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="92"/>
         <source>MS Visio (*.vsd *.VSD *.vdx *.VDX *.vsdx *.VSDX)</source>
         <translation>MS Visio (*.vsd *.VSD *.vdx *.VDX *.vsdx *.VSDX)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="74"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="75"/>
         <source>Imports MS Visio Files</source>
         <translation>MS Visio fitxategiak inportatzen ditu</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="75"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="76"/>
         <source>Imports most MS Visio files into the current document, converting their vector data into Scribus objects.</source>
         <translation>MS Visio fitxategi gehienak uneko dokumentura inportatzen ditu, eta haien datu bektorialak Scribus objektu bihurtzen ditu.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="124"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="125"/>
         <source>All Supported Formats</source>
         <translation>Onartutako formatu guztiak</translation>
     </message>
@@ -9733,22 +9733,22 @@ eta haien datu bektorialak Scribus objektu bihurtzen ditu.</translation>
 <context>
     <name>ImportWpgPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="122"/>
+        <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="123"/>
         <source>All Supported Formats</source>
         <translation>Onartutako formatu guztiak</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="53"/>
+        <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="55"/>
         <source>Import WordPerfect Graphics...</source>
         <translation>Inportatu WordPerfect Graphics...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="74"/>
+        <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="75"/>
         <source>Imports WordPerfect Graphics Files</source>
         <translation>WordPerfect Graphics fitxategiak inportatzen ditu</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="75"/>
+        <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="76"/>
         <source>Imports most WordPerfect Graphics files into the current document, converting their vector data into Scribus objects.</source>
         <translation>WordPerfect Graphics fitxategi gehienak uneko dokumentura inportatzen ditu, eta haien datu bektorialak Scribus objektu bihurtzen ditu.</translation>
     </message>
@@ -9756,42 +9756,42 @@ eta haien datu bektorialak Scribus objektu bihurtzen ditu.</translation>
 <context>
     <name>ImportXarPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="53"/>
+        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="55"/>
         <source>Import Xara...</source>
         <translation>Inportatu Xara...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="75"/>
+        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="76"/>
         <source>Imports most Xara files into the current document, converting their vector data into Scribus objects.</source>
         <translation>Xara fitxategi gehienak uneko dokumentura inportatzen ditu, eta haien datu bektorialak Scribus objektu bihurtzen ditu.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="90"/>
+        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="91"/>
         <source>XARA &quot;*.xar&quot; File</source>
         <translation>XARA &quot;*.xar&quot; fitxategia</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="92"/>
+        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="93"/>
         <source>XARA &quot;*.xar&quot; File (*.xar *.XAR)</source>
         <translation>XARA &quot;*.xar&quot; fitxategia (*.xar *.XAR)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="74"/>
+        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="75"/>
         <source>Imports Xara Files</source>
         <translation>Xara fitxategiak inportatzen ditu</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="123"/>
+        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="124"/>
         <source>All Supported Formats</source>
         <translation>Onartutako formatu guztiak</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="55"/>
+        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="57"/>
         <source>XARA</source>
         <translation>XARA</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="56"/>
+        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="58"/>
         <source>XARA (*.xar *.XAR)</source>
         <translation>XARA (*.xar *.XAR)</translation>
     </message>
@@ -9799,22 +9799,22 @@ eta haien datu bektorialak Scribus objektu bihurtzen ditu.</translation>
 <context>
     <name>ImportXfigPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="53"/>
+        <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="55"/>
         <source>Import Xfig...</source>
         <translation>Inportatu Xfig...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="74"/>
+        <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="75"/>
         <source>Imports Xfig Files</source>
         <translation>Xfig fitxategiak inportatzen ditu</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="75"/>
+        <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="76"/>
         <source>Imports most Xfig files into the current document, converting their vector data into Scribus objects.</source>
         <translation>Xfig fitxategi gehienak uneko dokumentura inportatzen ditu, eta haien datu bektorialak Scribus objektu bihurtzen ditu.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="122"/>
+        <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="123"/>
         <source>All Supported Formats</source>
         <translation>Onartutako formatu guztiak</translation>
     </message>
@@ -9822,46 +9822,46 @@ eta haien datu bektorialak Scribus objektu bihurtzen ditu.</translation>
 <context>
     <name>ImportXpsPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="59"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="62"/>
         <source>Import Xps...</source>
         <translation>Inportatu XPS...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="61"/>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="99"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="64"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="101"/>
         <source>Microsoft XPS</source>
         <translation>Microsoft XPS</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="62"/>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="100"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="65"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="102"/>
         <source>Microsoft XPS (*.xps *.XPS)</source>
         <translation>Microsoft XPS (*.xps *.XPS)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="64"/>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="112"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="67"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="115"/>
         <source>Open XML Paper</source>
         <translation>Open XML Paper</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="65"/>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="113"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="68"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="116"/>
         <source>Open XML Paper (*.oxps *.OXPS)</source>
         <translation>Open XML Paper (*.oxps *.OXPS)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="83"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="85"/>
         <source>Imports XPS and Open XML Paper Files</source>
         <translation>XPS eta Open XML Paper fitxategiak inportatzen ditu</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="84"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="86"/>
         <source>Imports most XPS and Open XML Paper files into the current document, converting their vector data into Scribus objects.</source>
         <translation>XPS eta Open XML Paper fitxategi gehienak uneko dokumentura inportatzen ditu, eta haien datu bektorialak Scribus objektu bihurtzen ditu.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="146"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="149"/>
         <source>All Supported Formats</source>
         <translation>Onartutako formatu guztiak</translation>
     </message>
@@ -9869,34 +9869,34 @@ eta haien datu bektorialak Scribus objektu bihurtzen ditu.</translation>
 <context>
     <name>ImportZmfPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="53"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="56"/>
         <source>Import Zoner Draw...</source>
         <translation>Inportatu Zoner Draw...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="55"/>
-        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="89"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="58"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="92"/>
         <source>Zoner Draw</source>
         <translation>Zoner Draw</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="56"/>
-        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="90"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="59"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="93"/>
         <source>Zoner Draw (*.zmf *.ZMF)</source>
         <translation>Zoner Draw (*.zmf *.ZMF)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="73"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="76"/>
         <source>Imports Zoner Draw Files</source>
         <translation>Zoner Draw fitxategiak inportatzen ditu</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="74"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="77"/>
         <source>Imports Zoner Draw 4-5 files into the current document, converting their vector data into Scribus objects.</source>
         <translation>Zoner Draw 4-5 fitxategiak uneko dokumentura inportatzen ditu, eta haien datu bektorialak Scribus objektu bihurtzen ditu.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="122"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="125"/>
         <source>All Supported Formats</source>
         <translation>Onartutako formatu guztiak</translation>
     </message>
@@ -12619,12 +12619,12 @@ hautatu baduzu.</translation>
 <context>
     <name>OODPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="408"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="405"/>
         <source>This document does not seem to be an OpenOffice Draw file.</source>
         <translation>Ez dirudi dokumentu hau OpenOffice.org Draw fitxategia denik.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="621"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="610"/>
         <source>Group%1</source>
         <translation>%1taldea</translation>
     </message>
@@ -12930,7 +12930,7 @@ inportatzen ditu, eta haien datu bektorialak Scribus objektu bihurtzen ditu.</tr
         <translation>Fitxategia analizatzen:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/odg/importodg.cpp" line="336"/>
+        <location filename="../../scribus/plugins/import/odg/importodg.cpp" line="326"/>
         <source>Generating Items</source>
         <translation>Elementuak sortzen</translation>
     </message>
@@ -13517,34 +13517,34 @@ Egiaztatu ondo dagoela eta saiatu berriro.</translation>
         <translation>Eguna:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="10666"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="10670"/>
         <source>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</source>
         <translation>Ezin izan da PDFa kapsulatu: %1
 Desgaitu PDF eta PS kapsulatze esperimentala eta saiatu berriro.</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11955"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11959"/>
         <source>Failed to load an image : %1</source>
         <translation>Irudi bat kargatzeak huts egin du : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11960"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11964"/>
         <source>Failed to write an image : %1</source>
         <translation>Irudi bat idazteak huts egin du : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11965"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11969"/>
         <source>Failed to load an image mask : %1</source>
         <translation>Irudi-maskara bat kargatzeak huts egin du : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11970"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11974"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Memoria gutxi irudi bat prozesatzeko</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11950"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11954"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>Idazte-errorea gertatu da, begiratu tokirik duzun diskoan</translation>
     </message>
@@ -14404,17 +14404,17 @@ Desgaitu PDF eta PS kapsulatze esperimentala eta saiatu berriro.</translation>
 <context>
     <name>PagesPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="206"/>
+        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="205"/>
         <source>Importing: %1</source>
         <translation>Inportatzen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="208"/>
+        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="207"/>
         <source>Analyzing File:</source>
         <translation>Fitxategia analizatzen:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="391"/>
+        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="377"/>
         <source>Generating Items</source>
         <translation>Elementuak sortzen</translation>
     </message>
@@ -14928,17 +14928,17 @@ Emaitza &apos;Ebakidura&apos; eta &apos;Esklusio&apos; aukeren konbinazioa da.</
 <context>
     <name>PctPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/pct/importpct.cpp" line="144"/>
+        <location filename="../../scribus/plugins/import/pct/importpct.cpp" line="141"/>
         <source>Importing: %1</source>
         <translation>Inportatzen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pct/importpct.cpp" line="147"/>
+        <location filename="../../scribus/plugins/import/pct/importpct.cpp" line="144"/>
         <source>Analyzing File:</source>
         <translation>Fitxategia analizatzen:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pct/importpct.cpp" line="450"/>
+        <location filename="../../scribus/plugins/import/pct/importpct.cpp" line="434"/>
         <source>Generating Items</source>
         <translation>Elementuak sortzen</translation>
     </message>
@@ -15036,27 +15036,27 @@ Egiaztatu ondo dagoela eta saiatu berriro.</translation>
 <context>
     <name>PdfPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="155"/>
+        <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="159"/>
         <source>Importing: %1</source>
         <translation>Inportatzen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="157"/>
+        <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="161"/>
         <source>Analyzing File:</source>
         <translation>Fitxategia analizatzen:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="324"/>
+        <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="319"/>
         <source>Generating Items</source>
         <translation>Elementuak sortzen</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="351"/>
+        <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="346"/>
         <source>Open PDF-File</source>
         <translation>Ireki PDF fitxategia</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="351"/>
+        <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="346"/>
         <source>Password</source>
         <translation>Pasahitza</translation>
     </message>
@@ -16499,17 +16499,17 @@ Hautatu beste bat.</translation>
 <context>
     <name>PmPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/pm/importpm.cpp" line="137"/>
+        <location filename="../../scribus/plugins/import/pm/importpm.cpp" line="131"/>
         <source>Importing: %1</source>
         <translation>Inportatzen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pm/importpm.cpp" line="140"/>
+        <location filename="../../scribus/plugins/import/pm/importpm.cpp" line="134"/>
         <source>Analyzing File:</source>
         <translation>Fitxategia analizatzen:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pm/importpm.cpp" line="346"/>
+        <location filename="../../scribus/plugins/import/pm/importpm.cpp" line="327"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -24337,17 +24337,17 @@ A value of 0 means unlimited hyphenations.</source>
 <context>
     <name>PubPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/pub/importpub.cpp" line="140"/>
+        <location filename="../../scribus/plugins/import/pub/importpub.cpp" line="134"/>
         <source>Importing: %1</source>
         <translation>Inportatzen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pub/importpub.cpp" line="143"/>
+        <location filename="../../scribus/plugins/import/pub/importpub.cpp" line="137"/>
         <source>Analyzing File:</source>
         <translation>Fitxategia analizatzen:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pub/importpub.cpp" line="353"/>
+        <location filename="../../scribus/plugins/import/pub/importpub.cpp" line="334"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -25170,30 +25170,30 @@ Egiaztatu bide-izena eta fitxategi-izena.</translation>
         <location filename="../../scribus/plugins/import/idml_old/importidml.cpp" line="101"/>
         <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="147"/>
         <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="156"/>
-        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="130"/>
-        <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="122"/>
+        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="131"/>
+        <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="124"/>
         <location filename="../../scribus/plugins/import/pdf/importpdfplugin.cpp" line="162"/>
-        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="123"/>
+        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="124"/>
         <location filename="../../scribus/plugins/import/ps/importpsplugin.cpp" line="155"/>
-        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="124"/>
-        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="122"/>
-        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="123"/>
-        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="123"/>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="159"/>
-        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="128"/>
-        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="130"/>
-        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="124"/>
-        <location filename="../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="144"/>
-        <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="122"/>
-        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="123"/>
-        <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="122"/>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="146"/>
-        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="122"/>
+        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="125"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="124"/>
+        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="125"/>
+        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="124"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="163"/>
+        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="129"/>
+        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="131"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="125"/>
+        <location filename="../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="146"/>
+        <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="123"/>
+        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="124"/>
+        <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="123"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="149"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="125"/>
         <source>Open</source>
         <translation>Ireki</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="136"/>
+        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="137"/>
         <location filename="../../scribus/plugins/export/xpsexport/xpsexplugin.cpp" line="139"/>
         <source>Save as</source>
         <translation>Gorde honela</translation>
@@ -29528,12 +29528,12 @@ hori ez den osoa, deitutako funtzioetako salbuespenen ondorioz.
         <translation>Laburdurak</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="108"/>
+        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="107"/>
         <source>SVG Export</source>
         <translation>SVGra esportatu</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="101"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="103"/>
         <source>SVG Import</source>
         <translation>SVGtik inportatu</translation>
     </message>
@@ -30134,12 +30134,12 @@ Jarraitzea nahi duzu?</translation>
         <translation>PostScript inportatzailea</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="136"/>
+        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="137"/>
         <source>%1;;All Files (*)</source>
         <translation>%1;;Fitxagegi guztiak (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="177"/>
+        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="178"/>
         <location filename="../../scribus/plugins/export/xpsexport/xpsexplugin.cpp" line="191"/>
         <source>Do you really want to overwrite the file:
 %1 ?</source>
@@ -30311,7 +30311,7 @@ Jarraitzea nahi duzu?</translation>
         <translation>Zatitu</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="66"/>
+        <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="68"/>
         <source>Xfig Importer</source>
         <translation>Xfig inportatzailea</translation>
     </message>
@@ -30460,22 +30460,22 @@ Baliteke irudia zuzena ez izatea</translation>
         <translation>%1 konfigurazio-fitxategia irekitzeak huts egin du! %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="66"/>
+        <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="68"/>
         <source>Pict Importer</source>
         <translation>Pict inportatzailea</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="77"/>
+        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="76"/>
         <source>Uniconvertor Import</source>
         <translation>Uniconvertor inportatzailea</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="66"/>
+        <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="68"/>
         <source>WPG Importer</source>
         <translation>WPG inportatzailea</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="66"/>
+        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="68"/>
         <source>Xara Importer</source>
         <translation>Xara inportatzailea</translation>
     </message>
@@ -30552,12 +30552,12 @@ Baliteke irudia zuzena ez izatea</translation>
         <translation>Scribus 1.5.0+ euskarria</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="66"/>
+        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="68"/>
         <source>Shape Importer</source>
         <translation>Forma inportatzailea</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="66"/>
+        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="68"/>
         <source>Sml Importer</source>
         <translation>Sml inportatzailea</translation>
     </message>
@@ -31083,7 +31083,7 @@ Baliteke irudia zuzena ez izatea</translation>
         <translation>Nepalera</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="66"/>
+        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="68"/>
         <source>PUB Importer</source>
         <translation>PUB inportatzailea</translation>
     </message>
@@ -31093,7 +31093,7 @@ Baliteke irudia zuzena ez izatea</translation>
         <translation>&lt;p&gt;Uneko dokumentuan (orrialde aktibotik hasita) daudenak baino orrialde gehiago inportatzen saiatzen ari zara&lt;/p&gt;Hautatu hauetako bat:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Sortu&lt;/b&gt; falta diren orrialdeak&lt;/li&gt;&lt;li&gt;&lt;b&gt;Inportatu&lt;/b&gt;orrialdeak azkenekoraino&lt;/li&gt;&lt;li&gt;&lt;b&gt;Utzi&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18354"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18351"/>
         <source>Unacceptable settings for note style</source>
         <translation>Ezarpen onartezinak oharpen-estilorako</translation>
     </message>
@@ -31123,22 +31123,22 @@ Baliteke irudia zuzena ez izatea</translation>
         <translation>11x17</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="72"/>
+        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="74"/>
         <source>Pages Importer</source>
         <translation>Pages inportatzailea</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="72"/>
+        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="74"/>
         <source>Viva Importer</source>
         <translation>Viva inportatzailea</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="66"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="68"/>
         <source>MS Visio Importer</source>
         <translation>MS Visio inportatzailea</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="75"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="78"/>
         <source>Xps Importer</source>
         <translation>Xps inportatzailea</translation>
     </message>
@@ -31211,7 +31211,7 @@ Baliteke irudia zuzena ez izatea</translation>
         <translation>elementuaren &lt;%1&gt; balioak doitasun bikoitzekoa izan behar du</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="66"/>
+        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="68"/>
         <source>Pagemaker Importer</source>
         <translation>Pagemaker inportatzailea</translation>
     </message>
@@ -31271,7 +31271,7 @@ Baliteke irudia zuzena ez izatea</translation>
         <translation>EMF inportatzailea</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="72"/>
+        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="74"/>
         <source>SVM Importer</source>
         <translation>SVM inportatzailea</translation>
     </message>
@@ -31439,12 +31439,12 @@ Baliteke irudia zuzena ez izatea</translation>
         <translation>Ezin da oharpenik ezarri testu-markoa ez den batean</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="66"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="68"/>
         <source>QuarkXPress Importer</source>
         <translation>QuarkXPress inportatzailea</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="66"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="69"/>
         <source>Zoner Draw Importer</source>
         <translation>Zoner Draw inportatzailea</translation>
     </message>
@@ -31616,17 +31616,17 @@ Hautatu beste bat.</translation>
 <context>
     <name>QxpPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="145"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="137"/>
         <source>Importing: %1</source>
         <translation>Inportatzen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="148"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="140"/>
         <source>Analyzing File:</source>
         <translation>Fitxategia analizatzen:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="361"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="340"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -33232,44 +33232,44 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>SVGExportPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="115"/>
+        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="114"/>
         <source>Exports SVG Files</source>
         <translation>Esportatu SVG fitxategiak</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="116"/>
+        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="115"/>
         <source>Exports the current page into an SVG file.</source>
         <translation>Esportatu uneko orrialdea SVG fitxategian.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="98"/>
+        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="97"/>
         <source>Save as &amp;SVG...</source>
         <translation>Gorde &amp;SVG gisa...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="141"/>
+        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="142"/>
         <source>Compress File</source>
         <translation>Konprimatu fitxategia</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="145"/>
+        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="146"/>
         <source>Save Images inline</source>
         <translation>Gorde irudiak txertatuta</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="146"/>
+        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="147"/>
         <source>Adds all Images on the Page inline to the SVG.
 Caution: this will increase the file size!</source>
         <translation>Irudi guztiak SVGan txertatuta gordetzen ditu.
 Kontuz: honek fitxategi-tamaina handituko du!</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="150"/>
+        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="151"/>
         <source>Export Page background</source>
         <translation>Esportatu orrialdearen atzeko planoa</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="151"/>
+        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="152"/>
         <source>Adds the Page itself as background to the SVG</source>
         <translation>Gehitu orrialdea bera SVGaren atzeko plano gisa</translation>
     </message>
@@ -33277,22 +33277,22 @@ Kontuz: honek fitxategi-tamaina handituko du!</translation>
 <context>
     <name>SVGImportPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="93"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="95"/>
         <source>Import &amp;SVG...</source>
         <translation>Inportatu &amp;SVG...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="108"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="110"/>
         <source>Imports SVG Files</source>
         <translation>Inportatu SVG fitxategiak</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="109"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="111"/>
         <source>Imports most SVG files into the current document, converting their vector data into Scribus objects.</source>
         <translation>SVG fitxategi gehienak uneko dokumentura inportatzen ditu, eta haien bektore-datuak Scribus objektu bihurtzen ditu.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="192"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="197"/>
         <source>The file could not be imported</source>
         <translation>Fitxategia ezin izan da inportatu</translation>
     </message>
@@ -33300,7 +33300,7 @@ Kontuz: honek fitxategi-tamaina handituko du!</translation>
 <context>
     <name>SVGPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="1356"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="1338"/>
         <source>Group%1</source>
         <translation>%1taldea</translation>
     </message>
@@ -34913,7 +34913,7 @@ Bertsio honetan gordetzen baduzu, Scribus bertsio zaharrek ezin izango dute irak
         <location filename="../../scribus/scribusdoc.cpp" line="213"/>
         <location filename="../../scribus/scribusdoc.cpp" line="219"/>
         <location filename="../../scribus/scribusdoc.cpp" line="249"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16816"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16813"/>
         <source>Document</source>
         <translation>Dokumentua</translation>
     </message>
@@ -34923,27 +34923,27 @@ Bertsio honetan gordetzen baduzu, Scribus bertsio zaharrek ezin izango dute irak
         <translation>Atzeko planoa</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11337"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11334"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>Ezin da erabiltzen dagoen elementua ezabatu</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11337"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11334"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>%1 elementua artikulu-editorean editatzen ari zara. Ezabatze-eragiketa bertan behera utziko da</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12133"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12130"/>
         <source>Some objects are locked.</source>
         <translation>Objektu batzuk blokeatuta daude</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12129"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12126"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Desblokeatu denak</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12130"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12127"/>
         <source>&amp;Skip locked objects</source>
         <translation>&amp;Saltatu blokeatutako objektuak</translation>
     </message>
@@ -34954,7 +34954,7 @@ Bertsio honetan gordetzen baduzu, Scribus bertsio zaharrek ezin izango dute irak
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="965"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16498"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16495"/>
         <source>Adjusting Colors</source>
         <translation>Koloreak doitzen</translation>
     </message>
@@ -34969,7 +34969,7 @@ Bertsio honetan gordetzen baduzu, Scribus bertsio zaharrek ezin izango dute irak
         <translation>kendu karaktere-formatu zuzena</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13792"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13789"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -34980,7 +34980,7 @@ Desplazamendu bertikala: %3
 Biraketa: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13825"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13822"/>
         <source>Number of rows: %1
 Number of columns: %2
 Horizontal gap: %3
@@ -34991,9 +34991,9 @@ Tarte horizontala: %3
 Tarte bertikala: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="15185"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15240"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15402"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15182"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15237"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15399"/>
         <source>Group%1</source>
         <translation>%1taldea</translation>
     </message>
@@ -35004,28 +35004,28 @@ Tarte bertikala: %4</translation>
         <translation>Inportatua</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13947"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13944"/>
         <source>Copied %1 item(s) on %2 page(s)</source>
         <translation>%1 elementu kopiatu dira %2 orrialdetan</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16832"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16829"/>
         <source>File %1 autosaved</source>
         <translation>%1 fitxategia automatikoki gorde da</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17983"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="18020"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17980"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18017"/>
         <source>No Style</source>
         <translation>Estilorik ez</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18348"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18345"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>%1 ohar-estiloak dokumentua du barruti gisa eta %2(e)n ezarritako zenbakitze-estilo bera ematen du</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11235"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11232"/>
         <source>Do you really want to clear the content of all selected frames?</source>
         <translation>Benetan garbitu nahi duzu hautatutako marko guztien edukia?</translation>
     </message>
@@ -35869,18 +35869,18 @@ Inprimatze aurreko egiaztatzailea erabil dezakezu haiek zuzentzeko.</translation
         <translation>Desgaituta</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3012"/>
+        <location filename="../../scribus/scribusview.cpp" line="3009"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>Ezin da erabiltzen dagoen elementua bihurtu</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3012"/>
+        <location filename="../../scribus/scribusview.cpp" line="3009"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>%1 elementua artikulu-editorean editatzen ari da. Elementua eskemetara bihurtzeko 
 eragiketa saltatu egingo da</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="1973"/>
+        <location filename="../../scribus/scribusview.cpp" line="1970"/>
         <source>Page %1 to %2</source>
         <translation>%1 - %2 orrialdeak</translation>
     </message>
@@ -36435,22 +36435,22 @@ helbidera bidaliko bazenu.</translation>
 <context>
     <name>ShapePlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="140"/>
+        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="139"/>
         <source>Importing: %1</source>
         <translation>Inportatzen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="143"/>
+        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="142"/>
         <source>Analyzing File:</source>
         <translation>Fitxategia analizatzen:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="346"/>
+        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="336"/>
         <source>Generating Items</source>
         <translation>Elementuak sortzen</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="628"/>
+        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="608"/>
         <source>Group%1</source>
         <translation>%1taldea</translation>
     </message>
@@ -36594,17 +36594,17 @@ helbidera bidaliko bazenu.</translation>
 <context>
     <name>SmlPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsml.cpp" line="139"/>
+        <location filename="../../scribus/plugins/import/sml/importsml.cpp" line="136"/>
         <source>Importing: %1</source>
         <translation>Inportatzen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsml.cpp" line="142"/>
+        <location filename="../../scribus/plugins/import/sml/importsml.cpp" line="139"/>
         <source>Analyzing File:</source>
         <translation>Fitxategia analizatzen:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsml.cpp" line="352"/>
+        <location filename="../../scribus/plugins/import/sml/importsml.cpp" line="340"/>
         <source>Generating Items</source>
         <translation>Elementuak sortzen</translation>
     </message>
@@ -37252,17 +37252,17 @@ helbidera bidaliko bazenu.</translation>
 <context>
     <name>SvmPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/svm/importsvm.cpp" line="407"/>
+        <location filename="../../scribus/plugins/import/svm/importsvm.cpp" line="402"/>
         <source>Importing: %1</source>
         <translation>Inportatzen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svm/importsvm.cpp" line="410"/>
+        <location filename="../../scribus/plugins/import/svm/importsvm.cpp" line="405"/>
         <source>Analyzing File:</source>
         <translation>Fitxategia analizatzen:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svm/importsvm.cpp" line="693"/>
+        <location filename="../../scribus/plugins/import/svm/importsvm.cpp" line="675"/>
         <source>Generating Items</source>
         <translation>Elementuak sortzen</translation>
     </message>
@@ -40461,38 +40461,38 @@ X: %4, Y: %5</translation>
 <context>
     <name>UniconvImportPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="84"/>
+        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="83"/>
         <source>Imports Vector Files with UniConvertor</source>
         <translation>Fitxategi bektorialak inportatzen ditu UniConvertor bidez</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="85"/>
+        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="84"/>
         <source>Converts many vector formats to SVG and then loads the resulting SVG.</source>
         <translation>Hainbat formatu bektorial SVG formatura bihurtzen ditu eta ondoren SVGa kargatzen du.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="69"/>
-        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="100"/>
+        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="68"/>
+        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="99"/>
         <source>Uniconvertor Import</source>
         <translation>Uniconvertor inportatzailea</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="163"/>
+        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="162"/>
         <source>Starting Uniconvertor failed! The executable name in File-&gt;Preferences-&gt;External Tools may be incorrect or the software has been uninstalled since preferences were set. (%1)</source>
         <translation>Uniconvertor-en abioak huts egin du! &apos;Fitxategia-&gt;Hobespenak-&gt;Kanpoko tresnak&apos; ataleko exekutagarri-izena okerra izan daiteke edo agian softwarea desintalatu egin da hobespenak ezarri zirenetik. (%1)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="173"/>
+        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="172"/>
         <source>Uniconvertor did not exit correctly: %1</source>
         <translation>Uniconvertor ez da ongi itxi: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="180"/>
+        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="179"/>
         <source>Uniconvertor failed to convert the file: %1</source>
         <translation>Uniconvertor-ek ezin izan du fitxategia bihurtu: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="188"/>
+        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="187"/>
         <source>The SVG Import plugin could not be found</source>
         <translation>SVG Import plugina ez da aurkitu</translation>
     </message>
@@ -40696,17 +40696,17 @@ Sistemaren nabigatzaile lehenetsia ireki nahi duzu?</translation>
 <context>
     <name>VivaPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/viva/importviva.cpp" line="218"/>
+        <location filename="../../scribus/plugins/import/viva/importviva.cpp" line="215"/>
         <source>Importing: %1</source>
         <translation>Inportatzen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/viva/importviva.cpp" line="221"/>
+        <location filename="../../scribus/plugins/import/viva/importviva.cpp" line="218"/>
         <source>Analyzing File:</source>
         <translation>Fitxategia analizatzen:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/viva/importviva.cpp" line="386"/>
+        <location filename="../../scribus/plugins/import/viva/importviva.cpp" line="374"/>
         <source>Generating Items</source>
         <translation>Elementuak sortzen</translation>
     </message>
@@ -40714,17 +40714,17 @@ Sistemaren nabigatzaile lehenetsia ireki nahi duzu?</translation>
 <context>
     <name>VsdPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="142"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="136"/>
         <source>Importing: %1</source>
         <translation>Inportatzen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="145"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="139"/>
         <source>Analyzing File:</source>
         <translation>Fitxategia analizatzen:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="357"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="338"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -40750,12 +40750,12 @@ Document Liberation Project https://www.documentliberation.org</source>
         <translation>WMF fitxategi gehienak inportatzen ditu uneko dokumentura, eta haien datu bektorialak Scribus objektu bihurtzen ditu.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="176"/>
+        <location filename="../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="179"/>
         <source>The file could not be imported</source>
         <translation>Fitxategia ezin izan da inportatu</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="178"/>
+        <location filename="../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="181"/>
         <source>WMF file contains some unsupported features</source>
         <translation>WMF fitxategiak onartzen ez diren zenbait ezaugarri ditu</translation>
     </message>
@@ -40763,12 +40763,12 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>WpgPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/wpg/importwpg.cpp" line="499"/>
+        <location filename="../../scribus/plugins/import/wpg/importwpg.cpp" line="495"/>
         <source>Importing: %1</source>
         <translation>Inportatzen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/wpg/importwpg.cpp" line="502"/>
+        <location filename="../../scribus/plugins/import/wpg/importwpg.cpp" line="498"/>
         <source>Analyzing File:</source>
         <translation>Fitxategia analizatzen:</translation>
     </message>
@@ -40794,22 +40794,22 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>XarPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="246"/>
+        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="254"/>
         <source>Importing: %1</source>
         <translation>Inportatzen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="249"/>
+        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="257"/>
         <source>Analyzing File:</source>
         <translation>Fitxategia analizatzen:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="3621"/>
+        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="3495"/>
         <source>Group%1</source>
         <translation>%1taldea</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="536"/>
+        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="525"/>
         <source>Generating Items</source>
         <translation>Elementuak sortzen</translation>
     </message>
@@ -40817,17 +40817,17 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>XfigPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/xfig/importxfig.cpp" line="270"/>
+        <location filename="../../scribus/plugins/import/xfig/importxfig.cpp" line="273"/>
         <source>Importing: %1</source>
         <translation>Inportatzen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xfig/importxfig.cpp" line="273"/>
+        <location filename="../../scribus/plugins/import/xfig/importxfig.cpp" line="276"/>
         <source>Analyzing File:</source>
         <translation>Fitxategia analizatzen:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xfig/importxfig.cpp" line="1617"/>
+        <location filename="../../scribus/plugins/import/xfig/importxfig.cpp" line="1603"/>
         <source>Generating Items</source>
         <translation>Elementuak sortzen</translation>
     </message>
@@ -40868,17 +40868,17 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>XpsPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/xps/importxps.cpp" line="210"/>
+        <location filename="../../scribus/plugins/import/xps/importxps.cpp" line="216"/>
         <source>Importing: %1</source>
         <translation>Inportatzen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xps/importxps.cpp" line="213"/>
+        <location filename="../../scribus/plugins/import/xps/importxps.cpp" line="219"/>
         <source>Analyzing File:</source>
         <translation>Fitxategia analizatzen:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xps/importxps.cpp" line="404"/>
+        <location filename="../../scribus/plugins/import/xps/importxps.cpp" line="387"/>
         <source>Generating Items</source>
         <translation>Elementuak sortzen</translation>
     </message>
@@ -40977,17 +40977,17 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>ZmfPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="140"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="144"/>
         <source>Importing: %1</source>
         <translation>Inportatzen: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="143"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="147"/>
         <source>Analyzing File:</source>
         <translation>Fitxategia analizatzen:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="350"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="334"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the

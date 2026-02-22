@@ -4,22 +4,22 @@
 <context>
     <name>AIPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/ai/importai.cpp" line="340"/>
+        <location filename="../../scribus/plugins/import/ai/importai.cpp" line="337"/>
         <source>Importing: %1</source>
         <translation>Oc&apos;h enporzhiañ : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ai/importai.cpp" line="343"/>
+        <location filename="../../scribus/plugins/import/ai/importai.cpp" line="340"/>
         <source>Analyzing File:</source>
         <translation>O tezrannañ ar restr :</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ai/importai.cpp" line="2347"/>
+        <location filename="../../scribus/plugins/import/ai/importai.cpp" line="2334"/>
         <source>Group%1</source>
         <translation>Kevrediñ%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ai/importai.cpp" line="3449"/>
+        <location filename="../../scribus/plugins/import/ai/importai.cpp" line="3436"/>
         <source>Generating Items</source>
         <translation>O krouiñ ergorennoù</translation>
     </message>
@@ -3619,37 +3619,37 @@ Dibabit un anv all, mar plij.</translation>
 <context>
     <name>CWDialog</name>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="324"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="322"/>
         <source>Merging colors</source>
         <translation>Kemmeskadur al livioù</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="330"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="328"/>
         <source>Error: </source>
         <translation>Fazi :</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="330"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="328"/>
         <source>Color %1 exists already!</source>
         <translation>Al liv %1 zo anezhañ endeo !</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="335"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="333"/>
         <source>Color %1 appended.</source>
         <translation>Liv %1 bet ouzhpennet.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="339"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="337"/>
         <source>Now opening the color manager.</source>
         <translation>Bremañ o tegeriñ an ardoer livioù.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="342"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="340"/>
         <source>Color Merging</source>
         <translation>Kemmeskadur al livioù</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="493"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="491"/>
         <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
         <translation>N&apos;eo ket gouest da gavout al liv goulennet. Morvat hoc&apos;h eus dibabet du, loued, gwenn. N&apos;haller ket keweriañ ar liv-mañ.</translation>
     </message>
@@ -4039,17 +4039,17 @@ Klikañ da eren ur sterniad testenn ez eus anezhañ pe grouiñ emgefreek ur ster
 <context>
     <name>CdrPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="134"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="131"/>
         <source>Importing: %1</source>
         <translation>Oc&apos;h enporzhiañ : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="137"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="134"/>
         <source>Analyzing File:</source>
         <translation>O tezrannañ ar restr :</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="376"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="363"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -4060,17 +4060,17 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>CgmPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="180"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="177"/>
         <source>Importing: %1</source>
         <translation>Oc&apos;h enporzhiañ : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="183"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="180"/>
         <source>Analyzing File:</source>
         <translation>O tezrannañ ar restr :</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="424"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="415"/>
         <source>Generating Items</source>
         <translation>O krouiñ ergorennoù</translation>
     </message>
@@ -4833,103 +4833,103 @@ bremañ %2 x %3 PDM</translation>
 <context>
     <name>ColorWheel</name>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="139"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="131"/>
         <source>Monochromatic</source>
         <translation>Unlivek</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="140"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="132"/>
         <source>Analogous</source>
         <translation>Heñvel</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="141"/>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="224"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="133"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="212"/>
         <source>Complementary</source>
         <translation>Klokaus</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="142"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="134"/>
         <source>Split Complementary</source>
         <translation>Klokaus rannet</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="143"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="135"/>
         <source>Triadic</source>
         <translation>Trirannel</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="144"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="136"/>
         <source>Tetradic (Double Complementary)</source>
         <translation>Pevarrannel (daouglokaus)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="44"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="36"/>
         <source>Base Color</source>
         <translation>Liv diazez</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="206"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="194"/>
         <source>Monochromatic Light</source>
         <translation>Gouloù unlivek</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="209"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="197"/>
         <source>Monochromatic Dark</source>
         <translation>Unlivek teñval</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="216"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="204"/>
         <source>1st. Analogous</source>
         <translation>1añ heñvel</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="217"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="205"/>
         <source>2nd. Analogous</source>
         <translation>2l heñvel</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="231"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="219"/>
         <source>1st. Split</source>
         <translation>Troc&apos;h 1añ</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="232"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="220"/>
         <source>2nd. Split</source>
         <translation>2l troc&apos;h</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="233"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="221"/>
         <source>3rd. Split</source>
         <translation>3de troc&apos;h</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="234"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="222"/>
         <source>4th. Split</source>
         <translation>4vet troc&apos;h</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="241"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="229"/>
         <source>1st. Triadic</source>
         <translation>1an trirannel</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="242"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="230"/>
         <source>2nd. Triadic</source>
         <translation>2il trirannel</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="249"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="237"/>
         <source>1st. Tetradic (base opposite)</source>
         <translation>1añ pevarrannel (diazez enebat)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="250"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="238"/>
         <source>2nd. Tetradic (angle)</source>
         <translation>2l pevarrannel (korn)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="251"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="239"/>
         <source>3rd. Tetradic (angle opposite)</source>
         <translation>3de pevarrannel  (korn enebat)</translation>
     </message>
@@ -6531,17 +6531,17 @@ Lennit ar gevrenn a-zivout Embann al liv en teuliadur evit gouzout hiroc&apos;h.
 <context>
     <name>CvgPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="141"/>
+        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="138"/>
         <source>Importing: %1</source>
         <translation>Enporzhiadur : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="144"/>
+        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="141"/>
         <source>Analyzing File:</source>
         <translation>Dezrannadur ar restr :</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="340"/>
+        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="331"/>
         <source>Generating Items</source>
         <translation>Krouadur ergorennoù</translation>
     </message>
@@ -6780,22 +6780,22 @@ Lennit ar gevrenn a-zivout Embann al liv en teuliadur evit gouzout hiroc&apos;h.
 <context>
     <name>DrwPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="1182"/>
+        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="1159"/>
         <source>Group%1</source>
         <translation>Kevrediñ%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="153"/>
+        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="150"/>
         <source>Importing: %1</source>
         <translation>Oc&apos;h enporzhiañ : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="156"/>
+        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="153"/>
         <source>Analyzing File:</source>
         <translation>O tezrannañ ar restr :</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="359"/>
+        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="346"/>
         <source>Generating Items</source>
         <translation>O krouiñ ergorennoù</translation>
     </message>
@@ -7208,17 +7208,17 @@ ar restr %1 !</translation>
 <context>
     <name>EmfPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/emf/importemf.cpp" line="551"/>
+        <location filename="../../scribus/plugins/import/emf/importemf.cpp" line="545"/>
         <source>Importing: %1</source>
         <translation>Oc&apos;h enporzhiañ : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/emf/importemf.cpp" line="554"/>
+        <location filename="../../scribus/plugins/import/emf/importemf.cpp" line="548"/>
         <source>Analyzing File:</source>
         <translation>O tezrannañ ar restr :</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/emf/importemf.cpp" line="1036"/>
+        <location filename="../../scribus/plugins/import/emf/importemf.cpp" line="1017"/>
         <source>Generating Items</source>
         <translation>O krouiñ ergorennoù</translation>
     </message>
@@ -7702,17 +7702,17 @@ an ergorennoù o c&apos;hallout bezañ * evit an holl bajennadoù,
 <context>
     <name>FhPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="141"/>
+        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="138"/>
         <source>Importing: %1</source>
         <translation>Enporzhiadur : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="144"/>
+        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="141"/>
         <source>Analyzing File:</source>
         <translation>Dezrannadur ar restr :</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="347"/>
+        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="334"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -8793,17 +8793,17 @@ roll ar re laosket a-gostez</translation>
 <context>
     <name>IdmlPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="314"/>
+        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="311"/>
         <source>Importing: %1</source>
         <translation>Oc&apos;h enporzhiañ : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="317"/>
+        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="314"/>
         <source>Analyzing File:</source>
         <translation>O tezrannañ ar restr :</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="524"/>
+        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="515"/>
         <source>Generating Items</source>
         <translation>O krouiñ ergorennoù</translation>
     </message>
@@ -9355,34 +9355,34 @@ en ur amdreiñ o roadennoù sturiadel da ergorennoù mod Scribus.</translation>
 <context>
     <name>ImportPagesPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="59"/>
+        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="61"/>
         <source>Import iWorks Pages...</source>
         <translation>Enporzhiañ pajennadoù mod iWorks...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="61"/>
-        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="96"/>
+        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="63"/>
+        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="97"/>
         <source>iWorks Pages</source>
         <translation>Pajennadoù iWorks</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="62"/>
-        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="97"/>
+        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="64"/>
+        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="98"/>
         <source>iWorks Pages (*.pages *.PAGES)</source>
         <translation>iWorks Pages (*.pages *.PAGES)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="80"/>
+        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="81"/>
         <source>Imports iWorks Pages Files</source>
         <translation>Enporzhiañ a ra restroù pajennadoù mod iWorks</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="81"/>
+        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="82"/>
         <source>Imports most iWorks Pages files into the current document, converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="130"/>
+        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="131"/>
         <source>All Supported Formats</source>
         <translation>An holl ventrezhoù skoret</translation>
     </message>
@@ -9390,22 +9390,22 @@ en ur amdreiñ o roadennoù sturiadel da ergorennoù mod Scribus.</translation>
 <context>
     <name>ImportPctPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="122"/>
+        <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="124"/>
         <source>All Supported Formats</source>
         <translation>An holl ventrezhoù skoret</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="53"/>
+        <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="55"/>
         <source>Import Macintosh Pict...</source>
         <translation>Enporzhiañ restroù mod Macintosh Pict</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="74"/>
+        <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="76"/>
         <source>Imports Macintosh Pict Files</source>
         <translation>Enporzhiañ restroù mod Macintosh Pict</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="75"/>
+        <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="77"/>
         <source>Imports most Macintosh Pict files into the current document, converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9441,34 +9441,34 @@ en ur amdreiñ o roadennoù sturiadel da ergorennoù mod Scribus.</translation>
 <context>
     <name>ImportPmPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="53"/>
+        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="55"/>
         <source>Import Pagemaker...</source>
         <translation>Enporzhiañ restroù mod Pagemaker...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="55"/>
-        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="90"/>
+        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="57"/>
+        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="91"/>
         <source>Pagemaker</source>
         <translation>Pagemaker</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="56"/>
-        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="91"/>
+        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="58"/>
+        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="92"/>
         <source>Pagemaker (*.pmd *.PMD *.pm *.PM *.pm3 *.PM3 *.pm4 *.PM4 *.pm5 *.PM5 *.pm6 *.PM6 *.p65 *.P65)</source>
         <translation>Pagemaker (*.pmd *.PMD *.pm *.PM *.pm3 *.PM3 *.pm4 *.PM4 *.pm5 *.PM5 *.pm6 *.PM6 *.p65 *.P65)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="74"/>
+        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="75"/>
         <source>Imports Pagemaker Files</source>
         <translation>Enporzhiañ restroù mod Pagemaker</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="75"/>
+        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="76"/>
         <source>Imports most Pagemaker files into the current document, converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="123"/>
+        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="124"/>
         <source>All Supported Formats</source>
         <translation>An holl ventrezhoù skoret</translation>
     </message>
@@ -9476,34 +9476,34 @@ en ur amdreiñ o roadennoù sturiadel da ergorennoù mod Scribus.</translation>
 <context>
     <name>ImportPubPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="53"/>
+        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="55"/>
         <source>Import PUB...</source>
         <translation>Enporzhiañ a ra restroù mod PUB...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="55"/>
-        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="90"/>
+        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="57"/>
+        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="91"/>
         <source>MS Publisher</source>
         <translation>MS Publisher</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="56"/>
-        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="91"/>
+        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="58"/>
+        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="92"/>
         <source>MS Publisher (*.pub *.PUB)</source>
         <translation>MS Publisher (*.pub *.PUB)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="74"/>
+        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="75"/>
         <source>Imports PUB Files</source>
         <translation>Enporzhiañ a ra restroù mod PUB</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="75"/>
+        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="76"/>
         <source>Imports most MS Publisher files into the current document, converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="124"/>
+        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="125"/>
         <source>All Supported Formats</source>
         <translation>An holl ventrezhoù skoret</translation>
     </message>
@@ -9511,34 +9511,34 @@ en ur amdreiñ o roadennoù sturiadel da ergorennoù mod Scribus.</translation>
 <context>
     <name>ImportQxpPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="53"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="55"/>
         <source>Import QuarkXPress...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="55"/>
-        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="89"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="57"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="91"/>
         <source>QuarkXPress</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="56"/>
-        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="90"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="58"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="92"/>
         <source>QuarkXPress (*.qxd *.QXD *.qxt *.QXT)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="73"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="75"/>
         <source>Imports QuarkXPress Files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="74"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="76"/>
         <source>Imports QuarkXPress 3.1-4.1 files into the current document, converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="122"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="124"/>
         <source>All Supported Formats</source>
         <translation>An holl ventrezhoù skoret</translation>
     </message>
@@ -9546,38 +9546,38 @@ en ur amdreiñ o roadennoù sturiadel da ergorennoù mod Scribus.</translation>
 <context>
     <name>ImportShapePlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="53"/>
+        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="55"/>
         <source>Import Dia Shapes...</source>
         <translation>Enporzhiañ lunioù mod DIA...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="74"/>
+        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="76"/>
         <source>Imports Dia shape Files</source>
         <translation>Enporzhiañ a ra lunioù mod DIA</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="123"/>
+        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="125"/>
         <source>All Supported Formats</source>
         <translation>An holl ventrezhoù skoret</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="55"/>
-        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="90"/>
+        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="57"/>
+        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="92"/>
         <source>Dia Shapes</source>
         <translation>Lunioù Dia</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="56"/>
+        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="58"/>
         <source>Dia Shapes (*.shape *.SHAPE)</source>
         <translation>Lunioù Dia (*.shape *.SHAPE)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="75"/>
+        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="77"/>
         <source>Imports most Dia shapes into the current document, converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="92"/>
+        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="94"/>
         <source>Dia shapes (*.shape *.SHAPE)</source>
         <translation>Lunioù Dia (*.shape *.SHAPE)</translation>
     </message>
@@ -9585,42 +9585,42 @@ en ur amdreiñ o roadennoù sturiadel da ergorennoù mod Scribus.</translation>
 <context>
     <name>ImportSmlPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="53"/>
+        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="55"/>
         <source>Import Sml...</source>
         <translation>Enporzhiañ Sml...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="75"/>
+        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="76"/>
         <source>Imports most Kivio stencils into the current document, converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="90"/>
+        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="91"/>
         <source>Kivio Stencils &quot;*.sml&quot; File</source>
         <translation>Restr mod moulloù livañ Kivio &quot;*.sml&quot;</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="92"/>
+        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="93"/>
         <source>Kivio Stencils &quot;*.sml&quot; File (*.sml *.SML)</source>
         <translation>Restr mod moulloù livañ Kivio (*.sml *.SML)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="74"/>
+        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="75"/>
         <source>Imports Sml Files</source>
         <translation>Enporzhiañ a ra restroù mod SML</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="123"/>
+        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="124"/>
         <source>All Supported Formats</source>
         <translation>An holl ventrezhoù skoret</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="55"/>
+        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="57"/>
         <source>Kivio Stencils</source>
         <translation>Moulloù livañ Kivio</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="56"/>
+        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="58"/>
         <source>Kivio Stencils (*.sml *.SML)</source>
         <translation>Moulloù livañ Kivio (*.sml *.SML)</translation>
     </message>
@@ -9628,34 +9628,34 @@ en ur amdreiñ o roadennoù sturiadel da ergorennoù mod Scribus.</translation>
 <context>
     <name>ImportSvmPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="59"/>
+        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="61"/>
         <source>Import SVM...</source>
         <translation>Enporzhiañ SVM...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="61"/>
-        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="96"/>
+        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="63"/>
+        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="97"/>
         <source>SVM</source>
         <translation>SVM</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="62"/>
-        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="97"/>
+        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="64"/>
+        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="98"/>
         <source>SVM (*.svm *.svm)</source>
         <translation>SVM (*.svm *.svm)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="80"/>
+        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="81"/>
         <source>Imports SVM Files</source>
         <translation>Enporzhiañ a ra restroù mod SVM</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="81"/>
+        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="82"/>
         <source>Imports most SVM files into the current document, converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="128"/>
+        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="129"/>
         <source>All Supported Formats</source>
         <translation>An holl ventrezhoù skoret</translation>
     </message>
@@ -9663,34 +9663,34 @@ en ur amdreiñ o roadennoù sturiadel da ergorennoù mod Scribus.</translation>
 <context>
     <name>ImportVivaPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="59"/>
+        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="61"/>
         <source>Import Viva...</source>
         <translation>Enporzhiañ Viva...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="61"/>
-        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="96"/>
+        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="63"/>
+        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="97"/>
         <source>Viva Designer XML</source>
         <translation>Viva Designer XML</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="62"/>
-        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="97"/>
+        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="64"/>
+        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="98"/>
         <source>Viva Designer XML (*.xml *.XML)</source>
         <translation>Viva Designer XML (*.xml *.XML)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="80"/>
+        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="81"/>
         <source>Imports Viva Files</source>
         <translation>Enporzhiañ a ra restroù mod Viva</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="81"/>
+        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="82"/>
         <source>Imports most Viva files into the current document, converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="130"/>
+        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="131"/>
         <source>All Supported Formats</source>
         <translation>An holl ventrezhoù skoret</translation>
     </message>
@@ -9698,34 +9698,34 @@ en ur amdreiñ o roadennoù sturiadel da ergorennoù mod Scribus.</translation>
 <context>
     <name>ImportVsdPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="53"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="55"/>
         <source>Import Visio...</source>
         <translation>Enporzhiañ Visio...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="55"/>
-        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="90"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="57"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="91"/>
         <source>MS Visio</source>
         <translation>MS Visio</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="56"/>
-        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="91"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="58"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="92"/>
         <source>MS Visio (*.vsd *.VSD *.vdx *.VDX *.vsdx *.VSDX)</source>
         <translation>MS Visio (*.vsd *.VSD *.vdx *.VDX *.vsdx *.VSDX)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="74"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="75"/>
         <source>Imports MS Visio Files</source>
         <translation>Enporzhiañ ur skeudenn mod MS Visio</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="75"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="76"/>
         <source>Imports most MS Visio files into the current document, converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="124"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="125"/>
         <source>All Supported Formats</source>
         <translation>An holl ventrezhoù skoret</translation>
     </message>
@@ -9733,22 +9733,22 @@ en ur amdreiñ o roadennoù sturiadel da ergorennoù mod Scribus.</translation>
 <context>
     <name>ImportWpgPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="122"/>
+        <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="123"/>
         <source>All Supported Formats</source>
         <translation>An holl ventrezhoù skoret</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="53"/>
+        <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="55"/>
         <source>Import WordPerfect Graphics...</source>
         <translation>Enporzhiañ kevregadoù mod WordPerfect...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="74"/>
+        <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="75"/>
         <source>Imports WordPerfect Graphics Files</source>
         <translation>Enporzhiañ a ra restroù mod kevregadoù WordPerfect</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="75"/>
+        <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="76"/>
         <source>Imports most WordPerfect Graphics files into the current document, converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9756,42 +9756,42 @@ en ur amdreiñ o roadennoù sturiadel da ergorennoù mod Scribus.</translation>
 <context>
     <name>ImportXarPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="53"/>
+        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="55"/>
         <source>Import Xara...</source>
         <translation>Enporzhiañ Xara...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="75"/>
+        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="76"/>
         <source>Imports most Xara files into the current document, converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="90"/>
+        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="91"/>
         <source>XARA &quot;*.xar&quot; File</source>
         <translation>XARA &quot;*.xar&quot; File</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="92"/>
+        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="93"/>
         <source>XARA &quot;*.xar&quot; File (*.xar *.XAR)</source>
         <translation>Restr mod XARA &quot;*.xar&quot; (*.xar *.XAR)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="74"/>
+        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="75"/>
         <source>Imports Xara Files</source>
         <translation>Enporzhiañ a ra restroù mod Xara</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="123"/>
+        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="124"/>
         <source>All Supported Formats</source>
         <translation>An holl ventrezhoù skoret</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="55"/>
+        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="57"/>
         <source>XARA</source>
         <translation>XARA</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="56"/>
+        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="58"/>
         <source>XARA (*.xar *.XAR)</source>
         <translation>XARA (*.xar *.XAR)</translation>
     </message>
@@ -9799,22 +9799,22 @@ en ur amdreiñ o roadennoù sturiadel da ergorennoù mod Scribus.</translation>
 <context>
     <name>ImportXfigPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="53"/>
+        <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="55"/>
         <source>Import Xfig...</source>
         <translation>Enporzhiañ restroù mod XFig...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="74"/>
+        <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="75"/>
         <source>Imports Xfig Files</source>
         <translation>Enporzhiañ a ra restroù mod XFig</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="75"/>
+        <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="76"/>
         <source>Imports most Xfig files into the current document, converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="122"/>
+        <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="123"/>
         <source>All Supported Formats</source>
         <translation>An holl ventrezhoù skoret</translation>
     </message>
@@ -9822,46 +9822,46 @@ en ur amdreiñ o roadennoù sturiadel da ergorennoù mod Scribus.</translation>
 <context>
     <name>ImportXpsPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="59"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="62"/>
         <source>Import Xps...</source>
         <translation>Enporzhiañ Xps...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="61"/>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="99"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="64"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="101"/>
         <source>Microsoft XPS</source>
         <translation>Microsoft XPS</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="62"/>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="100"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="65"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="102"/>
         <source>Microsoft XPS (*.xps *.XPS)</source>
         <translation>Microsoft XPS (*.xps *.XPS)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="64"/>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="112"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="67"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="115"/>
         <source>Open XML Paper</source>
         <translation>Open XML Paper</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="65"/>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="113"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="68"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="116"/>
         <source>Open XML Paper (*.oxps *.OXPS)</source>
         <translation>Open XML Paper (*.oxps *.OXPS)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="83"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="85"/>
         <source>Imports XPS and Open XML Paper Files</source>
         <translation>Enporzhiañ a ra restroù mod XPS hag Open XML Paper</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="84"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="86"/>
         <source>Imports most XPS and Open XML Paper files into the current document, converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="146"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="149"/>
         <source>All Supported Formats</source>
         <translation>An holl ventrezhoù skoret</translation>
     </message>
@@ -9869,34 +9869,34 @@ en ur amdreiñ o roadennoù sturiadel da ergorennoù mod Scribus.</translation>
 <context>
     <name>ImportZmfPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="53"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="56"/>
         <source>Import Zoner Draw...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="55"/>
-        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="89"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="58"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="92"/>
         <source>Zoner Draw</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="56"/>
-        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="90"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="59"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="93"/>
         <source>Zoner Draw (*.zmf *.ZMF)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="73"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="76"/>
         <source>Imports Zoner Draw Files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="74"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="77"/>
         <source>Imports Zoner Draw 4-5 files into the current document, converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="122"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="125"/>
         <source>All Supported Formats</source>
         <translation>An holl ventrezhoù skoret</translation>
     </message>
@@ -12617,12 +12617,12 @@ An holl zornelloù a vo adderaouekaet ma ne ziuzit ket unan anezho.</translation
 <context>
     <name>OODPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="408"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="405"/>
         <source>This document does not seem to be an OpenOffice Draw file.</source>
         <translation>An teul-mañ ne hañval ket bezañ ur restr mod OpenOffice Draw.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="621"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="610"/>
         <source>Group%1</source>
         <translation>Kevrediñ%1</translation>
     </message>
@@ -12927,7 +12927,7 @@ An holl zornelloù a vo adderaouekaet ma ne ziuzit ket unan anezho.</translation
         <translation>O tezrannañ ar restr :</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/odg/importodg.cpp" line="336"/>
+        <location filename="../../scribus/plugins/import/odg/importodg.cpp" line="326"/>
         <source>Generating Items</source>
         <translation>O krouiñ ergorennoù</translation>
     </message>
@@ -13504,33 +13504,33 @@ Mar plij, gwiriit hi ha klaskit en-dro.</translation>
         <translation>Deiziad :</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="10666"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="10670"/>
         <source>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11955"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11959"/>
         <source>Failed to load an image : %1</source>
         <translation>C&apos;hwitadenn war kargañ ar skeudenn : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11960"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11964"/>
         <source>Failed to write an image : %1</source>
         <translation>C&apos;hwitadenn war skrivañ ar skeudenn : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11965"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11969"/>
         <source>Failed to load an image mask : %1</source>
         <translation>C&apos;hwitadenn war kargañ maskl ur skeudenn : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11970"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11974"/>
         <source>Insufficient memory for processing an image</source>
         <translation>N&apos;eus ket memor a-walc&apos;h a-benn keweriañ ur skeudenn</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11950"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11954"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>Degouezhet ez eus bet ur fazi skritur, gwiriit ar plas a chom war ar gantenn</translation>
     </message>
@@ -14390,17 +14390,17 @@ Please disable experimental PDF and PS embedding and try again.</source>
 <context>
     <name>PagesPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="206"/>
+        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="205"/>
         <source>Importing: %1</source>
         <translation>Oc&apos;h enporzhiañ : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="208"/>
+        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="207"/>
         <source>Analyzing File:</source>
         <translation>O tezrannañ ar restr :</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="391"/>
+        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="377"/>
         <source>Generating Items</source>
         <translation>O krouiñ ergorennoù</translation>
     </message>
@@ -14914,17 +14914,17 @@ Ur genaozdaur eus &quot;Kenskejadur&quot; ha &quot;Deskarzhadur&quot; a dalv</tr
 <context>
     <name>PctPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/pct/importpct.cpp" line="144"/>
+        <location filename="../../scribus/plugins/import/pct/importpct.cpp" line="141"/>
         <source>Importing: %1</source>
         <translation>Oc&apos;h enporzhiañ : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pct/importpct.cpp" line="147"/>
+        <location filename="../../scribus/plugins/import/pct/importpct.cpp" line="144"/>
         <source>Analyzing File:</source>
         <translation>O tezrannañ ar restr :</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pct/importpct.cpp" line="450"/>
+        <location filename="../../scribus/plugins/import/pct/importpct.cpp" line="434"/>
         <source>Generating Items</source>
         <translation>O krouiñ ergorennoù</translation>
     </message>
@@ -15021,27 +15021,27 @@ Please check it and try again.</source>
 <context>
     <name>PdfPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="155"/>
+        <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="159"/>
         <source>Importing: %1</source>
         <translation>Oc&apos;h enporzhiañ : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="157"/>
+        <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="161"/>
         <source>Analyzing File:</source>
         <translation>O tezrannañ ar restr :</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="324"/>
+        <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="319"/>
         <source>Generating Items</source>
         <translation>O krouiñ ergorennoù</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="351"/>
+        <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="346"/>
         <source>Open PDF-File</source>
         <translation>Digeriñ ar restr mod PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="351"/>
+        <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="346"/>
         <source>Password</source>
         <translation>Ger tremen</translation>
     </message>
@@ -16485,17 +16485,17 @@ Mar plij, dibabit unan all.</translation>
 <context>
     <name>PmPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/pm/importpm.cpp" line="137"/>
+        <location filename="../../scribus/plugins/import/pm/importpm.cpp" line="131"/>
         <source>Importing: %1</source>
         <translation>Oc&apos;h enporzhiañ : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pm/importpm.cpp" line="140"/>
+        <location filename="../../scribus/plugins/import/pm/importpm.cpp" line="134"/>
         <source>Analyzing File:</source>
         <translation>O tezrannañ ar restr :</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pm/importpm.cpp" line="346"/>
+        <location filename="../../scribus/plugins/import/pm/importpm.cpp" line="327"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -24318,17 +24318,17 @@ Ar werzh 0 a dalv troc&apos;hadurioù gerioù anbevenn.</translation>
 <context>
     <name>PubPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/pub/importpub.cpp" line="140"/>
+        <location filename="../../scribus/plugins/import/pub/importpub.cpp" line="134"/>
         <source>Importing: %1</source>
         <translation>Oc&apos;h enporzhiañ : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pub/importpub.cpp" line="143"/>
+        <location filename="../../scribus/plugins/import/pub/importpub.cpp" line="137"/>
         <source>Analyzing File:</source>
         <translation>O tezrannañ ar restr :</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pub/importpub.cpp" line="353"/>
+        <location filename="../../scribus/plugins/import/pub/importpub.cpp" line="334"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -25148,30 +25148,30 @@ Gwiriit an treug ha anv ar restr.</translation>
         <location filename="../../scribus/plugins/import/idml_old/importidml.cpp" line="101"/>
         <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="147"/>
         <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="156"/>
-        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="130"/>
-        <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="122"/>
+        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="131"/>
+        <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="124"/>
         <location filename="../../scribus/plugins/import/pdf/importpdfplugin.cpp" line="162"/>
-        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="123"/>
+        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="124"/>
         <location filename="../../scribus/plugins/import/ps/importpsplugin.cpp" line="155"/>
-        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="124"/>
-        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="122"/>
-        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="123"/>
-        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="123"/>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="159"/>
-        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="128"/>
-        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="130"/>
-        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="124"/>
-        <location filename="../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="144"/>
-        <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="122"/>
-        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="123"/>
-        <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="122"/>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="146"/>
-        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="122"/>
+        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="125"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="124"/>
+        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="125"/>
+        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="124"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="163"/>
+        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="129"/>
+        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="131"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="125"/>
+        <location filename="../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="146"/>
+        <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="123"/>
+        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="124"/>
+        <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="123"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="149"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="125"/>
         <source>Open</source>
         <translation>Digeriñ</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="136"/>
+        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="137"/>
         <location filename="../../scribus/plugins/export/xpsexport/xpsexplugin.cpp" line="139"/>
         <source>Save as</source>
         <translation>Enrollañ evel</translation>
@@ -29502,12 +29502,12 @@ dre nemedennoù digant an arc&apos;hwelioù galvet.</translation>
         <translation>Gerioù berr</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="108"/>
+        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="107"/>
         <source>SVG Export</source>
         <translation>Ezporzhiañ e SVG</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="101"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="103"/>
         <source>SVG Import</source>
         <translation>Enporzhiañ SVG</translation>
     </message>
@@ -30107,12 +30107,12 @@ dre nemedennoù digant an arc&apos;hwelioù galvet.</translation>
         <translation>Enporzhier PostScript</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="136"/>
+        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="137"/>
         <source>%1;;All Files (*)</source>
         <translation>%1;;An holl restroù (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="177"/>
+        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="178"/>
         <location filename="../../scribus/plugins/export/xpsexport/xpsexplugin.cpp" line="191"/>
         <source>Do you really want to overwrite the file:
 %1 ?</source>
@@ -30284,7 +30284,7 @@ dre nemedennoù digant an arc&apos;hwelioù galvet.</translation>
         <translation>Isrannañ</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="66"/>
+        <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="68"/>
         <source>Xfig Importer</source>
         <translation>Sil enporzhiañ XFig</translation>
     </message>
@@ -30433,22 +30433,22 @@ Neuze ne vo ket dereat ar skeudenn marteze</translation>
         <translation>C&apos;hwitadenn war digeriñ ar restr kefluniañ %1 ! %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="66"/>
+        <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="68"/>
         <source>Pict Importer</source>
         <translation>Enporzherez Pict</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="77"/>
+        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="76"/>
         <source>Uniconvertor Import</source>
         <translation>Enporzh Uniconvertor</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="66"/>
+        <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="68"/>
         <source>WPG Importer</source>
         <translation>Enporzherez Wpg</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="66"/>
+        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="68"/>
         <source>Xara Importer</source>
         <translation>Enporzherez Xara</translation>
     </message>
@@ -30526,12 +30526,12 @@ Neuze ne vo ket dereat ar skeudenn marteze</translation>
         <translation type="unfinished">Skor Scribus 1.3.4+ {1.5.0+?}</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="66"/>
+        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="68"/>
         <source>Shape Importer</source>
         <translation>Enporzherez lunioù</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="66"/>
+        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="68"/>
         <source>Sml Importer</source>
         <translation>Enporzherez Sml</translation>
     </message>
@@ -31057,7 +31057,7 @@ Neuze ne vo ket dereat ar skeudenn marteze</translation>
         <translation>Neepaleg</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="66"/>
+        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="68"/>
         <source>PUB Importer</source>
         <translation>Enporzhier PUB</translation>
     </message>
@@ -31067,7 +31067,7 @@ Neuze ne vo ket dereat ar skeudenn marteze</translation>
         <translation>&lt;p&gt;Emaoc&apos;h o klask enporzhiañ muioc&apos;h a bajennoù eget pezh zo hegerz en teul, eus ar bajenn vremanel betek an dibenn. &lt;/p&gt;An dibaboù zo : &lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Krouiñ&lt;/b&gt; ar pajennoù a vank&lt;/li&gt;&lt;li&gt;&lt;b&gt;Enprozhiañ&lt;/b&gt; ar pajennoù betek an hini diwezhañ eus an teul&lt;/li&gt;&lt;li&gt;&lt;b&gt;Dilezel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18354"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18351"/>
         <source>Unacceptable settings for note style</source>
         <translation>Arventennoù n&apos;hall ket bezañ bet degemeret evit ar stil notenn</translation>
     </message>
@@ -31097,22 +31097,22 @@ Neuze ne vo ket dereat ar skeudenn marteze</translation>
         <translation>11x17</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="72"/>
+        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="74"/>
         <source>Pages Importer</source>
         <translation>Enporzhierez pajennadoù</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="72"/>
+        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="74"/>
         <source>Viva Importer</source>
         <translation>Enporzhierez Viva</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="66"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="68"/>
         <source>MS Visio Importer</source>
         <translation>Enporzhierez MS Visio</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="75"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="78"/>
         <source>Xps Importer</source>
         <translation>Enporzhierez Xps</translation>
     </message>
@@ -31185,7 +31185,7 @@ Neuze ne vo ket dereat ar skeudenn marteze</translation>
         <translation>un niver daouek a rank bezañ gwerzh &lt;%1&gt; an elfenn</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="66"/>
+        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="68"/>
         <source>Pagemaker Importer</source>
         <translation>Enporzhier Pagemaker</translation>
     </message>
@@ -31245,7 +31245,7 @@ Neuze ne vo ket dereat ar skeudenn marteze</translation>
         <translation>Enporzhier EMF</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="72"/>
+        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="74"/>
         <source>SVM Importer</source>
         <translation>Enporzhier SVM</translation>
     </message>
@@ -31413,12 +31413,12 @@ Neuze ne vo ket dereat ar skeudenn marteze</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="66"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="68"/>
         <source>QuarkXPress Importer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="66"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="69"/>
         <source>Zoner Draw Importer</source>
         <translation type="unfinished"></translation>
     </message>
@@ -31590,17 +31590,17 @@ Dibabit unan all mar plij.</translation>
 <context>
     <name>QxpPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="145"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="137"/>
         <source>Importing: %1</source>
         <translation>Enporzhiadur : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="148"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="140"/>
         <source>Analyzing File:</source>
         <translation>Dezrannadur ar restr :</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="361"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="340"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -33206,44 +33206,44 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>SVGExportPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="115"/>
+        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="114"/>
         <source>Exports SVG Files</source>
         <translation>Ezporzhiañ a ra restroù mod SVG</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="116"/>
+        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="115"/>
         <source>Exports the current page into an SVG file.</source>
         <translation>Ezporzhiañ a ra ar bajenn vremanel en ur restr mod SVG.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="98"/>
+        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="97"/>
         <source>Save as &amp;SVG...</source>
         <translation>Enrollañ evel ur restr mod &amp;SVG...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="141"/>
+        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="142"/>
         <source>Compress File</source>
         <translation>Koazhañ ar restr</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="145"/>
+        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="146"/>
         <source>Save Images inline</source>
         <translation>Enrollañ ar skeudennoù en arroudenn</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="146"/>
+        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="147"/>
         <source>Adds all Images on the Page inline to the SVG.
 Caution: this will increase the file size!</source>
         <translation>Ouzhpennañ a ra an holl skeudennoù war un arroudenn eus ar bajennad 
 e-barzh ar restr mod SVG. Evezh : kresket e vo ment ar restr !</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="150"/>
+        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="151"/>
         <source>Export Page background</source>
         <translation>Ezporzhiañ drekva ar bajennad</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="151"/>
+        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="152"/>
         <source>Adds the Page itself as background to the SVG</source>
         <translation>Ouzhpennañ a ra ar bajenn hec&apos;h unan evel un drekleur er restr mod SVG.</translation>
     </message>
@@ -33251,22 +33251,22 @@ e-barzh ar restr mod SVG. Evezh : kresket e vo ment ar restr !</translation>
 <context>
     <name>SVGImportPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="93"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="95"/>
         <source>Import &amp;SVG...</source>
         <translation>Enporzhiañ ur restr mod &amp;SVG...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="108"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="110"/>
         <source>Imports SVG Files</source>
         <translation>Enporzhiañ ar restroù mod SVG</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="109"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="111"/>
         <source>Imports most SVG files into the current document, converting their vector data into Scribus objects.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="192"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="197"/>
         <source>The file could not be imported</source>
         <translation>Ar rest n&apos;hall ket bezañ enporzhiet</translation>
     </message>
@@ -33274,7 +33274,7 @@ e-barzh ar restr mod SVG. Evezh : kresket e vo ment ar restr !</translation>
 <context>
     <name>SVGPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="1356"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="1338"/>
         <source>Group%1</source>
         <translation>Kevrediñ%1</translation>
     </message>
@@ -34886,7 +34886,7 @@ gant an handelv-mañ n&apos;hallo ket bezañ lennet gant un handelv koshoc&apos;
         <location filename="../../scribus/scribusdoc.cpp" line="213"/>
         <location filename="../../scribus/scribusdoc.cpp" line="219"/>
         <location filename="../../scribus/scribusdoc.cpp" line="249"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16816"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16813"/>
         <source>Document</source>
         <translation>Teul</translation>
     </message>
@@ -34896,27 +34896,27 @@ gant an handelv-mañ n&apos;hallo ket bezañ lennet gant un handelv koshoc&apos;
         <translation>Drekleur</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11337"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11334"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>N&apos;haller ket diverkañ un ergorenn war arver</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11337"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11334"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>Emañ an ergorenn %1 o vezañ embannet gant an embanner diabarzh. Freuzet e vo ar gwezhiadur dilemel</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12133"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12130"/>
         <source>Some objects are locked.</source>
         <translation>Prennet ez eus ergorennoù zo.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12129"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12126"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Dibrennañ pep tra</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12130"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12127"/>
         <source>&amp;Skip locked objects</source>
         <translation>Lammat drei&amp;st an ergorenn prennet</translation>
     </message>
@@ -34927,7 +34927,7 @@ gant an handelv-mañ n&apos;hallo ket bezañ lennet gant un handelv koshoc&apos;
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="965"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16498"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16495"/>
         <source>Adjusting Colors</source>
         <translation>Kengeidadur al livioù</translation>
     </message>
@@ -34942,7 +34942,7 @@ gant an handelv-mañ n&apos;hallo ket bezañ lennet gant un handelv koshoc&apos;
         <translation>dilemel mentrezhañ eeun an arouezennoù</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13792"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13789"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -34953,7 +34953,7 @@ Linkañ a-serzh : %3
 C&apos;hwelañ : %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13825"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13822"/>
         <source>Number of rows: %1
 Number of columns: %2
 Horizontal gap: %3
@@ -34961,9 +34961,9 @@ Vertical gap: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="15185"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15240"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15402"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15182"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15237"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15399"/>
         <source>Group%1</source>
         <translation>Kevrediñ%1</translation>
     </message>
@@ -34974,28 +34974,28 @@ Vertical gap: %4</source>
         <translation>Enporzhiet </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13947"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13944"/>
         <source>Copied %1 item(s) on %2 page(s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16832"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16829"/>
         <source>File %1 autosaved</source>
         <translation>Restr %1 bet enrollet ent-emgefreek</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17983"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="18020"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17980"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18017"/>
         <source>No Style</source>
         <translation>Stil ebet</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18348"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18345"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>Un teul a dalv da lijorenn evit stil notenn %1 ha pourchas a ra an hevelep stil niverenniñ ouzh spletad %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11235"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11232"/>
         <source>Do you really want to clear the content of all selected frames?</source>
         <translation>Ha fellout a ra deoc&apos;h skarzhañ endalc&apos;had an holl sterniadoù bet diuzet ?</translation>
     </message>
@@ -35839,17 +35839,17 @@ Gwell e vefe ober gant Gwirierez Preflight d&apos;o reizhañ</translation>
         <translation>Diweredekaet</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3012"/>
+        <location filename="../../scribus/scribusview.cpp" line="3009"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>N&apos;haller ket amdreiñ un ergorenn war arver</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3012"/>
+        <location filename="../../scribus/scribusview.cpp" line="3009"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>Emañ an ergorenn %1 war embann en embanner diabarzh. Nullet e vo ar gwezh amdreiñ da drolinenn</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="1973"/>
+        <location filename="../../scribus/scribusview.cpp" line="1970"/>
         <source>Page %1 to %2</source>
         <translation>Pajenn %1 da %2</translation>
     </message>
@@ -36402,22 +36402,22 @@ Gwell e vefe ober gant Gwirierez Preflight d&apos;o reizhañ</translation>
 <context>
     <name>ShapePlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="140"/>
+        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="139"/>
         <source>Importing: %1</source>
         <translation>Oc&apos;h enporzhiañ : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="143"/>
+        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="142"/>
         <source>Analyzing File:</source>
         <translation>O tezrannañ ar restr :</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="346"/>
+        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="336"/>
         <source>Generating Items</source>
         <translation>O krouiñ ergorennoù</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="628"/>
+        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="608"/>
         <source>Group%1</source>
         <translation>Kevrediñ%1</translation>
     </message>
@@ -36561,17 +36561,17 @@ Gwell e vefe ober gant Gwirierez Preflight d&apos;o reizhañ</translation>
 <context>
     <name>SmlPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsml.cpp" line="139"/>
+        <location filename="../../scribus/plugins/import/sml/importsml.cpp" line="136"/>
         <source>Importing: %1</source>
         <translation>Oc&apos;h enporzhiañ : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsml.cpp" line="142"/>
+        <location filename="../../scribus/plugins/import/sml/importsml.cpp" line="139"/>
         <source>Analyzing File:</source>
         <translation>O tezrannañ ar restr :</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsml.cpp" line="352"/>
+        <location filename="../../scribus/plugins/import/sml/importsml.cpp" line="340"/>
         <source>Generating Items</source>
         <translation>O krouiñ ergorennoù</translation>
     </message>
@@ -37219,17 +37219,17 @@ Gwell e vefe ober gant Gwirierez Preflight d&apos;o reizhañ</translation>
 <context>
     <name>SvmPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/svm/importsvm.cpp" line="407"/>
+        <location filename="../../scribus/plugins/import/svm/importsvm.cpp" line="402"/>
         <source>Importing: %1</source>
         <translation>Oc&apos;h enporzhiañ : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svm/importsvm.cpp" line="410"/>
+        <location filename="../../scribus/plugins/import/svm/importsvm.cpp" line="405"/>
         <source>Analyzing File:</source>
         <translation>O tezrannañ ar restr :</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svm/importsvm.cpp" line="693"/>
+        <location filename="../../scribus/plugins/import/svm/importsvm.cpp" line="675"/>
         <source>Generating Items</source>
         <translation>O krouiñ ergorennoù</translation>
     </message>
@@ -40428,38 +40428,38 @@ X: %4, Y: %5</translation>
 <context>
     <name>UniconvImportPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="84"/>
+        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="83"/>
         <source>Imports Vector Files with UniConvertor</source>
         <translation>Enporzhiañ a ra restroù sturiadel gant UniConvertor</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="85"/>
+        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="84"/>
         <source>Converts many vector formats to SVG and then loads the resulting SVG.</source>
         <translation>Amdreiñ a ra meur a ventrezh sturiadel da SVG ha neuze kargañ a ra an SVG bet ganet.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="69"/>
-        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="100"/>
+        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="68"/>
+        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="99"/>
         <source>Uniconvertor Import</source>
         <translation>Enporzh Uniconvertor</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="163"/>
+        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="162"/>
         <source>Starting Uniconvertor failed! The executable name in File-&gt;Preferences-&gt;External Tools may be incorrect or the software has been uninstalled since preferences were set. (%1)</source>
         <translation>C&apos;hwitadenn war digeriñ UniConvertor ! Anv ar meziant erounezadus e Restr -&gt; Ostilhoù diavaez a zo direizh marteze pe staliet eo bet ar meziant goude ma&apos;z eo bet despizet ar gwellvezioù. (%1)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="173"/>
+        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="172"/>
         <source>Uniconvertor did not exit correctly: %1</source>
         <translation>N&apos;eo ket aet kuit UniConvertor gant un doare dereat : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="180"/>
+        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="179"/>
         <source>Uniconvertor failed to convert the file: %1</source>
         <translation>C&apos;hwitadenn war digeriñ ar restr gant UniConvertor : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="188"/>
+        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="187"/>
         <source>The SVG Import plugin could not be found</source>
         <translation type="unfinished"></translation>
     </message>
@@ -40663,17 +40663,17 @@ Ha fellout a ra deoc&apos;h loc&apos;hañ  merdeer dre ziouer ar reizhiad en e l
 <context>
     <name>VivaPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/viva/importviva.cpp" line="218"/>
+        <location filename="../../scribus/plugins/import/viva/importviva.cpp" line="215"/>
         <source>Importing: %1</source>
         <translation>Oc&apos;h enporzhiañ : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/viva/importviva.cpp" line="221"/>
+        <location filename="../../scribus/plugins/import/viva/importviva.cpp" line="218"/>
         <source>Analyzing File:</source>
         <translation>O tezrannañ ar restr :</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/viva/importviva.cpp" line="386"/>
+        <location filename="../../scribus/plugins/import/viva/importviva.cpp" line="374"/>
         <source>Generating Items</source>
         <translation>O krouiñ ergorennoù</translation>
     </message>
@@ -40681,17 +40681,17 @@ Ha fellout a ra deoc&apos;h loc&apos;hañ  merdeer dre ziouer ar reizhiad en e l
 <context>
     <name>VsdPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="142"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="136"/>
         <source>Importing: %1</source>
         <translation>Oc&apos;h enporzhiañ : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="145"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="139"/>
         <source>Analyzing File:</source>
         <translation>O tezrannañ ar restr :</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="357"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="338"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -40717,12 +40717,12 @@ Document Liberation Project https://www.documentliberation.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="176"/>
+        <location filename="../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="179"/>
         <source>The file could not be imported</source>
         <translation>Ar rest n&apos;hall ket bezañ enporzhiet</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="178"/>
+        <location filename="../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="181"/>
         <source>WMF file contains some unsupported features</source>
         <translation>Elfennoù anskor ez eus er restr mod WMF</translation>
     </message>
@@ -40730,12 +40730,12 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>WpgPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/wpg/importwpg.cpp" line="499"/>
+        <location filename="../../scribus/plugins/import/wpg/importwpg.cpp" line="495"/>
         <source>Importing: %1</source>
         <translation>Oc&apos;h enporzhiañ : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/wpg/importwpg.cpp" line="502"/>
+        <location filename="../../scribus/plugins/import/wpg/importwpg.cpp" line="498"/>
         <source>Analyzing File:</source>
         <translation>O tezrannañ ar restr :</translation>
     </message>
@@ -40761,22 +40761,22 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>XarPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="246"/>
+        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="254"/>
         <source>Importing: %1</source>
         <translation>Oc&apos;h enporzhiañ : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="249"/>
+        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="257"/>
         <source>Analyzing File:</source>
         <translation>O tezrannañ ar restr :</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="3621"/>
+        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="3495"/>
         <source>Group%1</source>
         <translation>Kevrediñ%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="536"/>
+        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="525"/>
         <source>Generating Items</source>
         <translation>O krouiñ ergorennoù</translation>
     </message>
@@ -40784,17 +40784,17 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>XfigPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/xfig/importxfig.cpp" line="270"/>
+        <location filename="../../scribus/plugins/import/xfig/importxfig.cpp" line="273"/>
         <source>Importing: %1</source>
         <translation>Oc&apos;h enporzhiañ : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xfig/importxfig.cpp" line="273"/>
+        <location filename="../../scribus/plugins/import/xfig/importxfig.cpp" line="276"/>
         <source>Analyzing File:</source>
         <translation>O tezrannañ ar restr :</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xfig/importxfig.cpp" line="1617"/>
+        <location filename="../../scribus/plugins/import/xfig/importxfig.cpp" line="1603"/>
         <source>Generating Items</source>
         <translation>O krouiñ ergorennoù</translation>
     </message>
@@ -40835,17 +40835,17 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>XpsPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/xps/importxps.cpp" line="210"/>
+        <location filename="../../scribus/plugins/import/xps/importxps.cpp" line="216"/>
         <source>Importing: %1</source>
         <translation>Oc&apos;h enporzhiañ : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xps/importxps.cpp" line="213"/>
+        <location filename="../../scribus/plugins/import/xps/importxps.cpp" line="219"/>
         <source>Analyzing File:</source>
         <translation>O tezrannañ ar restr :</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xps/importxps.cpp" line="404"/>
+        <location filename="../../scribus/plugins/import/xps/importxps.cpp" line="387"/>
         <source>Generating Items</source>
         <translation>O krouiñ ergorennoù</translation>
     </message>
@@ -40944,17 +40944,17 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>ZmfPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="140"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="144"/>
         <source>Importing: %1</source>
         <translation>Enporzhiadur : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="143"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="147"/>
         <source>Analyzing File:</source>
         <translation>Dezrannadur ar restr :</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="350"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="334"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
