@@ -3522,6 +3522,9 @@ void RawPainter::insertImage(PageItem* ite, const QString& imgExt, QByteArray &i
 			ite->effectsInUse.append(ef);
 		}
 		m_doc->loadPict(fileName, ite);
+		bool stretch = m_style["style:repeat"] && m_style["style:repeat"]->getStr() == "stretch";
+		if (stretch && ite->imageIsAvailable)
+			ite->setImageScalingMode(false, true);
 #if HAVE_REVENGE
 		if (m_style["librevenge:rotate"])
 		{
