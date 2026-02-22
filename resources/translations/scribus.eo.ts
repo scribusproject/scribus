@@ -6,54 +6,54 @@
     <message>
         <location filename="../../scribus/fonts/ftface.cpp" line="55"/>
         <source>Freetype2 library not available</source>
-        <translation type="unfinished">Biblioteko Freetype2 nedisponebla</translation>
+        <translation>Biblioteko Freetype2 nedisponebla</translation>
     </message>
     <message>
         <location filename="../../scribus/fonts/ftface.cpp" line="73"/>
         <location filename="../../scribus/fonts/ftface.cpp" line="91"/>
         <source>Font %1(%2) is broken</source>
-        <translation type="unfinished">Tiparo %1(%2) estas damaĝita</translation>
+        <translation>Tiparo %1(%2) estas damaĝita</translation>
     </message>
     <message>
         <location filename="../../scribus/fonts/ftface.cpp" line="151"/>
         <source>Font %1 has broken glyph %2 (charcode %3)</source>
-        <translation type="unfinished">La tiparo %1 havas difektitan signobildon %2 (signokodo %3)</translation>
+        <translation>La tiparo %1 havas difektitan signobildon %2 (signokodo %3)</translation>
     </message>
     <message>
         <location filename="../../scribus/fonts/ftface.cpp" line="209"/>
         <source>Font %1 has broken glyph %2</source>
-        <translation type="unfinished">La tiparo %1 havas difektitan signobilon %2</translation>
+        <translation>La tiparo %1 havas difektitan signobilon %2</translation>
     </message>
     <message>
         <location filename="../../scribus/fonts/ftface.cpp" line="436"/>
         <source>Font %1 is broken (read stream), no embedding</source>
-        <translation type="unfinished">La tiparo %1 estas difektita (legu fluon), ne estos enkorpigita</translation>
+        <translation>La tiparo %1 estas difektita (legu fluon), ne estos enkorpigita</translation>
     </message>
     <message>
         <location filename="../../scribus/fonts/scface_ttf.cpp" line="132"/>
         <source>extracting face %1 from font %2 (offset=%3, nTables=%4)</source>
-        <translation type="unfinished">ekstraktas signon %1 el la tiparo %2 (offset=%3, nTables=%4)</translation>
+        <translation>ekstraktas signon %1 el la tiparo %2 (offset=%3, nTables=%4)</translation>
     </message>
 </context>
 <context>
     <name>AIPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/ai/importai.cpp" line="333"/>
+        <location filename="../../scribus/plugins/import/ai/importai.cpp" line="331"/>
         <source>Importing: %1</source>
         <translation>Importado: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ai/importai.cpp" line="336"/>
+        <location filename="../../scribus/plugins/import/ai/importai.cpp" line="334"/>
         <source>Analyzing File:</source>
         <translation>Analizo de la dosiero:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ai/importai.cpp" line="2340"/>
+        <location filename="../../scribus/plugins/import/ai/importai.cpp" line="2327"/>
         <source>Group%1</source>
         <translation>Grupo%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/ai/importai.cpp" line="3442"/>
+        <location filename="../../scribus/plugins/import/ai/importai.cpp" line="3429"/>
         <source>Generating Items</source>
         <translation>Generado de elementoj</translation>
     </message>
@@ -361,37 +361,37 @@
 <context>
     <name>AboutPlugins</name>
     <message>
-        <location filename="../../scribus/ui/aboutplugins.cpp" line="70"/>
+        <location filename="../../scribus/ui/aboutplugins.cpp" line="68"/>
         <source>Filename:</source>
         <translation>Dosiernomo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aboutplugins.cpp" line="71"/>
+        <location filename="../../scribus/ui/aboutplugins.cpp" line="69"/>
         <source>Version:</source>
         <translation>Versio:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aboutplugins.cpp" line="76"/>
+        <location filename="../../scribus/ui/aboutplugins.cpp" line="74"/>
         <source>Release Date:</source>
         <translation>Publikigodato:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aboutplugins.cpp" line="83"/>
+        <location filename="../../scribus/ui/aboutplugins.cpp" line="81"/>
         <source>Description:</source>
         <translation>Priskribo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aboutplugins.cpp" line="84"/>
+        <location filename="../../scribus/ui/aboutplugins.cpp" line="82"/>
         <source>Author(s):</source>
         <translation>Aŭtoro(j):</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aboutplugins.cpp" line="85"/>
+        <location filename="../../scribus/ui/aboutplugins.cpp" line="83"/>
         <source>Copyright:</source>
         <translation>Kopirajto:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/aboutplugins.cpp" line="86"/>
+        <location filename="../../scribus/ui/aboutplugins.cpp" line="84"/>
         <source>License:</source>
         <translation>Permesilo:</translation>
     </message>
@@ -1732,17 +1732,17 @@
         <translation>&amp;Helpo</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="2439"/>
+        <location filename="../../scribus/actionmanager.cpp" line="2441"/>
         <source>Plugin Menu Items</source>
         <translation>Elementoj de kromprogrammenuo</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="2441"/>
+        <location filename="../../scribus/actionmanager.cpp" line="2443"/>
         <source>Others</source>
         <translation>Aliaj</translation>
     </message>
     <message>
-        <location filename="../../scribus/actionmanager.cpp" line="2443"/>
+        <location filename="../../scribus/actionmanager.cpp" line="2445"/>
         <source>Unicode Characters</source>
         <translation>Unikodaj signoj</translation>
     </message>
@@ -2688,7 +2688,7 @@
     <message>
         <location filename="../../scribus/ui/alignverticalselect.cpp" line="86"/>
         <source>&amp;Vertical</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Vertikala</translation>
     </message>
 </context>
 <context>
@@ -2964,31 +2964,31 @@
     <name>AutoformButtonGroup</name>
     <message>
         <location filename="../../scribus/ui/autoformbuttongroup.cpp" line="37"/>
-        <location filename="../../scribus/ui/autoformbuttongroup.cpp" line="800"/>
+        <location filename="../../scribus/ui/autoformbuttongroup.cpp" line="738"/>
         <source>Arrows</source>
         <translation>Sagoj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/autoformbuttongroup.cpp" line="45"/>
-        <location filename="../../scribus/ui/autoformbuttongroup.cpp" line="801"/>
+        <location filename="../../scribus/ui/autoformbuttongroup.cpp" line="739"/>
         <source>Flow Chart</source>
         <translation>Fluskemo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/autoformbuttongroup.cpp" line="54"/>
-        <location filename="../../scribus/ui/autoformbuttongroup.cpp" line="802"/>
+        <location filename="../../scribus/ui/autoformbuttongroup.cpp" line="740"/>
         <source>Jigsaw</source>
         <translation>Mozaiko</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/autoformbuttongroup.cpp" line="67"/>
-        <location filename="../../scribus/ui/autoformbuttongroup.cpp" line="803"/>
+        <location filename="../../scribus/ui/autoformbuttongroup.cpp" line="741"/>
         <source>Specials</source>
         <translation>Specialaj signoj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/autoformbuttongroup.cpp" line="22"/>
-        <location filename="../../scribus/ui/autoformbuttongroup.cpp" line="799"/>
+        <location filename="../../scribus/ui/autoformbuttongroup.cpp" line="737"/>
         <source>Default Shapes</source>
         <translation>Defaŭltaj formoj</translation>
     </message>
@@ -3800,37 +3800,37 @@ bonvolu elekti alian.</translation>
 <context>
     <name>CWDialog</name>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="321"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="319"/>
         <source>Merging colors</source>
         <translation>Kunfandotaj koloroj</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="327"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="325"/>
         <source>Error: </source>
         <translation>Eraro: </translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="327"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="325"/>
         <source>Color %1 exists already!</source>
         <translation>La koloro %1 jam ekzistas!</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="332"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="330"/>
         <source>Color %1 appended.</source>
         <translation>La koloro %1 estis aldonita.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="336"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="334"/>
         <source>Now opening the color manager.</source>
         <translation>Malfermo de la koloradministrilo.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="339"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="337"/>
         <source>Color Merging</source>
         <translation>Kolorkunfando</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="490"/>
+        <location filename="../../scribus/plugins/colorwheel/cwdialog.cpp" line="488"/>
         <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
         <translation>Ne eblis trovi la petitan koloron. Verŝajne vi elektis nigron, grizon aŭ blankon. Ne eblas trakti ĉi tiun koloron.</translation>
     </message>
@@ -4157,50 +4157,50 @@ Alto: %2</translation>
 <context>
     <name>CanvasMode_Normal</name>
     <message>
-        <location filename="../../scribus/canvasmode_normal.cpp" line="1789"/>
+        <location filename="../../scribus/canvasmode_normal.cpp" line="1793"/>
         <source>All Supported Formats</source>
         <translation>Ĉiuj subtenataj formoj</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvasmode_normal.cpp" line="1817"/>
+        <location filename="../../scribus/canvasmode_normal.cpp" line="1821"/>
         <source>Open</source>
         <translation>Malfermu</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvasmode_normal.cpp" line="377"/>
+        <location filename="../../scribus/canvasmode_normal.cpp" line="381"/>
         <source>Go to Page %1</source>
         <translation>Iru al la paĝo %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvasmode_normal.cpp" line="379"/>
+        <location filename="../../scribus/canvasmode_normal.cpp" line="383"/>
         <source>Go to URL %1</source>
         <translation>Iru al URL %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvasmode_normal.cpp" line="381"/>
+        <location filename="../../scribus/canvasmode_normal.cpp" line="385"/>
         <source>Go to Page %1 in File %2</source>
         <translation>Iru al la paĝo %1 en la dosiero %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvasmode_normal.cpp" line="1491"/>
+        <location filename="../../scribus/canvasmode_normal.cpp" line="1495"/>
         <source>Page %1 does not exist!</source>
         <translation>La paĝo %1 ne ekzistas!</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvasmode_normal.cpp" line="1497"/>
+        <location filename="../../scribus/canvasmode_normal.cpp" line="1501"/>
         <source>Link Target is Web URL.
 URL: %1</source>
         <translation>La ligo celita estas Interreta URL.
 URL: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvasmode_normal.cpp" line="1498"/>
-        <location filename="../../scribus/canvasmode_normal.cpp" line="1503"/>
+        <location filename="../../scribus/canvasmode_normal.cpp" line="1502"/>
+        <location filename="../../scribus/canvasmode_normal.cpp" line="1507"/>
         <source>Information</source>
         <translation>Informoj</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvasmode_normal.cpp" line="1502"/>
+        <location filename="../../scribus/canvasmode_normal.cpp" line="1506"/>
         <source>Link Target is external File.
 File: %1
 Page: %2</source>
@@ -4209,7 +4209,7 @@ Dosiero; %1
 Paĝo: %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvasmode_normal.cpp" line="422"/>
+        <location filename="../../scribus/canvasmode_normal.cpp" line="426"/>
         <source>Overflow Characters: %1 (%2 White Spaces)
 Click to link to existing text frame or auto-create new linked text frame</source>
         <translation>Tro da signoj: %1 (%2 blankaj spacetoj)
@@ -4219,17 +4219,17 @@ Alklaku ligilonal ekzistanta kadro aŭ mem kreu novan ligitan tekstokadron</tran
 <context>
     <name>CdrPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="118"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="115"/>
         <source>Importing: %1</source>
         <translation>Importado: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="121"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="118"/>
         <source>Analyzing File:</source>
         <translation>Analizo de la dosiero:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="364"/>
+        <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="351"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -4243,17 +4243,17 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>CgmPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="166"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="163"/>
         <source>Importing: %1</source>
         <translation>Importado: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="169"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="166"/>
         <source>Analyzing File:</source>
         <translation>Analizo de la dosiero:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="410"/>
+        <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="401"/>
         <source>Generating Items</source>
         <translation>Generado de elementoj</translation>
     </message>
@@ -5028,17 +5028,17 @@ aktuale %2 x %3 DPI  </translation>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker.cpp" line="604"/>
         <source>Knockout</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrastega</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker.cpp" line="605"/>
         <source>Overprint</source>
-        <translation type="unfinished"></translation>
+        <translation>Surpresu</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker.cpp" line="608"/>
         <source>Display only used colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Montru nur uzitajn kolorojn</translation>
     </message>
 </context>
 <context>
@@ -5046,64 +5046,64 @@ aktuale %2 x %3 DPI  </translation>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_color.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Formo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_color.ui" line="52"/>
         <location filename="../../scribus/ui/colorpicker/colorpicker_color.ui" line="65"/>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_color.ui" line="98"/>
         <source>Opacity:</source>
-        <translation type="unfinished">Opakeco:</translation>
+        <translation>Opakeco:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_color.ui" line="78"/>
         <source>Shade:</source>
-        <translation type="unfinished">Intenso:</translation>
+        <translation>Intenso:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_color.ui" line="120"/>
         <location filename="../../scribus/ui/colorpicker/colorpicker_color.cpp" line="242"/>
         <source>Color Swatches</source>
-        <translation type="unfinished"></translation>
+        <translation>Specimenaroj de koloroj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_color.cpp" line="148"/>
         <source>Opacity: %1 %</source>
-        <translation type="unfinished"></translation>
+        <translation>Opakeco: %1 %</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_color.cpp" line="151"/>
         <source>&lt;br&gt; Shade: %1 %</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt; Intenso: %1 %</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_color.cpp" line="152"/>
         <source>&lt;br&gt; Opacity: %1 %</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt; Opakeco: %1 %</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_color.cpp" line="168"/>
         <source>R: %1 G: %2 B: %3</source>
-        <translation type="unfinished">R: %1 G: %2 B: %3</translation>
+        <translation>R: %1 G: %2 B: %3</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_color.cpp" line="175"/>
         <source>C: %1% M: %2% Y: %3% K: %4%</source>
-        <translation type="unfinished">C: %1% M: %2% Y: %3% K: %4%</translation>
+        <translation>C: %1% M: %2% Y: %3% K: %4%</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_color.cpp" line="182"/>
         <source>L: %1 a: %2 b: %3</source>
-        <translation type="unfinished">L: %1 a: %2 b: %3</translation>
+        <translation>L: %1 a: %2 b: %3</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_color.cpp" line="190"/>
         <source>Color: %1 (%2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Koloro: %1 (%2)</translation>
     </message>
 </context>
 <context>
@@ -5111,7 +5111,7 @@ aktuale %2 x %3 DPI  </translation>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_color_swatches.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Formo</translation>
     </message>
 </context>
 <context>
@@ -5119,19 +5119,19 @@ aktuale %2 x %3 DPI  </translation>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Formo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="35"/>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="389"/>
         <source>Vector</source>
-        <translation type="unfinished"></translation>
+        <translation>Vektoro</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="49"/>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="390"/>
         <source>Gradient</source>
-        <translation type="unfinished">Gradiento</translation>
+        <translation>Gradiento</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="138"/>
@@ -5140,7 +5140,7 @@ aktuale %2 x %3 DPI  </translation>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="601"/>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="759"/>
         <source>Color</source>
-        <translation type="unfinished">Koloro</translation>
+        <translation>Koloro</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="180"/>
@@ -5149,7 +5149,7 @@ aktuale %2 x %3 DPI  </translation>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="643"/>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="801"/>
         <source>Shade</source>
-        <translation type="unfinished"></translation>
+        <translation>Intenso</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="218"/>
@@ -5158,7 +5158,7 @@ aktuale %2 x %3 DPI  </translation>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="691"/>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="849"/>
         <source>Opacity</source>
-        <translation type="unfinished">Opakeco</translation>
+        <translation>Opakeco</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="379"/>
@@ -5170,62 +5170,62 @@ aktuale %2 x %3 DPI  </translation>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="827"/>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="875"/>
         <source> %</source>
-        <translation type="unfinished"> %</translation>
+        <translation> %</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="898"/>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="391"/>
         <source>Gradient Swatches</source>
-        <translation type="unfinished"></translation>
+        <translation>Specimenaroj de gradientoj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="920"/>
         <source>Use Luminosity as Alpha</source>
-        <translation type="unfinished"></translation>
+        <translation>Uzu helecon kiel Alfa</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="175"/>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="182"/>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="189"/>
         <source>Linear</source>
-        <translation type="unfinished"></translation>
+        <translation>Linia</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="176"/>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="183"/>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="190"/>
         <source>Radial</source>
-        <translation type="unfinished"></translation>
+        <translation>Radiusa</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="191"/>
         <source>Conical</source>
-        <translation type="unfinished"></translation>
+        <translation>Konusa</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="192"/>
         <source>Diamond</source>
-        <translation type="unfinished">Diamanto</translation>
+        <translation>Diamanto</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="193"/>
         <source>4 Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>4 koloroj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="194"/>
         <source>Mesh</source>
-        <translation type="unfinished"></translation>
+        <translation>Maŝo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="195"/>
         <source>Patch Mesh</source>
-        <translation type="unfinished"></translation>
+        <translation>Flikaĵa maŝo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="357"/>
         <source>Gradient: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Gradiento: %1</translation>
     </message>
 </context>
 <context>
@@ -5234,41 +5234,41 @@ aktuale %2 x %3 DPI  </translation>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="55"/>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="415"/>
         <source>End</source>
-        <translation type="unfinished">Fino</translation>
+        <translation>Fino</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="123"/>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="357"/>
         <source>Y:</source>
-        <translation type="unfinished">Y:</translation>
+        <translation>Y:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="143"/>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="276"/>
         <source>X:</source>
-        <translation type="unfinished">X:</translation>
+        <translation>X:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="156"/>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="457"/>
         <source>Skew</source>
-        <translation type="unfinished">Oblikvigu</translation>
+        <translation>Oblikveco</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="208"/>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="289"/>
         <source>Start</source>
-        <translation type="unfinished">Komenco</translation>
+        <translation>Komenco</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="373"/>
         <source>Focal</source>
-        <translation type="unfinished"></translation>
+        <translation>Fokusa:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="522"/>
         <source>Scale</source>
-        <translation type="unfinished">Skalo</translation>
+        <translation>Skalo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="613"/>
@@ -5281,90 +5281,90 @@ aktuale %2 x %3 DPI  </translation>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="900"/>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="934"/>
         <source>/</source>
-        <translation type="unfinished"></translation>
+        <translation>/</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="620"/>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="849"/>
         <source>3. Point:</source>
-        <translation type="unfinished"></translation>
+        <translation>Punkto 3:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="721"/>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="815"/>
         <source>2. Point:</source>
-        <translation type="unfinished"></translation>
+        <translation>Punkto 2:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="728"/>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="883"/>
         <source>4. Point:</source>
-        <translation type="unfinished"></translation>
+        <translation>Punkto 4:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="735"/>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="781"/>
         <source>1. Point:</source>
-        <translation type="unfinished"></translation>
+        <translation>Punkto 1:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="917"/>
         <source>5. Point:</source>
-        <translation type="unfinished"></translation>
+        <translation>Punkto 5:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="980"/>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="1169"/>
         <source>Edit Grid Points</source>
-        <translation type="unfinished"></translation>
+        <translation>Redaktu kradpunktojn</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="1002"/>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="1191"/>
         <source>Edit Control Points</source>
-        <translation type="unfinished">Redaktu kontrolpunktojn</translation>
+        <translation>Redaktu kontrolpunktojn</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="1027"/>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="1216"/>
         <source>Reset selected Control Point</source>
-        <translation type="unfinished"></translation>
+        <translation>Nuligu ĉi tiun kontrolpunkton</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="1052"/>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="1241"/>
         <source>Reset all Control Points</source>
-        <translation type="unfinished"></translation>
+        <translation>Nuligu ĉiujn kontrolpunktojn</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="1089"/>
         <source>New Mesh...</source>
-        <translation type="unfinished"></translation>
+        <translation>Nova maŝo...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="1096"/>
         <source>Reset Mesh</source>
-        <translation type="unfinished"></translation>
+        <translation>Nuligu maŝon</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="1103"/>
         <source>Mesh -&gt; Shape</source>
-        <translation type="unfinished"></translation>
+        <translation>Maŝo -&gt; Formo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="1274"/>
         <source>Snap to other Mesh Points</source>
-        <translation type="unfinished"></translation>
+        <translation>Alkaptiĝu al aliaj maŝopunktoj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="1286"/>
         <source>Add Patch</source>
-        <translation type="unfinished"></translation>
+        <translation>Aldonu flikaĵon</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_properties.ui" line="1299"/>
         <source>Remove Patch</source>
-        <translation type="unfinished"></translation>
+        <translation>Forigu flikaĵon</translation>
     </message>
 </context>
 <context>
@@ -5372,7 +5372,7 @@ aktuale %2 x %3 DPI  </translation>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient_swatches.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Formo</translation>
     </message>
 </context>
 <context>
@@ -5380,52 +5380,52 @@ aktuale %2 x %3 DPI  </translation>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_hatch.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Formo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_hatch.ui" line="46"/>
         <source>Distance</source>
-        <translation type="unfinished">Distanco</translation>
+        <translation>Distanco</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_hatch.ui" line="81"/>
         <source>Angle</source>
-        <translation type="unfinished"></translation>
+        <translation>Angulo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_hatch.ui" line="123"/>
         <source>Type</source>
-        <translation type="unfinished">Tipo</translation>
+        <translation>Tipo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_hatch.ui" line="147"/>
         <source>Single</source>
-        <translation type="unfinished">Unuopa</translation>
+        <translation>Unuopa</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_hatch.ui" line="152"/>
         <source>Double</source>
-        <translation type="unfinished"></translation>
+        <translation>Duobla</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_hatch.ui" line="157"/>
         <source>Triple</source>
-        <translation type="unfinished"></translation>
+        <translation>Triobla</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_hatch.ui" line="191"/>
         <source>Line</source>
-        <translation type="unfinished">Linio</translation>
+        <translation>Linio</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_hatch.ui" line="230"/>
         <source>Background</source>
-        <translation type="unfinished">Fono</translation>
+        <translation>Fono</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_hatch.cpp" line="80"/>
         <source>Hatch</source>
-        <translation type="unfinished">Haĉo</translation>
+        <translation>Haĉo</translation>
     </message>
 </context>
 <context>
@@ -5433,86 +5433,86 @@ aktuale %2 x %3 DPI  </translation>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Formo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.ui" line="35"/>
         <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.cpp" line="291"/>
         <source>Properties</source>
-        <translation type="unfinished">Ecoj</translation>
+        <translation>Ecoj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.ui" line="68"/>
         <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.cpp" line="297"/>
         <source>Rotation</source>
-        <translation type="unfinished">Rotacio</translation>
+        <translation>Rotacio</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.ui" line="103"/>
         <source>Spacing</source>
-        <translation type="unfinished">Distanco</translation>
+        <translation>Distanco</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.ui" line="138"/>
         <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.cpp" line="298"/>
         <source>Flip</source>
-        <translation type="unfinished">Renversu</translation>
+        <translation>Renversu</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.ui" line="208"/>
         <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.cpp" line="294"/>
         <source>Offset</source>
-        <translation type="unfinished">Ŝovo</translation>
+        <translation>Ŝovo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.ui" line="237"/>
         <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.cpp" line="299"/>
         <source>X:</source>
-        <translation type="unfinished">X:</translation>
+        <translation>X:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.ui" line="292"/>
         <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.cpp" line="300"/>
         <source>Y:</source>
-        <translation type="unfinished">Y:</translation>
+        <translation>Y:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.ui" line="308"/>
         <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.cpp" line="296"/>
         <source>Skew</source>
-        <translation type="unfinished">Oblikvigu</translation>
+        <translation>Oblikveco</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.ui" line="343"/>
         <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.cpp" line="295"/>
         <source>Scale</source>
-        <translation type="unfinished">Skalo</translation>
+        <translation>Skalo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.ui" line="424"/>
         <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.cpp" line="292"/>
         <source>Patterns</source>
-        <translation type="unfinished">Modeloj</translation>
+        <translation>Modeloj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.ui" line="449"/>
         <source>Use Luminosity as Alpha</source>
-        <translation type="unfinished"></translation>
+        <translation>Uzu helecon kiel Alfa</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.ui" line="456"/>
         <source>Use inverted Pattern</source>
-        <translation type="unfinished"></translation>
+        <translation>Uzi invertitan modelon</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.ui" line="463"/>
         <source>Pattern follows Path</source>
-        <translation type="unfinished"></translation>
+        <translation>La modelo sekvas la strekaĵon</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.cpp" line="204"/>
         <source>Pattern: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Modelo: %1</translation>
     </message>
 </context>
 <context>
@@ -5529,7 +5529,7 @@ aktuale %2 x %3 DPI  </translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="133"/>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="213"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="212"/>
         <source>Complementary</source>
         <translation>Komplementa</translation>
     </message>
@@ -5554,67 +5554,67 @@ aktuale %2 x %3 DPI  </translation>
         <translation>Bazkoloro</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="195"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="194"/>
         <source>Monochromatic Light</source>
         <translation>Unukolora hela</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="198"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="197"/>
         <source>Monochromatic Dark</source>
         <translation>Unukolora malhela</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="205"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="204"/>
         <source>1st. Analogous</source>
         <translation>1a Analoga</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="206"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="205"/>
         <source>2nd. Analogous</source>
         <translation>2a Analoga</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="220"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="219"/>
         <source>1st. Split</source>
         <translation>1a Disigo</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="221"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="220"/>
         <source>2nd. Split</source>
         <translation>2a Disigo</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="222"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="221"/>
         <source>3rd. Split</source>
         <translation>3a Disigo</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="223"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="222"/>
         <source>4th. Split</source>
         <translation>4a Disigo</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="230"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="229"/>
         <source>1st. Triadic</source>
         <translation>1a Triopa</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="231"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="230"/>
         <source>2nd. Triadic</source>
         <translation>2a Triopa</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="238"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="237"/>
         <source>1st. Tetradic (base opposite)</source>
         <translation>1a kvaropa (diametre opozicia)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="239"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="238"/>
         <source>2nd. Tetradic (angle)</source>
         <translation>2a kvaropa (angula)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="240"/>
+        <location filename="../../scribus/plugins/colorwheel/colorwheelwidget.cpp" line="239"/>
         <source>3rd. Tetradic (angle opposite)</source>
         <translation>3a kvaropa (opozicia angulo)</translation>
     </message>
@@ -5976,82 +5976,82 @@ VIdu la sekcion Redaktu Kolorojn de la dokumentaro por kromaj detaloj.     </tra
         <location filename="../../scribus/ui/widgets/combo_blendmode.cpp" line="22"/>
         <location filename="../../scribus/ui/widgets/combo_blendmode.cpp" line="39"/>
         <source>Normal</source>
-        <translation type="unfinished">Normala</translation>
+        <translation>Normala</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/widgets/combo_blendmode.cpp" line="23"/>
         <source>Darken</source>
-        <translation type="unfinished">Malhela</translation>
+        <translation>Malhela</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/widgets/combo_blendmode.cpp" line="24"/>
         <source>Lighten</source>
-        <translation type="unfinished">Hela</translation>
+        <translation>Hela</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/widgets/combo_blendmode.cpp" line="25"/>
         <source>Multiply</source>
-        <translation type="unfinished">Multobligu</translation>
+        <translation>Multobligu</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/widgets/combo_blendmode.cpp" line="26"/>
         <source>Screen</source>
-        <translation type="unfinished">Ekrano</translation>
+        <translation>Ekrano</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/widgets/combo_blendmode.cpp" line="27"/>
         <source>Overlay</source>
-        <translation type="unfinished">Supermetu</translation>
+        <translation>Supermetu</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/widgets/combo_blendmode.cpp" line="28"/>
         <source>Hard Light</source>
-        <translation type="unfinished">Forta lumo</translation>
+        <translation>Forta lumo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/widgets/combo_blendmode.cpp" line="29"/>
         <source>Soft Light</source>
-        <translation type="unfinished">Malforta lumo</translation>
+        <translation>Malforta lumo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/widgets/combo_blendmode.cpp" line="30"/>
         <source>Difference</source>
-        <translation type="unfinished">Diferenco</translation>
+        <translation>Diferenco</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/widgets/combo_blendmode.cpp" line="31"/>
         <source>Exclusion</source>
-        <translation type="unfinished">Ekskludo</translation>
+        <translation>Ekskludo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/widgets/combo_blendmode.cpp" line="32"/>
         <source>Color Dodge</source>
-        <translation type="unfinished">Kolora subekspono</translation>
+        <translation>Kolora subekspono</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/widgets/combo_blendmode.cpp" line="33"/>
         <source>Color Burn</source>
-        <translation type="unfinished">Kolora superekspono</translation>
+        <translation>Kolora superekspono</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/widgets/combo_blendmode.cpp" line="34"/>
         <source>Hue</source>
-        <translation type="unfinished">Tono</translation>
+        <translation>Tono</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/widgets/combo_blendmode.cpp" line="35"/>
         <source>Saturation</source>
-        <translation type="unfinished">Pureco</translation>
+        <translation>Pureco</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/widgets/combo_blendmode.cpp" line="36"/>
         <source>Color</source>
-        <translation type="unfinished">Koloro</translation>
+        <translation>Koloro</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/widgets/combo_blendmode.cpp" line="37"/>
         <source>Luminosity</source>
-        <translation type="unfinished">Heleco</translation>
+        <translation>Heleco</translation>
     </message>
 </context>
 <context>
@@ -6060,12 +6060,12 @@ VIdu la sekcion Redaktu Kolorojn de la dokumentaro por kromaj detaloj.     </tra
         <location filename="../../scribus/ui/widgets/combo_linestyle.cpp" line="75"/>
         <location filename="../../scribus/ui/widgets/combo_linestyle.cpp" line="85"/>
         <source>No Style</source>
-        <translation type="unfinished">Neniu stilo</translation>
+        <translation>Neniu stilo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/widgets/combo_linestyle.cpp" line="87"/>
         <source>Line style of current object</source>
-        <translation type="unfinished"></translation>
+        <translation>Linistilo de la aktuala objekto</translation>
     </message>
 </context>
 <context>
@@ -6784,109 +6784,124 @@ VIdu la sekcion Redaktu Kolorojn de la dokumentaro por kromaj detaloj.     </tra
 <context>
     <name>ContextMenu</name>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="297"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="357"/>
         <source>Preview Settings</source>
         <translation>Antaŭrigard-agordaro</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="582"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="641"/>
         <source>Paste File...</source>
         <translation>Algluu dosieron...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="617"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="676"/>
         <source>Delete Page</source>
         <translation>Forigu paĝojn</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="106"/>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="145"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="109"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="146"/>
         <source>In&amp;fo</source>
         <translation>In&amp;formoj</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="130"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="133"/>
         <source>Print: </source>
         <translation>Printo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="133"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="136"/>
         <source>Enabled</source>
         <translation>Ebligita</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="135"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="138"/>
         <source>Disabled</source>
         <translation>Neebligita</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="208"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="209"/>
         <source>Edit 3D Annotation...</source>
         <translation>Redaktu 3D-Komenton...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="222"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="223"/>
         <source>Insert Mark</source>
         <translation>Enmetu indikilon</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="341"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="266"/>
+        <source>No suggestions for &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="273"/>
+        <source>Spelling: &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="286"/>
+        <source>Ignore</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="400"/>
         <source>Image</source>
         <translation>Bildo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="366"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="425"/>
         <source>Locking</source>
         <translation>Ŝloso</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="371"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="430"/>
         <source>Send to</source>
         <translation>Sendu al</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="373"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="432"/>
         <source>Scrapbook</source>
         <translation>Albumo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="404"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="463"/>
         <source>Send to La&amp;yer</source>
         <translation>Sendu al Ta&amp;volo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="433"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="492"/>
         <source>Le&amp;vel</source>
         <translation>Ni&amp;velo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="456"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="515"/>
         <source>Conve&amp;rt to</source>
         <translation>Konve&amp;rtu al</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="472"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="531"/>
         <source>&amp;PDF Options</source>
         <translation>&amp;PDF-opcioj</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="523"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="582"/>
         <source>Edit</source>
         <translation>Redaktu</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="509"/>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="565"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="568"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="624"/>
         <source>&amp;Paste Here</source>
         <translation>Al&amp;gluu ĉi tie</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="573"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="632"/>
         <source>Paste Recent</source>
         <translation>Algluu lastan</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="195"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="196"/>
         <source>Content</source>
         <translation>Enteno</translation>
     </message>
@@ -7295,17 +7310,17 @@ VIdu la sekcion Redaktu Kolorojn de la dokumentaro por kromaj detaloj.     </tra
 <context>
     <name>CvgPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="126"/>
+        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="123"/>
         <source>Importing: %1</source>
         <translation>Importado: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="129"/>
+        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="126"/>
         <source>Analyzing File:</source>
         <translation>Analizo de la dosiero:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="325"/>
+        <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="316"/>
         <source>Generating Items</source>
         <translation>Generado de elementoj</translation>
     </message>
@@ -7442,18 +7457,28 @@ VIdu la sekcion Redaktu Kolorojn de la dokumentaro por kromaj detaloj.     </tra
 <context>
     <name>DocumentLogManager</name>
     <message>
-        <location filename="../../scribus/documentlogmanager.cpp" line="31"/>
+        <location filename="../../scribus/documentlogmanager.cpp" line="34"/>
         <source>Unsupported file format for %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/documentlogmanager.cpp" line="36"/>
+        <location filename="../../scribus/documentlogmanager.cpp" line="39"/>
         <source>File import failed for %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/documentlogmanager.cpp" line="41"/>
+        <location filename="../../scribus/documentlogmanager.cpp" line="44"/>
         <source>File not found: %1</source>
+        <translation>Dosiero ne trovita: %1</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/documentlogmanager.cpp" line="49"/>
+        <source>Failed to decode &apos;%1&apos;: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/documentlogmanager.cpp" line="54"/>
+        <source>Memory allocation failed while loading &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7462,13 +7487,13 @@ VIdu la sekcion Redaktu Kolorojn de la dokumentaro por kromaj detaloj.     </tra
     <message>
         <location filename="../../scribus/ui/documentlogviewer.cpp" line="51"/>
         <source>All</source>
-        <translation type="unfinished">Ĉiuj</translation>
+        <translation>Ĉiuj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/documentlogviewer.cpp" line="63"/>
         <source>All</source>
         <comment>Document log level all</comment>
-        <translation type="unfinished">Ĉiuj</translation>
+        <translation>Ĉiuj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/documentlogviewer.cpp" line="64"/>
@@ -7486,7 +7511,7 @@ VIdu la sekcion Redaktu Kolorojn de la dokumentaro por kromaj detaloj.     </tra
         <location filename="../../scribus/ui/documentlogviewer.cpp" line="66"/>
         <source>Error</source>
         <comment>Document log level error</comment>
-        <translation type="unfinished">Eraro</translation>
+        <translation>Eraro</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/documentlogviewer.cpp" line="67"/>
@@ -7498,7 +7523,7 @@ VIdu la sekcion Redaktu Kolorojn de la dokumentaro por kromaj detaloj.     </tra
         <location filename="../../scribus/ui/documentlogviewer.cpp" line="68"/>
         <source>Warning</source>
         <comment>Document log level warning</comment>
-        <translation type="unfinished">Averto</translation>
+        <translation>Averto</translation>
     </message>
 </context>
 <context>
@@ -7511,37 +7536,37 @@ VIdu la sekcion Redaktu Kolorojn de la dokumentaro por kromaj detaloj.     </tra
     <message>
         <location filename="../../scribus/ui/documentlogviewerbase.ui" line="22"/>
         <source>Source:</source>
-        <translation type="unfinished">Fontoj:</translation>
+        <translation>Fontoj:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/documentlogviewerbase.ui" line="32"/>
         <source>Level:</source>
-        <translation type="unfinished">Nivelo:</translation>
+        <translation>Nivelo:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/documentlogviewerbase.ui" line="55"/>
         <source>Add Samples</source>
-        <translation type="unfinished"></translation>
+        <translation>Aldonu specimenojn</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/documentlogviewerbase.ui" line="74"/>
         <source>Time</source>
-        <translation type="unfinished">Horo</translation>
+        <translation>Horo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/documentlogviewerbase.ui" line="84"/>
         <source>Level</source>
-        <translation type="unfinished">Nivelo</translation>
+        <translation>Nivelo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/documentlogviewerbase.ui" line="79"/>
         <source>Source</source>
-        <translation type="unfinished">Fonto</translation>
+        <translation>Fonto</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/documentlogviewerbase.ui" line="89"/>
         <source>Message</source>
-        <translation type="unfinished"></translation>
+        <translation>Mesaĝo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/documentlogviewerbase.ui" line="97"/>
@@ -7598,22 +7623,22 @@ VIdu la sekcion Redaktu Kolorojn de la dokumentaro por kromaj detaloj.     </tra
 <context>
     <name>DrwPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="1169"/>
+        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="1146"/>
         <source>Group%1</source>
         <translation>Grupo%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="140"/>
+        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="137"/>
         <source>Importing: %1</source>
         <translation>Importado: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="143"/>
+        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="140"/>
         <source>Analyzing File:</source>
         <translation>Analizo de la dosiero:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="346"/>
+        <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="333"/>
         <source>Generating Items</source>
         <translation>Generado de elementoj</translation>
     </message>
@@ -8027,17 +8052,17 @@ malsukcesis!</translation>
 <context>
     <name>EmfPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/emf/importemf.cpp" line="535"/>
+        <location filename="../../scribus/plugins/import/emf/importemf.cpp" line="529"/>
         <source>Importing: %1</source>
         <translation>Importado: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/emf/importemf.cpp" line="538"/>
+        <location filename="../../scribus/plugins/import/emf/importemf.cpp" line="532"/>
         <source>Analyzing File:</source>
         <translation>Analizo de la dosiero:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/emf/importemf.cpp" line="1020"/>
+        <location filename="../../scribus/plugins/import/emf/importemf.cpp" line="1001"/>
         <source>Generating Items</source>
         <translation>Generado de elementoj</translation>
     </message>
@@ -8283,7 +8308,7 @@ por paĝointervalo, aŭ unuopa paĝnumero</translation>
     <message>
         <location filename="../../scribus/ui/extimageprops.ui" line="14"/>
         <source>Dialog</source>
-        <translation type="unfinished">Dialogo</translation>
+        <translation>Dialogo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/extimageprops.ui" line="42"/>
@@ -8293,7 +8318,7 @@ por paĝointervalo, aŭ unuopa paĝnumero</translation>
     <message>
         <location filename="../../scribus/ui/extimageprops.ui" line="67"/>
         <source>Clipping Paths</source>
-        <translation type="unfinished">Tondostrekoj</translation>
+        <translation>Tondostrekoj</translation>
     </message>
 </context>
 <context>
@@ -8356,17 +8381,17 @@ por paĝointervalo, aŭ unuopa paĝnumero</translation>
 <context>
     <name>FhPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="124"/>
+        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="121"/>
         <source>Importing: %1</source>
         <translation>Importado: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="127"/>
+        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="124"/>
         <source>Analyzing File:</source>
         <translation>Analizo de la dosiero:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="329"/>
+        <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="316"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -8426,27 +8451,27 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/flopwidget.cpp" line="66"/>
         <source>First Line &amp;Offset</source>
-        <translation type="unfinished"></translation>
+        <translation>Ŝ&amp;ovo de la unua linio</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/flopwidget.cpp" line="67"/>
         <source>Set the height of the first line of text frame to use the full ascent of the font(s) in use</source>
-        <translation type="unfinished"></translation>
+        <translation>Agordu la alton de la unua linio de la tekstokadro por uzi la tutan suprenon de la tiparo(j) uzata(j)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/flopwidget.cpp" line="68"/>
         <source>Set the height of the first line of the text frame to use the tallest height of the included characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Agordu la alton de la unua linio de la tekstokadro por uzi la maksumuman alton de la inkluzivitaj signoj</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/flopwidget.cpp" line="69"/>
         <source>Set the height of the first line of the text frame to the specified line height</source>
-        <translation type="unfinished"></translation>
+        <translation>Agordu la alton de la unua linio de la tekstokadro kiel la specifita linialto</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/flopwidget.cpp" line="70"/>
         <source>Set the base line of the first line of the text frame to the base line grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Agordu la alton de la unua linio de la tekstokadro kiel la specifita linialto</translation>
     </message>
 </context>
 <context>
@@ -8822,12 +8847,12 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/widgets/gradientlistbox.cpp" line="355"/>
         <source>Sort by Name</source>
-        <translation type="unfinished">Ordigu laŭ nomo</translation>
+        <translation>Ordigu laŭ nomo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/widgets/gradientlistbox.cpp" line="356"/>
         <source>Sort by Type</source>
-        <translation type="unfinished">Ordigu laŭ tipo</translation>
+        <translation>Ordigu laŭ tipo</translation>
     </message>
 </context>
 <context>
@@ -8835,32 +8860,32 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/models/gradientlistmodel.cpp" line="72"/>
         <source>Diamond</source>
-        <translation type="unfinished">Diamanto</translation>
+        <translation>Diamanto</translation>
     </message>
     <message>
         <location filename="../../scribus/models/gradientlistmodel.cpp" line="75"/>
         <source>4-Color</source>
-        <translation type="unfinished"></translation>
+        <translation>4-kolora</translation>
     </message>
     <message>
         <location filename="../../scribus/models/gradientlistmodel.cpp" line="78"/>
         <source>Free Mesh</source>
-        <translation type="unfinished"></translation>
+        <translation>Libera maŝo</translation>
     </message>
     <message>
         <location filename="../../scribus/models/gradientlistmodel.cpp" line="81"/>
         <source>Linear</source>
-        <translation type="unfinished"></translation>
+        <translation>Linia</translation>
     </message>
     <message>
         <location filename="../../scribus/models/gradientlistmodel.cpp" line="84"/>
         <source>Mesh</source>
-        <translation type="unfinished"></translation>
+        <translation>Maŝo</translation>
     </message>
     <message>
         <location filename="../../scribus/models/gradientlistmodel.cpp" line="87"/>
         <source>Radial</source>
-        <translation type="unfinished"></translation>
+        <translation>Radiusa</translation>
     </message>
 </context>
 <context>
@@ -9310,7 +9335,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/hruler.cpp" line="1087"/>
         <source>Period</source>
-        <translation type="unfinished">Punkto</translation>
+        <translation>Punkto</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/hruler.cpp" line="1088"/>
@@ -9437,17 +9462,17 @@ ignorolisto</translation>
 <context>
     <name>IdmlPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="303"/>
+        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="300"/>
         <source>Importing: %1</source>
         <translation>Importado: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="306"/>
+        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="303"/>
         <source>Analyzing File:</source>
         <translation>Analizo de la dosiero:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="513"/>
+        <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="504"/>
         <source>Generating Items</source>
         <translation>Generado de elementoj</translation>
     </message>
@@ -9457,12 +9482,12 @@ ignorolisto</translation>
     <message>
         <location filename="../../scribus/ui/imageclippingpaths.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Formo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/imageclippingpaths.ui" line="43"/>
         <source>Don&apos;t use any Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Uzu neniun strekaĵon</translation>
     </message>
 </context>
 <context>
@@ -9573,12 +9598,12 @@ ignorolisto</translation>
     <message>
         <location filename="../../scribus/ui/imagelayers.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Formo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/imagelayers.ui" line="46"/>
         <source>Blendmode</source>
-        <translation type="unfinished">Fandoreĝimo</translation>
+        <translation>Fandoreĝimo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/imagelayers.ui" line="67"/>
@@ -9588,7 +9613,7 @@ ignorolisto</translation>
     <message>
         <location filename="../../scribus/ui/imagelayers.ui" line="99"/>
         <source>Opacity</source>
-        <translation type="unfinished">Opakeco</translation>
+        <translation>Opakeco</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/imagelayers.ui" line="120"/>
@@ -10154,34 +10179,34 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
 <context>
     <name>ImportPagesPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="59"/>
+        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="61"/>
         <source>Import iWorks Pages...</source>
         <translation>Importu iWorks Pages...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="61"/>
-        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="96"/>
+        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="63"/>
+        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="97"/>
         <source>iWorks Pages</source>
         <translation>iWorks Pages</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="62"/>
-        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="97"/>
+        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="64"/>
+        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="98"/>
         <source>iWorks Pages (*.pages *.PAGES)</source>
         <translation>iWorks Pages (*.pages *.PAGES)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="80"/>
+        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="81"/>
         <source>Imports iWorks Pages Files</source>
         <translation>Importas iWorks-Pages-dosierojn</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="81"/>
+        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="82"/>
         <source>Imports most iWorks Pages files into the current document, converting their vector data into Scribus objects.</source>
         <translation>Importas la plejparton el la dosieroj de iWorks Pages en la aktualan dokumenton, konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="130"/>
+        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="131"/>
         <source>All Supported Formats</source>
         <translation>Ĉiuj subtenataj formoj</translation>
     </message>
@@ -10189,22 +10214,22 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
 <context>
     <name>ImportPctPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="122"/>
+        <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="124"/>
         <source>All Supported Formats</source>
         <translation>Ĉiuj subtenataj formoj</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="53"/>
+        <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="55"/>
         <source>Import Macintosh Pict...</source>
         <translation>Importu Macintosh Pict...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="74"/>
+        <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="76"/>
         <source>Imports Macintosh Pict Files</source>
         <translation>Importas Macintosh Pict-dosierojn</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="75"/>
+        <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="77"/>
         <source>Imports most Macintosh Pict files into the current document, converting their vector data into Scribus objects.</source>
         <translation>Importas la plejparton el la dosieroj de Macintosh Pict en la aktualan dokumenton, konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
     </message>
@@ -10240,34 +10265,34 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
 <context>
     <name>ImportPmPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="53"/>
+        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="55"/>
         <source>Import Pagemaker...</source>
         <translation>Importu Pagemaker...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="55"/>
-        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="90"/>
+        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="57"/>
+        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="91"/>
         <source>Pagemaker</source>
         <translation>Pagemaker</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="56"/>
-        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="91"/>
+        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="58"/>
+        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="92"/>
         <source>Pagemaker (*.pmd *.PMD *.pm *.PM *.pm3 *.PM3 *.pm4 *.PM4 *.pm5 *.PM5 *.pm6 *.PM6 *.p65 *.P65)</source>
         <translation>Pagemaker (*.pmd *.PMD *.pm *.PM *.pm3 *.PM3 *.pm4 *.PM4 *.pm5 *.PM5 *.pm6 *.PM6 *.p65 *.P65)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="74"/>
+        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="75"/>
         <source>Imports Pagemaker Files</source>
         <translation>Importas Pagemaker-dosierojn</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="75"/>
+        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="76"/>
         <source>Imports most Pagemaker files into the current document, converting their vector data into Scribus objects.</source>
         <translation>Importas la plejparton el la Pagemaker-dosieroj en la aktualan dokumenton, konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="123"/>
+        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="124"/>
         <source>All Supported Formats</source>
         <translation>Ĉiuj subtenataj formoj</translation>
     </message>
@@ -10275,34 +10300,34 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
 <context>
     <name>ImportPubPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="53"/>
+        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="55"/>
         <source>Import PUB...</source>
         <translation>Importu PUB...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="55"/>
-        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="90"/>
+        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="57"/>
+        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="91"/>
         <source>MS Publisher</source>
         <translation>MS Publisher</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="56"/>
-        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="91"/>
+        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="58"/>
+        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="92"/>
         <source>MS Publisher (*.pub *.PUB)</source>
         <translation>MS Publisher (*.pub *.PUB)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="74"/>
+        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="75"/>
         <source>Imports PUB Files</source>
         <translation>Importas PUB-dosierojn</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="75"/>
+        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="76"/>
         <source>Imports most MS Publisher files into the current document, converting their vector data into Scribus objects.</source>
         <translation>Importas la plejparton el la dosieroj de MS Publisher en la aktualan dokumenton, konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="124"/>
+        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="125"/>
         <source>All Supported Formats</source>
         <translation>Ĉiuj subtenataj formoj</translation>
     </message>
@@ -10310,34 +10335,34 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
 <context>
     <name>ImportQxpPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="53"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="55"/>
         <source>Import QuarkXPress...</source>
         <translation>Importu QuarkXPress...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="55"/>
-        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="89"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="57"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="91"/>
         <source>QuarkXPress</source>
         <translation>QuarkXPress</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="56"/>
-        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="90"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="58"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="92"/>
         <source>QuarkXPress (*.qxd *.QXD *.qxt *.QXT)</source>
         <translation>QuarkXPress (*.qxd *.QXD *.qxt *.QXT)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="73"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="75"/>
         <source>Imports QuarkXPress Files</source>
         <translation>Importas QuarkXPress-dosierojn</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="74"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="76"/>
         <source>Imports QuarkXPress 3.1-4.1 files into the current document, converting their vector data into Scribus objects.</source>
         <translation>Importas la dosierojn de QuarkXPress 3.1-4.1 en la aktualan dokumenton, konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="122"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="124"/>
         <source>All Supported Formats</source>
         <translation>Ĉiuj subtenataj formoj</translation>
     </message>
@@ -10345,38 +10370,38 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
 <context>
     <name>ImportShapePlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="53"/>
+        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="55"/>
         <source>Import Dia Shapes...</source>
         <translation>Importu Dia-formojn...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="74"/>
+        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="76"/>
         <source>Imports Dia shape Files</source>
         <translation>Importas formdosierojn de Dia</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="123"/>
+        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="125"/>
         <source>All Supported Formats</source>
         <translation>Ĉiuj subtenataj formoj</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="55"/>
-        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="90"/>
+        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="57"/>
+        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="92"/>
         <source>Dia Shapes</source>
         <translation>Dia-formoj</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="56"/>
+        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="58"/>
         <source>Dia Shapes (*.shape *.SHAPE)</source>
         <translation>Dia-formoj (*.shape *.SHAPE)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="75"/>
+        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="77"/>
         <source>Imports most Dia shapes into the current document, converting their vector data into Scribus objects.</source>
         <translation>Importas la plejparton el la Dia-dosieroj en la aktualan dokumenton,konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="92"/>
+        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="94"/>
         <source>Dia shapes (*.shape *.SHAPE)</source>
         <translation>Dia-formoj (*.shape *.SHAPE)</translation>
     </message>
@@ -10384,42 +10409,42 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
 <context>
     <name>ImportSmlPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="53"/>
+        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="55"/>
         <source>Import Sml...</source>
         <translation>Importu Sml...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="75"/>
+        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="76"/>
         <source>Imports most Kivio stencils into the current document, converting their vector data into Scribus objects.</source>
         <translation>Importas la plejparton el la Kevio-stenciloj en la aktualan dokumenton, konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="90"/>
+        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="91"/>
         <source>Kivio Stencils &quot;*.sml&quot; File</source>
         <translation>Dosiero de Kivio Stencils &quot;*.sml&quot;</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="92"/>
+        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="93"/>
         <source>Kivio Stencils &quot;*.sml&quot; File (*.sml *.SML)</source>
         <translation>Dosiero de Kivio Stencils &quot;*.sml&quot; (*.sml *.SML)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="74"/>
+        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="75"/>
         <source>Imports Sml Files</source>
         <translation>Importas Sml-dosierojn</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="123"/>
+        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="124"/>
         <source>All Supported Formats</source>
         <translation>Ĉiuj subtenataj formoj</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="55"/>
+        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="57"/>
         <source>Kivio Stencils</source>
         <translation>Kivio Stencils</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="56"/>
+        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="58"/>
         <source>Kivio Stencils (*.sml *.SML)</source>
         <translation>Kivio Stencils (*.sml *.SML)</translation>
     </message>
@@ -10427,34 +10452,34 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
 <context>
     <name>ImportSvmPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="59"/>
+        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="61"/>
         <source>Import SVM...</source>
         <translation>Importu SVM...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="61"/>
-        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="96"/>
+        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="63"/>
+        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="97"/>
         <source>SVM</source>
         <translation>SVM</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="62"/>
-        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="97"/>
+        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="64"/>
+        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="98"/>
         <source>SVM (*.svm *.svm)</source>
         <translation>SVM (*.svm *.svm)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="80"/>
+        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="81"/>
         <source>Imports SVM Files</source>
         <translation>Importas SVM-dosierojn</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="81"/>
+        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="82"/>
         <source>Imports most SVM files into the current document, converting their vector data into Scribus objects.</source>
         <translation>Importas la plejparton el la SVM-dosieroj en la aktualan dokumenton, konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="128"/>
+        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="129"/>
         <source>All Supported Formats</source>
         <translation>Ĉiuj subtenataj formoj</translation>
     </message>
@@ -10462,34 +10487,34 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
 <context>
     <name>ImportVivaPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="59"/>
+        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="61"/>
         <source>Import Viva...</source>
         <translation>Importu Viva...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="61"/>
-        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="96"/>
+        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="63"/>
+        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="97"/>
         <source>Viva Designer XML</source>
         <translation>Viva Designer XML</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="62"/>
-        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="97"/>
+        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="64"/>
+        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="98"/>
         <source>Viva Designer XML (*.xml *.XML)</source>
         <translation>Viva Designer XML (*.xml *.XML)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="80"/>
+        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="81"/>
         <source>Imports Viva Files</source>
         <translation>Importas Viva-dosierojn</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="81"/>
+        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="82"/>
         <source>Imports most Viva files into the current document, converting their vector data into Scribus objects.</source>
         <translation>Importas la plejparton el la Viva-dosieroj en la aktualan dokumenton, konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="130"/>
+        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="131"/>
         <source>All Supported Formats</source>
         <translation>Ĉiuj subtenataj formoj</translation>
     </message>
@@ -10497,34 +10522,34 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
 <context>
     <name>ImportVsdPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="53"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="55"/>
         <source>Import Visio...</source>
         <translation>Importu Visio...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="55"/>
-        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="90"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="57"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="92"/>
         <source>MS Visio</source>
         <translation>MS Visio</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="56"/>
-        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="91"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="58"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="93"/>
         <source>MS Visio (*.vsd *.VSD *.vdx *.VDX *.vsdx *.VSDX)</source>
         <translation>MS Visio (*.vsd *.VSD *.vdx *.VDX *.vsdx *.VSDX)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="74"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="76"/>
         <source>Imports MS Visio Files</source>
         <translation>Importas MS-Visio-dosierojn</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="75"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="77"/>
         <source>Imports most MS Visio files into the current document, converting their vector data into Scribus objects.</source>
         <translation>Importas la plejparton el la MS-Visio-dosieroj en la aktualan dokumenton, konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="124"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="126"/>
         <source>All Supported Formats</source>
         <translation>Ĉiuj subtenataj formoj</translation>
     </message>
@@ -10532,22 +10557,22 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
 <context>
     <name>ImportWpgPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="122"/>
+        <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="123"/>
         <source>All Supported Formats</source>
         <translation>Ĉiuj subtenataj formoj</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="53"/>
+        <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="55"/>
         <source>Import WordPerfect Graphics...</source>
         <translation>Importu WordPerfect Graphics...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="74"/>
+        <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="75"/>
         <source>Imports WordPerfect Graphics Files</source>
         <translation>Importas WordPerfect-Graphics-dosierojn</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="75"/>
+        <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="76"/>
         <source>Imports most WordPerfect Graphics files into the current document, converting their vector data into Scribus objects.</source>
         <translation>Importas la plejparton el la WordPerfect-Graphics-dosierojn en la aktualan dokumenton, konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
     </message>
@@ -10555,42 +10580,42 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
 <context>
     <name>ImportXarPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="53"/>
+        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="55"/>
         <source>Import Xara...</source>
         <translation>Importu Xara...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="75"/>
+        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="76"/>
         <source>Imports most Xara files into the current document, converting their vector data into Scribus objects.</source>
         <translation>Importas la plejparton el la dosieroj de Xara en la aktualan dokumenton, konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="90"/>
+        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="91"/>
         <source>XARA &quot;*.xar&quot; File</source>
         <translation>Dosiero de XARA &quot;*.xar&quot;</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="92"/>
+        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="93"/>
         <source>XARA &quot;*.xar&quot; File (*.xar *.XAR)</source>
         <translation>Dosiero de XARA &quot;*.xar&quot; (*.xar *.XAR)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="74"/>
+        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="75"/>
         <source>Imports Xara Files</source>
         <translation>Importas Xara-dosierojn</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="123"/>
+        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="124"/>
         <source>All Supported Formats</source>
         <translation>Ĉiuj subtenataj formoj</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="55"/>
+        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="57"/>
         <source>XARA</source>
         <translation>XARA</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="56"/>
+        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="58"/>
         <source>XARA (*.xar *.XAR)</source>
         <translation>XARA (*.xar *.XAR)</translation>
     </message>
@@ -10598,22 +10623,22 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
 <context>
     <name>ImportXfigPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="53"/>
+        <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="55"/>
         <source>Import Xfig...</source>
         <translation>Importu Xfig...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="74"/>
+        <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="75"/>
         <source>Imports Xfig Files</source>
         <translation>Importas dosierojn de Xfig</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="75"/>
+        <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="76"/>
         <source>Imports most Xfig files into the current document, converting their vector data into Scribus objects.</source>
         <translation>Importas la plejparton el la dosieroj de XFig en la aktualan dokumenton, konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="122"/>
+        <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="123"/>
         <source>All Supported Formats</source>
         <translation>Ĉiuj subtenataj formoj</translation>
     </message>
@@ -10621,46 +10646,46 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
 <context>
     <name>ImportXpsPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="59"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="62"/>
         <source>Import Xps...</source>
         <translation>Importu Xps...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="61"/>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="99"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="64"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="101"/>
         <source>Microsoft XPS</source>
         <translation>Microsoft XPS</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="62"/>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="100"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="65"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="102"/>
         <source>Microsoft XPS (*.xps *.XPS)</source>
         <translation>Microsoft XPS (*.xps *.XPS)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="64"/>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="112"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="67"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="115"/>
         <source>Open XML Paper</source>
         <translation>Open XML Paper</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="65"/>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="113"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="68"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="116"/>
         <source>Open XML Paper (*.oxps *.OXPS)</source>
         <translation>Open XML Paper (*.oxps *.OXPS)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="83"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="85"/>
         <source>Imports XPS and Open XML Paper Files</source>
         <translation>Importas dosierojn de XPS kaj Open XML Paper</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="84"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="86"/>
         <source>Imports most XPS and Open XML Paper files into the current document, converting their vector data into Scribus objects.</source>
         <translation>Importas la plejparton el la dosieroj de XPS kaj Open XML en la aktualan dokumenton, konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="146"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="149"/>
         <source>All Supported Formats</source>
         <translation>Ĉiuj subtenataj formoj</translation>
     </message>
@@ -10668,34 +10693,34 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
 <context>
     <name>ImportZmfPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="53"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="56"/>
         <source>Import Zoner Draw...</source>
         <translation>Importu Zoner Draw...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="55"/>
-        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="89"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="58"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="92"/>
         <source>Zoner Draw</source>
         <translation>Zoner Draw</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="56"/>
-        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="90"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="59"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="93"/>
         <source>Zoner Draw (*.zmf *.ZMF)</source>
         <translation>Zoner Draw (*.zmf *.ZMF)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="73"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="76"/>
         <source>Imports Zoner Draw Files</source>
         <translation>Importas Zoner-Draw-dosierojn</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="74"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="77"/>
         <source>Imports Zoner Draw 4-5 files into the current document, converting their vector data into Scribus objects.</source>
         <translation>Importas la dosierojn de Zoner Draw 4-5 en la aktualan dokumenton, konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="122"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="125"/>
         <source>All Supported Formats</source>
         <translation>All Supported Formats</translation>
     </message>
@@ -11686,7 +11711,7 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
     <message>
         <location filename="../../scribus/ui/linemarkerselector.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Formo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/linemarkerselector.ui" line="44"/>
@@ -11714,7 +11739,7 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
     <message>
         <location filename="../../scribus/ui/linestyleselector.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Formo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/linestyleselector.cpp" line="86"/>
@@ -11725,7 +11750,7 @@ konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
     <message>
         <location filename="../../scribus/ui/linestyleselector.cpp" line="141"/>
         <source>Line style of current object</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Linistilo de la aktuala objekto</translation>
     </message>
 </context>
 <context>
@@ -13240,12 +13265,12 @@ Se estis elektita neniu tenilo, ĉiuj teniloj estos reportitaj al komenca pozici
 <context>
     <name>OODPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="410"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="407"/>
         <source>This document does not seem to be an OpenOffice Draw file.</source>
         <translation>Ĉi tiu dokumento ne ŝajnas esti dosiero de OpenOffice Draw.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="623"/>
+        <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="612"/>
         <source>Group%1</source>
         <translation>Grupo%1</translation>
     </message>
@@ -13550,7 +13575,7 @@ Se estis elektita neniu tenilo, ĉiuj teniloj estos reportitaj al komenca pozici
         <translation>Analizo de la dosiero:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/odg/importodg.cpp" line="324"/>
+        <location filename="../../scribus/plugins/import/odg/importodg.cpp" line="314"/>
         <source>Generating Items</source>
         <translation>Generado de elementoj</translation>
     </message>
@@ -14313,34 +14338,34 @@ Bonvolu kontroli ĝin kaj reprovi.</translation>
         <translation>Dato:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="10672"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="10676"/>
         <source>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</source>
         <translation>Malsukcesis enkorpigi PDF-dosieron: %1.
 Bonvolu malvalidigi eksperimentan PDF- kaj PS-enkorpigojn kaj reprovu.</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11961"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11965"/>
         <source>Failed to load an image : %1</source>
         <translation>Malsukcesis la ŝargo de bildo: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11966"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11970"/>
         <source>Failed to write an image : %1</source>
         <translation>Malsukcesis skribi bildon: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11971"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11975"/>
         <source>Failed to load an image mask : %1</source>
         <translation>Malsukcesis la ŝargo de bildmasko: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11976"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11980"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Ne sufiĉas memoro por trakti bildon</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11956"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11960"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>Okazis skriberaro, bonvolu kontroli la disponeblan diskospacon</translation>
     </message>
@@ -14892,32 +14917,32 @@ Bonvolu malvalidigi eksperimentan PDF- kaj PS-enkorpigojn kaj reprovu.</translat
 <context>
     <name>PageItem_TextFrame</name>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4906"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5027"/>
         <source>Linked Text</source>
         <translation>Ligita teksto</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4908"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5029"/>
         <source>Text Frame</source>
         <translation>Tekstokadro</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4912"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5033"/>
         <source>Paragraphs: </source>
         <translation>Alineoj:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4920"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5041"/>
         <source>Lines: </source>
         <translation>Linioj:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4926"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5047"/>
         <source>Words: </source>
         <translation>Vortoj:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="4934"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5055"/>
         <source>Chars: </source>
         <translation>Signoj:</translation>
     </message>
@@ -15223,17 +15248,17 @@ Bonvolu malvalidigi eksperimentan PDF- kaj PS-enkorpigojn kaj reprovu.</translat
 <context>
     <name>PagesPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="205"/>
+        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="204"/>
         <source>Importing: %1</source>
         <translation>Importado: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="207"/>
+        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="206"/>
         <source>Analyzing File:</source>
         <translation>Analizo de la dosiero:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="390"/>
+        <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="376"/>
         <source>Generating Items</source>
         <translation>Generado de elementoj</translation>
     </message>
@@ -15747,17 +15772,17 @@ La rezulto estas kombino de &quot;Intersekco&quot; kaj &quot;Ekskludo&quot; </tr
 <context>
     <name>PctPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/pct/importpct.cpp" line="130"/>
+        <location filename="../../scribus/plugins/import/pct/importpct.cpp" line="127"/>
         <source>Importing: %1</source>
         <translation>Importado: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pct/importpct.cpp" line="133"/>
+        <location filename="../../scribus/plugins/import/pct/importpct.cpp" line="130"/>
         <source>Analyzing File:</source>
         <translation>Analizo de la dosiero:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pct/importpct.cpp" line="436"/>
+        <location filename="../../scribus/plugins/import/pct/importpct.cpp" line="420"/>
         <source>Generating Items</source>
         <translation>Generado de elementoj</translation>
     </message>
@@ -15860,27 +15885,27 @@ Bonvolu kontroli ĝin kaj reprovi.</translation>
 <context>
     <name>PdfPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="134"/>
+        <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="138"/>
         <source>Importing: %1</source>
         <translation>Importado: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="136"/>
+        <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="140"/>
         <source>Analyzing File:</source>
         <translation>Analizo de la dosiero:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="302"/>
+        <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="297"/>
         <source>Generating Items</source>
         <translation>Generado de elementoj</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="324"/>
+        <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="319"/>
         <source>Open PDF-File</source>
         <translation>Malfermu PDF-dosieron</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="324"/>
+        <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="319"/>
         <source>Password</source>
         <translation>Pasvorto</translation>
     </message>
@@ -17323,17 +17348,17 @@ Bonvolu elekti alian.</translation>
 <context>
     <name>PmPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/pm/importpm.cpp" line="120"/>
+        <location filename="../../scribus/plugins/import/pm/importpm.cpp" line="114"/>
         <source>Importing: %1</source>
         <translation>Importado: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pm/importpm.cpp" line="123"/>
+        <location filename="../../scribus/plugins/import/pm/importpm.cpp" line="117"/>
         <source>Analyzing File:</source>
         <translation>Analizo de la dosiero:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pm/importpm.cpp" line="328"/>
+        <location filename="../../scribus/plugins/import/pm/importpm.cpp" line="309"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -17436,7 +17461,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <name>PreferencesDialog</name>
     <message>
         <location filename="../../scribus/ui/preferences/preferencesdialogbase.ui" line="14"/>
-        <location filename="../../scribus/ui/preferences/preferencesdialog.cpp" line="389"/>
+        <location filename="../../scribus/ui/preferences/preferencesdialog.cpp" line="394"/>
         <source>Preferences</source>
         <translation>Agordoj</translation>
     </message>
@@ -17464,73 +17489,73 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>PrefsManager</name>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2470"/>
-        <location filename="../../scribus/prefsmanager.cpp" line="2479"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2481"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2490"/>
         <source>Postscript</source>
         <translation>Postskripto</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="904"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="908"/>
         <source>Migrate Old Scribus Settings?</source>
         <translation>Ĉu migrigi la agordaron de la malnova Scribus?</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="905"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="909"/>
         <source>Scribus has detected existing Scribus 1.6.0 preferences files.
 Do you want to migrate them to the new Scribus version?</source>
         <translation>Scribus detektis ekzistantajn agorddosierojn de Scribus 1.3.5.
 Ĉu oni volas migrigi ilin al la nova versio de Scribus? {1.6.0 ?}</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2469"/>
-        <location filename="../../scribus/prefsmanager.cpp" line="2479"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2480"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2490"/>
         <source>PostScript</source>
         <translation>Postskripto</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="1962"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="1973"/>
         <source>Could not open preferences file &quot;%1&quot; for writing: %2</source>
         <translation>Ne eblis malfermi la agorddosieron &quot;%1&quot; por skribi: %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="1972"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="1983"/>
         <source>Writing to preferences file &quot;%1&quot; failed: QIODevice status code %2</source>
         <translation>Konservo de la eco-dosiero &quot;%1&quot; malsukcesis: QIODevice status code %2 </translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="1985"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="1996"/>
         <source>Failed to open prefs file &quot;%1&quot;: %2</source>
         <translation>Malsukcesis malfermi prefs-dosieron &quot;%1&quot;: %2 </translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="1996"/>
-        <location filename="../../scribus/prefsmanager.cpp" line="2006"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2007"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2017"/>
         <source>Failed to read prefs XML from &quot;%1&quot;: %2 at line %3, col %4</source>
         <translation>Malsukcesis legi XML-prefs-dosieron &quot;%1&quot;: %2 ĉe linio %3, kol %4 </translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2961"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2980"/>
         <source>Error Writing Preferences</source>
         <translation>Eraro dum agordkonservo</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2963"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2982"/>
         <source>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</source>
         <comment>scribus app error</comment>
         <translation>Scribus ne povis konservi siajn agordojn:&lt;br&gt;%1&lt;br&gt;Bonvolu kontroli la dosier- kaj dosierujpermesojn kaj la disponeblan diskspacon.</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2978"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2997"/>
         <source>Error Loading Preferences</source>
         <translation>Eraro dum ŝargado de agordoj</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2980"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2999"/>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
         <translation>Scribus ne povis ŝargi siajn agordojn:&lt;br&gt;%1&lt;br&gt;Estos ŝargita la defaŭlta agordaro.</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2588"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2599"/>
         <source>No valid renderframe config found. Using defaults!</source>
         <translation>Trovita neniu agordo por bildiga kadro. Uzas defaŭltan!</translation>
     </message>
@@ -21793,62 +21818,75 @@ Agordado al Nivelo 1 aŭ 2 de Postskripto povus krei grandegajn dosierojn.</tran
 <context>
     <name>Prefs_Spelling</name>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_spellingbase.ui" line="36"/>
-        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="32"/>
+        <location filename="../../scribus/ui/preferences/prefs_spellingbase.ui" line="35"/>
+        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="19"/>
         <source>Spelling</source>
         <translation>Ortografio</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_spellingbase.ui" line="69"/>
-        <source>Installed Spelling Dictionaries</source>
-        <translation>Ortografiaj vortaroj instalitaj</translation>
+        <location filename="../../scribus/ui/preferences/prefs_spellingbase.ui" line="64"/>
+        <source>Check spelling while typing</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_spellingbase.ui" line="87"/>
-        <source>Downloadable Spelling Dictionaries</source>
-        <translation>Ŝargeblaj ortografiaj vortaroj</translation>
+        <location filename="../../scribus/ui/preferences/prefs_spellingbase.ui" line="71"/>
+        <source>Show indicator for misspelt words</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_spellingbase.ui" line="140"/>
-        <source>Refresh Downloadable List</source>
-        <translation>Aktualigu elŝuteblan liston</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/preferences/prefs_spellingbase.ui" line="147"/>
-        <source>Download Selected Dictionaries</source>
-        <translation>Elŝutu elektitajn vortarojn</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="142"/>
-        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="277"/>
-        <source>Language</source>
-        <translation>Lingvo</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="142"/>
-        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="277"/>
-        <source>Code</source>
-        <translation>Kodo</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="142"/>
-        <source>Location</source>
-        <translation>Loko</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="277"/>
-        <source>Installed</source>
-        <translation>Instalita</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/preferences/prefs_spelling.cpp" line="277"/>
-        <source>Download</source>
-        <translation>Elŝutu</translation>
+        <location filename="../../scribus/ui/preferences/prefs_spellingbase.ui" line="80"/>
+        <source>Maximum spelling suggestions:</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_spellingbase.ui" line="107"/>
+        <source>Spelling delay:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_spellingbase.ui" line="114"/>
+        <source> ms</source>
+        <translation type="unfinished"> ms</translation>
+    </message>
+    <message>
+        <source>Installed Spelling Dictionaries</source>
+        <translation type="vanished">Ortografiaj vortaroj instalitaj</translation>
+    </message>
+    <message>
+        <source>Downloadable Spelling Dictionaries</source>
+        <translation type="vanished">Ŝargeblaj ortografiaj vortaroj</translation>
+    </message>
+    <message>
+        <source>Refresh Downloadable List</source>
+        <translation type="vanished">Aktualigu elŝuteblan liston</translation>
+    </message>
+    <message>
+        <source>Download Selected Dictionaries</source>
+        <translation type="vanished">Elŝutu elektitajn vortarojn</translation>
+    </message>
+    <message>
+        <source>Language</source>
+        <translation type="vanished">Lingvo</translation>
+    </message>
+    <message>
+        <source>Code</source>
+        <translation type="vanished">Kodo</translation>
+    </message>
+    <message>
+        <source>Location</source>
+        <translation type="vanished">Loko</translation>
+    </message>
+    <message>
+        <source>Installed</source>
+        <translation type="vanished">Instalita</translation>
+    </message>
+    <message>
+        <source>Download</source>
+        <translation type="vanished">Elŝutu</translation>
+    </message>
+    <message>
         <source>Downloading</source>
-        <translation>Elŝutado</translation>
+        <translation type="vanished">Elŝutado</translation>
     </message>
 </context>
 <context>
@@ -23088,7 +23126,7 @@ por paĝointervalo, aŭ unuopa paĝnumero</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_attributes.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Formo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_attributes.ui" line="40"/>
@@ -23141,7 +23179,7 @@ por paĝointervalo, aŭ unuopa paĝnumero</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_fill.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Formo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_fill.ui" line="40"/>
@@ -24344,7 +24382,7 @@ por paĝointervalo, aŭ unuopa paĝnumero</translation>
     <message>
         <location filename="../../scribus/ui/propertywidget_alignment.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Formo</translation>
     </message>
 </context>
 <context>
@@ -25271,17 +25309,17 @@ Valoro egala al 0 signifas senlimajn dividojn.</translation>
 <context>
     <name>PubPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/pub/importpub.cpp" line="124"/>
+        <location filename="../../scribus/plugins/import/pub/importpub.cpp" line="118"/>
         <source>Importing: %1</source>
         <translation>Importado: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pub/importpub.cpp" line="127"/>
+        <location filename="../../scribus/plugins/import/pub/importpub.cpp" line="121"/>
         <source>Analyzing File:</source>
         <translation>Analizo de la dosiero:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pub/importpub.cpp" line="338"/>
+        <location filename="../../scribus/plugins/import/pub/importpub.cpp" line="319"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -26054,7 +26092,7 @@ Kontrolu vojon kaj dosiernomon.</translation>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="279"/>
+        <location filename="../../scribus/scribuscore.cpp" line="282"/>
         <source>Initializing...</source>
         <translation>Pravalorizas...</translation>
     </message>
@@ -26083,30 +26121,30 @@ Kontrolu vojon kaj dosiernomon.</translation>
         <location filename="../../scribus/plugins/import/idml_old/importidml.cpp" line="100"/>
         <location filename="../../scribus/plugins/import/odg/importodgplugin.cpp" line="147"/>
         <location filename="../../scribus/plugins/import/oodraw/oodrawimp.cpp" line="150"/>
-        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="130"/>
-        <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="122"/>
+        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="131"/>
+        <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="124"/>
         <location filename="../../scribus/plugins/import/pdf/importpdfplugin.cpp" line="162"/>
-        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="123"/>
+        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="124"/>
         <location filename="../../scribus/plugins/import/ps/importpsplugin.cpp" line="155"/>
-        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="124"/>
-        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="122"/>
-        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="123"/>
-        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="123"/>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="156"/>
-        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="128"/>
-        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="130"/>
-        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="124"/>
-        <location filename="../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="143"/>
-        <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="122"/>
-        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="123"/>
-        <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="122"/>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="146"/>
-        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="122"/>
+        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="125"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="124"/>
+        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="125"/>
+        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="124"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="158"/>
+        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="129"/>
+        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="131"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="126"/>
+        <location filename="../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="145"/>
+        <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="123"/>
+        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="124"/>
+        <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="123"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="149"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="125"/>
         <source>Open</source>
         <translation>Malfermu</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="133"/>
+        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="134"/>
         <location filename="../../scribus/plugins/export/xpsexport/xpsexplugin.cpp" line="138"/>
         <source>Save as</source>
         <translation>Konservu kiel</translation>
@@ -26168,7 +26206,7 @@ Kontrolu vojon kaj dosiernomon.</translation>
     </message>
     <message>
         <location filename="../../scribus/nftrcreader.cpp" line="169"/>
-        <location filename="../../scribus/pagesize.cpp" line="217"/>
+        <location filename="../../scribus/pagesize.cpp" line="216"/>
         <location filename="../../scribus/plugins/saveastemplateplugin/satdialog.cpp" line="182"/>
         <source>Business Cards</source>
         <translation>Vizitkartoj</translation>
@@ -27582,7 +27620,7 @@ Eksteraj ligiloj
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="196"/>
-        <location filename="../../scribus/pagesize.cpp" line="221"/>
+        <location filename="../../scribus/pagesize.cpp" line="220"/>
         <source>Chinese</source>
         <translation>Ĉina</translation>
     </message>
@@ -27753,7 +27791,7 @@ Eksteraj ligiloj
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="263"/>
-        <location filename="../../scribus/pagesize.cpp" line="227"/>
+        <location filename="../../scribus/pagesize.cpp" line="226"/>
         <source>German</source>
         <translation>Germana</translation>
     </message>
@@ -27764,7 +27802,7 @@ Eksteraj ligiloj
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="251"/>
-        <location filename="../../scribus/pagesize.cpp" line="225"/>
+        <location filename="../../scribus/pagesize.cpp" line="224"/>
         <source>French</source>
         <translation>Franca</translation>
     </message>
@@ -28852,7 +28890,7 @@ Eksteraj ligiloj
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="580"/>
-        <location filename="../../scribus/pagesize.cpp" line="245"/>
+        <location filename="../../scribus/pagesize.cpp" line="244"/>
         <source>Swedish</source>
         <translation>Sveda</translation>
     </message>
@@ -29694,18 +29732,18 @@ Eksteraj ligiloj
         <translation>Dosiero ekzistas</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="886"/>
+        <location filename="../../scribus/scribus.cpp" line="887"/>
         <source>Document Version Warning</source>
         <translation>Averto pri la Dokumentversio</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="887"/>
+        <location filename="../../scribus/scribus.cpp" line="888"/>
         <source>The document you are working with was created by a previous version of Scribus. Saving the current file under a newer version will render it unable to be edited by that older version. To preserve the ability to edit the file with the older version, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
         <translation>La dokumento kiun vi prilaboras estis kreita per pli malnova versio de Scribus. Konservo de la aktuala dosiero sub pli nova versio malebligos ĝian redaktadon per tiu pli malnova versio de Scribus. Por konservi la eblecon redakti ĝin per pli malnova versio de Scribus, konservu ci tiun dosieron sub alia nomo kaj poste redaktu la dosieron kun la nova nomo, tiel ke la originalo ne estu modifita. Ĉu vi certas ke vi volas daŭrigi per ĉi tiu operacio?</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="2060"/>
-        <location filename="../../scribus/scribus.cpp" line="2299"/>
+        <location filename="../../scribus/scribus.cpp" line="2061"/>
+        <location filename="../../scribus/scribus.cpp" line="2300"/>
         <source>Document Template: </source>
         <translation>Dokumentŝablono:</translation>
     </message>
@@ -30232,7 +30270,7 @@ pro la esceptoj de la vokitaj funkcioj.
         <translation>Mallongaj vortoj</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="105"/>
+        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="104"/>
         <source>SVG Export</source>
         <translation>SVG-eksporto</translation>
     </message>
@@ -30323,7 +30361,7 @@ pro la esceptoj de la vokitaj funkcioj.
         <translation>Serĉo de tiparoj</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4025"/>
+        <location filename="../../scribus/scribus.cpp" line="4026"/>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
         <translation>La ŝanĝoj al via dokumento ne estis konservitaj kaj vi petis rezigni pri ili. Ĉu vi volas daŭrigi?</translation>
     </message>
@@ -30394,7 +30432,7 @@ pro la esceptoj de la vokitaj funkcioj.
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="314"/>
-        <location filename="../../scribus/pagesize.cpp" line="239"/>
+        <location filename="../../scribus/pagesize.cpp" line="238"/>
         <source>Japanese</source>
         <translation>Japana</translation>
     </message>
@@ -30534,437 +30572,437 @@ pro la esceptoj de la vokitaj funkcioj.
         <translation>Rumana</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="394"/>
+        <location filename="../../scribus/pagesize.cpp" line="393"/>
         <source>Quarto</source>
         <translation>Kvarto</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="395"/>
+        <location filename="../../scribus/pagesize.cpp" line="394"/>
         <source>Foolscap</source>
         <translation>33 x 20,5 cm</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="211"/>
+        <location filename="../../scribus/pagesize.cpp" line="210"/>
         <source>Preferred</source>
         <translation>Preferata</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="215"/>
+        <location filename="../../scribus/pagesize.cpp" line="214"/>
         <source>Books</source>
         <translation>Libroj</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="219"/>
+        <location filename="../../scribus/pagesize.cpp" line="218"/>
         <source>Canadian</source>
         <translation>Kanada</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="223"/>
+        <location filename="../../scribus/pagesize.cpp" line="222"/>
         <source>Colombian</source>
         <translation>Kolombia</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="229"/>
+        <location filename="../../scribus/pagesize.cpp" line="228"/>
         <source>Imperial</source>
         <translation>Imperia</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="231"/>
+        <location filename="../../scribus/pagesize.cpp" line="230"/>
         <source>ISO A Paper</source>
         <translation>ISO A Paper</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="233"/>
+        <location filename="../../scribus/pagesize.cpp" line="232"/>
         <source>ISO B Paper</source>
         <translation>ISO B Paper</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="235"/>
+        <location filename="../../scribus/pagesize.cpp" line="234"/>
         <source>ISO C Envelope</source>
         <translation>ISO C Envelope</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="237"/>
+        <location filename="../../scribus/pagesize.cpp" line="236"/>
         <source>International Envelopes</source>
         <translation>International Envelopes</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="241"/>
+        <location filename="../../scribus/pagesize.cpp" line="240"/>
         <source>Newspapers</source>
         <translation>Newspapers</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="243"/>
+        <location filename="../../scribus/pagesize.cpp" line="242"/>
         <source>Others</source>
         <translation>Aliaj</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="247"/>
+        <location filename="../../scribus/pagesize.cpp" line="246"/>
         <source>Transitional</source>
         <translation>Transitional</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="249"/>
+        <location filename="../../scribus/pagesize.cpp" line="248"/>
         <source>US Paper</source>
         <translation>US Paper</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="251"/>
+        <location filename="../../scribus/pagesize.cpp" line="250"/>
         <source>US Press</source>
         <translation>US Press</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="253"/>
+        <location filename="../../scribus/pagesize.cpp" line="252"/>
         <source>US Envelopes</source>
         <translation>US Envelopes</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="270"/>
+        <location filename="../../scribus/pagesize.cpp" line="269"/>
         <source>Folio</source>
         <translation>Folio</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="271"/>
+        <location filename="../../scribus/pagesize.cpp" line="270"/>
         <source>4to (Quarto)</source>
         <translation>4to (Kvarto)</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="272"/>
+        <location filename="../../scribus/pagesize.cpp" line="271"/>
         <source>8vo (Imperial Octavo)</source>
         <translation>8vo (Imperia Oktavo)</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="273"/>
+        <location filename="../../scribus/pagesize.cpp" line="272"/>
         <source>8vo (Super Octavo)</source>
         <translation>8vo (SuperOktavo)</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="274"/>
+        <location filename="../../scribus/pagesize.cpp" line="273"/>
         <source>8vo (Royal Octavo)</source>
         <translation>8vo (Reĝa Oktavo)</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="275"/>
+        <location filename="../../scribus/pagesize.cpp" line="274"/>
         <source>8vo (Medium Octavo)</source>
         <translation>8vo (Meza Oktavo)</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="276"/>
+        <location filename="../../scribus/pagesize.cpp" line="275"/>
         <source>8vo (Octavo)</source>
         <translation>8vo (Oktavo)</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="277"/>
+        <location filename="../../scribus/pagesize.cpp" line="276"/>
         <source>8vo (Crown Octavo)</source>
         <translation>8vo (Krona Oktavo)</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="278"/>
+        <location filename="../../scribus/pagesize.cpp" line="277"/>
         <source>12mo (Duodecimo)</source>
         <translation>12mo (Dekduo)</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="279"/>
+        <location filename="../../scribus/pagesize.cpp" line="278"/>
         <source>16mo (Sextodecimo)</source>
         <translation>16mo (Dekseso)</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="280"/>
+        <location filename="../../scribus/pagesize.cpp" line="279"/>
         <source>18mo (Octodecimo)</source>
         <translation>18mo (Dekoko)</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="281"/>
+        <location filename="../../scribus/pagesize.cpp" line="280"/>
         <source>32mo (Tricesimo Secondo)</source>
         <translation>32mo (Tridekduo)</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="282"/>
+        <location filename="../../scribus/pagesize.cpp" line="281"/>
         <source>48mo (Quadragesimo Octavo)</source>
         <translation>48mo (Kvardekoko)</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="283"/>
+        <location filename="../../scribus/pagesize.cpp" line="282"/>
         <source>64mo (Sexagesimo Quarto)</source>
         <translation>64mo (Sesdekkvaro)</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="284"/>
+        <location filename="../../scribus/pagesize.cpp" line="283"/>
         <source>A Format</source>
         <translation>A-Formato</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="285"/>
+        <location filename="../../scribus/pagesize.cpp" line="284"/>
         <source>B Format</source>
         <translation>B-Formato</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="286"/>
+        <location filename="../../scribus/pagesize.cpp" line="285"/>
         <source>C Format</source>
         <translation>C-Formato</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="287"/>
+        <location filename="../../scribus/pagesize.cpp" line="286"/>
         <source>Comic Book</source>
         <translation>Komikso</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="288"/>
+        <location filename="../../scribus/pagesize.cpp" line="287"/>
         <source>Crown Quarto</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="294"/>
+        <location filename="../../scribus/pagesize.cpp" line="293"/>
         <source>Europe</source>
         <translation>Eŭropo</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="295"/>
+        <location filename="../../scribus/pagesize.cpp" line="294"/>
         <source>ISO 7810 ID-1</source>
         <translation>ISO 7810 ID-1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="296"/>
+        <location filename="../../scribus/pagesize.cpp" line="295"/>
         <source>US/Canada</source>
         <translation>US/Kanado</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="297"/>
+        <location filename="../../scribus/pagesize.cpp" line="296"/>
         <source>China</source>
         <translation>Ĉinio</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="298"/>
+        <location filename="../../scribus/pagesize.cpp" line="297"/>
         <source>Scandinavia</source>
         <translation>Skandinavio</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="299"/>
+        <location filename="../../scribus/pagesize.cpp" line="298"/>
         <source>Japan</source>
         <translation>Japanio</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="300"/>
+        <location filename="../../scribus/pagesize.cpp" line="299"/>
         <source>Hungary</source>
         <translation>Hungario</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="301"/>
+        <location filename="../../scribus/pagesize.cpp" line="300"/>
         <source>Iran</source>
         <translation>Irano</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="302"/>
+        <location filename="../../scribus/pagesize.cpp" line="301"/>
         <source>ISO 216</source>
         <translation>ISO 216</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="396"/>
+        <location filename="../../scribus/pagesize.cpp" line="395"/>
         <source>Executive</source>
         <translation>Executive</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="397"/>
+        <location filename="../../scribus/pagesize.cpp" line="396"/>
         <source>Post</source>
         <translation>Post</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="398"/>
+        <location filename="../../scribus/pagesize.cpp" line="397"/>
         <source>Crown</source>
         <translation>Crown</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="399"/>
+        <location filename="../../scribus/pagesize.cpp" line="398"/>
         <source>Large Post</source>
         <translation>Large Post</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="400"/>
+        <location filename="../../scribus/pagesize.cpp" line="399"/>
         <source>Demy</source>
         <translation>Demy 17,5 x 22,5 in</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="401"/>
+        <location filename="../../scribus/pagesize.cpp" line="400"/>
         <source>Medium</source>
         <translation>Meza</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="402"/>
+        <location filename="../../scribus/pagesize.cpp" line="401"/>
         <source>Royal</source>
         <translation>Royal</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="403"/>
+        <location filename="../../scribus/pagesize.cpp" line="402"/>
         <source>Elephant</source>
         <translation>Elefanto</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="404"/>
+        <location filename="../../scribus/pagesize.cpp" line="403"/>
         <source>Double Demy</source>
         <translation>Duobla Demy</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="405"/>
+        <location filename="../../scribus/pagesize.cpp" line="404"/>
         <source>Quad Demy</source>
         <translation>Kvarobla Demy</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="406"/>
+        <location filename="../../scribus/pagesize.cpp" line="405"/>
         <source>STMT</source>
         <translation>STMT</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="525"/>
+        <location filename="../../scribus/pagesize.cpp" line="524"/>
         <source>AU/NZ Broadsheet</source>
         <translation>AU/NZ Broadsheet</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="526"/>
+        <location filename="../../scribus/pagesize.cpp" line="525"/>
         <source>Berliner Broadsheet</source>
         <translation>Berlina Broadsheet</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="527"/>
+        <location filename="../../scribus/pagesize.cpp" line="526"/>
         <source>Ciner</source>
         <translation>Ciner</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="528"/>
+        <location filename="../../scribus/pagesize.cpp" line="527"/>
         <source>New York Times</source>
         <translation>New York Times</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="529"/>
+        <location filename="../../scribus/pagesize.cpp" line="528"/>
         <source>Nordisch Broadsheet</source>
         <translation>Nordisch Broadsheet</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="530"/>
+        <location filename="../../scribus/pagesize.cpp" line="529"/>
         <source>Rhenish Broadsheet</source>
         <translation>Rhenish Broadsheet</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="531"/>
+        <location filename="../../scribus/pagesize.cpp" line="530"/>
         <source>SA Broadsheet</source>
         <translation>SA Broadsheet</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="532"/>
+        <location filename="../../scribus/pagesize.cpp" line="531"/>
         <source>Swiss Broadsheet</source>
         <translation>Swiss Broadsheet</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="533"/>
+        <location filename="../../scribus/pagesize.cpp" line="532"/>
         <source>UK Broadsheet</source>
         <translation>UK Broadsheet</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="534"/>
+        <location filename="../../scribus/pagesize.cpp" line="533"/>
         <source>US Broadsheet</source>
         <translation>US Broadsheet</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="535"/>
+        <location filename="../../scribus/pagesize.cpp" line="534"/>
         <source>Wall Street Journal</source>
         <translation>Wall Street Journal</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="537"/>
+        <location filename="../../scribus/pagesize.cpp" line="536"/>
         <source>Berliner Tabloid</source>
         <translation>Berlina Tabloid</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="538"/>
+        <location filename="../../scribus/pagesize.cpp" line="537"/>
         <source>Canadian Tabloid</source>
         <translation>kanada Tabloid</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="539"/>
+        <location filename="../../scribus/pagesize.cpp" line="538"/>
         <source>Canadian Tall Tabloid</source>
         <translation>Kanada Tall Tabloid</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="540"/>
+        <location filename="../../scribus/pagesize.cpp" line="539"/>
         <source>Nordisch Tabloid</source>
         <translation>Nordisch Tabloid</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="541"/>
+        <location filename="../../scribus/pagesize.cpp" line="540"/>
         <source>Norwegian Tabloid</source>
         <translation>Norvegia Tabloid</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="542"/>
+        <location filename="../../scribus/pagesize.cpp" line="541"/>
         <source>Rhenish Tabloid</source>
         <translation>Rena Tabloid</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="543"/>
+        <location filename="../../scribus/pagesize.cpp" line="542"/>
         <source>UK Tabloid</source>
         <translation>UK Tabloid</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="544"/>
+        <location filename="../../scribus/pagesize.cpp" line="543"/>
         <source>Compact</source>
         <translation>Kompakta</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="733"/>
+        <location filename="../../scribus/pagesize.cpp" line="732"/>
         <source>Blu-Ray Cover (5 mm)</source>
         <translation>Blu-Ray-Kovrilo (5 mm)</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="734"/>
+        <location filename="../../scribus/pagesize.cpp" line="733"/>
         <source>Blu-Ray Cover (12 mm)</source>
         <translation>Blu-Ray-Kovrilo (12 mm)</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="735"/>
+        <location filename="../../scribus/pagesize.cpp" line="734"/>
         <source>Blu-Ray Cover (14 mm)</source>
         <translation>Blu-Ray-Kovrilo (14 mm)</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="736"/>
+        <location filename="../../scribus/pagesize.cpp" line="735"/>
         <source>Blu-Ray Cover (24 mm)</source>
         <translation>Blu-Ray-Kovrilo (24 mm)</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="737"/>
+        <location filename="../../scribus/pagesize.cpp" line="736"/>
         <source>Cassette Cover (J-Card)</source>
         <translation>Kaseda kovrilo (J-Card)</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="738"/>
+        <location filename="../../scribus/pagesize.cpp" line="737"/>
         <source>Cassette Cover (U-Card)</source>
         <translation>Kaseda kovrilo (U-Card)</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="739"/>
+        <location filename="../../scribus/pagesize.cpp" line="738"/>
         <source>Compact Disc (Front)</source>
         <translation>Kompaktdisko (Supro)</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="740"/>
+        <location filename="../../scribus/pagesize.cpp" line="739"/>
         <source>Compact Disc (Back)</source>
         <translation>Kompaktdisko (Dorso)</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="741"/>
+        <location filename="../../scribus/pagesize.cpp" line="740"/>
         <source>Compact Disc (Front Double)</source>
         <translation>Kompaktdisko (Supra duoblo)</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="742"/>
+        <location filename="../../scribus/pagesize.cpp" line="741"/>
         <source>Vinyl LP</source>
         <translation>Vinila LP</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="743"/>
+        <location filename="../../scribus/pagesize.cpp" line="742"/>
         <source>DVD Cover Normal</source>
         <translation>DVD  Normala kovrilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/pagesize.cpp" line="744"/>
+        <location filename="../../scribus/pagesize.cpp" line="743"/>
         <source>DVD Cover Slim</source>
         <translation>DVD  Maldika kovrilo</translation>
     </message>
@@ -31113,12 +31151,12 @@ pro la esceptoj de la vokitaj funkcioj.
         <translation>PostSkript-importilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="133"/>
+        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="134"/>
         <source>%1;;All Files (*)</source>
         <translation>%1;;Ĉiaj dosieroj (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="173"/>
+        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="174"/>
         <location filename="../../scribus/plugins/export/xpsexport/xpsexplugin.cpp" line="189"/>
         <source>Do you really want to overwrite the file:
 %1 ?</source>
@@ -31295,7 +31333,7 @@ pro la esceptoj de la vokitaj funkcioj.
         <translation>Subdividu</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="66"/>
+        <location filename="../../scribus/plugins/import/xfig/importxfigplugin.cpp" line="68"/>
         <source>Xfig Importer</source>
         <translation>Xfig-importilo</translation>
     </message>
@@ -31431,22 +31469,22 @@ Do, la bildo povas esti ne ĝusta</translation>
         <translation>Malfermo de configfile %1 malsukcesis! %2 </translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="66"/>
+        <location filename="../../scribus/plugins/import/pct/importpctplugin.cpp" line="68"/>
         <source>Pict Importer</source>
         <translation>Pict-importilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="76"/>
+        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="75"/>
         <source>Uniconvertor Import</source>
         <translation>Uniconvertor-importilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="66"/>
+        <location filename="../../scribus/plugins/import/wpg/importwpgplugin.cpp" line="68"/>
         <source>WPG Importer</source>
         <translation>WPG-importilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="66"/>
+        <location filename="../../scribus/plugins/import/xar/importxarplugin.cpp" line="68"/>
         <source>Xara Importer</source>
         <translation>Xara-importilo</translation>
     </message>
@@ -31513,12 +31551,12 @@ Do, la bildo povas esti ne ĝusta</translation>
         <translation>BMP</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="66"/>
+        <location filename="../../scribus/plugins/import/shape/importshapeplugin.cpp" line="68"/>
         <source>Shape Importer</source>
         <translation>Importilo de formoj</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="66"/>
+        <location filename="../../scribus/plugins/import/sml/importsmlplugin.cpp" line="68"/>
         <source>Sml Importer</source>
         <translation>Sml-importilo</translation>
     </message>
@@ -31969,37 +32007,37 @@ Do, la bildo povas esti ne ĝusta</translation>
         <translation>Nepala</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="66"/>
+        <location filename="../../scribus/plugins/import/pub/importpubplugin.cpp" line="68"/>
         <source>PUB Importer</source>
         <translation>PUB-importilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3210"/>
+        <location filename="../../scribus/scribus.cpp" line="3211"/>
         <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
         <translation>&lt;p&gt;Vi provas importi pli da paĝoj ol kiom estas disponeblaj en la aktuala dokumento, kalkulante ekde la aktiva paĝo.&lt;/p&gt;Elektu unu el la sekvaj opcioj:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Kreu&lt;/b&gt;mankantajn paĝojn&lt;/li&gt;&lt;li&gt;&lt;b&gt;Importu&lt;/b&gt; paĝojn ĝis la lasta paĝo&lt;/li&gt;&lt;li&gt;&lt;b&gt;Rezignu&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18497"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18494"/>
         <source>Unacceptable settings for note style</source>
         <translation>Agordoj neakcepteblaj por la notstilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="72"/>
+        <location filename="../../scribus/plugins/import/pages/importpagesplugin.cpp" line="74"/>
         <source>Pages Importer</source>
         <translation>Pages-importilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="72"/>
+        <location filename="../../scribus/plugins/import/viva/importvivaplugin.cpp" line="74"/>
         <source>Viva Importer</source>
         <translation>Viva-importilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="66"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsdplugin.cpp" line="68"/>
         <source>MS Visio Importer</source>
         <translation>MS-Visio-importilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="75"/>
+        <location filename="../../scribus/plugins/import/xps/importxpsplugin.cpp" line="78"/>
         <source>Xps Importer</source>
         <translation>Xps-importilo</translation>
     </message>
@@ -32072,7 +32110,7 @@ Do, la bildo povas esti ne ĝusta</translation>
         <translation>la valoro de la elemento &lt;%1&gt; devas esti duoblo</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="66"/>
+        <location filename="../../scribus/plugins/import/pm/importpmplugin.cpp" line="68"/>
         <source>Pagemaker Importer</source>
         <translation>Pagemaker-importilo</translation>
     </message>
@@ -32127,7 +32165,7 @@ Do, la bildo povas esti ne ĝusta</translation>
         <translation>EMF-importilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="72"/>
+        <location filename="../../scribus/plugins/import/svm/importsvmplugin.cpp" line="74"/>
         <source>SVM Importer</source>
         <translation>SVM-importilo</translation>
     </message>
@@ -32279,12 +32317,12 @@ Do, la bildo povas esti ne ĝusta</translation>
         <translation>Ne eblas enmeti komenton en netekstan kadron</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="66"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="68"/>
         <source>QuarkXPress Importer</source>
         <translation>QuarkXPress-importilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="66"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="69"/>
         <source>Zoner Draw Importer</source>
         <translation>Zoner-Draw-importilo</translation>
     </message>
@@ -32349,6 +32387,61 @@ Do, la bildo povas esti ne ĝusta</translation>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/scriptpaths.cpp" line="25"/>
         <source>&amp;Scripts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="66"/>
+        <source>Failed to read file: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="224"/>
+        <source>JPEG XL: JxlDecoderSubscribeEvents failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="232"/>
+        <source>JPEG XL: JxlDecoderSetParallelRunner failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="249"/>
+        <source>JPEG XL: decoder error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="255"/>
+        <source>JPEG XL: error, already provided all input</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="263"/>
+        <source>JPEG XL: JxlDecoderGetBasicInfo failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="293"/>
+        <source>JPEG XL: JxlDecoderGetICCProfileSize failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="303"/>
+        <source>JPEG XL: JxlDecoderGetColorAsICCProfile failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="313"/>
+        <source>JPEG XL: JxlDecoderImageOutBufferSize failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="336"/>
+        <source>JPEG XL: JxlDecoderSetImageOutBuffer failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="357"/>
+        <source>JPEG XL: Unknown JXL decoder status</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -32497,17 +32590,17 @@ Bonvolu elekti alian.</translation>
 <context>
     <name>QxpPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="144"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="135"/>
         <source>Importing: %1</source>
         <translation>Importado: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="147"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="138"/>
         <source>Analyzing File:</source>
         <translation>Analizo de la dosiero:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="363"/>
+        <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="341"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -34125,44 +34218,44 @@ Valoro egala al 0 signifas senlimajn dividojn.</translation>
 <context>
     <name>SVGExportPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="112"/>
+        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="111"/>
         <source>Exports SVG Files</source>
         <translation>Eksportas SVG-dosierojn </translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="113"/>
+        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="112"/>
         <source>Exports the current page into an SVG file.</source>
         <translation>Eksportas la aktualan paĝon en SVG-dosieron.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="95"/>
+        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="94"/>
         <source>Save as &amp;SVG...</source>
         <translation>Konservu kiel S&amp;VG...</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="138"/>
+        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="139"/>
         <source>Compress File</source>
         <translation>Densigu dosieron</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="142"/>
+        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="143"/>
         <source>Save Images inline</source>
         <translation>Konservu entekstajn bildojn</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="143"/>
+        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="144"/>
         <source>Adds all Images on the Page inline to the SVG.
 Caution: this will increase the file size!</source>
         <translation>Aldonas ĉiujn bildojn sur la paĝoteksto al la SVG-dosiero.
 Atentu: tio pligrandigos la dosieron!</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="147"/>
+        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="148"/>
         <source>Export Page background</source>
         <translation>Eksportu paĝfonon</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="148"/>
+        <location filename="../../scribus/plugins/export/svgexplugin/svgexplugin.cpp" line="149"/>
         <source>Adds the Page itself as background to the SVG</source>
         <translation>Aldonas la paĝon mem kiel fonon al la SVG-dosiero</translation>
     </message>
@@ -34185,7 +34278,7 @@ Atentu: tio pligrandigos la dosieron!</translation>
         <translation>Importas la plejparton el la SVG-dosieroj en la aktualan dokumenton, konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="190"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="193"/>
         <source>The file could not be imported</source>
         <translation>Ne eblis importi la dosieron</translation>
     </message>
@@ -34193,7 +34286,7 @@ Atentu: tio pligrandigos la dosieron!</translation>
 <context>
     <name>SVGPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="1369"/>
+        <location filename="../../scribus/plugins/import/svg/svgplugin.cpp" line="1351"/>
         <source>Group%1</source>
         <translation>Grupo%1</translation>
     </message>
@@ -35780,7 +35873,7 @@ Se vi konservas ĝin en ĉi tiu versio, ĝi ne estos legebla de pli malnovaj ver
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus171format/scribus171format.cpp" line="9031"/>
+        <location filename="../../scribus/plugins/fileloader/scribus171format/scribus171format.cpp" line="9032"/>
         <source>Copy #%1 of </source>
         <translation type="unfinished">Kopio #%1 el </translation>
     </message>
@@ -35793,12 +35886,12 @@ Se vi konservas ĝin en ĉi tiu versio, ĝi ne estos legebla de pli malnovaj ver
         <translation>Pravalorizo de kromprogramoj</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="175"/>
+        <location filename="../../scribus/scribuscore.cpp" line="177"/>
         <source>Initializing Keyboard Shortcuts</source>
         <translation>Pravalorizo de fulmoklavoj</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="177"/>
+        <location filename="../../scribus/scribuscore.cpp" line="179"/>
         <source>Reading Preferences</source>
         <translation>Lego de agordoj</translation>
     </message>
@@ -35808,27 +35901,27 @@ Se vi konservas ĝin en ĉi tiu versio, ĝi ne estos legebla de pli malnovaj ver
         <translation>Pravalorizo de bilda kaŝmemoro</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="339"/>
+        <location filename="../../scribus/scribuscore.cpp" line="342"/>
         <source>Searching for Fonts</source>
         <translation>Serĉo de tiparoj</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="344"/>
+        <location filename="../../scribus/scribuscore.cpp" line="347"/>
         <source>There are no fonts found on your system.</source>
         <translation>Ne estis trovitaj tiparoj en ĉi tiu sistemo.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="345"/>
+        <location filename="../../scribus/scribuscore.cpp" line="348"/>
         <source>Exiting now.</source>
         <translation>Eliras.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="346"/>
+        <location filename="../../scribus/scribuscore.cpp" line="349"/>
         <source>Fatal Error</source>
         <translation>Neriparebla eraro</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="349"/>
+        <location filename="../../scribus/scribuscore.cpp" line="352"/>
         <source>Font System Initialized</source>
         <translation>Tiparsistemo pravalorizita</translation>
     </message>
@@ -35844,7 +35937,7 @@ Se vi konservas ĝin en ĉi tiu versio, ĝi ne estos legebla de pli malnovaj ver
         <location filename="../../scribus/scribusdoc.cpp" line="200"/>
         <location filename="../../scribus/scribusdoc.cpp" line="206"/>
         <location filename="../../scribus/scribusdoc.cpp" line="236"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16943"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16940"/>
         <source>Document</source>
         <translation>Dokumento</translation>
     </message>
@@ -35854,27 +35947,27 @@ Se vi konservas ĝin en ĉi tiu versio, ĝi ne estos legebla de pli malnovaj ver
         <translation>Fono</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11483"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11480"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>Ne eblas forigi elementon uzatan</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11483"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11480"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>La elemento %1 estas redaktata de Tekstoredaktilo. La forigo estos nuligita</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12296"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12293"/>
         <source>Some objects are locked.</source>
         <translation>Kelkaj objektoj estas ŝlositaj.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12292"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12289"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Malŝlosu ĉiujn</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12293"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12290"/>
         <source>&amp;Skip locked objects</source>
         <translation>&amp;Preterlasu ŝlositajn objektojn</translation>
     </message>
@@ -35885,7 +35978,7 @@ Se vi konservas ĝin en ĉi tiu versio, ĝi ne estos legebla de pli malnovaj ver
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="952"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16623"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16620"/>
         <source>Adjusting Colors</source>
         <translation>Kolorĝustigo</translation>
     </message>
@@ -35900,7 +35993,7 @@ Se vi konservas ĝin en ĉi tiu versio, ĝi ne estos legebla de pli malnovaj ver
         <translation>forigas la senperan signoformatadon</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13826"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13823"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -35911,7 +36004,7 @@ Vertikala ŝovo: %3
 Rotacio: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13859"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13856"/>
         <source>Number of rows: %1
 Number of columns: %2
 Horizontal gap: %3
@@ -35922,9 +36015,9 @@ Horizontala distanco: %3
 Vertikala distanco: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="15302"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15357"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15519"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15299"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15354"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15516"/>
         <source>Group%1</source>
         <translation>Grupo%1</translation>
     </message>
@@ -35935,28 +36028,28 @@ Vertikala distanco: %4</translation>
         <translation>Importita</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="13982"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="13979"/>
         <source>Copied %1 item(s) on %2 page(s)</source>
         <translation>Kopiita(j) %1 elemento(j) sur %2 paĝo(j)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="16959"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16956"/>
         <source>File %1 autosaved</source>
         <translation>Dosiero %1 aŭtokonservita</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18126"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="18163"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18123"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18160"/>
         <source>No Style</source>
         <translation>Neniu stilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18491"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18488"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>Notstilo %1 estas aplikita al la tuta dokumento kaj posedas la saman numeradstilon kiel %2 </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11379"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11376"/>
         <source>Do you really want to clear the content of all selected frames?</source>
         <translation>Ĉu vi vere intencas forigi la entenon de la elektitaj kadroj?</translation>
     </message>
@@ -35964,461 +36057,461 @@ Vertikala distanco: %4</translation>
 <context>
     <name>ScribusMainWindow</name>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="407"/>
+        <location filename="../../scribus/scribus.cpp" line="408"/>
         <source>Initializing Story Editor</source>
         <translation>Pravalorizo de tekstoredaktilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="415"/>
+        <location filename="../../scribus/scribus.cpp" line="416"/>
         <source>Reading Scrapbook</source>
         <translation>Lego de Albumo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3376"/>
+        <location filename="../../scribus/scribus.cpp" line="3377"/>
         <source>Fatal Error</source>
         <translation>Neriparebla eraro</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="921"/>
+        <location filename="../../scribus/scribus.cpp" line="922"/>
         <source>Open &amp;Recent</source>
         <translation>Malfermu &amp;lastajn</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="929"/>
-        <location filename="../../scribus/scribus.cpp" line="3215"/>
+        <location filename="../../scribus/scribus.cpp" line="930"/>
+        <location filename="../../scribus/scribus.cpp" line="3216"/>
         <source>&amp;Import</source>
         <translation>&amp;Importu</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="936"/>
+        <location filename="../../scribus/scribus.cpp" line="937"/>
         <source>&amp;Export</source>
         <translation>&amp;Eksportu</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1060"/>
+        <location filename="../../scribus/scribus.cpp" line="1061"/>
         <source>Preview Settings</source>
         <translation>Antaŭrigard-agordaro</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1017"/>
+        <location filename="../../scribus/scribus.cpp" line="1018"/>
         <source>Level</source>
         <translation>Nivelo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1023"/>
+        <location filename="../../scribus/scribus.cpp" line="1024"/>
         <source>Send to La&amp;yer</source>
         <translation>Sendu al Ta&amp;volo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="2088"/>
-        <location filename="../../scribus/scribus.cpp" line="2123"/>
-        <location filename="../../scribus/scribus.cpp" line="3684"/>
-        <location filename="../../scribus/scribus.cpp" line="4121"/>
-        <location filename="../../scribus/scribus.cpp" line="4197"/>
-        <location filename="../../scribus/scribus.cpp" line="4359"/>
-        <location filename="../../scribus/scribus.cpp" line="6602"/>
-        <location filename="../../scribus/scribus.cpp" line="8549"/>
+        <location filename="../../scribus/scribus.cpp" line="2089"/>
+        <location filename="../../scribus/scribus.cpp" line="2124"/>
+        <location filename="../../scribus/scribus.cpp" line="3685"/>
+        <location filename="../../scribus/scribus.cpp" line="4122"/>
+        <location filename="../../scribus/scribus.cpp" line="4198"/>
+        <location filename="../../scribus/scribus.cpp" line="4360"/>
+        <location filename="../../scribus/scribus.cpp" line="6607"/>
+        <location filename="../../scribus/scribus.cpp" line="8543"/>
         <source>Ready</source>
         <translation>Preta</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3040"/>
-        <location filename="../../scribus/scribus.cpp" line="3156"/>
-        <location filename="../../scribus/scribus.cpp" line="3776"/>
+        <location filename="../../scribus/scribus.cpp" line="3041"/>
+        <location filename="../../scribus/scribus.cpp" line="3157"/>
+        <location filename="../../scribus/scribus.cpp" line="3777"/>
         <source>Open</source>
         <translation>Malfermu</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3177"/>
+        <location filename="../../scribus/scribus.cpp" line="3178"/>
         <source>Importing Pages...</source>
         <translation>Importo de paĝoj...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3208"/>
+        <location filename="../../scribus/scribus.cpp" line="3209"/>
         <source>Import Page(s)</source>
         <translation>Importu paĝo(j)n</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3254"/>
+        <location filename="../../scribus/scribus.cpp" line="3255"/>
         <source>Import done</source>
         <translation>Importo finita</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3258"/>
+        <location filename="../../scribus/scribus.cpp" line="3259"/>
         <source>Found nothing to import</source>
         <translation>Trovita nenio por importi</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3331"/>
+        <location filename="../../scribus/scribus.cpp" line="3332"/>
         <source>File does not exist on the specified path :
 %1</source>
         <translation>Dosiero ne ekzistas sur la specifita vojo:
 %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3377"/>
+        <location filename="../../scribus/scribus.cpp" line="3378"/>
         <source>File %1 is not in an acceptable format</source>
         <translation>La dosiero %1 ne estas en Scribus-formo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3412"/>
+        <location filename="../../scribus/scribus.cpp" line="3413"/>
         <source>Loading...</source>
         <translation>Ŝargas...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3576"/>
+        <location filename="../../scribus/scribus.cpp" line="3577"/>
         <source> was replaced by: </source>
         <translation>estis anstataŭigita de:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3606"/>
+        <location filename="../../scribus/scribus.cpp" line="3607"/>
         <source>(converted)</source>
         <translation>(konvertita)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3964"/>
+        <location filename="../../scribus/scribus.cpp" line="3965"/>
         <source>Filename and Path for Image</source>
         <translation>Nomo kaj vojo de la bilddosiero</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3964"/>
+        <location filename="../../scribus/scribus.cpp" line="3965"/>
         <source>All Files (*)</source>
         <translation>Ĉiaj dosieroj (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4057"/>
-        <location filename="../../scribus/scribus.cpp" line="4116"/>
-        <location filename="../../scribus/scribus.cpp" line="7049"/>
-        <location filename="../../scribus/scribus.cpp" line="7213"/>
-        <location filename="../../scribus/scribus.cpp" line="7227"/>
+        <location filename="../../scribus/scribus.cpp" line="4058"/>
+        <location filename="../../scribus/scribus.cpp" line="4117"/>
+        <location filename="../../scribus/scribus.cpp" line="7054"/>
+        <location filename="../../scribus/scribus.cpp" line="7218"/>
+        <location filename="../../scribus/scribus.cpp" line="7232"/>
         <source>Cannot write the file: 
 %1</source>
         <translation>Ne eblas skribi la dosieron: 
 %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4101"/>
-        <location filename="../../scribus/scribus.cpp" line="7038"/>
+        <location filename="../../scribus/scribus.cpp" line="4102"/>
+        <location filename="../../scribus/scribus.cpp" line="7043"/>
         <source>Save As</source>
         <translation>Konservu kiel</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4130"/>
+        <location filename="../../scribus/scribus.cpp" line="4131"/>
         <source>Saving...</source>
         <translation>Konservas...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4262"/>
-        <location filename="../../scribus/scribus.cpp" line="6717"/>
-        <location filename="../../scribus/scribus.cpp" line="6794"/>
-        <location filename="../../scribus/scribus.cpp" line="6866"/>
+        <location filename="../../scribus/scribus.cpp" line="4263"/>
+        <location filename="../../scribus/scribus.cpp" line="6722"/>
+        <location filename="../../scribus/scribus.cpp" line="6799"/>
+        <location filename="../../scribus/scribus.cpp" line="6871"/>
         <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
         <translation>Scribus detektis kelkajn erarojn. Pripensu ĉu uzi la antaŭkontrolon por korekti ilin </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4297"/>
+        <location filename="../../scribus/scribus.cpp" line="4298"/>
         <source>Printing...</source>
         <translation>Printas...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1266"/>
-        <location filename="../../scribus/scribus.cpp" line="2151"/>
-        <location filename="../../scribus/scribus.cpp" line="4301"/>
-        <location filename="../../scribus/scribus.cpp" line="7017"/>
-        <location filename="../../scribus/scribus.cpp" line="8280"/>
+        <location filename="../../scribus/scribus.cpp" line="1267"/>
+        <location filename="../../scribus/scribus.cpp" line="2152"/>
+        <location filename="../../scribus/scribus.cpp" line="4302"/>
+        <location filename="../../scribus/scribus.cpp" line="7022"/>
+        <location filename="../../scribus/scribus.cpp" line="8285"/>
         <source>Document</source>
         <translation>Dokumento</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4347"/>
+        <location filename="../../scribus/scribus.cpp" line="4348"/>
         <source>Printing failed!</source>
         <translation>Printado malsukcesis!</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4437"/>
+        <location filename="../../scribus/scribus.cpp" line="4438"/>
         <source>Cannot Cut In-Use Item</source>
         <translation>Ne eblas tondi elementon uzatan</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4437"/>
+        <location filename="../../scribus/scribus.cpp" line="4438"/>
         <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
         <translation>La elemento %1 estas redaktata de Tekstoredaktilo. La tondado estos nuligita</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5056"/>
+        <location filename="../../scribus/scribus.cpp" line="5057"/>
         <source>About Qt</source>
         <translation>Pri Qt</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5087"/>
+        <location filename="../../scribus/scribus.cpp" line="5088"/>
         <source>Scribus Manual</source>
         <translation>Manlibro de Scribus</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6178"/>
+        <location filename="../../scribus/scribus.cpp" line="6179"/>
         <source>&amp;Size:</source>
         <translation>&amp;Grando:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1595"/>
-        <location filename="../../scribus/scribus.cpp" line="6178"/>
+        <location filename="../../scribus/scribus.cpp" line="1596"/>
+        <location filename="../../scribus/scribus.cpp" line="6179"/>
         <source>Size</source>
         <translation>Grando</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6588"/>
+        <location filename="../../scribus/scribus.cpp" line="6589"/>
         <source>An error occurred while opening monitor profile.
 Former monitor profile will be used.</source>
         <translation>Okazis eraro dum la malfermo de la ekranoprofilo.
 Estos uzata la antaŭan profilon .</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6984"/>
+        <location filename="../../scribus/scribus.cpp" line="6989"/>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
         <translation>Scribus detektis kelkajn erarojn.
 Pripensu ĉu uzi la antaŭkontrolon por korekti ilin.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7080"/>
+        <location filename="../../scribus/scribus.cpp" line="7085"/>
         <source>Detected some errors.
 Consider using the Preflight Verifier to correct them</source>
         <translation>Detektitaj kelkaj eraroj.
 Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7209"/>
+        <location filename="../../scribus/scribus.cpp" line="7214"/>
         <source>-Page%1</source>
         <translation>-Paĝo%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7753"/>
+        <location filename="../../scribus/scribus.cpp" line="7758"/>
         <source>Some objects are locked.</source>
         <translation>Kelkaj objektoj estas ŝlositaj.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7749"/>
+        <location filename="../../scribus/scribus.cpp" line="7754"/>
         <source>&amp;Lock All</source>
         <translation>&amp;Ŝlosu ĉiujn</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7241"/>
+        <location filename="../../scribus/scribus.cpp" line="7246"/>
         <source>Locate your PDF viewer</source>
         <translation>Trovu la PDF-vidigilon</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7750"/>
+        <location filename="../../scribus/scribus.cpp" line="7755"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Malŝlosu ĉiujn</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3886"/>
-        <location filename="../../scribus/scribus.cpp" line="8746"/>
+        <location filename="../../scribus/scribus.cpp" line="3887"/>
+        <location filename="../../scribus/scribus.cpp" line="8740"/>
         <source>Do you really want to replace your existing image?</source>
         <translation>Ĉu vi vere volas anstataŭigi vian ekzistantan bildon?</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="973"/>
+        <location filename="../../scribus/scribus.cpp" line="974"/>
         <source>Contents</source>
         <translation>Enteno</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1135"/>
+        <location filename="../../scribus/scribus.cpp" line="1136"/>
         <source>&amp;Character</source>
         <translation>&amp;Signo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1156"/>
+        <location filename="../../scribus/scribus.cpp" line="1157"/>
         <source>&amp;Quote</source>
         <translation>&amp;Citiloj</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1198"/>
+        <location filename="../../scribus/scribus.cpp" line="1199"/>
         <source>Liga&amp;ture</source>
         <translation>Liga&amp;turoj</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="971"/>
+        <location filename="../../scribus/scribus.cpp" line="972"/>
         <source>Paste Recent</source>
         <translation>Algluu lastan</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3798"/>
+        <location filename="../../scribus/scribus.cpp" line="3799"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Ĉu vi vere intencas forigi la tutan tekston?</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3573"/>
+        <location filename="../../scribus/scribus.cpp" line="3574"/>
         <source>Some color profiles used by this document are not installed:</source>
         <translation>Kelkaj kolorprofiloj uzataj de ĉi tiu dokumento ne estas instalitaj:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7038"/>
+        <location filename="../../scribus/scribus.cpp" line="7043"/>
         <source>%1;;All Files (*)</source>
         <translation>%1;;Ĉiaj dosieroj (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="391"/>
+        <location filename="../../scribus/scribus.cpp" line="392"/>
         <source>Applying User Shortcuts</source>
         <translation>Apliko de fulmoklavoj de uzanto</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6624"/>
+        <location filename="../../scribus/scribus.cpp" line="6629"/>
         <source>Updating Images</source>
         <translation>Aktualigo de bildoj</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4055"/>
-        <location filename="../../scribus/scribus.cpp" line="4114"/>
+        <location filename="../../scribus/scribus.cpp" line="4056"/>
+        <location filename="../../scribus/scribus.cpp" line="4115"/>
         <source>Your document was saved to a temporary file and could not be moved: 
 %1</source>
         <translation>Via dokumento estis konservita en provizora dosieron kaj ne eblis movi ĝin:
 %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4410"/>
+        <location filename="../../scribus/scribus.cpp" line="4411"/>
         <source>Print engine initialization failed</source>
         <translation>La pravalorizo de la printmodulo malsukcesis</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3013"/>
+        <location filename="../../scribus/scribus.cpp" line="3014"/>
         <source>All Supported Formats</source>
         <translation>Ĉiuj subtenataj formoj</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9023"/>
-        <location filename="../../scribus/scribus.cpp" line="9102"/>
+        <location filename="../../scribus/scribus.cpp" line="9017"/>
+        <location filename="../../scribus/scribus.cpp" line="9096"/>
         <source>&amp;Name:</source>
         <translation>&amp;Nomo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9023"/>
-        <location filename="../../scribus/scribus.cpp" line="9102"/>
+        <location filename="../../scribus/scribus.cpp" line="9017"/>
+        <location filename="../../scribus/scribus.cpp" line="9096"/>
         <source>New Entry</source>
         <translation>Nova termino</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6758"/>
+        <location filename="../../scribus/scribus.cpp" line="6763"/>
         <source>Ghostscript is missing : PostScript Print Preview is not available</source>
         <translation>Mankas Ghostscript : Postskripta printantaŭrigardo ne estas disponebla</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3362"/>
+        <location filename="../../scribus/scribus.cpp" line="3363"/>
         <source>Document is already opened</source>
         <translation>La dokumento estas jam malfermita</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3378"/>
+        <location filename="../../scribus/scribus.cpp" line="3379"/>
         <source>The file may be damaged or may have been produced in a later version of Scribus.</source>
         <translation>Eble la dosiero estas difektita aŭ povas esti produktita en pli nova versio de Scribus.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7504"/>
+        <location filename="../../scribus/scribus.cpp" line="7509"/>
         <source>Editing Symbol: %1</source>
         <translation>Redaktado de simbolo: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1549"/>
+        <location filename="../../scribus/scribus.cpp" line="1550"/>
         <source>Unknown</source>
         <translation>Nekonata</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1600"/>
+        <location filename="../../scribus/scribus.cpp" line="1601"/>
         <source>%1 Objects selected, Selection Size = %2 x %3</source>
         <translation>%1 objektoj elektitaj, elektogrando = %2 x %3</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="411"/>
+        <location filename="../../scribus/scribus.cpp" line="412"/>
         <source>Initializing Languages</source>
         <translation>Pravalorizo de lingvoj</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="672"/>
+        <location filename="../../scribus/scribus.cpp" line="673"/>
         <source>All Supported Formats (%1);;%2All Files (*)</source>
         <translation>Ĉiuj subtenataj formoj (%1);;%2Ĉiaj dosieroj (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1105"/>
-        <location filename="../../scribus/scribus.cpp" line="1211"/>
+        <location filename="../../scribus/scribus.cpp" line="1106"/>
+        <location filename="../../scribus/scribus.cpp" line="1212"/>
         <source>Marks</source>
         <translation>Indikiloj</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9524"/>
-        <location filename="../../scribus/scribus.cpp" line="9789"/>
+        <location filename="../../scribus/scribus.cpp" line="9518"/>
+        <location filename="../../scribus/scribus.cpp" line="9783"/>
         <source>Anchor mark</source>
         <translation>Ankro</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9532"/>
-        <location filename="../../scribus/scribus.cpp" line="9802"/>
+        <location filename="../../scribus/scribus.cpp" line="9526"/>
+        <location filename="../../scribus/scribus.cpp" line="9796"/>
         <source>Mark with &lt;%1&gt; variable text</source>
         <translation>Indikilo kun &lt;%1&gt; variebla teksto</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9540"/>
-        <location filename="../../scribus/scribus.cpp" line="9841"/>
+        <location filename="../../scribus/scribus.cpp" line="9534"/>
+        <location filename="../../scribus/scribus.cpp" line="9835"/>
         <source>Mark to %1 item</source>
         <translation>Indikilo al %1 elemento</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9550"/>
-        <location filename="../../scribus/scribus.cpp" line="9862"/>
+        <location filename="../../scribus/scribus.cpp" line="9544"/>
+        <location filename="../../scribus/scribus.cpp" line="9856"/>
         <source>Mark to %1 mark</source>
         <translation>Indikilo al %1 ankro</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1003"/>
+        <location filename="../../scribus/scribus.cpp" line="1004"/>
         <source>Duplicate/Transform</source>
         <translation>Duobligu/Transformu</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="401"/>
+        <location filename="../../scribus/scribus.cpp" line="402"/>
         <source>Initializing Workspaces</source>
         <translation>Pravalorizo de laborspacoj</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="951"/>
+        <location filename="../../scribus/scribus.cpp" line="952"/>
         <source>&amp;Output Preview</source>
         <translation>&amp;Antaŭrigardo de eligo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1008"/>
+        <location filename="../../scribus/scribus.cpp" line="1009"/>
         <source>Grouping</source>
         <translation>Grupigo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1013"/>
+        <location filename="../../scribus/scribus.cpp" line="1014"/>
         <source>Locking</source>
         <translation>Ŝloso</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1025"/>
+        <location filename="../../scribus/scribus.cpp" line="1026"/>
         <source>Send to</source>
         <translation>Sendu al</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1027"/>
+        <location filename="../../scribus/scribus.cpp" line="1028"/>
         <source>Scrapbook</source>
         <translation>Albumo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1041"/>
+        <location filename="../../scribus/scribus.cpp" line="1042"/>
         <source>Adjust</source>
         <translation>Ĝustigu</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1054"/>
+        <location filename="../../scribus/scribus.cpp" line="1055"/>
         <source>Image</source>
         <translation>Bildo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1092"/>
+        <location filename="../../scribus/scribus.cpp" line="1093"/>
         <source>P&amp;DF Options</source>
         <translation>P&amp;DF-opcioj</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1087"/>
+        <location filename="../../scribus/scribus.cpp" line="1088"/>
         <source>Text Frame Links</source>
         <translation>Tekstokadraj ligoj</translation>
     </message>
@@ -36427,166 +36520,166 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
         <translation type="vanished">Strekaĵaj iloj</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1100"/>
+        <location filename="../../scribus/scribus.cpp" line="1101"/>
         <source>Welding</source>
         <translation>Veldado</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1067"/>
+        <location filename="../../scribus/scribus.cpp" line="1068"/>
         <source>Text Features</source>
         <comment>Item</comment>
         <translation>Tekstaj trajtoj</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1046"/>
+        <location filename="../../scribus/scribus.cpp" line="1047"/>
         <source>Shape &amp;&amp; Paths</source>
         <translation>Formo &amp;&amp; Strekaĵoj</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1182"/>
+        <location filename="../../scribus/scribus.cpp" line="1183"/>
         <source>S&amp;paces &amp;&amp; Breaks</source>
         <translation>S&amp;pacoj k &amp;interrompoj</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1239"/>
+        <location filename="../../scribus/scribus.cpp" line="1240"/>
         <source>Zoom</source>
         <translation>Zomilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1248"/>
+        <location filename="../../scribus/scribus.cpp" line="1249"/>
         <source>Preview</source>
         <translation>Antaŭrigardo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1257"/>
+        <location filename="../../scribus/scribus.cpp" line="1258"/>
         <source>Text Frames</source>
         <translation>Tekstokadroj</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1263"/>
+        <location filename="../../scribus/scribus.cpp" line="1264"/>
         <source>Image Frames</source>
         <translation>Bildokadroj</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1272"/>
+        <location filename="../../scribus/scribus.cpp" line="1273"/>
         <source>Grids and Guides</source>
         <translation>Kradoj kaj helplinioj</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1423"/>
+        <location filename="../../scribus/scribus.cpp" line="1424"/>
         <source> %</source>
         <translation> %</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1464"/>
-        <location filename="../../scribus/scribus.cpp" line="8545"/>
+        <location filename="../../scribus/scribus.cpp" line="1465"/>
+        <location filename="../../scribus/scribus.cpp" line="8539"/>
         <source>X:</source>
         <translation>X:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1466"/>
-        <location filename="../../scribus/scribus.cpp" line="8546"/>
+        <location filename="../../scribus/scribus.cpp" line="1467"/>
+        <location filename="../../scribus/scribus.cpp" line="8540"/>
         <source>Y:</source>
         <translation>Y:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3362"/>
+        <location filename="../../scribus/scribus.cpp" line="3363"/>
         <source>This document is already open. It will be set as the active document.</source>
         <translation>Ĉi tiu dokumento estas jam malfermita. Ĝi estos agordita kiel aktiva dokumento.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5164"/>
+        <location filename="../../scribus/scribus.cpp" line="5165"/>
         <source>Text Files (*.txt);;All Files (*)</source>
         <translation>Tekstaj dosieroj (*.txt);;Ĉiaj dosieroj (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5164"/>
+        <location filename="../../scribus/scribus.cpp" line="5165"/>
         <source>Save as</source>
         <translation>Konservu kiel</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6191"/>
+        <location filename="../../scribus/scribus.cpp" line="6192"/>
         <source>&amp;Language:</source>
         <translation>&amp;Lingvo:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6191"/>
+        <location filename="../../scribus/scribus.cpp" line="6192"/>
         <source>Language</source>
         <translation>Lingvo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7555"/>
+        <location filename="../../scribus/scribus.cpp" line="7560"/>
         <source>Editing Inline Item</source>
         <translation>Redaktado de enteksta elemento</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8390"/>
+        <location filename="../../scribus/scribus.cpp" line="8384"/>
         <source>The program %1 is missing or failed to open</source>
         <translation>La programo %1 mankas aŭ malsukcesis malfermiĝi</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8539"/>
+        <location filename="../../scribus/scribus.cpp" line="8533"/>
         <source>Current zoom level</source>
         <translation>Aktuala zomnivelo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8540"/>
+        <location filename="../../scribus/scribus.cpp" line="8534"/>
         <source>Zoom to 100%</source>
         <translation>Zomu al 100%</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8541"/>
+        <location filename="../../scribus/scribus.cpp" line="8535"/>
         <source>Zoom out by the stepping value in Tools preferences</source>
         <translation>Malzomu laŭ la progresia valoro en la Ilaj ecoj</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8542"/>
+        <location filename="../../scribus/scribus.cpp" line="8536"/>
         <source>Zoom in by the stepping value in Tools preferences</source>
         <translation>Zomu laŭ la progresia valoro en la Ilaj ecoj</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8543"/>
+        <location filename="../../scribus/scribus.cpp" line="8537"/>
         <source>Select the current layer</source>
         <translation>Elektu la aktualan tavolon</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8544"/>
+        <location filename="../../scribus/scribus.cpp" line="8538"/>
         <source>Select the current unit</source>
         <translation>Elektu la aktualan unuon</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9498"/>
+        <location filename="../../scribus/scribus.cpp" line="9492"/>
         <source>Insert New </source>
         <translation>Enmetu novan</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9573"/>
-        <location filename="../../scribus/scribus.cpp" line="9884"/>
+        <location filename="../../scribus/scribus.cpp" line="9567"/>
+        <location filename="../../scribus/scribus.cpp" line="9878"/>
         <source>Index mark</source>
         <translation>Indeksu indikilon</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9769"/>
+        <location filename="../../scribus/scribus.cpp" line="9763"/>
         <source>Edit %1</source>
         <translation>Redaktu %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1033"/>
+        <location filename="../../scribus/scribus.cpp" line="1034"/>
         <source>C&amp;onvert to</source>
         <translation>K&amp;onvertu al</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1595"/>
+        <location filename="../../scribus/scribus.cpp" line="1596"/>
         <source>%1 selected</source>
         <translation>%1 elektita</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3214"/>
+        <location filename="../../scribus/scribus.cpp" line="3215"/>
         <source>C&amp;reate</source>
         <translation>K&amp;reu</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1252"/>
+        <location filename="../../scribus/scribus.cpp" line="1253"/>
         <source>Measurement</source>
         <translation>Mezuro</translation>
     </message>
@@ -37088,178 +37181,279 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
 <context>
     <name>SearchReplace</name>
     <message>
-        <location filename="../../scribus/ui/search.cpp" line="52"/>
-        <location filename="../../scribus/ui/search.cpp" line="883"/>
         <source>Search/Replace</source>
-        <translation>Serĉu/Anstataŭigu</translation>
+        <translation type="vanished">Serĉu/Anstataŭigu</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/search.cpp" line="62"/>
         <source>Search for:</source>
-        <translation>Serĉu:</translation>
+        <translation type="vanished">Serĉu:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/search.cpp" line="68"/>
-        <location filename="../../scribus/ui/search.cpp" line="165"/>
         <source>Text</source>
-        <translation>Teksto</translation>
+        <translation type="vanished">Teksto</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/search.cpp" line="77"/>
-        <location filename="../../scribus/ui/search.cpp" line="174"/>
         <source>Font</source>
-        <translation>Tiparo</translation>
+        <translation type="vanished">Tiparo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/search.cpp" line="80"/>
-        <location filename="../../scribus/ui/search.cpp" line="177"/>
         <source>Font Size</source>
-        <translation>Tipargrando</translation>
+        <translation type="vanished">Tipargrando</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/search.cpp" line="83"/>
-        <location filename="../../scribus/ui/search.cpp" line="180"/>
         <source>Font Effects</source>
-        <translation>Tipar-efektoj</translation>
+        <translation type="vanished">Tipar-efektoj</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/search.cpp" line="86"/>
-        <location filename="../../scribus/ui/search.cpp" line="183"/>
         <source>Fill Color</source>
-        <translation>Plenigokoloro</translation>
+        <translation type="vanished">Plenigokoloro</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/search.cpp" line="89"/>
-        <location filename="../../scribus/ui/search.cpp" line="186"/>
         <source>Fill Shade</source>
-        <translation>Plenigintenso</translation>
+        <translation type="vanished">Plenigintenso</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/search.cpp" line="92"/>
-        <location filename="../../scribus/ui/search.cpp" line="189"/>
         <source>Stroke Color</source>
-        <translation>Konturkoloro</translation>
+        <translation type="vanished">Konturkoloro</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/search.cpp" line="95"/>
-        <location filename="../../scribus/ui/search.cpp" line="192"/>
         <source>Stroke Shade</source>
-        <translation>Konturintenso</translation>
+        <translation type="vanished">Konturintenso</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/search.cpp" line="113"/>
+        <location filename="../../scribus/ui/search.cpp" line="66"/>
         <source>Left</source>
         <translation>Maldekstra</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/search.cpp" line="113"/>
+        <location filename="../../scribus/ui/search.cpp" line="66"/>
         <source>Center</source>
         <translation>Centra</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/search.cpp" line="113"/>
+        <location filename="../../scribus/ui/search.cpp" line="66"/>
         <source>Right</source>
         <translation>Dekstra</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/search.cpp" line="113"/>
+        <location filename="../../scribus/ui/search.cpp" line="66"/>
         <source>Block</source>
         <translation>Alkadrigita</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/search.cpp" line="113"/>
+        <location filename="../../scribus/ui/search.cpp" line="66"/>
         <source>Forced</source>
         <translation>Komplete alkadrigita</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/search.cpp" line="159"/>
+        <location filename="../../scribus/ui/search.cpp" line="120"/>
+        <source>Collapse or expand the formatting options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/search.cpp" line="890"/>
+        <source>More...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/search.cpp" line="890"/>
+        <source>Less...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Replace with:</source>
-        <translation>Anstataŭigu per:</translation>
+        <translation type="vanished">Anstataŭigu per:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/search.cpp" line="261"/>
         <source>&amp;Ignore Case, Diacritics and Kashida</source>
-        <translation>&amp;Ignoru usklecon, diakritajn signojn kaj arablingvan alkadrigon</translation>
+        <translation type="vanished">&amp;Ignoru usklecon, diakritajn signojn kaj arablingvan alkadrigon</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/search.cpp" line="883"/>
-        <source>Search finished. </source>
-        <translation>Serĉado finita.</translation>
-    </message>
-    <message numerus="yes">
-        <location filename="../../scribus/ui/search.cpp" line="883"/>
-        <source>%n match(es) found</source>
-        <translation>
-            <numerusform>%n rezulto(j) trovita(j)</numerusform>
-            <numerusform>%n rezulto(j) trovita(j)</numerusform>
-        </translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/search.cpp" line="257"/>
         <source>&amp;Whole Word</source>
-        <translation>T&amp;uta vorto</translation>
+        <translation type="vanished">T&amp;uta vorto</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/search.cpp" line="270"/>
         <source>&amp;Search</source>
-        <translation>&amp;Serĉu</translation>
+        <translation type="vanished">&amp;Serĉu</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/search.cpp" line="273"/>
         <source>&amp;Replace</source>
-        <translation>Ansta&amp;taŭigu</translation>
+        <translation type="vanished">Ansta&amp;taŭigu</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/search.cpp" line="276"/>
         <source>Replace &amp;All</source>
-        <translation>Anstataŭigu ĉi&amp;ujn</translation>
+        <translation type="vanished">Anstataŭigu ĉi&amp;ujn</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/search.cpp" line="281"/>
         <source>&amp;Close</source>
-        <translation>&amp;Fermu</translation>
+        <translation type="vanished">&amp;Fermu</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/search.cpp" line="279"/>
         <source>C&amp;lear</source>
-        <translation>&amp;Vakigu</translation>
+        <translation type="vanished">&amp;Vakigu</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/search.cpp" line="74"/>
-        <location filename="../../scribus/ui/search.cpp" line="171"/>
         <source>Alignment</source>
-        <translation>Ĝisrandigo</translation>
+        <translation type="vanished">Ĝisrandigo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/search.cpp" line="316"/>
+        <location filename="../../scribus/ui/search.cpp" line="121"/>
         <source>Search for text or formatting in the current text</source>
         <translation>Serĉu tekston aŭ aranĝon en la aktuala teksto</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/search.cpp" line="317"/>
+        <location filename="../../scribus/ui/search.cpp" line="122"/>
         <source>Replace the searched for formatting with the replacement values</source>
         <translation>Anstataŭigu la trovitan aranĝon per la anstataŭaj valoroj</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/search.cpp" line="318"/>
+        <location filename="../../scribus/ui/search.cpp" line="123"/>
         <source>Replace all found instances</source>
         <translation>Anstatauigu ĉiujn trovitaĵojn</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/search.cpp" line="319"/>
+        <location filename="../../scribus/ui/search.cpp" line="124"/>
         <source>Clear all search and replace options</source>
         <translation>Forigu ĉiujn serĉadajn kaj anstataŭajn opciojn</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/search.cpp" line="320"/>
+        <location filename="../../scribus/ui/search.cpp" line="125"/>
         <source>Close search and replace</source>
         <translation>Fermu &apos;Serĉu kaj Anstataŭigu&apos;</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/search.cpp" line="71"/>
-        <location filename="../../scribus/ui/search.cpp" line="168"/>
         <source>Style</source>
-        <translation>Stilo</translation>
+        <translation type="vanished">Stilo</translation>
+    </message>
+</context>
+<context>
+    <name>SearchReplaceBase</name>
+    <message>
+        <location filename="../../scribus/ui/searchbase.ui" line="23"/>
+        <source>Search/Replace</source>
+        <translation type="unfinished">Serĉu/Anstataŭigu</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/searchbase.ui" line="36"/>
+        <source>Search:</source>
+        <translation type="unfinished">Serĉu:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/searchbase.ui" line="59"/>
+        <source>&amp;Whole Word</source>
+        <translation type="unfinished">T&amp;uta vorto</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/searchbase.ui" line="69"/>
+        <source>&amp;Ignore Case, Diacritics and Kashida</source>
+        <translation type="unfinished">&amp;Ignoru usklecon, diakritajn signojn kaj arablingvan alkadrigon</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/searchbase.ui" line="80"/>
+        <source>Replace:</source>
+        <translation type="unfinished">Anstataŭigu:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/searchbase.ui" line="115"/>
+        <source>More...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/searchbase.ui" line="144"/>
+        <source>Feedback</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/searchbase.ui" line="183"/>
+        <location filename="../../scribus/ui/searchbase.ui" line="269"/>
+        <location filename="../../scribus/ui/searchbase.ui" line="429"/>
+        <location filename="../../scribus/ui/searchbase.ui" line="446"/>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/searchbase.ui" line="203"/>
+        <location filename="../../scribus/ui/searchbase.ui" line="330"/>
+        <source>Alignment</source>
+        <translation type="unfinished">Ĝisrandigo</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/searchbase.ui" line="217"/>
+        <location filename="../../scribus/ui/searchbase.ui" line="358"/>
+        <source>Stroke Shade</source>
+        <translation type="unfinished">Konturintenso</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/searchbase.ui" line="231"/>
+        <location filename="../../scribus/ui/searchbase.ui" line="351"/>
+        <source>Font Size</source>
+        <translation type="unfinished">Tipargrando</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/searchbase.ui" line="173"/>
+        <location filename="../../scribus/ui/searchbase.ui" line="316"/>
+        <source>Stroke Color</source>
+        <translation type="unfinished">Konturkoloro</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/searchbase.ui" line="238"/>
+        <location filename="../../scribus/ui/searchbase.ui" line="337"/>
+        <source>Fill Color</source>
+        <translation type="unfinished">Plenigokoloro</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/searchbase.ui" line="245"/>
+        <location filename="../../scribus/ui/searchbase.ui" line="344"/>
+        <source>Font</source>
+        <translation type="unfinished">Tiparo</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/searchbase.ui" line="252"/>
+        <location filename="../../scribus/ui/searchbase.ui" line="309"/>
+        <source>Font Effects</source>
+        <translation type="unfinished">Tipar-efektoj</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/searchbase.ui" line="286"/>
+        <location filename="../../scribus/ui/searchbase.ui" line="365"/>
+        <source>Fill Shade</source>
+        <translation type="unfinished">Plenigintenso</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/searchbase.ui" line="293"/>
+        <location filename="../../scribus/ui/searchbase.ui" line="323"/>
+        <source>Style</source>
+        <translation type="unfinished">Stilo</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/searchbase.ui" line="460"/>
+        <source>&amp;Search</source>
+        <translation type="unfinished">&amp;Serĉu</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/searchbase.ui" line="473"/>
+        <source>&amp;Replace</source>
+        <translation type="unfinished">Ansta&amp;taŭigu</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/searchbase.ui" line="483"/>
+        <source>Replace &amp;All</source>
+        <translation type="unfinished">Anstataŭigu ĉi&amp;ujn</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/searchbase.ui" line="493"/>
+        <source>&amp;Stop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/searchbase.ui" line="513"/>
+        <source>C&amp;lear</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/searchbase.ui" line="520"/>
+        <source>&amp;Close</source>
+        <translation type="unfinished">&amp;Fermu</translation>
     </message>
 </context>
 <context>
@@ -37358,22 +37552,22 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
 <context>
     <name>ShapePlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="139"/>
+        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="128"/>
         <source>Importing: %1</source>
         <translation>Importado: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="142"/>
+        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="131"/>
         <source>Analyzing File:</source>
         <translation>Analizo de la dosiero:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="345"/>
+        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="325"/>
         <source>Generating Items</source>
         <translation>Generado de elementoj</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="626"/>
+        <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="596"/>
         <source>Group%1</source>
         <translation>Grupo%1</translation>
     </message>
@@ -37517,17 +37711,17 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
 <context>
     <name>SmlPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsml.cpp" line="137"/>
+        <location filename="../../scribus/plugins/import/sml/importsml.cpp" line="134"/>
         <source>Importing: %1</source>
         <translation>Importado: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsml.cpp" line="140"/>
+        <location filename="../../scribus/plugins/import/sml/importsml.cpp" line="137"/>
         <source>Analyzing File:</source>
         <translation>Analizo de la dosiero:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/sml/importsml.cpp" line="350"/>
+        <location filename="../../scribus/plugins/import/sml/importsml.cpp" line="338"/>
         <source>Generating Items</source>
         <translation>Generado de elementoj</translation>
     </message>
@@ -37662,12 +37856,12 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
         <translation>Alineoj:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="3297"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="3305"/>
         <source>Open</source>
         <translation>Malfermu</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="3332"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="3340"/>
         <source>Save as</source>
         <translation>Konservu kiel</translation>
     </message>
@@ -37828,8 +38022,8 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
         <translation>Spaco</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="3297"/>
-        <location filename="../../scribus/ui/storyeditor.cpp" line="3332"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="3305"/>
+        <location filename="../../scribus/ui/storyeditor.cpp" line="3340"/>
         <source>Text Files (*.txt);;All Files (*)</source>
         <translation>Tekstaj dosieroj (*.txt);;Ĉiaj dosieroj (*)</translation>
     </message>
@@ -37894,9 +38088,9 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
     <message>
         <location filename="../../scribus/ui/stylemanager.ui" line="380"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="117"/>
-        <location filename="../../scribus/ui/stylemanager.cpp" line="1019"/>
-        <location filename="../../scribus/ui/stylemanager.cpp" line="1189"/>
-        <location filename="../../scribus/ui/stylemanager.cpp" line="1227"/>
+        <location filename="../../scribus/ui/stylemanager.cpp" line="1018"/>
+        <location filename="../../scribus/ui/stylemanager.cpp" line="1188"/>
+        <location filename="../../scribus/ui/stylemanager.cpp" line="1226"/>
         <source>&amp;Apply</source>
         <translation>&amp;Apliku</translation>
     </message>
@@ -37966,7 +38160,7 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/stylemanager.cpp" line="161"/>
-        <location filename="../../scribus/ui/stylemanager.cpp" line="787"/>
+        <location filename="../../scribus/ui/stylemanager.cpp" line="786"/>
         <source>New</source>
         <translation>Nova</translation>
     </message>
@@ -37987,7 +38181,7 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/stylemanager.cpp" line="119"/>
-        <location filename="../../scribus/ui/stylemanager.cpp" line="903"/>
+        <location filename="../../scribus/ui/stylemanager.cpp" line="902"/>
         <source>&amp;Edit</source>
         <translation>R&amp;edaktu</translation>
     </message>
@@ -37998,7 +38192,7 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/stylemanager.ui" line="69"/>
-        <location filename="../../scribus/ui/stylemanager.cpp" line="1129"/>
+        <location filename="../../scribus/ui/stylemanager.cpp" line="1128"/>
         <source>Shortcut</source>
         <translation>Fulmoklavo</translation>
     </message>
@@ -38019,7 +38213,7 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
         <translation>Nova %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.cpp" line="1215"/>
+        <location filename="../../scribus/ui/stylemanager.cpp" line="1214"/>
         <source>This key sequence is already in use</source>
         <translation>Ĉi tiu klavkombino jam estas uzata</translation>
     </message>
@@ -38034,7 +38228,7 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
         <translation>Nomo de la elektita stilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.cpp" line="1303"/>
+        <location filename="../../scribus/ui/stylemanager.cpp" line="1300"/>
         <source>More than one style selected</source>
         <translation>Elektita pli ol unu stilo</translation>
     </message>
@@ -38188,17 +38382,17 @@ Pripensu ĉu uzi la antaŭkontrolon por korekti ilin</translation>
 <context>
     <name>SvmPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/svm/importsvm.cpp" line="404"/>
+        <location filename="../../scribus/plugins/import/svm/importsvm.cpp" line="400"/>
         <source>Importing: %1</source>
         <translation>Importado: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svm/importsvm.cpp" line="407"/>
+        <location filename="../../scribus/plugins/import/svm/importsvm.cpp" line="403"/>
         <source>Analyzing File:</source>
         <translation>Analizo de la dosiero:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/svm/importsvm.cpp" line="690"/>
+        <location filename="../../scribus/plugins/import/svm/importsvm.cpp" line="673"/>
         <source>Generating Items</source>
         <translation>Generado de elementoj</translation>
     </message>
@@ -39888,1409 +40082,1414 @@ kiam PDF-dokumento estas malfermita:</translation>
 <context>
     <name>UndoManager</name>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="570"/>
+        <location filename="../../scribus/undomanager.cpp" line="567"/>
         <source>Add vertical guide</source>
         <translation>Aldonu vertikalan helplinion</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="571"/>
+        <location filename="../../scribus/undomanager.cpp" line="568"/>
         <source>Add horizontal guide</source>
         <translation>Aldonu horizontalan helplinion</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="572"/>
+        <location filename="../../scribus/undomanager.cpp" line="569"/>
         <source>Remove vertical guide</source>
         <translation>Forigu vertikalan helplinion</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="573"/>
+        <location filename="../../scribus/undomanager.cpp" line="570"/>
         <source>Remove horizontal guide</source>
         <translation>Forigu horizontalan helplinion</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="576"/>
+        <location filename="../../scribus/undomanager.cpp" line="573"/>
         <source>Move vertical guide</source>
         <translation>Movu vertikalan helplinion</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="577"/>
+        <location filename="../../scribus/undomanager.cpp" line="574"/>
         <source>Move horizontal guide</source>
         <translation>Movu horizontalan helplinion</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="578"/>
+        <location filename="../../scribus/undomanager.cpp" line="575"/>
         <source>Lock guides</source>
         <translation>Ŝlosu helpliniojn</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="579"/>
+        <location filename="../../scribus/undomanager.cpp" line="576"/>
         <source>Unlock guides</source>
         <translation>Malŝlosu helpliniojn</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="583"/>
+        <location filename="../../scribus/undomanager.cpp" line="580"/>
         <source>Move</source>
         <translation>Movu</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="592"/>
+        <location filename="../../scribus/undomanager.cpp" line="589"/>
         <source>Resize</source>
         <translation>(Mal)grandigu</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="593"/>
+        <location filename="../../scribus/undomanager.cpp" line="590"/>
         <source>Rotate</source>
         <translation>Rotaciu</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="594"/>
+        <location filename="../../scribus/undomanager.cpp" line="591"/>
         <source>X1: %1, Y1: %2, %3
 X2: %4, Y2: %5, %6</source>
         <translation>X1: %1, Y1: %2, %3
 X2: %4, Y2: %5, %6</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="595"/>
+        <location filename="../../scribus/undomanager.cpp" line="592"/>
         <source>W1: %1, H1: %2
 W2: %3, H2: %4</source>
         <translation>L1: %1, A1: %2
 L2: %3, A2: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="600"/>
+        <location filename="../../scribus/undomanager.cpp" line="597"/>
         <source>Selection</source>
         <translation>Areo</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="601"/>
+        <location filename="../../scribus/undomanager.cpp" line="598"/>
         <source>Group</source>
         <translation>Grupigu</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="602"/>
+        <location filename="../../scribus/undomanager.cpp" line="599"/>
         <source>Selection/Group</source>
         <translation>Areo/Grupigo</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="603"/>
+        <location filename="../../scribus/undomanager.cpp" line="600"/>
         <source>Create</source>
         <translation>Kreu</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="608"/>
+        <location filename="../../scribus/undomanager.cpp" line="605"/>
         <source>X: %1, Y: %2
 W: %3, H: %4</source>
         <translation>X: %1, Y: %2\n
 L: %3, A: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="609"/>
+        <location filename="../../scribus/undomanager.cpp" line="606"/>
         <source>Align/Distribute</source>
         <translation>Alliniigu/Dismetu</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="610"/>
+        <location filename="../../scribus/undomanager.cpp" line="607"/>
         <source>Items involved</source>
         <translation>Koncernataj elementoj</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="612"/>
+        <location filename="../../scribus/undomanager.cpp" line="609"/>
         <source>Cancel</source>
         <translation>Rezignu</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="613"/>
+        <location filename="../../scribus/undomanager.cpp" line="610"/>
         <source>Set fill color</source>
         <translation>Agordu plenigkoloron</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="615"/>
+        <location filename="../../scribus/undomanager.cpp" line="612"/>
         <source>Color1: %1, Color2: %2</source>
         <translation>Koloro1: %1, Koloro: %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="616"/>
+        <location filename="../../scribus/undomanager.cpp" line="613"/>
         <source>Set fill color shade</source>
         <translation>Agordu la intenson de la plenigkoloro</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="617"/>
+        <location filename="../../scribus/undomanager.cpp" line="614"/>
         <source>Set line color</source>
         <translation>Agordu la linikoloron</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="618"/>
+        <location filename="../../scribus/undomanager.cpp" line="615"/>
         <source>Set line color shade</source>
         <translation>Agordu la intenson de la linikoloro</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="619"/>
+        <location filename="../../scribus/undomanager.cpp" line="616"/>
         <source>Flip horizontally</source>
         <translation>Reflektu</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="620"/>
+        <location filename="../../scribus/undomanager.cpp" line="617"/>
         <source>Flip vertically</source>
         <translation>Renversu</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="621"/>
+        <location filename="../../scribus/undomanager.cpp" line="618"/>
         <source>Lock</source>
         <translation>Ŝlosu</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="623"/>
+        <location filename="../../scribus/undomanager.cpp" line="620"/>
         <source>Unlock</source>
         <translation>Malŝlosu</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="624"/>
+        <location filename="../../scribus/undomanager.cpp" line="621"/>
         <source>Lock size</source>
         <translation>Ŝlosu grandon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="626"/>
+        <location filename="../../scribus/undomanager.cpp" line="623"/>
         <source>Unlock size</source>
         <translation>Malŝlosu grandon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="629"/>
+        <location filename="../../scribus/undomanager.cpp" line="626"/>
         <source>Ungroup</source>
         <translation>Malgrupigu</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="630"/>
+        <location filename="../../scribus/undomanager.cpp" line="627"/>
         <source>Delete</source>
         <translation>Forigu</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="631"/>
+        <location filename="../../scribus/undomanager.cpp" line="628"/>
         <source>Rename</source>
         <translation>Alinomu</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="632"/>
+        <location filename="../../scribus/undomanager.cpp" line="629"/>
         <source>From %1
 to %2</source>
         <translation>De %1
 al %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="588"/>
+        <location filename="../../scribus/undomanager.cpp" line="585"/>
         <source>Apply Master Page</source>
         <translation>Apliku ĉefpaĝon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="633"/>
+        <location filename="../../scribus/undomanager.cpp" line="630"/>
         <source>Paste</source>
         <translation>Algluu</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="634"/>
+        <location filename="../../scribus/undomanager.cpp" line="631"/>
         <source>Cut</source>
         <translation>Eltondu</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="636"/>
+        <location filename="../../scribus/undomanager.cpp" line="633"/>
         <source>Set fill color transparency</source>
         <translation>Agordu plenigkoloron de travidebleco</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="637"/>
+        <location filename="../../scribus/undomanager.cpp" line="634"/>
         <source>Set line color transparency</source>
         <translation>Agordu linikoloron de travidebleco</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="638"/>
+        <location filename="../../scribus/undomanager.cpp" line="635"/>
         <source>Set line style</source>
         <translation>Agordu linistilon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="639"/>
+        <location filename="../../scribus/undomanager.cpp" line="636"/>
         <source>Set the style of line end</source>
         <translation>Agordu la stilon de la lini-ekstremaĵo</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="640"/>
+        <location filename="../../scribus/undomanager.cpp" line="637"/>
         <source>Set the style of line join</source>
         <translation>Agordu la stilon de la lini-kuniĝo</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="641"/>
+        <location filename="../../scribus/undomanager.cpp" line="638"/>
         <source>Set line width</source>
         <translation>Agordu lini-larĝon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="642"/>
+        <location filename="../../scribus/undomanager.cpp" line="639"/>
         <source>No style</source>
         <translation>Neniu stilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="643"/>
+        <location filename="../../scribus/undomanager.cpp" line="640"/>
         <source>Set custom line style</source>
         <translation>Agordu propran linistilon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="644"/>
+        <location filename="../../scribus/undomanager.cpp" line="641"/>
         <source>Do not use custom line style</source>
         <translation>Ne uzu propran linistilon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="645"/>
+        <location filename="../../scribus/undomanager.cpp" line="642"/>
         <source>Set start arrow</source>
         <translation>Agordu sagkomencaĵon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="646"/>
+        <location filename="../../scribus/undomanager.cpp" line="643"/>
         <source>Set end arrow</source>
         <translation>Agordu sagfinaĵon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="648"/>
+        <location filename="../../scribus/undomanager.cpp" line="645"/>
         <source>Create table</source>
         <translation>Kreu tabelon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="649"/>
+        <location filename="../../scribus/undomanager.cpp" line="646"/>
         <source>Rows: %1, Cols: %2</source>
         <translation>Linioj: %1, Kolumnoj: %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="670"/>
+        <location filename="../../scribus/undomanager.cpp" line="667"/>
         <source>Set font</source>
         <translation>Agordu tiparon</translation>
     </message>
     <message>
+        <location filename="../../scribus/undomanager.cpp" line="668"/>
         <location filename="../../scribus/undomanager.cpp" line="671"/>
-        <location filename="../../scribus/undomanager.cpp" line="674"/>
         <source>Set font size</source>
         <translation>Agordu tipargrandon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="675"/>
+        <location filename="../../scribus/undomanager.cpp" line="672"/>
         <source>Set font width</source>
         <translation>Agordu tiparlarĝon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="691"/>
+        <location filename="../../scribus/undomanager.cpp" line="688"/>
         <source>Set font fill color</source>
         <translation>Agordu tiparan plenigkoloron</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="692"/>
+        <location filename="../../scribus/undomanager.cpp" line="689"/>
         <source>Set font stroke color</source>
         <translation>Agordu tiparan konturkoloron</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="693"/>
+        <location filename="../../scribus/undomanager.cpp" line="690"/>
         <source>Set font fill color shade</source>
         <translation>Agordu plenigkoloran intenson de la tiparo</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="694"/>
+        <location filename="../../scribus/undomanager.cpp" line="691"/>
         <source>Set font stroke color shade</source>
         <translation>Agordu intenson de koloro de tiparkonturo</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="695"/>
+        <location filename="../../scribus/undomanager.cpp" line="692"/>
         <source>Set kerning</source>
         <translation>Agordu literdistancon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="696"/>
+        <location filename="../../scribus/undomanager.cpp" line="693"/>
         <source>Set line spacing</source>
         <translation>Agordu lini-distancon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="697"/>
+        <location filename="../../scribus/undomanager.cpp" line="694"/>
         <source>Set paragraph style</source>
         <translation>Agordu aline-stilon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="698"/>
+        <location filename="../../scribus/undomanager.cpp" line="695"/>
         <source>Set language</source>
         <translation>Agordu lingvon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="699"/>
+        <location filename="../../scribus/undomanager.cpp" line="696"/>
         <source>Align text</source>
         <translation>Alliniigu tekston</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="700"/>
+        <location filename="../../scribus/undomanager.cpp" line="697"/>
         <source>Set font effect</source>
         <translation>Agordu tiparefekton</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="701"/>
+        <location filename="../../scribus/undomanager.cpp" line="698"/>
         <source>Image frame</source>
         <translation>Bildokadro</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="702"/>
+        <location filename="../../scribus/undomanager.cpp" line="699"/>
         <source>Text frame</source>
         <translation>Tekstokadro</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="705"/>
+        <location filename="../../scribus/undomanager.cpp" line="702"/>
         <source>Polygon</source>
         <translation>Poligono</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="709"/>
+        <location filename="../../scribus/undomanager.cpp" line="706"/>
         <source>Bezier curve</source>
         <translation>Bezier-kurbo</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="710"/>
+        <location filename="../../scribus/undomanager.cpp" line="707"/>
         <source>Polyline</source>
         <translation>Multliniaĵo</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="712"/>
+        <location filename="../../scribus/undomanager.cpp" line="709"/>
         <source>Convert to</source>
         <translation>Konvertu al</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="732"/>
+        <location filename="../../scribus/undomanager.cpp" line="729"/>
         <source>Import SVG image</source>
         <translation>Importu SVG-bildon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="734"/>
+        <location filename="../../scribus/undomanager.cpp" line="731"/>
         <source>Import Uniconvertor image</source>
         <translation>Importu Uniconvertor-bildon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="721"/>
+        <location filename="../../scribus/undomanager.cpp" line="718"/>
         <source>Import EPS image</source>
         <translation>Importu EPS-bildon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="746"/>
+        <location filename="../../scribus/undomanager.cpp" line="743"/>
         <source>Scratch space</source>
         <translation>Laborareo</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="747"/>
+        <location filename="../../scribus/undomanager.cpp" line="744"/>
         <source>Text flows around the frame</source>
         <translation>Teksto fluas ĉirkaŭ la kadro</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="748"/>
+        <location filename="../../scribus/undomanager.cpp" line="745"/>
         <source>Text flows around bounding box</source>
         <translation>Teksto fluas ĉirkaŭ la limiga kesto</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="749"/>
+        <location filename="../../scribus/undomanager.cpp" line="746"/>
         <source>Text flows around contour line</source>
         <translation>Teksto fluas ĉirkaŭ la konturo</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="751"/>
+        <location filename="../../scribus/undomanager.cpp" line="748"/>
         <source>No text flow</source>
         <translation>Nenia tekstofluo</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="753"/>
+        <location filename="../../scribus/undomanager.cpp" line="750"/>
         <source>No bounding box</source>
         <translation>Neniu limiga kesto</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="754"/>
+        <location filename="../../scribus/undomanager.cpp" line="751"/>
         <source>No contour line</source>
         <translation>Nenia konturo</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="756"/>
+        <location filename="../../scribus/undomanager.cpp" line="753"/>
         <source>Page %1</source>
         <translation>Paĝo %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="757"/>
+        <location filename="../../scribus/undomanager.cpp" line="754"/>
         <source>Set image scaling</source>
         <translation>Agordu bildoskalon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="758"/>
+        <location filename="../../scribus/undomanager.cpp" line="755"/>
         <source>Frame size</source>
         <translation>Kadrogrando</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="762"/>
+        <location filename="../../scribus/undomanager.cpp" line="759"/>
         <source>Free scaling</source>
         <translation>Libera skalado</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="763"/>
+        <location filename="../../scribus/undomanager.cpp" line="760"/>
         <source>Keep aspect ratio</source>
         <translation>Konservu la proporciojn</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="764"/>
+        <location filename="../../scribus/undomanager.cpp" line="761"/>
         <source>Break aspect ratio</source>
         <translation>Ne konservu la proporciojn</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="765"/>
-        <location filename="../../scribus/undomanager.cpp" line="820"/>
+        <location filename="../../scribus/undomanager.cpp" line="762"/>
+        <location filename="../../scribus/undomanager.cpp" line="817"/>
         <source>Edit contour line</source>
         <translation>Redaktu konturon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="766"/>
+        <location filename="../../scribus/undomanager.cpp" line="763"/>
         <source>Edit shape</source>
         <translation>Redaktu formon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="768"/>
+        <location filename="../../scribus/undomanager.cpp" line="765"/>
         <source>Reset contour line</source>
         <translation>Nuligu konturon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="769"/>
+        <location filename="../../scribus/undomanager.cpp" line="766"/>
         <source>Add page</source>
         <translation>Aldonu paĝon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="770"/>
+        <location filename="../../scribus/undomanager.cpp" line="767"/>
         <source>Add pages</source>
         <translation>Aldonu paĝojn</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="789"/>
+        <location filename="../../scribus/undomanager.cpp" line="786"/>
         <source>Delete page</source>
         <translation>Forigu paĝon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="790"/>
+        <location filename="../../scribus/undomanager.cpp" line="787"/>
         <source>Delete pages</source>
         <translation>Forigu paĝojn</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="792"/>
+        <location filename="../../scribus/undomanager.cpp" line="789"/>
         <source>Add layer</source>
         <translation>Aldonu tavolon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="794"/>
+        <location filename="../../scribus/undomanager.cpp" line="791"/>
         <source>Delete layer</source>
         <translation>Forigu tavolon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="795"/>
+        <location filename="../../scribus/undomanager.cpp" line="792"/>
         <source>Rename layer</source>
         <translation>Alinomu tavolon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="796"/>
+        <location filename="../../scribus/undomanager.cpp" line="793"/>
         <source>Raise layer</source>
         <translation>Suprigu tavolon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="798"/>
+        <location filename="../../scribus/undomanager.cpp" line="795"/>
         <source>Lower layer</source>
         <translation>Pli malsupra tavolo</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="799"/>
+        <location filename="../../scribus/undomanager.cpp" line="796"/>
         <source>Send to layer</source>
         <translation>Sendu al tavolo</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="800"/>
+        <location filename="../../scribus/undomanager.cpp" line="797"/>
         <source>Enable printing of layer</source>
         <translation>Ebligu la printadon de la tavolo</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="801"/>
+        <location filename="../../scribus/undomanager.cpp" line="798"/>
         <source>Disable printing of layer</source>
         <translation>Malebligu la printadon de la tavolo</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="802"/>
+        <location filename="../../scribus/undomanager.cpp" line="799"/>
         <source>Change name of the layer</source>
         <translation>Ŝanĝu la nomon de la tavolo</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="809"/>
+        <location filename="../../scribus/undomanager.cpp" line="806"/>
         <source>Get image</source>
         <translation>Enmetu bildon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="724"/>
+        <location filename="../../scribus/undomanager.cpp" line="721"/>
         <source>Import OpenOffice.org Draw image</source>
         <translation>Importu bildon de OpenOffice.org Draw</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="676"/>
+        <location filename="../../scribus/undomanager.cpp" line="673"/>
         <source>Set font height</source>
         <translation>Agordu tipar-alton</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="711"/>
+        <location filename="../../scribus/undomanager.cpp" line="708"/>
         <source>Text on a Path</source>
         <translation>Teksto sur strekaĵo</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="627"/>
+        <location filename="../../scribus/undomanager.cpp" line="624"/>
         <source>Enable Item Printing</source>
         <translation>Ebligu elementoprintadon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="628"/>
+        <location filename="../../scribus/undomanager.cpp" line="625"/>
         <source>Disable Item Printing</source>
         <translation>Malebligu elementoprintadon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="812"/>
+        <location filename="../../scribus/undomanager.cpp" line="809"/>
         <source>Multiple duplicate</source>
         <translation>Multobligu</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="596"/>
+        <location filename="../../scribus/undomanager.cpp" line="593"/>
         <source>Change Image Offset</source>
         <translation>Ŝanĝu la bildan deŝovon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="597"/>
+        <location filename="../../scribus/undomanager.cpp" line="594"/>
         <source>Change Image Scale</source>
         <translation>Ŝanĝu la bildoskalon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="598"/>
+        <location filename="../../scribus/undomanager.cpp" line="595"/>
         <source>X1: %1, Y1: %2
 X2: %4, Y2: %5</source>
         <translation>X1: %1, Y1: %2
 X2: %4, Y2: %5</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="599"/>
+        <location filename="../../scribus/undomanager.cpp" line="596"/>
         <source>X: %1, Y: %2
 X: %4, Y: %5</source>
         <translation>X: %1, Y: %2
 X: %4, Y: %5</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="814"/>
+        <location filename="../../scribus/undomanager.cpp" line="811"/>
         <source>Apply text style</source>
         <translation>Apliku tekstostilon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="816"/>
+        <location filename="../../scribus/undomanager.cpp" line="813"/>
         <source>&amp;Undo: %1</source>
         <comment>f.e. Undo: Move</comment>
         <translation>Mal&amp;faru: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="817"/>
+        <location filename="../../scribus/undomanager.cpp" line="814"/>
         <source>&amp;Undo</source>
         <translation>Mal&amp;faru</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="818"/>
+        <location filename="../../scribus/undomanager.cpp" line="815"/>
         <source>&amp;Redo: %1</source>
         <comment>f.e. Redo: Move</comment>
         <translation>&amp;Refaru: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="819"/>
+        <location filename="../../scribus/undomanager.cpp" line="816"/>
         <source>&amp;Redo</source>
         <translation>&amp;Refaru</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="752"/>
+        <location filename="../../scribus/undomanager.cpp" line="749"/>
         <source>No object frame</source>
         <translation>Neniu objektokadro</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="821"/>
+        <location filename="../../scribus/undomanager.cpp" line="818"/>
         <source>Reset control point</source>
         <translation>Nuligu kontrolpunkton</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="822"/>
+        <location filename="../../scribus/undomanager.cpp" line="819"/>
         <source>Reset control points</source>
         <translation>Nuligu kontrolpunktojn</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="823"/>
+        <location filename="../../scribus/undomanager.cpp" line="820"/>
         <source>Apply image effects</source>
         <translation>Apliku bildoefektojn</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="824"/>
+        <location filename="../../scribus/undomanager.cpp" line="821"/>
         <source>Insert frame</source>
         <translation>Enmetu kadron</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="825"/>
+        <location filename="../../scribus/undomanager.cpp" line="822"/>
         <source>Adjust frame to the image size</source>
         <translation>Alĝustigu la kadron al la bildogrando</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="647"/>
+        <location filename="../../scribus/undomanager.cpp" line="644"/>
         <source>Set start and end arrows</source>
         <translation>Agordu sagajn komencaĵon kaj sagfinaĵon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="826"/>
+        <location filename="../../scribus/undomanager.cpp" line="823"/>
         <source>Remove all guides</source>
         <translation>Forigu ĉiujn helpliniojn</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="828"/>
+        <location filename="../../scribus/undomanager.cpp" line="825"/>
         <source>Copy</source>
         <translation>Kopiu</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="829"/>
+        <location filename="../../scribus/undomanager.cpp" line="826"/>
         <source>Copy page</source>
         <translation>Kopiu paĝon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="574"/>
+        <location filename="../../scribus/undomanager.cpp" line="571"/>
         <source>Remove vertical auto guide</source>
         <translation>Forigu vertikalan aŭtomatan helplinion</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="575"/>
+        <location filename="../../scribus/undomanager.cpp" line="572"/>
         <source>Remove horizontal auto guide</source>
         <translation>Forigu horizontalan aŭtomatan helplinion</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="750"/>
+        <location filename="../../scribus/undomanager.cpp" line="747"/>
         <source>Text flows around image clipping path</source>
         <translation>Teksto fluas ĉirkaŭ la tondostreko de la bildo</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="827"/>
+        <location filename="../../scribus/undomanager.cpp" line="824"/>
         <source>Remove page guides</source>
         <translation>Forigu helpliniojn de la paĝo</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="833"/>
+        <location filename="../../scribus/undomanager.cpp" line="830"/>
         <source>Convert to outlines</source>
         <translation>Konvertu al konturoj</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="810"/>
+        <location filename="../../scribus/undomanager.cpp" line="807"/>
         <source>Change formula</source>
         <translation>Ŝanĝu formulon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="713"/>
+        <location filename="../../scribus/undomanager.cpp" line="710"/>
         <source>Import AI drawing</source>
         <translation>Importu AI-desegnon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="740"/>
+        <location filename="../../scribus/undomanager.cpp" line="737"/>
         <source>Import XFig drawing</source>
         <translation>Importu XFig-desegnon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="704"/>
+        <location filename="../../scribus/undomanager.cpp" line="701"/>
         <source>Render frame</source>
         <translation>Bildiga kadro</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="715"/>
+        <location filename="../../scribus/undomanager.cpp" line="712"/>
         <source>Import Barcode</source>
         <translation>Importu strekokodon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="793"/>
+        <location filename="../../scribus/undomanager.cpp" line="790"/>
         <source>Duplicate layer %1</source>
         <translation>Duobligu tavolon %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="611"/>
+        <location filename="../../scribus/undomanager.cpp" line="608"/>
         <source>More than 20 items involved</source>
         <translation>Koncernataj pli ol 20 elementoj</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="737"/>
+        <location filename="../../scribus/undomanager.cpp" line="734"/>
         <source>Import WMF drawing</source>
         <translation>Importu WMF-desegnon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="767"/>
+        <location filename="../../scribus/undomanager.cpp" line="764"/>
         <source>Change shape type</source>
         <translation>Ŝanĝŭ formotipon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="791"/>
+        <location filename="../../scribus/undomanager.cpp" line="788"/>
         <source>Change page properties</source>
         <translation>Ŝanĝu paĝoecojn</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="803"/>
+        <location filename="../../scribus/undomanager.cpp" line="800"/>
         <source>Enable text flow around for lower layers</source>
         <translation>Ebligu la tekston ĉirkaŭflui en pli malsupraj tavoloj</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="804"/>
+        <location filename="../../scribus/undomanager.cpp" line="801"/>
         <source>Disable text flow around for lower layers</source>
         <translation>Malebligu la tekston ĉirkaŭflui en pli malsupraj tavoloj</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="805"/>
+        <location filename="../../scribus/undomanager.cpp" line="802"/>
         <source>Set layer blend mode</source>
         <translation>Agordu tavolan fandoreĝimon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="806"/>
+        <location filename="../../scribus/undomanager.cpp" line="803"/>
         <source>Set layer opacity</source>
         <translation>Agordu tavol-opakecon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="807"/>
+        <location filename="../../scribus/undomanager.cpp" line="804"/>
         <source>Lock layer</source>
         <translation>Ŝlosu tavolon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="808"/>
+        <location filename="../../scribus/undomanager.cpp" line="805"/>
         <source>Unlock layer</source>
         <translation>Malŝlosu tavolon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="834"/>
+        <location filename="../../scribus/undomanager.cpp" line="831"/>
         <source>Link text frame</source>
         <translation>Ligu tekstokadron</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="835"/>
+        <location filename="../../scribus/undomanager.cpp" line="832"/>
         <source>Unlink text frame</source>
         <translation>Malligu tekstokadron</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="830"/>
+        <location filename="../../scribus/undomanager.cpp" line="827"/>
         <source>Move page</source>
         <translation>Movu paĝon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="836"/>
+        <location filename="../../scribus/undomanager.cpp" line="833"/>
         <source>Clear image frame content</source>
         <translation>Forigu entenon de bildokadro</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="837"/>
+        <location filename="../../scribus/undomanager.cpp" line="834"/>
         <source>Path Operation</source>
         <translation>Strekaĵa operacio</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="569"/>
+        <location filename="../../scribus/undomanager.cpp" line="566"/>
         <source>Connect path</source>
         <translation>Kunligu strekaĵojn</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="580"/>
+        <location filename="../../scribus/undomanager.cpp" line="577"/>
         <source>Change overprint</source>
         <translation>Ŝanĝu surpreson</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="581"/>
+        <location filename="../../scribus/undomanager.cpp" line="578"/>
         <source>Change blend mode</source>
         <translation>Ŝanĝu fandoreĝimon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="582"/>
+        <location filename="../../scribus/undomanager.cpp" line="579"/>
         <source>Change action PDF</source>
         <translation>Ŝanĝu PDF-agon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="584"/>
+        <location filename="../../scribus/undomanager.cpp" line="581"/>
         <source>Add master page</source>
         <translation>Aldonu ĉefpaĝon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="585"/>
+        <location filename="../../scribus/undomanager.cpp" line="582"/>
         <source>Del master page</source>
         <translation>Forigu ĉefpaĝon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="586"/>
+        <location filename="../../scribus/undomanager.cpp" line="583"/>
         <source>Import master page</source>
         <translation>Importu ĉefpaĝon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="587"/>
+        <location filename="../../scribus/undomanager.cpp" line="584"/>
         <source>Duplicate master page</source>
         <translation>Duobligu ĉefpaĝon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="590"/>
+        <location filename="../../scribus/undomanager.cpp" line="587"/>
         <source>Combine Polygons</source>
         <translation>Kombinu poligonojn</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="591"/>
+        <location filename="../../scribus/undomanager.cpp" line="588"/>
         <source>Split Polygons</source>
         <translation>Dividu poligonojn</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="604"/>
+        <location filename="../../scribus/undomanager.cpp" line="601"/>
         <source>Level up</source>
         <translation>Al supra nivelo</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="605"/>
+        <location filename="../../scribus/undomanager.cpp" line="602"/>
         <source>Level down</source>
         <translation>Al malsupra nivelo</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="606"/>
+        <location filename="../../scribus/undomanager.cpp" line="603"/>
         <source>Send to front</source>
         <translation>Sendu ĝis supro</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="607"/>
+        <location filename="../../scribus/undomanager.cpp" line="604"/>
         <source>Send to bottom</source>
         <translation>Sendu ĝis malsupro</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="614"/>
+        <location filename="../../scribus/undomanager.cpp" line="611"/>
         <source>Set fill rule</source>
         <translation>Agordu plenigregulon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="622"/>
+        <location filename="../../scribus/undomanager.cpp" line="619"/>
         <source>Change image resolution</source>
         <translation>Ŝanĝu bildodistingivon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="625"/>
+        <location filename="../../scribus/undomanager.cpp" line="622"/>
         <source>Set mask gradient type</source>
         <translation>Agordu la gradientan tipon de la masko</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="635"/>
+        <location filename="../../scribus/undomanager.cpp" line="632"/>
         <source>Change round corner</source>
         <translation>Ŝanĝu rondan angulon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="650"/>
+        <location filename="../../scribus/undomanager.cpp" line="647"/>
         <source>Set cell borders</source>
         <translation>Agordu la ĉelrandojn</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="651"/>
+        <location filename="../../scribus/undomanager.cpp" line="648"/>
         <source>Set cell fill color</source>
         <translation>Agordu ĉelan plenigkoloron</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="652"/>
+        <location filename="../../scribus/undomanager.cpp" line="649"/>
         <source>Set cell fill shade</source>
         <translation>Agordu la ĉelan intensplenigon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="653"/>
+        <location filename="../../scribus/undomanager.cpp" line="650"/>
         <source>Set cell style</source>
         <translation>Agordu la ĉelstilon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="654"/>
+        <location filename="../../scribus/undomanager.cpp" line="651"/>
         <source>Set table fill color</source>
         <translation>Agordu la tabelan plenigkoloron</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="655"/>
+        <location filename="../../scribus/undomanager.cpp" line="652"/>
         <source>Reset table fill color</source>
         <translation>Nuligu la tabelan plenigkoloron</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="656"/>
+        <location filename="../../scribus/undomanager.cpp" line="653"/>
         <source>Set table fill shade</source>
         <translation>Agordu la tabelan intensplenigon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="657"/>
+        <location filename="../../scribus/undomanager.cpp" line="654"/>
         <source>Reset table fill shade</source>
         <translation>Nuligu la tabelan intensplenigon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="658"/>
+        <location filename="../../scribus/undomanager.cpp" line="655"/>
         <source>Set table borders</source>
         <translation>Agordu la tabelrandojn</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="659"/>
+        <location filename="../../scribus/undomanager.cpp" line="656"/>
         <source>Set table left border</source>
         <translation>Agordu la maldekstran randon de la tabelo</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="660"/>
+        <location filename="../../scribus/undomanager.cpp" line="657"/>
         <source>Reset table left border</source>
         <translation>Nuligu la maldekstran randon de la tabelo</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="661"/>
+        <location filename="../../scribus/undomanager.cpp" line="658"/>
         <source>Set table right border</source>
         <translation>Agordu la dekstran randon de la tabelo</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="662"/>
+        <location filename="../../scribus/undomanager.cpp" line="659"/>
         <source>Reset table right border</source>
         <translation>Nuligu la dekstran randon de la tabelo</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="663"/>
+        <location filename="../../scribus/undomanager.cpp" line="660"/>
         <source>Set table bottom border</source>
         <translation>Agordu la malsupran randon de la tabelo</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="664"/>
+        <location filename="../../scribus/undomanager.cpp" line="661"/>
         <source>Reset table bottom border</source>
         <translation>Nuligu la malsupran randon de la tabelo</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="665"/>
+        <location filename="../../scribus/undomanager.cpp" line="662"/>
         <source>Set table top border</source>
         <translation>Agordu la supran randon de la tabelo</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="666"/>
+        <location filename="../../scribus/undomanager.cpp" line="663"/>
         <source>Reset table top border</source>
         <translation>Nuligu la supran randon de la tabelo</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="667"/>
+        <location filename="../../scribus/undomanager.cpp" line="664"/>
         <source>Set table style</source>
         <translation>Agordu la tabelstilon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="668"/>
+        <location filename="../../scribus/undomanager.cpp" line="665"/>
         <source>Set height of table row</source>
         <translation>Agordu la alton de la tabellinio</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="669"/>
+        <location filename="../../scribus/undomanager.cpp" line="666"/>
         <source>Set width of table column</source>
         <translation>Agordu la larĝon de la tabelkolumno</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="672"/>
+        <location filename="../../scribus/undomanager.cpp" line="669"/>
         <source>Set start arrow scale</source>
         <translation>Agordu sagkomencaĵan skalon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="673"/>
+        <location filename="../../scribus/undomanager.cpp" line="670"/>
         <source>Set end arrow scale</source>
         <translation>Agordu sagfinaĵan skalon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="677"/>
+        <location filename="../../scribus/undomanager.cpp" line="674"/>
         <source>Change fill gradient type</source>
         <translation>Ŝanĝu la plenigan gradienttipon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="678"/>
+        <location filename="../../scribus/undomanager.cpp" line="675"/>
         <source>Change fill gradient values</source>
         <translation>Ŝanĝu la plenigajn gradientvalorojn</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="679"/>
+        <location filename="../../scribus/undomanager.cpp" line="676"/>
         <source>Change stroke gradient values</source>
         <translation>Ŝanĝu la konturajn gradientvalorojn</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="680"/>
+        <location filename="../../scribus/undomanager.cpp" line="677"/>
         <source>Change mask gradient values</source>
         <translation>Ŝanĝu la gradientvalorojn de la masko</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="681"/>
+        <location filename="../../scribus/undomanager.cpp" line="678"/>
         <source>Change gradient color</source>
         <translation>Ŝanĝu gradientkoloron</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="682"/>
+        <location filename="../../scribus/undomanager.cpp" line="679"/>
         <source>Change stroke gradient type</source>
         <translation>Ŝanĝu la konturan gradienttipon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="683"/>
+        <location filename="../../scribus/undomanager.cpp" line="680"/>
         <source>Change gradient extent</source>
         <translation>Ŝanĝu gradientamplekson</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="684"/>
+        <location filename="../../scribus/undomanager.cpp" line="681"/>
         <source>Change stroke gradient extent</source>
         <translation>Ŝanĝu konturan gradientamplekson</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="685"/>
+        <location filename="../../scribus/undomanager.cpp" line="682"/>
         <source>Change fill pattern</source>
         <translation>Ŝanĝu la plenigmodelon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="686"/>
+        <location filename="../../scribus/undomanager.cpp" line="683"/>
         <source>Change stroke pattern</source>
         <translation>Ŝanĝu la konturmodelon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="687"/>
+        <location filename="../../scribus/undomanager.cpp" line="684"/>
         <source>Change mask pattern</source>
         <translation>Ŝanĝu la maskmodelon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="688"/>
+        <location filename="../../scribus/undomanager.cpp" line="685"/>
         <source>Change pattern follows path</source>
         <translation>Ŝanĝu modelo-sekvas-la-strekaĵon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="689"/>
+        <location filename="../../scribus/undomanager.cpp" line="686"/>
         <source>Change pattern flip</source>
         <translation>Ŝanĝu la renversmodelon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="690"/>
+        <location filename="../../scribus/undomanager.cpp" line="687"/>
         <source>Change pattern transform</source>
         <translation>Ŝanĝu la transformmodelon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="703"/>
+        <location filename="../../scribus/undomanager.cpp" line="700"/>
         <source>Layer</source>
         <translation>Tavolo</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="706"/>
+        <location filename="../../scribus/undomanager.cpp" line="703"/>
         <source>Edit polygon</source>
         <translation>Redaktu poligonon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="707"/>
+        <location filename="../../scribus/undomanager.cpp" line="704"/>
         <source>Edit arc</source>
         <translation>Redaktu arkon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="708"/>
+        <location filename="../../scribus/undomanager.cpp" line="705"/>
         <source>Edit spiral</source>
         <translation>Redaktu spiralon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="714"/>
+        <location filename="../../scribus/undomanager.cpp" line="711"/>
         <source>Import Apple Pages document</source>
         <translation>Importu Apple-Pages-dokumenton</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="716"/>
+        <location filename="../../scribus/undomanager.cpp" line="713"/>
         <source>Import CorelDraw drawing</source>
         <translation>Importu CorelDraw-desegnon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="717"/>
+        <location filename="../../scribus/undomanager.cpp" line="714"/>
         <source>Import CGM drawing</source>
         <translation>Importu CGM-desegnon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="718"/>
+        <location filename="../../scribus/undomanager.cpp" line="715"/>
         <source>Import Calamus CVG drawing</source>
         <translation>Importu Calamus-Vector-desegnon...</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="719"/>
+        <location filename="../../scribus/undomanager.cpp" line="716"/>
         <source>Import Micrografx Draw drawing</source>
         <translation>Importu Micrografx-Draw-desegnon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="720"/>
+        <location filename="../../scribus/undomanager.cpp" line="717"/>
         <source>Import EMF drawing</source>
         <translation>Importu EMF-desegnon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="722"/>
+        <location filename="../../scribus/undomanager.cpp" line="719"/>
         <source>Import FreeHand document</source>
         <translation>Importu Freehand-dokumenton</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="723"/>
+        <location filename="../../scribus/undomanager.cpp" line="720"/>
         <source>Import IDML document</source>
         <translation>Importu IDML-Dokumenton</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="725"/>
+        <location filename="../../scribus/undomanager.cpp" line="722"/>
         <source>Import PageMaker document</source>
         <translation>Importu Pagemaker-dokumenton</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="726"/>
+        <location filename="../../scribus/undomanager.cpp" line="723"/>
         <source>Import PDF document</source>
         <translation>Importu PDF-dokumenton</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="727"/>
+        <location filename="../../scribus/undomanager.cpp" line="724"/>
         <source>Import Macintosh Pict drawing</source>
         <translation>Importu Macintosh-Pict-dokumenton</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="728"/>
+        <location filename="../../scribus/undomanager.cpp" line="725"/>
         <source>Import MS Publisher document</source>
         <translation>Importu MS-Publisher-dokumenton</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="729"/>
+        <location filename="../../scribus/undomanager.cpp" line="726"/>
         <source>Import QuarkXPress document</source>
         <translation>Importu QuarkXPress-dokumenton</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="730"/>
+        <location filename="../../scribus/undomanager.cpp" line="727"/>
         <source>Import Shape drawing</source>
         <translation>Importu Shape-desegnon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="731"/>
+        <location filename="../../scribus/undomanager.cpp" line="728"/>
         <source>Import Kivio stencil</source>
         <translation>Importu Kivio-stencilon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="733"/>
+        <location filename="../../scribus/undomanager.cpp" line="730"/>
         <source>Import SVM image</source>
         <translation>Importu SVM-bildon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="735"/>
+        <location filename="../../scribus/undomanager.cpp" line="732"/>
         <source>Import Viva Designer document</source>
         <translation>Importu Viva-Designer-dokumenton</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="736"/>
+        <location filename="../../scribus/undomanager.cpp" line="733"/>
         <source>Import Visio document</source>
         <translation>Importu Visio-dokumenton</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="738"/>
+        <location filename="../../scribus/undomanager.cpp" line="735"/>
         <source>Import WordPerfect graphic</source>
         <translation>Importu WordPerfect-grafikaĵon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="739"/>
+        <location filename="../../scribus/undomanager.cpp" line="736"/>
         <source>Import Xara image</source>
         <translation>Importu Xara-bildon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="741"/>
+        <location filename="../../scribus/undomanager.cpp" line="738"/>
         <source>Import XPS document</source>
         <translation>Importu XPS-dokumenton</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="742"/>
+        <location filename="../../scribus/undomanager.cpp" line="739"/>
         <source>Import Zoner Draw image</source>
         <translation>Importu Zoner-Draw-bildon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="743"/>
+        <location filename="../../scribus/undomanager.cpp" line="740"/>
         <source>Change columns</source>
         <translation>Redaktu kolumnojn</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="744"/>
+        <location filename="../../scribus/undomanager.cpp" line="741"/>
         <source>Change columns gap</source>
         <translation>Redaktu kolumnan interdistancon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="745"/>
+        <location filename="../../scribus/undomanager.cpp" line="742"/>
         <source>Change text to frame distance</source>
         <translation>Ŝanĝu la distancon de la teksto ĝis la kadro</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="755"/>
+        <location filename="../../scribus/undomanager.cpp" line="752"/>
         <source>Show image</source>
         <translation>Montru bildon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="759"/>
+        <location filename="../../scribus/undomanager.cpp" line="756"/>
         <source>Create mesh gradient</source>
         <translation>Kreu maŝgradienton</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="760"/>
+        <location filename="../../scribus/undomanager.cpp" line="757"/>
         <source>Change mesh gradient</source>
         <translation>Ŝanĝu maŝgradienton</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="761"/>
+        <location filename="../../scribus/undomanager.cpp" line="758"/>
         <source>Change Mode</source>
         <translation>Ŝanĝu reĝimon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="771"/>
+        <location filename="../../scribus/undomanager.cpp" line="768"/>
         <source>Replace text</source>
         <translation>Anstataŭigu tekston</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="772"/>
+        <location filename="../../scribus/undomanager.cpp" line="769"/>
         <source>Change First Line Offset</source>
         <translation>Ŝanĝu la ŝovon de la unua linio</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="773"/>
+        <location filename="../../scribus/undomanager.cpp" line="770"/>
         <source>Delete text</source>
         <translation>Forigu tekston</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="774"/>
+        <location filename="../../scribus/undomanager.cpp" line="771"/>
         <source>Insert text</source>
         <translation>Enmetu tekston</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="775"/>
+        <location filename="../../scribus/undomanager.cpp" line="772"/>
         <source>Append text</source>
         <translation>Postaldonu tekston</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="776"/>
+        <location filename="../../scribus/undomanager.cpp" line="773"/>
         <source>Import text</source>
         <translation>Importu tekston</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="777"/>
+        <location filename="../../scribus/undomanager.cpp" line="774"/>
         <source>Clear text</source>
         <translation>Vakigu tekston</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="779"/>
+        <location filename="../../scribus/undomanager.cpp" line="776"/>
         <source>Add Lorem Ipsum</source>
         <translation>Aldonu ekzemplan tekston</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="780"/>
+        <location filename="../../scribus/undomanager.cpp" line="777"/>
         <source>Insert mark</source>
         <translation>Enmetu indikilon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="781"/>
+        <location filename="../../scribus/undomanager.cpp" line="778"/>
         <source>Insert note</source>
         <translation>Enmetu noton</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="782"/>
+        <location filename="../../scribus/undomanager.cpp" line="779"/>
         <source>Edit mark</source>
         <translation>Redaktu noton</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="783"/>
+        <location filename="../../scribus/undomanager.cpp" line="780"/>
         <source>Delete mark</source>
         <translation>Forigu indikilon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="784"/>
+        <location filename="../../scribus/undomanager.cpp" line="781"/>
         <source>Delete note</source>
         <translation>Forigu noton</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="785"/>
+        <location filename="../../scribus/undomanager.cpp" line="782"/>
         <source>Add note style</source>
         <translation>Aldonu notstilon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="786"/>
+        <location filename="../../scribus/undomanager.cpp" line="783"/>
         <source>Edit note style</source>
         <translation>Redaktu notstilon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="787"/>
-        <location filename="../../scribus/undomanager.cpp" line="788"/>
+        <location filename="../../scribus/undomanager.cpp" line="784"/>
+        <location filename="../../scribus/undomanager.cpp" line="785"/>
         <source>Delete note style</source>
         <translation>Forigu notstilon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="797"/>
+        <location filename="../../scribus/undomanager.cpp" line="794"/>
         <source>Change gradient position</source>
         <translation>Ŝanĝu gradientan pozicion</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="811"/>
+        <location filename="../../scribus/undomanager.cpp" line="808"/>
         <source>Duplicate</source>
         <translation>Duobligu</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="813"/>
+        <location filename="../../scribus/undomanager.cpp" line="810"/>
         <source>Remove mesh patch</source>
         <translation>Forigu maŝgradienton</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="815"/>
+        <location filename="../../scribus/undomanager.cpp" line="812"/>
         <source>Remove text style</source>
         <translation>Forigu tekstostilon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="831"/>
+        <location filename="../../scribus/undomanager.cpp" line="828"/>
         <source>Swap pages</source>
         <translation>Interŝanĝu paĝojn</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="832"/>
+        <location filename="../../scribus/undomanager.cpp" line="829"/>
         <source>Import page</source>
         <translation>Importu paĝon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="838"/>
+        <location filename="../../scribus/undomanager.cpp" line="835"/>
         <source>Change Page Attributes</source>
         <translation>Ŝanĝu paĝatributojn</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="839"/>
+        <location filename="../../scribus/undomanager.cpp" line="836"/>
         <source>Transform</source>
         <translation>Transformu</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="840"/>
+        <location filename="../../scribus/undomanager.cpp" line="837"/>
         <source>Weld Items</source>
         <translation>Veldu elementojn</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="589"/>
+        <location filename="../../scribus/undomanager.cpp" line="847"/>
+        <source>Apply spelling corrections</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/undomanager.cpp" line="586"/>
         <source>Rename Master Page</source>
         <translation>Alinomu ĉefpaĝon</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="778"/>
+        <location filename="../../scribus/undomanager.cpp" line="775"/>
         <source>Truncate text</source>
         <translation>Trunku tekston</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="842"/>
+        <location filename="../../scribus/undomanager.cpp" line="839"/>
         <source>Drop Shadow</source>
         <translation>Ĵetita ombro</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="843"/>
+        <location filename="../../scribus/undomanager.cpp" line="840"/>
         <source>Drop Shadow Color</source>
         <translation>Koloro de ĵetita ombro</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="844"/>
+        <location filename="../../scribus/undomanager.cpp" line="841"/>
         <source>Drop Shadow Shade</source>
         <translation>Intenso de ĵetita ombro</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="845"/>
+        <location filename="../../scribus/undomanager.cpp" line="842"/>
         <source>Drop Shadow Blur Radius</source>
         <translation>Misfokuseca radiuso de la ĵetita ombro</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="846"/>
+        <location filename="../../scribus/undomanager.cpp" line="843"/>
         <source>Drop Shadow X Offset</source>
         <translation>X-ŝovo de ĵetita ombro</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="847"/>
+        <location filename="../../scribus/undomanager.cpp" line="844"/>
         <source>Drop Shadow Y Offset</source>
         <translation>Y-ŝovo de ĵetita ombro</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="848"/>
+        <location filename="../../scribus/undomanager.cpp" line="845"/>
         <source>Drop Shadow Opacity</source>
         <translation>Opakeco de ĵetita ombro</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="849"/>
+        <location filename="../../scribus/undomanager.cpp" line="846"/>
         <source>Drop Shadow Blend Mode</source>
         <translation>Fandoreĝimo de ĵetita ombro</translation>
     </message>
     <message>
-        <location filename="../../scribus/undomanager.cpp" line="841"/>
+        <location filename="../../scribus/undomanager.cpp" line="838"/>
         <source>Unweld Items</source>
         <translation>Malveldu elementojn</translation>
     </message>
@@ -41298,42 +41497,42 @@ X: %4, Y: %5</translation>
 <context>
     <name>UndoPalette</name>
     <message>
-        <location filename="../../scribus/undogui.cpp" line="237"/>
+        <location filename="../../scribus/undogui.cpp" line="235"/>
         <source>Initial State</source>
         <translation>Komenca stato</translation>
     </message>
     <message>
-        <location filename="../../scribus/undogui.cpp" line="262"/>
+        <location filename="../../scribus/undogui.cpp" line="260"/>
         <source>&amp;Undo</source>
         <translation>Mal&amp;faru</translation>
     </message>
     <message>
-        <location filename="../../scribus/undogui.cpp" line="263"/>
+        <location filename="../../scribus/undogui.cpp" line="261"/>
         <source>&amp;Redo</source>
         <translation>&amp;Refaru</translation>
     </message>
     <message>
-        <location filename="../../scribus/undogui.cpp" line="265"/>
+        <location filename="../../scribus/undogui.cpp" line="263"/>
         <source>Show the action history for the selected item only. This changes the effect of the undo/redo buttons to act on the object or document.</source>
         <translation>Montru la aghistorion nur por la elektita elemento. Tio ŝanĝas la efekton de la butonoj malfaru/refaru sur la objekto aŭ dokumento.</translation>
     </message>
     <message>
-        <location filename="../../scribus/undogui.cpp" line="266"/>
+        <location filename="../../scribus/undogui.cpp" line="264"/>
         <source>Undo the last action for either the current object or the document</source>
         <translation>Malfaru la lastan agon por la aktuala objekto aŭ dokumento</translation>
     </message>
     <message>
-        <location filename="../../scribus/undogui.cpp" line="267"/>
+        <location filename="../../scribus/undogui.cpp" line="265"/>
         <source>Redo the last action for either the current object or the document</source>
         <translation>Refaru la lastan agon por la aktuala objekto aŭ dokumento</translation>
     </message>
     <message>
-        <location filename="../../scribus/undogui.cpp" line="261"/>
+        <location filename="../../scribus/undogui.cpp" line="259"/>
         <source>Show Selected Object Only</source>
         <translation>Montru nur la elektitan objekton</translation>
     </message>
     <message>
-        <location filename="../../scribus/undogui.cpp" line="443"/>
+        <location filename="../../scribus/undogui.cpp" line="441"/>
         <source>%1 - %2
 %3</source>
         <translation>%1 - %2
@@ -41371,38 +41570,38 @@ X: %4, Y: %5</translation>
 <context>
     <name>UniconvImportPlugin</name>
     <message>
-        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="83"/>
+        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="82"/>
         <source>Imports Vector Files with UniConvertor</source>
         <translation>Importu vektorajn dosierojn per UniConvertor</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="84"/>
+        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="83"/>
         <source>Converts many vector formats to SVG and then loads the resulting SVG.</source>
         <translation>Konvertas multajn vektorajn formojn en SVG&apos;on kaj ŝargas la rezultan SVG&apos;on.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="68"/>
-        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="99"/>
+        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="67"/>
+        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="98"/>
         <source>Uniconvertor Import</source>
         <translation>Uniconvertor-importilo</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="162"/>
+        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="161"/>
         <source>Starting Uniconvertor failed! The executable name in File-&gt;Preferences-&gt;External Tools may be incorrect or the software has been uninstalled since preferences were set. (%1)</source>
         <translation>Malsukcesis la rulo de Uniconvertor! La nomo de la plenumebla dosiero en Dosiero-&gt;Agordoj-&gt;Eksteraj iloj povus esti neĝusta aŭ la programaro estis malinstalita post la agordo. (%1)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="172"/>
+        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="171"/>
         <source>Uniconvertor did not exit correctly: %1</source>
         <translation>Uniconvertor ne ĝuste eliris: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="179"/>
+        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="178"/>
         <source>Uniconvertor failed to convert the file: %1</source>
         <translation>Uniconvertor malsukcesis konverti la dosieron: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="187"/>
+        <location filename="../../scribus/plugins/import/uniconvertor/uniconvplugin.cpp" line="186"/>
         <source>The SVG Import plugin could not be found</source>
         <translation>Ne eblis trovi la kromprogramon por importi SVG&apos;on</translation>
     </message>
@@ -41608,17 +41807,17 @@ Would you like to start the system&apos;s default browser instead?</source>
 <context>
     <name>VivaPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/viva/importviva.cpp" line="217"/>
+        <location filename="../../scribus/plugins/import/viva/importviva.cpp" line="214"/>
         <source>Importing: %1</source>
         <translation>Importado: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/viva/importviva.cpp" line="220"/>
+        <location filename="../../scribus/plugins/import/viva/importviva.cpp" line="217"/>
         <source>Analyzing File:</source>
         <translation>Analizo de la dosiero:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/viva/importviva.cpp" line="385"/>
+        <location filename="../../scribus/plugins/import/viva/importviva.cpp" line="373"/>
         <source>Generating Items</source>
         <translation>Generado de elementoj</translation>
     </message>
@@ -41626,17 +41825,17 @@ Would you like to start the system&apos;s default browser instead?</source>
 <context>
     <name>VsdPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="133"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="127"/>
         <source>Importing: %1</source>
         <translation>Importado: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="136"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="130"/>
         <source>Analyzing File:</source>
         <translation>Analizo de la dosiero:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="346"/>
+        <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="327"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -41665,12 +41864,12 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <translation>Importas la plejparton el la WMF-dosieroj en la aktualan dokumenton, konvertante iliajn vektorajn datumojn en Scribus-objektoj.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="175"/>
+        <location filename="../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="178"/>
         <source>The file could not be imported</source>
         <translation>Ne eblis importi la dosieron</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="177"/>
+        <location filename="../../scribus/plugins/import/wmf/wmfimportplugin.cpp" line="180"/>
         <source>WMF file contains some unsupported features</source>
         <translation>La WMF dosiero entenas kelkajn ecojn nesubtenatajn</translation>
     </message>
@@ -41678,12 +41877,12 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>WpgPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/wpg/importwpg.cpp" line="485"/>
+        <location filename="../../scribus/plugins/import/wpg/importwpg.cpp" line="481"/>
         <source>Importing: %1</source>
         <translation>Importado: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/wpg/importwpg.cpp" line="488"/>
+        <location filename="../../scribus/plugins/import/wpg/importwpg.cpp" line="484"/>
         <source>Analyzing File:</source>
         <translation>Analizo de la dosiero:</translation>
     </message>
@@ -41709,22 +41908,22 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>XarPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="231"/>
+        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="240"/>
         <source>Importing: %1</source>
         <translation>Importado: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="234"/>
+        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="243"/>
         <source>Analyzing File:</source>
         <translation>Analizo de la dosiero:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="3606"/>
+        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="3481"/>
         <source>Group%1</source>
         <translation>Grupo%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="521"/>
+        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="511"/>
         <source>Generating Items</source>
         <translation>Generado de elementoj</translation>
     </message>
@@ -41732,17 +41931,17 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>XfigPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/xfig/importxfig.cpp" line="257"/>
+        <location filename="../../scribus/plugins/import/xfig/importxfig.cpp" line="260"/>
         <source>Importing: %1</source>
         <translation>Importado: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xfig/importxfig.cpp" line="260"/>
+        <location filename="../../scribus/plugins/import/xfig/importxfig.cpp" line="263"/>
         <source>Analyzing File:</source>
         <translation>Analizo de la dosiero:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xfig/importxfig.cpp" line="1604"/>
+        <location filename="../../scribus/plugins/import/xfig/importxfig.cpp" line="1590"/>
         <source>Generating Items</source>
         <translation>Generado de elementoj</translation>
     </message>
@@ -41783,17 +41982,17 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>XpsPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/xps/importxps.cpp" line="196"/>
+        <location filename="../../scribus/plugins/import/xps/importxps.cpp" line="204"/>
         <source>Importing: %1</source>
         <translation>Importado: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xps/importxps.cpp" line="199"/>
+        <location filename="../../scribus/plugins/import/xps/importxps.cpp" line="207"/>
         <source>Analyzing File:</source>
         <translation>Analizo de la dosiero:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xps/importxps.cpp" line="390"/>
+        <location filename="../../scribus/plugins/import/xps/importxps.cpp" line="375"/>
         <source>Generating Items</source>
         <translation>Generado de elementoj</translation>
     </message>
@@ -41892,17 +42091,17 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>ZmfPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="122"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="127"/>
         <source>Importing: %1</source>
         <translation>Importado: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="125"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="130"/>
         <source>Analyzing File:</source>
         <translation>Analizo de la dosiero:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="331"/>
+        <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="316"/>
         <source>Parsing failed!
 
 Please submit your file (if possible) to the
@@ -42500,7 +42699,7 @@ bonvolu elekti alian.</translation>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Formo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/nodeeditpalette.ui" line="239"/>
