@@ -431,7 +431,8 @@ void TOCGenerator::generateIndex()
 				//Sort the page list and join back by comma (should probably use QLocale::createSeparatedList based on the para style language)
 				pages.sort();
 				indexPage = pages.join(",");
-			} else
+			}
+			else
 				indexPage = indexIt->pageID;
 
 			QString tmpEntryText(indexIt->entryText);
