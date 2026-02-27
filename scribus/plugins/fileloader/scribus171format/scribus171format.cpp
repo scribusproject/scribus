@@ -3500,8 +3500,11 @@ void Scribus171Format::readCharacterStyleAttrs(ScribusDoc *doc, const ScXmlStrea
 		newStyle.setShortcut(attrs.valueAsString(SHORTCUT171));
 
 	static const QString WORDTRACK("wordTrack");
+	static const QString WORDTRACK171("WordTrack");
 	if (attrs.hasAttribute(WORDTRACK))
 		newStyle.setWordTracking(attrs.valueAsDouble(WORDTRACK));
+	else if (attrs.hasAttribute(WORDTRACK171))
+		newStyle.setWordTracking(attrs.valueAsDouble(WORDTRACK171));
 }
 
 void Scribus171Format::readNamedCharacterStyleAttrs(ScribusDoc *doc, const ScXmlStreamAttributes& attrs, CharStyle & newStyle) const
