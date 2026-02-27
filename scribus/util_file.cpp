@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "util_file.h"
 
+#include <memory>
 #ifdef _MSC_VER
 # include <sys/utime.h>
 #else
@@ -103,15 +104,15 @@ bool copyFileAtomic(const QString& source, const QString& target)
 
 	QFile srcFile(source);
 	QString tempFileName;
-	QTemporaryFile tempFile(target + "_XXXXXX");
+	auto tempFile = std::make_shared<QTemporaryFile>(target + "_XXXXXX");
 	if (srcFile.open(QIODevice::ReadOnly))
 	{
-		if (tempFile.open())
+		if (tempFile->open())
 		{
-			tempFileName = tempFile.fileName();
-			success  = copyData(srcFile, tempFile);
-			success &= (srcFile.error() == QFile::NoError && tempFile.error() == QFile::NoError);
-			tempFile.close();
+			tempFileName = tempFile->fileName();
+			success  = copyData(srcFile, *tempFile);
+			success &= (srcFile.error() == QFile::NoError && tempFile->error() == QFile::NoError);
+			tempFile->close();
 		}
 		srcFile.close();
 	}
@@ -123,7 +124,8 @@ bool copyFileAtomic(const QString& source, const QString& target)
 		{
 			// We delete temporary file now to force file close
 			// QTemporaryFile::close() do not really close file
-			tempFile.setAutoRemove(false);
+			tempFile->setAutoRemove(false);
+			tempFile.reset();
 			success = QFile::rename(tempFileName, target);
 		}
 	}
