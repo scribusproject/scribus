@@ -462,14 +462,14 @@ void RawPainter::setDocumentMetaData(const librevenge::RVNGPropertyList &propLis
 {
 	if (!m_doProcessing)
 		return;
-	qDebug() << "setDocumentMetaData";
+//	qDebug() << "setDocumentMetaData";
 }
 
 void RawPainter::defineEmbeddedFont(const librevenge::RVNGPropertyList &propList)
 {
 	if (!m_doProcessing)
 		return;
-	qDebug() << "defineEmbeddedFont";
+//	qDebug() << "defineEmbeddedFont";
 }
 
 void RawPainter::startPage(const librevenge::RVNGPropertyList &propList)
@@ -3535,6 +3535,9 @@ void RawPainter::insertImage(PageItem* ite, const QString& imgExt, QByteArray &i
 			ite->effectsInUse.append(ef);
 		}
 		m_Doc->loadPict(fileName, ite);
+		bool stretch = m_style["style:repeat"] && m_style["style:repeat"]->getStr() == "stretch";
+		if (stretch && ite->imageIsAvailable)
+			ite->setImageScalingMode(false, true);
 #if HAVE_REVENGE
 		if (m_style["librevenge:rotate"])
 		{
