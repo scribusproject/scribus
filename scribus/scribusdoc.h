@@ -1638,7 +1638,7 @@ public slots:
 	void itemSelection_SetItemStrokePatternType(bool type, Selection* customSelection = nullptr);
 	void itemSelection_SetItemPatternMask(const QString& pattern, Selection* customSelection = nullptr);
 	void itemSelection_SetItemPatternMaskProps(double scaleX, double scaleY, double offsetX, double offsetY, double rotation, double skewX, double skewY, bool mirrorX, bool mirrorY, Selection* customSelection = nullptr);
-
+	void itemSelection_SetItemTextCaseTransform(int textTransform);
 	// Table related slots.
 
 	/**

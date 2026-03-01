@@ -110,6 +110,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_math.h"
 #include "util_printer.h"
+#include "util_text.h"
 
 
 // static const bool FRAMESELECTION_EDITS_DEFAULTSTYLE = false;
@@ -8621,6 +8622,78 @@ void ScribusDoc::itemSelection_SetItemPatternMaskProps(double imageScaleX, doubl
 		currItem->setMaskTransform(imageScaleX, imageScaleY, offsetX, offsetY, rotation, skewX, skewY);
 		currItem->setMaskFlip(mirrorX, mirrorY);
 		currItem->update();
+	}
+
+	if (activeTransaction)
+		activeTransaction.commit();
+
+	m_updateManager.setUpdatesEnabled();
+	changed();
+	changedPagePreview();
+}
+
+void ScribusDoc::itemSelection_SetItemTextCaseTransform(int textTransform)
+{
+	int selectedItemCount = m_Selection->count();
+	if (selectedItemCount == 0)
+		return;
+
+	m_updateManager.setUpdatesDisabled();
+
+	UndoTransaction activeTransaction;
+	if (UndoManager::undoEnabled())
+		activeTransaction = m_undoManager->beginTransaction(Um::Selection, Um::IGroup, Um::PatternTransform, "", Um::IGroup);
+
+	for (int i = 0; i < selectedItemCount; ++i)
+	{
+		PageItem* currItem = m_Selection->itemAt(i);
+		if (currItem->isTextFrame())
+		{
+			PageItem* item = currItem->asTextFrame();
+			int start = 0;
+			int length = 0;
+			if (item->itemText.hasSelection())
+			{
+				start = item->itemText.startOfSelection();
+				length = item->itemText.endOfSelection() - start;
+			}
+			else
+			{
+				length = item->itemText.length();
+			}
+
+			switch (textTransform)
+			{
+				case 0: //ScrAction::None
+					break;
+				case 1: //ScrAction::Lowercase
+					for (int j = start; j < start + length; ++j)
+					{
+						QChar ch = item->itemText.text(j);
+						if (ch.isLetter())
+							item->itemText.replaceChar(j, ch.toLower());
+					}
+					break;
+				case 2: //ScrAction::Uppercase
+					for (int j = start; j < start + length; ++j)
+					{
+						QChar ch = item->itemText.text(j);
+						if (ch.isLetter())
+							item->itemText.replaceChar(j, ch.toUpper());
+					}
+					break;
+				case 3: //ScrAction::Sentencecase
+					toSentenceCase(item->itemText, start, length);
+					break;
+				case 4: //ScrAction::Capitalize
+					capitalize(item->itemText, start, length);
+					break;
+				case 5: //ScrAction::Togglecase
+					toToggleCase(item->itemText, start, length);
+					break;
+			}
+			currItem->update();
+		}
 	}
 
 	if (activeTransaction)

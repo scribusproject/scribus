@@ -535,6 +535,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["toolsRotate"]->setEnabled(false);
 			(*a_scrActions)["toolsCopyProperties"]->setEnabled(false);
 			enableTextStyleActions(false);
+			enableTextTransformationActions(false);
 			break;
 		case PageItem::ImageFrame: //Image Frame
 			(*a_scrActions)["fileImportAppendText"]->setEnabled(false);
@@ -626,6 +627,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["insertSampleText"]->setEnabled(true);
 			//scrMenuMgr->setMenuEnabled("InsertMark",true);
 			enableTextStyleActions(true);
+			enableTextTransformationActions(true);
 
 			if ((currItem->nextInChain() != nullptr) || (currItem->prevInChain() != nullptr))
 			{
@@ -2042,5 +2044,14 @@ void AppModeHelper::enableExperimentalActions(const ScribusDoc *doc)
 	ScribusMainWindow *scMW = ScCore->primaryMainWindow();
 	scMW->scrMenuMgr->setMenuEnabled("Marks", setter);
 	scMW->scrMenuMgr->setMenuEnabled("InsertMark", setter);
+}
+
+void AppModeHelper::enableTextTransformationActions(bool enabled)
+{
+	(*a_scrActions)["itemTextTransformLowercase"]->setEnabled(enabled);
+	(*a_scrActions)["itemTextTransformUppercase"]->setEnabled(enabled);
+	(*a_scrActions)["itemTextTransformSentencecase"]->setEnabled(enabled);
+	(*a_scrActions)["itemTextTransformCapitalize"]->setEnabled(enabled);
+	(*a_scrActions)["itemTextTransformToggleCase"]->setEnabled(enabled);
 }
 

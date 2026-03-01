@@ -22,7 +22,6 @@
 #include <QObject>
 
 #include "canvasmode.h"
-#include "fpointarray.h"
 
 class PageItem;
 class PageItem_TextFrame;

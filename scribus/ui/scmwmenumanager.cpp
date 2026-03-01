@@ -59,6 +59,7 @@ void ScMWMenuManager::languageChange()
 	setText("ItemPDFOptions", tr("&PDF Options"));
 	setText("ItemConvertTo", tr("C&onvert to"));
 	setText("TextLinking", tr("Text Frame Links"));
+	setText("TextTransformation", tr("Text Transformation"));
 //			setText("ItemPathOps", tr("Path Tools"));
 	setText("Weld", tr("Welding"));
 	setText("Insert", ActionManager::defaultMenuNameEntryTranslated("Insert"));

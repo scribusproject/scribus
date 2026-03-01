@@ -33,4 +33,8 @@ QString SCRIBUS_API saxedText(StoryText* story);
 QString SCRIBUS_API stringToUnicode(const QString &text);
 QString SCRIBUS_API unicodeToString(const QString &text);
 
+void SCRIBUS_API toSentenceCase(StoryText &story, int start, int length);
+void SCRIBUS_API capitalize(StoryText &story, int start, int length);
+void SCRIBUS_API toToggleCase(StoryText &story, int start, int length);
+
 #endif

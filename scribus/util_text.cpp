@@ -17,10 +17,14 @@ for which a new license (GPL+exception) is in place.
 //#include <QDebug>
 
 #include <sstream>
+#include <unicode/brkiter.h>
+
 #include "desaxe/saxXML.h"
 #include "scribusdoc.h"
-#include "util_text.h"
 #include "serializer.h"
+#include "util_text.h"
+
+using namespace icu;
 
 int findParagraphStyle(ScribusDoc* doc, const ParagraphStyle& parStyle)
 {
@@ -121,4 +125,80 @@ QString unicodeToString(const QString &text)
 	}
 
 	return out;
+}
+
+void toSentenceCase(StoryText &story, int start, int length)
+{
+	BreakIterator* it = StoryText::getSentenceIterator();
+	if (!it)
+		return;
+
+	QString plain = story.plainText().mid(start, length);
+	icu::UnicodeString unicodeStr(true, (const UChar*) plain.utf16(), plain.length());
+	it->setText(unicodeStr);
+
+	// Lowercase everything in the range
+	for (int i = start; i < start + length; ++i)
+	{
+		QChar ch = story.text(i);
+		if (ch.isLetter())
+			story.replaceChar(i, ch.toLower());
+	}
+
+	// Capitalise first letter of each sentence
+	int32_t pos = it->first();
+	while (pos != BreakIterator::DONE && pos < plain.length())
+	{
+		for (int32_t i = pos; i < plain.length(); ++i)
+		{
+			QChar ch = story.text(start + i);
+			if (ch.isLetter())
+			{
+				story.replaceChar(start + i, ch.toUpper());
+				break;
+			}
+		}
+		pos = it->next();
+	}
+}
+
+void capitalize(StoryText &story, int start, int length)
+{
+	BreakIterator* it = StoryText::getWordIterator();
+	if (!it)
+		return;
+
+	QString plain = story.plainText().mid(start, length);
+	icu::UnicodeString unicodeStr(true, (const UChar*) plain.utf16(), plain.length());
+	it->setText(unicodeStr);
+
+	// Lowercase everything in the range
+	for (int i = start; i < start + length; ++i)
+	{
+		QChar ch = story.text(i);
+		if (ch.isLetter())
+			story.replaceChar(i, ch.toLower());
+	}
+
+	// Capitalise first letter of each word
+	int32_t pos = it->first();
+	while (pos != BreakIterator::DONE && pos < plain.length())
+	{
+		QChar ch = story.text(start + pos);
+		if (ch.isLetter())
+			story.replaceChar(start + pos, ch.toUpper());
+		pos = it->next();
+	}
+}
+
+void toToggleCase(StoryText &story, int start, int length)
+{
+	for (int i = start; i < start + length; ++i)
+	{
+		QChar ch = story.text(i);
+		if (ch.isUpper())
+			story.replaceChar(i, ch.toLower());
+		else if (ch.isLower())
+			story.replaceChar(i, ch.toUpper());
+	}
 }

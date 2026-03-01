@@ -1090,6 +1090,13 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("toolsLinkTextFrame", "TextLinking");
 	scrMenuMgr->addMenuItemString("toolsUnlinkTextFrame", "TextLinking");
 	scrMenuMgr->addMenuItemString("toolsUnlinkTextFrameAndCutText", "TextLinking");
+	scrMenuMgr->createMenu("TextTransformation", tr("Text Transformation"), "Item");
+	scrMenuMgr->addMenuItemString("TextTransformation", "Item");
+	scrMenuMgr->addMenuItemString("itemTextTransformLowercase", "TextTransformation");
+	scrMenuMgr->addMenuItemString("itemTextTransformUppercase", "TextTransformation");
+	scrMenuMgr->addMenuItemString("itemTextTransformSentencecase", "TextTransformation");
+	scrMenuMgr->addMenuItemString("itemTextTransformCapitalize", "TextTransformation");
+	scrMenuMgr->addMenuItemString("itemTextTransformToggleCase", "TextTransformation");
 	scrMenuMgr->createMenu("ItemPDFOptions", tr("P&DF Options"));
 	scrMenuMgr->addMenuItemString("ItemPDFOptions", "Item");
 	scrMenuMgr->addMenuItemString("itemPDFIsAnnotation", "ItemPDFOptions");
