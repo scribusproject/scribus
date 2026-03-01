@@ -8640,10 +8640,17 @@ void ScribusDoc::itemSelection_SetItemTextCaseTransform(int textTransform)
 
 	m_updateManager.setUpdatesDisabled();
 
-	UndoTransaction activeTransaction;
+	UndoTransaction transaction;
 	if (UndoManager::undoEnabled())
-		activeTransaction = m_undoManager->beginTransaction(Um::Selection, Um::IGroup, Um::PatternTransform, "", Um::IGroup);
-
+	{
+		if (selectedItemCount > 1)
+			transaction = UndoManager::instance()->beginTransaction(Um::SelectionGroup, Um::IGroup);
+		else
+		{
+			PageItem* item = m_Selection->itemAt(0);
+			transaction = UndoManager::instance()->beginTransaction(item->getUName(), item->getUPixmap());
+		}
+	}
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
 		PageItem* currItem = m_Selection->itemAt(i);
@@ -8662,6 +8669,23 @@ void ScribusDoc::itemSelection_SetItemTextCaseTransform(int textTransform)
 				length = item->itemText.length();
 			}
 
+			if (UndoManager::undoEnabled())
+			{
+				UndoObject* undoTarget = dynamic_cast<UndoObject*>(currItem);
+				if (length > 0)
+				{
+					auto is = new ScItemState<CharStyle>(Um::DeleteText, "", Um::IDelete);
+					is->set("DELETE_FRAMETEXT");
+					is->set("ETEA",  QString("delete_frametext"));
+					is->set("TEXT_STR", item->itemText.text(start, length));
+					is->set("START", start);
+					is->setItem(item->itemText.charStyle(start));
+					if (currItem->isNoteFrame())
+						is->set("noteframeName", getUName());
+					UndoManager::instance()->action(undoTarget, is);
+				}
+			}
+			QString operation;
 			switch (textTransform)
 			{
 				case 0: //ScrAction::None
@@ -8673,6 +8697,7 @@ void ScribusDoc::itemSelection_SetItemTextCaseTransform(int textTransform)
 						if (ch.isLetter())
 							item->itemText.replaceChar(j, ch.toLower());
 					}
+					operation = Um::TextLowerCase;
 					break;
 				case 2: //ScrAction::Uppercase
 					for (int j = start; j < start + length; ++j)
@@ -8681,23 +8706,42 @@ void ScribusDoc::itemSelection_SetItemTextCaseTransform(int textTransform)
 						if (ch.isLetter())
 							item->itemText.replaceChar(j, ch.toUpper());
 					}
+					operation = Um::TextUpperCase;
 					break;
 				case 3: //ScrAction::Sentencecase
 					toSentenceCase(item->itemText, start, length);
+					operation = Um::TextSentenceCase;
 					break;
 				case 4: //ScrAction::Capitalize
 					capitalize(item->itemText, start, length);
+					operation = Um::TextCapitalize;
 					break;
 				case 5: //ScrAction::Togglecase
 					toToggleCase(item->itemText, start, length);
+					operation = Um::TextToggleCase;
 					break;
+			}
+			if (UndoManager::undoEnabled())
+			{
+				UndoObject* undoTarget = dynamic_cast<UndoObject*>(currItem);
+				if (length > 0)
+				{
+					auto ss = new SimpleState(operation, "", Um::ICreate);
+					ss->set("INSERT_FRAMETEXT");
+					ss->set("ETEA", QString("insert_frametext"));
+					ss->set("TEXT_STR", item->itemText.text(start, length));
+					ss->set("START", start);
+					if (currItem->isNoteFrame())
+						ss->set("noteframeName", getUName());
+					UndoManager::instance()->action(undoTarget, ss);
+				}
 			}
 			currItem->update();
 		}
 	}
 
-	if (activeTransaction)
-		activeTransaction.commit();
+	if (transaction)
+		transaction.commit();
 
 	m_updateManager.setUpdatesEnabled();
 	changed();

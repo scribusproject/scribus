@@ -845,6 +845,11 @@ void UndoManager::languageChange()
 	UndoManager::SoftShadowOpacity  = tr("Drop Shadow Opacity");
 	UndoManager::SoftShadowBlendMode= tr("Drop Shadow Blend Mode");
 	UndoManager::SpellCheck         = tr("Apply spelling corrections");
+	UndoManager::TextLowerCase      = tr("Convert to lower case");
+	UndoManager::TextUpperCase      = tr("Convert to upper case");
+	UndoManager::TextSentenceCase   = tr("Convert to sentence case");
+	UndoManager::TextCapitalize     = tr("Capitalize");
+	UndoManager::TextToggleCase     = tr("Toggle case");
 }
 
 void UndoManager::initIcons()
@@ -1184,6 +1189,11 @@ QString UndoManager::SoftShadowBlendMode= "";
 QString UndoManager::SoftShadowErase    = "";
 QString UndoManager::SoftShadowObjectTrans = "";
 QString UndoManager::SpellCheck         = "";
+QString UndoManager::TextLowerCase      = "";
+QString UndoManager::TextUpperCase      = "";
+QString UndoManager::TextSentenceCase   = "";
+QString UndoManager::TextCapitalize     = "";
+QString UndoManager::TextToggleCase     = "";
 
 /*** Icons for UndoObjects *******************************************/
 QPixmap *UndoManager::IImageFrame      = nullptr;

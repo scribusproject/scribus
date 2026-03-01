@@ -635,6 +635,11 @@ public:
 	static QString SoftShadowErase;
 	static QString SoftShadowObjectTrans;
 	static QString SpellCheck;
+	static QString TextLowerCase;
+	static QString TextUpperCase;
+	static QString TextSentenceCase;
+	static QString TextCapitalize;
+	static QString TextToggleCase;
 	/*@}*/
 
 	/**
