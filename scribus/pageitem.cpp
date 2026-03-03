@@ -5093,6 +5093,8 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreSoftShadowErasedByObject(ss, isUndo);
 		else if (ss->contains("SOFT_SHADOW_OBJTRANS"))
 			restoreSoftShadowHasObjectTransparency(ss, isUndo);
+		else if (ss->contains("CASE_TRANSFORM"))
+			restoreCaseTransform(ss, isUndo);
 	}
 
 	if (!OnMasterPage.isEmpty())
@@ -6997,6 +6999,23 @@ void PageItem::restoreCharStyle(SimpleState *ss, bool isUndo)
 	}
 	else
 		itemText.applyCharStyle(start,length, is->getNewState());
+}
+
+void PageItem::restoreCaseTransform(SimpleState* state, bool isUndo)
+{
+	auto is = dynamic_cast<ScItemState<QVector<std::tuple<int, QChar, QChar>>>*>(state);
+	const QVector<std::tuple<int, QChar, QChar>> &changes = is->getItem();
+
+	if (isUndo)
+	{
+		for (const auto &change : changes)
+			itemText.replaceChar(std::get<0>(change), std::get<1>(change));
+	}
+	else
+	{
+		for (const auto &change : changes)
+			itemText.replaceChar(std::get<0>(change), std::get<2>(change));
+	}
 }
 
 void PageItem::restoreSetCharStyle(SimpleState *ss, bool isUndo)

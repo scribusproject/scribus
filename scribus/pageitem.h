@@ -1551,6 +1551,7 @@ protected: // Start protected functions
 	void restoreArrow(SimpleState *state, bool isUndo, bool isStart);
 	void restoreBottomTextFrameDist(SimpleState *state, bool isUndo);
 	void restoreCharStyle(SimpleState *state, bool isUndo);
+	void restoreCaseTransform(SimpleState *state, bool isUndo);
 	void restoreClearImage(UndoState *state, bool isUndo);
 	void restoreColumns(SimpleState *state, bool isUndo);
 	void restoreColumnsGap(SimpleState *state, bool isUndo);

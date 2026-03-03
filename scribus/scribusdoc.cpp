@@ -8634,9 +8634,12 @@ void ScribusDoc::itemSelection_SetItemPatternMaskProps(double imageScaleX, doubl
 
 void ScribusDoc::itemSelection_SetItemTextCaseTransform(int textTransform)
 {
+	if (textTransform == 0)
+			return;
 	int selectedItemCount = m_Selection->count();
 	if (selectedItemCount == 0)
 		return;
+
 
 	m_updateManager.setUpdatesDisabled();
 
@@ -8654,90 +8657,89 @@ void ScribusDoc::itemSelection_SetItemTextCaseTransform(int textTransform)
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
 		PageItem* currItem = m_Selection->itemAt(i);
-		if (currItem->isTextFrame())
+		if (currItem && !currItem->isTextFrame())
+			continue;
+		PageItem* item = currItem->asTextFrame();
+		if (!item)
+			continue;
+		int start = 0;
+		int length = 0;
+		if (item->itemText.hasSelection())
 		{
-			PageItem* item = currItem->asTextFrame();
-			int start = 0;
-			int length = 0;
-			if (item->itemText.hasSelection())
-			{
-				start = item->itemText.startOfSelection();
-				length = item->itemText.endOfSelection() - start;
-			}
-			else
-			{
-				length = item->itemText.length();
-			}
-
-			if (UndoManager::undoEnabled())
-			{
-				UndoObject* undoTarget = dynamic_cast<UndoObject*>(currItem);
-				if (length > 0)
-				{
-					auto is = new ScItemState<CharStyle>(Um::DeleteText, "", Um::IDelete);
-					is->set("DELETE_FRAMETEXT");
-					is->set("ETEA",  QString("delete_frametext"));
-					is->set("TEXT_STR", item->itemText.text(start, length));
-					is->set("START", start);
-					is->setItem(item->itemText.charStyle(start));
-					if (currItem->isNoteFrame())
-						is->set("noteframeName", getUName());
-					UndoManager::instance()->action(undoTarget, is);
-				}
-			}
-			QString operation;
-			switch (textTransform)
-			{
-				case 0: //ScrAction::None
-					break;
-				case 1: //ScrAction::Lowercase
-					for (int j = start; j < start + length; ++j)
-					{
-						QChar ch = item->itemText.text(j);
-						if (ch.isLetter())
-							item->itemText.replaceChar(j, ch.toLower());
-					}
-					operation = Um::TextLowerCase;
-					break;
-				case 2: //ScrAction::Uppercase
-					for (int j = start; j < start + length; ++j)
-					{
-						QChar ch = item->itemText.text(j);
-						if (ch.isLetter())
-							item->itemText.replaceChar(j, ch.toUpper());
-					}
-					operation = Um::TextUpperCase;
-					break;
-				case 3: //ScrAction::Sentencecase
-					toSentenceCase(item->itemText, start, length);
-					operation = Um::TextSentenceCase;
-					break;
-				case 4: //ScrAction::Capitalize
-					capitalize(item->itemText, start, length);
-					operation = Um::TextCapitalize;
-					break;
-				case 5: //ScrAction::Togglecase
-					toToggleCase(item->itemText, start, length);
-					operation = Um::TextToggleCase;
-					break;
-			}
-			if (UndoManager::undoEnabled())
-			{
-				UndoObject* undoTarget = dynamic_cast<UndoObject*>(currItem);
-				if (length > 0)
-				{
-					auto ss = new SimpleState(operation, "", Um::ICreate);
-					ss->set("INSERT_FRAMETEXT");
-					ss->set("ETEA", QString("insert_frametext"));
-					ss->set("TEXT_STR", item->itemText.text(start, length));
-					ss->set("START", start);
-					if (currItem->isNoteFrame())
-						ss->set("noteframeName", getUName());
-					UndoManager::instance()->action(undoTarget, ss);
-				}
-			}
-			currItem->update();
+			start = item->itemText.startOfSelection();
+			length = item->itemText.endOfSelection() - start;
 		}
+		else
+			length = item->itemText.length();
+
+		if (length <= 0)
+			continue;
+
+		// Record old characters before transformation
+		QVector<QPair<int, QChar>> oldChars;
+		for (int j = start; j < start + length; ++j)
+		{
+			QChar ch = item->itemText.text(j);
+			if (ch.isLetter())
+				oldChars.append({j, ch});
+		}
+		QString operation;
+		switch (textTransform)
+		{
+			case 0: //ScrAction::None
+				break;
+			case 1: //ScrAction::Lowercase
+				for (int j = start; j < start + length; ++j)
+				{
+					QChar ch = item->itemText.text(j);
+					if (ch.isLetter())
+						item->itemText.replaceChar(j, ch.toLower());
+				}
+				operation = Um::TextLowerCase;
+				break;
+			case 2: //ScrAction::Uppercase
+				for (int j = start; j < start + length; ++j)
+				{
+					QChar ch = item->itemText.text(j);
+					if (ch.isLetter())
+						item->itemText.replaceChar(j, ch.toUpper());
+				}
+				operation = Um::TextUpperCase;
+				break;
+			case 3: //ScrAction::Sentencecase
+				toSentenceCase(item->itemText, start, length);
+				operation = Um::TextSentenceCase;
+				break;
+			case 4: //ScrAction::Capitalize
+				capitalize(item->itemText, start, length);
+				operation = Um::TextCapitalize;
+				break;
+			case 5: //ScrAction::Togglecase
+				toToggleCase(item->itemText, start, length);
+				operation = Um::TextToggleCase;
+				break;
+		}
+		// Record undo: store only characters that actually changed
+		if (UndoManager::undoEnabled())
+		{
+			UndoObject* undoTarget = dynamic_cast<UndoObject*>(currItem);
+			// Each entry: position, old char, new char
+			QVector<std::tuple<int, QChar, QChar>> changes;
+			for (const auto &pair : oldChars)
+			{
+				QChar newCh = item->itemText.text(pair.first);
+				if (pair.second != newCh)
+					changes.append(std::make_tuple(pair.first, pair.second, newCh));
+			}
+			if (!changes.isEmpty())
+			{
+				auto state = new ScItemState<QVector<std::tuple<int, QChar, QChar>>>(operation);
+				state->set("CASE_TRANSFORM");
+				state->setItem(changes);
+				UndoManager::instance()->action(undoTarget, state);
+			}
+		}
+		currItem->update();
 	}
 
 	if (transaction)
