@@ -1359,7 +1359,7 @@ void RawPainter::startTextObject(const librevenge::RVNGPropertyList &propList)
 		{
 			AnchorPoint rm = m_doc->rotationMode();
 			m_doc->setRotationMode(AnchorPoint::Center);
-			m_doc->rotateItem(rot, ite);
+			m_doc->rotateItem(-rot, ite);
 			m_doc->setRotationMode(rm);
 		}
 		if (propList["draw:mirror-horizontal"])
