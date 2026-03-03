@@ -1225,6 +1225,21 @@ void RawPainter::drawGraphicObject(const librevenge::RVNGPropertyList &propList)
 			ite = m_doc->Items->at(z);
 			finishItem(ite);
 			insertImage(ite, imgExt, imageData);
+			double rot = 0;
+#if HAVE_REVENGE
+			if (m_style["librevenge:rotate"])
+				rot = m_style["librevenge:rotate"]->getDouble();
+#else
+			if (m_style["libwpg:rotate"])
+				rot = m_style["libwpg:rotate"]->getDouble();
+#endif
+			if (rot != 0)
+			{
+				AnchorPoint rm = m_doc->rotationMode();
+				m_doc->setRotationMode(AnchorPoint::Center);
+				m_doc->rotateItem(-rot, ite);
+				m_doc->setRotationMode(rm);
+			}
 		}
 		else
 		{
@@ -1347,9 +1362,9 @@ void RawPainter::startTextObject(const librevenge::RVNGPropertyList &propList)
 			m_doc->rotateItem(rot, ite);
 			m_doc->setRotationMode(rm);
 		}
-		if (propList["draw-mirror-horizontal"])
+		if (propList["draw:mirror-horizontal"])
 			ite->flipImageH();
-		if (propList["draw-mirror-vertical"])
+		if (propList["draw:mirror-vertical"])
 			ite->flipImageV();
 		if (propList["fo:padding-left"])
 		{
@@ -3525,21 +3540,21 @@ void RawPainter::insertImage(PageItem* ite, const QString& imgExt, QByteArray &i
 		bool stretch = m_style["style:repeat"] && m_style["style:repeat"]->getStr() == "stretch";
 		if (stretch && ite->imageIsAvailable)
 			ite->setImageScalingMode(false, true);
-#if HAVE_REVENGE
-		if (m_style["librevenge:rotate"])
-		{
-			int rot = QString(m_style["librevenge:rotate"]->getStr().cstr()).toInt();
-			ite->setImageRotation(rot);
-			ite->adjustPictScale();
-		}
-#else
-		if (m_style["libwpg:rotate"])
-		{
-			int rot = QString(m_style["libwpg:rotate"]->getStr().cstr()).toInt();
-			ite->setImageRotation(rot);
-			ite->adjustPictScale();
-		}
-#endif
+// #if HAVE_REVENGE
+// 		if (m_style["librevenge:rotate"])
+// 		{
+// 			int rot = QString(m_style["librevenge:rotate"]->getStr().cstr()).toInt();
+// 			ite->setImageRotation(rot);
+// 			ite->adjustPictScale();
+// 		}
+// #else
+// 		if (m_style["libwpg:rotate"])
+// 		{
+// 			int rot = QString(m_style["libwpg:rotate"]->getStr().cstr()).toInt();
+// 			ite->setImageRotation(rot);
+// 			ite->adjustPictScale();
+// 		}
+// #endif
 	}
 }
 
