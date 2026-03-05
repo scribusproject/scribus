@@ -50,6 +50,9 @@ MultipleDuplicate::MultipleDuplicate(QWidget* parent, ScribusDoc *doc) : QDialog
 	{
 		radioButtonPageOdd->setEnabled(false);
 		radioButtonPageEven->setEnabled(false);
+		radioButtonPageRange->setEnabled(false);
+		lineEditPageRange->setEnabled(false);
+		toolButtonPageRange->setEnabled(false);
 	}
 	
 	createGapRadioButton->setChecked(true);
@@ -61,7 +64,6 @@ MultipleDuplicate::MultipleDuplicate(QWidget* parent, ScribusDoc *doc) : QDialog
 	// signals and slots connections
 	connect(createGapRadioButton, SIGNAL(clicked()), this, SLOT(setCopiesGap()));
 	connect(shiftCreatedItemsRadioButton, SIGNAL(clicked()), this, SLOT(setCopiesShift()));
-
 	connect(lineEditPageRange, &QLineEdit::textChanged, this, &MultipleDuplicate::selectRangeOfPages);
 	connect(toolButtonPageRange, &QToolButton::clicked, this, &MultipleDuplicate::createPageNumberRange);
 	connect(buttonBox, &QDialogButtonBox::accepted, this, &MultipleDuplicate::accept);
@@ -74,14 +76,14 @@ MultipleDuplicate::~MultipleDuplicate()
 
 void MultipleDuplicate::setCopiesShift()
 {
-	horizShiftLabel->setText( tr("&Horizontal Shift:"));
-	vertShiftLabel->setText( tr("&Vertical Shift:"));
+	horizShiftLabel->setText(tr("&Horizontal Shift:"));
+	vertShiftLabel->setText(tr("&Vertical Shift:"));
 }
 
 void MultipleDuplicate::setCopiesGap()
 {
-	horizShiftLabel->setText( tr("&Horizontal Gap:"));
-	vertShiftLabel->setText( tr("&Vertical Gap:"));
+	horizShiftLabel->setText(tr("&Horizontal Gap:"));
+	vertShiftLabel->setText(tr("&Vertical Gap:"));
 }
 
 void MultipleDuplicate::getMultiplyData(ItemMultipleDuplicateData& mdData)
@@ -96,6 +98,9 @@ void MultipleDuplicate::getMultiplyData(ItemMultipleDuplicateData& mdData)
 	mdData.gridCols = gridColsSpinBox->value();
 	mdData.gridGapH = horizRCGapSpinBox->value();
 	mdData.gridGapV = vertRCGapSpinBox->value();
+	// 0 = by number, 1 = by rows & columns, 2 = by page
+	if (mdData.type != 2)
+		return;
 	if (radioButtonPageAll->isChecked())
 		mdData.pageSelection = 1;
 	else if (radioButtonPageEven->isChecked())
@@ -106,6 +111,7 @@ void MultipleDuplicate::getMultiplyData(ItemMultipleDuplicateData& mdData)
 		mdData.pageSelection = 4;
 	mdData.pageRange = lineEditPageRange->text();
 	mdData.pageLinkText = checkBoxPageLinkText->isChecked();
+	mdData.copyCount = maxCopiesSpinBox->value();
 }
 
 void MultipleDuplicate::selectRangeOfPages()

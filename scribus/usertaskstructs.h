@@ -34,7 +34,7 @@ struct InsertAFrameData
 
 struct ItemMultipleDuplicateData
 {
-	int type = 0;
+	int type = 0; // 0 = by number, 1 = by rows & columns, 2 = by page
 	int copyCount = 0;
 	int copyShiftOrGap = 0;
 	double copyShiftGapH = 0.0;
