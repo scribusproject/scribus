@@ -5,6 +5,8 @@
 #include <QStringList>
 #include <QMap>
 
+#include "scribusapi.h"
+
 enum NumFormat
 {
 	Type_1_2_3,
@@ -16,8 +18,21 @@ enum NumFormat
 	Type_Alphabet_ar,
 	Type_Abjad_ar,
 	Type_asterix,
+	Type_Bengali,
+	Type_Burmese,
 	Type_CJK,
+	Type_Devanagari,
+	Type_Greek,
+	Type_Gujarati,
 	Type_Hebrew,
+	Type_Kannada,
+	Type_Khmer,
+	Type_Lao,
+	Type_Malayalam,
+	Type_Tamil,
+	Type_Telugu,
+	Type_Thai,
+	Type_Tibetan,
 	Type_None=99
 };
 
@@ -34,12 +49,12 @@ class Numeration
 {
 public:
 	Numeration() = default;
-	Numeration(NumFormat f) : numFormat(f), asterix("*"), lead() {}
+	Numeration(NumFormat f) : numFormat(f), lead() {}
 	
 	QString numString(int num) const;
 
 	NumFormat numFormat { Type_1_2_3 };
-	QString asterix;
+	QString asterix { "*" };
 	QChar lead { '0' };
 	int len { 0 };
 	NumerationRange range { NSRdocument };
@@ -51,7 +66,7 @@ public:
 struct NumFormatPair
 {
 	NumFormat format;
-	QString   str;
+	QString str;
 };
 
 //struct used by ScribusDoc for storing numerations used in document
@@ -66,18 +81,18 @@ struct NumStruct
 //util functions for use without Numeration class
 
 //convert passed num to a string usable when saving file
-QString fromNumToString(NumFormat format);
+QString SCRIBUS_API fromNumToString(NumFormat format);
 //convert passed num to a string usable in a combobox
-QString fromNumToUserString(NumFormat format);
+QString SCRIBUS_API fromNumToUserString(NumFormat format);
 //convert string to its NumFormat representation
-NumFormat fromStringToNum(const QString& str);
+NumFormat SCRIBUS_API fromStringToNum(const QString& str);
 //convert user string to its NumFormat representation
-NumFormat fromUserStringToNum(const QString& str);
+NumFormat SCRIBUS_API fromUserStringToNum(const QString& str);
 //convert passed num to string using numeration style
-QString getStringFromNum(NumFormat format, int num, QChar leadingChar='0', int charsLen=0);
+QString SCRIBUS_API getStringFromNum(NumFormat format, int num, QChar leadingChar='0', int charsLen=0);
 //convert passed num to string with custom chars
-QString getAsterixStringFromNum(int num, const QString& asterix, QChar leadingChar='_', int charsLen=0);
+QString SCRIBUS_API getAsterixStringFromNum(int num, const QString& asterix, QChar leadingChar='_', int charsLen=0);
 //return numeration name from type
-QStringList getFormatList();
+QStringList SCRIBUS_API getFormatList();
 
 #endif // NUMERATION_H

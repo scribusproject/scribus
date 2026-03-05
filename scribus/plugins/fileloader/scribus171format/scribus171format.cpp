@@ -4417,30 +4417,7 @@ bool Scribus171Format::readNotesStyles(ScribusDoc* /*doc*/, ScXmlStreamReader& r
 			NS.setStart(attrs.valueAsInt("Start"));
 			NS.setEndNotes(attrs.valueAsBool("Endnotes"));
 			QString type = attrs.valueAsString("Type");
-			if (type == "Type_1_2_3")
-				NS.setType(Type_1_2_3);
-			else if (type == "Type_1_2_3_ar")
-				NS.setType(Type_1_2_3_ar);
-			else if (type == "Type_i_ii_iii")
-				NS.setType(Type_i_ii_iii);
-			else if (type == "Type_I_II_III")
-				NS.setType(Type_I_II_III);
-			else if (type == "Type_a_b_c")
-				NS.setType(Type_a_b_c);
-			else if (type == "Type_A_B_C")
-				NS.setType(Type_A_B_C);
-			else if (type == "Type_Alphabet_ar")
-				NS.setType(Type_Alphabet_ar);
-			else if (type == "Type_Abjad_ar")
-				NS.setType(Type_Abjad_ar);
-			else if (type == "Type_Hebrew")
-				NS.setType(Type_Hebrew);
-			else if (type == "Type_asterix")
-				NS.setType(Type_asterix);
-			else if (type == "Type_CJK")
-				NS.setType(Type_CJK);
-			else //if (type == "Type_None")
-				NS.setType(Type_None);
+			NS.setType(fromStringToNum(attrs.valueAsString("Type")));
 			// Fix deprecated numeration ranges
 			NumerationRange numRange = (NumerationRange) attrs.valueAsInt("Range");
 			if (numRange != NSRdocument && numRange != NSRstory)
@@ -4650,28 +4627,7 @@ bool Scribus171Format::readSections(ScribusDoc* doc, ScXmlStreamReader& reader) 
 			newSection.fromindex = attrs.valueAsInt("From");
 			newSection.toindex = attrs.valueAsInt("To");
 			QString type = attrs.valueAsString("Type");
-			if (type == "Type_1_2_3")
-				newSection.type = Type_1_2_3;
-			if (type == "Type_1_2_3_ar")
-				newSection.type = Type_1_2_3_ar;
-			if (type == "Type_i_ii_iii")
-				newSection.type = Type_i_ii_iii;
-			if (type == "Type_I_II_III")
-				newSection.type = Type_I_II_III;
-			if (type == "Type_a_b_c")
-				newSection.type = Type_a_b_c;
-			if (type == "Type_A_B_C")
-				newSection.type = Type_A_B_C;
-			if (type == "Type_Alphabet_ar")
-				newSection.type = Type_Alphabet_ar;
-			if (type == "Type_Abjad_ar")
-				newSection.type = Type_Abjad_ar;
-			if (type == "Type_Hebrew")
-				newSection.type = Type_Hebrew;
-			if (type == "Type_CJK")
-				newSection.type = Type_CJK;
-			if (type == "Type_None")
-				newSection.type = Type_None;
+			newSection.type = fromStringToNum(attrs.valueAsString("Type"));
 			newSection.sectionstartindex = attrs.valueAsInt("Start");
 			newSection.reversed = attrs.valueAsBool("Reversed");
 			newSection.active = attrs.valueAsBool("Active");

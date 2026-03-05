@@ -129,12 +129,14 @@ QString SCRIBUS_API getLongPathName(const QString & shortPath);
 QString SCRIBUS_API getFileNameByPage(ScribusDoc* currDoc, uint pageNo, const QString& extension, const QString& prefix = QString());
 //asterix is QString used in numeration when number is presented as few chars, like *, **, *** etc
 //default is '*' but can be used any string
-QString getStringFromSequence(NumFormat type, uint position, const QString& asterix="*");
+QString SCRIBUS_API getStringFromSequence(NumFormat type, uint position, const QString& asterix="*");
 QString SCRIBUS_API numberToHebrew(uint i);
-QString numberToRoman(uint i);
-QString numberToCJK(uint i);
+QString SCRIBUS_API numberToGreek(uint i);
+QString SCRIBUS_API numberToRoman(uint i);
+QString SCRIBUS_API numberToCJK(uint i);
 QChar SCRIBUS_API cjkDigit(uint i);
-QString numberToLetterSequence(const QString& letters, uint num);
+QString SCRIBUS_API digitSubstitution(int num, QChar zeroDigit);
+QString SCRIBUS_API numberToLetterSequence(const QString& letters, uint num);
 void SCRIBUS_API parsePagesString(const QString& pages, std::vector<int>* pageNs, int sourcePageCount);
 
 QString SCRIBUS_API readLineFromDataStream(QDataStream &s);

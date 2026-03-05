@@ -3,35 +3,67 @@
 #include "numeration.h"
 #include "util.h"
 
-static const std::array<NumFormatPair, 12> numFormatStringPairs = { {
-	{ Type_1_2_3, QString("Type_1_2_3") },
-	{ Type_1_2_3_ar, QString("Type_1_2_3_ar") },
-	{ Type_i_ii_iii, QString("Type_i_ii_iii") },
-	{ Type_I_II_III, QString("Type_I_II_III") },
-	{ Type_a_b_c, QString("Type_a_b_c") },
-	{ Type_A_B_C, QString("Type_A_B_C") },
-	{ Type_Alphabet_ar, QString("Type_Alphabet_ar") },
-	{ Type_Abjad_ar, QString("Type_Abjad_ar") },
-	{ Type_Hebrew, QString("Type_Hebrew") },
-	{ Type_asterix, QString("Type_asterix") },
-	{ Type_CJK, QString("Type_CJK") },
-	{ Type_None, QString("Type_None") },
-}};
+static const std::array<NumFormatPair, 25> numFormatStringPairs =
+{
+	{
+		{ Type_1_2_3, QString("Type_1_2_3") },
+		{ Type_1_2_3_ar, QString("Type_1_2_3_ar") },
+		{ Type_i_ii_iii, QString("Type_i_ii_iii") },
+		{ Type_I_II_III, QString("Type_I_II_III") },
+		{ Type_a_b_c, QString("Type_a_b_c") },
+		{ Type_A_B_C, QString("Type_A_B_C") },
+		{ Type_Abjad_ar, QString("Type_Abjad_ar") },
+		{ Type_Alphabet_ar, QString("Type_Alphabet_ar") },
+		{ Type_asterix, QString("Type_asterix") },
+		{ Type_Bengali, QString("Type_Bengali") },
+		{ Type_Burmese, QString("Type_Burmese") },
+		{ Type_CJK, QString("Type_CJK") },
+		{ Type_Devanagari, QString("Type_Devanagari") },
+		{ Type_Greek, QString("Type_Greek") },
+		{ Type_Gujarati, QString("Type_Gujarati") },
+		{ Type_Hebrew, QString("Type_Hebrew") },
+		{ Type_Kannada, QString("Type_Kannada") },
+		{ Type_Khmer, QString("Type_Khmer") },
+		{ Type_Lao, QString("Type_Lao") },
+		{ Type_Malayalam, QString("Type_Malayalam") },
+		{ Type_Tamil, QString("Type_Tamil") },
+		{ Type_Telugu, QString("Type_Telugu") },
+		{ Type_Thai, QString("Type_Thai") },
+		{ Type_Tibetan, QString("Type_Tibetan") },
+		{ Type_None, QString("Type_None") }
+	}
+};
 
-static const std::array<NumFormatPair, 12> numFormatUserStringPairs = { {
-	{ Type_1_2_3, QString::fromLatin1("1, 2, 3, ...") },
-	{ Type_1_2_3_ar, QString::fromUtf8("\xE2\x80\xAD١, ٢, ٣, ...\xE2\x80\xAC") },
-	{ Type_i_ii_iii, QString::fromLatin1("i, ii, iii, ...") },
-	{ Type_I_II_III, QString::fromLatin1("I, II, III, ...") },
-	{ Type_a_b_c, QString::fromLatin1("a, b, c, ...") },
-	{ Type_A_B_C, QString::fromLatin1("A, B, C, ...") },
-	{ Type_Alphabet_ar, QString::fromUtf8("\xE2\x80\xADأ, ب, ت, ...\xE2\x80\xAC") },
-	{ Type_Abjad_ar, QString::fromUtf8("\xE2\x80\xADأ, ب, ج, ...\xE2\x80\xAC") },
-	{ Type_Hebrew, QString::fromUtf8("\xE2\x80\xADא, ב, ג, ...\xE2\x80\xAC") },
-	{ Type_asterix, QString::fromLatin1("*") },
-	{ Type_CJK, QString::fromLatin1("CJK") },
-	{ Type_None, QString::fromLatin1("None") }
-}};
+static const std::array<NumFormatPair, 25> numFormatUserStringPairs =
+{
+	{
+		{ Type_1_2_3, QString::fromLatin1("1, 2, 3, ...") },
+		{ Type_1_2_3_ar, QString::fromUtf8("\xE2\x80\xAD١, ٢, ٣, ...\xE2\x80\xAC") },
+		{ Type_i_ii_iii, QString::fromLatin1("i, ii, iii, ...") },
+		{ Type_I_II_III, QString::fromLatin1("I, II, III, ...") },
+		{ Type_a_b_c, QString::fromLatin1("a, b, c, ...") },
+		{ Type_A_B_C, QString::fromLatin1("A, B, C, ...") },
+		{ Type_Abjad_ar, QString::fromUtf8("\xE2\x80\xADأ, ب, ج, ...\xE2\x80\xAC") },
+		{ Type_Alphabet_ar, QString::fromUtf8("\xE2\x80\xADأ, ب, ت, ...\xE2\x80\xAC") },
+		{ Type_asterix, QString::fromLatin1("*") },
+		{ Type_Bengali, QString::fromUtf8("১, ২, ৩, ...")  },
+		{ Type_Burmese, QString::fromUtf8("၁, ၂, ၃, ...")  },
+		{ Type_CJK, QString::fromLatin1("CJK") },
+		{ Type_Devanagari, QString::fromUtf8("१, २, ३, ...") },
+		{ Type_Greek, QString::fromUtf8("α, β, γ, ...")},
+		{ Type_Gujarati, QString::fromUtf8("૧, ૨, ૩, ...")  },
+		{ Type_Hebrew, QString::fromUtf8("\xE2\x80\xADא, ב, ג, ...\xE2\x80\xAC") },
+		{ Type_Kannada, QString::fromUtf8("೧, ೨, ೩, ...") },
+		{ Type_Khmer, QString::fromUtf8("១, ២, ៣, ...") },
+		{ Type_Lao, QString::fromUtf8("໑, ໒, ໓, ...") },
+		{ Type_Malayalam, QString::fromUtf8("൧, ൨, ൩, ...") },
+		{ Type_Tamil, QString::fromUtf8("௧, ௨, ௩, ...") },
+		{ Type_Telugu, QString::fromUtf8("౧, ౨, ౩, ...") },
+		{ Type_Thai, QString::fromUtf8("๑, ๒, ๓, ...") },
+		{ Type_Tibetan, QString::fromUtf8("༡, ༢, ༣, ...") },
+		{ Type_None, QString::fromLatin1("None") }
+	}
+};
 
 QString fromNumToString(NumFormat format)
 {
@@ -105,16 +137,30 @@ QStringList getFormatList()
 {
 	QStringList list;
 	list << fromNumToUserString(Type_1_2_3)
-	     << fromNumToUserString(Type_1_2_3_ar)
-	     << fromNumToUserString(Type_i_ii_iii)
-	     << fromNumToUserString(Type_I_II_III)
-	     << fromNumToUserString(Type_a_b_c)
-	     << fromNumToUserString(Type_A_B_C)
-	     << fromNumToUserString(Type_Alphabet_ar)
-	     << fromNumToUserString(Type_Abjad_ar)
-	     << fromNumToUserString(Type_Hebrew)
-	     << fromNumToUserString(Type_asterix)
-	     << fromNumToUserString(Type_CJK);
+		 << fromNumToUserString(Type_1_2_3_ar)
+		 << fromNumToUserString(Type_i_ii_iii)
+		 << fromNumToUserString(Type_I_II_III)
+		 << fromNumToUserString(Type_a_b_c)
+		 << fromNumToUserString(Type_A_B_C)
+		 << fromNumToUserString(Type_Abjad_ar)
+		 << fromNumToUserString(Type_Alphabet_ar)
+		 << fromNumToUserString(Type_asterix)
+		 << fromNumToUserString(Type_Bengali)
+		 << fromNumToUserString(Type_Burmese)
+		 << fromNumToUserString(Type_CJK)
+		 << fromNumToUserString(Type_Devanagari)
+		 << fromNumToUserString(Type_Greek)
+		 << fromNumToUserString(Type_Gujarati)
+		 << fromNumToUserString(Type_Hebrew)
+		 << fromNumToUserString(Type_Kannada)
+		 << fromNumToUserString(Type_Khmer)
+		 << fromNumToUserString(Type_Lao)
+		 << fromNumToUserString(Type_Malayalam)
+		 << fromNumToUserString(Type_Tamil)
+		 << fromNumToUserString(Type_Telugu)
+		 << fromNumToUserString(Type_Thai)
+		 << fromNumToUserString(Type_Tibetan)
+			;
 	return list;
 }
 

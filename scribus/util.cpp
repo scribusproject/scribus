@@ -582,11 +582,50 @@ QString getStringFromSequence(NumFormat type, uint position, const QString& aste
 			retVal = numberToRoman(position).toLower();
 			break;
 		case Type_asterix:
-			for (uint a = 1; a <= position; ++a)
+			for (uint i = 1; i <= position; ++i)
 				retVal.append(asterix);
+			break;
+		case Type_Bengali:
+			retVal = digitSubstitution(position, QChar(0x09E6));
+			break;
+		case Type_Burmese:
+			retVal = digitSubstitution(position, QChar(0x1040));
 			break;
 		case Type_CJK:
 			retVal = numberToCJK(position);
+			break;
+		case Type_Devanagari:
+			retVal = digitSubstitution(position, QChar(0x0966));
+			break;
+		case Type_Greek:
+			retVal = numberToGreek(position);
+			break;
+		case Type_Gujarati:
+			retVal = digitSubstitution(position, QChar(0x0AE6));
+			break;
+		case Type_Kannada:
+			retVal = digitSubstitution(position, QChar(0x0CE6));
+			break;
+		case Type_Khmer:
+			retVal = digitSubstitution(position, QChar(0x17E0));
+			break;
+		case Type_Lao:
+			retVal = digitSubstitution(position, QChar(0x0ED0));
+			break;
+		case Type_Malayalam:
+			retVal = digitSubstitution(position, QChar(0x0D66));
+			break;
+		case Type_Tamil:
+			retVal = digitSubstitution(position, QChar(0x0BE6));
+			break;
+		case Type_Telugu:
+			retVal = digitSubstitution(position, QChar(0x0C66));
+			break;
+		case Type_Thai:
+			retVal = digitSubstitution(position, QChar(0x0E50));
+			break;
+		case Type_Tibetan:
+			retVal = digitSubstitution(position, QChar(0x0F20));
 			break;
 		case Type_None:
 			break;
@@ -1261,6 +1300,51 @@ QString numberToHebrew(uint i)
 	return result;
 }
 
+QString numberToGreek(uint i)
+{
+	// Units:    α β γ δ ε ϛ ζ η θ
+	// Tens:     ι κ λ μ ν ξ ο π ϟ
+	// Hundreds: ρ σ τ υ φ χ ψ ω ϡ
+	static const QChar units[] = { QChar(0x03B1), QChar(0x03B2), QChar(0x03B3), QChar(0x03B4), QChar(0x03B5), QChar(0x03DB), QChar(0x03B6), QChar(0x03B7), QChar(0x03B8) };
+	static const QChar tens[] = { QChar(0x03B9), QChar(0x03BA), QChar(0x03BB), QChar(0x03BC), QChar(0x03BD), QChar(0x03BE), QChar(0x03BF), QChar(0x03C0), QChar(0x03DF) };
+	static const QChar hundreds[] = { QChar(0x03C1), QChar(0x03C3), QChar(0x03C4), QChar(0x03C5),QChar(0x03C6), QChar(0x03C7), QChar(0x03C8), QChar(0x03C9), QChar(0x03E1) };
+
+	QString result;
+
+	if (i > 999)
+	{
+		int th = i / 1000;
+		result.append(QChar(0x0375)); // left keraia
+		int thH = th / 100;
+		int thT = (th % 100) / 10;
+		int thO = th % 10;
+		if (thH > 0 && thH <= 9)
+			result.append(hundreds[thH - 1]);
+		if (thT > 0 && thT <= 9)
+			result.append(tens[thT - 1]);
+		if (thO > 0 && thO <= 9)
+			result.append(units[thO - 1]);
+		i %= 1000;
+	}
+
+	int h = i / 100;
+	int t = (i % 100) / 10;
+	int o = i % 10;
+
+	if (h > 0 && h <= 9)
+		result.append(hundreds[h - 1]);
+	if (t > 0 && t <= 9)
+		result.append(tens[t - 1]);
+	if (o > 0 && o <= 9)
+		result.append(units[o - 1]);
+
+	if (!result.isEmpty())
+		result.append(QChar(0x0374)); // right keraia
+
+	return result;
+}
+
+
 QString numberToCJK(uint i)
 {
 	QString result;
@@ -1355,4 +1439,15 @@ QChar cjkDigit(uint i)
 bool inRange(unsigned min, unsigned value, unsigned max)
 {
 	return (min <= value && value <= max);
+}
+
+QString digitSubstitution(int num, QChar zeroDigit)
+{
+	QString result = QString::number(num);
+	for (QChar& ch : result)
+	{
+		if (ch.isDigit())
+			ch = QChar(zeroDigit.unicode() + ch.digitValue());
+	}
+	return result;
 }
