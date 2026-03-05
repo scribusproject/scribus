@@ -14004,45 +14004,51 @@ void ScribusDoc::multipleDuplicateByPage(const ItemMultipleDuplicateData& dialog
 		int lastPage = 0;
 		for (auto item : selection.items())
 		{
-			if ((item->OwnPage >= 0) && (item->OwnPage < firstPage))
-				firstPage = item->OwnPage;
-			if ((item->OwnPage) >= 0 && (item->OwnPage > lastPage))
-				lastPage = item->OwnPage;
+			if (item->OwnPage >= 0)
+			{
+				if (item->OwnPage < firstPage)
+					firstPage = item->OwnPage;
+				if (item->OwnPage > lastPage)
+					lastPage = item->OwnPage;
+			}
 		}
 		setCurrentPage(Pages->at(firstPage));
 		int pageSpread = lastPage - firstPage + 1;
 		QStringList pageList;
-		if (dialogData.pageSelection == 1)
-			for (int i = lastPage + 2; i < Pages->count(); i += pageSpread)
-				pageList << QString::number(i);
-		else if (dialogData.pageSelection == 4)
-		{
-			// TODO: what to do with manual selections?
-			pageRange = dialogData.pageRange;
-		}
-		pageRange = pageList.join(',');
-	}
-	else if (dialogData.pageSelection == 1)
-		pageRange = QString("%1-%2").arg(currPageNumber + 2).arg(Pages->count());
-	else if ((dialogData.pageSelection == 2) || dialogData.pageSelection == 3)
-	{
-		int start = currPageNumber + 2;
-		// round to the next odd / even number
-		if (dialogData.pageSelection == 2)
-			start += start % 2;
-		else
-			start += 1 - (start % 2);
-
-		QStringList pageList;
-		for (int i = start; i <= Pages->count(); i += 2)
+		// with multi-page selection, only "following pages" is available
+		for (int i = lastPage + 2; i < Pages->count(); i += pageSpread)
 			pageList << QString::number(i);
 		pageRange = pageList.join(',');
 	}
-	else if (dialogData.pageSelection == 4)
+	else
 	{
-		pageRange = dialogData.pageRange;
+		if (dialogData.pageSelection == 1)
+			pageRange = QString("%1-%2").arg(currPageNumber + 2).arg(Pages->count());
+		else if ((dialogData.pageSelection == 2) || dialogData.pageSelection == 3)
+		{
+			int start = currPageNumber + 2;
+			// round to the next odd / even number
+			if (dialogData.pageSelection == 2)
+				start += start % 2;
+			else
+				start += 1 - (start % 2);
+
+			QStringList pageList;
+			for (int i = start; i <= Pages->count(); i += 2)
+				pageList << QString::number(i);
+			pageRange = pageList.join(',');
+		}
+		else if (dialogData.pageSelection == 4)
+		{
+			pageRange = dialogData.pageRange;
+		}
 	}
 	parsePagesString(pageRange, &pages, Pages->count());
+
+	if (dialogData.copyCount > 0 && dialogData.copyCount < pages.size()) {
+		pages.resize(dialogData.copyCount);
+		pages.shrink_to_fit();
+	}
 
 	PageItem* lastInChain = nullptr;
 	if (dialogData.pageLinkText)
