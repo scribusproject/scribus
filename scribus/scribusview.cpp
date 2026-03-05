@@ -3514,8 +3514,15 @@ void ScribusView::setContentsPos(int x, int y)
 
 void ScribusView::scrollContentsBy(int dx, int dy)
 {
-	QScrollArea::scrollContentsBy (dx, dy);
+	QScrollArea::scrollContentsBy(dx, dy);
 	setRulerPos(contentsX(), contentsY());
+	if (m_doc->guidesPrefs().linkShown ||
+			m_canvas->m_viewMode.drawFramelinksWithContents ||
+			m_canvas->m_viewMode.linkedFramesToShow.count() > 0)
+	{
+		m_canvas->setForcedRedraw(true);
+		m_canvas->update();
+	}
 }
 
 void ScribusView::scrollBy(int x, int y) // deprecated
