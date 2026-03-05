@@ -229,7 +229,8 @@ private:
 	void DrawPageGuides(ScPainter *p, const QRectF& clip, bool master = false);
 	void DrawPageIndicatorSub(ScPainter *p, const ScPage *page);
 	void DrawPageIndicator(ScPainter *p, const QRectF& clip, bool master = false);
-	void drawLinkFrameLine(ScPainter* painter, const FPoint &start, const FPoint &end);
+	void drawFrameLinks(ScPainter* painter);
+	void drawChainLinks(ScPainter* painter, PageItem* chainHead);
 	void PaintSizeRect(QRect newRect);
 	void PaintSizeRect(QPolygon newRect);
 	void Transform(const PageItem *currItem, QPainter *p) const;
@@ -249,7 +250,6 @@ private:
 	void drawContents(QPainter *p, int clipx, int clipy, int clipw, int cliph);
 	void drawBackgroundMasterpage(ScPainter* painter, int clipx, int clipy, int clipw, int cliph);
 	void drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy, int clipw, int cliph);
-	void drawFrameLinks(ScPainter* painter);
 	void drawControls(QPainter* p);
 	void drawControlsMovingItemsRect(QPainter* pp);
 	void drawControlsBezierCurve(QPainter* pp, const PageItem* currItem);
@@ -258,7 +258,6 @@ private:
 	void drawControlsFreehandLine(QPainter* pp);
 	void getLinkedFrames(PageItem* currItem);
 	void getClipPathForPages(FPointArray* PoLine);
-	void calculateFrameLinkPoints(const PageItem* pi1, const PageItem* pi2, FPoint& start, FPoint& end);
 
 	// create a potentially hidpi pixmap
 	QPixmap createPixmap(double w, double h);

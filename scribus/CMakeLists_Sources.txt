@@ -83,6 +83,7 @@ set(SCRIBUS_SOURCES
 	fontlistmodel.cpp
 	fpoint.cpp
 	fpointarray.cpp
+	framelinkrouter.cpp
 	gtaction.cpp
 	gtfont.cpp
 	gtframestyle.cpp
