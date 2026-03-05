@@ -6832,17 +6832,17 @@ Lees het gedeelte Kleuren bewerken van de documentatie voor meer details.</trans
     <message>
         <location filename="../../scribus/ui/contextmenu.cpp" line="266"/>
         <source>No suggestions for &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Geen suggesties voor &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contextmenu.cpp" line="273"/>
         <source>Spelling: &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Spelling: &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contextmenu.cpp" line="286"/>
         <source>Ignore</source>
-        <translation type="unfinished"></translation>
+        <translation>Negeren</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contextmenu.cpp" line="400"/>
@@ -7474,12 +7474,12 @@ Lees het gedeelte Kleuren bewerken van de documentatie voor meer details.</trans
     <message>
         <location filename="../../scribus/documentlogmanager.cpp" line="49"/>
         <source>Failed to decode &apos;%1&apos;: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Decodering &apos;%1&apos; is mislukt: %2</translation>
     </message>
     <message>
         <location filename="../../scribus/documentlogmanager.cpp" line="54"/>
         <source>Memory allocation failed while loading &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Geheugentoewijzing is mislukt bij het laden van &apos;%1&apos;</translation>
     </message>
 </context>
 <context>
@@ -21825,27 +21825,27 @@ Wilt u deze gebruiken?</translation>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_spellingbase.ui" line="64"/>
         <source>Check spelling while typing</source>
-        <translation type="unfinished"></translation>
+        <translation>Spelling controleren tijdens het typen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_spellingbase.ui" line="71"/>
         <source>Show indicator for misspelt words</source>
-        <translation type="unfinished"></translation>
+        <translation>Indicator voor verkeerd gespelde woorden tonen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_spellingbase.ui" line="80"/>
         <source>Maximum spelling suggestions:</source>
-        <translation type="unfinished"></translation>
+        <translation>Maximaal aantal spellingsuggesties:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_spellingbase.ui" line="107"/>
         <source>Spelling delay:</source>
-        <translation type="unfinished"></translation>
+        <translation>Spellingvertraging:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_spellingbase.ui" line="114"/>
         <source> ms</source>
-        <translation type="unfinished"> ms</translation>
+        <translation> ms</translation>
     </message>
     <message>
         <source>Installed Spelling Dictionaries</source>
@@ -32389,57 +32389,57 @@ Mogelijk is daarom het beeld niet correct.</translation>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="66"/>
         <source>Failed to read file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Bestand lezen mislukt: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="224"/>
         <source>JPEG XL: JxlDecoderSubscribeEvents failed</source>
-        <translation type="unfinished"></translation>
+        <translation>JPEG XL: JxlDecoderSubscribeEvents mislukt</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="232"/>
         <source>JPEG XL: JxlDecoderSetParallelRunner failed</source>
-        <translation type="unfinished"></translation>
+        <translation>JPEG XL: JxlDecoderSetParallelRunner mislukt</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="249"/>
         <source>JPEG XL: decoder error</source>
-        <translation type="unfinished"></translation>
+        <translation>JPEG XL: decoderingsfout</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="255"/>
         <source>JPEG XL: error, already provided all input</source>
-        <translation type="unfinished"></translation>
+        <translation>JPEG XL: fout, al voorzien van alle invoer</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="263"/>
         <source>JPEG XL: JxlDecoderGetBasicInfo failed</source>
-        <translation type="unfinished"></translation>
+        <translation>JPEG XL: JxlDecoderGetBasicInfo mislukt</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="293"/>
         <source>JPEG XL: JxlDecoderGetICCProfileSize failed</source>
-        <translation type="unfinished"></translation>
+        <translation>JPEG XL: JxlDecoderGetICCProfileSize mislukt</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="303"/>
         <source>JPEG XL: JxlDecoderGetColorAsICCProfile failed</source>
-        <translation type="unfinished"></translation>
+        <translation>JPEG XL: JxlDecoderGetColorAsICCProfile mislukt</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="313"/>
         <source>JPEG XL: JxlDecoderImageOutBufferSize failed</source>
-        <translation type="unfinished"></translation>
+        <translation>JPEG XL: JxlDecoderImageOutBufferSize mislukt</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="336"/>
         <source>JPEG XL: JxlDecoderSetImageOutBuffer failed</source>
-        <translation type="unfinished"></translation>
+        <translation>JPEG XL: JxlDecoderSetImageOutBuffer mislukt</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="357"/>
         <source>JPEG XL: Unknown JXL decoder status</source>
-        <translation type="unfinished"></translation>
+        <translation>JPEG XL: Onbekende JXL-decoderstatus</translation>
     </message>
 </context>
 <context>
@@ -37245,17 +37245,17 @@ Gebruik de preproductie-controle om deze te corrigeren</translation>
     <message>
         <location filename="../../scribus/ui/search.cpp" line="120"/>
         <source>Collapse or expand the formatting options</source>
-        <translation type="unfinished"></translation>
+        <translation>De opmaakopties samenvouwen of uitbreiden</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/search.cpp" line="890"/>
         <source>More...</source>
-        <translation type="unfinished"></translation>
+        <translation>Meer...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/search.cpp" line="890"/>
         <source>Less...</source>
-        <translation type="unfinished"></translation>
+        <translation>Minder...</translation>
     </message>
     <message>
         <source>Replace with:</source>
@@ -37328,37 +37328,37 @@ Gebruik de preproductie-controle om deze te corrigeren</translation>
     <message>
         <location filename="../../scribus/ui/searchbase.ui" line="23"/>
         <source>Search/Replace</source>
-        <translation type="unfinished">Zoeken/vervangen</translation>
+        <translation>Zoeken/vervangen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/searchbase.ui" line="36"/>
         <source>Search:</source>
-        <translation type="unfinished">Zoeken:</translation>
+        <translation>Zoeken:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/searchbase.ui" line="59"/>
         <source>&amp;Whole Word</source>
-        <translation type="unfinished">&amp;Heel woord</translation>
+        <translation>&amp;Heel woord</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/searchbase.ui" line="69"/>
         <source>&amp;Ignore Case, Diacritics and Kashida</source>
-        <translation type="unfinished">&amp;Negeer lettergrootte, diakritische tekens en Kashida</translation>
+        <translation>&amp;Negeer lettergrootte, diakritische tekens en Kashida</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/searchbase.ui" line="80"/>
         <source>Replace:</source>
-        <translation type="unfinished">Vervang:</translation>
+        <translation>Vervangen:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/searchbase.ui" line="115"/>
         <source>More...</source>
-        <translation type="unfinished"></translation>
+        <translation>Meer...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/searchbase.ui" line="144"/>
         <source>Feedback</source>
-        <translation type="unfinished"></translation>
+        <translation>Feedback</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/searchbase.ui" line="183"/>
@@ -37366,91 +37366,91 @@ Gebruik de preproductie-controle om deze te corrigeren</translation>
         <location filename="../../scribus/ui/searchbase.ui" line="429"/>
         <location filename="../../scribus/ui/searchbase.ui" line="446"/>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/searchbase.ui" line="203"/>
         <location filename="../../scribus/ui/searchbase.ui" line="330"/>
         <source>Alignment</source>
-        <translation type="unfinished">Uitlijning</translation>
+        <translation>Uitlijning</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/searchbase.ui" line="217"/>
         <location filename="../../scribus/ui/searchbase.ui" line="358"/>
         <source>Stroke Shade</source>
-        <translation type="unfinished">Streekschakering</translation>
+        <translation>Streekschakering</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/searchbase.ui" line="231"/>
         <location filename="../../scribus/ui/searchbase.ui" line="351"/>
         <source>Font Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Lettergrootte</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/searchbase.ui" line="173"/>
         <location filename="../../scribus/ui/searchbase.ui" line="316"/>
         <source>Stroke Color</source>
-        <translation type="unfinished">Streekkleur</translation>
+        <translation>Streekkleur</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/searchbase.ui" line="238"/>
         <location filename="../../scribus/ui/searchbase.ui" line="337"/>
         <source>Fill Color</source>
-        <translation type="unfinished">Vulkleur</translation>
+        <translation>Vulkleur</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/searchbase.ui" line="245"/>
         <location filename="../../scribus/ui/searchbase.ui" line="344"/>
         <source>Font</source>
-        <translation type="unfinished">Lettertype</translation>
+        <translation>Lettertype</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/searchbase.ui" line="252"/>
         <location filename="../../scribus/ui/searchbase.ui" line="309"/>
         <source>Font Effects</source>
-        <translation type="unfinished">Lettertype-effecten</translation>
+        <translation>Lettertype-effecten</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/searchbase.ui" line="286"/>
         <location filename="../../scribus/ui/searchbase.ui" line="365"/>
         <source>Fill Shade</source>
-        <translation type="unfinished">Vulschakering</translation>
+        <translation>Vulschakering</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/searchbase.ui" line="293"/>
         <location filename="../../scribus/ui/searchbase.ui" line="323"/>
         <source>Style</source>
-        <translation type="unfinished">Stijl</translation>
+        <translation>Stijl</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/searchbase.ui" line="460"/>
         <source>&amp;Search</source>
-        <translation type="unfinished">&amp;Zoeken</translation>
+        <translation>&amp;Zoeken</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/searchbase.ui" line="473"/>
         <source>&amp;Replace</source>
-        <translation type="unfinished">&amp;Vervangen</translation>
+        <translation>&amp;Vervangen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/searchbase.ui" line="483"/>
         <source>Replace &amp;All</source>
-        <translation type="unfinished">&amp;Alles vervangen</translation>
+        <translation>&amp;Alles vervangen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/searchbase.ui" line="493"/>
         <source>&amp;Stop</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Stoppen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/searchbase.ui" line="513"/>
         <source>C&amp;lear</source>
-        <translation type="unfinished"></translation>
+        <translation>W&amp;issen</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/searchbase.ui" line="520"/>
         <source>&amp;Close</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Sluiten</translation>
     </message>
 </context>
 <context>
@@ -41434,7 +41434,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="847"/>
         <source>Apply spelling corrections</source>
-        <translation type="unfinished"></translation>
+        <translation>Spellingcorrecties toepassen</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="586"/>
@@ -42777,7 +42777,7 @@ kies een andere.</translation>
     <message>
         <location filename="../../scribus/ui/replaceonecolor.ui" line="46"/>
         <source>Replace:</source>
-        <translation>Vervang:</translation>
+        <translation>Vervangen:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/replaceonecolor.ui" line="62"/>
