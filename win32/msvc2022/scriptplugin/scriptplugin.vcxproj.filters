@@ -25,6 +25,9 @@
     <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\cmdannotations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\cmdbarcode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\cmdcell.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -112,6 +115,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\cmdannotations.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\cmdbarcode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\cmdcell.h">

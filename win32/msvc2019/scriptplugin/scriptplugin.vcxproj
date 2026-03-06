@@ -218,6 +218,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\cmdannotations.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\cmdbarcode.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\cmdcell.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\cmdcolor.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\cmddialog.cpp" />
@@ -258,6 +259,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\cmdannotations.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\cmdbarcode.h" />
     <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\cmdcell.h" />
     <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\cmdcolor.h" />
     <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\cmddialog.h" />

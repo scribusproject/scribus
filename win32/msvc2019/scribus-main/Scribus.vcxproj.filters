@@ -337,6 +337,9 @@
     <ClInclude Include="..\..\..\scribus\fpointarray.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\scribus\framelinkrouter.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\scribus\gtaction.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -1234,6 +1237,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\fpointarray.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\framelinkrouter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\gtaction.cpp">
