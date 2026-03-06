@@ -603,6 +603,9 @@ QString getStringFromSequence(NumFormat type, uint position, const QString& aste
 		case Type_Gujarati:
 			retVal = digitSubstitution(position, QChar(0x0AE6));
 			break;
+		case Type_Gurmukhi:
+			retVal = digitSubstitution(position, QChar(0x0A66));
+			break;
 		case Type_Kannada:
 			retVal = digitSubstitution(position, QChar(0x0CE6));
 			break;
@@ -614,6 +617,9 @@ QString getStringFromSequence(NumFormat type, uint position, const QString& aste
 			break;
 		case Type_Malayalam:
 			retVal = digitSubstitution(position, QChar(0x0D66));
+			break;
+		case Type_Odia:
+			retVal = digitSubstitution(position, QChar(0x0B66));
 			break;
 		case Type_Tamil:
 			retVal = digitSubstitution(position, QChar(0x0BE6));
