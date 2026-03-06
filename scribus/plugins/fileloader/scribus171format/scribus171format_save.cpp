@@ -2853,6 +2853,8 @@ void Scribus171Format::SetItemProps(ScXmlStreamWriter& docu, PageItem* item, con
 		docu.writeAttribute("ItemLocked", 1);
 	if (item->sizeLocked())
 		docu.writeAttribute("ItemSizeLocked", 1);
+	if (item->aspectRatioLocked())
+		docu.writeAttribute("ItemAspectRatioLocked", 1);
 	if (item->fillTransparency() != 0)
 		docu.writeAttribute("FillTransparency", item->fillTransparency());
 	if (item->lineTransparency() != 0)

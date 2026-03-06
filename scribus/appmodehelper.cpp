@@ -514,6 +514,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 			(*a_scrActions)["itemShapeEdit"]->setEnabled(false);
 			(*a_scrActions)["itemLock"]->setEnabled(false);
 			(*a_scrActions)["itemLockSize"]->setEnabled(false);
+			(*a_scrActions)["itemLockAspectRatio"]->setEnabled(false);
 			(*a_scrActions)["itemPrintingEnabled"]->setEnabled(false);
 			(*a_scrActions)["editCut"]->setEnabled(false);
 			(*a_scrActions)["editCopy"]->setEnabled(false);
@@ -900,6 +901,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 	{
 		(*a_scrActions)["itemLock"]->setEnabled(doc->appMode != modeEditClip);
 		(*a_scrActions)["itemLockSize"]->setEnabled(true);
+		(*a_scrActions)["itemLockAspectRatio"]->setEnabled(true);
 		(*a_scrActions)["itemPrintingEnabled"]->setEnabled(true);
 		if (doc->m_Selection->containsItemType(PageItem::Group))
 		{
@@ -969,6 +971,7 @@ void AppModeHelper::enableActionsForSelection(ScribusMainWindow* scmw, ScribusDo
 		}
 		(*a_scrActions)["itemLock"]->setChecked(currItem->locked());
 		(*a_scrActions)["itemLockSize"]->setChecked(currItem->sizeLocked());
+		(*a_scrActions)["itemLockAspectRatio"]->setChecked(currItem->aspectRatioLocked());
 		(*a_scrActions)["itemPrintingEnabled"]->setChecked(currItem->printEnabled());
 		scmw->enablePalettes(!inAnEditMode);
 		scmw->pageSelector->setEnabled(!inAnEditMode);
@@ -1772,6 +1775,7 @@ void AppModeHelper::mainWindowCloseLastDoc()
 	(*a_scrActions)["itemShapeEdit"]->setEnabled(false);
 	(*a_scrActions)["itemLock"]->setEnabled(false);
 	(*a_scrActions)["itemLockSize"]->setEnabled(false);
+	(*a_scrActions)["itemLockAspectRatio"]->setEnabled(false);
 
 	(*a_scrActions)["tableInsertRows"]->setEnabled(false);
 	(*a_scrActions)["tableInsertColumns"]->setEnabled(false);

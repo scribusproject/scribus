@@ -50,7 +50,8 @@ class SCRIBUS_API LoadSavePlugin : public ScPlugin
 			lfKeepPatterns    = 128,
 			lfCreateThumbnail = 256,
 			lfLoadAsPattern   = 512,
-			lfNoDialogs       = 1024
+			lfNoDialogs       = 1024,
+			lfLockAspectRatio = 2048
 		};
 
 		// Static functions:

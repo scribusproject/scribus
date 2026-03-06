@@ -292,6 +292,13 @@ public:
 	QStringList m_recentDocsList;
 	QStringList patternsDependingOnThis;
 
+	/** \brief Temporary parameter storage for plugin import pipelines (cleared after use) */
+	QMap<QString, QString> pluginEditParams;
+	/** \brief Item being re-edited by a plugin dialog; cleared after use */
+	PageItem* pluginEditItem {nullptr};
+	/** \brief When true, plugin should regenerate silently without showing UI */
+	bool pluginEditSilent {false};
+
 public slots:
 	void iconSetChange();
 	void languageChange();

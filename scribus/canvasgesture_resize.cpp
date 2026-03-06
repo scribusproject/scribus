@@ -458,6 +458,12 @@ void ResizeGesture::adjustBounds(QMouseEvent *m)
 
 	// proportional resize
 	bool constrainRatio = ((m->modifiers() & Qt::ControlModifier) != Qt::NoModifier);
+	if (!constrainRatio && m_doc->m_Selection->count() == 1)
+	{
+		PageItem* item = m_doc->m_Selection->itemAt(0);
+		if (item->aspectRatioLocked())
+			constrainRatio = true;
+	}
 
 	// center resize pivot
 	bool centerPivot = ((m->modifiers() & Qt::ShiftModifier) != Qt::NoModifier);

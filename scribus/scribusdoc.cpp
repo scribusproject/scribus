@@ -10759,6 +10759,33 @@ void ScribusDoc::itemSelection_ToggleSizeLock( )
 	}
 }
 
+void ScribusDoc::itemSelection_ToggleAspectRatioLock()
+{
+	int selectedItemCount = m_Selection->count();
+	if (selectedItemCount != 0)
+	{
+		UndoTransaction activeTransaction;
+		m_updateManager.setUpdatesDisabled();
+		if (UndoManager::undoEnabled() && selectedItemCount > 1)
+		{
+			if (m_Selection->itemAt(0)->aspectRatioLocked())
+				activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::AspectRatioUnLock, nullptr, Um::IUnLock);
+			else
+				activeTransaction = m_undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::AspectRatioLock, nullptr, Um::ILock);
+		}
+		for (int i = 0; i < selectedItemCount; ++i)
+		{
+			PageItem* item = m_Selection->itemAt(i);
+			item->setAspectRatioLocked(!item->aspectRatioLocked());
+			item->update();
+		}
+		if (activeTransaction)
+			activeTransaction.commit();
+		m_updateManager.setUpdatesEnabled();
+		changed();
+		emit firstSelectedItemType(m_Selection->itemAt(0)->itemType());
+	}
+}
 
 void ScribusDoc::itemSelection_ToggleImageShown()
 {

@@ -1527,6 +1527,7 @@ public slots:
 	void selectionChanged();
 	void itemSelection_ToggleLock();
 	void itemSelection_ToggleSizeLock();
+	void itemSelection_ToggleAspectRatioLock();
 	void itemSelection_ToggleImageShown();
 	void itemSelection_TogglePrintEnabled();
 	void itemSelection_ToggleBookMark(Selection* customSelection = nullptr);

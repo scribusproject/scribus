@@ -20,6 +20,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "sccolor.h"
 
+class PageItem;
 
 /*! \brief One Barcode Entity.
 \author Petr Vanek <petr@yarpen.cz>
@@ -66,6 +67,24 @@ class BarcodeGenerator : public QDialog
 		BarcodeGenerator(QWidget* parent = nullptr, const char* name = 0);
 		//! \brief Erase the temporary files here.
 		~BarcodeGenerator();
+
+		/*! \brief Pre-populate the dialog from a barcode item's stored attributes.
+			\param item A PageItem with bwipp-* ObjectAttributes */
+		void loadFromItem(PageItem* item);
+
+		/*! \brief Pre-populate the dialog from a parameter map (scripter path).
+			\param params Map with bwipp-encoder, bwipp-content, bwipp-options */
+		void loadFromParams(const QMap<QString, QString>& params);
+
+		/*! \brief Generate barcode and optionally replace an existing item.
+			Builds the PostScript, imports it, attaches bwipp-* attributes,
+			and (if replaceItem is set) swaps the old item preserving geometry.
+			This is the common path used by the dialog OK button, attribute
+			edits, and the scripter.
+			\param replaceItem Item to replace, or nullptr for new placement
+			\param placeX X coordinate for scripted placement (-1 for interactive)
+			\param placeY Y coordinate for scripted placement (-1 for interactive) */
+		bool generateBarcode(PageItem* replaceItem = nullptr, double placeX = -1, double placeY = -1);
 
 	protected:
 		//! GUI namespace content. See designer.
@@ -134,10 +153,21 @@ class BarcodeGenerator : public QDialog
 		void updateOptions();
 		void updateOptionsTextFromUI();
 		void updateUIFromOptionsText();
+		//! \brief Item being edited (nullptr when creating new barcode)
+		PageItem* m_editItem {nullptr};
 
 	private:
 		void enqueuePaintBarcode(int);
+		QString buildPSCommand();
 		BarcodeGeneratorRenderThread thread;
+		QTimer* syncOptionsUITimer { nullptr };
+
+		/*! \brief Shared UI population from encoder/content/options */
+		void loadBarcode(const QString& encoder, const QString& content, const QString& options);
+		/*! \brief Replace or append key=value in the options text field */
+		void updateOptionValue(const QString& key, const QString& value);
+		/*! \brief Ensure a boolean option is present in the options text field */
+		void ensureOptionPresent(const QString& key);
 
 	protected slots:
 		void paintBarcode();
@@ -169,6 +199,8 @@ class BarcodeGenerator : public QDialog
 		void on_eccCombo_currentIndexChanged(int index);
 		void on_guardwhitespaceCheck_stateChanged(int arg1);
 		void on_optionsEdit_textChanged(const QString &arg1);
+		void on_inkspreadSlider_valueChanged(int value);
+		void syncOptionsUI();
 };
 
 #endif

@@ -295,6 +295,7 @@ PageItem::PageItem(const PageItem & other)
 	m_ImageIsFlippedV(other.m_ImageIsFlippedV),
 	m_Locked(other.m_Locked),
 	m_SizeLocked(other.m_SizeLocked),
+	m_aspectRatioLocked(other.m_aspectRatioLocked),
 	m_SizeHLocked(other.m_SizeHLocked),
 	m_SizeVLocked(other.m_SizeVLocked),
 	m_textFlowMode(other.m_textFlowMode),
@@ -4422,6 +4423,26 @@ void PageItem::setSizeLocked(bool isLocked)
 		toggleSizeLock();
 }
 
+void PageItem::toggleAspectRatioLock()
+{
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss;
+		if (m_aspectRatioLocked)
+			ss = new SimpleState(Um::AspectRatioUnLock, nullptr, Um::IUnLock);
+		else
+			ss = new SimpleState(Um::AspectRatioLock, nullptr, Um::ILock);
+		ss->set("ASPECTRATIO_LOCK");
+		undoManager->action(this, ss);
+	}
+	m_aspectRatioLocked = !m_aspectRatioLocked;
+}
+
+void PageItem::setAspectRatioLocked(bool isAspectLocked)
+{
+	if (isAspectLocked != m_aspectRatioLocked)
+		toggleAspectRatioLock();
+}
 
 void PageItem::setPrintEnabled(bool toPrint)
 {
@@ -4969,6 +4990,11 @@ void PageItem::restore(UndoState *state, bool isUndo)
 		{
 			select();
 			m_Doc->itemSelection_ToggleSizeLock();
+		}
+		else if (ss->contains("ASPECTRATIO_LOCK"))
+		{
+			select();
+			m_Doc->itemSelection_ToggleAspectRatioLock();
 		}
 		else if (ss->contains("PRINT_ENABLED"))
 		{

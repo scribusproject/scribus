@@ -407,6 +407,8 @@ public:
 	static QString UnLock;
 	static QString SizeLock;
 	static QString SizeUnLock;
+	static QString AspectRatioLock;
+	static QString AspectRatioUnLock;
 	static QString EnablePrint;
 	static QString DisablePrint;
 	static QString Ungroup;

@@ -421,6 +421,7 @@ void ContextMenu::createMenuItems_Selection()
 		//<-- Item Locking
 		menuLocking->addAction(m_ScMW->scrActions["itemLock"]);
 		menuLocking->addAction(m_ScMW->scrActions["itemLockSize"]);
+		menuLocking->addAction(m_ScMW->scrActions["itemLockAspectRatio"]);
 		QAction *actL = addMenu(menuLocking);
 		actL->setText( tr("Locking"));
 		//-->

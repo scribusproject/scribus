@@ -426,6 +426,8 @@ void ActionManager::initItemMenuActions()
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name = "itemLockSize";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+	name = "itemLockAspectRatio";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name = "itemPrintingEnabled";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name = "itemFlipH";
@@ -434,6 +436,7 @@ void ActionManager::initItemMenuActions()
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	(*scrActions)["itemLock"]->setToggleAction(true, true);
 	(*scrActions)["itemLockSize"]->setToggleAction(true, true);
+	(*scrActions)["itemLockAspectRatio"]->setToggleAction(true, true);
 	(*scrActions)["itemPrintingEnabled"]->setToggleAction(true, true);
 	(*scrActions)["itemFlipH"]->setToggleAction(true, true);
 	(*scrActions)["itemFlipV"]->setToggleAction(true, true);
@@ -1258,6 +1261,7 @@ void ActionManager::disconnectNewDocActions()
 	(*scrActions)["itemAdjustImageToFrame"]->disconnect();
 	(*scrActions)["itemLock"]->disconnect();
 	(*scrActions)["itemLockSize"]->disconnect();
+	(*scrActions)["itemLockAspectRatio"]->disconnect();
 	(*scrActions)["itemPrintingEnabled"]->disconnect();
 	(*scrActions)["itemFlipH"]->disconnect();
 	(*scrActions)["itemFlipV"]->disconnect();
@@ -1289,6 +1293,7 @@ void ActionManager::connectNewDocActions(ScribusDoc *currDoc)
 		return;
 	connect( (*scrActions)["itemLock"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_ToggleLock()) );
 	connect( (*scrActions)["itemLockSize"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_ToggleSizeLock()));
+	connect( (*scrActions)["itemLockAspectRatio"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_ToggleAspectRatioLock()));
 	connect( (*scrActions)["itemPrintingEnabled"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_TogglePrintEnabled()));
 	connect( (*scrActions)["itemFlipH"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_FlipH()));
 	connect( (*scrActions)["itemFlipV"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_FlipV()));
@@ -1613,6 +1618,7 @@ void ActionManager::languageChange()
 	(*scrActions)["itemGroupAdjust"]->setTexts( tr("Adjust Group"));
 	(*scrActions)["itemLock"]->setTexts( tr("Is &Locked"));
 	(*scrActions)["itemLockSize"]->setTexts( tr("Si&ze is Locked"));
+	(*scrActions)["itemLockAspectRatio"]->setTexts( tr("&Aspect ratio is Locked"));
 	(*scrActions)["itemPrintingEnabled"]->setTexts( tr("&Printing Enabled"));
 	(*scrActions)["itemFlipH"]->setTexts( tr("&Flip Horizontally"));
 	(*scrActions)["itemFlipV"]->setTexts( tr("&Flip Vertically"));

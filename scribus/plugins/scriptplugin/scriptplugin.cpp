@@ -34,7 +34,7 @@ for which a new license (GPL+exception) is in place.
 
 // include cmdvar.h first, as it pulls in <Python.h>
 #include "cmdannotations.h"
-#include "cmdvar.h"
+#include "cmdbarcode.h"
 #include "cmdcell.h"
 #include "cmdcolor.h"
 #include "cmddialog.h"
@@ -46,10 +46,11 @@ for which a new license (GPL+exception) is in place.
 #include "cmdobj.h"
 #include "cmdpage.h"
 #include "cmdsetprop.h"
+#include "cmdstyle.h"
 #include "cmdtable.h"
 #include "cmdtext.h"
 #include "cmdutil.h"
-#include "cmdstyle.h"
+#include "cmdvar.h"
 #include "guiapp.h"
 #include "objimageexport.h"
 #include "objpdffile.h"
@@ -292,6 +293,7 @@ PyMethodDef scribus_methods[] = {
 	{ "changeColorRGBFloat", scribus_setcolorrgbfloat, METH_VARARGS, tr(scribus_setcolorrgbfloat__doc__)},
 	{ "closeDoc", (PyCFunction) scribus_closedoc, METH_NOARGS, tr(scribus_closedoc__doc__)},
 	{ "closeMasterPage", (PyCFunction) scribus_closemasterpage, METH_NOARGS, tr(scribus_closemasterpage__doc__)},
+	{ "createBarcode", scribus_createbarcode, METH_VARARGS, tr(scribus_createbarcode__doc__)},
 	{ "createBezierLine", scribus_createbezierline, METH_VARARGS, tr(scribus_createbezierline__doc__)},
 	{ "createCharStyle", (PyCFunction) scribus_createcharstyle, METH_VARARGS|METH_KEYWORDS, tr(scribus_createcharstyle__doc__)},
 	{ "createCustomLineStyle", scribus_createcustomlinestyle, METH_VARARGS, tr(scribus_createcustomlinestyle__doc__)},

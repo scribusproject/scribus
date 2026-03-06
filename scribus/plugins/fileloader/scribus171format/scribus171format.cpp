@@ -6982,6 +6982,7 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 	{
 		currItem->setLocked (attrs.valueAsBool("LOCK", false));
 		currItem->setSizeLocked(attrs.valueAsBool("LOCKR", false));
+		currItem->setAspectRatioLocked(attrs.valueAsBool("ItemAspectRatioLocked", false));
 		currItem->fillRule = attrs.valueAsBool("fillRule", true);
 		currItem->doOverprint = attrs.valueAsBool("doOverprint", false);
 		currItem->setFillTransparency(attrs.valueAsDouble("TransValue", 0.0));
@@ -6993,6 +6994,7 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 	{
 		currItem->setLocked (attrs.valueAsBool("ItemLocked", false));
 		currItem->setSizeLocked(attrs.valueAsBool("ItemSizeLocked", false));
+		currItem->setAspectRatioLocked(attrs.valueAsBool("ItemAspectRatioLocked", false));
 		currItem->fillRule = attrs.valueAsBool("FillRule", true);
 		currItem->doOverprint = attrs.valueAsBool("DoOverprint", false);
 		currItem->setFillTransparency(attrs.valueAsDouble("FillTransparency", 0.0));

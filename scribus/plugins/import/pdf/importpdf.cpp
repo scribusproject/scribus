@@ -205,6 +205,11 @@ bool PdfPlug::importFile(const QString& fNameIn, const TransactionSettings& trSe
 			PageItem *gr = m_Doc->groupObjectsList(m_elements);
 			m_Doc->resizeGroupToContents(gr);
 		}
+		if (m_importerFlags & LoadSavePlugin::lfLockAspectRatio)
+		{
+			for (int i = 0; i < m_elements.count(); ++i)
+				m_elements.at(i)->setAspectRatioLocked(true);
+		}
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->setLoading(false);

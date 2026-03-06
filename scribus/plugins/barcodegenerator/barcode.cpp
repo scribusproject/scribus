@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "barcode.h"
 #include "barcodegenerator.h"
+#include "scribus.h"
 #include "scribuscore.h"
 #include "scribusstructs.h"
 #include "scpaths.h"
@@ -69,7 +70,7 @@ const ScActionPlugin::AboutData* Barcode::getAboutData() const
 	else
 		about->version = "Unable to open backend file";
 	// about->releaseDate
-	about->copyright = QString::fromUtf8("Backend: Copyright (c) 2004-2018 Terry Burton - tez@terryburton.co.uk\nFrontend: Copyright (c) 2005 Petr Van\xc4\x9bk - petr@scribus.info");
+	about->copyright = QString::fromUtf8("Backend: Copyright (c) 2004-2026 Terry Burton - tez@terryburton.co.uk\nFrontend: Copyright (c) 2005 Petr Van\xc4\x9bk - petr@scribus.info");
 	about->license = "Backend: MIT/X-Consortium, Frontend: GPL";
 	return about;
 }
@@ -86,6 +87,40 @@ bool Barcode::run(ScribusDoc* doc, const QString& /*target*/ )
 		return false;
 	BarcodeGenerator *bg = new BarcodeGenerator();
 	Q_CHECK_PTR(bg);
+	ScribusMainWindow* mw = doc->scMW();
+	if (mw->pluginEditSilent)
+	{
+		PageItem* item = mw->pluginEditItem;
+		QMap<QString, QString> params = mw->pluginEditParams;
+		mw->pluginEditItem = nullptr;
+		mw->pluginEditSilent = false;
+		mw->pluginEditParams.clear();
+
+		if (!params.isEmpty())
+		{
+			// Scripter path: params provided externally
+			double x = params.take("_scriptedX").toDouble();
+			double y = params.take("_scriptedY").toDouble();
+			bg->loadFromParams(params);
+			bg->generateBarcode(nullptr, x, y);
+		}
+		else if (item)
+		{
+			// Attribute-edit path: params on item
+			bg->loadFromItem(item);
+			bg->generateBarcode(item);
+		}
+
+		delete bg;
+		return true;
+	}
+
+	if (mw->pluginEditItem)
+	{
+		PageItem* item = mw->pluginEditItem;
+		mw->pluginEditItem = nullptr;
+		bg->loadFromItem(item);
+	}
 	bg->exec();
 	delete bg;
 	return true;

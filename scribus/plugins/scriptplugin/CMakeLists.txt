@@ -15,6 +15,7 @@ set(SCRIPTER_PLUGIN_SOURCES
 	cmdannotations.cpp
 	cmdcell.cpp
 	cmdcolor.cpp
+	cmdbarcode.cpp
 	cmddialog.cpp
 	cmddoc.cpp
 	cmdgetprop.cpp

@@ -207,6 +207,17 @@ void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
 			{
 				m_view->requestMode(modeEdit);
 			}
+			// Plugin-editable groups store the action name to trigger
+			// in a "plugin-editAction" ObjectAttribute.
+			else if (currItem->itemType() == PageItem::Group && !currItem->getObjectAttribute("plugin-editAction").value.isEmpty())
+			{
+				QString action = currItem->getObjectAttribute("plugin-editAction").value;
+				if (m_ScMW->scrActions.contains(action))
+				{
+					m_ScMW->pluginEditItem = currItem;
+					m_ScMW->scrActions[action]->trigger();
+				}
+			}
 			else
 			{
 				m_view->requestMode(modeEditClip);

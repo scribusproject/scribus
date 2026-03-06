@@ -1015,6 +1015,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("Locking", "Item");
 	scrMenuMgr->addMenuItemString("itemLock", "Locking");
 	scrMenuMgr->addMenuItemString("itemLockSize", "Locking");
+	scrMenuMgr->addMenuItemString("itemLockAspectRatio", "Locking");
 	scrMenuMgr->createMenu("ItemLevel", tr("Level"), "Item");
 	scrMenuMgr->addMenuItemString("ItemLevel", "Item");
 	scrMenuMgr->addMenuItemString("itemRaise", "ItemLevel");
@@ -8448,7 +8449,18 @@ void ScribusMainWindow::objectAttributes()
 	pageItemAttrs->setup(pageItem->getObjectAttributes(), &doc->itemAttributes());
 	//CB TODO Probably want this non modal in the future
 	if (pageItemAttrs->exec() == QDialog::Accepted)
+	{
 		pageItem->setObjectAttributes(pageItemAttrs->getNewAttributes());
+
+		// If a plugin-editable item's attributes were edited, regenerate silently
+		QString editAction = pageItem->getObjectAttribute("plugin-editAction").value;
+		if (!editAction.isEmpty() && scrActions.contains(editAction))
+		{
+			pluginEditItem = pageItem;
+			pluginEditSilent = true;
+			scrActions[editAction]->trigger();
+		}
+	}
 	delete pageItemAttrs;
 }
 
