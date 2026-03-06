@@ -23,6 +23,7 @@ for which a new license (GPL+exception) is in place.
 #define LANGMANAGER_H
 
 #include <QMap>
+#include <QPair>
 #include <utility>
 
 #include <QString>
@@ -47,19 +48,20 @@ public:
 	QStringList languageList(bool getTranslated = true) const;
 	
 	QString getLangFromAbbrev(QString, bool getTranslated = true) const;
+	QString getNativeLangFromAbbrev(const QString& langAbbrev) const;
 	QString getAbbrevFromLang(const QString&, bool useInstalled = true) const;
 	QString getLangFromTransLang(const QString& transLang) const;
 	QString getTransLangFromLang(const QString& lang) const;
 	QString getShortAbbrevFromAbbrev(QString langAbbrev) const;
 	QString getShortAbbrevFromAbbrevDecomposition(const QString& langAbbrev) const;
 	QString getAlternativeAbbrevfromAbbrev(const QString& langAbbrev) const;
-	QStringList   getAbbrevDecomposition(const QString& langAbbrev) const;
+	QStringList getAbbrevDecomposition(const QString& langAbbrev) const;
 	void fillInstalledStringList(QStringList *stringListToFill) const;
 	void fillInstalledGUIStringList(QStringList *stringListToFill) const;
+	void fillInstalledGUILangPairs(QList<QPair<QString, QString>> *pairsToFill) const;
 	void fillInstalledHyphStringList(QStringList *stringListToFill) const;
 	void fillInstalledSpellStringList(QStringList *stringListToFill) const;
 	void printInstalledList() const;
-	QString numericSequence(const QString& seq) const;
 	bool findSpellingDictionaries(QStringList& sl) const;
 	void findSpellingDictionarySets(const QStringList& dictionaryPaths, QMap<QString, QString>& dictionaryMap) const;
 	bool findHyphDictionaries(QStringList& sl) const;
@@ -76,6 +78,7 @@ private:
 	QList <LangDef> m_langTable;
 
 	void generateLangList();
+	void generateNativeNames();
 	void generateInstalledGUILangList();
 	void generateInstalledHyphLangList();
 	void generateInstalledSpellLangList();

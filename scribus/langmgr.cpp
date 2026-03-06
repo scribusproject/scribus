@@ -5,9 +5,9 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 /***************************************************************************
-    begin                : Jan 2005
-    copyright            : (C) 2005 by Craig Bradney
-    email                : cbradney@scribus.info
+	begin                : Jan 2005
+	copyright            : (C) 2005 by Craig Bradney
+	email                : cbradney@scribus.info
  ***************************************************************************/
 
 /***************************************************************************
@@ -18,7 +18,7 @@ for which a new license (GPL+exception) is in place.
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
- 
+
 #include <iostream>
 #include <utility>
 
@@ -26,9 +26,11 @@ for which a new license (GPL+exception) is in place.
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
+#include <QLocale>
 #include <QMap>
 #include <QObject>
-#include <QStringList> 
+#include <QRegularExpression>
+#include <QStringList>
 #include <QTextStream>
 
 #include "scconfig.h"
@@ -768,6 +770,37 @@ QString LanguageManager::getLangFromAbbrev(QString langAbbrev, bool getTranslate
 	return QString();
 }
 
+QString LanguageManager::getNativeLangFromAbbrev(const QString& langAbbrev) const
+{
+	int i = langTableIndex(langAbbrev);
+	if (i == -1 && langAbbrev.length() > 5)
+	{
+		QString truncAbbrev = langAbbrev.left(5);
+		i = langTableIndex(truncAbbrev);
+	}
+	if (i == -1)
+		return QString();
+
+	QLocale locale(m_langTable[i].m_priAbbrev);
+	if (locale.language() != QLocale::C)
+	{
+		QString native = locale.nativeLanguageName();
+		if (!native.isEmpty())
+			return native;
+	}
+	if (!m_langTable[i].m_altAbbrev.isEmpty())
+	{
+		QLocale altLocale(m_langTable[i].m_altAbbrev);
+		if (altLocale.language() != QLocale::C)
+		{
+			QString native = altLocale.nativeLanguageName();
+			if (!native.isEmpty())
+				return native;
+		}
+	}
+	return m_langTable[i].m_name;
+}
+
 QString LanguageManager::getAbbrevFromLang(const QString& lang, bool useInstalled) const
 {
 	for (const auto& langDef : m_langTable)
@@ -809,9 +842,7 @@ QString LanguageManager::getTransLangFromLang(const QString& lang) const
 
 QString LanguageManager::getShortAbbrevFromAbbrev(QString langAbbrev) const
 {
-	//	qDebug()<<"Trying to find:"<<langAbbrev;
 	int i = langTableIndex(langAbbrev);
-	//	qDebug()<<"Index of"<<langAbbrev<<":"<<i;
 	if ((i == -1) && (langAbbrev.length() > 5))
 	{
 		langAbbrev.truncate(5);
@@ -819,22 +850,21 @@ QString LanguageManager::getShortAbbrevFromAbbrev(QString langAbbrev) const
 	}
 	if (i != -1)
 		return m_langTable[i].m_priAbbrev;
-	//qDebug()<<langAbbrev<<"not found";
 	return QString();
 }
 
 QString LanguageManager::getShortAbbrevFromAbbrevDecomposition(const QString& langAbbrev) const
 {
-	int tIndex = langTableIndex(langAbbrev);
-	if (tIndex >= 0)
-		return m_langTable[tIndex].m_priAbbrev;
+	int index = langTableIndex(langAbbrev);
+	if (index >= 0)
+		return m_langTable[index].m_priAbbrev;
 
 	QStringList abbrevs = getAbbrevDecomposition(langAbbrev);
 	for (int i = 1; i < abbrevs.count(); ++i)
 	{
-		tIndex = langTableIndex(abbrevs.at(i));
-		if (tIndex >= 0)
-			return m_langTable[tIndex].m_priAbbrev;
+		index = langTableIndex(abbrevs.at(i));
+		if (index >= 0)
+			return m_langTable[index].m_priAbbrev;
 	}
 
 	return QString();
@@ -891,6 +921,65 @@ void LanguageManager::fillInstalledGUIStringList(QStringList *stringListToFill) 
 	{
 		if (langDef.m_transAvailable)
 			stringListToFill->append(langDef.m_transName);
+	}
+}
+
+void LanguageManager::fillInstalledGUILangPairs(QList<QPair<QString, QString>> *pairsToFill) const
+{
+	if (!pairsToFill)
+		return;
+
+	static const QRegularExpression parenRe(R"(\s*(\(.*\))\s*$)");
+
+	for (const auto& langDef : m_langTable)
+	{
+		if (!langDef.m_transAvailable)
+			continue;
+
+		// Try to get the native language name from QLocale
+		QString baseName;
+		bool nativeFromLocale = false;
+		QLocale locale(langDef.m_priAbbrev);
+		if (locale.language() != QLocale::C)
+			baseName = locale.nativeLanguageName();
+		if (baseName.isEmpty() && !langDef.m_altAbbrev.isEmpty())
+		{
+			QLocale altLocale(langDef.m_altAbbrev);
+			if (altLocale.language() != QLocale::C)
+				baseName = altLocale.nativeLanguageName();
+		}
+		if (baseName.isEmpty())
+			baseName = langDef.m_name;
+		else
+			nativeFromLocale = true;
+
+		// Only append the English qualifier if QLocale
+		// did not already encode the regional distinction in the native
+		// name. Compare against the base language's native name:
+		// e.g. QLocale("en_AU") -> "Australian English" differs from
+		// QLocale("en") -> "English", so QLocale already distinguished it.
+		QRegularExpressionMatch nameMatch = parenRe.match(langDef.m_name);
+		if (nameMatch.hasMatch())
+		{
+			bool alreadyDistinct = false;
+			if (nativeFromLocale)
+			{
+				// Get the base language native name (without region)
+				QString baseAbbrev = langDef.m_priAbbrev.section('_', 0, 0);
+				QLocale baseLocale(baseAbbrev);
+				QString baseNative = baseLocale.nativeLanguageName();
+				alreadyDistinct = (!baseNative.isEmpty() && baseName != baseNative);
+			}
+			if (!alreadyDistinct && !parenRe.match(baseName).hasMatch())
+			{
+				QString qualifier = nameMatch.captured(1);
+				baseName += " " + qualifier;
+			}
+		}
+
+		// Append abbreviation to help identify variants
+		QString displayName = baseName + " (" + langDef.m_priAbbrev + ")";
+		pairsToFill->append(QPair<QString, QString>(langDef.m_priAbbrev, displayName));
 	}
 }
 
@@ -964,62 +1053,6 @@ void LanguageManager::printInstalledList() const
 	f.close();
 }
 
-QString LanguageManager::numericSequence(const QString& seq) const
-{
-	QString retSeq;
-	const int nsBengali = 0;
-	const int nsDevanagari = 1;
-	const int nsGujarati = 2;
-	const int nsGurumukhi = 3;
-	const int nsKannada = 4;
-	const int nsMalayalam = 5;
-	const int nsOriya = 6;
-	const int nsTamil = 7;
-	const int nsTelugu = 8;
-	const int nsTibetan = 9;
-	const int nsLepcha = 10;
-	switch (1)
-	{
-		case nsBengali:
-			retSeq += "";
-			break;
-		case nsDevanagari:
-			retSeq += "०१२३४५६७८९";
-			break;
-		case nsGujarati:
-			retSeq += "૦૧૨૩૪૫૬૭૮૯";
-			break;
-		case nsGurumukhi:
-			retSeq += "੦੧੨੩੪੫੬੭੮੯";
-			break;
-		case nsKannada:
-			retSeq += "";
-			break;
-		case nsMalayalam:
-			retSeq += "";
-			break;
-		case nsOriya:
-			retSeq += "";
-			break;
-		case nsTamil:
-			retSeq += "";
-			break;
-		case nsTelugu:
-			retSeq += "";
-			break;
-		case nsTibetan:
-			retSeq += "";
-			break;
-		case nsLepcha:
-			retSeq += "";
-			break;
-		default:
-			retSeq = "0123456789";
-			break;
-	}
-	return retSeq;
-}
-
 bool LanguageManager::findSpellingDictionaries(QStringList &sl) const
 {
 	sl = ScPaths::instance().spellDirs();
@@ -1042,7 +1075,7 @@ void LanguageManager::findSpellingDictionarySets(const QStringList &dictionaryPa
 		{
 			if (!QFile::exists(dictionaryPath + dictName + ".aff"))
 				continue;
-				
+
 			if (dictionaryMap.contains(dictName))
 				continue;
 
@@ -1113,7 +1146,6 @@ void LanguageManager::findHyphDictionarySets(const QStringList& dictionaryPaths,
 
 		for (const QString& dn : std::as_const(dictList))
 		{
-//			qDebug()<<dn;
 			QString dictName;
 			if (dn.startsWith("hyph_"))
 				dictName = dn.section('_', 1);

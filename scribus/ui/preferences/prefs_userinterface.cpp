@@ -36,18 +36,7 @@ Prefs_UserInterface::Prefs_UserInterface(QWidget* parent, ScribusDoc* /*doc*/)
 	iconSetList = IconManager::instance().nameList(ScQApp->currGUILanguage());
 	iconSetComboBox->addItems(iconSetList);
 
-	QStringList languageList;
-	LanguageManager::instance()->fillInstalledGUIStringList(&languageList);
-	if (languageList.isEmpty())
-	{
-		QString currentGUILang = ScQApp->currGUILanguage();
-		if (!currentGUILang.isEmpty())
-			languageList << LanguageManager::instance()->getLangFromAbbrev(currentGUILang);
-		else
-			languageList << LanguageManager::instance()->getLangFromAbbrev("en_GB");
-	}
-	std::sort(languageList.begin(), languageList.end(), localeAwareLessThan);
-	languageComboBox->addItems(languageList);
+	addLanguages();
 
 	numberFormatComboBox->addItem(tr("Use System Format"),"System");
 	numberFormatComboBox->addItem(tr("Use Interface Language Format"),"Language");
@@ -93,17 +82,10 @@ void Prefs_UserInterface::restoreDefaults(struct ApplicationPrefs *prefsData)
 	selectedGUILang = prefsData->uiPrefs.language;
 	if (selectedGUILang.isEmpty())
 		selectedGUILang = ScQApp->currGUILanguage();
-	QString langString = LanguageManager::instance()->getLangFromAbbrev(selectedGUILang);
-	if (languageComboBox->findText(langString) < 0)
-	{
+	if (languageComboBox->findData(selectedGUILang) < 0)
 		selectedGUILang = ScQApp->currGUILanguage();
-		langString = LanguageManager::instance()->getLangFromAbbrev(selectedGUILang);
-	}
-	if (languageComboBox->findText(langString) < 0)
-	{
+	if (languageComboBox->findData(selectedGUILang) < 0)
 		selectedGUILang = "en_GB";
-		langString = LanguageManager::instance()->getLangFromAbbrev(selectedGUILang);
-	}
 
 	int index = themePaletteComboBox->findData(prefsData->uiPrefs.stylePalette);
 	if ( index != -1 )
@@ -111,7 +93,9 @@ void Prefs_UserInterface::restoreDefaults(struct ApplicationPrefs *prefsData)
 	else
 		themePaletteComboBox->setCurrentIndex(0);
 
-	setCurrentComboItem(languageComboBox, langString);
+	int langIdx = languageComboBox->findData(selectedGUILang);
+	if (langIdx >= 0)
+		languageComboBox->setCurrentIndex(langIdx);
 	numberFormatComboBox->setCurrentIndex(prefsData->uiPrefs.userPreferredLocale == "System" ? 0 : 1);
 	setCurrentComboItem(themeComboBox, prefsData->uiPrefs.style);
 	setCurrentComboItem(iconSetComboBox, prefsData->uiPrefs.iconSet);
@@ -156,9 +140,9 @@ void Prefs_UserInterface::saveGuiToPrefs(struct ApplicationPrefs *prefsData) con
 
 }
 
-void Prefs_UserInterface::setSelectedGUILang(const QString &newLang)
+void Prefs_UserInterface::setSelectedGUILang(const QString& /*newLang*/)
 {
-	selectedGUILang = LanguageManager::instance()->getAbbrevFromLang(newLang);
+	selectedGUILang = languageComboBox->currentData().toString();
 }
 
 void Prefs_UserInterface::changeStoryEditorFont()
@@ -169,5 +153,28 @@ void Prefs_UserInterface::changeStoryEditorFont()
 		return;
 	seFont = newFont;
 	storyEditorFontPushButton->setText(seFont.family());
+}
+
+void Prefs_UserInterface::addLanguages()
+{
+	QList<QPair<QString, QString>> guiLangs;
+	LanguageManager::instance()->fillInstalledGUILangPairs(&guiLangs);
+	if (guiLangs.isEmpty())
+	{
+		QString currentGUILang = ScQApp->currGUILanguage();
+		if (currentGUILang.isEmpty())
+			currentGUILang = "en_GB";
+		QString nativeName = LanguageManager::instance()->getNativeLangFromAbbrev(currentGUILang);
+		if (nativeName.isEmpty())
+			nativeName = LanguageManager::instance()->getLangFromAbbrev(currentGUILang);
+		languageComboBox->addItem(nativeName, currentGUILang);
+		return;
+	}
+	std::sort(guiLangs.begin(), guiLangs.end(),
+		[](const QPair<QString, QString>& a, const QPair<QString, QString>& b) {
+			return localeAwareLessThan(a.second, b.second);
+		});
+	for (const auto& pair : std::as_const(guiLangs))
+		languageComboBox->addItem(pair.second, pair.first);
 }
 

@@ -36,6 +36,7 @@ class SCRIBUS_API LangDef
 		QString m_altAbbrev;
 		QString m_hyphFile;
 		QString m_name;
+		QString m_nativeName;
 		QString m_priAbbrev;
 		QString m_spellFile;
 		QString m_transFile;

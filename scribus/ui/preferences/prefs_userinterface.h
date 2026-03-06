@@ -39,6 +39,9 @@ class SCRIBUS_API Prefs_UserInterface : public Prefs_Pane, Ui::Prefs_UserInterfa
 	private slots:
 		void setSelectedGUILang( const QString &newLang );
 		void changeStoryEditorFont();
+
+	private:
+		void addLanguages();
 };
 
 #endif // PREFS_USERINTERFACE_H
