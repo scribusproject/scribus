@@ -13,9 +13,10 @@
 #include <math.h>
 #include <QVector>
 
+#include "fpoint.h"
 class PageItem;
 class ScPainter;
-class FPoint;
+
 
 /**
  * @brief Routes and draws orthogonal connector lines between linked text frames.
