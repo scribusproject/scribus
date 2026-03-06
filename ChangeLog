@@ -1,7 +1,35 @@
 Scribus - 1.7.3 (Released 2026-xx-xx)
 =========================================
-https://bugs.scribus.net/changelog_page.php?version_id=xxx
+https://bugs.scribus.net/changelog_page.php?version_id=134
 
+0017779: [Plug-ins]  Barcode plugin updates (cbradney)
+0013519: [Canvas]  Redraw Issue for multiple text frames (cbradney)
+0011182: [Language Tools]  [Multi-threading] Launching the new spellchecker takes extremely long (cbradney)
+0003194: [Language Tools]  pages numbering based on traditional alphabet (cbradney)
+0017386: [Text Frames / Story Editor]  Make the chaining arrows visually more pleasing (cbradney)
+0013468: [Canvas]  If chained frames touching each other, in case marker arrow shown in wrong place. (cbradney)
+0013666: [Canvas]  Chained frame arrow artifacts (redraw issues) after using direction keys (cbradney)
+0017175: [General]  [PATCH] Multiple duplicate by page: optionally limit the number of copies (cbradney)
+0016628: [Typography]  Khmer Numbering for Page Numbers and Lists (cbradney)
+0016219: [Graphics / Image Frames]  Import ms publisher files Photos shot in portrait are not rotated in image frame, and are off centered. (cbradney)
+0017769: [Typography]  Change case feature like in LibreOffice (cbradney)
+0017771: [Styles]  Word spacing does not persist in file, and is reset on loading (jghali)
+0017761: [Text Frames / Story Editor]  "Replace All" with formatting only does not work (cbradney)
+0013483: [Styles]  Ability to see where in the scribus whole document one style is used (ale)
+0001460: [Text Frames / Story Editor]  search & replace...replace (all) not possible before clicking on search. (ale)
+0011402: [Usability]  search and replace: replace font is very slow (ale)
+0016690: [Text Frames / Story Editor]  search and replace for fonts takes forever (ale)
+0012272: [Text Frames / Story Editor]  Search/replace dialog: Collapse advanced search criteria (ale)
+0001752: [Text Frames / Story Editor]  Use selected text in SE search/replace as the basis for the search field (ale)
+0009078: [Import / Export]  Incorrect Import of SVG File.
+0009551: [Documentation]  Add the 1.4 file format specification to to the docs (cbradney)
+0017755: [Graphics / Image Frames]  Improve JPEG XL import (cbradney)
+0016165: [Text Frames / Story Editor]  Spellcheck Issue (cbradney)
+0014567: [Text Frames / Story Editor]  [PATCH] Search \ replace all text frames (ale)
+0017753: [General]  [Style-based TOC] Wrong table of content setup when reading/openning a document (cbradney)
+0017749: [User Interface]  [PATCH] Action Search & Style Search not listed in keyboard shortcut menu (ale)
+0017727: [General]  Scribus crashes when copy pasting a group with Attributes (jghali)
+0011492: [General]  ECE15 new search dialog and feature (cbradney)
 
 
 Scribus - 1.7.2 (Released 2026-01-09)
