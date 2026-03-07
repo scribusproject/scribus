@@ -900,7 +900,11 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 					const Ref ref = childRef.getRef();
 					radList.append(ref.num);
 				}
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 3, 0)
+				QString tmTxt = UnicodeParsedString(annota->getUniqueName());
+#else
 				QString tmTxt = UnicodeParsedString(annota->getName());
+#endif
 				m_radioMap.insert(tmTxt, radList);
 			}
 		}
