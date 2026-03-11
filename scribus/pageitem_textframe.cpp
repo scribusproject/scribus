@@ -1042,11 +1042,11 @@ static double adjustToBaselineGrid (const LineControl &control, PageItem *item, 
 	double by = item->yPos();
 	if (OwnPage != -1)
 		by = by - item->doc()->Pages->at(OwnPage)->yOffset();
-	int ol1 = qRound((by + control.yPos - item->doc()->guidesPrefs().offsetBaselineGrid) * 10000.0);
-	int ol2 = static_cast<int>(ol1 / item->doc()->guidesPrefs().valueBaselineGrid);
+	qint64 ol1 = qRound64((by + control.yPos - item->doc()->guidesPrefs().offsetBaselineGrid) * 10000.0);
+	qint64 ol2 = static_cast<qint64>(ol1 / item->doc()->guidesPrefs().valueBaselineGrid);
 //						qDebug() << QString("baseline adjust: y=%1->%2").arg(current.yPos).arg(ceil(  ol2 / 10000.0 ) * item->doc()->typographicSettings.valueBaselineGrid + item->doc()->typographicSettings.offsetBaselineGrid - by);
 
-	return ceil(  ol2 / 10000.0 ) * item->doc()->guidesPrefs().valueBaselineGrid + item->doc()->guidesPrefs().offsetBaselineGrid - by;
+	return ceil(ol2 / 10000.0) * item->doc()->guidesPrefs().valueBaselineGrid + item->doc()->guidesPrefs().offsetBaselineGrid - by;
 }
 
 static double nextAutoTab (const LineControl &current, PageItem *item)
@@ -1723,9 +1723,9 @@ void PageItem_TextFrame::layout()
 							double by = m_yPos;
 							if (OwnPage != -1)
 								by = m_yPos - m_Doc->Pages->at(OwnPage)->yOffset();
-							int ol1 = qRound((by + current.yPos - m_Doc->guidesPrefs().offsetBaselineGrid) * 10000.0);
-							int ol2 = static_cast<int>(ol1 / m_Doc->guidesPrefs().valueBaselineGrid);
-							current.yPos = ceil(  ol2 / 10000.0 ) * m_Doc->guidesPrefs().valueBaselineGrid + m_Doc->guidesPrefs().offsetBaselineGrid - by;
+							qint64 ol1 = qRound64((by + current.yPos - m_Doc->guidesPrefs().offsetBaselineGrid) * 10000.0);
+							qint64 ol2 = static_cast<qint64>(ol1 / m_Doc->guidesPrefs().valueBaselineGrid);
+							current.yPos = ceil(ol2 / 10000.0) * m_Doc->guidesPrefs().valueBaselineGrid + m_Doc->guidesPrefs().offsetBaselineGrid - by;
 						}
 						else if (style.lineSpacingMode() != ParagraphStyle::BaselineGridLineSpacing)
 						{
@@ -1750,9 +1750,9 @@ void PageItem_TextFrame::layout()
 							double by = m_yPos;
 							if (OwnPage != -1)
 								by = m_yPos - m_Doc->Pages->at(OwnPage)->yOffset();
-							int ol1 = qRound((by + current.yPos - m_Doc->guidesPrefs().offsetBaselineGrid) * 10000.0);
-							int ol2 = static_cast<int>(ol1 / m_Doc->guidesPrefs().valueBaselineGrid);
-							current.yPos = ceil(  ol2 / 10000.0 ) * m_Doc->guidesPrefs().valueBaselineGrid + m_Doc->guidesPrefs().offsetBaselineGrid - by;
+							qint64 ol1 = qRound64((by + current.yPos - m_Doc->guidesPrefs().offsetBaselineGrid) * 10000.0);
+							qint64 ol2 = static_cast<qint64>(ol1 / m_Doc->guidesPrefs().valueBaselineGrid);
+							current.yPos = ceil(ol2 / 10000.0) * m_Doc->guidesPrefs().valueBaselineGrid + m_Doc->guidesPrefs().offsetBaselineGrid - by;
 						}
 						else
 							current.yPos += style.lineSpacing();
@@ -1896,9 +1896,9 @@ void PageItem_TextFrame::layout()
 							double by = m_yPos;
 							if (OwnPage != -1)
 								by = m_yPos - m_Doc->Pages->at(OwnPage)->yOffset();
-							int ol1 = qRound((by + current.yPos - m_Doc->guidesPrefs().offsetBaselineGrid) * 10000.0);
-							int ol2 = static_cast<int>(ol1 / m_Doc->guidesPrefs().valueBaselineGrid);
-							current.yPos = ceil(  ol2 / 10000.0 ) * m_Doc->guidesPrefs().valueBaselineGrid + m_Doc->guidesPrefs().offsetBaselineGrid - by;
+							qint64 ol1 = qRound64((by + current.yPos - m_Doc->guidesPrefs().offsetBaselineGrid) * 10000.0);
+							qint64 ol2 = static_cast<qint64>(ol1 / m_Doc->guidesPrefs().valueBaselineGrid);
+							current.yPos = ceil(ol2 / 10000.0) * m_Doc->guidesPrefs().valueBaselineGrid + m_Doc->guidesPrefs().offsetBaselineGrid - by;
 						}
 						else if (style.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
 							current.yPos += (current.startOfCol ? 1 : style.lineSpacing());
