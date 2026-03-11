@@ -71,11 +71,17 @@ void ColorSetManager::initialiseDefaultPrefs(struct ApplicationPrefs& appPrefs)
 			while (!node.isNull())
 			{
 				QDomElement pg = node.toElement();
-				if (pg.tagName() == "COLOR" && pg.attribute("NAME") != CommonStrings::None)
+				if ((pg.tagName() == "COLOR" && pg.attribute("NAME") != CommonStrings::None) ||
+					(pg.tagName() == "Color" && pg.attribute("Name") != CommonStrings::None)
+					)
 				{
-					if (pg.hasAttribute("SPACE"))
+					if (pg.hasAttribute("SPACE") || pg.hasAttribute("Space"))
 					{
-						QString space = pg.attribute("SPACE");
+						QString space;
+						if (pg.hasAttribute("SPACE"))
+							space = pg.attribute("SPACE");
+						else
+							space = pg.attribute("Space");
 						if (space == "CMYK")
 						{
 							double c = pg.attribute("C", "0").toDouble() / 100.0;
@@ -301,7 +307,7 @@ bool ColorSetManager::checkPaletteFormat(const QString& paletteFileName) const
 #endif
 	f.close();
 	QDomElement elem = docu.documentElement();
-	return elem.tagName() == "SCRIBUSCOLORS";
+	return (elem.tagName() == "SCRIBUSCOLORS" || elem.tagName() == "ScribusColors");
 }
 
 bool ColorSetManager::loadPalette(const QString& paletteFileName, ScribusDoc *doc, ColorList &colors, QHash<QString,VGradient> &gradients, QHash<QString, ScPattern> &patterns, bool merge)
