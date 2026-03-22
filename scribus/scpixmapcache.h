@@ -12,19 +12,10 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 
 template <typename T>
-class ScPixmapCache : public QMap<T, QPixmap*>
+class ScPixmapCache : public QMap<T, QPixmap>
 {
 public:
-	ScPixmapCache() {};
-	~ScPixmapCache();
-};
-
-template <typename T>
-ScPixmapCache<T>::~ScPixmapCache()
-{
-	auto itEnd = this->end();
-	for (auto it = this->begin(); it != itEnd; it++)
-		delete (it.value());
+	ScPixmapCache() = default;
 };
 
 #endif

@@ -325,8 +325,8 @@ void PropertiesPalette_Table::updateBorderLineList()
 		QString text = QString(" %1%2 %3").arg(borderLine.width()).arg(borderLineWidth->suffix(), CommonStrings::translatePenStyleName(borderLine.style()));
 		if (borderLine.color() != CommonStrings::None)
 		{
-			QPixmap *icon = getWidePixmap(getColor(borderLine.color(), borderLine.shade()));
-			borderLineList->addItem(new QListWidgetItem(*icon, text, borderLineList));
+			QPixmap icon = getWidePixmap(getColor(borderLine.color(), borderLine.shade()));
+			borderLineList->addItem(new QListWidgetItem(icon, text, borderLineList));
 		}
 		else
 			borderLineList->addItem(new QListWidgetItem(text, borderLineList));
@@ -359,8 +359,8 @@ void PropertiesPalette_Table::updateBorderLineListItem()
 	QString text = QString(" %1%2 %3").arg(borderLineWidth->getValue()).arg(borderLineWidth->suffix(), CommonStrings::translatePenStyleName(static_cast<Qt::PenStyle>(borderLineStyle->currentIndex() + 1)));
 	if (borderLineColor->currentColor() != CommonStrings::None)
 	{
-		QPixmap *icon = getWidePixmap(getColor(borderLineColor->currentColor(), borderLineShade->value()));
-		item->setIcon(*icon);
+		QPixmap icon = getWidePixmap(getColor(borderLineColor->currentColor(), borderLineShade->value()));
+		item->setIcon(icon);
 	}
 	item->setText(text);
 }

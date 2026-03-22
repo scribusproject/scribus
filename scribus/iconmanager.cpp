@@ -188,25 +188,25 @@ QIcon IconManager::loadIcon(const QString& name, bool forceUseColor)
 QPixmap IconManager::loadPixmap(const QString& name, bool forceUseColor, bool rtlFlip)
 {
 	if (m_pxCache.contains(name))
-		return *m_pxCache[name];
+		return m_pxCache[name];
 
 	QString iconFilePath(pathForIcon(name));
-	QPixmap *pm = new QPixmap();
-	pm->load(iconFilePath);
-	if (pm->isNull())
+	QPixmap pm;
+	pm.load(iconFilePath);
+	if (pm.isNull())
 		qWarning("Unable to load icon %s: Got null pixmap", iconFilePath.toLatin1().constData());
 //	else
 //		qDebug()<<"Successful icon load from"<<iconFilePath;
 	if (PrefsManager::instance().appPrefs.uiPrefs.grayscaleIcons && !forceUseColor)
-		iconToGrayscale(pm);
+		iconToGrayscale(&pm);
 	if (rtlFlip)
 	{
 		QTransform t;
 		t.rotate(180);
-		*pm = pm->transformed(t);
+		pm = pm.transformed(t);
 	}
 	m_pxCache.insert(name, pm);
-	return *pm;
+	return pm;
 }
 
 void IconManager::iconToGrayscale(QPixmap* pm) const

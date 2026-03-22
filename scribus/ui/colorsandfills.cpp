@@ -296,8 +296,8 @@ QTreeWidgetItem* ColorsAndFillsDialog::updateColorList(const QString& addedName)
 			item->setText(0, itc.value());
 			if (itc.value() == addedName)
 				ret = item;
-			QPixmap* pPixmap = getFancyPixmap(color, m_doc);
-			item->setIcon(0, *pPixmap);
+			QPixmap pixmap = getFancyPixmap(color, m_doc);
+			item->setIcon(0, pixmap);
 			item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 			item->setData(0, Qt::ToolTipRole, getColorTooltip(color));
 		}
@@ -311,8 +311,8 @@ QTreeWidgetItem* ColorsAndFillsDialog::updateColorList(const QString& addedName)
 			item->setText(0, it.key());
 			if (it.key() == addedName)
 				ret = item;
-			QPixmap* pPixmap = getFancyPixmap(color, m_doc);
-			item->setIcon(0, *pPixmap);
+			QPixmap pixmap = getFancyPixmap(color, m_doc);
+			item->setIcon(0, pixmap);
 			item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 			item->setData(0, Qt::ToolTipRole, getColorTooltip(color));
 		}

@@ -25,9 +25,9 @@ QColor SCRIBUS_API SetColor(const ScribusDoc *currentDoc, const QString& color, 
 \param col Scribus color
 \retval QPixmap image with various icons depending on the col properties.
  */
-QPixmap SCRIBUS_API *getSmallPixmap(const QColor& rgb);
-QPixmap SCRIBUS_API *getWidePixmap(const QColor& rgb);
-QPixmap SCRIBUS_API *getFancyPixmap(const ScColor& col, const ScribusDoc* doc);
+QPixmap SCRIBUS_API getSmallPixmap(const QColor& rgb);
+QPixmap SCRIBUS_API getWidePixmap(const QColor& rgb);
+QPixmap SCRIBUS_API getFancyPixmap(const ScColor& col, const ScribusDoc* doc);
 
 /*! \brief Put toPaint pixmap into target at the x, y place.
 There is handled the alpha channel/transparency too. In the beginning

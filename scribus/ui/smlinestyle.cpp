@@ -618,7 +618,7 @@ void SMLineStyle::slotAddLine()
 
 void SMLineStyle::rebuildList()
 {
-	QPixmap * pm2;
+	QPixmap pm2;
 	QString tmp, tmp2;
 	
 	int decimals = m_widget->lineWidth->decimals();
@@ -634,7 +634,7 @@ void SMLineStyle::rebuildList()
 		tmp2 = " "+ tmp.setNum(it->Width * unitRatio, 'f', decimals) + unitSuffix + " ";
 		if (it->Dash < 6)
 			tmp2 += CommonStrings::translatePenStyleName(static_cast<Qt::PenStyle>(it->Dash)) + " ";
-		m_widget->lineStyles->addItem(new QListWidgetItem(*pm2, tmp2, m_widget->lineStyles));
+		m_widget->lineStyles->addItem(new QListWidgetItem(pm2, tmp2, m_widget->lineStyles));
 	}
 }
 
@@ -686,19 +686,19 @@ void SMLineStyle::updateSList()
 	double  unitRatio = m_widget->lineWidth->unitRatio();
 	QString unitSuffix = m_widget->lineWidth->suffix();
 	
-	const QPixmap* pm = getWidePixmap(calcFarbe(singleLine.Color, singleLine.Shade));
+	const QPixmap pm = getWidePixmap(calcFarbe(singleLine.Color, singleLine.Shade));
 	QString tmp = " " + QString::number(singleLine.Width * unitRatio, 'f', decimals) + unitSuffix + " ";
 	if (singleLine.Dash < 6)
 		tmp += CommonStrings::translatePenStyleName(static_cast<Qt::PenStyle>(singleLine.Dash)) + " ";
 	if (m_widget->lineStyles->count() == 1)  // to avoid Bug in Qt-3.1.2
 	{
 		m_widget->lineStyles->clear();
-		m_widget->lineStyles->addItem(new QListWidgetItem(*pm, tmp, m_widget->lineStyles));
+		m_widget->lineStyles->addItem(new QListWidgetItem(pm, tmp, m_widget->lineStyles));
 	}
 	else
 	{
 		QListWidgetItem *lwItem = m_widget->lineStyles->item(m_currentLine);
-		lwItem->setIcon(*pm);
+		lwItem->setIcon(pm);
 		lwItem->setText(tmp);
 	}
 }

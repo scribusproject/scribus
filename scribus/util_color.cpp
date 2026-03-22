@@ -157,7 +157,7 @@ QColor SetColor(const ScribusDoc *currentDoc, const QString& color, int shad)
  * QPixmaps are really slow with Qt/Mac 3.3.4. Really, *really*, slow.
  * So we better cache them.
  */
-QPixmap * getSmallPixmap(const QColor& rgb)
+QPixmap getSmallPixmap(const QColor& rgb)
 {
 	static ScPixmapCache<QRgb> pxCache;
 
@@ -165,10 +165,10 @@ QPixmap * getSmallPixmap(const QColor& rgb)
 	if (pxCache.contains(index))
 		return pxCache[index];
 
-	auto *pm = new QPixmap(15, 15);
-	pm->fill(rgb);
+	QPixmap pm(15, 15);
+	pm.fill(rgb);
 	QPainter p;
-	p.begin(pm);
+	p.begin(&pm);
 	p.setBrush(Qt::NoBrush);
 	QPen b(Qt::black, 1);
 	p.setPen(b);
@@ -178,7 +178,7 @@ QPixmap * getSmallPixmap(const QColor& rgb)
 	return pm;
 }
 
-QPixmap * getWidePixmap(const QColor& rgb)
+QPixmap getWidePixmap(const QColor& rgb)
 {
 	static ScPixmapCache<QRgb> pxCache;
 
@@ -186,8 +186,8 @@ QPixmap * getWidePixmap(const QColor& rgb)
 	if (pxCache.contains(index))
 		return pxCache[index];
 
-	auto *pm = new QPixmap(30, 15);
-	pm->fill(rgb);
+	QPixmap pm(30, 15);
+	pm.fill(rgb);
 	pxCache.insert(index, pm);
 	return pm;
 }
@@ -243,7 +243,7 @@ static quint64 code64(const ScColor & col)
 	return result;
 }
 
-QPixmap * getFancyPixmap(const ScColor& col, const ScribusDoc* doc)
+QPixmap getFancyPixmap(const ScColor& col, const ScribusDoc* doc)
 {
 	static ScPixmapCache<quint64> pxCache;
 
@@ -271,22 +271,22 @@ QPixmap * getFancyPixmap(const ScColor& col, const ScribusDoc* doc)
 	if (pxCache.contains(res))
 		return pxCache[res];
 
-	QPixmap *pa = new QPixmap(60, 15);
-	QPixmap *pm = getSmallPixmap(ScColorEngine::getDisplayColor(col, doc));
-	pa->fill(Qt::transparent);
-	paintAlert(*pm, *pa, 0, 0);
+	QPixmap pa(60, 15);
+	QPixmap pm = getSmallPixmap(ScColorEngine::getDisplayColor(col, doc));
+	pa.fill(Qt::transparent);
+	paintAlert(pm, pa, 0, 0);
 	if (ScColorEngine::isOutOfGamut(col, doc))
-		paintAlert(alertIcon, *pa, 15, 0);
+		paintAlert(alertIcon, pa, 15, 0);
 	if (col.getColorModel() == colorModelCMYK)   // || (col.isSpotColor()))
-		paintAlert(cmykIcon, *pa, 30, 0);
+		paintAlert(cmykIcon, pa, 30, 0);
 	else if (col.getColorModel() == colorModelRGB)
-		paintAlert(rgbIcon, *pa, 30, 0);
+		paintAlert(rgbIcon, pa, 30, 0);
 	else if (col.getColorModel() == colorModelLab)
-		paintAlert(labIcon, *pa, 30, 0);
+		paintAlert(labIcon, pa, 30, 0);
 	if (col.isSpotColor())
-		paintAlert(spotIcon, *pa, 46, 2);
+		paintAlert(spotIcon, pa, 46, 2);
 	if (col.isRegistrationColor())
-		paintAlert(regIcon, *pa, 45, 0);
+		paintAlert(regIcon, pa, 45, 0);
 	pxCache.insert(res, pa);
 	return pa;
 }
