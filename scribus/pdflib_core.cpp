@@ -2307,9 +2307,9 @@ PdfId PDFLibCore::PDF_EmbedFontObject(const QString& name, ScFace& face)
 
 void PDFLibCore::PDF_Begin_WriteUsedFonts(const QMap<QString, QMap<uint, QString> >& usedFonts)
 {
-	qDebug() << "embed list:" << QStringList(Options.EmbedList).join(", ");
-	qDebug() << "subset list:" << QStringList(Options.SubsetList).join(", ");
-	qDebug() << "outline list:" << QStringList(Options.OutlineList).join(", ");
+	//qDebug() << "embed list:" << QStringList(Options.EmbedList).join(", ");
+	//qDebug() << "subset list:" << QStringList(Options.SubsetList).join(", ");
+	//qDebug() << "outline list:" << QStringList(Options.OutlineList).join(", ");
 
 	SCFonts& allFonts = PrefsManager::instance().appPrefs.fontPrefs.AvailFonts;
 	bool docUseAnnotations = doc.useAnnotations();
@@ -2336,7 +2336,7 @@ void PDFLibCore::PDF_Begin_WriteUsedFonts(const QMap<QString, QMap<uint, QString
 		if (usedGlyphs.count() <= 0)
 			continue;
 		
-		qDebug() << "pdf font" << it.key();
+		//qDebug() << "pdf font" << it.key();
 		if (Options.OutlineList.contains(it.key()))
 		{
 			pdfFont = PDF_WriteGlyphsAsXForms(fontName, face, usedGlyphs);
@@ -2408,7 +2408,7 @@ void PDFLibCore::PDF_Begin_WriteUsedFonts(const QMap<QString, QMap<uint, QString
 			default:
 				meth = "?"; break;
 		}
-		qDebug() << pdfFont.name << "uses method" << meth << "and encoding" << pdfFont.encoding;
+		//qDebug() << pdfFont.name << "uses method" << meth << "and encoding" << pdfFont.encoding;
 		UsedFontsP.insert(it.key(), pdfFont);
 	}
 
