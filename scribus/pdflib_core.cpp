@@ -151,7 +151,10 @@ public:
 		if (firstUse || (strokeWidth != prevState.strokeWidth))
 		{
 			if (strokeWidth >= 0)
+			{
+				result += "[] 0 d\n";
 				result += FToStr(strokeWidth) + " w\n";
+			}
 		}
 
 		if (firstUse || (renderingMode != prevState.renderingMode))
