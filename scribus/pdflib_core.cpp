@@ -511,7 +511,7 @@ public:
 		m_pathBuffer += "q\n";
 		m_pathBuffer += transformToStr(transform) + " cm\n";
 		m_pathBuffer += m_pdf->putColor(strokeColor().color, strokeColor().shade, false);
-		m_pathBuffer += FToStr(strokeWidth()) + " w\n";
+		m_pathBuffer += FToStr(strokeWidth()) + " w\n[] 0 d\n";
 		m_pathBuffer += FToStr(start.x()) + " " + FToStr(-start.y()) + " m\n";
 		m_pathBuffer += FToStr(end.x()) + " " + FToStr(-end.y()) + " l\n";
 		m_pathBuffer += "S\n";
