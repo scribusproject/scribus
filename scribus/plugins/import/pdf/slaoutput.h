@@ -142,7 +142,11 @@ public:
 	void stroke(GfxState *state) override;
 	void eoFill(GfxState *state) override;
 	void fill(GfxState *state) override;
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 04, 0)
+	void drawString(GfxState* state, const std::string& s) override;
+#else
 	void drawString(GfxState *state, const GooString *s) override;
+#endif
 
 	QString currColorText;
 	QString currColorFill;

@@ -125,7 +125,10 @@ LinkImportData::LinkImportData(Object *actionObj)
 		return;
 
 	Object obj3 = getFileSpecNameForPlatform(&obj1);
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 01, 0)
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 04, 0)
+	if (!obj3.isNull())
+		fileName.reset(new GooString(obj3.getString()));
+#elif POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 01, 0)
 	if (!obj3.isNull())
 		fileName = obj3.getString()->copy();
 #else
@@ -161,7 +164,11 @@ void AnoOutputDev::stroke(GfxState *state)
 	currColorStroke = getColor(state->getStrokeColorSpace(), state->getStrokeColor(), &shade);
 }
 
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 04, 0)
+void AnoOutputDev::drawString(GfxState* state, const std::string& s)
+#else
 void AnoOutputDev::drawString(GfxState *state, const GooString *s)
+#endif
 {
 	int shade = 100;
 	currColorText = getColor(state->getFillColorSpace(), state->getFillColor(), &shade);
@@ -173,7 +180,9 @@ void AnoOutputDev::drawString(GfxState *state, const GooString *s)
 	if (state->getFont())
 		fontName.reset(state->getFont()->getName()->copy());
 #endif
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 01, 0)
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 04, 0)
+	itemText.reset(new GooString(s));
+#elif POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 01, 0)
 	itemText = s->copy();
 #else
 	itemText.reset(s->copy());
@@ -2946,8 +2955,13 @@ void SlaOutputDev::beginMarkedContent(const char *name, Dict *properties)
 				return;
 			QString lName = QString("Layer_%1").arg(m_layerNum + 1);
 			Object obj = properties->lookup("Title");
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 04, 0)
+			if (obj.isString())
+				lName = QString(obj.getString().c_str());
+#else
 			if (obj.isString())
 				lName = QString(obj.getString()->c_str());
+#endif
 			for (const auto& layer : m_doc->Layers)
 			{
 				if (layer.Name == lName)
