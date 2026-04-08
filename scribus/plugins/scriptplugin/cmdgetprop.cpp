@@ -325,6 +325,22 @@ PyObject *scribus_getimagescale(PyObject* /* self */, PyObject* args)
 	return Py_BuildValue("(ff)", item->imageXScale() / 72.0 * item->pixm.imgInfo.xres, item->imageYScale() / 72.0 * item->pixm.imgInfo.yres);
 }
 
+PyObject *scribus_getimagerotation(PyObject* /* self */, PyObject* args)
+{
+	PyESString name;
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	if (item == nullptr)
+		return nullptr;
+	double rrR = item->imageRotation();
+	if (item->imageRotation() > 0)
+		rrR = 360 - rrR;
+	return PyFloat_FromDouble(rrR);
+}
+
 PyObject *scribus_getimagefile(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;

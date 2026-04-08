@@ -132,6 +132,48 @@ PyObject *scribus_setimagescale(PyObject* /* self */, PyObject* args)
 
 	Py_RETURN_NONE;
 }
+
+PyObject *scribus_setimagerotation(PyObject* /* self */, PyObject* args)
+{
+	PyESString name;
+	double deg;
+	if (!PyArg_ParseTuple(args, "d|es", &deg, "utf-8", name.ptr()))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	if (item == nullptr)
+		return nullptr;
+	if (!item->isImageFrame())
+	{
+		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error").toUtf8().constData());
+		return nullptr;
+	}
+
+	// Grab the old selection - but use it only where is there any
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	ScribusView* currentView = ScCore->primaryMainWindow()->view;
+	Selection tempSelection(*currentDoc->m_Selection);
+	bool hadOrigSelection = !tempSelection.isEmpty();
+
+	currentDoc->m_Selection->clear();
+	// Clear the selection
+	currentView->deselectItems();
+	// Select the item, which will also select its group if
+	// there is one.
+	currentView->selectItem(item);
+
+	currentDoc->itemSelection_SetImageRotation(360 - deg);
+	currentDoc->updatePic();
+
+	// Now restore the selection.
+	currentView->deselectItems();
+	if (hadOrigSelection)
+		*currentDoc->m_Selection = tempSelection;
+
+	Py_RETURN_NONE;
+}
+
 PyObject *scribus_setimageoffset(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
