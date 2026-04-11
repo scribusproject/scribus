@@ -1,3 +1,17 @@
+Scribus - 1.6.6 (Released 2026-04-12)
+=========================================
+https://bugs.scribus.net/changelog_page.php?version_id=130
+
+ 0017790: [Scripter]  Add get/setImageRotation to Scripter (cbradney)
+ 0017773: [Graphics / Image Frames]  Lost image links after collect for output (jghali)
+ 0017788: [General]  Failure to build with poppler 26.04.0 (jghali)
+ 0017782: [General]  Failure to build with poppler 26.03.0 (jghali)
+ 0017760: [Import / Export]  MS Publisher import needs more development: Image scaling (cbradney)
+ 0017752: [Plug-ins]  Fix bad escape sequences in Python docstring (jghali)
+ 0017740: [General]  Failure to build with poppler 26.02.0 (jghali)
+ 0017737: [Plug-ins]  Color wheel doesn't move to correct color (jghali)
+ 0017731: [PDF]  Scribus crashes due to umlaut composition in file names of embedded PDF documents (jghali)
+
 Scribus - 1.6.5 (Released 2025-12-14)
 =========================================
 https://bugs.scribus.net/changelog_page.php?version_id=128
