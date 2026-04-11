@@ -11,7 +11,7 @@
     <message>
         <location filename="../../scribus/plugins/import/ai/importai.cpp" line="340"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished"></translation>
+        <translation>सञ्चिका का विश्लेषण हो रहा है:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/ai/importai.cpp" line="2334"/>
@@ -21,7 +21,7 @@
     <message>
         <location filename="../../scribus/plugins/import/ai/importai.cpp" line="3436"/>
         <source>Generating Items</source>
-        <translation type="unfinished"></translation>
+        <translation>वस्तुएँ उत्पन्न हो रही</translation>
     </message>
 </context>
 <context>
@@ -39,22 +39,22 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="151"/>
         <source>A&amp;uthors</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;लेखक</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="161"/>
         <source>&amp;Translations</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;अनुवाद</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="172"/>
         <source>&amp;Online</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;ऑनलाईन</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="209"/>
         <source>&amp;Build Information</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;निर्माण जानकारी</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="225"/>
@@ -79,7 +79,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="265"/>
         <source>Official Documentation:</source>
-        <translation type="unfinished"></translation>
+        <translation>आधिकारिक दस्तावेज़</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="269"/>
@@ -99,7 +99,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="309"/>
         <source>Homepage</source>
-        <translation type="unfinished"></translation>
+        <translation>मुख्यपृष्ठ</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="311"/>
@@ -134,12 +134,12 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="668"/>
         <source>Build ID: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>निर्माण क्रमांक : %1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="675"/>
         <source>Built: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>निर्मित :%1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="678"/>
@@ -189,7 +189,7 @@
     <message>
         <location filename="../../scribus/ui/about.cpp" line="105"/>
         <source>About Scribus %1</source>
-        <translation type="unfinished"></translation>
+        <translation>स्क्राइबस के बारे में %1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/about.cpp" line="313"/>
@@ -309,27 +309,27 @@
     <message>
         <location filename="../../scribus/ui/aboutplugins.cpp" line="70"/>
         <source>Filename:</source>
-        <translation type="unfinished"></translation>
+        <translation>सञ्चिका नाम :</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aboutplugins.cpp" line="71"/>
         <source>Version:</source>
-        <translation type="unfinished"></translation>
+        <translation>संस्करण :</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aboutplugins.cpp" line="76"/>
         <source>Release Date:</source>
-        <translation type="unfinished"></translation>
+        <translation>विमोचन दिनांक :</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aboutplugins.cpp" line="83"/>
         <source>Description:</source>
-        <translation type="unfinished"></translation>
+        <translation>विवरण :</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aboutplugins.cpp" line="84"/>
         <source>Author(s):</source>
-        <translation type="unfinished"></translation>
+        <translation>लेखक :</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/aboutplugins.cpp" line="85"/>
@@ -357,7 +357,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1503"/>
         <source>&amp;Open...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;खोलो..</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1504"/>
@@ -367,12 +367,12 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1505"/>
         <source>&amp;Save</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;संरक्षित</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1506"/>
         <source>Save &amp;As...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;संरक्षण करे ...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1507"/>
@@ -417,7 +417,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1521"/>
         <source>&amp;Print...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;छापे</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1525"/>
@@ -3080,7 +3080,7 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="205"/>
         <source>Version:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">संस्करण :</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="251"/>
@@ -4035,7 +4035,7 @@ Click to link to existing text frame or auto-create new linked text frame</sourc
     <message>
         <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="134"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">सञ्चिका का विश्लेषण हो रहा है:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/cdr/importcdr.cpp" line="363"/>
@@ -4056,12 +4056,12 @@ Document Liberation Project https://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="180"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">सञ्चिका का विश्लेषण हो रहा है:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/cgm/importcgm.cpp" line="415"/>
         <source>Generating Items</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">वस्तुएँ उत्पन्न हो रही</translation>
     </message>
 </context>
 <context>
@@ -5282,7 +5282,7 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="307"/>
         <source>&amp;Save</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;संरक्षित</translation>
     </message>
     <message>
         <location filename="../../scribus/commonstrings.cpp" line="310"/>
@@ -6514,12 +6514,12 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="141"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">सञ्चिका का विश्लेषण हो रहा है:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/cvg/importcvg.cpp" line="331"/>
         <source>Generating Items</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">वस्तुएँ उत्पन्न हो रही</translation>
     </message>
 </context>
 <context>
@@ -6767,12 +6767,12 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="153"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">सञ्चिका का विश्लेषण हो रहा है:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/drw/importdrw.cpp" line="346"/>
         <source>Generating Items</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">वस्तुएँ उत्पन्न हो रही</translation>
     </message>
 </context>
 <context>
@@ -6797,7 +6797,7 @@ failed!</source>
     <message>
         <location filename="../../scribus/plugins/import/ps/importps.cpp" line="439"/>
         <source>Generating Items</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">वस्तुएँ उत्पन्न हो रही</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/ps/importps.cpp" line="92"/>
@@ -6843,12 +6843,12 @@ failed!</source>
     <message>
         <location filename="../../scribus/ui/editor.cpp" line="47"/>
         <source>&amp;Open...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;खोलो..</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/editor.cpp" line="49"/>
         <source>Save &amp;As...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;संरक्षण करे ...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/editor.cpp" line="51"/>
@@ -7189,12 +7189,12 @@ failed!</source>
     <message>
         <location filename="../../scribus/plugins/import/emf/importemf.cpp" line="548"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">सञ्चिका का विश्लेषण हो रहा है:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/emf/importemf.cpp" line="1017"/>
         <source>Generating Items</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">वस्तुएँ उत्पन्न हो रही</translation>
     </message>
 </context>
 <context>
@@ -7679,7 +7679,7 @@ a range of pages or a single page number</source>
     <message>
         <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="141"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">सञ्चिका का विश्लेषण हो रहा है:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/fh/importfh.cpp" line="334"/>
@@ -8511,7 +8511,7 @@ Document Liberation Project https://www.documentliberation.org</source>
         <location filename="../../scribus/ui/helpbrowser.ui" line="47"/>
         <location filename="../../scribus/ui/helpbrowser.cpp" line="344"/>
         <source>&amp;Print...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;छापे</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/helpbrowser.cpp" line="340"/>
@@ -8765,12 +8765,12 @@ Ignore List</source>
     <message>
         <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="314"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">सञ्चिका का विश्लेषण हो रहा है:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/idml/importidml.cpp" line="515"/>
         <source>Generating Items</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">वस्तुएँ उत्पन्न हो रही</translation>
     </message>
 </context>
 <context>
@@ -8843,7 +8843,7 @@ Ignore List</source>
     <message>
         <location filename="../../scribus/ui/imageinfodialog.cpp" line="140"/>
         <source>Description:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">विवरण :</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/imageinfodialog.cpp" line="141"/>
@@ -12886,12 +12886,12 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/plugins/import/odg/importodg.cpp" line="154"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">सञ्चिका का विश्लेषण हो रहा है:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/odg/importodg.cpp" line="326"/>
         <source>Generating Items</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">वस्तुएँ उत्पन्न हो रही</translation>
     </message>
 </context>
 <context>
@@ -13381,7 +13381,7 @@ If no handle is selected all handles will be reset.</source>
     <message>
         <location filename="../../scribus/ui/pdfexportdialog.cpp" line="120"/>
         <source>&amp;Save</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;संरक्षित</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pdfexportdialog.cpp" line="245"/>
@@ -13429,68 +13429,68 @@ Please check it and try again.</source>
 <context>
     <name>PDFLibCore</name>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="591"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="594"/>
         <source>Saving PDF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="595"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="598"/>
         <source>Exporting Master Page:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="595"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="598"/>
         <source>Exporting Page:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="595"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="598"/>
         <source>Exporting Items on Current Page:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="653"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="656"/>
         <source>Qt build miss both &quot;UTF-16&quot; and &quot;ISO-10646-UCS-2&quot; text codecs, pdf export is not possible</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3486"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3489"/>
         <source>Page:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3496"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3499"/>
         <source>Date:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="10670"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="10673"/>
         <source>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11959"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11962"/>
         <source>Failed to load an image : %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11964"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11967"/>
         <source>Failed to write an image : %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11969"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11972"/>
         <source>Failed to load an image mask : %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11974"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11977"/>
         <source>Insufficient memory for processing an image</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11954"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11957"/>
         <source>A write error occurred, please check available disk space</source>
         <translation type="unfinished"></translation>
     </message>
@@ -14357,12 +14357,12 @@ Please disable experimental PDF and PS embedding and try again.</source>
     <message>
         <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="207"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">सञ्चिका का विश्लेषण हो रहा है:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pages/importpages.cpp" line="377"/>
         <source>Generating Items</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">वस्तुएँ उत्पन्न हो रही</translation>
     </message>
 </context>
 <context>
@@ -14879,12 +14879,12 @@ The result is a combination of &quot;Intersection&quot; and &quot;Exclusion&quot
     <message>
         <location filename="../../scribus/plugins/import/pct/importpct.cpp" line="144"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">सञ्चिका का विश्लेषण हो रहा है:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pct/importpct.cpp" line="434"/>
         <source>Generating Items</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">वस्तुएँ उत्पन्न हो रही</translation>
     </message>
 </context>
 <context>
@@ -14986,12 +14986,12 @@ Please check it and try again.</source>
     <message>
         <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="161"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">सञ्चिका का विश्लेषण हो रहा है:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="319"/>
         <source>Generating Items</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">वस्तुएँ उत्पन्न हो रही</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pdf/importpdf.cpp" line="346"/>
@@ -16438,7 +16438,7 @@ Please choose another one.</source>
     <message>
         <location filename="../../scribus/plugins/import/pm/importpm.cpp" line="134"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">सञ्चिका का विश्लेषण हो रहा है:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pm/importpm.cpp" line="327"/>
@@ -17049,7 +17049,7 @@ Do you want to migrate them to the new Scribus version?</source>
     <message>
         <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="111"/>
         <source>Description:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">विवरण :</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_documentinformationbase.ui" line="126"/>
@@ -24256,7 +24256,7 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <location filename="../../scribus/plugins/import/pub/importpub.cpp" line="137"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">सञ्चिका का विश्लेषण हो रहा है:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pub/importpub.cpp" line="334"/>
@@ -24273,13 +24273,13 @@ Document Liberation Project https://www.documentliberation.org</source>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="94"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/pconsole.ui" line="94"/>
         <source>&amp;Open...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;खोलो..</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="99"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/pconsole.ui" line="99"/>
         <source>&amp;Save</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;संरक्षित</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="72"/>
@@ -24339,7 +24339,7 @@ Document Liberation Project https://www.documentliberation.org</source>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="104"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/pconsole.ui" line="104"/>
         <source>Save &amp;As...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;संरक्षण करे ...</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/pconsole.ui" line="119"/>
@@ -24682,7 +24682,7 @@ Scripter documentation for further information. </source>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="49"/>
         <source>&amp;Save</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;संरक्षित</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="50"/>
@@ -28091,21 +28091,21 @@ External Links
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="464"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="480"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdgetprop.cpp" line="350"/>
         <source>page number is invalid.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="474"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="490"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdgetprop.cpp" line="360"/>
         <source>layer name is invalid.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="564"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="580"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdgetprop.cpp" line="444"/>
         <source>Page item must be an ImageFrame</source>
         <comment>python error</comment>
@@ -28246,7 +28246,7 @@ External Links
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="499"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="541"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="432"/>
         <source>Cannot scale by 0%.</source>
         <comment>python error</comment>
@@ -28255,11 +28255,12 @@ External Links
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="60"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="105"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="151"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="198"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="229"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="669"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="701"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="149"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="193"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="240"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="271"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="711"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="743"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="49"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="91"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="134"/>
@@ -29202,7 +29203,7 @@ External Links
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="1019"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="1021"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptplugin.cpp" line="945"/>
         <source>Scribus Python interface module
 
@@ -29322,21 +29323,21 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="419"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="461"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="358"/>
         <source>Need selection or argument list of items to group</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="451"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="493"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="390"/>
         <source>Cannot group less than two items</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="773"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="815"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="642"/>
         <source>Selection must contain only shapes or bezier curves.</source>
         <comment>python error</comment>
@@ -31492,7 +31493,7 @@ Please choose another.</source>
     <message>
         <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="140"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">सञ्चिका का विश्लेषण हो रहा है:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/qxp/importqxp.cpp" line="340"/>
@@ -31897,7 +31898,7 @@ Document Liberation Project https://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="98"/>
         <source>Description:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">विवरण :</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/saveastemplateplugin/satdialog.ui" line="111"/>
@@ -35594,7 +35595,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="658"/>
         <source>Homepage</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">मुख्यपृष्ठ</translation>
     </message>
     <message>
         <location filename="../../scribus/scribusapp.cpp" line="659"/>
@@ -35876,7 +35877,7 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="131"/>
         <source>&amp;Save</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;संरक्षित</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scripter/python/sceditor/mainwindow.ui" line="134"/>
@@ -36292,12 +36293,12 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="142"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">सञ्चिका का विश्लेषण हो रहा है:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="336"/>
         <source>Generating Items</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">वस्तुएँ उत्पन्न हो रही</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/shape/importshape.cpp" line="608"/>
@@ -36451,12 +36452,12 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/plugins/import/sml/importsml.cpp" line="139"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">सञ्चिका का विश्लेषण हो रहा है:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/sml/importsml.cpp" line="340"/>
         <source>Generating Items</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">वस्तुएँ उत्पन्न हो रही</translation>
     </message>
 </context>
 <context>
@@ -37109,12 +37110,12 @@ Consider using the Preflight Verifier to correct them</source>
     <message>
         <location filename="../../scribus/plugins/import/svm/importsvm.cpp" line="405"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">सञ्चिका का विश्लेषण हो रहा है:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/svm/importsvm.cpp" line="675"/>
         <source>Generating Items</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">वस्तुएँ उत्पन्न हो रही</translation>
     </message>
 </context>
 <context>
@@ -40543,12 +40544,12 @@ Would you like to start the system&apos;s default browser instead?</source>
     <message>
         <location filename="../../scribus/plugins/import/viva/importviva.cpp" line="218"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">सञ्चिका का विश्लेषण हो रहा है:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/viva/importviva.cpp" line="374"/>
         <source>Generating Items</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">वस्तुएँ उत्पन्न हो रही</translation>
     </message>
 </context>
 <context>
@@ -40561,7 +40562,7 @@ Would you like to start the system&apos;s default browser instead?</source>
     <message>
         <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="139"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">सञ्चिका का विश्लेषण हो रहा है:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/vsd/importvsd.cpp" line="338"/>
@@ -40610,7 +40611,7 @@ Document Liberation Project https://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/plugins/import/wpg/importwpg.cpp" line="498"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">सञ्चिका का विश्लेषण हो रहा है:</translation>
     </message>
 </context>
 <context>
@@ -40641,7 +40642,7 @@ Document Liberation Project https://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="257"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">सञ्चिका का विश्लेषण हो रहा है:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="3495"/>
@@ -40651,7 +40652,7 @@ Document Liberation Project https://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="525"/>
         <source>Generating Items</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">वस्तुएँ उत्पन्न हो रही</translation>
     </message>
 </context>
 <context>
@@ -40664,12 +40665,12 @@ Document Liberation Project https://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/plugins/import/xfig/importxfig.cpp" line="276"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">सञ्चिका का विश्लेषण हो रहा है:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/xfig/importxfig.cpp" line="1603"/>
         <source>Generating Items</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">वस्तुएँ उत्पन्न हो रही</translation>
     </message>
 </context>
 <context>
@@ -40715,12 +40716,12 @@ Document Liberation Project https://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/plugins/import/xps/importxps.cpp" line="219"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">सञ्चिका का विश्लेषण हो रहा है:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/xps/importxps.cpp" line="387"/>
         <source>Generating Items</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">वस्तुएँ उत्पन्न हो रही</translation>
     </message>
 </context>
 <context>
@@ -40824,7 +40825,7 @@ Document Liberation Project https://www.documentliberation.org</source>
     <message>
         <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="147"/>
         <source>Analyzing File:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">सञ्चिका का विश्लेषण हो रहा है:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/zmf/importzmf.cpp" line="334"/>

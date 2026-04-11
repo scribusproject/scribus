@@ -13477,69 +13477,69 @@ Veuillez le vérifier puis essayer à nouveau.</translation>
 <context>
     <name>PDFLibCore</name>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="591"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="594"/>
         <source>Saving PDF</source>
         <translation>Enregistrement en PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="595"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="598"/>
         <source>Exporting Master Page:</source>
         <translation>Export du gabarit :</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="595"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="598"/>
         <source>Exporting Page:</source>
         <translation>Export de la page :</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="595"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="598"/>
         <source>Exporting Items on Current Page:</source>
         <translation>Export des objets de la page courante :</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="653"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="656"/>
         <source>Qt build miss both &quot;UTF-16&quot; and &quot;ISO-10646-UCS-2&quot; text codecs, pdf export is not possible</source>
         <translation>Qt ne dispose pas des codecs &quot;UTF-16&quot; ou &quot;ISO-10646-UCS-2&quot;, l&apos;export PDF est impossible</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3486"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3489"/>
         <source>Page:</source>
         <translation>Page :</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3496"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3499"/>
         <source>Date:</source>
         <translation>Date :</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="10670"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="10673"/>
         <source>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</source>
         <translation>Échec d&apos;incorporation du fichier PDF : %1.
 Veuillez désactivez l&apos;option expérimentale d&apos;incorporation des fichiers PS et PDF, puis réessayer à nouveau.</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11959"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11962"/>
         <source>Failed to load an image : %1</source>
         <translation>Erreur lors du chargement d&apos;une image : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11964"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11967"/>
         <source>Failed to write an image : %1</source>
         <translation>Erreur lors de l&apos;écriture d&apos;une image : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11969"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11972"/>
         <source>Failed to load an image mask : %1</source>
         <translation>Erreur lors du chargement d&apos;un masque d&apos;image : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11974"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11977"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Mémoire insuffisante pour traiter une image</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11954"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11957"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>Une erreur d&apos;écriture s&apos;est produite, veuillez contrôler l&apos;espace disque disponible</translation>
     </message>
@@ -28177,21 +28177,21 @@ Liens externes
         <translation>Documents OpenOffice.org</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="464"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="480"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdgetprop.cpp" line="350"/>
         <source>page number is invalid.</source>
         <comment>python error</comment>
         <translation>Le numéro de page est invalide.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="474"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="490"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdgetprop.cpp" line="360"/>
         <source>layer name is invalid.</source>
         <comment>python error</comment>
         <translation>Le nom du calque est invalide.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="564"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="580"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdgetprop.cpp" line="444"/>
         <source>Page item must be an ImageFrame</source>
         <comment>python error</comment>
@@ -28332,7 +28332,7 @@ Liens externes
         <translation>Couleur introuvable dans les couleurs d&apos;origine.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="499"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="541"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="432"/>
         <source>Cannot scale by 0%.</source>
         <comment>python error</comment>
@@ -28341,11 +28341,12 @@ Liens externes
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="60"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="105"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="151"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="198"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="229"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="669"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="701"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="149"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="193"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="240"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="271"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="711"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="743"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="49"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="91"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="134"/>
@@ -29288,7 +29289,7 @@ Liens externes
         <translation>À propos du script</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="1019"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="1021"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptplugin.cpp" line="945"/>
         <source>Scribus Python interface module
 
@@ -29437,21 +29438,21 @@ est fourni dans la documentation de ladite fonction.
         <translation>Plantage de Scribus suite au signal #%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="419"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="461"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="358"/>
         <source>Need selection or argument list of items to group</source>
         <comment>python error</comment>
         <translation>Une sélection ou une liste d&apos;objets est requise pour grouper</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="451"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="493"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="390"/>
         <source>Cannot group less than two items</source>
         <comment>python error</comment>
         <translation>Impossible de grouper moins de deux objets</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="773"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="815"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="642"/>
         <source>Selection must contain only shapes or bezier curves.</source>
         <comment>python error</comment>

@@ -8237,17 +8237,17 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="994"/>
         <source>Snap to other Mesh Points</source>
-        <translation type="unfinished"></translation>
+        <translation>Fäst vid andra nätpunkter</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="1006"/>
         <source>Add Patch</source>
-        <translation type="unfinished"></translation>
+        <translation>Lägg till delområde</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/gradientvectorbase.ui" line="1019"/>
         <source>Remove Patch</source>
-        <translation type="unfinished"></translation>
+        <translation>Ta bort delområde</translation>
     </message>
 </context>
 <context>
@@ -13484,69 +13484,69 @@ Kontrollera det och försök igen.</translation>
 <context>
     <name>PDFLibCore</name>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="591"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="594"/>
         <source>Saving PDF</source>
         <translation>Sparar PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="595"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="598"/>
         <source>Exporting Master Page:</source>
         <translation>Exporterar mallsida:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="595"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="598"/>
         <source>Exporting Page:</source>
         <translation>Exporterar sida:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="595"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="598"/>
         <source>Exporting Items on Current Page:</source>
         <translation>Exportera objekt på aktuell sida:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="653"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="656"/>
         <source>Qt build miss both &quot;UTF-16&quot; and &quot;ISO-10646-UCS-2&quot; text codecs, pdf export is not possible</source>
         <translation>Qt build saknar både &quot;UTF-16&quot; och &quot;ISO-10646-UCS-2&quot; text codecs, pdf export är inte möjlig</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3486"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3489"/>
         <source>Page:</source>
         <translation>Sida:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="3496"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="3499"/>
         <source>Date:</source>
         <translation>Datum:</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="10670"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="10673"/>
         <source>Failed to embed the PDF file : %1.
 Please disable experimental PDF and PS embedding and try again.</source>
         <translation>Misslyckades med att bädda in PDF-filen: %1.
 Avaktivera experimentell PDF- och PS-inbäddning och försök igen.</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11959"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11962"/>
         <source>Failed to load an image : %1</source>
         <translation>Kunde inte läsa in en bild : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11964"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11967"/>
         <source>Failed to write an image : %1</source>
         <translation>Kunde inte skriva en bild : %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11969"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11972"/>
         <source>Failed to load an image mask : %1</source>
         <translation>Misslyckades med att läsa in en bildmask: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11974"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11977"/>
         <source>Insufficient memory for processing an image</source>
         <translation>Otillräckligt minne för bearbetning av en bild</translation>
     </message>
     <message>
-        <location filename="../../scribus/pdflib_core.cpp" line="11954"/>
+        <location filename="../../scribus/pdflib_core.cpp" line="11957"/>
         <source>A write error occurred, please check available disk space</source>
         <translation>Ett skrivfel inträffade, kontrollera tillgängligt diskutrymme</translation>
     </message>
@@ -18372,7 +18372,7 @@ Vill du använda detta?</translation>
         <location filename="../../scribus/ui/prefs_hyphenator.cpp" line="89"/>
         <location filename="../../scribus/ui/prefs_hyphenator.cpp" line="130"/>
         <source>Add a new Entry</source>
-        <translation type="unfinished"></translation>
+        <translation>Lägg till ny post</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_hyphenator.cpp" line="101"/>
@@ -20418,7 +20418,7 @@ Vill du använda detta?</translation>
     <message>
         <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="258"/>
         <source>Check for part filled image frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrollera delvis fyllda bildramar</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/prefs_preflightverifierbase.ui" line="230"/>
@@ -22640,7 +22640,8 @@ Släppskugga</translation>
         <location filename="../../scribus/ui/propertiespalette_shadow.cpp" line="287"/>
         <source>Inherit Object
 Transparency</source>
-        <translation type="unfinished"></translation>
+        <translation>Ärv objektets
+transparens</translation>
     </message>
 </context>
 <context>
@@ -22832,17 +22833,17 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="229"/>
         <source>Fill Rule:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fyllnadsregel:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="241"/>
         <source>Any path self-intersections or subpaths create holes in the fill (fill-rule: evenodd)</source>
-        <translation type="unfinished"></translation>
+        <translation>Alla vägkorsningar eller undervägar skapar hål i fyllnaden (fill-rule: evenodd)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_shapebase.ui" line="257"/>
         <source>Fill is solid unless a subpath is counterdirectional  (fill-rule: nonzero)</source>
-        <translation type="unfinished"></translation>
+        <translation>Fyllnaden är hel såvida inte en underväg går motsatt riktning (fill-rule: nonzero)</translation>
     </message>
 </context>
 <context>
@@ -22927,7 +22928,7 @@ Transparency</source>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="66"/>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="756"/>
         <source>First Line Offset</source>
-        <translation type="unfinished">Offset för första raden</translation>
+        <translation>Första radens förskjutning</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="79"/>
@@ -22967,12 +22968,12 @@ Transparency</source>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="91"/>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="763"/>
         <source>Font Features</source>
-        <translation type="unfinished">Typsnittsfunktioner</translation>
+        <translation>Typsnittsfunktioner</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="720"/>
         <source>remove direct paragraph formatting</source>
-        <translation type="unfinished">ta bort direkt styckeformatering</translation>
+        <translation>ta bort direkt styckeformatering</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="769"/>
@@ -22993,7 +22994,7 @@ Transparency</source>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="69"/>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="758"/>
         <source>Orphans and Widows</source>
-        <translation type="unfinished"></translation>
+        <translation>Ensamma rader</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_text.cpp" line="63"/>
@@ -23045,22 +23046,22 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="252"/>
         <source>Paragraph style of currently selected text or paragraph</source>
-        <translation type="unfinished"></translation>
+        <translation>Styckeformat för markerad text eller stycke</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="259"/>
         <source>Remove Direct Paragraph Formatting</source>
-        <translation type="unfinished"></translation>
+        <translation>Ta bort direkt styckeformatering</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="301"/>
         <source>Character style of currently selected text or paragraph</source>
-        <translation type="unfinished"></translation>
+        <translation>Teckenformat för markerad text eller stycke</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_textbase.ui" line="308"/>
         <source>Remove Direct Character Formatting</source>
-        <translation type="unfinished"></translation>
+        <translation>Ta bort direkt teckenformatering</translation>
     </message>
 </context>
 <context>
@@ -23331,7 +23332,7 @@ Transparency</source>
     <message>
         <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="172"/>
         <source>Word Tracking</source>
-        <translation type="unfinished"></translation>
+        <translation>Ordspärr</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertywidget_advancedbase.ui" line="179"/>
@@ -28196,21 +28197,21 @@ Externa länkar
         <translation>OpenOffice.org ordbehandlingsdokument</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="464"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="480"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdgetprop.cpp" line="350"/>
         <source>page number is invalid.</source>
         <comment>python error</comment>
         <translation>sidnumret är ogiltigt.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="474"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="490"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdgetprop.cpp" line="360"/>
         <source>layer name is invalid.</source>
         <comment>python error</comment>
         <translation>lagernamnet är ogiltigt.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="564"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="580"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdgetprop.cpp" line="444"/>
         <source>Page item must be an ImageFrame</source>
         <comment>python error</comment>
@@ -28351,7 +28352,7 @@ Externa länkar
         <translation>Färgen finns inte bland standardfärgerna.</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="499"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="541"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="432"/>
         <source>Cannot scale by 0%.</source>
         <comment>python error</comment>
@@ -28360,11 +28361,12 @@ Externa länkar
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="60"/>
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="105"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="151"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="198"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="229"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="669"/>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="701"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="149"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="193"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="240"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="271"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="711"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="743"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="49"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="91"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="134"/>
@@ -29307,7 +29309,7 @@ Externa länkar
         <translation>Om Skript</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="1019"/>
+        <location filename="../../scribus/plugins/scriptplugin/scriptplugin.cpp" line="1021"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/scriptplugin.cpp" line="945"/>
         <source>Scribus Python interface module
 
@@ -29457,21 +29459,21 @@ inte är uttömmande på grund av undantag från anropade funktioner.
         <translation>Scribus kraschar på grund av signal #%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="419"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="461"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="358"/>
         <source>Need selection or argument list of items to group</source>
         <comment>python error</comment>
         <translation>Behov av urval eller argumentlista över objekt att gruppera</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="451"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="493"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="390"/>
         <source>Cannot group less than two items</source>
         <comment>python error</comment>
         <translation>Kan inte gruppera färre än två objekt</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="773"/>
+        <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="815"/>
         <location filename="../../scribus/plugins/scriptplugin_py2x/cmdmani.cpp" line="642"/>
         <source>Selection must contain only shapes or bezier curves.</source>
         <comment>python error</comment>
@@ -32779,7 +32781,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="322"/>
         <source>Orphans and Widows</source>
-        <translation type="unfinished"></translation>
+        <translation>Ensamma rader</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="342"/>
@@ -36281,8 +36283,8 @@ Använd verifieraren (Preflight) för att korrigera dem</translation>
         <location filename="../../scribus/ui/search.cpp" line="886"/>
         <source>%n match(es) found</source>
         <translation>
-            <numerusform>%n matchning(ar) hittades</numerusform>
-            <numerusform>%n matchning(ar) hittades</numerusform>
+            <numerusform>%n matchning hittades</numerusform>
+            <numerusform>%n matchningar hittades</numerusform>
         </translation>
     </message>
     <message>
