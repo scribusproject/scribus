@@ -1712,10 +1712,14 @@
     <lrelease Include="..\..\..\resources\translations\scribus.el.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.en_AU.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.en_GB.ts" />
+    <lrelease Include="..\..\..\resources\translations\scribus.en_IN.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.en_US.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.eo.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.es_AR.ts" />
+    <lrelease Include="..\..\..\resources\translations\scribus.es_CO.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.es_ES.ts" />
+    <lrelease Include="..\..\..\resources\translations\scribus.es_MX.ts" />
+    <lrelease Include="..\..\..\resources\translations\scribus.es_VE.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.et.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.eu.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.fa_IR.ts" />
@@ -1741,6 +1745,7 @@
     <lrelease Include="..\..\..\resources\translations\scribus.nl.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.nn_NO.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.oc.ts" />
+    <lrelease Include="..\..\..\resources\translations\scribus.pa.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.pl_PL.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.pms.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.pt_BR.ts" />
@@ -1759,7 +1764,9 @@
     <lrelease Include="..\..\..\resources\translations\scribus.te.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.th_TH.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.tr.ts" />
+    <lrelease Include="..\..\..\resources\translations\scribus.tt.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.uk.ts" />
+    <lrelease Include="..\..\..\resources\translations\scribus.vec.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.zh_CN.ts" />
     <lrelease Include="..\..\..\resources\translations\scribus.zh_TW.ts" />
   </ItemGroup>
