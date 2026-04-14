@@ -2,7 +2,7 @@
 #define WINCONFIG_H
 
 /* Version number of package */
-#define VERSION "1.6.6"
+#define VERSION "1.6.7.svn"
 
 /* Are we building an executable to be included in MacOS/X .app bundle? */
 #undef BUILD_MAC_BUNDLE
