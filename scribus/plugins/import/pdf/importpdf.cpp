@@ -906,7 +906,7 @@ QString PdfPlug::UnicodeParsedString(const GooString *s1) const
 	if (!s1 || s1->empty())
 		return QString();
 	bool isUnicode;
-	int i;
+	size_t i;
 	Unicode u;
 	QString result;
 	if ((s1->getChar(0) & 0xff) == 0xfe && (s1->size() > 1 && (s1->getChar(1) & 0xff) == 0xff))
