@@ -21,4 +21,8 @@ for which a new license (GPL+exception) is in place.
 #define POPPLER_CONST_25_02
 #endif
 
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 5, 0)
+using SplashCoord = double;
+#endif
+
 #endif
