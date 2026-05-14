@@ -381,7 +381,7 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 			}
 		}
 
-		// #14523: harfbuzz proritize graphite for graphite enabled fonts, however
+		// #14523: harfbuzz prioritize graphite for graphite enabled fonts, however
 		// at the point, shaping with graphite fonts is either buggy (harfbuzz 1.4.2)
 		// or trigger weird results (harfbuzz 1.4.3), so disable graphite for now.
 		// Prevent also use of platform specific shapers for cross-platform reasons
