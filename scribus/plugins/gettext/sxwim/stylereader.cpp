@@ -480,11 +480,23 @@ void StyleReader::parse(const QString& fileName)
 {
 #if defined(_WIN32)
 	QString fname = QDir::toNativeSeparators(fileName);
-	QByteArray fn = (QSysInfo::WindowsVersion & QSysInfo::WV_NT_based) ? fname.toUtf8() : fname.toLocal8Bit();
+	QByteArray fn = fname.toUtf8();
 #else
 	QByteArray fn(fileName.toLocal8Bit());
 #endif
+
+#if LIBXML_VERSION >= 21100
+	xmlParserCtxtPtr xmlCtxt = xmlNewSAXParserCtxt(sSAXHandler, nullptr);
+	if (xmlCtxt)
+	{
+		xmlDocPtr xmlDoc = xmlCtxtReadFile(xmlCtxt, fn.data(), nullptr, XML_PARSE_RECOVER);
+		if (xmlDoc != nullptr)
+			xmlFreeDoc(xmlDoc);
+		xmlFreeParserCtxt(xmlCtxt);
+	}
+#else
 	xmlSAXParseFile(sSAXHandler, fn.data(), 1);
+#endif
 }
 
 gtStyle* StyleReader::getDefaultStyle()
