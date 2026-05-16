@@ -436,12 +436,13 @@ namespace sfnt {
 				name = sfnt::post_format10_names[nameIndex];
 			else if (nameIndex < pascalStrings.length() + sfnt::post_format10_names_count)
 				name = pascalStrings[nameIndex - sfnt::post_format10_names_count];
-			else {
+			if (name.isEmpty() || name[0] == QChar(0))
+			{
 				m_usable = false;
 				m_errorMsg = QString("missing name %1 for glyph %2").arg(nameIndex).arg(gid);
 				return;
 			}
-			if (name != ".notdef" && name[0] != QChar(0) && usedNames.contains(name))
+			if (name != ".notdef" && usedNames.contains(name))
 			{
 				m_usable = false;
 				m_errorMsg = QString("duplicate name %1 used for glyphs %2 and %3").arg(name).arg(gid).arg(usedNames[name]);
