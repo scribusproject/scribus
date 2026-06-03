@@ -378,8 +378,13 @@ bool PdfPlug::convert(const QString& fn)
 			bool useMediaBox = true;
 			bool crop = true;
 			bool printing = false;
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 6, 0)
+			const PDFRectangle& mediaBox = pdfDoc->getPage(1)->getMediaBox();
+			QRectF mediaRect = QRectF(QPointF(mediaBox.x1, mediaBox.y1), QPointF(mediaBox.x2, mediaBox.y2)).normalized();
+#else
 			const PDFRectangle *mediaBox = pdfDoc->getPage(1)->getMediaBox();
 			QRectF mediaRect = QRectF(QPointF(mediaBox->x1, mediaBox->y1), QPointF(mediaBox->x2, mediaBox->y2)).normalized();
+#endif
 			bool boxesAreDifferent = false;
 			if (getCBox(Crop_Box, 1) != mediaRect)
 				boxesAreDifferent = true;
@@ -885,6 +890,21 @@ QImage PdfPlug::readPreview(int pgNum, int width, int height, int box)
 
 QRectF PdfPlug::getCBox(int box, int pgNum)
 {
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 6, 0)
+	PDFRectangle cBox;
+	if (box == Media_Box)
+		cBox = m_pdfDoc->getPage(pgNum)->getMediaBox();
+	else if (box == Bleed_Box)
+		cBox = m_pdfDoc->getPage(pgNum)->getBleedBox();
+	else if (box == Trim_Box)
+		cBox = m_pdfDoc->getPage(pgNum)->getTrimBox();
+	else if (box == Crop_Box)
+		cBox = m_pdfDoc->getPage(pgNum)->getCropBox();
+	else if (box == Art_Box)
+		cBox = m_pdfDoc->getPage(pgNum)->getArtBox();
+	QRectF cRect = QRectF(QPointF(cBox.x1, cBox.y1), QPointF(cBox.x2, cBox.y2)).normalized();
+	return cRect;
+#else
 	const PDFRectangle *cBox = nullptr;
 	if (box == Media_Box)
 		cBox = m_pdfDoc->getPage(pgNum)->getMediaBox();
@@ -898,6 +918,7 @@ QRectF PdfPlug::getCBox(int box, int pgNum)
 		cBox = m_pdfDoc->getPage(pgNum)->getArtBox();
 	QRectF cRect = QRectF(QPointF(cBox->x1, cBox->y1), QPointF(cBox->x2, cBox->y2)).normalized();
 	return cRect;
+#endif
 }
 
 QString PdfPlug::UnicodeParsedString(const GooString *s1) const

@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <array>
 #include <memory>
+#include <string>
 
 #include "fpointarray.h"
 #include "importpdfconfig.h"
@@ -156,9 +157,14 @@ public:
 	std::unique_ptr<GooString> itemText;
 
 private:
-	QString getColor(GfxColorSpace *color_space, const GfxColor *color, int *shade);
 	ScribusDoc* m_doc { nullptr };
 	QStringList *m_importedColors { nullptr };
+
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 06, 0)
+	QString getColor(GfxColorSpace *color_space, const GfxColor &color, int *shade);
+#else
+	QString getColor(GfxColorSpace *color_space, const GfxColor *color, int* shade);
+#endif
 };
 
 
@@ -239,11 +245,21 @@ public:
 	virtual void endMaskClip(GfxState *state) { qDebug() << "End Mask Clip"; }
 
   //----- grouping operators
-	void beginMarkedContent(const char *name, Dict *properties) override;
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 6, 0)
+	void beginMarkedContent(const std::string& name, Dict* properties) override;
+#else
+	void beginMarkedContent(const char* name, Dict* properties) override;
+#endif
 	virtual void beginMarkedContent(const char *name, Object *dictRef);
 	void endMarkedContent(GfxState *state) override;
+
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 6, 0)
+	void markPoint(const std::string& name) override;
+	void markPoint(const std::string& name, Dict* properties) override;
+#else
 	void markPoint(const char *name) override;
 	void markPoint(const char *name, Dict *properties) override;
+#endif
 
 	//----- image drawing
 	void drawImageMask(GfxState *state, Object *ref, Stream *str, int width, int height, bool invert, bool interpolate, bool inlineImg) override;
@@ -275,7 +291,9 @@ public:
 #endif
 	void endTransparencyGroup(GfxState *state) override;
 
-#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 9, 0)
+#if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 6, 0)
+	void setSoftMask(GfxState * /*state*/, const std::array<double, 4> & /*bbox*/, bool /*alpha*/, Function * /*transferFunc*/, const GfxColor & /*backdropColor*/) override;
+#elif POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(25, 9, 0)
 	void setSoftMask(GfxState * /*state*/, const std::array<double, 4> & /*bbox*/, bool /*alpha*/, Function * /*transferFunc*/, GfxColor * /*backdropColor*/) override;
 #else
 	void setSoftMask(GfxState * /*state*/, const double * /*bbox*/, bool /*alpha*/, Function * /*transferFunc*/, GfxColor * /*backdropColor*/) override;
@@ -384,10 +402,12 @@ protected:
 private:
 	void getPenState(GfxState *state);
 	QString getColor(GfxColorSpace *color_space, const GfxColor *color, int *shade);
+	QString getColor(GfxColorSpace* color_space, const GfxColor &color, int* shade);
 	QString getAnnotationColor(const AnnotColor *color);
 	QString convertPath(const GfxPath *path);
 	int getBlendMode(GfxState *state) const;
 	QString UnicodeParsedString(const GooString *s1) const;
+	QString UnicodeParsedString(const GooString &s1) const;
 	QString UnicodeParsedString(const std::string& s1) const;
 	bool checkClip();
 
