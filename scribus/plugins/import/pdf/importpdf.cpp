@@ -842,7 +842,7 @@ QImage PdfPlug::readPreview(int pgNum, int width, int height, int box)
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(26, 2, 0)
 	auto dev = std::make_unique<SplashOutputDev>(splashModeXBGR8, 4, bgColor, true);
 #else
-	auto dev = std::make_unique<SplashOutputDev>(splashModeXBGR8, 4, false, bgColor, true);
+	std::unique_ptr<SplashOutputDev> dev(new SplashOutputDev(splashModeXBGR8, 4, false, bgColor, true));
 #endif
 	dev->setVectorAntialias(true);
 	dev->setFreeTypeHinting(true, false);
