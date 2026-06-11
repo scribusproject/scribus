@@ -744,7 +744,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 			}
 			ite->setIsAnnotation(true);
 			ite->AutoName = false;
-			AnnotBorder *brd = annota->getBorder();
+			const AnnotBorder *brd = annota->getBorder();
 			if (brd)
 			{
 				int bsty = brd->getStyle();
