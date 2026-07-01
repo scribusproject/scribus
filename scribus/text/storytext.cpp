@@ -707,7 +707,7 @@ void StoryText::insertChars(int pos, const QString& txt, bool applyNeighbourStyl
 	ScText clone;
 	if (applyNeighbourStyle)
 	{
-		int referenceChar = qMax(0, qMin(pos, length()-1));
+		int referenceChar = qMax(0, qMin(pos - 1, length() - 1));
 		clone.applyCharStyle(charStyle(referenceChar));
 		clone.setEffects(ScStyle_Default);
 	}
@@ -715,7 +715,7 @@ void StoryText::insertChars(int pos, const QString& txt, bool applyNeighbourStyl
 	for (int i = 0; i < txt.length(); ++i)
 	{
 		ScText * item = new ScText(clone);
-		item->ch= txt.at(i);
+		item->ch = txt.at(i);
 		item->setContext(cStyleContext);
 		d->insert(pos + i, item);
 		d->len++;
@@ -750,7 +750,7 @@ void StoryText::insertCharsWithSoftHyphens(int pos, const QString& txt, bool app
 	ScText clone;
 	if (applyNeighbourStyle)
 	{
-		int referenceChar = qMax(0, qMin(pos, length() - 1));
+		int referenceChar = qMax(0, qMin(pos - 1, length() - 1));
 		clone.applyCharStyle(charStyle(referenceChar));
 		clone.setEffects(ScStyle_Default);
 	}
