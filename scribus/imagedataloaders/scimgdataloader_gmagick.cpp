@@ -13,7 +13,6 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 
 
-
 bool ScImgDataLoader_GMagick::gm_initialized = false;
 
 ScImgDataLoader_GMagick::ScImgDataLoader_GMagick()

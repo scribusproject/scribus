@@ -12,25 +12,28 @@ for which a new license (GPL+exception) is in place.
 
 class ScImgDataLoader_GMagick : public ScImgDataLoader
 {
-protected:
-	void initSupportedFormatList();
-	QString blendModeToString(int compositeOp);
-	int blendModeToInt(QString compositeOp);
-	bool m_useRawImage;
-	int layerCount;
-private:
-	static bool gm_initialized;
-	bool readCMYK(Image *input, RawImage *output, int width, int height);
-	bool readRGB(Image *input, QImage *output, int width, int height);
-
 public:
 	ScImgDataLoader_GMagick(void);
 
-	virtual bool preloadAlphaChannel(const QString& fn, int page, int res, bool& hasAlpha);
-	virtual void loadEmbeddedProfile(const QString& fn, int page = 0);
-	virtual bool loadPicture(const QString& fn, int page, int res, bool thumbnail);
-	virtual bool useRawImage() { return m_useRawImage; }
-	virtual void initGraphicsMagick();
+	bool preloadAlphaChannel(const QString& fn, int page, int res, bool& hasAlpha) override;
+	void loadEmbeddedProfile(const QString& fn, int page = 0) override;
+	bool loadPicture(const QString& fn, int page, int res, bool thumbnail) override;
+	bool useRawImage() const override { return m_useRawImage; }
+
+private:
+	bool m_useRawImage { true };
+	int layerCount { 0 };
+	
+	static bool gm_initialized;
+	
+	QString blendModeToString(int compositeOp);
+	int blendModeToInt(QString compositeOp);
+	
+	void initGraphicsMagick();
+	void initSupportedFormatList();
+	
+	bool readCMYK(Image *input, RawImage *output, int width, int height);
+	bool readRGB(Image *input, QImage *output, int width, int height);
 };
 
 #endif
