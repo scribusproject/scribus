@@ -146,6 +146,24 @@ private:
 	void fillPathHelper();
 	void strokePathHelper();
 
+	// Scratch buffers reused across blur() calls to avoid new/delete churn.
+	// Grown on demand, never shrunk, freed in the destructor.
+	int    *m_blurBufR { nullptr };
+	int    *m_blurBufG { nullptr };
+	int    *m_blurBufB { nullptr };
+	int    *m_blurBufA { nullptr };
+	size_t  m_blurBufCapacity { 0 };     // capacity in pixels (w*h) for r/g/b/a
+
+	int    *m_blurVmin { nullptr };
+	size_t  m_blurVminCapacity { 0 };    // capacity = max(w,h)
+
+	int    *m_blurDv { nullptr };
+	size_t  m_blurDvCapacity { 0 };      // capacity = 256*divsum
+
+	int    *m_blurStackData { nullptr };
+	int   **m_blurStack { nullptr };
+	size_t  m_blurStackCapacity { 0 };   // capacity = div (radius*2+1)
+
 	cairo_t* m_cr { nullptr };
 	struct layerProp
 	{
