@@ -2205,6 +2205,17 @@ void PageItem::DrawSoftShadow(ScPainter *p)
 		tmp = defect.convertDefect(tmp, m_Doc->previewVisual);
 	}
 	p->save();
+	// Clip to item bounds + shadow offset + blur radius, so beginLayer()
+	// creates a small surface instead of one sized to the whole viewport.
+	double blurMargin = (m_softShadowBlurRadius * sc)
+					   + qMax(fabs(m_softShadowXOffset), fabs(m_softShadowYOffset)) * sc
+					   + 2;
+	QPainterPath clp;
+	clp.addRect(-blurMargin, -blurMargin, m_width + 2 * blurMargin, m_height + 2 * blurMargin);
+	FPointArray clpArr;
+	clpArr.fromQPainterPath(clp);
+	p->setupPolygon(&clpArr);
+	p->setClipPath();
 	if (m_softShadowHasObjectTransparency)
 		p->beginLayer(1.0 - fillTransparency(), m_softShadowBlendMode);
 	else

@@ -47,6 +47,14 @@ ScPainter::~ScPainter()
 {
 	cairo_surface_destroy(cairo_get_target(m_cr));
 	cairo_destroy(m_cr);
+	delete [] m_blurBufR;
+	delete [] m_blurBufG;
+	delete [] m_blurBufB;
+	delete [] m_blurBufA;
+	delete [] m_blurVmin;
+	delete [] m_blurDv;
+	delete [] m_blurStackData;
+	delete [] m_blurStack;
 }
 
 void ScPainter::beginLayer(double transparency, int blendmode, FPointArray *clipArray)
@@ -2002,25 +2010,65 @@ void ScPainter::blur(int radius)
 	int hm  = h - 1;
 	int wh  = w * h;
 	int div = radius + radius + 1;
-	int *r = new int[wh];
-	int *g = new int[wh];
-	int *b = new int[wh];
-	int *a = new int[wh];
+
+	if (m_blurBufCapacity < (size_t) wh)
+	{
+		delete [] m_blurBufR;
+		delete [] m_blurBufG;
+		delete [] m_blurBufB;
+		delete [] m_blurBufA;
+		m_blurBufR = new int[wh];
+		m_blurBufG = new int[wh];
+		m_blurBufB = new int[wh];
+		m_blurBufA = new int[wh];
+		m_blurBufCapacity = wh;
+	}
+	int *r = m_blurBufR;
+	int *g = m_blurBufG;
+	int *b = m_blurBufB;
+	int *a = m_blurBufA;
+
 	int rsum, gsum, bsum, asum, x, y, i, yp, yi, yw;
 	QRgb p;
-	int *vmin = new int[qMax(w, h)];
+
+	size_t vminNeeded = (size_t) qMax(w, h);
+	if (m_blurVminCapacity < vminNeeded)
+	{
+		delete [] m_blurVmin;
+		m_blurVmin = new int[vminNeeded];
+		m_blurVminCapacity = vminNeeded;
+	}
+	int *vmin = m_blurVmin;
+
 	int divsum = (div+1)>>1;
 	divsum *= divsum;
-	int *dv = new int[256 * (size_t) divsum];
+	size_t dvNeeded = 256 * (size_t) divsum;
+	if (m_blurDvCapacity < dvNeeded)
+	{
+		delete [] m_blurDv;
+		m_blurDv = new int[dvNeeded];
+		m_blurDvCapacity = dvNeeded;
+	}
+	int *dv = m_blurDv;
 	for (i = 0; i < 256 * divsum; ++i)
 	{
 		dv[i] = (i / divsum);
 	}
+
 	yw = yi = 0;
-	int **stack = new int*[div];
+	if (m_blurStackCapacity < (size_t) div)
+	{
+		delete [] m_blurStack;
+		delete [] m_blurStackData;
+		m_blurStack = new int*[div];
+		m_blurStackData = new int[div * 4];
+		m_blurStackCapacity = div;
+	}
+	int **stack = m_blurStack;
+	int *stackData = m_blurStackData;
 	for (int i = 0; i < div; ++i)
 	{
-		stack[i] = new int[4];
+		stack[i] = stackData + (i * 4);
 	}
 	int stackpointer;
 	int stackstart;
@@ -2189,16 +2237,5 @@ void ScPainter::blur(int radius)
 			yi += w;
 		}
 	}
-	delete [] r;
-	delete [] g;
-	delete [] b;
-	delete [] a;
-	delete [] vmin;
-	delete [] dv;
-	for (int i = 0; i < div; ++i)
-	{
-		delete [] stack[i];
-	}
-	delete [] stack;
 	cairo_surface_mark_dirty(data);
 }
