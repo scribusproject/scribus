@@ -914,7 +914,7 @@ bool SlaOutputDev::handleWidgetAnnot(Annot* annota, double xCoor, double yCoor, 
 			{
 				// Load children
 				QList<int> radList;
-				Array* kidsArray = obj2.getArray();
+				const Array* kidsArray = obj2.getArray();
 				for (int i = 0; i < kidsArray->getLength(); i++)
 				{
 					const Object& childRef = kidsArray->getNF(i);
