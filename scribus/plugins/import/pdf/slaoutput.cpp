@@ -965,7 +965,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 	{
 		if (Lact->getKind() == actionJavaScript)
 		{
-			const auto *jsa = (LinkJavaScript*) Lact;
+			const auto *jsa = (const LinkJavaScript*) Lact;
 			if (jsa->isOk())
 			{
 				ite->annotation().setActionType(1);
@@ -977,7 +977,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 			int pagNum = 0;
 			double xco = 0;
 			double yco = 0;
-			const auto *gto = (LinkGoTo*) Lact;
+			const auto *gto = (const LinkGoTo*) Lact;
 			const LinkDest *dst = gto->getDest();
 			if (dst)
 			{
@@ -1026,7 +1026,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 			int pagNum = 0;
 			double xco = 0;
 			double yco = 0;
-			const auto *gto = (LinkGoToR*) Lact;
+			const auto *gto = (const LinkGoToR*) Lact;
 			QString fileName = UnicodeParsedString(gto->getFileName());
 			const LinkDest *dst = gto->getDest();
 			if (dst)
@@ -1068,7 +1068,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 #if POPPLER_ENCODED_VERSION >= POPPLER_VERSION_ENCODE(24, 10, 0)
 		else if (Lact->getKind() == actionSubmitForm)
 		{
-			const auto* impo = (LinkSubmitForm*) Lact;
+			const auto* impo = (const LinkSubmitForm*) Lact;
 			if (impo->isOk())
 			{
 				ite->annotation().setActionType(3);
@@ -1087,7 +1087,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 #endif
 		else if (Lact->getKind() == actionUnknown)
 		{
-			const auto *uno = (LinkUnknown*) Lact;
+			const auto *uno = (const LinkUnknown*) Lact;
 			QString actString = UnicodeParsedString(uno->getAction());
 			if (actString == "ResetForm")
 			{
@@ -1130,7 +1130,7 @@ void SlaOutputDev::handleActions(PageItem* ite, AnnotWidget *ano)
 		}
 		else if (Lact->getKind() == actionNamed)
 		{
-			const auto *uno = (LinkNamed*) Lact;
+			const auto *uno = (const LinkNamed*) Lact;
 			ite->annotation().setActionType(10);
 			ite->annotation().setAction(UnicodeParsedString(uno->getName()));
 		}
