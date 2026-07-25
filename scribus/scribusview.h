@@ -283,8 +283,6 @@ private:
 	PageItem* firstFrame { nullptr };
 
 	int m_previousMode { -1 };
-	QMenu *pmen3 { nullptr };
-	QMenu *pmenResolution { nullptr };
 	QPointF m_pressLocation;
 	QElapsedTimer m_moveTimer;
 	QTimer *m_dragTimer { nullptr };
