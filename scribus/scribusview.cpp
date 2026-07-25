@@ -2261,7 +2261,6 @@ void ScribusView::showMasterPage(int nr)
 {
 	// #9684 : we need Deselect() to emit HaveSel() when switching masterpage
 	deselectItems(true);
-	OldScale = m_canvas->scale();
 	if (!m_doc->masterPageMode())
 		this->requestMode(modeNormal);
 	m_doc->setMasterPageMode(true);
@@ -2291,7 +2290,6 @@ void ScribusView::hideMasterPage()
 void ScribusView::showSymbolPage(const QString& symbolName)
 {
 	deselectItems(false);
-	OldScale = m_canvas->scale();
 	if (!m_doc->symbolEditMode())
 		this->requestMode(modeNormal);
 	m_doc->setSymbolEditMode(true, symbolName);
@@ -2326,7 +2324,6 @@ void ScribusView::hideSymbolPage()
 void ScribusView::showInlinePage(int id)
 {
 	deselectItems(false);
-	OldScale = m_canvas->scale();
 	if (!m_doc->inlineEditMode())
 		this->requestMode(modeNormal);
 	m_doc->setInlineEditMode(true, id);

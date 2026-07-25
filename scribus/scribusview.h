@@ -137,13 +137,11 @@ public:
 	ApplicationPrefs * const Prefs { nullptr };
 	UndoManager * const undoManager { nullptr };
 	ScribusMainWindow* m_ScMW { nullptr };
-	double OldScale { 0.0 };
 	double dragX { 0.0 };
 	double dragY { 0.0 };
 	double dragW { 0.0 };
 	double dragH { 0.0 };
 	double oldW { -1.0 };
-	int RotMode { 0 };
 	bool HaveSelRect { false };
 	bool DraggedGroup { false };
 	bool MidButt { false };
@@ -197,8 +195,8 @@ public:
 	bool groupTransactionStarted() const { return m_groupTransactions > 0; }
 	void startGroupTransaction(const QString &actionName = "",
 							   const QString &description = "",
-							   QPixmap *actionPixmap = 0,
-							   Selection* customSelection = 0);
+							   QPixmap *actionPixmap = nullptr,
+							   Selection* customSelection = nullptr);
 	void endGroupTransaction();
 	void cancelGroupTransaction();
 	void setScale(double newScale);
