@@ -2,25 +2,85 @@
 <ui version="4.0">
  <class>FSW_FontsScripts</class>
  <widget class="QWizardPage" name="FSW_FontsScripts">
-  <property name="title"><string>Fonts &amp; scripts</string></property>
-  <property name="subTitle"><string>Extra folders to search. Most people can leave these empty.</string></property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>280</width>
+    <height>349</height>
+   </rect>
+  </property>
+  <property name="title">
+   <string>Fonts &amp; scripts</string>
+  </property>
+  <property name="subTitle">
+   <string>Extra folders to search. Most people can leave these empty.</string>
+  </property>
   <layout class="QVBoxLayout" name="fsLayout">
-   <item><widget class="QLabel" name="fontLabel"><property name="text"><string>Additional font folders</string></property></widget></item>
-   <item><widget class="QListWidget" name="fontList"/></item>
+   <item>
+    <widget class="QLabel" name="fontLabel">
+     <property name="text">
+      <string>Additional font folders</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QListWidget" name="fontList"/>
+   </item>
    <item>
     <layout class="QHBoxLayout" name="fontButtons">
-     <item><widget class="QPushButton" name="addFontButton"><property name="text"><string>Add…</string></property></widget></item>
-     <item><widget class="QPushButton" name="removeFontButton"><property name="text"><string>Remove</string></property></widget></item>
-     <item><spacer name="fontBtnSpacer"><property name="orientation"><enum>Qt::Horizontal</enum></property></spacer></item>
+     <item>
+      <widget class="QPushButton" name="addFontButton">
+       <property name="text">
+        <string>Add…</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="removeFontButton">
+       <property name="text">
+        <string>Remove</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="fontBtnSpacer">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
     </layout>
    </item>
-   <item><widget class="QLabel" name="scriptLabel"><property name="text"><string>Script folders</string></property></widget></item>
-   <item><widget class="QListWidget" name="scriptList"/></item>
    <item>
-    <layout class="QHBoxLayout" name="scriptButtons">
-     <item><widget class="QPushButton" name="addScriptButton"><property name="text"><string>Add…</string></property></widget></item>
-     <item><widget class="QPushButton" name="removeScriptButton"><property name="text"><string>Remove</string></property></widget></item>
-     <item><spacer name="scriptBtnSpacer"><property name="orientation"><enum>Qt::Horizontal</enum></property></spacer></item>
+    <widget class="QLabel" name="scriptLabel">
+     <property name="text">
+      <string>Script folder</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="scriptPathLayout">
+     <item>
+      <widget class="QLineEdit" name="scriptPathEdit">
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="scriptBrowseButton">
+       <property name="text">
+        <string>Choose…</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
   </layout>

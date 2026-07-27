@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "fsw_newdocument.h"
 #include <QEvent>
+#include <QLabel>
 #include <QRadioButton>
 
 #include "prefsmanager.h"
@@ -17,13 +18,17 @@ FSW_NewDocument::FSW_NewDocument(QWidget* parent)
 	: QWizardPage(parent)
 {
 	setupUi(this);
+	// No preference exists for the advanced text-direction yet, so it is in
+	// the .ui but hidden until one does.
+	advancedTextDirCheck->setVisible(false);
+	advancedTextDirLabel->setVisible(false);
 	populate();
 	ltrRadio->setChecked(true);
 	// Advanced text-direction options default on for RTL, off otherwise; the wizard
 	// flips this when an RTL UI language is chosen (soft default, not a one-way door).
-	connect(rtlRadio, &QRadioButton::toggled, this, [this](bool on){
-		if (on) advancedTextDirCheck->setChecked(true);
-	});
+	// connect(rtlRadio, &QRadioButton::toggled, this, [this](bool on){
+	// 	if (on) advancedTextDirCheck->setChecked(true);
+	// });
 }
 
 void FSW_NewDocument::populate()
@@ -45,10 +50,21 @@ void FSW_NewDocument::populate()
 			pageSizeCombo->addItem(it.value().displayName, it.key());
 		}
 	}
-	const QString cur = PrefsManager::instance().appPrefs.docSetupPrefs.pageSize;
-	int idx = pageSizeCombo->findData(cur);
-	if (idx >= 0)
-		pageSizeCombo->setCurrentIndex(idx);
+}
+
+void FSW_NewDocument::restoreDefaults(const ApplicationPrefs* prefsData)
+{
+	if (!prefsData)
+		return;
+
+	int i = pageSizeCombo->findData(prefsData->docSetupPrefs.pageSize);
+	if (i >= 0)
+		pageSizeCombo->setCurrentIndex(i);
+
+	if (prefsData->docSetupPrefs.isRTL)
+		rtlRadio->setChecked(true);
+	else
+		ltrRadio->setChecked(true);
 }
 
 QString FSW_NewDocument::pageSizeName() const

@@ -67,6 +67,18 @@ public:
 	*/
 	int init(bool useGUI, const QList<QString>& filesToUse);
 	int initScribusCore(bool showSplash, bool showFontInfo, bool showProfileInfo, const QString& newGuiLanguage);
+	/**
+	* @brief Establish preferences: icons, splash, fonts, defaults and readPrefs().
+	* Nothing here consumes a preference, so the first start wizard can run straight
+	* afterwards and still affect the rest of startup.
+	*/
+	int initCorePrefs(bool showSplash, bool showFontInfo);
+	/**
+	* @brief Configure everything that reads the preferences established by
+	* initCorePrefs(): theme, fonts, locale, icon set, plugins, colour management,
+	* image cache and the spell checker.
+	*/
+	int initCoreServices(bool showSplash, bool showProfileInfo);
 	bool initialized() const {return m_scribusInitialized;}
 	const QString& getGuiLanguage() const;
 

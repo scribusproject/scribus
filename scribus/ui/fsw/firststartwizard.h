@@ -12,6 +12,8 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 
+struct ApplicationPrefs;
+
 class FSW_SidePanel;
 class FSW_Welcome;
 class FSW_Language;
@@ -37,7 +39,10 @@ class SCRIBUS_API FirstStartWizard : public QWizard
 		Q_OBJECT
 
 	public:
-		explicit FirstStartWizard(QWidget* parent = nullptr);
+		/*! \brief Collects first-run settings into @a prefsData.
+		The wizard only ever writes to the struct it is given, so the caller can
+		hand it a working copy and commit on Finish (see ScribusCore::startGUI). */
+		explicit FirstStartWizard(struct ApplicationPrefs* prefsData, QWidget* parent = nullptr);
 
 		//! \brief Page ids, in order. Used to drive the side-panel step list.
 		enum PageId
@@ -51,9 +56,8 @@ class SCRIBUS_API FirstStartWizard : public QWizard
 			Page_Finish
 		};
 
-		/*! \brief True when Scribus has never completed first-run setup.
-		Call this from the main window before show(). */
-		static bool isFirstRun();
+		/*! \brief True when Scribus has never completed first-run setup. */
+		static bool isFirstRun(const struct ApplicationPrefs& prefsData);
 
 	protected:
 		void accept() override;   //!< commit-at-Finish happens here
@@ -64,8 +68,13 @@ class SCRIBUS_API FirstStartWizard : public QWizard
 		void onPageChanged(int id);          //!< keep the side-panel step list in sync
 
 	private:
-		void applyToPrefs();        //!< read every page -> appPrefs -> savePrefs (Finish only)
-		void markSetupComplete();   //!< flip the first-run flag and persist
+		void restoreDefaults(const struct ApplicationPrefs* prefsData);  //!< seed every page
+		void rescanAddedFontDirs(const QStringList& before);             //!< scan wizard-added font folders into the session
+		void saveGuiToPrefs(struct ApplicationPrefs* prefsData) const;   //!< read every page (Finish only)
+
+		struct ApplicationPrefs* m_prefsData { nullptr };
+		//! \brief Font folders as seeded, so accept() can tell which ones the user added.
+		QStringList m_seededFontDirs;
 
 		FSW_SidePanel* m_side { nullptr };
 		FSW_Welcome* m_welcome { nullptr };

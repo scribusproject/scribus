@@ -12,6 +12,8 @@ for which a new license (GPL+exception) is in place.
 #include <QStringList>
 #include "ui_fsw_fontsscripts.h"
 
+struct ApplicationPrefs;
+
 //! \brief Additional font folders and scripter script folders.
 class FSW_FontsScripts : public QWizardPage, Ui::FSW_FontsScripts
 {
@@ -19,9 +21,10 @@ class FSW_FontsScripts : public QWizardPage, Ui::FSW_FontsScripts
 
 	public:
 		explicit FSW_FontsScripts(QWidget* parent = nullptr);
+		void restoreDefaults(const struct ApplicationPrefs* prefsData);  //!< seed the page from @a prefsData
 
 		QStringList fontPaths() const;
-		QStringList scriptPaths() const;
+		QString scriptPath() const;   //!< single directory -> pathPrefs.scripts
 
 	protected:
 		void changeEvent(QEvent* e) override;
@@ -29,8 +32,7 @@ class FSW_FontsScripts : public QWizardPage, Ui::FSW_FontsScripts
 	private slots:
 		void addFontFolder();
 		void removeFontFolder();
-		void addScriptFolder();
-		void removeScriptFolder();
+		void browseScriptFolder();
 
 	private:
 		static QStringList pathsFromList(const QListWidget* list);

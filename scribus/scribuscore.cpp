@@ -103,7 +103,46 @@ int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileIn
 	if (!scribus)
 		return EXIT_FAILURE;
 	m_ScMWList.append(scribus);
-	int retVal = initScribusCore(showSplash, showFontInfo, showProfileInfo, newGuiLanguage);
+
+	// Establish the preferences first; nothing has read them yet at this point.
+	int retVal = initCorePrefs(showSplash, showFontInfo);
+	if (retVal == EXIT_FAILURE)
+		return EXIT_FAILURE;
+
+	// First-run setup, after the preferences are known but before anything acts on
+	// them, so the theme, script path and experimental settings it collects apply to
+	// this session instead of arriving too late to be used. Note showSplash is a
+	// parameter here and hides the member function of the same name, hence this->.
+	if (usingGUI() && m_Files.isEmpty() && FirstStartWizard::isFirstRun(m_prefsManager.appPrefs))
+	{
+		const bool splashWasVisible = splashShowing();
+		if (splashWasVisible)
+			this->showSplash(false);
+
+		const QString oldGuiLanguage = m_prefsManager.appPrefs.uiPrefs.language;
+
+		// The wizard edits a working copy, so Skip needs no special handling: only a
+		// Finish commits. Recording that setup ran happens either way.
+		ApplicationPrefs prefsData(m_prefsManager.appPrefs);
+		FirstStartWizard fsw(&prefsData, nullptr);
+		if (fsw.exec() == QDialog::Accepted)
+			m_prefsManager.setNewPrefs(prefsData);
+
+		m_prefsManager.appPrefs.uiPrefs.showFirstStartWizard = false;
+		m_prefsManager.savePrefs();
+
+		// Retranslate before the rest of startup builds any UI, so the main window is
+		// created in the chosen language rather than translated after the fact. A
+		// language given on the command line is an explicit override for this session,
+		// so the wizard's choice is still saved to prefs but not applied now.
+		if (newGuiLanguage.isEmpty() && m_prefsManager.appPrefs.uiPrefs.language != oldGuiLanguage)
+			ScQApp->changeGUILanguage(m_prefsManager.appPrefs.uiPrefs.language);
+
+		if (splashWasVisible)
+			this->showSplash(true);
+	}
+
+	retVal = initCoreServices(showSplash, showProfileInfo);
 	if (retVal == EXIT_FAILURE)
 		return EXIT_FAILURE;
 
@@ -117,19 +156,6 @@ int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileIn
 
 	scribus->show();
 	scribus->setupMainWindow();
-
-	// First-run setup. Prefs are loaded, the main window exists and is shown, and
-	// this runs *before* the recover / startup (new-document) dialog so the defaults
-	// it sets (units, page size, text direction) are already in effect when those appear.
-	if (usingGUI() && m_Files.isEmpty() && PrefsManager::instance().appPrefs.uiPrefs.showFirstStartWizard)
-	{
-		struct ApplicationPrefs oldPrefs(PrefsManager::instance().appPrefs);
-		FirstStartWizard fsw(scribus);
-		fsw.exec();   // applies prefs at Finish (savePrefs), or marks-done on Skip
-
-		if (oldPrefs.uiPrefs.language != PrefsManager::instance().appPrefs.uiPrefs.language)
-			ScQApp->changeGUILanguage(PrefsManager::instance().appPrefs.uiPrefs.language);
-	}
 
 	QStringList recoverFiles = scribus->findRecoverableFile();
 	int subsRet = scribus->ShowSubs();
@@ -164,7 +190,17 @@ int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileIn
 	return EXIT_SUCCESS;
 }
 
-int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showProfileInfo, const QString& newGuiLanguage)
+int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showProfileInfo, const QString& /*newGuiLanguage*/)
+{
+	// Kept for API compatibility. startGUI() drives the two halves itself so the
+	// first start wizard can run between them.
+	int retVal = initCorePrefs(showSplash, showFontInfo);
+	if (retVal == EXIT_FAILURE)
+		return EXIT_FAILURE;
+	return initCoreServices(showSplash, showProfileInfo);
+}
+
+int ScribusCore::initCorePrefs(bool showSplash, bool showFontInfo)
 {
 	CommonStrings::languageChange();
 	LanguageManager::instance()->languageChange();
@@ -193,6 +229,11 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showPr
 	setSplashStatus( tr("Reading Preferences") );
 	m_prefsManager.readPrefs();
 
+	return 0;
+}
+
+int ScribusCore::initCoreServices(bool showSplash, bool showProfileInfo)
+{
 	// This is a very basic implemenation of the UI theme palette.
 	// If necessary implement platform specific theme configurations here.
 

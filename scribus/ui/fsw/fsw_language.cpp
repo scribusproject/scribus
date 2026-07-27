@@ -25,31 +25,40 @@ FSW_Language::FSW_Language(QWidget* parent)
 void FSW_Language::populate()
 {
 	LanguageManager* lm = LanguageManager::instance();
-	const ApplicationPrefs& prefs = PrefsManager::instance().appPrefs;
 
 	// Interface language: installed GUI translations, abbrev stored as item data.
 	QList<QPair<QString, QString>> guiLangs;   // (priAbbrev, displayName)
 	lm->fillInstalledGUILangPairs(&guiLangs);
 	for (const auto& pair : guiLangs)
 		uiLanguageCombo->addItem(pair.second, pair.first);
-	int uiIdx = uiLanguageCombo->findData(prefs.uiPrefs.language);
-	if (uiIdx >= 0)
-		uiLanguageCombo->setCurrentIndex(uiIdx);
 
 	// Default document language: languages with an installed spell dictionary.
 	QStringList spellLangs;
 	lm->fillInstalledSpellStringList(&spellLangs);
 	for (const QString& name : spellLangs)
 		docLanguageCombo->addItem(name, lm->getAbbrevFromLang(name));
-	int docIdx = docLanguageCombo->findData(prefs.docSetupPrefs.language);
-	if (docIdx >= 0)
-		docLanguageCombo->setCurrentIndex(docIdx);
 
 	// Units: unitGetTextUnitList() is index-ordered, so the combo index is the unit
 	// index (same call the Document Setup pane uses).
 	unitsCombo->addItems(unitGetTextUnitList());
-	if (prefs.docSetupPrefs.docUnitIndex >= 0 && prefs.docSetupPrefs.docUnitIndex < unitsCombo->count())
-		unitsCombo->setCurrentIndex(prefs.docSetupPrefs.docUnitIndex);
+}
+
+void FSW_Language::restoreDefaults(const ApplicationPrefs* prefsData)
+{
+	if (!prefsData)
+		return;
+
+	int uiIdx = uiLanguageCombo->findData(prefsData->uiPrefs.language);
+	if (uiIdx >= 0)
+		uiLanguageCombo->setCurrentIndex(uiIdx);
+
+	int docIdx = docLanguageCombo->findData(prefsData->docSetupPrefs.language);
+	if (docIdx >= 0)
+		docLanguageCombo->setCurrentIndex(docIdx);
+
+	const int unitIdx = prefsData->docSetupPrefs.docUnitIndex;
+	if (unitIdx >= 0 && unitIdx < unitsCombo->count())
+		unitsCombo->setCurrentIndex(unitIdx);
 }
 
 QString FSW_Language::uiLanguage() const

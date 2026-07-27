@@ -11,12 +11,15 @@ for which a new license (GPL+exception) is in place.
 #include <QWizardPage>
 #include "ui_fsw_newdocument.h"
 
+struct ApplicationPrefs;
+
 //! \brief New-document defaults: page size and default text direction.
 class FSW_NewDocument : public QWizardPage, Ui::FSW_NewDocument
 {
 		Q_OBJECT
 	public:
 		explicit FSW_NewDocument(QWidget* parent = nullptr);
+		void restoreDefaults(const struct ApplicationPrefs* prefsData);  //!< seed the page from @a prefsData
 
 		QString pageSizeName() const;       //!< -> docSetupPrefs.pageSize
 		QString pageSizeDisplayName() const;

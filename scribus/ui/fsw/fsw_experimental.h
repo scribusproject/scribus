@@ -11,6 +11,8 @@ for which a new license (GPL+exception) is in place.
 #include <QWizardPage>
 #include "ui_fsw_experimental.h"
 
+struct ApplicationPrefs;
+
 //! \brief Single master toggle for experimental features.
 class FSW_Experimental : public QWizardPage, Ui::FSW_Experimental
 {
@@ -18,6 +20,7 @@ class FSW_Experimental : public QWizardPage, Ui::FSW_Experimental
 
 	public:
 		explicit FSW_Experimental(QWidget* parent = nullptr);
+		void restoreDefaults(const struct ApplicationPrefs* prefsData);  //!< seed the page from @a prefsData
 		bool experimentalEnabled() const;
 
 	protected:

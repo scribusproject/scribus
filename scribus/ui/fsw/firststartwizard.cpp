@@ -7,25 +7,27 @@ for which a new license (GPL+exception) is in place.
 
 #include <QDir>
 
+#include "commonstrings.h"
 #include "firststartwizard.h"
-
-#include "fsw_sidepanel.h"
-#include "fsw_welcome.h"
-#include "fsw_language.h"
 #include "fsw_appearance.h"
-#include "fsw_newdocument.h"
-#include "fsw_fontsscripts.h"
 #include "fsw_experimental.h"
 #include "fsw_finish.h"
-
+#include "fsw_fontsscripts.h"
+#include "fsw_language.h"
+#include "fsw_newdocument.h"
+#include "fsw_sidepanel.h"
+#include "fsw_welcome.h"
+#include "manager/pagepreset_manager.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "prefsstructs.h"
 #include "prefstable.h"
+#include "scfonts.h"
 
-FirstStartWizard::FirstStartWizard(QWidget* parent)
-	: QWizard(parent)
+FirstStartWizard::FirstStartWizard(ApplicationPrefs* prefsData, QWidget* parent)
+	: QWizard(parent),
+	  m_prefsData(prefsData)
 {
 	setObjectName(QString::fromUtf8("FirstStartWizard"));
 	setWizardStyle(QWizard::ModernStyle);
@@ -66,6 +68,31 @@ FirstStartWizard::FirstStartWizard(QWidget* parent)
 	});
 	connect(this, &QWizard::currentIdChanged, this, &FirstStartWizard::onPageChanged);
 	connect(m_appearance, &FSW_Appearance::themeModeChanged, this, &FirstStartWizard::onThemeModeChanged);
+
+	// Seed every page from the caller's prefs, so the wizard opens showing the
+	// values that are actually in effect rather than its own hardcoded defaults.
+	restoreDefaults(m_prefsData);
+}
+
+void FirstStartWizard::restoreDefaults(const ApplicationPrefs* prefsData)
+{
+	if (!prefsData)
+		return;
+
+	m_language->restoreDefaults(prefsData);
+	m_appearance->restoreDefaults(prefsData);
+	m_newDocument->restoreDefaults(prefsData);
+	m_fontsScripts->restoreDefaults(prefsData);
+	// Snapshot the font folders as seeded: accept() diffs against this to find the
+	// ones the user added. It has to be taken here or there is
+	// nothing to compare against.
+	m_seededFontDirs = m_fontsScripts->fontPaths();
+	m_experimental->restoreDefaults(prefsData);
+
+	// Sync the banner art to the seeded theme: setChecked() emits nothing when the
+	// radio was already the checked one, so the wizard would otherwise keep the
+	// splash it started with.
+	onThemeModeChanged(m_appearance->themeMode());
 }
 
 void FirstStartWizard::onPageChanged(int id)
@@ -84,22 +111,59 @@ void FirstStartWizard::onThemeModeChanged(int mode)
 
 void FirstStartWizard::accept()
 {
-	applyToPrefs();
-	markSetupComplete();
+	saveGuiToPrefs(m_prefsData);
+
+	rescanAddedFontDirs(m_seededFontDirs);
+
 	QWizard::accept();
+}
+
+void FirstStartWizard::rescanAddedFontDirs(const QStringList& before)
+{
+	// initDefaults() already scanned fonts and picked the default from that list, so a
+	// folder added here cannot make one of its fonts the default until next launch. It
+	// can, make those fonts available this session -- scan the newly added
+	// folders in, as Prefs_Fonts::AddPath does.
+	//
+	// Scan into the working copy as they will be committed via this struct with
+	// setNewPrefs() straight after exec() returns.
+
+	if (!m_prefsData)
+		return;
+
+	const QStringList after = m_fontsScripts->fontPaths();
+	if (after == before)
+		return;
+
+	SCFonts& availFonts = m_prefsData->fontPrefs.AvailFonts;
+	bool changed = false;
+	for (const QString& nativeDir : after)
+	{
+		const QString dir = QDir::fromNativeSeparators(nativeDir);
+		if (before.contains(nativeDir) || dir.isEmpty())
+			continue;
+		availFonts.addScalableFonts(dir + "/");
+		changed = true;
+	}
+	if (changed)
+	{
+		availFonts.updateFontMap();
+		availFonts.writeFontCache();
+	}
 }
 
 void FirstStartWizard::onSkip()
 {
-	// Defaults already sit in appPrefs from PrefsManager::initDefaults(); just record
-	// that setup ran so the wizard never reappears. Nothing is read from the pages.
-	markSetupComplete();
+	// Nothing is read from the pages: rejecting leaves the caller's prefs untouched.
+	// Recording that setup ran is the caller's job (ScribusCore::startGUI).
 	QWizard::reject();
 }
 
-void FirstStartWizard::applyToPrefs()
+void FirstStartWizard::saveGuiToPrefs(ApplicationPrefs* prefsData) const
 {
-	ApplicationPrefs& p = PrefsManager::instance().appPrefs;
+	if (!prefsData)
+		return;
+	ApplicationPrefs& p = *prefsData;
 
 	// --- Language (FSW_Language) ---
 	p.uiPrefs.language           = m_language->uiLanguage();        // priAbbrev
@@ -122,57 +186,45 @@ void FirstStartWizard::applyToPrefs()
 
 	// --- New document defaults (FSW_NewDocument) ---
 	p.docSetupPrefs.pageSize = m_newDocument->pageSizeName();
+	// Keep the page dimensions in step with the chosen size id. initDefaults() and the
+	// Document Setup pane both set width/height alongside pageSize, and the New Document
+	// dialog seeds from those dimensions, so writing only the id would leave the dialog
+	// showing the old (default) size.
+	PageSizeInfo psi = PagePresetManager::instance().pageInfoByName(p.docSetupPrefs.pageSize);
+	if (!psi.id.isEmpty() && psi.id != CommonStrings::customPageSize)
+	{
+		p.docSetupPrefs.pageWidth  = psi.width;
+		p.docSetupPrefs.pageHeight = psi.height;
+	}
 	p.docSetupPrefs.isRTL    = m_newDocument->isRTL();
 
 	// --- Scripts (FSW_FontsScripts) ---
-	// pathPrefs.scripts is a SINGLE directory (the Paths pane uses one line edit), not
-	// a list — so only the first script entry is meaningful. The FSW scripts control
-	// should really be a single line edit rather than an add/remove list.
-	const QStringList scriptDirs = m_fontsScripts->scriptPaths();
-	if (!scriptDirs.isEmpty())
-		p.pathPrefs.scripts = scriptDirs.first();
+	// pathPrefs.scripts is a single directory, matching the Paths preferences pane.
+	// Written unconditionally so clearing the folder clears the preference; the line
+	// edit shows native separators, so convert back on the way in.
+	p.pathPrefs.scripts = QDir::fromNativeSeparators(m_fontsScripts->scriptPath());
 
 	// --- Additional font folders (FSW_FontsScripts) ---
 	// Font search paths are NOT an appPrefs field; they live in the PrefsFile "Fonts"
-	// context, table "ExtraFontDirs" (see Prefs_Fonts::writePaths). Append the wizard's
-	// folders there so font initialisation picks them up.
+	// context, table "ExtraFontDirs". The list was seeded from that table, so write it
+	// back as a REPLACE (clear + set), mirroring Prefs_Fonts::writePaths() -- appending
+	// would duplicate every pre-existing folder.
+	PrefsContext* fontCtx = PrefsManager::instance().prefsFile->getContext("Fonts");
+	PrefsTable* fontTable = fontCtx->getTable("ExtraFontDirs");
+	fontTable->clear();
 	const QStringList fontDirs = m_fontsScripts->fontPaths();
-	if (!fontDirs.isEmpty())
-	{
-		PrefsContext* fontCtx = PrefsManager::instance().prefsFile->getContext("Fonts");
-		PrefsTable* fontTable = fontCtx->getTable("ExtraFontDirs");
-		int base = fontTable->getRowCount();
-		for (int i = 0; i < fontDirs.size(); ++i)
-			fontTable->set(base + i, 0, QDir::fromNativeSeparators(fontDirs.at(i)));
-	}
-	// NOTE: these are read by font initialisation on next launch. Loading them into the
-	// *current* session additionally needs an SCFonts rescan (addScalableFonts +
-	// updateFontMap + writeFontCache, as Prefs_Fonts::AddPath does) — left out to avoid
-	// a heavy rescan mid-wizard.
+	for (int i = 0; i < fontDirs.size(); ++i)
+		fontTable->set(i, 0, QDir::fromNativeSeparators(fontDirs.at(i)));
 
 	// --- Experimental (FSW_Experimental) ---
-	// The only experimental feature today is Notes (the prefs pane labels it
-	// "Enable Notes"), so the master toggle maps there. If more land later, this
-	// is where they'd be fanned out.
+	// The only experimental feature today is "Enable Notes", so the master toggle is there.
 	p.experimentalFeaturePrefs.notesEnabled = m_experimental->experimentalEnabled();
-
-	PrefsManager::instance().savePrefs();
 }
 
-void FirstStartWizard::markSetupComplete()
-{
-	// Record that first-run setup has happened so the wizard never shows again. The
-	// read default for this attribute is "0", so once it is written false here, and on
-	// every subsequent launch, the wizard stays dormant. Called from both accept() and
-	// onSkip(), so finishing or skipping both count as "done".
-	PrefsManager::instance().appPrefs.uiPrefs.showFirstStartWizard = false;
-	PrefsManager::instance().savePrefs();
-}
-
-bool FirstStartWizard::isFirstRun()
+bool FirstStartWizard::isFirstRun(const ApplicationPrefs& prefsData)
 {
 	// A fresh profile has no prefs file, so initDefaults() leaves showFirstStartWizard
 	// true; an existing profile read it (defaulting to "0" when the attribute is
-	// absent). Either way this flag is the single source of truth.
-	return PrefsManager::instance().appPrefs.uiPrefs.showFirstStartWizard;
+	// absent).
+	return prefsData.uiPrefs.showFirstStartWizard;
 }

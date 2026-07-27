@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "fsw_experimental.h"
+#include "prefsstructs.h"
 #include <QEvent>
 
 FSW_Experimental::FSW_Experimental(QWidget* parent)
@@ -13,6 +14,13 @@ FSW_Experimental::FSW_Experimental(QWidget* parent)
 {
 	setupUi(this);
 	experimentalCheck->setChecked(false);   // default off
+}
+
+void FSW_Experimental::restoreDefaults(const ApplicationPrefs* prefsData)
+{
+	if (!prefsData)
+		return;
+	experimentalCheck->setChecked(prefsData->experimentalFeaturePrefs.notesEnabled);
 }
 
 bool FSW_Experimental::experimentalEnabled() const

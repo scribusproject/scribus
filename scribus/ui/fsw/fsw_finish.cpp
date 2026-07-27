@@ -82,9 +82,9 @@ void FSW_Finish::initializePage()
 		const int fontCount = fs->fontPaths().size();
 		if (fontCount > 0)
 			addRow(tr("Font folders added"), QString::number(fontCount));
-		const QStringList scripts = fs->scriptPaths();
-		if (!scripts.isEmpty())
-			addRow(tr("Script folder"), scripts.first());
+		const QString scriptDir = fs->scriptPath();
+		if (!scriptDir.isEmpty())
+			addRow(tr("Script folder"), scriptDir);
 	}
 	html += QStringLiteral("</table>");
 

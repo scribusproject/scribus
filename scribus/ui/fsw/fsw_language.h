@@ -11,18 +11,21 @@ for which a new license (GPL+exception) is in place.
 #include <QWizardPage>
 #include "ui_fsw_language.h"
 
+struct ApplicationPrefs;
+
 //! \brief Language & units: interface language, document language, units.
 class FSW_Language : public QWizardPage, Ui::FSW_Language
 {
 		Q_OBJECT
 	public:
 		explicit FSW_Language(QWidget* parent = nullptr);
+		void restoreDefaults(const struct ApplicationPrefs* prefsData);  //!< seed the page from @a prefsData
 
 		QString uiLanguage() const;        //!< interface language (translation key)
 		QString uiLanguageName() const;    //!< combo display text, for the summary
 		QString documentLanguage() const;  //!< default language for new text
 		QString documentLanguageName() const;  //!< combo display text
-		int     unitIndex() const;         //!< -> docSetupPrefs.docUnitIndex
+		int unitIndex() const;         //!< -> docSetupPrefs.docUnitIndex
 		QString unitName() const;          //!< combo display text
 
 	protected:

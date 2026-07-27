@@ -63,7 +63,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="dirHint">
+       <widget class="QLabel" name="advancedTextDirLabel">
         <property name="text">
          <string>On by default for right-to-left languages. Leave off to keep the interface simpler — you can switch it on later.</string>
         </property>
