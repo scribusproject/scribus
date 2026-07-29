@@ -429,14 +429,16 @@ void ShapePalette::Import()
 	QString s = QFileDialog::getOpenFileName(this, tr("Choose a shape file to import"), dirs->get("shape_load", "."), tr("Photoshop Custom Shape (*.csh *.CSH)"));
 	if (s.isEmpty())
 		return;
+	dirs->set("shape_load", s.left(s.lastIndexOf(QDir::toNativeSeparators("/"))));
 
 	QFileInfo fi(s);
 	ShapeViewWidget = new ShapeView(this);
 	int nIndex = Frame3->addItem(ShapeViewWidget, fi.baseName());
-	dirs->set("shape_load", s.left(s.lastIndexOf(QDir::toNativeSeparators("/"))));
+
 	QFile file(s);
 	if (!file.open(QFile::ReadOnly))
 		return;
+
 	QApplication::setOverrideCursor(Qt::WaitCursor);
 	QDataStream ds(&file);
 	ds.setByteOrder(QDataStream::BigEndian);
@@ -444,18 +446,25 @@ void ShapePalette::Import()
 	magic.resize(4);
 	ds.readRawData(magic.data(), 4);
 	if (magic != "cush")
-		return;
-	quint32 version, count, shpCounter;
-	shpCounter = 1;
-	ds >> version >> count;
-	while (!ds.atEnd())
 	{
-		QString  string = "";
-		quint32  length, dummy, shpLen, paDataLen;
+		QApplication::restoreOverrideCursor();
+		return;
+	}
+
+	quint32 version, count;
+	ds >> version >> count;
+	// Read only the declared number of shapes: Photoshop appends its own 8BIM resource
+	// blocks, which parse as a shape with a huge name length and hang the loops below.
+	for (quint32 shpCounter = 0; shpCounter < count; ++shpCounter)
+	{
+		if (ds.atEnd() || ds.status() != QDataStream::Ok)
+			break;
+		QString string;
+		quint32 length, dummy, shpLen, paDataLen;
 		ds >> length;
 		for (uint i = 0; i < length; ++i)
 		{
-			quint16  ch;
+			quint16 ch;
 			ds >> ch;
 			if (ch > 0)
 				string += char(ch);
@@ -471,6 +480,10 @@ void ShapePalette::Import()
 		ds.readRawData(uuid.data(), 36);
 		qint32 x, y, w, h;
 		ds >> y >> x >> h >> w;
+		// A length byte plus a 36 byte UUID and four qint32 bounds (1 + 36 + 16 = 53)
+		// precede the path data; shorter is corrupt and would wrap the subtraction.
+		if (shpLen < 53)
+			break;
 		paDataLen = shpLen - 53;
 		QRect bounds(QPoint(x,y), QPoint(w, h));
 		bool first = false;
@@ -549,7 +562,6 @@ void ShapePalette::Import()
 		shData.name = string;
 		ShapeViewWidget->shapes.insert(QString(uuid), shData);
 		ds.device()->seek(posi + shpLen);
-		shpCounter++;
 	}
 	file.close();
 	Frame3->setCurrentIndex(nIndex);
