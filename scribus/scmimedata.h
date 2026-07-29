@@ -87,7 +87,7 @@ public:
 	ScTextMimeData() : QMimeData() {}
 
 	void setScribusText(const QByteArray& scText) { setData(ScMimeData::ScribusTextMimeType, scText); }
-	QByteArray scribusText() { return data(ScMimeData::ScribusFragmentMimeType); }
+	QByteArray scribusText() { return data(ScMimeData::ScribusTextMimeType); }
 };
 
 #endif
