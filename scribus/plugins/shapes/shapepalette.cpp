@@ -436,14 +436,16 @@ void ShapePalette::Import()
 	QString s = QFileDialog::getOpenFileName(this, tr("Choose a shape file to import"), dirs->get("shape_load", "."), tr("Photoshop Custom Shape (*.csh *.CSH)"));
 	if (s.isEmpty())
 		return;
+	dirs->set("shape_load", s.left(s.lastIndexOf(QDir::toNativeSeparators("/"))));
 
 	QFileInfo fi(s);
 	ShapeViewWidget = new ShapeView(this);
 	int nIndex = Frame3->addItem(ShapeViewWidget, fi.baseName());
-	dirs->set("shape_load", s.left(s.lastIndexOf(QDir::toNativeSeparators("/"))));
+
 	QFile file(s);
 	if (!file.open(QFile::ReadOnly))
 		return;
+
 	QApplication::setOverrideCursor(Qt::WaitCursor);
 	QDataStream ds(&file);
 	ds.setByteOrder(QDataStream::BigEndian);
@@ -455,6 +457,7 @@ void ShapePalette::Import()
 		QApplication::restoreOverrideCursor();
 		return;
 	}
+
 	quint32 version, count;
 	ds >> version >> count;
 	// Read only the declared number of shapes: Photoshop appends its own 8BIM resource
