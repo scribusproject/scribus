@@ -199,20 +199,20 @@ void MarksManager::on_UpdateButton_clicked()
 
 	//update labels for "lost" marks (marks not in any text)
 	QList<Mark*> notUsed;
-	for (int a=0; a < m_Doc->marksList().count(); ++a)
+	for (int i=0; i < m_Doc->marksList().count(); ++i)
 	{
-		Mark* mrk = m_Doc->marksList().at(a);
-		if (mrk->isUnique() && !mrk->label.startsWith("UNVISIBLE*") && !m_Doc->isMarkUsed(mrk, true))
+		Mark* mrk = m_Doc->marksList().at(i);
+		if (mrk->isUnique() && !mrk->label.startsWith("INVISIBLE*") && !m_Doc->isMarkUsed(mrk, true))
 			notUsed.append(mrk);
 	}
 
 	if (notUsed.isEmpty())
 		return;
 
-	for (int a=0; a < notUsed.count(); ++a)
+	for (int i=0; i < notUsed.count(); ++i)
 	{
-		Mark* mrk = notUsed.at(a);
-		QString l = "UNVISIBLE*" + mrk->label;
+		Mark* mrk = notUsed.at(i);
+		QString l = "INVISIBLE*" + mrk->label;
 		getUniqueName(l, m_Doc->marksLabelsList(mrk->getType()), "_");
 		mrk->label = l;
 	}
