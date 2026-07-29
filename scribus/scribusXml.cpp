@@ -71,7 +71,8 @@ bool ScriXmlDoc::readElemHeader(const QString& file, bool isFile, double *x, dou
 		QByteArray f;
 		if (!loadRawText(file, f))
 			return false;
-		if (f.left(16) == "<SCRIBUSELEMUTF8")
+		//Remove uppercase in 1.8 format
+		if (f.startsWith("<ScribusElementUTF8") || f.startsWith("<SCRIBUSELEMUTF8"))
 			ff = QString::fromUtf8(f.data());
 		else
 			ff = f;
@@ -137,7 +138,8 @@ bool ScriXmlDoc::readElemToLayer(const QString& fileNameOrData, ScribusDoc *doc,
 		QByteArray f;
 		if (!loadRawText(fileNameOrData, f))
 			return false;
-		if (f.left(16) == "<SCRIBUSELEMUTF8")
+		//Remove uppercase in 1.8 format
+		if (f.startsWith("<ScribusElementUTF8") || f.startsWith("<SCRIBUSELEMUTF8"))
 			elementData = QString::fromUtf8(f.data());
 		else
 			elementData = f;

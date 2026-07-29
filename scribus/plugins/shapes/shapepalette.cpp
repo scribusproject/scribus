@@ -5,11 +5,11 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 /***************************************************************************
-                          shapepalette.cpp  -  description
-                             -------------------
-    begin                : Sat Mar 28 2015
-    copyright            : (C) 2015 by Franz Schmid
-    email                : Franz.Schmid@altmuehlnet.de
+						  shapepalette.cpp  -  description
+							 -------------------
+	begin                : Sat Mar 28 2015
+	copyright            : (C) 2015 by Franz Schmid
+	email                : Franz.Schmid@altmuehlnet.de
  ***************************************************************************/
 
 /***************************************************************************
@@ -211,6 +211,8 @@ void ShapeView::dropEvent(QDropEvent *e)
 
 void ShapeView::startDrag(Qt::DropActions supportedActions)
 {
+	if (!currentItem())
+		return;
 	QString key = currentItem()->data(Qt::UserRole).toString();
 	if (shapes.contains(key))
 	{
@@ -234,11 +236,15 @@ void ShapeView::startDrag(Qt::DropActions supportedActions)
 		ite->ClipEdited = true;
 		ite->FrameType = 3;
 		m_Doc->m_Selection->addItem(ite);
-		ScElemMimeData* md = ScriXmlDoc::writeToMimeData(m_Doc, m_Doc->m_Selection);
+		// Send the element as plain mime data: a dragged ScElemMimeData does not reach
+		// the canvas, and writeElem() returns the same xml writeToMimeData() wraps.
+		ScriXmlDoc ss;
+		QMimeData* md = new QMimeData();
+		md->setData(ScMimeData::ScribusElemMimeType, ss.writeElem(m_Doc, m_Doc->m_Selection).toUtf8());
 		QDrag* dr = new QDrag(this);
 		dr->setMimeData(md);
 		dr->setPixmap(currentItem()->icon().pixmap(QSize(48, 48)));
-		dr->exec();
+		dr->exec(Qt::CopyAction);
 		delete m_Doc;
 	}
 }
@@ -445,12 +451,18 @@ void ShapePalette::Import()
 	magic.resize(4);
 	ds.readRawData(magic.data(), 4);
 	if (magic != "cush")
-		return;
-	quint32 version, count, shpCounter;
-	shpCounter = 1;
-	ds >> version >> count;
-	while (!ds.atEnd())
 	{
+		QApplication::restoreOverrideCursor();
+		return;
+	}
+	quint32 version, count;
+	ds >> version >> count;
+	// Read only the declared number of shapes: Photoshop appends its own 8BIM resource
+	// blocks, which parse as a shape with a huge name length and hang the loops below.
+	for (quint32 shpCounter = 0; shpCounter < count; ++shpCounter)
+	{
+		if (ds.atEnd() || ds.status() != QDataStream::Ok)
+			break;
 		QString string;
 		quint32 length, dummy, shpLen, paDataLen;
 		ds >> length;
@@ -472,6 +484,10 @@ void ShapePalette::Import()
 		ds.readRawData(uuid.data(), 36);
 		qint32 x, y, w, h;
 		ds >> y >> x >> h >> w;
+		// A length byte plus a 36 byte UUID and four qint32 bounds (1 + 36 + 16 = 53)
+		// precede the path data; shorter is corrupt and would wrap the subtraction.
+		if (shpLen < 53)
+			break;
 		paDataLen = shpLen - 53;
 		QRect bounds(QPoint(x,y), QPoint(w, h));
 		bool first = false;
@@ -550,7 +566,6 @@ void ShapePalette::Import()
 		shData.name = string;
 		ShapeViewWidget->shapes.insert(QString(uuid), shData);
 		ds.device()->seek(posi + shpLen);
-		shpCounter++;
 	}
 	file.close();
 	Frame3->setCurrentIndex(nIndex);
@@ -561,7 +576,7 @@ void ShapePalette::Import()
 
 void ShapePalette::setMainWindow(ScribusMainWindow *mw)
 {
-	m_scMW = mw;	
+	m_scMW = mw;
 	for (int a = 0; a < Frame3->count(); a++)
 	{
 		ShapeViewWidget = (ShapeView*)Frame3->widget(a);

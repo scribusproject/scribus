@@ -512,6 +512,11 @@ void ScribusView::contentsDragEnterEvent(QDragEnterEvent *e)
 	const ScElemMimeData* elemData = qobject_cast<const ScElemMimeData*>(e->mimeData());
 	if (elemData)
 		text = elemData->scribusElem();
+	else if (e->mimeData()->hasFormat(ScMimeData::ScribusElemMimeType))
+	{
+		QByteArray data = e->mimeData()->data(ScMimeData::ScribusElemMimeType);
+		text = QString::fromUtf8(data.data(), data.size());
+	}
 	else if (e->mimeData()->hasUrls())
 	{
 		QList<QUrl> urls = e->mimeData()->urls();
@@ -562,7 +567,9 @@ void ScribusView::contentsDragMoveEvent(QDragMoveEvent *e)
 {
 	QString text;
 	e->accept();
-	if (e->mimeData()->hasText())
+	// hasText() is also true for urls, so files and scrapbook entries drop fine, but a
+	// dragged Scribus element has neither and never had its action accepted here.
+	if (e->mimeData()->hasText() || e->mimeData()->hasFormat(ScMimeData::ScribusElemMimeType))
 	{
 		e->acceptProposedAction();
 		text = e->mimeData()->text();
@@ -695,11 +702,18 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			return;
 		}
 	}
-	else if (e->mimeData()->hasFormat("application/x-scribus-elem"))
+	else if (e->mimeData()->hasFormat(ScMimeData::ScribusElemMimeType))
 	{
+		// Drag and drop does not preserve the ScElemMimeData subclass, so fall back to
+		// the mime format itself, as ScMimeData::clipboardScribusElem() does.
 		const ScElemMimeData* scMimeData = qobject_cast<const ScElemMimeData*>(e->mimeData());
 		if (scMimeData)
 			text = scMimeData->scribusElem();
+		else
+		{
+			QByteArray data = e->mimeData()->data(ScMimeData::ScribusElemMimeType);
+			text = QString::fromUtf8(data.data(), data.size());
+		}
 	}
 	else if (e->mimeData()->hasFormat("text/symbol"))
 	{
@@ -829,10 +843,13 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 	}
 	else
 	{
-		if ((text.startsWith("<SCRIBUSELEM")) || (text.startsWith("SCRIBUSFRAGMENT")))
+		bool isElem = text.startsWith("<ScribusElementUTF8");
+		//Remove uppercase in 1.8 format
+		if (!isElem)
+			isElem = text.startsWith("<SCRIBUSELEM");
+		if (isElem || text.startsWith("SCRIBUSFRAGMENT"))
 			vectorFile = true;
 	}
-	//		qDebug() << "drop - img:" << img << "file:" << fi.exists() << "suffix:" << fi.suffix() << "select by drag:" << selectedItemByDrag;
 	//CB When we drag an image to a page from outside
 	//SeleItemPos is from 1.2.x. Needs reenabling for dragging *TO* a frame
 	if ((fi.exists()) && img && !selectedItemByDrag && !vectorFile)// && (!SeleItemPos(e->pos())))
