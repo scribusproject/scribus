@@ -2013,9 +2013,11 @@ void ScribusDoc::restoreMarks(UndoState* state, bool isUndo)
 			mrk = newMark();
 			mrk->label = is->get("label");
 			mrk->setType((MarkType) is->getInt("type"));
-			Q_ASSERT(pos >= 0);
-			Q_ASSERT(currItem != nullptr);
-			currItem->itemText.insertMark(mrk, pos);
+			if (currItem)
+			{
+				Q_ASSERT(pos >= 0);
+				currItem->itemText.insertMark(mrk, pos);
+			}
 			if (is->contains("strtxt"))
 			{
 				mrk->setString(is->get("strtxt"));
@@ -2045,7 +2047,7 @@ void ScribusDoc::restoreMarks(UndoState* state, bool isUndo)
 			mrk->label = is->get("label");
 			mrk->setType((MarkType) is->getInt("type"));
 			mrk->setString(is->get("strtxt"));
-			for (int i=0; i < is->insertItemPos.count(); ++i)
+			for (int i = 0; i < is->insertItemPos.count(); ++i)
 			{
 				PageItem* item = (PageItem*) is->insertItemPos[i].first;
 				item->itemText.insertMark(mrk, is->insertItemPos[i].second);
@@ -17405,11 +17407,14 @@ void ScribusDoc::setUndoDelMark(const Mark *mrk)
 		{
 			ims->set("MARK", QString("delete"));
 			PageItem* master = findFirstMarkItem(mrk);
-			if (master->isNoteFrame())
-				ims->set("noteframeName", master->getUName());
-			else
-				ims->insertItem("inItem", master);
-			ims->set("at", findMarkCPos(mrk, master));
+			if (master)
+			{
+				if (master->isNoteFrame())
+					ims->set("noteframeName", master->getUName());
+				else
+					ims->insertItem("inItem", master);
+				ims->set("at", findMarkCPos(mrk, master));
+			}
 			if (mrk->isType(MARK2MarkType))
 			{
 				ims->set("dName", mrk->getDestMarkName());
