@@ -1021,19 +1021,23 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 			int ri = m_doc->guidesPrefs().renderStackOrder[r];
 			if (ri == 0)
 			{
-				DrawPageMargins(painter, clip, true);			// drawing stack id = 0
+				if (!m_viewMode.viewAsPreview)
+					DrawPageMargins(painter, clip, true);			// drawing stack id = 0
 			}
 			else if (ri == 1)
 			{
-				DrawPageBaselineGrid(painter, clip, true);	// drawing stack id = 1
+				if (!m_viewMode.viewAsPreview)
+					DrawPageBaselineGrid(painter, clip, true);	// drawing stack id = 1
 			}
 			else if (ri == 2)
 			{
-				DrawPageGrid(painter, clip, true);			// drawing stack id = 2
+				if (!m_viewMode.viewAsPreview)
+					DrawPageGrid(painter, clip, true);			// drawing stack id = 2
 			}
 			else if (ri == 3)
 			{
-				DrawPageGuides(painter, clip, true);			// drawing stack id = 3
+				if (!m_viewMode.viewAsPreview)
+					DrawPageGuides(painter, clip, true);			// drawing stack id = 3
 			}
 			else if (ri == 4)
 			{
