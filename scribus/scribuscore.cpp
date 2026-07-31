@@ -391,6 +391,18 @@ bool ScribusCore::isWinGUI() const
 #endif
 }
 
+bool ScribusCore::isWaylandGui() const
+{
+	QString pltfName = QApplication::platformName();
+	return pltfName == "wayland";
+}
+
+bool ScribusCore::isX11Gui() const
+{
+	QString pltfName = QApplication::platformName();
+	return pltfName == "xcb";
+}
+
 //Returns false when there are no fonts
 bool ScribusCore::initFonts(bool showFontInfo)
 {

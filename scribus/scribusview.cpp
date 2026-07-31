@@ -3196,10 +3196,22 @@ void ScribusView::wheelEvent(QWheelEvent *w)
 	}
 	else
 	{
-		int signOfX = (angleDelta.x() == 0) ? 0 : std::copysign(1.0, angleDelta.x());
-		int signOfY = (angleDelta.y() == 0) ? 0 : std::copysign(1.0, angleDelta.y());
-		int dX = -Prefs->uiPrefs.wheelJump * signOfX;
-		int dY = -Prefs->uiPrefs.wheelJump * signOfY;
+		int dX = 0;
+		int dY = 0;
+		QPoint pixelDelta = w->pixelDelta();
+		// Per Qt documentation, pixelDelta() is unreliable on X11
+		if (!ScCore->isX11Gui() && !pixelDelta.isNull())
+		{
+			dX = -pixelDelta.x();
+			dY = -pixelDelta.y();
+		}
+		else
+		{
+			int signOfX = (angleDelta.x() == 0) ? 0 : std::copysign(1.0, angleDelta.x());
+			int signOfY = (angleDelta.y() == 0) ? 0 : std::copysign(1.0, angleDelta.y());
+			dX = -Prefs->uiPrefs.wheelJump * signOfX;
+			dY = -Prefs->uiPrefs.wheelJump * signOfY;
+		}
 #ifndef Q_OS_MACOS
 		if (w->modifiers() == Qt::ShiftModifier)
 			std::swap(dX, dY);
@@ -3494,14 +3506,13 @@ void ScribusView::setContentsPos(int x, int y)
 	setRulerPos(contentsX(), contentsY());
 }
 
-
 void ScribusView::scrollContentsBy(int dx, int dy)
 {
 	QScrollArea::scrollContentsBy(dx, dy);
 	setRulerPos(contentsX(), contentsY());
-	if (m_doc->guidesPrefs().linkShown ||
-			m_canvas->m_viewMode.drawFramelinksWithContents ||
-			m_canvas->m_viewMode.linkedFramesToShow.count() > 0)
+
+	if ((m_doc->guidesPrefs().linkShown || m_canvas->m_viewMode.drawFramelinksWithContents) &&
+		!m_canvas->m_viewMode.linkedFramesToShow.isEmpty())
 	{
 		m_canvas->setForcedRedraw(true);
 		m_canvas->update();

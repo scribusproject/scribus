@@ -100,6 +100,16 @@ public:
 	* @retval bool true if we are on Qt/Win
 	*/
 	bool isWinGUI() const;
+	/**
+	* @brief Are we executing Scribus on Wayland ?
+	* @retval bool true if we are on Wayland
+	*/
+	bool isWaylandGui() const;
+	/**
+	* @brief Are we executing Scribus on X11 ?
+	* @retval bool true if we are on X11
+	*/
+	bool isX11Gui() const;
 	bool haveCMS() const {return m_haveCMS;}
 	bool haveGS() const {return m_haveGS;}
 	bool havePNGAlpha() const {return m_havePNGAlpha;}
