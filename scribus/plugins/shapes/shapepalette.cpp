@@ -243,17 +243,21 @@ void ShapeView::startDrag(Qt::DropActions supportedActions)
 
 void ShapeView::updateShapeList()
 {
+	const QPalette& palette = this->palette();
+	const QColor& fillColor = palette.color(QPalette::Base);
+	const QColor& textColor = palette.color(QPalette::Text);
+
 	clear();
 	setWordWrap(true);
-	for (QHash<QString, shapeData>::Iterator it = shapes.begin(); it != shapes.end(); ++it)
+	for (auto it = shapes.begin(); it != shapes.end(); ++it)
 	{
 		int w = it.value().width + 4;
 		int h = it.value().height + 4;
 		QImage Ico(w, h, QImage::Format_ARGB32_Premultiplied);
 		Ico.fill(0);
 		ScPainter *painter = new ScPainter(&Ico, w, h);
-		painter->setBrush(qRgb(0, 0, 0));
-		painter->setPen(qRgb(0, 0, 0), 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
+		painter->setBrush(textColor);
+		painter->setPen(textColor, 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
 		painter->setFillMode(ScPainter::Solid);
 		painter->setStrokeMode(ScPainter::Solid);
 		painter->translate(2.0, 2.0);
@@ -267,7 +271,7 @@ void ShapeView::updateShapeList()
 		else
 			pm = QPixmap::fromImage(Ico.scaledToHeight(48, Qt::SmoothTransformation));
 		QPixmap pm2(48, 48);
-		pm2.fill(palette().color(QPalette::Base));
+		pm2.fill(fillColor);
 		QPainter p;
 		p.begin(&pm2);
 		p.drawPixmap(24 - pm.width() / 2, 24 - pm.height() / 2, pm);
