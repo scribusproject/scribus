@@ -1085,7 +1085,8 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 				}
 			}
 		}
-		DrawPageIndicator(painter, clip, true);
+		if (!m_viewMode.viewAsPreview)
+			DrawPageIndicator(painter, clip, true);
 		painter->endLayer();
 	}
 	if (((m_doc->m_Selection->count() != 0) || (m_viewMode.linkedFramesToShow.count() != 0))  && (!m_viewMode.viewAsPreview))
