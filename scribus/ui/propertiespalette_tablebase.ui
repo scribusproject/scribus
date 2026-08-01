@@ -694,6 +694,55 @@
     </widget>
    </item>
    <item>
+    <widget class="SectionContainer" name="scTableCellAlignment">
+     <property name="title" stdset="0">
+      <string>Cell Alignment</string>
+     </property>
+     <widget class="QWidget" name="page_42">
+      <layout class="QVBoxLayout" name="verticalLayout_6">
+       <property name="spacing">
+        <number>4</number>
+       </property>
+       <property name="leftMargin">
+        <number>8</number>
+       </property>
+       <property name="topMargin">
+        <number>8</number>
+       </property>
+       <property name="rightMargin">
+        <number>8</number>
+       </property>
+       <property name="bottomMargin">
+        <number>8</number>
+       </property>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_24" stretch="0,1">
+         <property name="spacing">
+          <number>4</number>
+         </property>
+         <item>
+          <widget class="AlignVerticalSelect" name="cellVerticalAlignment" native="true"/>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Orientation::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item>
     <widget class="SectionContainer" name="scTableCellPadding">
      <property name="title" stdset="0">
       <string>Cell Padding</string>
@@ -874,6 +923,12 @@
    <class>CellStyleComboBox</class>
    <extends>QComboBox</extends>
    <header>ui/stylecombos.h</header>
+  </customwidget>
+  <customwidget>
+   <class>AlignVerticalSelect</class>
+   <extends>QWidget</extends>
+   <header>ui/alignverticalselect.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

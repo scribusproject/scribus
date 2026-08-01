@@ -117,7 +117,13 @@ void PropertyWidget_Alignment::setCurrentItem(PageItem *item)
 
 	m_haveItem = true;
 
-	textVerticalAlignment->setEnabled(m_item->isTextFrame() || m_item->isTable());
+	// Vertical alignment of a table cell belongs to the cell style, and is
+	// edited in the Table palette. Hide the frame-level control while editing
+	// a table rather than disabling it: a disabled widget does not deliver
+	// tool tips, so a greyed-out control could not explain where the setting
+	// went. It stays available for ordinary text frames.
+	textVerticalAlignment->setVisible(!m_item->isTable());
+	textVerticalAlignment->setEnabled(m_item->isTextFrame());
 
 	if (m_item->isTextFrame() || m_item->isPathText() || m_item->isTable())
 	{
@@ -299,27 +305,12 @@ void PropertyWidget_Alignment::handleVAlignment(int a)
 {
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-
-	if (m_doc->appMode == modeEditTable)
-	{
-		// In a table the vertical alignment belongs to the cell, not to the
-		// cell's text frame: the frame's value is derived from the cell style on
-		// every updateCells() and setting it here would be overwritten at once.
-		PageItem_Table* table = m_item->asTable();
-		if (!table)
-			return;
-		table->activeCell().setVerticalAlignment(a);
-		table->update();
-		m_doc->regionsChanged()->update(QRect());
+	if (!m_item || m_item->isTable())
 		return;
-	}
 
-	if (m_item != nullptr)
-	{
-		m_item->setVerticalAlignment(a);
-		m_item->update();
-		m_doc->regionsChanged()->update(QRect());
-	}
+	m_item->setVerticalAlignment(a);
+	m_item->update();
+	m_doc->regionsChanged()->update(QRect());
 }
 
 void PropertyWidget_Alignment::handleDirection(int d)

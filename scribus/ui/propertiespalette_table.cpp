@@ -162,6 +162,7 @@ void PropertiesPalette_Table::handleSelectionChanged()
 	updateFillControls();
 	updateStyleControls();
 	updatePaddingControls();
+	updateAlignmentControls();
 }
 
 void PropertiesPalette_Table::handleCellSelectionChanged()
@@ -172,6 +173,7 @@ void PropertiesPalette_Table::handleCellSelectionChanged()
 		return;
 	updateFillControls();
 	updateStyleControls();
+	updateAlignmentControls();
 	syncSideSelectorToCells();
 	on_sideSelector_selectionChanged();
 }
@@ -256,6 +258,29 @@ void PropertiesPalette_Table::updatePaddingControls()
 	cellPaddingWidget->setNewValues(padding);
 }
 
+void PropertiesPalette_Table::updateAlignmentControls()
+{
+	if (!m_doc || !m_item || !m_item->isTable())
+		return;
+
+	QSet<TableCell> cells = effectiveCells();
+	if (cells.isEmpty())
+	{
+		TableCell active = m_item->asTable()->activeCell();
+		if (active.isValid())
+			cells.insert(active);
+	}
+	if (cells.isEmpty())
+		return;
+
+	// For multi-cell selections, show the first cell's value, matching how
+	// updatePaddingControls() behaves. AlignVerticalSelect::setStyle() only
+	// checks a button, and QButtonGroup::idClicked does not fire for
+	// programmatic checking, so no signal blocking is needed here.
+	const TableCell& cell = *cells.cbegin();
+	cellVerticalAlignment->setStyle(cell.verticalAlignment());
+}
+
 void PropertiesPalette_Table::toggleLabelVisibility(bool v)
 {
 	borderLineColorLabel->setLabelVisibility(v);
@@ -264,6 +289,7 @@ void PropertiesPalette_Table::toggleLabelVisibility(bool v)
 	borderLineWidthLabel->setLabelVisibility(v);
 	fillColorLabel->setLabelVisibility(v);
 	fillShadeLabel->setLabelVisibility(v);
+	cellVerticalAlignment->setLabelVisibility(v);
 }
 
 void PropertiesPalette_Table::setTableStyle(const QString &name)
@@ -759,6 +785,7 @@ void PropertiesPalette_Table::on_buttonClearTableStyle_clicked()
 	updateFillControls();
 	updateStyleControls();
 	updatePaddingControls();
+	updateAlignmentControls();
 }
 
 void PropertiesPalette_Table::on_buttonClearCellStyle_clicked()
@@ -803,6 +830,7 @@ void PropertiesPalette_Table::on_buttonClearCellStyle_clicked()
 	updateFillControls();
 	updateStyleControls();
 	updatePaddingControls();
+	updateAlignmentControls();
 }
 
 void PropertiesPalette_Table::on_cellPaddingWidget_valuesChanged(const MarginStruct& padding)
@@ -820,6 +848,26 @@ void PropertiesPalette_Table::on_cellPaddingWidget_valuesChanged(const MarginStr
 		c.setRightPadding(padding.right());
 		c.setTopPadding(padding.top());
 		c.setBottomPadding(padding.bottom());
+	}
+
+	m_item->asTable()->adjustTable();
+	m_item->asTable()->update();
+}
+
+void PropertiesPalette_Table::on_cellVerticalAlignment_State(int alignment)
+{
+	if (!m_doc || !m_item || !m_item->isTable())
+		return;
+
+	QScopedValueRollback<bool> dontResizeRb(m_doc->dontResize, true);
+
+	// Direct cell formatting, like padding and borders: in edit mode this hits
+	// the selected cells, in normal mode every cell in the table.
+	const QSet<TableCell> cells = effectiveCells();
+	for (const TableCell& cell : cells)
+	{
+		TableCell c = cell;
+		c.setVerticalAlignment(alignment);
 	}
 
 	m_item->asTable()->adjustTable();
@@ -950,6 +998,7 @@ void PropertiesPalette_Table::languageChange()
 	scTableFills->setText(tr("Fill"));
 	scTableBorders->setText(tr("Borders"));
 	scTableCellPadding->setText(tr("Cell Padding"));
+	scTableCellAlignment->setText(tr("Cell Alignment"));
 
 	borderLineColorLabel->setText(tr("C&olor"));
 	borderLineShadeLabel->setText(tr("S&hade"));
@@ -957,6 +1006,8 @@ void PropertiesPalette_Table::languageChange()
 	borderLineWidthLabel->setText(tr("&Width"));
 	fillColorLabel->setText(tr("&Color"));
 	fillShadeLabel->setText(tr("&Shade"));
+
+	cellVerticalAlignment->languageChange();
 
 }
 

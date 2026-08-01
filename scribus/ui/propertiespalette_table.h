@@ -68,6 +68,7 @@ public slots:
 	void updateFillControls();
 	void updateStyleControls();
 	void updatePaddingControls();
+	void updateAlignmentControls();
 	void toggleLabelVisibility(bool v);
 
 private slots:
@@ -97,6 +98,8 @@ private slots:
 	void on_buttonClearTableStyle_clicked();
 	void on_buttonClearCellStyle_clicked();
 	void on_cellPaddingWidget_valuesChanged(const MarginStruct& padding);
+	/// Handles cell vertical alignment changes.
+	void on_cellVerticalAlignment_State(int alignment);
 	void on_tableDirectionComboBox_currentIndexChanged(int index);
 
 	/// Syncs the side selector's visual state to reflect the actual borders
