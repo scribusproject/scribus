@@ -2601,6 +2601,9 @@
     <ClCompile Include="..\..\..\scribus\ui\smalignselect.cpp">
       <Filter>Source Files\ui</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\smalignverticalselect.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\smcellstyle.cpp">
       <Filter>Source Files\ui</Filter>
     </ClCompile>
@@ -4583,6 +4586,9 @@
       <Filter>Source Files\ui</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\smalignselect.h">
+      <Filter>Source Files\ui</Filter>
+    </moc>
+    <moc Include="..\..\..\scribus\ui\smalignverticalselect.h">
       <Filter>Source Files\ui</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\smcellstyle.h">

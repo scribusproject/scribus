@@ -838,6 +838,7 @@
     <moc Include="..\..\..\scribus\ui\shadebutton.h" />
     <moc Include="..\..\..\scribus\ui\shortcutwidget.h" />
     <moc Include="..\..\..\scribus\ui\smalignselect.h" />
+    <moc Include="..\..\..\scribus\ui\smalignverticalselect.h" />
     <moc Include="..\..\..\scribus\ui\smcellstyle.h" />
     <moc Include="..\..\..\scribus\ui\smcellstylewidget.h" />
     <moc Include="..\..\..\scribus\ui\smcheckbox.h" />
@@ -1601,6 +1602,7 @@
     <ClCompile Include="..\..\..\scribus\ui\shadebutton.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\shortcutwidget.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\smalignselect.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\smalignverticalselect.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\smcellstyle.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\smcellstylewidget.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\smcheckbox.cpp" />
