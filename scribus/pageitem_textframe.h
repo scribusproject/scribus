@@ -60,6 +60,22 @@ public:
 	bool isTextContainer() const override { return true; }
 	bool isTableCellTextFrame() const { return m_isTableCellTextFrame; }
 	void setIsTableCellTextFrame(bool isTableCellTextFrame){ m_isTableCellTextFrame = isTableCellTextFrame; }
+	/**
+	 * Sets the vertical alignment used when laying this frame out, without
+	 * recording an undo action.
+	 *
+	 * For a table cell text frame the alignment is owned by the cell style;
+	 * the value held here is a cache refreshed on every relayout rather than a
+	 * user edit of the frame, so it must not reach the undo stack. The style or
+	 * direct formatting change that caused it carries its own undo entry.
+	 * layout() already writes the member directly for the same reason when it
+	 * temporarily suppresses alignment on a non-rectangular frame.
+	 *
+	 * Use PageItem::setVerticalAlignment() for user edits of an ordinary text
+	 * frame; on a cell text frame that value would be overwritten by the next
+	 * TableCell::updateContent().
+	 */
+	void setDerivedVerticalAlignment(int val);
 
 	void clearContents() override;
 	void truncateContents() override;

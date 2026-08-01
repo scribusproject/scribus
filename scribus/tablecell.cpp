@@ -18,7 +18,6 @@ for which a new license (GPL+exception) is in place.
 #include "styles/paragraphstyle.h"
 #include "tablecell.h"
 #include "tableutils.h"
-#include "undomanager.h"
 
 using namespace TableUtils;
 
@@ -199,14 +198,11 @@ void TableCell::updateContent()
 
 	d->textFrame->setXYPos(contentRect.x(), contentRect.y(), true);
 	d->textFrame->setWidthHeight(contentRect.width(), contentRect.height(), true);
-	// Push the cell's resolved vertical alignment onto its text frame. This is
-	// a derived value refreshed on every relayout, not a user edit of the frame,
-	// so it must not reach the undo stack -- the cell style or direct formatting
-	// change that caused it carries its own undo entry.
-	{
-		UndoBlocker undoBlocker;
-		d->textFrame->setVerticalAlignment(d->style.verticalAlignment());
-	}
+	// Push the cell's resolved vertical alignment onto its text frame. This
+	// caches the cell style's value for layout(); it is not a user edit of the
+	// frame, so it uses the non-undoable setter rather than suppressing undo
+	// around the undoable one.
+	d->textFrame->setDerivedVerticalAlignment(d->style.verticalAlignment());
 	d->textFrame->updateClip();
 	d->textFrame->invalidateLayout(false);
 }

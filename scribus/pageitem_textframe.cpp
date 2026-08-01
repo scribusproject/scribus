@@ -100,6 +100,15 @@ void PageItem_TextFrame::init()
 	connect(&itemText, SIGNAL(changed(int,int)), this, SLOT(slotSpellCheckTextChanged(int,int)));
 }
 
+void PageItem_TextFrame::setDerivedVerticalAlignment(int val)
+{
+	// The assignment itself is harmless, but on a frame that owns its alignment
+	// (primarily table cells) it silently bypasses undo. Warn if used as such.
+	if (!m_isTableCellTextFrame)
+		qWarning("PageItem_TextFrame::setDerivedVerticalAlignment: called on a frame that is not a table cell text frame; use setVerticalAlignment() for user changes");
+	verticalAlign = val;
+}
+
 QRegion PageItem_TextFrame::calcAvailableRegion()
 {
 	QRegion result(this->Clip);
