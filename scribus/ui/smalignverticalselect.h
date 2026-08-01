@@ -23,7 +23,7 @@ public:
 	void setParentItem(int s);
 	bool useParentValue();
 
-	QToolButton *parentButton;
+	QToolButton* parentButton { nullptr };
 
 private:
 	bool   m_hasParent = false;
