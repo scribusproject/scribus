@@ -7,25 +7,10 @@
     <x>0</x>
     <y>0</y>
     <width>485</width>
-    <height>392</height>
+    <height>423</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
-   <property name="spacing">
-    <number>8</number>
-   </property>
-   <property name="leftMargin">
-    <number>8</number>
-   </property>
-   <property name="topMargin">
-    <number>8</number>
-   </property>
-   <property name="rightMargin">
-    <number>8</number>
-   </property>
-   <property name="bottomMargin">
-    <number>8</number>
-   </property>
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
@@ -231,7 +216,7 @@
          </widget>
         </item>
         <item>
-         <widget class="FormWidget" name="borderLineWidthLabel">
+         <widget class="FormWidget" name="borderLineWidthLabel" native="true">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
             <horstretch>0</horstretch>
@@ -277,7 +262,7 @@
          </widget>
         </item>
         <item>
-         <widget class="FormWidget" name="borderLineStyleLabel">
+         <widget class="FormWidget" name="borderLineStyleLabel" native="true">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
             <horstretch>0</horstretch>
@@ -343,9 +328,39 @@
    <item>
     <widget class="QGroupBox" name="groupBox_2">
      <property name="title">
-      <string>Cell Padding</string>
+      <string>Alignment and Distances</string>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="SMAlignVerticalSelect" name="verticalAlignmentSelect" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_5">
+        <property name="orientation">
+         <enum>Qt::Orientation::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>10</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Cell Padding:</string>
+        </property>
+       </widget>
+      </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0,1">
         <property name="spacing">
@@ -368,6 +383,19 @@
          </spacer>
         </item>
        </layout>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_6">
+        <property name="orientation">
+         <enum>Qt::Orientation::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>10</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
       </item>
      </layout>
     </widget>
@@ -423,6 +451,11 @@
    <extends>QWidget</extends>
    <header>ui/newmarginwidget.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>SMAlignVerticalSelect</class>
+   <extends>QWidget</extends>
+   <header>ui/smalignverticalselect.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

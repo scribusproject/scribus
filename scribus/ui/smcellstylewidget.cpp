@@ -71,6 +71,8 @@ void SMCellStyleWidget::languageChange()
 
 	borderLineStyleLabel->setText(tr("Type"));
 	borderLineWidthLabel->setText(tr("Width"));
+
+	verticalAlignmentSelect->languageChange();
 }
 
 void SMCellStyleWidget::updateBorderLineList()
@@ -178,6 +180,19 @@ void SMCellStyleWidget::show(CellStyle *cellStyle, QList<CellStyle> &cellStyles,
 	cellPaddingWidget->setPageHeight(99999.0);
 	cellPaddingWidget->setNewValues(padding);
 
+	// Vertical alignment. setParentItem() must follow setStyle(): the latter
+	// records the value passed to it as the fallback, so setting the parent
+	// first would be overwritten and the reset button would restore the
+	// override instead of the inherited value.
+	verticalAlignmentSelect->setEnabled(true);
+	if (hasParent)
+	{
+		verticalAlignmentSelect->setStyle(cellStyle->verticalAlignment(), cellStyle->isInhVerticalAlignment());
+		verticalAlignmentSelect->setParentItem(parent->verticalAlignment());
+	}
+	else
+		verticalAlignmentSelect->setStyle(cellStyle->verticalAlignment());
+
 	parentCombo->clear();
 	parentCombo->addItem( cellStyle->isDefaultStyle()? tr("A default style cannot be assigned a parent style") : "");
 	if (!cellStyle->isDefaultStyle())
@@ -211,6 +226,7 @@ void SMCellStyleWidget::show(QList<CellStyle*> &cellStyles, QList<CellStyle> &ce
 	{
 		showColors(cellStyles);
 		parentCombo->setEnabled(false);
+		verticalAlignmentSelect->setEnabled(false);
 	}
 }
 

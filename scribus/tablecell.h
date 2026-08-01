@@ -198,6 +198,13 @@ public:
 	/// Returns the bottom padding of this cell.
 	double bottomPadding() const { return d->style.bottomPadding(); }
 
+	/// Sets the vertical alignment of this cell's content to @a alignment.
+	/// 0 = top, 1 = middle, 2 = bottom, matching PageItem::setVerticalAlignment().
+	void setVerticalAlignment(int alignment);
+
+	/// Returns the vertical alignment of this cell's content.
+	int verticalAlignment() const { return d->style.verticalAlignment(); }
+
 	/// Sets the cell style for this cell to @a style.
 	void setStyle(const QString& style);
 

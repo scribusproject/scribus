@@ -426,6 +426,8 @@ void SMCellStyle::setupConnections()
 	connect(m_page->buttonFillColor->parentButton, SIGNAL(clicked()), this, SLOT(slotFillColor()));
 	connect(m_page->parentCombo, SIGNAL(currentTextChanged(QString)), this, SLOT(slotParentChanged(QString)));
 	connect(m_page->cellPaddingWidget, SIGNAL(valuesChanged(MarginStruct)), this, SLOT(slotCellPaddingChanged(MarginStruct)));
+	connect(m_page->verticalAlignmentSelect, SIGNAL(State(int)), this, SLOT(slotVerticalAlignmentChanged()));
+	connect(m_page->verticalAlignmentSelect->parentButton, SIGNAL(clicked()), this, SLOT(slotVerticalAlignmentChanged()));
 	connect(m_page, SIGNAL(bordersChanged(TableSides, TableBorder)), this, SLOT(slotBordersChanged(TableSides, TableBorder)));
 }
 
@@ -437,6 +439,8 @@ void SMCellStyle::removeConnections()
 	disconnect(m_page->buttonFillColor->parentButton, SIGNAL(clicked()), this, SLOT(slotFillColor()));
 	disconnect(m_page->parentCombo, SIGNAL(currentTextChanged(QString)), this, SLOT(slotParentChanged(QString)));
 	disconnect(m_page->cellPaddingWidget, SIGNAL(valuesChanged(MarginStruct)), this, SLOT(slotCellPaddingChanged(MarginStruct)));
+	disconnect(m_page->verticalAlignmentSelect, SIGNAL(State(int)), this, SLOT(slotVerticalAlignmentChanged()));
+	disconnect(m_page->verticalAlignmentSelect->parentButton, SIGNAL(clicked()), this, SLOT(slotVerticalAlignmentChanged()));
 	disconnect(m_page, SIGNAL(bordersChanged(TableSides, TableBorder)), this, SLOT(slotBordersChanged(TableSides, TableBorder)));
 }
 
@@ -517,6 +521,27 @@ void SMCellStyle::slotCellPaddingChanged(const MarginStruct &padding)
 		m_selection[i]->setRightPadding(padding.right());
 		m_selection[i]->setTopPadding(padding.top());
 		m_selection[i]->setBottomPadding(padding.bottom());
+	}
+
+	if (!m_selectionIsDirty)
+	{
+		m_selectionIsDirty = true;
+		emit selectionDirty();
+	}
+}
+
+void SMCellStyle::slotVerticalAlignmentChanged()
+{
+	if (m_page->verticalAlignmentSelect->useParentValue())
+	{
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->resetVerticalAlignment();
+	}
+	else
+	{
+		int alignment = m_page->verticalAlignmentSelect->getStyle();
+		for (int i = 0; i < m_selection.count(); ++i)
+			m_selection[i]->setVerticalAlignment(alignment);
 	}
 
 	if (!m_selectionIsDirty)

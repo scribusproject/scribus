@@ -14,11 +14,11 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "pageitem_table.h"
 #include "pageitem_textframe.h"
-#include "styles/paragraphstyle.h"
 #include "scribusdoc.h"
-#include "tableutils.h"
-
+#include "styles/paragraphstyle.h"
 #include "tablecell.h"
+#include "tableutils.h"
+#include "undomanager.h"
 
 using namespace TableUtils;
 
@@ -122,6 +122,12 @@ void TableCell::setBottomPadding(double padding)
 	d->table->updateCells();
 }
 
+void TableCell::setVerticalAlignment(int alignment)
+{
+	d->style.setVerticalAlignment(alignment);
+	d->table->updateCells();
+}
+
 void TableCell::setStyle(const QString& style)
 {
 	d->userStyleName = style;
@@ -193,6 +199,14 @@ void TableCell::updateContent()
 
 	d->textFrame->setXYPos(contentRect.x(), contentRect.y(), true);
 	d->textFrame->setWidthHeight(contentRect.width(), contentRect.height(), true);
+	// Push the cell's resolved vertical alignment onto its text frame. This is
+	// a derived value refreshed on every relayout, not a user edit of the frame,
+	// so it must not reach the undo stack -- the cell style or direct formatting
+	// change that caused it carries its own undo entry.
+	{
+		UndoBlocker undoBlocker;
+		d->textFrame->setVerticalAlignment(d->style.verticalAlignment());
+	}
 	d->textFrame->updateClip();
 	d->textFrame->invalidateLayout(false);
 }

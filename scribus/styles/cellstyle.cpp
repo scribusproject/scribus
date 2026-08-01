@@ -100,6 +100,7 @@ QString CellStyle::asString() const
 	str += QString("rightPadding=%1%2,").arg(rightPadding()).arg(inh_RightPadding ? "(inh)" : "");
 	str += QString("topPadding=%1%2,").arg(topPadding()).arg(inh_TopPadding ? "(inh)" : "");
 	str += QString("bottomPadding=%1%2,").arg(bottomPadding()).arg(inh_BottomPadding ? "(inh)" : "");
+	str += QString("verticalAlignment=%1%2,").arg(verticalAlignment()).arg(inh_VerticalAlignment ? "(inh)" : "");
 	str += QString(hasParent() ? QString("parent=%1").arg(parent()) : "");
 	str += QString(")");
 	return str;

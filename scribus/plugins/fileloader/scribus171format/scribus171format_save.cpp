@@ -1185,6 +1185,8 @@ void Scribus171Format::putCellStyleBody(ScXmlStreamWriter &docu, const CellStyle
 		docu.writeAttribute("TopPadding",style.topPadding());
 	if (!style.isInhBottomPadding())
 		docu.writeAttribute("BottomPadding", style.bottomPadding());
+	if (!style.isInhVerticalAlignment())
+		docu.writeAttribute("VerticalAlignment", style.verticalAlignment());
 	if (!style.isInhLeftBorder())
 	{
 		const TableBorder& tbLeft = style.leftBorder();
@@ -2582,7 +2584,6 @@ void Scribus171Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 					docu.writeAttribute("TextDistTop", textFrame->textToFrameDistTop());
 					docu.writeAttribute("TextDistBottom", textFrame->textToFrameDistBottom());
 					docu.writeAttribute("TextDistRight", textFrame->textToFrameDistRight());
-					docu.writeAttribute("TextVertAlign", textFrame->verticalAlignment());
 					docu.writeAttribute("Flop", textFrame->firstLineOffset());
 
 					QString cstyle = cell.styleName();
@@ -2601,6 +2602,8 @@ void Scribus171Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 						docu.writeAttribute("TopPadding",cell.topPadding());
 					if (!cell.style().isInhBottomPadding())
 						docu.writeAttribute("BottomPadding", cell.bottomPadding());
+					if (!cell.style().isInhVerticalAlignment())
+						docu.writeAttribute("VerticalAlignment", cell.verticalAlignment());
 					if (!cell.style().isInhLeftBorder())
 					{
 						TableBorder tbLeft = cell.leftBorder();

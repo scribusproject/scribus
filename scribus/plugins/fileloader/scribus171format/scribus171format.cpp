@@ -3913,6 +3913,8 @@ void Scribus171Format::readConditionalCellStyle(ScribusDoc *doc, ScXmlStreamRead
 		newStyle.setTopPadding(attrs.valueAsDouble("TopPadding", 0.0));
 	if (attrs.hasAttribute("BottomPadding"))
 		newStyle.setBottomPadding(attrs.valueAsDouble("BottomPadding", 0.0));
+	if (attrs.hasAttribute("VerticalAlignment"))
+		newStyle.setVerticalAlignment(attrs.valueAsInt("VerticalAlignment", 0));
 
 	QString tagName(reader.nameAsString());
 	while (!reader.atEnd() && !reader.hasError())
@@ -4015,6 +4017,8 @@ void Scribus171Format::readCellStyle(ScribusDoc *doc, ScXmlStreamReader& reader,
 		newStyle.setTopPadding(attrs.valueAsDouble("TopPadding", 0.0));
 	if (attrs.hasAttribute("BottomPadding"))
 		newStyle.setBottomPadding(attrs.valueAsDouble("BottomPadding", 0.0));
+	if (attrs.hasAttribute("VerticalAlignment"))
+		newStyle.setVerticalAlignment(attrs.valueAsInt("VerticalAlignment", 0));
 
 	QString tagName(reader.nameAsString());
 	while (!reader.atEnd() && !reader.hasError())
@@ -7903,6 +7907,19 @@ bool Scribus171Format::readItemTableCell(PageItem_Table* item, ScXmlStreamReader
 			item->cellAt(row, col).setTopPadding(tAtt.valueAsDouble("TopPadding", 0.0));
 		if (tAtt.hasAttribute("BottomPadding"))
 			item->cellAt(row, col).setBottomPadding(tAtt.valueAsDouble("BottomPadding", 0.0));
+		if (tAtt.hasAttribute("VerticalAlignment"))
+			item->cellAt(row, col).setVerticalAlignment(tAtt.valueAsInt("VerticalAlignment", 0));
+		else
+		{
+			// Documents written before vertical alignment moved into the cell style
+			// stored it on the cell text frame as TextVertAlign. Migrate it to direct
+			// cell formatting, but only when non-default: TextVertAlign was written
+			// unconditionally, so importing the zeroes as direct formatting would mask
+			// the cell style on every cell of every existing document.
+			int legacyVertAlign = tAtt.valueAsInt("TextVertAlign", 0);
+			if (legacyVertAlign > 0)
+				item->cellAt(row, col).setVerticalAlignment(legacyVertAlign);
+		}
 
 		PageItem* newItem = item->cellAt(row, col).textFrame();
 		newItem->m_columns = tAtt.valueAsInt("TextColumns", 1);
@@ -7911,7 +7928,6 @@ bool Scribus171Format::readItemTableCell(PageItem_Table* item, ScXmlStreamReader
 							tAtt.valueAsDouble("TextDistRight", 0.0),
 							tAtt.valueAsDouble("TextDistTop", 0.0),
 							tAtt.valueAsDouble("TextDistBottom", 0.0));
-		newItem->setVerticalAlignment(tAtt.valueAsInt("TextVertAlign", 0));
 		newItem->setFirstLineOffset(static_cast<FirstLineOffsetPolicy>(tAtt.valueAsInt("Flop")));
 	}
 

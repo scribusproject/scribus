@@ -299,15 +299,25 @@ void PropertyWidget_Alignment::handleVAlignment(int a)
 {
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	PageItem *textItem = m_item;
+
 	if (m_doc->appMode == modeEditTable)
-		textItem = m_item->asTable()->activeCell().textFrame();
-	if (textItem != nullptr)
 	{
-		textItem->setVerticalAlignment(a);
-		textItem->update();
-		if (m_doc->appMode == modeEditTable)
-			m_item->asTable()->update();
+		// In a table the vertical alignment belongs to the cell, not to the
+		// cell's text frame: the frame's value is derived from the cell style on
+		// every updateCells() and setting it here would be overwritten at once.
+		PageItem_Table* table = m_item->asTable();
+		if (!table)
+			return;
+		table->activeCell().setVerticalAlignment(a);
+		table->update();
+		m_doc->regionsChanged()->update(QRect());
+		return;
+	}
+
+	if (m_item != nullptr)
+	{
+		m_item->setVerticalAlignment(a);
+		m_item->update();
 		m_doc->regionsChanged()->update(QRect());
 	}
 }

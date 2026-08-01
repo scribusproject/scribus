@@ -512,6 +512,7 @@ set(SCRIBUS_SOURCES
 	ui/shadebutton.cpp
 	ui/shortcutwidget.cpp
 	ui/smalignselect.cpp
+	ui/smalignverticalselect.cpp
 	ui/smcellstylewidget.cpp
 	ui/smcellstyle.cpp
 	ui/smcheckbox.cpp
