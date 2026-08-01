@@ -724,7 +724,7 @@
           <widget class="AlignVerticalSelect" name="cellVerticalAlignment" native="true"/>
          </item>
          <item>
-          <spacer name="horizontalSpacer_3">
+          <spacer name="horizontalSpacer_31">
            <property name="orientation">
             <enum>Qt::Orientation::Horizontal</enum>
            </property>
