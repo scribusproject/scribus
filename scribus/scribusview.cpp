@@ -228,7 +228,7 @@ void ScribusView::nativeGestureEvent(QNativeGestureEvent *e)
 		if (zoomTo100)
 			zoom(mp.x(), mp.y(), Prefs->displayPrefs.displayScale, true);
 		else
-			zoom(mp.x(), mp.y(), Prefs->displayPrefs.displayScale*0.75, true);
+			zoom(mp.x(), mp.y(), Prefs->displayPrefs.displayScale * 0.75, true);
 		zoomTo100 = !zoomTo100;
 	}
 	e->accept();
@@ -1245,10 +1245,10 @@ void ScribusView::RefreshGradient(const PageItem *currItem, double dx, double dy
 	fpNew.map(matrix);
 	if (dx < 8.0) dx = 8.0;
 	if (dy < 8.0) dy = 8.0;
-	int grl = (int) floor( qMin(fpNew.point(0).x(), fpNew.point(1).x()) - dx );
-	int grr = (int) ceil ( qMax(fpNew.point(0).x(), fpNew.point(1).x()) + dx );
-	int grb = (int) ceil ( qMax(fpNew.point(0).y(), fpNew.point(1).y()) + dy );
-	int grt = (int) floor( qMin(fpNew.point(0).y(), fpNew.point(1).y()) - dy );
+	auto grl = (int) floor( qMin(fpNew.point(0).x(), fpNew.point(1).x()) - dx );
+	auto grr = (int) ceil ( qMax(fpNew.point(0).x(), fpNew.point(1).x()) + dx );
+	auto grb = (int) ceil ( qMax(fpNew.point(0).y(), fpNew.point(1).y()) + dy );
+	auto grt = (int) floor( qMin(fpNew.point(0).y(), fpNew.point(1).y()) - dy );
 	rect |= QRect(grl, grt, grr-grl, grb-grt);
 	updateContents(rect);
 }
@@ -1901,7 +1901,7 @@ void ScribusView::cancelGroupTransaction()
 
 // jjsa 27-03-2004 add for better setting while zooming
 //CB find a new name
-void ScribusView::rememberOldZoomLocation(int mx, int my)
+void ScribusView::rememberOldZoomLocation(double mx, double my)
 {
 	m_oldZoomX = mx;
 	m_oldZoomY = my;
@@ -2095,8 +2095,8 @@ void ScribusView::setZoom()
 	double w = qMin(visibleWidth() / m_canvas->scale(), m_doc->maxCanvasCoordinate.x() - m_doc->minCanvasCoordinate.x());
 	double h = qMin(visibleHeight() / m_canvas->scale(), m_doc->maxCanvasCoordinate.y() - m_doc->minCanvasCoordinate.y());
 
-	int zoomX = qRound(x + w / 2);
-	int zoomY = qRound(y + h / 2);
+	double zoomX = x + w / 2.0;
+	double zoomY = y + h / 2.0;
 	rememberOldZoomLocation(zoomX, zoomY);
 
 	zoom(m_oldZoomX, m_oldZoomY, m_ScMW->zoomSpinBox->value() / 100.0 * Prefs->displayPrefs.displayScale, false);
@@ -2110,23 +2110,23 @@ void ScribusView::slotZoom100()
 	double w = qMin(visibleWidth() / m_canvas->scale(), m_doc->maxCanvasCoordinate.x() - m_doc->minCanvasCoordinate.x());
 	double h = qMin(visibleHeight() / m_canvas->scale(), m_doc->maxCanvasCoordinate.y() - m_doc->minCanvasCoordinate.y());
 
-	int zoomX = qRound(x + w / 2);
-	int zoomY = qRound(y + h / 2);
+	double zoomX = x + w / 2.0;
+	double zoomY = y + h / 2.0;
 	rememberOldZoomLocation(zoomX, zoomY);
 
-	int zoomPointX(m_oldZoomX);
-	int zoomPointY(m_oldZoomY);
-	if (m_doc->m_Selection->count() != 0)
+	double zoomPointX(m_oldZoomX);
+	double zoomPointY(m_oldZoomY);
+	if (!m_doc->m_Selection->isEmpty())
 	{
 		QRectF selRect = m_doc->m_Selection->getVisualGroupRect();
-		zoomPointX = qRound(selRect.x() + selRect.width() / 2.0);
-		zoomPointY = qRound(selRect.y() + selRect.height() / 2.0);
+		zoomPointX = selRect.x() + selRect.width() / 2.0;
+		zoomPointY = selRect.y() + selRect.height() / 2.0;
 	}
 	else if (m_doc->currentPage() != nullptr)
 	{
 		const ScPage* currentPage = m_doc->currentPage();
-		zoomPointX = qRound(currentPage->xOffset() + currentPage->width() / 2.0);
-		zoomPointY = qRound(currentPage->yOffset() + currentPage->height() / 2.0);
+		zoomPointX = currentPage->xOffset() + currentPage->width() / 2.0;
+		zoomPointY = currentPage->yOffset() + currentPage->height() / 2.0;
 	}
 	zoom(zoomPointX, zoomPointY, Prefs->displayPrefs.displayScale, false);
 }
@@ -2134,15 +2134,16 @@ void ScribusView::slotZoom100()
 void ScribusView::slotZoomIn(int mx, int my, bool preservePoint)
 {
 	// FIXME : mx and my should really be ScribusView local coordinates or global coordinates
-	int oldZoomX(mx), oldZoomY(my);
+	double oldZoomX(mx);
+	double oldZoomY(my);
 	if ((mx == 0) && (my == 0))
 	{
 		double x = qMax(contentsX() / m_canvas->scale(), m_doc->minCanvasCoordinate.x());
 		double y = qMax(contentsY() / m_canvas->scale(), m_doc->minCanvasCoordinate.y());
 		double w = qMin(visibleWidth() / m_canvas->scale(), m_doc->maxCanvasCoordinate.x() - m_doc->minCanvasCoordinate.x());
 		double h = qMin(visibleHeight() / m_canvas->scale(), m_doc->maxCanvasCoordinate.y() - m_doc->minCanvasCoordinate.y());
-		oldZoomX = qRound(w / 2.0 + x);
-		oldZoomY = qRound(h / 2.0 + y);
+		oldZoomX = w / 2.0 + x;
+		oldZoomY = h / 2.0 + y;
 	}
 	rememberOldZoomLocation(oldZoomX, oldZoomY);
 
@@ -2150,15 +2151,13 @@ void ScribusView::slotZoomIn(int mx, int my, bool preservePoint)
 	if (static_cast<int>(newScale * 100.0) > static_cast<int>(100.0 * static_cast<double>(m_doc->opToolPrefs().magStep) * Prefs->displayPrefs.displayScale / 100.0))
 		newScale = m_canvas->scale() + static_cast<double>(m_doc->opToolPrefs().magStep) * Prefs->displayPrefs.displayScale / 100.0;
 
-	int zoomPointX(m_oldZoomX), zoomPointY(m_oldZoomY);
-	if (!preservePoint)
+	double zoomPointX(m_oldZoomX);
+	double zoomPointY(m_oldZoomY);
+	if (!preservePoint && !m_doc->m_Selection->isEmpty())
 	{
-		if (m_doc->m_Selection->count() != 0)
-		{
-			QRectF selRect = m_doc->m_Selection->getVisualGroupRect();
-			zoomPointX = qRound(selRect.x() + selRect.width() / 2.0);
-			zoomPointY = qRound(selRect.y() + selRect.height() / 2.0);
-		}
+		QRectF selRect = m_doc->m_Selection->getVisualGroupRect();
+		zoomPointX = selRect.x() + selRect.width() / 2.0;
+		zoomPointY = selRect.y() + selRect.height() / 2.0;
 	}
 	zoom(zoomPointX, zoomPointY, newScale, preservePoint);
 }
@@ -2167,16 +2166,16 @@ void ScribusView::slotZoomIn(int mx, int my, bool preservePoint)
 void ScribusView::slotZoomOut(int mx, int my, bool preservePoint)
 {
 	// FIXME : mx and my should really be ScribusView local coordinates or global coordinates
-	int oldZoomX(mx);
-	int oldZoomY(my);
+	double oldZoomX(mx);
+	double oldZoomY(my);
 	if ((mx == 0) && (my == 0))
 	{
 		double x = qMax(contentsX() / m_canvas->scale(), m_doc->minCanvasCoordinate.x());
 		double y = qMax(contentsY() / m_canvas->scale(), m_doc->minCanvasCoordinate.y());
 		double w = qMin(visibleWidth() / m_canvas->scale(), m_doc->maxCanvasCoordinate.x() - m_doc->minCanvasCoordinate.x());
 		double h = qMin(visibleHeight() / m_canvas->scale(), m_doc->maxCanvasCoordinate.y() - m_doc->minCanvasCoordinate.y());
-		oldZoomX = qRound(w / 2.0 + x);
-		oldZoomY = qRound(h / 2.0 + y);
+		oldZoomX = w / 2.0 + x;
+		oldZoomY = h / 2.0 + y;
 	}
 	rememberOldZoomLocation(oldZoomX, oldZoomY);
 
@@ -2186,15 +2185,13 @@ void ScribusView::slotZoomOut(int mx, int my, bool preservePoint)
 	if (newScale <= Prefs->displayPrefs.displayScale / 100.0)
 		newScale = m_canvas->scale();
 
-	int zoomPointX(m_oldZoomX), zoomPointY(m_oldZoomY);
-	if (!preservePoint)
+	double zoomPointX(m_oldZoomX);
+	double zoomPointY(m_oldZoomY);
+	if (!preservePoint && !m_doc->m_Selection->isEmpty())
 	{
-		if (m_doc->m_Selection->count() != 0)
-		{
-			QRectF selRect = m_doc->m_Selection->getVisualGroupRect();
-			zoomPointX = qRound(selRect.x() + selRect.width() / 2.0);
-			zoomPointY = qRound(selRect.y() + selRect.height() / 2.0);
-		}
+		QRectF selRect = m_doc->m_Selection->getVisualGroupRect();
+		zoomPointX = selRect.x() + selRect.width() / 2.0;
+		zoomPointY = selRect.y() + selRect.height() / 2.0;
 	}
 	zoom(zoomPointX, zoomPointY, newScale, preservePoint);
 }
@@ -3309,7 +3306,7 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 	{
 		auto* m = dynamic_cast<QMouseEvent*> (event);
 		m_mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
-		FPoint p = m_canvas->localToCanvas(QPoint(m->position().x(),m->position().y()));
+		FPoint p = m_canvas->localToCanvas(m->position());
 		emit MousePos(p.x(),p.y());
 		horizRuler->draw(m->position().x() + qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()));
 		vertRuler->draw(m->position().y() + qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
@@ -3536,10 +3533,10 @@ void ScribusView::zoom(double scale)
 		zPointX = currItem->xPos() + currItem->width() / 2.0;
 		zPointY = currItem->yPos() + currItem->height() / 2.0;
 	}
-	zoom( qRound(zPointX), qRound(zPointY), scale, false);
+	zoom(zPointX, zPointY, scale, false);
 }
 
-void ScribusView::zoom(int canvasX, int canvasY, double scale, bool preservePoint)
+void ScribusView::zoom(double canvasX, double canvasY, double scale, bool preservePoint)
 {
 	QPoint globalPoint = m_canvas->canvasToGlobal(QPointF(canvasX, canvasY));
 	double oldScale = m_canvas->scale();

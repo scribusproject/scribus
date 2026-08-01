@@ -191,7 +191,7 @@ public:
 	void deselectItems(bool prop = true);
 	void selectItemByNumber(int nr, bool draw = true, bool single = false);
 	void selectItem(PageItem *pi, bool draw = true, bool single = false);
-	void rememberOldZoomLocation(int mx=0, int my=0);
+	void rememberOldZoomLocation(double mx = 0.0, double my = 0.0);
 	bool groupTransactionStarted() const { return m_groupTransactions > 0; }
 	void startGroupTransaction(const QString &actionName = "",
 							   const QString &description = "",
@@ -238,7 +238,7 @@ public: // for now
 	void scrollContentsBy(int dx, int dy) override;
 
 	void zoom(double scale = 0.0);
-	void zoom(int canvasX, int canvasY, double scale, bool preservePoint);
+	void zoom(double canvasX, double canvasY, double scale, bool preservePoint);
 
 	void saveViewState();
 	void restoreViewState();
@@ -288,8 +288,8 @@ private:
 	QTimer *m_dragTimer { nullptr };
 	bool m_dragTimerFired { false };
 	bool m_ready { false };
-	int m_oldZoomX { 0 };
-	int m_oldZoomY { 0 };
+	double m_oldZoomX { 0.0 };
+	double m_oldZoomY { 0.0 };
 	QSize m_oldCanvasSize;
 	int m_groupTransactions { 0 };
 	UndoTransaction m_groupTransaction;

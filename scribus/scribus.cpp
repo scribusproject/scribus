@@ -5489,17 +5489,17 @@ void ScribusMainWindow::slotZoom(double zoomFactor)
 	if (finalZoomFactor == view->scale())
 		return;
 
-	int x = qRound(qMax(view->contentsX() / view->scale(), 0.0));
-	int y = qRound(qMax(view->contentsY() / view->scale(), 0.0));
-	int w = qRound(qMin(view->visibleWidth() / view->scale(), doc->currentPage()->width()));
-	int h = qRound(qMin(view->visibleHeight() / view->scale(), doc->currentPage()->height()));
+	double x = qMax(view->contentsX() / view->scale(), 0.0);
+	double y = qMax(view->contentsY() / view->scale(), 0.0);
+	double w = qMin(view->visibleWidth() / view->scale(), doc->currentPage()->width());
+	double h = qMin(view->visibleHeight() / view->scale(), doc->currentPage()->height());
 
 	if (zoomFactor == -200.0)
-		view->rememberOldZoomLocation(qRound(doc->currentPage()->xOffset() + doc->currentPage()->width() / 2.0), h / 2 + y);
+		view->rememberOldZoomLocation(doc->currentPage()->xOffset() + doc->currentPage()->width() / 2.0, h / 2.0 + y);
 	else if (zoomFactor == -100.0)
-		view->rememberOldZoomLocation(w / 2 + x, qRound(doc->currentPage()->yOffset() + doc->currentPage()->height() / 2.0));
+		view->rememberOldZoomLocation(w / 2.0 + x, doc->currentPage()->yOffset() + doc->currentPage()->height() / 2.0);
 	else
-		view->rememberOldZoomLocation(w / 2 + x, h / 2 + y);
+		view->rememberOldZoomLocation(w / 2.0 + x, h / 2.0 + y);
 
 	view->zoom(finalZoomFactor);
 }
@@ -6638,11 +6638,11 @@ void ScribusMainWindow::slotPrefsOrg()
 			ScribusView* scw_v = scw->view();
 			if (oldPrefs.displayPrefs.displayScale != m_prefsManager.displayScale())
 			{
-				int x = qRound(qMax(scw_v->contentsX() / scw_v->scale(), 0.0));
-				int y = qRound(qMax(scw_v->contentsY() / scw_v->scale(), 0.0));
-				int w = qRound(qMin(scw_v->visibleWidth() / scw_v->scale(), scw->doc()->currentPage()->width()));
-				int h = qRound(qMin(scw_v->visibleHeight() / scw_v->scale(), scw->doc()->currentPage()->height()));
-				scw_v->rememberOldZoomLocation(w / 2 + x,h / 2 + y);
+				double x = qMax(scw_v->contentsX() / scw_v->scale(), 0.0);
+				double y = qMax(scw_v->contentsY() / scw_v->scale(), 0.0);
+				double w = qMin(scw_v->visibleWidth() / scw_v->scale(), scw->doc()->currentPage()->width());
+				double h = qMin(scw_v->visibleHeight() / scw_v->scale(), scw->doc()->currentPage()->height());
+				scw_v->rememberOldZoomLocation(w / 2.0 + x, h / 2.0 + y);
 				scw_v->zoom((scw_v->scale() / oldPrefs.displayPrefs.displayScale) * m_prefsManager.displayScale());
 				zoomSpinBox->setMaximum(doc->opToolPrefs().magMax);
 			}
