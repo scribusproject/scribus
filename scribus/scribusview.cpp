@@ -763,7 +763,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 	}
 	else if (e->mimeData()->hasFormat("text/inline"))
 	{
-		if (((m_doc->appMode == modeEditTable) || (m_doc->appMode == modeEdit)) && (m_doc->m_Selection->isNotEmpty()))
+		if (((m_doc->appMode == modeEditTable) || (m_doc->appMode == modeEdit)) && m_doc->m_Selection->isNotEmpty())
 		{
 			PageItem *item = m_doc->m_Selection->itemAt(0);
 			if (item->isTextFrame() || item->isTable())
@@ -1232,7 +1232,7 @@ void ScribusView::getGroupRectScreen(double *x, double *y, double *w, double *h)
 
 
 
-void ScribusView::RefreshGradient(PageItem *currItem, double dx, double dy)
+void ScribusView::RefreshGradient(const PageItem *currItem, double dx, double dy)
 {
 	QTransform matrix;
 	QRect rect = currItem->getRedrawBounding(m_canvas->scale());
@@ -1574,7 +1574,7 @@ void ScribusView::dragTimerTimeOut()
 	// 	qApp->changeOverrideCursor(QCursor(loadIcon("cursor-drop-image")));
 }
 
-Qt::CursorShape ScribusView::getResizeCursor(PageItem *currItem, QRect mpo, Qt::CursorShape cursorShape) const
+Qt::CursorShape ScribusView::getResizeCursor(const PageItem *currItem, QRect mpo, Qt::CursorShape cursorShape) const
 {
 	QTransform ma;
 	m_canvas->Transform(currItem, ma);
@@ -1921,8 +1921,8 @@ void ScribusView::setRulerPos(int x, int y)
 		horizRuler->shift(x / m_canvas->scale());
 		vertRuler->shift(y / m_canvas->scale());
 	}
-	horizRuler->shiftRel(0*m_doc->minCanvasCoordinate.x() - m_doc->rulerXoffset);
-	vertRuler->shiftRel(0*m_doc->minCanvasCoordinate.y() - m_doc->rulerYoffset);
+	horizRuler->shiftRel(0 * m_doc->minCanvasCoordinate.x() - m_doc->rulerXoffset);
+	vertRuler->shiftRel(0 * m_doc->minCanvasCoordinate.y() - m_doc->rulerYoffset);
 	horizRuler->update();
 	vertRuler->update();
 	QString newStatusBarText(" ");
@@ -2504,7 +2504,7 @@ QMap<int, QImage> ScribusView::PagesToPixmap(int maxGr, int Nr, PageToPixmapFlag
 	// Draw all pages
 	if (Nr == -1)
 	{
-		for (ScPage * page : std::as_const(m_doc->DocPages))
+		for (const ScPage * page : std::as_const(m_doc->DocPages))
 		{
 			QImage im = drawPageToPixmap(maxGr, page, flags);
 			m_previews.insert(page->pageNr(), im);
@@ -2515,7 +2515,7 @@ QMap<int, QImage> ScribusView::PagesToPixmap(int maxGr, int Nr, PageToPixmapFlag
 	{
 		if (inRange(0, Nr, m_doc->DocPages.count() - 1))
 		{
-			ScPage *page = m_doc->DocPages.at(Nr);
+			const ScPage *page = m_doc->DocPages.at(Nr);
 			QImage im = drawPageToPixmap(maxGr, page, flags);
 			m_previews.insert(page->pageNr(), im);
 		}
@@ -2545,7 +2545,7 @@ QMap<int, QImage> ScribusView::PagesToPixmap(int maxGr, int Nr, PageToPixmapFlag
 	return m_previews;
 }
 
-QImage ScribusView::drawPageToPixmap(int maxGr, ScPage *page, PageToPixmapFlags flags)
+QImage ScribusView::drawPageToPixmap(int maxGr, const ScPage *page, PageToPixmapFlags flags)
 {
 	QImage im;
 	double sc = maxGr / page->height();

@@ -87,8 +87,8 @@ class SCRIBUS_API ScribusView : public QScrollArea, public Observer<QRectF>
 	Q_OBJECT
 
 public:
-    ScribusView(QWidget* win=0, ScribusMainWindow* mw=0, ScribusDoc* doc=0);
-    ~ScribusView();
+	ScribusView(QWidget* win = nullptr, ScribusMainWindow* mw = nullptr, ScribusDoc* doc = nullptr);
+    ~ScribusView() override;
 	
 	friend class CanvasMode_CopyProperties;
 	friend class CanvasMode_Edit;
@@ -174,7 +174,7 @@ public:
 	QMap<int, QImage> PagesToPixmap(int maxGr, int Nr = -1, PageToPixmapFlags flags = Pixmap_DrawFrame | Pixmap_DrawBackground);
 	QImage PageToPixmap(int Nr, int maxGr, PageToPixmapFlags flags = Pixmap_DrawFrame | Pixmap_DrawBackground);
 	QImage MPageToPixmap(const QString& name, int maxGr, bool drawFrame = true);
-	QImage drawPageToPixmap(int maxGr, ScPage *page, PageToPixmapFlags flags = Pixmap_DrawFrame | Pixmap_DrawBackground);
+	QImage drawPageToPixmap(int maxGr, const ScPage *page, PageToPixmapFlags flags = Pixmap_DrawFrame | Pixmap_DrawBackground);
 
 	/**
 	 * Called when the ruler origin is dragged
@@ -187,7 +187,7 @@ public:
 	void TransformPoly(int mode, int rot = 1, double scaling = 1.0);
 	bool slotSetCurs(int x, int y);
 	// \brief return a resize cursor if the mouse is on a handle.
-	Qt::CursorShape getResizeCursor(PageItem *currItem, QRect mpo, Qt::CursorShape cursorShape = Qt::ArrowCursor) const;
+	Qt::CursorShape getResizeCursor(const PageItem *currItem, QRect mpo, Qt::CursorShape cursorShape = Qt::ArrowCursor) const;
 	void deselectItems(bool prop = true);
 	void selectItemByNumber(int nr, bool draw = true, bool single = false);
 	void selectItem(PageItem *pi, bool draw = true, bool single = false);
@@ -267,7 +267,7 @@ public slots: // Public slots
 	void ChgUnit(int art);
 
 	void editExtendedImageProperties();
-	void RefreshGradient(PageItem *currItem, double dx = 8, double dy = 8);
+	void RefreshGradient(const PageItem *currItem, double dx = 8, double dy = 8);
 	void ToPicFrame();
 	void ToPolyFrame();
 	void ToTextFrame();
@@ -319,17 +319,17 @@ public:
 	void inputMethodEvent(QInputMethodEvent * event) override;
 	QVariant inputMethodQuery(Qt::InputMethodQuery query) const override;
 	
-	inline void registerMousePress(QPointF p);
+	void registerMousePress(QPointF p);
 	bool mousePressed() const;
 	void resetMousePressed();
-	inline QPointF mousePressLocation() const;
-	inline bool moveTimerElapsed();
-	inline void resetMoveTimer();
+	QPointF mousePressLocation() const;
+	bool moveTimerElapsed() const;
+	void resetMoveTimer();
 	
-	inline void startDragTimer();
-	inline void stopDragTimer();
-	inline void resetDragTimer();
-	inline bool dragTimerElapsed() const;
+	void startDragTimer();
+	void stopDragTimer();
+	void resetDragTimer();
+	bool dragTimerElapsed() const;
 	void stopAllDrags();
 
 	bool handleObjectImport(QMimeData* mimeData, TransactionSettings* trSettings = nullptr);
@@ -384,7 +384,7 @@ inline QPointF ScribusView::mousePressLocation() const
 	return m_pressLocation;
 }
 
-inline bool ScribusView::moveTimerElapsed()
+inline bool ScribusView::moveTimerElapsed() const
 {
 	return (m_moveTimer.elapsed() > Prefs->uiPrefs.mouseMoveTimeout);
 }
