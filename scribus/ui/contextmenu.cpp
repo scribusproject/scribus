@@ -627,7 +627,13 @@ void ContextMenu::createMenuItems_NoSelection(double mx, double my)
 		return;
 	bool layerLocked = m_doc->layerLocked(m_doc->activeLayer());
 	
-	if (!layerLocked && (ScMimeData::clipboardHasScribusElem() || ScMimeData::clipboardHasScribusFragment()))
+	// PasteToPage() also handles a table on the clipboard, which is not Scribus
+	// data, by creating a table for it at dragX/dragY.
+	if (!layerLocked &&
+		(ScMimeData::clipboardHasScribusElem() ||
+		 ScMimeData::clipboardHasScribusFragment() ||
+		(ScMimeData::clipboardHasHTML() && QApplication::clipboard()->mimeData()->html().contains("<table", Qt::CaseInsensitive)))
+		)
 	{
 		m_doc->view()->dragX = mx;
 		m_doc->view()->dragY = my;

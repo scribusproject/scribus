@@ -26,6 +26,8 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "sclimits.h"
 
+#include <QApplication>
+#include <QClipboard>
 #include <QColor>
 #include <QCursor>
 #include <QDebug>
@@ -85,6 +87,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_table.h"
 #include "pageitem_textframe.h"
 #include "prefsmanager.h"
+#include "scclipboardprocessor.h"
 #include "scmimedata.h"
 #include "scpage.h"
 #include "scpainter.h"
@@ -1693,6 +1696,63 @@ void ScribusView::deselectItems(bool /*prop*/)
 //CB Remove emit/start pasting objects
 void ScribusView::PasteToPage()
 {
+	// The canvas context menu offers "Paste Here" for a table on the clipboard.
+	// That is not Scribus Mime data, so there is no element buffer to load and
+	// no frame to paste into: create a table at the paste point and let the
+	// clipboard processor fill it. html_ApplyTable() pastes at the destination
+	// table's active cell and calls insertRows()/insertColumns() to make room,
+	// and a new table's active cell is (0,0), so a 1x1 table grows to fit.
+	if (!ScMimeData::clipboardHasScribusElem() && !ScMimeData::clipboardHasScribusFragment())
+	{
+		if (!ScMimeData::clipboardHasHTML())
+			return;
+		const QString clipContent = QApplication::clipboard()->mimeData()->html();
+		if (!clipContent.contains("<table", Qt::CaseInsensitive))
+			return;
+
+		ScPage* page = m_doc->currentPage();
+		double tableWidth = page->width() - page->Margins.left() - page->Margins.right();
+
+		UndoTransaction tableTransaction;
+		if (UndoManager::undoEnabled())
+			tableTransaction = undoManager->beginTransaction(page->getUName(), nullptr, Um::Paste, "", Um::IPaste);
+
+		// Created at the minimum row height: the real height is not known until
+		// the content has been pasted, and the rows are grown to fit below.
+		int z = m_doc->itemAdd(PageItem::Table, PageItem::Unspecified, dragX, dragY, tableWidth, PageItem_Table::MinimumRowHeight, 0, CommonStrings::None, CommonStrings::None);
+		PageItem_Table* table = (z >= 0) ? m_doc->Items->at(z)->asTable() : nullptr;
+		if (table)
+		{
+			ScClipboardProcessor scclipproc(m_doc, table->activeCell().textFrame());
+			scclipproc.setDestTable(table);
+			scclipproc.setContent(clipContent, ScClipboardProcessor::ContentType::HTML);
+			scclipproc.process();
+
+			// insertColumns() gives each new column the width of the one it was
+			// inserted after, so the table is now one creation-width wide per
+			// pasted column. Put the frame back to the intended width and let
+			// adjustTableToFrame() redistribute the columns across it.
+			table->setWidthHeight(tableWidth, table->height(), true);
+			table->adjustTableToFrame();
+			// Grow the rows to their content, then the frame to the rows:
+			// resizeRow() only moves grid rows, it never resizes the frame.
+			table->adjustAllRowHeights();
+			table->adjustFrameToTable();
+			table->updateClip();
+
+			deselectItems(true);
+			m_doc->m_Selection->addItem(table);
+			table->update();
+		}
+
+		if (tableTransaction)
+			tableTransaction.commit();
+
+		updateContents();
+		emit DocChanged();
+		return;
+	}
+
 	UndoTransaction activeTransaction;
 	qsizetype ac = m_doc->Items->count();
 	if (UndoManager::undoEnabled())

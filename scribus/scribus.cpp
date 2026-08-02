@@ -4873,6 +4873,19 @@ void ScribusMainWindow::slotEditPaste(bool forcePlainText)
 		if (doc->m_Selection->count() > 1)
 			doc->m_Selection->setGroupRect();
 	}
+	else if (ScMimeData::clipboardHasHTML() && !forcePlainText &&
+			 QApplication::clipboard()->mimeData()->html().contains("<table", Qt::CaseInsensitive))
+	{
+		// A table on the clipboard with nothing selected. Reuse the context
+		// menu's paste-at-a-point path, which reads the position from
+		// dragX/dragY; a keyboard paste has no click to use, so centre the
+		// table in the visible canvas the way pasted vector art is centred.
+		const ScPage* page = doc->currentPage();
+		double tableWidth = page->width() - page->Margins.left() - page->Margins.right();
+		view->dragX = (view->contentsX() / view->scale()) + ((view->visibleWidth() / 2.0) / view->scale()) - (tableWidth / 2.0);
+		view->dragY = (view->contentsY() / view->scale()) + ((view->visibleHeight() / 2.0) / view->scale());
+		view->PasteToPage();
+	}
 	else if (ScMimeData::clipboardHasKnownData())
 	{
 		QString ext = ScMimeData::clipboardKnownDataExt();
