@@ -729,10 +729,26 @@ QString ScClipboardProcessor::html_LibreOffice_ExtractText(xmlNode *node, QList<
 			// node; deleting that dropped the space and fused adjacent words.
 			static QRegularExpression wsRun(R"([\r\n\t]+)");
 			t.replace(wsRun, " ");
-			// Suppress whitespace at the very start of the paragraph (LibreOffice
-			// puts a newline right after <p>) so no leading space is introduced.
-			bool isLeadingWhitespace = t.trimmed().isEmpty() && segments.isEmpty();
-			if (!t.isEmpty() && !isLeadingWhitespace)
+			// Suppress whitespace at the start of a line (LibreOffice puts a newline
+			// and indentation right after <p>, and again after <br/>) so no leading
+			// space is introduced. Strip the leading run rather than only dropping
+			// nodes that are entirely whitespace: when the line's first text follows
+			// on the same node -- <p>\n\t\t\ta</p>, or F<br/>\nf -- the collapse
+			// above has just turned that indentation into a leading space. A node
+			// that is entirely whitespace still ends up empty here and is skipped
+			// below.
+			//
+			// Only at a line start: mid-line the collapsed run is the space between
+			// two words and removing it fuses them, which is what this whole dance
+			// is here to prevent. Nothing can fuse across a line start.
+			bool atLineStart = segments.isEmpty()
+							|| segments.constLast().text.endsWith(QChar(SpecialChars::LINEBREAK));
+			if (atLineStart)
+			{
+				static QRegularExpression wsLead(R"(^\s+)");
+				t.remove(wsLead);
+			}
+			if (!t.isEmpty())
 			{
 				TextSegment ts2(ts);
 				ts2.text = t;
