@@ -37,8 +37,8 @@ class ScGuardedPtr
 		~ScGuardedPtr();
 
 		ScGuardedPtr& operator=(const ScGuardedPtr& gPtr);
-		bool operator==( const ScGuardedPtr<T> &p ) const { return (T*)(*this) == (T*) p;}
-		bool operator!= ( const ScGuardedPtr<T>& p ) const { return !( *this == p ); }
+		bool operator==(const ScGuardedPtr<T>& p) const { return (T*)(*this) == (T*) p; }
+		bool operator!=(const ScGuardedPtr<T>& p) const { return !(*this == p); }
 
 		bool isNull() const;
 
@@ -59,8 +59,8 @@ class ScGuardedObject : public ScGuardedPtr<T>
 		~ScGuardedObject();
 
 		ScGuardedObject& operator=(const ScGuardedObject& gPtr);
-		bool operator==( const ScGuardedObject<T> &p ) const { return (T*)(*this) == (T*) p;}
-		bool operator!= ( const ScGuardedObject<T>& p ) const { return !( *this == p ); }
+		bool operator==(const ScGuardedObject<T>& p) const { return (T*)(*this) == (T*) p; }
+		bool operator!=(const ScGuardedObject<T>& p) const { return !(*this == p); }
 
 		void nullify();
 };
