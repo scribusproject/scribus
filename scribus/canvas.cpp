@@ -1534,6 +1534,8 @@ void Canvas::drawBackgroundMasterpage(ScPainter* painter, int clipx, int clipy, 
 	MarginStruct pageBleeds;
 	if (!m_doc->bleeds()->isNull() && m_doc->guidesPrefs().showBleed)
 		m_doc->getBleeds(currentPage, pageBleeds);
+	if (m_viewMode.viewAsPreview)
+		pageBleeds.resetToZero();
 	double px = currentPage->xOffset() - pageBleeds.left();
 	double py = currentPage->yOffset() - pageBleeds.top();
 	double pw = currentPage->width() + pageBleeds.left() + pageBleeds.right();
