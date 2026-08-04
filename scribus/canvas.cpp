@@ -583,7 +583,7 @@ PageItem * Canvas::itemUnderItem(const PageItem * item, int& index) const
 	if (itemLevel < 0)
 		return nullptr;
 
-	for(index = indice - 1; index >= 0; --index)
+	for (index = indice - 1; index >= 0; --index)
 	{
 		PageItem* item1 = m_doc->Items->at(index);
 		int item1id = m_doc->Items->indexOf(item1);
@@ -1567,6 +1567,8 @@ void Canvas::drawBackgroundMasterpage(ScPainter* painter, int clipx, int clipy, 
 	MarginStruct pageBleeds;
 	if (!m_doc->bleeds()->isNull() && m_doc->guidesPrefs().showBleed)
 		m_doc->getBleeds(currentPage, pageBleeds);
+	if (m_viewMode.viewAsPreview)
+		pageBleeds.resetToZero();
 	double px = currentPage->xOffset() - pageBleeds.left();
 	double py = currentPage->yOffset() - pageBleeds.top();
 	double pw = currentPage->width() + pageBleeds.left() + pageBleeds.right();
