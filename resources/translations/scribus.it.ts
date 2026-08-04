@@ -3059,24 +3059,24 @@ Controlla la cartella di installazione o il sito web di Scribus per info su %1.<
 <context>
     <name>BarcodeGenerator</name>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="271"/>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="959"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="277"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="965"/>
         <source>Auto</source>
         <translation type="unfinished">Automatico</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="734"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="740"/>
         <source>Select Type</source>
         <translation>Seleziona tipo</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="1454"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="1460"/>
         <source>Barcode Reference</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="134"/>
-        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="711"/>
+        <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.cpp" line="717"/>
         <source>Select a barcode format</source>
         <translation>Seleziona un formato di codice a barre</translation>
     </message>
@@ -4436,40 +4436,40 @@ Inserire un nome diverso.</translation>
 <context>
     <name>Canvas</name>
     <message>
-        <location filename="../../scribus/canvas.cpp" line="2338"/>
-        <location filename="../../scribus/canvas.cpp" line="2370"/>
+        <location filename="../../scribus/canvas.cpp" line="2343"/>
+        <location filename="../../scribus/canvas.cpp" line="2375"/>
         <source>X: %1
 Y: %2</source>
         <translation>X: %1
 Y: %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvas.cpp" line="2352"/>
+        <location filename="../../scribus/canvas.cpp" line="2357"/>
         <source>X: %1</source>
         <translation>X: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvas.cpp" line="2360"/>
+        <location filename="../../scribus/canvas.cpp" line="2365"/>
         <source>Y: %1</source>
         <translation>Y: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvas.cpp" line="2380"/>
+        <location filename="../../scribus/canvas.cpp" line="2385"/>
         <source>Length: %1
 Angle: %2</source>
         <translation>Lunghezza: %1
 Angolo: %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvas.cpp" line="2382"/>
+        <location filename="../../scribus/canvas.cpp" line="2387"/>
         <source>Width: %1
 Height: %2</source>
         <translation>Larghezza: %1
 Altezza: %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvas.cpp" line="2395"/>
-        <location filename="../../scribus/canvas.cpp" line="2403"/>
+        <location filename="../../scribus/canvas.cpp" line="2400"/>
+        <location filename="../../scribus/canvas.cpp" line="2408"/>
         <source>Angle: %1</source>
         <translation>Angolo: %1</translation>
     </message>
@@ -5535,13 +5535,13 @@ attualmente %2 x %3 DPI</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="35"/>
-        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="389"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="397"/>
         <source>Vector</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="49"/>
-        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="390"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="398"/>
         <source>Gradient</source>
         <translation type="unfinished">Sfumatura</translation>
     </message>
@@ -5586,7 +5586,7 @@ attualmente %2 x %3 DPI</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.ui" line="898"/>
-        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="391"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="399"/>
         <source>Gradient Swatches</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5596,46 +5596,46 @@ attualmente %2 x %3 DPI</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="175"/>
-        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="182"/>
-        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="189"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="183"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="190"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="197"/>
         <source>Linear</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="176"/>
-        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="183"/>
-        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="190"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="184"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="191"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="198"/>
         <source>Radial</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="191"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="199"/>
         <source>Conical</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="192"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="200"/>
         <source>Diamond</source>
         <translation type="unfinished">Diamante</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="193"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="201"/>
         <source>4 Colors</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="194"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="202"/>
         <source>Mesh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="195"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="203"/>
         <source>Patch Mesh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="357"/>
+        <location filename="../../scribus/ui/colorpicker/colorpicker_gradient.cpp" line="365"/>
         <source>Gradient: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7201,12 +7201,12 @@ Consultare la sezione Modifica colori della documentazione per ulteriori dettagl
         <translation>Configurazione anteprima</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="651"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="657"/>
         <source>Paste File...</source>
         <translation>Incolla file...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="686"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="692"/>
         <source>Delete Page</source>
         <translation>Elimina pagina</translation>
     </message>
@@ -7303,12 +7303,12 @@ Consultare la sezione Modifica colori della documentazione per ulteriori dettagl
     </message>
     <message>
         <location filename="../../scribus/ui/contextmenu.cpp" line="577"/>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="634"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="640"/>
         <source>&amp;Paste Here</source>
         <translation>Incolla &amp;qui</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/contextmenu.cpp" line="642"/>
+        <location filename="../../scribus/ui/contextmenu.cpp" line="648"/>
         <source>Paste Recent</source>
         <translation>Incolla recente</translation>
     </message>
@@ -9111,12 +9111,12 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>FileLoader</name>
     <message>
-        <location filename="../../scribus/fileloader.cpp" line="453"/>
+        <location filename="../../scribus/fileloader.cpp" line="475"/>
         <source>Some fonts used by this document have been substituted:</source>
         <translation>Alcuni caratteri usati da questo documento sono stati sostituiti:</translation>
     </message>
     <message>
-        <location filename="../../scribus/fileloader.cpp" line="456"/>
+        <location filename="../../scribus/fileloader.cpp" line="478"/>
         <source> was replaced by: </source>
         <translation> è stato sostituito da: </translation>
     </message>
@@ -10024,27 +10024,32 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>Hruler</name>
     <message>
-        <location filename="../../scribus/ui/hruler.cpp" line="1090"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1189"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1193"/>
         <source>Left</source>
         <translation>Sinistra</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/hruler.cpp" line="1091"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1186"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1194"/>
         <source>Center</source>
         <translation>Centro</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/hruler.cpp" line="1092"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1187"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1195"/>
         <source>Comma</source>
         <translation>Virgola</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/hruler.cpp" line="1093"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1188"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1196"/>
         <source>Period</source>
         <translation type="unfinished">Punto</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/hruler.cpp" line="1094"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1185"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1197"/>
         <source>Right</source>
         <translation>Destra</translation>
     </message>
@@ -13336,8 +13341,8 @@ Se nessuna maniglia è selezionata, saranno tutte riportate alla posizione inizi
     <name>NewDocDialog</name>
     <message>
         <location filename="../../scribus/ui/newdocdialog.cpp" line="60"/>
-        <location filename="../../scribus/ui/newdocdialog.cpp" line="755"/>
-        <location filename="../../scribus/ui/newdocdialog.cpp" line="763"/>
+        <location filename="../../scribus/ui/newdocdialog.cpp" line="759"/>
+        <location filename="../../scribus/ui/newdocdialog.cpp" line="767"/>
         <source>New Document</source>
         <translation>Nuovo documento</translation>
     </message>
@@ -13412,69 +13417,69 @@ Se nessuna maniglia è selezionata, saranno tutte riportate alla posizione inizi
         <translation>Distanza tra le colonne create automaticamente</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newdocdialog.cpp" line="151"/>
+        <location filename="../../scribus/ui/newdocdialog.cpp" line="155"/>
         <source>Name Asc</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newdocdialog.cpp" line="152"/>
+        <location filename="../../scribus/ui/newdocdialog.cpp" line="156"/>
         <source>Name Desc</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newdocdialog.cpp" line="153"/>
+        <location filename="../../scribus/ui/newdocdialog.cpp" line="157"/>
         <source>Size Asc</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newdocdialog.cpp" line="154"/>
+        <location filename="../../scribus/ui/newdocdialog.cpp" line="158"/>
         <source>Size Desc</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newdocdialog.cpp" line="254"/>
+        <location filename="../../scribus/ui/newdocdialog.cpp" line="258"/>
         <source>Show Document Settings After Creation</source>
         <translation>Dopo la creazione visualizza impostazioni documento</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newdocdialog.cpp" line="312"/>
+        <location filename="../../scribus/ui/newdocdialog.cpp" line="316"/>
         <source>Open</source>
         <translation>Apri</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newdocdialog.cpp" line="483"/>
+        <location filename="../../scribus/ui/newdocdialog.cpp" line="487"/>
         <source>Empty Preset Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newdocdialog.cpp" line="483"/>
+        <location filename="../../scribus/ui/newdocdialog.cpp" line="487"/>
         <source>The preset name must not be empty!
 Enter a preset name.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newdocdialog.cpp" line="494"/>
-        <location filename="../../scribus/ui/newdocdialog.cpp" line="496"/>
+        <location filename="../../scribus/ui/newdocdialog.cpp" line="498"/>
+        <location filename="../../scribus/ui/newdocdialog.cpp" line="500"/>
         <source>User</source>
         <translation type="unfinished">Utente</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newdocdialog.cpp" line="495"/>
+        <location filename="../../scribus/ui/newdocdialog.cpp" line="499"/>
         <source>Copyright by user</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newdocdialog.cpp" line="757"/>
+        <location filename="../../scribus/ui/newdocdialog.cpp" line="761"/>
         <source>New from Template</source>
         <translation>Nuovo da modello</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newdocdialog.cpp" line="759"/>
+        <location filename="../../scribus/ui/newdocdialog.cpp" line="763"/>
         <source>Open Existing Document</source>
         <translation>Apri documento esistente</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newdocdialog.cpp" line="761"/>
+        <location filename="../../scribus/ui/newdocdialog.cpp" line="765"/>
         <source>Open Recent Document</source>
         <translation>Apri documento recente</translation>
     </message>
@@ -15257,8 +15262,8 @@ Disabilita l&apos;incorporazione sperimentale dei file PDF e PS e prova nuovamen
         <translation>Simbolo</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="8083"/>
-        <location filename="../../scribus/pageitem.cpp" line="8084"/>
+        <location filename="../../scribus/pageitem.cpp" line="8108"/>
+        <location filename="../../scribus/pageitem.cpp" line="8109"/>
         <source>Copy of</source>
         <translation>Copia di</translation>
     </message>
@@ -15702,32 +15707,32 @@ Disabilita l&apos;incorporazione sperimentale dei file PDF e PS e prova nuovamen
 <context>
     <name>PageItem_TextFrame</name>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="5070"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5204"/>
         <source>Linked Text</source>
         <translation>Testo collegato</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="5072"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5206"/>
         <source>Text Frame</source>
         <translation>Cornice di testo</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="5076"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5210"/>
         <source>Paragraphs: </source>
         <translation>Paragrafi: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="5084"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5218"/>
         <source>Lines: </source>
         <translation>Righe: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="5090"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5224"/>
         <source>Words: </source>
         <translation>Parole: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem_textframe.cpp" line="5098"/>
+        <location filename="../../scribus/pageitem_textframe.cpp" line="5232"/>
         <source>Chars: </source>
         <translation>Caratteri: </translation>
     </message>
@@ -18289,72 +18294,72 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>PrefsManager</name>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2499"/>
-        <location filename="../../scribus/prefsmanager.cpp" line="2508"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2502"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2511"/>
         <source>Postscript</source>
         <translation>Postscript</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="913"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="914"/>
         <source>Migrate Old Scribus Settings?</source>
         <translation>Migrare le configurazioni del vecchio Scribus?</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="914"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="915"/>
         <source>Scribus has detected existing Scribus 1.6.0 preferences files.
 Do you want to migrate them to the new Scribus version?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2498"/>
-        <location filename="../../scribus/prefsmanager.cpp" line="2508"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2501"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2511"/>
         <source>PostScript</source>
         <translation>PostScript</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="1987"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="1989"/>
         <source>Could not open preferences file &quot;%1&quot; for writing: %2</source>
         <translation>Impossibile aprire il file preferenze &quot;%1&quot; per la scrittura: %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="1997"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="1999"/>
         <source>Writing to preferences file &quot;%1&quot; failed: QIODevice status code %2</source>
         <translation>Salvataggio del file preferenze &quot;%1&quot; fallito: QIODevice status code %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2010"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2012"/>
         <source>Failed to open prefs file &quot;%1&quot;: %2</source>
         <translation>Impossibile aprire il file preferenze &quot;%1&quot;: %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2021"/>
-        <location filename="../../scribus/prefsmanager.cpp" line="2031"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2023"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2033"/>
         <source>Failed to read prefs XML from &quot;%1&quot;: %2 at line %3, col %4</source>
         <translation>Impossibile leggere le preferenze XML da &quot;%1&quot;: %2 alla riga %3, colonna %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2998"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="3001"/>
         <source>Error Writing Preferences</source>
         <translation>Errore nel salvataggio preferenze</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="3000"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="3003"/>
         <source>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</source>
         <comment>scribus app error</comment>
         <translation>Scribus non è riuscito a salvare le proprie preferenze:&lt;br&gt;%1&lt;br&gt;Si prega di controllare i permessi del file e della cartella nonché lo spazio disponibile sul disco fisso.</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="3015"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="3018"/>
         <source>Error Loading Preferences</source>
         <translation>Errore nel caricamento delle preferenze</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="3017"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="3020"/>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
         <translation>Scribus non è riuscito a caricare le proprie preferenze:&lt;br&gt;%1&lt;br&gt;Saranno caricate quelle predefinite.</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2617"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2620"/>
         <source>No valid renderframe config found. Using defaults!</source>
         <translation>Non è stata trovata alcuna configurazione per la cornice di rendering. Saranno utilizzate le predefinite!</translation>
     </message>
@@ -23062,7 +23067,7 @@ Vuoi usarlo?</translation>
         <translation>Aspetto</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="196"/>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="203"/>
         <source>&amp;Language:</source>
         <translation>&amp;Lingua:</translation>
     </message>
@@ -23098,92 +23103,97 @@ Vuoi usarlo?</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="147"/>
+        <source>Force Title Bars on Floating Palettes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="154"/>
         <source>Appearance:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="180"/>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="187"/>
         <source>Language and Regionalization</source>
         <translation>Lingua e Regionali</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="209"/>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="216"/>
         <source>Number Format:</source>
         <translation>Formato numero:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="245"/>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="252"/>
         <source>Font Sizes</source>
         <translation>Dimensioni carattere</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="261"/>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="268"/>
         <source>&amp;Menus:</source>
         <translation>&amp;Menù:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="271"/>
-        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="288"/>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="278"/>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="295"/>
         <source> pt</source>
         <translation> pt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="278"/>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="285"/>
         <source>&amp;Palettes:</source>
         <translation>&amp;Pannelli:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="311"/>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="318"/>
         <source>Story Editor</source>
         <translation>Editor interno</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="322"/>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="329"/>
         <source>Font:</source>
         <translation>Carattere:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="336"/>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="343"/>
         <source>Use Smart Text Selection</source>
         <translation>Usa selezione intelligente del testo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="359"/>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="366"/>
         <source>Interactivity</source>
         <translation>Interattività</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="370"/>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="377"/>
         <source>Time before resize or move starts:</source>
         <translation>Tempo prima dell&apos;inizio di uno spostamento o ridimensionamento:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="380"/>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="387"/>
         <source> ms</source>
         <translation> ms</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="390"/>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="397"/>
         <source>&amp;Wheel Jump:</source>
         <translation>&amp;Sensibilità rotella mouse:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="400"/>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="407"/>
         <source> lines</source>
         <translation type="unfinished"> righe</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="423"/>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="430"/>
         <source>Start Up</source>
         <translation>Avvio</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="438"/>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="445"/>
         <source>Show Splashscreen</source>
         <translation>Mostra schermata d&apos;avvio</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="431"/>
+        <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="438"/>
         <source>Show Startup Dialog</source>
         <translation>Visualizza finestra di dialogo iniziale</translation>
     </message>
@@ -23285,6 +23295,11 @@ Vuoi usarlo?</translation>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="77"/>
         <source>Shows labels of inactive palette tabs.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="78"/>
+        <source>Forces a title bar on floating palette windows. Useful on desktop environments that do not draw one, which can otherwise make palettes hard to move. Requires application restart.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -24779,52 +24794,57 @@ o un numero di una singola pagina</translation>
 <context>
     <name>PropertiesPalette_Table</name>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_table.cpp" line="912"/>
+        <location filename="../../scribus/ui/propertiespalette_table.cpp" line="997"/>
         <source>Styles</source>
         <translation type="unfinished">Stili</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_table.cpp" line="913"/>
+        <location filename="../../scribus/ui/propertiespalette_table.cpp" line="998"/>
         <source>Fill</source>
         <translation type="unfinished">Colore sfondo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_table.cpp" line="914"/>
+        <location filename="../../scribus/ui/propertiespalette_table.cpp" line="999"/>
         <source>Borders</source>
         <translation type="unfinished">Bordi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_table.cpp" line="915"/>
+        <location filename="../../scribus/ui/propertiespalette_table.cpp" line="1000"/>
         <source>Cell Padding</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_table.cpp" line="917"/>
+        <location filename="../../scribus/ui/propertiespalette_table.cpp" line="1001"/>
+        <source>Cell Alignment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_table.cpp" line="1003"/>
         <source>C&amp;olor</source>
         <translation type="unfinished">C&amp;olore</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_table.cpp" line="918"/>
+        <location filename="../../scribus/ui/propertiespalette_table.cpp" line="1004"/>
         <source>S&amp;hade</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_table.cpp" line="919"/>
+        <location filename="../../scribus/ui/propertiespalette_table.cpp" line="1005"/>
         <source>&amp;Type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_table.cpp" line="920"/>
+        <location filename="../../scribus/ui/propertiespalette_table.cpp" line="1006"/>
         <source>&amp;Width</source>
         <translation type="unfinished">L&amp;arghezza</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_table.cpp" line="921"/>
+        <location filename="../../scribus/ui/propertiespalette_table.cpp" line="1007"/>
         <source>&amp;Color</source>
         <translation type="unfinished">&amp;Colore</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_table.cpp" line="922"/>
+        <location filename="../../scribus/ui/propertiespalette_table.cpp" line="1008"/>
         <source>&amp;Shade</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24877,22 +24897,27 @@ o un numero di una singola pagina</translation>
         <translation type="unfinished">Tipo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="748"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="699"/>
+        <source>Cell Alignment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="797"/>
         <source>Table Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="775"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="824"/>
         <source>Table Direction:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="783"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="832"/>
         <source>Left-to-right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="788"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="837"/>
         <source>Right-to-left</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24901,7 +24926,7 @@ o un numero di una singola pagina</translation>
         <translation type="vanished">Larghezza:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="699"/>
+        <location filename="../../scribus/ui/propertiespalette_tablebase.ui" line="748"/>
         <source>Cell Padding</source>
         <translation type="unfinished"></translation>
     </message>
@@ -25009,31 +25034,22 @@ o un numero di una singola pagina</translation>
 <context>
     <name>PropertiesPalette_XYZ</name>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="211"/>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="321"/>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="212"/>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="322"/>
         <source>&amp;X1:</source>
         <translation>&amp;X1:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="213"/>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="323"/>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="214"/>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="324"/>
         <source>X&amp;2:</source>
         <translation>X&amp;2:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="212"/>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="322"/>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="213"/>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="323"/>
         <source>Y&amp;1:</source>
         <translation>Y&amp;1:</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="174"/>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="198"/>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="330"/>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="434"/>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="507"/>
-        <source>&amp;X:</source>
-        <translation>&amp;X:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="175"/>
@@ -25041,8 +25057,8 @@ o un numero di una singola pagina</translation>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="331"/>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="435"/>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="508"/>
-        <source>&amp;Y:</source>
-        <translation>&amp;Y:</translation>
+        <source>&amp;X:</source>
+        <translation>&amp;X:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="176"/>
@@ -25050,8 +25066,8 @@ o un numero di una singola pagina</translation>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="332"/>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="436"/>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="509"/>
-        <source>&amp;W:</source>
-        <translation>&amp;L:</translation>
+        <source>&amp;Y:</source>
+        <translation>&amp;Y:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="177"/>
@@ -25059,22 +25075,31 @@ o un numero di una singola pagina</translation>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="333"/>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="437"/>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="510"/>
+        <source>&amp;W:</source>
+        <translation>&amp;L:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="178"/>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="202"/>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="334"/>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="438"/>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="511"/>
         <source>&amp;H:</source>
         <translation>&amp;A:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="214"/>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="324"/>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="215"/>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="325"/>
         <source>&amp;Y2:</source>
         <translation>&amp;Y2:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="1464"/>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="1469"/>
         <source>Change settings for left or end points</source>
         <translation>Cambia le impostazioni per le estremità e i punti sinistri</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="1457"/>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="1462"/>
         <source> pt</source>
         <translation> pt</translation>
     </message>
@@ -27025,7 +27050,7 @@ Controlla il percorso e il nome.</translation>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="296"/>
+        <location filename="../../scribus/scribuscore.cpp" line="337"/>
         <source>Initializing...</source>
         <translation>Inizializzazione...</translation>
     </message>
@@ -27085,7 +27110,7 @@ Controlla il percorso e il nome.</translation>
     <message>
         <location filename="../../scribus/gtgettext.cpp" line="201"/>
         <location filename="../../scribus/scgtplugin.cpp" line="76"/>
-        <location filename="../../scribus/util_formats.cpp" line="320"/>
+        <location filename="../../scribus/util_formats.cpp" line="322"/>
         <source>All Files (*)</source>
         <translation>Tutti i file (*)</translation>
     </message>
@@ -27231,7 +27256,7 @@ Controlla il percorso e il nome.</translation>
         <location filename="../../scribus/fileloader.cpp" line="65"/>
         <location filename="../../scribus/gtgettext.cpp" line="171"/>
         <location filename="../../scribus/scgtplugin.cpp" line="57"/>
-        <location filename="../../scribus/util_formats.cpp" line="275"/>
+        <location filename="../../scribus/util_formats.cpp" line="277"/>
         <source>All Supported Formats</source>
         <translation>Tutti i formati supportati</translation>
     </message>
@@ -30680,18 +30705,18 @@ Collegamenti esterni
         <translation>File esistente</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="892"/>
+        <location filename="../../scribus/scribus.cpp" line="893"/>
         <source>Document Version Warning</source>
         <translation>Avviso versione del documento</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="893"/>
+        <location filename="../../scribus/scribus.cpp" line="894"/>
         <source>The document you are working with was created by a previous version of Scribus. Saving the current file under a newer version will render it unable to be edited by that older version. To preserve the ability to edit the file with the older version, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="2091"/>
-        <location filename="../../scribus/scribus.cpp" line="2331"/>
+        <location filename="../../scribus/scribus.cpp" line="2092"/>
+        <location filename="../../scribus/scribus.cpp" line="2332"/>
         <source>Document Template: </source>
         <translation>Modello documento: </translation>
     </message>
@@ -31100,24 +31125,14 @@ forniti nella documentazione delle funzioni.
         <translation>estrazione del carattere %1 dal font %2 (offset=%3, nTables=%4)</translation>
     </message>
     <message>
-        <location filename="../../scribus/main_nix.cpp" line="84"/>
-        <source>Fatal Error</source>
-        <translation>Errore fatale</translation>
-    </message>
-    <message>
-        <location filename="../../scribus/main_nix.cpp" line="85"/>
-        <source>Scribus does not support the Wayland platform. Use XWayland to run Scribus on Wayland. Scribus will close now.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../../scribus/main_nix.cpp" line="144"/>
+        <location filename="../../scribus/main_nix.cpp" line="128"/>
         <location filename="../../scribus/main_win32.cpp" line="299"/>
         <location filename="../../scribus/main_win32.cpp" line="351"/>
         <source>Scribus Crash</source>
         <translation>Crash di Scribus</translation>
     </message>
     <message>
-        <location filename="../../scribus/main_nix.cpp" line="146"/>
+        <location filename="../../scribus/main_nix.cpp" line="130"/>
         <source>Scribus crashes due to Signal #%1</source>
         <translation>Scribus è andato in crash a causa del Segnale #%1</translation>
     </message>
@@ -31311,7 +31326,7 @@ forniti nella documentazione delle funzioni.
         <translation>Ricerca dei font</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4062"/>
+        <location filename="../../scribus/scribus.cpp" line="4066"/>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
         <translation>Le modifiche applicate al documento non sono state salvate ed è stato richiesto di annullarle. Vuoi continuare?</translation>
     </message>
@@ -31733,52 +31748,52 @@ forniti nella documentazione delle funzioni.
 %1 ?</translation>
     </message>
     <message>
-        <location filename="../../scribus/util_formats.cpp" line="87"/>
+        <location filename="../../scribus/util_formats.cpp" line="89"/>
         <source>GIF</source>
         <translation>GIF</translation>
     </message>
     <message>
-        <location filename="../../scribus/util_formats.cpp" line="88"/>
+        <location filename="../../scribus/util_formats.cpp" line="90"/>
         <source>JPEG</source>
         <translation>JPEG</translation>
     </message>
     <message>
-        <location filename="../../scribus/util_formats.cpp" line="89"/>
+        <location filename="../../scribus/util_formats.cpp" line="91"/>
         <source>JPEG XL</source>
         <translation>JPEG XL</translation>
     </message>
     <message>
-        <location filename="../../scribus/util_formats.cpp" line="90"/>
+        <location filename="../../scribus/util_formats.cpp" line="92"/>
         <source>Krita</source>
         <translation>Krita</translation>
     </message>
     <message>
-        <location filename="../../scribus/util_formats.cpp" line="91"/>
+        <location filename="../../scribus/util_formats.cpp" line="93"/>
         <source>OpenRaster</source>
         <translation>OpenRaster</translation>
     </message>
     <message>
-        <location filename="../../scribus/util_formats.cpp" line="92"/>
+        <location filename="../../scribus/util_formats.cpp" line="94"/>
         <source>Pattern Files</source>
         <translation>File motivi</translation>
     </message>
     <message>
-        <location filename="../../scribus/util_formats.cpp" line="93"/>
+        <location filename="../../scribus/util_formats.cpp" line="95"/>
         <source>PDF Document</source>
         <translation>Documento PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/util_formats.cpp" line="95"/>
+        <location filename="../../scribus/util_formats.cpp" line="97"/>
         <source>PNG</source>
         <translation>PNG</translation>
     </message>
     <message>
-        <location filename="../../scribus/util_formats.cpp" line="99"/>
+        <location filename="../../scribus/util_formats.cpp" line="101"/>
         <source>TIFF</source>
         <translation>TIFF</translation>
     </message>
     <message>
-        <location filename="../../scribus/util_formats.cpp" line="103"/>
+        <location filename="../../scribus/util_formats.cpp" line="105"/>
         <source>XPM</source>
         <translation>XPM</translation>
     </message>
@@ -31907,7 +31922,7 @@ forniti nella documentazione delle funzioni.
         <translation>Importatore Xfig</translation>
     </message>
     <message>
-        <location filename="../../scribus/util_formats.cpp" line="102"/>
+        <location filename="../../scribus/util_formats.cpp" line="104"/>
         <source>Xfig File</source>
         <translation>File Xfig</translation>
     </message>
@@ -32063,19 +32078,19 @@ Pertanto l&apos;immagine potrebbe essere non corretta</translation>
         <translation>Esplora immagini</translation>
     </message>
     <message>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="71"/>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="118"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="69"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="117"/>
         <source>Could not get pixel data!</source>
         <translation>Impossibile ottenere dati pixel!</translation>
     </message>
     <message>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="81"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="79"/>
         <source>Could not get alpha channel data!</source>
         <translation>Impossibile ottenere i dati del canale alfa!</translation>
     </message>
     <message>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="89"/>
-        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="125"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="87"/>
+        <location filename="../../scribus/imagedataloaders/scimgdataloader_gmagick.cpp" line="124"/>
         <source>Could not allocate output buffer!</source>
         <translation>Impossibile allocare buffer di uscita!</translation>
     </message>
@@ -32110,12 +32125,12 @@ Pertanto l&apos;immagine potrebbe essere non corretta</translation>
         <translation>Plugin Scripter</translation>
     </message>
     <message>
-        <location filename="../../scribus/util_formats.cpp" line="94"/>
+        <location filename="../../scribus/util_formats.cpp" line="96"/>
         <source>PGF</source>
         <translation>PGF</translation>
     </message>
     <message>
-        <location filename="../../scribus/util_formats.cpp" line="84"/>
+        <location filename="../../scribus/util_formats.cpp" line="86"/>
         <source>BMP</source>
         <translation>BMP</translation>
     </message>
@@ -32581,12 +32596,12 @@ Pertanto l&apos;immagine potrebbe essere non corretta</translation>
         <translation>Importatore PUB</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3246"/>
+        <location filename="../../scribus/scribus.cpp" line="3250"/>
         <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
         <translation>&lt;p&gt;Si vogliono importare più pagine di quante ne sono disponibili nel documento corrente a partire dalla pagina attiva.&lt;/p&gt;Scegliere una tra le seguenti opzioni:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Crea&lt;/b&gt; pagine mancanti&lt;/li&gt;&lt;li&gt;&lt;b&gt;Importa&lt;/b&gt; fino all&apos;ultima pagina&lt;/li&gt;&lt;li&gt;&lt;b&gt;Annulla&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="19102"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="19164"/>
         <source>Unacceptable settings for note style</source>
         <translation>Impostazioni non accettabili per lo stile note</translation>
     </message>
@@ -32750,47 +32765,47 @@ Pertanto l&apos;immagine potrebbe essere non corretta</translation>
         <translation>Forme personali</translation>
     </message>
     <message>
-        <location filename="../../scribus/util_formats.cpp" line="86"/>
+        <location filename="../../scribus/util_formats.cpp" line="88"/>
         <source>Encapsulated PostScript</source>
         <translation>Encapsulated PostScript</translation>
     </message>
     <message>
-        <location filename="../../scribus/util_formats.cpp" line="97"/>
+        <location filename="../../scribus/util_formats.cpp" line="99"/>
         <source>PostScript</source>
         <translation>PostScript</translation>
     </message>
     <message>
-        <location filename="../../scribus/util_formats.cpp" line="96"/>
+        <location filename="../../scribus/util_formats.cpp" line="98"/>
         <source>Adobe Photoshop</source>
         <translation>Adobe Photoshop</translation>
     </message>
     <message>
-        <location filename="../../scribus/util_formats.cpp" line="100"/>
+        <location filename="../../scribus/util_formats.cpp" line="102"/>
         <source>Windows Meta File</source>
         <translation>Windows Meta File</translation>
     </message>
     <message>
-        <location filename="../../scribus/util_formats.cpp" line="98"/>
+        <location filename="../../scribus/util_formats.cpp" line="100"/>
         <source>Scalable Vector Graphics</source>
         <translation>Scalable Vector Graphics</translation>
     </message>
     <message>
-        <location filename="../../scribus/util_formats.cpp" line="83"/>
+        <location filename="../../scribus/util_formats.cpp" line="85"/>
         <source>Adobe Illustrator</source>
         <translation>Adobe Illustrator</translation>
     </message>
     <message>
-        <location filename="../../scribus/util_formats.cpp" line="106"/>
+        <location filename="../../scribus/util_formats.cpp" line="108"/>
         <source>GraphicsMagick</source>
         <translation>GraphicsMagick</translation>
     </message>
     <message>
-        <location filename="../../scribus/util_formats.cpp" line="110"/>
+        <location filename="../../scribus/util_formats.cpp" line="112"/>
         <source>UniConvertor</source>
         <translation>UniConvertor</translation>
     </message>
     <message>
-        <location filename="../../scribus/util_formats.cpp" line="108"/>
+        <location filename="../../scribus/util_formats.cpp" line="110"/>
         <source>Macintosh Pict</source>
         <translation>Macintosh Pict</translation>
     </message>
@@ -32806,17 +32821,17 @@ Pertanto l&apos;immagine potrebbe essere non corretta</translation>
         <translation>Importatore Calamus Vector Graphics</translation>
     </message>
     <message>
-        <location filename="../../scribus/util_formats.cpp" line="85"/>
+        <location filename="../../scribus/util_formats.cpp" line="87"/>
         <source>Calamus Vector Graphics</source>
         <translation>Calamus Vector Graphics</translation>
     </message>
     <message>
-        <location filename="../../scribus/util_formats.cpp" line="101"/>
+        <location filename="../../scribus/util_formats.cpp" line="103"/>
         <source>WordPerfect Graphics</source>
         <translation>WordPerfect Graphics</translation>
     </message>
     <message>
-        <location filename="../../scribus/util_formats.cpp" line="109"/>
+        <location filename="../../scribus/util_formats.cpp" line="111"/>
         <source>Qt Supported File</source>
         <translation>File supportato da Qt</translation>
     </message>
@@ -32913,22 +32928,22 @@ Pertanto l&apos;immagine potrebbe essere non corretta</translation>
         <translation>Scribus</translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="193"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="209"/>
         <source>List All Tabs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="204"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="220"/>
         <source>Detach Group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="231"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="247"/>
         <source>Minimize</source>
         <translation>Minimizza</translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="267"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="274"/>
         <source>Close Tab</source>
         <translation>Chiudi scheda</translation>
     </message>
@@ -34013,7 +34028,7 @@ Document Liberation Project https://www.documentliberation.org</source>
         <translation>Nuovo stile</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smcellstyle.cpp" line="501"/>
+        <location filename="../../scribus/ui/smcellstyle.cpp" line="505"/>
         <source>Setting that style as parent would create an infinite loop.</source>
         <translation>L&apos;impostazione di questo stile come genitore creerebbe un ciclo senza fine.</translation>
     </message>
@@ -34029,34 +34044,39 @@ Document Liberation Project https://www.documentliberation.org</source>
         <translation type="vanished">Colore di riempimento</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smcellstylewidget.ui" line="68"/>
+        <location filename="../../scribus/ui/smcellstylewidget.ui" line="53"/>
         <source>Fill</source>
         <translation type="unfinished">Colore sfondo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smcellstylewidget.ui" line="103"/>
+        <location filename="../../scribus/ui/smcellstylewidget.ui" line="88"/>
         <source>Borders</source>
         <translation type="unfinished">Bordi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smcellstylewidget.ui" line="242"/>
+        <location filename="../../scribus/ui/smcellstylewidget.ui" line="227"/>
         <location filename="../../scribus/ui/smcellstylewidget.cpp" line="73"/>
         <source>Width</source>
         <translation type="unfinished">Larghezza</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smcellstylewidget.ui" line="288"/>
+        <location filename="../../scribus/ui/smcellstylewidget.ui" line="273"/>
         <location filename="../../scribus/ui/smcellstylewidget.cpp" line="72"/>
         <source>Type</source>
         <translation type="unfinished">Tipo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smcellstylewidget.ui" line="346"/>
-        <source>Cell Padding</source>
+        <location filename="../../scribus/ui/smcellstylewidget.ui" line="331"/>
+        <source>Alignment and Distances</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smcellstylewidget.ui" line="34"/>
+        <location filename="../../scribus/ui/smcellstylewidget.ui" line="360"/>
+        <source>Cell Padding:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smcellstylewidget.ui" line="19"/>
         <source>Based On:</source>
         <translation>Basato su:</translation>
     </message>
@@ -34083,7 +34103,7 @@ Document Liberation Project https://www.documentliberation.org</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smcellstylewidget.cpp" line="182"/>
+        <location filename="../../scribus/ui/smcellstylewidget.cpp" line="197"/>
         <source>A default style cannot be assigned a parent style</source>
         <translation>Non è possibile assegnare ad uno stile predefinito uno stile genitore</translation>
     </message>
@@ -34095,22 +34115,22 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>SMCharacterStyle</name>
     <message>
-        <location filename="../../scribus/ui/smtextstyles.cpp" line="1873"/>
+        <location filename="../../scribus/ui/smtextstyles.cpp" line="1876"/>
         <source>Character Styles</source>
         <translation>Stili carattere</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smtextstyles.cpp" line="1878"/>
+        <location filename="../../scribus/ui/smtextstyles.cpp" line="1881"/>
         <source>Character Style</source>
         <translation>Stile carattere</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smtextstyles.cpp" line="2012"/>
+        <location filename="../../scribus/ui/smtextstyles.cpp" line="2015"/>
         <source>New Style</source>
         <translation>Nuovo stile</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smtextstyles.cpp" line="2707"/>
+        <location filename="../../scribus/ui/smtextstyles.cpp" line="2710"/>
         <source>Setting that style as parent would create an infinite loop.</source>
         <translation>L&apos;impostazione di questo stile come genitore creerebbe un ciclo senza fine.</translation>
     </message>
@@ -34347,7 +34367,7 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>SMPStyleWidget</name>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="983"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="997"/>
         <source>Drop Caps</source>
         <translation>Capolettera</translation>
     </message>
@@ -34525,7 +34545,7 @@ Un valore uguale a 0 significa sillabazioni illimitate.</translation>
         <translation>Spazio sotto</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="984"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="998"/>
         <source>Bulleted List</source>
         <translation>Elenco puntato</translation>
     </message>
@@ -34545,7 +34565,7 @@ Un valore uguale a 0 significa sillabazioni illimitate.</translation>
         <translation>Tavolozza caratteri</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="985"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="999"/>
         <source>Numbered List</source>
         <translation>Elenco numerato</translation>
     </message>
@@ -34564,7 +34584,7 @@ Un valore uguale a 0 significa sillabazioni illimitate.</translation>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="44"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="139"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="197"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="507"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="509"/>
         <source>Fixed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -34572,7 +34592,7 @@ Un valore uguale a 0 significa sillabazioni illimitate.</translation>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="45"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="140"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="198"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="508"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="510"/>
         <source>Automatic</source>
         <translation>Automatico</translation>
     </message>
@@ -34580,7 +34600,7 @@ Un valore uguale a 0 significa sillabazioni illimitate.</translation>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="46"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="141"/>
         <location filename="../../scribus/ui/smpstylewidget.cpp" line="199"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="509"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="511"/>
         <source>Baseline</source>
         <translation>Linea di base</translation>
     </message>
@@ -34605,14 +34625,14 @@ Un valore uguale a 0 significa sillabazioni illimitate.</translation>
         <translation>Colore di sfondo del testo selezionato</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="982"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="996"/>
         <source>No Paragraph Effects</source>
         <translation>Nessun effetto paragrafo</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smpstylewidget.ui" line="62"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="420"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="820"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="422"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="834"/>
         <source>Based On:</source>
         <translation>Basato su:</translation>
     </message>
@@ -34622,7 +34642,7 @@ Un valore uguale a 0 significa sillabazioni illimitate.</translation>
         <translation>Colori</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="424"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="426"/>
         <source>A default style cannot be assigned a parent style</source>
         <translation>Non è possibile assegnare ad uno stile predefinito uno stile genitore</translation>
     </message>
@@ -34670,9 +34690,9 @@ Un valore uguale a 0 significa sillabazioni illimitate.</translation>
         <translation>Se contrassegnato, sposta automaticamente il paragrafo alla colonna o pagina successiva se il paragrafo successivo non è sulla stessa pagina o colonna</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="415"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="418"/>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="904"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="417"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="420"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="918"/>
         <source>No Style</source>
         <translation>Nessuno stile</translation>
     </message>
@@ -34702,12 +34722,12 @@ Un valore uguale a 0 significa sillabazioni illimitate.</translation>
         <translation>Fissa l&apos;effetto paragrafo prima del rientro del paragrafo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="973"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="987"/>
         <source>Document</source>
         <translation>Documento</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smpstylewidget.cpp" line="974"/>
+        <location filename="../../scribus/ui/smpstylewidget.cpp" line="988"/>
         <source>Story</source>
         <translation type="unfinished"></translation>
     </message>
@@ -34750,7 +34770,7 @@ Un valore uguale a 0 significa sillabazioni illimitate.</translation>
         <translation>Nuovo stile</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smtextstyles.cpp" line="1762"/>
+        <location filename="../../scribus/ui/smtextstyles.cpp" line="1765"/>
         <source>Setting that style as parent would create an infinite loop.</source>
         <translation>L&apos;impostazione di questo stile come genitore creerebbe un ciclo senza fine.</translation>
     </message>
@@ -34818,19 +34838,29 @@ Un valore uguale a 0 significa sillabazioni illimitate.</translation>
 <context>
     <name>SMStyleImport</name>
     <message>
-        <location filename="../../scribus/ui/smstyleimport.cpp" line="22"/>
+        <location filename="../../scribus/ui/smstyleimport.cpp" line="24"/>
         <source>Character Styles</source>
         <translation>Stili carattere</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smstyleimport.cpp" line="34"/>
+        <location filename="../../scribus/ui/smstyleimport.cpp" line="36"/>
         <source>Paragraph Styles</source>
         <translation>Stili paragrafo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/smstyleimport.cpp" line="46"/>
+        <location filename="../../scribus/ui/smstyleimport.cpp" line="48"/>
         <source>Line Styles</source>
         <translation>Stili linea</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smstyleimport.cpp" line="60"/>
+        <source>Table Styles</source>
+        <translation type="unfinished">Stili tabella</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/smstyleimport.cpp" line="74"/>
+        <source>Cell Styles</source>
+        <translation type="unfinished">Stili cella</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smstyleimport.ui" line="14"/>
@@ -36852,7 +36882,7 @@ Se lo si salva in questa versione non potrà più essere leggibile con le versio
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/fileloader/scribus171format/scribus171format.cpp" line="9077"/>
+        <location filename="../../scribus/plugins/fileloader/scribus171format/scribus171format.cpp" line="9093"/>
         <source>Copy #%1 of </source>
         <translation type="unfinished">Copia #%1 di </translation>
     </message>
@@ -36860,52 +36890,52 @@ Se lo si salva in questa versione non potrà più essere leggibile con le versio
 <context>
     <name>ScribusCore</name>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="246"/>
+        <location filename="../../scribus/scribuscore.cpp" line="287"/>
         <source>Initializing Plugins</source>
         <translation>Inizializzazione estensioni</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="191"/>
+        <location filename="../../scribus/scribuscore.cpp" line="227"/>
         <source>Initializing Keyboard Shortcuts</source>
         <translation>Inizializzazione tasti di scelta rapida</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="193"/>
+        <location filename="../../scribus/scribuscore.cpp" line="229"/>
         <source>Reading Preferences</source>
         <translation>Lettura preferenze</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="254"/>
+        <location filename="../../scribus/scribuscore.cpp" line="295"/>
         <source>Initializing Image Cache</source>
         <translation>Inizializzazione cache immagini</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="356"/>
+        <location filename="../../scribus/scribuscore.cpp" line="409"/>
         <source>Searching for Fonts</source>
         <translation>Ricerca dei font</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="361"/>
+        <location filename="../../scribus/scribuscore.cpp" line="414"/>
         <source>There are no fonts found on your system.</source>
         <translation>Non sono stati trovati font in questo sistema.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="362"/>
+        <location filename="../../scribus/scribuscore.cpp" line="415"/>
         <source>Exiting now.</source>
         <translation>Uscita.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="363"/>
+        <location filename="../../scribus/scribuscore.cpp" line="416"/>
         <source>Fatal Error</source>
         <translation>Errore fatale</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="366"/>
+        <location filename="../../scribus/scribuscore.cpp" line="419"/>
         <source>Font System Initialized</source>
         <translation>Font System Inizializzato</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribuscore.cpp" line="249"/>
+        <location filename="../../scribus/scribuscore.cpp" line="290"/>
         <source>Reading Color Profiles</source>
         <translation>Lettura profili colore</translation>
     </message>
@@ -36916,7 +36946,7 @@ Se lo si salva in questa versione non potrà più essere leggibile con le versio
         <location filename="../../scribus/scribusdoc.cpp" line="202"/>
         <location filename="../../scribus/scribusdoc.cpp" line="208"/>
         <location filename="../../scribus/scribusdoc.cpp" line="238"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17546"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17605"/>
         <source>Document</source>
         <translation>Documento</translation>
     </message>
@@ -36926,27 +36956,27 @@ Se lo si salva in questa versione non potrà più essere leggibile con le versio
         <translation>Sfondo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11946"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12005"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>Impossibile eliminare un oggetto in uso</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11946"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12005"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>L&apos;oggetto %1 è attualmente in modifica dall&apos;editor interno. L&apos;operazione di eliminazione sarà annullata</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12759"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12818"/>
         <source>Some objects are locked.</source>
         <translation>Alcuni oggetti sono bloccati.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12755"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12814"/>
         <source>&amp;Unlock All</source>
         <translation>S&amp;blocca tutti</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12756"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12815"/>
         <source>&amp;Skip locked objects</source>
         <translation>&amp;Salta oggetti bloccati</translation>
     </message>
@@ -36957,22 +36987,22 @@ Se lo si salva in questa versione non potrà più essere leggibile con le versio
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="957"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17225"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17284"/>
         <source>Adjusting Colors</source>
         <translation>Regolazione colori</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9697"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9749"/>
         <source>remove direct paragraph formatting</source>
         <translation>elimina la formattazione diretta del paragrafo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="10170"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="10222"/>
         <source>remove direct char formatting</source>
         <translation>elimina la formattazione diretta del carattere</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="14289"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14348"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -36983,7 +37013,7 @@ Spostamento vert.: %3
 Rotazione: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="14322"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14381"/>
         <source>Number of rows: %1
 Number of columns: %2
 Horizontal gap: %3
@@ -36994,41 +37024,41 @@ Distanza orizzontale: %3
 Distanza verticale: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="15771"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15826"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15988"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15830"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15885"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16047"/>
         <source>Group%1</source>
         <translation>Gruppo%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="1701"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="1713"/>
         <source>Imported </source>
         <comment>Prefix of imported default style</comment>
         <translation>Importato </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="14451"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14510"/>
         <source>Copied %1 item(s) on %2 page(s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17562"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17621"/>
         <source>File %1 autosaved</source>
         <translation>File %1 salvato automaticamente</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18731"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="18768"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18793"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18830"/>
         <source>No Style</source>
         <translation>Nessuno stile</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="19096"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="19158"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>Lo stile note %1 ha come portata il documento e fornisce lo stesso stile numerazione di %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11842"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11901"/>
         <source>Do you really want to clear the content of all selected frames?</source>
         <translation>Vuoi veramente pulire il contenuto delle cornici selezionate?</translation>
     </message>
@@ -37036,471 +37066,471 @@ Distanza verticale: %4</translation>
 <context>
     <name>ScribusMainWindow</name>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="408"/>
+        <location filename="../../scribus/scribus.cpp" line="409"/>
         <source>Initializing Story Editor</source>
         <translation>Inizializzazione editor interno</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="416"/>
+        <location filename="../../scribus/scribus.cpp" line="417"/>
         <source>Reading Scrapbook</source>
         <translation>Lettura biblioteca</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3413"/>
+        <location filename="../../scribus/scribus.cpp" line="3417"/>
         <source>Fatal Error</source>
         <translation>Errore fatale</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="927"/>
+        <location filename="../../scribus/scribus.cpp" line="928"/>
         <source>Open &amp;Recent</source>
         <translation>Apri &amp;Recenti</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="935"/>
-        <location filename="../../scribus/scribus.cpp" line="3251"/>
+        <location filename="../../scribus/scribus.cpp" line="936"/>
+        <location filename="../../scribus/scribus.cpp" line="3255"/>
         <source>&amp;Import</source>
         <translation>&amp;Importa</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="942"/>
+        <location filename="../../scribus/scribus.cpp" line="943"/>
         <source>&amp;Export</source>
         <translation>&amp;Esporta</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1067"/>
+        <location filename="../../scribus/scribus.cpp" line="1068"/>
         <source>Preview Settings</source>
         <translation>Configurazione anteprima</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1024"/>
+        <location filename="../../scribus/scribus.cpp" line="1025"/>
         <source>Level</source>
         <translation>Quota</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="420"/>
+        <location filename="../../scribus/scribus.cpp" line="421"/>
         <source>Initializing Page Presets</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1030"/>
+        <location filename="../../scribus/scribus.cpp" line="1031"/>
         <source>Send to La&amp;yer</source>
         <translation>In&amp;via al livello</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1300"/>
+        <location filename="../../scribus/scribus.cpp" line="1301"/>
         <source>Select</source>
         <translation type="unfinished">Seleziona</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="2119"/>
-        <location filename="../../scribus/scribus.cpp" line="2157"/>
-        <location filename="../../scribus/scribus.cpp" line="3721"/>
-        <location filename="../../scribus/scribus.cpp" line="4158"/>
-        <location filename="../../scribus/scribus.cpp" line="4238"/>
-        <location filename="../../scribus/scribus.cpp" line="4400"/>
-        <location filename="../../scribus/scribus.cpp" line="6681"/>
-        <location filename="../../scribus/scribus.cpp" line="8645"/>
+        <location filename="../../scribus/scribus.cpp" line="2120"/>
+        <location filename="../../scribus/scribus.cpp" line="2158"/>
+        <location filename="../../scribus/scribus.cpp" line="3725"/>
+        <location filename="../../scribus/scribus.cpp" line="4162"/>
+        <location filename="../../scribus/scribus.cpp" line="4242"/>
+        <location filename="../../scribus/scribus.cpp" line="4404"/>
+        <location filename="../../scribus/scribus.cpp" line="6703"/>
+        <location filename="../../scribus/scribus.cpp" line="8667"/>
         <source>Ready</source>
         <translation>Pronto</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3076"/>
-        <location filename="../../scribus/scribus.cpp" line="3192"/>
-        <location filename="../../scribus/scribus.cpp" line="3813"/>
+        <location filename="../../scribus/scribus.cpp" line="3080"/>
+        <location filename="../../scribus/scribus.cpp" line="3196"/>
+        <location filename="../../scribus/scribus.cpp" line="3817"/>
         <source>Open</source>
         <translation>Apri</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3213"/>
+        <location filename="../../scribus/scribus.cpp" line="3217"/>
         <source>Importing Pages...</source>
         <translation>Importazione pagine...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3244"/>
+        <location filename="../../scribus/scribus.cpp" line="3248"/>
         <source>Import Page(s)</source>
         <translation>Importa pagina(e)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3290"/>
+        <location filename="../../scribus/scribus.cpp" line="3294"/>
         <source>Import done</source>
         <translation>Importazione terminata</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3294"/>
+        <location filename="../../scribus/scribus.cpp" line="3298"/>
         <source>Found nothing to import</source>
         <translation>Trovato nulla da importare</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3367"/>
+        <location filename="../../scribus/scribus.cpp" line="3371"/>
         <source>File does not exist on the specified path :
 %1</source>
         <translation>Il file non esiste su questo percorso :
 %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3414"/>
+        <location filename="../../scribus/scribus.cpp" line="3418"/>
         <source>File %1 is not in an acceptable format</source>
         <translation>Il file %1 non è un formato di Scribus</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3449"/>
+        <location filename="../../scribus/scribus.cpp" line="3453"/>
         <source>Loading...</source>
         <translation>Caricamento...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3613"/>
+        <location filename="../../scribus/scribus.cpp" line="3617"/>
         <source> was replaced by: </source>
         <translation> è stato sostituito da: </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3643"/>
+        <location filename="../../scribus/scribus.cpp" line="3647"/>
         <source>(converted)</source>
         <translation>(convertito)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4001"/>
+        <location filename="../../scribus/scribus.cpp" line="4005"/>
         <source>Filename and Path for Image</source>
         <translation>Nome e percorso del file per l&apos;immagine</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4001"/>
+        <location filename="../../scribus/scribus.cpp" line="4005"/>
         <source>All Files (*)</source>
         <translation>Tutti i file (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4094"/>
-        <location filename="../../scribus/scribus.cpp" line="4153"/>
-        <location filename="../../scribus/scribus.cpp" line="7130"/>
-        <location filename="../../scribus/scribus.cpp" line="7294"/>
-        <location filename="../../scribus/scribus.cpp" line="7308"/>
+        <location filename="../../scribus/scribus.cpp" line="4098"/>
+        <location filename="../../scribus/scribus.cpp" line="4157"/>
+        <location filename="../../scribus/scribus.cpp" line="7152"/>
+        <location filename="../../scribus/scribus.cpp" line="7316"/>
+        <location filename="../../scribus/scribus.cpp" line="7330"/>
         <source>Cannot write the file: 
 %1</source>
         <translation>Impossibile salvare il file: 
 %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4138"/>
-        <location filename="../../scribus/scribus.cpp" line="7119"/>
+        <location filename="../../scribus/scribus.cpp" line="4142"/>
+        <location filename="../../scribus/scribus.cpp" line="7141"/>
         <source>Save As</source>
         <translation>Salva come</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4169"/>
+        <location filename="../../scribus/scribus.cpp" line="4173"/>
         <source>Saving...</source>
         <translation>Salvataggio in corso...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4303"/>
-        <location filename="../../scribus/scribus.cpp" line="6798"/>
-        <location filename="../../scribus/scribus.cpp" line="6875"/>
-        <location filename="../../scribus/scribus.cpp" line="6947"/>
+        <location filename="../../scribus/scribus.cpp" line="4307"/>
+        <location filename="../../scribus/scribus.cpp" line="6820"/>
+        <location filename="../../scribus/scribus.cpp" line="6897"/>
+        <location filename="../../scribus/scribus.cpp" line="6969"/>
         <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
         <translation>Scribus ha rilevato alcuni errori. Utilizzare la Verifica Preliminare per correggerli</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4338"/>
+        <location filename="../../scribus/scribus.cpp" line="4342"/>
         <source>Printing...</source>
         <translation>Stampa...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1283"/>
-        <location filename="../../scribus/scribus.cpp" line="2181"/>
-        <location filename="../../scribus/scribus.cpp" line="4342"/>
-        <location filename="../../scribus/scribus.cpp" line="7098"/>
-        <location filename="../../scribus/scribus.cpp" line="8375"/>
+        <location filename="../../scribus/scribus.cpp" line="1284"/>
+        <location filename="../../scribus/scribus.cpp" line="2182"/>
+        <location filename="../../scribus/scribus.cpp" line="4346"/>
+        <location filename="../../scribus/scribus.cpp" line="7120"/>
+        <location filename="../../scribus/scribus.cpp" line="8397"/>
         <source>Document</source>
         <translation>Documento</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4388"/>
+        <location filename="../../scribus/scribus.cpp" line="4392"/>
         <source>Printing failed!</source>
         <translation>Impossibile stampare!</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4478"/>
+        <location filename="../../scribus/scribus.cpp" line="4482"/>
         <source>Cannot Cut In-Use Item</source>
         <translation>Impossibile tagliare un elemento in uso</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4478"/>
+        <location filename="../../scribus/scribus.cpp" line="4482"/>
         <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
         <translation>L&apos;elemento %1 è attualmente in corso di modifica dall&apos;Editor Interno. L&apos;operazione di taglio sarà annullata</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5099"/>
+        <location filename="../../scribus/scribus.cpp" line="5116"/>
         <source>About Qt</source>
         <translation>Informazioni su Qt</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5130"/>
+        <location filename="../../scribus/scribus.cpp" line="5147"/>
         <source>Scribus Manual</source>
         <translation>Manuale di Scribus</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6253"/>
+        <location filename="../../scribus/scribus.cpp" line="6270"/>
         <source>&amp;Size:</source>
         <translation>Dimen&amp;sione:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1621"/>
-        <location filename="../../scribus/scribus.cpp" line="6253"/>
+        <location filename="../../scribus/scribus.cpp" line="1622"/>
+        <location filename="../../scribus/scribus.cpp" line="6270"/>
         <source>Size</source>
         <translation>Dimensione</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6663"/>
+        <location filename="../../scribus/scribus.cpp" line="6685"/>
         <source>An error occurred while opening monitor profile.
 Former monitor profile will be used.</source>
         <translation>Si è verificato un errore durante l&apos;apertura del profilo del monitor.
 Sarà usato il profilo precedente.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7065"/>
+        <location filename="../../scribus/scribus.cpp" line="7087"/>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
         <translation>Scribus ha rilevato alcuni errori.
 Utilizzare la Verifica Preliminare per correggerli.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7161"/>
+        <location filename="../../scribus/scribus.cpp" line="7183"/>
         <source>Detected some errors.
 Consider using the Preflight Verifier to correct them</source>
         <translation>Rilevati alcuni errori.
 Utilizzare la Verifica Preliminare per correggerli</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7290"/>
+        <location filename="../../scribus/scribus.cpp" line="7312"/>
         <source>-Page%1</source>
         <translation>-Pagina%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7848"/>
+        <location filename="../../scribus/scribus.cpp" line="7870"/>
         <source>Some objects are locked.</source>
         <translation>Alcuni oggetti sono bloccati.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7844"/>
+        <location filename="../../scribus/scribus.cpp" line="7866"/>
         <source>&amp;Lock All</source>
         <translation>B&amp;locca tutti</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7322"/>
+        <location filename="../../scribus/scribus.cpp" line="7344"/>
         <source>Locate your PDF viewer</source>
         <translation>Localizza il visualizzatore PDF</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7845"/>
+        <location filename="../../scribus/scribus.cpp" line="7867"/>
         <source>&amp;Unlock All</source>
         <translation>S&amp;blocca tutti</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3923"/>
-        <location filename="../../scribus/scribus.cpp" line="8842"/>
+        <location filename="../../scribus/scribus.cpp" line="3927"/>
+        <location filename="../../scribus/scribus.cpp" line="8864"/>
         <source>Do you really want to replace your existing image?</source>
         <translation>Si vuole veramente sostituire l&apos;immagine attuale?</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="979"/>
+        <location filename="../../scribus/scribus.cpp" line="980"/>
         <source>Contents</source>
         <translation>Contenuto</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1151"/>
+        <location filename="../../scribus/scribus.cpp" line="1152"/>
         <source>&amp;Character</source>
         <translation>&amp;Carattere</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1172"/>
+        <location filename="../../scribus/scribus.cpp" line="1173"/>
         <source>&amp;Quote</source>
         <translation>Vir&amp;golette</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1214"/>
+        <location filename="../../scribus/scribus.cpp" line="1215"/>
         <source>Liga&amp;ture</source>
         <translation>Leg&amp;ature</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="977"/>
+        <location filename="../../scribus/scribus.cpp" line="978"/>
         <source>Paste Recent</source>
         <translation>Incolla recente</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3835"/>
+        <location filename="../../scribus/scribus.cpp" line="3839"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Vuoi veramente cancellare tutto il testo?</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3610"/>
+        <location filename="../../scribus/scribus.cpp" line="3614"/>
         <source>Some color profiles used by this document are not installed:</source>
         <translation>Alcuni profili colore usati da questo documento non sono installati:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7119"/>
+        <location filename="../../scribus/scribus.cpp" line="7141"/>
         <source>%1;;All Files (*)</source>
         <translation>%1;;Tutti i file (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="392"/>
+        <location filename="../../scribus/scribus.cpp" line="393"/>
         <source>Applying User Shortcuts</source>
         <translation>Applicazione scelte rapide dell&apos;utente</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6703"/>
+        <location filename="../../scribus/scribus.cpp" line="6725"/>
         <source>Updating Images</source>
         <translation>Aggiornamento immagini</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4092"/>
-        <location filename="../../scribus/scribus.cpp" line="4151"/>
+        <location filename="../../scribus/scribus.cpp" line="4096"/>
+        <location filename="../../scribus/scribus.cpp" line="4155"/>
         <source>Your document was saved to a temporary file and could not be moved: 
 %1</source>
         <translation>Il documento è stato salvato in un file temporaneo e non è stato possibile spostarlo: 
 %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4451"/>
+        <location filename="../../scribus/scribus.cpp" line="4455"/>
         <source>Print engine initialization failed</source>
         <translation>Inizializzazione del motore di stampa fallita</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3049"/>
+        <location filename="../../scribus/scribus.cpp" line="3053"/>
         <source>All Supported Formats</source>
         <translation>Tutti i formati supportati</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9119"/>
-        <location filename="../../scribus/scribus.cpp" line="9198"/>
+        <location filename="../../scribus/scribus.cpp" line="9141"/>
+        <location filename="../../scribus/scribus.cpp" line="9220"/>
         <source>&amp;Name:</source>
         <translation>&amp;Nome:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9119"/>
-        <location filename="../../scribus/scribus.cpp" line="9198"/>
+        <location filename="../../scribus/scribus.cpp" line="9141"/>
+        <location filename="../../scribus/scribus.cpp" line="9220"/>
         <source>New Entry</source>
         <translation>Nuova voce</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6839"/>
+        <location filename="../../scribus/scribus.cpp" line="6861"/>
         <source>Ghostscript is missing : PostScript Print Preview is not available</source>
         <translation>Manca Ghostscript: non è disponibile l&apos;anteprima di stampa Postscript</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3398"/>
+        <location filename="../../scribus/scribus.cpp" line="3402"/>
         <source>Document is already opened</source>
         <translation>Il documento è già aperto</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3415"/>
+        <location filename="../../scribus/scribus.cpp" line="3419"/>
         <source>The file may be damaged or may have been produced in a later version of Scribus.</source>
         <translation>Il file potrebbe essere danneggiato oppure potrebbe essere stato creato con una versione successiva di Scribus.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7599"/>
+        <location filename="../../scribus/scribus.cpp" line="7621"/>
         <source>Editing Symbol: %1</source>
         <translation>Modifica simbolo: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1575"/>
+        <location filename="../../scribus/scribus.cpp" line="1576"/>
         <source>Unknown</source>
         <translation>Sconosciuto</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1626"/>
+        <location filename="../../scribus/scribus.cpp" line="1627"/>
         <source>%1 Objects selected, Selection Size = %2 x %3</source>
         <translation>%1 oggetti selezionati, dimensione della selezione = %2 x %3</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="412"/>
+        <location filename="../../scribus/scribus.cpp" line="413"/>
         <source>Initializing Languages</source>
         <translation>Inizializzazione lingue</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="678"/>
+        <location filename="../../scribus/scribus.cpp" line="679"/>
         <source>All Supported Formats (%1);;%2All Files (*)</source>
         <translation>Tutti i formati supportati (%1);;%2Tutti i file (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1121"/>
-        <location filename="../../scribus/scribus.cpp" line="1227"/>
+        <location filename="../../scribus/scribus.cpp" line="1122"/>
+        <location filename="../../scribus/scribus.cpp" line="1228"/>
         <source>Marks</source>
         <translation>Note</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9620"/>
-        <location filename="../../scribus/scribus.cpp" line="9885"/>
+        <location filename="../../scribus/scribus.cpp" line="9642"/>
+        <location filename="../../scribus/scribus.cpp" line="9907"/>
         <source>Anchor mark</source>
         <translation>Nota di riferimento</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9628"/>
-        <location filename="../../scribus/scribus.cpp" line="9898"/>
+        <location filename="../../scribus/scribus.cpp" line="9650"/>
+        <location filename="../../scribus/scribus.cpp" line="9920"/>
         <source>Mark with &lt;%1&gt; variable text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9636"/>
-        <location filename="../../scribus/scribus.cpp" line="9937"/>
+        <location filename="../../scribus/scribus.cpp" line="9658"/>
+        <location filename="../../scribus/scribus.cpp" line="9959"/>
         <source>Mark to %1 item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9646"/>
-        <location filename="../../scribus/scribus.cpp" line="9958"/>
+        <location filename="../../scribus/scribus.cpp" line="9668"/>
+        <location filename="../../scribus/scribus.cpp" line="9980"/>
         <source>Mark to %1 mark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1009"/>
+        <location filename="../../scribus/scribus.cpp" line="1010"/>
         <source>Duplicate/Transform</source>
         <translation>Duplica/Trasforma</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="402"/>
+        <location filename="../../scribus/scribus.cpp" line="403"/>
         <source>Initializing Workspaces</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="957"/>
+        <location filename="../../scribus/scribus.cpp" line="958"/>
         <source>&amp;Output Preview</source>
         <translation>Anteprima &amp;output</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1014"/>
+        <location filename="../../scribus/scribus.cpp" line="1015"/>
         <source>Grouping</source>
         <translation>Raggruppamento</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1019"/>
+        <location filename="../../scribus/scribus.cpp" line="1020"/>
         <source>Locking</source>
         <translation>Bloccaggio</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1032"/>
+        <location filename="../../scribus/scribus.cpp" line="1033"/>
         <source>Send to</source>
         <translation>Invia a</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1034"/>
+        <location filename="../../scribus/scribus.cpp" line="1035"/>
         <source>Scrapbook</source>
         <translation>Biblioteca</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1048"/>
+        <location filename="../../scribus/scribus.cpp" line="1049"/>
         <source>Adjust</source>
         <translation>Adatta</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1061"/>
+        <location filename="../../scribus/scribus.cpp" line="1062"/>
         <source>Image</source>
         <translation>Immagine</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1108"/>
+        <location filename="../../scribus/scribus.cpp" line="1109"/>
         <source>P&amp;DF Options</source>
         <translation>Opzioni P&amp;DF</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1094"/>
+        <location filename="../../scribus/scribus.cpp" line="1095"/>
         <source>Text Frame Links</source>
         <translation>Collegamento cornici di testo</translation>
     </message>
@@ -37509,53 +37539,53 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
         <translation type="vanished">Strumenti tracciato</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1116"/>
+        <location filename="../../scribus/scribus.cpp" line="1117"/>
         <source>Welding</source>
         <translation>Saldatura</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1074"/>
+        <location filename="../../scribus/scribus.cpp" line="1075"/>
         <source>Text Features</source>
         <comment>Item</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1053"/>
+        <location filename="../../scribus/scribus.cpp" line="1054"/>
         <source>Shape &amp;&amp; Paths</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1101"/>
+        <location filename="../../scribus/scribus.cpp" line="1102"/>
         <source>Text Transformation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1198"/>
+        <location filename="../../scribus/scribus.cpp" line="1199"/>
         <source>S&amp;paces &amp;&amp; Breaks</source>
         <translation>S&amp;pazi &amp;&amp; Interruzioni</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1255"/>
+        <location filename="../../scribus/scribus.cpp" line="1256"/>
         <source>Zoom</source>
         <translation>Zoom</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1264"/>
+        <location filename="../../scribus/scribus.cpp" line="1265"/>
         <source>Preview</source>
         <translation>Anteprima</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1274"/>
+        <location filename="../../scribus/scribus.cpp" line="1275"/>
         <source>Text Frames</source>
         <translation>Cornici di testo</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1280"/>
+        <location filename="../../scribus/scribus.cpp" line="1281"/>
         <source>Image Frames</source>
         <translation>Cornici immagine</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1290"/>
+        <location filename="../../scribus/scribus.cpp" line="1291"/>
         <source>Grids and Guides</source>
         <translation>Griglia e guide</translation>
     </message>
@@ -37564,115 +37594,115 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
         <translation type="vanished"> %</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1490"/>
-        <location filename="../../scribus/scribus.cpp" line="8641"/>
+        <location filename="../../scribus/scribus.cpp" line="1491"/>
+        <location filename="../../scribus/scribus.cpp" line="8663"/>
         <source>X:</source>
         <translation>X:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1492"/>
-        <location filename="../../scribus/scribus.cpp" line="8642"/>
+        <location filename="../../scribus/scribus.cpp" line="1493"/>
+        <location filename="../../scribus/scribus.cpp" line="8664"/>
         <source>Y:</source>
         <translation>Y:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3398"/>
+        <location filename="../../scribus/scribus.cpp" line="3402"/>
         <source>This document is already open. It will be set as the active document.</source>
         <translation>Questo documento è già aperto. Sarà selezionato come documento attivo.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5207"/>
+        <location filename="../../scribus/scribus.cpp" line="5224"/>
         <source>Text Files (*.txt);;All Files (*)</source>
         <translation>File di testo (*.txt);;Tutti i file (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5207"/>
+        <location filename="../../scribus/scribus.cpp" line="5224"/>
         <source>Save as</source>
         <translation>Salva come</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6266"/>
+        <location filename="../../scribus/scribus.cpp" line="6283"/>
         <source>&amp;Language:</source>
         <translation>&amp;Lingua:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6266"/>
+        <location filename="../../scribus/scribus.cpp" line="6283"/>
         <source>Language</source>
         <translation>Lingua</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7650"/>
+        <location filename="../../scribus/scribus.cpp" line="7672"/>
         <source>Editing Inline Item</source>
         <translation>Modifica elemento in linea</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8474"/>
+        <location filename="../../scribus/scribus.cpp" line="8496"/>
         <source>The program %1 is missing or failed to open</source>
         <translation>Il programma %1 non è presente o non è riuscito ad avviarsi</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8635"/>
+        <location filename="../../scribus/scribus.cpp" line="8657"/>
         <source>Current zoom level</source>
         <translation>Livello d&apos;ingrandimento</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8636"/>
+        <location filename="../../scribus/scribus.cpp" line="8658"/>
         <source>Zoom to 100%</source>
         <translation>Zoom a 100%</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8637"/>
+        <location filename="../../scribus/scribus.cpp" line="8659"/>
         <source>Zoom out by the stepping value in Tools preferences</source>
         <translation>Rimpicciolisce del valore indicato nelle preferenze Strumenti</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8638"/>
+        <location filename="../../scribus/scribus.cpp" line="8660"/>
         <source>Zoom in by the stepping value in Tools preferences</source>
         <translation>Ingrandisce del valore indicato nelle preferenze Strumenti</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8639"/>
+        <location filename="../../scribus/scribus.cpp" line="8661"/>
         <source>Select the current layer</source>
         <translation>Seleziona il livello corrente</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8640"/>
+        <location filename="../../scribus/scribus.cpp" line="8662"/>
         <source>Select the current unit</source>
         <translation>Seleziona l&apos;unità di misura corrente</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9594"/>
+        <location filename="../../scribus/scribus.cpp" line="9616"/>
         <source>Insert New </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9669"/>
-        <location filename="../../scribus/scribus.cpp" line="9980"/>
+        <location filename="../../scribus/scribus.cpp" line="9691"/>
+        <location filename="../../scribus/scribus.cpp" line="10002"/>
         <source>Index mark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9865"/>
+        <location filename="../../scribus/scribus.cpp" line="9887"/>
         <source>Edit %1</source>
         <translation>Modifica %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1040"/>
+        <location filename="../../scribus/scribus.cpp" line="1041"/>
         <source>C&amp;onvert to</source>
         <translation>Conve&amp;rti in</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1621"/>
+        <location filename="../../scribus/scribus.cpp" line="1622"/>
         <source>%1 selected</source>
         <translation>%1 selezionato/a</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3250"/>
+        <location filename="../../scribus/scribus.cpp" line="3254"/>
         <source>C&amp;reate</source>
         <translation>C&amp;rea</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="1268"/>
+        <location filename="../../scribus/scribus.cpp" line="1269"/>
         <source>Measurement</source>
         <translation>Misure</translation>
     </message>
@@ -37856,72 +37886,72 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
 <context>
     <name>ScribusView</name>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="308"/>
+        <location filename="../../scribus/scribusview.cpp" line="311"/>
         <source>Out of gamut colors display is active. Therefore the color display may not match the perception by visually impaired. Disable the option &quot;Mark colors out of gamut&quot; in Document Setup &gt; Color Management if this function is not required.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="901"/>
+        <location filename="../../scribus/scribusview.cpp" line="921"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Vuoi veramente cancellare tutto il testo?</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="1030"/>
+        <location filename="../../scribus/scribusview.cpp" line="1050"/>
         <source>Copy Here</source>
         <translation>Copia qui</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="1031"/>
+        <location filename="../../scribus/scribusview.cpp" line="1051"/>
         <source>Move Here</source>
         <translation>Sposta qui</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="1032"/>
+        <location filename="../../scribus/scribusview.cpp" line="1052"/>
         <source>Cancel</source>
         <translation>Annulla</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="11050"/>
+        <location filename="../../scribus/pageitem.cpp" line="11075"/>
         <source>Print: </source>
         <translation>Stampa: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="11052"/>
+        <location filename="../../scribus/pageitem.cpp" line="11077"/>
         <source>Enabled</source>
         <translation>Abilitata</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="11054"/>
+        <location filename="../../scribus/pageitem.cpp" line="11079"/>
         <source>Disabled</source>
         <translation>Disabilitata</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3031"/>
+        <location filename="../../scribus/scribusview.cpp" line="3102"/>
         <source>Cannot Convert In-Use Item</source>
         <translation>Impossibile convertire un elemento in uso</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3031"/>
+        <location filename="../../scribus/scribusview.cpp" line="3102"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation>L&apos;elemento %1 è attualmente in corso di modifica dall&apos;Editor Interno. La conversione in contorni di questo elemento sarà annullata</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="1933"/>
+        <location filename="../../scribus/scribusview.cpp" line="2010"/>
         <source>Page %1 to %2</source>
         <translation>Pagina %1 a %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="307"/>
+        <location filename="../../scribus/scribusview.cpp" line="310"/>
         <source>Preview Mode</source>
         <translation>Anteprima</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="187"/>
+        <location filename="../../scribus/scribusview.cpp" line="190"/>
         <source>End Edit</source>
         <translation>Fine modifica</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="245"/>
+        <location filename="../../scribus/scribusview.cpp" line="248"/>
         <source>Click here to leave this special edit mode</source>
         <translation>Clicca qui per abbandonare questa speciale modalità di modifica</translation>
     </message>
@@ -38522,27 +38552,27 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
 <context>
     <name>ShapePalette</name>
     <message>
-        <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="430"/>
+        <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="440"/>
         <source>Choose a shape file to import</source>
         <translation>Scegli un file forme da importare</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="430"/>
+        <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="440"/>
         <source>Photoshop Custom Shape (*.csh *.CSH)</source>
         <translation>Photoshop Custom Shape (*.csh *.CSH)</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="613"/>
+        <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="635"/>
         <source>Custom Shapes</source>
         <translation>Forme personali</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="614"/>
+        <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="636"/>
         <source>Load Photoshop Custom Shapes</source>
         <translation>Carica Forme personali di Photoshop</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="615"/>
+        <location filename="../../scribus/plugins/shapes/shapepalette.cpp" line="637"/>
         <source>Close current Tab</source>
         <translation>Chiudi la scheda corrente</translation>
     </message>
@@ -39086,9 +39116,9 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
     <message>
         <location filename="../../scribus/ui/stylemanager.ui" line="396"/>
         <location filename="../../scribus/ui/stylemanager.cpp" line="119"/>
-        <location filename="../../scribus/ui/stylemanager.cpp" line="1224"/>
-        <location filename="../../scribus/ui/stylemanager.cpp" line="1394"/>
-        <location filename="../../scribus/ui/stylemanager.cpp" line="1432"/>
+        <location filename="../../scribus/ui/stylemanager.cpp" line="1300"/>
+        <location filename="../../scribus/ui/stylemanager.cpp" line="1470"/>
+        <location filename="../../scribus/ui/stylemanager.cpp" line="1508"/>
         <source>&amp;Apply</source>
         <translation>&amp;Applica</translation>
     </message>
@@ -39163,7 +39193,7 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/stylemanager.cpp" line="163"/>
-        <location filename="../../scribus/ui/stylemanager.cpp" line="992"/>
+        <location filename="../../scribus/ui/stylemanager.cpp" line="1068"/>
         <source>New</source>
         <translation>Nuovo</translation>
     </message>
@@ -39184,7 +39214,7 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/stylemanager.cpp" line="121"/>
-        <location filename="../../scribus/ui/stylemanager.cpp" line="1108"/>
+        <location filename="../../scribus/ui/stylemanager.cpp" line="1184"/>
         <source>&amp;Edit</source>
         <translation>&amp;Modifica</translation>
     </message>
@@ -39195,7 +39225,7 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/stylemanager.ui" line="69"/>
-        <location filename="../../scribus/ui/stylemanager.cpp" line="1334"/>
+        <location filename="../../scribus/ui/stylemanager.cpp" line="1410"/>
         <source>Shortcut</source>
         <translation>Scelta rapida</translation>
     </message>
@@ -39233,13 +39263,13 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.cpp" line="940"/>
-        <location filename="../../scribus/ui/stylemanager.cpp" line="974"/>
+        <location filename="../../scribus/ui/stylemanager.cpp" line="1016"/>
+        <location filename="../../scribus/ui/stylemanager.cpp" line="1050"/>
         <source>New %1</source>
         <translation>Nuovo %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.cpp" line="1420"/>
+        <location filename="../../scribus/ui/stylemanager.cpp" line="1496"/>
         <source>This key sequence is already in use</source>
         <translation>Questa sequenza di tasti è già in uso</translation>
     </message>
@@ -39254,7 +39284,7 @@ Utilizzare la Verifica Preliminare per correggerli</translation>
         <translation>Nome dello stile selezionato</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/stylemanager.cpp" line="1506"/>
+        <location filename="../../scribus/ui/stylemanager.cpp" line="1582"/>
         <source>More than one style selected</source>
         <translation>Selezionato più di uno stile</translation>
     </message>
@@ -40727,103 +40757,117 @@ quando il documento PDF viene aperto:</translation>
 <context>
     <name>Tabruler</name>
     <message>
-        <location filename="../../scribus/ui/tabruler.cpp" line="714"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="771"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="835"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="839"/>
         <source>Left</source>
         <translation>Sinistra</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabruler.cpp" line="718"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="775"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="831"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="843"/>
         <source>Right</source>
         <translation>Destra</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabruler.cpp" line="716"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="773"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="833"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="841"/>
         <source>Comma</source>
         <translation>Virgola</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabruler.cpp" line="715"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="772"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="832"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="840"/>
         <source>Center</source>
         <translation>Centro</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabruler.cpp" line="746"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="803"/>
         <source>Indentation for first line of the paragraph</source>
         <translation>Rientro prima riga del paragrafo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabruler.cpp" line="747"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="804"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="853"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="857"/>
         <source>Indentation from the left for the whole paragraph</source>
         <translation>Rientro da sinistra per l&apos;intero paragrafo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabruler.cpp" line="737"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="794"/>
         <source>Delete all Tabulators</source>
         <translation>Elimina tutte le tabulazioni</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabruler.cpp" line="722"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="779"/>
         <source>&amp;Position:</source>
         <translation>&amp;Posizione:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabruler.cpp" line="735"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="792"/>
         <source>Fill Char:</source>
         <translation>Carattere di riempimento:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabruler.cpp" line="728"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="785"/>
         <source>Dot</source>
         <translation>Punto</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabruler.cpp" line="729"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="786"/>
         <source>Hyphen</source>
         <translation>Trattino</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabruler.cpp" line="730"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="787"/>
         <source>Underscore</source>
         <translation>Trattino basso</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabruler.cpp" line="731"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="788"/>
         <source>Custom</source>
         <translation>Personalizzato</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabruler.cpp" line="727"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="784"/>
         <source>None</source>
         <comment>tab fill</comment>
         <translation>Nessuno</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabruler.cpp" line="748"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="805"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="852"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="858"/>
         <source>Indentation from the right for the whole paragraph</source>
         <translation>Rientro da destra per l&apos;intero paragrafo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabruler.cpp" line="740"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="797"/>
         <source>Fill Character of Tab</source>
         <translation>Carattere di riempimento della tabulazione</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabruler.cpp" line="741"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="798"/>
         <source>Type/Orientation of Tab</source>
         <translation>Tipo/Orientamento della tabulazione</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabruler.cpp" line="742"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="799"/>
         <source>Position of Tab</source>
         <translation>Posizione della tabulazione</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabruler.cpp" line="717"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="774"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="834"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="842"/>
         <source>Period</source>
         <translation>Punto</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/tabruler.cpp" line="738"/>
+        <location filename="../../scribus/ui/tabruler.cpp" line="795"/>
         <source>Delete selected Tabulator</source>
         <translation>Elimina tabulatore selezionato</translation>
     </message>
@@ -43216,42 +43260,42 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>ads::CAutoHideTab</name>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/AutoHideTab.cpp" line="383"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/AutoHideTab.cpp" line="394"/>
         <source>Detach</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/AutoHideTab.cpp" line="388"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/AutoHideTab.cpp" line="399"/>
         <source>Pin To...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/AutoHideTab.cpp" line="390"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/AutoHideTab.cpp" line="401"/>
         <source>Top</source>
         <translation>Alto</translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/AutoHideTab.cpp" line="391"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/AutoHideTab.cpp" line="402"/>
         <source>Left</source>
         <translation>Sinistra</translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/AutoHideTab.cpp" line="392"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/AutoHideTab.cpp" line="403"/>
         <source>Right</source>
         <translation>Destra</translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/AutoHideTab.cpp" line="393"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/AutoHideTab.cpp" line="404"/>
         <source>Bottom</source>
         <translation>Basso</translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/AutoHideTab.cpp" line="395"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/AutoHideTab.cpp" line="406"/>
         <source>Unpin (Dock)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/AutoHideTab.cpp" line="397"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/AutoHideTab.cpp" line="408"/>
         <source>Close</source>
         <translation>Chiudi</translation>
     </message>
@@ -43259,83 +43303,83 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>ads::CDockAreaTitleBar</name>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="753"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="885"/>
         <source>Detach</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="753"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="885"/>
         <source>Detach Group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="758"/>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="815"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="890"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="946"/>
         <source>Unpin (Dock)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="758"/>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="820"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="890"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="951"/>
         <source>Pin Group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="764"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="896"/>
         <source>Pin Group To...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="766"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="898"/>
         <source>Top</source>
         <translation>Alto</translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="767"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="899"/>
         <source>Left</source>
         <translation>Sinistra</translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="768"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="900"/>
         <source>Right</source>
         <translation>Destra</translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="769"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="901"/>
         <source>Bottom</source>
         <translation>Basso</translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="777"/>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="832"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="909"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="963"/>
         <source>Minimize</source>
         <translation>Minimizza</translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="778"/>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="782"/>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="832"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="910"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="914"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="963"/>
         <source>Close</source>
         <translation>Chiudi</translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="782"/>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="841"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="914"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="972"/>
         <source>Close Group</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="788"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="920"/>
         <source>Close Other Groups</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="824"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="955"/>
         <source>Pin Active Tab (Press Ctrl to Pin Group)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="837"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockAreaTitleBar.cpp" line="968"/>
         <source>Close Active Tab</source>
         <translation type="unfinished"></translation>
     </message>
@@ -43343,7 +43387,7 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>ads::CDockManager</name>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockManager.cpp" line="513"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockManager.cpp" line="537"/>
         <source>Show View</source>
         <translation type="unfinished"></translation>
     </message>
@@ -43351,47 +43395,47 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>ads::CDockWidgetTab</name>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="543"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="636"/>
         <source>Detach</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="547"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="640"/>
         <source>Pin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="551"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="644"/>
         <source>Pin To...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="553"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="646"/>
         <source>Top</source>
         <translation>Alto</translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="554"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="647"/>
         <source>Left</source>
         <translation>Sinistra</translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="555"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="648"/>
         <source>Right</source>
         <translation>Destra</translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="556"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="649"/>
         <source>Bottom</source>
         <translation>Basso</translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="561"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="654"/>
         <source>Close</source>
         <translation>Chiudi</translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="565"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="658"/>
         <source>Close Others</source>
         <translation type="unfinished"></translation>
     </message>
