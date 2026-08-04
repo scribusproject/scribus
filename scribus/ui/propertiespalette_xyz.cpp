@@ -23,6 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_arc.h"
 #include "pageitem_line.h"
 #include "pageitem_spiral.h"
+#include "pageitem_table.h"
 #include "propertiespalette_utils.h"
 #include "scraction.h"
 #include "scribus.h"
@@ -978,6 +979,8 @@ void PropertiesPalette_XYZ::handleNewW()
 			else
 				m_doc->sizeItem(w, m_item->height(), m_item, true, true, false);
 		}
+		if (m_item->isTable())
+			m_item->asTable()->adjustTable();
 		if (m_item->isArc())
 		{
 			double dw = w - oldW;
@@ -1061,6 +1064,8 @@ void PropertiesPalette_XYZ::handleNewH()
 			else
 				m_doc->sizeItem(m_item->width(), h, m_item, true, true, false);
 		}
+		if (m_item->isTable())
+			m_item->asTable()->adjustTable();
 		if (m_item->isArc())
 		{
 			double dw = w - oldW;
