@@ -10456,6 +10456,13 @@ void ScribusDoc::setFrameOval()
 void ScribusDoc::setRedrawBounding(PageItem *currItem)
 {
 	currItem->setRedrawBounding();
+	// A table cell's text frame is positioned in the table's grid coordinates,
+	// which start at (0, 0) whatever the table's own position on the page. Its
+	// bounding box means nothing in document space, so it must not enlarge the
+	// canvas: doing so pulls the canvas out to the document origin and scrolls
+	// the view. Its own bounding box is still updated above for the table to use.
+	if (currItem->isTextFrame() && currItem->asTextFrame()->isTableCellTextFrame())
+		return;
 	FPoint maxSize(currItem->BoundingX+currItem->BoundingW+m_docPrefsData.displayPrefs.scratch.right(), currItem->BoundingY+currItem->BoundingH+m_docPrefsData.displayPrefs.scratch.bottom());
 	FPoint minSize(currItem->BoundingX-m_docPrefsData.displayPrefs.scratch.left(), currItem->BoundingY-m_docPrefsData.displayPrefs.scratch.top());
 	adjustCanvas(minSize, maxSize);
