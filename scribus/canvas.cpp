@@ -969,8 +969,8 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 	else
 		painter->beginLayer(1.0, 0);
 
-	qsizetype renderStackCount = m_doc->guidesPrefs().renderStackOrder.count();
-	for (qsizetype r = 0; r < renderStackCount; r++)
+	int renderStackCount = m_doc->guidesPrefs().renderStackOrder.count();
+	for (int r = 0; r < renderStackCount; r++)
 	{
 		int ri = m_doc->guidesPrefs().renderStackOrder.at(r);
 		if (ri == 0)
@@ -1001,7 +1001,7 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 				m_doc->Layers.levelToLayer(layer, layerLevel);
 				if (!masterPageMode)
 				{
-					for (qsizetype a = 0; a < docPagesCount; ++a)
+					for (int a = 0; a < docPagesCount; ++a)
 						DrawMasterItems(painter, m_doc->Pages->at(a), layer, QRect(clipx, clipy, clipw, cliph));
 				}
 				//first pass draws all except notes frames
