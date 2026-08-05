@@ -949,120 +949,73 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 	layer.isViewable = false;
 	layer.ID = 0;
 
-	if (!m_doc->masterPageMode())
-	{
+	bool masterPageMode = m_doc->masterPageMode();
+	if (!masterPageMode)
 		drawBackgroundPageOutlines(painter, clipx, clipy, clipw, cliph);
-		m_viewMode.linkedFramesToShow.clear();
-		QRectF clip(clipx, clipy, clipw, cliph);
-		DrawPageBorder(painter, clip);
-		if (m_viewMode.viewAsPreview)
-		{
-			FPointArray PoLine;
-			getClipPathForPages(&PoLine);
-			painter->beginLayer(1.0, 0, &PoLine);
-		}
-		else
-			painter->beginLayer(1.0, 0);
-		int renderStackCount = m_doc->guidesPrefs().renderStackOrder.count();
-		for (int r = 0; r < renderStackCount; r++)
-		{
-			int ri = m_doc->guidesPrefs().renderStackOrder[r];
-			if (ri == 0)
-			{
-				if (!m_viewMode.viewAsPreview)
-					DrawPageMargins(painter, clip);			// drawing stack id = 0
-			}
-			else if (ri == 1)
-			{
-				if (!m_viewMode.viewAsPreview)
-					DrawPageBaselineGrid(painter, clip);	// drawing stack id = 1
-			}
-			else if (ri == 2)
-			{
-				if (!m_viewMode.viewAsPreview)
-					DrawPageGrid(painter, clip);			// drawing stack id = 2
-			}
-			else if (ri == 3)
-			{
-				if (!m_viewMode.viewAsPreview)
-					DrawPageGuides(painter, clip);			// drawing stack id = 3
-			}
-			else if (ri == 4)
-			{
-				int layerCount = m_doc->layerCount();	// drawing stack id = 4
-				for (int layerLevel = 0; layerLevel < layerCount; ++layerLevel)
-				{
-					m_doc->Layers.levelToLayer(layer, layerLevel);
-					for (int a = 0; a < docPagesCount; ++a)
-					{
-						DrawMasterItems(painter, m_doc->Pages->at(a), layer, QRect(clipx, clipy, clipw, cliph));
-					}
-					//first pass draws all except notes frames
-					DrawPageItems(painter, layer, QRect(clipx, clipy, clipw, cliph), false);
-					//second only for notes frames
-					DrawPageItems(painter, layer, QRect(clipx, clipy, clipw, cliph), true);
-				}
-			}
-		}
-		if (!m_viewMode.viewAsPreview)
-			DrawPageIndicator(painter, clip);
-		painter->endLayer();
-	}
-	else // masterPageMode
-	{			
-		m_viewMode.linkedFramesToShow.clear();
+	else
 		drawBackgroundMasterpage(painter, clipx, clipy, clipw, cliph);
-		QRectF clip(clipx, clipy, clipw, cliph);
-		DrawPageBorder(painter, clip, true);
-		if (m_viewMode.viewAsPreview)
-		{
-			FPointArray PoLine;
-			getClipPathForPages(&PoLine);
-			painter->beginLayer(1.0, 0, &PoLine);
-		}
-		else
-			painter->beginLayer(1.0, 0);
-		int renderStackCount = m_doc->guidesPrefs().renderStackOrder.count();
-		for (int r = 0; r < renderStackCount; r++)
-		{
-			int ri = m_doc->guidesPrefs().renderStackOrder[r];
-			if (ri == 0)
-			{
-				if (!m_viewMode.viewAsPreview)
-					DrawPageMargins(painter, clip, true);			// drawing stack id = 0
-			}
-			else if (ri == 1)
-			{
-				if (!m_viewMode.viewAsPreview)
-					DrawPageBaselineGrid(painter, clip, true);	// drawing stack id = 1
-			}
-			else if (ri == 2)
-			{
-				if (!m_viewMode.viewAsPreview)
-					DrawPageGrid(painter, clip, true);			// drawing stack id = 2
-			}
-			else if (ri == 3)
-			{
-				if (!m_viewMode.viewAsPreview)
-					DrawPageGuides(painter, clip, true);			// drawing stack id = 3
-			}
-			else if (ri == 4)
-			{
-				int layerCount = m_doc->layerCount();	// drawing stack id = 4
-				for (int layerLevel = 0; layerLevel < layerCount; ++layerLevel)
-				{
-					m_doc->Layers.levelToLayer(layer, layerLevel);
-					//first pass draws all except notes frames
-					DrawPageItems(painter, layer, QRect(clipx, clipy, clipw, cliph), false);
-					//second pass draw only notes frames
-					DrawPageItems(painter, layer, QRect(clipx, clipy, clipw, cliph), true);
-				}
-			}
-		}
-		if (!m_viewMode.viewAsPreview)
-			DrawPageIndicator(painter, clip, true);
-		painter->endLayer();
+
+	m_viewMode.linkedFramesToShow.clear();
+
+	QRectF clip(clipx, clipy, clipw, cliph);
+	DrawPageBorder(painter, clip, masterPageMode);
+
+	if (m_viewMode.viewAsPreview)
+	{
+		FPointArray PoLine;
+		getClipPathForPages(&PoLine);
+		painter->beginLayer(1.0, 0, &PoLine);
 	}
+	else
+		painter->beginLayer(1.0, 0);
+
+	qsizetype renderStackCount = m_doc->guidesPrefs().renderStackOrder.count();
+	for (qsizetype r = 0; r < renderStackCount; r++)
+	{
+		int ri = m_doc->guidesPrefs().renderStackOrder.at(r);
+		if (ri == 0)
+		{
+			if (!m_viewMode.viewAsPreview)
+				DrawPageMargins(painter, clip, masterPageMode);			// drawing stack id = 0
+		}
+		else if (ri == 1)
+		{
+			if (!m_viewMode.viewAsPreview)
+				DrawPageBaselineGrid(painter, clip, masterPageMode);	// drawing stack id = 1
+		}
+		else if (ri == 2)
+		{
+			if (!m_viewMode.viewAsPreview)
+				DrawPageGrid(painter, clip, masterPageMode);			// drawing stack id = 2
+		}
+		else if (ri == 3)
+		{
+			if (!m_viewMode.viewAsPreview)
+				DrawPageGuides(painter, clip, masterPageMode);			// drawing stack id = 3
+		}
+		else if (ri == 4)
+		{
+			int layerCount = m_doc->layerCount();	// drawing stack id = 4
+			for (int layerLevel = 0; layerLevel < layerCount; ++layerLevel)
+			{
+				m_doc->Layers.levelToLayer(layer, layerLevel);
+				if (!masterPageMode)
+				{
+					for (qsizetype a = 0; a < docPagesCount; ++a)
+						DrawMasterItems(painter, m_doc->Pages->at(a), layer, QRect(clipx, clipy, clipw, cliph));
+				}
+				//first pass draws all except notes frames
+				DrawPageItems(painter, layer, QRect(clipx, clipy, clipw, cliph), false);
+				//second only for notes frames
+				DrawPageItems(painter, layer, QRect(clipx, clipy, clipw, cliph), true);
+			}
+		}
+	}
+
+	if (!m_viewMode.viewAsPreview)
+		DrawPageIndicator(painter, clip, masterPageMode);
+	painter->endLayer();
+
 	if (((m_doc->m_Selection->count() != 0) || (m_viewMode.linkedFramesToShow.count() != 0))  && (!m_viewMode.viewAsPreview))
 	{
 		drawFrameLinks(painter);
