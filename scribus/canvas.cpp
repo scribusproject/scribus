@@ -1012,9 +1012,16 @@ void Canvas::drawContents(QPainter *psx, int clipx, int clipy, int clipw, int cl
 	{			
 		m_viewMode.linkedFramesToShow.clear();
 		drawBackgroundMasterpage(painter, clipx, clipy, clipw, cliph);
-		painter->beginLayer(1.0, 0);
 		QRectF clip(clipx, clipy, clipw, cliph);
 		DrawPageBorder(painter, clip, true);
+		if (m_viewMode.viewAsPreview)
+		{
+			FPointArray PoLine;
+			getClipPathForPages(&PoLine);
+			painter->beginLayer(1.0, 0, &PoLine);
+		}
+		else
+			painter->beginLayer(1.0, 0);
 		int renderStackCount = m_doc->guidesPrefs().renderStackOrder.count();
 		for (int r = 0; r < renderStackCount; r++)
 		{
