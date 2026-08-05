@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>469</width>
-    <height>298</height>
+    <width>500</width>
+    <height>345</height>
    </rect>
   </property>
   <layout class="QVBoxLayout">
@@ -78,10 +78,10 @@
      <item>
       <spacer>
        <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+        <enum>Qt::Orientation::Horizontal</enum>
        </property>
        <property name="sizeType">
-        <enum>QSizePolicy::Expanding</enum>
+        <enum>QSizePolicy::Policy::Expanding</enum>
        </property>
        <property name="sizeHint" stdset="0">
         <size>
@@ -145,7 +145,31 @@
          <property name="bottomMargin">
           <number>0</number>
          </property>
-         <item row="1" column="0">
+         <item row="3" column="0">
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Cap:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0">
+          <widget class="QLabel" name="label_3">
+           <property name="text">
+            <string>Join:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_4">
+           <property name="text">
+            <string>Colour:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="LineCombo" name="dashCombo"/>
+         </item>
+         <item row="3" column="1">
           <widget class="QComboBox" name="endCombo">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -155,7 +179,14 @@
            </property>
           </widget>
          </item>
-         <item row="2" column="0">
+         <item row="0" column="0">
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Style:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="1">
           <widget class="QComboBox" name="joinCombo">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -165,26 +196,10 @@
            </property>
           </widget>
          </item>
-         <item row="0" column="0">
-          <widget class="LineCombo" name="dashCombo"/>
+         <item row="2" column="1">
+          <widget class="ColorCombo" name="colorCombo"/>
          </item>
-        </layout>
-       </item>
-       <item>
-        <layout class="QGridLayout">
-         <property name="leftMargin">
-          <number>0</number>
-         </property>
-         <property name="topMargin">
-          <number>0</number>
-         </property>
-         <property name="rightMargin">
-          <number>0</number>
-         </property>
-         <property name="bottomMargin">
-          <number>0</number>
-         </property>
-         <item row="1" column="1">
+         <item row="2" column="2">
           <widget class="QSpinBox" name="shadeBox">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -212,7 +227,7 @@
            </property>
           </widget>
          </item>
-         <item row="0" column="0">
+         <item row="1" column="0">
           <widget class="QLabel" name="textLabel2">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
@@ -221,17 +236,14 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>Line Width:</string>
+            <string>Width:</string>
            </property>
            <property name="wordWrap">
             <bool>false</bool>
            </property>
           </widget>
          </item>
-         <item row="1" column="0">
-          <widget class="ColorCombo" name="colorCombo"/>
-         </item>
-         <item row="0" column="1">
+         <item row="1" column="1">
           <widget class="ScrSpinBox" name="lineWidth"/>
          </item>
         </layout>
@@ -239,10 +251,10 @@
        <item>
         <spacer>
          <property name="orientation">
-          <enum>Qt::Vertical</enum>
+          <enum>Qt::Orientation::Vertical</enum>
          </property>
          <property name="sizeType">
-          <enum>QSizePolicy::Fixed</enum>
+          <enum>QSizePolicy::Policy::Fixed</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -251,6 +263,13 @@
           </size>
          </property>
         </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>Preview</string>
+         </property>
+        </widget>
        </item>
        <item>
         <widget class="QLabel" name="previewLabel">
@@ -277,10 +296,10 @@
        <item>
         <spacer>
          <property name="orientation">
-          <enum>Qt::Vertical</enum>
+          <enum>Qt::Orientation::Vertical</enum>
          </property>
          <property name="sizeType">
-          <enum>QSizePolicy::Expanding</enum>
+          <enum>QSizePolicy::Policy::Expanding</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -317,12 +336,6 @@
   <tabstop>addButton</tabstop>
   <tabstop>removeButton</tabstop>
   <tabstop>lineStyles</tabstop>
-  <tabstop>dashCombo</tabstop>
-  <tabstop>endCombo</tabstop>
-  <tabstop>joinCombo</tabstop>
-  <tabstop>lineWidth</tabstop>
-  <tabstop>colorCombo</tabstop>
-  <tabstop>shadeBox</tabstop>
  </tabstops>
  <resources/>
  <connections/>
