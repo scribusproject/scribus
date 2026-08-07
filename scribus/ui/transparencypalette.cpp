@@ -254,8 +254,7 @@ void TransparencyPalette::updateGradientList()
 		p->drawRect(0, 0, 48, 12);
 		p->end();
 		delete p;
-		QPixmap pm;
-		pm = QPixmap::fromImage(pixm);
+		QPixmap pm = QPixmap::fromImage(pixm);
 		namedGradient->addItem(pm, patK[i]);
 	}
 	connect(namedGradient, SIGNAL(activated(const QString&)), this, SLOT(setNamedGradient(const QString&)));

@@ -186,8 +186,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 		{
 			QCheckBox *cp = new QCheckBox(it2->layerName, this);
 			cp->setPalette(palette);
-			QPixmap pm;
-			pm = QPixmap::fromImage(it2->thumb);
+			QPixmap pm = QPixmap::fromImage(it2->thumb);
 			col1Width = qMax(col1Width, pm.width());
 			cp->setIcon(pm);
 			FlagsSicht.append(cp);
