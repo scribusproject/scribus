@@ -322,8 +322,7 @@ void LoremManager::insertLoremIpsum(const QString& name, int paraCount, bool ran
 
 		int l = item2->itemText.length();
 		item2->itemText.insertChars(l, sampleText);
-		if (m_Doc->docHyphenator->autoCheck())
-			m_Doc->docHyphenator->slotHyphenate(item2);
+		m_Doc->docHyphenator->autoHyphenate(item2);
 		item2->asTextFrame()->invalidateLayout(true);
 	}
 	m_Doc->regionsChanged()->update(QRectF());

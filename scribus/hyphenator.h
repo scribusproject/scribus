@@ -104,6 +104,11 @@ public slots:
 	*/
 	void slotHyphenate(PageItem *it);
 	/*!
+	\brief Hyphenates \a it, but only if automatic hyphenation is enabled.
+	\param it references \see PageItem - text frame.
+	*/
+	void autoHyphenate(PageItem *it) { if (m_autoCheck) slotHyphenate(it); }
+	/*!
 	\fn void Hyphenator::slotDeHyphenate(PageItem* it)
 	\brief Removes hyphenation either for the whole text frame or the selected text if there is a selection.
 	\date
