@@ -1,66 +1,110 @@
-###<< Scribus
-set(ADS_VERSION "5.0.0")
-###>> Scribus
-
 cmake_minimum_required(VERSION 3.16)
+
+# Generate compile_commands.json.
+#
+# This is primarily useful for development tools such as clangd,
+# clang-tidy, and other static-analysis tools.
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-if (POLICY CMP0091)
-  cmake_policy(SET CMP0091 NEW)
-endif (POLICY CMP0091)
 
-# Add cmake modules path (required for Versioning.cmake and git revision description)
-set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
+# Enable the MSVC runtime library selection abstraction introduced with
+# CMake 3.15. This allows CMAKE_MSVC_RUNTIME_LIBRARY and the
+# MSVC_RUNTIME_LIBRARY target property to be used consistently.
+if(POLICY CMP0091)
+    cmake_policy(SET CMP0091 NEW)
+endif()
 
-# By default, the version information is extracted from the git index. However,
-# we can override this behavior by explicitly setting ADS_VERSION and
-# skipping the git checks. This is useful for cases where this project is being
-# used independently of its original git repo (e.g. vendored in another project)
-if(NOT ADS_VERSION)
-    include(GetGitRevisionDescription)
-    git_describe(GitTagVersion --tags)
-    string(REGEX REPLACE "^([0-9]+)\\..*" "\\1" VERSION_MAJOR "${GitTagVersion}")
-    string(REGEX REPLACE "^[0-9]+\\.([0-9]+).*" "\\1" VERSION_MINOR "${GitTagVersion}")
-    string(REGEX REPLACE "^[0-9]+\\.[0-9]+\\.([0-9]+).*" "\\1" VERSION_PATCH "${GitTagVersion}")
-    set(VERSION_SHORT "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
-    set(VERSION_SONAME "${VERSION_MAJOR}")
+# ---------------------------------------------------------------------------
+# CMake modules
+# ---------------------------------------------------------------------------
+
+# Add the project's custom CMake modules, e.g. Versioning.cmake, to the
+# module search path.
+list(PREPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules")
+
+# ---------------------------------------------------------------------------
+# Project
+# ---------------------------------------------------------------------------
+
+project(
+    QtADS
+    VERSION 5.1.1
+    LANGUAGES CXX
+)
+
+# Determine whether QtADS is being built as the top-level project.
+#
+# PROJECT_IS_TOP_LEVEL was introduced with CMake 3.21. For older CMake
+# versions, determine the state manually.
+if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.21)
+    set(QtADS_IS_TOP_LEVEL "${PROJECT_IS_TOP_LEVEL}")
 else()
-    string(REGEX MATCHALL "[\.]" VERSION_DOT_MATCHES ${ADS_VERSION})
-    list(LENGTH VERSION_DOT_MATCHES VERSION_DOT_COUNT)
-    if(VERSION_DOT_COUNT EQUAL 2)
-        set(VERSION_SHORT ${ADS_VERSION})
-        string(REGEX REPLACE "^([0-9]+)\\..*" "\\1" VERSION_SONAME "${ADS_VERSION}")
-        # Set PROJECT_VERSION_* variables for Versioning.cmake
-        string(REGEX MATCHALL "[0-9]+" VERSION_PARTS "${ADS_VERSION}")
-        list(GET VERSION_PARTS 0 PROJECT_VERSION_MAJOR)
-        list(GET VERSION_PARTS 1 PROJECT_VERSION_MINOR)
-        list(GET VERSION_PARTS 2 PROJECT_VERSION_PATCH)
+    if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
+        set(QtADS_IS_TOP_LEVEL TRUE)
     else()
-        message(FATAL_ERROR "ADS_VERSION must be in major.minor.patch format, e.g. 3.8.1. Got ${ADS_VERSION}")
+        set(QtADS_IS_TOP_LEVEL FALSE)
     endif()
 endif()
 
+# ---------------------------------------------------------------------------
+# Build options
+# ---------------------------------------------------------------------------
 
-project(QtADS LANGUAGES CXX VERSION ${VERSION_SHORT})
-
-### Scribus - set static build ON
+# Build QtADS as a static library instead of a shared library.
 option(BUILD_STATIC "Build the static library" ON)
+
+# Build the example applications and demo.
 option(BUILD_EXAMPLES "Build the examples" OFF)
 
-# Platform directory: auto-detected based on pointer size, or manually set
-if(NOT ADS_PLATFORM_DIR)
-    if("${CMAKE_SIZEOF_VOID_P}" STREQUAL "4")
-        set(ads_PlatformDir "x86")
-    else()
-        set(ads_PlatformDir "x64")
-    endif()
-else()
+# ---------------------------------------------------------------------------
+# Platform directory
+# ---------------------------------------------------------------------------
+
+# Determine the platform-specific directory name.
+#
+# By default, the directory is derived from the target pointer size:
+#
+#   32-bit -> x86
+#   64-bit -> x64
+#
+# ADS_PLATFORM_DIR may be specified by the caller to override this
+# automatically detected value.
+if(ADS_PLATFORM_DIR)
     set(ads_PlatformDir "${ADS_PLATFORM_DIR}")
+elseif(CMAKE_SIZEOF_VOID_P EQUAL 4)
+    set(ads_PlatformDir "x86")
+else()
+    set(ads_PlatformDir "x64")
 endif()
 
+# ---------------------------------------------------------------------------
+# CMake policies
+# ---------------------------------------------------------------------------
+
+if(QtADS_IS_TOP_LEVEL)
+    # Enable folder organization by default for generators supporting it.
+    # CMP0143 was introduced with CMake 3.26.
+    if(POLICY CMP0143)
+        cmake_policy(SET CMP0143 NEW)
+    endif()
+
+    # Enable parallel compilation when building with MSVC.
+    if(MSVC)
+        add_compile_options(/MP)
+    endif()
+endif()
+
+
+# ---------------------------------------------------------------------------
+# Library
+# ---------------------------------------------------------------------------
+
 add_subdirectory(src)
+
+# ---------------------------------------------------------------------------
+# Examples
+# ---------------------------------------------------------------------------
 
 if(BUILD_EXAMPLES)
     add_subdirectory(examples)
     add_subdirectory(demo)
 endif()
-

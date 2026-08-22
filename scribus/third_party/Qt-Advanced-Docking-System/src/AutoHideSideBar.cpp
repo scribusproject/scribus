@@ -34,6 +34,7 @@
 #include <QStyleOption>
 #include <QPainter>
 #include <QXmlStreamWriter>
+#include <QWheelEvent>
 
 #include "DockContainerWidget.h"
 #include "DockWidgetTab.h"
@@ -300,6 +301,13 @@ bool CAutoHideSideBar::eventFilter(QObject *watched, QEvent *event)
 		 }
 		 break;
 
+#if QT_CONFIG(wheelevent)
+	case QEvent::Wheel:
+		// the button received the event so pass to the scroll area
+		wheelEvent(static_cast<QWheelEvent*>(event));
+		break;
+#endif
+
 	default:
 		break;
 	}
@@ -431,6 +439,57 @@ QSize CAutoHideSideBar::sizeHint() const
 {
 	return d->TabsContainerWidget->sizeHint();
 }
+
+
+//===========================================================================
+#if QT_CONFIG(wheelevent)
+void CAutoHideSideBar::wheelEvent(QWheelEvent* e)
+{
+    QPoint AngleDelta = e->angleDelta();
+
+            // Normalize wheel axis:
+            // - Vertical sidebar: transpose only when Alt is held
+            //   (some platforms swap axes with Alt).
+            // - Horizontal sidebar: transpose unless Alt is held
+            //   (platform already swapped).
+    const bool AltHeld = e->modifiers().testFlag(Qt::AltModifier);
+    const bool ShouldTranspose = d->isHorizontal() ? !AltHeld : AltHeld;
+
+    if (ShouldTranspose)
+    {
+        AngleDelta = QPoint(AngleDelta.y(), AngleDelta.x());
+    }
+
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+    QWheelEvent WheelEvent {
+        e->position(),
+        e->globalPosition(),
+        e->pixelDelta(),
+        AngleDelta,
+        e->buttons(),
+        e->modifiers(),
+        e->phase(),
+        e->inverted(),
+        e->source(),
+        e->pointingDevice()
+    };
+#else
+    QWheelEvent WheelEvent {
+        e->posF(),
+        e->globalPosF(),
+        e->pixelDelta(),
+        AngleDelta,
+        e->buttons(),
+        e->modifiers(),
+        e->phase(),
+        e->inverted(),
+        e->source()
+    };
+#endif
+
+    Super::wheelEvent(&WheelEvent);
+}
+#endif
 
 
 //===========================================================================

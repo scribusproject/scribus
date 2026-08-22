@@ -37,6 +37,7 @@
 #include <QApplication>
 #include <QtGlobal>
 #include <QTimer>
+#include <QPointer>
 
 #include "FloatingDockContainer.h"
 #include "DockAreaWidget.h"
@@ -111,14 +112,10 @@ void DockAreaTabBarPrivate::updateTabs()
 			// Sometimes the synchronous calculation of the rectangular area fails
 			// Therefore we use QTimer::singleShot here to execute the call
 			// within the event loop - see #520
-			QPointer<CDockAreaTabBar> __this = _this;
-			QPointer<CDockWidgetTab> __tabWidget = TabWidget;
-
-			QTimer::singleShot(0, TabWidget, [__this, __tabWidget]
-			{
-				if (__this && __tabWidget)
-				{
-					__this->ensureWidgetVisible(__tabWidget);
+			// The tab may be destroyed with the layout before this queued call runs.
+			QTimer::singleShot(0, _this, [this, TabWidget = QPointer<CDockWidgetTab>(TabWidget)] {
+				if (TabWidget) {
+					_this->ensureWidgetVisible(TabWidget);
 				}
 			});
 		}

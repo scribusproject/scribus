@@ -1,68 +1,38 @@
 # ============================================================
-# Versioning.cmake  (Reusable Version + Resource Generator)
+# Versioning.cmake
+#
+# Version header and Windows resource generation utilities.
 # ============================================================
 
-# Freeze the directory where this module lives
-# This is critical — it prevents paths from breaking when the
-# function is invoked from other CMakeLists.txt files.
-set(_VERSIONING_MODULE_DIR "${CMAKE_CURRENT_LIST_DIR}" CACHE INTERNAL "Versioning module directory")
+# Directory containing this CMake module.
+#
+# CMAKE_CURRENT_FUNCTION_LIST_DIR is only available since CMake 3.17.
+# Store CMAKE_CURRENT_LIST_DIR when this module is included so the
+# functions below remain compatible with CMake 3.16.
+set(_ADS_VERSIONING_MODULE_DIR "${CMAKE_CURRENT_LIST_DIR}")
 
 # ------------------------------------------------------------
-# Extract version information from Git or use predefined version
+# Generates the ADS version header.
 # ------------------------------------------------------------
-if(NOT DEFINED PROJECT_VERSION_MAJOR OR NOT DEFINED PROJECT_VERSION_MINOR OR NOT DEFINED PROJECT_VERSION_PATCH)
-    # Get tag (expected: v1.2.3 or 1.2.3 or 1.2.3-12-gHASH)
-    execute_process(
-        COMMAND git describe --tags --dirty
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-        OUTPUT_VARIABLE GIT_DESC_RAW
-        OUTPUT_STRIP_TRAILING_WHITESPACE
+function(generate_ads_version_header)
+    if(NOT DEFINED QtADS_VERSION_MAJOR OR
+       NOT DEFINED QtADS_VERSION_MINOR OR
+       NOT DEFINED QtADS_VERSION_PATCH)
+        message(FATAL_ERROR
+            "ADS major, minor, or patch version variables are not defined."
+        )
+    endif()
+
+    configure_file(
+        "${_ADS_VERSIONING_MODULE_DIR}/ads_version.h.in"
+        "${CMAKE_CURRENT_BINARY_DIR}/ads_version.h"
+        @ONLY
     )
+endfunction()
 
-    # Remove leading "v" if present
-    string(REGEX REPLACE "^v" "" GIT_DESC "${GIT_DESC_RAW}")
-
-    # Extract major.minor.patch
-    string(REGEX MATCH "^([0-9]+)\\.([0-9]+)\\.([0-9]+)" _ "${GIT_DESC}")
-    set(PROJECT_VERSION_MAJOR "${CMAKE_MATCH_1}")
-    set(PROJECT_VERSION_MINOR "${CMAKE_MATCH_2}")
-    set(PROJECT_VERSION_PATCH "${CMAKE_MATCH_3}")
-
-
-
-    # Commit hash (full + short)
-    execute_process(
-        COMMAND git rev-parse HEAD
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-        OUTPUT_VARIABLE PROJECT_GIT_HASH
-        OUTPUT_STRIP_TRAILING_WHITESPACE
-    )
-
-    execute_process(
-        COMMAND git rev-parse --short HEAD
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-        OUTPUT_VARIABLE PROJECT_GIT_HASH_SHORT
-        OUTPUT_STRIP_TRAILING_WHITESPACE
-    )
-endif()
-
-set(PROJECT_VERSION_STRING
-    "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}"
-)
-
-# Export variables to parent scope
-set(PROJECT_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}" PARENT_SCOPE)
-set(PROJECT_VERSION_MINOR "${PROJECT_VERSION_MINOR}" PARENT_SCOPE)
-set(PROJECT_VERSION_PATCH "${PROJECT_VERSION_PATCH}" PARENT_SCOPE)
-set(PROJECT_VERSION_STRING "${PROJECT_VERSION_STRING}" PARENT_SCOPE)
-set(PROJECT_GIT_HASH "${PROJECT_GIT_HASH}" PARENT_SCOPE)
-set(PROJECT_GIT_HASH_SHORT "${PROJECT_GIT_HASH_SHORT}" PARENT_SCOPE)
-
-# Public variable for users
-set(PROJECT_AUTO_VERSION "${PROJECT_VERSION_STRING}" PARENT_SCOPE)
 
 # ------------------------------------------------------------
-# Reusable function: Attach Windows version resources to target
+# Adds Windows version information resources to a target.
 # ------------------------------------------------------------
 function(add_windows_version_resources target)
     if(NOT WIN32)
@@ -70,31 +40,34 @@ function(add_windows_version_resources target)
     endif()
 
     if(NOT TARGET "${target}")
-        message(FATAL_ERROR "add_windows_version_resources: target '${target}' not found.")
+        message(FATAL_ERROR
+            "add_windows_version_resources: Target '${target}' does not exist."
+        )
     endif()
 
-    # Absolute path to the template (never changes)
-    get_filename_component(_rc_in
-        "${_VERSIONING_MODULE_DIR}/FileVersionInfo.rc.in"
-        ABSOLUTE
+    set(_rc_in
+        "${_ADS_VERSIONING_MODULE_DIR}/FileVersionInfo.rc.in"
     )
 
     if(NOT EXISTS "${_rc_in}")
         message(FATAL_ERROR
-            "FileVersionInfo.rc.in missing at: ${_rc_in}"
+            "Windows version resource template not found: ${_rc_in}"
         )
     endif()
 
-    # Output in the caller's binary dir
-    set(_rc_out "${CMAKE_CURRENT_BINARY_DIR}/${target}_version.rc")
-    get_filename_component(_rc_out "${_rc_out}" ABSOLUTE)
+    set(_rc_out
+        "${CMAKE_CURRENT_BINARY_DIR}/${target}_version.rc"
+    )
 
-    # Ensure directory exists
-    file(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}")
+    configure_file(
+        "${_rc_in}"
+        "${_rc_out}"
+        @ONLY
+    )
 
-    # Configure the template
-    configure_file("${_rc_in}" "${_rc_out}" @ONLY)
-
-    # Add to the target
-    target_sources(${target} PRIVATE "${_rc_out}")
+    target_sources(
+        "${target}"
+        PRIVATE
+            "${_rc_out}"
+    )
 endfunction()

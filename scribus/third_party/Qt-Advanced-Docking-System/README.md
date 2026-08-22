@@ -20,6 +20,19 @@ integrated development environments (IDEs) such as Visual Studio.
 
 [![Video Advanced Docking](doc/advanced-docking_video.png)](https://www.youtube.com/watch?v=7pdNfafg3Qc)
 
+## Overview
+
+- [New and Noteworthy](#new-and-noteworthy)
+- [Features](#features)
+- [Python Bindings](#python-bindings)
+- [Tested Compatible Environments](#tested-compatible-environments)
+- [Build](#build)
+- [Getting Started / Example](#getting-started--example)
+- [License Information](#license-information)
+- [Donation](#donation)
+- [Showcase](#showcase)
+- [Alternative Docking System Implementations](#alternative-docking-system-implementations)
+
 ## New and Noteworthy
 
 ### Release 5.0
@@ -185,74 +198,6 @@ know it from Visual Studio.
  [learn more...](doc/user-guide.md#focushighlighting)
 
 ## Features
-
-### Overview
-
-- [New and Noteworthy](#new-and-noteworthy)
-  - [Release 5.0](#release-50)
-    - [Full Dark Mode Support](#full-dark-mode-support)
-    - [Native Wayland Support](#native-wayland-support)
-  - [Release 4.5](#release-45)
-    - [Tabs at Bottom](#tabs-at-bottom)
-  - [Release 4.1](#release-41)
-    - [Drag \& Drop to Auto-Hide](#drag--drop-to-auto-hide)
-    - [Auto-Hide Tab Insertion Order](#auto-hide-tab-insertion-order)
-    - [Auto-Hide Tab Sorting](#auto-hide-tab-sorting)
-    - [Auto-Hide Drag to Float / Dock](#auto-hide-drag-to-float--dock)
-    - [Auto-Hide Context Menu](#auto-hide-context-menu)
-    - [Dock Area Tab Insert Order](#dock-area-tab-insert-order)
-- [Features](#features)
-  - [Overview](#overview)
-  - [Docking everywhere - no central widget](#docking-everywhere---no-central-widget)
-  - [Docking inside floating windows](#docking-inside-floating-windows)
-  - [Grouped dragging](#grouped-dragging)
-  - [Perspectives for fast switching of the complete main window layout](#perspectives-for-fast-switching-of-the-complete-main-window-layout)
-  - [Opaque and non-opaque splitter resizing](#opaque-and-non-opaque-splitter-resizing)
-  - [Cancelable docking process](#cancelable-docking-process)
-  - [Tab-menu for easy handling of many tabbed dock widgets](#tab-menu-for-easy-handling-of-many-tabbed-dock-widgets)
-  - [Many different ways to detach dock widgets](#many-different-ways-to-detach-dock-widgets)
-  - [Supports deletion of dynamically created dock widgets](#supports-deletion-of-dynamically-created-dock-widgets)
-  - [Auto-Hide Functionality](#auto-hide-functionality)
-- [Python Bindings](#python-bindings)
-  - [PySide6](#pyside6)
-  - [PyQt6](#pyqt6)
-  - [PyQt5](#pyqt5)
-- [Tested Compatible Environments](#tested-compatible-environments)
-  - [Supported Qt Versions](#supported-qt-versions)
-  - [Windows](#windows)
-  - [macOS](#macos)
-  - [Linux](#linux)
-    - [Wayland](#wayland)
-- [Build](#build)
-  - [Qt5 on Ubuntu 18.04 or 20.04](#qt5-on-ubuntu-1804-or-2004)
-  - [Qt5 on Ubuntu 22.04](#qt5-on-ubuntu-2204)
-  - [Qt6 on Ubuntu 22.04](#qt6-on-ubuntu-2204)
-- [Getting started / Example](#getting-started--example)
-- [License information](#license-information)
-- [Donation](#donation)
-- [Showcase](#showcase)
-  - [Qt Creator IDE](#qt-creator-ide)
-  - [Qt Design Studio](#qt-design-studio)
-  - [CETONI Elements](#cetoni-elements)
-  - [ezEditor](#ezeditor)
-  - [D-Tect X](#d-tect-x)
-  - [HiveWE](#hivewe)
-  - [Ramses Composer](#ramses-composer)
-  - [Plot Juggler](#plot-juggler)
-  - [Notepad Next](#notepad-next)
-  - [MetGem](#metgem)
-  - [PRE Workbench](#pre-workbench)
-  - [RDE – Robox Development Environment](#rde--robox-development-environment)
-  - [ResInsight](#resinsight)
-  - [ADTF 3](#adtf-3)
-  - [DREAM3D-NX](#dream3d-nx)
-  - [LabPlot](#labplot)
-  - [Scrutiny Debugger](#scrutiny-debugger)
-  - [PiSoWorks](#pisoworks)
-- [Alternative Docking System Implementations](#alternative-docking-system-implementations)
-  - [KDDockWidgets](#kddockwidgets)
-  - [QtitanDocking](#qtitandocking)
-  - [DockingPanes](#dockingpanes)
 
 ### Docking everywhere - no central widget
 
@@ -506,9 +451,6 @@ sudo apt install qtbase5-dev qtbase5-private-dev qtbase5-dev-tools libqt5svg5 li
 ```bash
 sudo apt install qt6-default qt6-base-dev qt6-base-private-dev qt6-tools-dev libqt6svg6 qt6-qtdeclarative
 ```
-
-Open the `ads.pro` file with QtCreator and start the build, that's it.
-You can run the demo project and test it yourself.
 
 ## Getting started / Example
 
@@ -808,15 +750,13 @@ ADS powers Scrutiny’s flexible interface, letting users organize views and dat
 
 [![Scrutiny Debugger UI](doc/showcase_scrutiny-dark.png)](https://www.youtube.com/watch?v=Dd3osxW-Clo)
 
-
 ### [PiSoWorks](https://pypi.org/project/pisoworks/)
 
-PiSoWorks is an application for controlling the piezo amplifiers, such as the [NV200/D](https://www.piezosystem.com/product/nv-200-d-compact-amplifier/), from [piezosystem jena](https://www.piezosystem.com/) GmbH.
+PiSoWorks is a Python application for controlling the piezo amplifiers, such as the [NV200/D](https://www.piezosystem.com/product/nv-200-d-compact-amplifier/), from [piezosystem jena](https://www.piezosystem.com/) GmbH. Built with **PySide6**, it also serves as an excellent real-world example of how to use the [Qt ADS Python bindings](#python-bindings) to create sophisticated, dockable user interfaces for Python applications.
 
 [read more...](https://piezosystemjena.github.io/PiSoWorks/multiple_devices.html)
 
 ![PiSoWorks](doc/showcase_pysoworks.png)
-
 
 ### [Joulescope](https://www.joulescope.com/)
 
@@ -824,11 +764,19 @@ PiSoWorks is an application for controlling the piezo amplifiers, such as the [N
 
 Matt Liberty, the creator of Joulescope, made a [major contribution](https://github.com/githubuser0xFFFF/Qt-Advanced-Docking-System/pull/844) to Qt ADS by implementing native Wayland support. His work brings a reliable and polished docking experience to modern Linux desktop environments while preserving the existing behavior on Windows, macOS, and X11.
 
-Thanks to this contribution, Qt ADS now delivers a first-class docking experience on Wayland and is ready for the next generation of Linux desktop environments.
-
 [read more...](https://www.joulescope.com/)
 
 ![Joulescope](doc/showcase_joulescope.jpg)
+
+### [Scribus](https://wiki.scribus.net/canvas/Scribus)
+
+**Scribus** is a free and open-source desktop publishing (DTP) application available for Linux, Windows, macOS, and other platforms.
+
+With the [Scribus 1.7.0 release](https://wiki.scribus.net/canvas/1.7.0_Release), Qt Advanced Docking System (QtADS) was introduced as the docking framework for the Scribus user interface. QtADS allows multiple panels and palettes to be docked side by side, rearranged using drag and drop, or detached into floating windows. Its auto-hide functionality provides additional flexibility for creating personalized workspace layouts tailored to different workflows.
+
+[read more...](https://wiki.scribus.net/canvas/Scribus)
+
+![Scribus](doc/showcase_scribus.png)
 
 ## Alternative Docking System Implementations
 
