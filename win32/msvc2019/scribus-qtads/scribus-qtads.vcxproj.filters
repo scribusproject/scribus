@@ -160,4 +160,9 @@
       <Filter>Resources</Filter>
     </rcc>
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="FileVersionInfo.rc">
+      <Filter>Resources</Filter>
+    </ResourceCompile>
+  </ItemGroup>
 </Project>

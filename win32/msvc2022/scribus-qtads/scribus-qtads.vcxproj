@@ -96,7 +96,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..;..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src;$(QT6_DIR)\include\QtCore;$(QT6_DIR)\include\QtCore5Compat;$(QT6_DIR)\include\QtGui;$(QT6_DIR)\include\QtWidgets;$(QT6_DIR)\include\QtXml;$(QT6_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..;..\scribus-qtads;..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src;$(QT6_DIR)\include\QtCore;$(QT6_DIR)\include\QtCore5Compat;$(QT6_DIR)\include\QtGui;$(QT6_DIR)\include\QtWidgets;$(QT6_DIR)\include\QtXml;$(QT6_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_USE_MATH_DEFINES;_USRDLL;_WINDOWS;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;ADS_SHARED_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -108,9 +108,9 @@
       <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PrecompiledHeaderFile>$(TargetName)_pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <LanguageStandard Condition="$(SCRIBUS_CPP_STANDARD) >= 201703">stdcpp17</LanguageStandard>
-      <LanguageStandard Condition="$(SCRIBUS_CPP_STANDARD) >= 202002">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="$(SCRIBUS_CPP_STANDARD) >  202002">stdcpplatest</LanguageStandard>
+      <LanguageStandard Condition="$(SCRIBUS_CPP_STANDARD) &gt;= 201703">stdcpp17</LanguageStandard>
+      <LanguageStandard Condition="$(SCRIBUS_CPP_STANDARD) &gt;= 202002">stdcpp20</LanguageStandard>
+      <LanguageStandard Condition="$(SCRIBUS_CPP_STANDARD) &gt;  202002">stdcpplatest</LanguageStandard>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
@@ -127,7 +127,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..;..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src;$(QT6_DIR)\include\QtCore;$(QT6_DIR)\include\QtCore5Compat;$(QT6_DIR)\include\QtGui;$(QT6_DIR)\include\QtWidgets;$(QT6_DIR)\include\QtXml;$(QT6_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..;..\scribus-qtads;..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src;$(QT6_DIR)\include\QtCore;$(QT6_DIR)\include\QtCore5Compat;$(QT6_DIR)\include\QtGui;$(QT6_DIR)\include\QtWidgets;$(QT6_DIR)\include\QtXml;$(QT6_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_USE_MATH_DEFINES;_USRDLL;_WINDOWS;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;ADS_SHARED_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -138,9 +138,9 @@
       <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PrecompiledHeaderFile>$(TargetName)_pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <LanguageStandard Condition="$(SCRIBUS_CPP_STANDARD) >= 201703">stdcpp17</LanguageStandard>
-      <LanguageStandard Condition="$(SCRIBUS_CPP_STANDARD) >= 202002">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="$(SCRIBUS_CPP_STANDARD) >  202002">stdcpplatest</LanguageStandard>
+      <LanguageStandard Condition="$(SCRIBUS_CPP_STANDARD) &gt;= 201703">stdcpp17</LanguageStandard>
+      <LanguageStandard Condition="$(SCRIBUS_CPP_STANDARD) &gt;= 202002">stdcpp20</LanguageStandard>
+      <LanguageStandard Condition="$(SCRIBUS_CPP_STANDARD) &gt;  202002">stdcpplatest</LanguageStandard>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
@@ -159,7 +159,7 @@
       <Optimization>MinSpace</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <OmitFramePointers>true</OmitFramePointers>
-      <AdditionalIncludeDirectories>..;..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src;$(QT6_DIR)\include\QtCore;$(QT6_DIR)\include\QtCore5Compat;$(QT6_DIR)\include\QtGui;$(QT6_DIR)\include\QtWidgets;$(QT6_DIR)\include\QtXml;$(QT6_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..;..\scribus-qtads;..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src;$(QT6_DIR)\include\QtCore;$(QT6_DIR)\include\QtCore5Compat;$(QT6_DIR)\include\QtGui;$(QT6_DIR)\include\QtWidgets;$(QT6_DIR)\include\QtXml;$(QT6_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_USE_MATH_DEFINES;_USRDLL;_WINDOWS;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;ADS_SHARED_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -171,9 +171,9 @@
       <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PrecompiledHeaderFile>$(TargetName)_pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <LanguageStandard Condition="$(SCRIBUS_CPP_STANDARD) >= 201703">stdcpp17</LanguageStandard>
-      <LanguageStandard Condition="$(SCRIBUS_CPP_STANDARD) >= 202002">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="$(SCRIBUS_CPP_STANDARD) >  202002">stdcpplatest</LanguageStandard>
+      <LanguageStandard Condition="$(SCRIBUS_CPP_STANDARD) &gt;= 201703">stdcpp17</LanguageStandard>
+      <LanguageStandard Condition="$(SCRIBUS_CPP_STANDARD) &gt;= 202002">stdcpp20</LanguageStandard>
+      <LanguageStandard Condition="$(SCRIBUS_CPP_STANDARD) &gt;  202002">stdcpplatest</LanguageStandard>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
@@ -194,7 +194,7 @@
       <Optimization>MinSpace</Optimization>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <OmitFramePointers>true</OmitFramePointers>
-      <AdditionalIncludeDirectories>..;..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src;$(QT6_DIR)\include\QtCore;$(QT6_DIR)\include\QtCore5Compat;$(QT6_DIR)\include\QtGui;$(QT6_DIR)\include\QtWidgets;$(QT6_DIR)\include\QtXml;$(QT6_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..;..\scribus-qtads;..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src;$(QT6_DIR)\include\QtCore;$(QT6_DIR)\include\QtCore5Compat;$(QT6_DIR)\include\QtGui;$(QT6_DIR)\include\QtWidgets;$(QT6_DIR)\include\QtXml;$(QT6_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_USE_MATH_DEFINES;_USRDLL;_WINDOWS;QT_DLL;QT_GUI_LIB;QT_CORE_LIB;QT_THREAD_SUPPORT;ADS_SHARED_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -206,9 +206,9 @@
       <DisableSpecificWarnings>4190;4251;4267;4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PrecompiledHeaderFile>$(TargetName)_pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <LanguageStandard Condition="$(SCRIBUS_CPP_STANDARD) >= 201703">stdcpp17</LanguageStandard>
-      <LanguageStandard Condition="$(SCRIBUS_CPP_STANDARD) >= 202002">stdcpp20</LanguageStandard>
-      <LanguageStandard Condition="$(SCRIBUS_CPP_STANDARD) >  202002">stdcpplatest</LanguageStandard>
+      <LanguageStandard Condition="$(SCRIBUS_CPP_STANDARD) &gt;= 201703">stdcpp17</LanguageStandard>
+      <LanguageStandard Condition="$(SCRIBUS_CPP_STANDARD) &gt;= 202002">stdcpp20</LanguageStandard>
+      <LanguageStandard Condition="$(SCRIBUS_CPP_STANDARD) &gt;  202002">stdcpplatest</LanguageStandard>
       <AdditionalOptions>/Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
@@ -277,6 +277,9 @@
   </ItemGroup>
   <ItemGroup>
     <rcc Include="..\..\..\scribus\third_party\Qt-Advanced-Docking-System\src\ads.qrc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="FileVersionInfo.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
