@@ -31191,7 +31191,7 @@ të thirrur.
         <translation>Po kërkohet për Shkronja</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4066"/>
+        <location filename="../../scribus/scribus.cpp" line="4064"/>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
         <translation>Ndryshimet te dokumenti juaj s’janë ruajtur dhe keni kërkuar të hiqen. Doni të vazhdohet?</translation>
     </message>
@@ -36973,11 +36973,11 @@ Hapësirë vertikale: %4</translation>
         <location filename="../../scribus/scribus.cpp" line="2120"/>
         <location filename="../../scribus/scribus.cpp" line="2158"/>
         <location filename="../../scribus/scribus.cpp" line="3725"/>
-        <location filename="../../scribus/scribus.cpp" line="4162"/>
-        <location filename="../../scribus/scribus.cpp" line="4242"/>
-        <location filename="../../scribus/scribus.cpp" line="4404"/>
-        <location filename="../../scribus/scribus.cpp" line="6703"/>
-        <location filename="../../scribus/scribus.cpp" line="8667"/>
+        <location filename="../../scribus/scribus.cpp" line="4160"/>
+        <location filename="../../scribus/scribus.cpp" line="4240"/>
+        <location filename="../../scribus/scribus.cpp" line="4402"/>
+        <location filename="../../scribus/scribus.cpp" line="6701"/>
+        <location filename="../../scribus/scribus.cpp" line="8665"/>
         <source>Ready</source>
         <translation>Gati</translation>
     </message>
@@ -37036,144 +37036,144 @@ Hapësirë vertikale: %4</translation>
         <translation>(e shndërruar)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4005"/>
+        <location filename="../../scribus/scribus.cpp" line="4003"/>
         <source>Filename and Path for Image</source>
         <translation>Emër Kartele dhe Shteg për Figurën</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4005"/>
+        <location filename="../../scribus/scribus.cpp" line="4003"/>
         <source>All Files (*)</source>
         <translation>Tërë Kartelat (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4098"/>
-        <location filename="../../scribus/scribus.cpp" line="4157"/>
-        <location filename="../../scribus/scribus.cpp" line="7152"/>
-        <location filename="../../scribus/scribus.cpp" line="7316"/>
-        <location filename="../../scribus/scribus.cpp" line="7330"/>
+        <location filename="../../scribus/scribus.cpp" line="4096"/>
+        <location filename="../../scribus/scribus.cpp" line="4155"/>
+        <location filename="../../scribus/scribus.cpp" line="7150"/>
+        <location filename="../../scribus/scribus.cpp" line="7314"/>
+        <location filename="../../scribus/scribus.cpp" line="7328"/>
         <source>Cannot write the file: 
 %1</source>
         <translation>S’shkruhet dot kartela: 
 %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4142"/>
-        <location filename="../../scribus/scribus.cpp" line="7141"/>
+        <location filename="../../scribus/scribus.cpp" line="4140"/>
+        <location filename="../../scribus/scribus.cpp" line="7139"/>
         <source>Save As</source>
         <translation>Ruaje Si</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4173"/>
+        <location filename="../../scribus/scribus.cpp" line="4171"/>
         <source>Saving...</source>
         <translation>Po ruhet…</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4307"/>
-        <location filename="../../scribus/scribus.cpp" line="6820"/>
-        <location filename="../../scribus/scribus.cpp" line="6897"/>
-        <location filename="../../scribus/scribus.cpp" line="6969"/>
+        <location filename="../../scribus/scribus.cpp" line="4305"/>
+        <location filename="../../scribus/scribus.cpp" line="6818"/>
+        <location filename="../../scribus/scribus.cpp" line="6895"/>
+        <location filename="../../scribus/scribus.cpp" line="6967"/>
         <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
         <translation>Scribus-i ka pikasur disa gabime. Shihni mundësinë e përdorimit të Verifikuesit Para Fluturimi për t’i ndrequr ato</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4342"/>
+        <location filename="../../scribus/scribus.cpp" line="4340"/>
         <source>Printing...</source>
         <translation>Po shtypet…</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1284"/>
         <location filename="../../scribus/scribus.cpp" line="2182"/>
-        <location filename="../../scribus/scribus.cpp" line="4346"/>
-        <location filename="../../scribus/scribus.cpp" line="7120"/>
-        <location filename="../../scribus/scribus.cpp" line="8397"/>
+        <location filename="../../scribus/scribus.cpp" line="4344"/>
+        <location filename="../../scribus/scribus.cpp" line="7118"/>
+        <location filename="../../scribus/scribus.cpp" line="8395"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4392"/>
+        <location filename="../../scribus/scribus.cpp" line="4390"/>
         <source>Printing failed!</source>
         <translation>Shtypja dështoi!</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4482"/>
+        <location filename="../../scribus/scribus.cpp" line="4480"/>
         <source>Cannot Cut In-Use Item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4482"/>
+        <location filename="../../scribus/scribus.cpp" line="4480"/>
         <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5116"/>
+        <location filename="../../scribus/scribus.cpp" line="5114"/>
         <source>About Qt</source>
         <translation>Mbi Qt-në</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5147"/>
+        <location filename="../../scribus/scribus.cpp" line="5145"/>
         <source>Scribus Manual</source>
         <translation>Doracak Scribus-i</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6270"/>
+        <location filename="../../scribus/scribus.cpp" line="6268"/>
         <source>&amp;Size:</source>
         <translation>&amp;Madhësi:</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1622"/>
-        <location filename="../../scribus/scribus.cpp" line="6270"/>
+        <location filename="../../scribus/scribus.cpp" line="6268"/>
         <source>Size</source>
         <translation>Madhësi</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6685"/>
+        <location filename="../../scribus/scribus.cpp" line="6683"/>
         <source>An error occurred while opening monitor profile.
 Former monitor profile will be used.</source>
         <translation>Ndodhi një gabim teksa hapej profil monitori.
 Do të përdoret profili i mëparshëm i monitorit.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7087"/>
+        <location filename="../../scribus/scribus.cpp" line="7085"/>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
         <translation>Scribus-i pikasi disa gabime.
 Shihni mundësinë e përdorimit të Verifikuesit Para Fluturimi për t’i ndrequr ato.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7183"/>
+        <location filename="../../scribus/scribus.cpp" line="7181"/>
         <source>Detected some errors.
 Consider using the Preflight Verifier to correct them</source>
         <translation>U pikasën disa gabime.
 Shihni mundësinë e përdorimit të Verifikuesit Para Fluturimi për t’i ndrequr ato</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7312"/>
+        <location filename="../../scribus/scribus.cpp" line="7310"/>
         <source>-Page%1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7870"/>
+        <location filename="../../scribus/scribus.cpp" line="7868"/>
         <source>Some objects are locked.</source>
         <translation>Disa objekte janë të kyçur.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7866"/>
+        <location filename="../../scribus/scribus.cpp" line="7864"/>
         <source>&amp;Lock All</source>
         <translation>&amp;Kyçi Krejt</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7344"/>
+        <location filename="../../scribus/scribus.cpp" line="7342"/>
         <source>Locate your PDF viewer</source>
         <translation>Lokalizoni parësin tuaj të PDF-ve</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7867"/>
+        <location filename="../../scribus/scribus.cpp" line="7865"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Shkyçi Krejt</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3927"/>
-        <location filename="../../scribus/scribus.cpp" line="8864"/>
+        <location filename="../../scribus/scribus.cpp" line="3925"/>
+        <location filename="../../scribus/scribus.cpp" line="8862"/>
         <source>Do you really want to replace your existing image?</source>
         <translation>Doni vërtet të zëvendësohet figura juaj ekzistuese?</translation>
     </message>
@@ -37213,7 +37213,7 @@ Shihni mundësinë e përdorimit të Verifikuesit Para Fluturimi për t’i ndre
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7141"/>
+        <location filename="../../scribus/scribus.cpp" line="7139"/>
         <source>%1;;All Files (*)</source>
         <translation type="unfinished">%1;;Tërë Kartelat (*)</translation>
     </message>
@@ -37223,19 +37223,19 @@ Shihni mundësinë e përdorimit të Verifikuesit Para Fluturimi për t’i ndre
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6725"/>
+        <location filename="../../scribus/scribus.cpp" line="6723"/>
         <source>Updating Images</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4096"/>
-        <location filename="../../scribus/scribus.cpp" line="4155"/>
+        <location filename="../../scribus/scribus.cpp" line="4094"/>
+        <location filename="../../scribus/scribus.cpp" line="4153"/>
         <source>Your document was saved to a temporary file and could not be moved: 
 %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4455"/>
+        <location filename="../../scribus/scribus.cpp" line="4453"/>
         <source>Print engine initialization failed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -37245,19 +37245,19 @@ Shihni mundësinë e përdorimit të Verifikuesit Para Fluturimi për t’i ndre
         <translation>Tërë Formatet e Mbuluar</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9141"/>
-        <location filename="../../scribus/scribus.cpp" line="9220"/>
+        <location filename="../../scribus/scribus.cpp" line="9139"/>
+        <location filename="../../scribus/scribus.cpp" line="9218"/>
         <source>&amp;Name:</source>
         <translation>&amp;Emër:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9141"/>
-        <location filename="../../scribus/scribus.cpp" line="9220"/>
+        <location filename="../../scribus/scribus.cpp" line="9139"/>
+        <location filename="../../scribus/scribus.cpp" line="9218"/>
         <source>New Entry</source>
         <translation>Zë i Ri</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6861"/>
+        <location filename="../../scribus/scribus.cpp" line="6859"/>
         <source>Ghostscript is missing : PostScript Print Preview is not available</source>
         <translation type="unfinished"></translation>
     </message>
@@ -37272,7 +37272,7 @@ Shihni mundësinë e përdorimit të Verifikuesit Para Fluturimi për t’i ndre
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7621"/>
+        <location filename="../../scribus/scribus.cpp" line="7619"/>
         <source>Editing Symbol: %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -37303,26 +37303,26 @@ Shihni mundësinë e përdorimit të Verifikuesit Para Fluturimi për t’i ndre
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9636"/>
-        <location filename="../../scribus/scribus.cpp" line="9901"/>
+        <location filename="../../scribus/scribus.cpp" line="9634"/>
+        <location filename="../../scribus/scribus.cpp" line="9899"/>
         <source>Anchor mark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9644"/>
-        <location filename="../../scribus/scribus.cpp" line="9914"/>
+        <location filename="../../scribus/scribus.cpp" line="9642"/>
+        <location filename="../../scribus/scribus.cpp" line="9912"/>
         <source>Mark with &lt;%1&gt; variable text</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9652"/>
-        <location filename="../../scribus/scribus.cpp" line="9953"/>
+        <location filename="../../scribus/scribus.cpp" line="9650"/>
+        <location filename="../../scribus/scribus.cpp" line="9951"/>
         <source>Mark to %1 item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9662"/>
-        <location filename="../../scribus/scribus.cpp" line="9974"/>
+        <location filename="../../scribus/scribus.cpp" line="9660"/>
+        <location filename="../../scribus/scribus.cpp" line="9972"/>
         <source>Mark to %1 mark</source>
         <translation type="unfinished"></translation>
     </message>
@@ -37438,13 +37438,13 @@ Shihni mundësinë e përdorimit të Verifikuesit Para Fluturimi për t’i ndre
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1491"/>
-        <location filename="../../scribus/scribus.cpp" line="8663"/>
+        <location filename="../../scribus/scribus.cpp" line="8661"/>
         <source>X:</source>
         <translation type="unfinished">X:</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1493"/>
-        <location filename="../../scribus/scribus.cpp" line="8664"/>
+        <location filename="../../scribus/scribus.cpp" line="8662"/>
         <source>Y:</source>
         <translation>Y:</translation>
     </message>
@@ -37454,78 +37454,78 @@ Shihni mundësinë e përdorimit të Verifikuesit Para Fluturimi për t’i ndre
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5224"/>
+        <location filename="../../scribus/scribus.cpp" line="5222"/>
         <source>Text Files (*.txt);;All Files (*)</source>
         <translation type="unfinished">Kartela Tekst (*.txt);;Tërë Kartelat (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5224"/>
+        <location filename="../../scribus/scribus.cpp" line="5222"/>
         <source>Save as</source>
         <translation>Ruaje si</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6283"/>
+        <location filename="../../scribus/scribus.cpp" line="6281"/>
         <source>&amp;Language:</source>
         <translation>&amp;Gjuhë:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6283"/>
+        <location filename="../../scribus/scribus.cpp" line="6281"/>
         <source>Language</source>
         <translation type="unfinished">Gjuhë</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7672"/>
+        <location filename="../../scribus/scribus.cpp" line="7670"/>
         <source>Editing Inline Item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8496"/>
+        <location filename="../../scribus/scribus.cpp" line="8494"/>
         <source>The program %1 is missing or failed to open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8657"/>
+        <location filename="../../scribus/scribus.cpp" line="8655"/>
         <source>Current zoom level</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8658"/>
+        <location filename="../../scribus/scribus.cpp" line="8656"/>
         <source>Zoom to 100%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8659"/>
+        <location filename="../../scribus/scribus.cpp" line="8657"/>
         <source>Zoom out by the stepping value in Tools preferences</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8660"/>
+        <location filename="../../scribus/scribus.cpp" line="8658"/>
         <source>Zoom in by the stepping value in Tools preferences</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8661"/>
+        <location filename="../../scribus/scribus.cpp" line="8659"/>
         <source>Select the current layer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8662"/>
+        <location filename="../../scribus/scribus.cpp" line="8660"/>
         <source>Select the current unit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9610"/>
+        <location filename="../../scribus/scribus.cpp" line="9608"/>
         <source>Insert New </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9685"/>
-        <location filename="../../scribus/scribus.cpp" line="9996"/>
+        <location filename="../../scribus/scribus.cpp" line="9683"/>
+        <location filename="../../scribus/scribus.cpp" line="9994"/>
         <source>Index mark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9881"/>
+        <location filename="../../scribus/scribus.cpp" line="9879"/>
         <source>Edit %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -37739,17 +37739,17 @@ Shihni mundësinë e përdorimit të Verifikuesit Para Fluturimi për t’i ndre
         <translation type="unfinished">Doni vërtet të spastrohet krejt teksti juaj?</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="1050"/>
+        <location filename="../../scribus/scribusview.cpp" line="1049"/>
         <source>Copy Here</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="1051"/>
+        <location filename="../../scribus/scribusview.cpp" line="1050"/>
         <source>Move Here</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="1052"/>
+        <location filename="../../scribus/scribusview.cpp" line="1051"/>
         <source>Cancel</source>
         <translation>Anuloje</translation>
     </message>
@@ -37769,17 +37769,17 @@ Shihni mundësinë e përdorimit të Verifikuesit Para Fluturimi për t’i ndre
         <translation type="unfinished">E çaktivizuar</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3102"/>
+        <location filename="../../scribus/scribusview.cpp" line="3101"/>
         <source>Cannot Convert In-Use Item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="3102"/>
+        <location filename="../../scribus/scribusview.cpp" line="3101"/>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusview.cpp" line="2010"/>
+        <location filename="../../scribus/scribusview.cpp" line="2009"/>
         <source>Page %1 to %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -43208,7 +43208,7 @@ Projekti i Çlirimit të Dokumenteve https://www.documentliberation.org</transla
 <context>
     <name>ads::CDockManager</name>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockManager.cpp" line="537"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockManager.cpp" line="544"/>
         <source>Show View</source>
         <translation type="unfinished"></translation>
     </message>
@@ -43216,47 +43216,47 @@ Projekti i Çlirimit të Dokumenteve https://www.documentliberation.org</transla
 <context>
     <name>ads::CDockWidgetTab</name>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="636"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="618"/>
         <source>Detach</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="640"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="622"/>
         <source>Pin</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="644"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="626"/>
         <source>Pin To...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="646"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="628"/>
         <source>Top</source>
         <translation>Në Krye</translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="647"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="629"/>
         <source>Left</source>
         <translation>Majtas</translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="648"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="630"/>
         <source>Right</source>
         <translation>Djathtas</translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="649"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="631"/>
         <source>Bottom</source>
         <translation>Në Fund</translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="654"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="636"/>
         <source>Close</source>
         <translation>Mbylle</translation>
     </message>
     <message>
-        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="658"/>
+        <location filename="../../scribus/third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.cpp" line="640"/>
         <source>Close Others</source>
         <translation>Mbylli të Tjerët</translation>
     </message>
