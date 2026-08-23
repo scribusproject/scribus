@@ -2952,26 +2952,26 @@ void PrefsManager::initDefaultCheckerPrefs(CheckerPrefsList& cp)
 	cp.insert(CommonStrings::PostScript, checkerSettings);
 	checkerSettings.checkFontNotEmbedded = true;
 	checkerSettings.checkFontIsOpenType = true;
-	cp.insert(CommonStrings::PDF_1_3   , checkerSettings);
+	cp.insert(CommonStrings::PDF_1_3, checkerSettings);
 	checkerSettings.checkTransparency = false;
-	cp.insert(CommonStrings::PDF_1_4   , checkerSettings);
-	cp.insert(CommonStrings::PDF_1_5   , checkerSettings);
+	cp.insert(CommonStrings::PDF_1_4, checkerSettings);
+	cp.insert(CommonStrings::PDF_1_5, checkerSettings);
 	checkerSettings.checkFontIsOpenType = false;
-	cp.insert(CommonStrings::PDF_1_6   , checkerSettings);
+	cp.insert(CommonStrings::PDF_1_6, checkerSettings);
 	checkerSettings.checkFontIsOpenType = true;
 	checkerSettings.checkTransparency = true;
 	checkerSettings.checkAnnotations = true;
 	checkerSettings.minResolution = 144.0;
 	checkerSettings.checkDeviceColorsAndOutputIntent = true;
-	cp.insert(CommonStrings::PDF_X3	, checkerSettings);
+	cp.insert(CommonStrings::PDF_X3, checkerSettings);
 	checkerSettings.checkNotCMYKOrSpot = true;
 	checkerSettings.checkDeviceColorsAndOutputIntent = false;
-	cp.insert(CommonStrings::PDF_X1a	, checkerSettings);
+	cp.insert(CommonStrings::PDF_X1a, checkerSettings);
 	checkerSettings.checkNotCMYKOrSpot = false;
 	checkerSettings.checkDeviceColorsAndOutputIntent = true;
 	checkerSettings.checkTransparency = false;
 	checkerSettings.checkFontIsOpenType = false;
-	cp.insert(CommonStrings::PDF_X4	, checkerSettings);
+	cp.insert(CommonStrings::PDF_X4, checkerSettings);
 }
 
 void PrefsManager::insertMissingCheckerProfiles(CheckerPrefsList& cp)

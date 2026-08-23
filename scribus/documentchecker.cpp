@@ -573,7 +573,7 @@ void DocumentChecker::checkItems(ScribusDoc *currDoc, const CheckerPrefs& checke
 					{
 						if (checkerSettings.checkTransparency && currItem->pixm.hasSmoothAlpha())
 							itemError.insert(PreflightError::Transparency, 0);
-						if (currItem->pixm.imgInfo.progressive)
+						if (checkerSettings.checkImageHasProgressiveEncoding && currItem->pixm.imgInfo.progressive)
 							itemError.insert(PreflightError::ImageHasProgressiveEncoding, 0);
 					}
 					if  (((qRound(72.0 / currItem->imageXScale()) < checkerSettings.minResolution) || (qRound(72.0 / currItem->imageYScale()) < checkerSettings.minResolution))
