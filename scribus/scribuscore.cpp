@@ -68,7 +68,7 @@ ScribusCore::~ScribusCore()
 {
 	TextFrameSpellChecker::instance()->stopThread();
 
-	while (m_ScMWList.count() > 0)
+	while (!m_ScMWList.isEmpty())
 	{
 		ScribusMainWindow *mainWindow = m_ScMWList.takeAt(0);
 		delete mainWindow;
@@ -240,7 +240,7 @@ int ScribusCore::initCoreServices(bool showSplash, bool showProfileInfo)
 	// Configure GUI
 	const QString& prefsUiStyle = m_prefsManager.appPrefs.uiPrefs.style;
 	QString qtStyle = nullptr;
-	if (prefsUiStyle.length() > 0)
+	if (!prefsUiStyle.isEmpty())
 	{
 		QStringList availableStyles = QStyleFactory::keys();
 		if (availableStyles.contains(prefsUiStyle))
@@ -713,7 +713,7 @@ void ScribusCore::initCMS()
 
 ScribusMainWindow * ScribusCore::primaryMainWindow()
 {
-	if (m_ScMWList.count() == 0 || m_currScMW > m_ScMWList.count())
+	if (m_ScMWList.isEmpty() || m_currScMW > m_ScMWList.count())
 		return nullptr;
 	ScribusMainWindow* mw = m_ScMWList.at(m_currScMW);
 	if (!mw)

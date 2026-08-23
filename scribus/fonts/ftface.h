@@ -8,8 +8,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef FT_FACE_H
 #define FT_FACE_H
 
+#include <QByteArray>
 #include <QString>
-#include <QMap>
 
 #include "scribusapi.h"
 
@@ -17,8 +17,6 @@ for which a new license (GPL+exception) is in place.
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
-
-#include "fpointarray.h"
 
 FT_Error ftIOFunc( FT_Stream stream, unsigned long pos, unsigned char* buffer, unsigned long count);
 
@@ -78,12 +76,8 @@ struct SCRIBUS_API FtFace : public ScFace::ScFaceData
 	bool isItalic() const override { return m_isItalic; }
 	bool isBold() const override { return m_isBold; }
 
-//FIXME	QMap<QString,QString> fontDictionary(qreal sz=1.0) const;
-
 	ScFace::gid_type char2CMap(uint ch) const override;
 	ScFace::cid_type glyphIndexToCID(ScFace::gid_type index) const override;
-
-//	GlyphMetrics glyphBBox (gid_type gl, qreal sz) const;
 
 	void rawData(QByteArray & bb) const override;
 
