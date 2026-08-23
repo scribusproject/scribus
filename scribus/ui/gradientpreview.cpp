@@ -111,10 +111,10 @@ void GradientPreview::addStop(QPoint mousePosition)
 	double opacityL = activeStop()->opacity;
 	double shadeL = activeStop()->shade;
 
-	QColor colorR = activeStop()->color;
+	// QColor colorR = activeStop()->color;
 	QString nameR = activeStop()->name;
-	double opacityR = activeStop()->opacity;
-	double shadeR = activeStop()->shade;
+	// double opacityR = activeStop()->opacity;
+	// double shadeR = activeStop()->shade;
 
 	double t = percentFromPosition(mousePosition);
 	double mid = 0.5;
