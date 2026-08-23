@@ -15,9 +15,11 @@ for which a new license (GPL+exception) is in place.
 #include <QObject>
 #include <QFile>
 
+#include "fonts/scfontmetrics.h"
+#include "fpointarray.h"
+#include "scface.h"
 #include "scfonts.h"
 #include "util_debug.h"
-#include "fonts/scfontmetrics.h"
 
 // static:
 FT_Library FtFace::m_library = nullptr;
@@ -133,14 +135,12 @@ void FtFace::load() const
 	m_isItalic = (m_face->style_flags == 1 || m_face->style_flags == 3);
 	m_isBold   = (m_face->style_flags == 2 || m_face->style_flags == 3);
 
-//FIXME:	FT_Set_Charmap(m_face, m_face->charmaps[m_encoding]);
 	setBestEncoding(m_face);
 	
 	FT_UInt gindex = 0;
 	FT_ULong charcode = FT_Get_First_Char( m_face, &gindex );
-	int goodGlyph = 0;
 	int invalidGlyph = 0;
-	bool error;
+	bool error = false;
 
 	while ( gindex != 0 )
 	{
@@ -156,7 +156,6 @@ void FtFace::load() const
 		if (gindex > maxGlyph)
 			const_cast<FtFace*>(this)->maxGlyph = gindex;
 
-		++goodGlyph;
 		if (m_face->glyph->format == FT_GLYPH_FORMAT_PLOTTER)
 			const_cast<FtFace*>(this)->isStroked = true;
 		charcode = FT_Get_Next_Char( m_face, charcode, &gindex );
@@ -246,31 +245,6 @@ void FtFace::loadGlyph(ScFace::gid_type gl) const
 		status = ScFace::BROKENGLYPHS;
 }
 
-
-/*
-GlyphMetrics FtFace::glyphBBox (gid_type gl, qreal sz) const
-{
-	FT_Face    face = ftFace();
-	GlyphMetrics result;
-	FT_Error error = FT_Load_Glyph( face, gl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
-	if (!error)
-	{
-		qreal w  = (face->glyph->metrics.width + QABS((qreal)face->glyph->metrics.horiBearingX)) / m_uniEM * sz;
-		result.width = qMax(w, face->glyph->metrics.horiAdvance / m_uniEM * sz);
-		qreal height = face->glyph->metrics.height / m_uniEM * sz;
-		result.ascent = face->glyph->metrics.horiBearingY / m_uniEM * sz;
-		result.descent = height - result.ascent;
-	}
-	else
-	{
-		result.width = result.ascent = sz;
-		result.descent = 0;
-	}
-	return result;
-}
-*/
-
-
 /// copied from Freetype's FT_Stream_ReadAt()
 FT_Error ftIOFunc( FT_Stream stream, unsigned long pos, unsigned char* buffer, unsigned long count)
 {
@@ -321,7 +295,7 @@ bool FtFace::hasMicrosoftUnicodeCmap(FT_Face face)
 
 bool FtFace::glyphNames(ScFace::FaceEncoding& glyphList) const
 {
-	char buf[50];
+	char buf[50] {};
 	FT_ULong  charcode;
 	FT_UInt gindex = 0;
 
@@ -385,7 +359,7 @@ bool FtFace::glyphNames(ScFace::FaceEncoding& glyphList) const
 		if ((charcode == 0) && glyphName.startsWith("uni"))
 		{
 			QString uniHexStr = uniGlyphNameToUnicode(glyphName);
-			if (uniHexStr.length() > 0)
+			if (!uniHexStr.isEmpty())
 				glEncoding.toUnicode = uniHexStr;
 		}
 		glyphList.insert(gindex, glEncoding);

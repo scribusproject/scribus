@@ -63,7 +63,7 @@ ScribusCore::ScribusCore() : defaultEngine(ScColorMgmtEngineFactory::createDefau
 
 ScribusCore::~ScribusCore()
 {
-	while (m_ScMWList.count() > 0)
+	while (!m_ScMWList.empty())
 	{
 		ScribusMainWindow *mainWindow = m_ScMWList.takeAt(0);
 		delete mainWindow;
@@ -95,15 +95,15 @@ int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileIn
 	auto* scribus = new ScribusMainWindow();
 	Q_CHECK_PTR(scribus);
 	if (!scribus)
-		return(EXIT_FAILURE);
+		return EXIT_FAILURE;
 	m_ScMWList.append(scribus);
 	int retVal = initScribusCore(showSplash, showFontInfo, showProfileInfo, newGuiLanguage);
 	if (retVal == EXIT_FAILURE)
-		return(EXIT_FAILURE);
+		return EXIT_FAILURE;
 	
 	retVal = scribus->initScMW(true);
 	if (retVal == EXIT_FAILURE)
-		return(EXIT_FAILURE);
+		return EXIT_FAILURE;
 	
 	closeSplash();
 	m_scribusInitialized = true;
@@ -121,7 +121,7 @@ int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileIn
 			for (int i = 0; i < m_Files.size(); ++i)
 				scribus->loadDoc(m_Files.at(i));
 		}
-		else if ((recoverFiles.count() > 0) && usingGUI())
+		else if (!recoverFiles.isEmpty() && usingGUI())
 		{
 			if (!scribus->recoverFile(recoverFiles))
 			{
@@ -615,7 +615,7 @@ void ScribusCore::initCMS()
 
 ScribusMainWindow * ScribusCore::primaryMainWindow()
 {
-	if (m_ScMWList.count() == 0 || m_currScMW > m_ScMWList.count())
+	if (m_ScMWList.empty() || m_currScMW > m_ScMWList.count())
 		return nullptr;
 	ScribusMainWindow* mw = m_ScMWList.at(m_currScMW);
 	if (!mw)
