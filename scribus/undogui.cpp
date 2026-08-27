@@ -453,6 +453,8 @@ bool UndoPalette::UndoItem::isUndoAction() const
 
 void UndoPalette::UndoItem::setUndoAction(bool isUndo)
 {
+	if (m_isUndoAction == isUndo)
+		return;
 	m_isUndoAction = isUndo;
 	QFont f = font();
 	f.setItalic(!m_isUndoAction);
