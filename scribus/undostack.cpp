@@ -35,6 +35,7 @@ UndoStack::UndoStack(int maxSize) : m_maxSize(maxSize)
 
 bool UndoStack::action(UndoState *state)
 {
+	qDeleteAll(m_redoActions);
 	m_redoActions.clear();
 	m_undoActions.insert(m_undoActions.begin(), state);
 	bool needsPopping = checkSize(); // only store maxSize_ amount of actions
@@ -164,9 +165,15 @@ bool UndoStack::checkSize()
 	while (size() > m_maxSize)
 	{
 		if (!m_redoActions.empty()) // clear redo actions first
+		{
+			delete m_redoActions.back();
 			m_redoActions.pop_back();
+		}
 		else
+		{
+			delete m_undoActions.back();
 			m_undoActions.pop_back();
+		}
 	}
 
 	return needsPopping;
@@ -174,10 +181,8 @@ bool UndoStack::checkSize()
 
 void UndoStack::clear()
 {
-	for (size_t i = 0; i < m_undoActions.size(); ++i)
-		delete m_undoActions[i];
-	for (size_t i = 0; i < m_redoActions.size(); ++i)
-		delete m_redoActions[i];
+	qDeleteAll(m_undoActions);
+	qDeleteAll(m_redoActions);
 	m_undoActions.clear();
 	m_redoActions.clear();
 }
