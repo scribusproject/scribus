@@ -12116,7 +12116,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool force
 		}
 		itemList->removeAll(currItem);
 //		undoManager->action(Pages->at(0), is, currItem->getUPixmap());
-		if (forceDeletion || !UndoManager::undoEnabled())
+		if (forceDeletion)
 			delete currItem;
 	}
 	itemSelection->delaySignalsOff();
