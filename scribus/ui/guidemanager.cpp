@@ -486,6 +486,9 @@ void GuideManager::clearRestoreVerticalList()
 
 void GuideManager::deletePageButton_clicked()
 {
+	if (!currentPage->guides.hasGuides())
+		return;
+
 	UndoTransaction trans;
 	if(UndoManager::undoEnabled())
 		trans = UndoManager::instance()->beginTransaction(currentPage->getUName(),
@@ -517,6 +520,19 @@ void GuideManager::deletePageButton_clicked()
 
 void GuideManager::deleteAllGuides_clicked()
 {
+	bool hasGuides = false;
+	for (const ScPage* page : *m_doc->Pages)
+	{
+		if (page->guides.hasGuides())
+		{
+			hasGuides = true;
+			break;
+		}
+	}
+	if (!hasGuides)
+		return;
+
+
 	UndoTransaction trans;
 	if (UndoManager::undoEnabled())
 		trans = UndoManager::instance()->beginTransaction(m_doc->getUName(),

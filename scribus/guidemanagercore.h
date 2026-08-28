@@ -73,6 +73,8 @@ public:
 
 	void setPage(ScPage *p);
 
+	bool hasGuides() const;
+
 	QPair<double, double> topLeft(double x, double y) const;
 	QPair<double, double> topRight(double x, double y) const;
 	QPair<double, double> bottomLeft(double x, double y) const;

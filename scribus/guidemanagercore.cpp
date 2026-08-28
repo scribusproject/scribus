@@ -38,6 +38,20 @@ void GuideManagerCore::setPage(ScPage *p)
 	m_page = p;
 }
 
+bool GuideManagerCore::hasGuides() const
+{
+	return !m_horizontalStdG.isEmpty() ||
+			!m_horizontalAutoG.isEmpty() ||
+			!m_verticalStdG.isEmpty() ||
+			!m_verticalAutoG.isEmpty() ||
+			m_horizontalAutoCount != 0 ||
+			m_horizontalAutoGap != 0.0 ||
+			m_horizontalAutoRefer != 0 ||
+			m_verticalAutoCount != 0 ||
+			m_verticalAutoGap != 0.0 ||
+			m_verticalAutoRefer != 0;
+}
+
 void GuideManagerCore::addHorizontal(double value, GuideType type)
 {
 	switch (type)
