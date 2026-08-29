@@ -21,10 +21,18 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#include <QDebug>
-#include <QPixmap>
+#include <utility>
 
-#include "appmodehelper.h"
+#include <QList>
+#include <QObject>
+#include <QRect>
+
+#include "appmodes.h"
+#include "commonstrings.h"
+#include "guidemanagercore.h"
+#include "margins.h"
+#include "observable.h"
+#include "pageitem.h"
 #include "scpage.h"
 #include "scribus.h"
 #include "scribusdoc.h"
@@ -39,8 +47,8 @@ for which a new license (GPL+exception) is in place.
 ScPage::ScPage(const double x, const double y, const double b, const double h) :
 	UndoObject(QObject::tr("Page")),
 	SingleObservable<ScPage>(nullptr),
-	Margins(40,40,40,40),
-	initialMargins(40,40,40,40),
+	Margins(40, 40, 40, 40),
+	initialMargins(40, 40, 40, 40),
 	undoManager(UndoManager::instance()),
 	m_xOffset(x),
 	m_yOffset(y),
@@ -142,36 +150,36 @@ void ScPage::restore(UndoState* state, bool isUndo)
 	{
 		double position = ss->getDouble("ADD_V");
 		if (isUndo)
-			guides.deleteVertical(position, GuideManagerCore::Standard);//removeXGuide(position);
+			guides.deleteVertical(position, GuideManagerCore::Standard);
 		else
-			guides.addVertical(position, GuideManagerCore::Standard);//addXGuide(position);
+			guides.addVertical(position, GuideManagerCore::Standard);
 		m_Doc->scMW()->guidePalette->setupGui();
 	}
 	else if (ss->contains("ADD_H"))
 	{
 		double position = ss->getDouble("ADD_H");
 		if (isUndo)
-			guides.deleteHorizontal(position, GuideManagerCore::Standard);//removeYGuide(position);
+			guides.deleteHorizontal(position, GuideManagerCore::Standard);
 		else
-			guides.addHorizontal(position, GuideManagerCore::Standard);//addYGuide(position);
+			guides.addHorizontal(position, GuideManagerCore::Standard);
 		m_Doc->scMW()->guidePalette->setupGui();
 	}
 	else if (ss->contains("REMOVE_V"))
 	{
 		double position = ss->getDouble("REMOVE_V");
 		if (isUndo)
-			guides.addVertical(position, GuideManagerCore::Standard);//addXGuide(position);
+			guides.addVertical(position, GuideManagerCore::Standard);
 		else
-			guides.deleteVertical(position, GuideManagerCore::Standard);//removeXGuide(position);
+			guides.deleteVertical(position, GuideManagerCore::Standard);
 		m_Doc->scMW()->guidePalette->setupGui();
 	}
 	else if (ss->contains("REMOVE_H"))
 	{
 		double position = ss->getDouble("REMOVE_H");
 		if (isUndo)
-			guides.addHorizontal(position, GuideManagerCore::Standard);//addYGuide(position);
+			guides.addHorizontal(position, GuideManagerCore::Standard);
 		else
-			guides.deleteHorizontal(position, GuideManagerCore::Standard);//removeYGuide(position);
+			guides.deleteHorizontal(position, GuideManagerCore::Standard);
 		m_Doc->scMW()->guidePalette->setupGui();
 	}
 	else if (ss->contains("MOVE_H_FROM"))
@@ -180,13 +188,13 @@ void ScPage::restore(UndoState* state, bool isUndo)
 		double to   = ss->getDouble("MOVE_H_TO");
 		if (isUndo)
 		{
-			guides.deleteHorizontal(to, GuideManagerCore::Standard);//removeYGuide(position);
-			guides.addHorizontal(from, GuideManagerCore::Standard);//addYGuide(position);
+			guides.deleteHorizontal(to, GuideManagerCore::Standard);
+			guides.addHorizontal(from, GuideManagerCore::Standard);
 		}
 		else
 		{
-			guides.deleteHorizontal(from, GuideManagerCore::Standard);//removeYGuide(position);
-			guides.addHorizontal(to, GuideManagerCore::Standard);//addYGuide(position);
+			guides.deleteHorizontal(from, GuideManagerCore::Standard);
+			guides.addHorizontal(to, GuideManagerCore::Standard);
 		}
 		m_Doc->scMW()->guidePalette->setupGui();
 	}
@@ -196,13 +204,13 @@ void ScPage::restore(UndoState* state, bool isUndo)
 		double to   = ss->getDouble("MOVE_V_TO");
 		if (isUndo)
 		{
-			guides.deleteVertical(to, GuideManagerCore::Standard);//removeXGuide(position);
-			guides.addVertical(from, GuideManagerCore::Standard);//removeXGuide(position);
+			guides.deleteVertical(to, GuideManagerCore::Standard);
+			guides.addVertical(from, GuideManagerCore::Standard);
 		}
 		else
 		{
-			guides.deleteVertical(from, GuideManagerCore::Standard);//removeXGuide(position);
-			guides.addVertical(to, GuideManagerCore::Standard);//removeXGuide(position);
+			guides.deleteVertical(from, GuideManagerCore::Standard);
+			guides.addVertical(to, GuideManagerCore::Standard);
 		}
 		m_Doc->scMW()->guidePalette->setupGui();
 	}
@@ -285,16 +293,16 @@ void ScPage::restorePageAttributes(SimpleState *state, bool isUndo)
 	int margin_preset = state->getInt("MARGINPRESET");
 	double horizontal_autogap_old = state->getDouble("HORIZONTAL_AUTOGAP");
 	double vertical_autogap_old = state->getDouble("VERTICAL_AUTOGAP");
-	double horizontal_autocount_old = state->getDouble("HORIZONTAL_AUTOCOUNT");
-	double vertical_autocount_old = state->getDouble("VERTICAL_AUTOCOUNT");
-	double horizontal_autorefer_old = state->getDouble("HORIZONTAL_AUTOREFER");
-	double vertical_autorefer_old = state->getDouble("VERTICAL_AUTOREFER");
+	int horizontal_autocount_old = state->getInt("HORIZONTAL_AUTOCOUNT");
+	int vertical_autocount_old = state->getInt("VERTICAL_AUTOCOUNT");
+	int horizontal_autorefer_old = state->getInt("HORIZONTAL_AUTOREFER");
+	int vertical_autorefer_old = state->getInt("VERTICAL_AUTOREFER");
 	double horizontal_autogap = state->getDouble("HORIZONTAL_AUTOGAP");
 	double vertical_autogap = state->getDouble("VERTICAL_AUTOGAP");
-	double horizontal_autocount = state->getDouble("HORIZONTAL_AUTOCOUNT");
-	double vertical_autocount = state->getDouble("VERTICAL_AUTOCOUNT");
-	double horizontal_autorefer = state->getDouble("HORIZONTAL_AUTOREFER");
-	double vertical_autorefer = state->getDouble("VERTICAL_AUTOREFER");
+	int horizontal_autocount = state->getInt("HORIZONTAL_AUTOCOUNT");
+	int vertical_autocount = state->getInt("VERTICAL_AUTOCOUNT");
+	int horizontal_autorefer = state->getInt("HORIZONTAL_AUTOREFER");
+	int vertical_autorefer = state->getInt("VERTICAL_AUTOREFER");
 
 	if (isUndo)
 	{
@@ -524,7 +532,7 @@ void ScPage::setPageSectionNumber(const QString& newPageSectionNumber)
 	m_pageSectionNumber = newPageSectionNumber;
 }
 
-void ScPage::copySizingProperties(ScPage* sourcePage, const MarginStruct& pageMargins)
+void ScPage::copySizingProperties(const ScPage* sourcePage, const MarginStruct& pageMargins)
 {
 	if (sourcePage == nullptr)
 		return;
