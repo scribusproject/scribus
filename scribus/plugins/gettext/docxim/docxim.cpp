@@ -751,45 +751,52 @@ void DocXIm::parsePlainTextOnly(PageItem *textItem)
 	QDomElement docElem = designMapDom.documentElement();
 	for (QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
 	{
-		if (drawPag.tagName() == "w:body")
+		if (drawPag.tagName() != "w:body")
+			continue;
+
+		for (QDomElement spf = drawPag.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement())
 		{
-			for (QDomElement spf = drawPag.firstChildElement(); !spf.isNull(); spf = spf.nextSiblingElement())
+			if (spf.tagName() != "w:p")
+				continue;
+
+			for (QDomElement spr = spf.firstChildElement(); !spr.isNull(); spr = spr.nextSiblingElement())
 			{
-				if (spf.tagName() == "w:p")
+				if (spr.tagName() != "w:r")
+					continue;
+
+				for (QDomElement spt = spr.firstChildElement(); !spt.isNull(); spt = spt.nextSiblingElement())
 				{
-					for (QDomElement spr = spf.firstChildElement(); !spr.isNull(); spr = spr.nextSiblingElement())
+					if (spt.tagName() == "w:t")
 					{
-						if (spr.tagName() == "w:r")
+						QString txt = spt.text();
+						if (!txt.isEmpty())
 						{
-							for (QDomElement spt = spr.firstChildElement(); !spt.isNull(); spt = spt.nextSiblingElement())
-							{
-								if (spt.tagName() == "w:t")
-								{
-									QString txt = spt.text();
-									if (txt.length() > 0)
-									{
-										txt.replace(QChar(10), SpecialChars::LINEBREAK);
-										txt.replace(QChar(12), SpecialChars::FRAMEBREAK);
-										txt.replace(QChar(30), SpecialChars::NBHYPHEN);
-										txt.replace(QChar(160), SpecialChars::NBSPACE);
-										textItem->itemText.insertChars(textItem->itemText.length(), txt);
-										textItem->itemText.applyStyle(textItem->itemText.length(), currentParagraphStyle);
-										textItem->itemText.applyCharStyle(textItem->itemText.length(), txt.length(), currentParagraphStyle.charStyle());
-									}
-								}
-								else if (spt.tagName() == "w:tab")
-								{
-									int posT = textItem->itemText.length();
-									textItem->itemText.insertChars(posT, SpecialChars::TAB);
-									textItem->itemText.applyStyle(posT, currentParagraphStyle);
-								}
-							}
+							txt.replace(QChar(10), SpecialChars::LINEBREAK);
+							txt.replace(QChar(12), SpecialChars::FRAMEBREAK);
+							txt.replace(QChar(30), SpecialChars::NBHYPHEN);
+							txt.replace(QChar(160), SpecialChars::NBSPACE);
+							textItem->itemText.insertChars(textItem->itemText.length(), txt);
+							textItem->itemText.applyStyle(textItem->itemText.length(), currentParagraphStyle);
+							textItem->itemText.applyCharStyle(textItem->itemText.length(), txt.length(), currentParagraphStyle.charStyle());
 						}
 					}
-					textItem->itemText.insertChars(textItem->itemText.length(), SpecialChars::PARSEP);
-					textItem->itemText.applyStyle(textItem->itemText.length(), currentParagraphStyle);
+					else if (spt.tagName() == "w:tab")
+					{
+						int posT = textItem->itemText.length();
+						textItem->itemText.insertChars(posT, SpecialChars::TAB);
+						textItem->itemText.applyStyle(posT, currentParagraphStyle);
+					}
+					else if (spt.tagName() == "w:br")
+					{
+						int posT = textItem->itemText.length();
+						textItem->itemText.insertChars(posT, SpecialChars::LINEBREAK);
+						textItem->itemText.applyStyle(posT, currentParagraphStyle);
+					}
 				}
 			}
+
+			textItem->itemText.insertChars(textItem->itemText.length(), SpecialChars::PARSEP);
+			textItem->itemText.applyStyle(textItem->itemText.length(), currentParagraphStyle);
 		}
 	}
 }
