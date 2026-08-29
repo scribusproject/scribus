@@ -31,15 +31,16 @@ for which a new license (GPL+exception) is in place.
 #include <QRectF>
 #include <QString>
 
-#include "scribusapi.h"
-#include "undostate.h"
-#include "scribusstructs.h"
 #include "guidemanagercore.h"
+#include "scribusapi.h"
+#include "scribusstructs.h"
+#include "undoobject.h"
+#include "undostate.h"
 
 class PageItem;
+class ScribusDoc;
 class UndoManager;
 class UndoState;
-class ScribusDoc;
 
 
 /**
@@ -65,7 +66,7 @@ public:
 	void setInitialWidth(const double);
 	void setInitialHeight(const double);
 	void setOrientation(int);
-	void copySizingProperties(ScPage *sourcePage, const MarginStruct& pageMargins);
+	void copySizingProperties(const ScPage *sourcePage, const MarginStruct& pageMargins);
 	MarginStruct margins() const { return Margins; }
 	double leftMargin() const { return Margins.left(); }
 	double topMargin() const { return Margins.top(); }
