@@ -2773,7 +2773,6 @@ void ScribusMainWindow::HaveNewSel()
 		}
 		break;
 	}
-	propertiesPalette->xyzPal->basePointWidget->setSelectedAnchor(doc->rotationMode());
 
 	if (docSelectionCount != 0)
 	{

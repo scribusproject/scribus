@@ -401,7 +401,9 @@ void PropertiesPalette_XYZ::handleSelectionChanged()
 		double gx, gy, gh, gw;
 		m_doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 
-		switch(basePointWidget->selectedAnchor()){
+		basePointWidget->setSelectedAnchor(m_doc->rotationMode());
+		switch(basePointWidget->selectedAnchor())
+		{
 		case AnchorPoint::None:
 		case AnchorPoint::TopLeft:
 			m_ScMW->view->RCenter = FPoint(gx, gy);
@@ -475,6 +477,7 @@ void PropertiesPalette_XYZ::handleSelectionChanged()
 		}
 		basePointWidget->setEnabled(true);
 		basePointWidget->setMode(BasePointWidget::Full);
+		basePointWidget->setSelectedAnchor(m_doc->rotationMode());
 		keepFrameWHRatioButton->setVisible(true);
 		buttonLineBasePoint->setVisible(false);
 
