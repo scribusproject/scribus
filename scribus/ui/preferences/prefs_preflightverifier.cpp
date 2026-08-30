@@ -30,6 +30,8 @@ Prefs_PreflightVerifier::Prefs_PreflightVerifier(QWidget* parent, ScribusDoc* /*
 	connect(checkMissingImagesCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
 	connect(checkPartFilledImageFramesCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
 	connect(checkImageResolutionCheckBox, SIGNAL(toggled(bool)), this, SLOT(putProfile()));
+	connect(checkImageResolutionCheckBox, SIGNAL(toggled(bool)), minimumResolutionSpinBox, SLOT(setEnabled(bool)));
+	connect(checkImageResolutionCheckBox, SIGNAL(toggled(bool)), maximumResolutionSpinBox, SLOT(setEnabled(bool)));
 	connect(checkPDFAnnotFieldsCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
 	connect(checkPlacedPDFCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
 	connect(checkGIFsCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
@@ -152,6 +154,8 @@ void Prefs_PreflightVerifier::updateProfile(const QString& name)
 	disconnect(checkMissingImagesCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
 	disconnect(checkPartFilledImageFramesCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
 	disconnect(checkImageResolutionCheckBox, SIGNAL(toggled(bool)), this, SLOT(putProfile()));
+	disconnect(checkImageResolutionCheckBox, SIGNAL(toggled(bool)), minimumResolutionSpinBox, SLOT(setEnabled(bool)));
+	disconnect(checkImageResolutionCheckBox, SIGNAL(toggled(bool)), maximumResolutionSpinBox, SLOT(setEnabled(bool)));
 	disconnect(checkTransparenciesCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
 	disconnect(minimumResolutionSpinBox, SIGNAL(valueChanged(int)), this, SLOT(putProfile()));
 	disconnect(maximumResolutionSpinBox, SIGNAL(valueChanged(int)), this, SLOT(putProfile()));
@@ -191,6 +195,8 @@ void Prefs_PreflightVerifier::updateProfile(const QString& name)
 	connect(checkMissingImagesCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
 	connect(checkPartFilledImageFramesCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
 	connect(checkImageResolutionCheckBox, SIGNAL(toggled(bool)), this, SLOT(putProfile()));
+	connect(checkImageResolutionCheckBox, SIGNAL(toggled(bool)), minimumResolutionSpinBox, SLOT(setEnabled(bool)));
+	connect(checkImageResolutionCheckBox, SIGNAL(toggled(bool)), maximumResolutionSpinBox, SLOT(setEnabled(bool)));
 	connect(checkTransparenciesCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
 	connect(minimumResolutionSpinBox, SIGNAL(valueChanged(int)), this, SLOT(putProfile()));
 	connect(maximumResolutionSpinBox, SIGNAL(valueChanged(int)), this, SLOT(putProfile()));
