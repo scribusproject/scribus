@@ -80,9 +80,12 @@ void ScreenPainter::drawGlyph(const GlyphCluster& gc)
 		cairo_set_font_size(cr, fontSize());
 
 		double current_x = 0.0;
+		double scaleH = (gc.scaleH() != 0.0) ? gc.scaleH() : 1.0;
+		double scaleV = (gc.scaleV() != 0.0) ? gc.scaleV() : 1.0;
 		cairo_scale(cr, gc.scaleH(), gc.scaleV());
-		for (const GlyphLayout& gl : gc.glyphs()) {
-			cairo_glyph_t glyph = { gl.glyph, gl.xoffset + current_x, gl.yoffset };
+		for (const GlyphLayout& gl : gc.glyphs())
+		{
+			cairo_glyph_t glyph = { gl.glyph, gl.xoffset / scaleH + current_x, gl.yoffset / scaleV };
 			cairo_show_glyphs(cr, &glyph, 1);
 			current_x += gl.xadvance;
 		}
