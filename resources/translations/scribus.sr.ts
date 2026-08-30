@@ -22087,28 +22087,33 @@ Do you want to use this?</source>
 <context>
     <name>Prefs_PreflightVerifier</name>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="35"/>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="38"/>
         <location filename="../../scribus/ui/preferences/prefs_preflightverifier.cpp" line="18"/>
         <source>Preflight Verifier</source>
         <translation>Провера могућих проблема</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="49"/>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="52"/>
         <source>Show pages without errors</source>
         <translation>Прикажи странице без грешака</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="56"/>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="59"/>
         <source>Show errors for items on layers that will not print</source>
         <translation>Прикажи грешке за ставке на слојевима који се неће штампати</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="84"/>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="87"/>
         <source>Profile Setup</source>
         <translation>Поставке профила</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="116"/>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="109"/>
+        <source>Profile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="120"/>
         <source>Output Profile:</source>
         <translation>Профил излаза:</translation>
     </message>
@@ -22123,110 +22128,147 @@ Do you want to use this?</source>
         <translation>Уклоните профил</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="184"/>
-        <source>Profile Options</source>
-        <translation>Опције профила</translation>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="418"/>
+        <source>More Options</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="198"/>
+        <source>Profile Options</source>
+        <translation type="vanished">Опције профила</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="424"/>
         <source>Ignore all errors</source>
         <translation>Занемари све грешке</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="205"/>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="431"/>
         <source>Automatic check before printing or exporting</source>
         <translation>Сам изврши проверу пре штампања или извоза</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="212"/>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="184"/>
         <source>Check for missing glyphs</source>
         <translation>Провери да ли недостају глифови</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="219"/>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="387"/>
         <source>Check for items not on a page</source>
         <translation>Провери ставке које нису на страници</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="233"/>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="177"/>
         <source>Check for overflow in text frames</source>
         <translation>Провери има ли прекорачења у оквирима текста</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="240"/>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="357"/>
         <source>Check for used transparencies</source>
         <translation>Провери коришћене провидности</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="247"/>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="200"/>
         <source>Check for missing images</source>
         <translation>Провери недостају ли слике</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="254"/>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="14"/>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="299"/>
+        <source>Maximum</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="164"/>
+        <source>Text</source>
+        <translation type="unfinished">Текст</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="194"/>
+        <source>Images</source>
+        <translation type="unfinished">Слике</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="207"/>
         <source>Check for partially filled image frames</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="261"/>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="214"/>
         <source>Check for images with progressive encoding</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="268"/>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="228"/>
         <source>Check image resolution</source>
         <translation>Провери резолуцију слике</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="280"/>
         <source>Minimum Resolution:</source>
-        <translation>Најмања резолуција:</translation>
+        <translation type="vanished">Најмања резолуција:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="287"/>
-        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="300"/>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="277"/>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="317"/>
         <source> dpi</source>
         <translation> тпи</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="313"/>
         <source>Maximum Resolution:</source>
-        <translation>Највећа резолуција:</translation>
+        <translation type="vanished">Највећа резолуција:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="322"/>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="364"/>
         <source>Check for placed PDF files</source>
         <translation>Провери постављене ПДФ датотеке</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="329"/>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="221"/>
         <source>Check for GIF images</source>
         <translation>Провери ГИФ слике</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="336"/>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="259"/>
+        <source>Minimum</source>
+        <translation type="unfinished">Најмањи</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="351"/>
+        <source>PDF &amp;&amp; Transparency</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="371"/>
         <source>Check for PDF Annotations and Fields</source>
         <translation>Провери ПДФ прибелешке и поља</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="343"/>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="381"/>
+        <source>Pages &amp;&amp; Layers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="394"/>
+        <source>Check for applied master page side mismatch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="401"/>
         <source>Check for Visible/Printable mismatch in layers</source>
         <translation>Провери видљива/за штампање непоклапања у слојевима</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="350"/>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="408"/>
         <source>Ignore non-printable layers</source>
         <translation>Занемари слојеве који нису за штампање</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="226"/>
+        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="170"/>
         <source>Check for empty text frames</source>
         <translation>Провери има ли празних оквира текста</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="357"/>
         <source>Check if applied master page location is the same as each page&apos;s location</source>
-        <translation>Провери да ли је примењено место главне странице исто као место сваке странице</translation>
+        <translation type="vanished">Провери да ли је примењено место главне странице исто као место сваке странице</translation>
     </message>
 </context>
 <context>
@@ -25009,8 +25051,8 @@ a range of pages or a single page number</source>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="175"/>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="199"/>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="331"/>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="435"/>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="508"/>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="437"/>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="511"/>
         <source>&amp;X:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -25018,8 +25060,8 @@ a range of pages or a single page number</source>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="176"/>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="200"/>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="332"/>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="436"/>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="509"/>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="438"/>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="512"/>
         <source>&amp;Y:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -25027,8 +25069,8 @@ a range of pages or a single page number</source>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="177"/>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="201"/>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="333"/>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="437"/>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="510"/>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="439"/>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="513"/>
         <source>&amp;W:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -25036,8 +25078,8 @@ a range of pages or a single page number</source>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="178"/>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="202"/>
         <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="334"/>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="438"/>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="511"/>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="440"/>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="514"/>
         <source>&amp;H:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -25048,12 +25090,12 @@ a range of pages or a single page number</source>
         <translation>&amp;Y2:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="1469"/>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="1472"/>
         <source>Change settings for left or end points</source>
         <translation>Измените поставке за леву или крајње тачке</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="1462"/>
+        <location filename="../../scribus/ui/propertiespalette_xyz.cpp" line="1465"/>
         <source> pt</source>
         <translation> тч</translation>
     </message>
@@ -30513,13 +30555,13 @@ External Links
         <translation>Португалски (бразилски)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scpage.cpp" line="40"/>
-        <location filename="../../scribus/scpage.cpp" line="99"/>
+        <location filename="../../scribus/scpage.cpp" line="48"/>
+        <location filename="../../scribus/scpage.cpp" line="107"/>
         <source>Page</source>
         <translation>Страница</translation>
     </message>
     <message>
-        <location filename="../../scribus/scpage.cpp" line="108"/>
+        <location filename="../../scribus/scpage.cpp" line="116"/>
         <source>Master Page </source>
         <translation>Главна страница</translation>
     </message>
@@ -31003,12 +31045,12 @@ is not exhaustive due to exceptions from called functions.
         <translation>Не могу да отворим улазну датотеку „%1“</translation>
     </message>
     <message>
-        <location filename="../../scribus/fonts/ftface.cpp" line="55"/>
+        <location filename="../../scribus/fonts/ftface.cpp" line="57"/>
         <source>Freetype2 library not available</source>
         <translation>Freetype2 библиотека није доступна</translation>
     </message>
     <message>
-        <location filename="../../scribus/fonts/ftface.cpp" line="436"/>
+        <location filename="../../scribus/fonts/ftface.cpp" line="410"/>
         <source>Font %1 is broken (read stream), no embedding</source>
         <translation type="unfinished"></translation>
     </message>
@@ -31249,7 +31291,7 @@ is not exhaustive due to exceptions from called functions.
         <translation>Тражим фонтове</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4064"/>
+        <location filename="../../scribus/scribus.cpp" line="4063"/>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
         <translation>Промене на документу нису сачуване, а захтевано је враћање на последњу сачувану варијанту. Да ли желиш да наставиш?</translation>
     </message>
@@ -31330,8 +31372,8 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/fonts/ftface.cpp" line="73"/>
-        <location filename="../../scribus/fonts/ftface.cpp" line="91"/>
+        <location filename="../../scribus/fonts/ftface.cpp" line="75"/>
+        <location filename="../../scribus/fonts/ftface.cpp" line="93"/>
         <source>Font %1(%2) is broken</source>
         <translation>Фонт %1(%2) је неисправан</translation>
     </message>
@@ -31488,7 +31530,7 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/fonts/ftface.cpp" line="209"/>
+        <location filename="../../scribus/fonts/ftface.cpp" line="208"/>
         <source>Font %1 has broken glyph %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -32474,7 +32516,7 @@ Therefore the image may be not correct</source>
         <translation>Увозник ПУБ-а</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3250"/>
+        <location filename="../../scribus/scribus.cpp" line="3249"/>
         <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -36987,7 +37029,7 @@ Vertical gap: %4</source>
         <translation>Читам албум</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3417"/>
+        <location filename="../../scribus/scribus.cpp" line="3416"/>
         <source>Fatal Error</source>
         <translation>Кобна грешка</translation>
     </message>
@@ -36998,7 +37040,7 @@ Vertical gap: %4</source>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="936"/>
-        <location filename="../../scribus/scribus.cpp" line="3255"/>
+        <location filename="../../scribus/scribus.cpp" line="3254"/>
         <source>&amp;Import</source>
         <translation>&amp;Увези</translation>
     </message>
@@ -37035,208 +37077,208 @@ Vertical gap: %4</source>
     <message>
         <location filename="../../scribus/scribus.cpp" line="2120"/>
         <location filename="../../scribus/scribus.cpp" line="2158"/>
-        <location filename="../../scribus/scribus.cpp" line="3725"/>
-        <location filename="../../scribus/scribus.cpp" line="4160"/>
-        <location filename="../../scribus/scribus.cpp" line="4240"/>
-        <location filename="../../scribus/scribus.cpp" line="4402"/>
-        <location filename="../../scribus/scribus.cpp" line="6701"/>
-        <location filename="../../scribus/scribus.cpp" line="8665"/>
+        <location filename="../../scribus/scribus.cpp" line="3724"/>
+        <location filename="../../scribus/scribus.cpp" line="4159"/>
+        <location filename="../../scribus/scribus.cpp" line="4239"/>
+        <location filename="../../scribus/scribus.cpp" line="4401"/>
+        <location filename="../../scribus/scribus.cpp" line="6700"/>
+        <location filename="../../scribus/scribus.cpp" line="8664"/>
         <source>Ready</source>
         <translation>Спреман</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3080"/>
-        <location filename="../../scribus/scribus.cpp" line="3196"/>
-        <location filename="../../scribus/scribus.cpp" line="3817"/>
+        <location filename="../../scribus/scribus.cpp" line="3079"/>
+        <location filename="../../scribus/scribus.cpp" line="3195"/>
+        <location filename="../../scribus/scribus.cpp" line="3816"/>
         <source>Open</source>
         <translation>Отвори</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3217"/>
+        <location filename="../../scribus/scribus.cpp" line="3216"/>
         <source>Importing Pages...</source>
         <translation>Увозим страница...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3248"/>
+        <location filename="../../scribus/scribus.cpp" line="3247"/>
         <source>Import Page(s)</source>
         <translation>Увези страницу(е)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3294"/>
+        <location filename="../../scribus/scribus.cpp" line="3293"/>
         <source>Import done</source>
         <translation>Увоз је обављен</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3298"/>
+        <location filename="../../scribus/scribus.cpp" line="3297"/>
         <source>Found nothing to import</source>
         <translation>Нисам нашао ништа за увоз</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3371"/>
+        <location filename="../../scribus/scribus.cpp" line="3370"/>
         <source>File does not exist on the specified path :
 %1</source>
         <translation>Датотека не постоји на наведеној путањи:
 %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3418"/>
+        <location filename="../../scribus/scribus.cpp" line="3417"/>
         <source>File %1 is not in an acceptable format</source>
         <translation>Датотека „%1“ није у прихватљивом формату</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3453"/>
+        <location filename="../../scribus/scribus.cpp" line="3452"/>
         <source>Loading...</source>
         <translation>Учитавам...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3617"/>
+        <location filename="../../scribus/scribus.cpp" line="3616"/>
         <source> was replaced by: </source>
         <translation> замењени су са:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3647"/>
+        <location filename="../../scribus/scribus.cpp" line="3646"/>
         <source>(converted)</source>
         <translation>(претворени)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4003"/>
+        <location filename="../../scribus/scribus.cpp" line="4002"/>
         <source>Filename and Path for Image</source>
         <translation>Назив датотеке и путање за слику</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4003"/>
+        <location filename="../../scribus/scribus.cpp" line="4002"/>
         <source>All Files (*)</source>
         <translation>Све датотеке (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4096"/>
-        <location filename="../../scribus/scribus.cpp" line="4155"/>
-        <location filename="../../scribus/scribus.cpp" line="7150"/>
-        <location filename="../../scribus/scribus.cpp" line="7314"/>
-        <location filename="../../scribus/scribus.cpp" line="7328"/>
+        <location filename="../../scribus/scribus.cpp" line="4095"/>
+        <location filename="../../scribus/scribus.cpp" line="4154"/>
+        <location filename="../../scribus/scribus.cpp" line="7149"/>
+        <location filename="../../scribus/scribus.cpp" line="7313"/>
+        <location filename="../../scribus/scribus.cpp" line="7327"/>
         <source>Cannot write the file: 
 %1</source>
         <translation>Не могу да запишем датотеку: 
 %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4140"/>
-        <location filename="../../scribus/scribus.cpp" line="7139"/>
+        <location filename="../../scribus/scribus.cpp" line="4139"/>
+        <location filename="../../scribus/scribus.cpp" line="7138"/>
         <source>Save As</source>
         <translation>Сачувај као</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4171"/>
+        <location filename="../../scribus/scribus.cpp" line="4170"/>
         <source>Saving...</source>
         <translation>Чувам...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4305"/>
-        <location filename="../../scribus/scribus.cpp" line="6818"/>
-        <location filename="../../scribus/scribus.cpp" line="6895"/>
-        <location filename="../../scribus/scribus.cpp" line="6967"/>
+        <location filename="../../scribus/scribus.cpp" line="4304"/>
+        <location filename="../../scribus/scribus.cpp" line="6817"/>
+        <location filename="../../scribus/scribus.cpp" line="6894"/>
+        <location filename="../../scribus/scribus.cpp" line="6966"/>
         <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
         <translation>Скрибус је нашао неке грешке. Размислите о коришћењу провере могућих проблема као опције за њихово исправљање</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4340"/>
+        <location filename="../../scribus/scribus.cpp" line="4339"/>
         <source>Printing...</source>
         <translation>Штампам...</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1284"/>
         <location filename="../../scribus/scribus.cpp" line="2182"/>
-        <location filename="../../scribus/scribus.cpp" line="4344"/>
-        <location filename="../../scribus/scribus.cpp" line="7118"/>
-        <location filename="../../scribus/scribus.cpp" line="8395"/>
+        <location filename="../../scribus/scribus.cpp" line="4343"/>
+        <location filename="../../scribus/scribus.cpp" line="7117"/>
+        <location filename="../../scribus/scribus.cpp" line="8394"/>
         <source>Document</source>
         <translation>Документ</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4390"/>
+        <location filename="../../scribus/scribus.cpp" line="4389"/>
         <source>Printing failed!</source>
         <translation>Штампање није успело!</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4480"/>
+        <location filename="../../scribus/scribus.cpp" line="4479"/>
         <source>Cannot Cut In-Use Item</source>
         <translation>Не могу да исечем ставку у употреби</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4480"/>
+        <location filename="../../scribus/scribus.cpp" line="4479"/>
         <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
         <translation>Ставка „%1“ се тренутно уређује у уређивачу текста. Радња исецања биће отказана</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5114"/>
+        <location filename="../../scribus/scribus.cpp" line="5113"/>
         <source>About Qt</source>
         <translation>О Кут-у</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5145"/>
+        <location filename="../../scribus/scribus.cpp" line="5144"/>
         <source>Scribus Manual</source>
         <translation>Упутство Скрибуса</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6268"/>
+        <location filename="../../scribus/scribus.cpp" line="6267"/>
         <source>&amp;Size:</source>
         <translation>&amp;Величина:</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1622"/>
-        <location filename="../../scribus/scribus.cpp" line="6268"/>
+        <location filename="../../scribus/scribus.cpp" line="6267"/>
         <source>Size</source>
         <translation>Величина</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6683"/>
+        <location filename="../../scribus/scribus.cpp" line="6682"/>
         <source>An error occurred while opening monitor profile.
 Former monitor profile will be used.</source>
         <translation>Дошло је до грешке приликом отварања профила монитора.
 Стари профил монитора биће коришћен.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7085"/>
+        <location filename="../../scribus/scribus.cpp" line="7084"/>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
         <translation>Скрибус је нашао неке грешке.
 Размислите о коришћењу провере могућих проблема као опције за њихово исправљање.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7181"/>
+        <location filename="../../scribus/scribus.cpp" line="7180"/>
         <source>Detected some errors.
 Consider using the Preflight Verifier to correct them</source>
         <translation>Откривене су неке грешке.
 Размислите о коришћењу провере могућих проблема као опције за њихово исправљање.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7310"/>
+        <location filename="../../scribus/scribus.cpp" line="7309"/>
         <source>-Page%1</source>
         <translation>-Страница%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7868"/>
+        <location filename="../../scribus/scribus.cpp" line="7867"/>
         <source>Some objects are locked.</source>
         <translation>Неки објекти су закључани.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7864"/>
+        <location filename="../../scribus/scribus.cpp" line="7863"/>
         <source>&amp;Lock All</source>
         <translation>&amp;Закључај све</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7342"/>
+        <location filename="../../scribus/scribus.cpp" line="7341"/>
         <source>Locate your PDF viewer</source>
         <translation>Нађите ПДФ прегледач</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7865"/>
+        <location filename="../../scribus/scribus.cpp" line="7864"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Откључај све</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3925"/>
-        <location filename="../../scribus/scribus.cpp" line="8862"/>
+        <location filename="../../scribus/scribus.cpp" line="3924"/>
+        <location filename="../../scribus/scribus.cpp" line="8861"/>
         <source>Do you really want to replace your existing image?</source>
         <translation>Да ли стварно желите да замените постојећу слику?</translation>
     </message>
@@ -37266,17 +37308,17 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>Налепи претходно</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3839"/>
+        <location filename="../../scribus/scribus.cpp" line="3838"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Да ли стварно желите да очистите сав текст?</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3614"/>
+        <location filename="../../scribus/scribus.cpp" line="3613"/>
         <source>Some color profiles used by this document are not installed:</source>
         <translation>Неки профили боја који се користе у овом документу нису инсталирани:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7139"/>
+        <location filename="../../scribus/scribus.cpp" line="7138"/>
         <source>%1;;All Files (*)</source>
         <translation>%1;;Све датотеке (*)</translation>
     </message>
@@ -37286,57 +37328,57 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>Примењујем корисничке пречице</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6723"/>
+        <location filename="../../scribus/scribus.cpp" line="6722"/>
         <source>Updating Images</source>
         <translation>Освежавам слике</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4094"/>
-        <location filename="../../scribus/scribus.cpp" line="4153"/>
+        <location filename="../../scribus/scribus.cpp" line="4093"/>
+        <location filename="../../scribus/scribus.cpp" line="4152"/>
         <source>Your document was saved to a temporary file and could not be moved: 
 %1</source>
         <translation>Ваш документ је сачуван у привременој датотеци и не може се преместити: 
 %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4453"/>
+        <location filename="../../scribus/scribus.cpp" line="4452"/>
         <source>Print engine initialization failed</source>
         <translation>Није успело покретање погона штампе</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3053"/>
+        <location filename="../../scribus/scribus.cpp" line="3052"/>
         <source>All Supported Formats</source>
         <translation>Сви подржани формати</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9139"/>
-        <location filename="../../scribus/scribus.cpp" line="9218"/>
+        <location filename="../../scribus/scribus.cpp" line="9138"/>
+        <location filename="../../scribus/scribus.cpp" line="9217"/>
         <source>&amp;Name:</source>
         <translation>&amp;Назив:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9139"/>
-        <location filename="../../scribus/scribus.cpp" line="9218"/>
+        <location filename="../../scribus/scribus.cpp" line="9138"/>
+        <location filename="../../scribus/scribus.cpp" line="9217"/>
         <source>New Entry</source>
         <translation>Нов унос</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6859"/>
+        <location filename="../../scribus/scribus.cpp" line="6858"/>
         <source>Ghostscript is missing : PostScript Print Preview is not available</source>
         <translation>Гоустскрипт недостаје : Претпреглед штампе Постскрипта није доступан</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3402"/>
+        <location filename="../../scribus/scribus.cpp" line="3401"/>
         <source>Document is already opened</source>
         <translation>Документ је већ отворен</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3419"/>
+        <location filename="../../scribus/scribus.cpp" line="3418"/>
         <source>The file may be damaged or may have been produced in a later version of Scribus.</source>
         <translation>Датотека је можда оштећена или је направљена каснијим издањем Скрибуса.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7619"/>
+        <location filename="../../scribus/scribus.cpp" line="7618"/>
         <source>Editing Symbol: %1</source>
         <translation>Уређујем симбол: %1</translation>
     </message>
@@ -37367,26 +37409,26 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>Ознаке</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9634"/>
-        <location filename="../../scribus/scribus.cpp" line="9899"/>
+        <location filename="../../scribus/scribus.cpp" line="9633"/>
+        <location filename="../../scribus/scribus.cpp" line="9898"/>
         <source>Anchor mark</source>
         <translation>Усидри ознаку</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9642"/>
-        <location filename="../../scribus/scribus.cpp" line="9912"/>
+        <location filename="../../scribus/scribus.cpp" line="9641"/>
+        <location filename="../../scribus/scribus.cpp" line="9911"/>
         <source>Mark with &lt;%1&gt; variable text</source>
         <translation>Означи са &lt;%1&gt; текстом променљиве</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9650"/>
-        <location filename="../../scribus/scribus.cpp" line="9951"/>
+        <location filename="../../scribus/scribus.cpp" line="9649"/>
+        <location filename="../../scribus/scribus.cpp" line="9950"/>
         <source>Mark to %1 item</source>
         <translation>Означи у %1 ставку</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9660"/>
-        <location filename="../../scribus/scribus.cpp" line="9972"/>
+        <location filename="../../scribus/scribus.cpp" line="9659"/>
+        <location filename="../../scribus/scribus.cpp" line="9971"/>
         <source>Mark to %1 mark</source>
         <translation>Означи у %1 ознаку</translation>
     </message>
@@ -37506,94 +37548,94 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1491"/>
-        <location filename="../../scribus/scribus.cpp" line="8661"/>
+        <location filename="../../scribus/scribus.cpp" line="8660"/>
         <source>X:</source>
         <translation>X:</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1493"/>
-        <location filename="../../scribus/scribus.cpp" line="8662"/>
+        <location filename="../../scribus/scribus.cpp" line="8661"/>
         <source>Y:</source>
         <translation>Y:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3402"/>
+        <location filename="../../scribus/scribus.cpp" line="3401"/>
         <source>This document is already open. It will be set as the active document.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5222"/>
+        <location filename="../../scribus/scribus.cpp" line="5221"/>
         <source>Text Files (*.txt);;All Files (*)</source>
         <translation>Текстуалне датотеке (*.txt);;Све датотеке (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5222"/>
+        <location filename="../../scribus/scribus.cpp" line="5221"/>
         <source>Save as</source>
         <translation>Сачувај као</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6281"/>
+        <location filename="../../scribus/scribus.cpp" line="6280"/>
         <source>&amp;Language:</source>
         <translation>&amp;Језик:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6281"/>
+        <location filename="../../scribus/scribus.cpp" line="6280"/>
         <source>Language</source>
         <translation>Језик</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7670"/>
+        <location filename="../../scribus/scribus.cpp" line="7669"/>
         <source>Editing Inline Item</source>
         <translation>Уређујем уграђену ставку</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8494"/>
+        <location filename="../../scribus/scribus.cpp" line="8493"/>
         <source>The program %1 is missing or failed to open</source>
         <translation>Програм „%1“ недостаје или није успео да се отвори</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8655"/>
+        <location filename="../../scribus/scribus.cpp" line="8654"/>
         <source>Current zoom level</source>
         <translation>Текући ниво увеличања</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8656"/>
+        <location filename="../../scribus/scribus.cpp" line="8655"/>
         <source>Zoom to 100%</source>
         <translation>Увеличај на 100%</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8657"/>
+        <location filename="../../scribus/scribus.cpp" line="8656"/>
         <source>Zoom out by the stepping value in Tools preferences</source>
         <translation>Умањите за вредност корака у поставкама алата</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8658"/>
+        <location filename="../../scribus/scribus.cpp" line="8657"/>
         <source>Zoom in by the stepping value in Tools preferences</source>
         <translation>Увећајте за вредност корака у поставкама алата</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8659"/>
+        <location filename="../../scribus/scribus.cpp" line="8658"/>
         <source>Select the current layer</source>
         <translation>Изаберите текући слој</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8660"/>
+        <location filename="../../scribus/scribus.cpp" line="8659"/>
         <source>Select the current unit</source>
         <translation>Изаберите текућу јединицу</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9608"/>
+        <location filename="../../scribus/scribus.cpp" line="9607"/>
         <source>Insert New </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9683"/>
-        <location filename="../../scribus/scribus.cpp" line="9994"/>
+        <location filename="../../scribus/scribus.cpp" line="9682"/>
+        <location filename="../../scribus/scribus.cpp" line="9993"/>
         <source>Index mark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9879"/>
+        <location filename="../../scribus/scribus.cpp" line="9878"/>
         <source>Edit %1</source>
         <translation>Уреди „%1“</translation>
     </message>
@@ -37608,7 +37650,7 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>„%1“ је изабран</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3254"/>
+        <location filename="../../scribus/scribus.cpp" line="3253"/>
         <source>C&amp;reate</source>
         <translation>&amp;Направи</translation>
     </message>
