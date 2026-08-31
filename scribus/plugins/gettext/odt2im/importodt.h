@@ -128,6 +128,7 @@ private:
 	void applyCharacterStyle(CharStyle &tmpCStyle, const ObjStyleODT &oStyle);
 	void applyParagraphStyle(ParagraphStyle &tmpStyle, const ObjStyleODT &oStyle);
 	void resolveStyle(ObjStyleODT &tmpOStyle, const QString& pAttrs);
+	bool findNamedParagraphStyle(const QString& styleName, QString& sourceStyleName, QString& importedStyleName) const;
 	double parseUnit(const QString &unit) const;
 	QString parseColor( const QString &s );
 	QString constructFontName(const QString& fontBaseName, const QString& fontStyle);
