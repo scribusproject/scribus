@@ -490,6 +490,16 @@ void DocXIm::parseCharProps(QDomElement& props, CharStyle& cStyle)
 				cStyle.setParent(charStyleIDToNameMap[nam]);
 			}
 		}
+		if (spc.tagName() == "w:b")
+		{
+			QString val = spc.attribute("w:val", "true");
+			boldFont = (val == "true");
+		}
+		if (spc.tagName() == "w:i")
+		{
+			QString val = spc.attribute("w:val", "true");
+			italicFont = (val == "true");
+		}
 		if (spc.tagName() == "w:u")
 		{
 			StyleFlag styleEffects;
@@ -637,6 +647,27 @@ void DocXIm::parseCharProps(QDomElement& props, CharStyle& cStyle)
 			}
 		}
 	}
+
+	bool changedStyle = false;
+	QString currentStyle = cStyle.font().style();
+	if (boldFont && italicFont)
+		changedStyle = (currentStyle != "Bold Italic");
+	else if (boldFont)
+		changedStyle = (currentStyle != "Bold");
+	else if (italicFont)
+		changedStyle = (currentStyle != "Italic");
+	else
+		changedStyle = (!currentStyle.isEmpty() && currentStyle != "Regular" && currentStyle != "Medium");
+
+	if (changedStyle)
+	{
+		QString fontFamily = cStyle.font().family();
+		if (!fontFamily.isEmpty())
+		{
+			QString font = getFontName(fontFamily, boldFont, italicFont);
+			cStyle.setFont(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts[font]);
+		}
+	}
 }
 
 void DocXIm::parsePlainTextOnly(PageItem *textItem)
@@ -735,6 +766,60 @@ QString DocXIm::getFontName(const QString& name)
 					fontName = it.current().family() + " " + slist[reInd];
 				return fontName;
 			}
+		}
+	}
+
+	if (!PrefsManager::instance().appPrefs.fontPrefs.GFontSub.contains(fontName))
+	{
+		QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
+		MissingFont dia(nullptr, fontName, m_Doc);
+		static_cast<void>(dia.exec());
+		QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
+		PrefsManager::instance().appPrefs.fontPrefs.GFontSub[fontName] = dia.getReplacementFont();
+		fontName = dia.getReplacementFont();
+	}
+	else
+		fontName = PrefsManager::instance().appPrefs.fontPrefs.GFontSub[fontName];
+
+	return fontName;
+}
+
+QString DocXIm::getFontName(const QString& family, bool bold, bool italic)
+{
+	QString fontFamily = family;
+
+	QString fontName = family;
+	if (bold)
+		fontName += " Bold";
+	if (italic)
+		fontName += " Italic";
+
+	QString fontStyle = "Regular";
+	if (bold && !italic)
+		fontStyle = "Bold";
+	else if (!bold && italic)
+		fontStyle = "Italic";
+	else if (bold && italic)
+		fontStyle = "Bold Italic";
+
+	SCFontsIterator it(PrefsManager::instance().appPrefs.fontPrefs.AvailFonts);
+	for (; it.hasNext(); it.next())
+	{
+		if (it.current().family().toLower() != fontFamily.toLower())
+			continue;
+		if (it.currentKey().toLower() == fontName.toLower()) // exact Match
+			return fontName;
+
+		QStringList slist = PrefsManager::instance().appPrefs.fontPrefs.AvailFonts.fontMap.value(it.current().family());
+		if (slist.isEmpty())
+			continue;
+
+		slist.sort();
+		int reInd = slist.indexOf(fontStyle);
+		if (reInd >= 0)
+		{
+			fontName = it.current().family() + " " + slist[reInd];
+			return fontName;
 		}
 	}
 

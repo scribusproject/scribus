@@ -45,6 +45,7 @@ class DocXIm
 		void parseCharProps(QDomElement &props, CharStyle &cStyle);
 		void parsePlainTextOnly(PageItem *textItem);
 		QString getFontName(const QString& name);
+		QString getFontName(const QString& family, bool bold, bool italic);
 		double pixelsFromTwips(double twips) const;
 
 		QString themePart;
