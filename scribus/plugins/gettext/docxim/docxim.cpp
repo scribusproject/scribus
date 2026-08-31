@@ -391,10 +391,8 @@ void DocXIm::parseStyledText(PageItem *textItem)
 						}
 						else if (spr.tagName() == "w:r")
 						{
-							if (hasStyle)
-								currentParagraphStyle.charStyle() = m_Doc->paragraphStyle(currStyleName).charStyle();
-							else
-								currentParagraphStyle.charStyle() = defaultParagraphStyle.charStyle();
+							CharStyle savedStyle = currentParagraphStyle.charStyle();
+
 							for (QDomElement spt = spr.firstChildElement(); !spt.isNull(); spt = spt.nextSiblingElement())
 							{
 								if (spt.tagName() == "w:t")
@@ -427,6 +425,8 @@ void DocXIm::parseStyledText(PageItem *textItem)
 								else if (spt.tagName() == "w:rPr")
 									parseCharProps(spt, currentParagraphStyle);
 							}
+
+							currentParagraphStyle.charStyle() = savedStyle;
 						}
 					}
 					textItem->itemText.insertChars(textItem->itemText.length(), SpecialChars::PARSEP);
@@ -510,13 +510,52 @@ void DocXIm::parseParaProps(QDomElement &props, ParagraphStyle &pStyle)
 
 void DocXIm::parseCharProps(QDomElement& props, ParagraphStyle& pStyle)
 {
-	parseCharProps(props, pStyle.charStyle());
+	ScFace currentFont = pStyle.charStyle().font();
+	if (currentFont.isNone() && !pStyle.charStyle().parent().isEmpty())
+	{
+		QString parentCStyleName = pStyle.charStyle().parent();
+		const auto* parentCStyle = dynamic_cast<const CharStyle*>(m_Doc->charStyles().resolve(parentCStyleName));
+		while (parentCStyle)
+		{
+			currentFont = parentCStyle->font();
+			if (!currentFont.isNone())
+				break;
+			parentCStyleName = parentCStyle->parent();
+			if (parentCStyleName.isEmpty())
+				break;
+			parentCStyle = dynamic_cast<const CharStyle*>(m_Doc->charStyles().resolve(parentCStyleName));
+		}
+	}
+	if (currentFont.isNone() && !pStyle.parent().isEmpty())
+	{
+		QString parentStyleName = pStyle.parent();
+		const auto* parentStyle = dynamic_cast<const ParagraphStyle*>(m_Doc->paragraphStyles().resolve(parentStyleName));
+		while (parentStyle)
+		{
+			currentFont = parentStyle->charStyle().font();
+			if (!currentFont.isNone())
+				break;
+			parentStyleName = parentStyle->parent();
+			if (parentStyleName.isEmpty())
+				break;
+			parentStyle = dynamic_cast<const ParagraphStyle*>(m_Doc->paragraphStyles().resolve(parentStyleName));
+		}
+	}
+	if (currentFont.isNone())
+		currentFont = defaultCharacterStyle.font();
+	parseCharProps(props, pStyle.charStyle(), currentFont);
 }
 
-void DocXIm::parseCharProps(QDomElement& props, CharStyle& cStyle)
+void DocXIm::parseCharProps(QDomElement& props, CharStyle& cStyle, const ScFace& currFont)
 {
 	bool boldFont = false;
 	bool italicFont = false;
+
+	ScFace currentFace = cStyle.font();
+	if (currentFace.isNone())
+		currentFace = currFont;
+	boldFont = currentFace.style().contains("Bold");
+	italicFont = currentFace.style().contains("Italic");
 
 	for (QDomElement spc = props.firstChildElement(); !spc.isNull(); spc = spc.nextSiblingElement())
 	{
@@ -688,7 +727,7 @@ void DocXIm::parseCharProps(QDomElement& props, CharStyle& cStyle)
 	}
 
 	bool changedStyle = false;
-	QString currentStyle = cStyle.font().style();
+	QString currentStyle = currentFace.style();
 	if (boldFont && italicFont)
 		changedStyle = (currentStyle != "Bold Italic");
 	else if (boldFont)
@@ -700,7 +739,7 @@ void DocXIm::parseCharProps(QDomElement& props, CharStyle& cStyle)
 
 	if (changedStyle)
 	{
-		QString fontFamily = cStyle.font().family();
+		QString fontFamily = currentFace.family();
 		if (!fontFamily.isEmpty())
 		{
 			QString font = getFontName(fontFamily, boldFont, italicFont);
