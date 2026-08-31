@@ -409,7 +409,7 @@ void DocXIm::parseParaProps(QDomElement &props, ParagraphStyle &pStyle)
 		else if (spt.tagName() == "w:jc")
 		{
 			QString align = spt.attribute("w:val");
-			if (align == "start")
+			if (align == "start" || align == "left")
 				pStyle.setAlignment(ParagraphStyle::LeftAligned);
 			else if (align == "center")
 				pStyle.setAlignment(ParagraphStyle::Centered);
