@@ -42,6 +42,7 @@ class DocXIm
 		void parseStyledText(PageItem *textItem);
 		void parseParaProps(QDomElement &props, ParagraphStyle &pStyle);
 		void parseCharProps(QDomElement &props, ParagraphStyle &pStyle);
+		void parseCharProps(QDomElement &props, CharStyle &cStyle);
 		void parsePlainTextOnly(PageItem *textItem);
 		QString getFontName(const QString& name);
 		double pixelsFromTwips(double twips) const;
@@ -58,7 +59,9 @@ class DocXIm
 		bool m_append { false };
 		ParagraphStyle defaultParagraphStyle;
 		ParagraphStyle currentParagraphStyle;
-		QHash<QString, QString> map_ID_to_Name;
+		CharStyle      defaultCharacterStyle;
+		QHash<QString, QString> paraStyleIDToNameMap;
+		QHash<QString, QString> charStyleIDToNameMap;
 };
 
 #endif
