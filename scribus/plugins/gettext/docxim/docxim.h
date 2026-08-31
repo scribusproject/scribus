@@ -42,7 +42,7 @@ class DocXIm
 		void parseStyledText(PageItem *textItem);
 		void parseParaProps(QDomElement &props, ParagraphStyle &pStyle);
 		void parseCharProps(QDomElement &props, ParagraphStyle &pStyle);
-		void parseCharProps(QDomElement &props, CharStyle &cStyle);
+		void parseCharProps(QDomElement &props, CharStyle &cStyle, const ScFace& currFont = ScFace::none());
 		void parsePlainTextOnly(PageItem *textItem);
 		QString getFontName(const QString& name);
 		QString getFontName(const QString& family, bool bold, bool italic);
