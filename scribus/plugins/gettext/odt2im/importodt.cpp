@@ -715,6 +715,38 @@ bool ODTIm::parseDocReferenceXML(const QDomDocument &designMapDom)
 	return true;
 }
 
+bool ODTIm::findNamedParagraphStyle(const QString& styleName, QString& sourceStyleName, QString& importedStyleName) const
+{
+	sourceStyleName.clear();
+	importedStyleName.clear();
+
+	QString currentName = styleName;
+	for (auto remaining = m_Styles.size(); remaining > 0 && !currentName.isEmpty(); --remaining)
+	{
+		auto styleIt = m_Styles.constFind(currentName);
+		if (styleIt == m_Styles.constEnd())
+			break;
+
+		const DrawStyle& style = styleIt.value();
+		if (style.styleOrigin.valid && style.styleType.valid
+			&& style.styleOrigin.value == "styles"
+			&& style.styleType.value == "paragraph")
+		{
+			sourceStyleName = currentName;
+			importedStyleName = style.displayName.valid ? style.displayName.value : currentName;
+			if (m_prefixName)
+				importedStyleName.prepend(m_item->itemName() + "_");
+			return true;
+		}
+
+		if (!style.parentStyle.valid)
+			break;
+		currentName = style.parentStyle.value;
+	}
+
+	return false;
+}
+
 void ODTIm::parseTextSpan(const QDomElement &elem, PageItem* item, const ParagraphStyle &tmpStyle, const CharStyle &tmpCStyle, const ObjStyleODT &tmpOStyle, int &posC)
 {
 	if (!elem.hasChildNodes())
@@ -869,35 +901,20 @@ void ODTIm::parseTextList(const QDomNode& elem, PageItem* item, const ParagraphS
 void ODTIm::parseTextParagraph(const QDomNode &elem, PageItem* item, const ParagraphStyle &newStyle, const ObjStyleODT &tmpOStyle, int &posC)
 {
 	ParagraphStyle tmpStyle = newStyle;
-	CharStyle tmpCStyle = tmpStyle.charStyle();
 	ObjStyleODT pStyle = tmpOStyle;
 	QString parStyleName;
+	QString namedOdtStyleName;
+	bool hasNamedParagraphStyle = false;
 
 	QString pStyleName = elem.toElement().attribute("text:style-name");
 	if (!pStyleName.isEmpty())
 	{
 		resolveStyle(pStyle, pStyleName);
-		if (m_Styles.contains(pStyleName))
-		{
-			DrawStyle currStyle = m_Styles[pStyleName];
-			if (currStyle.styleOrigin.value == "styles")
-			{
-				if (m_prefixName)
-				{
-					parStyleName = m_item->itemName() + "_" + pStyleName;
-					if (currStyle.displayName.valid)
-						parStyleName = m_item->itemName() + "_" + currStyle.displayName.value;
-				}
-				else
-				{
-					parStyleName = pStyleName;
-					if (currStyle.displayName.valid)
-						parStyleName = currStyle.displayName.value;
-				}
-			}
-		}
+		hasNamedParagraphStyle = findNamedParagraphStyle(pStyleName, namedOdtStyleName, parStyleName);
 		m_textStylesStack.push(pStyleName);
 	}
+
+	CharStyle tmpCStyle = tmpStyle.charStyle();
 	if ((pStyle.breakBefore == "column") && (item->itemText.isNotEmpty()))
 	{
 		QString txt = SpecialChars::COLBREAK;
@@ -908,24 +925,36 @@ void ODTIm::parseTextParagraph(const QDomNode &elem, PageItem* item, const Parag
 		QString txt = SpecialChars::FRAMEBREAK;
 		insertChars(item, txt, tmpStyle, tmpCStyle, posC);
 	}
+
+	if (hasNamedParagraphStyle)
+	{
+		// A paragraph assigned to a named style should not retain the importer's
+		// default paragraph values as local overrides.
+		tmpStyle.erase();
+		tmpStyle.setParent(parStyleName);
+	}
 	applyParagraphStyle(tmpStyle, pStyle);
+
+	if (hasNamedParagraphStyle)
+	{
+		ObjStyleODT inheritedStyle = tmpOStyle;
+		resolveStyle(inheritedStyle, namedOdtStyleName);
+
+		ParagraphStyle inheritedParagraphStyle;
+		inheritedParagraphStyle.erase();
+		applyParagraphStyle(inheritedParagraphStyle, inheritedStyle);
+
+		// Keep the named Scribus style as the paragraph base and retain only
+		// paragraph properties introduced by an ODT automatic style.
+		tmpStyle.eraseStyle(inheritedParagraphStyle);
+		tmpStyle.setParent(parStyleName);
+	}
+
+	tmpCStyle = tmpStyle.charStyle();
+	applyCharacterStyle(tmpCStyle, pStyle);
 
 	for (QDomNode spn = elem.firstChild(); !spn.isNull(); spn = spn.nextSibling())
 	{
-		if (!parStyleName.isEmpty())
-		{
-			tmpStyle.setParent(parStyleName);
-			applyParagraphStyle(tmpStyle, pStyle);
-			tmpCStyle = tmpStyle.charStyle();
-			applyCharacterStyle(tmpCStyle, pStyle);
-		}
-		else
-		{
-			tmpStyle = newStyle;
-			applyParagraphStyle(tmpStyle, pStyle);
-			tmpCStyle = tmpStyle.charStyle();
-			applyCharacterStyle(tmpCStyle, pStyle);
-		}
 		QString txt;
 		ObjStyleODT cStyle = pStyle;
 		QDomElement spEl = spn.toElement();
