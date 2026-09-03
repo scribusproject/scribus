@@ -258,7 +258,6 @@ void HelpBrowser::setupLocalUI()
 	histMenu = new QMenu(this);
 
 	//Add Menu items
-#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
 	filePrint = fileMenu->addAction(iconManager.loadIcon("document-print"), "", Qt::CTRL|Qt::Key_P, this, &HelpBrowser::print);
 	fileMenu->addSeparator();
 	fileExit = fileMenu->addAction(iconManager.loadIcon("exit"), "", Qt::CTRL|Qt::Key_W, this, &HelpBrowser::close);
@@ -268,28 +267,11 @@ void HelpBrowser::setupLocalUI()
 	bookAdd = bookMenu->addAction( "", Qt::CTRL|Qt::Key_D, this, &HelpBrowser::bookmarkButton_clicked);
 	bookDel = bookMenu->addAction( "", this, &HelpBrowser::deleteBookmarkButton_clicked);
 	bookDelAll = bookMenu->addAction( "", this, &HelpBrowser::deleteAllBookmarkButton_clicked);
-#else
-	filePrint = fileMenu->addAction(iconManager.loadIcon("document-print"), "", this, SLOT(print()), Qt::CTRL | Qt::Key_P);
-	fileMenu->addSeparator();
-	fileExit = fileMenu->addAction(iconManager.loadIcon("exit"), "", this, SLOT(close()), Qt::CTRL | Qt::Key_W);
-	editFind = editMenu->addAction(iconManager.loadIcon("find"), "", this, SLOT(find()), Qt::CTRL | Qt::Key_F);
-	editFindNext = editMenu->addAction("", this, SLOT(findNext()), Qt::Key_F3);
-	editFindPrev = editMenu->addAction("", this, SLOT(findPrevious()), Qt::SHIFT | Qt::Key_F3);
-	bookAdd = bookMenu->addAction("", this, SLOT(bookmarkButton_clicked()), Qt::CTRL | Qt::Key_D);
-	bookDel = bookMenu->addAction("", this, SLOT(deleteBookmarkButton_clicked()));
-	bookDelAll = bookMenu->addAction("", this, SLOT(deleteAllBookmarkButton_clicked()));
-#endif
 
 	//Add Toolbar items
-#if QT_VERSION >= QT_VERSION_CHECK(6, 3, 0)
 	goHome = toolBar->addAction(iconManager.loadIcon("go-home"), "", textBrowser, &ScTextBrowser::home);
 	goBack = toolBar->addAction(iconManager.loadIcon("go-previous"), "", textBrowser, &ScTextBrowser::backward);
 	goFwd = toolBar->addAction(iconManager.loadIcon("go-next"), "", textBrowser, &ScTextBrowser::forward);
-#else
-	goHome = toolBar->addAction(iconManager.loadIcon("go-home"), "", textBrowser, SLOT(home()));
-	goBack = toolBar->addAction(iconManager.loadIcon("go-previous"), "", textBrowser, SLOT(backward()));
-	goFwd = toolBar->addAction(iconManager.loadIcon("go-next"), "", textBrowser, SLOT(forward()));
-#endif
 	goBack->setMenu(histMenu);
 	
 	helpNav->listView->header()->hide();

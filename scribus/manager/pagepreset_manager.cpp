@@ -877,11 +877,7 @@ bool PagePresetManager::saveDocument(const QString &filePath, const QDomDocument
 	if (saveFile.open(QIODevice::WriteOnly | QIODevice::Text))
 	{
 		QTextStream out(&saveFile);
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 		out.setEncoding(QStringConverter::Utf8);
-#else
-		out.setCodec("UTF-8");
-#endif
 		doc.save(out, 4);
 		return saveFile.commit();
 	}
