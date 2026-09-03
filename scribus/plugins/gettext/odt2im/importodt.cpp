@@ -1303,7 +1303,7 @@ void ODTIm::resolveStyle(ObjStyleODT &tmpOStyle, const QString& styleName)
 					parentStyles.prepend(drawStyle.parentStyle.value);
 					drawStyle = m_Styles[drawStyle.parentStyle.value];
 				}
-				if (parentStyles.count() > 0)
+				if (!parentStyles.isEmpty())
 					textStyleStack += parentStyles;
 			}
 		}
