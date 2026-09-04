@@ -44,6 +44,9 @@ QPalette createDarkPalette()
 	darkPalette.setColor(QPalette::ToolTipBase, Qt::white);
 	darkPalette.setColor(QPalette::ToolTipText, Qt::black);
 	darkPalette.setColor(QPalette::Text, Qt::white);
+	QColor placeholderTextColor = darkPalette.color(QPalette::Text);
+	placeholderTextColor.setAlpha(128);
+	darkPalette.setColor(QPalette::PlaceholderText, placeholderTextColor);
 	darkPalette.setColor(QPalette::Button, QColor(53, 53, 53));
 	darkPalette.setColor(QPalette::ButtonText, Qt::white);
 	darkPalette.setColor(QPalette::BrightText, Qt::red);
@@ -51,6 +54,13 @@ QPalette createDarkPalette()
 	darkPalette.setColor(QPalette::Highlight, QColor(42, 130, 218));
 	darkPalette.setColor(QPalette::HighlightedText, Qt::black);
 	darkPalette.setColor(QPalette::Shadow, Qt::black);
+
+	// Keep the palette's shading roles consistent with dark button surfaces.
+	const QColor buttonColor = darkPalette.color(QPalette::Button);
+	darkPalette.setColor(QPalette::Light, buttonColor.lighter(150));
+	darkPalette.setColor(QPalette::Midlight, buttonColor.lighter(120));
+	darkPalette.setColor(QPalette::Dark, buttonColor.darker(150));
+	darkPalette.setColor(QPalette::Mid, buttonColor.darker(120));
 
 	darkPalette.setColor(QPalette::Disabled, QPalette::Text, Qt::darkGray);
 	darkPalette.setColor(QPalette::Disabled, QPalette::ButtonText, Qt::darkGray);
