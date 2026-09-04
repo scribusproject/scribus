@@ -170,12 +170,12 @@ QScrollArea#dockWidgetScrollArea {
 }
 
 #tabCloseButton:hover {
-       border: 1px solid rgba(0, 0, 0, 32);
-       background: rgba(0, 0, 0, 16);
+       border: 1px solid rgba(___overlayRgb___, 32);
+       background: rgba(___overlayRgb___, 16);
 }
 
 #tabCloseButton:pressed {
-       background: rgba(0, 0, 0, 32);
+       background: rgba(___overlayRgb___, 32);
 }
 
 #tabsMenuButton {
@@ -219,10 +219,10 @@ ads--CFloatingWidgetTitleBar {
 }
 
 #floatingTitleCloseButton:hover {
-   background: rgba(0, 0, 0, 24);
+   background: rgba(___overlayRgb___, 24);
    border: none;
 }
 
 #floatingTitleCloseButton:pressed {
-   background: rgba(0, 0, 0, 48);
+   background: rgba(___overlayRgb___, 48);
 }

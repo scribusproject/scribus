@@ -613,6 +613,14 @@ void ScribusMainWindow::setStyleSheet()
 		QByteArray tba;
 		tba.append(toolbararrow.toUtf8());
 		stylesheet.replace("___tb_menu_arrow___", tba);
+
+		const QColor overlayColor = QApplication::palette().color(QPalette::WindowText);
+		const QByteArray overlayRgb = QString("%1, %2, %3")
+			.arg(overlayColor.red())
+			.arg(overlayColor.green())
+			.arg(overlayColor.blue())
+			.toUtf8();
+		stylesheet.replace("___overlayRgb___", overlayRgb);
 	}
 
 	dockManager->setStyleSheet(stylesheet); // style sheet should be enabled when theme manager is implemented to handle color palettes in css file.

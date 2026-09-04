@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "pageselector.h"
 
+#include <QApplication>
 #include <QByteArray>
 #include <QComboBox>
 #include <QDebug>
@@ -13,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QLineEdit>
+#include <QPalette>
 #include <QPixmap>
 #include <QPushButton>
 #include <QSignalBlocker>
@@ -211,6 +213,14 @@ void PageSelector::iconSetChange()
 		QByteArray da;
 		da.append(downArrow.toUtf8());
 		stylesheet.replace("___downArrow___", da);
+
+		const QColor overlayColor = QApplication::palette().color(QPalette::WindowText);
+		const QByteArray overlayRgb = QString("%1, %2, %3")
+			.arg(overlayColor.red())
+			.arg(overlayColor.green())
+			.arg(overlayColor.blue())
+			.toUtf8();
+		stylesheet.replace("___overlayRgb___", overlayRgb);
 		setStyleSheet(QString(stylesheet));
 	}
 }
