@@ -14,21 +14,21 @@ PageSelector QComboBox::drop-down { subcontrol-origin: padding; subcontrol-posit
 /* page back, forward etc buttons */
 PageSelector QPushButton { height: 20px; width: 20px; border: 0px; }
 PageSelector QPushButton:hover { border: 1px solid gray ; }
-PageSelector QPushButton:pressed { border: 1px solid gray; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #dadbde, stop: 1 #f6f7fa); }
+PageSelector QPushButton:pressed { border: 1px solid gray; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 palette(light), stop: 1 palette(midlight)); }
 
 
 /* zoom buttons */
 QPushButton#zoomDefaultToolbarButton { height: 20px; width: 20px; border: 0px; }
 QPushButton#zoomDefaultToolbarButton:hover { border: 1px solid gray ; }
-QPushButton#zoomDefaultToolbarButton:pressed { border: 1px solid gray; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #dadbde, stop: 1 #f6f7fa); }
+QPushButton#zoomDefaultToolbarButton:pressed { border: 1px solid gray; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 palette(light), stop: 1 palette(midlight)); }
 
 QPushButton#zoomInToolbarButton { height: 20px; width: 20px; border: 0px; }
 QPushButton#zoomInToolbarButton:hover { border: 1px solid gray ; }
-QPushButton#zoomInToolbarButton:pressed { border: 1px solid gray; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #dadbde, stop: 1 #f6f7fa); }
+QPushButton#zoomInToolbarButton:pressed { border: 1px solid gray; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 palette(light), stop: 1 palette(midlight)); }
 
 QPushButton#zoomOutToolbarButton { height: 20px; width: 20px; border: 0px; }
 QPushButton#zoomOutToolbarButton:hover { border: 1px solid gray ; }
-QPushButton#zoomOutToolbarButton:pressed { border: 1px solid gray; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #dadbde, stop: 1 #f6f7fa); }
+QPushButton#zoomOutToolbarButton:pressed { border: 1px solid gray; background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 palette(light), stop: 1 palette(midlight)); }
 
 QSpinBox#zoomSpinBox { height: 20px; width: 3em; padding-right: 15px; }
 
