@@ -9154,7 +9154,7 @@ void ScribusDoc::itemSelection_DeleteTableRows()
 		QList<int> selectedRows = table->selectedRows().values();
 		std::sort(selectedRows.begin(), selectedRows.end(), std::greater<int>());
 
-		int index = 0;
+		int index = selectedRows.first();;
 		int numRows = 1;
 		for (int i = 0; i < selectedRows.size() - 1; ++i)
 		{
@@ -9215,7 +9215,7 @@ void ScribusDoc::itemSelection_DeleteTableColumns()
 		QList<int> selectedColumns = table->selectedColumns().values();
 		std::sort(selectedColumns.begin(), selectedColumns.end(), std::greater<int>());
 
-		int index = 0;
+		int index = selectedColumns.first();;
 		int numColumns = 1;
 		for (int i = 0; i < selectedColumns.size() - 1; ++i)
 		{
