@@ -637,7 +637,7 @@ void SMLineStyle::rebuildList()
 	const MultiLine *tmpLine = m_selection.begin().value();
 	for (auto it = tmpLine->begin(); it != tmpLine->end(); ++it)
 	{
-		pm2 = getWidePixmap(calcFarbe(it->Color, it->Shade));
+		pm2 = getWidePixmap(calcColor(it->Color, it->Shade));
 		tmp2 = " "+ tmp.setNum(it->Width * unitRatio, 'f', decimals) + unitSuffix + " ";
 		if (it->Dash < 6)
 			tmp2 += CommonStrings::translatePenStyleName(static_cast<Qt::PenStyle>(it->Dash)) + " ";
@@ -693,7 +693,7 @@ void SMLineStyle::updateSList()
 	double  unitRatio = m_widget->lineWidth->unitRatio();
 	QString unitSuffix = m_widget->lineWidth->suffix();
 	
-	const QPixmap pm = getWidePixmap(calcFarbe(singleLine.Color, singleLine.Shade));
+	const QPixmap pm = getWidePixmap(calcColor(singleLine.Color, singleLine.Shade));
 	QString tmp = " " + QString::number(singleLine.Width * unitRatio, 'f', decimals) + unitSuffix + " ";
 	if (singleLine.Dash < 6)
 		tmp += CommonStrings::translatePenStyleName(static_cast<Qt::PenStyle>(singleLine.Dash)) + " ";
@@ -733,7 +733,7 @@ void SMLineStyle::updatePreview()
 			getDashArray(singleLine.Dash, 1, dashArray);
 			pen.setDashPattern(dashArray);
 		}
-		pen.setColor(calcFarbe(singleLine.Color, singleLine.Shade));
+		pen.setColor(calcColor(singleLine.Color, singleLine.Shade));
 		pen.setWidth(qMax(static_cast<int>(singleLine.Width), 1));
 		pen.setCapStyle(static_cast<Qt::PenCapStyle>(singleLine.LineEnd));
 		pen.setJoinStyle(static_cast<Qt::PenJoinStyle>(singleLine.LineJoin));
@@ -744,7 +744,7 @@ void SMLineStyle::updatePreview()
 	m_widget->previewLabel->setPixmap(pm);
 }
 
-QColor SMLineStyle::calcFarbe(const QString &name, int shade)
+QColor SMLineStyle::calcColor(const QString &name, int shade)
 {
 	QColor tmpf;
 	if (!m_doc)
