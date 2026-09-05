@@ -72,7 +72,7 @@ private:
 	void updatePreview();
 	void resort();
 	void rebuildList();
-	QColor calcFarbe(const QString &name, int shade);
+	QColor calcColor(const QString &name, int shade);
 
 private slots:
 	void slotCurrentLineChanged(int i);
