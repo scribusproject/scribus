@@ -347,8 +347,14 @@ void SMLineStyle::deleteStyles(const QList<RemoveItem> &removeList)
 {
 	for (int i = 0; i < removeList.count(); ++i)
 	{
-		m_selection.erase(m_selection.find(removeList[i].first));
-		m_tmpLines.erase(m_tmpLines.find(removeList[i].first));
+		auto selIt = m_selection.find(removeList[i].first);
+		if (selIt != m_selection.end())
+			m_selection.erase(selIt);
+
+		auto tmpLinesIt = m_tmpLines.find(removeList[i].first);
+		if (tmpLinesIt != m_tmpLines.end())
+			m_tmpLines.erase(tmpLinesIt);
+
 		m_deleted.append(removeList[i]);
 	}
 }
@@ -715,7 +721,7 @@ void SMLineStyle::updatePreview()
 	p.begin(&pm);
 
 	MultiLine *tmpLine = m_selection.begin().value();
-	for (int it = tmpLine->size()-1; it > -1; it--)
+	for (int it = tmpLine->size() - 1; it > -1; it--)
 	{
 		QPen pen;
 		const SingleLine& singleLine = tmpLine->at(it);
