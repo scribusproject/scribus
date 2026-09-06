@@ -27,52 +27,52 @@ public:
 	/// Constructor.
 	SMCellStyle();
 	/// Destructor.
-	~SMCellStyle();
+	~SMCellStyle() override;
 
 	/// Reimplemented from StyleItem.
-	QTabWidget* widget();
+	QTabWidget* widget() override;
 	/// Reimplemented from StyleItem.
-	QString typeNamePlural();
+	QString typeNamePlural() override;
 	/// Reimplemented from StyleItem.
-	QString typeNameSingular();
+	QString typeNameSingular() override;
 	/// Reimplemented from StyleItem.
-	void setCurrentDoc(ScribusDoc *doc);
+	void setCurrentDoc(ScribusDoc *doc) override;
 	/// Reimplemented from StyleItem.
-	QList<StyleName> styles(bool reloadFromDoc = true);
+	QList<StyleName> styles(bool reloadFromDoc = true) override;
 	/// Reimplemented from StyleItem.
-	void reload();
+	void reload() override;
 	/// Reimplemented from StyleItem.
-	void selected(const QStringList &styleNames);
+	void selected(const QStringList &styleNames) override;
 	/// Reimplemented from StyleItem.
-	QString fromSelection() const;
+	QString fromSelection() const override;
 	/// Reimplemented from StyleItem.
-	void toSelection(const QString &styleName) const;
+	void toSelection(const QString &styleName) const override;
 	/// Reimplemented from StyleItem.
-	QString newStyle();
+	QString newStyle() override;
 	/// Reimplemented from StyleItem.
-	QString newStyle(const QString &fromStyle);
+	QString newStyle(const QString &fromStyle) override;
 	/// Reimplemented from StyleItem.
-	void apply();
+	void apply() override;
 	/// Reimplemented from StyleItem.
-	void editMode(bool isOn);
+	void editMode(bool isOn) override;
 	/// Reimplemented from StyleItem.
-	bool isDefaultStyle(const QString &styleName) const;
+	bool isDefaultStyle(const QString &styleName) const override;
 	/// Reimplemented from StyleItem.
-	void setDefaultStyle(bool isDefaultStyle);
+	void setDefaultStyle(bool isDefaultStyle) override;
 	/// Reimplemented from StyleItem.
-	QString shortcut(const QString &styleName) const;
+	QString shortcut(const QString &styleName) const override;
 	/// Reimplemented from StyleItem.
-	void setShortcut(const QString &shortcut);
+	void setShortcut(const QString &shortcut) override;
 	/// Reimplemented from StyleItem.
-	void deleteStyles(const QList<RemoveItem> &removeList);
+	void deleteStyles(const QList<RemoveItem> &removeList) override;
 	/// Reimplemented from StyleItem.
-	void nameChanged(const QString &newName);
+	void nameChanged(const QString &newName) override;
 	/// Reimplemented from StyleItem.
-	QString getUniqueName(const QString &name);
+	QString getUniqueName(const QString &name) override;
 	/// Reimplemented from StyleItem.
-	void languageChange();
+	void languageChange() override;
 	/// Reimplemented from StyleItem.
-	void unitChange();
+	void unitChange() override;
 
 signals:
 	void selectionDirty();

@@ -23,30 +23,30 @@ class SMParagraphStyle : public StyleItem
 	Q_OBJECT
 public:
 	SMParagraphStyle(SMCharacterStyle* cstyleItem);
-	~SMParagraphStyle();
+	~SMParagraphStyle() override;
 
-	QTabWidget* widget();
-	QString typeNamePlural();
-	QString typeNameSingular();
-	void setCurrentDoc(ScribusDoc *doc);
-	QList<StyleName> styles(bool reloadFromDoc = true);
-	void reload();
-	void selected(const QStringList &styleNames);
-	QString fromSelection() const;
-	void toSelection(const QString &styleName) const;
-	QString newStyle();
-	QString newStyle(const QString &fromStyle);
-	void apply();
-	void editMode(bool isOn);
-	bool isDefaultStyle(const QString &stylename) const;
-	void setDefaultStyle(bool ids);
-	QString shortcut(const QString &stylename) const;
-	void setShortcut(const QString &shortcut);
-	void deleteStyles(const QList<RemoveItem> &removeList);
-	void nameChanged(const QString &newName);
-	QString getUniqueName(const QString &name);
-	void languageChange();
-	void unitChange();
+	QTabWidget* widget() override;
+	QString typeNamePlural() override;
+	QString typeNameSingular() override;
+	void setCurrentDoc(ScribusDoc *doc) override;
+	QList<StyleName> styles(bool reloadFromDoc = true) override;
+	void reload() override;
+	void selected(const QStringList &styleNames) override;
+	QString fromSelection() const override;
+	void toSelection(const QString &styleName) const override;
+	QString newStyle() override;
+	QString newStyle(const QString &fromStyle) override;
+	void apply() override;
+	void editMode(bool isOn) override;
+	bool isDefaultStyle(const QString &stylename) const override;
+	void setDefaultStyle(bool ids) override;
+	QString shortcut(const QString &stylename) const override;
+	void setShortcut(const QString &shortcut) override;
+	void deleteStyles(const QList<RemoveItem> &removeList) override;
+	void nameChanged(const QString &newName) override;
+	QString getUniqueName(const QString &name) override;
+	void languageChange() override;
+	void unitChange() override;
 	StyleSet<ParagraphStyle>* tmpStyles(); // butt ugly
 
 signals:
@@ -144,30 +144,30 @@ class SMCharacterStyle : public StyleItem
 	Q_OBJECT
 public:
 	SMCharacterStyle();
-	~SMCharacterStyle();
+	~SMCharacterStyle() override;
 
-	QTabWidget* widget();
-	QString typeNamePlural();
-	QString typeNameSingular();
-	void setCurrentDoc(ScribusDoc *doc);
-	QList<StyleName> styles(bool reloadFromDoc = true);
-	void reload();
-	void selected(const QStringList &styleNames);
-	QString fromSelection() const;
-	void toSelection(const QString &styleName) const;
-	QString newStyle();
-	QString newStyle(const QString &fromStyle);
-	void apply();
-	void editMode(bool isOn);
-	bool isDefaultStyle(const QString &stylename) const;
-	void setDefaultStyle(bool ids);
-	QString shortcut(const QString &stylename) const;
-	void setShortcut(const QString &shortcut);
-	void deleteStyles(const QList<RemoveItem> &removeList);
-	void nameChanged(const QString &newName);
-	QString getUniqueName(const QString &name);
-	void languageChange();
-	void unitChange();
+	QTabWidget* widget() override;
+	QString typeNamePlural() override;
+	QString typeNameSingular() override;
+	void setCurrentDoc(ScribusDoc *doc) override;
+	QList<StyleName> styles(bool reloadFromDoc = true) override;
+	void reload() override;
+	void selected(const QStringList &styleNames) override;
+	QString fromSelection() const override;
+	void toSelection(const QString &styleName) const override;
+	QString newStyle() override;
+	QString newStyle(const QString &fromStyle) override;
+	void apply() override;
+	void editMode(bool isOn) override;
+	bool isDefaultStyle(const QString &stylename) const override;
+	void setDefaultStyle(bool ids) override;
+	QString shortcut(const QString &stylename) const override;
+	void setShortcut(const QString &shortcut) override;
+	void deleteStyles(const QList<RemoveItem> &removeList) override;
+	void nameChanged(const QString &newName) override;
+	QString getUniqueName(const QString &name) override;
+	void languageChange() override;
+	void unitChange() override;
 	StyleSet<CharStyle>* tmpStyles();
 
 signals:
