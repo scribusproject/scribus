@@ -367,8 +367,8 @@ void SMLineStyle::nameChanged(const QString &newName)
 		return;
 	}
 	QString oldName = m_selection.begin().key();
-	MultiLine *tmpLine = m_selection.begin().value();
-	MultiLine newLine(*tmpLine);
+	const MultiLine *tmpLine = m_selection.begin().value();
+	const MultiLine newLine(*tmpLine);
 	
 	m_selection.clear();
 	m_tmpLines.remove(oldName);
@@ -655,7 +655,7 @@ void SMLineStyle::slotDeleteLine()
 		return;
 
 	int cc = 0;
-	for (MultiLine::iterator it3 = tmpLine->begin(); it3 != tmpLine->end(); ++it3)
+	for (auto it3 = tmpLine->begin(); it3 != tmpLine->end(); ++it3)
 	{
 		if (cc == m_currentLine)
 		{
@@ -720,11 +720,11 @@ void SMLineStyle::updatePreview()
 	QPainter p;
 	p.begin(&pm);
 
-	MultiLine *tmpLine = m_selection.begin().value();
-	for (int it = tmpLine->size() - 1; it > -1; it--)
+	const MultiLine *tmpLine = m_selection.begin().value();
+	for (qsizetype i = tmpLine->size() - 1; i > -1; i--)
 	{
 		QPen pen;
-		const SingleLine& singleLine = tmpLine->at(it);
+		const SingleLine& singleLine = tmpLine->at(i);
 		if (singleLine.Dash == 1)
 			pen.setStyle(Qt::SolidLine);
 		else
