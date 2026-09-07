@@ -47,7 +47,7 @@ public:
 	QString getUniqueName(const QString &name) override;
 	void languageChange() override;
 	void unitChange() override;
-	StyleSet<ParagraphStyle>* tmpStyles(); // butt ugly
+	StyleSet<ParagraphStyle>& tmpStyles(); // butt ugly
 
 signals:
 	void selectionDirty();
@@ -168,7 +168,7 @@ public:
 	QString getUniqueName(const QString &name) override;
 	void languageChange() override;
 	void unitChange() override;
-	StyleSet<CharStyle>* tmpStyles();
+	StyleSet<CharStyle>& tmpStyles();
 
 signals:
 	void selectionDirty();

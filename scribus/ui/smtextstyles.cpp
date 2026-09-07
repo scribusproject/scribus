@@ -42,7 +42,7 @@ SMParagraphStyle::SMParagraphStyle(SMCharacterStyle* cstyleItem):
 	m_cstyleItem(cstyleItem)
 {
 	Q_ASSERT(m_cstyleItem);
-	m_cstyles = m_cstyleItem->tmpStyles();
+	m_cstyles = &m_cstyleItem->tmpStyles();
 	m_pwidget = new SMPStyleWidget(m_doc, m_cstyles);
 	Q_CHECK_PTR(m_pwidget);
 }
@@ -85,9 +85,9 @@ void SMParagraphStyle::setCurrentDoc(ScribusDoc *doc)
 	}
 }
 
-StyleSet<ParagraphStyle>* SMParagraphStyle::tmpStyles()
+StyleSet<ParagraphStyle>& SMParagraphStyle::tmpStyles()
 {
-	return &m_tmpStyles;
+	return m_tmpStyles;
 }
 
 QList<StyleName> SMParagraphStyle::styles(bool reloadFromDoc)
@@ -1903,9 +1903,9 @@ void SMCharacterStyle::setCurrentDoc(ScribusDoc *doc)
 	}
 }
 
-StyleSet<CharStyle>* SMCharacterStyle::tmpStyles()
+StyleSet<CharStyle>& SMCharacterStyle::tmpStyles()
 {
-	return &m_tmpStyles;
+	return m_tmpStyles;
 }
 
 QList<StyleName> SMCharacterStyle::styles(bool reloadFromDoc)
