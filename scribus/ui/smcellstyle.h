@@ -72,7 +72,7 @@ public:
 	/// Reimplemented from StyleItem.
 	QString getUniqueName(const QString &name) override;
 	/// Editable cache of cell styles; committed to the document by apply().
-	StyleSet<CellStyle>* tmpStyles() { return &m_tmpStyles; }
+	StyleSet<CellStyle>& tmpStyles() { return m_tmpStyles; }
 	/// Reimplemented from StyleItem.
 	void languageChange() override;
 	/// Reimplemented from StyleItem.

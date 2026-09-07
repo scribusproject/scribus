@@ -71,7 +71,7 @@ public:
 	/// Reimplemented from StyleItem.
 	QString getUniqueName(const QString &name) override;
 	/// Editable cache of table styles; committed to the document by apply().
-	StyleSet<TableStyle>* tmpStyles() { return &m_tmpStyles; }
+	StyleSet<TableStyle>& tmpStyles() { return m_tmpStyles; }
 	/// Reimplemented from StyleItem.
 	void languageChange() override;
 	/// Reimplemented from StyleItem.

@@ -716,14 +716,14 @@ void StyleManager::slotImport()
 			if (dia2->clashRename())
 			{
 				sty.setName(pstyle->getUniqueName(sty.name()));
-				pstyle->tmpStyles()->create(sty);
+				pstyle->tmpStyles().create(sty);
 			}
 			else
 			{
-				if (pstyle->tmpStyles()->find(sty.name()) >= 0)
-					(*(pstyle->tmpStyles()))[pstyle->tmpStyles()->find(/*it.data()*/aStyle)] = sty;
+				if (pstyle->tmpStyles().find(sty.name()) >= 0)
+					(pstyle->tmpStyles())[pstyle->tmpStyles().find(/*it.data()*/aStyle)] = sty;
 				else
-					pstyle->tmpStyles()->create(sty);
+					pstyle->tmpStyles().create(sty);
 			}
 //#7315 				selected << QPair<QString, QString>(pstyle->typeName(), sty.name());
 			if ((!m_doc->PageColors.contains(sty.charStyle().strokeColor())) && (!neededColors.contains(sty.charStyle().strokeColor())))
@@ -741,14 +741,14 @@ void StyleManager::slotImport()
 			if (dia2->clashRename())
 			{
 				sty.setName(cstyle->getUniqueName(sty.name()));
-				cstyle->tmpStyles()->create(sty);
+				cstyle->tmpStyles().create(sty);
 			}
 			else
 			{
-				if (cstyle->tmpStyles()->find(sty.name()) >= 0)
-					(*(cstyle->tmpStyles()))[cstyle->tmpStyles()->find(/*it.data()*/aStyle)] = sty;
+				if (cstyle->tmpStyles().find(sty.name()) >= 0)
+					(cstyle->tmpStyles())[cstyle->tmpStyles().find(/*it.data()*/aStyle)] = sty;
 				else
-					cstyle->tmpStyles()->create(sty);
+					cstyle->tmpStyles().create(sty);
 			}
 //#7315 				selected << QPair<QString, QString>(cstyle->typeName(), sty.name());
 			if ((!m_doc->PageColors.contains(sty.strokeColor())) && (!neededColors.contains(sty.strokeColor())))
@@ -781,14 +781,14 @@ void StyleManager::slotImport()
 			if (dia2->clashRename())
 			{
 				sty.setName(tstyle->getUniqueName(sty.name()));
-				tstyle->tmpStyles()->create(sty);
+				tstyle->tmpStyles().create(sty);
 			}
 			else
 			{
-				if (tstyle->tmpStyles()->find(sty.name()) >= 0)
-					(*(tstyle->tmpStyles()))[tstyle->tmpStyles()->find(aStyle)] = sty;
+				if (tstyle->tmpStyles().find(sty.name()) >= 0)
+					(tstyle->tmpStyles())[tstyle->tmpStyles().find(aStyle)] = sty;
 				else
-					tstyle->tmpStyles()->create(sty);
+					tstyle->tmpStyles().create(sty);
 			}
 			if ((!m_doc->PageColors.contains(sty.fillColor())) && (!neededColors.contains(sty.fillColor())))
 				neededColors.append(sty.fillColor());
@@ -815,14 +815,14 @@ void StyleManager::slotImport()
 			if (dia2->clashRename())
 			{
 				sty.setName(cellstyle->getUniqueName(sty.name()));
-				cellstyle->tmpStyles()->create(sty);
+				cellstyle->tmpStyles().create(sty);
 			}
 			else
 			{
-				if (cellstyle->tmpStyles()->find(sty.name()) >= 0)
-					(*(cellstyle->tmpStyles()))[cellstyle->tmpStyles()->find(aStyle)] = sty;
+				if (cellstyle->tmpStyles().find(sty.name()) >= 0)
+					(cellstyle->tmpStyles())[cellstyle->tmpStyles().find(aStyle)] = sty;
 				else
-					cellstyle->tmpStyles()->create(sty);
+					cellstyle->tmpStyles().create(sty);
 			}
 			if ((!m_doc->PageColors.contains(sty.fillColor())) && (!neededColors.contains(sty.fillColor())))
 				neededColors.append(sty.fillColor());
