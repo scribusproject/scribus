@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include <QApplication>
 #include <QByteArray>
 
+#include "langmgr.h"
 #include "scribusdoc.h"
 #include "styles/charstyle.h"
 #include "styles/paragraphstyle.h"
@@ -528,6 +529,33 @@ void DocXIm::parseCharProps(QDomElement& props, CharStyle& cStyle, const ScFace&
 				ParagraphStyle newStyle;
 				cStyle.setParent(charStyleIDToNameMap[nam]);
 			}
+		}
+		if (spc.tagName() == "w:lang")
+		{
+			QString langAbbrev;
+			if (spc.hasAttribute("w:bidi"))
+				langAbbrev = spc.attribute("w:bidi");
+			if (langAbbrev.isEmpty() && spc.hasAttribute("eastAsian"))
+				langAbbrev = spc.attribute("w:eastAsian");
+			if (langAbbrev.isEmpty() && spc.hasAttribute("w:val"))
+				langAbbrev = spc.attribute("w:val");
+			langAbbrev.replace('-', '_');
+
+			QString fullLang = LanguageManager::instance()->getLangFromAbbrev(langAbbrev);
+			if (fullLang.isEmpty())
+			{
+				QString langCode;
+				QStringList decomposition = fullLang.split('_');
+				if (!decomposition.isEmpty())
+				{
+					langCode = decomposition.first();
+					fullLang = LanguageManager::instance()->getLangFromAbbrev(langCode);
+					if (!fullLang.isEmpty())
+						langAbbrev = langCode;
+				}
+			}
+			if (!langAbbrev.isEmpty())
+				cStyle.setLanguage(langAbbrev);
 		}
 		if (spc.tagName() == "w:b")
 		{
