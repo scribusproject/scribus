@@ -48,11 +48,6 @@ PageSelector::PageSelector( QWidget* parent, int maximumPage ) : QWidget( parent
 	forwardButton->setAutoDefault( false );
 	lastButton->setAutoDefault( false );
 
-	startButton->setIcon(IconManager::instance().loadIcon("go-first"));
-	backButton->setIcon(IconManager::instance().loadIcon("go-previous"));
-	forwardButton->setIcon(IconManager::instance().loadIcon("go-next"));
-	lastButton->setIcon(IconManager::instance().loadIcon("go-last"));
-
 	startButton->setFocusPolicy(Qt::NoFocus);
 	backButton->setFocusPolicy(Qt::NoFocus);
 	forwardButton->setFocusPolicy(Qt::NoFocus);
@@ -206,6 +201,12 @@ void PageSelector::changeEvent(QEvent *e)
 
 void PageSelector::iconSetChange()
 {
+	IconManager& iconManager = IconManager::instance();
+	startButton->setIcon(iconManager.loadIcon("go-first"));
+	backButton->setIcon(iconManager.loadIcon("go-previous"));
+	forwardButton->setIcon(iconManager.loadIcon("go-next"));
+	lastButton->setIcon(iconManager.loadIcon("go-last"));
+
 	QByteArray stylesheet;
 	if (loadRawText(ScPaths::instance().libDir() + "scribus.css", stylesheet))
 	{

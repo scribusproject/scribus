@@ -467,7 +467,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	setStyleSheet();
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
-	connect(QGuiApplication::styleHints(), &QStyleHints::colorSchemeChanged, [this]()
+	connect(QGuiApplication::styleHints(), &QStyleHints::colorSchemeChanged, this, [this]()
 	{
 		emit ScQApp->iconSetChanged();
 		// THIS IS A WORKAROUND!
@@ -637,6 +637,9 @@ void ScribusMainWindow::setStyleSheet()
 	modeToolBar->setStyleSheet(stylesheet);
 	pdfToolBar->setStyleSheet(stylesheet);
 	viewToolBar->setStyleSheet(stylesheet);
+
+	// QMdiArea stores its background brush, so refresh it after palette changes.
+	mdiArea->setBackground(QApplication::palette().brush(QPalette::Active, QPalette::Dark));
 }
 
 
@@ -6592,6 +6595,10 @@ void ScribusMainWindow::slotPrefsOrg()
 			ScribusProxyStyle::instance()->setApplicationTheme(ScribusProxyStyle::ApplicationTheme::Light);
 		else
 			ScribusProxyStyle::instance()->setApplicationTheme(ScribusProxyStyle::ApplicationTheme::System);
+
+		// ADS reloads its bundled stylesheet after the palette change. Reapply
+		// the Scribus stylesheet after that queued palette-change handling.
+		QMetaObject::invokeMethod(this, [this]() { setStyleSheet(); }, Qt::QueuedConnection);
 	}
 #endif
 
