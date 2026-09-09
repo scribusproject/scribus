@@ -648,7 +648,7 @@ QCursor CanvasMode::modeCursor()
 			cursor = im.loadCursor("cursor-color-picker", 0, 31);
 			break;
 		case modeLinkFrames:
-			cursor = im.loadCursor("cursor-link-text-frame", 0, 31);
+			cursor = im.loadCursor("cursor-link-text-frame");
 			break;
 		case modeMeasurementTool:
 		case modeEditGradientVectors:
