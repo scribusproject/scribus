@@ -803,13 +803,19 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 				{
 					for (quint16 y = 0; y < count; y++)
 					{
-						auto *q = (QRgb*) tmpImage.scanLine(yoff + y);
+						if (ds.atEnd())
+							break;
+						const int row = yoff + y;
+						auto *q = (row < tmpImage.height()) ? (QRgb*) tmpImage.scanLine(row) : nullptr;
 						for (quint16 x = 0; x < imageWidth; x++)
 						{
 							quint8 r, g, b;
 							ds >> r >> g >> b;
-							*q = qRgba(r, g, b, 255);
-							q++;
+							if (q != nullptr)
+							{
+								*q = qRgba(r, g, b, 255);
+								q++;
+							}
 						}
 						scanLinesRead++;
 					}
@@ -818,21 +824,27 @@ void DrwPlug::decodeCmd(quint8 cmd, int pos)
 				{
 					for (quint16 y = 0; y < count; y++)
 					{
-						auto *q = (QRgb*) tmpImage.scanLine(yoff + y);
+						if (ds.atEnd())
+							break;
+						const int row = yoff + y;
+						auto *q = (row < tmpImage.height()) ? (QRgb*) tmpImage.scanLine(row) : nullptr;
 						auto pos = ds.device()->pos();
 						for (quint16 x = 0; x < imageWidth; x++)
 						{
 							quint8 r;
 							ds >> r;
-							*q = qRgba(r, r, r, 255);
-							q++;
+							if (q != nullptr)
+							{
+								*q = qRgba(r, r, r, 255);
+								q++;
+							}
 						}
-						QByteArray data;
-						data.resize(imageWidth);
+						QByteArray data(imageWidth, '\0');
 						ds.device()->seek(pos);
 						ds.readRawData(data.data(), imageWidth);
 						ds.device()->seek(pos + len);
-						memcpy(tmpImage2.scanLine(yoff + y), data.data(), imageWidth);
+						if (row < tmpImage2.height())
+							memcpy(tmpImage2.scanLine(row), data.data(), imageWidth);
 						scanLinesRead++;
 					}
 				}
@@ -1587,7 +1599,7 @@ void DrwPlug::decodeSymbol(QDataStream &ds, bool last)
 				tmpImage = QImage(imageWidth, imageHeight, QImage::Format_ARGB32);
 				if (bitsPerPixel == 8)
 					tmpImage2 = QImage(imageWidth, imageHeight, QImage::Format_Indexed8);
-				imageValid = true;
+				imageValid = !tmpImage.isNull() && ((bitsPerPixel != 8) || !tmpImage2.isNull());
 			}
 			break;
 		case 23:
