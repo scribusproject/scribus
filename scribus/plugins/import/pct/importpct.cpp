@@ -2050,34 +2050,26 @@ QRect PctPlug::readRect(QDataStream &ts)
 
 QByteArray PctPlug::decodeRLE(QByteArray &in, quint16 bytesPerLine, int twoByte)
 {
-	QByteArray ret = QByteArray(bytesPerLine, ' ');
-	uchar *ptrOut, *ptrIn;
-	ptrOut = (uchar*)ret.data();
-	ptrIn = (uchar*)in.data();
-	quint16 count = 0;
+	QByteArray ret(bytesPerLine, ' ');
+	uchar* ptrOut = (uchar*) ret.data();
+	uchar* ptrIn  = (uchar*) in.data();
+	const uchar* endIn  = ptrIn + in.size();
+	const uchar* endOut = ptrOut + ret.size();
 	uchar c, c2;
 	quint16 len;
-	while (count < in.size())
+	while (ptrIn < endIn)
 	{
 		c = *ptrIn++;
-		count++;
 		len = c;
 		if (len < 128)
 		{
 			// Copy next len+1 bytes literally.
 			len++;
 			len *= twoByte;
-			while (len != 0)
+			while ((len != 0) && (ptrIn < endIn) && (ptrOut < endOut))
 			{
 				*ptrOut++ = *ptrIn++;
 				len--;
-				count++;
-				if (twoByte == 2)
-				{
-					*ptrOut++ = *ptrIn++;
-					len--;
-					count++;
-				}
 			}
 		}
 		else if (len > 128)
@@ -2089,23 +2081,23 @@ QByteArray PctPlug::decodeRLE(QByteArray &in, quint16 bytesPerLine, int twoByte)
 			len *= twoByte;
 			if (twoByte == 2)
 			{
+				if (endIn - ptrIn < 2)
+					break;
 				c = *ptrIn++;
-				count++;
 				c2 = *ptrIn++;
-				count++;
-				while (len != 0)
+				while ((len > 1) && (endOut - ptrOut > 1))
 				{
 					*ptrOut++ = c;
 					*ptrOut++ = c2;
-					len--;
-					len--;
+					len -= 2;
 				}
 			}
 			else
 			{
+				if (ptrIn >= endIn)
+					break;
 				c = *ptrIn++;
-				count++;
-				while (len != 0)
+				while ((len != 0) && (ptrOut < endOut))
 				{
 					*ptrOut++ = c;
 					len--;
