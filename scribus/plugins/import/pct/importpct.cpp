@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include <QStack>
 #include <QDebug>
 
+#include <algorithm>
 #include <cstdlib>
 
 #include "importpct.h"
@@ -1719,7 +1720,7 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 		}
 		else
 			ts >> pixByteCount;
-		if (!skipOpcode)
+		if ((!skipOpcode) && !image.isNull())
 		{
 			QByteArray data;
 			data.resize(pixByteCount);
@@ -1732,36 +1733,39 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 				img = data;
 			else
 				img = decodeRLE(data, bytesPerLine, twoByte);
+			const int scanBytes = image.bytesPerLine();
+			const int copyLen = std::min<int>({ bytesPerLine, img.size(), scanBytes });
 			if ((opCode == 0x0098) || (opCode == 0x0099))
 			{
 				if (!isPixmap)
 				{
-					memcpy(image.scanLine(rr), img.data(), bytesPerLine);
+					memcpy(image.scanLine(rr), img.data(), copyLen);
 				}
 				else if (component_count == 1)
 				{
 					if (component_size == 4)
 					{
 						uchar *q = image.scanLine(rr);
-						for (int xx = 0; xx < img.size(); xx++)
+						int outPos = 0;
+						for (int xx = 0; (xx < img.size()) && (outPos + 1 < scanBytes); xx++)
 						{
-							uchar i = (img[xx] >> 4) & 0x0F;
-							uchar j = img[xx] & 0x0F;
-							*q++ = i;
-							*q++ = j;
+							q[outPos++] = (img[xx] >> 4) & 0x0F;
+							q[outPos++] = img[xx] & 0x0F;
 						}
 					}
 					else
-						memcpy(image.scanLine(rr), img.data(), bytesPerLine);
+						memcpy(image.scanLine(rr), img.data(), copyLen);
 				}
 			}
 			else if ((opCode == 0x009A) || (opCode == 0x009B))
 			{
+				const int maxPix = (image.format() == QImage::Format_ARGB32) ? qMin<int>(pixCols, scanBytes / 4) : 0;
 				if (component_size == 5)
 				{
 					QRgb *q = (QRgb*)(image.scanLine(rr));
 					int imgDcount = 0;
-					for (quint16 xx = 0; xx < pixCols; xx++)
+					const int rowPix = qMin(maxPix, img.size() / 2);
+					for (int xx = 0; xx < rowPix; xx++)
 					{
 						uchar i = img[imgDcount++];
 						uchar j = img[imgDcount++];
@@ -1774,7 +1778,10 @@ void PctPlug::handlePixmap(QDataStream &ts, quint16 opCode)
 				else if ((component_size == 8) || (component_size == 24))
 				{
 					QRgb *q = (QRgb*)(image.scanLine(rr));
-					for (uint xx = 0; xx < (uint) pixCols; xx++)
+					const int planes = (component_count == 4) ? 4 : ((component_count == 3) ? 3 : 1);
+					const int srcLimit = qMax(0, img.size() - (planes - 1) * (int) pixCols);
+					const int rowPix = qMin(maxPix, srcLimit);
+					for (int xx = 0; xx < rowPix; xx++)
 					{
 						uchar r = 0;
 						uchar g = 0;
