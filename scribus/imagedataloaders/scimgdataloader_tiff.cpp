@@ -302,32 +302,40 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht,
 
 	if (TIFFIsTiled(tif))
 	{
-		uint32_t columns, rows;
-		uint32_t *tile_buf;
-		TIFFGetField(tif, TIFFTAG_TILEWIDTH,  &columns);
-		TIFFGetField(tif, TIFFTAG_TILELENGTH, &rows);
-		tile_buf = (uint32_t*) _TIFFmalloc(columns * rows * sizeof(uint32_t));
-		if (tile_buf == nullptr)
-		{
-			TIFFClose(tif);
+		uint32_t columns = 0, rows = 0;
+		uint32_t xt, yt;
+		if (!TIFFGetField(tif, TIFFTAG_TILEWIDTH,  &columns) ||
+			!TIFFGetField(tif, TIFFTAG_TILELENGTH, &rows) ||
+			columns == 0 || rows == 0)
 			return false;
-		}
-		uint32_t tileW = columns;
-		uint32_t tileH = rows;
-		for (uint32_t yt = 0; yt < (uint32_t) image->height(); yt += rows)
+		const tmsize_t tileSize = TIFFTileSize(tif);
+		const tmsize_t tileRowSize = TIFFTileRowSize(tif);
+		if (tileSize <= 0 || tileRowSize <= 0)
+			return false;
+		uint8_t* tile_buf = (uint8_t*) _TIFFmalloc(tileSize);
+		if (tile_buf == nullptr)
+			return false;
+		const int chans = image->channels();
+		for (yt = 0; yt < (uint32_t) image->height(); yt += rows)
 		{
-			if (yt > (uint) image->height())
-				break;
-			if (image->height() - yt < rows)
-				tileH = image->height() - yt;
-			tileW = columns;
-			int chans = image->channels();
-			for (uint32_t xt = 0; xt < (uint) image->width(); xt += columns)
+			const uint32_t tileH = qMin(rows, (uint32_t) image->height() - yt);
+			for (xt = 0; xt < (uint32_t) image->width(); xt += columns)
 			{
-				TIFFReadTile(tif, tile_buf, xt, yt, 0, 0);
+				// Tiles in the right hand column are only partly inside the image.
+				// Copy the part that fits on the scanline, not the whole tile row.
+				const uint32_t tileW = qMin(columns, (uint32_t) image->width() - xt);
+				if (TIFFReadTile(tif, tile_buf, xt, yt, 0, 0) < 0)
+					continue;
 				for (uint32_t yi = 0; yi < tileH; yi++)
 				{
-					_TIFFmemcpy(image->scanLine(yt + (tileH - 1 - yi)) + xt, tile_buf + tileW * yi, tileW * chans);
+					uint8_t* dst = (uint8_t*) image->scanLine(yt + yi) + (size_t) xt * chans;
+					uint8_t* src = tile_buf + (size_t) yi * tileRowSize;
+					if (sampleInfo.bitsPerSample == 16 && sampleInfo.samplesFormat == SAMPLEFORMAT_UINT)
+						convertImageData((uint16_t*) src, dst, tileW * chans);
+					else if (sampleInfo.bitsPerSample == 16 && sampleInfo.samplesFormat == SAMPLEFORMAT_INT)
+						convertImageData((int16_t*) src, dst, tileW * chans);
+					else
+						_TIFFmemcpy(dst, src, qMin((size_t) tileW * chans, (size_t) tileRowSize));
 				}
 			}
 		}
