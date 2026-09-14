@@ -510,6 +510,12 @@ bool WMFImport::loadWMF(QBuffer& buffer)
 			idx = findFunc(rdFunc);
 			rdSize -= 3;
 
+			if (rdSize < 0)
+			{
+				cerr << "WMF : invalid record size !" << endl;
+				return false;
+			}
+
 			cmd = new WmfCmd;
 			m_commands.append(cmd);
 
@@ -520,13 +526,13 @@ bool WMFImport::loadWMF(QBuffer& buffer)
 			for (i = 0; i < rdSize && !st.atEnd(); i++)
 				st >> cmd->params[i];
 
-			if (rdFunc == 0x020B && !m_IsPlaceable)
+			if (rdFunc == 0x020B && !m_IsPlaceable && rdSize >= 2)
 			{
 				// SETWINDOWORG: dimensions
 				m_BBox.setLeft(qMin((int) cmd->params[1], m_BBox.left()));
 				m_BBox.setTop(qMin((int) cmd->params[0], m_BBox.top()));
 			}
-			if (rdFunc == 0x020C && !m_IsPlaceable)
+			if (rdFunc == 0x020C && !m_IsPlaceable && rdSize >= 2)
 			{
 				// SETWINDOWEXT: dimensions
 				m_BBox.setWidth((int) cmd->params[1]);
@@ -701,6 +707,15 @@ QList<PageItem*> WMFImport::parseWmfCommands()
 	{
 		cmd = m_commands.at(index);
 		idx = cmd->funcIndex;
+
+		if (cmd->numParam < metaFuncTab[idx].minParams)
+		{
+			cerr << "WMF : record too short for "
+				 << (metaFuncTab[idx].name ? metaFuncTab[idx].name : "UNKNOWN") << endl;
+			unsupported = true;
+			continue;
+		}
+
 		(this->*metaFuncTab[idx].method)(elements, cmd->numParam, cmd->params);
 
 		if (WMFIMPORT_DEBUG)
@@ -825,9 +840,11 @@ void WMFImport::ellipse(QList<PageItem*>& items, long, const short* params)
 	items.append(ite);
 }
 
-void WMFImport::polygon(QList<PageItem*>& items, long, const short* params)
+void WMFImport::polygon(QList<PageItem*>& items, long num, const short* params)
 {
 	//cerr << "WMFImport::polygon unimplemented" << endl;
+	if ((params[0] < 0) || (2 * (long) params[0] > num - 1))
+		return;
 	double  BaseX = m_Doc->currentPage()->xOffset();
 	double  BaseY = m_Doc->currentPage()->yOffset();
 	bool    doFill = m_context.brush().style() != Qt::NoBrush;
@@ -850,14 +867,18 @@ void WMFImport::polygon(QList<PageItem*>& items, long, const short* params)
 	}
 }
 
-void WMFImport::polyPolygon(QList<PageItem*>& items, long /*num*/, const short* params)
+void WMFImport::polyPolygon(QList<PageItem*>& items, long num, const short* params)
 {
 	int numPolys   = params[0];
 	int pointIndex = params[0] + 1;
+	if ((numPolys < 0) || (pointIndex > num))
+		return;
 	FPointArray pointsPoly;
 	for (int i = 0; i < numPolys; ++i)
 	{
-		short  numPoints  = params[i + 1];
+		short numPoints  = params[i + 1];
+		if ((numPoints < 0) || (2 * (long) numPoints > num - pointIndex))
+			break;
 		QScopedArrayPointer<short> paramArray(new short[1 + 2 * numPoints]);
 		paramArray[0] = numPoints;
 		memcpy(&paramArray[1], &params[pointIndex], 2 * numPoints * sizeof(short));
@@ -888,8 +909,10 @@ void WMFImport::polyPolygon(QList<PageItem*>& items, long /*num*/, const short* 
 	}
 }
 
-void WMFImport::polyline(QList<PageItem*>& items, long, const short* params)
+void WMFImport::polyline(QList<PageItem*>& items, long num, const short* params)
 {
+	if ((params[0] < 0) || (2 * (long) params[0] > num - 1))
+		return;
 	double  BaseX = m_Doc->currentPage()->xOffset();
 	double  BaseY = m_Doc->currentPage()->yOffset();
 	bool    doStroke = m_context.pen().style() != Qt::NoPen;
@@ -1124,15 +1147,23 @@ void WMFImport::setTextAlign(QList<PageItem*>& /*items*/, long, const short* par
 
 void WMFImport::textOut(QList<PageItem*>& items, long num, const short* params)
 {
+	const long strLen = params[0];
+	const long idxOffset = (strLen / 2) + 1 + (strLen & 1);
+	if ((strLen < 0) || (idxOffset + 1 >= num) || (strLen > (num - 1) * (long) sizeof(short)))
+	{
+		cerr << "WMFImport::textOut: truncated TEXTOUT record" << endl;
+		unsupported = true;
+		return;
+	}
+
 	QScopedArrayPointer<short> copyParm(new short[num + 1]);
 
 	// re-order parameters
-	int idxOffset = (params[0] / 2) + 1 + (params[0] & 1);
 	copyParm[0] = params[idxOffset];
 	copyParm[1] = params[idxOffset + 1];
 	copyParm[2] = params[0];
 	copyParm[3] = 0;
-	memcpy(&copyParm[4], &params[1], params[0]);
+	memcpy(&copyParm[4], &params[1], strLen);
 
 	extTextOut(items, num + 1, copyParm.get());
 }
@@ -1151,7 +1182,14 @@ void WMFImport::extTextOut(QList<PageItem*>& items, long num, const short* param
 	}
 
 	// ETO_CLIPPED flag add 4 parameters
-	const auto* ptStr = (const char*) ((params[3] & 0x0004) ? (&params[8]) : (&params[4]));
+	const long strStart = (params[3] & 0x0004) ? 8 : 4;
+	if ((params[2] < 0) || (strStart >= num) || (params[2] > (num - strStart) * (long) sizeof(short)))
+	{
+		cerr << "WMFImport::extTextOut: truncated EXTTEXTOUT record" << endl;
+		unsupported = true;
+		return;
+	}
+	const auto* ptStr = (const char*) (&params[strStart]);
 	QByteArray textArray(ptStr, params[2]);
 	
 	const QTextCodec* codec = codecFromCharset(m_context.textCharSet());
@@ -1348,12 +1386,14 @@ void WMFImport::createPenIndirect(QList<PageItem*>& /*items*/, long, const short
 	handle->pen.setCapStyle(Qt::RoundCap);
 }
 
-void WMFImport::createFontIndirect(QList<PageItem*>& /*items*/, long, const short* params)
+void WMFImport::createFontIndirect(QList<PageItem*>& /*items*/, long num, const short* params)
 {
 	auto* handle = new WmfObjFontHandle();
 	addHandle(handle);
 
-	QString family((const char*) &params[9]);
+	const char* nameStart = (const char*) &params[9];
+	const uint  nameMax   = (uint) ((num - 9) * (long) sizeof(short));
+	QString family = QString::fromUtf8(nameStart, (int) qstrnlen(nameStart, nameMax));
 
 	handle->rotation = -params[2] / 10; // text rotation (in 1/10 degree)
 	handle->font.setFamily(family);
