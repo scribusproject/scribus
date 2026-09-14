@@ -12,6 +12,8 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 
 #include <cstdint>
+#include <utility>
+
 #include <QFile>
 #include <QFileInfo>
 #include <QList>
@@ -1342,10 +1344,12 @@ bool ScImgDataLoader_PSD::loadLayer(QDataStream& s, const PSDHeader& header)
 		// Unknown compression type.
 		return false;
 	}
-	uint channel_num = header.channel_count;
+
+	static const uint components[5] = {0, 1, 2, 3, 4};
+	const uint maxComponents = qMin((uint) r_image.channels(), (uint) std::size(components));
+	const uint channel_num = qMin((uint) header.channel_count, maxComponents);
 	r_image.fill('\xff');
 	const uint pixel_count = header.height * header.width;
-	static const uint components[5] = {0, 1, 2, 3, 4};
 	if (compression)
 	{
 		// Skip row lengths.
