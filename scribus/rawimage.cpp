@@ -4,6 +4,7 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
+#include <limits>
 #include "rawimage.h"
 
 RawImage::RawImage( int width, int height, int channels )
@@ -16,14 +17,24 @@ RawImage::~RawImage()
 	resize(0);
 }
 
-bool RawImage::create( int width, int height, int channels )
+bool RawImage::create(int width, int height, int channels)
 {
+	const qint64 finalSize = (qint64) width * (qint64) height * (qint64) channels;
+	const qint64 maxSize = std::numeric_limits<int>::max(); // Limit for the type used by QByteArray::resize()
+	if ((width <= 0) || (height <= 0) || (channels <= 0) || (finalSize > maxSize))
+	{
+		m_width = 0;
+		m_height = 0;
+		m_channels = 0;
+		resize(0);
+		return false;
+	}
 	m_width = width;
 	m_height = height;
 	m_channels = channels;
-	int finalSize = width * height * channels;
-	resize(finalSize);
-	return (size() == finalSize);
+	const int allocSize = (int) finalSize;
+	resize(allocSize);
+	return (size() == allocSize);
 }
 
 uchar *RawImage::scanLine(int row)
