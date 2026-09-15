@@ -277,6 +277,9 @@ bool ScImgDataLoader_PSD::LoadPSD(QDataStream& s, const PSDHeader& header)
 
 	LoadPSDResources(s, header, cresStart); 
 	
+	if ((header.color_mode == CM_INDEXED) && (m_colorTable.count() < 256))
+		return false;
+	
 	s.device()->seek(cdataStart + tmp);
 	s >> resourceDataLen;
 	startResource = s.device()->pos();
