@@ -4613,16 +4613,22 @@ QImage SvmPlug::getImageDataFromStyle(quint8 flagsH)
 		img.loadFromData(emfStyle.imageData);
 	else
 	{
-		int hWidth = qAbs(emfStyle.imageWidth);
-		int hHeight = qAbs(emfStyle.imageHeight);
+		const qint64 w64 = qAbs((qint64) emfStyle.imageWidth);
+		const qint64 h64 = qAbs((qint64) emfStyle.imageHeight);
+		int hWidth  = (w64 > 0x7FFFFFFF) ? 0 : (int) w64;
+		int hHeight = (h64 > 0x7FFFFFFF) ? 0 : (int) h64;
 		QDataStream dsB(emfStyle.imageData);
 		dsB.setByteOrder(QDataStream::LittleEndian);
 		img = QImage(hWidth, hHeight, QImage::Format_ARGB32);
+		if (img.isNull())
+			return img;
 		img.fill(0);
 		if (emfStyle.imagePixelFormat == U_PF_32bppARGB)
 		{
 			for (qint32 yy = 0; yy < hHeight; yy++)
 			{
+				if (dsB.atEnd())
+					break;
 				auto* dst = (QRgb*) img.scanLine(yy);
 				for (qint32 xx = 0; xx < hWidth; xx++)
 				{
@@ -4637,6 +4643,8 @@ QImage SvmPlug::getImageDataFromStyle(quint8 flagsH)
 		{
 			for (qint32 yy = 0; yy < hHeight; yy++)
 			{
+				if (dsB.atEnd())
+					break;
 				auto* dst = (QRgb*) img.scanLine(yy);
 				for (qint32 xx = 0; xx < hWidth; xx++)
 				{
@@ -4651,6 +4659,8 @@ QImage SvmPlug::getImageDataFromStyle(quint8 flagsH)
 		{
 			for (qint32 yy = 0; yy < hHeight; yy++)
 			{
+				if (dsB.atEnd())
+					break;
 				auto* dst = (QRgb*) img.scanLine(yy);
 				for (qint32 xx = 0; xx < hWidth; xx++)
 				{
@@ -4666,6 +4676,8 @@ QImage SvmPlug::getImageDataFromStyle(quint8 flagsH)
 		{
 			for (qint32 yy = 0; yy < hHeight; yy++)
 			{
+				if (dsB.atEnd())
+					break;
 				auto* dst = (QRgb*) img.scanLine(yy);
 				for (qint32 xx = 0; xx < hWidth; xx++)
 				{
@@ -4685,6 +4697,8 @@ QImage SvmPlug::getImageDataFromStyle(quint8 flagsH)
 		{
 			for (qint32 yy = 0; yy < hHeight; yy++)
 			{
+				if (dsB.atEnd())
+					break;
 				auto* dst = (QRgb*) img.scanLine(yy);
 				for (qint32 xx = 0; xx < hWidth; xx++)
 				{
@@ -4717,10 +4731,14 @@ QImage SvmPlug::getImageDataFromStyle(quint8 flagsH)
 					colorTbl.append(qRgba(b, g, r, 255));
 			}
 			img = QImage(hWidth, hHeight, QImage::Format_Indexed8);
+			if (img.isNull())
+				return img;
 			img.fill(0);
 			img.setColorTable(colorTbl);
 			for (qint32 yy = 0; yy < hHeight; yy++)
 			{
+				if (dsB.atEnd())
+					break;
 				auto* dst = (char*) img.scanLine(yy);
 				dsB.readRawData(dst, hWidth);
 				aligntoQuadWord(dsB);
@@ -4748,6 +4766,8 @@ QImage SvmPlug::getImageDataFromStyle(quint8 flagsH)
 			}
 			for (qint32 yy = 0; yy < hHeight; yy++)
 			{
+				if (dsB.atEnd())
+					break;
 				auto* dst = (QRgb*) img.scanLine(yy);
 				for (qint32 xx = 0; xx < hWidth; xx += 2)
 				{
@@ -4787,11 +4807,15 @@ QImage SvmPlug::getImageDataFromStyle(quint8 flagsH)
 					colorTbl.append(qRgba(b, g, r, 255));
 			}
 			img = QImage(hWidth, hHeight, QImage::Format_Mono);
+			if (img.isNull())
+				return img;
 			img.fill(0);
 			img.setColorTable(colorTbl);
 			int bpl = img.bytesPerLine();
 			for (qint32 yy = 0; yy < hHeight; yy++)
 			{
+				if (dsB.atEnd())
+					break;
 				auto* dst = (char*) img.scanLine(yy);
 				dsB.readRawData(dst, bpl);
 			}
