@@ -2,6 +2,14 @@ Scribus - 1.7.4 (Released 2026-xx-xx)
 =========================================
 https://bugs.scribus.net/changelog_page.php?version_id=139
 
+0017923: [User Interface] Dark theme: dock panel title bar/tab strip shows white patches instead of dark (jghali)
+0017924: [User Interface] Dark theme: PageSelector/zoom buttons flash light gradient on press (jghali)
+0017925: [User Interface] Dark theme: tab-close/floating-panel-close button hover/press feedback invisible (jghali)
+0017926: [User Interface] Dark theme: switching theme leaves dock panel tabs styled for the previous theme (jghali)
+0012308: [Undo/Redo] Undo/Redo records useless entries deleting guides from Guide Manager (cbradney)
+0017946: [User Interface] Preflight Verifier Preferences Polish (cbradney)
+0017963: [Tables] [tiny patch] Fix single table row/column deletion (cbradney)
+0017829: [User Interface] Creating a linked text frame starts offset from the mouse pointer / crosshair position (nitramr)
 0013314: [Styles] "Default" styles should stay on top of the list regardless of alphabetical sorting (cbradney)
 0017935: [Internal] Hyphenator auto-check wrapper refactor (cbradney)
 0017938: [Graphics / Image Frames] Preflight verifier does not use setting to ignore progressive image type warnings (cbradney)
@@ -60,8 +68,8 @@ https://bugs.scribus.net/changelog_page.php?version_id=139
 0011549: [Tables] Table/cell styles are lacking border settings (cbradney)
 0011550: [Undo/Redo] Undo/redo missing for table editing (cbradney)
 0010784: [Tables] State of the Art of Tables in 1.5SVN (cbradney)
-0010829: [Tables] Selecting rows and columns in tables (cbradney)
-0010831: [Tables] Setting table border and background colors only work on single cells (cbradney)
+	 0010829: [Tables] Selecting rows and columns in tables (cbradney)
+	 0010831: [Tables] Setting table border and background colors only work on single cells (cbradney)
 0013617: [Tables] Very Hard to use Table Properties to set cell borders & very limited options for colour etc. (cbradney)
 0011314: [Tables] Table and Cell styles near and more distant future (cbradney)
 0014135: [Tables] Difficult to make invisible tables (cbradney)
@@ -112,6 +120,8 @@ Scribus - 1.6.7 (Released 2026-xx-xx)
 =========================================
 https://bugs.scribus.net/changelog_page.php?version_id=138
 
+0017947: [Text Frames / Story Editor] Superscript text: the text outline is offset (cbradney)
+0017887: [Import / Export] Property changes do not affect the text imported from .odt (jghali)
 0016925: [Canvas] Rendering of drop shadows is slow (Fahad)
 0017895: [General] The application freezes when attempting to import ‘custom shapes’ (cbradney)
 0017899: [Undo/Redo] Deleting a non existent mark causes crash (jghali)
