@@ -1,7 +1,20 @@
 Scribus - 1.6.7 (Released 2026-xx-xx)
 =========================================
-https://bugs.scribus.net/changelog_page.php?version_id=xxx
+https://bugs.scribus.net/changelog_page.php?version_id=138
 
+0017947: [Text Frames / Story Editor] Superscript text: the text outline is offset (cbradney)
+0017887: [Import / Export] Property changes do not affect the text imported from .odt (jghali)
+0016925: [Canvas] Rendering of drop shadows is slow (Fahad)
+0017895: [General] The application freezes when attempting to import ‘custom shapes’ (cbradney)
+0017899: [Undo/Redo] Deleting a non existent mark causes crash (jghali)
+0017901: [General] Preview mode does not hide guides/margins when editing a master page (jghali)
+0017907: [General] The bleed area still shows in Preview mode in Master Page editing mode (jghali)
+0017865: [Typography] Text formatting (e.g. italic, bold) is not inherited when resuming typing (jghali)
+0017880: [General] Failure to build with poppler 26.07.0 (jghali)
+0017884: [Graphics / Image Frames] Crash with graphicsmagick exception (cbradney)
+0017832: [General] Failure to build with poppler 26.06.0 (jghali)
+0017808: [General] Failure to build with poppler 26.05.0 (jghali)
+0017815: [Fonts] Font "Helsinki" causes crash (jghali)
 
 Scribus - 1.6.6 (Released 2026-04-13)
 =========================================
