@@ -73,6 +73,8 @@ void ActionManager::init(ScribusMainWindow *mw)
 #endif
 
 	createActions();
+	mainWindow->addAction((*scrActions)["toolsZoomIn"]);
+	mainWindow->addAction((*scrActions)["toolsZoomOut"]);
 	createDefaultMenus();
 	createDefaultNonMenuActions();
 	languageChange();
