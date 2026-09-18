@@ -1125,10 +1125,6 @@ void CanvasMode::commonkeyPressEvent_NormalNodeEdit(QKeyEvent *e)
 		scrActions["stickyTools"]->setChecked(false);
 		return;
 	}
-	if (m_view->m_ScMW->actionManager->compareKeySeqToShortcut(kk, e->modifiers(), "toolsZoomIn"))
-		scrActions["toolsZoomIn"]->trigger();
-	if (m_view->m_ScMW->actionManager->compareKeySeqToShortcut(kk, e->modifiers(), "toolsZoomOut"))
-		scrActions["toolsZoomOut"]->trigger();
 	/**If we have a doc and we are not changing the page or zoom level in the status bar */
 	if ((!m_view->m_ScMW->zoomSpinBox->hasFocus()) && (!m_view->m_ScMW->pageSelector->hasFocus()))
 	{
