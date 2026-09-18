@@ -31,27 +31,10 @@ script:
 jobs:
   include:
     os: osx
-    before_install:
-      - brew update 
-    install:
-      - brew outdated cmake || brew upgrade cmake
-      - brew outdated zlib || brew upgrade zlib
-      - brew outdated icu4c || brew upgrade icu4c
-      - brew outdated xz || brew upgrade xz
-      - brew outdated cairo || brew upgrade cairo
-      - brew outdated qt5 || brew upgrade qt5
-      - brew outdated little-cms2 || brew upgrade little-cms2
-      - brew outdated poppler || brew upgrade poppler
-      - brew outdated python || brew unlink python@2 && brew upgrade python
-      - brew outdated jpeg || brew upgrade jpeg
-      - brew outdated libpng || brew upgrade libpng
-      - brew outdated libtiff || brew upgrade libtiff
-      - brew outdated fontconfig || brew upgrade fontconfig
-      - brew outdated pkg-config || brew upgrade pkg-config
-      - brew outdated boost || brew upgrade boost
-      - brew outdated freetype || brew upgrade freetype
-      - brew outdated openssl || brew upgrade openssl
-      - brew install hunspell podofo ghostscript graphicsmagick harfbuzz librevenge libwpg libvisio libmspub libcdr libpagemaker libfreehand # open-scene-graph
+    addons:
+      homebrew:
+        brewfile: true
+        update: true
 
     before_script:
       - export PKG_CONFIG_PATH="$(pkg-config --variable pc_path pkg-config):/usr/local/opt/openssl/lib/pkgconfig:/usr/local/opt/qt/lib/pkgconfig:/usr/local/opt/icu4c/lib/pkgconfig"
