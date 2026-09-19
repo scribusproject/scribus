@@ -12,6 +12,8 @@ set(FORK_APPLICATION_FILES
 	scribus/anchorposition.h
 	scribus/dynamicvariable.cpp
 	scribus/dynamicvariable.h
+	scribus/embeddedimageextractor.cpp
+	scribus/embeddedimageextractor.h
 	scribus/imagelinkmatcher.cpp
 	scribus/imagelinkmatcher.h
 	scribus/styles/objectstyle.cpp

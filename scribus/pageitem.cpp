@@ -26,6 +26,8 @@ for which a new license (GPL+exception) is in place.
 #include <utility>
 
 #include <QDebug>
+#include <QDir>
+#include <QFile>
 #include <QFileInfo>
 #include <QFont>
 #include <QMessageBox>
@@ -38,6 +40,7 @@ for which a new license (GPL+exception) is in place.
 #include <QRegion>
 #include <QRegularExpression>
 #include <QScopedPointer>
+#include <QTemporaryFile>
 #include <cairo.h>
 #include <cassert>
 #include <qdrawutil.h>
@@ -49,6 +52,7 @@ for which a new license (GPL+exception) is in place.
 #include "cmsettings.h"
 #include "colorblind.h"
 #include "desaxe/saxXML.h"
+#include "embeddedimageextractor.h"
 #include "filewatcher.h"
 #include "iconmanager.h"
 #include "marks.h"
@@ -95,6 +99,35 @@ using namespace std;
 
 namespace
 {
+class EmbeddedImageExtractionState final : public SimpleState
+{
+public:
+	EmbeddedImageExtractionState(const QString& name, const QString& externalPath,
+		const QString& backupPath, const QString& extension)
+		: SimpleState(name, externalPath, Um::IGetImage),
+		  m_externalPath(externalPath),
+		  m_backupPath(backupPath),
+		  m_extension(extension)
+	{
+		set("EXTRACT_EMBEDDED_IMAGE");
+	}
+
+	~EmbeddedImageExtractionState() override
+	{
+		if (!m_backupPath.isEmpty())
+			QFile::remove(m_backupPath);
+	}
+
+	const QString& externalPath() const { return m_externalPath; }
+	const QString& backupPath() const { return m_backupPath; }
+	const QString& extension() const { return m_extension; }
+
+private:
+	QString m_externalPath;
+	QString m_backupPath;
+	QString m_extension;
+};
+
 void storeAnchorPosition(SimpleState* state, const QString& prefix, const AnchorPosition& anchor)
 {
 	state->set(prefix + "MODE", static_cast<int>(anchor.mode));
@@ -5272,6 +5305,8 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreLayer(ss, isUndo);
 		else if (ss->contains("GET_IMAGE"))
 			restoreGetImage(ss, isUndo);
+		else if (ss->contains("EXTRACT_EMBEDDED_IMAGE"))
+			restoreExtractedImage(ss, isUndo);
 		else if (ss->contains("RELINK_IMAGE"))
 			restoreRelinkImage(ss, isUndo);
 		else if (ss->contains("EDIT_SHAPE_OR_CONTOUR"))
@@ -8215,6 +8250,82 @@ void PageItem::restoreGetImage(UndoState *state, bool isUndo)
 		select();
 		m_Doc->updatePic();
 	}
+}
+
+void PageItem::restoreExtractedImage(UndoState *state, bool isUndo)
+{
+	const auto *imageState = dynamic_cast<EmbeddedImageExtractionState*>(state);
+	if (!imageState || !isImageFrame())
+	{
+		qFatal("PageItem::restoreExtractedImage: invalid undo state");
+		return;
+	}
+
+	const QString previousPath = Pfile;
+	const bool previousInline = isInlineImage;
+	const bool previousTemp = isTempFile;
+	if (!previousPath.isEmpty() && ScCore->fileWatcher->isWatching(previousPath))
+		ScCore->fileWatcher->removeFile(previousPath);
+
+	QString targetPath = imageState->externalPath();
+	bool targetInline = false;
+	bool targetTemp = false;
+	if (isUndo)
+	{
+		QTemporaryFile temporary(QDir::tempPath() + QStringLiteral("/scribus_temp_XXXXXX.") + imageState->extension());
+		if (!temporary.open())
+		{
+			if (!previousPath.isEmpty())
+				ScCore->fileWatcher->addFile(previousPath);
+			return;
+		}
+		targetPath = getLongPathName(temporary.fileName());
+		temporary.setAutoRemove(false);
+		temporary.close();
+		QString error;
+		if (!copyEmbeddedImageBytes(imageState->backupPath(), targetPath, true, &error))
+		{
+			QFile::remove(targetPath);
+			if (!previousPath.isEmpty())
+				ScCore->fileWatcher->addFile(previousPath);
+			return;
+		}
+		targetInline = true;
+		targetTemp = true;
+	}
+	else if (!QFileInfo::exists(targetPath))
+	{
+		QString error;
+		if (!copyEmbeddedImageBytes(imageState->backupPath(), targetPath, true, &error))
+		{
+			if (!previousPath.isEmpty())
+				ScCore->fileWatcher->addFile(previousPath);
+			return;
+		}
+	}
+
+	Pfile = QFileInfo(targetPath).absoluteFilePath();
+	isInlineImage = targetInline;
+	isTempFile = targetTemp;
+	if (!loadImage(Pfile, true, -1, false))
+	{
+		if (targetTemp)
+			QFile::remove(targetPath);
+		Pfile = previousPath;
+		isInlineImage = previousInline;
+		isTempFile = previousTemp;
+		loadImage(Pfile, true, -1, false);
+		if (!Pfile.isEmpty())
+			ScCore->fileWatcher->addFile(Pfile);
+		return;
+	}
+
+	if (previousTemp && previousPath != imageState->backupPath())
+		QFile::remove(previousPath);
+	ScCore->fileWatcher->addFile(Pfile);
+	update();
+	m_Doc->changed();
+	m_Doc->changedPagePreview();
 }
 
 void PageItem::restoreRelinkImage(UndoState *state, bool isUndo)
@@ -11565,6 +11676,46 @@ void PageItem::makeImageExternal(const QString& path)
 		isInlineImage = false;
 		isTempFile = false;
 	}
+}
+
+bool PageItem::relinkExtractedImage(const QString& path, bool showMsg)
+{
+	if (!isImageFrame() || isLatexFrame() || !isInlineImage || !isTempFile
+		|| !imageIsAvailable || path.isEmpty() || !QFileInfo::exists(path))
+		return false;
+
+	const QString oldInlinePath = Pfile;
+	const QString externalPath = QFileInfo(path).absoluteFilePath();
+	if (ScCore->fileWatcher->isWatching(oldInlinePath))
+		ScCore->fileWatcher->removeFile(oldInlinePath);
+
+	Pfile = externalPath;
+	isInlineImage = false;
+	isTempFile = false;
+	if (!loadImage(Pfile, true, -1, showMsg))
+	{
+		Pfile = oldInlinePath;
+		isInlineImage = true;
+		isTempFile = true;
+		loadImage(Pfile, true, -1, false);
+		ScCore->fileWatcher->addFile(Pfile);
+		return false;
+	}
+	ScCore->fileWatcher->addFile(Pfile);
+
+	if (UndoManager::undoEnabled())
+	{
+		auto *imageState = new EmbeddedImageExtractionState(tr("Relink extracted image"),
+			externalPath, oldInlinePath, embeddedImageExtension(oldInlinePath));
+		undoManager->action(this, imageState);
+	}
+	else
+		QFile::remove(oldInlinePath);
+
+	update();
+	m_Doc->changed();
+	m_Doc->changedPagePreview();
+	return true;
 }
 
 void PageItem::addWelded(PageItem* item)

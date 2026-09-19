@@ -90,6 +90,40 @@
    </widget>
   </item>
   <item>
+   <layout class="QHBoxLayout" name="extractEmbeddedLayout">
+    <item>
+     <spacer name="extractEmbeddedSpacer">
+      <property name="orientation">
+       <enum>Qt::Orientation::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size><width>40</width><height>20</height></size>
+      </property>
+     </spacer>
+    </item>
+    <item>
+     <widget class="QPushButton" name="extractSelectedButton">
+      <property name="enabled"><bool>false</bool></property>
+      <property name="toolTip">
+       <string>Save the selected embedded image without recompressing or changing its format.</string>
+      </property>
+      <property name="text"><string>Extract Selected...</string></property>
+      <property name="autoDefault"><bool>false</bool></property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="extractAllButton">
+      <property name="enabled"><bool>false</bool></property>
+      <property name="toolTip">
+       <string>Extract every embedded image in the document. View filters do not limit this operation.</string>
+      </property>
+      <property name="text"><string>Extract All Embedded...</string></property>
+      <property name="autoDefault"><bool>false</bool></property>
+     </widget>
+    </item>
+   </layout>
+  </item>
+  <item>
    <layout class="QHBoxLayout" name="relinkFolderLayout">
     <item>
      <spacer name="relinkFolderSpacer">

@@ -210,6 +210,46 @@ May raise WrongFrameTypeError if the target frame is not an image frame.\n\
 PyObject *scribus_relinkimage(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_embedimage__doc__,
+QT_TR_NOOP("embedImage([\"name\"]) -> bool\n\
+\n\
+Embeds the image used by image frame \"name\" in the document without\n\
+re-encoding it. If \"name\" is not given the currently selected item is used.\n\
+Returns True when the image is embedded.\n\
+\n\
+May raise WrongFrameTypeError if the target frame is not an image frame.\n\
+"));
+/*! Embed an externally linked image in the document. */
+PyObject *scribus_embedimage(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_extractembeddedimage__doc__,
+QT_TR_NOOP("extractEmbeddedImage(\"filename\" [, relink=False, overwrite=False, \"name\"]) -> bool\n\
+\n\
+Copies the exact stored bytes of the embedded image in frame \"name\" to\n\
+\"filename\". Set relink to True to replace the embedded data with a link to\n\
+the extracted file; that document change is undoable. Existing files are kept\n\
+unless overwrite is True. If \"name\" is not given the currently selected item\n\
+is used.\n\
+\n\
+May raise WrongFrameTypeError if the target frame is not an image frame.\n\
+"));
+/*! Extract an embedded image, optionally relinking its frame. */
+PyObject *scribus_extractembeddedimage(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_isimageembedded__doc__,
+QT_TR_NOOP("isImageEmbedded([\"name\"]) -> bool\n\
+\n\
+Returns True if image frame \"name\" stores its image inside the document. If\n\
+\"name\" is not given the currently selected item is used.\n\
+\n\
+May raise WrongFrameTypeError if the target frame is not an image frame.\n\
+"));
+/*! Report whether an image frame contains embedded image data. */
+PyObject *scribus_isimageembedded(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_scaleimage__doc__,
 QT_TR_NOOP("scaleImage(x, y [, \"name\"])\n\
 \n\

@@ -787,6 +787,7 @@ public: // Start public functions
 	void setInlineData(const QByteArray& data, const QString& ext);
 	void makeImageInline();
 	void makeImageExternal(const QString& path);
+	bool relinkExtractedImage(const QString& path, bool showMsg = true);
 
 	//Text Data - Move to PageItem_TextFrame at some point? --- no, to FrameStyle, av
 	double textToFrameDistLeft() const { return m_textDistanceMargins.left(); }
@@ -1614,6 +1615,7 @@ protected: // Start protected functions
 	void restoreFillRule(SimpleState* state, bool isUndo);
 	void restoreFirstLineOffset(SimpleState *state, bool isUndo);
 	void restoreGetImage(UndoState *state, bool isUndo);
+	void restoreExtractedImage(UndoState *state, bool isUndo);
 	void restoreRelinkImage(UndoState *state, bool isUndo);
 	void restoreGradPos(SimpleState *state,bool isUndo);
 	void restoreGradientCol1(SimpleState *state, bool isUndo);

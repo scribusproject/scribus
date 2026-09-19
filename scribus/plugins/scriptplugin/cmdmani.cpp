@@ -5,10 +5,13 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <QFileInfo>
 #include <QQueue>
 
 #include "cmdmani.h"
 #include "cmdutil.h"
+#include "embeddedimageextractor.h"
+#include "filewatcher.h"
 #include "pyesstring.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
@@ -60,6 +63,96 @@ PyObject *scribus_relinkimage(PyObject* /* self */, PyObject* args)
 	}
 
 	return PyBool_FromLong(item->relinkImage(QString::fromUtf8(image.c_str()), false));
+}
+
+PyObject *scribus_embedimage(PyObject* /* self */, PyObject* args)
+{
+	PyESString name;
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	if (item == nullptr)
+		return nullptr;
+	if (!item->isImageFrame() || item->isLatexFrame())
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Target is not an image frame.", "python error").toUtf8().constData());
+		return nullptr;
+	}
+	if (item->isImageInline())
+		Py_RETURN_TRUE;
+	if (!item->imageIsAvailable || item->Pfile.isEmpty())
+		Py_RETURN_FALSE;
+
+	const QString oldPath = item->Pfile;
+	if (ScCore->fileWatcher->isWatching(oldPath))
+		ScCore->fileWatcher->removeFile(oldPath);
+	item->makeImageInline();
+	if (!item->isImageInline())
+	{
+		ScCore->fileWatcher->addFile(oldPath);
+		Py_RETURN_FALSE;
+	}
+
+	ScCore->fileWatcher->addFile(item->Pfile);
+	const bool flipHorizontal = item->imageFlippedH();
+	const bool flipVertical = item->imageFlippedV();
+	ScCore->primaryMainWindow()->doc->loadPict(item->Pfile, item, true);
+	item->setImageFlippedH(flipHorizontal);
+	item->setImageFlippedV(flipVertical);
+	Py_RETURN_TRUE;
+}
+
+PyObject *scribus_extractembeddedimage(PyObject* /* self */, PyObject* args)
+{
+	PyESString name;
+	PyESString destination;
+	int relink = 0;
+	int overwrite = 0;
+	if (!PyArg_ParseTuple(args, "es|ppes", "utf-8", destination.ptr(), &relink, &overwrite, "utf-8", name.ptr()))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	if (item == nullptr)
+		return nullptr;
+	if (!item->isImageFrame() || item->isLatexFrame())
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Target is not an image frame.", "python error").toUtf8().constData());
+		return nullptr;
+	}
+	if (!item->isImageInline() || !item->imageIsAvailable)
+		Py_RETURN_FALSE;
+
+	const QString destinationPath = QFileInfo(QString::fromUtf8(destination.c_str())).absoluteFilePath();
+	QString error;
+	if (!copyEmbeddedImageBytes(item->Pfile, destinationPath, overwrite != 0, &error))
+	{
+		PyErr_SetString(ScribusException, error.toUtf8().constData());
+		return nullptr;
+	}
+	if (relink && !item->relinkExtractedImage(destinationPath, false))
+		Py_RETURN_FALSE;
+	Py_RETURN_TRUE;
+}
+
+PyObject *scribus_isimageembedded(PyObject* /* self */, PyObject* args)
+{
+	PyESString name;
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	if (item == nullptr)
+		return nullptr;
+	if (!item->isImageFrame() || item->isLatexFrame())
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Target is not an image frame.", "python error").toUtf8().constData());
+		return nullptr;
+	}
+	return PyBool_FromLong(item->isImageInline());
 }
 
 PyObject *scribus_scaleimage(PyObject* /* self */, PyObject* args)

@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QAction>
 #include <QCheckBox>
+#include <QComboBox>
 #include <QDesktopServices>
 #include <QDialogButtonBox>
 #include <QFileDialog>
@@ -45,8 +46,10 @@ for which a new license (GPL+exception) is in place.
 #include <QTimer>
 #include <QToolButton>
 #include <QTreeWidget>
+#include <QVBoxLayout>
 
 #include "effectsdialog.h"
+#include "embeddedimageextractor.h"
 #include "extimageprops.h"
 #include "iconmanager.h"
 #include "imagelinkmatcher.h"
@@ -76,6 +79,8 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu) : QDialog( parent )
 	imageViewArea->setIconSize(QSize(128, 128));
 	imageViewArea->setContextMenuPolicy(Qt::CustomContextMenu);
 	m_Doc = docu;
+	m_lastExtractionDirectory = m_Doc->hasName
+		? QFileInfo(m_Doc->documentFileName()).absolutePath() : QDir::homePath();
 	setWindowIcon(IconManager::instance().loadIcon("app-icon"));
 	fillTable();
 	workTab->setCurrentIndex(0);
@@ -90,6 +95,8 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu) : QDialog( parent )
 	connect(searchButton, SIGNAL(clicked()), this, SLOT(SearchPic()));
 	connect(relinkFolderButton, SIGNAL(clicked()), this, SLOT(relinkMissingImages()));
 	connect(mapFolderButton, &QPushButton::clicked, this, &PicStatus::mapMissingImageFolder);
+	connect(extractSelectedButton, &QPushButton::clicked, this, &PicStatus::extractSelectedEmbeddedImage);
+	connect(extractAllButton, &QPushButton::clicked, this, &PicStatus::extractAllEmbeddedImages);
 	connect(fileManagerButton, SIGNAL(clicked()), this, SLOT(FileManager()));
 	connect(effectsButton, SIGNAL(clicked()), this, SLOT(doImageEffects()));
 	connect(buttonLayers, SIGNAL(clicked()), this, SLOT(doImageExtProp()));
@@ -140,6 +147,8 @@ void PicStatus::enableWidgets(bool enabled)
 	effectsButton->setEnabled(enabled);
 	buttonLayers->setEnabled(enabled);
 	buttonEdit->setEnabled(enabled);
+	extractSelectedButton->setEnabled(enabled && currItem && currItem->isImageInline()
+		&& currItem->imageIsAvailable && QFileInfo::exists(currItem->Pfile));
 }
 
 void PicStatus::fillTable()
@@ -227,6 +236,7 @@ void PicStatus::fillTable()
 	}
 	relinkFolderButton->setEnabled(hasMissingImages);
 	mapFolderButton->setEnabled(hasMissingImages);
+	extractAllButton->setEnabled(!embeddedImageItems().isEmpty());
 	if (sortOrder == 0)
 		sortByName();
 	else
@@ -558,6 +568,148 @@ void PicStatus::relinkMissingImages()
 void PicStatus::mapMissingImageFolder()
 {
 	relinkMissingImagesFromFolder(true);
+}
+
+QList<PageItem*> PicStatus::embeddedImageItems() const
+{
+	QList<PageItem*> items;
+	for (int i = 0; i < imageViewArea->count(); ++i)
+	{
+		const auto *imageItem = static_cast<PicItem*>(imageViewArea->item(i));
+		PageItem *pageItem = imageItem->PageItemObject;
+		if (pageItem && pageItem->isImageInline() && pageItem->imageIsAvailable
+			&& QFileInfo::exists(pageItem->Pfile))
+			items.append(pageItem);
+	}
+	return items;
+}
+
+void PicStatus::extractSelectedEmbeddedImage()
+{
+	if (!currItem || !currItem->isImageInline() || !currItem->imageIsAvailable
+		|| !QFileInfo::exists(currItem->Pfile))
+		return;
+
+	const QString defaultName = suggestedEmbeddedImageFileName(currItem->itemName(), currItem->Pfile, 1);
+	const QString destination = QFileDialog::getSaveFileName(this, tr("Extract Embedded Image"),
+		QDir(m_lastExtractionDirectory).filePath(defaultName), tr("All Files (*)"));
+	if (destination.isEmpty())
+		return;
+	m_lastExtractionDirectory = QFileInfo(destination).absolutePath();
+
+	QString error;
+	if (!copyEmbeddedImageBytes(currItem->Pfile, destination, true, &error))
+	{
+		ScMessageBox::warning(this, tr("Extract Embedded Image"), error);
+		return;
+	}
+
+	const auto relink = QMessageBox::question(this, tr("Extract Embedded Image"),
+		tr("The embedded image was extracted successfully.\n\n"
+		   "Relink this frame to the extracted file? The relinking can be undone without deleting the extracted file."),
+		QMessageBox::Yes | QMessageBox::No, QMessageBox::No);
+	if (relink == QMessageBox::Yes && !currItem->relinkExtractedImage(destination))
+	{
+		ScMessageBox::warning(this, tr("Extract Embedded Image"),
+			tr("The image was extracted, but the frame could not be relinked. It remains embedded."));
+		return;
+	}
+	fillTable();
+}
+
+void PicStatus::extractAllEmbeddedImages()
+{
+	const QList<PageItem*> images = embeddedImageItems();
+	if (images.isEmpty())
+		return;
+
+	const QString directory = QFileDialog::getExistingDirectory(this, tr("Extract All Embedded Images"),
+		m_lastExtractionDirectory);
+	if (directory.isEmpty())
+		return;
+	m_lastExtractionDirectory = directory;
+
+	QDialog options(this);
+	options.setWindowTitle(tr("Extract All Embedded Images"));
+	auto *layout = new QVBoxLayout(&options);
+	auto *description = new QLabel(tr("Extract %n embedded image(s) to:\n%1", nullptr, images.size())
+		.arg(QDir::toNativeSeparators(directory)), &options);
+	description->setWordWrap(true);
+	layout->addWidget(description);
+	auto *conflictLabel = new QLabel(tr("If a filename already exists:"), &options);
+	layout->addWidget(conflictLabel);
+	auto *conflictBox = new QComboBox(&options);
+	conflictBox->setAccessibleName(tr("Existing file handling"));
+	conflictBox->addItem(tr("Keep both files (add a number)"), static_cast<int>(ImageExtractionConflict::KeepBoth));
+	conflictBox->addItem(tr("Skip the embedded image"), static_cast<int>(ImageExtractionConflict::Skip));
+	conflictBox->addItem(tr("Replace the existing file"), static_cast<int>(ImageExtractionConflict::Replace));
+	layout->addWidget(conflictBox);
+	auto *relinkBox = new QCheckBox(tr("Relink frames to the extracted files"), &options);
+	relinkBox->setToolTip(tr("Relinking is grouped into one undo step. Undo does not delete extracted files."));
+	layout->addWidget(relinkBox);
+	auto *buttons = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &options);
+	buttons->button(QDialogButtonBox::Ok)->setText(tr("Extract"));
+	connect(buttons, &QDialogButtonBox::accepted, &options, &QDialog::accept);
+	connect(buttons, &QDialogButtonBox::rejected, &options, &QDialog::reject);
+	layout->addWidget(buttons);
+	if (options.exec() != QDialog::Accepted)
+		return;
+
+	const auto conflict = static_cast<ImageExtractionConflict>(conflictBox->currentData().toInt());
+	const bool relinkFrames = relinkBox->isChecked();
+	QSet<QString> reservedPaths;
+	UndoTransaction transaction;
+	if (relinkFrames && UndoManager::undoEnabled())
+		transaction = UndoManager::instance()->beginTransaction(Um::SelectionGroup, Um::IGroup,
+			tr("Relink extracted images"), QString(), Um::IGetImage);
+
+	int extracted = 0;
+	int relinked = 0;
+	int relinkFailed = 0;
+	int renamed = 0;
+	int skipped = 0;
+	int failed = 0;
+	for (int i = 0; i < images.size(); ++i)
+	{
+		PageItem *pageItem = images.at(i);
+		const QString fileName = suggestedEmbeddedImageFileName(pageItem->itemName(), pageItem->Pfile, i + 1);
+		const ImageExtractionPath output = resolveImageExtractionPath(directory, fileName, conflict, &reservedPaths);
+		if (output.skipped)
+		{
+			++skipped;
+			continue;
+		}
+		QString error;
+		if (!copyEmbeddedImageBytes(pageItem->Pfile, output.path,
+			conflict == ImageExtractionConflict::Replace, &error))
+		{
+			++failed;
+			continue;
+		}
+		++extracted;
+		if (output.renamed)
+			++renamed;
+		if (relinkFrames)
+		{
+			if (pageItem->relinkExtractedImage(output.path, false))
+				++relinked;
+			else
+				++relinkFailed;
+		}
+	}
+	if (transaction)
+	{
+		if (relinked > 0)
+			transaction.commit();
+		else
+			transaction.cancel();
+	}
+
+	fillTable();
+	ScMessageBox::information(this, tr("Extract All Embedded Images"),
+		tr("Extracted: %1\nRelinked: %2\nRenamed to avoid conflicts: %3\nSkipped: %4\nFailed to extract: %5\nFailed to relink: %6\n\n"
+		   "Undoing relinking will not delete extracted files.")
+			.arg(extracted).arg(relinked).arg(renamed).arg(skipped).arg(failed).arg(relinkFailed));
 }
 
 void PicStatus::relinkMissingImagesFromFolder(bool mapFolder)

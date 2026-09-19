@@ -84,6 +84,8 @@ private slots:
 	void SearchPic();
 	void relinkMissingImages();
 	void mapMissingImageFolder();
+	void extractSelectedEmbeddedImage();
+	void extractAllEmbeddedImages();
 	void FileManager();
 	void doImageEffects();
 	void doImageExtProp();
@@ -109,10 +111,12 @@ protected:
 
 private:
 	void relinkMissingImagesFromFolder(bool mapFolder);
+	QList<PageItem*> embeddedImageItems() const;
 
 	ScribusDoc *m_Doc {nullptr};
 	PageItem *currItem {nullptr};
 	int sortOrder {0};
+	QString m_lastExtractionDirectory;
 
 };
 #endif

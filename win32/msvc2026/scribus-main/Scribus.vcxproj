@@ -266,6 +266,7 @@
     <ClInclude Include="..\..\..\scribus\actionsearch.h" />
     <ClInclude Include="..\..\..\scribus\anchorposition.h" />
     <ClInclude Include="..\..\..\scribus\dynamicvariable.h" />
+    <ClInclude Include="..\..\..\scribus\embeddedimageextractor.h" />
     <ClInclude Include="..\..\..\scribus\imagelinkmatcher.h" />
     <ClInclude Include="..\..\..\scribus\stylequickapplymodel.h" />
     <ClInclude Include="..\..\..\scribus\api\api_application.h" />
@@ -968,6 +969,7 @@
     <ClCompile Include="..\..\..\scribus\actionsearch.cpp" />
     <ClCompile Include="..\..\..\scribus\anchorposition.cpp" />
     <ClCompile Include="..\..\..\scribus\dynamicvariable.cpp" />
+    <ClCompile Include="..\..\..\scribus\embeddedimageextractor.cpp" />
     <ClCompile Include="..\..\..\scribus\imagelinkmatcher.cpp" />
     <ClCompile Include="..\..\..\scribus\stylequickapplymodel.cpp" />
     <ClCompile Include="..\..\..\scribus\api\api_application.cpp" />

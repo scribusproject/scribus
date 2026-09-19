@@ -90,6 +90,7 @@ set(SCRIBUS_SOURCES
 	dynamicvariable.cpp
 	documentinformation.cpp
 	documentlogmanager.cpp
+	embeddedimageextractor.cpp
 	exif.cpp
 	fileloader.cpp
 	filesearch.cpp

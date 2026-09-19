@@ -60,6 +60,11 @@ add_scribus_portable_test(imagelinkmatchertests
 	"${SCRIBUS_ROOT}/scribus/deferredtask.cpp")
 target_link_libraries(imagelinkmatchertests PRIVATE Qt6::Core Qt6::Test)
 
+add_scribus_portable_test(embeddedimageextractortests
+	"${SCRIBUS_ROOT}/scribus/tests/embeddedimageextractortests.cpp"
+	"${SCRIBUS_ROOT}/scribus/embeddedimageextractor.cpp")
+target_link_libraries(embeddedimageextractortests PRIVATE Qt6::Core Qt6::Test)
+
 add_test(NAME windows_project_sources
 	COMMAND "${CMAKE_COMMAND}"
 		-DSCRIBUS_ROOT=${SCRIBUS_ROOT}

@@ -85,6 +85,14 @@ target_compile_definitions(imagelinkmatchertests PRIVATE COMPILE_SCRIBUS_MAIN_AP
 add_test(NAME imagelinkmatchertests COMMAND imagelinkmatchertests)
 set_tests_properties(imagelinkmatchertests PROPERTIES LABELS "image-relinking;phase-4")
 
+# Unit tests for byte-preserving embedded-image extraction and naming
+set(EMBEDDEDIMAGEEXTRACTORTESTS_SOURCES embeddedimageextractortests.cpp ../embeddedimageextractor.cpp)
+add_executable(embeddedimageextractortests ${EMBEDDEDIMAGEEXTRACTORTESTS_SOURCES})
+target_link_libraries(embeddedimageextractortests Qt6::Test Qt6::Core)
+target_compile_definitions(embeddedimageextractortests PRIVATE COMPILE_SCRIBUS_MAIN_APP)
+add_test(NAME embeddedimageextractortests COMMAND embeddedimageextractortests)
+set_tests_properties(embeddedimageextractortests PROPERTIES LABELS "embedded-image-extraction;phase-4")
+
 # End-to-end running-header tests use the installed application because the
 # Scripter and file-format plugins are loaded from the installation layout.
 if(APPLEBUNDLE)
@@ -272,6 +280,24 @@ set_tests_properties(image_relinking PROPERTIES
 	FIXTURES_REQUIRED runningheader_test_app
 	LABELS "integration;image-relinking;phase-4;scripter;undo-redo"
 	PASS_REGULAR_EXPRESSION "IMAGE_RELINK_QA_PASSED"
+	RUN_SERIAL TRUE
+	TIMEOUT 120)
+
+set(embedded_image_prefs_dir "${CMAKE_CURRENT_BINARY_DIR}/prefs-embedded-image")
+set(embedded_image_output_dir "${CMAKE_CURRENT_BINARY_DIR}/output-embedded-image")
+file(MAKE_DIRECTORY "${embedded_image_prefs_dir}")
+file(MAKE_DIRECTORY "${embedded_image_output_dir}")
+add_test(NAME embedded_image_extraction
+	COMMAND "${SCRIBUS_SCRIPT_TEST_EXECUTABLE}"
+		--no-splash
+		--prefs "${embedded_image_prefs_dir}"
+		--no-gui
+		--python-script "${CMAKE_CURRENT_SOURCE_DIR}/scripts/test_embedded_image_extraction.py")
+set_tests_properties(embedded_image_extraction PROPERTIES
+	ENVIRONMENT "QT_QPA_PLATFORM=offscreen;SCRIBUS_TEST_OUTPUT_DIR=${embedded_image_output_dir}"
+	FIXTURES_REQUIRED runningheader_test_app
+	LABELS "integration;embedded-images;phase-4;scripter;undo-redo;persistence"
+	PASS_REGULAR_EXPRESSION "EMBEDDED_IMAGE_EXTRACTION_QA_PASSED"
 	RUN_SERIAL TRUE
 	TIMEOUT 120)
 

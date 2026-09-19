@@ -103,6 +103,9 @@
     <ClInclude Include="..\..\..\scribus\dynamicvariable.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\scribus\embeddedimageextractor.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\scribus\imagelinkmatcher.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -988,6 +991,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\dynamicvariable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\embeddedimageextractor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\imagelinkmatcher.cpp">
