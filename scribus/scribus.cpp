@@ -184,6 +184,7 @@ for which a new license (GPL+exception) is in place.
 #include "ui/edittoolbar.h"
 #include "ui/effectsdialog.h"
 #include "ui/filetoolbar.h"
+#include "ui/fontreplacedialog.h"
 #include "ui/guidemanager.h"
 #include "ui/helpbrowser.h"
 #include "ui/hruler.h"
@@ -1350,6 +1351,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("itemUpdateMarks", "Extras");
 	scrMenuMgr->addMenuItemString("SEPARATOR", "Extras");
 	scrMenuMgr->addMenuItemString("extrasManageImages", "Extras");
+	scrMenuMgr->addMenuItemString("extrasReplaceFonts", "Extras");
 	scrMenuMgr->addMenuItemString("SEPARATOR", "Extras");
 	scrMenuMgr->addMenuItemString("extrasUpdateDocument", "Extras");
 //	Disabled for release as it does nothing useful
@@ -2443,6 +2445,7 @@ void ScribusMainWindow::extrasMenuAboutToShow()
 		}
 	}
 	scrActions["extrasManageImages"]->setEnabled(enablePicManager);
+	scrActions["extrasReplaceFonts"]->setEnabled(HaveDoc);
 }
 
 void ScribusMainWindow::newActWin(QMdiSubWindow *w)
@@ -8518,6 +8521,21 @@ void ScribusMainWindow::StatusPic()
 	connect(dia, SIGNAL(selectElementByItem(PageItem*,bool,int)), this, SLOT(selectItemsFromOutlines(PageItem*,bool,int)));
 	dia->exec();
 	delete dia;
+}
+
+void ScribusMainWindow::replaceDocumentFonts()
+{
+	if (!HaveDoc || !doc)
+		return;
+
+	DocumentFontReplacementDialog dialog(this, doc, doc->documentFontNames());
+	if (dialog.exec() != QDialog::Accepted)
+		return;
+	if (!doc->replaceDocumentFont(dialog.sourceFont(), dialog.replacementFont()))
+	{
+		ScMessageBox::warning(this, tr("Replace Fonts"),
+			tr("The font could not be replaced. Choose a different installed font and try again."));
+	}
 }
 
 QPair<QString, uint> ScribusMainWindow::CFileDialog(const QString& workingDirectory, const QString& dialogCaption, const QString& fileFilter, const QString& defaultFilename, int optionFlags, bool *useCompression, bool *useFonts, bool *useProfiles)

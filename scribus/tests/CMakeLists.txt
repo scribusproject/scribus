@@ -301,6 +301,24 @@ set_tests_properties(embedded_image_extraction PROPERTIES
 	RUN_SERIAL TRUE
 	TIMEOUT 120)
 
+set(document_font_replacement_prefs_dir "${CMAKE_CURRENT_BINARY_DIR}/prefs-document-font-replacement")
+set(document_font_replacement_output_dir "${CMAKE_CURRENT_BINARY_DIR}/output-document-font-replacement")
+file(MAKE_DIRECTORY "${document_font_replacement_prefs_dir}")
+file(MAKE_DIRECTORY "${document_font_replacement_output_dir}")
+add_test(NAME document_font_replacement
+	COMMAND "${SCRIBUS_SCRIPT_TEST_EXECUTABLE}"
+		--no-splash
+		--prefs "${document_font_replacement_prefs_dir}"
+		--no-gui
+		--python-script "${CMAKE_CURRENT_SOURCE_DIR}/scripts/test_document_font_replacement.py")
+set_tests_properties(document_font_replacement PROPERTIES
+	ENVIRONMENT "QT_QPA_PLATFORM=offscreen;SCRIBUS_TEST_OUTPUT_DIR=${document_font_replacement_output_dir}"
+	FIXTURES_REQUIRED runningheader_test_app
+	LABELS "integration;font-replacement;phase-4;scripter;undo-redo;persistence"
+	PASS_REGULAR_EXPRESSION "DOCUMENT_FONT_REPLACEMENT_QA_PASSED"
+	RUN_SERIAL TRUE
+	TIMEOUT 120)
+
 find_program(PDFTOTEXT_EXECUTABLE pdftotext)
 if(NOT PDFTOTEXT_EXECUTABLE)
 	set_tests_properties(runningheader_masters PROPERTIES DISABLED TRUE)

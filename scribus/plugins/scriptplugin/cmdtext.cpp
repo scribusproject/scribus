@@ -99,6 +99,31 @@ PyObject *scribus_getfont(PyObject* /* self */, PyObject* args)
 	return PyUnicode_FromString(item->currentCharStyle().font().scName().toUtf8());
 }
 
+PyObject *scribus_listdocumentfonts(PyObject* /* self */)
+{
+	if (!checkHaveDocument())
+		return nullptr;
+	const QStringList fonts = ScCore->primaryMainWindow()->doc->documentFontNames();
+	PyObject* result = PyList_New(fonts.size());
+	for (qsizetype i = 0; i < fonts.size(); ++i)
+		PyList_SET_ITEM(result, i, PyUnicode_FromString(fonts.at(i).toUtf8().constData()));
+	return result;
+}
+
+PyObject *scribus_replacedocumentfont(PyObject* /* self */, PyObject* args)
+{
+	PyESString sourceFont;
+	PyESString replacementFont;
+	if (!PyArg_ParseTuple(args, "eses", "utf-8", sourceFont.ptr(), "utf-8", replacementFont.ptr()))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+
+	ScribusDoc* doc = ScCore->primaryMainWindow()->doc;
+	return PyBool_FromLong(doc->replaceDocumentFont(QString::fromUtf8(sourceFont.c_str()),
+		QString::fromUtf8(replacementFont.c_str())));
+}
+
 PyObject *scribus_gettextcolor(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;

@@ -37,6 +37,28 @@ selected item is used.\n\
 PyObject *scribus_getfont(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_listdocumentfonts__doc__,
+QT_TR_NOOP("listDocumentFonts() -> list[str]\n\
+\n\
+Returns the fonts referenced by document text, master pages, patterns,\n\
+paragraph styles, character styles, and the document text-tool default.\n\
+"));
+/*! List fonts referenced by the current document. */
+PyObject *scribus_listdocumentfonts(PyObject * /*self*/);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_replacedocumentfont__doc__,
+QT_TR_NOOP("replaceDocumentFont(\"source\", \"replacement\") -> bool\n\
+\n\
+Replaces a font throughout document text, master pages, patterns, paragraph\n\
+styles, character styles, and the document text-tool default. The operation is\n\
+stored as one undo step. Returns False if the source is unused or the\n\
+replacement is unavailable.\n\
+"));
+/*! Replace a font throughout the current document. */
+PyObject *scribus_replacedocumentfont(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_getfontfeatures__doc__,
 QT_TR_NOOP("getFontFeatures([\"name\"]) -> string\n\
 \n\

@@ -12,6 +12,8 @@ for which a new license (GPL+exception) is in place.
 
 class QVBoxLayout;
 class QHBoxLayout;
+class QComboBox;
+class QDialogButtonBox;
 class QLabel;
 class QTableWidget;
 class QCheckBox;
@@ -19,6 +21,9 @@ class QPushButton;
 class QCloseEvent;
 
 #include "scribusapi.h"
+
+class FontCombo;
+class ScribusDoc;
 
 class SCRIBUS_API FontReplaceDialog : public QDialog
 {
@@ -43,6 +48,26 @@ protected:
 	QVBoxLayout* FontReplaceDialogLayout { nullptr };
 	QHBoxLayout* layout1 { nullptr };
 
+};
+
+class SCRIBUS_API DocumentFontReplacementDialog : public QDialog
+{
+	Q_OBJECT
+
+public:
+	DocumentFontReplacementDialog(QWidget* parent, ScribusDoc* doc, const QStringList& documentFonts);
+
+	QString sourceFont() const;
+	QString replacementFont() const;
+
+private slots:
+	void updateAcceptState();
+
+private:
+	QComboBox* m_sourceFont { nullptr };
+	FontCombo* m_replacementFont { nullptr };
+	QDialogButtonBox* m_buttonBox { nullptr };
+	QPushButton* m_replaceButton { nullptr };
 };
 
 #endif // FONTREPLACEDIALOG_H

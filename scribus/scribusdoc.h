@@ -247,6 +247,7 @@ class SCRIBUS_API ScribusDoc : public QObject, public UndoObject, public Observa
 		TypoPrefs& typographicPrefs() { return m_docPrefsData.typoPrefs; }
 		GuidesPrefs& guidesPrefs() { return m_docPrefsData.guidesPrefs; }
 		ItemToolPrefs& itemToolPrefs() { return m_docPrefsData.itemToolPrefs; }
+		const ItemToolPrefs& itemToolPrefs() const { return m_docPrefsData.itemToolPrefs; }
 		OperatorToolPrefs& opToolPrefs() { return m_docPrefsData.opToolPrefs; }
 		ColorPrefs& colorPrefs() { return m_docPrefsData.colorPrefs; }
 		CMSData& cmsSettings() { return m_docPrefsData.colorPrefs.DCMSset; }
@@ -708,6 +709,14 @@ class SCRIBUS_API ScribusDoc : public QObject, public UndoObject, public Observa
 		void getUsedStylesFromItems(ResourceCollection& lists) const;
 
 		void getNamedResources(ResourceCollection& lists) const;
+		/** Return every font referenced by document content or document styles. */
+		QStringList documentFontNames() const;
+		/**
+		 * Replace one font throughout document content, master pages, patterns,
+		 * paragraph styles, character styles, and the document text-tool default.
+		 * The operation is stored as one collision-safe undo step.
+		 */
+		bool replaceDocumentFont(const QString& sourceFont, const QString& replacementFont, bool createUndo = true);
 		struct ResMapped
 		{
 				ResMapped(ResourceCollection& newNames) { m_newNames = newNames;}
@@ -1991,6 +2000,7 @@ class SCRIBUS_API ScribusDoc : public QObject, public UndoObject, public Observa
 		QDateTime dynamicVariableCreationDate() const { return m_dynamicVariableCreationDate; }
 		void setDynamicVariableCreationDate(const QDateTime& dateTime) { m_dynamicVariableCreationDate = dateTime; }
 		void restoreDynamicVariable(SimpleState* state, bool isUndo);
+		void restoreDocumentFontReplacement(SimpleState* state, bool isUndo);
 		void restoreObjectStyleChanges(SimpleState* state, bool isUndo);
 		void restoreObjectStyleImport(SimpleState* state, bool isUndo);
 		TextNote* newNote(NotesStyle* NS);

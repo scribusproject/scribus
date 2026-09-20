@@ -6,6 +6,9 @@ for which a new license (GPL+exception) is in place.
 */
 #include "fontreplacedialog.h"
 
+#include <QComboBox>
+#include <QDialogButtonBox>
+#include <QFormLayout>
 #include <QPixmap>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -21,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "fontcombo.h"
 #include "iconmanager.h"
+#include "scribusdoc.h"
 #include "scribusstructs.h"
 #include "util.h"
 
@@ -103,4 +107,65 @@ void FontReplaceDialog::leaveOK()
 	}
 	if (okButton == sender())
 		accept();
+}
+
+DocumentFontReplacementDialog::DocumentFontReplacementDialog(QWidget* parent, ScribusDoc* doc, const QStringList& documentFonts) :
+	QDialog(parent)
+{
+	setModal(true);
+	setWindowTitle(tr("Replace Fonts"));
+	setWindowIcon(IconManager::instance().loadIcon("app-icon"));
+
+	auto* layout = new QVBoxLayout(this);
+	layout->setContentsMargins(12, 12, 12, 12);
+	layout->setSpacing(12);
+
+	auto* explanation = new QLabel(tr("Replace every use of a document font, including text, styles, master pages, patterns, and the text-tool default."), this);
+	explanation->setWordWrap(true);
+	layout->addWidget(explanation);
+
+	auto* formLayout = new QFormLayout;
+	formLayout->setContentsMargins(0, 0, 0, 0);
+	formLayout->setFieldGrowthPolicy(QFormLayout::AllNonFixedFieldsGrow);
+	m_sourceFont = new QComboBox(this);
+	m_sourceFont->addItems(documentFonts);
+	m_replacementFont = new FontCombo(this);
+	m_replacementFont->RebuildList(doc, false, true);
+	formLayout->addRow(tr("Document font:"), m_sourceFont);
+	formLayout->addRow(tr("Replace with:"), m_replacementFont);
+	layout->addLayout(formLayout);
+
+	auto* undoHint = new QLabel(tr("The replacement is saved as one undoable document change."), this);
+	undoHint->setWordWrap(true);
+	undoHint->setStyleSheet(QStringLiteral("color: palette(mid);"));
+	layout->addWidget(undoHint);
+
+	m_buttonBox = new QDialogButtonBox(QDialogButtonBox::Cancel, this);
+	m_replaceButton = m_buttonBox->addButton(tr("Replace"), QDialogButtonBox::AcceptRole);
+	layout->addWidget(m_buttonBox);
+
+	connect(m_buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
+	connect(m_buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
+	connect(m_sourceFont, &QComboBox::currentTextChanged, this, &DocumentFontReplacementDialog::updateAcceptState);
+	connect(m_replacementFont, &QComboBox::currentTextChanged, this, &DocumentFontReplacementDialog::updateAcceptState);
+
+	if (m_sourceFont->count() > 0 && m_replacementFont->count() > 1 && m_replacementFont->currentText() == m_sourceFont->currentText())
+		m_replacementFont->setCurrentIndex(1);
+	updateAcceptState();
+	resize(520, sizeHint().height());
+}
+
+QString DocumentFontReplacementDialog::sourceFont() const
+{
+	return m_sourceFont->currentText();
+}
+
+QString DocumentFontReplacementDialog::replacementFont() const
+{
+	return m_replacementFont->currentText();
+}
+
+void DocumentFontReplacementDialog::updateAcceptState()
+{
+	m_replaceButton->setEnabled(!sourceFont().isEmpty() && !replacementFont().isEmpty() && sourceFont() != replacementFont());
 }

@@ -561,6 +561,7 @@ public slots:
 	void UnGroupObj();
 	void AdjustGroupObj();
 	void StatusPic();
+	void replaceDocumentFonts();
 	void ModifyAnnot();
 	void toggleGuides();
 	void toggleBase();

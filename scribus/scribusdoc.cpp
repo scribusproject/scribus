@@ -242,6 +242,134 @@ static bool equivalentObjectStyleSets(const StyleSet<ObjectStyle>& first, const 
 	return true;
 }
 
+struct FontStorySnapshot
+{
+	QList<QPointer<PageItem>> items;
+	StoryText story;
+};
+
+struct DocumentFontSnapshot
+{
+	QList<ParagraphStyle> paragraphStyles;
+	QList<CharStyle> characterStyles;
+	QList<FontStorySnapshot> stories;
+	QString textToolFont;
+};
+
+static QList<ParagraphStyle> paragraphStyleSnapshot(const StyleSet<ParagraphStyle>& styles)
+{
+	QList<ParagraphStyle> snapshot;
+	snapshot.reserve(styles.count());
+	for (int i = 0; i < styles.count(); ++i)
+	{
+		ParagraphStyle style(styles[i]);
+		style.setContext(nullptr);
+		snapshot.append(style);
+	}
+	return snapshot;
+}
+
+static QList<CharStyle> characterStyleSnapshot(const StyleSet<CharStyle>& styles)
+{
+	QList<CharStyle> snapshot;
+	snapshot.reserve(styles.count());
+	for (int i = 0; i < styles.count(); ++i)
+	{
+		CharStyle style(styles[i]);
+		style.setContext(nullptr);
+		snapshot.append(style);
+	}
+	return snapshot;
+}
+
+template<typename StyleType>
+static void restoreStyleSet(const QList<StyleType>& snapshot, StyleSet<StyleType>& styles)
+{
+	for (const StyleType& savedStyle : snapshot)
+	{
+		StyleType* restoredStyle = styles.create(savedStyle);
+		if (savedStyle.isDefaultStyle())
+			styles.makeDefault(restoredStyle);
+	}
+}
+
+static void collectTextItems(const QList<PageItem*>& roots, QSet<PageItem*>& seen, QList<PageItem*>& result)
+{
+	for (PageItem* item : roots)
+	{
+		if (!item || seen.contains(item))
+			continue;
+		seen.insert(item);
+		if (item->isGroup() || item->isTable())
+			collectTextItems(item->getChildren(), seen, result);
+		if (item->isTextFrame() || item->isPathText())
+			result.append(item);
+	}
+}
+
+static QList<PageItem*> documentTextItems(const ScribusDoc* doc)
+{
+	QSet<PageItem*> seen;
+	QList<PageItem*> result;
+	collectTextItems(doc->MasterItems, seen, result);
+	collectTextItems(doc->DocItems, seen, result);
+	collectTextItems(doc->FrameItems.values(), seen, result);
+	for (auto pattern = doc->docPatterns.cbegin(); pattern != doc->docPatterns.cend(); ++pattern)
+		collectTextItems(pattern.value().items, seen, result);
+	return result;
+}
+
+static QList<PageItem*> itemsUsingFont(const ScribusDoc* doc, const QString& fontName)
+{
+	QList<PageItem*> result;
+	QSet<PageItem*> seen;
+	for (PageItem* item : documentTextItems(doc))
+	{
+		ResourceCollection resources;
+		item->getNamedResources(resources);
+		if (!resources.fonts().contains(fontName))
+			continue;
+		PageItem* chainItem = item->firstInChain();
+		while (chainItem)
+		{
+			if (!seen.contains(chainItem))
+			{
+				seen.insert(chainItem);
+				result.append(chainItem);
+			}
+			chainItem = chainItem->nextInChain();
+		}
+	}
+	return result;
+}
+
+static DocumentFontSnapshot documentFontSnapshot(const ScribusDoc* doc, const QList<PageItem*>& affectedItems)
+{
+	DocumentFontSnapshot snapshot;
+	snapshot.paragraphStyles = paragraphStyleSnapshot(doc->paragraphStyles());
+	snapshot.characterStyles = characterStyleSnapshot(doc->charStyles());
+	snapshot.textToolFont = doc->itemToolPrefs().textFont;
+	QHash<PageItem*, qsizetype> storyIndexes;
+	for (PageItem* item : affectedItems)
+	{
+		if (!item)
+			continue;
+		PageItem* storyRoot = item->firstInChain();
+		const auto existing = storyIndexes.constFind(storyRoot);
+		if (existing != storyIndexes.cend())
+		{
+			snapshot.stories[existing.value()].items.append(item);
+			continue;
+		}
+		FontStorySnapshot story;
+		story.items.append(item);
+		story.story = item->itemText.copy();
+		snapshot.stories.append(story);
+		storyIndexes.insert(storyRoot, snapshot.stories.size() - 1);
+	}
+	return snapshot;
+}
+
 struct ObjectStyleImportSnapshot
 {
 	QList<ObjectStyle> objectStyles;
@@ -1333,6 +1461,68 @@ void ScribusDoc::getNamedResources(ResourceCollection& lists) const
 	}
 }
 
+QStringList ScribusDoc::documentFontNames() const
+{
+	ResourceCollection resources;
+	getNamedResources(resources);
+	QStringList fonts = resources.fontNames();
+	if (!m_docPrefsData.itemToolPrefs.textFont.isEmpty() && !fonts.contains(m_docPrefsData.itemToolPrefs.textFont))
+		fonts.append(m_docPrefsData.itemToolPrefs.textFont);
+	fonts.sort(Qt::CaseInsensitive);
+	return fonts;
+}
+
+bool ScribusDoc::replaceDocumentFont(const QString& sourceFont, const QString& replacementFont, bool createUndo)
+{
+	if (sourceFont.isEmpty() || replacementFont.isEmpty() || sourceFont == replacementFont)
+		return false;
+	if (!AllFonts || !AllFonts->contains(replacementFont))
+		return false;
+	const ScFace& replacementFace = (*AllFonts)[replacementFont];
+	if (!replacementFace.usable() || replacementFace.isReplacement())
+		return false;
+	if (!documentFontNames().contains(sourceFont))
+		return false;
+
+	const QList<PageItem*> affectedItems = itemsUsingFont(this, sourceFont);
+	const DocumentFontSnapshot oldState = documentFontSnapshot(this, affectedItems);
+
+	ResourceCollection replacements;
+	replacements.availableFonts = AllFonts;
+	replacements.mapFont(sourceFont, replacementFont);
+	PrefsManager::replaceToolResources(m_docPrefsData.itemToolPrefs, replacements);
+	replaceNamedResources(replacements);
+	reorganiseFonts();
+
+	const DocumentFontSnapshot newState = documentFontSnapshot(this, affectedItems);
+	if (createUndo && !isLoading() && UndoManager::undoEnabled())
+	{
+		auto *state = new ScOldNewState<DocumentFontSnapshot>(tr("Replace Font"),
+			tr("%1 with %2").arg(sourceFont, replacementFont), Um::IFont);
+		state->set("DOCUMENT_FONT_REPLACEMENT");
+		state->setStates(oldState, newState);
+		m_undoManager->action(this, state);
+	}
+
+	for (PageItem* item : affectedItems)
+	{
+		if (!item)
+			continue;
+		item->invalidateLayout();
+		item->update();
+	}
+	changed();
+	regionsChanged()->update(QRectF());
+	changedPagePreview();
+	if (scMW())
+	{
+		scMW()->requestUpdate(reqTextStylesUpdate);
+		if (scMW()->styleMgr())
+			scMW()->styleMgr()->setDoc(this);
+	}
+	return true;
+}
+
 bool ScribusDoc::styleExists(const QString& styleName) const
 {
 	return m_docParagraphStyles.contains(styleName);
@@ -2346,6 +2536,8 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 		restoreMarks(state, isUndo);
 	else if (ss->contains("DYNAMIC_VARIABLE"))
 		restoreDynamicVariable(ss, isUndo);
+	else if (ss->contains("DOCUMENT_FONT_REPLACEMENT"))
+		restoreDocumentFontReplacement(ss, isUndo);
 	else if (ss->contains("OBJECT_STYLE_CHANGES"))
 		restoreObjectStyleChanges(ss, isUndo);
 	else if (ss->contains("OBJECT_STYLE_IMPORT"))
@@ -2362,6 +2554,57 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 			if (m_ScMW->outlinePalette->isVisible())
 				m_ScMW->outlinePalette->BuildTree();
 		}
+	}
+}
+
+void ScribusDoc::restoreDocumentFontReplacement(SimpleState* state, bool isUndo)
+{
+	const auto *fontState = dynamic_cast<ScOldNewState<DocumentFontSnapshot>*>(state);
+	if (!fontState)
+	{
+		qFatal("ScribusDoc::restoreDocumentFontReplacement: dynamic cast failed");
+		return;
+	}
+
+	const DocumentFontSnapshot& snapshot = isUndo ? fontState->getOldState() : fontState->getNewState();
+	StyleSet<CharStyle> characterStyles;
+	restoreStyleSet(snapshot.characterStyles, characterStyles);
+	StyleSet<ParagraphStyle> paragraphStyles;
+	restoreStyleSet(snapshot.paragraphStyles, paragraphStyles);
+	redefineCharStyles(characterStyles, true);
+	redefineStyles(paragraphStyles, true);
+	m_docPrefsData.itemToolPrefs.textFont = snapshot.textToolFont;
+
+	for (const FontStorySnapshot& savedStory : snapshot.stories)
+	{
+		PageItem* restoredRoot = nullptr;
+		for (const QPointer<PageItem>& savedItem : savedStory.items)
+		{
+			PageItem* item = savedItem.data();
+			if (!item)
+				continue;
+			if (!restoredRoot)
+			{
+				item->itemText = savedStory.story.copy();
+				item->itemText.setDoc(this);
+				restoredRoot = item;
+			}
+			else
+				item->itemText = restoredRoot->itemText;
+			item->invalidateLayout();
+			item->update();
+		}
+	}
+
+	reorganiseFonts();
+	changed();
+	regionsChanged()->update(QRectF());
+	changedPagePreview();
+	if (scMW())
+	{
+		scMW()->requestUpdate(reqTextStylesUpdate);
+		if (scMW()->styleMgr())
+			scMW()->styleMgr()->setDoc(this);
 	}
 }
 
