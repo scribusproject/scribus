@@ -1728,7 +1728,16 @@ void ScribusMainWindow::specialActionKeyEvent(int unicodevalue)
 	if (currItem == nullptr)
 		return;
 
-	if (unicodevalue!=-1)
+	if (unicodevalue == SpecialChars::SHYPHEN.unicode())
+	{
+		auto pos = currItem->itemText.cursorPosition();
+		if (pos > 0 && currItem->itemText.text(pos - 1) == SpecialChars::SHYPHEN)
+			return;
+		if (pos < currItem->itemText.length() && currItem->itemText.text(pos) == SpecialChars::SHYPHEN)
+			return;
+	}
+
+	if (unicodevalue != -1)
 	{
 		UndoTransaction activeTransaction;
 		if (currItem->HasSel)
