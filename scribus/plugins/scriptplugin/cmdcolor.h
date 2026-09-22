@@ -22,6 +22,24 @@ If no document is open, returns a list of the default document colors.\n\
 /** Returns a list with colours available in doc or in prefs. */
 PyObject *scribus_getcolornames(PyObject * /*self*/);
 
+PyDoc_STRVAR(scribus_previewrgbtocmyk__doc__,
+QT_TR_NOOP("previewRGBToCMYK() -> dict\n\
+\n\
+Preview the conversion of named RGB process swatches using the document's\n\
+solid RGB and CMYK ICC profiles. Returns color names mapped to CMYK percentage\n\
+tuples. Spot, registration, Lab, and existing CMYK colors are excluded.\n\
+"));
+PyObject *scribus_previewrgbtocmyk(PyObject * /*self*/);
+
+PyDoc_STRVAR(scribus_convertrgbtocmyk__doc__,
+QT_TR_NOOP("convertRGBToCMYK([names]) -> int\n\
+\n\
+Convert the named RGB process swatches using the document's ICC profiles.\n\
+Omit names to convert all eligible swatches. The change is one undo step.\n\
+Returns the number of converted swatches.\n\
+"));
+PyObject *scribus_convertrgbtocmyk(PyObject * /*self*/, PyObject* args);
+
 /*! docstring */
 PyDoc_STRVAR(scribus_getcolor__doc__,
 QT_TR_NOOP("getColor(\"name\") -> tuple\n\
@@ -305,5 +323,4 @@ May raise ValueError if an invalid color name is specified.\n\
 PyObject *scribus_setspotcolor(PyObject * /*self*/, PyObject* args);
 
 #endif
-
 

@@ -319,6 +319,24 @@ set_tests_properties(document_font_replacement PROPERTIES
 	RUN_SERIAL TRUE
 	TIMEOUT 120)
 
+set(rgb_to_cmyk_prefs_dir "${CMAKE_CURRENT_BINARY_DIR}/prefs-rgb-to-cmyk")
+set(rgb_to_cmyk_output_dir "${CMAKE_CURRENT_BINARY_DIR}/output-rgb-to-cmyk")
+file(MAKE_DIRECTORY "${rgb_to_cmyk_prefs_dir}")
+file(MAKE_DIRECTORY "${rgb_to_cmyk_output_dir}")
+add_test(NAME rgb_to_cmyk
+	COMMAND "${SCRIBUS_SCRIPT_TEST_EXECUTABLE}"
+		--no-splash
+		--prefs "${rgb_to_cmyk_prefs_dir}"
+		--no-gui
+		--python-script "${CMAKE_CURRENT_SOURCE_DIR}/scripts/test_rgb_to_cmyk.py")
+set_tests_properties(rgb_to_cmyk PROPERTIES
+	ENVIRONMENT "QT_QPA_PLATFORM=offscreen;SCRIBUS_TEST_OUTPUT_DIR=${rgb_to_cmyk_output_dir}"
+	FIXTURES_REQUIRED runningheader_test_app
+	LABELS "integration;rgb-to-cmyk;phase-4;scripter;undo-redo;persistence"
+	PASS_REGULAR_EXPRESSION "RGB_TO_CMYK_QA_PASSED"
+	RUN_SERIAL TRUE
+	TIMEOUT 120)
+
 find_program(PDFTOTEXT_EXECUTABLE pdftotext)
 if(NOT PDFTOTEXT_EXECUTABLE)
 	set_tests_properties(runningheader_masters PROPERTIES DISABLED TRUE)

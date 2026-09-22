@@ -32,7 +32,13 @@ for which a new license (GPL+exception) is in place.
 #include "sccolorengine.h"
 #include "util_color.h"
 #include "iconmanager.h"
+#include "scribusdoc.h"
+#include <QDialogButtonBox>
 #include <QHeaderView>
+#include <QLabel>
+#include <QPushButton>
+#include <QTreeWidget>
+#include <QVBoxLayout>
 
 replaceColorsDialog::replaceColorsDialog(QWidget* parent, ColorList &colorList, ColorList &colorListUsed) : QDialog(parent)
 {
@@ -63,6 +69,74 @@ replaceColorsDialog::replaceColorsDialog(QWidget* parent, ColorList &colorList, 
 	connect(replacementTable, SIGNAL(cellClicked(int,int)), this, SLOT(selReplacement(int)));
 	connect(removeButton, SIGNAL(clicked()), this, SLOT(delReplacement()));
 	connect(editButton, SIGNAL(clicked()), this, SLOT(editReplacement()));
+}
+
+RGBToCMYKDialog::RGBToCMYKDialog(QWidget* parent, const ScribusDoc* doc, const QMap<QString, ScColor>& preview) : QDialog(parent)
+{
+	setModal(true);
+	setWindowTitle(tr("Convert RGB Colors to CMYK"));
+	setWindowIcon(IconManager::instance().loadIcon("app-icon"));
+	auto* layout = new QVBoxLayout(this);
+	const QString sourceProfile = doc->cmsSettings().DefaultSolidColorRGBProfile;
+	const QString targetProfile = doc->cmsSettings().DefaultSolidColorCMYKProfile;
+	auto* profileLabel = new QLabel(tr("Source: %1\nDestination: %2").arg(sourceProfile, targetProfile), this);
+	profileLabel->setWordWrap(true);
+	layout->addWidget(profileLabel);
+	auto* explanation = new QLabel(tr("Select named RGB process colors to convert. Spot and registration colors are preserved. Review the proposed CMYK values before applying. To change profiles, use Document Setup > Color Management. Screen color patches are approximate."), this);
+	explanation->setWordWrap(true);
+	layout->addWidget(explanation);
+
+	m_colors = new QTreeWidget(this);
+	m_colors->setHeaderLabels({tr("Convert"), tr("Color"), tr("RGB"), tr("CMYK %")});
+	m_colors->setRootIsDecorated(false);
+	m_colors->setAlternatingRowColors(true);
+	for (auto it = preview.cbegin(); it != preview.cend(); ++it)
+	{
+		const ScColor& source = doc->PageColors.value(it.key());
+		int r, g, b;
+		source.getRGB(&r, &g, &b);
+		double c, m, y, k;
+		it.value().getCMYK(&c, &m, &y, &k);
+		auto* row = new QTreeWidgetItem(m_colors);
+		row->setFlags(row->flags() | Qt::ItemIsUserCheckable);
+		row->setCheckState(0, Qt::Checked);
+		row->setText(1, it.key());
+		row->setText(2, QStringLiteral("%1, %2, %3").arg(r).arg(g).arg(b));
+		row->setText(3, QStringLiteral("%1, %2, %3, %4")
+			.arg(qRound(c * 100)).arg(qRound(m * 100)).arg(qRound(y * 100)).arg(qRound(k * 100)));
+		QPixmap sourceIcon(16, 16);
+		sourceIcon.fill(ScColorEngine::getDisplayColor(source, doc));
+		row->setIcon(2, QIcon(sourceIcon));
+		QPixmap targetIcon(16, 16);
+		targetIcon.fill(ScColorEngine::getDisplayColor(it.value(), doc));
+		row->setIcon(3, QIcon(targetIcon));
+	}
+	m_colors->header()->setSectionResizeMode(QHeaderView::ResizeToContents);
+	m_colors->header()->setSectionResizeMode(1, QHeaderView::Stretch);
+	layout->addWidget(m_colors);
+
+	m_buttons = new QDialogButtonBox(QDialogButtonBox::Cancel, this);
+	QPushButton* convertButton = m_buttons->addButton(tr("Convert Selected"), QDialogButtonBox::AcceptRole);
+	layout->addWidget(m_buttons);
+	connect(m_buttons, &QDialogButtonBox::accepted, this, &QDialog::accept);
+	connect(m_buttons, &QDialogButtonBox::rejected, this, &QDialog::reject);
+	connect(m_colors, &QTreeWidget::itemChanged, this, [this, convertButton]() {
+		convertButton->setEnabled(!selectedColors().isEmpty());
+	});
+	convertButton->setEnabled(!preview.isEmpty());
+	resize(720, 420);
+}
+
+QStringList RGBToCMYKDialog::selectedColors() const
+{
+	QStringList names;
+	for (int i = 0; i < m_colors->topLevelItemCount(); ++i)
+	{
+		const QTreeWidgetItem* row = m_colors->topLevelItem(i);
+		if (row->checkState(0) == Qt::Checked)
+			names.append(row->text(1));
+	}
+	return names;
 }
 
 void replaceColorsDialog::addColor()

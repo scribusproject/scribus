@@ -26,6 +26,69 @@ PyObject *scribus_getcolornames(PyObject* /* self */)
 	return l;
 }
 
+PyObject *scribus_previewrgbtocmyk(PyObject* /* self */)
+{
+	if (!checkHaveDocument())
+		return nullptr;
+	QMap<QString, ScColor> preview;
+	if (!ScCore->primaryMainWindow()->doc->previewRGBProcessColorsToCMYK(preview))
+	{
+		PyErr_SetString(PyExc_RuntimeError, "A valid document RGB-to-CMYK ICC transform is unavailable.");
+		return nullptr;
+	}
+	PyObject* result = PyDict_New();
+	for (auto it = preview.cbegin(); it != preview.cend(); ++it)
+	{
+		double c, m, y, k;
+		it.value().getCMYK(&c, &m, &y, &k);
+		PyObject* values = Py_BuildValue("(dddd)", c * 100.0, m * 100.0, y * 100.0, k * 100.0);
+		PyDict_SetItemString(result, it.key().toUtf8().constData(), values);
+		Py_DECREF(values);
+	}
+	return result;
+}
+
+PyObject *scribus_convertrgbtocmyk(PyObject* /* self */, PyObject* args)
+{
+	PyObject* namesObject = Py_None;
+	if (!PyArg_ParseTuple(args, "|O", &namesObject))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	QStringList names;
+	if (namesObject != Py_None)
+	{
+		PyObject* sequence = PySequence_Fast(namesObject, "names must be a sequence of color names");
+		if (!sequence)
+			return nullptr;
+		for (Py_ssize_t i = 0; i < PySequence_Fast_GET_SIZE(sequence); ++i)
+		{
+			PyObject* value = PySequence_Fast_GET_ITEM(sequence, i);
+			if (!PyUnicode_Check(value))
+			{
+				Py_DECREF(sequence);
+				PyErr_SetString(PyExc_TypeError, "Every color name must be a string.");
+				return nullptr;
+			}
+			const char* name = PyUnicode_AsUTF8(value);
+			if (!name)
+			{
+				Py_DECREF(sequence);
+				return nullptr;
+			}
+			names.append(QString::fromUtf8(name));
+		}
+		Py_DECREF(sequence);
+	}
+	const int count = ScCore->primaryMainWindow()->doc->convertRGBProcessColorsToCMYK(names);
+	if (count < 0)
+	{
+		PyErr_SetString(PyExc_ValueError, "Invalid color selection or unavailable document ICC transform.");
+		return nullptr;
+	}
+	return PyLong_FromLong(count);
+}
+
 PyObject *scribus_getcolor(PyObject* /* self */, PyObject* args)
 {
 	ColorList edc;
@@ -673,6 +736,8 @@ void cmdcolordocswarnings()
 {
 	QStringList s;
 	s << scribus_getcolornames__doc__
+	  << scribus_previewrgbtocmyk__doc__
+	  << scribus_convertrgbtocmyk__doc__
 	  << scribus_deletecolor__doc__
 	  << scribus_getcolor__doc__
 	  << scribus_getcolorasrgb__doc__

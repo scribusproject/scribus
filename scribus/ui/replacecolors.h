@@ -63,4 +63,21 @@ private:
 	QPixmap regIcon;
 };
 
+class QDialogButtonBox;
+class QTreeWidget;
+class ScribusDoc;
+
+class SCRIBUS_API RGBToCMYKDialog : public QDialog
+{
+	Q_OBJECT
+
+public:
+	RGBToCMYKDialog(QWidget* parent, const ScribusDoc* doc, const QMap<QString, ScColor>& preview);
+	QStringList selectedColors() const;
+
+private:
+	QTreeWidget* m_colors { nullptr };
+	QDialogButtonBox* m_buttons { nullptr };
+};
+
 #endif

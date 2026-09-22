@@ -1472,6 +1472,88 @@ QStringList ScribusDoc::documentFontNames() const
 	return fonts;
 }
 
+bool ScribusDoc::previewRGBProcessColorsToCMYK(QMap<QString, ScColor>& converted) const
+{
+	converted.clear();
+	const QString& rgbName = cmsSettings().DefaultSolidColorRGBProfile;
+	const QString& cmykName = cmsSettings().DefaultSolidColorCMYKProfile;
+	if (!ScCore->InputProfiles.contains(rgbName) || !ScCore->InputProfilesCMYK.contains(cmykName))
+		return false;
+
+	const int flags = cmsSettings().BlackPoint ? Ctf_BlackPointCompensation : 0;
+	ScColorMgmtEngine engine(colorEngine);
+	const ScColorProfile rgbProfile = engine.openProfileFromFile(ScCore->InputProfiles.value(rgbName).file);
+	const ScColorProfile cmykProfile = engine.openProfileFromFile(ScCore->InputProfilesCMYK.value(cmykName).file);
+	if (!rgbProfile || !cmykProfile ||
+		rgbProfile.colorSpace() != ColorSpace_Rgb || cmykProfile.colorSpace() != ColorSpace_Cmyk)
+		return false;
+	ScColorTransform transform = engine.createTransform(rgbProfile, Format_RGB_16,
+		cmykProfile, Format_CMYK_16, IntentColors, flags);
+	if (!transform)
+		return false;
+
+	for (auto it = PageColors.cbegin(); it != PageColors.cend(); ++it)
+	{
+		const ScColor& color = it.value();
+		if (color.getColorModel() != colorModelRGB || !color.isProcessColor())
+			continue;
+		double r, g, b;
+		color.getRGB(&r, &g, &b);
+		quint16 input[3] = { quint16(qRound(r * 65535.0)), quint16(qRound(g * 65535.0)), quint16(qRound(b * 65535.0)) };
+		quint16 output[4] = {};
+		if (!transform.apply(input, output, 1))
+		{
+			converted.clear();
+			return false;
+		}
+		ScColor result;
+		result.setCmykColorF(output[0] / 65535.0, output[1] / 65535.0,
+			output[2] / 65535.0, output[3] / 65535.0);
+		converted.insert(it.key(), result);
+	}
+	return true;
+}
+
+int ScribusDoc::convertRGBProcessColorsToCMYK(const QStringList& names, bool createUndo)
+{
+	QMap<QString, ScColor> preview;
+	if (!previewRGBProcessColorsToCMYK(preview))
+		return -1;
+
+	QStringList selected = names;
+	if (selected.isEmpty())
+		selected = preview.keys();
+	for (const QString& name : selected)
+	{
+		if (!preview.contains(name))
+			return -1;
+	}
+	selected.removeDuplicates();
+	if (selected.isEmpty())
+		return 0;
+
+	const ColorList oldColors = PageColors;
+	for (const QString& name : selected)
+		PageColors[name] = preview.value(name);
+	if (createUndo && !isLoading() && UndoManager::undoEnabled())
+	{
+		auto* state = new ScOldNewState<ColorList>(tr("Convert RGB Colors to CMYK"),
+			tr("%1 colors").arg(selected.size()), Um::IFill);
+		state->set("RGB_PROCESS_COLOR_CONVERSION");
+		state->setStates(oldColors, PageColors);
+		m_undoManager->action(this, state);
+	}
+	recalculateColors();
+	if (useImageColorEffects())
+		recalcPicturesRes(RecalcPicRes_ImageWithColorEffectsOnly);
+	changed();
+	regionsChanged()->update(QRectF());
+	changedPagePreview();
+	if (scMW())
+		scMW()->requestUpdate(reqColorsUpdate | reqLineStylesUpdate | reqTextStylesUpdate);
+	return selected.size();
+}
+
 bool ScribusDoc::replaceDocumentFont(const QString& sourceFont, const QString& replacementFont, bool createUndo)
 {
 	if (sourceFont.isEmpty() || replacementFont.isEmpty() || sourceFont == replacementFont)
@@ -2538,6 +2620,8 @@ void ScribusDoc::restore(UndoState* state, bool isUndo)
 		restoreDynamicVariable(ss, isUndo);
 	else if (ss->contains("DOCUMENT_FONT_REPLACEMENT"))
 		restoreDocumentFontReplacement(ss, isUndo);
+	else if (ss->contains("RGB_PROCESS_COLOR_CONVERSION"))
+		restoreRGBProcessColorConversion(ss, isUndo);
 	else if (ss->contains("OBJECT_STYLE_CHANGES"))
 		restoreObjectStyleChanges(ss, isUndo);
 	else if (ss->contains("OBJECT_STYLE_IMPORT"))
@@ -2606,6 +2690,25 @@ void ScribusDoc::restoreDocumentFontReplacement(SimpleState* state, bool isUndo)
 		if (scMW()->styleMgr())
 			scMW()->styleMgr()->setDoc(this);
 	}
+}
+
+void ScribusDoc::restoreRGBProcessColorConversion(SimpleState* state, bool isUndo)
+{
+	const auto* colorState = dynamic_cast<ScOldNewState<ColorList>*>(state);
+	if (!colorState)
+	{
+		qFatal("ScribusDoc::restoreRGBProcessColorConversion: dynamic cast failed");
+		return;
+	}
+	PageColors = isUndo ? colorState->getOldState() : colorState->getNewState();
+	recalculateColors();
+	if (useImageColorEffects())
+		recalcPicturesRes(RecalcPicRes_ImageWithColorEffectsOnly);
+	changed();
+	regionsChanged()->update(QRectF());
+	changedPagePreview();
+	if (scMW())
+		scMW()->requestUpdate(reqColorsUpdate | reqLineStylesUpdate | reqTextStylesUpdate);
 }
 
 void ScribusDoc::restoreLevelUpOrDown(SimpleState* ss, bool isUndo)
