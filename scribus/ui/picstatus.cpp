@@ -401,6 +401,17 @@ void PicStatus::exportSelectedCMYKCopy()
 		ScMessageBox::warning(this, tr("Export CMYK TIFF Copy"), error);
 		return;
 	}
+	if (!currItem->isImageInline()
+		&& QMessageBox::question(this, tr("Export CMYK TIFF Copy"),
+			tr("Relink this frame to the new CMYK TIFF? The original file is kept, and the relink can be undone."),
+			QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::Yes)
+	{
+		if (!loadPict(currItem, destination, true, true))
+			ScMessageBox::warning(this, tr("Export CMYK TIFF Copy"),
+				tr("The CMYK TIFF was saved, but the frame could not be relinked. Its original image remains in place."));
+		fillTable();
+		return;
+	}
 	ScMessageBox::information(this, tr("Export CMYK TIFF Copy"),
 		tr("CMYK TIFF saved. The original image and this frame's link were not changed."));
 }
@@ -579,13 +590,14 @@ void PicStatus::SelectPic()
 	emit selectElementByItem(currItem, true, 1);
 }
 
-bool PicStatus::loadPict(PageItem* item, const QString & newFilePath, bool showMsg)
+bool PicStatus::loadPict(PageItem* item, const QString & newFilePath, bool showMsg,
+	bool useNewEmbeddedProfile)
 {
 	bool masterPageMode = !item->OnMasterPage.isEmpty();
 	bool oldMasterPageMode = m_Doc->masterPageMode();
 	if (masterPageMode != oldMasterPageMode)
 		m_Doc->setMasterPageMode(masterPageMode);
-	const bool loaded = item->relinkImage(newFilePath, showMsg);
+	const bool loaded = item->relinkImage(newFilePath, showMsg, useNewEmbeddedProfile);
 	if (masterPageMode != oldMasterPageMode)
 		m_Doc->setMasterPageMode(oldMasterPageMode);
 	return loaded;

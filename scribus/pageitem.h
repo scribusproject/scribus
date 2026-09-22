@@ -1269,9 +1269,11 @@ public: // Start public functions
 	 *
 	 * The operation is failure-safe and undoable. Embedded images are deliberately
 	 * excluded because relinking them would also change their storage mode.
+	 * Set useNewEmbeddedProfile only when the replacement is known to contain a
+	 * valid ICC profile; undo/redo then preserves each file's profile choice.
 	 * @return True if the replacement image was loaded successfully.
 	 */
-	bool relinkImage(const QString& filename, bool showMsg = false);
+	bool relinkImage(const QString& filename, bool showMsg = false, bool useNewEmbeddedProfile = false);
 
 	/**
 	 * @brief Connect the item's signals to the GUI, primarily the Properties palette, also some to ScMW

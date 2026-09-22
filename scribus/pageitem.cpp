@@ -8346,6 +8346,14 @@ void PageItem::restoreRelinkImage(UndoState *state, bool isUndo)
 	}
 
 	const QString filename = imageState->get(isUndo ? "OLD_IMAGE_PATH" : "NEW_IMAGE_PATH");
+	const bool useNewProfile = !isUndo && imageState->contains("NEW_USE_EMBEDDED_PROFILE");
+	const bool useEmbeddedProfile = useNewProfile
+		? imageState->getBool("NEW_USE_EMBEDDED_PROFILE") : imageState->getBool("USE_EMBEDDED_PROFILE");
+	const QString embeddedProfile = imageState->get(useNewProfile ? "NEW_EMBEDDED_PROFILE" : "EMBEDDED_PROFILE");
+	const QString imageProfile = imageState->get(useNewProfile ? "NEW_IMAGE_PROFILE" : "IMAGE_PROFILE");
+	setUseEmbeddedImageProfile(useEmbeddedProfile);
+	setEmbeddedImageProfile(embeddedProfile);
+	setCmsProfile(imageProfile);
 	Pfile = filename;
 	const bool loaded = loadImage(filename, true, -1, false);
 
@@ -8359,9 +8367,9 @@ void PageItem::restoreRelinkImage(UndoState *state, bool isUndo)
 	setImageYScale(imageState->getDouble("YSCALE"));
 	setFillTransparency(imageState->getDouble("FILLT"));
 	setLineTransparency(imageState->getDouble("LINET"));
-	setUseEmbeddedImageProfile(imageState->getBool("USE_EMBEDDED_PROFILE"));
-	setEmbeddedImageProfile(imageState->get("EMBEDDED_PROFILE"));
-	setCmsProfile(imageState->get("IMAGE_PROFILE"));
+	setUseEmbeddedImageProfile(useEmbeddedProfile);
+	setEmbeddedImageProfile(embeddedProfile);
+	setCmsProfile(imageProfile);
 	setCmsRenderingIntent(static_cast<eRenderIntent>(imageState->getInt("IMAGE_INTENT")));
 
 	if (!Pfile.isEmpty())
@@ -10564,7 +10572,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 	return true;
 }
 
-bool PageItem::relinkImage(const QString& filename, bool showMsg)
+bool PageItem::relinkImage(const QString& filename, bool showMsg, bool useNewEmbeddedProfile)
 {
 	if (!isImageFrame() || isLatexFrame() || isInlineImage || filename.isEmpty())
 		return false;
@@ -10603,10 +10611,13 @@ bool PageItem::relinkImage(const QString& filename, bool showMsg)
 		setImageYScale(yScale);
 		setFillTransparency(fillTrans);
 		setLineTransparency(lineTrans);
+		setCmsRenderingIntent(imageIntent);
+	};
+	auto restoreOriginalProfile = [&]()
+	{
 		setUseEmbeddedImageProfile(useEmbeddedProfile);
 		setEmbeddedImageProfile(embeddedProfile);
 		setCmsProfile(imageProfile);
-		setCmsRenderingIntent(imageIntent);
 	};
 
 	if (!oldFilePath.isEmpty())
@@ -10619,9 +10630,18 @@ bool PageItem::relinkImage(const QString& filename, bool showMsg)
 
 	// Setting Pfile first tells loadImage() this is a relink rather than a new
 	// placement, so crop and scale are retained.
+	if (useNewEmbeddedProfile)
+	{
+		setUseEmbeddedImageProfile(true);
+		setEmbeddedImageProfile(QString());
+		setCmsProfile(QString());
+	}
 	Pfile = newFilePath;
-	const bool loaded = loadImage(newFilePath, true, -1, showMsg);
+	const bool loaded = loadImage(newFilePath, true, -1, showMsg)
+		&& (!useNewEmbeddedProfile || pixm.imgInfo.isEmbedded);
 	restoreFrameSettings();
+	if (!useNewEmbeddedProfile || !loaded)
+		restoreOriginalProfile();
 
 	if (!loaded)
 	{
@@ -10630,6 +10650,7 @@ bool PageItem::relinkImage(const QString& filename, bool showMsg)
 		{
 			loadImage(oldFilePath, true, -1, false);
 			restoreFrameSettings();
+			restoreOriginalProfile();
 		}
 		else
 			imageIsAvailable = false;
@@ -10666,6 +10687,12 @@ bool PageItem::relinkImage(const QString& filename, bool showMsg)
 		imageState->set("EMBEDDED_PROFILE", embeddedProfile);
 		imageState->set("IMAGE_PROFILE", imageProfile);
 		imageState->set("IMAGE_INTENT", static_cast<int>(imageIntent));
+		if (useNewEmbeddedProfile)
+		{
+			imageState->set("NEW_USE_EMBEDDED_PROFILE", useEmbeddedImageProfile());
+			imageState->set("NEW_EMBEDDED_PROFILE", embeddedImageProfile());
+			imageState->set("NEW_IMAGE_PROFILE", cmsProfile());
+		}
 		imageState->setItem(imageEffects);
 		undoManager->action(this, imageState);
 	}

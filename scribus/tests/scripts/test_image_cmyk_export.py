@@ -12,6 +12,7 @@ import gzip
 import os
 import struct
 import tempfile
+import xml.etree.ElementTree as ET
 import zlib
 
 import scribus
@@ -64,13 +65,27 @@ def short_tag(tags, endian, number):
     return value & 0xFFFF if endian == "<" else value >> 16
 
 
-def expect_export_error(path, frame):
+def same_pair(left, right):
+    return all(abs(a - b) < 0.01 for a, b in zip(left, right))
+
+
+def expect_export_error(path, frame, relink=False):
     try:
-        scribus.exportImageAsCMYKCopy(path, frame)
+        scribus.exportImageAsCMYKCopy(path, frame, relink)
     except scribus.ScribusException:
         pass
     else:
         raise AssertionError("invalid export was accepted: " + path)
+
+
+def frame_profile_state(path, name):
+    tree = ET.parse(path)
+    for element in tree.iter("PageObject"):
+        if element.get("AutoName") == name:
+            return (element.get("ImageProfile", ""),
+                element.get("EmbeddedProfile", ""),
+                element.get("UseEmbeddedProfile", "1"))
+    raise AssertionError("image frame missing from saved document: " + name)
 
 
 output_dir = os.environ.get("SCRIBUS_TEST_OUTPUT_DIR", tempfile.gettempdir())
@@ -81,9 +96,11 @@ result_path = os.path.abspath(os.path.join(output_dir, "cmyk-export-result.tif")
 bad_extension_path = os.path.abspath(os.path.join(output_dir, "cmyk-export-bad.png"))
 alpha_result_path = os.path.abspath(os.path.join(output_dir, "cmyk-export-alpha.tif"))
 embedded_result_path = os.path.abspath(os.path.join(output_dir, "cmyk-export-embedded.tif"))
+relinked_result_path = os.path.abspath(os.path.join(output_dir, "cmyk-export-relinked.tif"))
+embedded_relinked_path = os.path.abspath(os.path.join(output_dir, "cmyk-export-embedded-relinked.tif"))
 document_path = os.path.abspath(os.path.join(output_dir, "cmyk-export.sla"))
 for path in (source_path, alpha_path, result_path, bad_extension_path, alpha_result_path,
-    embedded_result_path, document_path):
+    embedded_result_path, relinked_result_path, embedded_relinked_path, document_path):
     if os.path.exists(path):
         os.remove(path)
 write_png(source_path)
@@ -141,11 +158,50 @@ scribus.loadImage(alpha_path, alpha_frame)
 expect_export_error(alpha_result_path, alpha_frame)
 check(not os.path.exists(alpha_result_path), "transparent export left a file behind")
 
-check(scribus.embedImage(frame), "could not embed source image")
-check(scribus.isImageEmbedded(frame), "source frame did not become embedded")
-check(scribus.exportImageAsCMYKCopy(embedded_result_path, frame), "embedded RGB image export failed")
-check(scribus.isImageEmbedded(frame), "export changed the embedded frame")
+embedded_frame = scribus.createImage(240, 180, 180, 120, "Embedded Source")
+scribus.loadImage(source_path, embedded_frame)
+check(scribus.embedImage(embedded_frame), "could not embed source image")
+check(scribus.isImageEmbedded(embedded_frame), "source frame did not become embedded")
+check(scribus.exportImageAsCMYKCopy(embedded_result_path, embedded_frame), "embedded RGB image export failed")
+check(scribus.isImageEmbedded(embedded_frame), "export changed the embedded frame")
 embedded_tags, embedded_endian = tiff_tags(embedded_result_path)
 check(short_tag(embedded_tags, embedded_endian, 262) == 5, "embedded image export is not CMYK")
+expect_export_error(embedded_relinked_path, embedded_frame, True)
+check(not os.path.exists(embedded_relinked_path), "rejected embedded relink still created a file")
+
+scribus.saveDocAs(document_path)
+old_profile = frame_profile_state(document_path, frame)
+scribus.setImageScale(1.25, 0.85, frame)
+scribus.setImageOffset(17.0, 23.0, frame)
+old_scale = scribus.getImageScale(frame)
+old_offset = scribus.getImageOffset(frame)
+check(scribus.exportImageAsCMYKCopy(relinked_result_path, frame, True), "export and relink failed")
+check(os.path.abspath(scribus.getImageFile(frame)) == relinked_result_path, "frame did not link to CMYK TIFF")
+check(scribus.getImageColorSpace(frame) == scribus.CSPACE_CMYK, "relinked image did not load as CMYK")
+check(same_pair(scribus.getImageScale(frame), old_scale), "relink changed image scale")
+check(same_pair(scribus.getImageOffset(frame), old_offset), "relink changed crop offset")
+scribus.saveDocAs(document_path)
+new_profile = frame_profile_state(document_path, frame)
+check(new_profile[2] == "1" and new_profile[0].startswith("Embedded "),
+    "relinked frame did not use the TIFF's embedded ICC profile")
+
+scribus.undo()
+check(os.path.abspath(scribus.getImageFile(frame)) == source_path, "undo did not restore RGB link")
+check(scribus.getImageColorSpace(frame) == scribus.CSPACE_RGB, "undo did not restore RGB image")
+check(same_pair(scribus.getImageScale(frame), old_scale), "undo changed image scale")
+check(same_pair(scribus.getImageOffset(frame), old_offset), "undo changed crop offset")
+scribus.saveDocAs(document_path)
+check(frame_profile_state(document_path, frame) == old_profile, "undo did not restore original profile settings")
+scribus.redo()
+check(os.path.abspath(scribus.getImageFile(frame)) == relinked_result_path, "redo did not restore CMYK link")
+check(same_pair(scribus.getImageScale(frame), old_scale), "redo changed image scale")
+check(same_pair(scribus.getImageOffset(frame), old_offset), "redo changed crop offset")
+scribus.saveDocAs(document_path)
+check(frame_profile_state(document_path, frame) == new_profile, "redo did not restore CMYK profile settings")
+scribus.closeDoc()
+check(scribus.openDoc(document_path), "could not reopen relinked document")
+check(os.path.abspath(scribus.getImageFile(frame)) == relinked_result_path, "CMYK link did not survive reopen")
+check(scribus.getImageColorSpace(frame) == scribus.CSPACE_CMYK, "CMYK color space did not survive reopen")
+scribus.closeDoc()
 
 print("IMAGE_CMYK_EXPORT_QA_PASSED", flush=True)

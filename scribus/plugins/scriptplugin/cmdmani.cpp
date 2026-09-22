@@ -70,7 +70,8 @@ PyObject *scribus_exportimageascmykcopy(PyObject* /* self */, PyObject* args)
 {
 	PyESString destination;
 	PyESString name;
-	if (!PyArg_ParseTuple(args, "es|es", "utf-8", destination.ptr(), "utf-8", name.ptr()))
+	int relink = 0;
+	if (!PyArg_ParseTuple(args, "es|esp", "utf-8", destination.ptr(), "utf-8", name.ptr(), &relink))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
@@ -82,12 +83,20 @@ PyObject *scribus_exportimageascmykcopy(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Target is not an image frame.", "python error").toUtf8().constData());
 		return nullptr;
 	}
+	if (relink && item->isImageInline())
+	{
+		PyErr_SetString(ScribusException, QObject::tr("Embedded images cannot be relinked by this export.", "python error").toUtf8().constData());
+		return nullptr;
+	}
+	const QString destinationPath = QFileInfo(QString::fromUtf8(destination.c_str())).absoluteFilePath();
 	QString error;
-	if (!exportImageAsCMYKCopy(item, QFileInfo(QString::fromUtf8(destination.c_str())).absoluteFilePath(), &error))
+	if (!exportImageAsCMYKCopy(item, destinationPath, &error))
 	{
 		PyErr_SetString(ScribusException, error.toUtf8().constData());
 		return nullptr;
 	}
+	if (relink && !item->relinkImage(destinationPath, false, true))
+		Py_RETURN_FALSE;
 	Py_RETURN_TRUE;
 }
 

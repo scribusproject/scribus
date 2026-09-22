@@ -108,7 +108,8 @@ protected:
 
 	/*! \brief Load the image specified into the PageItem
 	\param newFilePath a file path */
-	bool loadPict(PageItem* item, const QString & newFilePath, bool showMsg = true);
+	bool loadPict(PageItem* item, const QString & newFilePath, bool showMsg = true,
+		bool useNewEmbeddedProfile = false);
 
 private:
 	void relinkMissingImagesFromFolder(bool mapFolder);
