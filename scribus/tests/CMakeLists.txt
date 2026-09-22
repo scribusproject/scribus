@@ -93,6 +93,13 @@ target_compile_definitions(embeddedimageextractortests PRIVATE COMPILE_SCRIBUS_M
 add_test(NAME embeddedimageextractortests COMMAND embeddedimageextractortests)
 set_tests_properties(embeddedimageextractortests PROPERTIES LABELS "embedded-image-extraction;phase-4")
 
+set(IMAGECMYKEXPORTTESTS_SOURCES imagecmykexporttests.cpp ../imagecmykexport.cpp)
+add_executable(imagecmykexporttests ${IMAGECMYKEXPORTTESTS_SOURCES})
+target_link_libraries(imagecmykexporttests Qt6::Test Qt6::Core Qt6::Gui ${TIFF_LIBRARIES})
+target_compile_definitions(imagecmykexporttests PRIVATE COMPILE_SCRIBUS_MAIN_APP)
+add_test(NAME imagecmykexporttests COMMAND imagecmykexporttests)
+set_tests_properties(imagecmykexporttests PROPERTIES LABELS "image-color-conversion;phase-4")
+
 # End-to-end running-header tests use the installed application because the
 # Scripter and file-format plugins are loaded from the installation layout.
 if(APPLEBUNDLE)

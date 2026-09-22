@@ -13,6 +13,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 enable_testing()
 find_package(Qt6 6.4 REQUIRED COMPONENTS Core Gui Test Widgets)
+find_package(TIFF REQUIRED)
 
 get_filename_component(SCRIBUS_ROOT "${CMAKE_CURRENT_LIST_DIR}/../.." ABSOLUTE)
 
@@ -64,6 +65,11 @@ add_scribus_portable_test(embeddedimageextractortests
 	"${SCRIBUS_ROOT}/scribus/tests/embeddedimageextractortests.cpp"
 	"${SCRIBUS_ROOT}/scribus/embeddedimageextractor.cpp")
 target_link_libraries(embeddedimageextractortests PRIVATE Qt6::Core Qt6::Test)
+
+add_scribus_portable_test(imagecmykexporttests
+	"${SCRIBUS_ROOT}/scribus/tests/imagecmykexporttests.cpp"
+	"${SCRIBUS_ROOT}/scribus/imagecmykexport.cpp")
+target_link_libraries(imagecmykexporttests PRIVATE Qt6::Core Qt6::Gui Qt6::Test TIFF::TIFF)
 
 add_test(NAME windows_project_sources
 	COMMAND "${CMAKE_COMMAND}"

@@ -86,6 +86,7 @@ private slots:
 	void mapMissingImageFolder();
 	void extractSelectedEmbeddedImage();
 	void extractAllEmbeddedImages();
+	void exportSelectedCMYKCopy();
 	void FileManager();
 	void doImageEffects();
 	void doImageExtProp();
