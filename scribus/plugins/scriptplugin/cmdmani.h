@@ -209,6 +209,18 @@ May raise WrongFrameTypeError if the target frame is not an image frame.\n\
 /*! Relink an external image without changing frame-level image settings. */
 PyObject *scribus_relinkimage(PyObject * /*self*/, PyObject* args);
 
+PyDoc_STRVAR(scribus_exportimageascmykcopy__doc__,
+QT_TR_NOOP("exportImageAsCMYKCopy(\"filename\" [, \"name\"]) -> bool\n\
+\n\
+Exports a non-destructive CMYK TIFF copy of the RGB raster image in frame\n\
+\"name\" using the document's CMYK output ICC profile. The source image and\n\
+frame link remain unchanged. Color management must be enabled. The destination\n\
+must end in .tif or .tiff and must not exist. Images with transparency or\n\
+frame effects are not supported.\n\
+Raises ScribusException on conversion or file errors.\n\
+"));
+PyObject *scribus_exportimageascmykcopy(PyObject * /*self*/, PyObject* args);
+
 /*! docstring */
 PyDoc_STRVAR(scribus_embedimage__doc__,
 QT_TR_NOOP("embedImage([\"name\"]) -> bool\n\

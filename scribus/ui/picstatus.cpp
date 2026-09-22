@@ -49,16 +49,14 @@ for which a new license (GPL+exception) is in place.
 #include <QVBoxLayout>
 
 #include "effectsdialog.h"
-#include "cmsettings.h"
 #include "embeddedimageextractor.h"
 #include "extimageprops.h"
 #include "iconmanager.h"
-#include "imagecmykexport.h"
+#include "imagecmykconversion.h"
 #include "imagelinkmatcher.h"
 #include "pageitem.h"
 #include "picsearch.h"
 #include "picsearchoptions.h"
-#include "scimage.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "undomanager.h"
@@ -390,63 +388,15 @@ void PicStatus::exportSelectedCMYKCopy()
 		|| !m_Doc->DocPrinterProf || m_Doc->DocPrinterProf.colorSpace() != ColorSpace_Cmyk)
 		return;
 
-	const QString sourcePath = currItem->Pfile;
-	const int sourcePage = currItem->pixm.imgInfo.actualPageNumber;
-	ScImage alphaProbe;
-	alphaProbe.imgInfo.RequestProps = currItem->pixm.imgInfo.RequestProps;
-	alphaProbe.imgInfo.isRequest = currItem->pixm.imgInfo.isRequest;
-	QByteArray alpha;
-	if (!alphaProbe.getAlpha(sourcePath, sourcePage, alpha, false, true, 300) || !alpha.isEmpty())
-	{
-		ScMessageBox::warning(this, tr("Export CMYK TIFF Copy"),
-			tr("This image has transparency or its alpha channel could not be checked. Transparent images are not supported by this export yet."));
-		return;
-	}
-	if (!currItem->effectsInUse.isEmpty())
-	{
-		ScMessageBox::warning(this, tr("Export CMYK TIFF Copy"),
-			tr("This frame uses image effects. Exporting it without those effects would change its appearance, so the conversion was not started."));
-		return;
-	}
-
-	QByteArray profileBytes;
-	if (!m_Doc->DocPrinterProf.save(profileBytes) || profileBytes.isEmpty())
-	{
-		ScMessageBox::warning(this, tr("Export CMYK TIFF Copy"), tr("The document's CMYK output profile could not be saved."));
-		return;
-	}
-
-	const QFileInfo sourceInfo(sourcePath);
+	const QFileInfo sourceInfo(currItem->Pfile);
 	const QString suggestedPath = sourceInfo.absolutePath() + QDir::separator()
 		+ sourceInfo.completeBaseName() + QStringLiteral("-CMYK.tif");
 	const QString destination = QFileDialog::getSaveFileName(this, tr("Export CMYK TIFF Copy"),
 		suggestedPath, tr("TIFF Image (*.tif *.tiff)"));
 	if (destination.isEmpty())
 		return;
-	const QString suffix = QFileInfo(destination).suffix().toLower();
-	if (suffix != QLatin1String("tif") && suffix != QLatin1String("tiff"))
-	{
-		ScMessageBox::warning(this, tr("Export CMYK TIFF Copy"), tr("Choose a .tif or .tiff filename for the converted image."));
-		return;
-	}
-
-	ScImage converted;
-	converted.imgInfo.RequestProps = currItem->pixm.imgInfo.RequestProps;
-	converted.imgInfo.isRequest = currItem->pixm.imgInfo.isRequest;
-	CMSettings cms(m_Doc, currItem->cmsProfile(), static_cast<eRenderIntent>(currItem->cmsRenderingIntent()));
-	cms.setUseEmbeddedProfile(currItem->useEmbeddedImageProfile());
-	cms.setOutputProfile(m_Doc->DocPrinterProf);
-	bool realCMYK = false;
-	if (!converted.loadPicture(sourcePath, sourcePage, cms, ScImage::OutputProfile, 300, &realCMYK)
-		|| !realCMYK || converted.qImage().format() != QImage::Format_ARGB32)
-	{
-		ScMessageBox::warning(this, tr("Export CMYK TIFF Copy"), tr("The image could not be converted with the document's CMYK output profile."));
-		return;
-	}
-
 	QString error;
-	if (!writeCMYKTiffCopy(destination, converted.qImage(), profileBytes,
-		converted.imgInfo.xres, converted.imgInfo.yres, &error))
+	if (!exportImageAsCMYKCopy(currItem, destination, &error))
 	{
 		ScMessageBox::warning(this, tr("Export CMYK TIFF Copy"), error);
 		return;

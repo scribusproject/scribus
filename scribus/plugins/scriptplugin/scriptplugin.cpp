@@ -342,6 +342,7 @@ PyMethodDef scribus_methods[] = {
 	{ "docChanged", scribus_docchanged, METH_VARARGS, tr(scribus_docchanged__doc__)},
 	{ "editMasterPage", scribus_editmasterpage, METH_VARARGS, tr(scribus_editmasterpage__doc__)},
 	{ "embedImage", scribus_embedimage, METH_VARARGS, tr(scribus_embedimage__doc__)},
+	{ "exportImageAsCMYKCopy", scribus_exportimageascmykcopy, METH_VARARGS, tr(scribus_exportimageascmykcopy__doc__)},
 	{ "exportDocumentCheck", (PyCFunction) scribus_exportdocumentcheck, METH_VARARGS|METH_KEYWORDS, tr(scribus_exportdocumentcheck__doc__)},
 	{ "extractEmbeddedImage", scribus_extractembeddedimage, METH_VARARGS, tr(scribus_extractembeddedimage__doc__)},
 	{ "fileDialog", (PyCFunction) scribus_filedialog, METH_VARARGS|METH_KEYWORDS, tr(scribus_filedialog__doc__)},

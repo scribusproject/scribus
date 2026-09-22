@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "cmdutil.h"
 #include "embeddedimageextractor.h"
 #include "filewatcher.h"
+#include "imagecmykconversion.h"
 #include "pyesstring.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
@@ -63,6 +64,31 @@ PyObject *scribus_relinkimage(PyObject* /* self */, PyObject* args)
 	}
 
 	return PyBool_FromLong(item->relinkImage(QString::fromUtf8(image.c_str()), false));
+}
+
+PyObject *scribus_exportimageascmykcopy(PyObject* /* self */, PyObject* args)
+{
+	PyESString destination;
+	PyESString name;
+	if (!PyArg_ParseTuple(args, "es|es", "utf-8", destination.ptr(), "utf-8", name.ptr()))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	PageItem* item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	if (!item)
+		return nullptr;
+	if (!item->isImageFrame() || item->isLatexFrame())
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Target is not an image frame.", "python error").toUtf8().constData());
+		return nullptr;
+	}
+	QString error;
+	if (!exportImageAsCMYKCopy(item, QFileInfo(QString::fromUtf8(destination.c_str())).absoluteFilePath(), &error))
+	{
+		PyErr_SetString(ScribusException, error.toUtf8().constData());
+		return nullptr;
+	}
+	Py_RETURN_TRUE;
 }
 
 PyObject *scribus_embedimage(PyObject* /* self */, PyObject* args)
