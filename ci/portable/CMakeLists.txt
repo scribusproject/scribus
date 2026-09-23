@@ -45,15 +45,19 @@ add_scribus_portable_test(stylequickapplytests
 	"${SCRIBUS_ROOT}/scribus/stylequickapplymodel.cpp")
 target_link_libraries(stylequickapplytests PRIVATE Qt6::Core Qt6::Test)
 
-add_scribus_portable_test(objectstyletests
-	"${SCRIBUS_ROOT}/scribus/tests/objectstyletests.cpp"
-	"${SCRIBUS_ROOT}/scribus/styles/objectstyle.cpp"
-	"${SCRIBUS_ROOT}/scribus/styles/style.cpp"
-	"${SCRIBUS_ROOT}/scribus/styles/stylecontext.cpp"
-	"${SCRIBUS_ROOT}/scribus/styles/stylecontextproxy.cpp"
-	"${SCRIBUS_ROOT}/scribus/updatemanager.cpp"
-	"${SCRIBUS_ROOT}/scribus/observable.h")
-target_link_libraries(objectstyletests PRIVATE Qt6::Core Qt6::Gui Qt6::Test)
+if(NOT WIN32)
+	# This standalone target relies on ELF/Mach-O dead-code elimination. On
+	# Windows the full native application build covers object-style linkage.
+	add_scribus_portable_test(objectstyletests
+		"${SCRIBUS_ROOT}/scribus/tests/objectstyletests.cpp"
+		"${SCRIBUS_ROOT}/scribus/styles/objectstyle.cpp"
+		"${SCRIBUS_ROOT}/scribus/styles/style.cpp"
+		"${SCRIBUS_ROOT}/scribus/styles/stylecontext.cpp"
+		"${SCRIBUS_ROOT}/scribus/styles/stylecontextproxy.cpp"
+		"${SCRIBUS_ROOT}/scribus/updatemanager.cpp"
+		"${SCRIBUS_ROOT}/scribus/observable.h")
+	target_link_libraries(objectstyletests PRIVATE Qt6::Core Qt6::Gui Qt6::Test)
+endif()
 
 add_scribus_portable_test(imagelinkmatchertests
 	"${SCRIBUS_ROOT}/scribus/tests/imagelinkmatchertests.cpp"
