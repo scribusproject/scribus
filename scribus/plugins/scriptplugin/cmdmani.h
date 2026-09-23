@@ -209,6 +209,18 @@ May raise WrongFrameTypeError if the target frame is not an image frame.\n\
 /*! Relink an external image without changing frame-level image settings. */
 PyObject *scribus_relinkimage(PyObject * /*self*/, PyObject* args);
 
+PyDoc_STRVAR(scribus_replaceimagelinks__doc__,
+QT_TR_NOOP("replaceImageLinks(\"source\", \"replacement\" [, dryRun=False]) -> (matched, replaced, failed)\n\
+\n\
+Replace every external image frame linked to the exact source path, including\n\
+frames on master pages and inside groups. Embedded and empty frames are skipped.\n\
+Each successful relink preserves frame crop and scale; all changes form one\n\
+undo step. A dry run counts matches without changing the document. The tuple\n\
+reports matches, successful replacements and load failures. Original image\n\
+files are never changed.\n\
+"));
+PyObject *scribus_replaceimagelinks(PyObject * /*self*/, PyObject* args);
+
 PyDoc_STRVAR(scribus_exportimageascmykcopy__doc__,
 QT_TR_NOOP("exportImageAsCMYKCopy(\"filename\" [, \"name\", relink=False]) -> bool\n\
 \n\

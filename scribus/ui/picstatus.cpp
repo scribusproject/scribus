@@ -53,6 +53,7 @@ for which a new license (GPL+exception) is in place.
 #include "extimageprops.h"
 #include "iconmanager.h"
 #include "imagecmykconversion.h"
+#include "imagelinkreplacement.h"
 #include "imagelinkmatcher.h"
 #include "pageitem.h"
 #include "picsearch.h"
@@ -102,7 +103,7 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu) : QDialog( parent )
 	connect(effectsButton, SIGNAL(clicked()), this, SLOT(doImageEffects()));
 	connect(buttonLayers, SIGNAL(clicked()), this, SLOT(doImageExtProp()));
 	connect(buttonEdit, SIGNAL(clicked()), this, SLOT(doEditImage()));
-	connect(imageViewArea, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(slotRightClick()));
+	connect(imageViewArea, &QListWidget::customContextMenuRequested, this, &PicStatus::slotRightClick);
 }
 
 QPixmap PicStatus::createImgIcon(PageItem* item)
@@ -357,8 +358,10 @@ void PicStatus::sortByPage()
 	applyImageFilters();
 }
 
-void PicStatus::slotRightClick()
+void PicStatus::slotRightClick(const QPoint& position)
 {
+	if (QListWidgetItem* clicked = imageViewArea->itemAt(position))
+		imageViewArea->setCurrentItem(clicked);
 	QMenu *pmen = new QMenu();
 	qApp->changeOverrideCursor(QCursor(Qt::ArrowCursor));
 	QAction* Act1 = pmen->addAction( tr("Sort by Name"));
@@ -372,6 +375,9 @@ void PicStatus::slotRightClick()
 	connect(Act1, SIGNAL(triggered()), this, SLOT(sortByName()));
 	connect(Act2, SIGNAL(triggered()), this, SLOT(sortByPage()));
 	pmen->addSeparator();
+	QAction* replaceAll = pmen->addAction(tr("Replace All Uses of This Image..."));
+	replaceAll->setEnabled(currItem && !currItem->isImageInline() && !currItem->Pfile.isEmpty());
+	connect(replaceAll, &QAction::triggered, this, &PicStatus::replaceSelectedImageEverywhere);
 	QAction* exportCMYK = pmen->addAction(tr("Export CMYK TIFF Copy..."));
 	exportCMYK->setEnabled(currItem && currItem->imageIsAvailable && currItem->isRaster
 		&& currItem->pixm.imgInfo.colorspace == ColorSpaceRGB && m_Doc->HasCMS
@@ -379,6 +385,33 @@ void PicStatus::slotRightClick()
 	connect(exportCMYK, &QAction::triggered, this, &PicStatus::exportSelectedCMYKCopy);
 	pmen->exec(QCursor::pos());
 	delete pmen;
+}
+
+void PicStatus::replaceSelectedImageEverywhere()
+{
+	if (!currItem || currItem->isImageInline() || currItem->Pfile.isEmpty())
+		return;
+	const QString source = currItem->Pfile;
+	const QString replacement = QFileDialog::getOpenFileName(this, tr("Choose Replacement Image"),
+		QFileInfo(source).absolutePath(), tr("All Files (*)"));
+	if (replacement.isEmpty())
+		return;
+	const ImageLinkReplacementResult preview = replaceImageLinks(m_Doc, source, replacement, true);
+	if (preview.matched == 0 || QDir::cleanPath(QFileInfo(source).absoluteFilePath())
+		== QDir::cleanPath(QFileInfo(replacement).absoluteFilePath()))
+		return;
+	if (QMessageBox::question(this, tr("Replace All Uses of This Image"),
+		tr("Replace %n external frame(s) linked to:\n%1\n\nWith:\n%2\n\n"
+		   "Frames on document and master pages are included. Embedded images are excluded. "
+		   "The changes can be undone together.", nullptr, preview.matched)
+			.arg(QDir::toNativeSeparators(source), QDir::toNativeSeparators(replacement)),
+		QMessageBox::Yes | QMessageBox::No, QMessageBox::No) != QMessageBox::Yes)
+		return;
+	const ImageLinkReplacementResult result = replaceImageLinks(m_Doc, source, replacement);
+	fillTable();
+	ScMessageBox::information(this, tr("Replace All Uses of This Image"),
+		tr("Matched: %1\nReplaced: %2\nCould not load: %3\n\nOriginal image files were not changed.")
+			.arg(result.matched).arg(result.replaced).arg(result.failed));
 }
 
 void PicStatus::exportSelectedCMYKCopy()

@@ -53,7 +53,7 @@ private slots:
 	void applyImageFilters();
 	void sortByName();
 	void sortByPage();
-	void slotRightClick();
+	void slotRightClick(const QPoint& position);
 	void imageSelected(QListWidgetItem *ite);
 	void newImageSelected();
 	/*!
@@ -87,6 +87,7 @@ private slots:
 	void extractSelectedEmbeddedImage();
 	void extractAllEmbeddedImages();
 	void exportSelectedCMYKCopy();
+	void replaceSelectedImageEverywhere();
 	void FileManager();
 	void doImageEffects();
 	void doImageExtProp();

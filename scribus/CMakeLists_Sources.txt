@@ -97,6 +97,7 @@ set(SCRIBUS_SOURCES
 	filewatcher.cpp
 	imagecmykconversion.cpp
 	imagecmykexport.cpp
+	imagelinkreplacement.cpp
 	imagelinkmatcher.cpp
 	fontlistmodel.cpp
 	fpoint.cpp

@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include "embeddedimageextractor.h"
 #include "filewatcher.h"
 #include "imagecmykconversion.h"
+#include "imagelinkreplacement.h"
 #include "pyesstring.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
@@ -64,6 +65,20 @@ PyObject *scribus_relinkimage(PyObject* /* self */, PyObject* args)
 	}
 
 	return PyBool_FromLong(item->relinkImage(QString::fromUtf8(image.c_str()), false));
+}
+
+PyObject *scribus_replaceimagelinks(PyObject* /* self */, PyObject* args)
+{
+	PyESString source;
+	PyESString replacement;
+	int dryRun = 0;
+	if (!PyArg_ParseTuple(args, "eses|p", "utf-8", source.ptr(), "utf-8", replacement.ptr(), &dryRun))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	const ImageLinkReplacementResult result = replaceImageLinks(ScCore->primaryMainWindow()->doc,
+		QString::fromUtf8(source.c_str()), QString::fromUtf8(replacement.c_str()), dryRun != 0);
+	return Py_BuildValue("(iii)", result.matched, result.replaced, result.failed);
 }
 
 PyObject *scribus_exportimageascmykcopy(PyObject* /* self */, PyObject* args)

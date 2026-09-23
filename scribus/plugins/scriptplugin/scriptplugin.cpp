@@ -542,6 +542,7 @@ PyMethodDef scribus_methods[] = {
 	{ "readPDFOptions", (PyCFunction) scribus_readpdfoptions, METH_VARARGS, tr(scribus_readpdfoptions__doc__)},
 	{ "redo", (PyCFunction) scribus_redo, METH_NOARGS, tr(scribus_redo__doc__)},
 	{ "relinkImage", scribus_relinkimage, METH_VARARGS, tr(scribus_relinkimage__doc__)},
+	{ "replaceImageLinks", scribus_replaceimagelinks, METH_VARARGS, tr(scribus_replaceimagelinks__doc__)},
 	{ "redrawAll", (PyCFunction) scribus_redraw, METH_NOARGS, tr(scribus_redraw__doc__)},
 	{ "removeTableColumns", scribus_removetablecolumns, METH_VARARGS, tr(scribus_removetablecolumns__doc__)},
 	{ "removeTableRows", scribus_removetablerows, METH_VARARGS, tr(scribus_removetablerows__doc__)},
