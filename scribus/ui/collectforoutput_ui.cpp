@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 */
 
 #include "collectforoutput_ui.h"
+#include "collectmanifest.h"
 
 #include "commonstrings.h"
 #include "undomanager.h"
@@ -114,6 +115,8 @@ QString CollectForOutput_UI::collect(QString &newFileName)
 		ScMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, "<qt>" + errorMsg + "</qt>");
 		return errorMsg;
 	}
+	QString manifestError;
+	writeCollectManifest(m_outputDirectory, newName, &manifestError);
 
 	QDir::setCurrent(m_outputDirectory);
 	ScCore->primaryMainWindow()->updateActiveWindowCaption(newName);
@@ -130,7 +133,7 @@ QString CollectForOutput_UI::collect(QString &newFileName)
 	delete progressDialog;
 	progressDialog = nullptr;
 
-	return QString();
+	return manifestError;
 }
 
 void CollectForOutput_UI::collectedFonts(int c)

@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 """
 
 import gzip
+import json
 import os
 import struct
 import tempfile
@@ -202,6 +203,34 @@ scribus.closeDoc()
 check(scribus.openDoc(document_path), "could not reopen relinked document")
 check(os.path.abspath(scribus.getImageFile(frame)) == relinked_result_path, "CMYK link did not survive reopen")
 check(scribus.getImageColorSpace(frame) == scribus.CSPACE_CMYK, "CMYK color space did not survive reopen")
+
+# Batch conversion previews eligibility without writing, then exports TIFFs and
+# a per-frame report. Relinking the new RGB frame is one undoable operation.
+batch_frame = scribus.createImage(40, 330, 180, 120, "Batch RGB Source")
+scribus.loadImage(source_path, batch_frame)
+batch_dir = os.path.join(output_dir, "cmyk-batch")
+os.makedirs(batch_dir, exist_ok=True)
+before_files = set(os.listdir(batch_dir))
+preview = scribus.batchExportImagesAsCMYK(batch_dir, "", "", -1, -1, True, True, True)
+check(preview[0] >= 1 and preview[1:4] == (0, 0, 0) and not preview[4],
+    "batch preview did not identify the RGB frame")
+check(set(os.listdir(batch_dir)) == before_files
+    and os.path.abspath(scribus.getImageFile(batch_frame)) == source_path,
+    "batch preview changed files or frame links")
+batch = scribus.batchExportImagesAsCMYK(batch_dir, "", "", -1, -1, True, True, False)
+check(batch[1] >= 1 and batch[2] >= 1 and os.path.exists(batch[4]),
+    "batch conversion did not export, relink and report")
+check(scribus.getImageColorSpace(batch_frame) == scribus.CSPACE_CMYK,
+    "batch relink did not load CMYK image")
+with open(batch[4], encoding="utf-8") as report_file:
+    report = json.load(report_file)
+check(report["relinked"] == batch[2] and report["exported"] == batch[1],
+    "batch report counters do not match the result")
+check(os.path.isdir(os.path.join(batch_dir, "originals")),
+    "batch did not back up original images")
+scribus.undo()
+check(os.path.abspath(scribus.getImageFile(batch_frame)) == source_path,
+    "batch undo did not restore the RGB frame")
 scribus.closeDoc()
 
 print("IMAGE_CMYK_EXPORT_QA_PASSED", flush=True)

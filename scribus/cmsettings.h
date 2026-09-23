@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 #define CMSETTINGS_H
 
 #include <QString>
+#include <optional>
 
 #include "scconfig.h"
 #include "scribusapi.h"
@@ -53,6 +54,8 @@ class SCRIBUS_API CMSettings
 
 		bool useEmbeddedProfile() const { return m_useEmbeddedProfile; }
 		void setUseEmbeddedProfile(bool useEmbedded) { m_useEmbeddedProfile = useEmbedded; }
+		void setImageRenderingIntent(eRenderIntent intent) { m_imageIntentOverride = intent; }
+		void setBlackPointCompensation(bool enabled) { m_blackPointOverride = enabled; }
 
 		bool useOutputProfile() const { return !m_outputProfile.isNull(); }
 		void setOutputProfile(const ScColorProfile& prof) { m_outputProfile = prof; }
@@ -98,6 +101,8 @@ class SCRIBUS_API CMSettings
 		QString        m_ProfileName;
 		eRenderIntent  m_Intent;
 		ScColorProfile m_outputProfile;
+		std::optional<eRenderIntent> m_imageIntentOverride;
+		std::optional<bool> m_blackPointOverride;
 };
 
 #endif

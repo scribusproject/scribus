@@ -75,8 +75,13 @@ scribus.editMasterPage("Replacement Master")
 master_frame = scribus.createImage(50, 50, 160, 100, "Master Source")
 scribus.loadImage(source, master_frame)
 scribus.closeMasterPage()
+scribus.gotoPage(1)
 
 print("IMAGE_LINK_REPLACEMENT_QA: dry run", flush=True)
+check(scribus.replaceImageLinks(source, replacement, True, "page") == (2, 0, 0),
+    "page-scoped preview included a master frame")
+check(scribus.replaceImageLinks(source, replacement, True, "masters") == (1, 0, 0),
+    "master-scoped preview included document frames")
 check(scribus.replaceImageLinks(source, replacement, True) == (3, 0, 0),
     "dry run did not count document and master frames")
 check(link(first) == source and link(second) == source, "dry run changed image links")

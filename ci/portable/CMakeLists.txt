@@ -71,6 +71,17 @@ add_scribus_portable_test(imagecmykexporttests
 	"${SCRIBUS_ROOT}/scribus/imagecmykexport.cpp")
 target_link_libraries(imagecmykexporttests PRIVATE Qt6::Core Qt6::Gui Qt6::Test TIFF::TIFF)
 
+add_scribus_portable_test(imagealphacontourtests
+	"${SCRIBUS_ROOT}/scribus/tests/imagealphacontourtests.cpp"
+	"${SCRIBUS_ROOT}/scribus/imagealphasilhouette.cpp")
+target_link_libraries(imagealphacontourtests PRIVATE Qt6::Core Qt6::Gui Qt6::Widgets Qt6::Test)
+set_tests_properties(imagealphacontourtests PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
+
+add_scribus_portable_test(collectmanifesttests
+	"${SCRIBUS_ROOT}/scribus/tests/collectmanifesttests.cpp"
+	"${SCRIBUS_ROOT}/scribus/collectmanifest.cpp")
+target_link_libraries(collectmanifesttests PRIVATE Qt6::Core Qt6::Test)
+
 add_test(NAME windows_project_sources
 	COMMAND "${CMAKE_COMMAND}"
 		-DSCRIBUS_ROOT=${SCRIBUS_ROOT}

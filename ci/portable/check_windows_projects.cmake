@@ -14,6 +14,19 @@ set(FORK_APPLICATION_FILES
 	scribus/dynamicvariable.h
 	scribus/embeddedimageextractor.cpp
 	scribus/embeddedimageextractor.h
+	scribus/collectmanifest.cpp
+	scribus/collectmanifest.h
+	scribus/imagealphacontour.cpp
+	scribus/imagealphacontour.h
+	scribus/imagealphasilhouette.cpp
+	scribus/imagecmykbatch.cpp
+	scribus/imagecmykbatch.h
+	scribus/imagecmykconversion.cpp
+	scribus/imagecmykconversion.h
+	scribus/imagecmykexport.cpp
+	scribus/imagecmykexport.h
+	scribus/imagelinkreplacement.cpp
+	scribus/imagelinkreplacement.h
 	scribus/imagelinkmatcher.cpp
 	scribus/imagelinkmatcher.h
 	scribus/styles/objectstyle.cpp

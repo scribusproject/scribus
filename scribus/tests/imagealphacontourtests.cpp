@@ -19,6 +19,7 @@ private slots:
 	void rejectsOpaqueAndEmptyMasks();
 	void preservesLargeImageCoordinates();
 	void keepsTransparentHoles();
+	void tracesLuminanceAndContrast();
 };
 
 void ImageAlphaContourTests::tracesTransparentSilhouette()
@@ -78,6 +79,20 @@ void ImageAlphaContourTests::keepsTransparentHoles()
 	const QPainterPath path = imageAlphaSilhouette(image);
 	QVERIFY(path.contains(QPointF(2, 2)));
 	QVERIFY(!path.contains(QPointF(5, 5)));
+}
+
+void ImageAlphaContourTests::tracesLuminanceAndContrast()
+{
+	QImage image(12, 12, QImage::Format_RGB32);
+	image.fill(Qt::white);
+	for (int y = 3; y < 9; ++y)
+		for (int x = 2; x < 10; ++x)
+			image.setPixelColor(x, y, Qt::black);
+	const QPainterPath luminance = imageLuminanceSilhouette(image, 128);
+	const QPainterPath contrast = imageContrastSilhouette(image, 64);
+	QCOMPARE(luminance.boundingRect(), QRectF(2, 3, 8, 6));
+	QCOMPARE(contrast.boundingRect(), luminance.boundingRect());
+	QVERIFY(!imageContrastSilhouette(image, 255).isEmpty());
 }
 
 QTEST_MAIN(ImageAlphaContourTests)

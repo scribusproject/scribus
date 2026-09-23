@@ -5,6 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "collect4output.h"
+#include "collectmanifest.h"
 
 #include "scribusdoc.h"
 #include "scribuscore.h"
@@ -130,6 +131,8 @@ QString CollectForOutput::collect(QString &newFileName)
 		ScMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, "<qt>" + errorMsg + "</qt>");
 		return errorMsg;
 	}
+	QString manifestError;
+	writeCollectManifest(m_outputDirectory, newName, &manifestError);
 
 	QDir::setCurrent(m_outputDirectory);
 	ScCore->primaryMainWindow()->updateActiveWindowCaption(newName);
@@ -143,7 +146,7 @@ QString CollectForOutput::collect(QString &newFileName)
 	collectedFiles.clear();
 	newFileName = newName;
 
-	return QString();
+	return manifestError;
 }
 
 bool CollectForOutput::collectDocument()

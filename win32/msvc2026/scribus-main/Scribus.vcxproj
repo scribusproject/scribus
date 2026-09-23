@@ -265,6 +265,12 @@
     <moc Include="..\..\..\scribus\appmodehelper.h" />
     <ClInclude Include="..\..\..\scribus\actionsearch.h" />
     <ClInclude Include="..\..\..\scribus\anchorposition.h" />
+    <ClInclude Include="..\..\..\scribus\collectmanifest.h" />
+    <ClInclude Include="..\..\..\scribus\imagealphacontour.h" />
+    <ClInclude Include="..\..\..\scribus\imagecmykbatch.h" />
+    <ClInclude Include="..\..\..\scribus\imagecmykconversion.h" />
+    <ClInclude Include="..\..\..\scribus\imagecmykexport.h" />
+    <ClInclude Include="..\..\..\scribus\imagelinkreplacement.h" />
     <ClInclude Include="..\..\..\scribus\dynamicvariable.h" />
     <ClInclude Include="..\..\..\scribus\embeddedimageextractor.h" />
     <ClInclude Include="..\..\..\scribus\imagelinkmatcher.h" />
@@ -968,6 +974,13 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\scribus\actionsearch.cpp" />
     <ClCompile Include="..\..\..\scribus\anchorposition.cpp" />
+    <ClCompile Include="..\..\..\scribus\collectmanifest.cpp" />
+    <ClCompile Include="..\..\..\scribus\imagealphacontour.cpp" />
+    <ClCompile Include="..\..\..\scribus\imagecmykbatch.cpp" />
+    <ClCompile Include="..\..\..\scribus\imagecmykconversion.cpp" />
+    <ClCompile Include="..\..\..\scribus\imagecmykexport.cpp" />
+    <ClCompile Include="..\..\..\scribus\imagelinkreplacement.cpp" />
+    <ClCompile Include="..\..\..\scribus\imagealphasilhouette.cpp" />
     <ClCompile Include="..\..\..\scribus\dynamicvariable.cpp" />
     <ClCompile Include="..\..\..\scribus\embeddedimageextractor.cpp" />
     <ClCompile Include="..\..\..\scribus\imagelinkmatcher.cpp" />

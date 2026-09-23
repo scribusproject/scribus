@@ -94,6 +94,8 @@ eRenderIntent CMSettings::colorRenderingIntent() const
 
 eRenderIntent CMSettings::imageRenderingIntent() const
 {
+	if (m_imageIntentOverride)
+		return *m_imageIntentOverride;
 	if (m_Doc)
 		return m_Doc->IntentImages;
 	return Intent_Perceptual; // Use perceptual by default
@@ -101,6 +103,8 @@ eRenderIntent CMSettings::imageRenderingIntent() const
 
 bool CMSettings::useBlackPoint() const
 {
+	if (m_blackPointOverride)
+		return *m_blackPointOverride;
 	if (m_Doc)
 		return m_Doc->cmsSettings().BlackPoint;
 	return false;

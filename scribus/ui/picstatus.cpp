@@ -57,6 +57,7 @@ for which a new license (GPL+exception) is in place.
 #include "iconmanager.h"
 #include "imagealphacontour.h"
 #include "imagecmykconversion.h"
+#include "imagecmykbatch.h"
 #include "imagelinkreplacement.h"
 #include "imagelinkmatcher.h"
 #include "pageitem.h"
@@ -382,16 +383,102 @@ void PicStatus::slotRightClick(const QPoint& position)
 	QAction* replaceAll = pmen->addAction(tr("Replace All Uses of This Image..."));
 	replaceAll->setEnabled(currItem && !currItem->isImageInline() && !currItem->Pfile.isEmpty());
 	connect(replaceAll, &QAction::triggered, this, &PicStatus::replaceSelectedImageEverywhere);
-	QAction* alphaContour = pmen->addAction(tr("Generate Contour from Image Alpha..."));
+	QAction* alphaContour = pmen->addAction(tr("Generate Image Contour..."));
 	alphaContour->setEnabled(currItem && currItem->imageIsAvailable && currItem->isRaster);
-	connect(alphaContour, &QAction::triggered, this, &PicStatus::generateSelectedAlphaContour);
+	connect(alphaContour, &QAction::triggered, this, &PicStatus::generateSelectedImageContour);
 	QAction* exportCMYK = pmen->addAction(tr("Export CMYK TIFF Copy..."));
 	exportCMYK->setEnabled(currItem && currItem->imageIsAvailable && currItem->isRaster
 		&& currItem->pixm.imgInfo.colorspace == ColorSpaceRGB && m_Doc->HasCMS
 		&& m_Doc->DocPrinterProf && m_Doc->DocPrinterProf.colorSpace() == ColorSpace_Cmyk);
 	connect(exportCMYK, &QAction::triggered, this, &PicStatus::exportSelectedCMYKCopy);
+	QAction* batchCMYK = pmen->addAction(tr("Batch Export RGB Images to CMYK..."));
+	batchCMYK->setEnabled(m_Doc->HasCMS && m_Doc->DocPrinterProf
+		&& m_Doc->DocPrinterProf.colorSpace() == ColorSpace_Cmyk);
+	connect(batchCMYK, &QAction::triggered, this, &PicStatus::batchExportCMYKCopies);
 	pmen->exec(QCursor::pos());
 	delete pmen;
+}
+
+void PicStatus::batchExportCMYKCopies()
+{
+	const QString directory = QFileDialog::getExistingDirectory(this, tr("Choose CMYK Output Folder"),
+		m_lastExtractionDirectory);
+	if (directory.isEmpty())
+		return;
+	QDialog dialog(this);
+	dialog.setWindowTitle(tr("Batch Export RGB Images to CMYK"));
+	auto* layout = new QVBoxLayout(&dialog);
+	auto* form = new QFormLayout();
+	auto* inputProfile = new QComboBox(&dialog);
+	inputProfile->addItem(tr("Each image's existing profile"), QString());
+	for (const QString& name : ScCore->InputProfiles.keys())
+		inputProfile->addItem(name, name);
+	form->addRow(tr("RGB source profile:"), inputProfile);
+	auto* outputProfile = new QComboBox(&dialog);
+	outputProfile->addItem(tr("Document CMYK output profile"), QString());
+	for (const QString& name : ScCore->PrinterProfiles.keys())
+		outputProfile->addItem(name, name);
+	form->addRow(tr("CMYK output profile:"), outputProfile);
+	auto* intent = new QComboBox(&dialog);
+	intent->addItem(tr("Document/image default"), -1);
+	intent->addItem(tr("Perceptual"), static_cast<int>(Intent_Perceptual));
+	intent->addItem(tr("Relative colorimetric"), static_cast<int>(Intent_Relative_Colorimetric));
+	intent->addItem(tr("Saturation"), static_cast<int>(Intent_Saturation));
+	intent->addItem(tr("Absolute colorimetric"), static_cast<int>(Intent_Absolute_Colorimetric));
+	form->addRow(tr("Rendering intent:"), intent);
+	auto* blackPoint = new QComboBox(&dialog);
+	blackPoint->addItem(tr("Document default"), -1);
+	blackPoint->addItem(tr("Enabled"), 1);
+	blackPoint->addItem(tr("Disabled"), 0);
+	form->addRow(tr("Black-point compensation:"), blackPoint);
+	layout->addLayout(form);
+	auto* backup = new QCheckBox(tr("Copy original images into an originals folder"), &dialog);
+	backup->setChecked(true);
+	layout->addWidget(backup);
+	auto* relink = new QCheckBox(tr("Relink eligible frames to the exported TIFFs (undoable)"), &dialog);
+	layout->addWidget(relink);
+	auto* buttons = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &dialog);
+	buttons->button(QDialogButtonBox::Ok)->setText(tr("Preview and Export"));
+	layout->addWidget(buttons);
+	connect(buttons, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
+	connect(buttons, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
+	if (dialog.exec() != QDialog::Accepted)
+		return;
+	ImageCMYKBatchOptions options;
+	options.color.sourceProfileName = inputProfile->currentData().toString();
+	options.color.destinationProfileName = outputProfile->currentData().toString();
+	if (intent->currentData().toInt() >= 0)
+		options.color.renderingIntent = static_cast<eRenderIntent>(intent->currentData().toInt());
+	if (blackPoint->currentData().toInt() >= 0)
+		options.color.blackPointCompensation = blackPoint->currentData().toBool();
+	options.copyOriginals = backup->isChecked();
+	options.relink = relink->isChecked();
+	options.dryRun = true;
+	const ImageCMYKBatchResult preview = runImageCMYKBatch(m_Doc, directory, options);
+	if (!preview.error.isEmpty())
+	{
+		ScMessageBox::warning(this, tr("Batch CMYK Export"), preview.error);
+		return;
+	}
+	if (preview.ready == 0)
+	{
+		ScMessageBox::information(this, tr("Batch CMYK Export"), tr("No eligible RGB raster image frames were found."));
+		return;
+	}
+	if (QMessageBox::question(this, tr("Batch CMYK Export"),
+		tr("%1 image frame(s) appear eligible. %2 frame(s) will be skipped.\n\n"
+		   "Files will be written to %3. Originals will not be overwritten. Continue?")
+			.arg(preview.ready).arg(preview.entries.size() - preview.ready)
+			.arg(QDir::toNativeSeparators(directory)),
+		QMessageBox::Yes | QMessageBox::No, QMessageBox::No) != QMessageBox::Yes)
+		return;
+	options.dryRun = false;
+	const ImageCMYKBatchResult result = runImageCMYKBatch(m_Doc, directory, options);
+	fillTable();
+	ScMessageBox::information(this, tr("Batch CMYK Export"),
+		tr("Exported: %1\nRelinked: %2\nFailed: %3\nReport: %4\n\n%5")
+			.arg(result.exported).arg(result.relinked).arg(result.failed)
+			.arg(QDir::toNativeSeparators(result.reportPath), result.error));
 }
 
 void PicStatus::replaceSelectedImageEverywhere()
@@ -403,37 +490,81 @@ void PicStatus::replaceSelectedImageEverywhere()
 		QFileInfo(source).absolutePath(), tr("All Files (*)"));
 	if (replacement.isEmpty())
 		return;
-	const ImageLinkReplacementResult preview = replaceImageLinks(m_Doc, source, replacement, true);
+	bool scopeAccepted = false;
+	const QStringList scopes { tr("Entire document and master pages"),
+		tr("Current document page only"), tr("Master pages only") };
+	const QString chosenScope = QInputDialog::getItem(this, tr("Replacement Scope"),
+		tr("Replace links on:"), scopes, 0, false, &scopeAccepted);
+	if (!scopeAccepted)
+		return;
+	const ImageLinkReplacementScope scope = chosenScope == scopes.at(1)
+		? ImageLinkReplacementScope::CurrentPage : chosenScope == scopes.at(2)
+			? ImageLinkReplacementScope::MasterPages : ImageLinkReplacementScope::EntireDocument;
+	const ImageLinkReplacementResult preview = replaceImageLinks(m_Doc, source, replacement, scope, true);
 	if (preview.matched == 0 || QDir::cleanPath(QFileInfo(source).absoluteFilePath())
 		== QDir::cleanPath(QFileInfo(replacement).absoluteFilePath()))
 		return;
-	if (QMessageBox::question(this, tr("Replace All Uses of This Image"),
+	QString previewDetails;
+	for (const ImageLinkReplacementEntry& entry : preview.entries)
+		previewDetails += tr("Page %1: %2\n").arg(entry.page, entry.frame);
+	QMessageBox confirmation(this);
+	confirmation.setWindowTitle(tr("Replace Image Links"));
+	confirmation.setText(
 		tr("Replace %n external frame(s) linked to:\n%1\n\nWith:\n%2\n\n"
-		   "Frames on document and master pages are included. Embedded images are excluded. "
+		   "Embedded images are excluded. "
 		   "The changes can be undone together.", nullptr, preview.matched)
-			.arg(QDir::toNativeSeparators(source), QDir::toNativeSeparators(replacement)),
-		QMessageBox::Yes | QMessageBox::No, QMessageBox::No) != QMessageBox::Yes)
+			.arg(QDir::toNativeSeparators(source), QDir::toNativeSeparators(replacement)));
+	confirmation.setDetailedText(previewDetails);
+	confirmation.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+	confirmation.setDefaultButton(QMessageBox::No);
+	if (confirmation.exec() != QMessageBox::Yes)
 		return;
-	const ImageLinkReplacementResult result = replaceImageLinks(m_Doc, source, replacement);
+	const ImageLinkReplacementResult result = replaceImageLinks(m_Doc, source, replacement, scope, false);
 	fillTable();
+	QString reportMessage;
+	if (QMessageBox::question(this, tr("Replacement Report"),
+		tr("Save a JSON report of the frames and replacement results?"),
+		QMessageBox::Yes | QMessageBox::No, QMessageBox::No) == QMessageBox::Yes)
+	{
+		const QString reportPath = QFileDialog::getSaveFileName(this, tr("Save Replacement Report"),
+			QFileInfo(source).absolutePath() + QDir::separator() + QStringLiteral("image-replacement-report.json"),
+			tr("JSON Report (*.json)"));
+		if (!reportPath.isEmpty() && !writeImageLinkReplacementReport(reportPath, source, replacement, result))
+			reportMessage = tr("\nThe report could not be saved.");
+	}
 	ScMessageBox::information(this, tr("Replace All Uses of This Image"),
-		tr("Matched: %1\nReplaced: %2\nCould not load: %3\n\nOriginal image files were not changed.")
-			.arg(result.matched).arg(result.replaced).arg(result.failed));
+		tr("Matched: %1\nReplaced: %2\nCould not load: %3\n\nOriginal image files were not changed.%4")
+			.arg(result.matched).arg(result.replaced).arg(result.failed).arg(reportMessage));
 }
 
-void PicStatus::generateSelectedAlphaContour()
+void PicStatus::generateSelectedImageContour()
 {
 	if (!currItem || !currItem->imageIsAvailable || !currItem->isRaster)
 		return;
 	QDialog options(this);
-	options.setWindowTitle(tr("Generate Contour from Image Alpha"));
+	options.setWindowTitle(tr("Generate Image Contour"));
 	auto* layout = new QVBoxLayout(&options);
 	auto* form = new QFormLayout();
+	auto* source = new QComboBox(&options);
+	source->addItem(tr("Transparency (alpha)"), static_cast<int>(ImageContourSource::Alpha));
+	source->addItem(tr("Embedded clipping path"), static_cast<int>(ImageContourSource::ImageClippingPath));
+	source->addItem(tr("Dark areas (luminance)"), static_cast<int>(ImageContourSource::Luminance));
+	source->addItem(tr("Contrast against corners"), static_cast<int>(ImageContourSource::ContrastEdge));
+	form->addRow(tr("Source:"), source);
 	auto* threshold = new QSpinBox(&options);
 	threshold->setRange(1, 255);
 	threshold->setValue(128);
-	threshold->setToolTip(tr("Pixels at or above this opacity are included in the contour."));
-	form->addRow(tr("Alpha threshold:"), threshold);
+	threshold->setToolTip(tr("Opacity, darkness or background-contrast threshold, depending on source."));
+	form->addRow(tr("Threshold:"), threshold);
+	auto* smoothing = new QSpinBox(&options);
+	smoothing->setRange(0, 50);
+	smoothing->setSuffix(tr(" pt"));
+	form->addRow(tr("Corner smoothing:"), smoothing);
+	auto* simplification = new QDoubleSpinBox(&options);
+	simplification->setRange(0, 8);
+	simplification->setDecimals(1);
+	simplification->setToolTip(tr("Reduce source detail before tracing; 0 keeps the most detail."));
+	form->addRow(tr("Simplification:"), simplification);
 	auto* padding = new QDoubleSpinBox(&options);
 	padding->setRange(0, 1000);
 	padding->setDecimals(1);
@@ -441,19 +572,65 @@ void PicStatus::generateSelectedAlphaContour()
 	padding->setToolTip(tr("Extra distance between the visible image and surrounding text."));
 	form->addRow(tr("Text clearance:"), padding);
 	layout->addLayout(form);
+	auto* preview = new QLabel(&options);
+	preview->setFixedSize(260, 205);
+	preview->setAlignment(Qt::AlignCenter);
+	layout->addWidget(preview, 0, Qt::AlignHCenter);
 	auto* wrap = new QCheckBox(tr("Enable text flow around the generated contour"), &options);
 	wrap->setChecked(true);
 	layout->addWidget(wrap);
 	auto* buttons = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &options);
 	buttons->button(QDialogButtonBox::Ok)->setText(tr("Generate"));
+	auto currentOptions = [&]() {
+		ImageContourOptions value;
+		value.source = static_cast<ImageContourSource>(source->currentData().toInt());
+		value.threshold = threshold->value();
+		value.smoothing = smoothing->value();
+		value.simplification = simplification->value();
+		value.padding = padding->value();
+		value.enableWrap = wrap->isChecked();
+		return value;
+	};
+	auto refreshPreview = [&]() {
+		QPainterPath contour;
+		QString previewError;
+		const bool valid = buildImageContour(currItem, currentOptions(), &contour, &previewError);
+		buttons->button(QDialogButtonBox::Ok)->setEnabled(valid);
+		if (!valid)
+		{
+			preview->setPixmap(QPixmap());
+			preview->setText(previewError);
+			return;
+		}
+		QPixmap picture(preview->size());
+		picture.fill(preview->palette().window().color());
+		QPainter painter(&picture);
+		painter.setRenderHint(QPainter::Antialiasing);
+		const double scale = qMin(240.0 / currItem->width(), 180.0 / currItem->height());
+		painter.translate((picture.width() - currItem->width() * scale) / 2,
+			(picture.height() - currItem->height() * scale) / 2);
+		painter.scale(scale, scale);
+		painter.setPen(QPen(Qt::gray, 1.0 / scale));
+		painter.drawRect(QRectF(0, 0, currItem->width(), currItem->height()));
+		painter.setPen(QPen(QColor(0, 130, 160), 2.0 / scale));
+		painter.setBrush(QColor(0, 130, 160, 45));
+		painter.drawPath(contour);
+		preview->setPixmap(picture);
+	};
+	connect(source, &QComboBox::currentIndexChanged, &options, refreshPreview);
+	connect(threshold, &QSpinBox::valueChanged, &options, refreshPreview);
+	connect(smoothing, &QSpinBox::valueChanged, &options, refreshPreview);
+	connect(simplification, &QDoubleSpinBox::valueChanged, &options, refreshPreview);
+	connect(padding, &QDoubleSpinBox::valueChanged, &options, refreshPreview);
+	refreshPreview();
 	connect(buttons, &QDialogButtonBox::accepted, &options, &QDialog::accept);
 	connect(buttons, &QDialogButtonBox::rejected, &options, &QDialog::reject);
 	layout->addWidget(buttons);
 	if (options.exec() != QDialog::Accepted)
 		return;
 	QString error;
-	if (!generateImageAlphaContour(currItem, threshold->value(), padding->value(), wrap->isChecked(), &error))
-		ScMessageBox::warning(this, tr("Generate Contour from Image Alpha"), error);
+	if (!generateImageContour(currItem, currentOptions(), &error))
+		ScMessageBox::warning(this, tr("Generate Image Contour"), error);
 	else
 		fillTable();
 }

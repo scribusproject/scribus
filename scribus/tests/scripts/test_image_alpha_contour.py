@@ -44,6 +44,22 @@ def write_png(path, alpha):
         image_file.write(data)
 
 
+def write_contrast_png(path):
+    rows = []
+    for y in range(16):
+        row = bytearray(b"\x00")
+        for x in range(16):
+            value = 0 if 4 <= x < 12 and 4 <= y < 12 else 255
+            row.extend((value, value, value))
+        rows.append(bytes(row))
+    data = b"\x89PNG\r\n\x1a\n"
+    data += chunk(b"IHDR", struct.pack(">IIBBBBB", 16, 16, 8, 2, 0, 0, 0))
+    data += chunk(b"IDAT", zlib.compress(b"".join(rows)))
+    data += chunk(b"IEND", b"")
+    with open(path, "wb") as image_file:
+        image_file.write(data)
+
+
 def contour_state(path, frame):
     root = ET.parse(path).getroot()
     for element in root.iter("PageObject"):
@@ -56,12 +72,14 @@ output_dir = os.environ.get("SCRIBUS_TEST_OUTPUT_DIR", tempfile.gettempdir())
 os.makedirs(output_dir, exist_ok=True)
 alpha_path = os.path.abspath(os.path.join(output_dir, "alpha-contour.png"))
 opaque_path = os.path.abspath(os.path.join(output_dir, "opaque-contour.png"))
+contrast_path = os.path.abspath(os.path.join(output_dir, "contrast-contour.png"))
 document_path = os.path.abspath(os.path.join(output_dir, "image-alpha-contour.sla"))
-for path in (alpha_path, opaque_path, document_path):
+for path in (alpha_path, opaque_path, contrast_path, document_path):
     if os.path.exists(path):
         os.remove(path)
 write_png(alpha_path, True)
 write_png(opaque_path, False)
+write_contrast_png(contrast_path)
 
 check(scribus.newDocument(scribus.PAPER_A4, (36, 36, 36, 36),
     scribus.PORTRAIT, 1, scribus.UNIT_POINTS, scribus.PAGE_1, 0, 1),
@@ -104,6 +122,28 @@ else:
     raise AssertionError("opaque image was accepted")
 check(scribus.getTextFlowMode(opaque_frame) == 0,
     "failed contour generation changed text flow")
+
+contrast_frame = scribus.createImage(72, 260, 160, 160, "Contrast Source")
+scribus.loadImage(contrast_path, contrast_frame)
+scribus.setImageScale(10, 10, contrast_frame)
+check(scribus.generateImageContour("luminance", 128, 0.0, 0, 0.0, False,
+    contrast_frame), "luminance contour failed")
+check(scribus.getTextFlowMode(contrast_frame) == 0,
+    "wrap=False changed text flow mode")
+scribus.saveDocAs(document_path)
+luminance_contour = contour_state(document_path, contrast_frame)[0]
+check(luminance_contour, "luminance contour was empty")
+check(scribus.generateImageContour("edge", 64, 0.0, 0, 0.0, False,
+    contrast_frame), "contrast-edge contour failed")
+scribus.saveDocAs(document_path)
+check(contour_state(document_path, contrast_frame)[0] == luminance_contour,
+    "contrast-edge contour disagreed with the high-contrast fixture")
+try:
+    scribus.generateImageContour("clip", 128, 0.0, 0, 0.0, False, contrast_frame)
+except scribus.ScribusException:
+    pass
+else:
+    raise AssertionError("frame without a clipping path was accepted")
 
 scribus.saveDocAs(document_path)
 scribus.closeDoc()

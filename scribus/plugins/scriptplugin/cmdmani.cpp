@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include "embeddedimageextractor.h"
 #include "filewatcher.h"
 #include "imagealphacontour.h"
+#include "imagecmykbatch.h"
 #include "imagecmykconversion.h"
 #include "imagelinkreplacement.h"
 #include "pyesstring.h"
@@ -72,13 +73,27 @@ PyObject *scribus_replaceimagelinks(PyObject* /* self */, PyObject* args)
 {
 	PyESString source;
 	PyESString replacement;
+	PyESString scopeName;
 	int dryRun = 0;
-	if (!PyArg_ParseTuple(args, "eses|p", "utf-8", source.ptr(), "utf-8", replacement.ptr(), &dryRun))
+	if (!PyArg_ParseTuple(args, "eses|pes", "utf-8", source.ptr(), "utf-8", replacement.ptr(),
+		&dryRun, "utf-8", scopeName.ptr()))
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
+	const QString scope = QString::fromUtf8(scopeName.c_str());
+	ImageLinkReplacementScope replacementScope = ImageLinkReplacementScope::EntireDocument;
+	if (scope == QLatin1String("page"))
+		replacementScope = ImageLinkReplacementScope::CurrentPage;
+	else if (scope == QLatin1String("masters"))
+		replacementScope = ImageLinkReplacementScope::MasterPages;
+	else if (!scope.isEmpty() && scope != QLatin1String("document"))
+	{
+		PyErr_SetString(PyExc_ValueError, "scope must be document, page or masters");
+		return nullptr;
+	}
 	const ImageLinkReplacementResult result = replaceImageLinks(ScCore->primaryMainWindow()->doc,
-		QString::fromUtf8(source.c_str()), QString::fromUtf8(replacement.c_str()), dryRun != 0);
+		QString::fromUtf8(source.c_str()), QString::fromUtf8(replacement.c_str()),
+		replacementScope, dryRun != 0);
 	return Py_BuildValue("(iii)", result.matched, result.replaced, result.failed);
 }
 
@@ -97,6 +112,45 @@ PyObject *scribus_generateimagealphacontour(PyObject* /* self */, PyObject* args
 		return nullptr;
 	QString error;
 	if (!generateImageAlphaContour(item, threshold, padding, enableWrap != 0, &error))
+	{
+		PyErr_SetString(ScribusException, error.toUtf8().constData());
+		return nullptr;
+	}
+	Py_RETURN_TRUE;
+}
+
+PyObject *scribus_generateimagecontour(PyObject* /* self */, PyObject* args)
+{
+	const char* sourceName = "alpha";
+	ImageContourOptions options;
+	int wrap = 1;
+	PyESString name;
+	if (!PyArg_ParseTuple(args, "|sididpes", &sourceName, &options.threshold,
+		&options.padding, &options.smoothing, &options.simplification,
+		&wrap, "utf-8", name.ptr()))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	const QString source = QString::fromUtf8(sourceName).toLower();
+	if (source == QLatin1String("alpha"))
+		options.source = ImageContourSource::Alpha;
+	else if (source == QLatin1String("clip"))
+		options.source = ImageContourSource::ImageClippingPath;
+	else if (source == QLatin1String("luminance"))
+		options.source = ImageContourSource::Luminance;
+	else if (source == QLatin1String("edge"))
+		options.source = ImageContourSource::ContrastEdge;
+	else
+	{
+		PyErr_SetString(PyExc_ValueError, "source must be alpha, clip, luminance or edge");
+		return nullptr;
+	}
+	options.enableWrap = wrap != 0;
+	PageItem* item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	if (!item)
+		return nullptr;
+	QString error;
+	if (!generateImageContour(item, options, &error))
 	{
 		PyErr_SetString(ScribusException, error.toUtf8().constData());
 		return nullptr;
@@ -136,6 +190,48 @@ PyObject *scribus_exportimageascmykcopy(PyObject* /* self */, PyObject* args)
 	if (relink && !item->relinkImage(destinationPath, false, true))
 		Py_RETURN_FALSE;
 	Py_RETURN_TRUE;
+}
+
+PyObject *scribus_batchexportimagesascmyk(PyObject* /* self */, PyObject* args)
+{
+	PyESString directory;
+	PyESString sourceProfile;
+	PyESString destinationProfile;
+	int intent = -1;
+	int blackPoint = -1;
+	int backup = 1;
+	int relink = 0;
+	int dryRun = 0;
+	if (!PyArg_ParseTuple(args, "es|esesiippp", "utf-8", directory.ptr(),
+		"utf-8", sourceProfile.ptr(), "utf-8", destinationProfile.ptr(),
+		&intent, &blackPoint, &backup, &relink, &dryRun))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	if (intent < -1 || intent > 3 || blackPoint < -1 || blackPoint > 1)
+	{
+		PyErr_SetString(PyExc_ValueError, "Invalid rendering intent or black-point compensation value");
+		return nullptr;
+	}
+	ImageCMYKBatchOptions options;
+	options.color.sourceProfileName = QString::fromUtf8(sourceProfile.c_str());
+	options.color.destinationProfileName = QString::fromUtf8(destinationProfile.c_str());
+	if (intent >= 0)
+		options.color.renderingIntent = static_cast<eRenderIntent>(intent);
+	if (blackPoint >= 0)
+		options.color.blackPointCompensation = blackPoint != 0;
+	options.copyOriginals = backup != 0;
+	options.relink = relink != 0;
+	options.dryRun = dryRun != 0;
+	const ImageCMYKBatchResult result = runImageCMYKBatch(ScCore->primaryMainWindow()->doc,
+		QFileInfo(QString::fromUtf8(directory.c_str())).absoluteFilePath(), options);
+	if (!result.error.isEmpty())
+	{
+		PyErr_SetString(ScribusException, result.error.toUtf8().constData());
+		return nullptr;
+	}
+	return Py_BuildValue("(iiiis)", result.ready, result.exported, result.relinked,
+		result.failed, result.reportPath.toUtf8().constData());
 }
 
 PyObject *scribus_embedimage(PyObject* /* self */, PyObject* args)

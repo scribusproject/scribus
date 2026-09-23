@@ -104,6 +104,12 @@ add_executable(imagealphacontourtests imagealphacontourtests.cpp ../imagealphasi
 target_link_libraries(imagealphacontourtests ${TESTS_LIBRARIES} Qt6::Gui Qt6::Widgets)
 target_compile_definitions(imagealphacontourtests PRIVATE COMPILE_SCRIBUS_MAIN_APP)
 add_test(NAME imagealphacontourtests COMMAND imagealphacontourtests)
+
+add_executable(collectmanifesttests collectmanifesttests.cpp ../collectmanifest.cpp)
+target_link_libraries(collectmanifesttests Qt6::Test Qt6::Core)
+target_compile_definitions(collectmanifesttests PRIVATE COMPILE_SCRIBUS_MAIN_APP)
+add_test(NAME collectmanifesttests COMMAND collectmanifesttests)
+set_tests_properties(collectmanifesttests PROPERTIES LABELS "collect-for-output;phase-4")
 set_tests_properties(imagealphacontourtests PROPERTIES LABELS "image-contour;phase-4")
 set_tests_properties(imagealphacontourtests PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
 
