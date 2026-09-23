@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDialogButtonBox>
 #include <QFileDialog>
 #include <QFileInfo>
+#include <QFormLayout>
 #include <QHash>
 #include <QHeaderView>
 #include <QInputDialog>
@@ -43,6 +44,8 @@ for which a new license (GPL+exception) is in place.
 #include <QProgressDialog>
 #include <QScopedPointer>
 #include <QSignalBlocker>
+#include <QSpinBox>
+#include <QDoubleSpinBox>
 #include <QTimer>
 #include <QToolButton>
 #include <QTreeWidget>
@@ -52,6 +55,7 @@ for which a new license (GPL+exception) is in place.
 #include "embeddedimageextractor.h"
 #include "extimageprops.h"
 #include "iconmanager.h"
+#include "imagealphacontour.h"
 #include "imagecmykconversion.h"
 #include "imagelinkreplacement.h"
 #include "imagelinkmatcher.h"
@@ -378,6 +382,9 @@ void PicStatus::slotRightClick(const QPoint& position)
 	QAction* replaceAll = pmen->addAction(tr("Replace All Uses of This Image..."));
 	replaceAll->setEnabled(currItem && !currItem->isImageInline() && !currItem->Pfile.isEmpty());
 	connect(replaceAll, &QAction::triggered, this, &PicStatus::replaceSelectedImageEverywhere);
+	QAction* alphaContour = pmen->addAction(tr("Generate Contour from Image Alpha..."));
+	alphaContour->setEnabled(currItem && currItem->imageIsAvailable && currItem->isRaster);
+	connect(alphaContour, &QAction::triggered, this, &PicStatus::generateSelectedAlphaContour);
 	QAction* exportCMYK = pmen->addAction(tr("Export CMYK TIFF Copy..."));
 	exportCMYK->setEnabled(currItem && currItem->imageIsAvailable && currItem->isRaster
 		&& currItem->pixm.imgInfo.colorspace == ColorSpaceRGB && m_Doc->HasCMS
@@ -412,6 +419,43 @@ void PicStatus::replaceSelectedImageEverywhere()
 	ScMessageBox::information(this, tr("Replace All Uses of This Image"),
 		tr("Matched: %1\nReplaced: %2\nCould not load: %3\n\nOriginal image files were not changed.")
 			.arg(result.matched).arg(result.replaced).arg(result.failed));
+}
+
+void PicStatus::generateSelectedAlphaContour()
+{
+	if (!currItem || !currItem->imageIsAvailable || !currItem->isRaster)
+		return;
+	QDialog options(this);
+	options.setWindowTitle(tr("Generate Contour from Image Alpha"));
+	auto* layout = new QVBoxLayout(&options);
+	auto* form = new QFormLayout();
+	auto* threshold = new QSpinBox(&options);
+	threshold->setRange(1, 255);
+	threshold->setValue(128);
+	threshold->setToolTip(tr("Pixels at or above this opacity are included in the contour."));
+	form->addRow(tr("Alpha threshold:"), threshold);
+	auto* padding = new QDoubleSpinBox(&options);
+	padding->setRange(0, 1000);
+	padding->setDecimals(1);
+	padding->setSuffix(tr(" pt"));
+	padding->setToolTip(tr("Extra distance between the visible image and surrounding text."));
+	form->addRow(tr("Text clearance:"), padding);
+	layout->addLayout(form);
+	auto* wrap = new QCheckBox(tr("Enable text flow around the generated contour"), &options);
+	wrap->setChecked(true);
+	layout->addWidget(wrap);
+	auto* buttons = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &options);
+	buttons->button(QDialogButtonBox::Ok)->setText(tr("Generate"));
+	connect(buttons, &QDialogButtonBox::accepted, &options, &QDialog::accept);
+	connect(buttons, &QDialogButtonBox::rejected, &options, &QDialog::reject);
+	layout->addWidget(buttons);
+	if (options.exec() != QDialog::Accepted)
+		return;
+	QString error;
+	if (!generateImageAlphaContour(currItem, threshold->value(), padding->value(), wrap->isChecked(), &error))
+		ScMessageBox::warning(this, tr("Generate Contour from Image Alpha"), error);
+	else
+		fillTable();
 }
 
 void PicStatus::exportSelectedCMYKCopy()

@@ -100,6 +100,13 @@ target_compile_definitions(imagecmykexporttests PRIVATE COMPILE_SCRIBUS_MAIN_APP
 add_test(NAME imagecmykexporttests COMMAND imagecmykexporttests)
 set_tests_properties(imagecmykexporttests PROPERTIES LABELS "image-color-conversion;phase-4")
 
+add_executable(imagealphacontourtests imagealphacontourtests.cpp ../imagealphasilhouette.cpp)
+target_link_libraries(imagealphacontourtests ${TESTS_LIBRARIES} Qt6::Gui Qt6::Widgets)
+target_compile_definitions(imagealphacontourtests PRIVATE COMPILE_SCRIBUS_MAIN_APP)
+add_test(NAME imagealphacontourtests COMMAND imagealphacontourtests)
+set_tests_properties(imagealphacontourtests PROPERTIES LABELS "image-contour;phase-4")
+set_tests_properties(imagealphacontourtests PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
+
 # End-to-end running-header tests use the installed application because the
 # Scripter and file-format plugins are loaded from the installation layout.
 if(APPLEBUNDLE)
@@ -363,6 +370,24 @@ set_tests_properties(rgb_to_cmyk PROPERTIES
 	TIMEOUT 120)
 
 set(image_cmyk_export_prefs_dir "${CMAKE_CURRENT_BINARY_DIR}/prefs-image-cmyk-export")
+set(image_alpha_contour_prefs_dir "${CMAKE_CURRENT_BINARY_DIR}/prefs-image-alpha-contour")
+set(image_alpha_contour_output_dir "${CMAKE_CURRENT_BINARY_DIR}/output-image-alpha-contour")
+file(MAKE_DIRECTORY "${image_alpha_contour_prefs_dir}")
+file(MAKE_DIRECTORY "${image_alpha_contour_output_dir}")
+add_test(NAME image_alpha_contour
+	COMMAND "${SCRIBUS_SCRIPT_TEST_EXECUTABLE}"
+		--no-splash
+		--prefs "${image_alpha_contour_prefs_dir}"
+		--no-gui
+		--python-script "${CMAKE_CURRENT_SOURCE_DIR}/scripts/test_image_alpha_contour.py")
+set_tests_properties(image_alpha_contour PROPERTIES
+	ENVIRONMENT "QT_QPA_PLATFORM=offscreen;SCRIBUS_TEST_OUTPUT_DIR=${image_alpha_contour_output_dir}"
+	FIXTURES_REQUIRED runningheader_test_app
+	LABELS "integration;image-contour;phase-4;scripter;undo-redo;persistence"
+	PASS_REGULAR_EXPRESSION "IMAGE_ALPHA_CONTOUR_QA_PASSED"
+	RUN_SERIAL TRUE
+	TIMEOUT 120)
+
 set(image_cmyk_export_output_dir "${CMAKE_CURRENT_BINARY_DIR}/output-image-cmyk-export")
 file(MAKE_DIRECTORY "${image_cmyk_export_prefs_dir}")
 file(MAKE_DIRECTORY "${image_cmyk_export_output_dir}")

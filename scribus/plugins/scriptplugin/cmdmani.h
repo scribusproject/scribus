@@ -221,6 +221,16 @@ files are never changed.\n\
 "));
 PyObject *scribus_replaceimagelinks(PyObject * /*self*/, PyObject* args);
 
+PyDoc_STRVAR(scribus_generateimagealphacontour__doc__,
+QT_TR_NOOP("generateImageAlphaContour([threshold=128, padding=0.0, wrap=True, name=\"\"]) -> bool\n\
+\n\
+Build an editable contour from the loaded image's transparency, clipped to\n\
+the frame. Threshold is 1–255; padding is a clearance in points. When wrap\n\
+is True, text flows around the contour. The change is undoable and does not\n\
+modify the image file. Raises ScribusException if no usable alpha exists.\n\
+"));
+PyObject *scribus_generateimagealphacontour(PyObject * /*self*/, PyObject* args);
+
 PyDoc_STRVAR(scribus_exportimageascmykcopy__doc__,
 QT_TR_NOOP("exportImageAsCMYKCopy(\"filename\" [, \"name\", relink=False]) -> bool\n\
 \n\

@@ -349,6 +349,7 @@ PyMethodDef scribus_methods[] = {
 	{ "fileQuit", scribus_filequit, METH_VARARGS, tr(scribus_filequit__doc__)},
 	{ "flipObject", scribus_flipobject, METH_VARARGS, tr(scribus_flipobject__doc__)},
 	{ "getActiveLayer", (PyCFunction) scribus_getactivelayer, METH_NOARGS, tr(scribus_getactivelayer__doc__)},
+	{ "generateImageAlphaContour", scribus_generateimagealphacontour, METH_VARARGS, tr(scribus_generateimagealphacontour__doc__)},
 	{ "getAnchoredObjectOptions", scribus_getanchoredobjectoptions, METH_VARARGS, tr(scribus_getanchoredobjectoptions__doc__)},
 	{ "getAnchoredObjectRect", scribus_getanchoredobjectrect, METH_VARARGS, tr(scribus_getanchoredobjectrect__doc__)},
 	{ "getAnchoredObjectRects", scribus_getanchoredobjectrects, METH_VARARGS, tr(scribus_getanchoredobjectrects__doc__)},

@@ -88,6 +88,7 @@ private slots:
 	void extractAllEmbeddedImages();
 	void exportSelectedCMYKCopy();
 	void replaceSelectedImageEverywhere();
+	void generateSelectedAlphaContour();
 	void FileManager();
 	void doImageEffects();
 	void doImageExtProp();

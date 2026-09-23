@@ -5279,6 +5279,8 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreResTyp(ss, isUndo);
 		else if (ss->contains("RESET_CONTOUR"))
 			restoreContourLine(ss, isUndo);
+		else if (ss->contains("GENERATE_ALPHA_CONTOUR"))
+			restoreContourLine(ss, isUndo);
 		else if (ss->contains("CHANGE_SHAPE_TYPE"))
 			restoreShapeType(ss, isUndo);
 		else if (ss->contains("UNITEITEM"))
@@ -8162,6 +8164,20 @@ void PageItem::restoreSplitItem(SimpleState *state, bool isUndo)
 
 void PageItem::restoreContourLine(SimpleState *state, bool isUndo)
 {
+	if (state->contains("GENERATE_ALPHA_CONTOUR"))
+	{
+		const auto *generated = dynamic_cast<ScOldNewState<FPointArray>*>(state);
+		if (!generated)
+		{
+			qFatal("PageItem::restoreContourLine: generated contour state cast failed");
+			return;
+		}
+		ContourLine = isUndo ? generated->getOldState() : generated->getNewState();
+		ClipEdited = true;
+		checkTextFlowInteractions();
+		update();
+		return;
+	}
 	const auto *is = dynamic_cast<ScItemState<FPointArray>*>(state);
 	if (!is)
 	{

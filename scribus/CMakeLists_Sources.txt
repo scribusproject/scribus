@@ -95,6 +95,8 @@ set(SCRIBUS_SOURCES
 	fileloader.cpp
 	filesearch.cpp
 	filewatcher.cpp
+	imagealphacontour.cpp
+	imagealphasilhouette.cpp
 	imagecmykconversion.cpp
 	imagecmykexport.cpp
 	imagelinkreplacement.cpp

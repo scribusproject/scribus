@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "cmdutil.h"
 #include "embeddedimageextractor.h"
 #include "filewatcher.h"
+#include "imagealphacontour.h"
 #include "imagecmykconversion.h"
 #include "imagelinkreplacement.h"
 #include "pyesstring.h"
@@ -79,6 +80,28 @@ PyObject *scribus_replaceimagelinks(PyObject* /* self */, PyObject* args)
 	const ImageLinkReplacementResult result = replaceImageLinks(ScCore->primaryMainWindow()->doc,
 		QString::fromUtf8(source.c_str()), QString::fromUtf8(replacement.c_str()), dryRun != 0);
 	return Py_BuildValue("(iii)", result.matched, result.replaced, result.failed);
+}
+
+PyObject *scribus_generateimagealphacontour(PyObject* /* self */, PyObject* args)
+{
+	int threshold = 128;
+	double padding = 0.0;
+	int enableWrap = 1;
+	PyESString name;
+	if (!PyArg_ParseTuple(args, "|idpes", &threshold, &padding, &enableWrap, "utf-8", name.ptr()))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	PageItem* item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	if (!item)
+		return nullptr;
+	QString error;
+	if (!generateImageAlphaContour(item, threshold, padding, enableWrap != 0, &error))
+	{
+		PyErr_SetString(ScribusException, error.toUtf8().constData());
+		return nullptr;
+	}
+	Py_RETURN_TRUE;
 }
 
 PyObject *scribus_exportimageascmykcopy(PyObject* /* self */, PyObject* args)
