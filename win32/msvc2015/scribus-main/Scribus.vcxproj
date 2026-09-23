@@ -576,7 +576,6 @@
     <moc Include="..\..\..\scribus\ui\prefs_preflightverifier.h" />
     <moc Include="..\..\..\scribus\ui\prefs_printer.h" />
     <moc Include="..\..\..\scribus\ui\prefs_scrapbook.h" />
-    <moc Include="..\..\..\scribus\ui\prefs_spelling.h" />
     <moc Include="..\..\..\scribus\ui\prefs_tableofcontents.h" />
     <moc Include="..\..\..\scribus\ui\prefs_typography.h" />
     <moc Include="..\..\..\scribus\ui\prefs_userinterface.h" />
@@ -1277,7 +1276,6 @@
     <ClCompile Include="..\..\..\scribus\ui\prefs_preflightverifier.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\prefs_printer.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\prefs_scrapbook.cpp" />
-    <ClCompile Include="..\..\..\scribus\ui\prefs_spelling.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\prefs_tableofcontents.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\prefs_typography.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\prefs_userinterface.cpp" />
@@ -1643,7 +1641,6 @@
     <uic Include="..\..\..\scribus\ui\prefs_preflightverifierbase.ui" />
     <uic Include="..\..\..\scribus\ui\prefs_printerbase.ui" />
     <uic Include="..\..\..\scribus\ui\prefs_scrapbookbase.ui" />
-    <uic Include="..\..\..\scribus\ui\prefs_spellingbase.ui" />
     <uic Include="..\..\..\scribus\ui\prefs_tableofcontentsbase.ui" />
     <uic Include="..\..\..\scribus\ui\prefs_typographybase.ui" />
     <uic Include="..\..\..\scribus\ui\prefs_userinterfacebase.ui" />

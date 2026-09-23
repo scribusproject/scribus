@@ -2203,9 +2203,6 @@
     <ClCompile Include="..\..\..\scribus\ui\prefs_scrapbook.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\scribus\ui\prefs_spelling.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\prefs_tableofcontents.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -2843,9 +2840,6 @@
       <Filter>Form Files</Filter>
     </uic>
     <uic Include="..\..\..\scribus\ui\prefs_scrapbookbase.ui">
-      <Filter>Form Files</Filter>
-    </uic>
-    <uic Include="..\..\..\scribus\ui\prefs_spellingbase.ui">
       <Filter>Form Files</Filter>
     </uic>
     <uic Include="..\..\..\scribus\ui\prefs_tableofcontentsbase.ui">
@@ -3960,9 +3954,6 @@
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\prefs_scrapbook.h">
-      <Filter>Header Files</Filter>
-    </moc>
-    <moc Include="..\..\..\scribus\ui\prefs_spelling.h">
       <Filter>Header Files</Filter>
     </moc>
     <moc Include="..\..\..\scribus\ui\prefs_tableofcontents.h">

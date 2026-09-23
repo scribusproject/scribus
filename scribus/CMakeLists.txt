@@ -464,7 +464,6 @@ set(SCRIBUS_SOURCES
 	ui/prefs_preflightverifier.cpp
 	ui/prefs_printer.cpp
 	ui/prefs_scrapbook.cpp
-	ui/prefs_spelling.cpp
 	ui/prefs_typography.cpp
 	ui/prefs_userinterface.cpp
 	ui/prefs_itemtools.cpp

@@ -40,7 +40,6 @@ for which a new license (GPL+exception) is in place.
 #include "ui/prefs_preflightverifier.h"
 #include "ui/prefs_printer.h"
 #include "ui/prefs_scrapbook.h"
-#include "ui/prefs_spelling.h"
 #include "ui/prefs_tableofcontents.h"
 #include "ui/prefs_typography.h"
 #include "ui/prefs_userinterface.h"
@@ -110,7 +109,6 @@ class SCRIBUS_API PreferencesDialog : public QDialog, Ui::PreferencesDialog
 		Prefs_PreflightVerifier *prefs_PreflightVerifier {nullptr};
 		Prefs_Printer *prefs_Printer {nullptr};
 		Prefs_Scrapbook *prefs_Scrapbook {nullptr};
-		//Prefs_Spelling *prefs_Spelling {nullptr};
 		Prefs_TableOfContents *prefs_TableOfContents {nullptr};
 		Prefs_Typography *prefs_Typography {nullptr};
 		Prefs_UserInterface *prefs_UserInterface {nullptr};
