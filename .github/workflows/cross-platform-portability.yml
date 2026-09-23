@@ -24,7 +24,9 @@ jobs:
           - name: Windows x64
             os: windows-2022
             qt-arch: win64_msvc2022_64
-            qt-version: 6.11.2
+            # The aqt Windows repository does not publish the 6.11.2 archive.
+            # The native package workflow uses its separately verified Qt SDK.
+            qt-version: 6.10.2
           - name: macOS ARM64
             os: macos-15
             qt-arch: clang_64
@@ -36,6 +38,10 @@ jobs:
     steps:
       - name: Check out source
         uses: actions/checkout@v4
+
+      - name: Install Linux image test dependency
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y libtiff-dev
 
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
