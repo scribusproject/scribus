@@ -427,7 +427,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 				default:
 					break;
 			}
-			draw(m->x());
+			draw(m->x() + m_view->contentsX());
 			double marker = localToTextPos(m->x());
 			emit MarkerMoved(textBase(), marker);
 			return;
@@ -596,7 +596,6 @@ void Hruler::drawMarker(QPainter& p) const
 	// draw slim marker
 	QPolygon cr;
 	p.resetTransform();
-	p.translate(-m_view->contentsX(), 0);
 	p.setPen(Qt::red);
 	p.setBrush(Qt::red);
 	cr.setPoints(5,  m_whereToDraw, 5, m_whereToDraw, 16, m_whereToDraw, 5, m_whereToDraw + 2, 0, m_whereToDraw - 2, 0);
@@ -771,12 +770,12 @@ double Hruler::ruleSpacing() const
 void Hruler::draw(int where)
 {
 	// erase old marker
-	int currentCoor = where - m_view->contentsX();
-	m_whereToDraw = where;
-	m_drawMark = true;
-	repaint(m_oldMark - 3, 0, 7, 17);
-	//	m_drawMark = false;
+	const int currentCoor = where - m_view->contentsX();
+	const int oldCoor = m_oldMark;
+	m_whereToDraw = currentCoor;
 	m_oldMark = currentCoor;
+	m_drawMark = true;
+	update(QRect(oldCoor - 3, 0, 7, 17).united(QRect(currentCoor - 3, 0, 7, 17)));
 }
 
 void Hruler::setItem(PageItem * item)

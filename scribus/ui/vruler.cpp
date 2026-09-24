@@ -152,7 +152,6 @@ void Vruler::paintEvent(QPaintEvent *e)
 	{
 		// draw slim marker
 		QPolygon cr;
-		p.translate(0, -m_view->contentsY());
 		p.setPen(Qt::red);
 		p.setBrush(Qt::red);
 		cr.setPoints(5,  5, m_whereToDraw, 16, m_whereToDraw, 5, m_whereToDraw, 0, m_whereToDraw + 2, 0, m_whereToDraw - 2);
@@ -179,12 +178,12 @@ double Vruler::ruleSpacing() const
 void Vruler::draw(int where)
 {
 	// erase old marker
-	int currentCoor = where - m_view->contentsY();
-	m_whereToDraw = where;
-	m_drawMark = true;
-	repaint(0, m_oldMark - 3, 17, 6);
-//	m_drawMark = false;
+	const int currentCoor = where - m_view->contentsY();
+	const int oldCoor = m_oldMark;
+	m_whereToDraw = currentCoor;
 	m_oldMark = currentCoor;
+	m_drawMark = true;
+	update(QRect(0, oldCoor - 3, 17, 6).united(QRect(0, currentCoor - 3, 17, 6)));
 }
 
 void Vruler::unitChange()
