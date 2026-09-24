@@ -459,7 +459,7 @@ void Hruler::mouseMoveEvent(QMouseEvent *m)
 				default:
 					break;
 			}
-			draw(mousePos.x());
+			draw(mousePos.x() + m_view->contentsX());
 			double canvasX = (mousePos.x() + m_view->contentsX()) / m_scaling;
 			emit MarkerMoved(textBase(), canvasX - textBase());
 			return;
@@ -753,7 +753,6 @@ void Hruler::drawMarker(QPainter& p) const
 	cr.setPoints(3, m_whereToDraw, 5, m_whereToDraw + 2, 0, m_whereToDraw - 2, 0);
 
 	p.resetTransform();
-	p.translate(-m_view->contentsX(), 0);
 	p.setPen(markerColor);
 	p.drawLine(m_whereToDraw, 0, m_whereToDraw, bottomline);
 	p.setRenderHints(QPainter::Antialiasing, true);
@@ -939,13 +938,12 @@ double Hruler::ruleSpacing() const
 
 void Hruler::draw(int where)
 {
-	// erase old marker
-	int currentCoor = where - m_view->contentsX();
-	m_whereToDraw = where;
-	m_drawMark = true;
-	repaint(m_oldMark - 4, 0, 8, bottomline);
-	//	m_drawMark = false;
+	const int currentCoor = where - m_view->contentsX();
+	const int oldCoor = m_oldMark;
+	m_whereToDraw = currentCoor;
 	m_oldMark = currentCoor;
+	m_drawMark = true;
+	update(QRect(oldCoor - 4, 0, 8, bottomline).united(QRect(currentCoor - 4, 0, 8, bottomline)));
 }
 
 void Hruler::setItem(PageItem * item)
