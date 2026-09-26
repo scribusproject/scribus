@@ -52,4 +52,4 @@ Page and field dimensions are points. Field positions are relative to each grid 
 
 On success, both modes write `publish-manifest.json` (or the optional `manifest_file` name) with the source, output paths, record count and UTC time. Headless Scripter now returns a failing process status for an unhandled Python error. Automation should also verify the `DATA_PUBLISH_JOB_PASSED` console marker and manifest. A failed run can leave completed mail-merge PDFs or a partially written output; use a fresh output folder per run.
 
-Combined mail-merge PDF output is **not implemented**. Windows and Linux full-app runtime validation is pending; the macOS integration tests cover the paths above.
+Combined mail-merge PDF output is **not implemented**. The macOS integration tests passed (32/32 CTest cases), and the full-app Phase 5 runtime workflows passed on Linux and on a packaged Windows x64 application for test branch commit `78eeee9`. These automated checks do not replace a manual visual review of the Data Merge dialog on all three platforms.
