@@ -147,6 +147,9 @@ protected:
 	QWidget* m_welcomePage { nullptr };
 	QListWidget* m_welcomeRecentList { nullptr };
 	QPushButton* m_backButton { nullptr };
+	QCheckBox* m_openPreviewCheck { nullptr };
+	QWidget* m_openPreviewContainer { nullptr };
+	FDialogPreview* m_openPreview { nullptr };
 
 	bool eventFilter(QObject *object, QEvent *event);
 	void createWelcomePage();

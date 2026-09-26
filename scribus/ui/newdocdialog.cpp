@@ -517,7 +517,33 @@ void NewDocDialog::createOpenDocPage()
 	for (auto pushButton : std::as_const(pushButtons))
 		pushButton->setVisible(false);
 	fileDialog->setWindowFlags(Qt::Widget);
-	openDocLayout->addWidget(fileDialog);
+	auto* openContentLayout = new QHBoxLayout;
+	openContentLayout->setContentsMargins(0, 0, 0, 0);
+	openContentLayout->setSpacing(6);
+	openContentLayout->addWidget(fileDialog, 1);
+	m_openPreviewContainer = new QWidget(tab_3);
+	auto* previewLayout = new QVBoxLayout(m_openPreviewContainer);
+	previewLayout->setContentsMargins(0, 28, 0, 0);
+	m_openPreview = new FDialogPreview(m_openPreviewContainer);
+	previewLayout->addWidget(m_openPreview, 0, Qt::AlignTop);
+	openContentLayout->addWidget(m_openPreviewContainer);
+	openDocLayout->addLayout(openContentLayout);
+	m_openPreviewCheck = new QCheckBox(tr("Show Preview"), tab_3);
+	m_openPreviewCheck->setObjectName(QStringLiteral("openDocumentShowPreview"));
+	m_openPreviewCheck->setToolTip(tr("Show a preview and information for the selected file"));
+	openDocLayout->addWidget(m_openPreviewCheck, 0, Qt::AlignLeft);
+	m_openPreviewContainer->hide();
+	connect(m_openPreviewCheck, &QCheckBox::toggled, this, [this](bool checked) {
+		m_openPreviewContainer->setVisible(checked);
+		if (!checked)
+		{
+			m_openPreview->updatePix();
+			return;
+		}
+		const QStringList selectedFiles = fileDialog->selectedFiles();
+		if (!selectedFiles.isEmpty())
+			m_openPreview->genPreview(QDir::fromNativeSeparators(selectedFiles.first()));
+	});
 
 
 	FileDialogEventCatcher* keyCatcher = new FileDialogEventCatcher(this);
@@ -1041,7 +1067,8 @@ void NewDocDialog::gotoHomeDirectory()
 
 void NewDocDialog::openFileDialogFileClicked(const QString& path)
 {
-	//okButton->setEnabled(!path.isEmpty());
+	if (m_openPreviewCheck && m_openPreviewCheck->isChecked())
+		m_openPreview->genPreview(path);
 }
 
 void NewDocDialog::changeMargin(MarginStruct margin)
