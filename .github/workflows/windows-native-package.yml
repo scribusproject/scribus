@@ -125,6 +125,13 @@ jobs:
             -SkipApplicationBuild `
             -TestInstaller
 
+      - name: Run Phase 5 tests on packaged Windows application
+        shell: pwsh
+        run: |
+          .\win32\ci\test-phase5.ps1 `
+            -AppDir "$env:GITHUB_WORKSPACE\win32\deploy\dist\Scribus-$env:SCRIBUS_VERSION-win64" `
+            -Sources $env:GITHUB_WORKSPACE
+
       - name: Upload Windows test applications
         uses: actions/upload-artifact@v4
         with:

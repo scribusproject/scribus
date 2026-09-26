@@ -181,6 +181,11 @@ if (-not $ZipOnly) {
         }
     }
 
+    # MSVC projects do not run CMake's install(FILES) for Scripter scripts.
+    $scriptsDir = Join-Path $AppDir 'share\scripts'
+    New-Item -ItemType Directory -Path $scriptsDir -Force | Out-Null
+    Copy-Item -LiteralPath (Join-Path $Sources 'scribus\plugins\scriptplugin\scripts\DataPublish.py') -Destination $scriptsDir
+
     # Third-party DLLs from the scribus-libs kit.
     if ($LibsKitRoot) {
         $dllSourceDirs = New-Object System.Collections.Generic.List[string]
