@@ -598,8 +598,9 @@ void IconManager::readIconConfigFiles()
 					w = (e.hasAttribute("width")) ? e.attribute("width").toInt() : 0;
 					h = (e.hasAttribute("height")) ? e.attribute("height").toInt() : 0;
 					isd.splashMessgeRect = QRect(l,t,w,h);
-					isd.splashScreenDarkPath = (e.hasAttribute("imageDark")) ? e.attribute("imageDark") : "";
-					isd.splashScreenLightPath = (e.hasAttribute("imageLight")) ? e.attribute("imageLight") : "";
+					const QString fallbackImage = e.attribute("image");
+					isd.splashScreenDarkPath = e.attribute("imageDark", fallbackImage);
+					isd.splashScreenLightPath = e.attribute("imageLight", fallbackImage);
 
 				}
 				else if (e.tagName() == "nametext")

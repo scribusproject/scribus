@@ -257,12 +257,10 @@ int ScribusCore::initCoreServices(bool showSplash, bool showProfileInfo)
 	if (m_prefsManager.appPrefs.uiPrefs.stylePalette == "dark" && QApplication::styleHints()->colorScheme() == Qt::ColorScheme::Light)
 	{
 		scStyle->setApplicationTheme(ScribusProxyStyle::ApplicationTheme::Dark);
-		m_SplashScreen->setPixmap(m_iconManager.splashScreen());
 	}
 	else if (m_prefsManager.appPrefs.uiPrefs.stylePalette == "light" && QApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark)
 	{
 		scStyle->setApplicationTheme(ScribusProxyStyle::ApplicationTheme::Light);
-		m_SplashScreen->setPixmap(m_iconManager.splashScreen());
 	}
 	else
 		scStyle->setApplicationTheme(ScribusProxyStyle::ApplicationTheme::System);
@@ -281,6 +279,25 @@ int ScribusCore::initCoreServices(bool showSplash, bool showProfileInfo)
 	{
 		//reset prefs name to chosen name based on version, when prefs is empty or not found
 		m_prefsManager.appPrefs.uiPrefs.iconSet = m_iconManager.activeSetBasename();
+	}
+	if (m_SplashScreen)
+	{
+		const QString& palette = m_prefsManager.appPrefs.uiPrefs.stylePalette;
+		const bool darkSplash = palette == "dark" || (palette != "light" && m_iconManager.iconsForDarkMode());
+		QPixmap splashPixmap = m_iconManager.splashScreen(darkSplash);
+		if (!splashPixmap.isNull())
+		{
+			const QScreen* screen = m_SplashScreen->screen();
+			const qreal ratio = screen ? screen->devicePixelRatio() : 1.0;
+			if (ratio != 1.0)
+			{
+				splashPixmap = splashPixmap.scaled(qRound(splashPixmap.width() * ratio),
+					qRound(splashPixmap.height() * ratio), Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+				splashPixmap.setDevicePixelRatio(ratio);
+			}
+			m_SplashScreen->setDarkMode(darkSplash);
+			m_SplashScreen->setPixmap(splashPixmap);
+		}
 	}
 
 	initGS();
@@ -329,7 +346,8 @@ void ScribusCore::initSplash(bool showSplash)
 		pix.setDevicePixelRatio(pixelRatio);
 	}
 
-	m_SplashScreen = new ScSplashScreen(pix, IconManager::instance().splashScreenRect(), Qt::WindowStaysOnTopHint);
+	m_SplashScreen = new ScSplashScreen(pix, IconManager::instance().splashScreenRect(),
+	                                  Qt::WindowStaysOnTopHint, IconManager::instance().iconsForDarkMode());
 	if (m_SplashScreen != nullptr)
 	{
 		m_SplashScreen->show();

@@ -32,6 +32,14 @@ set_target_properties(${SCRIBUS_TESTS_LIB}
 
 set(TESTS_LIBRARIES Qt6::Test Qt6::Core)
 
+# The startup and first-run splash use these same light/dark raster assets.
+add_executable(splashartworktests splashartworktests.cpp)
+target_link_libraries(splashartworktests Qt6::Test Qt6::Gui)
+target_compile_definitions(splashartworktests PRIVATE
+	SPLASH_ARTWORK_DIR="${CMAKE_SOURCE_DIR}/resources/iconsets/1_7_0/images")
+add_test(NAME splashartworktests COMMAND splashartworktests)
+set_tests_properties(splashartworktests PROPERTIES LABELS "ui;splash")
+
 # Unit tests for anchored-object positioning and wrap geometry
 set(ANCHORPOSITIONTESTS_SOURCES anchorpositiontests.cpp ../anchorposition.cpp)
 add_executable(anchorpositiontests ${ANCHORPOSITIONTESTS_SOURCES})

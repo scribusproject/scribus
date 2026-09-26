@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 
 #include "iconmanager.h"
+#include "ui/splash.h"
 
 FSW_Welcome::FSW_Welcome(QWidget* parent)
 	: QWizardPage(parent)
@@ -45,7 +46,8 @@ void FSW_Welcome::loadSplash()
 			pix = im.splashScreen();
 			break;  // automatic
 	}
-	splashLabel->setPixmap(pix);
+	const bool darkMode = m_mode == 1 || (m_mode != 0 && im.iconsForDarkMode());
+	splashLabel->setPixmap(ScSplashScreen::previewPixmap(pix, darkMode));
 }
 
 void FSW_Welcome::changeEvent(QEvent* e)

@@ -24,8 +24,10 @@ class SCRIBUS_API ScSplashScreen : public QSplashScreen
 		\author Franz Schmid
 		\brief Constructor for SplashScreen
 		 */
-		ScSplashScreen ( const QPixmap & pixmap = QPixmap(), const QRect messageRect = QRect(), Qt::WindowFlags f = Qt::WindowFlags() );
+		ScSplashScreen ( const QPixmap & pixmap = QPixmap(), const QRect messageRect = QRect(), Qt::WindowFlags f = Qt::WindowFlags(), bool darkMode = false );
 		~ScSplashScreen() {}
+		void setDarkMode(bool darkMode);
+		static QPixmap previewPixmap(const QPixmap& background, bool darkMode);
 		/*!
 		\author Franz Schmid
 		\brief Sets new status on SplashScreen and calls for a SplashScreen::repaint afterwards.
@@ -35,8 +37,13 @@ class SCRIBUS_API ScSplashScreen : public QSplashScreen
 
 	protected:
 		QRect m_messageRect;
+		bool m_darkMode {false};
 		void drawContents(QPainter *painter);
+
+	private:
+		static bool isModernArtwork(const QPixmap& pixmap);
+		static void paintBranding(QPainter* painter, const QFont& baseFont, bool darkMode,
+		                          const QString& status, bool showStatus);
 };
 
 #endif
-

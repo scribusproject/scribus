@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "fsw_fontsscripts.h"
 
 #include "iconmanager.h"
+#include "ui/splash.h"
 
 FSW_Finish::FSW_Finish(QWidget* parent)
 	: QWizardPage(parent)
@@ -116,7 +117,8 @@ void FSW_Finish::loadSplash()
 			pix = im.splashScreen();
 			break;  // automatic
 	}
-	finishSplashLabel->setPixmap(pix);
+	const bool darkMode = m_mode == 1 || (m_mode != 0 && im.iconsForDarkMode());
+	finishSplashLabel->setPixmap(ScSplashScreen::previewPixmap(pix, darkMode));
 }
 
 void FSW_Finish::changeEvent(QEvent* e)
