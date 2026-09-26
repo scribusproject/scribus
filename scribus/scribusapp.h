@@ -81,6 +81,7 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		ScDLManager* dlManager() { return m_scDLMgr; }
 		QString pythonScript; // script to be run in python from CLI
 		QStringList pythonScriptArgs; // command line arguments and flags for script from CLI
+		void setCommandLineScriptFailed() { m_commandLineScriptFailed = true; }
 
 	private:
 		void showHeader();
@@ -106,6 +107,7 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		bool m_showSplash {true};
 		bool m_showFontInfo {false};
 		bool m_showProfileInfo {false};
+		bool m_commandLineScriptFailed {false};
 		//! \brief If is there user given prefs file...
 		QString m_prefsUserDir;
 		QList<QString> m_filesToLoad;

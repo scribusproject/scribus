@@ -1,6 +1,6 @@
 # Phase 5 data publishing (test feature)
 
-Scribus now accepts CSV and JSON data sources for document variables. Open **Data Merge** in a document to preview records, map fields to user-defined variables, save/load a mapping preset, apply one record, or export a numbered PDF for a selected record range. A source field can also be appended to each PDF filename. The mapping preset is a small JSON file with `version: 1` and a `fields` object whose keys are source field names and values are document variable names.
+Scribus now accepts CSV and JSON data sources for document variables. Open **Edit → Variables… → Data Merge…** in a document to preview records, map fields to user-defined variables, save/load a mapping preset, apply one record, or export a numbered PDF for a selected record range. A source field can also be appended to each PDF filename. The mapping preset is a small JSON file with `version: 1` and a `fields` object whose keys are source field names and values are document variable names.
 
 For unattended jobs, run the installed `DataPublish.py` through Scribus Scripter:
 
@@ -50,6 +50,6 @@ Catalogue example:
 
 Page and field dimensions are points. Field positions are relative to each grid card. `type` defaults to `text`; `sla_file` is optional. The job verifies referenced images and text-frame overflow, checks critical preflight errors, then writes the PDF and optional editable SLA. This is a generated card grid, not yet an arbitrary template-driven catalogue layout.
 
-On success, both modes write `publish-manifest.json` (or the optional `manifest_file` name) with the source, output paths, record count and UTC time. The `DATA_PUBLISH_JOB_PASSED` console marker and manifest should both be checked by automation. Scribus's existing script runner prints Python exceptions but may still exit with status zero, so process exit status alone is not a reliable job-success signal. This also means a failed run can leave completed mail-merge PDFs or a partially written output; use a fresh output folder per run.
+On success, both modes write `publish-manifest.json` (or the optional `manifest_file` name) with the source, output paths, record count and UTC time. Headless Scripter now returns a failing process status for an unhandled Python error. Automation should also verify the `DATA_PUBLISH_JOB_PASSED` console marker and manifest. A failed run can leave completed mail-merge PDFs or a partially written output; use a fresh output folder per run.
 
 Combined mail-merge PDF output is **not implemented**. Windows and Linux full-app runtime validation is pending; the macOS integration tests cover the paths above.

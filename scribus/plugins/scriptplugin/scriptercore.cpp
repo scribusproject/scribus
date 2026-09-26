@@ -320,8 +320,11 @@ void ScripterCore::slotRunScriptFile(const QString& fileName, QStringList argume
 			cm+= QString("scribus.mainInterpreter = False\n");
 		cm        += QString("try:\n");
 		cm        += QString("    exec(open(\"%1\", \"rb\").read())\n").arg(escapedFileName);
-		cm        += QString("except SystemExit:\n");
-		cm        += QString("    pass\n");
+		cm        += QString("except SystemExit as exit_code:\n");
+		if (ScCore->usingGUI())
+			cm += QString("    pass\n");
+		else
+			cm += QString("    if exit_code.code not in (None, 0):\n        raise\n");
 		// Capture the text of any other exception that's raised by the interpreter
 		// into a StringIO buffer for later extraction.
 		cm        += QString("except:\n");
@@ -342,6 +345,8 @@ void ScripterCore::slotRunScriptFile(const QString& fileName, QStringList argume
 		// other return value (most likely None anyway) and can ignore it.
 		if (result == nullptr)
 		{
+			if (!ScCore->usingGUI())
+				ScQApp->setCommandLineScriptFailed();
 			PyObject* errorMsgPyStr = PyMapping_GetItemString(globals, "_errorMsg");
 			if (errorMsgPyStr == nullptr)
 			{

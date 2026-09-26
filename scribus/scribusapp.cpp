@@ -361,6 +361,8 @@ int ScribusQApp::init()
 	// require the app to be fully set up (in particular, the main window to be
 	// built and shown) before running their setup.
 	emit appStarted();
+	if (!useGUI && m_commandLineScriptFailed)
+		return EXIT_FAILURE;
 
 	return retVal;
 }

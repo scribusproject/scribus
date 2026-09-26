@@ -180,6 +180,20 @@ set_tests_properties(data_publish_job PROPERTIES
 	RUN_SERIAL TRUE
 	TIMEOUT 180)
 
+add_test(NAME headless_script_failure
+	COMMAND "${SCRIBUS_SCRIPT_TEST_EXECUTABLE}"
+		--no-splash
+		--prefs "${data_merge_prefs_dir}"
+		--no-gui
+		--python-script "${CMAKE_CURRENT_SOURCE_DIR}/scripts/test_headless_script_failure.py")
+set_tests_properties(headless_script_failure PROPERTIES
+	ENVIRONMENT "QT_QPA_PLATFORM=offscreen"
+	FIXTURES_REQUIRED runningheader_test_app
+	LABELS "integration;data-merge;phase-5"
+	WILL_FAIL TRUE
+	RUN_SERIAL TRUE
+	TIMEOUT 180)
+
 set(object_style_prefs_dir "${CMAKE_CURRENT_BINARY_DIR}/prefs-object_style_persistence")
 set(object_style_output_dir "${CMAKE_CURRENT_BINARY_DIR}/output-object_style_persistence")
 file(MAKE_DIRECTORY "${object_style_prefs_dir}")
