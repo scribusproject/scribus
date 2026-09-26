@@ -91,6 +91,8 @@ jobs:
         with:
           path: ${{ steps.build-paths.outputs.builds-root }}\Scribus-Release-x64-v143
           key: scribus-app-msvc2022-release-x64-${{ hashFiles('scribus/**', 'win32/msvc2022/**') }}-v1
+          restore-keys: |
+            scribus-app-msvc2022-release-x64-
 
       - name: Build Scribus application
         if: steps.application-cache.outputs.cache-hit != 'true'
