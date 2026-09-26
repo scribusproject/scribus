@@ -26,8 +26,9 @@ $outputRoot = Join-Path $env:RUNNER_TEMP 'scribus-phase5-tests'
 New-Item -ItemType Directory -Path $outputRoot -Force | Out-Null
 
 foreach ($test in @(
-    @{ File = 'test_data_merge.py'; Marker = 'DATA_MERGE_TEST_PASSED' },
-    @{ File = 'test_data_publish.py'; Marker = 'DATA_PUBLISH_TEST_PASSED' }
+    @{ File = 'test_data_merge.py'; Marker = 'DATA_MERGE_TEST_PASSED'; ExitCode = 0 },
+    @{ File = 'test_data_publish.py'; Marker = 'DATA_PUBLISH_TEST_PASSED'; ExitCode = 0 },
+    @{ File = 'test_headless_script_failure.py'; Marker = 'HEADLESS_SCRIPT_FAILURE_EXPECTED'; ExitCode = 1 }
 )) {
     $script = Join-Path $Sources "scribus\tests\scripts\$($test.File)"
     if (-not (Test-Path -LiteralPath $script -PathType Leaf)) { throw "Missing test: $script" }
@@ -56,7 +57,7 @@ foreach ($test in @(
         }
         $output = $stdoutTask.Result + [Environment]::NewLine + $stderrTask.Result
         Write-Host $output.Trim()
-        if ($process.ExitCode -ne 0 -or -not $output.Contains($test.Marker)) {
+        if ($process.ExitCode -ne $test.ExitCode -or -not $output.Contains($test.Marker)) {
             throw "$($test.File) failed (exit code $($process.ExitCode); missing $($test.Marker))"
         }
     }
