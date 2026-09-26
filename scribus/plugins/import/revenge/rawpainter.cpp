@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "scpattern.h"
 #include "scribus.h"
+#include "scribuscore.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "selection.h"
@@ -3432,13 +3433,21 @@ QString RawPainter::constructFontName(const QString& fontBaseName, const QString
 				family += " " + fontStyle;
 			if (!PrefsManager::instance().appPrefs.fontPrefs.GFontSub.contains(family))
 			{
-				QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
-				MissingFont *dia = new MissingFont(nullptr, family, m_doc);
-				dia->exec();
-				fontName = dia->getReplacementFont();
-				delete dia;
-				QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
-				PrefsManager::instance().appPrefs.fontPrefs.GFontSub[family] = fontName;
+				if (!ScCore->usingGUI() || (m_importerFlags & (LoadSavePlugin::lfNoDialogs | LoadSavePlugin::lfScripted)))
+				{
+					// A missing-font dialog would block headless and scripted imports.
+					fontName = PrefsManager::instance().appPrefs.itemToolPrefs.textFont;
+				}
+				else
+				{
+					QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
+					MissingFont *dia = new MissingFont(nullptr, family, m_doc);
+					dia->exec();
+					fontName = dia->getReplacementFont();
+					delete dia;
+					QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
+					PrefsManager::instance().appPrefs.fontPrefs.GFontSub[family] = fontName;
+				}
 			}
 			else
 				fontName = PrefsManager::instance().appPrefs.fontPrefs.GFontSub[family];

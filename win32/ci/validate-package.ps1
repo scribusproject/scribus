@@ -164,6 +164,7 @@ $requiredFiles = @(
     'podofo.dll',
     'zlib1.dll',
     'python\python313.dll',
+    'plugins\importpm.dll',
     'share\doc\COPYING'
 )
 foreach ($file in $requiredFiles) { Assert-File $AppDir $file }

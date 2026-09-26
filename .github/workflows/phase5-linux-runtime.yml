@@ -27,7 +27,8 @@ jobs:
             qt6-tools-dev qt6-tools-dev-tools \
             libcairo2-dev libcups2-dev libfontconfig1-dev libfreetype-dev \
             libharfbuzz-dev libhunspell-dev libicu-dev libjpeg-dev \
-            liblcms2-dev libpng-dev libpoppler-cpp-dev libpoppler-private-dev \
+            liblcms2-dev libpagemaker-dev libpng-dev libpoppler-cpp-dev libpoppler-private-dev \
+            librevenge-dev \
             libtiff-dev libxml2-dev python3-dev zlib1g-dev poppler-utils
 
       - name: Configure Scribus with Scripter and integration tests
@@ -39,6 +40,9 @@ jobs:
 
       - name: Build full application and plugins
         run: cmake --build build/phase5-linux --parallel 2
+
+      - name: Verify PageMaker importer was built
+        run: test -f build/phase5-linux/scribus/plugins/import/pm/libimportpm.so
 
       - name: Run Phase 5 runtime tests
         run: ctest --test-dir build/phase5-linux -L phase-5 --output-on-failure
