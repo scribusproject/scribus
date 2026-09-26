@@ -121,6 +121,9 @@
     <ClInclude Include="..\..\..\scribus\dynamicvariable.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\scribus\datamergesource.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\scribus\embeddedimageextractor.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -134,6 +137,9 @@
       <Filter>Source Files\ui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\ui\dynamicvariablemanager.h">
+      <Filter>Source Files\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\ui\datamergedialog.h">
       <Filter>Source Files\ui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\ui\modernui.h">
@@ -1032,6 +1038,9 @@
     <ClCompile Include="..\..\..\scribus\dynamicvariable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\datamergesource.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\scribus\embeddedimageextractor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -1045,6 +1054,9 @@
       <Filter>Source Files\ui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\dynamicvariablemanager.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\datamergedialog.cpp">
       <Filter>Source Files\ui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\widgets\inspector_header.cpp">

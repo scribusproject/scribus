@@ -20,6 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include <QVBoxLayout>
 
 #include "dynamicvariable.h"
+#include "datamergedialog.h"
 #include "marks.h"
 #include "scribusdoc.h"
 #include "styles/paragraphstyle.h"
@@ -327,9 +328,15 @@ DynamicVariableManager::DynamicVariableManager(ScribusDoc* doc, QWidget* parent)
 
 	auto* buttons = new QDialogButtonBox(QDialogButtonBox::Close, this);
 	QPushButton* addButton = buttons->addButton(tr("Add"), QDialogButtonBox::ActionRole);
+	QPushButton* dataMergeButton = buttons->addButton(tr("Data Merge..."), QDialogButtonBox::ActionRole);
 	m_editButton = buttons->addButton(tr("Edit"), QDialogButtonBox::ActionRole);
 	m_deleteButton = buttons->addButton(tr("Delete"), QDialogButtonBox::ActionRole);
 	connect(addButton, &QPushButton::clicked, this, [this]() { addVariable(); });
+	connect(dataMergeButton, &QPushButton::clicked, this, [this]() {
+		DataMergeDialog dialog(m_doc, this);
+		dialog.exec();
+		refresh();
+	});
 	connect(m_editButton, &QPushButton::clicked, this, [this]() { editVariable(); });
 	connect(m_deleteButton, &QPushButton::clicked, this, [this]() { deleteVariable(); });
 	connect(buttons, &QDialogButtonBox::rejected, this, &QDialog::reject);

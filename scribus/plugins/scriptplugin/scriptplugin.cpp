@@ -288,6 +288,7 @@ char* tr(const char* docstringConstant)
 PyMethodDef scribus_methods[] = {
 	// 2004/10/03 pv - aliases with common Python syntax - ClassName methodName
 	// 2004-11-06 cr - move aliasing to dynamically generated wrapper functions, sort methoddef
+	{ "applyDataRecord", scribus_applydatarecord, METH_VARARGS, tr(scribus_applydatarecord__doc__)},
 	{ "applyMasterPage", scribus_applymasterpage, METH_VARARGS, tr(scribus_applymasterpage__doc__)},
 	{ "changeColor", scribus_setcolor, METH_VARARGS, tr(scribus_setcolor__doc__)},
 	{ "changeColorCMYK", scribus_setcolorcmyk, METH_VARARGS, tr(scribus_setcolorcmyk__doc__)},
@@ -319,6 +320,8 @@ PyMethodDef scribus_methods[] = {
 	{ "createTable", scribus_createtable, METH_VARARGS, tr(scribus_createtable__doc__)},
 	{ "createText", scribus_createtext, METH_VARARGS, tr(scribus_createtext__doc__)},
 	{ "createVariable", scribus_createvariable, METH_VARARGS, tr(scribus_createvariable__doc__)},
+	{ "loadDataSource", scribus_loaddatasource, METH_VARARGS, tr(scribus_loaddatasource__doc__)},
+	{ "exportDataMergePDFs", scribus_exportdatamergepdfs, METH_VARARGS, tr(scribus_exportdatamergepdfs__doc__)},
 	{ "currentPage", (PyCFunction) scribus_currentpage, METH_NOARGS, tr(scribus_currentpage__doc__)},
 	{ "currentPageNumber", (PyCFunction) scribus_currentpage, METH_NOARGS, tr(scribus_currentpage__doc__)},
 	{ "currentPageNumberForSection", (PyCFunction) scribus_currentpagenumberforsection, METH_NOARGS, tr(scribus_currentpagenumberforsection__doc__)},

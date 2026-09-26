@@ -235,6 +235,7 @@
     <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\cmdcolor.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\cmddialog.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\cmddoc.cpp" />
+    <ClCompile Include="..\..\..\scribus\datamergesource.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\cmdgetprop.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\cmdgetsetprop.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\cmdhistory.cpp" />

@@ -519,6 +519,18 @@ PyDoc_STRVAR(scribus_setvariable__doc__,
 QT_TR_NOOP("setVariable(variable, value)\n\nChanges a user-defined dynamic variable identified by name or stable ID."));
 PyObject *scribus_setvariable(PyObject *self, PyObject* args);
 
+PyDoc_STRVAR(scribus_applydatarecord__doc__,
+QT_TR_NOOP("applyDataRecord(record, [strict=True]) -> int\n\nApplies a dictionary of string fields to existing user-defined dynamic variables by name or stable ID. Validates the whole record before changing the document, groups changes into one undo step, and returns the number of matched fields. With strict=False, unknown fields are ignored; computed variables remain read-only."));
+PyObject *scribus_applydatarecord(PyObject *self, PyObject* args);
+
+PyDoc_STRVAR(scribus_loaddatasource__doc__,
+QT_TR_NOOP("loadDataSource(path, [format='', limit=-1]) -> list\n\nReads a UTF-8 CSV or JSON data source and returns a list of dictionaries containing string fields. Format is inferred from the filename when omitted; JSON must be an array of objects, and CSV must have a unique, rectangular header. Limit restricts the number of records returned; use -1 for all records."));
+PyObject *scribus_loaddatasource(PyObject *self, PyObject* args);
+
+PyDoc_STRVAR(scribus_exportdatamergepdfs__doc__,
+QT_TR_NOOP("exportDataMergePDFs(sourcePath, outputDirectory, [mapping=None, prefix='', firstRecord=1, lastRecord=-1, filenameField='', failOnPreflight=False]) -> list\n\nExports one PDF per selected CSV/JSON record using the active document's PDF settings and returns the created paths. Mapping pairs source-field names with user-variable names or stable IDs; by default, matching names are mapped automatically. firstRecord and lastRecord are inclusive, one-based positions; -1 means through the final record. filenameField optionally appends a sanitized source value to each numbered PDF name. When failOnPreflight is True, critical errors stop export before that record's PDF. Existing files are not overwritten. The document's variable values, PDF settings, and modified state are restored, including after an export error."));
+PyObject *scribus_exportdatamergepdfs(PyObject *self, PyObject* args);
+
 PyDoc_STRVAR(scribus_setrunningheadervariable__doc__,
 QT_TR_NOOP("setRunningHeaderVariable(variable, name, paragraphStyle, mode, [textCase, removeTrailingPunctuation, fallback])\n\nUpdates a running-header variable identified by name or stable ID. Omitted formatting and fallback options retain their current values. For page and spread modes, fallback may be 'none', 'section', or 'document'."));
 PyObject *scribus_setrunningheadervariable(PyObject *self, PyObject* args);

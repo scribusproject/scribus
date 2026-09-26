@@ -36,6 +36,7 @@ set(SCRIBUS_FSW_SRC
 set(SCRIBUS_SOURCES
 	actionmanager.cpp
 	actionsearch.cpp
+	datamergesource.cpp
 	anchorposition.cpp
 	appmodehelper.cpp
 	canvas.cpp
@@ -320,6 +321,7 @@ set(SCRIBUS_SOURCES
 	ui/alignverticalselect.cpp
 	ui/directionselect.cpp
 	ui/dynamicvariableinsert.cpp
+	ui/datamergedialog.cpp
 	ui/dynamicvariablemanager.cpp
 	ui/annot.cpp
 	ui/annota.cpp

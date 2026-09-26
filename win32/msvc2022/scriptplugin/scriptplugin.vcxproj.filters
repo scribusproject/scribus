@@ -40,6 +40,9 @@
     <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\cmddoc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\datamergesource.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\cmdgetprop.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

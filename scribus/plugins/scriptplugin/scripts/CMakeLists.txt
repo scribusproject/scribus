@@ -10,6 +10,7 @@ CalendarWizard.py
 Caption.py
 ColorChart.py
 DirectImageImport.py
+DataPublish.py
 FontSample.py
 InfoBox.py
 Ligatursatz.py

@@ -6,15 +6,18 @@ for which a new license (GPL+exception) is in place.
 */
 #include "cmddoc.h"
 #include "cmdutil.h"
+#include "datamergesource.h"
 #include "documentchecker.h"
 #include "documentinformation.h"
 #include "dynamicvariable.h"
 #include "marks.h"
 #include "pageitem.h"
 #include "pyesstring.h"
+#include "scribus.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
+#include "undomanager.h"
 #include "util.h"
 #include "units.h"
 
@@ -24,6 +27,8 @@ for which a new license (GPL+exception) is in place.
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QObject>
+#include <QSet>
+#include <QVector>
 
 namespace
 {
@@ -51,6 +56,43 @@ PyObject* dynamicVariableNotFound(const QString& identifier)
 {
 	PyErr_SetString(NotFoundError, QObject::tr("Dynamic variable '%1' was not found.", "python error").arg(identifier).toUtf8().constData());
 	return nullptr;
+}
+
+PyObject* recordsToPython(const DataMergeSource& source, qsizetype limit)
+{
+	const qsizetype recordCount = limit < 0 ? source.recordCount() : qMin(limit, static_cast<qsizetype>(source.recordCount()));
+	PyObject* result = PyList_New(recordCount);
+	if (!result)
+		return nullptr;
+	for (qsizetype rowIndex = 0; rowIndex < recordCount; ++rowIndex)
+	{
+		PyObject* record = PyDict_New();
+		if (!record)
+		{
+			Py_DECREF(result);
+			return nullptr;
+		}
+		const QStringList& row = source.row(rowIndex);
+		for (int column = 0; column < source.fields().size(); ++column)
+		{
+			const QByteArray keyUtf8 = source.fields().at(column).toUtf8();
+			const QByteArray valueUtf8 = row.value(column).toUtf8();
+			PyObject* key = PyUnicode_FromStringAndSize(keyUtf8.constData(), keyUtf8.size());
+			PyObject* value = PyUnicode_FromStringAndSize(valueUtf8.constData(), valueUtf8.size());
+			if (!key || !value || PyDict_SetItem(record, key, value) < 0)
+			{
+				Py_XDECREF(key);
+				Py_XDECREF(value);
+				Py_DECREF(record);
+				Py_DECREF(result);
+				return nullptr;
+			}
+			Py_DECREF(key);
+			Py_DECREF(value);
+		}
+		PyList_SET_ITEM(result, rowIndex, record);
+	}
+	return result;
 }
 }
 
@@ -1310,6 +1352,200 @@ PyObject *scribus_setvariable(PyObject* /* self */, PyObject* args)
 	}
 	currentDoc->changed();
 	Py_RETURN_NONE;
+}
+
+PyObject *scribus_applydatarecord(PyObject* /* self */, PyObject* args)
+{
+	PyObject* record = nullptr;
+	int strict = 1;
+	if (!PyArg_ParseTuple(args, "O|p", &record, &strict))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	if (!PyDict_Check(record))
+	{
+		PyErr_SetString(PyExc_TypeError, "Data record must be a dictionary of string keys and string values.");
+		return nullptr;
+	}
+
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	struct Binding { QString id; QString name; QString value; };
+	QVector<Binding> bindings;
+	QSet<QString> seenIds;
+	PyObject* key = nullptr;
+	PyObject* value = nullptr;
+	Py_ssize_t position = 0;
+	while (PyDict_Next(record, &position, &key, &value))
+	{
+		if (!PyUnicode_Check(key) || !PyUnicode_Check(value))
+		{
+			PyErr_SetString(PyExc_TypeError, "Data record keys and values must be strings.");
+			return nullptr;
+		}
+		Py_ssize_t keyLength = 0;
+		Py_ssize_t valueLength = 0;
+		const char* keyUtf8 = PyUnicode_AsUTF8AndSize(key, &keyLength);
+		const char* valueUtf8 = PyUnicode_AsUTF8AndSize(value, &valueLength);
+		if (!keyUtf8 || !valueUtf8)
+			return nullptr;
+		const QString identifier = QString::fromUtf8(keyUtf8, keyLength);
+		const QString resolvedId = dynamicVariableId(currentDoc, identifier);
+		const QString id = DynamicVariableResolver::isBuiltInId(resolvedId) ? QString() : resolvedId;
+		const DynamicVariable* variable = id.isEmpty() ? nullptr : currentDoc->dynamicVariable(id);
+		if (!variable || variable->type != DynamicVariableResolver::UserDefined)
+		{
+			if (!strict && resolvedId.isEmpty())
+				continue;
+			PyErr_SetString(ScribusException, QObject::tr("Data field '%1' does not match a writable user-defined variable.", "python error").arg(identifier).toUtf8().constData());
+			return nullptr;
+		}
+		if (seenIds.contains(id))
+		{
+			PyErr_SetString(ScribusException, QObject::tr("Data record refers to variable '%1' more than once.", "python error").arg(variable->name).toUtf8().constData());
+			return nullptr;
+		}
+		seenIds.insert(id);
+		bindings.append({id, variable->name, QString::fromUtf8(valueUtf8, valueLength)});
+	}
+
+	UndoTransaction transaction;
+	if (bindings.size() > 1 && UndoManager::undoEnabled())
+		transaction = UndoManager::instance()->beginTransaction(currentDoc->getUName(), Um::IDocument, QObject::tr("Apply Data Record"));
+	for (const Binding& binding : bindings)
+	{
+		// All bindings were validated before the first document mutation.
+		currentDoc->updateDynamicVariable(binding.id, binding.name, binding.value);
+	}
+	if (transaction)
+		transaction.commit();
+	if (!bindings.isEmpty())
+		currentDoc->changed();
+	return PyLong_FromSsize_t(bindings.size());
+}
+
+PyObject *scribus_loaddatasource(PyObject* /* self */, PyObject* args)
+{
+	PyESString path;
+	PyESString requestedFormat;
+	Py_ssize_t limit = -1;
+	if (!PyArg_ParseTuple(args, "es|esn", "utf-8", path.ptr(), "utf-8", requestedFormat.ptr(), &limit))
+		return nullptr;
+	if (limit < -1)
+	{
+		PyErr_SetString(PyExc_ValueError, "The record limit must be -1 or greater.");
+		return nullptr;
+	}
+	DataMergeSource source;
+	QString error;
+	if (!source.load(QString::fromUtf8(path.c_str()), QString::fromUtf8(requestedFormat.c_str()), &error))
+	{
+		PyErr_SetString(ScribusException, error.toUtf8().constData());
+		return nullptr;
+	}
+	return recordsToPython(source, limit);
+}
+
+PyObject *scribus_exportdatamergepdfs(PyObject* /* self */, PyObject* args)
+{
+	PyESString path;
+	PyESString directory;
+	PyESString prefix;
+	PyESString fileNameField;
+	PyObject* requestedMapping = Py_None;
+	int firstRecord = 1;
+	int lastRecord = -1;
+	int failOnPreflight = 0;
+	if (!PyArg_ParseTuple(args, "eses|Oesiiesp", "utf-8", path.ptr(), "utf-8", directory.ptr(),
+		&requestedMapping, "utf-8", prefix.ptr(), &firstRecord, &lastRecord,
+		"utf-8", fileNameField.ptr(), &failOnPreflight))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	if (requestedMapping != Py_None && !PyDict_Check(requestedMapping))
+	{
+		PyErr_SetString(PyExc_TypeError, "Mapping must be a dictionary of source fields to user-variable names or IDs.");
+		return nullptr;
+	}
+	DataMergeSource source;
+	QString error;
+	if (!source.load(QString::fromUtf8(path.c_str()), QString(), &error))
+	{
+		PyErr_SetString(ScribusException, error.toUtf8().constData());
+		return nullptr;
+	}
+	ScribusMainWindow* mainWindow = ScCore->primaryMainWindow();
+	ScribusDoc* currentDoc = mainWindow->doc;
+	QMap<QString, QString> mapping;
+	if (requestedMapping == Py_None)
+	{
+		for (const QString& field : source.fields())
+		{
+			const QString id = userDynamicVariableId(currentDoc, field);
+			const DynamicVariable* variable = id.isEmpty() ? nullptr : currentDoc->dynamicVariable(id);
+			if (variable && variable->type == DynamicVariableResolver::UserDefined)
+				mapping.insert(field, id);
+		}
+	}
+	else
+	{
+		PyObject* key = nullptr;
+		PyObject* value = nullptr;
+		Py_ssize_t position = 0;
+		while (PyDict_Next(requestedMapping, &position, &key, &value))
+		{
+			if (!PyUnicode_Check(key) || !PyUnicode_Check(value))
+			{
+				PyErr_SetString(PyExc_TypeError, "Mapping field names and variable identifiers must be strings.");
+				return nullptr;
+			}
+			Py_ssize_t fieldLength = 0;
+			Py_ssize_t identifierLength = 0;
+			const char* fieldUtf8 = PyUnicode_AsUTF8AndSize(key, &fieldLength);
+			const char* identifierUtf8 = PyUnicode_AsUTF8AndSize(value, &identifierLength);
+			if (!fieldUtf8 || !identifierUtf8)
+				return nullptr;
+			const QString field = QString::fromUtf8(fieldUtf8, fieldLength);
+			const QString identifier = QString::fromUtf8(identifierUtf8, identifierLength);
+			const QString id = userDynamicVariableId(currentDoc, identifier);
+			const DynamicVariable* variable = id.isEmpty() ? nullptr : currentDoc->dynamicVariable(id);
+			if (!variable || variable->type != DynamicVariableResolver::UserDefined)
+			{
+				PyErr_SetString(ScribusException, QObject::tr("'%1' is not a writable user-defined variable.", "python error").arg(identifier).toUtf8().constData());
+				return nullptr;
+			}
+			mapping.insert(field, id);
+		}
+	}
+	DataMergeBatchResult result;
+	DataMergeBatchOptions options;
+	options.firstRecord = firstRecord;
+	options.lastRecord = lastRecord;
+	options.fileNameField = QString::fromUtf8(fileNameField.c_str());
+	options.failOnPreflight = failOnPreflight != 0;
+	if (!DataMergeBatchExporter::exportPdfs(mainWindow, source, mapping, QString::fromUtf8(directory.c_str()),
+		QString::fromUtf8(prefix.c_str()), result, {}, options))
+	{
+		QString message = result.error;
+		if (!result.files.isEmpty())
+			message += QObject::tr(" %1 completed PDF(s) remain in the output folder.", "python error").arg(result.files.size());
+		PyErr_SetString(ScribusException, message.toUtf8().constData());
+		return nullptr;
+	}
+	PyObject* files = PyList_New(result.files.size());
+	if (!files)
+		return nullptr;
+	for (int index = 0; index < result.files.size(); ++index)
+	{
+		const QByteArray pathUtf8 = result.files.at(index).toUtf8();
+		PyObject* file = PyUnicode_FromStringAndSize(pathUtf8.constData(), pathUtf8.size());
+		if (!file)
+		{
+			Py_DECREF(files);
+			return nullptr;
+		}
+		PyList_SET_ITEM(files, index, file);
+	}
+	return files;
 }
 
 PyObject *scribus_setrunningheadervariable(PyObject* /* self */, PyObject* args)

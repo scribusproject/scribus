@@ -149,6 +149,37 @@ set_tests_properties(dynamic_variables PROPERTIES
 	RUN_SERIAL TRUE
 	TIMEOUT 180)
 
+set(data_merge_prefs_dir "${CMAKE_CURRENT_BINARY_DIR}/prefs-data_merge")
+set(data_merge_output_dir "${CMAKE_CURRENT_BINARY_DIR}/output-data_merge")
+file(MAKE_DIRECTORY "${data_merge_prefs_dir}" "${data_merge_output_dir}")
+add_test(NAME data_merge_record
+	COMMAND "${SCRIBUS_SCRIPT_TEST_EXECUTABLE}"
+		--no-splash
+		--prefs "${data_merge_prefs_dir}"
+		--no-gui
+		--python-script "${CMAKE_CURRENT_SOURCE_DIR}/scripts/test_data_merge.py")
+set_tests_properties(data_merge_record PROPERTIES
+	ENVIRONMENT "QT_QPA_PLATFORM=offscreen;SCRIBUS_TEST_OUTPUT_DIR=${data_merge_output_dir}"
+	FIXTURES_REQUIRED runningheader_test_app
+	LABELS "integration;data-merge;phase-5"
+	PASS_REGULAR_EXPRESSION "DATA_MERGE_TEST_PASSED"
+	RUN_SERIAL TRUE
+	TIMEOUT 180)
+
+add_test(NAME data_publish_job
+	COMMAND "${SCRIBUS_SCRIPT_TEST_EXECUTABLE}"
+		--no-splash
+		--prefs "${data_merge_prefs_dir}"
+		--no-gui
+		--python-script "${CMAKE_CURRENT_SOURCE_DIR}/scripts/test_data_publish.py")
+set_tests_properties(data_publish_job PROPERTIES
+	ENVIRONMENT "QT_QPA_PLATFORM=offscreen;SCRIBUS_TEST_OUTPUT_DIR=${data_merge_output_dir}"
+	FIXTURES_REQUIRED runningheader_test_app
+	LABELS "integration;data-merge;catalogue;phase-5"
+	PASS_REGULAR_EXPRESSION "DATA_PUBLISH_TEST_PASSED"
+	RUN_SERIAL TRUE
+	TIMEOUT 180)
+
 set(object_style_prefs_dir "${CMAKE_CURRENT_BINARY_DIR}/prefs-object_style_persistence")
 set(object_style_output_dir "${CMAKE_CURRENT_BINARY_DIR}/output-object_style_persistence")
 file(MAKE_DIRECTORY "${object_style_prefs_dir}")

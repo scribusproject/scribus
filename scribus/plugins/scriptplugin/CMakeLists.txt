@@ -12,6 +12,7 @@ endif ()
 add_subdirectory(scripts)
 
 set(SCRIPTER_PLUGIN_SOURCES
+	../../datamergesource.cpp
 	cmdannotations.cpp
 	cmdcell.cpp
 	cmdcolor.cpp
