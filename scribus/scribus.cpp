@@ -3412,7 +3412,14 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 		return false;
 	}
 	
+	// Crash reports on macOS show Qt's Cocoa cursor conversion failing here,
+	// before the document loader runs. Keep document opening usable without
+	// changing the wait-cursor behavior on Windows or Linux.
+	bool waitCursorActive = false;
+#ifndef Q_OS_MACOS
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+	waitCursorActive = true;
+#endif
 	if (HaveDoc)
 		outlinePalette->buildReopenVals();
 	bool ret = false;
@@ -3438,7 +3445,8 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 
 		if (docNameUnmodified == platfName)
 		{
-			QApplication::restoreOverrideCursor();
+			if (waitCursorActive)
+				QApplication::restoreOverrideCursor();
 			ScMessageBox::information(this, tr("Document is already opened"), tr("This document is already open. It will be set as the active document."));
 			windowsMenuActivated(i);
 			return true;
@@ -3453,7 +3461,8 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 		if (testResult == -1)
 		{
 			delete fileLoader;
-			QApplication::restoreOverrideCursor();
+			if (waitCursorActive)
+				QApplication::restoreOverrideCursor();
 			QString title = tr("Fatal Error") ;
 			QString msg = "<qt>"+ tr("File %1 is not in an acceptable format").arg(filename)+"</qt>";
 			QString infoMsg = "<qt>" + tr("The file may be damaged or may have been produced in a later version of Scribus.") + "</qt>";
@@ -3523,7 +3532,8 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 			view = nullptr;
 			doc = nullptr;
 			setScriptRunning(false);
-			QApplication::restoreOverrideCursor();
+			if (waitCursorActive)
+				QApplication::restoreOverrideCursor();
 			m_mainWindowStatusLabel->setText("");
 			mainWindowProgressBar->reset();
 			ActWin = nullptr;
@@ -3814,7 +3824,8 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 
 	m_undoManager->switchStack(doc->documentFileName());
 	pagePalette->rebuild();
-	QApplication::restoreOverrideCursor();
+	if (waitCursorActive)
+		QApplication::restoreOverrideCursor();
 	doc->setModified(false);
 	foreach (NotesStyle* NS, doc->m_docNotesStylesList)
 		doc->updateNotesFramesStyles(NS);
