@@ -136,4 +136,16 @@ with tempfile.TemporaryDirectory(prefix="scribus-publish-", dir=test_root) as fo
         raise AssertionError("catalogue text overflow was accepted")
     check(not any(overflow_output.iterdir()), "overflowing catalogue left output files")
 
+    collision_spec = dict(catalogue_spec, output_directory="overflow-output",
+                          manifest_file="people-catalogue.pdf")
+    collision_job = work / "collision-job.json"
+    collision_job.write_text(json.dumps(collision_spec), encoding="utf-8")
+    try:
+        DataPublish.run_job(str(collision_job))
+    except ValueError as error:
+        check("manifest filename" in str(error), "output collision was not explained")
+    else:
+        raise AssertionError("manifest/PDF filename collision was accepted")
+    check(not any(overflow_output.iterdir()), "colliding output names left files")
+
 print("DATA_PUBLISH_TEST_PASSED", flush=True)

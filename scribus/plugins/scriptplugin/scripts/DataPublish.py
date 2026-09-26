@@ -79,7 +79,7 @@ def _read_job(job_path):
         raise ValueError("job file is missing or exceeds the 1 MB limit")
     with job_path.open("r", encoding="utf-8") as source:
         job = _require_object(json.load(source), "job")
-    if job.get("schema_version") != 1:
+    if type(job.get("schema_version")) is not int or job["schema_version"] != 1:
         raise ValueError("schema_version must be 1")
     if job.get("mode") not in ("mail_merge", "catalogue"):
         raise ValueError("mode must be mail_merge or catalogue")
@@ -120,7 +120,6 @@ def _mail_merge(job, job_dir, source_path, output_dir, records):
     if not scribus.openDoc(str(template)):
         raise RuntimeError(f"could not open template: {template}")
     try:
-        _preflight_critical_errors()
         outputs = scribus.exportDataMergePDFs(
             str(source_path), str(output_dir), mapping, prefix, first, last,
             filename_field, True,
@@ -246,6 +245,11 @@ def run_job(job_path):
         raise FileNotFoundError(f"output directory does not exist: {output_dir}")
     manifest_path = _output_path(output_dir, job.get("manifest_file", "publish-manifest.json"),
                                  "manifest_file")
+    output_names = ([job.get("pdf_file", "catalogue.pdf"), job.get("sla_file")]
+                    if job["mode"] == "catalogue" else [])
+    if any(isinstance(name, str) and name.casefold() == manifest_path.name.casefold()
+           for name in output_names if name):
+        raise ValueError("manifest filename must differ from the PDF and SLA filenames")
     records = scribus.loadDataSource(str(source_path))
     if not records:
         raise ValueError("data source has no records")
