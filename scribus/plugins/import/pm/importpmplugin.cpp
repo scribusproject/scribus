@@ -179,6 +179,10 @@ QImage ImportPmPlugin::readThumbnail(const QString& fileName)
 {
 	if (fileName.isEmpty())
 		return QImage();
+	// PM7 preview can crash in the temporary-document renderer. Normal import
+	// remains available, and previews for the other PageMaker formats still work.
+	if (QFileInfo(fileName).suffix().compare("pm7", Qt::CaseInsensitive) == 0)
+		return QImage();
 	UndoManager::instance()->setUndoEnabled(false);
 	m_Doc = nullptr;
 	auto dia = std::make_unique<PmPlug>(m_Doc, lfCreateThumbnail);
