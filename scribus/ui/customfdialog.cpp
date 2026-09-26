@@ -298,15 +298,16 @@ CustomFDialog::CustomFDialog(QWidget *parent, const QString &wDir, const QString
 	fileDialog->selectNameFilter(filter);
 	fileDialog->setDirectory(wDir);
 	hboxLayout->addWidget(fileDialog);
-	vboxLayout1 = new QVBoxLayout;
+	previewContainer = new QWidget(this);
+	vboxLayout1 = new QVBoxLayout(previewContainer);
 	vboxLayout1->setSpacing(6);
 	vboxLayout1->setContentsMargins(0, 28, 0, 0);
 	vboxLayout1->setAlignment( Qt::AlignTop );
-	filePreview = new FDialogPreview( this );
+	filePreview = new FDialogPreview(previewContainer);
 	filePreview->setMinimumSize(QSize(200, 200));
 	filePreview->setMaximumSize(QSize(200, 200));
 	vboxLayout1->addWidget(filePreview);
-	hboxLayout->addLayout(vboxLayout1);
+	hboxLayout->addWidget(previewContainer);
 	vboxLayout->addLayout(hboxLayout);
 	QHBoxLayout *hboxLayout1 = new QHBoxLayout;
 	hboxLayout1->setSpacing(6);
@@ -353,7 +354,7 @@ CustomFDialog::CustomFDialog(QWidget *parent, const QString &wDir, const QString
 		fileDialog->setFileMode(QFileDialog::Directory);
 		fileDialog->setOption(QFileDialog::ShowDirsOnly, true);
 		fileDialog->forceDoubleClickActivation(false);
-		filePreview->hide();
+		previewContainer->hide();
 		showPreview->setVisible(false);
 		showPreview->setChecked(false);
 		m_previewIsShown = false;
@@ -462,13 +463,13 @@ CustomFDialog::CustomFDialog(QWidget *parent, const QString &wDir, const QString
 			bool setter = flags & fdShowPreview;
 			showPreview->setChecked(setter);
 			m_previewIsShown = setter;
-			filePreview->setVisible(setter);
+			previewContainer->setVisible(setter);
 		}
 		else
 		{
 			showPreview->hide();
 			m_previewIsShown = false;
-			filePreview->setVisible(false);
+			previewContainer->hide();
 		}
 		if (flags & fdCompressFile)
 			connect(saveZip, SIGNAL(clicked()), this, SLOT(handleCompress()));
@@ -532,7 +533,7 @@ void CustomFDialog::fileClicked(const QString &path)
 {
 	if (m_optionFlags & fdDisableOk)
 		okButton->setEnabled(!path.isEmpty());
-	if (m_previewIsShown)
+	if (showPreview->isChecked())
 		filePreview->genPreview(path);
 }
 
@@ -550,23 +551,23 @@ void CustomFDialog::okClicked()
 
 void CustomFDialog::togglePreview()
 {
-	m_previewIsShown = !m_previewIsShown;
+	const bool wasShown = m_previewIsShown;
+	m_previewIsShown = showPreview->isChecked();
 	fileDialog->forceDoubleClickActivation(m_previewIsShown);
-	filePreview->setVisible(m_previewIsShown);
+	previewContainer->setVisible(m_previewIsShown);
+	if (wasShown != m_previewIsShown)
+	{
+		const int previewWidth = previewContainer->sizeHint().width() + hboxLayout->spacing();
+		resize(qMax(minimumSizeHint().width(), width() + (m_previewIsShown ? previewWidth : -previewWidth)), height());
+	}
 	if (m_previewIsShown)
 	{
 		QStringList sel = fileDialog->selectedFiles();
 		if (!sel.isEmpty())
 			filePreview->genPreview(QDir::fromNativeSeparators(sel[0]));
 	}
-	// #11856: Hack to avoid file dialog widget turning black with Qt5
-	QCoreApplication::processEvents();
-	filePreview->setVisible(!m_previewIsShown);
-	QCoreApplication::processEvents();
-	filePreview->setVisible(m_previewIsShown);
-	fileDialog->update();
-	QCoreApplication::processEvents();
-	update();
+	else
+		filePreview->updatePix();
 }
 
 void CustomFDialog::setSelection(const QString& fileName)

@@ -8,8 +8,11 @@ for which a new license (GPL+exception) is in place.
 
 #include <QFile>
 #include <QFileInfo>
+#include <QPainter>
+#include <QSvgRenderer>
 
 #include <libpagemaker/libpagemaker.h>
+#include <librevenge/RVNGSVGDrawingGenerator.h>
 #include <librevenge-stream/librevenge-stream.h>
 
 #include "importpm.h"
@@ -179,10 +182,38 @@ QImage ImportPmPlugin::readThumbnail(const QString& fileName)
 {
 	if (fileName.isEmpty())
 		return QImage();
-	// PM7 preview can crash in the temporary-document renderer. Normal import
-	// remains available, and previews for the other PageMaker formats still work.
+	// PM7's first page is rendered directly from libpagemaker's SVG output.
+	// The temporary Scribus document used below for older formats is not safe
+	// for this format when the file dialog requests a preview.
 	if (QFileInfo(fileName).suffix().compare("pm7", Qt::CaseInsensitive) == 0)
-		return QImage();
+	{
+		librevenge::RVNGFileStream input(QFile::encodeName(fileName).constData());
+		if (!libpagemaker::PMDocument::isSupported(&input))
+			return QImage();
+		librevenge::RVNGStringVector pages;
+		librevenge::RVNGSVGDrawingGenerator generator(pages, "svg");
+		if (!libpagemaker::PMDocument::parse(&input, &generator) || pages.empty())
+			return QImage();
+		const librevenge::RVNGString& firstPage = pages[0];
+		QSvgRenderer renderer(QByteArray(firstPage.cstr(), firstPage.size()));
+		if (!renderer.isValid())
+			return QImage();
+		QSizeF pageSize = renderer.viewBoxF().size();
+		if (pageSize.isEmpty())
+			pageSize = renderer.defaultSize();
+		if (pageSize.isEmpty())
+			return QImage();
+		QSizeF previewSize = pageSize;
+		previewSize.scale(QSizeF(500, 500), Qt::KeepAspectRatio);
+		QImage preview(qMax(1, qRound(previewSize.width())), qMax(1, qRound(previewSize.height())), QImage::Format_ARGB32_Premultiplied);
+		preview.fill(Qt::white);
+		QPainter painter(&preview);
+		renderer.render(&painter);
+		painter.end();
+		preview.setText("XSize", QString::number(pageSize.width()));
+		preview.setText("YSize", QString::number(pageSize.height()));
+		return preview;
+	}
 	UndoManager::instance()->setUndoEnabled(false);
 	m_Doc = nullptr;
 	auto dia = std::make_unique<PmPlug>(m_Doc, lfCreateThumbnail);

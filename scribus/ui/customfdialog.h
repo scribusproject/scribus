@@ -172,6 +172,7 @@ protected:
 	QComboBox *optionCombo { nullptr };
 	QLabel *optionLabel { nullptr };
 	ScFileWidget *fileDialog { nullptr };
+	QWidget *previewContainer { nullptr };
 	FDialogPreview *filePreview { nullptr };
 	QCheckBox *showPreview { nullptr };
 	QPushButton* okButton { nullptr };
