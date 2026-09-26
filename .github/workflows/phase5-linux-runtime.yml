@@ -1,0 +1,43 @@
+name: Phase 5 Linux runtime
+
+on:
+  push:
+    branches:
+      - codex/phase5-validation
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  phase5-linux:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    env:
+      QT_QPA_PLATFORM: offscreen
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install native build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y \
+            ninja-build pkg-config qt6-base-dev qt6-5compat-dev qt6-svg-dev \
+            qt6-tools-dev qt6-tools-dev-tools \
+            libcairo2-dev libcups2-dev libfontconfig1-dev libfreetype-dev \
+            libharfbuzz-dev libhunspell-dev libicu-dev libjpeg-dev \
+            liblcms2-dev libpng-dev libpoppler-cpp-dev libpoppler-private-dev \
+            libtiff-dev libxml2-dev python3-dev zlib1g-dev poppler-utils
+
+      - name: Configure Scribus with Scripter and integration tests
+        run: |
+          cmake -S . -B build/phase5-linux -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_INSTALL_PREFIX="$GITHUB_WORKSPACE/stage" \
+            -DWITH_TESTS=ON -DWANT_NOOSG=ON -DWITH_PODOFO=OFF -DWITH_BOOST=OFF
+
+      - name: Build full application and plugins
+        run: cmake --build build/phase5-linux --parallel 2
+
+      - name: Run Phase 5 runtime tests
+        run: ctest --test-dir build/phase5-linux -L phase-5 --output-on-failure
