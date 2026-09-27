@@ -16,8 +16,13 @@ import scribus
 source = os.environ["SCRIBUS_PAGEMAKER_TEST_FILE"]
 assert scribus.openDoc(source), "PageMaker import failed"
 pages = scribus.pageCount()
-objects = len(scribus.getAllObjects())
+page_objects = [len(scribus.getAllObjects(page=page)) for page in range(pages)]
+objects = sum(page_objects)
 assert pages > 0, "PageMaker import created no pages"
 assert objects > 0, "PageMaker import created no objects"
 scribus.closeDoc()
-print("PAGEMAKER_IMPORT_PASSED pages=%d objects=%d" % (pages, objects), flush=True)
+print(
+    "PAGEMAKER_IMPORT_PASSED pages=%d objects=%d populated_pages=%d"
+    % (pages, objects, sum(count > 0 for count in page_objects)),
+    flush=True,
+)

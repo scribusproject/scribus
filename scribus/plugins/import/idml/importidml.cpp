@@ -2636,17 +2636,22 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 				else
 				{
 					QUrl url(imageFileName);
-					QString fiNam = url.toLocalFile();
-					QFileInfo fi(fiNam);
-					QByteArray fileName;
-					if (fi.exists())
-						fileName = url.toLocalFile().toLocal8Bit();
-					else
+					QString imagePath = url.toLocalFile();
+					if (imagePath.isEmpty())
+						imagePath = QUrl::fromPercentEncoding(imageFileName.toUtf8());
+					QFileInfo imageInfo(imagePath);
+					if (!imageInfo.exists())
 					{
-						fileName = fi.fileName().toLocal8Bit();
-						fileName.prepend("./Links/");
-						if (!QFileInfo::exists(fileName))
-							fileName = fi.fileName().toLocal8Bit();
+						// InDesign packages place external assets beside the IDML file.
+						// Resolve them there, independent of Scribus's working directory.
+						const QString linkedPath = QDir(baseFile).filePath("Links/" + imageInfo.fileName());
+						const QString siblingPath = QDir(baseFile).filePath(imageInfo.fileName());
+						if (QFileInfo::exists(linkedPath))
+							imagePath = linkedPath;
+						else if (QFileInfo::exists(siblingPath))
+							imagePath = siblingPath;
+						else
+							imagePath = imageInfo.fileName();
 					}
 					item->AspectRatio = true;
 					if (imageFit == "None")
@@ -2658,7 +2663,7 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 						item->ScaleType   = false;
 						item->AspectRatio = false;
 					}
-					m_Doc->loadPict(QUrl::fromPercentEncoding(fileName), item);
+					m_Doc->loadPict(imagePath, item);
 					item->setImageXYScale(scXi / item->pixm.imgInfo.xres * 72, scYi / item->pixm.imgInfo.xres * 72);
 					item->setImageXYOffset(-imageDX * scXi / item->imageXScale(), -imageDY * scXi / item->imageYScale());
 					item->setImageRotation(-roti);
