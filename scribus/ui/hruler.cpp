@@ -760,7 +760,6 @@ void Hruler::drawMarker(QPainter& p) const
 	p.setBrush(markerColor);
 	p.drawPolygon(cr);
 	p.setRenderHints(QPainter::Antialiasing, false);
-
 }
 
 
