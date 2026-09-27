@@ -21,10 +21,16 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
+#include <algorithm>
+#include <array>
+#include <cmath>
 #include <cstdlib>
+#include <limits>
 #include <memory>
 #include <utility>
 #include <sstream>
+#include <tuple>
+#include <vector>
 
 #include <QByteArray>
 #include <QDebug>
@@ -55,6 +61,8 @@ for which a new license (GPL+exception) is in place.
 #include "fileloader.h"
 #include "filewatcher.h"
 #include "fpoint.h"
+#include "fpointarray.h"
+#include "guidemanagercore.h"
 #include "hyphenator.h"
 #include "manager/pagepreset_manager.h"
 #include "notesstyles.h"
@@ -94,7 +102,10 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "serializer.h"
 #include "tableborder.h"
+#include "tablecell.h"
 #include "textnote.h"
+#include "text/specialchars.h"
+#include "text/storytext.h"
 #include "text/textlayoutpainter.h"
 #include "ui/guidemanager.h"
 #include "ui/inserttablecolumnsdialog.h"

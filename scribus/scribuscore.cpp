@@ -21,7 +21,10 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribuscore.h"
 
+#include <algorithm>
 #include <cassert>
+#include <cmath>
+#include <cstdlib>
 #include <iostream>
 
 #include <QByteArray>
@@ -33,6 +36,8 @@ for which a new license (GPL+exception) is in place.
 #include <QStyleHints>
 
 #include "colormgmt/sccolormgmtenginefactory.h"
+#include "colormgmt/sccolorprofile.h"
+#include "colormgmt/sccolortransform.h"
 #include "commonstrings.h"
 #include "filewatcher.h"
 #include "iconmanager.h"

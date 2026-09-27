@@ -52,6 +52,8 @@ for which a new license (GPL+exception) is in place.
 #include <QMouseEvent>
 #include <QMultiMap>
 #include <QPixmap>
+#include <QPointer>
+#include <QProcess>
 #include <QProgressBar>
 #include <QPushButton>
 #include <QScopedPointer>
@@ -60,6 +62,8 @@ for which a new license (GPL+exception) is in place.
 #include <QStyleFactory>
 #include <QStyleHints>
 #include <QTableWidget>
+#include <QTemporaryFile>
+#include <QTransform>
 #include <QTranslator>
 #include <QWindow>
 #include <QWheelEvent>
@@ -88,9 +92,12 @@ for which a new license (GPL+exception) is in place.
 
 #include <array>
 #include <iostream>
+#include <limits>
 #include <sstream>
 #include <csignal>
 #include <string>
+#include <vector>
+#include <utility>
 
 #include "actionmanager.h"
 #include "actionsearch.h"
@@ -99,6 +106,8 @@ for which a new license (GPL+exception) is in place.
 #include "appmodes.h"
 #include "canvasmode.h"
 #include "canvasmode_imageimport.h"
+#include "colormgmt/sccolorprofile.h"
+#include "colorsetmanager.h"
 #include "commonstrings.h"
 #include "desaxe/digester.h"
 #include "documentchecker.h"
@@ -108,12 +117,16 @@ for which a new license (GPL+exception) is in place.
 #include "fpoint.h"
 #include "fpointarray.h"
 #include "gtgettext.h"
+#include "guidemanagercore.h"
 #include "hyphenator.h"
 #include "iconmanager.h"
 #include "langmgr.h"
 #include "localemgr.h"
 #include "loadsaveplugin.h"
+#include "manager/dock_manager.h"
 #include "manager/pagepreset_manager.h"
+#include "manager/widget_manager.h"
+#include "margins.h"
 #include "marks.h"
 #include "nfttemplate.h"
 #include "notesstyles.h"
@@ -132,11 +145,15 @@ for which a new license (GPL+exception) is in place.
 #include "pslib.h"
 #include "resourcecollection.h"
 #include "scclipboardprocessor.h"
+#include "sccolor.h"
 #include "scgtplugin.h"
 #include "scimagecachemanager.h"
+#include "sclayer.h"
 #include "scmimedata.h"
 #include "scpage.h"
 #include "scpaths.h"
+#include "scpattern.h"
+#include "scprintengine.h"
 #include "scprintengine_pdf.h"
 #include "scprintengine_ps.h"
 #include "scraction.h"
@@ -148,8 +165,13 @@ for which a new license (GPL+exception) is in place.
 #include "scribuswin.h"
 #include "selection.h"
 #include "serializer.h"
+#include "specialchars.h"
 #include "storyloader.h"
+#include "storytext.h"
 #include "stylesearch.h"
+#include "styles/charstyle.h"
+#include "styles/paragraphstyle.h"
+#include "styles/styleset.h"
 #include "textframespellchecker.h"
 #include "textnote.h"
 #include "tocgenerator.h"
@@ -223,10 +245,12 @@ for which a new license (GPL+exception) is in place.
 #include "ui/recoverdialog.h"
 #include "ui/replacecolors.h"
 #include "ui/resourcemanager.h"
+#include "ui/scfilewidget.h"
 #include "ui/scmessagebox.h"
 #include "ui/scmwmenumanager.h"
 #include "ui/scrapbookpalette.h"
 #include "ui/scrspinbox.h"
+#include "ui/sctoolbar.h"
 #include "ui/search.h"
 #include "ui/selectobjects.h"
 #include "ui/smcellstyle.h"
@@ -243,14 +267,19 @@ for which a new license (GPL+exception) is in place.
 #include "ui/factories/scribusproxystyle.h"
 #include "undogui.h"
 #include "undomanager.h"
+#include "undoobject.h"
 #include "undostate.h"
+#include "undotransaction.h"
 #include "units.h"
 #include "usertaskstructs.h"
 #include "util.h"
 #include "util_file.h"
 #include "util_formats.h"
+#include "third_party/Qt-Advanced-Docking-System/src/ads_globals.h"
 #include "third_party/Qt-Advanced-Docking-System/src/DockAreaWidget.h"
+#include "third_party/Qt-Advanced-Docking-System/src/DockManager.h"
 #include "third_party/Qt-Advanced-Docking-System/src/IconProvider.h"
+#include "vgradient.h"
 
 #ifdef HAVE_SVNVERSION
 	#include "svnversion.h"
