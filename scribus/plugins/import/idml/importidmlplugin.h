@@ -56,7 +56,7 @@ class PLUGIN_API ImportIdmlPlugin : public LoadSavePlugin
 		\date
 		\brief Run the IDML import
 		\param fileName input filename, or QString() to prompt.
-		\retval bool always true
+		\retval bool true when the document was imported
 		 */
 		bool importFile(QString fileName = QString(), int flags = lfUseCurrentPage|lfInteractive);
 

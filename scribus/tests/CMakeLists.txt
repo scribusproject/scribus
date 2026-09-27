@@ -200,6 +200,23 @@ set_tests_properties(headless_script_failure PROPERTIES
 	RUN_SERIAL TRUE
 	TIMEOUT 180)
 
+set(idml_rejection_prefs_dir "${CMAKE_CURRENT_BINARY_DIR}/prefs-idml_rejection")
+set(idml_rejection_output_dir "${CMAKE_CURRENT_BINARY_DIR}/output-idml_rejection")
+file(MAKE_DIRECTORY "${idml_rejection_prefs_dir}" "${idml_rejection_output_dir}")
+add_test(NAME idml_rejection
+	COMMAND "${SCRIBUS_SCRIPT_TEST_EXECUTABLE}"
+		--no-splash
+		--prefs "${idml_rejection_prefs_dir}"
+		--no-gui
+		--python-script "${CMAKE_CURRENT_SOURCE_DIR}/scripts/test_idml_rejection.py")
+set_tests_properties(idml_rejection PROPERTIES
+	ENVIRONMENT "QT_QPA_PLATFORM=offscreen;SCRIBUS_TEST_OUTPUT_DIR=${idml_rejection_output_dir}"
+	FIXTURES_REQUIRED runningheader_test_app
+	LABELS "integration;idml-import;phase-6"
+	PASS_REGULAR_EXPRESSION "IDML_REJECTION_PASSED"
+	RUN_SERIAL TRUE
+	TIMEOUT 60)
+
 set(object_style_prefs_dir "${CMAKE_CURRENT_BINARY_DIR}/prefs-object_style_persistence")
 set(object_style_output_dir "${CMAKE_CURRENT_BINARY_DIR}/output-object_style_persistence")
 file(MAKE_DIRECTORY "${object_style_prefs_dir}")

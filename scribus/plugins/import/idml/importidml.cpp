@@ -3293,13 +3293,18 @@ QString IdmlPlug::constructFontName(const QString& fontBaseName, const QString& 
 					family.remove("$ID/");
 					if (!PrefsManager::instance().appPrefs.fontPrefs.GFontSub.contains(family))
 					{
-						QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
-						MissingFont *dia = new MissingFont(nullptr, family, m_Doc);
-						dia->exec();
-						fontName = dia->getReplacementFont();
-						delete dia;
-						QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
-						PrefsManager::instance().appPrefs.fontPrefs.GFontSub[family] = fontName;
+						if (!ScCore->usingGUI() || (importerFlags & (LoadSavePlugin::lfNoDialogs | LoadSavePlugin::lfScripted)))
+							fontName = PrefsManager::instance().appPrefs.itemToolPrefs.textFont;
+						else
+						{
+							QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
+							MissingFont *dia = new MissingFont(nullptr, family, m_Doc);
+							dia->exec();
+							fontName = dia->getReplacementFont();
+							delete dia;
+							QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
+							PrefsManager::instance().appPrefs.fontPrefs.GFontSub[family] = fontName;
+						}
 					}
 					else
 						fontName = PrefsManager::instance().appPrefs.fontPrefs.GFontSub[family];
