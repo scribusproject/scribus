@@ -291,21 +291,21 @@ void ScribusProxyStyle::setApplicationTheme(ApplicationTheme theme)
 	{
 	case ApplicationTheme::System:
 	{
-		qApp->styleHints()->unsetColorScheme();
+		QApplication::styleHints()->unsetColorScheme();
 #if (defined Q_OS_LINUX)
 		qApp->setPalette(baseStyle()->standardPalette());
 #endif
 		break;
 	}
 	case ApplicationTheme::Light:
-		qApp->styleHints()->setColorScheme(Qt::ColorScheme::Light);
+		QApplication::styleHints()->setColorScheme(Qt::ColorScheme::Light);
 #if (defined Q_OS_LINUX)
 		qApp->setPalette(createLightPalette());
 #endif
 		break;
 
 	case ApplicationTheme::Dark:
-		qApp->styleHints()->setColorScheme(Qt::ColorScheme::Dark);
+		QApplication::styleHints()->setColorScheme(Qt::ColorScheme::Dark);
 #if (defined Q_OS_LINUX)
 		qApp->setPalette(createDarkPalette());
 #endif
@@ -313,7 +313,7 @@ void ScribusProxyStyle::setApplicationTheme(ApplicationTheme theme)
 	}
 
 	if (useDefaultScratchColor)
-		displayPrefs.scratchColor = qApp->palette().color(QPalette::Active, QPalette::Window);
+		displayPrefs.scratchColor = QApplication::palette().color(QPalette::Active, QPalette::Window);
 
 	blockRefresh = false;
 #endif
