@@ -69,7 +69,7 @@ endif()
 set(CMAKE_PREFIX_PATH "${QT_PREFIX}/lib/cmake")
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-set(QT_MIN_VERSION "6.4.0")
+set(QT_MIN_VERSION "6.5.0")
 
 find_package(Qt6 COMPONENTS Core REQUIRED)
 add_definitions(${Qt6Core_DEFINITIONS})
