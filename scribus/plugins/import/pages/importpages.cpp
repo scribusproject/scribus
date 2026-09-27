@@ -424,23 +424,12 @@ bool PagesPlug::parseDocReference(const QString& designMap, bool compressed)
 			return false;
 	}
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
 	QDomDocument::ParseResult parseResult = designMapDom.setContent(f);
 	if (!parseResult)
 	{
 		qDebug() << "Error loading File" << parseResult.errorMessage << "at Line" << parseResult.errorLine << "Column" << parseResult.errorColumn;
 		return false;
 	}
-#else
-	QString errorMsg;
-	int errorLine = 0;
-	int errorColumn = 0;
-	if (!designMapDom.setContent(f, &errorMsg, &errorLine, &errorColumn))
-	{
-		qDebug() << "Error loading File" << errorMsg << "at Line" << errorLine << "Column" << errorColumn;
-		return false;
-	}
-#endif
 
 	papersize = "Custom";
 	QDomElement docElem = designMapDom.documentElement();

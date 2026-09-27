@@ -286,21 +286,11 @@ bool ColorSetManager::checkPaletteFormat(const QString& paletteFileName) const
 	QDomDocument docu("scridoc");
 	QTextStream ts(&f);
 	ts.setEncoding(QStringConverter::Utf8);
-#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
 	if (!docu.setContent(ts.readAll()))
 	{
 		f.close();
 		return false;
 	}
-#else
-	QString errorMsg;
-	int errorLine = 0, errorColumn = 0;
-	if (!docu.setContent(ts.readAll(), &errorMsg, &errorLine, &errorColumn))
-	{
-		f.close();
-		return false;
-	}
-#endif
 	f.close();
 	QDomElement elem = docu.documentElement();
 	return (elem.tagName() == "SCRIBUSCOLORS" || elem.tagName() == "ScribusColors");

@@ -119,7 +119,6 @@ bool UpgradeChecker::process()
 	QDomDocument doc("scribusversions");
 	QString data(ts.readAll());
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
 	QDomDocument::ParseResult parseResult = doc.setContent(data);
 	if (!parseResult)
 	{
@@ -129,19 +128,6 @@ bool UpgradeChecker::process()
 			outputText("<b>" + tr("Could not open version file: %1\nError:%2 at line: %3, row: %4").arg(m_file->fileName(), parseResult.errorMessage).arg(parseResult.errorLine).arg(parseResult.errorColumn) + "</b>");
 		return false;
 	}
-#else
-	QString errorMsg;
-	int eline;
-	int ecol;
-	if (!doc.setContent(data, &errorMsg, &eline, &ecol)) 
-	{
-		if (data.contains("404 not found", Qt::CaseInsensitive))
-			outputText("<b>" + tr("File not found on server") + "</b>");
-		else
-			outputText("<b>" + tr("Could not open version file: %1\nError:%2 at line: %3, row: %4").arg(m_file->fileName(), errorMsg).arg(eline).arg(ecol) + "</b>");
-		return false;
-	}
-#endif
 	
 	QDomElement docElem = doc.documentElement();
 	for (QDomNode n = docElem.firstChild(); !n.isNull(); n = n.nextSibling())

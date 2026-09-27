@@ -755,22 +755,12 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 	}
 
 	// Build the DOM from it
-#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
 	QDomDocument::ParseResult parseResult = docu.setContent(f);
 	if (!parseResult)
 	{
 		setDomParsingError(parseResult.errorMessage, parseResult.errorLine, parseResult.errorColumn);
 		return false;
 	}
-#else
-	QString errorMsg;
-	int errorLine, errorColumn;
-	if (!docu.setContent(f, &errorMsg, &errorLine, &errorColumn))
-	{
-		setDomParsingError(errorMsg, errorLine, errorColumn);
-		return false;
-	}
-#endif
 
 	// Get file directory
 	QString fileDir = QFileInfo(fileName).absolutePath();
@@ -1877,22 +1867,12 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 		return false;
 	}
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
 	QDomDocument::ParseResult parseResult = docu.setContent(f);
 	if (!parseResult)
 	{
 		setDomParsingError(parseResult.errorMessage, parseResult.errorLine, parseResult.errorColumn);
 		return false;
 	}
-#else
-	QString errorMsg;
-	int errorLine, errorColumn;
-	if (!docu.setContent(f, &errorMsg, &errorLine, &errorColumn))
-	{
-		setDomParsingError(errorMsg, errorLine, errorColumn);
-		return false;
-	}
-#endif
 
 	QString fileDir = QFileInfo(fileName).absolutePath();
 	ScColor lf;

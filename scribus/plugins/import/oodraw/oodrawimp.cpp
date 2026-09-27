@@ -234,11 +234,7 @@ QImage OODPlug::readThumbnail(const QString& fileName)
 		pZip->read("meta.xml", f3);
 	pZip.reset();
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
 	HaveMeta = (bool) inpMeta.setContent(f3);
-#else
-	HaveMeta = inpMeta.setContent(f3, nullptr);
-#endif
 	QString docname = fileName.right(fileName.length() - fileName.lastIndexOf("/") - 1);
 	docname = docname.left(docname.lastIndexOf("."));
 
@@ -363,11 +359,7 @@ bool OODPlug::importFile(const QString& fileName, const TransactionSettings& trS
 		pZip->read("meta.xml", f3);
 	pZip.reset();
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
 	HaveMeta = (bool) inpMeta.setContent(f3);
-#else
-	HaveMeta = inpMeta.setContent(f3, nullptr);
-#endif
 	QString docname = fileName.right(fileName.length() - fileName.lastIndexOf("/") - 1);
 	docname = docname.left(docname.lastIndexOf("."));
 

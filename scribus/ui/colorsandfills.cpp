@@ -1746,23 +1746,12 @@ void ColorsAndFillsDialog::loadScribusFormat(const QString& fileName)
 	QTextStream ts(&f);
 	ts.setEncoding(QStringConverter::Utf8);
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
 	QDomDocument::ParseResult parseResult = docu.setContent(ts.readAll());
 	if (!parseResult)
 	{
 		f.close();
 		return;
 	}
-#else
-	QString errorMsg;
-	int errorLine = 0;
-	int errorColumn = 0;
-	if (!docu.setContent(ts.readAll(), &errorMsg, &errorLine, &errorColumn) )
-	{
-		f.close();
-		return;
-	}
-#endif
 	f.close();
 
 	QDomElement elem = docu.documentElement();

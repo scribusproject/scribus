@@ -60,9 +60,7 @@ bool IconManager::setup()
 		return false;
 	}
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
 	connect(QApplication::styleHints(), &QStyleHints::colorSchemeChanged, this, &IconManager::changeColorScheme);
-#endif
 
 	return true;
 }
@@ -131,13 +129,11 @@ QColor IconManager::baseColor() const
 
 bool IconManager::iconsForDarkMode() const
 {	
- #if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
 	const auto* pStyleHints = QApplication::styleHints();
  	if (pStyleHints->colorScheme() == Qt::ColorScheme::Light)
  		return false;
  	if (pStyleHints->colorScheme() == Qt::ColorScheme::Dark)
  		return true;
- #endif
 	return (baseColor().lightness() >= 128) ? true : false;
 }
 
@@ -413,13 +409,11 @@ QColor IconManager::parseColor(const QString str)
 	return QColor();
 }
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
 void IconManager::changeColorScheme(Qt::ColorScheme colorScheme)
 {
 	Q_UNUSED(colorScheme);
 	rebuildCache();
 }
-#endif
 
 QPixmap IconManager::pixmapFromFile(const QString filePath, QColor color, QSize size)
 {

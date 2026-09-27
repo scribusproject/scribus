@@ -322,23 +322,12 @@ bool OdgPlug::convert(const QString& fn)
 		QByteArray f;
 		loadRawText(fn, f);
 		QDomDocument designMapDom;
-#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
 		QDomDocument::ParseResult parseResult = designMapDom.setContent(f);
 		if (!parseResult)
 		{
 			qDebug() << "Error loading File" << parseResult.errorMessage << "at Line" << parseResult.errorLine << "Column" << parseResult.errorColumn;
 			return false;
 		}
-#else
-		QString errorMsg;
-		int errorLine = 0;
-		int errorColumn = 0;
-		if (!designMapDom.setContent(f, &errorMsg, &errorLine, &errorColumn))
-		{
-			qDebug() << "Error loading File" << errorMsg << "at Line" << errorLine << "Column" << errorColumn;
-			return false;
-		}
-#endif
 		retVal = parseDocReferenceXML(designMapDom);
 
 		if (progressDialog)
@@ -353,7 +342,6 @@ bool OdgPlug::convert(const QString& fn)
 		QByteArray f;
 		loadRawText(fn, f);
 		QDomDocument designMapDom;
-#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
 		QDomDocument::ParseResult parseResult = designMapDom.setContent(f);
 		if (!parseResult)
 		{
@@ -362,18 +350,6 @@ bool OdgPlug::convert(const QString& fn)
 				progressDialog->close();
 			return false;
 		}
-#else
-		QString errorMsg;
-		int errorLine = 0;
-		int errorColumn = 0;
-		if (!designMapDom.setContent(f, &errorMsg, &errorLine, &errorColumn))
-		{
-			qDebug() << "Error loading File" << errorMsg << "at Line" << errorLine << "Column" << errorColumn;
-			if (progressDialog)
-				progressDialog->close();
-			return false;
-		}
-#endif
 		retVal = parseDocReferenceXML(designMapDom);
 	}
 	else
@@ -399,23 +375,12 @@ bool OdgPlug::parseStyleSheets(const QString& designMap)
 	if (!uz->read(designMap, xmlData))
 		return false;
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
 	QDomDocument::ParseResult parseResult = designMapDom.setContent(xmlData);
 	if (!parseResult)
 	{
 		qDebug() << "Error loading File" << parseResult.errorMessage << "at Line" << parseResult.errorLine << "Column" << parseResult.errorColumn;
 		return false;
 	}
-#else
-	QString errorMsg;
-	int errorLine = 0;
-	int errorColumn = 0;
-	if (!designMapDom.setContent(xmlData, false, &errorMsg, &errorLine, &errorColumn))
-	{
-		qDebug() << "Error loading File" << errorMsg << "at Line" << errorLine << "Column" << errorColumn;
-		return false;
-	}
-#endif
 	return parseStyleSheetsXML(designMapDom);
 }
 
@@ -532,23 +497,12 @@ bool OdgPlug::parseDocReference(const QString& designMap)
 	if (!uz->read(designMap, xmlData))
 		return false;
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
 	QDomDocument::ParseResult parseResult = designMapDom.setContent(xmlData);
 	if (!parseResult)
 	{
 		qDebug() << "Error loading File" << parseResult.errorMessage << "at Line" << parseResult.errorLine << "Column" << parseResult.errorColumn;
 		return false;
 	}
-#else
-	QString errorMsg;
-	int errorLine = 0;
-	int errorColumn = 0;
-	if (!designMapDom.setContent(xmlData, false, &errorMsg, &errorLine, &errorColumn))
-	{
-		qDebug() << "Error loading File" << errorMsg << "at Line" << errorLine << "Column" << errorColumn;
-		return false;
-	}
-#endif
 	return parseDocReferenceXML(designMapDom);
 }
 

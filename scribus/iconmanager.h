@@ -115,9 +115,7 @@ private:
 	QColor parseColor(const QString str);
 
 private slots:
-#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
 	void changeColorScheme(Qt::ColorScheme colorScheme);
-#endif
 };
 
 #endif

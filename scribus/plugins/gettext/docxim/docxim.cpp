@@ -78,7 +78,6 @@ void DocXIm::parseContentTypes()
 	if (!m_zip->read("[Content_Types].xml", xmlData))
 		return;
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
 	QDomDocument::ParseOptions parseOptions = QDomDocument::ParseOption::PreserveSpacingOnlyNodes;
 	QDomDocument::ParseResult parseResult = designMapDom.setContent(xmlData, parseOptions);
 	if (!parseResult)
@@ -86,16 +85,6 @@ void DocXIm::parseContentTypes()
 		qDebug() << "Error loading File" << parseResult.errorMessage << "at Line" << parseResult.errorLine << "Column" << parseResult.errorColumn;
 		return;
 	}
-#else
-	QString errorMsg;
-	int errorLine = 0;
-	int errorColumn = 0;
-	if (!designMapDom.setContent(xmlData, false, &errorMsg, &errorLine, &errorColumn))
-	{
-		qDebug() << "Error loading File" << errorMsg << "at Line" << errorLine << "Column" << errorColumn;
-		return;
-	}
-#endif
 
 	QDomElement docElem = designMapDom.documentElement();
 	for (QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
@@ -132,7 +121,6 @@ void DocXIm::parseTheme()
 	if (!m_zip->read(themePart, xmlData))
 		return;
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
 	QDomDocument::ParseOptions parseOptions = QDomDocument::ParseOption::PreserveSpacingOnlyNodes;
 	QDomDocument::ParseResult parseResult = designMapDom.setContent(xmlData, parseOptions);
 	if (!parseResult)
@@ -140,16 +128,6 @@ void DocXIm::parseTheme()
 		qDebug() << "Error loading File" << parseResult.errorMessage << "at Line" << parseResult.errorLine << "Column" << parseResult.errorColumn;
 		return;
 	}
-#else
-	QString errorMsg;
-	int errorLine = 0;
-	int errorColumn = 0;
-	if (!designMapDom.setContent(xmlData, false, &errorMsg, &errorLine, &errorColumn))
-	{
-		qDebug() << "Error loading File" << errorMsg << "at Line" << errorLine << "Column" << errorColumn;
-		return;
-	}
-#endif
 
 	QDomElement docElem = designMapDom.documentElement();
 	for (QDomElement drawPag = docElem.firstChildElement(); !drawPag.isNull(); drawPag = drawPag.nextSiblingElement())
@@ -188,7 +166,6 @@ void DocXIm::parseStyles()
 	if (!m_zip->read(stylePart, xmlData))
 		return;
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
 	QDomDocument::ParseOptions parseOptions = QDomDocument::ParseOption::PreserveSpacingOnlyNodes;
 	QDomDocument::ParseResult parseResult = designMapDom.setContent(xmlData, parseOptions);
 	if (!parseResult)
@@ -196,16 +173,6 @@ void DocXIm::parseStyles()
 		qDebug() << "Error loading File" << parseResult.errorMessage << "at Line" << parseResult.errorLine << "Column" << parseResult.errorColumn;
 		return;
 	}
-#else
-	QString errorMsg;
-	int errorLine = 0;
-	int errorColumn = 0;
-	if (!designMapDom.setContent(xmlData, false, &errorMsg, &errorLine, &errorColumn))
-	{
-		qDebug() << "Error loading File" << errorMsg << "at Line" << errorLine << "Column" << errorColumn;
-		return;
-	}
-#endif
 
 	defaultParagraphStyle.setParent(CommonStrings::DefaultParagraphStyle);
 	defaultParagraphStyle.charStyle().setParent(CommonStrings::DefaultCharacterStyle);
@@ -328,7 +295,6 @@ void DocXIm::parseStyledText(PageItem *textItem)
 	if (!m_zip->read(docPart, xmlData))
 		return;
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
 	QDomDocument::ParseOptions parseOptions = QDomDocument::ParseOption::PreserveSpacingOnlyNodes;
 	QDomDocument::ParseResult parseResult = designMapDom.setContent(xmlData, parseOptions);
 	if (!parseResult)
@@ -336,16 +302,6 @@ void DocXIm::parseStyledText(PageItem *textItem)
 		qDebug() << "Error loading File" << parseResult.errorMessage << "at Line" << parseResult.errorLine << "Column" << parseResult.errorColumn;
 		return;
 	}
-#else
-	QString errorMsg;
-	int errorLine = 0;
-	int errorColumn = 0;
-	if (!designMapDom.setContent(xmlData, false, &errorMsg, &errorLine, &errorColumn))
-	{
-		qDebug() << "Error loading File" << errorMsg << "at Line" << errorLine << "Column" << errorColumn;
-		return;
-	}
-#endif
 
 	if (!m_append)
 	{
@@ -783,7 +739,6 @@ void DocXIm::parsePlainTextOnly(PageItem *textItem)
 	if (!m_zip->read(docPart, xmlData))
 		return;
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
 	QDomDocument::ParseOptions parseOptions = QDomDocument::ParseOption::PreserveSpacingOnlyNodes;
 	QDomDocument::ParseResult parseResult = designMapDom.setContent(xmlData, parseOptions);
 	if (!parseResult)
@@ -791,16 +746,6 @@ void DocXIm::parsePlainTextOnly(PageItem *textItem)
 		qDebug() << "Error loading File" << parseResult.errorMessage << "at Line" << parseResult.errorLine << "Column" << parseResult.errorColumn;
 		return;
 	}
-#else
-	QString errorMsg;
-	int errorLine = 0;
-	int errorColumn = 0;
-	if (!designMapDom.setContent(xmlData, false, &errorMsg, &errorLine, &errorColumn))
-	{
-		qDebug() << "Error loading File" << errorMsg << "at Line" << errorLine << "Column" << errorColumn;
-		return;
-	}
-#endif
 
 	if (!m_append)
 	{

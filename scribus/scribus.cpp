@@ -466,7 +466,6 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 
 	setStyleSheet();
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
 	connect(QGuiApplication::styleHints(), &QStyleHints::colorSchemeChanged, this, [this]()
 	{
 		emit ScQApp->iconSetChanged();
@@ -475,7 +474,6 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 		// If we set the style sheet again it forces a redrawing with the current theme.
 		setStyleSheet();
 	});
-#endif
 
 	return retVal;
 }

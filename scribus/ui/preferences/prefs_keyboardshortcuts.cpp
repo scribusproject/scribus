@@ -159,7 +159,6 @@ void Prefs_KeyboardShortcuts::importKeySet(const QString& filename)
 	QTextStream ts(&file1);
 	ts.setEncoding(QStringConverter::Utf8);
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
 	QDomDocument::ParseResult parseResult = doc.setContent(ts.readAll());
 	if (!parseResult)
 	{
@@ -167,17 +166,6 @@ void Prefs_KeyboardShortcuts::importKeySet(const QString& filename)
 		file1.close();
 		return;
 	}
-#else
-	QString errorMsg;
-	int eline;
-	int ecol;
-	if ( !doc.setContent( ts.readAll(), &errorMsg, &eline, &ecol ))
-	{
-		qDebug("%s", QString("Could not open key set file: %1\nError:%2 at line: %3, row: %4").arg(filename, errorMsg).arg(eline).arg(ecol).toLatin1().constData());
-		file1.close();
-		return;
-	}
-#endif
 	file1.close();
 
 	//load the file now
@@ -273,7 +261,6 @@ QStringList Prefs_KeyboardShortcuts::scanForSets()
 		if (!file.open( QIODevice::ReadOnly))
 			continue;
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
 		QDomDocument::ParseResult parseResult = doc.setContent(&file);
 		if (!parseResult)
 		{
@@ -281,17 +268,6 @@ QStringList Prefs_KeyboardShortcuts::scanForSets()
 			file.close();
 			continue;
 		}
-#else
-		QString errorMsg;
-		int eline;
-		int ecol;
-		if (!doc.setContent( &file, &errorMsg, &eline, &ecol ))
-		{
-			qDebug("%s", QString("Could not open key set file: %1\nError:%2 at line: %3, row: %4").arg(keySetsDir[fileCounter], errorMsg).arg(eline).arg(ecol).toLatin1().constData());
-			file.close();
-			continue;
-		}
-#endif
 		file.close();
 
 		QDomElement docElem = doc.documentElement();

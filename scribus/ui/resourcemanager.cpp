@@ -123,7 +123,6 @@ void ResourceManager::readAvailableFonts()
 	QString data(ts.readAll());
 	dataFile.close();
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
 	QDomDocument::ParseResult parseResult = doc.setContent(data);
 	if (!parseResult)
 	{
@@ -134,20 +133,6 @@ void ResourceManager::readAvailableFonts()
 			qDebug() << "Could not open file" << dataFile.fileName();
 		return;
 	}
-#else
-	QString errorMsg;
-	int eline;
-	int ecol;
-	if (!doc.setContent( data, &errorMsg, &eline, &ecol))
-	{
-//		qDebug()<<errorMsg<<eline<<ecol;
-		if (data.contains("404 not found", Qt::CaseInsensitive))
-			qDebug() << "File not found on server";
-		else
-			qDebug() << "Could not open file" << dataFile.fileName();
-		return;
-	}
-#endif
 	m_availableList.clear();
 
 	QDomElement docElem = doc.documentElement();
@@ -195,7 +180,6 @@ void ResourceManager::readAvailableHelp()
 	QString data(ts.readAll());
 	dataFile.close();
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
 	QDomDocument::ParseResult parseResult = doc.setContent(data);
 	if (!parseResult)
 	{
@@ -205,19 +189,6 @@ void ResourceManager::readAvailableHelp()
 			qDebug() << "Could not open file" << dataFile.fileName();
 		return;
 	}
-#else
-	QString errorMsg;
-	int eline;
-	int ecol;
-	if (!doc.setContent( data, &errorMsg, &eline, &ecol))
-	{
-		if (data.contains("404 not found", Qt::CaseInsensitive))
-			qDebug() << "File not found on server";
-		else
-			qDebug() << "Could not open file" << dataFile.fileName();
-		return;
-	}
-#endif
 	m_availableList.clear();
 
 	QDomElement docElem = doc.documentElement();
@@ -263,7 +234,6 @@ void ResourceManager::readAvailablePalettes()
 	QString data(ts.readAll());
 	dataFile.close();
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
 	QDomDocument::ParseResult parseResult = doc.setContent(data);
 	if (!parseResult)
 	{
@@ -273,19 +243,6 @@ void ResourceManager::readAvailablePalettes()
 			qDebug() << "Could not open file" << dataFile.fileName();
 		return;
 	}
-#else
-	QString errorMsg;
-	int eline;
-	int ecol;
-	if (!doc.setContent(data, &errorMsg, &eline, &ecol))
-	{
-		if (data.contains("404 not found", Qt::CaseInsensitive))
-			qDebug() << "File not found on server";
-		else
-			qDebug() << "Could not open file" << dataFile.fileName();
-		return;
-	}
-#endif
 	m_availableList.clear();
 
 	QDomElement docElem = doc.documentElement();
@@ -610,7 +567,6 @@ void ResourceManager::updateAvailableHyph()
 	QString data(ts.readAll());
 	dataFile.close();
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
 	QDomDocument::ParseResult parseResult = doc.setContent(data);
 	if (!parseResult)
 	{
@@ -620,19 +576,6 @@ void ResourceManager::updateAvailableHyph()
 			qDebug() << "Could not open file" << dataFile.fileName();
 		return;
 	}
-#else
-	QString errorMsg;
-	int eline;
-	int ecol;
-	if (!doc.setContent(data, &errorMsg, &eline, &ecol))
-	{
-		if (data.contains("404 not found", Qt::CaseInsensitive))
-			qDebug() << "File not found on server";
-		else
-			qDebug() << "Could not open file" << dataFile.fileName();
-		return;
-	}
-#endif
 	m_availableList.clear();
 
 	QDomElement docElem = doc.documentElement();
@@ -723,7 +666,6 @@ void ResourceManager::updateAvailableSpell()
 	QString data(ts.readAll());
 	dataFile.close();
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 5, 0)
 	QDomDocument::ParseResult parseResult = doc.setContent(data);
 	if (!parseResult)
 	{
@@ -733,19 +675,6 @@ void ResourceManager::updateAvailableSpell()
 			qDebug() << "Could not open file" << dataFile.fileName();
 		return;
 	}
-#else
-	QString errorMsg;
-	int eline;
-	int ecol;
-	if (!doc.setContent(data, &errorMsg, &eline, &ecol))
-	{
-		if (data.contains("404 not found", Qt::CaseInsensitive))
-			qDebug() << "File not found on server";
-		else
-			qDebug() << "Could not open file" << dataFile.fileName();
-		return;
-	}
-#endif
 	m_availableList.clear();
 
 	QDomElement docElem = doc.documentElement();
