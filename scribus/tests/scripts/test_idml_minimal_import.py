@@ -1,0 +1,86 @@
+#!/usr/bin/env python3
+
+"""Import a small, generated IDML package without proprietary fixtures.
+
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+"""
+
+import math
+import os
+from pathlib import Path
+from struct import pack
+from zipfile import ZIP_DEFLATED, ZipFile
+from zlib import compress, crc32
+
+import scribus
+
+
+output = Path(os.environ["SCRIBUS_TEST_OUTPUT_DIR"])
+output.mkdir(parents=True, exist_ok=True)
+source = output / "minimal-import.idml"
+
+
+def png_chunk(kind, payload):
+    return pack(">I", len(payload)) + kind + payload + pack(">I", crc32(kind + payload))
+
+
+linked_image = output / "Links" / "linked.png"
+linked_image.parent.mkdir(parents=True, exist_ok=True)
+linked_image.write_bytes(
+    b"\x89PNG\r\n\x1a\n"
+    + png_chunk(b"IHDR", pack(">IIBBBBB", 1, 1, 8, 2, 0, 0, 0))
+    + png_chunk(b"IDAT", compress(b"\x00\xff\x00\x00"))
+    + png_chunk(b"IEND", b"")
+)
+
+points = [(0, 0), (80, 0), (80, 60), (0, 60)]
+path_points = "\n".join(
+    '<PathPointType Anchor="%d %d" LeftDirection="%d %d" RightDirection="%d %d"/>'
+    % (x, y, x, y, x, y)
+    for x, y in points
+)
+design_map = """<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns:idPkg="http://ns.adobe.com/AdobeInDesign/idml/1.0/" ActiveLayer="Layer/1">
+  <Layer Self="Layer/1" Name="Layer 1" Visible="true" Locked="false" Printable="true"/>
+  <idPkg:Spread>
+    <Spread Self="Spread/1">
+      <Page Self="Page/1" ItemTransform="1 0 0 1 0 0"/>
+      <Rectangle Self="Rectangle/1" ItemLayer="Layer/1" ItemTransform="1 0 0 1 0 0">
+        <Properties><PathGeometry><GeometryPathType PathOpen="false"><PathPointArray>
+          %s
+        </PathPointArray></GeometryPathType></PathGeometry></Properties>
+      </Rectangle>
+      <Rectangle Self="Rectangle/2" ItemLayer="Layer/1" ItemTransform="1 0 0 1 100 0">
+        <Properties><PathGeometry><GeometryPathType PathOpen="false"><PathPointArray>
+          %s
+        </PathPointArray></GeometryPathType></PathGeometry></Properties>
+        <Image ImageTypeName="PNG"><Link LinkResourceURI="file:/unavailable/linked.png"/></Image>
+      </Rectangle>
+    </Spread>
+  </idPkg:Spread>
+</Document>
+""" % (path_points, path_points)
+
+with ZipFile(source, "w", ZIP_DEFLATED) as archive:
+    archive.writestr("mimetype", "application/vnd.adobe.indesign-idml-package")
+    archive.writestr("designmap.xml", design_map)
+
+assert scribus.openDoc(str(source)), "Minimal IDML import failed"
+assert scribus.pageCount() == 1, "Minimal IDML page count changed"
+objects = scribus.getAllObjects(page=0)
+assert len(objects) == 2, "Minimal IDML objects were not imported"
+types = {scribus.getObjectType(name): name for name in objects}
+assert "Polygon" in types, "Minimal IDML shape type changed"
+assert "ImageFrame" in types, "Minimal IDML image type changed"
+assert Path(scribus.getImageFile(types["ImageFrame"])).resolve() == linked_image.resolve(), (
+    "IDML image link was not resolved beside its source"
+)
+assert scribus.getImageColorSpace(types["ImageFrame"]) == 0, "Linked RGB image was not loaded"
+assert all(math.isfinite(scale) for scale in scribus.getImageScale(types["ImageFrame"])), (
+    "Linked image has invalid scale"
+)
+scribus.closeDoc()
+print("IDML_MINIMAL_IMPORT_PASSED", flush=True)

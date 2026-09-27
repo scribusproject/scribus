@@ -217,6 +217,23 @@ set_tests_properties(idml_rejection PROPERTIES
 	RUN_SERIAL TRUE
 	TIMEOUT 60)
 
+set(idml_minimal_prefs_dir "${CMAKE_CURRENT_BINARY_DIR}/prefs-idml_minimal")
+set(idml_minimal_output_dir "${CMAKE_CURRENT_BINARY_DIR}/output-idml_minimal")
+file(MAKE_DIRECTORY "${idml_minimal_prefs_dir}" "${idml_minimal_output_dir}")
+add_test(NAME idml_minimal_import
+	COMMAND "${SCRIBUS_SCRIPT_TEST_EXECUTABLE}"
+		--no-splash
+		--prefs "${idml_minimal_prefs_dir}"
+		--no-gui
+		--python-script "${CMAKE_CURRENT_SOURCE_DIR}/scripts/test_idml_minimal_import.py")
+set_tests_properties(idml_minimal_import PROPERTIES
+	ENVIRONMENT "QT_QPA_PLATFORM=offscreen;SCRIBUS_TEST_OUTPUT_DIR=${idml_minimal_output_dir}"
+	FIXTURES_REQUIRED runningheader_test_app
+	LABELS "integration;idml-import;phase-6"
+	PASS_REGULAR_EXPRESSION "IDML_MINIMAL_IMPORT_PASSED"
+	RUN_SERIAL TRUE
+	TIMEOUT 60)
+
 set(object_style_prefs_dir "${CMAKE_CURRENT_BINARY_DIR}/prefs-object_style_persistence")
 set(object_style_output_dir "${CMAKE_CURRENT_BINARY_DIR}/output-object_style_persistence")
 file(MAKE_DIRECTORY "${object_style_prefs_dir}")

@@ -8,6 +8,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 """
 
+import math
 import os
 from pathlib import Path
 
@@ -27,6 +28,7 @@ types = {}
 text_nonempty = 0
 images_linked = 0
 images_missing = 0
+invalid_image_scales = 0
 
 for page in range(pages):
     names = scribus.getAllObjects(page=page)
@@ -41,6 +43,8 @@ for page in range(pages):
             if scribus.getFrameText(name):
                 text_nonempty += 1
         elif kind == "ImageFrame":
+            if not all(math.isfinite(scale) for scale in scribus.getImageScale(name)):
+                invalid_image_scales += 1
             image_path = scribus.getImageFile(name)
             if image_path:
                 image_file = Path(image_path)
@@ -58,6 +62,7 @@ print(
     "IMPORT_FIDELITY_QA pages=%d populated_pages=%d top_level_objects=%d "
     "group_children=%d top_level_text_frames=%d nonempty_text_frames=%d "
     "top_level_image_frames=%d linked_images=%d missing_images=%d "
+    "invalid_image_scales=%d "
     "paragraph_styles=%d character_styles=%d"
     % (
         pages,
@@ -69,6 +74,7 @@ print(
         types.get("ImageFrame", 0),
         images_linked,
         images_missing,
+        invalid_image_scales,
         len(scribus.getParagraphStyles()),
         len(scribus.getCharStyles()),
     ),
