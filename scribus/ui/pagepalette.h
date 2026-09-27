@@ -68,6 +68,7 @@ public slots:
 	void markPage(uint nr);
 	void updateMasterPageList();
 	void updatePagePreviews();
+	void updatePageGrid();
 
 	void languageChange();
 

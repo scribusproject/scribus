@@ -240,6 +240,11 @@ void PagePalette_Pages::pageView_updatePagePreview()
 
 }
 
+void PagePalette_Pages::updatePageGrid()
+{
+	pageViewWidget->pageGrid()->update();
+}
+
 void PagePalette_Pages::updatePagePreview()
 {
 	if (currView == nullptr || pageViewWidget->pageGrid()->pageList.empty())

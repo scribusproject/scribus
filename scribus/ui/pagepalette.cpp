@@ -165,6 +165,12 @@ void PagePalette::updatePagePreviews()
 
 }
 
+void PagePalette::updatePageGrid()
+{
+	if (m_pageWidget)
+		m_pageWidget->updatePageGrid();
+}
+
 bool PagePalette::masterPageMode()
 {
 	PagePalette_MasterPages* mpWidget = dynamic_cast<PagePalette_MasterPages*>(this->currentWidget());

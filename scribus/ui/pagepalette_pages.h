@@ -28,6 +28,8 @@ public:
 	PagePalette_Pages(QWidget* parent);
 	~PagePalette_Pages() {};
 
+	void updatePageGrid();
+
 public slots:
 	void setView(ScribusView *view);
 	void deleteMasterPage(const QString& tmp);

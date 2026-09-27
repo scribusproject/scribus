@@ -6588,10 +6588,6 @@ void ScribusMainWindow::slotPrefsOrg()
 	LocaleManager::instance().setUserPreferredLocale(m_prefsManager.appPrefs.uiPrefs.userPreferredLocale);
 	ScQApp->setLocale();
 
-	bool useDefaultScratchColor = false;
-	if (m_prefsManager.appPrefs.displayPrefs.scratchColor == QApplication::palette().color(QPalette::Active, QPalette::Window))
-		useDefaultScratchColor = true;
-
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 8, 0))
 	QString newUIStylePalette = m_prefsManager.appPrefs.uiPrefs.stylePalette;
 	if (oldPrefs.uiPrefs.stylePalette != newUIStylePalette)
@@ -6627,9 +6623,6 @@ void ScribusMainWindow::slotPrefsOrg()
 		// 	m_prefsManager.appPrefs.uiPrefs.style = oldPrefs.uiPrefs.style;
 	}
 
-	if (useDefaultScratchColor)
-		m_prefsManager.appPrefs.displayPrefs.scratchColor = QApplication::palette().color(QPalette::Active, QPalette::Window);
-
 	QString newIconSet = m_prefsManager.guiIconSet();
 	// Recreate icons if icon set or GUI changed. For GUI change the icon recreation will automatically detect light and dark themes
 	if (oldPrefs.uiPrefs.iconSet != newIconSet || forceIconUpdate == true)
@@ -6654,6 +6647,10 @@ void ScribusMainWindow::slotPrefsOrg()
 	else
 		mdiArea->setViewMode(QMdiArea::SubWindowView);
 	bool shadowChanged = oldPrefs.displayPrefs.showPageShadow != m_prefsManager.showPageShadow();
+	bool scratchColorChanged = oldPrefs.displayPrefs.scratchColor != m_prefsManager.appPrefs.displayPrefs.scratchColor;
+	if (scratchColorChanged)
+		pagePalette->updatePageGrid();
+
 	QList<QMdiSubWindow *> windows = mdiArea->subWindowList();
 	if (!windows.isEmpty())
 	{
@@ -6678,7 +6675,7 @@ void ScribusMainWindow::slotPrefsOrg()
 				scw_v->zoom((scw_v->scale() / oldPrefs.displayPrefs.displayScale) * m_prefsManager.displayScale());
 				zoomSpinBox->setMaximum(doc->opToolPrefs().magMax);
 			}
-			if (shadowChanged)
+			if (shadowChanged || scratchColorChanged)
 				scw->view()->DrawNew();
 		}
 	}
