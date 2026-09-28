@@ -20,6 +20,7 @@
 #include <QDomElement>
 #include <QFile>
 #include <QIcon>
+#include <QPixmap>
 #include <QTextStream>
 #include <QtSvg/QSvgRenderer>
 #include <QRegularExpression>

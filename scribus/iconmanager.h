@@ -14,9 +14,10 @@
 #ifndef ICONMANAGER_H
 #define ICONMANAGER_H
 
-
+#include <QColor>
 #include <QMap>
 #include <QObject>
+#include <QPainterPath>
 #include <QString>
 #include <QStringView>
 
@@ -27,8 +28,8 @@
 class PrefsFile;
 class QDomDocument;
 class QDomElement;
+class QPixmap;
 class ScribusMainWindow;
-
 
 /**
   * @author Craig Bradney
