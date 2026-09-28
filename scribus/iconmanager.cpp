@@ -30,8 +30,6 @@
 #include "iconmanager.h"
 #include "scpaths.h"
 
-IconManager* IconManager::m_instance = nullptr;
-
 IconManager::IconManager(QObject *parent)
 	: QObject(parent)
 {
@@ -46,7 +44,6 @@ IconManager& IconManager::instance()
 
 bool IconManager::setup()
 {
-
 	m_devicePixelRatio = qApp->devicePixelRatio();
 
 	if (!initIconSets())

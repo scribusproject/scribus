@@ -85,8 +85,6 @@ private:
 	IconManager(QObject *parent = nullptr);
 	~IconManager() = default;
 
-	static IconManager* m_instance;
-
 	QMap<QString, ScIconSetData> m_iconSets;
 	QMap<QString, QPainterPath*> m_iconPaths;
 	QMap<QString, Item> m_lookupTable;
