@@ -59,10 +59,22 @@ design_map = """<?xml version="1.0" encoding="UTF-8"?>
         </PathPointArray></GeometryPathType></PathGeometry></Properties>
         <Image ImageTypeName="PNG"><Link LinkResourceURI="file:/unavailable/linked.png"/></Image>
       </Rectangle>
+      <TextFrame Self="TextFrame/1" ParentStory="Story/used" ItemLayer="Layer/1"
+                 ItemTransform="1 0 0 1 0 100">
+        <Properties><PathGeometry><GeometryPathType PathOpen="false"><PathPointArray>
+          %s
+        </PathPointArray></GeometryPathType></PathGeometry></Properties>
+      </TextFrame>
     </Spread>
   </idPkg:Spread>
+  <idPkg:Story>
+    <Story Self="Story/orphan"/>
+    <Story Self="Story/used">
+      <ParagraphStyleRange><CharacterStyleRange><Content>Imported text</Content></CharacterStyleRange></ParagraphStyleRange>
+    </Story>
+  </idPkg:Story>
 </Document>
-""" % (path_points, path_points)
+""" % (path_points, path_points, path_points)
 
 with ZipFile(source, "w", ZIP_DEFLATED) as archive:
     archive.writestr("mimetype", "application/vnd.adobe.indesign-idml-package")
@@ -71,10 +83,13 @@ with ZipFile(source, "w", ZIP_DEFLATED) as archive:
 assert scribus.openDoc(str(source)), "Minimal IDML import failed"
 assert scribus.pageCount() == 1, "Minimal IDML page count changed"
 objects = scribus.getAllObjects(page=0)
-assert len(objects) == 2, "Minimal IDML objects were not imported"
+assert len(objects) == 3, "Minimal IDML objects were not imported"
 types = {scribus.getObjectType(name): name for name in objects}
 assert "Polygon" in types, "Minimal IDML shape type changed"
 assert "ImageFrame" in types, "Minimal IDML image type changed"
+assert "TextFrame" in types, "Minimal IDML text frame type changed"
+actual_text = scribus.getFrameText(types["TextFrame"])
+assert actual_text.rstrip("\r") == "Imported text", "IDML story text was lost"
 assert Path(scribus.getImageFile(types["ImageFrame"])).resolve() == linked_image.resolve(), (
     "IDML image link was not resolved beside its source"
 )

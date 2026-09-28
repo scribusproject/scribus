@@ -2752,7 +2752,7 @@ void IdmlPlug::parseStoryXMLNode(const QDomElement& stNode)
 			QString storyName = e.attribute("Self");
 			PageItem *item = nullptr;
 			if (!storyMap.contains(storyName))
-				return;
+				continue;
 			item = storyMap[storyName];
 			for (QDomNode st = e.firstChild(); !st.isNull(); st = st.nextSibling())
 			{
