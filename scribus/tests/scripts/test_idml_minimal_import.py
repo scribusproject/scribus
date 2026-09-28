@@ -12,6 +12,7 @@ import math
 import os
 from pathlib import Path
 from struct import pack
+from xml.etree import ElementTree
 from zipfile import ZIP_DEFLATED, ZipFile
 from zlib import compress, crc32
 
@@ -122,6 +123,40 @@ assert Path(scribus.getImageFile(types["ImageFrame"])).resolve() == linked_image
 assert scribus.getImageColorSpace(types["ImageFrame"]) == 0, "Linked RGB image was not loaded"
 assert all(math.isfinite(scale) for scale in scribus.getImageScale(types["ImageFrame"])), (
     "Linked image has invalid scale"
+)
+roundtrip = output / "minimal-import.sla"
+scribus.saveDocAs(str(roundtrip))
+scribus.closeDoc()
+assert roundtrip.is_file(), "Imported IDML document was not saved as SLA"
+saved_document = ElementTree.parse(roundtrip)
+inline_tables = [
+    frame for frame in saved_document.iter("FrameObject") if frame.find("TableData") is not None
+]
+assert len(inline_tables) == 1, "IDML inline table was not saved in SLA"
+assert inline_tables[0].find("./TableData/Cell/StoryText/Content").get("Chars") == "Cell text", (
+    "IDML inline table cell text was not saved in SLA"
+)
+assert scribus.openDoc(str(roundtrip)), "Could not reopen imported IDML as SLA"
+assert scribus.pageCount() == 1, "IDML page count changed after SLA round-trip"
+reopened_objects = scribus.getAllObjects(page=0)
+assert len(reopened_objects) == 4, "IDML objects changed after SLA round-trip"
+reopened_types = {scribus.getObjectType(name): name for name in reopened_objects}
+assert "Polygon" in reopened_types and "ImageFrame" in reopened_types, (
+    "IDML object types changed after SLA round-trip"
+)
+assert sum(scribus.getObjectType(name) == "TextFrame" for name in reopened_objects) == 2, (
+    "IDML linked text frames changed after SLA round-trip"
+)
+reopened_text = scribus.getAllText("TextFrame/1")
+assert "Before" in reopened_text and "After" in reopened_text, (
+    "IDML inline text was lost after SLA round-trip: %r" % reopened_text
+)
+assert reopened_text.index("Before") < reopened_text.index("After"), (
+    "IDML inline text order changed after SLA round-trip"
+)
+assert reopened_text.count("\x19") == 2, "IDML inline objects changed after SLA round-trip"
+assert Path(scribus.getImageFile(reopened_types["ImageFrame"])).resolve() == linked_image.resolve(), (
+    "IDML image link changed after SLA round-trip"
 )
 scribus.closeDoc()
 
