@@ -2888,6 +2888,16 @@ void IdmlPlug::parseCharacterStyleRange(QDomElement &stt, PageItem* item, QStrin
 		}
 	}
 	readCharStyleAttributes(nstyle, stt);
+	auto flushText = [&]()
+	{
+		if (data.isEmpty())
+			return;
+		item->itemText.insertChars(posC, data);
+		item->itemText.applyStyle(posC, newStyle);
+		item->itemText.applyCharStyle(posC, data.length(), nstyle);
+		data.clear();
+		posC = item->itemText.length();
+	};
 	for (QDomNode stch = stt.firstChild(); !stch.isNull(); stch = stch.nextSibling())
 	{
 		QDomElement s = stch.toElement();
@@ -2928,6 +2938,7 @@ void IdmlPlug::parseCharacterStyleRange(QDomElement &stt, PageItem* item, QStrin
 		}
 		else if ((s.tagName() == "Rectangle") || (s.tagName() == "Oval") || (s.tagName() == "GraphicLine") || (s.tagName() == "Polygon") || (s.tagName() == "TextFrame") || (s.tagName() == "Group") || (s.tagName() == "Button"))
 		{
+			flushText();
 			QTransform m;
 			QList<PageItem*> el = parseItemXML(s, m);
 			for (int ec = 0; ec < el.count(); ++ec)
@@ -2947,6 +2958,7 @@ void IdmlPlug::parseCharacterStyleRange(QDomElement &stt, PageItem* item, QStrin
 		}
 		else if (s.tagName() == "Table")
 		{
+			flushText();
 			QList<double> rowHeights;
 			QList<double> colWidths;
 			double twidth = 0.0;
@@ -3033,13 +3045,7 @@ void IdmlPlug::parseCharacterStyleRange(QDomElement &stt, PageItem* item, QStrin
 		//	}
 		}
 	}
-	if (!data.isEmpty())
-	{
-		item->itemText.insertChars(posC, data);
-		item->itemText.applyStyle(posC, newStyle);
-		item->itemText.applyCharStyle(posC, data.length(), nstyle);
-//		posC = item->itemText.length();
-	}
+	flushText();
 }
 
 void IdmlPlug::readCharStyleAttributes(CharStyle &newStyle, const QDomElement &styleElem)

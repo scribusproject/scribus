@@ -59,7 +59,13 @@ design_map = """<?xml version="1.0" encoding="UTF-8"?>
         </PathPointArray></GeometryPathType></PathGeometry></Properties>
         <Image ImageTypeName="PNG"><Link LinkResourceURI="file:/unavailable/linked.png"/></Image>
       </Rectangle>
-      <TextFrame Self="TextFrame/1" ParentStory="Story/used" ItemLayer="Layer/1"
+      <TextFrame Self="TextFrame/2" ParentStory="Story/used" ItemLayer="Layer/1"
+                 ItemTransform="1 0 0 1 100 100">
+        <Properties><PathGeometry><GeometryPathType PathOpen="false"><PathPointArray>
+          %s
+        </PathPointArray></GeometryPathType></PathGeometry></Properties>
+      </TextFrame>
+      <TextFrame Self="TextFrame/1" ParentStory="Story/used" NextTextFrame="TextFrame/2" ItemLayer="Layer/1"
                  ItemTransform="1 0 0 1 0 100">
         <Properties><PathGeometry><GeometryPathType PathOpen="false"><PathPointArray>
           %s
@@ -70,11 +76,19 @@ design_map = """<?xml version="1.0" encoding="UTF-8"?>
   <idPkg:Story>
     <Story Self="Story/orphan"/>
     <Story Self="Story/used">
-      <ParagraphStyleRange><CharacterStyleRange><Content>Imported text</Content></CharacterStyleRange></ParagraphStyleRange>
+      <ParagraphStyleRange><CharacterStyleRange>
+        <Content>Before</Content>
+        <Rectangle Self="Inline/1" ItemLayer="Layer/1" ItemTransform="1 0 0 1 0 0">
+          <Properties><PathGeometry><GeometryPathType PathOpen="false"><PathPointArray>
+            %s
+          </PathPointArray></GeometryPathType></PathGeometry></Properties>
+        </Rectangle>
+        <Content>After</Content>
+      </CharacterStyleRange></ParagraphStyleRange>
     </Story>
   </idPkg:Story>
 </Document>
-""" % (path_points, path_points, path_points)
+""" % (path_points, path_points, path_points, path_points, path_points)
 
 with ZipFile(source, "w", ZIP_DEFLATED) as archive:
     archive.writestr("mimetype", "application/vnd.adobe.indesign-idml-package")
@@ -83,13 +97,17 @@ with ZipFile(source, "w", ZIP_DEFLATED) as archive:
 assert scribus.openDoc(str(source)), "Minimal IDML import failed"
 assert scribus.pageCount() == 1, "Minimal IDML page count changed"
 objects = scribus.getAllObjects(page=0)
-assert len(objects) == 3, "Minimal IDML objects were not imported"
+assert len(objects) == 4, "Minimal IDML objects were not imported"
 types = {scribus.getObjectType(name): name for name in objects}
 assert "Polygon" in types, "Minimal IDML shape type changed"
 assert "ImageFrame" in types, "Minimal IDML image type changed"
-assert "TextFrame" in types, "Minimal IDML text frame type changed"
-actual_text = scribus.getFrameText(types["TextFrame"])
-assert actual_text.rstrip("\r") == "Imported text", "IDML story text was lost"
+assert sum(scribus.getObjectType(name) == "TextFrame" for name in objects) == 2, (
+    "Minimal IDML linked text frames changed"
+)
+actual_text = scribus.getAllText("TextFrame/1")
+assert "Before" in actual_text and "After" in actual_text, "IDML inline text was lost: %r" % actual_text
+assert actual_text.index("Before") < actual_text.index("After"), "IDML inline text order changed"
+assert actual_text.count("\x19") == 1, "IDML inline object was not retained"
 assert Path(scribus.getImageFile(types["ImageFrame"])).resolve() == linked_image.resolve(), (
     "IDML image link was not resolved beside its source"
 )
