@@ -83,6 +83,14 @@ design_map = """<?xml version="1.0" encoding="UTF-8"?>
             %s
           </PathPointArray></GeometryPathType></PathGeometry></Properties>
         </Rectangle>
+        <Table Self="Table/1">
+          <Row SingleRowHeight="20"/>
+          <Column SingleColumnWidth="40"/>
+          <Cell Name="malformed"/>
+          <Cell Name="99:99"/>
+          <Cell Name="0:0"><ParagraphStyleRange><CharacterStyleRange><Content>Cell text</Content></CharacterStyleRange></ParagraphStyleRange></Cell>
+        </Table>
+        <Table Self="Table/empty"/>
         <Content>After</Content>
       </CharacterStyleRange></ParagraphStyleRange>
     </Story>
@@ -107,7 +115,7 @@ assert sum(scribus.getObjectType(name) == "TextFrame" for name in objects) == 2,
 actual_text = scribus.getAllText("TextFrame/1")
 assert "Before" in actual_text and "After" in actual_text, "IDML inline text was lost: %r" % actual_text
 assert actual_text.index("Before") < actual_text.index("After"), "IDML inline text order changed"
-assert actual_text.count("\x19") == 1, "IDML inline object was not retained"
+assert actual_text.count("\x19") == 2, "IDML inline objects were not retained"
 assert Path(scribus.getImageFile(types["ImageFrame"])).resolve() == linked_image.resolve(), (
     "IDML image link was not resolved beside its source"
 )

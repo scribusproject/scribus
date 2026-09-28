@@ -2977,6 +2977,8 @@ void IdmlPlug::parseCharacterStyleRange(QDomElement &stt, PageItem* item, QStrin
 					colWidths.append(sr.attribute("SingleColumnWidth", "0").toDouble());
 				}
 			}
+			if (rowHeights.isEmpty() || colWidths.isEmpty())
+				continue;
 			m_Doc->dontResize = true;
 			int z = m_Doc->itemAdd(PageItem::Table, PageItem::Unspecified, 0, 0, qMin(item->width() - 2, twidth), qMin(item->height() - 2, theight), 0.0, CommonStrings::None, CommonStrings::None);
 			PageItem_Table* currItem = m_Doc->Items->takeAt(z)->asTable();
@@ -2999,8 +3001,16 @@ void IdmlPlug::parseCharacterStyleRange(QDomElement &stt, PageItem* item, QStrin
 				QDomElement sr = st.toElement();
 				if (sr.tagName() == "Cell")
 				{
-					QStringList pos = sr.attribute("Name", "0:0").split(":");
-					PageItem* itText = currItem->cellAt(pos[1].toInt(), pos[0].toInt()).textFrame();
+					const QStringList pos = sr.attribute("Name", "0:0").split(":");
+					if (pos.size() != 2)
+						continue;
+					bool columnOk = false;
+					bool rowOk = false;
+					const int column = pos[0].toInt(&columnOk);
+					const int row = pos[1].toInt(&rowOk);
+					if (!columnOk || !rowOk || column < 0 || column >= currItem->columns() || row < 0 || row >= currItem->rows())
+						continue;
+					PageItem* itText = currItem->cellAt(row, column).textFrame();
 					if (itText)
 					{
 						m_Doc->dontResize = true;
