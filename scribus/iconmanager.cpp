@@ -151,48 +151,48 @@ void IconManager::rebuildCache()
 
 bool IconManager::createLookupTable()
 {
-		QString iconSubdir(m_iconSets.value(m_activeSetBasename).path);
-		QString iconSetPath(QString("%1%2%3").arg(ScPaths::instance().iconDir(), iconSubdir, ".xml"));
-		QDomDocument document;
+	QString iconSubdir(m_iconSets.value(m_activeSetBasename).path);
+	QString iconSetPath(QString("%1%2%3").arg(ScPaths::instance().iconDir(), iconSubdir, ".xml"));
+	QDomDocument document;
 
-		if (!readXMLFile(iconSetPath, document, "xml"))
-			return false;
+	if (!readXMLFile(iconSetPath, document, "xml"))
+		return false;
 
-		m_lookupTable.clear();
+	m_lookupTable.clear();
 
-		QDomElement documentElement = document.documentElement();
-		QDomNodeList elements = documentElement.elementsByTagName( tagIcon );
+	QDomElement documentElement = document.documentElement();
+	QDomNodeList elements = documentElement.elementsByTagName( tagIcon );
 
-		for (int i = 0; i < elements.length(); i++)
+	for (int i = 0; i < elements.length(); i++)
+	{
+		QDomElement icon = elements.at(i).toElement();
+
+		QString iconPath = QString("%1%2%3").arg(ScPaths::instance().iconDir(), iconSubdir, "/" + icon.attribute("file"));
+		QString iconName = icon.attribute("id");
+		QColor iconColor = baseColor();
+
+		if (m_lookupTable.contains(iconName))
+			continue;
+
+		// if defined, override icon base color with color from iconset
+		if (iconsForDarkMode() && icon.hasAttribute(colorOnDark))
 		{
-			QDomElement icon = elements.at(i).toElement();
-
-			QString iconPath = QString("%1%2%3").arg(ScPaths::instance().iconDir(), iconSubdir, "/" + icon.attribute("file"));
-			QString iconName = icon.attribute("id");
-			QColor iconColor = baseColor();
-
-			if (m_lookupTable.contains(iconName))
-				continue;
-
-			// if defined, override icon base color with color from iconset
-			if (iconsForDarkMode() && icon.hasAttribute(colorOnDark))
-			{
-				iconColor = parseColor(icon.attribute(colorOnDark));
-			}
-			else if (!iconsForDarkMode() && icon.hasAttribute(colorOnLight))
-			{
-				iconColor = parseColor(icon.attribute(colorOnLight));
-			}
-
-			Item item;
-			item.name = iconName;
-			item.filePath = iconPath;
-			item.color = iconColor;
-
-			m_lookupTable.insert(iconName, item);
+			iconColor = parseColor(icon.attribute(colorOnDark));
+		}
+		else if (!iconsForDarkMode() && icon.hasAttribute(colorOnLight))
+		{
+			iconColor = parseColor(icon.attribute(colorOnLight));
 		}
 
-		return true;
+		Item item;
+		item.name = iconName;
+		item.filePath = iconPath;
+		item.color = iconColor;
+
+		m_lookupTable.insert(iconName, item);
+	}
+
+	return true;
 }
 
 void IconManager::insertPathIconsToCache()
