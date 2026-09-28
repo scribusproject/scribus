@@ -124,4 +124,18 @@ assert all(math.isfinite(scale) for scale in scribus.getImageScale(types["ImageF
     "Linked image has invalid scale"
 )
 scribus.closeDoc()
+
+blank_page = output / "blank-page.idml"
+with ZipFile(blank_page, "w", ZIP_DEFLATED) as archive:
+    archive.writestr(
+        "designmap.xml",
+        '<Document xmlns:idPkg="http://ns.adobe.com/AdobeInDesign/idml/1.0/">'
+        '<idPkg:Spread><Spread Self="Spread/blank"><Page Self="Page/blank"/>'
+        '</Spread></idPkg:Spread></Document>',
+    )
+assert scribus.openDoc(str(blank_page)), "Blank IDML page was rejected"
+assert scribus.pageCount() == 1 and not scribus.getAllObjects(page=0), (
+    "Blank IDML page changed during import"
+)
+scribus.closeDoc()
 print("IDML_MINIMAL_IMPORT_PASSED", flush=True)

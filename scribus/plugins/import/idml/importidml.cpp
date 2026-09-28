@@ -688,6 +688,8 @@ bool IdmlPlug::convert(const QString& fn)
 			activeLayer = m_Doc->layerName(0);
 		m_Doc->setActiveLayer(activeLayer);
 	}
+	if (ext == "idml" && firstPage)
+		retVal = false;
 
 	m_zip.reset();
 

@@ -29,7 +29,22 @@ wrong_root = output / "wrong-root.idml"
 with ZipFile(wrong_root, "w") as archive:
     archive.writestr("designmap.xml", "<NotAnInDesignDocument/>")
 
-for source in (not_zip, missing_map, wrong_root):
+no_pages = output / "no-document-pages.idml"
+with ZipFile(no_pages, "w") as archive:
+    archive.writestr(
+        "designmap.xml",
+        '<Document xmlns:idPkg="http://ns.adobe.com/AdobeInDesign/idml/1.0/"/>',
+    )
+
+missing_spread = output / "missing-spread-component.idml"
+with ZipFile(missing_spread, "w") as archive:
+    archive.writestr(
+        "designmap.xml",
+        '<Document xmlns:idPkg="http://ns.adobe.com/AdobeInDesign/idml/1.0/">'
+        '<idPkg:Spread src="Spreads/missing.xml"/></Document>',
+    )
+
+for source in (not_zip, missing_map, wrong_root, no_pages, missing_spread):
     try:
         opened = scribus.openDoc(str(source))
     except Exception:
