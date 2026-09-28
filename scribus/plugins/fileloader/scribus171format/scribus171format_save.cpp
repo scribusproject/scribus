@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribus171formatimpl.h"
 
 #include <ctime>
+#include <functional>
 #include <memory>
 #include <utility>
 
@@ -16,6 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include <QList>
 #include <QDataStream>
 #include <QScopedPointer>
+#include <QSet>
 
 #include "../../formatidlist.h"
 
@@ -2105,7 +2107,52 @@ void Scribus171Format::WriteObjects(ScribusDoc *doc, ScXmlStreamWriter& docu, co
 				items = some_items;
 			else
 			{
-				itemList = doc->FrameItems.values();
+				// A table cell (or another inline text container) can itself contain
+				// inline frames. Write those dependencies first so the loader can
+				// resolve their object markers while reading the parent story.
+				QSet<PageItem*> visiting;
+				QSet<PageItem*> written;
+				std::function<void(PageItem*)> appendFrame;
+				std::function<void(PageItem*)> appendDependencies;
+				appendDependencies = [&](PageItem* owner)
+				{
+					if (!owner)
+						return;
+					for (int pos = 0; pos < owner->itemText.length(); ++pos)
+					{
+						if (!owner->itemText.hasObject(pos))
+							continue;
+						const int id = owner->itemText.object(pos).getInlineCharID();
+						if (doc->FrameItems.contains(id))
+							appendFrame(doc->FrameItems.value(id));
+					}
+					if (owner->isTable())
+					{
+						PageItem_Table* table = owner->asTable();
+						for (int row = 0; row < table->rows(); ++row)
+							for (int column = 0; column < table->columns(); ++column)
+							{
+								PageItem* cellText = table->cellAt(row, column).textFrame();
+								if (cellText)
+									appendDependencies(cellText);
+							}
+					}
+					if (owner->isGroup())
+						for (PageItem* child : std::as_const(owner->groupItemList))
+							appendDependencies(child);
+				};
+				appendFrame = [&](PageItem* frame)
+				{
+					if (!frame || written.contains(frame) || visiting.contains(frame))
+						return;
+					visiting.insert(frame);
+					appendDependencies(frame);
+					visiting.remove(frame);
+					written.insert(frame);
+					itemList.append(frame);
+				};
+				for (PageItem* frame : doc->FrameItems)
+					appendFrame(frame);
 				items = &itemList;
 			}
 			break;

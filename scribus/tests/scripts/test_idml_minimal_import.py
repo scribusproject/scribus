@@ -89,7 +89,15 @@ design_map = """<?xml version="1.0" encoding="UTF-8"?>
           <Column SingleColumnWidth="40"/>
           <Cell Name="malformed"/>
           <Cell Name="99:99"/>
-          <Cell Name="0:0"><ParagraphStyleRange><CharacterStyleRange><Content>Cell text</Content></CharacterStyleRange></ParagraphStyleRange></Cell>
+          <Cell Name="0:0">
+            <ParagraphStyleRange><CharacterStyleRange><Content>Cell text</Content></CharacterStyleRange></ParagraphStyleRange>
+            <Rectangle Self="Inline/CellImage" ItemLayer="Layer/1" ItemTransform="1 0 0 1 0 0">
+              <Properties><PathGeometry><GeometryPathType PathOpen="false"><PathPointArray>
+                %s
+              </PathPointArray></GeometryPathType></PathGeometry></Properties>
+              <Image ImageTypeName="PNG"><Link LinkResourceURI="file:/unavailable/linked.png"/></Image>
+            </Rectangle>
+          </Cell>
         </Table>
         <Table Self="Table/empty"/>
         <Content>After</Content>
@@ -97,7 +105,7 @@ design_map = """<?xml version="1.0" encoding="UTF-8"?>
     </Story>
   </idPkg:Story>
 </Document>
-""" % (path_points, path_points, path_points, path_points, path_points)
+""" % (path_points, path_points, path_points, path_points, path_points, path_points)
 
 with ZipFile(source, "w", ZIP_DEFLATED) as archive:
     archive.writestr("mimetype", "application/vnd.adobe.indesign-idml-package")
@@ -136,6 +144,16 @@ assert len(inline_tables) == 1, "IDML inline table was not saved in SLA"
 assert inline_tables[0].find("./TableData/Cell/StoryText/Content").get("Chars") == "Cell text", (
     "IDML inline table cell text was not saved in SLA"
 )
+cell_objects = inline_tables[0].findall("./TableData/Cell/StoryText/Content[@Object]")
+assert len(cell_objects) == 1, "IDML table-cell image was not saved as an inline object"
+inline_frames = {frame.get("InID"): frame for frame in saved_document.iter("FrameObject")}
+cell_image = inline_frames.get(cell_objects[0].get("Object"))
+assert cell_image is not None and cell_image.get("ImageFileName"), (
+    "IDML table-cell image link was not saved in SLA"
+)
+assert (roundtrip.parent / cell_image.get("ImageFileName")).resolve() == linked_image.resolve(), (
+    "IDML table-cell image link changed during SLA save"
+)
 assert scribus.openDoc(str(roundtrip)), "Could not reopen imported IDML as SLA"
 assert scribus.pageCount() == 1, "IDML page count changed after SLA round-trip"
 reopened_objects = scribus.getAllObjects(page=0)
@@ -158,7 +176,23 @@ assert reopened_text.count("\x19") == 2, "IDML inline objects changed after SLA 
 assert Path(scribus.getImageFile(reopened_types["ImageFrame"])).resolve() == linked_image.resolve(), (
     "IDML image link changed after SLA round-trip"
 )
+resaved = output / "minimal-import-resaved.sla"
+scribus.saveDocAs(str(resaved))
 scribus.closeDoc()
+resaved_document = ElementTree.parse(resaved)
+resaved_frames = {frame.get("InID"): frame for frame in resaved_document.iter("FrameObject")}
+resaved_table = next(frame for frame in resaved_frames.values() if frame.find("TableData") is not None)
+resaved_cell_objects = resaved_table.findall("./TableData/Cell/StoryText/Content[@Object]")
+assert len(resaved_cell_objects) == 1, (
+    "IDML table-cell image was lost when reopening SLA"
+)
+resaved_cell_image = resaved_frames.get(resaved_cell_objects[0].get("Object"))
+assert resaved_cell_image is not None and resaved_cell_image.get("ImageFileName"), (
+    "IDML table-cell image link was lost when reopening SLA"
+)
+assert (resaved.parent / resaved_cell_image.get("ImageFileName")).resolve() == linked_image.resolve(), (
+    "IDML table-cell image link changed after SLA reopen"
+)
 
 blank_page = output / "blank-page.idml"
 with ZipFile(blank_page, "w", ZIP_DEFLATED) as archive:

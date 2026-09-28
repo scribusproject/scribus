@@ -3019,7 +3019,23 @@ void IdmlPlug::parseCharacterStyleRange(QDomElement &stt, PageItem* item, QStrin
 						for (QDomNode sct = sr.firstChild(); !sct.isNull(); sct = sct.nextSibling())
 						{
 							QDomElement spf = sct.toElement();
-							if (spf.tagName() == "XMLElement")
+							if (spf.tagName() == "Rectangle" || spf.tagName() == "Oval" || spf.tagName() == "GraphicLine" ||
+							    spf.tagName() == "Polygon" || spf.tagName() == "TextFrame" || spf.tagName() == "Group" ||
+							    spf.tagName() == "Button")
+							{
+								const QList<PageItem*> cellItems = parseItemXML(spf);
+								for (PageItem* cellItem : cellItems)
+								{
+									cellItem->isEmbedded = true;
+									cellItem->gXpos = 0;
+									cellItem->gYpos = 0;
+									cellItem->gWidth = cellItem->width();
+									cellItem->gHeight = cellItem->height();
+									const int inlineIndex = m_Doc->addToInlineFrames(cellItem);
+									itText->itemText.insertObject(inlineIndex);
+								}
+							}
+							else if (spf.tagName() == "XMLElement")
 							{
 								for (QDomNode sctx = spf.firstChild(); !sctx.isNull(); sctx = sctx.nextSibling())
 								{
