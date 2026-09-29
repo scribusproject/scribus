@@ -3,6 +3,8 @@
 """Audit imported page structure without exposing document contents or paths.
 
 Set SCRIBUS_IMPORT_QA_ROUNDTRIP=1 to verify a temporary SLA save/reopen too.
+Set SCRIBUS_IMPORT_QA_DETAIL_PAGES=8,9 to print asset counts for selected pages.
+Set SCRIBUS_IMPORT_QA_SHOW_MISSING=1 to print unresolved link paths locally.
 
 For general Scribus (>=1.3.2) copyright and licensing information please refer
 to the COPYING file provided with the program. Following this notice may exist
@@ -22,6 +24,12 @@ source = os.environ["SCRIBUS_IMPORT_QA_FILE"]
 assert scribus.openDoc(source), "Document import failed"
 source_dir = Path(source).resolve().parent
 roundtrip_requested = os.environ.get("SCRIBUS_IMPORT_QA_ROUNDTRIP") == "1"
+show_missing = os.environ.get("SCRIBUS_IMPORT_QA_SHOW_MISSING") == "1"
+detail_pages = {
+    int(value) - 1
+    for value in os.environ.get("SCRIBUS_IMPORT_QA_DETAIL_PAGES", "").split(",")
+    if value.strip()
+}
 
 pages = scribus.pageCount()
 assert pages > 0, "Import created no pages"
@@ -40,8 +48,13 @@ invalid_image_scales = 0
 for page in range(pages):
     names = scribus.getAllObjects(page=page)
     page_counts.append(len(names))
+    page_types = {}
+    page_image_extensions = {}
+    page_missing_images = 0
+    page_overflowing_text = 0
     for name in names:
         kind = scribus.getObjectType(name)
+        page_types[kind] = page_types.get(kind, 0) + 1
         if roundtrip_requested:
             original_items[name] = (kind, scribus.getPosition(name), scribus.getSize(name))
             original_owners[name] = page
@@ -54,10 +67,14 @@ for page in range(pages):
                 original_text[name] = scribus.getAllText(name)
             if scribus.getFrameText(name):
                 text_nonempty += 1
+            if page in detail_pages and kind == "TextFrame" and scribus.textOverflows(name):
+                page_overflowing_text += 1
         elif kind == "ImageFrame":
             if not all(math.isfinite(scale) for scale in scribus.getImageScale(name)):
                 invalid_image_scales += 1
             image_path = scribus.getImageFile(name)
+            extension = Path(image_path).suffix.lower() or "(none)"
+            page_image_extensions[extension] = page_image_extensions.get(extension, 0) + 1
             if image_path:
                 image_file = Path(image_path)
                 if not image_file.is_absolute():
@@ -66,6 +83,20 @@ for page in range(pages):
                     images_linked += 1
                 else:
                     images_missing += 1
+                    page_missing_images += 1
+                    if show_missing:
+                        print(
+                            "IMPORT_FIDELITY_MISSING_LINK page=%d path=%s" % (page + 1, image_file),
+                            flush=True,
+                        )
+    if page in detail_pages:
+        print(
+            "IMPORT_FIDELITY_PAGE page=%d objects=%d types=%s image_extensions=%s "
+            "missing_images=%d overflowing_text=%d"
+            % (page + 1, len(names), page_types, page_image_extensions,
+               page_missing_images, page_overflowing_text),
+            flush=True,
+        )
 
 objects = sum(page_counts)
 assert objects > 0, "Import created no page objects"
