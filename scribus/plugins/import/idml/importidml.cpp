@@ -2782,27 +2782,36 @@ void IdmlPlug::parseStoryXMLNode(const QDomElement& stNode)
 			if (!storyMap.contains(storyName))
 				continue;
 			item = storyMap[storyName];
+			bool syntheticTrailingParagraph = false;
 			for (QDomNode st = e.firstChild(); !st.isNull(); st = st.nextSibling())
 			{
 				QDomElement ste = st.toElement();
 				if (ste.tagName() == "ParagraphStyleRange")
-					parseParagraphStyleRange(ste, item);
+					syntheticTrailingParagraph = parseParagraphStyleRange(ste, item);
 				else if (ste.tagName() == "XMLElement")
 				{
 					for (QDomNode stx = ste.firstChild(); !stx.isNull(); stx = stx.nextSibling())
 					{
 						QDomElement stxe = stx.toElement();
 						if (stxe.tagName() == "ParagraphStyleRange")
-							parseParagraphStyleRange(stxe, item);
+							syntheticTrailingParagraph = parseParagraphStyleRange(stxe, item);
 					}
 				}
+			}
+			if (syntheticTrailingParagraph && item->itemText.length() > 0)
+			{
+				// Preserve the final paragraph style when discarding its synthetic separator.
+				const ParagraphStyle finalStyle = item->itemText.paragraphStyle(item->itemText.length() - 1);
+				item->itemText.removeChars(item->itemText.length() - 1, 1);
+				if (item->itemText.length() > 0)
+					item->itemText.applyStyle(item->itemText.length() - 1, finalStyle);
 			}
 			item->itemText.trim();
 		}
 	}
 }
 
-void IdmlPlug::parseParagraphStyleRange(QDomElement &ste, PageItem* item)
+bool IdmlPlug::parseParagraphStyleRange(QDomElement &ste, PageItem* item)
 {
 	QString pStyle = CommonStrings::DefaultParagraphStyle;
 	if (ste.hasAttribute("AppliedParagraphStyle"))
@@ -2846,12 +2855,17 @@ void IdmlPlug::parseParagraphStyleRange(QDomElement &ste, PageItem* item)
 		}
 	}
 	int posT = item->itemText.length();
+	bool syntheticTrailingParagraph = false;
 	if (posT > 0)
 	{
 		if (item->itemText.text(posT - 1) != SpecialChars::PARSEP)
+		{
 			item->itemText.insertChars(posT, SpecialChars::PARSEP);
+			syntheticTrailingParagraph = true;
+		}
 	}
 	item->itemText.applyStyle(posT, newStyle);
+	return syntheticTrailingParagraph;
 }
 
 void IdmlPlug::parseCharacterStyleRange(QDomElement &stt, PageItem* item, QString fontBase, QString fontStyle, ParagraphStyle &newStyle, int posC)

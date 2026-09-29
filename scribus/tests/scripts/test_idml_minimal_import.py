@@ -346,6 +346,24 @@ leading_map = """<?xml version="1.0" encoding="UTF-8"?>
         %s
       </PathPointArray></GeometryPathType></PathGeometry></Properties>
     </TextFrame>
+    <TextFrame Self="TextFrame/terminal" ParentStory="Story/terminal"
+               ItemTransform="1 0 0 1 100 0">
+      <Properties><PathGeometry><GeometryPathType PathOpen="false"><PathPointArray>
+        %s
+      </PathPointArray></GeometryPathType></PathGeometry></Properties>
+    </TextFrame>
+    <TextFrame Self="TextFrame/explicit" ParentStory="Story/explicit"
+               ItemTransform="1 0 0 1 200 0">
+      <Properties><PathGeometry><GeometryPathType PathOpen="false"><PathPointArray>
+        %s
+      </PathPointArray></GeometryPathType></PathGeometry></Properties>
+    </TextFrame>
+    <TextFrame Self="TextFrame/multiple" ParentStory="Story/multiple"
+               ItemTransform="1 0 0 1 300 0">
+      <Properties><PathGeometry><GeometryPathType PathOpen="false"><PathPointArray>
+        %s
+      </PathPointArray></GeometryPathType></PathGeometry></Properties>
+    </TextFrame>
   </Spread></idPkg:Spread>
   <idPkg:Story><Story Self="Story/leading">
     <ParagraphStyleRange><CharacterStyleRange>
@@ -353,12 +371,41 @@ leading_map = """<?xml version="1.0" encoding="UTF-8"?>
       <Content>First line</Content><Br/><Content>Second line</Content>
     </CharacterStyleRange></ParagraphStyleRange>
   </Story></idPkg:Story>
+  <idPkg:Story><Story Self="Story/terminal">
+    <ParagraphStyleRange><CharacterStyleRange><Content>Short</Content>
+    </CharacterStyleRange></ParagraphStyleRange>
+  </Story></idPkg:Story>
+  <idPkg:Story><Story Self="Story/explicit">
+    <ParagraphStyleRange><CharacterStyleRange><Content>Keeps break</Content><Br/>
+    </CharacterStyleRange></ParagraphStyleRange>
+  </Story></idPkg:Story>
+  <idPkg:Story><Story Self="Story/multiple">
+    <ParagraphStyleRange><CharacterStyleRange><Content>One</Content>
+    </CharacterStyleRange></ParagraphStyleRange>
+    <ParagraphStyleRange><CharacterStyleRange><Content>Two</Content>
+    </CharacterStyleRange></ParagraphStyleRange>
+  </Story></idPkg:Story>
 </Document>
-""" % path_points
+""" % (path_points, path_points, path_points, path_points)
 with ZipFile(leading_package, "w", ZIP_DEFLATED) as archive:
     archive.writestr("designmap.xml", leading_map)
 assert scribus.openDoc(str(leading_package)), "IDML character-range leading import failed"
-assert scribus.getAllText("TextFrame/leading") == "First line\rSecond line\r"
+assert scribus.getAllText("TextFrame/leading") == "First line\rSecond line", (
+    "IDML importer added a paragraph break absent from the source"
+)
+assert scribus.getAllText("TextFrame/terminal") == "Short", (
+    "IDML importer added a terminal paragraph break"
+)
+scribus.selectText(0, 1, "TextFrame/terminal")
+assert scribus.getLineSpacingMode("TextFrame/terminal") == 1, (
+    "IDML importer lost automatic paragraph spacing when removing a synthetic break"
+)
+assert scribus.getAllText("TextFrame/explicit") == "Keeps break\r", (
+    "IDML importer removed an explicit terminal paragraph break"
+)
+assert scribus.getAllText("TextFrame/multiple") == "One\rTwo", (
+    "IDML importer changed the break between paragraph-style ranges"
+)
 scribus.selectText(0, 1, "TextFrame/leading")
 assert abs(scribus.getLineSpacing("TextFrame/leading") - 18) < 0.01, (
     "IDML character-range leading was not applied"
