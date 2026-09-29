@@ -2858,6 +2858,17 @@ void IdmlPlug::parseCharacterStyleRange(QDomElement &stt, PageItem* item, QStrin
 {
 	QString data;
 	bool hasChangedFont = false;
+	auto applyLeading = [&newStyle](const QDomElement& leading)
+	{
+		if (leading.attribute("type") != "unit")
+			return;
+		const double value = leading.text().toDouble();
+		if (value > 0)
+		{
+			newStyle.setLineSpacingMode(ParagraphStyle::FixedLineSpacing);
+			newStyle.setLineSpacing(value);
+		}
+	};
 	for (QDomNode stcp = stt.firstChild(); !stcp.isNull(); stcp = stcp.nextSibling())
 	{
 		QDomElement sp = stcp.toElement();
@@ -2871,20 +2882,12 @@ void IdmlPlug::parseCharacterStyleRange(QDomElement &stt, PageItem* item, QStrin
 					fontBase = spf.text();
 					hasChangedFont = true;
 				}
+				else if (spf.tagName() == "Leading")
+					applyLeading(spf);
 			}
 		}
 		else if (sp.tagName() == "Leading")
-		{
-			if (sp.attribute("type") == "unit")
-			{
-				double lead = sp.text().toDouble();
-				if (lead != 0)
-				{
-					newStyle.setLineSpacingMode(ParagraphStyle::FixedLineSpacing);
-					newStyle.setLineSpacing(lead);
-				}
-			}
-		}
+			applyLeading(sp);
 	}
 	// Apply possible override of character style
 	CharStyle nstyle = newStyle.charStyle();

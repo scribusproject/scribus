@@ -335,4 +335,33 @@ assert Path(scribus.getImageFile("Rectangle/missing-image")) == missing_image, (
     "Missing IDML image path changed after SLA reopen"
 )
 scribus.closeDoc()
+leading_package = output / "character-range-leading.idml"
+leading_map = """<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns:idPkg="http://ns.adobe.com/AdobeInDesign/idml/1.0/">
+  <idPkg:Spread><Spread Self="Spread/leading">
+    <Page Self="Page/leading"/>
+    <TextFrame Self="TextFrame/leading" ParentStory="Story/leading"
+               ItemTransform="1 0 0 1 0 0">
+      <Properties><PathGeometry><GeometryPathType PathOpen="false"><PathPointArray>
+        %s
+      </PathPointArray></GeometryPathType></PathGeometry></Properties>
+    </TextFrame>
+  </Spread></idPkg:Spread>
+  <idPkg:Story><Story Self="Story/leading">
+    <ParagraphStyleRange><CharacterStyleRange>
+      <Properties><Leading type="unit">18</Leading></Properties>
+      <Content>First line</Content><Br/><Content>Second line</Content>
+    </CharacterStyleRange></ParagraphStyleRange>
+  </Story></idPkg:Story>
+</Document>
+""" % path_points
+with ZipFile(leading_package, "w", ZIP_DEFLATED) as archive:
+    archive.writestr("designmap.xml", leading_map)
+assert scribus.openDoc(str(leading_package)), "IDML character-range leading import failed"
+assert scribus.getAllText("TextFrame/leading") == "First line\rSecond line\r"
+scribus.selectText(0, 1, "TextFrame/leading")
+assert abs(scribus.getLineSpacing("TextFrame/leading") - 18) < 0.01, (
+    "IDML character-range leading was not applied"
+)
+scribus.closeDoc()
 print("IDML_MINIMAL_IMPORT_PASSED", flush=True)
