@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 
 import math
 import os
+from base64 import b64encode
 from pathlib import Path
 from struct import pack
 from xml.etree import ElementTree
@@ -239,5 +240,65 @@ scribus.saveDocAs(str(facing_roundtrip))
 scribus.closeDoc()
 assert scribus.openDoc(str(facing_roundtrip)), "Facing-page SLA could not be reopened"
 assert len(scribus.getAllObjects(page=2)) == 1, "Right-page object ownership changed after SLA reopen"
+scribus.closeDoc()
+
+cropped_images = output / "anisotropic-image-crop.idml"
+cropped_link = output / "Links" / "cropped.png"
+cropped_link.write_bytes(
+    b"\x89PNG\r\n\x1a\n"
+    + png_chunk(b"IHDR", pack(">IIBBBBB", 1, 1, 8, 2, 0, 0, 0))
+    + png_chunk(b"pHYs", pack(">IIB", 2835, 5669, 1))
+    + png_chunk(b"IDAT", compress(b"\x00\xff\x00\x00"))
+    + png_chunk(b"IEND", b"")
+)
+crop_map = """<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns:idPkg="http://ns.adobe.com/AdobeInDesign/idml/1.0/">
+  <idPkg:Spread><Spread Self="Spread/crop">
+    <Page Self="Page/crop"/>
+    <Rectangle Self="Rectangle/linked" ItemTransform="1 0 0 1 0 0">
+      <Properties><PathGeometry><GeometryPathType PathOpen="false"><PathPointArray>
+        %s
+      </PathPointArray></GeometryPathType></PathGeometry></Properties>
+      <FrameFittingOption LeftCrop="5" TopCrop="4"/>
+      <Image ImageTypeName="PNG" ItemTransform="2 0 0 3 0 0">
+        <Link LinkResourceURI="file:/unavailable/cropped.png"/>
+      </Image>
+    </Rectangle>
+    <Rectangle Self="Rectangle/embedded" ItemTransform="1 0 0 1 100 0">
+      <Properties><PathGeometry><GeometryPathType PathOpen="false"><PathPointArray>
+        %s
+      </PathPointArray></GeometryPathType></PathGeometry></Properties>
+      <FrameFittingOption LeftCrop="5" TopCrop="4"/>
+      <Image ImageTypeName="PNG" ItemTransform="2 0 0 3 0 0">
+        <Properties><Contents>%s</Contents></Properties>
+      </Image>
+    </Rectangle>
+  </Spread></idPkg:Spread>
+</Document>
+""" % (path_points, path_points, b64encode(cropped_link.read_bytes()).decode("ascii"))
+with ZipFile(cropped_images, "w", ZIP_DEFLATED) as archive:
+    archive.writestr("designmap.xml", crop_map)
+assert scribus.openDoc(str(cropped_images)), "Cropped-image IDML import failed"
+for name in ("Rectangle/linked", "Rectangle/embedded"):
+    assert scribus.getObjectType(name) == "ImageFrame", "%s was not imported as an image" % name
+    x, y = scribus.getImageOffset(name)
+    assert abs(x + 10) < 0.01 and abs(y + 12) < 0.01, (
+        "%s crop offset changed: (%f, %f)" % (name, x, y)
+    )
+    x_scale, y_scale = scribus.getImageScale(name)
+    assert abs(x_scale - 2) < 0.01 and abs(y_scale - 3) < 0.01, (
+        "%s image scale changed: (%f, %f)" % (name, x_scale, y_scale)
+    )
+cropped_roundtrip = output / "anisotropic-image-crop.sla"
+scribus.saveDocAs(str(cropped_roundtrip))
+scribus.closeDoc()
+assert scribus.openDoc(str(cropped_roundtrip)), "Cropped-image SLA could not be reopened"
+for name in ("Rectangle/linked", "Rectangle/embedded"):
+    x, y = scribus.getImageOffset(name)
+    x_scale, y_scale = scribus.getImageScale(name)
+    assert abs(x + 10) < 0.01 and abs(y + 12) < 0.01, "%s crop changed after SLA reopen" % name
+    assert abs(x_scale - 2) < 0.01 and abs(y_scale - 3) < 0.01, (
+        "%s scale changed after SLA reopen" % name
+    )
 scribus.closeDoc()
 print("IDML_MINIMAL_IMPORT_PASSED", flush=True)

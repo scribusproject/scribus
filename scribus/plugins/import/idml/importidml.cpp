@@ -2655,8 +2655,8 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 								item->AspectRatio = false;
 							}
 							m_Doc->loadPict(fileName, item);
-							item->setImageXYScale(scXi / item->pixm.imgInfo.xres * 72, scYi / item->pixm.imgInfo.xres * 72);
-							item->setImageXYOffset(-imageDX * scXi / item->imageXScale(), -imageDY * scXi / item->imageYScale());
+							item->setImageXYScale(scXi / item->pixm.imgInfo.xres * 72, scYi / item->pixm.imgInfo.yres * 72);
+							item->setImageXYOffset(-imageDX * scXi / item->imageXScale(), -imageDY * scYi / item->imageYScale());
 							item->setImageRotation(-roti);
 							item->adjustPictScale();
 						}
@@ -2693,8 +2693,8 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 						item->AspectRatio = false;
 					}
 					m_Doc->loadPict(imagePath, item);
-					item->setImageXYScale(scXi / item->pixm.imgInfo.xres * 72, scYi / item->pixm.imgInfo.xres * 72);
-					item->setImageXYOffset(-imageDX * scXi / item->imageXScale(), -imageDY * scXi / item->imageYScale());
+					item->setImageXYScale(scXi / item->pixm.imgInfo.xres * 72, scYi / item->pixm.imgInfo.yres * 72);
+					item->setImageXYOffset(-imageDX * scXi / item->imageXScale(), -imageDY * scYi / item->imageYScale());
 					item->setImageRotation(-roti);
 					if (imageFit != "None")
 						item->adjustPictScale();
