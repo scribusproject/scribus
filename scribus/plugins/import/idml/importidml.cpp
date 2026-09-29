@@ -418,6 +418,33 @@ bool IdmlPlug::importFile(const QString& fNameIn, const TransactionSettings& trS
 		{
 			m_Doc->changed();
 			m_Doc->reformPages();
+			if (importerFlags & LoadSavePlugin::lfCreateDoc)
+			{
+				// A tiny bleed overlap can make OnPage choose the preceding facing page.
+				for (PageItem* imported : std::as_const(Elements))
+				{
+					if (imported->isGroup() || !m_Doc->DocItems.contains(imported))
+						continue;
+					const QRectF bounds = imported->getTransform().mapRect(QRectF(0, 0, imported->width(), imported->height()));
+					const QPointF center = bounds.center();
+					const int owner = imported->OwnPage;
+					if (owner >= 0 && owner < m_Doc->Pages->count())
+					{
+						const ScPage* page = m_Doc->Pages->at(owner);
+						if (QRectF(page->xOffset(), page->yOffset(), page->width(), page->height()).contains(center))
+							continue;
+					}
+					for (int pageIndex = 0; pageIndex < m_Doc->Pages->count(); ++pageIndex)
+					{
+						const ScPage* page = m_Doc->Pages->at(pageIndex);
+						if (QRectF(page->xOffset(), page->yOffset(), page->width(), page->height()).contains(center))
+						{
+							imported->OwnPage = pageIndex;
+							break;
+						}
+					}
+				}
+			}
 			if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 				m_Doc->view()->updatesOn(true);
 		}

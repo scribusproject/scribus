@@ -207,4 +207,37 @@ assert scribus.pageCount() == 1 and not scribus.getAllObjects(page=0), (
     "Blank IDML page changed during import"
 )
 scribus.closeDoc()
+
+facing_pages = output / "facing-page-ownership.idml"
+facing_map = """<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns:idPkg="http://ns.adobe.com/AdobeInDesign/idml/1.0/">
+  <idPkg:Preferences>
+    <DocumentPreference PageWidth="80" PageHeight="60" FacingPages="true"
+      DocumentBleedTopOffset="5" DocumentBleedInsideOrLeftOffset="0"
+      DocumentBleedOutsideOrRightOffset="5" DocumentBleedBottomOffset="5"/>
+    <MarginPreference Top="0" Left="0" Right="0" Bottom="0" ColumnCount="1" ColumnGutter="0"/>
+  </idPkg:Preferences>
+  <idPkg:Spread><Spread Self="Spread/facing">
+    <Page Self="Page/first"/>
+    <Page Self="Page/left"/>
+    <Page Self="Page/right"/>
+    <Rectangle Self="Rectangle/right-background" ItemTransform="1 0 0 1 -0.000000000001 0">
+      <Properties><PathGeometry><GeometryPathType PathOpen="false"><PathPointArray>
+        %s
+      </PathPointArray></GeometryPathType></PathGeometry></Properties>
+    </Rectangle>
+  </Spread></idPkg:Spread>
+</Document>
+""" % path_points
+with ZipFile(facing_pages, "w", ZIP_DEFLATED) as archive:
+    archive.writestr("designmap.xml", facing_map)
+assert scribus.openDoc(str(facing_pages)), "Facing-page IDML import failed"
+assert scribus.pageCount() == 3, "Facing-page IDML page count changed"
+assert len(scribus.getAllObjects(page=2)) == 1, "Right-page object was assigned to the wrong page"
+facing_roundtrip = output / "facing-page-ownership.sla"
+scribus.saveDocAs(str(facing_roundtrip))
+scribus.closeDoc()
+assert scribus.openDoc(str(facing_roundtrip)), "Facing-page SLA could not be reopened"
+assert len(scribus.getAllObjects(page=2)) == 1, "Right-page object ownership changed after SLA reopen"
+scribus.closeDoc()
 print("IDML_MINIMAL_IMPORT_PASSED", flush=True)
