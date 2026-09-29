@@ -2673,14 +2673,13 @@ QList<PageItem*> IdmlPlug::parseItemXML(const QDomElement& itElem, const QTransf
 					{
 						// InDesign packages place external assets beside the IDML file.
 						// Resolve them there, independent of Scribus's working directory.
+						// Otherwise retain the original missing path for later relinking.
 						const QString linkedPath = QDir(baseFile).filePath("Links/" + imageInfo.fileName());
 						const QString siblingPath = QDir(baseFile).filePath(imageInfo.fileName());
 						if (QFileInfo::exists(linkedPath))
 							imagePath = linkedPath;
 						else if (QFileInfo::exists(siblingPath))
 							imagePath = siblingPath;
-						else
-							imagePath = imageInfo.fileName();
 					}
 					item->AspectRatio = true;
 					if (imageFit == "None")

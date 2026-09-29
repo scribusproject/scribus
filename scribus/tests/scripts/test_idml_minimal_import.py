@@ -301,4 +301,38 @@ for name in ("Rectangle/linked", "Rectangle/embedded"):
         "%s scale changed after SLA reopen" % name
     )
 scribus.closeDoc()
+missing_image = output / "original-location" / "not-present.png"
+assert not missing_image.exists(), "Missing-image fixture unexpectedly exists"
+missing_link_package = output / "missing-linked-image.idml"
+missing_link_map = """<?xml version="1.0" encoding="UTF-8"?>
+<Document xmlns:idPkg="http://ns.adobe.com/AdobeInDesign/idml/1.0/">
+  <idPkg:Spread><Spread Self="Spread/missing">
+    <Page Self="Page/missing"/>
+    <Rectangle Self="Rectangle/missing-image" ItemTransform="1 0 0 1 0 0">
+      <Properties><PathGeometry><GeometryPathType PathOpen="false"><PathPointArray>
+        %s
+      </PathPointArray></GeometryPathType></PathGeometry></Properties>
+      <Image ImageTypeName="PNG"><Link LinkResourceURI="%s"/></Image>
+    </Rectangle>
+  </Spread></idPkg:Spread>
+</Document>
+""" % (path_points, missing_image.as_uri())
+with ZipFile(missing_link_package, "w", ZIP_DEFLATED) as archive:
+    archive.writestr("designmap.xml", missing_link_map)
+assert scribus.openDoc(str(missing_link_package)), "Missing-link IDML import failed"
+assert scribus.getObjectType("Rectangle/missing-image") == "ImageFrame", "Missing image frame was lost"
+assert Path(scribus.getImageFile("Rectangle/missing-image")) == missing_image, (
+    "Missing IDML image lost its original path"
+)
+assert all(math.isfinite(value) for value in scribus.getImageScale("Rectangle/missing-image")), (
+    "Missing IDML image has invalid scale"
+)
+missing_roundtrip = output / "missing-linked-image.sla"
+scribus.saveDocAs(str(missing_roundtrip))
+scribus.closeDoc()
+assert scribus.openDoc(str(missing_roundtrip)), "Missing-link SLA could not be reopened"
+assert Path(scribus.getImageFile("Rectangle/missing-image")) == missing_image, (
+    "Missing IDML image path changed after SLA reopen"
+)
+scribus.closeDoc()
 print("IDML_MINIMAL_IMPORT_PASSED", flush=True)
