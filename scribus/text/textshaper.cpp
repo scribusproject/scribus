@@ -379,6 +379,9 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 	}
 
 	QVector<int32_t> justificationTracking;
+	int latinParagraphStart = -1;
+	int latinParagraphEnd = -1;
+	bool justifyLatinWord = false;
 
 	// Insert implicit spaces in justification between characters
 	// in scripts that do not use spaces to separate words
@@ -523,6 +526,22 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 			LayoutFlags flags = m_story.flags(firstChar);
 			const CharStyle& charStyle(m_story.charStyle(firstChar));
 			const StyleFlag& effects = charStyle.effects();
+			if (firstChar < latinParagraphStart || firstChar >= latinParagraphEnd)
+			{
+				latinParagraphStart = firstChar;
+				while (latinParagraphStart > 0 && m_story.text(latinParagraphStart - 1) != SpecialChars::PARSEP)
+					--latinParagraphStart;
+				latinParagraphEnd = firstChar;
+				while (latinParagraphEnd < m_story.length() && m_story.text(latinParagraphEnd) != SpecialChars::PARSEP)
+					++latinParagraphEnd;
+				justifyLatinWord = latinParagraphEnd - latinParagraphStart > 1
+					&& m_story.paragraphStyle(latinParagraphStart).alignment() == ParagraphStyle::Extended;
+				for (int pos = latinParagraphStart; justifyLatinWord && pos < latinParagraphEnd; ++pos)
+				{
+					const QChar letter = m_story.text(pos);
+					justifyLatinWord = letter.isLetter() && letter.script() == QChar::Script_Latin;
+				}
+			}
 
 			QString str = m_text.mid(firstChar - fromPos, lastChar - firstChar + 1);
 			GlyphCluster run(&charStyle, flags, firstChar, lastChar, m_story.object(firstChar), result.glyphs().length(), str);
@@ -542,6 +561,9 @@ ShapedText TextShaper::shape(int fromPos, int toPos)
 			else if (SpecialChars::isFixedSpace(ch))
 				run.setFlag(ScLayout_FixedSpace);
 			else if (justificationTracking.contains(firstCluster))
+				run.setFlag(ScLayout_JustificationTracking);
+			else if (justifyLatinWord && lastChar < latinParagraphEnd - 1)
+				// A fully justified single-word line needs places to distribute tracking.
 				run.setFlag(ScLayout_JustificationTracking);
 
 			if (effects & ScStyle_Underline)

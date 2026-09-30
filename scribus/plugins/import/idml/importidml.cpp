@@ -374,6 +374,8 @@ bool IdmlPlug::importFile(const QString& fNameIn, const TransactionSettings& trS
 		m_Doc->DoDrawing = true;
 		m_Doc->scMW()->setScriptRunning(false);
 		m_Doc->setLoading(false);
+		if ((flags & LoadSavePlugin::lfCreateDoc) && fi.suffix().compare("idml", Qt::CaseInsensitive) == 0)
+			fitTightDisplayText();
 		QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
 		if (!Elements.isEmpty() && !ret && interactive)
 		{
@@ -469,6 +471,87 @@ bool IdmlPlug::importFile(const QString& fNameIn, const TransactionSettings& trS
 	}
 	QApplication::restoreOverrideCursor();
 	return success;
+}
+
+void IdmlPlug::fitTightDisplayText()
+{
+	// InDesign can fit display text into frames that miss Scribus' ascent or
+	// line-breaking threshold by a fraction of a point. Keep the source font
+	// and font size, and only repair small, transparent, standalone frames.
+	UndoBlocker undoBlocker;
+	for (PageItem* item : std::as_const(Elements))
+	{
+		if (!item || !item->isTextFrame() || item->locked() || item->prevInChain() || item->nextInChain()
+			|| item->fillColor() != CommonStrings::None || item->lineColor() != CommonStrings::None
+			|| qAbs(item->rotation()) > 0.01)
+			continue;
+		const int length = item->itemText.length();
+		if (length < 1 || length > 32 || item->itemText.paragraphStyle(0).alignment() != ParagraphStyle::Extended)
+			continue;
+		bool eligible = true;
+		bool hasSpace = false;
+		bool zeroTracking = true;
+		for (int pos = 0; pos < length; ++pos)
+		{
+			const QChar ch = item->itemText.text(pos);
+			if (ch == SpecialChars::PARSEP || ch == SpecialChars::LINEBREAK || item->itemText.charStyle(pos).fontSize() < 200)
+			{
+				eligible = false;
+				break;
+			}
+			hasSpace |= ch.isSpace();
+			zeroTracking &= qAbs(item->itemText.charStyle(pos).tracking()) < 0.01;
+		}
+		if (!eligible)
+			continue;
+		item->layout();
+		if (!item->frameOverflows())
+			continue;
+
+		if (hasSpace && zeroTracking)
+		{
+			QList<CharStyle> originalStyles;
+			originalStyles.reserve(length);
+			for (int pos = 0; pos < length; ++pos)
+				originalStyles.append(item->itemText.charStyle(pos));
+			for (int tenthPoint = 1; tenthPoint <= 12; ++tenthPoint)
+			{
+				CharStyle adjustment;
+				adjustment.setTracking(-tenthPoint);
+				item->itemText.applyCharStyle(0, length, adjustment);
+				item->layout();
+				if (!item->frameOverflows())
+					break;
+			}
+			if (!item->frameOverflows())
+				continue;
+			for (int pos = 0; pos < length; ++pos)
+				item->itemText.setCharStyle(pos, 1, originalStyles.at(pos));
+		}
+
+		const double originalWidth = item->width();
+		const double originalHeight = item->height();
+		for (int tenthPoint = 1; tenthPoint <= 10; ++tenthPoint)
+		{
+			m_Doc->sizeItem(originalWidth, originalHeight + tenthPoint * 0.1, item, false, true, false);
+			item->layout();
+			if (!item->frameOverflows())
+				break;
+		}
+		if (!item->frameOverflows())
+			continue;
+		m_Doc->sizeItem(originalWidth, originalHeight, item, false, true, false);
+		for (int tenthPoint = 1; tenthPoint <= 10; ++tenthPoint)
+		{
+			const double inset = tenthPoint * 0.1;
+			m_Doc->sizeItem(originalWidth + inset, originalHeight + inset, item, false, true, false);
+			item->layout();
+			if (!item->frameOverflows())
+				break;
+		}
+		if (item->frameOverflows())
+			m_Doc->sizeItem(originalWidth, originalHeight, item, false, true, false);
+	}
 }
 
 IdmlPlug::~IdmlPlug()
