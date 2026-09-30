@@ -1288,6 +1288,9 @@ void IdmlPlug::parseCharacterStyle(const QDomElement& styleElem)
 
 void IdmlPlug::parseParagraphStyle(const QDomElement& styleElem)
 {
+	const QString idmlStyle = styleElem.attribute("Self");
+	if (styleElem.hasAttribute("AutoLeading"))
+		autoLeadingValues.insert(idmlStyle, styleElem.attribute("AutoLeading").toDouble());
 	ParagraphStyle newStyle;
 	newStyle.erase();
 	newStyle.setDefaultStyle(false);
@@ -1310,6 +1313,7 @@ void IdmlPlug::parseParagraphStyle(const QDomElement& styleElem)
 				else if (i.tagName() == "BasedOn")
 				{
 					QString parentStyle = i.text().remove("$ID/");
+					autoLeadingParents.insert(idmlStyle, parentStyle);
 					if (styleTranslate.contains(parentStyle))
 						parentStyle = styleTranslate[parentStyle];
 					else
@@ -2896,6 +2900,20 @@ void IdmlPlug::parseStoryXMLNode(const QDomElement& stNode)
 
 bool IdmlPlug::parseParagraphStyleRange(QDomElement &ste, PageItem* item)
 {
+	const int rangeStart = item->itemText.length();
+	double autoLeading = 120.0;
+	QString idmlStyle = ste.attribute("AppliedParagraphStyle");
+	for (int depth = 0; depth < 64 && !idmlStyle.isEmpty(); ++depth)
+	{
+		if (autoLeadingValues.contains(idmlStyle))
+		{
+			autoLeading = autoLeadingValues.value(idmlStyle);
+			break;
+		}
+		idmlStyle = autoLeadingParents.value(idmlStyle);
+	}
+	if (ste.hasAttribute("AutoLeading"))
+		autoLeading = ste.attribute("AutoLeading").toDouble();
 	QString pStyle = CommonStrings::DefaultParagraphStyle;
 	if (ste.hasAttribute("AppliedParagraphStyle"))
 	{
@@ -2913,31 +2931,35 @@ bool IdmlPlug::parseParagraphStyleRange(QDomElement &ste, PageItem* item)
 	ParagraphStyle ttx = m_Doc->paragraphStyle(pStyle);
 	QString fontBase = ttx.charStyle().font().family();
 	QString fontStyle = ttx.charStyle().font().style();
+	QMap<int, double> emptyParagraphSizes;
 	for (QDomNode stc = ste.firstChild(); !stc.isNull(); stc = stc.nextSibling())
 	{
 		QDomElement stt = stc.toElement();
 		if (stt.tagName() == "CharacterStyleRange")
-			parseCharacterStyleRange(stt, item, fontBase, fontStyle, newStyle, item->itemText.length());
+			parseCharacterStyleRange(stt, item, fontBase, fontStyle, newStyle, item->itemText.length(), emptyParagraphSizes);
 		else if (stt.tagName() == "XMLElement")
 		{
 			for (QDomNode stx = stt.firstChild(); !stx.isNull(); stx = stx.nextSibling())
 			{
 				QDomElement stxe = stx.toElement();
 				if (stxe.tagName() == "CharacterStyleRange")
-					parseCharacterStyleRange(stxe, item, fontBase, fontStyle, newStyle, item->itemText.length());
+					parseCharacterStyleRange(stxe, item, fontBase, fontStyle, newStyle, item->itemText.length(), emptyParagraphSizes);
 				else if (stxe.tagName() == "XMLElement")
 				{
 					for (QDomNode stxx = stxe.firstChild(); !stxx.isNull(); stxx = stxx.nextSibling())
 					{
 						QDomElement stxxe = stxx.toElement();
 						if (stxxe.tagName() == "CharacterStyleRange")
-							parseCharacterStyleRange(stxxe, item, fontBase, fontStyle, newStyle, item->itemText.length());
+							parseCharacterStyleRange(stxxe, item, fontBase, fontStyle, newStyle, item->itemText.length(), emptyParagraphSizes);
 					}
 				}
 			}
 		}
 	}
 	int posT = item->itemText.length();
+	if (autoLeading > 0.0 && autoLeading <= 500.0)
+		applyAutoLeading(item, rangeStart, posT, autoLeading, emptyParagraphSizes);
+	ParagraphStyle trailingStyle = posT > rangeStart ? item->itemText.paragraphStyle(posT - 1) : newStyle;
 	bool syntheticTrailingParagraph = false;
 	if (posT > 0)
 	{
@@ -2947,11 +2969,44 @@ bool IdmlPlug::parseParagraphStyleRange(QDomElement &ste, PageItem* item)
 			syntheticTrailingParagraph = true;
 		}
 	}
-	item->itemText.applyStyle(posT, newStyle);
+	item->itemText.applyStyle(posT, trailingStyle);
 	return syntheticTrailingParagraph;
 }
 
-void IdmlPlug::parseCharacterStyleRange(QDomElement &stt, PageItem* item, QString fontBase, QString fontStyle, ParagraphStyle &newStyle, int posC)
+void IdmlPlug::applyAutoLeading(PageItem* item, int fromPos, int toPos, double percent, const QMap<int, double>& emptyParagraphSizes)
+{
+	// InDesign's automatic leading is a percentage of point size; Scribus'
+	// automatic mode uses font height instead. Preserve the imported baseline
+	// distance as a paragraph override without changing native documents.
+	for (int start = fromPos; start < toPos; )
+	{
+		int end = start;
+		double largestSize = 0.0;
+		bool uniformSize = true;
+		while (end < toPos && item->itemText.text(end) != SpecialChars::PARSEP)
+		{
+			const double size = item->itemText.charStyle(end).fontSize();
+			uniformSize &= largestSize == 0.0 || qAbs(largestSize - size) < 0.01;
+			largestSize = qMax(largestSize, size);
+			++end;
+		}
+		if (largestSize == 0)
+			largestSize = emptyParagraphSizes.value(start, item->itemText.charStyle(start).fontSize());
+		ParagraphStyle style = item->itemText.paragraphStyle(start);
+		// Scribus uses a different first-line offset for large display type.
+		// Mixed sizes also need per-line leading, not one paragraph-wide value.
+		if (style.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing
+			&& uniformSize && largestSize > 0 && largestSize < 200)
+		{
+			style.setLineSpacingMode(ParagraphStyle::FixedLineSpacing);
+			style.setLineSpacing(largestSize / 10.0 * percent / 100.0);
+			item->itemText.applyStyle(start, style);
+		}
+		start = end + 1;
+	}
+}
+
+void IdmlPlug::parseCharacterStyleRange(QDomElement &stt, PageItem* item, QString fontBase, QString fontStyle, ParagraphStyle &newStyle, int posC, QMap<int, double>& emptyParagraphSizes)
 {
 	QString data;
 	bool hasChangedFont = false;
@@ -3063,6 +3118,7 @@ void IdmlPlug::parseCharacterStyleRange(QDomElement &stt, PageItem* item, QStrin
 			item->itemText.applyCharStyle(posC, data.length(), nstyle);
 			data = "";
 			posC = item->itemText.length();
+			emptyParagraphSizes.insert(posC, nstyle.fontSize());
 		}
 		else if ((s.tagName() == "Rectangle") || (s.tagName() == "Oval") || (s.tagName() == "GraphicLine") || (s.tagName() == "Polygon") || (s.tagName() == "TextFrame") || (s.tagName() == "Group") || (s.tagName() == "Button"))
 		{
@@ -3195,7 +3251,7 @@ void IdmlPlug::parseCharacterStyleRange(QDomElement &stt, PageItem* item, QStrin
 		{
 		//	for (QDomNode stx = s.firstChild(); !stx.isNull(); stx = stx.nextSibling())
 		//	{
-				parseCharacterStyleRange(s, item, fontBase, fontStyle, newStyle, posC);
+				parseCharacterStyleRange(s, item, fontBase, fontStyle, newStyle, posC, emptyParagraphSizes);
 		//	}
 		}
 	}

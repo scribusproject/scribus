@@ -109,6 +109,7 @@ private:
 	void parseObjectStyle(const QDomElement& styleElem);
 	void parseCharacterStyle(const QDomElement& styleElem);
 	void parseParagraphStyle(const QDomElement& styleElem);
+	void applyAutoLeading(PageItem* item, int fromPos, int toPos, double percent, const QMap<int, double>& emptyParagraphSizes);
 	bool parsePreferencesXML(const QDomElement& prElem);
 	void parsePreferencesXMLNode(const QDomElement& prNode);
 	bool parseSpreadXML(const QDomElement& spElem);
@@ -117,7 +118,7 @@ private:
 	bool parseStoryXML(const QDomElement& stElem);
 	void parseStoryXMLNode(const QDomElement& stNode);
 	bool parseParagraphStyleRange(QDomElement &ste, PageItem* item);
-	void parseCharacterStyleRange(QDomElement &stt, PageItem* item, QString fontBase, QString fontStyle, ParagraphStyle &newStyle, int posC);
+	void parseCharacterStyleRange(QDomElement &stt, PageItem* item, QString fontBase, QString fontStyle, ParagraphStyle &newStyle, int posC, QMap<int, double>& emptyParagraphSizes);
 	void fitTightDisplayText();
 	void readCharStyleAttributes(CharStyle &newStyle, const QDomElement &styleElem);
 	void readParagraphStyleAttributes(ParagraphStyle &newStyle, const QDomElement &styleElem);
@@ -153,6 +154,8 @@ private:
 	QMap<QString, QString> layerTranslate;
 	QMap<QString, PageItem*> storyMap;
 	QMap<QString, QString> styleTranslate;
+	QMap<QString, double> autoLeadingValues;
+	QMap<QString, QString> autoLeadingParents;
 	QMap<QString, QStringList> styleParents;
 	QMap<QString, QString> charStyleTranslate;
 	QMap<QString, QMap<QString, QString> > fontTranslateMap;

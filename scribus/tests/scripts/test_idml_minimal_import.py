@@ -338,6 +338,12 @@ scribus.closeDoc()
 leading_package = output / "character-range-leading.idml"
 leading_map = """<?xml version="1.0" encoding="UTF-8"?>
 <Document xmlns:idPkg="http://ns.adobe.com/AdobeInDesign/idml/1.0/">
+  <idPkg:Styles><RootParagraphStyleGroup>
+    <ParagraphStyle Self="ParagraphStyle/AutoBase" Name="AutoBase" AutoLeading="150"/>
+    <ParagraphStyle Self="ParagraphStyle/AutoChild" Name="AutoChild">
+      <Properties><BasedOn type="object">ParagraphStyle/AutoBase</BasedOn></Properties>
+    </ParagraphStyle>
+  </RootParagraphStyleGroup></idPkg:Styles>
   <idPkg:Spread><Spread Self="Spread/leading">
     <Page Self="Page/leading"/>
     <TextFrame Self="TextFrame/leading" ParentStory="Story/leading"
@@ -364,6 +370,24 @@ leading_map = """<?xml version="1.0" encoding="UTF-8"?>
         %s
       </PathPointArray></GeometryPathType></PathGeometry></Properties>
     </TextFrame>
+    <TextFrame Self="TextFrame/mixed" ParentStory="Story/mixed"
+               ItemTransform="1 0 0 1 400 0">
+      <Properties><PathGeometry><GeometryPathType PathOpen="false"><PathPointArray>
+        %s
+      </PathPointArray></GeometryPathType></PathGeometry></Properties>
+    </TextFrame>
+    <TextFrame Self="TextFrame/display" ParentStory="Story/display"
+               ItemTransform="1 0 0 1 500 0">
+      <Properties><PathGeometry><GeometryPathType PathOpen="false"><PathPointArray>
+        %s
+      </PathPointArray></GeometryPathType></PathGeometry></Properties>
+    </TextFrame>
+    <TextFrame Self="TextFrame/mixed-inline" ParentStory="Story/mixed-inline"
+               ItemTransform="1 0 0 1 600 0">
+      <Properties><PathGeometry><GeometryPathType PathOpen="false"><PathPointArray>
+        %s
+      </PathPointArray></GeometryPathType></PathGeometry></Properties>
+    </TextFrame>
   </Spread></idPkg:Spread>
   <idPkg:Story><Story Self="Story/leading">
     <ParagraphStyleRange><CharacterStyleRange>
@@ -372,7 +396,8 @@ leading_map = """<?xml version="1.0" encoding="UTF-8"?>
     </CharacterStyleRange></ParagraphStyleRange>
   </Story></idPkg:Story>
   <idPkg:Story><Story Self="Story/terminal">
-    <ParagraphStyleRange><CharacterStyleRange><Content>Short</Content>
+    <ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/AutoChild">
+      <CharacterStyleRange PointSize="10"><Content>Short</Content>
     </CharacterStyleRange></ParagraphStyleRange>
   </Story></idPkg:Story>
   <idPkg:Story><Story Self="Story/explicit">
@@ -385,8 +410,25 @@ leading_map = """<?xml version="1.0" encoding="UTF-8"?>
     <ParagraphStyleRange><CharacterStyleRange><Content>Two</Content>
     </CharacterStyleRange></ParagraphStyleRange>
   </Story></idPkg:Story>
+  <idPkg:Story><Story Self="Story/mixed">
+    <ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/AutoChild">
+      <CharacterStyleRange PointSize="12"><Content>Large</Content></CharacterStyleRange>
+      <CharacterStyleRange PointSize="10"><Br/><Br/><Content>Small</Content></CharacterStyleRange>
+    </ParagraphStyleRange>
+  </Story></idPkg:Story>
+  <idPkg:Story><Story Self="Story/display">
+    <ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/AutoChild">
+      <CharacterStyleRange PointSize="24"><Content>Title</Content></CharacterStyleRange>
+    </ParagraphStyleRange>
+  </Story></idPkg:Story>
+  <idPkg:Story><Story Self="Story/mixed-inline">
+    <ParagraphStyleRange AppliedParagraphStyle="ParagraphStyle/AutoChild">
+      <CharacterStyleRange PointSize="10"><Content>Small </Content></CharacterStyleRange>
+      <CharacterStyleRange PointSize="12"><Content>large</Content></CharacterStyleRange>
+    </ParagraphStyleRange>
+  </Story></idPkg:Story>
 </Document>
-""" % (path_points, path_points, path_points, path_points)
+""" % (path_points, path_points, path_points, path_points, path_points, path_points, path_points)
 with ZipFile(leading_package, "w", ZIP_DEFLATED) as archive:
     archive.writestr("designmap.xml", leading_map)
 assert scribus.openDoc(str(leading_package)), "IDML character-range leading import failed"
@@ -397,8 +439,11 @@ assert scribus.getAllText("TextFrame/terminal") == "Short", (
     "IDML importer added a terminal paragraph break"
 )
 scribus.selectText(0, 1, "TextFrame/terminal")
-assert scribus.getLineSpacingMode("TextFrame/terminal") == 1, (
-    "IDML importer lost automatic paragraph spacing when removing a synthetic break"
+assert scribus.getLineSpacingMode("TextFrame/terminal") == 0, (
+    "IDML automatic leading was not converted to point-size-based fixed leading"
+)
+assert abs(scribus.getLineSpacing("TextFrame/terminal") - 15) < 0.01, (
+    "IDML inherited auto-leading percentage was not applied"
 )
 assert scribus.getAllText("TextFrame/explicit") == "Keeps break\r", (
     "IDML importer removed an explicit terminal paragraph break"
@@ -409,6 +454,35 @@ assert scribus.getAllText("TextFrame/multiple") == "One\rTwo", (
 scribus.selectText(0, 1, "TextFrame/leading")
 assert abs(scribus.getLineSpacing("TextFrame/leading") - 18) < 0.01, (
     "IDML character-range leading was not applied"
+)
+assert scribus.getAllText("TextFrame/mixed") == "Large\r\rSmall", (
+    "IDML mixed-size paragraph boundaries changed"
+)
+scribus.selectText(0, 1, "TextFrame/display")
+assert scribus.getLineSpacingMode("TextFrame/display") == 1, (
+    "IDML display type lost its first-line offset behavior"
+)
+scribus.selectText(0, 1, "TextFrame/mixed-inline")
+assert scribus.getLineSpacingMode("TextFrame/mixed-inline") == 1, (
+    "IDML mixed-size line was given paragraph-wide fixed leading"
+)
+leading_roundtrip = output / "character-range-leading.sla"
+scribus.saveDocAs(str(leading_roundtrip))
+scribus.closeDoc()
+saved_leading = ElementTree.parse(leading_roundtrip)
+mixed_frame = next(
+    frame for frame in saved_leading.iter("PageObject")
+    if frame.get("AutoName") == "TextFrame/mixed"
+)
+mixed_paragraphs = mixed_frame.findall("./StoryText/para")
+assert len(mixed_paragraphs) == 2, "IDML blank paragraph was lost"
+assert [round(float(para.get("LineSpacing")), 2) for para in mixed_paragraphs] == [18, 15], (
+    "IDML automatic leading changed at a mixed-size paragraph boundary"
+)
+assert scribus.openDoc(str(leading_roundtrip)), "IDML leading SLA could not be reopened"
+scribus.selectText(0, 1, "TextFrame/terminal")
+assert abs(scribus.getLineSpacing("TextFrame/terminal") - 15) < 0.01, (
+    "IDML automatic leading was lost after SLA reopen"
 )
 scribus.closeDoc()
 print("IDML_MINIMAL_IMPORT_PASSED", flush=True)
