@@ -659,9 +659,6 @@ if (GMAGICK_FOUND)
 	include_directories(
 		BEFORE ${GMAGICK_INCLUDE_DIRS}
 	)
-	link_directories(
-		${GMAGICK_LIBRARY}
-	)
 endif()
 
 if(HAVE_PODOFO)
@@ -792,7 +789,7 @@ target_link_libraries(${EXE_NAME}
 	${PNG_LIBRARIES}
 	${JPEG_LIBRARIES}
 	${WIN32_ONLY_LIBS}
-	${GMAGICK_LIBRARIES}
+	${GMAGICK_LINK_LIBRARIES}
 )
 
 
