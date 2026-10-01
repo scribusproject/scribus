@@ -1,7 +1,6 @@
 include_directories(
 	${CMAKE_SOURCE_DIR}
 	${CMAKE_SOURCE_DIR}/scribus
-	${LIBPODOFO_INCLUDE_DIR}
 	${SCRIBUS_AUTOGEN_INCLUDE_PATH}
 )
 
