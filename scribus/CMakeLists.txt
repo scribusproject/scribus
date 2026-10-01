@@ -106,9 +106,6 @@ if (GMAGICK_FOUND)
 	include_directories(
 		BEFORE ${GMAGICK_INCLUDE_DIRS}
 	)
-	link_directories(
-		${GMAGICK_LIBRARY}
-	)
 endif()
 
 if(HAVE_PODOFO)
@@ -229,7 +226,7 @@ target_link_libraries(${EXE_NAME}
 	PRIVATE
 	${CUPS_LIBRARIES}
 	${FREETYPE_LIBRARIES}
-	${GMAGICK_LIBRARIES}
+	${GMAGICK_LINK_LIBRARIES}
 	${HARFBUZZ_LIBRARIES}
 	${HARFBUZZ_SUBSET_LIBRARIES}
 	${hunspell_LIBRARIES}
