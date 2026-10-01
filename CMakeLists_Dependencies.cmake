@@ -71,49 +71,49 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 set(QT_MIN_VERSION "6.5.0")
 
-find_package(Qt6 COMPONENTS Core REQUIRED)
+find_package(Qt6 ${QT_MIN_VERSION} REQUIRED COMPONENTS Core)
 add_definitions(${Qt6Core_DEFINITIONS})
 include_directories(${Qt6Core_INCLUDE_DIRS})
 
-find_package(Qt6 COMPONENTS Core5Compat REQUIRED)
+find_package(Qt6 ${QT_MIN_VERSION} REQUIRED COMPONENTS Core5Compat)
 include_directories(${Qt6Core5Compat_INCLUDE_DIRS})
 add_definitions(${Qt6Core5Compat_DEFINITIONS})
 
-find_package(Qt6 COMPONENTS Gui REQUIRED)
+find_package(Qt6 ${QT_MIN_VERSION} REQUIRED COMPONENTS Gui)
 include_directories(${Qt6Gui_INCLUDE_DIRS})
 add_definitions(${Qt6Gui_DEFINITIONS})
 
-find_package(Qt6 COMPONENTS Widgets REQUIRED)
+find_package(Qt6 ${QT_MIN_VERSION} REQUIRED COMPONENTS Widgets)
 include_directories(${Qt6Widgets_INCLUDE_DIRS})
 add_definitions(${Qt6Widgets_DEFINITIONS})
 
-find_package(Qt6 COMPONENTS Network REQUIRED)
+find_package(Qt6 ${QT_MIN_VERSION} REQUIRED COMPONENTS Network)
 include_directories(${Qt6Network_INCLUDE_DIRS})
 add_definitions(${Qt6Network_DEFINITIONS})
 
 if (HAVE_OSG)
-	find_package(Qt6 COMPONENTS OpenGL REQUIRED)
+	find_package(Qt6 ${QT_MIN_VERSION} REQUIRED COMPONENTS OpenGL)
 	include_directories(${Qt6OpenGL_INCLUDE_DIRS})
 	add_definitions(${Qt6OpenGL_DEFINITIONS})
 
-	find_package(Qt6 COMPONENTS OpenGLWidgets REQUIRED)
+	find_package(Qt6 ${QT_MIN_VERSION} REQUIRED COMPONENTS OpenGLWidgets)
 	include_directories(${Qt6OpenGLWidgets_INCLUDE_DIRS})
 	add_definitions(${Qt6OpenGLWidgets_DEFINITIONS})
 endif()
 
-find_package(Qt6 COMPONENTS PrintSupport REQUIRED)
+find_package(Qt6 ${QT_MIN_VERSION} REQUIRED COMPONENTS PrintSupport)
 include_directories(${Qt6PrintSupport_INCLUDE_DIRS})
 add_definitions(${Qt6PrintSupport_DEFINITIONS})
 
-find_package(Qt6 COMPONENTS Xml REQUIRED)
+find_package(Qt6 ${QT_MIN_VERSION} REQUIRED COMPONENTS Xml)
 include_directories(${Qt6Xml_INCLUDE_DIRS})
 add_definitions(${Qt6Xml_DEFINITIONS})
 
-find_package(Qt6 COMPONENTS LinguistTools REQUIRED)
+find_package(Qt6 ${QT_MIN_VERSION} REQUIRED COMPONENTS LinguistTools)
 include_directories(${Qt6LinguistTools_INCLUDE_DIRS})
 add_definitions(${Qt6LinguistTools_DEFINITIONS})
 
-find_package(Qt6 COMPONENTS Svg REQUIRED)
+find_package(Qt6 ${QT_MIN_VERSION} REQUIRED COMPONENTS Svg)
 include_directories(${Qt6Svg_INCLUDE_DIRS})
 add_definitions(${Qt6Svg_DEFINITIONS})
 
