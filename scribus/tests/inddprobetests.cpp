@@ -11,8 +11,8 @@ to the COPYING file provided with the program.
 #include <QtTest>
 
 #include <algorithm>
-#include <bit>
 #include <cmath>
+#include <cstring>
 #include <limits>
 
 #include "plugins/import/indd/inddmetadata.h"
@@ -44,7 +44,10 @@ void put64LittleEndian(QByteArray& bytes, qsizetype offset, quint64 value)
 
 void putDoubleLittleEndian(QByteArray& bytes, qsizetype offset, double value)
 {
-	put64LittleEndian(bytes, offset, std::bit_cast<quint64>(value));
+	quint64 bits = 0;
+	static_assert(sizeof(bits) == sizeof(value), "INDD double must be 64 bits");
+	std::memcpy(&bits, &value, sizeof(bits));
+	put64LittleEndian(bytes, offset, bits);
 }
 
 QByteArray makeHeader(quint32 version, quint64 sequence, quint32 databasePages, bool littleEndian = true)

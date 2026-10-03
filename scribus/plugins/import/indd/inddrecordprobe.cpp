@@ -12,8 +12,8 @@ to the COPYING file provided with the program.
 #include <QSet>
 
 #include <algorithm>
-#include <bit>
 #include <cmath>
+#include <cstring>
 
 namespace Indd
 {
@@ -55,7 +55,10 @@ double readLittleEndianDouble(const char* bytes)
 	quint64 bits = 0;
 	for (int i = 0; i < 8; ++i)
 		bits |= quint64(quint8(bytes[i])) << (8 * i);
-	return std::bit_cast<double>(bits);
+	static_assert(sizeof(bits) == sizeof(double), "INDD double must be 64 bits");
+	double value = 0;
+	std::memcpy(&value, &bits, sizeof(value));
+	return value;
 }
 
 quint64 readLittleEndian64(const char* bytes)
