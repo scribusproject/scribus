@@ -119,7 +119,7 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	setObjectName(QStringLiteral("aboutDialog"));
 	setProperty("modernDialog", true);
 	setAttribute(Qt::WA_StyledBackground, true);
-	setWindowTitle( tr("About Ascribe %1").arg(ScribusAPI::getVersion()) );
+	setWindowTitle( tr("About Apscribe %1").arg(ScribusAPI::getVersion()) );
 	setWindowIcon(IconManager::instance().loadIcon("app-icon"));
 	setModal(true);
 	QByteArray applicationStyle;
@@ -149,7 +149,7 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	buildID->setTextInteractionFlags(Qt::TextSelectableByMouse);
 	buildID->setText(tr(
 		"<div align=\"center\">"
-		"<span style=\"font-size:28pt;font-weight:700\">Ascribe</span><br>"
+		"<span style=\"font-size:28pt;font-weight:700\">Apscribe</span><br>"
 		"<span style=\"font-size:11pt\">Version %1</span>"
 		"<p><span style=\"font-size:16pt;font-weight:600;color:#0a84ff\">Publish beautifully.</span></p>"
 		"<p>An open-source workspace for books, magazines,<br>"
@@ -167,7 +167,7 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	projectNoteLayout->addWidget(projectIcon, 0, Qt::AlignTop);
 	auto* projectText = new QLabel(tr(
 		"<b>Open-source desktop publishing.</b><br>"
-		"Ascribe is based on Scribus and distributed under the GNU GPL. "
+		"Apscribe is based on Scribus and distributed under the GNU GPL. "
 		"Original Scribus copyright and contributor credits are preserved."), projectNote);
 	projectText->setWordWrap(true);
 	projectText->setTextInteractionFlags(Qt::TextSelectableByMouse);
@@ -750,7 +750,7 @@ QString About::generateBuildInfo()
 	QString buildText;
 	buildText.append("<p>");
 	buildText.append("<b>");
-	buildText.append(tr("Ascribe Version %1").arg(version));
+	buildText.append(tr("Apscribe Version %1").arg(version));
 	buildText.append("</b>");
 	buildText.append("</p><p>");
 	buildText.append(tr("Build ID: %1").arg(ScribusAPI::getBuildInformation()));

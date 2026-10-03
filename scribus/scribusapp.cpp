@@ -639,7 +639,7 @@ void ScribusQApp::showAvailLangs()
 
 void ScribusQApp::showVersion()
 {
-	std::cout << tr("Ascribe Version").toLocal8Bit().data() << " " << VERSION << std::endl;
+	std::cout << tr("Apscribe Version").toLocal8Bit().data() << " " << VERSION << std::endl;
 }
 
 void ScribusQApp::showHeader()
@@ -650,7 +650,7 @@ void ScribusQApp::showHeader()
 
 	QTextStream ts(&f);
 	ts << Qt::endl;
-	QString heading( tr("Ascribe, Open Source Desktop Publishing (based on Scribus)") );
+	QString heading( tr("Apscribe, Open Source Desktop Publishing (based on Scribus)") );
 	// Build a separator of ----s the same width as the heading
 	QString separator = QString("").rightJustified(heading.length(),'-');
 	// Then output the heading, separator, and docs/www/etc info in an aligned table

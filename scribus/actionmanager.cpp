@@ -1892,7 +1892,7 @@ void ActionManager::languageChange()
 	(*scrActions)["windowsResetWorkspace"]->setTexts( tr("Reset Workspace &Layout..."));
 
 	//Help Menu
-	(*scrActions)["helpAboutScribus"]->setTexts( tr("&About Ascribe"));
+	(*scrActions)["helpAboutScribus"]->setTexts( tr("&About Apscribe"));
 	(*scrActions)["helpAboutPlugins"]->setTexts( tr("&About Plugins"));
 	(*scrActions)["helpAboutQt"]->setTexts( tr("About &Qt"));
 	(*scrActions)["helpActionSearch"]->setTexts( tr("&Quick Actions..."));

@@ -61,11 +61,11 @@
 	<key>CFBundleIconFile</key>
 	<string>Scribus.icns</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.appajid.ascribe</string>
+	<string>com.appajid.apscribe</string>
 	<key>CFBundleName</key>
-	<string>Ascribe</string>
+	<string>Apscribe</string>
 	<key>CFBundleDisplayName</key>
-	<string>Ascribe</string>
+	<string>Apscribe</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>

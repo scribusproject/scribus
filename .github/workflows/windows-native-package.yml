@@ -137,10 +137,10 @@ jobs:
       - name: Upload Windows test applications
         uses: actions/upload-artifact@v4
         with:
-          name: Ascribe-${{ env.SCRIBUS_VERSION }}-Windows-x64
+          name: Apscribe-${{ env.SCRIBUS_VERSION }}-Windows-x64
           path: |
             win32/deploy/dist/Scribus-${{ env.SCRIBUS_VERSION }}-win64.zip
-            win32/installer/dist/Ascribe-${{ env.SCRIBUS_VERSION }}-Setup.exe
+            win32/installer/dist/Apscribe-${{ env.SCRIBUS_VERSION }}-Setup.exe
           if-no-files-found: error
           retention-days: 14
 

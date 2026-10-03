@@ -2,7 +2,7 @@ Scribus Windows Installer
 =========================
 
 This directory contains everything needed to build a Windows installer
-(Ascribe-<version>-Setup.exe) from a native MSVC build of this Scribus fork.
+(Apscribe-<version>-Setup.exe) from a native MSVC build of this Scribus fork.
 
 Contents
 --------
@@ -47,13 +47,13 @@ Build steps
            -LibsKitRoot "D:\Scribus Libs\scribus-1.7.x-libs-msvc" `
            -Makensis    "C:\Program Files (x86)\NSIS\makensis.exe"
 
-  3. Result: win32\installer\dist\Ascribe-<version>-Setup.exe
+  3. Result: win32\installer\dist\Apscribe-<version>-Setup.exe
 
      Copy this file to the target PC and run it as Administrator.
 
 What the installer does
 -----------------------
-  * Installs to C:\Program Files\Ascribe <version> (by default)
+  * Installs to C:\Program Files\Apscribe <version> (by default)
   * Installs Scribus.exe, all Qt runtime DLLs + Qt plugins (qtplugins\),
     the Scribus plugins (plugins\), bundled Python runtime (python\), support
     files (libs\) and all resources, translations, fonts, colour profiles,

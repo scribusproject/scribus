@@ -117,7 +117,7 @@ void ScSplashScreen::paintBranding(QPainter* painter, const QFont& baseFont, boo
 	titleFont.setWeight(QFont::DemiBold);
 	painter->setFont(titleFont);
 	painter->setPen(textColor);
-	painter->drawText(QRect(134, 42, 205, 48), Qt::AlignLeft | Qt::AlignVCenter, QStringLiteral("Ascribe"));
+	painter->drawText(QRect(134, 42, 205, 48), Qt::AlignLeft | Qt::AlignVCenter, QStringLiteral("Apscribe"));
 
 	QFont taglineFont(baseFont);
 	taglineFont.setPointSize(16);

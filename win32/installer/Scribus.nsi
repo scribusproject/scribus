@@ -24,21 +24,21 @@ SetCompressorDictSize 64
   !define VERSION "2.0.0"
 !endif
 
-!define PRODUCT_NAME "Ascribe ${VERSION}"
-!define PRODUCT_SHORTNAME "Ascribe"
+!define PRODUCT_NAME "Apscribe ${VERSION}"
+!define PRODUCT_SHORTNAME "Apscribe"
 !define PRODUCT_PUBLISHER "Appaji Ambarisha Darbha and Scribus contributors"
 !define PRODUCT_WEB_SITE "https://github.com/appajid/scribus"
 ; Keep the executable filename until the MSVC projects and deploy scripts can
 ; migrate together; the installer itself is independent of official Scribus.
 !define PRODUCT_EXE "Scribus.exe"
-!define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\Ascribe ${VERSION}"
-!define PRODUCT_INSTALL_KEY "Software\Ascribe\Ascribe ${VERSION}"
-!define PRODUCT_ASSOC_KEY "Software\Ascribe\Ascribe ${VERSION}\Associations"
-!define PRODUCT_DOCUMENT_CLASS "Ascribe.Document.${VERSION}"
+!define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\Apscribe ${VERSION}"
+!define PRODUCT_INSTALL_KEY "Software\Apscribe\Apscribe ${VERSION}"
+!define PRODUCT_ASSOC_KEY "Software\Apscribe\Apscribe ${VERSION}\Associations"
+!define PRODUCT_DOCUMENT_CLASS "Apscribe.Document.${VERSION}"
 !define PRODUCT_STARTMENU_REGVAL "Start Menu Folder"
 
 Name "${PRODUCT_NAME}"
-OutFile "dist\Ascribe-${VERSION}-Setup.exe"
+OutFile "dist\Apscribe-${VERSION}-Setup.exe"
 InstallDir "$PROGRAMFILES64\${PRODUCT_NAME}"
 InstallDirRegKey HKLM "${PRODUCT_INSTALL_KEY}" "InstallDir"
 RequestExecutionLevel admin
@@ -88,7 +88,7 @@ Var StartMenuFolder
 ;--------------------------------------------------------------------------
 ; Components
 ;--------------------------------------------------------------------------
-Section "Ascribe ${VERSION} (required)" SecMain
+Section "Apscribe ${VERSION} (required)" SecMain
   SectionIn RO
   SetShellVarContext all
   SetOutPath "$INSTDIR"
@@ -133,7 +133,7 @@ Section /o "File associations (.sla / .sla.gz)" SecAssoc
   WriteRegStr HKCU "${PRODUCT_ASSOC_KEY}" "PreviousSlaGz" "$R0"
   WriteRegStr HKCU "Software\Classes\.sla" "" "${PRODUCT_DOCUMENT_CLASS}"
   WriteRegStr HKCU "Software\Classes\.sla.gz" "" "${PRODUCT_DOCUMENT_CLASS}"
-  WriteRegStr HKCU "Software\Classes\${PRODUCT_DOCUMENT_CLASS}" "" "Ascribe Document (Scribus format)"
+  WriteRegStr HKCU "Software\Classes\${PRODUCT_DOCUMENT_CLASS}" "" "Apscribe Document (Scribus format)"
   WriteRegStr HKCU "Software\Classes\${PRODUCT_DOCUMENT_CLASS}\DefaultIcon" "" "$INSTDIR\${PRODUCT_EXE},0"
   WriteRegStr HKCU "Software\Classes\${PRODUCT_DOCUMENT_CLASS}\shell\open\command" "" '"$INSTDIR\${PRODUCT_EXE}" "%1"'
   WriteRegStr HKCU "Software\Classes\${PRODUCT_DOCUMENT_CLASS}\shell\edit\command" "" '"$INSTDIR\${PRODUCT_EXE}" "%1"'
@@ -143,10 +143,10 @@ SectionEnd
 ; Descriptions
 ;--------------------------------------------------------------------------
 !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
-  !insertmacro MUI_DESCRIPTION_TEXT ${SecMain} "Ascribe ${VERSION} application, plugins, translations and resources."
+  !insertmacro MUI_DESCRIPTION_TEXT ${SecMain} "Apscribe ${VERSION} application, plugins, translations and resources."
   !insertmacro MUI_DESCRIPTION_TEXT ${SecStartMenu} "Add shortcuts to the Start Menu."
   !insertmacro MUI_DESCRIPTION_TEXT ${SecDesktop} "Add a shortcut on the desktop."
-  !insertmacro MUI_DESCRIPTION_TEXT ${SecAssoc} "Associate Scribus-format documents (.sla, .sla.gz) with Ascribe."
+  !insertmacro MUI_DESCRIPTION_TEXT ${SecAssoc} "Associate Scribus-format documents (.sla, .sla.gz) with Apscribe."
 !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
 ;--------------------------------------------------------------------------
