@@ -339,7 +339,7 @@ void HelpBrowser::setHtml(const QString& str)
 
 void HelpBrowser::languageChange()
 {
-	setWindowTitle( tr( "Scribus Online Help" ) );
+	setWindowTitle( tr( "Scribus Manual (upstream)" ) );
 	
 	fileMenu->setTitle(tr("&File"));
 	editMenu->setTitle(tr("&Edit"));
@@ -767,7 +767,7 @@ QString HelpBrowser::historyFile() const
 
 void HelpBrowser::displayNoHelp()
 {
-	QString noHelpMsg = tr("<h2><p>Sorry, no manual is installed!</p><p>Please see:</p><ul><li>https://docs.scribus.net for updated documentation</li><li>https://www.scribus.net for downloads</li></ul></h2>",
+	QString noHelpMsg = tr("<h2><p>No manual is installed.</p><p>For reference, see the upstream Scribus documentation at https://docs.scribus.net. For Apscribe builds, visit https://github.com/appajid/apscribe.</p></h2>",
 						   "HTML message for no documentation available to show");
 
 	textBrowser->setHtml(noHelpMsg);

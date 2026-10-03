@@ -965,7 +965,7 @@ PyObject* scribus_exportepubtextandimages(PyObject* /*self*/, PyObject* args)
 			cropped |= item->isImageFrame() && EpubDocument::savedUseImageFrameCrop(item);
 		QString detail = cropped
 			? QStringLiteral("Selected exact PNG frame crops were applied; other linked images use original pixels. Page placement, effects, and colour adjustments are not preserved.")
-			: QStringLiteral("Linked images use original file pixels; Scribus frame crop, scale, geometry, and colour adjustments are not preserved.");
+			: QStringLiteral("Linked images use original file pixels; Apscribe frame crop, scale, geometry, and colour adjustments are not preserved.");
 		if (!leadingWarnings.isEmpty())
 			detail += QLatin1Char(' ') + leadingWarnings.join(QLatin1Char(' '));
 		return statusResult("exported", detail);

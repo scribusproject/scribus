@@ -510,7 +510,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int page, int gsRes, boo
 			}
 			if (missing)
 			{
-				m_message = QObject::tr("The Font(s):\n%1 are not embedded or available for Scribus.\nThey might be replaced by \"Courier\", depending how your Ghostscript is configured.\nTherefore the image may be not correct").arg(missingF);
+				m_message = QObject::tr("The Font(s):\n%1 are not embedded or available for Apscribe.\nThey might be replaced by \"Courier\", depending how your Ghostscript is configured.\nTherefore the image may be not correct").arg(missingF);
 				m_msgType = warningMsg;
 			}
 		}

@@ -763,7 +763,7 @@ QStringList lineSpacingWarnings(const ScribusDoc& document)
 	}
 	if (fixedStories == 0)
 		return {};
-	return { QStringLiteral("Fixed Scribus line spacing occurs in %1 text stories; EPUB readers may use different leading.")
+	return { QStringLiteral("Fixed Apscribe line spacing occurs in %1 text stories; EPUB readers may use different leading.")
 		.arg(fixedStories) };
 }
 

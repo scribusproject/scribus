@@ -62,7 +62,7 @@ const ScActionPlugin::AboutData* ImportIdml::getAboutData() const
 	AboutData* about = new AboutData;
 	about->authors = "Jain Basil Aliyas<jainbasil@gmail.com>";
 	about->shortDescription = tr("Imports Adobe IDML Packages");
-	about->description = tr("Imports Adobe InDesign's IDML packages into Scribus\n converting InDesign objects into Scribus pageitems; not all are supported in Scribus, but all those supported are being imported here");
+	about->description = tr("Imports Adobe InDesign IDML packages into Apscribe; unsupported objects may be omitted.");
 	about->license = tr("GPL");
 	Q_CHECK_PTR(about);
 	return about;

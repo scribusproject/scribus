@@ -79,7 +79,7 @@ const ScActionPlugin::AboutData* ImportPagesPlugin::getAboutData() const
 	auto* about = new AboutData;
 	about->authors = "Franz Schmid <franz@scribus.info>";
 	about->shortDescription = tr("Imports iWork Pages Files");
-	about->description = tr("Imports most iWork Pages files into the current document, converting their vector data into Scribus objects.");
+	about->description = tr("Imports most iWork Pages files into the current document, converting their vector data into Apscribe objects.");
 	about->license = "GPL";
 	Q_CHECK_PTR(about);
 	return about;

@@ -57,7 +57,7 @@ void UpgradeChecker::fetch()
 			QString hostname("services.scribus.net");
 			QString filepath("/" + filename);
 			QUrl fileURL(QString("https://%1%2").arg(hostname, filepath));
-			outputText("<b>" + tr("Attempting to get the Scribus version update file:") + "</b>");
+			outputText("<b>" + tr("Downloading the upstream Scribus release list:") + "</b>");
 			outputText(fileURL.toString());
 
 			QNetworkRequest networkRequest(fileURL);
@@ -211,19 +211,18 @@ void UpgradeChecker::show(bool error)
 	outputText("<br/>");
 	if (error)
 	{
-		outputText("<b>" + tr("An error occurred while looking for updates for Scribus, please check your internet connection.") + "</b>");
+		outputText("<b>" + tr("Could not check upstream Scribus releases. Please check your internet connection.") + "</b>");
 		return;
 	}
 	if (m_updates.isEmpty())
-		outputText("<b>" + tr("No updates are available for your version of Scribus %1").arg(ScribusAPI::getVersion()) + "</b>");
+		outputText("<b>" + tr("No upstream Scribus releases with a version number higher than Apscribe %1 were found. This does not check for Apscribe updates.").arg(ScribusAPI::getVersion()) + "</b>");
 	else
 	{
-		outputText("<b>" + tr("One or more updates for your version of Scribus (%1) are available:").arg(ScribusAPI::getVersion()) + "</b>");
+		outputText("<b>" + tr("Upstream Scribus releases with version numbers higher than Apscribe %1:").arg(ScribusAPI::getVersion()) + "</b>");
 		outputText( tr("This list may contain development/unstable versions."));
 		for (auto it = m_updates.cbegin(); it != m_updates.cend(); ++it )
 			outputText(*it);
-		outputText("<b>" + tr("Please visit www.scribus.net for details.") + "</b>");
-		outputText("<b>" + tr("If you have installed Scribus from a package management system, for example on a Linux-based operating system, your package manager may have this upgrade available.") + "</b>");
+		outputText("<b>" + tr("These are upstream Scribus releases, not Apscribe updates. Visit www.scribus.net for details.") + "</b>");
 	}
 	outputText(m_message);
 }
@@ -271,5 +270,4 @@ void UpgradeCheckerGUI::outputText(const QString& text, bool noLineFeed)
 	else
 		w->setHtml("<qt>"+wText+text+"<br>"+"</qt>");
 }
-
 

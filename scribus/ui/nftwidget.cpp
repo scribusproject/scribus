@@ -200,7 +200,7 @@ void nftwidget::setupAbout()
 	text += "<b>";
 	text +=  tr("Translating template.xml");
 	text +=  "</b><br>";
-	text += tr("Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.");
+	text += tr("Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Apscribe can load it.");
 	helpBrowser->setText(text);
 }
 

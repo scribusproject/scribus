@@ -83,7 +83,7 @@ const ScActionPlugin::AboutData* ImportXpsPlugin::getAboutData() const
 	auto* about = new AboutData;
 	about->authors = "Franz Schmid <franz@scribus.info>";
 	about->shortDescription = tr("Imports XPS and Open XML Paper Files");
-	about->description = tr("Imports most XPS and Open XML Paper files into the current document, converting their vector data into Scribus objects.");
+	about->description = tr("Imports most XPS and Open XML Paper files into the current document, converting their vector data into Apscribe objects.");
 	about->license = "GPL";
 	Q_CHECK_PTR(about);
 	return about;

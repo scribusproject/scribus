@@ -130,7 +130,7 @@ void MenuSAT::RunSATPlug(ScribusDoc* doc)
 	if (userTemplatesDir.isEmpty())
 	{
 		ScMessageBox::warning(doc->scMW(), QObject::tr("No User Template Location Defined"), "<qt>" +
-										QObject::tr("You have not configured where to save document templates.<br>Please go to the Paths section in the Scribus application Preferences to set a location.") + "</qt>",
+										QObject::tr("You have not configured where to save document templates.<br>Set a location in Apscribe Preferences > Paths.") + "</qt>",
 										QMessageBox::Ok,	// GUI default
 										QMessageBox::Ok);	// batch default
 		return;

@@ -73,7 +73,7 @@ const ScActionPlugin::AboutData* ImportXfigPlugin::getAboutData() const
 	auto* about = new AboutData;
 	about->authors = "Franz Schmid <franz@scribus.info>";
 	about->shortDescription = tr("Imports Xfig Files");
-	about->description = tr("Imports most Xfig files into the current document, converting their vector data into Scribus objects.");
+	about->description = tr("Imports most Xfig files into the current document, converting their vector data into Apscribe objects.");
 	about->license = "GPL";
 	Q_CHECK_PTR(about);
 	return about;

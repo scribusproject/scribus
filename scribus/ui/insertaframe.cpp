@@ -124,7 +124,7 @@ void InsertAFrame::slotSelectType( int id )
 	switch (id)
 	{
 		case 0:
-			typeTextEdit->setText( tr("<b>Insert a text frame</b><br/>A text frame allows you to enter any text in a defined position with the formatting you choose. You may select a text file on the Options tab if you want to immediately import a document into the frame. Scribus supports a wide variety of importable formats from plain text to OpenOffice.org.<br/>Your text may be edited and formatted on the page directly or in the Story Editor."));
+			typeTextEdit->setText( tr("<b>Insert a text frame</b><br/>A text frame allows you to enter any text in a defined position with the formatting you choose. You may select a text file on the Options tab if you want to immediately import a document into the frame. Apscribe supports a wide variety of importable formats from plain text to OpenOffice.org.<br/>Your text may be edited and formatted on the page directly or in the Story Editor."));
 			optionsStackedWidget->setCurrentIndex(0);
 			break;
 		case 1:
