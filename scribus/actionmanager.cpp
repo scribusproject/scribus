@@ -1898,12 +1898,12 @@ void ActionManager::languageChange()
 	(*scrActions)["helpActionSearch"]->setTexts( tr("&Quick Actions..."));
 	(*scrActions)["helpTooltips"]->setTexts( tr("Toolti&ps"));
 	(*scrActions)["showMouseCoordinates"]->setTexts( tr("Move/Resize Value Indicator"));
-	(*scrActions)["helpManual"]->setTexts( tr("Scribus &Help..."));
-	(*scrActions)["helpOnlineWWW"]->setTexts( tr("Scribus Homepage"));
-	(*scrActions)["helpOnlineDocs"]->setTexts( tr("Scribus Online Documentation"));
-	(*scrActions)["helpOnlineWiki"]->setTexts( tr("Scribus Wiki"));
-	(*scrActions)["helpOnlineTutorial1"]->setTexts( tr("Getting Started with Scribus"));
-	(*scrActions)["helpCheckUpdates"]->setTexts( tr("Check for Updates"));
+	(*scrActions)["helpManual"]->setTexts( tr("&Help (Scribus Manual)..."));
+	(*scrActions)["helpOnlineWWW"]->setTexts( tr("Upstream Scribus Homepage"));
+	(*scrActions)["helpOnlineDocs"]->setTexts( tr("Upstream Scribus Documentation"));
+	(*scrActions)["helpOnlineWiki"]->setTexts( tr("Upstream Scribus Wiki"));
+	(*scrActions)["helpOnlineTutorial1"]->setTexts( tr("Getting Started (Scribus Tutorial)"));
+	(*scrActions)["helpCheckUpdates"]->setTexts( tr("Check Upstream Scribus Releases"));
 	(*scrActions)["helpChat"]->setTexts( tr("Chat with the Community"));
 
 	//GUI and specials

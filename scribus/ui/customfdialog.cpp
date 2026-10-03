@@ -266,7 +266,7 @@ void FDialogPreview::genPreview(const QString& name)
 			if (fm2.isEmpty())
 				fm2 = tr("Unknown");
 			Format += fm2;
-			setText( tr("Scribus Document") + "\n\n" + Title + Author + Format);
+			setText( tr("Apscribe Document (.sla)") + "\n\n" + Title + Author + Format);
 		}
 		else  if ((ext == "txt") || (ext == "html") || (ext == "xml"))
 		{

@@ -100,7 +100,7 @@
          <item>
           <widget class="QLineEdit" name="psToolLineEdit">
            <property name="toolTip">
-            <string>&lt;qt&gt;Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.&lt;/qt&gt;</string>
+            <string>&lt;qt&gt;Add the path for the Ghostscript interpreter. On Windows, use gswin32c.exe (not gswin32.exe) to avoid a startup hang in Apscribe.&lt;/qt&gt;</string>
            </property>
           </widget>
          </item>

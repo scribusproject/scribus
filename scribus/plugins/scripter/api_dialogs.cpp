@@ -31,7 +31,7 @@ void DialogsAPI::alert(const QString & message)
 {
 	ScMessageBox::information(
 	    0, //(QWidget*)doc->scMW(),
-	    tr("Alert - Scribus"),
+	    tr("Alert - Apscribe"),
 	    message,
 	    QMessageBox::Ok|QMessageBox::Default|QMessageBox::Escape,
 	    QMessageBox::NoButton);

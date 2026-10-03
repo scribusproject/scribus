@@ -49,7 +49,7 @@ const ScActionPlugin::AboutData* Barcode::getAboutData() const
 	Q_CHECK_PTR(about);
 
 	about->authors = QString::fromUtf8("Terry Burton - <tez@terryburton.co.uk>, Petr Van\xc4\x9bk <petr@scribus.info>");
-	about->shortDescription = tr("Scribus frontend for Barcode Writer in Pure PostScript");
+	about->shortDescription = tr("Apscribe frontend for Barcode Writer in Pure PostScript");
 	about->description = "Barcode Writer in Pure PostScript generates all barcode formats entirely within PostScript hence this plugin requires Ghostscript to be installed on your system. https://bwipp.terryburton.co.uk";
 
 	// Extract the version information from BWIPP

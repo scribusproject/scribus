@@ -348,7 +348,7 @@
          <item>
           <widget class="QPushButton" name="resetSetButton">
            <property name="toolTip">
-            <string>Reload the default Scribus shortcuts</string>
+            <string>Reload the default Apscribe shortcuts</string>
            </property>
            <property name="text">
             <string>&amp;Reset</string>

@@ -1250,7 +1250,7 @@ void PicStatus::SearchPic()
 	lastSearchPath = dia->getLastDirSearched();
 	if (dia->getMatches().count() == 0)
 	{
-		ScMessageBox::information(this, tr("Scribus - Image Search"), tr("No images named \"%1\" were found.").arg(dia->getFileName()),
+		ScMessageBox::information(this, tr("Apscribe - Image Search"), tr("No images named \"%1\" were found.").arg(dia->getFileName()),
 				QMessageBox::Ok|QMessageBox::Default|QMessageBox::Escape,
 				QMessageBox::NoButton);
 		return;
@@ -1274,7 +1274,7 @@ void PicStatus::SearchPic()
 	{
 		if (transaction)
 			transaction.cancel();
-		ScMessageBox::warning(this, tr("Scribus - Image Search"),
+		ScMessageBox::warning(this, tr("Apscribe - Image Search"),
 			tr("The selected replacement image could not be loaded. The original link was kept."),
 			QMessageBox::Ok | QMessageBox::Default | QMessageBox::Escape,
 			QMessageBox::NoButton);

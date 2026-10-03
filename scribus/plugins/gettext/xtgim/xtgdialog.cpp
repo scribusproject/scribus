@@ -52,7 +52,7 @@ XtgDialog::XtgDialog(bool prefix) : QDialog(0)
 	playout->setSpacing(6);
 	prefixCheck = new QCheckBox( tr("Use document name as a prefix for Styles"), this);
 	prefixCheck->setChecked(prefix);
-	prefixCheck->setToolTip( "<qt>" + tr("Prepend the document name to the Style name in Scribus") +"</qt>");
+	prefixCheck->setToolTip( "<qt>" + tr("Prepend the document name to the Style name in Apscribe") +"</qt>");
 	playout->addWidget(prefixCheck);
 	layout->addLayout(playout);
 
@@ -94,4 +94,3 @@ XtgDialog::~XtgDialog()
 {
 
 }
-

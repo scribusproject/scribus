@@ -35,7 +35,7 @@ FSW_SidePanel::FSW_SidePanel(QWidget* parent)
 	outer->setContentsMargins(0, 20, 0, 12);
 	outer->setSpacing(0);
 
-	// Brand header: small logo + "Scribus" wordmark and subtitle.
+	// Brand header: small logo + Apscribe wordmark and subtitle.
 	auto* header = new QWidget(this);
 	auto* headerLay = new QHBoxLayout(header);
 	headerLay->setContentsMargins(16, 0, 16, 18);
@@ -101,7 +101,7 @@ void FSW_SidePanel::setCurrentStep(int id)
 void FSW_SidePanel::retranslate()
 {
 	if (m_brandName)
-		m_brandName->setText(tr("Scribus"));
+		m_brandName->setText(tr("Apscribe"));
 	if (m_brandSub)
 		m_brandSub->setText(tr("First-time setup"));
 

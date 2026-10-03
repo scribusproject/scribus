@@ -244,7 +244,7 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 	updateLayout = new QVBoxLayout( tab_5 );
 	updateLayout->setSpacing(6);
 	updateLayout->setContentsMargins(9, 9, 9, 9);
-	checkForUpdateButton = new QPushButton( tr("Check for Updates"), tab_5 );
+	checkForUpdateButton = new QPushButton( tr("Check Upstream Scribus Releases"), tab_5 );
 	updateView = new QTextBrowser( tab_5);
 	updateLayout->addWidget( checkForUpdateButton );
 	updateLayout->addWidget( updateView );
@@ -282,7 +282,7 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 
 	auto* moreMenu = new QMenu(moreButton);
 	moreMenu->addAction(tr("Translations"), this, [this]() { tabWidget2->setCurrentIndex(2); });
-	moreMenu->addAction(tr("Check for Updates"), this, [this]() { tabWidget2->setCurrentIndex(4); });
+	moreMenu->addAction(tr("Check Upstream Scribus Releases"), this, [this]() { tabWidget2->setCurrentIndex(4); });
 	moreMenu->addAction(tr("Build Information"), this, [this]() { tabWidget2->setCurrentIndex(6); });
 	moreButton->setMenu(moreMenu);
 	connect(websiteButton, &QPushButton::clicked, this, [this]() { tabWidget2->setCurrentIndex(3); });
@@ -313,7 +313,7 @@ About::About( QWidget* parent, AboutMode diaMode ) : QDialog( parent )
 
 
 	//tooltips
-	checkForUpdateButton->setToolTip( "<qt>" + tr("Check for updates to Scribus. No data from your machine will be transferred off it.") + "</qt>");
+	checkForUpdateButton->setToolTip( "<qt>" + tr("Check upstream Scribus releases, not Apscribe updates. No data from your machine will be transferred off it.") + "</qt>");
 	// signals and slots connections
 	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect( checkForUpdateButton, SIGNAL( clicked() ), this, SLOT( runUpdateCheck() ) );

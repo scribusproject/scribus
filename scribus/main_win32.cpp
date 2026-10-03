@@ -296,9 +296,9 @@ void defaultCrashHandler(DWORD exceptionCode)
 		emergencyActivated = true;
 		crashRecursionCounter++;
 		QString expDesc = exceptionDescription(exceptionCode);
-		QString expHdr  = QObject::tr("Scribus Crash");
+		QString expHdr  = QObject::tr("Apscribe Crash");
 		QString expLine = "-------------";
-		QString expMsg  = QObject::tr("Scribus crashes due to the following exception : %1").arg(expDesc);
+		QString expMsg  = QObject::tr("Apscribe crashed due to the following exception: %1").arg(expDesc);
 		std::cout << expHdr.toStdString() << std::endl;
 		std::cout << expLine.toStdString() << std::endl;
 		std::cout << expMsg.toStdString() << std::endl;
@@ -348,7 +348,7 @@ void messageHandler(QtMsgType type, const QMessageLogContext &context, const QSt
 			ScribusMainWindow* mainWin = ScCore->primaryMainWindow();
 			if (mainWin)
 			{
-				QString expHdr = QObject::tr("Scribus Crash");
+				QString expHdr = QObject::tr("Apscribe Crash");
 				QString expMsg = msg;
 				ScMessageBox::critical(mainWin, expHdr, expMsg);
 				mainWin->emergencySave();

@@ -14,7 +14,7 @@
    <string>Language &amp; units</string>
   </property>
   <property name="subTitle">
-   <string>How Scribus talks to you, and the units new documents use.</string>
+   <string>How Apscribe talks to you, and the units new documents use.</string>
   </property>
   <layout class="QFormLayout" name="langLayout">
    <item row="0" column="0">

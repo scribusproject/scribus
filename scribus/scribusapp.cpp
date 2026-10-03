@@ -587,7 +587,7 @@ void ScribusQApp::showUsage()
 		return;
 
 	QTextStream ts(&f);
-	ts << tr("Usage: scribus [options] [files]") ; Qt::endl(ts); Qt::endl(ts);
+	ts << tr("Usage: apscribe [options] [files]") ; Qt::endl(ts); Qt::endl(ts);
 	ts << tr("Options:") ; Qt::endl(ts);
 	printArgLine(ts, ARG_FONTINFO_SHORT, ARG_FONTINFO, tr("Show information on the console when fonts are being loaded") );
 	printArgLine(ts, ARG_HELP_SHORT, ARG_HELP, tr("Print help (this message) and exit") );
@@ -597,7 +597,7 @@ void ScribusQApp::showUsage()
 	printArgLine(ts, ARG_NEVERSPLASH_SHORT, ARG_NEVERSPLASH, tr("Stop showing the splashscreen on startup. Writes an empty file called .neversplash in ~/.config/scribus") );
 	printArgLine(ts, ARG_PREFS_SHORT, qPrintable(QString("%1 <%2>").arg(ARG_PREFS, tr("path"))), tr("Use path for user given preferences location") );
 	printArgLine(ts, ARG_PROFILEINFO_SHORT, ARG_PROFILEINFO, tr("Show location of ICC profile information on console while starting") );
-	printArgLine(ts, ARG_UPGRADECHECK_SHORT, ARG_UPGRADECHECK, tr("Download a file from the Scribus website and show the latest available version") );
+	printArgLine(ts, ARG_UPGRADECHECK_SHORT, ARG_UPGRADECHECK, tr("Check upstream Scribus releases (not Apscribe updates)") );
 	printArgLine(ts, ARG_VERSION_SHORT, ARG_VERSION, tr("Output version information and exit") );
 	printArgLine(ts, ARG_PYTHONSCRIPT_SHORT, qPrintable(QString("%1 <%2> [%3] ").arg(ARG_PYTHONSCRIPT, tr("script"), tr("arguments ..."))), tr("Run script in Python [with optional arguments]. This option must be last option used") );
 	printArgLine(ts, ARG_NOGUI_SHORT, ARG_NOGUI, tr("Do not start GUI") );
@@ -627,14 +627,14 @@ void ScribusQApp::showAvailLangs()
 		return;
 
 	QTextStream ts(&f);
-	ts << tr("Installed interface languages for Scribus are as follows:") << Qt::endl;
+	ts << tr("Installed interface languages for Apscribe are as follows:") << Qt::endl;
 	Qt::endl(ts);
 
 	LanguageManager::instance()->printInstalledList();
 	Qt::endl(ts);
 
 	ts << tr("To override the default language choice:") << Qt::endl;
-	ts << tr("scribus -l xx or scribus --lang xx, where xx is the language of choice.") << Qt::endl;
+	ts << tr("apscribe -l xx or apscribe --lang xx, where xx is the language of choice.") << Qt::endl;
 }
 
 void ScribusQApp::showVersion()
@@ -658,10 +658,10 @@ void ScribusQApp::showHeader()
 	const int descwidth = -(heading.length() - urlwidth - 1);
 	ts << heading << Qt::endl;
 	ts << separator << Qt::endl;
-	ts << QString("%1 %2").arg( tr("Homepage") + ":",      descwidth).arg("https://www.scribus.net" ) << Qt::endl;
-	ts << QString("%1 %2").arg( tr("Documentation") + ":", descwidth).arg("https://docs.scribus.net") << Qt::endl;
-	ts << QString("%1 %2").arg( tr("Wiki") + ":",          descwidth).arg("https://wiki.scribus.net") << Qt::endl;
-	ts << QString("%1 %2").arg( tr("Issues") + ":",        descwidth).arg("https://bugs.scribus.net") << Qt::endl;
+	ts << QString("%1 %2").arg( tr("Homepage") + ":",      descwidth).arg("https://github.com/appajid/apscribe") << Qt::endl;
+	ts << QString("%1 %2").arg( tr("Upstream documentation") + ":", descwidth).arg("https://docs.scribus.net") << Qt::endl;
+	ts << QString("%1 %2").arg( tr("Upstream wiki") + ":", descwidth).arg("https://wiki.scribus.net") << Qt::endl;
+	ts << QString("%1 %2").arg( tr("Issues") + ":",        descwidth).arg("https://github.com/appajid/apscribe/issues") << Qt::endl;
 	ts << Qt::endl;
 }
 

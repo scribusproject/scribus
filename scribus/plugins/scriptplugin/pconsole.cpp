@@ -56,7 +56,7 @@ PythonConsole::PythonConsole( QWidget* parent)
 
 	// welcome note
 	QString welcomeText(R"(""")");
-	welcomeText += tr("Scribus Python Console");
+	welcomeText += tr("Apscribe Python Console");
 	welcomeText += "\n\n";
 	welcomeText += tr(
 			"This is a standard Python console with some \n"

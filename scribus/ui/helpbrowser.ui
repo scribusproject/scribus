@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Scribus Help</string>
+   <string>Scribus Manual (upstream)</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -33,7 +33,7 @@
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBar">
    <property name="windowTitle">
-    <string>Scribus Help</string>
+    <string>Scribus Manual (upstream)</string>
    </property>
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>

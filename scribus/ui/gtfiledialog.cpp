@@ -30,7 +30,7 @@ gtFileDialog::gtFileDialog(const QString& filters, const QStringList& importers,
 	importerCombo->addItems(importers);
 
 	textOnlyCheckBox->setToolTip( tr("Import text without any formatting"));
-	prefixStylesCheckBox->setToolTip( tr("Prepend the item name to the Style name in Scribus"));
+	prefixStylesCheckBox->setToolTip( tr("Prepend the item name to the Style name in Apscribe"));
 
 	QList<QByteArray> codecNames = QTextCodec::availableCodecs();
 	QStringList codecList;

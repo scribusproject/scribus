@@ -3499,7 +3499,7 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 				QApplication::restoreOverrideCursor();
 			QString title = tr("Fatal Error") ;
 			QString msg = "<qt>"+ tr("File %1 is not in an acceptable format").arg(filename)+"</qt>";
-			QString infoMsg = "<qt>" + tr("The file may be damaged or may have been produced in a later version of Scribus.") + "</qt>";
+			QString infoMsg = "<qt>" + tr("The file may be damaged or may have been produced in a later version of Apscribe or Scribus.") + "</qt>";
 			ScMessageBox msgBox(QMessageBox::Critical, title, msg, QMessageBox::Ok | QMessageBox::Help, this);
 			msgBox.setInformativeText(infoMsg);
 			int i = msgBox.exec();
@@ -4392,7 +4392,7 @@ void ScribusMainWindow::slotFilePrint()
 			if (doc->checkerProfiles()[doc->curCheckProfile()].ignoreErrors)
 			{
 				int t = ScMessageBox::warning(this, CommonStrings::trWarning,
-											"<qt>"+ tr("Scribus has detected some errors. Consider using the Preflight Verifier to correct them")+"</qt>",
+										"<qt>"+ tr("Apscribe has detected some errors. Consider using the Preflight Verifier to correct them")+"</qt>",
 											QMessageBox::Abort | QMessageBox::Ignore,
 											QMessageBox::NoButton,	// GUI default
 											QMessageBox::Ignore);	// batch default
@@ -5232,7 +5232,7 @@ void ScribusMainWindow::slotOnlineHelp(const QString & jumpToSection, const QStr
 {
 	if (!m_helpBrowser)
 	{
-		m_helpBrowser = new HelpBrowser(nullptr, tr("Scribus Manual"), ScCore->getGuiLanguage(), jumpToSection, jumpToFile);
+		m_helpBrowser = new HelpBrowser(nullptr, tr("Scribus Manual (upstream)"), ScCore->getGuiLanguage(), jumpToSection, jumpToFile);
 		connect(m_helpBrowser, SIGNAL(closed()), this, SLOT(slotOnlineHelpClosed()));
 	}
 	else //just set the requested page
@@ -7299,7 +7299,7 @@ void ScribusMainWindow::printPreview()
 			if (checkerProfile.ignoreErrors)
 			{
 				int i = ScMessageBox::warning(this, CommonStrings::trWarning,
-											"<qt>"+ tr("Scribus has detected some errors. Consider using the Preflight Verifier to correct them")+"</qt>",
+										"<qt>"+ tr("Apscribe has detected some errors. Consider using the Preflight Verifier to correct them")+"</qt>",
 											QMessageBox::Abort | QMessageBox::Ignore,
 											QMessageBox::NoButton,	// GUI default
 											QMessageBox::Ignore);	// batch default
@@ -7376,7 +7376,7 @@ void ScribusMainWindow::outputPreviewPDF()
 			if (checkerProfile.ignoreErrors)
 			{
 				int i = ScMessageBox::warning(this, CommonStrings::trWarning,
-											"<qt>"+ tr("Scribus has detected some errors. Consider using the Preflight Verifier to correct them")+"</qt>",
+										"<qt>"+ tr("Apscribe has detected some errors. Consider using the Preflight Verifier to correct them")+"</qt>",
 											QMessageBox::Abort | QMessageBox::Ignore,
 											QMessageBox::NoButton,	// GUI default
 											QMessageBox::Ignore);	// batch default
@@ -7448,7 +7448,7 @@ void ScribusMainWindow::outputPreviewPS()
 			if (checkerProfile.ignoreErrors)
 			{
 				int i = ScMessageBox::warning(this, CommonStrings::trWarning,
-											"<qt>"+ tr("Scribus has detected some errors. Consider using the Preflight Verifier to correct them")+"</qt>",
+										"<qt>"+ tr("Apscribe has detected some errors. Consider using the Preflight Verifier to correct them")+"</qt>",
 											QMessageBox::Abort | QMessageBox::Ignore,
 											QMessageBox::NoButton,	// GUI default
 											QMessageBox::Ignore);	// batch default
@@ -7566,7 +7566,7 @@ void ScribusMainWindow::SaveAsEps()
 			if (doc->checkerProfiles()[doc->curCheckProfile()].ignoreErrors)
 			{
 				int t = ScMessageBox::warning(this, CommonStrings::trWarning,
-											tr("Scribus detected some errors.\nConsider using the Preflight Verifier  to correct them."),
+											tr("Apscribe detected some errors.\nConsider using the Preflight Verifier to correct them."),
 											QMessageBox::Abort | QMessageBox::Ignore,
 											QMessageBox::NoButton,	// GUI default,
 											QMessageBox::Ignore);	// batch default

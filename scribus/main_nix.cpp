@@ -126,9 +126,9 @@ void defaultCrashHandler(int sig)
 	{
 		emergencyActivated = true;
 		crashRecursionCounter++;
-		QString sigHdr = QObject::tr("Scribus Crash");
+		QString sigHdr = QObject::tr("Apscribe Crash");
 		QString sigLine = "-------------";
-		QString sigMsg = QObject::tr("Scribus crashes due to Signal #%1").arg(sig);
+		QString sigMsg = QObject::tr("Apscribe crashed due to Signal #%1").arg(sig);
 		std::cout << sigHdr.toStdString() << std::endl;
 		std::cout << sigLine.toStdString() << std::endl;
 		std::cout << sigMsg.toStdString() << std::endl;

@@ -922,9 +922,9 @@ void PrefsManager::copyOldAppConfigAndData()
 			bool splashShown = ScCore->splashShowing();
 			if (splashShown)
 				ScCore->showSplash(false);
-			if (ScMessageBox::question(ScCore->primaryMainWindow(), tr("Migrate Old Scribus Settings?"),
-				tr("Scribus has detected existing Scribus 1.6.0 preferences files.\n"
-					"Do you want to migrate them to the new Scribus version?"),
+			if (ScMessageBox::question(ScCore->primaryMainWindow(), tr("Migrate Scribus Settings to Apscribe?"),
+				tr("Apscribe has detected existing Scribus 1.6.0 preferences files.\n"
+					"Do you want to migrate them to Apscribe?"),
 				QMessageBox::Yes | QMessageBox::No,
 				QMessageBox::NoButton,	// GUI default
 				QMessageBox::Yes	// batch default
@@ -3011,7 +3011,7 @@ void PrefsManager::alertSavePrefsFailed() const
 {
 	ScMessageBox::critical(ScCore->primaryMainWindow(), tr("Error Writing Preferences"),
 			"<qt>" +
-			tr("Scribus was not able to save its preferences:<br>"
+			tr("Apscribe was not able to save its preferences:<br>"
 			   "%1<br>"
 			   "Please check file and directory permissions and "
 			   "available disk space.", "scribus app error")
@@ -3028,7 +3028,7 @@ void PrefsManager::alertLoadPrefsFailed() const
 		ScCore->showSplash(false);
 	ScMessageBox::critical(ScCore->primaryMainWindow(), tr("Error Loading Preferences"),
 			"<qt>" +
-			tr("Scribus was not able to load its preferences:<br>"
+			tr("Apscribe was not able to load its preferences:<br>"
 			   "%1<br>"
 			   "Default settings will be loaded.")
 			   .arg(lastError())

@@ -220,7 +220,7 @@ void Prefs_ExternalTools::rescanForTools()
 				continue;
 			cmd.append(parms);
 			int ret = ScMessageBox::question(this, tr("LaTeX Command"),
-					tr("Scribus has found the following pdflatex command:\n%1\nDo you want to use this?").arg(cmd),
+					tr("Apscribe has found the following pdflatex command:\n%1\nDo you want to use this?").arg(cmd),
 					QMessageBox::Yes|QMessageBox::No,
 					QMessageBox::No,	// GUI default
 					QMessageBox::Yes);	// batch default

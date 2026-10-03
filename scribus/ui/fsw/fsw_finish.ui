@@ -3,7 +3,7 @@
  <class>FSW_Finish</class>
  <widget class="QWizardPage" name="FSW_Finish">
   <property name="title"><string>You're all set</string></property>
-  <property name="subTitle"><string>Scribus will start with these defaults. Change them any time in Preferences.</string></property>
+  <property name="subTitle"><string>Apscribe will start with these defaults. Change them any time in Preferences.</string></property>
   <layout class="QVBoxLayout" name="finishLayout">
    <item><widget class="QLabel" name="finishSplashLabel"><property name="alignment"><set>Qt::AlignCenter</set></property></widget></item>
    <item><widget class="QLabel" name="summaryLabel"><property name="wordWrap"><bool>true</bool></property><property name="text"><string/></property></widget></item>

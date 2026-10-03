@@ -31,7 +31,7 @@ FirstStartWizard::FirstStartWizard(ApplicationPrefs* prefsData, QWidget* parent)
 {
 	setObjectName(QString::fromUtf8("FirstStartWizard"));
 	setWizardStyle(QWizard::ModernStyle);
-	setWindowTitle(tr("Welcome to Scribus"));
+	setWindowTitle(tr("Welcome to Apscribe"));
 	setMinimumSize(720, 520);
 
 	setOption(QWizard::NoBackButtonOnStartPage, true);

@@ -32,7 +32,7 @@ SxwDialog::SxwDialog(bool update, bool prefix, bool pack) : QDialog(nullptr)
 	hlayout->setSpacing(6);
 	updateCheck = new QCheckBox( tr("Overwrite Paragraph Styles"), this);
 	updateCheck->setChecked(update);
-	updateCheck->setToolTip( "<qt>" + tr("Enabling this will overwrite existing styles in the current Scribus document") + "</qt>");
+	updateCheck->setToolTip( "<qt>" + tr("Enabling this will overwrite existing styles in the current Apscribe document") + "</qt>");
 	hlayout->addWidget(updateCheck);
 	layout->addLayout(hlayout);
 	
@@ -50,7 +50,7 @@ SxwDialog::SxwDialog(bool update, bool prefix, bool pack) : QDialog(nullptr)
 	playout->setSpacing(6);
 	prefixCheck = new QCheckBox( tr("Use document name as a prefix for paragraph styles"), this);
 	prefixCheck->setChecked(prefix);
-	prefixCheck->setToolTip( "<qt>" + tr("Prepend the document name to the paragraph style name in Scribus.") +"</qt>");
+	prefixCheck->setToolTip( "<qt>" + tr("Prepend the document name to the paragraph style name in Apscribe.") +"</qt>");
 	playout->addWidget(prefixCheck);
 	layout->addLayout(playout);
 

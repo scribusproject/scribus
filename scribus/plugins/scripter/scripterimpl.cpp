@@ -328,7 +328,7 @@ void ScripterImpl::aboutScripter()
 {
 	ScMessageBox::information(
 	    0, //(QWidget*)doc->scMW(),
-	    tr("Scribus - Scripter Plugin"),
+	    tr("Apscribe - Scripter Plugin"),
 	    tr("If you see this box, Scripter probably works :)"),
 	    QMessageBox::Ok|QMessageBox::Default|QMessageBox::Escape,
 	    QMessageBox::NoButton);

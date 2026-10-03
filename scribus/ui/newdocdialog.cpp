@@ -188,7 +188,7 @@ void NewDocDialog::createWelcomePage()
 	appIcon->setPixmap(IconManager::instance().loadPixmap("app-icon", QSize(42, 42)));
 	appIcon->setFixedSize(46, 46);
 	header->addWidget(appIcon);
-	auto* appName = new QLabel(tr("Scribus"), m_welcomePage);
+	auto* appName = new QLabel(tr("Apscribe"), m_welcomePage);
 	appName->setObjectName(QStringLiteral("welcomeAppName"));
 	header->addWidget(appName);
 	header->addStretch();
@@ -287,10 +287,10 @@ void NewDocDialog::createWelcomePage()
 	content->addLayout(recentColumn, 5);
 	pageLayout->addLayout(content, 1);
 
-	auto* showOnStartup = new QCheckBox(tr("Show this window when Scribus opens"), m_welcomePage);
+	auto* showOnStartup = new QCheckBox(tr("Show this window when Apscribe opens"), m_welcomePage);
 	showOnStartup->setObjectName(QStringLiteral("welcomeShowOnStartup"));
 	showOnStartup->setChecked(prefsManager.appPrefs.uiPrefs.showStartupDialog);
-	showOnStartup->setAccessibleName(tr("Show the Welcome window when Scribus opens"));
+	showOnStartup->setAccessibleName(tr("Show the Welcome window when Apscribe opens"));
 	pageLayout->addWidget(showOnStartup);
 
 	tabWidget->insertTab(0, m_welcomePage, tr("Welcome"));
@@ -982,7 +982,7 @@ void NewDocDialog::adjustTitles(int tab)
 		m_backButton->setVisible(!isWelcome);
 	if (isWelcome)
 	{
-		setWindowTitle(tr("Scribus"));
+		setWindowTitle(tr("Apscribe"));
 		return;
 	}
 	if (logicalTab == NewDocDialog::NewDocumentTab)

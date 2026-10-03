@@ -101,7 +101,7 @@ void PicSearchOptions::slotSearchPic()
 	QString searchBase = directoryEdit->text();
 	if (searchBase.isEmpty() || !QDir().exists(searchBase))
 	{
-		if (ScMessageBox::warning(this, tr("Scribus - Image Search"), tr("Base directory for search does not exist.\nPlease choose another one."),
+		if (ScMessageBox::warning(this, tr("Apscribe - Image Search"), tr("Base directory for search does not exist.\nPlease choose another one."),
 			QMessageBox::Ok | QMessageBox::Default | QMessageBox::Escape | QMessageBox::Cancel,
 			QMessageBox::NoButton,	// GUI default
 			QMessageBox::Ok)	// batch default
@@ -140,7 +140,7 @@ void PicSearchOptions::slotSearchPicAborted(bool userCancelled)
 	enableGuiWhileSearching(true);
 	if (!userCancelled)
 		// A running search failed
-		ScMessageBox::warning(this, tr("Scribus - Image Search"), tr("The search failed: %1").arg(search->lastError()),
+		ScMessageBox::warning(this, tr("Apscribe - Image Search"), tr("The search failed: %1").arg(search->lastError()),
 				QMessageBox::Ok|QMessageBox::Default|QMessageBox::Escape,
 				QMessageBox::NoButton);
 	reject();

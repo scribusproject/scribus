@@ -2,8 +2,8 @@
 <ui version="4.0">
  <class>FSW_Welcome</class>
  <widget class="QWizardPage" name="FSW_Welcome">
-  <property name="title"><string>Welcome to Scribus</string></property>
-  <property name="subTitle"><string>Let's set a few defaults so Scribus feels right from the first document. You can change any of this later in Preferences.</string></property>
+  <property name="title"><string>Welcome to Apscribe</string></property>
+  <property name="subTitle"><string>Let's set a few defaults so Apscribe feels right from the first document. You can change any of this later in Preferences.</string></property>
   <layout class="QVBoxLayout" name="welcomeLayout">
    <item>
     <widget class="QLabel" name="splashLabel">
