@@ -7,7 +7,7 @@
 #    1. stages the MSVC Release|x64 output into win32\installer\app
 #    2. deploys the Qt6 runtime (windeployqt) so Scribus runs on a PC
 #    3. copies the third-party DLLs provided by the scribus-libs kit
-#    4. runs NSIS (makensis) to produce Scribus-<version>-Setup.exe
+#    4. runs NSIS (makensis) to produce Ascribe-<version>-Setup.exe
 #
 #  Usage:
 #    powershell -ExecutionPolicy Bypass -File deploy.ps1
@@ -277,7 +277,7 @@ if (-not $SkipNsis -and $Makensis) {
     finally {
         Pop-Location
     }
-    $installer = Join-Path $DistDir "Scribus-$Version-Setup.exe"
+    $installer = Join-Path $DistDir "Ascribe-$Version-Setup.exe"
     if (Test-Path -LiteralPath $installer) {
         $size = (Get-Item -LiteralPath $installer).Length
         Write-Host ""

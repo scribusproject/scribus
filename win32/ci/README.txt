@@ -16,7 +16,7 @@ NSIS, builds the official Scribus dependency kit, builds Scribus, then uploads
 one artifact containing:
 
   Scribus-2.0.0-win64.zip
-  Scribus-2.0.0-Setup.exe
+  Ascribe-2.0.0-Setup.exe
 
 The verified Qt SDK, dependency build, and application build are cached after
 their individual stages. The first run is therefore much slower than later

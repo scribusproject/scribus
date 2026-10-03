@@ -236,7 +236,7 @@ Assert-LastExitCode 'Portable package assembly'
 
 $portableDir = Join-Path $Sources "win32\deploy\dist\Scribus-$Version-win64"
 $portableZip = Join-Path $Sources "win32\deploy\dist\Scribus-$Version-win64.zip"
-$installer = Join-Path $Sources "win32\installer\dist\Scribus-$Version-Setup.exe"
+$installer = Join-Path $Sources "win32\installer\dist\Ascribe-$Version-Setup.exe"
 
 if (-not $SkipInstaller) {
     Write-Host '== Creating NSIS installer ==' -ForegroundColor Cyan
