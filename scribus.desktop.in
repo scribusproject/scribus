@@ -1,15 +1,7 @@
 [Desktop Entry]
 Type=Application
-Name=Scribus@TAG_VERSION@
-Name[ar]=سكريبس@TAG_VERSION@
-Name[fa]=اسکریباس@TAG_VERSION@
-Name[lo]=ສະຄຣີບັດສ໌@TAG_VERSION@
-Name[ru]=Scribus@TAG_VERSION@
-Name[ta]=ஸ்கிரிபஸ்@TAG_VERSION@
+Name=Ascribe
 Comment=Page Layout and Publication
-Comment[ar]=سكريبس
-Comment[fa]=اسکریباس
-Comment[ta]=ஸ்கிரிபஸ்
 Comment[af]=Werkskerm Publisering
 Comment[bg]=Издателска програма
 Comment[bs]=Stono izdavaštvo (DTP)

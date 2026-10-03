@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleGetInfoString</key>
-	<string>Scribus Installer 2.0.0</string>
+	<string>Ascribe Installer 2.0.0 (based on Scribus)</string>
 	<key>CFBundleIdentifier</key>
-	<string>net.scribus.osxinstaller</string>
+	<string>com.appajid.ascribe.osxinstaller</string>
 	<key>CFBundleName</key>
-	<string>Scribus</string>
+	<string>Ascribe</string>
 	<key>CFBundleShortVersionString</key>
 	<string>2.0.0</string>
 	<key>IFMajorVersion</key>

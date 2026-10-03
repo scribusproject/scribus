@@ -3,18 +3,18 @@
 <component type="desktop-application">
 	<id>scribus@TAG_VERSION@.desktop</id>
 	<metadata_license>CC0-1.0</metadata_license>
-	<name>Scribus</name>
+	<name>Ascribe</name>
 	<project_license>GPL-2.0+</project_license>
-	<summary>Open Source Page Layout and Desktop Publishing (DTP)</summary>
-	<url type="homepage">https://www.scribus.net/</url>
-	<url type="bugtracker">https://bugs.scribus.net/</url>
-	<url type="vcs-browser">https://wiki.scribus.net/canvas/Checking_out_SVN</url>
+	<summary>Open-source page layout and desktop publishing based on Scribus</summary>
+	<url type="homepage">https://github.com/appajid/scribus</url>
+	<url type="bugtracker">https://github.com/appajid/scribus/issues</url>
+	<url type="vcs-browser">https://github.com/appajid/scribus</url>
 	<description>
-		<p>Scribus is a open source page layout program which
+		<p>Ascribe is an open-source page layout application based on Scribus. It
 produces commercial grade output in PDF and Postscript, primarily,
 though not exclusively, for Linux.</p>
 		<p>While the goals of the program are ease of use and simple
-easy-to-understand tools, Scribus supports professional
+easy-to-understand tools, Ascribe supports professional
 publishing features, such as CMYK and spot colors, easy PDF creation,
 Encapsulated Postscript import and export and creation of color
 separations.</p>
@@ -33,7 +33,6 @@ separations.</p>
 			<caption>Image effects tab</caption>
 		</screenshot>
 	</screenshots>
-	<update_contact>scribus-dev@lists.scribus.net</update_contact>
 	<content_rating type="oars-1.1">
 		<content_attribute id="violence-cartoon">none</content_attribute>
 		<content_attribute id="violence-fantasy">none</content_attribute>
@@ -56,7 +55,7 @@ separations.</p>
 		<content_attribute id="money-purchasing">none</content_attribute>
 		<content_attribute id="money-gambling">none</content_attribute>
 	</content_rating>
-	<developer_name>Scribus developers</developer_name>
+	<developer_name>Appaji Ambarisha Darbha and Scribus contributors</developer_name>
 	<launchable type="desktop-id">net.scribus.Scribus.desktop</launchable>
 	<releases>
 		<release version="1.6.2" date="2024-06-15" type="stable"/>
