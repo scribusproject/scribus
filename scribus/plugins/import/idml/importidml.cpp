@@ -362,7 +362,12 @@ bool IdmlPlug::importFile(const QString& fNameIn, const TransactionSettings& trS
 	if ((!(flags & LoadSavePlugin::lfLoadAsPattern)) && (m_Doc->view() != nullptr))
 		m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->setScriptRunning(true);
+	// Cocoa can crash while creating an override cursor when import begins from
+	// the Welcome window, before the document window has finished initializing.
+	// The progress dialog already indicates that import is busy on macOS.
+#ifndef Q_OS_MACOS
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+#endif
 	QString CurDirP = QDir::currentPath();
 	QDir::setCurrent(fi.path());
 	if (convert(fNameIn))
@@ -376,7 +381,9 @@ bool IdmlPlug::importFile(const QString& fNameIn, const TransactionSettings& trS
 		m_Doc->setLoading(false);
 		if ((flags & LoadSavePlugin::lfCreateDoc) && fi.suffix().compare("idml", Qt::CaseInsensitive) == 0)
 			fitTightDisplayText();
+#ifndef Q_OS_MACOS
 		QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
+#endif
 		if (!Elements.isEmpty() && !ret && interactive)
 		{
 			if (flags & LoadSavePlugin::lfScripted)
@@ -459,7 +466,9 @@ bool IdmlPlug::importFile(const QString& fNameIn, const TransactionSettings& trS
 		m_Doc->scMW()->setScriptRunning(false);
 		if (!(flags & LoadSavePlugin::lfLoadAsPattern))
 			m_Doc->view()->updatesOn(true);
+#ifndef Q_OS_MACOS
 		QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
+#endif
 	}
 	if (interactive)
 		m_Doc->setLoading(false);
@@ -469,7 +478,9 @@ bool IdmlPlug::importFile(const QString& fNameIn, const TransactionSettings& trS
 		if (showProgress && !interactive)
 			m_Doc->view()->DrawNew();
 	}
+#ifndef Q_OS_MACOS
 	QApplication::restoreOverrideCursor();
+#endif
 	return success;
 }
 
@@ -672,7 +683,9 @@ bool IdmlPlug::convert(const QString& fn)
 					else
 						m_Doc->changeLayerName(currentLayer, layerName);
 					m_Doc->setLayerVisible(currentLayer, (dpg.attribute("Visible") == "true"));
-					m_Doc->setLayerLocked(currentLayer, (dpg.attribute("Locked") == "true"));
+					// Imported layers remain visually faithful, but are editable immediately.
+					m_Doc->setLayerLocked(currentLayer, false);
+					m_Doc->setLayerSelectable(currentLayer, true);
 					m_Doc->setLayerPrintable(currentLayer, (dpg.attribute("Printable") == "true"));
 					m_Doc->setLayerFlow(currentLayer, (dpg.attribute("IgnoreWrap","") == "true"));
 				}
@@ -704,7 +717,9 @@ bool IdmlPlug::convert(const QString& fn)
 					else
 						m_Doc->changeLayerName(currentLayer, layerName);
 					m_Doc->setLayerVisible(currentLayer, (dpg.attribute("Visible") == "true"));
-					m_Doc->setLayerLocked(currentLayer, (dpg.attribute("Locked") == "true"));
+					// Imported layers remain visually faithful, but are editable immediately.
+					m_Doc->setLayerLocked(currentLayer, false);
+					m_Doc->setLayerSelectable(currentLayer, true);
 					m_Doc->setLayerPrintable(currentLayer, (dpg.attribute("Printable") == "true"));
 					m_Doc->setLayerFlow(currentLayer, (dpg.attribute("IgnoreWrap","") == "true"));
 				}
@@ -3518,12 +3533,16 @@ QString IdmlPlug::constructFontName(const QString& fontBaseName, const QString& 
 							fontName = PrefsManager::instance().appPrefs.itemToolPrefs.textFont;
 						else
 						{
+#ifndef Q_OS_MACOS
 							QApplication::changeOverrideCursor(QCursor(Qt::ArrowCursor));
+#endif
 							MissingFont *dia = new MissingFont(nullptr, family, m_Doc);
 							dia->exec();
 							fontName = dia->getReplacementFont();
 							delete dia;
+#ifndef Q_OS_MACOS
 							QApplication::changeOverrideCursor(QCursor(Qt::WaitCursor));
+#endif
 							PrefsManager::instance().appPrefs.fontPrefs.GFontSub[family] = fontName;
 						}
 					}

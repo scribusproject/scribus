@@ -149,8 +149,18 @@ bool ImportIdmlPlugin::fileSupported(QIODevice* /* file */, const QString & file
 	QDomDocument document;
 	if (!document.setContent(designMap))
 		return false;
-	const QString rootName = document.documentElement().tagName();
-	return rootName == "Document" || rootName == "idPkg:Document";
+	const QDomElement root = document.documentElement();
+	const QString rootName = root.tagName();
+	if (rootName != "Document" && rootName != "idPkg:Document")
+		return false;
+	// Reject broken packages before importFile creates a Scribus document.
+	for (QDomNode node = root.firstChild(); !node.isNull(); node = node.nextSibling())
+	{
+		const QDomElement component = node.toElement();
+		if (component.hasAttribute("src") && !archive.contains(component.attribute("src")))
+			return false;
+	}
+	return true;
 }
 
 bool ImportIdmlPlugin::loadFile(const QString & fileName, const FileFormat &, int flags, int /*index*/)

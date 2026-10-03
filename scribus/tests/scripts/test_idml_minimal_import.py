@@ -47,6 +47,8 @@ path_points = "\n".join(
 design_map = """<?xml version="1.0" encoding="UTF-8"?>
 <Document xmlns:idPkg="http://ns.adobe.com/AdobeInDesign/idml/1.0/" ActiveLayer="Layer/1">
   <Layer Self="Layer/1" Name="Layer 1" Visible="true" Locked="false" Printable="true"/>
+  <Layer Self="Layer/2" Name="Text" Visible="true" Locked="true" Printable="true"/>
+  <Layer Self="Layer/3" Name="Hidden" Visible="false" Locked="true" Printable="false"/>
   <idPkg:Spread>
     <Spread Self="Spread/1">
       <Page Self="Page/1" ItemTransform="1 0 0 1 0 0"/>
@@ -61,13 +63,13 @@ design_map = """<?xml version="1.0" encoding="UTF-8"?>
         </PathPointArray></GeometryPathType></PathGeometry></Properties>
         <Image ImageTypeName="PNG"><Link LinkResourceURI="file:/unavailable/linked.png"/></Image>
       </Rectangle>
-      <TextFrame Self="TextFrame/2" ParentStory="Story/used" ItemLayer="Layer/1"
+      <TextFrame Self="TextFrame/2" ParentStory="Story/used" ItemLayer="Layer/2"
                  ItemTransform="1 0 0 1 100 100">
         <Properties><PathGeometry><GeometryPathType PathOpen="false"><PathPointArray>
           %s
         </PathPointArray></GeometryPathType></PathGeometry></Properties>
       </TextFrame>
-      <TextFrame Self="TextFrame/1" ParentStory="Story/used" NextTextFrame="TextFrame/2" ItemLayer="Layer/1"
+      <TextFrame Self="TextFrame/1" ParentStory="Story/used" NextTextFrame="TextFrame/2" ItemLayer="Layer/2"
                  ItemTransform="1 0 0 1 0 100">
         <Properties><PathGeometry><GeometryPathType PathOpen="false"><PathPointArray>
           %s
@@ -113,6 +115,7 @@ with ZipFile(source, "w", ZIP_DEFLATED) as archive:
     archive.writestr("designmap.xml", design_map)
 
 assert scribus.openDoc(str(source)), "Minimal IDML import failed"
+assert scribus.getActiveLayer() == "Layer 1", "IDML active layer changed"
 assert scribus.pageCount() == 1, "Minimal IDML page count changed"
 objects = scribus.getAllObjects(page=0)
 assert len(objects) == 4, "Minimal IDML objects were not imported"
@@ -138,6 +141,22 @@ scribus.saveDocAs(str(roundtrip))
 scribus.closeDoc()
 assert roundtrip.is_file(), "Imported IDML document was not saved as SLA"
 saved_document = ElementTree.parse(roundtrip)
+saved_layers = {layer.get("Name"): layer for layer in saved_document.iter("Layers")}
+assert saved_layers["Layer 1"].get("IsSelectable") == "1", (
+    "IDML active layer cannot be selected"
+)
+assert saved_layers["Text"].get("IsSelectable") == "1", (
+    "IDML text layer cannot be selected while another layer is active"
+)
+assert saved_layers["Text"].get("IsEditable") == "1", (
+    "IDML text layer was not unlocked for editing"
+)
+assert all(layer.get("IsEditable") == "1" for layer in saved_layers.values()), (
+    "An IDML layer was left locked"
+)
+assert saved_layers["Hidden"].get("IsViewable") == "0" and saved_layers["Hidden"].get("IsPrintable") == "0", (
+    "Import changed a hidden layer's original visibility or print setting"
+)
 inline_tables = [
     frame for frame in saved_document.iter("FrameObject") if frame.find("TableData") is not None
 ]
@@ -156,6 +175,7 @@ assert (roundtrip.parent / cell_image.get("ImageFileName")).resolve() == linked_
     "IDML table-cell image link changed during SLA save"
 )
 assert scribus.openDoc(str(roundtrip)), "Could not reopen imported IDML as SLA"
+assert scribus.getActiveLayer() == "Layer 1", "IDML active layer changed after SLA reopen"
 assert scribus.pageCount() == 1, "IDML page count changed after SLA round-trip"
 reopened_objects = scribus.getAllObjects(page=0)
 assert len(reopened_objects) == 4, "IDML objects changed after SLA round-trip"

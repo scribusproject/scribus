@@ -44,7 +44,17 @@ with ZipFile(missing_spread, "w") as archive:
         '<idPkg:Spread src="Spreads/missing.xml"/></Document>',
     )
 
-for source in (not_zip, missing_map, wrong_root, no_pages, missing_spread):
+missing_story = output / "missing-story-component.idml"
+with ZipFile(missing_story, "w") as archive:
+    archive.writestr(
+        "designmap.xml",
+        '<Document xmlns:idPkg="http://ns.adobe.com/AdobeInDesign/idml/1.0/">'
+        '<idPkg:Spread><Spread><Page Self="Page/1"/></Spread></idPkg:Spread>'
+        '<idPkg:Story src="Stories/missing.xml"/></Document>',
+    )
+
+for source in (not_zip, missing_map, wrong_root, no_pages, missing_spread, missing_story):
+    print("Checking malformed IDML:", source.name, flush=True)
     try:
         opened = scribus.openDoc(str(source))
     except Exception:
