@@ -2,7 +2,7 @@
 
 Apscribe is a work-in-progress desktop-publishing fork of [Scribus](https://www.scribus.net/). It retains Scribus's open-source foundation while developing a revised workspace and additional long-document, production, import, and publishing tools. Apscribe is the **working name**, not a claim of affiliation with the Scribus project or a finished release. The application currently reports version 2.0.0; that number does not imply feature-complete or production-ready status.
 
-**Where the changes are:** the [Apscribe development branch](https://github.com/appajid/scribus/tree/codex/apscribe-granular-2026-10-03) contains the new code and granular commits. The fork's `master` branch does **not** yet contain all of these features. The [feature inventory](FORK_CHANGES.md) separates implemented work from limited or experimental work and points to the relevant tests. Consult the [development branch's commit history](https://github.com/appajid/scribus/commits/codex/apscribe-granular-2026-10-03/) for individual changes.
+**Where the changes are:** the [Apscribe development branch](https://github.com/appajid/apscribe/tree/codex/apscribe-granular-2026-10-03) contains the new code and granular commits. The fork's `master` branch does **not** yet contain all of these features. The [feature inventory](FORK_CHANGES.md) separates implemented work from limited or experimental work and points to the relevant tests. Consult the [development branch's commit history](https://github.com/appajid/apscribe/commits/codex/apscribe-granular-2026-10-03/) for individual changes.
 
 ## Highlights in the development branch
 
@@ -19,4 +19,4 @@ See [what works and what remains](FORK_CHANGES.md) before relying on a feature f
 
 Build instructions are in [BUILDING](BUILDING), [README.MacOSX](README.MacOSX), and [BUILDING_win32_cmake.txt](BUILDING_win32_cmake.txt). Use the development branch to try fork features. Keep source files and license notices when distributing modified builds; see [COPYING](COPYING). The executable and `.sla` document format still use some Scribus identifiers while branding and compatibility work continues.
 
-For issues about these fork changes, use this repository's [issue tracker](https://github.com/appajid/scribus/issues). For upstream Scribus issues, use the [Scribus project](https://www.scribus.net/). This fork is independently developed and is not an official Scribus release.
+For issues about these fork changes, use this repository's [issue tracker](https://github.com/appajid/apscribe/issues). For upstream Scribus issues, use the [Scribus project](https://www.scribus.net/). This fork is independently developed and is not an official Scribus release.
