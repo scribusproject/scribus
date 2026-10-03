@@ -10,8 +10,9 @@ if (APPLEBUNDLE)
 			# add "/Contents" subpath
 			set(CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}/Contents")
 		else()
-			# no bundle name specified, use appname and version
-			set(CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}/Scribus${VERSION}.app/Contents")
+			# Keep the public bundle name stable across releases. The executable and
+			# resource paths inside it retain their Scribus names for compatibility.
+			set(CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}/Apscribe.app/Contents")
 		endif()
 	endif()
 	message(STATUS "APPLEBUNDLE install prefix: ${APPLE_APP_DIR}")

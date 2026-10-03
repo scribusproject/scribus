@@ -364,7 +364,7 @@ if(TAG_VERSION)
 	set(CACHED_VERSIONING ON)
 endif()
 
-#Remove version tags on OSX so our bundle is Scribus.app
+#Remove version tags on OSX so the Apscribe bundle has a stable name
 if (APPLEBUNDLE OR WIN32)
 	if (WANT_VERSIONING OR CACHED_VERSIONING)
 		message(STATUS "Ignoring version tag on Win32 or OSX when building bundle")
