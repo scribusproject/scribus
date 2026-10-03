@@ -56,11 +56,11 @@ endif()
 
 #Project Setup
 #Do this now, prior to adding the suffix for SVN
-project(scribus VERSION ${VERSION}) # LANGUAGES CXX C)
+project(apscribe VERSION ${VERSION}) # LANGUAGES CXX C)
 if (VERSION_SUFFIX)
 	set (VERSION ${VERSION}.${VERSION_SUFFIX})
 endif()
-message(STATUS "Scribus ${VERSION} will be built and installed into ${CMAKE_INSTALL_PREFIX}")
+message(STATUS "Apscribe ${VERSION} will be built and installed into ${CMAKE_INSTALL_PREFIX}")
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
@@ -596,11 +596,11 @@ endif()
 
 #Install the .desktop file
 configure_file(
-	${CMAKE_CURRENT_SOURCE_DIR}/scribus.desktop.in
-	${CMAKE_CURRENT_SOURCE_DIR}/scribus.desktop
+	${CMAKE_CURRENT_SOURCE_DIR}/apscribe.desktop.in
+	${CMAKE_CURRENT_BINARY_DIR}/apscribe.desktop
 )
 install(FILES
-	scribus.desktop
+	${CMAKE_CURRENT_BINARY_DIR}/apscribe.desktop
 	RENAME apscribe${TAG_VERSION}.desktop
 	DESTINATION ${DESKTOPDIR}
 )
@@ -615,11 +615,11 @@ install(FILES
 
 #Install the appdata file
 configure_file(
-	${CMAKE_CURRENT_SOURCE_DIR}/scribus.appdata.xml.in
-	${CMAKE_CURRENT_SOURCE_DIR}/scribus.appdata.xml
+	${CMAKE_CURRENT_SOURCE_DIR}/apscribe.appdata.xml.in
+	${CMAKE_CURRENT_BINARY_DIR}/apscribe.appdata.xml
 )
 install(FILES
-	scribus.appdata.xml
+	${CMAKE_CURRENT_BINARY_DIR}/apscribe.appdata.xml
 	RENAME apscribe${TAG_VERSION}.appdata.xml
 	DESTINATION ${APPDATADIR}
 )
@@ -657,7 +657,7 @@ if(EXISTS "${CMAKE_ROOT}/Modules/CPack.cmake")
 	else()
 		set(CPACK_PACKAGE_EXECUTABLES "apscribe${TAG_VERSION}")
 	endif()
-	set(CPACK_SOURCE_PACKAGE_FILE_NAME "scribus-${VERSION}${VERSION_SUFFIX}")
+	set(CPACK_SOURCE_PACKAGE_FILE_NAME "apscribe-${VERSION}${VERSION_SUFFIX}")
 	set(CPACK_SOURCE_GENERATOR TBZ2)
 	set(CPACK_SYSTEM_NAME "")
 	set(CPACK_TOPLEVEL_TAG "")

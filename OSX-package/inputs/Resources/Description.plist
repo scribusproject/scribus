@@ -3,8 +3,8 @@
 <plist version="1.0">
 <dict>
 	<key>IFPkgDescriptionDescription</key>
-	<string>This will install Scribus and needed libraries on your computer.</string>
+	<string>This will install Apscribe and needed libraries on your computer.</string>
 	<key>IFPkgDescriptionTitle</key>
-	<string>Scribus Installer</string>
+	<string>Apscribe Installer</string>
 </dict>
 </plist>

@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleGetInfoString</key>
-	<string>Scribus 2.0.0</string>
+	<string>Apscribe 2.0.0</string>
 	<key>CFBundleIdentifier</key>
-	<string>net.scribus</string>
+	<string>com.appajid.apscribe.pkg</string>
 	<key>CFBundleName</key>
-	<string>Scribus</string>
+	<string>Apscribe</string>
 	<key>CFBundleShortVersionString</key>
 	<string>2.0.0</string>
 	<key>IFMajorVersion</key>

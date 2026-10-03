@@ -6,7 +6,7 @@ cat /proc/1/cgroup # Check if we run in Docker; https://github.com/AppImage/AppI
 # if qt is not in the standard path, load its environment variables
 # . /opt/qt*/bin/qt*-env.sh || true
 
-SCRIBUS_VERSION=nightly
+APSCRIBE_VERSION=nightly
 
 ########################################################################
 # Build Scribus and install to appdir/
@@ -32,7 +32,7 @@ chmod +x appdir/AppRun
 
 cp ./appdir/usr/share/icons/hicolor/256x256/apps/scribus.png ./appdir/
 # TODO: is this needed?
-sed -i -e 's|^Icon=.*|Icon=scribus|g' ./appdir/usr/share/applications/scribus.desktop
+sed -i -e 's|^Icon=.*|Icon=scribus|g' ./appdir/usr/share/applications/apscribe.desktop
 
 ########################################################################
 # Bundle everything
@@ -96,7 +96,7 @@ EOF
 wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
 chmod a+x linuxdeployqt-continuous-x86_64.AppImage
 
-ARCH=x86_64 VERSION=$SCRIBUS_VERSION ./linuxdeployqt-continuous-x86_64.AppImage --appimage-extract-and-run appdir/usr/share/applications/scribus.desktop \
+ARCH=x86_64 VERSION=$APSCRIBE_VERSION ./linuxdeployqt-continuous-x86_64.AppImage --appimage-extract-and-run appdir/usr/share/applications/apscribe.desktop \
    -appimage -unsupported-bundle-everything \
    -executable=appdir/usr/bin/python3.12 \
    -executable=appdir/usr/lib/python3.12/lib-dynload/_tkinter.cpython-312-x86_64-linux-gnu.so \

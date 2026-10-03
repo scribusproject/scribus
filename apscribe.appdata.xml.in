@@ -19,20 +19,6 @@ publishing features, such as CMYK and spot colors, easy PDF creation,
 Encapsulated Postscript import and export and creation of color
 separations.</p>
 	</description>
-	<screenshots>
-		<screenshot type="default">
-			<image height="708" width="1000">https://raw.githubusercontent.com/scribusproject/scribus/master/doc/en/images/Rembrandt2.png</image>
-			<caption>Main Window with blank page</caption>
-		</screenshot>
-		<screenshot>
-			<image height="702" width="1000">https://raw.githubusercontent.com/scribusproject/scribus/master/doc/en/images/Rembrandt18.png</image>
-			<caption>Properties window</caption>
-		</screenshot>
-		<screenshot>
- 			<image height="477" width="629">https://raw.githubusercontent.com/scribusproject/scribus/master/doc/en/images/Rembrandt16.png</image>
-			<caption>Image effects tab</caption>
-		</screenshot>
-	</screenshots>
 	<content_rating type="oars-1.1">
 		<content_attribute id="violence-cartoon">none</content_attribute>
 		<content_attribute id="violence-fantasy">none</content_attribute>
@@ -56,15 +42,5 @@ separations.</p>
 		<content_attribute id="money-gambling">none</content_attribute>
 	</content_rating>
 	<developer_name>Appaji Ambarisha Darbha and Scribus contributors</developer_name>
-	<launchable type="desktop-id">net.scribus.Scribus.desktop</launchable>
-	<releases>
-		<release version="1.6.2" date="2024-06-15" type="stable"/>
-		<release version="1.6.1" date="2024-01-07" type="stable"/>
-		<release version="1.6.0" date="2024-01-01" type="stable"/>
-		<release version="1.5.8" date="2022-01-23" type="development"/>
-		<release version="1.5.7" date="2021-04-25" type="development"/>
-		<release version="1.5.6.1" date="2020-11-14" type="development"/>
-		<release version="1.5.6" date="2020-11-07" type="development"/>
-		<release version="1.5.5" date="2019-07-30" type="development"/>
-	</releases>
+	<launchable type="desktop-id">apscribe@TAG_VERSION@.desktop</launchable>
 </component>
