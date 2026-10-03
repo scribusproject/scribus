@@ -544,6 +544,14 @@ add_custom_target(uninstall
 ########## Add our subdirs                                                                          ##########
 
 #Add our source subdirs
+if(APPLEBUNDLE OR WIN32)
+	set(EXE_NAME_PREFIX "Apscribe")
+else()
+	set(EXE_NAME_PREFIX "apscribe")
+endif()
+# Set this in the parent scope: the app and translation directories both use it.
+# A normal variable also overrides the former cached Scribus name in old builds.
+set(EXE_NAME "${EXE_NAME_PREFIX}${TAG_VERSION}")
 add_subdirectory(scribus)
 add_subdirectory(doc)
 add_subdirectory(resources/dicts)

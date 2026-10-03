@@ -133,15 +133,6 @@ if(GESTURE_FRAME_PREVIEW)
 	 add_definitions(-DGESTURE_FRAME_PREVIEW)
 endif()
 
-if(APPLEBUNDLE OR WIN32)
-	set(EXE_NAME_PREFIX "Apscribe")
-else()
-	set(EXE_NAME_PREFIX "apscribe")
-endif()
-# Keep the product name authoritative even when reconfiguring an older build
-# tree whose cache still contains the former Scribus executable name.
-set(EXE_NAME "${EXE_NAME_PREFIX}${TAG_VERSION}")
-
 if (NOT DEFINED CMAKE_GLOBAL_AUTOGEN_TARGET_NAME)
 	set(SCRIBUS_AUTOGEN_INCLUDE_PATH "${CMAKE_CURRENT_BINARY_DIR}/${EXE_NAME}_autogen/include")
 else()
