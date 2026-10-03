@@ -593,7 +593,7 @@ configure_file(
 )
 install(FILES
 	scribus.desktop
-	RENAME scribus${TAG_VERSION}.desktop
+	RENAME apscribe${TAG_VERSION}.desktop
 	DESTINATION ${DESKTOPDIR}
 )
 
@@ -612,7 +612,7 @@ configure_file(
 )
 install(FILES
 	scribus.appdata.xml
-	RENAME scribus${TAG_VERSION}.appdata.xml
+	RENAME apscribe${TAG_VERSION}.appdata.xml
 	DESTINATION ${APPDATADIR}
 )
 
@@ -644,7 +644,11 @@ if(EXISTS "${CMAKE_ROOT}/Modules/CPack.cmake")
 	set(CPACK_PACKAGE_VERSION_MINOR "${VERSION_MINOR}")
 	set(CPACK_PACKAGE_VERSION_PATCH "${VERSION_PATCH}")
 	set(CPACK_PACKAGE_INSTALL_DIRECTORY "Apscribe ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
-	set(CPACK_PACKAGE_EXECUTABLES "scribus${TAG_VERSION}")
+	if(WIN32 OR APPLEBUNDLE)
+		set(CPACK_PACKAGE_EXECUTABLES "Apscribe${TAG_VERSION}")
+	else()
+		set(CPACK_PACKAGE_EXECUTABLES "apscribe${TAG_VERSION}")
+	endif()
 	set(CPACK_SOURCE_PACKAGE_FILE_NAME "scribus-${VERSION}${VERSION_SUFFIX}")
 	set(CPACK_SOURCE_GENERATOR TBZ2)
 	set(CPACK_SYSTEM_NAME "")

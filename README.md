@@ -17,6 +17,6 @@ See [what works and what remains](FORK_CHANGES.md) before relying on a feature f
 
 ## Build and contribute
 
-Build instructions are in [BUILDING](BUILDING), [README.MacOSX](README.MacOSX), and [BUILDING_win32_cmake.txt](BUILDING_win32_cmake.txt). Use the development branch to try fork features. Keep source files and license notices when distributing modified builds; see [COPYING](COPYING). The executable and `.sla` document format still use some Scribus identifiers while branding and compatibility work continues.
+Build instructions are in [BUILDING](BUILDING), [README.MacOSX](README.MacOSX), and [BUILDING_win32_cmake.txt](BUILDING_win32_cmake.txt). Use the development branch to try fork features. Keep source files and license notices when distributing modified builds; see [COPYING](COPYING). The application executable is `Apscribe` on macOS, `Apscribe.exe` on Windows, and `apscribe` on Linux. The `.sla` format and some internal resource identifiers retain Scribus names for compatibility.
 
 For issues about these fork changes, use this repository's [issue tracker](https://github.com/appajid/apscribe/issues). For upstream Scribus issues, use the [Scribus project](https://www.scribus.net/). This fork is independently developed and is not an official Scribus release.

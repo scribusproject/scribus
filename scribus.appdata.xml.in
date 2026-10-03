@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2016 Peter Linnell  plinnell@scribus.net, The Scribus Team 2022-2024> -->
 <component type="desktop-application">
-	<id>scribus@TAG_VERSION@.desktop</id>
+	<id>apscribe@TAG_VERSION@.desktop</id>
 	<metadata_license>CC0-1.0</metadata_license>
 	<name>Apscribe</name>
 	<project_license>GPL-2.0+</project_license>

@@ -4,7 +4,7 @@ HERE="$(dirname "$(readlink -f "${0}")")"
 
 ############################################################################################
 # Allow AppRun or the AppImage to be symlinked to, e.g.,
-# /usr/local/bin/scribus
+# /usr/local/bin/apscribe
 # or to be called with ./Scribus*.AppImage scribus
 ############################################################################################
 
@@ -22,7 +22,7 @@ elif [ -e "$HERE/bin/$BINARY_NAME" ] ; then
 elif [ -e "$HERE/usr/bin/$BINARY_NAME" ] ; then
   MAIN="$HERE/usr/bin/$BINARY_NAME"
 else
-  MAIN="$HERE/usr/bin/scribus"
+  MAIN="$HERE/usr/bin/apscribe"
 fi
 
 ############################################################################################

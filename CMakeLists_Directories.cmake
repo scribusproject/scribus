@@ -10,8 +10,8 @@ if (APPLEBUNDLE)
 			# add "/Contents" subpath
 			set(CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}/Contents")
 		else()
-			# Keep the public bundle name stable across releases. The executable and
-			# resource paths inside it retain their Scribus names for compatibility.
+			# Keep the public bundle name stable across releases. Resource paths
+			# retain their Scribus names for document and plugin compatibility.
 			set(CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}/Apscribe.app/Contents")
 		endif()
 	endif()

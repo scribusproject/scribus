@@ -157,12 +157,12 @@ set_tests_properties(imagealphacontourtests PROPERTIES ENVIRONMENT "QT_QPA_PLATF
 # Scripter and file-format plugins are loaded from the installation layout.
 if(APPLEBUNDLE)
 	set(SCRIBUS_SCRIPT_TEST_EXECUTABLE
-		"${APPLE_APP_DIR}/Scribus${VERSION}.app/Contents/MacOS/Scribus")
+		"${APPLE_APP_DIR}/Apscribe.app/Contents/MacOS/Apscribe")
 elseif(WIN32)
-	set(SCRIBUS_SCRIPT_TEST_EXECUTABLE "${CMAKE_INSTALL_PREFIX}/scribus.exe")
+	set(SCRIBUS_SCRIPT_TEST_EXECUTABLE "${CMAKE_INSTALL_PREFIX}/Apscribe.exe")
 else()
 	set(SCRIBUS_SCRIPT_TEST_EXECUTABLE
-		"${CMAKE_INSTALL_PREFIX}/bin/scribus${TAG_VERSION}")
+		"${CMAKE_INSTALL_PREFIX}/bin/apscribe${TAG_VERSION}")
 endif()
 
 add_test(NAME runningheader_test_install

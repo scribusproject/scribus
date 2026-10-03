@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleExecutable</key>
-	<string>Scribus</string>
+	<string>Apscribe</string>
 	<key>CFBundleLocalizations</key>
 	<array>
 		<string>en</string>
