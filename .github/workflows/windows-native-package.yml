@@ -90,9 +90,9 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: ${{ steps.build-paths.outputs.builds-root }}\Scribus-Release-x64-v143
-          key: scribus-app-msvc2022-release-x64-${{ hashFiles('scribus/**', 'win32/msvc2022/**') }}-v1
+          key: apscribe-app-msvc2022-release-x64-${{ hashFiles('scribus/**', 'win32/msvc2022/**') }}-v2
           restore-keys: |
-            scribus-app-msvc2022-release-x64-
+            apscribe-app-msvc2022-release-x64-
 
       - name: Build Scribus application
         if: steps.application-cache.outputs.cache-hit != 'true'
@@ -112,7 +112,7 @@ jobs:
         uses: actions/cache/save@v4
         with:
           path: ${{ steps.build-paths.outputs.builds-root }}\Scribus-Release-x64-v143
-          key: scribus-app-msvc2022-release-x64-${{ hashFiles('scribus/**', 'win32/msvc2022/**') }}-v1
+          key: apscribe-app-msvc2022-release-x64-${{ hashFiles('scribus/**', 'win32/msvc2022/**') }}-v2
 
       - name: Package and test Scribus
         shell: pwsh
@@ -131,7 +131,7 @@ jobs:
         shell: pwsh
         run: |
           .\win32\ci\test-phase5.ps1 `
-            -AppDir "$env:GITHUB_WORKSPACE\win32\deploy\dist\Scribus-$env:SCRIBUS_VERSION-win64" `
+            -AppDir "$env:GITHUB_WORKSPACE\win32\deploy\dist\Apscribe-$env:SCRIBUS_VERSION-win64" `
             -Sources $env:GITHUB_WORKSPACE
 
       - name: Upload Windows test applications
@@ -139,7 +139,7 @@ jobs:
         with:
           name: Apscribe-${{ env.SCRIBUS_VERSION }}-Windows-x64
           path: |
-            win32/deploy/dist/Scribus-${{ env.SCRIBUS_VERSION }}-win64.zip
+            win32/deploy/dist/Apscribe-${{ env.SCRIBUS_VERSION }}-win64.zip
             win32/installer/dist/Apscribe-${{ env.SCRIBUS_VERSION }}-Setup.exe
           if-no-files-found: error
           retention-days: 14

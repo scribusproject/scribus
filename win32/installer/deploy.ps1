@@ -75,7 +75,7 @@ function Find-BuildRoot {
     $dirs = Get-ChildItem -LiteralPath $base -Directory -Filter $pattern -ErrorAction SilentlyContinue |
             Sort-Object LastWriteTime -Descending
     foreach ($d in $dirs) {
-        if (Test-Path -LiteralPath (Join-Path $d.FullName 'Scribus.exe')) {
+        if (Test-Path -LiteralPath (Join-Path $d.FullName 'Apscribe.exe')) {
             return $d.FullName
         }
     }
@@ -145,10 +145,10 @@ if (-not $BuildRoot) {
     if ($BuildRoot) { Write-Host "  Build output auto-detected: $BuildRoot" }
 }
 if (-not $BuildRoot) {
-    throw "Could not locate the Scribus build output ('Scribus.exe' under '$Sources\Scribus-builds\Scribus-$Configuration-$Platform-*'). Use -BuildRoot to specify it."
+    throw "Could not locate the Scribus build output ('Apscribe.exe' under '$Sources\Scribus-builds\Scribus-$Configuration-$Platform-*'). Use -BuildRoot to specify it."
 }
-if (-not (Test-Path -LiteralPath (Join-Path $BuildRoot 'Scribus.exe'))) {
-    throw "Scribus.exe not found in '$BuildRoot'. Build the Release|x64 (or $Platform) configuration first."
+if (-not (Test-Path -LiteralPath (Join-Path $BuildRoot 'Apscribe.exe'))) {
+    throw "Apscribe.exe not found in '$BuildRoot'. Build the Release|x64 (or $Platform) configuration first."
 }
 $BuildRoot = (Resolve-Path -LiteralPath $BuildRoot).Path
 
@@ -195,7 +195,7 @@ if (Test-Path -LiteralPath $StageDir) { Remove-Item -LiteralPath $StageDir -Recu
 New-Item -ItemType Directory -Path $StageDir -Force | Out-Null
 
 # Application files produced by the MSVC build
-Copy-Item -LiteralPath (Join-Path $BuildRoot 'Scribus.exe') -Destination $StageDir
+Copy-Item -LiteralPath (Join-Path $BuildRoot 'Apscribe.exe') -Destination $StageDir
 
 Get-ChildItem -LiteralPath $BuildRoot -Filter '*.dll' -File -ErrorAction SilentlyContinue |
     Copy-Item -Destination $StageDir
@@ -240,7 +240,7 @@ Write-Host "  Copied $copied third-party DLL(s) from the scribus-libs kit."
 if (-not $SkipWindeploy -and $Script:WindeployAvailable) {
     Write-Host "== Deploying Qt runtime (windeployqt) ==" -ForegroundColor Cyan
     $windeploy = Join-Path $QtDir 'bin\windeployqt.exe'
-    $exe = Join-Path $StageDir 'Scribus.exe'
+    $exe = Join-Path $StageDir 'Apscribe.exe'
     $windeployArgs = @(
         '--release'
         '--no-system-d3d-compiler'

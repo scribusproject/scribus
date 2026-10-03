@@ -196,7 +196,7 @@ if ($DependencyBuildOnly) {
 }
 
 $appSolution = Join-Path $Sources 'win32\msvc2022\Scribus.sln'
-$scribusExe = Join-Path $buildRoot 'Scribus.exe'
+$scribusExe = Join-Path $buildRoot 'Apscribe.exe'
 if (-not $SkipApplicationBuild) {
     Write-Host '== Building Scribus (Release|x64, v143) ==' -ForegroundColor Cyan
     Invoke-MSBuild $msbuild $appSolution (Join-Path $logsRoot 'scribus-release-x64.log') @(
@@ -234,8 +234,8 @@ $portableScript = Join-Path $Sources 'win32\deploy\assemble.ps1'
 & $portableScript -Sources $Sources -BuildRoot $buildRoot -QtDir $QtDir -LibsKitRoot $kitRoot -Version $Version -MakeZip
 Assert-LastExitCode 'Portable package assembly'
 
-$portableDir = Join-Path $Sources "win32\deploy\dist\Scribus-$Version-win64"
-$portableZip = Join-Path $Sources "win32\deploy\dist\Scribus-$Version-win64.zip"
+$portableDir = Join-Path $Sources "win32\deploy\dist\Apscribe-$Version-win64"
+$portableZip = Join-Path $Sources "win32\deploy\dist\Apscribe-$Version-win64.zip"
 $installer = Join-Path $Sources "win32\installer\dist\Apscribe-$Version-Setup.exe"
 
 if (-not $SkipInstaller) {

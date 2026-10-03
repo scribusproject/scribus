@@ -17,7 +17,7 @@ param(
 
 $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version 3.0
-$app = Join-Path $AppDir 'Scribus.exe'
+$app = Join-Path $AppDir 'Apscribe.exe'
 $publishScript = Join-Path $AppDir 'share\scripts\DataPublish.py'
 if (-not (Test-Path -LiteralPath $app -PathType Leaf)) { throw "Missing packaged application: $app" }
 if (-not (Test-Path -LiteralPath $publishScript -PathType Leaf)) { throw "Missing packaged publishing script: $publishScript" }

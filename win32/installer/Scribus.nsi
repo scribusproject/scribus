@@ -4,7 +4,7 @@
 ;
 ;  This script packages the application tree staged in the "app" subfolder
 ;  (created by deploy.ps1 from an MSVC build output). You can also run
-;  makensis directly after placing your Scribus.exe + DLLs/resources into
+;  makensis directly after placing your Apscribe.exe + DLLs/resources into
 ;  the "app" folder.
 ;----------------------------------------------------------------------------
 
@@ -28,9 +28,8 @@ SetCompressorDictSize 64
 !define PRODUCT_SHORTNAME "Apscribe"
 !define PRODUCT_PUBLISHER "Appaji Ambarisha Darbha and Scribus contributors"
 !define PRODUCT_WEB_SITE "https://github.com/appajid/apscribe"
-; Keep the executable filename until the MSVC projects and deploy scripts can
-; migrate together; the installer itself is independent of official Scribus.
-!define PRODUCT_EXE "Scribus.exe"
+; Use the same executable name as the MSVC build and portable package.
+!define PRODUCT_EXE "Apscribe.exe"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\Apscribe ${VERSION}"
 !define PRODUCT_INSTALL_KEY "Software\Apscribe\Apscribe ${VERSION}"
 !define PRODUCT_ASSOC_KEY "Software\Apscribe\Apscribe ${VERSION}\Associations"

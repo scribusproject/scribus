@@ -136,7 +136,7 @@ if (-not (Test-Path -LiteralPath $AppDir -PathType Container)) {
 $AppDir = (Resolve-Path -LiteralPath $AppDir).Path
 
 $requiredFiles = @(
-    'Scribus.exe',
+    'Apscribe.exe',
     'Qt6Core.dll',
     'Qt6Core5Compat.dll',
     'Qt6Gui.dll',
@@ -204,7 +204,7 @@ if ($debugDlls) {
     throw "Debug DLLs were mixed into the Release package: $($debugDlls.Name -join ', ')"
 }
 
-$scribusExe = Join-Path $AppDir 'Scribus.exe'
+$scribusExe = Join-Path $AppDir 'Apscribe.exe'
 Assert-X64PE $scribusExe
 
 if (-not (Test-Path -LiteralPath $PortableZip -PathType Leaf)) {
@@ -238,8 +238,8 @@ if ($TestInstaller) {
     Write-Host "  Silently installing into $installRoot..."
     try {
         Invoke-ProcessWithTimeout $Installer "/S /D=$installRoot" 180
-        $installedExe = Join-Path $installRoot 'Scribus.exe'
-        Assert-File $installRoot 'Scribus.exe'
+        $installedExe = Join-Path $installRoot 'Apscribe.exe'
+        Assert-File $installRoot 'Apscribe.exe'
         Assert-File $installRoot 'python\python313.dll'
         if (-not $SkipSmokeTest) {
             Write-Host '  Running installed GUI startup smoke test...'

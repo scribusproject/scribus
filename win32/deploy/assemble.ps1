@@ -4,8 +4,8 @@
 #  Run ON THE WINDOWS MACHINE that holds the MSVC build of Scribus. Builds a
 #  self-contained, copy-and-run application tree into win32\deploy\dist:
 #
-#      Scribus-2.0.0-win64\
-#          Scribus.exe
+#      Apscribe-2.0.0-win64\
+#          Apscribe.exe
 #          *.dll                        (Qt6 + 3rd-party runtime DLLs)
 #          qtplugins\                   (Qt platform/plugin DLLs, windeployqt)
 #          plugins\                     (Scribus import/export + tool plugins)
@@ -25,7 +25,7 @@
 [CmdletBinding()]
 param(
     [string]$Sources,                   # Scribus source root (auto-detected)
-    [string]$BuildRoot,                 # MSVC app output dir with Scribus.exe (auto-detected)
+    [string]$BuildRoot,                 # MSVC app output dir with Apscribe.exe (auto-detected)
     [string]$Configuration = 'Release',
     [string]$Platform = 'x64',
     [string]$PlatformToolset,           # v143 = VS2022 (auto-detected)
@@ -33,7 +33,7 @@ param(
     [string]$LibsKitRoot,               # scribus-libs kit root (auto-detected)
     [string]$Version,                   # defaults to Scribus-version-infos.h
     [switch]$SkipWindeploy,             # skip Qt runtime deployment
-    [switch]$MakeZip,                   # also create Scribus-<Version>-win64.zip
+    [switch]$MakeZip,                   # also create Apscribe-<Version>-win64.zip
     [switch]$ZipOnly                    # refresh staged dist from existing app tree only
 )
 
@@ -51,7 +51,7 @@ $Sources = (Resolve-Path -LiteralPath $Sources).Path
 $PropsFile   = Join-Path $Sources "win32\msvc2022\Scribus-build-props.props"
 $VersionFile = Join-Path $Sources "win32\msvc2022\Scribus-version-infos.h"
 $DistDir     = Join-Path $ScriptDir 'dist'
-$AppDir      = Join-Path $DistDir "Scribus-$Version-win64"
+$AppDir      = Join-Path $DistDir "Apscribe-$Version-win64"
 
 #----------------------------------------------------------------------------
 # Helpers
@@ -73,7 +73,7 @@ function Find-BuildRoot {
     $dirs = Get-ChildItem -LiteralPath $base -Directory -Filter $pattern -ErrorAction SilentlyContinue |
             Sort-Object LastWriteTime -Descending
     foreach ($d in $dirs) {
-        if (Test-Path -LiteralPath (Join-Path $d.FullName 'Scribus.exe')) { return $d.FullName }
+        if (Test-Path -LiteralPath (Join-Path $d.FullName 'Apscribe.exe')) { return $d.FullName }
     }
     return $null
 }
@@ -121,10 +121,10 @@ if (-not $BuildRoot) {
     if ($BuildRoot) { Write-Host "  Build output auto-detected: $BuildRoot" }
 }
 if (-not $BuildRoot) {
-    throw "Could not locate the Scribus build output. Use -BuildRoot to specify the directory that contains Scribus.exe."
+    throw "Could not locate the Scribus build output. Use -BuildRoot to specify the directory that contains Apscribe.exe."
 }
-if (-not (Test-Path -LiteralPath (Join-Path $BuildRoot 'Scribus.exe'))) {
-    throw "Scribus.exe not found in '$BuildRoot'. Build the Release|x64 configuration first."
+if (-not (Test-Path -LiteralPath (Join-Path $BuildRoot 'Apscribe.exe'))) {
+    throw "Apscribe.exe not found in '$BuildRoot'. Build the Release|x64 configuration first."
 }
 $BuildRoot = (Resolve-Path -LiteralPath $BuildRoot).Path
 
@@ -135,7 +135,7 @@ if (-not $Version) {
 }
 if (-not $Version) { $Version = '2.0.0' }
 
-$AppDir = Join-Path $DistDir "Scribus-$Version-win64"
+$AppDir = Join-Path $DistDir "Apscribe-$Version-win64"
 
 if (-not $QtDir) { $QtDir = Find-QtDir }
 if (-not $QtDir) {
@@ -169,7 +169,7 @@ if (-not $ZipOnly) {
     if (Test-Path -LiteralPath $AppDir) { Remove-Item -LiteralPath $AppDir -Recurse -Force }
     New-Item -ItemType Directory -Path $AppDir -Force | Out-Null
 
-    Copy-Item -LiteralPath (Join-Path $BuildRoot 'Scribus.exe') -Destination $AppDir
+    Copy-Item -LiteralPath (Join-Path $BuildRoot 'Apscribe.exe') -Destination $AppDir
 
     Get-ChildItem -LiteralPath $BuildRoot -Filter '*.dll' -File -ErrorAction SilentlyContinue |
         Copy-Item -Destination $AppDir
@@ -222,7 +222,7 @@ if (-not $ZipOnly) {
 if (-not $SkipWindeploy) {
     Write-Host "== Deploying Qt runtime (windeployqt) ==" -ForegroundColor Cyan
     $windeploy = Join-Path $QtDir 'bin\windeployqt.exe'
-    $exe = Join-Path $AppDir 'Scribus.exe'
+    $exe = Join-Path $AppDir 'Apscribe.exe'
     $windeployArgs = @(
         '--release'
         '--no-system-d3d-compiler'
@@ -249,15 +249,15 @@ Copy-Item -LiteralPath (Join-Path $Sources 'win32\qt.conf') -Destination (Join-P
 #----------------------------------------------------------------------------
 if ($MakeZip) {
     Write-Host "== Creating zip archive ==" -ForegroundColor Cyan
-    $zip = Join-Path $DistDir "Scribus-$Version-win64.zip"
+    $zip = Join-Path $DistDir "Apscribe-$Version-win64.zip"
     if (Test-Path -LiteralPath $zip) { Remove-Item -LiteralPath $zip -Force }
     Compress-Archive -Path $AppDir -DestinationPath $zip -CompressionLevel Optimal
     $size = (Get-Item -LiteralPath $zip).Length
     Write-Host "SUCCESS: $zip ($([math]::Round($size/1MB,1)) MB)" -ForegroundColor Green
 } else {
     Write-Host "SUCCESS: portable deployment ready at $AppDir" -ForegroundColor Green
-    Write-Host "Copy this folder to any 64-bit Windows PC and run Scribus.exe"
+    Write-Host "Copy this folder to any 64-bit Windows PC and run Apscribe.exe"
     if (-not $SkipWindeploy) {
-        Write-Host "Re-run with -MakeZip to also create Scribus-$Version-win64.zip"
+        Write-Host "Re-run with -MakeZip to also create Apscribe-$Version-win64.zip"
     }
 }

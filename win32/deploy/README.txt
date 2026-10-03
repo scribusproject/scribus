@@ -10,8 +10,8 @@ Layout
       assemble.ps1                      <- run this on the Windows machine
       Sketch.txt                        <- target layout reference (this README's sibling)
       dist\                            <- created on build; NOT committed
-          Scribus-2.0.0-win64\          <- the portable app folder
-              Scribus.exe
+          Apscribe-2.0.0-win64\         <- the portable app folder
+              Apscribe.exe
               *.dll                     Qt6 + 3rd-party runtime DLLs
               qtplugins\                Qt platform/plugin DLLs (from windeployqt)
               plugins\                  Scribus import/export + tool plugins
@@ -19,16 +19,16 @@ Layout
               libs\                     scribus support dlls/lib
               share\                    resources, icons, translations, fonts,
                                         colour profiles, templates
-          Scribus-2.0.0-win64.zip       (only with -MakeZip)
+          Apscribe-2.0.0-win64.zip      (only with -MakeZip)
 
 The namespace folders (qtplugins\, plugins\, libs\, share\) under
-Scribus-2.0.0-win64\ contain only placeholder files in the repository;
+Apscribe-2.0.0-win64\ contain only placeholder files in the repository;
 assemble.ps1 rebuilds the real tree from the MSVC build output on Windows.
 
 Requirements (Windows machine)
 ------------------------------
   * The Scribus source tree (this folder)
-  * Visual Studio 2022 Release|x64 build -> Scribus-builds\Scribus-Release-x64-v143\Scribus.exe
+  * Visual Studio 2022 Release|x64 build -> Scribus-builds\Scribus-Release-x64-v143\Apscribe.exe
   * Qt 6 (>= 6.2) matching the build, e.g. F:\Libraries\Qt\6.11.2\msvc2022_64
   * scribus-libs kit (or explicit -LibsKitRoot)
       https://sourceforge.net/projects/scribus/files/scribus-libs/
@@ -44,10 +44,10 @@ Build
 
 Result
 ------
-  dist\Scribus-2.0.0-win64\   (or the matching .zip) - copy it verbatim to any
-  64-bit Windows PC and run Scribus.exe. A test on the build machine is
+  dist\Apscribe-2.0.0-win64\  (or the matching .zip) - copy it verbatim to any
+  64-bit Windows PC and run Apscribe.exe. A test on the build machine is
   recommended before shipping.
 
-Tip: to verify everything is present, run Scribus.exe from the staged folder
+Tip: to verify everything is present, run Apscribe.exe from the staged folder
 and open File > New Document - if share\ or qtplugins\ is missing the app
 either fails to start or has no icons/translations.

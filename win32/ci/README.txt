@@ -15,7 +15,7 @@ Windows Server 2022 runner with Visual Studio 2022, installs Qt 6.11.2 and
 NSIS, builds the official Scribus dependency kit, builds Scribus, then uploads
 one artifact containing:
 
-  Scribus-2.0.0-win64.zip
+  Apscribe-2.0.0-win64.zip
   Apscribe-2.0.0-Setup.exe
 
 The verified Qt SDK, dependency build, and application build are cached after
@@ -58,7 +58,7 @@ Validation performed
 --------------------
 validate-package.ps1 rejects a package when it finds any of these problems:
 
-  * Scribus.exe is absent or is not an x64 PE executable
+  * Apscribe.exe is absent or is not an x64 PE executable
   * a required Qt, platform, or third-party runtime DLL is absent
   * qt.conf does not point Qt at the packaged qtplugins directory
   * the bundled Python runtime or Scripter standard library is absent

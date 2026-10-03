@@ -95,9 +95,9 @@ BEGIN
             VALUE "CompanyName", "The Scribus Team"
             VALUE "FileDescription", "Apscribe (based on Scribus)"
             VALUE "FileVersion", SCRIBUS_FULL_VERSION_STRING
-            VALUE "InternalName", "Scribus"
+            VALUE "InternalName", "Apscribe"
             VALUE "LegalCopyright", SCRIBUS_LEGAL_COPYRIGHT
-            VALUE "OriginalFilename", "Scribus.exe"
+            VALUE "OriginalFilename", "Apscribe.exe"
             VALUE "ProductName", "Apscribe - Open Source Desktop Publishing"
             VALUE "ProductVersion", SCRIBUS_FULL_VERSION_STRING
         END
