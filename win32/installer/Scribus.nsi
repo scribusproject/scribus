@@ -27,7 +27,7 @@ SetCompressorDictSize 64
 !define PRODUCT_NAME "Apscribe ${VERSION}"
 !define PRODUCT_SHORTNAME "Apscribe"
 !define PRODUCT_PUBLISHER "Appaji Ambarisha Darbha and Scribus contributors"
-!define PRODUCT_WEB_SITE "https://github.com/appajid/scribus"
+!define PRODUCT_WEB_SITE "https://github.com/appajid/apscribe"
 ; Keep the executable filename until the MSVC projects and deploy scripts can
 ; migrate together; the installer itself is independent of official Scribus.
 !define PRODUCT_EXE "Scribus.exe"

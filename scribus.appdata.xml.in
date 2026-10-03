@@ -6,9 +6,9 @@
 	<name>Apscribe</name>
 	<project_license>GPL-2.0+</project_license>
 	<summary>Open-source page layout and desktop publishing based on Scribus</summary>
-	<url type="homepage">https://github.com/appajid/scribus</url>
-	<url type="bugtracker">https://github.com/appajid/scribus/issues</url>
-	<url type="vcs-browser">https://github.com/appajid/scribus</url>
+	<url type="homepage">https://github.com/appajid/apscribe</url>
+	<url type="bugtracker">https://github.com/appajid/apscribe/issues</url>
+	<url type="vcs-browser">https://github.com/appajid/apscribe</url>
 	<description>
 		<p>Apscribe is an open-source page layout application based on Scribus. It
 produces commercial grade output in PDF and Postscript, primarily,
