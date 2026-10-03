@@ -83,7 +83,12 @@ bool ActionManager::compareKeySeqToShortcut(const QKeySequence& ks, const QStrin
 {
 	if (!scrActions->contains(actionName))
 		return false;
-	return ks.matches((*scrActions)[actionName]->shortcut()) == QKeySequence::ExactMatch;
+	for (const QKeySequence& shortcut : (*scrActions)[actionName]->shortcuts())
+	{
+		if (ks.matches(shortcut) == QKeySequence::ExactMatch)
+			return true;
+	}
+	return false;
 }
 
 bool ActionManager::compareKeySeqToShortcut(int k, Qt::KeyboardModifiers km, const QString& actionName)
@@ -150,6 +155,8 @@ void ActionManager::initFileMenuActions()
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name = "fileExportAsPDF";
 	scrActions->insert(name, new ScrAction("pref-pdf-export", "pref-pdf-export", "", defaultKey(name), mainWindow));
+	name = "fileExportAsEpub";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	//Rest of File Menu
 //	name = "fileDocSetup";
 //	scrActions->insert(name, new ScrAction("document-properties", "document-properties", "", defaultKey(name), mainWindow));
@@ -200,6 +207,7 @@ void ActionManager::initFileMenuActions()
 	connect( (*scrActions)["fileExportText"], SIGNAL(triggered()), mainWindow, SLOT(SaveText()) );
 	connect( (*scrActions)["fileExportAsEPS"], SIGNAL(triggered()), mainWindow, SLOT(SaveAsEps()) );
 	connect( (*scrActions)["fileExportAsPDF"], SIGNAL(triggered()), mainWindow, SLOT(SaveAsPDF()) );
+	connect( (*scrActions)["fileExportAsEpub"], SIGNAL(triggered()), mainWindow, SLOT(SaveAsEpub()) );
 	//The rest are plugins
 	
 	
@@ -570,6 +578,8 @@ void ActionManager::initInsertMenuActions()
 	//Insert Menu
 	name = "insertFrame";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+	name = "insertAnchoredImage";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	name = "insertGlyph";
 	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	(*scrActions)["insertGlyph"]->setToggleAction(true);
@@ -609,6 +619,7 @@ void ActionManager::initInsertMenuActions()
 	(*scrActions)[name]->setEnabled(false);
 
 	connect( (*scrActions)["insertFrame"], SIGNAL(triggered()), mainWindow, SLOT(slotInsertFrame()) );
+	connect( (*scrActions)["insertAnchoredImage"], SIGNAL(triggered()), mainWindow, SLOT(slotInsertAnchoredImage()) );
 	connect( (*scrActions)["insertGlyph"], SIGNAL(triggered()), mainWindow, SLOT(slotCharSelect()) );
 	connect( (*scrActions)["insertSampleText"], SIGNAL(triggered()), mainWindow, SLOT(insertSampleText()) );
 	connect( (*scrActions)["stickyTools"], SIGNAL(triggered()), mainWindow, SLOT(ToggleStickyTools()) );
@@ -895,6 +906,8 @@ void ActionManager::initToolsMenuActions()
 	//toolbar only items
 	name = "toolsSelect";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, "tool-select", "tool-select", "", defaultKey(name), mainWindow, modeNormal));
+	name = "toolsTextCursor";
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt, "tool-text-cursor", "tool-text-cursor", "", defaultKey(name), mainWindow, modeTextCursor));
 	name = "toolsInsertTextFrame";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, "tool-insert-text-frame", "tool-insert-text-frame", "", defaultKey(name), mainWindow, modeDrawText));
 	name = "toolsInsertImageFrame";
@@ -988,7 +1001,7 @@ void ActionManager::initToolsMenuActions()
 
 	(*scrActions)["toolsDocumentLog"]->setChecked(false);
 
-	*modeActionNames << "toolsSelect" << "toolsInsertTextFrame" << "toolsInsertImageFrame" << "toolsInsertTable";
+	*modeActionNames << "toolsSelect" << "toolsTextCursor" << "toolsInsertTextFrame" << "toolsInsertImageFrame" << "toolsInsertTable";
 	*modeActionNames << "toolsInsertShape" << "toolsInsertPolygon" << "toolsInsertArc" << "toolsInsertSpiral" << "toolsInsertLine" << "toolsInsertBezier";
 	*modeActionNames << "toolsInsertFreehandLine" << "toolsInsertCalligraphicLine" << "toolsInsertRenderFrame" << "toolsRotate" << "toolsZoom" << "toolsEditContents";
 	*modeActionNames << "toolsEditWithStoryEditor" << "toolsLinkTextFrame" << "toolsUnlinkTextFrame"; //<< "toolsUnlinkTextFrameAndCutText";
@@ -1597,6 +1610,7 @@ void ActionManager::languageChange()
 	(*scrActions)["fileExportText"]->setTexts( tr("Save &Text..."));
 	(*scrActions)["fileExportAsEPS"]->setTexts( tr("Save as &EPS..."));
 	(*scrActions)["fileExportAsPDF"]->setTexts( tr("Save as P&DF..."));
+	(*scrActions)["fileExportAsEpub"]->setTexts( tr("Export Limited &EPUB..."));
 //	(*scrActions)["fileDocSetup"]->setTexts( tr("Document &Setup (old)..."));
 	(*scrActions)["fileDocSetup150"]->setTexts( tr("Document &Setup..."));
 //	(*scrActions)["filePreferences"]->setTexts( tr("P&references (old)..."));
@@ -1743,6 +1757,7 @@ void ActionManager::languageChange()
 	//Insert Menu
 	(*scrActions)["insertFrame"]->setTexts( tr("&Frames..."));
 	(*scrActions)["insertGlyph"]->setTexts( tr("&Glyph..."));
+	(*scrActions)["insertAnchoredImage"]->setTexts( tr("Image in Text..."));
 	(*scrActions)["insertSampleText"]->setTexts( tr("Sample Text..."));
 	(*scrActions)["stickyTools"]->setTexts( tr("Sticky Tools"));
 	(*scrActions)["insertMarkAnchor"]->setTexts( tr("Cross-reference Target"));
@@ -1823,6 +1838,7 @@ void ActionManager::languageChange()
 
 	//toolbar only items
 	(*scrActions)["toolsSelect"]->setTexts( tr("Select Item"));
+	(*scrActions)["toolsTextCursor"]->setTexts( tr("Text Cursor"));
 	(*scrActions)["toolsRotate"]->setTexts( tr("Rotate Item"));
 	(*scrActions)["toolsZoom"]->setTexts( tr("Zoom in or out"));
 	(*scrActions)["toolsZoomIn"]->setTexts( tr("Zoom in"));
@@ -1938,6 +1954,7 @@ void ActionManager::languageChange()
 	(*scrActions)["toolsDocumentLog"]->setStatusTextAndShortcut( tr("Display logged warnings and errors from editing activities"));
 	(*scrActions)["toolsRotate"]->setStatusTextAndShortcut( tr("Rotate an item"));
 	(*scrActions)["toolsSelect"]->setStatusTextAndShortcut( tr("Select an item"));
+	(*scrActions)["toolsTextCursor"]->setStatusTextAndShortcut( tr("Click existing text to place the insertion cursor, including text inside groups"));
 	(*scrActions)["toolsUnlinkTextFrame"]->setStatusTextAndShortcut( tr("Unlink text frames"));
 	(*scrActions)["toolsZoom"]->setStatusTextAndShortcut( tr("Zoom in or out"));
 	(*scrActions)["viewPreviewMode"]->setStatusTextAndShortcut( tr("Enable preview mode"));
@@ -2085,6 +2102,7 @@ void ActionManager::createDefaultShortcuts()
 
 	//toolbar only items
 	defKeys.insert("toolsSelect", Qt::Key_C);
+	defKeys.insert("toolsTextCursor", Qt::Key_V);
 	defKeys.insert("toolsInsertTextFrame", QKeySequence(Qt::Key_T));
 	defKeys.insert("toolsInsertImageFrame", Qt::Key_I);
 	defKeys.insert("toolsInsertTable", Qt::Key_A);
@@ -2097,7 +2115,7 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("toolsInsertRenderFrame", Qt::Key_D); //TODO: First free key. Select a meaningful
 	defKeys.insert("toolsRotate", Qt::Key_R);
 	defKeys.insert("toolsZoom", Qt::Key_Z);
-	defKeys.insert("toolsZoomIn", Qt::CTRL | Qt::Key_Plus);
+	defKeys.insert("toolsZoomIn", Qt::CTRL | Qt::Key_Equal);
 	defKeys.insert("toolsZoomOut", Qt::CTRL | Qt::Key_Minus);
 	defKeys.insert("toolsEditContents", Qt::Key_E);
 	defKeys.insert("toolsEditWithStoryEditor", Qt::CTRL | Qt::Key_T);
@@ -2206,6 +2224,7 @@ void ActionManager::createDefaultMenus()
 		<< "fileExportText"
 		<< "fileExportAsEPS"
 		<< "fileExportAsPDF"
+		<< "fileExportAsEpub"
 //		<< "fileDocSetup"
 		<< "fileDocSetup150"
 //		<< "filePreferences"
@@ -2333,6 +2352,7 @@ void ActionManager::createDefaultMenus()
 	++itmenu;
 	itmenu->second
 		<< "insertFrame"
+		<< "insertAnchoredImage"
 		<< "toolsInsertTextFrame"
 		<< "toolsInsertImageFrame"
 		<< "toolsInsertTable"

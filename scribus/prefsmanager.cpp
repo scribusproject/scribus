@@ -578,7 +578,18 @@ void PrefsManager::applyLoadedShortCuts()
 		QPointer<ScrAction> action = actions.value(it.value().actionName, QPointer<ScrAction>());
 		if (action.isNull())
 			continue;
-		action->setShortcut(it.value().keySequence);
+		const QKeySequence shortcut = it.value().keySequence;
+		if (it.key() == QLatin1String("toolsZoomIn")
+			&& (shortcut == QKeySequence(Qt::CTRL | Qt::Key_Equal)
+				|| shortcut == QKeySequence(Qt::CTRL | Qt::Key_Plus)))
+		{
+			// Retain the previous Plus binding while making the unshifted
+			// Equal key the primary shortcut on common keyboard layouts.
+			action->setShortcuts({QKeySequence(Qt::CTRL | Qt::Key_Equal),
+				QKeySequence(Qt::CTRL | Qt::Key_Plus)});
+		}
+		else
+			action->setShortcut(shortcut);
 		action->setToolTipFromTextAndShortcut();
 	}
 }
@@ -3048,4 +3059,3 @@ void PrefsManager::languageChange()
 	if (appPrefs.itemToolPrefs.imageStrokeColor == CommonStrings::tr_NoneColor)
 		appPrefs.itemToolPrefs.imageStrokeColor = CommonStrings::None;
 }
-

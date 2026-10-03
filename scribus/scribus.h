@@ -356,6 +356,9 @@ public slots:
 	void editSymbolStart(const QString& temp);
 	void editSymbolEnd();
 	void editInlineStart(int id);
+	void editAnchoredImage(int id);
+	void editAnchoredObjectOptions(int id);
+	void replaceAnchoredImage(int id);
 	void editInlineEnd();
 	void editMasterPagesStart(const QString& temp = "");
 	void editMasterPagesEnd();
@@ -544,6 +547,7 @@ public slots:
 	void SaveAsEps();
 	void reallySaveAsEps();
 	void SaveAsPDF();
+	void SaveAsEpub();
 	void doSaveAsPDF();
 	void setMainWindowActive();
 	void setItemEffects(int h);
@@ -589,6 +593,7 @@ public slots:
 	void slotDocSetup();
 	//! \brief Insert a frame friendly dialog
 	void slotInsertFrame();
+	void slotInsertAnchoredImage();
 	//! \brief Transform an item
 	void slotItemTransform();
 	//! \brief manages paints

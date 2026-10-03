@@ -212,6 +212,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 	switch (newMode)
 	{
 		case modeNormal:
+		case modeTextCursor:
 			{
 				(*a_scrActions)["editSearchReplace"]->setEnabled(true);
 				(*a_scrActions)["editCut"]->setEnabled(currItem != nullptr);
@@ -1009,6 +1010,7 @@ void AppModeHelper::setModeActionsPerMode(int newMode)
 {
 	//set the actions state based on incoming mode
 	(*a_scrActions)["toolsSelect"]->setChecked(newMode == modeNormal);
+	(*a_scrActions)["toolsTextCursor"]->setChecked(newMode == modeTextCursor);
 	(*a_scrActions)["toolsInsertTextFrame"]->setChecked(newMode == modeDrawText);
 	(*a_scrActions)["toolsInsertImageFrame"]->setChecked(newMode == modeDrawImage);
 	(*a_scrActions)["toolsInsertTable"]->setChecked(newMode == modeDrawTable2);
@@ -1133,6 +1135,7 @@ void AppModeHelper::setFrameEditMode(bool b)
 
 	(*a_scrActions)["insertFrame"]->setEnabled(b2);
 	(*a_scrActions)["toolsSelect"]->setEnabled(b2);
+	(*a_scrActions)["toolsTextCursor"]->setEnabled(b2);
 	(*a_scrActions)["toolsRotate"]->setEnabled(b2);
 	(*a_scrActions)["toolsEditContents"]->setEnabled(b2);
 	(*a_scrActions)["toolsEditWithStoryEditor"]->setEnabled(b2);
@@ -1218,6 +1221,7 @@ void AppModeHelper::setSymbolEditMode(bool b, const ScribusDoc* doc)
 	(*a_scrActions)["fileSaveAs"]->setEnabled(b2);
 	(*a_scrActions)["fileExportAsEPS"]->setEnabled(b2);
 	(*a_scrActions)["fileExportAsPDF"]->setEnabled(b2);
+	(*a_scrActions)["fileExportAsEpub"]->setEnabled(b2);
 	if (ScCore->haveGS() || ScCore->isWinGUI())
 		(*a_scrActions)["PrintPreview"]->setEnabled(b2);
 	if (ScCore->haveGS())
@@ -1273,6 +1277,7 @@ void AppModeHelper::setInlineEditMode(bool b, const ScribusDoc *doc)
 	(*a_scrActions)["fileSaveAs"]->setEnabled(b2);
 	(*a_scrActions)["fileExportAsEPS"]->setEnabled(b2);
 	(*a_scrActions)["fileExportAsPDF"]->setEnabled(b2);
+	(*a_scrActions)["fileExportAsEpub"]->setEnabled(b2);
 	if (ScCore->haveGS() || ScCore->isWinGUI())
 		(*a_scrActions)["PrintPreview"]->setEnabled(b2);
 	if (ScCore->haveGS())
@@ -1310,6 +1315,7 @@ void AppModeHelper::setMasterPageEditMode(bool b, const ScribusDoc* doc)
 	//#13401: (*a_scrActions)["fileSave"]->setEnabled(b2);
 	(*a_scrActions)["fileExportAsEPS"]->setEnabled(b2);
 	(*a_scrActions)["fileExportAsPDF"]->setEnabled(b2);
+	(*a_scrActions)["fileExportAsEpub"]->setEnabled(b2);
 	if (b2)
 	{
 		(*a_scrActions)["fileSave"]->setEnabled(!doc->isConverted);
@@ -1456,6 +1462,7 @@ void AppModeHelper::changeLayer(ScribusDoc *doc, bool clipScrapHaveData)
 	(*a_scrActions)["editDeselectAll"]->setEnabled(false);
 	(*a_scrActions)["insertFrame"]->setEnabled(setter);
 	(*a_scrActions)["toolsSelect"]->setEnabled(setter);
+	(*a_scrActions)["toolsTextCursor"]->setEnabled(true);
 	(*a_scrActions)["toolsInsertTextFrame"]->setEnabled(setter);
 	(*a_scrActions)["toolsInsertImageFrame"]->setEnabled(setter);
 	(*a_scrActions)["toolsInsertTable"]->setEnabled(setter);
@@ -1494,6 +1501,7 @@ void AppModeHelper::mainWindowHasNewDoc(const ScribusDoc *doc, bool clipScrapHav
 	(*a_scrActions)["fileSaveAs"]->setEnabled(true);
 	(*a_scrActions)["fileExportAsEPS"]->setEnabled(true);
 	(*a_scrActions)["fileExportAsPDF"]->setEnabled(true);
+	(*a_scrActions)["fileExportAsEpub"]->setEnabled(true);
 	(*a_scrActions)["fileImportVector"]->setEnabled(true);
 	(*a_scrActions)["pageImport"]->setEnabled(true);
 
@@ -1542,6 +1550,7 @@ void AppModeHelper::mainWindowHasNewDoc(const ScribusDoc *doc, bool clipScrapHav
 	(*a_scrActions)["insertFrame"]->setEnabled(true);
 
 	(*a_scrActions)["toolsSelect"]->setEnabled(true);
+	(*a_scrActions)["toolsTextCursor"]->setEnabled(true);
 	(*a_scrActions)["toolsZoom"]->setEnabled(true);
 	(*a_scrActions)["toolsInsertTextFrame"]->setEnabled(true);
 	(*a_scrActions)["toolsInsertImageFrame"]->setEnabled(true);
@@ -1604,6 +1613,7 @@ void AppModeHelper::mainWindowSwitchWin(const ScribusDoc *doc)
 			(*a_scrActions)["fileSaveAs"]->setEnabled(false);
 			(*a_scrActions)["fileExportAsEPS"]->setEnabled(false);
 			(*a_scrActions)["fileExportAsPDF"]->setEnabled(false);
+			(*a_scrActions)["fileExportAsEpub"]->setEnabled(false);
 			(*a_scrActions)["fileSave"]->setEnabled(false);
 		}
 		else
@@ -1704,6 +1714,7 @@ void AppModeHelper::mainWindowCloseLastDoc()
 	(*a_scrActions)["fileDocSetup150"]->setEnabled(false);
 	(*a_scrActions)["fileExportAsEPS"]->setEnabled(false);
 	(*a_scrActions)["fileExportAsPDF"]->setEnabled(false);
+	(*a_scrActions)["fileExportAsEpub"]->setEnabled(false);
 	(*a_scrActions)["fileExportText"]->setEnabled(false);
 	(*a_scrActions)["fileImportAppendText"]->setEnabled(false);
 	(*a_scrActions)["fileImportImage"]->setEnabled(false);
@@ -1715,6 +1726,7 @@ void AppModeHelper::mainWindowCloseLastDoc()
 	(*a_scrActions)["fileSave"]->setEnabled(false);
 	(*a_scrActions)["fileSaveAs"]->setEnabled(false);
 	(*a_scrActions)["insertFrame"]->setEnabled(false);
+	(*a_scrActions)["insertAnchoredImage"]->setEnabled(false);
 	(*a_scrActions)["insertSampleText"]->setEnabled(false);
 	(*a_scrActions)["itemAdjustFrameToImage"]->setEnabled(false);
 	(*a_scrActions)["itemAdjustImageToFrame"]->setEnabled(false);
@@ -1777,6 +1789,7 @@ void AppModeHelper::mainWindowCloseLastDoc()
 	(*a_scrActions)["toolsDocumentLog"]->setEnabled(false);
 	(*a_scrActions)["toolsRotate"]->setEnabled(false);
 	(*a_scrActions)["toolsSelect"]->setEnabled(false);
+	(*a_scrActions)["toolsTextCursor"]->setEnabled(false);
 	(*a_scrActions)["toolsUnlinkTextFrame"]->setEnabled(false);
 	(*a_scrActions)["toolsUnlinkTextFrameAndCutText"]->setEnabled(false);
 	(*a_scrActions)["toolsZoom"]->setEnabled(false);
@@ -1849,6 +1862,7 @@ void AppModeHelper::setPreviewMode(bool b)
 void AppModeHelper::enableTextActions(bool enabled, const QString& fontName)
 {
 	(*a_scrActions)["insertGlyph"]->setEnabled(enabled);
+	(*a_scrActions)["insertAnchoredImage"]->setEnabled(enabled);
 
 	a_actMgr->enableUnicodeActions(a_scrActions, enabled, fontName);
 	if (!enabled)
@@ -1900,6 +1914,7 @@ void AppModeHelper::setStartupActionsEnabled(bool enabled)
 	if ((*a_scrActions)["SaveAsDocumentTemplate"])
 		(*a_scrActions)["SaveAsDocumentTemplate"]->setEnabled(false);
 	(*a_scrActions)["fileExportAsPDF"]->setEnabled(false);
+	(*a_scrActions)["fileExportAsEpub"]->setEnabled(false);
 	(*a_scrActions)["fileExportText"]->setEnabled(false);
 	(*a_scrActions)["fileExportAsEPS"]->setEnabled(false);
 	(*a_scrActions)["fileImportText"]->setEnabled(false);
@@ -1964,6 +1979,7 @@ void AppModeHelper::setStartupActionsEnabled(bool enabled)
 	(*a_scrActions)["viewShowRulers"]->setEnabled(false);
 //	scrMenuMgr->setMenuEnabled("Insert", false);
 	(*a_scrActions)["insertFrame"]->setEnabled(false);
+	(*a_scrActions)["insertAnchoredImage"]->setEnabled(false);
 	(*a_scrActions)["insertSampleText"]->setEnabled(false);
 	(*a_scrActions)["itemDuplicate"]->setEnabled(false);
 	(*a_scrActions)["itemMulDuplicate"]->setEnabled(false);
@@ -2006,6 +2022,7 @@ void AppModeHelper::setStartupActionsEnabled(bool enabled)
 	(*a_scrActions)["itemWeld"]->setEnabled(false);
 	(*a_scrActions)["itemEditWeld"]->setEnabled(false);
 	(*a_scrActions)["toolsSelect"]->setEnabled(false);
+	(*a_scrActions)["toolsTextCursor"]->setEnabled(false);
 	(*a_scrActions)["toolsRotate"]->setEnabled(false);
 	(*a_scrActions)["toolsEditContents"]->setEnabled(false);
 	(*a_scrActions)["toolsEditWithStoryEditor"]->setEnabled(false);

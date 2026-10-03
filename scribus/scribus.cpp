@@ -32,7 +32,12 @@ for which a new license (GPL+exception) is in place.
 #include <QCloseEvent>
 #include <QColor>
 #include <QColorDialog>
+#include <QCheckBox>
+#include <QComboBox>
 #include <QCursor>
+#include <QDialog>
+#include <QDialogButtonBox>
+#include <QDir>
 #include <QDomDocument>
 #include <QDrag>
 #include <QDragEnterEvent>
@@ -40,16 +45,21 @@ for which a new license (GPL+exception) is in place.
 #include <QEvent>
 #include <QEventLoop>
 #include <QFileDialog>
+#include <QFileInfo>
 #include <QFrame>
 #include <QFont>
+#include <QFormLayout>
+#include <QGroupBox>
 #include <QHBoxLayout>
 #include <QIcon>
 #include <QInputDialog>
 #include <QKeyEvent>
 #include <QKeySequence>
 #include <QLabel>
+#include <QLineEdit>
 #include <QList>
 #include <QLocale>
+#include <QMap>
 #include <QMdiArea>
 #include <QMdiSubWindow>
 #include <QMessageBox>
@@ -58,14 +68,19 @@ for which a new license (GPL+exception) is in place.
 #include <QPixmap>
 #include <QProgressBar>
 #include <QPushButton>
+#include <QScrollArea>
 #include <QScopedPointer>
 #include <QScreen>
 #include <QSignalBlocker>
+#include <QStringList>
 #include <QStyleFactory>
 #include <QStyleHints>
 #include <QTableWidget>
+#include <QTextEdit>
 #include <QTranslator>
 #include <QToolButton>
+#include <QUuid>
+#include <QVBoxLayout>
 #include <QWindow>
 #include <QWheelEvent>
 
@@ -77,9 +92,11 @@ for which a new license (GPL+exception) is in place.
 #endif
 
 #include <algorithm>
+#include <cmath>
 #include <cstdio>
 #include <cstdlib>
 #include <cassert>
+#include <memory>
 
 #include "scconfig.h"
 
@@ -108,6 +125,8 @@ for which a new license (GPL+exception) is in place.
 #include "desaxe/digester.h"
 #include "documentchecker.h"
 #include "documentlogmanager.h"
+#include "epubdocument.h"
+#include "epubexport.h"
 #include "fileloader.h"
 #include "filewatcher.h"
 #include "fpoint.h"
@@ -963,6 +982,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("fileExportText", "FileExport");
 	scrMenuMgr->addMenuItemString("fileExportAsEPS", "FileExport");
 	scrMenuMgr->addMenuItemString("fileExportAsPDF", "FileExport");
+	scrMenuMgr->addMenuItemString("fileExportAsEpub", "FileExport");
 	scrMenuMgr->addMenuItemString("SEPARATOR", "File");
 	scrMenuMgr->addMenuItemString("fileDocSetup150", "File");
 	scrMenuMgr->addMenuItemString("filePreferences150", "File");
@@ -1154,6 +1174,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("SEPARATOR", "Insert");
 	scrMenuMgr->addMenuItemString("toolsInsertTextFrame", "Insert");
 	scrMenuMgr->addMenuItemString("toolsInsertImageFrame", "Insert");
+	scrMenuMgr->addMenuItemString("insertAnchoredImage", "Insert");
 	scrMenuMgr->addMenuItemString("toolsInsertRenderFrame", "Insert");
 	scrMenuMgr->addMenuItemString("toolsInsertTable", "Insert");
 	scrMenuMgr->addMenuItemString("toolsInsertShape", "Insert");
@@ -1276,6 +1297,8 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->createMenu("View", ActionManager::defaultMenuNameEntryTranslated("View"));
 	scrMenuMgr->createMenu("ViewZoom", tr("Zoom"), "View");
 	scrMenuMgr->addMenuItemString("ViewZoom", "View");
+	scrMenuMgr->addMenuItemString("toolsZoomIn", "ViewZoom");
+	scrMenuMgr->addMenuItemString("toolsZoomOut", "ViewZoom");
 	scrMenuMgr->addMenuItemString("viewFitInWindow", "ViewZoom");
 	scrMenuMgr->addMenuItemString("viewFitWidth", "ViewZoom");
 	scrMenuMgr->addMenuItemString("viewFit50", "ViewZoom");
@@ -2443,6 +2466,17 @@ void ScribusMainWindow::extrasMenuAboutToShow()
 				}
 			}
 			allItems.clear();
+		}
+		if (!enablePicManager)
+		{
+			for (PageItem *item : doc->FrameItems)
+			{
+				if (item && item->isImageFrame() && !item->isLatexFrame() && !item->isOSGFrame())
+				{
+					enablePicManager = true;
+					break;
+				}
+			}
 		}
 	}
 	scrActions["extrasManageImages"]->setEnabled(enablePicManager);
@@ -7604,6 +7638,175 @@ void ScribusMainWindow::reallySaveAsEps()
 	}
 }
 
+void ScribusMainWindow::SaveAsEpub()
+{
+	if (!doc)
+		return;
+	QDialog dialog(this);
+	dialog.setWindowTitle(tr("Export Limited Reflowable EPUB"));
+	dialog.resize(680, 560);
+	auto* layout = new QVBoxLayout(&dialog);
+	auto* explanation = new QLabel(tr("This export supports ranked text stories and linked PNG/JPEG images. "
+		"Unsupported document content blocks export; image-frame appearance is not preserved."), &dialog);
+	explanation->setWordWrap(true);
+	layout->addWidget(explanation);
+	auto* fields = new QFormLayout;
+	const QString documentName = QFileInfo(doc->documentFileName()).completeBaseName();
+	auto* titleEdit = new QLineEdit(doc->documentInfo().title().isEmpty()
+		? (documentName.isEmpty() ? tr("Untitled") : documentName) : doc->documentInfo().title(), &dialog);
+	auto* authorEdit = new QLineEdit(doc->documentInfo().author(), &dialog);
+	auto* languageEdit = new QLineEdit(doc->documentInfo().langInfo().isEmpty()
+		? QStringLiteral("en") : doc->documentInfo().langInfo(), &dialog);
+	auto* identifierEdit = new QLineEdit(doc->documentInfo().ident().isEmpty()
+		? QStringLiteral("urn:uuid:") + QUuid::createUuid().toString(QUuid::WithoutBraces)
+		: doc->documentInfo().ident(), &dialog);
+	const QFileInfo sourceFile(doc->documentFileName());
+	const QString outputName = (documentName.isEmpty() ? tr("Untitled") : documentName) + QStringLiteral(".epub");
+	const QString defaultPath = doc->documentFileName().isEmpty() || sourceFile.isRelative()
+		? QDir::home().filePath(outputName)
+		: sourceFile.absoluteDir().filePath(outputName);
+	auto* pathEdit = new QLineEdit(defaultPath, &dialog);
+	auto* browse = new QPushButton(tr("Browse…"), &dialog);
+	auto* pathRow = new QHBoxLayout;
+	pathRow->addWidget(pathEdit);
+	pathRow->addWidget(browse);
+	fields->addRow(tr("Title"), titleEdit);
+	fields->addRow(tr("Author"), authorEdit);
+	fields->addRow(tr("Language"), languageEdit);
+	fields->addRow(tr("Identifier"), identifierEdit);
+	fields->addRow(tr("Output file"), pathRow);
+	layout->addLayout(fields);
+	QMap<QString, QComboBox*> paragraphChoices;
+	QMap<QString, QComboBox*> characterChoices;
+	const EpubDocument::StyleNames usedStyles = EpubDocument::usedStyleNames(*doc);
+	if (!usedStyles.paragraph.isEmpty() || !usedStyles.character.isEmpty())
+	{
+		auto* styleGroup = new QGroupBox(tr("Text style semantics"), &dialog);
+		auto* styleLayout = new QVBoxLayout(styleGroup);
+		auto* styleHint = new QLabel(tr("Map each used named style explicitly. Unmapped styles block export."), styleGroup);
+		styleHint->setWordWrap(true);
+		styleLayout->addWidget(styleHint);
+		auto* styleRows = new QWidget(styleGroup);
+		auto* styleForm = new QFormLayout(styleRows);
+		for (const QString& name : usedStyles.paragraph)
+		{
+			auto* choice = new QComboBox(styleRows);
+			choice->addItem(tr("Unmapped"), -1);
+			choice->addItem(tr("Body paragraph"), 0);
+			for (int level = 1; level <= 6; ++level)
+				choice->addItem(tr("Heading %1").arg(level), level);
+			styleForm->addRow(tr("Paragraph: %1").arg(name), choice);
+			paragraphChoices.insert(name, choice);
+		}
+		for (const QString& name : usedStyles.character)
+		{
+			auto* choice = new QComboBox(styleRows);
+			choice->addItem(tr("Unmapped"), 0);
+			choice->addItem(tr("Emphasis"), 1);
+			choice->addItem(tr("Strong"), 2);
+			styleForm->addRow(tr("Character: %1").arg(name), choice);
+			characterChoices.insert(name, choice);
+		}
+		if (usedStyles.paragraph.size() + usedStyles.character.size() > 6)
+		{
+			auto* styleScroll = new QScrollArea(styleGroup);
+			styleScroll->setWidgetResizable(true);
+			styleScroll->setMaximumHeight(190);
+			styleScroll->setFocusPolicy(Qt::NoFocus);
+			styleScroll->setWidget(styleRows);
+			styleLayout->addWidget(styleScroll);
+		}
+		else
+			styleLayout->addWidget(styleRows);
+		layout->addWidget(styleGroup);
+	}
+	layout->addWidget(new QLabel(tr("Document preflight"), &dialog));
+	auto* report = new QTextEdit(&dialog);
+	report->setReadOnly(true);
+	layout->addWidget(report);
+	auto* buttons = new QDialogButtonBox(&dialog);
+	auto* exportButton = buttons->addButton(tr("Export EPUB"), QDialogButtonBox::AcceptRole);
+	buttons->addButton(QDialogButtonBox::Cancel);
+	layout->addWidget(buttons);
+	auto publication = [&]() -> EpubExport::Book {
+		return { identifierEdit->text(), titleEdit->text(), languageEdit->text(), authorEdit->text(), {} };
+	};
+	auto paragraphMappings = [&]() {
+		EpubReadingOrder::ParagraphStyleMap mappings;
+		for (auto it = paragraphChoices.cbegin(); it != paragraphChoices.cend(); ++it)
+		{
+			const int semantic = it.value()->currentData().toInt();
+			if (semantic >= 0)
+				mappings.insert(it.key(), semantic);
+		}
+		return mappings;
+	};
+	auto characterMappings = [&]() {
+		EpubReadingOrder::CharacterStyleMap mappings;
+		for (auto it = characterChoices.cbegin(); it != characterChoices.cend(); ++it)
+		{
+			const int semantic = it.value()->currentData().toInt();
+			if (semantic > 0)
+				mappings.insert(it.key(), static_cast<EpubExport::InlineKind>(semantic));
+		}
+		return mappings;
+	};
+	auto refresh = [&]() {
+		const EpubDocument::PreflightReport preflight = EpubDocument::preflightMixedSavedOrder(
+			*doc, publication(), pathEdit->text(), true, paragraphMappings(), characterMappings());
+		QStringList lines;
+		if (preflight.ready())
+		{
+			lines << tr("Ready: %1 content blocks, %2 linked images.")
+				.arg(preflight.extraction.book.blocks.size()).arg(preflight.extraction.book.images.size());
+		}
+		else
+			lines << tr("Cannot export: resolve the errors below.");
+		for (const EpubDocument::PreflightIssue& issue : preflight.issues)
+			lines << QStringLiteral("%1 [%2] %3")
+				.arg(issue.severity == EpubDocument::PreflightSeverity::Error ? tr("Error") : tr("Warning"), issue.code, issue.detail);
+		report->setPlainText(lines.join(QLatin1Char('\n')));
+		exportButton->setEnabled(preflight.ready());
+	};
+	for (QLineEdit* edit : { titleEdit, authorEdit, languageEdit, identifierEdit, pathEdit })
+		connect(edit, &QLineEdit::textChanged, &dialog, [&refresh](const QString&) { refresh(); });
+	for (QComboBox* choice : paragraphChoices)
+		connect(choice, &QComboBox::currentIndexChanged, &dialog, [&refresh](int) { refresh(); });
+	for (QComboBox* choice : characterChoices)
+		connect(choice, &QComboBox::currentIndexChanged, &dialog, [&refresh](int) { refresh(); });
+	connect(browse, &QPushButton::clicked, &dialog, [&]() {
+		QString path = QFileDialog::getSaveFileName(&dialog, tr("Export EPUB"), pathEdit->text(),
+			tr("EPUB publication (*.epub)"));
+		if (!path.isEmpty())
+		{
+			if (!path.endsWith(QLatin1String(".epub"), Qt::CaseInsensitive))
+				path += QStringLiteral(".epub");
+			pathEdit->setText(path);
+		}
+	});
+	connect(buttons, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
+	connect(buttons, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
+	refresh();
+	if (dialog.exec() != QDialog::Accepted)
+		return;
+	const EpubDocument::PreflightReport preflight = EpubDocument::preflightMixedSavedOrder(
+		*doc, publication(), pathEdit->text(), true, paragraphMappings(), characterMappings());
+	if (!preflight.ready())
+	{
+		QStringList errors;
+		for (const EpubDocument::PreflightIssue& issue : preflight.issues)
+		{
+			if (issue.severity == EpubDocument::PreflightSeverity::Error)
+				errors << issue.detail;
+		}
+		ScMessageBox::warning(this, CommonStrings::trWarning, errors.join(QLatin1Char('\n')));
+		return;
+	}
+	const EpubExport::Result written = EpubExport::writeBook(preflight.extraction.book, pathEdit->text());
+	if (!written.exported())
+		ScMessageBox::warning(this, CommonStrings::trWarning, written.detail);
+}
+
 bool ScribusMainWindow::getPDFDriver(const QString &filename, const std::vector<int> & pageNumbers,
 									 const QMap<int, QImage>& thumbs, QString& error, bool* cancelled)
 {
@@ -8118,6 +8321,24 @@ void ScribusMainWindow::editInlineStart(int id)
 	if (outlinePalette->isVisible())
 		outlinePalette->BuildTree(false);
 	updateActiveWindowCaption( tr("Editing Inline Item"));
+}
+
+void ScribusMainWindow::editAnchoredImage(int id)
+{
+	if (HaveDoc && inlinePalette)
+		inlinePalette->editAnchoredImage(id);
+}
+
+void ScribusMainWindow::editAnchoredObjectOptions(int id)
+{
+	if (HaveDoc && inlinePalette)
+		inlinePalette->editAnchorOptions(id);
+}
+
+void ScribusMainWindow::replaceAnchoredImage(int id)
+{
+	if (HaveDoc && inlinePalette)
+		inlinePalette->replaceAnchoredImage(id);
 }
 
 void ScribusMainWindow::editInlineEnd()
@@ -9410,6 +9631,147 @@ void ScribusMainWindow::slotInsertFrame()
 		dia.getNewFrameProperties(iafData);
 		doc->itemAddUserFrame(iafData);
 	}
+}
+
+void ScribusMainWindow::slotInsertAnchoredImage()
+{
+	if (!HaveDoc || (doc->appMode != modeEdit && doc->appMode != modeEditTable)
+		|| doc->m_Selection->isEmpty())
+		return;
+
+	PageItem* selected = doc->m_Selection->itemAt(0);
+	PageItem_TextFrame* textFrame = nullptr;
+	if (doc->appMode == modeEdit && selected->isTextFrame())
+		textFrame = selected->asTextFrame();
+	else if (doc->appMode == modeEditTable && selected->isTable())
+		textFrame = selected->asTable()->activeCell().textFrame();
+	if (!textFrame || doc->layerLocked(textFrame->m_layerID))
+		return;
+
+	const QString format = FormatsManager::instance()->fileDialogFormatList(FormatsManager::IMAGESIMGFRAME);
+	PrefsContext* dirsContext = m_prefsManager.prefsFile->getContext("dirs");
+	const QString docDir = m_prefsManager.documentDir();
+	const QString imageDir = dirsContext->get("images", docDir.isEmpty() ? "." : docDir);
+	CustomFDialog fileDialog(this, imageDir, tr("Insert Image in Text"), format,
+		fdShowPreview | fdExistingFiles | fdDisableOk, contextImages);
+	if (fileDialog.exec() != QDialog::Accepted)
+		return;
+	const QString fileName = fileDialog.selectedFiles().value(0);
+	if (fileName.isEmpty())
+		return;
+
+	const double columnWidth = textFrame->columnWidth();
+	if (columnWidth <= 0.0)
+		return;
+	QDialog options(this);
+	options.setWindowTitle(tr("Insert Image in Text"));
+	auto* form = new QFormLayout(&options);
+	auto* placement = new QComboBox(&options);
+	placement->addItem(tr("Inline"), static_cast<int>(AnchorPosition::Mode::Inline));
+	placement->addItem(tr("Above Line"), static_cast<int>(AnchorPosition::Mode::AboveLine));
+	placement->addItem(tr("Floating"), static_cast<int>(AnchorPosition::Mode::Custom));
+	form->addRow(tr("Placement:"), placement);
+	auto* width = new ScrSpinBox(unitGetRatioFromIndex(doc->unitIndex()),
+		columnWidth * unitGetRatioFromIndex(doc->unitIndex()), &options, doc->unitIndex());
+	width->setValue(qMin(180.0, columnWidth), SC_PT);
+	form->addRow(tr("Width:"), width);
+	auto* wrap = new QCheckBox(tr("Wrap text around image"), &options);
+	wrap->setChecked(true);
+	wrap->setEnabled(false);
+	connect(placement, &QComboBox::currentIndexChanged, &options, [placement, wrap] {
+		wrap->setEnabled(placement->currentData().toInt() == static_cast<int>(AnchorPosition::Mode::Custom));
+	});
+	form->addRow(QString(), wrap);
+	auto* buttons = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &options);
+	connect(buttons, &QDialogButtonBox::accepted, &options, &QDialog::accept);
+	connect(buttons, &QDialogButtonBox::rejected, &options, &QDialog::reject);
+	form->addRow(buttons);
+	if (options.exec() != QDialog::Accepted)
+		return;
+
+	const double requestedWidth = qMin(width->getValue(SC_PT), columnWidth);
+	std::unique_ptr<PageItem_ImageFrame> image(new PageItem_ImageFrame(doc, 0.0, 0.0,
+		requestedWidth, requestedWidth, 0.0, CommonStrings::None, CommonStrings::None));
+	image->isEmbedded = true;
+	image->m_layerID = textFrame->m_layerID;
+	{
+		UndoBlocker undoBlocker;
+		if (!doc->loadPict(fileName, image.get()))
+		{
+			ScMessageBox::warning(this, CommonStrings::trWarning, tr("The selected image could not be loaded."));
+			return;
+		}
+		const double xres = image->pixm.imgInfo.xres;
+		const double yres = image->pixm.imgInfo.yres;
+		const double naturalWidth = xres > 0.0 ? image->OrigW * 72.0 / xres : image->OrigW;
+		const double naturalHeight = yres > 0.0 ? image->OrigH * 72.0 / yres : image->OrigH;
+		if (!std::isfinite(naturalWidth) || !std::isfinite(naturalHeight)
+			|| naturalWidth <= 0.0 || naturalHeight <= 0.0)
+		{
+			ScMessageBox::warning(this, CommonStrings::trWarning, tr("The selected image has no usable dimensions."));
+			return;
+		}
+		const double frameHeight = requestedWidth * naturalHeight / naturalWidth;
+		if (!std::isfinite(frameHeight) || frameHeight <= 0.0)
+		{
+			ScMessageBox::warning(this, CommonStrings::trWarning, tr("The selected image has no usable dimensions."));
+			return;
+		}
+		image->setWidth(requestedWidth);
+		image->setHeight(frameHeight);
+		image->OldB2 = requestedWidth;
+		image->OldH2 = frameHeight;
+		image->gWidth = requestedWidth;
+		image->gHeight = frameHeight;
+		image->updateClip();
+		image->setFitImageToFrame(true);
+		image->setKeepAspectRatio(true);
+		image->adjustPictScale();
+		image->setItemName(QFileInfo(fileName).completeBaseName());
+
+		AnchorPosition anchor;
+		anchor.mode = static_cast<AnchorPosition::Mode>(placement->currentData().toInt());
+		if (anchor.mode == AnchorPosition::Mode::Custom)
+		{
+			anchor.horizontalReference = AnchorPosition::HorizontalReference::TextColumn;
+			anchor.horizontalAlignment = AnchorPosition::HorizontalAlignment::Right;
+			anchor.verticalAlignment = AnchorPosition::VerticalAlignment::Top;
+			anchor.wrapMode = wrap->isChecked() ? AnchorPosition::WrapMode::BoundingBox : AnchorPosition::WrapMode::None;
+			anchor.wrapOffsets = QMarginsF(6.0, 6.0, 6.0, 6.0);
+		}
+		image->setAnchorPosition(anchor);
+	}
+
+	UndoTransaction transaction;
+	if (UndoManager::undoEnabled())
+		transaction = m_undoManager->beginTransaction();
+	if (textFrame->HasSel)
+		textFrame->deleteSelectedTextFromFrame();
+	const int insertAt = textFrame->itemText.cursorPosition();
+	int frameIndex;
+	{
+		UndoBlocker undoBlocker;
+		frameIndex = doc->addToInlineFrames(image.get());
+	}
+	image.release();
+	if (UndoManager::undoEnabled())
+	{
+		auto* state = new SimpleState(Um::Paste, QString(), Um::IPaste);
+		state->set("PASTE_INLINE");
+		state->set("START", insertAt);
+		state->set("INDEX", frameIndex);
+		m_undoManager->action(textFrame, state);
+	}
+	textFrame->itemText.insertObject(frameIndex);
+	textFrame->invalidateLayout();
+	textFrame->update();
+	if (transaction)
+		transaction.commit();
+	dirsContext->set("images", QFileInfo(fileName).absolutePath());
+	inlinePalette->unsetDoc();
+	inlinePalette->setDoc(doc);
+	doc->changed();
+	view->DrawNew();
 }
 
 void ScribusMainWindow::slotItemTransform()
