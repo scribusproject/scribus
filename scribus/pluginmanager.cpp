@@ -230,7 +230,7 @@ void PluginManager::initPlugs()
 		if (splashShown)
 			ScCore->showSplash(false);
 		ScMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning,
-								"<qt>" + tr("There is a problem loading %1 of %2 plugins. %3 This is probably caused by some kind of dependency issue or old plugins existing in your install directory. If you clean out your install directory and reinstall and this still occurs, please report it on bugs.scribus.net."
+								"<qt>" + tr("There is a problem loading %1 of %2 plugins. %3 This is probably caused by a dependency issue or old plugins in your install directory. If it still occurs after a clean reinstall, please report it at github.com/appajid/apscribe/issues."
 									).arg(allPlugs.count() - loaded).arg(allPlugs.count()).arg(failedStr)
 									+ "</qt>");
 		if (splashShown)

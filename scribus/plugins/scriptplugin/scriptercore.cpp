@@ -85,7 +85,7 @@ void ScripterCore::addToMainWindowMenu(ScribusMainWindow *mw)
 	m_menuMgr = mw->scrMenuMgr;
 	m_menuMgr->createMenu("Scripter", QObject::tr("&Script"));
 	scriptPaths.attachToMenu(m_menuMgr);
-	m_menuMgr->createMenu("ScribusScripts", QObject::tr("&Scribus Scripts"), "Scripter");
+	m_menuMgr->createMenu("ScribusScripts", QObject::tr("&Apscribe Scripts"), "Scripter");
 	m_menuMgr->addMenuItemString("ScribusScripts", "Scripter");
 	m_menuMgr->addMenuItemString("scripterExecuteScript", "Scripter");
 	m_menuMgr->createMenu("RecentScripts", QObject::tr("&Recent Scripts"), "Scripter", false, true);
@@ -603,7 +603,7 @@ void ScripterCore::languageChange()
 	m_scripterActions["scripterAboutScript"]->setText(QObject::tr("&About Script..."));
 
 	m_menuMgr->setText("Scripter", QObject::tr("&Script"));
-	m_menuMgr->setText("ScribusScripts", QObject::tr("&Scribus Scripts"));
+	m_menuMgr->setText("ScribusScripts", QObject::tr("&Apscribe Scripts"));
 	m_menuMgr->setText("RecentScripts", QObject::tr("&Recent Scripts"));
 }
 
