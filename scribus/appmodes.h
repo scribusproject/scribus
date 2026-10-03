@@ -46,7 +46,8 @@ enum AppMode
 	modeEditTable,
 	modeEditMeshPatch,
 	modeEditWeldPoint,
-	modeInsertPDFRadioButton
+	modeInsertPDFRadioButton,
+	modeTextCursor
 };
 
 #endif // APPMODES_H

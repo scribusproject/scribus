@@ -19,6 +19,10 @@ class ScribusDoc;
 class ScribusMainWindow;
 class Selection;
 class UserActionSniffer;
+class QLabel;
+class QPushButton;
+class SectionContainer;
+class QFormLayout;
 
 class SCRIBUS_API PropertiesPalette_Image : public QWidget, Ui::PropertiesPalette_ImageBase
 {
@@ -45,6 +49,15 @@ protected:
 	ScGuardedPtr<ScribusDoc> m_doc;
 
 	UserActionSniffer *userActionSniffer;
+	SectionContainer *sectionImageLinks {nullptr};
+	QLabel *linkStatusValue {nullptr};
+	QLabel *linkPathValue {nullptr};
+	QLabel *linkColorModeValue {nullptr};
+	QFormLayout *linkForm {nullptr};
+	QPushButton *linkRelinkButton {nullptr};
+	QPushButton *linkManageButton {nullptr};
+	void updateLinkDetails();
+	Selection* targetSelection(Selection& scratch) const;
 	void installSniffer(ScrSpinBox *spinBox);
 	void installSniffer(QSpinBox *spinBox);
 
@@ -101,6 +114,7 @@ private slots:
 	void handleCompressionQuality();
 
 	void handleImageEffects();
+	void relinkSelectedImage();
 
 signals:
 	void UpdtGui(int);

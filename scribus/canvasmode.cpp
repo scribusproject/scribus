@@ -67,7 +67,10 @@
 
 #include <QMdiArea>
 #include <QMdiSubWindow>
+#include <QApplication>
 #include <QPainter>
+#include <QPainterPath>
+#include <QPalette>
 #include <QPointF>
 
 CanvasMode::CanvasMode (ScribusView* view) :
@@ -91,6 +94,7 @@ CanvasMode* CanvasMode::createForAppMode(ScribusView* view, int appMode)
 	switch (appMode)
 	{
 		case modeNormal:
+		case modeTextCursor:
 		case modeStoryEditor:
 			result = new CanvasMode_Normal(view);
 			break;
@@ -383,6 +387,20 @@ void CanvasMode::drawSelection(QPainter* psx, bool drawHandles)
 			}
 			
 			psx->restore();
+			if (!m_doc->drawAsPreview && currItem->isImageFrame() && currItem->textFlowAroundObject())
+			{
+				psx->save();
+				QPainterPath wrapBoundary;
+				wrapBoundary.addRegion(currItem->textInteractionRegion(0.0, 0.0));
+				QColor wrapColor = QApplication::palette().color(QPalette::Highlight);
+				wrapColor.setAlpha(190);
+				QPen wrapPen(wrapColor, 1.0, Qt::SolidLine);
+				wrapPen.setCosmetic(true);
+				psx->setPen(wrapPen);
+				psx->setBrush(Qt::NoBrush);
+				psx->drawPath(wrapBoundary.simplified());
+				psx->restore();
+			}
 		}
 		
 	}
@@ -615,6 +633,9 @@ QCursor CanvasMode::modeCursor()
 			break;
 		case modeDrawText:
 			cursor = im.loadCursor("cursor-text-frame");
+			break;
+		case modeTextCursor:
+			cursor = QCursor(Qt::IBeamCursor);
 			break;
 		case modeDrawTable2:
 			cursor = im.loadCursor("cursor-table");

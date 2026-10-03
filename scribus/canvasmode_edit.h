@@ -20,6 +20,8 @@
 
 #include <QElapsedTimer>
 #include <QObject>
+#include <QRectF>
+#include <QTransform>
 
 #include "canvasmode.h"
 
@@ -60,6 +62,10 @@ public:
 
 private:
 	inline bool GetItem(PageItem** pi);
+	int anchoredObjectAtPoint(PageItem_TextFrame* textframe, const QPointF& canvasPoint, int* storyPosition) const;
+	QTransform anchoredFrameTransform(const PageItem_TextFrame* textframe) const;
+	int anchoredResizeHandleAt(const PageItem_TextFrame* textframe, const QPointF& canvasPoint, QRectF* objectRect = nullptr) const;
+	QRectF anchoredResizePreview(const PageItem_TextFrame* textframe) const;
 	void drawTextCursor(QPainter* p, PageItem_TextFrame* textframe);
 	bool SeleItem(QMouseEvent *m);
 	void createContextMenu(PageItem *currItem, double mx, double my);
@@ -80,6 +86,12 @@ private:
 	int Cp {-1};
 	int frameResizeHandle {-1};
 	int oldCp {-1};
+	bool m_pressedAnchoredObject {false};
+	int m_pressedAnchorId {-1};
+	int m_anchorResizeHandle {-1};
+	QRectF m_anchorInitialRect;
+	QPointF m_anchorDragStart;
+	QPointF m_anchorDragDelta;
 
 private slots:
 	void blinkTextCursor();

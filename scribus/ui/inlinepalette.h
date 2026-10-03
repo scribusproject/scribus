@@ -80,6 +80,9 @@ public:
 	void unsetDoc();
 	void editingStart(int itemID);
 	void editingFinished();
+	void editAnchoredImage(int itemID);
+	void editAnchorOptions(int itemID);
+	void replaceAnchoredImage(int itemID);
 	void updateItemList();
 
 public slots:

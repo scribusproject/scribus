@@ -110,6 +110,76 @@ QRectF AnchorPosition::wrapRect(const QRectF& objectRect) const
 		wrapOffsets.right(), wrapOffsets.bottom());
 }
 
+AnchorPosition AnchorPosition::movedOnCanvas(const QPointF& delta) const
+{
+	AnchorPosition result(*this);
+	if (mode == Mode::Inline)
+	{
+		// The inline object's bottom-left is the anchor point in the text line.
+		// Convert it to a movable object without changing its initial position.
+		result.mode = Mode::Custom;
+		result.horizontalReference = HorizontalReference::AnchorCharacter;
+		result.horizontalAlignment = HorizontalAlignment::Custom;
+		result.verticalReference = VerticalReference::AnchorLine;
+		result.verticalAlignment = VerticalAlignment::Baseline;
+	}
+	else if (mode == Mode::AboveLine)
+	{
+		// Above-line Y offsets run upwards; custom baseline offsets run downwards.
+		result.mode = Mode::Custom;
+		result.verticalReference = VerticalReference::AnchorLine;
+		result.verticalAlignment = VerticalAlignment::Baseline;
+		result.yOffset = -yOffset;
+	}
+	result.xOffset += delta.x();
+	result.yOffset += delta.y();
+	return result;
+}
+
+AnchorPosition AnchorPosition::resizedOnCanvas(const QRectF& oldRect, const QRectF& newRect, bool leftPage) const
+{
+	AnchorPosition result(*this);
+	const double widthChange = newRect.width() - oldRect.width();
+	const double heightChange = newRect.height() - oldRect.height();
+	if (mode == Mode::Inline)
+	{
+		result.mode = Mode::Custom;
+		result.horizontalReference = HorizontalReference::AnchorCharacter;
+		result.horizontalAlignment = HorizontalAlignment::Custom;
+		result.verticalReference = VerticalReference::AnchorLine;
+		result.verticalAlignment = VerticalAlignment::Baseline;
+		result.xOffset = newRect.left() - oldRect.left();
+		result.yOffset = newRect.top() - (oldRect.bottom() - newRect.height());
+		return result;
+	}
+
+	HorizontalAlignment effectiveHorizontalAlignment = horizontalAlignment;
+	if (horizontalAlignment == HorizontalAlignment::Spine)
+		effectiveHorizontalAlignment = leftPage ? HorizontalAlignment::Right : HorizontalAlignment::Left;
+	else if (horizontalAlignment == HorizontalAlignment::AwayFromSpine)
+		effectiveHorizontalAlignment = leftPage ? HorizontalAlignment::Left : HorizontalAlignment::Right;
+	result.xOffset += newRect.left() - oldRect.left();
+	if (effectiveHorizontalAlignment == HorizontalAlignment::Center)
+		result.xOffset += widthChange / 2.0;
+	else if (effectiveHorizontalAlignment == HorizontalAlignment::Right)
+		result.xOffset += widthChange;
+
+	if (mode == Mode::AboveLine)
+	{
+		result.mode = Mode::Custom;
+		result.verticalReference = VerticalReference::AnchorLine;
+		result.verticalAlignment = VerticalAlignment::Baseline;
+		result.yOffset = -yOffset;
+	}
+	result.yOffset += newRect.top() - oldRect.top();
+	if (result.verticalAlignment == VerticalAlignment::Center)
+		result.yOffset += heightChange / 2.0;
+	else if (result.verticalAlignment == VerticalAlignment::Bottom
+		|| result.verticalAlignment == VerticalAlignment::Baseline)
+		result.yOffset += heightChange;
+	return result;
+}
+
 bool AnchorPosition::operator==(const AnchorPosition& other) const
 {
 	return mode == other.mode

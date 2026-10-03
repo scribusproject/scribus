@@ -63,6 +63,7 @@ private:
 	const unsigned SELECT_BENEATH{ Qt::ControlModifier };
 
 	inline bool GetItem(PageItem** pi);
+	bool selectAnchoredObjectAt(const QPointF& canvasPoint);
 	void handleCheckBoxPress(PageItem* currItem);
 	void handlePushButtonPress(PageItem* currItem);
 	void handleRadioButtonPress(PageItem* currItem);

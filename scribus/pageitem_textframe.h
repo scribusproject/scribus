@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <QHash>
 #include <QRectF>
+#include <QRegion>
 #include <QString>
 #include <QKeyEvent>
 
@@ -77,6 +78,12 @@ public:
 	 */
 	void setDerivedVerticalAlignment(int val);
 	QRectF resolvedAnchoredObjectRect(int inlineCharId, int storyPosition = -1) const;
+	// The same exclusion region used by text layout, in text-frame coordinates.
+	QRegion anchoredObjectInteractionRegion(const PageItem* item, const QRectF& objectRect) const;
+	int anchoredObjectAt(const QPointF& framePoint, int* storyPosition = nullptr) const;
+	int anchoredObjectAtCanvas(const QPointF& canvasPoint, int* storyPosition = nullptr);
+	PageItem* selectedAnchoredObject() const;
+	PageItem* selectedAnchoredImage() const;
 
 	void clearContents() override;
 	void truncateContents() override;
@@ -151,7 +158,6 @@ protected:
 
 private:
 	bool updateAnchoredObjectRects();
-	QRegion anchoredObjectInteractionRegion(const PageItem* item, const QRectF& objectRect) const;
 	QRectF anchorHorizontalReferenceRect(const AnchorPosition& anchor, const QPointF& anchorPoint, const QRectF& columnRect) const;
 	QRectF anchorVerticalReferenceRect(const AnchorPosition& anchor, const QRectF& paragraphRect) const;
 	QRectF pageRectInFrameCoordinates(int pageIndex) const;

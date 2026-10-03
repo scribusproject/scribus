@@ -20,6 +20,8 @@ private slots:
 	void resolvesAboveLinePlacement();
 	void expandsWrapBoundsIndependently();
 	void keepsObjectInsideReferenceBounds();
+	void movesInlineAndAboveLineWithoutLosingAnchor();
+	void resizesAlignedAnchorsWithoutJumping();
 };
 
 void AnchorPositionTests::defaultsPreserveLegacyInlineBehavior()
@@ -97,6 +99,46 @@ void AnchorPositionTests::keepsObjectInsideReferenceBounds()
 	QRectF bounds(10.0, 20.0, 100.0, 80.0);
 	QCOMPARE(anchor.resolvedRect(bounds, bounds, QPointF(), QSizeF(30.0, 20.0)),
 		QRectF(80.0, 20.0, 30.0, 20.0));
+}
+
+void AnchorPositionTests::movesInlineAndAboveLineWithoutLosingAnchor()
+{
+	AnchorPosition inlineAnchor;
+	const AnchorPosition movedInline = inlineAnchor.movedOnCanvas(QPointF(12.0, -7.0));
+	QCOMPARE(movedInline.mode, AnchorPosition::Mode::Custom);
+	QCOMPARE(movedInline.resolvedRect(QRectF(), QRectF(), QPointF(25.0, 50.0), QSizeF(20.0, 10.0)),
+		QRectF(37.0, 33.0, 20.0, 10.0));
+
+	AnchorPosition aboveLine;
+	aboveLine.mode = AnchorPosition::Mode::AboveLine;
+	aboveLine.yOffset = 4.0;
+	const AnchorPosition movedAbove = aboveLine.movedOnCanvas(QPointF(-3.0, 8.0));
+	QCOMPARE(movedAbove.mode, AnchorPosition::Mode::Custom);
+	QCOMPARE(movedAbove.resolvedRect(QRectF(), QRectF(), QPointF(25.0, 50.0), QSizeF(20.0, 10.0)),
+		QRectF(22.0, 44.0, 20.0, 10.0));
+}
+
+void AnchorPositionTests::resizesAlignedAnchorsWithoutJumping()
+{
+	AnchorPosition anchor;
+	anchor.mode = AnchorPosition::Mode::Custom;
+	anchor.horizontalReference = AnchorPosition::HorizontalReference::TextColumn;
+	anchor.horizontalAlignment = AnchorPosition::HorizontalAlignment::Right;
+	anchor.verticalReference = AnchorPosition::VerticalReference::TextFrame;
+	anchor.verticalAlignment = AnchorPosition::VerticalAlignment::Center;
+	const QRectF horizontal(10.0, 0.0, 100.0, 100.0);
+	const QRectF vertical(0.0, 20.0, 100.0, 80.0);
+	const QRectF before = anchor.resolvedRect(horizontal, vertical, QPointF(25.0, 50.0), QSizeF(20.0, 10.0));
+	const QRectF target(before.left() - 5.0, before.top() - 4.0, 30.0, 16.0);
+	const AnchorPosition resized = anchor.resizedOnCanvas(before, target);
+	QCOMPARE(resized.resolvedRect(horizontal, vertical, QPointF(25.0, 50.0), target.size()), target);
+
+	AnchorPosition inlineAnchor;
+	const QRectF inlineBefore(25.0, 40.0, 20.0, 10.0);
+	const QRectF inlineTarget(19.0, 35.0, 26.0, 15.0);
+	const AnchorPosition resizedInline = inlineAnchor.resizedOnCanvas(inlineBefore, inlineTarget);
+	QCOMPARE(resizedInline.resolvedRect(QRectF(), QRectF(), QPointF(25.0, 50.0), inlineTarget.size()),
+		inlineTarget);
 }
 
 QTEST_APPLESS_MAIN(AnchorPositionTests)

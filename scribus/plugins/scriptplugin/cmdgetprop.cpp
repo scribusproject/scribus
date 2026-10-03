@@ -307,7 +307,7 @@ PyObject *scribus_getimageoffset(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueImageItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	return Py_BuildValue("(ff)", item->imageXOffset() * item->imageXScale(), item->imageYOffset() * item->imageYScale());
@@ -373,7 +373,7 @@ PyObject *scribus_getimagescale(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueImageItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	return Py_BuildValue("(ff)", item->imageXScale() / 72.0 * item->pixm.imgInfo.xres, item->imageYScale() / 72.0 * item->pixm.imgInfo.yres);
@@ -421,7 +421,7 @@ PyObject *scribus_getimagefile(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueImageItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	return PyUnicode_FromString(item->Pfile.toUtf8());
@@ -448,7 +448,7 @@ PyObject *scribus_getsize(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	const PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	const PageItem *item = GetUniqueTableItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	return Py_BuildValue("(ff)", PointToValue(item->width()), PointToValue(item->height()));

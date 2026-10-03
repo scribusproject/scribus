@@ -110,6 +110,25 @@ PageItem* GetUniqueItem(const QString& name)
 	return getPageItemByName(name);
 }
 
+PageItem* GetUniqueTableItem(const QString& name)
+{
+	if (name.isEmpty())
+		return GetUniqueItem(name);
+	const ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	for (PageItem* item : *currentDoc->Items)
+	{
+		if (item && name == item->itemName())
+			return item;
+	}
+	for (PageItem* item : currentDoc->FrameItems)
+	{
+		if (item && item->isTable() && name == item->itemName())
+			return item;
+	}
+	PyErr_SetString(NoValidObjectError, QString("Object not found").toUtf8().constData());
+	return nullptr;
+}
+
 PageItem* getPageItemByName(const QString& name)
 {
 	if (name.isEmpty())
@@ -124,7 +143,25 @@ PageItem* getPageItemByName(const QString& name)
 		if (name == currentDoc->Items->at(i)->itemName())
 			return currentDoc->Items->at(i);
 	}
+	PyErr_SetString(NoValidObjectError, QString("Object not found").toUtf8().constData());
+	return nullptr;
+}
 
+PageItem* GetUniqueImageItem(const QString& name)
+{
+	if (name.isEmpty())
+		return GetUniqueItem(name);
+	const ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	for (PageItem* item : *currentDoc->Items)
+	{
+		if (item && name == item->itemName())
+			return item;
+	}
+	for (PageItem* item : currentDoc->FrameItems)
+	{
+		if (item && item->isImageFrame() && name == item->itemName())
+			return item;
+	}
 	PyErr_SetString(NoValidObjectError, QString("Object not found").toUtf8().constData());
 	return nullptr;
 }
@@ -144,6 +181,11 @@ bool ItemExists(const QString& name)
 	for (int i = 0; i < currentDoc->Items->count(); ++i)
 	{
 		if (name == currentDoc->Items->at(i)->itemName())
+			return true;
+	}
+	for (PageItem* item : currentDoc->FrameItems)
+	{
+		if (item && name == item->itemName())
 			return true;
 	}
 	return false;
@@ -266,4 +308,3 @@ QString PyUnicode_asQString(PyObject* arg)
 		return QString();
 	return QString::fromUtf8(utf8Str);
 }
-

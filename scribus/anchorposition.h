@@ -99,6 +99,8 @@ public:
 					const QSizeF& objectSize,
 					bool leftPage = false) const;
 	QRectF wrapRect(const QRectF& objectRect) const;
+	AnchorPosition movedOnCanvas(const QPointF& delta) const;
+	AnchorPosition resizedOnCanvas(const QRectF& oldRect, const QRectF& newRect, bool leftPage = false) const;
 
 	bool operator==(const AnchorPosition& other) const;
 	bool operator!=(const AnchorPosition& other) const { return !(*this == other); }

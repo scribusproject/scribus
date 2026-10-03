@@ -15366,7 +15366,10 @@ void ScribusDoc::itemSelection_ApplyImageEffects(const ScImageEffectList& newEff
 	PageItem *currItem = itemSelection->itemAt(0);
 	ScImageEffectList oldEffects(currItem->effectsInUse);
 	currItem->effectsInUse = newEffectList;
-	updatePic();
+	if (customSelection)
+		loadPict(currItem->Pfile, currItem, true);
+	else
+		updatePic();
 
 	if (UndoManager::undoEnabled())
 	{

@@ -113,6 +113,7 @@ void ContentPalette::setDoc(ScribusDoc *doc)
 
 	if (m_doc)
 	{
+		disconnect(m_textSelectionConnection);
 		disconnect(m_doc->m_Selection, &Selection::selectionChanged, this, &ContentPalette::handleSelectionChanged);
 		disconnect(m_doc, &ScribusDoc::docChanged, this, &ContentPalette::handleSelectionChanged);
 	}
@@ -146,6 +147,7 @@ void ContentPalette::unsetDoc()
 {
 	if (m_doc)
 	{
+		disconnect(m_textSelectionConnection);
 		disconnect(m_doc->m_Selection, &Selection::selectionChanged, this, &ContentPalette::handleSelectionChanged);
 		disconnect(m_doc, &ScribusDoc::docChanged, this, &ContentPalette::handleSelectionChanged);
 	}
@@ -176,6 +178,7 @@ void ContentPalette::unsetDoc()
 
 void ContentPalette::unsetItem()
 {
+	disconnect(m_textSelectionConnection);
 	m_haveItem = false;
 	m_item = nullptr;
 
@@ -225,6 +228,7 @@ void ContentPalette::AppModeChanged()
 		}
 		textPal->handleSelectionChanged();
 	}
+	handleSelectionChanged();
 }
 
 void ContentPalette::setCurrentItem(PageItem *item)
@@ -243,6 +247,13 @@ void ContentPalette::setCurrentItem(PageItem *item)
 		setDoc(item->doc());
 	}
 
+	if (item != m_item)
+	{
+		disconnect(m_textSelectionConnection);
+		if (item->asTextFrame())
+			m_textSelectionConnection = connect(&item->itemText, &StoryText::selectionChanged,
+				this, &ContentPalette::handleSelectionChanged, Qt::QueuedConnection);
+	}
 	m_haveItem = true;
 	m_item = item;
 
@@ -270,6 +281,8 @@ void  ContentPalette::handleSelectionChanged()
 	auto inspectorTarget = InspectorContent;
 
 	PageItem* currItem = currentItemFromSelection();
+	PageItem *selectedAnchor = m_doc->appMode == modeEdit && currItem && currItem->asTextFrame()
+		? currItem->asTextFrame()->selectedAnchoredObject() : nullptr;
 
 	// TODO: should me move this to setCurrentIndex()?
 	if (!currItem)
@@ -287,27 +300,38 @@ void  ContentPalette::handleSelectionChanged()
 	{
 		m_haveItem = true;
 
-		switch (currItem->itemType())
-		{
-		case PageItem::ImageFrame:
+		if (selectedAnchor && selectedAnchor->isImageFrame())
 			newPanel = Panel::image;
-			break;
-		case PageItem::TextFrame:
-		case PageItem::PathText:
-			newPanel = Panel::text;
-			break;
-		case PageItem::Table:
-			newPanel = m_doc->appMode == modeEditTable && !static_cast<PageItem_Table*>(currItem)->hasSelection() ? Panel::text : Panel::table;
-			break;
-		case PageItem::Group:
-			newPanel = Panel::group;
-			break;
-		default:
-			newPanel = Panel::empty;
-			inspectorTarget = InspectorAppearance;
-			break;
+		else if (selectedAnchor && selectedAnchor->isTable())
+			newPanel = Panel::table;
+		else
+		{
+			switch (currItem->itemType())
+			{
+			case PageItem::ImageFrame:
+				newPanel = Panel::image;
+				break;
+			case PageItem::TextFrame:
+			case PageItem::PathText:
+				newPanel = Panel::text;
+				break;
+			case PageItem::Table:
+				newPanel = m_doc->appMode == modeEditTable && !static_cast<PageItem_Table*>(currItem)->hasSelection() ? Panel::text : Panel::table;
+				break;
+			case PageItem::Group:
+				newPanel = Panel::group;
+				break;
+			default:
+				newPanel = Panel::empty;
+				inspectorTarget = InspectorAppearance;
+				break;
+			}
 		}
 		setCurrentItem(currItem);
+		if (selectedAnchor && selectedAnchor->isImageFrame())
+			imagePal->handleSelectionChanged();
+		else if (selectedAnchor && selectedAnchor->isTable())
+			tablePal->handleSelectionChanged();
 	}
 	if (currentPanel != newPanel)
 	{

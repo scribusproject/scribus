@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include "iconmanager.h"
 #include "newmarginwidget.h"
 #include "pageitem_table.h"
+#include "pageitem_textframe.h"
 #include "propertiespalette_table.h"
 #include "sccolorengine.h"
 #include "scribus.h"
@@ -148,6 +149,8 @@ void PropertiesPalette_Table::unsetDocument()
 
 void PropertiesPalette_Table::setItem(PageItem* item)
 {
+	if (m_item && m_item != item && m_item->isTable())
+		disconnect(m_item->asTable(), SIGNAL(selectionChanged()), this, SLOT(handleCellSelectionChanged()));
 	m_item = item;
 
 	if (!m_item) return;
@@ -171,10 +174,20 @@ void PropertiesPalette_Table::handleSelectionChanged()
 		return;
 
 	// We only handle a single item for now.
-	if (m_doc->m_Selection->count() >= 1 && m_doc->m_Selection->itemAt(0)->isTable())
-		m_item = m_doc->m_Selection->itemAt(0);
-	else
-		m_item = nullptr;
+	PageItem* selectedTable = nullptr;
+	if (m_doc->m_Selection->count() == 1)
+	{
+		PageItem* selected = m_doc->m_Selection->itemAt(0);
+		if (selected->isTable())
+			selectedTable = selected;
+		else if (m_doc->appMode == modeEdit && selected->asTextFrame())
+		{
+			PageItem* anchored = selected->asTextFrame()->selectedAnchoredObject();
+			if (anchored && anchored->isTable())
+				selectedTable = anchored;
+		}
+	}
+	setItem(selectedTable);
 
 	syncSideSelectorToCells();
 	on_sideSelector_selectionChanged();

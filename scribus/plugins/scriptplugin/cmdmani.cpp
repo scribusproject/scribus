@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "imagecmykbatch.h"
 #include "imagecmykconversion.h"
 #include "imagelinkreplacement.h"
+#include "pageitem_table.h"
 #include "pyesstring.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
@@ -32,7 +33,7 @@ PyObject *scribus_loadimage(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	PageItem *item = GetUniqueImageItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	if (!item->isImageFrame())
@@ -52,7 +53,7 @@ PyObject *scribus_relinkimage(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	PageItem *item = GetUniqueImageItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	if (!item->isImageFrame())
@@ -439,13 +440,22 @@ PyObject *scribus_setimagescale(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	PageItem *item = GetUniqueImageItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	if (!item->isImageFrame())
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error").toUtf8().constData());
 		return nullptr;
+	}
+	if (item->isEmbedded)
+	{
+		Selection embeddedSelection(nullptr, false);
+		embeddedSelection.addItem(item);
+		const double xres = item->pixm.imgInfo.xres > 0 ? item->pixm.imgInfo.xres : 72.0;
+		const double yres = item->pixm.imgInfo.yres > 0 ? item->pixm.imgInfo.yres : 72.0;
+		ScCore->primaryMainWindow()->doc->itemSelection_SetImageScale(x / xres * 72.0, y / yres * 72.0, &embeddedSelection);
+		Py_RETURN_NONE;
 	}
 
 	// Grab the old selection - but use it only where is there any
@@ -524,13 +534,22 @@ PyObject *scribus_setimageoffset(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	PageItem *item = GetUniqueImageItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	if (!item->isImageFrame())
 	{
 		PyErr_SetString(ScribusException, QObject::tr("Specified item not an image frame.","python error").toUtf8().constData());
 		return nullptr;
+	}
+	if (item->isEmbedded)
+	{
+		Selection embeddedSelection(nullptr, false);
+		embeddedSelection.addItem(item);
+		const double scaleX = item->imageXScale() != 0.0 ? item->imageXScale() : 1.0;
+		const double scaleY = item->imageYScale() != 0.0 ? item->imageYScale() : 1.0;
+		ScCore->primaryMainWindow()->doc->itemSelection_SetImageOffset(x / scaleX, y / scaleY, &embeddedSelection);
+		Py_RETURN_NONE;
 	}
 
 	// Grab the old selection - but use it only where is there any
@@ -758,10 +777,12 @@ PyObject *scribus_sizeobject(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	PageItem *item = GetUniqueTableItem(QString::fromUtf8(name.c_str()));
 	if (item == nullptr)
 		return nullptr;
 	ScCore->primaryMainWindow()->doc->sizeItem(ValueToPoint(x), ValueToPoint(y), item);
+	if (PageItem_Table* table = item->asTable())
+		table->adjustTable();
 	Py_RETURN_NONE;
 }
 

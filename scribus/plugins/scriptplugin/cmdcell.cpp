@@ -22,7 +22,7 @@ PyObject *scribus_getcelltext(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	PageItem *i = GetUniqueTableItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	const PageItem_Table *table = i->asTable();
@@ -65,7 +65,7 @@ PyObject *scribus_setcelltext(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	PageItem *i = GetUniqueTableItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	const PageItem_Table *table = i->asTable();
@@ -91,7 +91,7 @@ PyObject *scribus_getcellstyle(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	PageItem *i = GetUniqueTableItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	const PageItem_Table *table = i->asTable();
@@ -117,7 +117,7 @@ PyObject *scribus_setcellstyle(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	PageItem *i = GetUniqueTableItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	const PageItem_Table *table = i->asTable();
@@ -143,7 +143,7 @@ PyObject *scribus_getcellrowspan(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	PageItem *i = GetUniqueTableItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	const PageItem_Table *table = i->asTable();
@@ -163,7 +163,7 @@ PyObject *scribus_getcellcolumnspan(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	PageItem *i = GetUniqueTableItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	const PageItem_Table *table = i->asTable();
@@ -183,7 +183,7 @@ PyObject *scribus_getcellfillcolor(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	PageItem *i = GetUniqueTableItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	const PageItem_Table *table = i->asTable();
@@ -209,7 +209,7 @@ PyObject *scribus_setcellfillcolor(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	PageItem *i = GetUniqueTableItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	const PageItem_Table *table = i->asTable();
@@ -236,7 +236,7 @@ PyObject *scribus_setcellleftborder(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	PageItem *i = GetUniqueTableItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	const PageItem_Table *table = i->asTable();
@@ -270,7 +270,7 @@ PyObject *scribus_setcellrightborder(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	PageItem *i = GetUniqueTableItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	const PageItem_Table *table = i->asTable();
@@ -304,7 +304,7 @@ PyObject *scribus_setcelltopborder(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	PageItem *i = GetUniqueTableItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	const PageItem_Table *table = i->asTable();
@@ -338,7 +338,7 @@ PyObject *scribus_setcellbottomborder(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	PageItem *i = GetUniqueTableItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	const PageItem_Table *table = i->asTable();
@@ -372,7 +372,7 @@ PyObject *scribus_setcellleftpadding(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	PageItem *i = GetUniqueTableItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	const PageItem_Table *table = i->asTable();
@@ -405,7 +405,7 @@ PyObject *scribus_setcellrightpadding(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	PageItem *i = GetUniqueTableItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	const PageItem_Table *table = i->asTable();
@@ -438,7 +438,7 @@ PyObject *scribus_setcelltoppadding(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	PageItem *i = GetUniqueTableItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	const PageItem_Table *table = i->asTable();
@@ -471,7 +471,7 @@ PyObject *scribus_setcellbottompadding(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	PageItem *i = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	PageItem *i = GetUniqueTableItem(QString::fromUtf8(name.c_str()));
 	if (i == nullptr)
 		return nullptr;
 	const PageItem_Table *table = i->asTable();

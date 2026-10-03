@@ -7507,6 +7507,12 @@ void PageItem::restoreResize(SimpleState *state, bool isUndo)
 		m_Doc->moveItem(mx, my, this);
 		m_Doc->rotateItem(rt, this);
 	}
+	if (isEmbedded && !isGroupChild())
+	{
+		gWidth = width();
+		gHeight = height();
+		m_Doc->invalidateAll();
+	}
 	oldWidth = m_width;
 	oldHeight = m_height;
 	oldXpos = m_xPos;

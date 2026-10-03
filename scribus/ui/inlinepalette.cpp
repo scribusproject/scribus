@@ -27,10 +27,15 @@ for which a new license (GPL+exception) is in place.
 #include <QComboBox>
 #include <QDialog>
 #include <QDialogButtonBox>
+#include <QDoubleSpinBox>
 #include <QDrag>
+#include <QFileInfo>
 #include <QFormLayout>
 #include <QGroupBox>
+#include <QLabel>
 #include <QMimeData>
+#include <QPushButton>
+#include <QSignalBlocker>
 #include <QVBoxLayout>
 
 #include "appmodes.h"
@@ -40,9 +45,15 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_textframe.h"
 #include "scribus.h"
 #include "scribusdoc.h"
+#include "scribusview.h"
+#include "scmessagebox.h"
 #include "scrspinbox.h"
 #include "selection.h"
+#include "undomanager.h"
+#include "undotransaction.h"
 #include "units.h"
+#include "util_formats.h"
+#include "ui/customfdialog.h"
 
 namespace
 {
@@ -314,10 +325,26 @@ void InlinePalette::handleContextMenue(QPoint p)
 			QAction* pasteAct = pmenu->addAction( tr("Paste to Item"));
 			connect(pasteAct, SIGNAL(triggered()), this, SLOT(handlePasteToItem()));
 		}
-		if ((m_doc->appMode != modeEdit) && (m_doc->appMode != modeEditTable))
+		PageItem* inlineItem = m_doc->FrameItems.value(actItem, nullptr);
+		if ((m_doc->appMode != modeEdit) && (m_doc->appMode != modeEditTable)
+			&& (!inlineItem || !inlineItem->isImageFrame()))
 		{
 			QAction* editAct = pmenu->addAction( tr("Edit Item"));
 			connect(editAct, SIGNAL(triggered()), this, SLOT(handleEditItem()));
+		}
+		if (inlineItem && inlineItem->isImageFrame())
+		{
+			QAction* editImageAct = pmenu->addAction(tr("Edit Anchored Image..."));
+			connect(editImageAct, &QAction::triggered, this, [this] { editAnchoredImage(actItem); });
+			QAction* replaceImageAct = pmenu->addAction(tr("Replace Image..."));
+			connect(replaceImageAct, &QAction::triggered, this, [this] { replaceAnchoredImage(actItem); });
+			QAction* fullImageAct = pmenu->addAction(tr("Edit Full Image Frame..."));
+			connect(fullImageAct, &QAction::triggered, this, [this] { emit startEdit(actItem); });
+		}
+		else if (inlineItem && inlineItem->isTable() && m_doc->appMode == modeEdit)
+		{
+			QAction* editTableAct = pmenu->addAction(tr("Edit Table..."));
+			connect(editTableAct, &QAction::triggered, this, [this] { emit startEdit(actItem); });
 		}
 		QAction* anchorAct = pmenu->addAction(tr("Anchored Object Options..."));
 		connect(anchorAct, &QAction::triggered, this, &InlinePalette::handleAnchorOptions);
@@ -353,7 +380,12 @@ void InlinePalette::handleEditItem()
 
 void InlinePalette::handleAnchorOptions()
 {
-	PageItem* item = m_doc ? m_doc->FrameItems.value(actItem, nullptr) : nullptr;
+	editAnchorOptions(actItem);
+}
+
+void InlinePalette::editAnchorOptions(int itemID)
+{
+	PageItem* item = m_doc ? m_doc->FrameItems.value(itemID, nullptr) : nullptr;
 	if (!item)
 		return;
 
@@ -365,6 +397,267 @@ void InlinePalette::handleAnchorOptions()
 		return;
 
 	item->setAnchorPosition(newPosition);
+	updateItemList();
+}
+
+void InlinePalette::replaceAnchoredImage(int itemID)
+{
+	PageItem* item = m_doc ? m_doc->FrameItems.value(itemID, nullptr) : nullptr;
+	if (!item || !item->isImageFrame() || !m_scMW)
+		return;
+	const QString format = FormatsManager::instance()->fileDialogFormatList(FormatsManager::IMAGESIMGFRAME);
+	CustomFDialog fileDialog(this, QFileInfo(item->Pfile).absolutePath(), tr("Replace Anchored Image"), format,
+		fdShowPreview | fdExistingFiles | fdDisableOk, contextImages);
+	if (fileDialog.exec() != QDialog::Accepted)
+		return;
+	const QString selected = fileDialog.selectedFiles().value(0);
+	if (selected.isEmpty())
+		return;
+	if (!item->relinkImage(selected, false))
+	{
+		ScMessageBox::warning(this, tr("Replace Anchored Image"), tr("The selected image could not be loaded. The existing image was kept."));
+		return;
+	}
+	m_doc->invalidateAll();
+	m_scMW->view->DrawNew();
+	updateItemList();
+}
+
+void InlinePalette::editAnchoredImage(int itemID)
+{
+	PageItem* item = m_doc ? m_doc->FrameItems.value(itemID, nullptr) : nullptr;
+	if (!item || !item->isImageFrame() || !m_scMW)
+		return;
+
+	QDialog dialog(this);
+	dialog.setWindowTitle(tr("Edit Anchored Image"));
+	dialog.setMinimumWidth(360);
+	auto* mainLayout = new QVBoxLayout(&dialog);
+	const double unitRatio = unitGetRatioFromIndex(m_doc->unitIndex());
+	const int unitIndex = m_doc->unitIndex();
+	const double originalAspect = item->width() > 0.0 ? item->height() / item->width() : 1.0;
+
+	auto* frameGroup = new QGroupBox(tr("Frame Size"), &dialog);
+	auto* frameLayout = new QFormLayout(frameGroup);
+	auto* frameWidth = new ScrSpinBox(0.1 * unitRatio, 10000.0 * unitRatio, frameGroup, unitIndex);
+	auto* frameHeight = new ScrSpinBox(0.1 * unitRatio, 10000.0 * unitRatio, frameGroup, unitIndex);
+	frameWidth->setValue(item->width(), SC_PT);
+	frameHeight->setValue(item->height(), SC_PT);
+	const double initialFrameWidth = frameWidth->value();
+	const double initialFrameHeight = frameHeight->value();
+	auto* keepProportions = new QCheckBox(tr("Keep frame proportions"), frameGroup);
+	keepProportions->setChecked(true);
+	frameLayout->addRow(tr("Width:"), frameWidth);
+	frameLayout->addRow(tr("Height:"), frameHeight);
+	frameLayout->addRow(QString(), keepProportions);
+	connect(frameWidth, &QDoubleSpinBox::valueChanged, &dialog, [frameWidth, frameHeight, keepProportions, originalAspect] {
+		if (keepProportions->isChecked())
+		{
+			QSignalBlocker blocker(frameHeight);
+			frameHeight->setValue(frameWidth->getValue(SC_PT) * originalAspect, SC_PT);
+		}
+	});
+	connect(frameHeight, &QDoubleSpinBox::valueChanged, &dialog, [frameWidth, frameHeight, keepProportions, originalAspect] {
+		if (keepProportions->isChecked() && originalAspect > 0.0)
+		{
+			QSignalBlocker blocker(frameWidth);
+			frameWidth->setValue(frameHeight->getValue(SC_PT) / originalAspect, SC_PT);
+		}
+	});
+	mainLayout->addWidget(frameGroup);
+
+	QString replacementPath;
+	auto* sourceGroup = new QGroupBox(tr("Source Image"), &dialog);
+	auto* sourceLayout = new QFormLayout(sourceGroup);
+	auto* sourceName = new QLabel(item->Pfile.isEmpty() ? tr("No image") : QFileInfo(item->Pfile).fileName(), sourceGroup);
+	sourceName->setWordWrap(true);
+	sourceLayout->addRow(tr("File:"), sourceName);
+	auto* replaceButton = new QPushButton(tr("Replace Image..."), sourceGroup);
+	connect(replaceButton, &QPushButton::clicked, &dialog, [&] {
+		const QString format = FormatsManager::instance()->fileDialogFormatList(FormatsManager::IMAGESIMGFRAME);
+		const QString startDir = QFileInfo(replacementPath.isEmpty() ? item->Pfile : replacementPath).absolutePath();
+		CustomFDialog fileDialog(&dialog, startDir, tr("Replace Anchored Image"), format,
+			fdShowPreview | fdExistingFiles | fdDisableOk, contextImages);
+		if (fileDialog.exec() != QDialog::Accepted)
+			return;
+		const QString selected = fileDialog.selectedFiles().value(0);
+		if (selected.isEmpty())
+			return;
+		replacementPath = selected;
+		sourceName->setText(QFileInfo(selected).fileName());
+	});
+	sourceLayout->addRow(QString(), replaceButton);
+	mainLayout->addWidget(sourceGroup);
+
+	auto* cropGroup = new QGroupBox(tr("Image and Crop"), &dialog);
+	auto* cropLayout = new QFormLayout(cropGroup);
+	auto* fitToFrame = new QCheckBox(tr("Fit image to frame"), cropGroup);
+	fitToFrame->setChecked(item->fitImageToFrame());
+	cropLayout->addRow(QString(), fitToFrame);
+	const double xres = item->pixm.imgInfo.xres > 0.0 ? item->pixm.imgInfo.xres : 72.0;
+	const double yres = item->pixm.imgInfo.yres > 0.0 ? item->pixm.imgInfo.yres : 72.0;
+	auto* imageScaleX = new QDoubleSpinBox(cropGroup);
+	auto* imageScaleY = new QDoubleSpinBox(cropGroup);
+	for (auto* scale : { imageScaleX, imageScaleY })
+	{
+		scale->setRange(1.0, 30000.0);
+		scale->setDecimals(2);
+		scale->setSuffix(tr(" %"));
+	}
+	imageScaleX->setValue(item->imageXScale() * xres / 72.0 * 100.0);
+	imageScaleY->setValue(item->imageYScale() * yres / 72.0 * 100.0);
+	const double initialImageScaleX = imageScaleX->value();
+	const double initialImageScaleY = imageScaleY->value();
+	auto* imageOffsetX = new ScrSpinBox(-10000.0 * unitRatio, 10000.0 * unitRatio, cropGroup, unitIndex);
+	auto* imageOffsetY = new ScrSpinBox(-10000.0 * unitRatio, 10000.0 * unitRatio, cropGroup, unitIndex);
+	imageOffsetX->setValue(item->imageXOffset() * item->imageXScale(), SC_PT);
+	imageOffsetY->setValue(item->imageYOffset() * item->imageYScale(), SC_PT);
+	const double initialImageOffsetX = imageOffsetX->value();
+	const double initialImageOffsetY = imageOffsetY->value();
+	cropLayout->addRow(tr("Horizontal scale:"), imageScaleX);
+	cropLayout->addRow(tr("Vertical scale:"), imageScaleY);
+	cropLayout->addRow(tr("Horizontal crop offset:"), imageOffsetX);
+	cropLayout->addRow(tr("Vertical crop offset:"), imageOffsetY);
+	auto updateCropEnabled = [=](bool fit) {
+		imageScaleX->setEnabled(!fit);
+		imageScaleY->setEnabled(!fit);
+		imageOffsetX->setEnabled(!fit);
+		imageOffsetY->setEnabled(!fit);
+	};
+	connect(fitToFrame, &QCheckBox::toggled, &dialog, updateCropEnabled);
+	updateCropEnabled(fitToFrame->isChecked());
+	mainLayout->addWidget(cropGroup);
+
+	AnchorPosition anchor = item->anchorPosition();
+	auto* positionGroup = new QGroupBox(tr("Position and Text Wrap"), &dialog);
+	auto* positionLayout = new QFormLayout(positionGroup);
+	auto* placement = new QComboBox(positionGroup);
+	placement->addItem(tr("Inline"), static_cast<int>(AnchorPosition::Mode::Inline));
+	placement->addItem(tr("Above Line"), static_cast<int>(AnchorPosition::Mode::AboveLine));
+	placement->addItem(tr("Floating"), static_cast<int>(AnchorPosition::Mode::Custom));
+	placement->setCurrentIndex(placement->findData(static_cast<int>(anchor.mode)));
+	positionLayout->addRow(tr("Placement:"), placement);
+	auto* anchorOffsetX = new ScrSpinBox(-10000.0 * unitRatio, 10000.0 * unitRatio, positionGroup, unitIndex);
+	auto* anchorOffsetY = new ScrSpinBox(-10000.0 * unitRatio, 10000.0 * unitRatio, positionGroup, unitIndex);
+	anchorOffsetX->setValue(anchor.xOffset, SC_PT);
+	anchorOffsetY->setValue(anchor.yOffset, SC_PT);
+	anchorOffsetY->setToolTip(tr("For Above Line placement, a positive vertical offset moves the image upward."));
+	positionLayout->addRow(tr("Horizontal offset:"), anchorOffsetX);
+	positionLayout->addRow(tr("Vertical offset:"), anchorOffsetY);
+	auto* allowDragging = new QCheckBox(tr("Allow moving by dragging on canvas"), positionGroup);
+	allowDragging->setChecked(!anchor.preventManualPositioning);
+	positionLayout->addRow(QString(), allowDragging);
+	auto updatePositionControls = [&] {
+		const bool inlineMode = anchor.mode == AnchorPosition::Mode::Inline;
+		anchorOffsetX->setEnabled(!inlineMode);
+		anchorOffsetY->setEnabled(!inlineMode);
+		allowDragging->setEnabled(!inlineMode);
+	};
+	connect(placement, &QComboBox::currentIndexChanged, &dialog, [&] {
+		const auto mode = static_cast<AnchorPosition::Mode>(placement->currentData().toInt());
+		if (anchor.mode == AnchorPosition::Mode::Inline && mode == AnchorPosition::Mode::Custom)
+		{
+			anchor.horizontalReference = AnchorPosition::HorizontalReference::AnchorCharacter;
+			anchor.horizontalAlignment = AnchorPosition::HorizontalAlignment::Custom;
+			anchor.verticalReference = AnchorPosition::VerticalReference::AnchorLine;
+			anchor.verticalAlignment = AnchorPosition::VerticalAlignment::Baseline;
+			anchor.wrapMode = AnchorPosition::WrapMode::BoundingBox;
+			anchor.wrapOffsets = QMarginsF(4.0, 4.0, 4.0, 4.0);
+		}
+		anchor.mode = mode;
+		updatePositionControls();
+	});
+	connect(anchorOffsetX, &QDoubleSpinBox::valueChanged, &dialog, [&] { anchor.xOffset = anchorOffsetX->getValue(SC_PT); });
+	connect(anchorOffsetY, &QDoubleSpinBox::valueChanged, &dialog, [&] { anchor.yOffset = anchorOffsetY->getValue(SC_PT); });
+	connect(allowDragging, &QCheckBox::toggled, &dialog, [&] (bool allowed) { anchor.preventManualPositioning = !allowed; });
+	updatePositionControls();
+	auto* positionButton = new QPushButton(tr("Advanced Position and Wrap..."), positionGroup);
+	connect(positionButton, &QPushButton::clicked, &dialog, [&] {
+		AnchorOptionsDialog options(anchor, unitIndex, &dialog);
+		if (options.exec() == QDialog::Accepted)
+		{
+			anchor = options.position();
+			QSignalBlocker placementBlocker(placement);
+			QSignalBlocker xBlocker(anchorOffsetX);
+			QSignalBlocker yBlocker(anchorOffsetY);
+			QSignalBlocker dragBlocker(allowDragging);
+			placement->setCurrentIndex(placement->findData(static_cast<int>(anchor.mode)));
+			anchorOffsetX->setValue(anchor.xOffset, SC_PT);
+			anchorOffsetY->setValue(anchor.yOffset, SC_PT);
+			allowDragging->setChecked(!anchor.preventManualPositioning);
+			updatePositionControls();
+		}
+	});
+	positionLayout->addRow(QString(), positionButton);
+	mainLayout->addWidget(positionGroup);
+	auto* fullEditorButton = new QPushButton(tr("Open Full Image Editor (discard changes above)..."), &dialog);
+	connect(fullEditorButton, &QPushButton::clicked, &dialog, [&] { dialog.done(2); });
+	mainLayout->addWidget(fullEditorButton);
+	auto* buttons = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, &dialog);
+	connect(buttons, &QDialogButtonBox::accepted, &dialog, &QDialog::accept);
+	connect(buttons, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
+	mainLayout->addWidget(buttons);
+	const int result = dialog.exec();
+	if (result == 2)
+	{
+		m_scMW->editInlineStart(itemID);
+		return;
+	}
+	if (result != QDialog::Accepted)
+		return;
+
+	const double newWidth = frameWidth->getValue(SC_PT);
+	const double newHeight = frameHeight->getValue(SC_PT);
+	const bool geometryChanged = frameWidth->value() != initialFrameWidth || frameHeight->value() != initialFrameHeight;
+	const bool fittingChanged = fitToFrame->isChecked() != item->fitImageToFrame();
+	const bool scaleXChanged = imageScaleX->value() != initialImageScaleX;
+	const bool scaleYChanged = imageScaleY->value() != initialImageScaleY;
+	const bool offsetXChanged = imageOffsetX->value() != initialImageOffsetX;
+	const bool offsetYChanged = imageOffsetY->value() != initialImageOffsetY;
+	const bool cropChanged = !fitToFrame->isChecked()
+		&& (scaleXChanged || scaleYChanged || offsetXChanged || offsetYChanged);
+	if (!geometryChanged && !fittingChanged && !cropChanged && anchor == item->anchorPosition()
+		&& replacementPath.isEmpty())
+		return;
+	UndoTransaction transaction;
+	if (UndoManager::undoEnabled())
+		transaction = UndoManager::instance()->beginTransaction();
+	if (!replacementPath.isEmpty() && !item->relinkImage(replacementPath, false))
+	{
+		ScMessageBox::warning(&dialog, tr("Replace Anchored Image"), tr("The selected image could not be loaded. The existing image was kept."));
+		if (transaction)
+			transaction.cancel();
+		return;
+	}
+	if (geometryChanged)
+	{
+		item->setWidthHeight(newWidth, newHeight);
+		item->gWidth = newWidth;
+		item->gHeight = newHeight;
+		item->updateClip();
+	}
+	if (fittingChanged)
+		item->setImageScalingMode(!fitToFrame->isChecked(), item->keepAspectRatio());
+	if (fitToFrame->isChecked())
+		item->adjustPictScale();
+	else if (cropChanged)
+	{
+		const double currentXRes = item->pixm.imgInfo.xres > 0.0 ? item->pixm.imgInfo.xres : 72.0;
+		const double currentYRes = item->pixm.imgInfo.yres > 0.0 ? item->pixm.imgInfo.yres : 72.0;
+		const double appliedScaleX = scaleXChanged ? imageScaleX->value() / 100.0 * 72.0 / currentXRes : item->imageXScale();
+		const double appliedScaleY = scaleYChanged ? imageScaleY->value() / 100.0 * 72.0 / currentYRes : item->imageYScale();
+		item->setImageXYScale(appliedScaleX, appliedScaleY);
+		item->setImageXYOffset((scaleXChanged || offsetXChanged) ? imageOffsetX->getValue(SC_PT) / appliedScaleX : item->imageXOffset(),
+			(scaleYChanged || offsetYChanged) ? imageOffsetY->getValue(SC_PT) / appliedScaleY : item->imageYOffset());
+	}
+	item->setAnchorPosition(anchor);
+	if (transaction)
+		transaction.commit();
+	m_doc->invalidateAll();
+	m_doc->changed();
+	m_doc->changedPagePreview();
+	item->update();
+	m_scMW->view->DrawNew();
 	updateItemList();
 }
 

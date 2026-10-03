@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "docks/dock_panelbase.h"
 #include "scguardedptr.h"
 #include "widgets/stacked_container.h"
+#include <QMetaObject>
 
 class QStackedWidget;
 
@@ -79,7 +80,8 @@ class SCRIBUS_API ContentPalette : public DockPanelBase
 	private:
 		ScribusMainWindow *m_ScMW {nullptr};
 		ScGuardedPtr<ScribusDoc> m_doc {nullptr};
-		PageItem* m_item {nullptr};
+	PageItem* m_item {nullptr};
+	QMetaObject::Connection m_textSelectionConnection;
 
 		bool m_haveDoc {false};
 		bool m_haveItem {false};

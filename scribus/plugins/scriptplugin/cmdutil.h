@@ -42,6 +42,10 @@ void ReplaceColor(const QString& col, const QString& rep);
  * @author 05/02/02 Craig Ringer
  */
 PageItem* GetUniqueItem(const QString& name);
+// Table operations may target a table stored in the inline-frame list.
+PageItem* GetUniqueTableItem(const QString& name);
+// Named image operations may also target an image stored in the inline-frame list.
+PageItem* GetUniqueImageItem(const QString& name);
 
 /*!
  * @brief Returns named PageItem, or exception and NULL if not found.

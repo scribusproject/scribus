@@ -582,6 +582,7 @@ On Dark:  #e580ff; rgb(229, 128, 255); hsl(288, 100, 75)
 		<icon id="tool-draw-calligraphy" file="16/tool-draw-calligraphy.svg" />
 		<icon id="tool-draw-freehand" file="16/tool-draw-freehand.svg" />
 		<icon id="tool-edit-content" file="16/tool-edit-content.svg" />
+		<icon id="tool-text-cursor" file="16/tool-text-cursor.svg" />
 		<icon id="tool-insert-arc" file="16/tool-insert-arc.svg" />
 		<icon id="tool-insert-barcode" file="16/tool-insert-barcode.svg" />
 		<icon id="tool-insert-image" file="16/tool-insert-image.svg" />

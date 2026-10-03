@@ -2150,6 +2150,7 @@ void StoryText::select(int pos, int len, bool on)
 	fixSurrogateSelection();
 	
 //	qDebug("new selection: %d - %d", d->selFirst, d->selLast);
+	emit selectionChanged();
 }
 
 void StoryText::extendSelection(int oldPos, int newPos)
@@ -2160,11 +2161,13 @@ void StoryText::extendSelection(int oldPos, int newPos)
 		if (d->selLast == oldPos - 1)
 		{
 			d->selLast = newPos - 1;
+			emit selectionChanged();
 			return;
 		}
 		if (d->selFirst == oldPos)
 		{
 			d->selFirst = newPos;
+			emit selectionChanged();
 			return;
 		}
 		// can't extend, fall through
@@ -2182,6 +2185,7 @@ void StoryText::extendSelection(int oldPos, int newPos)
 	}
 
 	fixSurrogateSelection();
+	emit selectionChanged();
 }
 
 
@@ -2256,12 +2260,14 @@ void StoryText::selectAll()
 {
 	d->selFirst = 0;
 	d->selLast = length() - 1;
+	emit selectionChanged();
 }
 
 void StoryText::deselectAll()
 {
 	d->selFirst = 0;
 	d->selLast = -1;
+	emit selectionChanged();
 }
 
 void StoryText::removeSelection()

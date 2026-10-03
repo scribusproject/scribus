@@ -23,12 +23,15 @@
 #include <QCursor>
 #include <QDebug>
 #include <QEvent>
+#include <QLineF>
 #include <QMessageBox>
+#include <QMenu>
 #include <QMouseEvent>
 #include <QPainterPath>
 #include <QPoint>
 #include <QPointF>
 #include <QRect>
+#include <QScopedValueRollback>
 #include <QTimer>
 #include <QWidgetAction>
 
@@ -38,6 +41,7 @@
 #include "hyphenator.h"
 #include "iconmanager.h"
 #include "pageitem_noteframe.h"
+#include "pageitem_table.h"
 #include "pageitem_textframe.h"
 #include "scmimedata.h"
 #include "scribus.h"
@@ -50,6 +54,7 @@
 #include "ui/pageselector.h"
 #include "ui/scrspinbox.h"
 #include "undomanager.h"
+#include "undotransaction.h"
 #include "util_math.h"
 
 using namespace std::chrono_literals;
@@ -66,6 +71,81 @@ inline bool CanvasMode_Edit::GetItem(PageItem** pi)
 { 
 	*pi = m_doc->m_Selection->itemAt(0); 
 	return (*pi) != nullptr;
+}
+
+int CanvasMode_Edit::anchoredObjectAtPoint(PageItem_TextFrame* textframe, const QPointF& canvasPoint, int* storyPosition) const
+{
+	return textframe ? textframe->anchoredObjectAtCanvas(canvasPoint, storyPosition) : -1;
+}
+
+QTransform CanvasMode_Edit::anchoredFrameTransform(const PageItem_TextFrame* textframe) const
+{
+	QTransform frameToCanvas = textframe->getTransform();
+	if (textframe->imageFlippedH())
+	{
+		frameToCanvas.translate(textframe->width(), 0);
+		frameToCanvas.scale(-1, 1);
+	}
+	if (textframe->imageFlippedV())
+	{
+		frameToCanvas.translate(0, textframe->height());
+		frameToCanvas.scale(1, -1);
+	}
+	return frameToCanvas;
+}
+
+int CanvasMode_Edit::anchoredResizeHandleAt(const PageItem_TextFrame* textframe,
+	const QPointF& canvasPoint, QRectF* objectRect) const
+{
+	if (!textframe || !textframe->selectedAnchoredObject() || textframe->itemText.selectionLength() != 1)
+		return -1;
+	const int position = textframe->itemText.startOfSelection();
+	const int itemId = textframe->itemText.object(position).getInlineCharID();
+	const QRectF rect = textframe->resolvedAnchoredObjectRect(itemId, position);
+	if (rect.isEmpty())
+		return -1;
+	if (objectRect)
+		*objectRect = rect;
+	const QPointF points[] = {
+		rect.topLeft(), QPointF(rect.center().x(), rect.top()), rect.topRight(),
+		QPointF(rect.right(), rect.center().y()), rect.bottomRight(),
+		QPointF(rect.center().x(), rect.bottom()), rect.bottomLeft(),
+		QPointF(rect.left(), rect.center().y())
+	};
+	const QTransform frameToCanvas = anchoredFrameTransform(textframe);
+	int closest = -1;
+	double closestDistance = 7.0;
+	for (int i = 0; i < 8; ++i)
+	{
+		const double distance = QLineF(frameToCanvas.map(points[i]), canvasPoint).length() * m_canvas->scale();
+		if (distance < closestDistance)
+		{
+			closest = i;
+			closestDistance = distance;
+		}
+	}
+	return closest;
+}
+
+QRectF CanvasMode_Edit::anchoredResizePreview(const PageItem_TextFrame* textframe) const
+{
+	QRectF rect = m_anchorInitialRect;
+	if (m_anchorResizeHandle < 0 || !textframe)
+		return rect;
+	bool invertible = false;
+	const QTransform toFrame = anchoredFrameTransform(textframe).inverted(&invertible);
+	if (!invertible)
+		return rect;
+	const QPointF delta = toFrame.map(m_anchorDragStart + m_anchorDragDelta) - toFrame.map(m_anchorDragStart);
+	if (m_anchorResizeHandle == 0 || m_anchorResizeHandle == 6 || m_anchorResizeHandle == 7)
+		rect.setLeft(qMin(m_anchorInitialRect.left() + delta.x(), m_anchorInitialRect.right() - 1.0));
+	if (m_anchorResizeHandle == 2 || m_anchorResizeHandle == 3 || m_anchorResizeHandle == 4)
+		rect.setRight(qMax(m_anchorInitialRect.right() + delta.x(), m_anchorInitialRect.left() + 1.0));
+	if (m_anchorResizeHandle == 0 || m_anchorResizeHandle == 1 || m_anchorResizeHandle == 2)
+		rect.setTop(qMin(m_anchorInitialRect.top() + delta.y(), m_anchorInitialRect.bottom() - 1.0));
+	if (m_anchorResizeHandle == 4 || m_anchorResizeHandle == 5 || m_anchorResizeHandle == 6)
+		rect.setBottom(qMax(m_anchorInitialRect.bottom() + delta.y(), m_anchorInitialRect.top() + 1.0));
+	return rect;
 }
 
 
@@ -207,6 +287,50 @@ void CanvasMode_Edit::drawControls(QPainter* p)
 		PageItem_TextFrame* textframe = currItem->asTextFrame();
 		if (textframe)
 		{
+			if (textframe->itemText.selectionLength() == 1)
+			{
+				const int position = textframe->itemText.startOfSelection();
+				if (textframe->itemText.hasObject(position))
+				{
+					const int itemId = textframe->itemText.object(position).getInlineCharID();
+					PageItem* embedded = m_doc->FrameItems.value(itemId, nullptr);
+					const QRectF rect = textframe->resolvedAnchoredObjectRect(itemId, position);
+					if (embedded && (embedded->isImageFrame() || embedded->isTable()) && !rect.isEmpty())
+					{
+						p->save();
+						const QTransform frameToCanvas = anchoredFrameTransform(textframe);
+						p->setTransform(frameToCanvas, true);
+						QPen outline(QApplication::palette().color(QPalette::Highlight),
+							1.0 / m_canvas->scale(), Qt::DashLine);
+						outline.setCosmetic(true);
+						p->setPen(outline);
+						p->setBrush(Qt::NoBrush);
+						const QPointF previewOffset = (m_pressedAnchoredObject && itemId == m_pressedAnchorId)
+							? frameToCanvas.inverted().map(m_anchorDragStart + m_anchorDragDelta)
+								- frameToCanvas.inverted().map(m_anchorDragStart)
+							: QPointF();
+						const QRectF selectionRect = m_pressedAnchoredObject && itemId == m_pressedAnchorId
+							&& m_anchorResizeHandle >= 0 ? anchoredResizePreview(textframe)
+							: rect.translated(previewOffset);
+						p->drawRect(selectionRect);
+						if (!m_doc->drawAsPreview && embedded->anchorPosition().hasTextWrap())
+						{
+						QPainterPath wrapBoundary;
+						wrapBoundary.addRegion(textframe->anchoredObjectInteractionRegion(embedded, selectionRect));
+						QColor wrapColor = QApplication::palette().color(QPalette::Highlight);
+						wrapColor.setAlpha(190);
+						QPen wrapPen(wrapColor, 1.0, Qt::SolidLine);
+						wrapPen.setCosmetic(true);
+						p->setPen(wrapPen);
+						p->drawPath(wrapBoundary.simplified());
+						}
+						if (!m_doc->drawAsPreview && !textframe->locked() && !embedded->locked()
+							&& !embedded->sizeLocked() && !m_doc->layerLocked(textframe->m_layerID))
+							drawSelectionHandles(p, selectionRect);
+						p->restore();
+					}
+				}
+			}
 			if (mRulerGuide >= 0)
 			{
 				QTransform mm = currItem->getTransform();
@@ -302,6 +426,11 @@ void CanvasMode_Edit::activate(bool fromGesture)
 	Dxp = Dyp = -1;
 	SeRx = SeRy = -1;
 	oldCp = Cp = -1;
+	m_pressedAnchoredObject = false;
+	m_pressedAnchorId = -1;
+	m_anchorResizeHandle = -1;
+	m_anchorInitialRect = QRectF();
+	m_anchorDragDelta = QPointF();
 	frameResizeHandle = -1;
 	setModeCursor();
 	if (fromGesture)
@@ -329,6 +458,11 @@ void CanvasMode_Edit::activate(bool fromGesture)
 
 void CanvasMode_Edit::deactivate(bool forGesture)
 {
+	m_pressedAnchoredObject = false;
+	m_pressedAnchorId = -1;
+	m_anchorResizeHandle = -1;
+	m_anchorInitialRect = QRectF();
+	m_anchorDragDelta = QPointF();
 	//<<TSC
 	PageItem* it(nullptr);
 	if (GetItem(&it))
@@ -354,6 +488,25 @@ void CanvasMode_Edit::mouseDoubleClickEvent(QMouseEvent *m)
 	PageItem *currItem = nullptr;
 	if (GetItem(&currItem) && (m_doc->appMode == modeEdit) && currItem->isTextFrame())
 	{
+		const FPoint docPoint = m_canvas->globalToCanvas(m->globalPosition());
+		int anchorPosition = -1;
+		const int anchorId = anchoredObjectAtPoint(currItem->asTextFrame(),
+			QPointF(docPoint.x(), docPoint.y()), &anchorPosition);
+		if (anchorId >= 0 && !currItem->locked() && !m_doc->layerLocked(currItem->m_layerID))
+		{
+			currItem->itemText.deselectAll();
+			currItem->itemText.setCursorPosition(anchorPosition);
+			currItem->itemText.select(anchorPosition, 1, true);
+			currItem->HasSel = true;
+			oldCp = anchorPosition;
+			PageItem* embedded = m_doc->FrameItems.value(anchorId, nullptr);
+			if (embedded && embedded->isTable())
+				m_ScMW->editInlineStart(anchorId);
+			else
+				m_ScMW->editAnchoredImage(anchorId);
+			m_view->DrawNew();
+			return;
+		}
 		//CB if annotation, open the annotation dialog
 		if (currItem->isAnnotation())
 		{
@@ -406,7 +559,12 @@ void CanvasMode_Edit::mouseDoubleClickEvent(QMouseEvent *m)
 				{
 					currItem->itemText.select(oldCp, 1, true);
 					InlineFrame iItem = currItem->itemText.object(oldCp);
-					m_ScMW->editInlineStart(iItem.getInlineCharID());
+					const int itemID = iItem.getInlineCharID();
+					PageItem* embedded = m_doc->FrameItems.value(itemID, nullptr);
+					if (embedded && embedded->isImageFrame())
+						m_ScMW->editAnchoredImage(itemID);
+					else
+						m_ScMW->editInlineStart(itemID);
 				}
 				else
 				{
@@ -426,6 +584,42 @@ void CanvasMode_Edit::mouseDoubleClickEvent(QMouseEvent *m)
 
 void CanvasMode_Edit::mouseMoveEvent(QMouseEvent *m)
 {
+	if (m_pressedAnchoredObject)
+	{
+		PageItem* embedded = m_doc->FrameItems.value(m_pressedAnchorId, nullptr);
+		if (embedded && (m_anchorResizeHandle >= 0 || !embedded->anchorPosition().preventManualPositioning)
+			&& (m->buttons() & Qt::LeftButton))
+		{
+			const FPoint point = m_canvas->globalToCanvas(m->globalPosition());
+			m_anchorDragDelta = QPointF(point.x(), point.y()) - m_anchorDragStart;
+			m_view->DrawNew();
+		}
+		m->accept();
+		return;
+	}
+	if (m_doc->appMode == modeEdit && m->buttons() == Qt::NoButton)
+	{
+		PageItem *selected = nullptr;
+		if (GetItem(&selected) && selected->asTextFrame() && !selected->locked()
+			&& !m_doc->layerLocked(selected->m_layerID))
+		{
+			PageItem *anchor = selected->asTextFrame()->selectedAnchoredObject();
+			if (anchor && !anchor->sizeLocked() && !anchor->locked())
+			{
+				const FPoint point = m_canvas->globalToCanvas(m->globalPosition());
+				const int handle = anchoredResizeHandleAt(selected->asTextFrame(), QPointF(point.x(), point.y()));
+				if (handle >= 0)
+				{
+					const Qt::CursorShape cursors[] = { Qt::SizeFDiagCursor, Qt::SizeVerCursor,
+						Qt::SizeBDiagCursor, Qt::SizeHorCursor, Qt::SizeFDiagCursor,
+						Qt::SizeVerCursor, Qt::SizeBDiagCursor, Qt::SizeHorCursor };
+					m_view->setCursor(cursors[handle]);
+					m->accept();
+					return;
+				}
+			}
+		}
+	}
 	const QPoint globalPos = m->globalPosition().toPoint();
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 	
@@ -602,6 +796,47 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 	PageItem* currItem { nullptr };
 	if (GetItem(&currItem))
 	{
+		if (m->button() == Qt::LeftButton && m_doc->appMode == modeEdit && currItem->isTextFrame()
+			&& !currItem->locked() && !m_doc->layerLocked(currItem->m_layerID))
+		{
+			PageItem *selectedAnchor = currItem->asTextFrame()->selectedAnchoredObject();
+			QRectF selectedRect;
+			const int resizeHandle = anchoredResizeHandleAt(currItem->asTextFrame(),
+				QPointF(mousePointDoc.x(), mousePointDoc.y()), &selectedRect);
+			if (selectedAnchor && resizeHandle >= 0 && !selectedAnchor->sizeLocked() && !selectedAnchor->locked())
+			{
+				m_pressedAnchoredObject = true;
+				m_pressedAnchorId = selectedAnchor->inlineCharID;
+				m_anchorResizeHandle = resizeHandle;
+				m_anchorInitialRect = selectedRect;
+				m_anchorDragStart = QPointF(mousePointDoc.x(), mousePointDoc.y());
+				m_anchorDragDelta = QPointF();
+				m_canvas->m_viewMode.m_MouseButtonPressed = false;
+				m_view->DrawNew();
+				return;
+			}
+			int anchorPosition = -1;
+			const int anchorId = anchoredObjectAtPoint(currItem->asTextFrame(),
+				QPointF(mousePointDoc.x(), mousePointDoc.y()), &anchorPosition);
+			if (anchorId >= 0)
+			{
+				currItem->itemText.deselectAll();
+				currItem->itemText.setCursorPosition(anchorPosition);
+				currItem->itemText.select(anchorPosition, 1, true);
+				currItem->HasSel = true;
+				oldCp = anchorPosition;
+				m_pressedAnchoredObject = true;
+				m_pressedAnchorId = anchorId;
+				m_anchorResizeHandle = -1;
+				m_anchorInitialRect = currItem->asTextFrame()->resolvedAnchoredObjectRect(anchorId, anchorPosition);
+				m_anchorDragStart = QPointF(mousePointDoc.x(), mousePointDoc.y());
+				m_anchorDragDelta = QPointF();
+				m_canvas->m_viewMode.m_MouseButtonPressed = false;
+				m_ScMW->setCopyCutEnabled(true);
+				m_view->DrawNew();
+				return;
+			}
+		}
 //		m_view->slotDoCurs(false);
 		if ((!currItem->locked() || currItem->isTextFrame()) && !currItem->isLine())
 		{
@@ -760,6 +995,117 @@ void CanvasMode_Edit::mousePressEvent(QMouseEvent *m)
 
 void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 {
+	if (m_pressedAnchoredObject)
+	{
+		PageItem* frame = nullptr;
+		PageItem* embedded = m_doc->FrameItems.value(m_pressedAnchorId, nullptr);
+		if (m->button() == Qt::LeftButton && GetItem(&frame) && frame->isTextFrame() && embedded
+			&& !frame->locked() && !m_doc->layerLocked(frame->m_layerID)
+			&& m_anchorDragDelta.manhattanLength() * m_canvas->scale() >= QApplication::startDragDistance())
+		{
+			auto preserveDraggedPosition = [this, frame, embedded](const QRectF& target) {
+				PageItem_TextFrame* textframe = frame->asTextFrame();
+				const int storyPosition = textframe->itemText.startOfSelection();
+				// Inline objects contribute to line height and width. Once converted
+				// to a movable anchor, the line can reflow and shift the anchor point.
+				for (int attempt = 0; attempt < 2; ++attempt)
+				{
+					if (textframe->invalid)
+						textframe->layout();
+					const QRectF actual = textframe->resolvedAnchoredObjectRect(m_pressedAnchorId, storyPosition);
+					if (actual.isEmpty())
+						break;
+					const QPointF correction = target.topLeft() - actual.topLeft();
+					if (qAbs(correction.x()) < 0.1 && qAbs(correction.y()) < 0.1)
+						break;
+					AnchorPosition position = embedded->anchorPosition();
+					position.xOffset += correction.x();
+					position.yOffset += correction.y();
+					embedded->setAnchorPosition(position);
+				}
+			};
+			if (m_anchorResizeHandle >= 0 && !embedded->sizeLocked() && !embedded->locked())
+			{
+				QRectF target = anchoredResizePreview(frame->asTextFrame());
+				if (target != m_anchorInitialRect)
+				{
+					UndoTransaction transaction;
+					if (UndoManager::undoEnabled())
+						transaction = undoManager->beginTransaction();
+					const bool leftPage = frame->OwnPage >= 0 && frame->OwnPage < m_doc->Pages->count()
+						&& m_doc->locationOfPage(frame->OwnPage) == LeftPage;
+					if (PageItem_Table* table = embedded->asTable())
+					{
+						const double gridWidth = qMax(1.0, table->tableWidth() + target.width() - m_anchorInitialRect.width());
+						const double gridHeight = qMax(1.0, table->tableHeight() + target.height() - m_anchorInitialRect.height());
+						table->resize(gridWidth, gridHeight);
+						{
+							QScopedValueRollback<bool> preserveDontResize(m_doc->dontResize, true);
+							table->adjustFrameToTable();
+						}
+						const QSizeF actualSize = table->getVisualBoundingRect().size();
+						if (m_anchorResizeHandle == 0 || m_anchorResizeHandle == 6 || m_anchorResizeHandle == 7)
+							target.setLeft(m_anchorInitialRect.right() - actualSize.width());
+						else
+							target.setWidth(actualSize.width());
+						if (m_anchorResizeHandle == 0 || m_anchorResizeHandle == 1 || m_anchorResizeHandle == 2)
+							target.setTop(m_anchorInitialRect.bottom() - actualSize.height());
+						else
+							target.setHeight(actualSize.height());
+					}
+					else
+					{
+						const double width = qMax(1.0, embedded->width() + target.width() - m_anchorInitialRect.width());
+						const double height = qMax(1.0, embedded->height() + target.height() - m_anchorInitialRect.height());
+						embedded->setWidthHeight(width, height);
+						embedded->gWidth = width;
+						embedded->gHeight = height;
+						embedded->updateClip();
+						if (!embedded->ScaleType)
+							embedded->adjustPictScale();
+					}
+					const AnchorPosition position = embedded->anchorPosition().resizedOnCanvas(
+						m_anchorInitialRect, target, leftPage);
+					embedded->setAnchorPosition(position);
+					embedded->checkChanges(true);
+					preserveDraggedPosition(target);
+					if (transaction)
+						transaction.commit();
+					m_doc->invalidateAll();
+					m_doc->changed();
+					m_doc->changedPagePreview();
+					embedded->update();
+				}
+			}
+			else if (m_anchorResizeHandle < 0 && !embedded->anchorPosition().preventManualPositioning)
+			{
+				bool invertible = false;
+				const QTransform toFrame = anchoredFrameTransform(frame->asTextFrame()).inverted(&invertible);
+				if (invertible)
+				{
+					UndoTransaction transaction;
+					if (UndoManager::undoEnabled())
+						transaction = undoManager->beginTransaction();
+					const QPointF delta = toFrame.map(m_anchorDragStart + m_anchorDragDelta)
+						- toFrame.map(m_anchorDragStart);
+					embedded->setAnchorPosition(embedded->anchorPosition().movedOnCanvas(delta));
+					preserveDraggedPosition(m_anchorInitialRect.translated(delta));
+					if (transaction)
+						transaction.commit();
+					m_doc->invalidateAll();
+				}
+			}
+		}
+		m_pressedAnchoredObject = false;
+		m_pressedAnchorId = -1;
+		m_anchorResizeHandle = -1;
+		m_anchorInitialRect = QRectF();
+		m_anchorDragDelta = QPointF();
+		m_canvas->m_viewMode.m_MouseButtonPressed = false;
+		m_view->DrawNew();
+		m->accept();
+		return;
+	}
 #ifdef GESTURE_FRAME_PREVIEW
 	clearPixmapCache();
 #endif // GESTURE_FRAME_PREVIEW
@@ -771,6 +1117,46 @@ void CanvasMode_Edit::mouseReleaseEvent(QMouseEvent *m)
 //	m_view->stopDragTimer();
 	if ((GetItem(&currItem)) && (m->button() == Qt::RightButton) && (!m_doc->DragP))
 	{
+		if (currItem->isTextFrame() && !currItem->locked() && !m_doc->layerLocked(currItem->m_layerID))
+		{
+			int storyPosition = -1;
+			const int itemId = anchoredObjectAtPoint(currItem->asTextFrame(),
+				QPointF(mousePointDoc.x(), mousePointDoc.y()), &storyPosition);
+			if (itemId >= 0)
+			{
+				currItem->itemText.deselectAll();
+				currItem->itemText.setCursorPosition(storyPosition);
+				currItem->itemText.select(storyPosition, 1, true);
+				currItem->HasSel = true;
+				m_view->DrawNew();
+				PageItem* embedded = m_doc->FrameItems.value(itemId, nullptr);
+				QMenu menu(m_view);
+				if (embedded && embedded->isTable())
+				{
+					QAction* editTable = menu.addAction(tr("Edit Table..."));
+					QAction* options = menu.addAction(tr("Position and Text Wrap..."));
+					QAction* chosen = menu.exec(m->globalPosition().toPoint());
+					if (chosen == editTable)
+						m_ScMW->editInlineStart(itemId);
+					else if (chosen == options)
+						m_ScMW->editAnchoredObjectOptions(itemId);
+				}
+				else
+				{
+					QAction* editAction = menu.addAction(tr("Image, Size, Crop, Position and Wrap..."));
+					QAction* replaceAction = menu.addAction(tr("Replace Image..."));
+					QAction* fullAction = menu.addAction(tr("Edit Full Image Frame..."));
+					QAction* chosen = menu.exec(m->globalPosition().toPoint());
+					if (chosen == editAction)
+						m_ScMW->editAnchoredImage(itemId);
+					else if (chosen == replaceAction)
+						m_ScMW->replaceAnchoredImage(itemId);
+					else if (chosen == fullAction)
+						m_ScMW->editInlineStart(itemId);
+				}
+				return;
+			}
+		}
 		createContextMenu(currItem, mousePointDoc.x(), mousePointDoc.y());
 		return;
 	}

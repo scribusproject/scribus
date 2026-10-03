@@ -313,6 +313,7 @@ public slots:
 
 signals:
 	void changed(int firstItem, int endItem);
+	void selectionChanged();
 
 private:
 	/// private data structure

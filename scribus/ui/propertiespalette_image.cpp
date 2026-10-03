@@ -14,17 +14,30 @@ for which a new license (GPL+exception) is in place.
 #include <cmath>
 #include <QLocale>
 #include <QSignalBlocker>
+#include <QDir>
+#include <QFileDialog>
+#include <QFileInfo>
+#include <QFormLayout>
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QPushButton>
 
 #include "extimageprops.h"
+#include "effectsdialog.h"
 #include "iconmanager.h"
 #include "localemgr.h"
 #include "pageitem.h"
+#include "pageitem_textframe.h"
 #include "propertiespalette_utils.h"
 #include "propertiespalette.h"
 #include "scribuscore.h"
 #include "scribusapp.h"
 #include "scribusview.h"
 #include "selection.h"
+#include "scribus.h"
+#include "util_color.h"
+#include "util_formats.h"
+#include "widgets/section_container.h"
 #include "units.h"
 #include "undomanager.h"
 
@@ -35,6 +48,39 @@ PropertiesPalette_Image::PropertiesPalette_Image( QWidget* parent) : QWidget(par
 	connect(userActionSniffer, SIGNAL(actionEnd()), this, SLOT(spinboxFinishUserAction()));
 
 	setupUi(this);
+
+	sectionImageLinks = new SectionContainer(tr("Links"), QStringLiteral("sectionImageLinks"), true, true, this);
+	auto *linksBody = new QWidget(sectionImageLinks);
+	auto *linksLayout = new QVBoxLayout(linksBody);
+	linksLayout->setContentsMargins(8, 8, 8, 8);
+	linkForm = new QFormLayout;
+	linkStatusValue = new QLabel(linksBody);
+	linkPathValue = new QLabel(linksBody);
+	linkColorModeValue = new QLabel(linksBody);
+	linkPathValue->setObjectName(QStringLiteral("linkPathValue"));
+	linkStatusValue->setObjectName(QStringLiteral("linkStatusValue"));
+	linkColorModeValue->setObjectName(QStringLiteral("linkColorModeValue"));
+	linkPathValue->setWordWrap(true);
+	linkPathValue->setTextInteractionFlags(Qt::TextSelectableByMouse);
+	linkForm->addRow(tr("Status"), linkStatusValue);
+	linkForm->addRow(tr("Path"), linkPathValue);
+	linkForm->addRow(tr("Color mode"), linkColorModeValue);
+	linksLayout->addLayout(linkForm);
+	auto *linksButtons = new QHBoxLayout;
+	linkRelinkButton = new QPushButton(tr("Relink…"), linksBody);
+	linkManageButton = new QPushButton(tr("Manage All…"), linksBody);
+	linkRelinkButton->setObjectName(QStringLiteral("linkRelinkButton"));
+	linkManageButton->setObjectName(QStringLiteral("linkManageButton"));
+	linksButtons->addWidget(linkRelinkButton);
+	linksButtons->addWidget(linkManageButton);
+	linksLayout->addLayout(linksButtons);
+	sectionImageLinks->setWidget(linksBody);
+	verticalLayout_4->insertWidget(1, sectionImageLinks);
+	connect(linkRelinkButton, &QPushButton::clicked, this, &PropertiesPalette_Image::relinkSelectedImage);
+	connect(linkManageButton, &QPushButton::clicked, this, [this]() {
+		if (m_ScMW && m_doc)
+			m_ScMW->StatusPic();
+	});
 
 	imagePageNumber->setMinimum(0);
 	imagePageNumber->setSpecialValueText( tr( "Auto" ));
@@ -178,6 +224,7 @@ void PropertiesPalette_Image::unsetDoc()
 	m_haveItem = false;
 	m_doc   = nullptr;
 	m_item  = nullptr;
+	updateLinkDetails();
 
 	setEnabled(false);
 }
@@ -205,6 +252,11 @@ PageItem* PropertiesPalette_Image::currentItemFromSelection()
 		}
 	}
 
+	if (m_doc && m_doc->appMode == modeEdit && currentItem && currentItem->asTextFrame())
+	{
+		if (PageItem *anchor = currentItem->asTextFrame()->selectedAnchoredImage())
+			return anchor;
+	}
 	return currentItem;
 }
 
@@ -405,6 +457,11 @@ void PropertiesPalette_Image::handleSelectionChanged()
 	{
 		setCurrentItem(currItem);
 	}
+	else
+	{
+		m_item = nullptr;
+		updateLinkDetails();
+	}
 	updateGeometry();
 }
 
@@ -503,6 +560,7 @@ void PropertiesPalette_Image::setCurrentItem(PageItem *item)
 		imageRotation->blockSignals(false);
 	}
 	m_haveItem = true;
+	updateLinkDetails();
 
 	showScaleAndOffset(m_item->imageXScale(), m_item->imageYScale(), m_item->imageXOffset(), m_item->imageYOffset());
 
@@ -526,7 +584,8 @@ void PropertiesPalette_Image::handleLocalXY()
 {
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	m_doc->itemSelection_SetImageOffset(imageXOffsetSpinBox->value() / m_unitRatio / m_item->imageXScale(), imageYOffsetSpinBox->value() / m_unitRatio / m_item->imageYScale());
+	Selection scratch(nullptr, false);
+	m_doc->itemSelection_SetImageOffset(imageXOffsetSpinBox->value() / m_unitRatio / m_item->imageXScale(), imageYOffsetSpinBox->value() / m_unitRatio / m_item->imageYScale(), targetSelection(scratch));
 }
 
 void PropertiesPalette_Image::handleLocalScale()
@@ -536,7 +595,8 @@ void PropertiesPalette_Image::handleLocalScale()
 	if (m_haveDoc && m_haveItem)
 	{
 		//CB Don't pass in the scale to the offset change as its taken from the new scale
-		m_doc->itemSelection_SetImageScaleAndOffset(imageXScaleSpinBox->value() / 100.0 / m_item->pixm.imgInfo.xres * 72.0, imageYScaleSpinBox->value() / 100.0 / m_item->pixm.imgInfo.yres * 72.0, imageXOffsetSpinBox->value() / m_unitRatio, imageYOffsetSpinBox->value() / m_unitRatio);
+		Selection scratch(nullptr, false);
+		m_doc->itemSelection_SetImageScaleAndOffset(imageXScaleSpinBox->value() / 100.0 / m_item->pixm.imgInfo.xres * 72.0, imageYScaleSpinBox->value() / 100.0 / m_item->pixm.imgInfo.yres * 72.0, imageXOffsetSpinBox->value() / m_unitRatio, imageYOffsetSpinBox->value() / m_unitRatio, targetSelection(scratch));
 		imgDpiX->showValue(qRound(720.0 / m_item->imageXScale()) / 10.0);
 		imgDpiY->showValue(qRound(720.0 / m_item->imageYScale()) / 10.0);
 	}
@@ -549,7 +609,8 @@ void PropertiesPalette_Image::handleLocalDpi()
 	if (m_haveDoc && m_haveItem)
 	{
 		//CB Don't pass in the scale to the offset change as its taken from the new scale
-		m_doc->itemSelection_SetImageScaleAndOffset(72.0 / imgDpiX->value(), 72.0 / imgDpiY->value(), imageXOffsetSpinBox->value() / m_unitRatio, imageYOffsetSpinBox->value() / m_unitRatio);
+		Selection scratch(nullptr, false);
+		m_doc->itemSelection_SetImageScaleAndOffset(72.0 / imgDpiX->value(), 72.0 / imgDpiY->value(), imageXOffsetSpinBox->value() / m_unitRatio, imageYOffsetSpinBox->value() / m_unitRatio, targetSelection(scratch));
 		imageXScaleSpinBox->showValue(m_item->imageXScale() * 100 / 72.0 * m_item->pixm.imgInfo.xres);
 		imageYScaleSpinBox->showValue(m_item->imageYScale() * 100 / 72.0 * m_item->pixm.imgInfo.yres);
 	}
@@ -561,7 +622,8 @@ void PropertiesPalette_Image::handleLocalRotation()
 		return;
 	if (m_haveDoc && m_haveItem)
 	{
-		m_doc->itemSelection_SetImageRotation(360 - imageRotation->value());
+		Selection scratch(nullptr, false);
+		m_doc->itemSelection_SetImageRotation(360 - imageRotation->value(), targetSelection(scratch));
 		if (checkBoxAutoFit->isChecked())
 		{
 			m_item->adjustPictScale();
@@ -667,7 +729,71 @@ void PropertiesPalette_Image::handleImageEffects()
 {
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	m_ScMW->ImageEffects();
+	if (!m_item->isEmbedded)
+	{
+		m_ScMW->ImageEffects();
+		return;
+	}
+	EffectsDialog dialog(this, m_item, m_doc);
+	if (dialog.exec() == QDialog::Accepted)
+	{
+		Selection scratch(nullptr, false);
+		m_doc->itemSelection_ApplyImageEffects(dialog.effectsList, targetSelection(scratch));
+	}
+}
+
+Selection* PropertiesPalette_Image::targetSelection(Selection& scratch) const
+{
+	if (m_item && m_item->isEmbedded)
+	{
+		scratch.addItem(m_item);
+		return &scratch;
+	}
+	return nullptr;
+}
+
+void PropertiesPalette_Image::updateLinkDetails()
+{
+	if (!linkStatusValue)
+		return;
+	const bool isImage = m_item && m_item->isImageFrame();
+	const bool hasPath = isImage && !m_item->Pfile.isEmpty();
+	const bool embedded = isImage && m_item->isImageInline();
+	const bool available = hasPath && m_item->imageIsAvailable && QFileInfo::exists(m_item->Pfile);
+	linkStatusValue->setText(!isImage || !hasPath ? tr("No linked file")
+		: embedded ? tr("Embedded") : available ? tr("Available") : tr("Missing"));
+	linkPathValue->setText(hasPath && !embedded ? QDir::toNativeSeparators(m_item->Pfile) : tr("—"));
+	linkPathValue->setToolTip(hasPath && !embedded ? QDir::toNativeSeparators(m_item->Pfile) : QString());
+	QString colorMode = tr("Unknown");
+	if (isImage && m_item->imageIsAvailable)
+	{
+		const QString ext = QFileInfo(m_item->Pfile).suffix().toLower();
+		const bool knownMode = (!(extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext))
+			|| m_item->pixm.imgInfo.type == ImageType7)
+			&& m_item->pixm.imgInfo.colorspace >= 0 && m_item->pixm.imgInfo.colorspace <= 4;
+		if (knownMode)
+			colorMode = colorSpaceText(m_item->pixm.imgInfo.colorspace);
+		if (!available && !embedded && knownMode)
+			colorMode = tr("%1 (last loaded)").arg(colorMode);
+	}
+	linkColorModeValue->setText(colorMode);
+	linkRelinkButton->setEnabled(isImage && !embedded);
+	linkManageButton->setEnabled(static_cast<ScribusDoc*>(m_doc) != nullptr);
+}
+
+void PropertiesPalette_Image::relinkSelectedImage()
+{
+	if (!m_doc || !m_item || !m_item->isImageFrame() || m_item->isImageInline())
+		return;
+	const QString filename = QFileDialog::getOpenFileName(this, tr("Relink Image"),
+		QFileInfo(m_item->Pfile).absolutePath(), tr("All Files (*)"));
+	if (filename.isEmpty())
+		return;
+	if (m_item->relinkImage(filename, true))
+	{
+		updateLinkDetails();
+		m_doc->changed();
+	}
 }
 
 void PropertiesPalette_Image::handleImagePageNumber()
@@ -693,28 +819,32 @@ void PropertiesPalette_Image::handleProfile(const QString& prn)
 {
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	m_doc->itemSelection_SetColorProfile(inputProfiles->currentText());
+	Selection scratch(nullptr, false);
+	m_doc->itemSelection_SetColorProfile(inputProfiles->currentText(), targetSelection(scratch));
 }
 
 void PropertiesPalette_Image::handleIntent()
 {
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	m_doc->itemSelection_SetRenderIntent(renderIntent->currentIndex());
+	Selection scratch(nullptr, false);
+	m_doc->itemSelection_SetRenderIntent(renderIntent->currentIndex(), targetSelection(scratch));
 }
  
 void PropertiesPalette_Image::handleCompressionMethod()
 {
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	m_doc->itemSelection_SetCompressionMethod(compressionMethod->currentIndex() - 1);
+	Selection scratch(nullptr, false);
+	m_doc->itemSelection_SetCompressionMethod(compressionMethod->currentIndex() - 1, targetSelection(scratch));
 }
 
 void PropertiesPalette_Image::handleCompressionQuality()
 {
 	if (!m_haveDoc || !m_haveItem || !m_ScMW || m_ScMW->scriptIsRunning())
 		return;
-	m_doc->itemSelection_SetCompressionQuality(compressionQuality->currentIndex() - 1);
+	Selection scratch(nullptr, false);
+	m_doc->itemSelection_SetCompressionQuality(compressionQuality->currentIndex() - 1, targetSelection(scratch));
 }
 
 
@@ -730,6 +860,13 @@ void PropertiesPalette_Image::iconSetChange()
 void PropertiesPalette_Image::languageChange()
 {
 	retranslateUi(this);
+	sectionImageLinks->setText(tr("Links"));
+	static_cast<QLabel*>(linkForm->labelForField(linkStatusValue))->setText(tr("Status"));
+	static_cast<QLabel*>(linkForm->labelForField(linkPathValue))->setText(tr("Path"));
+	static_cast<QLabel*>(linkForm->labelForField(linkColorModeValue))->setText(tr("Color mode"));
+	linkRelinkButton->setText(tr("Relink…"));
+	linkManageButton->setText(tr("Manage All…"));
+	updateLinkDetails();
 
 	imagePageNumber->setSpecialValueText( tr( "Auto" ));
 
@@ -826,8 +963,13 @@ void PropertiesPalette_Image::spinboxFinishUserAction()
 {
 	m_userActionOn = false;
 
-	for (int i = 0; i < m_doc->m_Selection->count(); ++i)
-		m_doc->m_Selection->itemAt(i)->checkChanges(true);
+	if (m_item && m_item->isEmbedded)
+		m_item->checkChanges(true);
+	else if (m_doc)
+	{
+		for (int i = 0; i < m_doc->m_Selection->count(); ++i)
+			m_doc->m_Selection->itemAt(i)->checkChanges(true);
+	}
 	if (m_ScMW->view->groupTransactionStarted())
 	{
 		m_ScMW->view->endGroupTransaction();

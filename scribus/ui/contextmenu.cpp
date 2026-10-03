@@ -172,6 +172,8 @@ void ContextMenu::createMenuItems_Selection()
 		}
 	if (m_actionList.contains("fileImportImage"))
 		menuEditContent->addAction(m_ScMW->scrActions["fileImportImage"]);
+	if (m_doc->appMode == modeEdit && m_actionList.contains("insertAnchoredImage"))
+		menuEditContent->addAction(m_ScMW->scrActions["insertAnchoredImage"]);
 	if (selectedItemCount == 1 && currItem->isImageFrame())
 	{
 		if (QApplication::clipboard()->mimeData()->hasImage())

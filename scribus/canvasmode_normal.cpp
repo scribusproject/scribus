@@ -20,6 +20,7 @@
 #include <QCursor>
 #include <QEvent>
 #include <QMessageBox>
+#include <QMenu>
 #include <QMouseEvent>
 #include <QPainterPath>
 #include <QPoint>
@@ -41,6 +42,7 @@
 #include "iconmanager.h"
 #include "loadsaveplugin.h"
 #include "pageitem_line.h"
+#include "pageitem_textframe.h"
 #include "pageitem_table.h"
 #include "prefscontext.h"
 #include "prefsfile.h"
@@ -68,6 +70,35 @@ inline bool CanvasMode_Normal::GetItem(PageItem** pi)
 { 
 	*pi = m_doc->m_Selection->itemAt(0); 
 	return (*pi) != nullptr;
+}
+
+bool CanvasMode_Normal::selectAnchoredObjectAt(const QPointF& canvasPoint)
+{
+	if (m_doc->drawAsPreview)
+		return false;
+	for (int index = m_doc->Items->count() - 1; index >= 0; --index)
+	{
+		PageItem_TextFrame* frame = m_doc->Items->at(index)->asTextFrame();
+		if (!frame || frame->locked() || m_doc->layerLocked(frame->m_layerID)
+			|| !m_doc->layerVisible(frame->m_layerID))
+			continue;
+		int storyPosition = -1;
+		const int itemId = frame->anchoredObjectAtCanvas(canvasPoint, &storyPosition);
+		if (itemId < 0)
+			continue;
+		m_view->deselectItems(true);
+		m_view->selectItem(frame, true);
+		m_view->requestMode(modeEdit);
+		frame->itemText.deselectAll();
+		frame->itemText.setCursorPosition(storyPosition);
+		frame->itemText.select(storyPosition, 1, true);
+		frame->HasSel = true;
+		m_canvas->m_viewMode.m_MouseButtonPressed = false;
+		m_ScMW->setCopyCutEnabled(true);
+		m_view->DrawNew();
+		return true;
+	}
+	return false;
 }
 
 void CanvasMode_Normal::drawControls(QPainter* p)
@@ -127,6 +158,11 @@ void CanvasMode_Normal::deactivate(bool forGesture)
 
 void CanvasMode_Normal::mouseDoubleClickEvent(QMouseEvent *m)
 {
+	if (m_doc->appMode == modeTextCursor)
+	{
+		mousePressEvent(m);
+		return;
+	}
 	// qDebug()<<Q_FUNC_INFO;
 	const QPoint globalPos = m->globalPosition().toPoint();
 	PageItem *currItem = nullptr;
@@ -843,6 +879,45 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 	PageItem *currItem;
 
+	if (m_doc->appMode == modeTextCursor && m->button() == Qt::LeftButton)
+	{
+		// Unlike the Text Frame tool, this mode never creates or moves objects.
+		// Drill through groups so imported IDML text is editable in one click.
+		PageItem* target = m_canvas->itemUnderCursor(m->globalPosition(), nullptr, true);
+		while (target && target->isGroupChild() && !target->isTextFrame() && !target->isTable())
+			target = m_canvas->itemUnderCursor(m->globalPosition(), target, true);
+		bool editableParents = true;
+		for (PageItem* parent = target ? target->Parent : nullptr; parent; parent = parent->Parent)
+		{
+			if (parent->locked() || m_doc->layerLocked(parent->m_layerID))
+			{
+				editableParents = false;
+				break;
+			}
+		}
+		if (!target || (!target->isTextFrame() && !target->isTable())
+			|| !editableParents || target->locked() || !m_doc->canSelectItemOnLayer(target->m_layerID)
+			|| (m_doc->drawAsPreview && !m_doc->editOnPreview))
+		{
+			m->accept();
+			return;
+		}
+
+		m_view->deselectItems(false);
+		m_doc->m_Selection->addItem(target);
+		target->isSingleSel = target->isGroupChild();
+		target->emitAllToGUI();
+		m_canvas->update();
+		if (target->isTable())
+			m_view->requestMode(modeEditTable);
+		else
+			m_view->requestMode(modeEdit);
+		// Let the newly active edit mode handle this very same click, so a drag
+		// can select text and a simple click positions the insertion caret.
+		m_view->canvasMode()->mousePressEvent(m);
+		return;
+	}
+
 	m_objectDeltaPos  = FPoint(0, 0);
 	m_mousePressPoint = m_mouseCurrentPoint = mousePointDoc;
 	m_mouseSavedPoint = mousePointDoc;
@@ -861,6 +936,9 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 			m_view->DrawNew();
 		return;
 	}
+	if (m->button() == Qt::LeftButton && m->modifiers() == Qt::NoModifier
+		&& selectAnchoredObjectAt(QPointF(mousePointDoc.x(), mousePointDoc.y())))
+		return;
 
 	if ((GetItem(&currItem)) && (!m_lastPosWasOverGuide))
 	{
@@ -1010,6 +1088,12 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 
 void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 {
+	if (m_doc->appMode == modeTextCursor && m->button() == Qt::LeftButton)
+	{
+		m_canvas->m_viewMode.m_MouseButtonPressed = false;
+		m->accept();
+		return;
+	}
 //	qDebug("CanvasMode_Normal::mouseReleaseEvent");
 #ifdef GESTURE_FRAME_PREVIEW
 	clearPixmapCache();
@@ -1027,6 +1111,38 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 	// opens context menu
 	if (m->button() == Qt::RightButton && (!m_doc->DragP) )
 	{
+		if (selectAnchoredObjectAt(QPointF(mousePointDoc.x(), mousePointDoc.y())))
+		{
+			PageItem_TextFrame* frame = m_doc->m_Selection->itemAt(0)->asTextFrame();
+			const int position = frame->itemText.startOfSelection();
+			const int itemId = frame->itemText.object(position).getInlineCharID();
+			PageItem* embedded = m_doc->FrameItems.value(itemId, nullptr);
+			QMenu menu(m_view);
+			if (embedded && embedded->isTable())
+			{
+				QAction* editTable = menu.addAction(tr("Edit Table..."));
+				QAction* options = menu.addAction(tr("Position and Text Wrap..."));
+				QAction* chosen = menu.exec(m->globalPosition().toPoint());
+				if (chosen == editTable)
+					m_ScMW->editInlineStart(itemId);
+				else if (chosen == options)
+					m_ScMW->editAnchoredObjectOptions(itemId);
+			}
+			else
+			{
+				QAction* editAction = menu.addAction(tr("Image, Size, Crop, Position and Wrap..."));
+				QAction* replaceAction = menu.addAction(tr("Replace Image..."));
+				QAction* fullAction = menu.addAction(tr("Edit Full Image Frame..."));
+				QAction* chosen = menu.exec(m->globalPosition().toPoint());
+				if (chosen == editAction)
+					m_ScMW->editAnchoredImage(itemId);
+				else if (chosen == replaceAction)
+					m_ScMW->replaceAnchoredImage(itemId);
+				else if (chosen == fullAction)
+					m_ScMW->editInlineStart(itemId);
+			}
+			return;
+		}
 		if ((!GetItem(&currItem)) && (!m_doc->drawAsPreview))
 		{
 			createContextMenu(nullptr, mousePointDoc.x(), mousePointDoc.y());

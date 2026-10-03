@@ -2906,6 +2906,12 @@ void PageItem_Table::restore(UndoState *state, bool isUndo)
 	else
 	{
 		PageItem::restore(state, isUndo);
+		if (simpleState->contains("ITEM_RESIZE"))
+		{
+			// Keep the grid and its cells in sync with the restored frame size.
+			adjustTableToFrame();
+			doUpdate = true;
+		}
 	}
 
 	if (doUpdate)

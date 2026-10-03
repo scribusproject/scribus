@@ -221,6 +221,42 @@ void PicStatus::fillTable()
 		}
 		allItems.clear();
 	}
+	// Inline objects live in FrameItems, not DocItems. Include their image links
+	// so missing anchored images can be found and relinked with the same tools.
+	for (PageItem *frameItem : m_Doc->FrameItems)
+	{
+		if (!frameItem || !frameItem->isImageFrame() || frameItem->isLatexFrame())
+			continue;
+		const QString name = frameItem->isImageInline() ? tr("Embedded Image")
+			: frameItem->Pfile.isEmpty() ? tr("Empty Image Frame") : QFileInfo(frameItem->Pfile).fileName();
+		tempItem = new PicItem(imageViewArea, name, createImgIcon(frameItem), frameItem);
+		if (!firstItem)
+			firstItem = tempItem;
+	}
+	for (int i = 0; i < imageViewArea->count(); ++i)
+	{
+		auto *row = static_cast<PicItem*>(imageViewArea->item(i));
+		const PageItem *linkedItem = row->PageItemObject;
+		const bool embedded = linkedItem->isImageInline();
+		const bool hasPath = !linkedItem->Pfile.isEmpty();
+		const bool available = hasPath && linkedItem->imageIsAvailable && QFileInfo::exists(linkedItem->Pfile);
+		const QString status = embedded ? tr("Embedded") : !hasPath ? tr("Empty")
+			: available ? tr("Available") : tr("Missing");
+		QString colorMode = tr("Unknown");
+		if (linkedItem->imageIsAvailable)
+		{
+			const QString ext = QFileInfo(linkedItem->Pfile).suffix().toLower();
+			const bool knownMode = (!(extensionIndicatesPDF(ext) || extensionIndicatesEPSorPS(ext))
+				|| linkedItem->pixm.imgInfo.type == ImageType7)
+				&& linkedItem->pixm.imgInfo.colorspace >= 0 && linkedItem->pixm.imgInfo.colorspace <= 4;
+			if (knownMode)
+				colorMode = colorSpaceText(linkedItem->pixm.imgInfo.colorspace);
+			if (!available && !embedded && knownMode)
+				colorMode = tr("%1 (last loaded)").arg(colorMode);
+		}
+		row->setText(tr("%1 — %2 · %3").arg(row->text(), status, colorMode));
+		row->setToolTip(hasPath && !embedded ? QDir::toNativeSeparators(linkedItem->Pfile) : status);
+	}
 	imageViewArea->setCurrentItem(firstItem);
 	if (firstItem != nullptr)
 		imageSelected(firstItem);
@@ -235,7 +271,8 @@ void PicStatus::fillTable()
 	{
 		const auto *imageItem = static_cast<PicItem*>(imageViewArea->item(i));
 		const PageItem *pageItem = imageItem->PageItemObject;
-		if (!pageItem->imageIsAvailable && !pageItem->isImageInline() && !pageItem->Pfile.isEmpty())
+		if (!pageItem->isImageInline() && !pageItem->Pfile.isEmpty()
+			&& (!pageItem->imageIsAvailable || !QFileInfo::exists(pageItem->Pfile)))
 		{
 			hasMissingImages = true;
 			break;
@@ -268,8 +305,8 @@ void PicStatus::applyImageFilters()
 			const PageItem* item = row->PageItemObject;
 			const bool embedded = item->isImageInline();
 			const bool empty = !embedded && item->Pfile.isEmpty();
-			const bool missing = !embedded && !empty && !item->imageIsAvailable;
-			const bool available = !embedded && !empty && item->imageIsAvailable;
+			const bool available = !embedded && !empty && item->imageIsAvailable && QFileInfo::exists(item->Pfile);
+			const bool missing = !embedded && !empty && !available;
 			const bool statusMatches = filter == 0 || (filter == 1 && missing)
 				|| (filter == 2 && available) || (filter == 3 && embedded) || (filter == 4 && empty);
 			const bool textMatches = query.isEmpty() || row->text().contains(query, Qt::CaseInsensitive)
@@ -691,16 +728,21 @@ void PicStatus::imageSelected(QListWidgetItem *ite)
 		return;
 	}
 
-	enableWidgets(true);
-
 	PicItem *item = (PicItem*) ite;
 	currItem = item->PageItemObject;
+	enableWidgets(true);
+	// An anchored frame has no independent page selection target. It remains
+	// editable and relinkable here, but page navigation must not use OwnPage=-1.
+	goPageButton->setEnabled(!currItem->isEmbedded);
+	selectButton->setEnabled(!currItem->isEmbedded);
 	if (!currItem->OnMasterPage.isEmpty())
 		displayPage->setText(currItem->OnMasterPage);
 	else
 	{
-		if (currItem->OwnPage == -1)
-			displayPage->setText(  tr("Not on a Page"));
+		if (currItem->isEmbedded)
+			displayPage->setText(tr("Anchored in text"));
+		else if (currItem->OwnPage == -1)
+			displayPage->setText(tr("Not on a Page"));
 		else
 			displayPage->setText(QString::number(currItem->OwnPage + 1));
 	}
@@ -1016,7 +1058,8 @@ void PicStatus::relinkMissingImagesFromFolder(bool mapFolder)
 	{
 		const auto *imageItem = static_cast<PicItem*>(imageViewArea->item(i));
 		const PageItem *pageItem = imageItem->PageItemObject;
-		if (!pageItem->imageIsAvailable && !pageItem->isImageInline() && !pageItem->Pfile.isEmpty())
+		if (!pageItem->isImageInline() && !pageItem->Pfile.isEmpty()
+			&& (!pageItem->imageIsAvailable || !QFileInfo::exists(pageItem->Pfile)))
 			missingPaths.append(pageItem->Pfile);
 	}
 	missingPaths.removeDuplicates();
@@ -1158,7 +1201,8 @@ void PicStatus::relinkMissingImagesFromFolder(bool mapFolder)
 	{
 		auto *imageItem = static_cast<PicItem*>(imageViewArea->item(i));
 		PageItem *pageItem = imageItem->PageItemObject;
-		if (pageItem->imageIsAvailable || pageItem->isImageInline() || pageItem->Pfile.isEmpty())
+		if (pageItem->isImageInline() || pageItem->Pfile.isEmpty()
+			|| (pageItem->imageIsAvailable && QFileInfo::exists(pageItem->Pfile)))
 			continue;
 		const QString linkPath = QDir::cleanPath(QFileInfo(pageItem->Pfile).absoluteFilePath());
 		const QStringList candidates = candidatesByPath.value(linkPath);
@@ -1213,7 +1257,8 @@ void PicStatus::SearchPic()
 	}
 
 	auto item = static_cast<PicItem*>(imageViewArea->currentItem());
-	bool brokenLink = !(item->PageItemObject->imageIsAvailable);
+	bool brokenLink = !item->PageItemObject->imageIsAvailable
+		|| !QFileInfo::exists(item->PageItemObject->Pfile);
 
 	QScopedPointer<PicSearch> dia2(new PicSearch(this, dia->getFileName(), dia->getMatches(), brokenLink));
 	if (dia2->exec() != QDialog::Accepted)
@@ -1236,15 +1281,12 @@ void PicStatus::SearchPic()
 		return;
 	}
 	QFileInfo target(currItem->Pfile);
-	item->setText(target.fileName());
-	item->setIcon(createImgIcon(currItem));
-	imageSelected(imageViewArea->currentItem());
 
 	if (dia2->isApplyToMatchingImages())
 		relinkMatchingImages(source, target, brokenLink);
 	if (transaction)
 		transaction.commit();
-	applyImageFilters();
+	fillTable();
 }
 
 void PicStatus::FileManager()
@@ -1305,7 +1347,8 @@ void PicStatus::relinkMatchingImages(const QFileInfo& source, const QFileInfo& t
 	{
 		auto item = static_cast<PicItem*>(imageViewArea->item(i));
 
-		if (brokenLink && item->PageItemObject->imageIsAvailable)
+		if (brokenLink && item->PageItemObject->imageIsAvailable
+			&& QFileInfo::exists(item->PageItemObject->Pfile))
 			continue;
 
 		QFileInfo fi(item->PageItemObject->Pfile);

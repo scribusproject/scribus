@@ -93,6 +93,7 @@ ToolPalette::ToolPalette(QWidget* parent) : DockPanelBase( tr("Tools"), "tool-se
 	// family and promotes the last selected member, matching Adobe toolbars.
 	QToolButton* selectBtn = addToolButtonEntry("toolsSelect", vbox);
 	addToolSeparator(vbox);
+	addToolButtonEntry("toolsTextCursor", vbox);
 	QToolButton* textBtn = addToolButtonEntry("toolsInsertTextFrame", vbox);
 	QToolButton* frameBtn = addToolButtonEntry("toolsInsertImageFrame", vbox);
 	addToolSeparator(vbox);

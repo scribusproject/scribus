@@ -226,19 +226,95 @@ QRegion PageItem_TextFrame::calcAvailableRegion()
 
 QRectF PageItem_TextFrame::resolvedAnchoredObjectRect(int inlineCharId, int storyPosition) const
 {
-	if (storyPosition >= 0)
-	{
-		if (storyPosition < itemText.length() && itemText.hasObject(storyPosition)
-			&& itemText.object(storyPosition).getInlineCharID() == inlineCharId)
-			return m_anchoredObjectRects.value(storyPosition);
+	auto rectAt = [this, inlineCharId](int position) -> QRectF {
+		if (position < 0 || position >= itemText.length() || !itemText.hasObject(position)
+			|| itemText.object(position).getInlineCharID() != inlineCharId)
+			return QRectF();
+		PageItem* object = itemText.object(position).getPageItem(m_Doc);
+		if (!object || !object->anchorPosition().isInline())
+			return m_anchoredObjectRects.value(position);
+		const Box* root = textLayout.box();
+		if (!root)
+			return QRectF();
+		for (const Box* column : root->boxes())
+		{
+			for (const Box* line : column->boxes())
+			{
+				for (const Box* child : line->boxes())
+				{
+					if (child->type() != Box::T_Object || child->firstChar() != position)
+						continue;
+					const QPointF topLeft(root->x() + column->x() + line->x() + child->x(),
+						root->y() + column->y() + line->y() + line->ascent() + child->y() - child->ascent());
+					return QRectF(topLeft, QSizeF(child->width(), child->height()));
+				}
+			}
+		}
 		return QRectF();
-	}
+	};
+	if (storyPosition >= 0)
+		return rectAt(storyPosition);
 	for (int position = 0; position < itemText.length(); ++position)
 	{
 		if (itemText.hasObject(position) && itemText.object(position).getInlineCharID() == inlineCharId)
-			return m_anchoredObjectRects.value(position);
+			return rectAt(position);
 	}
 	return QRectF();
+}
+
+int PageItem_TextFrame::anchoredObjectAt(const QPointF& framePoint, int* storyPosition) const
+{
+	int hitPosition = -1;
+	int hitItemId = -1;
+	for (int position = qMax(0, firstChar); position < qMin(m_maxChars, itemText.length()); ++position)
+	{
+		if (position < hitPosition || !itemText.hasObject(position))
+			continue;
+		const InlineFrame object = itemText.object(position);
+		const int itemId = object.getInlineCharID();
+		PageItem* item = m_Doc->FrameItems.value(itemId, nullptr);
+		if (!item || (!item->isImageFrame() && !item->isTable())
+			|| !resolvedAnchoredObjectRect(itemId, position).contains(framePoint))
+			continue;
+		hitPosition = position;
+		hitItemId = itemId;
+	}
+	if (storyPosition)
+		*storyPosition = hitPosition;
+	return hitItemId;
+}
+
+PageItem* PageItem_TextFrame::selectedAnchoredObject() const
+{
+	if (!m_Doc || itemText.selectionLength() != 1)
+		return nullptr;
+	const int position = itemText.startOfSelection();
+	if (!itemText.hasObject(position))
+		return nullptr;
+	PageItem *item = m_Doc->FrameItems.value(itemText.object(position).getInlineCharID(), nullptr);
+	return item && (item->isImageFrame() || item->isTable()) ? item : nullptr;
+}
+
+PageItem* PageItem_TextFrame::selectedAnchoredImage() const
+{
+	PageItem* item = selectedAnchoredObject();
+	return item && item->isImageFrame() ? item : nullptr;
+}
+
+int PageItem_TextFrame::anchoredObjectAtCanvas(const QPointF& canvasPoint, int* storyPosition)
+{
+	if (invalid)
+		layout();
+	bool invertible = false;
+	const QTransform canvasToFrame = getTransform().inverted(&invertible);
+	if (!invertible)
+		return -1;
+	QPointF framePoint = canvasToFrame.map(canvasPoint);
+	if (imageFlippedH())
+		framePoint.setX(width() - framePoint.x());
+	if (imageFlippedV())
+		framePoint.setY(height() - framePoint.y());
+	return anchoredObjectAt(framePoint, storyPosition);
 }
 
 QRectF PageItem_TextFrame::pageRectInFrameCoordinates(int pageIndex) const
@@ -5643,6 +5719,7 @@ void PageItem_TextFrame::replaceSpellingErrorText(const SpellError& error, const
 
 void PageItem_TextFrame::applicableActions(QStringList & actionList)
 {
+	actionList << "insertAnchoredImage";
 	actionList << "insertMarkVariableText";
 	if (!m_Doc->masterPageMode())
 		actionList << "insertMarkAnchor";
