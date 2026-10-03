@@ -40,6 +40,9 @@
     <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\cmddoc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\cmdepub.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\scribus\datamergesource.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -142,6 +145,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\cmddoc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\cmdepub.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\cmdgetprop.h">

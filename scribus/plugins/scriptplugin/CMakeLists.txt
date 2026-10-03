@@ -19,6 +19,7 @@ set(SCRIPTER_PLUGIN_SOURCES
 	cmdbarcode.cpp
 	cmddialog.cpp
 	cmddoc.cpp
+	cmdepub.cpp
 	cmdgetprop.cpp
 	cmdgetsetprop.cpp
 	cmdhistory.cpp

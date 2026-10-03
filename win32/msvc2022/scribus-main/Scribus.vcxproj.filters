@@ -121,6 +121,15 @@
     <ClInclude Include="..\..\..\scribus\dynamicvariable.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\scribus\epubdocument.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\epubexport.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\epubreadingorder.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\scribus\datamergesource.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -140,6 +149,9 @@
       <Filter>Source Files\ui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\ui\datamergedialog.h">
+      <Filter>Source Files\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\scribus\ui\epubreadingorderdialog.h">
       <Filter>Source Files\ui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\scribus\ui\modernui.h">
@@ -1038,6 +1050,15 @@
     <ClCompile Include="..\..\..\scribus\dynamicvariable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\scribus\epubdocument.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\epubexport.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\epubreadingorder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\scribus\datamergesource.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -1057,6 +1078,9 @@
       <Filter>Source Files\ui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\datamergedialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\scribus\ui\epubreadingorderdialog.cpp">
       <Filter>Source Files\ui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\scribus\ui\widgets\inspector_header.cpp">

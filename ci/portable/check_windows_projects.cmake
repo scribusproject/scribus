@@ -12,6 +12,14 @@ set(FORK_APPLICATION_FILES
 	scribus/anchorposition.h
 	scribus/dynamicvariable.cpp
 	scribus/dynamicvariable.h
+	scribus/epubdocument.cpp
+	scribus/epubdocument.h
+	scribus/epubexport.cpp
+	scribus/epubexport.h
+	scribus/epubreadingorder.cpp
+	scribus/epubreadingorder.h
+	scribus/datamergesource.cpp
+	scribus/datamergesource.h
 	scribus/embeddedimageextractor.cpp
 	scribus/embeddedimageextractor.h
 	scribus/collectmanifest.cpp
@@ -41,6 +49,10 @@ set(FORK_APPLICATION_FILES
 	scribus/ui/dynamicvariableinsert.h
 	scribus/ui/dynamicvariablemanager.cpp
 	scribus/ui/dynamicvariablemanager.h
+	scribus/ui/epubreadingorderdialog.cpp
+	scribus/ui/epubreadingorderdialog.h
+	scribus/ui/datamergedialog.cpp
+	scribus/ui/datamergedialog.h
 	scribus/ui/modernui.h
 	scribus/ui/toolpalette.cpp
 	scribus/ui/toolpalette.h
@@ -48,8 +60,11 @@ set(FORK_APPLICATION_FILES
 	scribus/ui/widgets/inspector_header.h)
 
 set(FORK_SCRIPT_PLUGIN_FILES
+	scribus/datamergesource.cpp
 	scribus/plugins/scriptplugin/cmdhistory.cpp
 	scribus/plugins/scriptplugin/cmdhistory.h
+	scribus/plugins/scriptplugin/cmdepub.cpp
+	scribus/plugins/scriptplugin/cmdepub.h
 	scribus/plugins/scriptplugin/cmdobjectstyleimport.cpp
 	scribus/plugins/scriptplugin/cmdobjectstyleimport.h
 	scribus/plugins/scriptplugin/cmdobjectstylemanagement.cpp

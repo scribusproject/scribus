@@ -232,6 +232,164 @@
      </item>
     </layout>
    </item>
+   <item>
+    <layout class="QHBoxLayout" name="epubOrderLayout">
+     <item>
+      <widget class="QLabel" name="epubOrderLabel">
+       <property name="text">
+        <string>EPUB reading order</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="epubOrderSpin">
+       <property name="specialValueText">
+        <string>Unassigned</string>
+       </property>
+       <property name="minimum">
+        <number>0</number>
+       </property>
+       <property name="maximum">
+        <number>999999</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="epubOrderManageButton">
+       <property name="text">
+        <string>Manage…</string>
+       </property>
+       <property name="toolTip">
+        <string>Arrange all text stories for reflowable EPUB</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="epubOrderSpacer">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="epubImageAltLayout">
+     <item>
+      <widget class="QLabel" name="epubImageAltLabel">
+       <property name="text">
+        <string>EPUB image description</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="epubImageAltEdit">
+       <property name="toolTip">
+        <string>Describe the image for ebook readers. Alt text is required for EPUB export unless the image is explicitly decorative; it is not a visible caption.</string>
+       </property>
+       <property name="placeholderText">
+        <string>Alt text for this image</string>
+       </property>
+      </widget>
+     </item>
+   </layout>
+  </item>
+  <item>
+   <widget class="QCheckBox" name="epubImageDecorativeCheck">
+    <property name="toolTip">
+     <string>Mark an image as decorative only after clearing its description and visible caption. Decorative images export with empty alt text.</string>
+    </property>
+    <property name="text">
+     <string>Decorative image (no description)</string>
+    </property>
+   </widget>
+  </item>
+  <item>
+   <layout class="QHBoxLayout" name="epubImageCaptionLayout">
+     <item>
+      <widget class="QLabel" name="epubImageCaptionLabel">
+       <property name="text">
+        <string>EPUB image caption</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="epubImageCaptionEdit">
+       <property name="toolTip">
+        <string>Optional visible caption below the image in reflowable EPUB. This is separate from alt text.</string>
+       </property>
+       <property name="placeholderText">
+        <string>Caption shown to readers</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="epubImageCaptionAlignmentLayout">
+     <item>
+      <widget class="QLabel" name="epubImageCaptionAlignmentLabel">
+       <property name="text">
+        <string>EPUB caption alignment</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="epubImageCaptionAlignmentCombo">
+       <property name="toolTip">
+        <string>Align the visible EPUB caption without moving its image. Add a caption first.</string>
+       </property>
+       <item><property name="text"><string>Left</string></property></item>
+       <item><property name="text"><string>Centre</string></property></item>
+       <item><property name="text"><string>Right</string></property></item>
+       <item><property name="text"><string>Justify</string></property></item>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+   <layout class="QHBoxLayout" name="epubImageWidthLayout">
+     <item>
+      <widget class="QLabel" name="epubImageWidthLabel">
+       <property name="text">
+        <string>EPUB image width</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="epubImageWidthSpin">
+       <property name="toolTip">
+        <string>Optional figure width as a percentage of the EPUB reading area. Auto keeps the reader default. Frame crop is a separate opt-in choice; rotation is not reproduced.</string>
+       </property>
+       <property name="specialValueText">
+        <string>Auto</string>
+       </property>
+       <property name="suffix">
+        <string>%</string>
+       </property>
+       <property name="maximum">
+        <number>100</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="epubImageFrameCropCheck">
+     <property name="toolTip">
+      <string>Use the exact visible crop of a plain rectangular linked PNG frame when it aligns to whole source pixels. Unsupported transforms block EPUB export instead of being approximated.</string>
+     </property>
+     <property name="text">
+      <string>Use image frame crop in EPUB</string>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <customwidgets>

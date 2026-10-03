@@ -44,6 +44,14 @@ private slots:
 	void handlePDFBookmark();
 	void handlePDFAnnotation();
 	void handlePDFAnnotationSettings();
+	void handleEpubOrder(int rank);
+	void handleManageEpubOrder();
+	void handleEpubImageAltText();
+	void handleEpubImageDecorative(bool decorative);
+	void handleEpubImageCaption();
+	void handleEpubImageCaptionAlignment(int alignment);
+	void handleEpubImageWidth(int widthPercent);
+	void handleEpubImageFrameCrop(bool enabled);
 
 protected:
 	bool m_haveDoc {false};

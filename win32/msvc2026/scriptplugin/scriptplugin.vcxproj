@@ -239,6 +239,7 @@
     <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\cmdcolor.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\cmddialog.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\cmddoc.cpp" />
+    <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\cmdepub.cpp" />
     <ClCompile Include="..\..\..\scribus\datamergesource.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\cmdgetprop.cpp" />
     <ClCompile Include="..\..\..\scribus\plugins\scriptplugin\cmdgetsetprop.cpp" />
@@ -284,6 +285,7 @@
     <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\cmdcolor.h" />
     <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\cmddialog.h" />
     <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\cmddoc.h" />
+    <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\cmdepub.h" />
     <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\cmdgetprop.h" />
     <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\cmdgetsetprop.h" />
     <ClInclude Include="..\..\..\scribus\plugins\scriptplugin\cmdhistory.h" />

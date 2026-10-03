@@ -32,6 +32,38 @@ set_target_properties(${SCRIBUS_TESTS_LIB}
 
 set(TESTS_LIBRARIES Qt6::Test Qt6::Core)
 
+# Phase 7 starts with an isolated reflowable EPUB package writer. Reading
+# order extraction and the application export command are separate slices.
+add_executable(epubexporttests epubexporttests.cpp ../epubexport.cpp)
+target_link_libraries(epubexporttests Qt6::Test Qt6::Core Qt6::Gui scribus_zip_lib ${ZLIB_LIBRARIES})
+add_test(NAME epubexporttests COMMAND epubexporttests)
+set_tests_properties(epubexporttests PROPERTIES LABELS "phase-7;epub-export")
+
+add_executable(epubreadingordertests epubreadingordertests.cpp ../epubreadingorder.cpp)
+target_link_libraries(epubreadingordertests Qt6::Test Qt6::Core)
+add_test(NAME epubreadingordertests COMMAND epubreadingordertests)
+set_tests_properties(epubreadingordertests PROPERTIES LABELS "phase-7;epub-reading-order")
+
+add_executable(epubreadingorderdialogtests epubreadingorderdialogtests.cpp ../ui/epubreadingorderdialog.cpp)
+target_link_libraries(epubreadingorderdialogtests Qt6::Test Qt6::Widgets)
+add_test(NAME epubreadingorderdialogtests COMMAND epubreadingorderdialogtests)
+set_tests_properties(epubreadingorderdialogtests PROPERTIES
+	LABELS "phase-7;epub-reading-order;ui"
+	ENVIRONMENT "QT_QPA_PLATFORM=offscreen")
+
+# Native INDD read-only inspection; this target does not register a file importer.
+add_executable(inddprobetests
+	inddprobetests.cpp
+	../plugins/import/indd/inddprobe.cpp
+	../plugins/import/indd/inddblockdiff.cpp
+	../plugins/import/indd/inddrecordprobe.cpp
+	../plugins/import/indd/inddmetadata.cpp
+	../plugins/import/indd/inddinspection.cpp
+	../plugins/import/indd/inddpreview.cpp)
+target_link_libraries(inddprobetests Qt6::Test Qt6::Core Qt6::Gui)
+add_test(NAME inddprobetests COMMAND inddprobetests)
+set_tests_properties(inddprobetests PROPERTIES LABELS "phase-6;indd-probe;indd-metadata;indd-preview;indd-inspection;indd-block-diff;indd-record-probe")
+
 # The startup and first-run splash use these same light/dark raster assets.
 add_executable(splashartworktests splashartworktests.cpp)
 target_link_libraries(splashartworktests Qt6::Test Qt6::Gui)
@@ -140,6 +172,57 @@ set_tests_properties(runningheader_test_install PROPERTIES
 	LABELS "integration;running-headers"
 	TIMEOUT 180)
 
+set(epub_order_prefs_dir "${CMAKE_CURRENT_BINARY_DIR}/prefs-epub_order")
+set(epub_order_output_dir "${CMAKE_CURRENT_BINARY_DIR}/output-epub_order")
+file(MAKE_DIRECTORY "${epub_order_prefs_dir}" "${epub_order_output_dir}")
+add_test(NAME epub_order_persistence
+	COMMAND "${SCRIBUS_SCRIPT_TEST_EXECUTABLE}"
+		--no-splash
+		--prefs "${epub_order_prefs_dir}"
+		--no-gui
+		--python-script "${CMAKE_CURRENT_SOURCE_DIR}/scripts/test_epub_order_persistence.py")
+set_tests_properties(epub_order_persistence PROPERTIES
+	ENVIRONMENT "QT_QPA_PLATFORM=offscreen;SCRIBUS_TEST_OUTPUT_DIR=${epub_order_output_dir}"
+	FIXTURES_REQUIRED runningheader_test_app
+	LABELS "integration;epub-reading-order;phase-7"
+	PASS_REGULAR_EXPRESSION "EPUB_ORDER_PERSISTENCE_PASSED"
+	RUN_SERIAL TRUE
+	TIMEOUT 180)
+
+set(epub_image_prefs_dir "${CMAKE_CURRENT_BINARY_DIR}/prefs-epub_image")
+set(epub_image_output_dir "${CMAKE_CURRENT_BINARY_DIR}/output-epub_image")
+file(MAKE_DIRECTORY "${epub_image_prefs_dir}" "${epub_image_output_dir}")
+add_test(NAME epub_image_frame_preflight
+	COMMAND "${SCRIBUS_SCRIPT_TEST_EXECUTABLE}"
+		--no-splash
+		--prefs "${epub_image_prefs_dir}"
+		--no-gui
+		--python-script "${CMAKE_CURRENT_SOURCE_DIR}/scripts/test_epub_image_frame_preflight.py")
+set_tests_properties(epub_image_frame_preflight PROPERTIES
+	ENVIRONMENT "QT_QPA_PLATFORM=offscreen;SCRIBUS_TEST_OUTPUT_DIR=${epub_image_output_dir}"
+	FIXTURES_REQUIRED runningheader_test_app
+	LABELS "integration;epub-image;phase-7"
+	PASS_REGULAR_EXPRESSION "EPUB_IMAGE_FRAME_PREFLIGHT_PASSED"
+	RUN_SERIAL TRUE
+	TIMEOUT 180)
+
+set(epub_mixed_prefs_dir "${CMAKE_CURRENT_BINARY_DIR}/prefs-epub_mixed")
+set(epub_mixed_output_dir "${CMAKE_CURRENT_BINARY_DIR}/output-epub_mixed")
+file(MAKE_DIRECTORY "${epub_mixed_prefs_dir}" "${epub_mixed_output_dir}")
+add_test(NAME epub_mixed_reading_order
+	COMMAND "${SCRIBUS_SCRIPT_TEST_EXECUTABLE}"
+		--no-splash
+		--prefs "${epub_mixed_prefs_dir}"
+		--no-gui
+		--python-script "${CMAKE_CURRENT_SOURCE_DIR}/scripts/test_epub_mixed_reading_order.py")
+set_tests_properties(epub_mixed_reading_order PROPERTIES
+	ENVIRONMENT "QT_QPA_PLATFORM=offscreen;SCRIBUS_TEST_OUTPUT_DIR=${epub_mixed_output_dir}"
+	FIXTURES_REQUIRED runningheader_test_app
+	LABELS "integration;epub-reading-order;epub-image;phase-7"
+	PASS_REGULAR_EXPRESSION "EPUB_MIXED_READING_ORDER_PASSED"
+	RUN_SERIAL TRUE
+	TIMEOUT 180)
+
 set(dynamic_variable_prefs_dir "${CMAKE_CURRENT_BINARY_DIR}/prefs-dynamic_variables")
 set(dynamic_variable_output "${CMAKE_CURRENT_BINARY_DIR}/dynamic_variables.sla")
 file(MAKE_DIRECTORY "${dynamic_variable_prefs_dir}")
@@ -233,6 +316,23 @@ set_tests_properties(idml_minimal_import PROPERTIES
 	PASS_REGULAR_EXPRESSION "IDML_MINIMAL_IMPORT_PASSED"
 	RUN_SERIAL TRUE
 	TIMEOUT 60)
+
+set(pagemaker_import_prefs_dir "${CMAKE_CURRENT_BINARY_DIR}/prefs-pagemaker_import")
+set(pagemaker_import_output_dir "${CMAKE_CURRENT_BINARY_DIR}/output-pagemaker_import")
+file(MAKE_DIRECTORY "${pagemaker_import_prefs_dir}" "${pagemaker_import_output_dir}")
+add_test(NAME pagemaker_import
+	COMMAND "${SCRIBUS_SCRIPT_TEST_EXECUTABLE}"
+		--no-splash
+		--prefs "${pagemaker_import_prefs_dir}"
+		--no-gui
+		--python-script "${CMAKE_CURRENT_SOURCE_DIR}/scripts/test_pagemaker_import.py")
+set_tests_properties(pagemaker_import PROPERTIES
+	ENVIRONMENT "QT_QPA_PLATFORM=offscreen;SCRIBUS_TEST_OUTPUT_DIR=${pagemaker_import_output_dir}"
+	FIXTURES_REQUIRED runningheader_test_app
+	LABELS "integration;pagemaker-import;phase-6"
+	PASS_REGULAR_EXPRESSION "PAGEMAKER_IMPORT_PASSED"
+	RUN_SERIAL TRUE
+	TIMEOUT 300)
 
 set(object_style_prefs_dir "${CMAKE_CURRENT_BINARY_DIR}/prefs-object_style_persistence")
 set(object_style_output_dir "${CMAKE_CURRENT_BINARY_DIR}/output-object_style_persistence")

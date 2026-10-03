@@ -92,6 +92,9 @@ set(SCRIBUS_SOURCES
 	documentinformation.cpp
 	documentlogmanager.cpp
 	embeddedimageextractor.cpp
+	epubdocument.cpp
+	epubexport.cpp
+	epubreadingorder.cpp
 	exif.cpp
 	fileloader.cpp
 	filesearch.cpp
@@ -362,6 +365,7 @@ set(SCRIBUS_SOURCES
 	ui/downloadspalette.cpp
 	ui/editor.cpp
 	ui/effectsdialog.cpp
+	ui/epubreadingorderdialog.cpp
 	ui/extimageprops.cpp
 	ui/filedialogeventcatcher.cpp
 	ui/flopwidget.cpp

@@ -268,6 +268,9 @@
     <ClInclude Include="..\..\..\scribus\imagecmykexport.h" />
     <ClInclude Include="..\..\..\scribus\imagelinkreplacement.h" />
     <ClInclude Include="..\..\..\scribus\dynamicvariable.h" />
+    <ClInclude Include="..\..\..\scribus\epubdocument.h" />
+    <ClInclude Include="..\..\..\scribus\epubexport.h" />
+    <ClInclude Include="..\..\..\scribus\epubreadingorder.h" />
     <ClInclude Include="..\..\..\scribus\datamergesource.h" />
     <ClInclude Include="..\..\..\scribus\embeddedimageextractor.h" />
     <ClInclude Include="..\..\..\scribus\imagelinkmatcher.h" />
@@ -310,6 +313,7 @@
     <ClInclude Include="..\..\..\scribus\ui\dynamicvariableinsert.h" />
     <ClInclude Include="..\..\..\scribus\ui\dynamicvariablemanager.h" />
     <ClInclude Include="..\..\..\scribus\ui\datamergedialog.h" />
+    <ClInclude Include="..\..\..\scribus\ui\epubreadingorderdialog.h" />
     <ClInclude Include="..\..\..\scribus\ui\modernui.h" />
     <moc Include="..\..\..\scribus\ui\widgets\inspector_header.h" />
     <moc Include="..\..\..\scribus\actionmanager.h" />
@@ -980,6 +984,9 @@
     <ClCompile Include="..\..\..\scribus\imagelinkreplacement.cpp" />
     <ClCompile Include="..\..\..\scribus\imagealphasilhouette.cpp" />
     <ClCompile Include="..\..\..\scribus\dynamicvariable.cpp" />
+    <ClCompile Include="..\..\..\scribus\epubdocument.cpp" />
+    <ClCompile Include="..\..\..\scribus\epubexport.cpp" />
+    <ClCompile Include="..\..\..\scribus\epubreadingorder.cpp" />
     <ClCompile Include="..\..\..\scribus\datamergesource.cpp" />
     <ClCompile Include="..\..\..\scribus\embeddedimageextractor.cpp" />
     <ClCompile Include="..\..\..\scribus\imagelinkmatcher.cpp" />
@@ -1070,6 +1077,7 @@
     <ClCompile Include="..\..\..\scribus\ui\dynamicvariableinsert.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\dynamicvariablemanager.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\datamergedialog.cpp" />
+    <ClCompile Include="..\..\..\scribus\ui\epubreadingorderdialog.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\widgets\inspector_header.cpp" />
     <ClCompile Include="..\..\..\scribus\actionmanager.cpp" />
     <ClCompile Include="..\..\..\scribus\ui\actionsearchdialog.cpp" />

@@ -40,6 +40,7 @@ for which a new license (GPL+exception) is in place.
 #include "cmdcolor.h"
 #include "cmddialog.h"
 #include "cmddoc.h"
+#include "cmdepub.h"
 #include "cmdgetprop.h"
 #include "cmdgetsetprop.h"
 #include "cmdhistory.h"
@@ -345,6 +346,18 @@ PyMethodDef scribus_methods[] = {
 	{ "docChanged", scribus_docchanged, METH_VARARGS, tr(scribus_docchanged__doc__)},
 	{ "editMasterPage", scribus_editmasterpage, METH_VARARGS, tr(scribus_editmasterpage__doc__)},
 	{ "embedImage", scribus_embedimage, METH_VARARGS, tr(scribus_embedimage__doc__)},
+	{ "epubReadingOrderPreflight", scribus_epubreadingorderpreflight, METH_VARARGS, tr(scribus_epubreadingorderpreflight__doc__)},
+	{ "epubMixedReadingOrderPreflight", scribus_epubmixedreadingorderpreflight, METH_VARARGS, tr(scribus_epubmixedreadingorderpreflight__doc__)},
+	{ "epubImageFramePreflight", scribus_epubimageframepreflight, METH_VARARGS, tr(scribus_epubimageframepreflight__doc__)},
+	{ "setEpubImageAltText", scribus_setepubimagealttext, METH_VARARGS, tr(scribus_setepubimagealttext__doc__)},
+	{ "setEpubImageDecorative", scribus_setepubimagedecorative, METH_VARARGS, tr(scribus_setepubimagedecorative__doc__)},
+	{ "setEpubImageCaption", scribus_setepubimagecaption, METH_VARARGS, tr(scribus_setepubimagecaption__doc__)},
+	{ "setEpubImageCaptionAlignment", scribus_setepubimagecaptionalignment, METH_VARARGS, tr(scribus_setepubimagecaptionalignment__doc__)},
+	{ "setEpubImageWidthPercent", scribus_setepubimagewidthpercent, METH_VARARGS, tr(scribus_setepubimagewidthpercent__doc__)},
+	{ "setEpubUseImageFrameCrop", scribus_setepubuseimageframecrop, METH_VARARGS, tr(scribus_setepubuseimageframecrop__doc__)},
+	{ "setEpubImageReadingOrder", scribus_setepubimagereadingorder, METH_VARARGS, tr(scribus_setepubimagereadingorder__doc__)},
+	{ "exportEpubTextOnly", scribus_exportepubtextonly, METH_VARARGS, tr(scribus_exportepubtextonly__doc__)},
+	{ "exportEpubTextAndImages", scribus_exportepubtextandimages, METH_VARARGS, tr(scribus_exportepubtextandimages__doc__)},
 	{ "exportImageAsCMYKCopy", scribus_exportimageascmykcopy, METH_VARARGS, tr(scribus_exportimageascmykcopy__doc__)},
 	{ "batchExportImagesAsCMYK", scribus_batchexportimagesascmyk, METH_VARARGS, tr(scribus_batchexportimagesascmyk__doc__)},
 	{ "exportDocumentCheck", (PyCFunction) scribus_exportdocumentcheck, METH_VARARGS|METH_KEYWORDS, tr(scribus_exportdocumentcheck__doc__)},
