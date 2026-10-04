@@ -3156,7 +3156,12 @@ void ScribusView::wheelEvent(QWheelEvent *w)
 	if (w->modifiers() == Qt::ControlModifier)
 	{
 		FPoint mp = m_canvas->globalToCanvas(w->globalPos());
-		w->delta() > 0 ? slotZoomIn(mp.x(), mp.y() , true) : slotZoomOut(mp.x(), mp.y(), true);
+		wheelAccumulatedDelta += w->delta();
+		if (abs(wheelAccumulatedDelta) >= QWheelEvent::DefaultDeltasPerStep)
+		{
+			wheelAccumulatedDelta > 0 ? slotZoomIn(mp.x(), mp.y() , true) : slotZoomOut(mp.x(), mp.y(), true);
+			wheelAccumulatedDelta = 0;
+		}
 	}
 	else
 	{

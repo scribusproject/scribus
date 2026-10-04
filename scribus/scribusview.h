@@ -298,6 +298,7 @@ private:
 	bool linkAfterDraw { false };
 	bool ImageAfterDraw { false };
 	QStack<ViewState> m_viewStates;
+	int wheelAccumulatedDelta { 0 };
 
 private slots:
 	void setZoom();
