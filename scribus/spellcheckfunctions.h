@@ -71,4 +71,11 @@ bool isWordMisspelled(const QString& word, const QString& language);
  */
 QStringList getSpellingSuggestions(const QString& word, const QString& language);
 
+/**
+ * @brief Clear cached "missing dictionary" entries so the next search will look
+ * in the filesystem again. Run this after using Resource Manager to install new
+ * dictionaries.
+ */
+void invalidateMissingDictionaries();
+
 #endif // SPELLCHECKFUNCTIONS_H

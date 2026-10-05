@@ -43,6 +43,7 @@ for which a new license (GPL+exception) is in place.
 #include "resourcemanagerlicense.h"
 #include "scpaths.h"
 #include "scribusapp.h"
+#include "spellcheckfunctions.h"
 #include "third_party/zip/scribus_zip.h"
 #include "util_file.h"
 
@@ -1085,6 +1086,9 @@ void ResourceManager::downloadFilesFinished()
 						//do nothing as the file is already in place from dl mgr
 					}
 				}
+				//If we installed new dictionaries, invalidate the missing entries
+				if (category == RM_SPELL)
+					invalidateMissingDictionaries();
 			}
 			break;
 		case RM_HELP:

@@ -67,6 +67,9 @@ class HunspellManager
 				if (affPath.isEmpty() || dicPath.isEmpty())
 				{
 					qWarning() << "Dictionary files not found for language:" << language;
+					m_dictionaries[language] = nullptr;
+					if (!altLanguage.isEmpty() && altLanguage != language)
+						m_dictionaries[altLanguage] = nullptr;
 					return nullptr;
 				}
 			}
@@ -94,6 +97,18 @@ class HunspellManager
 			return entry;
 		}
 
+		void invalidateMissingCache()
+		{
+			QMutexLocker locker(&m_mutex);
+			for (auto it = m_dictionaries.begin(); it != m_dictionaries.end(); )
+			{
+				if (it.value() == nullptr)
+					it = m_dictionaries.erase(it);
+				else
+					++it;
+			}
+		}
+
 		~HunspellManager()
 		{
 			// Multiple keys may point to the same DictEntry (aliasing for language fallbacks),
@@ -101,7 +116,7 @@ class HunspellManager
 			QList<DictEntry*> toDelete;
 			for (DictEntry* entry : m_dictionaries.values())
 			{
-				if (!toDelete.contains(entry))
+				if (entry && !toDelete.contains(entry))
 					toDelete.append(entry);
 			}
 			for (DictEntry* entry : toDelete)
@@ -242,4 +257,8 @@ QStringList getSpellingSuggestions(const QString& word, const QString& language)
 		result << entry->decoder.decode(QByteArray::fromStdString(suggestions[i]));
 
 	return result;
+}
+void invalidateMissingDictionaries()
+{
+	HunspellManager::instance()->invalidateMissingCache();
 }
