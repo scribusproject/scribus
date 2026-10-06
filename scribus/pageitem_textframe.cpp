@@ -45,6 +45,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "pageitem_group.h"
 #include "pageitem_noteframe.h"
+#include "pageitem_table.h"
 #include "prefsmanager.h"
 #include "prefsstructs.h"
 #include "scconfig.h"
@@ -1049,11 +1050,28 @@ static double findRealOverflowEnd(const QRegion& shape, QRect pt, double maxX)
 	return pt.left() + 0.5;
 }
 
-static double adjustToBaselineGrid (const LineControl &control, PageItem *item, int OwnPage)
+// The baseline grid is measured against where the top of the frame sits
+// on its page. A cell's text frame is placed in table coordinates and the
+// painter shifts it by half the outer border, so add both back.  (see QPointF gridOffset())
+
+static double baselineGridOrigin(const PageItem *item, int ownPage)
 {
 	double by = item->yPos();
-	if (OwnPage != -1)
-		by = by - item->doc()->Pages->at(OwnPage)->yOffset();
+	const PageItem_TextFrame *textFrame = item->asTextFrame();
+	if (textFrame && textFrame->isTableCellTextFrame())
+	{
+		const PageItem_Table *table = item->parentTable();
+		if (table)
+			by += table->yPos() + table->gridOffset().y();
+	}
+	if (ownPage != -1)
+		by -= item->doc()->Pages->at(ownPage)->yOffset();
+	return by;
+}
+
+static double adjustToBaselineGrid (const LineControl &control, PageItem *item, int OwnPage)
+{
+	double by = baselineGridOrigin(item, OwnPage);
 	qint64 ol1 = qRound64((by + control.yPos - item->doc()->guidesPrefs().offsetBaselineGrid) * 10000.0);
 	qint64 ol2 = static_cast<qint64>(ol1 / item->doc()->guidesPrefs().valueBaselineGrid);
 //						qDebug() << QString("baseline adjust: y=%1->%2").arg(current.yPos).arg(ceil(  ol2 / 10000.0 ) * item->doc()->typographicSettings.valueBaselineGrid + item->doc()->typographicSettings.offsetBaselineGrid - by);
@@ -1748,9 +1766,7 @@ void PageItem_TextFrame::layout()
 						{
 							if (current.yPos <= lastLineY)
 								current.yPos = lastLineY + 1;
-							double by = m_yPos;
-							if (OwnPage != -1)
-								by = m_yPos - m_Doc->Pages->at(OwnPage)->yOffset();
+							double by = baselineGridOrigin(this, OwnPage);
 							qint64 ol1 = qRound64((by + current.yPos - m_Doc->guidesPrefs().offsetBaselineGrid) * 10000.0);
 							qint64 ol2 = static_cast<qint64>(ol1 / m_Doc->guidesPrefs().valueBaselineGrid);
 							current.yPos = ceil(ol2 / 10000.0) * m_Doc->guidesPrefs().valueBaselineGrid + m_Doc->guidesPrefs().offsetBaselineGrid - by;
@@ -1775,9 +1791,7 @@ void PageItem_TextFrame::layout()
 						if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing)
 						{
 							current.yPos += m_Doc->guidesPrefs().valueBaselineGrid;
-							double by = m_yPos;
-							if (OwnPage != -1)
-								by = m_yPos - m_Doc->Pages->at(OwnPage)->yOffset();
+							double by = baselineGridOrigin(this, OwnPage);
 							qint64 ol1 = qRound64((by + current.yPos - m_Doc->guidesPrefs().offsetBaselineGrid) * 10000.0);
 							qint64 ol2 = static_cast<qint64>(ol1 / m_Doc->guidesPrefs().valueBaselineGrid);
 							current.yPos = ceil(ol2 / 10000.0) * m_Doc->guidesPrefs().valueBaselineGrid + m_Doc->guidesPrefs().offsetBaselineGrid - by;
@@ -1956,9 +1970,7 @@ void PageItem_TextFrame::layout()
 						if (style.lineSpacingMode() == ParagraphStyle::BaselineGridLineSpacing || FlopBaseline)
 						{
 							current.yPos++;
-							double by = m_yPos;
-							if (OwnPage != -1)
-								by = m_yPos - m_Doc->Pages->at(OwnPage)->yOffset();
+							double by = baselineGridOrigin(this, OwnPage);
 							qint64 ol1 = qRound64((by + current.yPos - m_Doc->guidesPrefs().offsetBaselineGrid) * 10000.0);
 							qint64 ol2 = static_cast<qint64>(ol1 / m_Doc->guidesPrefs().valueBaselineGrid);
 							current.yPos = ceil(ol2 / 10000.0) * m_Doc->guidesPrefs().valueBaselineGrid + m_Doc->guidesPrefs().offsetBaselineGrid - by;

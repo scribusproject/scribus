@@ -2152,6 +2152,23 @@ void PageItem_Table::DrawObj_Item(ScPainter *p, const QRectF& /*e*/)
 	if (m_Doc->RePos)
 		return;
 
+	// Moving the table changes where cell text belongs but does not tell cells to re-layout
+	if (!qFuzzyCompare(m_lastLayoutYPos, yPos()))
+	{
+		m_lastLayoutYPos = yPos();
+		int rowCount = rows();
+		int columnCount = columns();
+		for (int row = 0; row < rowCount; ++row)
+		{
+			for (int col = 0; col < columnCount; ++col)
+			{
+				TableCell cell = cellAt(row, col);
+				if (cell.row() == row && cell.column() == col)
+					cell.textFrame()->invalidateLayout();
+			}
+		}
+	}
+
 	p->save();
 
 	// Set the clip path.

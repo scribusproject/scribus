@@ -900,6 +900,8 @@ private:
 	/// Currently active cell.
 	TableCell m_activeCell;
 
+	double m_lastLayoutYPos { 0.0 };
+
 	/*
 	 * The two members below describe the active "logical position" on the table grid.
 	 * This position may or may not correspond with the position of the active cell.
