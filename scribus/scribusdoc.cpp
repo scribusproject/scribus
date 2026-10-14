@@ -16272,6 +16272,8 @@ void ScribusDoc::addToGroup(PageItem* group, PageItem* item)
 			item->PoLine.translate(0, item->height());
 		}
 	}
+	// The geometry changed as part of the group operation so resync the baseline
+	item->syncUndoBaseline();
 }
 
 void ScribusDoc::removeFromGroup(PageItem* item)
@@ -16376,6 +16378,8 @@ void ScribusDoc::removeFromGroup(PageItem* item)
 	else
 		item->Clip = flattenPath(item->PoLine, item->Segments);
 	setRedrawBounding(item);
+	// The geometry changed as part of the remove from group operation so resync the baseline
+	item->syncUndoBaseline();
 }
 
 void ScribusDoc::rescaleGroup(PageItem* group, double scale)
