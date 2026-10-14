@@ -1206,13 +1206,15 @@ public: // Start public functions
 	 * @brief Add an undo action to the undo guis
 	 * @author Riku Leino
 	 */
-	/*@{*/
 	void moveUndoAction();
 	void resizeUndoAction();
 	void rotateUndoAction();
 	void changeImageOffsetUndoAction();
 	void changeImageScaleUndoAction();
-	/*@}*/
+	/**
+	 * @brief syncUndoBaseline : Make the undo baseline (oldXpos, oldYpos, oldWidth, etc) match the item's current state.
+	 */
+	void syncUndoBaseline();
 	/** @brief Required by the UndoObject */
 	void restore(UndoState *state, bool isUndo) override;
 

@@ -3382,6 +3382,8 @@ bool ScribusMainWindow::loadPage(const QString& fileName, int Nr, bool Mpa, cons
 	for (int i = oldItemsCount; i < docItemsCount; ++i)
 	{
 		PageItem *ite = doc->Items->at(i);
+		//Reset undo data as importers/loaders put imported items on the page which bypasses undo tracking
+		ite->syncUndoBaseline();
 		if ((ite->isTextFrame()) && (ite->isBookmark))
 			AddBookMark(ite);
 	}

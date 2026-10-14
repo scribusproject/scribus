@@ -4856,6 +4856,22 @@ void PageItem::changeImageScaleUndoAction()
 	oldLocalScY = m_imageYScale;
 }
 
+void PageItem::syncUndoBaseline()
+{
+	oldXpos = m_xPos;
+	oldYpos = m_yPos;
+	oldWidth = m_width;
+	oldHeight = m_height;
+	oldRot = m_rotation;
+	oldOwnPage = OwnPage;
+	oldLocalX = m_imageXOffset;
+	oldLocalY = m_imageYOffset;
+	oldLocalScX = m_imageXScale;
+	oldLocalScY = m_imageYScale;
+	for (int i = 0; i < groupItemList.count(); ++i)
+		groupItemList.at(i)->syncUndoBaseline();
+}
+
 void PageItem::restore(UndoState *state, bool isUndo)
 {
 	auto* ss = dynamic_cast<SimpleState*>(state);
