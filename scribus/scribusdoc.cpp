@@ -17465,6 +17465,10 @@ void ScribusDoc::itemSelection_UnlinkTextFrameAndCutText( Selection *customSelec
 	if (selectedItemCount == 0)
 		return;
 
+	UndoTransaction undoTransaction;
+	if (UndoManager::undoEnabled() && (selectedItemCount > 1))
+		undoTransaction = m_undoManager->beginTransaction(Um::Selection, Um::ITextFrame, Um::UnlinkTextFrame, QString(), Um::ITextFrame);
+
 	for (int i = 0; i < selectedItemCount; ++i)
 	{
 		PageItem *currItem = itemSelection->itemAt(i);
@@ -17473,6 +17477,9 @@ void ScribusDoc::itemSelection_UnlinkTextFrameAndCutText( Selection *customSelec
 		if (currItem->nextInChain() || currItem->prevInChain())
 			currItem->unlinkWithText();
 	}
+	if (undoTransaction)
+		undoTransaction.commit();
+
 	regionsChanged()->update(QRectF());
 	changed();
 	itemSelection->itemAt(0)->emitAllToGUI();

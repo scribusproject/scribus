@@ -41,6 +41,7 @@
 #include "ui/contextmenu.h"
 #include "ui/pageselector.h"
 #include "ui/scrspinbox.h"
+#include "undomanager.h"
 
 
 
@@ -82,6 +83,11 @@ void CanvasMode_FrameLinks::activate(bool fromGesture)
 		switch (m_doc->appMode)
 		{
 		case modeLinkFrames:
+		{
+			UndoTransaction linkTransaction;
+			if (UndoManager::undoEnabled() && (m_doc->m_Selection->count() > 2))
+				linkTransaction = UndoManager::instance()->beginTransaction(Um::Selection, Um::ITextFrame, Um::LinkTextFrame, QString(), Um::ITextFrame);
+
 			// if there are more than one text frames selected, link them and exit
 			for(int i = 0; i < m_doc->m_Selection->count(); i++)
 			{
@@ -94,9 +100,13 @@ void CanvasMode_FrameLinks::activate(bool fromGesture)
 					item1->link(item2);
 				}
 			}
+			if (linkTransaction)
+				linkTransaction.commit();
+
 			// now exit and return to the normal mode
 			m_view->requestMode(modeNormal);
 			return;
+		}
 		}
 	}
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
@@ -205,6 +215,7 @@ void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 				
 				if (currItem->nextInChain() == nullptr && currItem != bblast) //possibility to insert empty frames into chain
 				{
+					UndoTransaction linkTransaction;
 					if (bb->prevInChain() != nullptr)
 					{
 						ScMessageBox msgBox(QMessageBox::Question, tr("Linking Text Frames"),
@@ -215,7 +226,12 @@ void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 						msgBox.setDefaultBatchButton(afterButton);
 						msgBox.exec();
 						if ((QPushButton *) msgBox.clickedButton() == cancelButton)
+						{
+							m_doc->m_Selection->delaySignalsOff();
 							break;
+						}
+						if (UndoManager::undoEnabled() && bb->prevInChain() != nullptr)
+							linkTransaction = UndoManager::instance()->beginTransaction(Um::Selection, Um::ITextFrame, Um::LinkTextFrame, QString(), Um::ITextFrame);
 						if ((QPushButton *) msgBox.clickedButton() == beforeButton)
 						{
 							if (currItem->prevInChain())
@@ -246,6 +262,8 @@ void CanvasMode_FrameLinks::mousePressEvent(QMouseEvent *m)
 					if (bb->prevInChain())
 						bb->prevInChain()->unlink();
 					currItem->link(bb);
+					if (linkTransaction)
+						linkTransaction.commit();
 
 					/*
 					// #133881: Remove item renumbering on link as 1.5.x has better drawing methods
