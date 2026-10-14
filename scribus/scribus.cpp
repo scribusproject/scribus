@@ -4835,6 +4835,7 @@ void ScribusMainWindow::slotEditPaste(bool forcePlainText)
 				double y = (view->contentsY() / view->scale()) + ((view->visibleHeight() / 2.0) / view->scale()) - (retObj->height() / 2.0);
 				retObj->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
 				retObj->setXYPos(x, y, true);
+				retObj->syncUndoBaseline();
 				doc->SnapGrid = savedAlignGrid;
 				doc->SnapGuides = savedAlignGuides;
 				doc->SnapItems = savedAlignElement;
@@ -4945,6 +4946,7 @@ void ScribusMainWindow::slotEditPaste(bool forcePlainText)
 			double y = (view->contentsY() / view->scale()) + ((view->visibleHeight() / 2.0) / view->scale()) - (retObj->height() / 2.0);
 			retObj->setTextFlowMode(PageItem::TextFlowUsesBoundingBox);
 			retObj->setXYPos(x, y, true);
+			retObj->syncUndoBaseline();
 		}
 	}
 	if (activeTransaction)

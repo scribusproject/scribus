@@ -14340,6 +14340,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(const ItemMultipleDuplicateData
 				PageItem* bItem = Items->at(j);
 				bItem->setLocked(false);
 				bItem->moveBy(dH2, dV2, true);
+				bItem->syncUndoBaseline();
 				if (bItem->isGroup())
 					GroupOnPage(bItem);
 				else
@@ -14394,6 +14395,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(const ItemMultipleDuplicateData
 					PageItem* bItem = Items->at(as);
 					bItem->setLocked(false);
 					bItem->moveBy(j * dX, i * dY, true);
+					bItem->syncUndoBaseline();
 					if (bItem->isGroup())
 						GroupOnPage(bItem);
 					else

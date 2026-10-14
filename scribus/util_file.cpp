@@ -297,6 +297,7 @@ PageItem* getVectorFileFromData(ScribusDoc *doc, const QByteArray &data, const Q
 			retObj->setWidthHeight(w, h, true);
 		retObj->updateClip();
 		retObj->update();
+		retObj->syncUndoBaseline();
 	}
 	doc->m_Selection->clear();
 	doc->m_Selection->delaySignalsOff();
