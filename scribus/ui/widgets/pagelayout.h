@@ -73,6 +73,7 @@ private:
 
 protected slots:
 	void languageChange();
+	void iconSetChange();
 	void changeScheme(int index);
 	void changeFirstPage(int index);
 	void changeBindingDirection(bool checked);

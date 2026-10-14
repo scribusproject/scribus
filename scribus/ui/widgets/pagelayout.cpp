@@ -61,10 +61,6 @@ PageLayouts::PageLayouts(QWidget* parent)  : QWidget( parent )
 	buttonBindingDirection = new QToolButton(this);
 	buttonBindingDirection->setCheckable(true);
 	buttonBindingDirection->setAutoRaise(true);
-	QIcon pageBindingIcon;
-	pageBindingIcon.addPixmap(IconManager::instance().loadPixmap("page-binding-left"), QIcon::Normal, QIcon::Off);
-	pageBindingIcon.addPixmap(IconManager::instance().loadPixmap("page-binding-right"), QIcon::Normal, QIcon::On);
-	buttonBindingDirection->setIcon(pageBindingIcon);
 
 	labelBinding = new FormWidget();
 	labelBinding->setFont(layFont);
@@ -72,10 +68,11 @@ PageLayouts::PageLayouts(QWidget* parent)  : QWidget( parent )
 	labelBinding->setLabelVisibility(!m_hideLabels);
 	layoutGroupLayout->addWidget( labelBinding );
 
+	iconSetChange();
 	languageChange();
 
 	connect(ScQApp, SIGNAL(labelVisibilityChanged(bool)), this, SLOT(toggleLabelVisibility(bool)));
-	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(languageChange()));
+	connect(ScQApp, SIGNAL(iconSetChanged()), this, SLOT(iconSetChange()));
 	connect(buttonScheme, &DropdownButton::activated, this, &PageLayouts::changeScheme, Qt::UniqueConnection);
 	connect(buttonFirstPage, &DropdownButton::activated, this, &PageLayouts::changeFirstPage, Qt::UniqueConnection);
 	connect(buttonBindingDirection, &QToolButton::toggled, this, &PageLayouts::changeBindingDirection, Qt::UniqueConnection);
@@ -186,10 +183,6 @@ void PageLayouts::toggleLabelVisibility(bool visibility)
 
 void PageLayouts::languageChange()
 {
-
-	reloadScheme();
-	reloadFirstPage(m_scheme);
-
 	labelScheme->setText(tr("Scheme"));
 	labelPages->setText(tr("First Page"));
 	labelBinding->setText(tr("Binding"));
@@ -204,6 +197,16 @@ void PageLayouts::languageChange()
 
 	QSignalBlocker sigBinding(buttonBindingDirection);
 	buttonBindingDirection->setToolTip(tr("Bind the pages on the right (LTR) or left (RTL) side"));
+}
+
+void PageLayouts::iconSetChange()
+{
+	reloadScheme();
+	reloadFirstPage(m_scheme);
+	QIcon pageBindingIcon;
+	pageBindingIcon.addPixmap(IconManager::instance().loadPixmap("page-binding-left"), QIcon::Normal, QIcon::Off);
+	pageBindingIcon.addPixmap(IconManager::instance().loadPixmap("page-binding-right"), QIcon::Normal, QIcon::On);
+	buttonBindingDirection->setIcon(pageBindingIcon);
 }
 
 void PageLayouts::changeScheme(int index)
