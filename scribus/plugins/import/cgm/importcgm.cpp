@@ -1417,8 +1417,10 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
 		finishItem(ite, false);
 		QImage image(nx, ny, QImage::Format_ARGB32);
+		const int imgRows = image.isNull() ? 0 : ny;
 		quint16 flag = paramLen & 0x8000;
-		quint16 pLen = (paramLen & 0x7FFF) - bytesRead;
+		const qint64 remaining = (qint64) (paramLen & 0x7FFF) - bytesRead;
+		quint16 pLen = (remaining > 0) ? (quint16) remaining : 0;
 		QByteArray imageData;
 		imageData.resize(0);
 		QByteArray rD = ts.device()->read(pLen);
@@ -1434,7 +1436,7 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		if (colorPrecision < 8)
 		{
 			auto *breader = new ScBitReader(imageData);
-			for (int yy = 0; yy < ny; yy++)
+			for (int yy = 0; yy < imgRows; yy++)
 			{
 				ScColor color;
 				auto *s = (QRgb*)(image.scanLine(yy));
@@ -1482,7 +1484,7 @@ void CgmPlug::decodeClass4(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		{
 			QDataStream istr(imageData);
 			istr.setByteOrder(QDataStream::BigEndian);
-			for (int yy = 0; yy < ny; yy++)
+			for (int yy = 0; yy < imgRows; yy++)
 			{
 				ScColor color;
 				auto *s = (QRgb*)(image.scanLine(yy));
@@ -2335,7 +2337,8 @@ void CgmPlug::decodeClass5(QDataStream &ts, quint16 elemID, quint16 paramLen)
 		int t_colorPrecision = colorPrecision;
 		colorPrecision = getBinaryUInt(ts, intPrecision);
 		QImage tmpImg(nx, ny, QImage::Format_ARGB32);
-		for (uint a = 0; a < ny; a++)
+		const uint imgRows = tmpImg.isNull() ? 0u : ny;
+		for (uint a = 0; a < imgRows; a++)
 		{
 			auto *s = (QRgb*) tmpImg.scanLine(a);
 			for (uint b = 0; b < nx; b++)
