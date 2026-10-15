@@ -159,6 +159,17 @@ bool XarPlug::readColors(const QString& fileName, ColorList & colors)
 	return success;
 }
 
+static quint32 xarReadableLength(QDataStream &ts, quint32 want)
+{
+	QIODevice* dev = ts.device();
+	if ((dev == nullptr) || dev->isSequential())
+		return want;
+	const qint64 avail = dev->size() - dev->pos();
+	if (avail <= 0)
+		return 0;
+	return (quint32) qMin<qint64>(want, avail);
+}
+
 QImage XarPlug::readThumbnail(const QString& fName)
 {
 	progressDialog = nullptr;
@@ -201,8 +212,9 @@ QImage XarPlug::readThumbnail(const QString& fName)
 					if ((opCode == 61) || (opCode == 62) || (opCode == 63))
 					{
 						QByteArray data;
-						data.resize(dataLen);
-						tsc.readRawData(data.data(), dataLen);
+						const quint32 dataAvail = xarReadableLength(tsc, dataLen);
+						data.resize(dataAvail);
+						tsc.readRawData(data.data(), dataAvail);
 						image.loadFromData(data);
 					}
 					else if (opCode == 45)
@@ -217,8 +229,9 @@ QImage XarPlug::readThumbnail(const QString& fName)
 				if ((opCode == 61) || (opCode == 62) || (opCode == 63))
 				{
 					QByteArray data;
-					data.resize(dataLen);
-					ts.readRawData(data.data(), dataLen);
+					const quint32 dataAvail = xarReadableLength(ts, dataLen);
+					data.resize(dataAvail);
+					ts.readRawData(data.data(), dataAvail);
 					image.loadFromData(data);
 				}
 				else if (opCode == 45)
@@ -2694,8 +2707,14 @@ void XarPlug::defineBitmap(QDataStream &ts, quint32 dataLen, quint32 tag)
 			bytesRead += 3;
 		}
 	}
-	imageData.resize(dataLen - bytesRead);
-	ts.readRawData(imageData.data(), dataLen - bytesRead);
+
+	if (bytesRead > dataLen)
+		return;
+
+	const quint32 imgAvail = xarReadableLength(ts, dataLen - bytesRead);
+	imageData.resize(imgAvail);
+	ts.readRawData(imageData.data(), imgAvail);
+
 	QImage image;
 	if (image.loadFromData(imageData))
 	{
