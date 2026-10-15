@@ -2453,6 +2453,8 @@ void SvmPlug::handleEMFPlus(QDataStream &ds, quint32 dtaSize)
 		flagsL = (flagsHL & 0xFF00) >> 8;
 		flagsH = (flagsHL & 0x00FF);
 		dsEmf >> size2 >> dataSize;
+		if (size2 < 12)
+			break;
 		switch (id2)
 		{
 			case U_PMR_HEADER:
@@ -2642,7 +2644,8 @@ void SvmPlug::handleEMFPlus(QDataStream &ds, quint32 dtaSize)
 				qDebug() << "\tUnknown Op-Code" << id2;
 				break;
 		}
-		dsEmf.device()->seek(posi2 + size2);
+		if (!dsEmf.device()->seek(posi2 + size2))
+			break;
 	}
 }
 
