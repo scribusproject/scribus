@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include <QApplication>
 #include <QDebug>
 #include <QDir>
+#include <QFileInfo>
 #include <QProcess>
 #include <QStandardPaths>
 
@@ -171,54 +172,25 @@ ScPaths::~ScPaths() = default;
 QString ScPaths::bundleDir() const
 {
 	// On MacOS/X, override the compile-time settings with a location
-// obtained from the system.
+	// obtained from the system.
 #ifdef Q_OS_MACOS
 	// Set up the various app paths to look inside the app bundle
-	CFURLRef pluginRef = CFBundleCopyBundleURL(CFBundleGetMainBundle());
-	CFStringRef macPath = CFURLCopyFileSystemPath(pluginRef, kCFURLPOSIXPathStyle);
-	const char *pathPtr = CFStringGetCStringPtr(macPath, CFStringGetSystemEncoding());
-	if (pathPtr != nullptr && strlen(pathPtr) > 0)
-	{
-		// make sure we get the Scribus.app directory, not some subdir
-		// strip trailing '/':
-		qDebug("Path = %s", pathPtr);
-		char *p = const_cast<char*>(pathPtr + strlen(pathPtr) - 1);
-		while (*p == '/')
-			--p;
-		++p;
-		*p = '\0';
-		if (strcmp("/bin", p-4) == 0)
-		{
-			p -= 4;
-			*p = '\0';
-		}
-		if (strcmp("/MacOS", p-6) == 0)
-		{
-			p -= 6;
-			*p = '\0';
-		}
-		if (strcmp("/Contents", p-9) == 0)
-		{
-			p -= 9;
-			*p = '\0';
-		}
-		QString q_pathPtr(pathPtr);
-		CFRelease(pluginRef);
-		CFRelease(macPath);
-		return q_pathPtr;
-	}
-	char buf[2048];
-	CFStringGetCString (macPath, buf, 2048, kCFStringEncodingUTF8);
-	QString q_pathPtr = QString::fromUtf8(buf);
-	if (q_pathPtr.endsWith("/bin"))
-		q_pathPtr.chop(4);
-	if (q_pathPtr.endsWith("/MacOS"))
-		q_pathPtr.chop(6);
-	if (q_pathPtr.endsWith("/Contents"))
-		q_pathPtr.chop(9);
-	CFRelease(pluginRef);
-	CFRelease(macPath);
-	return q_pathPtr;
+	CFURLRef bundleURL = CFBundleCopyBundleURL(CFBundleGetMainBundle());
+	CFStringRef macPath = CFURLCopyFileSystemPath(bundleURL, kCFURLPOSIXPathStyle);
+	QString path = QString::fromCFString(macPath);
+	CFRelease(bundleURL);
+	QString canonicalPath = QFileInfo(path).canonicalFilePath();
+	if (!canonicalPath.isEmpty())
+		path = canonicalPath;
+	while (path.length() > 1 && path.endsWith('/'))
+		path.chop(1);
+	if (path.endsWith("/bin", Qt::CaseInsensitive))
+		path.chop(4);
+	if (path.endsWith("/MacOS", Qt::CaseInsensitive))
+		path.chop(6);
+	if (path.endsWith("/Contents", Qt::CaseInsensitive))
+		path.chop(9);
+	return path;
 #endif
 	return QString();
 }
