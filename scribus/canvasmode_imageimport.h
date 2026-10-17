@@ -55,12 +55,14 @@ public:
 
 private:
 	bool m_keyRepeat {false};
-	QString m_tipText;
+	QPixmap m_previewPixmap;
+	QString m_previewText;
 	QStringList m_imageList;
 	ScribusMainWindow *m_ScMW {nullptr};
 	double m_Mx {0.0};
 	double m_My {0.0};
-	void newToolTip(const QString& name);
+	void displayPreview(QPointF globalPos);
+	void updatePreview(const QString& name);
 };
 
 #endif // CANVASMODE_IMAGEIMPORT_H

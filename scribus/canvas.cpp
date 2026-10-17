@@ -19,6 +19,12 @@
 #include <cmath>
 
 // #include <QDebug>
+#include <QEvent>
+#include <QGuiApplication>
+#include <QLabel>
+#include <QPainter>
+#include <QPalette>
+#include <QTimer>
 #include <QToolTip>
 #include <QWidget>
 
@@ -46,6 +52,9 @@ static QPoint contentsToViewport(QPoint p)
 {
 	return p;
 }
+
+constexpr int HUD_HIDE_DELAY_MS = 150;
+constexpr double HUD_MOVE_GRACE_PX = 5.0;
 
 QDataStream &operator<< ( QDataStream & ds, const CanvasViewMode & vm )
 {
@@ -92,6 +101,17 @@ Canvas::Canvas(ScribusDoc* doc, ScribusView* parent) : QWidget(parent), m_doc(do
 	m_buffer = QPixmap();
 	m_bufferRect = QRect();
 	m_renderMode = RENDER_NORMAL;
+
+	m_hudLabel = new QLabel(m_view->viewport());
+	m_hudLabel->setAttribute(Qt::WA_TransparentForMouseEvents, true);
+	m_hudLabel->setFocusPolicy(Qt::NoFocus);
+	m_hudLabel->setTextFormat(Qt::PlainText);
+	updateHUDStyle();
+	m_hudLabel->hide();
+
+	m_hudHideTimer = new QTimer(this);
+	m_hudHideTimer->setSingleShot(true);
+	connect(m_hudHideTimer, &QTimer::timeout, this, &Canvas::hudTimeout);
 }
 
 void Canvas::setPreviewVisual(int mode)
@@ -2240,10 +2260,127 @@ void Canvas::drawPixmap(QPainter& painter, double x, double y, const QPixmap& pi
 	painter.drawPixmap(x, y, pixmap, sx, sy, sw, sh);
 }
 
+void Canvas::displayHUD(QPointF globalPos, const QString& text, bool autoHide)
+{
+	m_hudLabel->setPixmap(QPixmap());
+	m_hudLabel->setText(text);
+	positionHUD(globalPos, autoHide);
+}
+
+void Canvas::displayHUD(QPointF globalPos, const QPixmap& pixmap, bool autoHide)
+{
+	m_hudLabel->clear();
+	m_hudLabel->setPixmap(pixmap);
+	positionHUD(globalPos, autoHide);
+}
+
+void Canvas::beginHUDLinger(QPointF globalPos)
+{
+	if (!m_hudAutoHide || !m_hudLabel->isVisible())
+		return;
+
+	m_hudLingering = true;
+	m_hudLingerOrigin = globalPos;
+	m_hudHideTimer->start(HUD_HIDE_DELAY_MS);
+}
+
+void Canvas::handleHUDMouseMove(QPointF globalPos)
+{
+	if (!m_hudLingering || !m_hudLabel->isVisible())
+		return;
+
+	const QPointF delta = globalPos - m_hudLingerOrigin;
+	if (delta.x() * delta.x() + delta.y() * delta.y() > HUD_MOVE_GRACE_PX * HUD_MOVE_GRACE_PX)
+		hideHUD();
+}
+
+void Canvas::hudTimeout()
+{
+	// Drags that do not pass through ScribusView (e.g. guides dragged from the rulers)
+	// never set m_MouseButtonPressed, so check the real button state before hiding
+	if (QGuiApplication::mouseButtons() != Qt::NoButton)
+	{
+		m_hudHideTimer->start(HUD_HIDE_DELAY_MS);
+		return;
+	}
+	hideHUD();
+}
+
+void Canvas::hideHUD()
+{
+	m_hudHideTimer->stop();
+	m_hudLingering = false;
+	m_hudAutoHide = false;
+	m_hudLabel->hide();
+}
+
+void Canvas::positionHUD(QPointF globalPos, bool autoHide)
+{
+	constexpr int hudOffsetX = 12;
+	constexpr int hudOffsetY = 16;
+	constexpr int hudViewportPadding = 5;
+
+	m_hudLabel->adjustSize();
+
+	QWidget* viewport = m_view->viewport();
+	const QRect visibleRect(viewport->mapToGlobal(QPoint(0, 0)), viewport->size());
+	const QRect hudBounds = visibleRect.adjusted(hudViewportPadding, hudViewportPadding, -hudViewportPadding, -hudViewportPadding);
+	const QPoint anchor = globalPos.toPoint();
+	QPoint hudGlobalPos = anchor + QPoint(hudOffsetX, hudOffsetY);
+	if (hudGlobalPos.x() + m_hudLabel->width() > hudBounds.right() + 1)
+		hudGlobalPos.setX(anchor.x() - m_hudLabel->width() - hudOffsetX);
+	if (hudGlobalPos.y() + m_hudLabel->height() > hudBounds.bottom() + 1)
+		hudGlobalPos.setY(anchor.y() - m_hudLabel->height() - hudOffsetY);
+
+	const int maxX = qMax(hudBounds.left(), hudBounds.right() - m_hudLabel->width() + 1);
+	const int maxY = qMax(hudBounds.top(), hudBounds.bottom() - m_hudLabel->height() + 1);
+	hudGlobalPos.setX(qBound(hudBounds.left(), hudGlobalPos.x(), maxX));
+	hudGlobalPos.setY(qBound(hudBounds.top(), hudGlobalPos.y(), maxY));
+	m_hudLabel->move(viewport->mapFromGlobal(hudGlobalPos));
+	if (!m_hudLabel->isVisible())
+	{
+		m_hudLabel->show();
+		m_hudLabel->raise();
+	}
+
+	m_hudAutoHide = autoHide;
+	m_hudLingering = false;
+	if (autoHide)
+		m_hudHideTimer->start(HUD_HIDE_DELAY_MS);
+	else
+		m_hudHideTimer->stop();
+}
+
+void Canvas::updateHUDStyle()
+{
+	if (!m_hudLabel)
+		return;
+
+	// Use a widget style sheet, not setPalette(): the dock manager's style sheet puts the
+	// view under QStyleSheetStyle, which replaces a custom widget palette when it polishes
+	const QPalette tipPalette = QToolTip::palette();
+	const QColor background = tipPalette.color(QPalette::ToolTipBase);
+	const QColor text = tipPalette.color(QPalette::ToolTipText);
+	m_hudLabel->setStyleSheet(QString("QLabel { color: %1; background-color: %2; border: 1px solid rgba(%3, %4, %5, 40%); border-radius: 3px; padding: 4px 6px; }")
+		.arg(text.name(), background.name())
+		.arg(text.red()).arg(text.green()).arg(text.blue()));
+	m_hudLabel->setFont(QToolTip::font());
+}
+
+void Canvas::changeEvent(QEvent* event)
+{
+	QWidget::changeEvent(event);
+	if (event->type() == QEvent::PaletteChange || event->type() == QEvent::FontChange || event->type() == QEvent::StyleChange)
+		updateHUDStyle();
+}
+
 void Canvas::displayXYHUD(QPointF m)
 {
 	if (!PrefsManager::instance().appPrefs.displayPrefs.showMouseCoordinates)
+	{
+		hideHUD();
 		return;
+	}
 	double gx, gy, gh, gw, r;
 	if (m_doc->m_Selection->isMultipleSelection())
 	{
@@ -2288,7 +2425,10 @@ void Canvas::displayXYHUD(QPointF m)
 void Canvas::displayCorrectedXYHUD(QPointF m, double x, double y)
 {
 	if (!PrefsManager::instance().appPrefs.displayPrefs.showMouseCoordinates)
+	{
+		hideHUD();
 		return;
+	}
 	double gx = x;
 	double gy = y;
 	if (m_doc->guidesPrefs().rulerMode)
@@ -2299,81 +2439,91 @@ void Canvas::displayCorrectedXYHUD(QPointF m, double x, double y)
 	gx -= m_doc->rulerXoffset;
 	gy -= m_doc->rulerYoffset;
 
-	QPointF tooltipPos = m + QPointF(5.0, 5.0);
-	QToolTip::showText(tooltipPos.toPoint(), tr("X: %1\nY: %2").arg(value2String(gx, m_doc->unitIndex(), true, true), value2String(gy, m_doc->unitIndex(), true, true)), this);
+	displayHUD(m, tr("X: %1\nY: %2").arg(value2String(gx, m_doc->unitIndex(), true, true), value2String(gy, m_doc->unitIndex(), true, true)));
 }
 
 void Canvas::displayCorrectedSingleHUD(QPointF m, double val, bool isX)
 {
 	if (!PrefsManager::instance().appPrefs.displayPrefs.showMouseCoordinates)
+	{
+		hideHUD();
 		return;
+	}
 	double gx = val;
 	if (isX)
 	{
 		if (m_doc->guidesPrefs().rulerMode)
 			gx -= m_doc->currentPage()->xOffset();
 		gx -= m_doc->rulerXoffset;
-		QPointF tooltipPos = m + QPointF(5.0, 5.0);
-		QToolTip::showText(tooltipPos.toPoint(), tr("X: %1").arg(value2String(gx, m_doc->unitIndex(), true, true)), this);
+		displayHUD(m, tr("X: %1").arg(value2String(gx, m_doc->unitIndex(), true, true)));
 	}
 	else
 	{
 		if (m_doc->guidesPrefs().rulerMode)
 			gx -= m_doc->currentPage()->yOffset();
 		gx -= m_doc->rulerYoffset;
-		QPointF tooltipPos = m + QPointF(5.0, 5.0);
-		QToolTip::showText(tooltipPos.toPoint(), tr("Y: %1").arg(value2String(gx, m_doc->unitIndex(), true, true)), this);
+		displayHUD(m, tr("Y: %1").arg(value2String(gx, m_doc->unitIndex(), true, true)));
 	}
 }
 
 void Canvas::displayXYHUD(QPointF m, double x, double y)
 {
 	if (!PrefsManager::instance().appPrefs.displayPrefs.showMouseCoordinates)
+	{
+		hideHUD();
 		return;
+	}
 
-	QPointF tooltipPos = m + QPointF(5.0, 5.0);
-	QToolTip::showText(tooltipPos.toPoint(), tr("X: %1\nY: %2").arg(value2String(x, m_doc->unitIndex(), true, true), value2String(y, m_doc->unitIndex(), true, true)), this);
+	displayHUD(m, tr("X: %1\nY: %2").arg(value2String(x, m_doc->unitIndex(), true, true), value2String(y, m_doc->unitIndex(), true, true)));
 }
 
 void Canvas::displaySizeHUD(QPointF m, double x, double y, bool isLine)
 {
 	if (!PrefsManager::instance().appPrefs.displayPrefs.showMouseCoordinates)
+	{
+		hideHUD();
 		return;
+	}
 
-	QPointF tooltipPos = m + QPointF(5.0, 5.0);
 	if (isLine)
-		QToolTip::showText(tooltipPos.toPoint(), tr("Length: %1\nAngle: %2").arg(value2String(x, m_doc->unitIndex(), true, true), value2String(y, SC_DEGREES, true, true)), this);
+		displayHUD(m, tr("Length: %1\nAngle: %2").arg(value2String(x, m_doc->unitIndex(), true, true), value2String(y, SC_DEGREES, true, true)));
 	else
-		QToolTip::showText(tooltipPos.toPoint(), tr("Width: %1\nHeight: %2").arg(value2String(x, m_doc->unitIndex(), true, true), value2String(y, m_doc->unitIndex(), true, true)), this);
+		displayHUD(m, tr("Width: %1\nHeight: %2").arg(value2String(x, m_doc->unitIndex(), true, true), value2String(y, m_doc->unitIndex(), true, true)));
 }
 
 void Canvas::displayRotHUD(QPointF m, double rot)
 {
 	if (!PrefsManager::instance().appPrefs.displayPrefs.showMouseCoordinates)
+	{
+		hideHUD();
 		return;
+	}
 	double r;
 	if (rot < 0.0)
 		r = rot * -1.0;
 	else
 		r = 360.0 - rot;
-	QPointF tooltipPos = m + QPointF(5.0, 5.0);
-	QToolTip::showText(tooltipPos.toPoint(), tr("Angle: %1").arg(value2String(r, SC_DEGREES, true, true)), this);
+	displayHUD(m, tr("Angle: %1").arg(value2String(r, SC_DEGREES, true, true)));
 }
 
 void Canvas::displayRealRotHUD(QPointF m, double rot)
 {
 	if (!PrefsManager::instance().appPrefs.displayPrefs.showMouseCoordinates)
+	{
+		hideHUD();
 		return;
-	QPointF tooltipPos = m + QPointF(5.0, 5.0);
-	QToolTip::showText(tooltipPos.toPoint(), tr("Angle: %1").arg(value2String(rot, SC_DEGREES, true, true)), this);
+	}
+	displayHUD(m, tr("Angle: %1").arg(value2String(rot, SC_DEGREES, true, true)));
 }
 
 void Canvas::displayDoubleHUD(QPointF point, const QString& label, double value)
 {
 	if (!PrefsManager::instance().appPrefs.displayPrefs.showMouseCoordinates)
+	{
+		hideHUD();
 		return;
-	QPointF tooltipPos = point + QPointF(5.0, 5.0);
-	QToolTip::showText(tooltipPos.toPoint(), QString("%1: %2").arg(label, value2String(value, m_doc->unitIndex(), true, true)), this);
+	}
+	displayHUD(point, QString("%1: %2").arg(label, value2String(value, m_doc->unitIndex(), true, true)));
 }
 
 void Canvas::setupEditHRuler(PageItem * item, bool forceAndReset)

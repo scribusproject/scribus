@@ -39,6 +39,9 @@ scribusview.h  -  description
 #include "pageitempointer.h"
 
 
+class QLabel;
+class QTimer;
+
 class ScPage;
 class PageItem;
 class ScLayer;
@@ -208,11 +211,17 @@ public:
 	void displayRotHUD(QPointF m, double rot);
 	void displayRealRotHUD(QPointF m, double rot);
 	/**
-	 * Displays a tooltip of the format <code>{label}: {N} {unit}</code> where <code>N</code> is
+	 * Displays a HUD of the format <code>{label}: {N} {unit}</code> where <code>N</code> is
 	 * @a value converted to the current document unit and <code>unit</code> the current document
-	 * unit. The tooltip will be displayed nearby the global point @a point.
+	 * unit. The HUD will be displayed nearby the global point @a point.
 	 */
 	void displayDoubleHUD(QPointF point, const QString& label, double value);
+	void displayHUD(QPointF globalPos, const QString& text, bool autoHide = true);
+	void displayHUD(QPointF globalPos, const QPixmap& pixmap, bool autoHide = true);
+	void beginHUDLinger(QPointF globalPos);
+	void handleHUDMouseMove(QPointF globalPos);
+	void hideHUD();
+	void hudTimeout();
 
 	void setupEditHRuler(PageItem * item, bool forceAndReset = false);
 	
@@ -263,6 +272,9 @@ private:
 	QPixmap createPixmap(double w, double h);
 	// draw a potentially hidpi pixmap
 	void drawPixmap(QPainter &painter, double x, double y, const QPixmap &pixmap, double sx, double sy, double sw, double sh);
+	void positionHUD(QPointF globalPos, bool autoHide);
+	void updateHUDStyle();
+	void changeEvent(QEvent* event) override;
 		
 private:
 	ScribusDoc* m_doc;
@@ -275,6 +287,11 @@ private:
 	QPixmap m_selectionBuffer;
 	QRect   m_selectionRect;
 	QPoint  m_oldMinCanvasCoordinate;
+	QLabel* m_hudLabel { nullptr };
+	QTimer* m_hudHideTimer { nullptr };
+	bool m_hudAutoHide { false };
+	bool m_hudLingering { false };
+	QPointF m_hudLingerOrigin;
 };
 
 

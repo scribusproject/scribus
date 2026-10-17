@@ -16,15 +16,14 @@
 
 
 #include <QApplication>
-#include <QBuffer>
 #include <QCursor>
 #include <QEvent>
+#include <QFileInfo>
 #include <QMouseEvent>
 #include <QPainterPath>
 #include <QPixmap>
 #include <QPoint>
 #include <QRect>
-#include <QToolTip>
 #include <QDebug>
 
 #include "canvas.h"
@@ -38,6 +37,9 @@
 
 CanvasMode_ImageImport::CanvasMode_ImageImport(ScribusView *view) : CanvasMode(view), m_ScMW(view->m_ScMW)
 {
+	const QPoint cursorPos = QCursor::pos();
+	m_Mx = cursorPos.x();
+	m_My = cursorPos.y();
 }
 
 void CanvasMode_ImageImport::setImageList(QStringList l)
@@ -53,36 +55,52 @@ void CanvasMode_ImageImport::setImageList(QStringList l)
 			m_view->requestMode(submodePaintingDone);
 		}
 		else
-			newToolTip(l.first());
+			updatePreview(l.first());
 	}
 	else
-		newToolTip(l.first());
+		updatePreview(l.first());
 }
 
-void CanvasMode_ImageImport::newToolTip(const QString& name)
+void CanvasMode_ImageImport::displayPreview(QPointF globalPos)
 {
-	QImage pm(80, 80, QImage::Format_ARGB32_Premultiplied);
-	QBrush b(QColor(205,205,205), IconManager::instance().loadPixmap("testfill"));
-	
-	QPainter p;
-	p.begin(&pm);
-	p.fillRect(QRectF(0, 0, 80, 80), b);
+	if (!m_previewPixmap.isNull())
+		m_canvas->displayHUD(globalPos, m_previewPixmap, false);
+	else
+		m_canvas->displayHUD(globalPos, m_previewText, false);
+}
+
+void CanvasMode_ImageImport::updatePreview(const QString& name)
+{
+	const qreal dpr = m_view->devicePixelRatioF();
+	QPixmap preview(QSize(80, 80) * dpr);
+	preview.setDevicePixelRatio(dpr);
+	QBrush background(QColor(205, 205, 205), IconManager::instance().loadPixmap("testfill"));
 	QImage thumb;
-	if (thumb.load(name))
+	const bool hasThumbnail = thumb.load(name);
 	{
-		thumb = thumb.scaled(80,80,Qt::KeepAspectRatio);
-		p.drawImage((80 - thumb.width()) / 2, (80 - thumb.height()) / 2, thumb);
-		QBuffer buffer;
-		buffer.open(QIODevice::WriteOnly);
-		pm.save(&buffer, "PNG");
-		QByteArray ba = buffer.buffer().toBase64();
-		buffer.close();
-		m_tipText = "<p align=\"center\"><img src=\"data:image/png;base64," + QString(ba) + "\"></p>";
+		QPainter painter(&preview);
+		painter.fillRect(QRectF(0, 0, 80, 80), background);
+		if (hasThumbnail)
+		{
+			thumb = thumb.scaled(QSize(80, 80) * dpr, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+			thumb.setDevicePixelRatio(dpr);
+			const QSizeF thumbSize = thumb.deviceIndependentSize();
+			painter.drawImage(QPointF((80 - thumbSize.width()) / 2, (80 - thumbSize.height()) / 2), thumb);
+		}
+	}
+
+	if (hasThumbnail)
+	{
+		m_previewPixmap = preview;
+		m_previewText.clear();
 	}
 	else
-		m_tipText = "<p align=\"center\">" + name.right(name.lastIndexOf("/")) + "</p>";
-	QToolTip::showText(QPoint(m_Mx,m_My), m_tipText, qApp->activeWindow());
-	p.end();
+	{
+		m_previewPixmap = QPixmap();
+		m_previewText = QFileInfo(name).fileName();
+	}
+
+	displayPreview(QPointF(m_Mx, m_My));
 }
 
 void CanvasMode_ImageImport::drawControls(QPainter* p)
@@ -125,6 +143,7 @@ void CanvasMode_ImageImport::keyPressEvent(QKeyEvent *e)
 
 void CanvasMode_ImageImport::leaveEvent(QEvent *e)
 {
+	m_canvas->hideHUD();
 }
 
 void CanvasMode_ImageImport::activate(bool fromGesture)
@@ -146,6 +165,7 @@ void CanvasMode_ImageImport::activate(bool fromGesture)
 
 void CanvasMode_ImageImport::deactivate(bool forGesture)
 {
+	m_canvas->hideHUD();
 	m_view->setRedrawMarkerShown(false);
 	CanvasMode::deactivate(forGesture);
 }
@@ -161,8 +181,7 @@ void CanvasMode_ImageImport::mouseMoveEvent(QMouseEvent *m)
 {
 	m_Mx = m->globalPosition().x();
 	m_My = m->globalPosition().y();
-	QToolTip::showText(m->globalPosition().toPoint(), m_tipText, qApp->activeWindow());
-	QToolTip::showText(m->globalPosition().toPoint(), m_tipText + "<b></b>", qApp->activeWindow());
+	displayPreview(m->globalPosition());
 	m->accept();
 	PageItem *item;
 	if ((item = m_canvas->itemUnderCursor(m->globalPosition())) != nullptr)
@@ -249,8 +268,8 @@ void CanvasMode_ImageImport::updateList()
 	if (m_imageList.isEmpty())
 	{
 		m_view->requestMode(submodePaintingDone);
-		QToolTip::hideText();
+		m_canvas->hideHUD();
 	}
 	else
-		newToolTip(m_imageList.constFirst());
+		updatePreview(m_imageList.constFirst());
 }

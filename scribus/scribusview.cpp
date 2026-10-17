@@ -3369,6 +3369,7 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 		emit MousePos(p.x(),p.y());
 		horizRuler->draw(m->position().x() + qRound(m_doc->minCanvasCoordinate.x() * m_canvas->scale()));
 		vertRuler->draw(m->position().y() + qRound(m_doc->minCanvasCoordinate.y() * m_canvas->scale()));
+		m_canvas->handleHUDMouseMove(m->globalPosition());
 		m_canvasMode->mouseMoveEvent(m);
 		return true;
 	}
@@ -3377,6 +3378,7 @@ bool ScribusView::eventFilter(QObject *obj, QEvent *event)
 		auto* m = dynamic_cast<QMouseEvent*> (event);
 		m_canvasMode->mouseReleaseEvent(m);
 		m_canvas->m_viewMode.m_MouseButtonPressed = false;
+		m_canvas->beginHUDLinger(m->globalPosition());
 		if (linkAfterDraw)
 		{
 			//user creates new frame using linking tool
