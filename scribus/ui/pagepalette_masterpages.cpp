@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include <QApplication>
 #include <QCloseEvent>
 #include <QCursor>
+#include <QEventLoop>
 #include <QHBoxLayout>
 #include <QInputDialog>
 #include <QListWidget>
@@ -39,6 +40,7 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "util.h"
 #include "util_os.h"
+#include "undomanager.h"
 
 
 PagePalette_MasterPages::PagePalette_MasterPages( QWidget* parent, ScribusView *pCurrentView, const QString& masterPageName) : QWidget(parent)
@@ -356,34 +358,54 @@ void PagePalette_MasterPages::importPage()
 	if (!dia->exec())
 		return;
 
+	const QStringList selectedNames = dia->getMasterPageNames();
+	const QList<int> selectedIndexes = dia->getMasterPageIndexes();
+	if (selectedNames.isEmpty() || selectedNames.size() != selectedIndexes.size())
+		return;
+
 	if (m_doc->appMode == modeEditClip)
 		m_view->requestMode(submodeEndNodeEdit);
 
-	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
-	int nr = m_doc->Pages->count();
+	UndoTransaction importTransaction;
+	if (UndoManager::undoEnabled())
+		importTransaction = UndoManager::instance()->beginTransaction(m_doc->getUName(), Um::IDocument, Um::ImportMasterPage, QString(), Um::ICreate);
 
-	auto indexes = dia->getMasterPageIndexes();
+	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
+	const QString sourceFile = dia->getFromDoc();
+	int nr = m_doc->Pages->count();
 	QString lastName;
-	for (auto name: dia->getMasterPageNames())
+	bool loadFailed = false;
+	for (int i = 0; i < selectedNames.size(); ++i)
 	{
-		name = getUniqueName(name, m_doc->MasterNames);
+		const QString name = getUniqueName(selectedNames.at(i), m_doc->MasterNames);
 		m_doc->setCurrentPage(m_doc->addMasterPage(nr, name));
 
-		nr++;
-		qApp->processEvents();
+		++nr;
+		qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 
 		//CB TODO: If we are loading to a new name, we rely on doc->onpage in
 		//FileLoader::PasteItem as this call doesn't pass in the new destination page
-		m_doc->scMW()->loadPage(dia->getFromDoc(), indexes.first(), true, name);
-		qApp->processEvents();
+		const bool loaded = m_doc->scMW()->loadPage(sourceFile, selectedIndexes.at(i), true, name);
+		qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 
-		indexes.removeFirst();
 		lastName = name;
+		if (!loaded)
+		{
+			loadFailed = true;
+			break;
+		}
 	}
 
+	// Commit even after a failed load: cancelling would drop the recorded states but
+	// leave the changes in place, making the partial import impossible to undo
+	if (importTransaction)
+		importTransaction.commit();
 	updateMasterPageList(lastName);
 	m_view->showMasterPage(m_doc->MasterNames[lastName]);
 	qApp->restoreOverrideCursor();
+
+	if (loadFailed)
+		ScMessageBox::warning(this, CommonStrings::trWarning, tr("Could not complete the master page import. Some master pages may be incomplete."));
 }
 
 void PagePalette_MasterPages::selectMasterPage(QListWidgetItem *item)
