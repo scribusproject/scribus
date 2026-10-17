@@ -117,7 +117,7 @@ FormatsManager::FormatsManager()
 	m_fmtMimeTypes.insert(FormatsManager::EPS,  QStringList() << "application/postscript");
 	m_fmtMimeTypes.insert(FormatsManager::GIF,  QStringList() << "image/gif");
 	m_fmtMimeTypes.insert(FormatsManager::JPEG, QStringList() << "image/jpeg");
-	m_fmtMimeTypes.insert(FormatsManager::JPEG, QStringList() << "image/jxl");
+	m_fmtMimeTypes.insert(FormatsManager::JPEGXL, QStringList() << "image/jxl");
 	m_fmtMimeTypes.insert(FormatsManager::KRA,  QStringList() << "application/x-krita");
 	m_fmtMimeTypes.insert(FormatsManager::ORA,  QStringList() << "");
 	m_fmtMimeTypes.insert(FormatsManager::PAT,  QStringList() << "");

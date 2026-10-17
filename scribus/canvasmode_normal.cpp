@@ -1871,7 +1871,7 @@ void CanvasMode_Normal::importToPage()
 	}
 	allFormats += "*.sce *.SCE);;";
 	formats.append("Scribus Objects (*.sce *.SCE)");
-	formats.sort();
+	formats.sort(Qt::CaseInsensitive);
 	allFormats += formats.join(";;");
 	PrefsContext* dirs = PrefsManager::instance().prefsFile->getContext("dirs");
 	QString wdir = dirs->get("pastefile", ".");
