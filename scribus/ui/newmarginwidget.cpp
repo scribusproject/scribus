@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include "newmarginwidget.h"
 #include "iconmanager.h"
 #include "manager/pagepreset_manager.h"
+#include "prefsmanager.h"
 #include "scribusapp.h"
 #include "scrspinbox.h"
 #include "ui/marginpresetlayout.h"
@@ -39,7 +40,10 @@ void NewMarginWidget::setup(const MarginStruct& margs, int layoutType, int unitI
 	}
 
 	if (!(m_flags & ShowPrinterMargins))
+	{
 		printerMarginsPushButton->hide();
+		defaultMarginsPushButton->hide();
+	}
 
 	setFacingPages(!(layoutType == singlePage));
 
@@ -58,6 +62,7 @@ void NewMarginWidget::setup(const MarginStruct& margs, int layoutType, int unitI
 	connect(presetLayoutComboBox, &QComboBox::activated, this, &NewMarginWidget::setPreset);
 	connect(marginLinkButton, &QToolButton::clicked, this, &NewMarginWidget::onLinkMarginsClicked);
 	connect(printerMarginsPushButton, &QPushButton::clicked, this, &NewMarginWidget::onPrinterMarginsClicked);
+	connect(defaultMarginsPushButton, &QPushButton::clicked, this, &NewMarginWidget::onDefaultMarginsClicked);
 
 	languageChange();
 	iconSetChange();
@@ -427,6 +432,7 @@ void NewMarginWidget::languageChange()
 		marginLinkButton->setToolTip("<qt>" + tr("Ensure all distances have the same value") + "</qt>");
 	}
 	printerMarginsPushButton->setToolTip("<qt>" + tr("Import the margins for the selected page size from the available printers") + "</qt>");
+	defaultMarginsPushButton->setToolTip("<qt>" + tr("Set the margins to the default for the active unit") + "</qt>");
 
 	leftMarginLabel->setText(m_facingPages ? tr("Inside") : tr("Left"));
 	rightMarginLabel->setText(m_facingPages ? tr("Outside") : tr("Right"));
@@ -465,4 +471,9 @@ void NewMarginWidget::onPrinterMarginsClicked()
 		MarginStruct newMargins(t, l, b, r);
 		setInternalState(m_pageWidth, m_pageHeight, newMargins, PresetLayout::none);
 	}
+}
+
+void NewMarginWidget::onDefaultMarginsClicked()
+{
+	setInternalState(m_pageWidth, m_pageHeight, PrefsManager::defaultPageMarginsForUnit(m_unitIndex), PresetLayout::none);
 }

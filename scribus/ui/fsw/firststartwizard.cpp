@@ -168,7 +168,11 @@ void FirstStartWizard::saveGuiToPrefs(ApplicationPrefs* prefsData) const
 	// --- Language (FSW_Language) ---
 	p.uiPrefs.language           = m_language->uiLanguage();        // priAbbrev
 	p.docSetupPrefs.language     = m_language->documentLanguage();  // normalised short abbrev
-	p.docSetupPrefs.docUnitIndex = m_language->unitIndex();
+	const int oldUnitIndex = p.docSetupPrefs.docUnitIndex;
+	const int newUnitIndex = m_language->unitIndex();
+	if (PrefsManager::hasDefaultPageMarginsForUnit(p.docSetupPrefs.margins, oldUnitIndex))
+		p.docSetupPrefs.margins = PrefsManager::defaultPageMarginsForUnit(newUnitIndex);
+	p.docSetupPrefs.docUnitIndex = newUnitIndex;
 
 	// --- Appearance (FSW_Appearance) ---
 	switch (m_appearance->themeMode())

@@ -118,6 +118,41 @@ void PrefsManager::setup()
 	//>>CB
 }
 
+MarginStruct PrefsManager::defaultPageMarginsForUnit(int unitIndex)
+{
+	double margin = 36.0;
+	switch (unitIndex)
+	{
+		case SC_PT:
+		case SC_P:
+			break;
+		case SC_MM:
+			margin = mm2pts(10.0);
+			break;
+		case SC_IN:
+			margin = in2pts(0.5);
+			break;
+		case SC_CM:
+			margin = cm2pts(1.0);
+			break;
+		case SC_C:
+			margin = c2pts(3.0);
+			break;
+		default:
+			break;
+	}
+	return MarginStruct(margin, margin, margin, margin);
+}
+
+bool PrefsManager::hasDefaultPageMarginsForUnit(const MarginStruct& margins, int unitIndex)
+{
+	const MarginStruct defaults = defaultPageMarginsForUnit(unitIndex);
+	return qFuzzyCompare(margins.top(), defaults.top())
+		&& qFuzzyCompare(margins.left(), defaults.left())
+		&& qFuzzyCompare(margins.bottom(), defaults.bottom())
+		&& qFuzzyCompare(margins.right(), defaults.right());
+}
+
 void PrefsManager::initDefaults()
 {
 	/** Default font and size **/
@@ -332,7 +367,7 @@ void PrefsManager::initDefaults()
 	PageSizeInfo psi = PagePresetManager::instance().pageInfoByName(appPrefs.docSetupPrefs.pageSize);
 	appPrefs.docSetupPrefs.pageWidth = psi.width;
 	appPrefs.docSetupPrefs.pageHeight = psi.height;
-	appPrefs.docSetupPrefs.margins.set(40, 40, 40, 40);
+	appPrefs.docSetupPrefs.margins = defaultPageMarginsForUnit(appPrefs.docSetupPrefs.docUnitIndex);
 	appPrefs.docSetupPrefs.marginPreset = 0;
 	appPrefs.docSetupPrefs.bleeds.set(0, 0, 0, 0);
 	appPrefs.hyphPrefs.specialWords.clear();

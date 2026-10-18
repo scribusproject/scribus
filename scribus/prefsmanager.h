@@ -60,6 +60,8 @@ public:
 	Must be run after: PrefsManager::GetAllFonts()
 	*/
 	void initDefaults();
+	static MarginStruct defaultPageMarginsForUnit(int unitIndex);
+	static bool hasDefaultPageMarginsForUnit(const MarginStruct& margins, int unitIndex);
 	void initDefaultGUIFont(const QFont&);
 	void initDefaultCheckerPrefs(CheckerPrefsList& cp);
 	void initDefaultActionKeys();

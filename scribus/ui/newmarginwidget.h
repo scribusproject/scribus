@@ -54,6 +54,7 @@ protected slots:
 	void onSpinBoxChanged();
 	void onLinkMarginsClicked();
 	void onPrinterMarginsClicked();
+	void onDefaultMarginsClicked();
 	void setPreset();
 
 protected:
