@@ -92,9 +92,6 @@ private:
 	//! \brief Document measurements and metrics
 	int docUnitIndex { 0 };
 
-	//! \brief suffix of the unit [mm, ...]
-	QString suffix;
-
 	/*! \brief Copy guides from currentPage to all remaining.
 	All gudes are deleted before copying.
 	\param t a type to clear and copy.*/

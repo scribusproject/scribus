@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "guidemanager.h"
 #include "guidesdelegate.h"
 #include "guidesmodel.h"
+#include "iconmanager.h"
 #include "scpage.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
@@ -41,12 +42,26 @@ GuideManager::GuideManager(QWidget* parent) :
 {
 	setupUi(this);
 	tabWidget->setEnabled(false);
+	deletePageButton->setEnabled(false);
+	deleteAllGuides->setEnabled(false);
 	horizontalAutoGapSpin->setMinimum(0.0);
 	horizontalAutoGapSpin->setMaximum(10000.0);
 	verticalAutoGapSpin->setMinimum(0.0);
 	verticalAutoGapSpin->setMaximum(10000.0);
 	horizontalAutoCountSpin->setDecimals(0);
 	verticalAutoCountSpin->setDecimals(0);
+
+	IconManager& im = IconManager::instance();
+	addHorButton->setIcon(im.loadIcon("list-add"));
+	delHorButton->setIcon(im.loadIcon("edit-delete"));
+	addVerButton->setIcon(im.loadIcon("list-add"));
+	delVerButton->setIcon(im.loadIcon("edit-delete"));
+	horizontalPageAutoButton->setIcon(im.loadIcon("align-to-page"));
+	horizontalMarginsAutoButton->setIcon(im.loadIcon("align-to-margin"));
+	horizontalSelectionAutoButton->setIcon(im.loadIcon("align-to-last-selection"));
+	verticalPageAutoButton->setIcon(im.loadIcon("align-to-page"));
+	verticalMarginsAutoButton->setIcon(im.loadIcon("align-to-margin"));
+	verticalSelectionAutoButton->setIcon(im.loadIcon("align-to-last-selection"));
 
 	// MVC
 	horizontalModel = new GuidesModel(this);
@@ -122,6 +137,8 @@ void GuideManager::setDoc(ScribusDoc* doc)
 	if (!m_doc)
 		currentPage = nullptr;
 	tabWidget->setEnabled(doc != nullptr);
+	deletePageButton->setEnabled(doc != nullptr);
+	deleteAllGuides->setEnabled(doc != nullptr);
 }
 
 void GuideManager::setVisible(bool visible)
@@ -190,12 +207,9 @@ void GuideManager::setupGui()
 	// restore guide locking
 	lockCheck->setChecked(m_doc->GuideLock);
 
-	connect(horizontalAutoGapCheck, SIGNAL(stateChanged(int)),
-			this, SLOT(horizontalAutoGapCheck_stateChanged(int)));
-	connect(verticalAutoGapCheck, SIGNAL(stateChanged(int)),
-			this, SLOT(verticalAutoGapCheck_stateChanged(int)));
-	connect(lockCheck, SIGNAL(stateChanged(int)), 
-			this, SLOT(lockCheck_stateChanged(int)));
+	connect(horizontalAutoGapCheck, SIGNAL(stateChanged(int)), this, SLOT(horizontalAutoGapCheck_stateChanged(int)));
+	connect(verticalAutoGapCheck, SIGNAL(stateChanged(int)), this, SLOT(verticalAutoGapCheck_stateChanged(int)));
+	connect(lockCheck, SIGNAL(stateChanged(int)), this, SLOT(lockCheck_stateChanged(int)));
 
 	m_drawGuides = true;
 // 	drawGuides(); let Canvas::DrawPageMarks take care of it and avoid a costly ScribusView::DrawNew()
@@ -243,20 +257,14 @@ void GuideManager::unitChange()
 	if (!m_doc)
 		return;
 
-	// a little bit magic to get Verticals (unit) into group boxes
-	horizontalGroupBox->setTitle(horizontalGroupBox->title().remove(" ("+suffix.trimmed()+")"));
-	verticalGroupBox->setTitle(verticalGroupBox->title().remove(" ("+suffix.trimmed()+")"));
 	docUnitIndex = m_doc->unitIndex();
 	int docUnitDecimals = unitGetPrecisionFromIndex(docUnitIndex);
 
 	QSignalBlocker horizontalAutoGapSpinBlock(horizontalAutoGapSpin);
 	QSignalBlocker verticalAutoGapSpinBlock(verticalAutoGapSpin);
-	suffix = unitGetSuffixFromIndex(docUnitIndex);
 	horizontalAutoGapSpin->setNewUnit(docUnitIndex);
 	verticalAutoGapSpin->setNewUnit(docUnitIndex);
 
-	horizontalGroupBox->setTitle(horizontalGroupBox->title() + " ("+suffix.trimmed()+")");
-	verticalGroupBox->setTitle(verticalGroupBox->title() + " ("+suffix.trimmed()+")");
 	// models display
 	horizontalModel->unitChange(docUnitIndex, docUnitDecimals, m_doc->rulerYoffset);
 	verticalModel->unitChange(docUnitIndex, docUnitDecimals, m_doc->rulerXoffset);

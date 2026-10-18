@@ -43,7 +43,7 @@ QVariant GuidesModel::data(const QModelIndex & index, int role) const
 		return QVariant(l.toString(pts2value(m_values.at(index.row()) - m_rule,
 											  m_docUnitIndex), 'f',
 											  m_docUnitDecimals)
-						);
+						+ unitGetSuffixFromIndex(m_docUnitIndex));
 	}
 	if (role == Qt::EditRole)
 		return pts2value(m_values.at(index.row()) - m_rule, m_docUnitIndex);
