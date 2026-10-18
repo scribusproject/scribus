@@ -2425,7 +2425,7 @@ void PageItem::setGradient(const QString &newGradient)
 		return;
 
 	bool hasNamedGradient = m_Doc->docGradients.contains(newGradient);
-	VGradient newFillGradient = hasNamedGradient ? m_Doc->docGradients[m_gradientName] : fill_gradient;
+	VGradient newFillGradient = hasNamedGradient ? m_Doc->docGradients[newGradient] : fill_gradient;
 	if (UndoManager::undoEnabled())
 	{
 		auto* is = new ScOldNewState<ActionState>(Um::GradVal);
@@ -3371,7 +3371,7 @@ void PageItem::setStrokeGradient(const QString &newGradient)
 		return;
 
 	bool hasNamedGradient = m_Doc->docGradients.contains(newGradient);
-	VGradient newStrokeGradient = hasNamedGradient ? m_Doc->docGradients[m_gradientName] : stroke_gradient;
+	VGradient newStrokeGradient = hasNamedGradient ? m_Doc->docGradients[newGradient] : stroke_gradient;
 	if (UndoManager::undoEnabled())
 	{
 		auto* is = new ScOldNewState<ActionState>(Um::GradVal);
@@ -3479,7 +3479,7 @@ void PageItem::setGradientMask(const QString &newMask)
 		return;
 
 	bool hasNamedGradient = m_Doc->docGradients.contains(newMask);
-	VGradient newMaskGradient = hasNamedGradient ? m_Doc->docGradients[m_gradientName] : mask_gradient;
+	VGradient newMaskGradient = hasNamedGradient ? m_Doc->docGradients[newMask] : mask_gradient;
 	if (UndoManager::undoEnabled())
 	{
 		auto* is = new ScOldNewState<ActionState>(Um::GradValMask);
