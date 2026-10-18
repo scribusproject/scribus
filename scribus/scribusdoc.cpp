@@ -1041,8 +1041,7 @@ int ScribusDoc::removeUnusedStyles()
 	for (int i = 0; i < m_docParagraphStyles.count(); ++i)
 	{
 		const ParagraphStyle& ps = m_docParagraphStyles[i];
-		if (ps.isDefaultStyle() || !ps.hasName() ||
-				usedResources.styles().contains(ps.name()))
+		if (ps.isDefaultStyle() || !ps.hasName() || usedResources.styles().contains(ps.name()))
 			newParagraphStyleSet.create(ps);
 		else
 			++removedCount;
@@ -1055,8 +1054,7 @@ int ScribusDoc::removeUnusedStyles()
 	for (int i = 0; i < m_docCharStyles.count(); ++i)
 	{
 		const CharStyle& cs = m_docCharStyles[i];
-		if (cs.isDefaultStyle() || !cs.hasName() ||
-				usedResources.charStyles().contains(cs.name()))
+		if (cs.isDefaultStyle() || !cs.hasName() || usedResources.charStyles().contains(cs.name()))
 			newCharStyleSet.create(cs);
 		else
 			++removedCount;
@@ -1070,8 +1068,7 @@ int ScribusDoc::removeUnusedStyles()
 	for (int i = 0; i < m_docTableStyles.count(); ++i)
 	{
 		const TableStyle& ts = m_docTableStyles[i];
-		if (ts.isDefaultStyle() || !ts.hasName() ||
-				usedResources.tableStyles().contains(ts.name()))
+		if (ts.isDefaultStyle() || !ts.hasName() || usedResources.tableStyles().contains(ts.name()))
 			newTableStyleSet.create(ts);
 		else
 			++removedCount;
@@ -1084,8 +1081,7 @@ int ScribusDoc::removeUnusedStyles()
 	for (int i = 0; i < m_docCellStyles.count(); ++i)
 	{
 		const CellStyle& cs = m_docCellStyles[i];
-		if (cs.isDefaultStyle() || !cs.hasName() ||
-				usedResources.cellStyles().contains(cs.name()))
+		if (cs.isDefaultStyle() || !cs.hasName() || usedResources.cellStyles().contains(cs.name()))
 			newCellStyleSet.create(cs);
 		else
 			++removedCount;
@@ -13867,7 +13863,7 @@ void ScribusDoc::endUpdate()
 	m_docUpdater->endUpdate();
 }
 
-void ScribusDoc::itemSelection_SwapLeft()
+void ScribusDoc::itemSelection_SwapRight()
 {
 	if (!startAlign(2))
 		return;
@@ -13913,7 +13909,7 @@ void ScribusDoc::itemSelection_SwapLeft()
 	endAlign();
 }
 
-void ScribusDoc::itemSelection_SwapRight()
+void ScribusDoc::itemSelection_SwapLeft()
 {
 	if (!startAlign(2))
 		return;
