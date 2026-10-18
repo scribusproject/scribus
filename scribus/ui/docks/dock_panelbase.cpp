@@ -26,6 +26,7 @@
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "scribusapp.h"
+#include "third_party/Qt-Advanced-Docking-System/src/DockWidgetTab.h"
 
 DockPanelBase::DockPanelBase(const QString &title, QString iconName, QWidget *parent)
 	: CDockWidget(title, parent)
@@ -76,9 +77,31 @@ void DockPanelBase::startup()
 
 void DockPanelBase::setFontSize()
 {
+	const int oldPointSize = font().pointSize();
+	const int newPointSize = PrefsManager::instance().appPrefs.uiPrefs.paletteFontSize;
+
 	QFont newfont(font());
-	newfont.setPointSize(PrefsManager::instance().appPrefs.uiPrefs.paletteFontSize);
+	newfont.setPointSize(newPointSize);
 	setFont(newfont);
+	if (auto *tab = tabWidget())
+	{
+		tab->setFont(newfont);
+		if (QWidget *titleLabel = tab->findChild<QWidget *>("dockWidgetTabLabel"))
+			titleLabel->setFont(newfont);
+	}
+
+	// Qt style sheets can block runtime font inheritance. Propagate only the
+	// palette font size, leaving widgets with a deliberately different size alone.
+	const auto childWidgets = findChildren<QWidget *>();
+	for (QWidget *child : childWidgets)
+	{
+		if (child->isWindow() || child->font().pointSize() != oldPointSize)
+			continue;
+
+		QFont childFont(child->font());
+		childFont.setPointSize(newPointSize);
+		child->setFont(childFont);
+	}
 }
 
 void DockPanelBase::iconSetChange()
