@@ -48,6 +48,7 @@ GradientEditor::GradientEditor(QWidget *pa) : QFrame(pa)
 	connect(stopOpacity, SIGNAL(valueChanged(double)), this, SLOT(setStopColor()));
 	connect(stopShade  , SIGNAL(valueChanged(double)), this, SLOT(setStopColor()));
 	connect(Preview, SIGNAL(selectedStop(VColorStop*)), this, SLOT(slotDisplayStop(VColorStop*)));
+	connect(Preview, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
 	connect(Preview, SIGNAL(selectedPosition(double)), this, SLOT(setPos(double)));
 	connect(colorListBox, SIGNAL(itemSelectionChanged()), this, SLOT(setStopColor()));
 	connect(this, SIGNAL(gradientChanged()), this, SLOT(updateColorButton()));
@@ -89,7 +90,6 @@ void GradientEditor::slotDisplayStop(VColorStop* stop)
 	slotColor(stop->name, stop->shade);
 	setGradTrans(stop->opacity);
 	updateColorButton();
-	emit gradientChanged();
 }
 
 void GradientEditor::slotColor(const QString& name, int shade)

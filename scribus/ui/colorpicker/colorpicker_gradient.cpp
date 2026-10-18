@@ -426,7 +426,7 @@ void ColorPickerGradient::updateGradientFromSwatches(QString name, VGradient gra
 void ColorPickerGradient::updateGradientFromEditor()
 {
 	m_gradient.Gradient = gradientEditor->gradient();
-	m_gradient.Name = "";
+	m_gradient.Name.clear();
 	updateGradient();
 }
 

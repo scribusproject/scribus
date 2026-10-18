@@ -165,6 +165,7 @@ void GradientPreview::addStop(QPoint mousePosition)
 	fill_gradient.setStop(colorL, t, mid, opacityL, nameL, shadeL);
 
 	// Update UI
+	m_gradientModified = true;
 	repaint();
 
 	if (m_activeStop > -1)
@@ -186,6 +187,8 @@ void GradientPreview::removeStop()
 
 		repaint();
 		emitStop();
+		emit gradientChanged();
+		m_gradientModified = false;
 	}
 }
 
@@ -329,6 +332,7 @@ void GradientPreview::mousePressEvent(QMouseEvent *m)
 
 	if (m->button() == Qt::LeftButton)
 	{
+		m_gradientModified = false;
 		m_activeStop = stopAtPosition(m->pos());
 		m_tmpStop = m_activeStop;
 
@@ -359,6 +363,9 @@ void GradientPreview::mouseReleaseEvent(QMouseEvent *m)
 			m_activeStop = m_tmpStop;
 			repaint();
 			emitStop();
+			if (m_gradientModified)
+				emit gradientChanged();
+			m_gradientModified = false;
 		}
 	}
 }
@@ -385,6 +392,8 @@ void GradientPreview::mouseMoveEvent(QMouseEvent *m)
 	if (m->buttons() & Qt::LeftButton)
 	{
 		double newPos = percentFromPosition(m_mousePos);
+		if (m_activeStop != -1 && activeStop()->rampPoint != newPos)
+			m_gradientModified = true;
 		updateTmpStop(newPos);
 		emitStopPosition();
 

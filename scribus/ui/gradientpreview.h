@@ -124,6 +124,7 @@ private:
 	bool m_isEditable { true };
 	int m_activeStop { 0 };
 	int m_tmpStop { 0 };
+	bool m_gradientModified { false };
 
 	QRect saveAreaRect() const;
 	QRect canvasRect() const;
@@ -149,6 +150,7 @@ private:
 signals:
 	void selectedStop(VColorStop*);
 	void selectedPosition(double);
+	void gradientChanged();
 
 };
 #endif
