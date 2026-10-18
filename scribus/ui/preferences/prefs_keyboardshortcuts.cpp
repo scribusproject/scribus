@@ -484,6 +484,9 @@ void Prefs_KeyboardShortcuts::keyPressEvent(QKeyEvent *k)
 
 	switch (k->key())
 	{
+		//Don't allow escape as a shortcut as it is used everywhere
+		case Qt::Key_Escape:
+			break;
 		case Qt::Key_Meta:
 			keyCode |= Qt::META;
 			break;
