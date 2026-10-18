@@ -4023,14 +4023,14 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 	QString Tcha, Twort;
 	uint Tcoun;
 	int len, pos;
-	int keyModifiers=0;
 	Qt::KeyboardModifiers buttonModifiers = k->modifiers();
-	if (k->modifiers() & Qt::ShiftModifier)
-		keyModifiers |= Qt::SHIFT;
-	if (k->modifiers() & Qt::ControlModifier)
-		keyModifiers |= Qt::CTRL;
-	if (k->modifiers() & Qt::AltModifier)
-		keyModifiers |= Qt::ALT;
+	// int keyModifiers=0;
+	// if (k->modifiers() & Qt::ShiftModifier)
+	// 	keyModifiers |= Qt::SHIFT;
+	// if (k->modifiers() & Qt::ControlModifier)
+	// 	keyModifiers |= Qt::CTRL;
+	// if (k->modifiers() & Qt::AltModifier)
+	// 	keyModifiers |= Qt::ALT;
 
 	ScribusView* view = m_Doc->view();
 
