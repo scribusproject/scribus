@@ -2575,7 +2575,7 @@ void Scribus171Format::readDocAttributes(ScribusDoc* doc, const ScXmlStreamAttri
 
 		m_Doc->rulerXoffset = attrs.valueAsDouble("rulerXoffset", 0.0);
 		m_Doc->rulerYoffset = attrs.valueAsDouble("rulerYoffset", 0.0);
-		m_Doc->SnapGuides = attrs.valueAsBool("SnapToGuides", false);
+		m_Doc->SnapGuides = attrs.valueAsBool("SnapToGuides", true);
 		m_Doc->SnapItems = attrs.valueAsBool("SnapToItems", false);
 		m_Doc->SnapGrid = attrs.valueAsBool("SnapToGrid", false);
 
@@ -2642,7 +2642,7 @@ void Scribus171Format::readDocAttributes(ScribusDoc* doc, const ScXmlStreamAttri
 
 		m_Doc->rulerXoffset = attrs.valueAsDouble("RulerXOffset", 0.0);
 		m_Doc->rulerYoffset = attrs.valueAsDouble("RulerYOffset", 0.0);
-		m_Doc->SnapGuides = attrs.valueAsBool("SnapToGuides", false);
+		m_Doc->SnapGuides = attrs.valueAsBool("SnapToGuides", true);
 		m_Doc->SnapItems = attrs.valueAsBool("SnapToItems", false);
 		m_Doc->SnapGrid = attrs.valueAsBool("SnapToGrid", false);
 

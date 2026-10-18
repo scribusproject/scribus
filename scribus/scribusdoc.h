@@ -1391,7 +1391,7 @@ class SCRIBUS_API ScribusDoc : public QObject, public UndoObject, public Observa
 		int viewCount {0};
 		int viewID {0};
 		bool SnapGrid {false};
-		bool SnapGuides {false};
+		bool SnapGuides {true};
 		bool SnapItems {false};
 		bool GuideLock {false};
 		bool dontResize {false};
