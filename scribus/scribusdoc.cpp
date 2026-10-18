@@ -1041,7 +1041,7 @@ int ScribusDoc::removeUnusedStyles()
 	for (int i = 0; i < m_docParagraphStyles.count(); ++i)
 	{
 		const ParagraphStyle& ps = m_docParagraphStyles[i];
-		if (ps.isDefaultStyle() || !ps.hasName() || usedResources.styles().contains(ps.name()))
+		if (ps.isDefaultStyle() || usedResources.styles().contains(ps.name()))
 			newParagraphStyleSet.create(ps);
 		else
 			++removedCount;
@@ -1054,7 +1054,7 @@ int ScribusDoc::removeUnusedStyles()
 	for (int i = 0; i < m_docCharStyles.count(); ++i)
 	{
 		const CharStyle& cs = m_docCharStyles[i];
-		if (cs.isDefaultStyle() || !cs.hasName() || usedResources.charStyles().contains(cs.name()))
+		if (cs.isDefaultStyle() || usedResources.charStyles().contains(cs.name()))
 			newCharStyleSet.create(cs);
 		else
 			++removedCount;
@@ -1068,7 +1068,7 @@ int ScribusDoc::removeUnusedStyles()
 	for (int i = 0; i < m_docTableStyles.count(); ++i)
 	{
 		const TableStyle& ts = m_docTableStyles[i];
-		if (ts.isDefaultStyle() || !ts.hasName() || usedResources.tableStyles().contains(ts.name()))
+		if (ts.isDefaultStyle() || usedResources.tableStyles().contains(ts.name()))
 			newTableStyleSet.create(ts);
 		else
 			++removedCount;
@@ -1081,7 +1081,7 @@ int ScribusDoc::removeUnusedStyles()
 	for (int i = 0; i < m_docCellStyles.count(); ++i)
 	{
 		const CellStyle& cs = m_docCellStyles[i];
-		if (cs.isDefaultStyle() || !cs.hasName() || usedResources.cellStyles().contains(cs.name()))
+		if (cs.isDefaultStyle() || usedResources.cellStyles().contains(cs.name()))
 			newCellStyleSet.create(cs);
 		else
 			++removedCount;
