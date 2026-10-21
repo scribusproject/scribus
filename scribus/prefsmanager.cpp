@@ -767,56 +767,61 @@ void PrefsManager::copyOldAppConfigAndData()
 	if (QFile::exists(m_prefsLocation + "scribus150.rc") && QFile::exists(m_prefsLocation + "prefs150.xml"))
 		return;
 
+	// A prefs dir given with --prefs is a separate profile: copy legacy files into it instead of
+	// moving them, so the default profile (still used by older Scribus versions) keeps its settings.
+	using MigrateFileFunc = bool (*)(const QString&, const QString&);
+	const bool customPrefsDir = !ScQApp->userPrefsDir().isEmpty();
+	MigrateFileFunc migrateFile = customPrefsDir ? &copyFile : &moveFile;
+
 	//Move to using the ScPaths default prefs location/scribus.* from ~/.scribus.*
 	QString oldPR = QDir::toNativeSeparators(QDir::homePath() + "/.scribus.rc");
 	QString newPR = QDir::toNativeSeparators(m_prefsLocation + "/scribus.rc");
 	QFileInfo oldPi(oldPR);
 	if (oldPi.exists() && !QFile::exists(newPR))
-		moveFile(oldPR, m_prefsLocation + "scribus.rc");
+		migrateFile(oldPR, m_prefsLocation + "scribus.rc");
 
 	QString oldPR2 = QDir::toNativeSeparators(QDir::homePath() + "/.scribusfont.rc");
 	QString newPR2 = QDir::toNativeSeparators(m_prefsLocation + "/scribusfont.rc");
 	QFileInfo oldPi2(oldPR2);
 	if (oldPi2.exists() && !QFile::exists(newPR2))
-		moveFile(oldPR2, m_prefsLocation + "scribusfont.rc");
+		migrateFile(oldPR2, m_prefsLocation + "scribusfont.rc");
 
 	QString oldPR3 = QDir::toNativeSeparators(QDir::homePath() + "/.scribusscrap.scs");
 	QString newPR3 = QDir::toNativeSeparators(m_prefsLocation + "/scrap.scs");
 	QFileInfo oldPi3(oldPR3);
 	if (oldPi3.exists() && !QFile::exists(newPR3))
-		moveFile(oldPR3, m_prefsLocation + "scrap.scs");
+		migrateFile(oldPR3, m_prefsLocation + "scrap.scs");
 
 	QString oldPrefsLocation(ScPaths::oldApplicationDataDir());
 	QString oldPR4 = QDir::toNativeSeparators(oldPrefsLocation + "scribus150.rc");
 	QString newPR4 = QDir::toNativeSeparators(m_prefsLocation + "scribus150.rc");
 	QFileInfo oldPi4(oldPR4);
 	if (oldPi4.exists() && !QFile::exists(newPR4))
-		moveFile(oldPR4, m_prefsLocation + "scribus150.rc");
+		migrateFile(oldPR4, m_prefsLocation + "scribus150.rc");
 
 	QString oldPR5 = QDir::toNativeSeparators(oldPrefsLocation + "scrap150.scs");
 	QString newPR5 = QDir::toNativeSeparators(m_prefsLocation + "scrap150.scs");
 	QFileInfo oldPi5(oldPR5);
 	if (oldPi5.exists() && !QFile::exists(newPR5))
-		moveFile(oldPR5, m_prefsLocation + "scrap150.scs");
+		migrateFile(oldPR5, m_prefsLocation + "scrap150.scs");
 
 	QString oldPR6 = QDir::toNativeSeparators(oldPrefsLocation + "prefs150.xml");
 	QString newPR6 = QDir::toNativeSeparators(m_prefsLocation + "prefs150.xml");
 	QFileInfo oldPi6(oldPR6);
 	if (oldPi6.exists() && !QFile::exists(newPR6))
-		moveFile(oldPR6, m_prefsLocation + "prefs150.xml");
+		migrateFile(oldPR6, m_prefsLocation + "prefs150.xml");
 
 	QString oldPR7 = QDir::toNativeSeparators(oldPrefsLocation + "scripter150.rc");
 	QString newPR7 = QDir::toNativeSeparators(m_prefsLocation + "scripter150.rc");
 	QFileInfo oldPi7(oldPR7);
 	if (oldPi7.exists() && !QFile::exists(newPR7))
-		moveFile(oldPR7, m_prefsLocation + "scripter150.rc");
+		migrateFile(oldPR7, m_prefsLocation + "scripter150.rc");
 
 	QString oldPR8 = QDir::toNativeSeparators(oldPrefsLocation + "checkfonts.xml");
 	QString newPR8 = QDir::toNativeSeparators(m_prefsLocation + "checkfonts150.xml");
 	QFileInfo oldPi8(oldPR8);
 	if (oldPi8.exists() && !QFile::exists(newPR8))
-		moveFile(oldPR8, m_prefsLocation + "checkfonts150.xml");
-
+		migrateFile(oldPR8, m_prefsLocation + "checkfonts150.xml");
 
 	//Move plugin data files to new plugin data file directory
 	QDir oldPluginData(ScPaths::preferencesDir() + "/plugins");
