@@ -4431,40 +4431,40 @@ Vælg venligst et andet.</translation>
 <context>
     <name>Canvas</name>
     <message>
-        <location filename="../../scribus/canvas.cpp" line="2303"/>
-        <location filename="../../scribus/canvas.cpp" line="2335"/>
+        <location filename="../../scribus/canvas.cpp" line="2442"/>
+        <location filename="../../scribus/canvas.cpp" line="2477"/>
         <source>X: %1
 Y: %2</source>
         <translation>X: %1
 Y: %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvas.cpp" line="2317"/>
+        <location filename="../../scribus/canvas.cpp" line="2458"/>
         <source>X: %1</source>
         <translation>X: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvas.cpp" line="2325"/>
+        <location filename="../../scribus/canvas.cpp" line="2465"/>
         <source>Y: %1</source>
         <translation>Y: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvas.cpp" line="2345"/>
+        <location filename="../../scribus/canvas.cpp" line="2489"/>
         <source>Length: %1
 Angle: %2</source>
         <translation>Længde: %1
 Vinkel: %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvas.cpp" line="2347"/>
+        <location filename="../../scribus/canvas.cpp" line="2491"/>
         <source>Width: %1
 Height: %2</source>
         <translation>Bredde: %1
 Højde: %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvas.cpp" line="2360"/>
-        <location filename="../../scribus/canvas.cpp" line="2368"/>
+        <location filename="../../scribus/canvas.cpp" line="2506"/>
+        <location filename="../../scribus/canvas.cpp" line="2516"/>
         <source>Angle: %1</source>
         <translation>Vinkel: %1</translation>
     </message>
@@ -4505,40 +4505,40 @@ Højde: %2</translation>
 <context>
     <name>CanvasMode_FrameLinks</name>
     <message>
-        <location filename="../../scribus/canvasmode_framelinks.cpp" line="210"/>
-        <location filename="../../scribus/canvasmode_framelinks.cpp" line="277"/>
-        <location filename="../../scribus/canvasmode_framelinks.cpp" line="284"/>
-        <location filename="../../scribus/canvasmode_framelinks.cpp" line="291"/>
+        <location filename="../../scribus/canvasmode_framelinks.cpp" line="221"/>
+        <location filename="../../scribus/canvasmode_framelinks.cpp" line="295"/>
+        <location filename="../../scribus/canvasmode_framelinks.cpp" line="302"/>
+        <location filename="../../scribus/canvasmode_framelinks.cpp" line="309"/>
         <source>Linking Text Frames</source>
         <translation>Forbinder tekstrammer</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvasmode_framelinks.cpp" line="213"/>
+        <location filename="../../scribus/canvasmode_framelinks.cpp" line="224"/>
         <source>Before</source>
         <translation>Før</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvasmode_framelinks.cpp" line="214"/>
+        <location filename="../../scribus/canvasmode_framelinks.cpp" line="225"/>
         <source>After</source>
         <translation>Efter</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvasmode_framelinks.cpp" line="211"/>
+        <location filename="../../scribus/canvasmode_framelinks.cpp" line="222"/>
         <source>You are trying to insert a frame into an existing text chain, where would you like to insert it?</source>
         <translation>Du forsøger at indsætte en ramme i en eksisterende tekstkæde, hvor vil du gerne indsætte den?</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvasmode_framelinks.cpp" line="278"/>
+        <location filename="../../scribus/canvasmode_framelinks.cpp" line="296"/>
         <source>You are trying to link a frame to itself.</source>
         <translation>Du prøver at linke en ramme til sig selv.</translation>
     </message>
     <message>
-        <location filename="../../scribus/canvasmode_framelinks.cpp" line="285"/>
+        <location filename="../../scribus/canvasmode_framelinks.cpp" line="303"/>
         <source>Frame is already linked. Unlink it before linking it to another frame.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/canvasmode_framelinks.cpp" line="292"/>
+        <location filename="../../scribus/canvasmode_framelinks.cpp" line="310"/>
         <source>You are trying to link a non-empty frame to frame which is already linked.</source>
         <translation>Du forsøger at linke en ramme med indhold til ramme som allerede er linket.</translation>
     </message>
@@ -9592,169 +9592,126 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>GuideManager</name>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="38"/>
         <source>&amp;Single</source>
-        <translation>&amp;Enkel</translation>
+        <translation type="vanished">&amp;Enkel</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="58"/>
-        <location filename="../../scribus/ui/guidemanager.ui" line="208"/>
         <source>Horizontals</source>
-        <translation>Horisontale</translation>
+        <translation type="vanished">Horisontale</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="77"/>
         <source>&amp;Add</source>
-        <translation>&amp;Tilføj</translation>
+        <translation type="vanished">&amp;Tilføj</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="80"/>
-        <location filename="../../scribus/ui/guidemanager.ui" line="287"/>
-        <location filename="../../scribus/ui/guidemanager.ui" line="392"/>
-        <location filename="../../scribus/ui/guidemanager.ui" line="469"/>
         <source>Alt+A</source>
-        <translation>Alt+T</translation>
+        <translation type="vanished">Alt+T</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="90"/>
         <source>D&amp;elete</source>
-        <translation>Sl&amp;et</translation>
+        <translation type="vanished">Sl&amp;et</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="93"/>
-        <location filename="../../scribus/ui/guidemanager.ui" line="300"/>
-        <location filename="../../scribus/ui/guidemanager.ui" line="405"/>
         <source>Alt+E</source>
-        <translation>Alt+E</translation>
+        <translation type="vanished">Alt+E</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="103"/>
-        <location filename="../../scribus/ui/guidemanager.ui" line="313"/>
         <source>Verticals</source>
-        <translation>Vertikale</translation>
+        <translation type="vanished">Vertikale</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="122"/>
         <source>A&amp;dd</source>
-        <translation>Til&amp;føj</translation>
+        <translation type="vanished">Til&amp;føj</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="125"/>
         <source>Alt+D</source>
-        <translation>Alt+F</translation>
+        <translation type="vanished">Alt+F</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="135"/>
         <source>De&amp;lete</source>
-        <translation>S&amp;let</translation>
+        <translation type="vanished">S&amp;let</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="138"/>
-        <location filename="../../scribus/ui/guidemanager.ui" line="156"/>
         <source>Alt+L</source>
-        <translation>Alt+L</translation>
+        <translation type="vanished">Alt+L</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="153"/>
         <source>&amp;Lock Guides</source>
-        <translation>&amp;Lås hjælpelinjer</translation>
+        <translation type="vanished">&amp;Lås hjælpelinjer</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="166"/>
-        <location filename="../../scribus/ui/guidemanager.ui" line="198"/>
         <source>Appl&amp;y to All Pages</source>
-        <translation>Anvend effekt p&amp;å alle sider</translation>
+        <translation type="vanished">Anvend effekt p&amp;å alle sider</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="169"/>
-        <location filename="../../scribus/ui/guidemanager.ui" line="201"/>
         <source>Alt+Y</source>
-        <translation>Alt+Å</translation>
+        <translation type="vanished">Alt+Å</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="177"/>
         <source>&amp;Column/Row</source>
-        <translation>&amp;Kolonne/Række</translation>
+        <translation type="vanished">&amp;Kolonne/Række</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="214"/>
         <source>&amp;Number:</source>
-        <translation>&amp;Antal:</translation>
+        <translation type="vanished">&amp;Antal:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="246"/>
         <source>U&amp;se Gap:</source>
-        <translation>B&amp;rug mellemrum:</translation>
+        <translation type="vanished">B&amp;rug mellemrum:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="249"/>
         <source>Alt+S</source>
-        <translation>Alt+R</translation>
+        <translation type="vanished">Alt+R</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="268"/>
-        <location filename="../../scribus/ui/guidemanager.ui" line="373"/>
         <source>&amp;Page</source>
-        <translation>Si&amp;de</translation>
+        <translation type="vanished">Si&amp;de</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="271"/>
-        <location filename="../../scribus/ui/guidemanager.ui" line="376"/>
-        <location filename="../../scribus/ui/guidemanager.ui" line="456"/>
         <source>Alt+P</source>
-        <translation>Alt+D</translation>
+        <translation type="vanished">Alt+D</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="284"/>
-        <location filename="../../scribus/ui/guidemanager.ui" line="389"/>
         <source>M&amp;argins</source>
-        <translation>M&amp;argener</translation>
+        <translation type="vanished">M&amp;argener</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="297"/>
-        <location filename="../../scribus/ui/guidemanager.ui" line="402"/>
         <source>S&amp;election</source>
-        <translation>U&amp;dvalg</translation>
+        <translation type="vanished">U&amp;dvalg</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="319"/>
         <source>Nu&amp;mber:</source>
-        <translation>An&amp;tal:</translation>
+        <translation type="vanished">An&amp;tal:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="351"/>
         <source>Use &amp;Gap:</source>
-        <translation>Brug &amp;mellemrum:</translation>
+        <translation type="vanished">Brug &amp;mellemrum:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="354"/>
         <source>Alt+G</source>
-        <translation>Alt+A</translation>
+        <translation type="vanished">Alt+A</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="432"/>
         <source>&amp;Misc</source>
-        <translation>&amp;Diverse</translation>
+        <translation type="vanished">&amp;Diverse</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="450"/>
+        <location filename="../../scribus/ui/guidemanager.ui" line="656"/>
         <source>Delete all guides from the current page</source>
         <translation>Slet alle hjælpelinjer fra den nuværende side</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="453"/>
         <source>Delete Guides from Current &amp;Page</source>
-        <translation>Slet hjælpelinjer fra den nuværende &amp;side</translation>
+        <translation type="vanished">Slet hjælpelinjer fra den nuværende &amp;side</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="463"/>
+        <location filename="../../scribus/ui/guidemanager.ui" line="666"/>
         <source>Delete all guides from the current document</source>
         <translation>Slet alle hjælpelinjer fra det nuværende dokument</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="466"/>
         <source>Delete Guides from &amp;All Pages</source>
-        <translation>Slet hjælpelinjer fra &amp;alle sider</translation>
+        <translation type="vanished">Slet hjælpelinjer fra &amp;alle sider</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="16"/>
@@ -9762,95 +9719,188 @@ Document Liberation Project https://www.documentliberation.org</source>
         <translation>Håndter hjælpelinjer</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="74"/>
+        <location filename="../../scribus/ui/guidemanager.ui" line="38"/>
+        <source>&amp;Manual Guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/guidemanager.ui" line="58"/>
+        <location filename="../../scribus/ui/guidemanager.ui" line="243"/>
+        <source>&amp;Horizontal Guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/guidemanager.ui" line="82"/>
         <source>Add a new horizontal guide</source>
         <translation>Tilføj en ny horisontal hjælpelinje</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="87"/>
+        <location filename="../../scribus/ui/guidemanager.ui" line="92"/>
         <source>Delete the selected horizontal guide</source>
         <translation>Slet den valgte horisontale hjælpelinje</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="119"/>
+        <location filename="../../scribus/ui/guidemanager.ui" line="120"/>
+        <location filename="../../scribus/ui/guidemanager.ui" line="417"/>
+        <source>&amp;Vertical Guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/guidemanager.ui" line="144"/>
         <source>Add a new vertical guide</source>
         <translation>Tilføj en ny vertikal hjælpelinje</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="132"/>
+        <location filename="../../scribus/ui/guidemanager.ui" line="154"/>
         <source>Delete the selected vertical guide</source>
         <translation>Slet den valgte vertikale hjælpelinje</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="150"/>
+        <location filename="../../scribus/ui/guidemanager.ui" line="186"/>
         <source>Lock the guides</source>
         <translation>Lås hjælpelinjerne</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="163"/>
-        <source>Apply to all pages</source>
-        <translation>Anvend på alle sider</translation>
+        <location filename="../../scribus/ui/guidemanager.ui" line="189"/>
+        <source>Lock Guides</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="227"/>
+        <location filename="../../scribus/ui/guidemanager.ui" line="212"/>
+        <source>Replace the manual guides on all other pages with the manual guides from the current page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/guidemanager.ui" line="215"/>
+        <source>Copy Guides to All Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/guidemanager.ui" line="225"/>
+        <source>&amp;Rows &amp;&amp; Columns</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/guidemanager.ui" line="261"/>
+        <location filename="../../scribus/ui/guidemanager.ui" line="435"/>
+        <source>Relative to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/guidemanager.ui" line="282"/>
+        <location filename="../../scribus/ui/guidemanager.ui" line="456"/>
+        <source>Relative to page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/guidemanager.ui" line="301"/>
+        <location filename="../../scribus/ui/guidemanager.ui" line="475"/>
+        <source>Relative to margins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/guidemanager.ui" line="317"/>
+        <location filename="../../scribus/ui/guidemanager.ui" line="491"/>
+        <source>Relative to selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/guidemanager.ui" line="336"/>
+        <location filename="../../scribus/ui/guidemanager.ui" line="510"/>
+        <source>Number</source>
+        <translation type="unfinished">Nummer</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/guidemanager.ui" line="559"/>
+        <location filename="../../scribus/ui/guidemanager.ui" line="581"/>
+        <source>Set the gap between adjacent generated columns</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/guidemanager.ui" line="609"/>
+        <source>Apply the current row and column guide settings to all pages in the document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/guidemanager.ui" line="612"/>
+        <source>Apply Settings to All Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/guidemanager.ui" line="659"/>
+        <source>Clear Page Guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/guidemanager.ui" line="669"/>
+        <source>Clear All Guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply to all pages</source>
+        <translation type="vanished">Anvend på alle sider</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/guidemanager.ui" line="366"/>
         <source>Number of horizontal guides to create</source>
         <translation>Antal horisontale hjælpelinjer der skal oprettes</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="332"/>
+        <location filename="../../scribus/ui/guidemanager.ui" line="385"/>
+        <location filename="../../scribus/ui/guidemanager.ui" line="407"/>
+        <source>Set the gap between adjacent generated rows</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/guidemanager.ui" line="388"/>
+        <location filename="../../scribus/ui/guidemanager.ui" line="562"/>
+        <source>Gap:</source>
+        <translation type="unfinished">Mellemrum:</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/guidemanager.ui" line="540"/>
         <source>Number of vertical guides to create</source>
         <translation>Antal vertikale hjælpelinjer der skal oprettes</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="243"/>
         <source>Create rows with guides, with an additional gap between the rows</source>
-        <translation>Opret rækker med hjælpelinjer, med ekstra mellemrum mellem rækkerne</translation>
+        <translation type="vanished">Opret rækker med hjælpelinjer, med ekstra mellemrum mellem rækkerne</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="348"/>
         <source>Create columns with guides, with an additional gap between the columns</source>
-        <translation>Opret kolonner med hjælpelinjer, med ekstra mellemrum mellem kolonnerne</translation>
+        <translation type="vanished">Opret kolonner med hjælpelinjer, med ekstra mellemrum mellem kolonnerne</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="265"/>
         <source>Create the selected number of horizontal guides relative to the current page</source>
-        <translation>Opret det valgte antal horisontale hjælpelinjer relativt til den nuværende side</translation>
+        <translation type="vanished">Opret det valgte antal horisontale hjælpelinjer relativt til den nuværende side</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="281"/>
         <source>Create the selected number of horizontal guides relative to the current page&apos;s margins</source>
-        <translation>Opret det valgte antal horisontale hjælpelinjer relativt til den nuværende sides margener</translation>
+        <translation type="vanished">Opret det valgte antal horisontale hjælpelinjer relativt til den nuværende sides margener</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="294"/>
         <source>Create the selected number of horizontal guides relative to the current selection of items</source>
-        <translation>Opret det valgte antal horisontale hjælpelinjer relativt til det nuværende udvalg af elementer</translation>
+        <translation type="vanished">Opret det valgte antal horisontale hjælpelinjer relativt til det nuværende udvalg af elementer</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="370"/>
         <source>Create the selected number of vertical guides relative to the current page</source>
-        <translation>Opret det valgte antal vertikale hjælpelinjer relativt til den nuværende side</translation>
+        <translation type="vanished">Opret det valgte antal vertikale hjælpelinjer relativt til den nuværende side</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="386"/>
         <source>Create the selected number of vertical guides relative to the current page&apos;s margins</source>
-        <translation>Opret det valgte antal vertikale hjælpelinjer relativt til den nuværende sides margener</translation>
+        <translation type="vanished">Opret det valgte antal vertikale hjælpelinjer relativt til den nuværende sides margener</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="399"/>
         <source>Create the selected number of vertical guides relative to the current selection of items</source>
-        <translation>Opret det valgte antal vertikale hjælpelinjer relativt til det nuværende udvalg af elementer</translation>
+        <translation type="vanished">Opret det valgte antal vertikale hjælpelinjer relativt til det nuværende udvalg af elementer</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="195"/>
         <source>Apply the shown guides to all pages in the document</source>
-        <translation>Anvend de viste hjælpelinjer på alle sider i dokumentet</translation>
+        <translation type="vanished">Anvend de viste hjælpelinjer på alle sider i dokumentet</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/guidemanager.ui" line="259"/>
-        <location filename="../../scribus/ui/guidemanager.ui" line="364"/>
         <source>Refer to</source>
-        <translation>I forhold til</translation>
+        <translation type="vanished">I forhold til</translation>
     </message>
 </context>
 <context>
@@ -13459,7 +13509,7 @@ Enter a preset name.</source>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="135"/>
-        <location filename="../../scribus/ui/newmarginwidget.cpp" line="431"/>
+        <location filename="../../scribus/ui/newmarginwidget.cpp" line="437"/>
         <source>Left</source>
         <translation>Venstre</translation>
     </message>
@@ -13474,28 +13524,33 @@ Enter a preset name.</source>
         <translation>Printer margener...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="246"/>
+        <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="225"/>
+        <source>Default Margins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="253"/>
         <source>Bottom</source>
         <translation>Bund</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="288"/>
-        <location filename="../../scribus/ui/newmarginwidget.cpp" line="432"/>
+        <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="295"/>
+        <location filename="../../scribus/ui/newmarginwidget.cpp" line="438"/>
         <source>Right</source>
         <translation>Højre</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newmarginwidget.cpp" line="407"/>
+        <location filename="../../scribus/ui/newmarginwidget.cpp" line="412"/>
         <source>Distance between the top margin guide and the edge of the page</source>
         <translation>Afstand mellem øverste margenhjælpelinje og sidens kant</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newmarginwidget.cpp" line="408"/>
+        <location filename="../../scribus/ui/newmarginwidget.cpp" line="413"/>
         <source>Distance between the bottom margin guide and the edge of the page</source>
         <translation>Afstand mellem nederste margenhjælpelinje og sidens kant</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newmarginwidget.cpp" line="411"/>
+        <location filename="../../scribus/ui/newmarginwidget.cpp" line="416"/>
         <source>Ensure all margins have the same value</source>
         <translation>Sikrer, at alle margener har samme værdi</translation>
     </message>
@@ -13508,77 +13563,82 @@ Enter a preset name.</source>
         <translation type="vanished">Afstand mellem højre margenhjælpelinje og sidens kant. Hvis der er valgt dobbeltsidet, 3 eller 4-fold layout, så kan denne margen bruges til at opnå de rigtige margener for indbinding.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newmarginwidget.cpp" line="419"/>
+        <location filename="../../scribus/ui/newmarginwidget.cpp" line="424"/>
         <source>Ensure all bleeds have the same value</source>
         <translation>Sikrer, at alle beskæringer har samme værdi</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newmarginwidget.cpp" line="423"/>
+        <location filename="../../scribus/ui/newmarginwidget.cpp" line="428"/>
         <source>Distance from the top</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newmarginwidget.cpp" line="424"/>
+        <location filename="../../scribus/ui/newmarginwidget.cpp" line="429"/>
         <source>Distance from the bottom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newmarginwidget.cpp" line="425"/>
+        <location filename="../../scribus/ui/newmarginwidget.cpp" line="430"/>
         <source>Distance from the left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newmarginwidget.cpp" line="426"/>
+        <location filename="../../scribus/ui/newmarginwidget.cpp" line="431"/>
         <source>Distance from the right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newmarginwidget.cpp" line="427"/>
+        <location filename="../../scribus/ui/newmarginwidget.cpp" line="432"/>
         <source>Ensure all distances have the same value</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newmarginwidget.cpp" line="429"/>
+        <location filename="../../scribus/ui/newmarginwidget.cpp" line="434"/>
         <source>Import the margins for the selected page size from the available printers</source>
         <translation>Importer margener for den valgte sidestørrelse fra de tilgængelige printere</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newmarginwidget.cpp" line="431"/>
+        <location filename="../../scribus/ui/newmarginwidget.cpp" line="435"/>
+        <source>Set the margins to the default for the active unit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/newmarginwidget.cpp" line="437"/>
         <source>Inside</source>
         <translation>Inderside</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newmarginwidget.cpp" line="432"/>
+        <location filename="../../scribus/ui/newmarginwidget.cpp" line="438"/>
         <source>Outside</source>
         <translation>Yderside</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newmarginwidget.cpp" line="415"/>
+        <location filename="../../scribus/ui/newmarginwidget.cpp" line="420"/>
         <source>Distance for bleed from the top of the physical page</source>
         <translation>Afstand for beskæring fra toppen af den fysiske side</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newmarginwidget.cpp" line="409"/>
+        <location filename="../../scribus/ui/newmarginwidget.cpp" line="414"/>
         <source>Distance between the left margin guide and the edge of the page. If a double-sided layout is selected, this margin space can be used to achieve the correct margins for binding.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newmarginwidget.cpp" line="410"/>
+        <location filename="../../scribus/ui/newmarginwidget.cpp" line="415"/>
         <source>Distance between the right margin guide and the edge of the page. If a double-sided layout is selected, this margin space can be used to achieve the correct margins for binding.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newmarginwidget.cpp" line="416"/>
+        <location filename="../../scribus/ui/newmarginwidget.cpp" line="421"/>
         <source>Distance for bleed from the bottom of the physical page</source>
         <translation>Afstand for beskæring fra bunden af den fysiske side</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newmarginwidget.cpp" line="417"/>
+        <location filename="../../scribus/ui/newmarginwidget.cpp" line="422"/>
         <source>Distance for bleed from the left of the physical page</source>
         <translation>Afstand for beskæring fra venstre af den fysiske side</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/newmarginwidget.cpp" line="418"/>
+        <location filename="../../scribus/ui/newmarginwidget.cpp" line="423"/>
         <source>Distance for bleed from the right of the physical page</source>
         <translation>Afstand for beskæring fra højre af den fysiske side</translation>
     </message>
@@ -15228,8 +15288,8 @@ Deaktiver venligst eksperimentel PDF og PS indlejring, og prøv igen.</translati
         <translation>Symbol</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="8108"/>
-        <location filename="../../scribus/pageitem.cpp" line="8109"/>
+        <location filename="../../scribus/pageitem.cpp" line="8124"/>
+        <location filename="../../scribus/pageitem.cpp" line="8125"/>
         <source>Copy of</source>
         <translation>Kopi af</translation>
     </message>
@@ -15706,32 +15766,32 @@ Deaktiver venligst eksperimentel PDF og PS indlejring, og prøv igen.</translati
 <context>
     <name>PageLayouts</name>
     <message>
-        <location filename="../../scribus/ui/widgets/pagelayout.cpp" line="193"/>
+        <location filename="../../scribus/ui/widgets/pagelayout.cpp" line="186"/>
         <source>Scheme</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/widgets/pagelayout.cpp" line="194"/>
+        <location filename="../../scribus/ui/widgets/pagelayout.cpp" line="187"/>
         <source>First Page</source>
         <translation>Første side</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/widgets/pagelayout.cpp" line="195"/>
+        <location filename="../../scribus/ui/widgets/pagelayout.cpp" line="188"/>
         <source>Binding</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/widgets/pagelayout.cpp" line="199"/>
+        <location filename="../../scribus/ui/widgets/pagelayout.cpp" line="192"/>
         <source>Number of pages to show side-by-side on the canvas. Often used for allowing items to be placed across page spreads.</source>
         <translation>Antal sider der skal vises side-om-side på dokumentområdet. Ofte brugt for at tillade elementer at blive placeret over flere sider.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/widgets/pagelayout.cpp" line="203"/>
+        <location filename="../../scribus/ui/widgets/pagelayout.cpp" line="196"/>
         <source>Location on the canvas where the first page of the document is placed</source>
         <translation>Stedet på dokument-området, hvor den første side af dokumentet er placeret</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/widgets/pagelayout.cpp" line="206"/>
+        <location filename="../../scribus/ui/widgets/pagelayout.cpp" line="199"/>
         <source>Bind the pages on the right (LTR) or left (RTL) side</source>
         <translation type="unfinished"></translation>
     </message>
@@ -15754,60 +15814,65 @@ Deaktiver venligst eksperimentel PDF og PS indlejring, og prøv igen.</translati
 <context>
     <name>PagePalette_MasterPages</name>
     <message>
-        <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="138"/>
+        <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="140"/>
         <source>Edit Master Pages</source>
         <translation>Rediger mastersider</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="139"/>
+        <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="141"/>
         <source>Duplicate the selected master page</source>
         <translation>Dupliker den valgte masterside</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="140"/>
+        <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="142"/>
         <source>Delete the selected master page</source>
         <translation>Slet den valgte masterside</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="141"/>
+        <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="143"/>
         <source>Add a new master page</source>
         <translation>Tilføj en ny masterside</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="142"/>
+        <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="144"/>
         <source>Import master pages from another document</source>
         <translation>Importer mastersider fra et andet dokument</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="173"/>
+        <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="175"/>
         <source>This master page is used at least once in the document.</source>
         <translation>Denne masterside er brugt mindst en gang i dokumentet.</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="177"/>
+        <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="179"/>
         <source>Do you really want to delete master page &quot;%1&quot;?</source>
         <translation>Ønsker du virkelig at slette masterside &quot;%1&quot;?</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="210"/>
+        <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="212"/>
         <source>&amp;Name:</source>
         <translation>&amp;Navn:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="210"/>
-        <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="319"/>
+        <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="212"/>
+        <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="321"/>
         <source>New Master Page</source>
         <translation>Ny masterside</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="319"/>
+        <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="321"/>
         <source>Name:</source>
         <translation>Navn:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="319"/>
+        <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="321"/>
         <source>New Master Page %1</source>
         <translation>Ny masterside %1</translation>
+    </message>
+    <message>
+        <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="408"/>
+        <source>Could not complete the master page import. Some master pages may be incomplete.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -18259,71 +18324,71 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>PrefsManager</name>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2490"/>
-        <location filename="../../scribus/prefsmanager.cpp" line="2499"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2531"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2540"/>
         <source>Postscript</source>
         <translation>Postscript</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="914"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="955"/>
         <source>Migrate Old Scribus Settings?</source>
         <translation>Overføre gamle Scribus indstillinger?</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="915"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="956"/>
         <source>Scribus has detected existing Scribus 1.6.0 preferences files.
 Do you want to migrate them to the new Scribus version?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2489"/>
-        <location filename="../../scribus/prefsmanager.cpp" line="2499"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2530"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2540"/>
         <source>PostScript</source>
         <translation>PostScript</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="1989"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2030"/>
         <source>Could not open preferences file &quot;%1&quot; for writing: %2</source>
         <translation>Kunne ikke åbne præferencefil &quot;%1&quot; for skrivning: %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="1999"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2040"/>
         <source>Writing to preferences file &quot;%1&quot; failed: QIODevice status code %2</source>
         <translation>Skrivning til præferencefil &quot;%1&quot; fejlede: QIODevice status kode %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2012"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2053"/>
         <source>Failed to open prefs file &quot;%1&quot;: %2</source>
         <translation>Kunne ikke åbne opsætningsfil &quot;%1&quot;: %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2022"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2063"/>
         <source>Failed to read prefs XML from &quot;%1&quot;: %2 at line %3, col %4</source>
         <translation>Kunne ikke indlæse prefs-XML fra &quot;%1&quot;: %2 linje %3, kol %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2989"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="3030"/>
         <source>Error Writing Preferences</source>
         <translation>Fejl ved skrivning af præferencer</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2991"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="3032"/>
         <source>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</source>
         <comment>scribus app error</comment>
         <translation>Scribus var ikke i stand til at gemme sine præferencer: &lt;br&gt;%1&lt;br&gt;Check venligst fil og mappe-tilladelser og tilgængelig diskplads.</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="3006"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="3047"/>
         <source>Error Loading Preferences</source>
         <translation>Fejl ved indlæsning af præferencer</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="3008"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="3049"/>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
         <translation>Scribus var ikke i stand til at indlæse sine præferencer:&lt;br&gt;%1&lt;br&gt;Standardindstillinger vil blive indlæst.</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2608"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2649"/>
         <source>No valid renderframe config found. Using defaults!</source>
         <translation>Ingen gyldig konfiguration for gengiveramme fundet. Anvender standard-værdier!</translation>
     </message>
@@ -20736,7 +20801,7 @@ Do you want to use this?</source>
         <translation>Indtast navnet på genvejs-sættet:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcuts.cpp" line="508"/>
+        <location filename="../../scribus/ui/preferences/prefs_keyboardshortcuts.cpp" line="511"/>
         <source>The %1 key sequence is already in use by &quot;%2&quot;</source>
         <translation>Taste-sekvensen %1 er allerede i brug af &quot;%2&quot;</translation>
     </message>
@@ -31319,7 +31384,7 @@ er denne liste ikke udtømmende, på grund af indsigelser fra kaldte funktioner.
         <translation>Leder efter skrifttyper</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4110"/>
+        <location filename="../../scribus/scribus.cpp" line="4112"/>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
         <translation>Ændringerne i dit dokument er ikke gemt og du har valgt at fortryde dem. Ønsker du at fortsætte?</translation>
     </message>
@@ -32594,7 +32659,7 @@ Derfor er billedet måske ikke korrekt</translation>
         <translation>&lt;p&gt;Du prøver at importere flere sider end der er tilgængelig i det aktuelle dokument talt fra den aktive side.&lt;/p&gt;Vælg et af følgende:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Lav&lt;/b&gt; manglende sider&lt;/li&gt;&lt;li&gt;&lt;b&gt;Importer&lt;/b&gt; sider indtil den sidste side&lt;/li&gt;&lt;li&gt;&lt;b&gt;Annuller&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="19191"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="19200"/>
         <source>Unacceptable settings for note style</source>
         <translation>Uacceptable indstillinger for noteformat</translation>
     </message>
@@ -36977,7 +37042,7 @@ Hvis du gemmer den i denne version, vil den ikke længere kunne læses af ældre
         <location filename="../../scribus/scribusdoc.cpp" line="213"/>
         <location filename="../../scribus/scribusdoc.cpp" line="219"/>
         <location filename="../../scribus/scribusdoc.cpp" line="249"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17632"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17641"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
@@ -36987,27 +37052,27 @@ Hvis du gemmer den i denne version, vil den ikke længere kunne læses af ældre
         <translation>Baggrund</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12032"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12028"/>
         <source>Cannot Delete In-Use Item</source>
         <translation>Kan ikke slette element, der i brug</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12032"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12028"/>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>Elementet %1 redigeres lige nu i den indbyggede tekstbehandler. Slet funktionen vil blive annulleret</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12845"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12841"/>
         <source>Some objects are locked.</source>
         <translation>Nogle objekter er låst.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12841"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12837"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Frigør alt</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="12842"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="12838"/>
         <source>&amp;Skip locked objects</source>
         <translation>&amp;Spring over låste objekter</translation>
     </message>
@@ -37018,22 +37083,22 @@ Hvis du gemmer den i denne version, vil den ikke længere kunne læses af ældre
     </message>
     <message>
         <location filename="../../scribus/scribusdoc.cpp" line="984"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="17311"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17313"/>
         <source>Adjusting Colors</source>
         <translation>Tilpasser farver</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="9776"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="9772"/>
         <source>remove direct paragraph formatting</source>
         <translation>Fjern direkte afsnitsformatering</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="10249"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="10245"/>
         <source>remove direct char formatting</source>
         <translation>Fjern direkte tegnformatering</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="14375"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14372"/>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3
@@ -37044,7 +37109,7 @@ Vertikal forskydning: %3
 Rotation: %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="14408"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14406"/>
         <source>Number of rows: %1
 Number of columns: %2
 Horizontal gap: %3
@@ -37052,41 +37117,41 @@ Vertical gap: %4</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="15857"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="15912"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="16074"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15855"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="15910"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="16072"/>
         <source>Group%1</source>
         <translation>Gruppe%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="1740"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="1736"/>
         <source>Imported </source>
         <comment>Prefix of imported default style</comment>
         <translation>Importeret </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="14537"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="14535"/>
         <source>Copied %1 item(s) on %2 page(s)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="17648"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="17657"/>
         <source>File %1 autosaved</source>
         <translation>Fil %1 gemt automatisk</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="18820"/>
-        <location filename="../../scribus/scribusdoc.cpp" line="18857"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18829"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="18866"/>
         <source>No Style</source>
         <translation>Ingen typografi</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="19185"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="19194"/>
         <source>%1 note style has document as range and provide same numbering style as set %2</source>
         <translation>%1 noteformat har dokument som rækkevidde og giver samme nummereringsformat som sæt %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribusdoc.cpp" line="11928"/>
+        <location filename="../../scribus/scribusdoc.cpp" line="11924"/>
         <source>Do you really want to clear the content of all selected frames?</source>
         <translation>Ønsker du virkelig at slette indholdet af alle valgte rammer?</translation>
     </message>
@@ -37104,7 +37169,7 @@ Vertical gap: %4</source>
         <translation>Indlæser scrapbog</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3463"/>
+        <location filename="../../scribus/scribus.cpp" line="3465"/>
         <source>Fatal Error</source>
         <translation>Fatal fejl</translation>
     </message>
@@ -37152,19 +37217,19 @@ Vertical gap: %4</source>
     <message>
         <location filename="../../scribus/scribus.cpp" line="2167"/>
         <location filename="../../scribus/scribus.cpp" line="2205"/>
-        <location filename="../../scribus/scribus.cpp" line="3771"/>
-        <location filename="../../scribus/scribus.cpp" line="4206"/>
-        <location filename="../../scribus/scribus.cpp" line="4286"/>
-        <location filename="../../scribus/scribus.cpp" line="4448"/>
-        <location filename="../../scribus/scribus.cpp" line="6748"/>
-        <location filename="../../scribus/scribus.cpp" line="8712"/>
+        <location filename="../../scribus/scribus.cpp" line="3773"/>
+        <location filename="../../scribus/scribus.cpp" line="4208"/>
+        <location filename="../../scribus/scribus.cpp" line="4288"/>
+        <location filename="../../scribus/scribus.cpp" line="4450"/>
+        <location filename="../../scribus/scribus.cpp" line="6752"/>
+        <location filename="../../scribus/scribus.cpp" line="8716"/>
         <source>Ready</source>
         <translation>Klar</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3126"/>
         <location filename="../../scribus/scribus.cpp" line="3242"/>
-        <location filename="../../scribus/scribus.cpp" line="3863"/>
+        <location filename="../../scribus/scribus.cpp" line="3865"/>
         <source>Open</source>
         <translation>Åbn</translation>
     </message>
@@ -37189,171 +37254,171 @@ Vertical gap: %4</source>
         <translation>Fandt ingen ting at importere</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3417"/>
+        <location filename="../../scribus/scribus.cpp" line="3419"/>
         <source>File does not exist on the specified path :
 %1</source>
         <translation>Fil eksisterer ikke på den angivne sti :
 %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3464"/>
+        <location filename="../../scribus/scribus.cpp" line="3466"/>
         <source>File %1 is not in an acceptable format</source>
         <translation>Fil %1 er ikke i et acceptabelt format</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3499"/>
+        <location filename="../../scribus/scribus.cpp" line="3501"/>
         <source>Loading...</source>
         <translation>Indlæser...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3663"/>
+        <location filename="../../scribus/scribus.cpp" line="3665"/>
         <source> was replaced by: </source>
         <translation> var erstattet med: </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3693"/>
+        <location filename="../../scribus/scribus.cpp" line="3695"/>
         <source>(converted)</source>
         <translation>(konverteret)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4049"/>
+        <location filename="../../scribus/scribus.cpp" line="4051"/>
         <source>Filename and Path for Image</source>
         <translation>Filnavn og sti for billede</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4049"/>
+        <location filename="../../scribus/scribus.cpp" line="4051"/>
         <source>All Files (*)</source>
         <translation>Alle filer (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4142"/>
-        <location filename="../../scribus/scribus.cpp" line="4201"/>
-        <location filename="../../scribus/scribus.cpp" line="7197"/>
-        <location filename="../../scribus/scribus.cpp" line="7361"/>
-        <location filename="../../scribus/scribus.cpp" line="7375"/>
+        <location filename="../../scribus/scribus.cpp" line="4144"/>
+        <location filename="../../scribus/scribus.cpp" line="4203"/>
+        <location filename="../../scribus/scribus.cpp" line="7201"/>
+        <location filename="../../scribus/scribus.cpp" line="7365"/>
+        <location filename="../../scribus/scribus.cpp" line="7379"/>
         <source>Cannot write the file: 
 %1</source>
         <translation>Kan ikke skrive filen: 
 %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4186"/>
-        <location filename="../../scribus/scribus.cpp" line="7186"/>
+        <location filename="../../scribus/scribus.cpp" line="4188"/>
+        <location filename="../../scribus/scribus.cpp" line="7190"/>
         <source>Save As</source>
         <translation>Gem som</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4217"/>
+        <location filename="../../scribus/scribus.cpp" line="4219"/>
         <source>Saving...</source>
         <translation>Gemmer...</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4351"/>
-        <location filename="../../scribus/scribus.cpp" line="6865"/>
-        <location filename="../../scribus/scribus.cpp" line="6942"/>
-        <location filename="../../scribus/scribus.cpp" line="7014"/>
+        <location filename="../../scribus/scribus.cpp" line="4353"/>
+        <location filename="../../scribus/scribus.cpp" line="6869"/>
+        <location filename="../../scribus/scribus.cpp" line="6946"/>
+        <location filename="../../scribus/scribus.cpp" line="7018"/>
         <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
         <translation>Scribus har opdaget nogle fejl. Overvej at bruge Preflight Efterprøvning  for at rette dem</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4386"/>
+        <location filename="../../scribus/scribus.cpp" line="4388"/>
         <source>Printing...</source>
         <translation>Udskrivning...</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1322"/>
         <location filename="../../scribus/scribus.cpp" line="2229"/>
-        <location filename="../../scribus/scribus.cpp" line="4390"/>
-        <location filename="../../scribus/scribus.cpp" line="7165"/>
-        <location filename="../../scribus/scribus.cpp" line="8442"/>
+        <location filename="../../scribus/scribus.cpp" line="4392"/>
+        <location filename="../../scribus/scribus.cpp" line="7169"/>
+        <location filename="../../scribus/scribus.cpp" line="8446"/>
         <source>Document</source>
         <translation>Dokument</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4436"/>
+        <location filename="../../scribus/scribus.cpp" line="4438"/>
         <source>Printing failed!</source>
         <translation>Udskrivning fejlede!</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4526"/>
+        <location filename="../../scribus/scribus.cpp" line="4528"/>
         <source>Cannot Cut In-Use Item</source>
         <translation>Kan ikke Fjerne element, der i brug</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4526"/>
+        <location filename="../../scribus/scribus.cpp" line="4528"/>
         <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
         <translation>Elementet %1 redigeres lige nu i den indbyggede tekstbehandler. Klip funktionen vil blive annulleret</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5160"/>
+        <location filename="../../scribus/scribus.cpp" line="5164"/>
         <source>About Qt</source>
         <translation>Om Qt</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5191"/>
+        <location filename="../../scribus/scribus.cpp" line="5195"/>
         <source>Scribus Manual</source>
         <translation>Scribus manual</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6314"/>
+        <location filename="../../scribus/scribus.cpp" line="6318"/>
         <source>&amp;Size:</source>
         <translation>&amp;Størrelse:</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1660"/>
-        <location filename="../../scribus/scribus.cpp" line="6314"/>
+        <location filename="../../scribus/scribus.cpp" line="6318"/>
         <source>Size</source>
         <translation>Størrelse</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6730"/>
+        <location filename="../../scribus/scribus.cpp" line="6734"/>
         <source>An error occurred while opening monitor profile.
 Former monitor profile will be used.</source>
         <translation>Der opstod en fejl under åbning af skærmprofil.
 Tidligere skærmprofil vil blive brugt.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7132"/>
+        <location filename="../../scribus/scribus.cpp" line="7136"/>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
         <translation>Scribus har opdaget nogle fejl.
 Overvej at bruge Preflight Efterprøvning  for at rette dem.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7228"/>
+        <location filename="../../scribus/scribus.cpp" line="7232"/>
         <source>Detected some errors.
 Consider using the Preflight Verifier to correct them</source>
         <translation>Opdaget nogle fejl.
 Overvej at bruge Preflight Efterprøvning for at rette dem</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7357"/>
+        <location filename="../../scribus/scribus.cpp" line="7361"/>
         <source>-Page%1</source>
         <translation>-Side%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7915"/>
+        <location filename="../../scribus/scribus.cpp" line="7919"/>
         <source>Some objects are locked.</source>
         <translation>Nogle objekter er låst.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7911"/>
+        <location filename="../../scribus/scribus.cpp" line="7915"/>
         <source>&amp;Lock All</source>
         <translation>&amp;Lås alt</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7389"/>
+        <location filename="../../scribus/scribus.cpp" line="7393"/>
         <source>Locate your PDF viewer</source>
         <translation>Find din PDF-læser</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7912"/>
+        <location filename="../../scribus/scribus.cpp" line="7916"/>
         <source>&amp;Unlock All</source>
         <translation>&amp;Frigør alt</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3971"/>
-        <location filename="../../scribus/scribus.cpp" line="8909"/>
+        <location filename="../../scribus/scribus.cpp" line="3973"/>
+        <location filename="../../scribus/scribus.cpp" line="8913"/>
         <source>Do you really want to replace your existing image?</source>
         <translation>Ønsker du virkelig at erstatte det eksisterende billede?</translation>
     </message>
@@ -37383,17 +37448,17 @@ Overvej at bruge Preflight Efterprøvning for at rette dem</translation>
         <translation>Indsæt nyere</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3885"/>
+        <location filename="../../scribus/scribus.cpp" line="3887"/>
         <source>Do you really want to clear all your text?</source>
         <translation>Ønsker du virkelig at rydde al din tekst?</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3660"/>
+        <location filename="../../scribus/scribus.cpp" line="3662"/>
         <source>Some color profiles used by this document are not installed:</source>
         <translation>Nogle ICC-profiler brugt i dette dokument er ikke installeret:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7186"/>
+        <location filename="../../scribus/scribus.cpp" line="7190"/>
         <source>%1;;All Files (*)</source>
         <translation>%1;;Alle filer (*)</translation>
     </message>
@@ -37403,20 +37468,20 @@ Overvej at bruge Preflight Efterprøvning for at rette dem</translation>
         <translation>Anvender bruger-genveje</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6770"/>
+        <location filename="../../scribus/scribus.cpp" line="6774"/>
         <source>Updating Images</source>
         <translation>Opdaterer billeder</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4140"/>
-        <location filename="../../scribus/scribus.cpp" line="4199"/>
+        <location filename="../../scribus/scribus.cpp" line="4142"/>
+        <location filename="../../scribus/scribus.cpp" line="4201"/>
         <source>Your document was saved to a temporary file and could not be moved: 
 %1</source>
         <translation>Dit dokument blev gemt i en midlertidig fil og kunne ikke flyttes:
 %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="4499"/>
+        <location filename="../../scribus/scribus.cpp" line="4501"/>
         <source>Print engine initialization failed</source>
         <translation>Opstart at print-funktion mislykkedes</translation>
     </message>
@@ -37426,34 +37491,34 @@ Overvej at bruge Preflight Efterprøvning for at rette dem</translation>
         <translation>Alle understøttede formater</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9186"/>
-        <location filename="../../scribus/scribus.cpp" line="9265"/>
+        <location filename="../../scribus/scribus.cpp" line="9190"/>
+        <location filename="../../scribus/scribus.cpp" line="9269"/>
         <source>&amp;Name:</source>
         <translation>&amp;Navn:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9186"/>
-        <location filename="../../scribus/scribus.cpp" line="9265"/>
+        <location filename="../../scribus/scribus.cpp" line="9190"/>
+        <location filename="../../scribus/scribus.cpp" line="9269"/>
         <source>New Entry</source>
         <translation>Ny indgang</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6906"/>
+        <location filename="../../scribus/scribus.cpp" line="6910"/>
         <source>Ghostscript is missing : PostScript Print Preview is not available</source>
         <translation>Ghostscript mangler: PostScript-forhåndsvisning af udskrift er ikke tilgængelig</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3448"/>
+        <location filename="../../scribus/scribus.cpp" line="3450"/>
         <source>Document is already opened</source>
         <translation>Dokument er allerede åbnet</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3465"/>
+        <location filename="../../scribus/scribus.cpp" line="3467"/>
         <source>The file may be damaged or may have been produced in a later version of Scribus.</source>
         <translation>Filen kan være ødelagt eller være lavet i en nyere version af Scribus.</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7666"/>
+        <location filename="../../scribus/scribus.cpp" line="7670"/>
         <source>Editing Symbol: %1</source>
         <translation>Redigerer symbol: %1</translation>
     </message>
@@ -37484,26 +37549,26 @@ Overvej at bruge Preflight Efterprøvning for at rette dem</translation>
         <translation>Mærker</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9681"/>
-        <location filename="../../scribus/scribus.cpp" line="9946"/>
+        <location filename="../../scribus/scribus.cpp" line="9685"/>
+        <location filename="../../scribus/scribus.cpp" line="9950"/>
         <source>Anchor mark</source>
         <translation>Ankermærke</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9689"/>
-        <location filename="../../scribus/scribus.cpp" line="9959"/>
+        <location filename="../../scribus/scribus.cpp" line="9693"/>
+        <location filename="../../scribus/scribus.cpp" line="9963"/>
         <source>Mark with &lt;%1&gt; variable text</source>
         <translation>Mærke med &lt;%1&gt; variabeltekst</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9697"/>
-        <location filename="../../scribus/scribus.cpp" line="9998"/>
+        <location filename="../../scribus/scribus.cpp" line="9701"/>
+        <location filename="../../scribus/scribus.cpp" line="10002"/>
         <source>Mark to %1 item</source>
         <translation>mærke til %1 element</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9707"/>
-        <location filename="../../scribus/scribus.cpp" line="10019"/>
+        <location filename="../../scribus/scribus.cpp" line="9711"/>
+        <location filename="../../scribus/scribus.cpp" line="10023"/>
         <source>Mark to %1 mark</source>
         <translation>mærke til %1mærke</translation>
     </message>
@@ -37623,94 +37688,94 @@ Overvej at bruge Preflight Efterprøvning for at rette dem</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1529"/>
-        <location filename="../../scribus/scribus.cpp" line="8708"/>
+        <location filename="../../scribus/scribus.cpp" line="8712"/>
         <source>X:</source>
         <translation>X:</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1531"/>
-        <location filename="../../scribus/scribus.cpp" line="8709"/>
+        <location filename="../../scribus/scribus.cpp" line="8713"/>
         <source>Y:</source>
         <translation>Y:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="3448"/>
+        <location filename="../../scribus/scribus.cpp" line="3450"/>
         <source>This document is already open. It will be set as the active document.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5268"/>
+        <location filename="../../scribus/scribus.cpp" line="5272"/>
         <source>Text Files (*.txt);;All Files (*)</source>
         <translation>Tekstfiler (*.txt);;Alle filer (*)</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="5268"/>
+        <location filename="../../scribus/scribus.cpp" line="5272"/>
         <source>Save as</source>
         <translation>Gem som</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6327"/>
+        <location filename="../../scribus/scribus.cpp" line="6331"/>
         <source>&amp;Language:</source>
         <translation>&amp;Sprog:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="6327"/>
+        <location filename="../../scribus/scribus.cpp" line="6331"/>
         <source>Language</source>
         <translation>Sprog</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="7717"/>
+        <location filename="../../scribus/scribus.cpp" line="7721"/>
         <source>Editing Inline Item</source>
         <translation>Redigerer indlejret element</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8541"/>
+        <location filename="../../scribus/scribus.cpp" line="8545"/>
         <source>The program %1 is missing or failed to open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8702"/>
+        <location filename="../../scribus/scribus.cpp" line="8706"/>
         <source>Current zoom level</source>
         <translation>Nuværende zoomniveau</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8703"/>
+        <location filename="../../scribus/scribus.cpp" line="8707"/>
         <source>Zoom to 100%</source>
         <translation>Zoom til 100%</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8704"/>
+        <location filename="../../scribus/scribus.cpp" line="8708"/>
         <source>Zoom out by the stepping value in Tools preferences</source>
         <translation>Zoom ud med trinværdierne i værktøj-præferencer</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8705"/>
+        <location filename="../../scribus/scribus.cpp" line="8709"/>
         <source>Zoom in by the stepping value in Tools preferences</source>
         <translation>Zoom ind med trinværdierne i værktøj-præferencer</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8706"/>
+        <location filename="../../scribus/scribus.cpp" line="8710"/>
         <source>Select the current layer</source>
         <translation>Vælg det nuværende lag</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8707"/>
+        <location filename="../../scribus/scribus.cpp" line="8711"/>
         <source>Select the current unit</source>
         <translation>Vælg den nuværende måle-enhed</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9655"/>
+        <location filename="../../scribus/scribus.cpp" line="9659"/>
         <source>Insert New </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9730"/>
-        <location filename="../../scribus/scribus.cpp" line="10041"/>
+        <location filename="../../scribus/scribus.cpp" line="9734"/>
+        <location filename="../../scribus/scribus.cpp" line="10045"/>
         <source>Index mark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9926"/>
+        <location filename="../../scribus/scribus.cpp" line="9930"/>
         <source>Edit %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -37939,17 +38004,17 @@ Overvej at bruge Preflight Efterprøvning for at rette dem</translation>
         <translation>Annuller</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="11075"/>
+        <location filename="../../scribus/pageitem.cpp" line="11091"/>
         <source>Print: </source>
         <translation>Udskriv: </translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="11077"/>
+        <location filename="../../scribus/pageitem.cpp" line="11093"/>
         <source>Enabled</source>
         <translation>Aktiv</translation>
     </message>
     <message>
-        <location filename="../../scribus/pageitem.cpp" line="11079"/>
+        <location filename="../../scribus/pageitem.cpp" line="11095"/>
         <source>Disabled</source>
         <translation>Deaktiveret</translation>
     </message>
@@ -43083,22 +43148,22 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>XarPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="240"/>
+        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="253"/>
         <source>Importing: %1</source>
         <translation>Importerer: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="243"/>
+        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="256"/>
         <source>Analyzing File:</source>
         <translation>Analyserer fil:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="3481"/>
+        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="3500"/>
         <source>Group%1</source>
         <translation>Gruppe%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="511"/>
+        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="524"/>
         <source>Generating Items</source>
         <translation>Genererer elementer</translation>
     </message>
