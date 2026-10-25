@@ -8471,6 +8471,7 @@ void ScribusMainWindow::EditTabs()
 
 	PageItem *currItem = doc->m_Selection->itemAt(0);
 	TabManager *dia = new TabManager(this, doc->unitIndex(), currItem->itemText.defaultStyle().tabValues(), currItem->width());
+	dia->setConstants(&doc->constants());
 	if (dia->exec())
 	{
 		ParagraphStyle newTabs(currItem->itemText.defaultStyle());

@@ -65,3 +65,8 @@ void TabManager::setRtl(bool rtl)
 {
 	TabList->setRtl(rtl);
 }
+
+void TabManager::setConstants(const QMap<QString, double>* constants)
+{
+	TabList->setConstants(constants);
+}

@@ -375,6 +375,7 @@ void PropertyWidget_Distance::handleTabs()
 		return;
 	const ParagraphStyle& style(m_doc->appMode == modeEdit ? tItem->currentStyle() : tItem->itemText.defaultStyle());
 	TabManager *dia = new TabManager(this, m_doc->unitIndex(), style.tabValues(), tItem->columnWidth());
+	dia->setConstants(&m_doc->constants());
 	if (dia->exec())
 	{
 		if (m_doc->appMode != modeEdit)

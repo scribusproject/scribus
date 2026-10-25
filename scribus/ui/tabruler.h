@@ -104,6 +104,8 @@ public:
 	virtual void setTabs(const QList<ParagraphStyle::TabRecord>& tabs, int unit);
 
 	void setRtl(bool rtl);
+	/*! \brief Set document constants (e.g. pagewidth) in the spinboxes. */
+	void setConstants(const QMap<QString, double>* constants);
 
 	QList<ParagraphStyle::TabRecord> getTabVals() const;
 	double getFirstLine() const;

@@ -500,6 +500,7 @@ void Hruler::mouseDoubleClickEvent(QMouseEvent* m)
 
 		const ParagraphStyle& style(m_doc->appMode == modeEdit ? tItem->currentStyle() : tItem->itemText.defaultStyle());
 		TabManager *dia = new TabManager(this, m_doc->unitIndex(), style.tabValues(), tItem->columnWidth());
+		dia->setConstants(&m_doc->constants());
 		dia->setRtl(m_rtl);
 		if (dia->exec())
 		{

@@ -862,6 +862,17 @@ void Tabruler::setRtl(bool rtl)
 	}
 }
 
+void Tabruler::setConstants(const QMap<QString, double>* constants)
+{
+	tabData->setConstants(constants);
+	if (m_haveFirst)
+	{
+		firstLineData->setConstants(constants);
+		leftIndentData->setConstants(constants);
+		rightIndentData->setConstants(constants);
+	}
+}
+
 void Tabruler::setTabs(const QList<ParagraphStyle::TabRecord>& tabs, int unit)
 {
 	m_docUnitRatio = unitGetRatioFromIndex(unit);

@@ -31,6 +31,7 @@ public slots:
 	void exitOK();
 	void setTabList(const QList<ParagraphStyle::TabRecord>& tabList);
 	void setRtl(bool rtl);
+	void setConstants(const QMap<QString, double>* constants);
 
 	private:
 	QHBoxLayout* layout10;
