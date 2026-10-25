@@ -227,7 +227,7 @@ void Hruler::mousePressEvent(QMouseEvent *m)
 			m_rulerCode = rc_tab;
 			updateTabList();
 			QApplication::setOverrideCursor(QCursor(Qt::SizeHorCursor));
-			emit DocChanged(false);
+			emit DocChanged();
 		}
 	}
 	else
@@ -259,32 +259,32 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 			{
 				case rc_leftFrameDist:
 					m_doc->m_Selection->itemAt(0)->setTextToFrameDistLeft(m_distLeft);
-					emit DocChanged(false);
+					emit DocChanged();
 					break;
 				case rc_rightFrameDist:
 					m_doc->m_Selection->itemAt(0)->setTextToFrameDistRight(m_distRight);
-					emit DocChanged(false);
+					emit DocChanged();
 					break;
 				case rc_indentFirst:
 					paraStyle.setFirstIndent(m_firstIndent);
 					mustApplyStyle = true;
-					emit DocChanged(false);
+					emit DocChanged();
 					break;
 				case rc_leftMargin:
 					paraStyle.setLeftMargin(m_leftMargin);
 					paraStyle.setFirstIndent(m_firstIndent);
 					mustApplyStyle = true;
-					emit DocChanged(false);
+					emit DocChanged();
 					break;
 				case rc_rightMargin:
 					paraStyle.setRightMargin(colWidth - m_rightMargin);
 					mustApplyStyle = true;
-					emit DocChanged(false);
+					emit DocChanged();
 					break;
 				case rc_tab:
 					paraStyle.setTabValues(m_tabValues);
 					mustApplyStyle = true;
-					emit DocChanged(false);
+					emit DocChanged();
 					break;
 				default:
 					break;
@@ -311,7 +311,7 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 				Selection tempSelection(this, false);
 				tempSelection.addItem(m_currItem);
 				m_doc->itemSelection_ApplyParagraphStyle(paraStyle, &tempSelection);
-				emit DocChanged(false);
+				emit DocChanged();
 			}
 		}
 		m_rulerCode = rc_none;
@@ -508,7 +508,7 @@ void Hruler::mouseDoubleClickEvent(QMouseEvent* m)
 			Selection tempSelection(this, false);
 			tempSelection.addItem(m_currItem);
 			m_doc->itemSelection_ApplyParagraphStyle(paraStyle, &tempSelection);
-			emit DocChanged(false);
+			emit DocChanged();
 		}
 		delete dia;
 	}
@@ -1210,7 +1210,7 @@ void Hruler::tabTypeChanged(QAction *action)
 	ParagraphStyle paraStyle;
 	paraStyle.setTabValues(m_tabValues);
 
-	emit DocChanged(false);
+	emit DocChanged();
 
 	Selection tempSelection(this, false);
 	tempSelection.addItem(m_currItem);

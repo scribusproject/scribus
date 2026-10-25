@@ -575,7 +575,7 @@ PyObject *scribus_settextflowmode(PyObject* /* self */, PyObject* args)
 	else if (state == (int) PageItem::TextFlowUsesContourLine )
 		i->setTextFlowMode(PageItem::TextFlowUsesContourLine);
 	ScCore->primaryMainWindow()->view->DrawNew();
-	ScCore->primaryMainWindow()->slotDocCh(true);
+	ScCore->primaryMainWindow()->slotDocCh();
 
 	Py_RETURN_NONE;
 }

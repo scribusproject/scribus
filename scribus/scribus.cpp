@@ -2677,7 +2677,7 @@ void ScribusMainWindow::SwitchWin()
 	else
 	{
 		if (doc->isModified())
-			slotDocCh(false);
+			slotDocCh();
 		pagePalette->enablePalette(true);
 		setPreviewToolbar();
 	}
@@ -2721,7 +2721,7 @@ void ScribusMainWindow::HaveNewDoc()
 	connect(view, SIGNAL(layerChanged(int)), layerPalette, SLOT(markActiveLayer(int)), Qt::UniqueConnection);
 	connect(this, SIGNAL(changeLayers(int)), layerPalette, SLOT(markActiveLayer(int)), Qt::UniqueConnection);
 	connect(view->horizRuler, SIGNAL(MarkerMoved(double,double)), this, SLOT(setStatusBarTextPosition(double,double)), Qt::UniqueConnection);
-	connect(view->horizRuler, SIGNAL(DocChanged(bool)), this, SLOT(slotDocCh(bool)), Qt::UniqueConnection);
+	connect(view->horizRuler, SIGNAL(DocChanged()), this, SLOT(slotDocCh()), Qt::UniqueConnection);
 	connect(view, SIGNAL(ClipPo(double,double)), nodePalette, SLOT(SetXY(double,double)), Qt::UniqueConnection);
 	connect(view, SIGNAL(PolyOpen()), nodePalette, SLOT(IsOpen()), Qt::UniqueConnection);
 	connect(view, SIGNAL(ItemGeom()), propertiesPalette->xyzPal, SLOT(handleSelectionChanged()), Qt::UniqueConnection);
@@ -2838,7 +2838,7 @@ void ScribusMainWindow::HaveNewSel()
 	appModeHelper->updateActionPluginsActions(doc);
 }
 
-void ScribusMainWindow::slotDocCh(bool /*reb*/)
+void ScribusMainWindow::slotDocCh()
 {
 	if (!doc->isModified())
 		doc->setModified(true);
@@ -3086,7 +3086,7 @@ void ScribusMainWindow::doPasteRecent(const QString& data)
 		if (pasteAction)
 			pasteAction.commit();
 	}
-	slotDocCh(false);
+	slotDocCh();
 	slotPreviewCh();
 	doc->regionsChanged()->update(QRectF());
 	view->dragX = 0;
@@ -4970,7 +4970,7 @@ void ScribusMainWindow::slotEditPaste(bool forcePlainText)
 	inlinePalette->setDoc(doc);
 
 	view->DrawNew();
-	slotDocCh(false);
+	slotDocCh();
 	slotPreviewCh();
 }
 
@@ -7613,9 +7613,9 @@ void ScribusMainWindow::slotChangeUnit(int unitIndex, bool draw)
 void ScribusMainWindow::ManageJava()
 {
 	JavaDocs *dia = new JavaDocs(this, doc, view);
-	connect(dia, SIGNAL(docChanged(bool)), this, SLOT(slotDocCh(bool)));
+	connect(dia, SIGNAL(docChanged(bool)), this, SLOT(slotDocCh()));
 	dia->exec();
-	disconnect(dia, SIGNAL(docChanged(bool)), this, SLOT(slotDocCh(bool)));
+	disconnect(dia, SIGNAL(docChanged(bool)), this, SLOT(slotDocCh()));
 	delete dia;
 }
 
@@ -8822,7 +8822,7 @@ void ScribusMainWindow::dropEvent ( QDropEvent * e)
 						HaveNewDoc();
 						doc->reformPages(true);
 						slotElemRead(data, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, false, doc, view);
-						slotDocCh(false);
+						slotDocCh();
 						doc->regionsChanged()->update(QRectF());
 					}
 				}
@@ -8860,7 +8860,7 @@ void ScribusMainWindow::dropEvent ( QDropEvent * e)
 					HaveNewDoc();
 					doc->reformPages(true);
 					slotElemRead(text, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, false, doc, view);
-					slotDocCh(false);
+					slotDocCh();
 					doc->regionsChanged()->update(QRectF());
 				}
 				accepted = true;

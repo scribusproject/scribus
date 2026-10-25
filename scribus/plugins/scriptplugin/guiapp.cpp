@@ -78,12 +78,7 @@ PyObject *scribus_docchanged(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	ScCore->primaryMainWindow()->slotDocCh(static_cast<bool>(aValue));
-	/*
-	if (aValue>0)
-		ScCore->primaryMainWindow()->slotDocCh(true);
-	else
-		ScCore->primaryMainWindow()->slotDocCh(false);*/
+	ScCore->primaryMainWindow()->slotDocCh();
 	Py_RETURN_NONE;
 }
 

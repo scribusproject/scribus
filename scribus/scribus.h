@@ -493,7 +493,7 @@ public slots:
 	void HaveNewDoc();
 	void HaveNewSel();
 	/** Dokument ist geaendert worden */
-	void slotDocCh(bool reb = true);
+	void slotDocCh();
 	/** Page preview changed */
 	void slotPreviewCh();
 	/** Setzt die Abstufung */

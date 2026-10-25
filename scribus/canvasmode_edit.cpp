@@ -129,7 +129,7 @@ void CanvasMode_Edit::keyPressEvent(QKeyEvent *e)
 		}
 		blinkTextCursor();
 		if (!currItem->isTextFrame() || (currItem->isAutoNoteFrame() && currItem->asNoteFrame()->notesList().isEmpty()))
-			m_ScMW->slotDocCh(false);
+			m_ScMW->slotDocCh();
 		currItem->handleModeEditKey(e, m_keyRepeat);
 		if (currItem->isAutoNoteFrame() && currItem->asNoteFrame()->notesList().isEmpty())
 		{

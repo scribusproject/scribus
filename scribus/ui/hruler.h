@@ -145,7 +145,7 @@ private slots:
 	void tabTypeChanged(QAction *action);
 
 signals:
-	void DocChanged(bool);
+	void DocChanged();
 	void MarkerMoved(double base, double xp);
 
 private:
