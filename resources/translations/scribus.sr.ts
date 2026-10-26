@@ -16608,72 +16608,72 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>PrefsManager</name>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2459"/>
-        <location filename="../../scribus/prefsmanager.cpp" line="2468"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2464"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2473"/>
         <source>Postscript</source>
         <translation>Постскрипт</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="887"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="892"/>
         <source>Migrate Old Scribus Settings?</source>
         <translation>Да преселим стара подешавања Скрибуса?</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2458"/>
-        <location filename="../../scribus/prefsmanager.cpp" line="2468"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2463"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2473"/>
         <source>PostScript</source>
         <translation>Постскрипт</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="1971"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="1976"/>
         <source>Could not open preferences file &quot;%1&quot; for writing: %2</source>
         <translation>Не могу да отворим датотеку подешавања „%1“ за писање: %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="888"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="893"/>
         <source>Scribus has detected existing Scribus 1.3.5 preferences files.
 Do you want to migrate them to the new Scribus version?</source>
         <translation>Скрибус је открио да постоје датотеке подешавања Скрибуса 1.3.5.
 Да ли желите да их пребаците у ново издање Скрибуса?</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="1981"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="1986"/>
         <source>Writing to preferences file &quot;%1&quot; failed: QIODevice status code %2</source>
         <translation>Писање у датотеку поставки „%1“ није успело: код стања КуИО уређаја %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="1994"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="1999"/>
         <source>Failed to open prefs file &quot;%1&quot;: %2</source>
         <translation>Нисам успео да отворим датотеку поставки „%1“: %2</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2004"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2009"/>
         <source>Failed to read prefs XML from &quot;%1&quot;: %2 at line %3, col %4</source>
         <translation>Нисам успео да прочитам ИксМЛ поставки из „%1“: %2 у линији %3, колона %4</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2874"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2879"/>
         <source>Error Writing Preferences</source>
         <translation>Грешка писања поставки</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2876"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2881"/>
         <source>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</source>
         <comment>scribus app error</comment>
         <translation>Скрибус није могао да сачува своје поставке:&lt;br&gt;%1&lt;br&gt;Проверите овлашћења за датотеку и директоријум и доступан простор на диску.</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2891"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2896"/>
         <source>Error Loading Preferences</source>
         <translation>Грешка учитавања поставки</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2893"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2898"/>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
         <translation>Скрибус није могао да учита своје поставке:&lt;br&gt;%1&lt;br&gt;Биће учитана основна подешавања.</translation>
     </message>
     <message>
-        <location filename="../../scribus/prefsmanager.cpp" line="2576"/>
+        <location filename="../../scribus/prefsmanager.cpp" line="2581"/>
         <source>No valid renderframe config found. Using defaults!</source>
         <translation>Нисам нашао исправна подешавања оквира исцртавања. Користим основности!</translation>
     </message>
@@ -40701,22 +40701,22 @@ Document Liberation Project https://www.documentliberation.org</source>
 <context>
     <name>XarPlug</name>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="254"/>
+        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="267"/>
         <source>Importing: %1</source>
         <translation>Увозим: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="257"/>
+        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="270"/>
         <source>Analyzing File:</source>
         <translation>Анализирам датотеку:</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="3495"/>
+        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="3514"/>
         <source>Group%1</source>
         <translation>Група%1</translation>
     </message>
     <message>
-        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="525"/>
+        <location filename="../../scribus/plugins/import/xar/importxar.cpp" line="538"/>
         <source>Generating Items</source>
         <translation>Правим ставке</translation>
     </message>
