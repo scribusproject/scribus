@@ -10071,32 +10071,32 @@ HE GWRIZIOÙ D&apos;UR VLEUNIENN WENN;</translation>
 <context>
     <name>Hruler</name>
     <message>
-        <location filename="../../scribus/ui/hruler.cpp" line="1186"/>
-        <location filename="../../scribus/ui/hruler.cpp" line="1190"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1187"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1191"/>
         <source>Left</source>
         <translation>Kleiz</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/hruler.cpp" line="1183"/>
-        <location filename="../../scribus/ui/hruler.cpp" line="1191"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1184"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1192"/>
         <source>Center</source>
         <translation>Kreizañ</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/hruler.cpp" line="1184"/>
-        <location filename="../../scribus/ui/hruler.cpp" line="1192"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1185"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1193"/>
         <source>Comma</source>
         <translation>Skej</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/hruler.cpp" line="1185"/>
-        <location filename="../../scribus/ui/hruler.cpp" line="1193"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1186"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1194"/>
         <source>Period</source>
         <translation type="unfinished">Trovezh</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/hruler.cpp" line="1182"/>
-        <location filename="../../scribus/ui/hruler.cpp" line="1194"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1183"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1195"/>
         <source>Right</source>
         <translation>Dehou</translation>
     </message>
@@ -25420,47 +25420,47 @@ Lakaat war al live 1 pe 2 a c&apos;hall krouiñ restroù ramzel</translation>
 <context>
     <name>PropertyWidget_Distance</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="473"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="474"/>
         <source>Gap:</source>
         <translation>Esaou  :</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="474"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="475"/>
         <source>Width:</source>
         <translation>Led :</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="477"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="478"/>
         <source> pt</source>
         <translation> pt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="485"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="486"/>
         <source>Indentation for first line of the paragraph</source>
         <translation>Pukad evit arroudenn gentañ ar rannbennad</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="486"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="487"/>
         <source>Indentation from the left for the whole paragraph</source>
         <translation>Pukad diouzh an tu kleiz evit ar rannbennad a-bezh</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="487"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="488"/>
         <source>Indentation from the right for the whole paragraph</source>
         <translation>Pukad diouzh an tu dehou evit ar rannbennad a-bezh</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="491"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="492"/>
         <source>Edit tab settings of text frame...</source>
         <translation>Embann arventennoù an taolata eus ar sterniad testenn...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="492"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="493"/>
         <source>Space above a paragraph</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="493"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="494"/>
         <source>Space below a paragraph</source>
         <translation type="unfinished"></translation>
     </message>
@@ -37222,7 +37222,7 @@ Vertical gap: %4</source>
         <location filename="../../scribus/scribus.cpp" line="4288"/>
         <location filename="../../scribus/scribus.cpp" line="4450"/>
         <location filename="../../scribus/scribus.cpp" line="6752"/>
-        <location filename="../../scribus/scribus.cpp" line="8716"/>
+        <location filename="../../scribus/scribus.cpp" line="8717"/>
         <source>Ready</source>
         <translation>Prest</translation>
     </message>
@@ -37418,7 +37418,7 @@ Gwell e vefe ober gant Gwirierez Preflight d&apos;o reizhañ</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3973"/>
-        <location filename="../../scribus/scribus.cpp" line="8913"/>
+        <location filename="../../scribus/scribus.cpp" line="8914"/>
         <source>Do you really want to replace your existing image?</source>
         <translation>Fellout a ra deoc&apos;h kemm ar skeudenn vremanel ?</translation>
     </message>
@@ -37491,14 +37491,14 @@ Gwell e vefe ober gant Gwirierez Preflight d&apos;o reizhañ</translation>
         <translation>An holl ventrezhoù skoret</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9190"/>
-        <location filename="../../scribus/scribus.cpp" line="9269"/>
+        <location filename="../../scribus/scribus.cpp" line="9191"/>
+        <location filename="../../scribus/scribus.cpp" line="9270"/>
         <source>&amp;Name:</source>
         <translation>&amp;Anv :</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9190"/>
-        <location filename="../../scribus/scribus.cpp" line="9269"/>
+        <location filename="../../scribus/scribus.cpp" line="9191"/>
+        <location filename="../../scribus/scribus.cpp" line="9270"/>
         <source>New Entry</source>
         <translation>Enankad nevez</translation>
     </message>
@@ -37549,26 +37549,26 @@ Gwell e vefe ober gant Gwirierez Preflight d&apos;o reizhañ</translation>
         <translation>Merkoù</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9685"/>
-        <location filename="../../scribus/scribus.cpp" line="9950"/>
+        <location filename="../../scribus/scribus.cpp" line="9686"/>
+        <location filename="../../scribus/scribus.cpp" line="9951"/>
         <source>Anchor mark</source>
         <translation>Merk eoriañ</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9693"/>
-        <location filename="../../scribus/scribus.cpp" line="9963"/>
+        <location filename="../../scribus/scribus.cpp" line="9694"/>
+        <location filename="../../scribus/scribus.cpp" line="9964"/>
         <source>Mark with &lt;%1&gt; variable text</source>
         <translation>Merkañ gant an argemenn destenn &lt;%1&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9701"/>
-        <location filename="../../scribus/scribus.cpp" line="10002"/>
+        <location filename="../../scribus/scribus.cpp" line="9702"/>
+        <location filename="../../scribus/scribus.cpp" line="10003"/>
         <source>Mark to %1 item</source>
         <translation>Merkañ ouzh ergorenn %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9711"/>
-        <location filename="../../scribus/scribus.cpp" line="10023"/>
+        <location filename="../../scribus/scribus.cpp" line="9712"/>
+        <location filename="../../scribus/scribus.cpp" line="10024"/>
         <source>Mark to %1 mark</source>
         <translation>Merkañ ouzh merk %1</translation>
     </message>
@@ -37688,13 +37688,13 @@ Gwell e vefe ober gant Gwirierez Preflight d&apos;o reizhañ</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1529"/>
-        <location filename="../../scribus/scribus.cpp" line="8712"/>
+        <location filename="../../scribus/scribus.cpp" line="8713"/>
         <source>X:</source>
         <translation>X :</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1531"/>
-        <location filename="../../scribus/scribus.cpp" line="8713"/>
+        <location filename="../../scribus/scribus.cpp" line="8714"/>
         <source>Y:</source>
         <translation>Y :</translation>
     </message>
@@ -37729,53 +37729,53 @@ Gwell e vefe ober gant Gwirierez Preflight d&apos;o reizhañ</translation>
         <translation>Embannadur an ergorennoù a-steud</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8545"/>
+        <location filename="../../scribus/scribus.cpp" line="8546"/>
         <source>The program %1 is missing or failed to open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8706"/>
+        <location filename="../../scribus/scribus.cpp" line="8707"/>
         <source>Current zoom level</source>
         <translation>Live bremanel ar zoum</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8707"/>
+        <location filename="../../scribus/scribus.cpp" line="8708"/>
         <source>Zoom to 100%</source>
         <translation>Zoumañ betek 100 %</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8708"/>
+        <location filename="../../scribus/scribus.cpp" line="8709"/>
         <source>Zoom out by the stepping value in Tools preferences</source>
         <translation>Zoum bihanaat dre ar werzh dereziañ e gwellvezioù an ostilhoù</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8709"/>
+        <location filename="../../scribus/scribus.cpp" line="8710"/>
         <source>Zoom in by the stepping value in Tools preferences</source>
         <translation>Zoum brasaat dre ar werzh dereziañ e gwellvezioù an ostilhoù</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8710"/>
+        <location filename="../../scribus/scribus.cpp" line="8711"/>
         <source>Select the current layer</source>
         <translation>Diuzañ an dreuzfollenn vremanel</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8711"/>
+        <location filename="../../scribus/scribus.cpp" line="8712"/>
         <source>Select the current unit</source>
         <translation>Diuzañ an unanenn vremanel</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9659"/>
+        <location filename="../../scribus/scribus.cpp" line="9660"/>
         <source>Insert New </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9734"/>
-        <location filename="../../scribus/scribus.cpp" line="10045"/>
+        <location filename="../../scribus/scribus.cpp" line="9735"/>
+        <location filename="../../scribus/scribus.cpp" line="10046"/>
         <source>Index mark</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9930"/>
+        <location filename="../../scribus/scribus.cpp" line="9931"/>
         <source>Edit %1</source>
         <translation type="unfinished"></translation>
     </message>

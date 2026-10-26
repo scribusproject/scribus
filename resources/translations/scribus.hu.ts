@@ -9719,13 +9719,13 @@ Wesselényinél mázol Quitóban</translation>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="38"/>
         <source>&amp;Manual Guides</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kézi segédvonalak</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="58"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="243"/>
         <source>&amp;Horizontal Guides</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Vízszintes segédvonalak</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="82"/>
@@ -9741,7 +9741,7 @@ Wesselényinél mázol Quitóban</translation>
         <location filename="../../scribus/ui/guidemanager.ui" line="120"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="417"/>
         <source>&amp;Vertical Guides</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Függőleges segédvonalak</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="144"/>
@@ -9761,78 +9761,78 @@ Wesselényinél mázol Quitóban</translation>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="189"/>
         <source>Lock Guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Segédvonalak zárolása</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="212"/>
         <source>Replace the manual guides on all other pages with the manual guides from the current page</source>
-        <translation type="unfinished"></translation>
+        <translation>Az összes többi oldalon lévő kézi segédvonalak cseréje az aktuális oldal kézi segédvonalaira.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="215"/>
         <source>Copy Guides to All Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Segédvonalak másolása minden oldalra</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="225"/>
         <source>&amp;Rows &amp;&amp; Columns</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Sorok és oszlopok</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="261"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="435"/>
         <source>Relative to</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Viszonyítás</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="282"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="456"/>
         <source>Relative to page</source>
-        <translation type="unfinished"></translation>
+        <translation>Oldalhoz relatívan</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="301"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="475"/>
         <source>Relative to margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Margókhoz relatívan</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="317"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="491"/>
         <source>Relative to selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Kijelöléshez relatívan</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="336"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="510"/>
         <source>Number</source>
-        <translation type="unfinished">Szám</translation>
+        <translation>Szám</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="559"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="581"/>
         <source>Set the gap between adjacent generated columns</source>
-        <translation type="unfinished"></translation>
+        <translation>A szomszédos generált hasábok közötti hézag beállítása</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="609"/>
         <source>Apply the current row and column guide settings to all pages in the document</source>
-        <translation type="unfinished"></translation>
+        <translation>Az aktuális sor- és hasáb segédvonal beállítások alkalmazása a dokumentum minden oldalára</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="612"/>
         <source>Apply Settings to All Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Beállítások alkalmazása minden oldalon</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="659"/>
         <source>Clear Page Guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Oldalsegédvonalak eltávolítása</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="669"/>
         <source>Clear All Guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Minden segédvonal eltávolítása</translation>
     </message>
     <message>
         <source>Apply to all pages</source>
@@ -9847,13 +9847,13 @@ Wesselényinél mázol Quitóban</translation>
         <location filename="../../scribus/ui/guidemanager.ui" line="385"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="407"/>
         <source>Set the gap between adjacent generated rows</source>
-        <translation type="unfinished"></translation>
+        <translation>A szomszédos generált sorok közötti hézag beállítása</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="388"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="562"/>
         <source>Gap:</source>
-        <translation type="unfinished">Hasábköz:</translation>
+        <translation>Hasábköz:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="540"/>
@@ -10067,32 +10067,32 @@ Wesselényinél mázol Quitóban</translation>
 <context>
     <name>Hruler</name>
     <message>
-        <location filename="../../scribus/ui/hruler.cpp" line="1186"/>
-        <location filename="../../scribus/ui/hruler.cpp" line="1190"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1187"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1191"/>
         <source>Left</source>
         <translation>Balra</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/hruler.cpp" line="1183"/>
-        <location filename="../../scribus/ui/hruler.cpp" line="1191"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1184"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1192"/>
         <source>Center</source>
         <translation>Középre</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/hruler.cpp" line="1184"/>
-        <location filename="../../scribus/ui/hruler.cpp" line="1192"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1185"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1193"/>
         <source>Comma</source>
         <translation>Tizedesjelhez</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/hruler.cpp" line="1185"/>
-        <location filename="../../scribus/ui/hruler.cpp" line="1193"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1186"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1194"/>
         <source>Period</source>
         <translation>Tizedesponthoz</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/hruler.cpp" line="1182"/>
-        <location filename="../../scribus/ui/hruler.cpp" line="1194"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1183"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1195"/>
         <source>Right</source>
         <translation>Jobbra</translation>
     </message>
@@ -13528,7 +13528,7 @@ Enter a preset name.</source>
     <message>
         <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="225"/>
         <source>Default Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Alapértelmezett margók</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="253"/>
@@ -13602,7 +13602,7 @@ Enter a preset name.</source>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="435"/>
         <source>Set the margins to the default for the active unit</source>
-        <translation type="unfinished"></translation>
+        <translation>Margók beállítása az aktív egység alapértelmezett értékeire</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="437"/>
@@ -15875,7 +15875,7 @@ Gyakran csak arra használatos, hogy az oldalak a teljes rajzvásznat elfoglalj�
     <message>
         <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="408"/>
         <source>Could not complete the master page import. Some master pages may be incomplete.</source>
-        <translation type="unfinished"></translation>
+        <translation>A mesteroldalak importálása nem sikerült. Előfordulhat, hogy egyes mesteroldalak hiányosak.</translation>
     </message>
 </context>
 <context>
@@ -25425,47 +25425,47 @@ Figyelem: a PDF űrlapok nem kerülnek exportálásra.</translation>
 <context>
     <name>PropertyWidget_Distance</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="473"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="474"/>
         <source>Gap:</source>
         <translation>Hasábköz:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="474"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="475"/>
         <source>Width:</source>
         <translation>Szélesség:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="477"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="478"/>
         <source> pt</source>
         <translation>pt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="485"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="486"/>
         <source>Indentation for first line of the paragraph</source>
         <translation>Bekezdés első sorának behúzása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="486"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="487"/>
         <source>Indentation from the left for the whole paragraph</source>
         <translation>Teljes bekezdés bal oldali behúzása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="487"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="488"/>
         <source>Indentation from the right for the whole paragraph</source>
         <translation>Teljes bekezdés jobb oldali behúzása</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="491"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="492"/>
         <source>Edit tab settings of text frame...</source>
         <translation>Szövegkeret tabulátor-beállításainak szerkesztése...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="492"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="493"/>
         <source>Space above a paragraph</source>
         <translation>Bekezdés feletti távolság</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="493"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="494"/>
         <source>Space below a paragraph</source>
         <translation>Bekezdés alatti távolság</translation>
     </message>
@@ -37250,7 +37250,7 @@ Függőleges térköz: %4</translation>
         <location filename="../../scribus/scribus.cpp" line="4288"/>
         <location filename="../../scribus/scribus.cpp" line="4450"/>
         <location filename="../../scribus/scribus.cpp" line="6752"/>
-        <location filename="../../scribus/scribus.cpp" line="8716"/>
+        <location filename="../../scribus/scribus.cpp" line="8717"/>
         <source>Ready</source>
         <translation>Kész</translation>
     </message>
@@ -37445,7 +37445,7 @@ Az elővizsgáló segíthet a hibák megtalálásában.</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3973"/>
-        <location filename="../../scribus/scribus.cpp" line="8913"/>
+        <location filename="../../scribus/scribus.cpp" line="8914"/>
         <source>Do you really want to replace your existing image?</source>
         <translation>Valóban lecserélhető a létező kép?</translation>
     </message>
@@ -37518,14 +37518,14 @@ Az elővizsgáló segíthet a hibák megtalálásában.</translation>
         <translation>Minden támogatott formátum</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9190"/>
-        <location filename="../../scribus/scribus.cpp" line="9269"/>
+        <location filename="../../scribus/scribus.cpp" line="9191"/>
+        <location filename="../../scribus/scribus.cpp" line="9270"/>
         <source>&amp;Name:</source>
         <translation>&amp;Név:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9190"/>
-        <location filename="../../scribus/scribus.cpp" line="9269"/>
+        <location filename="../../scribus/scribus.cpp" line="9191"/>
+        <location filename="../../scribus/scribus.cpp" line="9270"/>
         <source>New Entry</source>
         <translation>Új bejegyzés</translation>
     </message>
@@ -37576,26 +37576,26 @@ Az elővizsgáló segíthet a hibák megtalálásában.</translation>
         <translation>Jelölők</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9685"/>
-        <location filename="../../scribus/scribus.cpp" line="9950"/>
+        <location filename="../../scribus/scribus.cpp" line="9686"/>
+        <location filename="../../scribus/scribus.cpp" line="9951"/>
         <source>Anchor mark</source>
         <translation>Hivatkozásjelölő</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9693"/>
-        <location filename="../../scribus/scribus.cpp" line="9963"/>
+        <location filename="../../scribus/scribus.cpp" line="9694"/>
+        <location filename="../../scribus/scribus.cpp" line="9964"/>
         <source>Mark with &lt;%1&gt; variable text</source>
         <translation>Jelölő ezzel a szöveges változóval: &lt;%1&gt;</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9701"/>
-        <location filename="../../scribus/scribus.cpp" line="10002"/>
+        <location filename="../../scribus/scribus.cpp" line="9702"/>
+        <location filename="../../scribus/scribus.cpp" line="10003"/>
         <source>Mark to %1 item</source>
         <translation>Jelölő ehhez az elemhez: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9711"/>
-        <location filename="../../scribus/scribus.cpp" line="10023"/>
+        <location filename="../../scribus/scribus.cpp" line="9712"/>
+        <location filename="../../scribus/scribus.cpp" line="10024"/>
         <source>Mark to %1 mark</source>
         <translation>Jelölő ehhez a jelölőhöz: %1</translation>
     </message>
@@ -37715,13 +37715,13 @@ Az elővizsgáló segíthet a hibák megtalálásában.</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1529"/>
-        <location filename="../../scribus/scribus.cpp" line="8712"/>
+        <location filename="../../scribus/scribus.cpp" line="8713"/>
         <source>X:</source>
         <translation>X:</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1531"/>
-        <location filename="../../scribus/scribus.cpp" line="8713"/>
+        <location filename="../../scribus/scribus.cpp" line="8714"/>
         <source>Y:</source>
         <translation>Y:</translation>
     </message>
@@ -37756,53 +37756,53 @@ Az elővizsgáló segíthet a hibák megtalálásában.</translation>
         <translation>Beágyazott elemek szerkesztése</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8545"/>
+        <location filename="../../scribus/scribus.cpp" line="8546"/>
         <source>The program %1 is missing or failed to open</source>
         <translation>A program nem létezik vagy nem lehet megnyitni: %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8706"/>
+        <location filename="../../scribus/scribus.cpp" line="8707"/>
         <source>Current zoom level</source>
         <translation>Aktuális nagyítás</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8707"/>
+        <location filename="../../scribus/scribus.cpp" line="8708"/>
         <source>Zoom to 100%</source>
         <translation>Nagyítás 100%-ra</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8708"/>
+        <location filename="../../scribus/scribus.cpp" line="8709"/>
         <source>Zoom out by the stepping value in Tools preferences</source>
         <translation>Kicsinyítés az Eszközök beállításban megadott lépésközzel</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8709"/>
+        <location filename="../../scribus/scribus.cpp" line="8710"/>
         <source>Zoom in by the stepping value in Tools preferences</source>
         <translation>Nagyítás az Eszközök beállításban megadott lépésközzel</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8710"/>
+        <location filename="../../scribus/scribus.cpp" line="8711"/>
         <source>Select the current layer</source>
         <translation>Aktuális réteg kiválasztása</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8711"/>
+        <location filename="../../scribus/scribus.cpp" line="8712"/>
         <source>Select the current unit</source>
         <translation>Aktuális mértékegység kiválasztása</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9659"/>
+        <location filename="../../scribus/scribus.cpp" line="9660"/>
         <source>Insert New </source>
         <translation>Új beszúrása</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9734"/>
-        <location filename="../../scribus/scribus.cpp" line="10045"/>
+        <location filename="../../scribus/scribus.cpp" line="9735"/>
+        <location filename="../../scribus/scribus.cpp" line="10046"/>
         <source>Index mark</source>
         <translation>Jegyzék jelölő</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9930"/>
+        <location filename="../../scribus/scribus.cpp" line="9931"/>
         <source>Edit %1</source>
         <translation>%1 szerkesztése</translation>
     </message>

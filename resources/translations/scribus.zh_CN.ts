@@ -10074,32 +10074,32 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>Hruler</name>
     <message>
-        <location filename="../../scribus/ui/hruler.cpp" line="1186"/>
-        <location filename="../../scribus/ui/hruler.cpp" line="1190"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1187"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1191"/>
         <source>Left</source>
         <translation>左</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/hruler.cpp" line="1183"/>
-        <location filename="../../scribus/ui/hruler.cpp" line="1191"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1184"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1192"/>
         <source>Center</source>
         <translation>居中对齐</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/hruler.cpp" line="1184"/>
-        <location filename="../../scribus/ui/hruler.cpp" line="1192"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1185"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1193"/>
         <source>Comma</source>
         <translation>逗号</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/hruler.cpp" line="1185"/>
-        <location filename="../../scribus/ui/hruler.cpp" line="1193"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1186"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1194"/>
         <source>Period</source>
         <translation>周期</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/hruler.cpp" line="1182"/>
-        <location filename="../../scribus/ui/hruler.cpp" line="1194"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1183"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1195"/>
         <source>Right</source>
         <translation>右</translation>
     </message>
@@ -25438,47 +25438,47 @@ a range of pages or a single page number</source>
 <context>
     <name>PropertyWidget_Distance</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="473"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="474"/>
         <source>Gap:</source>
         <translation>间距:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="474"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="475"/>
         <source>Width:</source>
         <translation>宽度:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="477"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="478"/>
         <source> pt</source>
         <translation> 点</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="485"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="486"/>
         <source>Indentation for first line of the paragraph</source>
         <translation>段落首行缩进</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="486"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="487"/>
         <source>Indentation from the left for the whole paragraph</source>
         <translation>整个段落从左缩进</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="487"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="488"/>
         <source>Indentation from the right for the whole paragraph</source>
         <translation>整个段落从右缩进</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="491"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="492"/>
         <source>Edit tab settings of text frame...</source>
         <translation>编辑文本框的标签设置...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="492"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="493"/>
         <source>Space above a paragraph</source>
         <translation>段落上方空隙</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="493"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="494"/>
         <source>Space below a paragraph</source>
         <translation>段落下方空隙</translation>
     </message>
@@ -37293,7 +37293,7 @@ Vertical gap: %4</source>
         <location filename="../../scribus/scribus.cpp" line="4288"/>
         <location filename="../../scribus/scribus.cpp" line="4450"/>
         <location filename="../../scribus/scribus.cpp" line="6752"/>
-        <location filename="../../scribus/scribus.cpp" line="8716"/>
+        <location filename="../../scribus/scribus.cpp" line="8717"/>
         <source>Ready</source>
         <translation>就绪</translation>
     </message>
@@ -37489,7 +37489,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3973"/>
-        <location filename="../../scribus/scribus.cpp" line="8913"/>
+        <location filename="../../scribus/scribus.cpp" line="8914"/>
         <source>Do you really want to replace your existing image?</source>
         <translation>您确定想取代现存的图像吗?</translation>
     </message>
@@ -37562,14 +37562,14 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>所有支持的格式</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9190"/>
-        <location filename="../../scribus/scribus.cpp" line="9269"/>
+        <location filename="../../scribus/scribus.cpp" line="9191"/>
+        <location filename="../../scribus/scribus.cpp" line="9270"/>
         <source>&amp;Name:</source>
         <translation>名称(&amp;N):</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9190"/>
-        <location filename="../../scribus/scribus.cpp" line="9269"/>
+        <location filename="../../scribus/scribus.cpp" line="9191"/>
+        <location filename="../../scribus/scribus.cpp" line="9270"/>
         <source>New Entry</source>
         <translation>新对象</translation>
     </message>
@@ -37620,26 +37620,26 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>标记</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9685"/>
-        <location filename="../../scribus/scribus.cpp" line="9950"/>
+        <location filename="../../scribus/scribus.cpp" line="9686"/>
+        <location filename="../../scribus/scribus.cpp" line="9951"/>
         <source>Anchor mark</source>
         <translation>锚标记</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9693"/>
-        <location filename="../../scribus/scribus.cpp" line="9963"/>
+        <location filename="../../scribus/scribus.cpp" line="9694"/>
+        <location filename="../../scribus/scribus.cpp" line="9964"/>
         <source>Mark with &lt;%1&gt; variable text</source>
         <translation>标记用 &lt;%1&gt; 变量文本</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9701"/>
-        <location filename="../../scribus/scribus.cpp" line="10002"/>
+        <location filename="../../scribus/scribus.cpp" line="9702"/>
+        <location filename="../../scribus/scribus.cpp" line="10003"/>
         <source>Mark to %1 item</source>
         <translation>标记到 %1 对象</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9711"/>
-        <location filename="../../scribus/scribus.cpp" line="10023"/>
+        <location filename="../../scribus/scribus.cpp" line="9712"/>
+        <location filename="../../scribus/scribus.cpp" line="10024"/>
         <source>Mark to %1 mark</source>
         <translation>标记到 %1 标记</translation>
     </message>
@@ -37759,13 +37759,13 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1529"/>
-        <location filename="../../scribus/scribus.cpp" line="8712"/>
+        <location filename="../../scribus/scribus.cpp" line="8713"/>
         <source>X:</source>
         <translation>X:</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1531"/>
-        <location filename="../../scribus/scribus.cpp" line="8713"/>
+        <location filename="../../scribus/scribus.cpp" line="8714"/>
         <source>Y:</source>
         <translation>Y:</translation>
     </message>
@@ -37800,53 +37800,53 @@ Consider using the Preflight Verifier to correct them</source>
         <translation>正在编辑内联对象</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8545"/>
+        <location filename="../../scribus/scribus.cpp" line="8546"/>
         <source>The program %1 is missing or failed to open</source>
         <translation>程序 %1 丢失或无法打开</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8706"/>
+        <location filename="../../scribus/scribus.cpp" line="8707"/>
         <source>Current zoom level</source>
         <translation>当前缩放级别</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8707"/>
+        <location filename="../../scribus/scribus.cpp" line="8708"/>
         <source>Zoom to 100%</source>
         <translation>缩放到 100%</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8708"/>
+        <location filename="../../scribus/scribus.cpp" line="8709"/>
         <source>Zoom out by the stepping value in Tools preferences</source>
         <translation>按 &quot;首选项 &gt; 操作员工具 &gt;缩放&quot; 中的步进值缩小视图</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8709"/>
+        <location filename="../../scribus/scribus.cpp" line="8710"/>
         <source>Zoom in by the stepping value in Tools preferences</source>
         <translation>按 &quot;首选项 &gt; 操作员工具 &gt;缩放&quot; 中的步进值放大视图</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8710"/>
+        <location filename="../../scribus/scribus.cpp" line="8711"/>
         <source>Select the current layer</source>
         <translation>选择当前图层</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8711"/>
+        <location filename="../../scribus/scribus.cpp" line="8712"/>
         <source>Select the current unit</source>
         <translation>选择当前单位</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9659"/>
+        <location filename="../../scribus/scribus.cpp" line="9660"/>
         <source>Insert New </source>
         <translation>新插入</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9734"/>
-        <location filename="../../scribus/scribus.cpp" line="10045"/>
+        <location filename="../../scribus/scribus.cpp" line="9735"/>
+        <location filename="../../scribus/scribus.cpp" line="10046"/>
         <source>Index mark</source>
         <translation>索引标记</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9930"/>
+        <location filename="../../scribus/scribus.cpp" line="9931"/>
         <source>Edit %1</source>
         <translation>编辑 %1</translation>
     </message>

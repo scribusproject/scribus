@@ -9726,13 +9726,13 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="38"/>
         <source>&amp;Manual Guides</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Manual Guides</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="58"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="243"/>
         <source>&amp;Horizontal Guides</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Horizontal Guides</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="82"/>
@@ -9748,7 +9748,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/guidemanager.ui" line="120"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="417"/>
         <source>&amp;Vertical Guides</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Vertical Guides</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="144"/>
@@ -9768,78 +9768,78 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="189"/>
         <source>Lock Guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Lock Guides</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="212"/>
         <source>Replace the manual guides on all other pages with the manual guides from the current page</source>
-        <translation type="unfinished"></translation>
+        <translation>Replace the manual guides on all other pages with the manual guides from the current page</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="215"/>
         <source>Copy Guides to All Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Copy Guides to All Pages</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="225"/>
         <source>&amp;Rows &amp;&amp; Columns</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Rows &amp;&amp; Columns</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="261"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="435"/>
         <source>Relative to</source>
-        <translation type="unfinished"></translation>
+        <translation>Relative to</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="282"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="456"/>
         <source>Relative to page</source>
-        <translation type="unfinished"></translation>
+        <translation>Relative to page</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="301"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="475"/>
         <source>Relative to margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Relative to margins</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="317"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="491"/>
         <source>Relative to selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Relative to selection</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="336"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="510"/>
         <source>Number</source>
-        <translation type="unfinished">Number</translation>
+        <translation>Number</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="559"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="581"/>
         <source>Set the gap between adjacent generated columns</source>
-        <translation type="unfinished"></translation>
+        <translation>Set the gap between adjacent generated columns</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="609"/>
         <source>Apply the current row and column guide settings to all pages in the document</source>
-        <translation type="unfinished"></translation>
+        <translation>Apply the current row and column guide settings to all pages in the document</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="612"/>
         <source>Apply Settings to All Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Apply Settings to All Pages</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="659"/>
         <source>Clear Page Guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Clear Page Guides</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="669"/>
         <source>Clear All Guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Clear All Guides</translation>
     </message>
     <message>
         <source>Apply to all pages</source>
@@ -9854,13 +9854,13 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/guidemanager.ui" line="385"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="407"/>
         <source>Set the gap between adjacent generated rows</source>
-        <translation type="unfinished"></translation>
+        <translation>Set the gap between adjacent generated rows</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="388"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="562"/>
         <source>Gap:</source>
-        <translation type="unfinished">Gap:</translation>
+        <translation>Gap:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="540"/>
@@ -10074,32 +10074,32 @@ Document Liberation Project https://www.documentliberation.org</translation>
 <context>
     <name>Hruler</name>
     <message>
-        <location filename="../../scribus/ui/hruler.cpp" line="1186"/>
-        <location filename="../../scribus/ui/hruler.cpp" line="1190"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1187"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1191"/>
         <source>Left</source>
         <translation>Left</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/hruler.cpp" line="1183"/>
-        <location filename="../../scribus/ui/hruler.cpp" line="1191"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1184"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1192"/>
         <source>Center</source>
         <translation>Centre</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/hruler.cpp" line="1184"/>
-        <location filename="../../scribus/ui/hruler.cpp" line="1192"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1185"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1193"/>
         <source>Comma</source>
         <translation>Comma</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/hruler.cpp" line="1185"/>
-        <location filename="../../scribus/ui/hruler.cpp" line="1193"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1186"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1194"/>
         <source>Period</source>
         <translation>Period</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/hruler.cpp" line="1182"/>
-        <location filename="../../scribus/ui/hruler.cpp" line="1194"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1183"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1195"/>
         <source>Right</source>
         <translation>Right</translation>
     </message>
@@ -13540,7 +13540,7 @@ Enter a preset name.</translation>
     <message>
         <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="225"/>
         <source>Default Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Default Margins</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="253"/>
@@ -13614,7 +13614,7 @@ Enter a preset name.</translation>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="435"/>
         <source>Set the margins to the default for the active unit</source>
-        <translation type="unfinished"></translation>
+        <translation>Set the margins to the default for the active unit</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="437"/>
@@ -15886,7 +15886,7 @@ Please disable experimental PDF and PS embedding and try again.</translation>
     <message>
         <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="408"/>
         <source>Could not complete the master page import. Some master pages may be incomplete.</source>
-        <translation type="unfinished"></translation>
+        <translation>Could not complete the master page import. Some master pages may be incomplete.</translation>
     </message>
 </context>
 <context>
@@ -25439,47 +25439,47 @@ a range of pages or a single page number</translation>
 <context>
     <name>PropertyWidget_Distance</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="473"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="474"/>
         <source>Gap:</source>
         <translation>Gap:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="474"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="475"/>
         <source>Width:</source>
         <translation>Width:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="477"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="478"/>
         <source> pt</source>
         <translation> pt</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="485"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="486"/>
         <source>Indentation for first line of the paragraph</source>
         <translation>Indentation for first line of the paragraph</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="486"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="487"/>
         <source>Indentation from the left for the whole paragraph</source>
         <translation>Indentation from the left for the whole paragraph</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="487"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="488"/>
         <source>Indentation from the right for the whole paragraph</source>
         <translation>Indentation from the right for the whole paragraph</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="491"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="492"/>
         <source>Edit tab settings of text frame...</source>
         <translation>Edit tab settings of text frame...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="492"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="493"/>
         <source>Space above a paragraph</source>
         <translation>Space above a paragraph</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="493"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="494"/>
         <source>Space below a paragraph</source>
         <translation>Space below a paragraph</translation>
     </message>
@@ -37264,7 +37264,7 @@ Vertical gap: %4</translation>
         <location filename="../../scribus/scribus.cpp" line="4288"/>
         <location filename="../../scribus/scribus.cpp" line="4450"/>
         <location filename="../../scribus/scribus.cpp" line="6752"/>
-        <location filename="../../scribus/scribus.cpp" line="8716"/>
+        <location filename="../../scribus/scribus.cpp" line="8717"/>
         <source>Ready</source>
         <translation>Ready</translation>
     </message>
@@ -37460,7 +37460,7 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3973"/>
-        <location filename="../../scribus/scribus.cpp" line="8913"/>
+        <location filename="../../scribus/scribus.cpp" line="8914"/>
         <source>Do you really want to replace your existing image?</source>
         <translation>Do you really want to replace your existing image?</translation>
     </message>
@@ -37533,14 +37533,14 @@ Consider using the Preflight Verifier to correct them</translation>
         <translation>All Supported Formats</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9190"/>
-        <location filename="../../scribus/scribus.cpp" line="9269"/>
+        <location filename="../../scribus/scribus.cpp" line="9191"/>
+        <location filename="../../scribus/scribus.cpp" line="9270"/>
         <source>&amp;Name:</source>
         <translation>&amp;Name:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9190"/>
-        <location filename="../../scribus/scribus.cpp" line="9269"/>
+        <location filename="../../scribus/scribus.cpp" line="9191"/>
+        <location filename="../../scribus/scribus.cpp" line="9270"/>
         <source>New Entry</source>
         <translation>New Entry</translation>
     </message>
@@ -37591,26 +37591,26 @@ Consider using the Preflight Verifier to correct them</translation>
         <translation>Marks</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9685"/>
-        <location filename="../../scribus/scribus.cpp" line="9950"/>
+        <location filename="../../scribus/scribus.cpp" line="9686"/>
+        <location filename="../../scribus/scribus.cpp" line="9951"/>
         <source>Anchor mark</source>
         <translation>Anchor mark</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9693"/>
-        <location filename="../../scribus/scribus.cpp" line="9963"/>
+        <location filename="../../scribus/scribus.cpp" line="9694"/>
+        <location filename="../../scribus/scribus.cpp" line="9964"/>
         <source>Mark with &lt;%1&gt; variable text</source>
         <translation>Mark with &lt;%1&gt; variable text</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9701"/>
-        <location filename="../../scribus/scribus.cpp" line="10002"/>
+        <location filename="../../scribus/scribus.cpp" line="9702"/>
+        <location filename="../../scribus/scribus.cpp" line="10003"/>
         <source>Mark to %1 item</source>
         <translation>Mark to %1 item</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9711"/>
-        <location filename="../../scribus/scribus.cpp" line="10023"/>
+        <location filename="../../scribus/scribus.cpp" line="9712"/>
+        <location filename="../../scribus/scribus.cpp" line="10024"/>
         <source>Mark to %1 mark</source>
         <translation>Mark to %1 mark</translation>
     </message>
@@ -37730,13 +37730,13 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1529"/>
-        <location filename="../../scribus/scribus.cpp" line="8712"/>
+        <location filename="../../scribus/scribus.cpp" line="8713"/>
         <source>X:</source>
         <translation>X:</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1531"/>
-        <location filename="../../scribus/scribus.cpp" line="8713"/>
+        <location filename="../../scribus/scribus.cpp" line="8714"/>
         <source>Y:</source>
         <translation>Y:</translation>
     </message>
@@ -37771,53 +37771,53 @@ Consider using the Preflight Verifier to correct them</translation>
         <translation>Editing Inline Item</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8545"/>
+        <location filename="../../scribus/scribus.cpp" line="8546"/>
         <source>The program %1 is missing or failed to open</source>
         <translation>The program %1 is missing or failed to open</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8706"/>
+        <location filename="../../scribus/scribus.cpp" line="8707"/>
         <source>Current zoom level</source>
         <translation>Current zoom level</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8707"/>
+        <location filename="../../scribus/scribus.cpp" line="8708"/>
         <source>Zoom to 100%</source>
         <translation>Zoom to 100%</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8708"/>
+        <location filename="../../scribus/scribus.cpp" line="8709"/>
         <source>Zoom out by the stepping value in Tools preferences</source>
         <translation>Zoom out by the stepping value in Tools preferences</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8709"/>
+        <location filename="../../scribus/scribus.cpp" line="8710"/>
         <source>Zoom in by the stepping value in Tools preferences</source>
         <translation>Zoom in by the stepping value in Tools preferences</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8710"/>
+        <location filename="../../scribus/scribus.cpp" line="8711"/>
         <source>Select the current layer</source>
         <translation>Select the current layer</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8711"/>
+        <location filename="../../scribus/scribus.cpp" line="8712"/>
         <source>Select the current unit</source>
         <translation>Select the current unit</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9659"/>
+        <location filename="../../scribus/scribus.cpp" line="9660"/>
         <source>Insert New </source>
         <translation>Insert New </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9734"/>
-        <location filename="../../scribus/scribus.cpp" line="10045"/>
+        <location filename="../../scribus/scribus.cpp" line="9735"/>
+        <location filename="../../scribus/scribus.cpp" line="10046"/>
         <source>Index mark</source>
         <translation>Index mark</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9930"/>
+        <location filename="../../scribus/scribus.cpp" line="9931"/>
         <source>Edit %1</source>
         <translation>Edit %1</translation>
     </message>

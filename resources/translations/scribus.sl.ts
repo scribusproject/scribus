@@ -494,7 +494,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1618"/>
         <source>&amp;Master Pages...</source>
-        <translation>&amp;Glavne strani ...</translation>
+        <translation>&amp;Vzorčne strani ...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1587"/>
@@ -829,7 +829,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1746"/>
         <source>&amp;Apply Master Page...</source>
-        <translation>&amp;Uporabi glavno stran ...</translation>
+        <translation>&amp;Uporabi vzorčno stran ...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1748"/>
@@ -1235,7 +1235,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1747"/>
         <source>Convert to Master Page...</source>
-        <translation>Pretvori v glavno stran ...</translation>
+        <translation>Pretvori v vzorčno stran ...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1852"/>
@@ -2880,12 +2880,12 @@
         <location filename="../../scribus/ui/applytemplatedialog.cpp" line="52"/>
         <location filename="../../scribus/ui/applytemplatedialog.cpp" line="255"/>
         <source>Apply Master Page</source>
-        <translation>Uporabi glavno stran</translation>
+        <translation>Uporabi vzorčno stran</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/applytemplatedialog.cpp" line="256"/>
         <source>&amp;Master Page:</source>
-        <translation>&amp;Glavna stran:</translation>
+        <translation>&amp;Vzorčna stran:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/applytemplatedialog.cpp" line="259"/>
@@ -2920,7 +2920,7 @@
     <message>
         <location filename="../../scribus/ui/applytemplatedialog.cpp" line="268"/>
         <source>Apply the selected master page to even, odd or all pages within the following range</source>
-        <translation>Uporabi izbrane glavne strani na lihih, sodih ali vseh straneh v naslednjem obsegu</translation>
+        <translation>Uporabi izbrano vzorčno stran na lihih, sodih ali vseh straneh v naslednjem obsegu</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/applytemplatedialog.cpp" line="257"/>
@@ -5100,7 +5100,7 @@ S tipko Vstavi se v spodnji izbor vstavi znak, tipka Izbriši pa odstani nazadnj
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="546"/>
         <source>Master Pages</source>
-        <translation>Glavne strani</translation>
+        <translation>Vzorčne strani</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="116"/>
@@ -5147,7 +5147,7 @@ trenutno %2 x %3 DPI</translation>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="130"/>
         <source>Applied master page has different page destination (left, middle, right side)</source>
-        <translation>Uveljavljena glavna stran je namenjena drugemu položaju (leva, sredinska, desna stran)</translation>
+        <translation>Uveljavljena vzorčna stran je namenjena drugemu položaju (leva, sredinska, desna stran)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="132"/>
@@ -7322,7 +7322,7 @@ Za več podrobnosti si oglejte razdelek Urejanje barv (Edit Colors) v dokumentac
     <message>
         <location filename="../../scribus/ui/copypagetomasterpage.ui" line="17"/>
         <source>Convert Page to Master Page</source>
-        <translation>Pretvori stran v glavno stran</translation>
+        <translation>Pretvori stran v vzorčno stran</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/copypagetomasterpage.ui" line="37"/>
@@ -7332,7 +7332,7 @@ Za več podrobnosti si oglejte razdelek Urejanje barv (Edit Colors) v dokumentac
     <message>
         <location filename="../../scribus/ui/copypagetomasterpage.ui" line="52"/>
         <source>Copy Applied Master Page Items</source>
-        <translation>Kopiraj predmete uporabljene glavne strani</translation>
+        <translation>Kopiraj predmete uporabljene vzorčne strani</translation>
     </message>
 </context>
 <context>
@@ -7340,7 +7340,7 @@ Za več podrobnosti si oglejte razdelek Urejanje barv (Edit Colors) v dokumentac
     <message>
         <location filename="../../scribus/ui/copypagetomasterpagedialog.cpp" line="32"/>
         <source>New Master Page %1</source>
-        <translation>Nova glavna stran %1</translation>
+        <translation>Nova vzorčna stran %1</translation>
     </message>
 </context>
 <context>
@@ -9726,13 +9726,13 @@ Projekt reševanja dokumentov (Document Liberation Project) https://www.document
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="38"/>
         <source>&amp;Manual Guides</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ročna vodila</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="58"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="243"/>
         <source>&amp;Horizontal Guides</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Vodoravna vodila</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="82"/>
@@ -9748,7 +9748,7 @@ Projekt reševanja dokumentov (Document Liberation Project) https://www.document
         <location filename="../../scribus/ui/guidemanager.ui" line="120"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="417"/>
         <source>&amp;Vertical Guides</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Navpična vodila</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="144"/>
@@ -9768,78 +9768,78 @@ Projekt reševanja dokumentov (Document Liberation Project) https://www.document
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="189"/>
         <source>Lock Guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Zakleni vodila</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="212"/>
         <source>Replace the manual guides on all other pages with the manual guides from the current page</source>
-        <translation type="unfinished"></translation>
+        <translation>Zamenjaj ročna vodila na vseh straneh z ročnimi vodili na trenutni strani</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="215"/>
         <source>Copy Guides to All Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiraj vodila na vse strani</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="225"/>
         <source>&amp;Rows &amp;&amp; Columns</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Vrstice &amp;&amp; Stolpci</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="261"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="435"/>
         <source>Relative to</source>
-        <translation type="unfinished"></translation>
+        <translation>Glede na</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="282"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="456"/>
         <source>Relative to page</source>
-        <translation type="unfinished"></translation>
+        <translation>Glede na stran</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="301"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="475"/>
         <source>Relative to margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Glede na robove</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="317"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="491"/>
         <source>Relative to selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Glede na izbor</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="336"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="510"/>
         <source>Number</source>
-        <translation type="unfinished">Število</translation>
+        <translation>Število</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="559"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="581"/>
         <source>Set the gap between adjacent generated columns</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavi odmik sosednjih novoustvarjenih stolpcev</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="609"/>
         <source>Apply the current row and column guide settings to all pages in the document</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabi trenutno nastavitev vodil stoplcev in vrstic na vseh straneh dokumenta</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="612"/>
         <source>Apply Settings to All Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Uporabi nastavitve na vseh straneh</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="659"/>
         <source>Clear Page Guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Počisti vodila na strani</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="669"/>
         <source>Clear All Guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Počisti vsa vodila</translation>
     </message>
     <message>
         <source>Apply to all pages</source>
@@ -9854,13 +9854,13 @@ Projekt reševanja dokumentov (Document Liberation Project) https://www.document
         <location filename="../../scribus/ui/guidemanager.ui" line="385"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="407"/>
         <source>Set the gap between adjacent generated rows</source>
-        <translation type="unfinished"></translation>
+        <translation>Nastavi odmik sosednjih novoustvarjenih vrstic</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="388"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="562"/>
         <source>Gap:</source>
-        <translation type="unfinished">Razmik:</translation>
+        <translation>Odmik:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="540"/>
@@ -10074,32 +10074,32 @@ Projekt reševanja dokumentov (Document Liberation Project) https://www.document
 <context>
     <name>Hruler</name>
     <message>
-        <location filename="../../scribus/ui/hruler.cpp" line="1186"/>
-        <location filename="../../scribus/ui/hruler.cpp" line="1190"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1187"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1191"/>
         <source>Left</source>
         <translation>Levo</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/hruler.cpp" line="1183"/>
-        <location filename="../../scribus/ui/hruler.cpp" line="1191"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1184"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1192"/>
         <source>Center</source>
         <translation>Sredina</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/hruler.cpp" line="1184"/>
-        <location filename="../../scribus/ui/hruler.cpp" line="1192"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1185"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1193"/>
         <source>Comma</source>
         <translation>Vejica</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/hruler.cpp" line="1185"/>
-        <location filename="../../scribus/ui/hruler.cpp" line="1193"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1186"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1194"/>
         <source>Period</source>
         <translation>Pika</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/hruler.cpp" line="1182"/>
-        <location filename="../../scribus/ui/hruler.cpp" line="1194"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1183"/>
+        <location filename="../../scribus/ui/hruler.cpp" line="1195"/>
         <source>Right</source>
         <translation>Desno</translation>
     </message>
@@ -11565,7 +11565,7 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
     <message>
         <location filename="../../scribus/ui/inspage.cpp" line="89"/>
         <source>&amp;Master Page:</source>
-        <translation>&amp;Glavna stran:</translation>
+        <translation>&amp;Vzorčna stran:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/inspage.cpp" line="235"/>
@@ -11610,12 +11610,12 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
     <message>
         <location filename="../../scribus/ui/inspage.cpp" line="75"/>
         <source>Master Pages</source>
-        <translation>Glavne strani</translation>
+        <translation>Vzorčne strani</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/inspage.cpp" line="232"/>
         <source>Override Master Page Sizing</source>
-        <translation>Povozi velikost glavne strani</translation>
+        <translation>Povozi velikost vzorčne strani</translation>
     </message>
 </context>
 <context>
@@ -12962,7 +12962,7 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
     <message>
         <location filename="../../scribus/ui/mergedoc.cpp" line="61"/>
         <source>&amp;Import Master Page:</source>
-        <translation>Uvoz&amp;i glavno stran:</translation>
+        <translation>Uvoz&amp;i vzorčno stran:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/mergedoc.cpp" line="81"/>
@@ -12978,7 +12978,7 @@ pretvori vektorske podatke v Scribusove predmete.</translation>
     <message>
         <location filename="../../scribus/ui/mergedoc.cpp" line="38"/>
         <source>Import Master Page</source>
-        <translation>Uvozi glavne strani</translation>
+        <translation>Uvozi vzorčno stran</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/mergedoc.cpp" line="49"/>
@@ -13540,7 +13540,7 @@ Prosimo, vnesite prednastavljeno ime.</translation>
     <message>
         <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="225"/>
         <source>Default Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Privzeti robovi</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="253"/>
@@ -13614,7 +13614,7 @@ Prosimo, vnesite prednastavljeno ime.</translation>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="435"/>
         <source>Set the margins to the default for the active unit</source>
-        <translation type="unfinished"></translation>
+        <translation>Postavi privzete robove za dejavno enoto</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="437"/>
@@ -15140,7 +15140,7 @@ Preverite in ponovno poskusite.</translation>
     <message>
         <location filename="../../scribus/pdflib_core.cpp" line="594"/>
         <source>Exporting Master Page:</source>
-        <translation>Izvažanje glavne strani:</translation>
+        <translation>Izvažanje vzorčne strani:</translation>
     </message>
     <message>
         <location filename="../../scribus/pdflib_core.cpp" line="594"/>
@@ -15213,7 +15213,7 @@ Onemogočite delovno različico PDF in PS vdelave ter poskusite ponovno.</transl
     <message>
         <location filename="../../scribus/pslib.cpp" line="1637"/>
         <source>Processing Master Page:</source>
-        <translation>Obdelovanje glavne strani:</translation>
+        <translation>Obdelovanje vzorčne strani:</translation>
     </message>
     <message>
         <location filename="../../scribus/pslib.cpp" line="1637"/>
@@ -15816,7 +15816,7 @@ Onemogočite delovno različico PDF in PS vdelave ter poskusite ponovno.</transl
         <location filename="../../scribus/ui/pagepalette.cpp" line="221"/>
         <location filename="../../scribus/ui/pagepalette.cpp" line="256"/>
         <source>Manage Masterpages</source>
-        <translation>Upravljaj glavne strani</translation>
+        <translation>Upravljaj vzorčne strani</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepalette.cpp" line="239"/>
@@ -15830,37 +15830,37 @@ Onemogočite delovno različico PDF in PS vdelave ter poskusite ponovno.</transl
     <message>
         <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="140"/>
         <source>Edit Master Pages</source>
-        <translation>Uredi glavne strani</translation>
+        <translation>Uredi vzorčne strani</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="141"/>
         <source>Duplicate the selected master page</source>
-        <translation>Podvoji izbrano glavno stran</translation>
+        <translation>Podvoji izbrano vzorčno stran</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="142"/>
         <source>Delete the selected master page</source>
-        <translation>Izbriši izbrano glavno stran</translation>
+        <translation>Izbriši izbrano vzorčno stran</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="143"/>
         <source>Add a new master page</source>
-        <translation>Dodaj novo glavno stran</translation>
+        <translation>Dodaj novo vzorčno stran</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="144"/>
         <source>Import master pages from another document</source>
-        <translation>Uvozi glavne strani iz drugega dokumenta</translation>
+        <translation>Uvozi vzorčne strani iz drugega dokumenta</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="175"/>
         <source>This master page is used at least once in the document.</source>
-        <translation>Ta glavna stran je v dokumentu uporabljena najmanj enkrat.</translation>
+        <translation>Ta vzorčna stran je v dokumentu uporabljena najmanj enkrat.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="179"/>
         <source>Do you really want to delete master page &quot;%1&quot;?</source>
-        <translation>Resnično želite izbrisati glavno stran &quot;%1&quot;?</translation>
+        <translation>Resnično želite izbrisati vzorčno stran &quot;%1&quot;?</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="212"/>
@@ -15871,7 +15871,7 @@ Onemogočite delovno različico PDF in PS vdelave ter poskusite ponovno.</transl
         <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="212"/>
         <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="321"/>
         <source>New Master Page</source>
-        <translation>Nova glavna stran</translation>
+        <translation>Nova vzorčna stran</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="321"/>
@@ -15881,12 +15881,12 @@ Onemogočite delovno različico PDF in PS vdelave ter poskusite ponovno.</transl
     <message>
         <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="321"/>
         <source>New Master Page %1</source>
-        <translation>Nova glavna stran %1</translation>
+        <translation>Nova vzorčna stran %1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="408"/>
         <source>Could not complete the master page import. Some master pages may be incomplete.</source>
-        <translation type="unfinished"></translation>
+        <translation>Uvažanje vzorčne strani spodletelo. Morda so nekatere vzorčne strani nepopolne.</translation>
     </message>
 </context>
 <context>
@@ -15902,7 +15902,7 @@ Onemogočite delovno različico PDF in PS vdelave ter poskusite ponovno.</transl
     <message>
         <location filename="../../scribus/ui/pagepalette_pages.cpp" line="95"/>
         <source>This master page is used at least once in the document.</source>
-        <translation>Ta glavna stran je v dokumentu uporabljena najmanj enkrat.</translation>
+        <translation>Ta vzorčna stran je v dokumentu uporabljena najmanj enkrat.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepalette_pages.cpp" line="99"/>
@@ -15950,12 +15950,12 @@ Onemogočite delovno različico PDF in PS vdelave ter poskusite ponovno.</transl
     <message>
         <location filename="../../scribus/ui/pagepalette_pagesbase.ui" line="72"/>
         <source>Available Master Pages:</source>
-        <translation>Razpoložljive glavne strani:</translation>
+        <translation>Razpoložljive vzorčne strani:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepalette_pagesbase.ui" line="79"/>
         <source>&lt;qt&gt;List of master pages in the document. Master page names may be dragged onto the page view below to apply master pages, or onto the empty space between pages to create new pages.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Seznam glavnih strani v dokumentu. S potegom imena glavnih strani na spodnji pogled s stranmi lahko uveljavite glavne stani oz.  z vstavitvijo v prazen protor med strani ustvarite nove strani.&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;Seznam vzorčnih strani v dokumentu. S potegom imena vzorčnih strani na spodnji pogled s stranmi lahko uveljavite vzorčne stani oz.  z vstavitvijo v prazen prostor med strani ustvarite nove strani.&lt;/qt&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepalette_pagesbase.ui" line="117"/>
@@ -15965,7 +15965,7 @@ Onemogočite delovno različico PDF in PS vdelave ter poskusite ponovno.</transl
     <message>
         <location filename="../../scribus/ui/pagepalette_pagesbase.ui" line="204"/>
         <source>&lt;qt&gt;Drag pages or master pages onto the trash to delete them&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Če želite izbrisati stran ali glavno stran, jo povlecite v koš&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;Če želite izbrisati stran ali vzorčno stran, jo povlecite v koš&lt;/qt&gt;</translation>
     </message>
 </context>
 <context>
@@ -16028,7 +16028,7 @@ Onemogočite delovno različico PDF in PS vdelave ter poskusite ponovno.</transl
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="121"/>
         <source>Master Page:</source>
-        <translation>Glavna stran:</translation>
+        <translation>Vzorčna stran:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/pagepropertiesdialog.cpp" line="169"/>
@@ -19196,7 +19196,7 @@ Ali jih želite uporabiti v novi različici Scribusa?</translation>
         <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="205"/>
         <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="477"/>
         <source>Apply changes to all master pages</source>
-        <translation>Uveljavi spremembe na vseh glavnih straneh</translation>
+        <translation>Uveljavi spremembe na vseh vzorčnih straneh</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="226"/>
@@ -19436,7 +19436,7 @@ Ali jih želite uporabiti v novi različici Scribusa?</translation>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="135"/>
         <source>Apply the page size changes to all existing master pages in the document</source>
-        <translation>Uveljavi spremembo velikosti strani na vseh obstoječih glavnih straneh dokumenta</translation>
+        <translation>Uveljavi spremembo velikosti strani na vseh obstoječih vzorčnih straneh dokumenta</translation>
     </message>
 </context>
 <context>
@@ -22223,7 +22223,7 @@ Ali ga želite uporabiti?</translation>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="418"/>
         <source>More Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Več možnosti</translation>
     </message>
     <message>
         <source>Profile Options</source>
@@ -22342,7 +22342,7 @@ Ali ga želite uporabiti?</translation>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="394"/>
         <source>Check for applied master page side mismatch</source>
-        <translation>Prever, ali prihaja do neskladij pri uveljavitvah glavne strani</translation>
+        <translation>Preverita, ali prihaja do neskladij pri uveljavitvah vzorčne strani</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="401"/>
@@ -22361,7 +22361,7 @@ Ali ga želite uporabiti?</translation>
     </message>
     <message>
         <source>Check if applied master page location is the same as each page&apos;s location</source>
-        <translation type="vanished">Preveri, ali je mesto uveljavljene glavne strani enko mestu vsake strani</translation>
+        <translation type="vanished">Preveri, ali je mesto uveljavljene vzorčne strani enako mestu vsake strani</translation>
     </message>
 </context>
 <context>
@@ -25439,47 +25439,47 @@ več strani ali samo številka posamezne strani</translation>
 <context>
     <name>PropertyWidget_Distance</name>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="473"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="474"/>
         <source>Gap:</source>
         <translation>Razmik:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="474"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="475"/>
         <source>Width:</source>
         <translation>Širina:</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="477"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="478"/>
         <source> pt</source>
         <translation> točk</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="485"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="486"/>
         <source>Indentation for first line of the paragraph</source>
         <translation>Zamik prve vrstice odstavka</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="486"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="487"/>
         <source>Indentation from the left for the whole paragraph</source>
         <translation>Zamik celotnega odstavka od levega roba</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="487"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="488"/>
         <source>Indentation from the right for the whole paragraph</source>
         <translation>Zamik celotnega odstavka od desnega robu</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="491"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="492"/>
         <source>Edit tab settings of text frame...</source>
         <translation>Uredi nastavitve tabulatorja v besedilnem okviru ...</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="492"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="493"/>
         <source>Space above a paragraph</source>
         <translation>Presledek nad odstavkom</translation>
     </message>
     <message>
-        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="493"/>
+        <location filename="../../scribus/ui/propertywidget_distance.cpp" line="494"/>
         <source>Space below a paragraph</source>
         <translation>Presledek pod odstavkom</translation>
     </message>
@@ -30663,7 +30663,7 @@ Zunanje povezave
     <message>
         <location filename="../../scribus/scpage.cpp" line="116"/>
         <source>Master Page </source>
-        <translation>Glavna stran </translation>
+        <translation>Vzorčna stran </translation>
     </message>
     <message>
         <location filename="../../scribus/pdfoptionsio.cpp" line="55"/>
@@ -31495,7 +31495,7 @@ ni povsem izčrpen zaradi izjem klicanih funkcij.
         <location filename="../../scribus/plugins/scriptplugin/cmdpage.cpp" line="151"/>
         <source>Given master page name does not match any existing.</source>
         <comment>python error</comment>
-        <translation>Podano ime glavne strani se ne ujema z nobenim obstoječim.</translation>
+        <translation>Podano ime vzorčnr strani se ne ujema z nobenim obstoječim imenom.</translation>
     </message>
     <message>
         <location filename="../../scribus/fonts/ftface.cpp" line="75"/>
@@ -32805,7 +32805,7 @@ Zato je lahko podoba napačna</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmddoc.cpp" line="549"/>
         <source>Master page does not exist: &apos;%1&apos;</source>
         <comment>python error</comment>
-        <translation>Glavna stran ne obstaja: &quot;%1&quot;</translation>
+        <translation>Vzorčna stran ne obstaja: &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmddoc.cpp" line="554"/>
@@ -32817,7 +32817,7 @@ Zato je lahko podoba napačna</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmddoc.cpp" line="560"/>
         <source>Failed to apply masterpage &apos;%1&apos; on page: %2</source>
         <comment>python error</comment>
-        <translation>Glavne strani &quot;%1&quot; ni bilo mogoče uveljaviti na strani: %2</translation>
+        <translation>Vzorčne strani &quot;%1&quot; ni bilo mogoče uveljaviti na strani: %2</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmddoc.cpp" line="721"/>
@@ -37263,7 +37263,7 @@ Navpični razmik: %4</translation>
         <location filename="../../scribus/scribus.cpp" line="4288"/>
         <location filename="../../scribus/scribus.cpp" line="4450"/>
         <location filename="../../scribus/scribus.cpp" line="6752"/>
-        <location filename="../../scribus/scribus.cpp" line="8716"/>
+        <location filename="../../scribus/scribus.cpp" line="8717"/>
         <source>Ready</source>
         <translation>Pripravljen</translation>
     </message>
@@ -37459,7 +37459,7 @@ Uporabite Predpregled, da jih odpravite</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="3973"/>
-        <location filename="../../scribus/scribus.cpp" line="8913"/>
+        <location filename="../../scribus/scribus.cpp" line="8914"/>
         <source>Do you really want to replace your existing image?</source>
         <translation>Resnično želite zamenjati obstoječo sliko?</translation>
     </message>
@@ -37532,14 +37532,14 @@ Uporabite Predpregled, da jih odpravite</translation>
         <translation>Vsi podprti zapisi</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9190"/>
-        <location filename="../../scribus/scribus.cpp" line="9269"/>
+        <location filename="../../scribus/scribus.cpp" line="9191"/>
+        <location filename="../../scribus/scribus.cpp" line="9270"/>
         <source>&amp;Name:</source>
         <translation>&amp;Ime:</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9190"/>
-        <location filename="../../scribus/scribus.cpp" line="9269"/>
+        <location filename="../../scribus/scribus.cpp" line="9191"/>
+        <location filename="../../scribus/scribus.cpp" line="9270"/>
         <source>New Entry</source>
         <translation>Nov vnos</translation>
     </message>
@@ -37590,26 +37590,26 @@ Uporabite Predpregled, da jih odpravite</translation>
         <translation>Oznake</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9685"/>
-        <location filename="../../scribus/scribus.cpp" line="9950"/>
+        <location filename="../../scribus/scribus.cpp" line="9686"/>
+        <location filename="../../scribus/scribus.cpp" line="9951"/>
         <source>Anchor mark</source>
         <translation>Oznaka sidra</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9693"/>
-        <location filename="../../scribus/scribus.cpp" line="9963"/>
+        <location filename="../../scribus/scribus.cpp" line="9694"/>
+        <location filename="../../scribus/scribus.cpp" line="9964"/>
         <source>Mark with &lt;%1&gt; variable text</source>
         <translation>Oznaka z &lt;%1&gt; spremenljivim besedilom</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9701"/>
-        <location filename="../../scribus/scribus.cpp" line="10002"/>
+        <location filename="../../scribus/scribus.cpp" line="9702"/>
+        <location filename="../../scribus/scribus.cpp" line="10003"/>
         <source>Mark to %1 item</source>
         <translation>Oznaka do predmeta %1</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9711"/>
-        <location filename="../../scribus/scribus.cpp" line="10023"/>
+        <location filename="../../scribus/scribus.cpp" line="9712"/>
+        <location filename="../../scribus/scribus.cpp" line="10024"/>
         <source>Mark to %1 mark</source>
         <translation>Oznaka do oznake %1</translation>
     </message>
@@ -37729,13 +37729,13 @@ Uporabite Predpregled, da jih odpravite</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1529"/>
-        <location filename="../../scribus/scribus.cpp" line="8712"/>
+        <location filename="../../scribus/scribus.cpp" line="8713"/>
         <source>X:</source>
         <translation>X:</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1531"/>
-        <location filename="../../scribus/scribus.cpp" line="8713"/>
+        <location filename="../../scribus/scribus.cpp" line="8714"/>
         <source>Y:</source>
         <translation>Y:</translation>
     </message>
@@ -37770,53 +37770,53 @@ Uporabite Predpregled, da jih odpravite</translation>
         <translation>Urejanje vdelanega predmeta</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8545"/>
+        <location filename="../../scribus/scribus.cpp" line="8546"/>
         <source>The program %1 is missing or failed to open</source>
         <translation>Program %1 manjka ali pa se ni mogel odpreti</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8706"/>
+        <location filename="../../scribus/scribus.cpp" line="8707"/>
         <source>Current zoom level</source>
         <translation>Trenutna raven povečave</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8707"/>
+        <location filename="../../scribus/scribus.cpp" line="8708"/>
         <source>Zoom to 100%</source>
         <translation>Povečava na 100 %</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8708"/>
+        <location filename="../../scribus/scribus.cpp" line="8709"/>
         <source>Zoom out by the stepping value in Tools preferences</source>
         <translation>Oddaljuj po korakih, določenih v prednastavitvah orodja</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8709"/>
+        <location filename="../../scribus/scribus.cpp" line="8710"/>
         <source>Zoom in by the stepping value in Tools preferences</source>
         <translation>Približuj po korakih, določenih v prednastavitvah orodja</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8710"/>
+        <location filename="../../scribus/scribus.cpp" line="8711"/>
         <source>Select the current layer</source>
         <translation>Izberi trenutno plast</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="8711"/>
+        <location filename="../../scribus/scribus.cpp" line="8712"/>
         <source>Select the current unit</source>
         <translation>Izberite trenutno mersko enoto</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9659"/>
+        <location filename="../../scribus/scribus.cpp" line="9660"/>
         <source>Insert New </source>
         <translation>Vstavi novo </translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9734"/>
-        <location filename="../../scribus/scribus.cpp" line="10045"/>
+        <location filename="../../scribus/scribus.cpp" line="9735"/>
+        <location filename="../../scribus/scribus.cpp" line="10046"/>
         <source>Index mark</source>
         <translation>Kazalna oznaka</translation>
     </message>
     <message>
-        <location filename="../../scribus/scribus.cpp" line="9930"/>
+        <location filename="../../scribus/scribus.cpp" line="9931"/>
         <source>Edit %1</source>
         <translation>Uredi %1</translation>
     </message>
@@ -41488,7 +41488,7 @@ v %2</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="585"/>
         <source>Apply Master Page</source>
-        <translation>Uporabi glavno stran</translation>
+        <translation>Uporabi vzorčno stran</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="632"/>
@@ -42111,12 +42111,12 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="581"/>
         <source>Add master page</source>
-        <translation>Dodaj glavno stran</translation>
+        <translation>Dodaj vzorčno stran</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="582"/>
         <source>Del master page</source>
-        <translation>Izbriši glavno stran</translation>
+        <translation>Izbriši vzorčno stran</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="583"/>
@@ -42732,7 +42732,7 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="586"/>
         <source>Rename Master Page</source>
-        <translation>Preimenuj glavno stran</translation>
+        <translation>Preimenuj vzorčno stran</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="785"/>
