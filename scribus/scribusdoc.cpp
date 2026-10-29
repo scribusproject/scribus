@@ -4859,16 +4859,14 @@ bool ScribusDoc::applyMasterPage(const QString& pageName, int pageNumber)
 	if (!MasterNames.contains(pageName))
 		return false;
 
-	if (UndoManager::undoEnabled())
+	bool nameChanged = (DocPages.at(pageNumber)->masterPageName() != pageName);
+	if (nameChanged && UndoManager::undoEnabled())
 	{
-		if (DocPages.at(pageNumber)->masterPageName() != pageName)
-		{
-			auto *ss = new SimpleState(Um::ApplyMasterPage, QString(Um::FromTo).arg(DocPages.at(pageNumber)->masterPageName(), pageName));
-			ss->set("PAGE_NUMBER", pageNumber);
-			ss->set("OLD_MASTERPAGE", DocPages.at(pageNumber)->masterPageName());
-			ss->set("NEW_MASTERPAGE", pageName);
-			m_undoManager->action(this, ss);
-		}
+		auto *ss = new SimpleState(Um::ApplyMasterPage, QString(Um::FromTo).arg(DocPages.at(pageNumber)->masterPageName(), pageName));
+		ss->set("PAGE_NUMBER", pageNumber);
+		ss->set("OLD_MASTERPAGE", DocPages.at(pageNumber)->masterPageName());
+		ss->set("NEW_MASTERPAGE", pageName);
+		m_undoManager->action(this, ss);
 	}
 	ScPage* Ap = DocPages.at(pageNumber);
 	Ap->setMasterPageName(pageName);
@@ -4943,7 +4941,7 @@ bool ScribusDoc::applyMasterPage(const QString& pageName, int pageNumber)
 		Ap->setSize(Mp->size());
 	}
 	//TODO make a return false if not possible to apply the master page
-	if (!isLoading())
+	if (!isLoading() && nameChanged)
 	{
 		changed();
 		changedPagePreview();
