@@ -1,5 +1,4 @@
 
-
 /*
  * Prevent code from including config.h directly. You should include
  * scconfig.h instead. This lets us handle win-config.h correctly, and
@@ -9,7 +8,7 @@
 #error "Include <scconfig.h> rather than using <config.h> directly"
 #endif
 
-#cmakedefine VERSION "1.6.7"
+#cmakedefine VERSION "1.6.8.svn"
 
 #cmakedefine BUILD_MAC_BUNDLE
 #cmakedefine DLL_USE_NATIVE_API 1
