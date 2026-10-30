@@ -45,11 +45,11 @@ void GetText2(const QString& filename, const QString& /*encoding*/, bool textOnl
 }
 
 MarkDownIm::MarkDownIm(const QString& fileName, PageItem *textItem, bool textOnly, bool prefix, bool append)
-          : m_Doc(textItem->doc()),
-	        m_item(textItem),
-	        m_prefixName(prefix),
-			// m_append(append),
-	        m_textOnly(textOnly)
+	: m_Doc(textItem->doc()),
+	  m_item(textItem),
+	  m_prefixName(prefix),
+	  // m_append(append),
+	  m_textOnly(textOnly)
 {
 	QFile f(fileName);
 	if (!f.open(QIODevice::ReadOnly))
@@ -87,7 +87,6 @@ void MarkDownIm::parseMarkDown()
 	StyleSet<CharStyle> newCharStyleSet;
 	defaultParagraphStyle.setParent(CommonStrings::DefaultParagraphStyle);
 	defaultParagraphStyle.charStyle().setParent(CommonStrings::DefaultCharacterStyle);
-	defaultParagraphStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
 	m_item->itemText.clear();
 	m_item->itemText.setDefaultStyle(defaultParagraphStyle);
 
@@ -116,7 +115,6 @@ void MarkDownIm::parseMarkDown()
 				{
 					ParagraphStyle newParaStyle;
 					newParaStyle.setParent(CommonStrings::DefaultParagraphStyle);
-					newParaStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
 					newParaStyle.setContext(m_item->itemText.defaultStyle().context());
 					newParaStyle.charStyle().setFontSize(20 * (7 - headingLevel) + newParaStyle.charStyle().fontSize());
 					newParaStyle.setName(headingStyleName);
@@ -148,7 +146,6 @@ void MarkDownIm::parseMarkDown()
 						listStyleCount++;
 						ParagraphStyle newParaStyle;
 						newParaStyle.setParent(CommonStrings::DefaultParagraphStyle);
-						newParaStyle.setLineSpacingMode(ParagraphStyle::AutomaticLineSpacing);
 						newParaStyle.setContext(m_item->itemText.defaultStyle().context());
 						switch (tlf.style())
 						{
