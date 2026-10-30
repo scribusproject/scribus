@@ -169,6 +169,7 @@ ColorsAndFillsDialog::ColorsAndFillsDialog(QWidget* parent, QHash<QString, VGrad
 	treeMinSize.setWidth(minTreeWidth);
 	dataTree->setMinimumSize(treeMinSize);
 
+	okButton->setDefault(true);
 	connect(dataTree, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(itemSelected(QTreeWidgetItem*)));
 	connect(dataTree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this, SLOT(selEditColor(QTreeWidgetItem*)));
 	connect(dataTree, SIGNAL(itemSelectionChanged()), this, SLOT(itemSelectionChanged()));
@@ -1994,8 +1995,13 @@ QString ColorsAndFillsDialog::selectedColorName() const
 
 void ColorsAndFillsDialog::keyPressEvent(QKeyEvent* k)
 {
+	if (k->key() == Qt::Key_Escape)
+		reject();
 	if (k->modifiers() != Qt::NoModifier || (k->key() != Qt::Key_Delete && k->key() != Qt::Key_Backspace))
+	{
+		QDialog::keyPressEvent(k);
 		return;
+	}
 
 	QString belowText;
 	QList<QTreeWidgetItem *> selItems = dataTree->selectedItems();
