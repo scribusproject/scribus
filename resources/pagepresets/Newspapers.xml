@@ -6,6 +6,7 @@
         <names>
             <name lang="en_US">Newspapers</name>
             <name lang="de">Zeitungen</name>
+            <name lang="hu">Újságok</name>
         </names>
     </metadata>
     <pages>
@@ -13,93 +14,112 @@
             <names>
                 <name lang="en_US">AU/NZ Broadsheet</name>
                 <name lang="de">AU/NZ Vollformat</name>
+                <name lang="hu">Ausztrál/Új-zélandi nagyalakú újság</name>
             </names>
         </page>
         <page id="00001" unit="mm" width="315" height="470" name="Berliner Broadsheet">
             <names>
                 <name lang="en_US">Berliner Broadsheet</name>
                 <name lang="de">Berliner Vollformat</name>
+                <name lang="hu">Berlini nagyalakú újság</name>
             </names>
         </page>
         <page id="00002" unit="mm" width="235" height="315" name="Berliner Tabloid">
             <names>
                 <name lang="en_US">Berliner Tabloid</name>
                 <name lang="de">Berliner Halbformat</name>
+                <name lang="hu">Berlini kisalakú újság</name>
             </names>
         </page>
         <page id="00003" unit="mm" width="260" height="368" name="Canadian Tabloid">
             <names>
                 <name lang="en_US">Canadian Tabloid</name>
                 <name lang="de">Kanadisches Halbformat</name>
+                <name lang="hu">Kanadai kisalakú újság</name>
             </names>
         </page>
         <page id="00004" unit="mm" width="260" height="413" name="Canadian Tall Tabloid">
             <names>
                 <name lang="en_US">Canadian Tall Tabloid</name>
                 <name lang="de">Kanadisches Halbformat (hoch)</name>
+                <name lang="hu">Kanadai magas kisalakú újság</name>
             </names>
         </page>
         <page id="00005" unit="mm" width="350" height="500" name="Ciner"/>
-        <page id="00006" unit="mm" width="280" height="430" name="Compact"/>
+        <page id="00006" unit="mm" width="280" height="430" name="Compact">
+            <names>
+                <name lang="hu">Kompakt</name>
+            </names>
+        </page>
         <page id="00007" unit="in" width="12" height="22" name="New York Times"/>
         <page id="00008" unit="mm" width="400" height="570" name="Nordisch Broadsheet">
             <names>
                 <name lang="en_US">Nordisch Broadsheet</name>
                 <name lang="de">Nordisches Vollformat</name>
+                <name lang="hu">Skandináv nagyalakú újság</name>
             </names>
         </page>
         <page id="00009" unit="mm" width="285" height="400" name="Nordisch Tabloid">
             <names>
                 <name lang="en_US">Nordisch Tabloid</name>
                 <name lang="de">Nordisches Halbformat</name>
+                <name lang="hu">Skandináv kisalakú újság</name>
             </names>
         </page>
         <page id="00010" unit="mm" width="280" height="400" name="Norwegian Tabloid">
             <names>
                 <name lang="en_US">Norwegian Tabloid</name>
                 <name lang="de">Norwegisches Halbformat</name>
+                <name lang="hu">Norvég kisalakú újság</name>
             </names>
         </page>
         <page id="00011" unit="mm" width="350" height="520" name="Rhenish Broadsheet">
             <names>
                 <name lang="en_US">Rhenish Broadsheet</name>
                 <name lang="de">Rheinisches Vollformat</name>
+                <name lang="hu">Rajnai nagyalakú újság</name>
             </names>
         </page>
         <page id="00012" unit="mm" width="260" height="350" name="Rhenish Tabloid">
             <names>
                 <name lang="en_US">Rhenish Tabloid</name>
                 <name lang="de">Rheinisches Halbformat</name>
+                <name lang="hu">Rajnai kisalakú újság</name>
             </names>
         </page>
         <page id="00013" unit="mm" width="410" height="578" name="SA Broadsheet">
             <names>
                 <name lang="en_US">SA Broadsheet</name>
                 <name lang="de">SA Vollformat</name>
+                <name lang="hu">Dél-afrikai nagyalakú újság</name>
             </names>
         </page>
         <page id="00014" unit="mm" width="320" height="475" name="Swiss Broadsheet">
             <names>
                 <name lang="en_US">Swiss Broadsheet</name>
                 <name lang="de">Schweizer Vollformat</name>
+                <name lang="hu">Svájci nagyalakú újság</name>
             </names>
         </page>
         <page id="00015" unit="mm" width="375" height="597" name="UK Broadsheet">
             <names>
                 <name lang="en_US">UK Broadsheet</name>
                 <name lang="de">UK Vollformat</name>
+                <name lang="hu">Brit nagyalakú újság</name>
             </names>
         </page>
         <page id="00016" unit="mm" width="280" height="430" name="UK Tabloid">
             <names>
                 <name lang="en_US">UK Tabloid</name>
                 <name lang="de">UK Halbformat</name>
+                <name lang="hu">Brit kisalakú újság</name>
             </names>
         </page>
         <page id="00017" unit="in" width="15" height="22.75" name="US Broadsheet">
             <names>
                 <name lang="en_US">US Broadsheet</name>
                 <name lang="de">US Vollformat</name>
+                <name lang="hu">Amerikai nagyalakú újság</name>
             </names>
         </page>
         <page id="00018" unit="in" width="12" height="22.75" name="Wall Street Journal"/>

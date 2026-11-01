@@ -6,6 +6,7 @@
         <names>
             <name lang="en_US">Books</name>
             <name lang="de">Bücher</name>
+            <name lang="hu">Könyvek</name>
         </names>
     </metadata>
     <pages>
@@ -16,22 +17,59 @@
         <page id="00004" unit="in" width="2.5" height="4" name="48mo (Quadragesimo Octavo)"/>
         <page id="00005" unit="in" width="9.5" height="12" name="4to (Quarto)"/>
         <page id="00006" unit="in" width="2" height="3" name="64mo (Sexagesimo Quarto)"/>
-        <page id="00007" unit="in" width="5.375" height="8" name="8vo (Crown Octavo)"/>
-        <page id="00008" unit="in" width="8.25" height="11.5" name="8vo (Imperial Octavo)"/>
-        <page id="00009" unit="in" width="6.5" height="9.25" name="8vo (Medium Octavo)"/>
-        <page id="00010" unit="in" width="6" height="9" name="8vo (Octavo)"/>
-        <page id="00011" unit="in" width="6.25" height="10" name="8vo (Royal Octavo)"/>
-        <page id="00012" unit="in" width="7" height="11" name="8vo (Super Octavo)"/>
-        <page id="00013" unit="in" width="4.25" height="7" name="A Format"/>
-        <page id="00014" unit="in" width="5.1" height="7.75" name="B Format"/>
-        <page id="00015" unit="in" width="5.25" height="8.5" name="C Format"/>
+        <page id="00007" unit="in" width="5.375" height="8" name="8vo (Crown Octavo)">
+            <names>
+                <name lang="hu">8vo (Korona octavo)</name>
+            </names>
+        </page>
+        <page id="00008" unit="in" width="8.25" height="11.5" name="8vo (Imperial Octavo)">
+            <names>
+                <name lang="hu">8vo (Birodalmi octavo)</name>
+            </names>
+        </page>
+        <page id="00009" unit="in" width="6.5" height="9.25" name="8vo (Medium Octavo)">
+            <names>
+                <name lang="hu">8vo (Közepes octavo)</name>
+            </names>
+        </page>
+        <page id="00010" unit="in" width="6" height="9" name="8vo (Octavo)" />
+        <page id="00011" unit="in" width="6.25" height="10" name="8vo (Royal Octavo)">
+            <names>
+                <name lang="hu">8vo (Királyi octavo)</name>
+            </names>
+        </page>
+        <page id="00012" unit="in" width="7" height="11" name="8vo (Super Octavo)">
+            <names>
+                <name lang="hu">8vo (Szuper octavo)</name>
+            </names>
+        </page>
+        <page id="00013" unit="in" width="4.25" height="7" name="A Format">
+            <names>
+                <name lang="hu">A-formátum</name>
+            </names>
+        </page>
+        <page id="00014" unit="in" width="5.1" height="7.75" name="B Format">
+            <names>
+                <name lang="hu">B-formátum</name>
+            </names>
+        </page>
+        <page id="00015" unit="in" width="5.25" height="8.5" name="C Format">
+            <names>
+                <name lang="hu">C-formátum</name>
+            </names>
+        </page>
         <page id="00016" unit="in" width="6.63" height="10.25" name="Comic Book">
-	    <names>
-	        <name lang="en_US">Comic Book</name>
-	        <name lang="de">Comic-Buch</name>
-	    </names>
+            <names>
+                <name lang="en_US">Comic Book</name>
+                <name lang="de">Comic-Buch</name>
+                <name lang="hu">Képregény</name>
+            </names>
         </page>
         <page id="00017" unit="mm" width="189" height="246" name="Crown Quarto"/>
-        <page id="00018" unit="in" width="12" height="19" name="Folio"/>
+        <page id="00018" unit="in" width="12" height="19" name="Folio">
+            <names>
+                <name lang="hu">Fólió</name>
+            </names>
+        </page>
     </pages>
 </collection>

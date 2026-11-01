@@ -6,55 +6,83 @@
         <names>
             <name lang="en_US">Others</name>
             <name lang="de">Sonstiges</name>
+            <name lang="hu">Egyéb</name>
         </names>
     </metadata>
     <pages>
-        <page id="00000" unit="mm" width="264" height="148" name="Blu-Ray Cover (12 mm)"/>
-        <page id="00001" unit="mm" width="266" height="148" name="Blu-Ray Cover (14 mm)"/>
-        <page id="00002" unit="mm" width="276" height="148" name="Blu-Ray Cover (24 mm)"/>
-        <page id="00003" unit="mm" width="257" height="148" name="Blu-Ray Cover (5 mm)"/>
+        <page id="00000" unit="mm" width="264" height="148" name="Blu-Ray Cover (12 mm)">
+            <names>
+                <name lang="hu">Blu-ray borító (12 mm)</name>
+            </names>
+        </page>
+        <page id="00001" unit="mm" width="266" height="148" name="Blu-Ray Cover (14 mm)">
+            <names>
+                <name lang="hu">Blu-ray borító (14 mm)</name>
+            </names>
+        </page>
+        <page id="00002" unit="mm" width="276" height="148" name="Blu-Ray Cover (24 mm)">
+            <names>
+                <name lang="hu">Blu-ray borító (24 mm)</name>
+            </names>
+        </page>
+        <page id="00003" unit="mm" width="257" height="148" name="Blu-Ray Cover (5 mm)">
+            <names>
+                <name lang="hu">Blu-ray borító (5 mm)</name>
+            </names>
+        </page>
         <page id="00004" unit="mm" width="101.5" height="105" name="Cassette Cover (J-Card)">
-	    <names>
-	        <name lang="en_US">Cassette Cover (J-Card)</name>
-	        <name lang="de">Kassetten-Cover (J-Card)</name>
-	    </names>
+            <names>
+                <name lang="en_US">Cassette Cover (J-Card)</name>
+                <name lang="de">Kassetten-Cover (J-Card)</name>
+                <name lang="hu">Kazettaborító (J-kártya)</name>
+            </names>
         </page>
         <page id="00005" unit="mm" width="101.5" height="140.9" name="Cassette Cover (U-Card)">
-	    <names>
-	        <name lang="en_US">Cassette Cover (U-Card)</name>
-	        <name lang="de">Kassetten-Cover (U-Card)</name>
-	    </names>
+            <names>
+                <name lang="en_US">Cassette Cover (U-Card)</name>
+                <name lang="de">Kassetten-Cover (U-Card)</name>
+                <name lang="hu">Kazettaborító (U-kártya)</name>
+            </names>
         </page>
         <page id="00006" unit="mm" width="151" height="118" name="Compact Disc (Back)">
-	    <names>
-	        <name lang="en_US">Compact Disc (Back)</name>
-	        <name lang="de">CD (Rückseite)</name>
-	    </names>
+            <names>
+                <name lang="en_US">Compact Disc (Back)</name>
+                <name lang="de">CD (Rückseite)</name>
+                <name lang="hu">CD-borító (hátoldal)</name>
+            </names>
         </page>
         <page id="00007" unit="mm" width="240" height="120" name="Compact Disc (Front Double)">
-	    <names>
-	        <name lang="en_US">Compact Disc (Front Double)</name>
-	        <name lang="de">CD (Vorderseite doppelt)</name>
-	    </names>
+            <names>
+                <name lang="en_US">Compact Disc (Front Double)</name>
+                <name lang="de">CD (Vorderseite doppelt)</name>
+                <name lang="hu">CD-borító (dupla előoldal)</name>
+            </names>
         </page>
         <page id="00008" unit="mm" width="120" height="120" name="Compact Disc (Front)" legacyNames="Compact Disc">
-	    <names>
-	        <name lang="en_US">Compact Disc (Front)</name>
-	        <name lang="de">CD (Vorderseite)</name>
-	    </names>
+            <names>
+                <name lang="en_US">Compact Disc (Front)</name>
+                <name lang="de">CD (Vorderseite)</name>
+                <name lang="hu">CD-borító (előoldal)</name>
+            </names>
         </page>
         <page id="0009" unit="mm" width="273" height="183" name="DVD Cover Normal">
-	    <names>
-	        <name lang="en_US">DVD Cover Normal</name>
-	        <name lang="de">DVD Cover Normal</name>
-	    </names>
+            <names>
+                <name lang="en_US">DVD Cover Normal</name>
+                <name lang="de">DVD Cover Normal</name>
+                <name lang="hu">Normál DVD-borító</name>
+            </names>
         </page>
         <page id="00010" unit="mm" width="266" height="183" name="DVD Cover Slim">
-	    <names>
-	        <name lang="en_US">DVD Cover Slim</name>
-	        <name lang="de">DVD Cover Schmal</name>
-	    </names>
+            <names>
+                <name lang="en_US">DVD Cover Slim</name>
+                <name lang="de">DVD Cover Schmal</name>
+                <name lang="hu">Vékony DVD-borító</name>
+            </names>
         </page>
-        <page id="00011" unit="mm" width="314.3" height="314.3" name="Vinyl LP"/>
+        <page id="00011" unit="mm" width="314.3" height="314.3" name="Vinyl LP">
+            <names>
+                <name lang="hu">Vinyl hanglemez</name>
+            </names>
+        </page>
     </pages>
 </collection>
