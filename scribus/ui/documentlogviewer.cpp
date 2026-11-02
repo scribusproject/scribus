@@ -53,8 +53,12 @@ void DocumentLogViewer::setDocument(const QString& docID)
 	sourceFilterComboBox->clear();
 	sourceFilterComboBox->addItems(m_sources);
 
+	m_lastShownSequence = 0;
 	for (const auto& entry : DocumentLogManager::instance().entries(docID))
-		onLogAdded(entry);
+	{
+		addEntryRow(entry);
+		m_lastShownSequence = qMax(m_lastShownSequence, entry.sequence);
+	}
 }
 
 void DocumentLogViewer::languageChange()
@@ -77,6 +81,16 @@ void DocumentLogViewer::languageChange()
 }
 
 void DocumentLogViewer::onLogAdded(const DocumentLogEntry& entry)
+{
+	// logAdded is queued: setDocument() may already have shown this entry, and
+	// entries for other documents must not appear in this document's log
+	if ((entry.docID != m_docID) || (entry.sequence <= m_lastShownSequence))
+		return;
+	m_lastShownSequence = entry.sequence;
+	addEntryRow(entry);
+}
+
+void DocumentLogViewer::addEntryRow(const DocumentLogEntry& entry)
 {
 	int row = logTableWidget->rowCount();
 	logTableWidget->insertRow(row);

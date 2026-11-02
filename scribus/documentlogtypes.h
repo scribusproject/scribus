@@ -35,6 +35,8 @@ struct DocumentLogEntry
 	QString source;
 	QString message;
 	QString details;
+	QString docID;          // document the entry belongs to
+	quint64 sequence { 0 }; // increases with every entry added, across all documents
 };
 
 Q_DECLARE_METATYPE(DocumentLogEntry)

@@ -56,6 +56,7 @@ class SCRIBUS_API DocumentLogManager : public QObject
 		mutable QMutex m_mutex;
 		QMap<QString, QVector<DocumentLogEntry>> m_LogEntries;
 		int m_maxEntries { 1000 };
+		quint64 m_lastSequence { 0 };
 };
 
 #endif // DOCUMENTLOGMANAGER_H

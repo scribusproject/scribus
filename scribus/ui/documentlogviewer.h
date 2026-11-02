@@ -40,10 +40,12 @@ class DocumentLogViewer : public ScrPaletteBase, public Ui::DocumentLogViewerBas
 		void addSampleData();
 
 	private:
+		void addEntryRow(const DocumentLogEntry& entry);
 		void filterLogView(const QString& sourceFilter, DocumentLogLevel levelFilter);
 		QString textForLevel(DocumentLogLevel level);
 
 		QString m_docID;
+		quint64 m_lastShownSequence { 0 }; // sequence of the newest entry in the table
 		QStringList m_sources;
 		QMap<QString, QString> levelStrings;
 };

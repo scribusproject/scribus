@@ -57,7 +57,9 @@ QString DocumentLogManager::msgMemoryAllocationFailed(const QString& filename)
 void DocumentLogManager::addLog(const QString& docID, DocumentLogLevel level, const QString& source, const QString& message, const QString& details)
 {
 	DocumentLogEntry entry{QDateTime::currentDateTime(), level, source, message, details};
+	entry.docID = docID;
 	QMutexLocker locker(&m_mutex);
+	entry.sequence = ++m_lastSequence;
 	if (!m_LogEntries.contains(docID))
 		m_LogEntries.insert(docID, QVector<DocumentLogEntry>());
 
