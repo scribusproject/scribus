@@ -16909,7 +16909,7 @@ void ScribusDoc::itemSelection_AdjustFrameHeightToText( Selection *customSelecti
 	if (trans)
 		trans.commit();
 	regionsChanged()->update(QRectF());
-	changed();
+	// #18062 no need to call changed, setTextFrameHeight does the work... changed();
 	itemSelection->itemAt(0)->emitAllToGUI();
 }
 
