@@ -639,7 +639,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1666"/>
         <source>Raise to &amp;Top</source>
-        <translation>Placera &amp;överst</translation>
+        <translation>Placera ö&amp;verst</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1667"/>
@@ -839,22 +839,22 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1754"/>
         <source>&amp;50%</source>
-        <translation>&amp;50%</translation>
+        <translation>&amp;50 %</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1755"/>
         <source>&amp;75%</source>
-        <translation>&amp;75%</translation>
+        <translation>&amp;75 %</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1756"/>
         <source>&amp;100%</source>
-        <translation>&amp;100%</translation>
+        <translation>&amp;100 %</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1757"/>
         <source>&amp;200%</source>
-        <translation>&amp;200%</translation>
+        <translation>&amp;200 %</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1761"/>
@@ -1595,7 +1595,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1758"/>
         <source>&amp;400%</source>
-        <translation>&amp;400%</translation>
+        <translation>&amp;400 %</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1864"/>
@@ -5383,7 +5383,7 @@ just nu %2 x %3 DPI</translation>
     <message>
         <location filename="../../scribus/ui/colorlistmodel.cpp" line="85"/>
         <source>C: %1% M: %2% Y: %3% K: %4%</source>
-        <translation>C: %1% M: %2% Y: %3% K: %4%</translation>
+        <translation>C: %1 % M: %2 % Y: %3 % K: %4 %</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorlistmodel.cpp" line="91"/>
@@ -5503,7 +5503,7 @@ just nu %2 x %3 DPI</translation>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_color.cpp" line="153"/>
         <source>C: %1% M: %2% Y: %3% K: %4%</source>
-        <translation>C: %1% M: %2% Y: %3% K: %4%</translation>
+        <translation>C: %1 % M: %2 % Y: %3 % K: %4 %</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_color.cpp" line="160"/>
@@ -5917,7 +5917,7 @@ just nu %2 x %3 DPI</translation>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.ui" line="463"/>
         <source>Pattern follows Path</source>
-        <translation>pt</translation>
+        <translation>Mönster följer bana</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorpicker/colorpicker_pattern.cpp" line="204"/>
@@ -6359,7 +6359,7 @@ Se avsnittet Redigera färger i dokumentationen för mer information.</translati
     <message>
         <location filename="../../scribus/ui/colorsandfills.cpp" line="1434"/>
         <source>C: %1% M: %2% Y: %3% K: %4%</source>
-        <translation>C: %1% M: %2% Y: %3% K: %4%</translation>
+        <translation>C: %1 % M: %2 % Y: %3 % K: %4 %</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/colorsandfills.cpp" line="1440"/>
@@ -8419,7 +8419,7 @@ misslyckades!</translation>
     <message>
         <location filename="../../scribus/ui/editor.cpp" line="47"/>
         <source>&amp;Open...</source>
-        <translation>&amp;Öppna...</translation>
+        <translation>Ö&amp;ppna...</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/editor.cpp" line="49"/>
@@ -8952,7 +8952,7 @@ Använd 72 dpi för bilder avsedda för visning på skärmen</translation>
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="124"/>
         <source>Size of the images. 100% for no changes, 200% for two times larger etc.</source>
-        <translation>Bildstorlekar. 100% för ursprungsstorlek, 200% för dubbla storleken etc.</translation>
+        <translation>Bildstorlekar. 100 % för ursprungsstorlek, 200 % för dubbel storlek osv.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/exportform.ui" line="201"/>
@@ -8962,7 +8962,7 @@ Använd 72 dpi för bilder avsedda för visning på skärmen</translation>
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="125"/>
         <source>The compression ratio of your images - 100% is no compression, 0% highest compression. If in doubt, use &apos;Automatic&apos;</source>
-        <translation>Kompressionsgrad av dina bilder. 100% betyder ingen kompression, och 0% den högsta kompressionsgraden. Om du är osäker, använd &apos;Automatisk&apos;</translation>
+        <translation>Bildkomprimering. 100 % betyder ingen kompression och 0 % högsta komprimering. Om du är osäker, använd ”Automatisk”.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/export/pixmapexport/dialog.cpp" line="126"/>
@@ -8999,9 +8999,9 @@ Använd 72 dpi för bilder avsedda för visning på skärmen</translation>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number</source>
-        <translation>Infoga en kommaseparerad lista med tokens där
-en token kan vara * för alla sidor, 1-5 för ett
-ett antal sidor eller ett enskilt sidnummer</translation>
+        <translation>Infoga en kommaseparerad lista med symboler där
+en symbol kan vara * för alla sidor, 1–5 för ett
+sidintervall eller ett enskilt sidnummer</translation>
     </message>
 </context>
 <context>
@@ -11140,7 +11140,7 @@ konverterar deras vektordata till Scribus-objekt.</translation>
     <message>
         <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="76"/>
         <source>Imports QuarkXPress 3.1-4.1 files into the current document, converting their vector data into Scribus objects.</source>
-        <translation>Importerar QuarkXPress 3.1-4.1-filer till det aktuella dokumentet och omvandlar deras vektordata till Scribus-objekt.</translation>
+        <translation>Importerar QuarkXPress 3.1–4.1-filer till det aktuella dokumentet och omvandlar deras vektordata till Scribus-objekt.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/qxp/importqxpplugin.cpp" line="124"/>
@@ -11498,7 +11498,7 @@ konverterar deras vektordata till Scribus-objekt.</translation>
     <message>
         <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="77"/>
         <source>Imports Zoner Draw 4-5 files into the current document, converting their vector data into Scribus objects.</source>
-        <translation>Importerar Zoner Draw 4-5-filer till det aktuella dokumentet och konverterar deras vektordata till Scribus-objekt.</translation>
+        <translation>Importerar Zoner Draw 4–5-filer till det aktuella dokumentet och konverterar deras vektordata till Scribus-objekt.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/zmf/importzmfplugin.cpp" line="125"/>
@@ -11783,12 +11783,12 @@ konverterar deras vektordata till Scribus-objekt.</translation>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="44"/>
         <source>Insert one or more text frames</source>
-        <translation>Infoga eller eller flera textramar</translation>
+        <translation>Infoga en eller flera textramar</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="54"/>
         <source>Insert one or more image frames</source>
-        <translation>Infoga eller eller flera bildramar</translation>
+        <translation>Infoga en eller flera bildramar</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="93"/>
@@ -13018,7 +13018,7 @@ konverterar deras vektordata till Scribus-objekt.</translation>
     <message>
         <location filename="../../scribus/ui/mergedoc.cpp" line="74"/>
         <source>Insert a comma separated list of tokens import where a token can be * for all the pages, 1-5 for a range of pages or a single page number</source>
-        <translation>Infoga en kommaseparerad lista med tokens import där en token kan vara * för alla sidor, 1-5 för ett intervall av sidor eller ett enskilt sidnummer</translation>
+        <translation>Infoga en kommaseparerad lista med symboler där en symbol kan vara * för alla sidor, 1–5 för ett sidintervall eller ett enskilt sidnummer</translation>
     </message>
 </context>
 <context>
@@ -15177,12 +15177,12 @@ Avaktivera experimentell PDF- och PS-inbäddning och försök igen.</translation
     <message>
         <location filename="../../scribus/pdflib_core.cpp" line="11968"/>
         <source>Failed to load an image : %1</source>
-        <translation>Kunde inte läsa in en bild : %1</translation>
+        <translation>Kunde inte läsa in en bild: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/pdflib_core.cpp" line="11973"/>
         <source>Failed to write an image : %1</source>
-        <translation>Kunde inte skriva en bild : %1</translation>
+        <translation>Kunde inte skriva en bild: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/pdflib_core.cpp" line="11978"/>
@@ -21924,7 +21924,7 @@ Vill du använda detta?</translation>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="64"/>
         <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number</source>
-        <translation>Infoga en kommaseparerad lista med symboler där en symbol kan vara * för alla sidor, 1-5 för ett antal sidor eller ett enskilt sidnummer</translation>
+        <translation>Infoga en kommaseparerad lista med symboler där en symbol kan vara * för alla sidor, 1–5 för ett sidintervall eller ett enskilt sidnummer</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="72"/>
@@ -23801,9 +23801,9 @@ Vill du använda detta?</translation>
         <source>Insert a comma separated list of tokens where
 a token can be * for all the pages, 1-5 for
 a range of pages or a single page number</source>
-        <translation>Infoga en kommaseparerad lista med tokens där
-en token kan vara * för alla sidor, 1-5 för ett
-ett antal sidor eller ett enskilt sidnummer</translation>
+        <translation>Infoga en kommaseparerad lista med symboler där
+en symbol kan vara * för alla sidor, 1–5 för ett
+sidintervall eller ett enskilt sidnummer</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="319"/>
@@ -24483,7 +24483,7 @@ ett antal sidor eller ett enskilt sidnummer</translation>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="890"/>
         <source>&amp;Marker</source>
-        <translation>&amp;Ändmarkör</translation>
+        <translation>Ä&amp;ndmarkör</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/propertiespalette_line.cpp" line="902"/>
@@ -26548,7 +26548,7 @@ Scripter-dokumentationen för ytterligare information. </translation>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="144"/>
         <source>Bl&amp;ue:</source>
-        <translation>Bl&amp;å:</translation>
+        <translation>&amp;Blå:</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="143"/>
@@ -26583,7 +26583,7 @@ Scripter-dokumentationen för ytterligare information. </translation>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="135"/>
         <source>&amp;Add to Custom Colors</source>
-        <translation>Lägg till till &amp;anpassade färger</translation>
+        <translation>Lägg &amp;till i anpassade färger</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="148"/>
@@ -26766,7 +26766,7 @@ Scripter-dokumentationen för ytterligare information. </translation>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="15"/>
         <source>&amp;Open</source>
-        <translation>&amp;Öppna</translation>
+        <translation>Ö&amp;ppna</translation>
     </message>
     <message>
         <location filename="../../scribus/translationdummy.cpp" line="17"/>
@@ -29392,7 +29392,7 @@ Externa länkar
     <message>
         <location filename="../../scribus/langmgr.cpp" line="238"/>
         <source>English (Old 450-1100)</source>
-        <translation>Engelska (Gamla 450-1100)</translation>
+        <translation>Engelska (fornengelska, 450–1100)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="240"/>
@@ -30301,7 +30301,7 @@ Externa länkar
         <location filename="../../scribus/plugins/scriptplugin/cmdmani.cpp" line="564"/>
         <source>Cannot scale by 0%.</source>
         <comment>python error</comment>
-        <translation>Det går inte att skala med 0%.</translation>
+        <translation>Det går inte att skala med 0 %.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdgetprop.cpp" line="362"/>
@@ -31345,7 +31345,7 @@ inte är uttömmande på grund av undantag från anropade funktioner.
     <message>
         <location filename="../../scribus/main_win32.cpp" line="301"/>
         <source>Scribus crashes due to the following exception : %1</source>
-        <translation>Scribus kraschar på grund av följande undantag : %1</translation>
+        <translation>Scribus kraschar på grund av följande undantag: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/scfonts.cpp" line="674"/>
@@ -41891,7 +41891,7 @@ X: %4, Y: %5</translation>
         <location filename="../../scribus/undomanager.cpp" line="823"/>
         <source>&amp;Undo: %1</source>
         <comment>f.e. Undo: Move</comment>
-        <translation>&amp;Ångra: %1</translation>
+        <translation>Å&amp;ngra: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="824"/>
@@ -42827,7 +42827,8 @@ X: %4, Y: %5</translation>
         <location filename="../../scribus/undogui.cpp" line="441"/>
         <source>%1 - %2
 %3</source>
-        <translation>%1%2%3</translation>
+        <translation>%1 - %2
+%3</translation>
     </message>
 </context>
 <context>
