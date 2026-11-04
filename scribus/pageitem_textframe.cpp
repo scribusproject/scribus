@@ -6186,25 +6186,9 @@ void PageItem_TextFrame::setTextFrameHeight()
 	if (qFuzzyCompare(newHeight, m_height))   // no-op guard
 		return;
 
-	UndoTransaction undoTransaction;
-	if (UndoManager::undoEnabled())
-	{
-		QString unitSuffix = unitGetStrFromIndex(m_Doc->unitIndex());
-		int unitPrecision  = unitGetPrecisionFromIndex(m_Doc->unitIndex());
-		double unitRatio   = m_Doc->unitRatio();
-		QString owString  = QString::number(oldWidth * unitRatio, 'f', unitPrecision) + " " + unitSuffix;
-		QString ohString  = QString::number(oldHeight * unitRatio, 'f', unitPrecision) + " " + unitSuffix;
-		QString nwString  = QString::number(m_width * unitRatio, 'f', unitPrecision) + " " + unitSuffix;
-		QString nhString  = QString::number(m_height * unitRatio, 'f', unitPrecision) + " " + unitSuffix;
-		QString tooltip   = QString(Um::ResizeFromTo).arg(owString, ohString, nwString, nhString);
-		undoTransaction = undoManager->beginTransaction(Um::Selection, Um::ITextFrame, Um::Resize, tooltip, Um::IResize);
-	}
-
 	setHeight(newHeight);
 	updateClip();
-
-	if (undoTransaction)
-		undoTransaction.commit();
+	resizeUndoAction();
 
 	invalid = true;
 	m_Doc->changed();
