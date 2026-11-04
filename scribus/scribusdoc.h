@@ -1981,6 +1981,7 @@ class SCRIBUS_API ScribusDoc : public QObject, public UndoObject, public Observa
 		QMap<QString, NumStruct*> numerations;
 		QStringList orgNumNames; //orgNumerations keeps original settings read from paragraph styles for reset settings overridden localy
 		void setupNumerations(); //read styles for used auto-numerations, initialize numCounters
+		int repairStaleLocalNumberings(); //remove "<local block>" overrides wrongly added by updateNumbers() before setupNumerations(); returns the number of paragraphs repaired
 		QString getNumberStr(const QString& numName, int level, bool reset, const ParagraphStyle &style);
 		void setNumerationCounter(const QString& numName, int level, int number);
 		bool flag_Renumber {false};

@@ -3706,6 +3706,13 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 			doc->docHyphenator->ignoredWords = doc->hyphenatorPrefs().ignoredWords;
 			doc->docHyphenator->specialWords = doc->hyphenatorPrefs().specialWords;
 		}
+		// Undo numbering damage saved by earlier versions, then set up the
+		// numerations before HaveNewDoc(): inline item previews lay out text
+		int repairedParagraphs = doc->repairStaleLocalNumberings();
+		if (repairedParagraphs > 0)
+			DocumentLogManager::instance().addLog(doc->uuidString(), DocumentLogLevel::Warning, tr("Document Loader"),
+				tr("Removed local numbering overrides added by an earlier version of Scribus. Paragraphs repaired: %1").arg(repairedParagraphs));
+		doc->setupNumerations();
 		HaveNewDoc();
 		doc->hasName = true;
 		if (doc->MasterPages.isEmpty())

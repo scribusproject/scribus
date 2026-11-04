@@ -17730,6 +17730,52 @@ void ScribusDoc::setupNumerations()
 	flag_Renumber = true;
 }
 
+// updateNumbers() used to run before setupNumerations() while a document was
+// loading (inline item previews in HaveNewDoc()). Paragraphs whose style uses a
+// numeration other than "default" were then switched to "<local block>" numbering
+// by a direct override that only sets numName, and documents saved afterwards keep
+// that override. Remove it again. A "<local block>" choice made in the Properties
+// Palette always sets numOther and numHigher directly as well, so it is kept.
+static bool isStaleLocalNumbering(const ParagraphStyle& style)
+{
+	return !style.isInhNumName() && (style.numName() == "<local block>")
+		&& style.isInhHasNum() && style.isInhNumOther() && style.isInhNumHigher();
+}
+
+int ScribusDoc::repairStaleLocalNumberings()
+{
+	int repaired = 0;
+	const QList<PageItem*> allItems = getAllItems(DocItems);
+	for (PageItem* item : allItems)
+	{
+		if (!item->isTextFrame() || (item->prevInChain() != nullptr))
+			continue;
+		StoryText& story = item->itemText;
+
+		if (isStaleLocalNumbering(story.defaultStyle()))
+		{
+			ParagraphStyle defaultStyle(story.defaultStyle());
+			defaultStyle.resetNumName();
+			story.setDefaultStyle(defaultStyle);
+		}
+
+		// Paragraph styles are held by the PARSEP ending each paragraph, and by the
+		// trailing style for the last paragraph (pos == length())
+		for (int pos = 0; pos <= story.length(); ++pos)
+		{
+			if ((pos < story.length()) && (story.text(pos) != SpecialChars::PARSEP))
+				continue;
+			if (!isStaleLocalNumbering(story.paragraphStyle(pos)))
+				continue;
+			ParagraphStyle style(story.paragraphStyle(pos));
+			style.resetNumName();
+			story.setStyle(pos, style);
+			++repaired;
+		}
+	}
+	return repaired;
+}
+
 QString ScribusDoc::getNumberStr(const QString& numName, int level, bool reset, const ParagraphStyle &style)
 {
 	Q_ASSERT(numerations.contains(numName));
@@ -17954,11 +18000,11 @@ void ScribusDoc::updateNumbers(bool updateNumerations)
 				{
 					if (!numerations.contains(style.numName()))
 					{
+						// Direct numbering using a numeration no style defines: switch
+						// this paragraph, and only this one, to local numbering.
 						ParagraphStyle newStyle;
 						newStyle.setNumName("<local block>");
-						Selection tempSelection(this, false);
-						tempSelection.addItem(item);
-						itemSelection_ApplyParagraphStyle(newStyle, &tempSelection);
+						item->itemText.applyStyle(pos, newStyle);
 						continue;
 					}
 
