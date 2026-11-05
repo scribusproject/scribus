@@ -20,18 +20,23 @@ for which a new license (GPL+exception) is in place.
 #include <QPainter>
 #include <QRegularExpression>
 
+#include "appmodehelper.h"
+#include "appmodes.h"
 #include "commonstrings.h"
 #include "iconmanager.h"
+#include "pageitem.h"
 #include "ui/widgets/pagelayout.h"
 #include "pagepalette_pages.h"
 #include "pagepalette_widgets.h"
 #include "prefsmanager.h"
 #include "qobjectdefs.h"
 #include "scpage.h"
+#include "scribus.h"
 #include "scribusapp.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
+#include "selection.h"
 
 PagePalette_Pages::PagePalette_Pages(QWidget *parent)
 	: QWidget(parent)
@@ -80,6 +85,12 @@ PagePalette_Pages::PagePalette_Pages(QWidget *parent)
 	connect( buttonPageImport, SIGNAL(clicked()), this, SLOT(importPage()) );
 	connect( buttonPageDuplicate, SIGNAL(clicked()), this, SLOT(duplicatePage()) );
 	connect( buttonPageMove, SIGNAL(clicked()), this, SLOT(movePage()) );
+
+	// Every change restarts the timer: previews are drawn once changes pause
+	m_previewTimer.setSingleShot(true);
+	m_previewTimer.setInterval(1000);
+	connect(&m_previewTimer, &QTimer::timeout, this, &PagePalette_Pages::pageView_updatePagePreview);
+	connect(m_scMW->appModeHelper, SIGNAL(AppModeChanged(int,int)), this, SLOT(handleAppModeChanged(int,int)));
 
 	connect(this, SIGNAL(gotoPage(int)), m_scMW, SLOT(selectPagesFromOutlines(int)));
 }
@@ -198,6 +209,14 @@ void PagePalette_Pages::pageView_updatePagePreview()
 		return;
 	}
 
+	if (!isVisible())
+	{
+		m_pagePreviewNeeded = true;
+		m_previewStale = true;
+		m_pagePreviewUpdatePending = true;
+		return;
+	}
+
 	if (pageViewWidget->pageGrid()->rowHeight() == PageGrid::Small)
 	{
 		for (int i = 0; i < currView->m_doc->DocPages.count(); ++i)
@@ -216,7 +235,21 @@ void PagePalette_Pages::pageView_updatePagePreview()
 	else
 	{
 		PageToPixmapFlags flags = Pixmap_DrawFrame | Pixmap_DrawBackground | Pixmap_DontReloadImages | Pixmap_NoCanvasModeChange | Pixmap_NoCMSSettingsChange;
-		QMap<int, QImage> previews = currView->PagesToPixmap(pageViewWidget->pageGrid()->pageHeight() * devicePixelRatio(), -1, flags);
+		int previewHeight = pageViewWidget->pageGrid()->pageHeight() * devicePixelRatio();
+		QList<int> pageNrs = editedPages();
+		QMap<int, QImage> previews;
+		if (pageNrs.isEmpty())
+		{
+			previews = currView->PagesToPixmap(previewHeight, -1, flags);
+			m_previewStale = false;
+			m_pagePreviewNeeded = false;
+		}
+		else
+		{
+			for (int pageNr : pageNrs)
+				previews.insert(currView->PagesToPixmap(previewHeight, pageNr, flags));
+			m_previewStale = true;
+		}
 
 		for (int i = 0; i < currView->m_doc->DocPages.count(); ++i)
 		{
@@ -247,6 +280,14 @@ void PagePalette_Pages::updatePageGrid()
 
 void PagePalette_Pages::updatePagePreview()
 {
+	// Drawing every page is slow: while the palette is hidden, draw them when it is shown
+	if (!isVisible())
+	{
+		m_pagePreviewNeeded = true;
+		m_previewStale = true;
+		return;
+	}
+
 	if (currView == nullptr || pageViewWidget->pageGrid()->pageList.empty())
 	{
 		m_pagePreviewUpdatePending = true;
@@ -263,13 +304,8 @@ void PagePalette_Pages::updatePagePreview()
 		(currView->updatesEnabled()) &&
 		(currView->m_doc->DocPages.count() == pageViewWidget->pageGrid()->pageList.count()))
 	{
-		m_pagePreviewUpdatePending = false;
-
-		// limit preview update to 1 refresh event each 500ms
-		QTimer::singleShot(500, this, [this]()
-		{
-			pageView_updatePagePreview();
-		});
+		// restarts if already running: nothing is drawn while changes keep coming
+		m_previewTimer.start();
 	}
 }
 
@@ -447,6 +483,9 @@ void PagePalette_Pages::rebuildPages()
 	pageViewWidget->pageGrid()->update();
 
 	m_pagePreviewUpdatePending = true;
+	// All pages were just drawn
+	m_pagePreviewNeeded = false;
+	m_previewStale = false;
 
 	if (currView != nullptr)
 	{
@@ -525,6 +564,38 @@ void PagePalette_Pages::changeEvent(QEvent *e)
 	}
 
 	QWidget::changeEvent(e);
+}
+
+void PagePalette_Pages::showEvent(QShowEvent *e)
+{
+	QWidget::showEvent(e);
+	// The flag is cleared once all pages are drawn, so a skipped update is retried
+	if (m_pagePreviewNeeded)
+		updatePagePreview();
+}
+
+void PagePalette_Pages::handleAppModeChanged(int oldMode, int newMode)
+{
+	// Leaving edit mode: pages other than the edited one may be out of date
+	const bool wasEditing = (oldMode == modeEdit || oldMode == modeEditTable);
+	const bool isEditing = (newMode == modeEdit || newMode == modeEditTable);
+	if (wasEditing && !isEditing && m_previewStale)
+		updatePagePreview();
+}
+
+QList<int> PagePalette_Pages::editedPages() const
+{
+	// While an item is edited, only the pages holding its frames change
+	QList<int> pageNrs;
+	ScribusDoc* doc = currView->m_doc;
+	if ((doc->appMode != modeEdit && doc->appMode != modeEditTable) || doc->masterPageMode() || doc->m_Selection->count() != 1)
+		return pageNrs;
+	for (PageItem* item = doc->m_Selection->itemAt(0)->firstInChain(); item != nullptr; item = item->nextInChain())
+	{
+		if (item->OwnPage >= 0 && !pageNrs.contains(item->OwnPage))
+			pageNrs.append(item->OwnPage);
+	}
+	return pageNrs;
 }
 
 void PagePalette_Pages::iconSetChange()

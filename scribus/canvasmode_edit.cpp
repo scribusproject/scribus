@@ -174,7 +174,28 @@ void CanvasMode_Edit::keyReleaseEvent(QKeyEvent *e)
 
 	if (currItem->isTextFrame())
 	{
-		m_doc->changedPagePreview();
+		switch (e->key())
+		{
+			// Moving the cursor or pressing a modifier changes nothing on the page
+			case Qt::Key_Left:
+			case Qt::Key_Right:
+			case Qt::Key_Up:
+			case Qt::Key_Down:
+			case Qt::Key_Home:
+			case Qt::Key_End:
+			case Qt::Key_PageUp:
+			case Qt::Key_PageDown:
+			case Qt::Key_Shift:
+			case Qt::Key_Control:
+			case Qt::Key_Alt:
+			case Qt::Key_AltGr:
+			case Qt::Key_Meta:
+			case Qt::Key_CapsLock:
+				break;
+			default:
+				m_doc->changedPagePreview();
+				break;
+		}
 	}
 
 }

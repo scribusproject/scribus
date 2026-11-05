@@ -257,6 +257,9 @@ void CanvasMode_EditTable::keyPressEvent(QKeyEvent* event)
 		}
 	}
 
+	if (textChanged)
+		m_doc->changedPagePreview();
+
 	makeLongTextCursorBlink();
 	updateCanvas(true);
 }

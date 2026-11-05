@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include <QLayout>
 #include <QPixmap>
 #include <QSplitter>
+#include <QTimer>
 #include <QVBoxLayout>
 
 #include "ui_pagepalette_pagesbase.h"
@@ -54,6 +55,7 @@ private slots:
 	void pageView_gotoPage(int pageID, int b);
 	void pageView_deletePage(int pageIndex);
 	void pageView_updatePagePreview();
+	void handleAppModeChanged(int oldMode, int newMode);
 
 	void newPage();
 	void duplicatePage();
@@ -69,10 +71,16 @@ protected:
 	ScribusView       *currView { nullptr};
 	ScribusMainWindow *m_scMW { nullptr};
 	bool m_pagePreviewUpdatePending {true};
+	bool m_pagePreviewNeeded { false };
+	bool m_previewStale { false };
+	QTimer m_previewTimer;
+
+	QList<int> editedPages() const;
 
 //	QPixmap createPagePreview(const QPixmap& pixin, QSize size);
 
 	void changeEvent(QEvent *e) override;
+	void showEvent(QShowEvent *e) override;
 };
 
 #endif // SEITENPAL_H
