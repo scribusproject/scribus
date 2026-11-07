@@ -194,6 +194,12 @@ void CanvasMode_EditTable::keyPressEvent(QKeyEvent* event)
 			}
 		}
 	}
+	// Delete/Backspace with cell selection: clear content of selected cells.
+	else if (m_table->hasSelection() && (key == Qt::Key_Delete || key == Qt::Key_Backspace) )
+	{
+		m_table->clearSelectedCellContent();
+		textChanged = true;
+	}
 	// Everything else: pass to the active cell's text frame.
 	else if (!m_table->hasSelection())
 	{

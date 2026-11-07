@@ -440,6 +440,11 @@ public:
 	bool hasSelection() const { return m_selection.count() > 0; }
 
 	/**
+	 * Clear content from selected cells
+	 */
+	void clearSelectedCellContent();
+
+	/**
 	 * Returns the cell at @a row, @a column.
 	 *
 	 * If the cell is covered by a spanning cell, the spanning cell is returned. If the cell is

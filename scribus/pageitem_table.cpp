@@ -1286,6 +1286,31 @@ void PageItem_Table::clearSelection()
 	emit selectionChanged();
 }
 
+void PageItem_Table::clearSelectedCellContent()
+{
+	if (!hasSelection())
+		return;
+
+	UndoTransaction transaction;
+	if (UndoManager::undoEnabled())
+		transaction = undoManager->beginTransaction(getUName(), getUPixmap(), Um::ClearText, "", Um::IDelete);
+
+	for (const TableCell& cell : std::as_const(m_selection))
+	{
+		PageItem_TextFrame* cellFrame = cell.textFrame();
+		if (cellFrame->itemText.length() == 0)
+			continue;
+		cellFrame->itemText.selectAll();
+		cellFrame->HasSel = true;
+		cellFrame->deleteSelectedTextFromFrame();
+		cellFrame->HasSel = false;
+	}
+
+	if (transaction)
+		transaction.commit();
+}
+
+
 TableCell PageItem_Table::cellAt(int row, int column) const
 {
 	if (!validCell(row, column))
@@ -1756,7 +1781,7 @@ void PageItem_Table::setBorders(const TableBorder& border, TableSides selectedSi
 		m_style.setTopBorder(border);
 	if (selectedSides & TableSide::Bottom)
 		m_style.setBottomBorder(border);
-	
+
 	updateCells();
 	adjustTable();
 
