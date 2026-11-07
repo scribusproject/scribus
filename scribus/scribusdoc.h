@@ -1670,6 +1670,10 @@ class SCRIBUS_API ScribusDoc : public QObject, public UndoObject, public Observa
 		 */
 		void itemSelection_AdjustImagetoFrameSize(Selection* customSelection = nullptr);
 		void itemSelection_AdjustFrameHeightToText( Selection *customSelection = nullptr);
+		//! Remove direct character formatting from the selected text, or from whole stories outside text edit mode
+		void itemSelection_ClearDirectCharFormatting(Selection* customSelection = nullptr);
+		//! Remove direct paragraph and character formatting from the selected paragraphs, or from whole stories outside text edit mode
+		void itemSelection_ClearDirectParagraphFormatting(Selection* customSelection = nullptr);
 		void itemSelection_AdjustTableRowHeights();
 		//! @brief startArrowID or endArrowID of -1 mean not applying a selection at this point.
 		void itemSelection_ApplyArrowHead(int startArrowID=-1, int endArrowID=-1, Selection* customSelection = nullptr);
@@ -1847,7 +1851,8 @@ class SCRIBUS_API ScribusDoc : public QObject, public UndoObject, public Observa
 		bool m_flag_notesChanged {false};
 
 		void multipleDuplicateByPage(const ItemMultipleDuplicateData& mdData, Selection& selection, QString& tooltip);
-
+		//! Add text items to a new selection from an existing selection, depending on the text or table edit mode
+		void collectTextItems(Selection* itemSelection, Selection& textSelection);
 
 	public:
 		bool usesMarksAndNotes() const { return m_docUsesMarksAndNotes; }
