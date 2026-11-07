@@ -303,6 +303,12 @@ void ContextMenu::createMenuItems_Selection()
 			addSeparator();
 			addAction(m_ScMW->scrActions["itemUpdateMarks"]);
 		}
+		if (m_actionList.contains("styleClearDirectCharFormatting"))
+		{
+			addSeparator();
+			addAction(m_ScMW->scrActions["styleClearDirectCharFormatting"]);
+			addAction(m_ScMW->scrActions["styleClearDirectParagraphFormatting"]);
+		}
 
 
 

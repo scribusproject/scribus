@@ -291,6 +291,8 @@ PyMethodDef scribus_methods[] = {
 	{ "changeColorLab", scribus_setcolorlab, METH_VARARGS, tr(scribus_setcolorlab__doc__) },
 	{ "changeColorRGB", scribus_setcolorrgb, METH_VARARGS, tr(scribus_setcolorrgb__doc__)},
 	{ "changeColorRGBFloat", scribus_setcolorrgbfloat, METH_VARARGS, tr(scribus_setcolorrgbfloat__doc__)},
+	{ "clearCharacterFormatting", scribus_clearcharformatting, METH_VARARGS, tr(scribus_clearcharformatting__doc__)},
+	{ "clearParagraphFormatting", scribus_clearparagraphformatting, METH_VARARGS, tr(scribus_clearparagraphformatting__doc__)},
 	{ "closeDoc", (PyCFunction) scribus_closedoc, METH_NOARGS, tr(scribus_closedoc__doc__)},
 	{ "closeMasterPage", (PyCFunction) scribus_closemasterpage, METH_NOARGS, tr(scribus_closemasterpage__doc__)},
 	{ "createBarcode", scribus_createbarcode, METH_VARARGS, tr(scribus_createbarcode__doc__)},

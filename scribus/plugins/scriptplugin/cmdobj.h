@@ -327,6 +327,36 @@ Apply the named character style to the currently selected object.
 PyObject *scribus_setcharstyle(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_clearcharformatting__doc__,
+QT_TR_NOOP("clearCharacterFormatting([\"name\"])\n\
+\n\
+Remove direct character formatting from the text frame named \"name\".\n\
+If object name is not provided, the current object selection is used.\n\
+If the frame has a text selection, only the selected text is cleared.\n\
+Otherwise the formatting of the whole story is cleared. Character styles\n\
+applied to the text are kept.\n\
+"));
+/**
+Remove direct character formatting from a text frame.
+*/
+PyObject *scribus_clearcharformatting(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_clearparagraphformatting__doc__,
+QT_TR_NOOP("clearParagraphFormatting([\"name\"])\n\
+\n\
+Remove direct paragraph formatting from the text frame named \"name\".\n\
+If object name is not provided, the current object selection is used.\n\
+If the frame has a text selection, only the paragraphs it touches are\n\
+cleared. Otherwise the whole story is cleared. Paragraph styles are kept;\n\
+character formatting and character styles of the cleared text are removed.\n\
+"));
+/**
+Remove direct paragraph formatting from a text frame.
+*/
+PyObject *scribus_clearparagraphformatting(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_duplicateobject__doc__,
 QT_TR_NOOP("duplicateObject([\"name\"]) -> string\n\
 \n\

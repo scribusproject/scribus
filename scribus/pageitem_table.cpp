@@ -2145,6 +2145,11 @@ void PageItem_Table::applicableActions(QStringList& actionList)
 	actionList << "tableAdjustFrameToTable";
 	actionList << "tableAdjustTableToFrame";
 	actionList << "tableAdjustRowHeights";
+	if (tableEdit)
+	{
+		actionList << "styleClearDirectCharFormatting";
+		actionList << "styleClearDirectParagraphFormatting";
+	}
 }
 
 void PageItem_Table::DrawObj_Item(ScPainter *p, const QRectF& /*e*/)

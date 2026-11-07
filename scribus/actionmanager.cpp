@@ -51,7 +51,7 @@ ActionManager::~ActionManager()
 		ScrAction *value = (*scrActions->begin());
 		scrActions->erase(scrActions->begin());
 		delete value;
- 	}
+	}
 	scrActions->clear();
 	delete modeActionNames;
 	delete nonEditActionNames;
@@ -203,8 +203,6 @@ void ActionManager::initFileMenuActions()
 	connect( (*scrActions)["fileExportAsEPS"], SIGNAL(triggered()), mainWindow, SLOT(SaveAsEps()) );
 	connect( (*scrActions)["fileExportAsPDF"], SIGNAL(triggered()), mainWindow, SLOT(SaveAsPDF()) );
 	//The rest are plugins
-	
-	
 	(*scrActions)["fileClose"]->setShortcutContext(Qt::WidgetShortcut);
 }
 
@@ -378,6 +376,17 @@ void ActionManager::initStyleMenuActions()
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QString(), QString(), "", defaultKey(name), scrActionGroups->value("typeEffects"), 6));
 	name = "typeEffectShadow";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt, QString(), QString(), "", defaultKey(name), scrActionGroups->value("typeEffects"), 9));
+
+	//Other Style menu items that get added in various places
+	name = "styleClearDirectCharFormatting";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+	name = "styleClearDirectParagraphFormatting";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+	name = "styleImageEffects";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+	name = "styleTabulators";
+	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
+
 	(*scrActions)["typeEffectNormal"]->setToggleAction(true);
 	(*scrActions)["typeEffectUnderline"]->setToggleAction(true);
 	(*scrActions)["typeEffectUnderlineWords"]->setToggleAction(true);
@@ -398,12 +407,6 @@ void ActionManager::initStyleMenuActions()
 	connect( (*scrActions)["typeEffectSubscript"], SIGNAL(triggeredData(int)), mainWindow, SLOT(setItemTypeStyle(int)));
 	connect( (*scrActions)["typeEffectOutline"], SIGNAL(triggeredData(int)), mainWindow, SLOT(setItemTypeStyle(int)));
 	connect( (*scrActions)["typeEffectShadow"], SIGNAL(triggeredData(int)), mainWindow, SLOT(setItemTypeStyle(int)));
-
-	//Other Style menu items that get added in various places
-	name = "styleImageEffects";
-	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
-	name = "styleTabulators";
-	scrActions->insert(name, new ScrAction("", defaultKey(name), mainWindow));
 	connect( (*scrActions)["styleImageEffects"], SIGNAL(triggered()), mainWindow, SLOT(ImageEffects()));
 	connect( (*scrActions)["styleTabulators"], SIGNAL(triggered()), mainWindow, SLOT(EditTabs()));
 }
@@ -992,7 +995,7 @@ void ActionManager::initToolsMenuActions()
 #endif
 	for (auto it = modeActionNames->cbegin(); it != modeActionNames->cend(); ++it)
 	{
- 		(*scrActions)[*it]->setEnabled(false);
+		(*scrActions)[*it]->setEnabled(false);
 		(*scrActions)[*it]->setToggleAction(true);
 	}
 
@@ -1270,130 +1273,134 @@ void ActionManager::connectModeActions()
 
 void ActionManager::disconnectNewDocActions()
 {
-	(*scrActions)["tableInsertRows"]->disconnect();
-	(*scrActions)["tableInsertColumns"]->disconnect();
-	(*scrActions)["tableDeleteRows"]->disconnect();
-	(*scrActions)["tableDeleteColumns"]->disconnect();
-	(*scrActions)["tableMergeCells"]->disconnect();
-	(*scrActions)["tableSplitCells"]->disconnect();
-	(*scrActions)["tableSetRowHeights"]->disconnect();
-	(*scrActions)["tableSetColumnWidths"]->disconnect();
-	(*scrActions)["tableDistributeRowsEvenly"]->disconnect();
-	(*scrActions)["tableDistributeColumnsEvenly"]->disconnect();
-	(*scrActions)["tableAdjustFrameToTable"]->disconnect();
-	(*scrActions)["tableAdjustTableToFrame"]->disconnect();
-	(*scrActions)["tableAdjustRowHeights"]->disconnect();
-	(*scrActions)["tableSelectCell"]->disconnect();
-	(*scrActions)["tableSelectAllCells"]->disconnect();
-	(*scrActions)["tableSelectRow"]->disconnect();
-	(*scrActions)["tableSelectColumn"]->disconnect();
-	(*scrActions)["tableSelectTable"]->disconnect();
-	(*scrActions)["itemSelectChain"]->disconnect();
+
+	(*scrActions)["extrasDeHyphenateText"]->disconnect();
+	(*scrActions)["extrasHyphenateText"]->disconnect();
 	(*scrActions)["itemAdjustFrameHeightToText"]->disconnect();
 	(*scrActions)["itemAdjustFrameToImage"]->disconnect();
 	(*scrActions)["itemAdjustImageToFrame"]->disconnect();
-	(*scrActions)["itemLock"]->disconnect();
-	(*scrActions)["itemLockSize"]->disconnect();
-	(*scrActions)["itemLockAspectRatio"]->disconnect();
-	(*scrActions)["itemPrintingEnabled"]->disconnect();
+	(*scrActions)["itemCombinePolygons"]->disconnect();
+	(*scrActions)["itemDelete"]->disconnect();
+	(*scrActions)["itemEditWeld"]->disconnect();
 	(*scrActions)["itemFlipH"]->disconnect();
 	(*scrActions)["itemFlipV"]->disconnect();
-	(*scrActions)["itemCombinePolygons"]->disconnect();
-	(*scrActions)["itemSplitPolygons"]->disconnect();
-	(*scrActions)["itemUpdateImage"]->disconnect();
-	(*scrActions)["itemDelete"]->disconnect();
-	(*scrActions)["extrasHyphenateText"]->disconnect();
-	(*scrActions)["extrasDeHyphenateText"]->disconnect();
-	(*scrActions)["itemsUnWeld"]->disconnect();
-	(*scrActions)["itemWeld"]->disconnect();
-	(*scrActions)["itemEditWeld"]->disconnect();
-	(*scrActions)["itemLowerToBottom"]->disconnect();
-	(*scrActions)["itemRaiseToTop"]->disconnect();
+	(*scrActions)["itemLock"]->disconnect();
+	(*scrActions)["itemLockAspectRatio"]->disconnect();
+	(*scrActions)["itemLockSize"]->disconnect();
 	(*scrActions)["itemLower"]->disconnect();
+	(*scrActions)["itemLowerToBottom"]->disconnect();
+	(*scrActions)["itemPrintingEnabled"]->disconnect();
 	(*scrActions)["itemRaise"]->disconnect();
-	(*scrActions)["toolsUnlinkTextFrameAndCutText"]->disconnect();
-
-	(*scrActions)["itemTextTransformLowercase"]->disconnect(SIGNAL(triggeredData(int)));
-	(*scrActions)["itemTextTransformUppercase"]->disconnect(SIGNAL(triggeredData(int)));
-	(*scrActions)["itemTextTransformSentencecase"]->disconnect(SIGNAL(triggeredData(int)));
+	(*scrActions)["itemRaiseToTop"]->disconnect();
+	(*scrActions)["itemSelectChain"]->disconnect();
+	(*scrActions)["itemSplitPolygons"]->disconnect();
 	(*scrActions)["itemTextTransformCapitalize"]->disconnect(SIGNAL(triggeredData(int)));
+	(*scrActions)["itemTextTransformLowercase"]->disconnect(SIGNAL(triggeredData(int)));
+	(*scrActions)["itemTextTransformSentencecase"]->disconnect(SIGNAL(triggeredData(int)));
 	(*scrActions)["itemTextTransformToggleCase"]->disconnect(SIGNAL(triggeredData(int)));
+	(*scrActions)["itemTextTransformUppercase"]->disconnect(SIGNAL(triggeredData(int)));
+	(*scrActions)["itemUpdateImage"]->disconnect();
+	(*scrActions)["itemWeld"]->disconnect();
+	(*scrActions)["itemsUnWeld"]->disconnect();
+	(*scrActions)["styleClearDirectCharFormatting"]->disconnect();
+	(*scrActions)["styleClearDirectParagraphFormatting"]->disconnect();
+	(*scrActions)["tableAdjustFrameToTable"]->disconnect();
+	(*scrActions)["tableAdjustRowHeights"]->disconnect();
+	(*scrActions)["tableAdjustTableToFrame"]->disconnect();
+	(*scrActions)["tableDeleteColumns"]->disconnect();
+	(*scrActions)["tableDeleteRows"]->disconnect();
+	(*scrActions)["tableDistributeColumnsEvenly"]->disconnect();
+	(*scrActions)["tableDistributeRowsEvenly"]->disconnect();
+	(*scrActions)["tableInsertColumns"]->disconnect();
+	(*scrActions)["tableInsertRows"]->disconnect();
+	(*scrActions)["tableMergeCells"]->disconnect();
+	(*scrActions)["tableSelectAllCells"]->disconnect();
+	(*scrActions)["tableSelectCell"]->disconnect();
+	(*scrActions)["tableSelectColumn"]->disconnect();
+	(*scrActions)["tableSelectRow"]->disconnect();
+	(*scrActions)["tableSelectTable"]->disconnect();
+	(*scrActions)["tableSetColumnWidths"]->disconnect();
+	(*scrActions)["tableSetRowHeights"]->disconnect();
+	(*scrActions)["tableSplitCells"]->disconnect();
+	(*scrActions)["toolsUnlinkTextFrameAndCutText"]->disconnect();
 }
 
 void ActionManager::connectNewDocActions(ScribusDoc *currDoc)
 {
 	if (currDoc == nullptr)
 		return;
-	connect( (*scrActions)["itemLock"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_ToggleLock()) );
-	connect( (*scrActions)["itemLockSize"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_ToggleSizeLock()));
-	connect( (*scrActions)["itemLockAspectRatio"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_ToggleAspectRatioLock()));
-	connect( (*scrActions)["itemPrintingEnabled"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_TogglePrintEnabled()));
-	connect( (*scrActions)["itemFlipH"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_FlipH()));
-	connect( (*scrActions)["itemFlipV"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_FlipV()));
-	connect( (*scrActions)["itemCombinePolygons"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_UniteItems()) );
-	connect( (*scrActions)["itemSplitPolygons"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_SplitItems()) );
-	connect( (*scrActions)["itemUpdateImage"], SIGNAL(triggered()), currDoc, SLOT(updatePic()) );
-	connect( (*scrActions)["extrasHyphenateText"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_DoHyphenate()) );
 	connect( (*scrActions)["extrasDeHyphenateText"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_DoDeHyphenate()) );
-	connect( (*scrActions)["itemDelete"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_DeleteItem()) );
-	connect( (*scrActions)["tableInsertRows"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_InsertTableRows()));
-	connect( (*scrActions)["tableInsertColumns"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_InsertTableColumns()));
-	connect( (*scrActions)["tableDeleteRows"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_DeleteTableRows()));
-	connect( (*scrActions)["tableDeleteColumns"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_DeleteTableColumns()));
-	connect( (*scrActions)["tableMergeCells"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_MergeTableCells()));
-	connect( (*scrActions)["tableSplitCells"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_SplitTableCells()));
-	connect( (*scrActions)["tableSetRowHeights"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_SetTableRowHeights()));
-	connect( (*scrActions)["tableSetColumnWidths"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_SetTableColumnWidths()));
-	connect( (*scrActions)["tableDistributeRowsEvenly"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_DistributeTableRowsEvenly()));
-	connect( (*scrActions)["tableDistributeColumnsEvenly"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_DistributeTableColumnsEvenly()));
-	connect( (*scrActions)["tableAdjustFrameToTable"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_AdjustFrameToTable()));
-	connect( (*scrActions)["tableAdjustTableToFrame"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_AdjustTableToFrame()));
-	connect( (*scrActions)["tableAdjustRowHeights"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_AdjustTableRowHeights()));
-	connect( (*scrActions)["tableSelectCell"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_SelectTableCell()));
-	connect( (*scrActions)["tableSelectAllCells"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_SelectTableAllCells()));
-	connect( (*scrActions)["tableSelectRow"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_SelectTableRow()));
-	connect( (*scrActions)["tableSelectColumn"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_SelectTableColumn()));
-	connect( (*scrActions)["tableSelectTable"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_SelectWholeTable()));
-	connect( (*scrActions)["itemSelectChain"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_SelectChain()) );
+	connect( (*scrActions)["extrasHyphenateText"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_DoHyphenate()) );
 	connect( (*scrActions)["itemAdjustFrameHeightToText"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_AdjustFrameHeightToText()) );
 	connect( (*scrActions)["itemAdjustFrameToImage"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_AdjustFrametoImageSize()) );
 	connect( (*scrActions)["itemAdjustImageToFrame"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_AdjustImagetoFrameSize()) );
-	connect( (*scrActions)["itemsUnWeld"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_UnWeld()) );
-	connect( (*scrActions)["itemWeld"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_Weld()) );
+	connect( (*scrActions)["itemCombinePolygons"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_UniteItems()) );
+	connect( (*scrActions)["itemDelete"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_DeleteItem()) );
 	connect( (*scrActions)["itemEditWeld"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_EditWeld()) );
-	connect( (*scrActions)["itemLowerToBottom"], SIGNAL(triggered()), currDoc, SLOT(sendItemSelectionToBack()) );
-	connect( (*scrActions)["itemRaiseToTop"], SIGNAL(triggered()), currDoc, SLOT(bringItemSelectionToFront()) );
+	connect( (*scrActions)["itemFlipH"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_FlipH()));
+	connect( (*scrActions)["itemFlipV"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_FlipV()));
+	connect( (*scrActions)["itemLock"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_ToggleLock()) );
+	connect( (*scrActions)["itemLockAspectRatio"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_ToggleAspectRatioLock()));
+	connect( (*scrActions)["itemLockSize"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_ToggleSizeLock()));
 	connect( (*scrActions)["itemLower"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_LowerItem()) );
+	connect( (*scrActions)["itemLowerToBottom"], SIGNAL(triggered()), currDoc, SLOT(sendItemSelectionToBack()) );
+	connect( (*scrActions)["itemPrintingEnabled"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_TogglePrintEnabled()));
 	connect( (*scrActions)["itemRaise"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_RaiseItem()) );
-	connect( (*scrActions)["toolsUnlinkTextFrameAndCutText"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_UnlinkTextFrameAndCutText()) );
-	connect( (*scrActions)["itemTextTransformLowercase"], SIGNAL(triggeredData(int)), currDoc, SLOT(itemSelection_SetItemTextCaseTransform(int)) );
-	connect( (*scrActions)["itemTextTransformUppercase"], SIGNAL(triggeredData(int)), currDoc, SLOT(itemSelection_SetItemTextCaseTransform(int)) );
-	connect( (*scrActions)["itemTextTransformSentencecase"], SIGNAL(triggeredData(int)), currDoc, SLOT(itemSelection_SetItemTextCaseTransform(int)) );
+	connect( (*scrActions)["itemRaiseToTop"], SIGNAL(triggered()), currDoc, SLOT(bringItemSelectionToFront()) );
+	connect( (*scrActions)["itemSelectChain"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_SelectChain()) );
+	connect( (*scrActions)["itemSplitPolygons"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_SplitItems()) );
 	connect( (*scrActions)["itemTextTransformCapitalize"], SIGNAL(triggeredData(int)), currDoc, SLOT(itemSelection_SetItemTextCaseTransform(int)) );
+	connect( (*scrActions)["itemTextTransformLowercase"], SIGNAL(triggeredData(int)), currDoc, SLOT(itemSelection_SetItemTextCaseTransform(int)) );
+	connect( (*scrActions)["itemTextTransformSentencecase"], SIGNAL(triggeredData(int)), currDoc, SLOT(itemSelection_SetItemTextCaseTransform(int)) );
 	connect( (*scrActions)["itemTextTransformToggleCase"], SIGNAL(triggeredData(int)), currDoc, SLOT(itemSelection_SetItemTextCaseTransform(int)) );
+	connect( (*scrActions)["itemTextTransformUppercase"], SIGNAL(triggeredData(int)), currDoc, SLOT(itemSelection_SetItemTextCaseTransform(int)) );
+	connect( (*scrActions)["itemUpdateImage"], SIGNAL(triggered()), currDoc, SLOT(updatePic()) );
+	connect( (*scrActions)["itemWeld"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_Weld()) );
+	connect( (*scrActions)["itemsUnWeld"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_UnWeld()) );
+	connect( (*scrActions)["styleClearDirectCharFormatting"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_ClearDirectCharFormatting()) );
+	connect( (*scrActions)["styleClearDirectParagraphFormatting"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_ClearDirectParagraphFormatting()) );
+	connect( (*scrActions)["tableAdjustFrameToTable"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_AdjustFrameToTable()));
+	connect( (*scrActions)["tableAdjustRowHeights"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_AdjustTableRowHeights()));
+	connect( (*scrActions)["tableAdjustTableToFrame"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_AdjustTableToFrame()));
+	connect( (*scrActions)["tableDeleteColumns"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_DeleteTableColumns()));
+	connect( (*scrActions)["tableDeleteRows"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_DeleteTableRows()));
+	connect( (*scrActions)["tableDistributeColumnsEvenly"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_DistributeTableColumnsEvenly()));
+	connect( (*scrActions)["tableDistributeRowsEvenly"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_DistributeTableRowsEvenly()));
+	connect( (*scrActions)["tableInsertColumns"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_InsertTableColumns()));
+	connect( (*scrActions)["tableInsertRows"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_InsertTableRows()));
+	connect( (*scrActions)["tableMergeCells"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_MergeTableCells()));
+	connect( (*scrActions)["tableSelectAllCells"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_SelectTableAllCells()));
+	connect( (*scrActions)["tableSelectCell"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_SelectTableCell()));
+	connect( (*scrActions)["tableSelectColumn"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_SelectTableColumn()));
+	connect( (*scrActions)["tableSelectRow"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_SelectTableRow()));
+	connect( (*scrActions)["tableSelectTable"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_SelectWholeTable()));
+	connect( (*scrActions)["tableSetColumnWidths"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_SetTableColumnWidths()));
+	connect( (*scrActions)["tableSetRowHeights"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_SetTableRowHeights()));
+	connect( (*scrActions)["tableSplitCells"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_SplitTableCells()));
+	connect( (*scrActions)["toolsUnlinkTextFrameAndCutText"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_UnlinkTextFrameAndCutText()) );
 }
 
 void ActionManager::disconnectNewViewActions()
 {
 	//qDebug()<<"disconnectNewViewActions"<<mainWindow->doc->DocName;
-	(*scrActions)["viewPreviewMode"]->disconnect();
-	(*scrActions)["viewEditInPreview"]->disconnect();
-	(*scrActions)["viewToggleWhiteSpaceMode"]->disconnect();
-	(*scrActions)["viewToggleCMS"]->disconnect();
-	(*scrActions)["toolsZoomIn"]->disconnect();
-	(*scrActions)["toolsZoomOut"]->disconnect();
-	(*scrActions)["itemImageIsVisible"]->disconnect();
-	(*scrActions)["itemPreviewFull"]->disconnect(SIGNAL(triggeredData(int)));
-	(*scrActions)["itemPreviewNormal"]->disconnect(SIGNAL(triggeredData(int)));
-	(*scrActions)["itemPreviewLow"]->disconnect(SIGNAL(triggeredData(int)));
+	(*scrActions)["itemAttachTextToPath"]->disconnect();
 	(*scrActions)["itemConvertToBezierCurve"]->disconnect();
 	(*scrActions)["itemConvertToImageFrame"]->disconnect();
 	(*scrActions)["itemConvertToOutlines"]->disconnect();
 	(*scrActions)["itemConvertToPolygon"]->disconnect();
 	(*scrActions)["itemConvertToTextFrame"]->disconnect();
-	(*scrActions)["itemAttachTextToPath"]->disconnect();
 	(*scrActions)["itemDetachTextFromPath"]->disconnect();
 	(*scrActions)["itemExtendedImageProperties"]->disconnect();
+	(*scrActions)["itemImageIsVisible"]->disconnect();
+	(*scrActions)["itemPreviewFull"]->disconnect(SIGNAL(triggeredData(int)));
+	(*scrActions)["itemPreviewLow"]->disconnect(SIGNAL(triggeredData(int)));
+	(*scrActions)["itemPreviewNormal"]->disconnect(SIGNAL(triggeredData(int)));
+	(*scrActions)["toolsZoomIn"]->disconnect();
+	(*scrActions)["toolsZoomOut"]->disconnect();
+	(*scrActions)["viewEditInPreview"]->disconnect();
+	(*scrActions)["viewPreviewMode"]->disconnect();
+	(*scrActions)["viewToggleCMS"]->disconnect();
+	(*scrActions)["viewToggleWhiteSpaceMode"]->disconnect();
 }
 
 void ActionManager::connectNewViewActions(ScribusView *currView)
@@ -1401,41 +1408,41 @@ void ActionManager::connectNewViewActions(ScribusView *currView)
 	if (currView == nullptr)
 		return;
 	//qDebug()<<"connectNewViewActions"<<currView->Doc->DocName;
-	connect( (*scrActions)["viewPreviewMode"], SIGNAL(toggled(bool)), currView, SLOT(togglePreview(bool)) );
-	connect( (*scrActions)["viewEditInPreview"], SIGNAL(toggled(bool)), currView, SLOT(togglePreviewEdit(bool)) );
-	connect( (*scrActions)["viewToggleWhiteSpaceMode"], SIGNAL(toggled(bool)), currView, SLOT(toggleWhiteSpaceMode(bool)) );
-	connect( (*scrActions)["viewToggleCMS"], SIGNAL(toggled(bool)), currView, SLOT(toggleCMS(bool)));
-	connect( (*scrActions)["toolsZoomIn"], SIGNAL(triggered()) , currView, SLOT(slotZoomIn()) );
-	connect( (*scrActions)["toolsZoomOut"], SIGNAL(triggered()) , currView, SLOT(slotZoomOut()) );
+	connect( (*scrActions)["itemAttachTextToPath"], SIGNAL(triggered()), currView, SLOT(ToPathText()) );
 	connect( (*scrActions)["itemConvertToBezierCurve"], SIGNAL(triggered()), currView, SLOT(ToBezierFrame()) );
 	connect( (*scrActions)["itemConvertToImageFrame"], SIGNAL(triggered()), currView, SLOT(ToPicFrame()) );
 	connect( (*scrActions)["itemConvertToOutlines"], SIGNAL(triggered()), currView, SLOT(TextToPath()) );
 	connect( (*scrActions)["itemConvertToPolygon"], SIGNAL(triggered()), currView, SLOT(ToPolyFrame()) );
 	connect( (*scrActions)["itemConvertToTextFrame"], SIGNAL(triggered()), currView, SLOT(ToTextFrame()) );
-	connect( (*scrActions)["itemAttachTextToPath"], SIGNAL(triggered()), currView, SLOT(ToPathText()) );
 	connect( (*scrActions)["itemDetachTextFromPath"], SIGNAL(triggered()), currView, SLOT(FromPathText()) );
 	connect( (*scrActions)["itemExtendedImageProperties"], SIGNAL(triggered()), currView, SLOT(editExtendedImageProperties()) );
+	connect( (*scrActions)["toolsZoomIn"], SIGNAL(triggered()) , currView, SLOT(slotZoomIn()) );
+	connect( (*scrActions)["toolsZoomOut"], SIGNAL(triggered()) , currView, SLOT(slotZoomOut()) );
+	connect( (*scrActions)["viewEditInPreview"], SIGNAL(toggled(bool)), currView, SLOT(togglePreviewEdit(bool)) );
+	connect( (*scrActions)["viewPreviewMode"], SIGNAL(toggled(bool)), currView, SLOT(togglePreview(bool)) );
+	connect( (*scrActions)["viewToggleCMS"], SIGNAL(toggled(bool)), currView, SLOT(toggleCMS(bool)));
+	connect( (*scrActions)["viewToggleWhiteSpaceMode"], SIGNAL(toggled(bool)), currView, SLOT(toggleWhiteSpaceMode(bool)) );
 }
 
 void ActionManager::disconnectNewSelectionActions()
 {
+	(*scrActions)["editClearContents"]->disconnect();
+	(*scrActions)["editTruncateContents"]->disconnect();
 	(*scrActions)["itemImageIsVisible"]->disconnect();
 	//Only disconnect triggeredData for data based actions or you will disconnect the internal signal
 	(*scrActions)["itemPreviewFull"]->disconnect(SIGNAL(triggeredData(int)));
 	(*scrActions)["itemPreviewNormal"]->disconnect(SIGNAL(triggeredData(int)));
 	(*scrActions)["itemPreviewLow"]->disconnect(SIGNAL(triggeredData(int)));
-	(*scrActions)["editClearContents"]->disconnect();
-	(*scrActions)["editTruncateContents"]->disconnect();
 }
 
 void ActionManager::connectNewSelectionActions(ScribusView* /*currView*/, ScribusDoc* currDoc)
 {
-	connect( (*scrActions)["itemImageIsVisible"], SIGNAL(toggled(bool)), currDoc, SLOT(itemSelection_ToggleImageShown()) );
-	connect( (*scrActions)["itemPreviewFull"], SIGNAL(triggeredData(int)), currDoc, SLOT(itemSelection_ChangePreviewResolution(int)) );
-	connect( (*scrActions)["itemPreviewNormal"], SIGNAL(triggeredData(int)), currDoc, SLOT(itemSelection_ChangePreviewResolution(int)) );
-	connect( (*scrActions)["itemPreviewLow"], SIGNAL(triggeredData(int)), currDoc, SLOT(itemSelection_ChangePreviewResolution(int)) );
 	connect( (*scrActions)["editClearContents"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_ClearItem()) );
 	connect( (*scrActions)["editTruncateContents"], SIGNAL(triggered()), currDoc, SLOT(itemSelection_TruncateItem()) );
+	connect( (*scrActions)["itemImageIsVisible"], SIGNAL(toggled(bool)), currDoc, SLOT(itemSelection_ToggleImageShown()) );
+	connect( (*scrActions)["itemPreviewFull"], SIGNAL(triggeredData(int)), currDoc, SLOT(itemSelection_ChangePreviewResolution(int)) );
+	connect( (*scrActions)["itemPreviewLow"], SIGNAL(triggeredData(int)), currDoc, SLOT(itemSelection_ChangePreviewResolution(int)) );
+	connect( (*scrActions)["itemPreviewNormal"], SIGNAL(triggeredData(int)), currDoc, SLOT(itemSelection_ChangePreviewResolution(int)) );
 }
 
 void ActionManager::saveActionShortcutsPreEditMode()
@@ -1447,7 +1454,7 @@ void ActionManager::saveActionShortcutsPreEditMode()
 #ifdef Q_OS_MACOS
 		if ((*scrActions)[*it]->menu() != nullptr)
 			(*scrActions)[*it]->setEnabled(false);
-#endif		
+#endif
 	}
 	for (auto it = nonEditActionNames->cbegin(); it != nonEditActionNames->cend(); ++it)
 	{
@@ -1464,7 +1471,7 @@ void ActionManager::restoreActionShortcutsPostEditMode()
 		(*scrActions)[*it]->restoreShortcut();
 #ifdef Q_OS_MACOS
 		(*scrActions)[*it]->setEnabled(true);
-#endif		
+#endif
 	}
 	for (auto it = nonEditActionNames->cbegin(); it != nonEditActionNames->cend(); ++it)
 	{
@@ -1522,12 +1529,12 @@ void ActionManager::setPDFActions(ScribusView *currView)
 
 	if (!currItem->isTextFrame())
 	{
-		(*scrActions)["itemPDFIsAnnotation"]->setEnabled(false);
-		(*scrActions)["itemPDFIsBookmark"]->setEnabled(false);
-		(*scrActions)["itemPDFIsAnnotation"]->setChecked(false);
-		(*scrActions)["itemPDFIsBookmark"]->setChecked(false);
 		(*scrActions)["itemPDFAnnotationProps"]->setEnabled(false);
 		(*scrActions)["itemPDFFieldProps"]->setEnabled(false);
+		(*scrActions)["itemPDFIsAnnotation"]->setChecked(false);
+		(*scrActions)["itemPDFIsAnnotation"]->setEnabled(false);
+		(*scrActions)["itemPDFIsBookmark"]->setChecked(false);
+		(*scrActions)["itemPDFIsBookmark"]->setEnabled(false);
 		return;
 	}
 
@@ -1644,6 +1651,8 @@ void ActionManager::languageChange()
 	(*scrActions)["typeEffectSubscript"]->setTexts( tr("Su&bscript"));
 	(*scrActions)["typeEffectOutline"]->setTexts( tr("&Outline", "type effect"));
 	(*scrActions)["typeEffectShadow"]->setTexts( tr("S&hadow"));
+	(*scrActions)["styleClearDirectCharFormatting"]->setTexts( tr("Clear Direct Character Formatting"));
+	(*scrActions)["styleClearDirectParagraphFormatting"]->setTexts( tr("Clear Direct Paragraph Formatting"));
 
 	(*scrActions)["styleImageEffects"]->setTexts( tr("&Image Effects..."));
 	(*scrActions)["styleTabulators"]->setTexts( tr("&Tabulators..."));
@@ -2071,7 +2080,7 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("toolsInsertLine", Qt::Key_L);
 	defKeys.insert("toolsInsertBezier", Qt::Key_B);
 	defKeys.insert("toolsInsertFreehandLine", Qt::Key_F);
-	
+
 	defKeys.insert("toolsInsertRenderFrame", Qt::Key_D); //TODO: First free key. Select a meaningful
 	defKeys.insert("toolsRotate", Qt::Key_R);
 	defKeys.insert("toolsZoom", Qt::Key_Z);
@@ -2168,7 +2177,7 @@ void ActionManager::createDefaultMenus()
 	}
 	QVector< QPair<QString, QStringList> >::Iterator itmenu = defMenus.begin();
 	//File
-	itmenu->second 
+	itmenu->second
 		<< "fileNew"
 		<< "fileNewFromTemplate"
 		<< "fileOpen"
@@ -2195,11 +2204,11 @@ void ActionManager::createDefaultMenus()
 		<< "fileQuit";
 	++itmenu;
 	//Edit
-	itmenu->second 
+	itmenu->second
 		<< "editUndoAction"
 		<< "editRedoAction"
 		<< "editActionMode"
-		<< "editCut" 
+		<< "editCut"
 		<< "editCopy"
 		<< "editPaste"
 		<< "editPastePlainText"
@@ -2230,7 +2239,7 @@ void ActionManager::createDefaultMenus()
 		itmenu->second << QString("fontSize%1").arg(fontSize);
 	itmenu->second
 		<< "fontSizeOther"
-		<< "alignLeft" 
+		<< "alignLeft"
 		<< "alignCenter"
 		<< "alignRight"
 		<< "alignBlock"
@@ -2249,52 +2258,54 @@ void ActionManager::createDefaultMenus()
 		<< "typeEffectSubscript"
 		<< "typeEffectOutline"
 		<< "typeEffectShadow"
+		<< "styleClearDirectCharFormatting"
+		<< "styleClearDirectParagraphFormatting"
 		<< "styleImageEffects"
 		<< "styleTabulators";
 	//Item
 	++itmenu;
-	itmenu->second 
-		<< "itemDuplicate" 
-		<< "itemMulDuplicate" 
-		<< "itemTransform" 
-		<< "itemDelete" 
-		<< "itemGroup" 
+	itmenu->second
+		<< "itemDuplicate"
+		<< "itemMulDuplicate"
+		<< "itemTransform"
+		<< "itemDelete"
+		<< "itemGroup"
 		<< "itemUngroup"
 		<< "itemGroupAdjust"
-		<< "itemLock" 
-		<< "itemLockSize" 
+		<< "itemLock"
+		<< "itemLockSize"
 		<< "itemImageIsVisible"
 		<< "itemStyleSearch"
 		<< "itemUpdateImage"
 		<< "itemAdjustFrameHeightToText"
-		<< "itemAdjustFrameToImage" 
-		<< "itemAdjustImageToFrame" 
-		<< "itemToggleInlineImage" 
-		<< "itemExtendedImageProperties" 
-		<< "itemPreviewFull" 
-		<< "itemPreviewNormal" 
-		<< "itemPreviewLow" 
-		<< "itemRaise" 
-		<< "itemLower" 
-		<< "itemRaiseToTop" 
-		<< "itemLowerToBottom" 
-		<< "itemSendToPattern" 
+		<< "itemAdjustFrameToImage"
+		<< "itemAdjustImageToFrame"
+		<< "itemToggleInlineImage"
+		<< "itemExtendedImageProperties"
+		<< "itemPreviewFull"
+		<< "itemPreviewNormal"
+		<< "itemPreviewLow"
+		<< "itemRaise"
+		<< "itemLower"
+		<< "itemRaiseToTop"
+		<< "itemLowerToBottom"
+		<< "itemSendToPattern"
 		<< "itemSendToInline"
-		<< "itemAttributes" 
-		<< "itemPDFIsAnnotation" 
-		<< "itemPDFIsBookmark" 
-		<< "itemPDFAnnotationProps" 
-		<< "itemPDFFieldProps" 
-		<< "itemShapeEdit" 
-		<< "itemConvertToBezierCurve" 
-		<< "itemConvertToImageFrame" 
-		<< "itemConvertToOutlines" 
-		<< "itemConvertToPolygon" 
-		<< "itemConvertToTextFrame" 
+		<< "itemAttributes"
+		<< "itemPDFIsAnnotation"
+		<< "itemPDFIsBookmark"
+		<< "itemPDFAnnotationProps"
+		<< "itemPDFFieldProps"
+		<< "itemShapeEdit"
+		<< "itemConvertToBezierCurve"
+		<< "itemConvertToImageFrame"
+		<< "itemConvertToOutlines"
+		<< "itemConvertToPolygon"
+		<< "itemConvertToTextFrame"
 		<< "itemConvertToSymbolFrame"
-		<< "itemAttachTextToPath" 
-		<< "itemDetachTextFromPath" 
-		<< "itemCombinePolygons" 
+		<< "itemAttachTextToPath"
+		<< "itemDetachTextFromPath"
+		<< "itemCombinePolygons"
 		<< "itemSplitPolygons"
 		<< "itemsUnWeld"
 		<< "itemWeld"
@@ -2305,7 +2316,7 @@ void ActionManager::createDefaultMenus()
 		<< "itemTextTransformSentencecase"
 		<< "itemTextTransformCapitalize"
 		<< "itemTextTransformToggleCase";
-	
+
 	//Insert
 	++itmenu;
 	itmenu->second
@@ -2567,7 +2578,7 @@ void ActionManager::createDefaultNonMenuActions()
 //	itnmenua->second << "ExportAsImage";
 //	itnmenua->second << "NewFromDocumentTemplate";
 //	itnmenua->second << "SaveAsDocumentTemplate";
-	
+
 	//Others
 	++itnmenua;
 	itnmenua->second << "toolsSelect";

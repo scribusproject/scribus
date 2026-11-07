@@ -1130,6 +1130,9 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItemString("typeEffectSubscript", "TextFeatures");
 	scrMenuMgr->addMenuItemString("typeEffectOutline", "TextFeatures");
 	scrMenuMgr->addMenuItemString("typeEffectShadow", "TextFeatures");
+	scrMenuMgr->addMenuItemString("SEPARATOR", "TextFeatures");
+	scrMenuMgr->addMenuItemString("styleClearDirectCharFormatting", "TextFeatures");
+	scrMenuMgr->addMenuItemString("styleClearDirectParagraphFormatting", "TextFeatures");
 	scrMenuMgr->createMenu("TextLinking", tr("Text Frame Links"), "Item");
 	scrMenuMgr->addMenuItemString("TextLinking", "Item");
 	scrMenuMgr->addMenuItemString("toolsLinkTextFrame", "TextLinking");

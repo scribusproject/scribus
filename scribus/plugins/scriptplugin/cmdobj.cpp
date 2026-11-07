@@ -612,7 +612,7 @@ PyObject *scribus_getcharacterstyle(PyObject* /* self */, PyObject* args)
 	const ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
 	const StoryText&  itemText = item->itemText;
 
-	int selectionLength = itemText.selectionLength();	
+	int selectionLength = itemText.selectionLength();
 	if ((selectionLength > 0) || (currentDoc->appMode == modeEdit))
 	{
 		int cursorPos = (selectionLength > 0) ? itemText.startOfSelection() : itemText.cursorPosition();
@@ -652,7 +652,7 @@ PyObject *scribus_getparagraphstyle(PyObject* /* self */, PyObject* args)
 	const ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
 	const StoryText&  itemText = item->itemText;
 
-	int selectionLength = itemText.selectionLength();	
+	int selectionLength = itemText.selectionLength();
 	if ((selectionLength > 0) || (currentDoc->appMode == modeEdit))
 	{
 		int cursorPos = (selectionLength > 0) ? itemText.startOfSelection() : itemText.cursorPosition();
@@ -669,13 +669,52 @@ PyObject *scribus_getparagraphstyle(PyObject* /* self */, PyObject* args)
 	Py_RETURN_NONE;
 };
 
+static PyObject* clearTextFormatting(PyObject* args, bool paragraph)
+{
+	PyESString name;
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+		return nullptr;
+	if (!checkHaveDocument())
+		return nullptr;
+	PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+	if (item == nullptr)
+		return nullptr;
+	if (!item->isTextFrame() && !item->isPathText())
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot clear formatting on a non-text frame.", "python error").toUtf8().constData());
+		return nullptr;
+	}
 
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->doc;
+	Selection tempSelection(currentDoc, false);
+	tempSelection.addItem(item);
 
-/*
- * Craig Ringer, 2004-09-09
- * Apply the named style to the currently selected object.
- * pv, 2004-09-13, optionally param objectName + "check the page" stuff
- */
+	// With a text selection, clear it as in text edit mode, otherwise clear the whole story
+	const bool hasTextSelection = item->itemText.hasSelection();
+	const bool oldHasSel = item->HasSel;
+	const int oldMode = currentDoc->appMode;
+	currentDoc->appMode = hasTextSelection ? modeEdit : modeNormal;
+	item->HasSel = hasTextSelection;
+	if (paragraph)
+		currentDoc->itemSelection_ClearDirectParagraphFormatting(&tempSelection);
+	else
+		currentDoc->itemSelection_ClearDirectCharFormatting(&tempSelection);
+	item->HasSel = oldHasSel;
+	currentDoc->appMode = oldMode;
+
+	Py_RETURN_NONE;
+}
+
+PyObject *scribus_clearcharformatting(PyObject* /* self */, PyObject* args)
+{
+	return clearTextFormatting(args, false);
+}
+
+PyObject *scribus_clearparagraphformatting(PyObject* /* self */, PyObject* args)
+{
+	return clearTextFormatting(args, true);
+}
+
 PyObject *scribus_setparagraphstyle(PyObject* /* self */, PyObject* args)
 {
 	PyESString name;
@@ -692,7 +731,7 @@ PyObject *scribus_setparagraphstyle(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set style on a non-text frame.", "python error").toUtf8().constData());
 		return nullptr;
 	}
-	
+
 	ScribusDoc*  currentDoc = ScCore->primaryMainWindow()->doc;
 	ScribusView* currentView = ScCore->primaryMainWindow()->view;
 	ScribusMainWindow* currentWin = ScCore->primaryMainWindow();
@@ -768,7 +807,7 @@ PyObject *scribus_setcharstyle(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set character style on a non-text frame.", "python error").toUtf8().constData());
 		return nullptr;
 	}
-	
+
 	ScribusDoc*  currentDoc = ScCore->primaryMainWindow()->doc;
 	ScribusView* currentView = ScCore->primaryMainWindow()->view;
 	ScribusMainWindow* currentWin = ScCore->primaryMainWindow();
@@ -814,7 +853,7 @@ PyObject *scribus_setcharstyle(PyObject* /* self */, PyObject* args)
 		item->itemText.deselectAll();
 		item->itemText.select(selectionStart, selectionLength);
 		item->HasSel = true;
-	}	
+	}
 	// Now apply the style.
 	int mode = ScCore->primaryMainWindow()->doc->appMode;
 	currentDoc->appMode = modeEdit;

@@ -331,7 +331,7 @@ void PropertyWidget_ParagraphStyle::doClearCStyle()
 		return;
 	Selection tempSelection(this, false);
 	tempSelection.addItem(m_item);
-	m_doc->itemSelection_EraseCharStyle(&tempSelection);
+	m_doc->itemSelection_ClearDirectCharFormatting(&tempSelection);
 }
 
 void PropertyWidget_ParagraphStyle::doClearPStyle()
@@ -339,19 +339,9 @@ void PropertyWidget_ParagraphStyle::doClearPStyle()
 	if (!m_ScMW || !m_hasParagraph || m_ScMW->scriptIsRunning() || !m_haveDoc || !m_haveItem)
 		return;
 
-	UndoTransaction activeTransaction;
-	if (UndoManager::undoEnabled())
-		activeTransaction = UndoManager::instance()->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::RemoveTextStyle, tr( "remove direct paragraph formatting" ), Um::IFont);
-
 	Selection tempSelection(this, false);
 	tempSelection.addItem(m_item);
-	m_doc->itemSelection_ClearBulNumStrings(&tempSelection);
-	m_doc->itemSelection_EraseParagraphStyle(&tempSelection);
-	CharStyle emptyCStyle;
-	m_doc->itemSelection_SetCharStyle(emptyCStyle, &tempSelection);
-
-	if (activeTransaction)
-		activeTransaction.commit();
+	m_doc->itemSelection_ClearDirectParagraphFormatting(&tempSelection);
 }
 
 void PropertyWidget_ParagraphStyle::newPStyle()

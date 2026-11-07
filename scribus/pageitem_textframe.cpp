@@ -793,7 +793,7 @@ struct LineControl {
 					{
 						imSpace = remaining / spaceInsertion;
 						spaceExtension = 0;
-					} 
+					}
 					else
 					{
 						spaceExtension = (remaining + spaceNatural) / (spaceNatural + spaceInsertion * imSpace) - 1;
@@ -805,7 +805,7 @@ struct LineControl {
 					imSpace = remaining / spaceInsertion;
 					spaceExtension = 0;
 				}
-			} 
+			}
 			else
 			{
 				if (spaceNatural > 0)
@@ -1344,7 +1344,7 @@ void PageItem_TextFrame::layout()
 			}
 			m_availableRegion = matrix.map(m_availableRegion);
 		}
-		
+
 		// update Bullet & number list if any.
 		if (itemText.hasTextMarks() || itemText.hasBulletOrNum() ||  itemText.marksCountChanged())
 		{
@@ -1517,9 +1517,9 @@ void PageItem_TextFrame::layout()
 			{
 				// unless at begin of par (eeks)
 				if ( (current.isEmpty) && (SpecialChars::isBreakingSpace(itemText.text(a)))
-				     && (a > 0 && ! SpecialChars::isBreak(itemText.text(a - 1)))
-				     && ! (a > 0 && SpecialChars::isBreakingSpace(itemText.text(a - 1))
-				           && (i == 0 || !glyphClusters[i - 1].hasFlag(ScLayout_SuppressSpace))))
+					 && (a > 0 && ! SpecialChars::isBreak(itemText.text(a - 1)))
+					 && ! (a > 0 && SpecialChars::isBreakingSpace(itemText.text(a - 1))
+						   && (i == 0 || !glyphClusters[i - 1].hasFlag(ScLayout_SuppressSpace))))
 				{
 					current.glyphs[currentIndex].setFlag(ScLayout_SuppressSpace);
 					continue;
@@ -3099,7 +3099,7 @@ void PageItem_TextFrame::layout()
 
 NoRoom:
 	invalid = false;
-	
+
 	adjustParagraphEndings ();
 
 	if (verticalAlign > 0)
@@ -3657,7 +3657,7 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 		if (fillBlendmode() != 0)
 			p->setBlendModeFill(0);
 		p->setMaskMode(0);
-		
+
 		if (!isAnnotation() || (isAnnotation() && ((annotation().Type() == 0) || (annotation().Type() > 6))))
 		{
 			p->setBlendModeStroke(lineBlendmode());
@@ -4747,7 +4747,7 @@ void PageItem_TextFrame::deleteSelectedTextFromFrame(/*bool findNotes*/)
 	int savedStart = itemText.startOfSelection();
 	int savedStop = itemText.endOfSelection();
 	int marksNum = 0;
-	if (UndoManager::undoEnabled()) 
+	if (UndoManager::undoEnabled())
 	{
 		int lastPos = start;
 		CharStyle lastParent = itemText.charStyle(start);
@@ -5395,6 +5395,8 @@ void PageItem_TextFrame::applicableActions(QStringList & actionList)
 		if ((this->nextInChain() == nullptr) && frameOverflows())
 			actionList << "editTruncateContents";
 		actionList << "itemAdjustFrameHeightToText";
+		actionList << "styleClearDirectCharFormatting";
+		actionList << "styleClearDirectParagraphFormatting";
 	}
 }
 
