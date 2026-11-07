@@ -40,21 +40,18 @@ class UndoManager;
 class UndoObject;
 
 /**
-    Class which handles Undo transactions. No data, just methods.
+	Class which handles Undo transactions. No data, just methods.
  */
 class SCRIBUS_API UndoTransaction : public Transaction
 {
 public:
 	UndoTransaction();
 	UndoTransaction(TransactionData* data);
+
 	virtual ~UndoTransaction();
 	virtual bool commit();
 	virtual bool cancel();
-	bool commit(const QString &targetName,
-				QPixmap *targetPixmap,
-				const QString &name = QString(),
-				const QString &description = QString(),
-				QPixmap *actionPixmap = nullptr);
+	bool commit(const QString &targetName, QPixmap *targetPixmap, const QString &name = QString(), const QString &description = QString(), QPixmap *actionPixmap = nullptr);
 };
 
 /**

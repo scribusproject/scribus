@@ -47,7 +47,7 @@ public:
 		STATE_FAILED,
 		STATE_COMMITTED
 	};
-	
+
 	class TransactionStateBase : public QSharedData
 	{
 	public:
@@ -55,39 +55,39 @@ public:
 
 		Status m_status { STATE_OPEN };
 	};
-	
+
 	Transaction(TransactionStateBase* data) : m_data(data)
 	{
 		if (data != nullptr)
 			m_data->m_status = STATE_OPEN;
 	}
-	
+
 	/**
 		Automatically commits if forgotten.
 		Override as appropriate. Since the superclass destructor is called last, you
-	    can cancel in the subclass destructor; the commit here then will do nothing.
-	    Don't forget to set m_data to NULL if you free the m_data pointer!
+		can cancel in the subclass destructor; the commit here then will do nothing.
+		Don't forget to set m_data to NULL if you free the m_data pointer!
 	 */
 	virtual ~Transaction() = default;
 
 	/**
-		Test if transaction has some valid data 
+		Test if transaction has some valid data
 	 */
 	operator bool() const { return (m_data.constData() != 0); }
-	
+
 	/**
 	  Commits this transaction if in STATE_OPEN.
 	  If in STATE_WILLFAIL, cancel the transaction instead; otherwise do nothing.
 	  Returns true iff the transaction was committed or canceled.
 	 */
 	virtual bool commit() = 0;
-	
+
 	/**
 		Cancels this transaction if in STATE_OPEN or STATE_WILLFAIL; otherwise do nothing
-	    Returns true iff the transaction was canceled.
+		Returns true iff the transaction was canceled.
 	 */
 	virtual bool cancel() = 0;
-	
+
 	/**
 		Marks this transaction as failed.
 	 */
@@ -105,11 +105,11 @@ public:
 	bool isStarted() const { return (m_data.constData() != 0); }
 
 	bool isOpened() const;
-	
+
 protected:
 	// if you subclass, do *not* add any data members but use this pointer instead,
 	// otherwise the copy initializer will strip your objects.
-	QExplicitlySharedDataPointer<TransactionStateBase>    m_data;
+	QExplicitlySharedDataPointer<TransactionStateBase> m_data;
 };
 
 #endif
