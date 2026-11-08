@@ -2530,7 +2530,10 @@ TableRowsSnapshot PageItem_Table::snapshotRows(int index, int numRows) const
 
 		for (int col = 0; col < columns(); ++col)
 		{
-			TableCell cell = cellAt(row, col);
+			// The cell at this grid position, even if a merged cell covers it.
+			// cellAt() would return the spanning cell, and its content would
+			// replace the covered cells' content on undo.
+			TableCell cell = m_cellRows[row][col];
 			TableRowsSnapshot::CellSnapshot cs;
 			PageItem_TextFrame *tf = cell.textFrame();
 			if (tf)
@@ -2575,7 +2578,8 @@ void PageItem_Table::restoreRowsFromSnapshot(const TableRowsSnapshot& snap)
 
 		for (int col = 0; col < snap.numColumns; ++col)
 		{
-			TableCell cell = cellAt(row, col);
+			// Restore into the grid cell itself, as it was snapshotted
+			TableCell cell = m_cellRows[row][col];
 			const auto& cs = snap.cells.at(r * snap.numColumns + col);
 
 			PageItem_TextFrame *tf = cell.textFrame();
@@ -2631,7 +2635,8 @@ TableColumnsSnapshot PageItem_Table::snapshotColumns(int index, int numColumns) 
 	{
 		for (int c = 0; c < numColumns; ++c)
 		{
-			TableCell cell = cellAt(row, index + c);
+			// The cell at this grid position, even if a merged cell covers it
+			TableCell cell = m_cellRows[row][index + c];
 			TableColumnsSnapshot::CellSnapshot cs;
 			PageItem_TextFrame *tf = cell.textFrame();
 			if (tf)
@@ -2675,7 +2680,8 @@ void PageItem_Table::restoreColumnsFromSnapshot(const TableColumnsSnapshot& snap
 		for (int c = 0; c < snap.numColumns; ++c)
 		{
 			const int col = snap.index + c;
-			TableCell cell = cellAt(row, col);
+			// Restore into the grid cell itself, as it was snapshotted
+			TableCell cell = m_cellRows[row][col];
 			const auto& cs = snap.cells.at(row * snap.numColumns + c);
 
 			PageItem_TextFrame *tf = cell.textFrame();

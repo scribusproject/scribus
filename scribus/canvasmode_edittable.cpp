@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <QCursor>
 #include <QDebug>
 #include <QPainter>
+#include <QPixmap>
 #include <QPointF>
 #include <QSet>
 #include <QTimer>
@@ -41,6 +42,11 @@ constexpr double ResizeGripShortPx = 8.0;
 constexpr double ResizeGripOffsetPx = 5.0;
 constexpr double InsertControlOffsetPx = 22.0;
 constexpr double DeleteControlOffsetPx = 18.0;
+constexpr double CellActionButtonPx = 14.0;
+constexpr double CellActionMinButtonPx = 8.0;
+constexpr double CellActionHitPx = 18.0;
+constexpr double CellActionIconPx = 10.0;
+constexpr double CellActionMarginPx = 2.0;
 constexpr double CanvasControlExtentPx = 36.0;
 constexpr QColor ControlColor(50, 150, 220, 230);
 constexpr QColor ControlGlyphColor(255, 255, 255);
@@ -78,7 +84,12 @@ void CanvasMode_EditTable::activate(bool fromGesture)
 	m_hoverTableCanvasControl = TableCanvasControl();
 	m_tableCanvasControlPressed = false;
 	if (!fromGesture)
+	{
 		m_dragSelectionMode = CellSelect::Cells;
+		// Reloaded on each entry so they follow icon set and screen changes
+		m_mergeIcon = controlGlyph("chain-closed");
+		m_unmergeIcon = controlGlyph("chain-open");
+	}
 
 	if (fromGesture)
 		m_view->setCursor(Qt::ArrowCursor);
@@ -331,6 +342,8 @@ void CanvasMode_EditTable::mouseMoveEvent(QMouseEvent* event)
 		case TableCanvasControl::InsertColumn:
 		case TableCanvasControl::DeleteRows:
 		case TableCanvasControl::DeleteColumns:
+		case TableCanvasControl::MergeCells:
+		case TableCanvasControl::UnmergeCells:
 			cursor = Qt::PointingHandCursor;
 			break;
 		case TableCanvasControl::None:
@@ -427,7 +440,7 @@ void CanvasMode_EditTable::mousePressEvent(QMouseEvent* event)
 					m_dragSelectionMode = CellSelect::Cells;
 					resetSelectionAnchor();
 					setHoveredTableCanvasControl(TableCanvasControl());
-					// The active cell may have moved or changed size
+					// Update rulers if cells changed size
 					updateTextEditUIForActiveCell();
 					updateCanvas(true);
 					return;
@@ -437,7 +450,21 @@ void CanvasMode_EditTable::mousePressEvent(QMouseEvent* event)
 					m_dragSelectionMode = CellSelect::Cells;
 					resetSelectionAnchor();
 					setHoveredTableCanvasControl(TableCanvasControl());
-					// The active cell may have moved or changed size
+					// Update rulers if cells changed size
+					updateTextEditUIForActiveCell();
+					updateCanvas(true);
+					return;
+				case TableCanvasControl::MergeCells:
+				case TableCanvasControl::UnmergeCells:
+					m_tableCanvasControlPressed = true;
+					if (canvasControl.type == TableCanvasControl::MergeCells)
+						m_doc->itemSelection_MergeTableCells();
+					else
+						m_doc->itemSelection_SplitTableCells();
+					m_dragSelectionMode = CellSelect::Cells;
+					resetSelectionAnchor();
+					setHoveredTableCanvasControl(TableCanvasControl());
+					// Update rulers if cells changed size
 					updateTextEditUIForActiveCell();
 					updateCanvas(true);
 					return;
@@ -745,6 +772,56 @@ CanvasMode_EditTable::TableCanvasControl::Type CanvasMode_EditTable::deleteContr
 	return TableCanvasControl::None;
 }
 
+CanvasMode_EditTable::TableCanvasControl::Type CanvasMode_EditTable::cellActionControl(QPointF& center, double& buttonSize, double& hitSize) const
+{
+	const QSet<TableCell>& selectedCells = m_table->selectedCells();
+	if (selectedCells.isEmpty())
+		return TableCanvasControl::None;
+
+	// The button sits in the top-right corner of the selected area, sized to fit
+	// the top-right cell
+	TableCanvasControl::Type type = TableCanvasControl::MergeCells;
+	QRectF area;
+	QRectF anchorRect;
+	if (selectedCells.size() == 1)
+	{
+		// One merged cell selected. Splitting works on the active cell, so
+		// only offer it when that is the selected cell.
+		const TableCell cell = *selectedCells.constBegin();
+		if ((cell.rowSpan() == 1 && cell.columnSpan() == 1) || cell != m_table->activeCell())
+			return TableCanvasControl::None;
+		type = TableCanvasControl::UnmergeCells;
+		area = cell.boundingRect();
+		anchorRect = area;
+	}
+	else
+	{
+		int anchorRow = -1;
+		int anchorEndColumn = -1;
+		for (const TableCell& cell : selectedCells)
+		{
+			const QRectF cellRect = cell.boundingRect();
+			area |= cellRect;
+			const int endColumn = cell.column() + cell.columnSpan();
+			if (anchorRow < 0 || cell.row() < anchorRow || (cell.row() == anchorRow && endColumn > anchorEndColumn))
+			{
+				anchorRect = cellRect;
+				anchorRow = cell.row();
+				anchorEndColumn = endColumn;
+			}
+		}
+	}
+
+	const double controlScale = 1.0 / m_canvas->scale();
+	const double anchorMinSize = qMin(anchorRect.width(), anchorRect.height());
+	buttonSize = qBound(CellActionMinButtonPx * controlScale, anchorMinSize / 2.0, CellActionButtonPx * controlScale);
+	hitSize = qMax(buttonSize, qMin(CellActionHitPx * controlScale, anchorMinSize * 0.75));
+	const double inset = buttonSize / 2.0 + CellActionMarginPx * controlScale;
+	const QPointF offset = m_table->gridOffset();
+	center = QPointF(offset.x() + area.right() - inset, offset.y() + area.top() + inset);
+	return type;
+}
+
 CanvasMode_EditTable::TableCanvasControl CanvasMode_EditTable::hitTestTableCanvasControls(const QPointF& canvasPoint) const
 {
 	TableCanvasControl control;
@@ -760,6 +837,18 @@ CanvasMode_EditTable::TableCanvasControl CanvasMode_EditTable::hitTestTableCanva
 	const QPointF offset = m_table->gridOffset();
 	const double tableW = m_table->tableWidth();
 	const double tableH = m_table->tableHeight();
+
+	// Merge or unmerge, inside the top-right corner of the selected cells
+	QPointF cellActionCenter;
+	double cellActionButton = 0.0;
+	double cellActionHit = 0.0;
+	const TableCanvasControl::Type cellActionType = cellActionControl(cellActionCenter, cellActionButton, cellActionHit);
+	if ((cellActionType != TableCanvasControl::None)
+		&& QRectF(cellActionCenter.x() - cellActionHit / 2.0, cellActionCenter.y() - cellActionHit / 2.0, cellActionHit, cellActionHit).contains(framePoint))
+	{
+		control.type = cellActionType;
+		return control;
+	}
 
 	// Contextual delete controls are visible whenever the selected cells cover
 	// complete rows/columns, regardless of which selection gesture produced them.
@@ -880,6 +969,14 @@ void CanvasMode_EditTable::drawTableCanvasControls(QPainter* p)
 		}
 	}
 
+	// Merge or unmerge for the selected cells
+	QPointF cellActionCenter;
+	double cellActionButton = 0.0;
+	double cellActionHit = 0.0;
+	const TableCanvasControl::Type cellActionType = cellActionControl(cellActionCenter, cellActionButton, cellActionHit);
+	if (cellActionType != TableCanvasControl::None)
+		drawCellActionButton(p, cellActionCenter, cellActionType, cellActionButton);
+
 	// A minus control is persistent while the selected cells cover complete
 	// rows/columns. It disappears when deleting the selection would remove the
 	// entire table dimension.
@@ -923,6 +1020,38 @@ void CanvasMode_EditTable::drawResizeGrip(QPainter* p, const QPointF& center, Qt
 		const QPointF dot = horizontal ? QPointF(center.x() + i * step, center.y()) : QPointF(center.x(), center.y() + i * step);
 		p->drawEllipse(dot, dotRadius, dotRadius);
 	}
+}
+
+void CanvasMode_EditTable::drawCellActionButton(QPainter* p, const QPointF& center, TableCanvasControl::Type type, double buttonSize) const
+{
+	const double controlScale = 1.0 / m_canvas->scale();
+	const QRectF buttonRect(center.x() - buttonSize / 2.0, center.y() - buttonSize / 2.0, buttonSize, buttonSize);
+	const double cornerRadius = qMin(4.0 * controlScale, buttonSize / 3.0);
+	p->setPen(Qt::NoPen);
+	p->setBrush(ControlColor);
+	p->drawRoundedRect(buttonRect, cornerRadius, cornerRadius);
+
+	const QPixmap& icon = (type == TableCanvasControl::MergeCells) ? m_mergeIcon : m_unmergeIcon;
+	if (icon.isNull())
+		return;
+	const double iconSize = buttonSize * CellActionIconPx / CellActionButtonPx;
+	p->drawPixmap(QRectF(center.x() - iconSize / 2.0, center.y() - iconSize / 2.0, iconSize, iconSize), icon, QRectF(icon.rect()));
+}
+
+QPixmap CanvasMode_EditTable::controlGlyph(const QString& name) const
+{
+	// Loaded at the screen's pixel density, so it stays sharp on HiDPI screens
+	const int size = qRound(CellActionIconPx * m_view->devicePixelRatioF());
+	QPixmap icon = IconManager::instance().loadPixmap(name, size);
+	if (icon.isNull())
+		return icon;
+
+	// Painting detaches the pixmap, so the IconManager cache is left untouched
+	QPainter painter(&icon);
+	painter.setCompositionMode(QPainter::CompositionMode_SourceIn);
+	painter.fillRect(icon.rect(), ControlGlyphColor);
+	painter.end();
+	return icon;
 }
 
 void CanvasMode_EditTable::setHoveredTableCanvasControl(const TableCanvasControl& control)

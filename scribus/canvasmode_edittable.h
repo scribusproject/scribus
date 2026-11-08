@@ -78,7 +78,9 @@ private:
 			InsertRow,
 			InsertColumn,
 			DeleteRows,
-			DeleteColumns
+			DeleteColumns,
+			MergeCells,
+			UnmergeCells
 		};
 
 		Type type {None};
@@ -93,6 +95,10 @@ private:
 	/// Returns DeleteRows or DeleteColumns with the centre of the - control in frame
 	/// coordinates, or None when the selection does not cover complete rows or columns.
 	TableCanvasControl::Type deleteControl(double controlScale, QPointF& center) const;
+	/// Returns MergeCells or UnmergeCells for the current cell selection, with the button's
+	/// centre in frame coordinates and its button and hit sizes, or None when neither applies.
+	/// The active cell alone never gets a button, so nothing is clickable in a cell being edited.
+	TableCanvasControl::Type cellActionControl(QPointF& center, double& buttonSize, double& hitSize) const;
 	/// Returns a direct-manipulation control outside the table, if any.
 	TableCanvasControl hitTestTableCanvasControls(const QPointF& canvasPoint) const;
 	/// Paints hover controls and contextual row/column deletion controls.
@@ -101,6 +107,10 @@ private:
 	void drawControlButton(QPainter* p, const QPointF& center, bool plus) const;
 	/// Draws a resize grip: horizontal above a column boundary, vertical beside a row boundary.
 	void drawResizeGrip(QPainter* p, const QPointF& center, Qt::Orientation orientation) const;
+	/// Draws the merge or unmerge button.
+	void drawCellActionButton(QPainter* p, const QPointF& center, TableCanvasControl::Type type, double buttonSize) const;
+	/// Returns icon \a name in the glyph colour, at the view's pixel density.
+	QPixmap controlGlyph(const QString& name) const;
 	/// Updates the currently hovered direct-manipulation control.
 	void setHoveredTableCanvasControl(const TableCanvasControl& control);
 	/// Inserts one row/column at a visual boundary (0..count).
@@ -172,8 +182,11 @@ private:
 
 	/// Direct table control currently under the pointer.
 	TableCanvasControl m_hoverTableCanvasControl;
-	/// Prevents a click on +/- from turning into a cell-selection drag.
+	/// Prevents a click on a canvas control from turning into a cell-selection drag.
 	bool m_tableCanvasControlPressed {false};
+	/// Merge and unmerge glyphs, recoloured once when table editing starts.
+	QPixmap m_mergeIcon;
+	QPixmap m_unmergeIcon;
 };
 
 #endif // CANVASMODE_EDITTABLE_H
