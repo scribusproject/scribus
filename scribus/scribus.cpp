@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
  ***************************************************************************/
 
 
+#include <QAbstractItemView>
 #include <QAction>
 #include <QApplication>
 #include <QByteArray>
@@ -61,6 +62,7 @@ for which a new license (GPL+exception) is in place.
 #include <QSignalBlocker>
 #include <QStyleFactory>
 #include <QStyleHints>
+#include <QStyledItemDelegate>
 #include <QTableWidget>
 #include <QTemporaryFile>
 #include <QTransform>
@@ -653,6 +655,7 @@ void ScribusMainWindow::setStyleSheet()
 	dockManager->setStyleSheet(stylesheet); // style sheet should be enabled when theme manager is implemented to handle color palettes in css file.
 
 	layerMenu->setStyleSheet(stylesheet);
+	layerMenu->view()->setIconSize(layerMenu->iconSize());
 	unitSwitcher->setStyleSheet(stylesheet);
 	zoomDefaultToolbarButton->setStyleSheet(stylesheet);
 	zoomInToolbarButton->setStyleSheet(stylesheet);
@@ -1492,6 +1495,7 @@ void ScribusMainWindow::initStatusBar()
 	layerMenu = new QComboBox( this );
 	layerMenu->setObjectName("layerMenu");
 	layerMenu->setEditable(false);
+	layerMenu->setItemDelegate(new QStyledItemDelegate(layerMenu));
 	layerMenu->setFont(fo);
 	layerMenu->setFocusPolicy(Qt::NoFocus);
 	layerMenu->setSizeAdjustPolicy(QComboBox::AdjustToContents);
@@ -7513,7 +7517,9 @@ void ScribusMainWindow::updateLayerMenu()
 	{
 		QPixmap pm(20,15);
 		pm.fill(doc->Layers.layerByName(newName)->markerColor);
-		layerMenu->addItem(pm, newName);
+		QIcon icon(pm);
+		icon.addPixmap(pm, QIcon::Selected);
+		layerMenu->addItem(icon, newName);
 	}
 
 	if (layerMenu->count() != 0)
