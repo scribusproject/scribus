@@ -5,11 +5,11 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 /***************************************************************************
-                          scribus.cpp  -  description
-                             -------------------
-    begin                : Fre Apr  6 21:09:31 CEST 2001
-    copyright            : (C) 2001 by Franz Schmid
-    email                : Franz.Schmid@altmuehlnet.de
+						  scribus.cpp  -  description
+							 -------------------
+	begin                : Fre Apr  6 21:09:31 CEST 2001
+	copyright            : (C) 2001 by Franz Schmid
+	email                : Franz.Schmid@altmuehlnet.de
  ***************************************************************************/
 
 /***************************************************************************
@@ -1692,7 +1692,7 @@ void ScribusMainWindow::setStatusBarInfoText(const QString & newText)
 void ScribusMainWindow::setTBvals(PageItem *currItem)
 {
 	scrActions["editMark"]->setEnabled(false);
-	
+
 	PageItem* item  = currItem;
 	bool inEditMode = (doc->appMode == modeEdit);
 	if (doc->appMode == modeEditTable)
@@ -3253,7 +3253,7 @@ bool ScribusMainWindow::slotFileOpen()
 bool ScribusMainWindow::slotPageImport()
 {
 	Q_ASSERT(!doc->masterPageMode());
-	
+
 	QScopedPointer<MergeDoc> dia(new MergeDoc(this, false, doc->DocPages.count(), doc->currentPage()->pageNr() + 1));
 	if (!dia->exec())
 		return false;
@@ -3415,14 +3415,14 @@ bool ScribusMainWindow::loadDoc(const QString& fileName)
 	t.start();
 	times(&tms1);
 #endif
-	
+
 	QFileInfo fi(fileName);
 	if (!fi.exists())
 	{
 		ScMessageBox::warning(this, CommonStrings::trWarning, tr("File does not exist on the specified path :\n%1").arg(QDir::toNativeSeparators(fileName)), QMessageBox::Ok);
 		return false;
 	}
-	
+
 	QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 	if (HaveDoc)
 		outlinePalette->buildReopenVals();
@@ -4003,7 +4003,7 @@ void ScribusMainWindow::slotGetClipboardImage()
 		QFile::remove(fileName);
 		return;
 	}
-	
+
 	currItem->pixm.imgInfo.isRequest = false;
 	currItem->UseEmbedded = true;
 	currItem->EmbeddedProfile.clear();
@@ -4011,7 +4011,7 @@ void ScribusMainWindow::slotGetClipboardImage()
 	currItem->ImageIntent = doc->cmsSettings().DefaultIntentImages;
 	QApplication::setOverrideCursor( QCursor(Qt::WaitCursor) );
 	QApplication::processEvents(QEventLoop::ExcludeUserInputEvents);
-	
+
 	currItem->isInlineImage = true;
 	currItem->isTempFile = true;
 	currItem->Pfile = fileName;
@@ -4652,7 +4652,7 @@ void ScribusMainWindow::slotEditCopy()
 		// Do not copy notes frames
 		if ((doc->m_Selection->count() == 1) && currItem->isNoteFrame())
 			return;
-		
+
 		// Sort items in Z-order
 		QList<PageItem*> selectedItems = doc->m_Selection->items();
 		std::stable_sort(selectedItems.begin(), selectedItems.end(), compareItemLevel);
@@ -4963,7 +4963,7 @@ void ScribusMainWindow::slotEditPaste(bool forcePlainText)
 		activeTransaction.commit();
 	if (doc->notesChanged())
 		doc->notesFramesUpdate();
-	
+
 	// update style lists:
 	requestUpdate(reqColorsUpdate | reqArrowStylesUpdate | reqLineStylesUpdate | reqTextStylesUpdate);
 
@@ -5348,7 +5348,7 @@ void ScribusMainWindow::slotNewPageM()
 		double width = dia->pageWidth();
 		double height = dia->pageHeight();
 		int orientation = dia->orientation();
-		addNewPages(dia->getWherePage(), dia->getWhere(), dia->getCount(), height, width, orientation, 
+		addNewPages(dia->getWherePage(), dia->getWhere(), dia->getCount(), height, width, orientation,
 			dia->prefsPageSizeName, dia->moveObjects(), &base, dia->overrideMasterPageSizing());
 	}
 	delete dia;
@@ -5442,7 +5442,7 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 //		slotNewPage(wot, QString(), mov); //Avoid the master page application with QString()
 		//CB: #8212: added overrideMasterPageSizing, but keeping default to true for other calls for now, off for calls from InsPage
 		if (overrideMasterPageSizing)
-		{	
+		{
 			doc->currentPage()->setInitialHeight(height);
 			doc->currentPage()->setInitialWidth(width);
 			doc->currentPage()->setOrientation(orient);
@@ -5584,7 +5584,7 @@ void ScribusMainWindow::ToggleStickyTools()
 }
 
 void ScribusMainWindow::ToggleAllPalettes()
-{	
+{
 	dockManager->toggleDocksVisibility();
 
 	if (m_palettesStatus[PAL_ALL])
@@ -6445,7 +6445,7 @@ void ScribusMainWindow::duplicateItem()
 	double shiftGapV = doc->opToolPrefs().dispY * doc->unitRatio();
 
 	internalCopy = true;
-	
+
 	doc->itemSelection_Duplicate(shiftGapH, shiftGapV);
 
 	internalCopy = false;
@@ -7885,7 +7885,7 @@ void ScribusMainWindow::ApplyMasterPage()
 	view->DrawNew();
 	pagePalette->rebuild();
 	// #9476 : call setupPage with false arg to setup only guidePalette GUI
-	// Otherwise setupPage() will apply guides to current page, doesn't need that, 
+	// Otherwise setupPage() will apply guides to current page, doesn't need that,
 	// Apply_MasterPage() has already done it
 	guidePalette->setupPage(false);
 }
@@ -8497,7 +8497,7 @@ void ScribusMainWindow::SearchText()
 {
 	TextFrameSpellChecker::instance()->pauseChecking();
 	SearchReplace dia(this, doc);
-	if (doc->appMode == modeEdit)
+	if (doc->appMode == modeEdit || doc->appMode == modeEditTable)
 	{
 		PageItem *currItem = doc->m_Selection->itemAt(0);
 		dia.processCurrentSelection(currItem->itemText.selectedText());
@@ -8941,7 +8941,7 @@ void ScribusMainWindow::slotEditPasteContents(int absolute)
 		imageItem->setImageXYOffset(contentsBuffer.LocalX, contentsBuffer.LocalY);
 	else
 		imageItem->setImageXYOffset(((contentsBuffer.ItemX - imageItem->xPos()) / contentsBuffer.LocalScX) + contentsBuffer.LocalX,
-		                            ((contentsBuffer.ItemY - imageItem->yPos()) / contentsBuffer.LocalScY) + contentsBuffer.LocalY);
+									((contentsBuffer.ItemY - imageItem->yPos()) / contentsBuffer.LocalScY) + contentsBuffer.LocalY);
 	imageItem->setImageRotation(contentsBuffer.LocalRot);
 	imageItem->ImageProfile = contentsBuffer.inputProfile;
 	imageItem->ImageIntent = contentsBuffer.renderingIntent;

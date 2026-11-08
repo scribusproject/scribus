@@ -44,7 +44,7 @@ for which a new license (GPL+exception) is in place.
 
 
 AppModeHelper::AppModeHelper(QObject *parent) :
-    QObject(parent)
+	QObject(parent)
 {
 }
 
@@ -345,6 +345,7 @@ void AppModeHelper::setApplicationMode(ScribusMainWindow* scmw, ScribusDoc* doc,
 				if (currItem && oldMode != modeEditTable)
 				{
 					scmw->charPalette->setEnabled(true, currItem);
+					(*a_scrActions)["editSearchReplace"]->setEnabled(true);
 					(*a_scrActions)["insertSampleText"]->setEnabled(true);
 					(*a_scrActions)["toolsEditWithStoryEditor"]->setEnabled(true);
 					const PageItem *i2 = currItem->asTable()->activeCell().textFrame();

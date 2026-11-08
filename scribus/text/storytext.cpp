@@ -436,7 +436,8 @@ int StoryText::lastIndexOf(const QString &str, int from, Qt::CaseSensitivity cs,
 				*pLen = len;
 			return i;
 		}
-		i = lastIndexOf(ch, i - 1, cs);
+		// lastIndexOf(ch, -1) would search from the end again
+		i = (i > 0) ? lastIndexOf(ch, i - 1, cs) : -1;
 	}
 	return -1;
 }

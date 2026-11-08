@@ -7,6 +7,9 @@ for which a new license (GPL+exception) is in place.
 #ifndef SEARCHREPLACE_H
 #define SEARCHREPLACE_H
 
+#include <QList>
+#include <QMap>
+
 #include "ui_searchbase.h"
 
 #include "scribusapi.h"
@@ -17,6 +20,7 @@ class CharStyle;
 
 class ScribusDoc;
 class PageItem;
+class PageItem_Table;
 
 class SCRIBUS_API SearchReplace : public QDialog, Ui::SearchReplaceBase
 {
@@ -155,12 +159,28 @@ private:
 	void readAllPageItems();
 	//! \brief Put all the selected text frames into pageItems
 	void readSelectedPageItems();
+	//! \brief Add a text frame to pageItems, or the text frames of a table's cells in reading order
+	void appendSearchTargets(PageItem* pageItem);
 	PageItem* currentPageItem();
 	void nextPageItem();
 	void selectPageItem(PageItem* pageItem);
+	//! \brief Is the text of this search target being edited on the canvas?
+	bool isEditing(PageItem* pageItem) const;
+	//! \brief Enter the edit mode for this search target: text edit mode, or table edit mode in its cell
+	void startEditing(PageItem* pageItem);
+	//! \brief After replacing text in a table cell, let its row grow as when typing
+	void fitCellRow(PageItem* pageItem);
 
-	std::vector<PageItem*> m_pageItems;
-	size_t m_currentPageItem { 0 };
+	QList<PageItem*> m_pageItems;
+	//! Table cells in pageItems: cell text frame -> its table and cell position
+	struct CellLocation
+	{
+		PageItem_Table* table { nullptr };
+		int row { 0 };
+		int column { 0 };
+	};
+	QMap<PageItem*, CellLocation> m_tableCells;
+	qsizetype m_currentPageItem { 0 };
 	bool m_endReached { false };
 
 	bool m_found { false };

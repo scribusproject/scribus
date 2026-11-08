@@ -17,6 +17,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "appmodes.h"
 #include "canvas.h"
+#include "pageitem_table.h"
 #include "colorcombo.h"
 #include "colorlistbox.h"
 #include "commonstrings.h"
@@ -216,9 +217,9 @@ void SearchReplace::searchOnCanvas()
 
 		StoryText& storyText = pageItem->itemText;
 
-		if (m_doc->appMode != modeEdit)
+		if (!isEditing(pageItem))
 		{
-			m_doc->view()->requestMode(modeEdit);
+			startEditing(pageItem);
 			pageItem->itemText.setCursorPosition(0);
 		}
 
@@ -344,9 +345,9 @@ void SearchReplace::searchOnCanvasBackward()
 
 		StoryText& storyText = pageItem->itemText;
 
-		if (m_doc->appMode != modeEdit)
+		if (!isEditing(pageItem))
 		{
-			m_doc->view()->requestMode(modeEdit);
+			startEditing(pageItem);
 			storyText.setCursorPosition(storyText.length());
 		}
 
@@ -396,7 +397,7 @@ void SearchReplace::previousPageItem()
 		--m_currentPageItem;
 
 	auto pageItem = m_pageItems.at(m_currentPageItem);
-	if (!m_endReached && pageItem == m_doc->m_Selection->itemAt(0))
+	if (!m_endReached && !m_tableCells.contains(pageItem) && pageItem == m_doc->m_Selection->itemAt(0))
 		return;
 
 	selectPageItem(pageItem);
@@ -411,11 +412,13 @@ bool SearchReplace::initCanvasSelection()
 	{
 		// TODO: search the whole document or the whole page?
 		readAllPageItems();
+		if (m_pageItems.empty())
+			return false;
 		selectPageItem(m_pageItems.at(0));
 	}
 	else
 		readSelectedPageItems();
-	return true;
+	return !m_pageItems.empty();
 }
 
 void SearchReplace::readAllPageItems()
@@ -429,7 +432,7 @@ void SearchReplace::readAllPageItems()
 	{
 		pageItem = m_doc->Items->at(i);
 
-		if (!(pageItem->isTextFrame()))
+		if (!pageItem->isTextFrame() && !pageItem->isTable())
 			continue;
 
 		// text chains are automatically searched until the end
@@ -452,7 +455,8 @@ void SearchReplace::readAllPageItems()
 
 		std::sort(pageItems.begin(), pageItems.end(), sortCoordinates);
 
-		m_pageItems.insert(m_pageItems.end(), pageItems.begin(), pageItems.end() );
+		for (PageItem* item : pageItems)
+			appendSearchTargets(item);
 	}
 
 	for (int i = 0; i < m_doc->currentPageNumber(); i++)
@@ -463,7 +467,8 @@ void SearchReplace::readAllPageItems()
 
 		std::sort(pageItems.begin(), pageItems.end(), sortCoordinates);
 
-		m_pageItems.insert(m_pageItems.end(), pageItems.begin(), pageItems.end() );
+		for (PageItem* item : pageItems)
+			appendSearchTargets(item);
 	}
 }
 
@@ -484,11 +489,91 @@ void SearchReplace::readSelectedPageItems()
 	{
 		auto pageItem = m_doc->m_Selection->itemAt(i);
 
-		if (!pageItem->isTextFrame())
-			continue;
-
-		m_pageItems.push_back(pageItem);
+		if (pageItem->isTextFrame() || pageItem->isTable())
+			appendSearchTargets(pageItem);
 	}
+
+	// When a table is being edited, continue from its active cell
+	if ((m_doc->appMode == modeEditTable) && m_doc->m_Selection->itemAt(0)->isTable())
+	{
+		PageItem* activeFrame = m_doc->m_Selection->itemAt(0)->asTable()->activeCell().textFrame();
+		const qsizetype index = m_pageItems.indexOf(activeFrame);
+		if (index >= 0)
+			m_currentPageItem = index;
+	}
+}
+
+void SearchReplace::appendSearchTargets(PageItem* pageItem)
+{
+	if (!pageItem->isTable())
+	{
+		m_pageItems.push_back(pageItem);
+		return;
+	}
+
+	// A table is searched cell by cell in reading order, a merged cell once at its first position
+	PageItem_Table* table = pageItem->asTable();
+	const bool rtl = table->effectiveRTL();
+	for (int row = 0; row < table->rows(); ++row)
+	{
+		for (int i = 0; i < table->columns(); ++i)
+		{
+			const int column = rtl ? table->columns() - 1 - i : i;
+			const TableCell cell = table->cellAt(row, column);
+			if ((cell.row() != row) || (cell.column() != column))
+				continue;
+			PageItem* cellFrame = cell.textFrame();
+			m_pageItems.push_back(cellFrame);
+			m_tableCells.insert(cellFrame, { table, row, column });
+		}
+	}
+}
+
+bool SearchReplace::isEditing(PageItem* pageItem) const
+{
+	// m_tableCells.value() returns an empty CellLocation if a normal text frame, therefore a normal text frame is what we have.
+	const CellLocation cell = m_tableCells.value(pageItem);
+	if (cell.table == nullptr)
+		return (m_doc->appMode == modeEdit);
+
+	PageItem_Table* table = cell.table;
+	return (m_doc->appMode == modeEditTable)
+		&& (m_doc->m_Selection->itemAt(0) == table)
+		&& (table->activeCell().textFrame() == pageItem);
+}
+
+void SearchReplace::startEditing(PageItem* pageItem)
+{
+	const CellLocation cell = m_tableCells.value(pageItem);
+	if (cell.table == nullptr)
+	{
+		m_doc->view()->requestMode(modeEdit);
+		return;
+	}
+
+	PageItem_Table* table = cell.table;
+	if (m_doc->m_Selection->itemAt(0) != table)
+	{
+		// Leave the current edit mode before the selection changes
+		m_doc->view()->requestMode(modeNormal);
+		m_doc->m_Selection->clear();
+		m_doc->m_Selection->addItem(table);
+	}
+	if (m_doc->appMode != modeEditTable)
+		m_doc->view()->requestMode(modeEditTable);
+	table->clearSelection();
+	table->moveTo(table->cellAt(cell.row, cell.column));
+}
+
+void SearchReplace::fitCellRow(PageItem* pageItem)
+{
+	const CellLocation cell = m_tableCells.value(pageItem);
+	if (cell.table == nullptr)
+		return;
+
+	PageItem_Table* table = cell.table;
+	if (table->rowNeedsGrowthForCell(cell.row, cell.column) && table->adjustRowHeight(cell.row, true))
+		table->adjustFrameToTable();
 }
 
 // TODO: as soon as available, use std::optional
@@ -511,7 +596,7 @@ void SearchReplace::nextPageItem()
 
 	auto pageItem = m_pageItems.at(m_currentPageItem);
 
-	if (!m_endReached && pageItem == m_doc->m_Selection->itemAt(0))
+	if (!m_endReached && !m_tableCells.contains(pageItem) && pageItem == m_doc->m_Selection->itemAt(0))
 		return;
 
 	selectPageItem(pageItem);
@@ -519,9 +604,31 @@ void SearchReplace::nextPageItem()
 
 void SearchReplace::selectPageItem(PageItem* pageItem)
 {
+	const CellLocation cell = m_tableCells.value(pageItem);
+	if (cell.table != nullptr)
+	{
+		// A cell is searched from its start. Between cells of the table being
+		// edited, only the active cell changes.
+		PageItem_Table* table = cell.table;
+		if ((m_doc->appMode == modeEditTable) && (m_doc->m_Selection->itemAt(0) == table))
+			startEditing(pageItem);
+		else
+		{
+			m_doc->view()->requestMode(modeNormal);
+			m_doc->m_Selection->clear();
+			m_doc->m_Selection->addItem(table);
+		}
+		pageItem->itemText.deselectAll();
+		pageItem->HasSel = false;
+		pageItem->itemText.setCursorPosition(0);
+		return;
+	}
+
+	// Leave the edit mode before the selection changes: while editing a table,
+	// the palettes expect the selected item to be that table
+	m_doc->view()->requestMode(modeNormal);
 	m_doc->m_Selection->clear();
 	m_doc->m_Selection->addItem(pageItem);
-	m_doc->view()->requestMode(modeNormal);
 }
 
 SearchReplace::MatchRange SearchReplace::getMatchRange(const StoryText& storyText, int position, const int length, const Options& options)
@@ -640,6 +747,22 @@ void SearchReplace::updatePageItemSelection(PageItem* pageItem)
 	int foundPos = storyText.cursorPosition();
 	if (storyText.selectionLength() > 0)
 		foundPos = storyText.startOfSelection();
+
+	const CellLocation cell = m_tableCells.value(pageItem);
+	if (cell.table != nullptr)
+	{
+		// Cell text frames are positioned within the table grid
+		PageItem_Table* table = cell.table;
+		QPointF cellTextPos;
+		if (m_doc->textCanvasPosition(pageItem, foundPos, cellTextPos))
+		{
+			const QPointF canvasPos = table->getTransform().map(cellTextPos + table->gridOffset());
+			if (!m_doc->view()->visibleCanvasRect().contains(canvasPos))
+				m_doc->view()->setCanvasCenterPos(canvasPos.x(), canvasPos.y());
+		}
+		table->update();
+		return;
+	}
 
 	QPointF textCanvasPos;
 	if (!m_doc->textCanvasPosition(pageItem, foundPos, textCanvasPos))
@@ -816,6 +939,10 @@ void SearchReplace::replaceSelectionOnCanvas()
 {
 	auto options = getReplaceOptions();
 	auto pageItem = currentPageItem();
+	// Format replacements apply to the search target, which for a table is the
+	// cell text frame, not the selected table
+	Selection targetSelection(m_doc, false);
+	targetSelection.addItem(pageItem);
 	UndoTransaction transaction;
 	if (UndoManager::undoEnabled())
 		transaction = UndoManager::instance()->beginTransaction(pageItem->getUName(), pageItem->getUPixmap());
@@ -859,7 +986,7 @@ void SearchReplace::replaceSelectionOnCanvas()
 	{
 		int oldMode = m_doc->appMode;
 		m_doc->appMode = modeEdit;
-		m_doc->itemSelection_SetNamedParagraphStyle(m_doc->paragraphStyles()[options.paragraphStyle].name());
+		m_doc->itemSelection_SetNamedParagraphStyle(m_doc->paragraphStyles()[options.paragraphStyle].name(), &targetSelection);
 		m_doc->appMode = oldMode;
 	}
 
@@ -867,15 +994,15 @@ void SearchReplace::replaceSelectionOnCanvas()
 	{
 		int oldMode = m_doc->appMode;
 		m_doc->appMode = modeEdit;
-		m_doc->itemSelection_SetAlignment(options.alignment);
+		m_doc->itemSelection_SetAlignment(options.alignment, &targetSelection);
 		m_doc->appMode = oldMode;
 	}
 
 	if (options.fontEnabled)
-		m_doc->itemSelection_SetFont(options.font);
+		m_doc->itemSelection_SetFont(options.font, &targetSelection);
 
 	if (options.fontSizeEnabled)
-		m_doc->itemSelection_SetFontSize(options.fontSize);
+		m_doc->itemSelection_SetFontSize(options.fontSize, &targetSelection);
 
 	// TODO: undo does not work
 	if (options.fontEffectsEnabled && (pageItem->itemText.hasSelection()))
@@ -893,16 +1020,18 @@ void SearchReplace::replaceSelectionOnCanvas()
 	}
 
 	if (options.fillColorEnabled)
-		m_doc->itemSelection_SetFillColor(options.fillColor);
+		m_doc->itemSelection_SetFillColor(options.fillColor, &targetSelection);
 
 	if (options.fillShadeEnabled)
-		m_doc->itemSelection_SetFillShade(options.fillShade);
+		m_doc->itemSelection_SetFillShade(options.fillShade, &targetSelection);
 
 	if (options.strokeColorEnabled)
-		m_doc->itemSelection_SetStrokeColor(options.strokeColor);
+		m_doc->itemSelection_SetStrokeColor(options.strokeColor, &targetSelection);
 
 	if (options.strokeShadeEnabled)
-		m_doc->itemSelection_SetStrokeShade(options.strokeShade);
+		m_doc->itemSelection_SetStrokeShade(options.strokeShade, &targetSelection);
+
+	fitCellRow(pageItem);
 
 	if (transaction)
 		transaction.commit();
@@ -983,9 +1112,9 @@ void SearchReplace::replaceAllOnCanvas()
 	{
 		selectPageItem(pageItem);
 		// TODO: createcreate  resetEditSelection() ?
-		if (m_doc->appMode != modeEdit)
+		if (!isEditing(pageItem))
 		{
-			m_doc->view()->requestMode(modeEdit);
+			startEditing(pageItem);
 			pageItem->itemText.setCursorPosition(0);
 		}
 
@@ -1203,10 +1332,9 @@ void SearchReplace::clear()
 	setCurrentComboItem(replaceFillColorComboBox, m_doc->currentStyle.charStyle().fillColor());
 	setCurrentComboItem(replaceStrokeColorComboBox, m_doc->currentStyle.charStyle().strokeColor());
 
-
 	ignoreCaseCheckBox->setChecked(false);
 	wholeWordsCheckBox->setChecked(false);
-	
+
 	replaceAlignmentComboBox->setEnabled(false);
 	replaceFillColorComboBox->setEnabled(false);
 	replaceFillShadeToolButton->setEnabled(false);
