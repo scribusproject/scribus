@@ -80,6 +80,7 @@ void CellSelect::mouseReleaseEvent(QMouseEvent* event)
 	m_endCell = TableCell();
 
 	m_view->m_ScMW->updateTableMenuActions();
+	m_view->stopGesture();
 }
 
 void CellSelect::mouseMoveEvent(QMouseEvent* event)

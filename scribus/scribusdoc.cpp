@@ -9048,7 +9048,6 @@ void ScribusDoc::itemSelection_InsertTableRows()
 	if (dialog->exec() != QDialog::Accepted)
 		return;
 
-	QScopedValueRollback<bool> dontResizeRb(dontResize, true);
 	/*
 	 * In table edit mode we insert either before or after the active
 	 * cell, otherwise we insert at beginning or end of table.
@@ -9060,21 +9059,37 @@ void ScribusDoc::itemSelection_InsertTableRows()
 	else
 		index = appMode == modeEditTable ? cell.row() + cell.rowSpan() : table->rows();
 
-	// Insert the rows.
+	insertTableRows(table, index, dialog->numberOfRows());
+}
+
+void ScribusDoc::insertTableRows(PageItem_Table* table, int index, int count)
+{
+	if (!table || index < 0 || index > table->rows() || count < 1)
+		return;
+
+	// Inserting and fitting the table to its frame record separate actions
+	UndoTransaction transaction;
+	if (UndoManager::undoEnabled())
+		transaction = m_undoManager->beginTransaction(table->getUName(), table->getUPixmap(), Um::TableRowInsert, QString(), Um::ITable);
+
+	QScopedValueRollback<bool> dontResizeRb(dontResize, true);
 	if (index == table->rows())
 	{
 		// Inserting after the last row: append and grow the table rather
 		// than rescaling existing rows to a fixed size.
-		table->appendRows(dialog->numberOfRows());
+		table->appendRows(count);
 		table->clearSelection();
 	}
 	else
 	{
-		table->insertRows(index, dialog->numberOfRows());
+		table->insertRows(index, count);
 		table->clearSelection();
 		table->adjustTable();
 	}
 	table->update();
+
+	if (transaction)
+		transaction.commit();
 
 	m_ScMW->updateTableMenuActions();
 	changed();
@@ -9096,7 +9111,6 @@ void ScribusDoc::itemSelection_InsertTableColumns()
 	if (dialog->exec() != QDialog::Accepted)
 		return;
 
-	QScopedValueRollback<bool> dontResizeRb(dontResize, true);
 	/*
 	 * In table edit mode we insert either before or after the active
 	 * cell, otherwise we insert at beginning or end of table.
@@ -9108,21 +9122,37 @@ void ScribusDoc::itemSelection_InsertTableColumns()
 	else
 		index = appMode == modeEditTable ? cell.column() + cell.columnSpan() : table->columns();
 
-	// Insert the columns.
+	insertTableColumns(table, index, dialog->numberOfColumns());
+}
+
+void ScribusDoc::insertTableColumns(PageItem_Table* table, int index, int count)
+{
+	if (!table || index < 0 || index > table->columns() || count < 1)
+		return;
+
+	// Inserting and fitting the table to its frame record separate actions
+	UndoTransaction transaction;
+	if (UndoManager::undoEnabled())
+		transaction = m_undoManager->beginTransaction(table->getUName(), table->getUPixmap(), Um::TableColumnInsert, QString(), Um::ITable);
+
+	QScopedValueRollback<bool> dontResizeRb(dontResize, true);
 	if (index == table->columns())
 	{
 		// Inserting after the last column: append and grow the table rather
 		// than rescaling existing columns to a fixed size.
-		table->appendColumns(dialog->numberOfColumns());
+		table->appendColumns(count);
 		table->clearSelection();
 	}
 	else
 	{
-		table->insertColumns(index, dialog->numberOfColumns());
+		table->insertColumns(index, count);
 		table->clearSelection();
 		table->adjustTable();
 	}
 	table->update();
+
+	if (transaction)
+		transaction.commit();
 
 	m_ScMW->updateTableMenuActions();
 	changed();

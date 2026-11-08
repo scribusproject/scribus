@@ -75,6 +75,7 @@ class FPoint;
 class UndoManager;
 // class UndoState;
 class PDFOptions;
+class PageItem_Table;
 class Hyphenator;
 class Selection;
 class ScribusView;
@@ -1720,6 +1721,18 @@ class SCRIBUS_API ScribusDoc : public QObject, public UndoObject, public Observa
 		 * If no table is selected, then this slot does nothing.
 		 */
 		void itemSelection_InsertTableColumns();
+
+		/**
+		 * Inserts \a count rows into \a table before row \a index. Inserting after the
+		 * last row appends and grows the table, otherwise the table keeps its height.
+		 */
+		void insertTableRows(PageItem_Table* table, int index, int count);
+
+		/**
+		 * Inserts \a count columns into \a table before column \a index. Inserting after the
+		 * last column appends and grows the table, otherwise the table keeps its width.
+		 */
+		void insertTableColumns(PageItem_Table* table, int index, int count);
 
 		/**
 		 * Deletes rows in a table.

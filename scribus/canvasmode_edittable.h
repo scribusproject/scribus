@@ -23,6 +23,7 @@ class ColumnResize;
 class PageItem_Table;
 class QMouseEvent;
 class QPainter;
+class QPointF;
 class QTimer;
 class RowResize;
 class ScribusMainWindow;
@@ -67,6 +68,45 @@ private slots:
 	void updateCanvas(bool force = false);
 
 private:
+	struct TableCanvasControl
+	{
+		enum Type
+		{
+			None,
+			RowResize,
+			ColumnResize,
+			InsertRow,
+			InsertColumn,
+			DeleteRows,
+			DeleteColumns
+		};
+
+		Type type {None};
+		int index {-1};
+
+		bool operator==(const TableCanvasControl& other) const { return type == other.type && index == other.index; }
+		bool operator!=(const TableCanvasControl& other) const { return !(*this == other); }
+	};
+
+	/// Returns whether the current cell selection covers complete rows or columns.
+	CellSelect::SelectionMode structuralSelectionMode() const;
+	/// Returns DeleteRows or DeleteColumns with the centre of the - control in frame
+	/// coordinates, or None when the selection does not cover complete rows or columns.
+	TableCanvasControl::Type deleteControl(double controlScale, QPointF& center) const;
+	/// Returns a direct-manipulation control outside the table, if any.
+	TableCanvasControl hitTestTableCanvasControls(const QPointF& canvasPoint) const;
+	/// Paints hover controls and contextual row/column deletion controls.
+	void drawTableCanvasControls(QPainter* p);
+	/// Draws a round + or - control at \a center, in table frame coordinates.
+	void drawControlButton(QPainter* p, const QPointF& center, bool plus) const;
+	/// Draws a resize grip: horizontal above a column boundary, vertical beside a row boundary.
+	void drawResizeGrip(QPainter* p, const QPointF& center, Qt::Orientation orientation) const;
+	/// Updates the currently hovered direct-manipulation control.
+	void setHoveredTableCanvasControl(const TableCanvasControl& control);
+	/// Inserts one row/column at a visual boundary (0..count).
+	void insertTableRowAtBoundary(int boundary);
+	void insertTableColumnAtBoundary(int boundary);
+
 	/// Handles a mouse move event with the left button held down.
 	void handleMouseDrag(QMouseEvent* event);
 	/// Draws the text cursor for the currently active cell.
@@ -129,6 +169,11 @@ private:
 
 	/// The selection unit a subsequent drag should extend by.
 	CellSelect::SelectionMode m_dragSelectionMode { CellSelect::Cells };
+
+	/// Direct table control currently under the pointer.
+	TableCanvasControl m_hoverTableCanvasControl;
+	/// Prevents a click on +/- from turning into a cell-selection drag.
+	bool m_tableCanvasControlPressed {false};
 };
 
 #endif // CANVASMODE_EDITTABLE_H

@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDebug>
 #include <QPainter>
 #include <QPointF>
+#include <QSet>
 #include <QTimer>
 
 #include "appmodes.h"
@@ -31,6 +32,18 @@ for which a new license (GPL+exception) is in place.
 #include "ui/contextmenu.h"
 #include "ui/hruler.h"
 #include "undomanager.h"
+
+// Sizes, in screen pixels, and colours of the on-canvas table controls
+constexpr double ControlDiameterPx = 14.0;
+constexpr double ControlHitDiameterPx = 18.0;
+constexpr double ResizeGripLongPx = 14.0;
+constexpr double ResizeGripShortPx = 8.0;
+constexpr double ResizeGripOffsetPx = 5.0;
+constexpr double InsertControlOffsetPx = 22.0;
+constexpr double DeleteControlOffsetPx = 18.0;
+constexpr double CanvasControlExtentPx = 36.0;
+constexpr QColor ControlColor(50, 150, 220, 230);
+constexpr QColor ControlGlyphColor(255, 255, 255);
 
 CanvasMode_EditTable::CanvasMode_EditTable(ScribusView* view) : CanvasMode(view),
 	m_canvasUpdateTimer(new QTimer(view)),
@@ -62,6 +75,10 @@ void CanvasMode_EditTable::activate(bool fromGesture)
 	PageItem *item = m_doc->m_Selection->itemAt(0);
 	Q_ASSERT(item && item->isTable());
 	m_table = item->asTable();
+	m_hoverTableCanvasControl = TableCanvasControl();
+	m_tableCanvasControlPressed = false;
+	if (!fromGesture)
+		m_dragSelectionMode = CellSelect::Cells;
 
 	if (fromGesture)
 		m_view->setCursor(Qt::ArrowCursor);
@@ -83,6 +100,8 @@ void CanvasMode_EditTable::deactivate(bool forGesture)
 {
 	if (!forGesture)
 		m_canvasUpdateTimer->stop();
+	m_hoverTableCanvasControl = TableCanvasControl();
+	m_tableCanvasControlPressed = false;
 
 	m_view->m_ScMW->updateTableMenuActions();
 	CanvasMode::deactivate(forGesture);
@@ -94,9 +113,16 @@ void CanvasMode_EditTable::keyPressEvent(QKeyEvent* event)
 
 	bool textChanged = false;
 
-	// Escape: exit table edit mode.
+	// Escape: cancel a cell selection, or exit table edit mode.
 	if (event->key() == Qt::Key_Escape)
 	{
+		if (m_table->hasSelection())
+		{
+			m_table->clearSelection();
+			m_view->m_ScMW->updateTableMenuActions();
+			updateCanvas(true);
+			return;
+		}
 		PageItem_TextFrame* activeFrame = m_table->activeCell().textFrame();
 		activeFrame->itemText.deselectAll();
 		activeFrame->HasSel = false;
@@ -274,19 +300,47 @@ void CanvasMode_EditTable::mouseMoveEvent(QMouseEvent* event)
 {
 	event->accept();
 
-	QPointF canvasPoint = m_canvas->globalToCanvas(event->globalPosition()).toQPointF();
-	double threshold = m_doc->guidesPrefs().grabRadius / m_canvas->scale();
-	TableHandle handle = m_table->hitTest(canvasPoint, threshold);
+	const QPointF canvasPoint = m_canvas->globalToCanvas(event->globalPosition()).toQPointF();
+	const TableCanvasControl canvasControl = hitTestTableCanvasControls(canvasPoint);
 
 	if (event->buttons() & Qt::LeftButton)
 	{
+		// A click on +/- is an atomic structural operation, not the start of a
+		// text/cell-selection drag.
+		if (m_tableCanvasControlPressed)
+			return;
+
 		// Mouse is being dragged with left button pressed.
 		handleMouseDrag(event);
+		return;
 	}
-	else
+
+	setHoveredTableCanvasControl(canvasControl);
+
+	// Direct-manipulation controls outside the table get first choice of cursor.
+	QCursor cursor(Qt::ArrowCursor);
+	switch (canvasControl.type)
 	{
-		// Set an appropriate cursor.
-		QCursor cursor(Qt::ArrowCursor);
+		case TableCanvasControl::RowResize:
+			cursor = Qt::SizeVerCursor;
+			break;
+		case TableCanvasControl::ColumnResize:
+			cursor = Qt::SizeHorCursor;
+			break;
+		case TableCanvasControl::InsertRow:
+		case TableCanvasControl::InsertColumn:
+		case TableCanvasControl::DeleteRows:
+		case TableCanvasControl::DeleteColumns:
+			cursor = Qt::PointingHandCursor;
+			break;
+		case TableCanvasControl::None:
+			break;
+	}
+
+	if (canvasControl.type == TableCanvasControl::None)
+	{
+		const double threshold = m_doc->guidesPrefs().grabRadius / m_canvas->scale();
+		const TableHandle handle = m_table->hitTest(canvasPoint, threshold);
 		switch (handle.type())
 		{
 			case TableHandle::RowSelect:
@@ -316,8 +370,9 @@ void CanvasMode_EditTable::mouseMoveEvent(QMouseEvent* event)
 				qWarning("Unknown hit target");
 				break;
 		}
-		m_view->setCursor(cursor);
 	}
+
+	m_view->setCursor(cursor);
 }
 
 void CanvasMode_EditTable::mousePressEvent(QMouseEvent* event)
@@ -340,14 +395,59 @@ void CanvasMode_EditTable::mousePressEvent(QMouseEvent* event)
 	PageItem_TextFrame* activeFrame;
 
 	event->accept();
-	QPointF canvasPoint = m_canvas->globalToCanvas(event->globalPosition()).toQPointF();
-	QPoint globalPos = event->globalPosition().toPoint();
-	double threshold = m_doc->guidesPrefs().grabRadius / m_canvas->scale();
-	TableHandle handle = m_table->hitTest(canvasPoint, threshold);
-	TableCell cell;
+	const QPointF canvasPoint = m_canvas->globalToCanvas(event->globalPosition()).toQPointF();
+	const QPoint globalPos = event->globalPosition().toPoint();
 
 	if (event->button() == Qt::LeftButton)
 	{
+		const TableCanvasControl canvasControl = hitTestTableCanvasControls(canvasPoint);
+		if (canvasControl.type != TableCanvasControl::None)
+		{
+			switch (canvasControl.type)
+			{
+				case TableCanvasControl::RowResize:
+					m_rowResizeGesture->setup(m_table, canvasControl.index);
+					m_view->startGesture(m_rowResizeGesture);
+					return;
+				case TableCanvasControl::ColumnResize:
+					m_columnResizeGesture->setup(m_table, canvasControl.index);
+					m_view->startGesture(m_columnResizeGesture);
+					return;
+				case TableCanvasControl::InsertRow:
+					m_tableCanvasControlPressed = true;
+					insertTableRowAtBoundary(canvasControl.index);
+					return;
+				case TableCanvasControl::InsertColumn:
+					m_tableCanvasControlPressed = true;
+					insertTableColumnAtBoundary(canvasControl.index);
+					return;
+				case TableCanvasControl::DeleteRows:
+					m_tableCanvasControlPressed = true;
+					m_doc->itemSelection_DeleteTableRows();
+					m_dragSelectionMode = CellSelect::Cells;
+					resetSelectionAnchor();
+					setHoveredTableCanvasControl(TableCanvasControl());
+					// The active cell may have moved or changed size
+					updateTextEditUIForActiveCell();
+					updateCanvas(true);
+					return;
+				case TableCanvasControl::DeleteColumns:
+					m_tableCanvasControlPressed = true;
+					m_doc->itemSelection_DeleteTableColumns();
+					m_dragSelectionMode = CellSelect::Cells;
+					resetSelectionAnchor();
+					setHoveredTableCanvasControl(TableCanvasControl());
+					// The active cell may have moved or changed size
+					updateTextEditUIForActiveCell();
+					updateCanvas(true);
+					return;
+				case TableCanvasControl::None:
+					break;
+			}
+		}
+
+		const double threshold = m_doc->guidesPrefs().grabRadius / m_canvas->scale();
+		const TableHandle handle = m_table->hitTest(canvasPoint, threshold);
 		switch (handle.type())
 		{
 			case TableHandle::RowSelect:
@@ -406,6 +506,7 @@ void CanvasMode_EditTable::mousePressEvent(QMouseEvent* event)
 				updateCanvas(true);
 				break;
 			case TableHandle::SelectAll:
+				m_dragSelectionMode = CellSelect::Cells;
 				m_table->clearSelection();
 				// Deselect text in active frame.
 				activeFrame = m_table->activeCell().textFrame();
@@ -443,6 +544,7 @@ void CanvasMode_EditTable::mousePressEvent(QMouseEvent* event)
 void CanvasMode_EditTable::mouseReleaseEvent(QMouseEvent* event)
 {
 	m_lastCursorPos = -1;
+	m_tableCanvasControlPressed = false;
 
 	// Keep Cut/Copy in sync with the final selection. A cell-range selection
 	// has no text-level cut/copy path yet, so disable there.
@@ -517,6 +619,8 @@ void CanvasMode_EditTable::drawControls(QPainter* p)
 
 	if (m_table->hasSelection())
 		paintCellSelection(p);
+
+	drawTableCanvasControls(p);
 }
 
 void CanvasMode_EditTable::drawTableHandleHints(QPainter* p)
@@ -583,6 +687,283 @@ void CanvasMode_EditTable::drawTableHandleHints(QPainter* p)
 	p->restore();
 }
 
+CellSelect::SelectionMode CanvasMode_EditTable::structuralSelectionMode() const
+{
+	if (!m_table || !m_table->hasSelection())
+		return CellSelect::Cells;
+
+	const QSet<int> rows = m_table->selectedRows();
+	const QSet<int> columns = m_table->selectedColumns();
+	if (rows.isEmpty() || columns.isEmpty())
+		return CellSelect::Cells;
+
+	// Base the affordance on what the selection covers, not how it was made.
+	// This lets an ordinary cell drag across a complete row/column expose the
+	// same structural delete control as the dedicated row/column select strip.
+	if (columns.size() == m_table->columns() && rows.size() < m_table->rows())
+		return CellSelect::Rows;
+	if (rows.size() == m_table->rows() && columns.size() < m_table->columns())
+		return CellSelect::Columns;
+
+	return CellSelect::Cells;
+}
+
+CanvasMode_EditTable::TableCanvasControl::Type CanvasMode_EditTable::deleteControl(double controlScale, QPointF& center) const
+{
+	const QPointF offset = m_table->gridOffset();
+	const CellSelect::SelectionMode selectionMode = structuralSelectionMode();
+	if (selectionMode == CellSelect::Rows)
+	{
+		// Right of the selected rows
+		int first = m_table->rows();
+		int last = -1;
+		for (int row : m_table->selectedRows())
+		{
+			first = qMin(first, row);
+			last = qMax(last, row);
+		}
+		const double top = m_table->rowPosition(first);
+		const double bottom = m_table->rowPosition(last) + m_table->rowHeight(last);
+		center = QPointF(offset.x() + m_table->tableWidth() + DeleteControlOffsetPx * controlScale, offset.y() + (top + bottom) / 2.0);
+		return TableCanvasControl::DeleteRows;
+	}
+	if (selectionMode == CellSelect::Columns)
+	{
+		// Below the selected columns
+		int first = m_table->columns();
+		int last = -1;
+		for (int column : m_table->selectedColumns())
+		{
+			first = qMin(first, column);
+			last = qMax(last, column);
+		}
+		const double left = m_table->columnPosition(first);
+		const double right = m_table->columnPosition(last) + m_table->columnWidth(last);
+		center = QPointF(offset.x() + (left + right) / 2.0, offset.y() + m_table->tableHeight() + DeleteControlOffsetPx * controlScale);
+		return TableCanvasControl::DeleteColumns;
+	}
+	return TableCanvasControl::None;
+}
+
+CanvasMode_EditTable::TableCanvasControl CanvasMode_EditTable::hitTestTableCanvasControls(const QPointF& canvasPoint) const
+{
+	TableCanvasControl control;
+	if (!m_table || !m_canvas)
+		return control;
+
+	// Controls keep their size on screen: one pixel in document units
+	const double controlScale = 1.0 / m_canvas->scale();
+	const double hitHalf = ControlHitDiameterPx * controlScale / 2.0;
+	const double gripHalfLong = (ResizeGripLongPx / 2.0 + 2.0) * controlScale;
+	const double gripHitDepth = 12.0 * controlScale;
+	const QPointF framePoint = m_table->getTransform().inverted().map(canvasPoint);
+	const QPointF offset = m_table->gridOffset();
+	const double tableW = m_table->tableWidth();
+	const double tableH = m_table->tableHeight();
+
+	// Contextual delete controls are visible whenever the selected cells cover
+	// complete rows/columns, regardless of which selection gesture produced them.
+	QPointF deleteCenter;
+	const TableCanvasControl::Type deleteType = deleteControl(controlScale, deleteCenter);
+	if ((deleteType != TableCanvasControl::None)
+		&& QRectF(deleteCenter.x() - hitHalf, deleteCenter.y() - hitHalf, hitHalf * 2.0, hitHalf * 2.0).contains(framePoint))
+	{
+		control.type = deleteType;
+		return control;
+	}
+
+	// Column boundaries: boundary N inserts at index N, and the boundary after
+	// column N resizes column N. Boundary zero, the left edge, has no grip.
+	for (int boundary = 0; boundary <= m_table->columns(); ++boundary)
+	{
+		const double x = (boundary < m_table->columns())
+			? m_table->columnPosition(boundary)
+			: tableW;
+		const QPointF plusCenter(offset.x() + x,
+							 offset.y() - InsertControlOffsetPx * controlScale);
+		if (QRectF(plusCenter.x() - hitHalf, plusCenter.y() - hitHalf,
+				   hitHalf * 2.0, hitHalf * 2.0).contains(framePoint))
+		{
+			control.type = TableCanvasControl::InsertColumn;
+			control.index = boundary;
+			return control;
+		}
+
+		if (boundary == 0)
+			continue;
+		const QPointF gripCenter(offset.x() + x,
+							 offset.y() - ResizeGripOffsetPx * controlScale);
+		if (QRectF(gripCenter.x() - gripHalfLong, offset.y() - gripHitDepth,
+				   gripHalfLong * 2.0, gripHitDepth).contains(framePoint))
+		{
+			control.type = TableCanvasControl::ColumnResize;
+			control.index = boundary - 1;
+			return control;
+		}
+	}
+
+	// Row boundaries use the same scheme on the left side of the table.
+	for (int boundary = 0; boundary <= m_table->rows(); ++boundary)
+	{
+		const double y = (boundary < m_table->rows())
+			? m_table->rowPosition(boundary)
+			: tableH;
+		const QPointF plusCenter(offset.x() - InsertControlOffsetPx * controlScale,
+							 offset.y() + y);
+		if (QRectF(plusCenter.x() - hitHalf, plusCenter.y() - hitHalf,
+				   hitHalf * 2.0, hitHalf * 2.0).contains(framePoint))
+		{
+			control.type = TableCanvasControl::InsertRow;
+			control.index = boundary;
+			return control;
+		}
+
+		if (boundary == 0)
+			continue;
+		const QPointF gripCenter(offset.x() - ResizeGripOffsetPx * controlScale,
+							 offset.y() + y);
+		if (QRectF(offset.x() - gripHitDepth, gripCenter.y() - gripHalfLong,
+				   gripHitDepth, gripHalfLong * 2.0).contains(framePoint))
+		{
+			control.type = TableCanvasControl::RowResize;
+			control.index = boundary - 1;
+			return control;
+		}
+	}
+
+	return control;
+}
+
+void CanvasMode_EditTable::drawTableCanvasControls(QPainter* p)
+{
+	if (!m_table || !m_canvas || !p)
+		return;
+
+	p->save();
+	p->scale(m_canvas->scale(), m_canvas->scale());
+	p->translate(-m_doc->minCanvasCoordinate.x(), -m_doc->minCanvasCoordinate.y());
+	p->setTransform(m_table->getTransform(), true);
+	p->setRenderHint(QPainter::Antialiasing);
+
+	// Controls keep their size on screen: one pixel in document units
+	const double controlScale = 1.0 / m_canvas->scale();
+	const QPointF offset = m_table->gridOffset();
+	const double tableW = m_table->tableWidth();
+	const double tableH = m_table->tableHeight();
+
+	// Hovering either part of a boundary control reveals both the drag grip
+	// and the one-click insertion control for that boundary.
+	if (m_hoverTableCanvasControl.type == TableCanvasControl::ColumnResize ||
+		m_hoverTableCanvasControl.type == TableCanvasControl::InsertColumn)
+	{
+		const int boundary = (m_hoverTableCanvasControl.type == TableCanvasControl::ColumnResize)
+			? m_hoverTableCanvasControl.index + 1 : m_hoverTableCanvasControl.index;
+		if (boundary >= 0 && boundary <= m_table->columns())
+		{
+			const double x = (boundary < m_table->columns()) ? m_table->columnPosition(boundary) : tableW;
+			if (boundary > 0)
+				drawResizeGrip(p, QPointF(offset.x() + x, offset.y() - ResizeGripOffsetPx * controlScale), Qt::Horizontal);
+			drawControlButton(p, QPointF(offset.x() + x, offset.y() - InsertControlOffsetPx * controlScale), true);
+		}
+	}
+	else if (m_hoverTableCanvasControl.type == TableCanvasControl::RowResize ||
+			 m_hoverTableCanvasControl.type == TableCanvasControl::InsertRow)
+	{
+		const int boundary = (m_hoverTableCanvasControl.type == TableCanvasControl::RowResize)
+			? m_hoverTableCanvasControl.index + 1 : m_hoverTableCanvasControl.index;
+		if (boundary >= 0 && boundary <= m_table->rows())
+		{
+			const double y = (boundary < m_table->rows()) ? m_table->rowPosition(boundary) : tableH;
+			if (boundary > 0)
+				drawResizeGrip(p, QPointF(offset.x() - ResizeGripOffsetPx * controlScale, offset.y() + y), Qt::Vertical);
+			drawControlButton(p, QPointF(offset.x() - InsertControlOffsetPx * controlScale, offset.y() + y), true);
+		}
+	}
+
+	// A minus control is persistent while the selected cells cover complete
+	// rows/columns. It disappears when deleting the selection would remove the
+	// entire table dimension.
+	QPointF deleteCenter;
+	if (deleteControl(controlScale, deleteCenter) != TableCanvasControl::None)
+		drawControlButton(p, deleteCenter, false);
+
+	p->restore();
+}
+
+void CanvasMode_EditTable::drawControlButton(QPainter* p, const QPointF& center, bool plus) const
+{
+	const double controlScale = 1.0 / m_canvas->scale();
+	const double radius = ControlDiameterPx * controlScale / 2.0;
+	p->setPen(Qt::NoPen);
+	p->setBrush(ControlColor);
+	p->drawEllipse(center, radius, radius);
+
+	p->setPen(QPen(ControlGlyphColor, 1.5 * controlScale, Qt::SolidLine, Qt::RoundCap));
+	const double arm = 3.5 * controlScale;
+	p->drawLine(QPointF(center.x() - arm, center.y()), QPointF(center.x() + arm, center.y()));
+	if (plus)
+		p->drawLine(QPointF(center.x(), center.y() - arm), QPointF(center.x(), center.y() + arm));
+}
+
+void CanvasMode_EditTable::drawResizeGrip(QPainter* p, const QPointF& center, Qt::Orientation orientation) const
+{
+	const double controlScale = 1.0 / m_canvas->scale();
+	const bool horizontal = (orientation == Qt::Horizontal);
+	const double width = (horizontal ? ResizeGripLongPx : ResizeGripShortPx) * controlScale;
+	const double height = (horizontal ? ResizeGripShortPx : ResizeGripLongPx) * controlScale;
+	p->setPen(Qt::NoPen);
+	p->setBrush(ControlColor);
+	p->drawRoundedRect(QRectF(center.x() - width / 2.0, center.y() - height / 2.0, width, height), 3.0 * controlScale, 3.0 * controlScale);
+
+	p->setBrush(ControlGlyphColor);
+	const double dotRadius = controlScale;
+	const double step = 3.5 * controlScale;
+	for (int i = -1; i <= 1; ++i)
+	{
+		const QPointF dot = horizontal ? QPointF(center.x() + i * step, center.y()) : QPointF(center.x(), center.y() + i * step);
+		p->drawEllipse(dot, dotRadius, dotRadius);
+	}
+}
+
+void CanvasMode_EditTable::setHoveredTableCanvasControl(const TableCanvasControl& control)
+{
+	if (control == m_hoverTableCanvasControl)
+		return;
+
+	m_hoverTableCanvasControl = control;
+	updateCanvas();
+}
+
+void CanvasMode_EditTable::insertTableRowAtBoundary(int boundary)
+{
+	if (!m_table || boundary < 0 || boundary > m_table->rows())
+		return;
+
+	m_doc->insertTableRows(m_table, boundary, 1);
+
+	m_dragSelectionMode = CellSelect::Cells;
+	resetSelectionAnchor();
+	m_hoverTableCanvasControl = TableCanvasControl();
+	// The active cell may have moved or changed size
+	updateTextEditUIForActiveCell();
+	updateCanvas(true);
+}
+
+void CanvasMode_EditTable::insertTableColumnAtBoundary(int boundary)
+{
+	if (!m_table || boundary < 0 || boundary > m_table->columns())
+		return;
+
+	m_doc->insertTableColumns(m_table, boundary, 1);
+
+	m_dragSelectionMode = CellSelect::Cells;
+	resetSelectionAnchor();
+	m_hoverTableCanvasControl = TableCanvasControl();
+	// The active cell may have moved or changed size
+	updateTextEditUIForActiveCell();
+	updateCanvas(true);
+}
+
 void CanvasMode_EditTable::paintCellSelection(QPainter* p)
 {
 	if (!m_table || !m_canvas || !p)
@@ -626,10 +1007,11 @@ void CanvasMode_EditTable::updateCanvas(bool forceRedraw)
 	// we get refresh issues  when typing or selecting text
 	if (!m_canvas->isForcedRedraw())
 		m_canvas->setForcedRedraw(forceRedraw);
-	// Enlarge the update region to include the selection visual, which
-	// extends slightly outside cell boundaries.
+	// Enlarge the update region to include the controls painted
+	// outside the table as well as the cell-selection visual.
 	QRectF tableRect = m_table->getBoundingRect();
-	tableRect.adjust(-5.0, -5.0, 5.0, 5.0);
+	const double controlExtent = CanvasControlExtentPx / m_canvas->scale();
+	tableRect.adjust(-controlExtent, -controlExtent, controlExtent, controlExtent);
 	m_canvas->update(m_canvas->canvasToLocal(tableRect));
 }
 
