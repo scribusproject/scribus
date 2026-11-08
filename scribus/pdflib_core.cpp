@@ -889,6 +889,11 @@ int PDFLibCore::WriteJPEGImageToStream(ScImage& image, const QString& fn, PdfId 
 	QFileInfo fInfo(fn);
 	QString   ext = fInfo.suffix().toLower();
 	QString   jpgFileName, tmpFile;
+
+	QString ext2 = getImageType(fn);
+	if (ext.isEmpty() || (!ext2.isEmpty() && (ext2 != ext)))
+		ext = ext2;
+
 	if (extensionIndicatesJPEG(ext) && sameFile)
 		jpgFileName = fn;
 	else
@@ -10604,9 +10609,6 @@ static ColorSpaceEnum getOutputType(const bool gray, const bool cmyk)
 bool PDFLibCore::PDF_Image(PageItem* item, const QString& fn, double sx, double sy, double x, double y, bool fromAN, const QString& Profil, bool Embedded, eRenderIntent Intent, QByteArray* output)
 {
 	QFileInfo fi(fn);
-	QString ext = fi.suffix().toLower();
-	if (ext.isEmpty())
-		ext = getImageType(fn);
 	ScImage img;
 	QString BBox;
 	bool   found = false;
@@ -10618,6 +10620,11 @@ bool PDFLibCore::PDF_Image(PageItem* item, const QString& fn, double sx, double 
 	int    afl = Options.Resolution;
 	int    origWidth = 1;
 	int    origHeight = 1;
+
+	QString ext = fi.suffix().toLower();
+	QString ext2 = getImageType(fn);
+	if (ext.isEmpty() || (!ext2.isEmpty() && (ext2 != ext)))
+		ext = ext2;
 
 	ShIm   ImInfo;
 	if (Options.RecalcPic)
