@@ -900,6 +900,8 @@ void Canvas::paintEvent ( QPaintEvent * p )
 			t1 = t.elapsed();
 			t.start();
 #endif
+				if ((m_viewMode.forceRedraw || m_viewMode.operTextSelecting) && !bufferFilled)
+					fillBuffer(&m_buffer, m_bufferRect.topLeft(), p->rect());
 				int xV = p->rect().x() - m_bufferRect.x();
 				int yV = p->rect().y() - m_bufferRect.y();
 				int wV = p->rect().width();

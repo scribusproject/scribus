@@ -1662,7 +1662,6 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 		}
 	}
 
-	bool pageChanged(false);
 	if (!m_doc->masterPageMode())
 	{
 		int pgNum = -1;
@@ -1706,7 +1705,8 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 			{
 				m_doc->setCurrentPage(m_doc->Pages->at(pgNum));
 				m_view->m_ScMW->slotSetCurrentPage(pgNum);
-				pageChanged = true;
+				m_canvas->setForcedRedraw(true);
+				m_canvas->update();
 			}
 		}
 		m_view->setRulerPos(m_view->contentsX(), m_view->contentsY());
@@ -1753,13 +1753,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 				currItem->isSingleSel = true;
 			}
 		}
-		if (pageChanged)
-		{
-			m_canvas->setForcedRedraw(true);
-			m_canvas->update();
-		}
-		else
-			m_canvas->update();
+		m_canvas->update();
 		
 		m_doc->m_Selection->delaySignalsOff();
 		if (m_doc->m_Selection->count() > 1)
