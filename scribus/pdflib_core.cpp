@@ -9131,10 +9131,8 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite)
 						PutDoc("/AC " + EncStringUTF16(ite->annotation().Down(), annotationObj) + " ");
 					if (ite->annotation().UseIcons())
 					{
-						PdfId IconOb = 0;
 						if (!ite->Pfile.isEmpty())
 						{
-							IconOb += ite->pixm.hasAlpha() ? 3 : 2;
 							icon1Obj = writer.newObject();
 							PutDoc("/I " + Pdf::toPdf(icon1Obj) + " 0 R ");
 						}
@@ -9145,7 +9143,6 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite)
 							img.loadPicture(ite->Pfile2, 1, cms, ScImage::RGBData, 72);
 							QByteArray im;
 							img3.getAlpha(ite->Pfile2, 1, im, true, false);
-							IconOb += !im.isEmpty() ? 3 : 2;
 							im.resize(0);
 							icon2Obj = writer.newObject();
 							PutDoc("/IX " + Pdf::toPdf(icon2Obj) + " 0 R ");
@@ -9157,7 +9154,6 @@ bool PDFLibCore::PDF_Annotation(PageItem *ite)
 							img2.loadPicture(ite->Pfile3, 1, cms, ScImage::RGBData, 72);
 							QByteArray im;
 							img3.getAlpha(ite->Pfile3, 1, im, true, false);
-							IconOb += !im.isEmpty() ? 3 : 2;
 							im.resize(0);
 							icon3Obj = writer.newObject();
 							PutDoc("/RI " + Pdf::toObjRef(icon3Obj) + " ");
