@@ -60,13 +60,13 @@
 #include "ui/pageselector.h"
 #include "undomanager.h"
 
-CanvasMode_Normal::CanvasMode_Normal(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW) 
+CanvasMode_Normal::CanvasMode_Normal(ScribusView* view) : CanvasMode(view), m_ScMW(view->m_ScMW)
 {
 }
 
 inline bool CanvasMode_Normal::GetItem(PageItem** pi)
-{ 
-	*pi = m_doc->m_Selection->itemAt(0); 
+{
+	*pi = m_doc->m_Selection->itemAt(0);
 	return (*pi) != nullptr;
 }
 
@@ -293,14 +293,14 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 // 	qDebug()<<"CanvasMode_Normal::mouseMoveEvent";
 	const QPoint globalPos = m->globalPosition().toPoint();
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
-	
+
 	bool wasLastPostOverGuide = m_lastPosWasOverGuide;
 	m_lastPosWasOverGuide = false;
 	PageItem *currItem = nullptr;
 	bool erf = false;
 	m->accept();
 //	qDebug() << "legacy mode move:" << m->x() << m->y() << m_canvas->globalToCanvas(m->globalPosition()).x() << m_canvas->globalToCanvas(m->globalPosition()).y();
-//	emit MousePos(m->x()/m_canvas->scale(),// + m_doc->minCanvasCoordinate.x(), 
+//	emit MousePos(m->x()/m_canvas->scale(),// + m_doc->minCanvasCoordinate.x(),
 //				  m->y()/m_canvas->scale()); // + m_doc->minCanvasCoordinate.y());
 
 	if (commonMouseMove(m))
@@ -487,7 +487,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 			(m_view->moveTimerElapsed())
 			&& (m->buttons() & Qt::RightButton)
 			&& (m_canvas->m_viewMode.m_MouseButtonPressed)
-			&& (!m_doc->DragP)  
+			&& (!m_doc->DragP)
 			&& (!(currItem->isSingleSel)))
 		{
 			// start drag
@@ -526,7 +526,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 
 		//Operations run here:
 		//Item resize, esp after creating a new one
-		if (m_view->moveTimerElapsed() && m_canvas->m_viewMode.m_MouseButtonPressed && (m->buttons() & Qt::LeftButton) && 
+		if (m_view->moveTimerElapsed() && m_canvas->m_viewMode.m_MouseButtonPressed && (m->buttons() & Qt::LeftButton) &&
 			((m_doc->appMode == modeNormal)) && (!currItem->locked()))
 		{
 //			m_view->stopDragTimer();
@@ -723,7 +723,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 				{
 					m_mouseCurrentPoint.setXY(newX, newY);
 				}
-				
+
 				{
 					double gx, gy, gh, gw;
 					m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
@@ -868,7 +868,7 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 		{
 			if (!m_lineMoveGesture)
 				m_lineMoveGesture = new LineMove(this);
-			
+
 			m_lineMoveGesture->mousePressEvent(m);
 			if (m_lineMoveGesture->haveLineItem())
 			{
@@ -898,7 +898,7 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 			m_view->setCursor(Qt::ClosedHandCursor);
 		else
 			m_view->setCursor(QCursor(Qt::ArrowCursor));
-#if 1				
+#if 1
 		// normal edit mode
 		m_canvas->PaintSizeRect(QRect());
 		double gx, gy, gh, gw;
@@ -1081,10 +1081,10 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 					underItem->asTextFrame()->invalidateLayout(false);
 				else
 					underItem->invalidateLayout();
-				
+
 				underItem =  m_canvas->itemUnderItem(currItem, itemIndex);
 			}
-			
+
 			m_view->updatesOn(false);
 			if (!m_view->groupTransactionStarted())
 			{
@@ -1175,26 +1175,6 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 		double dy = m_mouseSavedPoint.y() - m_mousePressPoint.y();
 		QRectF canvasSele = QRectF(m_mousePressPoint.x(), m_mousePressPoint.y(), dx, dy).normalized();
 		QRectF localSele  = m_canvas->canvasToLocalF(canvasSele).normalized();
-		if (!m_doc->masterPageMode())
-		{
-			uint docPagesCount = m_doc->Pages->count();
-			uint docCurrPageNo = m_doc->currentPageNumber();
-			for (uint i = 0; i < docPagesCount; ++i)
-			{
-				ScPage*  page = m_doc->Pages->at(i);
-				QRectF pageRect(page->xOffset(), page->yOffset(), page->width(), page->height());
-				if (pageRect.intersects(canvasSele))
-				{
-					if (docCurrPageNo != i)
-					{
-						m_doc->setCurrentPage(m_doc->Pages->at(i));
-						m_view->m_ScMW->slotSetCurrentPage(i);
-					}
-					break;
-				}
-			}
-			m_view->setRulerPos(m_view->contentsX(), m_view->contentsY());
-		}
 		int docItemCount = m_doc->Items->count();
 		if (docItemCount != 0)
 		{
@@ -1218,7 +1198,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 
 					// alt selection
 					bool select = altPressed ? localSele.intersects(apr2) :
-					                           localSele.contains(apr2);
+											   localSele.contains(apr2);
 
 					// make selection
 					if (!is_selected && select)
@@ -1227,6 +1207,43 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 						m_doc->m_Selection->removeItem(docItem);
 				}
 			}
+		}
+		if (!m_doc->masterPageMode())
+		{
+			int targetPage = -1;
+			const int pageCount = m_doc->Pages->count();
+			if (!m_doc->m_Selection->isEmpty())
+			{
+				// Use the earliest page represented by the selected items as the copy reference.
+				for (const PageItem* item : m_doc->m_Selection->items())
+				{
+					int itemPage = item->OwnPage;
+					if ((itemPage >= 0) && (itemPage < pageCount) && ((targetPage == -1) || (itemPage < targetPage)))
+						targetPage = itemPage;
+				}
+			}
+			else
+			{
+				for (int i = 0; i < pageCount; ++i)
+				{
+					ScPage* page = m_doc->Pages->at(i);
+					QRectF pageRect(page->xOffset(), page->yOffset(), page->width(), page->height());
+					if (pageRect.intersects(canvasSele))
+					{
+						targetPage = i;
+						break;
+					}
+				}
+			}
+			if ((targetPage >= 0) && (m_doc->currentPageNumber() != targetPage))
+			{
+				m_doc->setCurrentPage(m_doc->Pages->at(targetPage));
+				m_view->m_ScMW->slotSetCurrentPage(targetPage);
+			}
+			m_view->setRulerPos(m_view->contentsX(), m_view->contentsY());
+		}
+		if (docItemCount != 0)
+		{
 			m_doc->m_Selection->delaySignalsOff();
 			if (m_doc->m_Selection->count() > 1)
 			{
@@ -1607,7 +1624,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 	if (m_doc->m_Selection->count() != 0)
 		previousSelectedItem = m_doc->m_Selection->itemAt(0);
 	m_canvas->m_viewMode.operItemSelecting = true;
-	
+
 	QTransform p;
 	PageItem *currItem;
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
@@ -1657,7 +1674,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 			}
 			// If we call startGesture now, a new guide is created each time.
 			// ### could be a weakness to avoid calling it tho.
-	 		//	m_view->startGesture(guideMoveGesture);
+			//	m_view->startGesture(guideMoveGesture);
 			m_guideMoveGesture->mouseSelectGuide(m);
 		}
 	}
@@ -1711,7 +1728,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 		}
 		m_view->setRulerPos(m_view->contentsX(), m_view->contentsY());
 	}
-	
+
 	currItem = nullptr;
 	if ((m->modifiers() & SELECT_BENEATH) != 0)
 	{
@@ -1754,7 +1771,7 @@ bool CanvasMode_Normal::SeleItem(QMouseEvent *m)
 			}
 		}
 		m_canvas->update();
-		
+
 		m_doc->m_Selection->delaySignalsOff();
 		if (m_doc->m_Selection->count() > 1)
 		{
