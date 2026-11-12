@@ -305,6 +305,10 @@ if(HAVE_PODOFO)
 	target_link_libraries(${EXE_NAME} PRIVATE ${LIBPODOFO_LIBRARY})
 endif()
 
+if(HAVE_HEIF)
+	target_link_libraries(${EXE_NAME} PRIVATE ${HEIF_LIBRARY})
+endif()
+
 if(HAVE_JXL)
 	target_link_libraries(${EXE_NAME} PRIVATE ${JXL_LIBRARY} ${JXL_CMS_LIBRARY} ${JXL_THREADS_LIBRARY})
 endif()
@@ -335,11 +339,11 @@ add_custom_target(Plugins ALL)
 
 target_sources(Plugins
   PRIVATE
-    designer/uiwidgets.h designer/uiwidgets.cpp
-    designer/formwidget_plugin.h designer/formwidget_plugin.cpp
-    designer/sectioncontainer_extension.h designer/sectioncontainer_extension.cpp
-    designer/sectioncontainer_extensionfactory.h designer/sectioncontainer_extensionfactory.cpp
-    designer/sectioncontainer_plugin.h designer/sectioncontainer_plugin.cpp
+	designer/uiwidgets.h designer/uiwidgets.cpp
+	designer/formwidget_plugin.h designer/formwidget_plugin.cpp
+	designer/sectioncontainer_extension.h designer/sectioncontainer_extension.cpp
+	designer/sectioncontainer_extensionfactory.h designer/sectioncontainer_extensionfactory.cpp
+	designer/sectioncontainer_plugin.h designer/sectioncontainer_plugin.cpp
 )
 add_subdirectory(plugins)
 
