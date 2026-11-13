@@ -41,6 +41,9 @@ for which a new license (GPL+exception) is in place.
 #include "imagedataloaders/scimgdataloader_gmagick.h"
 #endif
 #include "imagedataloaders/scimgdataloader_jpeg.h"
+#ifdef HAVE_HEIF
+#include "imagedataloaders/scimgdataloader_heif.h"
+#endif
 #ifdef HAVE_JXL
 #include "imagedataloaders/scimgdataloader_jpegxl.h"
 #endif
@@ -677,9 +680,9 @@ bool ScImage::convolveImage(QImage *dest, const unsigned int order, const double
 			blue = blue < 0 ? 0 : blue > 65535 ? 65535 : blue + 0.5;
 			alpha = alpha < 0 ? 0 : alpha > 65535 ? 65535 : alpha + 0.5;
 			*q++ = qRgba((unsigned char)(red / 257UL),
-			             (unsigned char)(green / 257UL),
-			             (unsigned char)(blue / 257UL),
-			             (unsigned char)(alpha / 257UL));
+						 (unsigned char)(green / 257UL),
+						 (unsigned char)(blue / 257UL),
+						 (unsigned char)(alpha / 257UL));
 		}
 	}
 	free(normal_kernel);
@@ -2040,6 +2043,9 @@ bool ScImage::getAlpha(const QString& fn, int page, QByteArray& alpha, bool PDF,
 	{
 		bool hasAlpha    = false;
 		bool alphaLoaded = pDataLoader->preloadAlphaChannel(fn, page, gsRes, hasAlpha);
+		// Without an alpha channel, record that the image is exported opaque
+		if (!alphaLoaded && pDataLoader->issuedErrorMsg() && ScCore->primaryMainWindow() && ScCore->primaryMainWindow()->doc)
+			DocumentLogManager::instance().addLog(ScCore->primaryMainWindow()->doc->uuidString(), DocumentLogLevel::Error, "Image Loader", pDataLoader->getMessage());
 		if (!alphaLoaded || !hasAlpha)
 			return alphaLoaded;
 		QImage rImage;
@@ -2067,7 +2073,7 @@ bool ScImage::getAlpha(const QString& fn, int page, QByteArray& alpha, bool PDF,
 		if (pdf14)
 		{
 			alpha.resize(hm * wm);
-			if (alpha.size() > 0) // 
+			if (alpha.size() > 0) //
 			{
 				for (int yi = 0; yi < hm; ++yi)
 				{
@@ -2281,10 +2287,14 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 		pDataLoader.reset( new ScImgDataLoader_PS() );
 	else if (extensionIndicatesJPEG(ext))
 		pDataLoader.reset( new ScImgDataLoader_JPEG() );
-	#ifdef HAVE_JXL
+#ifdef HAVE_HEIF
+	else if (extensionIndicatesHEIF(ext))
+		pDataLoader.reset( new ScImgDataLoader_HEIF() );
+#endif
+#ifdef HAVE_JXL
 	else if (extensionIndicatesJPEGXL(ext))
 		pDataLoader.reset( new ScImgDataLoader_JPEGXL() );
-	#endif
+#endif
 	else if (extensionIndicatesPNG(ext))
 		pDataLoader.reset( new ScImgDataLoader_PNG() );
 	else if (extensionIndicatesPSD(ext))
@@ -2484,7 +2494,7 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 				if (!xform)
 				{
 					xform = inputCSpace.createProofingTransform(screenCSpace, printerProf,
-				                     cmSettings.intent(), Intent_Relative_Colorimetric, cmsFlags | cmsProofFlags);
+									 cmSettings.intent(), Intent_Relative_Colorimetric, cmsFlags | cmsProofFlags);
 				}
 			}
 			else if (cmSettings.softProofingAllowed() || isCMYK)
@@ -2734,6 +2744,14 @@ bool ScImage::loadPicture(const QString & fn, int page, const CMSettings& cmSett
 	setDotsPerMeterX (qMax(2834, (int) (imgInfo.xres / 0.0254)));
 	setDotsPerMeterY (qMax(2834, (int) (imgInfo.yres / 0.0254)));
 	imgInfo.isEmbedded &= cmSettings.useEmbeddedProfile();
+	if (pDataLoader->issuedWarningMsg())
+	{
+		ScribusDoc* doc = cmSettings.doc();
+		if (!doc && ScCore->primaryMainWindow())
+			doc = ScCore->primaryMainWindow()->doc;
+		if (doc)
+			DocumentLogManager::instance().addLog(doc->uuidString(), DocumentLogLevel::Warning, "Image Loader", pDataLoader->getMessage());
+	}
 	if	(ScCore->usingGUI() && pDataLoader->issuedWarningMsg() && showMsg)
 	{
 		ScMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, pDataLoader->getMessage());
