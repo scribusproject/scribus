@@ -211,7 +211,7 @@ endif()
 #>>LibXML2
 
 #<<LIBHEIF
-find_package(heif)
+find_package(HEIF)
 if(HEIF_FOUND)
 	set(HAVE_HEIF ON)
 	message("libheif Library Found OK")
