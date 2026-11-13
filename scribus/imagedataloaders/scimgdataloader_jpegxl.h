@@ -10,17 +10,19 @@
 #ifndef SCIMGDATALOADER_JPEGXL_H
 #define SCIMGDATALOADER_JPEGXL_H
 
-#include <QByteArray>
-#include <QImage>
-#include "scimgdataloader.h"
-
 #include <jxl/decode.h>
 #include <jxl/decode_cxx.h>
 
+#include <QByteArray>
+#include <QImage>
+#include <QString>
+
+#include "scimgdataloader.h"
+
 class ScImgDataLoader_JPEGXL : public ScImgDataLoader
 {
-public:
 
+public:
 	struct JXLImageInfo
 	{
 		size_t width;
