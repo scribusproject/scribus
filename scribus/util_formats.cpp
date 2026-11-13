@@ -28,6 +28,9 @@ FormatsManager::FormatsManager()
 	m_fmts.insert(FormatsManager::CVG,  QStringList() << "cvg");
 	m_fmts.insert(FormatsManager::EPS,  QStringList() << "eps" << "epsf" << "epsi" << "eps2" << "eps3" << "epi" << "ept");
 	m_fmts.insert(FormatsManager::GIF,  QStringList() << "gif");
+#ifdef HAVE_HEIF
+	m_fmts.insert(FormatsManager::HEIF, QStringList() << "heic" << "heif" << "hif");
+#endif
 	m_fmts.insert(FormatsManager::JPEG, QStringList() << "jpg" << "jpeg");
 #ifdef HAVE_JXL
 	m_fmts.insert(FormatsManager::JPEGXL, QStringList() << "jxl");
@@ -87,6 +90,7 @@ FormatsManager::FormatsManager()
 	m_fmtNames[FormatsManager::CVG]  = QObject::tr("Calamus Vector Graphics");
 	m_fmtNames[FormatsManager::EPS]  = QObject::tr("Encapsulated PostScript");
 	m_fmtNames[FormatsManager::GIF]  = QObject::tr("GIF");
+	m_fmtNames[FormatsManager::HEIF] = QObject::tr("HEIF");
 	m_fmtNames[FormatsManager::JPEG] = QObject::tr("JPEG");
 	m_fmtNames[FormatsManager::JPEGXL] = QObject::tr("JPEG XL");
 	m_fmtNames[FormatsManager::KRA]  = QObject::tr("Krita");
@@ -116,6 +120,7 @@ FormatsManager::FormatsManager()
 	m_fmtMimeTypes.insert(FormatsManager::CVG,  QStringList() << "");
 	m_fmtMimeTypes.insert(FormatsManager::EPS,  QStringList() << "application/postscript");
 	m_fmtMimeTypes.insert(FormatsManager::GIF,  QStringList() << "image/gif");
+	m_fmtMimeTypes.insert(FormatsManager::HEIF, QStringList() << "image/heic" << "image/heif");
 	m_fmtMimeTypes.insert(FormatsManager::JPEG, QStringList() << "image/jpeg");
 	m_fmtMimeTypes.insert(FormatsManager::JPEGXL, QStringList() << "image/jxl");
 	m_fmtMimeTypes.insert(FormatsManager::KRA,  QStringList() << "application/x-krita");
@@ -336,6 +341,13 @@ bool extensionIndicatesEPSorPS(const QString &ext)
 	return strl.contains(ext, Qt::CaseInsensitive);
 }
 
+bool extensionIndicatesHEIF(const QString& ext)
+{
+	QStringList strl;
+	strl << "heic" << "heif" << "hif";
+	return strl.contains(ext, Qt::CaseInsensitive);
+}
+
 bool extensionIndicatesJPEG(const QString &ext)
 {
 	QStringList strl;
@@ -396,7 +408,7 @@ QString getImageType(const QString& filename)
 	QString ret;
 	QByteArray buf(24, ' ');
 	f.read(buf.data(), 24);
-	
+
 	if ((buf[0] == '%') && (buf[1] == '!') && (buf[2] == 'P') && (buf[3] == 'S') && (buf[4] == '-') && (buf[5] == 'A'))
 		ret = "eps";
 	else if ((buf[0] == '\xC5') && (buf[1] == '\xD0') && (buf[2] == '\xD3') && (buf[3] == '\xC6'))
@@ -405,6 +417,12 @@ QString getImageType(const QString& filename)
 		ret = "gif";
 	else if ((buf[0] == '\xFF') && (buf[1] == '\xD8') && (buf[2] == '\xFF'))
 		ret = "jpg";
+	else if ((buf[0] == '\xFF') && (buf[1] == '\xD8') && (buf[2] == '\xFF'))
+			ret = "jpg";
+	else if (((buf[0] == '\xFF') && (buf[1] == '\x0A')) || buf.startsWith(QByteArray("\x00\x00\x00\x0C" "JXL " "\x0D\x0A\x87\x0A", 12)))
+		ret = "jxl"; // JPEG XL
+	else if ((buf.mid(4, 4) == "ftyp") && QByteArrayList({ "heic", "heix", "heim", "heis", "hevc", "hevx", "mif1", "msf1" }).contains(buf.mid(8, 4)))
+		ret = "heic"; // HEIF: an ISO base media file
 	else if ((buf[20] == 'G') && (buf[21] == 'P') && (buf[22] == 'A') && (buf[23] == 'T'))
 		ret = "pat";
 	else if ((buf[0] == '%') && (buf[1] == 'P') && (buf[2] == 'D') && (buf[3] == 'F'))

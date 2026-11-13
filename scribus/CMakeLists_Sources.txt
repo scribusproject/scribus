@@ -17,6 +17,10 @@ else()
 	set(SCRIBUS_GMAGICK_SRC)
 endif()
 
+if (HEIF_FOUND)
+	set(SCRIBUS_HEIF_SRC imagedataloaders/scimgdataloader_heif.cpp)
+endif()
+
 if (JXL_FOUND)
 	set(SCRIBUS_JPEGXL_SRC imagedataloaders/scimgdataloader_jpegxl.cpp)
 endif()
@@ -261,7 +265,7 @@ set(SCRIBUS_SOURCES
 	util_printer.cpp
 	util_text.cpp
 	vgradient.cpp
-	vgradientex.cpp	
+	vgradientex.cpp
 	downloadmanager/scdlmgr.cpp
 	downloadmanager/scdlthread.cpp
 	imagedataloaders/scimgdataloader.cpp
@@ -378,7 +382,7 @@ set(SCRIBUS_SOURCES
 	ui/linecombo.cpp
 	ui/linemarkerselector.cpp
 	ui/linestyleselector.cpp
-	ui/linkbutton.cpp	
+	ui/linkbutton.cpp
 	ui/loremipsum.cpp
 	ui/mark2item.cpp
 	ui/mark2mark.cpp
@@ -573,7 +577,7 @@ set(SCRIBUS_SOURCES
 	ui/useprintermarginsdialog.cpp
 	ui/weldedit.cpp
 	ui/colorpicker/colorpicker.cpp
-	ui/colorpicker/colorpicker_color.cpp	
+	ui/colorpicker/colorpicker_color.cpp
 	ui/colorpicker/colorpicker_color_swatches.cpp
 	ui/colorpicker/colorpicker_gradient.cpp
 	ui/colorpicker/colorpicker_gradient_properties.cpp
@@ -603,6 +607,7 @@ set(SCRIBUS_SOURCES
 	ui/widgets/switch.cpp
 	${SCRIBUS_OSG_SRC}
 	${SCRIBUS_GMAGICK_SRC}
+	${SCRIBUS_HEIF_SRC}
 	${SCRIBUS_JPEGXL_SRC}
 	${SCRIBUS_FSW_SRC}
 )

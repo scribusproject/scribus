@@ -210,6 +210,16 @@ if(LIBXML2_FOUND)
 endif()
 #>>LibXML2
 
+#<<LIBHEIF
+find_package(heif)
+if(HEIF_FOUND)
+	set(HAVE_HEIF ON)
+	message("libheif Library Found OK")
+else()
+	message("Could not find the libheif Library")
+endif()
+#>>LIBHEIF
+
 #<<JPEG XL
 find_package(JXL)
 if(JXL_FOUND)

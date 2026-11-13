@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 
 bool SCRIBUS_API extensionIndicatesEPS(const QString &ext);
 bool SCRIBUS_API extensionIndicatesEPSorPS(const QString &ext);
+bool SCRIBUS_API extensionIndicatesHEIF(const QString &ext);
 bool SCRIBUS_API extensionIndicatesJPEG(const QString &ext);
 bool SCRIBUS_API extensionIndicatesJPEGXL(const QString &ext);
 bool SCRIBUS_API extensionIndicatesPDF(const QString &ext);
@@ -39,14 +40,14 @@ class SCRIBUS_API FormatsManager
 
 		enum ScImageFormatType
 		{
-			ALLIMAGES 		= 1|2|4|8|16|32|64|128|256|512|1024|2048|4096|8192|16384|32768|524288|1048576|2097152|4194304|8388608|16777216,
+			ALLIMAGES 		= 1|2|4|8|16|32|64|128|256|512|1024|2048|4096|8192|16384|32768|524288|1048576|2097152|4194304|8388608|16777216|33554432,
 #ifdef GMAGICK_FOUND
-			IMAGESIMGFRAME	= 1|2|4|16|32|64|128|256|512|32768|65536|1048576|2097152|4194304|8388608|16777216,  // all Types suitable for Image Frames
+			IMAGESIMGFRAME	= 1|2|4|16|32|64|128|256|512|32768|65536|1048576|2097152|4194304|8388608|16777216|33554432,  // all Types suitable for Image Frames
 #else
-			IMAGESIMGFRAME	= 1|2|4|16|32|64|128|256|512|32768|262144|524288|1048576|2097152|4194304|8388608|16777216,  // all Types suitable for Image Frames
+			IMAGESIMGFRAME	= 1|2|4|16|32|64|128|256|512|32768|262144|524288|1048576|2097152|4194304|8388608|16777216|33554432,  // all Types suitable for Image Frames
 #endif
 			VECTORIMAGES	= 1|64|1024|2048|16384|32768|131072|262144|4194304,  // All pure vector image types
-			RASTORIMAGES	= 2|4|8|32|128|256|512|65536|524288|1048576|2097152|8388608|16777216,  // All pure rastor image types
+			RASTORIMAGES	= 2|4|8|32|128|256|512|65536|524288|1048576|2097152|8388608|16777216|33554432,  // All pure rastor image types
 			EPS				= 1,      // Encapsulated PostScript
 			GIF				= 2,      // GIF files
 			JPEG			= 4,      // JPEG
@@ -73,9 +74,10 @@ class SCRIBUS_API FormatsManager
 			ORA				= 2097152, // ORA
 			QT				= 4194304, // Qt
 			KRA				= 8388608, // Krita
-			JPEGXL			= 16777216  // JPEG XL
+			JPEGXL			= 16777216, // JPEG XL
+			HEIF			= 33554432  // HEIF
 		};
-	
+
 /*
 		enum ScDocumentFormatType
 		{
@@ -120,31 +122,31 @@ class SCRIBUS_API FormatsManager
 
 		//! Returns the name of a format, eg "Encapsulated PostScript"
 		QString nameOfFormat(int type) const;
-		
+
 		//! Returns the mimetypes of a format, eg "application/postscript"
 		QStringList mimetypeOfFormat(int type) const;
-		
+
 		//! Returns in the form of "EPS (*.eps *.EPS *.epsf *.EPSF *.epsi *.EPSI)"
 		QString extensionsForFormat(int type) const;
-		
+
 		//! Returns in the form of "*.eps *.epsf *.epsi" or "eps|epsf|epsi"
- 		QString extensionListForFormat(int type, int listType) const;
-		
+		QString extensionListForFormat(int type, int listType) const;
+
 		//! Returns in the form of "All Supported Formats (*.eps *.EPS *.epsf *.EPSF *.epsi *.EPSI);;EPS (*.eps *.EPS);;EPSI (*.epsf *.EPSF);;EPSI (*.epsi *.EPSI);;All Files (*)"
 		QString fileDialogFormatList(int type) const;
-		
+
 	protected:
 		QMap<int, QString> m_fmtNames;
 		QMap<int, QStringList> m_fmtMimeTypes;
 		QMap<int, QStringList> m_fmts;
 		QStringList m_fmtList;
-		
+
 		QList<QByteArray> m_qtSupportedImageFormats;
 		QList<QByteArray> m_supportedImageFormats;
 
 		void updateSupportedImageFormats(QList<QByteArray>& supportedImageFormats) const;
 		void fileTypeStrings(int type, QString& formatList, QString& formatText, QString& formatAll, bool lowerCaseOnly = false) const;
-		
+
 	private:
 	/**
 	 * @brief The only instance of FormatsManager available.
