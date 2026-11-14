@@ -346,7 +346,7 @@ void PrefsManager::initDefaults()
 	appPrefs.itemToolPrefs.imageStrokeColorShade = 100;
 	appPrefs.itemToolPrefs.imageScaleX = 1;
 	appPrefs.itemToolPrefs.imageScaleY = 1;
-	appPrefs.itemToolPrefs.imageScaleType = true;
+	appPrefs.itemToolPrefs.imageScaleType = false;
 	appPrefs.itemToolPrefs.imageAspectRatio = true;
 	appPrefs.itemToolPrefs.imageLowResType = 1;
 	appPrefs.itemToolPrefs.imageUseEmbeddedPath = false;
@@ -379,7 +379,7 @@ void PrefsManager::initDefaults()
 	appPrefs.spellCheckPrefs.maxSuggestions = 10;
 	appPrefs.spellCheckPrefs.showMisspeltIndicator = true;
 	appPrefs.docSetupPrefs.AutoSave = true;
-	appPrefs.docSetupPrefs.AutoSaveTime = 600000;
+	appPrefs.docSetupPrefs.AutoSaveTime = 300000;
 	appPrefs.docSetupPrefs.AutoSaveCount = 1;
 	appPrefs.docSetupPrefs.AutoSaveKeep = false;
 	appPrefs.docSetupPrefs.saveCompressed = false;
