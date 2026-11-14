@@ -368,6 +368,8 @@ public:
 	static QString SplitItem;
 	static QString RemoveAllGuides;
 	static QString RemoveAllPageGuides;
+	static QString RemoveHGuides;
+	static QString RemoveVGuides;
 	static QString LockGuides;
 	static QString UnlockGuides;
 	static QString Move;

@@ -40,16 +40,14 @@ void GuideManagerCore::setPage(ScPage *p)
 
 bool GuideManagerCore::hasGuides() const
 {
+	// The gap and reference create no guides without a count, and the
+	// reference now defaults to the margins, so they are not checked
 	return !m_horizontalStdG.isEmpty() ||
 			!m_horizontalAutoG.isEmpty() ||
 			!m_verticalStdG.isEmpty() ||
 			!m_verticalAutoG.isEmpty() ||
 			m_horizontalAutoCount != 0 ||
-			m_horizontalAutoGap != 0.0 ||
-			m_horizontalAutoRefer != 0 ||
-			m_verticalAutoCount != 0 ||
-			m_verticalAutoGap != 0.0 ||
-			m_verticalAutoRefer != 0;
+			m_verticalAutoCount != 0;
 }
 
 void GuideManagerCore::addHorizontal(double value, GuideType type)
@@ -471,8 +469,7 @@ void GuideManagerCore::drawPage(ScPainter *p, ScribusDoc *doc, double lineWidth)
 		p->drawLine(FPoint(horizontalFrom, guide), FPoint(horizontalTo, guide));
 
 	// highlight selected standards
-	if (guideManager->currentIndex() == 0
-		   && m_page->pageNr() == guideManager->pageNr())
+	if (guideManager->isVisible() && m_page->pageNr() == guideManager->pageNr())
 	{
 		p->setPen(Qt::red, lineWidth, Qt::DashDotLine, Qt::FlatCap, Qt::MiterJoin);
 		Guides highlight = guideManager->selectedVerticals();
@@ -484,10 +481,6 @@ void GuideManagerCore::drawPage(ScPainter *p, ScribusDoc *doc, double lineWidth)
 	}
 
 	// all auto
-	if (guideManager->currentIndex() == 1 && guideManager->isVisible())
-		color = Qt::red;
-	else
-		color = doc->guidesPrefs().guideColor;
 	p->setPen(color, lineWidth, Qt::DashDotLine, Qt::FlatCap, Qt::MiterJoin);
 
 	for (auto guide : m_verticalAutoG)

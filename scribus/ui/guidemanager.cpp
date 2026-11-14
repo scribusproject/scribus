@@ -22,11 +22,14 @@ for which a new license (GPL+exception) is in place.
  *																	   *
  ***************************************************************************/
 
+#include <QEvent>
+#include <QMetaObject>
 #include <QSignalBlocker>
 
 #include "guidemanager.h"
 #include "guidesdelegate.h"
 #include "guidesmodel.h"
+#include "guidesview.h"
 #include "iconmanager.h"
 #include "scpage.h"
 #include "scribuscore.h"
@@ -36,14 +39,10 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "units.h"
 
-
 GuideManager::GuideManager(QWidget* parent) :
 		ScrPaletteBase(parent, "GuideManager")
 {
 	setupUi(this);
-	tabWidget->setEnabled(false);
-	deletePageButton->setEnabled(false);
-	deleteAllGuides->setEnabled(false);
 	horizontalAutoGapSpin->setMinimum(0.0);
 	horizontalAutoGapSpin->setMaximum(10000.0);
 	verticalAutoGapSpin->setMinimum(0.0);
@@ -51,72 +50,115 @@ GuideManager::GuideManager(QWidget* parent) :
 	horizontalAutoCountSpin->setDecimals(0);
 	verticalAutoCountSpin->setDecimals(0);
 
-	IconManager& im = IconManager::instance();
-	addHorButton->setIcon(im.loadIcon("list-add"));
-	delHorButton->setIcon(im.loadIcon("edit-delete"));
-	addVerButton->setIcon(im.loadIcon("list-add"));
-	delVerButton->setIcon(im.loadIcon("edit-delete"));
-	horizontalPageAutoButton->setIcon(im.loadIcon("align-to-page"));
-	horizontalMarginsAutoButton->setIcon(im.loadIcon("align-to-margin"));
-	horizontalSelectionAutoButton->setIcon(im.loadIcon("align-to-last-selection"));
-	verticalPageAutoButton->setIcon(im.loadIcon("align-to-page"));
-	verticalMarginsAutoButton->setIcon(im.loadIcon("align-to-margin"));
-	verticalSelectionAutoButton->setIcon(im.loadIcon("align-to-last-selection"));
+	// Clicking the checkmark must not close the editor before the click handler.
+	// Tab still reaches these buttons through ordinary keyboard navigation.
+	addHorizontalButton->setFocusPolicy(Qt::TabFocus);
+	addVerticalButton->setFocusPolicy(Qt::TabFocus);
+	horizontalGroupBox->installEventFilter(this);
+	verticalGroupBox->installEventFilter(this);
 
-	// MVC
 	horizontalModel = new GuidesModel(this);
 	verticalModel = new GuidesModel(this);
-	GuidesHDelegate * hdelegate = new GuidesHDelegate();
-	GuidesVDelegate * vdelegate = new GuidesVDelegate();
+	GuidesHDelegate* hdelegate = new GuidesHDelegate(horizontalView);
+	GuidesVDelegate* vdelegate = new GuidesVDelegate(verticalView);
 	horizontalView->setItemDelegateForColumn(0, hdelegate);
 	verticalView->setItemDelegateForColumn(0, vdelegate);
 	horizontalView->setModel(horizontalModel);
 	verticalView->setModel(verticalModel);
 
-	connect(addHorButton, SIGNAL(clicked()), this, SLOT(addHorButton_clicked()));
-	connect(delHorButton, SIGNAL(clicked()), this, SLOT(delHorButton_clicked()));
-	connect(horizontalView, SIGNAL(deleteKeyPressed()), this, SLOT(delHorButton_clicked()));
-	connect(addVerButton, SIGNAL(clicked()), this, SLOT(addVerButton_clicked()));
-	connect(delVerButton, SIGNAL(clicked()), this, SLOT(delVerButton_clicked()));
-	connect(verticalView, SIGNAL(deleteKeyPressed()), this, SLOT(delVerButton_clicked()));
-	connect(horizontalView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(forceDrawGuides(QItemSelection,QItemSelection)));
-	connect(verticalView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(forceDrawGuides(QItemSelection,QItemSelection)));
+	updateClearButtons();
 
-	connect(applyToAllStdButton, SIGNAL(clicked()), this, SLOT(applyToAllStdButton_clicked()));
-	connect(horizontalAutoCountSpin, SIGNAL(valueChanged(double)), this, SLOT(horizontalAutoCountSpin_valueChanged(double)));
-	connect(verticalAutoCountSpin, SIGNAL(valueChanged(double)), this, SLOT(verticalAutoCountSpin_valueChanged(double)));
-	connect(horizontalAutoGapCheck, SIGNAL(stateChanged(int)), this, SLOT(horizontalAutoGapCheck_stateChanged(int)));
-	connect(verticalAutoGapCheck, SIGNAL(stateChanged(int)), this, SLOT(verticalAutoGapCheck_stateChanged(int)));
-	connect(horizontalAutoGapSpin, SIGNAL(valueChanged(double)), this, SLOT(horizontalAutoGapSpin_valueChanged(double)));
-	connect(verticalAutoGapSpin, SIGNAL(valueChanged(double)), this, SLOT(verticalAutoGapSpin_valueChanged(double)));
+	connect(hdelegate, &GuidesDelegate::editorOpened, this, [this](QWidget *editor) {
+		m_horizontalEditor = editor;
+		setAddButtonEditing(addHorizontalButton, true, true);
+		connect(editor, &QObject::destroyed, this, [this, editor]() {
+			if (m_horizontalEditor == editor)
+			{
+				m_horizontalEditor = nullptr;
+				setAddButtonEditing(addHorizontalButton, false, true);
+			}
+		});
+	});
+	connect(vdelegate, &GuidesDelegate::editorOpened, this, [this](QWidget *editor) {
+		m_verticalEditor = editor;
+		setAddButtonEditing(addVerticalButton, true, false);
+		connect(editor, &QObject::destroyed, this, [this, editor]() {
+			if (m_verticalEditor == editor)
+			{
+				m_verticalEditor = nullptr;
+				setAddButtonEditing(addVerticalButton, false, false);
+			}
+		});
+	});
+	connect(hdelegate, &QAbstractItemDelegate::closeEditor, this, [this](QWidget *editor) {
+		if (m_horizontalEditor == editor)
+		{
+			m_horizontalEditor = nullptr;
+			setAddButtonEditing(addHorizontalButton, false, true);
+			// Allow QTableView to finish closing the editor before removing its row.
+			const auto generation = m_pageGeneration;
+			QMetaObject::invokeMethod(this, [this, generation]() {
+				if (m_pageGeneration == generation)
+					discardPendingGuide(true);
+			}, Qt::QueuedConnection);
+		}
+	});
+	connect(vdelegate, &QAbstractItemDelegate::closeEditor, this, [this](QWidget *editor) {
+		if (m_verticalEditor == editor)
+		{
+			m_verticalEditor = nullptr;
+			setAddButtonEditing(addVerticalButton, false, false);
+			const auto generation = m_pageGeneration;
+			QMetaObject::invokeMethod(this, [this, generation]() {
+				if (m_pageGeneration == generation)
+					discardPendingGuide(false);
+			}, Qt::QueuedConnection);
+		}
+	});
 
-	connect(horizontalPageAutoButton, SIGNAL(toggled(bool)), this, SLOT(horizontalPageAutoButton_toggled(bool)));
-	connect(horizontalMarginsAutoButton, SIGNAL(toggled(bool)), this, SLOT(horizontalMarginsAutoButton_toggled(bool)));
-	connect(horizontalSelectionAutoButton, SIGNAL(toggled(bool)), this, SLOT(horizontalSelectionAutoButton_toggled(bool)));
-	connect(verticalPageAutoButton, SIGNAL(toggled(bool)), this, SLOT(verticalPageAutoButton_toggled(bool)));
-	connect(verticalMarginsAutoButton, SIGNAL(toggled(bool)), this, SLOT(verticalMarginsAutoButton_toggled(bool)));
-	connect(verticalSelectionAutoButton, SIGNAL(toggled(bool)), this, SLOT(verticalSelectionAutoButton_toggled(bool)));
+	connect(addHorizontalButton, &QToolButton::clicked, this, &GuideManager::addHorizontalButton_clicked);
+	connect(deleteHorizontalButton, &QToolButton::clicked, this, &GuideManager::deleteHorizontalButton_clicked);
+	connect(clearHorizontalButton, &QToolButton::clicked, this, &GuideManager::clearHorizontalButton_clicked);
+	connect(horizontalView, &GuidesView::deleteKeyPressed, this, &GuideManager::deleteHorizontalButton_clicked);
+	connect(horizontalView, &GuidesView::plusKeyPressed, this, &GuideManager::addHorizontalButton_clicked);
+	connect(addVerticalButton, &QToolButton::clicked, this, &GuideManager::addVerticalButton_clicked);
+	connect(deleteVerticalButton, &QToolButton::clicked, this, &GuideManager::deleteVerticalButton_clicked);
+	connect(clearVerticalButton, &QToolButton::clicked, this, &GuideManager::clearVerticalButton_clicked);
+	connect(clearPageGuidesButton, &QToolButton::clicked, this, &GuideManager::clearPageGuidesButton_clicked);
+	connect(clearAllGuidesButton, &QToolButton::clicked, this, &GuideManager::clearAllGuidesButton_clicked);
+	connect(verticalView, &GuidesView::deleteKeyPressed, this, &GuideManager::deleteVerticalButton_clicked);
+	connect(verticalView, &GuidesView::plusKeyPressed, this, &GuideManager::addVerticalButton_clicked);
+	connect(horizontalView->selectionModel(), &QItemSelectionModel::selectionChanged, this, &GuideManager::forceDrawGuides);
+	connect(verticalView->selectionModel(), &QItemSelectionModel::selectionChanged, this, &GuideManager::forceDrawGuides);
 
-	connect(applyToAllAutoButton, SIGNAL(clicked()), this, SLOT(applyToAllAutoButton_clicked()));
-	connect(deletePageButton, SIGNAL(clicked()), this, SLOT(deletePageButton_clicked()));
-	connect(deleteAllGuides, SIGNAL(clicked()), this, SLOT(deleteAllGuides_clicked()));
+	connect(applyToAllPagesButton, &QToolButton::clicked, this, &GuideManager::applyToAllPagesButton_clicked);
+	connect(applyAutoToAllPagesButton, &QToolButton::clicked, this, &GuideManager::applyAutoToAllPagesButton_clicked);
+	connect(horizontalAutoCountSpin, qOverload<double>(&ScrSpinBox::valueChanged), this, qOverload<double>(&GuideManager::horizontalAutoCountSpin_valueChanged));
+	connect(verticalAutoCountSpin, qOverload<double>(&ScrSpinBox::valueChanged), this, &GuideManager::verticalAutoCountSpin_valueChanged);
+	connect(horizontalAutoGapSpin, qOverload<double>(&ScrSpinBox::valueChanged), this, qOverload<double>(&GuideManager::horizontalAutoGapSpin_valueChanged));
+	connect(verticalAutoGapSpin, qOverload<double>(&ScrSpinBox::valueChanged), this, qOverload<double>(&GuideManager::verticalAutoGapSpin_valueChanged));
 
-	connect(lockCheck, SIGNAL(stateChanged(int)), this, SLOT(lockCheck_stateChanged(int)));
+	connect(horizontalPageAutoButton, &QToolButton::toggled, this, &GuideManager::horizontalPageAutoButton_toggled);
+	connect(horizontalMarginsAutoButton, &QToolButton::toggled, this, &GuideManager::horizontalMarginsAutoButton_toggled);
+	connect(horizontalSelectionAutoButton, &QToolButton::toggled, this, &GuideManager::horizontalSelectionAutoButton_toggled);
+	connect(verticalPageAutoButton, &QToolButton::toggled, this, &GuideManager::verticalPageAutoButton_toggled);
+	connect(verticalMarginsAutoButton, &QToolButton::toggled, this, &GuideManager::verticalMarginsAutoButton_toggled);
+	connect(verticalSelectionAutoButton, &QToolButton::toggled, this, &GuideManager::verticalSelectionAutoButton_toggled);
 
-	connect(horizontalModel, SIGNAL(valueChanged()), this, SLOT(horizontalModel_valueChanged()));
-	connect(verticalModel, SIGNAL(valueChanged()), this, SLOT(verticalModel_valueChanged()));
+	connect(lockGuidesButton, &QToolButton::clicked, this, &GuideManager::lockGuidesButton_clicked);
 
-	connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(tabWidget_currentChanged(int)));
+	connect(horizontalModel, &GuidesModel::valueChanged, this, &GuideManager::horizontalModel_valueChanged);
+	connect(verticalModel, &GuidesModel::valueChanged, this, &GuideManager::verticalModel_valueChanged);
+	connect(horizontalModel, &GuidesModel::guideAdded, this, [this](double pos) { addGuide(true, pos); });
+	connect(verticalModel, &GuidesModel::guideAdded, this, [this](double pos) { addGuide(false, pos); });
 }
 
-GuideManager::~GuideManager()
-{
-	delete horizontalView->itemDelegateForColumn(0);
-	delete verticalView->itemDelegateForColumn(0);
-}
+
 
 void GuideManager::setDoc(ScribusDoc* doc)
 {
+	finishGuideEditors();
+	++m_pageGeneration;
 	if (m_doc && (m_doc != doc))
 	{
 		if (currentPage && (currentPage->doc() == m_doc))
@@ -136,9 +178,11 @@ void GuideManager::setDoc(ScribusDoc* doc)
 	qobject_cast<GuidesVDelegate*>(verticalView->itemDelegateForColumn(0))->setDoc(doc);
 	if (!m_doc)
 		currentPage = nullptr;
-	tabWidget->setEnabled(doc != nullptr);
-	deletePageButton->setEnabled(doc != nullptr);
-	deleteAllGuides->setEnabled(doc != nullptr);
+	setEnabled(m_doc != nullptr);
+	updateClearButtons();
+	const bool multiplePages = m_doc && m_doc->Pages->count() > 1;
+	applyToAllPagesButton->setEnabled(multiplePages);
+	applyAutoToAllPagesButton->setEnabled(multiplePages);
 }
 
 void GuideManager::setVisible(bool visible)
@@ -151,89 +195,73 @@ void GuideManager::setupPage(bool storeValues)
 {
 	if (!m_doc)
 		return;
+	finishGuideEditors();
+	++m_pageGeneration;
 	m_drawGuides = false;
 	setEnabled(true);
-	// store old values for current page (= page to leave)
 	if (currentPage && storeValues)
 		storePageValues(currentPage);
 
 	currentPage = m_doc->currentPage();
 	unitChange();
 	setupGui();
+	const bool multiplePages = m_doc->Pages->count() > 1;
+	applyToAllPagesButton->setEnabled(multiplePages);
+	applyAutoToAllPagesButton->setEnabled(multiplePages);
 }
 
 void GuideManager::setupGui()
 {
-	disconnect(horizontalAutoGapCheck, SIGNAL(stateChanged(int)),
-			this, SLOT(horizontalAutoGapCheck_stateChanged(int)));
-	disconnect(verticalAutoGapCheck, SIGNAL(stateChanged(int)),
-			this, SLOT(verticalAutoGapCheck_stateChanged(int)));
-	disconnect(lockCheck, SIGNAL(stateChanged(int)), 
-			this, SLOT(lockCheck_stateChanged(int)));
-
-	// restore values from new page
+	if (!m_doc || !currentPage)
+		return;
+	// Restore controls without treating a page change as a guide edit.
 	clearRestoreHorizontalList();
 	clearRestoreVerticalList();
-	// restore: brand "auto guides into GUI restore algorithm"
-	bool enable = currentPage->guides.horizontalAutoGap() > 0.0;
-	horizontalAutoGapCheck->setChecked(enable);
-	horizontalAutoGapSpin->setEnabled(enable);
-	horizontalAutoGapSpin->setValue(currentPage->guides.horizontalAutoGap(), SC_PT);
+	updateClearButtons();
+	QSignalBlocker horizontalCountBlock(horizontalAutoCountSpin);
+	QSignalBlocker horizontalGapBlock(horizontalAutoGapSpin);
+	QSignalBlocker verticalCountBlock(verticalAutoCountSpin);
+	QSignalBlocker verticalGapBlock(verticalAutoGapSpin);
+	QSignalBlocker horizontalPageBlock(horizontalPageAutoButton);
+	QSignalBlocker horizontalMarginsBlock(horizontalMarginsAutoButton);
+	QSignalBlocker horizontalSelectionBlock(horizontalSelectionAutoButton);
+	QSignalBlocker verticalPageBlock(verticalPageAutoButton);
+	QSignalBlocker verticalMarginsBlock(verticalMarginsAutoButton);
+	QSignalBlocker verticalSelectionBlock(verticalSelectionAutoButton);
+	QSignalBlocker lockBlock(lockGuidesButton);
 	horizontalAutoCountSpin->setValue(currentPage->guides.horizontalAutoCount());
-	if (horizontalAutoCountSpin->value()==0)
-	{
-		horizontalAutoGapSpin->setEnabled(false);
-		horizontalAutoGapCheck->setEnabled(false);
-	}
-	setHorizontalRefer(currentPage->guides.horizontalAutoRefer());
-	// allow the selection radio button?
+	horizontalAutoGapSpin->setValue(currentPage->guides.horizontalAutoGap(), SC_PT);
+	horizontalAutoGapSpin->setEnabled(horizontalAutoCountSpin->value() > 0);
+	setHorizontalReference(currentPage->guides.horizontalAutoRefer());
 	horizontalSelectionAutoButton->setEnabled(m_doc->m_Selection->isNotEmpty());
 
-	// verticals
-	enable = currentPage->guides.verticalAutoGap() > 0.0;
-	verticalAutoGapCheck->setChecked(enable);
-	verticalAutoGapSpin->setEnabled(enable);
-	verticalAutoGapSpin->setValue(currentPage->guides.verticalAutoGap(), SC_PT);
 	verticalAutoCountSpin->setValue(currentPage->guides.verticalAutoCount());
-	if (verticalAutoCountSpin->value()==0)
-	{
-		verticalAutoGapSpin->setEnabled(false);
-		verticalAutoGapCheck->setEnabled(false);
-	}
-	setVerticalRefer(currentPage->guides.verticalAutoRefer());
-	// allow the selection radio button?
+	verticalAutoGapSpin->setValue(currentPage->guides.verticalAutoGap(), SC_PT);
+	verticalAutoGapSpin->setEnabled(verticalAutoCountSpin->value() > 0);
+	setVerticalReference(currentPage->guides.verticalAutoRefer());
 	verticalSelectionAutoButton->setEnabled(m_doc->m_Selection->isNotEmpty());
 
-	// restore guide locking
-	lockCheck->setChecked(m_doc->GuideLock);
+	lockGuidesButton->setChecked(m_doc->GuideLock);
 
-	connect(horizontalAutoGapCheck, SIGNAL(stateChanged(int)), this, SLOT(horizontalAutoGapCheck_stateChanged(int)));
-	connect(verticalAutoGapCheck, SIGNAL(stateChanged(int)), this, SLOT(verticalAutoGapCheck_stateChanged(int)));
-	connect(lockCheck, SIGNAL(stateChanged(int)), this, SLOT(lockCheck_stateChanged(int)));
+	iconSetChange();
+	languageChange();
 
 	m_drawGuides = true;
-// 	drawGuides(); let Canvas::DrawPageMarks take care of it and avoid a costly ScribusView::DrawNew()
 }
 
-void GuideManager::storePageValues(ScPage *page) const
+void GuideManager::storePageValues(ScPage* page) const
 {
 	if (!page || !m_doc)
 		return;
 
-	double gapValue = 0.0;
-	if (horizontalAutoGapCheck->isChecked())
-		gapValue = horizontalAutoGapSpin->getValue(SC_PT);
-	page->guides.setHorizontalAutoGap(gapValue);
+	page->guides.setHorizontalAutoGap(horizontalAutoGapSpin->getValue(SC_PT));
 	page->guides.setHorizontalAutoCount(static_cast<int>(horizontalAutoCountSpin->value()));
-	page->guides.setHorizontalAutoRefer(horizontalRefer());
+	page->guides.setHorizontalAutoRefer(horizontalReference());
 	page->guides.addHorizontals(getAutoHorizontals(page), GuideManagerCore::Auto);
 
-	gapValue = 0.0;
-	if (verticalAutoGapCheck->isChecked())
-		gapValue = verticalAutoGapSpin->getValue(SC_PT);
-	page->guides.setVerticalAutoGap(gapValue);
+	page->guides.setVerticalAutoGap(verticalAutoGapSpin->getValue(SC_PT));
 	page->guides.setVerticalAutoCount(static_cast<int>(verticalAutoCountSpin->value()));
-	page->guides.setVerticalAutoRefer(verticalRefer());
+	page->guides.setVerticalAutoRefer(verticalReference());
 	page->guides.addVerticals(getAutoVerticals(page), GuideManagerCore::Auto);
 }
 
@@ -250,6 +278,83 @@ void GuideManager::changeEvent(QEvent *e)
 void GuideManager::languageChange()
 {
 	retranslateUi(this);
+	setAddButtonEditing(addHorizontalButton, m_horizontalEditor != nullptr, true);
+	setAddButtonEditing(addVerticalButton, m_verticalEditor != nullptr, false);
+}
+
+void GuideManager::discardPendingGuide(bool horizontal)
+{
+	if (!currentPage || (horizontal ? m_horizontalEditor : m_verticalEditor))
+		return;
+	(horizontal ? horizontalModel : verticalModel)->discardPendingRow();
+	updateClearButtons();
+}
+
+void GuideManager::finishGuideEditors()
+{
+	if (m_horizontalEditor)
+		qobject_cast<GuidesDelegate*>(horizontalView->itemDelegateForColumn(0))->finishEditing(m_horizontalEditor);
+	if (m_verticalEditor)
+		qobject_cast<GuidesDelegate*>(verticalView->itemDelegateForColumn(0))->finishEditing(m_verticalEditor);
+}
+
+void GuideManager::updateClearButtons()
+{
+	const bool hasPage = m_doc && currentPage;
+	clearHorizontalButton->setEnabled(hasPage && !currentPage->guides.horizontals(GuideManagerCore::Standard).isEmpty());
+	clearVerticalButton->setEnabled(hasPage && !currentPage->guides.verticals(GuideManagerCore::Standard).isEmpty());
+}
+
+void GuideManager::iconSetChange()
+{
+	IconManager& im = IconManager::instance();
+
+	addHorizontalButton->setIcon(im.loadIcon("list-add"));
+	deleteHorizontalButton->setIcon(im.loadIcon("list-remove"));
+	clearHorizontalButton->setIcon(im.loadIcon("trashcan"));
+	addVerticalButton->setIcon(im.loadIcon("list-add"));
+	deleteVerticalButton->setIcon(im.loadIcon("list-remove"));
+	clearVerticalButton->setIcon(im.loadIcon("trashcan"));
+	clearPageGuidesButton->setIcon(im.loadIcon("trashcan"));
+	clearAllGuidesButton->setIcon(im.loadIcon("trashcan"));
+
+	horizontalPageAutoButton->setIcon(im.loadIcon("align-to-page"));
+	horizontalMarginsAutoButton->setIcon(im.loadIcon("align-to-margin"));
+	horizontalSelectionAutoButton->setIcon(im.loadIcon("align-to-last-selection"));
+	verticalPageAutoButton->setIcon(im.loadIcon("align-to-page"));
+	verticalMarginsAutoButton->setIcon(im.loadIcon("align-to-margin"));
+	verticalSelectionAutoButton->setIcon(im.loadIcon("align-to-last-selection"));
+
+	applyToAllPagesButton->setIcon(im.loadIcon("page-duplicate"));
+	applyAutoToAllPagesButton->setIcon(im.loadIcon("page-duplicate"));
+
+	QIcon lockIcon;
+	lockIcon.addPixmap(im.loadPixmap("lock"), QIcon::Normal, QIcon::On);
+	lockIcon.addPixmap(im.loadPixmap("lock-unlocked"), QIcon::Normal, QIcon::Off);
+	lockGuidesButton->setIcon(lockIcon);
+}
+
+void GuideManager::setAddButtonEditing(QToolButton* button, bool editing, bool horizontal)
+{
+	button->setIcon(IconManager::instance().loadIcon(editing ? "ok" : "list-add"));
+	button->setToolTip(editing ? tr("Finish editing")
+	                           : horizontal ? tr("Add a new horizontal guide")
+	                                        : tr("Add a new vertical guide"));
+}
+
+bool GuideManager::eventFilter(QObject *watched, QEvent *event)
+{
+	if (event->type() == QEvent::MouseButtonPress &&
+	    (watched == horizontalGroupBox || watched == verticalGroupBox))
+	{
+		// Guide-list blank space already finishes editing. Match it on the
+		// surrounding background without changing the selected guide.
+		if (m_horizontalEditor)
+			horizontalView->setFocus(Qt::MouseFocusReason);
+		else if (m_verticalEditor)
+			verticalView->setFocus(Qt::MouseFocusReason);
+	}
+	return ScrPaletteBase::eventFilter(watched, event);
 }
 
 void GuideManager::unitChange()
@@ -265,18 +370,25 @@ void GuideManager::unitChange()
 	horizontalAutoGapSpin->setNewUnit(docUnitIndex);
 	verticalAutoGapSpin->setNewUnit(docUnitIndex);
 
-	// models display
 	horizontalModel->unitChange(docUnitIndex, docUnitDecimals, m_doc->rulerYoffset);
 	verticalModel->unitChange(docUnitIndex, docUnitDecimals, m_doc->rulerXoffset);
 	qobject_cast<GuidesHDelegate*>(horizontalView->itemDelegateForColumn(0))->setDoc(m_doc);
 	qobject_cast<GuidesVDelegate*>(verticalView->itemDelegateForColumn(0))->setDoc(m_doc);
 }
 
-void GuideManager::delHorButton_clicked()
+
+
+void GuideManager::deleteHorizontalButton_clicked()
 {
+	if (!currentPage)
+		return;
+	finishGuideEditors();
+	discardPendingGuide(true);
 	const QModelIndexList indexes = horizontalView->selectionModel()->selectedRows(0);
 	Guides v;
 
+	if (indexes.isEmpty())
+		return;
 	for (const QModelIndex& ix : indexes)
 		// here *must* go EditRole due truncations in DisplayRole
 		// see GuidesModel::data()
@@ -288,13 +400,21 @@ void GuideManager::delHorButton_clicked()
 	currentPage->guides.addHorizontals(horizontalModel->values(), GuideManagerCore::Standard);
 	drawGuides();
 	m_doc->changed();
+
+	updateClearButtons();
 }
 
-void GuideManager::delVerButton_clicked()
+void GuideManager::deleteVerticalButton_clicked()
 {
+	if (!currentPage)
+		return;
+	finishGuideEditors();
+	discardPendingGuide(false);
 	const QModelIndexList indexes = verticalView->selectionModel()->selectedRows(0);
 	Guides v;
 
+	if (indexes.isEmpty())
+		return;
 	for (const QModelIndex& ix : indexes)
 		// here *must* go EditRole due truncations in DisplayRole
 		// see GuidesModel::data()
@@ -306,25 +426,179 @@ void GuideManager::delVerButton_clicked()
 	currentPage->guides.addVerticals(verticalModel->values(), GuideManagerCore::Standard);
 	drawGuides();
 	m_doc->changed();
+
+	updateClearButtons();
 }
 
-void GuideManager::addHorButton_clicked()
+void GuideManager::clearHorizontalButton_clicked()
 {
-	horizontalModel->insertRow();
-	horizontalView->setCurrentIndex(horizontalModel->index(0, 0, QModelIndex()));
+	if (!currentPage)
+		return;
+	finishGuideEditors();
+	if (!currentPage->guides.horizontals(GuideManagerCore::Standard).empty())
+	{
+		UndoTransaction trans;
+		if (UndoManager::undoEnabled())
+			trans = UndoManager::instance()->beginTransaction(currentPage->getUName(),
+				currentPage->getUPixmap(),
+				Um::RemoveHGuides, "",
+				Um::IGuides);
+		currentPage->guides.clearHorizontals(GuideManagerCore::Standard);
+
+		if (trans)
+			trans.commit();
+
+		m_doc->changed();
+	}
+
+	clearRestoreHorizontalList();
+	drawGuides();
+
+	updateClearButtons();
+}
+
+void GuideManager::clearVerticalButton_clicked()
+{
+	if (!currentPage)
+		return;
+	finishGuideEditors();
+	if (!currentPage->guides.verticals(GuideManagerCore::Standard).empty())
+	{
+		UndoTransaction trans;
+		if (UndoManager::undoEnabled())
+			trans = UndoManager::instance()->beginTransaction(currentPage->getUName(),
+				currentPage->getUPixmap(),
+				Um::RemoveVGuides, "",
+				Um::IGuides);
+		currentPage->guides.clearVerticals(GuideManagerCore::Standard);
+
+		if (trans)
+			trans.commit();
+
+		m_doc->changed();
+	}
+
+	clearRestoreVerticalList();
+	drawGuides();
+
+	updateClearButtons();
+}
+
+void GuideManager::clearPageGuides(ScPage* page) const
+{
+	page->guides.clearHorizontals(GuideManagerCore::Standard);
+	page->guides.clearVerticals(GuideManagerCore::Standard);
+	page->guides.clearHorizontals(GuideManagerCore::Auto);
+	page->guides.clearVerticals(GuideManagerCore::Auto);
+
+	// Rows and columns go back to their defaults
+	const GuideManagerCore defaults;
+	page->guides.setHorizontalAutoCount(defaults.horizontalAutoCount());
+	page->guides.setVerticalAutoCount(defaults.verticalAutoCount());
+	page->guides.setHorizontalAutoGap(defaults.horizontalAutoGap());
+	page->guides.setVerticalAutoGap(defaults.verticalAutoGap());
+	page->guides.setHorizontalAutoRefer(defaults.horizontalAutoRefer());
+	page->guides.setVerticalAutoRefer(defaults.verticalAutoRefer());
+}
+
+void GuideManager::clearPageGuidesButton_clicked()
+{
+	if (!m_doc || !currentPage)
+		return;
+	finishGuideEditors();
+	if (!currentPage->guides.hasGuides())
+		return;
+
+	UndoTransaction trans;
+	if (UndoManager::undoEnabled())
+		trans = UndoManager::instance()->beginTransaction(currentPage->getUName(),
+			currentPage->getUPixmap(),
+			Um::RemoveAllPageGuides, "",
+			Um::IGuides);
+	clearPageGuides(currentPage);
+	if (trans)
+		trans.commit();
+
+	// Show the cleared lists and the reset rows and columns
+	setupGui();
+	drawGuides();
+	m_doc->changed();
+}
+
+void GuideManager::clearAllGuidesButton_clicked()
+{
+	if (!m_doc || !currentPage)
+		return;
+	finishGuideEditors();
+	bool hasGuides = false;
+	for (const ScPage* page : std::as_const(*m_doc->Pages))
+	{
+		if (page->guides.hasGuides())
+		{
+			hasGuides = true;
+			break;
+		}
+	}
+	if (!hasGuides)
+		return;
+
+	UndoTransaction trans;
+	if (UndoManager::undoEnabled())
+		trans = UndoManager::instance()->beginTransaction(m_doc->getUName(),
+			m_doc->getUPixmap(),
+			Um::RemoveAllGuides, "",
+			Um::IGuides);
+	for (ScPage* page : std::as_const(*m_doc->Pages))
+		clearPageGuides(page);
+	if (trans)
+		trans.commit();
+
+	setupGui();
+	drawGuides();
+	m_doc->changed();
+}
+
+void GuideManager::addHorizontalButton_clicked()
+{
+	if (m_verticalEditor)
+		qobject_cast<GuidesDelegate*>(verticalView->itemDelegateForColumn(0))->finishEditing(m_verticalEditor);
+	if (m_horizontalEditor)
+	{
+		qobject_cast<GuidesDelegate*>(horizontalView->itemDelegateForColumn(0))->finishEditing(m_horizontalEditor);
+		horizontalView->setFocus(Qt::OtherFocusReason);
+		updateClearButtons();
+		return;
+	}
+	horizontalView->clearSelection();
+	const int row = horizontalModel->insertRow();
+	horizontalView->setCurrentIndex(horizontalModel->index(row, 0));
 	horizontalView->edit(horizontalView->currentIndex());
+
+	updateClearButtons();
 }
 
-void GuideManager::addVerButton_clicked()
+void GuideManager::addVerticalButton_clicked()
 {
-	verticalModel->insertRow();
-	verticalView->setCurrentIndex(verticalModel->index(0, 0, QModelIndex()));
+	if (m_horizontalEditor)
+		qobject_cast<GuidesDelegate*>(horizontalView->itemDelegateForColumn(0))->finishEditing(m_horizontalEditor);
+	if (m_verticalEditor)
+	{
+		qobject_cast<GuidesDelegate*>(verticalView->itemDelegateForColumn(0))->finishEditing(m_verticalEditor);
+		verticalView->setFocus(Qt::OtherFocusReason);
+		updateClearButtons();
+		return;
+	}
+	verticalView->clearSelection();
+	const int row = verticalModel->insertRow();
+	verticalView->setCurrentIndex(verticalModel->index(row, 0));
 	verticalView->edit(verticalView->currentIndex());
+
+	updateClearButtons();
 }
 
-void GuideManager::lockCheck_stateChanged( int )
+void GuideManager::lockGuidesButton_clicked()
 {
-	m_doc->lockGuides(lockCheck->isChecked());
+	m_doc->lockGuides(lockGuidesButton->isChecked());
 }
 
 void GuideManager::copyGuidesToAllPages(GuideManagerCore::GuideType t)
@@ -352,24 +626,19 @@ void GuideManager::copyGuidesToAllPages(GuideManagerCore::GuideType t)
 	m_doc->changed();
 }
 
-void GuideManager::applyToAllStdButton_clicked()
+void GuideManager::applyToAllPagesButton_clicked()
 {
 	copyGuidesToAllPages(GuideManagerCore::Standard);
 }
 
-void GuideManager::applyToAllAutoButton_clicked()
+void GuideManager::applyAutoToAllPagesButton_clicked()
 {
 	copyGuidesToAllPages(GuideManagerCore::Auto);
 }
 
 void GuideManager::horizontalAutoCountSpin_valueChanged(double val)
 {
-	bool enable = val != 0;
-	horizontalAutoGapCheck->setEnabled(enable);
-	if (enable && horizontalAutoGapCheck->isChecked())
-		horizontalAutoGapSpin->setEnabled(true);
-	else
-		horizontalAutoGapSpin->setEnabled(false);
+	horizontalAutoGapSpin->setEnabled(val > 0);
 	currentPage->guides.setHorizontalAutoCount(static_cast<int>(val));
 	drawGuides();
 	m_doc->changed();
@@ -382,25 +651,9 @@ void GuideManager::horizontalAutoGapSpin_valueChanged(double)
 	m_doc->changed();
 }
 
-void GuideManager::horizontalAutoGapCheck_stateChanged( int )
-{
-	horizontalAutoGapSpin->setEnabled(horizontalAutoGapCheck->isChecked());
-	if (horizontalAutoGapCheck->isChecked())
-		currentPage->guides.setHorizontalAutoGap(horizontalAutoGapSpin->getValue(SC_PT));
-	else
-		currentPage->guides.setHorizontalAutoGap(0.0);
-	drawGuides();
-	m_doc->changed();
-}
-
 void GuideManager::verticalAutoCountSpin_valueChanged(double val)
 {
-	bool enable = val != 0;
-	verticalAutoGapCheck->setEnabled(enable);
-	if (enable && verticalAutoGapCheck->isChecked())
-		verticalAutoGapSpin->setEnabled(true);
-	else
-		verticalAutoGapSpin->setEnabled(false);
+	verticalAutoGapSpin->setEnabled(val > 0);
 	currentPage->guides.setVerticalAutoCount(static_cast<int>(val));
 	drawGuides();
 	m_doc->changed();
@@ -411,27 +664,6 @@ void GuideManager::verticalAutoGapSpin_valueChanged(double)
 	currentPage->guides.setVerticalAutoGap(verticalAutoGapSpin->getValue(SC_PT));
 	drawGuides();
 	m_doc->changed();
-}
-
-void GuideManager::verticalAutoGapCheck_stateChanged( int )
-{
-	verticalAutoGapSpin->setEnabled(verticalAutoGapCheck->isChecked());
-	if (verticalAutoGapCheck->isChecked())
-		currentPage->guides.setVerticalAutoGap(verticalAutoGapSpin->getValue(SC_PT));
-	else
-		currentPage->guides.setVerticalAutoGap(0.0);
-	drawGuides();
-	m_doc->changed();
-}
-
-void GuideManager::tabWidget_currentChanged(int)
-{
-	drawGuides();
-	if (tabWidget->currentIndex() == 1)
-	{
-		horizontalAutoGapSpin->setEnabled(horizontalAutoGapCheck->isChecked());
-		verticalAutoGapSpin->setEnabled(verticalAutoGapCheck->isChecked());
-	}
 }
 
 Guides GuideManager::selectedHorizontals() const
@@ -460,9 +692,8 @@ Guides GuideManager::selectedVerticals() const
 
 void GuideManager::setGuideLock(bool guidesLocked)
 {
-	bool b = lockCheck->blockSignals(true);
-	lockCheck->setChecked(guidesLocked);
-	lockCheck->blockSignals(b);
+	QSignalBlocker blocker(lockGuidesButton);
+	lockGuidesButton->setChecked(guidesLocked);
 }
 
 void GuideManager::forceDrawGuides(const QItemSelection &, const QItemSelection &)
@@ -472,7 +703,7 @@ void GuideManager::forceDrawGuides(const QItemSelection &, const QItemSelection 
 
 void GuideManager::drawGuides()
 {
-	if (!m_doc || !m_drawGuides)
+	if (!m_doc || !currentPage || !m_drawGuides)
 		return;
 
 	currentPage->guides.addHorizontals(getAutoHorizontals(currentPage), GuideManagerCore::Auto);
@@ -483,98 +714,24 @@ void GuideManager::drawGuides()
 void GuideManager::clearRestoreHorizontalList()
 {
 	horizontalModel->setValues(currentPage->guides.horizontals(GuideManagerCore::Standard));
-	drawGuides();
 }
 
 void GuideManager::clearRestoreVerticalList()
 {
 	verticalModel->setValues(currentPage->guides.verticals(GuideManagerCore::Standard));
-	drawGuides();
-}
-
-void GuideManager::deletePageButton_clicked()
-{
-	if (!currentPage->guides.hasGuides())
-		return;
-
-	UndoTransaction trans;
-	if(UndoManager::undoEnabled())
-		trans = UndoManager::instance()->beginTransaction(currentPage->getUName(),
-														currentPage->getUPixmap(),
-														Um::RemoveAllPageGuides, "",
-														Um::IGuides);
-	currentPage->guides.clearHorizontals(GuideManagerCore::Standard);
-	currentPage->guides.clearVerticals(GuideManagerCore::Standard);
-	currentPage->guides.clearHorizontals(GuideManagerCore::Auto);
-	currentPage->guides.clearVerticals(GuideManagerCore::Auto);
-	clearRestoreHorizontalList();
-	clearRestoreVerticalList();
-
-	currentPage->guides.setHorizontalAutoCount(0);
-	currentPage->guides.setVerticalAutoCount(0);
-	currentPage->guides.setHorizontalAutoGap(0.0);
-	currentPage->guides.setVerticalAutoGap(0.0);
-	currentPage->guides.setHorizontalAutoRefer(0);
-	currentPage->guides.setVerticalAutoRefer(0);
-	horizontalAutoCountSpin->setValue(0);
-	verticalAutoCountSpin->setValue(0);
-	
-	if (trans)
-		trans.commit();
-
-	drawGuides();
-	m_doc->changed();
-}
-
-void GuideManager::deleteAllGuides_clicked()
-{
-	bool hasGuides = false;
-	for (const ScPage* page : *m_doc->Pages)
-	{
-		if (page->guides.hasGuides())
-		{
-			hasGuides = true;
-			break;
-		}
-	}
-	if (!hasGuides)
-		return;
-
-
-	UndoTransaction trans;
-	if (UndoManager::undoEnabled())
-		trans = UndoManager::instance()->beginTransaction(m_doc->getUName(),
-														m_doc->getUPixmap(),
-														Um::RemoveAllGuides, "",
-														Um::IGuides);
-	m_drawGuides = false;
-	deletePageButton_clicked();
-	copyGuidesToAllPages(GuideManagerCore::Standard);
-	copyGuidesToAllPages(GuideManagerCore::Auto);
-	m_drawGuides = true;
-	if (trans)
-		trans.commit();
-	drawGuides();
-	m_doc->changed();
 }
 
 Guides GuideManager::getAutoVerticals(const ScPage * page) const
 {
 	GuideManagerCore guides;
 
-	double gapValue = 0.0;
-	if (horizontalAutoGapCheck->isChecked())
-		gapValue = horizontalAutoGapSpin->getValue(SC_PT);
-	guides.setHorizontalAutoGap(gapValue);
+	guides.setHorizontalAutoGap(horizontalAutoGapSpin->getValue(SC_PT));
 	guides.setHorizontalAutoCount(static_cast<int>(horizontalAutoCountSpin->value()));
-	guides.setHorizontalAutoRefer(horizontalRefer());
+	guides.setHorizontalAutoRefer(horizontalReference());
 
-	gapValue = 0.0;
-	if (verticalAutoGapCheck->isChecked())
-		gapValue = verticalAutoGapSpin->getValue(SC_PT);
-	guides.setVerticalAutoGap(gapValue);
+	guides.setVerticalAutoGap(verticalAutoGapSpin->getValue(SC_PT));
 	guides.setVerticalAutoCount(static_cast<int>(verticalAutoCountSpin->value()));
-	guides.setVerticalAutoRefer(verticalRefer());
+	guides.setVerticalAutoRefer(verticalReference());
 
 	return guides.getAutoVerticals(page);
 }
@@ -583,40 +740,62 @@ Guides GuideManager::getAutoHorizontals(const ScPage * page) const
 {
 	GuideManagerCore guides;
 
-	double gapValue = 0.0;
-	if (horizontalAutoGapCheck->isChecked())
-		gapValue = horizontalAutoGapSpin->getValue(SC_PT);
-	guides.setHorizontalAutoGap(gapValue);
+	guides.setHorizontalAutoGap(horizontalAutoGapSpin->getValue(SC_PT));
 	guides.setHorizontalAutoCount(static_cast<int>(horizontalAutoCountSpin->value()));
-	guides.setHorizontalAutoRefer(horizontalRefer());
+	guides.setHorizontalAutoRefer(horizontalReference());
 
-	gapValue = 0.0;
-	if (verticalAutoGapCheck->isChecked())
-		gapValue = verticalAutoGapSpin->getValue(SC_PT);
-	guides.setVerticalAutoGap(gapValue);
+	guides.setVerticalAutoGap(verticalAutoGapSpin->getValue(SC_PT));
 	guides.setVerticalAutoCount(static_cast<int>(verticalAutoCountSpin->value()));
-	guides.setVerticalAutoRefer(verticalRefer());
+	guides.setVerticalAutoRefer(verticalReference());
 
 	return guides.getAutoHorizontals(page);
 }
 
-void GuideManager::verticalModel_valueChanged()
+void GuideManager::addGuide(bool horizontal, double position)
 {
-	currentPage->guides.clearVerticals(GuideManagerCore::Standard);
-	currentPage->guides.addVerticals(verticalModel->values(), GuideManagerCore::Standard);
+	if (!currentPage)
+		return;
+	const Guides existing = horizontal ? currentPage->guides.horizontals(GuideManagerCore::Standard)
+	                                   : currentPage->guides.verticals(GuideManagerCore::Standard);
+	if (existing.contains(position))
+		return;
+	if (horizontal)
+		currentPage->guides.addHorizontal(position, GuideManagerCore::Standard);
+	else
+		currentPage->guides.addVertical(position, GuideManagerCore::Standard);
+	updateClearButtons();
 	drawGuides();
 	m_doc->changed();
 }
 
-void GuideManager::horizontalModel_valueChanged()
+void GuideManager::guideValueChanged(bool horizontal, double oldPosition, double newPosition)
 {
-	currentPage->guides.clearHorizontals(GuideManagerCore::Standard);
-	currentPage->guides.addHorizontals(horizontalModel->values(), GuideManagerCore::Standard);
+	if (!currentPage || oldPosition == newPosition)
+		return;
+	const Guides existing = horizontal ? currentPage->guides.horizontals(GuideManagerCore::Standard)
+	                                   : currentPage->guides.verticals(GuideManagerCore::Standard);
+	if (!existing.contains(oldPosition))
+		return;
+	if (horizontal)
+		currentPage->guides.moveHorizontal(oldPosition, newPosition, GuideManagerCore::Standard);
+	else
+		currentPage->guides.moveVertical(oldPosition, newPosition, GuideManagerCore::Standard);
+	updateClearButtons();
 	drawGuides();
 	m_doc->changed();
 }
 
-void GuideManager::setHorizontalRefer(int button)
+void GuideManager::verticalModel_valueChanged(double oldPosition, double newPosition)
+{
+	guideValueChanged(false, oldPosition, newPosition);
+}
+
+void GuideManager::horizontalModel_valueChanged(double oldPosition, double newPosition)
+{
+	guideValueChanged(true, oldPosition, newPosition);
+}
+
+void GuideManager::setHorizontalReference(int button)
 {
 	switch (button)
 	{
@@ -633,7 +812,7 @@ void GuideManager::setHorizontalRefer(int button)
 	}
 }
 
-int GuideManager::horizontalRefer() const
+int GuideManager::horizontalReference() const
 {
 	if (horizontalPageAutoButton->isChecked())
 		return 0;
@@ -644,7 +823,7 @@ int GuideManager::horizontalRefer() const
 	return 0;
 }
 
-void GuideManager::setVerticalRefer(int button)
+void GuideManager::setVerticalReference(int button)
 {
 	switch (button)
 	{
@@ -661,7 +840,7 @@ void GuideManager::setVerticalRefer(int button)
 	}
 }
 
-int GuideManager::verticalRefer() const
+int GuideManager::verticalReference() const
 {
 	if (verticalPageAutoButton->isChecked())
 		return 0;
@@ -678,6 +857,8 @@ void GuideManager::horizontalPageAutoButton_toggled(bool state)
 		return;
 	currentPage->guides.setHorizontalAutoRefer(0);
 	drawGuides();
+	if (currentPage->guides.horizontalAutoCount() > 0)
+		m_doc->changed();
 }
 
 void GuideManager::horizontalMarginsAutoButton_toggled(bool state)
@@ -686,6 +867,8 @@ void GuideManager::horizontalMarginsAutoButton_toggled(bool state)
 		return;
 	currentPage->guides.setHorizontalAutoRefer(1);
 	drawGuides();
+	if (currentPage->guides.horizontalAutoCount() > 0)
+		m_doc->changed();
 }
 
 void GuideManager::horizontalSelectionAutoButton_toggled(bool state)
@@ -696,6 +879,8 @@ void GuideManager::horizontalSelectionAutoButton_toggled(bool state)
 	if (horizontalSelectionAutoButton->isEnabled())
 		currentPage->guides.resetSelectionForPage(currentPage);
 	drawGuides();
+	if (currentPage->guides.horizontalAutoCount() > 0)
+		m_doc->changed();
 }
 
 void GuideManager::verticalPageAutoButton_toggled(bool state)
@@ -704,7 +889,8 @@ void GuideManager::verticalPageAutoButton_toggled(bool state)
 		return;
 	currentPage->guides.setVerticalAutoRefer(0);
 	drawGuides();
-	m_doc->changed();
+	if (currentPage->guides.verticalAutoCount() > 0)
+		m_doc->changed();
 }
 
 void GuideManager::verticalMarginsAutoButton_toggled(bool state)
@@ -713,7 +899,8 @@ void GuideManager::verticalMarginsAutoButton_toggled(bool state)
 		return;
 	currentPage->guides.setVerticalAutoRefer(1);
 	drawGuides();
-	m_doc->changed();
+	if (currentPage->guides.verticalAutoCount() > 0)
+		m_doc->changed();
 }
 
 void GuideManager::verticalSelectionAutoButton_toggled(bool state)
@@ -724,5 +911,6 @@ void GuideManager::verticalSelectionAutoButton_toggled(bool state)
 	if (verticalSelectionAutoButton->isEnabled())
 		currentPage->guides.resetSelectionForPage(currentPage);
 	drawGuides();
-	m_doc->changed();
+	if (currentPage->guides.verticalAutoCount() > 0)
+		m_doc->changed();
 }

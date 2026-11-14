@@ -17,13 +17,12 @@ for which a new license (GPL+exception) is in place.
 
 class GuidesModel;
 class ScribusDoc;
+class QToolButton;
 
 
 
-/*! \brief GuideManager is the dialog for guides managing ;).
-It's scribus non-modal palette now.
-\warning Be careful with UI file guidemanagerbase.ui it uses ScrPaletteBase
-as base class instead of QDialog. It should provide correct header file too.
+/*! \brief Non-modal palette for managing manual and automatic page guides.
+The guidemanager.ui form uses ScrPaletteBase as its base class.
 
 \author Petr vanek <petr@scribus.info>
 \author Alessandro Rimoldi
@@ -35,22 +34,21 @@ class SCRIBUS_API GuideManager : public ScrPaletteBase, Ui::GuideManager
 
 public:
 	GuideManager(QWidget* parent);
-	~GuideManager();
+	~GuideManager() = default;
 
-	/*! \brief Set the doc fo the guidemanager to work on. */
+	/*! \brief Set the document managed by this palette. */
 	void setDoc(ScribusDoc* doc);
 
-	/*! \brief Reimplement ScrPaletteBase::setVisible() */
+	/*! \brief Override ScrPaletteBase::setVisible(). */
 	void setVisible(bool visible) override;
 
-	/*! \brief Set the widgets on the page change.
-	It has to be called on every page to page transition */
+	/*! \brief Update the palette when the current page changes. */
 	void setupPage(bool storeValues = true);
 	void setupGui();
 
-	/*! \brief Clear and reset the GUI horizontal list widget. */
+	/*! \brief Reload the horizontal manual-guide model. */
 	void clearRestoreHorizontalList();
-	/*! \brief Clear and reset the GUI vertical list widget. */
+	/*! \brief Reload the vertical manual-guide model. */
 	void clearRestoreVerticalList();
 
 	/*! \brief Get selected standard guides from GUI list.
@@ -62,29 +60,27 @@ public:
 	\retval Guides a list with double values */
 	Guides selectedVerticals() const;
 
-	/*! \brief check the current page number to prevent drawing
-	marks on the others pages. See GuideManagerCore::drawPage.
-	\retval int page no */
+	/*! \brief Current page number, or -1 when no page is set. */
 	int pageNr() const { return ((currentPage) ? currentPage->pageNr() : -1); }
-
-	int currentIndex() const { return tabWidget->currentIndex(); }
 
 	void setGuideLock(bool guidesLocked);
 
 protected:
 	void changeEvent(QEvent *e) override;
+	bool eventFilter(QObject *watched, QEvent *event) override;
 
 private:
-	//! \brief Store the guide values in the Qt4 model
-	GuidesModel * horizontalModel { nullptr };
-	//! \brief Store the guide values in the Qt4 model
-	GuidesModel * verticalModel { nullptr };
+	GuidesModel* horizontalModel { nullptr };
+	GuidesModel* verticalModel { nullptr };
 
 	ScribusDoc* m_doc { nullptr };
 	//! \brief a reference to the current pages
-	ScPage * currentPage { nullptr };
+	ScPage* currentPage { nullptr };
 	//! \brief A flag to prevent guides drawing when it's not needed
 	bool m_drawGuides { true };
+	QWidget* m_horizontalEditor { nullptr };
+	QWidget* m_verticalEditor { nullptr };
+	unsigned int m_pageGeneration { 0 };
 
 	//! \brief Initialise the units. Spin boxes gets pt/mm/etc. extensions here.
 	void unitChange();
@@ -92,15 +88,11 @@ private:
 	//! \brief Document measurements and metrics
 	int docUnitIndex { 0 };
 
-	/*! \brief Copy guides from currentPage to all remaining.
-	All gudes are deleted before copying.
-	\param t a type to clear and copy.*/
+	/*! \brief Apply one guide category to the other pages without changing the other category. */
 	void copyGuidesToAllPages(GuideManagerCore::GuideType t);
 
-	/*! \brief Save needed (Auto) values into GuideManagerCore.
-	To be restored on the page return.
-	\param page A reference to the page to store values. */
-	void storePageValues(ScPage * page) const;
+	/*! \brief Store automatic-guide settings and positions for the given page. */
+	void storePageValues(ScPage* page) const;
 
 	/*! \brief Create automatic horizontal guides.
 	Calculates positions of the guides.
@@ -114,32 +106,41 @@ private:
 	*/
 	Guides getAutoVerticals(const ScPage * p) const;
 
-	/*! \brief Draw guides into painter */
+	/*! \brief Refresh the canvas guides. */
 	void drawGuides();
+	void guideValueChanged(bool horizontal, double oldPosition, double newPosition);
+	void addGuide(bool horizontal, double position);
+	void setAddButtonEditing(QToolButton* button, bool editing, bool horizontal);
+	void discardPendingGuide(bool horizontal);
+	void finishGuideEditors();
+	void updateClearButtons();
+	/*! \brief Remove all guides from \a page and reset its rows and columns. */
+	void clearPageGuides(ScPage* page) const;
 
-	/*! \brief These methods simulate old button group behaviour.
-	Is there a better way to do it? QButtonGroup? It's more code...
-	*/
-	void setHorizontalRefer(int button);
-	int horizontalRefer() const;
-	void setVerticalRefer(int button);
-	int verticalRefer() const;
+	/*! \brief Map the mutually exclusive reference buttons to stored indices. */
+	void setHorizontalReference(int button);
+	int horizontalReference() const;
+	void setVerticalReference(int button);
+	int verticalReference() const;
 	void languageChange();
+	void iconSetChange();
 
 private slots:
 	//! Wrapper slot for drawGuides()
 	void forceDrawGuides(const QItemSelection &, const QItemSelection &);
-	void verticalModel_valueChanged();
-	void horizontalModel_valueChanged();
-	void addHorButton_clicked();
-	void delHorButton_clicked();
-	void addVerButton_clicked();
-	void delVerButton_clicked();
-	void applyToAllStdButton_clicked();
-	void lockCheck_stateChanged( int );
-	void horizontalAutoGapCheck_stateChanged( int );
-	void verticalAutoGapCheck_stateChanged( int );
-	void applyToAllAutoButton_clicked();
+	void verticalModel_valueChanged(double oldPosition, double newPosition);
+	void horizontalModel_valueChanged(double oldPosition, double newPosition);
+	void addHorizontalButton_clicked();
+	void deleteHorizontalButton_clicked();
+	void addVerticalButton_clicked();
+	void deleteVerticalButton_clicked();
+	void clearHorizontalButton_clicked();
+	void clearVerticalButton_clicked();
+	void clearPageGuidesButton_clicked();
+	void clearAllGuidesButton_clicked();
+	void applyToAllPagesButton_clicked();
+	void applyAutoToAllPagesButton_clicked();
+	void lockGuidesButton_clicked();
 	void horizontalAutoCountSpin_valueChanged( double );
 	void verticalAutoCountSpin_valueChanged( double );
 	void horizontalAutoGapSpin_valueChanged(double);
@@ -150,9 +151,6 @@ private slots:
 	void verticalPageAutoButton_toggled(bool);
 	void verticalMarginsAutoButton_toggled(bool);
 	void verticalSelectionAutoButton_toggled(bool);
-	void tabWidget_currentChanged(int);
-	void deletePageButton_clicked();
-	void deleteAllGuides_clicked();
 };
 
 #endif // GUIDEMANAGER_H

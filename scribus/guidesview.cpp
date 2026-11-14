@@ -20,5 +20,10 @@ void GuidesView::keyPressEvent(QKeyEvent * event)
 		emit deleteKeyPressed();
 		return;
 	}
+	if (event->key() == Qt::Key_Plus)
+	{
+		emit plusKeyPressed();
+		return;
+	}
 	QTableView::keyPressEvent(event);
 }

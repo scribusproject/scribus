@@ -11,12 +11,8 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 
 
-/*! \brief A model for guides lists.
-It holds guides as a double QList (it will be expanded later because of RFEs)
-and it handles its values editing too. The editor from GuidesDelegate
-is used.
-See Qt4 documentation for more info about its methods.
-FIXME: unit conversions for dipslay vs. internal
+/*! \brief A model for editing manual guide positions.
+Positions are stored in document points and displayed relative to the ruler.
 \author Petr Vanek <petr@scribus.info>
 */
 class GuidesModel : public QAbstractTableModel
@@ -38,11 +34,8 @@ class GuidesModel : public QAbstractTableModel
 		QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
 
 		void removeValues(const Guides & guides);
-		// qt4 api is "wrokarounded" with insertRow() and removeValues()
-		// these removeRows() and insertRows() does not handle margin items correctly
-// 		bool removeRows(int row, int count, const QModelIndex & parent = QModelIndex());
-// 		bool insertRows( int row, int count, const QModelIndex & parent = QModelIndex());
-		void insertRow();
+		int insertRow();
+		void discardPendingRow();
 
 		//! \brief Set new values into the model.
 		void setValues(const Guides& values);
@@ -50,18 +43,16 @@ class GuidesModel : public QAbstractTableModel
 		const Guides& values() const;
 
 		void unitChange(int docUnitIndex, int docUnitDecimals, double offset);
-#if 0
-		//! debug only
-		void printValues();
-#endif
 
 	signals:
 		/*! \brief Signal emitted when the user finishes editing one value.
 		*/
-		void valueChanged();
+		void valueChanged(double oldPosition, double newPosition);
+		void guideAdded(double position);
 
 	private:
 		Guides m_values;
+		int m_pendingRow {-1};
 		int m_docUnitIndex {0};
 		int m_docUnitDecimals {0};
 		double m_rule {0.0};

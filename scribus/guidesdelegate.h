@@ -24,11 +24,6 @@ class GuidesDelegate : public QItemDelegate
 	public:
 		GuidesDelegate(QObject *parent = nullptr);
 
-// implemented in inheritance
-// 		QWidget *createEditor(QWidget *parent,
-// 							const QStyleOptionViewItem &option,
-// 							const QModelIndex &index) const;
-
 		void setEditorData(QWidget *editor, const QModelIndex &index) const;
 
 		void setModelData(QWidget *editor,
@@ -39,8 +34,11 @@ class GuidesDelegate : public QItemDelegate
 								const QStyleOptionViewItem &option,
 								const QModelIndex &index) const;
 
-		void unitChange(int docUnitDecimals);
 		void setDoc(ScribusDoc * doc);
+		void finishEditing(QWidget *editor);
+
+	signals:
+		void editorOpened(QWidget *editor) const;
 
 	// protected due const in createEditor
 	protected:

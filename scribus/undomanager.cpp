@@ -832,6 +832,8 @@ void UndoManager::languageChange()
 	UndoManager::AdjustFrameToImage = tr("Adjust frame to the image size");
 	UndoManager::RemoveAllGuides    = tr("Remove all guides");
 	UndoManager::RemoveAllPageGuides= tr("Remove page guides");
+	UndoManager::RemoveHGuides      = tr("Remove horizontal guides");
+	UndoManager::RemoveVGuides      = tr("Remove vertical guides");
 	UndoManager::Copy               = tr("Copy");
 	UndoManager::CopyPage           = tr("Copy page");
 	UndoManager::MovePage           = tr("Move page");
@@ -1184,6 +1186,8 @@ QString UndoManager::InsertFrame        = "";
 QString UndoManager::AdjustFrameToImage = "";
 QString UndoManager::RemoveAllGuides    = "";
 QString UndoManager::RemoveAllPageGuides= "";
+QString UndoManager::RemoveHGuides      = "";
+QString UndoManager::RemoveVGuides      = "";
 QString UndoManager::Copy               = "";
 QString UndoManager::CopyPage           = "";
 QString UndoManager::ImportPage         = "";

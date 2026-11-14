@@ -5,6 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include <QModelIndex>
+#include <QPointer>
 
 #include "ui/scrspinbox.h"
 #include "scribusdoc.h"
@@ -16,17 +17,6 @@ GuidesDelegate::GuidesDelegate(QObject *parent)
 	: QItemDelegate(parent)
 {
 }
-
-// QWidget * GuidesDelegate::createEditor(QWidget *parent,
-// 									   const QStyleOptionViewItem &/* option */,
-// 									   const QModelIndex &/* index */) const
-// {
-// 	Q_ASSERT_X(m_doc != 0, "GuidesDelegate::createEditor",
-// 			   "No reference to the doc");
-// 	ScrSpinBox *editor = new ScrSpinBox(0, m_doc->currentPage()->height(),
-// 										parent, m_doc->unitIndex());
-// 	return editor;
-// }
 
 void GuidesDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 {
@@ -54,6 +44,14 @@ void GuidesDelegate::setDoc(ScribusDoc * doc)
 	m_doc = doc;
 }
 
+void GuidesDelegate::finishEditing(QWidget *editor)
+{
+	QPointer<QWidget> guard(editor);
+	emit commitData(editor);
+	if (guard)
+		emit closeEditor(editor);
+}
+
 
 // horizontals
 
@@ -70,6 +68,7 @@ QWidget * GuidesHDelegate::createEditor(QWidget *parent, const QStyleOptionViewI
 	double max = (m_doc->currentPage()->height() * uix) + (m_doc->bleeds()->bottom() * uix);
 	ScrSpinBox *editor = new ScrSpinBox(min, max, parent, m_doc->unitIndex());
 	editor->setConstants(&m_doc->constants());
+	emit editorOpened(editor);
 	return editor;
 }
 
@@ -88,5 +87,6 @@ QWidget * GuidesVDelegate::createEditor(QWidget *parent, const QStyleOptionViewI
 	double max = (m_doc->currentPage()->width() * uix) + (m_doc->bleeds()->right() * uix);
 	ScrSpinBox *editor = new ScrSpinBox(min, max, parent, m_doc->unitIndex());
 	editor->setConstants(&m_doc->constants());
+	emit editorOpened(editor);
 	return editor;
 }

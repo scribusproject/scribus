@@ -22,6 +22,7 @@ class GuidesView : public QTableView
 
 	signals:
 		void deleteKeyPressed();
+		void plusKeyPressed();
 
 	protected:
 		void keyPressEvent(QKeyEvent * event) override;

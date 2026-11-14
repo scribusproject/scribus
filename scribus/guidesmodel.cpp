@@ -12,66 +12,110 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 
 
-GuidesModel::GuidesModel(QObject * /*parent*/)
+GuidesModel::GuidesModel(QObject *parent)
+	: QAbstractTableModel(parent)
 {
 }
 
 GuidesModel::~GuidesModel() = default;
 
-int GuidesModel::rowCount(const QModelIndex & /*parent*/) const
+int GuidesModel::rowCount(const QModelIndex &parent) const
 {
-	return m_values.count();
+	return parent.isValid() ? 0 : m_values.count();
 }
 
-int GuidesModel::columnCount(const QModelIndex & /*parent*/) const
+int GuidesModel::columnCount(const QModelIndex &parent) const
 {
-	// for future RFEs - color per guide etc.
-	return 1;
+	return parent.isValid() ? 0 : 1;
 }
 
 QVariant GuidesModel::data(const QModelIndex & index, int role) const
 {
-	if (!index.isValid())
+	if (!index.isValid() || index.model() != this || index.column() != 0 || index.row() < 0 || index.row() >= m_values.count())
 		return QVariant();
-	// DisplayRole and EditRole *must* be split. There is rounding
-	// in pts2value(), toString() sequence. It disallows to compare
-	// these values with m_data list.
-	// Call it with EditRole when you need exact value.
+	// Display is rounded to the document's precision; editing uses the value.
 	if (role == Qt::DisplayRole)
 	{
 		QLocale l;
-		return QVariant(l.toString(pts2value(m_values.at(index.row()) - m_rule,
-											  m_docUnitIndex), 'f',
-											  m_docUnitDecimals)
-						+ unitGetSuffixFromIndex(m_docUnitIndex));
+		return QVariant(l.toString(pts2value(m_values.at(index.row()) - m_rule, m_docUnitIndex), 'f', m_docUnitDecimals) + unitGetSuffixFromIndex(m_docUnitIndex));
 	}
 	if (role == Qt::EditRole)
 		return pts2value(m_values.at(index.row()) - m_rule, m_docUnitIndex);
 	if (role == Qt::UserRole)
 		return m_values.at(index.row());
 
-	if (role == Qt::BackgroundRole && m_values.at(index.row()) == 0.0)
-		return QVariant(QColor(Qt::red));
 	return QVariant();
 }
 
 bool GuidesModel::setData(const QModelIndex & index, const QVariant & value, int role)
 {
-	if (role != Qt::EditRole || !index.isValid())
+	if (role != Qt::EditRole || !index.isValid() || index.model() != this || index.column() != 0 || index.row() < 0 || index.row() >= m_values.count())
 		return false;
 	bool ok;
 	double newVal = value.toDouble(&ok);
 	if (!ok)
 		return false;
-	m_values[index.row()] = value2pts(newVal, m_docUnitIndex) + m_rule;
-	std::sort(m_values.begin(), m_values.end());
-	emit dataChanged(index, index);
-	emit valueChanged();
+
+	const int oldRow = index.row();
+	const double oldPos = m_values.at(oldRow);
+	const double newPos = value2pts(newVal, m_docUnitIndex) + m_rule;
+	const bool pending = (oldRow == m_pendingRow);
+	// Commit a new row even at zero; unchanged existing guides must be no-ops.
+	if (!pending)
+	{
+		QLocale locale;
+		const double shownValue = locale.toDouble(locale.toString(pts2value(oldPos - m_rule, m_docUnitIndex), 'f', m_docUnitDecimals));
+		if (oldPos == newPos || shownValue == newVal)
+			return true;
+	}
+
+	// Ignore the pending row itself when checking for duplicate positions.
+	const bool occupied = m_values.contains(newPos) && (!pending || newPos != oldPos || m_values.count(newPos) > 1);
+	if (occupied)
+	{
+		beginRemoveRows(QModelIndex(), oldRow, oldRow);
+		m_values.removeAt(oldRow);
+		if (pending)
+			m_pendingRow = -1;
+		endRemoveRows();
+	}
+	else
+	{
+		int newRow = 0;
+		for (int i = 0; i < m_values.count(); ++i)
+		{
+			if (i != oldRow && m_values.at(i) < newPos)
+				++newRow;
+		}
+		if (newRow != oldRow)
+		{
+			const int destination = newRow > oldRow ? newRow + 1 : newRow;
+			beginMoveRows(QModelIndex(), oldRow, oldRow, QModelIndex(), destination);
+			m_values.removeAt(oldRow);
+			m_values.insert(newRow, newPos);
+			endMoveRows();
+		}
+		else
+			m_values[oldRow] = newPos;
+		if (pending)
+			m_pendingRow = -1;
+		const QModelIndex changed = this->index(newRow, 0);
+		emit dataChanged(changed, changed);
+	}
+	if (pending)
+	{
+		if (!occupied)
+			emit guideAdded(newPos);
+	}
+	else
+		emit valueChanged(oldPos, newPos);
 	return true;
 }
 
-Qt::ItemFlags GuidesModel::flags(const QModelIndex & /*index*/) const
+Qt::ItemFlags GuidesModel::flags(const QModelIndex &index) const
 {
+	if (!index.isValid() || index.model() != this || index.column() != 0 || index.row() < 0 || index.row() >= m_values.count())
+		return Qt::NoItemFlags;
 	return Qt::ItemIsEnabled | Qt::ItemIsEditable | Qt::ItemIsSelectable;
 }
 
@@ -84,42 +128,41 @@ QVariant GuidesModel::headerData(int /*section*/, Qt::Orientation orientation, i
 
 void GuidesModel::removeValues(const Guides & guides)
 {
-	beginResetModel();
-	for (double d : guides)
-		m_values.removeAll(d);
-	endResetModel();
+	if (guides.isEmpty())
+		return;
+	// Keep an unfinished editor row (and its index) when removing other guides.
+	for (int row = m_values.count() - 1; row >= 0; --row)
+	{
+		if (row == m_pendingRow || !guides.contains(m_values.at(row)))
+			continue;
+		beginRemoveRows(QModelIndex(), row, row);
+		m_values.removeAt(row);
+		if (m_pendingRow > row)
+			--m_pendingRow;
+		endRemoveRows();
+	}
 }
 
-// bool GuidesModel::removeRows(int row, int count, const QModelIndex & parent)
-// {
-// 	if (count <= 0 || row < 0 || (row + count - 1) > m_values.count())
-// 		return false;
-// 
-// 	beginRemoveRows(parent, row, row + count - 1);
-// 	for (int i = 0; i < count; ++i)
-// 		m_values.removeAt(row);
-// 	endRemoveRows();
-// 	return true;
-// }
-
-// bool GuidesModel::insertRows( int row, int count, const QModelIndex & parent)
-// {
-// 	beginInsertRows(parent, row, row + count - 1);
-// 	for (int i = 0; i < count; ++i)
-// 		m_values.insert(row + count, 0.0);
-// 	endInsertRows();
-// 	return true;
-// }
-
-void GuidesModel::insertRow()
+int GuidesModel::insertRow()
 {
-// 	insertRows(rowCount(), 1);
-	beginResetModel();
-	if (m_values.contains(0.0))
+	if (m_pendingRow >= 0)
+		return m_pendingRow;
+	// A temporary editor row starts at ruler-relative zero, not a committed guide.
+	beginInsertRows(QModelIndex(), 0, 0);
+	m_values.prepend(m_rule);
+	m_pendingRow = 0;
+	endInsertRows();
+	return m_pendingRow;
+}
+
+void GuidesModel::discardPendingRow()
+{
+	if (m_pendingRow < 0)
 		return;
-	m_values.append(0.0);
-	std::sort(m_values.begin(), m_values.end());
-	endResetModel();
+	beginRemoveRows(QModelIndex(), m_pendingRow, m_pendingRow);
+	m_values.removeAt(m_pendingRow);
+	m_pendingRow = -1;
+	endRemoveRows();
 }
 
 void GuidesModel::setValues(const Guides& values)
@@ -127,6 +170,7 @@ void GuidesModel::setValues(const Guides& values)
 	beginResetModel();
 	m_values = values;
 	std::sort(m_values.begin(), m_values.end());
+	m_pendingRow = -1;
 	endResetModel();
 }
 
@@ -143,15 +187,3 @@ void GuidesModel::unitChange(int docUnitIndex, int docUnitDecimals,double offset
 	m_docUnitDecimals = docUnitDecimals;
 	endResetModel();
 }
-
-#if 0
-// debug
-#include <QtDebug>
-void GuidesModel::printValues()
-{
-	qDebug() << "GuidesModel dump start";
-	for (int i = 0; i < m_values.count(); ++i)
-		qDebug() << "GuidesModel dump: " << m_values[i];
-	qDebug() << "GuidesModel end of dump";
-}
-#endif

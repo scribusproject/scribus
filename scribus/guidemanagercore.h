@@ -132,8 +132,8 @@ private:
 	double m_verticalAutoGap {0.0};
 	int m_horizontalAutoCount {0};
 	int m_verticalAutoCount {0};
-	int m_horizontalAutoRefer {0};
-	int m_verticalAutoRefer {0};
+	int m_horizontalAutoRefer {1};
+	int m_verticalAutoRefer {1};
 
 	double closestHorAbove(double y) const;
 	double closestHorBelow(double y) const;
