@@ -1725,7 +1725,12 @@ void ScribusView::PasteToPage()
 			ScClipboardProcessor scclipproc(m_doc, table->activeCell().textFrame());
 			scclipproc.setDestTable(table);
 			scclipproc.setContent(clipContent, ScClipboardProcessor::ContentType::HTML);
+			const int colorCount = m_doc->PageColors.count();
 			scclipproc.process();
+			// Text and cell colours from the source are added to the document,
+			// so the colour lists in the palettes need to include them
+			if (m_doc->PageColors.count() != colorCount)
+				m_ScMW->updateColorLists();
 
 			// insertColumns() gives each new column the width of the one it was
 			// inserted after, so the table is now one creation-width wide per

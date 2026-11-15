@@ -4826,7 +4826,12 @@ void ScribusMainWindow::slotEditPaste(bool forcePlainText)
 				scclipproc.setDestTable(selItem->asTable());
 			QString clipContent = QApplication::clipboard()->mimeData()->html();
 			scclipproc.setContent(clipContent, ScClipboardProcessor::ContentType::HTML);
+			const int colorCount = doc->PageColors.count();
 			scclipproc.process();
+			// Text and cell colours from the source are added to the document,
+			// so the colour lists in the palettes need to include them
+			if (doc->PageColors.count() != colorCount)
+				updateColorLists();
 		}
 		else if (ScMimeData::clipboardHasKnownData())
 		{
