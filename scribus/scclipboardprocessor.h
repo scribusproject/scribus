@@ -5,6 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <QColor>
 #include <QMap>
 #include <QString>
 #include <QTextBlock>
@@ -76,6 +77,7 @@ class ScClipboardProcessor
 			int column = 0;
 			int rowSpan = 1;
 			int columnSpan = 1;
+			QColor background; // invalid when the source sets no background
 			QList<ParsedTableParagraph> paragraphs;
 		};
 
@@ -109,6 +111,13 @@ class ScClipboardProcessor
 		void html_LibreOffice_ParseParagraphs(xmlNode *node, QMap<QString, QString> &styles);
 
 
+		/// Returns the background colour of a table cell, or an invalid colour if it has none.
+		QColor html_CellBackground(xmlNode *cellNode) const;
+		/// Returns the colour set by a CSS background or background-color declaration in \a style.
+		static QColor cssBackgroundColor(const QString &style);
+		/// Returns a CSS colour value as a colour, or an invalid colour for none or transparent.
+		static QColor cssColor(const QString &value);
+
 		void html_ApplyTable(const ParsedTable &pt);
 		void html_ApplyParagraphsToFrame(PageItem_TextFrame *frame, const QList<ParsedTableParagraph> &paragraphs);
 		void html_ApplySegmentsToFrame(PageItem_TextFrame *frame, const QList<TextSegment> &segments, const ParagraphStyle &seedStyle);
@@ -126,6 +135,8 @@ class ScClipboardProcessor
 		QString m_result;
 		bool processed { false };
 		QMap<QString, QString> cssStyles;
+		/// Background colours from the style sheet's class and tag rules, by selector.
+		QMap<QString, QColor> m_cssBackgrounds;
 		ScribusDoc* m_doc { nullptr };
 		PageItem* m_pageItem { nullptr };
 		PageItem_Table* m_tablePageItem { nullptr };

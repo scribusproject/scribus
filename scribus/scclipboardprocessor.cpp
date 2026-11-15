@@ -339,6 +339,11 @@ void ScClipboardProcessor::html_MSFT_ParseStyles(xmlNode *node, QMap<QString, QS
 				QString style = match.captured(3).trimmed();
 				style.remove(regex2);
 				style.remove(regex3);
+				// Cell backgrounds are kept apart: they are not text formatting,
+				// and Excel sets them through classes such as .xl65
+				const QColor background = cssBackgroundColor(style);
+				if (background.isValid())
+					m_cssBackgrounds[selector] = background;
 				if (html_MSFT_StyleToProcess(style))
 					styles[selector] = style;
 			}
@@ -878,6 +883,7 @@ void ScClipboardProcessor::html_LibreOffice_ParseTable(xmlNode *tableNode, Parse
 				cell.column = col;
 				cell.rowSpan = rs;
 				cell.columnSpan = cs;
+				cell.background = html_CellBackground(cellNode);
 
 				for (xmlNode *pNode = cellNode->children; pNode; pNode = pNode->next)
 				{
@@ -1172,6 +1178,7 @@ void ScClipboardProcessor::html_MSFT_ParseTable(xmlNode *tableNode, ParsedTable 
 				cell.column = col;
 				cell.rowSpan = rs;
 				cell.columnSpan = cs;
+				cell.background = html_CellBackground(cellNode);
 
 				for (xmlNode *pNode = cellNode->children; pNode; pNode = pNode->next)
 				{
@@ -1244,6 +1251,95 @@ void ScClipboardProcessor::html_MSFT_ParseTable(xmlNode *tableNode, ParsedTable 
 	out.columns = observedMaxCols;
 }
 
+QColor ScClipboardProcessor::html_CellBackground(xmlNode *cellNode) const
+{
+	// Most specific first: the cell's own style attribute, then its class and
+	// the td rule from the style sheet, then the older bgcolor attribute
+	xmlChar *styleAttr = xmlGetProp(cellNode, (const xmlChar *)"style");
+	if (styleAttr)
+	{
+		const QColor color = cssBackgroundColor(QString::fromUtf8((const char*)styleAttr));
+		xmlFree(styleAttr);
+		if (color.isValid())
+			return color;
+	}
+
+	xmlChar *classAttr = xmlGetProp(cellNode, (const xmlChar *)"class");
+	if (classAttr)
+	{
+		const QString className = QString::fromUtf8((const char*)classAttr);
+		xmlFree(classAttr);
+		if (m_cssBackgrounds.contains(className))
+			return m_cssBackgrounds.value(className);
+	}
+
+	const char *tag = (xmlStrcmp(cellNode->name, (const xmlChar *)"th") == 0) ? "th" : "td";
+	if (m_cssBackgrounds.contains(tag))
+		return m_cssBackgrounds.value(tag);
+
+	xmlChar *bgcolorAttr = xmlGetProp(cellNode, (const xmlChar *)"bgcolor");
+	if (bgcolorAttr)
+	{
+		const QColor color = cssColor(QString::fromUtf8((const char*)bgcolorAttr));
+		xmlFree(bgcolorAttr);
+		return color;
+	}
+	return QColor();
+}
+
+QColor ScClipboardProcessor::cssBackgroundColor(const QString &style)
+{
+	const QStringList declarations = style.split(';', Qt::SkipEmptyParts);
+	for (const QString &declaration : declarations)
+	{
+		const int colon = declaration.indexOf(':');
+		if (colon < 0)
+			continue;
+		const QString property = declaration.left(colon).trimmed().toLower();
+		const QString value = declaration.mid(colon + 1).trimmed();
+		if (property == "background-color")
+			return cssColor(value);
+		if (property != "background")
+			continue;
+
+		// The shorthand can also hold an image, position and repeat: use the
+		// value that is a colour, such as "#FFFF00 none" or "yellow"
+		static QRegularExpression rgbFunction(R"(rgba?\([^)]*\))", QRegularExpression::CaseInsensitiveOption);
+		const QRegularExpressionMatch rgb = rgbFunction.match(value);
+		if (rgb.hasMatch())
+			return cssColor(rgb.captured(0));
+		const QStringList parts = value.split(' ', Qt::SkipEmptyParts);
+		for (const QString &part : parts)
+		{
+			const QColor color = cssColor(part);
+			if (color.isValid())
+				return color;
+		}
+	}
+	return QColor();
+}
+
+QColor ScClipboardProcessor::cssColor(const QString &value)
+{
+	const QString trimmed = value.trimmed();
+	static QRegularExpression rgbFunction(R"(^rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*(?:,\s*([\d.]+)\s*)?\)$)", QRegularExpression::CaseInsensitiveOption);
+	const QRegularExpressionMatch rgb = rgbFunction.match(trimmed);
+	QColor color;
+	if (rgb.hasMatch())
+	{
+		color = QColor(rgb.captured(1).toInt(), rgb.captured(2).toInt(), rgb.captured(3).toInt());
+		if (!rgb.captured(4).isEmpty() && rgb.captured(4).toDouble() <= 0.0)
+			return QColor();
+	}
+	else
+		color = QColor::fromString(trimmed);
+
+	// Transparent means no fill, and anything Qt cannot read is ignored
+	if (!color.isValid() || color.alpha() == 0)
+		return QColor();
+	return color;
+}
+
 void ScClipboardProcessor::html_ApplyTable(const ParsedTable &pt)
 {
 	if (!m_tablePageItem || !m_doc)
@@ -1266,6 +1362,9 @@ void ScClipboardProcessor::html_ApplyTable(const ParsedTable &pt)
 	if (neededCols > m_tablePageItem->columns())
 		m_tablePageItem->insertColumns(m_tablePageItem->columns(), neededCols - m_tablePageItem->columns());
 
+	// Cell backgrounds from the source, applied together after the loop
+	QMap<TableCell, QString> pastedFills;
+
 	// Apply each parsed cell.
 	for (const ParsedTableCell &src : pt.cells)
 	{
@@ -1287,11 +1386,39 @@ void ScClipboardProcessor::html_ApplyTable(const ParsedTable &pt)
 		if (!destFrame)
 			continue;
 
+		// A cell without a background in the source keeps the destination's fill
+		if (src.background.isValid())
+		{
+			ScColor fill;
+			fill.fromQColor(src.background);
+			pastedFills.insert(destCell, m_doc->PageColors.tryAddColor("FromCopy" + src.background.name(), fill));
+		}
+
 		// Clear any existing content in the destination cell before applying.
 		destFrame->itemText.clear();
 		destFrame->itemText.setCursorPosition(0);
 
 		html_ApplyParagraphsToFrame(destFrame, src.paragraphs);
+	}
+
+	if (!pastedFills.isEmpty())
+	{
+		// One undo action for all the fills, as the Properties Palette records them
+		if (UndoManager::undoEnabled())
+		{
+			QMap<TableCell, QPair<QString, QString> > cellColorMap;
+			for (auto it = pastedFills.cbegin(); it != pastedFills.cend(); ++it)
+				cellColorMap.insert(it.key(), qMakePair(it.key().fillColor(), it.value()));
+			auto *state = new ScItemState< QMap<TableCell, QPair<QString, QString> > >(Um::CellFillColor, "", Um::ITable);
+			state->set("SET_CELL_FILLCOLOR");
+			state->setItem(cellColorMap);
+			UndoManager::instance()->action(m_tablePageItem, state);
+		}
+		for (auto it = pastedFills.cbegin(); it != pastedFills.cend(); ++it)
+		{
+			TableCell cell = it.key();
+			cell.setFillColor(it.value());
+		}
 	}
 
 	m_tablePageItem->adjustTable();   // if such a method exists; check the header
@@ -1686,6 +1813,7 @@ void ScClipboardProcessor::reset()
 	m_contentType = ContentType::Unknown;
 	m_result.clear();
 	cssStyles.clear();
+	m_cssBackgrounds.clear();
 	m_doc = nullptr;
 	m_pageItem = nullptr;
 	processed = false;
