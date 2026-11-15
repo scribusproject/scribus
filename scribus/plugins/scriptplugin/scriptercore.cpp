@@ -224,7 +224,7 @@ void ScripterCore::StdScript(const QString& baseFilename)
 
 void ScripterCore::RecentScript(const QString& fileName)
 {
-	if (QFileInfo::exists(fileName))
+	if (!QFileInfo::exists(fileName))
 	{
 		m_recentScripts.removeAll(fileName);
 		rebuildRecentScriptsMenu();
