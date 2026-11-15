@@ -4024,7 +4024,6 @@ bool Scribus170Format::readOpticalMarginSets(ScribusDoc *doc, ScXmlStreamReader 
 	QString tagName(reader.nameAsString());
 	OpticalMarginSets sets;
 	OpticalMarginSet set;
-	QMap<QString, QString> names;
 	OpticalMarginRules rules;
 
 	while (!reader.atEnd() && !reader.hasError())

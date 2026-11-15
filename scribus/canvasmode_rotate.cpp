@@ -219,10 +219,7 @@ void CanvasMode_Rotate::mousePressEvent(QMouseEvent *m)
 {
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 	m_canvasPressCoord = mousePointDoc;
-	
 	m_canvas->PaintSizeRect(QRect());
-//	QRect tx;
-	QTransform pm;
 	m_canvas->m_viewMode.m_MouseButtonPressed = true;
 	m_canvas->m_viewMode.operItemMoving = false;
 	m_view->HaveSelRect = false;

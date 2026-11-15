@@ -105,7 +105,6 @@ bool EPSPlug::importFile(QString fName, const TransactionSettings &trSettings, i
 	if (extensionIndicatesEPSorPS(ext))
 	{
 		QString tmp, BBox, tmp2, FarNam;
-		ScColor cc;
 		QFile f(fName);
 		if (f.open(QIODevice::ReadOnly))
 		{

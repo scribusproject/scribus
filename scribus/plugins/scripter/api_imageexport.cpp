@@ -112,7 +112,6 @@ QString ImageExport::getFileName(ScribusDoc* doc, uint pageNr)
 
 bool ImageExport::exportPage(ScribusDoc* doc, uint pageNr, bool single = true)
 {
-	uint over   = 0;
 	bool saved = false, doFileSave = true;
 	QString fileName(getFileName(doc, pageNr));
 

@@ -834,7 +834,6 @@ void ScImage::colorize(ScribusDoc* doc, ScColor color, int shade, bool cmyk)
 	int w = width();
 	int cc, cm, cy, ck;
 	int hu, sa, v;
-	ScColor tmp2;
 	QColor tmpR;
 	QRgb *s;
 	QRgb r;

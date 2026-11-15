@@ -167,7 +167,6 @@ void FreehandMode::mousePressEvent(QMouseEvent *m)
 	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
 	double Rxp = 0;
 	double Ryp = 0;
-	QTransform pm;
 	m_mouseButtonPressed = true;
 	m_view->HaveSelRect = false;
 	m_doc->DragP = false;

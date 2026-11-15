@@ -238,21 +238,12 @@ void CreateMode::mouseMoveEvent(QMouseEvent *m)
 	
 	double newX, newY;
 	PageItem *currItem;
-	QPainter p;
-//	QRect tx;
 	m->accept();
-//	qDebug() << "legacy mode move:" << m->x() << m->y() << m_canvas->globalToCanvas(m->globalPosition()).x() << m_canvas->globalToCanvas(m->globalPosition()).y();
-//	emit MousePos(m->x()/m_canvas->scale(),// + m_doc->minCanvasCoordinate.x(), 
-//				  m->y()/m_canvas->scale()); // + m_doc->minCanvasCoordinate.y());
 
 	if (commonMouseMove(m))
 		return;
 	if (GetItem(&currItem))
-	{
-//		newX = mousePointDoc.x(); //m_view->translateToDoc(m->x(), m->y()).x());
-//		newY = mousePointDoc.y(); //m_view->translateToDoc(m->x(), m->y()).y());
 		return;
-	}
 	if ((!m_MouseButtonPressed) || !(m->buttons() & Qt::LeftButton))
 	{
 		m_canvas->displayCorrectedXYHUD(m->globalPosition(), mousePointDoc.x(), mousePointDoc.y());

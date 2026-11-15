@@ -2232,7 +2232,6 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 		outlinePalette->buildReopenVals();
 	m_undoManager->setUndoEnabled(false);
 	MarginStruct margins(topMargin, leftMargin, bottomMargin, rightMargin);
-	DocPagesSetup pagesSetup(pageArrangement, firstPageLocation, firstPageNumber, orientation, autoTextFrames, columnDistance, columnCount);
 	QString newDocName( tr("Document")+"-"+QString::number(m_DocNr));
 	ScribusDoc *tempDoc = new ScribusDoc();
 	if (requiresGUI)

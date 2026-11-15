@@ -84,8 +84,6 @@ CupsOptions::CupsOptions(QWidget* parent, const QString& device) : QDialog( pare
 
 		if (dinfo != nullptr)
 		{
-			QStringList opts;
-			QString marked;
 			m_keyToDataMap.clear();
 			m_keyToDefault.clear();
 

@@ -745,7 +745,6 @@ bool Scribus12Format::loadFile(const QString& fileName, const FileFormat & /* fm
 	itemNext.clear();
 
 	QDomDocument docu("scridoc");
-	QFile fi(fileName);
 	// Load the document text
 	QString f(readSLA(fileName));
 	if (f.isEmpty())

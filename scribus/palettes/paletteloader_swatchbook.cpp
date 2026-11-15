@@ -30,7 +30,6 @@ bool PaletteLoader_Swatchbook::isFileSupported(const QString & fileName) const
 
 bool PaletteLoader_Swatchbook::importFile(const QString& fileName, bool /*merge*/)
 {
-	ScColor lf;
 	int oldCount = m_colors->count();
 	
 	QScopedPointer<ScZipHandler> uz(new ScZipHandler());
