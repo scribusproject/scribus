@@ -171,6 +171,8 @@ public:
 	void showInlinePage(int id);
 	void hideInlinePage();
 
+	// maxGr is the pixel size of the page's longest side, which image export and
+	// thumbnails use. Pixmap_FitToHeight makes it the height instead in use by the Pages palette, whose previews are all the same row height.
 	QMap<int, QImage> PagesToPixmap(int maxGr, int Nr = -1, PageToPixmapFlags flags = Pixmap_DrawFrame | Pixmap_DrawBackground);
 	QImage PageToPixmap(int Nr, int maxGr, PageToPixmapFlags flags = Pixmap_DrawFrame | Pixmap_DrawBackground);
 	QImage MPageToPixmap(const QString& name, int maxGr, bool drawFrame = true);

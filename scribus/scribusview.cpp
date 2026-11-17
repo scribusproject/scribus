@@ -2609,7 +2609,8 @@ QMap<int, QImage> ScribusView::PagesToPixmap(int maxGr, int Nr, PageToPixmapFlag
 QImage ScribusView::drawPageToPixmap(int maxGr, const ScPage *page, PageToPixmapFlags flags)
 {
 	QImage im;
-	double sc = maxGr / page->height();
+	const double fitSize = flags.testFlag(Pixmap_FitToHeight) ? page->height() : qMax(page->width(), page->height());
+	double sc = maxGr / fitSize;
 	int clipx = static_cast<int>(page->xOffset() * sc);
 	int clipy = static_cast<int>(page->yOffset() * sc);
 	int clipw = qRound(page->width() * sc);

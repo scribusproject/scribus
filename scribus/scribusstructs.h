@@ -525,7 +525,8 @@ enum PageToPixmapFlag
 	Pixmap_DrawWhiteBackground = 1 << 2,
 	Pixmap_DontReloadImages = 1 << 3,
 	Pixmap_NoCanvasModeChange = 1 << 4,
-	Pixmap_NoCMSSettingsChange = 1 << 5
+	Pixmap_NoCMSSettingsChange = 1 << 5,
+	Pixmap_FitToHeight = 1 << 6	//!< Page height is used for the size rather than its longest side
 };
 
 Q_DECLARE_FLAGS(PageToPixmapFlags, PageToPixmapFlag);
