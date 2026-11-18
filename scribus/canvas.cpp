@@ -1341,7 +1341,8 @@ void Canvas::DrawMasterItems(ScPainter *painter, ScPage *page, ScLayer& layer, Q
 				item->OwnPage = page->pageNr();
 			}
 		}
-		if (cullingArea.intersects(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0)))
+		const QRectF paintBounds = currItem->getVisualBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0);
+		if (cullingArea.intersects(paintBounds))
 		{
 			if (!((m_viewMode.operItemMoving) && (currItem->isSelected())))
 			{
@@ -1442,7 +1443,8 @@ void Canvas::DrawPageItems(ScPainter *painter, ScLayer& layer, QRect clip, bool 
 			if (currItem->OnMasterPage != m_doc->currentPage()->pageName())
 				continue;
 		}
-		if (cullingArea.intersects(currItem->getBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0)))
+		const QRectF paintBounds = currItem->getVisualBoundingRect().adjusted(0.0, 0.0, 1.0, 1.0);
+		if (cullingArea.intersects(paintBounds))
 		{
 			if ((m_viewMode.operItemMoving || m_viewMode.drawSelectedItemsWithControls) && currItem->isSelected())
 			{

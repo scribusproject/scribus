@@ -9492,8 +9492,10 @@ double PageItem::visualLineWidth() const
 	}
 	else
 	{
-		MultiLine ml = m_Doc->docLineStyles[NamedLStyle];
-		const SingleLine& sl = ml.last();
+		const auto styleIt = m_Doc->docLineStyles.constFind(NamedLStyle);
+		if (styleIt == m_Doc->docLineStyles.constEnd() || styleIt.value().isEmpty())
+			return extraSpace;
+		const SingleLine& sl = styleIt.value().last();
 		if (sl.Color != CommonStrings::None)
 		{
 			extraSpace = sl.Width;
