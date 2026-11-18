@@ -82,7 +82,7 @@ public slots:
 	void slotSearchPrevious();
 	void slotStop();
 	void clear();
-	void accept() override;
+	void done(int result) override;
 
 	void enableTextSearch();
 	void enableStyleSearch();

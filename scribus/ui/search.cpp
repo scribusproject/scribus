@@ -1185,6 +1185,13 @@ void SearchReplace::collapseFormat()
 	replaceGroupBox->setVisible(!m_stateCollapsed);
 	// move the following line to setCollapseLabel() if we have to catch languageChange()
 	collapseButton->setText(m_stateCollapsed ? tr("More...") : tr("Less..."));
+	// Resize prior to making the dialog visible
+	if (!isVisible())
+	{
+		layout()->activate();
+		adjustSize();
+		return;
+	}
 	// It's important to call QApplication::processEvents() before calling adjustSize()
 	// https://stackoverflow.com/questions/1675499/how-do-i-auto-adjust-the-size-of-a-qdialog-depending-on-the-text-length-of-one-o#comment82074153_1679399
 	QTimer::singleShot(0, [this](){adjustSize();});
@@ -1510,15 +1517,13 @@ void SearchReplace::readPrefs()
 {
 	m_stateCollapsed = m_prefs->getBool("collapsed", false);
 
-	// QRect screen = QApplication::primaryScreen()->availableGeometry();
-	// int left = m_prefs->getInt("left", screen.width() > width() ? (screen.width() - width()) / 2 : 0);
-	// int top = m_prefs->getInt("top", screen.height() > height() ? (screen.height() - height()) / 2 : 0);
-	// ensure that it's in the screen
-	// if (left + width() > screen.width())
-	// 	left = screen.width() - left;
-	// if (left < 0)
-	// 	left = 0;
-	// move(left, top);
+	// Restore the position only while it is still on a screen, otherwise the dialog is centred
+	if (m_prefs->contains("left") && m_prefs->contains("top"))
+	{
+		const QPoint position(m_prefs->getInt("left"), m_prefs->getInt("top"));
+		if (QGuiApplication::screenAt(position) != nullptr)
+			move(position);
+	}
 
 	replaceAlignmentCheckBox->setChecked(m_prefs->getBool("replaceAlignment", false));
 	replaceFillColorCheckBox->setChecked(m_prefs->getBool("replaceFillColor", false));
@@ -1598,10 +1603,11 @@ void SearchReplace::readPrefs()
 	searchTextValue->setFocus();
 }
 
-void SearchReplace::accept()
+void SearchReplace::done(int result)
 {
+	// Close, Escape and the title bar close button all end here
 	writePrefs();
-	QDialog::accept();
+	QDialog::done(result);
 }
 
 void SearchReplace::writePrefs()
