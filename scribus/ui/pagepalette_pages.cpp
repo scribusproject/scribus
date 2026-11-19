@@ -234,7 +234,7 @@ void PagePalette_Pages::pageView_updatePagePreview()
 	}
 	else
 	{
-		PageToPixmapFlags flags = Pixmap_DrawFrame | Pixmap_DrawBackground | Pixmap_DontReloadImages | Pixmap_NoCanvasModeChange | Pixmap_NoCMSSettingsChange;
+		PageToPixmapFlags flags = Pixmap_DrawFrame | Pixmap_DrawBackground | Pixmap_DontReloadImages | Pixmap_NoCanvasModeChange | Pixmap_NoCMSSettingsChange | Pixmap_FitToHeight;
 		int previewHeight = pageViewWidget->pageGrid()->pageHeight() * devicePixelRatio();
 		QList<int> pageNrs = editedPages();
 		QMap<int, QImage> previews;
